@@ -12,6 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { compile } from "../engine/compile.mjs";
 
 export const RULES = {
   size: [1080, 1920],
@@ -174,7 +175,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const guess = o.clip.replace(/(-safe)?(-draft)?\.mp4$/, ".layout.json");
   const layoutFile = o.layout || (fs.existsSync(guess) ? guess : null);
   const layout = layoutFile ? JSON.parse(fs.readFileSync(layoutFile, "utf8")) : null;
-  let sb = o.sb ? JSON.parse(fs.readFileSync(o.sb, "utf8")) : null;
+  let sb = o.sb ? compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))) : null;
   if (!sb && layout?.duration != null) sb = { duration: layout.duration };
   const res = checkClip(o.clip, { sb, layout });
   const failed = res.some((r) => r.level === "fail");

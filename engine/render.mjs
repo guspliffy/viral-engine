@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
+import { compile } from "./compile.mjs";
 import { renderBeat } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -106,7 +107,7 @@ function applyStyle(sb, style) {
 
 async function main() {
   const o = args();
-  const raw = JSON.parse(fs.readFileSync(o.file, "utf8"));
+  const raw = compile(JSON.parse(fs.readFileSync(o.file, "utf8"))); // beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
   const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
   const fps = sb.fps ?? 30, dur = sb.duration;

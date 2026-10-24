@@ -28,6 +28,11 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
   tone limits). It is not in the repo yet. Until it is, don't invent lasting canon: mark new traits as proposals.
 - Jonny decides anything that changes a character's look or personality, and any new drawing in the game's style.
 
+## Writing clips
+
+Write new clips as **beat storyboards** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards
+still work.
+
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 
 1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then

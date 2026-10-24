@@ -13,6 +13,7 @@ import path from "node:path";
 import os from "node:os";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { compile } from "../engine/compile.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
@@ -20,6 +21,7 @@ const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
 export function beatTimes(sb, max = 12) {
   // just after each shot starts, mid-way through long shots, plus the fixed review frames
   const dur = sb.duration, shots = [...(sb.shots || [])].sort((a, b) => a.at - b.at), t = [];
+  for (const b of sb.beatSpans || []) t.push(b.from + Math.min(0.5, (b.to - b.from) * 0.6)); // one still inside each beat
   shots.forEach((s, i) => {
     const end = i + 1 < shots.length ? shots[i + 1].at : dur, len = end - s.at;
     t.push(s.at + Math.min(0.35, len / 3));
@@ -39,6 +41,7 @@ export function beatTimes(sb, max = 12) {
 export function contactSheet(clip, times, { cols = 4, width = 270, out } = {}) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "contact-")), files = [];
   const stills = Array.isArray(clip) ? clip : null;
+  if (stills) stills.sort((a, b) => Number((a.match(/-t([\d.]+)\.png$/) || [])[1]) - Number((b.match(/-t([\d.]+)\.png$/) || [])[1]));
   if (stills) times = stills.map((f) => Number((f.match(/-t([\d.]+)\.png$/) || [])[1] ?? NaN));
   times.forEach((t, i) => {
     const f = path.join(tmp, `${String(i).padStart(2, "0")}.png`);
@@ -75,7 +78,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   let times = o.times;
   if (Array.isArray(o.clip)) times = [];
   else if (!times) {
-    if (o.sb) times = beatTimes(JSON.parse(fs.readFileSync(o.sb, "utf8")));
+    if (o.sb) times = beatTimes(compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))));
     else {
       const d = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", o.clip], { encoding: "utf8" }).stdout);
       times = Array.from({ length: 8 }, (_, i) => Math.round(((i + 0.5) / 8) * d * 100) / 100);
