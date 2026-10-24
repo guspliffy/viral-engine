@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { rng } from "./util.js";
+import { buildKitchen } from "./set-kitchen.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -28,6 +29,7 @@ function groundTexture(inner, outer) {
 
 // "meadow": a soft grassy stage under a warm sky, rolling hills and a few clouds.
 export function buildSet(scene, spec = {}, palette = null) {
+  if (spec.type === "kitchen") return buildKitchen(scene, spec);   // set-kitchen.js
   const S = { sky: ["#7fc8ff", "#ffe9bf"], ground: ["#8fd16a", "#4f9a45"], seed: 3, ...spec, ...(palette || {}) };
   const rnd = rng(S.seed * 131);
   scene.background = new THREE.Color(S.sky[1]);

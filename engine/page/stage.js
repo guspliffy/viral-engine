@@ -58,7 +58,9 @@ const CAP = {
   main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
   sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
 };
+// a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
 function wrap(text, maxW) {
+  if (text.includes("\n")) return text.split("\n").flatMap((t) => wrap(t, maxW));
   const words = text.split(/\s+/), lines = []; let line = "";
   for (const w of words) { const test = line ? line + " " + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
   if (line) lines.push(line);
@@ -68,7 +70,7 @@ function captionLayout(c) {
   const st = CAP[c.style === "sub" ? "sub" : "main"], pos = c.pos || "top";
   const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
-  const cx = pos === "top" ? W / 2 : 480, maxW = pos === "top" ? 860 : 780;
+  const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
   ctx.font = st.font; ctx.letterSpacing = "-0.5px";
   const lines = wrap(c.text, maxW), lh = st.size * 1.12;
   return { st, top, cx, lines, lh };

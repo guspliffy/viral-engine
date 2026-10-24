@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { taperedTube, lathe, radialTexture } from "./geo.js";
+import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 
 function sprout(color) {
   const g = new THREE.Group();
@@ -101,6 +102,8 @@ export function buildCostume(def, ch) {
   let hat = null, prop = null;
   if (C.type === "wizard") hat = wizardHat(C);
   if (C.type === "cowboy") hat = cowboyHat(C);
+  const pb = C.type === "phoenix" ? phoenixCostume(C, ch) : C.type === "reaper" ? reaperCostume(C, ch) : null;   // costumes-pb.js
+  if (pb) { hat = pb.hat; prop = pb.prop || null; }
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
@@ -108,8 +111,10 @@ export function buildCostume(def, ch) {
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
   else mount.add(sprt.group);
   if (C.type === "wizard") { prop = staff(C); ch.root.add(prop.group); }
+  if (pb && prop) ch.root.add(prop.group);
+  if (pb) sprt.group.scale.setScalar(0.7);
   const propHand = C.propHand || "R";
-  const sitDepth = hat ? (C.type === "wizard" ? 0.11 : 0.09) : 0.0;
+  const sitDepth = pb ? pb.sitDepth : hat ? (C.type === "wizard" ? 0.11 : 0.09) : 0.0;
 
   return {
     apply(st, t, hands, fries) {
@@ -118,10 +123,11 @@ export function buildCostume(def, ch) {
       mount.rotation.set(st.hatSpin[0], st.hatSpin[1], st.hatSpin[2]);
       mount.visible = st.hatOn !== false;
       sprt.droop(st.droop);
+      if (pb) pb.apply(st, t);
       if (prop) {
         prop.group.visible = !fries;
         const a = st.arms[propHand];
-        const t0 = TILT[a.from] || TILT.rest, t1 = TILT[a.pose] || TILT.rest;
+        const t0 = TILT[a.from] || TILT.hold, t1 = TILT[a.pose] || TILT.hold;   // a dance target (an object) keeps the prop upright
         prop.group.position.copy(hands[propHand]);
         // right hand is at -x, left at +x: lean the top of the prop outward on either side
         const out = propHand === "R" ? 1 : -1;

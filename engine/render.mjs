@@ -21,6 +21,7 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
+import { renderBeat } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -117,6 +118,11 @@ async function main() {
   if (!o.stills && !o.silent && !o.layoutOnly) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
+    if (sb.music) {   // the placeholder beat (puppet/beat.mjs), mixed under the voices and effects
+      const M = renderBeat(sb.music, dur), g = sb.music.gain ?? 0.5; let pk = 0;
+      for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+      if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
+    }
     writeWav(wavFile, audio.L, audio.R, audio.sr);
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);

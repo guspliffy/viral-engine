@@ -10,6 +10,8 @@ const LEG_H = 0.14;
 // sx = -1 for the right arm, +1 for the left.
 function handTarget(pose, sx, rx, H, t) {
   const top = LEG_H + H;
+  // dance.js: { o: [out, up, fwd] } mirrored per side, { x: [x, up, fwd] } an absolute x
+  if (pose && typeof pose === "object") return pose.x ? [pose.x[0], LEG_H + H * pose.x[1], pose.x[2]] : [sx * (rx + pose.o[0]), LEG_H + H * pose.o[1], pose.o[2]];
   switch (pose) {
     case "up":    return [sx * rx * 0.55, top + 0.3, 0.08];
     case "wave":  return [sx * (rx * 0.62 + 0.07 * Math.sin(t * 6.283 * 2.4)), top + 0.24, 0.1];
@@ -108,7 +110,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
-    R.position.set(st.x, st.y, st.z); R.rotation.set(0, st.yaw, st.lean);
+    R.position.set(st.x, st.y, st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean);
     R.visible = st.visible !== false;
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
 
@@ -133,7 +135,7 @@ export class Character {
       h.y = LEG_H + (h.y - LEG_H) * S.y;
       hands[s] = h;
       const sh = this.surf(sx * 1.38, 0.02).pos; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
-      const out = (ELBOW_OUT[a.pose] ?? 0.13) * a.p + (ELBOW_OUT[a.from] ?? 0.13) * (1 - a.p);
+      const elb = (q) => (typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : 0.1), out = elb(a.pose) * a.p + elb(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       this.arms[s].hand.position.copy(h);
       this.arms[s].hand.visible = showLimbs;

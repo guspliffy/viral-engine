@@ -116,7 +116,7 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
 - `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames)
 - `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones. `sound`: `{ auto, voice, sfx, reverb }` mix settings.
 - `style`: default render style. Any action, fx, caption, shot or sfx with `"only": "anime"` (or a list) is used only in that style.
-- `captions`: `{ from, to, text, pos: top|mid|low|<px>, style: main|sub, pop }`. Captions stay inside the TikTok safe zone.
+- `captions`: `{ from, to, text, pos: top|mid|low|<px>, x (centre in px, optional), style: main|sub, pop }`. A `\n` in the text forces a line break. Captions stay inside the TikTok safe zone.
 
 Easing names: `linear in out inOut back elastic`.
 

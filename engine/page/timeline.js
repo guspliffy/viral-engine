@@ -1,6 +1,7 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
+import { isDance, applyDance } from "./dance.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -15,7 +16,7 @@ const yawOf = (v) => (typeof v === "number" ? (v * Math.PI) / 180 : YAW[v] ?? 0)
 export function actorState(sb, actor, def, t) {
   const c = actor;
   const st = {
-    x: c.at[0], z: c.at[1], y: 0, yaw: yawOf(c.face ?? "camera"), lean: 0, squash: 1,
+    x: c.at[0], z: c.at[1], y: 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, squash: 1,
     expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind) },
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
@@ -73,6 +74,8 @@ export function actorState(sb, actor, def, t) {
       case "hide": st.visible = false; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
+      case "wings": st.wings = lerp(st.wings, a.to ?? 1, e); break;   // Phoenix: 0 folded, 1 spread
+      default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
     }
   }
   // idle life: breathing, a little sway, automatic blinks
