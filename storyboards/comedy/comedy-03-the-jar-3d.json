@@ -10,7 +10,7 @@
   "time": 2.75
  },
  "music": {
-  "bpm": 96,
+  "bpm": 108,
   "offset": 0,
   "gain": 0.3,
   "parts": [
@@ -18,7 +18,10 @@
     "at": 0,
     "part": "main"
    }
-  ]
+  ],
+  "style": "funk",
+  "key": 7,
+  "lead": "whistle"
  },
  "cast": [
   {
@@ -433,6 +436,26 @@
    "do": "turn",
    "dur": 0.9,
    "to": "camera"
+  },
+  {
+   "who": "phx",
+   "at": 20.3,
+   "do": "bounce",
+   "dur": 1.2,
+   "amp": 0.5
+  },
+  {
+   "who": "rea",
+   "at": 21.4,
+   "do": "expr",
+   "dur": 0.3,
+   "expr": "smug"
+  },
+  {
+   "who": "rea",
+   "at": 22.0,
+   "do": "blink",
+   "dur": 0.3
   }
  ],
  "fx": [
@@ -512,6 +535,11 @@
    "sound": "pop",
    "at": 16.9,
    "gain": 0.7
+  },
+  {
+   "sound": "tink",
+   "at": 21.3,
+   "gain": 0.4
   }
  ],
  "captions": [
@@ -528,5 +556,6 @@
    "text": "I loosened it\nfor you.",
    "pos": "top"
   }
- ]
+ ],
+ "escalation": true
 }

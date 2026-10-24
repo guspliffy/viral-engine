@@ -10,7 +10,7 @@
   "time": 2.75
  },
  "music": {
-  "bpm": 96,
+  "bpm": 112,
   "offset": 0,
   "gain": 0.3,
   "parts": [
@@ -18,7 +18,10 @@
     "at": 0,
     "part": "main"
    }
-  ]
+  ],
+  "style": "march",
+  "key": 9,
+  "lead": "bell"
  },
  "cast": [
   {
@@ -304,6 +307,47 @@
    "do": "turn",
    "dur": 0.9,
    "to": "camera"
+  },
+  {
+   "who": "phx",
+   "at": 6.0,
+   "do": "shake",
+   "dur": 0.6,
+   "amp": 1.2
+  },
+  {
+   "who": "rea",
+   "at": 7.1,
+   "do": "shake",
+   "dur": 0.8,
+   "amp": 0.8
+  },
+  {
+   "who": "phx",
+   "at": 7.9,
+   "do": "lean",
+   "dur": 0.5,
+   "to": 14
+  },
+  {
+   "who": "phx",
+   "at": 8.5,
+   "do": "lean",
+   "dur": 0.3,
+   "to": 0
+  },
+  {
+   "who": "phx",
+   "at": 9.1,
+   "do": "bounce",
+   "dur": 0.9,
+   "amp": 0.5
+  },
+  {
+   "who": "rea",
+   "at": 12.4,
+   "do": "blink",
+   "dur": 0.3
   }
  ],
  "fx": [
@@ -355,6 +399,16 @@
    "sound": "pop",
    "at": 10.3,
    "gain": 0.4
+  },
+  {
+   "sound": "tink",
+   "at": 12.2,
+   "gain": 0.3
+  },
+  {
+   "sound": "tink",
+   "at": 13.1,
+   "gain": 0.3
   }
  ],
  "captions": [

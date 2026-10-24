@@ -10,7 +10,7 @@
   "time": 2.75
  },
  "music": {
-  "bpm": 96,
+  "bpm": 100,
   "offset": 0,
   "gain": 0.35,
   "parts": [
@@ -22,7 +22,10 @@
     "at": 15.0,
     "part": "stop"
    }
-  ]
+  ],
+  "style": "warm",
+  "key": 5,
+  "lead": "bell"
  },
  "cast": [
   {
