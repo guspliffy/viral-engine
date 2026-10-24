@@ -165,3 +165,36 @@ Astronaut before the toss at the loop (applied).
 **Captions in every activity clip (changed 2026-10-24 night):** the hook is the top line for the first second, with
 the first fighter's name under it from frame 0; after that only the fighter's name and habit. The one-word title
 caption is gone (Fable: it meant nothing on screen).
+
+## 6. Phone on 1%: "what each fighter does" (living room)
+
+`storyboards/make-phone.mjs` → `phone-01-one-percent.json`, 23.45 s (escalation clip; the longest so far, a cut to
+nine fighters would bring it near 21 s). One take from the middle of the room: a couch, a wall socket with a charger
+whose cable runs along the floor to the couch. Each fighter walks in scrolling, flops onto the couch, and a red "1%"
+pops up over their head.
+
+Habits (what people do at 1%): the one with a power bank, letting it die, refusing to get up for the charger,
+the cable that's too short (sitting on the floor by the socket), one more selfie, power-saving mode, the tangled
+cable, yanking the cable to make it reach.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | carries a power bank | out of his suit: 100% |
+| Reaper | lets it die | watches it go to a grey 0%, at peace |
+| Sorcerer | won't get up | the charger floats across the room to him |
+| Wizard | the spell goes wrong | *a charging spell: "500%", the phone pops and smokes* |
+| Dragon | the cable's too short | pulls it taut, gives up, crouches on the floor by the socket |
+| Phoenix | one more selfie | selfie, selfie... it dies mid-pose |
+| Gunslinger | power-saving mode | *shoots the lamp out to save battery* |
+| Allfather | the god way | one lightning bolt: 100% |
+| Samurai | the tangled cable | *one clean cut through the knot: now it's two cables* |
+| Viking | makes it reach | *pulls until the socket comes out of the wall* |
+
+Loop: a poof mends the wall, the Astronaut is back on the couch on 1% (frame 0).
+New engine parts: `livingroom` set, `couch`, `socket` (and its hole), `charger` (its cable follows the plug end
+wherever it is: stage.js links them; knot, cut, unplug), `plugend`, `powerbank` props; the phone's `burn`.
+Fable's notes: the 100% came before the premise was read (applied: the 1% holds, a look at us, a bigger power bank);
+the next fighter was half in frame at the edge (applied: they wait off screen and walk in); the Dragon's "too short"
+didn't read (applied: the cable pulls taut first, the cable is now dark and thicker); numbers stacked over heads
+(applied: shorter 1%, the Wizard's 500% longer, more smoke); the Samurai's knot was tiny and far away (applied: bigger,
+next to the couch); the Viking's rip was too fast (applied: a tug first).

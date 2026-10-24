@@ -899,31 +899,32 @@ const KINDS = {
     return { grip: 0 };
   },
   // a phone charger: the wall plug at the origin (facing +z, put it on a socket) and its cable, which runs down to the
-  // floor (spec.floor: the floor's y relative to the plug, default -y) and on to the prop named in spec.to (its plug
+  // floor (spec.floor: the floor's y relative to the plug, default: where the floor is now) and on to the prop named in spec.to (its plug
   // end, held or lying somewhere): stage.js calls link() with that prop's position every frame. unplug 0..1 drops the
-  // wall plug out to the floor; knot 0..1 ties a tangle in the cable's middle; cut 0..1 cuts it there (both ends fall)
+  // wall plug out to the floor; knot 0..1 ties a tangle in the cable (spec.knotAt: how far along, default the middle;
+  // spec.knotSize); cut 0..1 cuts it there (both ends fall). spec.cable: its colour, spec.thick: its radius
   charger(P) {
-    const white = mat("#f4f4f2", { roughness: 0.4 }), cableM = mat("#f4f4f2", { roughness: 0.5 });
+    const white = mat("#f4f4f2", { roughness: 0.4 }), cableM = mat(P.spec.cable || "#f4f4f2", { roughness: 0.5 }), R = P.spec.thick ?? 0.009, KA = P.spec.knotAt ?? 0.5;
     const plug = new THREE.Group(); P.whole.add(plug);
     mesh(new THREE.BoxGeometry(0.06, 0.07, 0.045), white, plug, 0, 0, 0.03);
     const knot = mesh(new THREE.TorusKnotGeometry(0.045, 0.012, 48, 6, 2, 3), cableM, P.whole, 0, 0, 0); knot.visible = false;
     let tubes = [], st = { unplug: 0, knot: 0, cut: 0 }, end = null;
-    const floor = P.spec.floor ?? -(P.spec.y ?? 0);
     const build = () => {
       for (const t of tubes) { P.whole.remove(t); t.geometry.dispose(); } tubes = [];
       if (!end) return;
+      const floor = P.spec.floor ?? -P.root.position.y;   // (it follows the plug when the plug is moved)
       const u = st.unplug, s = new THREE.Vector3(0.12 * u, (floor + 0.03) * u, 0.05 + 0.25 * u), e = end.clone();
       plug.position.set(s.x, s.y, s.z - 0.05 * (1 - u) - 0.0); plug.rotation.x = -1.2 * u;
       const F = floor + 0.015, a = new THREE.Vector3(s.x + 0.02, Math.max(F, s.y - 0.15), s.z + 0.08), b = new THREE.Vector3(s.x + 0.08, F, s.z + 0.2);
       const d = new THREE.Vector3(e.x, F, e.z), c = b.clone().lerp(d, 0.5); c.y = F;
       const pts = [s, a, b, c, d.clone().lerp(b, 0.1), e];
       if (e.y < F + 0.05) pts.splice(4, 1);
-      const curve = new THREE.CatmullRomCurve3(pts), q = curve.getPoints(40), mid = 20, ct = clamp(st.cut);
-      knot.visible = st.knot > 0.02 && ct < 0.02; knot.scale.setScalar(Math.max(0.01, st.knot)); knot.position.copy(q[mid]); knot.position.y = Math.max(knot.position.y, F + 0.05);
+      const curve = new THREE.CatmullRomCurve3(pts), q = curve.getPoints(40), mid = Math.round(40 * KA), ct = clamp(st.cut);
+      knot.visible = st.knot > 0.02 && ct < 0.02; knot.scale.setScalar(Math.max(0.01, st.knot * (P.spec.knotSize ?? 1))); knot.position.copy(q[mid]); knot.position.y = Math.max(knot.position.y, F + 0.05);
       const segs = ct > 0.02 ? [q.slice(0, mid - 2), q.slice(mid + 2)] : [q];
       segs.forEach((seg, i) => {
         if (ct > 0.02) { const k = i ? 0 : seg.length - 1, p = seg[k]; seg[k] = p.clone().setY(p.y + (F - p.y) * ct); }
-        const tg = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(seg), 40, 0.009, 6, false), cableM); tg.castShadow = true; P.whole.add(tg); tubes.push(tg);
+        const tg = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(seg), 40, R, 6, false), cableM); tg.castShadow = true; P.whole.add(tg); tubes.push(tg);
       });
     };
     return {
@@ -945,6 +946,45 @@ const KINDS = {
     const led = new THREE.MeshBasicMaterial({ color: "#3cff6a" });
     const leds = [0, 1, 2, 3].map((i) => mesh(new THREE.BoxGeometry(0.012, 0.008, 0.004), led, P.whole, -0.021 + i * 0.014, 0.022, 0.015));
     return { grip: 0.07, apply(ps) { leds.forEach((l, i) => { l.visible = (ps.glow ?? 0) * 4 > i + 0.1; }); } };
+  },
+
+  // a barbell lying along x (its bar's middle at the origin, the plates' rims touching y -0.2 when it's on the floor:
+  // put it at y 0.2). plates 0..3 is how many plates each end carries (red, blue, yellow; fractional ones grow in),
+  // bend 0..1 droops both ends (too much weight), balloon 0..1 swaps the plates for red balloons (it floats). It splits
+  // in the middle into two short bars (two dumbbells), each end keeping its plates
+  barbell(P) {
+    const steel = mat("#c4cad3", { roughness: 0.25, metalness: 0.8 }), cols = ["#d9433a", "#2f6fd1", "#f2c14e"];
+    const ends = [];
+    for (const [s, h] of P.halves) {
+      mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.3, 10), steel, h, s * 0.15, 0, 0).rotation.z = Math.PI / 2;
+      const arm = new THREE.Group(); arm.position.x = s * 0.3; h.add(arm);   // the outer part, from the hand out (it droops)
+      mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.12, 10), steel, arm, s * 0.06, 0, 0).rotation.z = Math.PI / 2;
+      mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.03, 14), steel, arm, s * 0.13, 0, 0).rotation.z = Math.PI / 2;   // the collar
+      mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.32, 12), steel, arm, s * 0.3, 0, 0).rotation.z = Math.PI / 2;    // the sleeve
+      const plates = cols.map((col, i) => { const r = 0.2 - i * 0.035, p = mesh(new THREE.CylinderGeometry(r, r, 0.05, 28), mat(col, { roughness: 0.5 }), arm, s * (0.18 + i * 0.06), 0, 0); p.rotation.z = Math.PI / 2; return p; });
+      const bal = new THREE.Group(); bal.position.set(s * 0.33, 0, 0); arm.add(bal);
+      mesh(new THREE.CylinderGeometry(0.003, 0.003, 0.4, 4), mat("#ffffff"), bal, 0, 0.2, 0);
+      const ball = mesh(new THREE.SphereGeometry(0.17, 18, 14), mat("#ff4a5a", { roughness: 0.2 }), bal, 0, 0.5, 0); ball.scale.y = 1.15;
+      ends.push({ s, arm, plates, bal });
+    }
+    return {
+      grip: 0, splitApart: 0.06, splitTip: 0, splitDrop: 0,
+      apply(ps) {
+        const n = Math.max(0, Math.min(3, ps.plates ?? 2)), bd = clamp(ps.bend ?? 0), bl = clamp(ps.balloon ?? 0);
+        for (const { s, arm, plates, bal } of ends) {
+          arm.rotation.z = s * -0.45 * bd;
+          plates.forEach((p, i) => { const k = clamp(n - i) * (1 - bl); p.visible = k > 0.02; p.scale.set(Math.max(0.01, k), 1, Math.max(0.01, k)); });
+          bal.visible = bl > 0.02; bal.scale.setScalar(Math.max(0.01, bl)); bal.rotation.z = -arm.rotation.z;
+        }
+      },
+    };
+  },
+  // a flat padded weight bench along x (the origin is the middle of the pad, at SEAT_Y, so "sit" works on it)
+  weightbench(P) {
+    const pad = mat("#22252b", { roughness: 0.6 }), steel = mat("#c4cad3", { roughness: 0.3, metalness: 0.7 });
+    mesh(new THREE.BoxGeometry(1.0, 0.08, 0.3), pad, P.whole, 0, SEAT_Y - 0.04, 0);
+    for (const x of [-0.4, 0.4]) { mesh(new THREE.BoxGeometry(0.05, SEAT_Y - 0.08, 0.05), steel, P.whole, x, (SEAT_Y - 0.08) / 2, 0); mesh(new THREE.BoxGeometry(0.05, 0.04, 0.34), steel, P.whole, x, 0.02, 0); }
+    return { grip: SEAT_Y };
   },
 
 };
@@ -981,7 +1021,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
