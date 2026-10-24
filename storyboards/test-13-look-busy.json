@@ -1,0 +1,1054 @@
+{
+  "id": "test-13-look-busy",
+  "title": "Asked the sorcerer to make me look busy",
+  "format": "boss alert -> request -> trick -> involuntary flailing with a calm face -> magician approves -> 4 hours later",
+  "shares": "the work group chat",
+  "fps": 30,
+  "duration": 9,
+  "cover": 4.5,
+  "set": {
+    "type": "office",
+    "seed": 3
+  },
+  "cast": [
+    {
+      "id": "hero",
+      "character": "potatobrawl/samurai",
+      "at": [
+        -0.48,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "shocked",
+      "arms": {
+        "R": "rest",
+        "L": "rest"
+      },
+      "seed": 2.2
+    },
+    {
+      "id": "mag",
+      "character": "potatobrawl/sorcerer",
+      "at": [
+        0.48,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "kind",
+      "arms": {
+        "R": "rest",
+        "L": "hold"
+      },
+      "seed": 5.7
+    }
+  ],
+  "shots": [
+    {
+      "at": 0,
+      "pos": [
+        0,
+        1.12,
+        5.6
+      ],
+      "look": [
+        0,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.08,
+          1.08,
+          5.1
+        ]
+      },
+      "dur": 1.5,
+      "ease": "out"
+    },
+    {
+      "at": 1.85,
+      "pos": [
+        0.5,
+        1.4,
+        3.6
+      ],
+      "look": [
+        0.48,
+        1.1,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.55,
+          1.38,
+          3.2
+        ]
+      },
+      "dur": 1.15,
+      "ease": "inOut"
+    },
+    {
+      "at": 3,
+      "pos": [
+        0,
+        1.15,
+        6.1
+      ],
+      "look": [
+        0,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.25,
+          1.05,
+          4.6
+        ],
+        "look": [
+          -0.3,
+          0.84,
+          0
+        ]
+      },
+      "dur": 2.8,
+      "ease": "out"
+    },
+    {
+      "at": 5.8,
+      "pos": [
+        0.5,
+        1.3,
+        3.5
+      ],
+      "look": [
+        0.48,
+        1.15,
+        0
+      ],
+      "fov": 32
+    },
+    {
+      "at": 7,
+      "pos": [
+        -0.44,
+        1.1,
+        4.2
+      ],
+      "look": [
+        -0.48,
+        0.84,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.48,
+          1.06,
+          3.9
+        ]
+      },
+      "dur": 2,
+      "ease": "out"
+    }
+  ],
+  "actions": [
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "look",
+      "to": [
+        -0.9,
+        0.05
+      ],
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 0.1,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 0.9,
+      "do": "turn",
+      "to": "3q-right",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 0.9,
+      "do": "look",
+      "to": [
+        0.8,
+        0.05
+      ],
+      "dur": 0.12
+    },
+    {
+      "who": "hero",
+      "at": 0.9500000000000001,
+      "do": "talk",
+      "dur": 0.8,
+      "tone": "excited",
+      "rate": 5
+    },
+    {
+      "who": "mag",
+      "at": 0.2,
+      "do": "look",
+      "to": [
+        -0.7,
+        0.05
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "hero",
+      "at": 0.95,
+      "do": "arm",
+      "side": "both",
+      "pose": "point",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 1.8,
+      "do": "arm",
+      "side": "both",
+      "pose": "rest",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 1.8,
+      "do": "expr",
+      "expr": "eager",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 1.9,
+      "do": "expr",
+      "expr": "cocky",
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 1.9,
+      "do": "squash",
+      "amount": 0.09,
+      "dur": 0.28
+    },
+    {
+      "who": "mag",
+      "at": 2.1999999999999997,
+      "do": "expr",
+      "expr": "focused",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.1999999999999997,
+      "do": "look",
+      "to": [
+        -0.3,
+        0.1
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.25,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.4,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 2.3,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 2.3,
+      "do": "talk",
+      "dur": 0.6000000000000001,
+      "tone": "chant"
+    },
+    {
+      "who": "mag",
+      "at": 2.35,
+      "do": "charge",
+      "to": 1,
+      "dur": 0.6500000000000001,
+      "ease": "in"
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.2,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "arm",
+      "side": "L",
+      "pose": "hold",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.4
+    },
+    {
+      "who": "hero",
+      "at": 3.05,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 3.05,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 3.05,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 3.15,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.18000000000000002
+    },
+    {
+      "who": "hero",
+      "at": 3.15,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.32000000000000006
+    },
+    {
+      "who": "hero",
+      "at": 3.15,
+      "do": "lean",
+      "to": 7,
+      "dur": 0.36000000000000004
+    },
+    {
+      "who": "hero",
+      "at": 3.35,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.17723076923076925
+    },
+    {
+      "who": "hero",
+      "at": 3.547,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.1745041420118343
+    },
+    {
+      "who": "hero",
+      "at": 3.547,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.3102295857988166
+    },
+    {
+      "who": "hero",
+      "at": 3.741,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.17181946290395997
+    },
+    {
+      "who": "hero",
+      "at": 3.741,
+      "do": "turn",
+      "to": 25,
+      "dur": 0.3818210286754666
+    },
+    {
+      "who": "hero",
+      "at": 3.932,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.16917608655159133
+    },
+    {
+      "who": "hero",
+      "at": 3.932,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.3007574872028291
+    },
+    {
+      "who": "hero",
+      "at": 3.932,
+      "do": "lean",
+      "to": -7,
+      "dur": 0.33835217310318266
+    },
+    {
+      "who": "hero",
+      "at": 4.12,
+      "do": "arm",
+      "side": "L",
+      "pose": "shrug",
+      "dur": 0.16657337752772072
+    },
+    {
+      "who": "hero",
+      "at": 4.305,
+      "do": "arm",
+      "side": "R",
+      "pose": "hat",
+      "dur": 0.16401071018114038
+    },
+    {
+      "who": "hero",
+      "at": 4.305,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.29157459587758294
+    },
+    {
+      "who": "hero",
+      "at": 4.487,
+      "do": "arm",
+      "side": "L",
+      "pose": "up",
+      "dur": 0.16148746848604592
+    },
+    {
+      "who": "hero",
+      "at": 4.666,
+      "do": "arm",
+      "side": "R",
+      "pose": "hips",
+      "dur": 0.15900304589395292
+    },
+    {
+      "who": "hero",
+      "at": 4.666,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.2826720815892496
+    },
+    {
+      "who": "hero",
+      "at": 4.666,
+      "do": "lean",
+      "to": 7,
+      "dur": 0.31800609178790584
+    },
+    {
+      "who": "hero",
+      "at": 4.843,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.1565568451878921
+    },
+    {
+      "who": "hero",
+      "at": 4.843,
+      "do": "turn",
+      "to": -25,
+      "dur": 0.34790410041753794
+    },
+    {
+      "who": "hero",
+      "at": 5.017,
+      "do": "arm",
+      "side": "R",
+      "pose": "cast",
+      "dur": 0.1541482783388476
+    },
+    {
+      "who": "hero",
+      "at": 5.017,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.27404138371350684
+    },
+    {
+      "who": "hero",
+      "at": 5.188,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.1517767663644038
+    },
+    {
+      "who": "hero",
+      "at": 5.357,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.14944173918956682
+    },
+    {
+      "who": "hero",
+      "at": 5.357,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.26567420300367434
+    },
+    {
+      "who": "hero",
+      "at": 5.357,
+      "do": "lean",
+      "to": -7,
+      "dur": 0.29888347837913365
+    },
+    {
+      "who": "hero",
+      "at": 5.523,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.14714263550972734
+    },
+    {
+      "who": "hero",
+      "at": 5.687,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.14487890265573153
+    },
+    {
+      "who": "hero",
+      "at": 5.687,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.2575624936101894
+    },
+    {
+      "who": "hero",
+      "at": 5.848,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.14264999646102797
+    },
+    {
+      "who": "hero",
+      "at": 5.848,
+      "do": "turn",
+      "to": 25,
+      "dur": 0.3169999921356177
+    },
+    {
+      "who": "hero",
+      "at": 6.006,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.14045538113085831
+    },
+    {
+      "who": "hero",
+      "at": 6.006,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.24969845534374813
+    },
+    {
+      "who": "hero",
+      "at": 6.006,
+      "do": "lean",
+      "to": 7,
+      "dur": 0.28091076226171663
+    },
+    {
+      "who": "hero",
+      "at": 6.162,
+      "do": "arm",
+      "side": "L",
+      "pose": "shrug",
+      "dur": 0.13829452911346046
+    },
+    {
+      "who": "hero",
+      "at": 6.316,
+      "do": "arm",
+      "side": "R",
+      "pose": "hat",
+      "dur": 0.1361669209732534
+    },
+    {
+      "who": "hero",
+      "at": 6.316,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.24207452617467268
+    },
+    {
+      "who": "hero",
+      "at": 6.467,
+      "do": "arm",
+      "side": "L",
+      "pose": "up",
+      "dur": 0.13407204526597255
+    },
+    {
+      "who": "hero",
+      "at": 6.616,
+      "do": "arm",
+      "side": "R",
+      "pose": "hips",
+      "dur": 0.13200939841572681
+    },
+    {
+      "who": "hero",
+      "at": 6.616,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.23468337496129213
+    },
+    {
+      "who": "hero",
+      "at": 6.616,
+      "do": "lean",
+      "to": -7,
+      "dur": 0.26401879683145363
+    },
+    {
+      "who": "hero",
+      "at": 6.763,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.12997848459394643
+    },
+    {
+      "who": "hero",
+      "at": 6.763,
+      "do": "turn",
+      "to": -25,
+      "dur": 0.2888410768754365
+    },
+    {
+      "who": "hero",
+      "at": 6.907,
+      "do": "arm",
+      "side": "R",
+      "pose": "cast",
+      "dur": 0.1279788156001934
+    },
+    {
+      "who": "hero",
+      "at": 6.907,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.2275178944003438
+    },
+    {
+      "who": "hero",
+      "at": 7.049,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.1260099107448058
+    },
+    {
+      "who": "hero",
+      "at": 7.189,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.12407129673334726
+    },
+    {
+      "who": "hero",
+      "at": 7.189,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.22057119419261736
+    },
+    {
+      "who": "hero",
+      "at": 7.189,
+      "do": "lean",
+      "to": 7,
+      "dur": 0.2481425934666945
+    },
+    {
+      "who": "hero",
+      "at": 7.327,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.12216250755283421
+    },
+    {
+      "who": "hero",
+      "at": 7.463,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.1202830843597137
+    },
+    {
+      "who": "hero",
+      "at": 7.463,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.2138365944172688
+    },
+    {
+      "who": "hero",
+      "at": 7.597,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.11843257536956424
+    },
+    {
+      "who": "hero",
+      "at": 7.597,
+      "do": "turn",
+      "to": 25,
+      "dur": 0.26318350082125386
+    },
+    {
+      "who": "hero",
+      "at": 7.728,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.11661053574849402
+    },
+    {
+      "who": "hero",
+      "at": 7.728,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.20730761910843382
+    },
+    {
+      "who": "hero",
+      "at": 7.728,
+      "do": "lean",
+      "to": -7,
+      "dur": 0.23322107149698804
+    },
+    {
+      "who": "hero",
+      "at": 7.858,
+      "do": "arm",
+      "side": "L",
+      "pose": "shrug",
+      "dur": 0.1148165275062095
+    },
+    {
+      "who": "hero",
+      "at": 7.985,
+      "do": "arm",
+      "side": "R",
+      "pose": "hat",
+      "dur": 0.11305011939072936
+    },
+    {
+      "who": "hero",
+      "at": 7.985,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.20097799002796332
+    },
+    {
+      "who": "hero",
+      "at": 8.111,
+      "do": "arm",
+      "side": "L",
+      "pose": "up",
+      "dur": 0.11131088678471815
+    },
+    {
+      "who": "hero",
+      "at": 8.235,
+      "do": "arm",
+      "side": "R",
+      "pose": "hips",
+      "dur": 0.10959841160341478
+    },
+    {
+      "who": "hero",
+      "at": 8.235,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.19484162062829294
+    },
+    {
+      "who": "hero",
+      "at": 8.235,
+      "do": "lean",
+      "to": 7,
+      "dur": 0.21919682320682957
+    },
+    {
+      "who": "hero",
+      "at": 8.356,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.10791228219413147
+    },
+    {
+      "who": "hero",
+      "at": 8.356,
+      "do": "turn",
+      "to": -25,
+      "dur": 0.23980507154251438
+    },
+    {
+      "who": "hero",
+      "at": 8.476,
+      "do": "arm",
+      "side": "R",
+      "pose": "cast",
+      "dur": 0.1062520932372987
+    },
+    {
+      "who": "hero",
+      "at": 8.476,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.18889261019964212
+    },
+    {
+      "who": "hero",
+      "at": 8.594,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.10461744564903255
+    },
+    {
+      "who": "hero",
+      "at": 8.711,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.10300794648520128
+    },
+    {
+      "who": "hero",
+      "at": 8.711,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.18312523819591342
+    },
+    {
+      "who": "hero",
+      "at": 8.711,
+      "do": "lean",
+      "to": -7,
+      "dur": 0.20601589297040257
+    },
+    {
+      "who": "hero",
+      "at": 8.825,
+      "do": "arm",
+      "side": "L",
+      "pose": "point",
+      "dur": 0.10142320884696743
+    },
+    {
+      "who": "hero",
+      "at": 8.938,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.09986285178778334
+    },
+    {
+      "who": "hero",
+      "at": 8.938,
+      "do": "squash",
+      "amount": 0.07,
+      "dur": 0.17753395873383704
+    },
+    {
+      "who": "hero",
+      "at": 4.3,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.35
+    },
+    {
+      "who": "hero",
+      "at": 8.4,
+      "do": "blink",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 3.3,
+      "do": "look",
+      "to": [
+        -0.6,
+        0
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 5.8,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.25
+    },
+    {
+      "who": "mag",
+      "at": 5.8,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 5.85,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 5.9,
+      "do": "arm",
+      "side": "R",
+      "pose": "point",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 5.95,
+      "do": "talk",
+      "dur": 0.6,
+      "tone": "calm"
+    }
+  ],
+  "fx": [
+    {
+      "do": "flash",
+      "at": 3,
+      "dur": 0.25,
+      "peak": 0.6
+    },
+    {
+      "do": "shake",
+      "at": 3,
+      "dur": 0.3,
+      "amp": 0.05
+    },
+    {
+      "do": "poof",
+      "at": 3,
+      "who": "hero",
+      "dur": 0.7,
+      "spark": "#ffe27a",
+      "puffs": 14
+    }
+  ],
+  "sfx": [
+    {
+      "sound": "whoosh",
+      "at": 3.6,
+      "gain": 0.25,
+      "dur": 0.3
+    },
+    {
+      "sound": "whoosh",
+      "at": 4.6,
+      "gain": 0.25,
+      "dur": 0.3
+    },
+    {
+      "sound": "whoosh",
+      "at": 7.3,
+      "gain": 0.25,
+      "dur": 0.3
+    },
+    {
+      "sound": "whoosh",
+      "at": 8.1,
+      "gain": 0.25,
+      "dur": 0.3
+    }
+  ],
+  "captions": [
+    {
+      "from": 0.1,
+      "to": 0.9,
+      "text": "boss is coming.",
+      "pos": "top"
+    },
+    {
+      "from": 0.9,
+      "to": 1.85,
+      "text": "make me look busy.",
+      "pos": "top"
+    },
+    {
+      "from": 5.8,
+      "to": 7,
+      "text": "very busy.",
+      "pos": "top"
+    },
+    {
+      "from": 7,
+      "to": 9,
+      "text": "4 hours later",
+      "pos": "top",
+      "style": "sub"
+    }
+  ]
+}
