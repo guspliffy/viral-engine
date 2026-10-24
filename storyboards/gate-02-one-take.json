@@ -1,0 +1,1724 @@
+{
+ "id": "gate-02-one-take",
+ "title": "GATE (one take): how each fighter gets past it",
+ "format": "each-character-vs-X, one continuous take: fighters queue in, each crosses the obstacle their own way, damage carries over, biggest last",
+ "fps": 30,
+ "set": {
+  "type": "garden",
+  "gap": 1.5
+ },
+ "sound": {
+  "sfx": 0.6
+ },
+ "music": {
+  "bpm": 120,
+  "offset": 0,
+  "gain": 0.55,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "deadpan",
+   "seed": 2
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "evil",
+   "seed": 2.7
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 3.3999999999999995
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 4.1
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 4.8
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 5.499999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "focused",
+   "seed": 6.199999999999999
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "stern",
+   "seed": 6.8999999999999995
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    -2.1,
+    -0.9
+   ],
+   "face": "right",
+   "expr": "delighted",
+   "seed": 7.6
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.35,
+    1.95,
+    5.6
+   ],
+   "look": [
+    0,
+    0.72,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.2,
+     1.8,
+     4.9
+    ],
+    "look": [
+     0,
+     0.7,
+     -0.1
+    ]
+   },
+   "dur": 19.8,
+   "ease": "linear"
+  }
+ ],
+ "actions": [
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "show"
+  },
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "ast",
+   "at": 0.4,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "ast",
+   "at": 0.55,
+   "do": "arm",
+   "side": "both",
+   "pose": "up",
+   "dur": 0.25
+  },
+  {
+   "who": "ast",
+   "at": 0.55,
+   "do": "fly",
+   "to": {
+    "y": 0.95,
+    "z": -0.3
+   },
+   "dur": 0.5,
+   "ease": "out"
+  },
+  {
+   "who": "ast",
+   "at": 1.05,
+   "do": "fly",
+   "to": {
+    "y": 0.25,
+    "z": 1.1
+   },
+   "dur": 0.5,
+   "ease": "inOut"
+  },
+  {
+   "who": "ast",
+   "at": 1.05,
+   "do": "expr",
+   "expr": "delighted"
+  },
+  {
+   "who": "ast",
+   "at": 1.55,
+   "do": "drop",
+   "to": 0,
+   "dur": 0.2
+  },
+  {
+   "who": "ast",
+   "at": 1.6,
+   "do": "arm",
+   "side": "both",
+   "pose": "rest",
+   "dur": 0.25
+  },
+  {
+   "who": "ast",
+   "at": 1.85,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "ast",
+   "at": 1.85,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "ast",
+   "at": 2.3,
+   "do": "hide"
+  },
+  {
+   "who": "rea",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "rea",
+   "at": 1.65,
+   "do": "show"
+  },
+  {
+   "who": "rea",
+   "at": 1.65,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "rea",
+   "at": 2.05,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 2.25,
+   "dur": 0.35,
+   "ease": "out",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "rea",
+   "at": 2.4,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.65,
+   "steps": 1.6
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 3.1,
+   "dur": 0.3,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "who": "rea",
+   "at": 3.15,
+   "do": "turn",
+   "to": "3q-left",
+   "dur": 0.15
+  },
+  {
+   "who": "rea",
+   "at": 3.35,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "rea",
+   "at": 3.35,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.1
+  },
+  {
+   "who": "rea",
+   "at": 3.6,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "rea",
+   "at": 3.6,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "rea",
+   "at": 4.05,
+   "do": "hide"
+  },
+  {
+   "who": "sor",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "sor",
+   "at": 3.4,
+   "do": "show"
+  },
+  {
+   "who": "sor",
+   "at": 3.4,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "sor",
+   "at": 3.8,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "sor",
+   "at": 3.95,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.25
+  },
+  {
+   "who": "sor",
+   "at": 3.95,
+   "do": "arm",
+   "side": "L",
+   "pose": "cast",
+   "dur": 0.2
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 4.05,
+   "dur": 0.3,
+   "ease": "back",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 4.05,
+   "dur": 0.3,
+   "ease": "back",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "sor",
+   "at": 4.4,
+   "do": "move",
+   "to": [
+    0,
+    -0.62
+   ],
+   "dur": 0.2
+  },
+  {
+   "who": "sor",
+   "at": 4.6,
+   "do": "hide"
+  },
+  {
+   "who": "sor",
+   "at": 4.61,
+   "do": "move",
+   "to": [
+    0,
+    0.3
+   ],
+   "dur": 0.01
+  },
+  {
+   "who": "sor",
+   "at": 4.7,
+   "do": "show"
+  },
+  {
+   "who": "sor",
+   "at": 4.7,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.25
+  },
+  {
+   "who": "sor",
+   "at": 4.7,
+   "do": "charge",
+   "to": 0,
+   "dur": 0.3
+  },
+  {
+   "who": "sor",
+   "at": 4.7,
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.2
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 4.9,
+   "dur": 0.25,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 4.9,
+   "dur": 0.25,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "who": "sor",
+   "at": 4.95,
+   "do": "expr",
+   "expr": "smug"
+  },
+  {
+   "who": "sor",
+   "at": 5.25,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "sor",
+   "at": 5.25,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "sor",
+   "at": 5.7,
+   "do": "hide"
+  },
+  {
+   "who": "wiz",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "wiz",
+   "at": 5.05,
+   "do": "show"
+  },
+  {
+   "who": "wiz",
+   "at": 5.05,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "wiz",
+   "at": 5.45,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "wiz",
+   "at": 5.6,
+   "do": "arm",
+   "side": "R",
+   "pose": "cast",
+   "dur": 0.2
+  },
+  {
+   "who": "wiz",
+   "at": 5.6,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.3
+  },
+  {
+   "who": "wiz",
+   "at": 6,
+   "do": "charge",
+   "to": 0,
+   "dur": 0.15
+  },
+  {
+   "who": "wiz",
+   "at": 6.05,
+   "do": "expr",
+   "expr": "sad"
+  },
+  {
+   "who": "wiz",
+   "at": 6.05,
+   "do": "droop",
+   "to": 1,
+   "dur": 0.25
+  },
+  {
+   "who": "wiz",
+   "at": 6.3,
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.2
+  },
+  {
+   "who": "wiz",
+   "at": 6.4,
+   "do": "hop",
+   "height": 0.8,
+   "dur": 0.6
+  },
+  {
+   "who": "wiz",
+   "at": 6.4,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.6
+  },
+  {
+   "who": "wiz",
+   "at": 7,
+   "do": "hat",
+   "off": [
+    0.12,
+    -0.08,
+    0.04
+   ],
+   "spin": [
+    0,
+    0,
+    -30
+   ],
+   "dur": 0.15
+  },
+  {
+   "who": "wiz",
+   "at": 7,
+   "do": "expr",
+   "expr": "dizzy"
+  },
+  {
+   "who": "wiz",
+   "at": 7.2,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "wiz",
+   "at": 7.2,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "wiz",
+   "at": 7.65,
+   "do": "hide"
+  },
+  {
+   "who": "dra",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "dra",
+   "at": 7,
+   "do": "show"
+  },
+  {
+   "who": "dra",
+   "at": 7,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "dra",
+   "at": 7.4,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "dra",
+   "at": 7.55,
+   "do": "fly",
+   "to": {
+    "y": 0.95,
+    "z": -0.3
+   },
+   "dur": 0.45
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 7.9,
+   "dur": 0.3,
+   "ease": "out",
+   "set": {
+    "fire": 1
+   }
+  },
+  {
+   "who": "dra",
+   "at": 8,
+   "do": "fly",
+   "to": {
+    "y": 0.45,
+    "z": 1.1
+   },
+   "dur": 0.4
+  },
+  {
+   "who": "dra",
+   "at": 8.4,
+   "do": "drop",
+   "to": 0,
+   "dur": 0.2
+  },
+  {
+   "who": "dra",
+   "at": 8.55,
+   "do": "turn",
+   "to": "3q-left",
+   "dur": 0.15
+  },
+  {
+   "who": "dra",
+   "at": 8.6,
+   "do": "expr",
+   "expr": "shocked"
+  },
+  {
+   "who": "dra",
+   "at": 8.6,
+   "do": "arm",
+   "side": "both",
+   "pose": "cheeks",
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 8.85,
+   "dur": 0.5,
+   "ease": "in",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "dra",
+   "at": 9.05,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "dra",
+   "at": 9.05,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "dra",
+   "at": 9.5,
+   "do": "hide"
+  },
+  {
+   "who": "phx",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "phx",
+   "at": 8.85,
+   "do": "show"
+  },
+  {
+   "who": "phx",
+   "at": 8.85,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "phx",
+   "at": 9.25,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "phx",
+   "at": 9.4,
+   "do": "wings",
+   "to": 1,
+   "dur": 0.2
+  },
+  {
+   "who": "phx",
+   "at": 9.5,
+   "do": "hop",
+   "height": 1.05,
+   "dur": 0.8
+  },
+  {
+   "who": "phx",
+   "at": 9.5,
+   "do": "move",
+   "to": [
+    0.25,
+    1
+   ],
+   "dur": 0.8
+  },
+  {
+   "who": "phx",
+   "at": 9.5,
+   "do": "pitch",
+   "to": 360,
+   "dur": 0.7
+  },
+  {
+   "who": "phx",
+   "at": 10.28,
+   "do": "lean",
+   "to": 85,
+   "dur": 0.12,
+   "ease": "in"
+  },
+  {
+   "who": "phx",
+   "at": 10.28,
+   "do": "expr",
+   "expr": "dizzy"
+  },
+  {
+   "who": "phx",
+   "at": 10.35,
+   "do": "wings",
+   "to": 0,
+   "dur": 0.25
+  },
+  {
+   "who": "phx",
+   "at": 10.85,
+   "do": "lean",
+   "to": 0,
+   "dur": 0.3,
+   "ease": "out"
+  },
+  {
+   "who": "phx",
+   "at": 11,
+   "do": "expr",
+   "expr": "cocky"
+  },
+  {
+   "who": "phx",
+   "at": 11.3,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "phx",
+   "at": 11.3,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "phx",
+   "at": 11.75,
+   "do": "hide"
+  },
+  {
+   "who": "gun",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "gun",
+   "at": 11.1,
+   "do": "show"
+  },
+  {
+   "who": "gun",
+   "at": 11.1,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "gun",
+   "at": 11.5,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "gun",
+   "at": 11.65,
+   "do": "arm",
+   "side": "R",
+   "pose": "point",
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 11.85,
+   "dur": 0.5,
+   "ease": "out",
+   "set": {
+    "latch": 1
+   }
+  },
+  {
+   "who": "gun",
+   "at": 12.1,
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.2
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 12.1,
+   "dur": 0.3,
+   "ease": "out",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "gun",
+   "at": 12.15,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.55
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 12.7,
+   "dur": 0.35,
+   "ease": "inOut",
+   "set": {
+    "open": 0.25
+   }
+  },
+  {
+   "who": "gun",
+   "at": 12.75,
+   "do": "arm",
+   "side": "L",
+   "pose": "hips",
+   "dur": 0.2
+  },
+  {
+   "who": "gun",
+   "at": 13.05,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "gun",
+   "at": 13.05,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "gun",
+   "at": 13.5,
+   "do": "hide"
+  },
+  {
+   "who": "sam",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "sam",
+   "at": 12.85,
+   "do": "show"
+  },
+  {
+   "who": "sam",
+   "at": 12.85,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "sam",
+   "at": 13.25,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 13.4,
+   "dur": 0.2,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "who": "sam",
+   "at": 13.4,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.25
+  },
+  {
+   "who": "sam",
+   "at": 13.55,
+   "do": "arm",
+   "side": "R",
+   "pose": "up",
+   "dur": 0.12
+  },
+  {
+   "who": "sam",
+   "at": 13.75,
+   "do": "arm",
+   "side": "R",
+   "pose": "point",
+   "dur": 0.08
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 13.8,
+   "dur": 0.7,
+   "ease": "linear",
+   "set": {
+    "slice": 1
+   }
+  },
+  {
+   "who": "sam",
+   "at": 14.3,
+   "do": "hop",
+   "height": 0.55,
+   "dur": 0.45
+  },
+  {
+   "who": "sam",
+   "at": 14.3,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.45
+  },
+  {
+   "who": "sam",
+   "at": 14.7,
+   "do": "charge",
+   "to": 0,
+   "dur": 0.25
+  },
+  {
+   "who": "sam",
+   "at": 14.7,
+   "do": "expr",
+   "expr": "serene"
+  },
+  {
+   "who": "sam",
+   "at": 14.9,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "sam",
+   "at": 14.9,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "sam",
+   "at": 15.35,
+   "do": "hide"
+  },
+  {
+   "who": "all",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "all",
+   "at": 14.7,
+   "do": "show"
+  },
+  {
+   "who": "all",
+   "at": 14.7,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "all",
+   "at": 15.1,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "all",
+   "at": 15.25,
+   "do": "arm",
+   "side": "R",
+   "pose": "up",
+   "dur": 0.25
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "at": 15.55,
+   "dur": 0.01,
+   "ease": "linear",
+   "set": {
+    "on": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "at": 15.8,
+   "dur": 0.01,
+   "ease": "linear",
+   "set": {
+    "on": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 15.57,
+   "dur": 0.15,
+   "ease": "inOut",
+   "set": {
+    "scorch": 1
+   }
+  },
+  {
+   "who": "all",
+   "at": 15.95,
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.25
+  },
+  {
+   "who": "all",
+   "at": 16.1,
+   "do": "hop",
+   "height": 0.4,
+   "dur": 0.4
+  },
+  {
+   "who": "all",
+   "at": 16.1,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.55,
+   "steps": 1.8
+  },
+  {
+   "who": "all",
+   "at": 16.85,
+   "do": "turn",
+   "to": "right",
+   "dur": 0.12
+  },
+  {
+   "who": "all",
+   "at": 16.85,
+   "do": "move",
+   "to": [
+    2.1,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 3
+  },
+  {
+   "who": "all",
+   "at": 17.3,
+   "do": "hide"
+  },
+  {
+   "who": "vik",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "vik",
+   "at": 16.65,
+   "do": "show"
+  },
+  {
+   "who": "vik",
+   "at": 16.65,
+   "do": "move",
+   "to": [
+    0,
+    -0.9
+   ],
+   "dur": 0.55,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "vik",
+   "at": 17.05,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.15
+  },
+  {
+   "who": "vik",
+   "at": 17.2,
+   "do": "arm",
+   "side": "L",
+   "pose": "up",
+   "dur": 0.2
+  },
+  {
+   "who": "vik",
+   "at": 17.25,
+   "do": "move",
+   "to": [
+    0,
+    -0.25
+   ],
+   "dur": 0.4,
+   "ease": "in",
+   "steps": 4
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 17.65,
+   "dur": 1.1,
+   "ease": "linear",
+   "set": {
+    "smash": 1
+   }
+  },
+  {
+   "who": "vik",
+   "at": 17.65,
+   "do": "move",
+   "to": [
+    0,
+    1.1
+   ],
+   "dur": 0.45,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "vik",
+   "at": 18.2,
+   "do": "arm",
+   "side": "both",
+   "pose": "up",
+   "dur": 0.25
+  },
+  {
+   "who": "vik",
+   "at": 18.2,
+   "do": "hop",
+   "height": 0.3,
+   "count": 2,
+   "dur": 0.7
+  },
+  {
+   "who": "vik",
+   "at": 18.95,
+   "do": "arm",
+   "side": "both",
+   "pose": "hips",
+   "dur": 0.25
+  },
+  {
+   "who": "vik",
+   "at": 19,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.15
+  }
+ ],
+ "fx": [
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    1.25,
+    -0.8
+   ],
+   "at": 6,
+   "dur": 0.4,
+   "puffs": 4,
+   "sparks": 6,
+   "spark": "#c8b6ff"
+  },
+  {
+   "do": "poof",
+   "pos": [
+    -1,
+    1.1,
+    0.3
+   ],
+   "at": 7.9,
+   "dur": 0.5,
+   "puffs": 4,
+   "sparks": 14,
+   "spark": "#ff9a2e"
+  },
+  {
+   "do": "poof",
+   "pos": [
+    -1,
+    1.15,
+    0.3
+   ],
+   "at": 8.9,
+   "dur": 0.8,
+   "puffs": 10,
+   "sparks": 0
+  },
+  {
+   "do": "shake",
+   "at": 10.4,
+   "dur": 0.18,
+   "amp": 0.025
+  },
+  {
+   "do": "flash",
+   "at": 11.85,
+   "dur": 0.1,
+   "peak": 0.25
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0.05,
+    0.4,
+    0.15
+   ],
+   "at": 11.85,
+   "dur": 0.4,
+   "puffs": 4,
+   "sparks": 12,
+   "spark": "#ffd36b"
+  },
+  {
+   "do": "flash",
+   "at": 13.8,
+   "dur": 0.12,
+   "peak": 0.25
+  },
+  {
+   "do": "flash",
+   "at": 15.55,
+   "dur": 0.2,
+   "peak": 0.35
+  },
+  {
+   "do": "shake",
+   "at": 15.55,
+   "dur": 0.25,
+   "amp": 0.035
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    0.3,
+    0.1
+   ],
+   "at": 15.65,
+   "dur": 0.9,
+   "puffs": 12,
+   "sparks": 8,
+   "spark": "#bfe4ff"
+  },
+  {
+   "do": "flash",
+   "at": 17.7,
+   "dur": 0.18,
+   "peak": 0.35
+  },
+  {
+   "do": "shake",
+   "at": 17.65,
+   "dur": 0.4,
+   "amp": 0.06
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    0.3,
+    0.1
+   ],
+   "at": 17.67,
+   "dur": 0.9,
+   "puffs": 16,
+   "sparks": 12,
+   "spark": "#ffcf6b"
+  }
+ ],
+ "sfx": [
+  {
+   "sound": "whoosh",
+   "at": 0.55,
+   "dur": 0.9,
+   "gain": 0.25
+  },
+  {
+   "sound": "tink",
+   "at": 3.4,
+   "gain": 0.2
+  },
+  {
+   "sound": "charge",
+   "at": 4,
+   "dur": 0.45,
+   "gain": 0.22
+  },
+  {
+   "sound": "pop",
+   "at": 4.6,
+   "gain": 0.3
+  },
+  {
+   "sound": "pop",
+   "at": 4.7,
+   "gain": 0.3
+  },
+  {
+   "sound": "sadslide",
+   "at": 6.02,
+   "gain": 0.22
+  },
+  {
+   "sound": "whoosh",
+   "at": 7.55,
+   "dur": 0.8,
+   "gain": 0.28
+  },
+  {
+   "sound": "poof",
+   "at": 8.9,
+   "gain": 0.25
+  },
+  {
+   "sound": "land",
+   "at": 10.4,
+   "gain": 0.5
+  },
+  {
+   "sound": "impact",
+   "at": 11.85,
+   "gain": 0.35
+  },
+  {
+   "sound": "tink",
+   "at": 12.15,
+   "gain": 0.25
+  },
+  {
+   "sound": "whoosh",
+   "at": 13.75,
+   "dur": 0.2,
+   "gain": 0.32
+  },
+  {
+   "sound": "tink",
+   "at": 13.82,
+   "gain": 0.28
+  },
+  {
+   "sound": "impact",
+   "at": 15.55,
+   "gain": 0.4
+  },
+  {
+   "sound": "impact",
+   "at": 17.65,
+   "gain": 0.5
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 19.8,
+   "text": "GATE",
+   "style": "label",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.85,
+   "text": "10 fighters. 1 gate.",
+   "style": "sub",
+   "pos": 370
+  },
+  {
+   "from": 19,
+   "to": 19.8,
+   "text": "which one are you?",
+   "pos": 370
+  }
+ ],
+ "beats": [
+  {
+   "who": "ast",
+   "character": "astronaut",
+   "stunt": "floats over in zero gravity",
+   "from": 0,
+   "to": 1.85
+  },
+  {
+   "who": "rea",
+   "character": "reaper",
+   "stunt": "opens it, walks through, closes it neatly",
+   "from": 1.65,
+   "to": 3.6
+  },
+  {
+   "who": "sor",
+   "character": "sorcerer",
+   "stunt": "portals through",
+   "from": 3.4,
+   "to": 5.25
+  },
+  {
+   "who": "wiz",
+   "character": "wizard",
+   "stunt": "spell fizzles, so he jumps it",
+   "from": 5.05,
+   "to": 7.2
+  },
+  {
+   "who": "dra",
+   "character": "dragon",
+   "stunt": "flies over and sets the hedge on fire",
+   "from": 7,
+   "to": 9.05
+  },
+  {
+   "who": "phx",
+   "character": "phoenix",
+   "stunt": "flashy flip, lands flat, gets up",
+   "from": 8.85,
+   "to": 11.3
+  },
+  {
+   "who": "gun",
+   "character": "gunslinger",
+   "stunt": "shoots the latch off, kicks it open",
+   "from": 11.1,
+   "to": 13.05
+  },
+  {
+   "who": "sam",
+   "character": "samurai",
+   "stunt": "slices the top off and steps over",
+   "from": 12.85,
+   "to": 14.9
+  },
+  {
+   "who": "all",
+   "character": "allfather",
+   "stunt": "lightning, then steps over the ashes",
+   "from": 14.7,
+   "to": 16.85
+  },
+  {
+   "who": "vik",
+   "character": "viking",
+   "stunt": "charges and smashes what's left",
+   "from": 16.65,
+   "to": 19.8
+  }
+ ],
+ "props": [
+  {
+   "id": "gate",
+   "kind": "gate",
+   "x": 0,
+   "z": 0
+  },
+  {
+   "id": "portal-b",
+   "kind": "portal",
+   "x": 0,
+   "z": -0.6,
+   "scale": 0.8
+  },
+  {
+   "id": "portal-f",
+   "kind": "portal",
+   "x": 0,
+   "z": 0.3,
+   "scale": 0.8
+  },
+  {
+   "id": "bolt",
+   "kind": "bolt",
+   "x": 0,
+   "z": 0.05
+  },
+  {
+   "id": "fire",
+   "kind": "flames",
+   "x": -1,
+   "y": 1.05,
+   "z": 0.3,
+   "scale": 1.4
+  }
+ ],
+ "duration": 19.8,
+ "cover": 19.2
+}

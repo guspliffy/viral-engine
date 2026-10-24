@@ -1,5 +1,7 @@
 import * as THREE from "three";
 
+const _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
+
 // Expression presets. Every value is a plain number so two expressions can be blended.
 //   tilt   brow rotation: + inner ends up (kind, worried), - inner ends down (angry, focused)
 //   browY  extra brow height        curve  mouth: -1 frown .. 1 smile
@@ -68,7 +70,10 @@ export class Face {
     this.layout = { eyeU: 0.36, eyeV: 0.32, browV: 0.62, mouthV: -0.12, mouthW: 0.36, cheekU: 0.66, cheekV: 0.0 };
   }
 
-  _orient(obj, p) { obj.position.copy(p.pos); obj.lookAt(p.pos.clone().add(p.normal)); }
+  // points the part's +z along the surface normal, in the face's own (local) space. Object3D.lookAt takes a WORLD
+  // target, so with a local one the eyes and cheeks were aimed wrong whenever the character stood away from the
+  // origin (white eyes with no pupils, worst close to the camera or in the air).
+  _orient(obj, p) { obj.position.copy(p.pos); _m.lookAt(_t.copy(p.pos).add(p.normal), p.pos, _up); obj.quaternion.setFromRotationMatrix(_m); }
 
   _surfLine(pts, lift) {
     // pts: [[u,v],...] in face coords -> points just above the surface

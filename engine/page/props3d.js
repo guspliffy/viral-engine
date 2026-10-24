@@ -155,19 +155,23 @@ const KINDS = {
         const op = clamp(ps.open ?? 0), sm = clamp(ps.smash ?? 0), sl = clamp(ps.slice ?? 0), la = clamp(ps.latch ?? 0), sc = clamp(ps.scorch ?? 0);
         for (const { s, hinge, upper } of leaves) {
           hinge.rotation.set(0, s * 1.75 * op, 0); hinge.position.set(s * W, 0, 0);
-          if (sm > 0) {   // blown back from the middle, tumbling
-            const tt = sm * 1.1;
-            hinge.position.set(s * (W + 1.6 * tt), Math.max(0, 2.6 * tt - 4.9 * tt * tt), -3.2 * tt);
-            hinge.rotation.set(-6 * tt, s * 3 * tt, s * 2.5 * tt);
+          if (sm > 0) {   // blown back from the middle in one tumble, landing flat on the lawn behind (and staying there)
+            const k = ease("out")(sm);
+            hinge.position.set(s * (W + 1.1 * k), 0.03 + 1.6 * sm * (1 - sm), -2.3 * k);
+            hinge.rotation.set(-(Math.PI / 2 + Math.PI * 2) * k, s * 0.5 * k, 0);
           }
-          // the cut runs down towards the middle; the top slides along it, then drops
-          upper.position.set(-s * 0.25 * clamp(sl * 2), -0.08 * clamp(sl * 2) - 1.4 * clamp(sl * 2 - 1) ** 2, 0.15 * clamp(sl * 2 - 1));
-          upper.rotation.set(-0.9 * clamp(sl * 2 - 1), 0, s * 0.35 * clamp(sl * 2));
+          // the cut runs down towards the middle: the top slides along it, then tips over backwards and lies flat
+          const k1 = clamp(sl * 2), k2 = ease("in")(clamp(sl * 2 - 1));
+          upper.position.set(-s * 0.2 * k1, -0.06 * k1 * (1 - k2) + 0.03 * k2, -0.05 * k2);
+          upper.rotation.set(-(Math.PI / 2) * k2, 0, s * 0.3 * k1 * (1 - k2));
         }
+        // the latch is shot up and away, out of frame
         latch.visible = la < 1 && sm === 0;
-        latch.position.set(0.9 * la, 0.36 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
+        latch.position.set(1.5 * la, 0.36 + 2.6 * la, 0.08 + 0.3 * la); latch.rotation.z = 9 * la;
+        // splinters fly, land and stay where they land
         for (const b of bits) {
-          const tt = sm * 1.1; b.m.visible = sm > 0 && sm < 1;
+          const land = (b.vy + Math.sqrt(b.vy * b.vy + 4 * 4.9 * (b.y0 - 0.02))) / (2 * 4.9), tt = Math.min(sm * 1.1, land);
+          b.m.visible = sm > 0;
           b.m.position.set(b.vx * tt, Math.max(0.02, b.y0 + b.vy * tt - 4.9 * tt * tt), b.vz * tt); b.m.rotation.set(b.spin * tt, b.spin * 0.6 * tt, b.spin * 0.3 * tt);
         }
         woods.forEach((m, i) => m.color.copy(base[i]).lerp(new THREE.Color("#2a1d16"), sc * 0.85));
@@ -186,7 +190,7 @@ const KINDS = {
       grip: 0,
       apply(ps, t) {
         const o = clamp(ps.open ?? 0); g.visible = o > 0.01; g.scale.set(o, o * (0.9 + 0.1 * Math.sin(t * 7)), o);
-        swirl.rotation.z = t * 6; light.intensity = 3 * o;
+        swirl.rotation.z = t * 6; light.intensity = 0.3 * o;
       },
     };
   },
@@ -200,18 +204,25 @@ const KINDS = {
       for (const [mm, rr] of [[m, 0.035], [halo, 0.1]]) { const c = mesh(new THREE.CylinderGeometry(rr, rr, len, 8), mm, P.whole, (x0 + x1) / 2, (y0 + y1) / 2, 0); c.rotation.z = -ang; c.castShadow = false; segs.push(c); }
     }
     const light = new THREE.PointLight("#bfe4ff", 0, 6, 1.5); light.position.set(0, 1, 0.5); P.whole.add(light);
-    return { grip: 0, apply(ps, t) { const on = clamp(ps.on ?? 0) > 0.5 && Math.sin(t * 60) > -0.6; P.whole.visible = on; light.intensity = on ? 8 : 0; } };
+    // steady while on: a flickering bolt reads as a render glitch
+    return { grip: 0, apply(ps) { const on = clamp(ps.on ?? 0) > 0.5; P.whole.visible = on; light.intensity = on ? 5 : 0; } };
   },
   // flames licking up from the prop's spot (put it on the hedge top); fire 0..1 grows them
   flames(P) {
-    const cols = ["#ff5a1f", "#ff9a2e", "#ffd34d"].map((c) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.92 }));
-    const fl = Array.from({ length: 9 }, (_, i) => { const c = mesh(new THREE.ConeGeometry(0.11 - (i % 3) * 0.025, 0.5, 10), cols[i % 3], P.whole, (i - 4) * 0.13, 0.25, ((i * 7) % 3 - 1) * 0.08); c.castShadow = false; return c; });
-    const light = new THREE.PointLight("#ff8a3a", 0, 4, 1.6); light.position.set(0, 0.5, 0.3); P.whole.add(light);
+    // many slim tongues in three colours, each flickering on its own phase, inner ones taller
+    const cols = ["#ff5a1f", "#ff8a2a", "#ffc23d", "#ffe27a"].map((c) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.88, depthWrite: false }));
+    const r = (k) => ((Math.sin(k * 91.7) * 43758.5453) % 1 + 1) % 1;
+    const fl = Array.from({ length: 22 }, (_, i) => {
+      const x = (r(i) - 0.5) * 0.9, z = (r(i + 40) - 0.5) * 0.35, inner = 1 - Math.abs(x) / 0.45;
+      const c = mesh(new THREE.ConeGeometry(0.035 + 0.03 * r(i + 7), 1, 8), cols[i % 4], P.whole, x, 0, z); c.castShadow = false;
+      return { c, h: 0.18 + 0.32 * inner * (0.6 + 0.4 * r(i + 3)), ph: r(i + 9) * 6.28, sp: 9 + r(i + 11) * 8 };
+    });
+    const light = new THREE.PointLight("#ff8a3a", 0, 4, 1.6); light.position.set(0, 0.4, 0.3); P.whole.add(light);
     return {
       grip: 0,
       apply(ps, t) {
-        const f = clamp(ps.fire ?? 0); P.whole.visible = f > 0.01; light.intensity = 4 * f;
-        fl.forEach((c, i) => { const k = f * (0.75 + 0.35 * Math.sin(t * 13 + i * 1.7)); c.scale.set(1, Math.max(0.01, k), 1); c.position.y = 0.25 * k; });
+        const f = clamp(ps.fire ?? 0); P.whole.visible = f > 0.01; light.intensity = 2.5 * f;
+        for (const q of fl) { const k = Math.max(0.01, f * q.h * (0.8 + 0.25 * Math.sin(t * q.sp + q.ph))); q.c.scale.set(1, k, 1); q.c.position.y = k / 2; }
       },
     };
   },
