@@ -20,6 +20,14 @@ export const RULES = {
   blackY: 20, // a frame whose brightest pixel is this dark is an empty black frame
   lufs: [-15.5, -12.5], truePeakMax: -1.0, silentLUFS: -40,
   coverWarn: 0.08, coverFail: 0.25, coverFailHold: 0.5, // share of a caption hidden by characters; fail if held 0.5 s
+  // from the algorithm research (docs/PLAN.md, Studio roadmap)
+  length: { min: 8, ideal: [12, 20], max: 25 }, // 20-25 s only with an "escalation" beat in the storyboard
+  hookMotion: 0.3, // something must move within the first 0.3 s
+  maxEventGap: 2.0, // storyboard: something new at least every 2 s
+  stillHold: 2.0, stillDiff: 0.35, // render: no stretch this long where the picture barely changes (mean |dY| per frame)
+  loopSSIM: 0.55, // last frame vs first frame, when the storyboard says loop: true
+  wordsPerSec: 3.5, // reading speed of a caption over its time on screen
+  gore: /blood|gore|splat|guts|mash|sever|dismember|decapit/i,
 };
 
 function args() {
@@ -58,13 +66,27 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
   const frames = []; let cur = null;
   for (const ln of st.split("\n")) {
     const m = ln.match(/pts_time:([\d.]+)/); if (m) { cur = { t: Number(m[1]) }; frames.push(cur); continue; }
-    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
+    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG|YDIF)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
   }
   const white = frames.filter((f) => f.YMIN >= RULES.whiteY), black = frames.filter((f) => f.YMAX <= RULES.blackY);
   const ts = (l) => l.slice(0, 6).map((f) => f.t.toFixed(2) + "s").join(", ") + (l.length > 6 ? ", ..." : "");
   if (white.length) add("fail", "white-frames", `${white.length} blank white frame(s) at ${ts(white)}`);
   if (black.length) add("fail", "black-frames", `${black.length} empty black frame(s) at ${ts(black)}`);
   if (!white.length && !black.length) add("pass", "frames", `${frames.length} frames, none blank`);
+
+  // --- hook: frame 0 is a real picture and something moves at once
+  if (frames.length) {
+    const f0 = frames[0];
+    if (f0.YMAX - f0.YMIN < 30 || f0.YMAX <= 40) add("fail", "hook", `frame 0 is blank or flat (Y ${f0.YMIN}-${f0.YMAX}): open on a character mid-action`);
+    else {
+      const early = frames.filter((f) => f.t > 0 && f.t <= RULES.hookMotion + 1e-6).reduce((m, f) => Math.max(m, f.YDIF || 0), 0);
+      add(early >= RULES.stillDiff ? "pass" : "fail", "hook", early >= RULES.stillDiff ? `moving from the first frame (dY ${early.toFixed(2)})` : `nothing moves in the first ${RULES.hookMotion} s: open mid-action`);
+    }
+    // long holds where the picture barely changes
+    let run = 0, worst = 0, at = 0;
+    for (const f of frames.slice(1)) { if ((f.YDIF || 0) < RULES.stillDiff) { run += 1 / fps; if (run > worst) { worst = run; at = f.t - run; } } else run = 0; }
+    add(worst > RULES.stillHold ? "fail" : worst > 1.0 ? "warn" : "pass", "still-hold", `longest near-still stretch ${worst.toFixed(1)} s${worst > 1 ? " from " + at.toFixed(1) + " s" : ""}`);
+  }
 
   // --- sound: present, not silent, loudness and true peak
   if (!a) add("fail", "audio", "no audio stream");
@@ -78,6 +100,37 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
       add(ok ? "pass" : "fail", "loudness", `${I.toFixed(1)} LUFS (target ${RULES.lufs.join("..")})`);
       add(TP <= RULES.truePeakMax ? "pass" : "fail", "true-peak", `${TP.toFixed(1)} dBTP (max ${RULES.truePeakMax})`);
     }
+  }
+
+  // --- loop seam: does the last frame lead back into the first?
+  if (sb?.loop) {
+    const r = run("ffmpeg", ["-v", "info", "-i", clip, "-sseof", "-0.04", "-i", clip, "-filter_complex", "[0:v]trim=end_frame=1,scale=270:480[a];[1:v]trim=end_frame=1,scale=270:480[b];[a][b]ssim", "-f", "null", "-"]).stderr;
+    const ssim = Number((r.match(/All:([\d.]+)/) || [])[1]);
+    if (Number.isFinite(ssim)) add(ssim >= RULES.loopSSIM ? "pass" : "fail", "loop", `last frame vs first: SSIM ${ssim.toFixed(2)} (min ${RULES.loopSSIM})`);
+  }
+
+  // --- storyboard rules: length, cadence, reading speed, cartoon-only violence
+  if (sb?.actions || sb?.shots) {
+    const L = RULES.length, d = sb.duration, esc = (sb.beats || []).some((b) => b.kind === "escalation") || sb.escalation;
+    if (d < L.min || d > L.max) add("fail", "length", `${d} s: must be ${L.min}-${L.max} s (very short clips aren't eligible for For You)`);
+    else if (d > L.ideal[1] && !esc) add("fail", "length", `${d} s: over ${L.ideal[1]} s needs a second "escalation" beat`);
+    else if (d < L.ideal[0]) add("warn", "length", `${d} s: shorter than the ${L.ideal.join("-")} s sweet spot`);
+    else add("pass", "length", `${d} s`);
+    const ev = [0, d];
+    for (const x of sb.shots || []) ev.push(x.at);
+    for (const x of sb.actions || []) if (!["look", "blink", "noblink"].includes(x.do)) ev.push(x.at);
+    for (const x of sb.fx || []) ev.push(x.at);
+    for (const x of sb.captions || []) ev.push(x.from);
+    for (const x of sb.sfx || []) ev.push(x.at);
+    ev.sort((a, b) => a - b);
+    let gap = 0, from = 0; for (let i = 1; i < ev.length; i++) if (ev[i] - ev[i - 1] > gap) { gap = ev[i] - ev[i - 1]; from = ev[i - 1]; }
+    add(gap > RULES.maxEventGap ? "fail" : "pass", "cadence", `longest gap between events ${gap.toFixed(1)} s${gap > 1 ? " from " + from.toFixed(1) + " s" : ""} (max ${RULES.maxEventGap})`);
+    for (const c of sb.captions || []) {
+      const words = c.text.trim().split(/\s+/).length, wps = words / Math.max(0.1, c.to - c.from);
+      if (wps > RULES.wordsPerSec) add("warn", "reading-speed", `"${c.text.slice(0, 40)}": ${wps.toFixed(1)} words/s, hard to read (max ${RULES.wordsPerSec})`);
+    }
+    const bad = [...(sb.fx || []), ...(sb.actions || [])].filter((x) => RULES.gore.test(JSON.stringify(x)));
+    if (bad.length) add("fail", "cartoon-only", `graphic-looking effects (${bad.map((x) => x.do).join(", ")}): use stars, dust or squash instead`);
   }
 
   // --- captions: inside the safe zone, not hidden behind characters

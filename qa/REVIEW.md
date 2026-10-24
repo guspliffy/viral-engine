@@ -50,4 +50,7 @@ Give at most 6 notes, most valuable first. For each:
 Cover: the first second (does it hook?), cut points and shot variety, whether each beat reads at phone size, the
 payoff, background and set detail that would make frames richer without clutter, and the ending (does it invite a
 rewatch?). Keep the premise, cast and art style. Don't judge sound (you can't hear it) or predict views.
+Then answer four pass/fail questions, one line each (they are logged per clip and later compared with retention):
+P1 premise readable by 3 s? P2 punchline lands? P3 loop seamless (last frame flows into the first)?
+P4 anything graphic or off-model?
 End with: "If only one: <note number>".
