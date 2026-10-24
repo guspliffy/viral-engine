@@ -185,6 +185,11 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; if (i % 64 === 0) bp = { ...biquad("bp", 3200 - 900 * (t / d), 9), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * 3 * env(t, 0.02, 0.3, d) * Math.min(1, (d - t) / 0.05); }
     return x;
   },
+  ring(r, d = 0.8) { // an alarm clock's bells: a hammer trilling between two bells
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 24) % 1, f = Math.floor(t * 24) % 2 ? 2350 : 2650; x[i] = (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2.76 * t) * 0.18) * Math.exp(-hit * 4) * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
   hiss(r, d = 0.3) { // bus doors: air brakes' hiss
     const x = buf(d), hp = biquad("hp", 2500, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }

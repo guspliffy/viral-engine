@@ -498,6 +498,83 @@ const KINDS = {
       },
     };
   },
+  // a twin-bell alarm clock (its bottom at the origin, face to +z), built in halves so a blade can split it.
+  //   ring 0..1 rattles it on its feet (the hammer blurs between the bells); smash 0..1 squashes it flat
+  alarm(P) {
+    const red = mat("#d8433a", { roughness: 0.4 }), face = mat("#fbf6ea", { roughness: 0.5 }), metal = mat("#c9ccd3", { roughness: 0.3, metalness: 0.6 }), ink = mat("#1b1a22");
+    const halves = [];
+    for (const [s, h] of P.halves) {
+      const b = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.07, 32, 1, false, TH(s), Math.PI), red, h, 0, 0.14, 0); b.rotation.x = Math.PI / 2;
+      const f = mesh(new THREE.CylinderGeometry(0.092, 0.092, 0.072, 32, 1, false, TH(s), Math.PI), face, h, 0, 0.14, 0.002); f.rotation.x = Math.PI / 2;
+      const bell = mesh(new THREE.SphereGeometry(0.055, 18, 10, 0, Math.PI * 2, 0, Math.PI / 2), metal, h, s * 0.075, 0.245, 0); bell.rotation.z = -s * 0.5;
+      mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.06, 6), metal, h, s * 0.08, 0.035, 0).rotation.z = s * 0.4;   // a foot
+      const hnd = new THREE.Mesh(new THREE.BoxGeometry(0.012, s > 0 ? 0.07 : 0.05, 0.004), ink); hnd.geometry.translate(0, (s > 0 ? 0.07 : 0.05) / 2, 0);
+      hnd.position.set(0, 0.14, 0.04); hnd.rotation.z = s > 0 ? 0.3 : -2.2; h.add(hnd);
+      halves.push(h);
+    }
+    const hammer = new THREE.Group(); hammer.position.set(0, 0.25, 0); P.whole.add(hammer);
+    mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.07, 6), metal, hammer, 0, 0.035, 0);
+    mesh(new THREE.SphereGeometry(0.014, 8, 6), metal, hammer, 0, 0.07, 0);
+    return {
+      grip: 0.14, splitApart: 0.1, splitTip: 0.7, splitDrop: 0.1,
+      apply(ps, t) {
+        const r = clamp(ps.ring ?? 0), q = clamp(ps.smash ?? 0);
+        P.whole.rotation.z = r * 0.12 * Math.sin((t ?? 0) * 70); P.whole.position.y = r * 0.012 * Math.abs(Math.sin((t ?? 0) * 35));
+        hammer.rotation.z = r * 0.6 * Math.sin((t ?? 0) * 140); hammer.visible = ps.split < 0.05;
+        P.whole.scale.set(1 + 0.5 * q, 1 - 0.75 * q, 1 + 0.3 * q);
+      },
+    };
+  },
+  // a single bed seen from its foot: the origin is where its sleeper sits up (against the pillow), the mattress top is at
+  // SEAT_Y so "sit" works, and the bed runs 1.6 m towards +z (the camera). cover 0..1 pulls the blanket up to the
+  // sleeper's chest; over 0..1 throws it over their head (a lump); smash 0..1 breaks the legs (it drops, tipped)
+  bed(P) {
+    const wood = mat("#a8744a", { roughness: 0.7 }), sheet = mat("#f4f1ea", { roughness: 0.8 }), pillowM = mat("#ffffff", { roughness: 0.8 });
+    const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
+    x.fillStyle = "#5b8fd6"; x.fillRect(0, 0, 128, 128); x.fillStyle = "#ffd75e";
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { x.beginPath(); x.arc(16 + i * 32 + (j % 2) * 16, 16 + j * 32, 6, 0, 7); x.fill(); }
+    const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(3, 3);
+    const blanketM = mat("#ffffff", { map: tx, roughness: 0.85 });
+    const top = SEAT_Y, W = 1.1, L = 1.95, Z0 = -0.35;
+    const frame = new THREE.Group(); P.whole.add(frame);
+    mesh(new THREE.BoxGeometry(W + 0.08, 0.16, L), wood, frame, 0, top - 0.2, Z0 + L / 2);
+    mesh(new THREE.BoxGeometry(W, 0.14, L - 0.04), sheet, frame, 0, top - 0.07, Z0 + L / 2);
+    mesh(new THREE.BoxGeometry(W + 0.12, 0.95, 0.08), wood, frame, 0, 0.48, Z0 - 0.02);                  // headboard
+    mesh(new THREE.BoxGeometry(W + 0.12, 0.42, 0.07), wood, frame, 0, 0.21, Z0 + L);                     // footboard
+    const pil = mesh(new THREE.SphereGeometry(0.3, 18, 10), pillowM, frame, 0, top + 0.06, Z0 + 0.14); pil.scale.set(1.45, 0.32, 0.6);
+    const legs = [[-1, 0], [1, 0], [-1, 1], [1, 1]].map(([sx, k]) => mesh(new THREE.BoxGeometry(0.08, top - 0.28, 0.08), wood, frame, sx * (W / 2), (top - 0.28) / 2, Z0 + 0.06 + k * (L - 0.12)));
+    // the blanket: flat over the bed, and its turned-down top edge that rises to the sleeper's chest
+    const flat = mesh(new THREE.BoxGeometry(W + 0.06, 0.06, L - 0.5), blanketM, frame, 0, top + 0.02, Z0 + 0.5 + (L - 0.5) / 2);
+    const edge = new THREE.Group(); edge.position.set(0, top, 0.16); frame.add(edge);
+    const flap = mesh(new THREE.BoxGeometry(W + 0.06, 1, 0.07), blanketM, edge, 0, 0.5, 0);
+    const lump = mesh(new THREE.SphereGeometry(0.5, 22, 14), blanketM, frame, 0, top + 0.05, 0.05);
+    return {
+      grip: 0,
+      apply(ps) {
+        const cv = clamp(ps.cover ?? 0), ov = clamp(ps.over ?? 0), sm = clamp(ps.smash ?? 0);
+        flap.scale.y = Math.max(0.05, 0.08 + 0.32 * cv); flap.position.y = flap.scale.y / 2; edge.visible = cv > 0.02 && ov < 0.98;
+        lump.visible = ov > 0.02; lump.scale.set(1.05 * ov, 1.25 * ov, 0.95 * ov);
+        for (const l of legs) l.scale.y = Math.max(0.05, 1 - sm);
+        frame.position.y = -(top - 0.28) * 0.95 * sm; frame.rotation.z = 0.06 * sm;
+      },
+    };
+  },
+  // a bedside table (its top at 0.5) with a drawer; smash 0..1 flattens it
+  nightstand(P) {
+    const wood = mat("#c58f5e", { roughness: 0.7 }), knob = mat("#6b4423");
+    const g = new THREE.Group(); P.whole.add(g);
+    mesh(new THREE.BoxGeometry(0.46, 0.5, 0.4), wood, g, 0, 0.25, 0);
+    mesh(new THREE.BoxGeometry(0.4, 0.16, 0.02), mat("#d9a676", { roughness: 0.7 }), g, 0, 0.36, 0.205);
+    mesh(new THREE.SphereGeometry(0.02, 8, 6), knob, g, 0, 0.36, 0.22);
+    return { grip: 0.5, apply(ps) { const q = clamp(ps.smash ?? 0); g.scale.set(1 + 0.3 * q, Math.max(0.05, 1 - 0.85 * q), 1 + 0.2 * q); } };
+  },
+  // a window's curtains (their middle at the origin, hung at the top y 0.7, 1.4 wide), open 0..1 draws them aside
+  curtains(P) {
+    const m = mat("#e86f6f", { roughness: 0.85, side: THREE.DoubleSide });
+    const panels = [-1, 1].map((s) => { const g = new THREE.Group(); P.whole.add(g); for (let k = 0; k < 4; k++) { const f = mesh(new THREE.CylinderGeometry(0.045, 0.06, 1.4, 10), m, g, s * (0.09 + k * 0.08), 0, 0.03 * (k % 2)); f.castShadow = false; } return [s, g]; });
+    mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.7, 8), mat("#6b4423"), P.whole, 0, 0.72, 0).rotation.z = Math.PI / 2;
+    return { grip: 0, apply(ps) { const o = clamp(ps.open ?? 0); for (const [s, g] of panels) { g.position.x = s * (0.0 + 0.5 * o); g.scale.x = 1 - 0.45 * o; } } };
+  },
   // a bus-stop bench (its seat at SEAT_Y, like a chair, so "sit" works), facing +z
   bench(P) {
     const slat = mat("#b97a45", { roughness: 0.7 }), metal = mat("#3b4250", { roughness: 0.5, metalness: 0.3 });
@@ -540,7 +617,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

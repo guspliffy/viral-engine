@@ -2,7 +2,7 @@ import { EXPRESSIONS, blendExpr } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { isDance, applyDance } from "./dance.js";
-import { SEAT_Y } from "./props3d.js";
+import { SEAT_Y, propState } from "./props3d.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -34,6 +34,13 @@ function phases(sb, actor, def, t) {
   return { flapPhase: P.flap[k] + f * r, chargePhase: P.charge[k] + c * r };
 }
 
+// where a "ride" action puts its rider at time u: the prop's position plus the offset turned with the prop
+function rideAt(sb, a, u) {
+  const spec = (sb.props || []).find((q) => q.id === a.prop); if (!spec) return { x: 0, y: 0, z: 0, yaw: 0 };
+  const ps = propState(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1, [ox, oy, oz] = (a.off || [0, 0, 0]).map((v) => v * s);
+  return { x: ps.x + Math.cos(r) * ox + Math.sin(r) * oz, y: ps.y + oy, z: ps.z - Math.sin(r) * ox + Math.cos(r) * oz, yaw: r + ((a.yaw ?? 0) * Math.PI) / 180 };
+}
+
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor;
   const st = {
@@ -44,7 +51,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
   };
-  let autoBlink = true, airSince = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
+  let autoBlink = true, airSince = null, riding = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
   let idle = 1, sink = 0, holdBlink = true;   // a "still" turns the idle breathing and sway down (see below the loop)
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
@@ -189,8 +196,22 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "release": break;
       // the held prop's angle in degrees, [forward, outward], instead of the one the arm pose gives; to: null hands it back
       case "tilt": st.propTilt = { from: st.propTilt || null, to: a.to ? a.to.map((d) => (d * Math.PI) / 180) : null, k: e }; break;
+      // riding a prop (a car, a bike, a cart, a bus roof): from here on x / y / z / yaw follow the prop, at `off`
+      // [x, y, z] in the prop's own frame and `yaw` degrees from its heading, eased in over dur; actions after it
+      // (hops, turns) still add on top. { do: "ride", prop: null } gets off where the prop has carried it.
+      case "ride": {
+        if (riding) { const T = rideAt(sb, riding.a, a.at); [st.x, st.y, st.z, st.yaw] = [T.x, T.y + (st.y - riding.from.y), T.z, T.yaw]; riding = null; }
+        if (a.prop) riding = { a, from: { x: st.x, y: st.y, z: st.z, yaw: st.yaw } };
+        break;
+      }
       default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
     }
+  }
+  if (riding) {
+    const { a, from } = riding, T = rideAt(sb, a, t), k = ease(a.ease || "inOut")(prog(t, a.at, a.dur ?? 0.3));
+    st.x = lerp(from.x, T.x, k) + (st.x - from.x); st.y = lerp(from.y, T.y, k) + (st.y - from.y); st.z = lerp(from.z, T.z, k) + (st.z - from.z);
+    st.yaw = lerp(from.yaw, T.yaw, k) + (st.yaw - from.yaw);
+    if (a.sit) st.sit = Math.max(st.sit || 0, k);
   }
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
