@@ -99,7 +99,7 @@ export function actorState(sb, actor, def, t) {
         const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: 0, scale: 1 };
         const k = ease("inOut")(prog(t, a.at, a.dur ?? 0.35)), sc = ch.scale ?? 1, yaw = ((ch.rot ?? 0) * Math.PI) / 180;
         st.x = lerp(st.x, ch.x + Math.sin(yaw) * 0.03, k); st.z = lerp(st.z, ch.z + Math.cos(yaw) * 0.03, k);
-        st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k;
+        st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat;
         const hands = a.hands || "lap", pose = { R: hands === "hold" ? "hold" : hands, L: hands === "hold" ? "lap" : hands };
         for (const s of ["R", "L"]) st.arms[s] = { from: st.arms[s].pose, pose: pose[s], p: k };
         break;
@@ -155,7 +155,8 @@ export function flashAt(sb, t) {
     if (f.do !== "flash" || t < f.at) continue;
     const d = f.dur ?? 0.35, k = (t - f.at) / d;
     // default peak 0.8: a full-white frame reads as a glitch and blanks the picture for a frame
-    if (k <= 1) o = Math.max(o, (f.peak ?? 0.8) * (k < 0.15 ? k / 0.15 : 1 - (k - 0.15) / 0.85));
+    // a flash hits at full strength on its first frame (so a cut or a swap on that frame is covered) and fades out
+    if (k <= 1) o = Math.max(o, (f.peak ?? 0.8) * (k < 0.15 ? 1 : 1 - (k - 0.15) / 0.85));
   }
   return clamp(o);
 }

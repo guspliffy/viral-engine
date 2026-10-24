@@ -312,14 +312,14 @@
      "do": "turn",
      "to": "camera",
      "dur": 0.03,
-     "at": 0.01
+     "at": 0
     },
     {
      "who": "gun",
      "do": "swap",
      "form": "fries",
      "dur": 0.4,
-     "at": 0.02
+     "at": 0
     },
     {
      "who": "gun",
@@ -640,14 +640,14 @@
      "do": "swap",
      "form": "potato",
      "dur": 0.3,
-     "at": 0.57
+     "at": 0.55
     },
     {
      "who": "wiz",
      "do": "swap",
      "form": "fries",
      "dur": 0.4,
-     "at": 0.57
+     "at": 0.55
     },
     {
      "who": "wiz",

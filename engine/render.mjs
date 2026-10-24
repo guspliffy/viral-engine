@@ -102,6 +102,10 @@ function applyStyle(sb, style) {
   const keep = (x) => !x.only || x.only === style || (Array.isArray(x.only) && x.only.includes(style));
   const out = { ...sb };
   for (const k of ["actions", "fx", "captions", "sfx", "shots"]) out[k] = (sb[k] || []).filter(keep);
+  // manga devices (black-silhouette impact frames, speed lines) read as render errors outside the anime style:
+  // there they become a short shake, unless a storyboard asks for them in this style by name
+  const named = (f) => f.only === style || (Array.isArray(f.only) && f.only.includes(style));
+  if (style !== "anime") out.fx = out.fx.flatMap((f) => (f.do === "impact" || f.do === "speedlines") && !named(f) ? (f.do === "impact" ? [{ do: "shake", at: f.at, dur: 0.25, amp: 0.04 }] : []) : [f]);
   return out;
 }
 

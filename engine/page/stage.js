@@ -97,14 +97,16 @@ function drawCaption(c) {
   });
   ctx.restore();
 }
-// manga focus lines converging on a point; the pattern changes 15 times a second so they flicker like drawn frames
+// manga focus lines converging on a point
 function speedLines(f, t, i) {
   const d = f.dur ?? 0.6, k = (t - f.at) / d;
   if (k < 0 || k > 1) return;
-  const r = rng(9001 + i * 131 + Math.floor(t * 15) * 7), [cx, cy] = f.center || [540, 860], n = f.count ?? 120;
+  // the pattern changes 6 times a second (drawn-frame feel without strobing); between changes it drifts inward
+  const step = Math.floor(t * 6), drift = (t * 6 - step) * 40;
+  const r = rng(9001 + i * 131 + step * 7), [cx, cy] = f.center || [540, 860], n = f.count ?? 120;
   ctx.save(); ctx.globalAlpha = Math.min(1, k * 8, (1 - k) * 8) * (f.alpha ?? 0.85); ctx.fillStyle = f.color || "#1a1210";
   for (let j = 0; j < n; j++) {
-    const a = ((j + r() * 0.9) / n) * Math.PI * 2, inner = (f.inner ?? 420) + r() * 320, w = 0.003 + r() * 0.011, outer = 2000;
+    const a = ((j + r() * 0.9) / n) * Math.PI * 2, inner = (f.inner ?? 420) + r() * 320 - drift, w = 0.003 + r() * 0.011, outer = 2000;
     ctx.beginPath();
     ctx.moveTo(cx + Math.cos(a - w) * outer, cy + Math.sin(a - w) * outer);
     ctx.lineTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner);
@@ -213,6 +215,7 @@ function pose(t) {
   };
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
+    p.held = !!ps.hold;
     if (ps.hold) {
       const h = handAt(ps.hold.who, ps.hold.hand);
       if (h) {
@@ -278,8 +281,49 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: caps, actors: actorsOut };
+  return { t, captions: caps, actors: actorsOut, clips: clipping() };
 }
+// Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
+// prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
+// 1 = reaching the centre. Only visible meshes; held props are skipped (they sit in a hand on purpose).
+function clipping() {
+  const out = [], tmp = new THREE.Box3(), inv = new THREE.Matrix4(), m = new THREE.Matrix4();
+  const bodies = actors.map((a) => ({ id: a.c.id, a, mesh: a.ch.body })).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
+  const depthIn = (body, mesh) => {
+    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
+    if (!body.mesh.geometry.boundingBox) body.mesh.geometry.computeBoundingBox();
+    const eb = body.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    inv.copy(body.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, mesh.matrixWorld);
+    tmp.copy(mesh.geometry.boundingBox).applyMatrix4(m);   // the other part, in the body's own space
+    const q = tmp.clampPoint(c, new THREE.Vector3()).sub(c);
+    const d2 = (q.x / h.x) ** 2 + (q.y / h.y) ** 2 + (q.z / h.z) ** 2;
+    return d2 < 1 ? 1 - Math.sqrt(d2) : 0;
+  };
+  // body vs body: points on the other ellipsoid's surface, tested against this one (boxes would overlap too early)
+  const DIRS = []; for (let i = 0; i < 42; i++) { const y = 1 - (2 * (i + 0.5)) / 42, r = Math.sqrt(1 - y * y), a = i * 2.39996; DIRS.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r)); }
+  const bodyIn = (b, o) => {
+    const eb = b.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    const ob = o.mesh.geometry.boundingBox, oc = ob.getCenter(new THREE.Vector3()), oh = ob.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    inv.copy(b.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, o.mesh.matrixWorld);
+    let best = 1e9;
+    for (const d of DIRS) { const q = new THREE.Vector3(oc.x + d.x * oh.x, oc.y + d.y * oh.y, oc.z + d.z * oh.z).applyMatrix4(m).sub(c); best = Math.min(best, (q.x / h.x) ** 2 + (q.y / h.y) ** 2 + (q.z / h.z) ** 2); }
+    return best < 1 ? 1 - Math.sqrt(best) : 0;
+  };
+  for (const b of bodies) {
+    b.a.ch.root.updateMatrixWorld(true);
+    for (const p of props) {
+      const st = poseStates[b.id] && poseStates[b.id].st;
+      if (p.held || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;   // sitting on it is fine
+      let worst = 0;
+      p.root.updateMatrixWorld(true);
+      p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) worst = Math.max(worst, depthIn(b, o)); });
+      if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
+    }
+    for (const o of bodies) if (o !== b && o.id > b.id) { const d = Math.max(bodyIn(b, o), bodyIn(o, b)); if (d > 0.05) out.push({ who: b.id, with: o.id, depth: Math.round(d * 100) / 100 }); }
+  }
+  return out;
+}
+
 let silRT, silMat;
 function silhouette() {
   const w = W / 4, h = H / 4;

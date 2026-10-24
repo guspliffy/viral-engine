@@ -29,6 +29,10 @@ export const RULES = {
   loopSSIM: 0.55, // last frame vs first frame, when the storyboard says loop: true
   wordsPerSec: 3.5, // reading speed of a caption over its time on screen
   gore: /blood|gore|splat|guts|mash|sever|dismember|decapit/i,
+  // clean-render guards
+  clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
+  popDiff: 6, popRatio: 3, // a one-frame jump in the picture this much bigger than its neighbours, away from cuts/fx
+  strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
 };
 
 function args() {
@@ -87,6 +91,23 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
     let run = 0, worst = 0, at = 0;
     for (const f of frames.slice(1)) { if ((f.YDIF || 0) < RULES.stillDiff) { run += 1 / fps; if (run > worst) { worst = run; at = f.t - run; } } else run = 0; }
     add(worst > RULES.stillHold ? "fail" : worst > 1.0 ? "warn" : "pass", "still-hold", `longest near-still stretch ${worst.toFixed(1)} s${worst > 1 ? " from " + at.toFixed(1) + " s" : ""}`);
+  }
+
+  // --- clean picture: one-frame pops away from cuts and effects, strobing
+  if (frames.length > 2) {
+    const cuts = (sb?.shots || []).map((x) => x.at), fxs = (sb?.fx || []).filter((f) => ["flash", "impact", "poof", "shake"].includes(f.do)).map((f) => [f.at - 0.05, f.at + (f.dur ?? 0.3) + 0.1]);
+    const explained = (t) => cuts.some((c) => Math.abs(t - c) < 1.5 / fps) || fxs.some(([a, b]) => t >= a && t <= b) || t < 1.5 / fps;
+    const pops = [];
+    for (let i = 1; i < frames.length - 1; i++) {
+      const d = frames[i].YDIF || 0, nb = Math.max(frames[i - 1].YDIF || 0, frames[i + 1].YDIF || 0);
+      if (d > RULES.popDiff && d > RULES.popRatio * nb && !explained(frames[i].t)) pops.push(frames[i].t);
+    }
+    add(pops.length ? "warn" : "pass", "pops", pops.length ? `sudden one-frame jumps at ${pops.slice(0, 6).map((t) => t.toFixed(2) + "s").join(", ")}: check for popping objects` : "no unexplained one-frame jumps");
+    const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
+    let worstJ = 0, atJ = 0; for (const t of jumps) { const n = jumps.filter((u) => u >= t && u < t + 1).length; if (n > worstJ) { worstJ = n; atJ = t; } }
+    add(worstJ > RULES.strobeMax ? "fail" : "pass", "strobe", worstJ > RULES.strobeMax ? `${worstJ} big brightness jumps within 1 s from ${atJ.toFixed(2)} s: strobing reads as a glitch` : `at most ${worstJ} big brightness jumps per second`);
+    if (sb?.shots && sb?.fx) for (const f of sb.fx.filter((x) => x.do === "flash"))
+      for (const c of cuts) if (f.at - c > 0.001 && f.at - c <= 0.1) add("warn", "cut-flash", `flash at ${f.at}s starts just after the cut at ${c}s: the new shot shows a frame before the flash`);
   }
 
   // --- sound: present, not silent, loudness and true peak
@@ -157,6 +178,23 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
         if (cov > RULES.coverFail) { hd.run += step; if (hd.run > hd.max) { hd.max = hd.run; hd.at = s.t; } } else hd.run = 0;
         held.set(key, hd);
       });
+    }
+    // characters passing through props or each other (layout "clips", from the 3D engine)
+    if (layout.samples.some((x) => x.clips)) {
+      const allowed = (who, t) => (sb?.allowClip || []).some((a) => (a.who === who || a.with === who) && t >= a.from && t <= a.to);
+      const runs = new Map();
+      for (const x of layout.samples) for (const c of x.clips || []) {
+        if (allowed(c.who, x.t)) continue;
+        const k = `${c.who} / ${c.with}`, r = runs.get(k) || { max: 0, at: 0, run: 0, held: 0, last: -1 };
+        if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
+        if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
+        runs.set(k, r);
+      }
+      for (const [k, r] of runs) {
+        const lvl = r.held + 1e-6 >= RULES.clipHold ? "fail" : r.max > RULES.clipWarn ? "warn" : "pass";
+        add(lvl, "clipping", `${k}: up to ${Math.round(r.max * 100)}% into each other at ${r.at.toFixed(1)}s${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}`);
+      }
+      if (!runs.size) add("pass", "clipping", "nobody passes through props or each other");
     }
     for (const [k, t] of outside) add("fail", "caption-safe-zone", `"${k}" leaves the safe zone at ${t.toFixed(2)}s`);
     for (const [k, w] of worst) {
