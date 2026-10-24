@@ -183,7 +183,7 @@ function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
     });
     if (a.ch.limbMat) { a.ch.limbMat.roughness = 0.32; a.ch.limbMat.envMapIntensity = 0.8; }
   }
-  const shadows = contactShadows(scene, actors, 0.42);
+  const shadows = contactShadows(scene, actors, 0.6);
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new RenderPass(scene, camera));
@@ -237,7 +237,8 @@ function patchToon(m, o) {
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
           col *= mix(0.86, 1.0, smoothstep(-0.75, 0.1, normal.y));
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
-          col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK;
+          // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
+          col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
           col += uSpec * smoothstep(0.97 - sw, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);
           outgoingLight = col + totalEmissiveRadiance;
@@ -250,7 +251,6 @@ function patchToon(m, o) {
 
 function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec }) {
   const night = setSpec && setSpec.type === "kitchen";
-  // one warm key and a flat cool ambient: lit areas warm, shadows the same colours shifted to blue-violet
   // one key light: it only decides where light and shadow fall (patchToon sets the colours)
   relight(scene, [dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
@@ -261,6 +261,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
+  // potato skin: a warm yellow lit side and an ochre shade (the reference's two bands), with the skin mottling showing
+  ROLE.skin = night ? ROLE.char : { lit: [1.0, 1.1, 0.92], shade: [0.84, 0.6, 0.42] };
+  const skins = new Set(actors.map((a) => a.ch.skin));
+  for (const a of actors) if (a.ch.skin) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
+  // blush is painted softer in the drawn look
+  for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
   const toon = new Map(), made = new Set(), noLine = { visible: false };
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
@@ -276,12 +282,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
         color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveIntensity: m.emissiveIntensity ?? 1,
       });
-      patchToon(t, isSet ? { ...ROLE.set, rim: "#fff4e0", rimK: 0, spec: 0, key: "set" } : { ...ROLE.char, rim: "#fff1d6", rimK: 0.28, spec: 0, key: "char" });
-      // coloured line art: a dark shade of the surface colour; the set gets thinner lines than the characters
-      const thick = isSet ? 0.0018 : Math.min(m.userData.outline ?? 0.0032, 0.0032);
+      const role = isSet ? "set" : skins.has(m) ? "skin" : "char";
+      patchToon(t, { ...ROLE[role], rim: "#fff1d6", rimK: isSet ? 0 : 0.28, spec: 0, key: role });
+      // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
+      // thinner lines than the characters
+      const thick = isSet ? 0.0022 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.3 : 0.32), alpha: 1 };
+      t.userData.outlineParameters = m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.3 : 0.26), alpha: 1 };
       toon.set(m, t); made.add(t);
     }
     return t;
@@ -291,7 +299,6 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
-  // diffusion: a wide, gentle glow over everything bright (the soft "anime compositing" sheen)
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
   // (eyes, clouds) sit at 1 and stay clean
   composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));

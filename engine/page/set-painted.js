@@ -103,7 +103,7 @@ function paintHills(rnd, o) {
 
 function paintGround(rnd) {
   const [c, g] = canvas(512, 512);
-  g.fillStyle = "#7cc44e"; g.fillRect(0, 0, 512, 512);
+  g.fillStyle = "#88bd5a"; g.fillRect(0, 0, 512, 512);
   const [pc, pg] = canvas(512, 512);
   for (let i = 0; i < 40; i++) { pg.fillStyle = rnd() < 0.5 ? "rgba(170,220,90,0.35)" : "rgba(60,130,50,0.3)"; pg.beginPath(); pg.ellipse(rnd() * 512, rnd() * 512, 40 + rnd() * 80, 20 + rnd() * 40, rnd() * 3, 0, Math.PI * 2); pg.fill(); }
   g.filter = "blur(10px)"; g.drawImage(pc, 0, 0); g.filter = "none";
@@ -123,7 +123,7 @@ export function buildHills(scene, S = {}) {
   const layers = [
     { z: -60, w: 80, ridge: 15, top: 200, a1: 95, a2: 30, f1: 0.003, f2: 0.011, light: "#9fd47e", dark: "#6aa85a", trees: "#4c8a4a" },
     { z: -34, w: 50, ridge: 6.6, top: 200, a1: 110, a2: 30, f1: 0.0026, f2: 0.009, light: "#8fd263", dark: "#58a046", trees: "#3c7a3a" },
-    { z: -18, w: 32, ridge: 2.3, top: 200, a1: 80, a2: 20, f1: 0.002, f2: 0.008, light: "#9bdc62", dark: "#62b048", trees: null },
+    { z: -18, w: 32, ridge: 2.3, top: 200, a1: 80, a2: 20, f1: 0.002, f2: 0.008, light: "#a3d66c", dark: "#6aa850", trees: "#4a8a40" },
   ];
   for (const L of layers) { const h = (L.ridge + 2) / (1 - L.top / 512); card(group, paintHills(rnd, { ...L, p1: rnd() * 6, p2: rnd() * 6 }), L.w, h, 0, h / 2 - 2, L.z); }
 
