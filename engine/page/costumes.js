@@ -3,18 +3,30 @@ import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { castCostume, CAST_TYPES } from "./costumes-cast.js";
 
+// the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
+function leafGeometry(w, len, thick) {
+  const g = new THREE.SphereGeometry(1, 24, 16), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i), z = p.getZ(i), k = (y + 1) / 2;   // 0 at the base, 1 at the tip
+    const taper = Math.sin(Math.PI * Math.min(1, 0.08 + k * 0.92)) ** 0.8 * (1 - 0.35 * k);
+    p.setXYZ(i, x * w * taper, k * len, z * thick * taper + 0.25 * thick * (x * x));   // a slight cup along the midrib
+  }
+  g.computeVertexNormals();
+  return g;
+}
 function sprout(color) {
   const g = new THREE.Group();
-  const m = new THREE.MeshStandardMaterial({ color, roughness: 0.45 });
+  const m = new THREE.MeshStandardMaterial({ color, roughness: 0.45, side: THREE.DoubleSide });
+  const vein = new THREE.MeshStandardMaterial({ color: new THREE.Color(color).multiplyScalar(0.7), roughness: 0.5 });
   const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.016, 0.07, 10), m); stem.position.y = 0.03; g.add(stem);
+  const leafG = leafGeometry(0.056, 0.15, 0.014);
   const leaves = [-1, 1].map((s) => {
     const pivot = new THREE.Group(); pivot.position.y = 0.06; g.add(pivot);
-    const leaf = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 12), m);
-    leaf.scale.set(0.055, 0.012, 0.11); leaf.position.set(s * 0.07, 0.03, 0); leaf.rotation.set(0, s * 1.57, s * 0.45);
-    leaf.castShadow = true; pivot.add(leaf);
+    const leaf = new THREE.Mesh(leafG, m); leaf.rotation.set(-0.15, s * 0.25, -s * 0.85); leaf.castShadow = true; pivot.add(leaf);
+    const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.003, 0.0045, 0.115, 6), vein); rib.position.set(0, 0.062, 0.01); leaf.add(rib);
     return { pivot, s };
   });
-  return { group: g, droop(d) { for (const L of leaves) L.pivot.rotation.z = -L.s * (0.15 - 0.9 * d); } };
+  return { group: g, droop(d) { for (const L of leaves) L.pivot.rotation.z = -L.s * 0.9 * d; } };
 }
 
 function wizardHat(C) {
