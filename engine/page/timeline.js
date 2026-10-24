@@ -95,6 +95,24 @@ export function actorState(sb, actor, def, t) {
         if (p < 1) st.squash *= 1 + 0.08 * k; else { const after = t - (a.at + d); if (after < 0.22) st.squash *= 1 - 0.28 * Math.sin((after / 0.22) * Math.PI); }
         break;
       }
+      // climbing hand over hand (a tree): to { y, x?, z? } in `steps` pulls (default 4), arms reaching up in turn; it
+      // stays up there (no hover) until the next climb or a drop
+      case "climb": {
+        const to = a.to || {}, n = a.steps ?? 4, local = Math.min(p, 0.9999) * n, j = Math.floor(local), q = local - j;
+        const k = p >= 1 ? 1 : (j + ease("inOut")(q)) / n;
+        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
+        airSince = null; st.flap = 0;
+        if (p < 1) {
+          const [up, dn] = j % 2 ? ["L", "R"] : ["R", "L"];
+          st.arms[up] = { from: "hold", pose: "up", p: Math.sin(q * Math.PI * 0.5) };
+          st.arms[dn] = { from: "up", pose: "hold", p: Math.sin(q * Math.PI * 0.5) };
+          st.squash *= 1 - 0.05 * Math.sin(q * Math.PI);
+        } else {   // keep the last pull's arms (one up, one holding) so the next "arm" tweens from there
+          const [up, dn] = (n - 1) % 2 ? ["L", "R"] : ["R", "L"];
+          st.arms[up] = { from: "up", pose: "up", p: 1 }; st.arms[dn] = { from: "hold", pose: "hold", p: 1 };
+        }
+        break;
+      }
       // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table or hold (the right hand holds)
       case "sit": {
         const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: 0, scale: 1 };

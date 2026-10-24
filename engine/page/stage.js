@@ -335,6 +335,8 @@ function silhouette() {
   const bg = scene.background, fog = scene.fog;
   for (const o of setObjs) o.visible = false;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
+  // props are scenery (a tree's leaves behind the title are fine); only the characters count
+  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
   // glows and other see-through parts are effects, not the character's body
   const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && m.transparent && m.opacity < 0.95 || o.isSprite || o.isPoints) glass.push(o); });
   for (const o of glass) o.visible = false;
@@ -345,6 +347,7 @@ function silhouette() {
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
   for (const o of setObjs) o.visible = true;
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
+  props.forEach((p, i) => (p.root.visible = prv[i]));
   for (const o of glass) o.visible = true;
   return px;
 }

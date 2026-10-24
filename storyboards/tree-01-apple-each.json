@@ -1,0 +1,3133 @@
+{
+ "id": "tree-01-apple-each",
+ "title": "TREE: how each fighter climbs a tree",
+ "format": "each-character-vs-X, one continuous take: fighters queue in, each gets an apple from the tree their own way (a relatable habit + their signature), the apples count down, biggest last",
+ "fps": 30,
+ "set": {
+  "type": "forest"
+ },
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": true,
+ "loop": true,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    -0.31000000000000005,
+    -0.6
+   ],
+   "face": "3q-right",
+   "expr": "focused",
+   "seed": 1.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "deadpan",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "evil",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "focused",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "focused",
+   "seed": 6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "stern",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    -2.7,
+    -1.3
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: plans every handhold, then just floats up",
+   "at": 0,
+   "len": 1.988,
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0,
+     "side": "both",
+     "pose": "hold",
+     "dur": 0.008
+    },
+    {
+     "who": "ast",
+     "do": "lean",
+     "at": 0,
+     "to": 12,
+     "dur": 0.008
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.075,
+     "to": [
+      0.3,
+      0.8
+     ],
+     "dur": 0.09
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.225,
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0.09
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.375,
+     "to": [
+      0.3,
+      0.8
+     ],
+     "dur": 0.09
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.488,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.112
+    },
+    {
+     "who": "ast",
+     "do": "lean",
+     "at": 0.488,
+     "to": 0,
+     "dur": 0.09
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 0.488,
+     "expr": "eager"
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 0.525,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.375
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.9,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 9
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-ast",
+     "at": 0.9,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "ast",
+     "do": "grab",
+     "prop": "apple-ast",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 0.9
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 0.938,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 0.975,
+     "expr": "delighted"
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 1.125,
+     "to": {
+      "y": 0,
+      "z": 0.05
+     },
+     "dur": 0.262
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.388,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.388,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.538
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "apple-ast",
+     "at": 1.987,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rea: gets up fine, then is too scared to come down",
+   "at": 1.538,
+   "len": 2.538,
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "climb",
+     "at": 0.25,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.413,
+     "steps": 4
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.663,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 8
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-rea",
+     "at": 0.663,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "apple-rea",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 0.663
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.738,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 0.888,
+     "to": [
+      0,
+      -0.9
+     ],
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.888,
+     "side": "both",
+     "pose": "hold",
+     "dur": 0.09
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0.925,
+     "expr": "shocked"
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 0.962,
+     "to": -6,
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.038,
+     "to": 6,
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.112,
+     "to": -6,
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.188,
+     "to": 6,
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.263,
+     "to": 0,
+     "dur": 0.075
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 1.525,
+     "expr": "deadpan"
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "at": 1.525,
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.6,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.112
+    },
+    {
+     "who": "rea",
+     "do": "drop",
+     "at": 1.6,
+     "to": 0,
+     "dur": 0.262
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 1.6,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.262
+    },
+    {
+     "sfx": "land",
+     "at": 1.862,
+     "gain": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 1.938,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 1.938,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.088
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 2.538
+    },
+    {
+     "do": "prop",
+     "id": "apple-rea",
+     "at": 2.537,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "sor: cheats: a portal straight to the top",
+   "at": 3.625,
+   "len": 2.013,
+   "do": [
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.188
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.25,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "portal-a",
+     "at": 0.288,
+     "dur": 0.188,
+     "ease": "back",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "portal-b",
+     "at": 0.288,
+     "dur": 0.188,
+     "ease": "back",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "sor",
+     "do": "grow",
+     "at": 0.475,
+     "to": 0.01,
+     "dur": 0.112,
+     "ease": "in"
+    },
+    {
+     "who": "sor",
+     "do": "fly",
+     "at": 0.595,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.008
+    },
+    {
+     "who": "sor",
+     "do": "grow",
+     "at": 0.625,
+     "to": 1,
+     "dur": 0.15,
+     "ease": "back"
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.738,
+     "to": 0,
+     "dur": 0.225
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.738,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "portal-a",
+     "at": 0.775,
+     "dur": 0.188,
+     "ease": "in",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "portal-b",
+     "at": 0.775,
+     "dur": 0.188,
+     "ease": "in",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.775,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 7
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-sor",
+     "at": 0.775,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "sor",
+     "do": "grab",
+     "prop": "apple-sor",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 0.775
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0.85,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 0.888,
+     "expr": "smug"
+    },
+    {
+     "who": "sor",
+     "do": "fly",
+     "at": 1.112,
+     "to": {
+      "y": 0,
+      "z": 0.05
+     },
+     "dur": 0.262
+    },
+    {
+     "sfx": "charge",
+     "at": 0.288,
+     "dur": 0.4,
+     "gain": 0.22
+    },
+    {
+     "sfx": "pop",
+     "at": 0.565,
+     "gain": 0.3
+    },
+    {
+     "sfx": "pop",
+     "at": 0.625,
+     "gain": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 1.413,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 1.413,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.563
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 2.013
+    },
+    {
+     "do": "prop",
+     "id": "apple-sor",
+     "at": 2.013,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "wiz: a spell to make it easy shrinks the tree to a bonsai",
+   "at": 5.188,
+   "len": 2.5,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.25,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.225
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.15,
+      1.7,
+      -0.3
+     ],
+     "at": 0.475,
+     "dur": 0.3,
+     "puffs": 4,
+     "sparks": 10,
+     "spark": "#c8b6ff"
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.49,
+     "dur": 0.188,
+     "ease": "in",
+     "set": {
+      "scale": 0.35
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.55,
+     "to": 0,
+     "dur": 0.112
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.663,
+     "expr": "shocked"
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 0.663,
+     "to": [
+      0.4,
+      -0.6
+     ],
+     "dur": 0.09
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.7,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "at": 0.813,
+     "amount": 0.12,
+     "dur": 0.225
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 0.813,
+     "to": [
+      0.4,
+      -0.7
+     ],
+     "dur": 0.09
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.888,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 6
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-wiz",
+     "at": 0.888,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0.35
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-wiz",
+     "at": 0.895,
+     "dur": 0.188,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "apple-wiz",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 0.888
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.962,
+     "expr": "delighted"
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.413,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.112
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 1.413,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.09
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.15,
+      0.5,
+      -0.3
+     ],
+     "at": 1.525,
+     "dur": 0.5,
+     "puffs": 7,
+     "sparks": 10,
+     "spark": "#c8b6ff"
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 1.54,
+     "dur": 0.225,
+     "ease": "back",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.713,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.713,
+     "expr": "smug"
+    },
+    {
+     "sfx": "pop",
+     "at": 0.475,
+     "gain": 0.3
+    },
+    {
+     "sfx": "pop",
+     "at": 1.525,
+     "gain": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 1.9,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 1.9,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.05
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "apple-wiz",
+     "at": 2.5,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "dra: gets stuck halfway, then remembers he can fly",
+   "at": 7.238,
+   "len": 2.387,
+   "do": [
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "climb",
+     "at": 0.25,
+     "to": {
+      "y": 0.4
+     },
+     "dur": 0.413,
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.663,
+     "expr": "shocked"
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 0.663,
+     "to": [
+      0,
+      -0.8
+     ],
+     "dur": 0.075
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.7,
+     "to": -8,
+     "dur": 0.09
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.79,
+     "to": 8,
+     "dur": 0.09
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.88,
+     "to": 0,
+     "dur": 0.075
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 0.962,
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.075
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1,
+     "expr": "delighted"
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 1.038,
+     "to": 1,
+     "dur": 0.112
+    },
+    {
+     "who": "dra",
+     "do": "fly",
+     "at": 1.075,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.225
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 1.3,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 5
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-dra",
+     "at": 1.3,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "dra",
+     "do": "grab",
+     "prop": "apple-dra",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 1.3
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.338,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "dra",
+     "do": "fly",
+     "at": 1.487,
+     "to": {
+      "y": 0,
+      "z": 0.05
+     },
+     "dur": 0.262
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 1.75,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.075,
+     "dur": 0.3,
+     "gain": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.787,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 1.787,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.937
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 2.387
+    },
+    {
+     "do": "prop",
+     "id": "apple-dra",
+     "at": 2.387,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "phx: races up to show off, backflips down, faceplants",
+   "at": 9.175,
+   "len": 2.5,
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "climb",
+     "at": 0.25,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.24,
+     "steps": 4
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.49,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-phx",
+     "at": 0.49,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "apple-phx",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 0.49
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0.513,
+     "to": "camera",
+     "dur": 0.09
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.55,
+     "side": "L",
+     "pose": "up",
+     "dur": 0.112
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 0.76,
+     "to": 1,
+     "dur": 0.112
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "at": 0.775,
+     "height": 0.35,
+     "dur": 0.413
+    },
+    {
+     "who": "phx",
+     "do": "drop",
+     "at": 0.775,
+     "to": 0,
+     "dur": 0.413
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.775,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.413
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "at": 0.775,
+     "to": -360,
+     "dur": 0.375
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "at": 1.165,
+     "to": 85,
+     "dur": 0.075,
+     "ease": "in"
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.165,
+     "expr": "dizzy"
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 1.225,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.225,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.112
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "at": 1.638,
+     "to": 0,
+     "dur": 0.188,
+     "ease": "out"
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.75,
+     "expr": "cocky"
+    },
+    {
+     "fx": "shake",
+     "at": 1.188,
+     "dur": 0.18,
+     "amp": 0.025
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "at": 1.225,
+     "dur": 0.6,
+     "count": 5,
+     "color": "#ffe066"
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.775,
+     "dur": 0.5,
+     "gain": 0.25
+    },
+    {
+     "sfx": "land",
+     "at": 1.188,
+     "gain": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 1.9,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 1.9,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.05
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "apple-phx",
+     "at": 2.5,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "gun: can't be bothered to climb: shoots it down",
+   "at": 11.225,
+   "len": 2.125,
+   "do": [
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.25,
+     "to": [
+      0.3,
+      0.9
+     ],
+     "dur": 0.09
+    },
+    {
+     "who": "gun",
+     "do": "droop",
+     "at": 0.325,
+     "to": 1,
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.325,
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.325,
+     "expr": "deadpan"
+    },
+    {
+     "who": "gun",
+     "do": "droop",
+     "at": 0.55,
+     "to": 0,
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.55,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.55,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.588,
+     "expr": "cocky"
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.738,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-gun",
+     "at": 0.738,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-gun",
+     "at": 0.738,
+     "dur": 0.262,
+     "ease": "in",
+     "set": {
+      "y": 0.62,
+      "x": -0.16000000000000006,
+      "z": -0.35
+     }
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "apple-gun",
+     "hand": "L",
+     "dur": 0.112,
+     "at": 1
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "at": 0.738,
+     "amount": 0.06,
+     "dur": 0.075
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.85,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.925,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.038,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.075,
+     "expr": "smug"
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.26000000000000006,
+      1.3,
+      -0.5
+     ],
+     "at": 0.723,
+     "dur": 0.35,
+     "puffs": 2,
+     "sparks": 6,
+     "spark": "#ffd34d"
+    },
+    {
+     "sfx": "impact",
+     "at": 0.723,
+     "gain": 0.3
+    },
+    {
+     "sfx": "tink",
+     "at": 0.978,
+     "gain": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.525,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 1.525,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.675
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 2.125
+    },
+    {
+     "do": "prop",
+     "id": "apple-gun",
+     "at": 2.125,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "sam: slices perfect steps into the trunk, walks up",
+   "at": 12.9,
+   "len": 2.163,
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "sam",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.288,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.075
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.378,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.4,
+     "dur": 0.225,
+     "ease": "linear",
+     "set": {
+      "steps": 1
+     }
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.46,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.06
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.535,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.06
+    },
+    {
+     "who": "sam",
+     "do": "charge",
+     "at": 0.625,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "climb",
+     "at": 0.663,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.375,
+     "steps": 5
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 1.038,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-sam",
+     "at": 1.038,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "apple-sam",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 1.038
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.075,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.112,
+     "expr": "serene"
+    },
+    {
+     "who": "sam",
+     "do": "drop",
+     "at": 1.3,
+     "to": 0,
+     "dur": 0.262
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.3,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.262
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.363,
+     "dur": 0.12,
+     "gain": 0.25
+    },
+    {
+     "sfx": "tink",
+     "at": 0.415,
+     "gain": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.505,
+     "gain": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.595,
+     "gain": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.563,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.563,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.713
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 2.163
+    },
+    {
+     "do": "prop",
+     "id": "apple-sam",
+     "at": 2.162,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "all: the stubborn dad: slow, out of breath, proud",
+   "at": 14.613,
+   "len": 2.575,
+   "do": [
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "all",
+     "do": "climb",
+     "at": 0.25,
+     "to": {
+      "y": 0.42
+     },
+     "dur": 0.375,
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "droop",
+     "at": 0.625,
+     "to": 1,
+     "dur": 0.112
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.625,
+     "expr": "sad"
+    },
+    {
+     "who": "all",
+     "do": "blink",
+     "at": 0.7,
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "droop",
+     "at": 0.85,
+     "to": 0,
+     "dur": 0.112
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.85,
+     "expr": "stern"
+    },
+    {
+     "who": "all",
+     "do": "climb",
+     "at": 0.888,
+     "to": {
+      "y": 0.85
+     },
+     "dur": 0.375,
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "droop",
+     "at": 1.263,
+     "to": 1,
+     "dur": 0.112
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 1.3,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-all",
+     "at": 1.3,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "who": "all",
+     "do": "grab",
+     "prop": "apple-all",
+     "hand": "R",
+     "dur": 0.112,
+     "at": 1.3
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.338,
+     "to": "camera",
+     "dur": 0.112
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.375,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 1.413,
+     "expr": "smug"
+    },
+    {
+     "who": "all",
+     "do": "droop",
+     "at": 1.413,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "drop",
+     "at": 1.675,
+     "to": 0,
+     "dur": 0.262
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1.675,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.262
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 1.938,
+     "expr": "shocked"
+    },
+    {
+     "fx": "sparkle",
+     "who": "all",
+     "at": 1.413,
+     "dur": 0.5,
+     "count": 6
+    },
+    {
+     "sfx": "sting",
+     "at": 1.413,
+     "gain": 0.2
+    },
+    {
+     "sfx": "land",
+     "at": 1.938,
+     "gain": 0.45
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.975,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1.975,
+     "to": [
+      -0.05000000000000002,
+      0.05
+     ],
+     "dur": 0.15,
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.125
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 2.575
+    },
+    {
+     "do": "prop",
+     "id": "apple-all",
+     "at": 2.575,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "vik: hugs the tree, it falls over; puts it back",
+   "at": 16.738,
+   "len": 3.75,
+   "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.25,
+     "side": "both",
+     "pose": "table",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 0.3,
+     "amount": 0.1,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.35,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "roll": -4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.43,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "roll": 4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.53,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "roll": -3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.63,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.55,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "apples": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-vik",
+     "at": 0.55,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple-vik",
+     "at": 0.55,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "y": 0.07
+     }
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 0.9,
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 0.95,
+     "dur": 0.5,
+     "ease": "in",
+     "set": {
+      "tilt": -50,
+      "roll": -30
+     }
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1,
+     "expr": "shocked"
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1,
+     "to": [
+      0.3,
+      0.9
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1.35,
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 1.49,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "steps": 0
+     }
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.65,
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1.65,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.7,
+     "expr": "smug"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.9,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 1.9,
+     "to": [
+      0.38000000000000006,
+      0.05
+     ],
+     "dur": 0.3,
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "at": 2.2,
+     "prop": "apple-vik",
+     "hand": "R",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 2.25,
+     "expr": "delighted"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2.3,
+     "side": "L",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 2.35,
+     "dur": 0.55,
+     "ease": "inOut",
+     "set": {
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "at": 2.6,
+     "dur": 0.55,
+     "ease": "linear",
+     "set": {
+      "apples": 10
+     }
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2.9,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "fx": "shake",
+     "at": 0.35,
+     "dur": 0.35,
+     "amp": 0.02
+    },
+    {
+     "fx": "shake",
+     "at": 1.5,
+     "dur": 0.3,
+     "amp": 0.05
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.44999999999999996,
+      0.5,
+      -2
+     ],
+     "at": 1.45,
+     "dur": 0.7,
+     "puffs": 12,
+     "sparks": 0
+    },
+    {
+     "fx": "sparkle",
+     "who": "vik",
+     "at": 2.65,
+     "dur": 0.6,
+     "count": 5,
+     "color": "#ff8a8a"
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1,
+     "dur": 0.5,
+     "gain": 0.25
+    },
+    {
+     "sfx": "impact",
+     "at": 1.49,
+     "gain": 0.45
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.35,
+     "dur": 0.5,
+     "gain": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": "right",
+     "dur": 0.12,
+     "at": 3.2
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      2.7,
+      0.05
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 3.2
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 2.7
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "focused",
+     "at": 2.7
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "at": 2.7,
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      -0.8,
+      -1.8
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.7
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      -0.31000000000000005,
+      -0.6
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3,
+     "at": 3.2
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": "3q-right",
+     "dur": 0.15,
+     "at": 3.5
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "both",
+     "pose": "hold",
+     "dur": 0.05,
+     "at": 3.68
+    },
+    {
+     "who": "ast",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.05,
+     "at": 3.68
+    }
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "tree",
+   "kind": "tree",
+   "x": 0.15,
+   "z": -0.6
+  },
+  {
+   "id": "portal-a",
+   "kind": "portal",
+   "x": -0.31000000000000005,
+   "z": -0.5499999999999999,
+   "scale": 0.75
+  },
+  {
+   "id": "portal-b",
+   "kind": "portal",
+   "x": -0.31000000000000005,
+   "y": 0.85,
+   "z": -0.5499999999999999,
+   "scale": 0.75
+  },
+  {
+   "id": "apple-ast",
+   "kind": "apple",
+   "x": -0.27,
+   "y": 1.86,
+   "z": -0.3,
+   "scale": 0
+  },
+  {
+   "id": "apple-rea",
+   "kind": "apple",
+   "x": -0.15,
+   "y": 1.95,
+   "z": -0.24,
+   "scale": 0
+  },
+  {
+   "id": "apple-sor",
+   "kind": "apple",
+   "x": -0.35,
+   "y": 1.98,
+   "z": -0.38,
+   "scale": 0
+  },
+  {
+   "id": "apple-wiz",
+   "kind": "apple",
+   "x": 0.167,
+   "y": 0.648,
+   "z": -0.46,
+   "scale": 0
+  },
+  {
+   "id": "apple-dra",
+   "kind": "apple",
+   "x": -0.21,
+   "y": 1.8,
+   "z": -0.22,
+   "scale": 0
+  },
+  {
+   "id": "apple-phx",
+   "kind": "apple",
+   "x": -0.07,
+   "y": 1.88,
+   "z": -0.2,
+   "scale": 0
+  },
+  {
+   "id": "apple-gun",
+   "kind": "apple",
+   "x": 0.47,
+   "y": 1.86,
+   "z": -0.24,
+   "scale": 0
+  },
+  {
+   "id": "apple-sam",
+   "kind": "apple",
+   "x": -0.4,
+   "y": 1.8,
+   "z": -0.35,
+   "scale": 0
+  },
+  {
+   "id": "apple-all",
+   "kind": "apple",
+   "x": -0.13,
+   "y": 1.84,
+   "z": -0.3,
+   "scale": 0
+  },
+  {
+   "id": "apple-vik",
+   "kind": "apple",
+   "x": 0.7,
+   "y": 1.88,
+   "z": -0.3,
+   "scale": 0
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.05,
+    1.5,
+    6.2
+   ],
+   "look": [
+    0.05,
+    1.3,
+    -0.6
+   ],
+   "fov": 38,
+   "to": {
+    "pos": [
+     0.05,
+     1.45,
+     5.7
+    ],
+    "look": [
+     0.05,
+     1.28,
+     -0.6
+    ],
+    "fov": 37
+   },
+   "dur": 18.888,
+   "ease": "linear"
+  },
+  {
+   "at": 18.888,
+   "pos": [
+    0.05,
+    1.45,
+    5.7
+   ],
+   "look": [
+    0.05,
+    1.28,
+    -0.6
+   ],
+   "fov": 37,
+   "to": {
+    "pos": [
+     0.05,
+     1.5,
+     6.2
+    ],
+    "look": [
+     0.05,
+     1.3,
+     -0.6
+    ],
+    "fov": 38
+   },
+   "dur": 1.5,
+   "ease": "inOut"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 20.488,
+   "text": "TREE",
+   "style": "label",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 2.4,
+   "text": "1 tree. 10 fighters.",
+   "pos": 340
+  },
+  {
+   "from": 2.4,
+   "to": 3.875,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 3.875,
+   "to": 5.438,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 5.438,
+   "to": 7.488,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 7.488,
+   "to": 9.425,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 9.425,
+   "to": 11.475,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 11.475,
+   "to": 13.15,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 13.15,
+   "to": 14.863,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.863,
+   "to": 16.988,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 16.988,
+   "to": 19.238,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 19.238,
+   "to": 20.488,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "ast",
+   "with": "tree",
+   "from": 0,
+   "to": 1.688
+  },
+  {
+   "who": "ast",
+   "with": "apple-ast",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "tree",
+   "from": 1.538,
+   "to": 3.775
+  },
+  {
+   "who": "rea",
+   "with": "apple-rea",
+   "from": 1.538,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "tree",
+   "from": 3.625,
+   "to": 5.337
+  },
+  {
+   "who": "sor",
+   "with": "apple-sor",
+   "from": 3.625,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "tree",
+   "from": 5.188,
+   "to": 7.388
+  },
+  {
+   "who": "wiz",
+   "with": "apple-wiz",
+   "from": 5.188,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "tree",
+   "from": 7.238,
+   "to": 9.325
+  },
+  {
+   "who": "dra",
+   "with": "apple-dra",
+   "from": 7.238,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "tree",
+   "from": 9.175,
+   "to": 11.375
+  },
+  {
+   "who": "phx",
+   "with": "apple-phx",
+   "from": 9.175,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "tree",
+   "from": 11.225,
+   "to": 13.05
+  },
+  {
+   "who": "gun",
+   "with": "apple-gun",
+   "from": 11.225,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "tree",
+   "from": 12.9,
+   "to": 14.763
+  },
+  {
+   "who": "sam",
+   "with": "apple-sam",
+   "from": 12.9,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "tree",
+   "from": 14.613,
+   "to": 16.888
+  },
+  {
+   "who": "all",
+   "with": "apple-all",
+   "from": 14.613,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "tree",
+   "from": 16.738,
+   "to": 20.288
+  },
+  {
+   "who": "vik",
+   "with": "apple-vik",
+   "from": 16.738,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "tree",
+   "from": 19.938,
+   "to": 20.488
+  },
+  {
+   "who": "sor",
+   "with": "portal-a",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "portal-b",
+   "from": 0,
+   "to": 99
+  }
+ ],
+ "cover": 18.3
+}

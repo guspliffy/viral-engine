@@ -27,6 +27,14 @@ function sliceMesh() {
   return g;
 }
 
+function appleMesh(red, stemM, leafM) {
+  const g = new THREE.Group();
+  const b = mesh(new THREE.SphereGeometry(0.07, 18, 14), red, g); b.scale.y = 0.92;
+  mesh(new THREE.CylinderGeometry(0.006, 0.008, 0.05, 6), stemM, g, 0, 0.075, 0);
+  const l = mesh(new THREE.SphereGeometry(0.025, 10, 6), leafM, g, 0.025, 0.09, 0); l.scale.set(1.2, 0.3, 0.6);
+  return g;
+}
+
 // each builder adds its meshes to the half groups (or to `whole` when it never splits) and returns its parts
 const KINDS = {
   table(P) {
@@ -257,7 +265,39 @@ const KINDS = {
     const base = mats.map((m) => m.color.clone());
     return { grip: 0.0, apply(ps) { mats.forEach((m, i) => m.color.copy(base[i]).lerp(new THREE.Color("#5a2f12"), clamp(ps.toast ?? 0) * 0.55)); } };
   },
+  tree(P) {
+    const bark = mat("#8b5e3c", { roughness: 0.85 }), barkD = mat("#6f4a2e", { roughness: 0.9 }), leaf = ["#5cbf55", "#6fcd5e", "#4eae52"].map((c) => mat(c, { roughness: 0.8 }));
+    mesh(new THREE.CylinderGeometry(0.15, 0.21, 2.15, 18), bark, P.whole, 0, 1.075, 0);
+    for (let k = 0; k < 5; k++) { const r = mesh(new THREE.SphereGeometry(0.11, 12, 8), barkD, P.whole, Math.cos(k * 1.3) * 0.18, 0.03, Math.sin(k * 1.3) * 0.18); r.scale.set(1.3, 0.45, 1.3); }   // roots
+    for (const [y, a] of [[0.7, 0.4], [1.3, 2.6], [0.45, 4.2]]) mesh(new THREE.TorusGeometry(0.05, 0.015, 8, 14), barkD, P.whole, Math.cos(a) * 0.19, y, Math.sin(a) * 0.19).lookAt(Math.cos(a) * 2, y, Math.sin(a) * 2);   // knots
+    const crown = [[0, 2.45, -0.12, 0.62], [-0.48, 2.2, -0.05, 0.42], [0.5, 2.22, -0.08, 0.45], [-0.25, 2.75, -0.2, 0.45], [0.3, 2.78, -0.15, 0.42], [0.05, 2.25, 0.2, 0.38]];
+    crown.forEach(([x, y, z, r], i) => mesh(new THREE.SphereGeometry(r, 22, 16), leaf[i % 3], P.whole, x, y, z));
+    const red = mat("#e2322b", { roughness: 0.35 }), stemM = mat("#5a3b1f"), leafM = mat("#5cbf55");
+    const apples = TREE_APPLES.map(([x, y, z]) => { const a = appleMesh(red, stemM, leafM); a.position.set(x, y, z); P.whole.add(a); return a; });
+    const steps = TREE_STEPS.map((y) => { const b = mesh(new THREE.BoxGeometry(0.16, 0.035, 0.2), mat("#c79a64", { roughness: 0.7 }), P.whole, -0.2, y, 0); return b; });
+    return {
+      grip: 0,
+      apply(ps) {
+        const n = clamp(ps.apples ?? 10, 0, 10);
+        apples.forEach((a, i) => { const k = clamp(n - i); a.visible = k > 0.002; a.scale.setScalar(Math.max(k, 0.001)); });
+        const st = clamp(ps.steps ?? 0);
+        steps.forEach((b, k) => { const q = clamp(st * 5 - k); b.visible = q > 0.002; b.scale.set(Math.max(q, 0.001), 1, 1); b.position.x = -0.15 - 0.06 * q; });
+      },
+    };
+  },
+  // one apple (its middle at the origin), the size of the tree's
+  apple(P) { P.whole.add(appleMesh(mat("#e2322b", { roughness: 0.35 }), mat("#5a3b1f"), mat("#5cbf55"))); return { grip: 0 }; },
 };
+
+// the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
+// 10 apples hanging under the crown's front edge. apples 0..10 is how many still hang (slot i shows while i < apples,
+// fractional counts grow the next one in, so apples can regrow one by one); an "apple" prop placed at
+// TREE_APPLES[i] (times the tree's scale) covers slot i, like a slice on the pizza. steps 0..1 pops out five ledges
+// up the left side of the trunk (cut by a blade); roll -90 lays the tree down to the right, scale shrinks it to its foot.
+// (slots are taken from 9 down to 0; most hang at the left, where a climber on the trunk's left side can reach them)
+export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 0.25], [0.32, 1.86, 0.36], [-0.22, 1.88, 0.4],
+  [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
+export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);
@@ -280,7 +320,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, left: spec.left ?? 10, toast: 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, left: spec.left ?? 10, toast: 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
