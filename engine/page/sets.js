@@ -83,6 +83,17 @@ function meadow(scene, spec, palette) {
       f.position.set(x, 0, z); scene.add(f);
     }
   }
+  // hand-placed flower clumps for close-ups ("flowers": [[x, z], ...]); the random ones avoid the stage centre
+  for (const [x, z] of spec.flowers || []) {
+    for (let k = 0; k < 4; k++) {
+      const f = new THREE.Group(), s = 0.9 + rnd() * 0.5;
+      const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.22, 5), tuftM); stem.position.y = 0.11; f.add(stem);
+      const pm = petal[Math.floor(rnd() * petal.length)];
+      for (let j = 0; j < 5; j++) { const p = new THREE.Mesh(new THREE.SphereGeometry(0.028, 8, 6), pm); const aa = (j / 5) * Math.PI * 2; p.position.set(Math.cos(aa) * 0.035, 0.23, Math.sin(aa) * 0.035); p.scale.set(1, 0.4, 1); f.add(p); }
+      const cc = new THREE.Mesh(new THREE.SphereGeometry(0.02, 8, 6), centre); cc.position.y = 0.235; f.add(cc);
+      f.scale.setScalar(s); f.position.set(x + (rnd() - 0.5) * 0.3, 0, z + (rnd() - 0.5) * 0.25); scene.add(f);
+    }
+  }
 }
 
 // ---------- shared pieces for the other sets ----------
