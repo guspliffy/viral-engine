@@ -4,7 +4,7 @@
   "format": "sigh -> polite nod -> he backs away, and away -> 'is this enough?' -> one more step",
   "shares": "the friend who said they need space",
   "fps": 30,
-  "duration": 9,
+  "duration": 13.5,
   "cover": 6.2,
   "set": {
     "type": "rooftop",
@@ -153,6 +153,57 @@
         -0.9
       ],
       "fov": 38
+    },
+    {
+      "at": 9,
+      "pos": [
+        -0.44,
+        1.05,
+        3.9
+      ],
+      "look": [
+        -0.48,
+        0.8,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.46,
+          1.04,
+          3.7
+        ]
+      },
+      "dur": 1.8,
+      "ease": "out"
+    },
+    {
+      "at": 10.8,
+      "pos": [
+        -0.2,
+        0.9,
+        4.4
+      ],
+      "look": [
+        -0.48,
+        1.6,
+        0
+      ],
+      "fov": 36,
+      "to": {
+        "pos": [
+          -0.25,
+          0.9,
+          4.1
+        ],
+        "look": [
+          -0.48,
+          3.1,
+          0
+        ]
+      },
+      "dur": 2.7,
+      "ease": "inOut"
     }
   ],
   "actions": [
@@ -329,9 +380,91 @@
       "do": "expr",
       "expr": "delighted",
       "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 9.05,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 9.1,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 9.2,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "calm"
+    },
+    {
+      "who": "hero",
+      "at": 10.8,
+      "do": "hop",
+      "count": 1,
+      "height": 3,
+      "dur": 13
+    },
+    {
+      "who": "hero",
+      "at": 10.85,
+      "do": "expr",
+      "expr": "delighted",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 10.85,
+      "do": "arm",
+      "side": "both",
+      "pose": "up",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 12.2,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 4.2,
+      "do": "lean",
+      "to": -4,
+      "dur": 0.5
+    },
+    {
+      "who": "hero",
+      "at": 4.3,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.3
     }
   ],
-  "fx": [],
+  "fx": [
+    {
+      "do": "poof",
+      "at": 10.8,
+      "who": "hero",
+      "dur": 0.7,
+      "spark": "#ffd27a",
+      "puffs": 12
+    },
+    {
+      "do": "shake",
+      "at": 10.8,
+      "dur": 0.3,
+      "amp": 0.04
+    }
+  ],
   "captions": [
     {
       "from": 0.15,
@@ -351,6 +484,34 @@
       "text": "*one more step*",
       "pos": "top",
       "style": "sub"
+    },
+    {
+      "from": 9.2,
+      "to": 10.8,
+      "text": "no. SPACE space.",
+      "pos": "top"
+    },
+    {
+      "from": 11.6,
+      "to": 13.5,
+      "text": "\"enjoy your space.\"",
+      "pos": "top",
+      "style": "sub"
+    }
+  ],
+  "loop": false,
+  "sfx": [
+    {
+      "sound": "whoosh",
+      "at": 10.85,
+      "gain": 0.35,
+      "dur": 0.6
+    },
+    {
+      "sound": "charge",
+      "at": 10,
+      "gain": 0.15,
+      "dur": 0.8
     }
   ]
 }

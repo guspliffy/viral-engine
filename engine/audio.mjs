@@ -216,16 +216,11 @@ function effect(kind, r, dur) {
 // a quiet bed of room sound for the set, so the clips don't all sit in the same silence
 function ambience(type, seconds, r) {
   const x = buf(seconds), n = x.length;
-  if (type === "party") { // music through a wall: muffled four-on-the-floor and a bass line, plus crowd murmur
-    const bpm = 112 + Math.floor(r() * 16), beat = 60 / bpm, roots = [[55, 55, 65.4, 49], [49, 49, 58.3, 43.7], [61.7, 61.7, 73.4, 55]][Math.floor(r() * 3)];
-    const lp = biquad("lp", 380, 0.7), mur = biquad("bp", 500, 0.6);
-    let p = 0;
-    for (let i = 0; i < n; i++) {
-      const t = i / SR, b = t / beat, bt = (b % 1) * beat, bar = Math.floor(b / 4) % 4, f = roots[bar];
-      const kick = Math.sin(TAU * 55 * Math.pow(0.5, bt * 18) * bt * 2) * Math.exp(-bt / 0.09);
-      p += TAU * f / SR; const bass = Math.sin(p) * 0.5 * (((b * 2) % 1) < 0.7 ? 1 : 0.2);
-      x[i] = run(lp, kick * 0.9 + bass) * 0.5 + run(mur, r() * 2 - 1) * (0.12 + 0.05 * Math.sin(TAU * 0.3 * t));
-    }
+  if (type === "party") { // crowd murmur and the odd glass clink (the clip's own music plays on top, so no second song here)
+    const mur = biquad("bp", 500, 0.6), mur2 = biquad("bp", 900, 0.8);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(mur, r() * 2 - 1) * (0.3 + 0.1 * Math.sin(TAU * 0.3 * t)) + run(mur2, r() * 2 - 1) * (0.12 + 0.06 * Math.sin(TAU * 0.47 * t + 2)); }
+    let t0 = 0.5 + r() * 1.5;
+    while (t0 < seconds - 0.3) { const a = Math.round(t0 * SR), f = 2600 + r() * 1800; for (let i = 0; i < 0.25 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (Math.sin(TAU * f * t) + 0.4 * Math.sin(TAU * f * 2.7 * t)) * env(t, 0.001, 0.05, 0.25) * 0.12; } t0 += 2 + r() * 3; }
   } else if (type === "office") { // air conditioning hum and the odd keyboard clatter
     const hp = biquad("lp", 900, 0.5);
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 60 * t) * 0.03; }
@@ -242,7 +237,7 @@ function ambience(type, seconds, r) {
   }
   for (let i = 0; i < Math.min(n, 0.3 * SR); i++) { x[i] *= i / (0.3 * SR); x[n - 1 - i] *= i / (0.3 * SR); } // fade in and out
   // balance the beds against each other: roughly 18-22 dB under the voices and effects
-  const level = { party: 0.6, office: 2.5, rooftop: 2 }[type] ?? 3;
+  const level = { party: 1.0, office: 2.5, rooftop: 2 }[type] ?? 3;
   for (let i = 0; i < n; i++) x[i] *= level;
   return x;
 }

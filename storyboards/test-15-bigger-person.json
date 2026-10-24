@@ -4,7 +4,7 @@
   "format": "annoyed request -> trick -> he becomes enormous -> magician squeezed aside -> smug win",
   "shares": "the friend who always has to win the argument",
   "fps": 30,
-  "duration": 8.5,
+  "duration": 13,
   "cover": 5.2,
   "set": {
     "type": "party",
@@ -139,6 +139,34 @@
       },
       "dur": 3.2,
       "ease": "out"
+    },
+    {
+      "at": 8.5,
+      "pos": [
+        0.2,
+        1.6,
+        8.8
+      ],
+      "look": [
+        0.2,
+        1.35,
+        0
+      ],
+      "fov": 34,
+      "to": {
+        "pos": [
+          0.3,
+          1.2,
+          6.6
+        ],
+        "look": [
+          0.4,
+          0.8,
+          0
+        ]
+      },
+      "dur": 4.5,
+      "ease": "inOut"
     }
   ],
   "actions": [
@@ -416,6 +444,180 @@
       "at": 7.6,
       "do": "blink",
       "dur": 0.35
+    },
+    {
+      "who": "hero",
+      "at": 8.6,
+      "do": "hop",
+      "count": 1,
+      "height": 0.12,
+      "dur": 0.5
+    },
+    {
+      "who": "mag",
+      "at": 9.1,
+      "do": "squash",
+      "amount": 0.3,
+      "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 9.1,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "mag",
+      "at": 9.4,
+      "do": "talk",
+      "dur": 0.5,
+      "tone": "question"
+    },
+    {
+      "who": "mag",
+      "at": 9.9,
+      "do": "expr",
+      "expr": "cocky",
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 9.9,
+      "do": "squash",
+      "amount": 0.09,
+      "dur": 0.28
+    },
+    {
+      "who": "mag",
+      "at": 10.200000000000001,
+      "do": "expr",
+      "expr": "focused",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 10.200000000000001,
+      "do": "look",
+      "to": [
+        -0.5,
+        0.6
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 10.25,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.4,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 10.3,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 10.3,
+      "do": "talk",
+      "dur": 0.5,
+      "tone": "chant"
+    },
+    {
+      "who": "mag",
+      "at": 10.35,
+      "do": "charge",
+      "to": 1,
+      "dur": 0.55,
+      "ease": "in"
+    },
+    {
+      "who": "mag",
+      "at": 10.9,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.2,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 10.9,
+      "do": "arm",
+      "side": "L",
+      "pose": "hold",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 10.9,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.4
+    },
+    {
+      "who": "hero",
+      "at": 10.9,
+      "do": "grow",
+      "to": 0.42,
+      "dur": 0.35,
+      "ease": "out"
+    },
+    {
+      "who": "hero",
+      "at": 10.9,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 11.5,
+      "do": "squash",
+      "amount": 0.15,
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 11.9,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 12.1,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 12.1,
+      "do": "arm",
+      "side": "R",
+      "pose": "shrug",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 7,
+      "do": "squash",
+      "amount": 0.06,
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 7.6,
+      "do": "squash",
+      "amount": 0.08,
+      "dur": 0.3
     }
   ],
   "fx": [
@@ -434,6 +636,32 @@
     {
       "do": "poof",
       "at": 3,
+      "who": "hero",
+      "dur": 0.7,
+      "spark": "#ffe27a",
+      "puffs": 14
+    },
+    {
+      "do": "shake",
+      "at": 9.1,
+      "dur": 0.35,
+      "amp": 0.08
+    },
+    {
+      "do": "flash",
+      "at": 10.9,
+      "dur": 0.25,
+      "peak": 0.5
+    },
+    {
+      "do": "shake",
+      "at": 10.9,
+      "dur": 0.3,
+      "amp": 0.05
+    },
+    {
+      "do": "poof",
+      "at": 10.9,
       "who": "hero",
       "dur": 0.7,
       "spark": "#ffe27a",
@@ -466,6 +694,20 @@
       "to": 8.5,
       "text": "argument: won.",
       "pos": "top"
+    },
+    {
+      "from": 9.4,
+      "to": 10.8,
+      "text": "\"too big?\"",
+      "pos": "top"
+    },
+    {
+      "from": 11.4,
+      "to": 13,
+      "text": "...oops.",
+      "pos": "top",
+      "style": "sub"
     }
-  ]
+  ],
+  "loop": false
 }

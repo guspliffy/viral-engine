@@ -4,7 +4,7 @@
   "format": "sad confession -> trick -> relief -> he keeps rising over the city -> magician checks in -> deadpan wave",
   "shares": "the friend who keeps saying they need to relax",
   "fps": 30,
-  "duration": 9.5,
+  "duration": 13,
   "cover": 6.8,
   "set": {
     "type": "rooftop",
@@ -162,6 +162,29 @@
         ]
       },
       "dur": 2.9,
+      "ease": "out"
+    },
+    {
+      "at": 9.5,
+      "pos": [
+        0.45,
+        1.2,
+        4.4
+      ],
+      "look": [
+        0.48,
+        0.98,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.5,
+          1.22,
+          3.9
+        ]
+      },
+      "dur": 3.5,
       "ease": "out"
     }
   ],
@@ -467,6 +490,81 @@
       "at": 8.9,
       "do": "blink",
       "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 9.5,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 9.5,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 9.6,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 9.8,
+      "do": "arm",
+      "side": "R",
+      "pose": "point",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 9.9,
+      "do": "talk",
+      "dur": 0.9,
+      "tone": "question"
+    },
+    {
+      "who": "mag",
+      "at": 11,
+      "do": "charge",
+      "to": 0.7,
+      "dur": 0.6,
+      "ease": "in"
+    },
+    {
+      "who": "mag",
+      "at": 11,
+      "do": "expr",
+      "expr": "evil",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 12.2,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 12.2,
+      "do": "squash",
+      "amount": 0.08,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 12.25,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.2
     }
   ],
   "fx": [
@@ -524,6 +622,13 @@
       "text": "...yes.",
       "pos": "top",
       "style": "sub"
+    },
+    {
+      "from": 9.9,
+      "to": 13,
+      "text": "anyone else need to lighten up?",
+      "pos": "top"
     }
-  ]
+  ],
+  "loop": false
 }

@@ -333,5 +333,139 @@ const space = {
   ],
 };
 
+// ---------- second beats (2026-10-24): every clip runs 12-14 s with something new every 1-2 s (qa/check.mjs v2) ----------
+const extend = (sb, duration, { cast = [], shots = [], actions = [], fx = [], sfx = [], captions = [], loop = false }) => {
+  Object.assign(sb, { duration, loop });
+  sb.cast.push(...cast); sb.shots.push(...shots); sb.actions.push(...actions); sb.fx.push(...fx); (sb.sfx ||= []).push(...sfx); sb.captions.push(...captions);
+};
+// the ex walks in; he hides the only way he can (hat over the eyes). Ends wide on the same room the clip opens in.
+extend(hide, 13.5, {
+  cast: [{ id: "ex", character: "potatobrawl/phoenix", at: [-2.7, 0.3], face: "3q-right", expr: "eager", arms: { R: "rest", L: "rest" }, seed: 7.1 }],
+  shots: [{ at: 8.5, pos: [-0.55, 1.12, 5.5], look: [-0.8, 0.86, 0], fov: 32, to: { pos: [-0.5, 1.1, 5.2] }, dur: 5.0, ease: "out" }],
+  actions: [
+    { who: "ex", at: 8.5, do: "move", to: [-1.1, 0.35], dur: 1.2, ease: "out" },
+    { who: "hero", at: 8.6, do: "turn", to: "3q-left", dur: 0.2 },
+    { who: "hero", at: 8.6, do: "look", to: [-0.8, 0], dur: 0.12 },
+    { who: "hero", at: 8.65, do: "expr", expr: "shocked", dur: 0.1 },
+    { who: "ex", at: 9.7, do: "arm", side: "R", pose: "wave", dur: 0.3 },
+    { who: "ex", at: 9.75, do: "talk", dur: 0.7, tone: "excited" },
+    { who: "hero", at: 10.4, do: "hat", off: [0, -0.2, 0.07], spin: [12, 0, 0], dur: 0.25, ease: "out" },
+    { who: "hero", at: 10.4, do: "arm", side: "both", pose: "hat", dur: 0.25 },
+    { who: "hero", at: 10.45, do: "squash", amount: 0.12, dur: 0.25 },
+    { who: "ex", at: 11.6, do: "lean", to: 9, dur: 0.4 },
+    { who: "ex", at: 11.6, do: "expr", expr: "smug", dur: 0.3 },
+    { who: "hero", at: 12.3, do: "hop", count: 2, height: 0.04, dur: 0.5 },
+    { who: "ex", at: 12.9, do: "arm", side: "R", pose: "hips", dur: 0.3 },
+  ],
+  captions: [
+    { from: 9.75, to: 11.3, text: "\"hey stranger.\"", pos: "top" },
+    { from: 11.4, to: 13.5, text: "*hides*", pos: "top", style: "sub" },
+  ],
+});
+// the wizard turns to us, staff glowing: anyone else?
+extend(light, 13.0, {
+  shots: [{ at: 9.5, pos: [0.45, 1.2, 4.4], look: [0.48, 0.98, 0], fov: 32, to: { pos: [0.5, 1.22, 3.9] }, dur: 3.5, ease: "out" }],
+  actions: [
+    { who: "mag", at: 9.5, do: "turn", to: "camera", dur: 0.3 },
+    { who: "mag", at: 9.5, do: "look", to: [0, 0], dur: 0.2 },
+    { who: "mag", at: 9.6, do: "expr", expr: "smug", dur: 0.2 },
+    { who: "mag", at: 9.8, do: "arm", side: "R", pose: "point", dur: 0.3 },
+    { who: "mag", at: 9.9, do: "talk", dur: 0.9, tone: "question" },
+    { who: "mag", at: 11.0, do: "charge", to: 0.7, dur: 0.6, ease: "in" },
+    { who: "mag", at: 11.0, do: "expr", expr: "evil", dur: 0.3 },
+    { who: "mag", at: 12.2, do: "charge", to: 0, dur: 0.3 },
+    { who: "mag", at: 12.2, do: "squash", amount: 0.08, dur: 0.3 },
+    { who: "mag", at: 12.25, do: "expr", expr: "kind", dur: 0.2 },
+  ],
+  captions: [{ from: 9.9, to: 13.0, text: "anyone else need to lighten up?", pos: "top" }],
+});
+// the boss arrives, watches, approves
+busy.actions = busy.actions.filter((a) => !(a.who === "hero" && a.at >= 9.0));
+extend(busy, 13.0, {
+  cast: [{ id: "boss", character: "potatobrawl/allfather", at: [-2.7, 0.5], face: "3q-right", expr: "stern", arms: { R: "rest", L: "rest" }, seed: 3.3 }],
+  shots: [{ at: 9.0, pos: [-0.6, 1.15, 5.7], look: [-0.82, 0.86, 0], fov: 32, to: { pos: [-0.58, 1.12, 5.35] }, dur: 4.0, ease: "out" }],
+  actions: [
+    ...flail(9.0, 13.0, 0.11, 0.11),
+    { who: "boss", at: 9.0, do: "move", to: [-1.12, 0.6], dur: 1.1, ease: "out" },
+    { who: "boss", at: 10.2, do: "look", to: [0.7, 0], dur: 0.2 },
+    { who: "boss", at: 10.8, do: "squash", amount: 0.1, dur: 0.3 },
+    { who: "boss", at: 11.2, do: "squash", amount: 0.1, dur: 0.3 },
+    { who: "boss", at: 11.1, do: "expr", expr: "kind", dur: 0.3 },
+    { who: "boss", at: 11.5, do: "arm", side: "R", pose: "point", dur: 0.3 },
+    { who: "boss", at: 11.6, do: "talk", dur: 0.6, tone: "calm" },
+  ],
+  captions: [{ from: 11.6, to: 13.0, text: "promoted.", pos: "top" }],
+});
+// he comes back: Valhalla has meetings too
+extend(vanish, 12.5, {
+  shots: [{ at: 8.0, pos: [0, 1.12, 5.6], look: [0, 0.86, 0], fov: 32, to: { pos: [-0.1, 1.1, 5.0] }, dur: 4.5, ease: "out" }],
+  actions: [
+    { who: "hero", at: 8.25, do: "show" },
+    { who: "hero", at: 8.25, do: "turn", to: "camera", dur: 0.01 },
+    { who: "hero", at: 8.25, do: "expr", expr: "deadpan", dur: 0.01 },
+    { who: "hero", at: 8.25, do: "arm", side: "both", pose: "rest", dur: 0.01 },
+    { who: "hero", at: 8.3, do: "squash", amount: 0.15, dur: 0.3 },
+    { who: "mag", at: 8.4, do: "turn", to: "3q-left", dur: 0.25 },
+    { who: "mag", at: 8.4, do: "expr", expr: "shocked", dur: 0.1 },
+    { who: "hero", at: 8.8, do: "talk", dur: 0.9, tone: "sad" },
+    { who: "mag", at: 10.6, do: "arm", side: "R", pose: "shrug", dur: 0.3 },
+    { who: "mag", at: 10.6, do: "expr", expr: "kind", dur: 0.3 },
+    { who: "hero", at: 11.2, do: "expr", expr: "sad", dur: 0.3 },
+    { who: "hero", at: 11.2, do: "lean", to: 5, dur: 0.4 },
+    { who: "hero", at: 11.9, do: "squash", amount: 0.06, dur: 0.4 },
+  ],
+  fx: [{ do: "poof", at: 8.2, who: "hero", dur: 0.6, spark: "#a8d8ff", puffs: 10 }, { do: "flash", at: 8.2, dur: 0.2, peak: 0.5 }],
+  captions: [{ from: 8.8, to: 12.5, text: "valhalla has meetings too.", pos: 250 }],
+});
+// too big: stomp, then the fix overshoots
+extend(bigger, 13.0, {
+  shots: [{ at: 8.5, pos: [0.2, 1.6, 8.8], look: [0.2, 1.35, 0], fov: 34, to: { pos: [0.3, 1.2, 6.6], look: [0.4, 0.8, 0] }, dur: 4.5, ease: "inOut" }],
+  actions: [
+    { who: "hero", at: 8.6, do: "hop", count: 1, height: 0.12, dur: 0.5 },
+    { who: "mag", at: 9.1, do: "squash", amount: 0.3, dur: 0.35 },
+    { who: "mag", at: 9.1, do: "expr", expr: "shocked", dur: 0.1 },
+    { who: "mag", at: 9.4, do: "talk", dur: 0.5, tone: "question" },
+    ...spell(9.9, 10.9, [-0.5, 0.6]), ...release(10.9),
+    { who: "hero", at: 10.9, do: "grow", to: 0.42, dur: 0.35, ease: "out" },
+    { who: "hero", at: 10.9, do: "expr", expr: "shocked", dur: 0.1 },
+    { who: "hero", at: 11.5, do: "squash", amount: 0.15, dur: 0.3 },
+    { who: "hero", at: 11.9, do: "expr", expr: "deadpan", dur: 0.3 },
+    { who: "mag", at: 12.1, do: "expr", expr: "kind", dur: 0.3 },
+    { who: "mag", at: 12.1, do: "arm", side: "R", pose: "shrug", dur: 0.3 },
+  ],
+  fx: [{ do: "shake", at: 9.1, dur: 0.35, amp: 0.08 }, ...zap(10.9, "hero", 0.5)],
+  captions: [
+    { from: 9.4, to: 10.8, text: "\"too big?\"", pos: "top" },
+    { from: 11.4, to: 13.0, text: "...oops.", pos: "top", style: "sub" },
+  ],
+});
+// he meant outer space
+extend(space, 13.5, {
+  shots: [
+    { at: 9.0, pos: [-0.44, 1.05, 3.9], look: [-0.48, 0.8, 0], fov: 32, to: { pos: [-0.46, 1.04, 3.7] }, dur: 1.8, ease: "out" },
+    { at: 10.8, pos: [-0.2, 0.9, 4.4], look: [-0.48, 1.6, 0], fov: 36, to: { pos: [-0.25, 0.9, 4.1], look: [-0.48, 3.1, 0] }, dur: 2.7, ease: "inOut" },
+  ],
+  actions: [
+    { who: "hero", at: 9.05, do: "arm", side: "R", pose: "up", dur: 0.3 },
+    { who: "hero", at: 9.1, do: "expr", expr: "deadpan", dur: 0.2 },
+    { who: "hero", at: 9.2, do: "talk", dur: 0.7, tone: "calm" },
+    { who: "hero", at: 10.8, do: "hop", count: 1, height: 3.0, dur: 13 },
+    { who: "hero", at: 10.85, do: "expr", expr: "delighted", dur: 0.2 },
+    { who: "hero", at: 10.85, do: "arm", side: "both", pose: "up", dur: 0.3 },
+    { who: "hero", at: 12.2, do: "arm", side: "L", pose: "wave", dur: 0.3 },
+  ],
+  fx: [{ do: "poof", at: 10.8, who: "hero", dur: 0.7, spark: "#ffd27a", puffs: 12 }, { do: "shake", at: 10.8, dur: 0.3, amp: 0.04 }],
+  sfx: [{ sound: "whoosh", at: 10.85, gain: 0.35, dur: 0.6 }, { sound: "charge", at: 10.0, gain: 0.15, dur: 0.8 }],
+  captions: [
+    { from: 9.2, to: 10.8, text: "no. SPACE space.", pos: "top" },
+    { from: 11.6, to: 13.5, text: "\"enjoy your space.\"", pos: "top", style: "sub" },
+  ],
+});
+
+// fill the quiet stretches the cadence check found
+vanish.actions.push({ who: "mag", at: 6.3, do: "lean", to: 0, dur: 0.4 });
+bigger.actions.push({ who: "hero", at: 7.0, do: "squash", amount: 0.06, dur: 0.4 }, { who: "mag", at: 7.6, do: "squash", amount: 0.08, dur: 0.3 });
+space.actions.push({ who: "hero", at: 4.2, do: "lean", to: -4, dur: 0.5 }, { who: "hero", at: 4.3, do: "expr", expr: "deadpan", dur: 0.3 });
+
 for (const sb of [hide, light, busy, vanish, bigger, space]) fs.writeFileSync(new URL(`./${sb.id}.json`, import.meta.url), JSON.stringify(sb, null, 2) + "\n");
 console.log("wrote 6 storyboards");

@@ -4,7 +4,7 @@
   "format": "meeting dread -> request -> trick -> he's gone -> magician explains to camera -> hold",
   "shares": "coworkers stuck in the same meetings",
   "fps": 30,
-  "duration": 8,
+  "duration": 12.5,
   "cover": 5.5,
   "set": {
     "type": "office",
@@ -156,6 +156,29 @@
         ]
       },
       "dur": 3.1,
+      "ease": "out"
+    },
+    {
+      "at": 8,
+      "pos": [
+        0,
+        1.12,
+        5.6
+      ],
+      "look": [
+        0,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.1,
+          1.1,
+          5
+        ]
+      },
+      "dur": 4.5,
       "ease": "out"
     }
   ],
@@ -394,6 +417,104 @@
       "at": 7.2,
       "do": "blink",
       "dur": 0.35
+    },
+    {
+      "who": "hero",
+      "at": 8.25,
+      "do": "show"
+    },
+    {
+      "who": "hero",
+      "at": 8.25,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.01
+    },
+    {
+      "who": "hero",
+      "at": 8.25,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.01
+    },
+    {
+      "who": "hero",
+      "at": 8.25,
+      "do": "arm",
+      "side": "both",
+      "pose": "rest",
+      "dur": 0.01
+    },
+    {
+      "who": "hero",
+      "at": 8.3,
+      "do": "squash",
+      "amount": 0.15,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 8.4,
+      "do": "turn",
+      "to": "3q-left",
+      "dur": 0.25
+    },
+    {
+      "who": "mag",
+      "at": 8.4,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 8.8,
+      "do": "talk",
+      "dur": 0.9,
+      "tone": "sad"
+    },
+    {
+      "who": "mag",
+      "at": 10.6,
+      "do": "arm",
+      "side": "R",
+      "pose": "shrug",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 10.6,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 11.2,
+      "do": "expr",
+      "expr": "sad",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 11.2,
+      "do": "lean",
+      "to": 5,
+      "dur": 0.4
+    },
+    {
+      "who": "hero",
+      "at": 11.9,
+      "do": "squash",
+      "amount": 0.06,
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 6.3,
+      "do": "lean",
+      "to": 0,
+      "dur": 0.4
     }
   ],
   "fx": [
@@ -416,6 +537,20 @@
       "dur": 0.7,
       "spark": "#ffe27a",
       "puffs": 14
+    },
+    {
+      "do": "poof",
+      "at": 8.2,
+      "who": "hero",
+      "dur": 0.6,
+      "spark": "#a8d8ff",
+      "puffs": 10
+    },
+    {
+      "do": "flash",
+      "at": 8.2,
+      "dur": 0.2,
+      "peak": 0.5
     }
   ],
   "sfx": [
@@ -443,6 +578,13 @@
       "to": 8,
       "text": "he's in valhalla now.",
       "pos": "top"
+    },
+    {
+      "from": 8.8,
+      "to": 12.5,
+      "text": "valhalla has meetings too.",
+      "pos": 250
     }
-  ]
+  ],
+  "loop": false
 }

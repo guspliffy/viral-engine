@@ -4,7 +4,7 @@
   "format": "panic -> request -> trick -> the magician hides himself -> voice from nowhere -> slow look at the viewer",
   "shares": "the friend who would leave you at the party",
   "fps": 30,
-  "duration": 8.5,
+  "duration": 13.5,
   "cover": 4,
   "set": {
     "type": "party",
@@ -40,6 +40,21 @@
         "L": "hold"
       },
       "seed": 5.7
+    },
+    {
+      "id": "ex",
+      "character": "potatobrawl/phoenix",
+      "at": [
+        -2.7,
+        0.3
+      ],
+      "face": "3q-right",
+      "expr": "eager",
+      "arms": {
+        "R": "rest",
+        "L": "rest"
+      },
+      "seed": 7.1
     }
   ],
   "shots": [
@@ -138,6 +153,29 @@
         ]
       },
       "dur": 3.5,
+      "ease": "out"
+    },
+    {
+      "at": 8.5,
+      "pos": [
+        -0.55,
+        1.12,
+        5.5
+      ],
+      "look": [
+        -0.8,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.5,
+          1.1,
+          5.2
+        ]
+      },
+      "dur": 5,
       "ease": "out"
     }
   ],
@@ -402,6 +440,118 @@
       "at": 7.6,
       "do": "blink",
       "dur": 0.4
+    },
+    {
+      "who": "ex",
+      "at": 8.5,
+      "do": "move",
+      "to": [
+        -1.1,
+        0.35
+      ],
+      "dur": 1.2,
+      "ease": "out"
+    },
+    {
+      "who": "hero",
+      "at": 8.6,
+      "do": "turn",
+      "to": "3q-left",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 8.6,
+      "do": "look",
+      "to": [
+        -0.8,
+        0
+      ],
+      "dur": 0.12
+    },
+    {
+      "who": "hero",
+      "at": 8.65,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "ex",
+      "at": 9.7,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.3
+    },
+    {
+      "who": "ex",
+      "at": 9.75,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "excited"
+    },
+    {
+      "who": "hero",
+      "at": 10.4,
+      "do": "hat",
+      "off": [
+        0,
+        -0.2,
+        0.07
+      ],
+      "spin": [
+        12,
+        0,
+        0
+      ],
+      "dur": 0.25,
+      "ease": "out"
+    },
+    {
+      "who": "hero",
+      "at": 10.4,
+      "do": "arm",
+      "side": "both",
+      "pose": "hat",
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 10.45,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.25
+    },
+    {
+      "who": "ex",
+      "at": 11.6,
+      "do": "lean",
+      "to": 9,
+      "dur": 0.4
+    },
+    {
+      "who": "ex",
+      "at": 11.6,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 12.3,
+      "do": "hop",
+      "count": 2,
+      "height": 0.04,
+      "dur": 0.5
+    },
+    {
+      "who": "ex",
+      "at": 12.9,
+      "do": "arm",
+      "side": "R",
+      "pose": "hips",
+      "dur": 0.3
     }
   ],
   "fx": [
@@ -444,6 +594,21 @@
       "to": 8.5,
       "text": "\"you're welcome.\"",
       "pos": "top"
+    },
+    {
+      "from": 9.75,
+      "to": 11.3,
+      "text": "\"hey stranger.\"",
+      "pos": "top"
+    },
+    {
+      "from": 11.4,
+      "to": 13.5,
+      "text": "*hides*",
+      "pos": "top",
+      "style": "sub"
     }
-  ]
+  ],
+  "loop": false,
+  "sfx": []
 }
