@@ -42,8 +42,8 @@ export function phoenixCostume(C, ch) {
   return {
     hat: { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
     apply(st, t) {
-      const w = st.wings || 0, flap = Math.sin(t * 7) * 0.08 * (0.4 + w);
-      for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w), W.s * (-0.5 + 1.35 * w + flap)); W.fan.scale.setScalar(0.85 + 0.35 * w); }
+      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (7 + 17 * fl)) * (0.08 * (0.4 + w) + 0.45 * fl);
+      for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 1.3 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(0.85 + 0.4 * w + 0.4 * fl); }
       crest.rotation.x = 0.05 * Math.sin(t * 3.1);
     },
   };

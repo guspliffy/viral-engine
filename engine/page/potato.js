@@ -22,6 +22,8 @@ function handTarget(pose, sx, rx, H, t) {
     case "hold":  return [sx * (rx + 0.13), LEG_H + H * 0.4, 0.16];
     case "hat":   return [sx * rx * 0.6, top + 0.02, 0.2];
     case "fist":  return [sx * (rx + 0.06), LEG_H + H * 0.66, 0.26];
+    case "lap":   return [sx * rx * 0.45, LEG_H + H * 0.14, 0.34];
+    case "table": return [sx * rx * 0.6, LEG_H + H * 0.3, 0.44];
     case "cheeks": return [sx * (rx * 0.75), LEG_H + H * 0.5, 0.34];
     default:      return [sx * (rx + 0.08), LEG_H + H * 0.27, 0.06];   // rest
   }
@@ -112,7 +114,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
-    R.position.set(st.x, st.y, st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
+    R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
 
@@ -145,6 +147,10 @@ export class Character {
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
       const lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07;
       const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05);
+      // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
+      const kn = st.kneel || 0, si = st.sit || 0;
+      foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
+      foot.set(foot.x + sx * 0.02 * si, foot.y - 0.01 * si, foot.z + 0.24 * si);
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out].map((x) => x.toFixed(4)).join(",");

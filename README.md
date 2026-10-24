@@ -105,17 +105,23 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
 `storyboards/<id>.json`. `test-01-golden.json` is the reference example.
 
 - `fps`, `duration` (seconds), `cover` (time of the cover frame)
-- `set`: `{ type, seed, ... }`. Types: `meadow` (`sky: [top, horizon], ground: [inner, outer]`), `party` (living room at
+- `set`: `{ type, seed, ... }`. Types: `kitchen` (PotatoBrawl's kitchen at night, `time` on the clock), `meadow` (`sky: [top, horizon], ground: [inner, outer]`), `party` (living room at
   night; `wall`, `floor`), `office` (day, window, desks; `wall`, `floor`), `rooftop` (city at dusk; `sky`, `floor`)
 - `cast`: `{ id, character, at: [x, z], face, expr, arms: { R, L } }`. `face`: `camera`, `left`, `right`, `3q-left`, `3q-right`, `back` or degrees.
 - `shots`: camera cuts. `{ at, pos, look, fov, to: { pos, look, fov }, dur, ease }` — a shot lasts until the next one starts; `to` makes it move.
 - `actions`: `{ who, at, do, dur, ease, ... }`
   - `move` `{ to: [x, z] }` walks there · `hop` `{ count, height }` · `turn` `{ to }` · `lean` `{ to: degrees }`
   - `expr` `{ expr }` · `look` `{ to: [x, y] }` eyes, -1..1 · `talk` `{ tone: calm|excited|sad|question|chant, rate }` gibberish speech, lips in sync · `blink` · `noblink`
-  - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks`
+  - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks lap table`
   - `charge` `{ to: 0..1 }` prop glow · `droop` `{ to }` leaves · `swap` `{ form: "fries" }` · `hat` `{ off: [x,y,z], spin: [deg,deg,deg] }`
   - `squash` `{ amount }` · `grow` `{ to }` scales the whole character (1 = normal) · `hide` · `show`
-- `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames)
+  - dance moves on the music's beat (`engine/page/dance.js`, the same names as the puppets): `bounce groove point floss clap roof wave2 nod tada flare wobble` `{ amp, speed }`, plus `spin` `{ turns, dir }` and `shake` on top
+  - poses held for `dur`: `kneel` · `offer` (kneels, both hands out) · `holdout` (both hands out) · `show` (one hand up) · `swing` (the Reaper's scythe)
+  - flying: `fly` `{ to: { x, y } }` (wings spread and beat; after it the character hovers until a `drop`) · `hover` · `drop` `{ to: y }` falls like a stone · `wings` `{ to: 0..1 }` Phoenix's wings
+  - `sit` `{ seat: chair prop id, hands: lap|table|hold }` until `stand` · `grab` `{ prop, hand: R|L|both, off }` · `release` `{ prop, to: [x, y, z] }`
+  - `prop` `{ id, set: { split, glow, lid, fill, spill, x, y, z, rot, scale } }` tweens a prop (no `who`)
+- `props`: `{ id, kind: table|chair|teacup|jar|cookie|plate|clock, x, y (its bottom; a clock's middle), z, rot (degrees; a chair at 90 faces right), scale }` (`engine/page/props3d.js`). A table top is at y 0.62, a chair seat at 0.42. A clock prop hides the kitchen's own clock.
+- `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames), `sparkle` and `notes` `{ who, count }` round a character's head
 - `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones. `sound`: `{ auto, voice, sfx, reverb }` mix settings.
 - `style`: default render style. Any action, fx, caption, shot or sfx with `"only": "anime"` (or a list) is used only in that style.
 - `captions`: `{ from, to, text, pos: top|mid|low|<px>, x (centre in px, optional), style: main|sub, pop }`. A `\n` in the text forces a line break. Captions stay inside the TikTok safe zone.

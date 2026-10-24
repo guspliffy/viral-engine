@@ -4,11 +4,12 @@ import { Character } from "./potato.js";
 import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
+import { buildProp, propState } from "./props3d.js";
 import { rng, clamp } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 
 const W = 1080, H = 1920;
-let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat;
+let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
 function buildPoof(f, i) {
@@ -114,9 +115,39 @@ function speedLines(f, t, i) {
 }
 const fxActive = (f, t) => t >= f.at && t <= f.at + (f.dur ?? 0.1);
 
+// screen point (output px) of a 3D point, and the screen size of 1 m at that depth
+function toScreen(v) {
+  const p = new THREE.Vector3().fromArray(v), d = p.distanceTo(camera.position); p.project(camera);
+  return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, m: H / (2 * d * Math.tan((camera.fov * Math.PI) / 360)) };
+}
+// "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it
+function star4(x, y, r) { ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4, q = i % 2 ? r * 0.28 : r; ctx.lineTo(x + Math.sin(a) * q, y - Math.cos(a) * q); } ctx.closePath(); }
+function headFx(f, t, i) {
+  const d = f.dur ?? 1, k = (t - f.at) / d, A = f.who && poseStates[f.who];
+  if (k < 0 || k > 1 || !A) return;
+  const { st, a } = A, top = a.ch.topY() * (st.scale ?? 1), c = toScreen([st.x, st.y + top * 0.85, st.z]), n = f.count ?? 6, r = rng(4242 + i * 97);
+  ctx.save(); ctx.lineJoin = "round";
+  for (let j = 0; j < n; j++) {
+    const ph = r(), ang = r() * Math.PI * 2, rad = (0.35 + r() * 0.3) * c.m, lk = clamp((k * 1.3 - ph * 0.3) / 0.75);
+    if (lk <= 0 || lk >= 1) continue;
+    const fade = Math.min(1, lk * 6, (1 - lk) * 5);
+    if (f.do === "sparkle") {
+      const x = c.x + Math.cos(ang) * rad, y = c.y + Math.sin(ang) * rad * 0.8, sz = (0.05 + 0.04 * r()) * c.m * Math.sin(lk * Math.PI);
+      ctx.globalAlpha = fade; ctx.fillStyle = f.color || "#fff6c8"; ctx.strokeStyle = "rgba(60,40,0,0.55)"; ctx.lineWidth = 3;
+      star4(x, y, sz); ctx.fill(); ctx.stroke();
+    } else {
+      const side = j % 2 ? 1 : -1, x = c.x + side * (0.2 + 0.25 * r()) * c.m + Math.sin(lk * 6 + j) * 0.05 * c.m, y = c.y - lk * 0.55 * c.m;
+      ctx.globalAlpha = fade; ctx.font = `900 ${Math.round(0.16 * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.lineWidth = 6; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#2b2934"; const g = j % 3 === 1 ? "\u266B" : "\u266A";
+      ctx.strokeText(g, x, y); ctx.fillText(g, x, y);
+    }
+  }
+  ctx.restore();
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes") headFx(f, t, i); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c);
@@ -143,6 +174,9 @@ async function init(data) {
   const before = scene.children.length;
   buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null);
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
+  props = (sb.props || []).map((spec) => { const p = buildProp(spec); scene.add(p.root); return p; });
+  // a clock prop replaces the kitchen's own clock
+  if (props.some((p) => p.spec.kind === "clock")) { const c = scene.getObjectByName("set-clock"); if (c) c.visible = false; }
   inkMat = new THREE.MeshBasicMaterial({ color: "#000000" });
   styler = makeStyle(style, R);
   actors = sb.cast.map((c) => {
@@ -168,6 +202,25 @@ function pose(t) {
     const who = p.f.who && states[p.f.who];
     const o = who ? new THREE.Vector3(who.st.x, 0, who.st.z + 0.15) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
     p.apply(t, o);
+  }
+  poseStates = states;
+  // props: a held prop sits in its holder's hand (both hands: between them), a released one glides to where it is put down
+  const v = new THREE.Vector3(), handAt = (who, hand) => {
+    const A = states[who]; if (!A) return null;
+    A.a.ch.root.updateMatrixWorld(true);
+    const hs = hand === "both" ? ["R", "L"] : [hand];
+    return hs.reduce((acc, h) => acc.add(A.a.ch.arms[h].hand.getWorldPosition(v)), new THREE.Vector3()).multiplyScalar(1 / hs.length);
+  };
+  for (const p of props) {
+    const ps = propState(sb, p.spec, t);
+    if (ps.hold) {
+      const h = handAt(ps.hold.who, ps.hold.hand);
+      if (h) {
+        const o = ps.hold.off, at = [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]];
+        [ps.x, ps.y, ps.z] = ps.hold.to ? ps.hold.to.map((q, i) => q + (at[i] - q) * ps.hold.k) : at;
+      }
+    }
+    p.apply(ps, t);
   }
   const cam = cameraState(sb, t);
   camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));

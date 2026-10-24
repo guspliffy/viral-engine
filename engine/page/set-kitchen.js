@@ -78,7 +78,7 @@ export function buildKitchen(scene, S = {}) {
   const note = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.16), lam("#f6e58d")); note.position.set(-3.15, 1.6, WALL_Z + 0.78); note.rotation.z = 0.08; room.add(note);
 
   // the wall clock on the right, showing S.time
-  const clock = new THREE.Group(); clock.position.set(2.0, 1.95, WALL_Z + 0.04); room.add(clock);
+  const clock = new THREE.Group(); clock.name = "set-clock"; clock.position.set(2.0, 1.95, WALL_Z + 0.04); room.add(clock);
   const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.06, 40), std("#c0392b", { roughness: 0.5 })); rim.rotation.x = Math.PI / 2; clock.add(rim);
   const face = new THREE.Mesh(new THREE.CircleGeometry(0.2, 40), lam("#f4efe2")); face.position.z = 0.032; face.material.userData.noOutline = true; clock.add(face);
   const tm = S.time ?? 2.75, handM = lam("#11101c");

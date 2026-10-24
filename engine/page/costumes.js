@@ -192,7 +192,7 @@ export function buildCostume(def, ch) {
         prop.group.position.copy(hands[propHand]);
         // right hand is at -x, left at +x: lean the top of the prop outward on either side
         const out = propHand === "R" ? 1 : -1;
-        prop.group.rotation.set(t0[0] + (t1[0] - t0[0]) * a.p, 0, out * (t0[1] + (t1[1] - t0[1]) * a.p));
+        prop.group.rotation.set(t0[0] + (t1[0] - t0[0]) * a.p, 0, out * (t0[1] + (t1[1] - t0[1]) * a.p) + (st.propSpin || 0));
         prop.charge(st.charge, t);
       }
     },

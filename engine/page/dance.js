@@ -35,6 +35,19 @@ const MOVES = {
     const d = Math.exp(-u * 1.2), s = Math.sin(u * 9);
     return { lean: 0.28 * s * d, yaw: 0.3 * Math.sin(u * 6) * d, squash: 0.96, arms: { R: { o: [0.35, 0.7 + 0.1 * s * d, 0.05] }, L: { o: [0.35, 0.7 - 0.1 * s * d, 0.05] } } };
   },
+  // poses for the comedy clips (not on the beat); they hold for `dur`
+  kneel({ k }) { return { kneel: 1, lean: 0.06, pitch: 0.12, arms: { R: { o: [0.06, 0.3, 0.2] }, L: { o: [0.06, 0.3, 0.2] } } }; },
+  offer({ u }) { return { kneel: 1, pitch: 0.16, arms: { R: { x: [-0.14, 0.62 + 0.02 * Math.sin(u * 3), 0.5] }, L: { x: [0.14, 0.62 + 0.02 * Math.sin(u * 3), 0.5] } } }; },
+  holdout({ u }) { return { pitch: 0.05, arms: { R: { x: [-0.14, 0.5 + 0.015 * Math.sin(u * 3), 0.5] }, L: { x: [0.14, 0.5 + 0.015 * Math.sin(u * 3), 0.5] } } }; },
+  show({ u }) { const e = sm(u * 4); return { squash: 1 + 0.03 * e, arms: { R: { o: [0.12, 0.6 + 0.55 * e, 0.22] }, L: "hips" } }; },
+  // Reaper's scythe: wind up high, sweep the blade across the front, settle back
+  swing({ k }) {
+    const w = sm(k / 0.3), s = sm((k - 0.3) / 0.3), back = sm((k - 0.65) / 0.35), up = w * (1 - s), sweep = s * (1 - back);
+    return {
+      yaw: 0.35 * up - 0.55 * sweep, lean: -0.08 * up + 0.1 * sweep, squash: 1 + 0.04 * up - 0.05 * sweep, propSpin: 0.7 * up - 2.0 * sweep,
+      arms: { R: { o: [0.1 + 0.05 * up - 0.3 * sweep, 0.4 + 0.75 * up - 0.05 * sweep, 0.16 + 0.3 * sweep] } },
+    };
+  },
 };
 const ADDS = {
   spin({ k, a }) { return { yaw: TAU * (a.turns ?? 1) * ease("inOut")(k) * (a.dir ?? 1), y: 0.14 * Math.sin(Math.PI * k) }; },
@@ -55,6 +68,8 @@ export function applyDance(sb, a, t, st) {
   st.y += (r.y || 0) * env; st.x += (r.x || 0) * env; st.lean += (r.lean || 0) * env; st.yaw += (r.yaw || 0) * env;
   st.pitch = (st.pitch || 0) + (r.pitch || 0) * env;
   if (r.squash) st.squash *= 1 + (r.squash - 1) * env;
+  if (r.kneel) st.kneel = Math.max(st.kneel || 0, r.kneel * env);
+  if (r.propSpin) st.propSpin = (st.propSpin || 0) + r.propSpin * env;
   if (r.wings != null) st.wings = Math.max(st.wings || 0, r.wings * env);
   if (r.arms) for (const s of ["R", "L"]) if (r.arms[s]) st.arms[s] = { from: st.arms[s].pose, pose: r.arms[s], p: env };
 }
