@@ -1,0 +1,46 @@
+{
+  "id": "puppet-props", "title": "Props, sitting, kneeling, carrying: test sheet", "status": "test, not for posting",
+  "fps": 30, "duration": 11, "map": "kitchen",
+  "cast": [
+    { "id": "phx", "fighter": "phoenix", "x": -42, "facing": 1 },
+    { "id": "rea", "fighter": "reaper", "x": 42, "facing": -1 }
+  ],
+  "props": [
+    { "id": "clock", "kind": "clock", "x": 0, "y": -96, "time": 2.75 },
+    { "id": "table", "kind": "table", "x": 0, "y": 0 },
+    { "id": "chairL", "kind": "chair", "x": -42, "y": 0, "face": 1 },
+    { "id": "chairR", "kind": "chair", "x": 42, "y": 0, "face": -1 },
+    { "id": "cup", "kind": "teacup", "x": -14, "y": -35 },
+    { "id": "jar", "kind": "jar", "x": 14, "y": -35, "scale": 0.8 }
+  ],
+  "camera": [ { "at": 0, "x": 0, "y": -58, "z": 5.4 } ],
+  "actions": [
+    { "who": "phx", "at": 0.6, "dur": 3.4, "do": "sit", "hands": "table" },
+    { "who": "rea", "at": 0.9, "dur": 5.6, "do": "sit", "hands": "table" },
+    { "do": "prop", "id": "clock", "at": 1.6, "dur": 0.35, "ease": "snap", "set": { "split": 1 } },
+    { "who": "phx", "at": 2.3, "do": "grab", "prop": "cup", "hand": "F" },
+    { "who": "phx", "at": 2.3, "dur": 1.0, "do": "show" },
+    { "who": "phx", "at": 3.3, "do": "release", "prop": "cup", "to": [-14, -35], "dur": 0.25 },
+    { "do": "prop", "id": "cup", "at": 3.6, "dur": 0.3, "ease": "snap", "set": { "split": 1, "fill": 0 } },
+    { "who": "phx", "at": 4.0, "dur": 0.6, "do": "walk", "to": -30 },
+    { "who": "phx", "at": 4.6, "do": "grab", "prop": "jar", "hand": "both", "off": [0, 4] },
+    { "who": "phx", "at": 4.6, "dur": 2.0, "do": "offer" },
+    { "do": "prop", "id": "jar", "at": 5.2, "dur": 0.4, "set": { "glow": 1 } },
+    { "do": "prop", "id": "jar", "at": 5.8, "dur": 0.4, "ease": "out", "set": { "lid": 1 } },
+    { "who": "phx", "at": 6.6, "do": "release", "prop": "jar", "to": [14, -35], "dur": 0.3 },
+    { "who": "phx", "at": 6.9, "dur": 0.6, "do": "fly", "to": 20, "y": -70 },
+    { "who": "phx", "at": 7.5, "dur": 2.0, "do": "carryhand" },
+    { "who": "phx", "at": 7.5, "dur": 2.0, "do": "carry", "target": "rea" },
+    { "who": "phx", "at": 7.6, "dur": 1.9, "do": "fly", "to": -20, "y": -95 },
+    { "who": "rea", "at": 9.5, "dur": 0.35, "do": "drop" },
+    { "who": "rea", "at": 9.85, "do": "face", "expr": "dazed" },
+    { "who": "phx", "at": 9.6, "dur": 1.2, "do": "hover" },
+    { "who": "phx", "at": 9.6, "do": "face", "expr": "terror" }
+  ],
+  "fx": [
+    { "do": "pop", "prop": "clock", "dy": -15, "at": 1.6, "dur": 0.3 },
+    { "do": "drops", "prop": "cup", "at": 3.6, "dur": 0.8, "dy": -10, "floor": -35 },
+    { "do": "pop", "prop": "jar", "dy": -24, "at": 5.8, "dur": 0.35, "color": "#ff6a50" }
+  ],
+  "captions": [ { "at": 0, "end": 11, "text": "props test", "style": "sub" } ]
+}

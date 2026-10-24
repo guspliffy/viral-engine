@@ -10,6 +10,7 @@
      hF hB fF fB   front / back hand and foot, [x, y] in the fighter's own units (x forward, y up is negative, feet at 0)
      lean          body tilt in radians (+ = forward),  crouch 0..1,  hop (units up),  spin (radians, whole body)
      wingUp 0..1   (Phoenix: wings spread),  dx (units the body is shifted sideways, the feet stay)
+     lift          units the whole fighter is raised (sitting on a seat)
    Moves never set the face; faces and the mouth are separate layers (runtime.js). */
 
 const TAU = Math.PI * 2;
@@ -24,7 +25,7 @@ function restPose(sk, costume) {
     hF: costume === "reaper" ? [w * 0.9, -leg - tor * 0.36 + 4] : [w * 0.75, -leg - tor * 0.52 + 4],
     hB: [-w * 0.53, -leg - tor * 0.42 + 4],
     fF: [w * 0.24, 0], fB: [-w * 0.2, 0],
-    lean: 0, crouch: 0, hop: 0, spin: 0, wingUp: 0, dx: 0,
+    lean: 0, crouch: 0, hop: 0, spin: 0, wingUp: 0, dx: 0, lift: 0,
   };
 }
 
@@ -115,6 +116,35 @@ const MOVES = {
       hF: [L.w * 0.8, L.sh - 6], hB: [L.w * 0.35, L.sh - 4], lean: 0.12 };
   },
 };
+
+Object.assign(MOVES, {
+  // sitting on a seat `seat` units high (a chair: 14): the body rests on it, the short legs dangle forward.
+  // hands: "lap" (default), "table" (forward on a table top at y = -34) or "hold" (both in front, holding something)
+  sit({ seat = 14, hands = "lap", sk, u }) {
+    const L = lv(sk), sway = Math.sin(u * 2.2) * 1.2, ty = -34 + seat;
+    const H = hands === "table" ? { hF: [L.w * 1.0, ty - 2], hB: [L.w * 0.75, ty - 1] } : hands === "hold" ? { hF: [L.w * 0.95, L.sh + 4], hB: [L.w * 0.75, L.sh + 6] } : { hF: [L.w * 0.7, -sk.leg + 2], hB: [-L.w * 0.35, -sk.leg + 2] };
+    return { lift: seat, crouch: 0, lean: 0.03, fF: [L.w * 0.42, 5 + sway], fB: [L.w * 0.18, 7 - sway], ...H };
+  },
+  // kneeling on one knee, both hands forward and together (holding something out goes in "offer")
+  kneel({ sk }) { const L = lv(sk); return { crouch: 0.75, lean: 0.12, fF: [L.w * 0.5, -1], fB: [-L.w * 0.45, 0], hF: [L.w * 0.95, L.sh + 10], hB: [L.w * 0.8, L.sh + 12] }; },
+  // kneeling and offering with both hands raised in front: a held prop sits between the hands
+  offer({ k, sk }) {
+    const L = lv(sk), e = sm(k * 3);
+    return { crouch: 0.75, lean: 0.12 + 0.06 * e, fF: [L.w * 0.5, -1], fB: [-L.w * 0.45, 0], hF: [L.w * (0.95 + 0.25 * e), L.sh + 10 - 14 * e], hB: [L.w * (0.8 + 0.25 * e), L.sh + 12 - 14 * e] };
+  },
+  // both hands in front at the chest, holding something (a jar, a plate)
+  holdout({ sk, u, amp }) { const L = lv(sk), b = Math.sin(u * 3) * 1 * amp; return { hF: [L.w * 0.98, L.sh + 2 + b], hB: [L.w * 0.78, L.sh + 4 + b] }; },
+  // one hand out in front, holding something up to look at it
+  show({ sk }) { const L = lv(sk); return { hF: [L.w * 1.05, L.top + 4], lean: -0.04 }; },
+  // carrying someone below by the hand: the back arm hangs straight down
+  carryhand({ sk }) { const L = lv(sk); return { hB: [-L.w * 0.1, 6], hF: [L.w * 0.9, L.sh - 6], lean: 0.1 }; },
+  // being carried: the front hand up, the body hangs and swings a little, the legs dangle
+  dangle({ u, sk }) { const L = lv(sk), sw = Math.sin(u * 3.1); return { hF: [L.w * 0.15, L.top - 22], hB: [-L.w * 0.6, L.sh + 6 + 3 * sw], fF: [L.w * 0.18, 3 + 2 * sw], fB: [-L.w * 0.12, 5 - 2 * sw], lean: 0.12 * sw }; },
+  // hovering in the air: wings up, legs tucked
+  hover({ u, sk }) { const L = lv(sk), b = Math.sin(u * 4); return { wingUp: 0.6, hop: 3 * b, fF: [L.w * 0.2, -4], fB: [-L.w * 0.15, -3], hF: [L.w * 0.85, L.sh - 4], hB: [-L.w * 0.75, L.sh - 4] }; },
+});
+// how long a move takes to blend in and out when the storyboard doesn't say (sitting down is not a snap)
+const MOVE_BLEND = { sit: [0.3, 0.3], kneel: [0.25, 0.25], offer: [0.25, 0.25], dangle: [0.15, 0.2], hover: [0.2, 0.2] };
 
 // Moves that add on top of whatever the body is doing (a hop or spin during a dance loop).
 const ADDS = {

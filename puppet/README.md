@@ -42,7 +42,8 @@ fighter is about 64 tall and 44 wide.
 | `camera[]` | `{ at, x, y, z (zoom), dur, ease: linear in out inout snap }`; the first entry is the start |
 | `music` | `{ bpm, offset, gain, parts: [{ at, part: intro main build drop stop }] }` |
 | `actions[]` | `{ who, at, dur, do, ... }`, see below |
-| `fx[]` | `notes` `sparkle` (on `who`), `lines` (manga focus lines), `flash` (peak ≤ 0.85), `spot`, `shake` |
+| `props[]` | `{ id, kind, x, y, layer: back / front, ... }`. The kinds are `table` `chair` (`face`) `clock` (`time`) `teacup` (`fill`) `jar` (`glow`, `lid`) `cookie` `plate`, and any of them can `split` |
+| `fx[]` | `notes` `sparkle` (on `who`), `lines` (manga focus lines), `flash` (peak ≤ 0.85), `spot`, `shake`, `drops` and `pop` (on `prop` or `who`) |
 | `captions[]` | `{ at, end, text, style: main / sub, pos: top / mid / low / px }`, kept inside the safe zone |
 | `sfx[]` | any sound from `engine/audio.mjs` by name, `{ sound, at, gain, pan }` |
 
@@ -57,15 +58,29 @@ fighter is about 64 tall and 44 wide.
   `turn` flips the facing, or `to: "left"` / `"right"`.
 - **Face**: `face` with `expr`: `terror` `grin` `rage` `calm` (eyes closed) `dazed` `ko`, or `""` for the
   fighter's own face. It lasts until the next `face`, or for `dur`. `sting: true` on a terror face adds the "dun!".
+- **Sitting and kneeling**: `sit` (`seat`: 14 for a chair; `hands`: `lap`, `table` or `hold`), `kneel`, `offer`
+  (kneels and holds out both hands), `holdout` (both hands in front), `show` (one hand up), `hover`.
+- **In the air**: `fly` (`to` x and/or `y`, the wings flap), `climb` (onto something `y` high, with a little hop),
+  `drop` (falls straight down like a stone). `carry` (`target`, `hand`: `B` by default) makes the target hang from
+  the carrier's hand. Give the carrier `carryhand` so its arm hangs down. When the carry ends, the target stays
+  where it was hanging, so follow it with a `drop`.
 - **Talking**: `talk` with `dur` and `tone` (`calm` `excited` `sad` `question` `chant`) speaks gibberish in the
   fighter's voice (`cast.json`), and the mouth opens on the syllables.
 
 `storyboards/puppet/puppet-moves.json` shows every move one after the other, as a test sheet.
 
+### Props
+
+- `{ do: "prop", id, at, dur, ease, set: { split, glow, lid, fill, x, y, rot, scale, alpha, time } }` tweens the
+  numbers in `set` and switches everything else.
+- `{ who, do: "grab", prop, hand: F / B / both, off }` puts the prop in the fighter's hand.
+  `{ who, do: "release", prop, to: [x, y], dur }` puts it down, or leaves it where the hand let go.
+- The props are drawn in the game's style (flat colours, dark ink outline). They are proposals until Jonny has
+  seen them. `storyboards/puppet/puppet-props.json` is the test sheet.
+
 ## Limits (as of 2026-10-24)
 
 - The fighters are drawn side-on only, so there is no front view and no turning to the camera.
 - The head can't move on its own. A nod is a lean of the whole body.
-- There are no props beyond what the game draws (the Reaper's scythe stays in his front hand). There is no
-  sitting, kneeling or carrying yet. The comedy scripts need these (see the comedy doc's "What the puppet needs").
+- The Reaper's scythe stays in his front hand. Give his props to the back hand, or to both hands.
 - The voices are proposals until Jonny has listened. Claude can't hear the audio.

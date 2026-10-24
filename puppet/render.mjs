@@ -166,7 +166,7 @@ async function main() {
   }
 
   const page0 = gamePage(o.out);
-  const src = `(() => {\n${fs.readFileSync(path.join(HERE, "page", "moves.js"), "utf8")}\n${fs.readFileSync(path.join(HERE, "page", "runtime.js"), "utf8")}\n})()`;
+  const src = `(() => {\n${["moves.js", "props.js", "runtime.js"].map((f) => fs.readFileSync(path.join(HERE, "page", f), "utf8")).join("\n")}\n})()`;
   const fonts = { PupBlack: fs.readFileSync(path.join(ROOT, "assets/fonts/Inter-Black.otf")).toString("base64"), PupBold: fs.readFileSync(path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf")).toString("base64") };
   const browser = await chromium.launch({ executablePath: findChrome() });
   try {
