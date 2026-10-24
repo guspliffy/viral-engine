@@ -67,3 +67,33 @@ Fable's notes: bigger paper and a tighter shot (applied, framing adjusted so cap
 the Astronaut buzzing as he writes, "done in one stroke" (applied); the Samurai holds the stub to the lens (applied);
 the Dragon's steam bigger and white, a flash on the snort (applied); the next fighter queues after each payoff
 (applied); the Astronaut glances at the viewer before the seam (applied).
+
+## 3. No toilet paper: "what each fighter does" (bathroom)
+
+`storyboards/make-toilet.mjs` → `toilet-01-no-paper.json`, 21.15 s (escalation clip). Kept clean: the joke is the
+empty cardboard tube, nothing bodily. One take from the bathroom door.
+
+Habits (what people do when the roll is empty): bring their own, accept their fate, reach for the spare without
+getting up, panic, text the family for help, use whatever is in reach, shout "who used the last roll?", get angry
+at the holder.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | brought his own | spins the empty tube ("?"), pulls his own roll from his suit |
+| Reaper | stares into the void | finds the empty tube, a long dead stare at us |
+| Sorcerer | the lazy reach | floats the spare roll down from the high shelf by magic |
+| Wizard | the spell goes wrong | *a spell for one roll brings an avalanche of rolls* |
+| Dragon | panics | "!", sweat, looks everywhere, snorts little fires |
+| Phoenix | texts for help | texts the family; a roll flies in through the door and bonks him |
+| Gunslinger | shoots it down | *shoots the spare roll off the high shelf and catches it* |
+| Samurai | uses the curtain | *cuts the shower curtain into neat squares* |
+| Allfather | who used the last roll?! | a dad roar that shakes the house |
+| Viking | bangs the holder | *bangs the empty holder so hard the toilet cracks in two* |
+
+Loop: a poof resets the toilet, the Astronaut sits and spins the empty tube (frame 0).
+New engine parts: `bathroom` set, `toilet`, `tpholder` (standing), `troll` (a loose roll), `curtain` props;
+`sweat` and `alert` head effects; the `drop` action now eases into its tuck instead of snapping.
+Fable's notes: tighter shot (applied, no push-in so the loop stays seamless); the empty tube bigger and turned to
+the camera, a "?" on the Astronaut (applied); the curtain brought into frame (applied); the avalanche piles in front
+of the Wizard (applied); the Viking gone before the Astronaut walks in, the question up longer (applied); the spare
+roll bigger with a glint before it's used (applied).

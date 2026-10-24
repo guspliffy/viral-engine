@@ -679,17 +679,19 @@ const KINDS = {
       apply(ps) { lidG.rotation.x = -(Math.PI / 2) * (0.92 * clamp(ps.lid ?? 1)); const q = clamp(ps.smash ?? 0); if (q > 0) for (const [s, h] of P.halves) { h.position.x += s * 0.2 * q; h.rotation.z -= s * 0.6 * q; } },
     };
   },
-  // a toilet-roll holder on a wall (the origin at the arm's end on the wall's face, the roll sticking out along +z):
-  // stock 0..1 is how much paper is left (0: the bare cardboard tube); spin turns it (degrees)
+  // a standing toilet-roll holder (its foot at the origin): a chrome pole with the roll on an arm at y 0.62, sticking
+  // out along +x. stock 0..1 is how much paper is left (0: the bare cardboard tube); spin turns it (degrees)
   tpholder(P) {
-    const chrome = mat("#c9ccd3", { roughness: 0.2, metalness: 0.8 }), paper = mat("#ffffff", { roughness: 0.9 }), card = mat("#b88b5a", { roughness: 0.9 });
-    mesh(new THREE.BoxGeometry(0.06, 0.06, 0.02), chrome, P.whole, -0.07, 0, 0.01);
-    const bar = mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.15, 8), chrome, P.whole, -0.07, 0, 0.0); bar.rotation.z = Math.PI / 2; bar.position.set(0.0, 0, 0.07);
-    const spin = new THREE.Group(); spin.position.set(0, 0, 0.07); P.whole.add(spin);
-    const tube = mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.11, 16, 1, true), card, spin, 0, 0, 0); tube.rotation.z = Math.PI / 2; tube.material.side = THREE.DoubleSide;
+    const chrome = mat("#c9ccd3", { roughness: 0.2, metalness: 0.8 }), paper = mat("#ffffff", { roughness: 0.9 }), card = mat("#c28a52", { roughness: 0.9 });
+    mesh(new THREE.CylinderGeometry(0.1, 0.11, 0.025, 24), chrome, P.whole, 0, 0.0125, 0);
+    mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.75, 10), chrome, P.whole, 0, 0.375, 0);
+    mesh(new THREE.SphereGeometry(0.025, 10, 8), chrome, P.whole, 0, 0.76, 0);
+    const bar = mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.15, 8), chrome, P.whole, 0.07, 0.62, 0); bar.rotation.z = Math.PI / 2;
+    const spin = new THREE.Group(); spin.position.set(0.085, 0.62, 0); P.whole.add(spin);
+    const tube = mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.11, 16, 1, true), card, spin, 0, 0, 0); tube.rotation.z = Math.PI / 2; tube.material.side = THREE.DoubleSide;
     const rollM = mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.105, 24), paper, spin, 0, 0, 0); rollM.rotation.z = Math.PI / 2;
     const tail = mesh(new THREE.BoxGeometry(0.1, 0.12, 0.003), paper, spin, 0, -0.07, 0.06);
-    return { grip: 0, apply(ps) { const r = clamp(ps.stock ?? 1); rollM.visible = r > 0.02; rollM.scale.set(0.38 + 0.62 * r, 1, 0.38 + 0.62 * r); tail.visible = r > 0.02; tail.position.z = 0.025 + 0.035 * r; spin.rotation.x = ((ps.spin || 0) * Math.PI) / 180; } };
+    return { grip: 0.62, apply(ps) { const r = clamp(ps.stock ?? 1); rollM.visible = r > 0.02; rollM.scale.set(0.42 + 0.58 * r, 1, 0.42 + 0.58 * r); tail.visible = r > 0.02; tail.position.z = 0.025 + 0.035 * r; spin.rotation.x = ((ps.spin || 0) * Math.PI) / 180; } };
   },
   // a loose toilet roll (its bottom at the origin, standing up); unroll 0..1 trails a long paper streamer down
   // from it (towards -y from the roll, so it streams from a high shelf or from a hand)
@@ -716,13 +718,60 @@ const KINDS = {
       const low = mesh(new THREE.PlaneGeometry(0.15, 0.8), m, lowerG, -0.525 + k * 0.15, -1.22, (k % 2) * 0.04); low.castShadow = false;
     }
     const squares = [];
-    for (let k = 0; k < 6; k++) { const q = mesh(new THREE.BoxGeometry(0.2, 0.012, 0.2), m, P.whole, 0, 0, 0.25); squares.push(q); }
+    for (let k = 0; k < 6; k++) { const q = mesh(new THREE.BoxGeometry(0.2, 0.012, 0.2), m, P.whole, 0, 0, 0.12); squares.push(q); }
     return {
       grip: 0,
       apply(ps) {
         const u = clamp(ps.cut ?? 0);
         lowerG.visible = u < 0.15;
-        squares.forEach((q, k) => { const f = clamp((u - 0.1 - k * 0.05) / 0.5); q.visible = u > 0.1; q.position.set(0.2 * Math.sin(k * 2.1) * (1 - f), lerp(-1.0 - k * 0.05, -1.58 + k * 0.012, f), 0.25); q.rotation.set((1 - f) * (k + 1) * 1.3, (1 - f) * k * 0.9, 0); });
+        squares.forEach((q, k) => { const f = clamp((u - 0.1 - k * 0.05) / 0.5); q.visible = u > 0.1; q.position.set(0.2 * Math.sin(k * 2.1) * (1 - f), lerp(-1.0 - k * 0.05, -1.58 + k * 0.012, f), 0.12); q.rotation.set((1 - f) * (k + 1) * 1.3, (1 - f) * k * 0.9, 0); });
+      },
+    };
+  },
+  // a small open-top cartoon car (its front towards +z, origin on the ground under its middle; rot 90 drives it to the
+  // right). A driver rides it: { do: "ride", prop, off: [0, 0.2, -0.08], sit: true }. spec.color paints it. The wheels
+  // turn with the distance it moves along its heading. split 0..1 cuts it in two across the middle (the halves part
+  // front and back); smash 0..1 crumples it flat; bump 0..1 rocks it on its springs; tiny 0..1 shrinks the car to a
+  // toy around its seat (the driver stays put); chop 0..1 cuts the front half off (it drops away forwards)
+  car(P) {
+    const paint = mat(P.spec.color || "#e85d4f", { roughness: 0.35, metalness: 0.15 }), dark = mat("#2d3340", { roughness: 0.6 }), chrome = mat("#d7dbe2", { roughness: 0.2, metalness: 0.8 });
+    const tyre = mat("#22232a", { roughness: 0.9 }), seatM = mat("#f4efe2", { roughness: 0.7 }), glass = mat("#bfe3f7", { roughness: 0.1, transparent: true, opacity: 0.6 });
+    const lamp = new THREE.MeshBasicMaterial({ color: "#fff3b0" }), red = new THREE.MeshBasicMaterial({ color: "#e0352b" });
+    const body = new THREE.Group(); P.whole.add(body);
+    const halves = [[1, new THREE.Group()], [-1, new THREE.Group()]]; for (const [, h] of halves) body.add(h);   // front (+z) and back
+    const wheels = [];
+    for (const [s, h] of halves) {
+      const zc = s * 0.35;
+      mesh(new THREE.BoxGeometry(0.8, 0.26, 0.7), paint, h, 0, 0.3, zc);                                   // the tub
+      const nose = mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.26, 20, 1, false, s > 0 ? -Math.PI / 2 : Math.PI / 2, Math.PI), paint, h, 0, 0.3, s * 0.7); nose.scale.z = 0.45;
+      mesh(new THREE.BoxGeometry(0.84, 0.05, 0.72), chrome, h, 0, 0.15, zc);                               // the sill
+      for (const x of [-0.27, 0.27]) mesh(new THREE.SphereGeometry(0.055, 12, 8), s > 0 ? lamp : red, h, x, 0.36, s * 0.86);
+      mesh(new THREE.BoxGeometry(0.6, 0.06, 0.04), chrome, h, 0, 0.2, s * 0.88);                            // bumper
+      for (const x of [-0.42, 0.42]) {
+        const w = new THREE.Group(); w.position.set(x, 0.16, s * 0.5); h.add(w);
+        const tr = mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.12, 20), tyre, w, 0, 0, 0); tr.rotation.z = Math.PI / 2;
+        const hb = mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.125, 12), chrome, w, 0, 0, 0); hb.rotation.z = Math.PI / 2;
+        wheels.push(w);
+      }
+    }
+    // the seat, the steering wheel and a small windscreen (front half)
+    const front = halves[0][1], back = halves[1][1];
+    mesh(new THREE.BoxGeometry(0.62, 0.08, 0.4), seatM, back, 0, 0.45, -0.12);
+    mesh(new THREE.BoxGeometry(0.62, 0.32, 0.08), seatM, back, 0, 0.6, -0.32);
+    const sw = mesh(new THREE.TorusGeometry(0.1, 0.018, 8, 20), dark, front, 0, 0.6, 0.18); sw.rotation.x = -0.9;
+    const ws = mesh(new THREE.BoxGeometry(0.66, 0.2, 0.02), glass, front, 0, 0.55, 0.42); ws.rotation.x = -0.35; ws.castShadow = false;
+    return {
+      grip: 0.45,
+      apply(ps, t) {
+        const sp = clamp(ps.split ?? 0), sm = clamp(ps.smash ?? 0), bu = clamp(ps.bump ?? 0), ti = clamp(ps.tiny ?? 0);
+        for (const [s, h] of halves) { h.position.set(0, -0.12 * sp * sp, s * 0.35 * sp); h.rotation.x = s * 0.35 * sp; }
+        // chop: the front half is cut off and drops away forwards, tumbling (the seat is in the back half)
+        const ch = clamp(ps.chop ?? 0), fr = halves[0][1]; if (ch > 0) { fr.position.z += 0.5 * ch; fr.position.y -= 0.25 * ch * ch; fr.rotation.x += 1.2 * ch; }
+        body.scale.set((1 + 0.25 * sm) * (1 - 0.7 * ti), (1 - 0.65 * sm) * (1 - 0.7 * ti), (1 - 0.1 * sm) * (1 - 0.7 * ti));
+        body.position.y = 0.3 * 0.7 * ti;   // shrinks towards its seat height, so the driver is left sitting on a toy
+        body.rotation.z = bu * 0.06 * Math.sin((t ?? 0) * 30); body.rotation.x = bu * 0.04 * Math.sin((t ?? 0) * 23 + 1);
+        const r = ((ps.rot ?? 0) * Math.PI) / 180, dist = (ps.x ?? 0) * Math.sin(r) + (ps.z ?? 0) * Math.cos(r);
+        for (const w of wheels) w.rotation.x = dist / (0.16 * Math.max(ps.scale ?? 1, 0.01));
       },
     };
   },
@@ -772,7 +821,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

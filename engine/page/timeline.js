@@ -150,7 +150,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         airSince = null; st.flap = f0 * out;
         st.y = lerp(y0, to, k * k);   // speeds up like a falling stone
         st.wings = st.wings * (1 - clamp((t - a.at) / 0.15));
-        st.tuck = p < 1 ? lerp(Math.max(st.tuck, 0.4), 0.4, clamp((t - a.at) / 0.1)) : 0.4 * (1 - clamp((t - a.at - d) / 0.12));
+        st.tuck = p < 1 ? lerp(st.tuck, 0.4, clamp((t - a.at) / 0.1)) : 0.4 * (1 - clamp((t - a.at - d) / 0.12));   // eases into the tuck (it used to snap from 0)
         if (p < 1) st.squash *= 1 + 0.08 * k; else { const after = t - (a.at + d); if (after < 0.22) st.squash *= 1 - 0.28 * Math.sin((after / 0.22) * Math.PI); }
         break;
       }

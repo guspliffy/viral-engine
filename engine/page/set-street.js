@@ -5,7 +5,9 @@ import { rng } from "./util.js";
 // z -1.15; behind it the road (the near lane's middle at z -1.95, where a "bus" prop at z -1.45 drives), a far pavement
 // and a row of colourful shop fronts. The stop's sign pole stands at the left (x -1.45); put a "bench" prop on the
 // pavement. A puddle lies in the road by the kerb at x -0.2 (a bus wheel through it can splash someone).
-// spec: { type: "street", seed }
+// parking: true makes it a parking street instead: no bus stop, no "BUS" box, no puddle; white bay marks along the
+// near kerb and a blue "P" sign.
+// spec: { type: "street", seed, parking }
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -42,9 +44,11 @@ export function buildStreet(scene, S = {}) {
   for (let k = -10; k <= 10; k++) { const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.1), lam("#f4f2ea"))); d.rotation.x = -Math.PI / 2; d.position.set(k * 1.8, ROAD_Y + 0.004, -3.85); g.add(d); }
   // a bus-stop box painted on the near lane ("BUS"), and the puddle by the kerb
   const busTx = canvasTex(256, 64, (c, w, h) => { c.fillStyle = "rgba(0,0,0,0)"; c.clearRect(0, 0, w, h); c.fillStyle = "#f4d23c"; c.font = "900 52px sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("BUS", w / 2, h / 2 + 2); });
-  const word = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.28), lam("#ffffff", { map: busTx, transparent: true }))); word.rotation.x = -Math.PI / 2; word.position.set(2.2, ROAD_Y + 0.005, -2.25); g.add(word);
+  const word = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.28), lam("#ffffff", { map: busTx, transparent: true }))); word.rotation.x = -Math.PI / 2; word.position.set(2.2, ROAD_Y + 0.005, -2.25); if (!S.parking) g.add(word);
+  if (S.parking) for (const bx of [-3.4, -1.15, 1.15, 3.4]) { const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(0.06, 1.0), lam("#f4f2ea"))); m.rotation.x = -Math.PI / 2; m.position.set(bx, ROAD_Y + 0.005, KERB_Z - 0.55); g.add(m); }
+  if (S.parking) { const ln = flat(new THREE.Mesh(new THREE.PlaneGeometry(12, 0.06), lam("#f4f2ea"))); ln.rotation.x = -Math.PI / 2; ln.position.set(0, ROAD_Y + 0.005, KERB_Z - 1.05); g.add(ln); }
   const pud = flat(new THREE.Mesh(new THREE.CircleGeometry(0.42, 28), new THREE.MeshStandardMaterial({ color: "#8fb8d8", roughness: 0.05, metalness: 0.3 })));
-  pud.rotation.x = -Math.PI / 2; pud.scale.set(1.5, 0.55, 1); pud.position.set(-0.2, ROAD_Y + 0.006, KERB_Z - 0.42); g.add(pud);
+  pud.rotation.x = -Math.PI / 2; pud.scale.set(1.5, 0.55, 1); pud.position.set(-0.2, ROAD_Y + 0.006, KERB_Z - 0.42); if (!S.parking) g.add(pud);
   box(g, 40, 0.13, 0.14, lam("#b9b6ae"), 0, -0.055, -6.6);
   const farPave = flat(new THREE.Mesh(new THREE.PlaneGeometry(40, 3), lam("#ffffff", { map: slabs }))); farPave.rotation.x = -Math.PI / 2; farPave.position.set(0, 0, -8.1); g.add(farPave);
 
@@ -66,7 +70,13 @@ export function buildStreet(scene, S = {}) {
   for (const tx of [-6.5, -2.2, 2.6, 6.8]) { box(g, 0.14, 1.4, 0.14, trunk, tx, 0.7, -8.0); for (let k = 0; k < 3; k++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.55 + rnd() * 0.15, 16, 12), leaf); b.position.set(tx + (k - 1) * 0.35, 1.7 + rnd() * 0.35, -8.0); b.castShadow = true; g.add(b); } }
   for (const lx of [-4.4, 0.4, 4.6]) { box(g, 0.07, 2.8, 0.07, post, lx, 1.4, -7.1); box(g, 0.4, 0.06, 0.1, post, lx + 0.17, 2.8, -7.1); }
 
-  // the bus stop: a pole with a round "BUS" sign and a timetable, left of the stage
+  // the bus stop: a pole with a round "BUS" sign and a timetable, left of the stage (a parking street gets a "P")
+  if (S.parking) {
+    box(g, 0.06, 2.1, 0.06, post, -2.4, 1.05, KERB_Z + 0.2);
+    const pTx = canvasTex(128, 128, (c) => { c.fillStyle = "#2f6fd6"; c.fillRect(0, 0, 128, 128); c.fillStyle = "#ffffff"; c.font = "900 96px sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("P", 64, 70); });
+    const ps = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.42, 0.03), lam("#ffffff", { map: pTx })); ps.position.set(-2.4, 1.95, KERB_Z + 0.24); ps.castShadow = true; g.add(ps);
+    return g;
+  }
   box(g, 0.06, 2.1, 0.06, post, -1.45, 1.05, KERB_Z + 0.2);
   const signTx = canvasTex(128, 128, (c, w, h) => { c.fillStyle = "#2f9b4f"; c.beginPath(); c.arc(64, 64, 62, 0, 7); c.fill(); c.fillStyle = "#f4d23c"; c.beginPath(); c.arc(64, 64, 48, 0, 7); c.fill(); c.fillStyle = "#2f9b4f"; c.font = "900 44px sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("H", 64, 67); });
   const sign = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.03, 32), lam("#ffffff", { map: signTx })); sign.rotation.x = Math.PI / 2; sign.position.set(-1.45, 2.05, KERB_Z + 0.24); sign.castShadow = true; g.add(sign);
