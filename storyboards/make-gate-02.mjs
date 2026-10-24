@@ -138,7 +138,7 @@ const sb = {
   id: "gate-02-one-take",
   title: "GATE (one take): how each fighter gets past it",
   format: "each-character-vs-X, one continuous take: fighters queue in, each crosses the obstacle their own way, damage carries over, biggest last",
-  fps: 30, set: { type: "garden", gap: 1.5 }, sound: { sfx: 0.6 },
+  fps: 30, set: { type: "garden", gap: 1.5 }, sound: { sfx: 0.5 },
   music: { bpm: 120, offset: 0, gain: 0.55, parts: [{ at: 0, part: "main" }] },
   cast: [], shots: [], actions: [], fx: [], sfx: [], captions: [], beats: [],
   props: [
