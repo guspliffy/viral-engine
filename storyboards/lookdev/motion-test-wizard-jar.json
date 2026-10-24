@@ -1,0 +1,475 @@
+{
+ "id": "motion-test-wizard-jar",
+ "title": "8-second movement test: the Wizard and the jar",
+ "status": "Look-dev benchmark (engine test, no reviews): notice, reach and lift, a quick zap, the consequence, an embarrassed recovery. Same acting for every look; set type hills on look-dev, meadow here for blocking.",
+ "fps": 30,
+ "duration": 8.0,
+ "music": false,
+ "set": {
+  "type": "meadow",
+  "seed": 3
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    0,
+    0
+   ],
+   "face": "3q-left",
+   "expr": "kind",
+   "seed": 4.4
+  }
+ ],
+ "props": [
+  {
+   "id": "jar",
+   "kind": "jar",
+   "x": -0.55,
+   "y": 0,
+   "z": 0.25,
+   "empty": true,
+   "lidSide": -1
+  },
+  {
+   "id": "pickle",
+   "kind": "pickle",
+   "x": -0.55,
+   "y": 0.015,
+   "z": 0.25
+  }
+ ],
+ "beats": [
+  {
+   "name": "notices the jar",
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.25,
+     0.65,
+     3.2
+    ],
+    "look": [
+     -0.12,
+     0.85,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "macro": "realize",
+     "who": "wiz",
+     "to": [
+      -0.35,
+      -0.6
+     ],
+     "expr": "eager",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.4,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "reach, grasp, lift, try",
+   "len": 2.0,
+   "do": [
+    {
+     "macro": "reach",
+     "who": "wiz",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.0,
+       0.5
+      ]
+     },
+     "look": [
+      -0.3,
+      -0.65
+     ],
+     "dur": 0.45,
+     "hesitate": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.4,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "jar",
+     "hand": "R",
+     "dur": 0.25,
+     "at": 0.68
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "R",
+     "off": [
+      0,
+      -0.01,
+      0
+     ],
+     "dur": 0.25,
+     "at": 0.68
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.45,
+       0.42
+      ]
+     },
+     "dur": 0.45,
+     "ease": "settle",
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.25
+     ],
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.12,
+     "at": 1.4
+    },
+    {
+     "who": "wiz",
+     "do": "shake",
+     "amp": 0.6,
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "the zap",
+   "len": 1.5,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.22,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.0,
+       0.75,
+       -0.1
+      ]
+     },
+     "dur": 0.22,
+     "ease": "settle",
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.3,
+     "at": 0.3
+    },
+    {
+     "fx": "flash",
+     "peak": 0.35,
+     "dur": 0.18,
+     "at": 0.62
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 1.0
+    }
+   ]
+  },
+  {
+   "name": "the consequence",
+   "len": 1.5,
+   "do": [
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "lid": 1
+     },
+     "dur": 0.45,
+     "at": 0.0
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "at": 0.0
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "pickle",
+     "to": [
+      -0.02,
+      1.38,
+      0.18
+     ],
+     "arc": 0.08,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "pickle",
+     "set": {
+      "spin": 200
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.35,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "off": [
+      0.02,
+      -0.04,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      -14
+     ],
+     "dur": 0.08,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.08,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 0.08,
+     "at": 0.36
+    },
+    {
+     "fx": "sparkle",
+     "who": "wiz",
+     "count": 5,
+     "dur": 0.8,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pickle",
+     "set": {
+      "x": 0.5,
+      "y": 1.5,
+      "z": 0.35,
+      "spin": 420
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "pickle",
+     "set": {
+      "x": 0.58,
+      "y": 0,
+      "z": 0.5,
+      "spin": 700
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.6
+     ],
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 1.15
+    }
+   ]
+  },
+  {
+   "name": "embarrassed recovery",
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.25,
+     0.65,
+     3.2
+    ],
+    "look": [
+     -0.12,
+     0.85,
+     0
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.22,
+      0.68,
+      2.7
+     ]
+    },
+    "dur": 1.5
+   },
+   "do": [
+    {
+     "macro": "recover",
+     "who": "wiz",
+     "to": [
+      0.25,
+      0.05
+     ],
+     "pose": null,
+     "expr": "happy"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 0.3,
+     "dur": 0.3,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.75,
+     "idle": 0.2,
+     "at": 0.8
+    }
+   ]
+  }
+ ]
+}
