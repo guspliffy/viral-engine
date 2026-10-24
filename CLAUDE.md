@@ -12,6 +12,12 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - **No blank frames**: no fully white frame (flashes peak at 0.85 at most) and no empty black frame.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
   Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny.
+- **Hook, loop, length** (from the algorithm research, `docs/PLAN.md` → Studio roadmap): frame 0 shows a character
+  mid-action (no title card, fade-in or establishing shot), the premise reads by 3 s, the ending loops into the
+  start (no end card), something new happens at least every 2 s, and the default length is 12–20 s.
+- **Cartoon impacts only**: stars, dust, squash and stretch. No splatter, mash or severed parts. Graphic violence
+  makes a clip ineligible for For You.
+- Never show or mention the game in the first 3 s, and never use an outro card.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
 
 ## Characters
