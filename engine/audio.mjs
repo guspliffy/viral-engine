@@ -5,7 +5,7 @@
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
-import { planSyllables, VOWELS } from "./shared/syllables.js";
+import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng } from "./page/util.js";
 
 const SR = 44100;
@@ -55,7 +55,7 @@ function syllable(s, v, r) {
   const v0 = C ? cd * (C[1] > 0 ? 0.7 : 0.2) : 0, vd = s.dur - v0;
   const nH = Math.floor(5200 / (s.f0 * 1.3)), ph = new Float64Array(nH + 1), amps = new Float64Array(nH + 1);
   const nasal = s.cons === "m" || s.cons === "n", glide = s.cons === "l" || s.cons === "w";
-  const jit = rng(Math.floor(s.f0 * 1000 + s.t0 * 1e4));
+  const jit = rng(Math.floor(s.f0 * 1000 + (s.jt ?? s.t0) * 1e4)); // jt: time within the line for keyed lines
   const breath = biquad("bp", F[1], 1.2);
   let f0 = s.f0;
   for (let i = 0; i < vd * SR + 0.05 * SR; i++) {
@@ -82,7 +82,7 @@ function syllable(s, v, r) {
 }
 
 function voice(bus, a, v, pan, gain) {
-  const r = rng(Math.floor(a.at * 1e4) + (v.seed ?? 1));
+  const r = rng(a.line != null || a.seed != null ? hash(voiceKey(a)) + (v.seed ?? 1) : Math.floor(a.at * 1e4) + (v.seed ?? 1));
   for (const s of planSyllables(a, v)) bus.add(s.t0, syllable(s, v, r), gain, pan);
 }
 

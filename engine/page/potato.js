@@ -8,8 +8,10 @@ const LEG_H = 0.14;
 
 // Hand targets per arm pose, in the character's own space (it faces +z, its right hand is at -x).
 // sx = -1 for the right arm, +1 for the left.
-function handTarget(pose, sx, rx, H, t) {
+export function handTarget(pose, sx, rx, H, t) {
   const top = LEG_H + H;
+  // an arm still moving when a new move starts (util.js armNow): the blend it was in
+  if (pose && pose.mix) { const m = pose.mix, a = handTarget(m.from, sx, rx, H, t), b = handTarget(m.pose, sx, rx, H, t); return a.map((v, i) => v + (b[i] - v) * m.p); }
   // dance.js: { o: [out, up, fwd] } mirrored per side, { x: [x, up, fwd] } an absolute x
   if (pose && typeof pose === "object") return pose.x ? [pose.x[0], LEG_H + H * pose.x[1], pose.x[2]] : [sx * (rx + pose.o[0]), LEG_H + H * pose.o[1], pose.o[2]];
   switch (pose) {
@@ -29,6 +31,7 @@ function handTarget(pose, sx, rx, H, t) {
   }
 }
 const ELBOW_OUT = { hips: 0.24, shrug: 0.06, up: 0.1, cast: 0.1 };
+const elbowOut = (q) => (q && q.mix ? elbowOut(q.mix.from) + (elbowOut(q.mix.pose) - elbowOut(q.mix.from)) * q.mix.p : typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : q ? 0.1 : 0.13);
 
 export class Character {
   constructor(def, key) {
@@ -40,7 +43,8 @@ export class Character {
       return { d, a: (rnd() * 2 - 1) * B.lump, k: 3 + rnd() * 5 };
     });
 
-    this.root = new THREE.Group();
+    // yaw first, then pitch and lean in the character's own frame: a flip or a kneel tips it along the way it faces
+    this.root = new THREE.Group(); this.root.rotation.order = "YXZ";
     this.bodyGroup = new THREE.Group(); this.root.add(this.bodyGroup);
     this.potatoParts = new THREE.Group(); this.bodyGroup.add(this.potatoParts);
 
@@ -139,7 +143,7 @@ export class Character {
       h.y = LEG_H + (h.y - LEG_H) * S.y;
       hands[s] = h;
       const sh = this.surf(sx * 1.38, 0.02).pos; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
-      const elb = (q) => (typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : 0.1), out = elb(a.pose) * a.p + elb(a.from) * (1 - a.p);
+      const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       this.arms[s].hand.position.copy(h);
       this.arms[s].hand.visible = showLimbs;

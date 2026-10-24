@@ -1,4 +1,4 @@
-import { clamp, ease } from "./util.js";
+import { clamp, armNow } from "./util.js";
 
 // Dance moves for the 3D engine, on the music's beat (sb.music: { bpm, offset }). The same names as the puppet
 // renderer's move library (puppet/page/moves.js), so one choreography reads the same in both.
@@ -19,7 +19,9 @@ const MOVES = {
   point({ b, amp }) {
     const up = Math.floor(b + 0.25) % 2 === 0, k = sm(((b + 0.25) % 1) * 4);
     const hi = [0.22 + 0.12 * amp, 0.75 + 0.5 * amp, 0.2], lo = [-0.3 * amp, 0.25, 0.32], r = (p, q) => p.map((v, i) => v + (q[i] - v) * k);
-    return { lean: (up ? -0.07 : 0.07) * amp, yaw: (up ? 0.15 : -0.1) * amp, squash: 1 - 0.04 * amp, arms: { R: { o: up ? r(lo, hi) : r(hi, lo) }, L: "hips" } };
+    // body lean and turn swing with the arm (they used to flip in one frame on every beat)
+    const lean = (up ? -0.07 + 0.14 * (1 - k) : 0.07 - 0.14 * (1 - k)) * amp, yaw = (up ? 0.15 - 0.25 * (1 - k) : -0.1 + 0.25 * (1 - k)) * amp;
+    return { lean, yaw, squash: 1 - 0.04 * amp, arms: { R: { o: up ? r(lo, hi) : r(hi, lo) }, L: "hips" } };
   },
   floss({ b, amp }) {
     const s = Math.sin(Math.PI * b), c = Math.cos(Math.PI * b), X = 0.5 * s * amp;
@@ -50,14 +52,19 @@ const MOVES = {
   },
 };
 const ADDS = {
-  spin({ k, a }) { return { yaw: TAU * (a.turns ?? 1) * ease("inOut")(k) * (a.dir ?? 1), y: 0.14 * Math.sin(Math.PI * k) }; },
-  shake({ u, amp }) { return { x: 0.014 * Math.sin(u * 70) * amp }; },
+  // a sine ease: its top speed is 1.6x the average (the cubic one's is 3x, which strobes front/back/front at 30 fps)
+  spin({ k, a }) { return { yaw: TAU * (a.turns ?? 1) * (0.5 - 0.5 * Math.cos(Math.PI * k)) * (a.dir ?? 1), y: 0.14 * Math.sin(Math.PI * k) }; },
+  // a tremble at 7.5 Hz, a quarter of the frame rate: 0, +1, 0, -1 on successive frames, an even vibration
+  // (11 Hz sampled at 30 fps came out as an irregular jitter with odd single frames)
+  shake({ u, amp }) { return { x: 0.014 * Math.sin(u * Math.PI * 15) * amp }; },
 };
 export const isDance = (name) => !!(MOVES[name] || ADDS[name]);
 
 // apply one dance action to the actor state at t (called from timeline.js in action order)
 export function applyDance(sb, a, t, st) {
   const d = a.dur ?? 1, end = a.at + d, rel = a.release ?? 0.18;
+  // a spin of 1.5 turns ends facing the other way, and stays that way (instead of snapping back)
+  if (a.do === "spin" && t > end) { st.yaw += TAU * ((a.turns ?? 1) % 1) * (a.dir ?? 1); return; }
   if (t > end + rel) return;
   const add = !!ADDS[a.do];
   const env = add ? (t <= end ? 1 : 0) : Math.min(clamp((t - a.at) / (a.blend ?? 0.12)), t <= end ? 1 : 1 - sm((t - end) / rel));
@@ -71,5 +78,5 @@ export function applyDance(sb, a, t, st) {
   if (r.kneel) st.kneel = Math.max(st.kneel || 0, r.kneel * env);
   if (r.propSpin) st.propSpin = (st.propSpin || 0) + r.propSpin * env;
   if (r.wings != null) st.wings = Math.max(st.wings || 0, r.wings * env);
-  if (r.arms) for (const s of ["R", "L"]) if (r.arms[s]) st.arms[s] = { from: st.arms[s].pose, pose: r.arms[s], p: env };
+  if (r.arms) for (const s of ["R", "L"]) if (r.arms[s]) st.arms[s] = { from: armNow(st.arms[s]), pose: r.arms[s], p: env };
 }

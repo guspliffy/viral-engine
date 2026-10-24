@@ -15,12 +15,21 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **Beats run one after another.** A beat starts where the previous one ended (or at its own `"at"`), and lasts
   `"len"` seconds, or until its last item ends plus `"hold"` (default 0.15 s). Changing one beat moves everything after it.
 - **Times inside a beat** are relative: `"at": 0.3` (seconds from the beat's start), `"+0.2"` (0.2 s after the
-  previous item ends), `"end-0.3"` (0.3 s before the beat ends; needs `len`).
+  previous item ends, its caption included), `"voice+0.2"` (0.2 s after the previous item's voice or action ends,
+  ignoring its caption), `"end-0.3"` (0.3 s before the beat ends; needs `len`). After a `say`, the caption stays up
+  0.5 s past the voice, so `"+0.2"` leaves a pause and `"voice+0.2"` answers straight away. Choose on purpose.
 - **Items**: an action `{ "who", "do", ... }` (all engine actions), an effect `{ "fx": "flash", ... }`, a sound
   `{ "sfx": "tink", ... }`, a caption `{ "caption": "text", "len": 1 }`, or a macro `{ "macro", "who", ... }`.
 - **`shot`** starts at the beat (omit it to keep the camera). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
-- **`kind: "escalation"`** marks the second turn of the joke; clips over 20 s need one (`qa/check.mjs`).
+- **`kind: "escalation"`** marks the second turn of the joke; `qa/check.mjs` notes clips over the 20 s house target
+  without one.
+- **Voices** from `say` are seeded by speaker + line: the same line always sounds the same, and moving or retiming
+  it keeps its gibberish and lip sync. `"seed"` on the macro gives a line a different take.
+- **Experiments and checks**: `"experiment": { "id", "variant" }` marks a variant (see `experiments/README.md`);
+  music is then seeded by the experiment's id, so variants share it (top-level `"seed"` overrides). `"profile"`
+  (`short` or `rewards`) picks the publishing limits, and a `"creative"` block changes the house-style targets the
+  checker notes, e.g. `{ "length": [8, 15], "maxEventGap": 3 }`.
 - No `duration` needed: the clip lasts as long as its beats. `node engine/compile.mjs <sb>` prints the flat result,
   with `beatSpans` (each beat's start and end). Contact sheets put one still inside each beat.
 
@@ -28,7 +37,7 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 
 | Macro | Parameters | What it does |
 |---|---|---|
-| `say` | `line`, `tone`, `dur?`, `caption?`, `pos?` | Gibberish voice + lip sync sized to the line, and the line as a caption |
+| `say` | `line`, `tone`, `dur?`, `caption?`, `pos?`, `seed?` | Gibberish voice + lip sync sized to the line, and the line as a caption |
 | `enter` | `to`, `dur?` | Walks to a spot and settles |
 | `take` | `to` (look target), `away?` | Double take: glance, look away, snap back shocked |
 | `react` | `expr`, `big?` | Expression + squash (+ hop when big) |

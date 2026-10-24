@@ -193,7 +193,8 @@ async function init(data) {
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
-  return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: R.getContext().getParameter(R.getContext().VERSION) };
+  const gl = R.getContext(), dbg = gl.getExtension("WEBGL_debug_renderer_info");
+  return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: gl.getParameter(gl.VERSION), renderer: gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) };
 }
 
 // places characters, effects and camera for time t without drawing anything
@@ -202,7 +203,8 @@ function pose(t) {
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
-    const o = who ? new THREE.Vector3(who.st.x, 0, who.st.z + 0.15) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
+    // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
+    const o = who ? new THREE.Vector3(who.st.x, who.st.y, who.st.z + 0.15) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
     p.apply(t, o);
   }
   poseStates = states;
@@ -215,7 +217,21 @@ function pose(t) {
   };
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
-    p.held = !!ps.hold;
+    p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null;
+    // put down without a place: it stays where the hand was when it let go (pose the holder at that moment once)
+    if (ps.left) {
+      const key = `${ps.left.who}@${ps.left.at}`;
+      if (!p.leftAt || p.leftAt.key !== key) {
+        const A = states[ps.left.who];
+        if (A) {
+          A.a.ch.apply(actorState(sb, A.a.c, A.a.def, ps.left.at), ps.left.at);
+          const h = handAt(ps.left.who, ps.left.hand), o = ps.left.off;
+          p.leftAt = { key, pos: [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]] };
+          A.a.ch.apply(A.st, t);
+        }
+      }
+      if (p.leftAt) [ps.x, ps.y, ps.z] = p.leftAt.pos;
+    }
     if (ps.hold) {
       const h = handAt(ps.hold.who, ps.hold.hand);
       if (h) {
@@ -247,6 +263,10 @@ function frame(t) {
   composite(t);
   return true;
 }
+
+// waits until the frame is really drawn: the 3D renderer only queues GPU work, so reading one pixel back is
+// what makes the software GPU finish it (render.mjs uses this to time drawing and encoding separately)
+function sync() { ctx.getImageData(0, 0, 1, 1); return true; }
 
 // the composed frame as a data URL: "jpeg" for video frames, "png" for stills and the cover
 function capture(fmt = "jpeg") { return fmt === "png" ? out.toDataURL("image/png") : out.toDataURL("image/jpeg", 0.95); }
@@ -285,7 +305,7 @@ function layout(t) {
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
-// 1 = reaching the centre. Only visible meshes; held props are skipped (they sit in a hand on purpose).
+// 1 = reaching the centre. Only visible meshes; a held prop is skipped for its holder only.
 function clipping() {
   const out = [], tmp = new THREE.Box3(), inv = new THREE.Matrix4(), m = new THREE.Matrix4();
   const bodies = actors.map((a) => ({ id: a.c.id, a, mesh: a.ch.body })).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
@@ -313,7 +333,8 @@ function clipping() {
     b.a.ch.root.updateMatrixWorld(true);
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
-      if (p.held || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;   // sitting on it is fine
+      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine
+      if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
       let worst = 0;
       p.root.updateMatrixWorld(true);
       p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) worst = Math.max(worst, depthIn(b, o)); });
@@ -345,5 +366,5 @@ function silhouette() {
   return px;
 }
 
-window.ENGINE = { init, frame, capture, layout };
+window.ENGINE = { init, frame, sync, capture, layout };
 window.ENGINE_READY = true;
