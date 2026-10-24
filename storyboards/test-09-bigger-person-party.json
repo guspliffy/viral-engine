@@ -1,0 +1,471 @@
+{
+  "id": "test-09-bigger-person-party",
+  "title": "Asked the magician to make me the bigger person",
+  "format": "annoyed request -> trick -> he becomes enormous -> magician squeezed aside -> smug win",
+  "shares": "the friend who always has to win the argument",
+  "fps": 30,
+  "duration": 8.5,
+  "cover": 5.2,
+  "set": {
+    "type": "party",
+    "seed": 3
+  },
+  "cast": [
+    {
+      "id": "hero",
+      "character": "originals/tomato",
+      "at": [
+        -0.55,
+        0
+      ],
+      "face": "3q-right",
+      "expr": "stern",
+      "arms": {
+        "R": "hips",
+        "L": "hips"
+      },
+      "seed": 2.2
+    },
+    {
+      "id": "mag",
+      "character": "originals/onion",
+      "at": [
+        0.55,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "kind",
+      "arms": {
+        "R": "rest",
+        "L": "hold"
+      },
+      "seed": 5.7
+    }
+  ],
+  "shots": [
+    {
+      "at": 0,
+      "pos": [
+        -0.4,
+        1.05,
+        4
+      ],
+      "look": [
+        -0.5,
+        0.78,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.4,
+          1.05,
+          3.7
+        ]
+      },
+      "dur": 1.8,
+      "ease": "out"
+    },
+    {
+      "at": 1.9,
+      "pos": [
+        0.5,
+        1.4,
+        3.6
+      ],
+      "look": [
+        0.48,
+        1.1,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.55,
+          1.38,
+          3.2
+        ]
+      },
+      "dur": 1.1,
+      "ease": "inOut"
+    },
+    {
+      "at": 3,
+      "pos": [
+        0.1,
+        1.3,
+        6.4
+      ],
+      "look": [
+        0.1,
+        1,
+        0
+      ],
+      "fov": 34,
+      "to": {
+        "pos": [
+          0.2,
+          1.6,
+          8.8
+        ],
+        "look": [
+          0.2,
+          1.35,
+          0
+        ]
+      },
+      "dur": 1.6,
+      "ease": "out"
+    },
+    {
+      "at": 5.3,
+      "pos": [
+        0.25,
+        1.4,
+        7.6
+      ],
+      "look": [
+        0.15,
+        1.45,
+        0
+      ],
+      "fov": 34,
+      "to": {
+        "pos": [
+          0.25,
+          1.45,
+          7.2
+        ]
+      },
+      "dur": 3.2,
+      "ease": "out"
+    }
+  ],
+  "actions": [
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "look",
+      "to": [
+        -0.8,
+        0.1
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "hero",
+      "at": 0.1,
+      "do": "talk",
+      "dur": 0.8,
+      "tone": "excited"
+    },
+    {
+      "who": "hero",
+      "at": 0.9,
+      "do": "turn",
+      "to": "3q-right",
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 0.9,
+      "do": "look",
+      "to": [
+        0.8,
+        0
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "hero",
+      "at": 0.95,
+      "do": "talk",
+      "dur": 0.8,
+      "tone": "question"
+    },
+    {
+      "who": "hero",
+      "at": 1,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 0.3,
+      "do": "look",
+      "to": [
+        -0.7,
+        0
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 1.9,
+      "do": "expr",
+      "expr": "cocky",
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 1.9,
+      "do": "squash",
+      "amount": 0.09,
+      "dur": 0.28
+    },
+    {
+      "who": "mag",
+      "at": 2.1999999999999997,
+      "do": "expr",
+      "expr": "focused",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.1999999999999997,
+      "do": "look",
+      "to": [
+        -0.3,
+        0.1
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.25,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.4,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 2.3,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 2.3,
+      "do": "talk",
+      "dur": 0.6000000000000001,
+      "tone": "chant"
+    },
+    {
+      "who": "mag",
+      "at": 2.35,
+      "do": "charge",
+      "to": 1,
+      "dur": 0.6500000000000001,
+      "ease": "in"
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.2,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "arm",
+      "side": "L",
+      "pose": "hold",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.4
+    },
+    {
+      "who": "hero",
+      "at": 3,
+      "do": "grow",
+      "to": 2.3,
+      "dur": 0.6,
+      "ease": "back"
+    },
+    {
+      "who": "hero",
+      "at": 3,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 3,
+      "do": "look",
+      "to": [
+        0,
+        -0.5
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 3,
+      "do": "arm",
+      "side": "both",
+      "pose": "up",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 3.1,
+      "do": "move",
+      "to": [
+        1.15,
+        0.7
+      ],
+      "dur": 0.35,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 3.1,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "mag",
+      "at": 3.1,
+      "do": "squash",
+      "amount": 0.15,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 4,
+      "do": "look",
+      "to": [
+        -0.6,
+        0.9
+      ],
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 4,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 4.2,
+      "do": "arm",
+      "side": "both",
+      "pose": "hips",
+      "dur": 0.35
+    },
+    {
+      "who": "hero",
+      "at": 4.2,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 4.2,
+      "do": "look",
+      "to": [
+        -0.7,
+        -0.6
+      ],
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 5.4,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.5
+    },
+    {
+      "who": "hero",
+      "at": 5.4,
+      "do": "look",
+      "to": [
+        0,
+        -0.15
+      ],
+      "dur": 0.4
+    },
+    {
+      "who": "hero",
+      "at": 6,
+      "do": "expr",
+      "expr": "cocky",
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 7.6,
+      "do": "blink",
+      "dur": 0.35
+    }
+  ],
+  "fx": [
+    {
+      "do": "flash",
+      "at": 3,
+      "dur": 0.25,
+      "peak": 0.6
+    },
+    {
+      "do": "shake",
+      "at": 3,
+      "dur": 0.3,
+      "amp": 0.05
+    },
+    {
+      "do": "poof",
+      "at": 3,
+      "who": "hero",
+      "dur": 0.7,
+      "spark": "#ffe27a",
+      "puffs": 14
+    }
+  ],
+  "sfx": [
+    {
+      "sound": "whoosh",
+      "at": 3.05,
+      "gain": 0.35,
+      "dur": 0.5
+    }
+  ],
+  "captions": [
+    {
+      "from": 0.1,
+      "to": 0.9,
+      "text": "she said i should be...",
+      "pos": 250
+    },
+    {
+      "from": 0.9,
+      "to": 1.9,
+      "text": "...the bigger person.",
+      "pos": 250
+    },
+    {
+      "from": 5.4,
+      "to": 8.5,
+      "text": "argument: won.",
+      "pos": "top"
+    }
+  ]
+}

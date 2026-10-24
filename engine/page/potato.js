@@ -46,14 +46,16 @@ export class Character {
     const g = new THREE.SphereGeometry(1, 128, 96), p = g.attributes.position, v = new THREE.Vector3();
     for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).normalize(); const q = this.bodyPoint(v); p.setXYZ(i, q.x, q.y, q.z); }
     g.computeVertexNormals();
-    this.skin = new THREE.MeshPhysicalMaterial({ color: B.color, roughness: 0.5, clearcoat: 0.3, clearcoatRoughness: 0.35 });
+    // gloss: 0 matte .. 1 shiny (a tomato); the default keeps the potato skin
+    const gl = B.gloss ?? 0.3;
+    this.skin = new THREE.MeshPhysicalMaterial({ color: B.color, roughness: 0.5 - 0.3 * Math.max(0, gl - 0.3), clearcoat: gl, clearcoatRoughness: 0.35 - 0.25 * Math.max(0, gl - 0.3) });
     this.body = new THREE.Mesh(g, this.skin); this.body.castShadow = true; this.body.receiveShadow = true;
     this.potatoParts.add(this.body);
 
     // specks
     const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.72), roughness: 0.8 });
     speckM.userData.noOutline = true;
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < (B.specks ?? 9); i++) {
       const th = (rnd() * 2 - 1) * 2.6, ph = (rnd() * 2 - 1) * 0.9;
       if (Math.abs(th) < 0.65 && ph > -0.45 && ph < 0.6) continue; // keep the face clear
       const s = this.surf(th, ph);
@@ -110,7 +112,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
-    R.position.set(st.x, st.y, st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean);
+    R.position.set(st.x, st.y, st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
 
