@@ -147,6 +147,21 @@ const SFX = {
     }
     return x;
   },
+  horn(r, d = 0.45) { // a bus horn: two detuned square tones, a little muffled ("baap")
+    const x = buf(d), lp = biquad("lp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (const f of [311, 392]) y += (t * f) % 1 < 0.5 ? 1 : -1; x[i] = run(lp, y * 0.35) * env(t, 0.01, 0.4, d) * Math.min(1, (d - t) / 0.04); }
+    return x;
+  },
+  screech(r, d = 0.5) { // brakes: a narrow band of noise sliding down
+    const x = buf(d); let bp = biquad("bp", 3200, 9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; if (i % 64 === 0) bp = { ...biquad("bp", 3200 - 900 * (t / d), 9), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * 3 * env(t, 0.02, 0.3, d) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  hiss(r, d = 0.3) { // bus doors: air brakes' hiss
+    const x = buf(d), hp = biquad("hp", 2500, 0.7);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
+    return x;
+  },
   sadslide(r) { // descending "wah wah wah-wahhh"
     const notes = [[196, 0.34], [185, 0.34], [174.6, 0.34], [164.8, 0.9]];
     const d = notes.reduce((s, n) => s + n[1], 0) + 0.1, x = buf(d); let p = 0, i0 = 0;

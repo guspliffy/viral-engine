@@ -125,7 +125,8 @@ function toScreen(v) {
   const p = new THREE.Vector3().fromArray(v), d = p.distanceTo(camera.position); p.project(camera);
   return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, m: H / (2 * d * Math.tan((camera.fov * Math.PI) / 360)) };
 }
-// "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it
+// "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it;
+// "zzz": sleepy z's drifting up and to the right
 function star4(x, y, r) { ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4, q = i % 2 ? r * 0.28 : r; ctx.lineTo(x + Math.sin(a) * q, y - Math.cos(a) * q); } ctx.closePath(); }
 function headFx(f, t, i) {
   const d = f.dur ?? 1, k = (t - f.at) / d, A = f.who && poseStates[f.who];
@@ -140,6 +141,11 @@ function headFx(f, t, i) {
       const x = c.x + Math.cos(ang) * rad, y = c.y + Math.sin(ang) * rad * 0.8, sz = (0.05 + 0.04 * r()) * c.m * Math.sin(lk * Math.PI);
       ctx.globalAlpha = fade; ctx.fillStyle = f.color || "#fff6c8"; ctx.strokeStyle = "rgba(60,40,0,0.55)"; ctx.lineWidth = 3;
       star4(x, y, sz); ctx.fill(); ctx.stroke();
+    } else if (f.do === "zzz") {
+      const x = c.x + (0.25 + lk * 0.35) * c.m + Math.sin(lk * 5 + j) * 0.03 * c.m, y = c.y - (0.15 + lk * 0.5) * c.m;
+      ctx.globalAlpha = fade; ctx.font = `900 ${Math.round((0.1 + 0.08 * lk) * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.lineWidth = 6; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#2b2934";
+      ctx.strokeText("z", x, y); ctx.fillText("z", x, y);
     } else {
       const side = j % 2 ? 1 : -1, x = c.x + side * (0.2 + 0.25 * r()) * c.m + Math.sin(lk * 6 + j) * 0.05 * c.m, y = c.y - lk * 0.55 * c.m;
       ctx.globalAlpha = fade; ctx.font = `900 ${Math.round(0.16 * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -152,7 +158,7 @@ function headFx(f, t, i) {
 
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes") headFx(f, t, i); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz") headFx(f, t, i); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c);

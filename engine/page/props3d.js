@@ -269,6 +269,23 @@ const KINDS = {
     const base = mats.map((m) => m.color.clone());
     return { grip: 0.0, apply(ps) { mats.forEach((m, i) => m.color.copy(base[i]).lerp(new THREE.Color("#5a2f12"), clamp(ps.toast ?? 0) * 0.55)); } };
   },
+  // a red-and-white checked tablecloth for a table prop at the same spot (same scale): it drapes over the top's edges
+  cloth(P) {
+    const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
+    x.fillStyle = "#ffffff"; x.fillRect(0, 0, 128, 128); x.fillStyle = "rgba(200,40,40,0.9)";
+    for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) if ((i + j) % 2 === 0) x.fillRect(i * 16, j * 16, 16, 16);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2);
+    const m = mat("#ffffff", { map: t, roughness: 0.8 });
+    mesh(new THREE.BoxGeometry(1.16, 0.012, 0.76), m, P.whole, 0, TABLE_Y + 0.006, 0);
+    for (const s of [-1, 1]) { mesh(new THREE.BoxGeometry(1.16, 0.16, 0.012), m, P.whole, 0, TABLE_Y - 0.07, s * 0.38); mesh(new THREE.BoxGeometry(0.012, 0.16, 0.76), m, P.whole, s * 0.58, TABLE_Y - 0.07, 0); }
+    return { grip: 0 };
+  },
+  // a string of melted cheese from its origin (at the mouth) `len` metres along +z, turned with rot/tilt like any prop
+  cheese(P) {
+    const c = mesh(new THREE.CylinderGeometry(0.012, 0.018, 1, 8), mat("#f7c84a", { roughness: 0.5 }), P.whole, 0, 0, 0.5);
+    c.rotation.x = Math.PI / 2; c.castShadow = false;
+    return { grip: 0, apply(ps) { const L = Math.max(ps.len ?? 0, 0.0001); c.scale.set(1, L, 1); c.position.z = L / 2; c.visible = L > 0.002; } };
+  },
   tree(P) {
     const bark = mat("#8b5e3c", { roughness: 0.85 }), barkD = mat("#6f4a2e", { roughness: 0.9 }), leaf = ["#5cbf55", "#6fcd5e", "#4eae52"].map((c) => mat(c, { roughness: 0.8 }));
     mesh(new THREE.CylinderGeometry(0.15, 0.21, 2.15, 18), bark, P.whole, 0, 1.075, 0);
@@ -291,6 +308,79 @@ const KINDS = {
   },
   // one apple (its middle at the origin), the size of the tree's
   apple(P) { P.whole.add(appleMesh(mat("#e2322b", { roughness: 0.35 }), mat("#5a3b1f"), mat("#5cbf55"))); return { grip: 0 }; },
+  // a city bus for the BUS clip, seen from its near (+z) side. Its origin is on the ground at the middle of the front
+  // door, on the near side: the bus runs from x -3.35 (rear) to +0.55 (front, facing +x) and from z 0 back to z -1.
+  //   open 0..1 slides the door's two leaves apart; full 0..1 fills the windows with squashed passengers;
+  //   bulge 0..1 puffs the body out (too many on board); the wheels turn with the bus's x (drive it with "prop" x tweens)
+  bus(P) {
+    const paint = mat("#f2b51f", { roughness: 0.45 }), white = mat("#f7f4ec", { roughness: 0.5 }), dark = mat("#2d3340", { roughness: 0.6 });
+    const glass = mat("#3a5a78", { roughness: 0.15, metalness: 0.1, transparent: true, opacity: 0.82 }), tyre = mat("#22232a", { roughness: 0.9 }), hub = mat("#c9ccd3", { metalness: 0.4, roughness: 0.35 });
+    const body = new THREE.Group(); P.whole.add(body);
+    const X0 = -3.35, X1 = 0.55, L = X1 - X0, XC = (X0 + X1) / 2, B = 0.2, T = 1.6, D = 1.0;
+    mesh(new THREE.BoxGeometry(L, T - B - 0.05, D), paint, body, XC, (T + B) / 2 - 0.025, -D / 2);
+    mesh(new THREE.BoxGeometry(L - 0.06, 0.08, D - 0.06), white, body, XC, T - 0.01, -D / 2);              // the roof
+    mesh(new THREE.BoxGeometry(L + 0.02, 0.1, D + 0.02), dark, body, XC, B + 0.04, -D / 2);              // the bumper skirt
+    mesh(new THREE.BoxGeometry(L + 0.01, 0.07, 0.02), white, body, XC, 0.72, 0.005);                     // a white stripe
+    // the near side's windows: a glass band split by pillars, with squashed passengers behind it (full)
+    const win = mesh(new THREE.BoxGeometry(L - 0.9, 0.5, 0.02), glass, body, XC - 0.42, 1.12, 0.012); win.castShadow = false;
+    const pax = [];
+    const paxM = mat("#e8b878", { roughness: 0.6 }), eyeM = mat("#1c1a24");
+    for (let k = 0; k < 6; k++) {
+      const x = X0 + 0.45 + k * 0.5;
+      if (k < 5) mesh(new THREE.BoxGeometry(0.06, 0.52, 0.03), paint, body, x + 0.25, 1.12, 0.014);
+      const f = new THREE.Group(); f.position.set(x, 1.1, 0.004); body.add(f);
+      const head = new THREE.Mesh(new THREE.CircleGeometry(0.17, 20), paxM); head.scale.set(1.15, 1, 1); f.add(head);
+      for (const ex of [-0.05, 0.05]) { const e = new THREE.Mesh(new THREE.CircleGeometry(0.022, 10), eyeM); e.position.set(ex, 0.03, 0.001); f.add(e); }
+      pax.push(f);
+    }
+    // the windscreen and lights on the front, a dark back window on the rear
+    mesh(new THREE.BoxGeometry(0.02, 0.62, D - 0.16), glass, body, X1 + 0.005, 1.08, -D / 2);
+    mesh(new THREE.BoxGeometry(0.02, 0.42, D - 0.2), glass, body, X0 - 0.005, 1.12, -D / 2);
+    const lamp = new THREE.MeshBasicMaterial({ color: "#fff3b0" }), red = new THREE.MeshBasicMaterial({ color: "#e0352b" });
+    for (const z of [-0.12, -D + 0.12]) { mesh(new THREE.SphereGeometry(0.05, 12, 8), lamp, body, X1 + 0.01, 0.42, z); mesh(new THREE.BoxGeometry(0.03, 0.12, 0.06), red, body, X0 - 0.01, 0.48, z); }
+    // the route sign above the windows: "10" in orange LEDs
+    const c = document.createElement("canvas"); c.width = 256; c.height = 48; const x = c.getContext("2d");
+    x.fillStyle = "#15161c"; x.fillRect(0, 0, 256, 48); x.fillStyle = "#ffae2b"; x.font = "900 36px sans-serif"; x.textBaseline = "middle"; x.fillText("10  CITY", 12, 26);
+    const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+    const sign = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.17), new THREE.MeshBasicMaterial({ map: tx })); sign.position.set(-1.6, 1.47, 0.006); body.add(sign);
+    // the front door: a dark doorway and two glass leaves that slide apart
+    mesh(new THREE.BoxGeometry(0.58, 1.18, 0.012), dark, body, 0, 0.26 + 0.59, 0.003);
+    const leaves = [-1, 1].map((s) => { const l = mesh(new THREE.BoxGeometry(0.28, 1.14, 0.02), glass, body, s * 0.145, 0.85, 0.016); l.castShadow = false; mesh(new THREE.BoxGeometry(0.28, 0.06, 0.022), paint, l, 0, 0.32, 0); return [s, l]; });
+    // wheels (with dark arches)
+    const wheels = [-0.55, -2.65].map((wx) => {
+      mesh(new THREE.CylinderGeometry(0.33, 0.33, 0.02, 24, 1, false, 0, Math.PI), dark, body, wx, 0.26, 0.002).rotation.set(Math.PI / 2, 0, Math.PI / 2);
+      const w = new THREE.Group(); w.position.set(wx, 0.26, 0.0); P.whole.add(w);
+      const tr = mesh(new THREE.CylinderGeometry(0.26, 0.26, 0.2, 24), tyre, w, 0, 0, -0.08); tr.rotation.x = Math.PI / 2;
+      const hb = mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.02, 16), hub, w, 0, 0, 0.025); hb.rotation.x = Math.PI / 2;
+      for (let k = 0; k < 5; k++) { const n = mesh(new THREE.BoxGeometry(0.03, 0.03, 0.03), dark, w, Math.cos(k * 1.2566) * 0.07, Math.sin(k * 1.2566) * 0.07, 0.04); n.castShadow = false; }
+      return w;
+    });
+    return {
+      grip: 0,
+      apply(ps) {
+        const o = clamp(ps.open ?? 0), b = clamp(ps.bulge ?? 0, 0, 1.5), n = clamp(ps.full ?? 0);
+        for (const [s, l] of leaves) l.position.x = s * (0.145 + 0.27 * o);
+        pax.forEach((f, k) => { f.visible = n > 0.01; f.scale.set(1 + 0.25 * n, 1 - 0.1 * n, 1); f.rotation.z = (k % 2 ? 1 : -1) * 0.12 * n; });
+        body.scale.set(1, 1 + 0.12 * b, 1 + 0.3 * b); body.position.z = 0.15 * b; body.position.y = -0.02 * b;
+        const turn = -(ps.x ?? 0) / (0.26 * Math.max(ps.scale ?? 1, 0.01));
+        for (const w of wheels) { w.rotation.z = turn; w.position.z = 0.15 * b + 0.02; }
+      },
+    };
+  },
+  // a bus-stop bench (its seat at SEAT_Y, like a chair, so "sit" works), facing +z
+  bench(P) {
+    const slat = mat("#b97a45", { roughness: 0.7 }), metal = mat("#3b4250", { roughness: 0.5, metalness: 0.3 });
+    for (let k = 0; k < 3; k++) mesh(new THREE.BoxGeometry(1.2, 0.035, 0.11), slat, P.whole, 0, SEAT_Y - 0.02, 0.13 - k * 0.13);
+    for (let k = 0; k < 2; k++) mesh(new THREE.BoxGeometry(1.2, 0.1, 0.03), slat, P.whole, 0, SEAT_Y + 0.2 + k * 0.14, -0.24);
+    for (const x of [-0.52, 0.52]) { mesh(new THREE.BoxGeometry(0.05, SEAT_Y - 0.04, 0.4), metal, P.whole, x, (SEAT_Y - 0.04) / 2, -0.03); mesh(new THREE.BoxGeometry(0.04, 0.42, 0.04), metal, P.whole, x, SEAT_Y + 0.18, -0.26); }
+    return { grip: 0 };
+  },
+  // a smartphone (its middle at the origin, screen towards +z): glow 0..1 lights the screen
+  phone(P) {
+    mesh(new THREE.BoxGeometry(0.075, 0.14, 0.012), mat("#1d1f26", { roughness: 0.3 }), P.whole);
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.064, 0.122), new THREE.MeshBasicMaterial({ color: "#7fc8ff" })); scr.position.z = 0.0065; P.whole.add(scr);
+    return { grip: 0, apply(ps) { scr.material.color.set("#1d2533").lerp(new THREE.Color("#8fd0ff"), clamp(ps.glow ?? 1)); } };
+  },
 };
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
@@ -324,7 +414,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, bulge: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
