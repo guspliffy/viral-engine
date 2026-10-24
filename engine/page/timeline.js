@@ -1,5 +1,5 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y } from "./props3d.js";
@@ -57,16 +57,19 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       case "hop": {
         const n = a.count ?? 1, h = a.height ?? 0.3, local = clamp((t - a.at) / d) * n, k = Math.min(n - 1, Math.floor(local)), q = local - k;
+        // anticipation: the body crouches on the ground first (at least 0.1 s, shallower when it is shorter than
+        // 0.2 s), then takes off and lands at the hop's end. The crouch, the stretch in the air and the landing squash
+        // are sin² curves that start and end at rest, so they join without a kink and no frame steps out, wherever
+        // the frames fall
+        const qa = hopCrouch(d, n), dip = 0.14 * Math.min(1, (qa * d) / n / 0.2);
         if (p < 1) {
-          st.y += h * 4 * q * (1 - q);
-          // the crouch before take-off lasts at least 0.07 s (two frames; one frame reads as a twitch), then the
-          // stretch eases in from it (no step between the two)
-          const qa = clamp(0.07 / (d / n), 0.12, 0.3);
-          st.squash *= q < qa ? 1 - 0.18 * Math.sin((q / qa) * Math.PI) : 1 + 0.12 * Math.sin(((q - qa) / (1 - qa)) * Math.PI);
-          st.tuck = Math.sin(q * Math.PI);
+          const air = q < qa ? 0 : (q - qa) / (1 - qa);
+          st.y += h * 4 * air * (1 - air);
+          st.squash *= q < qa ? 1 - dip * Math.sin((q / qa) * Math.PI) ** 2 : 1 + 0.1 * Math.sin(air * Math.PI) ** 2;
+          st.tuck = Math.sin(air * Math.PI);
         } else {
           const after = t - (a.at + d);
-          if (after < 0.16) st.squash *= 1 - 0.2 * Math.sin((after / 0.16) * Math.PI);
+          if (after < 0.2) st.squash *= 1 - 0.18 * Math.sin((after / 0.2) * Math.PI) ** 2;
         }
         break;
       }
