@@ -28,7 +28,8 @@
   "costume": {
     "type": "cowboy",
     "accent": "#c98a4a",
-    "band": "#5a3418"
+    "band": "#5a3418",
+    "pistols": true
   },
   "personality": "Two pistols and a wide hat. Chips away from afar, then finishes up close.",
   "voice": {

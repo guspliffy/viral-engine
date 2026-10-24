@@ -1,0 +1,46 @@
+{
+  "id": "potatobrawl/viking",
+  "name": "Viking",
+  "franchise": "PotatoBrawl",
+  "source": "Jonny's reference portraits, 2026-10-24",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 1.02,
+    "width": 0.86,
+    "depth": 0.74,
+    "lump": 0.04,
+    "seed": 17
+  },
+  "limbs": {
+    "color": "#1f1d26",
+    "width": 0.034
+  },
+  "face": {
+    "default": "delighted",
+    "iris": "#3a5a2a",
+    "cheeks": "#ff6f6f"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "hat-top"
+  },
+  "costume": {
+    "type": "viking",
+    "hair": "#b8652a",
+    "belt": "#a8322a",
+    "wood": "#6b4a2b",
+    "propHand": "L"
+  },
+  "personality": "Raider with an axe. Loud, cheerful, solves everything by charging at it (proposal).",
+  "voice": {
+    "pitch": 125,
+    "rate": 3.6,
+    "formant": 0.98,
+    "range": 7,
+    "breath": 0.08,
+    "vibrato": 0.01,
+    "seed": 41
+  },
+  "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off."
+}
