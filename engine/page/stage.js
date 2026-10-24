@@ -58,6 +58,8 @@ let out, ctx, showSafe = false;
 const CAP = {
   main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
   sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
+  // a title plate: white letters on a dark box (the "each character vs X" format's pinned word)
+  label: { font: '900 96px "CapBlack"', size: 96, stroke: 0, pad: 34, box: "#24232b" },
 };
 // a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
 function wrap(text, maxW) {
@@ -68,7 +70,7 @@ function wrap(text, maxW) {
   return lines;
 }
 function captionLayout(c) {
-  const st = CAP[c.style === "sub" ? "sub" : "main"], pos = c.pos || "top";
+  const st = CAP[c.style] || CAP.main, pos = c.pos || "top";
   const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
   const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
@@ -80,9 +82,9 @@ function captionLayout(c) {
 function captionBox(c) {
   ctx.save();
   const { st, top, cx, lines, lh } = captionLayout(c);
-  const w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke;
+  const pad = st.pad ?? 0, w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke + pad * 2;
   ctx.restore();
-  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2), Math.round(w), Math.round(lines.length * lh + st.stroke)];
+  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2), Math.round(w), Math.round(lines.length * lh + st.stroke + pad)];
 }
 function drawCaption(c) {
   ctx.save();
@@ -90,9 +92,10 @@ function drawCaption(c) {
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.lineJoin = "round"; ctx.miterLimit = 2;
   ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
+  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; ctx.fillRect(bx, by, bw, bh); }
   lines.forEach((ln, i) => {
     const y = top + lh * (i + 0.5);
-    ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y);
+    if (st.stroke) { ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y); }
     ctx.fillStyle = "#fff"; ctx.fillText(ln, cx, y);
   });
   ctx.restore();

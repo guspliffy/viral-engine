@@ -32,7 +32,7 @@ export function buildGarden(scene, S = {}) {
 
   // the hedges: rounded boxes with a darker base and leafy bumps, from the gap outwards
   const hedgeC = S.hedge || "#5fcf8f", top = lam(hedgeC), dark = lam(new THREE.Color(hedgeC).multiplyScalar(0.72));
-  const H = 1.3, D = 0.7, L = 9;
+  const H = 1.05, D = 0.7, L = 9;
   for (const s of [-1, 1]) {
     const x0 = s * (gap / 2 + L / 2);
     const body = new THREE.Mesh(new THREE.BoxGeometry(L, H, D, 1, 1, 1), top); body.position.set(x0, H / 2, 0); body.castShadow = body.receiveShadow = true; g.add(body);
@@ -41,9 +41,6 @@ export function buildGarden(scene, S = {}) {
       const b = new THREE.Mesh(new THREE.SphereGeometry(0.16 + rnd() * 0.1, 12, 8), top);
       b.position.set(s * (gap / 2 + 0.1 + rnd() * (L - 0.2)), H - 0.04 + rnd() * 0.05, (rnd() - 0.5) * D * 0.9); b.scale.y = 0.55; b.castShadow = true; g.add(b);
     }
-    // the hedge's cut end next to the gap
-    const end = new THREE.Mesh(new THREE.CylinderGeometry(D / 2, D / 2, H, 16, 1, false, 0, Math.PI), top);
-    end.position.set(s * gap / 2, H / 2, 0); end.rotation.y = s > 0 ? Math.PI : 0; end.castShadow = true; g.add(end);
   }
 
   // a few far trees and bushes on the lawn so it reads as a garden, kept out of the frame's middle

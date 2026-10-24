@@ -110,12 +110,12 @@ const KINDS = {
     return { grip: 0, splitApart: 0.08, splitTip: 0.6, splitDrop: 0.35 };
   },
   // a wooden garden gate of two leaves hinged on posts at x = ±0.75 (it faces +z, the camera side), for the GATE clip.
-  //   open 0..1: both leaves swing away from the camera; latch 0..1: the latch bar is shot off and spins away;
+  //   open 0..1: both leaves swing open towards the camera; latch 0..1: the latch bar is shot off and spins away;
   //   slice 0..1: the top of both leaves slides off a diagonal cut and drops; smash 0..1: the leaves blow back and
   //   tumble with splinters; scorch 0..1: the wood chars black. Reset a beat with a "prop" set at dur 0.
   gate(P) {
     const wood = mat("#c98a55", { roughness: 0.75 }), dark = mat("#8a5530", { roughness: 0.8 }), iron = mat("#2c2a30", { metalness: 0.5, roughness: 0.4 });
-    const W = 0.75, Hh = 1.15, CUT = 0.62;
+    const W = 0.75, Hh = 0.9, CUT = 0.5;
     const woods = [wood, dark], base = woods.map((m) => m.color.clone());
     const leaves = [];
     for (const [s, h] of P.halves) {
@@ -129,25 +129,25 @@ const KINDS = {
         mesh(new THREE.BoxGeometry(0.17, CUT - 0.08, 0.05), wood, lower, x, 0.08 + (CUT - 0.08) / 2, 0);
         mesh(new THREE.BoxGeometry(0.17, Hh - CUT, 0.05), wood, upper, x, CUT + (Hh - CUT) / 2, 0);
       }
-      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, lower, -s * W / 2, 0.28, 0.04);
+      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, lower, -s * W / 2, 0.22, 0.04);
       mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, upper, -s * W / 2, Hh - 0.2, 0.04);
-      for (const y of [0.3, Hh - 0.2]) mesh(new THREE.BoxGeometry(0.16, 0.05, 0.06), iron, y < CUT ? lower : upper, -s * 0.06, y, 0.06);
+      for (const y of [0.24, Hh - 0.2]) mesh(new THREE.BoxGeometry(0.16, 0.05, 0.06), iron, y < CUT ? lower : upper, -s * 0.06, y, 0.06);
       leaves.push({ s, hinge, lower, upper });
     }
-    const latch = new THREE.Group(); latch.position.set(0, 0.62, 0.08); P.whole.add(latch);
+    const latch = new THREE.Group(); latch.position.set(0, 0.48, 0.08); P.whole.add(latch);
     mesh(new THREE.BoxGeometry(0.3, 0.05, 0.04), iron, latch); mesh(new THREE.BoxGeometry(0.05, 0.12, 0.05), iron, latch, 0.13, 0, 0);
     // splinters: hidden until the gate is smashed
     const r = (k) => ((Math.sin(k * 127.1) * 43758.5453) % 1 + 1) % 1;
     const bits = Array.from({ length: 16 }, (_, i) => {
       const m = mesh(new THREE.BoxGeometry(0.05 + r(i) * 0.08, 0.2 + r(i + 9) * 0.3, 0.03), i % 3 ? wood : dark, P.root);
-      return { m, vx: (r(i + 3) - 0.5) * 4, vy: 2.5 + r(i + 5) * 3, vz: -1.5 - r(i + 7) * 2.5, spin: (r(i + 11) - 0.5) * 20, y0: 0.2 + r(i + 13) * 0.9 };
+      return { m, vx: (r(i + 3) - 0.5) * 4, vy: 2.5 + r(i + 5) * 3, vz: -1.5 - r(i + 7) * 2.5, spin: (r(i + 11) - 0.5) * 20, y0: 0.15 + r(i + 13) * 0.7 };
     });
     return {
       grip: 0.6,
       apply(ps) {
         const op = clamp(ps.open ?? 0), sm = clamp(ps.smash ?? 0), sl = clamp(ps.slice ?? 0), la = clamp(ps.latch ?? 0), sc = clamp(ps.scorch ?? 0);
         for (const { s, hinge, upper } of leaves) {
-          hinge.rotation.set(0, s * -1.75 * op, 0); hinge.position.set(s * W, 0, 0);
+          hinge.rotation.set(0, s * 1.75 * op, 0); hinge.position.set(s * W, 0, 0);
           if (sm > 0) {   // blown back from the middle, tumbling
             const tt = sm * 1.1;
             hinge.position.set(s * (W + 1.6 * tt), Math.max(0, 2.6 * tt - 4.9 * tt * tt), -3.2 * tt);
@@ -158,7 +158,7 @@ const KINDS = {
           upper.rotation.set(-0.9 * clamp(sl * 2 - 1), 0, s * 0.35 * clamp(sl * 2));
         }
         latch.visible = la < 1 && sm === 0;
-        latch.position.set(0.9 * la, 0.62 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
+        latch.position.set(0.9 * la, 0.48 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
         for (const b of bits) {
           const tt = sm * 1.1; b.m.visible = sm > 0 && sm < 1;
           b.m.position.set(b.vx * tt, Math.max(0.02, b.y0 + b.vy * tt - 4.9 * tt * tt), b.vz * tt); b.m.rotation.set(b.spin * tt, b.spin * 0.6 * tt, b.spin * 0.3 * tt);
@@ -169,8 +169,8 @@ const KINDS = {
   },
   // a glowing green portal standing upright (it faces +z); open 0..1 grows it from a point
   portal(P) {
-    const glowM = new THREE.MeshBasicMaterial({ color: "#7dff6a" }), coreM = new THREE.MeshBasicMaterial({ color: "#1c5e2a", transparent: true, opacity: 0.85, side: THREE.DoubleSide });
-    const g = new THREE.Group(); g.position.y = 0.65; P.whole.add(g);
+    const glowM = new THREE.MeshBasicMaterial({ color: "#7dff6a" }), coreM = new THREE.MeshBasicMaterial({ color: "#1c5e2a", transparent: true, opacity: 0.6, side: THREE.DoubleSide });
+    const g = new THREE.Group(); g.position.y = 0.6; P.whole.add(g);
     const ring = mesh(new THREE.TorusGeometry(0.55, 0.06, 12, 48), glowM, g); ring.castShadow = false;
     const core = mesh(new THREE.CircleGeometry(0.55, 48), coreM, g); core.castShadow = false;
     const swirl = mesh(new THREE.TorusGeometry(0.32, 0.025, 8, 40, Math.PI * 1.4), glowM, g); swirl.castShadow = false;

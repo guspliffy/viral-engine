@@ -48,6 +48,7 @@ export function actorState(sb, actor, def, t) {
       }
       case "turn": st.yaw = lerp(st.yaw, yawOf(a.to), e); break;
       case "lean": st.lean = lerp(st.lean, ((a.to ?? 0) * Math.PI) / 180, e); break;
+      case "pitch": st.pitch = lerp(st.pitch, ((a.to ?? 0) * Math.PI) / 180, e); break;   // tip forward (+) or back; 360 is a flip
       case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
       case "talk": {
@@ -80,7 +81,7 @@ export function actorState(sb, actor, def, t) {
       // flying (Phoenix's wings flap; anyone else just floats): fly to { x, y }, hover in place, drop like a stone
       case "fly": {
         const to = a.to || {}, k = ease(a.ease || "inOut")(p), dir = Math.sign((to.x ?? st.x) - st.x);
-        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k);
+        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
         st.wings = Math.max(st.wings, Math.min(1, (t - a.at) / 0.12)); st.tuck = Math.max(st.tuck, 0.7);
         if (p < 1) { st.flap = 1; st.lean += -0.12 * Math.sin(Math.PI * p) * dir; airSince = null; } else airSince = a.at + d;
         break;
