@@ -164,8 +164,8 @@ function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
   relight(scene, [
     new THREE.HemisphereLight(night ? "#9fb6e8" : "#bcd6ff", "#6b5038", 0.55),
     dirLight("#ffe2bd", 3.0, [-4.2, 5.2, 3.6], { radius: 7 }),            // key: warm, from the side and above
-    dirLight("#cfe0ff", 0.45, [4.5, 1.8, 4.5]),                             // fill: cool and low
-    dirLight("#ffd29a", 3.4, [3.2, 3.2, -4.5]),                             // rim: warm, from behind right
+    dirLight("#cfe0ff", 0.3, [4.5, 1.8, 4.5]),                              // fill: cool and low
+    dirLight("#ffd29a", 4.5, [3.2, 3.2, -4.5]),                             // rim: warm, from behind right
     dirLight(night ? "#8fb8ff" : "#d8ecff", 2.2, [-4, 2.4, -4]),            // rim: cool, from behind left
   ]);
   R.toneMapping = THREE.NeutralToneMapping; R.toneMappingExposure = 0.95;
@@ -187,7 +187,7 @@ function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new RenderPass(scene, camera));
-  const bokeh = new BokehPass(scene, camera, { focus: 5, aperture: 0.0026, maxblur: 0.0055 });
+  const bokeh = new BokehPass(scene, camera, { focus: 5, aperture: 0.006, maxblur: 0.009 });
   composer.addPass(bokeh);
   // bloom before tone mapping with a high threshold: only light sources glow (the gem, the blade, the window),
   // not lit whites like eyes and clouds
@@ -294,10 +294,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   // diffusion: a wide, gentle glow over everything bright (the soft "anime compositing" sheen)
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
   // (eyes, clouds) sit at 1 and stay clean
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.6, 1.15));
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
-  grade.uniforms.contrast.value = 1.0; grade.uniforms.saturation.value = 1.0; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
+  grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
   composer.addPass(grade);
 
@@ -309,7 +309,6 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
         o.material = Array.isArray(o.material) ? o.material.map(convert) : convert(o.material);
       });
       for (const s of shadows) s.update();
-      for (const a of actors) a.ch.root.traverse((o) => { if (o.userData.animeOnly) o.visible = true; });
     },
     render() { composer.render(); },
   };

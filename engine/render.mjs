@@ -213,7 +213,7 @@ async function main() {
     const writeLayout = async () => {
       const samples = [];
       for (let t = 0; t < dur - 1e-6; t += 0.1) samples.push(await page.evaluate((tt) => window.ENGINE.layout(tt), Math.round(t * 1000) / 1000));
-      const f = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.layout.json`);
+      const f = path.join(o.out, `${sb.id}${tag}.layout.json`);
       fs.writeFileSync(f, JSON.stringify({ fps, duration: dur, width: 1080, height: 1920, samples }));
       console.log("wrote", f);
     };

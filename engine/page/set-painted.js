@@ -36,19 +36,21 @@ function cloud(g, cx, cy, w, rnd) {
     puffs.push([x + Math.cos(a) * r * 0.92, y + Math.sin(a) * r * 0.92, rr]);
   }
   const base = cy + w * 0.02;
-  const [c, h] = canvas(g.canvas.width, g.canvas.height);
+  // painted on its own small canvas and blurred once when placed (a canvas filter on every fill is very slow)
+  const x0 = Math.floor(Math.min(...puffs.map(([x, , r]) => x - r)) - 4), y0 = Math.floor(Math.min(...puffs.map(([, y, r]) => y - r)) - 4);
+  const x1 = Math.ceil(Math.max(...puffs.map(([x, , r]) => x + r)) + 4), y1 = Math.ceil(base + w * 0.05);
+  const [c, h] = canvas(x1 - x0, y1 - y0); h.translate(-x0, -y0);
   const fill = (dx, dy, k, col) => { h.fillStyle = col; for (const [x, y, r] of puffs) { h.beginPath(); h.arc(x + dx * r, y + dy * r, r * k, 0, Math.PI * 2); h.fill(); } };
-  h.filter = "blur(1.2px)";
   fill(0, 0, 1, "#b7c6e0");                // shadow body
   fill(-0.06, -0.1, 0.9, "#dbe5f4");       // half light
   fill(-0.12, -0.18, 0.78, "#f4f7fc");     // lit
   fill(-0.2, -0.28, 0.55, "#ffffff");      // brightest top-left
   // flat base: cut everything below the base line, with a soft edge
-  h.filter = "none"; h.globalCompositeOperation = "destination-out";
+  h.globalCompositeOperation = "destination-out";
   const gr = h.createLinearGradient(0, base - w * 0.03, 0, base + w * 0.02); gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,1)");
   h.fillStyle = gr; h.fillRect(cx - w, base - w * 0.03, w * 2, w);
   h.globalCompositeOperation = "source-over";
-  g.drawImage(c, 0, 0);
+  g.filter = "blur(1.2px)"; g.drawImage(c, x0, y0); g.filter = "none";
   // wisps trailing off the sides
   g.fillStyle = "rgba(255,255,255,0.55)";
   for (let i = 0; i < 3; i++) { g.beginPath(); g.ellipse(cx + (rnd() < 0.5 ? -1 : 1) * w * (0.5 + rnd() * 0.3), base - w * (0.02 + rnd() * 0.05), w * (0.12 + rnd() * 0.15), w * 0.012, 0, 0, Math.PI * 2); g.fill(); }
@@ -73,14 +75,14 @@ function paintHills(rnd, o) {
   const gr = g.createLinearGradient(0, o.top - o.a1 - o.a2, 0, H); gr.addColorStop(0, o.light); gr.addColorStop(1, o.dark);
   g.fillStyle = gr; g.fill();
   g.save(); path(); g.clip();
-  g.filter = "blur(6px)";
+  const [pc, pg] = canvas(W, H);
   for (let i = 0; i < 22; i++) {
     const x = rnd() * W, y = ridge(x) + 20 + rnd() * (H - ridge(x));
-    g.fillStyle = rnd() < 0.55 ? `rgba(255,255,190,${0.1 + rnd() * 0.12})` : `rgba(20,70,30,${0.1 + rnd() * 0.12})`;
-    g.beginPath(); g.ellipse(x, y, 80 + rnd() * 200, 12 + rnd() * 26, (rnd() - 0.5) * 0.3, 0, Math.PI * 2); g.fill();
+    pg.fillStyle = rnd() < 0.55 ? `rgba(255,255,190,${0.1 + rnd() * 0.12})` : `rgba(20,70,30,${0.1 + rnd() * 0.12})`;
+    pg.beginPath(); pg.ellipse(x, y, 80 + rnd() * 200, 12 + rnd() * 26, (rnd() - 0.5) * 0.3, 0, Math.PI * 2); pg.fill();
   }
+  g.filter = "blur(6px)"; g.drawImage(pc, 0, 0); g.filter = "none";
   // brush strokes along the slope
-  g.filter = "none";
   for (let i = 0; i < 260; i++) {
     const x = rnd() * W, y = ridge(x) + rnd() * (H - ridge(x));
     g.strokeStyle = rnd() < 0.5 ? "rgba(255,255,200,0.12)" : "rgba(30,80,30,0.12)"; g.lineWidth = 2 + rnd() * 3;
@@ -102,9 +104,9 @@ function paintHills(rnd, o) {
 function paintGround(rnd) {
   const [c, g] = canvas(512, 512);
   g.fillStyle = "#7cc44e"; g.fillRect(0, 0, 512, 512);
-  g.filter = "blur(10px)";
-  for (let i = 0; i < 40; i++) { g.fillStyle = rnd() < 0.5 ? "rgba(170,220,90,0.35)" : "rgba(60,130,50,0.3)"; g.beginPath(); g.ellipse(rnd() * 512, rnd() * 512, 40 + rnd() * 80, 20 + rnd() * 40, rnd() * 3, 0, Math.PI * 2); g.fill(); }
-  g.filter = "none";
+  const [pc, pg] = canvas(512, 512);
+  for (let i = 0; i < 40; i++) { pg.fillStyle = rnd() < 0.5 ? "rgba(170,220,90,0.35)" : "rgba(60,130,50,0.3)"; pg.beginPath(); pg.ellipse(rnd() * 512, rnd() * 512, 40 + rnd() * 80, 20 + rnd() * 40, rnd() * 3, 0, Math.PI * 2); pg.fill(); }
+  g.filter = "blur(10px)"; g.drawImage(pc, 0, 0); g.filter = "none";
   for (let i = 0; i < 900; i++) {
     const x = rnd() * 512, y = rnd() * 512, l = 5 + rnd() * 9;
     g.strokeStyle = rnd() < 0.5 ? "rgba(190,235,120,0.4)" : "rgba(50,120,45,0.4)"; g.lineWidth = 1.5;
