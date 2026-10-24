@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { rng } from "./util.js";
 
 // "gym": a bright neighbourhood gym for the GYM clip, seen from the middle of the floor. Black rubber floor tiles with a
-// yellow lifting platform in the middle (x 0, z -1.0), a mirror wall at the back (z -2.0) with a dumbbell rack and a
-// "NO PAIN NO GAIN" banner over it, kettlebells, a water cooler at the right and a punching bag at the left.
+// yellow lifting platform in the middle (x 0, z -1.0), a mirror wall at the back (z -2.0) with a dumbbell rack under it, a
+// "NO PAIN NO GAIN" poster beside it, kettlebells, a water cooler at the right and a punching bag at the left.
 // Put a "barbell" prop on the platform and a "weightbench" at the side (x -1.0, z -1.35).
 // spec: { type: "gym", seed }
 
@@ -30,13 +30,13 @@ export function buildGym(scene, S = {}) {
   // the back wall: light grey up to the mirror, a teal stripe, the mirror in the middle
   const wall = flat(new THREE.Mesh(new THREE.PlaneGeometry(30, 8), lam("#dfe6ec"))); wall.position.set(0, 4, WZ); g.add(wall);
   box(g, 30, 0.18, 0.02, lam("#2fa59a"), 0, 0.5, WZ + 0.01);
-  const mir = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 1.6), new THREE.MeshStandardMaterial({ color: "#c9dbe6", roughness: 0.08, metalness: 0.75 })); mir.position.set(0, 1.55, WZ + 0.02); g.add(mir);
-  box(g, 3.3, 0.05, 0.04, lam("#9aa3ad"), 0, 2.37, WZ + 0.03); box(g, 3.3, 0.05, 0.04, lam("#9aa3ad"), 0, 0.73, WZ + 0.03);
+  const mir = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 1.6), new THREE.MeshStandardMaterial({ color: "#e3eef5", roughness: 0.15, metalness: 0.2, emissive: new THREE.Color("#3a4650") })); mir.position.set(0, 1.55, WZ + 0.02); g.add(mir);
+  box(g, 3.1, 0.05, 0.04, lam("#9aa3ad"), 0, 2.37, WZ + 0.03); box(g, 3.1, 0.05, 0.04, lam("#9aa3ad"), 0, 0.73, WZ + 0.03);
   for (const s of [-1, 1]) { const w = flat(new THREE.Mesh(new THREE.PlaneGeometry(14, 8), lam("#d3dce4"))); w.rotation.y = -s * Math.PI / 2; w.position.set(s * 3.6, 4, 4.4); g.add(w); }
 
-  // the banner over the mirror
-  const ban = canvasTex(512, 96, (c, w, h) => { c.fillStyle = "#e8402f"; c.fillRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.font = "900 58px sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText("NO PAIN NO GAIN", w / 2, h / 2 + 3); });
-  const b = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 0.36), new THREE.MeshBasicMaterial({ map: ban })); b.position.set(0, 2.62, WZ + 0.04); g.add(b);
+  // a poster on the wall right of the mirror (kept low and to the side, clear of the captions at the top of the frame)
+  const ban = canvasTex(160, 220, (c, w, h) => { c.fillStyle = "#e8402f"; c.fillRect(0, 0, w, h); c.fillStyle = "#ffffff"; c.font = "900 44px sans-serif"; c.textAlign = "center"; c.textBaseline = "middle"; for (const [i, l] of ["NO", "PAIN", "NO", "GAIN"].entries()) c.fillText(l, w / 2, 32 + i * 52); });
+  const b = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.58), new THREE.MeshBasicMaterial({ map: ban })); b.position.set(1.95, 1.55, WZ + 0.04); g.add(b);
 
   // the dumbbell rack along the wall under the mirror, both sides of the platform
   const steel = lam("#9aa3ad"), black = lam("#22252b");

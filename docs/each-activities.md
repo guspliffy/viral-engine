@@ -198,3 +198,34 @@ the next fighter was half in frame at the edge (applied: they wait off screen an
 didn't read (applied: the cable pulls taut first, the cable is now dark and thicker); numbers stacked over heads
 (applied: shorter 1%, the Wizard's 500% longer, more smoke); the Samurai's knot was tiny and far away (applied: bigger,
 next to the couch); the Viking's rip was too fast (applied: a tug first).
+
+## 7. Gym: "how each fighter lifts" (gym)
+
+`storyboards/make-gym.mjs` → `gym-01-lift.json`, 23.73 s (escalation clip). One take from the middle of a gym: a
+lifting platform with one loaded barbell, a bench, a mirror wall, racks, a punching bag. The next fighter waits beside
+the platform and watches (reacting to the big moments), then steps up.
+
+Habits (real gym types): the one who makes it look easy, the bench hogger on the phone, the grunter, the ego lifter
+who loads too much, the endless warm-up, the one who drops the weights from the top.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | makes it look easy | the loaded bar up on one hand, two easy pumps |
+| Reaper | hogs the bench | sits there scrolling, never lifts a thing |
+| Sorcerer | doesn't touch it | the bar floats up while he stands there |
+| Wizard | the spell goes wrong | *a lightening spell: balloons carry him up, then pop* |
+| Dragon | the grunter | one lift, one "RAAH!", a jet of fire at the ceiling |
+| Phoenix | the ego lift | "MORE": one more plate each side, it pins him ("help") |
+| Gunslinger | too heavy | *shoots the plates off, lifts the bare bar* |
+| Allfather | the endless warm-up | stretches and stretches, then calls it a workout |
+| Samurai | two dumbbells | *one cut splits the barbell in two* |
+| Viking | drops it | *from the top: the bar goes through the floor* |
+
+Loop: a poof mends the floor, the Astronaut holds the bar up on one hand again (frame 0).
+New engine parts: `gym` set, `barbell` (plates 0–3 per end, bend, balloons, split into dumbbells), `weightbench` props.
+Fable's notes: the frame-0 lift was over before the premise read (applied: longer hold, hook up to 1.4 s); the waiting
+fighter was off screen so nobody reacted (applied: they wait in view and react to the Wizard's fall and the Phoenix pin);
+the Dragon's grunt was small (applied: bigger fire and a "RAAH!"); the Phoenix's pin didn't read (applied: "MORE", a
+plate poof, the bar at his chin, "help"); the Reaper, Sorcerer and Allfather beats ran long (applied: trimmed); the
+ending had no hold (applied: a beat on the Viking before the reset). The banner above the mirror hit the captions, so
+it's now a side poster.

@@ -987,6 +987,54 @@ const KINDS = {
     return { grip: SEAT_Y };
   },
 
+  // a supermarket trolley, its front towards +z and its handle at the back (z -0.36, y 0.72), the basket a see-through
+  // wire mesh on four castor wheels. spec.color for the plastic handle and bumpers. smash 0..1 crumples it; bump 0..1
+  // rocks it. Ride it at off [0, 0.42, 0.02] (sit: in the basket)
+  cart(P) {
+    const steel = mat("#c9ced6", { roughness: 0.3, metalness: 0.7 }), plastic = mat(P.spec.color || "#e8402f", { roughness: 0.5 }), rubber = mat("#2a2a2e");
+    const wire = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d"); g.strokeStyle = "#dfe3e8"; g.lineWidth = 3; for (let i = 0; i <= 64; i += 12.8) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 64); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(64, i); g.stroke(); } const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2); return t; })();
+    const mesh_ = new THREE.MeshStandardMaterial({ map: wire, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide, roughness: 0.3, metalness: 0.6 });
+    mesh_.userData.noOutline = true;
+    const body = new THREE.Group(); P.whole.add(body);
+    const W = 0.44, L = 0.62, H = 0.3, Y0 = 0.42;
+    for (const [w, h, x, y, z, ry] of [[L, H, -W / 2, Y0 + H / 2, 0, Math.PI / 2], [L, H, W / 2, Y0 + H / 2, 0, Math.PI / 2], [W, H, 0, Y0 + H / 2, L / 2, 0], [W, H, 0, Y0 + H / 2, -L / 2, 0]]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mesh_); m.position.set(x, y, z); m.rotation.y = ry; body.add(m); }
+    const floorM = new THREE.Mesh(new THREE.PlaneGeometry(W, L), mesh_); floorM.rotation.x = -Math.PI / 2; floorM.position.y = Y0; body.add(floorM);
+    for (const [x, z] of [[-W / 2, -L / 2], [W / 2, -L / 2], [-W / 2, L / 2], [W / 2, L / 2]]) mesh(new THREE.CylinderGeometry(0.012, 0.012, H, 6), steel, body, x, Y0 + H / 2, z);
+    mesh(new THREE.BoxGeometry(W + 0.03, 0.025, 0.025), plastic, body, 0, Y0 + H, L / 2);   // the bumper rail
+    mesh(new THREE.BoxGeometry(W + 0.06, 0.035, 0.035), plastic, body, 0, Y0 + H + 0.02, -L / 2 - 0.06);   // the handle
+    for (const x of [-W / 2, W / 2]) { const a = mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.1, 6), steel, body, x, Y0 + H, -L / 2 - 0.03); a.rotation.x = 1.1; }
+    for (const x of [-0.16, 0.16]) mesh(new THREE.BoxGeometry(0.02, 0.02, L * 0.9), steel, body, x, 0.08, 0);   // the base frame
+    for (const z of [-L / 2 + 0.05, L / 2 - 0.05]) { mesh(new THREE.BoxGeometry(0.36, 0.02, 0.02), steel, body, 0, 0.08, z); for (const x of [-0.16, 0.16]) { mesh(new THREE.CylinderGeometry(0.01, 0.01, Y0 - 0.08, 6), steel, body, x, (Y0 + 0.08) / 2, z * 0.92); const w = mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.03, 12), rubber, body, x, 0.04, z); w.rotation.z = Math.PI / 2; } }
+    return {
+      grip: Y0 + H + 0.02,
+      apply(ps) {
+        const q = clamp(ps.smash ?? 0), bu = clamp(ps.bump ?? 0);
+        body.scale.set(1 + 0.2 * q, 1 - 0.5 * q, 1 - 0.3 * q); body.rotation.z = 0.25 * q; body.rotation.x = -0.12 * bu;
+      },
+    };
+  },
+  // a trolley bay: two rails along x on posts (1.7 long, the open end at +x), a blue "CARTS" sign on a post at the
+  // closed end, and `count` 0..6 trolleys nested inside, front towards -x (the first at the closed end). smash 0..1
+  // knocks it flat (the rails fall outwards, the sign tips, the trolleys scatter)
+  corral(P) {
+    const steel = mat("#c9ced6", { roughness: 0.3, metalness: 0.7 }), blue = mat("#2f6fd1", { roughness: 0.5 });
+    const rails = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.z = s * 0.3; P.whole.add(g); mesh(new THREE.BoxGeometry(1.7, 0.035, 0.035), steel, g, 0, 0.7, 0); mesh(new THREE.BoxGeometry(1.7, 0.03, 0.03), steel, g, 0, 0.35, 0); for (const x of [-0.82, 0, 0.82]) mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.7, 8), steel, g, x, 0.35, 0); return [s, g]; });
+    const signG = new THREE.Group(); signG.position.set(-0.9, 0, 0); P.whole.add(signG);
+    mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.4, 8), steel, signG, 0, 0.7, 0);
+    const tex = (() => { const c = document.createElement("canvas"); c.width = 128; c.height = 80; const g = c.getContext("2d"); g.fillStyle = "#2f6fd1"; g.fillRect(0, 0, 128, 80); g.fillStyle = "#fff"; g.font = "900 30px sans-serif"; g.textAlign = "center"; g.fillText("CARTS", 64, 52); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+    const sign = mesh(new THREE.BoxGeometry(0.42, 0.26, 0.02), blue, signG, 0, 1.3, 0.02); mesh(new THREE.PlaneGeometry(0.4, 0.24), new THREE.MeshBasicMaterial({ map: tex }), signG, 0, 1.3, 0.035);
+    const nest = Array.from({ length: 6 }, (_, i) => { const g = new THREE.Group(); g.position.x = -0.55 + i * 0.2; P.whole.add(g); const c = KINDS.cart({ root: g, whole: g, halves: [], spec: { color: P.spec.color } }); g.rotation.y = -Math.PI / 2; g.scale.setScalar(0.98); return [g, c]; });
+    return {
+      grip: 0,
+      apply(ps) {
+        const n = ps.count ?? 0, q = clamp(ps.smash ?? 0);
+        nest.forEach(([g], i) => { g.visible = n > i + 0.5; g.position.y = 0.6 * q * Math.sin(i * 1.7 + 1) ** 2; g.position.z = q * 0.9 * Math.sin(i * 2.3); g.rotation.z = q * (i % 2 ? 1.2 : -0.9); });
+        for (const [s, g] of rails) { g.rotation.x = s * 1.4 * q; }
+        signG.rotation.z = 1.3 * q;
+      },
+    };
+  },
+
 };
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
@@ -1021,7 +1069,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
