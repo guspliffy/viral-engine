@@ -23,7 +23,8 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
-import { renderBeat } from "../puppet/beat.mjs";
+import { compile } from "./compile.mjs";
+import { renderBeat, musicFlavour } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -101,14 +102,20 @@ function applyStyle(sb, style) {
   const keep = (x) => !x.only || x.only === style || (Array.isArray(x.only) && x.only.includes(style));
   const out = { ...sb };
   for (const k of ["actions", "fx", "captions", "sfx", "shots"]) out[k] = (sb[k] || []).filter(keep);
+  // manga devices (black-silhouette impact frames, speed lines) read as render errors outside the anime style:
+  // there they become a short shake, unless a storyboard asks for them in this style by name
+  const named = (f) => f.only === style || (Array.isArray(f.only) && f.only.includes(style));
+  if (style !== "anime") out.fx = out.fx.flatMap((f) => (f.do === "impact" || f.do === "speedlines") && !named(f) ? (f.do === "impact" ? [{ do: "shake", at: f.at, dur: 0.25, amp: 0.04 }] : []) : [f]);
   return out;
 }
 
 async function main() {
   const o = args();
-  const raw = JSON.parse(fs.readFileSync(o.file, "utf8"));
+  const raw = compile(JSON.parse(fs.readFileSync(o.file, "utf8"))); // beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
   const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
+  // pin the seeded tempo so dance moves on the page follow the same beat as the music
+  if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, sb.id).bpm };
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
@@ -121,8 +128,12 @@ async function main() {
   if (!o.stills && !o.silent && !o.layoutOnly) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
-    if (sb.music) {   // the placeholder beat (puppet/beat.mjs), mixed under the voices and effects
-      const M = renderBeat(sb.music, dur), g = sb.music.gain ?? 0.5; let pk = 0;
+    // background music (puppet/beat.mjs): on by default, a different variation per clip (seeded by the id);
+    // "music": false turns it off, a music block pins tempo, style, key and parts
+    const music = sb.music === false ? null : { gain: 0.45, ...(sb.music || {}) };
+    if (music) {
+      const M = renderBeat(music, dur, sb.id), g = music.gain ?? 0.5; let pk = 0;
+      console.log(`music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
       for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
       if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
     }

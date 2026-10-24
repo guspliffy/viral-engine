@@ -131,7 +131,7 @@ function sound(sb, voices, noMusic) {
   const chars = Object.fromEntries(sb.cast.map((c) => ["pup:" + c.id, { voice: voices[c.id] }]));
   const A = renderAudio(sb3, chars);
   if (sb.music && !noMusic) {
-    const M = renderBeat(sb.music, sb.duration), g = sb.music.gain ?? 0.5;
+    const M = renderBeat(sb.music, sb.duration, sb.id), g = sb.music.gain ?? 0.5;
     for (let i = 0; i < A.L.length; i++) { A.L[i] += M.L[i] * g; A.R[i] += M.R[i] * g; }
   }
   let peak = 0;

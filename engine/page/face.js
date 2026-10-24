@@ -70,9 +70,22 @@ export class Face {
     this.layout = { eyeU: 0.36, eyeV: 0.32, browV: 0.62, mouthV: -0.12, mouthW: 0.36, cheekU: 0.66, cheekV: 0.0 };
   }
 
-  // points the part's +z along the surface normal, in the face's own (local) space. Object3D.lookAt takes a WORLD
-  // target, so with a local one the eyes and cheeks were aimed wrong whenever the character stood away from the
-  // origin (white eyes with no pupils, worst close to the camera or in the air).
+  _curveCheek(ch, L, s) {
+    const u0 = ch.side * L.cheekU, v0 = L.cheekV, e = 0.01;
+    const c = this.place(u0, v0).pos, du = this.place(u0 + e, v0).pos.distanceTo(c) / e, dv = this.place(u0, v0 + e).pos.distanceTo(c) / e;
+    const hu = (0.1 * this.size) / du, hv = (0.065 * this.size) / dv, nu = 8, nv = 6, pos = [], uv = [], idx = [];
+    for (let j = 0; j <= nv; j++) for (let i = 0; i <= nu; i++) {
+      const a = i / nu, b = j / nv, p = this.place(u0 + (a * 2 - 1) * hu * ch.side, v0 + (b * 2 - 1) * hv);
+      const q = p.pos.clone().addScaledVector(p.normal, 0.004 * s); pos.push(q.x, q.y, q.z); uv.push(ch.side > 0 ? a : 1 - a, b);
+    }
+    for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) { const k = j * (nu + 1) + i; idx.push(k, k + 1, k + nu + 1, k + 1, k + nu + 2, k + nu + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
+    ch.m.geometry.dispose(); ch.m.geometry = g; ch.m.position.set(0, 0, 0); ch.m.rotation.set(0, 0, 0);
+    ch.m.material.side = THREE.DoubleSide; ch.curved = true;
+  }
+
+  // aim the part along the surface normal, in the host's local space (Object3D.lookAt takes a world target, which
+  // turned eyes and cheeks the wrong way whenever a character stood away from the origin)
   _orient(obj, p) { obj.position.copy(p.pos); _m.lookAt(_t.copy(p.pos).add(p.normal), p.pos, _up); obj.quaternion.setFromRotationMatrix(_m); }
 
   _surfLine(pts, lift) {
@@ -91,10 +104,9 @@ export class Face {
       eye.look.position.set(look[0] * eye.r * 0.28, look[1] * eye.r * 0.22, 0);
       eye.pupil.scale.set(e.pupil, e.pupil * 1.08, 0.3);
     }
-    for (const ch of this.cheeks) {
-      const p = this.place(ch.side * L.cheekU, L.cheekV);
-      this._orient(ch.m, { pos: p.pos.clone().addScaledVector(p.normal, 0.004 * s), normal: p.normal });
-    }
+    // blush follows the curve of the face: a flat card on a round body dips under the skin at its edges and shows
+    // a hard cut. Built once, in the host's space, from the same surface mapping as the rest of the face.
+    for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
     // geometry that depends on the expression is rebuilt only when it changes
     const round = e.round || 0;
     const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round].map((x) => x.toFixed(3)).join("|");

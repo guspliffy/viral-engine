@@ -182,7 +182,9 @@ export function buildCostume(def, ch) {
 
   return {
     apply(st, t, hands, fries) {
-      const top = fries ? ch.fries.topY() * st.friesPop : ch.topY() * ch.bodyGroup.scale.y;
+      // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
+      const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
+      const top = fries ? head + (ch.fries.topY() - head) * k : head;
       mount.position.set(st.hatOff[0], top - sitDepth + st.hatOff[1], st.hatOff[2]);
       mount.rotation.set(st.hatSpin[0], st.hatSpin[1], st.hatSpin[2]);
       mount.visible = st.hatOn !== false;

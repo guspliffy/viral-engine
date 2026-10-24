@@ -12,6 +12,18 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - **No blank frames**: no fully white frame (flashes peak at 0.85 at most) and no empty black frame.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
   Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny.
+- **Hook, loop, length** (from the algorithm research, `docs/PLAN.md` → Studio roadmap): frame 0 shows a character
+  mid-action (no title card, fade-in or establishing shot), the premise reads by 3 s, the ending loops into the
+  start (no end card), something new happens at least every 2 s, and the default length is 12–20 s.
+- **Cartoon impacts only**: stars, dust, squash and stretch. No splatter, mash or severed parts. Graphic violence
+  makes a clip ineligible for For You.
+- Never show or mention the game in the first 3 s, and never use an outro card.
+- `qa/check.mjs` enforces these: hook (frame 0 not blank, motion in 0.3 s), still holds, length 8–25 s (12–20 ideal,
+  over 20 needs `"escalation": true`), event gaps ≤ 2 s, caption reading speed, `"loop": true` seam, gore lint.
+- **Music varies per clip**: every clip gets background music by default (`puppet/beat.mjs`), and the seed (the
+  storyboard id) picks its style, key, chords, tempo and lead. Never reuse one track across clips. Pin options in a
+  `music` block (`style`, `styles` pool, `key`, `progression`, `bpm`, `lead`, `drums`, `parts`, `seed`, `gain`), or
+  set `"music": false` when the clip goes out with a trend sound.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
 
 ## Characters
@@ -19,6 +31,11 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - The cast are PotatoBrawl fighters. **Character bible: `docs/character-bible.md`** (relationships, running gags,
   tone limits). It is not in the repo yet. Until it is, don't invent lasting canon: mark new traits as proposals.
 - Jonny decides anything that changes a character's look or personality, and any new drawing in the game's style.
+
+## Writing clips
+
+Write new clips as **beat storyboards** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards
+still work.
 
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 
