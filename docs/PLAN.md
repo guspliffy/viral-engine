@@ -31,6 +31,37 @@ manual work as possible. First for our own channels (PotatoBrawl and later games
 6. **AI render path** for things code can't draw well, once there is budget. Storyboards compile to a structured prompt.
 7. **Product version** for other users: accounts, billing, TikTok posting-API audit, legal.
 
+## Studio roadmap (Jonny, 2026-10-24)
+
+Goal: a studio-style engine with many scenes and characters, where clips are rich in detail but stay short.
+Fable is the creative director (`CLAUDE.md`, `qa/REVIEW.md`). The algorithm research
+(`/mnt/project-files/research/TikTok algorithm for animated shorts.md`, "Engine changes" #1–13) is folded in below.
+
+1. **One engine.** PR #1 contains the dance and props work, PR #2 and the batch-2 storyboards. *Waiting for Jonny's merge.*
+2. **QA v2: algorithm rules in code** (research #1, 2, 3, 5, 6, 7, 4, 13). `qa/check.mjs` gains: hook (frame 0 not
+   blank or static, motion in the first 0.3 s), loop seam (last frame vs first, audio seam), event cadence (fail
+   gaps > 2 s), duration gate (12–20 s default; 20–25 s only with an escalation beat; < 8 s fails), caption reading
+   speed, stricter safe zone for faces and text (x 120–960, y 240–1260, clear of the right button column), and a
+   cartoon-violence lint. The review frames are fixed: 0.0, 1.5, 3.0 s, the punchline, and the last/first pair,
+   with four pass/fail questions logged per clip.
+3. **Relative timing and beat macros.** Actions are timed relative to the previous beat. Macros (`enter`, `react`,
+   `take`, `fail-and-recover`, ...) expand into actions, so a 20 s clip is 20–30 lines.
+4. **Format templates** (research #11). Templates: "each character vs X" (GATE first), literal-genie, rivalry skit,
+   "rank the potatoes" tier list, comment reply, and 2–3 part cliffhanger arc. Each declares hook, escalation and
+   a loop ending, and builds a full storyboard.
+5. **Cast registry** (research #8). One file holds each potato's name, look, trait, voice timbre and catchphrase
+   sound. A name tag shows on a character's first appearance, and unregistered characters fail QA.
+6. **Auto camera.** Frames the active character inside the safe zone. Cuts, whip pans, push-ins and split screen
+   are named options.
+7. **Richer worlds.** Props that fall, break or explode (cartoon only), crowds of all 10 fighters, set dressing,
+   and a beat at 120+ BPM with a new seed per clip, ducked under voices (research #9).
+8. **Anti-template check** (research #10). Fingerprint beat structure, cast, set and punchline. Warn when a clip
+   is too close to recent ones.
+9. **Faster renders.** Chunked parallel rendering and cached static backgrounds. The render host is still open.
+
+Rule from the research (#12): never mention or show the game in the first 3 s, and never use an outro card that
+breaks the loop. The game can be the setting or the punchline.
+
 ## Character experiments
 
 Goal: find out which characters (and which traits) perform, then design new ones from that.

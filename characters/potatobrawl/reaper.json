@@ -1,0 +1,15 @@
+{
+  "id": "potatobrawl/reaper",
+  "name": "Reaper",
+  "franchise": "PotatoBrawl",
+  "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Shroud) and game/ui/draw-fighters.js (hood, farm scythe)",
+  "rig": "potato",
+  "body": { "color": "#e2a95c", "height": 1.0, "width": 0.84, "depth": 0.72, "lump": 0.035, "seed": 13 },
+  "limbs": { "color": "#1f1d26", "width": 0.032 },
+  "face": { "default": "smug", "iris": "#4a1f14", "cheeks": "#ff7a6a" },
+  "sprout": { "color": "#6cbf3a", "placement": "top" },
+  "costume": { "type": "reaper", "accent": "#34313a", "wood": "#6b4a2b", "blade": "#c9ced6", "propHand": "R" },
+  "personality": "Soul harvester. In the comedy plan: literal, deadpan, secretly kind (proposal until the character bible is signed off).",
+  "voice": { "pitch": 92, "rate": 2.5, "formant": 0.92, "range": 1.5, "breath": 0.12, "vibrato": 0.006, "seed": 23 },
+  "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)"
+}

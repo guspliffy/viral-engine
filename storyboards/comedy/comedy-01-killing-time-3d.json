@@ -1,0 +1,399 @@
+{
+ "id": "comedy-01-killing-time-3d",
+ "title": "Killing time (3D)",
+ "status": "3D version of the puppet preview in comedy-series/storyboards/; written before the 3D props/moves landed",
+ "fps": 30,
+ "duration": 12.0,
+ "cover": 5.8,
+ "set": {
+  "type": "kitchen",
+  "time": 2.75
+ },
+ "music": {
+  "bpm": 96,
+  "offset": 0,
+  "gain": 0.3,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -0.78,
+    0
+   ],
+   "face": "right",
+   "expr": "dizzy",
+   "seed": 2.2
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    0.78,
+    0
+   ],
+   "face": "left",
+   "expr": "deadpan",
+   "arms": {
+    "R": "hold",
+    "L": "rest"
+   },
+   "seed": 5.7
+  }
+ ],
+ "props": [
+  {
+   "id": "clock",
+   "kind": "clock",
+   "x": 0,
+   "y": 1.95,
+   "z": -2.25
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "chairL",
+   "kind": "chair",
+   "x": -0.78,
+   "y": 0,
+   "z": 0,
+   "rot": 90
+  },
+  {
+   "id": "chairR",
+   "kind": "chair",
+   "x": 0.78,
+   "y": 0,
+   "z": 0,
+   "rot": -90
+  },
+  {
+   "id": "cup",
+   "kind": "teacup",
+   "x": 0.28,
+   "y": 0.62,
+   "z": 0
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.35,
+    6.0
+   ],
+   "look": [
+    0,
+    1.15,
+    0
+   ],
+   "fov": 34
+  },
+  {
+   "at": 4.0,
+   "pos": [
+    0,
+    1.35,
+    6.0
+   ],
+   "look": [
+    0,
+    1.15,
+    0
+   ],
+   "fov": 34,
+   "to": {
+    "pos": [
+     0,
+     1.7,
+     5.6
+    ],
+    "look": [
+     0,
+     1.6,
+     -1.0
+    ]
+   },
+   "dur": 1.0,
+   "ease": "inOut"
+  },
+  {
+   "at": 5.9,
+   "pos": [
+    0,
+    1.35,
+    6.0
+   ],
+   "look": [
+    0,
+    1.15,
+    0
+   ],
+   "fov": 34
+  },
+  {
+   "at": 10.3,
+   "pos": [
+    0,
+    1.35,
+    6.0
+   ],
+   "look": [
+    0,
+    1.15,
+    0
+   ],
+   "fov": 34,
+   "to": {
+    "pos": [
+     0.6,
+     1.1,
+     3.6
+    ],
+    "look": [
+     0.75,
+     0.95,
+     0
+    ]
+   },
+   "dur": 1.4,
+   "ease": "inOut"
+  }
+ ],
+ "actions": [
+  {
+   "who": "phx",
+   "at": 0,
+   "do": "sit",
+   "seat": "chairL",
+   "hands": "table"
+  },
+  {
+   "who": "rea",
+   "at": 0,
+   "do": "sit",
+   "seat": "chairR",
+   "hands": "table"
+  },
+  {
+   "who": "phx",
+   "at": 2.0,
+   "do": "talk",
+   "dur": 1.5,
+   "tone": "excited"
+  },
+  {
+   "who": "phx",
+   "at": 2.0,
+   "do": "shake",
+   "dur": 1.5,
+   "amp": 1.2
+  },
+  {
+   "who": "phx",
+   "at": 2.0,
+   "do": "expr",
+   "dur": 0.15,
+   "expr": "stern"
+  },
+  {
+   "who": "phx",
+   "at": 3.6,
+   "do": "expr",
+   "dur": 0.3,
+   "expr": "dizzy"
+  },
+  {
+   "who": "rea",
+   "at": 4.0,
+   "do": "look",
+   "dur": 0.4,
+   "to": [
+    0,
+    0.8
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 4.0,
+   "do": "turn",
+   "dur": 0.6,
+   "to": "3q-left"
+  },
+  {
+   "who": "rea",
+   "at": 5.0,
+   "do": "stand",
+   "dur": 0.3
+  },
+  {
+   "who": "rea",
+   "at": 5.15,
+   "do": "swing",
+   "dur": 0.45
+  },
+  {
+   "do": "prop",
+   "id": "clock",
+   "at": 5.55,
+   "dur": 0.35,
+   "ease": "out",
+   "set": {
+    "split": 1
+   }
+  },
+  {
+   "who": "rea",
+   "at": 6.2,
+   "do": "sit",
+   "seat": "chairR",
+   "hands": "hold"
+  },
+  {
+   "who": "rea",
+   "at": 6.3,
+   "do": "grab",
+   "prop": "cup",
+   "hand": "R"
+  },
+  {
+   "who": "rea",
+   "at": 6.3,
+   "do": "look",
+   "dur": 0.3,
+   "to": [
+    0,
+    0
+   ]
+  },
+  {
+   "who": "phx",
+   "at": 6.4,
+   "do": "expr",
+   "dur": 1.2,
+   "expr": "shocked"
+  },
+  {
+   "who": "phx",
+   "at": 10.0,
+   "do": "expr",
+   "dur": 0.15,
+   "expr": "dizzy"
+  },
+  {
+   "who": "rea",
+   "at": 10.4,
+   "do": "turn",
+   "dur": 0.8,
+   "to": "camera"
+  },
+  {
+   "who": "rea",
+   "at": 10.9,
+   "do": "expr",
+   "dur": 0.4,
+   "expr": "smug"
+  }
+ ],
+ "fx": [
+  {
+   "do": "shake",
+   "at": 5.55,
+   "dur": 0.2,
+   "amp": 0.04
+  },
+  {
+   "do": "notes",
+   "at": 10.9,
+   "who": "rea",
+   "dur": 1.0,
+   "count": 3
+  }
+ ],
+ "sfx": [
+  {
+   "sound": "tink",
+   "at": 0.1,
+   "gain": 0.2
+  },
+  {
+   "sound": "tink",
+   "at": 1.0,
+   "gain": 0.2
+  },
+  {
+   "sound": "tink",
+   "at": 1.9000000000000001,
+   "gain": 0.2
+  },
+  {
+   "sound": "tink",
+   "at": 2.8000000000000003,
+   "gain": 0.2
+  },
+  {
+   "sound": "tink",
+   "at": 3.7,
+   "gain": 0.2
+  },
+  {
+   "sound": "tink",
+   "at": 4.6,
+   "gain": 0.2
+  },
+  {
+   "sound": "whoosh",
+   "at": 5.15,
+   "gain": 0.4,
+   "dur": 0.4
+  },
+  {
+   "sound": "tink",
+   "at": 5.6,
+   "gain": 0.7
+  },
+  {
+   "sound": "tink",
+   "at": 9.9,
+   "gain": 0.5
+  },
+  {
+   "sound": "tink",
+   "at": 10.25,
+   "gain": 0.4
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 2.0,
+   "text": "waiting for the pizza",
+   "pos": "top"
+  },
+  {
+   "from": 2.0,
+   "to": 4.0,
+   "text": "Ugh. Let's kill\nsome time.",
+   "pos": "top"
+  },
+  {
+   "from": 9.9,
+   "to": 11.2,
+   "text": "*ding dong*",
+   "pos": "top"
+  }
+ ]
+}

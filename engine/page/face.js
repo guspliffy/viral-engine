@@ -19,6 +19,8 @@ export const EXPRESSIONS = {
   focused:   { tilt: -0.36, browY: -0.01, curve: 0.1, open: 0.0,  eye: 0.8,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   stern:     { tilt: -0.45, browY: -0.01, curve: -0.2, open: 0.0, eye: 0.85, pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   deadpan:   { tilt: 0.0,  browY: -0.015, curve: 0.0, open: 0.0,  eye: 0.6,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
+  serene:    { tilt: 0.1,  browY: 0.0,   curve: 0.35, open: 0.0,  eye: 0.06, pupil: 1.0,  smirk: 0.0, raise: 0.0 },   // eyes closed, content
+  dizzy:     { tilt: 0.42, browY: 0.02,  curve: -0.35, open: 0.3, eye: 1.08, pupil: 0.45, smirk: 0.4, raise: 0.02 },
 };
 export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + (b[k] - a[k]) * t; return o; };
 

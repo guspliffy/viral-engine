@@ -10,6 +10,8 @@ const LEG_H = 0.14;
 // sx = -1 for the right arm, +1 for the left.
 function handTarget(pose, sx, rx, H, t) {
   const top = LEG_H + H;
+  // dance.js: { o: [out, up, fwd] } mirrored per side, { x: [x, up, fwd] } an absolute x
+  if (pose && typeof pose === "object") return pose.x ? [pose.x[0], LEG_H + H * pose.x[1], pose.x[2]] : [sx * (rx + pose.o[0]), LEG_H + H * pose.o[1], pose.o[2]];
   switch (pose) {
     case "up":    return [sx * rx * 0.55, top + 0.3, 0.08];
     case "wave":  return [sx * (rx * 0.62 + 0.07 * Math.sin(t * 6.283 * 2.4)), top + 0.24, 0.1];
@@ -20,6 +22,8 @@ function handTarget(pose, sx, rx, H, t) {
     case "hold":  return [sx * (rx + 0.13), LEG_H + H * 0.4, 0.16];
     case "hat":   return [sx * rx * 0.6, top + 0.02, 0.2];
     case "fist":  return [sx * (rx + 0.06), LEG_H + H * 0.66, 0.26];
+    case "lap":   return [sx * rx * 0.45, LEG_H + H * 0.14, 0.34];
+    case "table": return [sx * rx * 0.6, LEG_H + H * 0.3, 0.44];
     case "cheeks": return [sx * (rx * 0.75), LEG_H + H * 0.5, 0.34];
     default:      return [sx * (rx + 0.08), LEG_H + H * 0.27, 0.06];   // rest
   }
@@ -44,14 +48,16 @@ export class Character {
     const g = new THREE.SphereGeometry(1, 128, 96), p = g.attributes.position, v = new THREE.Vector3();
     for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).normalize(); const q = this.bodyPoint(v); p.setXYZ(i, q.x, q.y, q.z); }
     g.computeVertexNormals();
-    this.skin = new THREE.MeshPhysicalMaterial({ color: B.color, roughness: 0.5, clearcoat: 0.3, clearcoatRoughness: 0.35 });
+    // gloss: 0 matte .. 1 shiny (a tomato); the default keeps the potato skin
+    const gl = B.gloss ?? 0.3;
+    this.skin = new THREE.MeshPhysicalMaterial({ color: B.color, roughness: 0.5 - 0.3 * Math.max(0, gl - 0.3), clearcoat: gl, clearcoatRoughness: 0.35 - 0.25 * Math.max(0, gl - 0.3) });
     this.body = new THREE.Mesh(g, this.skin); this.body.castShadow = true; this.body.receiveShadow = true;
     this.potatoParts.add(this.body);
 
     // specks
     const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.72), roughness: 0.8 });
     speckM.userData.noOutline = true;
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < (B.specks ?? 9); i++) {
       const th = (rnd() * 2 - 1) * 2.6, ph = (rnd() * 2 - 1) * 0.9;
       if (Math.abs(th) < 0.65 && ph > -0.45 && ph < 0.6) continue; // keep the face clear
       const s = this.surf(th, ph);
@@ -108,7 +114,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
-    R.position.set(st.x, st.y, st.z); R.rotation.set(0, st.yaw, st.lean);
+    R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
 
@@ -133,7 +139,7 @@ export class Character {
       h.y = LEG_H + (h.y - LEG_H) * S.y;
       hands[s] = h;
       const sh = this.surf(sx * 1.38, 0.02).pos; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
-      const out = (ELBOW_OUT[a.pose] ?? 0.13) * a.p + (ELBOW_OUT[a.from] ?? 0.13) * (1 - a.p);
+      const elb = (q) => (typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : 0.1), out = elb(a.pose) * a.p + elb(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       this.arms[s].hand.position.copy(h);
       this.arms[s].hand.visible = showLimbs;
@@ -141,6 +147,10 @@ export class Character {
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
       const lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07;
       const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05);
+      // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
+      const kn = st.kneel || 0, si = st.sit || 0;
+      foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
+      foot.set(foot.x + sx * 0.02 * si, foot.y - 0.01 * si, foot.z + 0.24 * si);
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out].map((x) => x.toFixed(4)).join(",");

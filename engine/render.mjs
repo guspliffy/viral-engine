@@ -3,6 +3,7 @@
 //
 //   node engine/render.mjs storyboards/test-01-golden.json            -> out/test-01-golden.mp4 + cover PNG + WAV
 //   node engine/render.mjs <storyboard> --stills 0.5,3.2,7              -> PNG stills only (quick checks)
+//   node engine/render.mjs <storyboard> --stills beats --draft          -> one draft still per beat (for the pre-render review)
 //   node engine/render.mjs <storyboard> --safe                          -> draws the TikTok safe zone on top
 //   node engine/render.mjs <storyboard> --from 2 --to 4                 -> renders only part of the timeline
 //   node engine/render.mjs <storyboard> --draft                         -> fast preview: half-res 3D, no anti-aliasing
@@ -21,6 +22,8 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
+import { beatTimes } from "../qa/contact.mjs";
+import { renderBeat } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -29,7 +32,7 @@ const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical 
 function args() {
   const a = process.argv.slice(2), o = { file: null, out: path.join(ROOT, "out"), stills: null, safe: false, from: null, to: null, style: null };
   for (let i = 0; i < a.length; i++) {
-    if (a[i] === "--stills") o.stills = a[++i].split(",").map(Number);
+    if (a[i] === "--stills") { const v = a[++i]; o.stills = v === "beats" ? "beats" : v.split(",").map(Number); }
     else if (a[i] === "--safe") o.safe = true;
     else if (a[i] === "--png") o.png = true;
     else if (a[i] === "--layout") o.layoutOnly = true;
@@ -104,6 +107,7 @@ function applyStyle(sb, style) {
 async function main() {
   const o = args();
   const raw = JSON.parse(fs.readFileSync(o.file, "utf8"));
+  if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
   const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
@@ -117,6 +121,11 @@ async function main() {
   if (!o.stills && !o.silent && !o.layoutOnly) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
+    if (sb.music) {   // the placeholder beat (puppet/beat.mjs), mixed under the voices and effects
+      const M = renderBeat(sb.music, dur), g = sb.music.gain ?? 0.5; let pk = 0;
+      for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+      if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
+    }
     writeWav(wavFile, audio.L, audio.R, audio.sr);
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);
