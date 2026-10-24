@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Summary of an experiment's results (experiments/README.md): per platform and variant, the spread of views and the
 // diagnostics, at one snapshot age. Platforms are never pooled (their view definitions differ), empty cells stay
-// unknown (never zero), and every post is listed so one breakout can't hide behind an average.
+// unknown (never zero), and every post is listed so one breakout can't hide behind an average. No sample size makes
+// a difference here proven: how sure it is depends on how much posts vary, how big the difference is and whether it
+// repeats on new premises, so the summary always says so.
 //
 //   node qa/results.mjs experiments/<id>              -> at the record's observeDays (default 7)
 //   node qa/results.mjs experiments/<id> --age 3
@@ -9,7 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
-const PILOT = 12; // posts per variant below which a comparison is a pilot: a direction, not a finding
+const PILOT = 12; // posts per variant below which the comparison is only a pilot
 
 export function readCSV(file) {
   const [head, ...rows] = fs.readFileSync(file, "utf8").split(/\r?\n/).filter((l) => l.trim());
@@ -58,6 +60,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     }
     for (const [v, rs] of Object.entries(variants).sort())
       console.log(`  ${v} posts: ${rs.map((r) => `${r.clip || r.post_id} ${r.views === "" ? "?" : fmt(num(r.views))}`).join(" · ")}`);
-    if (small) console.log(`  pilot: under ${PILOT} posts in a variant, so read this as a direction to confirm on new premises`);
+    console.log(small
+      ? `  pilot: under ${PILOT} posts in a variant. Read it as a hint of a direction, nothing more.`
+      : `  still an estimate: whether a difference is real depends on how much posts vary, how big it is and whether it repeats on new premises (the confirmation batch), not on the post count alone.`);
   }
 }

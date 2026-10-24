@@ -26,8 +26,9 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   without one.
 - **Voices** from `say` are seeded by speaker + line: the same line always sounds the same, and moving or retiming
   it keeps its gibberish and lip sync. `"seed"` on the macro gives a line a different take.
-- **Experiments and checks**: `"experiment": { "id", "variant" }` marks a variant (see `experiments/README.md`);
-  music is then seeded by the experiment's id, so variants share it (top-level `"seed"` overrides). `"profile"`
+- **Experiments and checks**: `"experiment": { "id", "episode", "variant" }` marks a variant (see
+  `experiments/README.md`); music is then seeded by experiment + episode, so variants of one story share it while
+  different stories differ (top-level `"seed"` overrides). `"profile"`
   (`short` or `rewards`) picks the publishing limits, and a `"creative"` block changes the house-style targets the
   checker notes, e.g. `{ "length": [8, 15], "maxEventGap": 3 }`.
 - No `duration` needed: the clip lasts as long as its beats. `node engine/compile.mjs <sb>` prints the flat result,

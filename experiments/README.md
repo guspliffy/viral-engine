@@ -26,13 +26,16 @@ Copy `example-opening/experiment.json` and fill it in. The fields that matter mo
 Every storyboard in the experiment carries the same block, with its own variant:
 
 ```json
-"experiment": { "id": "opening-2026-11", "variant": "A" }
+"experiment": { "id": "opening-2026-11", "episode": "the-jar", "variant": "A" }
 ```
+
+`episode` names the story. Two variants of the same story share an episode; different stories have different ones.
 
 Music, voices and timing must only change where the experiment changes them:
 
-- **Music** is seeded by the experiment's id (`seed` in the storyboard overrides it), so renaming a clip or a variant
-  does not change its music. Pin `music` options when the experiment is not about music.
+- **Music** is seeded by experiment + episode (`seed` in the storyboard overrides it): variants of one episode get
+  the same music, different episodes still get different music, and renaming a clip or a variant changes nothing.
+  Pin `music` options (a `styles` pool, say) when the vibe should stay within a range.
 - **Voices**: a line said with the `say` macro is seeded by speaker + line, so moving or retiming it keeps the same
   gibberish and lip sync.
 - **Timing**: `"voice+0.2"` places an item 0.2 s after the previous line's voice ends. `"+0.2"` waits for its caption,
@@ -62,5 +65,6 @@ node qa/results.mjs experiments/opening-2026-11 --age 3
 
 It prints, per platform and variant: the number of posts, the median and spread of views, the mean of
 log(1 + views) (so one breakout doesn't decide), median completion and watch time, shares per 1,000 views, and
-every post. Platforms are never pooled, because their view definitions differ. With fewer than about a dozen posts
-per variant it says so: that is a pilot, and the result is a direction to confirm on new premises, not a finding.
+every post. Platforms are never pooled, because their view definitions differ. It never declares a winner: under
+about a dozen posts per variant it calls the comparison a pilot, and above that it still reminds you that confidence
+depends on how much posts vary, how big the difference is and whether it repeats on the confirmation batch.

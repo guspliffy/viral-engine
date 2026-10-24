@@ -300,7 +300,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   if (o.json) console.log(JSON.stringify({ clip: o.clip, layout: layoutFile, profile, experiment: sb?.experiment ?? null, pass: !failed, results: res }, null, 2));
   else {
     console.log(`${path.basename(o.clip)}${layoutFile ? "  (layout: " + path.basename(layoutFile) + ")" : ""}`);
-    if (sb?.experiment) console.log(`  experiment ${sb.experiment.id ?? "?"}, variant ${sb.experiment.variant ?? "?"}, seed ${seedOf(sb)}`);
+    if (sb?.experiment) console.log(`  experiment ${sb.experiment.id ?? "?"}, episode ${sb.experiment.episode ?? "?"}, variant ${sb.experiment.variant ?? "?"}, music seed ${seedOf(sb)}`);
     const head = { technical: "technical", publishing: `publishing (profile ${profile}: ${PROFILES[profile].name}, checked ${PROFILES[profile].checked})`, creative: "creative notes (house-style hypotheses, never a failure)" };
     for (const g of ["technical", "publishing", "creative"]) {
       const rs = res.filter((r) => (r.group ?? groupOf(r.check)) === g); if (!rs.length) continue;

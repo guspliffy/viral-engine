@@ -37,17 +37,19 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
 **Sound, seeds and determinism**
 
 - **Music varies per clip**: every clip gets background music by default (`puppet/beat.mjs`), seeded by the
-  storyboard's `seed`, else its `experiment.id`, else its id; the seed picks style, key, chords, tempo and lead. Never
+  storyboard's `seed`, else its experiment id + episode, else its id; the seed picks style, key, chords, tempo and lead. Never
   reuse one track across different clips. Pin options in a `music` block (`style`, `styles` pool, `key`,
   `progression`, `bpm`, `lead`, `drums`, `parts`, `seed`, `gain`), or set `"music": false` for a trend sound.
-- **In an experiment, change only what is being tested**: variants share the experiment's music seed, a `say` line
+- **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
 
 ## Characters
 
-- The cast are PotatoBrawl fighters. **Character bible: `docs/character-bible.md`** (relationships, running gags,
-  tone limits). It is not in the repo yet. Until it is, don't invent lasting canon: mark new traits as proposals.
+- The cast are PotatoBrawl fighters. **Character bible: `docs/character-bible.md`** (wants, flaws, comic patterns,
+  the Phoenix and Reaper relationship, tone limits, outcome log). Phoenix and Reaper carry the series, the Wizard is
+  an occasional third. Both leads win, fail and surprise: keep the outcomes varied. Don't invent lasting canon: mark
+  new traits as proposals.
 - Jonny decides anything that changes a character's look or personality, and any new drawing in the game's style.
 
 ## Writing clips
