@@ -43,6 +43,25 @@ export function buildGarden(scene, S = {}) {
     }
   }
 
+  // a gravel strip through the gap, so crossing it reads as getting into the garden
+  const gravelTex = canvasTex(128, 512, (c, w, h) => {
+    c.fillStyle = "#d9c7a4"; c.fillRect(0, 0, w, h);
+    for (let i = 0; i < 900; i++) { const v = 150 + Math.floor(rnd() * 70); c.fillStyle = `rgb(${v},${v - 18},${v - 45})`; c.fillRect(rnd() * w, rnd() * h, 2 + rnd() * 3, 2 + rnd() * 3); }
+  }, 1, 4);
+  const gravel = new THREE.Mesh(new THREE.PlaneGeometry(gap * 0.9, 16), lam("#ffffff", { map: gravelTex }));
+  gravel.rotation.x = -Math.PI / 2; gravel.position.set(0, 0.007, 0); gravel.receiveShadow = true; gravel.material.userData.noOutline = true; g.add(gravel);
+
+  // flower beds along the front of the hedges, kept low and out of the lane
+  const soil = lam("#7a5638"), stem = lam("#4f9a45"), petals = ["#ff7aa8", "#ffd34d", "#ffffff", "#b58cff"].map((c) => lam(c));
+  for (const s of [-1, 1]) {
+    const bed = new THREE.Mesh(new THREE.BoxGeometry(4, 0.12, 0.45), soil); bed.position.set(s * (gap / 2 + 0.35 + 2), 0.06, D / 2 + 0.3); bed.receiveShadow = true; g.add(bed);
+    for (let i = 0; i < 22; i++) {
+      const x = s * (gap / 2 + 0.45 + rnd() * 3.8), z = D / 2 + 0.15 + rnd() * 0.3, h = 0.12 + rnd() * 0.14;
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, h, 5), stem); st.position.set(x, 0.12 + h / 2, z); g.add(st);
+      const fl = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 8), petals[i % 4]); fl.position.set(x, 0.12 + h, z); fl.scale.y = 0.6; fl.castShadow = true; g.add(fl);
+    }
+  }
+
   // a few far trees and bushes on the lawn so it reads as a garden, kept out of the frame's middle
   const treeM = lam("#7fcf6a"), trunkM = lam("#9b7550");
   for (let i = 0; i < 9; i++) {

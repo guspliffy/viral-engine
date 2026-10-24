@@ -7,10 +7,13 @@
   "type": "garden",
   "gap": 1.5
  },
+ "sound": {
+  "sfx": 0.6
+ },
  "music": {
   "bpm": 120,
   "offset": 0,
-  "gain": 0.45,
+  "gain": 0.55,
   "parts": [
    {
     "at": 0,
@@ -24,7 +27,7 @@
    "character": "potatobrawl/astronaut",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "eager",
@@ -35,7 +38,7 @@
    "character": "potatobrawl/gunslinger",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "cocky",
@@ -46,7 +49,7 @@
    "character": "potatobrawl/samurai",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "focused",
@@ -57,7 +60,7 @@
    "character": "potatobrawl/wizard",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "eager",
@@ -68,7 +71,7 @@
    "character": "potatobrawl/sorcerer",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "evil",
@@ -79,7 +82,7 @@
    "character": "potatobrawl/reaper",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "deadpan",
@@ -90,7 +93,7 @@
    "character": "potatobrawl/dragon",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "eager",
@@ -101,7 +104,7 @@
    "character": "potatobrawl/phoenix",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "cocky",
@@ -112,7 +115,7 @@
    "character": "potatobrawl/allfather",
    "at": [
     0,
-    -1.3
+    -0.9
    ],
    "face": "camera",
    "expr": "stern",
@@ -123,7 +126,7 @@
    "character": "potatobrawl/viking",
    "at": [
     0,
-    -2.4
+    -2
    ],
    "face": "camera",
    "expr": "delighted",
@@ -135,19 +138,19 @@
    "at": 0,
    "pos": [
     0.6,
-    1.7,
+    2,
     4.7
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
      0.552,
-     1.6199999999999999,
+     1.92,
      4.5
     ]
    },
@@ -157,21 +160,21 @@
   {
    "at": 2.3,
    "pos": [
-    0.6,
+    -0.8,
     1.7,
-    4.7
+    4.5
    ],
    "look": [
     0,
-    0.85,
-    -0.2
+    0.75,
+    -0.1
    ],
-   "fov": 40,
+   "fov": 36,
    "to": {
     "pos": [
-     0.552,
+     -0.7360000000000001,
      1.6199999999999999,
-     4.5
+     4.3
     ]
    },
    "dur": 2.2,
@@ -181,19 +184,19 @@
    "at": 4.5,
    "pos": [
     0.6,
-    1.7,
+    2,
     4.7
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
      0.552,
-     1.6199999999999999,
+     1.92,
      4.5
     ]
    },
@@ -203,21 +206,21 @@
   {
    "at": 6.7,
    "pos": [
-    0.6,
-    1.7,
-    4.7
+    -0.8,
+    2,
+    5
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
-     0.552,
-     1.6199999999999999,
-     4.5
+     -0.7360000000000001,
+     1.92,
+     4.8
     ]
    },
    "dur": 2.3,
@@ -226,21 +229,21 @@
   {
    "at": 9,
    "pos": [
-    0.6,
+    -0.8,
     1.7,
-    4.7
+    4.5
    ],
    "look": [
     0,
-    0.85,
-    -0.2
+    0.75,
+    -0.1
    ],
-   "fov": 40,
+   "fov": 36,
    "to": {
     "pos": [
-     0.552,
+     -0.7360000000000001,
      1.6199999999999999,
-     4.5
+     4.3
     ]
    },
    "dur": 2.1,
@@ -250,65 +253,88 @@
    "at": 11.1,
    "pos": [
     0.6,
-    1.7,
+    2,
     4.7
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
      0.552,
-     1.6199999999999999,
+     1.92,
      4.5
     ]
    },
-   "dur": 2,
+   "dur": 1.5,
    "ease": "linear"
   },
   {
-   "at": 13.1,
+   "at": 12.6,
    "pos": [
-    0.6,
-    1.7,
-    4.7
+    0.5,
+    1.1,
+    4.8
    ],
    "look": [
     0,
-    0.85,
+    0.8,
     -0.2
    ],
-   "fov": 40,
+   "fov": 42,
    "to": {
     "pos": [
-     0.552,
-     1.6199999999999999,
-     4.5
+     0.46,
+     1.02,
+     4.6
     ]
    },
    "dur": 2.4,
    "ease": "linear"
   },
   {
-   "at": 15.5,
+   "at": 15,
+   "pos": [
+    -0.8,
+    1.9,
+    5
+   ],
+   "look": [
+    0,
+    1,
+    -0.1
+   ],
+   "fov": 44,
+   "to": {
+    "pos": [
+     -0.7360000000000001,
+     1.8199999999999998,
+     4.8
+    ]
+   },
+   "dur": 2.3,
+   "ease": "linear"
+  },
+  {
+   "at": 17.3,
    "pos": [
     0.6,
-    1.7,
+    2,
     4.7
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
      0.552,
-     1.6199999999999999,
+     1.92,
      4.5
     ]
    },
@@ -316,50 +342,27 @@
    "ease": "linear"
   },
   {
-   "at": 17.8,
+   "at": 19.6,
    "pos": [
-    0.6,
-    1.7,
-    4.7
+    0.5,
+    1,
+    4.6
    ],
    "look": [
     0,
-    0.85,
+    0.75,
     -0.2
    ],
    "fov": 40,
    "to": {
     "pos": [
-     0.552,
-     1.6199999999999999,
-     4.5
+     0.3,
+     1,
+     4.3
     ]
    },
-   "dur": 2.3,
-   "ease": "linear"
-  },
-  {
-   "at": 20.1,
-   "pos": [
-    0.6,
-    1.7,
-    4.7
-   ],
-   "look": [
-    0,
-    0.85,
-    -0.2
-   ],
-   "fov": 40,
-   "to": {
-    "pos": [
-     0.552,
-     1.6199999999999999,
-     4.5
-    ]
-   },
-   "dur": 3,
-   "ease": "linear"
+   "dur": 0.6,
+   "ease": "in"
   }
  ],
  "actions": [
@@ -375,37 +378,37 @@
   },
   {
    "who": "ast",
-   "at": 0.15,
+   "at": 0,
    "do": "fly",
    "to": {
-    "y": 0.6,
+    "y": 0.42,
     "z": -0.2
    },
-   "dur": 0.85,
+   "dur": 0.7,
    "ease": "out"
   },
   {
    "who": "ast",
-   "at": 0.3,
+   "at": 0,
    "do": "arm",
    "side": "both",
    "pose": "up",
-   "dur": 0.4
+   "dur": 0.3
   },
   {
    "who": "ast",
-   "at": 1,
+   "at": 0.9,
    "do": "fly",
    "to": {
-    "y": 0.55,
+    "y": 0.3,
     "z": 0.55
    },
-   "dur": 0.6,
+   "dur": 0.7,
    "ease": "inOut"
   },
   {
    "who": "ast",
-   "at": 1,
+   "at": 0.9,
    "do": "expr",
    "expr": "delighted"
   },
@@ -415,6 +418,16 @@
    "do": "drop",
    "to": 0,
    "dur": 0.3
+  },
+  {
+   "who": "ast",
+   "at": 0.9,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.2
   },
   {
    "who": "ast",
@@ -633,7 +646,7 @@
    "who": "sam",
    "at": 5.6,
    "do": "hop",
-   "height": 0.6,
+   "height": 0.45,
    "dur": 0.55
   },
   {
@@ -757,7 +770,7 @@
    "who": "wiz",
    "at": 7.7,
    "do": "hop",
-   "height": 0.6,
+   "height": 0.4,
    "dur": 0.75
   },
   {
@@ -766,7 +779,7 @@
    "do": "move",
    "to": [
     0,
-    0.55
+    0.2
    ],
    "dur": 0.75
   },
@@ -1021,18 +1034,35 @@
   },
   {
    "who": "rea",
-   "at": 11.2,
+   "at": 11.15,
    "do": "move",
    "to": [
     0,
     0.55
    ],
-   "dur": 1.5,
+   "dur": 0.9,
    "steps": 1.6
   },
   {
    "who": "rea",
-   "at": 13.1,
+   "at": 12.1,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.15
+  },
+  {
+   "who": "rea",
+   "at": 12.15,
+   "do": "lean",
+   "to": 6,
+   "dur": 0.2
+  },
+  {
+   "who": "rea",
+   "at": 12.6,
    "do": "hide"
   },
   {
@@ -1086,12 +1116,12 @@
   },
   {
    "who": "dra",
-   "at": 13.1,
+   "at": 12.6,
    "do": "show"
   },
   {
    "who": "dra",
-   "at": 13.2,
+   "at": 12.7,
    "do": "fly",
    "to": {
     "y": 0.6,
@@ -1102,7 +1132,7 @@
   {
    "do": "prop",
    "id": "fire",
-   "at": 13.65,
+   "at": 13.15,
    "dur": 0.4,
    "ease": "out",
    "set": {
@@ -1111,7 +1141,7 @@
   },
   {
    "who": "dra",
-   "at": 13.85,
+   "at": 13.35,
    "do": "fly",
    "to": {
     "y": 0.5,
@@ -1121,27 +1151,27 @@
   },
   {
    "who": "dra",
-   "at": 14.35,
+   "at": 13.85,
    "do": "drop",
    "to": 0,
    "dur": 0.25
   },
   {
    "who": "dra",
-   "at": 14.65,
+   "at": 14.15,
    "do": "turn",
    "to": "3q-left",
    "dur": 0.2
   },
   {
    "who": "dra",
-   "at": 14.7,
+   "at": 14.2,
    "do": "expr",
    "expr": "shocked"
   },
   {
    "who": "dra",
-   "at": 14.7,
+   "at": 14.2,
    "do": "arm",
    "side": "both",
    "pose": "cheeks",
@@ -1149,13 +1179,13 @@
   },
   {
    "who": "dra",
-   "at": 15.5,
+   "at": 15,
    "do": "hide"
   },
   {
    "do": "prop",
    "id": "gate",
-   "at": 13.1,
+   "at": 12.6,
    "dur": 0,
    "ease": "inOut",
    "set": {
@@ -1169,7 +1199,7 @@
   {
    "do": "prop",
    "id": "portal-b",
-   "at": 13.1,
+   "at": 12.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1179,7 +1209,7 @@
   {
    "do": "prop",
    "id": "portal-f",
-   "at": 13.1,
+   "at": 12.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1189,7 +1219,7 @@
   {
    "do": "prop",
    "id": "fire",
-   "at": 13.1,
+   "at": 12.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1203,26 +1233,26 @@
   },
   {
    "who": "phx",
-   "at": 15.5,
+   "at": 15,
    "do": "show"
   },
   {
    "who": "phx",
-   "at": 15.5,
+   "at": 15,
    "do": "wings",
    "to": 1,
    "dur": 0.25
   },
   {
    "who": "phx",
-   "at": 15.8,
+   "at": 15.3,
    "do": "hop",
-   "height": 1.05,
+   "height": 0.6,
    "dur": 0.85
   },
   {
    "who": "phx",
-   "at": 15.8,
+   "at": 15.3,
    "do": "move",
    "to": [
     0.45,
@@ -1232,14 +1262,14 @@
   },
   {
    "who": "phx",
-   "at": 15.8,
+   "at": 15.3,
    "do": "pitch",
    "to": 360,
    "dur": 0.75
   },
   {
    "who": "phx",
-   "at": 16.58,
+   "at": 16.08,
    "do": "lean",
    "to": 88,
    "dur": 0.14,
@@ -1247,26 +1277,26 @@
   },
   {
    "who": "phx",
-   "at": 16.58,
+   "at": 16.08,
    "do": "expr",
    "expr": "dizzy"
   },
   {
    "who": "phx",
-   "at": 16.65,
+   "at": 16.15,
    "do": "wings",
    "to": 0.2,
    "dur": 0.3
   },
   {
    "who": "phx",
-   "at": 17.8,
+   "at": 17.3,
    "do": "hide"
   },
   {
    "do": "prop",
    "id": "gate",
-   "at": 15.5,
+   "at": 15,
    "dur": 0,
    "ease": "inOut",
    "set": {
@@ -1280,7 +1310,7 @@
   {
    "do": "prop",
    "id": "portal-b",
-   "at": 15.5,
+   "at": 15,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1290,7 +1320,7 @@
   {
    "do": "prop",
    "id": "portal-f",
-   "at": 15.5,
+   "at": 15,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1300,7 +1330,7 @@
   {
    "do": "prop",
    "id": "fire",
-   "at": 15.5,
+   "at": 15,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1314,12 +1344,12 @@
   },
   {
    "who": "all",
-   "at": 17.8,
+   "at": 17.3,
    "do": "show"
   },
   {
    "who": "all",
-   "at": 17.85,
+   "at": 17.35,
    "do": "arm",
    "side": "R",
    "pose": "up",
@@ -1328,7 +1358,7 @@
   {
    "do": "prop",
    "id": "bolt",
-   "at": 18.2,
+   "at": 17.7,
    "dur": 0.01,
    "ease": "linear",
    "set": {
@@ -1338,7 +1368,7 @@
   {
    "do": "prop",
    "id": "bolt",
-   "at": 18.5,
+   "at": 18,
    "dur": 0.01,
    "ease": "linear",
    "set": {
@@ -1348,7 +1378,7 @@
   {
    "do": "prop",
    "id": "gate",
-   "at": 18.22,
+   "at": 17.72,
    "dur": 0.1,
    "ease": "inOut",
    "set": {
@@ -1358,7 +1388,7 @@
   {
    "do": "prop",
    "id": "gate",
-   "at": 18.7,
+   "at": 18.2,
    "dur": 0.5,
    "ease": "out",
    "set": {
@@ -1367,7 +1397,7 @@
   },
   {
    "who": "all",
-   "at": 19,
+   "at": 18.5,
    "do": "move",
    "to": [
     0,
@@ -1378,7 +1408,7 @@
   },
   {
    "who": "all",
-   "at": 19,
+   "at": 18.5,
    "do": "arm",
    "side": "R",
    "pose": "rest",
@@ -1386,13 +1416,13 @@
   },
   {
    "who": "all",
-   "at": 20.1,
+   "at": 19.6,
    "do": "hide"
   },
   {
    "do": "prop",
    "id": "gate",
-   "at": 17.8,
+   "at": 17.3,
    "dur": 0,
    "ease": "inOut",
    "set": {
@@ -1406,7 +1436,7 @@
   {
    "do": "prop",
    "id": "portal-b",
-   "at": 17.8,
+   "at": 17.3,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1416,7 +1446,7 @@
   {
    "do": "prop",
    "id": "portal-f",
-   "at": 17.8,
+   "at": 17.3,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1426,7 +1456,7 @@
   {
    "do": "prop",
    "id": "fire",
-   "at": 17.8,
+   "at": 17.3,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1440,12 +1470,12 @@
   },
   {
    "who": "vik",
-   "at": 20.1,
+   "at": 19.6,
    "do": "show"
   },
   {
    "who": "vik",
-   "at": 20.1,
+   "at": 19.6,
    "do": "arm",
    "side": "L",
    "pose": "up",
@@ -1453,7 +1483,7 @@
   },
   {
    "who": "vik",
-   "at": 20.25,
+   "at": 19.75,
    "do": "move",
    "to": [
     0,
@@ -1466,7 +1496,7 @@
   {
    "do": "prop",
    "id": "gate",
-   "at": 20.7,
+   "at": 20.2,
    "dur": 1,
    "ease": "linear",
    "set": {
@@ -1475,7 +1505,7 @@
   },
   {
    "who": "vik",
-   "at": 20.7,
+   "at": 20.2,
    "do": "move",
    "to": [
     0,
@@ -1487,7 +1517,7 @@
   },
   {
    "who": "vik",
-   "at": 21.4,
+   "at": 20.9,
    "do": "arm",
    "side": "both",
    "pose": "up",
@@ -1495,16 +1525,41 @@
   },
   {
    "who": "vik",
-   "at": 21.4,
+   "at": 20.9,
    "do": "hop",
    "height": 0.3,
    "count": 2,
    "dur": 0.7
   },
   {
+   "who": "vik",
+   "at": 21.4,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.2
+  },
+  {
+   "who": "vik",
+   "at": 21.35,
+   "do": "arm",
+   "side": "both",
+   "pose": "hips",
+   "dur": 0.25
+  },
+  {
+   "who": "vik",
+   "at": 21.4,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.15
+  },
+  {
    "do": "prop",
    "id": "gate",
-   "at": 20.1,
+   "at": 19.6,
    "dur": 0,
    "ease": "inOut",
    "set": {
@@ -1518,7 +1573,7 @@
   {
    "do": "prop",
    "id": "portal-b",
-   "at": 20.1,
+   "at": 19.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1528,7 +1583,7 @@
   {
    "do": "prop",
    "id": "portal-f",
-   "at": 20.1,
+   "at": 19.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1538,7 +1593,7 @@
   {
    "do": "prop",
    "id": "fire",
-   "at": 20.1,
+   "at": 19.6,
    "dur": 0,
    "ease": "linear",
    "set": {
@@ -1576,9 +1631,10 @@
   {
    "id": "fire",
    "kind": "flames",
-   "x": -1.5,
+   "x": -1,
    "y": 1.05,
-   "z": 0.1
+   "z": 0.3,
+   "scale": 1.4
   }
  ],
  "fx": [
@@ -1639,25 +1695,59 @@
    "sparks": 0
   },
   {
+   "do": "flash",
+   "at": 13.15,
+   "dur": 0.15,
+   "peak": 0.25
+  },
+  {
+   "do": "poof",
+   "pos": [
+    -1,
+    1.1,
+    0.3
+   ],
+   "at": 13.15,
+   "dur": 0.6,
+   "puffs": 6,
+   "sparks": 16,
+   "spark": "#ff9a2e"
+  },
+  {
+   "do": "speedlines",
+   "at": 13.15,
+   "dur": 0.3,
+   "alpha": 0.4,
+   "center": [
+    300,
+    1000
+   ]
+  },
+  {
    "do": "shake",
-   "at": 16.68,
+   "at": 16.18,
    "dur": 0.2,
    "amp": 0.03
   },
   {
    "do": "impact",
-   "at": 18.2,
+   "at": 16.18,
+   "dur": 0.1
+  },
+  {
+   "do": "impact",
+   "at": 17.7,
    "dur": 0.1
   },
   {
    "do": "flash",
-   "at": 18.3,
+   "at": 17.8,
    "dur": 0.2,
    "peak": 0.5
   },
   {
    "do": "shake",
-   "at": 18.2,
+   "at": 17.7,
    "dur": 0.3,
    "amp": 0.05
   },
@@ -1668,7 +1758,7 @@
     0.4,
     0.1
    ],
-   "at": 18.35,
+   "at": 17.85,
    "dur": 0.9,
    "puffs": 14,
    "sparks": 10,
@@ -1676,24 +1766,24 @@
   },
   {
    "do": "speedlines",
-   "at": 20.25,
+   "at": 19.75,
    "dur": 0.45,
    "alpha": 0.6
   },
   {
    "do": "impact",
-   "at": 20.7,
+   "at": 20.2,
    "dur": 0.1
   },
   {
    "do": "flash",
-   "at": 20.8,
+   "at": 20.3,
    "dur": 0.2,
    "peak": 0.5
   },
   {
    "do": "shake",
-   "at": 20.7,
+   "at": 20.2,
    "dur": 0.45,
    "amp": 0.08
   },
@@ -1704,7 +1794,7 @@
     0.3,
     0.1
    ],
-   "at": 20.72,
+   "at": 20.22,
    "dur": 0.9,
    "puffs": 18,
    "sparks": 12,
@@ -1714,7 +1804,7 @@
  "sfx": [
   {
    "sound": "whoosh",
-   "at": 0.15,
+   "at": 0,
    "dur": 0.8,
    "gain": 0.25
   },
@@ -1768,24 +1858,37 @@
   },
   {
    "sound": "whoosh",
-   "at": 13.6,
+   "at": 13.1,
    "dur": 0.6,
    "gain": 0.3
   },
   {
    "sound": "land",
-   "at": 16.68,
+   "at": 16.18,
    "gain": 0.5
   }
  ],
  "captions": [
   {
    "from": 0,
-   "to": 23.1,
+   "to": 22.8,
    "text": "GATE",
    "style": "label",
    "pos": 230,
    "pop": false
+  },
+  {
+   "from": 0,
+   "to": 2.1999999999999997,
+   "text": "10 fighters. 1 gate.",
+   "style": "sub",
+   "pos": 340
+  },
+  {
+   "from": 21.400000000000002,
+   "to": 22.8,
+   "text": "which one are you?",
+   "pos": 370
   }
  ],
  "beats": [
@@ -1829,37 +1932,37 @@
    "character": "reaper",
    "stunt": "phases straight through the wood",
    "from": 11.1,
-   "to": 13.1
+   "to": 12.6
   },
   {
    "who": "dra",
    "character": "dragon",
    "stunt": "flies over and sets the hedge on fire",
-   "from": 13.1,
-   "to": 15.5
+   "from": 12.6,
+   "to": 15
   },
   {
    "who": "phx",
    "character": "phoenix",
    "stunt": "flashy flip, lands flat on his side",
-   "from": 15.5,
-   "to": 17.8
+   "from": 15,
+   "to": 17.3
   },
   {
    "who": "all",
    "character": "allfather",
    "stunt": "lightning, then walks through the ash",
-   "from": 17.8,
-   "to": 20.1
+   "from": 17.3,
+   "to": 19.6
   },
   {
    "who": "vik",
    "character": "viking",
    "stunt": "charges and smashes it to splinters",
-   "from": 20.1,
-   "to": 23.1
+   "from": 19.6,
+   "to": 22.8
   }
  ],
- "duration": 23.1,
- "cover": 20.85
+ "duration": 22.8,
+ "cover": 20.35
 }

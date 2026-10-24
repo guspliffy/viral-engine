@@ -115,7 +115,7 @@ const KINDS = {
   //   tumble with splinters; scorch 0..1: the wood chars black. Reset a beat with a "prop" set at dur 0.
   gate(P) {
     const wood = mat("#c98a55", { roughness: 0.75 }), dark = mat("#8a5530", { roughness: 0.8 }), iron = mat("#2c2a30", { metalness: 0.5, roughness: 0.4 });
-    const W = 0.75, Hh = 0.9, CUT = 0.5;
+    const W = 0.75, Hh = 0.72, CUT = 0.4;
     const woods = [wood, dark], base = woods.map((m) => m.color.clone());
     const leaves = [];
     for (const [s, h] of P.halves) {
@@ -129,18 +129,25 @@ const KINDS = {
         mesh(new THREE.BoxGeometry(0.17, CUT - 0.08, 0.05), wood, lower, x, 0.08 + (CUT - 0.08) / 2, 0);
         mesh(new THREE.BoxGeometry(0.17, Hh - CUT, 0.05), wood, upper, x, CUT + (Hh - CUT) / 2, 0);
       }
-      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, lower, -s * W / 2, 0.22, 0.04);
-      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, upper, -s * W / 2, Hh - 0.2, 0.04);
-      for (const y of [0.24, Hh - 0.2]) mesh(new THREE.BoxGeometry(0.16, 0.05, 0.06), iron, y < CUT ? lower : upper, -s * 0.06, y, 0.06);
+      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, lower, -s * W / 2, 0.18, 0.04);
+      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, upper, -s * W / 2, Hh - 0.15, 0.04);
+      for (const y of [0.18, Hh - 0.15]) mesh(new THREE.BoxGeometry(0.16, 0.05, 0.06), iron, y < CUT ? lower : upper, -s * 0.06, y, 0.06);
+      if (s < 0) {   // a little "KEEP OUT" sign on the left leaf (it goes wherever the leaf's top goes)
+        const c = document.createElement("canvas"); c.width = 256; c.height = 128; const g = c.getContext("2d");
+        g.fillStyle = "#f4ead2"; g.fillRect(0, 0, 256, 128); g.strokeStyle = "#b8332a"; g.lineWidth = 10; g.strokeRect(5, 5, 246, 118);
+        g.fillStyle = "#b8332a"; g.font = "900 54px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("KEEP OUT", 128, 66);
+        const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+        const sign = mesh(new THREE.PlaneGeometry(0.34, 0.17), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8 }), upper, -s * W / 2, CUT + 0.1, 0.065); sign.rotation.z = 0.05;
+      }
       leaves.push({ s, hinge, lower, upper });
     }
-    const latch = new THREE.Group(); latch.position.set(0, 0.48, 0.08); P.whole.add(latch);
+    const latch = new THREE.Group(); latch.position.set(0, 0.36, 0.08); P.whole.add(latch);
     mesh(new THREE.BoxGeometry(0.3, 0.05, 0.04), iron, latch); mesh(new THREE.BoxGeometry(0.05, 0.12, 0.05), iron, latch, 0.13, 0, 0);
     // splinters: hidden until the gate is smashed
     const r = (k) => ((Math.sin(k * 127.1) * 43758.5453) % 1 + 1) % 1;
     const bits = Array.from({ length: 16 }, (_, i) => {
       const m = mesh(new THREE.BoxGeometry(0.05 + r(i) * 0.08, 0.2 + r(i + 9) * 0.3, 0.03), i % 3 ? wood : dark, P.root);
-      return { m, vx: (r(i + 3) - 0.5) * 4, vy: 2.5 + r(i + 5) * 3, vz: -1.5 - r(i + 7) * 2.5, spin: (r(i + 11) - 0.5) * 20, y0: 0.15 + r(i + 13) * 0.7 };
+      return { m, vx: (r(i + 3) - 0.5) * 4, vy: 2.5 + r(i + 5) * 3, vz: -1.5 - r(i + 7) * 2.5, spin: (r(i + 11) - 0.5) * 20, y0: 0.1 + r(i + 13) * 0.55 };
     });
     return {
       grip: 0.6,
@@ -158,7 +165,7 @@ const KINDS = {
           upper.rotation.set(-0.9 * clamp(sl * 2 - 1), 0, s * 0.35 * clamp(sl * 2));
         }
         latch.visible = la < 1 && sm === 0;
-        latch.position.set(0.9 * la, 0.48 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
+        latch.position.set(0.9 * la, 0.36 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
         for (const b of bits) {
           const tt = sm * 1.1; b.m.visible = sm > 0 && sm < 1;
           b.m.position.set(b.vx * tt, Math.max(0.02, b.y0 + b.vy * tt - 4.9 * tt * tt), b.vz * tt); b.m.rotation.set(b.spin * tt, b.spin * 0.6 * tt, b.spin * 0.3 * tt);
