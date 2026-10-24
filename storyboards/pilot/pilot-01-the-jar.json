@@ -1,0 +1,108 @@
+{
+ "id": "pilot-01-the-jar",
+ "title": "The jar",
+ "status": "pilot calibration episode 1 of 6 (docs/character-bible.md): Phoenix performs an elaborate opening ritual; Reaper turns it the other way. Reaper wins, Phoenix fails.",
+ "experiment": { "id": "pilot-opening", "episode": "the-jar", "variant": "calibration" },
+ "fps": 30,
+ "cover": 4.9,
+ "set": { "type": "kitchen", "time": 2.75 },
+ "cast": [
+  { "id": "phx", "character": "potatobrawl/phoenix", "at": [-0.3, 0.42], "face": "3q-right", "expr": "focused", "seed": 2.2, "arms": { "R": { "x": [-0.11, 0.28, 0.5] }, "L": { "x": [0.11, 0.28, 0.5] } } },
+  { "id": "rea", "character": "potatobrawl/reaper", "at": [0.72, -0.45], "face": -60, "expr": "deadpan", "seed": 5.7 }
+ ],
+ "props": [
+  { "id": "table", "kind": "table", "x": -0.32, "y": 0, "z": -0.45 },
+  { "id": "chair", "kind": "chair", "x": 0.72, "y": 0, "z": -0.45, "rot": -60 },
+  { "id": "cup", "kind": "teacup", "x": 0.12, "y": 0.62, "z": -0.62 },
+  { "id": "jar", "kind": "jar", "x": -0.3, "y": 0.3, "z": 0.95, "scale": 1, "lidSide": -1 }
+ ],
+ "beats": [
+  { "name": "hook: straining", "len": 1.8,
+    "shot": { "pos": [-0.22, 0.98, 3.75], "look": [-0.28, 0.7, 0.3], "fov": 34, "to": { "pos": [-0.24, 0.96, 3.5] }, "dur": 1.8 },
+    "do": [
+     { "who": "rea", "do": "sit", "seat": "chair", "hands": "lap", "dur": 0.01, "at": -0.05 },
+     { "who": "phx", "do": "grab", "prop": "jar", "hand": "both", "dur": 0.01, "at": -0.05 },
+          { "who": "phx", "do": "shake", "amp": 1, "dur": 1.6, "at": 0 },
+     { "who": "phx", "do": "squash", "amount": 0.1, "dur": 0.35, "at": 0.05 },
+     { "who": "phx", "do": "squash", "amount": 0.1, "dur": 0.35, "at": 0.5 },
+     { "who": "phx", "do": "squash", "amount": 0.12, "dur": 0.35, "at": 0.95 },
+     { "do": "prop", "id": "jar", "set": { "twist": -35 }, "dur": 1.6, "at": 0 },
+     { "sfx": "creak", "dur": 1.3, "gain": 0.22, "at": 0.05 },
+     { "macro": "say", "who": "phx", "line": "watch and learn.", "tone": "excited", "at": 0.15 }
+    ] },
+  { "name": "the ritual", "len": 2.6,
+    "shot": { "pos": [0.2, 1.12, 5.6], "look": [0.2, 0.8, -0.1], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "cocky", "dur": 0.15, "at": 0 },
+     { "macro": "say", "who": "phx", "line": "the ancient technique.", "tone": "excited", "at": 0.1 },
+     { "who": "phx", "do": "wings", "to": 1, "dur": 0.35, "at": 0.2 },
+     { "who": "phx", "do": "spin", "turns": 1, "dur": 0.8, "at": 0.55 },
+     { "sfx": "whoosh", "gain": 0.3, "at": 0.6 },
+     { "who": "phx", "do": "charge", "to": 0.7, "dur": 0.7, "at": 1.4 },
+     { "who": "rea", "do": "look", "to": [-0.7, 0.05], "dur": 0.25, "at": 0.3 },
+     { "who": "rea", "do": "grab", "prop": "cup", "hand": "L", "dur": 0.3, "at": 0.9 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": { "o": [-0.12, 0.5, 0.48] }, "dur": 0.35, "at": 1.3 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": "hold", "dur": 0.35, "at": 2.1 }
+    ] },
+  { "name": "the twist", "kind": "escalation", "len": 2.0,
+    "shot": { "pos": [-0.2, 0.95, 3.4], "look": [-0.26, 0.7, 0.3], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "stern", "dur": 0.1, "at": 0 },
+     { "who": "phx", "do": "charge", "to": 1, "dur": 0.25, "at": 0 },
+     { "who": "phx", "do": "shake", "amp": 1.2, "dur": 1.2, "at": 0.05 },
+     { "who": "phx", "do": "squash", "amount": 0.18, "dur": 0.5, "at": 0.05 },
+     { "who": "phx", "do": "squash", "amount": 0.16, "dur": 0.5, "at": 0.6 },
+     { "do": "prop", "id": "jar", "set": { "twist": -150 }, "dur": 1.2, "ease": "out", "at": 0.05 },
+     { "sfx": "creak", "dur": 1.1, "gain": 0.3, "at": 0.08 },
+     { "fx": "shake", "amp": 0.025, "dur": 1.0, "at": 0.15 },
+     { "macro": "say", "who": "phx", "line": "hnnnngh!", "tone": "excited", "dur": 1.0, "at": 0.1 },
+     { "who": "phx", "do": "charge", "to": 0, "dur": 0.3, "at": 1.3 },
+     { "who": "phx", "do": "wings", "to": 0, "dur": 0.35, "at": 1.3 },
+     { "who": "phx", "do": "expr", "expr": "dizzy", "dur": 0.15, "at": 1.3 },
+     { "who": "phx", "do": "droop", "to": 0.7, "dur": 0.3, "at": 1.35 }
+    ] },
+  { "name": "hands it over", "len": 1.7,
+    "shot": { "pos": [0.2, 1.1, 5.2], "look": [0.2, 0.8, -0.1], "fov": 34 },
+    "do": [
+     { "who": "rea", "do": "release", "prop": "cup", "to": [0.12, 0.62, -0.62], "dur": 0.3, "at": 0 },
+     { "who": "phx", "do": "expr", "expr": "sad", "dur": 0.2, "at": 0.05 },
+     { "who": "phx", "do": "release", "prop": "jar", "to": [0.14, 0.62, -0.3], "dur": 0.45, "ease": "out", "at": 0.15 },
+     { "who": "phx", "do": "arm", "side": "both", "pose": "rest", "dur": 0.35, "at": 0.35 },
+     { "sfx": "whoosh", "gain": 0.18, "dur": 0.3, "at": 0.15 },
+     { "macro": "say", "who": "phx", "line": "it's broken.", "tone": "sad", "at": 0.5 },
+     { "who": "rea", "do": "look", "to": [-0.3, -0.35], "dur": 0.25, "at": 0.5 }
+    ] },
+  { "name": "other way", "len": 2.2,
+    "shot": { "pos": [0.45, 1.0, 3.2], "look": [0.42, 0.76, -0.4], "fov": 34 },
+    "do": [
+     { "who": "rea", "do": "arm", "side": "L", "pose": { "x": [-0.05, 0.44, 0.62] }, "dur": 0.4, "at": 0.1 },
+     { "do": "prop", "id": "jar", "set": { "twist": -110 }, "dur": 0.3, "at": 0.55 },
+     { "sfx": "tink", "gain": 0.25, "at": 0.6 },
+     { "do": "prop", "id": "jar", "set": { "lid": 1 }, "dur": 0.5, "at": 0.85 },
+     { "sfx": "pop", "gain": 0.5, "at": 0.85 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": "lap", "dur": 0.4, "at": 1.0 },
+     { "who": "rea", "do": "look", "to": [-0.8, 0.05], "dur": 0.2, "at": 1.1 },
+     { "macro": "say", "who": "rea", "line": "other way.", "tone": "calm", "at": 1.2 }
+    ] },
+  { "name": "dignity", "len": 2.3,
+    "shot": { "pos": [-0.2, 1.02, 3.6], "look": [-0.26, 0.78, 0.3], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "droop", "to": 0, "dur": 0.15, "at": 0 },
+     { "who": "phx", "do": "expr", "expr": "cocky", "dur": 0.15, "at": 0 },
+     { "who": "phx", "do": "arm", "side": "both", "pose": "hips", "dur": 0.3, "at": 0.05 },
+     { "who": "phx", "do": "flare", "dur": 0.7, "at": 0.1 },
+     { "macro": "say", "who": "phx", "line": "i loosened it for you.", "tone": "excited", "at": 0.25 }
+    ] },
+  { "name": "thank you", "len": 2.3,
+    "shot": { "pos": [0.2, 1.1, 5.0], "look": [0.2, 0.8, -0.1], "fov": 34 },
+    "do": [
+     { "who": "rea", "do": "blink", "dur": 0.2, "at": 0.15 },
+     { "macro": "say", "who": "rea", "line": "thank you.", "tone": "calm", "at": 0.45 },
+     { "who": "rea", "do": "squash", "amount": 0.05, "dur": 0.3, "at": 0.6 },
+     { "who": "phx", "do": "arm", "side": "both", "pose": "rest", "dur": 0.3, "at": 1.2 },
+     { "macro": "react", "who": "phx", "expr": "delighted", "big": true, "at": 1.25 },
+     { "who": "phx", "do": "look", "to": [0.4, -0.3], "dur": 0.2, "at": 1.7 },
+     { "who": "rea", "do": "expr", "expr": "kind", "dur": 0.3, "at": 1.8 }
+    ] }
+ ]
+}

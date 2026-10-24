@@ -153,8 +153,11 @@ export function actorState(sb, actor, def, t, raw = false) {
         break;
       }
       // a single-hand grab lifts that arm to hold (both hands: use holdout or offer for the arms)
-      case "grab": if (a.hand && a.hand !== "both") st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
+      // hand "tip": the prop hangs from the point of the character's own prop (Reaper's scythe), the arm stays as it is
+      case "grab": if (a.hand && a.hand !== "both" && a.hand !== "tip") st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
       case "release": break;
+      // the held prop's angle in degrees, [forward, outward], instead of the one the arm pose gives; to: null hands it back
+      case "tilt": st.propTilt = { from: st.propTilt || null, to: a.to ? a.to.map((d) => (d * Math.PI) / 180) : null, k: e }; break;
       default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
     }
   }
@@ -209,6 +212,18 @@ export function flashAt(sb, t) {
     if (k <= 1) o = Math.max(o, (f.peak ?? 0.8) * (k < 0.15 ? 1 : 1 - (k - 0.15) / 0.85));
   }
   return clamp(o);
+}
+
+// the room's lights: "lights" effects fade the set's lights (to) and its lamp (lamp, else the same as to) to a level,
+// 1 being as built. sb.set.lights starts the room at another level (0.1: the lights are off)
+export function lightsAt(sb, t) {
+  let room = sb.set?.lights ?? 1, lamp = room;
+  for (const f of [...(sb.fx || [])].filter((q) => q.do === "lights" && q.at <= t).sort((a, b) => a.at - b.at)) {
+    const e = ease(f.ease || "inOut")(prog(t, f.at, f.dur ?? 0.15));
+    const r = f.to ?? room, l = f.lamp ?? f.to ?? lamp;
+    room = lerp(room, r, e); lamp = lerp(lamp, l, e);
+  }
+  return { room, lamp };
 }
 
 export function captionsAt(sb, t) {

@@ -1,0 +1,98 @@
+{
+ "id": "pilot-04-the-photograph",
+ "title": "The photograph",
+ "status": "pilot calibration episode 4 of 6 (docs/character-bible.md): Phoenix keeps improving the lighting for a selfie until only its own silhouette is visible. Phoenix fails.",
+ "experiment": { "id": "pilot-opening", "episode": "the-photograph", "variant": "calibration" },
+ "fps": 30,
+ "cover": 8.6,
+ "set": { "type": "kitchen", "time": 2.75 },
+ "cast": [
+  { "id": "phx", "character": "potatobrawl/phoenix", "at": [-0.42, 0.32], "face": 18, "expr": "delighted", "seed": 2.2, "arms": { "R": "rest", "L": { "o": [-0.1, 1.05, 0.5] } } },
+  { "id": "rea", "character": "potatobrawl/reaper", "at": [0.48, 0.22], "face": -14, "expr": "deadpan", "arms": { "R": "hold", "L": "rest" }, "seed": 5.7 }
+ ],
+ "props": [
+  { "id": "phone", "kind": "phone", "x": 0.05, "y": 1.2, "z": 0.7, "rot": 180, "glow": 0.6 },
+  { "id": "table", "kind": "table", "x": 0.0, "y": 0, "z": -1.0 },
+  { "id": "cup", "kind": "teacup", "x": 0.3, "y": 0.62, "z": -0.95 }
+ ],
+ "beats": [
+  { "name": "hook: say cheese", "len": 1.7,
+    "shot": { "pos": [0.04, 1.05, 4.7], "look": [0.04, 0.74, 0.1], "fov": 34, "to": { "pos": [0.04, 1.04, 4.45] }, "dur": 1.7 },
+    "do": [
+     { "who": "phx", "do": "grab", "prop": "phone", "hand": "L", "dur": 0.01, "at": -0.05 },
+     { "who": "phx", "do": "arm", "side": "L", "pose": { "o": [-0.1, 1.05, 0.5] }, "dur": 0.01, "at": -0.04 },
+     { "who": "phx", "do": "squash", "amount": 0.07, "dur": 0.3, "at": 0.0 },
+     { "macro": "say", "who": "phx", "line": "say cheese!", "tone": "excited", "at": 0.05 },
+     { "who": "phx", "do": "look", "to": [0.15, 0.45], "dur": 0.2, "at": 0.05 },
+     { "who": "rea", "do": "look", "to": [-0.2, 0.45], "dur": 0.25, "at": 0.35 },
+     { "sfx": "click", "gain": 0.5, "at": 1.15 },
+     { "fx": "photo", "look": "dark", "hide": ["phone"], "cam": { "pos": [0.04, 1.18, 2.3], "look": [0.04, 0.8, 0.25], "fov": 80 }, "pos": [700, 1190], "w": 440, "tilt": -4, "dur": 1.9, "at": 1.25 }
+    ] },
+  { "name": "too dark", "len": 1.4,
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "focused", "dur": 0.15, "at": 0.05 },
+     { "macro": "say", "who": "phx", "line": "too dark.", "tone": "calm", "at": 0.1 }
+    ] },
+  { "name": "more light", "len": 1.9,
+    "shot": { "pos": [0.04, 1.08, 4.9], "look": [0.04, 0.76, 0.1], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "eager", "dur": 0.15, "at": 0 },
+     { "macro": "say", "who": "phx", "line": "more light!", "tone": "excited", "at": 0.05 },
+     { "who": "phx", "do": "wings", "to": 1, "dur": 0.35, "at": 0.15 },
+     { "who": "phx", "do": "charge", "to": 0.45, "dur": 0.5, "at": 0.2 },
+     { "who": "rea", "do": "look", "to": [-0.45, 0.1], "dur": 0.2, "at": 0.45 },
+     { "who": "rea", "do": "look", "to": [-0.2, 0.45], "dur": 0.2, "at": 1.0 },
+     { "sfx": "click", "gain": 0.5, "at": 1.25 },
+     { "fx": "photo", "look": "normal", "hide": ["phone"], "cam": { "pos": [0.04, 1.18, 2.3], "look": [0.04, 0.8, 0.25], "fov": 80 }, "pos": [700, 1190], "w": 440, "tilt": 4, "dur": 1.75, "at": 1.35 }
+    ] },
+  { "name": "MORE", "len": 1.4,
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "focused", "dur": 0.15, "at": 0 },
+     { "macro": "say", "who": "phx", "line": "better. but MORE.", "tone": "excited", "at": 0.1 }
+    ] },
+  { "name": "blaze", "kind": "escalation", "len": 2.0,
+    "shot": { "pos": [0.04, 1.12, 5.3], "look": [0.04, 0.8, 0.1], "fov": 34, "to": { "pos": [0.04, 1.1, 5.0] }, "dur": 2.0 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "cocky", "dur": 0.15, "at": 0 },
+     { "who": "phx", "do": "charge", "to": 1, "dur": 0.8, "ease": "in", "at": 0.05 },
+     { "who": "phx", "do": "squash", "amount": 0.1, "dur": 0.4, "at": 0.05 },
+     { "who": "phx", "do": "hover", "dur": 1.3, "at": 0.3 },
+     { "fx": "lights", "to": 1.5, "lamp": 1, "dur": 0.6, "at": 0.3 },
+     { "who": "rea", "do": "expr", "expr": "stern", "dur": 0.2, "at": 0.45 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": { "o": [-0.3, 0.62, 0.5] }, "dur": 0.3, "at": 0.5 },
+     { "who": "rea", "do": "lean", "to": 8, "dur": 0.3, "at": 0.5 },
+     { "fx": "shake", "amp": 0.02, "dur": 0.6, "at": 0.8 },
+     { "sfx": "click", "gain": 0.5, "at": 1.25 },
+     { "fx": "flash", "peak": 0.7, "dur": 0.35, "at": 1.27 },
+     { "fx": "photo", "look": "ink", "hide": ["rea"], "cam": { "pos": [0.04, 1.18, 2.3], "look": [0.04, 0.8, 0.25], "fov": 80 }, "pos": [390, 1190], "w": 480, "tilt": -3, "dur": 2.6, "at": 1.35 },
+     { "who": "phx", "do": "charge", "to": 0, "dur": 0.5, "at": 1.45 },
+     { "fx": "lights", "to": 1, "dur": 0.5, "at": 1.45 }
+    ] },
+  { "name": "perfect", "len": 1.6,
+    "do": [
+     { "who": "phx", "do": "drop", "to": 0, "dur": 0.25, "at": 0 },
+     { "who": "phx", "do": "wings", "to": 0, "dur": 0.4, "at": 0.2 },
+     { "who": "phx", "do": "expr", "expr": "delighted", "dur": 0.15, "at": 0.05 },
+     { "macro": "say", "who": "phx", "line": "perfect!", "tone": "excited", "at": 0.1 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": "rest", "dur": 0.35, "at": 0.1 },
+     { "who": "rea", "do": "lean", "to": 0, "dur": 0.3, "at": 0.1 },
+     { "who": "rea", "do": "expr", "expr": "deadpan", "dur": 0.2, "at": 0.2 }
+    ] },
+  { "name": "where am i", "len": 1.7,
+    "shot": { "pos": [0.42, 0.98, 3.4], "look": [0.4, 0.74, 0.1], "fov": 34 },
+    "do": [
+     { "who": "rea", "do": "look", "to": [-0.35, 0.45], "dur": 0.2, "at": 0.0 },
+     { "macro": "say", "who": "rea", "line": "where am i?", "tone": "calm", "at": 0.2 },
+     { "who": "rea", "do": "look", "to": [-0.7, 0.1], "dur": 0.2, "at": 1.2 }
+    ] },
+  { "name": "artistic", "len": 2.2,
+    "shot": { "pos": [-0.3, 1.02, 3.4], "look": [-0.34, 0.82, 0.2], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "look", "to": [0.55, 0.0], "dur": 0.2, "at": 0 },
+     { "who": "phx", "do": "expr", "expr": "smug", "dur": 0.2, "at": 0.1 },
+     { "macro": "say", "who": "phx", "line": "...it's artistic.", "tone": "calm", "at": 0.2 },
+     { "who": "phx", "do": "arm", "side": "R", "pose": "hips", "dur": 0.3, "at": 0.25 },
+     { "who": "phx", "do": "flare", "dur": 0.6, "at": 1.1 }
+    ] }
+ ]
+}

@@ -154,6 +154,8 @@ function tie(C, ch) {
 const TILT = { hold: [0.0, 0.1], cast: [0.8, 0.0], up: [0.25, 0.05], rest: [0.0, 0.14] };
 // a dance target (an object) keeps the prop upright; an arm still blending (util.js armNow) blends the tilt too
 const tiltOf = (q) => { if (q && q.mix) { const a = tiltOf(q.mix.from), b = tiltOf(q.mix.pose); return [a[0] + (b[0] - a[0]) * q.mix.p, a[1] + (b[1] - a[1]) * q.mix.p]; } return TILT[q] || TILT.hold; };
+// a "tilt" action (timeline.js) holds the prop at its own angle; to: null hands it back to the arm pose (base)
+const tiltSet = (q, base) => { if (!q) return base; const f = tiltSet(q.from, base), to = q.to || base; return [f[0] + (to[0] - f[0]) * q.k, f[1] + (to[1] - f[1]) * q.k]; };
 
 export function buildCostume(def, ch) {
   const C = def.costume || {}, sp = def.sprout || {};
@@ -181,6 +183,7 @@ export function buildCostume(def, ch) {
   const sitDepth = pb ? pb.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
 
   return {
+    tip: prop && prop.tip ? prop.tip : null,
     apply(st, t, hands, fries) {
       // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
       const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
@@ -197,7 +200,8 @@ export function buildCostume(def, ch) {
         prop.group.position.copy(hands[propHand]);
         // right hand is at -x, left at +x: lean the top of the prop outward on either side
         const out = propHand === "R" ? 1 : -1;
-        prop.group.rotation.set(t0[0] + (t1[0] - t0[0]) * a.p, 0, out * (t0[1] + (t1[1] - t0[1]) * a.p) + (st.propSpin || 0));
+        const [tx, tz] = tiltSet(st.propTilt, [t0[0] + (t1[0] - t0[0]) * a.p, t0[1] + (t1[1] - t0[1]) * a.p]);
+        prop.group.rotation.set(tx, 0, out * tz + (st.propSpin || 0));
         prop.charge(st.charge, t, st.chargePhase || 0);
       }
     },

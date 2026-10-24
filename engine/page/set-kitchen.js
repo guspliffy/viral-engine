@@ -89,8 +89,8 @@ export function buildKitchen(scene, S = {}) {
   // a hanging lamp over the middle, warm light pooling on the floor
   const shade = new THREE.Mesh(new THREE.ConeGeometry(0.32, 0.26, 32, 1, true), std("#2f3338", { side: THREE.DoubleSide, roughness: 0.5 }));
   shade.position.set(0, 3.25, -0.4); room.add(shade);
-  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 12), new THREE.MeshBasicMaterial({ color: "#ffe9b0" })); bulb.position.set(0, 3.12, -0.4); room.add(bulb);
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 12), new THREE.MeshBasicMaterial({ color: "#ffe9b0" })); bulb.position.set(0, 3.12, -0.4); bulb.name = "set-bulb"; room.add(bulb);
   const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 1.5, 6), lam("#222")); cord.position.set(0, 4.1, -0.4); room.add(cord);
-  const lamp = new THREE.PointLight("#ffd9a0", 6 * (S.lamp ?? 1), 9, 1.6); lamp.position.set(0, 3.0, -0.3); room.add(lamp);
+  const lamp = new THREE.PointLight("#ffd9a0", 6 * (S.lamp ?? 1), 9, 1.6); lamp.position.set(0, 3.0, -0.3); lamp.name = "set-lamp"; room.add(lamp);
   return room;
 }

@@ -137,6 +137,33 @@ const SFX = {
     }
     return x;
   },
+  // a camera shutter or a light switch: two short clicks
+  click(r) {
+    const d = 0.12, x = buf(d), hp = biquad("hp", 1800, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * (env(t, 0.0005, 0.004, d) + 0.7 * env(t - 0.055, 0.0005, 0.006, d)) + Math.sin(TAU * 1400 * t) * 0.3 * env(t, 0.0005, 0.01, d); }
+    return x;
+  },
+  // a lid straining on its thread: a slow, rough squeak that wobbles in pitch
+  creak(r, d = 0.5) {
+    const x = buf(d), bp = biquad("bp", 900, 6); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 520 + 140 * Math.sin(TAU * 3.2 * t) + 60 * Math.sin(TAU * 7.7 * t); p += TAU * f / SR;
+      const grit = 0.5 + 0.5 * Math.sin(TAU * 38 * t) ** 2, y = ((p / TAU) % 1) * 2 - 1;
+      x[i] = run(bp, y * grit + (r() * 2 - 1) * 0.15) * Math.min(1, t / 0.04, (d - t) / 0.08) * 1.6;
+    }
+    return x;
+  },
+  // a blade drawn along a whetstone or swept through the air: a bright metallic ring rising in pitch
+  shing(r) {
+    const d = 0.6, x = buf(d), hp = biquad("hp", 2500, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / 0.12);
+      let y = run(hp, r() * 2 - 1) * Math.sin(Math.PI * Math.min(1, t / 0.14)) * 0.5 * (t < 0.14 ? 1 : 0);
+      for (const [f, a] of [[3200, 0.35], [4870, 0.22], [7150, 0.12]]) y += Math.sin(TAU * f * (1 + 0.08 * k) * t) * a * env(t - 0.08, 0.004, 0.16, d);
+      x[i] = y;
+    }
+    return x;
+  },
   tink(r) { const d = 0.35, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 2100 * t) * 0.6 + Math.sin(TAU * 5300 * t) * 0.25) * env(t, 0.001, 0.07, d); } return x; },
   sting(r) {
     const d = 0.7, x = buf(d), lp = biquad("lp", 1600, 0.8);

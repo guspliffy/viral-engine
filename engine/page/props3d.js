@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import { clamp, lerp, ease, prog } from "./util.js";
 
-// Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall clock.
-// The same names and settings as the puppet props (puppet/page/props.js), so a puppet storyboard ports over.
+// Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
+// clock, gift box, phone, cake and banner. The first seven have the same names and settings as the puppet props
+// (puppet/page/props.js), so a puppet storyboard ports over.
 //   sb.props[]: { id, kind, x, y (the prop's bottom), z, rot (degrees about y; a chair at 90 faces right), scale }
-//   { do: "prop", id, at, dur, ease, set: { split, glow, lid, fill, spill, x, y, z, rot, scale } } tweens the numbers
+//   { do: "prop", id, at, dur, ease, set: { split, glow, lid, twist, fill, spill, lit, x, y, z, rot, scale } } tweens the numbers
 //   { who, do: "grab", prop, hand: R | L | both, off: [x, y, z] } the prop follows the hand (it lifts its arm to "hold")
 //   { who, do: "release", prop, to: [x, y, z], dur } puts it down at `to` (or leaves it where the hand let go)
 // Splitting: each prop that can split is built as a left and a right half that slide and tip apart.
@@ -47,6 +48,18 @@ const KINDS = {
       if (s > 0) { const hd = mesh(new THREE.TorusGeometry(0.03, 0.009, 8, 20, Math.PI * 1.3), china, h, 0.075, 0.07, 0); hd.rotation.z = -Math.PI * 0.65; }
     }
     // the tea, its surface rises and falls with `fill`, and a puddle that spreads with `spill`
+    // mended: true draws gold seams where it broke (down the front and back of the cup and across the saucer), like
+    // a cup repaired with gold lacquer
+    if (P.spec.mended) {
+      const gold = mat("#e8b53a", { roughness: 0.28, metalness: 0.85, emissive: new THREE.Color("#6b4a08"), emissiveIntensity: 0.5 });
+      const rOut = (y) => { for (let i = 1; i < 5; i++) { const [x0, y0] = [prof[i - 1].x, prof[i - 1].y], [x1, y1] = [prof[i].x, prof[i].y]; if (y <= y1) return x0 + ((x1 - x0) * (y - y0)) / (y1 - y0 || 1); } return 0.07; };
+      for (const side of [0, Math.PI]) {
+        const pts = [];
+        for (let i = 0; i <= 7; i++) { const y = 0.004 + (0.094 * i) / 7, a = side + (i % 2 ? 0.11 : -0.06) * (i === 0 || i === 7 ? 0.3 : 1), r = rOut(y) + 0.0015; pts.push(new THREE.Vector3(r * Math.sin(a), 0.012 + y, r * Math.cos(a))); }
+        mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, false, "catmullrom", 0.2), 40, 0.0042, 6), gold, P.whole).castShadow = false;
+      }
+      mesh(new THREE.BoxGeometry(0.004, 0.003, 0.2), gold, P.whole, 0.006, 0.0125, 0).rotation.y = 0.08;
+    }
     const tea = mesh(new THREE.CircleGeometry(1, 32), mat("#8a4a1c", { roughness: 0.2 }), P.whole); tea.rotation.x = -Math.PI / 2; tea.castShadow = false;
     const puddle = mesh(new THREE.CircleGeometry(1, 40), mat("#8a4a1c", { roughness: 0.15 }), P.root); puddle.rotation.x = -Math.PI / 2; puddle.castShadow = false;
     return {
@@ -71,6 +84,10 @@ const KINDS = {
     for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), pickleM, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
     const lid = new THREE.Group(); P.whole.add(lid);
     mesh(new THREE.CylinderGeometry(0.118, 0.118, 0.045, 36), mat("#c7372f", { roughness: 0.4, metalness: 0.3 }), lid, 0, 0, 0);
+    // grip ridges and one white stripe round the lid's edge, so a turning lid reads as turning
+    const ridgeM = mat("#9e2a24", { roughness: 0.45, metalness: 0.3 });
+    for (let i = 0; i < 24; i++) { const a = (i / 24) * Math.PI * 2, r = mesh(new THREE.BoxGeometry(0.008, 0.038, 0.006), ridgeM, lid, 0.119 * Math.sin(a), 0, 0.119 * Math.cos(a)); r.rotation.y = a; r.castShadow = false; }
+    const stripe = mesh(new THREE.BoxGeometry(0.03, 0.04, 0.008), mat("#f4f1ea", { roughness: 0.5 }), lid, 0, 0, 0.121); stripe.castShadow = false;
     const light = new THREE.PointLight("#c8ff7a", 0, 1.6, 2); light.position.set(0, 0.15, 0.05); P.whole.add(light);
     return {
       grip: 0.14,
@@ -80,7 +97,10 @@ const KINDS = {
         // the lid hops off and comes to rest on its edge against the jar (it used to stay 0.5 m up in the air, where
         // it went through the face of whoever stood next to the jar)
         const l = clamp(ps.lid);
-        lid.position.set(0.155 * l, 0.3 + (0.12 - 0.3) * l + 0.22 * Math.sin(l * Math.PI), 0.02 * l); lid.rotation.set(0.2 * l, 0, -1.45 * l);
+        // twist: degrees the lid has turned on the thread (positive is anticlockwise seen from above, the way it opens)
+        // lidSide: -1 puts it down on the jar's left instead of its right
+        const sd = P.spec.lidSide ?? 1;
+        lid.position.set(sd * 0.155 * l, 0.3 + (0.12 - 0.3) * l + 0.22 * Math.sin(l * Math.PI), 0.02 * l); lid.rotation.set(0.2 * l, ((ps.twist || 0) * Math.PI) / 180, -sd * 1.45 * l);
       },
     };
   },
@@ -101,6 +121,108 @@ const KINDS = {
     }
     return { grip: 0.01, splitApart: 0.06, splitTip: 0.3, splitDrop: 0 };
   },
+  // a wrapped present with a ribbon and bow; `lid` 0..1 lifts the lid off and puts it down beside the box (hinge: true
+  // flips it open on its back edge instead, which works while someone holds the box). The box is open under the lid,
+  // so a prop placed inside (at the box's y + 0.008) is hidden until it opens.
+  // spec: { w: 0.24 (width and depth), h: 0.18, color, ribbon, hinge }
+  gift(P) {
+    const w = P.spec.w ?? 0.24, hgt = P.spec.h ?? 0.18, T = 0.008;
+    const paper = mat(P.spec.color || "#e0475b", { roughness: 0.55 }), band = mat(P.spec.ribbon || "#ffd23f", { roughness: 0.35, metalness: 0.15 });
+    const inside = mat("#f2e6cf", { roughness: 0.9 });
+    mesh(new THREE.BoxGeometry(w, T, w), paper, P.whole, 0, T / 2, 0);
+    for (const [x, z, bw, bd] of [[0, w / 2 - T / 2, w, T], [0, -w / 2 + T / 2, w, T], [w / 2 - T / 2, 0, T, w], [-w / 2 + T / 2, 0, T, w]]) {
+      mesh(new THREE.BoxGeometry(bw, hgt, bd), paper, P.whole, x, hgt / 2, z);
+      // the ribbon runs up the middle of each side; the inside of the walls is plain card
+      mesh(new THREE.BoxGeometry(bw > T ? 0.036 : T + 0.003, hgt, bd > T ? 0.036 : T + 0.003), band, P.whole, x, hgt / 2, z);
+      mesh(new THREE.BoxGeometry(bw > T ? bw - 2 * T : 0.002, hgt - T, bd > T ? bd - 2 * T : 0.002), inside, P.whole, x - Math.sign(x) * (T / 2 + 0.001), hgt / 2 + T / 2, z - Math.sign(z) * (T / 2 + 0.001)).castShadow = false;
+    }
+    const LW = w + 0.02, LH = 0.05, hinge = !!P.spec.hinge;
+    // the lid's parts sit in `top`; a hinged lid turns about its back edge (the `lid` group sits on that edge)
+    const lid = new THREE.Group(), top = new THREE.Group(); P.whole.add(lid); lid.add(top);
+    if (hinge) { lid.position.set(0, hgt - LH * 0.4, -LW / 2); top.position.z = LW / 2; }
+    mesh(new THREE.BoxGeometry(LW, LH, LW), paper, top, 0, LH / 2, 0);
+    mesh(new THREE.BoxGeometry(0.036, LH + 0.003, LW + 0.003), band, top, 0, LH / 2, 0);
+    mesh(new THREE.BoxGeometry(LW + 0.003, LH + 0.003, 0.036), band, top, 0, LH / 2, 0);
+    for (const s of [-1, 1]) { const loop = mesh(new THREE.TorusGeometry(0.045, 0.014, 8, 20), band, top, s * 0.04, LH + 0.035, 0); loop.rotation.set(0, Math.PI / 2, s * 0.5); loop.scale.set(1, 0.75, 1); }
+    mesh(new THREE.SphereGeometry(0.022, 12, 8), band, top, 0, LH + 0.012, 0);
+    return {
+      grip: hgt * 0.5,
+      apply(ps) {
+        const l = clamp(ps.lid);
+        if (hinge) { lid.rotation.x = -1.95 * l; return; }
+        // up, over to the right and down onto whatever the box stands on, with a little tip on the way
+        lid.position.set((w / 2 + LW / 2 + 0.03) * l, (hgt - LH * 0.4) * (1 - l) + 0.2 * Math.sin(l * Math.PI), 0.02 * l);
+        lid.rotation.set(0, 0.3 * l, -0.5 * Math.sin(l * Math.PI));
+      },
+    };
+  },
+  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen
+  phone(P) {
+    const body = mat("#23242c", { roughness: 0.35, metalness: 0.4 });
+    mesh(new THREE.BoxGeometry(0.078, 0.155, 0.012), body, P.whole, 0, 0.0775, 0);
+    const screenM = new THREE.MeshStandardMaterial({ color: "#1c3a52", roughness: 0.2, emissive: new THREE.Color("#8fd0ff"), emissiveIntensity: 0.25 });
+    mesh(new THREE.PlaneGeometry(0.068, 0.138), screenM, P.whole, 0, 0.0775, 0.0062).castShadow = false;
+    // the camera bump on the back
+    mesh(new THREE.BoxGeometry(0.03, 0.03, 0.006), mat("#3a3c46", { roughness: 0.3 }), P.whole, -0.016, 0.13, -0.008);
+    mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.004, 16), mat("#0b0b10", { roughness: 0.1, metalness: 0.6 }), P.whole, -0.016, 0.13, -0.012).rotation.x = Math.PI / 2;
+    return { grip: 0.05, apply(ps) { screenM.emissiveIntensity = 0.25 + 1.2 * clamp(ps.glow); } };
+  },
+  // a round cake with icing, drips, berries and candles; `lit` 0..1 lights the candles (their flames light the
+  // faces round it: in a dark room they are the only light). It splits into two halves (a cut)
+  cake(P) {
+    const sponge = mat("#e9b97a", { roughness: 0.8 }), icing = mat("#fff3e4", { roughness: 0.5 }), drip = mat("#f07fa6", { roughness: 0.4 });
+    const berry = mat("#c4213f", { roughness: 0.3 }), wax = [mat("#7ec8e3", { roughness: 0.5 }), mat("#ffd23f", { roughness: 0.5 }), mat("#f07fa6", { roughness: 0.5 })];
+    const R0 = 0.16, H0 = 0.1;
+    for (const [s, h] of P.halves) {
+      mesh(new THREE.CylinderGeometry(R0, R0, H0, 40, 1, false, TH(s), Math.PI), icing, h, 0, H0 / 2, 0);
+      // the cut face: sponge with a layer of cream (only seen once it is cut)
+      const face = mesh(new THREE.PlaneGeometry(2 * R0 - 0.004, H0 - 0.004), sponge, h, s * 0.001, H0 / 2, 0); face.rotation.y = s > 0 ? -Math.PI / 2 : Math.PI / 2; face.castShadow = false;
+      const cream = mesh(new THREE.PlaneGeometry(2 * R0 - 0.01, 0.016), icing, h, s * 0.0015, H0 * 0.5, 0); cream.rotation.y = face.rotation.y; cream.castShadow = false;
+      mesh(new THREE.CylinderGeometry(R0 + 0.006, R0 + 0.006, 0.026, 40, 1, false, TH(s), Math.PI), drip, h, 0, H0 - 0.012, 0);
+      for (let i = 0; i < 7; i++) { const a = TH(s) + ((i + 0.5) / 7) * Math.PI, d = mesh(new THREE.CapsuleGeometry(0.009, 0.018 + 0.012 * ((i * 7) % 3), 4, 8), drip, h, (R0 + 0.004) * Math.sin(a), H0 - 0.035, (R0 + 0.004) * Math.cos(a)); d.castShadow = false; }
+      for (let i = 0; i < 5; i++) { const a = TH(s) + ((i + 0.5) / 5) * Math.PI; mesh(new THREE.SphereGeometry(0.016, 10, 8), berry, h, 0.12 * Math.sin(a), H0 + 0.012, 0.12 * Math.cos(a)); }
+    }
+    // candles stand on one half or the other (x != 0), so a cut never goes through one
+    const flameM = new THREE.MeshBasicMaterial({ color: "#ffd27a" }), coreM = new THREE.MeshBasicMaterial({ color: "#fff6dc" }), flames = [];
+    [[-0.07, 0.03], [0.07, 0.03], [-0.035, -0.06], [0.035, -0.06], [0.0, 0.075]].forEach(([x, z], i) => {
+      const h = P.halves[x < 0 || (x === 0 && i % 2) ? 1 : 0][1];
+      mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.075, 10), wax[i % 3], h, x + (x === 0 ? 0.012 : 0), H0 + 0.037, z);
+      const fl = new THREE.Group(); fl.position.set(x + (x === 0 ? 0.012 : 0), H0 + 0.09, z); h.add(fl);
+      const outer = new THREE.Mesh(new THREE.SphereGeometry(0.012, 10, 8), flameM); outer.scale.set(1, 1.9, 1); fl.add(outer);
+      const core = new THREE.Mesh(new THREE.SphereGeometry(0.006, 8, 6), coreM); core.position.y = -0.004; core.scale.set(1, 1.6, 1); fl.add(core);
+      flames.push(fl);
+    });
+    const light = new THREE.PointLight("#ffb36b", 0, 3.2, 1.6); light.position.set(0, H0 + 0.16, 0.06); P.whole.add(light);
+    return {
+      grip: H0 * 0.5, splitApart: 0.05, splitTip: 0.12, splitDrop: 0,
+      apply(ps, t) {
+        const l = clamp(ps.lit), fl = 1 + 0.08 * Math.sin(t * 13.1) + 0.05 * Math.sin(t * 21.7 + 1);
+        flames.forEach((f, i) => { f.visible = l > 0.02; f.scale.set(l, l * (1 + 0.1 * Math.sin(t * 17 + i * 2.1)), l); });
+        light.intensity = 3.2 * l * fl;
+      },
+    };
+  },
+  // a string of bunting with one letter per flag, hung across at height y (spec: text, width: 1.6, sag: 0.12)
+  banner(P) {
+    const text = [...(P.spec.text ?? "SURPRISE!")], W0 = P.spec.width ?? 1.6, sag = P.spec.sag ?? 0.12, n = text.length;
+    const cols = ["#e0475b", "#ffd23f", "#3d8fb0", "#6cbf3a", "#f07fa6"];
+    const at = (u) => new THREE.Vector3((u - 0.5) * W0, -sag * 4 * u * (1 - u), 0);
+    const pts = Array.from({ length: 21 }, (_, i) => at(i / 20));
+    mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.005, 6), mat("#f4f1ea"), P.whole).castShadow = false;
+    const fw = Math.min(0.17, (W0 / (n + 1)) * 0.92), fh = fw * 1.3;
+    const tri = new THREE.Shape(); tri.moveTo(-fw / 2, 0); tri.lineTo(fw / 2, 0); tri.lineTo(0, -fh); tri.closePath();
+    text.forEach((ch, i) => {
+      const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+      g.fillStyle = cols[i % cols.length]; g.fillRect(0, 0, 128, 128);
+      g.fillStyle = "#ffffff"; g.font = "900 64px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(ch, 64, 40);
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+      const geo = new THREE.ShapeGeometry(tri), uv = geo.attributes.uv, pos = geo.attributes.position;
+      for (let k = 0; k < pos.count; k++) uv.setXY(k, (pos.getX(k) + fw / 2) / fw, 1 + pos.getY(k) / fw);
+      const f = mesh(geo, mat("#ffffff", { map: tex, roughness: 0.8, side: THREE.DoubleSide }), P.whole);
+      const p = at((i + 1) / (n + 1)); f.position.copy(p); f.rotation.z = (((i * 37) % 5) - 2) * 0.03; f.castShadow = false;
+    });
+    return { grip: 0 };
+  },
   // a wall clock (it faces +z). Its y is the clock's middle
   clock(P) {
     const red = mat("#c0392b", { roughness: 0.5 }), face = mat("#f4efe2", { roughness: 0.6 }), ink = mat("#11101c");
@@ -118,7 +240,7 @@ const KINDS = {
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);
   const halves = [1, -1].map((s) => { const h = new THREE.Group(); whole.add(h); return [s, h]; });
-  const P = { root, whole, halves };
+  const P = { root, whole, halves, spec };
   const kind = KINDS[spec.kind];
   if (!kind) throw new Error(`unknown prop kind: ${spec.kind}`);
   const def = kind(P);
@@ -136,7 +258,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
