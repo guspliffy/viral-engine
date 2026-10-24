@@ -18,6 +18,8 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - **Cartoon impacts only**: stars, dust, squash and stretch. No splatter, mash or severed parts. Graphic violence
   makes a clip ineligible for For You.
 - Never show or mention the game in the first 3 s, and never use an outro card.
+- `qa/check.mjs` enforces these: hook (frame 0 not blank, motion in 0.3 s), still holds, length 8–25 s (12–20 ideal,
+  over 20 needs `"escalation": true`), event gaps ≤ 2 s, caption reading speed, `"loop": true` seam, gore lint.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
 
 ## Characters

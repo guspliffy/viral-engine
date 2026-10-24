@@ -18,6 +18,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
 
 export function beatTimes(sb, max = 12) {
+  // just after each shot starts, mid-way through long shots, plus the fixed review frames
   const dur = sb.duration, shots = [...(sb.shots || [])].sort((a, b) => a.at - b.at), t = [];
   shots.forEach((s, i) => {
     const end = i + 1 < shots.length ? shots[i + 1].at : dur, len = end - s.at;
@@ -25,8 +26,12 @@ export function beatTimes(sb, max = 12) {
     if (len > 1.5) t.push(s.at + len * 0.7);
   });
   if (!t.length) for (let i = 0; i < 8; i++) t.push(((i + 0.5) / 8) * dur);
+  // fixed review frames (algorithm research #13): the opening, 1.5 s and 3 s (hook + premise), the last frame
+  t.push(0, 1.5, 3.0, dur - 0.04);
   const out = [...new Set(t.map((x) => Math.min(dur - 0.05, Math.round(x * 100) / 100)))].sort((a, b) => a - b);
-  while (out.length > max) out.splice(1 + Math.floor((out.length - 2) / 2), 1); // thin from the middle, keep first and last
+  const fixed = new Set([0, 1.5, 3, Math.round((dur - 0.04) * 100) / 100]);
+  for (let i = out.length - 1; i > 0; i--) if (!fixed.has(out[i]) && (out[i] - out[i - 1] < 0.3 || (out[i + 1] ?? 1e9) - out[i] < 0.3)) out.splice(i, 1); // drop near-duplicates of the fixed frames
+  while (out.length > max) { const i = out.findIndex((x, k) => k > 0 && k < out.length - 1 && !fixed.has(x)); if (i < 0) break; out.splice(i, 1); }
   return out;
 }
 
