@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng } from "./page/util.js";
+import { seedOf } from "../puppet/beat.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -207,6 +208,68 @@ function reverb(x, wet, stereoOffset) {
   return out;
 }
 
+// ---------- variation: every clip and every event sounds a little different, same family of sounds ----------
+// The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
+// random pitch shift, and some get a second layer picked from a few variants.
+const hashStr = (str) => { let h = 2166136261; for (const ch of String(str)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
+const SEMIS = { hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
+function repitch(x, k) { // resample by factor k (k > 1 = higher and shorter)
+  if (Math.abs(k - 1) < 1e-3) return x;
+  const y = new Float32Array(Math.max(1, Math.floor(x.length / k)));
+  for (let i = 0; i < y.length; i++) { const p = i * k, j = Math.floor(p), f = p - j; y[i] = (x[j] ?? 0) * (1 - f) + (x[j + 1] ?? 0) * f; }
+  return y;
+}
+const PENTA = [523.3, 587.3, 659.3, 784.0, 880.0, 1046.5, 1174.7, 1318.5];
+function chime(r, n, step) { // a short magic arpeggio, up or down
+  const up = r() < 0.6, start = Math.floor(r() * 3), d = n * step + 0.5, x = buf(d);
+  for (let k = 0; k < n; k++) {
+    const f = PENTA[Math.min(PENTA.length - 1, up ? start + k * 2 : start + (n - k) * 2 - 1)], a = Math.round(k * step * SR);
+    for (let i = 0; i < 0.45 * SR && a + i < x.length; i++) { const t = i / SR; x[a + i] += (Math.sin(TAU * f * t) + 0.3 * Math.sin(TAU * f * 2.01 * t)) * env(t, 0.002, 0.12, 0.45) * 0.35; }
+  }
+  return x;
+}
+const STINGS = [[110, 130.8, 164.8, 220], [103.8, 123.5, 146.8, 207.7], [116.5, 138.6, 164.8, 233.1], [98, 116.5, 138.6, 196]];
+function effect(kind, r, dur) {
+  let x;
+  if (kind === "sting") { const ch = STINGS[Math.floor(r() * STINGS.length)], d = 0.7, lp = biquad("lp", 1400 + r() * 600, 0.8); x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (const f of ch) y += ((t * f) % 1) * 2 - 1; x[i] = run(lp, y * 0.25) * env(t, 0.005, 0.22, d) + (r() * 2 - 1) * env(t, 0.001, 0.02, d) * 0.3; }
+    return x; }
+  x = SFX[kind](r, dur);
+  if (kind === "poof" && r() < 0.55) { const c = chime(r, 3 + Math.floor(r() * 3), 0.05 + r() * 0.03); for (let i = 0; i < c.length && i + 0.05 * SR < x.length; i++) x[i + Math.round(0.05 * SR)] += c[i] * 0.5; }
+  if (kind === "charge" && r() < 0.5) { const c = chime(r, 4, (dur ?? 1.3) / 5); for (let i = 0; i < c.length && i < x.length; i++) x[i] += c[i] * 0.3; }
+  const semis = (r() * 2 - 1) * (SEMIS[kind] ?? 0);
+  return repitch(x, Math.pow(2, semis / 12));
+}
+
+// a quiet bed of room sound for the set, so the clips don't all sit in the same silence
+function ambience(type, seconds, r) {
+  const x = buf(seconds), n = x.length;
+  if (type === "party") { // crowd murmur and the odd glass clink (the clip's own music plays on top, so no second song here)
+    const mur = biquad("bp", 500, 0.6), mur2 = biquad("bp", 900, 0.8);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(mur, r() * 2 - 1) * (0.3 + 0.1 * Math.sin(TAU * 0.3 * t)) + run(mur2, r() * 2 - 1) * (0.12 + 0.06 * Math.sin(TAU * 0.47 * t + 2)); }
+    let t0 = 0.5 + r() * 1.5;
+    while (t0 < seconds - 0.3) { const a = Math.round(t0 * SR), f = 2600 + r() * 1800; for (let i = 0; i < 0.25 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (Math.sin(TAU * f * t) + 0.4 * Math.sin(TAU * f * 2.7 * t)) * env(t, 0.001, 0.05, 0.25) * 0.12; } t0 += 2 + r() * 3; }
+  } else if (type === "office") { // air conditioning hum and the odd keyboard clatter
+    const hp = biquad("lp", 900, 0.5);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 60 * t) * 0.03; }
+    let t0 = 0.3 + r() * 0.8;
+    while (t0 < seconds - 0.1) { const burst = 4 + Math.floor(r() * 8); for (let k = 0; k < burst; k++) { const a = Math.round((t0 + k * (0.07 + r() * 0.08)) * SR), f = 1800 + r() * 1500; for (let i = 0; i < 0.02 * SR && a + i < n; i++) x[a + i] += (r() * 2 - 1) * Math.exp(-i / SR / 0.004) * 0.25 + Math.sin(TAU * f * i / SR) * Math.exp(-i / SR / 0.006) * 0.1; } t0 += 1.5 + r() * 2.5; }
+  } else if (type === "rooftop") { // wind and a distant city
+    let lp = biquad("lp", 400, 0.7); const low = biquad("lp", 160, 0.7);
+    for (let i = 0; i < n; i++) { const t = i / SR; if (i % 256 === 0) lp = { ...biquad("lp", 300 + 250 * (0.5 + 0.5 * Math.sin(TAU * 0.13 * t + 1.3) * Math.sin(TAU * 0.07 * t)), 0.7), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 }; const w = r() * 2 - 1; x[i] = run(lp, w) * 0.35 + run(low, r() * 2 - 1) * 0.5; }
+    const honk = 0.8 + r() * Math.max(0.5, seconds - 2); const a = Math.round(honk * SR), f = 330 + r() * 80; for (let i = 0; i < 0.35 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (((t * f) % 1) * 2 - 1 + ((t * f * 1.26) % 1) * 2 - 1) * env(t, 0.02, 0.2, 0.35) * 0.05; }
+  } else { // meadow and anything else: a breeze and a few birds
+    const lp = biquad("lp", 500, 0.7);
+    for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;
+    for (let k = 0; k < Math.floor(seconds / 2.5) + 1; k++) { const a = Math.round((0.4 + r() * (seconds - 0.8)) * SR), f0 = 2800 + r() * 1500; for (let j = 0; j < 3; j++) { const b = a + Math.round(j * 0.09 * SR); for (let i = 0; i < 0.06 * SR && b + i < n; i++) { const t = i / SR; x[b + i] += Math.sin(TAU * (f0 + 1500 * t / 0.06) * t) * env(t, 0.004, 0.02, 0.06) * 0.15; } } }
+  }
+  for (let i = 0; i < Math.min(n, 0.3 * SR); i++) { x[i] *= i / (0.3 * SR); x[n - 1 - i] *= i / (0.3 * SR); } // fade in and out
+  // balance the beds against each other: roughly 18-22 dB under the voices and effects
+  const level = { party: 1.0, office: 2.5, rooftop: 2 }[type] ?? 3;
+  for (let i = 0; i < n; i++) x[i] *= level;
+  return x;
+}
+
 // ---------- the storyboard -> sound events ----------
 export function soundEvents(sb) {
   const cfg = { auto: true, ...(sb.sound || {}) }, ev = [];
@@ -241,15 +304,19 @@ export function soundEvents(sb) {
 
 export function renderAudio(sb, chars) {
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
-  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(4242);
+  const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
+  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const events = soundEvents(sb);
   for (const e of events) {
     if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
-    } else if (SFX[e.kind]) fx.add(e.at, SFX[e.kind](r, e.dur), e.gain * cfg.sfx, e.pan);
+    } else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
     else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
+  // room sound for the set: sound.ambience is its gain (0 turns it off)
+  const amb = cfg.ambience ?? 0.1;
+  if (amb > 0) fx.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995)), amb, 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   const vl = reverb(voices.L, cfg.reverb, 0), vr = reverb(voices.R, cfg.reverb, 23);
   const fl = reverb(fx.L, cfg.reverb * 0.6, 0), fr = reverb(fx.R, cfg.reverb * 0.6, 23);

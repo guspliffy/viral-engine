@@ -1,0 +1,614 @@
+{
+  "id": "test-11-hide-me",
+  "title": "Asked the sorcerer to hide me",
+  "format": "panic -> request -> trick -> the magician hides himself -> voice from nowhere -> slow look at the viewer",
+  "shares": "the friend who would leave you at the party",
+  "fps": 30,
+  "duration": 13.5,
+  "cover": 4,
+  "set": {
+    "type": "party",
+    "seed": 3
+  },
+  "cast": [
+    {
+      "id": "hero",
+      "character": "potatobrawl/gunslinger",
+      "at": [
+        -0.48,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "shocked",
+      "arms": {
+        "R": "rest",
+        "L": "rest"
+      },
+      "seed": 2.2
+    },
+    {
+      "id": "mag",
+      "character": "potatobrawl/sorcerer",
+      "at": [
+        0.48,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "kind",
+      "arms": {
+        "R": "rest",
+        "L": "hold"
+      },
+      "seed": 5.7
+    },
+    {
+      "id": "ex",
+      "character": "potatobrawl/phoenix",
+      "at": [
+        -2.7,
+        0.3
+      ],
+      "face": "3q-right",
+      "expr": "eager",
+      "arms": {
+        "R": "rest",
+        "L": "rest"
+      },
+      "seed": 7.1
+    }
+  ],
+  "shots": [
+    {
+      "at": 0,
+      "pos": [
+        0,
+        1.12,
+        5.6
+      ],
+      "look": [
+        0,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.08,
+          1.08,
+          5.1
+        ]
+      },
+      "dur": 1.6,
+      "ease": "out"
+    },
+    {
+      "at": 1.9,
+      "pos": [
+        0.5,
+        1.4,
+        3.6
+      ],
+      "look": [
+        0.48,
+        1.1,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.55,
+          1.38,
+          3.2
+        ]
+      },
+      "dur": 1.4,
+      "ease": "inOut"
+    },
+    {
+      "at": 3.35,
+      "pos": [
+        0,
+        1.15,
+        6.1
+      ],
+      "look": [
+        0,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0,
+          1.12,
+          5.9
+        ]
+      },
+      "dur": 1.2,
+      "ease": "out"
+    },
+    {
+      "at": 5,
+      "pos": [
+        -0.44,
+        1.05,
+        3.9
+      ],
+      "look": [
+        -0.48,
+        0.74,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.48,
+          1.02,
+          3.75
+        ],
+        "look": [
+          -0.48,
+          0.78,
+          0
+        ]
+      },
+      "dur": 3.5,
+      "ease": "out"
+    },
+    {
+      "at": 8.5,
+      "pos": [
+        -0.55,
+        1.12,
+        5.5
+      ],
+      "look": [
+        -0.8,
+        0.86,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.5,
+          1.1,
+          5.2
+        ]
+      },
+      "dur": 5,
+      "ease": "out"
+    }
+  ],
+  "actions": [
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "look",
+      "to": [
+        -0.9,
+        0.05
+      ],
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "hero",
+      "at": 0.1,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 0.95,
+      "do": "turn",
+      "to": "3q-right",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 0.95,
+      "do": "look",
+      "to": [
+        0.8,
+        0.05
+      ],
+      "dur": 0.12
+    },
+    {
+      "who": "hero",
+      "at": 1,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "excited",
+      "rate": 5
+    },
+    {
+      "who": "mag",
+      "at": 0.2,
+      "do": "look",
+      "to": [
+        -0.7,
+        0.05
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "hero",
+      "at": 0.05,
+      "do": "arm",
+      "side": "both",
+      "pose": "cheeks",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 1,
+      "do": "arm",
+      "side": "both",
+      "pose": "up",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 1,
+      "do": "hop",
+      "count": 2,
+      "height": 0.08,
+      "dur": 0.6
+    },
+    {
+      "who": "hero",
+      "at": 1.8,
+      "do": "arm",
+      "side": "both",
+      "pose": "rest",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 1.8,
+      "do": "expr",
+      "expr": "eager",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 1.95,
+      "do": "expr",
+      "expr": "cocky",
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 1.95,
+      "do": "squash",
+      "amount": 0.09,
+      "dur": 0.28
+    },
+    {
+      "who": "mag",
+      "at": 2.25,
+      "do": "expr",
+      "expr": "focused",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.25,
+      "do": "look",
+      "to": [
+        -0.3,
+        0.1
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2.3,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.4,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 2.35,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.35
+    },
+    {
+      "who": "mag",
+      "at": 2.35,
+      "do": "talk",
+      "dur": 0.75,
+      "tone": "chant"
+    },
+    {
+      "who": "mag",
+      "at": 2.4,
+      "do": "charge",
+      "to": 1,
+      "dur": 0.9500000000000002,
+      "ease": "in"
+    },
+    {
+      "who": "mag",
+      "at": 3.35,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.2,
+      "ease": "out"
+    },
+    {
+      "who": "mag",
+      "at": 3.35,
+      "do": "arm",
+      "side": "L",
+      "pose": "hold",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 3.35,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 3.4,
+      "do": "hide"
+    },
+    {
+      "who": "hero",
+      "at": 3.4,
+      "do": "squash",
+      "amount": 0.1,
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 3.9,
+      "do": "look",
+      "to": [
+        0.9,
+        0
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "hero",
+      "at": 3.9,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 5,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "calm"
+    },
+    {
+      "who": "hero",
+      "at": 5,
+      "do": "look",
+      "to": [
+        0.6,
+        0.4
+      ],
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 5.9,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 6.5,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.6
+    },
+    {
+      "who": "hero",
+      "at": 6.5,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.6
+    },
+    {
+      "who": "hero",
+      "at": 7.6,
+      "do": "blink",
+      "dur": 0.4
+    },
+    {
+      "who": "ex",
+      "at": 8.5,
+      "do": "move",
+      "to": [
+        -1.1,
+        0.35
+      ],
+      "dur": 1.2,
+      "ease": "out"
+    },
+    {
+      "who": "hero",
+      "at": 8.6,
+      "do": "turn",
+      "to": "3q-left",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 8.6,
+      "do": "look",
+      "to": [
+        -0.8,
+        0
+      ],
+      "dur": 0.12
+    },
+    {
+      "who": "hero",
+      "at": 8.65,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "ex",
+      "at": 9.7,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.3
+    },
+    {
+      "who": "ex",
+      "at": 9.75,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "excited"
+    },
+    {
+      "who": "hero",
+      "at": 10.4,
+      "do": "hat",
+      "off": [
+        0,
+        -0.2,
+        0.07
+      ],
+      "spin": [
+        12,
+        0,
+        0
+      ],
+      "dur": 0.25,
+      "ease": "out"
+    },
+    {
+      "who": "hero",
+      "at": 10.4,
+      "do": "arm",
+      "side": "both",
+      "pose": "hat",
+      "dur": 0.25
+    },
+    {
+      "who": "hero",
+      "at": 10.45,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.25
+    },
+    {
+      "who": "ex",
+      "at": 11.6,
+      "do": "lean",
+      "to": 9,
+      "dur": 0.4
+    },
+    {
+      "who": "ex",
+      "at": 11.6,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 12.3,
+      "do": "hop",
+      "count": 2,
+      "height": 0.04,
+      "dur": 0.5
+    },
+    {
+      "who": "ex",
+      "at": 12.9,
+      "do": "arm",
+      "side": "R",
+      "pose": "hips",
+      "dur": 0.3
+    }
+  ],
+  "fx": [
+    {
+      "do": "flash",
+      "at": 3.35,
+      "dur": 0.25,
+      "peak": 0.7
+    },
+    {
+      "do": "shake",
+      "at": 3.35,
+      "dur": 0.3,
+      "amp": 0.05
+    },
+    {
+      "do": "poof",
+      "at": 3.35,
+      "who": "mag",
+      "dur": 0.7,
+      "spark": "#ffe27a",
+      "puffs": 14
+    }
+  ],
+  "captions": [
+    {
+      "from": 0.1,
+      "to": 0.95,
+      "text": "my ex is here.",
+      "pos": "top"
+    },
+    {
+      "from": 0.95,
+      "to": 1.9,
+      "text": "HIDE ME.",
+      "pos": "top"
+    },
+    {
+      "from": 5,
+      "to": 8.5,
+      "text": "\"you're welcome.\"",
+      "pos": "top"
+    },
+    {
+      "from": 9.75,
+      "to": 11.3,
+      "text": "\"hey stranger.\"",
+      "pos": "top"
+    },
+    {
+      "from": 11.4,
+      "to": 13.5,
+      "text": "*hides*",
+      "pos": "top",
+      "style": "sub"
+    }
+  ],
+  "loop": false,
+  "sfx": []
+}
