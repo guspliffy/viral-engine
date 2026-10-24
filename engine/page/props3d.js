@@ -19,6 +19,16 @@ function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(ge
 const TH = (s) => (s > 0 ? 0 : Math.PI);
 
 // each builder adds its meshes to the half groups (or to `whole` when it never splits) and returns its parts
+// a jar lid: red, with grip ridges and one white stripe round its edge, so a turning lid reads as turning
+function jarLid(parent) {
+  const lid = new THREE.Group(); parent.add(lid);
+  mesh(new THREE.CylinderGeometry(0.118, 0.118, 0.045, 36), mat("#c7372f", { roughness: 0.4, metalness: 0.3 }), lid, 0, 0, 0);
+  const ridgeM = mat("#9e2a24", { roughness: 0.45, metalness: 0.3 });
+  for (let i = 0; i < 24; i++) { const a = (i / 24) * Math.PI * 2, r = mesh(new THREE.BoxGeometry(0.008, 0.038, 0.006), ridgeM, lid, 0.119 * Math.sin(a), 0, 0.119 * Math.cos(a)); r.rotation.y = a; r.castShadow = false; }
+  const stripe = mesh(new THREE.BoxGeometry(0.03, 0.04, 0.008), mat("#f4f1ea", { roughness: 0.5 }), lid, 0, 0, 0.121); stripe.castShadow = false;
+  return lid;
+}
+
 const KINDS = {
   table(P) {
     const top = mat("#c98a4b", { roughness: 0.55 }), leg = mat("#8a5a2e");
@@ -84,12 +94,7 @@ const KINDS = {
     const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), pickleM, P.whole, 0, 0.13, 0); pk.rotation.z = 0.25;
     pk.visible = !P.spec.empty;   // empty: the pickle is a prop of its own (kind pickle) so it can leave the jar
     for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), pickleM, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
-    const lid = new THREE.Group(); P.whole.add(lid);
-    mesh(new THREE.CylinderGeometry(0.118, 0.118, 0.045, 36), mat("#c7372f", { roughness: 0.4, metalness: 0.3 }), lid, 0, 0, 0);
-    // grip ridges and one white stripe round the lid's edge, so a turning lid reads as turning
-    const ridgeM = mat("#9e2a24", { roughness: 0.45, metalness: 0.3 });
-    for (let i = 0; i < 24; i++) { const a = (i / 24) * Math.PI * 2, r = mesh(new THREE.BoxGeometry(0.008, 0.038, 0.006), ridgeM, lid, 0.119 * Math.sin(a), 0, 0.119 * Math.cos(a)); r.rotation.y = a; r.castShadow = false; }
-    const stripe = mesh(new THREE.BoxGeometry(0.03, 0.04, 0.008), mat("#f4f1ea", { roughness: 0.5 }), lid, 0, 0, 0.121); stripe.castShadow = false;
+    const lid = jarLid(P.whole); lid.visible = !P.spec.noLid;   // noLid: the lid is a prop of its own (kind lid) so it can fall
     const light = new THREE.PointLight("#c8ff7a", 0, 1.6, 2); light.position.set(0, 0.15, 0.05); P.whole.add(light);
     return {
       grip: 0.14,
@@ -105,6 +110,14 @@ const KINDS = {
         lid.position.set(sd * 0.155 * l, 0.3 + (0.12 - 0.3) * l + 0.22 * Math.sin(l * Math.PI), 0.02 * l); lid.rotation.set(0.2 * l, ((ps.twist || 0) * Math.PI) / 180, -sd * 1.45 * l);
       },
     };
+  },
+  // the jar's lid on its own, for a { noLid: true } jar: grabbed with the jar (same hand, no offset) it sits on the
+  // jar's thread; released, it can fly off and land flat on the ground (y 0). twist turns it on the thread, lid
+  // (0..1) lifts it a little off the thread (a rattle), spin (degrees) flips it end over end
+  lid(P) {
+    const flip = new THREE.Group(); flip.position.y = 0.0225; P.whole.add(flip);
+    const lid = jarLid(flip);
+    return { grip: -0.1375, apply(ps) { flip.position.y = 0.0225 + 0.05 * clamp(ps.lid); flip.rotation.set(((ps.spin || 0) * Math.PI) / 180, 0, -0.3 * clamp(ps.lid)); lid.rotation.y = ((ps.twist || 0) * Math.PI) / 180; } };
   },
   // the jar's pickle on its own, to fly out of an { empty: true } jar; spin (degrees) tumbles it end over end
   pickle(P) {

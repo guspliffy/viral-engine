@@ -103,13 +103,16 @@ function ffmpeg(argv) {
   });
 }
 
-// two-pass loudness normalisation: measure, then apply linearly (no pumping)
+// two-pass loudness normalisation: measure, then one fixed gain for the whole clip (no pumping) and a limiter for
+// the rare peak the gain pushes too high. (loudnorm's own second pass falls back to its dynamic mode when the
+// loudness range is wide, as with sparse sound effects and no music, and then lands up to 2 LU off target.)
 async function mux(video, wav, outFile, from, len) {
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
-  const ln = `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:measured_I=${j.input_i}:measured_TP=${j.input_tp}:measured_LRA=${j.input_lra}:measured_thresh=${j.input_thresh}:offset=${j.target_offset}:linear=true`;
-  await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", ln, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
+  const gain = LOUDNESS.I - Number(j.input_i), limit = Math.pow(10, LOUDNESS.TP / 20);
+  const af = `volume=${gain.toFixed(2)}dB,alimiter=limit=${limit.toFixed(4)}:attack=2:release=60:level=0`;
+  await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", af, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
   return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp) };
 }
 

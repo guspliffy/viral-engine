@@ -346,6 +346,7 @@ function capture(fmt = "jpeg") { return fmt === "png" ? out.toDataURL("image/png
 
 // screen-space layout for the QA checks (qa/check.mjs): caption boxes and each character's visible bounding box,
 // in output pixels. Nothing is drawn, so sampling a whole clip takes seconds.
+const r3 = (x) => Math.round(x * 1000) / 1000;
 function layout(t) {
   pose(t);
   const actorsOut = actors.map((a) => {
@@ -359,8 +360,12 @@ function layout(t) {
       const x = (p.x + 1) / 2 * W, y = (1 - p.y) / 2 * H;
       x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
     }
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)] };
+    const hat = a.ch.costume && a.ch.costume.hat ? a.ch.costume.hat.getWorldPosition(new THREE.Vector3()).toArray().map(r3) : undefined;
+    const hands = Object.fromEntries(["R", "L"].map((h) => [h, a.ch.arms[h].hand.getWorldPosition(new THREE.Vector3()).toArray().map(r3)]));
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands };
   });
+  // where each prop stands in the world (metres), for aiming throws and checking what is in frame
+  const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
   // characters actually cover, from a quarter-resolution silhouette render
@@ -374,7 +379,7 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: caps, actors: actorsOut, clips: clipping() };
+  return { t, captions: caps, actors: actorsOut, props: propsOut, clips: clipping() };
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
