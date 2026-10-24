@@ -10,6 +10,7 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
+//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs (seconds)
 //
 // Each frame is drawn by a headless Chromium at a fixed time t = frame / fps, so renders are deterministic
 // and independent of machine speed. Set CHROME_PATH to use a specific Chromium build.
@@ -31,6 +32,7 @@ function args() {
     if (a[i] === "--stills") o.stills = a[++i].split(",").map(Number);
     else if (a[i] === "--safe") o.safe = true;
     else if (a[i] === "--png") o.png = true;
+    else if (a[i] === "--layout") o.layoutOnly = true;
     else if (a[i] === "--draft") o.draft = true;
     else if (a[i] === "--silent") o.silent = true;
     else if (a[i] === "--audio-only") o.audioOnly = true;
@@ -112,7 +114,7 @@ async function main() {
 
   // sound first: it is quick, and a broken storyboard fails before minutes of rendering
   let audio = null;
-  if (!o.stills && !o.silent) {
+  if (!o.stills && !o.silent && !o.layoutOnly) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
     writeWav(wavFile, audio.L, audio.R, audio.sr);
@@ -152,6 +154,15 @@ async function main() {
       return Buffer.from(url.slice(url.indexOf(",") + 1), "base64");
     };
 
+    // caption and character boxes every 0.1 s, for qa/check.mjs; no pixels drawn, so it takes seconds
+    const writeLayout = async () => {
+      const samples = [];
+      for (let t = 0; t < dur - 1e-6; t += 0.1) samples.push(await page.evaluate((tt) => window.ENGINE.layout(tt), Math.round(t * 1000) / 1000));
+      const f = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.layout.json`);
+      fs.writeFileSync(f, JSON.stringify({ fps, duration: dur, width: 1080, height: 1920, samples }));
+      console.log("wrote", f);
+    };
+    if (o.layoutOnly) { await writeLayout(); return; }
     if (o.stills) {
       for (const t of o.stills) { const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f); }
       return;
@@ -168,6 +179,7 @@ async function main() {
     }
     ff.stdin.end(); await done;
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s`);
+    if (!range) await writeLayout();
     if (sb.cover != null && !range) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
     await browser.close(); srv.close();

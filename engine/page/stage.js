@@ -64,15 +64,28 @@ function wrap(text, maxW) {
   if (line) lines.push(line);
   return lines;
 }
-function drawCaption(c) {
+function captionLayout(c) {
   const st = CAP[c.style === "sub" ? "sub" : "main"], pos = c.pos || "top";
   const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
   const cx = pos === "top" ? W / 2 : 480, maxW = pos === "top" ? 860 : 780;
+  ctx.font = st.font; ctx.letterSpacing = "-0.5px";
+  const lines = wrap(c.text, maxW), lh = st.size * 1.12;
+  return { st, top, cx, lines, lh };
+}
+// the caption's ink box in output pixels [x, y, w, h], stroke included
+function captionBox(c) {
   ctx.save();
-  ctx.font = st.font; ctx.letterSpacing = "-0.5px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const { st, top, cx, lines, lh } = captionLayout(c);
+  const w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke;
+  ctx.restore();
+  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2), Math.round(w), Math.round(lines.length * lh + st.stroke)];
+}
+function drawCaption(c) {
+  ctx.save();
+  const { st, top, cx, lines, lh } = captionLayout(c), cy = top + (lines.length * lh) / 2;
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.lineJoin = "round"; ctx.miterLimit = 2;
-  const lines = wrap(c.text, maxW), lh = st.size * 1.12, cy = top + (lines.length * lh) / 2;
   ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
   lines.forEach((ln, i) => {
     const y = top + lh * (i + 0.5);
@@ -145,7 +158,8 @@ async function init(data) {
   return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: R.getContext().getParameter(R.getContext().VERSION) };
 }
 
-function frame(t) {
+// places characters, effects and camera for time t without drawing anything
+function pose(t) {
   const states = {};
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
@@ -155,6 +169,10 @@ function frame(t) {
   }
   const cam = cameraState(sb, t);
   camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));
+}
+
+function frame(t) {
+  pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
     const bg = scene.background, fog = scene.fog;
@@ -175,5 +193,58 @@ function frame(t) {
 // the composed frame as a data URL: "jpeg" for video frames, "png" for stills and the cover
 function capture(fmt = "jpeg") { return fmt === "png" ? out.toDataURL("image/png") : out.toDataURL("image/jpeg", 0.95); }
 
-window.ENGINE = { init, frame, capture };
+// screen-space layout for the QA checks (qa/check.mjs): caption boxes and each character's visible bounding box,
+// in output pixels. Nothing is drawn, so sampling a whole clip takes seconds.
+function layout(t) {
+  pose(t);
+  const actorsOut = actors.map((a) => {
+    const box = new THREE.Box3(), tmp = new THREE.Box3();
+    a.ch.root.updateMatrixWorld(true);
+    a.ch.root.traverseVisible((o) => { if (o.isMesh && o.geometry) { if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); tmp.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); box.union(tmp); } });
+    if (box.isEmpty()) return { id: a.c.id, box: null };
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let i = 0; i < 8; i++) {
+      const p = new THREE.Vector3(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z).project(camera);
+      const x = (p.x + 1) / 2 * W, y = (1 - p.y) / 2 * H;
+      x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+    }
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)] };
+  });
+  const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
+  // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
+  // characters actually cover, from a quarter-resolution silhouette render
+  if (caps.length) {
+    const px = silhouette(), q = 4, w = W / q, h = H / q;
+    for (const c of caps) {
+      const [x, y, bw, bh] = c.box.map((v) => Math.round(v / q));
+      let hit = 0, n = 0;
+      for (let yy = Math.max(0, y); yy < Math.min(h, y + bh); yy++)
+        for (let xx = Math.max(0, x); xx < Math.min(w, x + bw); xx++) { n++; if (px[((h - 1 - yy) * w + xx) * 4] > 127) hit++; }
+      c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
+    }
+  }
+  return { t, captions: caps, actors: actorsOut };
+}
+let silRT, silMat;
+function silhouette() {
+  const w = W / 4, h = H / 4;
+  if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); }
+  const bg = scene.background, fog = scene.fog;
+  for (const o of setObjs) o.visible = false;
+  const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
+  // glows and other see-through parts are effects, not the character's body
+  const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && m.transparent && m.opacity < 0.95 || o.isSprite || o.isPoints) glass.push(o); });
+  for (const o of glass) o.visible = false;
+  scene.background = new THREE.Color("#000000"); scene.fog = null; scene.overrideMaterial = silMat;
+  R.setRenderTarget(silRT); R.render(scene, camera);
+  const px = new Uint8Array(w * h * 4); R.readRenderTargetPixels(silRT, 0, 0, w, h, px);
+  R.setRenderTarget(null);
+  scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
+  for (const o of setObjs) o.visible = true;
+  poofs.forEach((p, i) => (p.g.visible = pv[i]));
+  for (const o of glass) o.visible = true;
+  return px;
+}
+
+window.ENGINE = { init, frame, capture, layout };
 window.ENGINE_READY = true;

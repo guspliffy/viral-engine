@@ -32,6 +32,7 @@ Useful flags:
 | `--audio-only` | Redoes only the sound on an existing render (seconds instead of minutes). |
 | `--silent` | No sound, a silent track instead. |
 | `--png` | Lossless frames into the encoder instead of JPEG q95. Slower, rarely visible after H.264. |
+| `--layout` | Writes only `<id>.layout.json` (caption and character boxes) for `qa/check.mjs`. Takes seconds. |
 | `--out dir` | Output folder (default `out/`). |
 
 Rendering is deterministic: every frame is drawn at a fixed time `t = frame / fps`, so the same storyboard always
@@ -40,6 +41,20 @@ gives the same video, however fast or slow the machine is.
 Speed on a 2-core machine without a GPU (software WebGL): about 1.8 s per frame at full quality (a 9 s clip in
 about 8 minutes) and 0.55 s per frame with `--draft`. Most of the time is lighting the pixels; a machine with a real
 GPU should be much faster (not measured yet).
+
+## Quality checks
+
+Rules for every clip are in [`CLAUDE.md`](CLAUDE.md). Two small tools check a clip before it counts as done:
+
+```bash
+node engine/render.mjs storyboards/test-01-golden-v2.json --layout     # caption + character boxes, seconds
+node qa/check.mjs out/test-01-golden-v2.mp4                            # size, duration, blank frames, loudness, captions
+node qa/contact.mjs out/test-01-golden-v2.mp4 --sb storyboards/test-01-golden-v2.json   # contact sheet for review
+```
+
+`qa/check.mjs` works on any MP4. The caption checks read a `layout.json`
+(`{fps, samples:[{t, captions:[[x,y,w,h]] or [{box, covered}], actors:[{id, box}]}]}`, output pixels), which
+`engine/render.mjs` writes with every full render or with `--layout`. Other renderers can write the same file.
 
 ## How it works
 

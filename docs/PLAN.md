@@ -16,6 +16,10 @@ manual work as possible. First for our own channels (PotatoBrawl and later games
 - Test cast: **PotatoBrawl fighters**. Then compare different characters, and design new ones from what the data says performs.
 - Repo: `guspliffy/viral-engine`.
 - Captions in English (from the earlier game-marketing decision).
+- **Main path: the game puppet** (PotatoBrawl's own drawing code, `puppet/`). The 3D engine stays for the 3D and
+  anime look; no more fighters are built in 3D for now.
+- **Quality harness** shared by both renderers: rules in `CLAUDE.md`, automatic checks in `qa/`, at most 3 fix rounds
+  per clip, and an optional creative review on the Fable model from a contact sheet, once per cut.
 
 ## Build order
 
