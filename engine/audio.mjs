@@ -6,7 +6,7 @@
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
-import { rng } from "./page/util.js";
+import { rng, hopCrouch } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 
 const SR = 44100;
@@ -279,7 +279,7 @@ export function soundEvents(sb) {
     for (const a of [...(sb.actions || [])].sort((p, q) => p.at - q.at)) {
       const pan = panOf(a.who), d = a.dur ?? 0.3;
       if (a.do === "talk") ev.push({ kind: "voice", at: a.at, action: a, who: a.who, pan });
-      if (a.do === "hop") { const n = a.count ?? 1; for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + (k * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
+      if (a.do === "hop") { const n = a.count ?? 1, qa = hopCrouch(d, n); for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + ((k + qa) * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
       if (a.do === "swap") ev.push({ kind: "pop", at: a.at + 0.03, pan, gain: 0.45 });
       if (a.do === "charge" && (a.to ?? 1) > 0.3) ev.push({ kind: "charge", at: a.at, dur: d, pan, gain: 0.28 });
       if (a.do === "hat") {

@@ -33,7 +33,7 @@ Useful flags:
 | `--audio-only` | Redoes only the sound on an existing render (seconds instead of minutes). |
 | `--silent` | No sound, a silent track instead. |
 | `--png` | Lossless frames into the encoder instead of JPEG q95. Slower, rarely visible after H.264. |
-| `--layout` | Writes only `<id>.layout.json` (caption and character boxes) for `qa/check.mjs`. Takes seconds. |
+| `--layout` | Writes only `<id>.layout.json` (caption and character boxes, hand, hat and prop positions every 0.1 s) for `qa/check.mjs` and for aiming throws. Takes seconds. |
 | `--out dir` | Output folder (default `out/`). |
 
 Rendering is deterministic: every frame is drawn at a fixed time `t = frame / fps`, so the same storyboard always
@@ -107,11 +107,11 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
 - `fps`, `duration` (seconds), `cover` (time of the cover frame)
 - `set`: `{ type, seed, ... }`. Types: `kitchen` (PotatoBrawl's kitchen at night, `time` on the clock), `meadow` (`sky: [top, horizon], ground: [inner, outer]`), `party` (living room at
   night; `wall`, `floor`), `office` (day, window, desks; `wall`, `floor`), `rooftop` (city at dusk; `sky`, `floor`)
-- `cast`: `{ id, character, at: [x, z], face, expr, arms: { R, L } }`. `face`: `camera`, `left`, `right`, `3q-left`, `3q-right`, `back` or degrees.
+- `cast`: `{ id, character, at: [x, z], face, expr, arms: { R, L }, follow }` (`follow`: the body turns and tips after the eyes, see `docs/STORYBOARD.md`). `face`: `camera`, `left`, `right`, `3q-left`, `3q-right`, `back` or degrees.
 - `shots`: camera cuts. `{ at, pos, look, fov, to: { pos, look, fov }, dur, ease }` — a shot lasts until the next one starts; `to` makes it move.
 - `actions`: `{ who, at, do, dur, ease, ... }`
   - `move` `{ to: [x, z] }` walks there · `hop` `{ count, height }` · `turn` `{ to }` · `lean` `{ to: degrees }`
-  - `still` `{ dur, idle, sink, fade, blink }` a purposeful hold: idle breathing and sway turned down (see `docs/STORYBOARD.md` → Performances)
+  - `still` `{ dur, idle, sink, fade, blink }` a purposeful hold: idle breathing and sway turned down, no automatic blinks unless `blink: true` (see `docs/STORYBOARD.md` → Performances)
   - `expr` `{ expr }` · `look` `{ to: [x, y] }` eyes, -1..1 · `talk` `{ tone: calm|excited|sad|question|chant, rate }` gibberish speech, lips in sync · `blink` · `noblink`
   - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks lap table`
   - `charge` `{ to: 0..1 }` prop glow · `droop` `{ to }` leaves · `swap` `{ form: "fries" }` · `hat` `{ off: [x,y,z], spin: [deg,deg,deg] }`
@@ -119,11 +119,11 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
   - dance moves on the music's beat (`engine/page/dance.js`, the same names as the puppets): `bounce groove point floss clap roof wave2 nod tada flare wobble` `{ amp, speed }`, plus `spin` `{ turns, dir }` and `shake` on top
   - poses held for `dur`: `kneel` · `offer` (kneels, both hands out) · `holdout` (both hands out) · `show` (one hand up) · `swing` (the Reaper's scythe)
   - flying: `fly` `{ to: { x, y } }` (wings spread and beat; after it the character hovers until a `drop`) · `hover` · `drop` `{ to: y }` falls like a stone · `wings` `{ to: 0..1 }` Phoenix's wings
-  - `sit` `{ seat: chair prop id, hands: lap|table|hold }` until `stand` · `grab` `{ prop, hand: R|L|both|tip, off }` (`tip`: hangs from the point of the character's own prop, the Reaper's scythe) · `release` `{ prop, to: [x, y, z], arc }` (`arc`: metres the throw curves up; also on a `prop` tween's x, y, z)
+  - `sit` `{ seat: chair prop id, hands: lap|table|hold }` until `stand` · `grab` `{ prop, hand: R|L|both|tip, off, pose }` (`pose`: where the arm goes, default `hold`; `null` keeps the hand where it is) (`tip`: hangs from the point of the character's own prop, the Reaper's scythe) · `release` `{ prop, to: [x, y, z], arc }` (`arc`: metres the throw curves up; also on a `prop` tween's x, y, z)
   - `tilt` `{ to: [forward, outward] degrees | null }` angles the character's own held prop (the scythe) instead of the arm pose; `null` hands it back
   - `prop` `{ id, set: { split, glow, lid, twist, fill, spill, lit, spin, x, y, z, rot, scale }, arc }` tweens a prop (no `who`)
 - `props`: `{ id, kind: table|chair|teacup|jar|pickle|cookie|plate|clock|gift|phone|cake|banner, x, y (its bottom; a clock's middle), z, rot (degrees; a chair at 90 faces right), scale }` (`engine/page/props3d.js`). A table top is at y 0.62, a chair seat at 0.42. A clock prop hides the kitchen's own clock.
-  Per kind: `teacup` `mended` (gold seams) · `jar` `lidSide` (`1` / `-1`, where the lid pops off), `twist` turns the lid, `empty` (no pickle inside; use a `pickle` prop that can fly out, `spin` tumbles it) · `gift` `w`, `h`, `color`, `ribbon`, `hinge` (the lid swings open on its back edge instead of coming off) · `phone` (`glow` lights the screen) · `cake` (`lit` lights the candles and their warm light, `split` cuts it) · `banner` `text`, `width`, `sag` (pop it in with `scale`).
+  Per kind: `teacup` `mended` (gold seams) · `jar` `lidSide` (`1` / `-1`, where the lid pops off), `twist` turns the lid, `empty` (no pickle inside; use a `pickle` prop that can fly out, `spin` tumbles it), `noLid` (use a `lid` prop: grabbed with the jar by the same hand it sits on the thread, released it can fly off and land flat on the ground; `twist`, `lid` 0..1 lifts it for a rattle, `spin` flips it) · `gift` `w`, `h`, `color`, `ribbon`, `hinge` (the lid swings open on its back edge instead of coming off) · `phone` (`glow` lights the screen) · `cake` (`lit` lights the candles and their warm light, `split` cuts it) · `banner` `text`, `width`, `sag` (pop it in with `scale`).
 - `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames), `sparkle` and `notes` `{ who, count }` round a character's head, `lights` `{ to, lamp, dur }` fades the room's lights (1 = as built; `set.lights` sets the starting level, 0.1 is lights off), `photo` `{ look: dark|normal|ink, cam: { pos, look, fov }, shot, hide: [ids], pos: [px, px], w, tilt, dur }` pops up a phone showing a photo taken from `cam` at time `shot` (default: its own start); `ink` is a silhouette against a glow
 - `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones (`hop land whoosh charge impact poof pop click creak shing tink sting sadslide`). `sound`: `{ auto, voice, sfx, reverb }` mix settings.
 - `style`: default render style. Any action, fx, caption, shot or sfx with `"only": "anime"` (or a list) is used only in that style.

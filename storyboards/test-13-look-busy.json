@@ -701,7 +701,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.12997848459394643
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -716,7 +716,7 @@
       "do": "arm",
       "side": "R",
       "pose": "cast",
-      "dur": 0.1279788156001934
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -731,7 +731,7 @@
       "do": "arm",
       "side": "L",
       "pose": "wave",
-      "dur": 0.1260099107448058
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -739,7 +739,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.12407129673334726
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -761,7 +761,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.12216250755283421
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -769,7 +769,7 @@
       "do": "arm",
       "side": "R",
       "pose": "wave",
-      "dur": 0.1202830843597137
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -784,7 +784,7 @@
       "do": "arm",
       "side": "L",
       "pose": "cast",
-      "dur": 0.11843257536956424
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -799,7 +799,7 @@
       "do": "arm",
       "side": "R",
       "pose": "fist",
-      "dur": 0.11661053574849402
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -821,7 +821,7 @@
       "do": "arm",
       "side": "L",
       "pose": "shrug",
-      "dur": 0.1148165275062095
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -829,7 +829,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hat",
-      "dur": 0.11305011939072936
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -844,7 +844,7 @@
       "do": "arm",
       "side": "L",
       "pose": "up",
-      "dur": 0.11131088678471815
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -852,7 +852,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hips",
-      "dur": 0.10959841160341478
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -874,7 +874,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.10791228219413147
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -889,7 +889,7 @@
       "do": "arm",
       "side": "R",
       "pose": "cast",
-      "dur": 0.1062520932372987
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -904,7 +904,7 @@
       "do": "arm",
       "side": "L",
       "pose": "wave",
-      "dur": 0.10461744564903255
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -912,7 +912,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.10300794648520128
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -934,7 +934,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.10142320884696743
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -942,7 +942,7 @@
       "do": "arm",
       "side": "R",
       "pose": "wave",
-      "dur": 0.09986285178778334
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1019,7 +1019,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1041,7 +1041,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1049,7 +1049,7 @@
       "do": "arm",
       "side": "R",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1064,7 +1064,7 @@
       "do": "arm",
       "side": "L",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1079,7 +1079,7 @@
       "do": "arm",
       "side": "R",
       "pose": "fist",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1101,7 +1101,7 @@
       "do": "arm",
       "side": "L",
       "pose": "shrug",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1109,7 +1109,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hat",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1124,7 +1124,7 @@
       "do": "arm",
       "side": "L",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1132,7 +1132,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hips",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1154,7 +1154,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1169,7 +1169,7 @@
       "do": "arm",
       "side": "R",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1184,7 +1184,7 @@
       "do": "arm",
       "side": "L",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1192,7 +1192,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1214,7 +1214,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1222,7 +1222,7 @@
       "do": "arm",
       "side": "R",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1237,7 +1237,7 @@
       "do": "arm",
       "side": "L",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1252,7 +1252,7 @@
       "do": "arm",
       "side": "R",
       "pose": "fist",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1274,7 +1274,7 @@
       "do": "arm",
       "side": "L",
       "pose": "shrug",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1282,7 +1282,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hat",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1297,7 +1297,7 @@
       "do": "arm",
       "side": "L",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1305,7 +1305,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hips",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1327,7 +1327,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1342,7 +1342,7 @@
       "do": "arm",
       "side": "R",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1357,7 +1357,7 @@
       "do": "arm",
       "side": "L",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1365,7 +1365,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1387,7 +1387,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1395,7 +1395,7 @@
       "do": "arm",
       "side": "R",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1410,7 +1410,7 @@
       "do": "arm",
       "side": "L",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1425,7 +1425,7 @@
       "do": "arm",
       "side": "R",
       "pose": "fist",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1447,7 +1447,7 @@
       "do": "arm",
       "side": "L",
       "pose": "shrug",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1455,7 +1455,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hat",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1470,7 +1470,7 @@
       "do": "arm",
       "side": "L",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1478,7 +1478,7 @@
       "do": "arm",
       "side": "R",
       "pose": "hips",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1500,7 +1500,7 @@
       "do": "arm",
       "side": "L",
       "pose": "point",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1515,7 +1515,7 @@
       "do": "arm",
       "side": "R",
       "pose": "cast",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1530,7 +1530,7 @@
       "do": "arm",
       "side": "L",
       "pose": "wave",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",
@@ -1538,7 +1538,7 @@
       "do": "arm",
       "side": "R",
       "pose": "up",
-      "dur": 0.099
+      "dur": 0.13
     },
     {
       "who": "hero",

@@ -62,13 +62,20 @@ moving at once.
 | `demonstrate` | `expr?` | Crouch, spring up with arms open, a flourish, land on hands on hips | Phoenix |
 | `recover` | `to` (eye target after), `pose?` (`null` keeps the arms), `expr?` | Caught failing: freeze, eyes dart, sag, snap into a confident pose | Phoenix |
 | `affection` | `other` (eye target), `away?` | Looks at them, slow blink, slow smile, looks away, the smallest nod | Reaper |
+| `hit` | `look?`, `expr?`, `hat?` (`false`, or `{ off, spin }`), `recoil?`, `hold?` | Something bonks them: the hat is knocked askew, then the body squashes and recoils, then the eyes, then the face, five frames apart; no blink in the take | anyone |
 
 **Holds and eases for your own acting**
 
-- `{ "who", "do": "still", "dur", "idle": 0.25, "sink": 0.008, "fade": 0.15, "blink": true }` turns the idle
-  breathing and sway down to `idle` (0 is dead still) for a purposeful hold. The body sinks very slightly over the
-  hold, so it doesn't read as a frozen frame. Use it whenever a character should be thinking, waiting or deadpan
-  rather than idling.
+- `{ "who", "do": "still", "dur", "idle": 0.25, "sink": 0.008, "fade": 0.15 }` turns the idle breathing and sway
+  down to `idle` (0 is dead still) for a purposeful hold. The body sinks very slightly over the hold, so it doesn't
+  read as a frozen frame. No automatic blink lands inside a hold (an eye-blink in the middle of a stare or a reach
+  kills it); `"blink": true` allows them, and a scripted `blink` always plays. Use it whenever a character should be
+  thinking, waiting or deadpan rather than idling.
+- `"follow": 1` on a cast member makes the body follow the eyes: every `look` turns and tips the body toward its
+  target by about a fifth, a few frames behind the eyes, and it arrives softly. Values between 0 and 1 follow less.
+  Off by default (older clips keep their timing); turn it on for new acting.
+- `grab` with `"pose": null` closes the hand on the prop where it stands instead of swinging the arm to `hold`:
+  give the hand a beat of contact, then lift with an `arm` action (`inOut` over half a second reads as weight).
 - `"ease": "settle"` overshoots the target by about 4 % and eases back: follow-through on arms, turns and moves.
   `"antic"` pulls back about 4 % before it goes (anticipation). `"anticSettle"` does both.
 

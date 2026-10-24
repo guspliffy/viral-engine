@@ -35,6 +35,8 @@ export const ease = (name) => EASE[name] || EASE.inOut;
 // blend it is in (potato.js resolves { mix }), so a new move never makes the hand jump
 // (an acting ease can overshoot past 1 or start below 0, and that in-between blend is where the next move starts)
 export const armNow = (a) => (a.p === 1 ? a.pose : a.p === 0 ? a.from : { mix: a });
+// the share of each hop spent crouching on the ground before take-off (at least 0.1 s); the sound follows it
+export const hopCrouch = (d, n = 1) => clamp(0.1 / (d / n), 0.15, 0.35);
 
 // progress of an action that starts at `at` and lasts `dur`, at time t
 export const prog = (t, at, dur) => (dur > 0 ? clamp((t - at) / dur) : t >= at ? 1 : 0);

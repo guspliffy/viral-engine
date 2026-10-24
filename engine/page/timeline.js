@@ -1,5 +1,5 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y } from "./props3d.js";
@@ -34,6 +34,17 @@ function phases(sb, actor, def, t) {
   return { flapPhase: P.flap[k] + f * r, chargePhase: P.charge[k] + c * r };
 }
 
+// where the eyes look at time u, from the look actions alone (the body's follow reads it a little in the past)
+function lookAt(looks, u) {
+  let l = [0, 0];
+  for (const a of looks) {
+    if (a.at > u) break;
+    const e = ease(a.ease || "inOut")(prog(u, a.at, a.dur ?? 0.3));
+    l = [lerp(l[0], a.to[0], e), lerp(l[1], a.to[1], e)];
+  }
+  return l;
+}
+
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor;
   const st = {
@@ -57,16 +68,19 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       case "hop": {
         const n = a.count ?? 1, h = a.height ?? 0.3, local = clamp((t - a.at) / d) * n, k = Math.min(n - 1, Math.floor(local)), q = local - k;
+        // anticipation: the body crouches on the ground first (at least 0.1 s, shallower when it is shorter than
+        // 0.2 s), then takes off and lands at the hop's end. The crouch, the stretch in the air and the landing squash
+        // are sin² curves that start and end at rest, so they join without a kink and no frame steps out, wherever
+        // the frames fall
+        const qa = hopCrouch(d, n), dip = 0.14 * Math.min(1, (qa * d) / n / 0.2);
         if (p < 1) {
-          st.y += h * 4 * q * (1 - q);
-          // the crouch before take-off lasts at least 0.07 s (two frames; one frame reads as a twitch), then the
-          // stretch eases in from it (no step between the two)
-          const qa = clamp(0.07 / (d / n), 0.12, 0.3);
-          st.squash *= q < qa ? 1 - 0.18 * Math.sin((q / qa) * Math.PI) : 1 + 0.12 * Math.sin(((q - qa) / (1 - qa)) * Math.PI);
-          st.tuck = Math.sin(q * Math.PI);
+          const air = q < qa ? 0 : (q - qa) / (1 - qa);
+          st.y += h * 4 * air * (1 - air);
+          st.squash *= q < qa ? 1 - dip * Math.sin((q / qa) * Math.PI) ** 2 : 1 + 0.1 * Math.sin(air * Math.PI) ** 2;
+          st.tuck = Math.sin(air * Math.PI);
         } else {
           const after = t - (a.at + d);
-          if (after < 0.16) st.squash *= 1 - 0.2 * Math.sin((after / 0.16) * Math.PI);
+          if (after < 0.2) st.squash *= 1 - 0.18 * Math.sin((after / 0.2) * Math.PI) ** 2;
         }
         break;
       }
@@ -103,7 +117,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         const f = a.fade ?? 0.15, dd = a.dur ?? 1, k = clamp((t - a.at) / f) * (1 - clamp((t - a.at - dd) / f));
         idle = Math.min(idle, lerp(1, a.idle ?? 0.25, k));
         sink = Math.max(sink, (a.sink ?? 0.008) * k * clamp((t - a.at) / dd));
-        if (a.blink === false && k > 0) holdBlink = false;
+        if (a.blink !== true && k > 0) holdBlink = false;   // no automatic blink lands in a hold (blink: true allows it)
         break;
       }
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
@@ -163,9 +177,10 @@ export function actorState(sb, actor, def, t, raw = false) {
         for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: c.arms?.[s] || "rest", p: k };
         break;
       }
-      // a single-hand grab lifts that arm to hold (both hands: use holdout or offer for the arms)
+      // a single-hand grab lifts that arm to hold, or to its own pose; pose: null leaves the arm where it is (the hand
+      // closes on the prop where it stands, and a later arm action lifts it). Both hands: use holdout or offer.
       // hand "tip": the prop hangs from the point of the character's own prop (Reaper's scythe), the arm stays as it is
-      case "grab": if (a.hand && a.hand !== "both" && a.hand !== "tip") st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
+      case "grab": if (a.hand && a.hand !== "both" && a.hand !== "tip" && a.pose !== null) st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: a.pose ?? "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
       case "release": break;
       // the held prop's angle in degrees, [forward, outward], instead of the one the arm pose gives; to: null hands it back
       case "tilt": st.propTilt = { from: st.propTilt || null, to: a.to ? a.to.map((d) => (d * Math.PI) / 180) : null, k: e }; break;
@@ -175,6 +190,14 @@ export function actorState(sb, actor, def, t, raw = false) {
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
     st.y += hoverBob(t - airSince); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);
+  }
+  // the body follows the eyes (cast "follow", 0..1): it turns and tips toward where they look, by about a fifth of
+  // the look, averaged over the last 0.3 s so it trails the eyes by a few frames and arrives softly
+  if (c.follow) {
+    const looks = acts.filter((a) => a.do === "look");
+    let lx = 0, ly = 0;
+    for (let i = 0; i < 6; i++) { const l = lookAt(looks, t - 0.05 - i * 0.05); lx += l[0] / 6; ly += l[1] / 6; }
+    st.yaw += c.follow * 0.14 * lx; st.flip -= c.follow * 0.12 * ly;
   }
   // a pitch action turns the body about its middle, not its feet, so a flip in the air doesn't swing the head down
   // through whatever the character is jumping over (dance tips, like a nod, stay on the feet)

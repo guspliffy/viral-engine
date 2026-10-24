@@ -199,6 +199,7 @@ export function buildCostume(def, ch) {
 
   return {
     tip: prop && prop.tip ? prop.tip : null,
+    hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
     apply(st, t, hands, fries) {
       // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
       const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
