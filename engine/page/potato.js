@@ -50,6 +50,7 @@ export class Character {
 
     // specks
     const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.72), roughness: 0.8 });
+    speckM.userData.noOutline = true;
     for (let i = 0; i < 9; i++) {
       const th = (rnd() * 2 - 1) * 2.6, ph = (rnd() * 2 - 1) * 0.9;
       if (Math.abs(th) < 0.65 && ph > -0.45 && ph < 0.6) continue; // keep the face clear

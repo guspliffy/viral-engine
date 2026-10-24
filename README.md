@@ -1,10 +1,11 @@
 # viral-engine
 
 Character-driven short videos, rendered from data. Characters and storyboards are JSON files; the engine turns a
-storyboard into a vertical 1080×1920 MP4 (plus a cover frame) with 3D characters, camera shots, effects and captions.
-No filming, no stock footage, no cost per video.
+storyboard into a vertical 1080×1920 MP4 (plus a cover frame) with 3D characters, camera shots, effects, captions
+and sound. No filming, no stock footage, no cost per video.
 
-Status: **v0.1, pipeline test.** Two PotatoBrawl fighters (Wizard, Gunslinger), one set (meadow), no sound yet.
+Status: **v0.2, pipeline test.** Two PotatoBrawl fighters (Wizard, Gunslinger), one set (meadow), two render styles
+(`standard`, `anime`), code-generated voices and sound effects.
 See [`docs/PLAN.md`](docs/PLAN.md) for the roadmap, decisions and open questions.
 
 ## Quick start
@@ -15,7 +16,8 @@ Needs Node.js 18+, ffmpeg and a Chromium build.
 npm install
 npx playwright install chromium      # once; or point CHROME_PATH at an existing Chromium
 node engine/render.mjs storyboards/test-01-golden.json
-# -> out/test-01-golden.mp4 and out/test-01-golden-cover.png
+node engine/render.mjs storyboards/test-01-golden.json --style anime
+# -> out/test-01-golden.mp4, out/test-01-golden-anime.mp4, cover PNGs and the WAV mixes
 ```
 
 Useful flags:
@@ -26,6 +28,9 @@ Useful flags:
 | `--safe` | Draws the area TikTok's buttons and text don't cover, as a dashed box. |
 | `--from 2 --to 4` | Renders only part of the timeline. |
 | `--draft` | Fast preview: 3D at half resolution, no anti-aliasing (captions stay sharp). About 3x faster. |
+| `--style anime` | Renders in another style. Default: the storyboard's `style`, else `standard`. |
+| `--audio-only` | Redoes only the sound on an existing render (seconds instead of minutes). |
+| `--silent` | No sound, a silent track instead. |
 | `--png` | Lossless frames into the encoder instead of JPEG q95. Slower, rarely visible after H.264. |
 | `--out dir` | Output folder (default `out/`). |
 
@@ -44,9 +49,15 @@ characters/*.json ─┐
 storyboards/*.json ┘
 ```
 
-- `engine/render.mjs` serves the repo locally, opens `engine/page/index.html` in headless Chromium, calls
-  `ENGINE.frame(t)` for every frame, reads the composed canvas (`ENGINE.capture`) and pipes the frames into ffmpeg
-  (H.264, yuv420p, plus a silent AAC track so editors and TikTok's sound picker get an audio stream).
+- `engine/render.mjs` makes the sound first (`engine/audio.mjs`), then serves the repo locally, opens
+  `engine/page/index.html` in headless Chromium, calls `ENGINE.frame(t)` for every frame, reads the composed canvas
+  (`ENGINE.capture`) and pipes the frames into ffmpeg (H.264, yuv420p). Finally it muxes picture and sound with
+  two-pass loudness normalisation to -14 LUFS, true peak -2 dBTP.
+- `engine/audio.mjs` synthesises everything in code: gibberish voices (formant synthesis) for `talk` actions and sound
+  effects placed automatically from the storyboard (hop, land, pop, charge, whoosh, tink, sting, sad slide, impact, poof).
+  Claude can't listen, so audio is checked by measurement (levels, spectrum, timing); a human has to judge the sound.
+- `engine/shared/syllables.js` plans each line as syllables. The voice speaks them and the mouth shapes them
+  (round on o/u, closed on b/p/m), so lip sync comes for free.
 - `engine/page/` is the browser side:
   - `stage.js` renderer, lights, set, cast, particles; captions and flash are drawn on a 2D canvas over the 3D frame
   - `timeline.js` turns the storyboard into per-frame state (pure function of time)
@@ -55,6 +66,7 @@ storyboards/*.json ┘
   - `costumes.js` hats, sprout, held props (wizard staff with charge glow)
   - `props.js` alternative forms (the fries box)
   - `sets.js` sky, ground, hills, clouds, flowers, lights
+  - `styles.js` render styles: `anime` swaps in cel-shaded materials and draws ink outlines
 
 ## Characters
 
@@ -67,7 +79,8 @@ storyboards/*.json ┘
 | `face.default` | resting expression (see below), iris and blush colours |
 | `sprout` | the leaves; `placement`: `top`, `hat-top` or `hat-brim` |
 | `costume` | `type` (`wizard`, `cowboy`), colours, `propHand` (`L` / `R`) |
-| `personality`, `voice`, `notes` | for scripting; not used by the renderer |
+| `voice` | `pitch` (Hz), `rate` (syllables/s), `formant` (voice size: >1 smaller, cartoonier), `range` (semitones), `breath`, `vibrato`, `seed` |
+| `personality`, `notes` | for scripting; not used by the renderer |
 
 Expressions: `kind happy delighted eager cocky smug shocked sad evil focused stern deadpan`.
 
@@ -81,11 +94,13 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
 - `shots`: camera cuts. `{ at, pos, look, fov, to: { pos, look, fov }, dur, ease }` — a shot lasts until the next one starts; `to` makes it move.
 - `actions`: `{ who, at, do, dur, ease, ... }`
   - `move` `{ to: [x, z] }` walks there · `hop` `{ count, height }` · `turn` `{ to }` · `lean` `{ to: degrees }`
-  - `expr` `{ expr }` · `look` `{ to: [x, y] }` eyes, -1..1 · `talk` `{ rate }` mouth flaps · `blink` · `noblink`
+  - `expr` `{ expr }` · `look` `{ to: [x, y] }` eyes, -1..1 · `talk` `{ tone: calm|excited|sad|question|chant, rate }` gibberish speech, lips in sync · `blink` · `noblink`
   - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks`
   - `charge` `{ to: 0..1 }` prop glow · `droop` `{ to }` leaves · `swap` `{ form: "fries" }` · `hat` `{ off: [x,y,z], spin: [deg,deg,deg] }`
   - `squash` `{ amount }` · `hide` · `show`
-- `fx`: `flash`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`
+- `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames)
+- `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones. `sound`: `{ auto, voice, sfx, reverb }` mix settings.
+- `style`: default render style. Any action, fx, caption, shot or sfx with `"only": "anime"` (or a list) is used only in that style.
 - `captions`: `{ from, to, text, pos: top|mid|low|<px>, style: main|sub, pop }`. Captions stay inside the TikTok safe zone.
 
 Easing names: `linear in out inOut back elastic`.

@@ -200,8 +200,11 @@ export function soundEvents(sb) {
       if (a.do === "droop" && (a.to ?? 1) > 0.5) ev.push({ kind: "sadslide", at: a.at, pan, gain: 0.3 });
       if (a.do === "expr" && a.expr === "shocked") ev.push({ kind: "sting", at: a.at, pan: 0, gain: 0.35 });
     }
+    const impacts = (sb.fx || []).filter((f) => f.do === "impact").map((f) => f.at);
     for (const f of sb.fx || []) {
-      if (f.do === "flash") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
+      // one impact sound per hit: a flash right after an impact frame stays silent
+      if (f.do === "impact") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
+      if (f.do === "flash" && !impacts.some((a) => Math.abs(a - f.at) < 0.25)) ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
       if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }

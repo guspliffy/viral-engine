@@ -12,7 +12,7 @@ manual work as possible. First for our own channels (PotatoBrawl and later games
 - Build the tool ourselves; Jonny gives access where needed.
 - Server: Jonny's Hostinger **VPS**. It also runs the trading bot, so heavy rendering there needs a decision first (below).
 - Budget: **0 until the concept works**. Then up to roughly 100–200 USD a month, and it has to pay for itself.
-- 3D, not 2D: the characters are rendered in Three.js.
+- 3D, not 2D: the characters are rendered in Three.js. An anime style (cel shading, ink lines, speed lines, impact frames) is a render option on the same storyboards.
 - Test cast: **PotatoBrawl fighters**. Then compare different characters, and design new ones from what the data says performs.
 - Repo: `guspliffy/viral-engine`.
 - Captions in English (from the earlier game-marketing decision).
@@ -20,7 +20,7 @@ manual work as possible. First for our own channels (PotatoBrawl and later games
 ## Build order
 
 1. **Engine core (now).** Character + storyboard → MP4, rendered in code at no cost per video. You post by hand.
-2. **Sound.** Code-generated sound effects and character voices (gibberish first, like the game), music slot for trending sounds added in TikTok. Needed early: the strongest examples we've seen open with a spoken hook.
+2. **Sound.** Done in v0.2: code-generated voices and effects, lip sync, loudness normalised. Still open: a real spoken hook (TTS or recorded), music slot for trending sounds added in TikTok.
 3. **All eight fighters** and more sets, poses and props.
 4. **Control panel** on the VPS: characters, trend board, storyboards, render queue, approval queue, manual stats entry.
 5. **Trend scout + scripting:** scheduled scans, format templates (hook → beats → payoff → loop), storyboards written from them.
@@ -64,6 +64,11 @@ Goal: find out which characters (and which traits) perform, then design new ones
   whole scene took more than half the frame time, so it is now limited to the characters (3.1 → 1.8 s per frame).
   JPEG encoding of a frame is ~0.09 s.
 - A machine with a real GPU (e.g. Jonny's PC) should render far faster. Not measured yet.
+
+## Styles to test
+
+Same storyboard, different look: `standard` (soft 3D, like the portraits) and `anime` (cel shading, ink outlines,
+speed lines, impact frames; fits the game's manga KO pages). Worth A/B-testing alongside characters.
 
 ## Open questions
 

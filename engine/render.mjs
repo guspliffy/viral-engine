@@ -91,15 +91,24 @@ async function mux(video, wav, outFile, from, len) {
   return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp) };
 }
 
+// entries marked { "only": "anime" } (or a list of styles) are used only when rendering in that style
+function applyStyle(sb, style) {
+  const keep = (x) => !x.only || x.only === style || (Array.isArray(x.only) && x.only.includes(style));
+  const out = { ...sb };
+  for (const k of ["actions", "fx", "captions", "sfx", "shots"]) out[k] = (sb[k] || []).filter(keep);
+  return out;
+}
+
 async function main() {
   const o = args();
-  const sb = JSON.parse(fs.readFileSync(o.file, "utf8"));
-  const fps = sb.fps ?? 30, dur = sb.duration, style = o.style || sb.style || "standard";
+  const raw = JSON.parse(fs.readFileSync(o.file, "utf8"));
+  const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
+  const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
   const range = o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : "";
   const base = `${sb.id}${style !== "standard" ? "-" + style : ""}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
-  const videoFile = path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}.wav`);
+  const videoFile = path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.wav`);
 
   // sound first: it is quick, and a broken storyboard fails before minutes of rendering
   let audio = null;

@@ -15,7 +15,7 @@ export function taperedTube(curve, r0, r1, segs = 32, radial = 24, radiusAt = nu
   }
   for (let i = 0; i < segs; i++) for (let j = 0; j < radial; j++) {
     const a = i * (radial + 1) + j, b = a + radial + 1;
-    idx.push(a, b, a + 1, b, b + 1, a + 1);
+    idx.push(a, a + 1, b, b, a + 1, b + 1); // counter-clockwise seen from outside, so normals point outward
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));

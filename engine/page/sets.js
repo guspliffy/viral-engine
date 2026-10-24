@@ -27,15 +27,15 @@ function groundTexture(inner, outer) {
 }
 
 // "meadow": a soft grassy stage under a warm sky, rolling hills and a few clouds.
-export function buildSet(scene, spec = {}) {
-  const S = { sky: ["#7fc8ff", "#ffe9bf"], ground: ["#8fd16a", "#4f9a45"], seed: 3, ...spec };
+export function buildSet(scene, spec = {}, palette = null) {
+  const S = { sky: ["#7fc8ff", "#ffe9bf"], ground: ["#8fd16a", "#4f9a45"], seed: 3, ...spec, ...(palette || {}) };
   const rnd = rng(S.seed * 131);
   scene.background = new THREE.Color(S.sky[1]);
   scene.fog = new THREE.Fog(S.sky[1], 22, 70);
   scene.add(skyDome(S.sky[0], S.sky[1], S.ground[1]));
 
   const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ map: groundTexture(S.ground[0], S.ground[1]) }));
-  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; ground.material.userData.noOutline = true; scene.add(ground);
 
   const hillM = [new THREE.MeshLambertMaterial({ color: "#6fbf5a" }), new THREE.MeshLambertMaterial({ color: "#5aa84f" })];
   for (let i = 0; i < 7; i++) {
@@ -50,9 +50,10 @@ export function buildSet(scene, spec = {}) {
     cg.position.set(-24 + i * 9 + rnd() * 5, 7 + rnd() * 6, -40 - rnd() * 10); cg.scale.setScalar(1.2 + rnd()); scene.add(cg);
   }
   // grass tufts and flowers, kept out of the middle of the stage
-  const tuftM = new THREE.MeshLambertMaterial({ color: "#4f9a3f" });
+  const tuftM = new THREE.MeshLambertMaterial({ color: "#4f9a3f" }); tuftM.userData.noOutline = true;
   const petal = ["#ffffff", "#ffd1e8", "#fff3a0"].map((c) => new THREE.MeshLambertMaterial({ color: c }));
-  const centre = new THREE.MeshLambertMaterial({ color: "#f2b33d" });
+  const centre = new THREE.MeshLambertMaterial({ color: "#f2b33d" }); centre.userData.noOutline = true;
+  for (const m of petal) m.userData.noOutline = true;
   for (let i = 0; i < 70; i++) {
     const a = rnd() * Math.PI * 2, r = 2.6 + rnd() * 9;
     const x = Math.cos(a) * r, z = Math.sin(a) * r * 0.8 - 1.5;

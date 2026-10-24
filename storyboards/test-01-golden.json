@@ -270,7 +270,16 @@
       "at": 3.62,
       "do": "swap",
       "form": "fries",
-      "dur": 0.45
+      "dur": 0.45,
+      "only": "standard"
+    },
+    {
+      "who": "gun",
+      "at": 3.72,
+      "do": "swap",
+      "form": "fries",
+      "dur": 0.45,
+      "only": "anime"
     },
     {
       "who": "gun",
@@ -485,7 +494,8 @@
     {
       "do": "flash",
       "at": 3.6,
-      "dur": 0.4
+      "dur": 0.4,
+      "only": "standard"
     },
     {
       "do": "shake",
@@ -499,6 +509,40 @@
       "who": "gun",
       "dur": 1.5,
       "spark": "#ffe27a"
+    },
+    {
+      "do": "speedlines",
+      "at": 2.55,
+      "dur": 1.05,
+      "center": [
+        530,
+        480
+      ],
+      "only": "anime"
+    },
+    {
+      "do": "impact",
+      "at": 3.6,
+      "dur": 0.1,
+      "only": "anime"
+    },
+    {
+      "do": "flash",
+      "at": 3.7,
+      "dur": 0.35,
+      "peak": 0.85,
+      "only": "anime"
+    },
+    {
+      "do": "speedlines",
+      "at": 5.15,
+      "dur": 0.45,
+      "center": [
+        440,
+        1200
+      ],
+      "inner": 330,
+      "only": "anime"
     }
   ],
   "captions": [

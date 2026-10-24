@@ -5,9 +5,10 @@ import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { rng, clamp } from "./util.js";
+import { makeStyle, STYLE_PALETTES } from "./styles.js";
 
 const W = 1080, H = 1920;
-let R, scene, camera, sb, actors = [], poofs = [];
+let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat;
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
 function buildPoof(f, i) {
@@ -80,8 +81,27 @@ function drawCaption(c) {
   });
   ctx.restore();
 }
+// manga focus lines converging on a point; the pattern changes 15 times a second so they flicker like drawn frames
+function speedLines(f, t, i) {
+  const d = f.dur ?? 0.6, k = (t - f.at) / d;
+  if (k < 0 || k > 1) return;
+  const r = rng(9001 + i * 131 + Math.floor(t * 15) * 7), [cx, cy] = f.center || [540, 860], n = f.count ?? 120;
+  ctx.save(); ctx.globalAlpha = Math.min(1, k * 8, (1 - k) * 8) * (f.alpha ?? 0.85); ctx.fillStyle = f.color || "#1a1210";
+  for (let j = 0; j < n; j++) {
+    const a = ((j + r() * 0.9) / n) * Math.PI * 2, inner = (f.inner ?? 420) + r() * 320, w = 0.003 + r() * 0.011, outer = 2000;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a - w) * outer, cy + Math.sin(a - w) * outer);
+    ctx.lineTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner);
+    ctx.lineTo(cx + Math.cos(a + w) * outer, cy + Math.sin(a + w) * outer);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
+const fxActive = (f, t) => t >= f.at && t <= f.at + (f.dur ?? 0.1);
+
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c);
@@ -95,7 +115,8 @@ async function init(data) {
   R = new THREE.WebGLRenderer({ canvas, antialias: opts.aa !== false, preserveDrawingBuffer: true, powerPreference: "high-performance" });
   // draft renders draw the 3D frame at half resolution (4x fewer pixels); captions stay sharp
   R.setPixelRatio(opts.draft ? 0.5 : 1); R.setSize(W, H, false);
-  R.toneMapping = THREE.NeutralToneMapping; R.toneMappingExposure = sb.exposure ?? 1.0;
+  const style = opts.style || "standard", pal = { ...(STYLE_PALETTES[style] || {}), ...((sb.set && sb.set[style]) || {}) };
+  R.toneMapping = THREE.NeutralToneMapping; R.toneMappingExposure = sb.exposure ?? pal.exposure ?? 1.0;
   R.outputColorSpace = THREE.SRGBColorSpace;
   R.shadowMap.enabled = true; R.shadowMap.type = opts.shadow === "pcf" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
   scene = new THREE.Scene();
@@ -104,7 +125,11 @@ async function init(data) {
   const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
   buildLights(scene, sb.set);
-  buildSet(scene, sb.set);
+  const before = scene.children.length;
+  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null);
+  setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
+  inkMat = new THREE.MeshBasicMaterial({ color: "#000000" });
+  styler = makeStyle(style, R);
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
@@ -130,7 +155,19 @@ function frame(t) {
   }
   const cam = cameraState(sb, t);
   camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));
-  R.render(scene, camera);
+  // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
+  if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
+    const bg = scene.background, fog = scene.fog;
+    for (const o of setObjs) o.visible = false;
+    for (const p of poofs) p.g.visible = false;
+    scene.background = new THREE.Color("#ffffff"); scene.fog = null; scene.overrideMaterial = inkMat;
+    R.render(scene, camera);
+    scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
+    for (const o of setObjs) o.visible = true;
+  } else {
+    styler.prepare(scene);
+    styler.render(scene, camera);
+  }
   composite(t);
   return true;
 }
