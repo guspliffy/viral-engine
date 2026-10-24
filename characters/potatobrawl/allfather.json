@@ -19,7 +19,8 @@
   "face": {
     "default": "stern",
     "iris": "#3a4a6a",
-    "cheeks": "#ff7a6a"
+    "cheeks": "#ff7a6a",
+    "brow": "#ecebe6"
   },
   "sprout": {
     "color": "#6cbf3a",

@@ -20,7 +20,7 @@ export function phoenixCostume(C, ch) {
   const accent = C.accent || "#ff6a2b", tip = C.tip || "#ffd23f";
   const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, emissive: new THREE.Color(accent).multiplyScalar(0.25) });
   // the crest: a fan of flame feathers on top, swept back
-  const crest = new THREE.Group();
+  const crest = new THREE.Group(); crest.scale.setScalar(C.crest ?? 0.6);   // smaller than the game's crest: the portraits show only the sprout
   const N = 7;
   for (let i = 0; i < N; i++) {
     const k = i / (N - 1) - 0.5, len = 0.36 + 0.18 * Math.cos(k * Math.PI) + (i % 2) * 0.05;
@@ -31,7 +31,7 @@ export function phoenixCostume(C, ch) {
   }
   // the wings: two fans of long flame feathers on the back, folded down at rest, spread up and out by st.wings
   const wings = [-1, 1].map((s) => {
-    const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.55, ch.cy + ch.ry * 0.15, -ch.rz * 0.75); ch.bodyGroup.add(pivot);
+    const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.72, ch.cy + ch.ry * 0.12, -ch.rz * 0.55); ch.bodyGroup.add(pivot);
     const fan = new THREE.Group(); pivot.add(fan);
     for (let i = 0; i < 5; i++) {
       const len = 0.42 - i * 0.05, m = new THREE.Mesh(feather(len, 0.055, accent, tip, 0.15), mat); m.castShadow = true;
@@ -50,8 +50,9 @@ export function phoenixCostume(C, ch) {
       mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
       halo.visible = c > 0.01; halo.scale.setScalar((0.5 + 2.1 * c) * fk); halo.material.opacity = Math.min(0.95, c * 1.2);
       // the beat's phase is integrated over time in timeline.js (t × speed would jump when the speed changes)
-      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(st.flapPhase ?? t * 7) * (0.08 * (0.4 + w) + 0.45 * fl);
-      for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 1.3 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(0.85 + 0.4 * w + 0.4 * fl); }
+      const rest = C.restWings ?? 0.85, w = rest + (1 - rest) * (st.wings || 0), fl = st.flap || 0,   // the portraits show the wings half open at rest
+       flap = Math.sin(st.flapPhase ?? t * 7) * (0.08 * (0.4 + w) + 0.45 * fl);
+      for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 2.0 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(1.0 + 0.4 * w + 0.4 * fl); }
       crest.rotation.x = 0.05 * Math.sin(t * 3.1);
     },
   };
