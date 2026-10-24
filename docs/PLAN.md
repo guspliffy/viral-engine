@@ -38,7 +38,7 @@ Fable is the creative director (`CLAUDE.md`, `qa/REVIEW.md`). The algorithm rese
 (`/mnt/project-files/research/TikTok algorithm for animated shorts.md`, "Engine changes" #1–13) is folded in below.
 
 1. **One engine.** PR #1 contains the dance and props work, PR #2 and the batch-2 storyboards. *Waiting for Jonny's merge.*
-2. **QA v2: algorithm rules in code** (research #1, 2, 3, 5, 6, 7, 4, 13). `qa/check.mjs` gains: hook (frame 0 not
+2. **QA v2: the research's rules in code** (research #1, 2, 3, 5, 6, 7, 4, 13; since 24 Oct the creative ones are notes, see below). `qa/check.mjs` gains: hook (frame 0 not
    blank or static, motion in the first 0.3 s), loop seam (last frame vs first, audio seam), event cadence (fail
    gaps > 2 s), duration gate (12–20 s default; 20–25 s only with an escalation beat; < 8 s fails), caption reading
    speed, stricter safe zone for faces and text (x 120–960, y 240–1260, clear of the right button column), and a
@@ -57,7 +57,17 @@ Fable is the creative director (`CLAUDE.md`, `qa/REVIEW.md`). The algorithm rese
    and a beat at 120+ BPM with a new seed per clip, ducked under voices (research #9).
 8. **Anti-template check** (research #10). Fingerprint beat structure, cast, set and punchline. Warn when a clip
    is too close to recent ones.
-9. **Faster renders.** Chunked parallel rendering and cached static backgrounds. The render host is still open.
+9. **Faster renders.** Measured 24 Oct: one render already uses every core, so chunked parallel rendering on one
+   machine gains only ~10 %. The real lever is a graphics card (`--gl gpu`); benchmark one before choosing a host.
+
+**Outside review (24 Oct, sent by Jonny).** Its main correction: the research's numbers (12–20 s, motion in 0.3 s,
+an event every 2 s, the loop seam) are hypotheses, not published platform rules. Done the same day: `qa/check.mjs`
+reports technical, publishing (per profile) and creative results, and creative ones are notes that never fail;
+experiment records and a results summary (`experiments/`, `qa/results.mjs`); music seeded per experiment, voices
+seeded per line, a `voice+` timing anchor; Windows-safe command lines; `--gl gpu`. Still open from the review:
+story-beat metadata (goal, obstacle, attempt, reversal, reaction), direction tools for reveals and reactions, a
+small character bible for two or three contrasting characters (Jonny's call), and a private comprehension test
+before an organic pilot that tests one creative question at a time.
 
 Rule from the research (#12): never mention or show the game in the first 3 s, and never use an outro card that
 breaks the loop. The game can be the setting or the punchline.

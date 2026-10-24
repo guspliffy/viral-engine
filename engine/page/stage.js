@@ -193,7 +193,8 @@ async function init(data) {
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
-  return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: R.getContext().getParameter(R.getContext().VERSION) };
+  const gl = R.getContext(), dbg = gl.getExtension("WEBGL_debug_renderer_info");
+  return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: gl.getParameter(gl.VERSION), renderer: gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) };
 }
 
 // places characters, effects and camera for time t without drawing anything

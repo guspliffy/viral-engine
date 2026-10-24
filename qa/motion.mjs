@@ -9,7 +9,7 @@
 // whole turns.
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { compile } from "../engine/compile.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -62,7 +62,7 @@ export async function motionJumps(sb, fps = 30) {
   return out.sort((a, b) => a.t - b.t);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const sb = compile(JSON.parse(fs.readFileSync(process.argv[2], "utf8")));
   if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: 120 };
   const j = await motionJumps(sb, sb.fps ?? 30);

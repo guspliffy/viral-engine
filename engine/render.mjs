@@ -12,9 +12,13 @@
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
 //   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs (seconds)
+//   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //
 // Each frame is drawn by a headless Chromium at a fixed time t = frame / fps, so renders are deterministic
 // and independent of machine speed. Set CHROME_PATH to use a specific Chromium build.
+// --gl soft (default) draws with SwiftShader on the CPU: slow, but the same pixels on every machine. --gl gpu uses
+// the graphics card (often far faster; pixels can differ slightly between GPUs and drivers). The log line "stage
+// ready" names the renderer actually used; extra Chrome flags for the GPU path can go in GL_ARGS.
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -24,7 +28,7 @@ import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { compile } from "./compile.mjs";
-import { renderBeat, musicFlavour } from "../puppet/beat.mjs";
+import { renderBeat, musicFlavour, seedOf } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -44,9 +48,11 @@ function args() {
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
     else if (a[i] === "--from") o.from = Number(a[++i]);
     else if (a[i] === "--to") o.to = Number(a[++i]);
+    else if (a[i] === "--gl") o.gl = a[++i];
     else o.file = a[i];
   }
-  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--out dir]"); process.exit(2); }
+  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
+  if (o.gl && !["soft", "gpu"].includes(o.gl)) { console.error(`--gl ${o.gl}: use soft (CPU, the default) or gpu`); process.exit(2); }
   return o;
 }
 
@@ -61,16 +67,26 @@ function serve() {
   return new Promise((ok) => srv.listen(0, "127.0.0.1", () => ok(srv)));
 }
 
+// a Playwright-installed Chromium on Linux, Windows or macOS (npx playwright install chromium), else Playwright's default
 function findChrome() {
   if (process.env.CHROME_PATH) return process.env.CHROME_PATH;
-  for (const base of ["/opt/pw-browsers", path.join(process.env.HOME || "", ".cache/ms-playwright")]) {
-    if (!fs.existsSync(base)) continue;
-    for (const d of fs.readdirSync(base).filter((x) => x.startsWith("chromium-")).sort().reverse()) {
-      const exe = path.join(base, d, "chrome-linux64", "chrome");
-      if (fs.existsSync(exe)) return exe;
-    }
+  const home = process.env.HOME || process.env.USERPROFILE || "";
+  const bases = ["/opt/pw-browsers", path.join(home, ".cache/ms-playwright"), path.join(home, "Library/Caches/ms-playwright"), path.join(process.env.LOCALAPPDATA || "", "ms-playwright")];
+  const exes = [["chrome-linux64", "chrome"], ["chrome-linux", "chrome"], ["chrome-win64", "chrome.exe"], ["chrome-win", "chrome.exe"], ["chrome-mac", "Chromium.app/Contents/MacOS/Chromium"], ["chrome-mac-arm64", "Chromium.app/Contents/MacOS/Chromium"]];
+  for (const base of bases) {
+    if (!base || !fs.existsSync(base)) continue;
+    for (const d of fs.readdirSync(base).filter((x) => x.startsWith("chromium-")).sort().reverse())
+      for (const [dir, exe] of exes) { const f = path.join(base, d, dir, exe); if (fs.existsSync(f)) return f; }
   }
   return undefined; // let playwright decide
+}
+
+// Chrome flags for drawing: SwiftShader on the CPU (the same pixels everywhere), or the machine's graphics card
+function glArgs(mode) {
+  if (mode !== "gpu") return ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"];
+  const angle = process.platform === "win32" ? ["--use-angle=d3d11"] : process.platform === "darwin" ? ["--use-angle=metal"] : [];
+  const extra = (process.env.GL_ARGS || "").split(/\s+/).filter(Boolean);
+  return ["--enable-gpu", "--ignore-gpu-blocklist", ...angle, ...extra, "--enable-unsafe-swiftshader"]; // last: software fallback, reported below
 }
 
 function loadCharacters(sb) {
@@ -125,7 +141,7 @@ async function main() {
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
   const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
   // pin the seeded tempo so dance moves on the page follow the same beat as the music
-  if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, sb.id).bpm };
+  if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
@@ -142,7 +158,7 @@ async function main() {
     // "music": false turns it off, a music block pins tempo, style, key and parts
     const music = sb.music === false ? null : { gain: 0.45, ...(sb.music || {}) };
     if (music) {
-      const M = renderBeat(music, dur, sb.id), g = music.gain ?? 0.5; let pk = 0;
+      const M = renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
       console.log(`music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
       for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
       if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
@@ -159,7 +175,7 @@ async function main() {
   }
 
   const srv = await serve();
-  const browser = await chromium.launch({ executablePath: findChrome(), args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"] });
+  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl) });
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     const errors = [];
@@ -173,6 +189,8 @@ async function main() {
     const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style } });
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
+    const soft = /swiftshader|llvmpipe|software/i.test(info.renderer || "");
+    if (o.gl === "gpu" && soft) console.log(`warning: --gl gpu asked for the graphics card, but Chrome is drawing in software (${info.renderer}); try GL_ARGS, e.g. "--use-angle=vulkan" or "--use-angle=gl"`);
     // per frame: posing (JS), drawing (the software GPU), encoding (JPEG in the page plus the copy to Node)
     const timing = { pose: 0, draw: 0, grab: 0, n: 0 };
     const shot = async (t, fmt = "png") => {
