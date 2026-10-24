@@ -200,6 +200,14 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 18) % 1; x[i] = (Math.sin(TAU * 1250 * t) * 0.5 + Math.sin(TAU * 1250 * 2.4 * t) * 0.2 + Math.sin(TAU * 1250 * 3.9 * t) * 0.08) * Math.exp(-hit * 2.5) * Math.min(1, (d - t) / 0.05); }
     return x;
   },
+  splash(r) { // a wheel through a puddle: a band-passed noise burst and two falling bloops
+    const d = 0.5, x = buf(d), bp = biquad("bp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f1 = 900 - 900 * t, f2 = 650 - 500 * t;
+      x[i] = run(bp, r() * 2 - 1) * 0.55 * env(t, 0.004, 0.09, d) + (Math.sin(TAU * f1 * t) * env(t - 0.03, 0.005, 0.04, d) + Math.sin(TAU * f2 * t) * env(t - 0.11, 0.005, 0.04, d)) * 0.3;
+    }
+    return x;
+  },
   hiss(r, d = 0.3) { // bus doors: air brakes' hiss
     const x = buf(d), hp = biquad("hp", 2500, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
@@ -242,7 +250,7 @@ function reverb(x, wet, stereoOffset) {
 // The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
 // random pitch shift, and some get a second layer picked from a few variants.
 const hashStr = (str) => { let h = 2166136261; for (const ch of String(str)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
-const SEMIS = { hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
+const SEMIS = { splash: 3, hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
 function repitch(x, k) { // resample by factor k (k > 1 = higher and shorter)
   if (Math.abs(k - 1) < 1e-3) return x;
   const y = new Float32Array(Math.max(1, Math.floor(x.length / k)));

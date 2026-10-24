@@ -1035,6 +1035,87 @@ const KINDS = {
     };
   },
 
+  // a bicycle, its front towards +z: wheels (radius 0.2) at z -0.36 and 0.36, the saddle at y 0.62, the handlebar at
+  // y 0.76. Ride it at off [0, 0.5, -0.16] (sit). spec.color paints the frame; spec.training adds training wheels;
+  // spec.uni builds only the back wheel, the seat post and the saddle (a unicycle). Params: spin (wheel turns: tween it
+  // with the travel, distance / 1.257 per turn), wheelie 0..1 (front up, about the back wheel), broken 0..1 (the frame
+  // and the front wheel fall away, the back wheel stays)
+  bike(P) {
+    const R = 0.2, frameM = mat(P.spec.color || "#2f8fe0", { roughness: 0.35, metalness: 0.3 }), rubber = mat("#24242a", { roughness: 0.8 });
+    const steel = mat("#c9ced6", { roughness: 0.3, metalness: 0.7 }), black = mat("#1e1e22", { roughness: 0.6 });
+    const tube = (a, b, r, m, parent) => {
+      const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), len = A.distanceTo(B);
+      const o = mesh(new THREE.CylinderGeometry(r, r, len, 8), m, parent); o.position.copy(A).add(B).multiplyScalar(0.5);
+      o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), B.clone().sub(A).normalize()); return o;
+    };
+    const wheel = (parent, z, r = R) => {
+      const g = new THREE.Group(); g.position.set(0, r, z); parent.add(g);
+      const tyre = mesh(new THREE.TorusGeometry(r, r * 0.11, 8, 28), rubber, g); tyre.rotation.y = Math.PI / 2;
+      const rim = mesh(new THREE.TorusGeometry(r * 0.86, r * 0.03, 6, 24), steel, g); rim.rotation.y = Math.PI / 2;
+      for (let i = 0; i < 4; i++) { const sp = mesh(new THREE.CylinderGeometry(0.004, 0.004, r * 1.72, 4), steel, g); sp.rotation.x = (i * Math.PI) / 4; }
+      const hub = mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.06, 10), steel, g); hub.rotation.z = Math.PI / 2;
+      return g;
+    };
+    const pivot = new THREE.Group(); pivot.position.z = -0.36; P.whole.add(pivot);   // the back wheel's contact point
+    const bike = new THREE.Group(); bike.position.z = 0.36; pivot.add(bike);
+    const back = wheel(bike, -0.36);
+    const rest = new THREE.Group(); bike.add(rest);   // everything but the back wheel (it falls away when broken)
+    const BB = [0, 0.24, -0.02], SEAT = [0, 0.58, -0.15], HEAD = [0, 0.62, 0.27], HEADB = [0, 0.48, 0.3];
+    let front = null, crank = null;
+    if (P.spec.uni) {
+      tube([0, R, -0.36], [0, 0.58, -0.36], 0.018, frameM, bike);
+      mesh(new THREE.BoxGeometry(0.09, 0.035, 0.17), black, bike, 0, 0.6, -0.36);
+    } else {
+      for (const [a, b] of [[BB, SEAT], [SEAT, HEAD], [BB, HEADB], [BB, [0, R, -0.36]], [SEAT, [0, R, -0.36]]]) tube(a, b, 0.017, frameM, rest);
+      front = wheel(rest, 0.36);
+      tube(HEAD, [0, R, 0.36], 0.014, frameM, rest); tube(HEAD, [0, 0.76, 0.24], 0.014, steel, rest);
+      const bar = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.44, 8), steel, rest, 0, 0.76, 0.24); bar.rotation.z = Math.PI / 2;
+      for (const x of [-0.2, 0.2]) { const gr = mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.08, 8), black, rest, x, 0.76, 0.24); gr.rotation.z = Math.PI / 2; }
+      tube(SEAT, [0, 0.62, -0.17], 0.012, steel, rest); mesh(new THREE.BoxGeometry(0.09, 0.035, 0.17), black, rest, 0, 0.635, -0.18);
+      crank = new THREE.Group(); crank.position.set(...BB); rest.add(crank);
+      for (const s of [-1, 1]) { const arm = new THREE.Group(); arm.position.x = s * 0.06; arm.rotation.x = s > 0 ? 0 : Math.PI; crank.add(arm); mesh(new THREE.BoxGeometry(0.015, 0.12, 0.025), steel, arm, 0, -0.06, 0); mesh(new THREE.BoxGeometry(0.07, 0.015, 0.04), black, arm, s * 0.03, -0.12, 0); }
+      if (P.spec.training) for (const s of [-1, 1]) { tube([0, R, -0.36], [s * 0.2, 0.08, -0.4], 0.008, steel, rest); const tw = wheel(rest, -0.4, 0.07); tw.position.x = s * 0.2; }
+    }
+    return {
+      grip: 0.76,
+      apply(ps) {
+        const sp = (ps.spin ?? 0) * Math.PI * 2, wh = clamp(ps.wheelie ?? 0), br = clamp(ps.broken ?? 0);
+        back.rotation.x = sp; if (front) front.rotation.x = sp; if (crank) crank.rotation.x = sp * 0.55;
+        pivot.rotation.x = -0.5 * wh;
+        rest.position.set(0.25 * br, -0.12 * br, -0.35 * br); rest.rotation.set(0.5 * br, 0, 1.35 * br);
+        if (front) front.position.z = 0.36 + 0.5 * br;
+      },
+    };
+  },
+  // a puddle on the ground, about 1.1 x 0.7 m (long along z: put it at rot 90 for a path along x). Params: level 0..1
+  // (1 full; it shrinks away), splash 0..1 (droplets burst out and fall back: tween 0 -> 1, then set 0), split parts it
+  // into two halves along its long side (the Samurai's cut)
+  puddle(P) {
+    const water = mat("#62aee0", { roughness: 0.08, metalness: 0.1, emissive: new THREE.Color("#1d4a6a") }), edge = mat("#4f8fbd", { roughness: 0.3 });
+    const discs = [];
+    for (const [s, h] of P.halves) {
+      const d = new THREE.Group(); h.add(d); d.scale.set(0.35, 1, 0.55);
+      const a0 = s > 0 ? -Math.PI / 2 : Math.PI / 2;
+      const rim = mesh(new THREE.CircleGeometry(1.06, 32, a0, Math.PI), edge, d, 0, 0.008, 0); rim.rotation.x = -Math.PI / 2;
+      const top = mesh(new THREE.CircleGeometry(1, 32, a0, Math.PI), water, d, 0, 0.012, 0); top.rotation.x = -Math.PI / 2;
+      const hi = mesh(new THREE.CircleGeometry(0.25, 16), mat("#d8f0ff", { roughness: 0.1, emissive: new THREE.Color("#6a8fa6") }), d, s * 0.35, 0.014, 0.2); hi.rotation.x = -Math.PI / 2; hi.scale.set(0.5, 1, 1);
+      for (const m of [rim, top, hi]) { m.castShadow = false; m.material.userData.noOutline = true; }
+      discs.push(d);
+    }
+    const drops = Array.from({ length: 16 }, (_, i) => { const o = mesh(new THREE.SphereGeometry(0.02 + 0.01 * (i % 3), 8, 6), water, P.whole); o.castShadow = false; return o; });
+    return {
+      grip: 0, splitApart: 0.3,
+      apply(ps) {
+        const lv = clamp(ps.level ?? 1), sp = clamp(ps.splash ?? 0);
+        for (const d of discs) { d.visible = lv > 0.02; d.scale.set(0.35 * lv, 1, 0.55 * lv); }
+        drops.forEach((o, i) => {
+          const a = (i / drops.length) * Math.PI * 2 + 0.3 * (i % 2), r = (0.15 + 0.5 * sp) * (0.7 + 0.3 * ((i * 7) % 5) / 4);
+          o.visible = sp > 0.01 && sp < 0.99; o.position.set(Math.cos(a) * r * 0.7, 0.02 + (0.35 + 0.15 * (i % 3)) * 4 * sp * (1 - sp), Math.sin(a) * r);
+        });
+      },
+    };
+  },
+
 };
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
@@ -1069,7 +1150,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, spin: 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

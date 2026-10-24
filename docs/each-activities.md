@@ -264,3 +264,37 @@ lets go further out and each shot hops it, though the bay mouth limits the trave
 "Do you?" were at the frame edge (applied: centre, the "?" held 0.9 s); the hook was the smallest text (applied, see
 above); the Reaper's trolley looked put back (applied: it's left in the way, nearer the camera); the Phoenix's trolley
 vanished on screen (applied: it bumps the parked car and stays until the reset; a second parked car added).
+
+## 9. Bike: "one puddle, how each fighter rides past it" (park)
+
+`storyboards/make-bike.mjs` → `bike-01-puddle.json`, 20.27 s (escalation clip). One take from the grass beside a park
+bike path, one puddle in the middle of it. Each fighter rides in from the right on their own bike (in their colour)
+and leaves at the left.
+
+Habits (types of cyclist everyone knows, e.g. GCN's and Cycling Weekly's "types of cyclists" lists): the safe one who
+signals everything, the one who doesn't care, the e-bike rider who never pedals, the show-off wheelie, "look, no
+hands", the one who won't get wet, the clip-in pedals topple at a stop, the full-send mountain biker.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | signals every turn | arm out, steers neatly round it |
+| Reaper | straight through | slowly into the middle, stops, looks at us, rides on |
+| Sorcerer | doesn't pedal | the e-bike: wheels still, it floats him over |
+| Wizard | the spell goes wrong | *a spell to jump it: his bike becomes a pink kid's bike with training wheels* |
+| Dragon | pulls a wheelie | wheelie, fire boost, jumps the puddle |
+| Phoenix | no hands | arms up, wobbling, falls into the puddle |
+| Gunslinger | shoots it dry | *three shots and the puddle is gone, rides over* |
+| Allfather | forgot to unclip | stops to look, slowly topples over into it |
+| Samurai | parts the puddle | *one cut, the water parts, rides through dry* |
+| Viking | full send | *flat out through it: the puddle's gone, so is the bike, he rides on one wheel* |
+
+Loop: a poof refills the puddle, the Astronaut rides in signalling again (frame 0).
+New engine parts: `park` set, `bike` (spin, wheelie, broken, spec.training, spec.uni) and `puddle` (level, splash,
+split) props, a `splash` sound.
+Fable's notes: the puddle was small and low (applied: bigger puddle, lower and closer camera, tuned so heads clear the
+captions); the Astronaut's habit was up for 0.3 s and his signal was too short (applied: habit from 0.3 s, signal held
+to 0.65 s; `firstHabitAt` in `finish`); the Phoenix stepped off instead of falling (applied: falls with his arms still
+up, then sits in it); the Sorcerer's wheels turned while "not pedalling" (applied: frozen wheels, higher float, a look at
+us); the Reaper and Wizard ran long while the Allfather's "slow" topple was fast (applied: 0.3 s and 0.35 s cut, the
+topple now takes 0.8 s); the Allfather was still on screen during the Samurai's cut (applied: he leaves first, sparkle
+on the parted puddle).
