@@ -1,0 +1,67 @@
+# Plan
+
+What we are building, what is decided, and what is open. Update this file when a decision changes.
+
+## Goal
+
+A tool that turns characters into short vertical videos built on formats that are currently spreading, with as little
+manual work as possible. First for our own channels (PotatoBrawl and later games), then possibly offered to others.
+
+## Decisions (Jonny, 2026-10-24)
+
+- Build the tool ourselves; Jonny gives access where needed.
+- Server: Jonny's Hostinger **VPS**. It also runs the trading bot, so heavy rendering there needs a decision first (below).
+- Budget: **0 until the concept works**. Then up to roughly 100–200 USD a month, and it has to pay for itself.
+- 3D, not 2D: the characters are rendered in Three.js.
+- Test cast: **PotatoBrawl fighters**. Then compare different characters, and design new ones from what the data says performs.
+- Repo: `guspliffy/viral-engine`.
+- Captions in English (from the earlier game-marketing decision).
+
+## Build order
+
+1. **Engine core (now).** Character + storyboard → MP4, rendered in code at no cost per video. You post by hand.
+2. **Sound.** Code-generated sound effects and character voices (gibberish first, like the game), music slot for trending sounds added in TikTok. Needed early: the strongest examples we've seen open with a spoken hook.
+3. **All eight fighters** and more sets, poses and props.
+4. **Control panel** on the VPS: characters, trend board, storyboards, render queue, approval queue, manual stats entry.
+5. **Trend scout + scripting:** scheduled scans, format templates (hook → beats → payoff → loop), storyboards written from them.
+6. **AI render path** for things code can't draw well, once there is budget. Storyboards compile to a structured prompt.
+7. **Product version** for other users: accounts, billing, TikTok posting-API audit, legal.
+
+## Character experiments
+
+Goal: find out which characters (and which traits) perform, then design new ones from that.
+
+- Same format and script, different character, posted in comparable slots. One variable at a time.
+- Track per video: character, format, hook, length, views, average watch time, completion, shares, follows.
+- Small numbers are noisy: no conclusions from one post per character. Decide the minimum per character before starting.
+- Characters are data files, so a new character is mostly a new JSON + costume pieces.
+
+## Findings that shape the design
+
+- **TikTok posting API:** apps that have not passed TikTok's audit can only post privately, for at most 5 users a day,
+  and TikTok rejects upload tools for accounts the developer's own team manages. So for our own channels we post by
+  hand (also needed for trending sounds). API posting only makes sense in the product version, where each user posts
+  to their own account through the required posting screen.
+  Source: https://developers.tiktok.com/doc/content-sharing-guidelines
+- **AI video APIs are blocked from Claude's workspace** (fal, Replicate, muapi all unreachable). Options for step 6:
+  Higgsfield's Claude connector (custom connector `https://mcp.higgsfield.ai/mcp`, paid plan, credits per generation;
+  includes Seedance, Kling 3.0 Motion Control, reference characters, voiceover), or calls from the VPS.
+  Not verified: whether Higgsfield outputs can be pulled back into the workspace for compositing.
+- **Claude Motion** (Anthropic, October 2026): code-written animation, MP4 export, no video model. Beta on Team and
+  Enterprise only; not available on this account. Same principle as this engine.
+- **Saveo case (budgeting app, from X):** simple recognisable animation style, spoken ominous hook in the first words,
+  a serial story people follow to see what happens next. Realism was not the driver. Numbers in the post are unverified.
+- **Prompt structure for AI video (from Alex Becker's Seedance prompt):** named reference roles (identity, location,
+  face driver, voice), dialogue verbatim with the voice recorded first and locked, no text in the picture (captions are
+  added after), an explicit consistency section. Our storyboards should be able to compile to this.
+- **Platform rules:** label AI content; no re-uploads of other creators' footage; volume without originality gets
+  throttled; running many accounts to spam posts is inauthentic behaviour.
+
+## Open questions
+
+- **Where renders run long-term.** Options: (a) Claude's workspace (now; ~2 cores, slow), (b) the VPS with a CPU cap and
+  a low priority so the trading bot is never starved, (c) a separate small server for rendering. Jonny's call.
+- **GitHub push access:** the Claude GitHub App needs access to this repo before changes can be pushed from Claude's side.
+- **Character bible:** relationships, running gags, tone limits per fighter. Drafted in the earlier game-marketing chat;
+  needs to be brought in and signed off.
+- **Voice:** gibberish synthesis in code vs. a TTS service (cost, and whether it is reachable from where we render).

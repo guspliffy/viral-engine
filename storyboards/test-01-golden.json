@@ -1,0 +1,520 @@
+{
+  "id": "test-01-golden",
+  "title": "Asked the wizard to make me golden",
+  "status": "pipeline test, not a trend rebuild",
+  "format": "setup -> wish -> literal-genie payoff -> deadpan look to camera; ends on the opening wide shot so it loops",
+  "fps": 30,
+  "duration": 9.0,
+  "cover": 5.3,
+  "set": {
+    "type": "meadow",
+    "sky": [
+      "#7fc8ff",
+      "#ffe6b8"
+    ],
+    "ground": [
+      "#94d46e",
+      "#4f9a45"
+    ],
+    "seed": 3
+  },
+  "cast": [
+    {
+      "id": "gun",
+      "character": "potatobrawl/gunslinger",
+      "at": [
+        -0.58,
+        0
+      ],
+      "face": "3q-right",
+      "expr": "eager",
+      "arms": {
+        "R": "hips",
+        "L": "rest"
+      },
+      "seed": 2.2
+    },
+    {
+      "id": "wiz",
+      "character": "potatobrawl/wizard",
+      "at": [
+        0.58,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "kind",
+      "arms": {
+        "R": "rest",
+        "L": "hold"
+      },
+      "seed": 5.7
+    }
+  ],
+  "shots": [
+    {
+      "at": 0.0,
+      "pos": [
+        0,
+        1.3,
+        7.4
+      ],
+      "look": [
+        0,
+        0.98,
+        0
+      ],
+      "fov": 34,
+      "to": {
+        "pos": [
+          0,
+          1.25,
+          6.8
+        ]
+      },
+      "dur": 1.8,
+      "ease": "out"
+    },
+    {
+      "at": 1.8,
+      "pos": [
+        0.05,
+        1.45,
+        3.9
+      ],
+      "look": [
+        0.62,
+        1.18,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.15,
+          1.42,
+          3.4
+        ]
+      },
+      "dur": 1.8,
+      "ease": "inOut"
+    },
+    {
+      "at": 3.6,
+      "pos": [
+        -0.4,
+        1.15,
+        4.6
+      ],
+      "look": [
+        -0.58,
+        0.72,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.48,
+          1.05,
+          3.9
+        ],
+        "look": [
+          -0.58,
+          0.7,
+          0
+        ]
+      },
+      "dur": 2.0,
+      "ease": "out"
+    },
+    {
+      "at": 5.6,
+      "pos": [
+        0.58,
+        1.2,
+        3.6
+      ],
+      "look": [
+        0.58,
+        1.0,
+        0
+      ],
+      "fov": 32
+    },
+    {
+      "at": 7.4,
+      "pos": [
+        0,
+        1.3,
+        7.4
+      ],
+      "look": [
+        0,
+        0.98,
+        0
+      ],
+      "fov": 34
+    }
+  ],
+  "actions": [
+    {
+      "who": "gun",
+      "at": 0.2,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.25
+    },
+    {
+      "who": "gun",
+      "at": 0.25,
+      "do": "hop",
+      "count": 2,
+      "height": 0.16,
+      "dur": 0.75
+    },
+    {
+      "who": "gun",
+      "at": 0.3,
+      "do": "talk",
+      "dur": 1.2,
+      "rate": 3.6
+    },
+    {
+      "who": "gun",
+      "at": 1.5,
+      "do": "arm",
+      "side": "L",
+      "pose": "rest",
+      "dur": 0.3
+    },
+    {
+      "who": "wiz",
+      "at": 0.2,
+      "do": "look",
+      "to": [
+        -0.7,
+        0.05
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "wiz",
+      "at": 1.15,
+      "do": "squash",
+      "amount": 0.06,
+      "dur": 0.25
+    },
+    {
+      "who": "wiz",
+      "at": 1.45,
+      "do": "squash",
+      "amount": 0.06,
+      "dur": 0.25
+    },
+    {
+      "who": "wiz",
+      "at": 1.85,
+      "do": "expr",
+      "expr": "focused"
+    },
+    {
+      "who": "wiz",
+      "at": 1.9,
+      "do": "look",
+      "to": [
+        -0.3,
+        0.1
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "wiz",
+      "at": 2.0,
+      "do": "arm",
+      "side": "L",
+      "pose": "cast",
+      "dur": 0.45,
+      "ease": "out"
+    },
+    {
+      "who": "wiz",
+      "at": 2.05,
+      "do": "arm",
+      "side": "R",
+      "pose": "fist",
+      "dur": 0.4
+    },
+    {
+      "who": "wiz",
+      "at": 2.1,
+      "do": "talk",
+      "dur": 0.9,
+      "rate": 2.4
+    },
+    {
+      "who": "wiz",
+      "at": 2.2,
+      "do": "charge",
+      "to": 1,
+      "dur": 1.35,
+      "ease": "in"
+    },
+    {
+      "who": "gun",
+      "at": 3.61,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.03
+    },
+    {
+      "who": "gun",
+      "at": 3.62,
+      "do": "swap",
+      "form": "fries",
+      "dur": 0.45
+    },
+    {
+      "who": "gun",
+      "at": 3.62,
+      "do": "hat",
+      "off": [
+        0,
+        0.55,
+        0
+      ],
+      "spin": [
+        0,
+        200,
+        12
+      ],
+      "dur": 0.22,
+      "ease": "out"
+    },
+    {
+      "who": "gun",
+      "at": 3.86,
+      "do": "hat",
+      "off": [
+        0,
+        0,
+        0
+      ],
+      "spin": [
+        0,
+        360,
+        0
+      ],
+      "dur": 0.4,
+      "ease": "back"
+    },
+    {
+      "who": "gun",
+      "at": 3.62,
+      "do": "expr",
+      "expr": "eager"
+    },
+    {
+      "who": "gun",
+      "at": 3.62,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.05
+    },
+    {
+      "who": "wiz",
+      "at": 3.62,
+      "do": "charge",
+      "to": 0,
+      "dur": 0.5,
+      "ease": "out"
+    },
+    {
+      "who": "wiz",
+      "at": 3.62,
+      "do": "arm",
+      "side": "L",
+      "pose": "hold",
+      "dur": 0.5
+    },
+    {
+      "who": "wiz",
+      "at": 3.62,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.5
+    },
+    {
+      "who": "wiz",
+      "at": 3.62,
+      "do": "expr",
+      "expr": "kind"
+    },
+    {
+      "who": "gun",
+      "at": 4.55,
+      "do": "look",
+      "to": [
+        0,
+        -0.9
+      ],
+      "dur": 0.25
+    },
+    {
+      "who": "gun",
+      "at": 4.55,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.25
+    },
+    {
+      "who": "gun",
+      "at": 5.15,
+      "do": "look",
+      "to": [
+        0,
+        0.1
+      ],
+      "dur": 0.12
+    },
+    {
+      "who": "gun",
+      "at": 5.15,
+      "do": "expr",
+      "expr": "shocked",
+      "dur": 0.1
+    },
+    {
+      "who": "wiz",
+      "at": 5.65,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.35
+    },
+    {
+      "who": "wiz",
+      "at": 5.65,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.3
+    },
+    {
+      "who": "wiz",
+      "at": 5.95,
+      "do": "expr",
+      "expr": "smug",
+      "dur": 0.2
+    },
+    {
+      "who": "wiz",
+      "at": 6.0,
+      "do": "arm",
+      "side": "R",
+      "pose": "shrug",
+      "dur": 0.3,
+      "ease": "out"
+    },
+    {
+      "who": "wiz",
+      "at": 6.0,
+      "do": "lean",
+      "to": -4,
+      "dur": 0.3
+    },
+    {
+      "who": "gun",
+      "at": 7.45,
+      "do": "expr",
+      "expr": "sad",
+      "dur": 0.3
+    },
+    {
+      "who": "gun",
+      "at": 7.5,
+      "do": "droop",
+      "to": 1,
+      "dur": 0.6,
+      "ease": "out"
+    },
+    {
+      "who": "wiz",
+      "at": 7.4,
+      "do": "turn",
+      "to": "3q-left",
+      "dur": 0.4
+    },
+    {
+      "who": "wiz",
+      "at": 7.4,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.4
+    },
+    {
+      "who": "wiz",
+      "at": 7.4,
+      "do": "lean",
+      "to": 0,
+      "dur": 0.4
+    },
+    {
+      "who": "wiz",
+      "at": 7.45,
+      "do": "look",
+      "to": [
+        -0.7,
+        -0.1
+      ],
+      "dur": 0.2
+    },
+    {
+      "who": "wiz",
+      "at": 7.45,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.2
+    }
+  ],
+  "fx": [
+    {
+      "do": "flash",
+      "at": 3.6,
+      "dur": 0.4
+    },
+    {
+      "do": "shake",
+      "at": 3.6,
+      "dur": 0.4,
+      "amp": 0.06
+    },
+    {
+      "do": "poof",
+      "at": 3.6,
+      "who": "gun",
+      "dur": 1.5,
+      "spark": "#ffe27a"
+    }
+  ],
+  "captions": [
+    {
+      "from": 0.0,
+      "to": 9.0,
+      "text": "asked the wizard to make me golden",
+      "pos": "top",
+      "pop": false
+    },
+    {
+      "from": 6.0,
+      "to": 9.0,
+      "text": "technically golden.",
+      "pos": "mid",
+      "style": "sub"
+    }
+  ]
+}

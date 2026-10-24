@@ -1,0 +1,39 @@
+{
+  "id": "potatobrawl/wizard",
+  "name": "Wizard",
+  "franchise": "PotatoBrawl",
+  "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Dusk) and game/portraits/wizard.jpg",
+  "rig": "potato",
+  "body": {
+    "color": "#f2b04e",
+    "height": 1.0,
+    "width": 0.82,
+    "depth": 0.7,
+    "lump": 0.035,
+    "seed": 4
+  },
+  "limbs": {
+    "color": "#2b2934",
+    "width": 0.032
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#5a3418",
+    "cheeks": "#ff6f6f"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "hat-brim"
+  },
+  "costume": {
+    "type": "wizard",
+    "accent": "#3b3a52",
+    "band": "#2a2940",
+    "glow": "#f2c14e",
+    "staffWood": "#7a4e2a",
+    "propHand": "L"
+  },
+  "personality": "Calm, patient, long reach. The crystal on his staff does the talking.",
+  "voice": "planned: gibberish, low and slow",
+  "notes": "Personality line is the game's own fighter description. Running gags and relationships come from the character bible once Jonny signs it off."
+}

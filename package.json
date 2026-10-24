@@ -1,0 +1,23 @@
+{
+  "name": "viral-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Character-driven short-video engine: characters + storyboards in, vertical MP4s out.",
+  "type": "module",
+  "scripts": {
+    "render": "node engine/render.mjs",
+    "test-clip": "node engine/render.mjs storyboards/test-01-golden.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guspliffy/viral-engine.git"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "playwright-core": "^1.64.1",
+    "three": "^0.186.1"
+  }
+}
