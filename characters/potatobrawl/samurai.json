@@ -1,0 +1,45 @@
+{
+  "id": "potatobrawl/samurai",
+  "name": "Samurai",
+  "franchise": "PotatoBrawl",
+  "source": "Jonny's reference portraits, 2026-10-24",
+  "rig": "potato",
+  "body": {
+    "color": "#e8b467",
+    "height": 1.0,
+    "width": 0.82,
+    "depth": 0.7,
+    "lump": 0.03,
+    "seed": 37
+  },
+  "limbs": {
+    "color": "#1f1d26",
+    "width": 0.032
+  },
+  "face": {
+    "default": "focused",
+    "iris": "#2a2a2a",
+    "cheeks": "#ff6f6f"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top"
+  },
+  "costume": {
+    "type": "samurai",
+    "blade": "#3dff8a",
+    "sash": "#2b3a5c",
+    "propHand": "R"
+  },
+  "personality": "Swordsman with a green blade. Calm, precise, takes every small task with full honour (proposal).",
+  "voice": {
+    "pitch": 140,
+    "rate": 3.0,
+    "formant": 1.0,
+    "range": 2.5,
+    "breath": 0.08,
+    "vibrato": 0.005,
+    "seed": 71
+  },
+  "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off."
+}

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
+import { castCostume, CAST_TYPES } from "./costumes-cast.js";
 
 function sprout(color) {
   const g = new THREE.Group();
@@ -165,6 +166,8 @@ export function buildCostume(def, ch) {
   if (C.type === "cowboy") hat = cowboyHat(C);
   const pb = C.type === "phoenix" ? phoenixCostume(C, ch) : C.type === "reaper" ? reaperCostume(C, ch) : null;   // costumes-pb.js
   if (pb) { hat = pb.hat; prop = pb.prop || null; }
+  const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols ? castCostume(C, ch) : null;   // costumes-cast.js
+  if (isCast) { hat = cc.hat; prop = cc.prop; }
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
@@ -176,11 +179,11 @@ export function buildCostume(def, ch) {
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
   if (C.type === "wizard") { prop = staff(C); ch.root.add(prop.group); }
-  if (pb && prop) ch.root.add(prop.group);
+  if ((pb || isCast) && prop) ch.root.add(prop.group);
   if (pb) sprt.group.scale.setScalar(0.7);
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
   const propHand = C.propHand || "R";
-  const sitDepth = pb ? pb.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
+  const sitDepth = pb ? pb.sitDepth : isCast ? cc.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
 
   return {
     tip: prop && prop.tip ? prop.tip : null,
@@ -193,6 +196,7 @@ export function buildCostume(def, ch) {
       mount.visible = st.hatOn !== false;
       sprt.droop(st.droop);
       if (pb) pb.apply(st, t);
+      if (cc) cc.apply(st, t, hands, fries);
       if (prop) {
         prop.group.visible = !fries;
         const a = st.arms[propHand];

@@ -1,0 +1,517 @@
+{
+  "id": "test-16-space",
+  "title": "Told the reaper I need some space",
+  "format": "sigh -> polite nod -> he backs away, and away -> 'is this enough?' -> one more step",
+  "shares": "the friend who said they need space",
+  "fps": 30,
+  "duration": 13.5,
+  "cover": 6.2,
+  "set": {
+    "type": "rooftop",
+    "seed": 3
+  },
+  "cast": [
+    {
+      "id": "hero",
+      "character": "potatobrawl/astronaut",
+      "at": [
+        -0.48,
+        0
+      ],
+      "face": "3q-right",
+      "expr": "sad",
+      "arms": {
+        "R": "rest",
+        "L": "rest"
+      },
+      "seed": 2.2
+    },
+    {
+      "id": "mag",
+      "character": "potatobrawl/reaper",
+      "at": [
+        0.48,
+        0
+      ],
+      "face": "3q-left",
+      "expr": "kind",
+      "arms": {
+        "R": "hold",
+        "L": "rest"
+      },
+      "seed": 5.7
+    }
+  ],
+  "shots": [
+    {
+      "at": 0,
+      "pos": [
+        -0.35,
+        1,
+        4
+      ],
+      "look": [
+        -0.45,
+        0.78,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.35,
+          1,
+          3.7
+        ]
+      },
+      "dur": 1.8,
+      "ease": "out"
+    },
+    {
+      "at": 1.9,
+      "pos": [
+        0.5,
+        1.4,
+        3.6
+      ],
+      "look": [
+        0.48,
+        1.1,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          0.55,
+          1.38,
+          3.2
+        ]
+      },
+      "dur": 1,
+      "ease": "inOut"
+    },
+    {
+      "at": 2.9,
+      "pos": [
+        -0.6,
+        1.15,
+        4.4
+      ],
+      "look": [
+        0.6,
+        0.8,
+        -0.4
+      ],
+      "fov": 38,
+      "to": {
+        "pos": [
+          -1,
+          1.2,
+          4.6
+        ],
+        "look": [
+          1.3,
+          0.8,
+          -0.8
+        ]
+      },
+      "dur": 3,
+      "ease": "inOut"
+    },
+    {
+      "at": 5.9,
+      "pos": [
+        -0.44,
+        1.05,
+        3.9
+      ],
+      "look": [
+        -0.48,
+        0.78,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.48,
+          1.02,
+          3.7
+        ]
+      },
+      "dur": 1.4,
+      "ease": "out"
+    },
+    {
+      "at": 7.3,
+      "pos": [
+        -1,
+        1.2,
+        4.6
+      ],
+      "look": [
+        1.45,
+        0.8,
+        -0.9
+      ],
+      "fov": 38
+    },
+    {
+      "at": 9,
+      "pos": [
+        -0.44,
+        1.05,
+        3.9
+      ],
+      "look": [
+        -0.48,
+        0.8,
+        0
+      ],
+      "fov": 32,
+      "to": {
+        "pos": [
+          -0.46,
+          1.04,
+          3.7
+        ]
+      },
+      "dur": 1.8,
+      "ease": "out"
+    },
+    {
+      "at": 10.8,
+      "pos": [
+        -0.2,
+        0.9,
+        4.4
+      ],
+      "look": [
+        -0.48,
+        1.6,
+        0
+      ],
+      "fov": 36,
+      "to": {
+        "pos": [
+          -0.25,
+          0.9,
+          4.1
+        ],
+        "look": [
+          -0.48,
+          3.1,
+          0
+        ]
+      },
+      "dur": 2.7,
+      "ease": "inOut"
+    }
+  ],
+  "actions": [
+    {
+      "who": "hero",
+      "at": 0.1,
+      "do": "look",
+      "to": [
+        0.3,
+        -0.5
+      ],
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 0.1,
+      "do": "lean",
+      "to": 5,
+      "dur": 0.5
+    },
+    {
+      "who": "hero",
+      "at": 0.2,
+      "do": "talk",
+      "dur": 1,
+      "tone": "sad"
+    },
+    {
+      "who": "mag",
+      "at": 0.3,
+      "do": "look",
+      "to": [
+        -0.7,
+        0
+      ],
+      "dur": 0.15
+    },
+    {
+      "who": "mag",
+      "at": 1.95,
+      "do": "expr",
+      "expr": "kind",
+      "dur": 0.2
+    },
+    {
+      "who": "mag",
+      "at": 2,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 2.4,
+      "do": "squash",
+      "amount": 0.12,
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 3,
+      "do": "move",
+      "to": [
+        2.6,
+        -1.3
+      ],
+      "dur": 2.6,
+      "ease": "inOut",
+      "steps": 2.6
+    },
+    {
+      "who": "mag",
+      "at": 5.7,
+      "do": "turn",
+      "to": -50,
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 3.4,
+      "do": "look",
+      "to": [
+        0.8,
+        0
+      ],
+      "dur": 0.6
+    },
+    {
+      "who": "hero",
+      "at": 5.9,
+      "do": "lean",
+      "to": 0,
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 5.9,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 5.9,
+      "do": "look",
+      "to": [
+        0.9,
+        0.05
+      ],
+      "dur": 0.1
+    },
+    {
+      "who": "mag",
+      "at": 6,
+      "do": "arm",
+      "side": "R",
+      "pose": "wave",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 6,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "question"
+    },
+    {
+      "who": "hero",
+      "at": 6.6,
+      "do": "turn",
+      "to": "camera",
+      "dur": 0.5
+    },
+    {
+      "who": "hero",
+      "at": 6.6,
+      "do": "look",
+      "to": [
+        0,
+        0
+      ],
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 7,
+      "do": "arm",
+      "side": "R",
+      "pose": "rest",
+      "dur": 0.3
+    },
+    {
+      "who": "mag",
+      "at": 7.6,
+      "do": "move",
+      "to": [
+        2.85,
+        -1.45
+      ],
+      "dur": 0.4,
+      "ease": "inOut"
+    },
+    {
+      "who": "mag",
+      "at": 7.6,
+      "do": "hop",
+      "count": 1,
+      "height": 0.08,
+      "dur": 0.4
+    },
+    {
+      "who": "mag",
+      "at": 8.2,
+      "do": "expr",
+      "expr": "delighted",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 9.05,
+      "do": "arm",
+      "side": "R",
+      "pose": "up",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 9.1,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 9.2,
+      "do": "talk",
+      "dur": 0.7,
+      "tone": "calm"
+    },
+    {
+      "who": "hero",
+      "at": 10.8,
+      "do": "hop",
+      "count": 1,
+      "height": 3,
+      "dur": 13
+    },
+    {
+      "who": "hero",
+      "at": 10.85,
+      "do": "expr",
+      "expr": "delighted",
+      "dur": 0.2
+    },
+    {
+      "who": "hero",
+      "at": 10.85,
+      "do": "arm",
+      "side": "both",
+      "pose": "up",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 12.2,
+      "do": "arm",
+      "side": "L",
+      "pose": "wave",
+      "dur": 0.3
+    },
+    {
+      "who": "hero",
+      "at": 4.2,
+      "do": "lean",
+      "to": -4,
+      "dur": 0.5
+    },
+    {
+      "who": "hero",
+      "at": 4.3,
+      "do": "expr",
+      "expr": "deadpan",
+      "dur": 0.3
+    }
+  ],
+  "fx": [
+    {
+      "do": "poof",
+      "at": 10.8,
+      "who": "hero",
+      "dur": 0.7,
+      "spark": "#ffd27a",
+      "puffs": 12
+    },
+    {
+      "do": "shake",
+      "at": 10.8,
+      "dur": 0.3,
+      "amp": 0.04
+    }
+  ],
+  "captions": [
+    {
+      "from": 0.15,
+      "to": 1.9,
+      "text": "i need some space.",
+      "pos": "top"
+    },
+    {
+      "from": 6,
+      "to": 7.3,
+      "text": "\"is this enough?\"",
+      "pos": "top"
+    },
+    {
+      "from": 7.6,
+      "to": 9,
+      "text": "*one more step*",
+      "pos": "top",
+      "style": "sub"
+    },
+    {
+      "from": 9.2,
+      "to": 10.8,
+      "text": "no. SPACE space.",
+      "pos": "top"
+    },
+    {
+      "from": 11.6,
+      "to": 13.5,
+      "text": "\"enjoy your space.\"",
+      "pos": "top",
+      "style": "sub"
+    }
+  ],
+  "loop": false,
+  "sfx": [
+    {
+      "sound": "whoosh",
+      "at": 10.85,
+      "gain": 0.35,
+      "dur": 0.6
+    },
+    {
+      "sound": "charge",
+      "at": 10,
+      "gain": 0.15,
+      "dur": 0.8
+    }
+  ]
+}

@@ -58,10 +58,10 @@ export function phoenixCostume(C, ch) {
 }
 
 // the hood: the top and back of a slightly larger potato shell, open at the front around the face, a soft point at the back
-function hoodGeometry(ch) {
+export function hoodGeometry(ch, extent = 0.82) {
   // a shell a little bigger than the body over the top and down the back. Round the face (an oval) and below it at
   // the front the shell sinks inside the body, so the opening's edge is where the two surfaces meet: smooth at any size
-  const g = new THREE.SphereGeometry(1, 120, 80, 0, Math.PI * 2, 0, Math.PI * 0.82), p = g.attributes.position, v = new THREE.Vector3();
+  const g = new THREE.SphereGeometry(1, 120, 80, 0, Math.PI * 2, 0, Math.PI * extent), p = g.attributes.position, v = new THREE.Vector3();
   const sstep = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
   for (let i = 0; i < p.count; i++) {
     const n = v.fromBufferAttribute(p, i).clone().normalize(), q = ch.bodyPoint(n);
