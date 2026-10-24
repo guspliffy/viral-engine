@@ -117,6 +117,9 @@ export function actorState(sb, actor, def, t) {
       default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
     }
   }
+  // a pitch (flip, tip) turns the body about its middle, not its feet, so a flip in the air doesn't swing the head
+  // down through whatever the character is jumping over
+  if (st.pitch) { const c = 0.5 * (st.scale ?? 1); st.y += c * (1 - Math.cos(st.pitch)); st.z -= c * Math.sin(st.pitch); }
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
     const k = clamp((t - airSince) / 0.3);

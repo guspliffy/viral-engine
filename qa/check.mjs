@@ -28,7 +28,7 @@ export const RULES = {
   stillHold: 2.0, stillDiff: 0.35, // render: no stretch this long where the picture barely changes (mean |dY| per frame)
   loopSSIM: 0.55, // last frame vs first frame, when the storyboard says loop: true
   wordsPerSec: 3.5, // reading speed of a caption over its time on screen
-  gore: /blood|gore|splat|guts|mash|sever|dismember|decapit/i,
+  gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,   // \b: "smash" is fine
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
   popDiff: 6, popRatio: 3, // a one-frame jump in the picture this much bigger than its neighbours, away from cuts/fx

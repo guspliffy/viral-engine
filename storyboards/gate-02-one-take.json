@@ -159,7 +159,7 @@
      -0.1
     ]
    },
-   "dur": 19.8,
+   "dur": 19.95,
    "ease": "linear"
   }
  ],
@@ -206,7 +206,7 @@
    "at": 0.55,
    "do": "fly",
    "to": {
-    "y": 0.95,
+    "y": 0.8,
     "z": -0.3
    },
    "dur": 0.5,
@@ -452,8 +452,11 @@
   },
   {
    "who": "sor",
-   "at": 4.6,
-   "do": "hide"
+   "at": 4.45,
+   "do": "grow",
+   "to": 0.01,
+   "dur": 0.15,
+   "ease": "in"
   },
   {
    "who": "sor",
@@ -467,18 +470,21 @@
   },
   {
    "who": "sor",
-   "at": 4.7,
-   "do": "show"
+   "at": 4.65,
+   "do": "grow",
+   "to": 1,
+   "dur": 0.2,
+   "ease": "back"
   },
   {
    "who": "sor",
-   "at": 4.7,
+   "at": 4.75,
    "do": "move",
    "to": [
     0,
     1.1
    ],
-   "dur": 0.25
+   "dur": 0.3
   },
   {
    "who": "sor",
@@ -714,7 +720,7 @@
    "at": 7.55,
    "do": "fly",
    "to": {
-    "y": 0.95,
+    "y": 0.8,
     "z": -0.3
    },
    "dur": 0.45
@@ -1591,7 +1597,7 @@
  "captions": [
   {
    "from": 0,
-   "to": 19.8,
+   "to": 19.95,
    "text": "GATE",
    "style": "label",
    "pos": 230,
@@ -1599,14 +1605,14 @@
   },
   {
    "from": 0,
-   "to": 1.85,
+   "to": 1.2,
    "text": "10 fighters. 1 gate.",
    "style": "sub",
    "pos": 370
   },
   {
-   "from": 19,
-   "to": 19.8,
+   "from": 18.75,
+   "to": 19.95,
    "text": "which one are you?",
    "pos": 370
   }
@@ -1680,7 +1686,7 @@
    "character": "viking",
    "stunt": "charges and smashes what's left",
    "from": 16.65,
-   "to": 19.8
+   "to": 19.95
   }
  ],
  "props": [
@@ -1719,6 +1725,18 @@
    "scale": 1.4
   }
  ],
- "duration": 19.8,
- "cover": 19.2
+ "duration": 19.95,
+ "cover": 19.35,
+ "allowClip": [
+  {
+   "who": "sor",
+   "from": 3.4,
+   "to": 5.25
+  },
+  {
+   "who": "vik",
+   "from": 16.65,
+   "to": 19.95
+  }
+ ]
 }

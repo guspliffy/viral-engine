@@ -14,7 +14,7 @@ const WALK_IN = 0.55, WALK_OUT = 0.45, OVERLAP = 0.35;   // the next fighter wal
 const FIGHTERS = [
   { id: "ast", character: "astronaut", stunt: "floats over in zero gravity", len: 1.3, expr: "eager", b: (A) => [
     A(0.0, "arm", { side: "both", pose: "up", dur: 0.25 }),
-    A(0.0, "fly", { to: { y: 0.95, z: -0.3 }, dur: 0.5, ease: "out" }),
+    A(0.0, "fly", { to: { y: 0.8, z: -0.3 }, dur: 0.5, ease: "out" }),
     A(0.5, "fly", { to: { y: 0.25, z: 1.1 }, dur: 0.5, ease: "inOut" }),
     A(0.5, "expr", { expr: "delighted" }),
     A(1.0, "drop", { to: 0, dur: 0.2 }),
@@ -35,10 +35,10 @@ const FIGHTERS = [
     A(0.0, "arm", { side: "L", pose: "cast", dur: 0.2 }),
     G(0.1, { open: 1 }, 0.3, "back", "portal-b"), G(0.1, { open: 1 }, 0.3, "back", "portal-f"),
     A(0.45, "move", { to: [0, -0.62], dur: 0.2 }),
-    A(0.65, "hide"),
+    A(0.5, "grow", { to: 0.01, dur: 0.15, ease: "in" }),      // shrinks into the back portal...
     A(0.66, "move", { to: [0, 0.3], dur: 0.01 }),
-    A(0.75, "show"),
-    A(0.75, "move", { to: FRONT, dur: 0.25 }),
+    A(0.7, "grow", { to: 1, dur: 0.2, ease: "back" }),         // ...and grows out of the front one
+    A(0.8, "move", { to: FRONT, dur: 0.3 }),
     A(0.75, "charge", { to: 0, dur: 0.3 }),
     A(0.75, "arm", { side: "L", pose: "rest", dur: 0.2 }),
     G(0.95, { open: 0 }, 0.25, "in", "portal-b"), G(0.95, { open: 0 }, 0.25, "in", "portal-f"),
@@ -60,7 +60,7 @@ const FIGHTERS = [
   sfx: [{ sound: "sadslide", at: 0.42, gain: 0.22 }] },
 
   { id: "dra", character: "dragon", stunt: "flies over and sets the hedge on fire", len: 1.5, expr: "eager", b: (A, G) => [
-    A(0.0, "fly", { to: { y: 0.95, z: -0.3 }, dur: 0.45 }),
+    A(0.0, "fly", { to: { y: 0.8, z: -0.3 }, dur: 0.45 }),
     G(0.35, { fire: 1 }, 0.3, "out", "fire"),
     A(0.45, "fly", { to: { y: 0.45, z: 1.1 }, dur: 0.4 }),
     A(0.85, "drop", { to: 0, dur: 0.2 }),
@@ -119,7 +119,7 @@ const FIGHTERS = [
     { do: "poof", pos: [0, 0.3, 0.1], at: 0.4, dur: 0.9, puffs: 12, sparks: 8, spark: "#bfe4ff" }],
   sfx: [{ sound: "impact", at: 0.3, gain: 0.4 }] },
 
-  { id: "vik", character: "viking", stunt: "charges and smashes what's left", len: 2.6, expr: "delighted", last: true, b: (A, G) => [
+  { id: "vik", character: "viking", stunt: "charges and smashes what's left", len: 2.75, expr: "delighted", last: true, b: (A, G) => [
     A(0.0, "arm", { side: "L", pose: "up", dur: 0.2 }),
     A(0.05, "move", { to: [0, -0.25], dur: 0.4, ease: "in", steps: 4 }),
     G(0.45, { smash: 1 }, 1.1, "linear"),
@@ -171,7 +171,10 @@ sb.cover = r3(sb.beats.at(-1).to - 0.6);
 // one camera, no cuts: a slow push over the whole clip
 sb.shots.push({ at: 0, pos: [0.35, 1.95, 5.6], look: [0, 0.72, -0.2], fov: 40, to: { pos: [0.2, 1.8, 4.9], look: [0, 0.7, -0.1] }, dur: sb.duration, ease: "linear" });
 sb.captions.push({ from: 0, to: sb.duration, text: "GATE", style: "label", pos: 230, pop: false });
-sb.captions.push({ from: 0, to: sb.beats[0].to, text: "10 fighters. 1 gate.", style: "sub", pos: 370 });
-sb.captions.push({ from: r3(sb.beats.at(-1).from + WALK_IN + 1.8), to: sb.duration, text: "which one are you?", pos: 370 });
+sb.captions.push({ from: 0, to: 1.2, text: "10 fighters. 1 gate.", style: "sub", pos: 370 });
+sb.captions.push({ from: r3(sb.beats.at(-1).from + WALK_IN + 1.55), to: sb.duration, text: "which one are you?", pos: 370 });
+// contact that is the stunt itself: into and out of the portals, the axe through the gate
+const sor = sb.beats.find((b) => b.who === "sor"), vik = sb.beats.at(-1);
+sb.allowClip = [{ who: "sor", from: sor.from, to: sor.to }, { who: "vik", from: vik.from, to: vik.to }];
 writeFileSync(new URL("./gate-02-one-take.json", import.meta.url), JSON.stringify(sb, null, 1));
 console.log(`gate-02-one-take: ${sb.duration} s, ${FIGHTERS.length} fighters`);
