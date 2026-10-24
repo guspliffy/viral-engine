@@ -326,6 +326,8 @@ function pose(t) {
     }
     p.apply(ps, t);
   }
+  // a charger's cable runs to the prop its spec.to names (props3d.js charger), wherever that is now
+  for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3())); } }
   const L = lightsAt(sb, t);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;

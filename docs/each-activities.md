@@ -129,3 +129,39 @@ Fable's notes: aim the camera at the gap (applied); make the Reaper's bumps loud
 the Gunslinger aims the wrong way and the blue car vanishes in the crop (applied); the Dragon's tries read as a
 jitter, now three big swings (applied); the first fighter's name from frame 0 with the hook under it, the question on
 one picture at the end (applied, and the name-from-frame-0 change now applies to every activity clip).
+
+## 5. Cooking an egg: "how each fighter cooks an egg" (kitchen, morning)
+
+`storyboards/make-egg.mjs` → `egg-01-breakfast.json`, 21.43 s (escalation clip). One take like a cooking show:
+the camera looks over a stove at the cook behind it. Each fighter walks up with a clean pan and an egg, cooks, and
+takes the pan away; a row of eggs on the counter goes down by one with each turn.
+
+Habits (the usual egg cooks): the show-off chef flip, eating straight out of the pan, the lazy shortcut, turning the
+heat all the way up, photographing the food first, cracking it too hard, making breakfast for the whole family.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | the chef flip | tosses the egg, it spins and lands perfectly |
+| Reaper | eats from the pan | no plate: lifts the pan and slides the egg in, deadpan |
+| Sorcerer | the lazy cook | magic floats the egg over, cracks it and cooks it in green fire |
+| Wizard | the spell goes wrong | *his cooking spell makes the egg enormous: a giant fried egg swamps the stove* |
+| Dragon | full heat | turns it all the way up: huge flames, charcoal, smoke |
+| Phoenix | photo first | photos and a selfie, and by then it's burnt |
+| Gunslinger | cracks it with a shot | *tosses it up and shoots it open over the pan* |
+| Allfather | cooks for everyone | egg after egg after egg, a pan full of yolks |
+| Samurai | cuts it open | *tosses it and cuts the shell open in mid-air* |
+| Viking | too hard | *cracks it so hard the pan flies and the stove is flattened* |
+
+Loop: a poof restores the stove and the eggs on the counter; the Astronaut looks at us, then tosses (frame 0 is the
+egg in mid-air, yolk to the camera).
+New engine parts: `stove` (on, fire, smash), `pan` (fried, yolks, burn, big, flip), `egg` (crack) props; the kitchen's
+`morning` option (a daytime window).
+Fable's notes: frame 0 showed an empty pan, now the egg is mid-air in front of him (applied); the hook as the top line
+and no title word (applied to every activity clip, see below); a stray egg next to the Phoenix (applied: the phone
+comes after the egg is gone); the Gunslinger aims at the egg with a muzzle puff, and the Allfather now plays between the
+two toss beats (applied); a row of eggs on the counter that goes down each turn (applied); a short hold on the
+Astronaut before the toss at the loop (applied).
+
+**Captions in every activity clip (changed 2026-10-24 night):** the hook is the top line for the first second, with
+the first fighter's name under it from frame 0; after that only the fighter's name and habit. The one-word title
+caption is gone (Fable: it meant nothing on screen).

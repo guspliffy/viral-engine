@@ -3473,17 +3473,9 @@
  "captions": [
   {
    "from": 0,
-   "to": 20.9,
-   "text": "TEST",
-   "style": "label",
-   "pos": 230,
-   "pop": false
-  },
-  {
-   "from": 0,
    "to": 1,
    "text": "1 test. 10 fighters.",
-   "pos": 425,
+   "pos": 230,
    "pop": false
   },
   {

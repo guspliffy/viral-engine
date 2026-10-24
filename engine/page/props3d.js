@@ -193,7 +193,7 @@ const KINDS = {
     // the camera bump on the back
     mesh(new THREE.BoxGeometry(0.03, 0.03, 0.006), mat("#3a3c46", { roughness: 0.3 }), P.whole, -0.016, 0.13, -0.008);
     mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.004, 16), mat("#0b0b10", { roughness: 0.1, metalness: 0.6 }), P.whole, -0.016, 0.13, -0.012).rotation.x = Math.PI / 2;
-    return { grip: 0.05, apply(ps) { screenM.emissiveIntensity = 0.25 + 1.2 * clamp(ps.glow); } };
+    return { grip: 0.05, apply(ps) { const bu = clamp(ps.burn ?? 0); screenM.emissiveIntensity = (0.25 + 1.2 * clamp(ps.glow)) * (1 - bu); body.color.set("#23242c").lerp(new THREE.Color("#0c0a09"), bu); screenM.color.set("#1c3a52").lerp(new THREE.Color("#050505"), bu); } };
   },
   // a round cake with icing, drips, berries and candles; `lit` 0..1 lights the candles (their flames light the
   // faces round it: in a dark room they are the only light). It splits into two halves (a cut)
@@ -789,7 +789,7 @@ const KINDS = {
   },
 
   // a free-standing cooker for the EGG clip (its foot at the origin, the front towards +z): white enamel, a black hob
-  // at TABLE_Y with two burners at x -0.18 (front) and +0.2, knobs and an oven window on the front. The cook stands
+  // at TABLE_Y with two burners at x -0.18 (back, z -0.1: the one in use) and +0.2, knobs and an oven window on the front. The cook stands
   // behind it facing the camera. on 0..1 lights blue flames under the left burner, fire 0..1 turns them into tall
   // orange ones (max heat); smash 0..1 crushes it (the hob caves in, the sides bulge, knobs pop)
   stove(P) {
@@ -801,11 +801,11 @@ const KINDS = {
     const win = mesh(new THREE.BoxGeometry(0.5, 0.26, 0.01), mat("#3a2a24", { roughness: 0.15, metalness: 0.2 }), body, 0, 0.26, D / 2 + 0.006);
     mesh(new THREE.BoxGeometry(0.46, 0.025, 0.03), steel, body, 0, 0.44, D / 2 + 0.03);   // the door handle
     const knobs = [-0.25, -0.08, 0.09, 0.26].map((x) => { const k = mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.03, 14), mat("#2b2d33"), body, x, H - 0.06, D / 2 + 0.02); k.rotation.x = Math.PI / 2; return k; });
-    for (const [x, z] of [[-0.18, 0.06], [0.2, -0.08]]) { const r = mesh(new THREE.TorusGeometry(0.1, 0.012, 6, 24), steel, body, x, H + 0.035, z); r.rotation.x = Math.PI / 2; }
-    const flames = new THREE.Group(); flames.position.set(-0.18, H + 0.04, 0.06); body.add(flames);
+    for (const [x, z] of [[-0.18, -0.1], [0.2, 0.08]]) { const r = mesh(new THREE.TorusGeometry(0.1, 0.012, 6, 24), steel, body, x, H + 0.035, z); r.rotation.x = Math.PI / 2; }
+    const flames = new THREE.Group(); flames.position.set(-0.18, H + 0.04, -0.1); body.add(flames);
     const blue = new THREE.MeshBasicMaterial({ color: "#5ab0ff", transparent: true, opacity: 0.9 }), orange = new THREE.MeshBasicMaterial({ color: "#ff8a1f", transparent: true, opacity: 0.95 });
-    const tongues = Array.from({ length: 10 }, (_, i) => { const a = (i / 10) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.05, 6), blue); f.position.set(Math.cos(a) * 0.08, 0.025, Math.sin(a) * 0.08); f.userData.noOutline = true; flames.add(f); return f; });
-    const big = Array.from({ length: 7 }, (_, i) => { const a = (i / 7) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.3, 7), orange); f.position.set(Math.cos(a) * 0.09, 0.15, Math.sin(a) * 0.09); flames.add(f); return f; });
+    const tongues = Array.from({ length: 10 }, (_, i) => { const a = (i / 10) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.05, 6), blue); f.position.set(Math.cos(a) * 0.16, 0.025, Math.sin(a) * 0.16); f.userData.noOutline = true; flames.add(f); return f; });
+    const big = Array.from({ length: 7 }, (_, i) => { const a = (i / 7) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.3, 7), orange); f.position.set(Math.cos(a) * 0.17, 0.15, Math.sin(a) * 0.17); flames.add(f); return f; });
     return {
       grip: TABLE_Y,
       apply(ps, t) {
@@ -827,7 +827,7 @@ const KINDS = {
     mesh(new THREE.BoxGeometry(0.12, 0.018, 0.03), iron, P.whole, 0.23, 0.05, 0);
     const handle = mesh(new THREE.BoxGeometry(0.18, 0.03, 0.04), wood, P.whole, 0.37, 0.06, 0); handle.rotation.z = 0.12;
     const food = new THREE.Group(); food.position.y = 0.025; P.whole.add(food);
-    const white = mat("#fbfaf4", { roughness: 0.5 }), yolkM = mat("#ffb31a", { roughness: 0.25 });
+    const white = mat("#fbfaf4", { roughness: 0.5, emissive: "#4a4a44" }), yolkM = mat("#ffb31a", { roughness: 0.25 });   // (emissive: its underside reads in a flip)
     const SLOTS = [[0, 0], [-0.07, -0.05], [0.07, 0.05], [0.07, -0.06], [-0.07, 0.06], [0, 0.0]];
     const eggs = SLOTS.map(([x, z], i) => {
       const g = new THREE.Group(); g.position.set(x, 0.002 * i, z); food.add(g);
@@ -845,7 +845,7 @@ const KINDS = {
         if (n > 1 && eggs[n - 1]) eggs[n - 1].position.set(0, 0.012, 0);
         white.color.set("#fbfaf4").lerp(new THREE.Color("#2a1d16"), bu); yolkM.color.set("#ffb31a").lerp(new THREE.Color("#1d1512"), bu);
         food.scale.set(1 + 2.6 * bg, 1 + 1.5 * bg, 1 + 2.6 * bg);
-        food.position.y = 0.025 + 4 * fl * (1 - fl) * 0.85; food.rotation.x = fl * Math.PI * 2;
+        food.position.y = 0.025 + 4 * fl * (1 - fl) * 0.5; food.rotation.x = fl * Math.PI * 2;   // tips towards the camera first: the yolk faces it a quarter of the way up
       },
     };
   },
@@ -869,6 +869,84 @@ const KINDS = {
     };
   },
 
+  // a sofa for two facing +z: the origin is the middle of its seat front edge less 0.05 (sit works on it: one sitter
+  // in the middle); cushions at SEAT_Y, a back at z -0.35, arms at x +-0.78. spec.color for the fabric
+  couch(P) {
+    const fab = mat(P.spec.color || "#4f86cf", { roughness: 0.85 }), cush = mat(P.spec.color2 || "#6a9be0", { roughness: 0.9 }), wood = mat("#6b4428", { roughness: 0.6 });
+    mesh(new THREE.BoxGeometry(1.6, SEAT_Y - 0.17, 0.75), fab, P.whole, 0, (SEAT_Y - 0.17) / 2 + 0.08, -0.15);
+    for (const x of [-0.36, 0.36]) mesh(new THREE.BoxGeometry(0.7, 0.1, 0.62), cush, P.whole, x, SEAT_Y - 0.05, -0.1);
+    mesh(new THREE.BoxGeometry(1.6, 0.55, 0.2), fab, P.whole, 0, SEAT_Y + 0.2, -0.45);
+    for (const x of [-0.36, 0.36]) { const b = mesh(new THREE.BoxGeometry(0.68, 0.38, 0.12), cush, P.whole, x, SEAT_Y + 0.22, -0.32); b.rotation.x = -0.12; }
+    for (const s of [-1, 1]) mesh(new THREE.BoxGeometry(0.16, 0.32, 0.75), fab, P.whole, s * 0.78, SEAT_Y + 0.02, -0.15);
+    for (const x of [-0.7, 0.7]) for (const z of [0.15, -0.45]) mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.08, 8), wood, P.whole, x, 0.04, z);
+    return { grip: SEAT_Y };
+  },
+  // a wall socket plate facing +z (its middle at the origin; put it on a wall): two holes, and behind it a chunk of
+  // plaster that comes away with it when it is ripped out (tween its x, y, z, roll). spec.hole: true draws the jagged
+  // hole it leaves instead (keep that one at scale 0 until the rip)
+  socket(P) {
+    if (P.spec.hole) {
+      const g = new THREE.Shape(); [[-0.11, -0.09], [-0.04, -0.12], [0.05, -0.1], [0.12, -0.05], [0.1, 0.06], [0.03, 0.12], [-0.06, 0.1], [-0.12, 0.03]].forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+      const h = mesh(new THREE.ShapeGeometry(g), new THREE.MeshBasicMaterial({ color: "#2a211c" }), P.whole, 0, 0, 0.003); h.castShadow = false;
+      const w1 = mesh(new THREE.BoxGeometry(0.012, 0.012, 0.18), mat("#c9442e"), P.whole, 0.02, -0.02, 0.06); w1.rotation.x = 0.6;   // two loose wires
+      const w2 = mesh(new THREE.BoxGeometry(0.012, 0.012, 0.16), mat("#3a6fc9"), P.whole, -0.03, -0.01, 0.05); w2.rotation.x = 0.9;
+      return { grip: 0 };
+    }
+    const white = mat("#f7f5ef", { roughness: 0.35 });
+    mesh(new THREE.BoxGeometry(0.11, 0.13, 0.015), white, P.whole, 0, 0, 0.008);
+    for (const x of [-0.022, 0.022]) { const o = mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.005, 10), mat("#2a2a2a"), P.whole, x, 0, 0.016); o.rotation.x = Math.PI / 2; }
+    const chunk = mesh(new THREE.DodecahedronGeometry(0.1, 0), mat(P.spec.wall || "#f3d9b1", { roughness: 0.9 }), P.whole, 0, 0, -0.06); chunk.scale.set(1.1, 1.1, 0.45);
+    return { grip: 0 };
+  },
+  // a phone charger: the wall plug at the origin (facing +z, put it on a socket) and its cable, which runs down to the
+  // floor (spec.floor: the floor's y relative to the plug, default -y) and on to the prop named in spec.to (its plug
+  // end, held or lying somewhere): stage.js calls link() with that prop's position every frame. unplug 0..1 drops the
+  // wall plug out to the floor; knot 0..1 ties a tangle in the cable's middle; cut 0..1 cuts it there (both ends fall)
+  charger(P) {
+    const white = mat("#f4f4f2", { roughness: 0.4 }), cableM = mat("#f4f4f2", { roughness: 0.5 });
+    const plug = new THREE.Group(); P.whole.add(plug);
+    mesh(new THREE.BoxGeometry(0.06, 0.07, 0.045), white, plug, 0, 0, 0.03);
+    const knot = mesh(new THREE.TorusKnotGeometry(0.045, 0.012, 48, 6, 2, 3), cableM, P.whole, 0, 0, 0); knot.visible = false;
+    let tubes = [], st = { unplug: 0, knot: 0, cut: 0 }, end = null;
+    const floor = P.spec.floor ?? -(P.spec.y ?? 0);
+    const build = () => {
+      for (const t of tubes) { P.whole.remove(t); t.geometry.dispose(); } tubes = [];
+      if (!end) return;
+      const u = st.unplug, s = new THREE.Vector3(0.12 * u, (floor + 0.03) * u, 0.05 + 0.25 * u), e = end.clone();
+      plug.position.set(s.x, s.y, s.z - 0.05 * (1 - u) - 0.0); plug.rotation.x = -1.2 * u;
+      const F = floor + 0.015, a = new THREE.Vector3(s.x + 0.02, Math.max(F, s.y - 0.15), s.z + 0.08), b = new THREE.Vector3(s.x + 0.08, F, s.z + 0.2);
+      const d = new THREE.Vector3(e.x, F, e.z), c = b.clone().lerp(d, 0.5); c.y = F;
+      const pts = [s, a, b, c, d.clone().lerp(b, 0.1), e];
+      if (e.y < F + 0.05) pts.splice(4, 1);
+      const curve = new THREE.CatmullRomCurve3(pts), q = curve.getPoints(40), mid = 20, ct = clamp(st.cut);
+      knot.visible = st.knot > 0.02 && ct < 0.02; knot.scale.setScalar(Math.max(0.01, st.knot)); knot.position.copy(q[mid]); knot.position.y = Math.max(knot.position.y, F + 0.05);
+      const segs = ct > 0.02 ? [q.slice(0, mid - 2), q.slice(mid + 2)] : [q];
+      segs.forEach((seg, i) => {
+        if (ct > 0.02) { const k = i ? 0 : seg.length - 1, p = seg[k]; seg[k] = p.clone().setY(p.y + (F - p.y) * ct); }
+        const tg = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(seg), 40, 0.009, 6, false), cableM); tg.castShadow = true; P.whole.add(tg); tubes.push(tg);
+      });
+    };
+    return {
+      grip: 0,
+      apply(ps) { st = { unplug: clamp(ps.unplug ?? 0), knot: clamp(ps.knot ?? 0), cut: clamp(ps.cut ?? 0) }; },
+      link(world) { P.root.updateMatrixWorld(true); end = P.root.worldToLocal(world.clone()); build(); },
+    };
+  },
+  // the plug end of a charger cable (a small grey connector, its tip at the origin pointing +y); a charger's spec.to
+  // names it, and its cable runs to here. Grab it to plug a phone in
+  plugend(P) {
+    mesh(new THREE.BoxGeometry(0.022, 0.05, 0.012), mat("#f4f4f2", { roughness: 0.4 }), P.whole, 0, -0.025, 0);
+    mesh(new THREE.BoxGeometry(0.012, 0.012, 0.006), mat("#b9bec8", { metalness: 0.7, roughness: 0.3 }), P.whole, 0, 0.004, 0);
+    return { grip: 0.02 };
+  },
+  // a power bank (its bottom at the origin): a dark blue brick with four green charge lights; glow 0..1 lights them
+  powerbank(P) {
+    mesh(new THREE.BoxGeometry(0.08, 0.14, 0.028), mat("#25407a", { roughness: 0.4, metalness: 0.2 }), P.whole, 0, 0.07, 0);
+    const led = new THREE.MeshBasicMaterial({ color: "#3cff6a" });
+    const leds = [0, 1, 2, 3].map((i) => mesh(new THREE.BoxGeometry(0.012, 0.008, 0.004), led, P.whole, -0.021 + i * 0.014, 0.022, 0.015));
+    return { grip: 0.07, apply(ps) { leds.forEach((l, i) => { l.visible = (ps.glow ?? 0) * 4 > i + 0.1; }); } };
+  },
+
 };
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
@@ -890,6 +968,7 @@ export function buildProp(spec) {
   const def = kind(P);
   return {
     spec, root, grip: def.grip ?? 0,
+    link: def.link,
     apply(ps, t) {
       root.position.set(ps.x, ps.y, ps.z); root.rotation.set(((ps.tilt ?? 0) * Math.PI) / 180, (ps.rot * Math.PI) / 180, ((ps.roll ?? 0) * Math.PI) / 180, "YXZ");
       root.scale.setScalar(Math.max(ps.scale, 0.0001)); root.visible = ps.scale > 0.002;
@@ -902,7 +981,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

@@ -2562,17 +2562,9 @@
  "captions": [
   {
    "from": 0,
-   "to": 22.25,
-   "text": "PARKING",
-   "style": "label",
-   "pos": 230,
-   "pop": false
-  },
-  {
-   "from": 0,
    "to": 1,
    "text": "1 gap. 10 drivers.",
-   "pos": 425,
+   "pos": 230,
    "pop": false
   },
   {

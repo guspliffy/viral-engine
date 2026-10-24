@@ -3320,17 +3320,9 @@
  "captions": [
   {
    "from": 0,
-   "to": 21.15,
-   "text": "NO PAPER",
-   "style": "label",
-   "pos": 230,
-   "pop": false
-  },
-  {
-   "from": 0,
    "to": 1,
    "text": "0 paper. 10 fighters.",
-   "pos": 425,
+   "pos": 230,
    "pop": false
   },
   {

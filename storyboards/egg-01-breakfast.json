@@ -1,0 +1,4784 @@
+{
+ "fps": 30,
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": true,
+ "loop": true,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    0,
+    -1.25
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 1.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    2.7,
+    -1.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: flips it like a TV chef: a zero-g toss that lands perfectly",
+   "at": 0,
+   "len": 1.4,
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": -0.45,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "who": "ast",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": -0.45,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.45,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.45,
+       0.62
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.45,
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": -0.21,
+     "dur": 0.85,
+     "ease": "linear",
+     "set": {
+      "flip": 1
+     }
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": -0.21,
+     "to": [
+      -0.2,
+      0.6
+     ],
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.64,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "flip": 0
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.64,
+     "gain": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.64,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 0.64,
+     "expr": "delighted"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.68,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "fx": "sparkle",
+     "who": "ast",
+     "dur": 0.6,
+     "at": 0.68
+    },
+    {
+     "sfx": "tink",
+     "at": 0.68,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.27,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.27,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row8",
+     "at": 0.05,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.05,
+     "gain": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 0.3,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "e1",
+     "hand": "R",
+     "at": 0.3,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.3,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.75,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "ast",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.1,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.1,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.2,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.2,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "rea: no plate: eats it straight out of the pan, deadpan",
+   "at": 1.4,
+   "len": 2.4,
+   "do": [
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "p1",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0,
+     "expr": "deadpan"
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.6,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.7,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.75,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.85,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 1.15,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.15,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.85,
+       0.35
+      ]
+     },
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "tilt": -50
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.45,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "fried": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 1.5,
+     "gain": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "at": 1.5,
+     "amount": 0.08,
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.65,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.65,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "tilt": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "at": 1.9,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.87,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.87,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row7",
+     "at": 0.65,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.65,
+     "gain": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.9
+    },
+    {
+     "who": "sor",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 0.9,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "sor",
+     "do": "grab",
+     "prop": "e0",
+     "hand": "R",
+     "at": 0.9,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0.9,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.9,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 1.35,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 2.1,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 2.1,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 2.2,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 2.2,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "sor: the lazy cook: lets magic crack it and cook it",
+   "at": 3.8,
+   "len": 1.8,
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "release",
+     "prop": "p0",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "smug"
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.45,
+     "to": 1,
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "release",
+     "prop": "e0",
+     "at": 0.5,
+     "to": [
+      -0.135,
+      1.05,
+      -0.675
+     ],
+     "dur": 0.35,
+     "arc": 0.15
+    },
+    {
+     "sfx": "charge",
+     "at": 0.5,
+     "dur": 0.6,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.85,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.95,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 1.05,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      0.515,
+      -0.675
+     ],
+     "dur": 0.5,
+     "puffs": 3,
+     "sparks": 14,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 0.95
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.95,
+     "dur": 0.4,
+     "gain": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 1.25,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 1.25,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "fx": "sparkle",
+     "who": "sor",
+     "dur": 0.5,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row6",
+     "at": 0.2,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.2,
+     "gain": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "e1",
+     "hand": "R",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0.45,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.45,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0.9,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.5,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.5,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 1.6,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 1.6,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "wiz: a cooking spell makes the egg enormous; it swamps the stove",
+   "at": 5.6,
+   "len": 2.15,
+   "do": [
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "p1",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "stern"
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "e1",
+     "at": 0.45,
+     "to": [
+      -0.135,
+      0.95,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.55,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.55,
+     "to": 0.7,
+     "dur": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      1,
+      -0.675
+     ],
+     "dur": 0.5,
+     "puffs": 8,
+     "sparks": 10,
+     "spark": "#c8b6ff",
+     "at": 0.75
+    },
+    {
+     "sfx": "poof",
+     "at": 0.75,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.77,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "scale": 3.5
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.85,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.9,
+     "expr": "shocked"
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.15,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.15,
+     "gain": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.25,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "fried": 1,
+      "big": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.4,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 1.3,
+     "dur": 0.6,
+     "gain": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.35,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "sad"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.55,
+     "to": 1,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.72,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.72,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row5",
+     "at": 0.5,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.5,
+     "gain": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 0.75
+    },
+    {
+     "who": "dra",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 0.75,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "dra",
+     "do": "grab",
+     "prop": "e0",
+     "hand": "R",
+     "at": 0.75,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 0.75,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0.75,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.2,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.8,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 1.85,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.85,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 1.95,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 1.95,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "dra: no patience: turns the heat all the way up, charcoal in a second",
+   "at": 7.75,
+   "len": 2.45,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "release",
+     "prop": "p0",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.6,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.7,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.75,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.85,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.9,
+     "expr": "eager"
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 0.9,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.45,
+       0.5
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "click",
+     "at": 1,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.05,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fire": 1
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.05,
+     "dur": 0.5,
+     "gain": 0.3
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.02,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 1.15,
+     "dur": 0.45,
+     "ease": "in",
+     "set": {
+      "burn": 1
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      0.95,
+      -0.675
+     ],
+     "dur": 0.7,
+     "puffs": 6,
+     "sparks": 0,
+     "color": "#6b6b6b",
+     "at": 1.55
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "shocked"
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 1.65,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.7,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "fire": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.85,
+     "expr": "sad"
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "at": 1.85,
+     "amount": 0.1,
+     "dur": 0.15
+    },
+    {
+     "fx": "sweat",
+     "who": "dra",
+     "dur": 0.6,
+     "count": 4,
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.07,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.07,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row4",
+     "at": 0.85,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.85,
+     "gain": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 1.1,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "e1",
+     "hand": "R",
+     "at": 1.1,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 1.1,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 1.1,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 1.55,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 2.15,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 2.15,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 2.25,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 2.25,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "phx: takes photos of it first; by the selfie it's burnt",
+   "at": 10.2,
+   "len": 2.55,
+   "do": [
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "p1",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.6,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.7,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.75,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.85,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "at": 0.95,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.5
+     }
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "R",
+     "at": 0.95,
+     "dur": 0.2,
+     "off": [
+      0,
+      0,
+      0.03
+     ]
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.9,
+     "expr": "cocky"
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.7,
+       0.45
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1,
+     "to": [
+      -0.2,
+      -0.4
+     ],
+     "dur": 0.12
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 1.15
+    },
+    {
+     "sfx": "click",
+     "at": 1.15,
+     "gain": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.3,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.35
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.3,
+     "to": [
+      0.1,
+      0.3
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.35,
+     "expr": "smug"
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 1.55
+    },
+    {
+     "sfx": "click",
+     "at": 1.55,
+     "gain": 0.3
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 0.5,
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.1,
+     "dur": 0.8,
+     "ease": "in",
+     "set": {
+      "burn": 0.9
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      0.9,
+      -0.675
+     ],
+     "dur": 0.6,
+     "puffs": 4,
+     "sparks": 0,
+     "color": "#7a7a7a",
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.85,
+     "to": [
+      -0.2,
+      -0.5
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.85,
+     "expr": "shocked"
+    },
+    {
+     "fx": "alert",
+     "who": "phx",
+     "dur": 0.5,
+     "at": 1.85
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 2,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 1.17,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 1.17,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row3",
+     "at": 0.95,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.95,
+     "gain": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 1.2
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.2,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "e0",
+     "hand": "R",
+     "at": 1.2,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.2,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 1.2,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.65,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 2.25,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 2.25,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 2.35,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 2.35,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "gun: tosses the egg up and cracks it with one shot",
+   "at": 12.75,
+   "len": 1.8,
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "at": 0.8,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "release",
+     "prop": "p0",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "stern"
+    },
+    {
+     "who": "gun",
+     "do": "release",
+     "prop": "e0",
+     "at": 0.45,
+     "to": [
+      -0.135,
+      1.2,
+      -0.675
+     ],
+     "dur": 0.3,
+     "arc": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.5,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.75,
+       0.4
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.5,
+     "to": [
+      -0.3,
+      0.5
+     ],
+     "dur": 0.12
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.77
+    },
+    {
+     "sfx": "impact",
+     "at": 0.77,
+     "gain": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.78,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      1.25,
+      -0.675
+     ],
+     "dur": 0.35,
+     "puffs": 1,
+     "sparks": 8,
+     "spark": "#ffd34d",
+     "at": 0.78
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.35,
+      1,
+      -1
+     ],
+     "dur": 0.3,
+     "puffs": 1,
+     "sparks": 6,
+     "color": "#fff2b0",
+     "spark": "#ffd34d",
+     "at": 0.77
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.95,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 1,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.95,
+     "dur": 0.5,
+     "gain": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 1,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.05,
+     "expr": "smug"
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 1.15,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row2",
+     "at": 0.2,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.2,
+     "gain": 0.12
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.45
+    },
+    {
+     "who": "all",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "all",
+     "do": "grab",
+     "prop": "e1",
+     "hand": "R",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.45,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.45,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.9,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.5,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.5,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.6,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 1.6,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "all: makes breakfast for the whole family: egg after egg after egg",
+   "at": 14.55,
+   "len": 2.5,
+   "do": [
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "release",
+     "prop": "p1",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "focused"
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.6,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.7,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.75,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.85,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.9,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.02,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.04,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.16,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.18,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.2,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.32,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.34,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.36,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.5,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.52,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.64,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.66,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 1.68,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 1.82,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1,
+     "dur": 0.85,
+     "ease": "linear",
+     "set": {
+      "yolks": 6
+     }
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.85,
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 1.9,
+     "expr": "smug"
+    },
+    {
+     "who": "all",
+     "do": "squash",
+     "at": 1.95,
+     "amount": 0.06,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 1.17,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 1.17,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row1",
+     "at": 0.95,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.95,
+     "gain": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.2
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.2,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "e0",
+     "hand": "R",
+     "at": 1.2,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.2,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.2,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.65,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 2.2,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 2.2,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 2.3,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 2.3,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "sam: tosses the egg and cuts it open in mid-air",
+   "at": 17.05,
+   "len": 1.75,
+   "do": [
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "release",
+     "prop": "p0",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "serene"
+    },
+    {
+     "who": "sam",
+     "do": "release",
+     "prop": "e0",
+     "at": 0.45,
+     "to": [
+      -0.135,
+      1.35,
+      -0.675
+     ],
+     "dur": 0.3,
+     "arc": 0
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.5,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.75,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.08
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.77
+    },
+    {
+     "sfx": "shing",
+     "at": 0.77,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 0.78,
+     "dur": 0.25,
+     "ease": "inOut",
+     "set": {
+      "crack": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 0.95,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "fried": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e0",
+     "at": 1.05,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.95,
+     "dur": 0.5,
+     "gain": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.05,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.15,
+     "expr": "kind"
+    },
+    {
+     "fx": "sparkle",
+     "who": "sam",
+     "dur": 0.5,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 0,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.42,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "crack": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row0",
+     "at": 0.2,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "sfx": "pop",
+     "at": 0.2,
+     "gain": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "p1",
+     "hand": "L",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "e1",
+     "hand": "R",
+     "at": 0.45,
+     "dur": 0.01,
+     "off": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0.45,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 0.45,
+     "to": [
+      1.05,
+      -1.25
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0.9,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.45,
+     "dur": 0.15,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.45,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 0,
+      "fire": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.55,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.55,
+     "to": [
+      -0.9,
+      -1.15
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    }
+   ]
+  },
+  {
+   "name": "vik: cracks it a little too hard: egg, pan and stove",
+   "at": 18.8,
+   "len": 2.63,
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -2.8,
+      -1.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0.32,
+     "to": "camera",
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "release",
+     "prop": "p1",
+     "at": 0.25,
+     "to": [
+      -0.135,
+      0.46499999999999997,
+      -0.675
+     ],
+     "dur": 0.2,
+     "arc": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.3,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.47,
+       0.55
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "sfx": "tink",
+     "at": 0.45,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "sfx": "click",
+     "at": 0.42,
+     "gain": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "stern"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.7,
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.7,
+       0.55
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 0.7,
+     "amount": 0.1,
+     "dur": 0.12
+    },
+    {
+     "sfx": "impact",
+     "at": 0.78,
+     "gain": 0.5
+    },
+    {
+     "fx": "shake",
+     "dur": 0.35,
+     "amp": 0.06,
+     "at": 0.78
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.3,
+     "at": 0.78
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.135,
+      0.75,
+      -0.675
+     ],
+     "dur": 0.6,
+     "puffs": 8,
+     "sparks": 14,
+     "color": "#e9e4d8",
+     "spark": "#ffd23f",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "e1",
+     "at": 0.78,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 0.78,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "smash": 1,
+      "on": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 0.78,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": -1.6,
+      "y": 1.6,
+      "z": -1.5,
+      "roll": 400
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.28,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "y": 0
+     }
+    },
+    {
+     "sfx": "tink",
+     "at": 1.58,
+     "gain": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.08,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.13,
+     "expr": "happy"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.18,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.6,
+      -0.9
+     ],
+     "dur": 0.4,
+     "puffs": 12,
+     "sparks": 8,
+     "spark": "#ffe08a",
+     "at": 1.78
+    },
+    {
+     "sfx": "poof",
+     "at": 1.78,
+     "gain": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 1.86
+    },
+    {
+     "do": "prop",
+     "id": "p1",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "stove",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "smash": 0,
+      "on": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 1.84,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "fried": 1,
+      "burn": 0,
+      "big": 0,
+      "yolks": 1,
+      "flip": 0,
+      "tilt": 0,
+      "roll": 0,
+      "scale": 1.25
+     }
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 1.84
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.84,
+     "to": [
+      0,
+      -1.25
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.84,
+     "to": "camera",
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.84,
+     "expr": "eager"
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 1.84,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "grab",
+     "prop": "p0",
+     "hand": "L",
+     "at": 1.85,
+     "dur": 0.01,
+     "off": [
+      -0.4625,
+      0,
+      0
+     ]
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.85,
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.45,
+       0.62
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.85,
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.1,
+      1,
+      -1.88
+     ],
+     "dur": 0.4,
+     "puffs": 6,
+     "sparks": 4,
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "row0",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row1",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row2",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row3",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row4",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row5",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row6",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row7",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "row8",
+     "at": 1.86,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.25
+     }
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 2.08,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "p0",
+     "at": 2.42,
+     "dur": 0.85,
+     "ease": "linear",
+     "set": {
+      "flip": 1
+     }
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 2.42,
+     "to": [
+      -0.2,
+      0.6
+     ],
+     "dur": 0.2
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.75,
+    2.6
+   ],
+   "look": [
+    0,
+    0.85,
+    -1
+   ],
+   "fov": 40
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "1 egg. 10 cooks.",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.4,
+   "text": "ASTRONAUT",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1,
+   "to": 1.4,
+   "text": "the chef flip",
+   "pos": 425
+  },
+  {
+   "from": 1.4,
+   "to": 3.8,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1.4,
+   "to": 3.8,
+   "text": "eats from the pan",
+   "pos": 425
+  },
+  {
+   "from": 3.8,
+   "to": 5.6,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 3.8,
+   "to": 5.6,
+   "text": "magic does it",
+   "pos": 425
+  },
+  {
+   "from": 5.6,
+   "to": 7.75,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 5.6,
+   "to": 7.75,
+   "text": "the spell goes wrong",
+   "pos": 425
+  },
+  {
+   "from": 7.75,
+   "to": 10.2,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 7.75,
+   "to": 10.2,
+   "text": "full heat",
+   "pos": 425
+  },
+  {
+   "from": 10.2,
+   "to": 12.75,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 10.2,
+   "to": 12.75,
+   "text": "photo first",
+   "pos": 425
+  },
+  {
+   "from": 12.75,
+   "to": 14.55,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 12.75,
+   "to": 14.55,
+   "text": "cracks it with a shot",
+   "pos": 425
+  },
+  {
+   "from": 14.55,
+   "to": 17.05,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.55,
+   "to": 17.05,
+   "text": "cooks for everyone",
+   "pos": 425
+  },
+  {
+   "from": 17.05,
+   "to": 18.8,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 17.05,
+   "to": 18.8,
+   "text": "cuts it open",
+   "pos": 425
+  },
+  {
+   "from": 18.8,
+   "to": 20.08,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 18.8,
+   "to": 20.08,
+   "text": "too hard",
+   "pos": 425
+  },
+  {
+   "from": 20.08,
+   "to": 21.43,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "props": [
+  {
+   "id": "stove",
+   "kind": "stove",
+   "x": 0,
+   "z": -0.6,
+   "scale": 0.75
+  },
+  {
+   "id": "p0",
+   "kind": "pan",
+   "x": -0.135,
+   "y": 0.46499999999999997,
+   "z": -0.675,
+   "fried": 1,
+   "scale": 1.25
+  },
+  {
+   "id": "p1",
+   "kind": "pan",
+   "x": 2.7,
+   "y": 0.5,
+   "z": -1.2,
+   "scale": 1.25
+  },
+  {
+   "id": "e0",
+   "kind": "egg",
+   "x": 2.7,
+   "y": 0.5,
+   "z": -1.2,
+   "scale": 0
+  },
+  {
+   "id": "e1",
+   "kind": "egg",
+   "x": 2.7,
+   "y": 0.5,
+   "z": -1.2,
+   "scale": 1.25
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 2.9,
+   "y": 0.5,
+   "z": -1.2,
+   "glow": 1,
+   "scale": 0
+  },
+  {
+   "id": "row0",
+   "kind": "egg",
+   "x": -0.62,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row1",
+   "kind": "egg",
+   "x": -0.74,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row2",
+   "kind": "egg",
+   "x": -0.86,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row3",
+   "kind": "egg",
+   "x": -0.98,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row4",
+   "kind": "egg",
+   "x": -1.1,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row5",
+   "kind": "egg",
+   "x": -1.22,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row6",
+   "kind": "egg",
+   "x": -1.3399999999999999,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row7",
+   "kind": "egg",
+   "x": -1.46,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  },
+  {
+   "id": "row8",
+   "kind": "egg",
+   "x": -1.58,
+   "y": 0.95,
+   "z": -1.88,
+   "scale": 1.25
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "ast",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "stove",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "p0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "p1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "e0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "e1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "phone",
+   "from": 0,
+   "to": 99
+  }
+ ],
+ "id": "egg-01-breakfast",
+ "title": "EGG: how each fighter cooks an egg",
+ "format": "each-character-vs-X, one continuous take: fighters take turns cooking one egg on one stove, each their own way",
+ "set": {
+  "type": "kitchen",
+  "morning": true,
+  "time": 7.5
+ },
+ "duration": 21.43,
+ "cover": 19.78
+}

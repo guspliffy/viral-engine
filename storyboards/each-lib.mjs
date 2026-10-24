@@ -1,6 +1,6 @@
 // Shared helpers for the "same task, each fighter does it their own way" clips (BUS and later): write the clip as one
 // timeline in absolute seconds, mark where each fighter's turn starts, and finish() cuts it into a beat storyboard
-// (docs/STORYBOARD.md) with the house captions: the pinned title word, the hook line, each fighter's name and habit
+// (docs/STORYBOARD.md) with the house captions: the hook line, each fighter's name and habit
 // while it's their turn, and "which one are you?" at the end.
 //   const c = clip({ id, title, set, ... }); c.A("ast", 0.5, "hop"); c.beat("ast", 0, "how", "habit"); c.finish(end, {...})
 import { writeFileSync } from "node:fs";
@@ -35,9 +35,9 @@ export function clip(meta) {
       }
       sb.duration = end;
       sb.shots.push({ at: 0, ...shot });
-      sb.captions.push({ from: 0, to: end, text: title, style: "label", pos: 230, pop: false });
-      // the first fighter's name is up from frame 0, with the hook under it until hookTo, then their habit
-      sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 425, pop: false });   // already up on frame 0
+      // the hook is the top line until hookTo (the first fighter's name under it from frame 0), then just the name and
+      // the habit (the title is the storyboard's, not a caption: a one-word title meant nothing on screen)
+      sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 230, pop: false });   // already up on frame 0
       const ask = r3(askAt);
       for (const [i, b] of beats.entries()) {
         const from = i ? r3(b.at) : 0, to = i === beats.length - 1 ? ask : beats[i + 1].at, habitFrom = i ? from : hookTo;
