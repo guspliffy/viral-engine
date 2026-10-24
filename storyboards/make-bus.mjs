@@ -11,7 +11,7 @@ const r3 = (x) => Math.round(x * 1000) / 1000;
 const ROAD_Y = -0.12, BZ = -1.42;                  // the bus's near side (the kerb is at z -1.15)
 const BS = 1.5, BX = 0.75, OFFL = -3.0, OFFR = 6.9;  // the bus's scale (a potato is ~1.3 tall); its door when it stops; off-screen left and right
 const MARK = [0.2, -0.5], WAIT = [1.0, -0.15], ENTER = [2.9, -0.2], DOOR = [BX, -1.2];   // queue from the right
-const BENCH = [-0.75, -0.95];
+const BENCH = [-0.75, -0.8];
 const ARRIVE = 0.5, LEAVE = 0.55;                    // a bus pulls in (slowing down) and drives off (speeding up)
 
 const sb = {
@@ -24,7 +24,7 @@ const sb = {
     { id: "bench", kind: "bench", x: BENCH[0], z: BENCH[1] },
     // frame 0: a bus already pulling in, 35 % of the way through its arrival (the last frame starts the same one)
     { id: "bus", kind: "bus", x: r3(OFFL + (BX - OFFL) * (1 - 0.65 ** 2)), y: ROAD_Y, z: BZ, scale: BS },
-    { id: "toy", kind: "bus", x: 0.95, y: 0, z: 0.3, scale: 0 },
+    { id: "toy", kind: "bus", x: 0.75, y: 0, z: 0.6, scale: 0 },
     { id: "phone", kind: "phone", x: MARK[0] + 0.3, y: 0.5, z: MARK[1] + 0.3, glow: 1, scale: 1.6 },
   ],
 };
@@ -77,7 +77,7 @@ A("ast", 1.3, "look", { to: [0.8, 0.2], dur: 0.12 }); A("ast", 1.3, "expr", { ex
 A("ast", 1.45, "fly", { to: { y: 0.35 }, dur: 0.3 }); A("ast", 1.45, "turn", { to: "right", dur: 0.2 });
 walk("ast", 1.55, [ENTER[0] + 0.2, MARK[1]], 0.7, "in", 0);
 A("ast", 2.3, "hide");
-queue("sor", 1.5);
+queue("sor", 2.25);   // once the Astronaut has floated off that way
 
 // ---- 2. Reaper: asleep on the bench since frame 0; a bus comes and goes; he opens one eye, and sleeps on
 t = after(1.95, 0.05);
@@ -98,7 +98,7 @@ beat("sor", t, "pushes in: the queue jumper, portals himself straight into the b
 walk("sor", t, MARK, 0.45); A("sor", t, "expr", { expr: "evil" });
 a = bus.arrive(t + 0.1); bus.open(a);
 A("sor", a - 0.1, "look", { to: [0.9, 0], dur: 0.15 });                         // checks who's behind him...
-walk("wiz", a, [WAIT[0] - 0.15, WAIT[1] - 0.2], 0.35);                          // the Wizard steps up
+A("wiz", a, "lean", { to: 0.15, dur: 0.2 }); A("wiz", a + 0.5, "lean", { to: 0, dur: 0.2 });   // the Wizard leans in: his turn
 A("sor", a + 0.15, "charge", { to: 1, dur: 0.2 }); A("sor", a + 0.15, "arm", { side: "L", pose: "cast", dur: 0.15 });
 fx(a + 0.4, { fx: "poof", who: "sor", dur: 0.5, puffs: 8, sparks: 10, color: "#c9f7b0", spark: "#9dff6a" });
 A("sor", a + 0.45, "hide"); sfx(a + 0.4, "poof", { gain: 0.3 });
@@ -112,15 +112,15 @@ t = sorEnd - 0.2;
 beat("wiz", t, "the spell goes wrong: summons a toy bus, shrinks himself and rides it", "the spell goes wrong");
 walk("wiz", t, MARK, 0.35); A("wiz", t + 0.05, "look", { to: [0, 0], dur: 0.12 }); A("wiz", t + 0.1, "expr", { expr: "eager" });
 A("wiz", t + 0.35, "arm", { side: "R", pose: "cast", dur: 0.15 }); A("wiz", t + 0.35, "charge", { to: 1, dur: 0.25 });
-fx(t + 0.6, { fx: "poof", pos: [0.55, 0.05, 0.1], dur: 0.5, puffs: 6, sparks: 10, spark: "#c8b6ff" }); sfx(t + 0.6, "poof", { gain: 0.3 });
+fx(t + 0.6, { fx: "poof", pos: [0.35, 0.05, 0.4], dur: 0.5, puffs: 6, sparks: 10, spark: "#c8b6ff" }); sfx(t + 0.6, "poof", { gain: 0.3 });
 prop("toy", t + 0.62, { scale: 0.45 }, 0.15, "out");
 A("wiz", t + 0.65, "charge", { to: 0, dur: 0.15 }); A("wiz", t + 0.7, "arm", { side: "R", pose: "rest", dur: 0.2 });
 A("wiz", t + 0.75, "look", { to: [0.6, -0.6], dur: 0.12 }); A("wiz", t + 0.8, "expr", { expr: "sad" }); A("wiz", t + 0.8, "droop", { to: 1, dur: 0.25 });
 sfx(t + 0.8, "sadslide", { gain: 0.2 });
 A("wiz", t + 1.05, "expr", { expr: "eager" }); A("wiz", t + 1.05, "droop", { to: 0, dur: 0.2 });
 fx(t + 1.15, { fx: "poof", who: "wiz", dur: 0.45, puffs: 6, sparks: 8, spark: "#c8b6ff" }); A("wiz", t + 1.15, "grow", { to: 0.3, dur: 0.2 });
-A("wiz", t + 1.4, "hop", { height: 0.15, dur: 0.3 }); walk("wiz", t + 1.4, [0.55, 0.1], 0.3, "inOut", 2); A("wiz", t + 1.68, "hide");
-prop("toy", t + 1.75, { x: 3.6 }, 0.6, "in"); sfx(t + 1.75, "horn", { dur: 0.15, gain: 0.12 });   // beep beep
+A("wiz", t + 1.4, "hop", { height: 0.15, dur: 0.3 }); walk("wiz", t + 1.4, [0.45, 0.4], 0.3, "inOut", 2); A("wiz", t + 1.68, "hide");
+prop("toy", t + 1.75, { x: 3.6 }, 0.6, "in"); prop("toy", t + 2.4, { scale: 0 }, 0);   // gone, off-screen sfx(t + 1.75, "horn", { dur: 0.15, gain: 0.12 });   // beep beep
 const wizEnd = t + 1.85;
 queue("dra", sorEnd - 0.1);
 
@@ -152,7 +152,7 @@ fx(t + 0.85, { fx: "shake", dur: 0.2, amp: 0.035 }); sfx(t + 0.85, "impact", { g
 A("phx", t + 0.85, "squash", { amount: 0.3, dur: 0.25 }); A("phx", t + 0.85, "expr", { expr: "dizzy" }); A("phx", t + 0.85, "wings", { to: 0, dur: 0.2 });
 bus.leave(t + 1.05);
 A("phx", t + 1.45, "expr", { expr: "cocky" }); A("phx", t + 1.45, "arm", { side: "both", pose: "hips", dur: 0.2 }); A("phx", t + 1.45, "look", { to: [0, 0], dur: 0.12 });
-A("phx", t + 1.75, "fly", { to: { y: 3.2 }, dur: 0.5 }); A("phx", t + 2.3, "hide");
+A("phx", t + 1.75, "turn", { to: "right", dur: 0.15 }); A("phx", t + 1.75, "fly", { to: { x: 3.4, y: 1.0, z: -0.9 }, dur: 0.55 }); A("phx", t + 2.3, "hide");
 const phxEnd = t + 1.75, draEnd = t;
 queue("gun", t + 0.6);
 
@@ -174,7 +174,7 @@ queue("sam", phxEnd);
 // ---- 8. Samurai: stands too close to the kerb; the bus drives through the puddle, he slices the splash in two
 t = after(gunEnd - 0.1, 0.3);
 beat("sam", t, "stands too close to the kerb: the bus splashes him, he cuts the splash in half", "too close to the kerb");
-walk("sam", t, [MARK[0], -0.95], 0.4); A("sam", t + 0.1, "expr", { expr: "focused" });
+walk("sam", t, [MARK[0] + 0.15, -0.95], 0.4); A("sam", t + 0.1, "expr", { expr: "focused" });
 a = bus.arrive(t + 0.3);
 const sp = t + 0.3 + 0.42;   // the front wheel in the puddle
 fx(sp, { fx: "poof", pos: [-0.2, -0.2, -1.4], dur: 0.25, puffs: 10, sparks: 14, color: "#bfe6ff", spark: "#4aa8ff" }); sfx(sp, "whoosh", { dur: 0.3, gain: 0.25 });
@@ -185,7 +185,7 @@ fx(sp + 0.14, { fx: "poof", pos: [0.95, 0.1, -0.9], dur: 0.45, puffs: 5, sparks:
 A("sam", sp + 0.4, "arm", { side: "R", pose: "rest", dur: 0.2 }); A("sam", sp + 0.45, "expr", { expr: "serene" });
 bus.open(a + 0.15); A("sam", a + 0.45, "expr", { expr: "focused" }); board("sam", a + 0.45); bus.close(a + 0.8); bus.leave(a + 0.95);
 const samEnd = a + 0.95;
-queue("all", gunEnd);
+queue("all", gunEnd + 0.35);
 
 // ---- 9. Allfather: gets on the wrong bus: it starts off, stops, he steps back out and glares at its number
 t = after(samEnd - 0.1, 0.05);
@@ -199,19 +199,19 @@ A("all", a + 0.87, "hop", { height: 0.1, dur: 0.22 }); walk("all", a + 0.87, [BX
 A("all", a + 1.15, "turn", { to: "back", dur: 0.25 }); A("all", a + 1.2, "look", { to: [0, 0.5], dur: 0.15 });
 bus.close(a + 1.3); bus.leave(a + 1.45);
 A("all", a + 1.65, "turn", { to: "camera", dur: 0.2 }); A("all", a + 1.7, "arm", { side: "both", pose: "hips", dur: 0.2 }); A("all", a + 1.7, "look", { to: [0, 0], dur: 0.1 });
-A("all", a + 2.1, "turn", { to: "left", dur: 0.2 }); walk("all", a + 2.15, [-2.9, -0.35], 0.8, "linear"); A("all", a + 2.95, "hide");   // stomps off
+A("all", a + 1.95, "turn", { to: "left", dur: 0.2 }); walk("all", a + 1.95, [0.55, 0.15], 0.3, "inOut", 2); walk("all", a + 2.25, [-2.9, 0.15], 0.7, "linear"); A("all", a + 2.95, "hide");   // stomps off
 const allEnd = a + 2.4;
-queue("vik", a + 1.95);
+
 
 // ---- 10. Viking: squeezes into a full bus; it bulges, sags, and drives off with him stuck in the door
 t = after(allEnd - 0.15, 0.1);
 beat("vik", t, "squeezes into a full bus: it bulges and drives off with him stuck in the door", "the bus is full");
-walk("vik", t, MARK, 0.4); A("vik", t + 0.1, "expr", { expr: "delighted" });
+A("vik", t - 0.1, "show"); walk("vik", t - 0.1, MARK, 0.7); A("vik", t + 0.3, "expr", { expr: "delighted" });   // straight in (the Allfather went the other way)
 a = bus.arrive(t + 0.1, { full: 1 }); bus.open(a);
 A("vik", a - 0.05, "expr", { expr: "shocked" });
 A("vik", a + 0.25, "expr", { expr: "stern" }); A("vik", a + 0.25, "turn", { to: "back", dur: 0.15 }); A("vik", a + 0.25, "arm", { side: "both", pose: "up", dur: 0.15 });
 walk("vik", a + 0.3, [BX, BZ + 0.15], 0.3, "in", 2);
-prop("bus", a + 0.55, { bulge: 1.2, tilt: 4 }, 0.15, "out"); prop("bus", a + 0.7, { bulge: 1.0 }, 0.12); prop("bus", a + 0.82, { bulge: 1.1 }, 0.15);
+prop("bus", a + 0.55, { bulge: 1.2 }, 0.15, "out"); prop("bus", a + 0.7, { bulge: 1.0 }, 0.12); prop("bus", a + 0.82, { bulge: 1.1 }, 0.15);
 fx(a + 0.55, { fx: "shake", dur: 0.25, amp: 0.04 }); sfx(a + 0.55, "impact", { gain: 0.35 }); A("vik", a + 0.55, "squash", { amount: 0.2, dur: 0.25 });
 prop("bus", a + 0.6, { open: 0.45 }, 0.15);
 const vikGo = a + 1.15; prop("bus", vikGo, { x: OFFR }, 0.9, "in"); busFree = vikGo + 0.9; walk("vik", vikGo, [OFFR, BZ + 0.15], 0.9, "in", 0); sfx(vikGo, "horn", { dur: 0.45, gain: 0.25 });
@@ -219,9 +219,9 @@ A("vik", vikGo + 0.9, "hide");
 
 // ---- the loop: the Astronaut walks back on, phone out, as the next bus pulls in. The last frame is frame 0.
 const back = vikGo + 0.2;
-A("ast", back - 0.05, "drop", { to: 0, dur: 0.02 }); A("ast", back - 0.05, "move", { to: ENTER, dur: 0.01 }); A("ast", back - 0.05, "turn", { to: "left", dur: 0.01 });
+A("ast", back - 0.05, "drop", { to: 0, dur: 0.02 }); A("ast", back - 0.05, "move", { to: [-2.9, 0.15], dur: 0.01 }); A("ast", back - 0.05, "turn", { to: "right", dur: 0.01 });   // back round from the left
 A("ast", back - 0.05, "expr", { expr: "delighted" }); A("ast", back - 0.05, "arm", { side: "R", pose: PHONE_UP, dur: 0.01 }); A("ast", back - 0.05, "arm", { side: "L", pose: "cheeks", dur: 0.01 }); A("ast", back - 0.05, "look", { to: [0.25, -0.35], dur: 0.01 });
-A("ast", back, "show"); walk("ast", back, MARK, 0.75); A("ast", back + 0.55, "turn", { to: "camera", dur: 0.2 });
+A("ast", back, "show"); walk("ast", back, [-0.15, 0.05], 0.5, "linear"); walk("ast", back + 0.5, MARK, 0.3, "out", 2); A("ast", back + 0.55, "turn", { to: "camera", dur: 0.2 });
 const end = r3(back + 1.05);
 // the next bus, timed so the frame after the last is frame 0 (35 % into the same arrival)
 const busStart = end - P0 * ARRIVE;

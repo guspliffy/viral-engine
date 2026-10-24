@@ -29,7 +29,7 @@
    "character": "potatobrawl/reaper",
    "at": [
     -0.75,
-    -0.95
+    -0.8
    ],
    "face": "camera",
    "expr": "serene",
@@ -359,23 +359,6 @@
      "dur": 0.7,
      "ease": "in",
      "steps": 0
-    },
-    {
-     "who": "sor",
-     "do": "show",
-     "at": 1.5
-    },
-    {
-     "who": "sor",
-     "do": "move",
-     "at": 1.5,
-     "to": [
-      1,
-      -0.15
-     ],
-     "dur": 0.55,
-     "ease": "out",
-     "steps": 3
     }
    ]
   },
@@ -388,6 +371,23 @@
      "who": "ast",
      "do": "hide",
      "at": 0.35
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
     },
     {
      "fx": "zzz",
@@ -623,15 +623,17 @@
     },
     {
      "who": "wiz",
-     "do": "move",
+     "do": "lean",
      "at": 0.6,
-     "to": [
-      0.85,
-      -0.35
-     ],
-     "dur": 0.35,
-     "ease": "out",
-     "steps": 3
+     "to": 0.15,
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "at": 1.1,
+     "to": 0,
+     "dur": 0.2
     },
     {
      "who": "sor",
@@ -777,9 +779,9 @@
     {
      "fx": "poof",
      "pos": [
-      0.55,
+      0.35,
       0.05,
-      0.1
+      0.4
      ],
      "dur": 0.5,
      "puffs": 6,
@@ -886,8 +888,8 @@
      "do": "move",
      "at": 1.4,
      "to": [
-      0.55,
-      0.1
+      0.45,
+      0.4
      ],
      "dur": 0.3,
      "ease": "inOut",
@@ -933,10 +935,14 @@
      }
     },
     {
-     "sfx": "horn",
-     "at": 0.1,
-     "dur": 0.15,
-     "gain": 0.12
+     "do": "prop",
+     "id": "toy",
+     "at": 0.75,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
     },
     {
      "who": "dra",
@@ -1381,12 +1387,21 @@
    "do": [
     {
      "who": "phx",
+     "do": "turn",
+     "at": 0.1,
+     "to": "right",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
      "do": "fly",
      "at": 0.1,
      "to": {
-      "y": 3.2
+      "x": 3.4,
+      "y": 1,
+      "z": -0.9
      },
-     "dur": 0.5
+     "dur": 0.55
     },
     {
      "who": "phx",
@@ -1588,23 +1603,6 @@
      "dur": 0.55,
      "ease": "out",
      "steps": 3
-    },
-    {
-     "who": "all",
-     "do": "show",
-     "at": 1.85
-    },
-    {
-     "who": "all",
-     "do": "move",
-     "at": 1.85,
-     "to": [
-      1,
-      -0.15
-     ],
-     "dur": 0.55,
-     "ease": "out",
-     "steps": 3
     }
    ]
   },
@@ -1618,7 +1616,7 @@
      "do": "move",
      "at": 0,
      "to": [
-      0.2,
+      0.35,
       -0.95
      ],
      "dur": 0.4,
@@ -1826,6 +1824,23 @@
      "at": 1.75,
      "dur": 0.5,
      "gain": 0.15
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.08
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.08,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
     }
    ]
   },
@@ -2069,36 +2084,36 @@
     {
      "who": "all",
      "do": "turn",
-     "at": 2.65,
+     "at": 2.5,
      "to": "left",
      "dur": 0.2
     },
     {
      "who": "all",
      "do": "move",
-     "at": 2.7,
+     "at": 2.5,
      "to": [
-      -2.9,
-      -0.35
+      0.55,
+      0.15
      ],
-     "dur": 0.8,
-     "ease": "linear",
-     "steps": 3
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
     },
     {
      "who": "vik",
      "do": "show",
-     "at": 2.5
+     "at": 2.7
     },
     {
      "who": "vik",
      "do": "move",
-     "at": 2.5,
+     "at": 2.7,
      "to": [
-      1,
-      -0.15
+      0.2,
+      -0.5
      ],
-     "dur": 0.55,
+     "dur": 0.7,
      "ease": "out",
      "steps": 3
     }
@@ -2111,25 +2126,25 @@
    "do": [
     {
      "who": "all",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -2.9,
+      0.15
+     ],
+     "dur": 0.7,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "all",
      "do": "hide",
      "at": 0.7
     },
     {
      "who": "vik",
-     "do": "move",
-     "at": 0,
-     "to": [
-      0.2,
-      -0.5
-     ],
-     "dur": 0.4,
-     "ease": "out",
-     "steps": 3
-    },
-    {
-     "who": "vik",
      "do": "expr",
-     "at": 0.1,
+     "at": 0.3,
      "expr": "delighted"
     },
     {
@@ -2218,8 +2233,7 @@
      "dur": 0.15,
      "ease": "out",
      "set": {
-      "bulge": 1.2,
-      "tilt": 4
+      "bulge": 1.2
      }
     },
     {
@@ -2315,8 +2329,8 @@
      "do": "move",
      "at": 1.9,
      "to": [
-      2.9,
-      -0.2
+      -2.9,
+      0.15
      ],
      "dur": 0.01
     },
@@ -2324,7 +2338,7 @@
      "who": "ast",
      "do": "turn",
      "at": 1.9,
-     "to": "left",
+     "to": "right",
      "dur": 0.01
     },
     {
@@ -2375,12 +2389,24 @@
      "do": "move",
      "at": 1.95,
      "to": [
+      -0.15,
+      0.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 2.45,
+     "to": [
       0.2,
       -0.5
      ],
-     "dur": 0.75,
+     "dur": 0.3,
      "ease": "out",
-     "steps": 3
+     "steps": 2
     },
     {
      "who": "ast",
@@ -2610,7 +2636,7 @@
    "id": "bench",
    "kind": "bench",
    "x": -0.75,
-   "z": -0.95
+   "z": -0.8
   },
   {
    "id": "bus",
@@ -2623,9 +2649,9 @@
   {
    "id": "toy",
    "kind": "bus",
-   "x": 0.95,
+   "x": 0.75,
    "y": 0,
-   "z": 0.3,
+   "z": 0.6,
    "scale": 0
   },
   {

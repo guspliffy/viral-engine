@@ -361,9 +361,9 @@ const KINDS = {
         const o = clamp(ps.open ?? 0), b = clamp(ps.bulge ?? 0, 0, 1.5), n = clamp(ps.full ?? 0);
         for (const [s, l] of leaves) l.position.x = s * (0.145 + 0.27 * o);
         pax.forEach((f, k) => { f.visible = n > 0.01; f.scale.set(1 + 0.25 * n, 1 - 0.1 * n, 1); f.rotation.z = (k % 2 ? 1 : -1) * 0.12 * n; });
-        body.scale.set(1, 1 + 0.12 * b, 1 + 0.3 * b); body.position.z = 0.15 * b; body.position.y = -0.02 * b;
+        body.scale.set(1 + 0.04 * b, 1 + 0.18 * b, 1 + 0.3 * b); body.position.y = -0.02 * b;   // puffs up and back (its near side stays put)
         const turn = -(ps.x ?? 0) / (0.26 * Math.max(ps.scale ?? 1, 0.01));
-        for (const w of wheels) { w.rotation.z = turn; w.position.z = 0.15 * b + 0.02; }
+        for (const w of wheels) w.rotation.z = turn;
       },
     };
   },
