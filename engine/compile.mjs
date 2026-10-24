@@ -59,6 +59,58 @@ export const MACROS = {
     { who, do: "squash", amount: 0.15, dur: 0.2, at: 0.3 }, { who, do: "look", to: [0, 0], dur: 0.15, at: 0.75 },
     { who, do: "expr", expr: "cocky", dur: 0.2, at: 0.8 },
   ],
+  // Performances: small acted sequences with a thought process (eyes first, a held beat, then the body), built
+  // from still holds and the acting eases (antic, settle). Times are tuned at 30 fps; scale them with "len" later.
+  // realisation: eyes find it, the body holds while it lands, the face changes, then the body reacts; "then" looks
+  // at someone afterwards
+  realize: ({ who, to = [0, 0], then, expr = "shocked", big = false }) => [
+    { who, do: "look", to, dur: 0.1 }, { who, do: "still", dur: 0.3, idle: 0.1, fade: 0.08 },
+    { who, do: "expr", expr, dur: 0.12, at: 0.28 }, { who, do: "squash", amount: big ? 0.14 : 0.09, dur: 0.25, at: 0.36 },
+    ...(big ? [{ who, do: "hop", height: 0.08, dur: 0.25, at: 0.38 }] : []),
+    ...(then ? [{ who, do: "look", to: then, dur: 0.15, at: 0.8 }] : []),
+  ],
+  // reaching for something: eyes go first, a small lean away (hesitation), then the arm winds up and goes, overshoots
+  // a touch and settles while the body leans into it
+  reach: ({ who, side = "R", pose, look, dur = 0.5, hesitate = 0.2 }) => {
+    const s = side === "L" ? -1 : 1, go = 0.1 + hesitate;
+    return [
+      ...(look ? [{ who, do: "look", to: look, dur: 0.15 }] : []),
+      { who, do: "lean", to: -3 * s, dur: 0.2, ease: "out", at: 0.1 },
+      { who, do: "arm", side, pose, dur, ease: "anticSettle", at: go },
+      { who, do: "lean", to: 5 * s, dur: dur * 0.8, at: go + 0.05 }, { who, do: "lean", to: 0, dur: 0.35, at: go + dur + 0.1 },
+    ];
+  },
+  // one exact action with no wasted motion (Reaper): the body goes still, the arm snaps to the pose and settles,
+  // holds, and goes back
+  precise: ({ who, side = "L", pose, back = "rest", hold = 0.3, look }) => [
+    { who, do: "still", dur: 0.85 + hold, idle: 0.1 },
+    ...(look ? [{ who, do: "look", to: look, dur: 0.12, at: 0.1 }] : []),
+    { who, do: "arm", side, pose, dur: 0.22, ease: "settle", at: 0.3 },
+    { who, do: "arm", side, pose: back, dur: 0.3, at: 0.55 + hold },
+  ],
+  // the big confident start (Phoenix): crouch, spring up with arms open, a flourish, land on hands on hips
+  demonstrate: ({ who, expr = "cocky" }) => [
+    { who, do: "squash", amount: 0.14, dur: 0.25 }, { who, do: "expr", expr, dur: 0.12, at: 0.05 },
+    { who, do: "arm", side: "both", pose: "up", dur: 0.25, ease: "settle", at: 0.2 }, { who, do: "hop", height: 0.06, dur: 0.25, at: 0.2 },
+    { who, do: "flare", dur: 0.6, at: 0.25 },
+    { who, do: "arm", side: "both", pose: "hips", dur: 0.3, ease: "settle", at: 0.8 }, { who, do: "squash", amount: 0.05, dur: 0.2, at: 0.85 },
+  ],
+  // caught failing: freeze, eyes dart, sag, then snap into a confident pose as if it was the plan
+  recover: ({ who, to = [0, 0], pose = "hips", expr = "cocky" }) => [
+    { who, do: "still", dur: 0.5, idle: 0, fade: 0.06 }, { who, do: "expr", expr: "shocked", dur: 0.08 },
+    { who, do: "look", to: [-0.5, 0], dur: 0.08, at: 0.18 }, { who, do: "look", to: [0.5, 0], dur: 0.08, at: 0.32 },
+    { who, do: "droop", to: 0.6, dur: 0.2, at: 0.25 },
+    { who, do: "expr", expr, dur: 0.12, at: 0.55 }, { who, do: "droop", to: 0, dur: 0.15, at: 0.55 },
+    ...(pose ? [{ who, do: "arm", side: "both", pose, dur: 0.25, ease: "settle", at: 0.55 }] : []), { who, do: "squash", amount: 0.06, dur: 0.2, at: 0.58 },
+    { who, do: "look", to, dur: 0.12, at: 0.6 },
+  ],
+  // quiet affection (Reaper): looks at them, a slow blink, the smile comes slowly, then he looks away and gives the
+  // smallest nod, as if nobody should see it
+  affection: ({ who, other = [-0.6, 0.05], away }) => [
+    { who, do: "still", dur: 1.9, idle: 0.3 }, { who, do: "look", to: other, dur: 0.25 },
+    { who, do: "blink", dur: 0.35, at: 0.35 }, { who, do: "expr", expr: "kind", dur: 0.5, at: 0.6 },
+    { who, do: "look", to: away || [other[0] * 0.3, -0.35], dur: 0.3, at: 1.2 }, { who, do: "squash", amount: 0.04, dur: 0.3, at: 1.5 },
+  ],
   // magic transformation cover: flash + poof + shake at once
   zap: ({ who, color = "#ffe27a" }) => [
     { fx: "flash", dur: 0.25, only: "standard" }, { fx: "impact", dur: 0.1, only: "anime" }, { fx: "flash", dur: 0.2, peak: 0.8, at: 0.1, only: "anime" },
@@ -116,8 +168,8 @@ export function compile(sb) {
       if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top" }); continue; }
       if (rest.fx) { const { fx, ...f } = rest; out.fx.push({ do: fx, at: abs, ...f }); continue; }
       if (rest.sfx) { const { sfx, ...f } = rest; out.sfx.push({ sound: sfx, at: abs, ...f }); continue; }
-      if (rest.do === "prop" && rest.id) { out.actions.push({ ...rest, at: abs }); continue; }   // prop tweens have no who
-      if (!rest.who || !rest.do) throw new Error(`beat "${b.name ?? bi}": item needs who + do, fx, sfx, caption or macro: ${JSON.stringify(g)}`);
+      // a prop tween ({ do: "prop", id, set }) belongs to no one
+      if (!rest.do || (!rest.who && rest.do !== "prop")) throw new Error(`beat "${b.name ?? bi}": item needs who + do, do: "prop", fx, sfx, caption or macro: ${JSON.stringify(g)}`);
       out.actions.push({ ...rest, at: abs });
     }
     if (b.caption != null) {

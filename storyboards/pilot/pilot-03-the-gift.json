@@ -1,0 +1,833 @@
+{
+ "id": "pilot-03-the-gift",
+ "title": "The gift",
+ "status": "pilot calibration episode 3 of 6 (docs/character-bible.md): Phoenix thinks Reaper forgot their day; Reaper has mended the cup Phoenix broke. Reaper wins and surprises.",
+ "experiment": {
+  "id": "pilot-opening",
+  "episode": "the-gift",
+  "variant": "calibration"
+ },
+ "fps": 30,
+ "cover": 9.0,
+ "set": {
+  "type": "kitchen",
+  "time": 2.75
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -0.95,
+    0.36
+   ],
+   "y": 0.62,
+   "face": "3q-right",
+   "expr": "delighted",
+   "seed": 2.2,
+   "arms": {
+    "R": {
+     "x": [
+      -0.13,
+      0.2,
+      0.52
+     ]
+    },
+    "L": {
+     "x": [
+      0.13,
+      0.2,
+      0.52
+     ]
+    }
+   }
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    0.72,
+    -0.45
+   ],
+   "face": -60,
+   "expr": "deadpan",
+   "seed": 5.7
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "table",
+   "x": -0.32,
+   "y": 0,
+   "z": -0.45
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": 0.72,
+   "y": 0,
+   "z": -0.45,
+   "rot": -60
+  },
+  {
+   "id": "tea",
+   "kind": "teacup",
+   "x": 0.1,
+   "y": 0.62,
+   "z": -0.62
+  },
+  {
+   "id": "big",
+   "kind": "gift",
+   "x": -0.95,
+   "y": 0.3,
+   "z": 0.95,
+   "scale": 1.5
+  },
+  {
+   "id": "box",
+   "kind": "gift",
+   "x": 0.55,
+   "y": 0,
+   "z": 0.3,
+   "rot": -60,
+   "w": 0.26,
+   "h": 0.16,
+   "color": "#b98b5e",
+   "ribbon": "#efe6d2",
+   "hinge": true
+  },
+  {
+   "id": "cup",
+   "kind": "teacup",
+   "x": 0.55,
+   "y": 0.008,
+   "z": 0.3,
+   "rot": 20,
+   "mended": true
+  }
+ ],
+ "beats": [
+  {
+   "name": "hook: the big present",
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.62,
+     1.05,
+     4.6
+    ],
+    "look": [
+     -0.62,
+     0.8,
+     -0.1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.08,
+      1.1,
+      5.1
+     ],
+     "look": [
+      -0.08,
+      0.8,
+      -0.1
+     ]
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "chair",
+     "hands": "lap",
+     "dur": 0.01,
+     "at": -0.05
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "big",
+     "hand": "both",
+     "dur": 0.01,
+     "at": -0.05
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -0.55,
+      "y": 0.2
+     },
+     "dur": 0.75,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "drop",
+     "to": 0,
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "macro": "say",
+     "who": "phx",
+     "line": "happy friend day!!",
+     "tone": "excited",
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "blank stare",
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.55,
+     1.0,
+     3.3
+    ],
+    "look": [
+     0.52,
+     0.74,
+     -0.4
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.25
+     ],
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 1.0
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "you forgot",
+   "len": 2.0,
+   "shot": {
+    "pos": [
+     -0.45,
+     1.0,
+     3.5
+    ],
+    "look": [
+     -0.5,
+     0.74,
+     0.3
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "phx",
+     "line": "...you forgot.",
+     "tone": "sad",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.8,
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "big",
+     "to": [
+      0.1,
+      0,
+      0.75
+     ],
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 1.0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.3,
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "reaches down",
+   "len": 2.0,
+   "shot": {
+    "pos": [
+     0.05,
+     1.05,
+     5.0
+    ],
+    "look": [
+     0.05,
+     0.62,
+     -0.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       -0.05,
+       0.5
+      ]
+     },
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "box",
+     "hand": "L",
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "L",
+     "off": [
+      0,
+      -0.022,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.05,
+       0.38,
+       0.55
+      ]
+     },
+     "dur": 0.45,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.3,
+     "dur": 0.3,
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "opens it",
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     0.2,
+     1.0,
+     3.0
+    ],
+    "look": [
+     -0.3,
+     0.65,
+     0.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.38,
+      0.3
+     ],
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0.15,
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "box",
+     "hand": "L",
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "L",
+     "off": [
+      0,
+      -0.022,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.25,
+       0.5,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.5
+     ],
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.4,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "set": {
+      "lid": 1
+     },
+     "dur": 0.35,
+     "at": 0.75
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.12,
+       0.6,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "R",
+     "dur": 0.3,
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "my cup?!",
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     -0.28,
+     0.84,
+     2.25
+    ],
+    "look": [
+     -0.3,
+     0.66,
+     0.6
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.29,
+      0.83,
+      2.1
+     ]
+    },
+    "dur": 1.45
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.5,
+       0.5
+      ]
+     },
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.3
+     ],
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "phx",
+     "line": "my cup?!",
+     "tone": "question",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "i fixed it",
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.5,
+     1.0,
+     3.4
+    ],
+    "look": [
+     0.48,
+     0.74,
+     -0.4
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "box",
+     "to": [
+      -0.02,
+      0.62,
+      -0.38
+     ],
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "rea",
+     "line": "you broke it. i fixed it.",
+     "tone": "calm",
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.4
+     ],
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 1.45
+    }
+   ]
+  },
+  {
+   "name": "joy",
+   "kind": "escalation",
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.2,
+     1.0,
+     3.9
+    ],
+    "look": [
+     0.2,
+     0.7,
+     -0.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.18,
+      0.2
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.02,
+       0.46,
+       0.55
+      ]
+     },
+     "dur": 0.35,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 1.4,
+     "count": 8,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "phx",
+     "line": "best. gift. ever.",
+     "tone": "excited",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.4
+     ],
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.3,
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "his smile",
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.55,
+     1.0,
+     3.3
+    ],
+    "look": [
+     0.52,
+     0.74,
+     -0.4
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.3,
+     "at": 0.7
+    }
+   ]
+  }
+ ]
+}

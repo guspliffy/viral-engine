@@ -48,4 +48,28 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 | `fail-and-recover` | | Hop, it goes wrong, pretends it was on purpose |
 | `zap` | `color?` | Transformation cover: flash (impact frame in anime), shake, poof |
 
+### Performances
+
+Small acted sequences with a thought process: the eyes move first, the body holds while the thought lands, then it
+reacts. They use the `still` action and the acting eases below, so they read as decisions rather than as everything
+moving at once.
+
+| Macro | Parameters | What it does | Suits |
+|---|---|---|---|
+| `realize` | `to` (eye target), `then?`, `expr?`, `big?` | Eyes find it, body holds 0.3 s, face changes, body reacts, then looks at `then` | anyone |
+| `reach` | `side`, `pose`, `look?`, `dur?`, `hesitate?` | Eyes first, a small lean away, then the arm winds up, goes, overshoots a touch and settles | anyone |
+| `precise` | `side`, `pose`, `back?`, `hold?`, `look?` | The body goes still, one arm snaps to the pose and settles, holds, goes back | Reaper |
+| `demonstrate` | `expr?` | Crouch, spring up with arms open, a flourish, land on hands on hips | Phoenix |
+| `recover` | `to` (eye target after), `pose?` (`null` keeps the arms), `expr?` | Caught failing: freeze, eyes dart, sag, snap into a confident pose | Phoenix |
+| `affection` | `other` (eye target), `away?` | Looks at them, slow blink, slow smile, looks away, the smallest nod | Reaper |
+
+**Holds and eases for your own acting**
+
+- `{ "who", "do": "still", "dur", "idle": 0.25, "sink": 0.008, "fade": 0.15, "blink": true }` turns the idle
+  breathing and sway down to `idle` (0 is dead still) for a purposeful hold. The body sinks very slightly over the
+  hold, so it doesn't read as a frozen frame. Use it whenever a character should be thinking, waiting or deadpan
+  rather than idling.
+- `"ease": "settle"` overshoots the target by about 4 % and eases back: follow-through on arms, turns and moves.
+  `"antic"` pulls back about 4 % before it goes (anticipation). `"anticSettle"` does both.
+
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.
