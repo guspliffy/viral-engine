@@ -80,7 +80,11 @@ const STYLE = {
 export const STYLES = Object.keys(STYLE);
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 
-// everything that varies from clip to clip, picked from the seed
+// what a clip's variations are seeded from: "seed" when the storyboard pins one, else its experiment episode (so the
+// variants of one episode share their music while different episodes still differ), else the clip's id. Renaming a
+// clip or a variant then changes nothing.
+export const seedOf = (sb) => sb.seed ?? (sb.experiment ? `${sb.experiment.id}/${sb.experiment.episode ?? ""}` : sb.id);
+
 // everything that varies from clip to clip, picked from the seed; any of it can be pinned in the music block
 export function musicFlavour(music = {}, id = "") {
   const seed = music.seed ?? hashStr(String(id)), r = mulberry(seed);

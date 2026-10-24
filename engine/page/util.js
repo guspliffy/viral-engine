@@ -26,6 +26,10 @@ export const EASE = {
 };
 export const ease = (name) => EASE[name] || EASE.inOut;
 
+// an arm's current target for a new arm action to start from: the pose it is on, or, while it is still moving, the
+// blend it is in (potato.js resolves { mix }), so a new move never makes the hand jump
+export const armNow = (a) => (a.p >= 1 ? a.pose : a.p <= 0 ? a.from : { mix: a });
+
 // progress of an action that starts at `at` and lasts `dur`, at time t
 export const prog = (t, at, dur) => (dur > 0 ? clamp((t - at) / dur) : t >= at ? 1 : 0);
 

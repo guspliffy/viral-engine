@@ -1,0 +1,18 @@
+{
+  "id": "example-opening",
+  "status": "example",
+  "question": "Does an opening centred on the visible problem beat the current wider setup?",
+  "variants": {
+    "A": "Closer framing: the character and the problem are both in shot from frame 0",
+    "B": "Current wider setup, no title card"
+  },
+  "audience": "Viewers of absurd character comedy who don't know the cast",
+  "fixed": ["cast", "renderer and style", "music seed", "sound strategy", "length band 12-20 s", "caption style"],
+  "primaryOutcome": "views at 7 days, per platform",
+  "diagnostics": ["avg_watch_s", "completion", "shares", "follows", "Shorts viewed vs swiped away"],
+  "observeDays": 7,
+  "threshold": "Set before posting, from the extra work variant A costs",
+  "decisionRule": "Keep A only if it is ahead on most premise families and again on the holdout batch",
+  "costGuardrail": "Active minutes per episode",
+  "notes": "An example record. Copy the folder for a real experiment."
+}

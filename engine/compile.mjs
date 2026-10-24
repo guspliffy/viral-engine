@@ -9,8 +9,10 @@
 //       ... ] }
 //
 // Timing inside a beat: "at" is seconds from the beat's start (default 0); "+0.2" means 0.2 s after the previous
-// item ends; "end-0.3" means 0.3 s before the beat ends (needs "len"). A beat lasts "len" seconds, or until its last
-// item ends plus "hold" (default 0.15). Without "duration", the clip lasts as long as its beats.
+// item ends, caption included (a say's caption stays up 0.5 s past the voice); "voice+0.2" means 0.2 s after the
+// previous item's voice or action ends, ignoring its caption; "end-0.3" means 0.3 s before the beat ends (needs
+// "len"). A beat lasts "len" seconds, or until its last item ends plus "hold" (default 0.15). Without "duration",
+// the clip lasts as long as its beats.
 // Item kinds: an action ({ who, do }), an effect ({ fx: "flash", ... }), a sound ({ sfx: "tink", ... }) or a
 // macro ({ macro, who, ... }, see MACROS). A beat's "shot" starts at the beat; "shot": "keep" (default) keeps the
 // camera. A beat's "caption" (text or { text, pos, style, beats }) shows for that beat, or for "beats" beats.
@@ -24,9 +26,10 @@ const sayLen = (line, tone) => Math.max(0.45, line.trim().split(/\s+/).length * 
 // Each macro returns items timed relative to its own start (same item kinds as above, macros excluded).
 export const MACROS = {
   // a line of dialogue: voice + mouth, and the line as a caption unless caption: false
-  say: ({ who, line, tone = "calm", dur, caption = true, pos }) => {
+  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed }) => {
     const d = dur ?? sayLen(line, tone);
-    return [{ who, do: "talk", tone, dur: d }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+    // the line rides on the talk action: it seeds the voice, so the same line always sounds the same wherever it is
+    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
   },
   // walks in to a spot and settles with a small squash
   enter: ({ who, to, dur = 0.7 }) => [{ who, do: "move", to, dur, ease: "out" }, { who, do: "squash", amount: 0.08, dur: 0.2, at: dur - 0.05 }],
@@ -88,23 +91,24 @@ export function compile(sb) {
         items.push({ group: m(it), at: it.at });
       } else items.push(it);
     }
-    let prevEnd = 0, last = 0;
+    let prevEnd = 0, prevVoiceEnd = 0, last = 0;
     const placed = [];
     const when = (at) => {
       if (at == null) return 0;
       if (typeof at === "number") return at;
-      const m = String(at).match(/^(\+|end-)([\d.]+)$/);
-      if (!m) throw new Error(`beat "${b.name ?? bi}": bad time "${at}" (use seconds, "+0.2" or "end-0.3")`);
+      const m = String(at).match(/^(\+|voice\+|end-)([\d.]+)$/);
+      if (!m) throw new Error(`beat "${b.name ?? bi}": bad time "${at}" (use seconds, "+0.2", "voice+0.2" or "end-0.3")`);
       if (m[1] === "+") return prevEnd + Number(m[2]);
+      if (m[1] === "voice+") return prevVoiceEnd + Number(m[2]);
       if (b.len == null) throw new Error(`beat "${b.name ?? bi}": "end-" times need the beat's "len"`);
       return b.len - Number(m[2]);
     };
     for (const it of items) {
       const at0 = when(it.at);
       const group = it.group ? it.group.map((g) => ({ ...g, at: at0 + (g.at ?? 0) })) : [{ ...it, at: at0 }];
-      let gEnd = at0;
-      for (const g of group) { placed.push(g); gEnd = Math.max(gEnd, g.at + itemEnd(g)); }
-      prevEnd = gEnd; last = Math.max(last, gEnd);
+      let gEnd = at0, vEnd = at0;
+      for (const g of group) { placed.push(g); gEnd = Math.max(gEnd, g.at + itemEnd(g)); if (g.caption == null) vEnd = Math.max(vEnd, g.at + itemEnd(g)); }
+      prevEnd = gEnd; prevVoiceEnd = vEnd; last = Math.max(last, gEnd);
     }
     const len = b.len ?? last + (b.hold ?? 0.15);
     for (const g of placed) {
@@ -137,7 +141,7 @@ export function compile(sb) {
 }
 
 // node engine/compile.mjs storyboards/x.json [out.json]  -> prints or writes the flat storyboard
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === (await import("node:url")).pathToFileURL(process.argv[1]).href) {
   const fs = await import("node:fs");
   const flat = JSON.stringify(compile(JSON.parse(fs.readFileSync(process.argv[2], "utf8"))), null, 2);
   if (process.argv[3]) fs.writeFileSync(process.argv[3], flat); else console.log(flat);

@@ -148,7 +148,7 @@ const FIGHTERS = [
     A(1.45, "arm", { side: "both", pose: "fist", dur: 0.25 }),
     A(1.55, "hop", { height: 0.08, count: 2, dur: 0.7 }),
     // a fresh pizza for the next round (swapped in while the old one is a crumb, then poofed in), and he walks off
-    P(1.5, { left: 10, y: 0.62 * TS, z: 0, tilt: 0 }, 0),
+    P(1.5, { slices: 10, y: 0.62 * TS, z: 0, tilt: 0 }, 0),
     P(2.25, { scale: 1 }, 0.3, "out"),
     A(2.25, "arm", { side: "both", pose: "rest", dur: 0.2 }),
     A(2.3, "turn", { to: "right", dur: 0.12 }),
@@ -164,7 +164,7 @@ const sb = {
   format: "each-character-vs-X, one continuous take: fighters queue in, each eats a slice their own way, the pizza shrinks, biggest last",
   fps: 30, set: { type: "meadow" }, sound: { sfx: 0.5 }, escalation: false, loop: true, cover: 9.85,
   cast: [], beats: [],
-  props: [{ id: "table", kind: "table", x: 0, z: 0, scale: TS }, { id: "pizza", kind: "pizza", x: 0, y: 0.62 * TS, z: 0, left: 10 },
+  props: [{ id: "table", kind: "table", x: 0, z: 0, scale: TS }, { id: "pizza", kind: "pizza", x: 0, y: 0.62 * TS, z: 0, slices: 10 },
     { id: "fire", kind: "flames", x: 0, y: 0, z: 0, scale: 0.3 }],
   shots: [], captions: [],
 };
@@ -180,7 +180,7 @@ for (const [i, f] of FIGHTERS.entries()) {
   const S = (t, set, dur = 0.3, ease = "inOut") => ({ do: "prop", id: sid, at: rel(t), dur: d(dur), ease, set });
   const P = (t, set, dur = 0.3, ease = "inOut") => ({ do: "prop", id: "pizza", at: rel(t), dur: d(dur), ease, set });
   const F = (t, set, dur = 0.3, ease = "inOut") => ({ do: "prop", id: "fire", at: rel(t), dur: d(dur), ease, set });
-  const take = (t) => [P(t, { left: w }, 0), S(t, { scale: 1 }, 0), S(t + 0.01, { scale: SL }, 0.3)];   // swap in place, then grow so it reads
+  const take = (t) => [P(t, { slices: w }, 0), S(t, { scale: 1 }, 0), S(t + 0.01, { scale: SL }, 0.3)];   // swap in place, then grow so it reads
   const bites = (t, n, gap) => Array.from({ length: n }, (_, j) => [
     S(t + j * gap, { scale: (1 - (j + 1) / n) * SL }, 0.1, "out"),
     A(t + j * gap, "squash", { amount: 0.08, dur: 0.12 }),

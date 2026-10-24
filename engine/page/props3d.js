@@ -79,10 +79,12 @@ const KINDS = {
   },
   jar(P) {
     const glass = new THREE.MeshPhysicalMaterial({ color: "#dff3ea", roughness: 0.08, transmission: 0, transparent: true, opacity: 0.32, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false });
-    const body = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.28, 36, 1, true), glass, P.whole, 0, 0.14, 0); body.castShadow = false;
-    mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.01, 36), glass, P.whole, 0, 0.005, 0).castShadow = false;
+    // see-through parts get a fixed draw order (brine, then glass): sorted by distance they swap from frame to frame
+    // as things move, and the jar flickers
+    const body = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.28, 36, 1, true), glass, P.whole, 0, 0.14, 0); body.castShadow = false; body.renderOrder = 2;
+    const base = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.01, 36), glass, P.whole, 0, 0.005, 0); base.castShadow = false; base.renderOrder = 2;
     const brine = new THREE.MeshStandardMaterial({ color: "#c9d97a", transparent: true, opacity: 0.35, roughness: 0.3, depthWrite: false });
-    mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.2, 32), brine, P.whole, 0, 0.11, 0).castShadow = false;
+    const liquid = mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.2, 32), brine, P.whole, 0, 0.11, 0); liquid.castShadow = false; liquid.renderOrder = 1;
     const pickleM = mat("#5f9a3a", { roughness: 0.5, emissive: new THREE.Color("#b8ff6a"), emissiveIntensity: 0 });
     const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), pickleM, P.whole, 0, 0.13, 0); pk.rotation.z = 0.25;
     for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), pickleM, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
@@ -94,8 +96,10 @@ const KINDS = {
       apply(ps, t) {
         const g = clamp(ps.glow), pulse = 1 + 0.12 * Math.sin(t * 9);
         pickleM.emissiveIntensity = 1.4 * g * pulse; light.intensity = 2.2 * g * pulse;
+        // the lid hops off and comes to rest on its edge against the jar (it used to stay 0.5 m up in the air, where
+        // it went through the face of whoever stood next to the jar)
         const l = clamp(ps.lid);
-        lid.position.set(0.1 * l, 0.3 + 0.32 * Math.sin(Math.min(1, l) * Math.PI * 0.75), 0.02 * l); lid.rotation.set(0.3 * l, 0, -1.6 * l);
+        lid.position.set(0.155 * l, 0.3 + (0.12 - 0.3) * l + 0.22 * Math.sin(l * Math.PI), 0.02 * l); lid.rotation.set(0.2 * l, 0, -1.45 * l);
       },
     };
   },
@@ -245,7 +249,7 @@ const KINDS = {
       },
     };
   },
-  // a pizza on a wooden board, cut in 10 slices; left 0..10 is how many are still on it (slice i sits at i*36 degrees,
+  // a pizza on a wooden board, cut in 10 slices; slices 0..10 is how many are still on it (slice i sits at i*36 degrees,
   // so a "slice" prop with rot i*36 at the same spot covers the one that was just taken, without a pop)
   pizza(P) {
     const board = mat("#c48a52", { roughness: 0.7 });
@@ -254,7 +258,7 @@ const KINDS = {
     const slices = Array.from({ length: 10 }, (_, i) => { const g = sliceMesh(); g.rotation.y = (i * 36 * Math.PI) / 180; g.position.y = 0.025; P.whole.add(g); return g; });
     return {
       grip: 0.03,
-      apply(ps) { const n = Math.round(clamp(ps.left ?? 10, 0, 10)); slices.forEach((g, i) => (g.visible = i < n)); handle.visible = true; },
+      apply(ps) { const n = Math.round(clamp(ps.slices ?? 10, 0, 10)); slices.forEach((g, i) => (g.visible = i < n)); handle.visible = true; },
     };
   },
   // one slice, its tip at the origin: with rot -18 it points straight at +z (the camera), with rot i*36 it covers slice i;
@@ -320,15 +324,17 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, left: spec.left ?? 10, toast: 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
     if (a.do === "prop") { for (const [k, v] of Object.entries(a.set || {})) ps[k] = typeof v === "number" && typeof ps[k] === "number" ? lerp(ps[k], v, e) : v; }
-    else if (a.do === "grab") ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k: 1, from: [ps.x, ps.y, ps.z], g: ease("inOut")(prog(t, a.at, a.dur ?? 0.15)) };
+    // a grab glides the prop from where it is into the hand while the arm comes up (it never jumps into the hand)
+    else if (a.do === "grab") { const k = ease("out")(prog(t, a.at, a.dur ?? 0.25)); ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) }; ps.left = null; }
     else if (a.do === "release") {
-      if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: 1 - e };
-      else { ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
+      if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1 };
+      // without "to" it stays where the hand let go (stage.js works out where that was)
+      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }
   }
   return ps;
