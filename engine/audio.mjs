@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng } from "./page/util.js";
+import { seedOf } from "../puppet/beat.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -181,7 +182,7 @@ function reverb(x, wet, stereoOffset) {
 }
 
 // ---------- variation: every clip and every event sounds a little different, same family of sounds ----------
-// The clip's seed comes from its id (or sound.seed), so a re-render is still identical. Each effect gets a small
+// The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
 // random pitch shift, and some get a second layer picked from a few variants.
 const hashStr = (str) => { let h = 2166136261; for (const ch of String(str)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
 const SEMIS = { hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
@@ -276,7 +277,8 @@ export function soundEvents(sb) {
 
 export function renderAudio(sb, chars) {
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
-  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(cfg.seed ?? hashStr(sb.id || "clip"));
+  const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
+  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const events = soundEvents(sb);
   for (const e of events) {
     if (e.kind === "voice") {
@@ -287,7 +289,7 @@ export function renderAudio(sb, chars) {
   }
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1;
-  if (amb > 0) fx.add(0, ambience(sb.set?.type, sb.duration, rng((cfg.seed ?? hashStr(sb.id || "clip")) ^ 0x5bd1e995)), amb, 0);
+  if (amb > 0) fx.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995)), amb, 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   const vl = reverb(voices.L, cfg.reverb, 0), vr = reverb(voices.R, cfg.reverb, 23);
   const fl = reverb(fx.L, cfg.reverb * 0.6, 0), fr = reverb(fx.R, cfg.reverb * 0.6, 23);
