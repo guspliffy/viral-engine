@@ -1,0 +1,14 @@
+{
+  "id": "originals/tomato",
+  "name": "Tomato",
+  "franchise": "originals",
+  "rig": "potato",
+  "body": { "color": "#e2402c", "height": 0.86, "width": 0.98, "depth": 0.9, "lump": 0.03, "seed": 9, "specks": 0, "gloss": 0.8 },
+  "limbs": { "color": "#2b2934", "width": 0.033 },
+  "face": { "default": "cocky", "iris": "#2f5a1e", "cheeks": "#ff9a7a" },
+  "sprout": { "color": "#3f9a2e", "placement": "hat-top" },
+  "costume": { "type": "cap", "accent": "#ffc83d", "band": "#2b2934" },
+  "personality": "PROPOSAL: the party friend. Loud, dramatic, goes red at everything (already red).",
+  "voice": { "pitch": 165, "rate": 4.2, "formant": 1.1, "range": 7, "breath": 0.05, "vibrato": 0.01, "seed": 9 },
+  "notes": "New original cast (2026-10-24). Personality and names are proposals until Jonny signs them off."
+}

@@ -20,7 +20,7 @@ export function actorState(sb, actor, def, t) {
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1,
-    hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true,
+    hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
   };
   let autoBlink = true;
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
@@ -70,6 +70,7 @@ export function actorState(sb, actor, def, t) {
         st.hatSpin = lerp3(st.hatSpin, (a.spin || [0, 0, 0]).map((x) => (x * Math.PI) / 180), e);
         break;
       }
+      case "grow": st.scale = lerp(st.scale, a.to ?? 1, e); break;
       case "hide": st.visible = false; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;

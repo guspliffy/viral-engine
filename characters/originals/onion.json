@@ -1,0 +1,14 @@
+{
+  "id": "originals/onion",
+  "name": "Onion",
+  "franchise": "originals",
+  "rig": "potato",
+  "body": { "color": "#a8517a", "height": 0.96, "width": 0.9, "depth": 0.82, "lump": 0.02, "seed": 11, "specks": 0, "gloss": 0.55 },
+  "limbs": { "color": "#2b2934", "width": 0.032 },
+  "face": { "default": "kind", "iris": "#3b2a4a", "cheeks": "#ff8fa8" },
+  "sprout": { "color": "#7cc84a", "placement": "hat-top" },
+  "costume": { "type": "magician", "accent": "#1d1c22", "band": "#8a2c4a", "glow": "#ffe27a", "propHand": "L" },
+  "personality": "PROPOSAL: a part-time stage magician. Calm, polite, helpful, and takes every request word for word.",
+  "voice": { "pitch": 112, "rate": 2.8, "formant": 1.0, "range": 3, "breath": 0.12, "vibrato": 0.02, "seed": 11 },
+  "notes": "New original cast (2026-10-24). Personality and names are proposals until Jonny signs them off."
+}

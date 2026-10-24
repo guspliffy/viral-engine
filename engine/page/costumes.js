@@ -58,6 +58,31 @@ function cowboyHat(C) {
   return { group: g, height: 0.31, brimR: 0.52 };
 }
 
+// the glowing tip of a staff or wand: gem, halo, light and orbiting sparks, driven by `charge`
+function glowTip(g, C, at, gemGeo, size = 1) {
+  const glowCol = new THREE.Color(C.glow || "#f2c14e");
+  const crystalM = new THREE.MeshStandardMaterial({ color: glowCol, emissive: glowCol, emissiveIntensity: 0.6, roughness: 0.15, metalness: 0.1 });
+  const crystal = new THREE.Mesh(gemGeo, crystalM); crystal.position.copy(at); g.add(crystal);
+  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,220,1)"], [0.25, `rgba(${(glowCol.r * 255) | 0},${(glowCol.g * 255) | 0},${(glowCol.b * 255) | 0},0.7)`], [1, "rgba(255,200,80,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+  halo.position.copy(crystal.position); g.add(halo);
+  const light = new THREE.PointLight(glowCol, 0, 3.5, 2); light.position.copy(crystal.position); g.add(light);
+  const sparkM = new THREE.MeshBasicMaterial({ color: "#fff6c8" });
+  const sparks = Array.from({ length: 16 }, (_, i) => { const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.014, 0), sparkM); g.add(m); return { m, i }; });
+  return (c, t) => {
+    crystalM.emissiveIntensity = 0.6 + c * 5;
+    halo.scale.setScalar(size * (0.22 + c * 1.1 + 0.04 * Math.sin(t * 40) * c));
+    halo.material.opacity = 0.35 + 0.65 * c;
+    light.intensity = c * 6;
+    crystal.rotation.y = t * (1 + c * 6);
+    for (const s of sparks) {
+      s.m.visible = c > 0.02;
+      const a = s.i * 2.399 + t * (2 + c * 5), r = size * (0.1 + (1 - c) * 0.35 + 0.05 * Math.sin(s.i * 1.7 + t * 3));
+      s.m.position.set(at.x + Math.cos(a) * r, at.y + Math.sin(s.i * 0.9 + t * 2.4) * 0.18 * size * (1 - c * 0.5), at.z + Math.sin(a) * r);
+      s.m.scale.setScalar(0.6 + c * 1.2);
+    }
+  };
+}
+
 function staff(C) {
   const g = new THREE.Group();
   const wood = new THREE.MeshStandardMaterial({ color: C.staffWood || "#7a4e2a", roughness: 0.7 });
@@ -67,30 +92,61 @@ function staff(C) {
     const c = new THREE.CatmullRomCurve3([new THREE.Vector3(0.03, 0.73, 0), new THREE.Vector3(0.03 + Math.cos(a) * 0.06, 0.8, Math.sin(a) * 0.06), new THREE.Vector3(0.03 + Math.cos(a) * 0.03, 0.9, Math.sin(a) * 0.03)]);
     g.add(new THREE.Mesh(taperedTube(c, 0.012, 0.004, 10, 6), wood));
   }
-  const glowCol = new THREE.Color(C.glow || "#f2c14e");
-  const crystalM = new THREE.MeshStandardMaterial({ color: glowCol, emissive: glowCol, emissiveIntensity: 0.6, roughness: 0.15, metalness: 0.1 });
-  const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.06, 0), crystalM); crystal.scale.set(1, 1.5, 1); crystal.position.set(0.03, 0.84, 0); g.add(crystal);
-  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,220,1)"], [0.25, `rgba(${(glowCol.r * 255) | 0},${(glowCol.g * 255) | 0},${(glowCol.b * 255) | 0},0.7)`], [1, "rgba(255,200,80,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
-  halo.position.copy(crystal.position); g.add(halo);
-  const light = new THREE.PointLight(glowCol, 0, 3.5, 2); light.position.copy(crystal.position); g.add(light);
-  const sparkM = new THREE.MeshBasicMaterial({ color: "#fff6c8" });
-  const sparks = Array.from({ length: 16 }, (_, i) => { const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.014, 0), sparkM); g.add(m); return { m, i }; });
-  return {
-    group: g,
-    charge(c, t) {
-      crystalM.emissiveIntensity = 0.6 + c * 5;
-      halo.scale.setScalar(0.22 + c * 1.1 + 0.04 * Math.sin(t * 40) * c);
-      halo.material.opacity = 0.35 + 0.65 * c;
-      light.intensity = c * 6;
-      crystal.rotation.y = t * (1 + c * 6);
-      for (const s of sparks) {
-        s.m.visible = c > 0.02;
-        const a = s.i * 2.399 + t * (2 + c * 5), r = 0.1 + (1 - c) * 0.35 + 0.05 * Math.sin(s.i * 1.7 + t * 3);
-        s.m.position.set(0.03 + Math.cos(a) * r, 0.84 + Math.sin(s.i * 0.9 + t * 2.4) * 0.18 * (1 - c * 0.5), Math.sin(a) * r);
-        s.m.scale.setScalar(0.6 + c * 1.2);
-      }
-    },
+  const gem = new THREE.OctahedronGeometry(0.06, 0); gem.scale(1, 1.5, 1);
+  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, 0.84, 0), gem) };
+}
+
+// a stage magician's wand: black stick, white tips, a star that glows when charged
+function wand(C) {
+  const g = new THREE.Group();
+  const black = new THREE.MeshStandardMaterial({ color: C.wandColor || "#17161c", roughness: 0.35 });
+  const white = new THREE.MeshStandardMaterial({ color: "#f4f1ea", roughness: 0.4 });
+  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.42, 12), black); stick.position.y = 0.12; stick.castShadow = true; g.add(stick);
+  for (const y of [-0.08, 0.32]) { const tip = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.05, 12), white); tip.position.y = y; g.add(tip); }
+  const star = new THREE.Shape();
+  for (let i = 0; i < 10; i++) { const r = i % 2 ? 0.025 : 0.06, a = (i / 10) * Math.PI * 2 + Math.PI / 2; i ? star.lineTo(Math.cos(a) * r, Math.sin(a) * r) : star.moveTo(Math.cos(a) * r, Math.sin(a) * r); }
+  const gem = new THREE.ExtrudeGeometry(star, { depth: 0.02, bevelEnabled: false }); gem.translate(0, 0, -0.01);
+  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0, 0.4, 0), gem, 0.8) };
+}
+
+function topHat(C) {
+  const g = new THREE.Group();
+  const silk = new THREE.MeshStandardMaterial({ color: C.accent || "#1d1c22", roughness: 0.4 });
+  const bandM = new THREE.MeshStandardMaterial({ color: C.band || "#8a2c4a", roughness: 0.6 });
+  const brim = new THREE.Mesh(lathe([[0.0, 0.015], [0.3, 0.02], [0.37, 0.04], [0.37, 0.02], [0.3, 0.0], [0.0, 0.0]], 56), silk); brim.scale.set(1, 1, 0.86); brim.castShadow = true; g.add(brim);
+  const crown = new THREE.Mesh(lathe([[0.0, 0.0], [0.2, 0.0], [0.19, 0.2], [0.215, 0.4], [0.0, 0.4]], 48), silk); crown.scale.set(1, 1, 0.86); crown.castShadow = true; g.add(crown);
+  const band = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.201, 0.06, 48, 1, true), bandM); band.scale.set(1, 1, 0.86); band.position.y = 0.05; g.add(band);
+  return { group: g, height: 0.4, brimR: 0.37 };
+}
+
+// a baseball cap worn backwards (the bill points behind)
+function cap(C) {
+  const g = new THREE.Group();
+  const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#ffc83d", roughness: 0.75 });
+  const billM = new THREE.MeshStandardMaterial({ color: C.band || "#2b2934", roughness: 0.7, side: THREE.DoubleSide });
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.27, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), cloth); dome.scale.set(1, 0.72, 0.92); dome.castShadow = true; g.add(dome);
+  const bill = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.018, 32, 1, false, -Math.PI / 2, Math.PI), billM);
+  bill.scale.set(1.05, 1, 0.95); bill.position.set(0, 0.015, -0.2); bill.rotation.x = -0.12; bill.castShadow = true; g.add(bill);
+  const button = new THREE.Mesh(new THREE.SphereGeometry(0.022, 10, 8), billM); button.position.y = 0.195; g.add(button);
+  return { group: g, height: 0.2, brimR: 0.27 };
+}
+
+// a necktie on the front of the body, below the mouth
+function tie(C, ch) {
+  const g = new THREE.Group();
+  const m = new THREE.MeshStandardMaterial({ color: C.tie || "#2f5fb3", roughness: 0.55 });
+  // stand each piece on the surface, its long axis along the body's front curve
+  const place = (mesh, ph, lift) => {
+    const at = ch.surf(0, ph);
+    mesh.position.copy(at.pos).addScaledVector(at.normal, lift);
+    mesh.rotation.x = Math.atan2(-at.normal.y, at.normal.z);
+    g.add(mesh);
   };
+  const knotG = new THREE.CylinderGeometry(0.03, 0.022, 0.05, 4); knotG.rotateY(Math.PI / 4); knotG.scale(1, 1, 0.45);
+  const bladeG = new THREE.CylinderGeometry(0.018, 0.06, 0.22, 4); bladeG.rotateY(Math.PI / 4); bladeG.scale(1, 1, 0.3);
+  place(new THREE.Mesh(knotG, m), -0.6, 0.012);
+  place(new THREE.Mesh(bladeG, m), -0.82, 0.012);
+  ch.potatoParts.add(g);
 }
 
 const TILT = { hold: [0.0, 0.1], cast: [0.8, 0.0], up: [0.25, 0.05], rest: [0.0, 0.14] };
@@ -101,15 +157,20 @@ export function buildCostume(def, ch) {
   let hat = null, prop = null;
   if (C.type === "wizard") hat = wizardHat(C);
   if (C.type === "cowboy") hat = cowboyHat(C);
+  if (C.type === "magician") hat = topHat(C);
+  if (C.type === "cap") hat = cap(C);
+  if (C.tie) tie(C, ch);
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
   if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(0.3, 0.03, 0.18); sprt.group.rotation.set(0.25, 0, -0.75); hat.group.add(sprt.group); }
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
+  else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
   if (C.type === "wizard") { prop = staff(C); ch.root.add(prop.group); }
+  if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
   const propHand = C.propHand || "R";
-  const sitDepth = hat ? (C.type === "wizard" ? 0.11 : 0.09) : 0.0;
+  const sitDepth = hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
 
   return {
     apply(st, t, hands, fries) {
