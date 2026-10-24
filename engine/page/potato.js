@@ -117,7 +117,7 @@ export class Character {
     if (fries) this.fries.apply(st, t);
 
     const e = { ...st.expr };
-    if (st.talk > 0) e.open = Math.max(e.open, st.talk);
+    if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink);
 
     // limbs (hidden in fries form)

@@ -34,6 +34,15 @@
     "propHand": "L"
   },
   "personality": "Calm, patient, long reach. The crystal on his staff does the talking.",
-  "voice": "planned: gibberish, low and slow",
-  "notes": "Personality line is the game's own fighter description. Running gags and relationships come from the character bible once Jonny signs it off."
+  "voice": {
+    "pitch": 118,
+    "rate": 2.7,
+    "formant": 1.0,
+    "range": 3,
+    "breath": 0.14,
+    "vibrato": 0.025,
+    "seed": 4
+  },
+  "notes": "Personality line is the game's own fighter description. Running gags and relationships come from the character bible once Jonny signs it off.",
+  "voiceNote": "gibberish, low and slow, a little breathy"
 }

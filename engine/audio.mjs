@@ -1,0 +1,243 @@
+// Sound for a storyboard, synthesised in code: gibberish voices for every `talk` action and sound effects placed
+// automatically from the storyboard's events (hops, poofs, flashes, charges, ...), plus any explicit `sfx` entries.
+// Deterministic like the picture: the same storyboard always gives the same audio.
+//
+// Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
+// whether it *sounds* right is for a human to judge.
+import fs from "node:fs";
+import { planSyllables, VOWELS } from "./shared/syllables.js";
+import { rng } from "./page/util.js";
+
+const SR = 44100;
+const TAU = Math.PI * 2;
+
+// ---------- small DSP helpers ----------
+class Bus {
+  constructor(seconds) { this.n = Math.ceil(seconds * SR); this.L = new Float32Array(this.n); this.R = new Float32Array(this.n); }
+  // add a mono signal at time t0 with equal-power pan (-1 left .. 1 right)
+  add(t0, mono, gain = 1, pan = 0) {
+    const a = Math.round(t0 * SR), p = (Math.max(-1, Math.min(1, pan)) + 1) * Math.PI / 4;
+    const gl = Math.cos(p) * gain, gr = Math.sin(p) * gain;
+    for (let i = 0; i < mono.length; i++) { const k = a + i; if (k < 0 || k >= this.n) continue; this.L[k] += mono[i] * gl; this.R[k] += mono[i] * gr; }
+  }
+}
+function biquad(type, f, q) {
+  const w = TAU * f / SR, c = Math.cos(w), s = Math.sin(w), al = s / (2 * q);
+  let b0, b1, b2, a0 = 1 + al, a1 = -2 * c, a2 = 1 - al;
+  if (type === "lp") { b0 = (1 - c) / 2; b1 = 1 - c; b2 = (1 - c) / 2; }
+  else if (type === "hp") { b0 = (1 + c) / 2; b1 = -(1 + c); b2 = (1 + c) / 2; }
+  else { b0 = al; b1 = 0; b2 = -al; } // band-pass, constant peak gain
+  return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: a1 / a0, a2: a2 / a0, x1: 0, x2: 0, y1: 0, y2: 0 };
+}
+function run(fl, x) { const y = fl.b0 * x + fl.b1 * fl.x1 + fl.b2 * fl.x2 - fl.a1 * fl.y1 - fl.a2 * fl.y2; fl.x2 = fl.x1; fl.x1 = x; fl.y2 = fl.y1; fl.y1 = y; return y; }
+const env = (t, a, d, total) => (t < 0 || t > total ? 0 : t < a ? t / a : Math.exp(-(t - a) / d));
+const buf = (sec) => new Float32Array(Math.max(1, Math.ceil(sec * SR)));
+function normalise(x, peak) { let m = 0; for (const v of x) m = Math.max(m, Math.abs(v)); if (m > 0) for (let i = 0; i < x.length; i++) x[i] *= peak / m; return x; }
+
+// ---------- voice ----------
+const CONS = { // duration (s), noise band (Hz), Q, voiced?
+  b: [0.025, 700, 1.2, true], d: [0.025, 3000, 1.5, true], g: [0.03, 1800, 1.5, true],
+  p: [0.03, 900, 1.0, false], t: [0.035, 4200, 1.6, false], k: [0.035, 2500, 1.4, false],
+  s: [0.075, 6500, 2.0, false], h: [0.05, 1600, 0.7, false],
+  m: [0.055, 0, 0, true], n: [0.05, 0, 0, true], l: [0.04, 0, 0, true], w: [0.045, 0, 0, true],
+};
+
+function syllable(s, v, r) {
+  const C = CONS[s.cons], cd = C ? C[0] : 0;
+  const total = s.dur + 0.06, x = buf(total);
+  const shift = v.formant ?? 1, F = VOWELS[s.vowel].F.map((f) => f * shift), B = [80, 110, 160].map((b) => b * shift), G = [1, 0.55, 0.28];
+  // consonant noise
+  if (C && C[1] > 0) {
+    const bp = biquad("bp", C[1], C[2]);
+    for (let i = 0; i < cd * SR; i++) { const t = i / SR; x[i] += run(bp, r() * 2 - 1) * env(t, 0.003, cd * 0.35, cd) * (C[3] ? 0.35 : 0.6); }
+  }
+  // vowel (and the voiced part of m, n, l, w): additive harmonics shaped by the vowel's formants
+  const v0 = C ? cd * (C[1] > 0 ? 0.7 : 0.2) : 0, vd = s.dur - v0;
+  const nH = Math.floor(5200 / (s.f0 * 1.3)), ph = new Float64Array(nH + 1), amps = new Float64Array(nH + 1);
+  const nasal = s.cons === "m" || s.cons === "n", glide = s.cons === "l" || s.cons === "w";
+  const jit = rng(Math.floor(s.f0 * 1000 + s.t0 * 1e4));
+  const breath = biquad("bp", F[1], 1.2);
+  let f0 = s.f0;
+  for (let i = 0; i < vd * SR + 0.05 * SR; i++) {
+    const t = i / SR, k = Math.min(1, t / vd);
+    if (i % 64 === 0) {
+      f0 = s.f0 * Math.pow(2, (s.fall * k) / 12) * (1 + (v.vibrato ?? 0.015) * Math.sin(TAU * 5.5 * t)) * (1 + (jit() - 0.5) * 0.008);
+      // formants: nasals start closed and dull, glides start with a low second formant
+      const lead = Math.min(1, t / 0.05);
+      const Fn = F.map((f, j) => (nasal && t < 0.05 ? [260, 1100, 2400][j] * (1 - lead) + f * lead : glide && j === 1 ? f * (0.6 + 0.4 * lead) : f));
+      for (let n = 1; n <= nH; n++) {
+        const fh = n * f0; let a = 0;
+        for (let j = 0; j < 3; j++) { const d = (fh - Fn[j]) / (B[j] / 2); a += G[j] / (1 + d * d); }
+        amps[n] = (a + 0.015) / Math.pow(n, 0.7);
+      }
+    }
+    let y = 0;
+    for (let n = 1; n <= nH; n++) { ph[n] += TAU * n * f0 / SR; y += amps[n] * Math.sin(ph[n]); }
+    const e = t < 0.018 ? t / 0.018 : t > vd ? Math.max(0, 1 - (t - vd) / 0.05) : 1 - 0.25 * k;
+    y += run(breath, r() * 2 - 1) * (v.breath ?? 0.08) * 2;
+    const at = Math.round(v0 * SR) + i;
+    if (at < x.length) x[at] += y * e * 0.12;
+  }
+  return normalise(x, s.amp);
+}
+
+function voice(bus, a, v, pan, gain) {
+  const r = rng(Math.floor(a.at * 1e4) + (v.seed ?? 1));
+  for (const s of planSyllables(a, v)) bus.add(s.t0, syllable(s, v, r), gain, pan);
+}
+
+// ---------- sound effects ----------
+const SFX = {
+  hop(r) { const d = 0.13, x = buf(d); let p = 0; for (let i = 0; i < x.length; i++) { const t = i / SR, f = 280 * Math.pow(620 / 280, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) + 0.25 * Math.sin(2 * p)) * env(t, 0.004, 0.05, d); } return x; },
+  land(r) { const d = 0.12, x = buf(d), lp = biquad("lp", 900, 0.7); let p = 0; for (let i = 0; i < x.length; i++) { const t = i / SR, f = 140 * Math.pow(55 / 140, t / d); p += TAU * f / SR; x[i] = Math.sin(p) * env(t, 0.002, 0.04, d) + run(lp, r() * 2 - 1) * env(t, 0.001, 0.008, d) * 0.6; } return x; },
+  whoosh(r, d = 0.32) { const x = buf(d); const bp = biquad("bp", 600, 1.4); for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, f = 400 + 2200 * Math.sin(k * Math.PI); if (i % 32 === 0) Object.assign(bp, { ...biquad("bp", f, 1.4), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }); x[i] = run(bp, r() * 2 - 1) * Math.sin(k * Math.PI) ** 2; } return x; },
+  charge(r, d = 1.3) {
+    const x = buf(d + 0.2); const ph = [0, 0, 0];
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / d), f = 300 * Math.pow(5, k * k), amp = 0.15 + 0.85 * k * k, tail = t > d ? Math.exp(-(t - d) / 0.04) : 1;
+      let y = 0; [1, 1.006, 0.497].forEach((m, j) => { ph[j] += TAU * f * m / SR; y += Math.sin(ph[j]) * (j === 2 ? 0.6 : 0.4); });
+      y += Math.sin(TAU * (2400 + 2400 * k) * t) * 0.25 * (0.5 + 0.5 * Math.sin(TAU * 18 * t));
+      x[i] = y * amp * tail;
+    }
+    // sparkles get denser as the charge builds
+    const n = Math.floor(10 + d * 18);
+    for (let s = 0; s < n; s++) {
+      const t0 = Math.sqrt(r()) * d, f = 3000 + r() * 3500, a = Math.round(t0 * SR);
+      for (let i = 0; i < 0.06 * SR && a + i < x.length; i++) x[a + i] += Math.sin(TAU * f * i / SR) * Math.exp(-i / SR / 0.015) * 0.35;
+    }
+    return x;
+  },
+  impact(r) {
+    const d = 1.0, x = buf(d), lp = biquad("lp", 2000, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 75 * Math.pow(38 / 75, Math.min(1, t / 0.5)); p += TAU * f / SR;
+      let y = Math.sin(p) * env(t, 0.003, 0.25, d) * 1.2 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.08, d) * 0.8;
+      for (const [hf, ha] of [[3100, 0.12], [4700, 0.1], [6200, 0.08], [8100, 0.06]]) y += Math.sin(TAU * hf * t) * ha * env(t, 0.002, 0.16, d);
+      x[i] = y;
+    }
+    return x;
+  },
+  poof(r) {
+    const d = 0.9, x = buf(d); let lp = biquad("lp", 3000, 0.8), p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR;
+      if (i % 64 === 0) { const c = 3000 * Math.pow(350 / 3000, Math.min(1, t / 0.6)); lp = { ...biquad("lp", c, 0.8), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 }; }
+      const f = 800 * Math.pow(180 / 800, Math.min(1, t / 0.08)); p += TAU * f / SR;
+      x[i] = run(lp, r() * 2 - 1) * env(t, 0.008, 0.22, d) + Math.sin(p) * env(t, 0.002, 0.03, d) * 0.5;
+    }
+    return x;
+  },
+  pop(r) {
+    const d = 0.9, x = buf(d); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 500 * Math.pow(1400 / 500, Math.min(1, t / 0.05)); p += TAU * f / SR;
+      let y = Math.sin(p) * env(t, 0.002, 0.025, 0.12);
+      for (const [hf, ha, dd] of [[1320, 0.35, 0.35], [3300, 0.12, 0.18], [4100, 0.08, 0.12]]) y += Math.sin(TAU * hf * (t - 0.04)) * ha * env(t - 0.04, 0.002, dd, d);
+      x[i] = y;
+    }
+    return x;
+  },
+  tink(r) { const d = 0.35, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 2100 * t) * 0.6 + Math.sin(TAU * 5300 * t) * 0.25) * env(t, 0.001, 0.07, d); } return x; },
+  sting(r) {
+    const d = 0.7, x = buf(d), lp = biquad("lp", 1600, 0.8);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let y = 0;
+      for (const f of [110, 130.8, 164.8, 220]) y += ((t * f) % 1) * 2 - 1; // minor chord of saw waves: "dun!"
+      x[i] = run(lp, y * 0.25) * env(t, 0.005, 0.22, d) + (r() * 2 - 1) * env(t, 0.001, 0.02, d) * 0.3;
+    }
+    return x;
+  },
+  sadslide(r) { // descending "wah wah wah-wahhh"
+    const notes = [[196, 0.34], [185, 0.34], [174.6, 0.34], [164.8, 0.9]];
+    const d = notes.reduce((s, n) => s + n[1], 0) + 0.1, x = buf(d); let p = 0, i0 = 0;
+    for (const [f, nd] of notes) {
+      let lp = biquad("lp", 400, 2);
+      for (let i = 0; i < nd * SR; i++) {
+        const t = i / SR, wah = 400 + 1400 * Math.sin(Math.min(1, t / (nd * 0.6)) * Math.PI / 2);
+        if (i % 64 === 0) lp = { ...biquad("lp", wah, 3), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 };
+        const fv = f * (1 + (nd > 0.5 ? 0.012 * Math.sin(TAU * 5 * t) * Math.min(1, t / 0.3) : 0)) * (nd > 0.5 ? Math.pow(0.97, t) : 1);
+        p += fv / SR; const saw = (p % 1) * 2 - 1;
+        const e = t < 0.02 ? t / 0.02 : t > nd - 0.05 ? Math.max(0, (nd - t) / 0.05) : 1;
+        x[i0 + i] = run(lp, saw) * e * 0.6;
+      }
+      i0 += Math.round(nd * SR);
+    }
+    return x;
+  },
+};
+
+// ---------- small room reverb (Schroeder: 4 combs, 2 all-passes) ----------
+function reverb(x, wet, stereoOffset) {
+  const combs = [1116, 1188, 1277, 1356].map((n) => ({ b: new Float32Array(n + stereoOffset), i: 0, s: 0 }));
+  const aps = [556, 441].map((n) => ({ b: new Float32Array(n + stereoOffset), i: 0 }));
+  const out = new Float32Array(x.length);
+  for (let k = 0; k < x.length; k++) {
+    let y = 0;
+    for (const c of combs) { const o = c.b[c.i]; c.s = o * 0.8 + c.s * 0.2; c.b[c.i] = x[k] * 0.015 + c.s * 0.78; c.i = (c.i + 1) % c.b.length; y += o; }
+    for (const a of aps) { const o = a.b[a.i]; const v = y + o * 0.5; a.b[a.i] = v; y = o - v * 0.5; a.i = (a.i + 1) % a.b.length; }
+    out[k] = x[k] + y * wet * 6;
+  }
+  return out;
+}
+
+// ---------- the storyboard -> sound events ----------
+export function soundEvents(sb) {
+  const cfg = { auto: true, ...(sb.sound || {}) }, ev = [];
+  const panOf = (who) => { const c = sb.cast.find((x) => x.id === who); return c ? Math.max(-0.3, Math.min(0.3, c.at[0] * 0.4)) : 0; }; // gentle pan: most people watch on one phone speaker
+  if (cfg.auto !== false) {
+    const hats = {};
+    for (const a of [...(sb.actions || [])].sort((p, q) => p.at - q.at)) {
+      const pan = panOf(a.who), d = a.dur ?? 0.3;
+      if (a.do === "talk") ev.push({ kind: "voice", at: a.at, action: a, who: a.who, pan });
+      if (a.do === "hop") { const n = a.count ?? 1; for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + (k * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
+      if (a.do === "swap") ev.push({ kind: "pop", at: a.at + 0.03, pan, gain: 0.45 });
+      if (a.do === "charge" && (a.to ?? 1) > 0.3) ev.push({ kind: "charge", at: a.at, dur: d, pan, gain: 0.28 });
+      if (a.do === "hat") {
+        const up = (a.off || [0, 0, 0])[1] > 0.1;
+        if (up) { ev.push({ kind: "whoosh", at: a.at, dur: 0.3, pan, gain: 0.35 }); hats[a.who] = true; }
+        else if (hats[a.who]) { ev.push({ kind: "tink", at: a.at + d * 0.55, pan, gain: 0.2 }); hats[a.who] = false; }
+      }
+      if (a.do === "droop" && (a.to ?? 1) > 0.5) ev.push({ kind: "sadslide", at: a.at, pan, gain: 0.3 });
+      if (a.do === "expr" && a.expr === "shocked") ev.push({ kind: "sting", at: a.at, pan: 0, gain: 0.35 });
+    }
+    for (const f of sb.fx || []) {
+      if (f.do === "flash") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
+      if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
+    }
+  }
+  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? 0.4 });
+  return ev.sort((p, q) => p.at - q.at);
+}
+
+export function renderAudio(sb, chars) {
+  const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
+  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(4242);
+  const events = soundEvents(sb);
+  for (const e of events) {
+    if (e.kind === "voice") {
+      const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
+      voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
+    } else if (SFX[e.kind]) fx.add(e.at, SFX[e.kind](r, e.dur), e.gain * cfg.sfx, e.pan);
+    else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
+  }
+  const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
+  const vl = reverb(voices.L, cfg.reverb, 0), vr = reverb(voices.R, cfg.reverb, 23);
+  const fl = reverb(fx.L, cfg.reverb * 0.6, 0), fr = reverb(fx.R, cfg.reverb * 0.6, 23);
+  let peak = 0;
+  for (let i = 0; i < L.length; i++) { L[i] = vl[i] + fl[i]; R[i] = vr[i] + fr[i]; peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i])); }
+  if (peak > 0.89) { const g = 0.89 / peak; for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; } }
+  return { L, R, sr: SR, events, peak };
+}
+
+export function writeWav(file, L, R, sr = SR) {
+  const n = L.length, data = Buffer.alloc(n * 4);
+  for (let i = 0; i < n; i++) {
+    data.writeInt16LE(Math.round(Math.max(-1, Math.min(1, L[i])) * 32767), i * 4);
+    data.writeInt16LE(Math.round(Math.max(-1, Math.min(1, R[i])) * 32767), i * 4 + 2);
+  }
+  const h = Buffer.alloc(44);
+  h.write("RIFF", 0); h.writeUInt32LE(36 + data.length, 4); h.write("WAVE", 8); h.write("fmt ", 12);
+  h.writeUInt32LE(16, 16); h.writeUInt16LE(1, 20); h.writeUInt16LE(2, 22); h.writeUInt32LE(sr, 24); h.writeUInt32LE(sr * 4, 28);
+  h.writeUInt16LE(4, 32); h.writeUInt16LE(16, 34); h.write("data", 36); h.writeUInt32LE(data.length, 40);
+  fs.writeFileSync(file, Buffer.concat([h, data]));
+}

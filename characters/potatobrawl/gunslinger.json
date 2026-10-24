@@ -4,12 +4,42 @@
   "franchise": "PotatoBrawl",
   "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Desert) and game/portraits/gunslinger.jpg",
   "rig": "potato",
-  "body": { "color": "#e8b066", "height": 1.02, "width": 0.8, "depth": 0.68, "lump": 0.04, "seed": 7 },
-  "limbs": { "color": "#2b2934", "width": 0.032 },
-  "face": { "default": "cocky", "iris": "#4a2a14", "cheeks": "#ff6f6f" },
-  "sprout": { "color": "#6cbf3a", "placement": "hat-top" },
-  "costume": { "type": "cowboy", "accent": "#c98a4a", "band": "#5a3418" },
+  "body": {
+    "color": "#e8b066",
+    "height": 1.02,
+    "width": 0.8,
+    "depth": 0.68,
+    "lump": 0.04,
+    "seed": 7
+  },
+  "limbs": {
+    "color": "#2b2934",
+    "width": 0.032
+  },
+  "face": {
+    "default": "cocky",
+    "iris": "#4a2a14",
+    "cheeks": "#ff6f6f"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "hat-top"
+  },
+  "costume": {
+    "type": "cowboy",
+    "accent": "#c98a4a",
+    "band": "#5a3418"
+  },
   "personality": "Two pistols and a wide hat. Chips away from afar, then finishes up close.",
-  "voice": "planned: gibberish, fast drawl",
-  "notes": "Personality line is the game's own fighter description. Pistols are not modelled yet."
+  "voice": {
+    "pitch": 185,
+    "rate": 4.0,
+    "formant": 1.18,
+    "range": 5,
+    "breath": 0.05,
+    "vibrato": 0.01,
+    "seed": 7
+  },
+  "notes": "Personality line is the game's own fighter description. Pistols are not modelled yet.",
+  "voiceNote": "gibberish, quick and bouncy"
 }

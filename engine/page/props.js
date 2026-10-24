@@ -39,7 +39,7 @@ export function buildFries(def, ch) {
     apply(st) {
       const s = st.friesPop;
       g.scale.set(s, s, s);
-      face.set({ ...st.expr, open: Math.max(st.expr.open, st.talk || 0) }, st.look, st.blink);
+      face.set({ ...st.expr, open: Math.max(st.expr.open, st.talk || 0), round: st.talk > 0 ? st.round : 0 }, st.look, st.blink);
     },
   };
 }

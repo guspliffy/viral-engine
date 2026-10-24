@@ -89,7 +89,8 @@ export class Face {
       this._orient(ch.m, { pos: p.pos.clone().addScaledVector(p.normal, 0.004 * s), normal: p.normal });
     }
     // geometry that depends on the expression is rebuilt only when it changes
-    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise].map((x) => x.toFixed(3)).join("|");
+    const round = e.round || 0;
+    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round].map((x) => x.toFixed(3)).join("|");
     if (key === this._lastKey) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
@@ -109,7 +110,7 @@ export class Face {
     }
     if (this.mouthLine) { this.group.remove(this.mouthLine); this.mouthLine.geometry.dispose(); this.mouthLine = null; }
     if (this.mouthFill) { this.group.remove(this.mouthFill); this.mouthFill.geometry.dispose(); this.mouthFill = null; }
-    const w = L.mouthW * (1 - e.open * 0.35), mv = L.mouthV, n = 14;
+    const w = L.mouthW * (1 - e.open * 0.35 - round * 0.3), mv = L.mouthV, n = 14;
     const upper = [], lower = [];
     for (let k = 0; k <= n; k++) {
       const t = k / n, u = -w + 2 * w * t;

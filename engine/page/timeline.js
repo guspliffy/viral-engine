@@ -1,5 +1,10 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng } from "./util.js";
+import { planSyllables, mouthAt } from "../shared/syllables.js";
+
+// syllable plans are pure functions of (action, voice): cache them per action object
+const PLANS = new WeakMap();
+const planFor = (a, voice) => { let p = PLANS.get(a); if (!p) { p = planSyllables(a, voice); PLANS.set(a, p); } return p; };
 
 // Turns a storyboard into per-frame state. Everything is a pure function of time t:
 // each actor starts from its cast entry and the actions up to t are applied in order.
@@ -12,7 +17,7 @@ export function actorState(sb, actor, def, t) {
   const st = {
     x: c.at[0], z: c.at[1], y: 0, yaw: yawOf(c.face ?? "camera"), lean: 0, squash: 1,
     expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind) },
-    look: [0, 0], blink: 0, talk: 0,
+    look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true,
@@ -44,9 +49,10 @@ export function actorState(sb, actor, def, t) {
       case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
       case "talk": {
-        if (t < a.at + d) {
-          const k = t - a.at, syl = Math.abs(Math.sin(k * 6.283 * (a.rate ?? 3.2))) * (0.55 + 0.45 * Math.abs(Math.sin(k * 6.283 * 1.13 + 1)));
-          st.talk = Math.max(st.talk, 0.1 + 0.5 * syl);
+        // mouth follows the same syllables the voice synth speaks (engine/shared/syllables.js)
+        if (t < a.at + (a.dur ?? 1)) {
+          const m = mouthAt(planFor(a, typeof def.voice === "object" ? def.voice : {}), t);
+          if (m.open > st.talk) { st.talk = m.open * 0.75; st.round = m.round; }
         }
         break;
       }

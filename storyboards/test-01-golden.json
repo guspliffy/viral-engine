@@ -176,7 +176,7 @@
       "at": 0.3,
       "do": "talk",
       "dur": 1.2,
-      "rate": 3.6
+      "tone": "excited"
     },
     {
       "who": "gun",
@@ -248,7 +248,7 @@
       "at": 2.1,
       "do": "talk",
       "dur": 0.9,
-      "rate": 2.4
+      "tone": "chant"
     },
     {
       "who": "wiz",
