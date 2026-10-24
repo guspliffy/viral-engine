@@ -13,6 +13,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { compile } from "../engine/compile.mjs";
+import { motionJumps } from "./motion.mjs";
+import { musicFlavour } from "../puppet/beat.mjs";
 
 export const RULES = {
   size: [1080, 1920],
@@ -31,7 +33,8 @@ export const RULES = {
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
-  popDiff: 6, popRatio: 3, // a one-frame jump in the picture this much bigger than its neighbours, away from cuts/fx
+  oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
+  spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
   strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
 };
 
@@ -47,7 +50,30 @@ function args() {
   return o;
 }
 
-const run = (cmd, argv) => { const r = spawnSync(cmd, argv, { encoding: "utf8", maxBuffer: 64 << 20 }); if (r.error) throw r.error; return r; };
+const run = (cmd, argv) => { const r = spawnSync(cmd, argv, { encoding: argv.includes("rawvideo") ? "buffer" : "utf8", maxBuffer: 256 << 20 }); if (r.error) throw r.error; return r; };
+
+// One-frame glitches: a frame that differs from both its neighbours while they agree with each other, and the
+// picture around it is steady (a hat that drops for a frame, a pose that flashes, a spin that strobes, see-through
+// parts that swap). Measured on a 36x64 grey copy, in overlapping 12x12 blocks (a third of the width):
+// score = min(|F[i]-F[i-1]|, |F[i]-F[i+1]|) - max(|F[i+1]-F[i-1]|, |F[i-1]-F[i-2]|, |F[i+2]-F[i+1]|), mean per pixel.
+// Steady motion, cuts and fades score near 0; a quick symmetric bounce scores low because its neighbours move too.
+export function oddFrames(clip, fps = 30) {
+  const W = 36, H = 64, B = 12, N = W * H;
+  const raw = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", `scale=${W}:${H}:flags=area,format=gray`, "-f", "rawvideo", "-"]);
+  const buf = Buffer.isBuffer(raw.stdout) ? raw.stdout : Buffer.from(raw.stdout || "", "latin1"), n = Math.floor(buf.length / N), F = (i) => buf.subarray(i * N, (i + 1) * N);
+  const out = [];
+  for (let i = 2; i < n - 2; i++) {
+    const pp = F(i - 2), p = F(i - 1), c = F(i), q = F(i + 1), qq = F(i + 2); let best = 0, at = [0, 0];
+    for (let by = 0; by + B <= H; by += B / 2) for (let bx = 0; bx + B <= W; bx += B / 2) {
+      let a = 0, b = 0, m = 0, d = 0, e = 0;
+      for (let y = by; y < by + B; y++) for (let x = bx; x < bx + B; x++) { const k = y * W + x; a += Math.abs(c[k] - p[k]); b += Math.abs(c[k] - q[k]); m += Math.abs(q[k] - p[k]); d += Math.abs(p[k] - pp[k]); e += Math.abs(qq[k] - q[k]); }
+      const s = (Math.min(a, b) - Math.max(m, d, e)) / (B * B);
+      if (s > best) { best = s; at = [bx, by]; }
+    }
+    if (best > 0) out.push({ t: i / fps, score: best, where: `${["left", "middle", "middle", "right", "right"][at[0] / 6]} ${at[1] < 22 ? "top" : at[1] < 42 ? "centre" : "bottom"}` });
+  }
+  return out.sort((x, y) => y.score - x.score);
+}
 
 export function checkClip(clip, { sb = null, layout = null } = {}) {
   const res = [], add = (level, check, msg) => res.push({ level, check, msg });
@@ -95,14 +121,10 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
 
   // --- clean picture: one-frame pops away from cuts and effects, strobing
   if (frames.length > 2) {
-    const cuts = (sb?.shots || []).map((x) => x.at), fxs = (sb?.fx || []).filter((f) => ["flash", "impact", "poof", "shake"].includes(f.do)).map((f) => [f.at - 0.05, f.at + (f.dur ?? 0.3) + 0.1]);
-    const explained = (t) => cuts.some((c) => Math.abs(t - c) < 1.5 / fps) || fxs.some(([a, b]) => t >= a && t <= b) || t < 1.5 / fps;
-    const pops = [];
-    for (let i = 1; i < frames.length - 1; i++) {
-      const d = frames[i].YDIF || 0, nb = Math.max(frames[i - 1].YDIF || 0, frames[i + 1].YDIF || 0);
-      if (d > RULES.popDiff && d > RULES.popRatio * nb && !explained(frames[i].t)) pops.push(frames[i].t);
-    }
-    add(pops.length ? "warn" : "pass", "pops", pops.length ? `sudden one-frame jumps at ${pops.slice(0, 6).map((t) => t.toFixed(2) + "s").join(", ")}: check for popping objects` : "no unexplained one-frame jumps");
+    const cuts = (sb?.shots || []).map((x) => x.at);
+    // no exceptions for cuts, flashes or shakes: none of them makes a single odd frame when it works as it should
+    const pops = oddFrames(clip, fps).filter((o) => o.score > RULES.oddFrame);
+    add(pops.some((o) => o.score > RULES.oddFrameFail) ? "fail" : pops.length ? "warn" : "pass", "pops", pops.length ? `odd single frames at ${pops.slice(0, 6).map((o) => `${o.t.toFixed(2)}s (${o.score.toFixed(0)}, ${o.where})`).join(", ")}: something pops, flickers or strobes for one frame` : "no odd single frames");
     const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
     let worstJ = 0, atJ = 0; for (const t of jumps) { const n = jumps.filter((u) => u >= t && u < t + 1).length; if (n > worstJ) { worstJ = n; atJ = t; } }
     add(worstJ > RULES.strobeMax ? "fail" : "pass", "strobe", worstJ > RULES.strobeMax ? `${worstJ} big brightness jumps within 1 s from ${atJ.toFixed(2)} s: strobing reads as a glitch` : `at most ${worstJ} big brightness jumps per second`);
@@ -150,6 +172,11 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
     for (const c of sb.captions || []) {
       const words = c.text.trim().split(/\s+/).length, wps = words / Math.max(0.1, c.to - c.from);
       if (wps > RULES.wordsPerSec) add("warn", "reading-speed", `"${c.text.slice(0, 40)}": ${wps.toFixed(1)} words/s, hard to read (max ${RULES.wordsPerSec})`);
+    }
+    // turns too fast for 30 fps strobe (the eye sees front, back, front); spins use a sine ease (top speed 1.6x average)
+    for (const x of (sb.actions || []).filter((y) => y.do === "spin")) {
+      const step = (360 * (x.turns ?? 1) * 1.6) / ((x.dur ?? 1) * fps);
+      if (step > RULES.spinStep) add("warn", "spin-speed", `${x.who}'s spin at ${x.at}s turns up to ${step.toFixed(0)}° a frame (max ${RULES.spinStep}): give it more time or fewer turns`);
     }
     const bad = [...(sb.fx || []), ...(sb.actions || [])].filter((x) => RULES.gore.test(JSON.stringify(x)));
     if (bad.length) add("fail", "cartoon-only", `graphic-looking effects (${bad.map((x) => x.do).join(", ")}): use stars, dust or squash instead`);
@@ -216,6 +243,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   let sb = o.sb ? compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))) : null;
   if (!sb && layout?.duration != null) sb = { duration: layout.duration };
   const res = checkClip(o.clip, { sb, layout });
+  // the storyboard's own motion, frame by frame (qa/motion.mjs): values that jump in one frame
+  if (sb?.cast && sb?.actions) {
+    if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, sb.id).bpm };
+    const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
+    res.push({ level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
+  }
   const failed = res.some((r) => r.level === "fail");
   if (o.json) console.log(JSON.stringify({ clip: o.clip, layout: layoutFile, pass: !failed, results: res }, null, 2));
   else {

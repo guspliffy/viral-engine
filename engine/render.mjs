@@ -105,7 +105,17 @@ function applyStyle(sb, style) {
   // manga devices (black-silhouette impact frames, speed lines) read as render errors outside the anime style:
   // there they become a short shake, unless a storyboard asks for them in this style by name
   const named = (f) => f.only === style || (Array.isArray(f.only) && f.only.includes(style));
-  if (style !== "anime") out.fx = out.fx.flatMap((f) => (f.do === "impact" || f.do === "speedlines") && !named(f) ? (f.do === "impact" ? [{ do: "shake", at: f.at, dur: 0.25, amp: 0.04 }] : []) : [f]);
+  if (style !== "anime") {
+    const flashes = out.fx.filter((f) => f.do === "flash").map((f) => f.at);
+    out.fx = out.fx.flatMap((f) => {
+      if (!(f.do === "impact" || f.do === "speedlines") || named(f)) return [f];
+      if (f.do === "speedlines") return [];
+      // the hit keeps its sound (audio.mjs voices impacts and flashes; a flash next to it already has one)
+      if (!flashes.some((a) => Math.abs(a - f.at) < 0.25)) out.sfx.push({ sound: "impact", at: f.at, gain: 0.55 });
+      return [{ do: "shake", at: f.at, dur: 0.25, amp: 0.04 }];
+    });
+    out.sfx.sort((a, b) => a.at - b.at);
+  }
   return out;
 }
 
@@ -163,14 +173,17 @@ async function main() {
     const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style } });
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
-    const timing = { draw: 0, grab: 0, n: 0 };
+    // per frame: posing (JS), drawing (the software GPU), encoding (JPEG in the page plus the copy to Node)
+    const timing = { pose: 0, draw: 0, grab: 0, n: 0 };
     const shot = async (t, fmt = "png") => {
       const a = Date.now();
       await page.evaluate((tt) => window.ENGINE.frame(tt), t);
       if (errors.length) throw new Error(errors.join("\n"));
       const b = Date.now();
+      await page.evaluate(() => window.ENGINE.sync());
+      const c = Date.now();
       const url = await page.evaluate((f) => window.ENGINE.capture(f), fmt);
-      timing.draw += b - a; timing.grab += Date.now() - b; timing.n++;
+      timing.pose += b - a; timing.draw += c - b; timing.grab += Date.now() - c; timing.n++;
       return Buffer.from(url.slice(url.indexOf(",") + 1), "base64");
     };
 
@@ -198,7 +211,7 @@ async function main() {
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
     }
     ff.stdin.end(); await done;
-    console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s`);
+    console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (!range) await writeLayout();
     if (sb.cover != null && !range) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {

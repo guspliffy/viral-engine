@@ -55,7 +55,8 @@ export function mouthAt(plan, t) {
     const k = (t - s.t0) / s.dur, V = VOWELS[s.vowel];
     const lead = s.cons && "bpm".includes(s.cons) ? 0.18 : 0.08; // lips close briefly on b, p, m
     const env = k < lead ? k / lead * 0.4 : k < 0.75 ? 0.4 + 0.6 * Math.min(1, (k - lead) / 0.12) : 1 - (k - 0.75) / 0.25;
-    return { open: Math.max(0.05, V.open * env * s.amp), round: V.round };
+    // rounding fades with the syllable, so the mouth's width doesn't jump between syllables
+    return { open: Math.max(0.05, V.open * env * s.amp), round: V.round * env };
   }
   return { open: 0, round: 0 };
 }

@@ -41,6 +41,8 @@ still work.
 
 1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then
    `node engine/render.mjs <sb> --stills beats --draft --safe`. Look at them scaled down (≤ 360 px wide).
+   `node qa/motion.mjs <sb>` (under a second) finds hands, bodies or wings that jump between two frames, straight
+   from the storyboard. Fix those before any render.
 2. **Creative director review A (storyboard)**: Fable reviews the storyboard and a contact sheet of the draft stills.
    See `qa/REVIEW.md`. **Default for every new clip**, one round. Apply the notes, then go to step 3.
 3. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
@@ -61,4 +63,5 @@ are his call. Skip the reviews only for pure engine tests, and say so.
 - Judge a clip from its contact sheet, not by reading frame after frame.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
-- Full renders take minutes on a 2-core machine without a GPU. Run them in the background and keep working.
+- Full renders take about 1.7 s per frame without a GPU (10 minutes for a 12 s clip), almost all of it the software
+  GPU drawing. Run them in the background and keep working. Two renders at once on one machine gain only ~10 %.

@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+// Motion check: finds pops from the storyboard alone, in seconds, before anything is rendered. It computes every
+// actor's state frame by frame (the same timeline.js the renderer uses) and flags a value that jumps between two
+// frames far more than it moves in the frames around it: a hand that teleports, a body that snaps, wings that flick.
+//
+//   node qa/motion.mjs storyboards/x.json          -> list of jumps (exit 0; jumps are warnings)
+//
+// Covered on purpose: frames under a flash of 0.5 or more, actors hidden or off camera, limbs in the fries form,
+// whole turns.
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { compile } from "../engine/compile.mjs";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+// how far a value may move between two frames before it counts as a jump (metres, radians, or 0..1 levels),
+// and how much bigger than the steps either side it must be
+const LIMIT = { x: 0.03, y: 0.03, z: 0.03, yaw: 0.12, lean: 0.1, pitch: 0.1, squash: 0.06, wings: 0.25, flap: 0.25, tuck: 0.3, hand: 0.04 };
+const RATIO = 4;
+
+export async function motionJumps(sb, fps = 30) {
+  const { actorState, flashAt } = await import("../engine/page/timeline.js");
+  const { handTarget } = await import("../engine/page/potato.js");
+  const THREE = await import("three"), cam = new THREE.PerspectiveCamera(32, 1080 / 1920, 0.05, 300), v3 = new THREE.Vector3();
+  const { cameraState } = await import("../engine/page/timeline.js");
+  // off camera (a cheat behind a cut is fine): the body's middle projects outside the frame with a margin
+  const offScreen = (st, t) => {
+    const k = cameraState(sb, t); cam.position.fromArray(k.pos); cam.fov = k.fov; cam.updateProjectionMatrix(); cam.lookAt(v3.fromArray(k.look)); cam.updateMatrixWorld(true);
+    const p = v3.set(st.x, st.y + 0.45 * (st.scale ?? 1), st.z).project(cam);
+    return Math.abs(p.x) > 1.35 || Math.abs(p.y) > 1.2 || p.z > 1;
+  };
+  const n = Math.round(sb.duration * fps), out = [];
+  for (const c of sb.cast || []) {
+    const file = path.join(ROOT, "characters", `${c.character}.json`);
+    if (!fs.existsSync(file)) { out.push({ who: c.id, what: "missing", t: 0, size: 0, note: `character file not found: ${c.character}` }); continue; }
+    const def = JSON.parse(fs.readFileSync(file, "utf8"));
+    const rx = def.body.width / 2, H = def.body.height, rows = [];
+    for (let i = 0; i <= n; i++) {
+      const t = i / fps, st = actorState(sb, c, def, t), v = {};
+      for (const k of ["x", "y", "z", "yaw", "lean", "pitch", "squash", "wings", "flap", "tuck"]) v[k] = st[k] ?? 0;
+      for (const [s, sx] of [["R", -1], ["L", 1]]) {
+        const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t);
+        v[`hand${s}`] = f.map((q, j) => q + (g[j] - q) * a.p);
+      }
+      rows.push({ t, v, skip: st.visible === false || flashAt(sb, t) >= 0.5 || offScreen(st, t), fries: st.form === "fries" });
+    }
+    const step = (i, k) => {
+      const a = rows[i - 1].v[k], b = rows[i].v[k];
+      if (Array.isArray(a)) return Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+      const d = Math.abs(b - a);
+      return k === "yaw" ? Math.min(d, Math.abs(d - 2 * Math.PI * Math.round(d / (2 * Math.PI)))) : d;
+    };
+    for (const k of [...Object.keys(LIMIT).filter((q) => q !== "hand"), "handR", "handL"]) {
+      const lim = k.startsWith("hand") ? LIMIT.hand : LIMIT[k];
+      for (let i = 2; i < rows.length - 1; i++) {
+        if (rows[i].skip || rows[i - 1].skip || (k.startsWith("hand") && (rows[i].fries || rows[i - 1].fries))) continue;
+        const d = step(i, k), around = Math.max(step(i - 1, k), step(i + 1, k));
+        if (d > lim && d > RATIO * around) out.push({ who: c.id, what: k, t: Math.round(rows[i].t * 1000) / 1000, from: rows[i - 1].v[k], to: rows[i].v[k], size: d });
+      }
+    }
+  }
+  return out.sort((a, b) => a.t - b.t);
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const sb = compile(JSON.parse(fs.readFileSync(process.argv[2], "utf8")));
+  if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: 120 };
+  const j = await motionJumps(sb, sb.fps ?? 30);
+  if (!j.length) console.log("motion: no jumps");
+  for (const x of j) console.log(x.note ? `  ${x.who}: ${x.note}` : `  ${x.t.toFixed(2)}s  ${x.who} ${x.what}: jumps ${x.size.toFixed(3)} in one frame`);
+}
