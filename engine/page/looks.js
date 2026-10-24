@@ -189,9 +189,10 @@ function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
   composer.addPass(new RenderPass(scene, camera));
   const bokeh = new BokehPass(scene, camera, { focus: 5, aperture: 0.0026, maxblur: 0.0055 });
   composer.addPass(bokeh);
-  // bloom after tone mapping: only what is really bright on screen glows (the blade, the window, glints)
+  // bloom before tone mapping with a high threshold: only light sources glow (the gem, the blade, the window),
+  // not lit whites like eyes and clouds
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.3, 0.5, 2.4));
   composer.addPass(new OutputPass());
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.22, 0.5, 0.9));
   const grade = new ShaderPass(GradeShader);
   Object.assign(grade.uniforms.contrast, { value: 1.07 }); grade.uniforms.saturation.value = 1.0; grade.uniforms.vignette.value = 0.28;
   composer.addPass(grade);
@@ -233,6 +234,8 @@ function patchToon(m, o) {
           vec3 kd = directionalLights[0].color * base * RECIPROCAL_PI;
           float litK = clamp(dot(reflectedLight.directDiffuse, vec3(1.0)) / max(dot(kd, vec3(1.0)), 1e-4), 0.0, 1.0);
           vec3 col = base * mix(uShade, uLit, litK) * (0.92 + 0.08 * clamp(ndl, 0.0, 1.0));
+          // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
+          col *= mix(0.86, 1.0, smoothstep(-0.75, 0.1, normal.y));
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK;
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
@@ -254,10 +257,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  const charRamp = smoothRamp(0, 1, 0.52, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08);
+  const charRamp = smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
-    : { char: { lit: [1.02, 0.99, 0.94], shade: [0.8, 0.6, 0.6] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
+    : { char: { lit: [1.0, 1.03, 0.88], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
   const toon = new Map(), made = new Set(), noLine = { visible: false };
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
