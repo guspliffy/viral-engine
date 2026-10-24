@@ -108,7 +108,8 @@ export function flashAt(sb, t) {
   for (const f of sb.fx || []) {
     if (f.do !== "flash" || t < f.at) continue;
     const d = f.dur ?? 0.35, k = (t - f.at) / d;
-    if (k <= 1) o = Math.max(o, (f.peak ?? 1) * (k < 0.15 ? k / 0.15 : 1 - (k - 0.15) / 0.85));
+    // default peak 0.8: a full-white frame reads as a glitch and blanks the picture for a frame
+    if (k <= 1) o = Math.max(o, (f.peak ?? 0.8) * (k < 0.15 ? k / 0.15 : 1 - (k - 0.15) / 0.85));
   }
   return clamp(o);
 }
