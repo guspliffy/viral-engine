@@ -14,7 +14,7 @@
 // Item kinds: an action ({ who, do }), an effect ({ fx: "flash", ... }), a sound ({ sfx: "tink", ... }) or a
 // macro ({ macro, who, ... }, see MACROS). A beat's "shot" starts at the beat; "shot": "keep" (default) keeps the
 // camera. A beat's "caption" (text or { text, pos, style, beats }) shows for that beat, or for "beats" beats.
-// A flat storyboard (no "beats") passes through unchanged.
+// A flat storyboard (no "beats", or its own "actions") passes through unchanged.
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
 
@@ -70,7 +70,8 @@ const itemEnd = (it) => {
 };
 
 export function compile(sb) {
-  if (!Array.isArray(sb.beats)) return sb;
+  // flat storyboards (with their own "actions") pass through, even if they carry a "beats" list as notes
+  if (!Array.isArray(sb.beats) || Array.isArray(sb.actions)) return sb;
   const out = { ...sb, shots: [...(sb.shots || [])], actions: [...(sb.actions || [])], fx: [...(sb.fx || [])], sfx: [...(sb.sfx || [])], captions: [...(sb.captions || [])] };
   const beatSpans = [];
   let t = 0;
