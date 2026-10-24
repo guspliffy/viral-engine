@@ -2,12 +2,13 @@ import * as THREE from "three";
 import { clamp, lerp, ease, prog } from "./util.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
-// clock, gift box, phone, cake and banner. The first seven have the same names and settings as the puppet props
-// (puppet/page/props.js), so a puppet storyboard ports over.
+// clock, gift box, phone, cake, banner and a pickle that can leave its jar. The first seven have the same names and
+// settings as the puppet props (puppet/page/props.js), so a puppet storyboard ports over.
 //   sb.props[]: { id, kind, x, y (the prop's bottom), z, rot (degrees about y; a chair at 90 faces right), scale }
-//   { do: "prop", id, at, dur, ease, set: { split, glow, lid, twist, fill, spill, lit, x, y, z, rot, scale } } tweens the numbers
+//   { do: "prop", id, at, dur, ease, set: { split, glow, lid, twist, fill, spill, lit, spin, x, y, z, rot, scale } } tweens the numbers
 //   { who, do: "grab", prop, hand: R | L | both, off: [x, y, z] } the prop follows the hand (it lifts its arm to "hold")
-//   { who, do: "release", prop, to: [x, y, z], dur } puts it down at `to` (or leaves it where the hand let go)
+//   { who, do: "release", prop, to: [x, y, z], dur, arc } puts it down at `to` (or leaves it where the hand let go);
+//   arc (metres) throws it in a curve instead of a straight line, and works on a prop tween's x, y, z too
 // Splitting: each prop that can split is built as a left and a right half that slide and tip apart.
 export const SEAT_Y = 0.42;   // a chair's seat height (timeline.js sits a character on it)
 export const TABLE_Y = 0.62;  // a table's top
@@ -81,6 +82,7 @@ const KINDS = {
     const liquid = mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.2, 32), brine, P.whole, 0, 0.11, 0); liquid.castShadow = false; liquid.renderOrder = 1;
     const pickleM = mat("#5f9a3a", { roughness: 0.5, emissive: new THREE.Color("#b8ff6a"), emissiveIntensity: 0 });
     const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), pickleM, P.whole, 0, 0.13, 0); pk.rotation.z = 0.25;
+    pk.visible = !P.spec.empty;   // empty: the pickle is a prop of its own (kind pickle) so it can leave the jar
     for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), pickleM, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
     const lid = new THREE.Group(); P.whole.add(lid);
     mesh(new THREE.CylinderGeometry(0.118, 0.118, 0.045, 36), mat("#c7372f", { roughness: 0.4, metalness: 0.3 }), lid, 0, 0, 0);
@@ -103,6 +105,13 @@ const KINDS = {
         lid.position.set(sd * 0.155 * l, 0.3 + (0.12 - 0.3) * l + 0.22 * Math.sin(l * Math.PI), 0.02 * l); lid.rotation.set(0.2 * l, ((ps.twist || 0) * Math.PI) / 180, -sd * 1.45 * l);
       },
     };
+  },
+  // the jar's pickle on its own, to fly out of an { empty: true } jar; spin (degrees) tumbles it end over end
+  pickle(P) {
+    const m = mat("#5f9a3a", { roughness: 0.5 }), tumble = new THREE.Group(); tumble.position.y = 0.115; P.whole.add(tumble);
+    const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), m, tumble, 0, 0, 0); pk.rotation.z = 0.25;
+    for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), m, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
+    return { grip: 0.115, apply(ps) { tumble.rotation.x = ((ps.spin || 0) * Math.PI) / 180; } };
   },
   cookie(P) {
     const dough = mat("#d39a52", { roughness: 0.85 }), chip = mat("#3b2416", { roughness: 0.7 });
@@ -258,15 +267,18 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
-    if (a.do === "prop") { for (const [k, v] of Object.entries(a.set || {})) ps[k] = typeof v === "number" && typeof ps[k] === "number" ? lerp(ps[k], v, e) : v; }
+    if (a.do === "prop") {
+      for (const [k, v] of Object.entries(a.set || {})) ps[k] = typeof v === "number" && typeof ps[k] === "number" ? lerp(ps[k], v, e) : v;
+      if (a.arc && p < 1) ps.y += 4 * a.arc * e * (1 - e);   // arc: metres it rises above the straight line, mid-flight
+    }
     // a grab glides the prop from where it is into the hand while the arm comes up (it never jumps into the hand)
     else if (a.do === "grab") { const k = ease("out")(prog(t, a.at, a.dur ?? 0.25)); ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) }; ps.left = null; }
     else if (a.do === "release") {
-      if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1 };
+      if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1, arc: a.to && a.arc ? 4 * a.arc * e * (1 - e) : 0 };
       // without "to" it stays where the hand let go (stage.js works out where that was)
       else { if (!a.to && ps.hold) ps.left = { ...ps.hold, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }

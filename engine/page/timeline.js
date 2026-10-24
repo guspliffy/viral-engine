@@ -45,6 +45,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
   };
   let autoBlink = true, airSince = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
+  let idle = 1, sink = 0, holdBlink = true;   // a "still" turns the idle breathing and sway down (see below the loop)
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || "inOut")(p);
@@ -95,6 +96,16 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       case "blink": if (p < 1) st.blink = Math.sin(p * Math.PI); break;
       case "noblink": autoBlink = false; break;
+      // purposeful stillness: idle breathing and sway fade down to `idle` (default 0.25, 0 = dead still) and back up
+      // over `fade` s at either end, while the body sinks a little (`sink`) so the hold doesn't read as frozen;
+      // blink: false also holds the automatic blinks
+      case "still": {
+        const f = a.fade ?? 0.15, dd = a.dur ?? 1, k = clamp((t - a.at) / f) * (1 - clamp((t - a.at - dd) / f));
+        idle = Math.min(idle, lerp(1, a.idle ?? 0.25, k));
+        sink = Math.max(sink, (a.sink ?? 0.008) * k * clamp((t - a.at) / dd));
+        if (a.blink === false && k > 0) holdBlink = false;
+        break;
+      }
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
@@ -174,9 +185,9 @@ export function actorState(sb, actor, def, t, raw = false) {
   }
   // idle life: breathing, a little sway, automatic blinks
   const seed = c.seed ?? c.id.length * 3.1;
-  st.squash *= 1 + 0.012 * Math.sin(t * 6.283 * 0.8 + seed);
-  st.lean += 0.012 * wobble(t, seed, 0.35);
-  if (autoBlink && st.blink === 0) {
+  st.squash *= (1 + 0.012 * idle * Math.sin(t * 6.283 * 0.8 + seed)) * (1 - sink);
+  st.lean += 0.012 * idle * wobble(t, seed, 0.35);
+  if (autoBlink && holdBlink && st.blink === 0) {
     const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = ((t + off) % period) / period, bl = 0.13 / period;
     if (ph < bl) st.blink = Math.sin((ph / bl) * Math.PI);
   }

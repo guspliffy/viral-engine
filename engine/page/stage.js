@@ -304,6 +304,7 @@ function pose(t) {
       if (h) {
         const o = ps.hold.off, at = [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]];
         [ps.x, ps.y, ps.z] = ps.hold.to ? ps.hold.to.map((q, i) => q + (at[i] - q) * ps.hold.k) : at;
+        if (ps.hold.arc) ps.y += ps.hold.arc;
       }
     }
     p.apply(ps, t);
