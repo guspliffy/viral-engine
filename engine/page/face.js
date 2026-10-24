@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { taperedTube } from "./geo.js";
 
 const _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 
@@ -57,6 +58,14 @@ export class Face {
       const pu = new THREE.Mesh(new THREE.SphereGeometry(r * 0.36, 24, 16), pupilM); pu.scale.set(1, 1.08, 0.3); pu.position.z = r * 0.55; look.add(pu);
       const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.16, 12, 8), glint); g1.position.set(r * 0.22, r * 0.3, r * 0.62); look.add(g1);
       const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.08, 10, 6), glint); g2.position.set(-r * 0.2, -r * 0.18, r * 0.6); look.add(g2);
+      // anime upper lash line (looks.js "anime-pro" shows it): rides the lid, so blinks and squints carry it,
+      // thicker towards the outer corner, ending in a small flick. Hidden in every other look.
+      const f = 0.5, k = Math.sqrt(1 - f * f), pts = [];
+      for (let i = 0; i <= 10; i++) { const a = Math.PI - 0.5 - (i / 10) * (Math.PI - 0.75); pts.push(new THREE.Vector3(side * 0.93 * r * Math.cos(a) * k, 1.14 * r * Math.sin(a) * k, 0.62 * r * f)); }
+      pts.push(new THREE.Vector3(side * r * 0.98, r * 0.52, 0.62 * r * f * 0.7));
+      const lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 40, 8, (t) => r * (t < 0.85 ? 0.045 + 0.075 * Math.sin((t / 0.85) * Math.PI * 0.6) : 0.11 * (1 - (t - 0.85) / 0.15) + 0.01)),
+        new THREE.MeshBasicMaterial({ color: "#2b1a14" }));
+      lash.visible = false; lash.userData.animeOnly = true; lid.add(lash);
       this.group.add(root);
       return { side, root, lid, look, pupil: pu, r };
     });

@@ -1,0 +1,106 @@
+{
+ "id": "lookdev-02-hills",
+ "title": "Look-dev: the Wizard on the hills (engine test, matches Jonny's anime reference)",
+ "status": "Pure engine test for comparing render looks; reviews skipped.",
+ "fps": 30,
+ "duration": 5.0,
+ "cover": 1.2,
+ "set": {
+  "type": "hills",
+  "seed": 3
+ },
+ "music": false,
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    0,
+    0
+   ],
+   "face": "3q-left",
+   "expr": "kind",
+   "seed": 3.3
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.25,
+    0.62,
+    3.3
+   ],
+   "look": [
+    0.0,
+    1.0,
+    0
+   ],
+   "fov": 36,
+   "to": {
+    "pos": [
+     0.15,
+     0.6,
+     2.75
+    ],
+    "look": [
+     0.0,
+     1.02,
+     0
+    ]
+   },
+   "dur": 5.0,
+   "ease": "inOut"
+  }
+ ],
+ "actions": [
+  {
+   "who": "wiz",
+   "at": 0.5,
+   "do": "look",
+   "dur": 0.4,
+   "to": [
+    0.4,
+    0.1
+   ]
+  },
+  {
+   "who": "wiz",
+   "at": 1.4,
+   "do": "expr",
+   "dur": 0.25,
+   "expr": "cocky"
+  },
+  {
+   "who": "wiz",
+   "at": 1.8,
+   "do": "charge",
+   "to": 1,
+   "dur": 1.0
+  },
+  {
+   "who": "wiz",
+   "at": 2.2,
+   "do": "talk",
+   "dur": 1.2,
+   "line": "Nailed it."
+  },
+  {
+   "who": "wiz",
+   "at": 3.6,
+   "do": "look",
+   "dur": 0.4,
+   "to": [
+    0,
+    0
+   ]
+  },
+  {
+   "who": "wiz",
+   "at": 3.6,
+   "do": "lean",
+   "dur": 0.5,
+   "to": 5
+  }
+ ]
+}

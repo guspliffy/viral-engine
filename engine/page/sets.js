@@ -1,3 +1,4 @@
+import { buildHills } from "./set-painted.js";
 import * as THREE from "three";
 import { rng } from "./util.js";
 import { buildKitchen } from "./set-kitchen.js";
@@ -32,6 +33,7 @@ function groundTexture(inner, outer) {
 export function buildSet(scene, spec = {}, palette = null) {
   const type = spec.type || "meadow";
   if (type === "kitchen") return buildKitchen(scene, spec);   // set-kitchen.js
+  if (type === "hills") return buildHills(scene, spec);       // set-painted.js
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });

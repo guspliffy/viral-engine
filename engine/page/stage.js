@@ -7,6 +7,7 @@ import { radialTexture } from "./geo.js";
 import { buildProp, propState } from "./props3d.js";
 import { rng, clamp, ease } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
+import { makeLook } from "./looks.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -244,7 +245,6 @@ async function init(data) {
   // a clock prop replaces the kitchen's own clock
   if (props.some((p) => p.spec.kind === "clock")) { const c = scene.getObjectByName("set-clock"); if (c) c.visible = false; }
   inkMat = new THREE.MeshBasicMaterial({ color: "#000000" });
-  styler = makeStyle(style, R);
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
@@ -253,6 +253,8 @@ async function init(data) {
     return { c, def, ch };
   });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : null)).filter(Boolean);
+  // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d");
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;

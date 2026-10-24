@@ -45,6 +45,7 @@ function args() {
     else if (a[i] === "--silent") o.silent = true;
     else if (a[i] === "--audio-only") o.audioOnly = true;
     else if (a[i] === "--style") o.style = a[++i];
+    else if (a[i] === "--look") o.look = a[++i];
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
     else if (a[i] === "--from") o.from = Number(a[++i]);
     else if (a[i] === "--to") o.to = Number(a[++i]);
@@ -139,14 +140,17 @@ async function main() {
   const o = args();
   const raw = compile(JSON.parse(fs.readFileSync(o.file, "utf8"))); // beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
-  const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
+  // a look (engine/page/looks.js) sits on top of a style; anime-pro keeps the anime style's devices (impact frames)
+  const look = o.look || raw.look || null;
+  const style = o.style || raw.style || (look === "anime-pro" ? "anime" : "standard"), sb = applyStyle(raw, style);
   // pin the seeded tempo so dance moves on the page follow the same beat as the music
   if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
   const range = o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : "";
-  const base = `${sb.id}${style !== "standard" ? "-" + style : ""}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
+  const tag = look ? `-${look}` : style !== "standard" ? "-" + style : "";
+  const base = `${sb.id}${tag}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
   const videoFile = path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.wav`);
 
   // sound first: it is quick, and a broken storyboard fails before minutes of rendering
@@ -186,7 +190,7 @@ async function main() {
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
-    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style } });
+    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look } });
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
     const soft = /swiftshader|llvmpipe|software/i.test(info.renderer || "");
