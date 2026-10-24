@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { rng } from "./util.js";
 import { buildKitchen } from "./set-kitchen.js";
+import { buildGarden } from "./set-garden.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -32,6 +33,7 @@ function groundTexture(inner, outer) {
 export function buildSet(scene, spec = {}, palette = null) {
   const type = spec.type || "meadow";
   if (type === "kitchen") return buildKitchen(scene, spec);   // set-kitchen.js
+  if (type === "garden") return buildGarden(scene, spec);     // set-garden.js
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });

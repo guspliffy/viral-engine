@@ -109,6 +109,105 @@ const KINDS = {
     }
     return { grip: 0, splitApart: 0.08, splitTip: 0.6, splitDrop: 0.35 };
   },
+  // a wooden garden gate of two leaves hinged on posts at x = ±0.75 (it faces +z, the camera side), for the GATE clip.
+  //   open 0..1: both leaves swing away from the camera; latch 0..1: the latch bar is shot off and spins away;
+  //   slice 0..1: the top of both leaves slides off a diagonal cut and drops; smash 0..1: the leaves blow back and
+  //   tumble with splinters; scorch 0..1: the wood chars black. Reset a beat with a "prop" set at dur 0.
+  gate(P) {
+    const wood = mat("#c98a55", { roughness: 0.75 }), dark = mat("#8a5530", { roughness: 0.8 }), iron = mat("#2c2a30", { metalness: 0.5, roughness: 0.4 });
+    const W = 0.75, Hh = 1.15, CUT = 0.62;
+    const woods = [wood, dark], base = woods.map((m) => m.color.clone());
+    const leaves = [];
+    for (const [s, h] of P.halves) {
+      // the post, then the leaf on its hinge; the leaf's top part is a separate group so it can slide off
+      mesh(new THREE.BoxGeometry(0.12, Hh + 0.2, 0.12), dark, h, s * (W + 0.06), (Hh + 0.2) / 2, 0);
+      mesh(new THREE.SphereGeometry(0.08, 12, 8), dark, h, s * (W + 0.06), Hh + 0.24, 0);
+      const hinge = new THREE.Group(); hinge.position.set(s * W, 0, 0); h.add(hinge);
+      const lower = new THREE.Group(), upper = new THREE.Group(); hinge.add(lower, upper);
+      for (let i = 0; i < 4; i++) {
+        const x = -s * (0.09 + i * 0.185);
+        mesh(new THREE.BoxGeometry(0.17, CUT - 0.08, 0.05), wood, lower, x, 0.08 + (CUT - 0.08) / 2, 0);
+        mesh(new THREE.BoxGeometry(0.17, Hh - CUT, 0.05), wood, upper, x, CUT + (Hh - CUT) / 2, 0);
+      }
+      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, lower, -s * W / 2, 0.28, 0.04);
+      mesh(new THREE.BoxGeometry(W - 0.02, 0.1, 0.05), dark, upper, -s * W / 2, Hh - 0.2, 0.04);
+      for (const y of [0.3, Hh - 0.2]) mesh(new THREE.BoxGeometry(0.16, 0.05, 0.06), iron, y < CUT ? lower : upper, -s * 0.06, y, 0.06);
+      leaves.push({ s, hinge, lower, upper });
+    }
+    const latch = new THREE.Group(); latch.position.set(0, 0.62, 0.08); P.whole.add(latch);
+    mesh(new THREE.BoxGeometry(0.3, 0.05, 0.04), iron, latch); mesh(new THREE.BoxGeometry(0.05, 0.12, 0.05), iron, latch, 0.13, 0, 0);
+    // splinters: hidden until the gate is smashed
+    const r = (k) => ((Math.sin(k * 127.1) * 43758.5453) % 1 + 1) % 1;
+    const bits = Array.from({ length: 16 }, (_, i) => {
+      const m = mesh(new THREE.BoxGeometry(0.05 + r(i) * 0.08, 0.2 + r(i + 9) * 0.3, 0.03), i % 3 ? wood : dark, P.root);
+      return { m, vx: (r(i + 3) - 0.5) * 4, vy: 2.5 + r(i + 5) * 3, vz: -1.5 - r(i + 7) * 2.5, spin: (r(i + 11) - 0.5) * 20, y0: 0.2 + r(i + 13) * 0.9 };
+    });
+    return {
+      grip: 0.6,
+      apply(ps) {
+        const op = clamp(ps.open ?? 0), sm = clamp(ps.smash ?? 0), sl = clamp(ps.slice ?? 0), la = clamp(ps.latch ?? 0), sc = clamp(ps.scorch ?? 0);
+        for (const { s, hinge, upper } of leaves) {
+          hinge.rotation.set(0, s * -1.75 * op, 0); hinge.position.set(s * W, 0, 0);
+          if (sm > 0) {   // blown back from the middle, tumbling
+            const tt = sm * 1.1;
+            hinge.position.set(s * (W + 1.6 * tt), Math.max(0, 2.6 * tt - 4.9 * tt * tt), -3.2 * tt);
+            hinge.rotation.set(-6 * tt, s * 3 * tt, s * 2.5 * tt);
+          }
+          // the cut runs down towards the middle; the top slides along it, then drops
+          upper.position.set(-s * 0.25 * clamp(sl * 2), -0.08 * clamp(sl * 2) - 1.4 * clamp(sl * 2 - 1) ** 2, 0.15 * clamp(sl * 2 - 1));
+          upper.rotation.set(-0.9 * clamp(sl * 2 - 1), 0, s * 0.35 * clamp(sl * 2));
+        }
+        latch.visible = la < 1 && sm === 0;
+        latch.position.set(0.9 * la, 0.62 + 1.6 * la - 2.2 * la * la, 0.08 + 0.4 * la); latch.rotation.z = 9 * la;
+        for (const b of bits) {
+          const tt = sm * 1.1; b.m.visible = sm > 0 && sm < 1;
+          b.m.position.set(b.vx * tt, Math.max(0.02, b.y0 + b.vy * tt - 4.9 * tt * tt), b.vz * tt); b.m.rotation.set(b.spin * tt, b.spin * 0.6 * tt, b.spin * 0.3 * tt);
+        }
+        woods.forEach((m, i) => m.color.copy(base[i]).lerp(new THREE.Color("#2a1d16"), sc * 0.85));
+      },
+    };
+  },
+  // a glowing green portal standing upright (it faces +z); open 0..1 grows it from a point
+  portal(P) {
+    const glowM = new THREE.MeshBasicMaterial({ color: "#7dff6a" }), coreM = new THREE.MeshBasicMaterial({ color: "#1c5e2a", transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+    const g = new THREE.Group(); g.position.y = 0.65; P.whole.add(g);
+    const ring = mesh(new THREE.TorusGeometry(0.55, 0.06, 12, 48), glowM, g); ring.castShadow = false;
+    const core = mesh(new THREE.CircleGeometry(0.55, 48), coreM, g); core.castShadow = false;
+    const swirl = mesh(new THREE.TorusGeometry(0.32, 0.025, 8, 40, Math.PI * 1.4), glowM, g); swirl.castShadow = false;
+    const light = new THREE.PointLight("#8dff7a", 0, 3, 2); light.position.set(0, 0, 0.3); g.add(light);
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const o = clamp(ps.open ?? 0); g.visible = o > 0.01; g.scale.set(o, o * (0.9 + 0.1 * Math.sin(t * 7)), o);
+        swirl.rotation.z = t * 6; light.intensity = 3 * o;
+      },
+    };
+  },
+  // a lightning bolt from the sky down to the prop's spot; on 0..1 (it flickers while on)
+  bolt(P) {
+    const m = new THREE.MeshBasicMaterial({ color: "#e9f6ff" }), halo = new THREE.MeshBasicMaterial({ color: "#7fc8ff", transparent: true, opacity: 0.5 });
+    const pts = [[0, 4.5], [0.25, 3.7], [-0.15, 3.0], [0.3, 2.2], [-0.1, 1.4], [0.2, 0.7], [0, 0]];
+    const segs = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], len = Math.hypot(x1 - x0, y1 - y0), ang = Math.atan2(x1 - x0, y1 - y0);
+      for (const [mm, rr] of [[m, 0.035], [halo, 0.1]]) { const c = mesh(new THREE.CylinderGeometry(rr, rr, len, 8), mm, P.whole, (x0 + x1) / 2, (y0 + y1) / 2, 0); c.rotation.z = -ang; c.castShadow = false; segs.push(c); }
+    }
+    const light = new THREE.PointLight("#bfe4ff", 0, 6, 1.5); light.position.set(0, 1, 0.5); P.whole.add(light);
+    return { grip: 0, apply(ps, t) { const on = clamp(ps.on ?? 0) > 0.5 && Math.sin(t * 60) > -0.6; P.whole.visible = on; light.intensity = on ? 8 : 0; } };
+  },
+  // flames licking up from the prop's spot (put it on the hedge top); fire 0..1 grows them
+  flames(P) {
+    const cols = ["#ff5a1f", "#ff9a2e", "#ffd34d"].map((c) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.92 }));
+    const fl = Array.from({ length: 9 }, (_, i) => { const c = mesh(new THREE.ConeGeometry(0.11 - (i % 3) * 0.025, 0.5, 10), cols[i % 3], P.whole, (i - 4) * 0.13, 0.25, ((i * 7) % 3 - 1) * 0.08); c.castShadow = false; return c; });
+    const light = new THREE.PointLight("#ff8a3a", 0, 4, 1.6); light.position.set(0, 0.5, 0.3); P.whole.add(light);
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const f = clamp(ps.fire ?? 0); P.whole.visible = f > 0.01; light.intensity = 4 * f;
+        fl.forEach((c, i) => { const k = f * (0.75 + 0.35 * Math.sin(t * 13 + i * 1.7)); c.scale.set(1, Math.max(0.01, k), 1); c.position.y = 0.25 * k; });
+      },
+    };
+  },
 };
 
 export function buildProp(spec) {
@@ -132,7 +231,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
