@@ -2,10 +2,10 @@ import * as THREE from "three";
 import { rng } from "./util.js";
 
 // "bedroom": a cosy kid's-room bedroom for the ALARM clip, seen from the foot of the bed. Wooden floor with a round
-// rug, a back wall (pale blue with little stars) at z -2.35 with a window at the left (put a "curtains" prop on it at
-// x -1.1, y 1.55, z -2.28), a poster and a shelf at the right, a wardrobe at the far right. Put the "bed" prop at
+// rug, a back wall (pale blue with little stars) at z -2.35 with a window above the bed (put a "curtains" prop on it at
+// x 0, y 1.55, z -2.28), a poster and a shelf at the right, a wardrobe at the far right. Put the "bed" prop at
 // x 0, z -1.6 (its sleeper sits there facing the camera) and a "nightstand" at x 0.95, z -1.75.
-// flip: true mirrors the room left to right (the window at x 1.1, the nightstand then goes at x -0.95): the fighters
+// flip: true mirrors the room left to right (the nightstand then goes at x -0.95): the fighters
 // hold their weapons in the right hand, which is on the camera's left, so a clock on the left is the one they reach.
 // spec: { type: "bedroom", seed, flip }
 
@@ -44,10 +44,10 @@ export function buildBedroom(scene, S = {}) {
   // the window (morning sky) at the left; curtains are a prop so they can open
   const sky = canvasTex(256, 256, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#8fd0f5"); gr.addColorStop(1, "#ffe7b8"); c.fillStyle = gr; c.fillRect(0, 0, w, h); c.fillStyle = "#ffd25e"; c.beginPath(); c.arc(w * 0.7, h * 0.7, 26, 0, 7); c.fill(); c.fillStyle = "#ffffff"; for (const [x, y, r] of [[60, 60, 22], [90, 54, 26], [120, 64, 18]]) { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); } });
   const frameM = lam("#ffffff");
-  box(g, 1.25, 1.25, 0.06, frameM, -1.1, 1.55, WZ + 0.03);
-  const win = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ map: sky })); win.position.set(-1.1, 1.55, WZ + 0.07); g.add(win);
-  box(g, 0.05, 1.1, 0.05, frameM, -1.1, 1.55, WZ + 0.09); box(g, 1.1, 0.05, 0.05, frameM, -1.1, 1.55, WZ + 0.09);
-  box(g, 1.4, 0.06, 0.18, frameM, -1.1, 0.9, WZ + 0.09);   // the sill
+  box(g, 1.25, 1.25, 0.06, frameM, 0, 1.55, WZ + 0.03);
+  const win = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), new THREE.MeshBasicMaterial({ map: sky })); win.position.set(0, 1.55, WZ + 0.07); g.add(win);
+  box(g, 0.05, 1.1, 0.05, frameM, 0, 1.55, WZ + 0.09); box(g, 1.1, 0.05, 0.05, frameM, 0, 1.55, WZ + 0.09);
+  box(g, 1.4, 0.06, 0.18, frameM, 0, 0.9, WZ + 0.09);   // the sill
 
   // a poster (a rocket) and a shelf with books at the right, a wardrobe at the far right, a lamp on the left
   const poster = canvasTex(128, 170, (c, w, h) => { c.fillStyle = "#28305e"; c.fillRect(0, 0, w, h); c.fillStyle = "#ffffff"; for (let i = 0; i < 20; i++) c.fillRect(rnd() * w, rnd() * h, 2, 2); c.fillStyle = "#e85d4f"; c.beginPath(); c.moveTo(64, 30); c.lineTo(84, 90); c.lineTo(44, 90); c.fill(); c.fillStyle = "#f4f1ea"; c.fillRect(48, 90, 32, 40); c.fillStyle = "#ffb13b"; c.beginPath(); c.moveTo(52, 130); c.lineTo(64, 158); c.lineTo(76, 130); c.fill(); });

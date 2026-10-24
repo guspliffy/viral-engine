@@ -22,7 +22,7 @@
    "character": "potatobrawl/reaper",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -33,7 +33,7 @@
    "character": "potatobrawl/sorcerer",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -44,7 +44,7 @@
    "character": "potatobrawl/wizard",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -55,7 +55,7 @@
    "character": "potatobrawl/dragon",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -66,7 +66,7 @@
    "character": "potatobrawl/phoenix",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -77,7 +77,7 @@
    "character": "potatobrawl/gunslinger",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -88,7 +88,7 @@
    "character": "potatobrawl/samurai",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -99,7 +99,7 @@
    "character": "potatobrawl/allfather",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -110,7 +110,7 @@
    "character": "potatobrawl/viking",
    "at": [
     2.8,
-    -0.55
+    -0.75
    ],
    "face": "camera",
    "expr": "kind",
@@ -200,15 +200,15 @@
     {
      "who": "ast",
      "do": "arm",
-     "at": 0.05,
+     "at": -0.1,
      "side": "both",
      "pose": "up",
-     "dur": 0.15
+     "dur": 0.2
     },
     {
      "do": "prop",
      "id": "bed",
-     "at": 0.2,
+     "at": -0.05,
      "dur": 0.15,
      "ease": "inOut",
      "set": {
@@ -220,7 +220,7 @@
      "do": "fly",
      "at": 0.2,
      "to": {
-      "y": 0.75,
+      "y": 0.55,
       "z": -1.3
      },
      "dur": 0.35
@@ -271,8 +271,8 @@
      "at": 0.9,
      "to": {
       "x": -2.9,
-      "y": 0.9,
-      "z": -0.8
+      "y": 0.7,
+      "z": -0.45
      },
      "dur": 0.6,
      "ease": "in"
@@ -294,8 +294,8 @@
      "do": "move",
      "at": 0.6,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -481,8 +481,8 @@
      "do": "move",
      "at": 0.95,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -595,7 +595,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.95,
+      -0.88,
       0.7,
       -1.72
      ],
@@ -670,7 +670,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.95,
+      -0.88,
       0.7,
       -1.72
      ],
@@ -776,8 +776,8 @@
      "do": "move",
      "at": 1.25,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -1150,8 +1150,8 @@
      "do": "move",
      "at": 1.25,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -1310,7 +1310,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.85,
+      -0.78,
       0.6,
       -1.67
      ],
@@ -1430,8 +1430,8 @@
      "do": "move",
      "at": 1.55,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -1443,6 +1443,16 @@
      "at": 2,
      "to": "camera",
      "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "at": 1.5,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.5
+     }
     },
     {
      "who": "phx",
@@ -1464,9 +1474,9 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.12,
-       0.62,
-       0.34
+       -0.05,
+       0.75,
+       0.3
       ]
      },
      "dur": 0.3
@@ -1476,8 +1486,8 @@
      "do": "look",
      "at": 1.65,
      "to": [
-      -0.3,
-      -0.25
+      -0.1,
+      -0.3
      ],
      "dur": 0.2
     }
@@ -1486,7 +1496,7 @@
   {
    "name": "phx: scrolls his phone in bed while it rings; sees the time and panics",
    "at": 9.55,
-   "len": 1.5,
+   "len": 1.7,
    "do": [
     {
      "who": "dra",
@@ -1554,9 +1564,9 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.12,
-       0.62,
-       0.34
+       -0.05,
+       0.75,
+       0.3
       ]
      },
      "dur": 0.15
@@ -1579,22 +1589,92 @@
     },
     {
      "who": "phx",
-     "do": "squash",
-     "at": 0.65,
-     "amount": 0.05,
-     "dur": 0.18
+     "do": "arm",
+     "at": 0.6,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
     },
     {
      "who": "phx",
-     "do": "squash",
-     "at": 0.95,
-     "amount": 0.05,
-     "dur": 0.18
+     "do": "arm",
+     "at": 0.68,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.88,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.08,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
     },
     {
      "who": "phx",
      "do": "look",
-     "at": 1.15,
+     "at": 1.17,
      "to": [
       -0.8,
       -0.1
@@ -1609,16 +1689,10 @@
     },
     {
      "who": "phx",
-     "do": "release",
-     "prop": "phone",
-     "at": 1.35,
-     "dur": 0.35,
-     "to": [
-      0.15,
-      0.48,
-      -1.2
-     ],
-     "arc": 0.25
+     "do": "squash",
+     "at": 1.2,
+     "amount": 0.1,
+     "dur": 0.18
     },
     {
      "who": "phx",
@@ -1658,11 +1732,23 @@
      "at": 1.4,
      "to": {
       "x": -0.1,
-      "y": 1.05,
-      "z": -1.1
+      "y": 0.7,
+      "z": -1
      },
      "dur": 0.2,
      "ease": "out"
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "at": 1.6,
+     "to": {
+      "x": -2.9,
+      "y": 0.7,
+      "z": -0.5
+     },
+     "dur": 0.45,
+     "ease": "in"
     },
     {
      "fx": "speedlines",
@@ -1674,6 +1760,16 @@
      "at": 1.4,
      "dur": 0.4,
      "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
     },
     {
      "who": "gun",
@@ -1692,8 +1788,8 @@
      "do": "move",
      "at": 0.95,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -1710,41 +1806,19 @@
   },
   {
    "name": "gun: wants to destroy the alarm: shoots it off the nightstand",
-   "at": 11.05,
+   "at": 11.25,
    "len": 1.75,
    "do": [
     {
      "who": "phx",
-     "do": "fly",
-     "at": 0.1,
-     "to": {
-      "x": -2.9,
-      "y": 1.05,
-      "z": -0.8
-     },
-     "dur": 0.45,
-     "ease": "in"
-    },
-    {
-     "who": "phx",
      "do": "hide",
-     "at": 0.55
-    },
-    {
-     "do": "prop",
-     "id": "alarm",
-     "at": 0.1,
-     "dur": 0.04,
-     "ease": "inOut",
-     "set": {
-      "ring": 0
-     }
+     "at": 0.35
     },
     {
      "do": "prop",
      "id": "phone",
-     "at": 0.45,
-     "dur": 0.12,
+     "at": 0.37,
+     "dur": 0,
      "ease": "inOut",
      "set": {
       "scale": 0
@@ -1839,7 +1913,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.95,
+      -0.88,
       0.7,
       -1.72
      ],
@@ -1866,8 +1940,8 @@
      "dur": 0.25,
      "ease": "out",
      "set": {
-      "x": -1.5,
-      "y": 0.95,
+      "x": -1.23,
+      "y": 0.9,
       "roll": 300
      }
     },
@@ -1878,7 +1952,7 @@
      "dur": 0.25,
      "ease": "in",
      "set": {
-      "x": -1.9,
+      "x": -1.48,
       "y": 0,
       "roll": 540
      }
@@ -1950,7 +2024,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.95,
+      -0.88,
       0.65,
       -1.72
      ],
@@ -1967,7 +2041,7 @@
      "dur": 0,
      "ease": "inOut",
      "set": {
-      "x": -0.95,
+      "x": -0.88,
       "y": 0.5,
       "roll": 0,
       "scale": 0
@@ -1990,8 +2064,8 @@
      "do": "move",
      "at": 1,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -2008,7 +2082,7 @@
   },
   {
    "name": "sam: turns it off in his sleep: one cut without opening his eyes, sleeps on",
-   "at": 12.8,
+   "at": 13,
    "len": 1.75,
    "do": [
     {
@@ -2042,7 +2116,7 @@
      "dur": 0.2,
      "ease": "out",
      "set": {
-      "scale": 1.5
+      "scale": 2
      }
     },
     {
@@ -2201,7 +2275,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.95,
+      -0.88,
       0.65,
       -1.72
      ],
@@ -2239,8 +2313,8 @@
      "do": "move",
      "at": 1,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -2257,8 +2331,8 @@
   },
   {
    "name": "all: the dad: up at once, throws the curtains open on everyone",
-   "at": 14.55,
-   "len": 1.95,
+   "at": 14.75,
+   "len": 2.05,
    "do": [
     {
      "who": "sam",
@@ -2291,7 +2365,7 @@
      "dur": 0.2,
      "ease": "out",
      "set": {
-      "scale": 1.5
+      "scale": 2
      }
     },
     {
@@ -2348,10 +2422,10 @@
     {
      "who": "all",
      "do": "arm",
-     "at": 0.55,
+     "at": 0.5,
      "side": "R",
      "pose": "point",
-     "dur": 0.08
+     "dur": 0.12
     },
     {
      "do": "prop",
@@ -2366,13 +2440,72 @@
     {
      "who": "all",
      "do": "expr",
-     "at": 0.65,
+     "at": 0.7,
      "expr": "delighted"
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.7,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.75,
+     "to": "back",
+     "dur": 0.25
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.9,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "curtains",
+     "at": 1.1,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "fx": "flash",
+     "dur": 0.2,
+     "peak": 0.12,
+     "at": 1.15
+    },
+    {
+     "sfx": "sting",
+     "at": 1.15,
+     "gain": 0.2
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.3,
+     "to": "camera",
+     "dur": 0.25
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.35,
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.2
     },
     {
      "do": "prop",
      "id": "bed",
-     "at": 0.7,
+     "at": 1.85,
      "dur": 0.15,
      "ease": "inOut",
      "set": {
@@ -2382,117 +2515,47 @@
     {
      "who": "all",
      "do": "stand",
-     "at": 0.7,
+     "at": 1.85,
      "dur": 0.2
     },
     {
      "who": "all",
      "do": "hop",
-     "at": 0.75,
+     "at": 1.917,
      "height": 0.2,
      "dur": 0.3
     },
     {
      "who": "all",
      "do": "move",
-     "at": 0.75,
+     "at": 1.9,
      "to": [
-      0.75,
-      -1.1
+      -0.75,
+      -0.75
      ],
      "dur": 0.3,
      "ease": "inOut",
      "steps": 2
-    },
-    {
-     "who": "all",
-     "do": "turn",
-     "at": 0.95,
-     "to": "right",
-     "dur": 0.12
-    },
-    {
-     "who": "all",
-     "do": "move",
-     "at": 1.05,
-     "to": [
-      1.1,
-      -1.6
-     ],
-     "dur": 0.3,
-     "ease": "inOut",
-     "steps": 2
-    },
-    {
-     "who": "all",
-     "do": "turn",
-     "at": 1.3,
-     "to": "back",
-     "dur": 0.15
-    },
-    {
-     "who": "all",
-     "do": "arm",
-     "at": 1.4,
-     "side": "both",
-     "pose": "up",
-     "dur": 0.12
-    },
-    {
-     "do": "prop",
-     "id": "curtains",
-     "at": 1.45,
-     "dur": 0.25,
-     "ease": "out",
-     "set": {
-      "open": 1
-     }
-    },
-    {
-     "fx": "flash",
-     "dur": 0.3,
-     "peak": 0.3,
-     "at": 1.5
-    },
-    {
-     "sfx": "sting",
-     "at": 1.5,
-     "gain": 0.2
-    },
-    {
-     "who": "all",
-     "do": "turn",
-     "at": 1.7,
-     "to": "camera",
-     "dur": 0.2
-    },
-    {
-     "who": "all",
-     "do": "arm",
-     "at": 1.75,
-     "side": "both",
-     "pose": "hips",
-     "dur": 0.2
     },
     {
      "who": "vik",
      "do": "show",
-     "at": 1.35
+     "at": 1.25
     },
     {
      "who": "vik",
      "do": "turn",
-     "at": 1.35,
+     "at": 1.25,
      "to": "left",
      "dur": 0.01
     },
     {
      "who": "vik",
      "do": "move",
-     "at": 1.35,
+     "at": 1.25,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.5,
      "ease": "out",
@@ -2501,7 +2564,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "at": 1.8,
+     "at": 1.7,
      "to": "camera",
      "dur": 0.15
     }
@@ -2509,32 +2572,32 @@
   },
   {
    "name": "vik: hits snooze HARD: smashes the clock, the nightstand and the bed, sleeps on",
-   "at": 16.5,
-   "len": 3.25,
+   "at": 16.8,
+   "len": 3.1,
    "do": [
     {
      "who": "all",
      "do": "turn",
-     "at": 0.3,
-     "to": "right",
+     "at": 0.1,
+     "to": "left",
      "dur": 0.15
     },
     {
      "who": "all",
      "do": "move",
-     "at": 0.3,
+     "at": 0.15,
      "to": [
-      2.8,
-      -1.6
+      -2.9,
+      -0.75
      ],
-     "dur": 0.6,
+     "dur": 0.5,
      "ease": "linear",
      "steps": 3
     },
     {
      "who": "all",
      "do": "hide",
-     "at": 0.9
+     "at": 0.65
     },
     {
      "who": "vik",
@@ -2713,63 +2776,16 @@
      "at": 1.45
     },
     {
-     "do": "prop",
-     "id": "bed",
-     "at": 2.1,
-     "dur": 0.15,
-     "ease": "inOut",
-     "set": {
-      "cover": 0
-     }
-    },
-    {
+     "fx": "zzz",
      "who": "vik",
-     "do": "stand",
-     "at": 2.1,
-     "dur": 0.2
-    },
-    {
-     "who": "vik",
-     "do": "hop",
-     "at": 2.167,
-     "height": 0.2,
-     "dur": 0.3
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "at": 2.15,
-     "to": [
-      -0.75,
-      -0.75
-     ],
-     "dur": 0.3,
-     "ease": "inOut",
-     "steps": 2
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "at": 2.4,
-     "to": "left",
-     "dur": 0.15
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "at": 2.45,
-     "to": [
-      -2.9,
-      -0.75
-     ],
-     "dur": 0.5,
-     "ease": "linear",
-     "steps": 3
+     "dur": 0.6,
+     "count": 2,
+     "at": 2.15
     },
     {
      "who": "vik",
      "do": "hide",
-     "at": 2.95
+     "at": 2.48
     },
     {
      "fx": "poof",
@@ -2782,17 +2798,17 @@
      "puffs": 10,
      "sparks": 8,
      "spark": "#ffe08a",
-     "at": 2.55
+     "at": 2.4
     },
     {
      "sfx": "poof",
-     "at": 2.55,
+     "at": 2.4,
      "gain": 0.3
     },
     {
      "do": "prop",
      "id": "bed",
-     "at": 2.63,
+     "at": 2.48,
      "dur": 0,
      "ease": "inOut",
      "set": {
@@ -2802,7 +2818,7 @@
     {
      "do": "prop",
      "id": "night",
-     "at": 2.63,
+     "at": 2.48,
      "dur": 0,
      "ease": "inOut",
      "set": {
@@ -2812,7 +2828,7 @@
     {
      "do": "prop",
      "id": "alarm",
-     "at": 2.63,
+     "at": 2.48,
      "dur": 0,
      "ease": "inOut",
      "set": {
@@ -2822,7 +2838,7 @@
     {
      "do": "prop",
      "id": "bed",
-     "at": 2.63,
+     "at": 2.48,
      "dur": 0,
      "ease": "inOut",
      "set": {
@@ -2832,7 +2848,7 @@
     {
      "do": "prop",
      "id": "curtains",
-     "at": 2.15,
+     "at": 2,
      "dur": 0.5,
      "ease": "inOut",
      "set": {
@@ -2842,52 +2858,52 @@
     {
      "who": "ast",
      "do": "drop",
-     "at": 2,
+     "at": 1.55,
      "to": 0,
      "dur": 0.02
     },
     {
      "who": "ast",
      "do": "move",
-     "at": 2,
+     "at": 1.55,
      "to": [
       2.8,
-      -0.55
+      -0.75
      ],
      "dur": 0.01
     },
     {
      "who": "ast",
      "do": "pitch",
-     "at": 2,
+     "at": 1.55,
      "to": 0,
      "dur": 0.01
     },
     {
      "who": "ast",
      "do": "turn",
-     "at": 2,
+     "at": 1.55,
      "to": "left",
      "dur": 0.01
     },
     {
      "who": "ast",
      "do": "expr",
-     "at": 2,
+     "at": 1.55,
      "expr": "serene"
     },
     {
      "who": "ast",
      "do": "show",
-     "at": 2.1
+     "at": 1.65
     },
     {
      "who": "ast",
      "do": "move",
-     "at": 2.1,
+     "at": 1.65,
      "to": [
-      0.9,
-      -0.45
+      1.05,
+      -1
      ],
      "dur": 0.45,
      "ease": "out",
@@ -2896,21 +2912,21 @@
     {
      "who": "ast",
      "do": "sit",
-     "at": 2.7,
+     "at": 2.55,
      "seat": "bed",
      "dur": 0.35
     },
     {
      "who": "ast",
      "do": "turn",
-     "at": 2.7,
+     "at": 2.55,
      "to": "camera",
      "dur": 0.15
     },
     {
      "do": "prop",
      "id": "bed",
-     "at": 2.9,
+     "at": 2.75,
      "dur": 0.2,
      "ease": "inOut",
      "set": {
@@ -2919,13 +2935,13 @@
     },
     {
      "sfx": "land",
-     "at": 3,
+     "at": 2.85,
      "gain": 0.25
     },
     {
      "do": "prop",
      "id": "alarm",
-     "at": 3.13,
+     "at": 3,
      "dur": 0.04,
      "ease": "inOut",
      "set": {
@@ -2934,22 +2950,40 @@
     },
     {
      "sfx": "ring",
-     "at": 3.13,
+     "at": 3,
      "dur": 0.4,
      "gain": 0.22
     },
     {
      "sfx": "ring",
-     "at": 3.13,
+     "at": 3,
      "dur": 0.1,
      "gain": 0.22
     },
     {
      "who": "ast",
      "do": "expr",
-     "at": 3.15,
+     "at": 3,
      "expr": "delighted",
      "dur": 0.08
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 3,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 3.05,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
     }
    ]
   }
@@ -2960,20 +2994,20 @@
    "pos": [
     0,
     1.1,
-    4.9
+    4.3
    ],
    "look": [
     0,
-    1.07,
+    0.95,
     -1.5
    ],
-   "fov": 45
+   "fov": 38
   }
  ],
  "captions": [
   {
    "from": 0,
-   "to": 19.75,
+   "to": 19.9,
    "text": "ALARM",
    "style": "label",
    "pos": 230,
@@ -3057,7 +3091,7 @@
   },
   {
    "from": 9.55,
-   "to": 11.05,
+   "to": 11.25,
    "text": "PHOENIX",
    "style": "label",
    "pos": 340,
@@ -3065,69 +3099,69 @@
   },
   {
    "from": 9.55,
-   "to": 11.05,
+   "to": 11.25,
    "text": "scrolling in bed",
    "pos": 425
   },
   {
-   "from": 11.05,
-   "to": 12.8,
+   "from": 11.25,
+   "to": 13,
    "text": "GUNSLINGER",
    "style": "label",
    "pos": 340,
    "pop": false
   },
   {
-   "from": 11.05,
-   "to": 12.8,
+   "from": 11.25,
+   "to": 13,
    "text": "wants to destroy it",
    "pos": 425
   },
   {
-   "from": 12.8,
-   "to": 14.55,
+   "from": 13,
+   "to": 14.75,
    "text": "SAMURAI",
    "style": "label",
    "pos": 340,
    "pop": false
   },
   {
-   "from": 12.8,
-   "to": 14.55,
+   "from": 13,
+   "to": 14.75,
    "text": "turns it off asleep",
    "pos": 425
   },
   {
-   "from": 14.55,
-   "to": 16.5,
+   "from": 14.75,
+   "to": 16.8,
    "text": "ALLFATHER",
    "style": "label",
    "pos": 340,
    "pop": false
   },
   {
-   "from": 14.55,
-   "to": 16.5,
+   "from": 14.75,
+   "to": 16.8,
    "text": "rise and shine",
    "pos": 425
   },
   {
-   "from": 16.5,
-   "to": 18.2,
+   "from": 16.8,
+   "to": 18.65,
    "text": "VIKING",
    "style": "label",
    "pos": 340,
    "pop": false
   },
   {
-   "from": 16.5,
-   "to": 18.2,
+   "from": 16.8,
+   "to": 18.65,
    "text": "hits snooze hard",
    "pos": 425
   },
   {
-   "from": 18.2,
-   "to": 19.75,
+   "from": 18.65,
+   "to": 19.9,
    "text": "which one are you?",
    "pos": 340
   }
@@ -3143,22 +3177,31 @@
   {
    "id": "night",
    "kind": "nightstand",
-   "x": -0.95,
+   "x": -0.88,
    "z": -1.75
   },
   {
    "id": "alarm",
    "kind": "alarm",
-   "x": -0.95,
+   "x": -0.88,
    "y": 0.5,
    "z": -1.72,
-   "scale": 1.5,
+   "scale": 2,
    "rot": 20
+  },
+  {
+   "id": "clock",
+   "kind": "clock",
+   "x": 1,
+   "y": 1.65,
+   "z": -2.3,
+   "scale": 0.8,
+   "time": 6
   },
   {
    "id": "curtains",
    "kind": "curtains",
-   "x": 1.1,
+   "x": 0,
    "y": 1.55,
    "z": -2.27
   },
@@ -3166,9 +3209,10 @@
    "id": "phone",
    "kind": "phone",
    "x": 2.9,
-   "y": 0,
-   "z": -0.6,
-   "glow": 1
+   "y": 0.5,
+   "z": -0.75,
+   "glow": 1,
+   "scale": 0
   },
   {
    "id": "extra0",
@@ -3271,8 +3315,8 @@
   {
    "who": "vik",
    "with": "night",
-   "from": 16.85,
-   "to": 18.85
+   "from": 17.15,
+   "to": 20.15
   }
  ],
  "id": "alarm-01-wake-up",
@@ -3282,6 +3326,6 @@
   "type": "bedroom",
   "flip": true
  },
- "duration": 19.75,
- "cover": 17.35
+ "duration": 19.9,
+ "cover": 17.65
 }

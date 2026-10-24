@@ -253,15 +253,18 @@ const KINDS = {
   },
   // a wall clock (it faces +z). Its y is the clock's middle
   clock(P) {
+    const hands = [];
     const red = mat("#c0392b", { roughness: 0.5 }), face = mat("#f4efe2", { roughness: 0.6 }), ink = mat("#11101c");
     for (const [s, h] of P.halves) {
       const r = mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.06, 40, 1, false, TH(s), Math.PI), red, h); r.rotation.x = Math.PI / 2;
       const f = mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.062, 40, 1, false, TH(s), Math.PI), face, h); f.rotation.x = Math.PI / 2;
       // hour hand on the left half, minute hand on the right
-      const [a, l, w] = s < 0 ? [((2.75 % 12) / 12) * Math.PI * 2, 0.1, 0.02] : [(0.75 % 1) * Math.PI * 2, 0.16, 0.012];
-      const hnd = new THREE.Mesh(new THREE.BoxGeometry(w, l, 0.006), ink); hnd.geometry.translate(0, l / 2, 0); hnd.rotation.z = -a; hnd.position.z = 0.036; h.add(hnd);
+      const [l, w] = s < 0 ? [0.1, 0.02] : [0.16, 0.012];
+      const hnd = new THREE.Mesh(new THREE.BoxGeometry(w, l, 0.006), ink); hnd.geometry.translate(0, l / 2, 0); hnd.position.z = 0.036; h.add(hnd);
+      hands.push([s, hnd]);
     }
-    return { grip: 0, splitApart: 0.08, splitTip: 0.6, splitDrop: 0.35 };
+    // time (hours, default 2.75) sets the hands; tween it to make them race
+    return { grip: 0, splitApart: 0.08, splitTip: 0.6, splitDrop: 0.35, apply(ps) { const tm = ps.time ?? 2.75; for (const [s, hnd] of hands) hnd.rotation.z = -(s < 0 ? ((tm % 12) / 12) : (tm % 1)) * Math.PI * 2; } };
   },
   // a wooden garden gate of two leaves hinged on posts at x = ±0.75 (it faces +z, the camera side), for the GATE clip.
   //   open 0..1: both leaves swing open towards the camera; latch 0..1: the latch bar is shot off and spins away;
@@ -521,7 +524,8 @@ const KINDS = {
         const r = clamp(ps.ring ?? 0), q = clamp(ps.smash ?? 0);
         P.whole.rotation.z = r * 0.12 * Math.sin((t ?? 0) * 70); P.whole.position.y = r * 0.012 * Math.abs(Math.sin((t ?? 0) * 35));
         hammer.rotation.z = r * 0.6 * Math.sin((t ?? 0) * 140); hammer.visible = ps.split < 0.05;
-        P.whole.scale.set(1 + 0.5 * q, 1 - 0.75 * q, 1 + 0.3 * q);
+        const pulse = 1 + 0.1 * r * Math.abs(Math.sin((t ?? 0) * 22));   // it swells on each rattle, so a ring reads in a still
+        P.whole.scale.set((1 + 0.5 * q) * pulse, (1 - 0.75 * q) * pulse, (1 + 0.3 * q) * pulse);
       },
     };
   },
@@ -617,7 +621,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
