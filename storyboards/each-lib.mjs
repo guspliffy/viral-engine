@@ -36,11 +36,13 @@ export function clip(meta) {
       sb.duration = end;
       sb.shots.push({ at: 0, ...shot });
       sb.captions.push({ from: 0, to: end, text: title, style: "label", pos: 230, pop: false });
-      sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 340 });
+      // the first fighter's name is up from frame 0, with the hook under it until hookTo, then their habit
+      sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 425, pop: false });   // already up on frame 0
       const ask = r3(askAt);
       for (const [i, b] of beats.entries()) {
-        const from = i ? r3(b.at) : hookTo, to = i === beats.length - 1 ? ask : beats[i + 1].at;
-        if (to > from) sb.captions.push({ from, to, text: NAMES[b.id], style: "label", pos: 340, pop: false }, { from, to, text: b.habit, pos: 425 });
+        const from = i ? r3(b.at) : 0, to = i === beats.length - 1 ? ask : beats[i + 1].at, habitFrom = i ? from : hookTo;
+        if (to > from) sb.captions.push({ from, to, text: NAMES[b.id], style: "label", pos: 340, pop: false });
+        if (to > habitFrom) sb.captions.push({ from: habitFrom, to, text: b.habit, pos: 425 });
       }
       sb.captions.push({ from: ask, to: end, text: "which one are you?", pos: 340 });
       sb.cover = r3(cover);

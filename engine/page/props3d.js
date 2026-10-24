@@ -788,6 +788,87 @@ const KINDS = {
     return { grip: 0.08, apply(ps) { const l = 0.02 + 0.16 * clamp(ps.len ?? 1); body.scale.y = l; body.position.y = 0.04 + l / 2; tip.position.y = 0.04 + l; } };
   },
 
+  // a free-standing cooker for the EGG clip (its foot at the origin, the front towards +z): white enamel, a black hob
+  // at TABLE_Y with two burners at x -0.18 (front) and +0.2, knobs and an oven window on the front. The cook stands
+  // behind it facing the camera. on 0..1 lights blue flames under the left burner, fire 0..1 turns them into tall
+  // orange ones (max heat); smash 0..1 crushes it (the hob caves in, the sides bulge, knobs pop)
+  stove(P) {
+    const enamel = mat("#f4f1ea", { roughness: 0.35 }), hob = mat("#1d1f24", { roughness: 0.2, metalness: 0.3 }), steel = mat("#b9bec8", { roughness: 0.3, metalness: 0.7 });
+    const W = 0.8, D = 0.55, H = TABLE_Y - 0.03;
+    const body = new THREE.Group(); P.whole.add(body);
+    mesh(new THREE.BoxGeometry(W, H, D), enamel, body, 0, H / 2, 0);
+    const top = mesh(new THREE.BoxGeometry(W + 0.02, 0.03, D + 0.02), hob, body, 0, H + 0.015, 0);
+    const win = mesh(new THREE.BoxGeometry(0.5, 0.26, 0.01), mat("#3a2a24", { roughness: 0.15, metalness: 0.2 }), body, 0, 0.26, D / 2 + 0.006);
+    mesh(new THREE.BoxGeometry(0.46, 0.025, 0.03), steel, body, 0, 0.44, D / 2 + 0.03);   // the door handle
+    const knobs = [-0.25, -0.08, 0.09, 0.26].map((x) => { const k = mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.03, 14), mat("#2b2d33"), body, x, H - 0.06, D / 2 + 0.02); k.rotation.x = Math.PI / 2; return k; });
+    for (const [x, z] of [[-0.18, 0.06], [0.2, -0.08]]) { const r = mesh(new THREE.TorusGeometry(0.1, 0.012, 6, 24), steel, body, x, H + 0.035, z); r.rotation.x = Math.PI / 2; }
+    const flames = new THREE.Group(); flames.position.set(-0.18, H + 0.04, 0.06); body.add(flames);
+    const blue = new THREE.MeshBasicMaterial({ color: "#5ab0ff", transparent: true, opacity: 0.9 }), orange = new THREE.MeshBasicMaterial({ color: "#ff8a1f", transparent: true, opacity: 0.95 });
+    const tongues = Array.from({ length: 10 }, (_, i) => { const a = (i / 10) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.05, 6), blue); f.position.set(Math.cos(a) * 0.08, 0.025, Math.sin(a) * 0.08); f.userData.noOutline = true; flames.add(f); return f; });
+    const big = Array.from({ length: 7 }, (_, i) => { const a = (i / 7) * Math.PI * 2, f = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.3, 7), orange); f.position.set(Math.cos(a) * 0.09, 0.15, Math.sin(a) * 0.09); flames.add(f); return f; });
+    return {
+      grip: TABLE_Y,
+      apply(ps, t) {
+        const on = clamp(ps.on ?? 0), fi = clamp(ps.fire ?? 0), q = clamp(ps.smash ?? 0);
+        tongues.forEach((f, i) => { f.visible = on > 0.02; f.scale.set(1, on * (0.85 + 0.25 * Math.sin((t || 0) * 23 + i * 1.7)), 1); });
+        big.forEach((f, i) => { f.visible = fi > 0.02; f.scale.set(fi, fi * (0.8 + 0.3 * Math.sin((t || 0) * 17 + i * 2.1)), fi); });
+        body.scale.set(1 + 0.25 * q, 1 - 0.55 * q, 1 + 0.15 * q); top.rotation.z = 0.25 * q; win.rotation.z = -0.2 * q;
+        knobs.forEach((k, i) => { k.position.z = D / 2 + 0.02 + 0.25 * q * (1 + (i % 2)); k.position.y = H - 0.06 + 0.2 * q * (i % 3); });
+      },
+    };
+  },
+  // a frying pan (its bottom at the origin, the handle along +x) with what's in it: fried 0..1 spreads a fried egg in
+  // it, yolks 1..6 how many (they fill the pan), burn 0..1 browns them to charcoal, big 0..1 grows them into one giant
+  // egg spilling over the rim, flip 0..1 tosses them up in an arc with a double spin and back down
+  pan(P) {
+    const iron = mat("#2c2e33", { roughness: 0.35, metalness: 0.5 }), wood = mat("#7a4a2a", { roughness: 0.6 });
+    mesh(new THREE.CylinderGeometry(0.17, 0.15, 0.02, 28), iron, P.whole, 0, 0.01, 0);
+    const wall = mesh(new THREE.CylinderGeometry(0.18, 0.17, 0.05, 28, 1, true), iron, P.whole, 0, 0.035, 0); wall.material.side = THREE.DoubleSide;
+    mesh(new THREE.BoxGeometry(0.12, 0.018, 0.03), iron, P.whole, 0.23, 0.05, 0);
+    const handle = mesh(new THREE.BoxGeometry(0.18, 0.03, 0.04), wood, P.whole, 0.37, 0.06, 0); handle.rotation.z = 0.12;
+    const food = new THREE.Group(); food.position.y = 0.025; P.whole.add(food);
+    const white = mat("#fbfaf4", { roughness: 0.5 }), yolkM = mat("#ffb31a", { roughness: 0.25 });
+    const SLOTS = [[0, 0], [-0.07, -0.05], [0.07, 0.05], [0.07, -0.06], [-0.07, 0.06], [0, 0.0]];
+    const eggs = SLOTS.map(([x, z], i) => {
+      const g = new THREE.Group(); g.position.set(x, 0.002 * i, z); food.add(g);
+      const geo = new THREE.CircleGeometry(0.09, 20), pos = geo.attributes.position;
+      for (let k = 1; k < pos.count; k++) { const a = Math.atan2(pos.getY(k), pos.getX(k)); const r = 1 + 0.12 * Math.sin(a * 3 + i) + 0.06 * Math.sin(a * 5 + 2 * i); pos.setX(k, pos.getX(k) * r); pos.setY(k, pos.getY(k) * r); }
+      const w = mesh(geo, white, g, 0, 0.004, 0); w.rotation.x = -Math.PI / 2; w.material.side = THREE.DoubleSide;
+      const y = mesh(new THREE.SphereGeometry(0.035, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2), yolkM, g, 0.01, 0.004, 0.005); y.scale.y = 0.75;
+      return g;
+    });
+    return {
+      grip: 0.06,
+      apply(ps) {
+        const fr = clamp(ps.fried ?? 0), n = Math.max(1, Math.round(ps.yolks ?? 1)), bu = clamp(ps.burn ?? 0), bg = clamp(ps.big ?? 0), fl = clamp(ps.flip ?? 0);
+        eggs.forEach((g, i) => { const on = i < n; g.visible = on && fr > 0.02; const k = n === 1 ? 1 : 0.62; g.scale.set(fr * k, 1, fr * k); if (n === 1) g.position.set(0, 0, 0); else g.position.set(SLOTS[(i + 1) % 6][0] * 1.4, 0.002 * i, SLOTS[(i + 1) % 6][1] * 1.4); });
+        if (n > 1 && eggs[n - 1]) eggs[n - 1].position.set(0, 0.012, 0);
+        white.color.set("#fbfaf4").lerp(new THREE.Color("#2a1d16"), bu); yolkM.color.set("#ffb31a").lerp(new THREE.Color("#1d1512"), bu);
+        food.scale.set(1 + 2.6 * bg, 1 + 1.5 * bg, 1 + 2.6 * bg);
+        food.position.y = 0.025 + 4 * fl * (1 - fl) * 0.85; food.rotation.x = fl * Math.PI * 2;
+      },
+    };
+  },
+  // a whole egg (its bottom at the origin); crack 0..1 splits the shell into two halves that tip apart, the yolk drops
+  // out of the bottom and is gone by 1 (it lands in the pan as the pan's fried)
+  egg(P) {
+    const shell = mat("#f6ead6", { roughness: 0.45 }), yolkM = mat("#ffb31a", { roughness: 0.25 });
+    const halves = [[1, 0, Math.PI / 2], [-1, Math.PI / 2, Math.PI / 2]].map(([s, th0, thL]) => {
+      const g = new THREE.Group(); g.position.y = 0.065; P.whole.add(g);
+      const m = mesh(new THREE.SphereGeometry(0.05, 18, 12, 0, Math.PI * 2, th0, thL), shell, g, 0, 0, 0); m.scale.y = 1.3; m.material.side = THREE.DoubleSide;
+      return [s, g];
+    });
+    const yolk = mesh(new THREE.SphereGeometry(0.03, 14, 10), yolkM, P.whole, 0, 0.06, 0);
+    return {
+      grip: 0.06,
+      apply(ps) {
+        const c = clamp(ps.crack ?? 0);
+        for (const [s, g] of halves) { g.position.set(0.05 * c, 0.065 + s * 0.04 * c, 0); g.rotation.z = s * 1.1 * c; g.position.x = s * 0.04 * c; }
+        yolk.visible = c > 0.05 && c < 0.95; yolk.position.y = 0.06 - 0.25 * c * c;
+      },
+    };
+  },
+
 };
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
@@ -821,7 +902,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

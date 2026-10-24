@@ -97,3 +97,35 @@ Fable's notes: tighter shot (applied, no push-in so the loop stays seamless); th
 the camera, a "?" on the Astronaut (applied); the curtain brought into frame (applied); the avalanche piles in front
 of the Wizard (applied); the Viking gone before the Astronaut walks in, the question up longer (applied); the spare
 roll bigger with a glint before it's used (applied).
+
+## 4. Parallel parking: "how each fighter parks" (street)
+
+`storyboards/make-parking.mjs` → `parking-01-parallel.json`, 22.25 s (escalation clip). One take from the pavement
+across the street: one gap between a blue and a green parked car, two little open-top cars taking turns (a fighter
+rides in on one while the last one pulls out).
+
+Habits (the usual parallel-parking types): the smooth one-go pro, parking by feel (bump, bump), twenty tries,
+giving up and stopping in the road, the "dad reverse" with an arm over the seat, the one who needs a gap three cars
+long, blocking the lane while checking themselves in the mirror, bumper-car parking.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | the pro | one smooth reverse, perfectly straight, arm up |
+| Reaper | parks by feel | bumps the car behind, bumps the car in front, blinks |
+| Sorcerer | doesn't bother steering | floats the car sideways into the gap |
+| Wizard | the spell goes wrong | *his parking spell shrinks the car to a toy; he trundles in anyway* |
+| Dragon | twenty tries | three big swings, still crooked, sweat and a fire snort |
+| Phoenix | parks in the road | stops in the lane and checks his look |
+| Gunslinger | makes space | *shoots the car in front so it rolls away, drives straight in* |
+| Samurai | makes it fit | *one cut takes his own car's front off, then he backs in* |
+| Allfather | the dad reverse | turns round, arm over the seat, in in one go, a satisfied nod |
+| Viking | bumper cars | *rams the car behind and the car in front off the street* |
+
+Loop: a poof brings both parked cars back, the Astronaut rolls up to the gap (frame 0).
+New engine parts: `car` prop (split, chop, smash, bump, tiny; the wheels turn with distance), the `ride` action
+(a fighter rides a prop at an offset; later rides re-aim them), the street's `parking` option (bay lines, a P sign).
+Fable's notes: aim the camera at the gap (applied); make the Reaper's bumps loud, with puffs and both cars rocking
+(applied); the Phoenix's "metre from the kerb" didn't read, so he now stops in the road (applied, a changed habit);
+the Gunslinger aims the wrong way and the blue car vanishes in the crop (applied); the Dragon's tries read as a
+jitter, now three big swings (applied); the first fighter's name from frame 0 with the hook under it, the question on
+one picture at the end (applied, and the name-from-frame-0 change now applies to every activity clip).

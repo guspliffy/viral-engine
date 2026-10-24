@@ -3330,10 +3330,11 @@
    "from": 0,
    "to": 1,
    "text": "0 paper. 10 fighters.",
-   "pos": 340
+   "pos": 425,
+   "pop": false
   },
   {
-   "from": 1,
+   "from": 0,
    "to": 1.6,
    "text": "ASTRONAUT",
    "style": "label",

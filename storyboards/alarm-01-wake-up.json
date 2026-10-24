@@ -3017,10 +3017,11 @@
    "from": 0,
    "to": 0.7,
    "text": "1 alarm. 10 fighters.",
-   "pos": 340
+   "pos": 425,
+   "pop": false
   },
   {
-   "from": 0.7,
+   "from": 0,
    "to": 1.4,
    "text": "ASTRONAUT",
    "style": "label",
