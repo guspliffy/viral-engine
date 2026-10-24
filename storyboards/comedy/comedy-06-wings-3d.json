@@ -574,7 +574,7 @@
   {
    "from": 0.1,
    "to": 4.3,
-   "text": "my wings only work\nwhen nobody's looking",
+   "text": "my wings only work\nwhen nobody's\nlooking",
    "pos": "top"
   },
   {
@@ -593,7 +593,7 @@
    "from": 8.6,
    "to": 9.3,
    "text": "AH-CHOO",
-   "pos": "top"
+   "pos": "mid"
   },
   {
    "from": 10.2,
