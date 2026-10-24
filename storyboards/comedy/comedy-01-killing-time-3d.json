@@ -28,7 +28,7 @@
    "id": "phx",
    "character": "potatobrawl/phoenix",
    "at": [
-    -0.78,
+    -0.88,
     0
    ],
    "face": "right",
@@ -39,7 +39,7 @@
    "id": "rea",
    "character": "potatobrawl/reaper",
    "at": [
-    0.78,
+    0.96,
     0
    ],
    "face": "left",
@@ -69,7 +69,7 @@
   {
    "id": "chairL",
    "kind": "chair",
-   "x": -0.78,
+   "x": -0.88,
    "y": 0,
    "z": 0,
    "rot": 90
@@ -77,7 +77,7 @@
   {
    "id": "chairR",
    "kind": "chair",
-   "x": 0.78,
+   "x": 0.96,
    "y": 0,
    "z": 0,
    "rot": -90
@@ -85,7 +85,7 @@
   {
    "id": "cup",
    "kind": "teacup",
-   "x": 0.28,
+   "x": 0.22,
    "y": 0.62,
    "z": 0
   }
@@ -225,33 +225,43 @@
    "do": "look",
    "dur": 0.4,
    "to": [
-    0,
-    0.8
+    0.3,
+    0.9
    ]
   },
   {
    "who": "rea",
    "at": 4.0,
-   "do": "turn",
-   "dur": 0.6,
-   "to": "3q-left"
+   "do": "lean",
+   "dur": 0.4,
+   "to": -6
   },
   {
    "who": "rea",
-   "at": 5.0,
+   "at": 4.9,
    "do": "stand",
    "dur": 0.3
   },
   {
    "who": "rea",
-   "at": 5.15,
+   "at": 5.0,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    1.0,
+    0.95
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 5.35,
    "do": "swing",
    "dur": 0.45
   },
   {
    "do": "prop",
    "id": "clock",
-   "at": 5.55,
+   "at": 5.75,
    "dur": 0.35,
    "ease": "out",
    "set": {
@@ -260,14 +270,24 @@
   },
   {
    "who": "rea",
-   "at": 6.2,
+   "at": 6.0,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    0.96,
+    0
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 6.35,
    "do": "sit",
    "seat": "chairR",
    "hands": "hold"
   },
   {
    "who": "rea",
-   "at": 6.3,
+   "at": 6.45,
    "do": "grab",
    "prop": "cup",
    "hand": "R"
@@ -372,7 +392,7 @@
  "fx": [
   {
    "do": "shake",
-   "at": 5.55,
+   "at": 5.75,
    "dur": 0.2,
    "amp": 0.04
   },
@@ -423,13 +443,13 @@
   },
   {
    "sound": "whoosh",
-   "at": 5.15,
+   "at": 5.35,
    "gain": 0.4,
    "dur": 0.4
   },
   {
    "sound": "tink",
-   "at": 5.6,
+   "at": 5.8,
    "gain": 0.7
   },
   {
@@ -471,6 +491,26 @@
    "to": 11.2,
    "text": "*ding dong*",
    "pos": "top"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 5.95,
+   "to": 6.8
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 0,
+   "to": 0.5
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 4.85,
+   "to": 5.2
   }
  ]
 }

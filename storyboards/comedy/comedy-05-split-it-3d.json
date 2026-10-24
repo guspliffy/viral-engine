@@ -28,7 +28,7 @@
    "id": "phx",
    "character": "potatobrawl/phoenix",
    "at": [
-    -0.78,
+    -0.88,
     0
    ],
    "face": "right",
@@ -39,7 +39,7 @@
    "id": "rea",
    "character": "potatobrawl/reaper",
    "at": [
-    0.78,
+    0.96,
     0
    ],
    "face": "left",
@@ -62,7 +62,7 @@
   {
    "id": "chairL",
    "kind": "chair",
-   "x": -0.78,
+   "x": -0.88,
    "y": 0,
    "z": 0,
    "rot": 90
@@ -70,7 +70,7 @@
   {
    "id": "chairR",
    "kind": "chair",
-   "x": 0.78,
+   "x": 0.96,
    "y": 0,
    "z": 0,
    "rot": -90
@@ -92,7 +92,7 @@
   {
    "id": "cup",
    "kind": "teacup",
-   "x": 0.32,
+   "x": 0.18,
    "y": 0.62,
    "z": 0
   }
@@ -146,7 +146,7 @@
      3.4
     ],
     "look": [
-     0.78,
+     0.88,
      0.95,
      0
     ]
@@ -186,19 +186,39 @@
   },
   {
    "who": "rea",
-   "at": 3.8,
+   "at": 3.7,
    "do": "stand",
    "dur": 0.3
   },
   {
    "who": "rea",
-   "at": 4.0,
+   "at": 3.8,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    1.0,
+    0.95
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 4.15,
    "do": "swing",
    "dur": 0.45
   },
   {
    "who": "rea",
-   "at": 4.8,
+   "at": 4.7,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    0.96,
+    0
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 5.05,
    "do": "sit",
    "seat": "chairR",
    "hands": "lap"
@@ -327,7 +347,7 @@
    "at": 7.9,
    "do": "lean",
    "dur": 0.5,
-   "to": 14
+   "to": 5
   },
   {
    "who": "phx",
@@ -361,13 +381,13 @@
  "sfx": [
   {
    "sound": "whoosh",
-   "at": 4.0,
+   "at": 4.15,
    "gain": 0.4,
    "dur": 0.4
   },
   {
    "sound": "tink",
-   "at": 4.5,
+   "at": 4.6,
    "gain": 0.6
   },
   {
@@ -429,6 +449,26 @@
    "to": 13.8,
    "text": "Thanks for\nsplitting it.",
    "pos": "top"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 4.65,
+   "to": 5.5
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 0,
+   "to": 0.5
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 3.65,
+   "to": 4.0
   }
  ]
 }

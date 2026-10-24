@@ -1,6 +1,5 @@
 import json
-import os
-OUT=os.path.dirname(os.path.abspath(__file__))+"/"
+OUT="/mnt/project-files/comedy-series/storyboards-3d/"
 TOP=0.62   # assumed table-top height (m); check against the 3D table once it lands
 class SB:
     def __init__(s,id,title,dur,cast,props=None,gain=0.3,cover=None):
@@ -21,6 +20,7 @@ class SB:
         if style: c["style"]=style
         s.d["captions"].append(c)
     def shot(s,at,pos,look,fov=34,**k): s.d["shots"].append({"at":at,"pos":pos,"look":look,"fov":fov,**k})
+    def mus(s,**k): s.d["music"].update(k)
     def save(s): json.dump(s.d,open(OUT+s.d["id"]+".json","w"),indent=1)
 def thud(s,t,big=False,who="phx"):
     s.sfx("impact",t,0.7 if big else 0.5); s.fx("shake",t,dur=0.25 if big else 0.2,amp=0.06 if big else 0.04)
@@ -61,13 +61,14 @@ s.fx("flash",15.0,dur=0.2,peak=0.6); s.sfx("tink",15.0,0.6); s.cap(15.0,15.9,"*c
 s.a("phx",15.0,"turn",0.15,to="camera"); s.e("phx",15.0,"shocked"); s.sfx("sting",15.05,0.5)
 s.a("phx",15.3,"drop",0.4); thud(s,15.7,big=True)
 s.a("rea",16.3,"talk",1.0,tone="question"); s.cap(16.2,18.0,"...what did I miss?")
+s.mus(style="warm",key=5,bpm=100,lead="bell")
 s.save()
 
 # ---------- Killing time (12 s) ----------
 props=[{"id":"clock","kind":"clock","x":0.9,"y":1.95,"z":-2.25},{"id":"table","kind":"table","x":0,"y":0,"z":0},
-       {"id":"chairL","kind":"chair","x":-0.78,"y":0,"z":0,"rot":90},{"id":"chairR","kind":"chair","x":0.78,"y":0,"z":0,"rot":-90},
-       {"id":"cup","kind":"teacup","x":0.28,"y":TOP,"z":0}]
-s=SB("comedy-01-killing-time-3d","Killing time (3D)",12.0,[PHX(-0.78,"right","dizzy"),REA(0.78,"left")],props,cover=5.8)
+       {"id":"chairL","kind":"chair","x":-0.88,"y":0,"z":0,"rot":90},{"id":"chairR","kind":"chair","x":0.96,"y":0,"z":0,"rot":-90},
+       {"id":"cup","kind":"teacup","x":0.22,"y":TOP,"z":0}]
+s=SB("comedy-01-killing-time-3d","Killing time (3D)",12.0,[PHX(-0.88,"right","dizzy"),REA(0.96,"left")],props,cover=5.8)
 s.shot(0,[0,1.45,7.4],[0,1.2,0],36)
 s.shot(4.0,[0,1.45,7.4],[0,1.2,0],36,to={"pos":[0.3,1.7,6.4],"look":[0.6,1.6,-1.0]},dur=1.0,ease="inOut")
 s.shot(5.9,[0,1.45,7.4],[0,1.2,0],36)
@@ -78,14 +79,19 @@ s.cap(0.2,2.0,"waiting for the pizza")
 s.a("phx",2.0,"talk",1.5,tone="excited"); s.a("phx",2.0,"shake",1.5,amp=1.2); s.e("phx",2.0,"stern")
 s.cap(2.0,4.0,"Ugh. Let's kill\nsome time.")
 s.e("phx",3.6,"dizzy",0.3)
-s.a("rea",4.0,"look",0.4,to=[0,0.8]); s.a("rea",4.0,"turn",0.6,to="3q-left")
-s.a("rea",5.0,"stand",0.3); s.a("rea",5.15,"swing",0.45); s.sfx("whoosh",5.15,0.4,dur=0.4)
-s.p("clock",5.55,0.35,"out",split=1); s.sfx("tink",5.6,0.7); s.fx("shake",5.55,dur=0.2,amp=0.04)
-s.a("rea",6.2,"sit",seat="chairR",hands="hold"); s.a("rea",6.3,"grab",prop="cup",hand="R"); s.a("rea",6.3,"look",0.3,to=[0,0])
+s.a("rea",4.0,"look",0.4,to=[0.3,0.9]); s.a("rea",4.0,"lean",0.4,to=-6)
+s.a("rea",4.9,"stand",0.3); s.a("rea",5.0,"move",0.3,to=[1.0,0.95]); s.a("rea",5.35,"swing",0.45); s.sfx("whoosh",5.35,0.4,dur=0.4)
+s.p("clock",5.75,0.35,"out",split=1); s.sfx("tink",5.8,0.7); s.fx("shake",5.75,dur=0.2,amp=0.04)
+s.a("rea",6.0,"move",0.3,to=[0.96,0]); s.d["allowClip"]=[{"who":"rea","with":"chairR","from":5.95,"to":6.8},{"who":"rea","with":"chairR","from":0,"to":0.5},{"who":"rea","with":"chairR","from":4.85,"to":5.2}]; s.a("rea",6.35,"sit",seat="chairR",hands="hold"); s.a("rea",6.45,"grab",prop="cup",hand="R"); s.a("rea",6.3,"look",0.3,to=[0,0])
 s.e("phx",6.4,"shocked",1.2)
 s.sfx("tink",9.9,0.5); s.sfx("tink",10.25,0.4); s.cap(9.9,11.2,"*ding dong*")
 s.e("phx",10.0,"dizzy")
 s.a("rea",10.4,"turn",0.8,to="camera"); s.e("rea",10.9,"smug",0.4); s.fx("notes",10.9,who="rea",dur=1.0,count=3)
+s.mus(style="sneaky",key=2,bpm=92,lead="blip")
+s.a("rea",7.2,"lean",0.3,to=-8); s.a("rea",7.5,"lean",0.3,to=0); s.sfx("pop",7.3,0.3)
+s.a("phx",7.8,"shake",0.5,amp=1.0); s.a("phx",8.3,"look",0.3,to=[0.5,0.7])
+s.p("clock",8.6,0.35,"in",y=0.9); s.sfx("land",8.95,0.6); s.fx("shake",8.95,dur=0.15,amp=0.03)
+s.a("phx",9.1,"look",0.3,to=[0,0]); s.a("phx",9.2,"lean",0.3,to=-10)
 s.save()
 
 # ---------- The jar (23 s) ----------
@@ -120,21 +126,24 @@ s.a("rea",17.6,"release",prop="jar",to=[0.65,0.55,0.25],dur=0.2); s.a("phx",17.7
 s.a("phx",18.0,"show",4.5,hand="L"); s.e("phx",18.0,"cocky"); s.fx("sparkle",18.1,who="phx",dur=1.0,count=6)
 s.cap(18.3,22.6,"I loosened it\nfor you.")
 s.a("rea",19.8,"turn",0.9,to="camera")
+s.mus(style="funk",key=7,bpm=108,lead="whistle")
+s.d["escalation"]=True
+s.a("phx",20.3,"bounce",1.2,amp=0.5); s.sfx("tink",21.3,0.4); s.e("rea",21.4,"smug",0.3); s.a("rea",22.0,"blink",0.3)
 s.save()
 
 # ---------- Split it (14 s) ----------
-props=[{"id":"table","kind":"table","x":0,"y":0,"z":0},{"id":"chairL","kind":"chair","x":-0.78,"y":0,"z":0,"rot":90},
-       {"id":"chairR","kind":"chair","x":0.78,"y":0,"z":0,"rot":-90},{"id":"plate","kind":"plate","x":0,"y":TOP,"z":0},
-       {"id":"cookie","kind":"cookie","x":0,"y":TOP+0.02,"z":0},{"id":"cup","kind":"teacup","x":0.32,"y":TOP,"z":0}]
-s=SB("comedy-05-split-it-3d","Split it (3D)",14.0,[PHX(-0.78,"right"),REA(0.78,"left")],props,cover=6.6)
+props=[{"id":"table","kind":"table","x":0,"y":0,"z":0},{"id":"chairL","kind":"chair","x":-0.88,"y":0,"z":0,"rot":90},
+       {"id":"chairR","kind":"chair","x":0.96,"y":0,"z":0,"rot":-90},{"id":"plate","kind":"plate","x":0,"y":TOP,"z":0},
+       {"id":"cookie","kind":"cookie","x":0,"y":TOP+0.02,"z":0},{"id":"cup","kind":"teacup","x":0.18,"y":TOP,"z":0}]
+s=SB("comedy-05-split-it-3d","Split it (3D)",14.0,[PHX(-0.88,"right"),REA(0.96,"left")],props,cover=6.6)
 s.shot(0,[0,1.5,5.8],[0,0.8,0],34)
 s.shot(5.3,[0,1.45,7.2],[0,1.05,0],36)
-s.shot(10.6,[0,1.45,7.2],[0,1.05,0],36,to={"pos":[0.65,1.1,3.4],"look":[0.78,0.95,0]},dur=3.0,ease="in")
+s.shot(10.6,[0,1.45,7.2],[0,1.05,0],36,to={"pos":[0.65,1.1,3.4],"look":[0.88,0.95,0]},dur=3.0,ease="in")
 s.a("phx",0,"sit",seat="chairL",hands="table"); s.a("rea",0,"sit",seat="chairR",hands="table")
 s.cap(0.2,2.0,"the last cookie")
 s.a("phx",2.0,"talk",1.3,tone="excited"); s.e("phx",2.0,"delighted"); s.cap(2.0,3.6,"Let's split it!")
-s.a("rea",3.8,"stand",0.3); s.a("rea",4.0,"swing",0.45); s.sfx("whoosh",4.0,0.4,dur=0.4); s.sfx("tink",4.5,0.6)
-s.a("rea",4.8,"sit",seat="chairR",hands="lap")
+s.a("rea",3.7,"stand",0.3); s.a("rea",3.8,"move",0.3,to=[1.0,0.95]); s.a("rea",4.15,"swing",0.45); s.sfx("whoosh",4.15,0.4,dur=0.4); s.sfx("tink",4.6,0.6)
+s.a("rea",4.7,"move",0.3,to=[0.96,0]); s.d["allowClip"]=[{"who":"rea","with":"chairR","from":4.65,"to":5.5},{"who":"rea","with":"chairR","from":0,"to":0.5},{"who":"rea","with":"chairR","from":3.65,"to":4.0}]; s.a("rea",5.05,"sit",seat="chairR",hands="lap")
 s.p("cookie",5.5,0.25,"out",split=1); s.sfx("pop",5.5,0.6)
 s.p("plate",5.9,0.25,"out",split=1); s.sfx("pop",5.9,0.6)
 s.p("table",6.3,0.3,"out",split=1); s.sfx("impact",6.3,0.6); s.fx("shake",6.3,dur=0.25,amp=0.05)
@@ -147,4 +156,8 @@ s.p("cookie",10.0,0.2,"out",scale=0); s.sfx("pop",10.0,0.5); s.sfx("pop",10.3,0.
 s.e("rea",9.5,"deadpan",0.4)
 s.cap(10.5,13.8,"Thanks for\nsplitting it.")
 s.a("rea",11.2,"turn",0.9,to="camera")
+s.mus(style="march",key=9,bpm=112,lead="bell")
+s.a("phx",6.0,"shake",0.6,amp=1.2); s.a("rea",7.1,"shake",0.8,amp=0.8)
+s.a("phx",7.9,"lean",0.5,to=5); s.a("phx",8.5,"lean",0.3,to=0); s.a("phx",9.1,"bounce",0.9,amp=0.5)
+s.sfx("tink",12.2,0.3); s.a("rea",12.4,"blink",0.3); s.sfx("tink",13.1,0.3)
 s.save()
