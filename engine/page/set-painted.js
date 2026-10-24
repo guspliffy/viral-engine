@@ -89,13 +89,15 @@ function paintHills(rnd, o) {
     g.beginPath(); g.moveTo(x, y); g.lineTo(x + 20 + rnd() * 40, y - 3 + rnd() * 6); g.stroke();
   }
   g.restore();
-  // tree line along parts of the ridge
+  // a few clumps of trees sitting just below the ridge, dark with a lit top-left, not a continuous row
   if (o.trees) {
-    for (let x = 0; x < W; x += 9) {
-      if (Math.sin(x * 0.004 + o.p2 * 3) < 0.35) continue;
-      const y = ridge(x), r = 8 + rnd() * 12;
-      g.fillStyle = o.trees; g.beginPath(); g.arc(x, y - r * 0.5, r, 0, Math.PI * 2); g.fill();
-      g.fillStyle = "rgba(255,255,200,0.12)"; g.beginPath(); g.arc(x - r * 0.3, y - r * 0.8, r * 0.5, 0, Math.PI * 2); g.fill();
+    for (let k = 0; k < 9; k++) {
+      const cx = rnd() * W, n = 2 + Math.floor(rnd() * 5);
+      for (let i = 0; i < n; i++) {
+        const x = cx + (i - n / 2) * (6 + rnd() * 6), y = ridge(x) + 4 + rnd() * 6, r = 5 + rnd() * 8;
+        g.fillStyle = o.trees; g.beginPath(); g.ellipse(x, y - r * 0.6, r, r * 1.1, 0, 0, Math.PI * 2); g.fill();
+        g.fillStyle = "rgba(255,255,200,0.14)"; g.beginPath(); g.arc(x - r * 0.3, y - r, r * 0.45, 0, Math.PI * 2); g.fill();
+      }
     }
   }
   return c;
