@@ -70,15 +70,17 @@ function katana(C) {
   return { group: g, charge(c) { blade.material.emissiveIntensity = 0.55 + c * 3; } };
 }
 
+// the portrait's double-bit axe: two flared crescent blades either side of the shaft and a spike on top
 function axe(C) {
-  const g = new THREE.Group();
+  const g = new THREE.Group(), steel = std("#b9bec6", { metalness: 0.75, roughness: 0.3 }), dark = std("#80868f", { metalness: 0.7, roughness: 0.35 });
   const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.026, 0.95, 10), std(C.wood || "#6b4a2b", { roughness: 0.8 })); shaft.position.y = 0.2; shaft.castShadow = true; g.add(shaft);
-  const s = new THREE.Shape(); // bearded axe head, on one side of the shaft
-  s.moveTo(0, 0.08); s.lineTo(0.12, 0.12); s.quadraticCurveTo(0.24, 0.04, 0.22, -0.16); s.quadraticCurveTo(0.12, -0.1, 0.06, -0.04); s.lineTo(0, -0.04); s.closePath();
-  const head = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.02, bevelEnabled: true, bevelSize: 0.006, bevelThickness: 0.005, bevelSegments: 1 }), std("#b9bec6", { metalness: 0.75, roughness: 0.3 }));
-  head.scale.setScalar(1.5); head.position.set(0.015, 0.55, -0.015); head.castShadow = true; g.add(head);
-  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.09, 8), std("#9aa0a8", { metalness: 0.7, roughness: 0.35 })); spike.rotation.z = Math.PI / 2; spike.position.set(-0.05, 0.56, 0); g.add(spike);
-  const cap = new THREE.Mesh(new THREE.SphereGeometry(0.03, 10, 8), std("#9aa0a8", { metalness: 0.7 })); cap.position.y = 0.67; g.add(cap);
+  for (const y of [-0.12, 0.38]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.06, 10), std("#3b2a1c", { roughness: 0.9 })); w.position.y = y; g.add(w); }   // leather grip wraps
+  const s = new THREE.Shape(); // one blade: narrow at the shaft, flaring to a curved edge
+  s.moveTo(0, 0.05); s.quadraticCurveTo(0.1, 0.06, 0.17, 0.15); s.quadraticCurveTo(0.24, 0.0, 0.17, -0.15); s.quadraticCurveTo(0.1, -0.06, 0, -0.05); s.closePath();
+  const bladeG = new THREE.ExtrudeGeometry(s, { depth: 0.018, bevelEnabled: true, bevelSize: 0.008, bevelThickness: 0.006, bevelSegments: 2, curveSegments: 16 }); bladeG.translate(0, 0, -0.009);
+  for (const side of [1, -1]) { const b = new THREE.Mesh(bladeG, steel); b.scale.set(side * 1.35, 1.35, 1); b.position.set(side * 0.02, 0.56, 0); b.castShadow = true; g.add(b); }
+  const socket = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.16, 12), dark); socket.position.y = 0.56; g.add(socket);
+  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.12, 8), dark); spike.position.y = 0.7; g.add(spike);
   return held(g);
 }
 
@@ -125,6 +127,47 @@ function batWing(color) {
   return new THREE.Mesh(g, std(color, { roughness: 0.6, side: THREE.DoubleSide }));
 }
 
+// the Norse god's hair: swept back from a high forehead, over the top and the back, falling to the shoulders at the
+// sides. A shell slightly outside the body; in front of the face and low at the front it sinks under the skin.
+function allfatherHair(ch) {
+  const g = new THREE.SphereGeometry(1, 120, 80), p = g.attributes.position, v = new THREE.Vector3();
+  const sstep = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+  for (let i = 0; i < p.count; i++) {
+    const n = v.fromBufferAttribute(p, i).clone().normalize(), q = ch.bodyPoint(n);
+    const az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
+    const face = 1 - sstep(0.95, 1.25, Math.abs(az)) * 1;                     // 1 in front of the face
+    const hairline = sstep(0.62, 0.8, el), low = sstep(-0.55, -0.3, el);        // forehead line; ends at the shoulders
+    const out = Math.min(low, Math.max(hairline, 1 - face));
+    const strands = 0.012 * Math.sin(az * 22 + el * 3) + 0.008 * Math.sin(az * 9 - el * 5);
+    const sc = 0.9 + (0.16 + strands) * out, back = Math.max(0, -n.z) * Math.max(0, n.y);
+    p.setXYZ(i, q.x * sc, ch.cy + (q.y - ch.cy) * sc + back * 0.05 * out, q.z * sc - back * 0.05 * out);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+// a braid down each side of the face, in front of the shoulder: one tapered tube, pinched at every plait
+function braid(ch, s, mat) {
+  const pts = [[1.0, 0.2, 0.05], [1.08, -0.05, 0.07], [1.1, -0.3, 0.07], [1.08, -0.52, 0.06]].map(([th, ph, l]) => { const q = ch.surf(s * th, ph); return q.pos.addScaledVector(q.normal, l); });
+  const m = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 60, 10, (t) => (0.032 - 0.012 * t) * (0.72 + 0.28 * Math.abs(Math.sin(t * Math.PI * 7)))), mat);
+  m.castShadow = true; return m;
+}
+// the big beard: from the cheeks under the nose down over the chest to a soft point, with a moustache across the top
+// and an opening for the mouth. Wavy strands run down it.
+function beardGeometry(ch) {
+  const g = new THREE.SphereGeometry(1, 64, 48), p = g.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    const k = (1 - v.y) / 2;                                    // 0 top .. 1 bottom
+    const w = 0.28 * (1 - 0.8 * k ** 1.6) + 0.015, d = 0.15 * (1 - 0.45 * k) + 0.02;
+    const strands = 0.012 * Math.sin(Math.atan2(v.x, v.z) * 18 + k * 4);
+    const th = (v.x * w) / ch.rx * 1.3, ph = -0.26 + 0.2 * v.x * v.x * (1 - k) - k * 0.72;   // rises up the cheeks, clear of the mouth
+    const s = ch.surf(th, ph), base = s.pos.clone(), lift = Math.max(0, v.z) * (d + strands) + 0.012;
+    p.setXYZ(i, base.x + s.normal.x * lift, base.y + s.normal.y * lift + 0.02, base.z + s.normal.z * lift);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
 export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer"];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
@@ -153,8 +196,8 @@ export function castCostume(C, ch) {
   if (T === "dragon") {
     const wm = C.wing || "#c4772e";
     const wings = [-1, 1].map((s) => {
-      const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.45, ch.cy + ch.ry * 0.2, -ch.rz * 0.8); ch.bodyGroup.add(pivot);
-      const w = batWing(wm); w.scale.set(1.7 * s, 1.7, 1.7); w.castShadow = true; pivot.add(w);
+      const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.86, ch.cy - ch.ry * 0.18, -ch.rz * 0.3); ch.bodyGroup.add(pivot);   // at arm height, out to the sides like the portrait
+      const w = batWing(wm); w.scale.set(1.15 * s, 0.95, 1.15); w.castShadow = true; pivot.add(w);
       return { pivot, s };
     });
     const tail = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.3, -ch.rz * 0.8), new THREE.Vector3(0.05, 0.16, -ch.rz - 0.15), new THREE.Vector3(0.18, 0.12, -ch.rz - 0.3), new THREE.Vector3(0.3, 0.2, -ch.rz - 0.36)]), 0.06, 0.012, 24, 10), ch.skin);
@@ -162,23 +205,29 @@ export function castCostume(C, ch) {
     const tip = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.1, 4), std(wm)); tip.position.set(0.34, 0.22, -ch.rz - 0.37); tip.rotation.z = -1.2; tip.scale.z = 0.4; ch.bodyGroup.add(tip);
     out.apply = (st, t) => {
       const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (6 + 16 * fl)) * (0.12 + 0.5 * fl);
-      for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.35 - 0.3 * w), W.s * (0.3 + 0.45 * w + flap));
+      for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.12 - 0.1 * w), W.s * (-0.12 + 0.6 * w + flap));
       tail.rotation.y = 0.15 * Math.sin(t * 2.2); tip.rotation.y = tail.rotation.y;
     };
   }
   if (T === "allfather") {
-    const hair = new THREE.Mesh(hoodGeometry(ch, 0.56), std(C.hair || "#e9e6e0", { roughness: 0.95, side: THREE.DoubleSide })); hair.castShadow = true; ch.bodyGroup.add(hair);
-    const beardM = std(C.hair || "#efece6", { roughness: 0.95 });
-    const beard = new THREE.Mesh(lathe([[0, 0], [0.12, -0.04], [0.17, -0.16], [0.15, -0.3], [0.09, -0.42], [0, -0.48]], 32), beardM);
-    const b = ch.surf(0, -0.52); beard.position.copy(b.pos).addScaledVector(b.normal, 0.02); beard.position.y += 0.06; beard.scale.set(1.15, 0.72, 0.45); beard.castShadow = true; parts.add(beard);
-    for (const s of [-1, 1]) { const m = ch.surf(s * 0.16, -0.36), mu = new THREE.Mesh(new THREE.SphereGeometry(0.06, 14, 10), beardM); mu.scale.set(1.3, 0.55, 0.6); mu.position.copy(m.pos).addScaledVector(m.normal, 0.015); mu.position.y -= 0.02; mu.rotation.z = s * -0.35; parts.add(mu); }
+    const hairM = std(C.hair || "#e9e6e0", { roughness: 0.95, side: THREE.DoubleSide });
+    const hair = new THREE.Mesh(allfatherHair(ch), hairM); hair.castShadow = true; ch.bodyGroup.add(hair);
+    for (const s of [-1, 1]) { const br = braid(ch, s, hairM); ch.bodyGroup.add(br); }
+    const beard = new THREE.Mesh(beardGeometry(ch), std(C.hair || "#efece6", { roughness: 0.95 })); beard.castShadow = true; parts.add(beard);
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.05, 20, 14), ch.skin), np = ch.surf(0, 0.01);
+    nose.scale.set(1.05, 0.8, 0.75); nose.position.copy(np.pos).addScaledVector(np.normal, 0.012); nose.castShadow = true; parts.add(nose);
+    for (const s of [-1, 1]) {   // the moustache, from under the nose out and down past the mouth corners into the beard
+      const pts = [[0.0, -0.095], [0.17, -0.095], [0.3, -0.15], [0.36, -0.26]].map(([u, v]) => { const q = ch.surf(s * u, v); return q.pos.addScaledVector(q.normal, 0.03); });
+      const mu = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 20, 10, (t) => 0.034 * Math.sin(Math.PI * (0.25 + 0.7 * t)) + 0.008), beard.material); mu.castShadow = true; parts.add(mu);
+    }
     const armour = std(C.armour || "#2e2f36", { metalness: 0.55, roughness: 0.4 });
     parts.add(new THREE.Mesh(lowerShell(ch, -0.36), armour));
-    parts.add(ring(ch, -0.36, 0.022, std("#b08a4a", { metalness: 0.6, roughness: 0.35 }), 0.03));
+    parts.add(ring(ch, -0.36, 0.018, std("#8d9099", { metalness: 0.7, roughness: 0.35 }), 0.03));
+    parts.add(ring(ch, -0.72, 0.03, std(C.belt || "#7a2424", { roughness: 0.7 }), 0.05));
     parts.add(cape(ch, C.cape || "#9c2a2a"));
-    const bird = raven(ch), perch = ch.surf(1.25, 0.12); bird.position.copy(perch.pos).add(new THREE.Vector3(0.05, 0.08, 0.02)); bird.rotation.y = -0.4; parts.add(bird);
+    const bird = raven(ch), perch = ch.surf(1.2, 0.05); bird.scale.setScalar(1.35); bird.position.copy(perch.pos).add(new THREE.Vector3(0.06, 0.06, 0.0)); bird.rotation.y = -0.45; parts.add(bird);
     out.sitDepth = -0.035;
-    out.apply = (st, t) => { bird.rotation.y = -0.4 + 0.25 * Math.sin(t * 0.9); bird.children[1].rotation.x = 0.15 * Math.sin(t * 2.3); };
+    out.apply = (st, t) => { bird.rotation.y = -0.45 + 0.25 * Math.sin(t * 0.9); bird.children[1].rotation.x = 0.15 * Math.sin(t * 2.3); };
   }
   if (T === "samurai") {
     parts.add(ring(ch, -0.5, 0.03, std(C.sash || "#2b3a5c", { roughness: 0.8 }), 0.02));

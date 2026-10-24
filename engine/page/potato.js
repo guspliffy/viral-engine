@@ -72,7 +72,7 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     this.potatoParts.add(this.face.group);
 
     // limbs

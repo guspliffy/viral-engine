@@ -39,10 +39,11 @@ function blushTexture(color) {
 // A face drawn onto any surface. `place(u, v)` maps face coordinates (u: -1 left .. 1 right,
 // v: -1 chin .. 1 forehead) to { pos, normal } on the host surface, in the host group's space.
 export class Face {
-  constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#1b1a22" }) {
+  constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#1b1a22", brow = null }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
     this.inkMat = new THREE.MeshStandardMaterial({ color: ink, roughness: 0.55 });
+    this.browMat = brow ? new THREE.MeshStandardMaterial({ color: brow, roughness: 0.9 }) : this.inkMat;   // white brows for the Norse god
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#4a1418", roughness: 0.6, side: THREE.DoubleSide });
     const white = new THREE.MeshPhysicalMaterial({ color: "#ffffff", roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.08 });
     const irisM = new THREE.MeshPhysicalMaterial({ color: iris, roughness: 0.2, clearcoat: 1 });
@@ -137,7 +138,7 @@ export class Face {
       const curve = new THREE.CatmullRomCurve3(this._surfLine(pts, 0.012 * s));
       // thick in the middle, tapering to both ends, like the portraits' brush-stroke brows
       const g = taperedTube(curve, 0, 0, 20, 8, (t) => s * (0.007 + 0.016 * Math.pow(Math.sin(Math.PI * (0.06 + 0.88 * t)), 0.55)));
-      this.brows[i] = new THREE.Mesh(g, this.inkMat); this.group.add(this.brows[i]);
+      this.brows[i] = new THREE.Mesh(g, this.browMat); this.group.add(this.brows[i]);
     }
     if (this.mouthLine) { this.group.remove(this.mouthLine); this.mouthLine.geometry.dispose(); this.mouthLine = null; }
     if (this.mouthFill) { this.group.remove(this.mouthFill); this.mouthFill.geometry.dispose(); this.mouthFill = null; }
@@ -170,10 +171,11 @@ export class Face {
         const pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.Float32BufferAttribute(ps, 3)); pg.setIndex(ix); pg.computeVertexNormals();
         const m = new THREE.Mesh(pg, mat); m.material.side = THREE.DoubleSide; this.group.add(m); this.mouthInner.push(m);
       };
-      if (e.open > 0.12) {
-        const tw = Math.min(0.42, 0.2 + e.open * 0.3);
+      if (e.open > 0.06) {
+        // they grow in with the opening, so a mouth starting to talk never shows them appearing in one frame
+        const ramp = Math.min(1, (e.open - 0.06) / 0.22), tw = Math.min(0.42, 0.2 + e.open * 0.3) * ramp;
         patch(0.1, 0.9, () => 0.02, (t) => tw * Math.pow(Math.max(0, Math.sin(Math.PI * t)), 0.35), 0.0075, this.teethMat);
-        patch(0.22, 0.78, (t) => 1 - 0.42 * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.22) / 0.56)))), 0.5), () => 0.96, 0.0078, this.tongueMat);
+        patch(0.22, 0.78, (t) => 1 - 0.42 * ramp * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.22) / 0.56)))), 0.5), () => 0.96, 0.0078, this.tongueMat);
       }
       const ring = [...upper, ...lower.slice().reverse()];
       const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.01 * s), true);

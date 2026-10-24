@@ -29,16 +29,38 @@ function sprout(color) {
   return { group: g, droop(d) { for (const L of leaves) L.pivot.rotation.z = -L.s * 0.9 * d; } };
 }
 
+// soft folds in a tube made by taperedTube: ripples round the cone and a few crumple rings, stronger towards the tip
+function crumple(geo, curve, segs, radial, amount) {
+  const p = geo.attributes.position, c = new THREE.Vector3(), v = new THREE.Vector3();
+  for (let i = 0; i <= segs; i++) {
+    const t = i / segs; curve.getPointAt(t, c);
+    const ring = Math.max(0, Math.sin(t * Math.PI * 4.5 + 0.6)) ** 3, k = amount * (0.35 + t);
+    for (let j = 0; j <= radial; j++) {
+      const n = i * (radial + 1) + j, a = (j / radial) * Math.PI * 2;
+      v.fromBufferAttribute(p, n).sub(c);
+      const f = 1 + k * (0.07 * Math.sin(3 * a + t * 7) + 0.04 * Math.sin(7 * a - t * 11)) - k * 0.1 * ring * (0.6 + 0.4 * Math.cos(a - 1));
+      v.multiplyScalar(f).add(c); p.setXYZ(n, v.x, v.y, v.z);
+    }
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// the portraits' wizard hat: a wide, slightly wavy brim, a tall soft cone with folds, its tip flopping back and over
 function wizardHat(C) {
   const g = new THREE.Group();
-  const felt = new THREE.MeshStandardMaterial({ color: C.accent, roughness: 0.78 });
+  const felt = new THREE.MeshStandardMaterial({ color: C.accent, roughness: 0.82 });
   const band = new THREE.MeshStandardMaterial({ color: C.band || "#222", roughness: 0.6 });
-  const brim = new THREE.Mesh(lathe([[0.0, 0.02], [0.2, 0.025], [0.36, 0.012], [0.47, -0.03], [0.47, -0.05], [0.36, -0.01], [0.2, 0.0], [0.0, 0.0]]), felt);
-  brim.castShadow = true; g.add(brim);
-  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.3, -0.02), new THREE.Vector3(0.02, 0.52, -0.08), new THREE.Vector3(0.12, 0.66, -0.16)]);
-  const cone = new THREE.Mesh(taperedTube(spine, 0.27, 0.012, 40, 32, (t) => 0.27 * Math.pow(1 - t, 1.15) + 0.008), felt);
-  cone.castShadow = true; g.add(cone);
-  const b = new THREE.Mesh(new THREE.CylinderGeometry(0.268, 0.272, 0.05, 40, 1, true), band); b.position.y = 0.04; g.add(b);
+  const brimG = lathe([[0.0, 0.02], [0.2, 0.025], [0.36, 0.012], [0.47, -0.035], [0.47, -0.055], [0.36, -0.01], [0.2, 0.0], [0.0, 0.0]], 96);
+  const bp = brimG.attributes.position;
+  for (let i = 0; i < bp.count; i++) { const x = bp.getX(i), z = bp.getZ(i), r = Math.hypot(x, z), a = Math.atan2(z, x), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, bp.getY(i) + k * k * (0.022 * Math.sin(5 * a + 0.7) + 0.012 * Math.sin(3 * a))); }
+  brimG.computeVertexNormals();
+  const brim = new THREE.Mesh(brimG, felt); brim.castShadow = true; g.add(brim);
+  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.28, -0.02), new THREE.Vector3(0.02, 0.5, -0.06), new THREE.Vector3(0.11, 0.66, -0.12), new THREE.Vector3(0.24, 0.68, -0.17)]);
+  const segs = 48, radial = 40;
+  const coneG = crumple(taperedTube(spine, 0.27, 0.012, segs, radial, (t) => 0.27 * Math.pow(1 - t, 1.05) + 0.01), spine, segs, radial, 1);
+  const cone = new THREE.Mesh(coneG, felt); cone.castShadow = true; g.add(cone);
+  const b = new THREE.Mesh(new THREE.CylinderGeometry(0.262, 0.274, 0.055, 40, 1, true), band); b.position.y = 0.04; g.add(b);
   return { group: g, height: 0.62, brimR: 0.47 };
 }
 
@@ -61,15 +83,15 @@ function cowboyHat(C) {
   const g = new THREE.Group();
   const felt = new THREE.MeshStandardMaterial({ color: C.accent, roughness: 0.82, side: THREE.DoubleSide });
   const bandM = new THREE.MeshStandardMaterial({ color: C.band || "#3a2414", roughness: 0.6 });
-  const brim = new THREE.Mesh(cowboyBrim(0.17, 0.52, 0.16), felt); brim.castShadow = true; g.add(brim);
-  const under = new THREE.Mesh(cowboyBrim(0.17, 0.52, 0.16), felt); under.position.y = -0.018; g.add(under);
+  const brim = new THREE.Mesh(cowboyBrim(0.17, 0.5, 0.27), felt); brim.castShadow = true; g.add(brim);   // sides rolled up like the portrait
+  const under = new THREE.Mesh(cowboyBrim(0.17, 0.5, 0.27), felt); under.position.y = -0.018; g.add(under);
   const crown = new THREE.Mesh(lathe([[0.0, 0.0], [0.205, 0.0], [0.2, 0.16], [0.185, 0.26], [0.14, 0.31], [0.06, 0.29], [0.0, 0.3]], 56), felt);
   crown.scale.set(1, 1, 0.8); crown.castShadow = true; g.add(crown);
   // the centre crease of the crown
   const crease = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.05, 0.22), new THREE.MeshStandardMaterial({ color: new THREE.Color(C.accent).multiplyScalar(0.7), roughness: 0.9 }));
   crease.position.set(0, 0.29, 0); g.add(crease);
   const band = new THREE.Mesh(new THREE.CylinderGeometry(0.207, 0.209, 0.05, 48, 1, true), bandM); band.scale.set(1, 1, 0.8); band.position.y = 0.04; g.add(band);
-  return { group: g, height: 0.31, brimR: 0.52 };
+  return { group: g, height: 0.31, brimR: 0.5 };
 }
 
 // the glowing tip of a staff or wand: gem, halo, light and orbiting sparks, driven by `charge`
@@ -186,7 +208,7 @@ export function buildCostume(def, ch) {
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
-  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(0.3, 0.03, 0.18); sprt.group.rotation.set(0.25, 0, -0.75); hat.group.add(sprt.group); }
+  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.3, 0.03, 0.18); sprt.group.rotation.set(0.25, 0, 0.75); hat.group.add(sprt.group); }   // on the side away from the staff hand
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
