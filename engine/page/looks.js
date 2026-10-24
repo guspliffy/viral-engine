@@ -252,7 +252,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   const night = setSpec && setSpec.type === "kitchen";
   // one warm key and a flat cool ambient: lit areas warm, shadows the same colours shifted to blue-violet
   // one key light: it only decides where light and shadow fall (patchToon sets the colours)
-  relight(scene, [dirLight("#ffffff", 2.0, [-4.6, 4.6, 2.2], { radius: 1 })]);
+  relight(scene, [dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
@@ -260,7 +260,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   const charRamp = smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
-    : { char: { lit: [1.0, 1.03, 0.88], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
+    : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
   const toon = new Map(), made = new Set(), noLine = { visible: false };
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
@@ -297,7 +297,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.6, 1.15));
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
-  grade.uniforms.contrast.value = 1.04; grade.uniforms.saturation.value = 1.14; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
+  grade.uniforms.contrast.value = 1.0; grade.uniforms.saturation.value = 1.0; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
   composer.addPass(grade);
 

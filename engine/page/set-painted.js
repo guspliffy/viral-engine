@@ -30,13 +30,19 @@ function cloud(g, cx, cy, w, rnd) {
   }
   // a few puffs stacked on top: the towering part
   for (let i = 0; i < 3; i++) { const p = puffs[1 + Math.floor(rnd() * (n - 2))]; puffs.push([p[0] + (rnd() - 0.5) * w * 0.15, p[1] - p[2] * 0.7, p[2] * (0.6 + rnd() * 0.25)]); }
+  // small puffs along the upper edge give the scalloped outline of a painted cumulus
+  for (const [x, y, r] of puffs.slice()) for (let k = 0; k < 4; k++) {
+    const a = -Math.PI * (0.15 + rnd() * 0.7), rr = r * (0.22 + rnd() * 0.18);
+    puffs.push([x + Math.cos(a) * r * 0.92, y + Math.sin(a) * r * 0.92, rr]);
+  }
   const base = cy + w * 0.02;
   const [c, h] = canvas(g.canvas.width, g.canvas.height);
   const fill = (dx, dy, k, col) => { h.fillStyle = col; for (const [x, y, r] of puffs) { h.beginPath(); h.arc(x + dx * r, y + dy * r, r * k, 0, Math.PI * 2); h.fill(); } };
   h.filter = "blur(1.2px)";
-  fill(0, 0, 1, "#c8d4ea");                // shadow body
-  fill(-0.12, -0.16, 0.86, "#eef3fb");     // lit
-  fill(-0.2, -0.26, 0.6, "#ffffff");       // brightest top-left
+  fill(0, 0, 1, "#b7c6e0");                // shadow body
+  fill(-0.06, -0.1, 0.9, "#dbe5f4");       // half light
+  fill(-0.12, -0.18, 0.78, "#f4f7fc");     // lit
+  fill(-0.2, -0.28, 0.55, "#ffffff");      // brightest top-left
   // flat base: cut everything below the base line, with a soft edge
   h.filter = "none"; h.globalCompositeOperation = "destination-out";
   const gr = h.createLinearGradient(0, base - w * 0.03, 0, base + w * 0.02); gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,1)");
