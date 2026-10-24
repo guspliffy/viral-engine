@@ -6,6 +6,7 @@ import { buildForest } from "./set-forest.js";
 import { buildRestaurant } from "./set-restaurant.js";
 import { buildStreet } from "./set-street.js";
 import { buildBedroom } from "./set-bedroom.js";
+import { buildClassroom } from "./set-classroom.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -42,6 +43,7 @@ export function buildSet(scene, spec = {}, palette = null) {
   if (type === "restaurant") return buildRestaurant(scene, spec);   // set-restaurant.js
   if (type === "street") return buildStreet(scene, spec);           // set-street.js
   if (type === "bedroom") return buildBedroom(scene, spec);         // set-bedroom.js
+  if (type === "classroom") return buildClassroom(scene, spec);     // set-classroom.js
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });

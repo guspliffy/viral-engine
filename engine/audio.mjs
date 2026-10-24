@@ -190,6 +190,16 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 24) % 1, f = Math.floor(t * 24) % 2 ? 2350 : 2650; x[i] = (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2.76 * t) * 0.18) * Math.exp(-hit * 4) * Math.min(1, (d - t) / 0.03); }
     return x;
   },
+  scribble(r, d = 0.6) { // a pencil writing fast: short scratchy strokes of band-passed noise
+    const x = buf(d), bp = biquad("bp", 3200, 1.2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = (t * 9) % 1; x[i] = run(bp, r() * 2 - 1) * 0.7 * Math.sin(k * Math.PI) ** 2 * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  bell(r, d = 1.0) { // a school bell: a fast hammer on one big bell
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 18) % 1; x[i] = (Math.sin(TAU * 1250 * t) * 0.5 + Math.sin(TAU * 1250 * 2.4 * t) * 0.2 + Math.sin(TAU * 1250 * 3.9 * t) * 0.08) * Math.exp(-hit * 2.5) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
   hiss(r, d = 0.3) { // bus doors: air brakes' hiss
     const x = buf(d), hp = biquad("hp", 2500, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }

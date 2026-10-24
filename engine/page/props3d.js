@@ -587,6 +587,157 @@ const KINDS = {
     for (const x of [-0.52, 0.52]) { mesh(new THREE.BoxGeometry(0.05, SEAT_Y - 0.04, 0.4), metal, P.whole, x, (SEAT_Y - 0.04) / 2, -0.03); mesh(new THREE.BoxGeometry(0.04, 0.42, 0.04), metal, P.whole, x, SEAT_Y + 0.18, -0.26); }
     return { grip: 0 };
   },
+  // a school desk with its chair: the origin is the chair seat (at SEAT_Y, so "sit" works; the pupil faces +z), the
+  // desk top (TABLE_Y) runs from z 0.28 to 0.78 with a front panel facing the camera. Built in halves; smash 0..1
+  // breaks the desk top in the middle (both halves fold down into a V)
+  desk(P) {
+    const top = mat("#e2b36f", { roughness: 0.55 }), metal = mat("#5a6b7d", { roughness: 0.45, metalness: 0.3 }), seat = mat("#4f86cf", { roughness: 0.6 });
+    const W = 1.0, Z0 = 0.28, D = 0.5;
+    const parts = [];
+    for (const [s, h] of P.halves) {
+      const g = new THREE.Group(); g.position.set(0, TABLE_Y, Z0 + D / 2); h.add(g); parts.push([s, g]);
+      mesh(new THREE.BoxGeometry(W / 2, 0.05, D), top, g, (s * W) / 4, -0.025, 0);
+      mesh(new THREE.BoxGeometry(W / 2 - 0.02, 0.3, 0.025), metal, g, (s * W) / 4, -0.2, D / 2 - 0.03);   // the front panel
+      mesh(new THREE.BoxGeometry(0.035, TABLE_Y - 0.05, D - 0.08), metal, g, s * (W / 2 - 0.04), -(TABLE_Y - 0.05) / 2 - 0.05, 0);
+    }
+    mesh(new THREE.BoxGeometry(0.46, 0.04, 0.42), seat, P.whole, 0, SEAT_Y - 0.03, 0);
+    mesh(new THREE.BoxGeometry(0.46, 0.32, 0.04), seat, P.whole, 0, SEAT_Y + 0.26, -0.22);
+    for (const x of [-0.2, 0.2]) for (const z of [-0.18, 0.18]) mesh(new THREE.CylinderGeometry(0.018, 0.018, SEAT_Y - 0.05, 8), metal, P.whole, x, (SEAT_Y - 0.05) / 2, z);
+    return {
+      grip: TABLE_Y, splitApart: 0.12, splitTip: 0.3, splitDrop: 0.1,
+      apply(ps) { const q = clamp(ps.smash ?? 0); for (const [s, g] of parts) { g.rotation.z = s * 0.55 * q; g.position.y = TABLE_Y - 0.3 * q; g.position.x = -s * 0.04 * q; } },
+    };
+  },
+  // a test paper lying flat (its middle at the origin, 0.34 x 0.46, the top edge towards -z, so it reads from the
+  // camera side of a desk): "TEST", a name line and five questions. write 0..1 fills the answers in one by one,
+  // magic 0..1 makes them glow green, name 0..1 grows a big pink signature with a heart over the page, holes 0..6
+  // punches bullet holes, blot 0..1 spreads an ink splat, burn 0..1 chars it to black ash and shrinks it, stack 0..3
+  // piles extra sheets beside it. It splits in two (a rip down the middle)
+  paper(P) {
+    const W = 0.34, L = 0.46;
+    const tex = (draw) => { const c = document.createElement("canvas"); c.width = 256; c.height = 346; draw(c.getContext("2d"), 256, 346); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+    const page = tex((c, w, h) => {
+      c.fillStyle = "#fdfcf6"; c.fillRect(0, 0, w, h); c.fillStyle = "#1f2a44"; c.font = "900 44px sans-serif"; c.textAlign = "center"; c.fillText("TEST", w / 2, 50);
+      c.font = "600 18px sans-serif"; c.textAlign = "left"; c.fillText("Name:", 18, 86); c.fillRect(80, 88, 150, 2);
+      for (let i = 0; i < 5; i++) { const y = 128 + i * 44; c.fillText(`${i + 1}.`, 18, y); c.fillStyle = "#9aa6bf"; c.fillRect(50, y + 4, 180, 2); c.fillStyle = "#1f2a44"; }
+    });
+    const paperM = new THREE.MeshStandardMaterial({ map: page, roughness: 0.9 }), ashM = mat("#2b2624", { roughness: 1 });
+    const answers = [], holesArr = [], sheets = [];
+    for (const [s, h] of P.halves) {
+      const geo = new THREE.PlaneGeometry(W / 2, L); const uv = geo.attributes.uv;
+      for (let i = 0; i < uv.count; i++) uv.setX(i, s > 0 ? 0.5 + uv.getX(i) / 2 : uv.getX(i) / 2);
+      const m = mesh(geo, paperM, h, (s * W) / 4, 0.003, 0); m.rotation.x = -Math.PI / 2; m.castShadow = false;
+    }
+    // the answers: blue scribbles on the lines (they become meshes on the half they fall on)
+    const ink = new THREE.MeshBasicMaterial({ color: "#2346a8" });
+    for (let i = 0; i < 5; i++) {
+      const g = new THREE.Group(), z = -L / 2 + ((128 + i * 44) / 346) * L, x0 = -W / 2 + (60 / 256) * W;
+      for (let k = 0; k < 6; k++) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.022, 0.002, 0.008), ink); d.position.set(x0 + k * 0.024, 0.006, z - 0.006 + (k % 2) * 0.006); d.rotation.y = (k % 2 ? 0.5 : -0.5); g.add(d); }
+      P.whole.add(g); answers.push(g);
+    }
+    // the signature: a pink swirl and a heart, big
+    const sig = new THREE.Group(); P.whole.add(sig);
+    const pink = new THREE.MeshBasicMaterial({ color: "#ff4fa0" });
+    for (let k = 0; k < 14; k++) { const a = k * 0.55, d = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.002, 0.012), pink); d.position.set(-0.1 + k * 0.015, 0.007, -0.02 + Math.sin(a) * 0.05); d.rotation.y = Math.cos(a); sig.add(d); }
+    const heart = new THREE.Mesh(new THREE.CircleGeometry(0.035, 3), pink); heart.rotation.x = -Math.PI / 2; heart.position.set(0.12, 0.008, 0.05); sig.add(heart);
+    // bullet holes, the ink blot, and the ash
+    for (let k = 0; k < 6; k++) { const hl = new THREE.Mesh(new THREE.CircleGeometry(0.018, 10), new THREE.MeshBasicMaterial({ color: "#1a1410" })); hl.rotation.x = -Math.PI / 2; hl.position.set(-0.08 + (k % 3) * 0.08, 0.008, -0.12 + Math.floor(k / 3) * 0.16 + (k % 2) * 0.03); P.whole.add(hl); holesArr.push(hl); }
+    const blot = new THREE.Group(); P.whole.add(blot);
+    for (let k = 0; k < 7; k++) { const b = new THREE.Mesh(new THREE.CircleGeometry(k ? 0.035 : 0.09, 14), new THREE.MeshBasicMaterial({ color: "#14121f" })); b.rotation.x = -Math.PI / 2; const a = k * 0.9; b.position.set(k ? Math.cos(a) * 0.09 : 0, 0.009, k ? Math.sin(a) * 0.1 : 0); blot.add(b); }
+    const ash = mesh(new THREE.PlaneGeometry(W, L), new THREE.MeshStandardMaterial({ color: "#2b2624", roughness: 1, transparent: true }), P.whole, 0, 0.01, 0); ash.rotation.x = -Math.PI / 2; ash.castShadow = false;
+    for (let k = 0; k < 3; k++) { const sh = mesh(new THREE.BoxGeometry(W, 0.004, L), mat("#fdfcf6", { roughness: 0.9 }), P.whole, W + 0.04, 0.003 + k * 0.012, -0.02 * k); sh.rotation.y = 0.12 * (k - 1); sheets.push(sh); }
+    return {
+      grip: 0.005, splitApart: 0.08, splitTip: 0.25, splitDrop: 0,
+      apply(ps) {
+        const wr = clamp(ps.write ?? 0) * 5, mg = clamp(ps.magic ?? 0);
+        answers.forEach((g, i) => { const k = clamp(wr - i); g.visible = k > 0.02 && ps.split < 0.05; g.scale.set(k, 1, 1); });
+        ink.color.set(mg > 0.5 ? "#3cff6a" : "#2346a8");
+        const nm = clamp(ps.name ?? 0); sig.visible = nm > 0.02; sig.scale.setScalar(Math.max(0.01, nm));
+        holesArr.forEach((hl, i) => { hl.visible = (ps.holes ?? 0) > i + 0.5; });
+        const bl = clamp(ps.blot ?? 0); blot.visible = bl > 0.02; blot.scale.setScalar(Math.max(0.01, bl * 1.4));
+        const bu = clamp(ps.burn ?? 0); ash.visible = bu > 0.02; ash.material.opacity = bu; ash.scale.set(1, 1, 1);
+        P.whole.scale.set(1 - 0.35 * bu, 1, 1 - 0.45 * bu);
+        sheets.forEach((sh, i) => { const k = clamp((ps.stack ?? 0) - i); sh.visible = k > 0.02; sh.position.y = 0.003 + i * 0.012 + (1 - k) * 0.25; });
+      },
+    };
+  },
+  // a toilet facing +z: the origin is where its sitter sits (the seat at SEAT_Y, so "sit" works), the cistern behind
+  // against the wall. lid 0..1 lifts the lid up behind the sitter; smash 0..1 cracks it apart (both halves tip out)
+  toilet(P) {
+    const china = mat("#fbfbf8", { roughness: 0.25 }), seatM = mat("#f4f1e6", { roughness: 0.35 }), chrome = mat("#c9ccd3", { roughness: 0.2, metalness: 0.8 });
+    for (const [s, h] of P.halves) {
+      const bowl = mesh(new THREE.CylinderGeometry(0.24, 0.17, SEAT_Y - 0.06, 24, 1, false, TH(s), Math.PI), china, h, 0, (SEAT_Y - 0.06) / 2, 0.08); bowl.scale.z = 1.25;
+      const seat = mesh(new THREE.TorusGeometry(0.19, 0.045, 10, 24, Math.PI), seatM, h, 0, SEAT_Y - 0.03, 0.08); seat.rotation.x = Math.PI / 2; seat.rotation.z = s > 0 ? -Math.PI / 2 : Math.PI / 2; seat.scale.y = 1.25;
+      mesh(new THREE.BoxGeometry(0.25, 0.42, 0.2), china, h, s * 0.125, SEAT_Y + 0.2, -0.27);   // the cistern
+      mesh(new THREE.BoxGeometry(0.27, 0.04, 0.22), china, h, s * 0.125, SEAT_Y + 0.43, -0.27);
+    }
+    mesh(new THREE.BoxGeometry(0.07, 0.02, 0.02), chrome, P.whole, -0.15, SEAT_Y + 0.34, -0.16);   // the flush lever
+    const lidG = new THREE.Group(); lidG.position.set(0, SEAT_Y + 0.0, -0.13); P.whole.add(lidG);
+    const lid = mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.025, 24), seatM, lidG, 0, 0, 0.22); lid.scale.z = 1.2;
+    return {
+      grip: SEAT_Y, splitApart: 0.15, splitTip: 0.5, splitDrop: 0.05,
+      apply(ps) { lidG.rotation.x = -(Math.PI / 2) * (0.92 * clamp(ps.lid ?? 1)); const q = clamp(ps.smash ?? 0); if (q > 0) for (const [s, h] of P.halves) { h.position.x += s * 0.2 * q; h.rotation.z -= s * 0.6 * q; } },
+    };
+  },
+  // a toilet-roll holder on a wall (the origin at the arm's end on the wall's face, the roll sticking out along +z):
+  // stock 0..1 is how much paper is left (0: the bare cardboard tube); spin turns it (degrees)
+  tpholder(P) {
+    const chrome = mat("#c9ccd3", { roughness: 0.2, metalness: 0.8 }), paper = mat("#ffffff", { roughness: 0.9 }), card = mat("#b88b5a", { roughness: 0.9 });
+    mesh(new THREE.BoxGeometry(0.06, 0.06, 0.02), chrome, P.whole, -0.07, 0, 0.01);
+    const bar = mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.15, 8), chrome, P.whole, -0.07, 0, 0.0); bar.rotation.z = Math.PI / 2; bar.position.set(0.0, 0, 0.07);
+    const spin = new THREE.Group(); spin.position.set(0, 0, 0.07); P.whole.add(spin);
+    const tube = mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.11, 16, 1, true), card, spin, 0, 0, 0); tube.rotation.z = Math.PI / 2; tube.material.side = THREE.DoubleSide;
+    const rollM = mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.105, 24), paper, spin, 0, 0, 0); rollM.rotation.z = Math.PI / 2;
+    const tail = mesh(new THREE.BoxGeometry(0.1, 0.12, 0.003), paper, spin, 0, -0.07, 0.06);
+    return { grip: 0, apply(ps) { const r = clamp(ps.stock ?? 1); rollM.visible = r > 0.02; rollM.scale.set(0.38 + 0.62 * r, 1, 0.38 + 0.62 * r); tail.visible = r > 0.02; tail.position.z = 0.025 + 0.035 * r; spin.rotation.x = ((ps.spin || 0) * Math.PI) / 180; } };
+  },
+  // a loose toilet roll (its bottom at the origin, standing up); unroll 0..1 trails a long paper streamer down
+  // from it (towards -y from the roll, so it streams from a high shelf or from a hand)
+  troll(P) {
+    const paper = mat("#ffffff", { roughness: 0.9 }), card = mat("#b88b5a", { roughness: 0.9 });
+    mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.11, 24), paper, P.whole, 0, 0.055, 0);
+    mesh(new THREE.CylinderGeometry(0.023, 0.023, 0.112, 12), card, P.whole, 0, 0.055, 0);
+    const strip = mesh(new THREE.BoxGeometry(0.1, 1, 0.004), paper, P.whole, 0, 0, 0.06);
+    return { grip: 0.055, apply(ps) { const u = clamp(ps.unroll ?? 0); strip.visible = u > 0.02; strip.scale.y = Math.max(0.01, u * 1.2); strip.position.y = 0.06 - 0.6 * u; } };
+  },
+  // a shower curtain on a rail (the rail's middle at the origin, y 0 at the rail; it hangs 1.6 down, 1.1 wide, facing
+  // +z). cut 0..1: a blade takes its lower half off in neat squares that fall into a tidy stack at its foot
+  curtain(P) {
+    const c = document.createElement("canvas"); c.width = 128; c.height = 192; const x = c.getContext("2d");
+    x.fillStyle = "#bfe6f2"; x.fillRect(0, 0, 128, 192); x.fillStyle = "#ffe17a";
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) { x.beginPath(); x.arc(16 + i * 32 + (j % 2) * 16, 16 + j * 32, 7, 0, 7); x.fill(); }
+    const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.wrapS = tx.wrapT = THREE.RepeatWrapping;
+    const m = mat("#ffffff", { map: tx, roughness: 0.8, side: THREE.DoubleSide });
+    mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.3, 8), mat("#c9ccd3", { metalness: 0.7, roughness: 0.3 }), P.whole, 0, 0, 0).rotation.z = Math.PI / 2;
+    const upper = new THREE.Group(), lowerG = new THREE.Group(); P.whole.add(upper, lowerG);
+    // folds: a row of slim panels at alternating depth
+    for (let k = 0; k < 8; k++) {
+      const top = mesh(new THREE.PlaneGeometry(0.15, 0.8), m, upper, -0.525 + k * 0.15, -0.42, (k % 2) * 0.04); top.castShadow = false;
+      const low = mesh(new THREE.PlaneGeometry(0.15, 0.8), m, lowerG, -0.525 + k * 0.15, -1.22, (k % 2) * 0.04); low.castShadow = false;
+    }
+    const squares = [];
+    for (let k = 0; k < 6; k++) { const q = mesh(new THREE.BoxGeometry(0.2, 0.012, 0.2), m, P.whole, 0, 0, 0.25); squares.push(q); }
+    return {
+      grip: 0,
+      apply(ps) {
+        const u = clamp(ps.cut ?? 0);
+        lowerG.visible = u < 0.15;
+        squares.forEach((q, k) => { const f = clamp((u - 0.1 - k * 0.05) / 0.5); q.visible = u > 0.1; q.position.set(0.2 * Math.sin(k * 2.1) * (1 - f), lerp(-1.0 - k * 0.05, -1.58 + k * 0.012, f), 0.25); q.rotation.set((1 - f) * (k + 1) * 1.3, (1 - f) * k * 0.9, 0); });
+      },
+    };
+  },
+  // a pencil (its eraser end at the origin, pointing along +y): len 0..1 sharpens it shorter from the tip end
+  pencil(P) {
+    const g = new THREE.Group(); P.whole.add(g);
+    const wood = mat("#ffc83d", { roughness: 0.5 }), tipM = mat("#f1d1a6"), lead = mat("#2a2a2a"), eraser = mat("#f08aa0"), band = mat("#c9ccd3", { metalness: 0.5, roughness: 0.3 });
+    mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.025, 10), eraser, g, 0, 0.0125, 0);
+    mesh(new THREE.CylinderGeometry(0.0125, 0.0125, 0.015, 10), band, g, 0, 0.032, 0);
+    const body = mesh(new THREE.CylinderGeometry(0.011, 0.011, 1, 6), wood, g, 0, 0, 0);
+    const tip = new THREE.Group(); g.add(tip);
+    mesh(new THREE.ConeGeometry(0.011, 0.035, 6), tipM, tip, 0, 0.0175, 0);
+    mesh(new THREE.ConeGeometry(0.004, 0.012, 6), lead, tip, 0, 0.035 - 0.004, 0);
+    return { grip: 0.08, apply(ps) { const l = 0.02 + 0.16 * clamp(ps.len ?? 1); body.scale.y = l; body.position.y = 0.04 + l / 2; tip.position.y = 0.04 + l; } };
+  },
 
 };
 
@@ -621,7 +772,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
