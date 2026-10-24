@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { taperedTube } from "./geo.js";
+import { taperedTube, radialTexture } from "./geo.js";
 
 // PotatoBrawl's Phoenix and Reaper in 3D, from the game's colours and drawings (game/core.js palettes,
 // game/ui/draw-fighters.js): the Phoenix's flame crest and flame wings, the Reaper's hood and farm scythe.
@@ -39,10 +39,18 @@ export function phoenixCostume(C, ch) {
     }
     return { pivot, fan, s };
   });
+  // "charge" makes the Phoenix blaze: the feathers glow, a halo grows behind it and it lights the room round it
+  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,225,1)"], [0.3, "rgba(255,214,120,0.75)"], [0.65, "rgba(255,140,60,0.25)"], [1, "rgba(255,120,40,0)"]]), transparent: true, depthWrite: false }));
+  halo.position.set(0, ch.cy + 0.15, -0.5); halo.visible = false; halo.name = "glow"; ch.bodyGroup.add(halo);
+  const blaze = new THREE.PointLight("#ffbf70", 0, 7, 1.4); blaze.position.set(0, ch.cy + 0.3, 0.25); ch.bodyGroup.add(blaze);
   return {
     hat: { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
     apply(st, t) {
-      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (7 + 17 * fl)) * (0.08 * (0.4 + w) + 0.45 * fl);
+      const c = Math.max(0, st.charge || 0), fk = 1 + 0.06 * Math.sin(t * 11.3) + 0.04 * Math.sin(t * 17.9);
+      mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
+      halo.visible = c > 0.01; halo.scale.setScalar((0.5 + 2.1 * c) * fk); halo.material.opacity = Math.min(0.95, c * 1.2);
+      // the beat's phase is integrated over time in timeline.js (t × speed would jump when the speed changes)
+      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(st.flapPhase ?? t * 7) * (0.08 * (0.4 + w) + 0.45 * fl);
       for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 1.3 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(0.85 + 0.4 * w + 0.4 * fl); }
       crest.rotation.x = 0.05 * Math.sin(t * 3.1);
     },
@@ -79,11 +87,13 @@ function scythe(C) {
   blade.position.set(0.02, 0.88, -0.006); blade.castShadow = true; g.add(blade);
   const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.06, 12), new THREE.MeshStandardMaterial({ color: "#3a3440", roughness: 0.5 }));
   collar.position.set(0.03, 0.87, 0); g.add(collar);
-  return g;
+  // the blade's point: a prop grabbed with hand "tip" hangs here
+  const tip = new THREE.Object3D(); tip.position.set(0.56, 0.8, 0); g.add(tip);
+  return { g, tip };
 }
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
   const hood = new THREE.Mesh(hoodGeometry(ch), cloth); hood.castShadow = true; ch.bodyGroup.add(hood);
-  const prop = scythe(C);
-  return { hat: null, sitDepth: -0.035, prop: { group: prop, charge() {} }, apply() {} };
+  const { g, tip } = scythe(C);
+  return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
 }

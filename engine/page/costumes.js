@@ -69,15 +69,16 @@ function glowTip(g, C, at, gemGeo, size = 1) {
   const light = new THREE.PointLight(glowCol, 0, 3.5, 2); light.position.copy(crystal.position); g.add(light);
   const sparkM = new THREE.MeshBasicMaterial({ color: "#fff6c8" });
   const sparks = Array.from({ length: 16 }, (_, i) => { const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.014, 0), sparkM); g.add(m); return { m, i }; });
-  return (c, t) => {
+  // ph: the integral of the charge over time (timeline.js), so spin and orbits speed up smoothly instead of jumping
+  return (c, t, ph = 0) => {
     crystalM.emissiveIntensity = 0.6 + c * 5;
     halo.scale.setScalar(size * (0.22 + c * 1.1 + 0.04 * Math.sin(t * 40) * c));
     halo.material.opacity = 0.35 + 0.65 * c;
     light.intensity = c * 6;
-    crystal.rotation.y = t * (1 + c * 6);
+    crystal.rotation.y = t + 6 * ph;
     for (const s of sparks) {
       s.m.visible = c > 0.02;
-      const a = s.i * 2.399 + t * (2 + c * 5), r = size * (0.1 + (1 - c) * 0.35 + 0.05 * Math.sin(s.i * 1.7 + t * 3));
+      const a = s.i * 2.399 + 2 * t + 5 * ph, r = size * (0.1 + (1 - c) * 0.35 + 0.05 * Math.sin(s.i * 1.7 + t * 3));
       s.m.position.set(at.x + Math.cos(a) * r, at.y + Math.sin(s.i * 0.9 + t * 2.4) * 0.18 * size * (1 - c * 0.5), at.z + Math.sin(a) * r);
       s.m.scale.setScalar(0.6 + c * 1.2);
     }
@@ -151,6 +152,10 @@ function tie(C, ch) {
 }
 
 const TILT = { hold: [0.0, 0.1], cast: [0.8, 0.0], up: [0.25, 0.05], rest: [0.0, 0.14] };
+// a dance target (an object) keeps the prop upright; an arm still blending (util.js armNow) blends the tilt too
+const tiltOf = (q) => { if (q && q.mix) { const a = tiltOf(q.mix.from), b = tiltOf(q.mix.pose); return [a[0] + (b[0] - a[0]) * q.mix.p, a[1] + (b[1] - a[1]) * q.mix.p]; } return TILT[q] || TILT.hold; };
+// a "tilt" action (timeline.js) holds the prop at its own angle; to: null hands it back to the arm pose (base)
+const tiltSet = (q, base) => { if (!q) return base; const f = tiltSet(q.from, base), to = q.to || base; return [f[0] + (to[0] - f[0]) * q.k, f[1] + (to[1] - f[1]) * q.k]; };
 
 export function buildCostume(def, ch) {
   const C = def.costume || {}, sp = def.sprout || {};
@@ -178,8 +183,11 @@ export function buildCostume(def, ch) {
   const sitDepth = pb ? pb.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
 
   return {
+    tip: prop && prop.tip ? prop.tip : null,
     apply(st, t, hands, fries) {
-      const top = fries ? ch.fries.topY() * st.friesPop : ch.topY() * ch.bodyGroup.scale.y;
+      // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
+      const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
+      const top = fries ? head + (ch.fries.topY() - head) * k : head;
       mount.position.set(st.hatOff[0], top - sitDepth + st.hatOff[1], st.hatOff[2]);
       mount.rotation.set(st.hatSpin[0], st.hatSpin[1], st.hatSpin[2]);
       mount.visible = st.hatOn !== false;
@@ -188,12 +196,13 @@ export function buildCostume(def, ch) {
       if (prop) {
         prop.group.visible = !fries;
         const a = st.arms[propHand];
-        const t0 = TILT[a.from] || TILT.hold, t1 = TILT[a.pose] || TILT.hold;   // a dance target (an object) keeps the prop upright
+        const t0 = tiltOf(a.from), t1 = tiltOf(a.pose);
         prop.group.position.copy(hands[propHand]);
         // right hand is at -x, left at +x: lean the top of the prop outward on either side
         const out = propHand === "R" ? 1 : -1;
-        prop.group.rotation.set(t0[0] + (t1[0] - t0[0]) * a.p, 0, out * (t0[1] + (t1[1] - t0[1]) * a.p) + (st.propSpin || 0));
-        prop.charge(st.charge, t);
+        const [tx, tz] = tiltSet(st.propTilt, [t0[0] + (t1[0] - t0[0]) * a.p, t0[1] + (t1[1] - t0[1]) * a.p]);
+        prop.group.rotation.set(tx, 0, out * tz + (st.propSpin || 0));
+        prop.charge(st.charge, t, st.chargePhase || 0);
       }
     },
   };

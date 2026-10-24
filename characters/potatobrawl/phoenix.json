@@ -9,7 +9,7 @@
   "face": { "default": "eager", "iris": "#4a1f14", "cheeks": "#ff6f6f" },
   "sprout": { "color": "#6cbf3a", "placement": "top" },
   "costume": { "type": "phoenix", "accent": "#ff6a2b", "tip": "#ffd23f" },
-  "personality": "Fire flyer. In the comedy plan: the show-off who takes elaborate shortcuts (proposal until the character bible is signed off).",
+  "personality": "Wants to impress people and feel capable; commits to elaborate shortcuts before understanding the problem; enthusiastic, generous, keeps trying. Canon since 24 Oct 2026, see docs/character-bible.md.",
   "voice": { "pitch": 205, "rate": 4.3, "formant": 1.2, "range": 6, "breath": 0.05, "vibrato": 0.02, "seed": 11 },
   "voiceNote": "gibberish, bright and quick (same as the puppet voice, puppet/cast.json)"
 }

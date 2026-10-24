@@ -1,0 +1,106 @@
+{
+ "id": "pilot-02-the-last-seat",
+ "title": "The last seat",
+ "status": "pilot calibration episode 2 of 6 (docs/character-bible.md): both pretend they don't want the last chair, the politeness escalates, the Wizard takes it. Both fail.",
+ "experiment": { "id": "pilot-opening", "episode": "the-last-seat", "variant": "calibration" },
+ "fps": 30,
+ "cover": 6.2,
+ "set": { "type": "kitchen", "time": 2.75 },
+ "cast": [
+  { "id": "phx", "character": "potatobrawl/phoenix", "at": [-0.05, 0.3], "face": 40, "expr": "eager", "seed": 2.2 },
+  { "id": "rea", "character": "potatobrawl/reaper", "at": [1.55, -0.04], "face": -40, "expr": "deadpan", "arms": { "R": "hold", "L": "rest" }, "seed": 5.7 },
+  { "id": "wiz", "character": "potatobrawl/wizard", "at": [-2.6, -1.2], "face": "right", "expr": "kind", "arms": { "R": "rest", "L": "hold" }, "seed": 3.9 }
+ ],
+ "props": [
+  { "id": "table", "kind": "table", "x": -0.32, "y": 0, "z": -0.45 },
+  { "id": "chair", "kind": "chair", "x": 0.72, "y": 0, "z": -0.45, "rot": -60 },
+  { "id": "cup1", "kind": "teacup", "x": 0.0, "y": 0.62, "z": -0.3 },
+  { "id": "plate", "kind": "plate", "x": -0.45, "y": 0.62, "z": -0.5 },
+  { "id": "cookie", "kind": "cookie", "x": -0.45, "y": 0.64, "z": -0.5 }
+ ],
+ "beats": [
+  { "name": "hook: same chair", "len": 1.5,
+    "shot": { "pos": [0.72, 1.12, 5.6], "look": [0.72, 0.78, -0.2], "fov": 34, "to": { "pos": [0.72, 1.1, 5.2] }, "dur": 1.5 },
+    "do": [
+     { "who": "phx", "do": "move", "to": [0.14, 0.28], "dur": 0.45, "ease": "out", "at": 0 },
+     { "who": "rea", "do": "move", "to": [1.34, -0.02], "dur": 0.45, "ease": "out", "at": 0 },
+     { "who": "phx", "do": "arm", "side": "L", "pose": { "o": [0.22, 0.55, 0.3] }, "dur": 0.3, "at": 0.0 },
+     { "who": "phx", "do": "squash", "amount": 0.07, "dur": 0.2, "at": 0.6 },
+     { "who": "rea", "do": "squash", "amount": 0.05, "dur": 0.2, "at": 0.6 },
+     { "who": "phx", "do": "look", "to": [0.8, 0.0], "dur": 0.12, "at": 0.7 },
+     { "who": "rea", "do": "look", "to": [-0.8, 0.0], "dur": 0.12, "at": 0.7 },
+     { "who": "phx", "do": "expr", "expr": "shocked", "dur": 0.08, "at": 0.75 },
+     { "who": "phx", "do": "arm", "side": "L", "pose": "rest", "dur": 0.3, "at": 1.05 }
+    ] },
+  { "name": "you take it", "len": 1.6,
+    "shot": { "pos": [0.3, 1.0, 3.5], "look": [0.32, 0.76, 0.0], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "delighted", "dur": 0.12, "at": 0 },
+     { "who": "phx", "do": "arm", "side": "both", "pose": { "o": [0.26, 0.42, 0.28] }, "dur": 0.3, "at": 0.08 },
+     { "who": "phx", "do": "squash", "amount": 0.08, "dur": 0.3, "at": 0.08 },
+     { "macro": "say", "who": "phx", "line": "oh! you take it!", "tone": "excited", "at": 0.1 },
+     { "who": "phx", "do": "arm", "side": "both", "pose": "rest", "dur": 0.3, "at": 1.25 }
+    ] },
+  { "name": "no, you", "len": 1.5,
+    "shot": { "pos": [1.15, 1.0, 3.5], "look": [1.13, 0.76, -0.05], "fov": 34 },
+    "do": [
+     { "who": "rea", "do": "arm", "side": "L", "pose": { "o": [0.3, 0.42, 0.3] }, "dur": 0.3, "at": 0.15 },
+     { "macro": "say", "who": "rea", "line": "no. you.", "tone": "calm", "at": 0.2 },
+     { "who": "rea", "do": "arm", "side": "L", "pose": "rest", "dur": 0.35, "at": 1.1 }
+    ] },
+  { "name": "i insist", "kind": "escalation", "len": 2.5,
+    "shot": { "pos": [0.72, 1.1, 5.0], "look": [0.72, 0.76, -0.15], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "arm", "side": "both", "pose": "rest", "dur": 0.3, "at": 0 },
+     { "who": "phx", "do": "expr", "expr": "eager", "dur": 0.12, "at": 0 },
+     { "macro": "say", "who": "phx", "line": "i insist!", "tone": "excited", "at": 0.05 },
+     { "who": "phx", "do": "pitch", "to": 30, "dur": 0.35, "at": 0.1 },
+     { "who": "phx", "do": "flare", "dur": 0.6, "at": 0.1 },
+     { "macro": "say", "who": "rea", "line": "i insist more.", "tone": "calm", "at": 1.05 },
+     { "who": "rea", "do": "pitch", "to": 42, "dur": 0.4, "at": 1.1 }
+    ] },
+  { "name": "deeper", "len": 1.7,
+    "shot": { "pos": [0.72, 0.85, 4.6], "look": [0.72, 0.62, -0.3], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "pitch", "to": 56, "dur": 0.3, "at": 0.05 },
+     { "who": "phx", "do": "squash", "amount": 0.08, "dur": 0.25, "at": 0.3 },
+     { "who": "rea", "do": "pitch", "to": 68, "dur": 0.3, "at": 0.55 },
+     { "who": "rea", "do": "squash", "amount": 0.06, "dur": 0.25, "at": 0.8 },
+     { "who": "phx", "do": "expr", "expr": "focused", "dur": 0.15, "at": 0.6 },
+     { "who": "wiz", "do": "move", "to": [0.98, -1.15], "dur": 1.6, "at": 0.05 }
+    ] },
+  { "name": "the Wizard sits", "len": 1.3,
+    "do": [
+     { "who": "wiz", "do": "sit", "seat": "chair", "hands": "lap", "dur": 0.45, "at": 0.0 },
+     { "who": "wiz", "do": "squash", "amount": 0.06, "dur": 0.3, "at": 0.5 },
+     { "who": "wiz", "do": "blink", "dur": 0.2, "at": 0.85 },
+     { "who": "phx", "do": "squash", "amount": 0.04, "dur": 0.3, "at": 0.4 }
+    ] },
+  { "name": "was this free?", "len": 2.1,
+    "shot": { "pos": [0.75, 1.02, 4.2], "look": [0.75, 0.74, -0.2], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "pitch", "to": 0, "dur": 0.3, "at": 0 },
+     { "who": "rea", "do": "pitch", "to": 0, "dur": 0.3, "at": 0.05 },
+     { "who": "phx", "do": "look", "to": [0.6, -0.15], "dur": 0.12, "at": 0.35 },
+     { "who": "rea", "do": "look", "to": [-0.55, -0.15], "dur": 0.12, "at": 0.4 },
+     { "who": "phx", "do": "expr", "expr": "shocked", "dur": 0.08, "at": 0.4 },
+     { "who": "phx", "do": "squash", "amount": 0.12, "dur": 0.2, "at": 0.4 },
+     { "who": "rea", "do": "blink", "dur": 0.2, "at": 0.5 },
+     { "who": "wiz", "do": "look", "to": [-0.6, 0.0], "dur": 0.15, "at": 0.55 },
+     { "macro": "say", "who": "wiz", "line": "oh. was this free?", "tone": "question", "at": 0.65 },
+     { "who": "wiz", "do": "look", "to": [0.6, 0.0], "dur": 0.15, "at": 1.25 }
+    ] },
+  { "name": "enjoy", "len": 2.5,
+    "shot": { "pos": [0.75, 1.0, 3.9], "look": [0.75, 0.74, -0.2], "fov": 34 },
+    "do": [
+     { "who": "phx", "do": "expr", "expr": "happy", "dur": 0.15, "at": 0 },
+     { "who": "phx", "do": "look", "to": [0, 0], "dur": 0.15, "at": 0 },
+     { "macro": "say", "who": "phx", "line": "of course!", "tone": "excited", "at": 0.05 },
+     { "macro": "say", "who": "rea", "line": "enjoy.", "tone": "calm", "at": "+0.0" },
+     { "who": "wiz", "do": "look", "to": [0, 0], "dur": 0.2, "at": 1.2 },
+     { "who": "wiz", "do": "expr", "expr": "delighted", "dur": 0.2, "at": 1.2 },
+     { "who": "phx", "do": "droop", "to": 0.6, "dur": 0.35, "at": 1.7 },
+     { "who": "rea", "do": "blink", "dur": 0.2, "at": 2.0 }
+    ] }
+ ]
+}
