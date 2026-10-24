@@ -51,7 +51,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
   };
-  let autoBlink = true, airSince = null, riding = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
+  let autoBlink = true, airSince = null, riding = null, unsit = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
   let idle = 1, sink = 0, holdBlink = true;   // a "still" turns the idle breathing and sway down (see below the loop)
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
@@ -200,13 +200,15 @@ export function actorState(sb, actor, def, t, raw = false) {
       // [x, y, z] in the prop's own frame and `yaw` degrees from its heading, eased in over dur; actions after it
       // (hops, turns) still add on top. { do: "ride", prop: null } gets off where the prop has carried it.
       case "ride": {
-        if (riding) { const T = rideAt(sb, riding.a, a.at); [st.x, st.y, st.z, st.yaw] = [T.x, T.y + (st.y - riding.from.y), T.z, T.yaw]; riding = null; }
+        if (riding) { const T = rideAt(sb, riding.a, a.at); [st.x, st.y, st.z, st.yaw] = [T.x, T.y + (st.y - riding.from.y), T.z, T.yaw]; if (riding.a.sit) unsit = a.at; riding = null; }
         if (a.prop) riding = { a, from: { x: st.x, y: st.y, z: st.z, yaw: st.yaw } };
         break;
       }
       default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
     }
   }
+  // getting off a seat: the sitting pose eases out over 0.25 s instead of snapping to standing
+  if (unsit != null && !(riding && riding.a.sit)) st.sit = Math.max(st.sit || 0, 1 - ease("inOut")(prog(t, unsit, 0.25)));
   if (riding) {
     const { a, from } = riding, T = rideAt(sb, a, t), k = ease(a.ease || "inOut")(prog(t, a.at, a.dur ?? 0.3));
     st.x = lerp(from.x, T.x, k) + (st.x - from.x); st.y = lerp(from.y, T.y, k) + (st.y - from.y); st.z = lerp(from.z, T.z, k) + (st.z - from.z);

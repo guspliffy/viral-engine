@@ -1014,12 +1014,12 @@ const KINDS = {
     };
   },
   // a trolley bay: two rails along x on posts (1.7 long, the open end at +x), a blue "CARTS" sign on a post at the
-  // closed end, and `count` 0..6 trolleys nested inside, front towards -x (the first at the closed end). smash 0..1
+  // closed end (spec.sign: its x instead, then just behind the back rail), and `count` 0..6 trolleys nested inside, front towards -x (the first at the closed end). smash 0..1
   // knocks it flat (the rails fall outwards, the sign tips, the trolleys scatter)
   corral(P) {
     const steel = mat("#c9ced6", { roughness: 0.3, metalness: 0.7 }), blue = mat("#2f6fd1", { roughness: 0.5 });
     const rails = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.z = s * 0.3; P.whole.add(g); mesh(new THREE.BoxGeometry(1.7, 0.035, 0.035), steel, g, 0, 0.7, 0); mesh(new THREE.BoxGeometry(1.7, 0.03, 0.03), steel, g, 0, 0.35, 0); for (const x of [-0.82, 0, 0.82]) mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.7, 8), steel, g, x, 0.35, 0); return [s, g]; });
-    const signG = new THREE.Group(); signG.position.set(-0.9, 0, 0); P.whole.add(signG);
+    const signG = new THREE.Group(); signG.position.set(P.spec.sign ?? -0.9, 0, P.spec.sign != null ? -0.34 : 0); P.whole.add(signG);
     mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.4, 8), steel, signG, 0, 0.7, 0);
     const tex = (() => { const c = document.createElement("canvas"); c.width = 128; c.height = 80; const g = c.getContext("2d"); g.fillStyle = "#2f6fd1"; g.fillRect(0, 0, 128, 80); g.fillStyle = "#fff"; g.font = "900 30px sans-serif"; g.textAlign = "center"; g.fillText("CARTS", 64, 52); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
     const sign = mesh(new THREE.BoxGeometry(0.42, 0.26, 0.02), blue, signG, 0, 1.3, 0.02); mesh(new THREE.PlaneGeometry(0.4, 0.24), new THREE.MeshBasicMaterial({ map: tex }), signG, 0, 1.3, 0.035);

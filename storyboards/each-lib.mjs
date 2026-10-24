@@ -24,7 +24,7 @@ export function clip(meta) {
     beat: (id, at, how, habit) => beats.push({ id, at: r3(at), how, habit }),
     clipOk: (who, w, from = 0, to = 99) => sb.allowClip.push({ who, with: w, from: r3(from), to: r3(to) }),
     // the end: cut the timeline into beats (an item goes to the beat it starts in), add the shot and the captions
-    finish(end, { shot, title, hook, hookTo = 1.0, askAt, cover, file }) {
+    finish(end, { shot, title, hook, hookTo = 1.0, hookLabel = false, askAt, cover, file }) {
       end = r3(end);
       beats.sort((x, y) => x.at - y.at);
       const late = items.filter((x) => x.at >= end);
@@ -37,10 +37,12 @@ export function clip(meta) {
       sb.shots.push({ at: 0, ...shot });
       // the hook is the top line until hookTo (the first fighter's name under it from frame 0), then just the name and
       // the habit (the title is the storyboard's, not a caption: a one-word title meant nothing on screen)
-      sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 230, pop: false });   // already up on frame 0
+      // (hookLabel: the hook is the big boxed line instead, where the names go, and the first name follows it)
+      if (hookLabel) sb.captions.push({ from: 0, to: hookTo, text: hook, style: "label", pos: 340, pop: false });
+      else sb.captions.push({ from: 0, to: hookTo, text: hook, pos: 230, pop: false });   // already up on frame 0
       const ask = r3(askAt);
       for (const [i, b] of beats.entries()) {
-        const from = i ? r3(b.at) : 0, to = i === beats.length - 1 ? ask : beats[i + 1].at, habitFrom = i ? from : hookTo;
+        const from = i ? r3(b.at) : hookLabel ? hookTo : 0, to = i === beats.length - 1 ? ask : beats[i + 1].at, habitFrom = i ? from : hookTo;
         if (to > from) sb.captions.push({ from, to, text: NAMES[b.id], style: "label", pos: 340, pop: false });
         if (to > habitFrom) sb.captions.push({ from: habitFrom, to, text: b.habit, pos: 425 });
       }

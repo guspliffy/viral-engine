@@ -229,3 +229,38 @@ the Dragon's grunt was small (applied: bigger fire and a "RAAH!"); the Phoenix's
 plate poof, the bar at his chin, "help"); the Reaper, Sorcerer and Allfather beats ran long (applied: trimmed); the
 ending had no hold (applied: a beat on the Viking before the reset). The banner above the mirror hit the captions, so
 it's now a side poster.
+
+## 8. Shopping trolley: "does each fighter put it back?" (supermarket car park)
+
+`storyboards/make-cart.mjs` → `cart-01-put-it-back.json`, 20.15 s (escalation clip). One take from the pavement in
+front of a trolley bay (blue "CARTS" sign), parked cars behind. Each fighter pushes an empty trolley in from the right.
+
+Habits (the "shopping cart test"): puts it back properly, leaves it wherever, "close enough" by the bay, lets it roll
+into a car, only returns it for the €1 coin, rides it like a kid, rams it into the row.
+
+| Fighter | Habit | How |
+|---|---|---|
+| Astronaut | puts it back | nests it neatly, salutes |
+| Reaper | leaves it there | in the middle of the pavement, a shrug, back to the shop |
+| Sorcerer | floats it back | his trolley and the Reaper's float into the bay |
+| Wizard | the spell goes wrong | *a spell to send it back: five trolleys* |
+| Dragon | rides it | comes in sitting in it, fire boost, crashes into the bay |
+| Phoenix | close enough | leaves it by the bay; it rolls into a parked car |
+| Gunslinger | shoots it back | *three shots hop it into the bay* |
+| Allfather | puts it back. Do you? | steps up to the camera and points at you: "?" |
+| Samurai | gets his coin back | *one cut at the lock: "€1", the trolley stays* |
+| Viking | puts it back hard | *rams it into the bay: the bay is wrecked* |
+
+Loop: a poof mends the bay, the Astronaut is pushing his trolley in again (frame 0).
+New engine parts: `cart` (ride it at [0, 0.42, 0.02]) and `corral` props (`count` nested trolleys, smash,
+spec.sign moves the sign), the street set's `parking` option is reused. Getting off a seat ride now eases the sitting
+pose out instead of snapping (timeline.js).
+**Hook style test:** this clip shows the hook as the big boxed line ("Put the trolley back?") for 0.9 s, the first name
+after it (`hookLabel: true` in `finish`). The other clips keep the small hook over the name. A candidate for an A/B
+experiment rather than a series-wide change.
+Fable's notes: the camera was too far, faces too small (applied: closer and lower, the action recentred); the Dragon's
+and Gunslinger's trolleys hardly moved (applied: the Dragon rides in from off screen across the frame; the Gunslinger
+lets go further out and each shot hops it, though the bay mouth limits the travel); the Sorcerer and the Allfather's
+"Do you?" were at the frame edge (applied: centre, the "?" held 0.9 s); the hook was the smallest text (applied, see
+above); the Reaper's trolley looked put back (applied: it's left in the way, nearer the camera); the Phoenix's trolley
+vanished on screen (applied: it bumps the parked car and stays until the reset; a second parked car added).
