@@ -112,6 +112,7 @@ export function compile(sb) {
       if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top" }); continue; }
       if (rest.fx) { const { fx, ...f } = rest; out.fx.push({ do: fx, at: abs, ...f }); continue; }
       if (rest.sfx) { const { sfx, ...f } = rest; out.sfx.push({ sound: sfx, at: abs, ...f }); continue; }
+      if (rest.do === "prop" && rest.id) { out.actions.push({ ...rest, at: abs }); continue; }   // prop tweens have no who
       if (!rest.who || !rest.do) throw new Error(`beat "${b.name ?? bi}": item needs who + do, fx, sfx, caption or macro: ${JSON.stringify(g)}`);
       out.actions.push({ ...rest, at: abs });
     }

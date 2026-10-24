@@ -181,10 +181,11 @@ export function checkClip(clip, { sb = null, layout = null } = {}) {
     }
     // characters passing through props or each other (layout "clips", from the 3D engine)
     if (layout.samples.some((x) => x.clips)) {
-      const allowed = (who, t) => (sb?.allowClip || []).some((a) => (a.who === who || a.with === who) && t >= a.from && t <= a.to);
+      // allowClip [{ who, with?, from, to }]: who's contacts are fine in that span (only with "with", when it's given)
+      const allowed = (c, t) => (sb?.allowClip || []).some((a) => (a.with ? (a.who === c.who && a.with === c.with) || (a.who === c.with && a.with === c.who) : a.who === c.who || a.who === c.with) && t >= a.from && t <= a.to);
       const runs = new Map();
       for (const x of layout.samples) for (const c of x.clips || []) {
-        if (allowed(c.who, x.t)) continue;
+        if (allowed(c, x.t)) continue;
         const k = `${c.who} / ${c.with}`, r = runs.get(k) || { max: 0, at: 0, run: 0, held: 0, last: -1 };
         if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
         if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }

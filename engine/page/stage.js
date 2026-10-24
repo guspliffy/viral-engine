@@ -223,7 +223,8 @@ function pose(t) {
       const h = handAt(ps.hold.who, ps.hold.hand);
       if (h) {
         const o = ps.hold.off, at = [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]];
-        [ps.x, ps.y, ps.z] = ps.hold.to ? ps.hold.to.map((q, i) => q + (at[i] - q) * ps.hold.k) : at;
+        [ps.x, ps.y, ps.z] = ps.hold.to ? ps.hold.to.map((q, i) => q + (at[i] - q) * ps.hold.k)
+          : ps.hold.g < 1 ? ps.hold.from.map((q, i) => q + (at[i] - q) * ps.hold.g) : at;   // a grab glides into the hand
       }
     }
     p.apply(ps, t);

@@ -16,6 +16,17 @@ function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(ge
 // a half of a round thing: theta 0..PI is the right half (x >= 0), PI..2PI the left
 const TH = (s) => (s > 0 ? 0 : Math.PI);
 
+// a 36 degree pizza slice (tip at the origin, from +z towards +x): crust, sauce edge, cheese and three pepperoni
+const R_PIZZA = 0.3;
+function sliceMesh() {
+  const g = new THREE.Group(), a = (36 * Math.PI) / 180;
+  const cheese = mat("#f7c84a", { roughness: 0.55 }), crust = mat("#d9954a", { roughness: 0.75 }), pep = mat("#c0392b", { roughness: 0.5 });
+  mesh(new THREE.CylinderGeometry(R_PIZZA, R_PIZZA, 0.03, 12, 1, false, 0.01, a - 0.02), crust, g, 0, 0.015, 0);       // the crust band
+  mesh(new THREE.CylinderGeometry(R_PIZZA - 0.03, R_PIZZA - 0.03, 0.034, 12, 1, false, 0.012, a - 0.024), cheese, g, 0, 0.017, 0);
+  for (const [r, f] of [[0.1, 0.5], [0.19, 0.3], [0.2, 0.72]]) { const q = mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.008, 16), pep, g, Math.sin(a * f) * r, 0.035, Math.cos(a * f) * r); q.castShadow = false; }
+  return g;
+}
+
 // each builder adds its meshes to the half groups (or to `whole` when it never splits) and returns its parts
 const KINDS = {
   table(P) {
@@ -226,6 +237,26 @@ const KINDS = {
       },
     };
   },
+  // a pizza on a wooden board, cut in 10 slices; left 0..10 is how many are still on it (slice i sits at i*36 degrees,
+  // so a "slice" prop with rot i*36 at the same spot covers the one that was just taken, without a pop)
+  pizza(P) {
+    const board = mat("#c48a52", { roughness: 0.7 });
+    mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.025, 48), board, P.whole, 0, 0.0125, 0);
+    const handle = mesh(new THREE.BoxGeometry(0.1, 0.025, 0.16), board, P.whole, 0, 0.0125, 0.42);
+    const slices = Array.from({ length: 10 }, (_, i) => { const g = sliceMesh(); g.rotation.y = (i * 36 * Math.PI) / 180; g.position.y = 0.025; P.whole.add(g); return g; });
+    return {
+      grip: 0.03,
+      apply(ps) { const n = Math.round(clamp(ps.left ?? 10, 0, 10)); slices.forEach((g, i) => (g.visible = i < n)); handle.visible = true; },
+    };
+  },
+  // one slice, its tip at the origin: with rot -18 it points straight at +z (the camera), with rot i*36 it covers slice i;
+  // toast 0..1 browns it (a dragon's breath)
+  slice(P) {
+    const g = sliceMesh(); P.whole.add(g);
+    const mats = []; g.traverse((o) => { if (o.material && !mats.includes(o.material)) mats.push(o.material); });
+    const base = mats.map((m) => m.color.clone());
+    return { grip: 0.0, apply(ps) { mats.forEach((m, i) => m.color.copy(base[i]).lerp(new THREE.Color("#5a2f12"), clamp(ps.toast ?? 0) * 0.55)); } };
+  },
 };
 
 export function buildProp(spec) {
@@ -238,7 +269,7 @@ export function buildProp(spec) {
   return {
     spec, root, grip: def.grip ?? 0,
     apply(ps, t) {
-      root.position.set(ps.x, ps.y, ps.z); root.rotation.set(0, (ps.rot * Math.PI) / 180, 0);
+      root.position.set(ps.x, ps.y, ps.z); root.rotation.set(((ps.tilt ?? 0) * Math.PI) / 180, (ps.rot * Math.PI) / 180, ((ps.roll ?? 0) * Math.PI) / 180, "YXZ");
       root.scale.setScalar(Math.max(ps.scale, 0.0001)); root.visible = ps.scale > 0.002;
       const sp = clamp(ps.split);
       for (const [s, h] of halves) { h.position.set(s * (def.splitApart ?? 0) * sp, -(def.splitDrop ?? 0) * sp * sp, 0); h.rotation.z = -s * (def.splitTip ?? 0) * sp; }
@@ -249,12 +280,12 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, left: spec.left ?? 10, toast: 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, hold: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
     if (a.do === "prop") { for (const [k, v] of Object.entries(a.set || {})) ps[k] = typeof v === "number" && typeof ps[k] === "number" ? lerp(ps[k], v, e) : v; }
-    else if (a.do === "grab") ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k: 1 };
+    else if (a.do === "grab") ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k: 1, from: [ps.x, ps.y, ps.z], g: ease("inOut")(prog(t, a.at, a.dur ?? 0.15)) };
     else if (a.do === "release") {
       if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: 1 - e };
       else { ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
