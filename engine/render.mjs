@@ -5,6 +5,7 @@
 //   node engine/render.mjs <storyboard> --stills 0.5,3.2,7              -> PNG stills only (quick checks)
 //   node engine/render.mjs <storyboard> --safe                          -> draws the TikTok safe zone on top
 //   node engine/render.mjs <storyboard> --from 2 --to 4                 -> renders only part of the timeline
+//   node engine/render.mjs <storyboard> --draft                         -> fast preview: half-res 3D, no anti-aliasing
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
 //
 // Each frame is drawn by a headless Chromium at a fixed time t = frame / fps, so renders are deterministic
@@ -25,6 +26,7 @@ function args() {
     if (a[i] === "--stills") o.stills = a[++i].split(",").map(Number);
     else if (a[i] === "--safe") o.safe = true;
     else if (a[i] === "--png") o.png = true;
+    else if (a[i] === "--draft") o.draft = true;
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
     else if (a[i] === "--from") o.from = Number(a[++i]);
     else if (a[i] === "--to") o.to = Number(a[++i]);
@@ -84,7 +86,7 @@ async function main() {
   await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
   if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
   const t0 = Date.now();
-  const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe } });
+  const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft } });
   console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
   const timing = { draw: 0, grab: 0, n: 0 };
   const shot = async (t, fmt = "png") => {
@@ -92,7 +94,8 @@ async function main() {
     await page.evaluate((tt) => window.ENGINE.frame(tt), t);
     if (errors.length) throw new Error(errors.join("\n"));
     const b = Date.now();
-    const png = await page.screenshot(fmt === "png" ? { type: "png" } : { type: "jpeg", quality: 95 });
+    const url = await page.evaluate((f) => window.ENGINE.capture(f), fmt);
+    const png = Buffer.from(url.slice(url.indexOf(",") + 1), "base64");
     timing.draw += b - a; timing.grab += Date.now() - b; timing.n++;
     return png;
   };
@@ -101,7 +104,7 @@ async function main() {
     for (const t of o.stills) { const f = path.join(o.out, `${sb.id}-t${t.toFixed(2)}${o.safe ? "-safe" : ""}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f); }
   } else {
     const a = Math.round((o.from ?? 0) * fps), b = Math.round((o.to ?? dur) * fps);
-    const outFile = path.join(o.out, `${sb.id}${o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : ""}${o.safe ? "-safe" : ""}.mp4`);
+    const outFile = path.join(o.out, `${sb.id}${o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : ""}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}.mp4`);
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
       "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
       "-map", "0:v", "-map", "1:a", "-shortest",
@@ -117,7 +120,7 @@ async function main() {
     ff.stdin.end(); await done;
     console.log(`wrote ${outFile} — ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s`);
     if (sb.cover != null && o.from == null && o.to == null) {
-      const f = path.join(o.out, `${sb.id}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f);
+      const f = path.join(o.out, `${sb.id}${o.draft ? "-draft" : ""}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f);
     }
   }
   await browser.close(); srv.close();

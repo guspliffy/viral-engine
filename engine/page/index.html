@@ -9,17 +9,7 @@
   @font-face { font-family: "CapBold"; src: url("/assets/fonts/Inter-ExtraBold.otf") format("opentype"); font-weight: 800; }
   html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
   #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
-  #gl { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
-  #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
-  #caps { position: absolute; inset: 0; pointer-events: none; }
-  .cap {
-    position: absolute; left: 50%; width: 860px; margin-left: -430px; text-align: center;
-    font-family: "CapBlack", sans-serif; font-weight: 900; font-size: 74px; line-height: 1.12; color: #fff;
-    -webkit-text-stroke: 14px #111; paint-order: stroke fill; letter-spacing: -0.5px;
-    transform-origin: 50% 50%;
-  }
-  .cap.sub { font-family: "CapBold", sans-serif; font-weight: 800; font-size: 60px; -webkit-text-stroke: 12px #111; }
-  #safe { position: absolute; border: 4px dashed rgba(255,0,180,.9); display: none; pointer-events: none; }
+  #gl, #out { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
 </style>
 <script type="importmap">
 { "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/" } }
@@ -28,9 +18,7 @@
 <body>
 <div id="stage">
   <canvas id="gl" width="1080" height="1920"></canvas>
-  <div id="flash"></div>
-  <div id="caps"></div>
-  <div id="safe"></div>
+  <canvas id="out" width="1080" height="1920"></canvas>
 </div>
 <script type="module" src="/engine/page/stage.js"></script>
 </body>

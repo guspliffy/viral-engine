@@ -25,10 +25,16 @@ Useful flags:
 | `--stills 0.5,3.2,7` | Renders PNG stills at those times only (seconds). Fast way to check a shot. |
 | `--safe` | Draws the area TikTok's buttons and text don't cover, as a dashed box. |
 | `--from 2 --to 4` | Renders only part of the timeline. |
+| `--draft` | Fast preview: 3D at half resolution, no anti-aliasing (captions stay sharp). About 3x faster. |
+| `--png` | Lossless frames into the encoder instead of JPEG q95. Slower, rarely visible after H.264. |
 | `--out dir` | Output folder (default `out/`). |
 
 Rendering is deterministic: every frame is drawn at a fixed time `t = frame / fps`, so the same storyboard always
 gives the same video, however fast or slow the machine is.
+
+Speed on a 2-core machine without a GPU (software WebGL): about 1.8 s per frame at full quality (a 9 s clip in
+about 8 minutes) and 0.55 s per frame with `--draft`. Most of the time is lighting the pixels; a machine with a real
+GPU should be much faster (not measured yet).
 
 ## How it works
 
@@ -39,10 +45,10 @@ storyboards/*.json ┘
 ```
 
 - `engine/render.mjs` serves the repo locally, opens `engine/page/index.html` in headless Chromium, calls
-  `ENGINE.frame(t)` for every frame, screenshots it and pipes the PNGs into ffmpeg (H.264, yuv420p, silent AAC track
-  so editors and TikTok's sound picker get an audio stream).
+  `ENGINE.frame(t)` for every frame, reads the composed canvas (`ENGINE.capture`) and pipes the frames into ffmpeg
+  (H.264, yuv420p, plus a silent AAC track so editors and TikTok's sound picker get an audio stream).
 - `engine/page/` is the browser side:
-  - `stage.js` renderer, lights, set, cast, particles, captions
+  - `stage.js` renderer, lights, set, cast, particles; captions and flash are drawn on a 2D canvas over the 3D frame
   - `timeline.js` turns the storyboard into per-frame state (pure function of time)
   - `potato.js` the potato rig: lumpy body, face, limbs, squash and stretch
   - `face.js` eyes, brows, mouth, blush and the expression presets

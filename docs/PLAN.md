@@ -57,11 +57,19 @@ Goal: find out which characters (and which traits) perform, then design new ones
 - **Platform rules:** label AI content; no re-uploads of other creators' footage; volume without originality gets
   throttled; running many accounts to spam posts is inauthentic behaviour.
 
+## Render speed (measured 2026-10-24, Claude's workspace, 2 cores, software WebGL)
+
+- Full quality: ~1.8 s per frame (9 s clip ≈ 8 min). Draft: ~0.55 s per frame (≈ 2.5 min).
+- Where the time went: unlit drawing of a frame takes ~0.23 s; lighting is the cost. Image-based lighting on the
+  whole scene took more than half the frame time, so it is now limited to the characters (3.1 → 1.8 s per frame).
+  JPEG encoding of a frame is ~0.09 s.
+- A machine with a real GPU (e.g. Jonny's PC) should render far faster. Not measured yet.
+
 ## Open questions
 
-- **Where renders run long-term.** Options: (a) Claude's workspace (now; ~2 cores, slow), (b) the VPS with a CPU cap and
-  a low priority so the trading bot is never starved, (c) a separate small server for rendering. Jonny's call.
-- **GitHub push access:** the Claude GitHub App needs access to this repo before changes can be pushed from Claude's side.
+- **Where renders run long-term.** Options: (a) Claude's workspace (now; ~8 min per 9 s clip), (b) the VPS with a CPU
+  cap and a low priority so the trading bot is never starved, (c) a separate small server for rendering, (d) a machine
+  with a GPU. Jonny's call.
 - **Character bible:** relationships, running gags, tone limits per fighter. Drafted in the earlier game-marketing chat;
   needs to be brought in and signed off.
 - **Voice:** gibberish synthesis in code vs. a TTS service (cost, and whether it is reachable from where we render).

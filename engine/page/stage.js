@@ -7,7 +7,7 @@ import { radialTexture } from "./geo.js";
 import { rng, clamp } from "./util.js";
 
 const W = 1080, H = 1920;
-let R, scene, camera, sb, actors = [], poofs = [], capEls = [];
+let R, scene, camera, sb, actors = [], poofs = [];
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
 function buildPoof(f, i) {
@@ -50,32 +50,58 @@ function buildPoof(f, i) {
   };
 }
 
-function setupCaptions() {
-  const box = document.getElementById("caps");
-  capEls = (sb.captions || []).map((c) => {
-    const el = document.createElement("div");
-    el.className = "cap" + (c.style === "sub" ? " sub" : "");
-    el.textContent = c.text;
-    const pos = c.pos || "top";
-    const y = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
-    el.style.top = y + "px";
-    if (pos !== "top") { el.style.width = "780px"; el.style.marginLeft = "-450px"; } // keep clear of TikTok's right-hand buttons
-    el.style.display = "none"; box.appendChild(el);
-    return el;
+// Captions, flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas is what
+// gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
+let out, ctx, showSafe = false;
+const CAP = {
+  main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
+  sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
+};
+function wrap(text, maxW) {
+  const words = text.split(/\s+/), lines = []; let line = "";
+  for (const w of words) { const test = line ? line + " " + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
+  if (line) lines.push(line);
+  return lines;
+}
+function drawCaption(c) {
+  const st = CAP[c.style === "sub" ? "sub" : "main"], pos = c.pos || "top";
+  const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
+  // full width at the top; lower down, keep clear of TikTok's right-hand buttons
+  const cx = pos === "top" ? W / 2 : 480, maxW = pos === "top" ? 860 : 780;
+  ctx.save();
+  ctx.font = st.font; ctx.letterSpacing = "-0.5px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.lineJoin = "round"; ctx.miterLimit = 2;
+  const lines = wrap(c.text, maxW), lh = st.size * 1.12, cy = top + (lines.length * lh) / 2;
+  ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
+  lines.forEach((ln, i) => {
+    const y = top + lh * (i + 0.5);
+    ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y);
+    ctx.fillStyle = "#fff"; ctx.fillText(ln, cx, y);
   });
+  ctx.restore();
+}
+function composite(t) {
+  ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
+  const fl = flashAt(sb, t);
+  if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
+  for (const c of captionsAt(sb, t)) drawCaption(c);
+  if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
 async function init(data) {
   sb = data.sb;
   const canvas = document.getElementById("gl");
-  R = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true, powerPreference: "high-performance" });
-  R.setPixelRatio(1); R.setSize(W, H, false);
+  const opts = data.opts || {};
+  R = new THREE.WebGLRenderer({ canvas, antialias: opts.aa !== false, preserveDrawingBuffer: true, powerPreference: "high-performance" });
+  // draft renders draw the 3D frame at half resolution (4x fewer pixels); captions stay sharp
+  R.setPixelRatio(opts.draft ? 0.5 : 1); R.setSize(W, H, false);
   R.toneMapping = THREE.NeutralToneMapping; R.toneMappingExposure = sb.exposure ?? 1.0;
   R.outputColorSpace = THREE.SRGBColorSpace;
-  R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+  R.shadowMap.enabled = true; R.shadowMap.type = opts.shadow === "pcf" ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
   scene = new THREE.Scene();
   const pm = new THREE.PMREMGenerator(R);
-  scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture; scene.environmentIntensity = 0.35;
+  // image-based lighting only on the characters: on the ground and background it cost more than half the frame time
+  const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
   buildLights(scene, sb.set);
   buildSet(scene, sb.set);
@@ -83,14 +109,12 @@ async function init(data) {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
     const ch = new Character(def, c.id); scene.add(ch.root);
+    ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; } });
     return { c, def, ch };
   });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : null)).filter(Boolean);
-  setupCaptions();
-  if (data.opts && data.opts.safe) {
-    const s = document.getElementById("safe");
-    Object.assign(s.style, { display: "block", left: "60px", top: "210px", width: "860px", height: "1150px" });
-  }
+  out = document.getElementById("out"); ctx = out.getContext("2d");
+  showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
   return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: R.getContext().getParameter(R.getContext().VERSION) };
@@ -107,17 +131,12 @@ function frame(t) {
   const cam = cameraState(sb, t);
   camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));
   R.render(scene, camera);
-  R.getContext().finish(); // finish GPU work here, so the timing split in render.mjs is honest
-  document.getElementById("flash").style.opacity = String(flashAt(sb, t));
-  const on = new Set(captionsAt(sb, t).map((c) => (sb.captions || []).findIndex((x) => x.text === c.text && x.from === c.from)));
-  const caps = captionsAt(sb, t);
-  capEls.forEach((el, i) => {
-    const c = caps.find((x) => x.text === sb.captions[i].text && x.from === sb.captions[i].from);
-    el.style.display = on.has(i) ? "block" : "none";
-    if (c) el.style.transform = `scale(${c.scale.toFixed(4)})`;
-  });
+  composite(t);
   return true;
 }
 
-window.ENGINE = { init, frame };
+// the composed frame as a data URL: "jpeg" for video frames, "png" for stills and the cover
+function capture(fmt = "jpeg") { return fmt === "png" ? out.toDataURL("image/png") : out.toDataURL("image/jpeg", 0.95); }
+
+window.ENGINE = { init, frame, capture };
 window.ENGINE_READY = true;

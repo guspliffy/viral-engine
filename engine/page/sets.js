@@ -34,25 +34,25 @@ export function buildSet(scene, spec = {}) {
   scene.fog = new THREE.Fog(S.sky[1], 22, 70);
   scene.add(skyDome(S.sky[0], S.sky[1], S.ground[1]));
 
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshStandardMaterial({ map: groundTexture(S.ground[0], S.ground[1]), roughness: 0.95 }));
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ map: groundTexture(S.ground[0], S.ground[1]) }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 
-  const hillM = [new THREE.MeshStandardMaterial({ color: "#6fbf5a", roughness: 1 }), new THREE.MeshStandardMaterial({ color: "#5aa84f", roughness: 1 })];
+  const hillM = [new THREE.MeshLambertMaterial({ color: "#6fbf5a" }), new THREE.MeshLambertMaterial({ color: "#5aa84f" })];
   for (let i = 0; i < 7; i++) {
     const h = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 20), hillM[i % 2]);
     const x = -26 + i * 9 + rnd() * 4, z = -22 - rnd() * 16, sx = 7 + rnd() * 6;
     h.scale.set(sx, 2.2 + rnd() * 2.6, 5 + rnd() * 3); h.position.set(x, -0.6, z); scene.add(h);
   }
-  const cloudM = new THREE.MeshStandardMaterial({ color: "#ffffff", roughness: 1, emissive: "#eef6ff", emissiveIntensity: 0.55, fog: false });
+  const cloudM = new THREE.MeshLambertMaterial({ color: "#ffffff", emissive: "#eef6ff", emissiveIntensity: 0.55, fog: false });
   for (let i = 0; i < 6; i++) {
     const cg = new THREE.Group();
     for (let k = 0; k < 5; k++) { const b = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), cloudM); b.scale.setScalar(0.9 + rnd() * 0.9); b.position.set(k * 1.1 - 2.2, rnd() * 0.6, rnd() * 0.5); cg.add(b); }
     cg.position.set(-24 + i * 9 + rnd() * 5, 7 + rnd() * 6, -40 - rnd() * 10); cg.scale.setScalar(1.2 + rnd()); scene.add(cg);
   }
   // grass tufts and flowers, kept out of the middle of the stage
-  const tuftM = new THREE.MeshStandardMaterial({ color: "#4f9a3f", roughness: 0.9 });
-  const petal = ["#ffffff", "#ffd1e8", "#fff3a0"].map((c) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6 }));
-  const centre = new THREE.MeshStandardMaterial({ color: "#f2b33d", roughness: 0.6 });
+  const tuftM = new THREE.MeshLambertMaterial({ color: "#4f9a3f" });
+  const petal = ["#ffffff", "#ffd1e8", "#fff3a0"].map((c) => new THREE.MeshLambertMaterial({ color: c }));
+  const centre = new THREE.MeshLambertMaterial({ color: "#f2b33d" });
   for (let i = 0; i < 70; i++) {
     const a = rnd() * Math.PI * 2, r = 2.6 + rnd() * 9;
     const x = Math.cos(a) * r, z = Math.sin(a) * r * 0.8 - 1.5;
