@@ -20,20 +20,24 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
   tone limits). It is not in the repo yet. Until it is, don't invent lasting canon: mark new traits as proposals.
 - Jonny decides anything that changes a character's look or personality, and any new drawing in the game's style.
 
-## Workflow for a clip: cheap checks first, then the full render
+## Workflow for a clip: creative review and cheap checks first, then the full render
 
-1. **Layout + stills** (seconds): `node engine/render.mjs <sb> --layout`, then `--stills t,t,t --draft --safe`
-   at the beats. Look at them scaled down (≤ 360 px wide), never at full size.
-2. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
+1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then
+   `node engine/render.mjs <sb> --stills beats --draft --safe`. Look at them scaled down (≤ 360 px wide).
+2. **Creative director review A (storyboard)**: Fable reviews the storyboard and a contact sheet of the draft stills.
+   See `qa/REVIEW.md`. **Default for every new clip**, one round. Apply the notes, then go to step 3.
+3. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
-3. **Fix loop**: fix what failed, then repeat step 2. **At most 3 rounds.** If it still fails after the third, stop
+4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-4. **Optional creative review**, only after the checks pass: `node qa/contact.mjs <clip> --sb <sb>`, then give the
-   contact sheet and the storyboard to a reviewer subagent on the Fable model, using the prompt in `qa/REVIEW.md`.
-   **One review round per cut.** Apply notes that keep the premise. Anything that changes the premise or the
-   characters goes to Jonny as a question.
-5. **Full render** in the background, then `qa/check.mjs` on the final MP4. Deliver the MP4, its cover, and a
-   one-line check result. Don't post anywhere: Jonny posts by hand.
+5. **Full render** in the background, `qa/check.mjs` on the final MP4, then **creative director review B (cut)**
+   on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
+   (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
+6. **Deliver** the MP4, its cover, a one-line check result and Fable's notes in one line each, marked
+   applied or not. Don't post anywhere: Jonny posts by hand.
+
+Fable is the creative director, Jonny is the producer: premise, characters, look, and anything that needs new art
+are his call. Skip the reviews only for pure engine tests, and say so.
 
 ## Keeping it fast and cheap
 
