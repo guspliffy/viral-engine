@@ -21,9 +21,9 @@
     "iris": "#3a5a2a",
     "cheeks": "#ff6f6f",
     "neutral": {
-      "smirk": 0.35,
-      "curve": 0.8,
-      "open": 0.3,
+      "smirk": 0.25,
+      "curve": 0.4,
+      "open": 0,
       "browL": 0.25,
       "tilt": -0.05
     },

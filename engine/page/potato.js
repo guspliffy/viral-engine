@@ -87,6 +87,8 @@ export class Character {
     for (const s of ["R", "L"]) {
       const hand = (def.hands?.type ?? "mitten") === "mitten" ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
       hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
+      // a rounded shoulder where the arm leaves the body (no tube end or cone shows at the root)
+      const sho = new THREE.Mesh(new THREE.SphereGeometry(def.limbs.width * 1.02, 16, 12), this.limbMat); sho.castShadow = true; this.root.add(sho); this.arms[s].shoulder = sho;
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
 
@@ -107,7 +109,7 @@ export class Character {
     const palm = new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 16), M("#e03030")); palm.scale.set(1, 0.95, 0.78); palm.castShadow = true; g.add(palm);
     const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
     const fingers = piv(-0.012, 0.04, 0), mitt = new THREE.Mesh(new THREE.SphereGeometry(0.046, 20, 14), M("#ff9a20"));
-    mitt.scale.set(0.95, 1.05, 0.66); mitt.position.y = 0.045; mitt.castShadow = true; fingers.add(mitt);
+    mitt.scale.set(1.05, 1.05, 0.8); mitt.position.y = 0.045; mitt.castShadow = true; fingers.add(mitt);
     const index = piv(0.032, 0.04, 0.004), ix = new THREE.Mesh(cap(0.017, 0.036), M("#f5e020")); ix.position.y = 0.032; ix.castShadow = true; index.add(ix);
     const thumb = piv(0.042, -0.008, 0.016), th = new THREE.Mesh(cap(0.019, 0.03), M("#e020e0"));
     th.position.set(0.026, 0.012, 0); th.rotation.z = -1.0; th.castShadow = true; thumb.add(th);
@@ -134,6 +136,14 @@ export class Character {
       const f = y.clone().addScaledVector(x, -y.dot(x)); if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, f, new THREE.Vector3().crossVectors(x, f)));
       hand.quaternion.slerp(_fist, w);
+    }
+    // a cupped hand (grip up > 0): the palm turns to face up, fingers still pointing along the forearm, so a jar or an
+    // orb sits in it from below
+    const up = Math.min(1, Math.max(0, gr.up || 0));
+    if (up > 0) {
+      const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
+      _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zu), f, zu));
+      hand.quaternion.slerp(_fist, up);
     }
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
@@ -204,11 +214,11 @@ export class Character {
       const shp = this.surf(sx * 1.38, 0.02), sh = shp.pos, shN = shp.normal; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
       const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
-      // a hand closed on a staff or handle: the elbow drops below and behind the shoulder-hand line, so the forearm rises
-      // into the fist from behind and across the handle instead of running down alongside it
+      // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
+      // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
-      if (hw > 0) mid.lerp(sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * 0.02, -0.13, -0.07)), hw);
+      if (hw > 0) mid.lerp(new THREE.Vector3(h.x - sx * 0.15, h.y - 0.01, h.z - 0.02), hw);   // elbow guide: beside the body at fist height
       this.arms[s].hand.position.copy(h);
       if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax);
       this.arms[s].elbow = mid;
@@ -227,9 +237,11 @@ export class Character {
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, sh.clone().addScaledVector(shN, -0.035), mid, h, this.limbW, true);
+        this.arms[s].shoulder.position.copy(sh).addScaledVector(shN, -0.02);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
+      this.arms[s].shoulder.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }
     this.costume.apply(st, t, hands, fries);
@@ -254,7 +266,7 @@ export class Character {
       const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
       body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
     }
-    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)}`);
+    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)} gripOff=${seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip).toFixed(3)}`);
   }
 }
 
