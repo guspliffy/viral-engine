@@ -72,7 +72,7 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids ? this.skin : null, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     this.potatoParts.add(this.face.group);
 
     // limbs
@@ -81,7 +81,8 @@ export class Character {
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
     this.legs = { R: { mesh: null, foot: null }, L: { mesh: null, foot: null } };
     for (const s of ["R", "L"]) {
-      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat); hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
+      const hand = def.hands?.type === "mitten" ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
+      hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
 
@@ -89,6 +90,41 @@ export class Character {
     this.costume = buildCostume(def, this);
     this.fries = buildFries(def, this); this.fries.group.visible = false; this.root.add(this.fries.group);
     this._limbKey = "";
+  }
+
+  // a mitten hand (def.hands.type "mitten"): palm, three fingers as one mitten, a separate index finger and a thumb, each
+  // on its own pivot so the grip shapes (timeline.js GRIPS) can curl them. Local frame: +y along the forearm out to
+  // the fingertips, +z out of the palm, +x towards the thumb. `grip` marks where a held handle sits.
+  _mitten(s) {
+    const g = new THREE.Group(), m = this.limbMat, cap = (r, len) => new THREE.CapsuleGeometry(r, len, 6, 12);
+    g.userData.size = this.def.hands?.size ?? 1.3;   // the concept's big round mittens
+    const palm = new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 16), m); palm.scale.set(1, 0.95, 0.78); palm.castShadow = true; g.add(palm);
+    const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
+    const fingers = piv(-0.012, 0.03, 0), mitt = new THREE.Mesh(new THREE.SphereGeometry(0.046, 20, 14), m);
+    mitt.scale.set(0.95, 1.05, 0.66); mitt.position.y = 0.04; mitt.castShadow = true; fingers.add(mitt);
+    const index = piv(0.032, 0.034, 0.002), ix = new THREE.Mesh(cap(0.017, 0.036), m); ix.position.y = 0.034; ix.castShadow = true; index.add(ix);
+    const thumb = piv(0.042, -0.008, 0.016), th = new THREE.Mesh(cap(0.019, 0.03), m);
+    th.position.set(0.026, 0.012, 0); th.rotation.z = -1.0; th.castShadow = true; thumb.add(th);
+    const grip = new THREE.Object3D(); grip.position.set(0.004, 0.034, 0.03); g.add(grip);
+    g.userData = { ...g.userData, fingers, index, thumb, grip, side: s };
+    return g;
+  }
+  // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
+  _pose(hand, elbow, at, sx, gr) {
+    const U = hand.userData, y = at.clone().sub(elbow).normalize(), z = new THREE.Vector3(-sx, 0, 0.35).normalize();
+    z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
+    const x = new THREE.Vector3().crossVectors(y, z);
+    hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, y, z));
+    // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
+    const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
+    U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index;
+    U.thumb.rotation.set(0, -1.15 * gr.thumb, 0.35 * gr.thumb);
+  }
+  // where a prop held in hand s sits, in the root's space (the hand centre for ball hands)
+  gripPoint(s) {
+    const h = this.arms[s].hand;
+    if (!h.userData.grip) return h.position.clone();
+    h.updateMatrix(); return h.userData.grip.position.clone().applyMatrix4(h.matrix);
   }
 
   // point on the potato for a unit direction, in bodyGroup space (y = 0 is the ground)
@@ -129,7 +165,7 @@ export class Character {
 
     const e = { ...st.expr };
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
-    if (!fries) this.face.set(e, st.look, st.blink);
+    if (!fries) this.face.set(e, st.look, st.blink, st.face);
 
     // limbs (hidden in fries form)
     const showLimbs = !fries;
@@ -146,6 +182,7 @@ export class Character {
       const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       this.arms[s].hand.position.copy(h);
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 });
       this.arms[s].hand.visible = showLimbs;
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);

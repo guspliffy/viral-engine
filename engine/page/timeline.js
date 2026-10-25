@@ -21,6 +21,20 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // Wing beats and a charged staff's sparkles speed up and slow down. Their phase is the integral of the speed over
 // time: t × speed would jump whenever the speed changes. The integral is summed in fixed steps from 0 and cached,
 // so it is the same whatever order frames are drawn in (stills, drafts and full renders agree).
+// fine face controls on top of the expression (face.js Face.set): per-eye lid closing, per-side brow height and tilt,
+// per-side mouth corners and pressed lips. All 0 by default; "face" actions blend them.
+export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press"];
+const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"] };
+// mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
+export const GRIPS = {
+  open:  { curl: 0.15, index: 0.12, thumb: 0.1 },
+  hold:  { curl: 0.95, index: 0.95, thumb: 0.85 },   // wrapped round a handle, a staff or a jar
+  fist:  { curl: 1.2,  index: 1.2,  thumb: 1.0 },
+  pinch: { curl: 0.7,  index: 0.85, thumb: 1.0 },    // thumb and index meet: a cup handle, a lid
+  point: { curl: 1.15, index: 0.0,  thumb: 0.9 },
+};
+const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t) });
+
 const PHASES = new WeakMap(), STEP = 1 / 120;
 function phases(sb, actor, def, t) {
   let per = PHASES.get(sb); if (!per) { per = new Map(); PHASES.set(sb, per); }
@@ -54,6 +68,9 @@ export function actorState(sb, actor, def, t, raw = false) {
     arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
+    face: Object.fromEntries(FACE_KEYS.map((k) => [k, 0])),
+    grip: { R: { ...(GRIPS[c.grip?.R || def.hands?.grip?.R] || GRIPS.open) }, L: { ...(GRIPS[c.grip?.L || def.hands?.grip?.L] || GRIPS.open) } },
+    hatTip: [0, 0], hatBrim: 0,
   };
   let autoBlink = true, airSince = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
   let idle = 1, sink = 0, holdBlink = true;   // a "still" turns the idle breathing and sway down (see below the loop)
@@ -126,6 +143,32 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "hat": {
         st.hatOff = lerp3(st.hatOff, a.off || [0, 0, 0], e);
         st.hatSpin = lerp3(st.hatSpin, (a.spin || [0, 0, 0]).map((x) => (x * Math.PI) / 180), e);
+        break;
+      }
+      // { do: "face", lidL, lidR, browL, browR, tiltL, tiltR, cornerL, cornerR, press } (or lid, brow, tilt, corner for
+      // both sides): blends the given controls to the given values; the ones left out keep theirs
+      case "face": {
+        for (const k of FACE_KEYS) if (a[k] != null) st.face[k] = lerp(st.face[k], a[k], e);
+        for (const k in FACE_BOTH) if (a[k] != null) for (const kk of FACE_BOTH[k]) st.face[kk] = lerp(st.face[kk], a[k], e);
+        break;
+      }
+      // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
+      case "grip": {
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e);
+        break;
+      }
+      // the Wizard hat's secondary motion: tip: [forward, sideways] in degrees bends the top of the cone, brim tips the brim
+      // (+ front up); "hatwobble" adds a decaying wobble (amount in degrees, freq in Hz) over its dur
+      case "hatsway": {
+        const tip = (a.tip || [0, 0]).map((x) => (x * Math.PI) / 180);
+        st.hatTip = [lerp(st.hatTip[0], tip[0], e), lerp(st.hatTip[1], tip[1], e)]; st.hatBrim = lerp(st.hatBrim, a.brim ?? 0, e);
+        break;
+      }
+      case "hatwobble": {
+        if (p < 1) {
+          const u = t - a.at, k = (1 - p) ** 2 * clamp(u / 0.06), w = ((a.amount ?? 8) * Math.PI / 180) * Math.sin(u * 6.283 * (a.freq ?? 3)) * k;
+          st.hatTip = [st.hatTip[0] + 0.5 * w, st.hatTip[1] + w]; st.hatBrim += 0.6 * w;
+        }
         break;
       }
       case "grow": st.scale = lerp(st.scale, a.to ?? 1, e); break;

@@ -79,4 +79,18 @@ moving at once.
 - `"ease": "settle"` overshoots the target by about 4 % and eases back: follow-through on arms, turns and moves.
   `"antic"` pulls back about 4 % before it goes (anticipation). `"anticSettle"` does both.
 
+**Fine face, hands and hat** (engine/page/timeline.js)
+
+- `{ "who", "do": "face", "lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "dur" }`
+  blends fine controls on top of the expression; leave out the ones to keep. `lid`, `brow`, `tilt` and `corner` set
+  both sides. L and R are the character's own left and right. Lids: 0 open .. 1 shut (needs `"lids": true` in the
+  character's `face`, so far the Wizard; the lids also follow the gaze and close on blinks). Brows: about ±1 up or
+  down. Corners: + up. `press`: 1 = lips pressed tight.
+- `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point", "dur" }`
+  curls a mitten hand (`"hands": { "type": "mitten" }` in the character file, so far the Wizard). `hold` wraps a handle,
+  a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid. Props attach at `character.gripPoint(side)`.
+- `{ "who", "do": "hatsway", "tip": [forward, sideways], "brim": 0.5, "dur" }` bends the Wizard hat's tip (degrees) and
+  tips its brim (+ front up). `{ "who", "do": "hatwobble", "amount": 8, "freq": 3, "dur": 0.8 }` adds a wobble that
+  dies away: secondary motion after a hop, a turn or a bump.
+
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.

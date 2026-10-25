@@ -13,13 +13,14 @@
     "seed": 4
   },
   "limbs": {
-    "color": "#2b2934",
+    "color": "#262540",
     "width": 0.032
   },
   "face": {
     "default": "kind",
     "iris": "#5a3418",
-    "cheeks": "#ff6f6f"
+    "cheeks": "#ff6f6f",
+    "lids": true
   },
   "sprout": {
     "color": "#6cbf3a",
@@ -27,8 +28,8 @@
   },
   "costume": {
     "type": "wizard",
-    "accent": "#3b3a52",
-    "band": "#2a2940",
+    "accent": "#2e2b4e",
+    "band": "#1f1d36",
     "glow": "#f2c14e",
     "staffWood": "#7a4e2a",
     "propHand": "L"
@@ -44,5 +45,11 @@
     "seed": 4
   },
   "notes": "Personality line is the game's own fighter description. Running gags and relationships come from the character bible once Jonny signs it off.",
-  "voiceNote": "gibberish, low and slow, a little breathy"
+  "voiceNote": "gibberish, low and slow, a little breathy",
+  "hands": {
+    "type": "mitten",
+    "grip": {
+      "L": "hold"
+    }
+  }
 }
