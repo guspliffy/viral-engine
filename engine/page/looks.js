@@ -370,6 +370,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   ROLE.cloth = { lit: night ? [0.95, 0.92, 0.95] : [1.04, 1.02, 1.0], shade: night ? [0.58, 0.5, 0.7] : [0.64, 0.6, 0.8], rimK: 0, grad: 0.14, occ: 0.18 };
   ROLE.wood = { ...ROLE.char, rimK: 0.06, grad: 0.1 };
   ROLE.set = { ...ROLE.set, rimK: 0 };
+  // eyelids: one flat lit tone like a painted lid, so a closed eye doesn't bulge out of the face with its own shadow
+  ROLE.lid = { ...ROLE.skin, shade: ROLE.skin.lit, grad: 0, occ: 0 };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
@@ -381,17 +383,21 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // blush is painted softer in the drawn look
   for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
-  const toon = new Map(), made = new Set(), noLine = { visible: false };
+  // bare: copies without line art, for parts drawn on top of the body (the eyelids share the skin material, and with
+  // lines a closed lid shows as a ring around the eye)
+  const toon = new Map(), bare = new Map(), made = new Set(), noLine = { visible: false };
+  for (const a of actors) for (const e of (a.ch.face && a.ch.face.eyes) || []) if (e.lidPivot) e.lidPivot.traverse((o) => { if (o.isMesh) o.userData.bareLook = true; });
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
-  const convert = (m) => {
+  const convert = (m, noLines = false) => {
     if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial) {
       if (m && !m.userData.outlineParameters) m.userData.outlineParameters = noLine;
       return m;
     }
-    let t = toon.get(m);
-    if (!t && (m.userData.glass || m.userData.liquid)) { t = animeGlass(m, !!m.userData.liquid); t.userData.outlineParameters = noLine; t.userData.glassOf = m; toon.set(m, t); made.add(t); }
+    const cache = noLines ? bare : toon;
+    let t = cache.get(m);
+    if (!t && (m.userData.glass || m.userData.liquid)) { t = animeGlass(m, !!m.userData.liquid); t.userData.outlineParameters = noLine; t.userData.glassOf = m; cache.set(m, t); made.add(t); }
     if (!t) {
-      const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? "skin" : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
+      const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
       t = new THREE.MeshToonMaterial({
         color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveIntensity: m.emissiveIntensity ?? 1,
@@ -403,8 +409,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       const thick = isSet ? 0.0016 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : 0.26), alpha: 1 };
-      toon.set(m, t); made.add(t);
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : 0.26), alpha: 1 };
+      cache.set(m, t); made.add(t);
     }
     return t;
   };
@@ -430,13 +436,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   return {
     prepare() {
-      for (const [m, t] of toon) {
+      for (const [m, t] of [...toon, ...bare]) {
         if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.userData.liquid ? m.opacity * 0.32 / 0.35 : m.opacity; continue; }
         if (m.emissiveIntensity !== undefined) t.emissiveIntensity = Math.min(m.emissiveIntensity, 2.4); t.opacity = m.opacity;
       }
       scene.traverse((o) => {
         if (!o.isMesh || !o.material || made.has(o.material)) return;
-        o.material = Array.isArray(o.material) ? o.material.map(convert) : convert(o.material);
+        const nl = !!o.userData.bareLook;
+        o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
       for (const h of halos) {
@@ -445,11 +452,13 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         if (h.scale.x !== h.userData.lookScale) { h.scale.multiplyScalar(0.6); h.userData.lookScale = h.scale.x; }
       }
       for (const { a, brim } of hats) {
-        const t = toon.get(a.ch.skin), sh = t && t.userData.shader;
-        if (!sh) continue;
         brim.getWorldPosition(hatC); brim.getWorldScale(hatS); hatUp.set(0, 1, 0).transformDirection(brim.matrixWorld);
-        sh.uniforms.uHatC.value.copy(hatC); sh.uniforms.uHatUp.value.copy(hatUp); sh.uniforms.uHatR.value = 0.47 * hatS.x;
-        sh.uniforms.uHatK.value = shown(brim) ? 0.75 : 0;
+        for (const t of [toon.get(a.ch.skin), bare.get(a.ch.skin)]) {
+          const sh = t && t.userData.shader;
+          if (!sh) continue;
+          sh.uniforms.uHatC.value.copy(hatC); sh.uniforms.uHatUp.value.copy(hatUp); sh.uniforms.uHatR.value = 0.47 * hatS.x;
+          sh.uniforms.uHatK.value = shown(brim) ? 0.75 : 0;
+        }
       }
     },
     render() { composer.render(); },
