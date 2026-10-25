@@ -254,7 +254,7 @@ async function init(data) {
   });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : null)).filter(Boolean);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d");
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;

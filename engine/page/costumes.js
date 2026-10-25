@@ -130,6 +130,8 @@ function staff(C) {
     g.add(new THREE.Mesh(taperedTube(c, 0.012, 0.004, 10, 6), wood));
   }
   const gem = new THREE.OctahedronGeometry(0.06, 0); gem.scale(1, 1.5, 1);
+  // the foot of the staff: looks put a contact shadow where it meets the ground
+  const foot = new THREE.Object3D(); foot.position.set(0, -0.62, 0); foot.userData.groundTip = 0.05; g.add(foot);
   return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, 0.84, 0), gem) };
 }
 

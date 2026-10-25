@@ -84,6 +84,7 @@ const KINDS = {
   },
   jar(P) {
     const glass = new THREE.MeshPhysicalMaterial({ color: "#dff3ea", roughness: 0.08, transmission: 0, transparent: true, opacity: 0.32, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false });
+    glass.userData.glass = true;   // looks can draw it as stylised glass
     // see-through parts get a fixed draw order (brine, then glass): sorted by distance they swap from frame to frame
     // as things move, and the jar flickers
     const body = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.28, 36, 1, true), glass, P.whole, 0, 0.14, 0); body.castShadow = false; body.renderOrder = 2;

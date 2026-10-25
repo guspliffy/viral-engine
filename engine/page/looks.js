@@ -224,8 +224,9 @@ function patchToon(m, o) {
   m.onBeforeCompile = (sh) => {
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
+    sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", "uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec;\nvoid main() {")
+      .replace("void main() {", "uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc;\nvoid main() {")
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -233,9 +234,9 @@ function patchToon(m, o) {
           float ndl = dot(normal, L);
           vec3 kd = directionalLights[0].color * base * RECIPROCAL_PI;
           float litK = clamp(dot(reflectedLight.directDiffuse, vec3(1.0)) / max(dot(kd, vec3(1.0)), 1e-4), 0.0, 1.0);
-          vec3 col = base * mix(uShade, uLit, litK) * (0.92 + 0.08 * clamp(ndl, 0.0, 1.0));
+          vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
-          col *= mix(0.86, 1.0, smoothstep(-0.75, 0.1, normal.y));
+          col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, normal.y));
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
           // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
@@ -249,7 +250,88 @@ function patchToon(m, o) {
   m.customProgramCacheKey = () => `anime-pro-${o.key}`;
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec }) {
+// Grounding for the drawn look: tight, dark, painted ovals where things touch the ground (each foot, the staff's
+// foot, every prop standing on the floor) over a broader soft one under the body. They are tinted with the ground's
+// own shadow colour instead of grey, overlap into a darker core, and shrink away as a thing leaves the ground.
+function groundShadows(scene, actors, props, color, camera) {
+  // a soft-edged oval drawn by a shader (a gradient texture came out far too faint after the canvas upload)
+  const shadowMat = () => new THREE.ShaderMaterial({
+    uniforms: { uColor: { value: new THREE.Color(color) }, uOpacity: { value: 0 } },
+    vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    fragmentShader: "uniform vec3 uColor; uniform float uOpacity; varying vec2 vUv; void main() { float r = length(vUv - 0.5) * 2.0; gl_FragColor = vec4(uColor, uOpacity * (1.0 - smoothstep(0.4, 1.0, r))); }",
+    transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4,
+  });
+  const blobs = [];
+  const blob = () => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), shadowMat());
+    m.rotation.x = -Math.PI / 2; m.renderOrder = 1; m.material.userData.noOutline = true; m.userData.lookOnly = true; scene.add(m); blobs.push(m); return m;
+  };
+  // h: height above the ground (m), fall: the height where it is gone
+  const put = (m, x, z, sx, sz, h, fall, strength) => {
+    const k = Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
+    m.visible = k > 0.01; m.position.set(x, 0.008, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
+  };
+  const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
+  const v = new THREE.Vector3(), box = new THREE.Box3();
+  const parts = actors.map((a) => {
+    const tips = []; a.ch.root.traverse((o) => { if (o.userData.groundTip !== undefined) tips.push(o); });
+    return { a, body: blob(), feet: ["L", "R"].map((sd) => [a.ch.legs[sd].foot, blob()]), tips: tips.map((o) => [o, blob()]) };
+  });
+  const propBlobs = props.map((p) => [p, blob()]);
+  return {
+    update() {
+      scene.updateMatrixWorld();
+      for (const { a, body, feet, tips } of parts) {
+        const r = a.ch.root, vis = shown(r) && a.ch.potatoParts.visible, s = r.scale.x || 1, h = Math.max(0, r.position.y);
+        if (!vis) { body.visible = false; for (const [, m] of [...feet, ...tips]) m.visible = false; continue; }
+        // the broad one sits a little toward the sunlight shadow (the key light is on the left)
+        put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, 0.7, 0.4);
+        for (const [f, m] of feet) {
+          if (!f || !shown(f)) { m.visible = false; continue; }
+          f.getWorldPosition(v); put(m, v.x + 0.05 * s, v.z - 0.02 * s, 0.42 * s, 0.56 * s, Math.max(0, v.y - 0.04 * s), 0.25, 0.95);
+        }
+        for (const [o, m] of tips) {
+          if (!shown(o)) { m.visible = false; continue; }
+          o.getWorldPosition(v); const w = (o.userData.groundTip || 0.05) * 4 * s; put(m, v.x + 0.03 * s, v.z - 0.01 * s, w, w * 0.8, Math.max(0, v.y), 0.3, 0.9);
+        }
+      }
+      for (const [p, m] of propBlobs) {
+        if (!shown(p.root)) { m.visible = false; continue; }
+        box.makeEmpty();
+        p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly) box.expandByObject(o, false); });
+        if (box.isEmpty()) { m.visible = false; continue; }
+        const sx = box.max.x - box.min.x, sz = box.max.z - box.min.z;
+        put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75);
+      }
+    },
+  };
+}
+
+// Drawn glass: clear in the middle, a visible rim where the wall turns away (its thickness), two crisp vertical
+// highlight streaks on the lit side, the back wall fainter. Strong highlights are kept for glass and crystal.
+function animeGlass(m) {
+  return new THREE.ShaderMaterial({
+    uniforms: { uTint: { value: new THREE.Color(m.color) }, uOpacity: { value: m.opacity } },
+    vertexShader: `varying vec3 vN, vV;
+      void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = -mv.xyz; vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: `uniform vec3 uTint; uniform float uOpacity; varying vec3 vN, vV;
+      float band(float x, float a, float b) { float w = fwidth(x) * 1.2; return smoothstep(a - w, a + w, x) - smoothstep(b - w, b + w, x); }
+      void main() {
+        float front = gl_FrontFacing ? 1.0 : 0.0;
+        vec3 n = normalize(vN) * (gl_FrontFacing ? 1.0 : -1.0), v = normalize(vV);
+        float fr = 1.0 - abs(dot(n, v)), w = fwidth(fr);
+        float edge = smoothstep(0.8 - w, 0.8 + w, fr);
+        float hi = front * (band(n.x, -0.74, -0.52) + 0.6 * band(n.x, 0.4, 0.48)) * (1.0 - edge);
+        vec3 col = mix(mix(uTint, vec3(1.0), hi), uTint * vec3(0.42, 0.55, 0.52), edge);
+        float a = max(max(0.07 + 0.25 * fr * fr, 0.85 * hi), 0.8 * edge) * mix(0.45, 1.0, front);
+        gl_FragColor = vec4(col, clamp(a * uOpacity / 0.32, 0.0, 1.0));
+      }`,
+    // opacity is what stage.js reads to leave see-through parts out of the caption check
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, opacity: m.opacity,
+  });
+}
+
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [] }) {
   const night = setSpec && setSpec.type === "kitchen";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours)
   relight(scene, [dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
@@ -257,12 +339,25 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  const charRamp = smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08);
+  const charRamp = smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08), clothRamp = smoothRamp(0, 1, 0.55, 0.09);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
   // potato skin: a warm yellow lit side and an ochre shade (the reference's two bands), with the skin mottling showing
   ROLE.skin = night ? ROLE.char : { lit: [1.0, 1.1, 0.92], shade: [0.84, 0.6, 0.42] };
+  // separate materials (matte potato, cloth hat, wooden staff): each gets its own shadow colour, rim and gradient,
+  // so only glass and crystal carry strong highlights
+  ROLE.skin = { ...ROLE.skin, rimK: 0.12, grad: 0.05, occ: 0.12 };
+  ROLE.char = { ...ROLE.char, rimK: 0.2 };
+  ROLE.cloth = { lit: night ? [0.95, 0.92, 0.95] : [1.04, 1.02, 1.0], shade: night ? [0.58, 0.5, 0.7] : [0.64, 0.6, 0.8], rimK: 0.06, grad: 0.14, occ: 0.18 };
+  ROLE.wood = { ...ROLE.char, rimK: 0.1, grad: 0.1 };
+  ROLE.set = { ...ROLE.set, rimK: 0 };
+  const cloth = new Set(), wood = new Set();
+  for (const a of actors) {
+    if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
+    // the held prop that stands on the ground (the staff): its plain parts are wood, glowing parts stay as they are
+    a.ch.root.traverse((o) => { if (o.userData.groundTip !== undefined && o.parent) o.parent.traverse((x) => { if (x.isMesh) for (const m of [].concat(x.material)) if (!(m.emissiveIntensity > 0) && !m.transparent) wood.add(m); }); });
+  }
   const skins = new Set(actors.map((a) => a.ch.skin));
   for (const a of actors) if (a.ch.skin) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
   // blush is painted softer in the drawn look
@@ -276,25 +371,26 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
       return m;
     }
     let t = toon.get(m);
+    if (!t && m.userData.glass) { t = animeGlass(m); t.userData.outlineParameters = noLine; t.userData.glassOf = m; toon.set(m, t); made.add(t); }
     if (!t) {
-      const isSet = setMats.has(m);
+      const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? "skin" : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveIntensity: m.emissiveIntensity ?? 1,
       });
-      const role = isSet ? "set" : skins.has(m) ? "skin" : "char";
-      patchToon(t, { ...ROLE[role], rim: "#fff1d6", rimK: isSet ? 0 : 0.28, spec: 0, key: role });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], key: role });
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
-      const thick = isSet ? 0.0022 : 0.0058;
+      // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
+      const thick = isSet ? 0.0016 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.3 : 0.26), alpha: 1 };
+      t.userData.outlineParameters = m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : 0.26), alpha: 1 };
       toon.set(m, t); made.add(t);
     }
     return t;
   };
-  const shadows = contactShadows(scene, actors, 0.3);
+  const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && setSpec.type === "hills" ? "#0f2e12" : "#2a2019", camera);
   const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
   const composer = composerFor(R, W, H, draft);
@@ -310,12 +406,15 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec 
 
   return {
     prepare() {
-      for (const [m, t] of toon) { if (m.emissiveIntensity !== undefined) t.emissiveIntensity = m.emissiveIntensity; t.opacity = m.opacity; }
+      for (const [m, t] of toon) {
+        if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.opacity; continue; }
+        if (m.emissiveIntensity !== undefined) t.emissiveIntensity = m.emissiveIntensity; t.opacity = m.opacity;
+      }
       scene.traverse((o) => {
         if (!o.isMesh || !o.material || made.has(o.material)) return;
         o.material = Array.isArray(o.material) ? o.material.map(convert) : convert(o.material);
       });
-      for (const s of shadows) s.update();
+      grounding.update();
     },
     render() { composer.render(); },
   };
