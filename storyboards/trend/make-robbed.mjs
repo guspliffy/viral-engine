@@ -33,14 +33,14 @@ const { A, arm, prop, fx, sfx, walk, carry, grab } = c;
 
 c.addProp({ id: "bench", kind: "bench", x: BENCH[0], z: BENCH[1] });
 c.addProp({ id: "raven", kind: "raven", x: PERCH[0], y: PERCH[1], z: PERCH[2], scale: SC });
-c.addProp({ id: "phone", kind: "phone", x: S[0], y: 1.2, z: S[1] });
+c.addProp({ id: "phone", kind: "phone", x: S[0], y: 1.2, z: S[1], scale: 1.6 });
 const OFFSTAGE = { x: -4, y: 0.6, z: 1 };   // until their owner picks them up
-c.addProp({ id: "slice", kind: "slice", ...OFFSTAGE, scale: 1.6 });
+c.addProp({ id: "slice", kind: "slice", ...OFFSTAGE, scale: 0 });   // each owner's thing appears as they step in (held props of hidden fighters poke into the shot)
 c.addProp({ id: "apple", kind: "apple", x: S[0] + 0.4, y: 1.45, z: S[1], scale: 0 });
-c.addProp({ id: "tea", kind: "teacup", ...OFFSTAGE, steam: 1, scale: 1.3 });
+c.addProp({ id: "tea", kind: "teacup", ...OFFSTAGE, steam: 1, scale: 0 });
 c.addProp({ id: "feather", kind: "feather", x: S[0] + 0.45, y: 1.2, z: S[1] + 0.1, scale: 1.6 });
-c.addProp({ id: "leg", kind: "drumstick", ...OFFSTAGE });
-c.addProp({ id: "cookie", kind: "cookie", ...OFFSTAGE, scale: 1.4 });
+c.addProp({ id: "leg", kind: "drumstick", ...OFFSTAGE, scale: 0 });
+c.addProp({ id: "cookie", kind: "cookie", ...OFFSTAGE, scale: 0 });
 
 // the raven: fly to a spot (facing the way it flies), land, turn
 const fly = (t, to, dur, rot, arc = 0.2, ease = "inOut") => { prop("raven", t, { rot }, 0.12); prop("raven", t, { x: to[0], y: to[1], z: to[2] }, dur, ease, { arc }); prop("raven", t, { flap: 1 }, 0.08); return t + dur; };
@@ -48,22 +48,23 @@ const land = (t, rot = 0) => { prop("raven", t, { flap: 0 }, 0.12); prop("raven"
 // snatch: fly in from the right so the beak meets the thing (where it is at time t + 0.5; held in the owner's L
 // hand, the side facing the bench), take it, turn and fly to the bench, hover over the seat and drop it at x lx, fly
 // back up to the backrest and hop for joy. Returns when it's back
-const snatch = (id, t, guess, lx, { lie = 90, p = at(id, t + 0.45, guess) } = {}) => {
-  const rL = reach(-90), rR = reach(90);
-  fly(t, [p[0] - rL[0], p[1] - rL[1], p[2] - rL[2]], 0.5, -90, 0.25);
+const snatch = (id, t, guess, lx, { lie = 90, arc = 0.25, p = at(id, t + 0.45, guess) } = {}) => {
+  const rL = reach(-90);
+  fly(t, [p[0] - rL[0], p[1] - rL[1], p[2] - rL[2]], 0.5, -90, arc);
   carry(id, t + 0.5, "raven", OFF); prop("raven", t + 0.5, { peck: 1 }, 0.06); prop("raven", t + 0.58, { peck: 0 }, 0.08);
   sfx(t + 0.5, "flutter", { gain: 0.25, dur: 0.3 });
-  const back = fly(t + 0.6, [lx - rR[0], SEAT + 0.08, BENCH[1] + 0.08], 0.6, 90, 0.35);   // hovering just above the seat
-  carry(id, back + 0.05); prop(id, back + 0.05, { y: SEAT, z: BENCH[1] + 0.08, tip: lie }, 0.15, "in"); sfx(back + 0.2, "tink", { gain: 0.2 });
-  const home = fly(back + 0.2, PERCH, 0.4, 0, 0.2); land(home, 0);
+  const rC = reach(0), back = fly(t + 0.6, [lx - rC[0], 0.95, BENCH[1] + 0.08 - rC[2]], 0.55, 0, 0.15);   // hovering over the backrest, facing us
+  prop("raven", back - 0.1, { flap: 0.5 }, 0.12);   // wings half in while it hovers, clear of the Allfather
+  carry(id, back + 0.05); prop(id, back + 0.05, { y: SEAT, z: BENCH[1] + 0.08, tip: lie }, 0.18, "in"); sfx(back + 0.22, "tink", { gain: 0.2 });   // drops it on the seat
+  const home = fly(back + 0.25, PERCH, 0.3, 0, 0.05); land(home, 0);
   prop("raven", home + 0.12, { happy: 1 }, 0.05); prop("raven", home + 0.4, { happy: 0 }, 0.05);
   return home;
 };
 const comeIn = (id, t, dur = 0.6) => { A(id, t, "show"); walk(id, t, S, dur, "out", 4); A(id, t + dur - 0.15, "turn", { to: "camera", dur: 0.15 }); return t + dur; };
-// off the back way: round behind the bench, where the Allfather and the bench hide them, so the next fighter has the
-// front to themselves
-const BACK = -2.4;
-const goOff = (id, t) => { A(id, t, "turn", { to: "back", dur: 0.15 }); walk(id, t, [S[0] + 0.25, BACK], 0.5, "inOut", 3); A(id, t + 0.5, "turn", { to: "right", dur: 0.15 }); walk(id, t + 0.55, [2.7, BACK], 1.1, "linear", 7); A(id, t + 1.65, "hide"); return t + 1.65; };
+// off to the front left, toward the camera and out of the shot (review A: across the front or behind the bench they
+// cover the next snatch); the next fighter comes in along the back of that path, a body-width and more behind them
+const OUT = [-3.4, 1.3];   // fully out of the shot (staffs and swords too) before the hide
+const goOff = (id, t) => { A(id, t - 0.1, "turn", { to: -50, dur: 0.15 }); walk(id, t - 0.1, OUT, 0.8, "out", 4); A(id, t + 0.7, "hide"); return t + 0.7; };
 
 // the Allfather: on the bench all along, smug, eyes on whoever is next
 c.cast("all", [0.85, -0.85], { face: "camera", expr: "smug" });
@@ -77,8 +78,8 @@ c.turn("phx", 0, "taking a selfie");
 grab("phx", "phone", "L", -0.1, { off: [0, 0.02, 0.03], pose: SELFIE });
 A("phx", 0, "look", { to: [0.5, 0.55], dur: 0.01, blink: false });
 A("phx", 0, "wings", { to: 0.4, dur: 0.01 });
-let r = snatch("phone", 0.0, [S[0] + 0.45, 1.25, S[1] + 0.2], 0.1);
-for (const k of [0.3, 0.75, 1.15]) { A("phx", k, "lean", { to: k === 0.75 ? 5 : -5, dur: 0.15 }); A("phx", k, "squash", { amount: 0.05, dur: 0.15 }); sfx(k + 0.05, "click", { gain: 0.2 }); }
+let r = snatch("phone", 0.0, [S[0] + 0.45, 1.25, S[1] + 0.2], 0.04);
+for (const k of [0.3, 0.75, 1.15]) { A("phx", k, "lean", { to: k === 0.75 ? 5 : -5, dur: 0.15 }); A("phx", k, "squash", { amount: 0.05, dur: 0.15 }); sfx(k + 0.05, "click", { gain: 0.2 }); if (k < 0.5) fx(k + 0.05, "sparkle", { pos: at("phone", 0.3, [S[0] + 0.45, 1.25, S[1] + 0.2]).map((v, i) => v + [0, 0.12, 0.05][i]), count: 3, dur: 0.25 }); }
 A("phx", 1.45, "look", { to: [0.5, 0.6], dur: 0.1, blink: false });
 A("phx", 1.55, "expr", { expr: "shocked", set: { eye: 1.25 }, dur: 0.08 });                  // ...no phone
 A("phx", 1.75, "look", { to: [0.9, -0.2], dur: 0.15, blink: false });                         // it's on the bench
@@ -93,7 +94,7 @@ goOff("phx", t - 0.2);
 const AIM = { o: [0.18, 0.64, 0.45] };
 c.cast("gun", ENTER, { face: "right", expr: "happy", hidden: true });
 c.turn("gun", t, "lunch break");
-grab("gun", "slice", "L", t - 0.05, { off: [0.0, 0.0, 0.05] });
+grab("gun", "slice", "L", t - 0.05, { off: [0.0, 0.0, 0.05] }); prop("slice", t + 0.1, { scale: 1.6 }, 0.01);
 A("gun", t, "look", { to: [0.3, -0.5], dur: 0.01, blink: false });
 let a = comeIn("gun", t + 0.1);
 arm("gun", a - 0.2, "L", { o: [0.1, 0.45, 0.3] }, 0.2);   // the slice up in front of his chest
@@ -107,6 +108,7 @@ A("gun", gsn + 0.6, "expr", { expr: "stern", dur: 0.1 }); A("gun", gsn + 0.6, "l
 arm("gun", gsn + 0.7, "L", AIM, 0.15, "out");
 const shot = gsn + 0.95;
 sfx(shot, "gunshot", { gain: 0.4 }); A("gun", shot, "squash", { amount: 0.05, dur: 0.1 });
+fx(shot, "sparkle", { pos: at("gun-handL", shot - 0.05, [S[0] + 0.45, 0.9, S[1] + 0.4]), count: 4, dur: 0.2 });
 fx(shot + 0.02, "poof", { pos: [-0.05, 1.3, -0.5], puffs: 2, sparks: 8, spark: "#ffd36b", dur: 0.3 });
 carry("slice", shot + 0.03);                                                                      // shot out of its beak
 const hat = at("gun-hat", shot + 0.53, [S[0], 1.1, S[1]]);
@@ -128,7 +130,7 @@ arm("wiz", a - 0.1, "L", { o: [0.3, 0.72, 0.18] }, 0.2);
 A("wiz", a + 0.05, "charge", { to: 0.6, dur: 0.2 }); A("wiz", a + 0.05, "look", { to: [0.5, 0.7], dur: 0.12, blink: false });
 const ap = [S[0] + 0.45, 1.5, S[1] + 0.1];   // floating above his raised hand
 prop("apple", a + 0.05, { x: ap[0], y: ap[1], z: ap[2], scale: 1.4 }, 0.2, "back"); fx(a + 0.1, "sparkle", { pos: [ap[0], ap[1] + 0.08, ap[2]], dur: 0.6, count: 4 });
-r = snatch("apple", a + 0.2, ap, 0.32, { lie: 0, p: ap });
+r = snatch("apple", a + 0.2, ap, 0.1, { lie: 0, p: ap, arc: 0.45 });   // in from above, clear of the staff
 A("wiz", a + 0.95, "charge", { to: 0, dur: 0.15 }); A("wiz", a + 0.95, "expr", { expr: "shocked", dur: 0.1 }); A("wiz", a + 0.95, "look", { to: [0.9, 0.0], dur: 0.15, blink: false });
 A("wiz", a + 1.2, "expr", { expr: "stern", set: { browY: -0.03 }, dur: 0.1 }); A("wiz", a + 1.2, "charge", { to: 1, dur: 0.2, ease: "in" }); sfx(a + 1.2, "charge", { gain: 0.25, dur: 0.25 });
 fx(a + 1.45, "flash", { peak: 0.25, dur: 0.12 });                                                // ...and it backfires on him
@@ -146,7 +148,7 @@ const sword = (tt, p, dur) => { arm("sam", tt, "R", p[0], dur); A("sam", tt, "ti
 c.cast("sam", ENTER, { face: "right", expr: "serene", hidden: true, arms: { R: REST[0], L: { o: [0.1, 0.5, 0.3] } } });
 c.turn("sam", t, "tea, eyes closed");
 grab("sam", "tea", "L", t - 0.05, { off: [0, -0.02, 0.04], pose: { o: [0.1, 0.5, 0.3] } });
-a = comeIn("sam", t + 0.1);
+prop("tea", t + 0.1, { scale: 1.3 }, 0.01); a = comeIn("sam", t + 0.1);
 A("sam", a, "face", { lid: 1, dur: 0.2 }); A("all", a, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 const tp = at("tea", a + 0.65, [S[0] + 0.3, 0.7, S[1] + 0.3]), sR = reach(-90);
 fly(a + 0.2, [tp[0] - sR[0] + 0.25, tp[1] - sR[1] + 0.25, tp[2] - sR[2]], 0.5, -90, 0.25);    // in for the cup...
@@ -166,18 +168,18 @@ const AXE_UP = { o: [0.18, 0.95, 0.2] }, AXE_DOWN = { o: [0.1, 0.55, 0.48] };
 c.cast("vik", ENTER, { face: "right", expr: "happy", hidden: true, arms: { R: { o: [0.12, 0.42, 0.3] } } });
 c.turn("vik", t, "a snack");
 grab("vik", "leg", "R", t - 0.05, { off: [0, -0.04, 0.06], pose: { o: [-0.3, 0.42, 0.68] } });   // the snack in front of his belly, where the raven can reach it
-a = comeIn("vik", t + 0.35);   // after the Samurai has passed
+prop("leg", t + 0.35, { scale: 1 }, 0.01); a = comeIn("vik", t + 0.35);   // after the Samurai has passed
 A("vik", a, "talk", { dur: 1.1 }); A("all", a, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 const lp = at("leg", a + 0.55, [S[0] + 0.3, 0.62, S[1] + 0.5]), vR = reach(-90);
 fly(a + 0.1, [lp[0] - vR[0] + 0.3, lp[1] - vR[1] + 0.25, lp[2] - vR[2] + 0.35], 0.3, -90, 0.2, "in");   // swoops round in front of him...
 fly(a + 0.4, [lp[0] - vR[0] + 0.05, lp[1] - vR[1] + 0.05, lp[2] - vR[2]], 0.2, -90, 0, "out");
 prop("raven", a + 0.6, { tug: 1 }, 0.1); sfx(a + 0.6, "flutter", { gain: 0.3, dur: 0.8 });           // pulls and pulls; it doesn't budge
 A("vik", a + 1.2, "look", { to: [0.35, -0.5], dur: 0.15, blink: false }); A("vik", a + 1.25, "expr", { expr: "stern", set: { browY: -0.03 }, dur: 0.1 });
-prop("raven", a + 1.35, { tug: 0 }, 0.05); fly(a + 1.35, [PERCH[0] - 0.6, 1.5, -0.6], 0.35, 60, 0.1);   // it lets go
+prop("raven", a + 1.35, { tug: 0 }, 0.05); fly(a + 1.35, [0.45, 1.55, -1.3], 0.35, 60, 0.1);   // it lets go, up and away to the right (clear of his face and the axe)
 A("vik", a + 1.4, "tilt", { to: [10, 0], dur: 0.2 }); arm("vik", a + 1.45, "L", AXE_UP, 0.22, "out");
-A("vik", a + 1.75, "tilt", { to: [90, 0], dur: 0.1 }); arm("vik", a + 1.75, "L", AXE_DOWN, 0.1, "in");
+A("vik", a + 1.75, "tilt", { to: [90, 0], dur: 0.15 }); arm("vik", a + 1.75, "L", AXE_DOWN, 0.15, "in");
 const slam = a + 1.85;
-fx(slam, "shake", { amp: 0.06, dur: 0.35 }); fx(slam, "impact", { pos: [S[0] + 0.6, 0.1, S[1] + 0.35], dur: 0.3 }); sfx(slam, "impact", { gain: 0.5 });
+fx(slam, "shake", { amp: 0.06, dur: 0.35 }); sfx(slam, "impact", { gain: 0.5 });
 fx(slam + 0.02, "poof", { pos: [S[0] + 0.6, 0.12, S[1] + 0.35], puffs: 6, sparks: 10, spark: "#ffcf6b", dur: 0.5 });
 prop("bench", slam, { squash: 0.06 }, 0.06); prop("bench", slam + 0.06, { squash: 0 }, 0.15);
 A("all", slam, "squash", { amount: 0.08, dur: 0.2 }); A("all", slam + 0.02, "expr", { expr: "shocked", dur: 0.08 });
@@ -193,7 +195,7 @@ const OFFER = { o: [0.2, 0.55, 0.35] };
 c.cast("rea", ENTER, { face: "right", expr: "kind", hidden: true });
 c.turn("rea", t, "actually paying attention");
 grab("rea", "cookie", "L", t - 0.05, { off: [0, 0, 0.04], pose: "rest" });
-a = comeIn("rea", t + 0.1);
+prop("cookie", t + 0.1, { scale: 1.4 }, 0.01); a = comeIn("rea", t + 0.1);
 A("rea", a + 0.05, "look", { to: [0.85, -0.15], dur: 0.2, blink: false });                        // his eyes on the raven before it moves
 A("all", a + 0.1, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 arm("rea", a + 0.25, "L", OFFER, 0.3, "settle");                                                 // holds out the cookie
@@ -202,20 +204,28 @@ fly(a + 0.55, [cp[0] - cR[0], cp[1] - cR[1], cp[2] - cR[2]], 0.6, -90, 0.2);
 prop("raven", a + 1.15, { flap: 0.6 }, 0.15);   // hovers in front of him, politely
 carry("cookie", a + 1.3, "raven", OFF); prop("raven", a + 1.3, { peck: 1 }, 0.08); prop("raven", a + 1.42, { peck: 0 }, 0.1);   // takes it, gently
 arm("rea", a + 1.45, "L", "rest", 0.3); A("rea", a + 1.5, "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.15 });
-fly(a + 1.5, PERCH, 0.5, 0, 0.2); land(a + 2.0, 0);
+fly(a + 1.5, PERCH, 0.5, 0, 0.02); land(a + 2.0, 0);   // low, under his eyeline
 prop("raven", a + 2.05, { happy: 1 }, 0.05); prop("raven", a + 2.7, { happy: 0 }, 0.05);
-A("all", a + 1.6, "look", { to: [-0.55, 0.0], dur: 0.12, blink: false }); A("all", a + 1.65, "expr", { expr: "shocked", set: { eye: 1.2 }, dur: 0.1 });   // the boss's double take
-A("all", a + 2.0, "look", { to: [-0.35, 0.3], dur: 0.15, blink: false });
+A("all", a + 1.25, "look", { to: [-0.55, 0.0], dur: 0.12, blink: false }); A("all", a + 1.3, "expr", { expr: "shocked", set: { eye: 1.2 }, dur: 0.1 });   // the boss's double take, as the raven takes the gift
 A("rea", a + 2.0, "look", { to: LOOK_CAM, dur: 0.15, blink: false });
 const askAt = a + 1.9, END0 = a + 2.75;
 
 // ------------------------------------------------------------------ LOOP: a poof clears the loot; the Phoenix walks back in mid-selfie
 fx(END0, "poof", { pos: [0.4, 0.6, -0.9], puffs: 10, sparks: 6, spark: "#ffe58a", dur: 0.5 }); sfx(END0, "poof", { gain: 0.3 });
-for (const id of ["phone", "apple", "cookie"]) prop(id, END0 + 0.06, { scale: 0 }, 0.01);
-A("rea", END0 + 0.06, "turn", { to: "left", dur: 0.15 }); walk("rea", END0 + 0.06, [ENTER[0], S[1]], 0.7, "in", 4);
+for (const id of ["apple", "cookie"]) prop(id, END0 + 0.06, { scale: 0 }, 0.01);
+goOff("rea", END0 + 0.06);
+// the Phoenix, back at the start: hidden, he steps off to the left of the shot with his phone (it leaves the bench in
+// the poof), walks in posing and lands in the frame-0 pose
+walk("phx", END0, ENTER, 0.01); A("phx", END0, "turn", { to: "right", dur: 0.01 });
+grab("phx", "phone", "L", END0 + 0.06, { off: [0, 0.02, 0.03], pose: SELFIE }); prop("phone", END0 + 0.06, { tip: 0 }, 0.01);
+A("phx", END0 + 0.1, "expr", { expr: "cocky", dur: 0.01 }); A("phx", END0 + 0.1, "wings", { to: 0.4, dur: 0.01 }); A("phx", END0 + 0.1, "look", { to: [0.5, 0.55], dur: 0.01, blink: false });
+const back = comeIn("phx", END0 + 0.3, 0.6);
 A("all", END0 + 0.1, "expr", { expr: "smug", dur: 0.15 }); A("all", END0 + 0.1, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
-c.finish(END0 + 0.4, {
-  shot: { pos: [0.1, 1.2, 6.5], look: [0.1, 1.1, -0.5], fov: 38 },
+const END = back + 0.15;
+const SHOT = { pos: [0.1, 1.2, 6.5], look: [0.1, 1.1, -0.5], fov: 38 }, CLOSE = { pos: [0.1, 1.2, 6.5], look: [-0.1, 1.0, -0.5], fov: 32 };
+c.finish(END, {
+  shot: SHOT,
+  moves: [{ at: r3(a + 0.9), ...SHOT, to: CLOSE, dur: 0.4, ease: "inOut" }, { at: r3(END0 + 0.1), ...CLOSE, to: SHOT, dur: 0.5, ease: "inOut" }],   // in on the cookie and the double take
   at: { title: 232, sub: 362, name: 458, habit: 584, ask: 470 }, size: { title: 64, name: 76 },
   title: "TOO BUSY TO NOTICE", sub: "getting robbed, but first...", ask: "who gets robbed\nfirst?", askAt, cover: 1.0,
   file: new URL("./robbed-01-too-busy.json", import.meta.url).pathname,
@@ -226,7 +236,7 @@ void r;
 if (process.argv.includes("--measure")) {
   const { writeFileSync } = await import("node:fs"), { execFileSync } = await import("node:child_process");
   const L = JSON.parse(readFileSync(new URL("../../out/robbed-01-too-busy-anime-pro.layout.json", import.meta.url), "utf8"));
-  const spot = (s, id) => (id === "gun-hat" ? s.actors.find((q) => q.id === "gun")?.hat : s.props.find((q) => q.id === id)?.at);
+  const spot = (s, id) => (id === "gun-hat" ? s.actors.find((q) => q.id === "gun")?.hat : id === "gun-handL" ? s.actors.find((q) => q.id === "gun")?.hands?.L : s.props.find((q) => q.id === id)?.at);
   const out = {};
   for (const [id, t] of Object.entries(WANT)) {
     const dt = L.samples[1].t - L.samples[0].t, k = t / dt, i = Math.min(L.samples.length - 2, Math.floor(k)), f = k - i, a0 = spot(L.samples[i], id), a1 = spot(L.samples[i + 1], id);

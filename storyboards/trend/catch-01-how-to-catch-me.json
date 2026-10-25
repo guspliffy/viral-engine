@@ -947,7 +947,8 @@
      "dur": 0.01,
      "ease": "inOut",
      "set": {
-      "y": 3.4
+      "y": 3.4,
+      "scale": 0
      }
     },
     {
@@ -1333,6 +1334,30 @@
      "at": 0.8,
      "expr": "eager",
      "dur": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "tilt",
+     "at": 0.8,
+     "to": [
+      50,
+      0
+     ],
+     "dur": 0.2
     },
     {
      "sfx": "click",
@@ -1871,7 +1896,7 @@
   {
    "name": "rea: a warm drink and silence",
    "at": 17.38,
-   "len": 4.44,
+   "len": 4.84,
    "do": [
     {
      "who": "vik",
@@ -1911,7 +1936,7 @@
     },
     {
      "fx": "poof",
-     "at": 0.45,
+     "at": 0.95,
      "pos": [
       0.4,
       0.8,
@@ -1924,13 +1949,13 @@
     },
     {
      "sfx": "poof",
-     "at": 0.45,
+     "at": 0.95,
      "gain": 0.35
     },
     {
      "do": "prop",
      "id": "box",
-     "at": 0.53,
+     "at": 1.03,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -1943,7 +1968,7 @@
     {
      "do": "prop",
      "id": "crate",
-     "at": 0.53,
+     "at": 1.03,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -1953,7 +1978,7 @@
     {
      "do": "prop",
      "id": "tea",
-     "at": 0.53,
+     "at": 1.03,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -1963,7 +1988,7 @@
     {
      "do": "prop",
      "id": "quiet",
-     "at": 0.53,
+     "at": 1.03,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -1973,12 +1998,12 @@
     {
      "who": "rea",
      "do": "show",
-     "at": 0.6
+     "at": 1
     },
     {
      "who": "rea",
      "do": "move",
-     "at": 0.6,
+     "at": 1,
      "to": [
       0.10000000000000002,
       -0.19999999999999998
@@ -1990,14 +2015,14 @@
     {
      "who": "rea",
      "do": "turn",
-     "at": 1.15,
+     "at": 1.55,
      "to": "3q-right",
      "dur": 0.2
     },
     {
      "who": "rea",
      "do": "look",
-     "at": 1.2,
+     "at": 1.6,
      "to": [
       0.6,
       -0.35
@@ -2007,15 +2032,22 @@
     },
     {
      "who": "rea",
+     "do": "turn",
+     "at": 1,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
      "do": "expr",
-     "at": 1.35,
+     "at": 1.75,
      "expr": "kind",
      "dur": 0.1
     },
     {
      "who": "rea",
      "do": "look",
-     "at": 1.6,
+     "at": 2,
      "to": [
       0,
       0
@@ -2026,19 +2058,19 @@
     {
      "who": "rea",
      "do": "expr",
-     "at": 1.65,
+     "at": 2.05,
      "expr": "serene",
      "dur": 0.15
     },
     {
      "sfx": "click",
-     "at": 2.1,
+     "at": 2.5,
      "gain": 0.3
     },
     {
      "do": "prop",
      "id": "box",
-     "at": 2.1,
+     "at": 2.5,
      "dur": 0.14,
      "ease": "in",
      "set": {
@@ -2047,23 +2079,23 @@
     },
     {
      "sfx": "land",
-     "at": 2.24,
+     "at": 2.64,
      "gain": 0.5
     },
     {
      "sfx": "impact",
-     "at": 2.24,
+     "at": 2.64,
      "gain": 0.25
     },
     {
      "fx": "shake",
-     "at": 2.24,
+     "at": 2.64,
      "amp": 0.025,
      "dur": 0.2
     },
     {
      "fx": "poof",
-     "at": 2.24,
+     "at": 2.64,
      "pos": [
       0.4,
       0.08,
@@ -2077,12 +2109,12 @@
     {
      "who": "rea",
      "do": "hide",
-     "at": 2.24
+     "at": 2.64
     },
     {
      "do": "prop",
      "id": "box",
-     "at": 2.59,
+     "at": 2.99,
      "dur": 0.05,
      "ease": "inOut",
      "set": {
@@ -2092,7 +2124,7 @@
     {
      "do": "prop",
      "id": "box",
-     "at": 2.84,
+     "at": 3.24,
      "dur": 0.08,
      "ease": "inOut",
      "set": {
@@ -2100,19 +2132,59 @@
      }
     },
     {
+     "do": "prop",
+     "id": "box",
+     "at": 3.44,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "ring": 0.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "at": 3.69,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "at": 3.99,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "ring": 0.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "at": 4.24,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
      "fx": "zzz",
-     "at": 2.89,
+     "at": 3.14,
      "pos": [
-      0.30000000000000004,
-      1.95,
-      -0.3
+      0.15000000000000002,
+      0.8,
+      0.5
      ],
-     "dur": 1,
-     "count": 3
+     "dur": 1.2,
+     "count": 4
     },
     {
      "fx": "poof",
-     "at": 3.84,
+     "at": 4.24,
      "pos": [
       0.4,
       0.8,
@@ -2125,13 +2197,13 @@
     },
     {
      "sfx": "poof",
-     "at": 3.84,
+     "at": 4.24,
      "gain": 0.35
     },
     {
      "do": "prop",
      "id": "box",
-     "at": 3.92,
+     "at": 4.32,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -2147,7 +2219,7 @@
     {
      "do": "prop",
      "id": "tea",
-     "at": 3.92,
+     "at": 4.32,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -2157,7 +2229,7 @@
     {
      "do": "prop",
      "id": "quiet",
-     "at": 3.92,
+     "at": 4.32,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -2167,7 +2239,7 @@
     {
      "do": "prop",
      "id": "coins",
-     "at": 3.92,
+     "at": 4.32,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -2177,12 +2249,12 @@
     {
      "who": "rea",
      "do": "hide",
-     "at": 3.92
+     "at": 4.32
     },
     {
      "do": "prop",
      "id": "fence",
-     "at": 3.92,
+     "at": 4.32,
      "dur": 0.01,
      "ease": "inOut",
      "set": {
@@ -2192,7 +2264,7 @@
     {
      "who": "dra",
      "do": "show",
-     "at": 3.92
+     "at": 4.32
     }
    ]
   }
@@ -2211,12 +2283,70 @@
     -0.5
    ],
    "fov": 40
+  },
+  {
+   "at": 9.35,
+   "pos": [
+    0.05,
+    1.3,
+    5.8
+   ],
+   "look": [
+    0.1,
+    0.95,
+    -0.5
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.05,
+     1.6,
+     9
+    ],
+    "look": [
+     0.1,
+     1.3,
+     -0.5
+    ],
+    "fov": 40
+   },
+   "dur": 0.35,
+   "ease": "out"
+  },
+  {
+   "at": 10.6,
+   "pos": [
+    0.05,
+    1.6,
+    9
+   ],
+   "look": [
+    0.1,
+    1.3,
+    -0.5
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.05,
+     1.3,
+     5.8
+    ],
+    "look": [
+     0.1,
+     0.95,
+     -0.5
+    ],
+    "fov": 40
+   },
+   "dur": 0.3,
+   "ease": "inOut"
   }
  ],
  "captions": [
   {
    "from": 0,
-   "to": 21.82,
+   "to": 22.22,
    "text": "HOW TO CATCH ME:",
    "style": "label",
    "pos": 232,
@@ -2321,7 +2451,7 @@
   },
   {
    "from": 17.38,
-   "to": 20.52,
+   "to": 20.62,
    "text": "REAPER",
    "style": "label",
    "pos": 360,
@@ -2330,14 +2460,14 @@
   },
   {
    "from": 17.38,
-   "to": 20.52,
+   "to": 20.62,
    "text": "a warm drink and silence",
    "pos": 486,
    "pop": false
   },
   {
-   "from": 20.52,
-   "to": 21.82,
+   "from": 20.62,
+   "to": 22.22,
    "text": "how would they\ncatch YOU?",
    "pos": 420
   }
@@ -2479,7 +2609,7 @@
    "warm"
   ]
  },
- "duration": 21.82,
+ "duration": 22.22,
  "cover": 0.3,
  "escalation": true
 }

@@ -172,8 +172,9 @@ function toScreen(v) {
 function star4(x, y, r) { ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4, q = i % 2 ? r * 0.28 : r; ctx.lineTo(x + Math.sin(a) * q, y - Math.cos(a) * q); } ctx.closePath(); }
 function headFx(f, t, i) {
   const d = f.dur ?? 1, k = (t - f.at) / d, A = f.who && poseStates[f.who];
-  if (k < 0 || k > 1 || !A) return;
-  const { st, a } = A, top = a.ch.topY() * (st.scale ?? 1), c = toScreen([st.x, st.y + top * 0.85, st.z]), n = f.count ?? 6, r = rng(4242 + i * 97);
+  if (k < 0 || k > 1 || (!A && !f.pos)) return;
+  // at a character's head, or at a point in the scene (`pos` [x, y, z], e.g. sparkles on a prop, z's over a box)
+  const c = f.pos ? toScreen(f.pos) : toScreen([A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z]), n = f.count ?? 6, r = rng(4242 + i * 97);
   ctx.save(); ctx.lineJoin = "round";
   for (let j = 0; j < n; j++) {
     const ph = r(), ang = r() * Math.PI * 2, rad = (0.35 + r() * 0.3) * c.m, lk = clamp((k * 1.3 - ph * 0.3) / 0.75);

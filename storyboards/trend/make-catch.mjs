@@ -111,7 +111,7 @@ prop("box2", d + 1.1, { y: 0 }, 0.22, "in"); sfx(d + 1.32, "land", { gain: 0.5 }
 fx(d + 1.32, "poof", { pos: [G[0], 0.08, G[1] + 0.7], puffs: 4, sparks: 0, color: "#e8dcc4", dur: 0.4 });
 A("gun", d + 1.32, "hide");
 t = d + 2.0;
-fx(t, "poof", { pos: [G[0], 0.8, G[1]], puffs: 10, sparks: 6, spark: "#ffe58a", dur: 0.55 }); prop("box2", t + 0.08, { y: 3.4 }, 0.01);
+fx(t, "poof", { pos: [G[0], 0.8, G[1]], puffs: 10, sparks: 6, spark: "#ffe58a", dur: 0.55 }); prop("box2", t + 0.08, { y: 3.4, scale: 0 }, 0.01);   // gone (the Wizard's wide shot would show it up there)
 reset(t, null, "free", "book");
 
 // ------------------------------------------------------------------ WIZARD: a sale (the float spell makes the box giant)
@@ -124,12 +124,14 @@ arm("wiz", a + 0.2, "L", { o: [0.3, 0.72, 0.18] }, 0.2, "settle"); A("wiz", a + 
 A("wiz", a + 0.2, "expr", { expr: "focused", dur: 0.12 });
 fx(a + 0.48, "flash", { peak: 0.3, dur: 0.15 }); A("wiz", a + 0.5, "charge", { to: 0, dur: 0.2 });
 prop("box", a + 0.5, { scale: 2.1 }, 0.35, "back"); sfx(a + 0.5, "whoosh", { gain: 0.3 });   // the spell hits the box, not the book
+const wideAt = a + 0.45;   // review B: the camera pulls back so the giant box and the Wizard both read
 A("wiz", a + 0.6, "expr", { expr: "shocked", set: { eye: 1.25 }, dur: 0.1 }); A("wiz", a + 0.6, "look", { to: [0.4, 0.7], dur: 0.15, blink: false });
 A("wiz", a + 0.6, "hatwobble", { amount: 8, freq: 3, dur: 0.6 });
 d = drop(a + 1.0, "box", 0.2);
 A("wiz", d, "hide"); arm("wiz", d, "L", "rest", 0.01);
 prop("box", d + 0.2, { ring: 1 }, 0.05); prop("box", d + 0.4, { ring: 0 }, 0.05);   // a rattle inside the giant box
 prop("box", d + 0.5, { scale: 1 }, 0.2, "in"); sfx(d + 0.5, "whoosh", { gain: 0.2 });   // the spell wears off: it shrinks back, still down
+const wideTo = d + 0.5;
 t = d + 0.9;
 reset(t, null, "book", "slice");
 
@@ -139,7 +141,7 @@ const sword = (tt, p, dur) => { arm("sam", tt, "R", p[0], dur); A("sam", tt, "ti
 c.cast("sam", ENTER, { face: "right", expr: "focused", hidden: true, arms: { R: REST[0], L: { o: [0.15, 0.27, 0.08] } } });
 c.turn("sam", t, "free food");
 a = comeIn("sam", t + 0.1);
-A("sam", a, "expr", { expr: "eager", dur: 0.1 });
+A("sam", a, "expr", { expr: "eager", dur: 0.1 }); sword(a, [{ o: [0.12, 0.3, 0.3] }, [50, 0]], 0.2);   // blade low, inside the box's footprint when it drops
 d = drop(a + 0.35);
 A("sam", d, "hide");
 // a beat in the dark... then one cut and the box falls in halves
@@ -185,22 +187,23 @@ t = SMASH + 1.1;
 arm("vik", t - 0.2, "L", "rest", 0.3); A("vik", t - 0.2, "tilt", { to: null, dur: 0.3 });
 // (out toward the camera first, clear of where the new trap appears)
 walk("vik", t + 0.05, [0.15, 0.9], 0.25, "inOut", 2); A("vik", t + 0.25, "turn", { to: "right", dur: 0.12 }); walk("vik", t + 0.3, [2.6, 0.9], 0.55, "in", 4); A("vik", t + 0.9, "hide");
-fx(t + 0.45, "poof", { pos: [BX, 0.8, BZ], puffs: 12, sparks: 8, spark: "#ffe58a", dur: 0.55 }); sfx(t + 0.45, "poof", { gain: 0.35 });
-prop("box", t + 0.53, { drop: 0, smash: 0, ring: 0, scale: 1.2 }, 0.01); prop("crate", t + 0.53, { scale: 1 }, 0.01);
-prop("tea", t + 0.53, { scale: SIZE.tea }, 0.01); prop("quiet", t + 0.53, { scale: SIZE.quiet }, 0.01);
+fx(t + 0.95, "poof", { pos: [BX, 0.8, BZ], puffs: 12, sparks: 8, spark: "#ffe58a", dur: 0.55 }); sfx(t + 0.95, "poof", { gain: 0.35 });   // once he is gone
+prop("box", t + 1.03, { drop: 0, smash: 0, ring: 0, scale: 1.2 }, 0.01); prop("crate", t + 1.03, { scale: 1 }, 0.01);
+prop("tea", t + 1.03, { scale: SIZE.tea }, 0.01); prop("quiet", t + 1.03, { scale: SIZE.quiet }, 0.01);
 
 // ------------------------------------------------------------------ REAPER: a warm drink and silence (walks right in)
 c.cast("rea", ENTER, { face: "right", expr: "kind", hidden: true });
 c.turn("rea", t, "a warm drink and silence");
-a = comeIn("rea", t + 0.6, [F[0] - 0.05, F[1]], 0.75);
+a = comeIn("rea", t + 1.0, [F[0] - 0.05, F[1]], 0.75); A("rea", t + 1.0, "turn", { to: "3q-right", dur: 0.2 });   // his face on the walk in
 A("rea", a, "expr", { expr: "kind", dur: 0.1 });
 A("rea", a + 0.25, "look", { to: LOOK_CAM, dur: 0.15, blink: false });   // a look at us: yes, this one works
 A("rea", a + 0.3, "expr", { expr: "serene", dur: 0.15 });
 d = drop(a + 0.75);
 A("rea", d, "hide");
 prop("box", d + 0.35, { ring: 0.5 }, 0.05); prop("box", d + 0.6, { ring: 0 }, 0.08);   // one contented wiggle
-fx(d + 0.65, "zzz", { pos: [BX - 0.1, 1.95, BZ], dur: 1.0, count: 3 });
-const askAt = d + 0.9, namesTo = d + 0.9, END0 = d + 1.6;   // the ask takes the names' place, up top
+for (const k of [0.8, 1.35]) { prop("box", d + k, { ring: 0.25 }, 0.2); prop("box", d + k + 0.25, { ring: 0 }, 0.2); }   // ...then slow snores
+fx(d + 0.5, "zzz", { pos: [BX - 0.25, 0.8, BZ + 0.8], dur: 1.2, count: 4 });
+const askAt = d + 0.6, namesTo = d + 0.6, END0 = d + 1.6;   // the ask takes the names' place, up top
 
 // ------------------------------------------------------------------ LOOP: a poof sets the coin trap again as the Dragon dives in (frame 0)
 reset(END0, "rea", ["tea", "quiet"], "coins");
@@ -208,8 +211,10 @@ prop("fence", END0 + 0.08, { smash: 0 }, 0.01);
 A("dra", END0 + 0.08, "show");
 const END = END0 + 0.6;   // the reset poof has cleared by the last frame, which matches frame 0
 
+const SHOT = { pos: [0.05, 1.3, 5.8], look: [0.1, 0.95, -0.5], fov: 40 }, WIDE = { pos: [0.05, 1.6, 9.0], look: [0.1, 1.3, -0.5], fov: 40 };
 c.finish(END, {
-  shot: { pos: [0.05, 1.3, 5.8], look: [0.1, 0.95, -0.5], fov: 40 },
+  shot: SHOT,
+  moves: [{ at: r3(wideAt), ...SHOT, to: WIDE, dur: 0.35, ease: "out" }, { at: r3(wideTo), ...WIDE, to: SHOT, dur: 0.3, ease: "inOut" }],
   at: { title: 232, sub: 362, name: 360, habit: 486, ask: 420 }, size: { title: 64, name: 76 },
   title: "HOW TO CATCH ME:", ask: "how would they\ncatch YOU?", askAt, namesTo, cover: 0.3,
   file: new URL("./catch-01-how-to-catch-me.json", import.meta.url).pathname,

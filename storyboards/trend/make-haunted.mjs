@@ -76,14 +76,14 @@ rattle(a + 0.05); openUp(a + 0.4); popOut("call", a + 0.45, 4.2);
 prop("call", a + 0.6, { ring: 1 }, 0.05); sfx(a + 0.6, "ringtone", { gain: 0.35, dur: 1.15 });
 A("ast", a + 0.62, "expr", { expr: "shocked", set: { eye: 1.25 }, dur: 0.1 });
 A("ast", a + 0.62, "squash", { amount: 0.08, dur: 0.2 });
-A("ast", a + 0.8, "fly", { to: { x: S[0] - 0.3, y: 0.85, z: S[1] - 0.1 }, dur: 0.4, ease: "out" });     // up out of reach, very still: nobody's home
+A("ast", a + 0.8, "fly", { to: { x: S[0] - 0.3, y: 0.6, z: S[1] - 0.1 }, dur: 0.4, ease: "out" });     // up out of reach, very still: nobody's home
 A("ast", a + 0.85, "look", { to: [0.3, -0.4], dur: 0.15, blink: false });
 A("ast", a + 1.25, "still", { dur: 0.55, idle: 0.05 });
 A("ast", a + 1.25, "expr", { expr: "deadpan", set: { press: 1 }, dur: 0.15 });
 prop("call", a + 1.75, { ring: 0, glow: 0.2 }, 0.1);                         // it stops ringing
 A("ast", a + 1.85, "expr", { expr: "kind", dur: 0.15 });
 shut(a + 1.85); hideFear("call", a + 1.85);
-A("ast", a + 1.95, "fly", { to: { x: EXIT[0], y: 0.85, z: STEP[1] }, dur: 0.9, ease: "inOut" });
+A("ast", a + 1.95, "fly", { to: { x: EXIT[0], y: 0.6, z: STEP[1] }, dur: 0.9, ease: "inOut" });
 A("ast", a + 2.85, "hide");
 t = a + 1.9;
 
@@ -266,7 +266,7 @@ c.finish(END, {
   shot: { pos: [-0.1, 1.45, 6.3], look: [-0.1, 0.95, -0.8], fov: 32 },   // review B: closer, so the fears read on a phone
   moves: [{ at: r3(SMASH - 1.4), pos: [-0.1, 1.45, 6.3], look: [-0.1, 0.95, -0.8], fov: 32, to: { pos: [-0.1, 1.45, 6.3], fov: 28, look: [0.0, 0.85, -0.8] }, dur: 0.6, ease: "inOut" },
     { at: r3(RESET), pos: [-0.1, 1.45, 6.3], look: [0.0, 0.85, -0.8], fov: 28, to: { pos: [-0.1, 1.45, 6.3], fov: 32, look: [-0.1, 0.95, -0.8] }, dur: 0.45, ease: "inOut" }],
-  at: { title: 232, sub: 362, name: 458, habit: 584, ask: 470 }, size: { title: 80, name: 76 },
+  at: { title: 232, sub: 340, name: 420, habit: 520, ask: 470 }, size: { title: 80, name: 76 },   // habit higher: the closer camera puts heads near 600
   title: "HAUNTED HOUSE", sub: "but it's your real fears", ask: "which one is YOUR\nhaunted house?", askAt, cover: 0.35,
   file: new URL("./haunted-01-real-fears.json", import.meta.url).pathname,
 });
