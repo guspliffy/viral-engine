@@ -37,7 +37,7 @@ const WIZ_AT_PAIR = [-0.7, -0.08], WIZ_AT_REA = [-0.85, -0.12];
 // poses (character space: o = [out, up, forward])
 const SCYTHE = { o: [0.24, 0.36, 0.08] };        // the reference hold: fist out from the side, forearm square to the shaft
 const WAVE = { o: [0.22, 0.36, 0.32] };            // Wizard's free hand up in a small welcome, palm open
-const OFFER = { o: [0.26, 0.4, 0.36] };           // the inviting palm toward Reaper, low and forward (never a point)
+const OFFER = { o: [0.12, 0.26, 0.42] };           // the inviting palm toward Reaper, low and forward (never a point)
 
 const cast = [
   { id: "phx", character: "potatobrawl/phoenix", at: PHX, face: "camera", expr: "kind", follow: 0.6, seed: 1.3 },
@@ -90,7 +90,7 @@ A(4.4, "wiz", "expr", { expr: "happy", set: { open: 0.1 }, dur: 0.3 });
 A(5.25, "wiz", "grip", { side: "R", shape: "flat", dur: 0.2 });
 arm(5.25, "wiz", "R", WAVE, 0.4, "settle");
 say(5.35, "wiz", "Let's go around", 1.0);
-cap(5.3, 6.6, "Let's go around…");
+cap(5.3, 6.6, "Let's go around…", TOP);
 
 // ---------------------------------------------------------------- 4 THE REAL SCARE 6.6-9.9: Reaper's face, Wizard offscreen
 const FF = 7.95;   // "fun fact" onset
@@ -133,7 +133,7 @@ A(14.0, "wiz", "look", { to: WIZ_AT_REA, dur: 0.25, blink: false });
 A(14.05, "wiz", "grip", { side: "R", shape: "flat", dur: 0.2 });
 arm(14.05, "wiz", "R", OFFER, 0.4, "settle");
 say(14.3, "wiz", "You first", 0.6);
-cap(14.25, 15.1, "You first.");
+cap(14.25, 15.1, "You first.", TOP);
 
 // ---------------------------------------------------------------- 7 RETREAT 15.1-16.7
 A(15.15, "rea", "lean", { to: 0, dur: 0.25 });
@@ -176,7 +176,7 @@ const END = 19.7;
 // ---------------------------------------------------------------- shots (each beat is a shot; cuts between)
 const TWO = { pos: [0.3, 1.05, 6.5], look: [0.3, 0.72, -0.5], fov: 38 };
 const REVEAL = { pos: [2.15, 1.25, 5.4], look: [1.8, 0.92, -2.4], fov: 34 };
-const WIZ_SHOT = { pos: [1.64, 1.3, 0.9], look: [1.74, 1.0, -3.05], fov: 38 };
+const WIZ_SHOT = { pos: [1.6, 1.3, -0.6], look: [1.62, 1.02, -3.05], fov: 54 };   // in past the ghost crate, so it stays out of the frame
 const REA_CU = { pos: [0.72, 0.98, 3.4], look: [0.8, 0.88, -0.2], fov: 26 };
 const TWO_L = { pos: [-0.28, 1.05, 6.5], look: [-0.28, 0.72, -0.5], fov: 34 };
 const TIGHT = { pos: [-0.5, 1.05, 5.0], look: [-0.55, 0.78, -0.6], fov: 26 };   // the retreat, closer: wings up, the scythe over his shoulder   // the two-shot, panned left with Reaper
