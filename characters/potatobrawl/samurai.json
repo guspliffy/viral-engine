@@ -21,7 +21,7 @@
     "iris": "#2a2a2a",
     "cheeks": "#ff6f6f",
     "neutral": {
-      "tilt": -0.12,
+      "tilt": -0.08,
       "curve": 0,
       "eye": 1,
       "lidL": 0.3,

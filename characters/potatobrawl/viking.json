@@ -21,11 +21,11 @@
     "iris": "#3a5a2a",
     "cheeks": "#ff6f6f",
     "neutral": {
-      "smirk": 0.25,
-      "curve": 0.4,
+      "smirk": 0.2,
+      "curve": 0.35,
       "open": 0,
       "browL": 0.25,
-      "tilt": -0.05
+      "tilt": 0.02
     },
     "eye": {
       "flick": 0.5,

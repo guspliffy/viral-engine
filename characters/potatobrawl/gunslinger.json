@@ -23,11 +23,11 @@
     "neutral": {
       "tilt": 0,
       "raise": 0.03,
-      "curve": 0.4,
+      "curve": 0.35,
       "smirk": 0.3,
       "eye": 1,
-      "lidL": 0.15,
-      "lidR": 0.15
+      "lidL": 0.18,
+      "lidR": 0.26
     },
     "eye": {
       "flick": 0.6
