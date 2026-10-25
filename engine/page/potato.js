@@ -135,8 +135,15 @@ export class Character {
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
   // axis: the held handle's direction (a staff, a scythe). A closed hand then turns its fist around it: the handle runs
   // through the curled fingers from the little finger to the thumb, thumb on top, knuckles out, fingers pointing forward.
-  _pose(hand, elbow, at, sx, gr, axis = null, palm = null) {
-    const U = hand.userData, y = at.clone().sub(elbow).normalize();
+  // sh, mv: the shoulder, and how far the arm is into a move (0 at either end, 1 half way)
+  _pose(hand, elbow, at, sx, gr, axis = null, palm = null, sh = null, mv = 0) {
+    const U = hand.userData, y = at.clone().sub(elbow);
+    // the hand aims along elbow -> hand. When a moving hand sweeps past the elbow point (an arm swinging out from the
+    // side to reach), that line shrinks to nothing and turns round in a frame or two, which spun the hand; below 14 cm
+    // the shoulder -> hand line takes over smoothly, as the arm's own curve does near its end. Only during a move, so a
+    // pose at rest keeps its own hand; for now only on a reach to or from a held object (palm), the one place it is tested
+    if (sh && mv > 0 && palm) { const k = Math.min(1, Math.max(0, (0.14 - y.length()) / 0.1)) * mv; if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k * k * (3 - 2 * k)); }
+    if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
     const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
     z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
     hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y, z), y, z));
@@ -171,12 +178,17 @@ export class Character {
       if (palm.wrap) zp.y = 0;
       if (zp.lengthSq() > 1e-6) {
         zp.normalize();
-        if (palm.wrap) { fy.crossVectors(new THREE.Vector3(0, 1, 0), zp); if (fy.x * at.x + fy.z * at.z < 0) fy.negate(); }
+        if (palm.wrap) { fy.crossVectors(new THREE.Vector3(0, 1, 0), zp); if ((palm.side ?? fy.x * at.x + fy.z * at.z) < 0) fy.negate(); }
         fy.addScaledVector(zp, -fy.dot(zp));
         if (fy.lengthSq() > 1e-6) {
           fy.normalize();
           _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(fy, zp), fy, zp));
-          hand.quaternion.slerp(_fist, palm.w);
+          // close to half a turn from the hand's own pose, the shortest way round swaps sides from one frame to the next
+          // and spun the hand as it turned in or out (a reach, a release). Part way, the palm then turns only as the arm
+          // swings round and the way gets clear (fully below about 140 degrees); a hand on its hold (w 1) is untouched
+          const k = Math.min(1, Math.abs(hand.quaternion.dot(_fist)) / 0.35), f = k * k * (3 - 2 * k);
+          const g = Math.min(1, Math.max(0, (palm.w - 0.85) / 0.15)), on = g * g * (3 - 2 * g);
+          hand.quaternion.slerp(_fist, palm.w * f + (1 - f) * on);
         }
       }
     }
@@ -200,16 +212,21 @@ export class Character {
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
-  // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one
-  _palm(a, h, S) {
+  // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one.
+  // from, to: the hand at each end of the move. A wrap's fingers go round the side the hold at that end uses (away from
+  // the body), so they never flip over half way through a move as the hand crosses in front of the body
+  _palm(a, h, S, from = null, to = null) {
     const pt = (q) => (q && q.mix ? pt(q.mix.p < 0.5 ? q.mix.from : q.mix.pose) : q && q.palm ? q : null);
     const wt = (q) => (q && q.mix ? wt(q.mix.from) + (wt(q.mix.pose) - wt(q.mix.from)) * q.mix.p : q && q.palm ? 1 : 0);
     const p0 = pt(a.from), p1 = pt(a.pose), w = wt(a.from) * (1 - a.p) + wt(a.pose) * a.p;
     if (!(p0 || p1) || w <= 0) return null;
-    const to = (p) => new THREE.Vector3(p[0], LEG_H + this.H * p[1], p[2]), q0 = p0 && to(p0.palm), q1 = p1 && to(p1.palm);
-    const at = q0 && q1 ? q0.lerp(q1, a.p) : (q1 || q0);
+    const pv = (p) => new THREE.Vector3(p[0], LEG_H + this.H * p[1], p[2]), q0 = p0 && pv(p0.palm), q1 = p1 && pv(p1.palm);
+    const end = a.p < 0.5 ? (p0 ? 0 : 1) : (p1 ? 1 : 0), e = end ? q1 : q0, eh = end ? to : from;
+    // the side test of _pose, cross(up, palm - hand) . hand, at that end of the move
+    const side = e && eh ? Math.sign((e.z - eh[2]) * eh[0] - (e.x - eh[0]) * eh[2]) || 1 : null;
+    const at = q0 && q1 ? q0.clone().lerp(q1, a.p) : (q1 || q0).clone();
     at.y = LEG_H + (at.y - LEG_H) * S.y;
-    return { at, w, wrap: !!(a.p < 0.5 ? (p0 || p1).wrap : (p1 || p0).wrap) };
+    return { at, w, wrap: !!(end ? p1 : p0).wrap, side };
   }
   // where a prop held in hand s sits, in the root's space (the hand centre for ball hands)
   gripPoint(s) {
@@ -305,7 +322,7 @@ export class Character {
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
       this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S));
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))));
       this.arms[s].elbow = mid;
       this.arms[s].hand.visible = showLimbs;
       // legs
