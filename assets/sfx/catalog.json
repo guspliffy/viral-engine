@@ -6,6 +6,12 @@
    "url": "https://kenney.nl/assets/category:Audio",
    "license": "CC0 1.0 (public domain): commercial use, no credit needed",
    "downloaded": "2026-10-25"
+  },
+  "ai": {
+   "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+   "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
   }
  },
  "sounds": {
@@ -1926,6 +1932,166 @@
     "kenney/ui/rollover6.ogg"
    ],
    "gain": 0.35
+  },
+  "ai/katana-slice": {
+   "source": "ai",
+   "files": [
+    "ai/katana-slice/katana-slice-01.wav",
+    "ai/katana-slice/katana-slice-02.wav",
+    "ai/katana-slice/katana-slice-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "blade",
+    "katana",
+    "slice",
+    "samurai"
+   ]
+  },
+  "ai/step-wood": {
+   "source": "ai",
+   "files": [
+    "ai/step-wood/step-wood-01.wav",
+    "ai/step-wood/step-wood-02.wav",
+    "ai/step-wood/step-wood-03.wav",
+    "ai/step-wood/step-wood-04.wav",
+    "ai/step-wood/step-wood-05.wav",
+    "ai/step-wood/step-wood-06.wav",
+    "ai/step-wood/step-wood-07.wav",
+    "ai/step-wood/step-wood-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "wood"
+   ]
+  },
+  "ai/step-grass": {
+   "source": "ai",
+   "files": [
+    "ai/step-grass/step-grass-01.wav",
+    "ai/step-grass/step-grass-02.wav",
+    "ai/step-grass/step-grass-03.wav",
+    "ai/step-grass/step-grass-04.wav",
+    "ai/step-grass/step-grass-05.wav",
+    "ai/step-grass/step-grass-06.wav",
+    "ai/step-grass/step-grass-07.wav",
+    "ai/step-grass/step-grass-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "grass"
+   ]
+  },
+  "ai/step-concrete": {
+   "source": "ai",
+   "files": [
+    "ai/step-concrete/step-concrete-01.wav",
+    "ai/step-concrete/step-concrete-02.wav",
+    "ai/step-concrete/step-concrete-03.wav",
+    "ai/step-concrete/step-concrete-04.wav",
+    "ai/step-concrete/step-concrete-05.wav",
+    "ai/step-concrete/step-concrete-06.wav",
+    "ai/step-concrete/step-concrete-07.wav",
+    "ai/step-concrete/step-concrete-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "concrete"
+   ]
+  },
+  "ai/step-carpet": {
+   "source": "ai",
+   "files": [
+    "ai/step-carpet/step-carpet-01.wav",
+    "ai/step-carpet/step-carpet-02.wav",
+    "ai/step-carpet/step-carpet-03.wav",
+    "ai/step-carpet/step-carpet-04.wav",
+    "ai/step-carpet/step-carpet-05.wav",
+    "ai/step-carpet/step-carpet-06.wav",
+    "ai/step-carpet/step-carpet-07.wav",
+    "ai/step-carpet/step-carpet-08.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "footstep",
+    "carpet"
+   ]
+  },
+  "ai/key-press": {
+   "source": "ai",
+   "files": [
+    "ai/key-press/key-press-01.wav",
+    "ai/key-press/key-press-02.wav",
+    "ai/key-press/key-press-03.wav",
+    "ai/key-press/key-press-04.wav",
+    "ai/key-press/key-press-05.wav",
+    "ai/key-press/key-press-06.wav",
+    "ai/key-press/key-press-07.wav",
+    "ai/key-press/key-press-08.wav"
+   ],
+   "gain": 0.16,
+   "tags": [
+    "keyboard",
+    "typing",
+    "office"
+   ]
+  },
+  "ai/knock": {
+   "source": "ai",
+   "files": [
+    "ai/knock/knock-01.wav",
+    "ai/knock/knock-02.wav",
+    "ai/knock/knock-03.wav",
+    "ai/knock/knock-04.wav",
+    "ai/knock/knock-05.wav",
+    "ai/knock/knock-06.wav",
+    "ai/knock/knock-07.wav",
+    "ai/knock/knock-08.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "door",
+    "knock",
+    "wood"
+   ]
+  },
+  "ai/magic-zap": {
+   "source": "ai",
+   "files": [
+    "ai/magic-zap/magic-zap-01.wav",
+    "ai/magic-zap/magic-zap-02.wav",
+    "ai/magic-zap/magic-zap-03.wav",
+    "ai/magic-zap/magic-zap-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "magic",
+    "zap",
+    "spell",
+    "wizard"
+   ]
+  },
+  "ai/wing-flap": {
+   "source": "ai",
+   "files": [
+    "ai/wing-flap/wing-flap-01.wav",
+    "ai/wing-flap/wing-flap-02.wav",
+    "ai/wing-flap/wing-flap-03.wav",
+    "ai/wing-flap/wing-flap-04.wav",
+    "ai/wing-flap/wing-flap-05.wav",
+    "ai/wing-flap/wing-flap-06.wav",
+    "ai/wing-flap/wing-flap-07.wav",
+    "ai/wing-flap/wing-flap-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "wings",
+    "flap",
+    "phoenix"
+   ]
   }
  }
 }

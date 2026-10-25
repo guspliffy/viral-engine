@@ -1,0 +1,1052 @@
+{
+ "source": {
+  "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+  "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
+  "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+  "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
+ },
+ "sounds": [
+  {
+   "id": "katana-slice",
+   "kind": "sfx",
+   "files": [
+    "katana-slice/katana-slice-01.wav",
+    "katana-slice/katana-slice-02.wav",
+    "katana-slice/katana-slice-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "blade",
+    "katana",
+    "slice",
+    "samurai"
+   ],
+   "durationSec": 0.944,
+   "prompt": [
+    "katana sword slash, fast metal swish and clean slicing cut through an object, close up, dry, sound effect",
+    "samurai sword unsheathe and quick slash whoosh with sharp blade ring, anime sound effect"
+   ],
+   "seed": [
+    13,
+    12,
+    13
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.0,
+   "replaces": "shing",
+   "takes": [
+    {
+     "file": "katana-slice/katana-slice-01.wav",
+     "take": "p1-s13",
+     "prompt": "samurai sword unsheathe and quick slash whoosh with sharp blade ring, anime sound effect",
+     "seed": 13,
+     "startSec": 7.638,
+     "durationSec": 0.944,
+     "clap": 0.108,
+     "snrDb": 109.5,
+     "loudnessLUFS": -19.3
+    },
+    {
+     "file": "katana-slice/katana-slice-02.wav",
+     "take": "p1-s12",
+     "prompt": "samurai sword unsheathe and quick slash whoosh with sharp blade ring, anime sound effect",
+     "seed": 12,
+     "startSec": 0.648,
+     "durationSec": 1.371,
+     "clap": 0.091,
+     "snrDb": 170.6,
+     "loudnessLUFS": -20.0
+    },
+    {
+     "file": "katana-slice/katana-slice-03.wav",
+     "take": "p1-s13",
+     "prompt": "samurai sword unsheathe and quick slash whoosh with sharp blade ring, anime sound effect",
+     "seed": 13,
+     "startSec": 5.446,
+     "durationSec": 0.573,
+     "clap": 0.053,
+     "snrDb": 111.8,
+     "loudnessLUFS": -20.3
+    }
+   ]
+  },
+  {
+   "id": "step-wood",
+   "kind": "sfx",
+   "files": [
+    "step-wood/step-wood-01.wav",
+    "step-wood/step-wood-02.wav",
+    "step-wood/step-wood-03.wav",
+    "step-wood/step-wood-04.wav",
+    "step-wood/step-wood-05.wav",
+    "step-wood/step-wood-06.wav",
+    "step-wood/step-wood-07.wav",
+    "step-wood/step-wood-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "wood"
+   ],
+   "durationSec": 0.377,
+   "prompt": [
+    "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+    "single slow footsteps on wooden floorboards, indoor, shoes, close up, quiet background"
+   ],
+   "seed": [
+    21,
+    22,
+    21,
+    22,
+    21,
+    22,
+    21,
+    21
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.1,
+   "replaces": "hop/land",
+   "takes": [
+    {
+     "file": "step-wood/step-wood-01.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 6.275,
+     "durationSec": 0.4,
+     "clap": 0.15,
+     "snrDb": 59.0,
+     "loudnessLUFS": -24.9
+    },
+    {
+     "file": "step-wood/step-wood-02.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 1.012,
+     "durationSec": 0.387,
+     "clap": 0.12,
+     "snrDb": 58.5,
+     "loudnessLUFS": -23.1
+    },
+    {
+     "file": "step-wood/step-wood-03.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 0.138,
+     "durationSec": 0.297,
+     "clap": 0.115,
+     "snrDb": 59.1,
+     "loudnessLUFS": -20.3
+    },
+    {
+     "file": "step-wood/step-wood-04.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 1.648,
+     "durationSec": 0.373,
+     "clap": 0.115,
+     "snrDb": 60.6,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "step-wood/step-wood-05.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 7.474,
+     "durationSec": 0.38,
+     "clap": 0.108,
+     "snrDb": 51.8,
+     "loudnessLUFS": -24.3
+    },
+    {
+     "file": "step-wood/step-wood-06.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 5.561,
+     "durationSec": 0.4,
+     "clap": 0.105,
+     "snrDb": 59.5,
+     "loudnessLUFS": -21.4
+    },
+    {
+     "file": "step-wood/step-wood-07.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on wooden floorboards, indoor, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 6.128,
+     "durationSec": 0.263,
+     "clap": 0.052,
+     "snrDb": 40.6,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "step-wood/step-wood-08.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on wooden floorboards, indoor, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 3.608,
+     "durationSec": 0.331,
+     "clap": 0.04,
+     "snrDb": 36.7,
+     "loudnessLUFS": -20.6
+    }
+   ]
+  },
+  {
+   "id": "step-grass",
+   "kind": "sfx",
+   "files": [
+    "step-grass/step-grass-01.wav",
+    "step-grass/step-grass-02.wav",
+    "step-grass/step-grass-03.wav",
+    "step-grass/step-grass-04.wav",
+    "step-grass/step-grass-05.wav",
+    "step-grass/step-grass-06.wav",
+    "step-grass/step-grass-07.wav",
+    "step-grass/step-grass-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "grass"
+   ],
+   "durationSec": 0.257,
+   "prompt": [
+    "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+    "single slow footsteps on grass and leaves, outdoors, shoes, close up, quiet background"
+   ],
+   "seed": [
+    21,
+    21,
+    21,
+    21,
+    22,
+    22,
+    22,
+    21
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -17.5,
+   "replaces": "hop/land",
+   "takes": [
+    {
+     "file": "step-grass/step-grass-01.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on grass and leaves, outdoors, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 9.047,
+     "durationSec": 0.244,
+     "clap": -0.017,
+     "snrDb": 23.3,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "step-grass/step-grass-02.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on grass and leaves, outdoors, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 6.458,
+     "durationSec": 0.253,
+     "clap": -0.089,
+     "snrDb": 25.8,
+     "loudnessLUFS": -14.6
+    },
+    {
+     "file": "step-grass/step-grass-03.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 2.072,
+     "durationSec": 0.313,
+     "clap": -0.105,
+     "snrDb": 26.7,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "step-grass/step-grass-04.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 0.755,
+     "durationSec": 0.27,
+     "clap": -0.112,
+     "snrDb": 32.8,
+     "loudnessLUFS": -18.4
+    },
+    {
+     "file": "step-grass/step-grass-05.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 9.552,
+     "durationSec": 0.238,
+     "clap": -0.103,
+     "snrDb": 23.7,
+     "loudnessLUFS": -29.2
+    },
+    {
+     "file": "step-grass/step-grass-06.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 9.23,
+     "durationSec": 0.261,
+     "clap": -0.125,
+     "snrDb": 28.1,
+     "loudnessLUFS": -20.4
+    },
+    {
+     "file": "step-grass/step-grass-07.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 4.267,
+     "durationSec": 0.276,
+     "clap": -0.131,
+     "snrDb": 28.1,
+     "loudnessLUFS": -18.7
+    },
+    {
+     "file": "step-grass/step-grass-08.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on grass and leaves, outdoors, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 7.79,
+     "durationSec": 0.192,
+     "clap": -0.138,
+     "snrDb": 21.9,
+     "loudnessLUFS": -16.7
+    }
+   ]
+  },
+  {
+   "id": "step-concrete",
+   "kind": "sfx",
+   "files": [
+    "step-concrete/step-concrete-01.wav",
+    "step-concrete/step-concrete-02.wav",
+    "step-concrete/step-concrete-03.wav",
+    "step-concrete/step-concrete-04.wav",
+    "step-concrete/step-concrete-05.wav",
+    "step-concrete/step-concrete-06.wav",
+    "step-concrete/step-concrete-07.wav",
+    "step-concrete/step-concrete-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "footstep",
+    "concrete"
+   ],
+   "durationSec": 0.4,
+   "prompt": [
+    "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+    "single slow footsteps on concrete pavement, street, shoes, close up, quiet background"
+   ],
+   "seed": [
+    22,
+    22,
+    22,
+    22,
+    22,
+    21,
+    22,
+    21
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -26.4,
+   "replaces": "hop/land",
+   "takes": [
+    {
+     "file": "step-concrete/step-concrete-01.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 4.928,
+     "durationSec": 0.4,
+     "clap": 0.278,
+     "snrDb": 65.4,
+     "loudnessLUFS": -26.4
+    },
+    {
+     "file": "step-concrete/step-concrete-02.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 1.326,
+     "durationSec": 0.4,
+     "clap": 0.246,
+     "snrDb": 60.6,
+     "loudnessLUFS": -28.0
+    },
+    {
+     "file": "step-concrete/step-concrete-03.wav",
+     "take": "p1-s22",
+     "prompt": "single slow footsteps on concrete pavement, street, shoes, close up, quiet background",
+     "seed": 22,
+     "startSec": 6.179,
+     "durationSec": 0.4,
+     "clap": 0.224,
+     "snrDb": 63.8,
+     "loudnessLUFS": -27.6
+    },
+    {
+     "file": "step-concrete/step-concrete-04.wav",
+     "take": "p1-s22",
+     "prompt": "single slow footsteps on concrete pavement, street, shoes, close up, quiet background",
+     "seed": 22,
+     "startSec": 2.986,
+     "durationSec": 0.4,
+     "clap": 0.216,
+     "snrDb": 64.6,
+     "loudnessLUFS": -27.7
+    },
+    {
+     "file": "step-concrete/step-concrete-05.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 5.619,
+     "durationSec": 0.4,
+     "clap": 0.214,
+     "snrDb": 66.9,
+     "loudnessLUFS": -26.4
+    },
+    {
+     "file": "step-concrete/step-concrete-06.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on concrete pavement, street, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 4.917,
+     "durationSec": 0.366,
+     "clap": 0.219,
+     "snrDb": 27.0,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "step-concrete/step-concrete-07.wav",
+     "take": "p1-s22",
+     "prompt": "single slow footsteps on concrete pavement, street, shoes, close up, quiet background",
+     "seed": 22,
+     "startSec": 1.698,
+     "durationSec": 0.4,
+     "clap": 0.189,
+     "snrDb": 54.8,
+     "loudnessLUFS": -19.7
+    },
+    {
+     "file": "step-concrete/step-concrete-08.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 1.228,
+     "durationSec": 0.267,
+     "clap": 0.157,
+     "snrDb": 20.1,
+     "loudnessLUFS": -22.2
+    }
+   ]
+  },
+  {
+   "id": "step-carpet",
+   "kind": "sfx",
+   "files": [
+    "step-carpet/step-carpet-01.wav",
+    "step-carpet/step-carpet-02.wav",
+    "step-carpet/step-carpet-03.wav",
+    "step-carpet/step-carpet-04.wav",
+    "step-carpet/step-carpet-05.wav",
+    "step-carpet/step-carpet-06.wav",
+    "step-carpet/step-carpet-07.wav",
+    "step-carpet/step-carpet-08.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "footstep",
+    "carpet"
+   ],
+   "durationSec": 0.294,
+   "prompt": [
+    "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+    "single slow footsteps on soft carpet, indoor room, shoes, close up, quiet background"
+   ],
+   "seed": [
+    22,
+    22,
+    21,
+    21,
+    22,
+    21,
+    22,
+    21
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.6,
+   "replaces": "hop/land",
+   "takes": [
+    {
+     "file": "step-carpet/step-carpet-01.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 5.533,
+     "durationSec": 0.376,
+     "clap": 0.11,
+     "snrDb": 42.8,
+     "loudnessLUFS": -26.8
+    },
+    {
+     "file": "step-carpet/step-carpet-02.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 6.835,
+     "durationSec": 0.4,
+     "clap": 0.103,
+     "snrDb": 44.8,
+     "loudnessLUFS": -26.7
+    },
+    {
+     "file": "step-carpet/step-carpet-03.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 6.453,
+     "durationSec": 0.286,
+     "clap": 0.095,
+     "snrDb": 54.2,
+     "loudnessLUFS": -24.3
+    },
+    {
+     "file": "step-carpet/step-carpet-04.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 2.258,
+     "durationSec": 0.247,
+     "clap": 0.095,
+     "snrDb": 43.6,
+     "loudnessLUFS": -22.9
+    },
+    {
+     "file": "step-carpet/step-carpet-05.wav",
+     "take": "p0-s22",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 22,
+     "startSec": 4.913,
+     "durationSec": 0.381,
+     "clap": 0.086,
+     "snrDb": 48.1,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "step-carpet/step-carpet-06.wav",
+     "take": "p0-s21",
+     "prompt": "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+     "seed": 21,
+     "startSec": 5.637,
+     "durationSec": 0.301,
+     "clap": 0.078,
+     "snrDb": 45.7,
+     "loudnessLUFS": -25.0
+    },
+    {
+     "file": "step-carpet/step-carpet-07.wav",
+     "take": "p1-s22",
+     "prompt": "single slow footsteps on soft carpet, indoor room, shoes, close up, quiet background",
+     "seed": 22,
+     "startSec": 0.401,
+     "durationSec": 0.287,
+     "clap": 0.041,
+     "snrDb": 37.9,
+     "loudnessLUFS": -25.4
+    },
+    {
+     "file": "step-carpet/step-carpet-08.wav",
+     "take": "p1-s21",
+     "prompt": "single slow footsteps on soft carpet, indoor room, shoes, close up, quiet background",
+     "seed": 21,
+     "startSec": 6.169,
+     "durationSec": 0.205,
+     "clap": -0.003,
+     "snrDb": 43.9,
+     "loudnessLUFS": -21.6
+    }
+   ]
+  },
+  {
+   "id": "key-press",
+   "kind": "sfx",
+   "files": [
+    "key-press/key-press-01.wav",
+    "key-press/key-press-02.wav",
+    "key-press/key-press-03.wav",
+    "key-press/key-press-04.wav",
+    "key-press/key-press-05.wav",
+    "key-press/key-press-06.wav",
+    "key-press/key-press-07.wav",
+    "key-press/key-press-08.wav"
+   ],
+   "gain": 0.16,
+   "tags": [
+    "keyboard",
+    "typing",
+    "office"
+   ],
+   "durationSec": 0.138,
+   "prompt": [
+    "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+    "person pressing keys one at a time on a laptop keyboard, close up clicks, quiet room"
+   ],
+   "seed": [
+    31,
+    31,
+    32,
+    33,
+    32,
+    31,
+    32,
+    32
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.9,
+   "replaces": "office ambience clatter",
+   "takes": [
+    {
+     "file": "key-press/key-press-01.wav",
+     "take": "p0-s31",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 31,
+     "startSec": 4.789,
+     "durationSec": 0.226,
+     "clap": 0.53,
+     "snrDb": 49.1,
+     "loudnessLUFS": -23.3
+    },
+    {
+     "file": "key-press/key-press-02.wav",
+     "take": "p0-s31",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 31,
+     "startSec": 8.955,
+     "durationSec": 0.127,
+     "clap": 0.491,
+     "snrDb": 44.7,
+     "loudnessLUFS": -25.9
+    },
+    {
+     "file": "key-press/key-press-03.wav",
+     "take": "p0-s32",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 32,
+     "startSec": 4.863,
+     "durationSec": 0.063,
+     "clap": 0.487,
+     "snrDb": 59.9,
+     "loudnessLUFS": -26.4
+    },
+    {
+     "file": "key-press/key-press-04.wav",
+     "take": "p0-s33",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 33,
+     "startSec": 4.447,
+     "durationSec": 0.148,
+     "clap": 0.483,
+     "snrDb": 44.0,
+     "loudnessLUFS": -22.9
+    },
+    {
+     "file": "key-press/key-press-05.wav",
+     "take": "p1-s32",
+     "prompt": "person pressing keys one at a time on a laptop keyboard, close up clicks, quiet room",
+     "seed": 32,
+     "startSec": 3.812,
+     "durationSec": 0.071,
+     "clap": 0.479,
+     "snrDb": 46.4,
+     "loudnessLUFS": -25.3
+    },
+    {
+     "file": "key-press/key-press-06.wav",
+     "take": "p0-s31",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 31,
+     "startSec": 5.103,
+     "durationSec": 0.171,
+     "clap": 0.469,
+     "snrDb": 48.6,
+     "loudnessLUFS": -21.3
+    },
+    {
+     "file": "key-press/key-press-07.wav",
+     "take": "p0-s32",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 32,
+     "startSec": 7.551,
+     "durationSec": 0.248,
+     "clap": 0.466,
+     "snrDb": 66.5,
+     "loudnessLUFS": -21.4
+    },
+    {
+     "file": "key-press/key-press-08.wav",
+     "take": "p0-s32",
+     "prompt": "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+     "seed": 32,
+     "startSec": 2.979,
+     "durationSec": 0.08,
+     "clap": 0.462,
+     "snrDb": 63.4,
+     "loudnessLUFS": -24.4
+    }
+   ]
+  },
+  {
+   "id": "knock",
+   "kind": "sfx",
+   "files": [
+    "knock/knock-01.wav",
+    "knock/knock-02.wav",
+    "knock/knock-03.wav",
+    "knock/knock-04.wav",
+    "knock/knock-05.wav",
+    "knock/knock-06.wav",
+    "knock/knock-07.wav",
+    "knock/knock-08.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "door",
+    "knock",
+    "wood"
+   ],
+   "durationSec": 0.45,
+   "prompt": [
+    "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+    "someone knocking on a solid wooden door, knock knock knock, indoor"
+   ],
+   "seed": [
+    42,
+    43,
+    42,
+    42,
+    42,
+    43,
+    43,
+    43
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "knock/knock-01.wav",
+     "take": "p0-s42",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 42,
+     "startSec": 2.402,
+     "durationSec": 0.45,
+     "clap": 0.155,
+     "snrDb": 82.7,
+     "loudnessLUFS": -22.2
+    },
+    {
+     "file": "knock/knock-02.wav",
+     "take": "p0-s43",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 43,
+     "startSec": 4.38,
+     "durationSec": 0.45,
+     "clap": 0.128,
+     "snrDb": 72.4,
+     "loudnessLUFS": -20.8
+    },
+    {
+     "file": "knock/knock-03.wav",
+     "take": "p0-s42",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 42,
+     "startSec": 2.146,
+     "durationSec": 0.251,
+     "clap": 0.124,
+     "snrDb": 81.3,
+     "loudnessLUFS": -22.7
+    },
+    {
+     "file": "knock/knock-04.wav",
+     "take": "p0-s42",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 42,
+     "startSec": 4.264,
+     "durationSec": 0.261,
+     "clap": 0.123,
+     "snrDb": 80.0,
+     "loudnessLUFS": -22.6
+    },
+    {
+     "file": "knock/knock-05.wav",
+     "take": "p1-s42",
+     "prompt": "someone knocking on a solid wooden door, knock knock knock, indoor",
+     "seed": 42,
+     "startSec": 2.525,
+     "durationSec": 0.45,
+     "clap": 0.117,
+     "snrDb": 73.2,
+     "loudnessLUFS": -25.1
+    },
+    {
+     "file": "knock/knock-06.wav",
+     "take": "p0-s43",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 43,
+     "startSec": 2.404,
+     "durationSec": 0.45,
+     "clap": 0.109,
+     "snrDb": 68.4,
+     "loudnessLUFS": -23.1
+    },
+    {
+     "file": "knock/knock-07.wav",
+     "take": "p0-s43",
+     "prompt": "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+     "seed": 43,
+     "startSec": 1.862,
+     "durationSec": 0.251,
+     "clap": 0.105,
+     "snrDb": 66.9,
+     "loudnessLUFS": -23.3
+    },
+    {
+     "file": "knock/knock-08.wav",
+     "take": "p1-s43",
+     "prompt": "someone knocking on a solid wooden door, knock knock knock, indoor",
+     "seed": 43,
+     "startSec": 2.544,
+     "durationSec": 0.45,
+     "clap": 0.095,
+     "snrDb": 66.5,
+     "loudnessLUFS": -21.9
+    }
+   ]
+  },
+  {
+   "id": "magic-zap",
+   "kind": "sfx",
+   "files": [
+    "magic-zap/magic-zap-01.wav",
+    "magic-zap/magic-zap-02.wav",
+    "magic-zap/magic-zap-03.wav",
+    "magic-zap/magic-zap-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "magic",
+    "zap",
+    "spell",
+    "wizard"
+   ],
+   "durationSec": 2.0,
+   "prompt": [
+    "cartoon magic spell zap, sparkling shimmer and electric zap, fantasy game sound effect, dry",
+    "wizard casting a magic bolt, bright twinkling sparkle and energy blast, video game sound effect"
+   ],
+   "seed": [
+    51,
+    52,
+    52,
+    53
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.4,
+   "replaces": "charge/poof",
+   "takes": [
+    {
+     "file": "magic-zap/magic-zap-01.wav",
+     "take": "p1-s51",
+     "prompt": "wizard casting a magic bolt, bright twinkling sparkle and energy blast, video game sound effect",
+     "seed": 51,
+     "startSec": 0.001,
+     "durationSec": 2.0,
+     "clap": 0.13,
+     "snrDb": 88.9,
+     "loudnessLUFS": -15.4
+    },
+    {
+     "file": "magic-zap/magic-zap-02.wav",
+     "take": "p1-s52",
+     "prompt": "wizard casting a magic bolt, bright twinkling sparkle and energy blast, video game sound effect",
+     "seed": 52,
+     "startSec": 0.362,
+     "durationSec": 2.0,
+     "clap": 0.125,
+     "snrDb": 85.3,
+     "loudnessLUFS": -15.8
+    },
+    {
+     "file": "magic-zap/magic-zap-03.wav",
+     "take": "p0-s52",
+     "prompt": "cartoon magic spell zap, sparkling shimmer and electric zap, fantasy game sound effect, dry",
+     "seed": 52,
+     "startSec": 0.044,
+     "durationSec": 2.0,
+     "clap": 0.106,
+     "snrDb": 56.7,
+     "loudnessLUFS": -11.4
+    },
+    {
+     "file": "magic-zap/magic-zap-04.wav",
+     "take": "p1-s53",
+     "prompt": "wizard casting a magic bolt, bright twinkling sparkle and energy blast, video game sound effect",
+     "seed": 53,
+     "startSec": 0.0,
+     "durationSec": 2.0,
+     "clap": 0.105,
+     "snrDb": 67.1,
+     "loudnessLUFS": -15.4
+    }
+   ]
+  },
+  {
+   "id": "wing-flap",
+   "kind": "sfx",
+   "files": [
+    "wing-flap/wing-flap-01.wav",
+    "wing-flap/wing-flap-02.wav",
+    "wing-flap/wing-flap-03.wav",
+    "wing-flap/wing-flap-04.wav",
+    "wing-flap/wing-flap-05.wav",
+    "wing-flap/wing-flap-06.wav",
+    "wing-flap/wing-flap-07.wav",
+    "wing-flap/wing-flap-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "wings",
+    "flap",
+    "phoenix"
+   ],
+   "durationSec": 0.476,
+   "prompt": [
+    "large bird wings flapping, heavy feathered wing beats, whooshing air, close up",
+    "big wings flapping steadily as a creature hovers in the air, feathers, whoosh"
+   ],
+   "seed": [
+    62,
+    63,
+    62,
+    62,
+    62,
+    62,
+    62,
+    61
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wing-flap/wing-flap-01.wav",
+     "take": "p0-s62",
+     "prompt": "large bird wings flapping, heavy feathered wing beats, whooshing air, close up",
+     "seed": 62,
+     "startSec": 7.782,
+     "durationSec": 0.371,
+     "clap": -0.079,
+     "snrDb": 65.5,
+     "loudnessLUFS": -23.0
+    },
+    {
+     "file": "wing-flap/wing-flap-02.wav",
+     "take": "p1-s63",
+     "prompt": "big wings flapping steadily as a creature hovers in the air, feathers, whoosh",
+     "seed": 63,
+     "startSec": 1.167,
+     "durationSec": 0.516,
+     "clap": -0.11,
+     "snrDb": 55.9,
+     "loudnessLUFS": -25.6
+    },
+    {
+     "file": "wing-flap/wing-flap-03.wav",
+     "take": "p1-s62",
+     "prompt": "big wings flapping steadily as a creature hovers in the air, feathers, whoosh",
+     "seed": 62,
+     "startSec": 8.236,
+     "durationSec": 0.483,
+     "clap": -0.116,
+     "snrDb": 46.7,
+     "loudnessLUFS": -22.8
+    },
+    {
+     "file": "wing-flap/wing-flap-04.wav",
+     "take": "p1-s62",
+     "prompt": "big wings flapping steadily as a creature hovers in the air, feathers, whoosh",
+     "seed": 62,
+     "startSec": 5.52,
+     "durationSec": 0.486,
+     "clap": -0.118,
+     "snrDb": 49.8,
+     "loudnessLUFS": -26.6
+    },
+    {
+     "file": "wing-flap/wing-flap-05.wav",
+     "take": "p0-s62",
+     "prompt": "large bird wings flapping, heavy feathered wing beats, whooshing air, close up",
+     "seed": 62,
+     "startSec": 6.951,
+     "durationSec": 0.349,
+     "clap": -0.127,
+     "snrDb": 69.7,
+     "loudnessLUFS": -26.2
+    },
+    {
+     "file": "wing-flap/wing-flap-06.wav",
+     "take": "p0-s62",
+     "prompt": "large bird wings flapping, heavy feathered wing beats, whooshing air, close up",
+     "seed": 62,
+     "startSec": 0.237,
+     "durationSec": 0.329,
+     "clap": -0.128,
+     "snrDb": 70.9,
+     "loudnessLUFS": -23.2
+    },
+    {
+     "file": "wing-flap/wing-flap-07.wav",
+     "take": "p1-s62",
+     "prompt": "big wings flapping steadily as a creature hovers in the air, feathers, whoosh",
+     "seed": 62,
+     "startSec": 3.081,
+     "durationSec": 0.469,
+     "clap": -0.128,
+     "snrDb": 45.4,
+     "loudnessLUFS": -22.5
+    },
+    {
+     "file": "wing-flap/wing-flap-08.wav",
+     "take": "p1-s61",
+     "prompt": "big wings flapping steadily as a creature hovers in the air, feathers, whoosh",
+     "seed": 61,
+     "startSec": 5.355,
+     "durationSec": 0.508,
+     "clap": -0.135,
+     "snrDb": 62.0,
+     "loudnessLUFS": -22.9
+    }
+   ]
+  }
+ ]
+}

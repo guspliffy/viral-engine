@@ -1,0 +1,291 @@
+{
+ "_note": "Recipes for AI-generated sounds (Stable Audio 3 Small via sa3.cpp). generate.py renders every prompt x seed as a raw take; pick.py cuts the usable part, ranks takes with CLAP and writes the library (assets/sfx/ai, assets/music/ai). kind: oneshot = keep the best single event, split = cut the take into single hits (one footfall, key press, knock or flap per file), loop = a music bed of exact bars. gain = catalog loudness next to the engine's code effects (the loader peak-normalises every take).",
+ "sfx": [
+  {
+   "id": "katana-slice",
+   "kind": "oneshot",
+   "len": [
+    0.5,
+    1.4
+   ],
+   "duration": 10,
+   "replaces": "shing",
+   "prompts": [
+    "katana sword slash, fast metal swish and clean slicing cut through an object, close up, dry, sound effect",
+    "samurai sword unsheathe and quick slash whoosh with sharp blade ring, anime sound effect"
+   ],
+   "seeds": [
+    11,
+    12,
+    13
+   ],
+   "tags": [
+    "blade",
+    "katana",
+    "slice",
+    "samurai"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "step-wood",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.4
+   ],
+   "duration": 10,
+   "replaces": "hop/land",
+   "tags": [
+    "footstep",
+    "wood"
+   ],
+   "prompts": [
+    "footsteps of a person walking slowly on wooden floorboards, indoor, clear separate steps, close up, no music",
+    "single slow footsteps on wooden floorboards, indoor, shoes, close up, quiet background"
+   ],
+   "seeds": [
+    21,
+    22
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "step-grass",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.4
+   ],
+   "duration": 10,
+   "replaces": "hop/land",
+   "tags": [
+    "footstep",
+    "grass"
+   ],
+   "prompts": [
+    "footsteps of a person walking slowly on grass and leaves, outdoors, clear separate steps, close up, no music",
+    "single slow footsteps on grass and leaves, outdoors, shoes, close up, quiet background"
+   ],
+   "seeds": [
+    21,
+    22
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "step-concrete",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.4
+   ],
+   "duration": 10,
+   "replaces": "hop/land",
+   "tags": [
+    "footstep",
+    "concrete"
+   ],
+   "prompts": [
+    "footsteps of a person walking slowly on concrete pavement, street, clear separate steps, close up, no music",
+    "single slow footsteps on concrete pavement, street, shoes, close up, quiet background"
+   ],
+   "seeds": [
+    21,
+    22
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "step-carpet",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.4
+   ],
+   "duration": 10,
+   "replaces": "hop/land",
+   "tags": [
+    "footstep",
+    "carpet"
+   ],
+   "prompts": [
+    "footsteps of a person walking slowly on soft carpet, indoor room, clear separate steps, close up, no music",
+    "single slow footsteps on soft carpet, indoor room, shoes, close up, quiet background"
+   ],
+   "seeds": [
+    21,
+    22
+   ],
+   "gain": 0.35
+  },
+  {
+   "id": "key-press",
+   "kind": "split",
+   "len": [
+    0.06,
+    0.25
+   ],
+   "duration": 10,
+   "replaces": "office ambience clatter",
+   "prompts": [
+    "slow typing on a mechanical computer keyboard, separate clicky key presses, close up, quiet office",
+    "person pressing keys one at a time on a laptop keyboard, close up clicks, quiet room"
+   ],
+   "seeds": [
+    31,
+    32,
+    33
+   ],
+   "tags": [
+    "keyboard",
+    "typing",
+    "office"
+   ],
+   "gain": 0.16
+  },
+  {
+   "id": "knock",
+   "kind": "split",
+   "len": [
+    0.12,
+    0.45
+   ],
+   "duration": 8,
+   "replaces": null,
+   "prompts": [
+    "slow knocks on a wooden door, knuckles, separate knocks, close up, dry hallway",
+    "someone knocking on a solid wooden door, knock knock knock, indoor"
+   ],
+   "seeds": [
+    41,
+    42,
+    43
+   ],
+   "tags": [
+    "door",
+    "knock",
+    "wood"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "magic-zap",
+   "kind": "oneshot",
+   "len": [
+    0.7,
+    2.0
+   ],
+   "duration": 8,
+   "replaces": "charge/poof",
+   "prompts": [
+    "cartoon magic spell zap, sparkling shimmer and electric zap, fantasy game sound effect, dry",
+    "wizard casting a magic bolt, bright twinkling sparkle and energy blast, video game sound effect"
+   ],
+   "seeds": [
+    51,
+    52,
+    53
+   ],
+   "tags": [
+    "magic",
+    "zap",
+    "spell",
+    "wizard"
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "wing-flap",
+   "kind": "split",
+   "len": [
+    0.25,
+    0.7
+   ],
+   "duration": 10,
+   "replaces": null,
+   "prompts": [
+    "large bird wings flapping, heavy feathered wing beats, whooshing air, close up",
+    "big wings flapping steadily as a creature hovers in the air, feathers, whoosh"
+   ],
+   "seeds": [
+    61,
+    62,
+    63
+   ],
+   "tags": [
+    "wings",
+    "flap",
+    "phoenix"
+   ],
+   "gain": 0.3
+  }
+ ],
+ "music": [
+  {
+   "id": "elevator-bossa",
+   "bpm": 92,
+   "bars": 8,
+   "prompts": [
+    "smooth bossa nova elevator music, soft nylon guitar, electric piano, light brushed drums, upright bass, relaxed lounge, 92 BPM"
+   ],
+   "seeds": [
+    101,
+    102
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "sneaky",
+   "bpm": 104,
+   "bars": 8,
+   "prompts": [
+    "sneaky cartoon tiptoe music, pizzicato strings, bassoon and muted plucks, playful suspense, 104 BPM"
+   ],
+   "seeds": [
+    111,
+    112
+   ],
+   "mood": "sneaky"
+  },
+  {
+   "id": "spooky",
+   "bpm": 84,
+   "bars": 8,
+   "prompts": [
+    "spooky halloween music, eerie music box, theremin, low strings, playful creepy cartoon mood, 84 BPM"
+   ],
+   "seeds": [
+    121,
+    122
+   ],
+   "mood": "spooky"
+  },
+  {
+   "id": "epic",
+   "bpm": 120,
+   "bars": 8,
+   "prompts": [
+    "epic orchestral battle music, big taiko drums, heroic brass, driving strings, trailer style, 120 BPM"
+   ],
+   "seeds": [
+    131,
+    132
+   ],
+   "mood": "epic"
+  },
+  {
+   "id": "sad",
+   "bpm": 70,
+   "bars": 4,
+   "prompts": [
+    "sad slow piano melody with soft strings, melancholic, emotional, gentle, 70 BPM"
+   ],
+   "seeds": [
+    141,
+    142
+   ],
+   "mood": "sad"
+  }
+ ]
+}
