@@ -23,6 +23,7 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // so it is the same whatever order frames are drawn in (stills, drafts and full renders agree).
 // fine face controls on top of the expression (face.js Face.set): per-eye lid closing, per-side brow height and tilt,
 // per-side mouth corners and pressed lips. All 0 by default; "face" actions blend them.
+const neutralExpr = (def) => { const n = def.face?.neutral || {}, o = {}; for (const k in EXPRESSIONS.kind) if (n[k] != null) o[k] = n[k]; return o; };
 export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press"];
 const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"] };
 // mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
@@ -32,8 +33,14 @@ export const GRIPS = {
   fist:  { curl: 1.2,  index: 1.2,  thumb: 1.0 },
   pinch: { curl: 0.7,  index: 0.85, thumb: 1.0 },    // thumb and index meet: a cup handle, a lid
   point: { curl: 1.15, index: 0.0,  thumb: 0.9 },
+  cup:   { curl: 0.55, index: 0.5,  thumb: 0.45 },   // cradling something round: an orb, a jar from below
+  flat:  { curl: 0.0,  index: 0.0,  thumb: 0.0 },    // open palm
 };
 const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t) });
+
+// a blink at 30 fps: closes over about 2.5 frames, shut for one, reopens over about 4 (u: seconds since it began)
+export const BLINK_LEN = 0.26;
+export const blinkAt = (u) => (u < 0 || u > BLINK_LEN ? 0 : u < 0.08 ? Math.sin((u / 0.08) * Math.PI / 2) : u < 0.11 ? 1 : 0.5 + 0.5 * Math.cos(((u - 0.11) / 0.15) * Math.PI));
 
 const PHASES = new WeakMap(), STEP = 1 / 120;
 function phases(sb, actor, def, t) {
@@ -63,12 +70,14 @@ export function actorState(sb, actor, def, t, raw = false) {
   const c = actor;
   const st = {
     x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1,
-    expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind) },
+    // the character's designed neutral face (face.neutral in its file) sits on top of its default expression; an
+    // explicit c.expr or an "expr" action is acting and replaces it
+    expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
-    face: Object.fromEntries(FACE_KEYS.map((k) => [k, 0])),
+    face: Object.fromEntries(FACE_KEYS.map((k) => [k, def.face?.neutral?.[k] ?? 0])),
     grip: { R: { ...(GRIPS[c.grip?.R || def.hands?.grip?.R] || GRIPS.open) }, L: { ...(GRIPS[c.grip?.L || def.hands?.grip?.L] || GRIPS.open) } },
     hatTip: [0, 0], hatBrim: 0,
   };
@@ -112,7 +121,11 @@ export function actorState(sb, actor, def, t, raw = false) {
       // tip forward (+) or back about the body's middle; 360 is a flip (see the pivot below the loop)
       case "pitch": st.flip = lerp(st.flip, ((a.to ?? 0) * Math.PI) / 180, e); break;
       case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
-      case "look": st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
+      case "look": {
+        // a big change of attention starts with a blink (a.blink: false turns it off)
+        if (a.blink !== false && Math.hypot(a.to[0] - st.look[0], a.to[1] - st.look[1]) > 0.6) st.blink = Math.max(st.blink, blinkAt(t - a.at));
+        st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
+      }
       case "talk": {
         // mouth follows the same syllables the voice synth speaks (engine/shared/syllables.js)
         if (t < a.at + (a.dur ?? 1)) {
@@ -125,7 +138,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: a.pose, p: e };
         break;
       }
-      case "blink": if (p < 1) st.blink = Math.sin(p * Math.PI); break;
+      case "blink": if (p < 1) st.blink = a.dur ? Math.sin(p * Math.PI) : blinkAt(t - a.at); break;
       case "noblink": autoBlink = false; break;
       // purposeful stillness: idle breathing and sway fade down to `idle` (default 0.25, 0 = dead still) and back up
       // over `fade` s at either end, while the body sinks a little (`sink`) so the hold doesn't read as frozen;
@@ -260,8 +273,8 @@ export function actorState(sb, actor, def, t, raw = false) {
   st.squash *= (1 + 0.012 * idle * Math.sin(t * 6.283 * 0.8 + seed)) * (1 - sink);
   st.lean += 0.012 * idle * wobble(t, seed, 0.35);
   if (autoBlink && st.blink === 0) {
-    const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = ((t + off) % period) / period, bl = 0.13 / period;
-    if (ph < bl && blinkFree(sb, c.id, t - ph * period)) st.blink = Math.sin((ph / bl) * Math.PI);
+    const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = (t + off) % period;
+    if (blinkFree(sb, c.id, t - ph)) st.blink = blinkAt(ph);
   }
   if (!raw) { Object.assign(st, phases(sb, actor, def, t)); resolveArms(sb, st, def, t); }
   return st;

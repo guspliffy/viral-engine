@@ -72,7 +72,7 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids ? this.skin : null, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     this.potatoParts.add(this.face.group);
 
     // limbs
@@ -81,7 +81,7 @@ export class Character {
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
     this.legs = { R: { mesh: null, foot: null }, L: { mesh: null, foot: null } };
     for (const s of ["R", "L"]) {
-      const hand = def.hands?.type === "mitten" ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
+      const hand = (def.hands?.type ?? "mitten") === "mitten" ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
       hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
