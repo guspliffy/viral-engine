@@ -29,16 +29,17 @@ function sprout(color) {
   return { group: g, droop(d) { for (const L of leaves) L.pivot.rotation.z = -L.s * 0.9 * d; } };
 }
 
-// soft folds in a tube made by taperedTube: ripples round the cone and a few crumple rings, stronger towards the tip
+// a few deliberate folds in a tube made by taperedTube (no fine wrinkles): three broad ripples round the cone and two
+// soft dents where the cloth gives under its own weight, stronger towards the tip
 function crumple(geo, curve, segs, radial, amount) {
   const p = geo.attributes.position, c = new THREE.Vector3(), v = new THREE.Vector3();
   for (let i = 0; i <= segs; i++) {
     const t = i / segs; curve.getPointAt(t, c);
-    const ring = Math.max(0, Math.sin(t * Math.PI * 4.5 + 0.6)) ** 3, k = amount * (0.35 + t);
+    const dent = Math.exp(-(((t - 0.42) / 0.07) ** 2)) + 0.8 * Math.exp(-(((t - 0.68) / 0.06) ** 2)), k = amount * (0.3 + t);
     for (let j = 0; j <= radial; j++) {
       const n = i * (radial + 1) + j, a = (j / radial) * Math.PI * 2;
       v.fromBufferAttribute(p, n).sub(c);
-      const f = 1 + k * (0.07 * Math.sin(3 * a + t * 7) + 0.04 * Math.sin(7 * a - t * 11)) - k * 0.1 * ring * (0.6 + 0.4 * Math.cos(a - 1));
+      const f = 1 + k * 0.06 * Math.sin(3 * a + t * 4) - k * 0.09 * dent * (0.5 + 0.5 * Math.cos(a - 0.8));
       v.multiplyScalar(f).add(c); p.setXYZ(n, v.x, v.y, v.z);
     }
   }
@@ -46,14 +47,17 @@ function crumple(geo, curve, segs, radial, amount) {
   return geo;
 }
 
-// the portraits' wizard hat: a wide, slightly wavy brim, a tall soft cone with folds, its tip flopping back and over
+// the portraits' wizard hat: a wide soft brim with a thin rolled edge, a tall cone with a few folds, its tip flopping
+// back and over. The tip and the brim are driven by sway(tip, brim) (timeline "hatsway" / "hatwobble"): the cone bends
+// smoothly above its middle and the brim tips front to back, both by moving the vertices, so there is no seam.
 function wizardHat(C) {
   const g = new THREE.Group();
-  const felt = new THREE.MeshStandardMaterial({ color: C.accent, roughness: 0.82 });
+  // both sides: the lathe's top faces point down, so a one-sided brim showed its underside and let the head poke through
+  const felt = new THREE.MeshStandardMaterial({ color: C.accent, roughness: 0.82, side: THREE.DoubleSide });
   const band = new THREE.MeshStandardMaterial({ color: C.band || "#222", roughness: 0.6 });
-  const brimG = lathe([[0.0, 0.02], [0.2, 0.025], [0.36, 0.012], [0.47, -0.035], [0.47, -0.055], [0.36, -0.01], [0.2, 0.0], [0.0, 0.0]], 96);
+  const brimG = lathe([[0.0, 0.02], [0.2, 0.025], [0.36, 0.012], [0.452, -0.022], [0.47, -0.026], [0.478, -0.038], [0.472, -0.05], [0.455, -0.052], [0.36, -0.012], [0.2, 0.0], [0.0, 0.0]], 96);
   const bp = brimG.attributes.position;
-  for (let i = 0; i < bp.count; i++) { const x = bp.getX(i), z = bp.getZ(i), r = Math.hypot(x, z), a = Math.atan2(z, x), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, bp.getY(i) + k * k * (0.022 * Math.sin(5 * a + 0.7) + 0.012 * Math.sin(3 * a))); }
+  for (let i = 0; i < bp.count; i++) { const x = bp.getX(i), z = bp.getZ(i), r = Math.hypot(x, z), a = Math.atan2(z, x), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, bp.getY(i) + k * k * (0.02 * Math.sin(3 * a + 0.7) + 0.008 * Math.sin(2 * a))); }
   brimG.computeVertexNormals();
   const brim = new THREE.Mesh(brimG, felt); brim.castShadow = true; g.add(brim);
   const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.28, -0.02), new THREE.Vector3(0.02, 0.5, -0.06), new THREE.Vector3(0.11, 0.66, -0.12), new THREE.Vector3(0.24, 0.68, -0.17)]);
@@ -61,7 +65,24 @@ function wizardHat(C) {
   const coneG = crumple(taperedTube(spine, 0.27, 0.012, segs, radial, (t) => 0.27 * Math.pow(1 - t, 1.05) + 0.01), spine, segs, radial, 1);
   const cone = new THREE.Mesh(coneG, felt); cone.castShadow = true; g.add(cone);
   const b = new THREE.Mesh(new THREE.CylinderGeometry(0.262, 0.274, 0.055, 40, 1, true), band); b.position.y = 0.04; g.add(b);
-  return { group: g, height: 0.62, brimR: 0.47 };
+  // rest positions for sway()
+  const cone0 = coneG.attributes.position.array.slice(), brim0 = bp.array.slice(), pivot = spine.getPointAt(0.4);
+  const q = new THREE.Quaternion(), eu = new THREE.Euler(), v = new THREE.Vector3();
+  let last = "0|0|0";
+  const sway = (tip = [0, 0], tilt = 0) => {
+    const key = `${tip[0].toFixed(4)}|${tip[1].toFixed(4)}|${tilt.toFixed(4)}`;
+    if (key === last) return; last = key;
+    const cp = coneG.attributes.position;
+    for (let i = 0; i <= segs; i++) {
+      const t = i / segs, w = t < 0.35 ? 0 : Math.min(1, (t - 0.35) / 0.55) ** 1.6;
+      q.setFromEuler(eu.set(tip[0] * w, 0, -tip[1] * w));
+      for (let j = 0; j <= radial; j++) { const n = (i * (radial + 1) + j) * 3; v.set(cone0[n], cone0[n + 1], cone0[n + 2]).sub(pivot).applyQuaternion(q).add(pivot); cp.setXYZ(n / 3, v.x, v.y, v.z); }
+    }
+    cp.needsUpdate = true; coneG.computeVertexNormals();
+    for (let i = 0; i < bp.count; i++) { const x = brim0[i * 3], z = brim0[i * 3 + 2], r = Math.hypot(x, z), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, brim0[i * 3 + 1] + tilt * 0.12 * k * k * (z / Math.max(r, 1e-6))); }
+    bp.needsUpdate = true; brimG.computeVertexNormals();
+  };
+  return { group: g, height: 0.62, brimR: 0.47, sway };
 }
 
 function cowboyBrim(r0, r1, curl) {
@@ -230,12 +251,13 @@ export function buildCostume(def, ch) {
       mount.visible = st.hatOn !== false;
       sprt.droop(st.droop);
       if (pb) pb.apply(st, t);
+      if (hat && hat.sway) hat.sway(st.hatTip, st.hatBrim);
       if (cc) cc.apply(st, t, hands, fries);
       if (prop) {
         prop.group.visible = !fries;
         const a = st.arms[propHand];
         const t0 = tiltOf(a.from), t1 = tiltOf(a.pose);
-        prop.group.position.copy(hands[propHand]);
+        prop.group.position.copy(ch.gripPoint ? ch.gripPoint(propHand) : hands[propHand]);   // a mitten holds it in its fist
         // right hand is at -x, left at +x: lean the top of the prop outward on either side
         const out = propHand === "R" ? 1 : -1;
         const [tx, tz] = tiltSet(st.propTilt, [t0[0] + (t1[0] - t0[0]) * a.p, t0[1] + (t1[1] - t0[1]) * a.p]);
