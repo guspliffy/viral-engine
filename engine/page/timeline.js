@@ -33,10 +33,11 @@ export const GRIPS = {
   fist:  { curl: 1.2,  index: 1.2,  thumb: 1.0 },
   pinch: { curl: 0.7,  index: 0.85, thumb: 1.0 },    // thumb and index meet: a cup handle, a lid
   point: { curl: 1.15, index: 0.0,  thumb: 0.9 },
-  cup:   { curl: 0.55, index: 0.5,  thumb: 0.45 },   // cradling something round: an orb, a jar from below
+  cup:   { curl: 0.5,  index: 0.45, thumb: 0.35, up: 1 },   // palm up, cradling something from below: an orb, a jar's base
   flat:  { curl: 0.0,  index: 0.0,  thumb: 0.0 },    // open palm
 };
-const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t) });
+// up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below)
+const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t) });
 
 // a blink at 30 fps: closes over about 2.5 frames, shut for one, reopens over about 4 (u: seconds since it began)
 export const BLINK_LEN = 0.26;

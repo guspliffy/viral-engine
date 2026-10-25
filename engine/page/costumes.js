@@ -239,7 +239,7 @@ export function buildCostume(def, ch) {
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
   if (C.type === "wizard") { prop = staff(C); ch.root.add(prop.group); }
-  if (prop && globalThis.__DIAG?.colors) { const g = new THREE.MeshLambertMaterial({ color: "#20b040" }); prop.group.traverse((o) => { if (o.isMesh) o.material = g; }); }   // debug: the prop green
+  if (prop && globalThis.__DIAG?.colors) { const g = new THREE.MeshLambertMaterial({ color: "#20b040" }); prop.group.traverse((o) => { if (o.isMesh) o.material = g; }); prop.group.add(new THREE.Mesh(new THREE.SphereGeometry(0.006, 8, 6), new THREE.MeshBasicMaterial({ color: "#000000", depthTest: false }))); }   // its grip point black   // debug: the prop green
   if ((pb || isCast) && prop) ch.root.add(prop.group);
   if (pb) sprt.group.scale.setScalar(0.7);
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }

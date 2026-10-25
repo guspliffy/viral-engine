@@ -21,8 +21,8 @@
     "iris": "#3a2a1a",
     "cheeks": "#ff6f6f",
     "neutral": {
-      "curve": 0.55,
-      "open": 0.15,
+      "curve": 0.45,
+      "open": 0,
       "eye": 1.05
     },
     "eye": {
