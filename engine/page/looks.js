@@ -362,7 +362,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
   // potato skin: a warm yellow lit side and an ochre shade (the reference's two bands), with the skin mottling showing
-  ROLE.skin = night ? ROLE.char : { lit: [1.0, 1.1, 0.92], shade: [0.84, 0.6, 0.42] };
+  ROLE.skin = night ? ROLE.char : { lit: [1.03, 1.23, 1.3], shade: [0.76, 0.62, 0.6] };
   // separate materials (matte potato, cloth hat, wooden staff): each gets its own shadow colour, rim and gradient,
   // so only glass and crystal carry strong highlights
   ROLE.skin = { ...ROLE.skin, rimK: 0, grad: 0.05, occ: 0.12 };
