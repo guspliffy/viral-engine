@@ -103,8 +103,15 @@ function wrap(text, maxW) {
   if (line) lines.push(line);
   return lines;
 }
+// "size" (px) scales a caption's style down or up: a long pinned title that would wrap at the label's 96 px
+function capStyle(c) {
+  const st = CAP[c.style] || CAP.main;
+  if (!c.size || c.size === st.size) return st;
+  const k = c.size / st.size;
+  return { ...st, size: c.size, font: st.font.replace(/\d+px/, `${c.size}px`), stroke: Math.round(st.stroke * k), ...(st.pad && { pad: Math.round(st.pad * k) }) };
+}
 function captionLayout(c) {
-  const st = CAP[c.style] || CAP.main, pos = c.pos || "top";
+  const st = capStyle(c), pos = c.pos || "top";
   const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
   const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
@@ -475,9 +482,19 @@ function clipping() {
     if (!body.mesh.geometry.boundingBox) body.mesh.geometry.computeBoundingBox();
     const eb = body.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
     inv.copy(body.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, mesh.matrixWorld);
-    tmp.copy(mesh.geometry.boundingBox).applyMatrix4(m);   // the other part, in the body's own space
-    const q = tmp.clampPoint(c, new THREE.Vector3()).sub(c);
-    const d2 = (q.x / h.x) ** 2 + (q.y / h.y) ** 2 + (q.z / h.z) ** 2;
+    // the part's own box (oriented, not re-boxed in the body's space, which swells a tilted thin panel into a cube),
+    // in the body's space scaled so the ellipsoid is the unit sphere: p(u) = A u + c0 for u in [-1, 1]^3. The point
+    // nearest the centre, by coordinate descent (a convex quadratic in u), gives the depth
+    const pb = mesh.geometry.boundingBox, pc = pb.getCenter(new THREE.Vector3()), pe = pb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    const e = m.elements, A = [0, 1, 2].map((i) => { const k = [pe.x, pe.y, pe.z][i]; return [e[i * 4] * k / h.x, e[i * 4 + 1] * k / h.y, e[i * 4 + 2] * k / h.z]; });
+    const w = pc.clone().applyMatrix4(m).sub(c), c0 = [w.x / h.x, w.y / h.y, w.z / h.z], u = [0, 0, 0];
+    const r = c0.slice();
+    for (let it = 0; it < 24; it++) for (let i = 0; i < 3; i++) {
+      const a = A[i], aa = a[0] * a[0] + a[1] * a[1] + a[2] * a[2]; if (aa < 1e-12) continue;
+      const ui = Math.max(-1, Math.min(1, u[i] - (a[0] * r[0] + a[1] * r[1] + a[2] * r[2]) / aa)), du = ui - u[i];
+      if (du) { r[0] += a[0] * du; r[1] += a[1] * du; r[2] += a[2] * du; u[i] = ui; }
+    }
+    const d2 = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
     return d2 < 1 ? 1 - Math.sqrt(d2) : 0;
   };
   // body vs body: points on the other ellipsoid's surface, tested against this one (boxes would overlap too early)

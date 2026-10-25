@@ -213,6 +213,26 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
     return x;
   },
+  partyhorn(r, d = 0.55) { // a paper party horn: a buzzy reed tone that bends up as it unrolls
+    const x = buf(d), lp = biquad("lp", 2600, 0.9); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 330 * (1 + 0.12 * Math.min(1, t / 0.12)) * (1 + 0.01 * Math.sin(TAU * 7 * t)); p += f / SR; const saw = (p % 1) * 2 - 1, sq = (p % 1) < 0.3 ? 1 : -1; x[i] = run(lp, saw * 0.4 + sq * 0.25) * env(t, 0.015, 0.45, d) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  ringtone(r, d = 0.9) { // a phone ringing: a fast trill of two tones in short bursts
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, burst = (t % 0.45) < 0.3 ? 1 : 0, f = Math.floor(t * 16) % 2 ? 1320 : 1760; x[i] = (Math.sin(TAU * f * t) * 0.45 + Math.sin(TAU * f * 2 * t) * 0.1) * burst * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  flutter(r, d = 0.8) { // a flurry of paper: many soft flaps of band-passed noise, thinning out
+    const x = buf(d), bp = biquad("bp", 1800, 0.9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, flap = 0.5 + 0.5 * Math.sin(TAU * (26 - 14 * k) * t + 3 * Math.sin(TAU * 3 * t)); x[i] = run(bp, r() * 2 - 1) * 0.8 * flap * (1 - k) * Math.min(1, t / 0.02); }
+    return x;
+  },
+  gunshot(r) { // a cartoon pistol: a sharp crack and a short boom
+    const d = 0.45, x = buf(d), lp = biquad("lp", 1800, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 120 * Math.pow(50 / 120, Math.min(1, t / 0.2)); p += TAU * f / SR; x[i] = (r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 1.1 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.07, d) * 0.7 + Math.sin(p) * env(t, 0.002, 0.12, d) * 0.8; }
+    return x;
+  },
   sadslide(r) { // descending "wah wah wah-wahhh"
     const notes = [[196, 0.34], [185, 0.34], [174.6, 0.34], [164.8, 0.9]];
     const d = notes.reduce((s, n) => s + n[1], 0) + 0.1, x = buf(d); let p = 0, i0 = 0;

@@ -1,0 +1,3113 @@
+{
+ "fps": 30,
+ "look": "anime-pro",
+ "sound": {
+  "sfx": 0.5,
+  "ambience": 0.4
+ },
+ "loop": true,
+ "cast": [
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -0.58,
+    -0.5
+   ],
+   "face": "3q-right",
+   "expr": "shocked",
+   "seed": 1.1
+  },
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "kind",
+   "seed": 1.8
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "kind",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "focused",
+   "seed": 3.9,
+   "arms": {
+    "R": {
+     "o": [
+      0.24,
+      0.36,
+      0.08
+     ]
+    },
+    "L": {
+     "o": [
+      0.15,
+      0.27,
+      0.08
+     ]
+    }
+   }
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "cocky",
+   "seed": 4.6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "stern",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    -1.9,
+    -0.5
+   ],
+   "face": "right",
+   "expr": "eager",
+   "seed": 6
+  }
+ ],
+ "beats": [
+  {
+   "name": "rea: a surprise party",
+   "at": 0,
+   "len": 1.45,
+   "do": [
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0,
+     "dur": 0.14,
+     "ease": "out",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "confetti",
+     "at": 0,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "burst": 0.5
+     }
+    },
+    {
+     "do": "prop",
+     "id": "confetti",
+     "at": 0.15,
+     "dur": 1.45,
+     "ease": "linear",
+     "set": {
+      "burst": 1
+     }
+    },
+    {
+     "sfx": "partyhorn",
+     "at": 0,
+     "gain": 0.45
+    },
+    {
+     "sfx": "pop",
+     "at": 0.02,
+     "gain": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 0,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0,
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7
+     },
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      -0.6599999999999999,
+      -0.4
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "steps": 2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "at": 0.1,
+     "dur": 0.75,
+     "idle": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 0.9,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0.95,
+     "expr": "deadpan",
+     "dur": 0.15
+    },
+    {
+     "fx": "poof",
+     "at": 1.35,
+     "pos": [
+      -0.6599999999999999,
+      0.6,
+      -0.4
+     ],
+     "color": "#2a2233",
+     "spark": "#8f7fb5",
+     "puffs": 6,
+     "sparks": 8,
+     "dur": 0.6
+    },
+    {
+     "sfx": "poof",
+     "at": 1.35,
+     "gain": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 1.42
+    },
+    {
+     "who": "ast",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "ast: unknown number calling",
+   "at": 1.45,
+   "len": 2.75,
+   "do": [
+    {
+     "fx": "poof",
+     "at": 0,
+     "pos": [
+      0.35,
+      0.95,
+      -1.05
+     ],
+     "puffs": 5,
+     "sparks": 0,
+     "dur": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "banner",
+     "at": 0.05,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "balloons",
+     "at": 0.05,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.15,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.35,
+     "gain": 0.25
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "call",
+     "at": 1.3,
+     "dur": 0.24,
+     "ease": "back",
+     "set": {
+      "scale": 4.2,
+      "x": 0.35,
+      "y": 0.62,
+      "z": -1.05
+     }
+    },
+    {
+     "do": "prop",
+     "id": "call",
+     "at": 1.45,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ringtone",
+     "at": 1.45,
+     "gain": 0.35,
+     "dur": 1.15
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.47,
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 1.47,
+     "amount": 0.08,
+     "dur": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 1.65,
+     "to": {
+      "x": -0.8799999999999999,
+      "y": 0.85,
+      "z": -0.6
+     },
+     "dur": 0.4,
+     "ease": "out"
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 1.7,
+     "to": [
+      0.3,
+      -0.4
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "ast",
+     "do": "still",
+     "at": 2.1,
+     "dur": 0.55,
+     "idle": 0.05
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 2.1,
+     "expr": "deadpan",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "call",
+     "at": 2.6,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "ring": 0,
+      "glow": 0.2
+     }
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 2.7,
+     "expr": "kind",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 2.7,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "call",
+     "at": 2.7,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "phx: posted it, 0 likes",
+   "at": 4.2,
+   "len": 2.7,
+   "do": [
+    {
+     "sfx": "land",
+     "at": 0.15,
+     "gain": 0.25
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 0.05,
+     "to": {
+      "x": 2.2,
+      "y": 0.85,
+      "z": -0.1
+     },
+     "dur": 0.9,
+     "ease": "inOut"
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 0,
+     "to": 1,
+     "dur": 0.01
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.85,
+     "expr": "cocky",
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "likes",
+     "at": 1.3,
+     "dur": 0.24,
+     "ease": "back",
+     "set": {
+      "scale": 4.2,
+      "x": 0.35,
+      "y": 0.62,
+      "z": -1.05
+     }
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "at": 1.35,
+     "to": -6,
+     "dur": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.6,
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "at": 1.8,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.85,
+     "expr": "sad",
+     "dur": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 1.85,
+     "to": 0,
+     "dur": 0.45,
+     "ease": "in"
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "at": 1.9,
+     "to": 1,
+     "dur": 0.3
+    },
+    {
+     "fx": "poof",
+     "at": 1.9,
+     "pos": [
+      -0.83,
+      0.85,
+      -0.55
+     ],
+     "color": "#8d8a94",
+     "puffs": 3,
+     "sparks": 0,
+     "dur": 0.5
+    },
+    {
+     "fx": "poof",
+     "at": 1.93,
+     "pos": [
+      -0.32999999999999996,
+      0.85,
+      -0.55
+     ],
+     "color": "#8d8a94",
+     "puffs": 3,
+     "sparks": 0,
+     "dur": 0.5
+    },
+    {
+     "sfx": "sadslide",
+     "at": 1.85,
+     "gain": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 2.35,
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 2.6,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "likes",
+     "at": 2.6,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "at": 2.65,
+     "to": 8,
+     "dur": 0.25
+    }
+   ]
+  },
+  {
+   "name": "wiz: hit reply-all",
+   "at": 6.9,
+   "len": 2.85,
+   "do": [
+    {
+     "sfx": "land",
+     "at": 0.1,
+     "gain": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "letter",
+     "at": 1.3,
+     "dur": 0.24,
+     "ease": "back",
+     "set": {
+      "scale": 2.1,
+      "x": 0.35,
+      "y": 0.75,
+      "z": -1.12
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "shocked",
+     "dur": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.7,
+     "expr": "focused",
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.7,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.3,
+       0.06
+      ]
+     },
+     "dur": 0.2,
+     "ease": "settle"
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 1.75,
+     "to": 1,
+     "dur": 0.25,
+     "ease": "in"
+    },
+    {
+     "sfx": "charge",
+     "at": 1.75,
+     "gain": 0.25,
+     "dur": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.97,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.72,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out"
+    },
+    {
+     "fx": "flash",
+     "at": 2.05,
+     "peak": 0.3,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "letter",
+     "at": 2.05,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "letters",
+     "at": 2.05,
+     "dur": 0.12,
+     "ease": "out",
+     "set": {
+      "burst": 0.4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "letters",
+     "at": 2.17,
+     "dur": 1.25,
+     "ease": "linear",
+     "set": {
+      "burst": 1
+     }
+    },
+    {
+     "sfx": "flutter",
+     "at": 2.05,
+     "gain": 0.4,
+     "dur": 1
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 2.15,
+     "to": 0,
+     "dur": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 2.15,
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "hatwobble",
+     "at": 2.15,
+     "amount": 8,
+     "freq": 3,
+     "dur": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 2.2,
+     "to": [
+      0.2,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 2.35,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "settle"
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 2.6,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 2.65,
+     "expr": "kind",
+     "set": {
+      "curve": 0.1
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 2.7,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "sam: a 4-minute voice note",
+   "at": 9.75,
+   "len": 2.85,
+   "do": [
+    {
+     "sfx": "land",
+     "at": 0.05,
+     "gain": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 1.05
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "voice",
+     "at": 1.3,
+     "dur": 0.24,
+     "ease": "back",
+     "set": {
+      "scale": 4.2,
+      "x": 0.35,
+      "y": 0.62,
+      "z": -1.05
+     }
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.6,
+     "expr": "deadpan",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "still",
+     "at": 1.6,
+     "dur": 0.25,
+     "idle": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.85,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.95,
+       0.2
+      ]
+     },
+     "dur": 0.16
+    },
+    {
+     "who": "sam",
+     "do": "tilt",
+     "at": 1.85,
+     "to": [
+      10,
+      0
+     ],
+     "dur": 0.16
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 2.05,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.32,
+       0.45
+      ]
+     },
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "tilt",
+     "at": 2.05,
+     "to": [
+      100,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "fx": "slash",
+     "at": 2.06,
+     "pos": [
+      0.24999999999999997,
+      0.95,
+      -1
+     ],
+     "r": 0.7,
+     "from": 108,
+     "arc": 100,
+     "dur": 0.16
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.05,
+     "gain": 0.25,
+     "dur": 0.18
+    },
+    {
+     "sfx": "shing",
+     "at": 2.13,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "voice",
+     "at": 2.15,
+     "dur": 0.22,
+     "ease": "out",
+     "set": {
+      "split": 1
+     }
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 2.6,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.24,
+       0.36,
+       0.08
+      ]
+     },
+     "dur": 0.35
+    },
+    {
+     "who": "sam",
+     "do": "tilt",
+     "at": 2.6,
+     "to": null,
+     "dur": 0.35
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 2.45,
+     "expr": "serene",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "at": 2.5,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "voice",
+     "at": 2.7,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 2.7,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "gun: Monday, 6:00 alarm",
+   "at": 12.6,
+   "len": 2.8,
+   "do": [
+    {
+     "sfx": "land",
+     "at": 0.05,
+     "gain": 0.25
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0.05,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.05,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.35,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 1.1
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.3,
+     "dur": 0.24,
+     "ease": "back",
+     "set": {
+      "scale": 2.2,
+      "x": 0.35,
+      "y": 0.7,
+      "z": -1.18
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.45,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 1.45,
+     "gain": 0.3,
+     "dur": 0.75
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "stern",
+     "dur": 0.1
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 1.7,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.6,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out"
+    },
+    {
+     "sfx": "gunshot",
+     "at": 1.95,
+     "gain": 0.4
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "at": 1.95,
+     "amount": 0.05,
+     "dur": 0.1
+    },
+    {
+     "fx": "poof",
+     "at": 1.97,
+     "pos": [
+      0.35,
+      0.95,
+      -1.05
+     ],
+     "puffs": 2,
+     "sparks": 8,
+     "spark": "#ffd36b",
+     "dur": 0.3
+    },
+    {
+     "sfx": "gunshot",
+     "at": 2.13,
+     "gain": 0.4
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "at": 2.13,
+     "amount": 0.05,
+     "dur": 0.1
+    },
+    {
+     "fx": "poof",
+     "at": 2.15,
+     "pos": [
+      0.35,
+      0.95,
+      -1.05
+     ],
+     "puffs": 2,
+     "sparks": 8,
+     "spark": "#ffd36b",
+     "dur": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.9,
+     "dur": 0.08,
+     "ease": "out",
+     "set": {
+      "y": 0.85
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.98,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "ring": 0,
+      "x": 1.1,
+      "y": 0,
+      "z": -1.25,
+      "roll": 720,
+      "scale": 1.1
+     },
+     "arc": 0.6
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 2.25,
+     "expr": "smug",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 2.4,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 2.5,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 2.6,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "all: the printer",
+   "at": 15.4,
+   "len": 3.35,
+   "do": [
+    {
+     "sfx": "land",
+     "at": 0,
+     "gain": 0.25
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 1.05
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "printer",
+     "at": 1.3,
+     "dur": 0.3,
+     "ease": "back",
+     "set": {
+      "scale": 1.3,
+      "x": 0.35,
+      "y": 0,
+      "z": -1
+     }
+    },
+    {
+     "sfx": "tink",
+     "at": 1.6,
+     "gain": 0.2
+    },
+    {
+     "sfx": "tink",
+     "at": 1.8,
+     "gain": 0.2
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 1.65,
+     "expr": "stern",
+     "set": {
+      "browY": -0.02
+     },
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "still",
+     "at": 1.7,
+     "dur": 0.25,
+     "idle": 0.1
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.9,
+     "side": "R",
+     "pose": {
+      "o": [
+       0.4,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out"
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "at": 2.1,
+     "dur": 0.01,
+     "ease": "linear",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "at": 2.3,
+     "dur": 0.01,
+     "ease": "linear",
+     "set": {
+      "on": 0
+     }
+    },
+    {
+     "fx": "flash",
+     "at": 2.1,
+     "peak": 0.35,
+     "dur": 0.18
+    },
+    {
+     "fx": "shake",
+     "at": 2.1,
+     "amp": 0.03,
+     "dur": 0.25
+    },
+    {
+     "sfx": "impact",
+     "at": 2.1,
+     "gain": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "printer",
+     "at": 2.12,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "scorch": 1
+     }
+    },
+    {
+     "fx": "poof",
+     "at": 2.15,
+     "pos": [
+      0.35,
+      0.35,
+      -0.95
+     ],
+     "color": "#55505c",
+     "puffs": 6,
+     "sparks": 6,
+     "spark": "#bfe4ff",
+     "dur": 0.8
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 2.35,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "printer",
+     "at": 2.5,
+     "dur": 0.6,
+     "ease": "inOut",
+     "set": {
+      "print": 1
+     }
+    },
+    {
+     "sfx": "scribble",
+     "at": 2.5,
+     "gain": 0.2,
+     "dur": 0.5
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 2.7,
+     "to": [
+      0.4,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 3,
+     "expr": "deadpan",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "droop",
+     "at": 3,
+     "to": 1,
+     "dur": 0.3
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 3.05,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "printer",
+     "at": 3.3,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 3.3,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "open": 0,
+      "glow": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "vik: flat-pack instructions",
+   "at": 18.75,
+   "len": 5.49,
+   "do": [
+    {
+     "do": "prop",
+     "id": "printer",
+     "at": 0.1,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scorch": 0,
+      "print": 0
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.15,
+     "gain": 0.25
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0.7,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 0.9,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.9,
+     "gain": 0.3,
+     "dur": 0.44999999999999996
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 1.25,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "open": 1,
+      "glow": 1
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 1.25,
+     "gain": 0.25,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "flatpack",
+     "at": 1.3,
+     "dur": 0.3,
+     "ease": "back",
+     "set": {
+      "scale": 1,
+      "x": 0.35,
+      "y": 0,
+      "z": -1.3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "flatpack",
+     "at": 1.65,
+     "dur": 1.1,
+     "ease": "linear",
+     "set": {
+      "unfold": 1
+     }
+    },
+    {
+     "sfx": "flutter",
+     "at": 1.65,
+     "gain": 0.3,
+     "dur": 1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1.7,
+     "to": [
+      0.55,
+      0.7
+     ],
+     "dur": 0.6,
+     "blink": false
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 2.05,
+     "expr": "shocked",
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 2.6,
+     "expr": "stern",
+     "set": {
+      "browY": -0.03
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 2.6,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 2.55,
+     "to": [
+      -0.20000000000000007,
+      -0.82
+     ],
+     "dur": 0.2,
+     "ease": "out",
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "at": 2.63,
+     "to": [
+      10,
+      0
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2.7,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.95,
+       0.2
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out"
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 2.7,
+     "amount": 0.08,
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2.97,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.55,
+       0.48
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in"
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "at": 2.97,
+     "to": [
+      90,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.75,
+     "dur": 0.03,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.95,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 1.75,
+     "gain": 0.2,
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "flatpack",
+     "at": 3.05,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "smash": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 3.07,
+     "dur": 0.7,
+     "ease": "out",
+     "set": {
+      "smash": 1,
+      "glow": 0
+     }
+    },
+    {
+     "fx": "flash",
+     "at": 3.05,
+     "peak": 0.35,
+     "dur": 0.15
+    },
+    {
+     "fx": "shake",
+     "at": 3.05,
+     "amp": 0.06,
+     "dur": 0.4
+    },
+    {
+     "fx": "poof",
+     "at": 3.07,
+     "pos": [
+      0.35,
+      0.25,
+      -1.15
+     ],
+     "puffs": 6,
+     "sparks": 12,
+     "spark": "#ffcf6b",
+     "dur": 0.5
+    },
+    {
+     "sfx": "impact",
+     "at": 3.05,
+     "gain": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 3.4,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.9,
+       0.3
+      ]
+     },
+     "dur": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "at": 3.4,
+     "to": [
+      10,
+      0
+     ],
+     "dur": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 3.45,
+     "expr": "delighted",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 3.45,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "vik",
+     "do": "hop",
+     "at": 3.5,
+     "height": 0.18,
+     "count": 2,
+     "dur": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 4.05,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "at": 4.05,
+     "to": null,
+     "dur": 0.3
+    },
+    {
+     "fx": "poof",
+     "at": 4.4,
+     "pos": [
+      0.35,
+      0.8,
+      -1.2
+     ],
+     "puffs": 12,
+     "sparks": 10,
+     "spark": "#c8b6ff",
+     "dur": 0.6
+    },
+    {
+     "sfx": "poof",
+     "at": 4.4,
+     "gain": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 4.45,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "smash": 0,
+      "open": 0,
+      "glow": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "flatpack",
+     "at": 4.45,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "smash": 0,
+      "unfold": 0,
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 4.45,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scale": 0,
+      "x": 0.35,
+      "y": 0.62,
+      "z": -1.42,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "confetti",
+     "at": 4.45,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "burst": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "letters",
+     "at": 4.45,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "burst": 0
+     }
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 4.15,
+     "to": "right",
+     "dur": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 4.15,
+     "to": [
+      -0.35,
+      -0.1
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 4.45,
+     "to": [
+      2.2,
+      -0.1
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "steps": 5
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 5.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 4.6,
+     "expr": "kind",
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 4.6,
+     "to": [
+      -1.9,
+      -0.5
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 4.6,
+     "to": "right",
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 4.6
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 4.6,
+     "to": [
+      -0.58,
+      -0.5
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 4
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 5,
+     "to": "3q-right",
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 5.05,
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 5.17,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 5.45,
+     "dur": 0.08,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 5.17,
+     "gain": 0.3,
+     "dur": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "coffin",
+     "at": 5.37,
+     "dur": 0.12,
+     "ease": "out",
+     "set": {
+      "open": 0.45,
+      "glow": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "banner",
+     "at": 5.35,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "balloons",
+     "at": 5.35,
+     "dur": 0.01,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.3
+     }
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 5.3,
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7
+     },
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "confetti",
+     "at": 5.4,
+     "dur": 0.08999999999999986,
+     "ease": "linear",
+     "set": {
+      "burst": 0.12
+     }
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    -0.1,
+    1.45,
+    6.3
+   ],
+   "look": [
+    -0.1,
+    0.95,
+    -0.8
+   ],
+   "fov": 32
+  },
+  {
+   "at": 20.4,
+   "pos": [
+    -0.1,
+    1.45,
+    6.3
+   ],
+   "look": [
+    -0.1,
+    0.95,
+    -0.8
+   ],
+   "fov": 32,
+   "to": {
+    "pos": [
+     -0.1,
+     1.45,
+     6.3
+    ],
+    "fov": 28,
+    "look": [
+     0,
+     0.85,
+     -0.8
+    ]
+   },
+   "dur": 0.6,
+   "ease": "inOut"
+  },
+  {
+   "at": 23.15,
+   "pos": [
+    -0.1,
+    1.45,
+    6.3
+   ],
+   "look": [
+    0,
+    0.85,
+    -0.8
+   ],
+   "fov": 28,
+   "to": {
+    "pos": [
+     -0.1,
+     1.45,
+     6.3
+    ],
+    "fov": 32,
+    "look": [
+     -0.1,
+     0.95,
+     -0.8
+    ]
+   },
+   "dur": 0.45,
+   "ease": "inOut"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 24.24,
+   "text": "HAUNTED HOUSE",
+   "style": "label",
+   "pos": 232,
+   "size": 80,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 22.3,
+   "text": "but it's your real fears",
+   "style": "sub",
+   "pos": 362,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.45,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.45,
+   "text": "a surprise party",
+   "pos": 584,
+   "pop": false
+  },
+  {
+   "from": 1.45,
+   "to": 4.2,
+   "text": "ASTRONAUT",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 2.7,
+   "to": 4.2,
+   "text": "unknown number calling",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 4.2,
+   "to": 6.9,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 5.45,
+   "to": 6.9,
+   "text": "posted it, 0 likes",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 6.9,
+   "to": 9.75,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 8.15,
+   "to": 9.75,
+   "text": "hit reply-all",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 9.75,
+   "to": 12.6,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 11,
+   "to": 12.6,
+   "text": "a 4-minute voice note",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 12.6,
+   "to": 15.4,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 13.85,
+   "to": 15.4,
+   "text": "Monday, 6:00 alarm",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 15.4,
+   "to": 18.75,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 16.65,
+   "to": 18,
+   "text": "the printer",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "from": 18.75,
+   "to": 22.3,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 458,
+   "size": 76,
+   "pop": false
+  },
+  {
+   "from": 20,
+   "to": 22.3,
+   "text": "flat-pack instructions",
+   "pos": 584,
+   "pop": true
+  },
+  {
+   "pos": 584,
+   "from": 18,
+   "to": 18.75,
+   "text": "...PAPER JAM",
+   "pop": true
+  },
+  {
+   "from": 22.3,
+   "to": 24.24,
+   "text": "which one is YOUR\nhaunted house?",
+   "pos": 470
+  }
+ ],
+ "props": [
+  {
+   "id": "coffin",
+   "kind": "coffin",
+   "x": 0.35,
+   "z": -1.6,
+   "open": 0.45,
+   "glow": 1
+  },
+  {
+   "id": "banner",
+   "x": 0.31,
+   "y": 1.25,
+   "z": -1,
+   "scale": 1,
+   "kind": "banner",
+   "text": "SURPRISE!",
+   "width": 0.8,
+   "sag": 0.1
+  },
+  {
+   "id": "balloons",
+   "x": 0.35,
+   "y": 0.35,
+   "z": -1.45,
+   "scale": 1.3,
+   "kind": "balloons"
+  },
+  {
+   "id": "confetti",
+   "kind": "confetti",
+   "x": 0.35,
+   "y": 1.05,
+   "z": -1.3,
+   "floor": 1.05,
+   "burst": 0.12
+  },
+  {
+   "id": "call",
+   "x": 0.35,
+   "y": 0.62,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "screen",
+   "mode": "call"
+  },
+  {
+   "id": "likes",
+   "x": 0.35,
+   "y": 0.62,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "screen",
+   "mode": "likes"
+  },
+  {
+   "id": "letter",
+   "x": 0.35,
+   "y": 0.62,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "letter"
+  },
+  {
+   "id": "letters",
+   "kind": "letters",
+   "x": 0.35,
+   "y": 0.95,
+   "z": -1.25,
+   "floor": 0.95,
+   "count": 26
+  },
+  {
+   "id": "voice",
+   "x": 0.35,
+   "y": 0.62,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "screen",
+   "mode": "voice"
+  },
+  {
+   "id": "alarm",
+   "x": 0.35,
+   "y": 0.62,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "alarm"
+  },
+  {
+   "id": "printer",
+   "x": 0.35,
+   "y": 0,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "printer",
+   "jam": true,
+   "sheetScale": 1.7
+  },
+  {
+   "id": "flatpack",
+   "x": 0.35,
+   "y": 0,
+   "z": -1.42,
+   "scale": 0,
+   "kind": "flatpack"
+  },
+  {
+   "id": "bolt",
+   "kind": "bolt",
+   "x": 0.35,
+   "y": 0.3,
+   "z": -0.98
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "sam",
+   "with": "voice",
+   "from": 11.8,
+   "to": 12.1,
+   "reason": "the blade cuts through the phone: the cut is the joke"
+  },
+  {
+   "who": "rea",
+   "with": "confetti",
+   "from": 0,
+   "to": 1.45,
+   "reason": "confetti raining down around him: it's the surprise party, flakes behind him are hidden by his body"
+  },
+  {
+   "who": "vik",
+   "with": "coffin",
+   "from": 21.65,
+   "to": 22.55,
+   "reason": "the axe comes down on the coffin: the smash is the joke"
+  },
+  {
+   "who": "vik",
+   "with": "flatpack",
+   "from": 21.65,
+   "to": 22.1,
+   "reason": "the axe comes down on the booklet"
+  }
+ ],
+ "id": "haunted-01-real-fears",
+ "title": "HAUNTED HOUSE: but it's your real fears",
+ "format": "each-character-vs-X, one continuous take: an upright coffin opens for each fighter, the monster is a boring real fear, each reacts with a relatable habit + their signature, destructive last",
+ "set": {
+  "type": "haunted",
+  "night": true
+ },
+ "music": {
+  "styles": [
+   "sneaky"
+  ]
+ },
+ "duration": 24.24,
+ "cover": 0.35,
+ "escalation": true
+}

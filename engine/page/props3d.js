@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { clamp, lerp, ease, prog, rng as rngOf } from "./util.js";
+import { TREND_KINDS, TREND_GRIPS } from "./props-trend.js";
+import { CATCH_KINDS, CATCH_GRIPS } from "./props-catch.js";
+import { ROBBED_KINDS, ROBBED_GRIPS } from "./props-robbed.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -19,6 +22,7 @@ export const DESK_Y = 0.42;   // an office desk's top: a standing potato's resti
 const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
+  ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -1281,6 +1285,8 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js)
+
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);
   root.rotation.order = "YXZ";   // rot (about y) first, then tip and tilt in the prop's own frame, as gripWorld
@@ -1308,8 +1314,8 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
-  const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null, carry: null };
+  const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
     if (a.do === "prop") {
@@ -1337,6 +1343,20 @@ export function propState(sb, spec, t) {
       // without "to" it stays where the hand let go (stage.js works out where that was)
       else { if (!a.to && ps.hold) ps.left = { ...ps.hold, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }
+    // carried by another prop (a raven's beak): { do: "carry", prop, by, off: [x, y, z] (in the carrier's own turned,
+    // scaled frame), at } and from then on it rides along; { do: "carry", prop, at } with no `by` lets go of it there
+    // (later prop tweens carry on from that spot). Put the carrier where the prop is at the handover: nothing jumps
+    else if (a.do === "carry") {
+      if (a.by) { ps.carry = { by: a.by, off: a.off || [0, 0, 0] }; ps.hold = null; ps.left = null; }
+      else if (ps.carry) { [ps.x, ps.y, ps.z] = carriedAt(sb, ps.carry, a.at); ps.carry = null; }
+    }
   }
+  if (ps.carry) [ps.x, ps.y, ps.z] = carriedAt(sb, ps.carry, t);
   return ps;
+}
+function carriedAt(sb, c, t) {
+  const spec = (sb.props || []).find((p) => p.id === c.by);
+  if (!spec) return [0, 0, 0];
+  const r = propState(sb, spec, t), a = (r.rot * Math.PI) / 180, s = r.scale ?? 1, [ox, oy, oz] = c.off;
+  return [r.x + (ox * Math.cos(a) + oz * Math.sin(a)) * s, r.y + oy * s, r.z + (-ox * Math.sin(a) + oz * Math.cos(a)) * s];
 }

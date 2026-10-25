@@ -2,6 +2,8 @@ import { buildHills } from "./set-painted.js";
 import * as THREE from "three";
 import { rng } from "./util.js";
 import { buildKitchen } from "./set-kitchen.js";
+import { buildHaunted } from "./set-haunted.js";
+import { buildBackyard } from "./set-backyard.js";
 import { buildGarden } from "./set-garden.js";
 import { buildForest } from "./set-forest.js";
 import { buildRestaurant } from "./set-restaurant.js";
@@ -44,6 +46,8 @@ export function buildSet(scene, spec = {}, palette = null) {
   const type = spec.type || "meadow";
   if (type === "kitchen") return buildKitchen(scene, spec);   // set-kitchen.js
   if (type === "hills") return buildHills(scene, spec);       // set-painted.js
+  if (type === "haunted") return buildHaunted(scene, spec);   // set-haunted.js
+  if (type === "backyard") return buildBackyard(scene, spec); // set-backyard.js
   if (type === "garden") return buildGarden(scene, spec);     // set-garden.js
   if (type === "forest") return buildForest(scene, spec);     // set-forest.js
   if (type === "restaurant") return buildRestaurant(scene, spec);   // set-restaurant.js

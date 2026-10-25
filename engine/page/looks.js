@@ -160,7 +160,7 @@ function patchSkin(m, sss) {
 }
 
 function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
-  const night = setSpec && setSpec.type === "kitchen";
+  const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || !!setSpec.night);
   relight(scene, [
     new THREE.HemisphereLight(night ? "#9fb6e8" : "#bcd6ff", "#6b5038", 0.55),
     dirLight("#ffe2bd", 3.0, [-4.2, 5.2, 3.6], { radius: 7 }),            // key: warm, from the side and above
@@ -360,7 +360,7 @@ function animeGlass(m, liquid = false) {
 }
 
 function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [] }) {
-  const night = setSpec && setSpec.type === "kitchen";
+  const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || !!setSpec.night);
   // one key light: it only decides where light and shadow fall (patchToon sets the colours)
   relight(scene, [dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
@@ -447,7 +447,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     }));
     pool.rotation.x = -Math.PI / 2; pool.position.set(v3.x, 0.004, v3.z + 0.5); pool.renderOrder = 0; pool.userData.lookOnly = true; scene.add(pool);
   }
-  const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && setSpec.type === "hills" ? "#0f2e12" : "#2a2019", camera);
+  const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && (setSpec.type === "hills" || setSpec.type === "backyard") ? "#0f2e12" : "#2a2019", camera);
   const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
   const composer = composerFor(R, W, H, draft);
