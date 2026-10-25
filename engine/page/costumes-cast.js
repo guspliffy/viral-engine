@@ -95,6 +95,18 @@ function pistol() {
   return g;
 }
 
+// barrel pitch per arm pose (+ down): hanging at rest, pointing up when the hands go to the face or the hat so the
+// barrels never pass through them, forward otherwise. Blends with the arm, so a pose change never snaps the gun.
+const GUN_HANDLE = new THREE.Vector3(0, -0.02, -0.04).multiplyScalar(1.35);   // pistol(): the handle's centre, scaled
+const GUN_PITCH = { rest: 0.9, hips: 0.9, lap: 0.9, cheeks: -1.35, hat: -1.45, up: -0.7, wave: -0.7 };
+// a pose of your own ({ o } or { x }) sets its pitch with `gun`
+const pitchOf = (pose) => (typeof pose === "string" ? GUN_PITCH[pose] ?? 0 : pose && pose.mix ? gunPitch(pose.mix) : pose?.gun ?? 0);
+function gunPitch(a) {
+  if (!a) return 0;
+  if (a.from === undefined || a.p === undefined) return pitchOf(a.pose);
+  return pitchOf(a.from) + (pitchOf(a.pose) - pitchOf(a.from)) * a.p;
+}
+
 function vikingHair(C, ch) {
   const g = new THREE.Group(), m = std(C.hair || "#b8652a", { roughness: 0.85 });
   for (let i = 0; i < 9; i++) { // messy tufts swept up and back
@@ -241,12 +253,15 @@ export function castCostume(C, ch) {
   }
   // the Gunslinger's twin revolvers, one in each hand, barrels forward
   if (C.pistols) {
-    const guns = { R: pistol(), L: pistol() };
+    const guns = { R: pistol(), L: pistol() }, gunGrip = new THREE.Vector3();
     for (const k in guns) ch.root.add(guns[k]);
     const prev = out.apply;
     out.apply = (st, t, hands, fries) => {
       prev(st, t, hands, fries);
-      for (const k in guns) { guns[k].visible = !fries; guns[k].position.copy(ch.gripPoint ? ch.gripPoint(k) : hands[k]); guns[k].rotation.set(st.arms[k].pose === "rest" ? 0.9 : 0, 0, 0); }
+      for (const k in guns) { guns[k].visible = !fries; guns[k].rotation.set(gunPitch(st.arms[k]), 0, 0);
+        // the fist closes on the wooden handle, not on the drum: put the handle's centre at the grip point
+        gunGrip.copy(GUN_HANDLE).applyEuler(guns[k].rotation);
+        guns[k].position.copy(ch.gripPoint ? ch.gripPoint(k) : hands[k]).sub(gunGrip); }
     };
   }
   return out;
