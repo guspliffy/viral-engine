@@ -22,7 +22,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { compile } from "../engine/compile.mjs";
-import { motionJumps } from "./motion.mjs";
+import { motionJumps, storyNotes } from "./motion.mjs";
 import { musicFlavour, seedOf } from "../puppet/beat.mjs";
 
 export const RULES = {
@@ -40,6 +40,7 @@ export const RULES = {
   // contact (layout "contacts", every frame): an arm through the held staff or a hat brim, the staff through the body,
   // a hand that turns further in one frame than a hand can (metres, degrees, frames)
   armThroughStaff: 0, staffInBody: -0.03, brimDepth: 0.01, contactHold: 2, handTurnWarn: 60,
+  armAlongShaft: 0.85, armAlongHold: 0.4, // forearm nearly along the held shaft (|forearm·shaft|) for this long: the setup for a fist flip
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
   strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
@@ -115,7 +116,8 @@ export function oddFrames(clip, fps = 30) {
 }
 
 // characters passing through props or each other, from the layout's "clips" (stage.js clipping()). Two characters
-// overlapping is a failure as soon as it shows (RULES.bodyClip): bodies merging read as a glitch at once. A storyboard
+// overlapping is a failure as soon as it shows (RULES.bodyClip): bodies merging read as a glitch at once. Touching
+// (a body, hat or helmet within about 10% of another body, a few centimetres) is a warning. A storyboard
 // that wants contact (a hug, a hide) allows it with "allowClip": [{ "who", "with"?, "from", "to", "reason" }]; a window
 // without a reason does not count. A character in a prop fails only when held (RULES.clipHold), since a prop edge
 // brushing a body for a frame or two is invisible.
@@ -130,7 +132,7 @@ export function clipResults(sb, layout) {
   const runs = new Map();
   for (const x of samples) for (const c of x.clips || []) {
     if (allowed(c, x.t)) continue;
-    const body = actors.has(c.with), k = `${c.who} / ${c.with}`, r = runs.get(k) || { body, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
+    const body = actors.has(c.with), k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}`, r = runs.get(k) || { body, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
     if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
     r.to = x.t;
     if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
@@ -139,8 +141,8 @@ export function clipResults(sb, layout) {
   for (const [k, r] of runs) {
     const pct = Math.round(r.max * 100);
     if (r.body) {
-      const lvl = r.max > RULES.bodyClip ? "fail" : "pass";
-      out.push({ level: lvl, check: "character-overlap", msg: `${k}: bodies up to ${pct}% into each other at ${r.at.toFixed(1)}s (${r.from.toFixed(1)}-${r.to.toFixed(1)}s)${lvl === "fail" ? ": keep them a body-width apart, or add an allowClip window with a reason" : ""}` });
+      const lvl = r.max > RULES.bodyClip ? "fail" : "warn", what = r.part ? `${r.part.split(" / ")[0]}'s hat or helmet against ${r.part.split(" / ")[1]}` : "bodies";
+      out.push({ level: lvl, check: "character-overlap", msg: `${k}: ${what} ${lvl === "warn" ? "touching" : "up to " + pct + "% into each other at " + r.at.toFixed(1) + "s"} (${r.from.toFixed(1)}-${r.to.toFixed(1)}s)${lvl !== "pass" ? ": keep them a body-width apart, or add an allowClip window with a reason" : ""}` });
       continue;
     }
     const lvl = r.held + 1e-6 >= RULES.clipHold ? "fail" : r.max > RULES.clipWarn ? "warn" : "pass";
@@ -165,6 +167,7 @@ export function contactResults(layout) {
     const st = rows.map((r) => r.actors.find((a) => a.id === id) || null);
     const staffSpans = (key, lim) => spans(st.map((a) => !!(a && a.staff && a.staff[key] < lim)));
     for (const sp of staffSpans("arm", RULES.armThroughStaff)) { found++; out.push({ level: "fail", check: "grip", msg: `${id}: the arm passes through the staff at ${when(sp)}: put the staff in front of the arm, forearm square to it` }); }
+    for (const sp of spans(st.map((a) => !!(a && a.staff && a.staff.par > RULES.armAlongShaft))).filter(([x, y]) => (y - x + 1) / fps >= RULES.armAlongHold)) out.push({ level: "warn", check: "grip", msg: `${id}: the forearm runs along the staff at ${when(sp)}: the fist has nothing to turn round and can flip; hold the staff out from the side, forearm square to it` });
     for (const sp of staffSpans("body", RULES.staffInBody)) { found++; out.push({ level: "fail", check: "grip", msg: `${id}: the staff goes into the body at ${when(sp)}: hold it further out from the side` }); }
     for (const s of ["R", "L"]) {
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
@@ -351,6 +354,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
     const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
     res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
+    for (const r of await storyNotes(sb, sb.fps ?? 30)) res.push({ group: "technical", ...r });
   }
   const failed = res.some((r) => r.level === "fail"), notes = res.filter((r) => r.level === "note").length;
   if (o.json) console.log(JSON.stringify({ clip: o.clip, layout: layoutFile, profile, experiment: sb?.experiment ?? null, pass: !failed, results: res }, null, 2));

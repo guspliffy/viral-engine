@@ -430,13 +430,25 @@ function clipping() {
   };
   // body vs body: points on the other ellipsoid's surface, tested against this one (boxes would overlap too early)
   const DIRS = []; for (let i = 0; i < 42; i++) { const y = 1 - (2 * (i + 0.5)) / 42, r = Math.sqrt(1 - y * y), a = i * 2.39996; DIRS.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r)); }
-  const bodyIn = (b, o) => {
-    const eb = b.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
-    const ob = o.mesh.geometry.boundingBox, oc = ob.getCenter(new THREE.Vector3()), oh = ob.getSize(new THREE.Vector3()).multiplyScalar(0.5);
-    inv.copy(b.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, o.mesh.matrixWorld);
+  // (also a hat or helmet part of another character: its box taken as an ellipsoid, so a round helmet or a flat brim
+  // is not judged by its box corners)
+  const bodyIn = (b, o, k = 1) => {
+    const om = o.mesh || o; if (!om.geometry.boundingBox) om.geometry.computeBoundingBox();
+    const eb = b.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5 * k);
+    const ob = om.geometry.boundingBox, oc = ob.getCenter(new THREE.Vector3()), oh = ob.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    inv.copy(b.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, om.matrixWorld);
     let best = 1e9;
     for (const d of DIRS) { const q = new THREE.Vector3(oc.x + d.x * oh.x, oc.y + d.y * oh.y, oc.z + d.z * oh.z).applyMatrix4(m).sub(c); best = Math.min(best, (q.x / h.x) ** 2 + (q.y / h.y) ** 2 + (q.z / h.z) ** 2); }
     return best < 1 ? 1 - Math.sqrt(best) : 0;
+  };
+  // a hat or helmet's own vertices (up to ~400) against a body ellipsoid: exact enough for a round helmet or a brim
+  const vertsIn = (b, q) => {
+    const eb = b.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    inv.copy(b.mesh.matrixWorld).invert(); m.multiplyMatrices(inv, q.matrixWorld);
+    const pos = q.geometry.attributes.position, step = Math.max(1, Math.floor(pos.count / 400)), v = new THREE.Vector3();
+    let best = 1e9;
+    for (let i = 0; i < pos.count; i += step) { v.fromBufferAttribute(pos, i).applyMatrix4(m).sub(c); best = Math.min(best, (v.x / h.x) ** 2 + (v.y / h.y) ** 2 + (v.z / h.z) ** 2); }
+    return { depth: best < 1 ? 1 - Math.sqrt(best) : 0, touch: best < 1.1 ** 2 };
   };
   for (const b of bodies) {
     b.a.ch.root.updateMatrixWorld(true);
@@ -449,7 +461,19 @@ function clipping() {
       p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) worst = Math.max(worst, depthIn(b, o)); });
       if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
     }
-    for (const o of bodies) if (o !== b && o.id > b.id) { const d = Math.max(bodyIn(b, o), bodyIn(o, b)); if (d > 0.05) out.push({ who: b.id, with: o.id, depth: Math.round(d * 100) / 100 }); }
+    // touch: within about 10% of the body's size of each other (a warning; going in is a failure)
+    for (const o of bodies) if (o !== b && o.id > b.id) {
+      const d = Math.max(bodyIn(b, o), bodyIn(o, b)), touch = d > 0 || bodyIn(b, o, 1.1) > 0 || bodyIn(o, b, 1.1) > 0;
+      if (touch) out.push({ who: b.id, with: o.id, depth: Math.round(d * 100) / 100, touch: true });
+    }
+    // another character's hat or helmet against this body (a helmet glass is see-through, but touching still reads)
+    for (const o of bodies) {
+      if (o === b) continue;
+      const parts = [o.a.ch.costume?.hat, o.a.ch.costume?.helmet?.mesh].filter((x) => x && x.visible);
+      let worst = 0, touch = false;
+      for (const part of parts) { part.updateMatrixWorld(true); part.traverseVisible((q) => { if (q.isMesh && q.geometry) { const v = vertsIn(b, q); worst = Math.max(worst, v.depth); touch = touch || v.touch; } }); }
+      if (touch) out.push({ who: o.id, with: b.id, part: "hat", depth: Math.round(worst * 100) / 100, touch: true });
+    }
   }
   return out;
 }
