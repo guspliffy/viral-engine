@@ -62,14 +62,15 @@ export class Character {
     this.potatoParts.add(this.body);
 
     // specks
-    const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.72), roughness: 0.8 });
+    const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.8), roughness: 0.9 });
     speckM.userData.noOutline = true;
     for (let i = 0; i < (B.specks ?? 9); i++) {
       const th = (rnd() * 2 - 1) * 2.6, ph = (rnd() * 2 - 1) * 0.9;
       if (Math.abs(th) < 0.65 && ph > -0.45 && ph < 0.6) continue; // keep the face clear
       const s = this.surf(th, ph);
-      const m = new THREE.Mesh(new THREE.SphereGeometry(0.018 + rnd() * 0.014, 10, 8), speckM);
-      m.scale.set(1, 1, 0.3); m.position.copy(s.pos); m.lookAt(s.pos.clone().add(s.normal));
+      // flat, low-contrast marks sunk into the skin (a colour patch, not a bead stuck on it)
+      const m = new THREE.Mesh(new THREE.SphereGeometry(0.018 + rnd() * 0.014, 12, 8), speckM);
+      m.scale.set(1, 1, 0.12); m.position.copy(s.pos).addScaledVector(s.normal, -0.0015); m.lookAt(s.pos.clone().add(s.normal));
       this.potatoParts.add(m);
     }
 

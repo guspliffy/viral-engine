@@ -21,14 +21,14 @@
     "iris": "#3a1f4a",
     "cheeks": "#ff6f6f",
     "neutral": {
-      "tilt": -0.2,
-      "curve": 0.45,
+      "tilt": -0.08,
+      "curve": 0.4,
       "open": 0,
       "smirk": 0.45,
       "eye": 1,
       "lidL": 0.28,
-      "lidR": 0.28,
-      "browL": 0.35
+      "lidR": 0.2,
+      "browL": 0.4
     },
     "eye": {
       "tilt": 0.3,

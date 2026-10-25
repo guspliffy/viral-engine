@@ -22,6 +22,7 @@
     "cheeks": "#ff6f6f",
     "neutral": {
       "curve": 0.35,
+      "smirk": 0.12,
       "lidL": 0.12,
       "lidR": 0.18,
       "browL": 0.12,

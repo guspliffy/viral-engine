@@ -402,7 +402,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveIntensity: m.emissiveIntensity ?? 1,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], key: role });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus

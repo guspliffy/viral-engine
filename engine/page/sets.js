@@ -37,7 +37,18 @@ export function buildSet(scene, spec = {}, palette = null) {
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
+  if (type === "plain") return plain(scene, spec);
   return meadow(scene, spec, palette);
+}
+
+// "plain": a model-sheet backdrop, a warm paper colour with a floor of the same tone that takes the shadows (for
+// turnarounds and construction sheets, where the scenery must not distract)
+function plain(scene, spec) {
+  const S = { color: "#efe4d2", floor: "#e6d8c2", ...spec };
+  scene.background = new THREE.Color(S.color);
+  scene.add(skyDome(S.color, S.color, S.floor));
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ color: S.floor }));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; ground.material.userData.noOutline = true; scene.add(ground);
 }
 
 // "meadow": a soft grassy stage under a warm sky, rolling hills and a few clouds.

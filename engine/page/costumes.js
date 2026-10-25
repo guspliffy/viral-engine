@@ -65,7 +65,16 @@ function wizardHat(C) {
   const segs = 48, radial = 40;
   const coneG = crumple(taperedTube(spine, 0.27, 0.012, segs, radial, (t) => 0.27 * Math.pow(1 - t, 1.05) + 0.01), spine, segs, radial, 1);
   const cone = new THREE.Mesh(coneG, felt); cone.castShadow = true; g.add(cone);
-  const b = new THREE.Mesh(new THREE.CylinderGeometry(0.262, 0.274, 0.055, 40, 1, true), band); b.position.y = 0.04; g.add(b);
+  // the band is cut from the cone itself (rows 1-6 of its rings, pushed out along their normals), so it follows the
+  // crown's folds all the way round instead of a cylinder that sinks into the cloth in places and floats in others
+  const bandG = new THREE.BufferGeometry(), cpos = coneG.attributes.position, cnor = coneG.attributes.normal, r0 = 1, r1 = 6, bv = [], bi = [];
+  for (let i = r0; i <= r1; i++) for (let j = 0; j <= radial; j++) {
+    const n = i * (radial + 1) + j, lip = i === r0 || i === r1 ? 0.0045 : 0.0075;   // the edges tuck in a little, a soft rolled band
+    bv.push(cpos.getX(n) + cnor.getX(n) * lip, cpos.getY(n) + cnor.getY(n) * lip, cpos.getZ(n) + cnor.getZ(n) * lip);
+  }
+  for (let i = 0; i < r1 - r0; i++) for (let j = 0; j < radial; j++) { const a = i * (radial + 1) + j, c = a + radial + 1; bi.push(a, a + 1, c, c, a + 1, c + 1); }
+  bandG.setAttribute("position", new THREE.Float32BufferAttribute(bv, 3)); bandG.setIndex(bi); bandG.computeVertexNormals();
+  const b = new THREE.Mesh(bandG, band); b.castShadow = true; g.add(b);
   // rest positions for sway()
   const cone0 = coneG.attributes.position.array.slice(), brim0 = bp.array.slice(), pivot = spine.getPointAt(0.4);
   const q = new THREE.Quaternion(), eu = new THREE.Euler(), v = new THREE.Vector3();
