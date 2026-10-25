@@ -48,7 +48,8 @@
    "z": -0.3,
    "rot": -20,
    "saucer": false,
-   "scale": 1.4
+   "scale": 1.4,
+   "steam": 1
   },
   {
    "id": "plate",
@@ -166,6 +167,14 @@
     },
     {
      "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -175,6 +184,14 @@
      "dur": 0.2,
      "ease": "settle",
      "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.12,
+     "at": 0.86
     },
     {
      "who": "wiz",
@@ -242,8 +259,8 @@
       "prop": "cup",
       "grip": "handle",
       "at": [
-       0.08,
-       0.62,
+       0.04,
+       0.591,
        0.2
       ]
      },
@@ -545,6 +562,14 @@
    "do": [
     {
      "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wiz",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -559,6 +584,14 @@
      "dur": 0.2,
      "ease": "out",
      "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.4,
+     "at": 0.35
     },
     {
      "who": "wiz",
