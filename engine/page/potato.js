@@ -155,6 +155,16 @@ export class Character {
     h.updateMatrix(); return h.userData.grip.position.clone().applyMatrix4(h.matrix);
   }
 
+  // push a point (root space) out of the body sideways until it clears the surface by an arm's width
+  // (bezier control points: k > 1 pushes further, since the curve passes inside its control point)
+  _outside(p, S, k0 = 1) {
+    const cy = this.cy * S.y, rx = this.rx * S.x, ry = this.ry * S.y, rz = this.rz * S.z, m = (1 + (this.limbW * 1.3) / Math.min(rx, rz)) * k0;
+    const dx = p.x, dy = p.y - cy, dz = p.z, e = Math.hypot(dx / rx, dy / ry, dz / rz);
+    if (e >= m) return p;
+    const hz = Math.hypot(dx / rx, dz / rz); if (hz < 1e-4) return p;
+    const need = Math.sqrt(Math.max(0, m * m - (dy / ry) ** 2)), k = Math.max(1, need / hz);
+    p.x = dx * k; p.z = dz * k; return p;
+  }
   // point on the potato for a unit direction, in bodyGroup space (y = 0 is the ground)
   bodyPoint(d) {
     let r = 1;
@@ -223,7 +233,13 @@ export class Character {
       // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
-      if (hw > 0) mid.lerp(new THREE.Vector3(h.x - sx * 0.15, h.y - 0.01, h.z - 0.02), hw);   // elbow guide: beside the body at fist height
+      // elbow guide: beside the body at fist height; for a hand in front of the belly, half way round the body from the
+      // shoulder to the hand, so the arm wraps round the body instead of through it
+      if (hw > 0) {
+        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.15, h.y - 0.01, h.z - 0.02) : sh.clone().lerp(h, 0.5);
+        mid.lerp(g, hw);
+      }
+      this._outside(mid, S, 1.3);   // the elbow never sinks into the body
       this.arms[s].hand.position.copy(h);
       if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax);
       this.arms[s].elbow = mid;
