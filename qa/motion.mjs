@@ -3,7 +3,7 @@
 // actor's state frame by frame (the same timeline.js the renderer uses) and flags a value that jumps between two
 // frames far more than it moves in the frames around it: a hand that teleports, a body that snaps, wings that flick.
 //
-//   node qa/motion.mjs storyboards/x.json          -> list of jumps (exit 0; jumps are warnings)
+//   node qa/motion.mjs storyboards/x.json          -> list of jumps, blinks on key lines, long hop crouches (exit 0; all warnings)
 //
 // Covered on purpose: frames under a flash of 0.5 or more, actors hidden or off camera, limbs in the fries form,
 // whole turns.
@@ -84,10 +84,55 @@ export async function motionJumps(sb, fps = 30) {
   return out.sort((a, b) => a.t - b.t);
 }
 
+// Storyboard habits that read as glitches, found from the timeline alone (warnings):
+//   blink-on-line  an automatic blink (or one a look change starts) on a key line: the speaker anywhere in their own
+//                  caption or talk, anyone else in a caption's first 0.6 s. A placed "blink" action is deliberate and
+//                  not reported.
+//   long-hop       a hop whose crouch lasts over 0.4 s (the crouch is 15-35% of each hop): a long lift reads as a
+//                  stuck squat; use "fly" for a long lift-off, or shorter hops.
+export async function storyNotes(sb, fps = 30) {
+  const { actorState } = await import("../engine/page/timeline.js");
+  const { hopCrouch } = await import("../engine/page/util.js");
+  const out = [], acts = sb.actions || [], KEY = 0.6;
+  const talks = acts.filter((a) => a.do === "talk" || a.do === "say"), q = (x) => (/^["“]/.test(x) ? x : `"${x}"`);
+  const windows = [];
+  for (const c of sb.captions || []) {
+    const who = talks.filter((a) => Math.abs(a.at - c.from) <= 0.3).map((a) => a.who);
+    // the speaker: the whole caption; everyone else (or everyone, when nobody talks): its first moment
+    if (who.length) windows.push({ from: c.from, to: c.to, who, what: q(c.text) });
+    windows.push({ from: c.from, to: c.from + KEY, who: (sb.cast || []).map((x) => x.id).filter((id) => !who.includes(id)), what: q(c.text) });
+  }
+  for (const a of talks) windows.push({ from: a.at, to: a.at + (a.dur ?? KEY), who: [a.who], what: a.line ? q(a.line) : `a line at ${a.at.toFixed(2)}s` });
+  const placed = (who, t) => acts.some((a) => a.who === who && a.do === "blink" && t >= a.at - 1e-6 && t <= a.at + (a.dur ?? 0.26));
+  const seen = new Set();
+  for (const c of sb.cast || []) {
+    const file = path.join(ROOT, "characters", `${c.character}.json`);
+    if (!fs.existsSync(file)) continue;
+    const def = JSON.parse(fs.readFileSync(file, "utf8"));
+    for (const w of windows) {
+      if (!w.who.includes(c.id)) continue;
+      for (let t = Math.ceil(w.from * fps) / fps; t <= w.to + 1e-6; t += 1 / fps) {
+        const st = actorState(sb, c, def, t);
+        if (st.visible === false || !(st.blink > 0.5) || placed(c.id, t)) continue;
+        const k = `${c.id}@${Math.round(t * 4)}`; if (seen.has(k)) break; seen.add(k);
+        out.push({ level: "warn", check: "blink-on-line", msg: `${c.id} blinks at ${t.toFixed(2)}s on ${w.what}: add blink: false to the look there, or a "noblink" with placed blinks` });
+        break;
+      }
+    }
+  }
+  for (const a of acts) {
+    if (a.do !== "hop") continue;
+    const n = a.count ?? 1, d = a.dur ?? 0.4, crouch = (hopCrouch(d, n) * d) / n;
+    if (crouch > 0.4) out.push({ level: "warn", check: "long-hop", msg: `${a.who}: the hop at ${a.at.toFixed(2)}s crouches for ${crouch.toFixed(1)}s before it leaves the ground: use "fly" for a long lift-off, or shorter hops` });
+  }
+  return out;
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const sb = compile(JSON.parse(fs.readFileSync(process.argv[2], "utf8")));
   if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: 120 };
   const j = await motionJumps(sb, sb.fps ?? 30);
   if (!j.length) console.log("motion: no jumps");
   for (const x of j) console.log(x.note ? `  ${x.who}: ${x.note}` : `  ${x.t.toFixed(2)}s  ${x.who} ${x.what}: ${x.what.endsWith("slides") ? "moves" : "jumps"} ${x.size.toFixed(3)} in one frame`);
+  for (const r of await storyNotes(sb, sb.fps ?? 30)) console.log(`  ${r.check}: ${r.msg}`);
 }

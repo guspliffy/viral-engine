@@ -13,7 +13,10 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - **No contact glitches** (layout `contacts`, every frame): characters never overlap each other, no arm passes
   through a held staff or a hat brim, no staff goes into the body. These fail the check, and `render.mjs` refuses to
   start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip` window with
-  a `reason`; a window without one is ignored. A hand turning more than 60° in one frame is a warning: look at it.
+  a `reason`; a window without one is ignored. An arm up inside a helmet glass fails too. Warnings to look at:
+  characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
+  held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
+  blink on a key line (`qa/motion.mjs`), and a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off).
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
