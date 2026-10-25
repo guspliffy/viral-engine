@@ -145,7 +145,14 @@ export class Character {
     const w = axis ? fistWeight(gr.curl) : 0;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
-      const f = y.clone().addScaledVector(x, -y.dot(x)); if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
+      // forearm runs along the handle (a raised staff) that direction shrinks to nothing and would spin the fist end-on
+      // or flip it, so the steady out-and-forward pull takes over, smoothly, and keeps the knuckles to the front
+      const o = new THREE.Vector3(at.x, 0, 0).normalize().add(new THREE.Vector3(0, 0, 1));
+      if (at.x === 0) o.set(-sx, 0, 1);
+      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4);
+      if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      U.fistPar = Math.abs(y.dot(x));
       // fwd: the fist turns its knuckles to face forward (a mug or teacup handle held beside the cup: the fingers wrap
       // the front of the handle and the palm faces the cup)
       if (gr.fwd) { f.lerp(new THREE.Vector3(0, 0, 1), gr.fwd).addScaledVector(x, -f.dot(x)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize(); }
@@ -186,7 +193,9 @@ export class Character {
     const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
     U.thumb.position.copy(U.thumbRest);
     U.fist.visible = tw > 0.001; U.fist.scale.setScalar(Math.max(0.001, tw));
-    U.palm.scale.set(1, 0.95, 0.78).multiplyScalar(1 - 0.15 * tw);   // a closed fist is more compact than the open mitten
+    // a closed fist is more compact than the open mitten, and its palm draws back behind the handle so the handle always
+    // runs through the fingers, never through the palm
+    U.palm.scale.set(1, 0.95, 0.78 - 0.18 * tw).multiplyScalar(1 - 0.15 * tw); U.palm.position.z = -0.034 * tw;
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
@@ -332,7 +341,7 @@ export class Character {
       const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
       body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
     }
-    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)} gripOff=${seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip).toFixed(3)}`);
+    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)} gripOff=${seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip).toFixed(3)} par=${(a.hand.userData.fistPar ?? 0).toFixed(2)}`);
   }
 }
 
