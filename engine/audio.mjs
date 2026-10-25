@@ -186,6 +186,38 @@ const SFX = {
     return x;
   },
   tink(r) { const d = 0.35, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 2100 * t) * 0.6 + Math.sin(TAU * 5300 * t) * 0.25) * env(t, 0.001, 0.07, d); } return x; },
+  // a small bright ring off a blade tip: a high bell partial that rings out
+  ting(r) { const d = 0.7, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 3950 * t) * 0.5 + Math.sin(TAU * 6120 * t) * 0.22 + Math.sin(TAU * 9480 * t) * 0.08) * env(t, 0.0008, 0.22, d); } return x; },
+  // a sweet's wrapper: a few quick, crisp crackles
+  crinkle(r, d = 0.3) {
+    const x = buf(d), hp = biquad("hp", 3000, 0.8), hits = Array.from({ length: 9 }, () => r() * (d - 0.03));
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let e = 0; for (const h of hits) e += env(t - h, 0.0003, 0.006, d); x[i] = run(hp, r() * 2 - 1) * e * 0.9; }
+    return x;
+  },
+  // an iron door latch dropping into its catch: a metal clack with a short ring
+  latch(r) {
+    const d = 0.25, x = buf(d), bp = biquad("bp", 2400, 3);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(bp, r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 2 + (Math.sin(TAU * 1850 * t) * 0.3 + Math.sin(TAU * 3020 * t) * 0.15) * env(t - 0.004, 0.0005, 0.05, d) + run(bp, r() * 2 - 1) * env(t - 0.06, 0.0005, 0.008, d); }
+    return x;
+  },
+  // a blade through paper and card: a dry tearing hiss with a soft thock of the core
+  papercut(r) {
+    const d = 0.22, x = buf(d), bp = biquad("bp", 3800, 1.2), lp = biquad("lp", 500, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, grain = 0.6 + 0.4 * Math.sin(TAU * 140 * t + r() * 0.5) ** 2; x[i] = run(bp, r() * 2 - 1) * env(t, 0.002, 0.06, d) * grain * 1.4 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.02, d) * 1.5; }
+    return x;
+  },
+  // a small surprised gasp: a quick breathy inhale that rises
+  gasp(r) {
+    const d = 0.3, x = buf(d); let bp = biquad("bp", 900, 2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d; if (i % 64 === 0) bp = { ...biquad("bp", 800 + 1400 * k, 2.2), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * Math.sin(Math.PI * Math.min(1, t / 0.22)) * (t < 0.22 ? 1 : 0) * 1.6; }
+    return x;
+  },
+  // one weighted footstep on stone: a dull low thud and a little grit
+  step(r) {
+    const d = 0.2, x = buf(d), lp = biquad("lp", 300, 0.7), hp = biquad("hp", 2500, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 90 * Math.pow(50 / 90, t / d); p += TAU * f / SR; x[i] = Math.sin(p) * env(t, 0.002, 0.05, d) * 1.2 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.03, d) * 1.5 + run(hp, r() * 2 - 1) * env(t - 0.01, 0.001, 0.02, d) * 0.25; }
+    return x;
+  },
   sting(r) {
     const d = 0.7, x = buf(d), lp = biquad("lp", 1600, 0.8);
     for (let i = 0; i < x.length; i++) {

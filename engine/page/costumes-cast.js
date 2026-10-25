@@ -15,6 +15,12 @@ function lowerShell(ch, from, scale = 1.045) {
   for (let i = 0; i < p.count; i++) { const q = ch.bodyPoint(v.fromBufferAttribute(p, i).normalize()); p.setXYZ(i, q.x * scale, ch.cy + (q.y - ch.cy) * scale, q.z * scale); }
   g.computeVertexNormals(); return g;
 }
+// a shell a little outside the body above elevation `from`: caps, hoods without a face opening
+function upperShell(ch, from, scale = 1.06) {
+  const t1 = Math.PI / 2 - from, g = new THREE.SphereGeometry(1, 64, 24, 0, Math.PI * 2, 0, t1), p = g.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { const q = ch.bodyPoint(v.fromBufferAttribute(p, i).normalize()); p.setXYZ(i, q.x * scale, ch.cy + (q.y - ch.cy) * scale, q.z * scale); }
+  g.computeVertexNormals(); return g;
+}
 // a ring that follows the body at elevation `ph`: belts, collars
 function ring(ch, ph, r, mat, lift = 0.012) {
   const pts = [];
@@ -64,12 +70,24 @@ function katana(C) {
   const s = new THREE.Shape(); // a gently curved single-edged blade
   s.moveTo(-0.018, 0); s.quadraticCurveTo(-0.02, 0.4, 0.03, 0.72); s.lineTo(0.02, 0.74); s.quadraticCurveTo(0.03, 0.38, 0.018, 0); s.closePath();
   const col = new THREE.Color(C.blade || "#3dff8a");
+  // bladeStyle "steel": pale steel with a thin mint edge (no glow), for clips that want a real sword
+  const steel = C.bladeStyle === "steel";
   const blade = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.008, bevelEnabled: true, bevelSize: 0.003, bevelThickness: 0.003, bevelSegments: 1, curveSegments: 20 }),
-    new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 0.55, roughness: 0.2, metalness: 0.3 }));
+    steel ? new THREE.MeshStandardMaterial({ color: "#dfe6ea", emissive: new THREE.Color("#9fb4c0"), emissiveIntensity: 0.12, roughness: 0.22, metalness: 0.75 })
+      : new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 0.55, roughness: 0.2, metalness: 0.3 }));
   blade.position.set(0, 0.12, -0.004); blade.castShadow = true; g.add(blade);
+  if (steel) {
+    // the edge: a mint line along the outer curve, both faces
+    const pts = [];
+    for (let i = 0; i <= 24; i++) { const k = i / 24, q = 1 - k; pts.push(new THREE.Vector3(q * q * 0.018 + 2 * q * k * 0.03 + k * k * 0.02, q * q * 0 + 2 * q * k * 0.38 + k * k * 0.74, 0)); }
+    const edgeM = new THREE.MeshStandardMaterial({ color: C.edge || "#7dffc0", emissive: new THREE.Color(C.edge || "#7dffc0"), emissiveIntensity: 0.35, roughness: 0.3 });
+    for (const z of [-0.0005, 0.0085]) { const e = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.0035, 5), edgeM); e.position.set(0.002, 0.12, z - 0.004); g.add(e); }
+    // the habaki: a small brass collar where the blade meets the guard
+    const hb = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.03, 0.02), std("#c9a24a", { metalness: 0.8, roughness: 0.3 })); hb.position.set(0, 0.135, 0); g.add(hb);
+  }
   // shaft (contact checks, costumes.js propLine): the handle's foot to the blade tip, not the staff default that runs
   // half a metre below the fist
-  return { group: g, charge(c) { blade.material.emissiveIntensity = 0.55 + c * 3; }, shaft: [-0.1, 0.86, 0.02] };
+  return { group: g, charge(c) { if (!steel) blade.material.emissiveIntensity = 0.55 + c * 3; }, shaft: [-0.1, 0.86, 0.02] };
 }
 
 // the portrait's double-bit axe: two flared crescent blades either side of the shaft and a spike on top
@@ -256,6 +274,50 @@ export function castCostume(C, ch) {
       const hem = [];
       for (let i = 0; i < 60; i++) { const a = (i / 60) * Math.PI * 2, sf = ch.surf(a, -1.12 + 0.07 * Math.sin(a * 7)); hem.push(sf.pos.clone().addScaledVector(sf.normal, 0.02)); }
       const hm = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hem, true), 120, 0.016, 6, true), sheet); hm.castShadow = true; parts.add(hm);
+      out.sitDepth = 0.03;
+    }
+    if (O === "vampire") {
+      // a dark purple cape with a red lining and a stand-up collar behind the head
+      const outer = cape(ch, C.cape || "#3a1d5c"); parts.add(outer);
+      // soft folds down the cape and a scalloped hem, so it hangs like cloth rather than a panel
+      { const g = outer.geometry, p = g.attributes.position, y0 = ch.cy + ch.ry * 0.35, y1 = 0.16;
+        for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), k = Math.min(1, Math.max(0, (y0 - y) / (y0 - y1))), a = Math.atan2(x, z);
+          const f = 1 + 0.07 * k * Math.sin(a * 9); p.setX(i, x * f); p.setZ(i, z * f); if (k > 0.99) p.setY(i, y + 0.03 * Math.abs(Math.sin(a * 4.5))); }
+        g.computeVertexNormals(); }
+      const lin = outer.geometry.clone(); lin.scale(0.985, 1, 0.985);
+      const lining = new THREE.Mesh(lin, std(C.lining || "#a3203a", { roughness: 0.8, side: THREE.BackSide })); parts.add(lining);
+      // the collar: a stand-up band behind the head whose top edge rises to two points (the classic vampire collar)
+      const top = ch.cy + ch.ry * 0.3, ch0 = ch.ry * 0.32, cg = new THREE.CylinderGeometry(ch.rx * 1.2, ch.rx * 1.05, ch0, 48, 4, true, Math.PI - 1.4, 2.8);
+      { const p = cg.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i), k = (y + ch0 / 2) / ch0; if (k <= 0) continue;
+        const a = Math.atan2(p.getX(i), -p.getZ(i)), pt = Math.max(0, Math.cos((Math.abs(a) - 0.95) * 2.6)), dip = Math.abs(a) < 0.4 ? 0.0 : 0;   // a: 0 at the back
+        p.setY(i, y + k * ch.ry * 0.12 * pt + dip); const out = 1 + 0.16 * k * pt; p.setX(i, p.getX(i) * out); p.setZ(i, p.getZ(i) * out); } cg.computeVertexNormals(); }
+      cg.translate(0, top + ch0 / 2, 0); cg.scale(1, 1, (ch.rz / ch.rx) * 1.12);
+      const collar = new THREE.Mesh(cg, std(C.cape || "#3a1d5c", { roughness: 0.85, side: THREE.DoubleSide })); collar.castShadow = true; parts.add(collar);
+      const cl = cg.clone(); cl.scale(0.985, 1, 0.985); parts.add(new THREE.Mesh(cl, std(C.lining || "#a3203a", { roughness: 0.8, side: THREE.BackSide })));
+      // the cape's ties: a cord across the chest under the face, with a gold clasp in the middle
+      const cord = strap(ch, [-1.8, -0.72], [1.8, -0.72], 0.01, std("#2a1440", { roughness: 0.8 }));
+      parts.add(cord);
+      const cs = ch.surf(0, -0.72), clasp = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.014, 20), std("#e2b23c", { roughness: 0.3, metalness: 0.8 }));
+      clasp.position.copy(cs.pos).addScaledVector(cs.normal, 0.012); clasp.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), cs.normal); parts.add(clasp);
+      out.sitDepth = 0.11;
+    }
+    if (O === "pumpkincap") {
+      // a pumpkin cap: five fat orange lobes with creases between them, from above the eyes up to a stem and a leaf
+      const orange = std(C.cap || "#f08a24", { roughness: 0.7 }), crease = std("#b9541a", { roughness: 0.8 });
+      const from = C.capFrom ?? 0.5, NT = 80, NP = 20, cap = (th, ph) => {
+        const q = ch.surf(th, ph).pos, u = (ph - from) / (Math.PI / 2 - from), w = Math.sin(Math.min(1, u * 1.5) * Math.PI / 2);
+        const k = 1.035 * (1 + 0.06 * w * Math.pow(Math.abs(Math.cos(5 * th)), 0.6));   // the lobes swell above the hem, which hugs the head
+        return new THREE.Vector3(q.x * k, ch.cy + (q.y - ch.cy) * 1.035 + 0.035 * Math.sin(u * Math.PI / 2), q.z * k);
+      };
+      const pos = [], idx = [];
+      for (let j = 0; j <= NP; j++) for (let i = 0; i <= NT; i++) { const v = cap((i / NT) * Math.PI * 2, from + (Math.PI / 2 - 0.002 - from) * j / NP); pos.push(v.x, v.y, v.z); }
+      for (let j = 0; j < NP; j++) for (let i = 0; i < NT; i++) { const a = j * (NT + 1) + i, b = a + NT + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+      const shell = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: orange.color, roughness: 0.7, side: THREE.DoubleSide })); shell.castShadow = true; parts.add(shell);
+      for (let i = 0; i < 5; i++) { const a = Math.PI / 10 + (i / 5) * Math.PI * 2, pts = []; for (let k = 0; k <= 16; k++) pts.push(cap(a, from + (Math.PI / 2 - 0.05 - from) * k / 16)); const st = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, 0.009, 6), crease); parts.add(st); }
+      const tp = cap(0, Math.PI / 2 - 0.002);
+      const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.034, 0.1, 8), std("#5d7a2a", { roughness: 0.7 })); stem.position.set(tp.x, tp.y + 0.04, tp.z); stem.rotation.z = 0.3; stem.castShadow = true; parts.add(stem);
+      const lf = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 8), std("#6cbf3a", { roughness: 0.6 })); lf.scale.set(1.4, 0.25, 0.8); lf.position.set(tp.x + 0.06, tp.y + 0.03, tp.z + 0.02); lf.rotation.z = -0.35; parts.add(lf);
       out.sitDepth = 0.03;
     }
     if (O === "pumpkin") {

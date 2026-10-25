@@ -15,6 +15,7 @@ import { buildLivingroom } from "./set-livingroom.js";
 import { buildGym } from "./set-gym.js";
 import { buildPark } from "./set-park.js";
 import { buildPorch } from "./set-porch.js";
+import { buildCottage } from "./set-cottage.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -60,6 +61,7 @@ export function buildSet(scene, spec = {}, palette = null) {
   if (type === "gym") return buildGym(scene, spec);                 // set-gym.js
   if (type === "park") return buildPark(scene, spec);               // set-park.js
   if (type === "porch") return buildPorch(scene, spec);       // set-porch.js
+  if (type === "cottage") return buildCottage(scene, spec);   // set-cottage.js
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });

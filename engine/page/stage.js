@@ -619,6 +619,8 @@ function silhouette() {
   if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); }
   const bg = scene.background, fog = scene.fog;
   for (const o of setObjs) o.visible = false;
+  // props marked scenery (a door, a gate) count as set, not as a character covering the caption
+  const sceneryProps = props.filter((p) => p.spec.scenery && p.root.visible); for (const p of sceneryProps) p.root.visible = false;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
   // props are scenery (a tree's leaves behind the title are fine); only the characters count
   const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
@@ -631,6 +633,7 @@ function silhouette() {
   R.setRenderTarget(null);
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
   for (const o of setObjs) o.visible = true;
+  for (const p of sceneryProps) p.root.visible = true;
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
   props.forEach((p, i) => (p.root.visible = prv[i]));
   for (const o of glass) o.visible = true;
