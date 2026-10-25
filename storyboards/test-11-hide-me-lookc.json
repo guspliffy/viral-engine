@@ -188,7 +188,8 @@
     -0.9,
     0.05
    ],
-   "dur": 0.1
+   "dur": 0.1,
+   "blink": false
   },
   {
    "who": "hero",
@@ -253,7 +254,8 @@
     ],
     "gun": -1.35
    },
-   "dur": 0.2
+   "dur": 0.4,
+   "ease": "inOut"
   },
   {
    "who": "hero",
@@ -284,7 +286,8 @@
    "do": "arm",
    "side": "both",
    "pose": "rest",
-   "dur": 0.3
+   "dur": 0.7,
+   "ease": "inOut"
   },
   {
    "who": "hero",
@@ -567,7 +570,8 @@
     ],
     "gun": -1.35
    },
-   "dur": 0.25
+   "dur": 0.45,
+   "ease": "inOut"
   },
   {
    "who": "hero",
@@ -665,5 +669,5 @@
  "loop": false,
  "sfx": [],
  "look": "anime-pro",
- "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks. Fable review B: on *hides* he ducks behind the Phoenix and one eye peeks out (pulling the hat over the eyes pushed the hat through the head), the Sorcerer close-up shifted right to keep the pistol out of it. Jonny 06:50: the Phoenix stops further away so the two never merge before he hides; he hides fully behind her (z gap 0.8); HIDE ME arms go up wide, clear of the brim, and the hat no longer gets pulled (arms went through it)."
+ "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks. Fable review B: on *hides* he ducks behind the Phoenix and one eye peeks out (pulling the hat over the eyes pushed the hat through the head), the Sorcerer close-up shifted right to keep the pistol out of it. Jonny 06:50: the Phoenix stops further away so the two never merge before he hides; he hides fully behind her (z gap 0.8); HIDE ME arms go up wide, clear of the brim, and the hat no longer gets pulled (arms went through it). Contact checks (look-dev 9f25b0d): slower arm moves so the pistols don't whip round in one frame, no blink on the opening frame."
 }
