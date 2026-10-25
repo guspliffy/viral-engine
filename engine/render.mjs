@@ -118,7 +118,7 @@ async function mux(video, wav, outFile, from, len) {
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
-  const gain = LOUDNESS.I - Number(j.input_i), limit = Math.pow(10, LOUDNESS.TP / 20);
+  const gain = LOUDNESS.I - Number(j.input_i), limit = Math.pow(10, (LOUDNESS.TP - 0.6) / 20);   // 0.6 dB below: AAC rings over a bright transient (a blade "ting")
   // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
   // otherwise comes out of the AAC encoder above the true-peak limit)
   const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${limit.toFixed(4)}:attack=2:release=60:level=0,aresample=44100`;

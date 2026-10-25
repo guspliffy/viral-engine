@@ -549,6 +549,8 @@ function silhouette() {
   if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); }
   const bg = scene.background, fog = scene.fog;
   for (const o of setObjs) o.visible = false;
+  // props marked scenery (a door, a gate) count as set, not as a character covering the caption
+  const sceneryProps = props.filter((p) => p.spec.scenery && p.root.visible); for (const p of sceneryProps) p.root.visible = false;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
   // glows and other see-through parts are effects, not the character's body
   const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && m.transparent && m.opacity < 0.95 || o.isSprite || o.isPoints) glass.push(o); });
@@ -559,6 +561,7 @@ function silhouette() {
   R.setRenderTarget(null);
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
   for (const o of setObjs) o.visible = true;
+  for (const p of sceneryProps) p.root.visible = true;
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
   for (const o of glass) o.visible = true;
   return px;

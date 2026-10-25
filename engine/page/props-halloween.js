@@ -8,7 +8,8 @@ import { clamp } from "./util.js";
 //   candy    one wrapped sweet
 //   bucket   a trick-or-treat bucket with a wire bail; style "pumpkin" | "cauldron" | "ghost". grip "bail"
 //   tproll   a toilet roll on its side (axis along x) with a loose sheet; it splits into two short rolls (`split`), and
-//            `tail` 0..1 is how much of the loose sheet hangs out
+//            `tail` 0..1 is how much of the loose sheet hangs out, `sway` its own clock (slow motion), `apart` how far the
+//            halves part (x the default)
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 function canvasTex(w, h, draw) { const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }
@@ -17,6 +18,7 @@ export const HALLOWEEN_GRIPS = {
   bowl: { base: [0, 0, 0] },
   bucket: { bail: [0, 0.205, 0] },
   tproll: { side: [0, 0.06, -0.075] },
+  treatbag: { handles: [0, 0.2, 0] },
 };
 
 // a wrapped sweet: a round middle with a twist of wrapper either side
@@ -28,7 +30,90 @@ function sweet(parent, color, x, y, z, ry = 0, s = 1) {
   return g;
 }
 
+// a wood-plank texture for the cottage door: warm brown boards with grain
+function plankDoorTex(n) {
+  return canvasTex(256, 512, (g, w, h) => {
+    const bw = w / n;
+    for (let i = 0; i < n; i++) {
+      const v = 0.88 + ((i * 37) % 11) / 60;
+      g.fillStyle = `rgb(${Math.round(120 * v)},${Math.round(76 * v)},${Math.round(44 * v)})`; g.fillRect(i * bw, 0, bw, h);
+      for (let k = 0; k < 9; k++) { const x = i * bw + 4 + ((k * 53 + i * 17) % 100) / 100 * (bw - 8); g.strokeStyle = `rgba(60,34,18,${0.18 + (k % 3) * 0.06})`; g.lineWidth = 1 + (k % 2); g.beginPath(); g.moveTo(x, 0); g.bezierCurveTo(x + 3, h * 0.33, x - 3, h * 0.66, x + 1, h); g.stroke(); }
+      g.fillStyle = "rgba(30,16,8,0.75)"; g.fillRect(i * bw, 0, 3, h);
+    }
+  });
+}
+
 export const HALLOWEEN_KINDS = {
+  // an arched cottage door of vertical planks, with iron strap hinges, a ring knocker and a latch handle.
+  // spec: w, h (to the top of the arch), hinge "right"|"left" (default right), swing "in"|"out" (default in), angle
+  archdoor(P) {
+    const W = P.spec.w ?? 1.1, H = P.spec.h ?? 2.05, T = 0.06, rA = W / 2, H0 = H - rA, n = 7;
+    const right = (P.spec.hinge ?? "right") === "right", sx = right ? -1 : 1;   // the leaf runs from the hinge (x 0) toward sx
+    const woodT = plankDoorTex(n), wood = mat("#ffffff", { map: woodT, roughness: 0.75 });
+    const iron = mat("#1b1a1f", { roughness: 0.45, metalness: 0.6 });
+    const leaf = new THREE.Group(); P.whole.add(leaf);
+    const topAt = (u) => H0 + Math.sqrt(Math.max(0, rA * rA - (u - rA) * (u - rA)));   // u: 0..W across the door
+    for (let i = 0; i < n; i++) {
+      const u0 = (W * i) / n + 0.003, u1 = (W * (i + 1)) / n - 0.003, sh = new THREE.Shape();
+      sh.moveTo(u0, 0); sh.lineTo(u1, 0); sh.lineTo(u1, topAt(u1));
+      for (let k = 1; k < 8; k++) { const u = u1 + (u0 - u1) * k / 8; sh.lineTo(u, topAt(u)); }
+      sh.lineTo(u0, topAt(u0)); sh.closePath();
+      const geo = new THREE.ExtrudeGeometry(sh, { depth: T, bevelEnabled: false }); geo.translate(0, 0, -T / 2);
+      // planar UVs so the plank texture runs up the board
+      const uv = geo.attributes.uv, ps = geo.attributes.position;
+      for (let j = 0; j < uv.count; j++) uv.setXY(j, ps.getX(j) / W, ps.getY(j) / H);
+      const m = mesh(geo, wood, leaf); m.scale.x = sx;
+    }
+    // two iron strap hinges with round ends and rivets, on the outside, from the hinge edge
+    for (const y of [0.35, H0 - 0.05]) {
+      mesh(new THREE.BoxGeometry(W * 0.62, 0.05, 0.012), iron, leaf, sx * W * 0.31, y, T / 2 + 0.006);
+      mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.012, 16), iron, leaf, sx * W * 0.62, y, T / 2 + 0.006).rotation.x = Math.PI / 2;
+      for (let k = 0; k < 4; k++) mesh(new THREE.SphereGeometry(0.009, 8, 6), iron, leaf, sx * (0.08 + k * W * 0.15), y, T / 2 + 0.013).castShadow = false;
+    }
+    // the ring knocker on a round plate, upper middle; a latch handle on the free side (both faces)
+    const kx = sx * W * 0.5, ky = 1.28;
+    mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.012, 20), iron, leaf, kx, ky, T / 2 + 0.006).rotation.x = Math.PI / 2;
+    const ring = mesh(new THREE.TorusGeometry(0.07, 0.012, 10, 28), iron, leaf, kx, ky - 0.07, T / 2 + 0.02); ring.castShadow = false;
+    for (const zs of [1, -1]) {
+      const hx = sx * (W - 0.12);
+      mesh(new THREE.BoxGeometry(0.04, 0.16, 0.012), iron, leaf, hx, 1.0, zs * (T / 2 + 0.006));
+      const grip = mesh(new THREE.TorusGeometry(0.045, 0.01, 8, 16, Math.PI), iron, leaf, hx, 1.0, zs * (T / 2 + 0.02)); grip.rotation.z = right ? Math.PI / 2 : -Math.PI / 2; grip.castShadow = false;
+    }
+    return {
+      grip: 1.0,
+      apply(ps) { leaf.rotation.y = ((P.spec.swing ?? "in") === "in" ? 1 : -1) * (right ? -1 : 1) * clamp(ps.open ?? 0, -0.2, 1.2) * ((P.spec.angle ?? 100) * Math.PI) / 180; },
+    };
+  },
+  // a paper treat bag with rope handles and a printed motif: spec.style "bat" (purple) or "pumpkin" (orange)
+  treatbag(P) {
+    const w = 0.15, h = 0.17, d = 0.085, t = 0.004, bat = (P.spec.style ?? "bat") === "bat";
+    const col = P.spec.color || (bat ? "#6d3fa6" : "#f08a24");
+    const print = canvasTex(256, 256, (g, W, H) => {
+      g.fillStyle = col; g.fillRect(0, 0, W, H);
+      g.fillStyle = "rgba(0,0,0,0.08)"; g.fillRect(0, 0, W, 10);
+      g.fillStyle = "#1a1420";
+      if (bat) {
+        g.beginPath(); g.moveTo(128, 120); g.quadraticCurveTo(100, 95, 70, 100); g.quadraticCurveTo(52, 104, 40, 92); g.quadraticCurveTo(44, 120, 34, 140); g.quadraticCurveTo(60, 130, 74, 146); g.quadraticCurveTo(92, 132, 108, 150); g.quadraticCurveTo(118, 140, 128, 156);
+        g.quadraticCurveTo(138, 140, 148, 150); g.quadraticCurveTo(164, 132, 182, 146); g.quadraticCurveTo(196, 130, 222, 140); g.quadraticCurveTo(212, 120, 216, 92); g.quadraticCurveTo(204, 104, 186, 100); g.quadraticCurveTo(156, 95, 128, 120); g.fill();
+        g.beginPath(); g.arc(128, 128, 16, 0, 7); g.fill(); g.beginPath(); g.moveTo(116, 116); g.lineTo(120, 100); g.lineTo(126, 114); g.moveTo(130, 114); g.lineTo(136, 100); g.lineTo(140, 116); g.fill();
+      } else {
+        const tri = (pts) => { g.beginPath(); g.moveTo(...pts[0]); for (const q of pts.slice(1)) g.lineTo(...q); g.closePath(); g.fill(); };
+        tri([[70, 110], [100, 75], [112, 118]]); tri([[186, 110], [156, 75], [144, 118]]);
+        g.beginPath(); g.moveTo(60, 150); for (let i = 0; i <= 8; i++) g.lineTo(60 + i * 17, i % 2 ? 168 : 150); g.lineTo(196, 150); g.quadraticCurveTo(128, 230, 60, 150); g.fill();
+      }
+    });
+    const paper = mat("#ffffff", { map: print, roughness: 0.9 }), plain = mat(col, { roughness: 0.9 }), inside = mat("#2a2028", { roughness: 1, side: THREE.DoubleSide });
+    for (const zs of [1, -1]) mesh(new THREE.BoxGeometry(w, h, t), zs > 0 ? paper : (P.spec.printBack === false ? plain : paper), P.whole, 0, h / 2, zs * (d / 2 - t / 2));
+    for (const xs of [1, -1]) mesh(new THREE.BoxGeometry(t, h, d - 2 * t), plain, P.whole, xs * (w / 2 - t / 2), h / 2, 0);
+    mesh(new THREE.BoxGeometry(w, t, d), plain, P.whole, 0, t / 2, 0);
+    // the inside, dark, a little below the rim: the opening reads as a hole
+    const hole = mesh(new THREE.PlaneGeometry(w - 2 * t, d - 2 * t), inside, P.whole, 0, h - 0.02, 0); hole.rotation.x = -Math.PI / 2; hole.castShadow = false;
+    // two rope handles, front and back, arching up
+    const rope = mat(P.spec.rope || "#2a1e1a", { roughness: 0.8 });
+    for (const zs of [1, -1]) { const hd = mesh(new THREE.TorusGeometry(0.04, 0.006, 6, 16, Math.PI), rope, P.whole, 0, h, zs * (d / 2 - t)); hd.castShadow = false; }
+    return { grip: 0 };
+  },
+
   door(P) {
     const W = P.spec.w ?? 1.0, H = P.spec.h ?? 1.75, T = 0.055;
     const paint = mat(P.spec.color || "#5b1e33", { roughness: 0.55 }), dark = mat("#3e1222", { roughness: 0.6 });
@@ -65,10 +150,11 @@ export const HALLOWEEN_KINDS = {
   },
   bowl(P) {
     const prof = [[0.0, 0.0], [0.07, 0.0], [0.075, 0.012], [0.13, 0.05], [0.165, 0.1], [0.172, 0.108], [0.16, 0.104], [0.122, 0.056], [0.066, 0.016], [0.0, 0.016]].map(([x, y]) => new THREE.Vector2(x, y));
-    const b = mesh(new THREE.LatheGeometry(prof, 40), mat("#ef7d22", { roughness: 0.4 }), P.whole); b.material.side = THREE.DoubleSide;
-    const rim = mesh(new THREE.TorusGeometry(0.168, 0.008, 8, 48), mat("#1d1820", { roughness: 0.4 }), P.whole, 0, 0.106, 0); rim.rotation.x = Math.PI / 2;
+    const wood = P.spec.style === "wood";   // a turned wooden bowl (the cottage clip), else the orange party bowl
+    const b = mesh(new THREE.LatheGeometry(prof, 40), mat(wood ? "#8a5530" : "#ef7d22", { roughness: wood ? 0.55 : 0.4 }), P.whole); b.material.side = THREE.DoubleSide;
+    const rim = mesh(new THREE.TorusGeometry(0.168, 0.008, 8, 48), mat(wood ? "#6a3f22" : "#1d1820", { roughness: 0.4 }), P.whole, 0, 0.106, 0); rim.rotation.x = Math.PI / 2;
     // a little bat painted round the side: two dark marks
-    for (const a of [0.4, 2.5, 4.6]) { const m = mesh(new THREE.SphereGeometry(0.02, 8, 6), mat("#1d1820"), P.whole, Math.sin(a) * 0.15, 0.06, Math.cos(a) * 0.15); m.scale.set(1.6, 0.5, 0.3); m.lookAt(0, 0.06, 0); m.castShadow = false; }
+    if (!wood) for (const a of [0.4, 2.5, 4.6]) { const m = mesh(new THREE.SphereGeometry(0.02, 8, 6), mat("#1d1820"), P.whole, Math.sin(a) * 0.15, 0.06, Math.cos(a) * 0.15); m.scale.set(1.6, 0.5, 0.3); m.lookAt(0, 0.06, 0); m.castShadow = false; }
     const cols = ["#e8b53a", "#8e3fd1", "#e2372f", "#2fa86a", "#f2f2f2", "#ff8a1a"];
     let k = 0;
     for (const [r, y, n] of [[0.11, 0.07, 9], [0.06, 0.09, 6], [0.0, 0.105, 1]]) for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2 + y * 9; sweet(P.whole, cols[k++ % cols.length], Math.cos(a) * r, y, Math.sin(a) * r, a); }
@@ -113,8 +199,9 @@ export const HALLOWEEN_KINDS = {
       for (const e of [0, 1]) {
         const x = s * (e ? L / 2 : 0.0005), ringG = new THREE.RingGeometry(r, R, 32);
         const face = mesh(ringG, mat(e ? "#ecebe4" : "#e2ddd0", { roughness: 0.9, side: THREE.DoubleSide }), h, x, R, 0); face.rotation.y = Math.PI / 2;
-        // the paper's wound layers: faint rings on the end face
-        const lines = mesh(new THREE.RingGeometry(r + 0.012, r + 0.0135, 32), mat("#d8d2c4", { side: THREE.DoubleSide }), h, x + s * 0.0005, R, 0); lines.rotation.y = Math.PI / 2; lines.castShadow = false;
+        // the paper's wound layers: rings on the end face (more of them on the cut face, for close-ups)
+        const nl = e ? 1 : (P.spec.layers ?? 1);
+        for (let k = 0; k < nl; k++) { const rr = nl === 1 ? r + 0.012 : r + 0.003 + (R - r - 0.006) * (k + 0.5) / nl; const lines = mesh(new THREE.RingGeometry(rr, rr + 0.0012, 40), mat("#d3ccbd", { side: THREE.DoubleSide }), h, x + s * 0.0005, R, 0); lines.rotation.y = Math.PI / 2; lines.castShadow = false; }
       }
       const c = mesh(new THREE.CylinderGeometry(r, r, L / 2, 20, 1, true), core, h, s * L / 4, R, 0); c.rotation.z = Math.PI / 2; c.material.side = THREE.DoubleSide;
     }
@@ -128,7 +215,9 @@ export const HALLOWEEN_KINDS = {
       grip: R, splitApart: 0.07, splitTip: 0.55, splitDrop: 0,
       apply(ps, t) {
         const n = Math.round(clamp(ps.tail ?? 1) * segs);
-        parts.forEach((g, i) => { g.visible = i < n; g.rotation.x = (i ? 0.32 : 0.15) + 0.18 * Math.sin(t * 7 + i * 0.9 + (P.spec.phase ?? 0)); });
+        // sway: the sheet's own clock (a slow-motion shot keys it, so the sheet flutters as slowly as the roll flies)
+        const tt = ps.sway ?? t;
+        parts.forEach((g, i) => { g.visible = i < n; g.rotation.x = (i ? 0.32 : 0.15) + 0.18 * Math.sin(tt * 7 + i * 0.9 + (P.spec.phase ?? 0)); });
       },
     };
   },

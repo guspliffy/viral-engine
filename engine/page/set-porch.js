@@ -10,8 +10,8 @@ import { rng } from "./util.js";
 // spec: { type: "porch", seed: 7 }. Layout constants are exported so storyboards and props can line up with them.
 export const PORCH = { wallZ: -0.72, wallT: 0.14, doorX: -0.38, doorW: 1.15, doorH: 1.8, corner: 1.05, lawnY: -0.42, deckFront: 1.5, deckRight: 2.2 };
 
-function canvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return [c, c.getContext("2d")]; }
-function tex(c, rx = 1, ry = 1) {
+export function canvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return [c, c.getContext("2d")]; }
+export function tex(c, rx = 1, ry = 1) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
   if (rx !== 1 || ry !== 1) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rx, ry); }
   return t;
@@ -20,13 +20,13 @@ const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness
 const basic = (o) => { const m = new THREE.MeshBasicMaterial({ fog: false, ...o }); m.userData.noOutline = true; return m; };
 function box(parent, w, h, d, m, x, y, z) { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(x, y, z); b.castShadow = b.receiveShadow = true; parent.add(b); return b; }
 // a flat painted card facing the camera (unlit: the painting already has its light)
-function card(parent, c, w, h, x, y, z, order = -10) {
+export function card(parent, c, w, h, x, y, z, order = -10) {
   const m = basic({ map: tex(c), transparent: true, depthWrite: false });
   const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); p.position.set(x, y, z); p.renderOrder = order; parent.add(p);
   return p;
 }
 // a soft round glow (lamps, windows, the moon's halo), additive
-function glow(parent, color, size, x, y, z, strength = 0.6) {
+export function glow(parent, color, size, x, y, z, strength = 0.6) {
   const [c, g] = canvas(128, 128), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
   gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.25, "rgba(255,255,255,0.45)"); gr.addColorStop(1, "rgba(255,255,255,0)");
   g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
@@ -63,7 +63,7 @@ function plankTex(rnd) {
   return c;
 }
 // the hallway seen through the door: warm striped wallpaper, a wainscot, a framed picture and a hall lamp glow
-function hallBackTex() {
+export function hallBackTex() {
   const [c, g] = canvas(512, 640), W = 512, H = 640;
   g.fillStyle = "#e8a65c"; g.fillRect(0, 0, W, H);
   for (let x = 0; x < W; x += 40) { g.fillStyle = "rgba(190,110,50,0.35)"; g.fillRect(x, 0, 14, H); }
@@ -79,7 +79,7 @@ function hallBackTex() {
   g.fillStyle = gr; g.fillRect(0, 0, W, H);
   return c;
 }
-function hallSideTex(dark) {
+export function hallSideTex(dark) {
   const [c, g] = canvas(512, 320);
   const gr = g.createLinearGradient(0, 0, 512, 0); gr.addColorStop(0, dark ? "#a8642f" : "#c47d3e"); gr.addColorStop(1, dark ? "#d68f4b" : "#e9a75e");
   g.fillStyle = gr; g.fillRect(0, 0, 512, 320);
@@ -158,7 +158,7 @@ function lanternFaceTex() {
   g.beginPath(); g.moveTo(50, 160); for (let i = 0; i <= 8; i++) g.lineTo(50 + i * 19.5, i % 2 ? 175 : 160); g.lineTo(206, 160); g.quadraticCurveTo(128, 240, 50, 160); g.fill();
   return c;
 }
-function jackOLantern(parent, x, z, r, rot, y = 0) {
+export function jackOLantern(parent, x, z, r, rot, y = 0) {
   const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = rot; parent.add(g);
   const geo = new THREE.SphereGeometry(r, 48, 24), p = geo.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const a = Math.atan2(v.z, v.x), k = 1 - 0.07 * Math.abs(Math.sin(a * 4)); p.setXYZ(i, v.x * k, v.y * 0.78, v.z * k); }

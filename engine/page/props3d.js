@@ -345,7 +345,7 @@ export function buildProp(spec) {
       const sc = Math.max(ps.scale, 0.0001), q = ps.squash || 0;
       root.scale.set(sc * (1 + q / 2), sc * (1 - q), sc * (1 + q / 2)); root.visible = ps.scale > 0.002;
       const sp = clamp(ps.split);
-      for (const [s, h] of halves) { h.position.set(s * (def.splitApart ?? 0) * sp, -(def.splitDrop ?? 0) * sp * sp, 0); h.rotation.z = -s * (def.splitTip ?? 0) * sp; }
+      for (const [s, h] of halves) { h.position.set(s * (def.splitApart ?? 0) * sp * (ps.apart ?? 1), -(def.splitDrop ?? 0) * sp * sp, 0); h.rotation.z = -s * (def.splitTip ?? 0) * sp; }
       if (def.apply) def.apply(ps, t);
     },
   };
@@ -353,7 +353,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, steam: spec.steam ?? 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, open: spec.open ?? 0, tail: spec.tail ?? 1, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, steam: spec.steam ?? 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, open: spec.open ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
