@@ -35,9 +35,15 @@ export const GRIPS = {
   point: { curl: 1.15, index: 0.0,  thumb: 0.9 },
   cup:   { curl: 0.5,  index: 0.45, thumb: 0.35, up: 1 },   // palm up, cradling something from below: an orb, a jar's base
   flat:  { curl: 0.0,  index: 0.0,  thumb: 0.0 },    // open palm
+  // a teacup or mug handle: the fist closes round the handle's upright bar (axis: up), thumb on top of the handle, the
+  // curled fingers under and round it, lying against the cup body in front
+  teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
 };
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below)
-const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t) });
+// axis: a handle held without a costume prop (the teacup), in the actor's root space; the fist only turns onto it once
+// the hand is closing, so taking it from either end of the blend never pops. fwd: how far the fist turns its
+// knuckles to face forward (0 along the forearm, 1 straight ahead)
+const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t), fwd: lerp(a.fwd || 0, b.fwd || 0, t), axis: (t < 0.5 ? a.axis || b.axis : b.axis || a.axis) || null });
 
 // a blink at 30 fps: closes over about 2.5 frames, shut for one, reopens over about 4 (u: seconds since it began)
 export const BLINK_LEN = 0.26;

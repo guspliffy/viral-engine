@@ -1,5 +1,5 @@
 import * as THREE from "three";
-const _fist = new THREE.Quaternion(), _thumbFist = new THREE.Vector3(0.046, 0.05, 0.02);
+const _fist = new THREE.Quaternion();
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
@@ -114,7 +114,21 @@ export class Character {
     // the handle runs along x through the curl of the fingers, between them and the top of the palm
     const grip = dc ? new THREE.Mesh(new THREE.SphereGeometry(0.008, 8, 6), new THREE.MeshBasicMaterial({ color: "#ffffff", depthTest: false })) : new THREE.Object3D();
     grip.position.set(0.002, 0.04, 0.016); g.add(grip);
-    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, side: s };
+    // the fist on a handle (staff, scythe, sword): three finger rolls wrapped round the shaft, stacked along it, their
+    // knuckles making a three-bump arc on the outer side, and a thumb lying over the top and across the front towards
+    // the body (Jonny's reference grip). The mitten fingers shrink away as this closes in, so the change never pops.
+    const fist = new THREE.Group(); fist.position.copy(grip.position); fist.scale.setScalar(0.001); fist.visible = false; g.add(fist);
+    [[-0.027, 0.015, M("#ff9a20")], [-0.001, 0.0158, M("#ff9a20")], [0.024, 0.0148, M("#ff9a20")]].forEach(([x, tr, mm], i) => {
+      const R = 0.019 + tr, pts = [];
+      for (let k = 0; k <= 12; k++) { const ph = (-60 + (k * 255) / 12) * (Math.PI / 180); pts.push(new THREE.Vector3(x, R * Math.cos(ph), R * Math.sin(ph))); }
+      const roll = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 24, 10, (t) => tr * (0.75 + 0.25 * Math.sin(Math.PI * Math.min(1, t * 1.15)))), mm);
+      roll.castShadow = true; fist.add(roll);
+      const tip = new THREE.Mesh(new THREE.SphereGeometry(tr * 0.78, 10, 8), mm); tip.position.copy(pts[pts.length - 1]); fist.add(tip);   // fingertip
+      const knuckle = new THREE.Mesh(new THREE.SphereGeometry(tr * 1.05, 12, 10), mm); knuckle.position.copy(pts[2]); fist.add(knuckle);
+    });
+    const tf = new THREE.Mesh(cap(0.0145, 0.03), M("#e020e0")); tf.rotation.x = Math.PI / 2 - 0.35; tf.rotation.z = -0.25;
+    tf.rotation.order = "ZXY"; tf.position.set(0.04, -0.012, 0.03); tf.castShadow = true; fist.add(tf);
+    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s };
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
@@ -132,6 +146,9 @@ export class Character {
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
       const f = y.clone().addScaledVector(x, -y.dot(x)); if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      // fwd: the fist turns its knuckles to face forward (a mug or teacup handle held beside the cup: the fingers wrap
+      // the front of the handle and the palm faces the cup)
+      if (gr.fwd) { f.lerp(new THREE.Vector3(0, 0, 1), gr.fwd).addScaledVector(x, -f.dot(x)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize(); }
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, f, new THREE.Vector3().crossVectors(x, f)));
       hand.quaternion.slerp(_fist, w);
     }
@@ -165,14 +182,12 @@ export class Character {
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
     U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index;
     U.thumb.rotation.set(0, -1.15 * gr.thumb, 0.35 * gr.thumb);
-    // on a handle the thumb lies over the top of the fist pointing back towards the body (Jonny: the thumb faces the body,
-    // not away from it), wrapping a little over the front of the shaft
-    const tw = axis ? fistWeight(gr.curl) : 0;
+    // on a handle the wrapped fist (U.fist) takes over from the mitten fingers
+    const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
     U.thumb.position.copy(U.thumbRest);
-    if (tw > 0) {
-      U.thumb.position.lerp(_thumbFist, tw);
-      U.thumb.rotation.set(0.35 * tw, -1.15 * gr.thumb * (1 - tw), 0.35 * gr.thumb * (1 - tw) - 1.7 * tw);
-    }
+    U.fist.visible = tw > 0.001; U.fist.scale.setScalar(Math.max(0.001, tw));
+    U.palm.scale.set(1, 0.95, 0.78).multiplyScalar(1 - 0.15 * tw);   // a closed fist is more compact than the open mitten
+    for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
   // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one
@@ -269,7 +284,7 @@ export class Character {
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
       // body into the side of the fist, square to the handle, instead of running down alongside it
-      const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) : null;
+      const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
       // elbow guide: beside the body at fist height; for a hand in front of the belly, half way round the body from the
       // shoulder to the hand, so the arm wraps round the body instead of through it
