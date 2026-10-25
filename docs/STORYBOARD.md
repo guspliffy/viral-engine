@@ -121,5 +121,10 @@ moving at once.
 - Feet stay planted where the last step left them: pitch, lean, the follow, a shake or breathing never slide them.
   Moves, turns, hops, dance steps and `grow` are steps. `qa/motion.mjs` reports a planted foot that slides.
 - No automatic blink lands in a `still` hold, on an expression change or during a `look`.
+- A sword cut is faster than a frame, so it gets a smear: `{ "do": "slash", "at", "pos", "r", "from", "arc", "dur" }`
+  in `fx` draws a crescent along the blade's path for a few frames (`pos`: the arc's centre, about the fist's pivot;
+  `from` and `arc` in degrees in the camera-facing plane, `rot` turns that plane). Office props: `desk` (top at 0.42,
+  a front panel hides the legs), `report` (`shred` 0..1 sends its pieces flying in `batches` onto a pile where it lay)
+  and `nameplate` (`text`, grip `back`; `split` cuts it in two, each half tipping over its outer edge).
 
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.
