@@ -150,9 +150,10 @@ const KINDS = {
   },
   // the jar's pickle on its own, to fly out of an { empty: true } jar; spin (degrees) tumbles it end over end
   pickle(P) {
-    const m = mat("#5f9a3a", { roughness: 0.5 }), tumble = new THREE.Group(); tumble.position.y = 0.115; P.whole.add(tumble);
+    // a deeper green with lighter warts all round, so it still reads as a pickle when it is small or seen flat
+    const m = mat("#4c8a2c", { roughness: 0.5 }), wart = mat("#7cb64a", { roughness: 0.5 }), tumble = new THREE.Group(); tumble.position.y = 0.115; P.whole.add(tumble);
     const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), m, tumble, 0, 0, 0); pk.rotation.z = 0.25;
-    for (let i = 0; i < 6; i++) { const b = mesh(new THREE.SphereGeometry(0.009, 8, 6), m, pk, Math.cos(i * 2.1) * 0.042, -0.06 + i * 0.024, Math.sin(i * 2.1) * 0.042); b.castShadow = false; }
+    for (let i = 0; i < 14; i++) { const y = -0.075 + (i / 13) * 0.15, r = 0.044 - 0.012 * Math.max(0, Math.abs(y) - 0.06) / 0.015; const b = mesh(new THREE.SphereGeometry(0.0085, 8, 6), wart, pk, Math.cos(i * 2.4) * r, y, Math.sin(i * 2.4) * r); b.castShadow = false; }
     return { grip: 0.115, apply(ps) { tumble.rotation.x = ((ps.spin || 0) * Math.PI) / 180; } };
   },
   cookie(P) {
