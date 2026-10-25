@@ -48,7 +48,7 @@ export class Face {
   constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
-    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, ...eye };
+    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, ...eye };
     this.eyeStyle = E;
     // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
@@ -61,6 +61,9 @@ export class Face {
     const irisM = new THREE.MeshStandardMaterial({ color: iris, roughness: 0.4 });
     const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.4 });
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
+    // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
+    // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
+    if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
     this.eyes = [-1, 1].map((side) => {
       const root = new THREE.Group(); // placed on the surface, z = out of the surface
       const lid = new THREE.Group(); root.add(lid); // scaled for blinks and squints (no lids) or widened (wide eyes)

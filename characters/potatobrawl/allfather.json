@@ -22,12 +22,12 @@
     "cheeks": "#ff7a6a",
     "brow": "#ecebe6",
     "neutral": {
-      "tilt": -0.15,
-      "browY": -0.012,
-      "curve": 0.1,
+      "tilt": -0.05,
+      "browY": -0.004,
+      "curve": 0.2,
       "eye": 1,
-      "lidL": 0.22,
-      "lidR": 0.22
+      "lidL": 0.18,
+      "lidR": 0.18
     },
     "eye": {
       "flick": 0.2,
