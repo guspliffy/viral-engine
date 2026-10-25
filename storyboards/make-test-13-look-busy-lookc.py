@@ -76,6 +76,9 @@ acts.append({"who": "mag", "at": 4.6, "do": "arm", "side": "R", "pose": HANG, "d
 # instead of "point" (same flip as above), and the spell moves a little slower
 find("mag", 5.9, "arm")["pose"] = PRESENT
 find("boss", 11.5, "arm")["pose"] = PRESENT
+# after "very busy." the Sorcerer's hand dropped nowhere: it stayed out toward the Samurai, whose turns while flailing
+# swung his body into it (up to 3 cm at 7.1, 8.9 and 11.6 s, contact check). It goes back to hanging as the line ends.
+acts.append({"who": "mag", "at": 6.55, "do": "arm", "side": "R", "pose": HANG, "dur": 0.45})
 for who, at in (("mag", 2.25), ("mag", 2.3), ("mag", 3), ("mag", 5.9), ("boss", 11.5)):
     for a in acts:
         if a["who"] == who and abs(a["at"] - at) < 1e-6 and a["do"] == "arm": a["dur"] = max(a["dur"], 0.5)
