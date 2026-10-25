@@ -1,4 +1,5 @@
 import * as THREE from "three";
+const _fist = new THREE.Quaternion();
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
@@ -110,11 +111,21 @@ export class Character {
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
-  _pose(hand, elbow, at, sx, gr) {
-    const U = hand.userData, y = at.clone().sub(elbow).normalize(), z = new THREE.Vector3(-sx, 0, 0.35).normalize();
+  // axis: the held handle's direction (a staff, a scythe). A closed hand then turns its fist around it: the handle runs
+  // through the curled fingers from the little finger to the thumb, thumb on top, knuckles out, fingers pointing forward.
+  _pose(hand, elbow, at, sx, gr, axis = null) {
+    const U = hand.userData, y = at.clone().sub(elbow).normalize();
+    const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
     z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
-    const x = new THREE.Vector3().crossVectors(y, z);
-    hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, y, z));
+    hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y, z), y, z));
+    // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops
+    const w = axis ? Math.min(1, Math.max(0, (gr.curl - 0.6) / 0.3)) : 0;
+    if (w > 0) {
+      const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
+      const f = y.clone(); f.y = 0; f.multiplyScalar(0.5).add(new THREE.Vector3(0, 0, 1)).addScaledVector(x, -f.dot(x)).normalize();
+      _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, f, new THREE.Vector3().crossVectors(x, f)));
+      hand.quaternion.slerp(_fist, w * w * (3 - 2 * w));
+    }
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
     U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index;
@@ -182,7 +193,7 @@ export class Character {
       const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 });
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, this.costume.propAxis?.(st, s));
       this.arms[s].hand.visible = showLimbs;
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);

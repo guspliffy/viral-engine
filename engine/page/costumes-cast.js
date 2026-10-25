@@ -237,7 +237,7 @@ export function castCostume(C, ch) {
     const cloth = std(C.accent || "#5a2f8f", { roughness: 0.85, side: THREE.DoubleSide });
     const hood = new THREE.Mesh(hoodGeometry(ch), cloth); hood.castShadow = true; ch.bodyGroup.add(hood);
     parts.add(cape(ch, C.accent || "#5a2f8f"));
-    out.prop = glowOrb(C); out.sitDepth = -0.035;
+    out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
   }
   // the Gunslinger's twin revolvers, one in each hand, barrels forward
   if (C.pistols) {
