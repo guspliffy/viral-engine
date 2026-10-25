@@ -41,6 +41,10 @@ export const RULES = {
   // a hand that turns further in one frame than a hand can (metres, degrees, frames)
   armThroughStaff: 0, staffInBody: -0.03, brimDepth: 0.01, contactHold: 2, handTurnWarn: 60,
   armAlongShaft: 0.85, armAlongHold: 0.4, // forearm nearly along the held shaft (|forearm·shaft|) for this long: the setup for a fist flip
+  // hands and held props against characters (the look busy remake): a hand or blade this far into another character
+  // (metres, hand radius included) fails; within a centimetre for touchHold warns; a hand on screen over a face's
+  // eyes fails from faceCoverFail (s), warns from faceCoverWarn; a fist over a head or a prop growing out of a body warns
+  reachIn: 0.02, touchHold: 0.2, faceCoverFail: 0.3, faceCoverWarn: 0.1, readHold: 0.2,
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
   strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
@@ -155,7 +159,7 @@ export function clipResults(sb, layout) {
 // grips and limbs, from the layout's per-frame "contacts" (potato.js contact()): the arm holding a staff passing through
 // it, the staff going into the body, an arm through a hat brim or up inside a helmet's glass, and a hand that turns further in one frame than a hand
 // can (a pop; it may be hidden behind what the hand holds, so it warns)
-export function contactResults(layout) {
+export function contactResults(layout, sb = null) {
   const out = [], rows = layout?.contacts || [];
   if (!rows.length) return out;
   const fps = layout.fps || 30, ids = [...new Set(rows.flatMap((r) => r.actors.map((a) => a.id)))];
@@ -180,6 +184,61 @@ export function contactResults(layout) {
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
+  out.push(...reachResults(layout, sb));
+  return out;
+}
+
+// hands and held props against characters (stage.js reach): into another character (hood, hat, helmet, face, body),
+// sunk into its own body, over a face's eyes on screen, a fist over a head, a held prop growing out of a body.
+// Contact a beat needs (a hug, a tap on the shoulder, hands over the eyes) goes in an allowClip window with a reason.
+function reachResults(layout, sb) {
+  const out = [], rows = layout?.contacts || [];
+  if (!rows.some((r) => r.reach)) return out;
+  const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
+  const windows = (sb?.allowClip || []).filter((w) => w.reason);
+  const allowed = (a, b, i) => windows.some((w) => [a, b].includes(w.who) && (!w.with || [a, b].includes(w.with)) && i / fps >= w.from && i / fps <= w.to);
+  // per key, the frames where it holds, then runs of at least min frames
+  const track = (key, pick) => { const m = new Map(); rows.forEach((r, i) => { for (const x of pick(r)) { const k = key(x); if (!m.has(k)) m.set(k, { x, f: new Array(n).fill(false), d: new Array(n).fill(-1) }); const e = m.get(k); e.f[i] = true; e.d[i] = Math.max(e.d[i], x.depth ?? x.cover ?? 1); } }); return m; };
+  const runs = (flags, min) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= min); };
+  const frames = (sec) => Math.max(RULES.contactHold, Math.round(sec * fps));
+  let found = 0;
+  const list = (sps) => sps.map(when).join(", ");
+  const reach = track((x) => `${x.who}|${x.by}|${x.with}|${x.part}`, (r) => (r.reach || []).filter((x) => !allowed(x.who, x.with, rows.indexOf(r))));
+  // one line per hand or prop and character it reaches: the parts it goes into, all the times, the deepest
+  const into = new Map(), touch = new Map();
+  for (const { x, f, d } of reach.values()) {
+    const by = x.by === "prop" ? "held prop" : `hand ${x.by.slice(4)}`, k = `${x.who}|${by}|${x.with}`;
+    const sps = x.part === "own body" ? runs(f, RULES.contactHold) : runs(d.map((v) => v > RULES.reachIn), RULES.contactHold);
+    if (sps.length) {
+      const e = into.get(k) || { x, by, parts: new Set(), f: new Array(n).fill(false), max: 0 };
+      e.parts.add(x.part === "costume" ? "hood or costume" : x.part);
+      for (const [p, q] of sps) for (let i = p; i <= q; i++) { e.f[i] = true; e.max = Math.max(e.max, d[i]); }
+      into.set(k, e);
+    } else if (x.part !== "own body") {
+      const t = runs(f, frames(RULES.touchHold)); if (!t.length) continue;
+      const e = touch.get(k) || { x, by, parts: new Set(), f: new Array(n).fill(false) };
+      e.parts.add(x.part === "costume" ? "hood or costume" : x.part); for (const [p, q] of t) for (let i = p; i <= q; i++) e.f[i] = true;
+      touch.set(k, e);
+    }
+  }
+  for (const [k, e] of into) {
+    found++;
+    if (e.x.with === e.x.who) out.push({ level: "fail", check: "limb-through-costume", msg: `${e.x.who}: ${e.by} sinks into its own body at ${list(runs(e.f, 1))}: keep the fist outside the body` });
+    else out.push({ level: "fail", check: "character-overlap", msg: `${e.x.who}'s ${e.by} goes into ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm: keep it clear, or add an allowClip window with a reason` });
+  }
+  for (const [k, e] of touch) if (!into.has(k)) out.push({ level: "warn", check: "character-overlap", msg: `${e.x.who}'s ${e.by} touches ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}: fine if the beat needs contact (allowClip with a reason), otherwise leave a gap` });
+  const covers = track((x) => `${x.by}|${x.part}|${x.face}`, (r) => (r.covers || []).filter((x) => x.face && !allowed(x.by, x.face, rows.indexOf(r))));
+  for (const { x, f } of covers.values()) {
+    const who = x.by === x.face ? "its own" : `${x.face}'s`, by = x.part === "prop" ? "held prop" : `hand ${x.part.slice(4)}`, sps = runs(f, frames(RULES.faceCoverWarn));
+    if (!sps.length) continue;
+    const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
+    out.push({ level: lvl, check: "face-covered", msg: `${x.by}'s ${by} is in front of ${who} eyes at ${list(sps)}: move it off the face or change the camera, or add an allowClip window with a reason` });
+  }
+  const heads = track((x) => `${x.by}|${x.head}`, (r) => (r.covers || []).filter((x) => x.head));
+  for (const { x, f } of heads.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.by}'s fist (holding the prop) sits over ${x.by === x.head ? "its own" : x.head + "'s"} head on screen at ${list(sps)}: it reads as stuck on the head; hold it out to the side` }); }
+  const sprout = track((x) => `${x.who}|${x.behind}`, (r) => r.sprout || []);
+  for (const { x, f } of sprout.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.who}'s fist is hidden behind ${x.behind === x.who ? "its own body" : x.behind} at ${list(sps)} while the prop shows: it reads as growing out of the body` }); }
+  if (!found) out.push({ level: "pass", check: "character-overlap", msg: "hands and held props stay out of the other characters and off the faces" });
   return out;
 }
 
@@ -326,7 +385,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     }
     // characters passing through props or each other (layout "clips", from the 3D engine)
     for (const r of clipResults(sb, layout)) add(r.level, r.check, r.msg);
-    for (const r of contactResults(layout)) add(r.level, r.check, r.msg);
+    for (const r of contactResults(layout, sb)) add(r.level, r.check, r.msg);
     for (const [k, t] of outside) add("fail", "caption-safe-zone", `"${k}" leaves the safe zone at ${t.toFixed(2)}s: the app's buttons and text cover it there`);
     if (!outside.size && worst.size) add("pass", "caption-safe-zone", "every caption stays clear of the app's buttons and text");
     for (const [k, w] of worst) {

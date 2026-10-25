@@ -507,7 +507,135 @@ function contact(t) {
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
     return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) } };
-  }) };
+  }), ...reach() };
+}
+
+// hands and held props against characters (the look busy remake: a hand in another's hood, a sword in a helmet, a fist
+// sunk into its own head, a hand over a face in a close-up; none of these was measured before):
+// reach: a hand or a held prop's shaft within 1 cm of, or inside, another character's body or anything on it (hood,
+//   hat, helmet, face), as metres of overlap (hand radius included; > 0 is going in); and a hand whose centre is
+//   inside its own body (more than half the fist sunk in: a hand resting on the face or belly stays outside)
+// sprout: a held prop's fist hidden behind another character while the prop shows
+// covers: also a fist holding a prop over the top of a head on screen
+// covers: a hand or held prop in front of a face, on screen over the eyes, while that face is in frame
+function reach() {
+  const out = { reach: [], covers: [] }, v = new THREE.Vector3(), inv = new THREE.Matrix4(), sc = new THREE.Vector3();
+  const live = actors.filter((a) => a.ch.contact && a.ch.root.visible && a.ch.body && a.ch.potatoParts.visible);
+  for (const a of live) a.ch.root.updateMatrixWorld(true);
+  const shownIn = (o, top) => { for (; o && o !== top; o = o.parent) if (!o.visible) return false; return true; };
+  // what can reach: each hand (a ball), and points along a held prop's shaft away from the fist
+  const reachers = live.map((a) => {
+    const pts = [];
+    for (const s of ["R", "L"]) {
+      const h = a.ch.arms[s].hand; if (!shownIn(h, a.ch.root)) continue;
+      pts.push({ part: `hand${s}`, p: h.getWorldPosition(new THREE.Vector3()), r: 0.06 * h.getWorldScale(sc).x });
+    }
+    const L = a.ch.costume?.propLine?.();
+    if (L) for (let i = 0; i <= 12; i++) {
+      const q = L.a.clone().lerp(L.b, i / 12); if (q.distanceTo(L.grip) < 0.12) continue;
+      pts.push({ part: "prop", p: q.applyMatrix4(a.ch.root.matrixWorld), r: L.r * a.ch.root.getWorldScale(sc).x });
+    }
+    return { a, pts };
+  });
+  // what can be reached: another character's body and the larger parts on it (hood, hat, helmet, eyes), each as the
+  // ellipsoid of its own box; signed distance from a point, in metres (negative: inside)
+  const parts = (a) => {
+    const list = [], seen = new Set(), hat = a.ch.costume?.hat, helm = a.ch.costume?.helmet?.mesh;
+    // the body group (body, face, hood) plus the hat and helmet, which ride on their own mount
+    for (const top of [a.ch.bodyGroup, hat, helm]) if (top && shownIn(top, a.ch.root)) top.traverseVisible((o) => {
+      if (seen.has(o)) return; seen.add(o);
+      if (!o.isMesh || !o.geometry || o.isSprite || (o.material && o.material.transparent && o.material.opacity < 0.5 && o !== helm)) return;
+      if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      const size = o.geometry.boundingBox.getSize(new THREE.Vector3()).multiply(o.getWorldScale(sc));
+      if (Math.max(size.x, size.y, size.z) < 0.08) return;   // speckles, glints, small trims
+      let name = o === a.ch.body ? "body" : "costume";
+      for (let q = o; q; q = q.parent) { if (q === hat) name = "hat"; if (q === helm) name = "helmet"; }
+      if (a.ch.face && a.ch.face.group && name === "costume") for (let q = o; q; q = q.parent) if (q === a.ch.face.group) name = "face";
+      list.push({ o, name });
+    });
+    return list;
+  };
+  const dist = (o, p) => {
+    const bb = o.geometry.boundingBox, c = bb.getCenter(new THREE.Vector3()), h = bb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    inv.copy(o.matrixWorld).invert(); v.copy(p).applyMatrix4(inv).sub(c);
+    const e = Math.sqrt((v.x / Math.max(h.x, 1e-4)) ** 2 + (v.y / Math.max(h.y, 1e-4)) ** 2 + (v.z / Math.max(h.z, 1e-4)) ** 2);
+    // along the line from the centre: the surface is at 1/e of the way to the point (exact for a sphere, close enough
+    // for the round parts here, and never small for a far point the way a flat part's thinnest axis would make it)
+    o.getWorldScale(sc); return v.multiply(sc).length() * (1 - 1 / Math.max(e, 1e-6));
+  };
+  const rd = (x) => Math.round(x * 1000) / 1000;
+  for (const { a, pts } of reachers) {
+    for (const b of live) {
+      if (b === a) {
+        // own body: only a hand sunk in past its centre (3 cm, as the box ellipsoid is a little fuller than the potato)
+        for (const q of pts) if (q.part !== "prop") { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        continue;
+      }
+      const best = new Map();
+      for (const { o, name } of parts(b)) for (const q of pts) {
+        const d = q.r - dist(o, q.p), k = `${q.part}|${name}`;
+        if (d > -0.01 && d > (best.get(k)?.depth ?? -1)) best.set(k, { who: a.c.id, by: q.part, with: b.c.id, part: name, depth: rd(d) });
+      }
+      out.reach.push(...best.values());
+    }
+  }
+  // a held prop sprouting from a body: its fist hidden behind a character (its own head, usually) while the prop's far
+  // end shows, so on screen the blade grows out of the head (the look busy sword fist "on top of his head")
+  const hidden = (b, p) => {
+    const g = b.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c = bb.getCenter(new THREE.Vector3()), h = bb.getSize(new THREE.Vector3()).multiplyScalar(0.5 * 0.95);
+    inv.copy(b.ch.body.matrixWorld).invert();
+    const o = camera.position.clone().applyMatrix4(inv).sub(c).divide(h), d = p.clone().applyMatrix4(inv).sub(c).divide(h).sub(o);
+    // the segment camera -> point against the unit sphere, short of the point itself
+    const A = d.dot(d), B = 2 * o.dot(d), C = o.dot(o) - 1, D = B * B - 4 * A * C;
+    if (D <= 0) return false;
+    const t0 = (-B - Math.sqrt(D)) / (2 * A);
+    return t0 > 0 && t0 < 0.97;
+  };
+  out.sprout = [];
+  for (const a of live) {
+    const L = a.ch.costume?.propLine?.(); if (!L) continue;
+    const fist = L.grip.clone().applyMatrix4(a.ch.root.matrixWorld);
+    const ends = [L.a, L.b].map((q) => q.clone().applyMatrix4(a.ch.root.matrixWorld));
+    // another character only: a staff held on the far side of its own body, showing above and below it, reads as held
+    for (const b of live) if (b !== a && hidden(b, fist) && ends.some((e) => !hidden(b, e) && e.distanceTo(fist) > 0.2)) out.sprout.push({ who: a.c.id, behind: b.c.id });
+  }
+  // faces in frame, and what is drawn in front of their eyes
+  for (const b of live) {
+    const eyes = b.ch.face?.eyes; if (!eyes || eyes.length < 2 || !shownIn(b.ch.face.group, b.ch.root)) continue;
+    const e0 = eyes[0].root.getWorldPosition(new THREE.Vector3()), e1 = eyes[1].root.getWorldPosition(new THREE.Vector3());
+    const mid = e0.clone().add(e1).multiplyScalar(0.5), dm = mid.distanceTo(camera.position), m = mid.clone().project(camera);
+    if (Math.abs(m.x) > 1 || Math.abs(m.y) > 1 || m.z > 1) continue;
+    const px = (q) => new THREE.Vector2((q.x + 1) / 2 * W, (1 - q.y) / 2 * H);
+    const mp = px(m), faceR = px(e0.clone().project(camera)).distanceTo(px(e1.clone().project(camera))) / 2 + eyes[0].r * H / (2 * dm * Math.tan((camera.fov * Math.PI) / 360));
+    for (const { a, pts } of reachers) {
+      let worst = null;
+      for (const q of pts) {
+        const dq = q.p.distanceTo(camera.position); if (dq > dm - 0.05) continue;   // behind the face, or level with it
+        const s = px(q.p.clone().project(camera)), rr = q.r * H / (2 * dq * Math.tan((camera.fov * Math.PI) / 360));
+        const cover = (rr + faceR - s.distanceTo(mp)) / (2 * faceR);   // 1: the eyes fully behind it
+        if (cover > 0.25 && (!worst || cover > worst.cover)) worst = { face: b.c.id, by: a.c.id, part: q.part, cover: Math.round(Math.min(1, cover) * 100) / 100, px: Math.round(faceR * 2) };
+      }
+      if (worst) out.covers.push(worst);
+    }
+    // a fist holding a prop over the top of a head on screen (in front or behind): it reads as stuck on the head, with
+    // the blade or staff growing out of it. The head: the body's outline on screen (its box ellipsoid, projected)
+    // above the eyes
+    const g = b.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c = bb.getCenter(new THREE.Vector3()), h = bb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    for (let i = 0; i < 64; i++) {
+      const y = 1 - (2 * (i + 0.5)) / 64, rr = Math.sqrt(1 - y * y), an = i * 2.39996;
+      const q = px(new THREE.Vector3(c.x + Math.cos(an) * rr * h.x, c.y + y * h.y, c.z + Math.sin(an) * rr * h.z).applyMatrix4(b.ch.body.matrixWorld).project(camera));
+      x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y);
+    }
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, ex = (x1 - x0) / 2, ey = (y1 - y0) / 2;
+    for (const a of live) {
+      const L = a.ch.costume?.propLine?.(); if (!L) continue;
+      const hnd = a.ch.arms[L.hand].hand, hp = hnd.getWorldPosition(new THREE.Vector3()), dq = hp.distanceTo(camera.position);
+      const s = px(hp.clone().project(camera)), rr = 0.06 * hnd.getWorldScale(sc).x * H / (2 * dq * Math.tan((camera.fov * Math.PI) / 360));
+      if (s.y < mp.y - faceR && ((s.x - cx) / (ex + rr)) ** 2 + ((s.y - cy) / (ey + rr)) ** 2 < 1) out.covers.push({ head: b.c.id, by: a.c.id, part: `hand${L.hand}`, prop: true });
+    }
+  }
+  return out;
 }
 
 window.ENGINE = { init, frame, sync, capture, layout, contact };
