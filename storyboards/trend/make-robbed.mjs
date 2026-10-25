@@ -43,7 +43,7 @@ c.addProp({ id: "leg", kind: "drumstick", ...OFFSTAGE, scale: 0 });
 c.addProp({ id: "cookie", kind: "cookie", ...OFFSTAGE, scale: 0 });
 
 // the raven: fly to a spot (facing the way it flies), land, turn
-const fly = (t, to, dur, rot, arc = 0.2, ease = "inOut") => { prop("raven", t, { rot }, 0.12); prop("raven", t, { x: to[0], y: to[1], z: to[2] }, dur, ease, { arc }); prop("raven", t, { flap: 1 }, 0.08); return t + dur; };
+const fly = (t, to, dur, rot, arc = 0.2, ease = "inOut") => { prop("raven", t, { rot }, 0.12); prop("raven", t, { x: to[0], y: to[1], z: to[2] }, dur, ease, { arc }); prop("raven", t, { flap: to === PERCH ? 0.45 : 1 }, 0.08); return t + dur; };   // wings half in for the hop home past the Allfather
 const land = (t, rot = 0) => { prop("raven", t, { flap: 0 }, 0.12); prop("raven", t, { rot }, 0.15); };
 // snatch: fly in from the right so the beak meets the thing (where it is at time t + 0.5; held in the owner's L
 // hand, the side facing the bench), take it, turn and fly to the bench, hover over the seat and drop it at x lx, fly
@@ -51,12 +51,13 @@ const land = (t, rot = 0) => { prop("raven", t, { flap: 0 }, 0.12); prop("raven"
 const snatch = (id, t, guess, lx, { lie = 90, arc = 0.25, p = at(id, t + 0.45, guess) } = {}) => {
   const rL = reach(-90);
   fly(t, [p[0] - rL[0], p[1] - rL[1], p[2] - rL[2]], 0.5, -90, arc);
-  carry(id, t + 0.5, "raven", OFF); prop("raven", t + 0.5, { peck: 1 }, 0.06); prop("raven", t + 0.58, { peck: 0 }, 0.08);
+  carry(id, t + 0.5, "raven", OFF); prop(id, t + 0.5, { tip: lie }, 0.1);   // flat in the beak, not standing up off it
+  prop("raven", t + 0.5, { peck: 1 }, 0.06); prop("raven", t + 0.58, { peck: 0 }, 0.08);
   sfx(t + 0.5, "flutter", { gain: 0.25, dur: 0.3 });
   const rC = reach(0), back = fly(t + 0.6, [lx - rC[0], 0.95, BENCH[1] + 0.08 - rC[2]], 0.55, 0, 0.15);   // hovering over the backrest, facing us
-  prop("raven", back - 0.1, { flap: 0.5 }, 0.12);   // wings half in while it hovers, clear of the Allfather
+  prop("raven", t + 0.65, { flap: 0.3 }, 0.12);   // wings mostly in (a glide) on the way to the bench and while it hovers, clear of the Allfather
   carry(id, back + 0.05); prop(id, back + 0.05, { y: SEAT, z: BENCH[1] + 0.08, tip: lie }, 0.18, "in"); sfx(back + 0.22, "tink", { gain: 0.2 });   // drops it on the seat
-  const home = fly(back + 0.25, PERCH, 0.3, 0, 0.05); land(home, 0);
+  const home = fly(back + 0.25, PERCH, 0.3, 0, 0.05); prop("raven", back + 0.3, { flap: 0.5 }, 0.05); land(home, 0);   // a short hop home, wings still half in
   prop("raven", home + 0.12, { happy: 1 }, 0.05); prop("raven", home + 0.4, { happy: 0 }, 0.05);
   return home;
 };
@@ -103,13 +104,13 @@ A("all", a, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 const gsn = a + 0.15, gp = at("slice", gsn + 0.45, [S[0] + 0.3, 0.75, S[1] + 0.35]), gR = reach(-90);
 fly(gsn, [gp[0] - gR[0], gp[1] - gR[1], gp[2] - gR[2]], 0.5, -90, 0.25);
 carry("slice", gsn + 0.5, "raven", OFF); sfx(gsn + 0.5, "flutter", { gain: 0.25, dur: 0.3 });
-fly(gsn + 0.6, [0.2, 1.3, -0.4], 0.6, 70, 0.2);                                                  // off toward the bench...
+fly(gsn + 0.6, [-0.2, 1.35, -0.1], 0.6, 70, 0.2);   // off toward the bench, left of the Allfather's face                                                  // off toward the bench...
 A("gun", gsn + 0.6, "expr", { expr: "stern", dur: 0.1 }); A("gun", gsn + 0.6, "look", { to: [0.7, 0.3], dur: 0.12, blink: false });
 arm("gun", gsn + 0.7, "L", AIM, 0.15, "out");
 const shot = gsn + 0.95;
 sfx(shot, "gunshot", { gain: 0.4 }); A("gun", shot, "squash", { amount: 0.05, dur: 0.1 });
 fx(shot, "sparkle", { pos: at("gun-handL", shot - 0.05, [S[0] + 0.45, 0.9, S[1] + 0.4]), count: 4, dur: 0.2 });
-fx(shot + 0.02, "poof", { pos: [-0.05, 1.3, -0.5], puffs: 2, sparks: 8, spark: "#ffd36b", dur: 0.3 });
+fx(shot + 0.02, "poof", { pos: [-0.2, 1.4, -0.1], puffs: 2, sparks: 8, spark: "#ffd36b", dur: 0.3 });
 carry("slice", shot + 0.03);                                                                      // shot out of its beak
 const hat = at("gun-hat", shot + 0.53, [S[0], 1.1, S[1]]);
 prop("slice", shot + 0.03, { x: hat[0], y: hat[1], z: hat[2], rot: 20 }, 0.5, "in", { arc: 0.45 });
@@ -119,7 +120,9 @@ prop("raven", shot + 0.05, { tug: 1 }, 0.05); prop("raven", shot + 0.3, { tug: 0
 fly(shot + 0.3, PERCH, 0.45, 0, 0.15); land(shot + 0.75, 0);
 A("gun", shot + 0.3, "expr", { expr: "smug", dur: 0.12 }); arm("gun", shot + 0.45, "L", "rest", 0.25);
 A("gun", shot + 0.6, "look", { to: LOOK_CAM, dur: 0.12, blink: false });
-t = shot + 1.0;
+A("gun", shot + 0.6, "look", { to: [0, 0.9], dur: 0.1, blink: false }); A("gun", shot + 0.6, "expr", { expr: "smug", set: { browY: 0.03 }, dur: 0.1 });   // a glance up at his hat
+A("gun", shot + 0.95, "look", { to: LOOK_CAM, dur: 0.12, blink: false });
+t = shot + 1.3;
 goOff("gun", t - 0.15);
 
 // ------------------------------------------------------------------ WIZARD: spell practice (the zap backfires)
@@ -172,18 +175,18 @@ prop("leg", t + 0.35, { scale: 1 }, 0.01); a = comeIn("vik", t + 0.35);   // aft
 A("vik", a, "talk", { dur: 1.1 }); A("all", a, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 const lp = at("leg", a + 0.55, [S[0] + 0.3, 0.62, S[1] + 0.5]), vR = reach(-90);
 fly(a + 0.1, [lp[0] - vR[0] + 0.3, lp[1] - vR[1] + 0.25, lp[2] - vR[2] + 0.35], 0.3, -90, 0.2, "in");   // swoops round in front of him...
-fly(a + 0.4, [lp[0] - vR[0] + 0.05, lp[1] - vR[1] + 0.05, lp[2] - vR[2]], 0.2, -90, 0, "out");
+fly(a + 0.4, [lp[0] - vR[0] + 0.17, lp[1] - vR[1] + 0.05, lp[2] - vR[2] + 0.1], 0.2, -90, 0, "out");   // beak on the bone end, on our side of his fist
 prop("raven", a + 0.6, { tug: 1 }, 0.1); sfx(a + 0.6, "flutter", { gain: 0.3, dur: 0.8 });           // pulls and pulls; it doesn't budge
 A("vik", a + 1.2, "look", { to: [0.35, -0.5], dur: 0.15, blink: false }); A("vik", a + 1.25, "expr", { expr: "stern", set: { browY: -0.03 }, dur: 0.1 });
 prop("raven", a + 1.35, { tug: 0 }, 0.05); fly(a + 1.35, [0.45, 1.55, -1.3], 0.35, 60, 0.1);   // it lets go, up and away to the right (clear of his face and the axe)
-A("vik", a + 1.4, "tilt", { to: [10, 0], dur: 0.2 }); arm("vik", a + 1.45, "L", AXE_UP, 0.22, "out");
-A("vik", a + 1.75, "tilt", { to: [90, 0], dur: 0.15 }); arm("vik", a + 1.75, "L", AXE_DOWN, 0.15, "in");
-const slam = a + 1.85;
+A("vik", a + 1.65, "tilt", { to: [10, 0], dur: 0.2 }); arm("vik", a + 1.7, "L", AXE_UP, 0.22, "out");   // once the raven is clear of the axe
+A("vik", a + 2.0, "tilt", { to: [90, 0], dur: 0.15 }); arm("vik", a + 2.0, "L", AXE_DOWN, 0.15, "in");
+const slam = a + 2.1;
 fx(slam, "shake", { amp: 0.06, dur: 0.35 }); sfx(slam, "impact", { gain: 0.5 });
 fx(slam + 0.02, "poof", { pos: [S[0] + 0.6, 0.12, S[1] + 0.35], puffs: 6, sparks: 10, spark: "#ffcf6b", dur: 0.5 });
 prop("bench", slam, { squash: 0.06 }, 0.06); prop("bench", slam + 0.06, { squash: 0 }, 0.15);
 A("all", slam, "squash", { amount: 0.08, dur: 0.2 }); A("all", slam + 0.02, "expr", { expr: "shocked", dur: 0.08 });
-fly(slam, PERCH, 0.45, 0, 0.25); land(slam + 0.45, 0);
+fly(slam, PERCH, 0.45, 0, 0.25); prop("raven", slam + 0.05, { flap: 0.4 }, 0.1); land(slam + 0.45, 0);   // drops back down behind him, wings in
 A("vik", slam + 0.3, "tilt", { to: null, dur: 0.3 }); arm("vik", slam + 0.3, "L", "rest", 0.3);
 A("vik", slam + 0.45, "expr", { expr: "delighted", dur: 0.12 }); A("vik", slam + 0.45, "talk", { dur: 0.5 }); A("vik", slam + 0.5, "look", { to: LOOK_CAM, dur: 0.15, blink: false });
 A("all", slam + 0.6, "expr", { expr: "smug", dur: 0.2 });
@@ -220,7 +223,7 @@ walk("phx", END0, ENTER, 0.01); A("phx", END0, "turn", { to: "right", dur: 0.01 
 grab("phx", "phone", "L", END0 + 0.06, { off: [0, 0.02, 0.03], pose: SELFIE }); prop("phone", END0 + 0.06, { tip: 0 }, 0.01);
 A("phx", END0 + 0.1, "expr", { expr: "cocky", dur: 0.01 }); A("phx", END0 + 0.1, "wings", { to: 0.4, dur: 0.01 }); A("phx", END0 + 0.1, "look", { to: [0.5, 0.55], dur: 0.01, blink: false });
 const back = comeIn("phx", END0 + 0.3, 0.6);
-A("all", END0 + 0.1, "expr", { expr: "smug", dur: 0.15 }); A("all", END0 + 0.1, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
+A("all", END0 + 0.1, "expr", { expr: "smug", set: { eye: 1 }, dur: 0.15 }); A("all", END0 + 0.1, "look", { to: [-0.6, -0.1], dur: 0.15, blink: false });
 const END = back + 0.15;
 const SHOT = { pos: [0.1, 1.2, 6.5], look: [0.1, 1.1, -0.5], fov: 38 }, CLOSE = { pos: [0.1, 1.2, 6.5], look: [-0.1, 1.0, -0.5], fov: 32 };
 c.finish(END, {

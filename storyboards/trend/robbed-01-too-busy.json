@@ -238,6 +238,16 @@
     },
     {
      "do": "prop",
+     "id": "phone",
+     "at": 0.5,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "tip": 90
+     }
+    },
+    {
+     "do": "prop",
      "id": "raven",
      "at": 0.5,
      "dur": 0.06,
@@ -298,11 +308,11 @@
     {
      "do": "prop",
      "id": "raven",
-     "at": 1.05,
+     "at": 0.65,
      "dur": 0.12,
      "ease": "inOut",
      "set": {
-      "flap": 0.5
+      "flap": 0.3
      }
     },
     {
@@ -357,7 +367,17 @@
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
+     }
+    },
+    {
+     "do": "prop",
+     "id": "raven",
+     "at": 1.45,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "flap": 0.5
      }
     },
     {
@@ -634,7 +654,7 @@
   {
    "name": "gun: lunch break",
    "at": 2.4,
-   "len": 2.8,
+   "len": 3.1,
    "do": [
     {
      "who": "phx",
@@ -784,9 +804,9 @@
      "dur": 0.6,
      "ease": "inOut",
      "set": {
-      "x": 0.2,
-      "y": 1.3,
-      "z": -0.4
+      "x": -0.2,
+      "y": 1.35,
+      "z": -0.1
      },
      "arc": 0.2
     },
@@ -860,9 +880,9 @@
      "fx": "poof",
      "at": 1.82,
      "pos": [
-      -0.05,
-      1.3,
-      -0.5
+      -0.2,
+      1.4,
+      -0.1
      ],
      "puffs": 2,
      "sparks": 8,
@@ -952,7 +972,7 @@
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
      }
     },
     {
@@ -1003,15 +1023,47 @@
     },
     {
      "who": "gun",
+     "do": "look",
+     "at": 2.4,
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.1,
+     "blink": false
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 2.4,
+     "expr": "smug",
+     "set": {
+      "browY": 0.03
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 2.75,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false
+    },
+    {
+     "who": "gun",
      "do": "turn",
-     "at": 2.55,
+     "at": 2.85,
      "to": -50,
      "dur": 0.15
     },
     {
      "who": "gun",
      "do": "move",
-     "at": 2.55,
+     "at": 2.85,
      "to": [
       -3.4,
       1.3
@@ -1024,7 +1076,7 @@
   },
   {
    "name": "wiz: spell practice",
-   "at": 5.2,
+   "at": 5.5,
    "len": 2.85,
    "do": [
     {
@@ -1158,6 +1210,16 @@
     },
     {
      "do": "prop",
+     "id": "apple",
+     "at": 1.4,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "tip": 0
+     }
+    },
+    {
+     "do": "prop",
      "id": "raven",
      "at": 1.4,
      "dur": 0.06,
@@ -1218,11 +1280,11 @@
     {
      "do": "prop",
      "id": "raven",
-     "at": 1.95,
+     "at": 1.55,
      "dur": 0.12,
      "ease": "inOut",
      "set": {
-      "flap": 0.5
+      "flap": 0.3
      }
     },
     {
@@ -1277,7 +1339,17 @@
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
+     }
+    },
+    {
+     "do": "prop",
+     "id": "raven",
+     "at": 2.35,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "flap": 0.5
      }
     },
     {
@@ -1466,7 +1538,7 @@
   },
   {
    "name": "sam: tea, eyes closed",
-   "at": 8.05,
+   "at": 8.35,
    "len": 2.55,
    "do": [
     {
@@ -1553,8 +1625,8 @@
      "dur": 0.5,
      "ease": "inOut",
      "set": {
-      "x": 0.31200000000000006,
-      "y": 0.652,
+      "x": 0.31400000000000006,
+      "y": 0.649,
       "z": 0.18999999999999997
      },
      "arc": 0.25
@@ -1671,7 +1743,7 @@
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
      }
     },
     {
@@ -1782,8 +1854,8 @@
   },
   {
    "name": "vik: a snack",
-   "at": 10.6,
-   "len": 3.8,
+   "at": 10.9,
+   "len": 4.05,
    "do": [
     {
      "who": "sam",
@@ -1858,8 +1930,8 @@
      "dur": 0.3,
      "ease": "in",
      "set": {
-      "x": -0.26999999999999996,
-      "y": 0.422,
+      "x": -0.27199999999999996,
+      "y": 0.415,
       "z": 0.94
      },
      "arc": 0.2
@@ -1891,9 +1963,9 @@
      "dur": 0.2,
      "ease": "out",
      "set": {
-      "x": -0.5199999999999999,
-      "y": 0.22199999999999998,
-      "z": 0.59
+      "x": -0.4019999999999999,
+      "y": 0.21499999999999997,
+      "z": 0.69
      },
      "arc": 0
     },
@@ -1990,7 +2062,7 @@
     {
      "who": "vik",
      "do": "tilt",
-     "at": 2.35,
+     "at": 2.6,
      "to": [
       10,
       0
@@ -2000,7 +2072,7 @@
     {
      "who": "vik",
      "do": "arm",
-     "at": 2.4,
+     "at": 2.65,
      "side": "L",
      "pose": {
       "o": [
@@ -2015,7 +2087,7 @@
     {
      "who": "vik",
      "do": "tilt",
-     "at": 2.7,
+     "at": 2.95,
      "to": [
       90,
       0
@@ -2025,7 +2097,7 @@
     {
      "who": "vik",
      "do": "arm",
-     "at": 2.7,
+     "at": 2.95,
      "side": "L",
      "pose": {
       "o": [
@@ -2039,18 +2111,18 @@
     },
     {
      "fx": "shake",
-     "at": 2.8,
+     "at": 3.05,
      "amp": 0.06,
      "dur": 0.35
     },
     {
      "sfx": "impact",
-     "at": 2.8,
+     "at": 3.05,
      "gain": 0.5
     },
     {
      "fx": "poof",
-     "at": 2.82,
+     "at": 3.07,
      "pos": [
       -0.15000000000000002,
       0.12,
@@ -2064,7 +2136,7 @@
     {
      "do": "prop",
      "id": "bench",
-     "at": 2.8,
+     "at": 3.05,
      "dur": 0.06,
      "ease": "inOut",
      "set": {
@@ -2074,7 +2146,7 @@
     {
      "do": "prop",
      "id": "bench",
-     "at": 2.86,
+     "at": 3.11,
      "dur": 0.15,
      "ease": "inOut",
      "set": {
@@ -2084,21 +2156,21 @@
     {
      "who": "all",
      "do": "squash",
-     "at": 2.8,
+     "at": 3.05,
      "amount": 0.08,
      "dur": 0.2
     },
     {
      "who": "all",
      "do": "expr",
-     "at": 2.82,
+     "at": 3.07,
      "expr": "shocked",
      "dur": 0.08
     },
     {
      "do": "prop",
      "id": "raven",
-     "at": 2.8,
+     "at": 3.05,
      "dur": 0.12,
      "ease": "inOut",
      "set": {
@@ -2108,7 +2180,7 @@
     {
      "do": "prop",
      "id": "raven",
-     "at": 2.8,
+     "at": 3.05,
      "dur": 0.45,
      "ease": "inOut",
      "set": {
@@ -2121,17 +2193,27 @@
     {
      "do": "prop",
      "id": "raven",
-     "at": 2.8,
+     "at": 3.05,
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
      }
     },
     {
      "do": "prop",
      "id": "raven",
-     "at": 3.25,
+     "at": 3.1,
+     "dur": 0.1,
+     "ease": "inOut",
+     "set": {
+      "flap": 0.4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "raven",
+     "at": 3.5,
      "dur": 0.12,
      "ease": "inOut",
      "set": {
@@ -2141,7 +2223,7 @@
     {
      "do": "prop",
      "id": "raven",
-     "at": 3.25,
+     "at": 3.5,
      "dur": 0.15,
      "ease": "inOut",
      "set": {
@@ -2151,14 +2233,14 @@
     {
      "who": "vik",
      "do": "tilt",
-     "at": 3.1,
+     "at": 3.35,
      "to": null,
      "dur": 0.3
     },
     {
      "who": "vik",
      "do": "arm",
-     "at": 3.1,
+     "at": 3.35,
      "side": "L",
      "pose": "rest",
      "dur": 0.3
@@ -2166,20 +2248,20 @@
     {
      "who": "vik",
      "do": "expr",
-     "at": 3.25,
+     "at": 3.5,
      "expr": "delighted",
      "dur": 0.12
     },
     {
      "who": "vik",
      "do": "talk",
-     "at": 3.25,
+     "at": 3.5,
      "dur": 0.5
     },
     {
      "who": "vik",
      "do": "look",
-     "at": 3.3,
+     "at": 3.55,
      "to": [
       0,
       0
@@ -2190,21 +2272,21 @@
     {
      "who": "all",
      "do": "expr",
-     "at": 3.4,
+     "at": 3.65,
      "expr": "smug",
      "dur": 0.2
     },
     {
      "who": "vik",
      "do": "turn",
-     "at": 3.55,
+     "at": 3.8,
      "to": -50,
      "dur": 0.15
     },
     {
      "who": "vik",
      "do": "move",
-     "at": 3.55,
+     "at": 3.8,
      "to": [
       -3.4,
       1.3
@@ -2218,7 +2300,7 @@
      "do": "grab",
      "prop": "cookie",
      "hand": "L",
-     "at": 3.75,
+     "at": 4,
      "dur": 0.01,
      "off": [
       0,
@@ -2231,7 +2313,7 @@
   },
   {
    "name": "rea: actually paying attention",
-   "at": 14.4,
+   "at": 14.95,
    "len": 4.5,
    "do": [
     {
@@ -2327,9 +2409,9 @@
      "dur": 0.6,
      "ease": "inOut",
      "set": {
-      "x": 0.041000000000000036,
-      "y": 0.65,
-      "z": 0.19499999999999998
+      "x": 0.18000000000000005,
+      "y": 0.516,
+      "z": 0.23999999999999996
      },
      "arc": 0.2
     },
@@ -2432,7 +2514,7 @@
      "dur": 0.08,
      "ease": "inOut",
      "set": {
-      "flap": 1
+      "flap": 0.45
      }
     },
     {
@@ -2672,6 +2754,9 @@
      "do": "expr",
      "at": 3.55,
      "expr": "smug",
+     "set": {
+      "eye": 1
+     },
      "dur": 0.15
     },
     {
@@ -2704,7 +2789,7 @@
    "fov": 38
   },
   {
-   "at": 16,
+   "at": 16.55,
    "pos": [
     0.1,
     1.2,
@@ -2733,7 +2818,7 @@
    "ease": "inOut"
   },
   {
-   "at": 17.95,
+   "at": 18.5,
    "pos": [
     0.1,
     1.2,
@@ -2765,7 +2850,7 @@
  "captions": [
   {
    "from": 0,
-   "to": 18.9,
+   "to": 19.45,
    "text": "TOO BUSY TO NOTICE",
    "style": "label",
    "pos": 232,
@@ -2774,7 +2859,7 @@
   },
   {
    "from": 0,
-   "to": 17,
+   "to": 17.55,
    "text": "getting robbed, but first...",
    "style": "sub",
    "pos": 362,
@@ -2798,7 +2883,7 @@
   },
   {
    "from": 2.4,
-   "to": 5.2,
+   "to": 5.5,
    "text": "GUNSLINGER",
    "style": "label",
    "pos": 458,
@@ -2807,14 +2892,14 @@
   },
   {
    "from": 2.4,
-   "to": 5.2,
+   "to": 5.5,
    "text": "lunch break",
    "pos": 584,
    "pop": false
   },
   {
-   "from": 5.2,
-   "to": 8.05,
+   "from": 5.5,
+   "to": 8.35,
    "text": "WIZARD",
    "style": "label",
    "pos": 458,
@@ -2822,15 +2907,15 @@
    "pop": false
   },
   {
-   "from": 5.2,
-   "to": 8.05,
+   "from": 5.5,
+   "to": 8.35,
    "text": "spell practice",
    "pos": 584,
    "pop": false
   },
   {
-   "from": 8.05,
-   "to": 10.6,
+   "from": 8.35,
+   "to": 10.9,
    "text": "SAMURAI",
    "style": "label",
    "pos": 458,
@@ -2838,15 +2923,15 @@
    "pop": false
   },
   {
-   "from": 8.05,
-   "to": 10.6,
+   "from": 8.35,
+   "to": 10.9,
    "text": "tea, eyes closed",
    "pos": 584,
    "pop": false
   },
   {
-   "from": 10.6,
-   "to": 14.4,
+   "from": 10.9,
+   "to": 14.95,
    "text": "VIKING",
    "style": "label",
    "pos": 458,
@@ -2854,15 +2939,15 @@
    "pop": false
   },
   {
-   "from": 10.6,
-   "to": 14.4,
+   "from": 10.9,
+   "to": 14.95,
    "text": "a snack",
    "pos": 584,
    "pop": false
   },
   {
-   "from": 14.4,
-   "to": 17,
+   "from": 14.95,
+   "to": 17.55,
    "text": "REAPER",
    "style": "label",
    "pos": 458,
@@ -2870,15 +2955,15 @@
    "pop": false
   },
   {
-   "from": 14.4,
-   "to": 17,
+   "from": 14.95,
+   "to": 17.55,
    "text": "actually paying attention",
    "pos": 584,
    "pop": false
   },
   {
-   "from": 17,
-   "to": 18.9,
+   "from": 17.55,
+   "to": 19.45,
    "text": "who gets robbed\nfirst?",
    "pos": 470
   }
@@ -2970,6 +3055,6 @@
    "bounce"
   ]
  },
- "duration": 18.9,
+ "duration": 19.45,
  "cover": 1
 }
