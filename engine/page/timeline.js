@@ -2,7 +2,7 @@ import { EXPRESSIONS, blendExpr } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { isDance, applyDance } from "./dance.js";
-import { SEAT_Y } from "./props3d.js";
+import { SEAT_Y, propState, gripWorld } from "./props3d.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -73,7 +73,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     hatTip: [0, 0], hatBrim: 0,
   };
   let autoBlink = true, airSince = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
-  let idle = 1, sink = 0, holdBlink = true;   // a "still" turns the idle breathing and sway down (see below the loop)
+  let idle = 1, sink = 0, shakeDx = 0;   // a "still" turns the idle breathing and sway down (see below the loop)
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || "inOut")(p);
@@ -134,7 +134,6 @@ export function actorState(sb, actor, def, t, raw = false) {
         const f = a.fade ?? 0.15, dd = a.dur ?? 1, k = clamp((t - a.at) / f) * (1 - clamp((t - a.at - dd) / f));
         idle = Math.min(idle, lerp(1, a.idle ?? 0.25, k));
         sink = Math.max(sink, (a.sink ?? 0.008) * k * clamp((t - a.at) / dd));
-        if (a.blink !== true && k > 0) holdBlink = false;   // no automatic blink lands in a hold (blink: true allows it)
         break;
       }
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
@@ -222,14 +221,18 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       // a single-hand grab lifts that arm to hold, or to its own pose; pose: null leaves the arm where it is (the hand
       // closes on the prop where it stands, and a later arm action lifts it). Both hands: use holdout or offer.
-      // hand "tip": the prop hangs from the point of the character's own prop (Reaper's scythe), the arm stays as it is
-      case "grab": if (a.hand && a.hand !== "both" && a.hand !== "tip" && a.pose !== null) st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: a.pose ?? "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
+      // hand "tip": the prop hangs from the point of the character's own prop (Reaper's scythe); "hat": it sticks to
+      // the hat (use keep: true); the arms stay as they are
+      case "grab": if ((a.hand === "R" || a.hand === "L") && a.pose !== null) st.arms[a.hand] = { from: armNow(st.arms[a.hand]), pose: a.pose ?? "hold", p: ease("out")(prog(t, a.at, a.dur ?? 0.25)) }; break;
       case "release": break;
       // the held prop's angle in degrees, [forward, outward], instead of the one the arm pose gives; to: null hands it back
       case "tilt": st.propTilt = { from: st.propTilt || null, to: a.to ? a.to.map((d) => (d * Math.PI) / 180) : null, k: e }; break;
-      default: if (isDance(a.do)) applyDance(sb, a, t, st);   // dance.js: moves on the music's beat
+      default: if (isDance(a.do)) { const x0 = st.x; applyDance(sb, a, t, st); if (a.do === "shake") shakeDx += st.x - x0; }   // dance.js: moves on the music's beat
     }
   }
+  // planted feet: the feet stay where the last step left them (a move, a turn, a dance step). What the body does on
+  // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
+  const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
     st.y += hoverBob(t - airSince); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);
@@ -249,16 +252,61 @@ export function actorState(sb, actor, def, t, raw = false) {
     st.y += c * (1 - Math.cos(st.flip)); st.x -= f * Math.sin(st.yaw); st.z -= f * Math.cos(st.yaw);
     st.pitch += st.flip;
   }
+  // in the air, sitting, or tipped far over (a flip) the feet go with the body instead, blended so nothing pops
+  plant.w = Math.max(clamp(plant.y / 0.03), st.sit || 0, clamp((Math.abs(st.flip) - 0.5) / 0.3));
+  st.plant = plant;
   // idle life: breathing, a little sway, automatic blinks
   const seed = c.seed ?? c.id.length * 3.1;
   st.squash *= (1 + 0.012 * idle * Math.sin(t * 6.283 * 0.8 + seed)) * (1 - sink);
   st.lean += 0.012 * idle * wobble(t, seed, 0.35);
-  if (autoBlink && holdBlink && st.blink === 0) {
+  if (autoBlink && st.blink === 0) {
     const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = ((t + off) % period) / period, bl = 0.13 / period;
-    if (ph < bl) st.blink = Math.sin((ph / bl) * Math.PI);
+    if (ph < bl && blinkFree(sb, c.id, t - ph * period)) st.blink = Math.sin((ph / bl) * Math.PI);
   }
-  if (!raw) Object.assign(st, phases(sb, actor, def, t));
+  if (!raw) { Object.assign(st, phases(sb, actor, def, t)); resolveArms(sb, st, def, t); }
   return st;
+}
+
+// an automatic blink starting at tb is skipped, whole, when it would land on a key beat: inside a still hold
+// (unless it says blink: true), or on an expression change or a look (an eye-blink there kills the moment)
+function blinkFree(sb, id, tb) {
+  for (const a of sb.actions || []) {
+    if (a.who !== id) continue;
+    if (a.do === "still" && a.blink !== true && tb + 0.13 > a.at && tb < a.at + (a.dur ?? 1) + (a.fade ?? 0.15)) return false;
+    if (a.do === "expr" && tb > a.at - 0.3 && tb < a.at + 0.25) return false;
+    if (a.do === "look" && tb > a.at - 0.15 && tb < a.at + (a.dur ?? 0.3)) return false;
+  }
+  return true;
+}
+
+// arm poses aimed at the world: { prop, grip, at?, off? } puts the hand on that grip point of the prop (where the prop
+// stands, or where it would stand with its bottom at `at`: carrying it there), { world: [x, y, z] } on a point. They
+// become ordinary local poses here, for the body as it is posed right now, so the hand stays on target while the
+// body leans, turns or breathes.
+const LEG_H = 0.14;   // potato.js
+function resolveArms(sb, st, def, t) {
+  const H = def.body.height, sc = st.scale ?? 1;
+  const T = [st.x, st.y - 0.1 * (st.kneel || 0), st.z], yaw = st.yaw, pitch = st.pitch || 0, lean = st.lean || 0;
+  const toLocal = (W) => {
+    // potato.js turns the body by yaw, then pitch, then lean (Euler YXZ); undo them in the reverse order
+    let [x, y, z] = [W[0] - T[0], W[1] - T[1], W[2] - T[2]];
+    [x, z] = [x * Math.cos(yaw) - z * Math.sin(yaw), x * Math.sin(yaw) + z * Math.cos(yaw)];
+    [y, z] = [y * Math.cos(pitch) + z * Math.sin(pitch), -y * Math.sin(pitch) + z * Math.cos(pitch)];
+    [x, y] = [x * Math.cos(lean) + y * Math.sin(lean), -x * Math.sin(lean) + y * Math.cos(lean)];
+    [x, y, z] = [x / sc, y / sc, z / sc];
+    // potato.js squashes hand heights with the body; aim so the squashed hand lands on the point
+    return { x: [x, (LEG_H + (y - LEG_H) / st.squash - LEG_H) / H, z] };
+  };
+  const world = (q) => {
+    if (q.world) return q.world;
+    const spec = (sb.props || []).find((p) => p.id === q.prop);
+    if (!spec) throw new Error(`arm pose aims at unknown prop: ${q.prop}`);
+    const ps = propState(sb, spec, t), o = q.off || [0, 0, 0];
+    const w = gripWorld(spec, q.grip ?? [0, 0.05, 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale);
+    return [w[0] + o[0], w[1] + o[1], w[2] + o[2]];
+  };
+  const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? toLocal(world(q)) : q);
+  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose) }; }
 }
 
 export function cameraState(sb, t) {

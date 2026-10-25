@@ -93,4 +93,18 @@ moving at once.
   tips its brim (+ front up). `{ "who", "do": "hatwobble", "amount": 8, "freq": 3, "dur": 0.8 }` adds a wobble that
   dies away: secondary motion after a hop, a turn or a bump.
 
+**Contact: hands, props and feet**
+
+- Arm poses can aim at the world instead of the body: `{ "prop": "cup", "grip": "handle" }` puts the hand on that
+  grip point of the prop wherever the body leans, turns or breathes, and `{ "prop": "cup", "grip": "handle", "at":
+  [x, y, z] }` carries the prop so its bottom lands on `[x, y, z]` (a put-down that touches the table exactly).
+  `{ "world": [x, y, z] }` aims at a point. `grip` is a named grip of the prop's kind (`teacup`: `handle`) or a point
+  of your own in the prop's frame, `[x, y, z]` metres from its bottom centre. `off` nudges the target.
+- `grab` with the same `grip` holds the prop by that point, so a hand that reached it closes on it with no jump.
+  `"keep": true` holds it wherever it is instead (the offset is measured at the grab). `"hand": "hat"` with `keep`
+  sticks it to the hat. A `release` with `"dur": 0` and no `to` lets go where it is: put it down first, then let go.
+- Feet stay planted where the last step left them: pitch, lean, the follow, a shake or breathing never slide them.
+  Moves, turns, hops, dance steps and `grow` are steps. `qa/motion.mjs` reports a planted foot that slides.
+- No automatic blink lands in a `still` hold, on an expression change or during a `look`.
+
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.

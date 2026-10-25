@@ -7,6 +7,9 @@
 //
 // Covered on purpose: frames under a flash of 0.5 or more, actors hidden or off camera, limbs in the fries form,
 // whole turns.
+//
+// Feet: a planted foot (timeline.js st.plant) may only move during a deliberate step (a move, a turn, a hop, a dance
+// step, sitting down or standing up). Anything else that slides it, even slowly, is reported as "foot slides".
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -17,10 +20,13 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // and how much bigger than the steps either side it must be
 const LIMIT = { x: 0.03, y: 0.03, z: 0.03, yaw: 0.12, lean: 0.1, pitch: 0.1, squash: 0.06, wings: 0.25, flap: 0.25, tuck: 0.3, hand: 0.04 };
 const RATIO = 4;
+const SLIDE = 0.003;   // metres a planted foot may drift in one frame (9 cm a second) outside a step
+const STEPS = new Set(["move", "turn", "hop", "fly", "hover", "drop", "sit", "stand", "kneel", "grow"]);   // grow: the feet spread as it grows
 
 export async function motionJumps(sb, fps = 30) {
   const { actorState, flashAt } = await import("../engine/page/timeline.js");
   const { handTarget } = await import("../engine/page/potato.js");
+  const { isDance } = await import("../engine/page/dance.js");
   const THREE = await import("three"), cam = new THREE.PerspectiveCamera(32, 1080 / 1920, 0.05, 300), v3 = new THREE.Vector3();
   const { cameraState } = await import("../engine/page/timeline.js");
   // off camera (a cheat behind a cut is fine): the body's middle projects outside the frame with a margin
@@ -42,7 +48,23 @@ export async function motionJumps(sb, fps = 30) {
         const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t);
         v[`hand${s}`] = f.map((q, j) => q + (g[j] - q) * a.p);
       }
-      rows.push({ t, v, skip: st.visible === false || flashAt(sb, t) >= 0.5 || offScreen(st, t), fries: st.form === "fries" });
+      // the feet where the plant puts them (in the air or sitting they go with the body: not checked)
+      const P = st.plant, sc = st.scale ?? 1;
+      const feet = P && P.w === 0 ? [-1, 1].map((sx) => [P.x + sc * (sx * 0.13 * Math.cos(P.yaw) + 0.04 * Math.sin(P.yaw)), P.z + sc * (-sx * 0.13 * Math.sin(P.yaw) + 0.04 * Math.cos(P.yaw))]) : null;
+      // a dance step eases out over its release (dance.js) after its duration
+      const stepping = (sb.actions || []).some((a) => {
+        const dance = isDance(a.do) && a.do !== "shake";
+        return a.who === c.id && (STEPS.has(a.do) || dance) && t >= a.at - 1e-6 && t <= a.at + (a.dur ?? (dance ? 1 : 0.3)) + (dance ? a.release ?? 0.18 : 0) + 1.5 / fps;
+      });
+      rows.push({ t, v, feet, stepping, skip: st.visible === false || flashAt(sb, t) >= 0.5 || offScreen(st, t), fries: st.form === "fries" });
+    }
+    for (let i = 1; i < rows.length; i++) {
+      const a = rows[i - 1], b = rows[i];
+      if (!a.feet || !b.feet || a.stepping || b.stepping || b.skip) continue;
+      for (let f = 0; f < 2; f++) {
+        const d = Math.hypot(b.feet[f][0] - a.feet[f][0], b.feet[f][1] - a.feet[f][1]);
+        if (d > SLIDE) out.push({ who: c.id, what: `foot ${f ? "L" : "R"} slides`, t: Math.round(b.t * 1000) / 1000, size: d });
+      }
     }
     const step = (i, k) => {
       const a = rows[i - 1].v[k], b = rows[i].v[k];
@@ -67,5 +89,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: 120 };
   const j = await motionJumps(sb, sb.fps ?? 30);
   if (!j.length) console.log("motion: no jumps");
-  for (const x of j) console.log(x.note ? `  ${x.who}: ${x.note}` : `  ${x.t.toFixed(2)}s  ${x.who} ${x.what}: jumps ${x.size.toFixed(3)} in one frame`);
+  for (const x of j) console.log(x.note ? `  ${x.who}: ${x.note}` : `  ${x.t.toFixed(2)}s  ${x.who} ${x.what}: ${x.what.endsWith("slides") ? "moves" : "jumps"} ${x.size.toFixed(3)} in one frame`);
 }
