@@ -62,7 +62,7 @@ moving at once.
 | `demonstrate` | `expr?` | Crouch, spring up with arms open, a flourish, land on hands on hips | Phoenix |
 | `recover` | `to` (eye target after), `pose?` (`null` keeps the arms), `expr?` | Caught failing: freeze, eyes dart, sag, snap into a confident pose | Phoenix |
 | `affection` | `other` (eye target), `away?` | Looks at them, slow blink, slow smile, looks away, the smallest nod | Reaper |
-| `hit` | `look?`, `expr?`, `hat?` (`false`, or `{ off, spin }`), `recoil?`, `hold?` | Something bonks them: the hat is knocked askew, then the body squashes and recoils, then the eyes, then the face, five frames apart; no blink in the take | anyone |
+| `hit` | `look?`, `expr?`, `set?` (face numbers, as `expr`), `hat?` (`false`, or `{ off, spin }`), `recoil?`, `hold?` | Something bonks them: the hat is knocked askew, then the body squashes and recoils, then the eyes, then the face, five frames apart; no blink in the take | anyone |
 
 **Holds and eases for your own acting**
 
