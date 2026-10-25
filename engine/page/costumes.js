@@ -145,16 +145,18 @@ function glowTip(g, C, at, gemGeo, size = 1) {
 function staff(C) {
   const g = new THREE.Group();
   const wood = new THREE.MeshStandardMaterial({ color: C.staffWood || "#7a4e2a", roughness: 0.7 });
-  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, -0.42, 0), new THREE.Vector3(0.01, 0.0, 0), new THREE.Vector3(-0.01, 0.55, 0), new THREE.Vector3(0.03, 0.74, 0)]);
+  // the fist holds the shaft at about 40 % of its height, as in the reference art (G: grip height above the foot)
+  const G = 0.5, y = (v) => v + 0.42 - G;
+  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, -G, 0), new THREE.Vector3(0.01, y(0.0), 0), new THREE.Vector3(-0.01, y(0.55), 0), new THREE.Vector3(0.03, y(0.74), 0)]);
   const shaft = new THREE.Mesh(taperedTube(spine, 0.02, 0.028, 30, 12), wood); shaft.castShadow = true; g.add(shaft);
   for (const a of [0, 2.1, 4.2]) { // three little prongs holding the crystal
-    const c = new THREE.CatmullRomCurve3([new THREE.Vector3(0.03, 0.73, 0), new THREE.Vector3(0.03 + Math.cos(a) * 0.06, 0.8, Math.sin(a) * 0.06), new THREE.Vector3(0.03 + Math.cos(a) * 0.03, 0.9, Math.sin(a) * 0.03)]);
+    const c = new THREE.CatmullRomCurve3([new THREE.Vector3(0.03, y(0.73), 0), new THREE.Vector3(0.03 + Math.cos(a) * 0.06, y(0.8), Math.sin(a) * 0.06), new THREE.Vector3(0.03 + Math.cos(a) * 0.03, y(0.9), Math.sin(a) * 0.03)]);
     g.add(new THREE.Mesh(taperedTube(c, 0.012, 0.004, 10, 6), wood));
   }
   const gem = new THREE.OctahedronGeometry(0.06, 0); gem.scale(1, 1.5, 1);
-  // plant: the shaft below the grip reaches the ground in the standing pose (tip at local y -0.42); shaft: for the
+  // plant: the shaft below the grip reaches the ground in the standing pose (tip at local y -G); shaft: for the
   // clearance diagnostic
-  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, 0.84, 0), gem), plant: 0.42, shaft: [-0.42, 0.74, 0.026] };
+  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, y(0.84), 0), gem), plant: G, shaft: [-G, y(0.74), 0.026] };
 }
 
 // a stage magician's wand: black stick, white tips, a star that glows when charged

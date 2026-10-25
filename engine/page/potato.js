@@ -279,10 +279,11 @@ export class Character {
       // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
-      // elbow guide: beside the body at fist height; for a hand in front of the belly, half way round the body from the
-      // shoulder to the hand, so the arm wraps round the body instead of through it
+      // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
+      // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
+      // way round the body from the shoulder to the hand, so the arm wraps round the body instead of through it
       if (hw > 0) {
-        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.15, h.y - 0.01, h.z - 0.02) : sh.clone().lerp(h, 0.5);
+        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.12, h.y - 0.09, h.z - 0.02) : sh.clone().lerp(h, 0.5);
         mid.lerp(g, hw);
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
