@@ -1,6 +1,7 @@
-// Sound for a storyboard, synthesised in code: real speech for lines that have it (engine/voice/), gibberish voices
-// for every other `talk` action, and sound effects placed
-// automatically from the storyboard's events (hops, poofs, flashes, charges, ...), plus any explicit `sfx` entries.
+// Sound for a storyboard: real speech for lines that have it (engine/voice/), gibberish voices for every other `talk`
+// action, sound effects synthesised in code and placed automatically from the storyboard's events (hops, poofs,
+// flashes, charges, ...), recorded foley from the sound library (engine/sfx/: footsteps on every footfall, grabs,
+// sitting down), plus any explicit `sfx` entries, which may name a code effect or a library sound.
 // Deterministic like the picture: the same storyboard always gives the same audio.
 //
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
@@ -10,6 +11,7 @@ import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
+import { isLibrarySound, librarySound, surfaceOf } from "./sfx/library.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -300,14 +302,40 @@ export function soundEvents(sb) {
       if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
-  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? 0.4, ...(s.speech ? { speech: s.speech } : {}) });
+  if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));
+  // a library sound already has its loudness from the catalog, so its gain is a multiplier (1 = as catalogued)
+  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
   return ev.sort((p, q) => p.at - q.at);
+}
+
+// recorded foley from the sound library: a footstep on every footfall of a walk (the same phase the legs use in
+// page/potato.js, softer while the walk eases in and out), a grab when the hand closes (not for props already in hand
+// at the start), a creak when someone sits. Not while flying or hovering, and no footsteps if the storyboard places
+// its own. A release stays silent: it may be a throw, a drop or a hand-over, so the storyboard names that sound.
+function foley(sb, panOf) {
+  const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
+  const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
+  for (const a of acts) {
+    const pan = panOf(a.who), d = a.dur ?? 0.3;
+    if (a.do === "fly" || a.do === "hover") air[a.who] = true;
+    if (a.do === "drop") air[a.who] = false;
+    if (a.do === "move" && !ownSteps && !air[a.who] && (a.steps ?? 2.2) > 0) {
+      // the walk phase advances `steps` cycles a second and a foot lands every half cycle; quick little steps (a run)
+      // are lighter, or a dash off screen turns into a drum roll
+      const rate = a.steps ?? 2.2, per = 0.5 / rate, light = Math.min(1, Math.sqrt(2.5 / rate));
+      for (let t = per; t < d - 0.02; t += per) ev.push({ kind: step, at: a.at + t, pan, gain: light * (0.55 + 0.45 * Math.min(1, Math.min(t / d, 1 - t / d) * 8)) });
+    }
+    if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
+    if (a.do === "sit" && a.at > 0.05) ev.push({ kind: "sit", at: a.at + (a.dur ?? 0.35) * 0.75, pan, gain: 1 });
+  }
+  return ev;
 }
 
 export function renderAudio(sb, chars) {
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
+  const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
   const events = soundEvents(sb);
   for (const e of events) {
     if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice, e.pan); // real speech (engine/voice/)
@@ -316,6 +344,7 @@ export function renderAudio(sb, chars) {
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
     } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
     else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
+    else if (isLibrarySound(e.kind)) fx.add(e.at, librarySound(e.kind, rl, { dur: e.dur, code: effect }), e.gain * cfg.sfx, e.pan); // engine/sfx/
     else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
   // room sound for the set: sound.ambience is its gain (0 turns it off)
