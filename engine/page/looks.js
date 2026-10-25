@@ -225,8 +225,14 @@ function patchToon(m, o) {
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
+    // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
+    sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
+    sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 };
+    m.userData.shader = sh;
+    sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
+      .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", "uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc;\nvoid main() {")
+      .replace("void main() {", "uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uHatC, uHatUp; varying vec3 vWPos;\nvoid main() {")
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -237,6 +243,11 @@ function patchToon(m, o) {
           vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, normal.y));
+          if (uHatK > 0.0) {
+            vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
+            float hk = uHatK * smoothstep(-0.07, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
+            col *= mix(vec3(1.0), uShade * 0.92, hk);
+          }
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
           // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
@@ -249,6 +260,9 @@ function patchToon(m, o) {
   };
   m.customProgramCacheKey = () => `anime-pro-${o.key}`;
 }
+
+// is it drawn: it and all its parents visible
+const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
 
 // Grounding for the drawn look: tight, dark, painted ovals where things touch the ground (each foot, the staff's
 // foot, every prop standing on the floor) over a broader soft one under the body. They are tinted with the ground's
@@ -271,7 +285,6 @@ function groundShadows(scene, actors, props, color, camera) {
     const k = Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
     m.visible = k > 0.01; m.position.set(x, 0.008, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
   };
-  const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
   const v = new THREE.Vector3(), box = new THREE.Box3();
   const parts = actors.map((a) => {
     const tips = []; a.ch.root.traverse((o) => { if (o.userData.groundTip !== undefined) tips.push(o); });
@@ -309,8 +322,9 @@ function groundShadows(scene, actors, props, color, camera) {
 
 // Drawn glass: clear in the middle, a visible rim where the wall turns away (its thickness), two crisp vertical
 // highlight streaks on the lit side, the back wall fainter. Strong highlights are kept for glass and crystal.
-function animeGlass(m) {
+function animeGlass(m, liquid = false) {
   return new THREE.ShaderMaterial({
+    defines: liquid ? { LIQUID: "" } : {},
     uniforms: { uTint: { value: new THREE.Color(m.color) }, uOpacity: { value: m.opacity } },
     vertexShader: `varying vec3 vN, vV;
       void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = -mv.xyz; vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * mv; }`,
@@ -324,6 +338,10 @@ function animeGlass(m) {
         float hi = front * (band(n.x, -0.74, -0.52) + 0.6 * band(n.x, 0.4, 0.48)) * (1.0 - edge);
         vec3 col = mix(mix(uTint, vec3(1.0), hi), uTint * vec3(0.42, 0.55, 0.52), edge);
         float a = max(max(0.07 + 0.25 * fr * fr, 0.85 * hi), 0.8 * edge) * mix(0.45, 1.0, front);
+        #ifdef LIQUID
+          // brine: a light, even tint with a slightly denser edge, no highlights
+          col = uTint; a = (0.14 + 0.12 * fr) * front;
+        #endif
         gl_FragColor = vec4(col, clamp(a * uOpacity / 0.32, 0.0, 1.0));
       }`,
     // opacity is what stage.js reads to leave see-through parts out of the caption check
@@ -347,10 +365,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   ROLE.skin = night ? ROLE.char : { lit: [1.0, 1.1, 0.92], shade: [0.84, 0.6, 0.42] };
   // separate materials (matte potato, cloth hat, wooden staff): each gets its own shadow colour, rim and gradient,
   // so only glass and crystal carry strong highlights
-  ROLE.skin = { ...ROLE.skin, rimK: 0.12, grad: 0.05, occ: 0.12 };
-  ROLE.char = { ...ROLE.char, rimK: 0.2 };
-  ROLE.cloth = { lit: night ? [0.95, 0.92, 0.95] : [1.04, 1.02, 1.0], shade: night ? [0.58, 0.5, 0.7] : [0.64, 0.6, 0.8], rimK: 0.06, grad: 0.14, occ: 0.18 };
-  ROLE.wood = { ...ROLE.char, rimK: 0.1, grad: 0.1 };
+  ROLE.skin = { ...ROLE.skin, rimK: 0, grad: 0.05, occ: 0.12 };
+  ROLE.char = { ...ROLE.char, rimK: 0.08 };
+  ROLE.cloth = { lit: night ? [0.95, 0.92, 0.95] : [1.04, 1.02, 1.0], shade: night ? [0.58, 0.5, 0.7] : [0.64, 0.6, 0.8], rimK: 0, grad: 0.14, occ: 0.18 };
+  ROLE.wood = { ...ROLE.char, rimK: 0.06, grad: 0.1 };
   ROLE.set = { ...ROLE.set, rimK: 0 };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
@@ -371,7 +389,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       return m;
     }
     let t = toon.get(m);
-    if (!t && m.userData.glass) { t = animeGlass(m); t.userData.outlineParameters = noLine; t.userData.glassOf = m; toon.set(m, t); made.add(t); }
+    if (!t && (m.userData.glass || m.userData.liquid)) { t = animeGlass(m, !!m.userData.liquid); t.userData.outlineParameters = noLine; t.userData.glassOf = m; toon.set(m, t); made.add(t); }
     if (!t) {
       const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? "skin" : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
       t = new THREE.MeshToonMaterial({
@@ -390,6 +408,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     }
     return t;
   };
+  // restrained glow: additive halos (a charged staff tip) are kept smaller and fainter, emissive parts are capped,
+  // so a zap lights the crystal instead of washing out the top of the frame
+  const halos = []; scene.traverse((o) => { if (o.isSprite && o.material.blending === THREE.AdditiveBlending) halos.push(o); });
+  const hats = actors.filter((a) => a.ch.costume && a.ch.costume.hat && a.ch.costume.hat.children[0] && a.ch.skin)
+    .map((a) => ({ a, brim: a.ch.costume.hat.children[0] }));
+  const hatUp = new THREE.Vector3(), hatC = new THREE.Vector3(), hatS = new THREE.Vector3();
   const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && setSpec.type === "hills" ? "#0f2e12" : "#2a2019", camera);
   const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
@@ -407,14 +431,26 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   return {
     prepare() {
       for (const [m, t] of toon) {
-        if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.opacity; continue; }
-        if (m.emissiveIntensity !== undefined) t.emissiveIntensity = m.emissiveIntensity; t.opacity = m.opacity;
+        if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.userData.liquid ? m.opacity * 0.32 / 0.35 : m.opacity; continue; }
+        if (m.emissiveIntensity !== undefined) t.emissiveIntensity = Math.min(m.emissiveIntensity, 2.4); t.opacity = m.opacity;
       }
       scene.traverse((o) => {
         if (!o.isMesh || !o.material || made.has(o.material)) return;
         o.material = Array.isArray(o.material) ? o.material.map(convert) : convert(o.material);
       });
       grounding.update();
+      for (const h of halos) {
+        // costumes.js sets the halo every frame; scale it once per value it set
+        if (h.material.opacity !== h.userData.lookOpacity) { h.material.opacity *= 0.5; h.userData.lookOpacity = h.material.opacity; }
+        if (h.scale.x !== h.userData.lookScale) { h.scale.multiplyScalar(0.6); h.userData.lookScale = h.scale.x; }
+      }
+      for (const { a, brim } of hats) {
+        const t = toon.get(a.ch.skin), sh = t && t.userData.shader;
+        if (!sh) continue;
+        brim.getWorldPosition(hatC); brim.getWorldScale(hatS); hatUp.set(0, 1, 0).transformDirection(brim.matrixWorld);
+        sh.uniforms.uHatC.value.copy(hatC); sh.uniforms.uHatUp.value.copy(hatUp); sh.uniforms.uHatR.value = 0.47 * hatS.x;
+        sh.uniforms.uHatK.value = shown(brim) ? 0.75 : 0;
+      }
     },
     render() { composer.render(); },
   };

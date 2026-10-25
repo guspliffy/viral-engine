@@ -112,6 +112,10 @@ const KINDS = {
     const body = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.28, 36, 1, true), glass, P.whole, 0, 0.14, 0); body.castShadow = false; body.renderOrder = 2;
     const base = mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.01, 36), glass, P.whole, 0, 0.005, 0); base.castShadow = false; base.renderOrder = 2;
     const brine = new THREE.MeshStandardMaterial({ color: "#c9d97a", transparent: true, opacity: 0.35, roughness: 0.3, depthWrite: false });
+    brine.userData.liquid = true;
+    // the jar's open mouth: a thicker glass rim and the screw thread under it
+    const rim = mesh(new THREE.TorusGeometry(0.108, 0.006, 8, 48), glass, P.whole, 0, 0.28, 0); rim.rotation.x = Math.PI / 2; rim.castShadow = false; rim.renderOrder = 2;
+    const thread = mesh(new THREE.CylinderGeometry(0.113, 0.113, 0.018, 36, 1, true), glass, P.whole, 0, 0.262, 0); thread.castShadow = false; thread.renderOrder = 2;
     const liquid = mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.2, 32), brine, P.whole, 0, 0.11, 0); liquid.castShadow = false; liquid.renderOrder = 1;
     const pickleM = mat("#5f9a3a", { roughness: 0.5, emissive: new THREE.Color("#b8ff6a"), emissiveIntensity: 0 });
     const pk = mesh(new THREE.CapsuleGeometry(0.045, 0.14, 8, 16), pickleM, P.whole, 0, 0.13, 0); pk.rotation.z = 0.25;

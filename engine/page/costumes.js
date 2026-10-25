@@ -231,7 +231,7 @@ export function buildCostume(def, ch) {
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
-  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.3, 0.03, 0.18); sprt.group.rotation.set(0.25, 0, 0.75); hat.group.add(sprt.group); }   // on the side away from the staff hand
+  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.45); sprt.group.position.set(-0.26, 0.03, -0.22); sprt.group.rotation.set(-0.25, 0, 0.75); hat.group.add(sprt.group); }   // small, on the back of the brim away from the staff hand (it must not read as a prop landing on the hat)
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
@@ -242,9 +242,21 @@ export function buildCostume(def, ch) {
   const propHand = C.propHand || "R";
   const sitDepth = pb ? pb.sitDepth : isCast ? cc.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
 
+  // the held prop's rotation for this frame (shared by apply and by the hand that wraps around it)
+  const propRot = (st) => {
+    const a = st.arms[propHand], t0 = tiltOf(a.from), t1 = tiltOf(a.pose), out = propHand === "R" ? 1 : -1;
+    const [tx, tz] = tiltSet(st.propTilt, [t0[0] + (t1[0] - t0[0]) * a.p, t0[1] + (t1[1] - t0[1]) * a.p]);
+    return [tx, out * tz + (st.propSpin || 0)];
+  };
   return {
     tip: prop && prop.tip ? prop.tip : null,
     hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
+    // the direction of the held handle in root space, for the hand that holds it (null for the other hand)
+    propAxis(st, s) {
+      if (!prop || s !== propHand || prop.axis === false) return null;
+      const [tx, rz] = propRot(st);
+      return new THREE.Vector3(0, 1, 0).applyEuler(new THREE.Euler(tx, 0, rz));
+    },
     apply(st, t, hands, fries) {
       // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
       const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
@@ -258,13 +270,10 @@ export function buildCostume(def, ch) {
       if (cc) cc.apply(st, t, hands, fries);
       if (prop) {
         prop.group.visible = !fries;
-        const a = st.arms[propHand];
-        const t0 = tiltOf(a.from), t1 = tiltOf(a.pose);
         prop.group.position.copy(ch.gripPoint ? ch.gripPoint(propHand) : hands[propHand]);   // a mitten holds it in its fist
-        // right hand is at -x, left at +x: lean the top of the prop outward on either side
-        const out = propHand === "R" ? 1 : -1;
-        const [tx, tz] = tiltSet(st.propTilt, [t0[0] + (t1[0] - t0[0]) * a.p, t0[1] + (t1[1] - t0[1]) * a.p]);
-        prop.group.rotation.set(tx, 0, out * tz + (st.propSpin || 0));
+        // right hand is at -x, left at +x: the top of the prop leans outward on either side
+        const [tx, rz] = propRot(st);
+        prop.group.rotation.set(tx, 0, rz);
         prop.charge(st.charge, t, st.chargePhase || 0);
       }
     },
