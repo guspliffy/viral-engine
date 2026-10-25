@@ -475,5 +475,16 @@ function silhouette() {
   return px;
 }
 
-window.ENGINE = { init, frame, sync, capture, layout };
+// contact measures per actor at time t (potato.js contact()), for qa/check.mjs: no pixels drawn, so a whole clip at
+// full frame rate takes seconds
+function contact(t) {
+  pose(t);
+  const r = (x) => Math.round(x * 10000) / 10000;
+  return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
+    const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, q: { R: k.qR.map(r), L: k.qL.map(r) } };
+  }) };
+}
+
+window.ENGINE = { init, frame, sync, capture, layout, contact };
 window.ENGINE_READY = true;

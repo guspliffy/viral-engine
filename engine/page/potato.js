@@ -145,7 +145,14 @@ export class Character {
     const w = axis ? fistWeight(gr.curl) : 0;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
-      const f = y.clone().addScaledVector(x, -y.dot(x)); if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
+      // forearm runs along the handle (a raised staff) that direction shrinks to nothing and would spin the fist end-on
+      // or flip it, so the steady out-and-forward pull takes over, smoothly, and keeps the knuckles to the front
+      const o = new THREE.Vector3(at.x, 0, 0).normalize().add(new THREE.Vector3(0, 0, 1));
+      if (at.x === 0) o.set(-sx, 0, 1);
+      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4);
+      if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      U.fistPar = Math.abs(y.dot(x));
       // fwd: the fist turns its knuckles to face forward (a mug or teacup handle held beside the cup: the fingers wrap
       // the front of the handle and the palm faces the cup)
       if (gr.fwd) { f.lerp(new THREE.Vector3(0, 0, 1), gr.fwd).addScaledVector(x, -f.dot(x)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize(); }
@@ -186,7 +193,9 @@ export class Character {
     const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
     U.thumb.position.copy(U.thumbRest);
     U.fist.visible = tw > 0.001; U.fist.scale.setScalar(Math.max(0.001, tw));
-    U.palm.scale.set(1, 0.95, 0.78).multiplyScalar(1 - 0.15 * tw);   // a closed fist is more compact than the open mitten
+    // a closed fist is more compact than the open mitten, and its palm draws back behind the handle so the handle always
+    // runs through the fingers, never through the palm
+    U.palm.scale.set(1, 0.95, 0.78 - 0.18 * tw).multiplyScalar(1 - 0.15 * tw); U.palm.position.z = -0.034 * tw;
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
@@ -286,10 +295,11 @@ export class Character {
       // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
-      // elbow guide: beside the body at fist height; for a hand in front of the belly, half way round the body from the
-      // shoulder to the hand, so the arm wraps round the body instead of through it
+      // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
+      // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
+      // way round the body from the shoulder to the hand, so the arm wraps round the body instead of through it
       if (hw > 0) {
-        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.15, h.y - 0.01, h.z - 0.02) : sh.clone().lerp(h, 0.5);
+        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.12, h.y - 0.09, h.z - 0.02) : sh.clone().lerp(h, 0.5);
         mid.lerp(g, hw);
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
@@ -325,25 +335,54 @@ export class Character {
     if (globalThis.__DIAG?.clearance && !fries) this._clearance(t);
   }
 
-  // diagnostic: the gap between the held prop's shaft and the holding arm (outside the fist) and the body, logged as
-  // "diag: clearance t=.. arm=.. body=.." in metres (negative = they intersect). Storyboard "debug": { "clearance": true }.
+  // contact measures for qa/check.mjs (stage.js ENGINE.contact) and the clearance diagnostic, in metres (negative =
+  // they intersect): staff: the gap between the held prop's shaft and the holding arm outside the fist (arm) and the
+  // body (body), how far the grip sits off the shaft (gripOff) and how nearly the forearm runs along it (par, 0..1;
+  // near 1 the fist has nothing to turn around); brim: how deep each arm reaches into the hat brim (0 = clear)
+  contact() {
+    const S = this.bodyGroup.scale, out = { staff: null, brim: { R: 0, L: 0 } };
+    const shoulder = (s) => { const p = this.surf((s === "R" ? -1 : 1) * 1.38, 0.02).pos; return p.set(p.x * S.x, p.y * S.y, p.z * S.z); };
+    const curveOf = (s) => this.arms[s].elbow ? new THREE.QuadraticBezierCurve3(shoulder(s), this.arms[s].elbow, this.arms[s].hand.position) : null;
+    const L = this.costume.propLine?.();
+    if (L && curveOf(L.hand)) {
+      const s = L.hand, a = this.arms[s], curve = curveOf(s), seg = new THREE.Line3(L.a, L.b), q = new THREE.Vector3(), c = new THREE.Vector3();
+      let arm = Infinity, body = Infinity;
+      for (let i = 0; i <= 60; i++) {
+        curve.getPoint(i / 60, c);
+        if (c.distanceTo(L.grip) < 0.09) continue;   // the fist itself, where the hand is meant to touch the wood
+        seg.closestPointToPoint(c, true, q); arm = Math.min(arm, c.distanceTo(q) - L.r - this.limbW);
+      }
+      for (let i = 0; i <= 60; i++) {
+        seg.at(i / 60, c); const d = c.clone().sub(new THREE.Vector3(0, this.cy * S.y, 0));
+        const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
+        body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
+      }
+      out.staff = { hand: s, arm, body, tip: L.a.y, gripOff: seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip), par: a.hand.userData.fistPar ?? 0 };
+    }
+    // the brim as a disc around the hat's up axis (costume hatBrim: its group and radius), in the root's space
+    const hb = this.costume.hatBrim;
+    if (hb && hb.group.visible && hb.r > 0) {
+      this.root.updateMatrixWorld(true);
+      const inv = this.root.matrixWorld.clone().invert(), m = hb.group.matrixWorld.clone().premultiply(inv);
+      const ctr = new THREE.Vector3().setFromMatrixPosition(m), sc = new THREE.Vector3().setFromMatrixScale(m), up = new THREE.Vector3(0, 1, 0).transformDirection(m);
+      const R = hb.r * Math.max(sc.x, sc.z), half = this.limbW / 2 + 0.02, c = new THREE.Vector3();
+      for (const s of ["R", "L"]) {
+        const curve = curveOf(s), hp = this.arms[s].hand.position; if (!curve || !this.arms[s].mesh?.visible) continue;
+        for (let i = 0; i <= 40; i++) {
+          curve.getPoint(i / 40, c);
+          if (c.distanceTo(hp) < 0.07) continue;   // the hand itself may hold the brim (a hat tip); the arm may not cross it
+          c.sub(ctr); const h = c.dot(up), r = c.addScaledVector(up, -h).length();
+          if (Math.abs(h) < half && r < R) out.brim[s] = Math.max(out.brim[s], Math.min(half - Math.abs(h), R - r));
+        }
+      }
+    }
+    for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
+    return out;
+  }
+  // diagnostic: "diag: clearance t=.. arm=.. body=.." per frame. Storyboard "debug": { "clearance": true }.
   _clearance(t) {
-    const L = this.costume.propLine?.(); if (!L) return;
-    const s = L.hand, a = this.arms[s]; if (!a.elbow) return;
-    const sh = this.surf((s === "R" ? -1 : 1) * 1.38, 0.02).pos, S = this.bodyGroup.scale; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
-    const curve = new THREE.QuadraticBezierCurve3(sh, a.elbow, a.hand.position), seg = new THREE.Line3(L.a, L.b), q = new THREE.Vector3(), c = new THREE.Vector3();
-    let arm = Infinity, body = Infinity;
-    for (let i = 0; i <= 60; i++) {
-      curve.getPoint(i / 60, c);
-      if (c.distanceTo(L.grip) < 0.09) continue;   // the fist itself, where the hand is meant to touch the wood
-      seg.closestPointToPoint(c, true, q); arm = Math.min(arm, c.distanceTo(q) - L.r - this.limbW);
-    }
-    for (let i = 0; i <= 60; i++) {
-      seg.at(i / 60, c); const d = c.clone().sub(new THREE.Vector3(0, this.cy * S.y, 0));
-      const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
-      body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
-    }
-    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)} gripOff=${seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip).toFixed(3)}`);
+    const k = this.contact().staff; if (!k) return;
+    console.log(`diag: clearance t=${t.toFixed(2)} arm=${k.arm.toFixed(3)} body=${k.body.toFixed(3)} tip=${k.tip.toFixed(3)} gripOff=${k.gripOff.toFixed(3)} par=${k.par.toFixed(2)}`);
   }
 }
 
