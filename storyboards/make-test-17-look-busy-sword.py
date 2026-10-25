@@ -11,7 +11,7 @@ HERO, MAG = [0.0, 0.0], [0.8, -0.6]
 DESK = {"id": "desk", "kind": "desk", "x": -0.18, "y": 0, "z": 0.63, "w": 1.55}
 REPORT = [-0.6, 0.42, 0.6]
 PLATE = [-0.8, 0.42, 0.76]   # where the boss puts the nameplate (under the last cut)
-PGRIP = [-0.15, 0.08, -0.06]   # the boss holds the nameplate by its near end, from behind the top edge
+PGRIP = [-0.15, 0.03, -0.06]   # the boss holds the nameplate by its near end, from behind the top edge
 BOSS_WATCH, BOSS_GIVE = [-2.0, 0.95], [-1.5, 0.85]   # watching: a body-width clear of the blade tip
 
 # the sword hand (R; the hand at -x facing the camera). Raised beside the head, and the cut: a diagonal across the
@@ -111,8 +111,9 @@ cut(p, 6.25); sword(p, 6.49, UP, 0.16)
 p(6.5, who="hero", do="look", to=[0, 0], dur=0.15, blink=False)
 
 # --- 6. the boss walks in with something under his arm; the slicing goes on ---
-p = beat("the boss", 6.65, 1.75, shot={"pos": [-1.0, 1.5, 7.0], "look": [-1.0, 0.75, 0.4], "fov": 44})
+p = beat("the boss", 6.65, 1.75, shot={"pos": [-0.85, 1.5, 7.0], "look": [-0.85, 0.75, 0.4], "fov": 48})   # the Sorcerer in too (Fable B)
 p(6.65, who="boss", do="move", to=BOSS_WATCH, dur=1.0, ease="out")
+p(7.45, who="mag", do="look", to=[-0.6, 0.0], dur=0.15, blink=False)   # her smug look at the flurry (Fable B)
 for t in (6.85, 7.35):
     cut(p, t); sword(p, t + 0.24, UP, 0.16)
 p(7.4, who="boss", do="look", to=[0.5, -0.2], dur=0.15, blink=False)   # the flurry first
@@ -151,7 +152,7 @@ p(11.4, who="hero", do="look", to=[-0.5, -0.5], dur=0.15, blink=False)
 p(11.5, who="hero", do="expr", expr="delighted", dur=0.25)
 
 # --- 10. the button: the hand winds up by itself, one clean cut through the nameplate, deadpan to us ---
-p = beat("the cut", 12.4, 2.0, shot={"pos": [-0.42, 1.4, 4.7], "look": [-0.42, 0.72, 0.35], "fov": 36})
+p = beat("the cut", 12.4, 2.0, shot={"pos": [-0.3, 1.4, 4.7], "look": [-0.3, 0.72, 0.35], "fov": 36})
 sword(p, 12.45, UP, 0.3)
 p(12.6, who="hero", do="look", to=[-0.7, 0.5], dur=0.12, blink=False)
 p(12.6, who="hero", do="expr", expr="shocked", set=SHOCK, dur=0.1)
@@ -163,12 +164,14 @@ p(13.3, who="hero", do="look", to=[0, 0], dur=0.2, blink=False)
 p(13.35, who="hero", do="expr", expr="deadpan", dur=0.35)
 
 # --- 11. back out to the opening framing: the Sorcerer, smug, and the sword up again, so it loops (Fable A) ---
-p = beat("loop", 13.4, 1.0, shot={"pos": [-0.42, 1.4, 4.7], "look": [-0.42, 0.72, 0.35], "fov": 36,
+p = beat("loop", 13.4, 1.0, shot={"pos": [-0.3, 1.4, 4.7], "look": [-0.3, 0.72, 0.35], "fov": 36,
                                   "to": {"pos": [0.2, 1.6, 5.7], "look": [0.2, 0.9, 0.1]}, "dur": 1.0, "ease": "inOut"})
 p(13.4, who="hero", do="still", dur=0.5, idle=0.2)
 p(13.5, who="mag", do="look", to=[0, 0], dur=0.15, blink=False)
 p(13.5, who="mag", do="expr", expr="smug", dur=0.25)
-sword(p, 13.9, ("rest", [0, 8]), 0.4)   # back down to rest, as in frame 0
+sword(p, 13.9, HOVER, 0.2)   # up through the held pose first: straight down to rest dipped the blade into the desk and
+sword(p, 14.1, ("rest", [0, 8]), 0.3)   # flipped the hand (Fable B); then rest, as in frame 0
+fx.append({"do": "poof", "at": 14.15, "pos": [PLATE[0], -0.05, PLATE[2]], "color": "#9dffb0", "spark": "#7dff9a", "puffs": 1, "sparks": 10, "dur": 0.25})   # her magic tidies the desk for the loop
 
 # the boss carries the nameplate in from off screen (left hand, low, its face turned toward him: unreadable edge-on)
 beats[0]["do"] += [{"who": "boss", "do": "grab", "prop": "plate", "hand": "L", "grip": PGRIP, "pose": {"o": [0.28, 0.42, 0.12]}, "dur": 0.01, "at": 0}]
