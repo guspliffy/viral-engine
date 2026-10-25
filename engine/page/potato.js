@@ -120,7 +120,7 @@ export class Character {
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
   // axis: the held handle's direction (a staff, a scythe). A closed hand then turns its fist around it: the handle runs
   // through the curled fingers from the little finger to the thumb, thumb on top, knuckles out, fingers pointing forward.
-  _pose(hand, elbow, at, sx, gr, axis = null) {
+  _pose(hand, elbow, at, sx, gr, axis = null, palm = null) {
     const U = hand.userData, y = at.clone().sub(elbow).normalize();
     const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
     z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
@@ -137,6 +137,24 @@ export class Character {
     }
     // a cupped hand (grip up > 0): the palm turns to face up, fingers still pointing along the forearm, so a jar or an
     // orb sits in it from below
+    // a hand on something it holds (arm pose palm): the palm turns to face that point, the fingers still pointing along
+    // the forearm as far as they can, so they lie on the jar instead of turning away from it. wrap: the palm faces the
+    // axis level and the fingers go round it on the side away from the body (a jar held from behind: fingers across its
+    // back, thumb up)
+    if (palm && palm.w > 0) {
+      const zp = palm.at.clone().sub(at), fy = y.clone();
+      if (palm.wrap) zp.y = 0;
+      if (zp.lengthSq() > 1e-6) {
+        zp.normalize();
+        if (palm.wrap) { fy.crossVectors(new THREE.Vector3(0, 1, 0), zp); if (fy.x * at.x + fy.z * at.z < 0) fy.negate(); }
+        fy.addScaledVector(zp, -fy.dot(zp));
+        if (fy.lengthSq() > 1e-6) {
+          fy.normalize();
+          _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(fy, zp), fy, zp));
+          hand.quaternion.slerp(_fist, palm.w);
+        }
+      }
+    }
     const up = Math.min(1, Math.max(0, gr.up || 0));
     if (up > 0) {
       const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
@@ -155,6 +173,18 @@ export class Character {
       U.thumb.position.lerp(_thumbFist, tw);
       U.thumb.rotation.set(0.35 * tw, -1.15 * gr.thumb * (1 - tw), 0.35 * gr.thumb * (1 - tw) - 1.7 * tw);
     }
+  }
+  // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
+  // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one
+  _palm(a, h, S) {
+    const pt = (q) => (q && q.mix ? pt(q.mix.p < 0.5 ? q.mix.from : q.mix.pose) : q && q.palm ? q : null);
+    const wt = (q) => (q && q.mix ? wt(q.mix.from) + (wt(q.mix.pose) - wt(q.mix.from)) * q.mix.p : q && q.palm ? 1 : 0);
+    const p0 = pt(a.from), p1 = pt(a.pose), w = wt(a.from) * (1 - a.p) + wt(a.pose) * a.p;
+    if (!(p0 || p1) || w <= 0) return null;
+    const to = (p) => new THREE.Vector3(p[0], LEG_H + this.H * p[1], p[2]), q0 = p0 && to(p0.palm), q1 = p1 && to(p1.palm);
+    const at = q0 && q1 ? q0.lerp(q1, a.p) : (q1 || q0);
+    at.y = LEG_H + (at.y - LEG_H) * S.y;
+    return { at, w, wrap: !!(a.p < 0.5 ? (p0 || p1).wrap : (p1 || p0).wrap) };
   }
   // where a prop held in hand s sits, in the root's space (the hand centre for ball hands)
   gripPoint(s) {
@@ -249,7 +279,7 @@ export class Character {
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
       this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax);
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S));
       this.arms[s].elbow = mid;
       this.arms[s].hand.visible = showLimbs;
       // legs

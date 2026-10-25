@@ -104,6 +104,11 @@ moving at once.
   [x, y, z] }` carries the prop so its bottom lands on `[x, y, z]` (a put-down that touches the table exactly).
   `{ "world": [x, y, z] }` aims at a point. `grip` is a named grip of the prop's kind (`teacup`: `handle`) or a point
   of your own in the prop's frame, `[x, y, z]` metres from its bottom centre. `off` nudges the target.
+- A mitten hand turns its palm toward the prop when the pose has `palm`: `true` faces the prop's axis at the grip's
+  height (fingers along the forearm), `"wrap"` faces it level with the fingers going round it on the side away from
+  the body and the thumb up. That is how a jar is grabbed from behind: put the grip behind the glass, about the hand's
+  thickness off the side (a jar's grip `[0.1, 0.15, -0.14]` is 0.17 from its axis), and the mitten wraps it with
+  nothing passing through the glass. The hand turns back on its own as the arm moves on to a pose without `palm`.
 - `grab` with the same `grip` holds the prop by that point, so a hand that reached it closes on it with no jump.
   `"keep": true` holds it wherever it is instead (the offset is measured at the grab). `"hand": "hat"` with `keep`
   sticks it to the hat. A second `grab` by the same hand with a new `grip`, a `dur` and `"pose": null` slides the

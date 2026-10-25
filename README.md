@@ -114,7 +114,7 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
   - `still` `{ dur, idle, sink, fade, blink }` a purposeful hold: idle breathing and sway turned down, no automatic blinks unless `blink: true` (see `docs/STORYBOARD.md` → Performances)
   - `expr` `{ expr, set? }` (`set` changes only some of the face's numbers, e.g. `{ raise: 0.045 }` for one brow or
     `{ curve: -0.15, smirk: 0.2 }` for a tightening mouth, on top of `expr` or of the face as it is) · `look` `{ to: [x, y] }` eyes, -1..1 · `talk` `{ tone: calm|excited|sad|question|chant, rate }` gibberish speech, lips in sync · `blink` · `noblink`
-  - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks lap table`
+  - `arm` `{ side: R|L|both, pose }` poses: `rest up wave point shrug hips cast hold hat fist cheeks lap table`, or aimed at a prop `{ prop, grip, at, off, palm }` (`palm`: `true` or `"wrap"` turns a mitten's palm to the prop, see `docs/STORYBOARD.md` → Contact)
   - `charge` `{ to: 0..1 }` prop glow · `droop` `{ to }` leaves · `swap` `{ form: "fries" }` · `hat` `{ off: [x,y,z], spin: [deg,deg,deg] }`
   - `squash` `{ amount }` · `grow` `{ to }` scales the whole character (1 = normal) · `hide` · `show`
   - dance moves on the music's beat (`engine/page/dance.js`, the same names as the puppets): `bounce groove point floss clap roof wave2 nod tada flare wobble` `{ amp, speed }`, plus `spin` `{ turns, dir }` and `shake` on top
