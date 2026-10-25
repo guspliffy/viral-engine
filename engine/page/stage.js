@@ -61,6 +61,8 @@ let out, ctx, showSafe = false;
 const CAP = {
   main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
   sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
+  // a title plate: white letters on a dark box (the "each character vs X" format's pinned word)
+  label: { font: '900 96px "CapBlack"', size: 96, stroke: 0, pad: 34, box: "#24232b" },
 };
 // a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
 function wrap(text, maxW) {
@@ -71,7 +73,7 @@ function wrap(text, maxW) {
   return lines;
 }
 function captionLayout(c) {
-  const st = CAP[c.style === "sub" ? "sub" : "main"], pos = c.pos || "top";
+  const st = CAP[c.style] || CAP.main, pos = c.pos || "top";
   const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
   const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
@@ -83,9 +85,9 @@ function captionLayout(c) {
 function captionBox(c) {
   ctx.save();
   const { st, top, cx, lines, lh } = captionLayout(c);
-  const w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke;
+  const pad = st.pad ?? 0, w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke + pad * 2;
   ctx.restore();
-  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2), Math.round(w), Math.round(lines.length * lh + st.stroke)];
+  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2), Math.round(w), Math.round(lines.length * lh + st.stroke + pad)];
 }
 function drawCaption(c) {
   ctx.save();
@@ -93,9 +95,10 @@ function drawCaption(c) {
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.lineJoin = "round"; ctx.miterLimit = 2;
   ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
+  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; ctx.fillRect(bx, by, bw, bh); }
   lines.forEach((ln, i) => {
     const y = top + lh * (i + 0.5);
-    ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y);
+    if (st.stroke) { ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y); }
     ctx.fillStyle = "#fff"; ctx.fillText(ln, cx, y);
   });
   ctx.restore();
@@ -125,7 +128,9 @@ function toScreen(v) {
   const p = new THREE.Vector3().fromArray(v), d = p.distanceTo(camera.position); p.project(camera);
   return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, m: H / (2 * d * Math.tan((camera.fov * Math.PI) / 360)) };
 }
-// "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it
+// "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it;
+// "zzz": sleepy z's drifting up and to the right; "sweat": panic drops flicked off it; "alert": a "!" (or `text`) popping
+// up above it
 function star4(x, y, r) { ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = (i * Math.PI) / 4, q = i % 2 ? r * 0.28 : r; ctx.lineTo(x + Math.sin(a) * q, y - Math.cos(a) * q); } ctx.closePath(); }
 function headFx(f, t, i) {
   const d = f.dur ?? 1, k = (t - f.at) / d, A = f.who && poseStates[f.who];
@@ -140,6 +145,20 @@ function headFx(f, t, i) {
       const x = c.x + Math.cos(ang) * rad, y = c.y + Math.sin(ang) * rad * 0.8, sz = (0.05 + 0.04 * r()) * c.m * Math.sin(lk * Math.PI);
       ctx.globalAlpha = fade; ctx.fillStyle = f.color || "#fff6c8"; ctx.strokeStyle = "rgba(60,40,0,0.55)"; ctx.lineWidth = 3;
       star4(x, y, sz); ctx.fill(); ctx.stroke();
+    } else if (f.do === "sweat") {   // drops flicked off the head, both sides, falling in arcs
+      const side = j % 2 ? 1 : -1, x = c.x + side * (0.25 + lk * 0.3) * c.m, y = c.y - (0.12 - 0.9 * (lk - 0.35) ** 2) * c.m, sz = 0.05 * c.m;
+      ctx.globalAlpha = fade; ctx.fillStyle = f.color || "#7cc8ff"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(x, y - sz * 1.6); ctx.quadraticCurveTo(x + sz, y, x, y + sz); ctx.quadraticCurveTo(x - sz, y, x, y - sz * 1.6); ctx.fill(); ctx.stroke();
+    } else if (f.do === "alert") {   // one "!" that pops above the head and holds (count is ignored)
+      if (j) continue;
+      const pop = Math.min(1, k * 6), sc = pop < 1 ? pop * 1.25 : 1 + 0.25 * Math.max(0, 1 - (k * 6 - 1) * 2), x = c.x + 0.28 * c.m, y = c.y - 0.42 * c.m;
+      ctx.globalAlpha = Math.min(1, (1 - k) * 6); ctx.font = `900 ${Math.round(0.34 * c.m * sc)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.lineWidth = 10; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#e8402f"; ctx.strokeText(f.text || "!", x, y); ctx.fillText(f.text || "!", x, y);
+    } else if (f.do === "zzz") {
+      const x = c.x + (0.25 + lk * 0.35) * c.m + Math.sin(lk * 5 + j) * 0.03 * c.m, y = c.y - (0.15 + lk * 0.5) * c.m;
+      ctx.globalAlpha = fade; ctx.font = `900 ${Math.round((0.1 + 0.08 * lk) * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.lineWidth = 6; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#2b2934";
+      ctx.strokeText("z", x, y); ctx.fillText("z", x, y);
     } else {
       const side = j % 2 ? 1 : -1, x = c.x + side * (0.2 + 0.25 * r()) * c.m + Math.sin(lk * 6 + j) * 0.05 * c.m, y = c.y - lk * 0.55 * c.m;
       ctx.globalAlpha = fade; ctx.font = `900 ${Math.round(0.16 * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -210,7 +229,7 @@ function photoCard(f, i, t) {
 
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c);
@@ -338,6 +357,8 @@ function pose(t) {
     }
     p.apply(ps, t);
   }
+  // a charger's cable runs to the prop its spec.to names (props3d.js charger), wherever that is now
+  for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3())); } }
   const L = lightsAt(sb, t);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
@@ -485,6 +506,8 @@ function silhouette() {
   const bg = scene.background, fog = scene.fog;
   for (const o of setObjs) o.visible = false;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
+  // props are scenery (a tree's leaves behind the title are fine); only the characters count
+  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
   // glows and other see-through parts are effects, not the character's body
   const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && m.transparent && m.opacity < 0.95 || o.isSprite || o.isPoints) glass.push(o); });
   for (const o of glass) o.visible = false;
@@ -495,6 +518,7 @@ function silhouette() {
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
   for (const o of setObjs) o.visible = true;
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
+  props.forEach((p, i) => (p.root.visible = prv[i]));
   for (const o of glass) o.visible = true;
   return px;
 }

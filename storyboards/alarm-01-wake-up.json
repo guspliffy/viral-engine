@@ -1,0 +1,3324 @@
+{
+ "fps": 30,
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": false,
+ "loop": true,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    0,
+    -1.6
+   ],
+   "face": "camera",
+   "expr": "delighted",
+   "seed": 1.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    2.8,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: the morning person: up the moment it rings, a zero-g flip out of bed",
+   "at": 0,
+   "len": 1.4,
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "sit",
+     "at": -0.1,
+     "seat": "bed",
+     "dur": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": -0.1,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": -0.1,
+     "dur": 0.4,
+     "gain": 0.22
+    },
+    {
+     "sfx": "ring",
+     "at": 0,
+     "dur": 0.5,
+     "gain": 0.22
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.1,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": -0.05,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 0.2,
+     "to": {
+      "y": 0.55,
+      "z": -1.3
+     },
+     "dur": 0.35
+    },
+    {
+     "who": "ast",
+     "do": "pitch",
+     "at": 0.3,
+     "to": -360,
+     "dur": 0.5
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.55,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 0.85,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.85,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 0.9,
+     "to": {
+      "x": -2.9,
+      "y": 0.7,
+      "z": -0.45
+     },
+     "dur": 0.6,
+     "ease": "in"
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.6,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0.6,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 1.05,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "rea: wakes up before the alarm: lies there staring at it, stops it on the first ring",
+   "at": 1.4,
+   "len": 1.85,
+   "do": [
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "deadpan"
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 0.35,
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "at": 0.5,
+     "dur": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.9,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 1,
+     "dur": 0.08,
+     "gain": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.08,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 1.3,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.35,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "at": 1.4,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.65,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "stand",
+     "at": 1.65,
+     "dur": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "at": 1.7,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 1.7,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.95
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0.95,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.95,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 1.4,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "sor: the snoozer: zaps the snooze button from his pillow, twice, without opening his eyes",
+   "at": 3.25,
+   "len": 1.9,
+   "do": [
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "sor",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.65,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.65,
+     "dur": 0.3,
+     "gain": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.73,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.73,
+     "to": 1,
+     "dur": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.88,
+      0.7,
+      -1.72
+     ],
+     "dur": 0.35,
+     "puffs": 2,
+     "sparks": 8,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 0.85
+    },
+    {
+     "sfx": "tink",
+     "at": 0.85,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.87,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.95,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.95,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.2,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 1.2,
+     "dur": 0.3,
+     "gain": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 1.28,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 1.28,
+     "to": 1,
+     "dur": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.88,
+      0.7,
+      -1.72
+     ],
+     "dur": 0.35,
+     "puffs": 2,
+     "sparks": 8,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 1.4
+    },
+    {
+     "sfx": "tink",
+     "at": 1.4,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.42,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 1.5,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 1.5,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 1.6,
+     "expr": "smug"
+    },
+    {
+     "fx": "zzz",
+     "who": "sor",
+     "dur": 0.6,
+     "count": 2,
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.7,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "stand",
+     "at": 1.7,
+     "dur": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "hop",
+     "at": 1.75,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 1.75,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 1.25,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 1.25,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 1.7,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "wiz: a spell to stop the alarm goes wrong: four more alarm clocks",
+   "at": 5.15,
+   "len": 2.1,
+   "do": [
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.6,
+     "dur": 1.2,
+     "gain": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.7,
+     "expr": "stern"
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.75,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.75,
+     "to": 1,
+     "dur": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.1,
+      0.6,
+      -1.1
+     ],
+     "dur": 0.5,
+     "puffs": 8,
+     "sparks": 12,
+     "spark": "#c8b6ff",
+     "at": 1
+    },
+    {
+     "sfx": "poof",
+     "at": 1,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "extra0",
+     "at": 1.03,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "scale": 1.2,
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra1",
+     "at": 1.07,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "scale": 1.2,
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra2",
+     "at": 1.11,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "scale": 1.2,
+      "ring": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra3",
+     "at": 1.15,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "scale": 1.2,
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 1.05,
+     "dur": 0.8,
+     "gain": 0.25,
+     "pan": -0.4
+    },
+    {
+     "sfx": "ring",
+     "at": 1.07,
+     "dur": 0.8,
+     "gain": 0.25,
+     "pan": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 1.05,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.1,
+     "expr": "shocked"
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.3,
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.35,
+     "expr": "sad"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.35,
+     "to": 1,
+     "dur": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.55,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.12
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.1,
+      0.5,
+      -1.1
+     ],
+     "dur": 0.5,
+     "puffs": 8,
+     "sparks": 6,
+     "spark": "#c8b6ff",
+     "at": 1.65
+    },
+    {
+     "sfx": "poof",
+     "at": 1.65,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "extra0",
+     "at": 1.67,
+     "dur": 0.15,
+     "ease": "in",
+     "set": {
+      "scale": 0,
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra1",
+     "at": 1.67,
+     "dur": 0.15,
+     "ease": "in",
+     "set": {
+      "scale": 0,
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra2",
+     "at": 1.67,
+     "dur": 0.15,
+     "ease": "in",
+     "set": {
+      "scale": 0,
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "extra3",
+     "at": 1.67,
+     "dur": 0.15,
+     "ease": "in",
+     "set": {
+      "scale": 0,
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.67,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.8,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.8,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.9,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "stand",
+     "at": 1.9,
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "hop",
+     "at": 1.95,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 1.95,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.25,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 1.25,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.7,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "dra: five more minutes: dives under the blanket, a puff of fire from under it shuts the alarm up",
+   "at": 7.25,
+   "len": 2.3,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.6,
+     "dur": 1,
+     "gain": 0.22
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.7,
+     "expr": "stern"
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.8,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "over": 1
+     }
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.05,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "over": 0.92
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.2,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "over": 1.04
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.35,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "over": 0.95
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.5,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "over": 1
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.78,
+      0.6,
+      -1.67
+     ],
+     "dur": 0.5,
+     "puffs": 4,
+     "sparks": 12,
+     "color": "#ffc27a",
+     "spark": "#ff7a1a",
+     "at": 1.55
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.55,
+     "dur": 0.35,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.9,
+      -1.4
+     ],
+     "dur": 0.8,
+     "puffs": 4,
+     "sparks": 0,
+     "color": "#9a9aa2",
+     "at": 1.65
+    },
+    {
+     "fx": "zzz",
+     "who": "dra",
+     "dur": 0.7,
+     "count": 2,
+     "at": 1.7
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.95,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "over": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.95,
+     "expr": "smug"
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 2.1,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "stand",
+     "at": 2.1,
+     "dur": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "hop",
+     "at": 2.15,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 2.15,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.55
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 1.55,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 1.55,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 2,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "at": 1.5,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.5
+     }
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "R",
+     "at": 1.55,
+     "dur": 0.05,
+     "off": [
+      0,
+      0,
+      0.03
+     ]
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.6,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.65,
+     "to": [
+      -0.1,
+      -0.3
+     ],
+     "dur": 0.2
+    }
+   ]
+  },
+  {
+   "name": "phx: scrolls his phone in bed while it rings; sees the time and panics",
+   "at": 9.55,
+   "len": 1.7,
+   "do": [
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "cocky"
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.35,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.55,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.55,
+     "dur": 1,
+     "gain": 0.22
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.6,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.68,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.88,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.03,
+       0.79,
+       0.3
+      ]
+     },
+     "dur": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.08,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.17,
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.2,
+     "expr": "shocked"
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 1.2,
+     "amount": 0.1,
+     "dur": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.35,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 1.35,
+     "to": 1,
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.4,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 1.4,
+     "to": "left",
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "at": 1.4,
+     "to": {
+      "x": -0.1,
+      "y": 0.7,
+      "z": -1
+     },
+     "dur": 0.2,
+     "ease": "out"
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "at": 1.6,
+     "to": {
+      "x": -2.9,
+      "y": 0.7,
+      "z": -0.5
+     },
+     "dur": 0.45,
+     "ease": "in"
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.4,
+     "dur": 0.4,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 0.95
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0.95,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.95,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.4,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "gun: wants to destroy the alarm: shoots it off the nightstand",
+   "at": 11.25,
+   "len": 1.75,
+   "do": [
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "at": 0.37,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.55,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.55,
+     "dur": 0.6,
+     "gain": 0.22
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.65,
+     "expr": "stern"
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.7,
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 1
+    },
+    {
+     "sfx": "impact",
+     "at": 1,
+     "gain": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.88,
+      0.7,
+      -1.72
+     ],
+     "dur": 0.45,
+     "puffs": 2,
+     "sparks": 10,
+     "spark": "#ffd34d",
+     "at": 1.01
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.01,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.01,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "x": -1.23,
+      "y": 0.9,
+      "roll": 300
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.26,
+     "dur": 0.25,
+     "ease": "in",
+     "set": {
+      "x": -1.48,
+      "y": 0,
+      "roll": 540
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 1.51,
+     "gain": 0.3
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 1.25,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.3,
+     "expr": "smug"
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 1.3,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.55,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "stand",
+     "at": 1.55,
+     "dur": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "hop",
+     "at": 1.617,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 1.6,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.88,
+      0.65,
+      -1.72
+     ],
+     "dur": 0.5,
+     "puffs": 5,
+     "sparks": 6,
+     "spark": "#ffe08a",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.73,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -0.88,
+      "y": 0.5,
+      "roll": 0,
+      "scale": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.45,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "sam: turns it off in his sleep: one cut without opening his eyes, sleeps on",
+   "at": 13,
+   "len": 1.75,
+   "do": [
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "scale": 2
+     }
+    },
+    {
+     "who": "sam",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.6,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.6,
+     "dur": 0.4,
+     "gain": 0.22
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.75,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.9,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.97
+    },
+    {
+     "sfx": "tink",
+     "at": 0.97,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "split": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.99,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.2,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "fx": "zzz",
+     "who": "sam",
+     "dur": 0.6,
+     "count": 2,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.55,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "stand",
+     "at": 1.55,
+     "dur": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "hop",
+     "at": 1.6,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.6,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.88,
+      0.65,
+      -1.72
+     ],
+     "dur": 0.5,
+     "puffs": 5,
+     "sparks": 6,
+     "spark": "#ffe08a",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.73,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "scale": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 1
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.45,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "all: the dad: up at once, throws the curtains open on everyone",
+   "at": 14.75,
+   "len": 2.05,
+   "do": [
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "scale": 2
+     }
+    },
+    {
+     "who": "all",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "stern"
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.5,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.5,
+     "dur": 0.15,
+     "gain": 0.22
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.5,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.62,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.7,
+     "expr": "delighted"
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.7,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.75,
+     "to": "back",
+     "dur": 0.25
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.9,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "curtains",
+     "at": 1.1,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "fx": "flash",
+     "dur": 0.2,
+     "peak": 0.12,
+     "at": 1.15
+    },
+    {
+     "sfx": "sting",
+     "at": 1.15,
+     "gain": 0.2
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.3,
+     "to": "camera",
+     "dur": 0.25
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.35,
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.85,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "stand",
+     "at": 1.85,
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "hop",
+     "at": 1.917,
+     "height": 0.2,
+     "dur": 0.3
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1.9,
+     "to": [
+      -0.75,
+      -0.75
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 1.25
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 1.25,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 1.25,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 1.7,
+     "to": "camera",
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "vik: hits snooze HARD: smashes the clock, the nightstand and the bed, sleeps on",
+   "at": 16.8,
+   "len": 3.1,
+   "do": [
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.1,
+     "to": "left",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.15,
+     "to": [
+      -2.9,
+      -0.75
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "sit",
+     "at": 0,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 0.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "fx": "zzz",
+     "who": "vik",
+     "dur": 0.5,
+     "count": 2,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 0.65,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 0.65,
+     "dur": 0.45,
+     "gain": 0.22
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.75,
+     "expr": "stern"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.05,
+     "side": "R",
+     "pose": "table",
+     "dur": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.1,
+     "dur": 0.08,
+     "ease": "out",
+     "set": {
+      "smash": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "night",
+     "at": 1.1,
+     "dur": 0.1,
+     "ease": "out",
+     "set": {
+      "smash": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 1.1,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 1.15,
+     "dur": 0.15,
+     "ease": "in",
+     "set": {
+      "smash": 1
+     }
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 1.15,
+     "to": [
+      0,
+      -1.57
+     ],
+     "dur": 0.15
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.05,
+     "at": 1.15
+    },
+    {
+     "sfx": "impact",
+     "at": 1.1,
+     "gain": 0.45
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.4,
+      0.2,
+      -1.4
+     ],
+     "dur": 0.7,
+     "puffs": 8,
+     "sparks": 10,
+     "color": "#e9dcc8",
+     "spark": "#ffe08a",
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.3,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.4,
+     "expr": "serene"
+    },
+    {
+     "fx": "zzz",
+     "who": "vik",
+     "dur": 0.9,
+     "count": 3,
+     "at": 1.45
+    },
+    {
+     "fx": "zzz",
+     "who": "vik",
+     "dur": 0.6,
+     "count": 2,
+     "at": 2.15
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 2.48
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.3,
+      0.4,
+      -1.3
+     ],
+     "dur": 0.6,
+     "puffs": 10,
+     "sparks": 8,
+     "spark": "#ffe08a",
+     "at": 2.4
+    },
+    {
+     "sfx": "poof",
+     "at": 2.4,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "smash": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "night",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "smash": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "smash": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "curtains",
+     "at": 2,
+     "dur": 0.5,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "who": "ast",
+     "do": "drop",
+     "at": 1.55,
+     "to": 0,
+     "dur": 0.02
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.55,
+     "to": [
+      2.8,
+      -0.75
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "pitch",
+     "at": 1.55,
+     "to": 0,
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.55,
+     "to": "left",
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "serene"
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 1.65
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.65,
+     "to": [
+      1.05,
+      -1
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "ast",
+     "do": "sit",
+     "at": 2.55,
+     "seat": "bed",
+     "dur": 0.35
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 2.55,
+     "to": "camera",
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 2.75,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "cover": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 2.85,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "alarm",
+     "at": 3,
+     "dur": 0.04,
+     "ease": "inOut",
+     "set": {
+      "ring": 1
+     }
+    },
+    {
+     "sfx": "ring",
+     "at": 3,
+     "dur": 0.4,
+     "gain": 0.22
+    },
+    {
+     "sfx": "ring",
+     "at": 3,
+     "dur": 0.1,
+     "gain": 0.22
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 3,
+     "expr": "delighted",
+     "dur": 0.08
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 3,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "at": 3.05,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "cover": 0
+     }
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.1,
+    4.3
+   ],
+   "look": [
+    0,
+    0.95,
+    -1.5
+   ],
+   "fov": 38
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.7,
+   "text": "1 alarm. 10 fighters.",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.4,
+   "text": "ASTRONAUT",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 0.7,
+   "to": 1.4,
+   "text": "the morning person",
+   "pos": 425
+  },
+  {
+   "from": 1.4,
+   "to": 3.25,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1.4,
+   "to": 3.25,
+   "text": "awake before it rings",
+   "pos": 425
+  },
+  {
+   "from": 3.25,
+   "to": 5.15,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 3.25,
+   "to": 5.15,
+   "text": "snoozes forever",
+   "pos": 425
+  },
+  {
+   "from": 5.15,
+   "to": 7.25,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 5.15,
+   "to": 7.25,
+   "text": "the spell goes wrong",
+   "pos": 425
+  },
+  {
+   "from": 7.25,
+   "to": 9.55,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 7.25,
+   "to": 9.55,
+   "text": "five more minutes",
+   "pos": 425
+  },
+  {
+   "from": 9.55,
+   "to": 11.25,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 9.55,
+   "to": 11.25,
+   "text": "scrolling in bed",
+   "pos": 425
+  },
+  {
+   "from": 11.25,
+   "to": 13,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 11.25,
+   "to": 13,
+   "text": "wants to destroy it",
+   "pos": 425
+  },
+  {
+   "from": 13,
+   "to": 14.75,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 13,
+   "to": 14.75,
+   "text": "turns it off asleep",
+   "pos": 425
+  },
+  {
+   "from": 14.75,
+   "to": 16.8,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.75,
+   "to": 16.8,
+   "text": "rise and shine",
+   "pos": 425
+  },
+  {
+   "from": 16.8,
+   "to": 18.65,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 16.8,
+   "to": 18.65,
+   "text": "hits snooze hard",
+   "pos": 425
+  },
+  {
+   "from": 18.65,
+   "to": 19.9,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "props": [
+  {
+   "id": "bed",
+   "kind": "bed",
+   "x": 0,
+   "z": -1.6,
+   "cover": 1
+  },
+  {
+   "id": "night",
+   "kind": "nightstand",
+   "x": -0.88,
+   "z": -1.75
+  },
+  {
+   "id": "alarm",
+   "kind": "alarm",
+   "x": -0.88,
+   "y": 0.5,
+   "z": -1.72,
+   "scale": 2,
+   "rot": 20
+  },
+  {
+   "id": "clock",
+   "kind": "clock",
+   "x": 1,
+   "y": 1.65,
+   "z": -2.3,
+   "scale": 0.8,
+   "time": 6
+  },
+  {
+   "id": "curtains",
+   "kind": "curtains",
+   "x": 0,
+   "y": 1.55,
+   "z": -2.27
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 2.9,
+   "y": 0.5,
+   "z": -0.75,
+   "glow": 1,
+   "scale": 0
+  },
+  {
+   "id": "extra0",
+   "kind": "alarm",
+   "x": 0.55,
+   "y": 0.42,
+   "z": -1.25,
+   "rot": -25,
+   "scale": 0
+  },
+  {
+   "id": "extra1",
+   "kind": "alarm",
+   "x": -0.45,
+   "y": 0.42,
+   "z": -0.9,
+   "rot": 30,
+   "scale": 0
+  },
+  {
+   "id": "extra2",
+   "kind": "alarm",
+   "x": 0.3,
+   "y": 0.42,
+   "z": -0.45,
+   "rot": -10,
+   "scale": 0
+  },
+  {
+   "id": "extra3",
+   "kind": "alarm",
+   "x": -0.95,
+   "y": 0.95,
+   "z": -2,
+   "rot": 15,
+   "scale": 0
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "ast",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "bed",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "night",
+   "from": 17.15,
+   "to": 20.15
+  }
+ ],
+ "id": "alarm-01-wake-up",
+ "title": "ALARM: how each fighter wakes up",
+ "format": "each-character-vs-X, one continuous take: fighters take turns in one bed, the alarm rings, each wakes up their own way",
+ "set": {
+  "type": "bedroom",
+  "flip": true
+ },
+ "duration": 19.9,
+ "cover": 17.65
+}

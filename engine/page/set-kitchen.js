@@ -4,7 +4,7 @@ import { rng } from "./util.js";
 // "kitchen": PotatoBrawl's Kitchen map (game/maps/kitchen.js) as a 3D room at night: teal tiled wall, a window on a
 // dark blue sky, butcher-block counter on wooden cabinets, upper cabinets, fridge, wall clock, a warm hanging lamp,
 // and a dark checked floor. The stage is the floor in front of the counter (characters at z about 0).
-// spec: { type: "kitchen", time: 2.75 (the clock), lamp: 1 (lamp strength) }
+// spec: { type: "kitchen", time: 2.75 (the clock), lamp: 1 (lamp strength), morning: false (a daytime window) }
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -38,7 +38,14 @@ export function buildKitchen(scene, S = {}) {
 
   // the window: night sky with stars and a moon, a white frame with a cross bar and a sill
   const skyTex = canvasTex(256, 192, (g, w, h) => {
-    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#0f1a3a"); gr.addColorStop(1, "#28406e"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    const gr = g.createLinearGradient(0, 0, 0, h);
+    if (S.morning) {   // breakfast: a pale blue sky, a low sun and a cloud
+      gr.addColorStop(0, "#7cc4f2"); gr.addColorStop(1, "#ffe3b0"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+      g.fillStyle = "#fff4c2"; g.beginPath(); g.arc(w * 0.28, h * 0.62, 22, 0, Math.PI * 2); g.fill();
+      g.fillStyle = "rgba(255,255,255,0.9)"; for (const [x, y, r] of [[0.66, 0.3, 16], [0.74, 0.27, 20], [0.82, 0.31, 14]]) { g.beginPath(); g.arc(w * x, h * y, r, 0, Math.PI * 2); g.fill(); }
+      return;
+    }
+    gr.addColorStop(0, "#0f1a3a"); gr.addColorStop(1, "#28406e"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(255,255,255,${0.3 + rnd() * 0.6})`; g.fillRect(rnd() * w, rnd() * h * 0.8, 1.5, 1.5); }
     g.fillStyle = "#f6e7b0"; g.beginPath(); g.arc(w * 0.74, h * 0.28, 16, 0, Math.PI * 2); g.fill();
   });

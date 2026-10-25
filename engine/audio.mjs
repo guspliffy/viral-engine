@@ -175,6 +175,44 @@ const SFX = {
     }
     return x;
   },
+  horn(r, d = 0.45) { // a bus horn: two detuned square tones, a little muffled ("baap")
+    const x = buf(d), lp = biquad("lp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (const f of [311, 392]) y += (t * f) % 1 < 0.5 ? 1 : -1; x[i] = run(lp, y * 0.35) * env(t, 0.01, 0.4, d) * Math.min(1, (d - t) / 0.04); }
+    return x;
+  },
+  screech(r, d = 0.5) { // brakes: a narrow band of noise sliding down
+    const x = buf(d); let bp = biquad("bp", 3200, 9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; if (i % 64 === 0) bp = { ...biquad("bp", 3200 - 900 * (t / d), 9), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * 3 * env(t, 0.02, 0.3, d) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  ring(r, d = 0.8) { // an alarm clock's bells: a hammer trilling between two bells
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 24) % 1, f = Math.floor(t * 24) % 2 ? 2350 : 2650; x[i] = (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2.76 * t) * 0.18) * Math.exp(-hit * 4) * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  scribble(r, d = 0.6) { // a pencil writing fast: short scratchy strokes of band-passed noise
+    const x = buf(d), bp = biquad("bp", 3200, 1.2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = (t * 9) % 1; x[i] = run(bp, r() * 2 - 1) * 0.7 * Math.sin(k * Math.PI) ** 2 * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  bell(r, d = 1.0) { // a school bell: a fast hammer on one big bell
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 18) % 1; x[i] = (Math.sin(TAU * 1250 * t) * 0.5 + Math.sin(TAU * 1250 * 2.4 * t) * 0.2 + Math.sin(TAU * 1250 * 3.9 * t) * 0.08) * Math.exp(-hit * 2.5) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  splash(r) { // a wheel through a puddle: a band-passed noise burst and two falling bloops
+    const d = 0.5, x = buf(d), bp = biquad("bp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f1 = 900 - 900 * t, f2 = 650 - 500 * t;
+      x[i] = run(bp, r() * 2 - 1) * 0.55 * env(t, 0.004, 0.09, d) + (Math.sin(TAU * f1 * t) * env(t - 0.03, 0.005, 0.04, d) + Math.sin(TAU * f2 * t) * env(t - 0.11, 0.005, 0.04, d)) * 0.3;
+    }
+    return x;
+  },
+  hiss(r, d = 0.3) { // bus doors: air brakes' hiss
+    const x = buf(d), hp = biquad("hp", 2500, 0.7);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
+    return x;
+  },
   sadslide(r) { // descending "wah wah wah-wahhh"
     const notes = [[196, 0.34], [185, 0.34], [174.6, 0.34], [164.8, 0.9]];
     const d = notes.reduce((s, n) => s + n[1], 0) + 0.1, x = buf(d); let p = 0, i0 = 0;
@@ -212,7 +250,7 @@ function reverb(x, wet, stereoOffset) {
 // The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
 // random pitch shift, and some get a second layer picked from a few variants.
 const hashStr = (str) => { let h = 2166136261; for (const ch of String(str)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
-const SEMIS = { hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
+const SEMIS = { splash: 3, hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
 function repitch(x, k) { // resample by factor k (k > 1 = higher and shorter)
   if (Math.abs(k - 1) < 1e-3) return x;
   const y = new Float32Array(Math.max(1, Math.floor(x.length / k)));

@@ -73,6 +73,13 @@ function lookAt(looks, u) {
   return l;
 }
 
+// where a "ride" action puts its rider at time u: the prop's position plus the offset turned with the prop
+function rideAt(sb, a, u) {
+  const spec = (sb.props || []).find((q) => q.id === a.prop); if (!spec) return { x: 0, y: 0, z: 0, yaw: 0 };
+  const ps = propState(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1, [ox, oy, oz] = (a.off || [0, 0, 0]).map((v) => v * s);
+  return { x: ps.x + Math.cos(r) * ox + Math.sin(r) * oz, y: ps.y + oy, z: ps.z - Math.sin(r) * ox + Math.cos(r) * oz, yaw: r + ((a.yaw ?? 0) * Math.PI) / 180 };
+}
+
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor;
   const st = {
@@ -88,7 +95,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     grip: { R: { ...(GRIPS[c.grip?.R || def.hands?.grip?.R] || GRIPS.open) }, L: { ...(GRIPS[c.grip?.L || def.hands?.grip?.L] || GRIPS.open) } },
     hatTip: [0, 0], hatBrim: 0,
   };
-  let autoBlink = true, airSince = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
+  let autoBlink = true, airSince = null, riding = null, unsit = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
   let idle = 1, sink = 0, shakeDx = 0;   // a "still" turns the idle breathing and sway down (see below the loop)
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
@@ -205,7 +212,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         const hov = airSince != null ? a.at - airSince : null;
         if (hov != null) st.y += hoverBob(hov);
         const to = a.to || {}, k = ease(a.ease || "inOut")(p), dir = Math.sign((to.x ?? st.x) - st.x);
-        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k);
+        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
         // wings, wing beat and tucked feet ease in over a few frames (a step from one frame to the next reads as a glitch)
         const k0 = clamp((t - a.at) / 0.15);
         st.wings = Math.max(st.wings, Math.min(1, (t - a.at) / 0.12)); st.tuck = Math.max(st.tuck, 0.7 * k0);
@@ -223,8 +230,28 @@ export function actorState(sb, actor, def, t, raw = false) {
         airSince = null; st.flap = f0 * out;
         st.y = lerp(y0, to, k * k);   // speeds up like a falling stone
         st.wings = st.wings * (1 - clamp((t - a.at) / 0.15));
-        st.tuck = p < 1 ? lerp(Math.max(st.tuck, 0.4), 0.4, clamp((t - a.at) / 0.1)) : 0.4 * (1 - clamp((t - a.at - d) / 0.12));
+        st.tuck = p < 1 ? lerp(st.tuck, 0.4, clamp((t - a.at) / 0.1)) : 0.4 * (1 - clamp((t - a.at - d) / 0.12));   // eases into the tuck (it used to snap from 0)
         if (p < 1) st.squash *= 1 + 0.08 * k; else { const after = t - (a.at + d); if (after < 0.22) st.squash *= 1 - 0.28 * Math.sin((after / 0.22) * Math.PI); }
+        break;
+      }
+      // climbing hand over hand (a tree): to { y, x?, z? } in `steps` pulls (default 4), arms reaching up in turn; it
+      // stays up there (no hover) until the next climb or a drop
+      case "climb": {
+        const to = a.to || {}, n = a.steps ?? 4, local = Math.min(p, 0.9999) * n, j = Math.floor(local), q = local - j;
+        const k = p >= 1 ? 1 : (j + ease("inOut")(q)) / n;
+        // from a hover it starts at the bob's height and the wing beat fades out (as a drop does)
+        const bob0 = airSince != null ? hoverBob(a.at - airSince) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
+        st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y + bob0, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
+        airSince = null; st.flap = f0 * (1 - clamp((t - a.at) / 0.12));
+        if (p < 1) {
+          const [up, dn] = j % 2 ? ["L", "R"] : ["R", "L"];
+          st.arms[up] = { from: "hold", pose: "up", p: Math.sin(q * Math.PI * 0.5) };
+          st.arms[dn] = { from: "up", pose: "hold", p: Math.sin(q * Math.PI * 0.5) };
+          st.squash *= 1 - 0.05 * Math.sin(q * Math.PI);
+        } else {   // keep the last pull's arms (one up, one holding) so the next "arm" tweens from there
+          const [up, dn] = (n - 1) % 2 ? ["L", "R"] : ["R", "L"];
+          st.arms[up] = { from: "up", pose: "up", p: 1 }; st.arms[dn] = { from: "hold", pose: "hold", p: 1 };
+        }
         break;
       }
       // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table or hold (the right hand holds)
@@ -251,8 +278,24 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "release": break;
       // the held prop's angle in degrees, [forward, outward], instead of the one the arm pose gives; to: null hands it back
       case "tilt": st.propTilt = { from: st.propTilt || null, to: a.to ? a.to.map((d) => (d * Math.PI) / 180) : null, k: e }; break;
+      // riding a prop (a car, a bike, a cart, a bus roof): from here on x / y / z / yaw follow the prop, at `off`
+      // [x, y, z] in the prop's own frame and `yaw` degrees from its heading, eased in over dur; actions after it
+      // (hops, turns) still add on top. { do: "ride", prop: null } gets off where the prop has carried it.
+      case "ride": {
+        if (riding) { const T = rideAt(sb, riding.a, a.at); [st.x, st.y, st.z, st.yaw] = [T.x, T.y + (st.y - riding.from.y), T.z, T.yaw]; if (riding.a.sit) unsit = a.at; riding = null; }
+        if (a.prop) riding = { a, from: { x: st.x, y: st.y, z: st.z, yaw: st.yaw } };
+        break;
+      }
       default: if (isDance(a.do)) { const x0 = st.x; applyDance(sb, a, t, st); if (a.do === "shake") shakeDx += st.x - x0; }   // dance.js: moves on the music's beat
     }
+  }
+  // getting off a seat: the sitting pose eases out over 0.25 s instead of snapping to standing
+  if (unsit != null && !(riding && riding.a.sit)) st.sit = Math.max(st.sit || 0, 1 - ease("inOut")(prog(t, unsit, 0.25)));
+  if (riding) {
+    const { a, from } = riding, T = rideAt(sb, a, t), k = ease(a.ease || "inOut")(prog(t, a.at, a.dur ?? 0.3));
+    st.x = lerp(from.x, T.x, k) + (st.x - from.x); st.y = lerp(from.y, T.y, k) + (st.y - from.y); st.z = lerp(from.z, T.z, k) + (st.z - from.z);
+    st.yaw = lerp(from.yaw, T.yaw, k) + (st.yaw - from.yaw);
+    if (a.sit) st.sit = Math.max(st.sit || 0, k);
   }
   // planted feet: the feet stay where the last step left them (a move, a turn, a dance step). What the body does on
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.

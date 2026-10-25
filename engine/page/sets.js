@@ -2,6 +2,16 @@ import { buildHills } from "./set-painted.js";
 import * as THREE from "three";
 import { rng } from "./util.js";
 import { buildKitchen } from "./set-kitchen.js";
+import { buildGarden } from "./set-garden.js";
+import { buildForest } from "./set-forest.js";
+import { buildRestaurant } from "./set-restaurant.js";
+import { buildStreet } from "./set-street.js";
+import { buildBedroom } from "./set-bedroom.js";
+import { buildClassroom } from "./set-classroom.js";
+import { buildBathroom } from "./set-bathroom.js";
+import { buildLivingroom } from "./set-livingroom.js";
+import { buildGym } from "./set-gym.js";
+import { buildPark } from "./set-park.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -34,6 +44,16 @@ export function buildSet(scene, spec = {}, palette = null) {
   const type = spec.type || "meadow";
   if (type === "kitchen") return buildKitchen(scene, spec);   // set-kitchen.js
   if (type === "hills") return buildHills(scene, spec);       // set-painted.js
+  if (type === "garden") return buildGarden(scene, spec);     // set-garden.js
+  if (type === "forest") return buildForest(scene, spec);     // set-forest.js
+  if (type === "restaurant") return buildRestaurant(scene, spec);   // set-restaurant.js
+  if (type === "street") return buildStreet(scene, spec);           // set-street.js
+  if (type === "bedroom") return buildBedroom(scene, spec);         // set-bedroom.js
+  if (type === "classroom") return buildClassroom(scene, spec);     // set-classroom.js
+  if (type === "bathroom") return buildBathroom(scene, spec);       // set-bathroom.js
+  if (type === "livingroom") return buildLivingroom(scene, spec);   // set-livingroom.js
+  if (type === "gym") return buildGym(scene, spec);                 // set-gym.js
+  if (type === "park") return buildPark(scene, spec);               // set-park.js
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
