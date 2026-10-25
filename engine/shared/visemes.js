@@ -14,6 +14,7 @@ const SHAPES = {
   t: [0.2, 0], d: [0.2, 0], n: [0.2, 0], l: [0.3, 0], s: [0.15, 0], z: [0.15, 0], "θ": [0.2, 0], "ð": [0.2, 0],
   k: [0.3, 0], g: [0.3, 0], "ɡ": [0.3, 0], "ŋ": [0.3, 0], h: [0.4, 0], "ɾ": [0.2, 0], "ʔ": [0.1, 0], x: [0.3, 0],
 };
+const OPEN_GAIN = 1.3;
 const PAUSE = /[.,!?;:—…"()]/;   // punctuation: the mouth closes for the pause
 const STRESS = /[ˈˌ]/;           // stress marks: the model gives them time, which belongs to the stressed sound after them
 const GAP = /\s/;                // word gaps: no shape of their own, the neighbours blend across
@@ -26,7 +27,8 @@ export function mouthKeys(phones) {
     if (ph === "ː" && segs.length) { segs[segs.length - 1].d += d; continue; } // long vowel: the shape lasts longer
     if (STRESS.test(ph)) { held = held ?? t0; continue; }
     if (held != null) { d += t0 - held; t0 = held; held = null; }
-    if (!GAP.test(ph)) segs.push({ t0, d, s: PAUSE.test(ph) ? [0, 0] : SHAPES[ph] ?? [0.3, 0] });
+    // OPEN_GAIN: speech phonemes are short, so after smoothing the shapes need a little more opening than syllables
+    if (!GAP.test(ph)) { const sh = PAUSE.test(ph) ? [0, 0] : SHAPES[ph] ?? [0.3, 0]; segs.push({ t0, d, s: [Math.min(1, sh[0] * OPEN_GAIN), sh[1]] }); }
   }
   const keys = [[0, 0, 0]];
   for (const { t0, d, s } of segs) {
