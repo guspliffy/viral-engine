@@ -317,7 +317,7 @@ function resolveArms(sb, st, def, t) {
     const spec = (sb.props || []).find((p) => p.id === q.prop);
     if (!spec) throw new Error(`arm pose aims at unknown prop: ${q.prop}`);
     const ps = propState(sb, spec, t), o = q.off || [0, 0, 0];
-    const w = gripWorld(spec, q.grip ?? [0, 0.05, 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale);
+    const w = gripWorld(spec, q.grip ?? [0, 0.05, 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
     return [w[0] + o[0], w[1] + o[1], w[2] + o[2]];
   };
   const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? toLocal(world(q)) : q);
