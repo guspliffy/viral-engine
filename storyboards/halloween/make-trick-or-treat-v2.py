@@ -85,7 +85,8 @@ SAM_LOW, SAM_LOW_T = {"o": [0.12, 0.12, 0.25]}, [120, -30]     # held low at his
 GUARD, GUARD_T = {"o": [0.06, 0.38, 0.45]}, [0, -10]           # upright at his right shoulder, hilt at the chest
 ACROSS, ACROSS_T = {"o": [-0.35, 0.30, 0.55]}, [70, -60]       # the first cut ends low across to his left
 RISE, RISE_T = {"o": [0.06, 0.45, 0.38]}, [-5, 15]             # the second cut rises back up to his right
-FINISH, FINISH_T = {"o": [0.18, 0.06, 0.28]}, [150, -60]       # the finish: blade down and back at his right
+FINISH, FINISH_T = {"o": [0.24, 0.40, 0.34]}, [-8, 12]         # the finish: blade held upright, raised at his right
+HOLD_UP, HOLD_UP_T = {"o": [0.15, 0.30, 0.40]}, [0, 5]         # after: upright in front of his right hip, forearm square
 SAM_FREE = {"o": [-0.08, 0.10, 0.06]}     # the free hand low by the sash
 
 ROLL_S = 0.6
@@ -339,8 +340,8 @@ for k, d, to, steps in (("a", 0.0, A_FLEE, 5.0), ("b", 0.18, B_FLEE, 6.5)):
     act(P12 + 0.05 + d, k, "arm", side="L", pose={"o": [0.22, 0.5, 0.1]}, dur=0.2)
 for t in (P12 + 0.25, P12 + 0.5, P12 + 0.75, P12 + 1.0):
     sfx(t, "step", 0.18)
-act(P11 - 0.3, "sam", "arm", side="R", pose=SAM_LOW, dur=0.5, ease="inOut")
-act(P11 - 0.3, "sam", "tilt", to=SAM_LOW_T, dur=0.5)
+act(P11 - 0.3, "sam", "arm", side="R", pose=HOLD_UP, dur=0.5, ease="inOut")
+act(P11 - 0.3, "sam", "tilt", to=HOLD_UP_T, dur=0.5)
 act(P12 + 1.2, "sam", "blink")
 act(P12 + 1.4, "wiz", "move", to=[0.04, -1.25], dur=0.6, ease="inOut")    # the Wizard comes to the doorway behind him
 act(P12 + 1.9, "wiz", "look", to=[-0.3, -0.3], dur=0.25, blink=False)
@@ -514,7 +515,7 @@ else:
 shots += [
     {"at": S["follow"], "pos": [-1.75, 1.05, 3.05], "look": [0.0, 0.55, -0.30], "fov": 40},
     {"at": S["realize"], "pos": [0.36, 0.42, 0.30], "look": [-0.10, 0.30, 1.55], "fov": 50},
-    {"at": S["run"], "pos": [0.55, 0.35, 3.90], "look": [0.05, 0.55, -0.40], "fov": 40},
+    {"at": S["run"], "pos": [0.42, 0.35, 3.90], "look": [-0.04, 0.55, -0.40], "fov": 46},
 ]
 
 # ---------------------------------------------------------------- beats (for the reviews and contact sheets)
