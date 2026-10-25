@@ -58,6 +58,8 @@ function syllable(s, v, r) {
   const nasal = s.cons === "m" || s.cons === "n", glide = s.cons === "l" || s.cons === "w";
   const jit = rng(Math.floor(s.f0 * 1000 + (s.jt ?? s.t0) * 1e4)); // jt: time within the line for keyed lines
   const breath = biquad("bp", F[1], 1.2);
+  // a whisper: no voiced tone, just breath noise shaped by the first two formants (tone "whisper")
+  const hush = s.whisper ? biquad("bp", F[0], 2.2) : null, voiced = s.whisper ? 0 : 1;
   let f0 = s.f0;
   for (let i = 0; i < vd * SR + 0.05 * SR; i++) {
     const t = i / SR, k = Math.min(1, t / vd);
@@ -75,11 +77,13 @@ function syllable(s, v, r) {
     let y = 0;
     for (let n = 1; n <= nH; n++) { ph[n] += TAU * n * f0 / SR; y += amps[n] * Math.sin(ph[n]); }
     const e = t < 0.018 ? t / 0.018 : t > vd ? Math.max(0, 1 - (t - vd) / 0.05) : 1 - 0.25 * k;
-    y += run(breath, r() * 2 - 1) * (v.breath ?? 0.08) * 2;
+    y *= voiced;
+    y += run(breath, r() * 2 - 1) * (s.whisper ? 0.9 : (v.breath ?? 0.08) * 2);
+    if (hush) y += run(hush, r() * 2 - 1) * 1.1;
     const at = Math.round(v0 * SR) + i;
     if (at < x.length) x[at] += y * e * 0.12;
   }
-  return normalise(x, s.amp);
+  return normalise(x, s.amp * (s.whisper ? 0.6 : 1));
 }
 
 function voice(bus, a, v, pan, gain) {

@@ -7,7 +7,13 @@ import { rng } from "./util.js";
 // camera, so fighters walk in from the left edge and out at the right. The coffin is a prop (props-trend.js) that
 // stands against the wall at HAUNTED.coffinX. Use it with `night: true` so look C picks its night colours.
 // spec: { type: "haunted", seed: 4, night: true }
+// With `nook: true` (Nothing Scares Reaper) the wall has a doorway at NOOK.doorX and behind it a small, warm meeting
+// room: cream walls and a wooden floor, painted and unlit like the porch's hallway, so it stays warm whatever the look
+// does to the corridor. The door itself is a prop ("door", swing "in", hinged at the doorway's left edge), and the
+// table, chairs and the Wizard stand in the room (z between NOOK.backZ and the wall). The window moves to the left
+// of the portrait and the candles flank the doorway's left side, so nothing hangs where the opening is.
 export const HAUNTED = { wallZ: -1.6, coffinX: 0.35, runnerZ: [-1.05, 0.15], pumpkin: [1.02, 0.5] };
+export const NOOK = { doorX: 1.55, doorW: 1.25, doorH: 1.9, backZ: -4.05, left: 0.2, right: 3.7, height: 2.6 };
 
 function canvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return [c, c.getContext("2d")]; }
 function tex(c, rx = 1, ry = 1) {
@@ -124,6 +130,58 @@ function sconce(room, x, y, z) {
   void arm;
 }
 
+// the meeting room behind the doorway: everything painted and unlit (warm cream in any look), with a lit wooden floor so
+// feet, table legs and contact shadows still read. A paper garland and a "WELCOME!" banner say "group activity".
+function nookWallTex(w, h, seed) {
+  const [c, g] = canvas(512, Math.round(512 * h / w)), W = c.width, H = c.height, r = rng(seed);
+  g.fillStyle = "#f6e3bf"; g.fillRect(0, 0, W, H);
+  for (let x = 0; x < W; x += 36) { g.fillStyle = "rgba(236,196,140,0.35)"; g.fillRect(x, 0, 12, H); }
+  // a low wainscot in soft sage, then a warm pool of lamp light from the top middle
+  g.fillStyle = "#b9c79a"; g.fillRect(0, H * 0.7, W, H * 0.3); g.fillStyle = "#93a476"; g.fillRect(0, H * 0.7, W, 6);
+  const gr = g.createRadialGradient(W * 0.55, H * 0.05, 10, W * 0.55, H * 0.35, W * 0.9);
+  gr.addColorStop(0, "rgba(255,248,225,0.6)"); gr.addColorStop(0.55, "rgba(255,214,160,0.08)"); gr.addColorStop(1, "rgba(150,90,40,0.35)");
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  void r;
+  return c;
+}
+function bannerTex(text) {
+  const [c, g] = canvas(1024, 256), W = 1024, H = 256;
+  // paper bunting: a row of triangles on a string, then the word on a cream ribbon
+  const cols = ["#ef8a5b", "#f2c14e", "#7cc4a4", "#7aa6e0", "#e78fb3"];
+  g.strokeStyle = "#7a5a3a"; g.lineWidth = 4; g.beginPath(); g.moveTo(0, 18); g.quadraticCurveTo(W / 2, 46, W, 18); g.stroke();
+  for (let i = 0; i < 16; i++) { const x = 20 + i * 63, y = 18 + 28 * (1 - Math.pow((x - W / 2) / (W / 2), 2)); g.fillStyle = cols[i % 5]; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 50, y); g.lineTo(x + 25, y + 52); g.closePath(); g.fill(); }
+  g.fillStyle = "#fff6e2"; g.fillRect(150, 112, W - 300, 118); g.strokeStyle = "#d9a35c"; g.lineWidth = 6; g.strokeRect(150, 112, W - 300, 118);
+  g.fillStyle = "#d4583a"; g.font = "900 92px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, W / 2, 174);
+  return c;
+}
+function buildNook(room, rnd, dl, dr, trim) {
+  const Z = HAUNTED.wallZ, N = NOOK, D = Z - N.backZ, w = N.right - N.left, cx = (N.left + N.right) / 2, cz = (Z + N.backZ) / 2, h = N.height;
+  const back = new THREE.Mesh(new THREE.PlaneGeometry(w, h), basic({ map: tex(nookWallTex(w, h, 3)) })); back.position.set(cx, h / 2, N.backZ); room.add(back);
+  for (const [x, ry, dark] of [[N.left, Math.PI / 2, true], [N.right, -Math.PI / 2, false]]) {
+    const m = basic({ map: tex(nookWallTex(D, h, 5)), color: dark ? "#d9c3a0" : "#f0dcc0", side: THREE.DoubleSide });
+    const s = new THREE.Mesh(new THREE.PlaneGeometry(D, h), m); s.rotation.y = ry; s.position.set(x, h / 2, cz); room.add(s);
+  }
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(w, D), basic({ color: "#e9cfa4", side: THREE.DoubleSide })); ceil.rotation.x = Math.PI / 2; ceil.position.set(cx, h, cz); room.add(ceil);
+  const [fc, fg] = canvas(256, 256); fg.fillStyle = "#c58a55"; fg.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 8; i++) { fg.fillStyle = `rgba(120,70,35,${0.1 + rnd() * 0.12})`; fg.fillRect(0, i * 32, 256, 3); fg.fillRect(rnd() * 256, i * 32, 3, 32); }
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(w, D), std("#ffffff", { map: tex(fc, w / 1.4, D / 1.4), roughness: 0.6 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.set(cx, 0.002, cz); floor.receiveShadow = true; floor.material.userData.noOutline = true; room.add(floor);
+  // a round rug under the table, the banner across the back wall and a warm lamp glow
+  const [rc, rg] = canvas(256, 256); rg.fillStyle = "#d86b4f"; rg.beginPath(); rg.arc(128, 128, 126, 0, 7); rg.fill(); rg.strokeStyle = "#f6d58a"; rg.lineWidth = 10; rg.beginPath(); rg.arc(128, 128, 100, 0, 7); rg.stroke();
+  const rug = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), std("#ffffff", { map: tex(rc), transparent: true, roughness: 0.9 })); rug.rotation.x = -Math.PI / 2; rug.position.set(N.doorX + 0.95, 0.005, N.backZ + 0.95); rug.receiveShadow = true; rug.material.userData.noOutline = true; room.add(rug);
+  const banner = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 0.48), basic({ map: tex(bannerTex(N.banner ?? "WELCOME!")), transparent: true })); banner.position.set(N.doorX + 0.95, 1.85, N.backZ + 0.01); room.add(banner);
+  glow(room, "#ffe2b0", 2.4, N.doorX + 0.6, 1.9, N.backZ + 0.05, 0.3);
+  // the doorway: a dark casing on the corridor side, the jamb depth inside, and a threshold
+  const t = 0.12;
+  box(room, 0.1, N.doorH + 0.05, 0.05, trim, dl - 0.05, (N.doorH + 0.05) / 2, Z + 0.025);
+  box(room, 0.1, N.doorH + 0.05, 0.05, trim, dr + 0.05, (N.doorH + 0.05) / 2, Z + 0.025);
+  box(room, N.doorW + 0.3, 0.12, 0.06, trim, N.doorX, N.doorH + 0.06, Z + 0.03);
+  const jamb = std("#3a2219", { roughness: 0.6 });
+  for (const x of [dl + 0.012, dr - 0.012]) box(room, 0.024, N.doorH, t, jamb, x, N.doorH / 2, Z - t / 2);
+  box(room, N.doorW, 0.024, t, jamb, N.doorX, N.doorH - 0.012, Z - t / 2);
+  box(room, N.doorW, 0.02, t + 0.04, std("#4a3226"), N.doorX, 0.01, Z - t / 2);
+}
+
 export function buildHaunted(scene, S = {}) {
   const rnd = rng((S.seed || 4) * 811), room = new THREE.Group(); scene.add(room);
   scene.background = new THREE.Color("#150f1f"); scene.fog = null;
@@ -135,22 +193,36 @@ export function buildHaunted(scene, S = {}) {
   const runner = new THREE.Mesh(new THREE.PlaneGeometry(14, r1 - r0), std("#ffffff", { map: tex(runnerTex(), 7, 1), roughness: 0.9 }));
   runner.rotation.x = -Math.PI / 2; runner.position.set(0, 0.003, (r0 + r1) / 2); runner.receiveShadow = true; runner.material.userData.noOutline = true; room.add(runner);
 
-  // the wall: wallpaper above a wainscot, a chair rail, a skirting board and a crown moulding
-  const wall = new THREE.Mesh(new THREE.PlaneGeometry(14, 3.6), std("#ffffff", { map: tex(wallpaperTex(rnd), 9, 2.4), roughness: 0.9 }));
-  wall.position.set(0, 1.8 + 0.75 / 2, Z); wall.receiveShadow = true; wall.material.userData.noOutline = true; room.add(wall);
-  const wain = new THREE.Mesh(new THREE.PlaneGeometry(14, 0.78), std("#ffffff", { map: tex(wainscotTex(), 14, 1), roughness: 0.7 }));
-  wain.position.set(0, 0.39, Z + 0.012); wain.receiveShadow = true; wain.material.userData.noOutline = true; room.add(wain);
-  const trim = std("#2a1712", { roughness: 0.6 });
-  box(room, 14, 0.05, 0.05, trim, 0, 0.79, Z + 0.03); box(room, 14, 0.1, 0.03, trim, 0, 0.05, Z + 0.02); box(room, 14, 0.12, 0.08, trim, 0, 3.45, Z + 0.04);
+  // the wall: wallpaper above a wainscot, a chair rail, a skirting board and a crown moulding. In spans between x0 and
+  // x1 (the whole 14 m, or either side of the nook's doorway), the textures lined up as if it were one sheet
+  const paperC = wallpaperTex(rnd), wainC = wainscotTex(), trim = std("#2a1712", { roughness: 0.6 });
+  const span = (x0, x1, y0 = 0) => {
+    const w = x1 - x0, cx = (x0 + x1) / 2, off = ((x0 + 7) / 14);
+    const pt = tex(paperC, (9 * w) / 14, 2.4); pt.offset.x = off * 9;
+    const py0 = Math.max(0.75, y0), ph = 3.6 + 0.75 - py0;
+    if (y0 > 0.75) { pt.repeat.y = (2.4 * ph) / 3.6; pt.offset.y = (2.4 * (py0 - 0.75)) / 3.6; }
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(w, ph), std("#ffffff", { map: pt, roughness: 0.9 }));
+    wall.position.set(cx, py0 + ph / 2, Z); wall.receiveShadow = true; wall.material.userData.noOutline = true; room.add(wall);
+    if (y0 > 0) { box(room, w, 0.12, 0.08, trim, cx, 3.45, Z + 0.04); return; }
+    const wt = tex(wainC, w, 1); wt.offset.x = off * 14;
+    const wain = new THREE.Mesh(new THREE.PlaneGeometry(w, 0.78), std("#ffffff", { map: wt, roughness: 0.7 }));
+    wain.position.set(cx, 0.39, Z + 0.012); wain.receiveShadow = true; wain.material.userData.noOutline = true; room.add(wain);
+    box(room, w, 0.05, 0.05, trim, cx, 0.79, Z + 0.03); box(room, w, 0.1, 0.03, trim, cx, 0.05, Z + 0.02); box(room, w, 0.12, 0.08, trim, cx, 3.45, Z + 0.04);
+  };
+  if (S.nook) {
+    const dl = NOOK.doorX - NOOK.doorW / 2, dr = NOOK.doorX + NOOK.doorW / 2;
+    span(-7, dl); span(dr, 7); span(dl, dr, NOOK.doorH);
+    buildNook(room, rnd, dl, dr, trim);
+  } else span(-7, 7);
 
   // the portrait, hung crooked, left of the coffin
-  const pf = new THREE.Group(); pf.position.set(-0.98, 1.62, Z + 0.03); pf.rotation.z = 0.06; room.add(pf);
+  const pf = new THREE.Group(); pf.position.set(S.nook ? -0.25 : -0.98, 1.62, Z + 0.03); pf.rotation.z = 0.06; room.add(pf);
   const gold = std("#a07b33", { roughness: 0.45, metalness: 0.5 });
   box(pf, 0.52, 0.64, 0.04, gold, 0, 0, 0);
   const pic = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.54), std("#ffffff", { map: tex(portraitTex()), roughness: 0.8 })); pic.position.z = 0.022; pic.material.userData.noOutline = true; pf.add(pic);
 
   // the arched window on the right, a moonlit sky behind it
-  const wx = 1.58, wy = 1.75, ww = 0.62, wh = 1.0;
+  const wx = S.nook ? -1.95 : 1.58, wy = 1.75, ww = 0.62, wh = 1.0;
   const sky = new THREE.Mesh(new THREE.PlaneGeometry(ww, wh), basic({ map: tex(skyTex(rnd)) })); sky.position.set(wx, wy, Z + 0.006); room.add(sky);
   const frame = std("#24140f", { roughness: 0.6 });
   box(room, ww + 0.08, 0.05, 0.05, frame, wx, wy - wh / 2, Z + 0.03); box(room, 0.05, wh, 0.05, frame, wx - ww / 2, wy, Z + 0.03); box(room, 0.05, wh, 0.05, frame, wx + ww / 2, wy, Z + 0.03);
@@ -160,8 +232,7 @@ export function buildHaunted(scene, S = {}) {
   glow(room, "#b9b0ff", 1.4, wx, wy + 0.2, Z + 0.02, 0.18);
 
   // candles either side of where the coffin stands
-  sconce(room, HAUNTED.coffinX - 0.62, 1.5, Z);
-  sconce(room, HAUNTED.coffinX + 0.66, 1.5, Z);
+  for (const x of S.nook ? [-1.05, 0.55] : [HAUNTED.coffinX - 0.62, HAUNTED.coffinX + 0.66]) sconce(room, x, 1.5, Z);
 
   // cobwebs in the top corners of the frame
   const webM = basic({ map: tex(cobwebTex()), transparent: true, depthWrite: false, opacity: 0.7 });
@@ -172,6 +243,7 @@ export function buildHaunted(scene, S = {}) {
   for (const [z, y, s] of [[Z + 0.2, 0.12, 1], [Z + 0.6, 0.06, 0.8]]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(6, 0.5 * s), mistM); m.position.set(0, y, z); m.renderOrder = 1; room.add(m); }
 
   // a jack-o'-lantern on the floor at the front right, glowing
+  if (S.pumpkin === false) return room;
   const pk = new THREE.Group(); const [px, pz] = HAUNTED.pumpkin; pk.position.set(px, 0, pz); room.add(pk);
   const pumpkin = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 14), std("#e8742a", { roughness: 0.5, emissive: new THREE.Color("#ff7a1a"), emissiveIntensity: 0.15 })); pumpkin.scale.set(1.2, 0.85, 1.1); pumpkin.position.y = 0.11; pumpkin.castShadow = true; pk.add(pumpkin);
   const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.018, 0.05, 8), std("#4f6b2a")); stem.position.y = 0.23; pk.add(stem);

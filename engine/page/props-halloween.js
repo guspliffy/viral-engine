@@ -9,6 +9,9 @@ import { clamp } from "./util.js";
 //   bucket   a trick-or-treat bucket with a wire bail; style "pumpkin" | "cauldron" | "ghost". grip "bail"
 //   tproll   a toilet roll on its side (axis along x) with a loose sheet; it splits into two short rolls (`split`), and
 //            `tail` 0..1 is how much of the loose sheet hangs out
+//   popghost a haunted-house pop-up (Nothing Scares Reaper): a black crate with "BOO" stencilled on it and a flat,
+//            friendly cut-out ghost on a rod inside. `rise` 0 hidden in the crate .. 1 up (spec.lift, default 0.62 m, higher); `wobble`
+//            sways the cut-out on its rod (degrees, it rocks about 1.3 times a second). Rigid: no cloth anywhere.
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 function canvasTex(w, h, draw) { const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }
@@ -61,6 +64,41 @@ export const HALLOWEEN_KINDS = {
       grip: 1.0,
       // swing: "out" (the default) opens toward the porch, so whoever opens it can stand right behind it
       apply(ps) { leaf.rotation.y = (P.spec.swing === "in" ? 1 : -1) * clamp(ps.open ?? 0, -0.2, 1.2) * ((P.spec.angle ?? 115) * Math.PI) / 180; },
+    };
+  },
+  popghost(P) {
+    const crate = mat("#2a2230", { roughness: 0.7 }), edge = mat("#4a3a52", { roughness: 0.6 }), rodM = mat("#5d5a66", { roughness: 0.35, metalness: 0.6 });
+    const CW = 0.5, CH = 0.62, CD = 0.4, T = 0.03;
+    // an open-topped crate: four walls and a floor (so the ghost can sit inside it), with a lighter rim and corner posts
+    for (const [w, d, x, z] of [[CW, T, 0, CD / 2 - T / 2], [CW, T, 0, -CD / 2 + T / 2], [T, CD, CW / 2 - T / 2, 0], [T, CD, -CW / 2 + T / 2, 0]]) mesh(new THREE.BoxGeometry(w, CH, d), crate, P.whole, x, CH / 2, z);
+    mesh(new THREE.BoxGeometry(CW, T, CD), crate, P.whole, 0, T / 2, 0);
+    for (const [w, d, x, z] of [[CW + 0.02, 0.04, 0, CD / 2], [CW + 0.02, 0.04, 0, -CD / 2], [0.04, CD, CW / 2, 0], [0.04, CD, -CW / 2, 0]]) mesh(new THREE.BoxGeometry(w, 0.04, d), edge, P.whole, x, CH - 0.02, z);
+    const boo = canvasTex(256, 128, (g, w, h) => { g.clearRect(0, 0, w, h); g.fillStyle = "#ff8a2a"; g.font = "900 92px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("BOO", w / 2, h / 2 + 4); });
+    const label = new THREE.Mesh(new THREE.PlaneGeometry(0.36, 0.18), new THREE.MeshBasicMaterial({ map: boo, transparent: true })); label.position.set(0, CH * 0.5, CD / 2 + 0.002); label.material.userData.noOutline = true; P.whole.add(label);
+    // the cut-out: a rounded head, two stubby arms and a scalloped hem, extruded thin, with a fixed friendly face
+    const GW = 0.42, GH = 0.58, sh = new THREE.Shape();
+    sh.moveTo(-GW / 2, 0.06);
+    sh.lineTo(-GW / 2, GH - GW / 2);
+    sh.absarc(0, GH - GW / 2, GW / 2, Math.PI, 0, true);
+    sh.lineTo(GW / 2, 0.24); sh.quadraticCurveTo(GW / 2 + 0.08, 0.2, GW / 2 + 0.02, 0.15); sh.lineTo(GW / 2, 0.06);
+    for (let i = 0; i < 3; i++) { const x0 = GW / 2 - (i * GW) / 3, x1 = x0 - GW / 3; sh.quadraticCurveTo((x0 + x1) / 2, -0.04, x1, 0.06); }
+    sh.lineTo(-GW / 2, 0.15); sh.quadraticCurveTo(-GW / 2 - 0.08, 0.2, -GW / 2, 0.24);
+    const ghost = new THREE.Group(); P.whole.add(ghost);
+    const body = mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.04, bevelEnabled: true, bevelThickness: 0.008, bevelSize: 0.008, bevelSegments: 2, curveSegments: 18 }), mat("#f5f3fb", { roughness: 0.65 }), ghost, 0, 0, -0.02);
+    body.userData.noShine = true;
+    const ink = mat("#221c2a", { roughness: 0.5 });
+    for (const s of [-1, 1]) { const e = mesh(new THREE.SphereGeometry(0.03, 14, 10), ink, ghost, s * 0.075, GH - 0.21, 0.03); e.scale.set(0.8, 1.15, 0.3); e.castShadow = false; }
+    for (const s of [-1, 1]) { const c = mesh(new THREE.CircleGeometry(0.03, 16), new THREE.MeshBasicMaterial({ color: "#f4a3b8", transparent: true, opacity: 0.8 }), ghost, s * 0.13, GH - 0.27, 0.031); c.material.userData.noOutline = true; c.castShadow = false; }
+    const smile = mesh(new THREE.TorusGeometry(0.045, 0.009, 8, 20, Math.PI * 0.8), ink, ghost, 0, GH - 0.265, 0.031); smile.rotation.z = Math.PI + Math.PI * 0.1; smile.castShadow = false;
+    // the rod it rides on, from the crate floor to the ghost's middle (only seen once it has risen above the rim)
+    const rod = mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 10), rodM, P.whole, 0, 0, -0.03); rod.castShadow = false;
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const y = CH - GH - 0.03 + (P.spec.lift ?? 0.62) * Math.max(0, ps.rise ?? 0);
+        ghost.position.y = y; ghost.rotation.z = ((ps.wobble ?? 0) * Math.PI / 180) * Math.sin(t * 8.2);
+        const top = y + 0.2; rod.scale.y = Math.max(0.01, top - T); rod.position.y = T + (top - T) / 2;
+      },
     };
   },
   bowl(P) {

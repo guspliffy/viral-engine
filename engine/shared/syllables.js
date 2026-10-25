@@ -22,7 +22,7 @@ export function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; 
 // what seeds a talk action's voice: its line when it has one, else its start time
 export const voiceKey = (a) => (a.seed != null ? `${a.who}#${a.seed}` : a.line != null ? `${a.who}:${a.line}` : `${a.who}@${a.at}`);
 
-// action: { who, at, dur, rate?, tone?, line?, seed? }   tone: "calm" | "excited" | "sad" | "question" | "chant"
+// action: { who, at, dur, rate?, tone?, line?, seed? }   tone: "calm" | "excited" | "sad" | "question" | "chant" | "whisper"
 // Planned in time relative to the action's start, so the plan only shifts when the action moves.
 export function planSyllables(action, voice = {}) {
   const v = { ...DEFAULT_VOICE, ...voice };
@@ -45,6 +45,7 @@ export function planSyllables(action, voice = {}) {
       out.push({
         t0: action.at + t, jt: keyed ? t : action.at + t, dur, vowel: vowels[Math.floor(r() * vowels.length)], cons: CONSONANTS[Math.floor(r() * CONSONANTS.length)],
         f0: v.pitch * Math.pow(2, semis / 12), amp: 0.75 + r() * 0.25, fall: tone === "sad" ? -2 : (r() * 2 - 1) * 1.5,
+        ...(tone === "whisper" && { whisper: true }),
       });
       t += dur;
     }
