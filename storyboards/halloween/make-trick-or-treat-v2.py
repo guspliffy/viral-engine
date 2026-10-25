@@ -347,6 +347,7 @@ act(P12 + 1.4, "wiz", "move", to=[0.04, -1.25], dur=0.6, ease="inOut")    # the 
 act(P12 + 1.9, "wiz", "look", to=[-0.3, -0.3], dur=0.25, blink=False)
 act(P12 + 2.0, "wiz", "expr", expr="happy", dur=0.3)
 act(P12 + 1.8, "sam", "look", to=[0.4, -0.5], dur=0.3, blink=False)        # down at the bag they left behind
+act(P12 + 2.0, "sam", "face", brow=0.45, lid=0.0, dur=0.25)                  # one eyebrow of doubt: a bag?
 
 # ---------------------------------------------------------------- props placed from the layout
 def frame_of(t):
@@ -515,7 +516,7 @@ else:
 shots += [
     {"at": S["follow"], "pos": [-1.75, 1.05, 3.05], "look": [0.0, 0.55, -0.30], "fov": 40},
     {"at": S["realize"], "pos": [0.36, 0.42, 0.30], "look": [-0.10, 0.30, 1.55], "fov": 50},
-    {"at": S["run"], "pos": [0.42, 0.35, 3.90], "look": [-0.04, 0.55, -0.40], "fov": 46},
+    {"at": S["run"], "pos": [0.42, 0.35, 3.90], "look": [0.14, 0.55, -0.40], "fov": 50},
 ]
 
 # ---------------------------------------------------------------- beats (for the reviews and contact sheets)
