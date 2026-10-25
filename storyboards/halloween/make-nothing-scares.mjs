@@ -20,15 +20,15 @@ const arm = (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, du
 const say = (t, who, line, dur, tone = "calm") => A(t, who, "talk", { line, tone, dur });
 const captions = [];
 const LOW = 430, TOP = 250;   // dialogue sits in the empty wall above the heads (captions never cover a character)
-const cap = (from, to, text, pos = LOW) => captions.push({ from: r3(from), to: r3(to), text, pos, pop: false });
+const cap = (from, to, text, pos = LOW, pop = false) => captions.push({ from: r3(from), to: r3(to), text, pos, pop });
 
 // ---------------------------------------------------------------- places (set-haunted.js HAUNTED + NOOK)
 const WALL = -1.6, DOOR_X = 1.55, DOOR_W = 1.25, DOOR_H = 1.9;
 const PHX = [-0.35, -0.2], REA = [0.85, -0.2];
-const MID = [0.6, -1.08], HIDE = [-1.15, -0.82], DEEP = [-0.62, -0.98], PUSH_AT = [-0.78, -0.98], PUSH_TO = [-0.2, -1.1], STEP_BACK = [-0.85, -0.78];   // Reaper's two steps, then the duck back
+const MID = [0.6, -1.08], HIDE = [-1.15, -0.82], DEEP = [-0.62, -0.98], PUSH_AT = [-0.78, -0.98], PUSH_TO = [-0.2, -1.1], STEP_BACK = [-0.62, -0.8];   // Reaper's two steps, then the duck back
 const PHX_PUSHED = [0.4, -0.45];
 const WIZ = [1.8, -3.05], WIZ_DOOR = [1.55, -2.05];
-const CRATE = [1.42, -1.3];   // right beside Reaper: it pops up at his shoulder and he does not flinch
+const CRATE = [1.32, -1.3];   // right beside Reaper: it pops up at his shoulder and he does not flinch
 
 // eye targets ([x, y] in the face's own look space: + right on screen, + up)
 const AT_CAM = [0, 0], AT_GHOST = [0.75, 0.3], PHX_AT_GHOST = [0.8, 0.25], AT_DOOR = [0.85, 0.12], AT_PHX = [-0.85, -0.05], AT_REA = [0.8, -0.05];
@@ -45,7 +45,7 @@ const cast = [
   { id: "wiz", character: "potatobrawl/wizard", at: WIZ, face: "3q-left", expr: "kind", follow: 0.5, seed: 2.8 },
 ];
 const props = [
-  { id: "ghost", kind: "popghost", x: CRATE[0], z: CRATE[1], rise: 0.3, lift: 1.1 },
+  { id: "ghost", kind: "popghost", x: CRATE[0], z: CRATE[1], rise: 0.3, lift: 1.22 },
   { id: "door", kind: "door", x: DOOR_X - DOOR_W / 2, y: 0, z: WALL - 0.06, w: DOOR_W - 0.02, h: DOOR_H - 0.02, swing: "in", angle: 100, color: "#3d2a4a", open: 0 },
   { id: "table", kind: "table", x: 2.78, z: -3.2 },
   { id: "chair1", kind: "chair", x: 2.52, z: -3.68 },
@@ -97,17 +97,17 @@ const FF = 7.95;   // "fun fact" onset
 say(6.7, "wiz", "and share a", 0.95);
 say(FF, "wiz", "fun fact", 0.6);
 cap(6.6, FF, "and share a…");
-cap(FF, 9.3, "and share a\nFUN FACT.");
+cap(FF, 9.3, "and share a\nFUN FACT.", LOW, true);   // the reveal pops once
 arm(6.7, "wiz", "R", "rest", 0.5);
 A(6.6, "rea", "still", { dur: 1.35, idle: 0.2 });
 A(6.6, "rea", "look", { to: [0.35, 0.02], dur: 0.01, blink: false });   // toward the Wizard, offscreen right
 // the realization, one part at a time
-A(FF + 0.08, "rea", "expr", { expr: "deadpan", set: { eye: 1.12, pupil: 0.7, browY: 0.02, raise: 0.03 }, dur: 0.12 });
+A(FF + 0.08, "rea", "expr", { expr: "deadpan", set: { eye: 1.22, pupil: 0.58, browY: 0.05, raise: 0.045 }, dur: 0.12 });
 A(FF + 0.3, "rea", "look", { to: AT_PHX, dur: 0.18, blink: false });
-A(FF + 0.5, "rea", "expr", { set: { curve: -0.18, open: 0.22 }, dur: 0.15 });
+A(FF + 0.5, "rea", "expr", { set: { curve: -0.28, open: 0.26 }, dur: 0.15 });
 A(FF + 0.62, "rea", "still", { dur: 1.0, idle: 0.04, sink: 0.02 });
 A(FF + 0.62, "rea", "squash", { amount: 0.06, dur: 0.18 });
-at(FF + 1.0, { fx: "sweat", who: "rea", dur: 0.8 });
+at(FF + 0.45, { fx: "sweat", who: "rea", dur: 1.0 });   // on screen for the cover frame (8.6 s)
 
 // ---------------------------------------------------------------- 5 FIND COVER 9.9-14.0: two planted steps behind Phoenix
 A(9.95, "rea", "move", { to: MID, dur: 0.55, ease: "inOut", steps: 2 });
@@ -120,7 +120,7 @@ A(10.5, "phx", "look", { to: [-0.55, -0.05], dur: 0.45, blink: false });
 A(10.6, "phx", "expr", { expr: "sad", set: { curve: 0.05, browY: 0.02 }, dur: 0.3 });
 A(11.5, "rea", "still", { dur: 0.6, idle: 0.1 });
 // the peek: a lean out past Phoenix's shoulder toward the Wizard, then the whisper to Phoenix
-A(12.1, "rea", "lean", { to: -20, dur: 0.3, ease: "out" });
+A(12.1, "rea", "lean", { to: -14, dur: 0.3, ease: "out" });
 A(12.5, "phx", "turn", { to: -15, dur: 0.25 });
 A(12.5, "phx", "look", { to: [-0.7, -0.05], dur: 0.2, blink: false });
 A(12.1, "rea", "look", { to: [0.75, 0.0], dur: 0.2, blink: false });
@@ -142,7 +142,8 @@ A(15.15, "phx", "turn", { to: 0, dur: 0.3 });
 A(15.2, "rea", "move", { to: DEEP, dur: 0.35, ease: "out", steps: 1 });
 A(15.2, "rea", "look", { to: [0.2, -0.1], dur: 0.2, blink: false });
 A(15.4, "phx", "look", { to: [0.85, 0.05], dur: 0.2, blink: false });
-A(15.35, "phx", "wings", { to: 0.32, dur: 0.5, ease: "settle" });   // the protective wing, once Reaper ducks back
+A(15.35, "phx", "wings", { to: 0.45, dur: 0.5, ease: "settle" });
+at(15.45, { fx: "alert", who: "phx", dur: 0.7 });   // "wait, me?" between his two looks   // the protective wing, once Reaper ducks back
 sfx(15.35, "whoosh", { gain: 0.08 });
 A(16.8, "phx", "wings", { to: 0, dur: 0.3 });
 A(16.05, "phx", "look", { to: AT_CAM, dur: 0.2, blink: false });
@@ -159,12 +160,16 @@ A(16.75, "rea", "move", { to: PUSH_AT, dur: 0.3, ease: "inOut", steps: 1 });
 A(16.8, "rea", "look", { to: AT_PHX, dur: 0.15, blink: false });
 arm(17.15, "rea", "L", back(PHX), 0.3, "out");
 A(17.45, "phx", "move", { to: PHX_PUSHED, dur: 0.55, ease: "inOut", steps: 2 });
+A(17.45, "phx", "lean", { to: 10, dur: 0.2, ease: "out" });   // shoved: tips forward, then catches himself
+A(17.45, "phx", "squash", { amount: 0.05, dur: 0.2 });
+A(18.0, "phx", "lean", { to: 0, dur: 0.3, ease: "settle" });
 A(17.45, "rea", "move", { to: PUSH_TO, dur: 0.55, ease: "inOut", steps: 2 });
 arm(17.45, "rea", "L", back(PHX_PUSHED), 0.55, "inOut");
 A(17.45, "phx", "expr", { expr: "shocked", set: { open: 0.3 }, dur: 0.1 });
 arm(18.05, "rea", "L", "rest", 0.35, "inOut");
 A(18.1, "rea", "move", { to: STEP_BACK, dur: 0.45, ease: "inOut", steps: 2 });   // back out to the side, in view
 A(18.1, "phx", "look", { to: AT_PHX, dur: 0.18, blink: false });
+A(18.1, "phx", "turn", { to: -20, dur: 0.25 });   // looks back over his shoulder at Reaper
 A(18.15, "phx", "expr", { expr: "sad", set: { open: 0.1, browY: 0.03 }, dur: 0.2 });
 A(18.55, "rea", "look", { to: AT_CAM, dur: 0.25, blink: false });
 A(18.55, "rea", "expr", { expr: "deadpan", dur: 0.25 });
@@ -180,7 +185,7 @@ const WIZ_SHOT = { pos: [1.6, 1.3, -0.6], look: [1.62, 1.02, -3.05], fov: 54 }; 
 const REA_CU = { pos: [0.72, 0.98, 3.4], look: [0.8, 0.88, -0.2], fov: 26 };
 const TWO_L = { pos: [-0.28, 1.05, 6.5], look: [-0.28, 0.72, -0.5], fov: 34 };
 const TIGHT = { pos: [-0.5, 1.05, 5.0], look: [-0.55, 0.78, -0.6], fov: 26 };   // the retreat, closer: wings up, the scythe over his shoulder   // the two-shot, panned left with Reaper
-const WIDE = { pos: [0.02, 1.2, 7.4], look: [0.04, 0.8, -0.9], fov: 34 };
+const WIDE = { pos: [0.04, 1.5, 7.4], look: [0.06, 0.72, -0.9], fov: 37 };
 const SHOTS = [
   ["fearless", 0, TWO, "hook"],
   ["the next room", 3.4, { ...TWO, to: REVEAL, dur: 1.5, ease: "inOut" }],
