@@ -120,7 +120,9 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "lean": st.lean = lerp(st.lean, ((a.to ?? 0) * Math.PI) / 180, e); break;
       // tip forward (+) or back about the body's middle; 360 is a flip (see the pivot below the loop)
       case "pitch": st.flip = lerp(st.flip, ((a.to ?? 0) * Math.PI) / 180, e); break;
-      case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
+      // set: change only some of the face's numbers (face.js), e.g. one brow up ({ raise }) or the mouth tightening
+      // ({ curve, smirk }), on top of the named expression or of the face as it is
+      case "expr": st.expr = blendExpr(st.expr, a.set ? { ...(EXPRESSIONS[a.expr] || st.expr), ...a.set } : EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": {
         // a big change of attention starts with a blink (a.blink: false turns it off)
         if (a.blink !== false && Math.hypot(a.to[0] - st.look[0], a.to[1] - st.look[1]) > 0.6) st.blink = Math.max(st.blink, blinkAt(t - a.at));

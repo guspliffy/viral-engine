@@ -1,9 +1,9 @@
 {
  "id": "motion-test-wizard-jar",
  "title": "8-second movement test: the Wizard and the jar",
- "status": "Look-dev benchmark toward Jonny's concept (25 Oct): smiling at the jar with the staff planted, reach and lift, try the lid, a zap, the lid flies off, the pickle sticks to the hat, deadpan to camera. Same acting for every look; meadow set here for blocking.",
+ "status": "Look-dev benchmark toward Jonny's concept (25 Oct): smiling at the jar with the staff planted, reach and lift, try the lid, a zap, the lid flies off, the pickle sticks to the hat, deadpan to camera. Same acting for every look; meadow set here for blocking. 25 Oct, look C review B: bigger pickle on the front of the hat, grip on the camera side of the glass, the lid try reads as \"can't open\".",
  "fps": 30,
- "duration": 8.0,
+ "duration": 8,
  "music": false,
  "set": {
   "type": "hills",
@@ -52,7 +52,7 @@
  "beats": [
   {
    "name": "notices the jar",
-   "len": 1.5,
+   "len": 1.3,
    "shot": {
     "pos": [
      -0.31,
@@ -75,7 +75,7 @@
       -0.6
      ],
      "expr": "eager",
-     "at": 0.25
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -83,14 +83,14 @@
      "to": -50,
      "dur": 0.4,
      "ease": "settle",
-     "at": 0.75
+     "at": 0.65
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 4,
      "dur": 0.4,
-     "at": 0.8
+     "at": 0.7
     },
     {
      "who": "wiz",
@@ -100,13 +100,13 @@
       0.05
      ],
      "dur": 0.12,
-     "at": 1.2
+     "at": 1.05
     }
    ]
   },
   {
    "name": "reach, grasp, lift, try",
-   "len": 2.0,
+   "len": 2.3,
    "do": [
     {
      "macro": "reach",
@@ -117,7 +117,7 @@
       "grip": [
        0.162,
        0.14,
-       -0.051
+       0.05
       ]
      },
      "look": [
@@ -159,7 +159,7 @@
      "grip": [
       0.162,
       0.14,
-      -0.051
+      0.05
      ]
     },
     {
@@ -173,7 +173,7 @@
      "grip": [
       0.162,
       -0.1375,
-      -0.051
+      0.05
      ]
     },
     {
@@ -187,7 +187,7 @@
      "grip": [
       0.162,
       0.125,
-      -0.051
+      0.05
      ]
     },
     {
@@ -195,7 +195,7 @@
      "do": "pitch",
      "to": 0,
      "dur": 0.5,
-     "at": 1.0
+     "at": 1
     },
     {
      "who": "wiz",
@@ -231,9 +231,14 @@
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "focused",
+     "expr": "stern",
+     "set": {
+      "eye": 0.6,
+      "curve": -0.35,
+      "tilt": -0.45
+     },
      "dur": 0.12,
-     "at": 1.4
+     "at": 1.38
     },
     {
      "who": "wiz",
@@ -246,14 +251,14 @@
      "who": "wiz",
      "do": "shake",
      "amp": 0.6,
-     "dur": 0.3,
+     "dur": 0.5,
      "at": 1.45
     },
     {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.08,
-     "dur": 0.3,
+     "amount": 0.12,
+     "dur": 0.5,
      "at": 1.45
     },
     {
@@ -268,7 +273,7 @@
      "do": "prop",
      "id": "lid",
      "set": {
-      "twist": 25
+      "twist": 30
      },
      "dur": 0.15,
      "at": 1.45,
@@ -281,16 +286,16 @@
       "twist": 0
      },
      "dur": 0.08,
-     "at": 1.6
+     "at": 1.62
     },
     {
      "do": "prop",
      "id": "lid",
      "set": {
-      "twist": 30
+      "twist": 40
      },
-     "dur": 0.12,
-     "at": 1.68,
+     "dur": 0.15,
+     "at": 1.72,
      "ease": "out"
     },
     {
@@ -300,7 +305,7 @@
       "twist": 0
      },
      "dur": 0.08,
-     "at": 1.8
+     "at": 1.9
     },
     {
      "who": "wiz",
@@ -308,14 +313,14 @@
      "to": 0,
      "dur": 0.3,
      "ease": "settle",
-     "at": 1.8
+     "at": 1.95
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.2,
-     "at": 1.8
+     "at": 2
     },
     {
      "who": "wiz",
@@ -325,7 +330,7 @@
       0.1
      ],
      "dur": 0.12,
-     "at": 1.82
+     "at": 2.05
     }
    ]
   },
@@ -365,7 +370,7 @@
       "o": [
        0.05,
        0.18,
-       0.0
+       0
       ]
      },
      "dur": 0.22,
@@ -525,7 +530,7 @@
      "prop": "lid",
      "to": [
       -0.62,
-      1.0,
+      1,
       0.3
      ],
      "arc": 0.08,
@@ -599,9 +604,9 @@
      "do": "release",
      "prop": "pickle",
      "to": [
-      -0.12,
-      1.27,
-      0.2
+      -0.082,
+      1.116,
+      0.267
      ],
      "arc": 0.06,
      "dur": 0.27,
@@ -612,7 +617,9 @@
      "do": "prop",
      "id": "pickle",
      "set": {
-      "spin": 360
+      "spin": 360,
+      "scale": 1.6,
+      "rot": -94
      },
      "dur": 0.27,
      "at": 0.08
@@ -655,7 +662,7 @@
   },
   {
    "name": "deadpan",
-   "len": 1.5,
+   "len": 1.4,
    "shot": {
     "pos": [
      -0.31,
@@ -681,7 +688,7 @@
      ],
      "fov": 42
     },
-    "dur": 1.5
+    "dur": 1.4
    },
    "do": [
     {
@@ -699,27 +706,27 @@
       0.05
      ],
      "dur": 0.2,
-     "at": 0.4
+     "at": 0.3
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.5,
-     "at": 0.45
+     "at": 0.35
     },
     {
      "who": "wiz",
      "do": "droop",
      "to": 0.3,
      "dur": 0.4,
-     "at": 0.45
+     "at": 0.35
     },
     {
      "who": "wiz",
      "do": "blink",
      "dur": 0.3,
-     "at": 0.95
+     "at": 0.85
     }
    ]
   }
