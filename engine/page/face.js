@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { taperedTube } from "./geo.js";
 
-const _q = new THREE.Quaternion(), _d = new THREE.Vector3(), _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
+const _gz = new THREE.Vector3(1, 1.1, 0.5), _q = new THREE.Quaternion(), _d = new THREE.Vector3(), _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 
 // Expression presets. Every value is a plain number so two expressions can be blended.
 //   tilt   brow rotation: + inner ends up (kind, worried), - inner ends down (angry, focused)
@@ -87,7 +87,7 @@ export class Face {
         pts.sort((a, b) => side * (a.x - b.x));   // inner corner first, so the tube thickens towards the outer flick
         const edge = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 44, 8, (t) => r * (0.03 + 0.12 * Math.pow(Math.sin(Math.PI * Math.min(1, 0.1 + t * 0.95)), 0.7))), this.inkMat);
         lidPivot.add(edge);
-        return this.group.add(root), { side, root, lid, look, pupil: pu, lash: edge, lidPivot, r };
+        return this.group.add(root), { side, root, lid, look, pupil: pu, lash: edge, lidPivot, glints: [g1, g2], r };
       }
       this.group.add(root);
       return { side, root, lid, look, pupil: pu, lash, r };
@@ -141,6 +141,9 @@ export class Face {
         k = k + (1 - k) * blink;
         k = Math.max(-0.12, Math.min(1, k));
         eye.lidPivot.rotation.x = -Math.PI / 2 + k * Math.PI;
+        // the catch lights stand proud of the eye: tuck them away as the lid closes over them
+        const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
+        for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
         eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1);
       } else {
         const open = Math.max(0.06, e.eye * (1 - blink));
