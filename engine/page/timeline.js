@@ -264,7 +264,19 @@ function resolveArms(sb, st, def, t) {
     const w = gripWorld(spec, q.grip ?? [0, 0.05, 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
     return [w[0] + o[0], w[1] + o[1], w[2] + o[2]];
   };
-  const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? toLocal(world(q)) : q);
+  // palm: the point the palm turns to face (mitten hands): true for the prop's own axis at the grip's height, or a point
+  // on the prop ([x, y, z] in its own space; a world point for a world pose). "wrap": the axis too, with the fingers
+  // going round it level (a jar held from the side or behind) instead of along the forearm
+  const palmWorld = (q) => {
+    if (q.world) return Array.isArray(q.palm) ? q.palm : null;
+    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t), g = q.grip ?? [0, 0.05, 0];
+    return gripWorld(spec, Array.isArray(q.palm) ? q.palm : [0, g[1], 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
+  };
+  const aim = (q) => {
+    const w = q.palm ? palmWorld(q) : null;
+    return w ? { ...toLocal(world(q)), palm: toLocal(w).x, ...(q.palm === "wrap" ? { wrap: true } : {}) } : toLocal(world(q));
+  };
+  const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? aim(q) : q);
   for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose) }; }
 }
 
