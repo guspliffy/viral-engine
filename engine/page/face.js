@@ -156,13 +156,14 @@ export class Face {
         // closing 0 open .. 1 shut: from the squint, then the blink on top, the lid following the gaze up and down,
         // and the per-eye control (lidR is the character's right eye, at -u)
         const sq = Math.max(0, Math.min(0.95, (1 - e.eye) * 0.85)), own = eye.side < 0 ? c.lidR : c.lidL;
-        let k = sq + own - 0.14 * look[1];
+        // squints, half-lids and the gaze stop short of shut (a crease only when a lid control asks for 1, or a blink)
+        let k = Math.min(own >= 0.99 ? 1 : 0.86, sq + own - 0.14 * look[1]);
         k = k + (1 - k) * blink;
         k = Math.max(-0.12, Math.min(1, k));
         eye.lidPivot.rotation.x = -Math.PI / 2 + k * (Math.PI / 2 + SEAM);
         const lo = Math.max(0, Math.min(1, (k - 0.6) / 0.4)), lw = lo * lo * (3 - 2 * lo);
         eye.lowPivot.rotation.x = Math.PI / 2 - lw * (Math.PI / 2 - SEAM);
-        eye.crease.visible = k > 0.9; eye.lash.visible = !eye.crease.visible;
+        eye.crease.visible = k > 0.95; eye.lash.visible = !eye.crease.visible;
         eye.lidPivot.rotation.z = eye.side * (this.eyeStyle.tilt || 0) * Math.min(1, Math.max(0, k * 4));   // the character's lid angle, as soon as the lid is on the eye
         // the catch lights stand proud of the eye: tuck them away as the lid closes over them
         const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
