@@ -311,7 +311,7 @@ function groundShadows(scene, actors, props, color, camera) {
       for (const [p, m] of propBlobs) {
         if (!shown(p.root)) { m.visible = false; continue; }
         box.makeEmpty();
-        p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly) box.expandByObject(o, false); });
+        p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly && !o.userData.steam) box.expandByObject(o, false); });
         if (box.isEmpty()) { m.visible = false; continue; }
         const sx = box.max.x - box.min.x, sz = box.max.z - box.min.z;
         put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75);

@@ -48,7 +48,8 @@
    "z": -0.3,
    "rot": -20,
    "saucer": false,
-   "scale": 1.4
+   "scale": 1.4,
+   "steam": 1
   },
   {
    "id": "plate",
