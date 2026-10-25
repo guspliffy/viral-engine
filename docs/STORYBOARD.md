@@ -79,9 +79,9 @@ moving at once.
   both sides. L and R are the character's own left and right. Lids: 0 open .. 1 shut (needs `"lids": true` in the
   character's `face`, so far the Wizard; the lids also follow the gaze and close on blinks). Brows: about ±1 up or
   down. Corners: + up. `press`: 1 = lips pressed tight.
-- `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point", "dur" }`
+- `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point" | "cup" | "flat", "dur" }`
   curls a mitten hand (`"hands": { "type": "mitten" }` in the character file, so far the Wizard). `hold` wraps a handle,
-  a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid. Props attach at `character.gripPoint(side)`.
+  a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
 - `{ "who", "do": "hatsway", "tip": [forward, sideways], "brim": 0.5, "dur" }` bends the Wizard hat's tip (degrees) and
   tips its brim (+ front up). `{ "who", "do": "hatwobble", "amount": 8, "freq": 3, "dur": 0.8 }` adds a wobble that
   dies away: secondary motion after a hop, a turn or a bump.
