@@ -104,7 +104,7 @@
  "captions": [
   {
    "from": 0,
-   "to": 2.4,
+   "to": 3.3,
    "text": "That friend who never looks up.",
    "pos": 250,
    "pop": false
@@ -442,13 +442,13 @@
      "to": 0.3,
      "dur": 0.3,
      "ease": "out",
-     "at": 0.05
+     "at": 0.3
     },
     {
      "sfx": "wings",
      "gain": 0.48,
-     "dur": 10.05,
-     "at": 0.05
+     "dur": 10.35,
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -529,12 +529,12 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     0.25,
+     0.15,
      1,
      7.6
     ],
     "look": [
-     0.25,
+     0.15,
      0.8,
      -0.1
     ],
@@ -572,6 +572,13 @@
      "at": 0.65
     },
     {
+     "who": "wiz",
+     "do": "turn",
+     "to": -55,
+     "dur": 0.35,
+     "at": 0.65
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -584,10 +591,17 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.12,
-      "eye": 1.18,
+      "open": 0.25,
+      "eye": 1.25,
       "curve": -0.05
      },
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
      "dur": 0.15,
      "at": 0.7
     },
@@ -602,6 +616,13 @@
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -78,
+     "dur": 0.3,
      "at": 1.5
     },
     {
@@ -803,24 +824,24 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     0.25,
+     0.15,
      1,
      7.6
     ],
     "look": [
-     0.25,
+     0.15,
      0.8,
      -0.1
     ],
     "fov": 36,
     "to": {
      "pos": [
-      0.3,
+      0.1,
       0.95,
-      6.5
+      7
      ],
      "look": [
-      0.3,
+      0.1,
       0.8,
       0
      ],
@@ -962,12 +983,12 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     0.25,
+     0.15,
      1,
      7.6
     ],
     "look": [
-     0.25,
+     0.15,
      0.8,
      -0.1
     ],
@@ -1128,12 +1149,38 @@
    },
    "do": [
     {
-     "who": "phx",
-     "do": "land",
-     "to": 0.3,
-     "dur": 0.45,
-     "fold": 0.5,
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.12,
      "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.15
     },
     {
      "who": "phx",
@@ -1147,50 +1194,12 @@
      "at": 0.35
     },
     {
-     "sfx": "land",
-     "gain": 0.08,
-     "at": 0.47
-    },
-    {
      "who": "phx",
-     "do": "span",
-     "to": 0,
-     "dur": 0.5,
-     "at": 0.5
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "both",
-     "shape": "open",
-     "dur": 0.12,
-     "at": 0.52
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.56
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.58
-    },
-    {
-     "who": "wiz",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.6
+     "do": "land",
+     "to": 0.3,
+     "dur": 0.45,
+     "fold": 0.5,
+     "at": 0.4
     },
     {
      "who": "wiz",
@@ -1210,6 +1219,18 @@
      "to": -35.5,
      "dur": 0.4,
      "at": 0.8
+    },
+    {
+     "sfx": "land",
+     "gain": 0.08,
+     "at": 0.82
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0.85
     },
     {
      "who": "wiz",
@@ -1258,7 +1279,7 @@
   {
    "who": "phx",
    "with": "stool",
-   "from": 13.2,
+   "from": 13.5,
    "to": 14.8,
    "reason": "Phoenix has landed back on the stool"
   }

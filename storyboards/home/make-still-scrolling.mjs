@@ -77,7 +77,7 @@ function build(variant) {
   const scroll = (t) => { A(t, "phx", "grip", { side: "R", shape: "scroll", dur: 0.1 }); A(t + 0.16, "phx", "grip", { side: "R", shape: "hold", dur: 0.12 }); };
   for (const t of [0.1, 1.2, 2.5, 6.0, 7.1, 8.45, 9.3, 10.5, 11.4]) scroll(t);
   A(11.42, "phx", "squash", { amount: 0.02, dur: 0.25 });
-  cap(0, 2.4, "That friend who never looks up.", 250);
+  cap(0, 3.3, "That friend who never looks up.", 250);
 
   // ---------------------------------------------------------------- 2 THE IDEA 1.3-3.3
   A(1.3, "wiz", "move", { to: WIZ_GRIP, dur: 0.45, ease: "inOut", steps: 1 });
@@ -96,10 +96,10 @@ function build(variant) {
   // ---------------------------------------------------------------- 3 REMOVE THE SEAT 3.3-5.5
   // the wings start beating just before the seat moves; the stool's slow start lets him rise clear before it travels
   const SLIDE_AT = 3.6, LIFT_AT = 3.64, SLIDE_DUR = 1.25;
-  A(3.35, "phx", "span", { to: 0.3, dur: 0.3, ease: "out" });                     // narrow beats while the Wizard is close
+  A(SLIDE_AT, "phx", "span", { to: 0.3, dur: 0.3, ease: "out" });                 // narrow beats while the Wizard is close
   A(LIFT_AT, "phx", "fly", { to: { y: SEAT + LIFT }, dur: 0.35, ease: "inOut" });
   A(4.45, "phx", "span", { to: 1, dur: 0.5, ease: "inOut" });                     // full once the Wizard has backed off
-  sfx(3.35, "wings", { gain: 0.48, dur: (LOOP ? 13.4 : 12.0) - 3.35 });
+  sfx(3.6, "wings", { gain: 0.48, dur: (LOOP ? 13.95 : 12.0) - 3.6 });
   prop(SLIDE_AT, "stool", { x: STOOL1[0], z: STOOL1[1] }, SLIDE_DUR, "inOut");
   A(SLIDE_AT, "wiz", "move", { to: WIZ_END, dur: SLIDE_DUR, ease: "inOut", steps: 3 });
   A(SLIDE_AT, "wiz", "look", { to: [-0.55, -0.4], dur: 0.3, blink: false });
@@ -109,10 +109,13 @@ function build(variant) {
   A(5.15, "wiz", "still", { dur: 0.6, idle: 0.15 });
   A(5.6, "wiz", "look", { to: [-0.3, -0.45], dur: 0.25, blink: false });        // at the stool in his hands
   A(6.15, "wiz", "look", { to: [-0.8, 0.2], dur: 0.3, blink: false });          // up at the hovering Phoenix
-  A(6.2, "wiz", "expr", { expr: "shocked", set: { open: 0.12, eye: 1.18, curve: -0.05 }, dur: 0.15 });
+  A(6.15, "wiz", "turn", { to: -55, dur: 0.35 });                                  // toward us, so the shock reads (hands stay on the rim)
+  A(6.2, "wiz", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.25, curve: -0.05 }, dur: 0.15 });
+  A(6.2, "wiz", "face", { brow: 0.45, dur: 0.15 });
   A(6.2, "wiz", "still", { dur: 1.0, idle: 0.08 });
 
   // ---------------------------------------------------------------- 5 NO RESPONSE 7.3-9.7
+  A(7.0, "wiz", "turn", { to: -78, dur: 0.3 });                                   // back to the stool before letting go (the arms drop cleanly from there)
   A(7.35, "wiz", "grip", { side: "both", shape: "open", dur: 0.15 });
   arm(7.45, "wiz", "R", "rest", 0.45, "inOut");
   arm(7.5, "wiz", "L", "rest", 0.45, "inOut");
@@ -158,14 +161,15 @@ function build(variant) {
     prop(12.15, "stool", { x: STOOL0[0], z: STOOL0[1] }, 0.9, "inOut");
     A(12.15, "wiz", "move", { to: WIZ_GRIP, dur: 0.9, ease: "inOut", steps: 2 });
     sfx(12.2, "scrape", { gain: 0.4, dur: 0.8 });
-    A(13.15, "phx", "land", { to: SEAT, dur: 0.45, fold: 0.5 });
-    sfx(13.57, "land", { gain: 0.08 });
-    A(13.6, "phx", "span", { to: 0, dur: 0.5 });
+    // he lets go first, then Phoenix settles onto the seat
+    A(13.5, "phx", "land", { to: SEAT, dur: 0.45, fold: 0.5 });
+    sfx(13.92, "land", { gain: 0.08 });
+    A(13.95, "phx", "span", { to: 0, dur: 0.5 });
     A(13.45, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.4 });
-    A(13.62, "wiz", "grip", { side: "both", shape: "open", dur: 0.12 });
-    arm(13.66, "wiz", "R", "rest", 0.3, "inOut");
-    arm(13.68, "wiz", "L", "rest", 0.3, "inOut");
-    A(13.7, "wiz", "crouch", { to: 0, dur: 0.3, ease: "inOut" });
+    A(13.15, "wiz", "grip", { side: "both", shape: "open", dur: 0.12 });
+    arm(13.2, "wiz", "R", "rest", 0.3, "inOut");
+    arm(13.22, "wiz", "L", "rest", 0.3, "inOut");
+    A(13.25, "wiz", "crouch", { to: 0, dur: 0.3, ease: "inOut" });
     A(13.9, "wiz", "move", { to: WIZ0, dur: 0.4, ease: "inOut", steps: 1 });
     A(13.9, "wiz", "turn", { to: -35.5, dur: 0.4 });                // back to 3q-left
     A(13.95, "wiz", "expr", { expr: "kind", dur: 0.35 });
@@ -178,8 +182,8 @@ function build(variant) {
   // ---------------------------------------------------------------- shots
   const MED = { pos: [0.02, 0.97, 5.9], look: [0.02, 0.76, 0], fov: 36 };          // panel 01: Phoenix, stool and Wizard
   const SLIDE = { pos: [0.25, 0.85, 7.0], look: [0.25, 0.74, 0], fov: 36 };            // static: the seat leaving, both in frame
-  const REVEAL = { pos: [0.25, 1.0, 7.6], look: [0.25, 0.8, -0.1], fov: 36 };          // wider: empty air under him, his shadow
-  const PUSH = { pos: [0.3, 0.95, 6.5], look: [0.3, 0.8, 0], fov: 36 };              // the deadpan fills the frame (panel 06)
+  const REVEAL = { pos: [0.15, 1.0, 7.6], look: [0.15, 0.8, -0.1], fov: 36 };          // wider: empty air under him, his shadow
+  const PUSH = { pos: [0.1, 0.95, 7.0], look: [0.1, 0.8, 0], fov: 36 };              // the deadpan fills the frame (panel 06)
   const SHOTS = [
     ["absorbed", 0, MED, "hook"],
     ["the idea", 1.3, null],
@@ -215,7 +219,7 @@ function build(variant) {
     cast, props, captions, beats,
     allowClip: [
       { who: "phx", with: "stool", from: 0, to: 3.6, reason: "Phoenix sits on the stool (his legs rest over its edge)" },
-      ...(LOOP ? [{ who: "phx", with: "stool", from: 13.2, to: END, reason: "Phoenix has landed back on the stool" }] : []),
+      ...(LOOP ? [{ who: "phx", with: "stool", from: 13.5, to: END, reason: "Phoenix has landed back on the stool" }] : []),
     ],
     notes: "Generated by storyboards/home/make-still-scrolling.mjs. No dialogue; sound is room tone, a stool scrape, wings and one notification.",
   };
