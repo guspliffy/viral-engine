@@ -115,12 +115,12 @@ export const MACROS = {
   // apart instead of all on one frame, with the eyes kept open through the take. The hat is knocked up and askew
   // (pushed down, its cone would cut into the head); hat: { off, spin } knocks it another way, false leaves it alone;
   // hold is how long it stays askew
-  hit: ({ who, look = [0, 0.7], expr = "shocked", hat = true, recoil = -5, hold = 0.4 }) => [
+  hit: ({ who, look = [0, 0.7], expr = "shocked", set, hat = true, recoil = -5, hold = 0.4 }) => [
     { who, do: "still", dur: hold + 0.35, idle: 0.5, fade: 0.05 },
     ...(hat ? [{ who, do: "hat", off: hat.off || [0.02, 0.05, -0.01], spin: hat.spin || [-6, 0, -15], dur: 0.16 }, { who, do: "hat", off: [0, 0, 0], spin: [0, 0, 0], dur: 0.3, ease: "settle", at: hold }] : []),
     { who, do: "squash", amount: 0.16, dur: 0.25, at: 0.02 },
     { who, do: "pitch", to: recoil, dur: 0.12, ease: "out", at: 0.03 }, { who, do: "pitch", to: 0, dur: 0.3, ease: "settle", at: 0.2 },
-    { who, do: "look", to: look, dur: 0.08, at: 0.07 }, { who, do: "expr", expr, dur: 0.08, at: 0.1 },
+    { who, do: "look", to: look, dur: 0.08, at: 0.07 }, { who, do: "expr", expr, ...(set ? { set } : {}), dur: 0.08, at: 0.1 },
   ],
   // magic transformation cover: flash + poof + shake at once
   zap: ({ who, color = "#ffe27a" }) => [
