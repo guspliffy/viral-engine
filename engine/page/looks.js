@@ -411,7 +411,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
       t = new THREE.MeshToonMaterial({
         color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
-        depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveIntensity: m.emissiveIntensity ?? 1,
+        depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
       patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });

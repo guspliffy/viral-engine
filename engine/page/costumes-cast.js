@@ -67,7 +67,9 @@ function katana(C) {
   const blade = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.008, bevelEnabled: true, bevelSize: 0.003, bevelThickness: 0.003, bevelSegments: 1, curveSegments: 20 }),
     new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 0.55, roughness: 0.2, metalness: 0.3 }));
   blade.position.set(0, 0.12, -0.004); blade.castShadow = true; g.add(blade);
-  return { group: g, charge(c) { blade.material.emissiveIntensity = 0.55 + c * 3; } };
+  // shaft (contact checks, costumes.js propLine): the handle's foot to the blade tip, not the staff default that runs
+  // half a metre below the fist
+  return { group: g, charge(c) { blade.material.emissiveIntensity = 0.55 + c * 3; }, shaft: [-0.1, 0.86, 0.02] };
 }
 
 // the portrait's double-bit axe: two flared crescent blades either side of the shaft and a spike on top
@@ -81,7 +83,7 @@ function axe(C) {
   for (const side of [1, -1]) { const b = new THREE.Mesh(bladeG, steel); b.scale.set(side * 1.35, 1.35, 1); b.position.set(side * 0.02, 0.56, 0); b.castShadow = true; g.add(b); }
   const socket = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.16, 12), dark); socket.position.y = 0.56; g.add(socket);
   const spike = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.12, 8), dark); spike.position.y = 0.7; g.add(spike);
-  return held(g);
+  return { ...held(g), shaft: [-0.275, 0.76, 0.026] };   // the haft's foot to the spike (contact checks)
 }
 
 function pistol() {
