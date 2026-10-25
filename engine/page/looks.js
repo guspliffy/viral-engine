@@ -228,21 +228,31 @@ function patchToon(m, o) {
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 };
+    sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", "uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uHatC, uHatUp; varying vec3 vWPos;\nvoid main() {")
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
-          vec3 V = normalize(vViewPosition), L = directionalLights[0].direction, base = diffuseColor.rgb;
-          float ndl = dot(normal, L);
+          vec3 V = normalize(vViewPosition), L = directionalLights[0].direction, base = diffuseColor.rgb, nS = normal;
+          #ifdef BODY_N
+            // an eyelid takes the light of the skin it lies on: the body's surface direction at this point (its unit
+            // sphere, before the potato bumps) instead of the lid's own dome, times the shadow it receives, so a lid
+            // closing in the hat's shadow is as dark as the face around it and never bulges out with its own shading
+            nS = normalize(mat3(viewMatrix) * (transpose(mat3(uBodyInv)) * (uBodyInv * vec4(vWPos, 1.0)).xyz));
+          #endif
+          float ndl = dot(nS, L);
           vec3 kd = directionalLights[0].color * base * RECIPROCAL_PI;
           float litK = clamp(dot(reflectedLight.directDiffuse, vec3(1.0)) / max(dot(kd, vec3(1.0)), 1e-4), 0.0, 1.0);
+          #ifdef BODY_N
+            litK = clamp(getGradientIrradiance(nS, L).r * dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
+          #endif
           vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
-          col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, normal.y));
+          col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
             float hk = uHatK * smoothstep(-0.07, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
@@ -370,8 +380,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   ROLE.cloth = { lit: night ? [0.95, 0.92, 0.95] : [1.04, 1.02, 1.0], shade: night ? [0.58, 0.5, 0.7] : [0.64, 0.6, 0.8], rimK: 0, grad: 0.14, occ: 0.18 };
   ROLE.wood = { ...ROLE.char, rimK: 0.06, grad: 0.1 };
   ROLE.set = { ...ROLE.set, rimK: 0 };
-  // eyelids: one flat lit tone like a painted lid, so a closed eye doesn't bulge out of the face with its own shadow
-  ROLE.lid = { ...ROLE.skin, shade: ROLE.skin.lit, grad: 0, occ: 0 };
+  // eyelids: shaded like the skin they lie on (bodyN: the body's surface direction, not the lid's dome), so a closed
+  // eye doesn't bulge out of the face with its own shadow, and a lid in the hat's shadow is as dark as the face there
+  ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
@@ -459,6 +470,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       scene.traverse((o) => {
         if (!o.isMesh || !o.material || made.has(o.material)) return;
         const nl = !!o.userData.bareLook;
+        if (nl) o.receiveShadow = true;   // a lid takes the hat's cast shadow like the face around it
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
@@ -466,6 +478,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         // costumes.js sets the halo every frame; scale it once per value it set
         if (h.material.opacity !== h.userData.lookOpacity) { h.material.opacity *= 0.5; h.userData.lookOpacity = h.material.opacity; }
         if (h.scale.x !== h.userData.lookScale) { h.scale.multiplyScalar(0.6); h.userData.lookScale = h.scale.x; }
+      }
+      // the lids' shading direction comes from their body (ROLE.lid bodyN)
+      for (const a of actors) {
+        const sh = a.ch.skin && a.ch.body && bare.get(a.ch.skin)?.userData.shader;
+        if (sh) { a.ch.body.updateWorldMatrix(true, false); sh.uniforms.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); }
       }
       for (const { a, brim } of hats) {
         brim.getWorldPosition(hatC); brim.getWorldScale(hatS); hatUp.set(0, 1, 0).transformDirection(brim.matrixWorld);
