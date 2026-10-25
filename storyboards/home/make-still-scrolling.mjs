@@ -45,7 +45,7 @@ function build(variant) {
   // the Wizard's hands on the seat's right edge from outside: his right hand at the back point, his left at the front
   // (points on the rim's outside edge, a hand's thickness out, just under the top: angle from +x toward the camera)
   const rimPt = (deg, r = 0.25 + RIM_OUT) => [r * Math.cos((deg * Math.PI) / 180), 0.39, r * Math.sin((deg * Math.PI) / 180)].map(r3);
-  const RIM_OUT = Number(process.env.RIM_OUT ?? 0.05), RIM_A = (process.env.RIM_A ?? "-35,25").split(",").map(Number), RIM_SHAPE = process.env.RIM_SHAPE ?? "rim";
+  const RIM_OUT = Number(process.env.RIM_OUT ?? 0.05), RIM_A = (process.env.RIM_A ?? "-40,8").split(",").map(Number), RIM_SHAPE = process.env.RIM_SHAPE ?? "rim";
   const RIM_R = { prop: "stool", grip: rimPt(RIM_A[0]), palm: true }, RIM_L = { prop: "stool", grip: rimPt(RIM_A[1]), palm: true };
 
   const cast = [
@@ -99,7 +99,7 @@ function build(variant) {
   A(3.35, "phx", "span", { to: 0.3, dur: 0.3, ease: "out" });                     // narrow beats while the Wizard is close
   A(LIFT_AT, "phx", "fly", { to: { y: SEAT + LIFT }, dur: 0.35, ease: "inOut" });
   A(4.45, "phx", "span", { to: 1, dur: 0.5, ease: "inOut" });                     // full once the Wizard has backed off
-  sfx(3.35, "wings", { gain: 0.32, dur: (LOOP ? 13.4 : 12.0) - 3.35 });
+  sfx(3.35, "wings", { gain: 0.48, dur: (LOOP ? 13.4 : 12.0) - 3.35 });
   prop(SLIDE_AT, "stool", { x: STOOL1[0], z: STOOL1[1] }, SLIDE_DUR, "inOut");
   A(SLIDE_AT, "wiz", "move", { to: WIZ_END, dur: SLIDE_DUR, ease: "inOut", steps: 3 });
   A(SLIDE_AT, "wiz", "look", { to: [-0.55, -0.4], dur: 0.3, blink: false });
@@ -119,7 +119,7 @@ function build(variant) {
   A(7.55, "wiz", "crouch", { to: 0, dur: 0.45, ease: "inOut" });
   A(7.6, "wiz", "turn", { to: -40, dur: 0.5 });
   A(7.75, "wiz", "move", { to: WIZ_STAND, dur: 0.5, ease: "inOut", steps: 1 });   // a step in, the stool stays beside him
-  sfx(8.0, "notify", { gain: 0.38 });
+  sfx(8.0, "notify", { gain: 0.3 });
   // the only "response": a closed-eye grin at the screen, never at the Wizard
   A(8.12, "phx", "expr", { expr: "happy", set: { curve: 0.6 }, dur: 0.25 });
   A(8.12, "phx", "face", { lid: 0.9, dur: 0.2 });
@@ -211,7 +211,7 @@ function build(variant) {
     creative: { length: [10, 16], maxEventGap: 2.6 },
     set: { type: "apartment", seed: 5 },
     music: false,
-    sound: { sfx: 0.6, ambience: 0.22 },
+    sound: { sfx: 0.6, ambience: 0.34 },
     cast, props, captions, beats,
     allowClip: [
       { who: "phx", with: "stool", from: 0, to: 3.6, reason: "Phoenix sits on the stool (his legs rest over its edge)" },
