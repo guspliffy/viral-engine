@@ -232,7 +232,7 @@ export function buildCostume(def, ch) {
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
-  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.45); sprt.group.position.set(-0.26, 0.03, -0.22); sprt.group.rotation.set(-0.25, 0, 0.75); hat.group.add(sprt.group); }   // small, on the back of the brim away from the staff hand (it must not read as a prop landing on the hat)
+  if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.14, 0.05, 0.24); sprt.group.rotation.set(0.3, -0.45, 0.45); hat.group.add(sprt.group); }   // tucked into the front-left of the band, as in the reference art
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
