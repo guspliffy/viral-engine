@@ -170,7 +170,7 @@ function beardGeometry(ch) {
   return g;
 }
 
-export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer"];
+export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid"];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
 export function castCostume(C, ch) {
@@ -241,6 +241,29 @@ export function castCostume(C, ch) {
     const hood = new THREE.Mesh(hoodGeometry(ch), cloth); hood.castShadow = true; ch.bodyGroup.add(hood);
     parts.add(cape(ch, C.accent || "#5a2f8f"));
     out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
+  }
+  // the trick-or-treat kids (characters/kids): cheap Halloween costumes over a small potato. witch: a black pointed hat
+  // (costumes.js builds it, as the Wizard's) and a little cape; ghost: a white sheet with a hood round the face;
+  // pumpkin: an orange ribbed suit, the sprout on top standing in for the stem
+  if (T === "kid") {
+    const O = C.outfit;
+    if (O === "witch") { parts.add(cape(ch, C.cape || "#3b2350")); out.sitDepth = 0.11; }
+    if (O === "ghost") {
+      const sheet = std("#f4f2f8", { roughness: 0.9, side: THREE.DoubleSide });
+      const hood = new THREE.Mesh(hoodGeometry(ch, 0.9), sheet); hood.castShadow = true; ch.bodyGroup.add(hood);
+      parts.add(new THREE.Mesh(lowerShell(ch, -0.42, 1.05), sheet));
+      // a wavy hem near the feet, where the sheet ends
+      const hem = [];
+      for (let i = 0; i < 60; i++) { const a = (i / 60) * Math.PI * 2, sf = ch.surf(a, -1.12 + 0.07 * Math.sin(a * 7)); hem.push(sf.pos.clone().addScaledVector(sf.normal, 0.02)); }
+      const hm = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hem, true), 120, 0.016, 6, true), sheet); hm.castShadow = true; parts.add(hm);
+      out.sitDepth = 0.03;
+    }
+    if (O === "pumpkin") {
+      const orange = std(C.suit || "#ee7a1e", { roughness: 0.6 }), rib = std("#c95e12", { roughness: 0.6 });
+      parts.add(new THREE.Mesh(lowerShell(ch, -0.12, 1.06), orange));
+      for (let i = 0; i < 10; i++) { const a = (i / 10) * Math.PI * 2; parts.add(strap(ch, [a, -0.16], [a, -1.35], 0.012, rib)); }
+      parts.add(ring(ch, -0.12, 0.022, std("#3f6b24", { roughness: 0.7 }), 0.05));
+    }
   }
   // the Gunslinger's twin revolvers, one in each hand, barrels forward
   if (C.pistols) {

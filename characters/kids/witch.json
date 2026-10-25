@@ -1,0 +1,60 @@
+{
+  "id": "kids/witch",
+  "name": "Witch kid",
+  "franchise": "PotatoBrawl (extras)",
+  "source": "trick-or-treat clip, 2026-10-25 (proposal: Jonny decides the look)",
+  "rig": "potato",
+  "body": {
+    "color": "#efb862",
+    "height": 1.0,
+    "width": 0.86,
+    "depth": 0.74,
+    "lump": 0.025,
+    "seed": 51
+  },
+  "limbs": {
+    "color": "#1f1d26",
+    "width": 0.034
+  },
+  "face": {
+    "default": "eager",
+    "iris": "#3a2a18",
+    "cheeks": "#ff6f7a",
+    "neutral": {
+      "eye": 1.12,
+      "curve": 0.55,
+      "tilt": 0.18
+    },
+    "eye": {
+      "flick": 1
+    },
+    "browShape": {
+      "arch": 0.07
+    },
+    "blush": 1.3
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "hat-top"
+  },
+  "costume": {
+    "type": "kid",
+    "outfit": "witch",
+    "accent": "#2b2238",
+    "band": "#8e4fd1",
+    "cape": "#3b2350"
+  },
+  "voice": {
+    "pitch": 300,
+    "rate": 4.6,
+    "formant": 1.35,
+    "range": 6,
+    "breath": 0.04,
+    "vibrato": 0.02,
+    "seed": 31
+  },
+  "hands": {
+    "type": "mitten"
+  },
+  "notes": "A small trick-or-treater: cast it with \"scale\": 0.55. Not one of the 10 fighters; an extra for the Halloween clip."
+}

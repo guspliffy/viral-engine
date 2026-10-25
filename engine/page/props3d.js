@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { clamp, lerp, ease, prog } from "./util.js";
+import { HALLOWEEN_KINDS, HALLOWEEN_GRIPS } from "./props-halloween.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner and a pickle that can leave its jar. The first seven have the same names and
@@ -16,6 +17,7 @@ export const TABLE_Y = 0.62;  // a table's top
 // scale). A grab or an arm pose names one ("grip": "handle") or gives its own point ("grip": [x, y, z]).
 const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
+  ...HALLOWEEN_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -325,6 +327,8 @@ function steamWisps(parent, top) {
   return (amount, t) => { for (const o of wisps) { o.visible = amount > 0.01; o.material.uniforms.uAmount.value = amount; o.material.uniforms.uTime.value = t; } };
 }
 
+Object.assign(KINDS, HALLOWEEN_KINDS);   // door, bowl, candy, bucket, toilet roll (props-halloween.js)
+
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);
   root.rotation.order = "YXZ";   // rot (about y) first, then tip and tilt in the prop's own frame, as gripWorld
@@ -349,7 +353,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, steam: spec.steam ?? 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, steam: spec.steam ?? 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, open: spec.open ?? 0, tail: spec.tail ?? 1, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

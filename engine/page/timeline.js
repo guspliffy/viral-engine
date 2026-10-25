@@ -345,11 +345,32 @@ function resolveArms(sb, st, def, t) {
   for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose) }; }
 }
 
+// a camera path: sb.camera = [{ at, pos, look, fov, stop? }, ...] keys the camera through one continuous move. Between
+// keys it follows a smooth curve (cubic Hermite, Catmull-Rom tangents in time), so a push, a tilt and a rise blend into
+// each other with no corner; `stop: true` (and the first and last key) eases into and out of that key, as a hold.
+// Two keys with the same pos/look in a row hold the camera still between them.
+function pathAt(keys, t) {
+  const K = [...keys].sort((a, b) => a.at - b.at);
+  if (t <= K[0].at) return K[0];
+  if (t >= K[K.length - 1].at) return K[K.length - 1];
+  let i = 0; while (K[i + 1].at < t) i++;
+  const a = K[i], b = K[i + 1], h = b.at - a.at, u = (t - a.at) / h;
+  const tan = (j, f) => {
+    const k = K[j]; if (k.stop || j === 0 || j === K.length - 1) return 0;
+    const p = K[j - 1], n = K[j + 1]; return (f(n) - f(p)) / (n.at - p.at);
+  };
+  const h00 = 2 * u ** 3 - 3 * u ** 2 + 1, h10 = u ** 3 - 2 * u ** 2 + u, h01 = -2 * u ** 3 + 3 * u ** 2, h11 = u ** 3 - u ** 2;
+  const herm = (f) => h00 * f(a) + h10 * h * tan(i, f) + h01 * f(b) + h11 * h * tan(i + 1, f);
+  const fov0 = (k) => k.fov ?? 32;
+  return { pos: [0, 1, 2].map((c) => herm((k) => k.pos[c])), look: [0, 1, 2].map((c) => herm((k) => k.look[c])), fov: herm(fov0) };
+}
+
 export function cameraState(sb, t) {
   const shots = (sb.shots || []).filter((s) => s.at <= t).sort((a, b) => a.at - b.at);
   const s = shots[shots.length - 1] || { pos: [0, 1, 6], look: [0, 0.7, 0], fov: 32 };
   let pos = s.pos, look = s.look, fov = s.fov ?? 32;
-  if (s.to) {
+  if (Array.isArray(sb.camera) && sb.camera.length) ({ pos, look, fov } = pathAt(sb.camera, t));
+  else if (s.to) {
     const e = ease(s.ease || "inOut")(prog(t, s.at, s.dur ?? 1));
     pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e);
   }

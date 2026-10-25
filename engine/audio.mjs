@@ -165,6 +165,22 @@ const SFX = {
     }
     return x;
   },
+  // a knuckle on a wooden door: a short hollow thud with a click on top
+  knock(r) {
+    const d = 0.16, x = buf(d), bp = biquad("bp", 260, 2.2), hp = biquad("hp", 1500, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 210 * Math.pow(150 / 210, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) * 0.8 + run(bp, r() * 2 - 1) * 2.2) * env(t, 0.001, 0.035, d) + run(hp, r() * 2 - 1) * env(t, 0.0005, 0.004, d) * 0.6; }
+    return x;
+  },
+  // a front door slammed shut: a deep thump, the frame rattling and a latch click
+  slam(r) {
+    const d = 0.7, x = buf(d), lp = biquad("lp", 700, 0.7), rat = biquad("bp", 1400, 3); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 95 * Math.pow(48 / 95, Math.min(1, t / 0.25)); p += TAU * f / SR;
+      x[i] = Math.sin(p) * env(t, 0.002, 0.18, d) * 1.3 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.06, d) * 1.2
+        + run(rat, r() * 2 - 1) * env(t - 0.03, 0.002, 0.12, d) * (0.6 + 0.4 * Math.sin(TAU * 31 * t)) * 0.9 + Math.sin(TAU * 2300 * t) * env(t - 0.02, 0.0005, 0.01, d) * 0.25;
+    }
+    return x;
+  },
   tink(r) { const d = 0.35, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 2100 * t) * 0.6 + Math.sin(TAU * 5300 * t) * 0.25) * env(t, 0.001, 0.07, d); } return x; },
   sting(r) {
     const d = 0.7, x = buf(d), lp = biquad("lp", 1600, 0.8);
@@ -258,6 +274,11 @@ function ambience(type, seconds, r) {
     let lp = biquad("lp", 400, 0.7); const low = biquad("lp", 160, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; if (i % 256 === 0) lp = { ...biquad("lp", 300 + 250 * (0.5 + 0.5 * Math.sin(TAU * 0.13 * t + 1.3) * Math.sin(TAU * 0.07 * t)), 0.7), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 }; const w = r() * 2 - 1; x[i] = run(lp, w) * 0.35 + run(low, r() * 2 - 1) * 0.5; }
     const honk = 0.8 + r() * Math.max(0.5, seconds - 2); const a = Math.round(honk * SR), f = 330 + r() * 80; for (let i = 0; i < 0.35 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (((t * f) % 1) * 2 - 1 + ((t * f * 1.26) % 1) * 2 - 1) * env(t, 0.02, 0.2, 0.35) * 0.05; }
+  } else if (type === "porch") { // a quiet autumn night: a soft breeze, crickets and the odd far-off owl
+    const lp = biquad("lp", 380, 0.7);
+    for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.12;
+    for (const [f, rate, ph, g] of [[4300, 2.1, 0, 0.05], [4700, 2.6, 1.7, 0.035], [3900, 1.8, 0.6, 0.03]]) for (let i = 0; i < n; i++) { const t = i / SR, chirp = Math.max(0, Math.sin(TAU * rate * t + ph)) ** 8 * (0.5 + 0.5 * Math.sin(TAU * 38 * t)); x[i] += Math.sin(TAU * f * t) * chirp * g; }
+    const owl = 1.5 + r() * Math.max(0.5, seconds - 4); for (const k of [0, 0.35]) { const a = Math.round((owl + k) * SR); for (let i = 0; i < 0.3 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (390 - 30 * t) * t) * env(t, 0.03, 0.15, 0.3) * 0.05; } }
   } else { // meadow and anything else: a breeze and a few birds
     const lp = biquad("lp", 500, 0.7);
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;
@@ -265,7 +286,7 @@ function ambience(type, seconds, r) {
   }
   for (let i = 0; i < Math.min(n, 0.3 * SR); i++) { x[i] *= i / (0.3 * SR); x[n - 1 - i] *= i / (0.3 * SR); } // fade in and out
   // balance the beds against each other: roughly 18-22 dB under the voices and effects
-  const level = { party: 1.0, office: 2.5, rooftop: 2 }[type] ?? 3;
+  const level = { party: 1.0, office: 2.5, rooftop: 2, porch: 2.5 }[type] ?? 3;
   for (let i = 0; i < n; i++) x[i] *= level;
   return x;
 }
