@@ -158,19 +158,19 @@
   {
    "at": 8.5,
    "pos": [
-    -0.55,
+    -0.75,
     1.12,
     5.5
    ],
    "look": [
-    -0.8,
+    -1.05,
     0.86,
     0
    ],
    "fov": 32,
    "to": {
     "pos": [
-     -0.5,
+     -0.72,
      1.1,
      5.2
     ]
@@ -260,7 +260,14 @@
    "at": 1,
    "do": "arm",
    "side": "both",
-   "pose": "up",
+   "pose": {
+    "o": [
+     0.34,
+     1.2,
+     0.1
+    ],
+    "gun": -0.8
+   },
    "dur": 0.2
   },
   {
@@ -471,8 +478,8 @@
    "at": 8.5,
    "do": "move",
    "to": [
-    -1.1,
-    0.35
+    -1.55,
+    0.3
    ],
    "dur": 1.2,
    "ease": "out"
@@ -522,10 +529,10 @@
    "at": 10.4,
    "do": "move",
    "to": [
-    -0.9,
-    -0.32
+    -1.28,
+    -0.5
    ],
-   "dur": 0.4,
+   "dur": 0.5,
    "ease": "out"
   },
   {
@@ -550,26 +557,16 @@
   {
    "who": "hero",
    "at": 10.4,
-   "do": "hat",
-   "off": [
-    0,
-    -0.07,
-    0.05
-   ],
-   "spin": [
-    10,
-    0,
-    0
-   ],
-   "dur": 0.25,
-   "ease": "out"
-  },
-  {
-   "who": "hero",
-   "at": 10.4,
    "do": "arm",
    "side": "both",
-   "pose": "hat",
+   "pose": {
+    "o": [
+     0.07,
+     0.62,
+     0.2
+    ],
+    "gun": -1.35
+   },
    "dur": 0.25
   },
   {
@@ -668,5 +665,5 @@
  "loop": false,
  "sfx": [],
  "look": "anime-pro",
- "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks. Fable review B: on *hides* he ducks behind the Phoenix and one eye peeks out (pulling the hat over the eyes pushed the hat through the head), the Sorcerer close-up shifted right to keep the pistol out of it."
+ "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks. Fable review B: on *hides* he ducks behind the Phoenix and one eye peeks out (pulling the hat over the eyes pushed the hat through the head), the Sorcerer close-up shifted right to keep the pistol out of it. Jonny 06:50: the Phoenix stops further away so the two never merge before he hides; he hides fully behind her (z gap 0.8); HIDE ME arms go up wide, clear of the brim, and the hat no longer gets pulled (arms went through it)."
 }
