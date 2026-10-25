@@ -12,6 +12,22 @@ import { clamp, lerp, ease, prog } from "./util.js";
 // Splitting: each prop that can split is built as a left and a right half that slide and tip apart.
 export const SEAT_Y = 0.42;   // a chair's seat height (timeline.js sits a character on it)
 export const TABLE_Y = 0.62;  // a table's top
+// grip points: where a hand closes on a prop, in the prop's own frame (metres from its bottom centre, before rot and
+// scale). A grab or an arm pose names one ("grip": "handle") or gives its own point ("grip": [x, y, z]).
+const GRIPS = {
+  teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
+};
+export function gripPoint(spec, grip) {
+  if (Array.isArray(grip)) return grip;
+  const g = (GRIPS[spec.kind] || {})[grip];
+  if (!g) throw new Error(`prop ${spec.id} (${spec.kind}) has no grip "${grip}"`);
+  return spec.kind === "teacup" && spec.saucer === false ? [g[0], g[1] - 0.012, g[2]] : g;
+}
+// a grip point in the world for a prop whose bottom centre is at `at` (its rot about y and its scale applied)
+export function gripWorld(spec, grip, at, rot = spec.rot ?? 0, scale = spec.scale ?? 1) {
+  const [gx, gy, gz] = gripPoint(spec, grip), r = (rot * Math.PI) / 180;
+  return [at[0] + scale * (gx * Math.cos(r) + gz * Math.sin(r)), at[1] + scale * gy, at[2] + scale * (-gx * Math.sin(r) + gz * Math.cos(r))];
+}
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
@@ -49,11 +65,13 @@ const KINDS = {
     mesh(new THREE.BoxGeometry(0.44, 0.12, 0.035), wood, P.whole, 0, SEAT_Y + 0.4, -0.2);
     return { grip: SEAT_Y };
   },
+  // saucer: false is the cup on its own (put it on a saucer prop, 0.012 up, to lift it off and put it back)
   teacup(P) {
-    const china = mat("#f4f1ea", { roughness: 0.35 }), band = mat("#3d8fb0", { roughness: 0.4 });
+    const china = mat("#f4f1ea", { roughness: 0.35 }), band = mat("#3d8fb0", { roughness: 0.4 }), noSaucer = P.spec.saucer === false;
+    if (noSaucer) P.whole.position.y = -0.012;
     const prof = [[0.0, 0.0], [0.045, 0.0], [0.05, 0.012], [0.062, 0.06], [0.07, 0.1], [0.064, 0.1], [0.056, 0.062], [0.042, 0.016], [0.0, 0.016]].map(([x, y]) => new THREE.Vector2(x, y));
     for (const [s, h] of P.halves) {
-      mesh(new THREE.CylinderGeometry(0.11, 0.085, 0.012, 32, 1, false, TH(s), Math.PI), china, h, 0, 0.006, 0);
+      if (!noSaucer) mesh(new THREE.CylinderGeometry(0.11, 0.085, 0.012, 32, 1, false, TH(s), Math.PI), china, h, 0, 0.006, 0);
       mesh(new THREE.LatheGeometry(prof, 32, TH(s), Math.PI), china, h, 0, 0.012, 0).material.side = THREE.DoubleSide;
       mesh(new THREE.CylinderGeometry(0.0675, 0.0675, 0.012, 32, 1, true, TH(s), Math.PI), band, h, 0, 0.098, 0).material.side = THREE.DoubleSide;
       if (s > 0) { const hd = mesh(new THREE.TorusGeometry(0.03, 0.009, 8, 20, Math.PI * 1.3), china, h, 0.075, 0.07, 0); hd.rotation.z = -Math.PI * 0.65; }
@@ -81,6 +99,10 @@ const KINDS = {
         puddle.visible = ps.spill > 0.01; puddle.position.set(0.04, 0.003, 0.03); puddle.scale.set(0.05 + 0.2 * ps.spill, 0.04 + 0.15 * ps.spill, 1);
       },
     };
+  },
+  saucer(P) {
+    mesh(new THREE.CylinderGeometry(0.11, 0.085, 0.012, 32), mat("#f4f1ea", { roughness: 0.35 }), P.whole, 0, 0.006, 0);
+    return { grip: 0.006 };
   },
   jar(P) {
     const glass = new THREE.MeshPhysicalMaterial({ color: "#dff3ea", roughness: 0.08, transmission: 0, transparent: true, opacity: 0.32, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false });
@@ -289,7 +311,13 @@ export function propState(sb, spec, t) {
       if (a.arc && p < 1) ps.y += 4 * a.arc * e * (1 - e);   // arc: metres it rises above the straight line, mid-flight
     }
     // a grab glides the prop from where it is into the hand while the arm comes up (it never jumps into the hand)
-    else if (a.do === "grab") { const k = ease("out")(prog(t, a.at, a.dur ?? 0.25)); ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) }; ps.left = null; }
+    // grip: the hand holds it at that grip point; keep: it stays exactly where it is and from then on moves with the
+    // holder (stage.js measures the offset at the grab), so nothing jumps on the handoff
+    else if (a.do === "grab") {
+      const k = a.keep || a.grip ? 1 : ease("out")(prog(t, a.at, a.dur ?? 0.25));
+      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) };
+      ps.left = null;
+    }
     else if (a.do === "release") {
       if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1, arc: a.to && a.arc ? 4 * a.arc * e * (1 - e) : 0 };
       // without "to" it stays where the hand let go (stage.js works out where that was)

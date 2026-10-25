@@ -4,7 +4,7 @@ import { Character } from "./potato.js";
 import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
-import { buildProp, propState } from "./props3d.js";
+import { buildProp, propState, gripWorld } from "./props3d.js";
 import { rng, clamp, ease } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 
@@ -273,34 +273,62 @@ function pose(t) {
   }
   poseStates = states;
   // props: a held prop sits in its holder's hand (both hands: between them), a released one glides to where it is put down
-  const v = new THREE.Vector3(), handAt = (who, hand) => {
+  const v = new THREE.Vector3();
+  // the holder's anchor: a hand (position only, so a held prop stays upright), both hands, the point of the
+  // character's own prop ("tip"), or the hat ("hat": position and tilt, something stuck to the hat tips with it)
+  const anchor = (who, hand) => {
     const A = states[who]; if (!A) return null;
     A.a.ch.root.updateMatrixWorld(true);
-    if (hand === "tip") return A.a.ch.costume.tip ? A.a.ch.costume.tip.getWorldPosition(new THREE.Vector3()) : null;
+    if (hand === "hat") return A.a.ch.costume.hat ? { obj: A.a.ch.costume.hat } : null;
+    if (hand === "tip") return A.a.ch.costume.tip ? { pos: A.a.ch.costume.tip.getWorldPosition(new THREE.Vector3()) } : null;
     const hs = hand === "both" ? ["R", "L"] : [hand];
-    return hs.reduce((acc, h) => acc.add(A.a.ch.arms[h].hand.getWorldPosition(v)), new THREE.Vector3()).multiplyScalar(1 / hs.length);
+    return { pos: hs.reduce((acc, h) => acc.add(A.a.ch.arms[h].hand.getWorldPosition(v)), new THREE.Vector3()).multiplyScalar(1 / hs.length) };
+  };
+  // where a held prop sits for its holder's pose right now
+  const heldAt = (p, ps, hold) => {
+    const k = hold.keep ? keptOffset(p, hold) : null;   // first: it poses the holder at the grab and back
+    const an = anchor(hold.who, hold.hand); if (!an) return null;
+    if (k) {
+      return an.obj ? an.obj.localToWorld(new THREE.Vector3().fromArray(k)).toArray() : [an.pos.x + k[0], an.pos.y + k[1], an.pos.z + k[2]];
+    }
+    const h = an.obj ? an.obj.getWorldPosition(new THREE.Vector3()) : an.pos, o = hold.off;
+    // a grip point: the prop sits so that point is in the hand; otherwise its own grip height is
+    const g = hold.grip ? gripWorld(p.spec, hold.grip, [0, 0, 0], ps.rot, ps.scale) : [0, p.grip * ps.scale, 0];
+    return [h.x - g[0] + o[0], h.y - g[1] + o[1], h.z - g[2] + o[2]];
+  };
+  // keep: the offset from the holder that leaves the prop exactly where it was at the grab (measured once, with
+  // the holder posed at that moment)
+  const keptOffset = (p, hold) => {
+    const key = `${hold.who}/${hold.hand}@${hold.at}`;
+    if (!p.kept || p.kept.key !== key) {
+      const A = states[hold.who];
+      A.a.ch.apply(actorState(sb, A.a.c, A.a.def, hold.at), hold.at);
+      const an = anchor(hold.who, hold.hand), w = new THREE.Vector3().fromArray(hold.from);
+      p.kept = { key, off: an.obj ? an.obj.worldToLocal(w).toArray() : [w.x - an.pos.x, w.y - an.pos.y, w.z - an.pos.z] };
+      A.a.ch.apply(A.st, t);
+    }
+    return p.kept.off;
   };
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
     p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null;
-    // put down without a place: it stays where the hand was when it let go (pose the holder at that moment once)
+    // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
     if (ps.left) {
       const key = `${ps.left.who}@${ps.left.at}`;
       if (!p.leftAt || p.leftAt.key !== key) {
         const A = states[ps.left.who];
         if (A) {
+          if (ps.left.keep) keptOffset(p, ps.left);
           A.a.ch.apply(actorState(sb, A.a.c, A.a.def, ps.left.at), ps.left.at);
-          const h = handAt(ps.left.who, ps.left.hand), o = ps.left.off;
-          p.leftAt = { key, pos: [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]] };
+          p.leftAt = { key, pos: heldAt(p, ps, ps.left) };
           A.a.ch.apply(A.st, t);
         }
       }
-      if (p.leftAt) [ps.x, ps.y, ps.z] = p.leftAt.pos;
+      if (p.leftAt && p.leftAt.pos) [ps.x, ps.y, ps.z] = p.leftAt.pos;
     }
     if (ps.hold) {
-      const h = handAt(ps.hold.who, ps.hold.hand);
-      if (h) {
-        const o = ps.hold.off, at = [h.x + o[0], h.y - p.grip * ps.scale + o[1], h.z + o[2]];
+      const at = heldAt(p, ps, ps.hold);
+      if (at) {
         [ps.x, ps.y, ps.z] = ps.hold.to ? ps.hold.to.map((q, i) => q + (at[i] - q) * ps.hold.k) : at;
         if (ps.hold.arc) ps.y += ps.hold.arc;
       }

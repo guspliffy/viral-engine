@@ -121,6 +121,13 @@ export class Character {
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
+    // planted feet (timeline.js st.plant): where the last step left them, in the world; drawn in the body's frame
+    const pl = st.plant && st.plant.w < 1 ? st.plant : null;
+    if (pl) {
+      R.updateMatrixWorld(true);
+      this._plantM = (this._plantM || new THREE.Matrix4()).compose(new THREE.Vector3(pl.x, pl.y, pl.z), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), pl.yaw), new THREE.Vector3().setScalar(st.scale ?? 1));
+      this._footQ = R.quaternion.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), pl.yaw));
+    }
 
     const fries = st.form === "fries";
     this.potatoParts.visible = !fries;
@@ -155,6 +162,11 @@ export class Character {
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
       foot.set(foot.x + sx * 0.02 * si, foot.y - 0.01 * si, foot.z + 0.24 * si);
+      if (pl) {
+        const planted = R.worldToLocal(foot.clone().applyMatrix4(this._plantM));
+        foot.lerp(planted, 1 - pl.w);
+        this.legs[s].foot.quaternion.identity().slerp(this._footQ, 1 - pl.w);
+      } else this.legs[s].foot.quaternion.identity();
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out].map((x) => x.toFixed(4)).join(",");
