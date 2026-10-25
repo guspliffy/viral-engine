@@ -420,6 +420,21 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const hats = actors.filter((a) => a.ch.costume && a.ch.costume.hat && a.ch.costume.hat.children[0] && a.ch.skin)
     .map((a) => ({ a, brim: a.ch.costume.hat.children[0] }));
   const hatUp = new THREE.Vector3(), hatC = new THREE.Vector3(), hatS = new THREE.Vector3();
+  const v3 = new THREE.Vector3();
+  // the night kitchen: the drawn look ignores the hanging lamp's point light, so its warm pool is painted onto the
+  // floor instead, and the floor tiles are lifted so dark boots and contact shadows still read against them
+  const floor = scene.getObjectByName("set-floor"), lamp = scene.getObjectByName("set-lamp");
+  if (floor && lamp) {
+    floor.material.color.set("#d2d2de");
+    lamp.getWorldPosition(v3);
+    const pool = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 3.6), new THREE.ShaderMaterial({
+      uniforms: { uColor: { value: new THREE.Color("#ffc98a") } },
+      vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: "uniform vec3 uColor; varying vec2 vUv; void main() { float r = length(vUv - 0.5) * 2.0; gl_FragColor = vec4(uColor * 0.3 * (1.0 - smoothstep(0.1, 1.0, r)), 1.0); }",
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.5, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2,
+    }));
+    pool.rotation.x = -Math.PI / 2; pool.position.set(v3.x, 0.004, v3.z + 0.5); pool.renderOrder = 0; pool.userData.lookOnly = true; scene.add(pool);
+  }
   const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && setSpec.type === "hills" ? "#0f2e12" : "#2a2019", camera);
   const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 

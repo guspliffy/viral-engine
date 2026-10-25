@@ -26,7 +26,7 @@ export function buildKitchen(scene, S = {}) {
     g.strokeStyle = "rgba(0,0,0,0.25)"; g.lineWidth = 3; g.strokeRect(0, 0, 256, 256); g.strokeRect(128, 0, 0, 256);
   }, 9, 9);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), std("#9a9aa6", { map: floorTex, roughness: 0.6 }));
-  floor.rotation.x = -Math.PI / 2; floor.position.z = 3; floor.receiveShadow = true; floor.material.userData.noOutline = true; room.add(floor);
+  floor.rotation.x = -Math.PI / 2; floor.position.z = 3; floor.receiveShadow = true; floor.material.userData.noOutline = true; floor.name = "set-floor"; room.add(floor);
 
   // the back wall: teal tiles with light grout
   const tileTex = canvasTex(256, 256, (g) => {
