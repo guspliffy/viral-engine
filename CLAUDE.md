@@ -82,6 +82,8 @@ Every glitch Jonny caught after the look was set was a contact problem the file 
 11. **When Jonny reports a glitch, describe it back first**: the times, what moves wrong and why. Then fix it, and
     send a before/after strip of the same moments.
 12. **A/B option sheets get a pixel-difference check**, so two "different" options are never the same picture.
+13. **Hands and held props stay off other characters' heads and faces**, and a fist holding a prop stays off the top of
+    a head on screen: in front or behind, it reads as stuck to the head (the look busy remake).
 
 ## Writing clips
 
