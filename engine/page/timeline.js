@@ -35,6 +35,8 @@ export const GRIPS = {
   point: { curl: 1.15, index: 0.0,  thumb: 0.9 },
   cup:   { curl: 0.5,  index: 0.45, thumb: 0.35, up: 1 },   // palm up, cradling something from below: an orb, a jar's base
   flat:  { curl: 0.0,  index: 0.0,  thumb: 0.0 },    // open palm
+  scroll: { curl: 0.95, index: 0.95, thumb: 0.45 },
+  rim:   { curl: 0.55, index: 0.5,  thumb: 0.35 },   // a half-curled hand pressed on the edge of a seat or a board  // holding a phone, the thumb lifted off the screen to flick it
   // a teacup or mug handle: the fist closes round the handle's upright bar (axis: up), thumb on top of the handle, the
   // curled fingers under and round it, lying against the cup body in front
   teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
@@ -53,7 +55,7 @@ const PHASES = new WeakMap(), STEP = 1 / 120;
 function phases(sb, actor, def, t) {
   let per = PHASES.get(sb); if (!per) { per = new Map(); PHASES.set(sb, per); }
   let P = per.get(actor.id);
-  if (!P) { P = { flap: [0], charge: [0], need: (sb.actions || []).some((a) => a.who === actor.id && ["fly", "hover", "drop", "charge"].includes(a.do)) }; per.set(actor.id, P); }
+  if (!P) { P = { flap: [0], charge: [0], need: (sb.actions || []).some((a) => a.who === actor.id && ["fly", "hover", "drop", "land", "charge"].includes(a.do)) }; per.set(actor.id, P); }
   if (!P.need) return { flapPhase: 7 * t, chargePhase: 0 };
   const k = Math.max(0, Math.floor(t / STEP));
   const rate = (u) => { const s = actorState(sb, actor, def, u, true); return [7 + 17 * (s.flap || 0), s.charge || 0]; };
@@ -83,7 +85,7 @@ function rideAt(sb, a, u) {
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor;
   const st = {
-    x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1,
+    x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1, span: c.span ?? 1,
     // the character's designed neutral face (face.neutral in its file) sits on top of its default expression; an
     // explicit c.expr or an "expr" action is acting and replaces it
     expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
@@ -206,6 +208,12 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
       case "wings": st.wings = lerp(st.wings, a.to ?? 1, e); break;   // Phoenix: 0 folded, 1 spread
+      // Phoenix: how far the wings may open at all, 0 tucked tight against the back .. 1 the model's own (half open at
+      // rest, spread in flight). It caps what "wings", "fly" and the hover do (a half-open beat in a tight spot)
+      case "span": st.span = lerp(st.span, a.to ?? 1, e); break;
+      // a squat (to 0..1): the body drops and squashes a little while the feet stay planted on the floor, so the legs
+      // bend; for a low reach (gripping a stool's rim) without kneeling
+      case "crouch": st.crouch = lerp(st.crouch || 0, a.to ?? 1, e); break;
       // flying (Phoenix's wings flap; anyone else just floats): fly to { x, y }, hover in place, drop like a stone
       case "fly": {
         // already hovering (a fly after a fly): start from where the bob had it and from the wing beat it had
@@ -234,6 +242,19 @@ export function actorState(sb, actor, def, t, raw = false) {
         if (p < 1) st.squash *= 1 + 0.08 * k; else { const after = t - (a.at + d); if (after < 0.22) st.squash *= 1 - 0.28 * Math.sin((after / 0.22) * Math.PI); }
         break;
       }
+      // a gentle landing from a hover (onto a seat, or the floor at to: 0): it sinks from where the bob had it to y `to`
+      // with the wings still beating softly, touches down, and only then folds the wings; a small settle at the end
+      case "land": {
+        const bob0 = airSince != null ? hoverBob(a.at - airSince) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
+        const y0 = st.y + bob0, k = ease("inOut")(p), after = t - (a.at + d);
+        airSince = null;
+        st.y = lerp(y0, a.to ?? 0, k);
+        st.flap = f0 * (1 - clamp((t - a.at - 0.6 * d) / (0.4 * d + 0.1)));
+        st.wings = Math.max(st.wings, 1) * (1 - ease("inOut")(clamp(after / (a.fold ?? 0.45))));
+        st.tuck = lerp(st.tuck, 0, ease("inOut")(clamp((t - a.at) / (d + 0.2))));
+        if (after > 0 && after < 0.25) st.squash *= 1 - 0.04 * Math.sin((after / 0.25) * Math.PI);
+        break;
+      }
       // climbing hand over hand (a tree): to { y, x?, z? } in `steps` pulls (default 4), arms reaching up in turn; it
       // stays up there (no hover) until the next climb or a drop
       case "climb": {
@@ -254,15 +275,15 @@ export function actorState(sb, actor, def, t, raw = false) {
         }
         break;
       }
-      // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table or hold (the right hand holds)
+      // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table, hold (the right hand holds) or keep
       case "sit": {
         const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: 0, scale: 1 };
         const k = ease("inOut")(prog(t, a.at, a.dur ?? 0.35)), sc = ch.scale ?? 1, yaw = ((ch.rot ?? 0) * Math.PI) / 180;
         const along = (a.along ?? 0) * sc;   // along the seat (its own x), e.g. at one end of a bench
         st.x = lerp(st.x, ch.x + Math.cos(yaw) * along + Math.sin(yaw) * 0.03, k); st.z = lerp(st.z, ch.z - Math.sin(yaw) * along + Math.cos(yaw) * 0.03, k);
-        st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat;
+        st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat; if (a.feet) st.sitFeet = a.feet;
         const hands = a.hands || "lap", pose = { R: hands === "hold" ? "hold" : hands, L: hands === "hold" ? "lap" : hands };
-        for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: pose[s], p: k };
+        if (hands !== "keep") for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: pose[s], p: k };   // "keep": the arms stay as they are
         break;
       }
       case "stand": {
@@ -301,6 +322,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   // planted feet: the feet stay where the last step left them (a move, a turn, a dance step). What the body does on
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
   const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
+  if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
     st.y += hoverBob(t - airSince); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);

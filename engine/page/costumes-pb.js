@@ -50,7 +50,7 @@ export function phoenixCostume(C, ch) {
       mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
       halo.visible = c > 0.01; halo.scale.setScalar((0.5 + 2.1 * c) * fk); halo.material.opacity = Math.min(0.95, c * 1.2);
       // the beat's phase is integrated over time in timeline.js (t × speed would jump when the speed changes)
-      const rest = C.restWings ?? 0.85, w = rest + (1 - rest) * (st.wings || 0), fl = st.flap || 0,   // the portraits show the wings half open at rest
+      const rest = C.restWings ?? 0.85, w = (rest + (1 - rest) * (st.wings || 0)) * (st.span ?? 1), fl = (st.flap || 0) * (0.5 + 0.5 * (st.span ?? 1)),   // the portraits show the wings half open at rest; span tucks them
        flap = Math.sin(st.flapPhase ?? t * 7) * (0.08 * (0.4 + w) + 0.45 * fl);
       for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 2.0 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(1.0 + 0.4 * w + 0.4 * fl); }
       crest.rotation.x = 0.05 * Math.sin(t * 3.1);

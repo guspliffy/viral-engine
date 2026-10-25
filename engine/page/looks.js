@@ -308,7 +308,7 @@ function groundShadows(scene, actors, props, color, camera) {
         const r = a.ch.root, vis = shown(r) && a.ch.potatoParts.visible, s = r.scale.x || 1, h = Math.max(0, r.position.y);
         if (!vis) { body.visible = false; for (const [, m] of [...feet, ...tips]) m.visible = false; continue; }
         // the broad one sits a little toward the sunlight shadow (the key light is on the left)
-        put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, 0.7, 0.4);
+        put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, a.c?.shadowFall ?? 0.7, 0.4);   // cast shadowFall: a long hover keeps a soft shadow
         for (const [f, m] of feet) {
           if (!f || !shown(f)) { m.visible = false; continue; }
           f.getWorldPosition(v); put(m, v.x + 0.05 * s, v.z - 0.02 * s, 0.42 * s, 0.56 * s, Math.max(0, v.y - 0.04 * s), 0.25, 0.95);
@@ -410,7 +410,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     if (!t) {
       const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });

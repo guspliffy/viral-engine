@@ -280,6 +280,21 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, flap = 0.5 + 0.5 * Math.sin(TAU * (26 - 14 * k) * t + 3 * Math.sin(TAU * 3 * t)); x[i] = run(bp, r() * 2 - 1) * 0.8 * flap * (1 - k) * Math.min(1, t / 0.02); }
     return x;
   },
+  scrape(r, d = 0.6) { // wooden stool feet dragged over a wooden floor: a woody, chattering rub that fades in and out
+    const x = buf(d), bp = biquad("bp", 520, 1.6), bp2 = biquad("bp", 1500, 2.2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, shape = Math.sin(Math.PI * Math.min(1, k * 1.15)) ** 0.7, chat = 0.55 + 0.45 * Math.sin(TAU * (34 + 6 * Math.sin(TAU * 1.3 * t)) * t) ** 2, n = r() * 2 - 1; x[i] = (run(bp, n) * 0.9 + run(bp2, n) * 0.35) * chat * shape; }
+    return x;
+  },
+  wings(r, d = 2.0) { // soft feathery wing beats about three times a second, for a hover: each beat a low airy push
+    const x = buf(d), lp = biquad("lp", 700, 0.7), bp = biquad("bp", 1700, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, beat = Math.max(0, Math.sin(TAU * 3.1 * t)) ** 3, n = r() * 2 - 1, fade = Math.min(1, t / 0.15, (d - t) / 0.25); x[i] = (run(lp, n) * 0.9 + run(bp, n) * 0.18) * beat * fade; }
+    return x;
+  },
+  notify(r) { // a soft phone notification: two quick rounded tones, up a fourth
+    const d = 0.55, x = buf(d);
+    for (const [t0, f] of [[0, 1175], [0.11, 1568]]) for (let i = Math.round(t0 * SR); i < x.length; i++) { const t = i / SR - t0; x[i] += (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2 * t) * 0.08) * env(t, 0.004, 0.12, d - t0); }
+    return x;
+  },
   gunshot(r) { // a cartoon pistol: a sharp crack and a short boom
     const d = 0.45, x = buf(d), lp = biquad("lp", 1800, 0.7); let p = 0;
     for (let i = 0; i < x.length; i++) { const t = i / SR, f = 120 * Math.pow(50 / 120, Math.min(1, t / 0.2)); p += TAU * f / SR; x[i] = (r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 1.1 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.07, d) * 0.7 + Math.sin(p) * env(t, 0.002, 0.12, d) * 0.8; }
@@ -373,6 +388,9 @@ function ambience(type, seconds, r) {
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.12;
     for (const [f, rate, ph, g] of [[4300, 2.1, 0, 0.05], [4700, 2.6, 1.7, 0.035], [3900, 1.8, 0.6, 0.03]]) for (let i = 0; i < n; i++) { const t = i / SR, chirp = Math.max(0, Math.sin(TAU * rate * t + ph)) ** 8 * (0.5 + 0.5 * Math.sin(TAU * 38 * t)); x[i] += Math.sin(TAU * f * t) * chirp * g; }
     const owl = 1.5 + r() * Math.max(0.5, seconds - 4); for (const k of [0, 0.35]) { const a = Math.round((owl + k) * SR); for (let i = 0; i < 0.3 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (390 - 30 * t) * t) * env(t, 0.03, 0.15, 0.3) * 0.05; } }
+  } else if (type === "apartment") { // a quiet flat in the afternoon: soft room tone, a faint far-off street now and then
+    const lp = biquad("lp", 260, 0.6), lp2 = biquad("lp", 900, 0.7);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(lp, r() * 2 - 1) * 0.14 + run(lp2, r() * 2 - 1) * 0.025 * (0.6 + 0.4 * Math.sin(TAU * 0.11 * t)); }
   } else { // meadow and anything else: a breeze and a few birds
     const lp = biquad("lp", 500, 0.7);
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;

@@ -332,7 +332,9 @@ export class Character {
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
-      foot.set(foot.x + sx * 0.02 * si, foot.y - 0.01 * si, foot.z + 0.24 * si);
+      // sitFeet [forward, up] (the sit action's `feet`): on a round stool the legs stick out further so they clear its edge
+      const sf = st.sitFeet || [0.24, -0.01];
+      foot.set(foot.x + sx * 0.02 * si, foot.y + sf[1] * si, foot.z + sf[0] * si);
       if (pl) {
         const planted = R.worldToLocal(foot.clone().applyMatrix4(this._plantM));
         foot.lerp(planted, 1 - pl.w);
