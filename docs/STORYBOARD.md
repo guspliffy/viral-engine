@@ -92,7 +92,9 @@ moving at once.
   of your own in the prop's frame, `[x, y, z]` metres from its bottom centre. `off` nudges the target.
 - `grab` with the same `grip` holds the prop by that point, so a hand that reached it closes on it with no jump.
   `"keep": true` holds it wherever it is instead (the offset is measured at the grab). `"hand": "hat"` with `keep`
-  sticks it to the hat. A `release` with `"dur": 0` and no `to` lets go where it is: put it down first, then let go. A
+  sticks it to the hat. A second `grab` by the same hand with a new `grip`, a `dur` and `"pose": null` slides the
+  prop in the hand from the old grip point to the new one (a jar picked up by its side settles into the palm), and a
+  `prop` tween of `tilt` or `tip` leans it while it is held. A `release` with `"dur": 0` and no `to` lets go where it is: put it down first, then let go. A
   `prop` tween of `squash` (about 0.05 for a few frames, then back with `settle`) is the small compression at contact.
 - Feet stay planted where the last step left them: pitch, lean, the follow, a shake or breathing never slide them.
   Moves, turns, hops, dance steps and `grow` are steps. `qa/motion.mjs` reports a planted foot that slides.

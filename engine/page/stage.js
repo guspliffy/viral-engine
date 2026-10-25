@@ -293,7 +293,7 @@ function pose(t) {
     }
     const h = an.obj ? an.obj.getWorldPosition(new THREE.Vector3()) : an.pos, o = hold.off;
     // a grip point: the prop sits so that point is in the hand; otherwise its own grip height is
-    const g = hold.grip ? gripWorld(p.spec, hold.grip, [0, 0, 0], ps.rot, ps.scale) : [0, p.grip * ps.scale, 0];
+    const g = hold.grip ? gripWorld(p.spec, hold.grip, [0, 0, 0], ps.rot, ps.scale, ps.tilt, ps.tip) : [0, p.grip * ps.scale, 0];
     return [h.x - g[0] + o[0], h.y - g[1] + o[1], h.z - g[2] + o[2]];
   };
   // keep: the offset from the holder that leaves the prop exactly where it was at the grab (measured once, with

@@ -23,10 +23,15 @@ export function gripPoint(spec, grip) {
   if (!g) throw new Error(`prop ${spec.id} (${spec.kind}) has no grip "${grip}"`);
   return spec.kind === "teacup" && spec.saucer === false ? [g[0], g[1] - 0.012, g[2]] : g;
 }
-// a grip point in the world for a prop whose bottom centre is at `at` (its rot about y and its scale applied)
-export function gripWorld(spec, grip, at, rot = spec.rot ?? 0, scale = spec.scale ?? 1) {
-  const [gx, gy, gz] = gripPoint(spec, grip), r = (rot * Math.PI) / 180;
-  return [at[0] + scale * (gx * Math.cos(r) + gz * Math.sin(r)), at[1] + scale * gy, at[2] + scale * (-gx * Math.sin(r) + gz * Math.cos(r))];
+// a grip point in the world for a prop whose bottom centre is at `at`: its scale, then its tilt (about its own z),
+// tip (about its own x) and rot (about y) applied, the same order as the prop's root (YXZ)
+export function gripWorld(spec, grip, at, rot = spec.rot ?? 0, scale = spec.scale ?? 1, tilt = spec.tilt ?? 0, tip = spec.tip ?? 0) {
+  let [x, y, z] = gripPoint(spec, grip).map((v) => v * scale);
+  const c = -(tilt * Math.PI) / 180, k = (tip * Math.PI) / 180, r = (rot * Math.PI) / 180;
+  [x, y] = [x * Math.cos(c) - y * Math.sin(c), x * Math.sin(c) + y * Math.cos(c)];
+  [y, z] = [y * Math.cos(k) - z * Math.sin(k), y * Math.sin(k) + z * Math.cos(k)];
+  [x, z] = [x * Math.cos(r) + z * Math.sin(r), -x * Math.sin(r) + z * Math.cos(r)];
+  return [at[0] + x, at[1] + y, at[2] + z];
 }
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
@@ -283,6 +288,7 @@ const KINDS = {
 
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);
+  root.rotation.order = "YXZ";   // rot (about y) first, then tip and tilt in the prop's own frame, as gripWorld
   const halves = [1, -1].map((s) => { const h = new THREE.Group(); whole.add(h); return [s, h]; });
   const P = { root, whole, halves, spec };
   const kind = KINDS[spec.kind];
@@ -291,7 +297,7 @@ export function buildProp(spec) {
   return {
     spec, root, grip: def.grip ?? 0,
     apply(ps, t) {
-      root.position.set(ps.x, ps.y, ps.z); root.rotation.set(0, (ps.rot * Math.PI) / 180, 0);
+      root.position.set(ps.x, ps.y, ps.z); root.rotation.set((ps.tip * Math.PI) / 180, (ps.rot * Math.PI) / 180, -(ps.tilt * Math.PI) / 180);
       // squash: a cartoon compression toward the bottom (a cup touching down), the volume kept
       const sc = Math.max(ps.scale, 0.0001), q = ps.squash || 0;
       root.scale.set(sc * (1 + q / 2), sc * (1 - q), sc * (1 + q / 2)); root.visible = ps.scale > 0.002;
@@ -304,7 +310,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, scale: spec.scale ?? 1, split: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, fill: spec.fill ?? 1, spill: 0, squash: 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
@@ -316,6 +322,14 @@ export function propState(sb, spec, t) {
     // grip: the hand holds it at that grip point; keep: it stays exactly where it is and from then on moves with the
     // holder (stage.js measures the offset at the grab), so nothing jumps on the handoff
     else if (a.do === "grab") {
+      // a new grip by the hand that already holds it: the prop slides in the hand from the old grip point to the new
+      // one over dur (from the side of a jar to under it, say), so nothing jumps
+      const h = ps.hold;
+      if (h && a.grip && h.grip && h.who === a.who && h.hand === (a.hand || "R") && !h.keep && (a.dur ?? 0) > 0) {
+        const g0 = gripPoint(spec, h.grip), g1 = gripPoint(spec, a.grip), e1 = ease(a.ease || "inOut")(prog(t, a.at, a.dur));
+        ps.hold = { ...h, grip: g0.map((v, i) => v + (g1[i] - v) * e1) };
+        continue;
+      }
       const k = a.keep || a.grip ? 1 : ease("out")(prog(t, a.at, a.dur ?? 0.25));
       ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) };
       ps.left = null;

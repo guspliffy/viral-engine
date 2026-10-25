@@ -150,6 +150,22 @@
     },
     {
      "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
      "do": "grab",
      "prop": "jar",
      "hand": "R",
@@ -203,13 +219,132 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.4,
+       -0.42,
        0.2,
-       0.37
+       0.47
       ]
      },
      "dur": 0.55,
      "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "jar",
+     "hand": "R",
+     "grip": [
+      0.155,
+      -0.05,
+      0.07
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "lid",
+     "hand": "R",
+     "grip": [
+      0.155,
+      -0.3275,
+      0.07
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "R",
+     "grip": [
+      0.155,
+      -0.065,
+      0.07
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "jar",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.065,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "lid",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.3425,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.08,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "pickle",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.25,
+     "at": 1.2
     },
     {
      "who": "wiz",
@@ -542,7 +677,8 @@
      "do": "prop",
      "id": "lid",
      "set": {
-      "spin": 220
+      "spin": 220,
+      "tilt": 0
      },
      "dur": 0.35,
      "at": 0
@@ -619,7 +755,8 @@
      "set": {
       "spin": 360,
       "scale": 1.6,
-      "rot": -94
+      "rot": -94,
+      "tilt": 0
      },
      "dur": 0.27,
      "at": 0.08
