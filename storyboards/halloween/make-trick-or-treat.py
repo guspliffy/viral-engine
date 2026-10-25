@@ -53,7 +53,7 @@ def cap(t, text, length, **kw):
 # ---------------------------------------------------------------- places (set-porch.js PORCH)
 DOOR_X, DOOR_W, WALL_Z = -0.38, 1.15, -0.72
 HINGE = [DOOR_X - DOOR_W / 2, 0, -0.76]
-INSIDE = [-0.30, -1.35]          # where the Reaper (and later the Samurai) stands behind the door
+INSIDE = [-0.30, -1.62]          # where the Reaper (and later the Samurai) stands behind the door
 STEP = [-0.30, -1.12]            # one step forward once the door is open
 KNOCK_AT = [0.32, -0.48]         # the witch, side-on to the door
 W0, P0, G0 = [0.38, -0.12], [0.60, 0.52], [0.92, -0.14]          # the kids on the porch
@@ -61,19 +61,19 @@ W1, P1, G1 = [0.64, 0.30], [0.86, 0.96], [1.20, -0.26]           # backed off to
 SAM_OUT = [-0.52, -0.36]         # the Samurai's spot on the porch for the slashes
 
 # poses (character space: o = [out, up, forward]; the kids are cast at scale 0.5)
-SCYTHE = {"o": [0.04, 0.36, 0.12]}
+SCYTHE = {"o": [0.26, 0.36, 0.22]}
 BOWL = {"o": [-0.22, 0.14, 0.50]}
 BOWL_OFFER = {"o": [-0.12, 0.20, 0.62]}
 BUCKET = {"o": [0.18, 0.28, 0.05]}
 BUCKET_OUT = {"o": [0.16, 0.48, 0.5]}
 KNOCK_IN = {"world": [0.09, 0.40, -0.69]}
-KNOCK_OUT = {"world": [0.12, 0.40, -0.59]}
+KNOCK_OUT = {"world": [0.10, 0.40, -0.635]}
 THROW_BACK = {"o": [0.16, 0.26, -0.10]}
 THROW_UP = {"o": [0.04, 0.80, 0.34]}
 GUARD = {"o": [-0.12, 0.45, 0.34]}
-WIND = {"o": [0.20, 0.70, 0.20]}         # blade out to his right, level
+WIND = GUARD                              # blade upright in front of him, as he came out
 ACROSS = {"o": [-0.35, 0.30, 0.42]}      # blade across to his left
-HIGH = {"o": [0.12, 0.80, 0.12]}         # blade up and out to his right
+HIGH = GUARD                              # the second cut rises back to upright (every stroke stays clear of the open door)
 LOW = {"o": [-0.20, 0.25, 0.40]}         # blade down to his left
 SAM_REST = {"o": [0.24, 0.36, 0.08]}   # the reference staff hold: fist out from the side, blade up
 
@@ -114,9 +114,9 @@ for k, rid in ROLLS.items():
 
 # ---------------------------------------------------------------- 0.0  knock knock
 for i, t in enumerate([0.02, 0.24, 0.46]):
-    act(t, "witch", "arm", side="R", pose=KNOCK_IN, dur=0.07, ease="in")
-    act(t + 0.08, "witch", "arm", side="R", pose=KNOCK_OUT, dur=0.12, ease="out")
-    sfx(t + 0.07, "knock", 0.55)
+    act(t, "witch", "arm", side="R", pose=KNOCK_IN, dur=0.1, ease="linear")
+    act(t + 0.1, "witch", "arm", side="R", pose=KNOCK_OUT, dur=0.12, ease="out")
+    sfx(t + 0.1, "knock", 0.55)
 act(0, "witch", "look", to=[-0.4, 0.1], dur=0.1, blink=False)
 act(0.62, "witch", "arm", side="R", pose="rest", dur=0.3)
 act(0.66, "witch", "move", to=W0, dur=0.4, ease="inOut")
@@ -203,8 +203,8 @@ for k in ("witch", "pumpkin", "ghost"):
     act(SLAM + 0.3, k, "arm", side="L", pose=BUCKET, dur=0.3)
 act(SLAM, "witch", "hatwobble", amount=10, freq=3, dur=0.8)
 # behind the closed door: the Reaper goes, the Samurai comes
-act(SLAM + 0.1, "reaper", "move", to=[0.55, -1.7], dur=0.02)
-act(SLAM + 0.15, "reaper", "hide")
+act(SLAM + 0.1, "reaper", "hide")
+act(SLAM + 0.15, "reaper", "move", to=[0.55, -1.7], dur=0.02)
 act(SLAM + 0.15, "sam", "show")
 
 # ---------------------------------------------------------------- 10.2  the kids' revenge
@@ -237,11 +237,11 @@ for k, d in (("witch", 0.0), ("pumpkin", 0.06), ("ghost", 0.12)):
 # ---------------------------------------------------------------- 12.95  the door bursts open: the Samurai
 BURST = round(THROW + 0.12 + 0.16 + 0.07, 3)
 SLOW = 0.07                      # the rolls' clock during the slow motion
-STEP_OUT = BURST + 4.1
-SLD = 0.12
-SL = [STEP_OUT + 0.35, STEP_OUT + 0.62, STEP_OUT + 0.89]
+STEP_OUT = BURST + 3.4
+SLD = 0.17
+SL = [STEP_OUT + 0.35, STEP_OUT + 0.67, STEP_OUT + 0.99]
 CLICK = round(SL[2] + 0.8, 3)     # the blade goes down, the rolls fall apart
-prop(BURST, "door", 0.16, ease="out", open=1)
+prop(BURST, "door", 0.16, ease="out", open=1.2)   # flung wide, flat to the wall: clear of the blade
 sfx(BURST, "slam", 0.5)
 sfx(BURST + 0.05, "sting", 0.4)
 for k, d in (("witch", 0.0), ("pumpkin", 0.03), ("ghost", 0.05)):
@@ -251,26 +251,27 @@ for k, d in (("witch", 0.0), ("pumpkin", 0.03), ("ghost", 0.05)):
 act(BURST, "sam", "still", dur=1.6, idle=0.1)
 act(BURST + 1.25, "sam", "face", lid=0.42, brow=-0.5, dur=0.4)   # the eyes narrow on the push-in
 act(BURST + 1.25, "sam", "look", to=[0.35, 0.05], dur=0.4, blink=False)
-GLINT = BURST + 3.55
+GLINT = BURST + 2.9
 at(GLINT, fx="glint", who="sam", dur=0.6, size=0.22)
 sfx(GLINT, "shing", 0.5)
 # step out and slash
 act(STEP_OUT, "sam", "move", to=SAM_OUT, dur=0.3, ease="inOut")
+act(STEP_OUT, "sam", "arm", side="L", pose={"o": [0.12, 0.12, -0.25]}, dur=0.3)   # the free hand back behind him, clear of the cut rolls
 act(STEP_OUT, "sam", "face", lid=0.3, brow=-0.6, dur=0.2)
 CUT_AT = [0.8, 0.3, 0.75]      # where in each swing the blade meets its roll (late in the first, early in the second...)
 act(STEP_OUT + 0.05, "sam", "arm", side="R", pose=WIND, dur=0.25, ease="inOut")
-act(STEP_OUT + 0.05, "sam", "tilt", to=[20, 70], dur=0.25)
-for i, (t, pose, tl) in enumerate([(SL[0], ACROSS, [70, -60]), (SL[1], HIGH, [-30, 40]), (SL[2], LOW, [60, -100])]):
+act(STEP_OUT + 0.05, "sam", "tilt", to=[0, 0], dur=0.25)
+for i, (t, pose, tl) in enumerate([(SL[0], ACROSS, [70, -60]), (SL[1], HIGH, [0, -10]), (SL[2], LOW, [60, -100])]):
     act(t, "sam", "arm", side="R", pose=pose, dur=SLD, ease="inOut")
     act(t, "sam", "tilt", to=tl, dur=SLD, ease="inOut")
     act(t, "sam", "lean", to=[-8, 6, -10][i], dur=SLD)
-    at(t, fx="trail", who="sam", dur=SLD, len=0.07, color="#7dffb4", **{"from": 0.7})
+    at(t, fx="trail", who="sam", dur=SLD, len=0.07, color="#7dffb4", **{"from": 0.6})
     sfx(t, "whoosh", 0.45, dur=0.2)
 act(SL[2] + 0.2, "sam", "still", dur=CLICK - SL[2] - 0.2, idle=0.05, fade=0.1)
 act(SL[2] + 0.3, "sam", "lean", to=0, dur=0.5)
 # the blade goes down with a click, and everything he cut falls apart
-act(CLICK - 0.3, "sam", "arm", side="R", pose=SAM_REST, dur=0.3, ease="inOut")
-act(CLICK - 0.3, "sam", "tilt", to=[0, 8], dur=0.3)
+# the blade stays low where the last cut ended: a small flick on the click (it never crosses his face up close)
+act(CLICK - 0.1, "sam", "tilt", to=[48, -92], dur=0.1, ease="out")
 act(CLICK - 0.3, "sam", "face", lid=0.55, dur=0.25)
 sfx(CLICK, "click", 0.5)
 
@@ -284,24 +285,33 @@ for k, d in (("witch", 0.22), ("pumpkin", 0.1), ("ghost", 0.0)):
 say(RUN - 0.2, "ghost", "AAAAH!", tone="excited", caption=False)
 cap(RUN - 0.2, "AAAAH!", 1.0)
 # the Samurai goes back in, the door shuts
-act(RUN + 0.6, "sam", "turn", to=180, dur=0.4)
-act(RUN + 0.9, "sam", "move", to=INSIDE, dur=0.6, ease="inOut")
-prop(RUN + 1.45, "door", 0.45, ease="inOut", open=0)
-sfx(RUN + 1.9, "land", 0.35)
-act(RUN + 1.95, "sam", "hide")
+act(RUN + 0.05, "sam", "arm", side="R", pose=GUARD, dur=0.3, ease="inOut")   # blade back upright while the kids run (wide shot)
+act(RUN + 0.05, "sam", "tilt", to=[0, 0], dur=0.3, ease="inOut")
+act(RUN + 0.35, "sam", "turn", to=180, dur=0.35)
+act(RUN + 0.6, "sam", "move", to=INSIDE, dur=0.5, ease="inOut")
+prop(RUN + 1.05, "door", 0.4, ease="inOut", open=0)
+sfx(RUN + 1.45, "land", 0.35)
+act(RUN + 1.6, "sam", "hide")
 # the witch tiptoes back and knocks (the loop)
-BACK = RUN + 2.2
+BACK = RUN + 1.7
+for k, home, face in (("pumpkin", P0, -35), ("ghost", G0, -48)):
+    # they follow the witch, a step behind her, so nobody's path crosses
+    act(BACK + 0.15, k, "turn", to=-90, dur=0.01)
+    act(BACK + 0.15, k, "expr", expr="eager", dur=0.2)
+    act(BACK + 0.15, k, "move", to=home, dur=0.85, ease="out", steps=3.5)
+    act(BACK + 0.8, k, "turn", to=face, dur=0.2)
+    act(BACK + 0.8, k, "look", to=[-0.5, 0.15], dur=0.2, blink=False)
+act(BACK + 0.35, "witch", "look", to=[0, 0.2], dur=0.15, blink=False)
 act(BACK, "witch", "turn", to=-72, dur=0.01)
 act(BACK, "witch", "move", to=KNOCK_AT, dur=0.85, ease="out", steps=3)
 act(BACK, "witch", "expr", expr="eager", dur=0.2)
 act(BACK, "witch", "arm", side="L", pose=BUCKET, dur=0.2)
 act(BACK + 0.6, "witch", "arm", side="R", pose=KNOCK_OUT, dur=0.25)
-act(BACK + 0.6, "witch", "look", to=[-0.4, 0.1], dur=0.15, blink=False)
+act(BACK + 0.7, "witch", "look", to=[-0.4, 0.1], dur=0.15, blink=False)
 END = BACK + 1.05
-for t in (BACK + 0.92,):
-    act(t, "witch", "arm", side="R", pose=KNOCK_IN, dur=0.07, ease="in")
-    sfx(t + 0.07, "knock", 0.55)
-    act(t + 0.08, "witch", "arm", side="R", pose=KNOCK_OUT, dur=0.12, ease="out")
+for t in (BACK + 0.95,):
+    act(t, "witch", "arm", side="R", pose=KNOCK_IN, dur=0.1, ease="linear")
+    sfx(t + 0.1, "knock", 0.55)
 
 # ---------------------------------------------------------------- props placed from the layout
 def frame_of(t):
@@ -338,6 +348,7 @@ if f0 and fc:
     buck = prop_at(frame_of(CANDY_T + 0.42), "b_witch")["at"]
     act(CANDY_T, "reaper", "release", prop="candy", to=[buck[0], buck[1] + 0.05, buck[2]], dur=0.42, arc=0.18, ease="linear")
     act(CANDY_T + 0.43, "witch", "grab", prop="candy", hand="L", keep=True, pose=None)
+    at(CANDY_T + 0.42, fx="glint", pos=[buck[0], buck[1] + 0.12, buck[2]], dur=0.45, size=0.08)
     for k, rid in ROLLS.items():
         bk = prop_at(f0, BUCKETS[k][0])["at"]
         pr = next(p for p in props if p["id"] == rid)
@@ -368,7 +379,7 @@ if lay:
         s = actor(fs, "sam")
         if s and s.get("prop"):
             a, b = s["prop"]["a"], s["prop"]["b"]
-            u = 0.62
+            u = 0.78
             contact[k] = [a[j] + (b[j] - a[j]) * u for j in range(3)]
 
 if lay and len(contact) == 3:
@@ -390,7 +401,9 @@ if lay and len(contact) == 3:
         t = t0 + 1 / FPS
         last = None
         while t < tsplit - 1e-6:
-            tau = clock(t + 1 / FPS) - clock(t0)
+            # once cut, a roll all but stops in the air (a tenth of the slow motion) until the click
+            tn = t + 1 / FPS
+            tau = clock(min(tn, ts)) - clock(t0) + (0.1 * (clock(tn) - clock(ts)) if tn > ts else 0)
             p = [p0[j] + v[j] * tau + (0.5 * G * tau * tau if j == 1 else 0) for j in range(3)]
             st = {"x": round(p[0], 4), "y": round(p[1], 4), "z": round(p[2], 4), "tip": round(spin * tau, 2), "rot": rot0}
             prop(t, rid, round(1 / FPS, 4), ease="linear", **st)
@@ -409,17 +422,19 @@ if lay and len(contact) == 3:
 
 # ---------------------------------------------------------------- the camera: one continuous move
 WIDE = {"pos": [0.36, 0.82, 6.0], "look": [0.30, 0.76, -0.30], "fov": 36}
-CLOSE_DOOR = {"pos": [0.0, 0.95, 4.6], "look": [-0.05, 0.75, -0.6], "fov": 34}
+CLOSE_DOOR = {"pos": [0.0, 0.95, 4.6], "look": [0.12, 0.75, -0.6], "fov": 34}
 FACE = {"pos": [-0.18, 0.86, 0.05], "look": [-0.30, 0.78, -1.35], "fov": 30}
 HILT = {"pos": [-0.42, 0.66, -0.1], "look": [-0.58, 0.62, -1.0], "fov": 30}
 TIP = {"pos": [-0.40, 1.42, -0.12], "look": [-0.58, 1.35, -1.0], "fov": 30}
 CANDY_CAM = {"pos": [0.32, 0.72, 3.3], "look": [0.06, 0.48, -0.5], "fov": 34}
-SLASH = {"pos": [0.25, 0.95, 3.8], "look": [0.05, 0.72, -0.25], "fov": 36}
+SLASH = {"pos": [-0.12, 1.1, 4.5], "look": [-0.25, 1.02, -0.36], "fov": 36}
+OPEN = {"pos": [0.08, 0.92, 4.4], "look": [0.0, 0.70, -0.6], "fov": 34}
+KIDS_CAM = {"pos": [0.9, 1.35, 3.6], "look": [0.85, 0.45, 0.1], "fov": 34}   # a little high, over the pumpkin
 CUTS = {"pos": [0.2, 0.62, 2.4], "look": [0.05, 0.35, -0.15], "fov": 34}
 if SPLIT_AT:
     cx = sum(p[0] for p in SPLIT_AT) / len(SPLIT_AT); cy = sum(p[1] for p in SPLIT_AT) / len(SPLIT_AT); cz = sum(p[2] for p in SPLIT_AT) / len(SPLIT_AT)
     mx, mz = (cx + SAM_OUT[0]) / 2, (cz + SAM_OUT[1]) / 2
-    CUTS = {"pos": [round(mx + 0.3, 3), round(0.72, 3), round(mz + 2.7, 3)], "look": [round(mx, 3), round(0.55, 3), round(mz, 3)], "fov": 34}
+    CUTS = {"pos": [round(mx + 0.15, 3), round(0.85, 3), round(mz + 3.3, 3)], "look": [round(mx, 3), round(0.65, 3), round(mz, 3)], "fov": 34}
 
 
 def key(t, k, stop=False):
@@ -430,26 +445,30 @@ def key(t, k, stop=False):
 
 
 camera = [
-    key(0, WIDE, True),
+    key(0, OPEN, True),
+    key(0.9, OPEN, True),
+    key(1.6, WIDE, True),
     key(4.1, {**WIDE, "pos": [0.30, 0.82, 5.5]}),
     key(4.75, CANDY_CAM, True),
     key(6.55, CANDY_CAM, True),
     key(7.4, {**WIDE, "pos": [0.24, 0.84, 5.3]}),
     key(9.8, CLOSE_DOOR, True),
     key(10.4, CLOSE_DOOR, True),
-    key(12.2, WIDE, True),
+    key(11.5, KIDS_CAM, True),
+    key(12.5, KIDS_CAM, True),
     key(BURST, WIDE, True),
     key(BURST + 1.15, FACE, True),
-    key(BURST + 1.75, FACE, True),
-    key(BURST + 2.45, HILT),
-    key(BURST + 3.55, TIP, True),
-    key(BURST + 3.9, TIP, True),
+    key(BURST + 1.65, FACE, True),
+    key(BURST + 2.2, HILT),
+    key(BURST + 2.9, TIP, True),
+    key(BURST + 3.2, TIP, True),
     key(STEP_OUT + 0.35, SLASH, True),
     key(CLICK - 0.5, SLASH, True),
     key(CLICK + 0.35, CUTS, True),
     key(CLICK + 0.55, CUTS, True),
     key(RUN + 0.6, WIDE, True),
-    key(END, WIDE, True),
+    key(BACK + 0.1, WIDE, True),
+    key(END, OPEN, True),
 ]
 
 # ---------------------------------------------------------------- beats (for the reviews and contact sheets)
@@ -478,7 +497,7 @@ sb = {
     "fps": FPS,
     "look": "anime-pro",
     "profile": "short",
-    "cover": round(BURST + 3.62, 2),
+    "cover": round(GLINT + 0.07, 2),
     "creative": {"length": [12, 24]},
     "set": {"type": "porch", "seed": 7},
     "music": {"style": "sneaky"},

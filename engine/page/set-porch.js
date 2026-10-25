@@ -251,7 +251,7 @@ export function buildPorch(scene, S = {}) {
   const mat = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.4), std("#ffffff", { map: tex(mc), roughness: 0.95 })); mat.rotation.x = -Math.PI / 2; mat.position.set(P.doorX, 0.006, z0 + 0.32); mat.receiveShadow = true; mat.material.userData.noOutline = true; set.add(mat);
 
   // jack-o'-lanterns: a pair at the left of the door and one by the steps; a big one on the lawn
-  jackOLantern(set, -1.95, z0 + 0.3, 0.17, 0.25); jackOLantern(set, -1.65, z0 + 0.5, 0.11, 0.1);   // clear of the open door
+  jackOLantern(set, -1.95, z0 + 0.3, 0.17, 0.25); jackOLantern(set, -1.55, z0 + 0.17, 0.11, 0.1);   // clear of the open door, even flung wide
   jackOLantern(set, 1.65, P.deckFront - 0.25, 0.15, -0.4);
   // a window left of the door, warm behind curtains
   const winX = -2.25;

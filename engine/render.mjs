@@ -119,7 +119,9 @@ async function mux(video, wav, outFile, from, len) {
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
   const gain = LOUDNESS.I - Number(j.input_i), limit = Math.pow(10, LOUDNESS.TP / 20);
-  const af = `volume=${gain.toFixed(2)}dB,alimiter=limit=${limit.toFixed(4)}:attack=2:release=60:level=0`;
+  // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
+  // otherwise comes out of the AAC encoder above the true-peak limit)
+  const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${limit.toFixed(4)}:attack=2:release=60:level=0,aresample=44100`;
   await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", af, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
   return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp) };
 }
