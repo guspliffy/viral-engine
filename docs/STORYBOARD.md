@@ -76,6 +76,10 @@ moving at once.
   Off by default (older clips keep their timing); turn it on for new acting.
 - `grab` with `"pose": null` closes the hand on the prop where it stands instead of swinging the arm to `hold`:
   give the hand a beat of contact, then lift with an `arm` action (`inOut` over half a second reads as weight).
+- A thought shows on the face one part at a time: `{ "do": "expr", "set": { "eye": 1.15, "pupil": 0.75 } }` widens
+  only the eyes, then `{ "set": { "raise": 0.045 } }` lifts one brow and `{ "set": { "curve": -0.15, "smirk": 0.2 } }`
+  tightens the mouth, each a few frames apart. `set` changes only the numbers it names (`face.js` → `EXPRESSIONS`),
+  on top of `expr` when one is given, otherwise on top of the face as it is.
 - `"ease": "settle"` overshoots the target by about 4 % and eases back: follow-through on arms, turns and moves.
   `"antic"` pulls back about 4 % before it goes (anticipation). `"anticSettle"` does both.
 
@@ -88,7 +92,8 @@ moving at once.
   of your own in the prop's frame, `[x, y, z]` metres from its bottom centre. `off` nudges the target.
 - `grab` with the same `grip` holds the prop by that point, so a hand that reached it closes on it with no jump.
   `"keep": true` holds it wherever it is instead (the offset is measured at the grab). `"hand": "hat"` with `keep`
-  sticks it to the hat. A `release` with `"dur": 0` and no `to` lets go where it is: put it down first, then let go.
+  sticks it to the hat. A `release` with `"dur": 0` and no `to` lets go where it is: put it down first, then let go. A
+  `prop` tween of `squash` (about 0.05 for a few frames, then back with `settle`) is the small compression at contact.
 - Feet stay planted where the last step left them: pitch, lean, the follow, a shake or breathing never slide them.
   Moves, turns, hops, dance steps and `grow` are steps. `qa/motion.mjs` reports a planted foot that slides.
 - No automatic blink lands in a `still` hold, on an expression change or during a `look`.

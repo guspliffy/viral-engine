@@ -94,7 +94,9 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "lean": st.lean = lerp(st.lean, ((a.to ?? 0) * Math.PI) / 180, e); break;
       // tip forward (+) or back about the body's middle; 360 is a flip (see the pivot below the loop)
       case "pitch": st.flip = lerp(st.flip, ((a.to ?? 0) * Math.PI) / 180, e); break;
-      case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
+      // set: change only some of the face's numbers (face.js), e.g. one brow up ({ raise }) or the mouth tightening
+      // ({ curve, smirk }), on top of the named expression or of the face as it is
+      case "expr": st.expr = blendExpr(st.expr, a.set ? { ...(EXPRESSIONS[a.expr] || st.expr), ...a.set } : EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
       case "talk": {
         // mouth follows the same syllables the voice synth speaks (engine/shared/syllables.js)
