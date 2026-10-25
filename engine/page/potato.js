@@ -1,5 +1,5 @@
 import * as THREE from "three";
-const _fist = new THREE.Quaternion();
+const _fist = new THREE.Quaternion(), _thumbFist = new THREE.Vector3(0.046, 0.05, 0.02);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
@@ -114,7 +114,7 @@ export class Character {
     // the handle runs along x through the curl of the fingers, between them and the top of the palm
     const grip = dc ? new THREE.Mesh(new THREE.SphereGeometry(0.008, 8, 6), new THREE.MeshBasicMaterial({ color: "#ffffff", depthTest: false })) : new THREE.Object3D();
     grip.position.set(0.002, 0.04, 0.016); g.add(grip);
-    g.userData = { ...g.userData, fingers, index, thumb, grip, side: s };
+    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, side: s };
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
@@ -147,6 +147,14 @@ export class Character {
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
     U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index;
     U.thumb.rotation.set(0, -1.15 * gr.thumb, 0.35 * gr.thumb);
+    // on a handle the thumb lies over the top of the fist pointing back towards the body (Jonny: the thumb faces the body,
+    // not away from it), wrapping a little over the front of the shaft
+    const tw = axis ? fistWeight(gr.curl) : 0;
+    U.thumb.position.copy(U.thumbRest);
+    if (tw > 0) {
+      U.thumb.position.lerp(_thumbFist, tw);
+      U.thumb.rotation.set(0.35 * tw, -1.15 * gr.thumb * (1 - tw), 0.35 * gr.thumb * (1 - tw) - 1.7 * tw);
+    }
   }
   // where a prop held in hand s sits, in the root's space (the hand centre for ball hands)
   gripPoint(s) {
