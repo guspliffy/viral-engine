@@ -482,7 +482,7 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, q: { R: k.qR.map(r), L: k.qL.map(r) } };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) } };
   }) };
 }
 

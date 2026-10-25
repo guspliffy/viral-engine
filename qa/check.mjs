@@ -151,7 +151,7 @@ export function clipResults(sb, layout) {
 }
 
 // grips and limbs, from the layout's per-frame "contacts" (potato.js contact()): the arm holding a staff passing through
-// it, the staff going into the body, an arm through a hat brim, and a hand that turns further in one frame than a hand
+// it, the staff going into the body, an arm through a hat brim or up inside a helmet's glass, and a hand that turns further in one frame than a hand
 // can (a pop; it may be hidden behind what the hand holds, so it warns)
 export function contactResults(layout) {
   const out = [], rows = layout?.contacts || [];
@@ -168,6 +168,7 @@ export function contactResults(layout) {
     for (const sp of staffSpans("body", RULES.staffInBody)) { found++; out.push({ level: "fail", check: "grip", msg: `${id}: the staff goes into the body at ${when(sp)}: hold it further out from the side` }); }
     for (const s of ["R", "L"]) {
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
+      for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
       for (let i = 1; i < st.length; i++) {
         const a = st[i - 1], b = st[i]; if (!a || !b) continue;
         const d = turn(a.q[s], b.q[s]);

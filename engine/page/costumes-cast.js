@@ -184,6 +184,7 @@ export function castCostume(C, ch) {
     const R = Math.max(ch.rx, ch.ry * 0.78) + 0.12;
     const glass = new THREE.Mesh(new THREE.SphereGeometry(R, 40, 28, 0, Math.PI * 2, 0, Math.PI * 0.62), new THREE.MeshPhysicalMaterial({ color: "#dff2ff", roughness: 0.05, metalness: 0, transparent: true, opacity: 0.16, depthWrite: false, clearcoat: 1 }));
     glass.position.set(0, ch.cy + ch.ry * 0.22, 0.01); parts.add(glass);
+    out.helmet = { mesh: glass, r: R };   // potato.js contact(): a raised arm must not run up inside the glass
     out.sitDepth = 0.02;
   }
   if (T === "viking") {

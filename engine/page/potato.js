@@ -376,6 +376,23 @@ export class Character {
         }
       }
     }
+    // the helmet glass as a sphere: how deep a raised arm runs inside it above the glass's middle (the arm root sits
+    // inside the glass on every pose, so an arm that leaves it low, beside the shoulder, is fine)
+    const hm = this.costume.helmet;
+    if (hm && hm.mesh.visible) {
+      this.root.updateMatrixWorld(true);
+      const m = hm.mesh.matrixWorld.clone().premultiply(this.root.matrixWorld.clone().invert());
+      const ctr = new THREE.Vector3().setFromMatrixPosition(m), sc = new THREE.Vector3().setFromMatrixScale(m), R = hm.r * Math.max(sc.x, sc.y, sc.z), c = new THREE.Vector3();
+      out.helmet = { R: 0, L: 0 };
+      for (const s of ["R", "L"]) {
+        const curve = curveOf(s); if (!curve || !this.arms[s].mesh?.visible) continue;
+        for (let i = 0; i <= 40; i++) {
+          curve.getPoint(i / 40, c);
+          if (c.y < ctr.y) continue;
+          out.helmet[s] = Math.max(out.helmet[s], R - this.limbW / 2 - c.distanceTo(ctr));
+        }
+      }
+    }
     for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
     return out;
   }

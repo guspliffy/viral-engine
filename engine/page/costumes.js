@@ -259,6 +259,8 @@ export function buildCostume(def, ch) {
     hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
     // the brim as a disc (potato.js contact(): arms reaching through it)
     hatBrim: hat && hat.brimR ? { group: hat.group, r: hat.brimR } : null,
+    // a see-through helmet as a sphere (the Astronaut's bubble): arms reaching up inside it
+    helmet: cc?.helmet || null,
     // the direction of the held handle in root space, for the hand that holds it (null for the other hand)
     propAxis(st, s) {
       if (!prop || s !== propHand || prop.axis === false) return null;
