@@ -375,7 +375,8 @@ export class Character {
         const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
         body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
       }
-      out.staff = { hand: s, arm, body, tip: L.a.y, gripOff: seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip), par: a.hand.userData.fistPar ?? 0 };
+      out.staff = { hand: s, arm, body, tip: L.a.y, gripOff: seg.closestPointToPoint(L.grip, false, q).distanceTo(L.grip), par: a.hand.userData.fistPar ?? 0,
+        fist: L.grip.toArray().map((v) => Math.round(v * 1000) / 1000), end: L.b.toArray().map((v) => Math.round(v * 1000) / 1000) };   // fist and tip in root space (aiming a cut)
     }
     // the brim as a disc around the hat's up axis (costume hatBrim: its group and radius), in the root's space
     const hb = this.costume.hatBrim;

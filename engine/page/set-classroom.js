@@ -3,7 +3,7 @@ import { rng } from "./util.js";
 
 // "classroom": a sunny school classroom for the TEST clip, seen from the teacher's side. Lino floor, a back wall at
 // z -2.35 with a big green chalkboard ("TEST" and some sums in chalk), an alphabet strip above it, a cork board with
-// pinned drawings at the right, a tall window at the left and a row of empty desks at the far edges. Put a "desk"
+// pinned drawings at the right, a tall window at the left and a row of empty desks at the far edges. Put a "schooldesk"
 // prop at x 0, z -1.0 (its pupil sits behind it facing the camera) and a "clock" prop on the wall above the board's
 // right end (x 0.95, y 2.55, z -2.3).
 // spec: { type: "classroom", seed }

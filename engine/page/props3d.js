@@ -1,21 +1,24 @@
 import * as THREE from "three";
-import { clamp, lerp, ease, prog } from "./util.js";
+import { clamp, lerp, ease, prog, rng as rngOf } from "./util.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
-// clock, gift box, phone, cake, banner and a pickle that can leave its jar. The first seven have the same names and
+// clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
+// cuts into confetti (shred) and a desk nameplate that splits in two. The first seven have the same names and
 // settings as the puppet props (puppet/page/props.js), so a puppet storyboard ports over.
 //   sb.props[]: { id, kind, x, y (the prop's bottom), z, rot (degrees about y; a chair at 90 faces right), scale }
-//   { do: "prop", id, at, dur, ease, set: { split, glow, lid, twist, fill, spill, lit, spin, x, y, z, rot, scale } } tweens the numbers
+//   { do: "prop", id, at, dur, ease, set: { split, shred, glow, lid, twist, fill, spill, lit, spin, x, y, z, rot, scale } } tweens the numbers
 //   { who, do: "grab", prop, hand: R | L | both, off: [x, y, z] } the prop follows the hand (it lifts its arm to "hold")
 //   { who, do: "release", prop, to: [x, y, z], dur, arc } puts it down at `to` (or leaves it where the hand let go);
 //   arc (metres) throws it in a curve instead of a straight line, and works on a prop tween's x, y, z too
 // Splitting: each prop that can split is built as a left and a right half that slide and tip apart.
 export const SEAT_Y = 0.42;   // a chair's seat height (timeline.js sits a character on it)
 export const TABLE_Y = 0.62;  // a table's top
+export const DESK_Y = 0.42;   // an office desk's top: a standing potato's resting hand height
 // grip points: where a hand closes on a prop, in the prop's own frame (metres from its bottom centre, before rot and
 // scale). A grab or an arm pose names one ("grip": "handle") or gives its own point ("grip": [x, y, z]).
 const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
+  nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -638,7 +641,7 @@ const KINDS = {
   // a school desk with its chair: the origin is the chair seat (at SEAT_Y, so "sit" works; the pupil faces +z), the
   // desk top (TABLE_Y) runs from z 0.28 to 0.78 with a front panel facing the camera. Built in halves; smash 0..1
   // breaks the desk top in the middle (both halves fold down into a V)
-  desk(P) {
+  schooldesk(P) {
     const top = mat("#e2b36f", { roughness: 0.55 }), metal = mat("#5a6b7d", { roughness: 0.45, metalness: 0.3 }), seat = mat("#4f86cf", { roughness: 0.6 });
     const W = 1.0, Z0 = 0.28, D = 0.5;
     const parts = [];
@@ -1164,6 +1167,77 @@ const KINDS = {
     };
   },
 
+  // an office desk with a front panel (it hides the legs of whoever stands behind it), top at DESK_Y
+  officedesk(P) {
+    const top = mat(P.spec.color || "#d9c3a0", { roughness: 0.55 }), side = mat(P.spec.panel || "#7d6a55", { roughness: 0.7 });
+    const W = P.spec.w ?? 1.3, D = P.spec.d ?? 0.5;
+    mesh(new THREE.BoxGeometry(W, 0.05, D), top, P.whole, 0, DESK_Y - 0.025, 0);
+    mesh(new THREE.BoxGeometry(W - 0.06, DESK_Y - 0.08, 0.03), side, P.whole, 0, (DESK_Y - 0.05) / 2, D / 2 - 0.06);
+    for (const x of [-1, 1]) mesh(new THREE.BoxGeometry(0.04, DESK_Y - 0.05, D - 0.04), side, P.whole, x * (W / 2 - 0.03), (DESK_Y - 0.05) / 2, 0);
+    return { grip: DESK_Y };
+  },
+  // a report lying flat: a title and grey lines on a white sheet, cut into pieces. shred 0..1 frees the pieces in a
+  // fixed order; each freed piece hops up and turns over (a slice through it) and lands in a pile where the sheet was,
+  // so one "prop" tween of shred per sword stroke sends a batch of paper flying. Pure function of shred: no memory.
+  report(P) {
+    const W = 0.34, D = 0.46, NX = 5, NZ = 7, rnd = rngOf(P.spec.seed ?? 7);
+    const cv = document.createElement("canvas"); cv.width = 300; cv.height = 400;
+    const g = cv.getContext("2d"); g.fillStyle = "#fbfaf6"; g.fillRect(0, 0, 300, 400);
+    g.fillStyle = "#26324a"; g.font = "900 46px sans-serif"; g.textAlign = "center"; g.fillText(P.spec.title || "REPORT", 150, 70);
+    g.fillStyle = "#b9c0cc"; for (let y = 110; y < 380; y += 26) g.fillRect(34, y, y % 78 === 32 ? 150 : 232, 9);
+    const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    const paper = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.85, side: THREE.DoubleSide });
+    const pieces = [];
+    for (let i = 0; i < NX; i++) for (let j = 0; j < NZ; j++) {
+      const w = W / NX, d = D / NZ, geo = new THREE.PlaneGeometry(w, d);
+      const uv = geo.attributes.uv; for (let k = 0; k < uv.count; k++) uv.setXY(k, (i + uv.getX(k)) / NX, 1 - (j + 1 - uv.getY(k)) / NZ);
+      const o = new THREE.Mesh(geo, paper); o.castShadow = o.receiveShadow = true; o.rotation.order = "YXZ"; P.whole.add(o);   // laid flat, then turned about the vertical
+      const home = [-W / 2 + (i + 0.5) * w, 0.003, -D / 2 + (j + 0.5) * d], a = rnd() * Math.PI * 2, r = 0.02 + rnd() * 0.07;
+      pieces.push({ o, home, pile: [Math.cos(a) * r * 1.4, 0.004 + rnd() * 0.012, Math.sin(a) * r], at: rnd(),
+        hop: 0.18 + rnd() * 0.22, spin: [(rnd() - 0.5) * 9, (rnd() - 0.5) * 6, (rnd() - 0.5) * 9], yaw: (rnd() - 0.5) * 3 });
+    }
+    // the pieces go in batches (spec.batches, default 5): tween shred from b/B to (b+1)/B for stroke b and that batch
+    // flies and lands completely within the tween, a little staggered, so nothing hangs in the air between strokes
+    const B = P.spec.batches ?? 5;
+    pieces.sort((x, y) => x.at - y.at).forEach((q, n) => { q.batch = Math.floor((n * B) / pieces.length); q.delay = rnd() * 0.25; });
+    return {
+      grip: 0,
+      apply(ps) {
+        for (const q of pieces) {
+          const k = clamp((ps.shred * B - q.batch) * 1.25 - q.delay), e = k * k * (3 - 2 * k), up = 4 * q.hop * k * (1 - k);
+          q.o.position.set(lerp(q.home[0], q.pile[0], e), lerp(q.home[1], q.pile[1], e) + up, lerp(q.home[2], q.pile[2], e));
+          // whole half-turns over the flight, so it lands flat (face up or down) with no snap
+          q.o.rotation.set(-Math.PI / 2 + Math.round(q.spin[0] / Math.PI) * Math.PI * e, q.yaw * e + q.spin[1] * k * (1 - k), q.spin[2] * k * (1 - k));
+        }
+      },
+    };
+  },
+  // a desk nameplate: a dark wooden wedge with a brass plate and one word (spec.text, default MANAGER), facing +z.
+  // split 0..1 cuts it in the middle: each half tips outward over its outer bottom edge (it stays on the desk) and slides
+  nameplate(P) {
+    const W = P.spec.w ?? 0.4, H = 0.1, D = 0.08, wood = mat("#3b2a20", { roughness: 0.5 });
+    const sh = new THREE.Shape(); sh.moveTo(-D / 2, 0); sh.lineTo(D / 2, 0); sh.lineTo(D * 0.1, H); sh.lineTo(-D * 0.35, H); sh.closePath();
+    const cv = document.createElement("canvas"); cv.width = 512; cv.height = 112;
+    const g = cv.getContext("2d"); const gr = g.createLinearGradient(0, 0, 0, 112); gr.addColorStop(0, "#f3d27a"); gr.addColorStop(1, "#c79a3a");
+    g.fillStyle = gr; g.fillRect(0, 0, 512, 112); g.fillStyle = "#2a1d10"; g.font = "900 70px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(P.spec.text || "MANAGER", 256, 60);
+    const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    const brass = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.35, metalness: 0.4 }); brass.userData.noOutline = true;
+    const slope = Math.atan2(D * 0.4, H), pivots = [];   // the front face runs from z D/2 at the bottom to 0.1 D at the top
+    for (const s of [1, -1]) {
+      // the pivot sits on the outer bottom edge; the half hangs off it toward the middle
+      const pv = new THREE.Group(); pv.position.x = (s * W) / 2; P.whole.add(pv); pivots.push([s, pv]);
+      const body = new THREE.ExtrudeGeometry(sh, { depth: W / 2, bevelEnabled: false }); body.rotateY(-Math.PI / 2);
+      mesh(body, wood, pv, s > 0 ? 0 : W / 2, 0, 0);
+      // the two halves of the brass meet in the middle, each with its half of the word
+      const pl = new THREE.PlaneGeometry(W * 0.46, H * 0.8), uv = pl.attributes.uv;
+      for (let k = 0; k < uv.count; k++) uv.setX(k, (s > 0 ? 0.5 : 0) + uv.getX(k) * 0.5);
+      const plate = new THREE.Mesh(pl, brass); plate.rotation.x = -slope; plate.position.set(-s * W * 0.27, H / 2 + 0.003 * Math.sin(slope), D * 0.3 + 0.003 * Math.cos(slope)); pv.add(plate);   // on the face, just off it
+    }
+    return {
+      grip: H,
+      apply(ps) { const k = clamp(ps.split); for (const [s, pv] of pivots) { pv.rotation.z = -s * 0.5 * k; pv.position.x = (s * W) / 2 + s * 0.04 * k; } },
+    };
+  },
 };
 
 // steam: three thin wavy wisps rising from a hot drink, drawn as ribbons that always face the camera. The waves travel
@@ -1234,7 +1308,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, hold: null, left: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

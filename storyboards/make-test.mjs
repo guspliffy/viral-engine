@@ -12,7 +12,7 @@ const c = clip({
   format: "each-character-vs-X, one continuous take: fighters take turns at one desk, a new test each time, each takes it their own way",
   set: { type: "classroom" },
   props: [
-    { id: "desk", kind: "desk", x: DESK[0], z: DESK[1] },
+    { id: "desk", kind: "schooldesk", x: DESK[0], z: DESK[1] },
     { id: "paper", kind: "paper", x: PAPER[0], y: PAPER[1], z: PAPER[2], write: 0.3, tilt: 35 },   // leaning up, so the camera (the teacher) can read it
     { id: "pencil", kind: "pencil", x: 0.3, y: TOP + 0.012, z: -0.42, roll: -90, rot: 15, len: 1, scale: 1.6 },
     { id: "clock", kind: "clock", x: CLOCK[0], y: CLOCK[1], z: CLOCK[2], scale: 0.8, time: 9.0 },

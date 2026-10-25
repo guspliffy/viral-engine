@@ -55,6 +55,37 @@ function buildPoof(f, i) {
   };
 }
 
+// A sword slash ("slash"): a crescent smear along the blade's path for a few frames, the motion blur of a cut that is
+// faster than a frame. pos: the arc's centre (the fist's pivot), rot: [x, y, z] degrees (the arc lies in its own xy
+// plane, sweeping from angle `from` through `arc`, degrees), r: the blade's reach. It grows along the sweep, then fades.
+function buildSlash(f) {
+  const g = new THREE.Group(), N = 40, r = f.r ?? 0.8, w = f.width ?? 0.12, a0 = ((f.from ?? 90) * Math.PI) / 180, A = ((f.arc ?? -100) * Math.PI) / 180;
+  const geo = new THREE.BufferGeometry(), pos = new Float32Array((N + 1) * 2 * 3), idx = [];
+  const m = new THREE.MeshBasicMaterial({ color: f.color || "#eafff2", transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+  m.userData.noOutline = true;
+  for (let i = 0; i < N; i++) { const k = i * 2; idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2); }
+  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setIndex(idx);
+  const o = new THREE.Mesh(geo, m); o.frustumCulled = false; o.renderOrder = 4; g.add(o); scene.add(g);
+  g.rotation.set(...(f.rot || [0, 0, 0]).map((d) => (d * Math.PI) / 180));
+  return {
+    f, g,
+    apply(t, origin) {
+      const k = t - f.at, d = f.dur ?? 0.16;
+      g.visible = k >= 0 && k <= d;
+      if (!g.visible) return;
+      g.position.copy(origin);
+      // the head of the smear runs ahead with the blade over the first half, the tail catches up over the second
+      const head = clamp(k / (d * 0.5)), tail = clamp((k - d * 0.35) / (d * 0.65));
+      for (let i = 0; i <= N; i++) {
+        const u = tail + (head - tail) * (i / N), an = a0 + A * u, th = w * Math.sin(Math.PI * (i / N)) * (1 - 0.5 * tail);
+        pos.set([Math.cos(an) * r, Math.sin(an) * r, 0, Math.cos(an) * (r - th), Math.sin(an) * (r - th), 0], i * 6);
+      }
+      geo.attributes.position.needsUpdate = true;
+      m.opacity = 0.85 * (1 - tail * tail);
+    },
+  };
+}
+
 // Captions, flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas is what
 // gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
 let out, ctx, showSafe = false;
@@ -272,7 +303,7 @@ async function init(data) {
     ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; charMats.push(m); } });
     return { c, def, ch };
   });
-  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : null)).filter(Boolean);
+  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d");
