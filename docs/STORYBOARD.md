@@ -95,6 +95,9 @@ moving at once.
   the body and the thumb up. That is how a jar is grabbed from behind: put the grip behind the glass, about the hand's
   thickness off the side (a jar's grip `[0.1, 0.15, -0.14]` is 0.17 from its axis), and the mitten wraps it with
   nothing passing through the glass. The hand turns back on its own as the arm moves on to a pose without `palm`.
+  A teacup held in a mitten works the same way, like a mug: the hand wraps the cup body from behind with the thumb
+  on top, and the cup is turned (`rot`) so its handle points away from the hand and the camera (the teacup test:
+  grip `[0.015, 0.05, 0.104]`, `rot` 135). A mitten closed on the small handle reads as a lump stuck to the cup.
 - `grab` with the same `grip` holds the prop by that point, so a hand that reached it closes on it with no jump.
   `"keep": true` holds it wherever it is instead (the offset is measured at the grab). `"hand": "hat"` with `keep`
   sticks it to the hat. A second `grab` by the same hand with a new `grip`, a `dur` and `"pose": null` slides the

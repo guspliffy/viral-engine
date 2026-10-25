@@ -107,7 +107,9 @@ export function actorState(sb, actor, def, t, raw = false) {
         break;
       }
       case "arm": {
-        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: a.pose, p: e };
+        // "rest" is the character's own resting pose when it has one (the Wizard's hand on his staff)
+        const own = (s) => (a.pose === "rest" ? c.arms?.[s] || def?.arms?.[s] || "rest" : a.pose);
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: own(s), p: e };
         break;
       }
       case "blink": if (p < 1) st.blink = Math.sin(p * Math.PI); break;
