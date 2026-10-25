@@ -27,7 +27,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
-import { compile } from "./compile.mjs";
+import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { renderBeat, musicFlavour, seedOf } from "../puppet/beat.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -89,12 +89,6 @@ function glArgs(mode) {
   return ["--enable-gpu", "--ignore-gpu-blocklist", ...angle, ...extra, "--enable-unsafe-swiftshader"]; // last: software fallback, reported below
 }
 
-function loadCharacters(sb) {
-  const chars = {};
-  for (const c of sb.cast) chars[c.character] = JSON.parse(fs.readFileSync(path.join(ROOT, "characters", `${c.character}.json`), "utf8"));
-  return chars;
-}
-
 function ffmpeg(argv) {
   return new Promise((ok, bad) => {
     const p = spawn("ffmpeg", argv, { stdio: ["ignore", "ignore", "pipe"] }); let err = "";
@@ -137,7 +131,7 @@ function applyStyle(sb, style) {
 
 async function main() {
   const o = args();
-  const raw = compile(JSON.parse(fs.readFileSync(o.file, "utf8"))); // beat storyboards -> flat (engine/compile.mjs)
+  const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
   const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
   // pin the seeded tempo so dance moves on the page follow the same beat as the music

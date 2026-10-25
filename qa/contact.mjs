@@ -13,7 +13,7 @@ import path from "node:path";
 import os from "node:os";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { compile } from "../engine/compile.mjs";
+import { loadStoryboard } from "../engine/load.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
@@ -78,7 +78,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   let times = o.times;
   if (Array.isArray(o.clip)) times = [];
   else if (!times) {
-    if (o.sb) times = beatTimes(compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))));
+    if (o.sb) times = beatTimes(loadStoryboard(o.sb));
     else {
       const d = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", o.clip], { encoding: "utf8" }).stdout);
       times = Array.from({ length: 8 }, (_, i) => Math.round(((i + 0.5) / 8) * d * 100) / 100);

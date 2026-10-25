@@ -25,11 +25,18 @@ const sayLen = (line, tone) => Math.max(0.45, line.trim().split(/\s+/).length * 
 
 // Each macro returns items timed relative to its own start (same item kinds as above, macros excluded).
 export const MACROS = {
-  // a line of dialogue: voice + mouth, and the line as a caption unless caption: false
-  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed }) => {
+  // a line of dialogue: voice + mouth, and the line as a caption unless caption: false. With real speech
+  // (engine/voice/speech.mjs runs first) dur is the spoken length and speech carries the audio id and mouth keys.
+  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed, speech }) => {
     const d = dur ?? sayLen(line, tone);
     // the line rides on the talk action: it seeds the voice, so the same line always sounds the same wherever it is
-    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}), ...(speech ? { speech } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+  },
+  // a narrator nobody on screen speaks for (voice: "storyteller-warm" by default, see engine/voice/voices.json):
+  // sound only, no mouth, and the line as a caption unless caption: false. Needs real speech; without it, captions only.
+  narrate: ({ line, dur, caption = true, pos, speech, gain = 0.5 }) => {
+    const d = dur ?? sayLen(line, "calm");
+    return [{ sfx: "speech", dur: d, line, gain, ...(speech ? { speech } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3), pos }] : [])];
   },
   // walks in to a spot and settles with a small squash
   enter: ({ who, to, dur = 0.7 }) => [{ who, do: "move", to, dur, ease: "out" }, { who, do: "squash", amount: 0.08, dur: 0.2, at: dur - 0.05 }],

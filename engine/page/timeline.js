@@ -1,6 +1,7 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
+import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y } from "./props3d.js";
 
@@ -83,9 +84,10 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "expr": st.expr = blendExpr(st.expr, EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
       case "talk": {
-        // mouth follows the same syllables the voice synth speaks (engine/shared/syllables.js)
+        // mouth follows the real speech's phonemes (engine/shared/visemes.js), or the same syllables the gibberish
+        // synth speaks (engine/shared/syllables.js)
         if (t < a.at + (a.dur ?? 1)) {
-          const m = mouthAt(planFor(a, typeof def.voice === "object" ? def.voice : {}), t);
+          const m = a.speech ? speechMouthAt(a.speech.mouth, t - a.at) : mouthAt(planFor(a, typeof def.voice === "object" ? def.voice : {}), t);
           if (m.open > st.talk) { st.talk = m.open * 0.75; st.round = m.round; }
         }
         break;

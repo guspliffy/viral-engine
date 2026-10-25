@@ -1,0 +1,10 @@
+{
+  "_about": "Speaking voices (Kokoro TTS recipes). Jonny picked these by ear on 2026-10-25 from audio/voice-test-01; the other test voices were rejected as scary or bad, don't bring them back without asking him. A character uses one with \"tts\": \"<name>\"; a say or narrate line can pick another with \"voice\". voice = Kokoro voices to blend (weights), pitch in semitones.",
+  "phoenix": { "voice": { "am_fenrir": 1 }, "speed": 1.05, "lang": "en-us", "pitch": 0, "note": "test 01 Phoenix A: lively American" },
+  "reaper": { "voice": { "bm_lewis": 1 }, "speed": 0.9, "lang": "en-gb", "pitch": 0, "note": "test 01 Reaper A: flat, low British monotone" },
+  "wizard": { "voice": { "bm_george": 1 }, "speed": 0.95, "lang": "en-gb", "pitch": 0, "note": "test 01 Wizard B: warm British gentleman" },
+  "odin": { "voice": { "am_santa": 1 }, "speed": 0.95, "lang": "en-us", "pitch": 0, "note": "test 01 Wizard C: jolly, grandfatherly; Jonny's pick for Odin (Norse god)" },
+  "robot": { "voice": { "am_puck": 1 }, "speed": 1.05, "lang": "en-us", "pitch": 2, "note": "test 01 Phoenix B: Jonny's pick for a robot" },
+  "storyteller-deep": { "voice": { "bm_lewis": 1 }, "speed": 0.9, "lang": "en-gb", "pitch": 0, "note": "Reaper A as a narrator" },
+  "storyteller-warm": { "voice": { "bm_george": 1 }, "speed": 0.95, "lang": "en-gb", "pitch": 0, "note": "Wizard B as a narrator" }
+}

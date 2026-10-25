@@ -1,0 +1,18 @@
+// Read a storyboard file the way every tool should: real speech first (engine/voice/speech.mjs, so lines last as
+// long as they are spoken), then compile beats to the flat storyboard. Renderer and qa/ all use this, so they agree
+// on every time in the clip.
+import fs from "node:fs";
+import path from "node:path";
+import { compile } from "./compile.mjs";
+import { withSpeech, ROOT } from "./voice/speech.mjs";
+
+export function loadCharacters(sb) {
+  const chars = {};
+  for (const c of sb.cast || []) chars[c.character] = JSON.parse(fs.readFileSync(path.join(ROOT, "characters", `${c.character}.json`), "utf8"));
+  return chars;
+}
+
+export function loadStoryboard(file) {
+  const sb = JSON.parse(fs.readFileSync(file, "utf8"));
+  return compile(withSpeech(sb, loadCharacters(sb)));
+}

@@ -1,4 +1,5 @@
-// Sound for a storyboard, synthesised in code: gibberish voices for every `talk` action and sound effects placed
+// Sound for a storyboard, synthesised in code: real speech for lines that have it (engine/voice/), gibberish voices
+// for every other `talk` action, and sound effects placed
 // automatically from the storyboard's events (hops, poofs, flashes, charges, ...), plus any explicit `sfx` entries.
 // Deterministic like the picture: the same storyboard always gives the same audio.
 //
@@ -8,6 +9,7 @@ import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
+import { speechSamples } from "./voice/speech.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -298,7 +300,7 @@ export function soundEvents(sb) {
       if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
-  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? 0.4 });
+  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? 0.4, ...(s.speech ? { speech: s.speech } : {}) });
   return ev.sort((p, q) => p.at - q.at);
 }
 
@@ -308,10 +310,12 @@ export function renderAudio(sb, chars) {
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const events = soundEvents(sb);
   for (const e of events) {
-    if (e.kind === "voice") {
+    if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice, e.pan); // real speech (engine/voice/)
+    else if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
-    } else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
+    } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
+    else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
     else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
   // room sound for the set: sound.ambience is its gain (0 turns it off)

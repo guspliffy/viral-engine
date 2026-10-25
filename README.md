@@ -69,7 +69,12 @@ storyboards/*.json ┘
   `engine/page/index.html` in headless Chromium, calls `ENGINE.frame(t)` for every frame, reads the composed canvas
   (`ENGINE.capture`) and pipes the frames into ffmpeg (H.264, yuv420p). Finally it muxes picture and sound with
   two-pass loudness normalisation to -14 LUFS, true peak -2 dBTP.
-- `engine/audio.mjs` synthesises everything in code: gibberish voices (formant synthesis) for `talk` actions and sound
+- **Real voices** (`engine/voice/`): characters with a speaking voice (`"tts"`) say their lines with Kokoro text-to-speech,
+  run locally on the CPU (about a second per line, cached in `out/speech/`). It runs before compile, so a line lasts
+  exactly as long as it is spoken and the mouth follows the real phonemes (`engine/shared/visemes.js`). One-time
+  setup: `node engine/voice/setup.mjs` (Python venv + ~350 MB of model files). Without it, every line falls back to
+  the gibberish voice. Voices and licenses: `engine/voice/README.md`.
+- `engine/audio.mjs` synthesises everything else in code: gibberish voices (formant synthesis) for other `talk` actions and sound
   effects placed automatically from the storyboard (hop, land, pop, charge, whoosh, tink, sting, sad slide, impact, poof).
   Claude can't listen, so audio is checked by measurement (levels, spectrum, timing); a human has to judge the sound.
 - `engine/shared/syllables.js` plans each line as syllables. The voice speaks them and the mouth shapes them
@@ -95,7 +100,8 @@ storyboards/*.json ┘
 | `face.default` | resting expression (see below), iris and blush colours |
 | `sprout` | the leaves; `placement`: `top`, `hat-top`, `hat-brim` or `none` |
 | `costume` | `type` (`wizard`, `cowboy`, `magician` (top hat + wand), `cap` (backwards cap), `none`), colours, `tie` (a colour adds a necktie), `propHand` (`L` / `R`) |
-| `voice` | `pitch` (Hz), `rate` (syllables/s), `formant` (voice size: >1 smaller, cartoonier), `range` (semitones), `breath`, `vibrato`, `seed` |
+| `tts` | speaking voice from `engine/voice/voices.json` (`phoenix`, `reaper`, `wizard`, `odin`, ...); without it the character speaks gibberish |
+| `voice` | gibberish voice (and the fallback when real speech isn't set up): `pitch` (Hz), `rate` (syllables/s), `formant` (voice size: >1 smaller, cartoonier), `range` (semitones), `breath`, `vibrato`, `seed` |
 | `personality`, `notes` | for scripting; not used by the renderer |
 
 Expressions: `kind happy delighted eager cocky smug shocked sad evil focused stern deadpan`.
