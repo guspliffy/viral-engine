@@ -188,6 +188,7 @@ async function main() {
     const errors = [];
     page.on("pageerror", (e) => errors.push(String(e)));
     page.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errors.push(m.text()); });
+    page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
     await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});

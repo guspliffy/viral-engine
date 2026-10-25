@@ -219,6 +219,7 @@ function composite(t) {
 
 async function init(data) {
   sb = data.sb; charMats = []; photos.clear();
+  globalThis.__DIAG = sb.debug || null;   // storyboard "debug": { "clearance": true } logs staff/arm clearance per frame
   const canvas = document.getElementById("gl");
   const opts = data.opts || {};
   R = new THREE.WebGLRenderer({ canvas, antialias: opts.aa !== false, preserveDrawingBuffer: true, powerPreference: "high-performance" });

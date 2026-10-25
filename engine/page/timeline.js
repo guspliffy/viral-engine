@@ -74,7 +74,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     // explicit c.expr or an "expr" action is acting and replaces it
     expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
     look: [0, 0], blink: 0, talk: 0, round: 0,
-    arms: { R: { from: c.arms?.R || "rest", pose: c.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || "rest", pose: c.arms?.L || "rest", p: 1 } },
+    arms: { R: { from: c.arms?.R || def?.arms?.R || "rest", pose: c.arms?.R || def?.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || def?.arms?.L || "rest", pose: c.arms?.L || def?.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
     face: Object.fromEntries(FACE_KEYS.map((k) => [k, def.face?.neutral?.[k] ?? 0])),
@@ -231,7 +231,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "stand": {
         const k = e;
         st.y = lerp(st.y, 0, k) + 0.06 * Math.sin(Math.PI * k); st.sit = (st.sit || 0) * (1 - k); st.z = lerp(st.z, st.z + 0.12, k);
-        for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: c.arms?.[s] || "rest", p: k };
+        for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: c.arms?.[s] || def?.arms?.[s] || "rest", p: k };
         break;
       }
       // a single-hand grab lifts that arm to hold, or to its own pose; pose: null leaves the arm where it is (the hand

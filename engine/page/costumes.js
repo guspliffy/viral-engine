@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { taperedTube, lathe, radialTexture } from "./geo.js";
+const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { castCostume, CAST_TYPES } from "./costumes-cast.js";
 
@@ -144,7 +145,7 @@ function glowTip(g, C, at, gemGeo, size = 1) {
 function staff(C) {
   const g = new THREE.Group();
   const wood = new THREE.MeshStandardMaterial({ color: C.staffWood || "#7a4e2a", roughness: 0.7 });
-  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, -0.62, 0), new THREE.Vector3(0.01, 0.0, 0), new THREE.Vector3(-0.01, 0.55, 0), new THREE.Vector3(0.03, 0.74, 0)]);
+  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, -0.42, 0), new THREE.Vector3(0.01, 0.0, 0), new THREE.Vector3(-0.01, 0.55, 0), new THREE.Vector3(0.03, 0.74, 0)]);
   const shaft = new THREE.Mesh(taperedTube(spine, 0.02, 0.028, 30, 12), wood); shaft.castShadow = true; g.add(shaft);
   for (const a of [0, 2.1, 4.2]) { // three little prongs holding the crystal
     const c = new THREE.CatmullRomCurve3([new THREE.Vector3(0.03, 0.73, 0), new THREE.Vector3(0.03 + Math.cos(a) * 0.06, 0.8, Math.sin(a) * 0.06), new THREE.Vector3(0.03 + Math.cos(a) * 0.03, 0.9, Math.sin(a) * 0.03)]);
@@ -152,8 +153,10 @@ function staff(C) {
   }
   const gem = new THREE.OctahedronGeometry(0.06, 0); gem.scale(1, 1.5, 1);
   // the foot of the staff: looks put a contact shadow where it meets the ground
-  const foot = new THREE.Object3D(); foot.position.set(0, -0.62, 0); foot.userData.groundTip = 0.05; g.add(foot);
-  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, 0.84, 0), gem) };
+  const foot = new THREE.Object3D(); foot.position.set(0, -0.42, 0); foot.userData.groundTip = 0.05; g.add(foot);
+  // plant: the shaft below the grip reaches the ground in the standing pose (tip at local y -0.42); shaft: for the
+  // clearance diagnostic
+  return { group: g, charge: glowTip(g, C, new THREE.Vector3(0.03, 0.84, 0), gem), plant: 0.42, shaft: [-0.42, 0.74, 0.026] };
 }
 
 // a stage magician's wand: black stick, white tips, a star that glows when charged
@@ -236,6 +239,7 @@ export function buildCostume(def, ch) {
   else if (where === "none") sprt.group.visible = false;
   else mount.add(sprt.group);
   if (C.type === "wizard") { prop = staff(C); ch.root.add(prop.group); }
+  if (prop && globalThis.__DIAG?.colors) { const g = new THREE.MeshLambertMaterial({ color: "#20b040" }); prop.group.traverse((o) => { if (o.isMesh) o.material = g; }); }   // debug: the prop green
   if ((pb || isCast) && prop) ch.root.add(prop.group);
   if (pb) sprt.group.scale.setScalar(0.7);
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
@@ -257,6 +261,13 @@ export function buildCostume(def, ch) {
       const [tx, rz] = propRot(st);
       return new THREE.Vector3(0, 1, 0).applyEuler(new THREE.Euler(tx, 0, rz));
     },
+    // the shaft as a segment in root space (for the clearance diagnostic): ends a and b, radius r, the grip point
+    propLine() {
+      if (!prop || prop.axis === false || !prop.group.visible) return null;
+      const ax = new THREE.Vector3(0, 1, 0).applyEuler(prop.group.rotation), p = prop.group.position;
+      const [lo, hi, r] = prop.shaft || [-0.62, 0.74, 0.026];
+      return { hand: propHand, grip: ch.gripPoint ? ch.gripPoint(propHand) : p.clone(), a: p.clone().addScaledVector(ax, lo), b: p.clone().addScaledVector(ax, hi), r };
+    },
     apply(st, t, hands, fries) {
       // while the fries pop in, the hat travels from the head to the top of the box (it never drops to the ground)
       const head = ch.topY() * ch.bodyGroup.scale.y, k = Math.max(0, Math.min(1, st.friesPop));
@@ -274,6 +285,15 @@ export function buildCostume(def, ch) {
         // right hand is at -x, left at +x: the top of the prop leans outward on either side
         const [tx, rz] = propRot(st);
         prop.group.rotation.set(tx, 0, rz);
+        // a planted staff: while the hand is low enough for the tip to reach the floor, the tip stays on the floor and the
+        // hand holds the shaft a little higher or lower (a few centimetres as the body breathes or settles); lifted
+        // higher, or off the ground, it is carried and the grip stays put. The two blend, so planting never snaps.
+        if (prop.plant) {
+          const ax = _ax.set(0, 1, 0).applyEuler(prop.group.rotation), floor = -st.y / Math.max(0.01, st.scale ?? 1);
+          const need = (prop.group.position.y - floor) / Math.max(0.2, ax.y), slide = need - prop.plant;
+          const pw = Math.max(0, Math.min(1, 1 - (Math.abs(slide) - 0.03) / 0.05)) * Math.max(0, Math.min(1, 1 - (st.y - 0.02) / 0.06));
+          prop.group.position.addScaledVector(ax, -slide * pw);
+        }
         prop.charge(st.charge, t, st.chargePhase || 0);
       }
     },

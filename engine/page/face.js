@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { taperedTube } from "./geo.js";
 
+const SEAM = 0.22;   // where the shut lids meet: this far (radians) below the front of the eye
 const _gz = new THREE.Vector3(1, 1.1, 0.5), _q = new THREE.Quaternion(), _d = new THREE.Vector3(), _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 
 // Expression presets. Every value is a plain number so two expressions can be blended.
@@ -31,7 +32,7 @@ function blushTexture(color, k = 1) {
   const c = document.createElement("canvas"); c.width = c.height = 128;
   const g = c.getContext("2d"); const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62);
   const col = new THREE.Color(color); const rgb = `${(col.r * 255) | 0},${(col.g * 255) | 0},${(col.b * 255) | 0}`;
-  gr.addColorStop(0, `rgba(${rgb},${Math.min(1, 0.62 * k)})`); gr.addColorStop(0.55, `rgba(${rgb},${Math.min(1, 0.32 * k)})`); gr.addColorStop(1, `rgba(${rgb},0)`);
+  gr.addColorStop(0, `rgba(${rgb},${Math.min(1, 0.45 * k)})`); gr.addColorStop(0.55, `rgba(${rgb},${Math.min(1, 0.22 * k)})`); gr.addColorStop(1, `rgba(${rgb},0)`);
   g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; return tex;
 }
@@ -69,16 +70,17 @@ export class Face {
       const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
       const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
       // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
-      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.17, 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
-      const glints = [g1];
+      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14, 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
+      const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
       if (E.glints > 1) { const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.07, 10, 6), glint); g2.scale.set(1, 1, 0.5); g2.position.set(-r * ri * 0.3, -r * ri * 0.36, r * (D + 0.02)); look.add(g2); glints.push(g2); }
       // the lid line, tapered at both ends, thickest over the pupil, with the character's outer-corner flick
       const lineR = (t) => r * E.lash * (0.02 + 0.095 * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, 0.08 + t * 0.96))), 0.75));
-      let lidPivot = null, lash;
+      let lidPivot = null, lowPivot = null, lash;
       if (lids) {
         // real upper lids (`lids`: the skin material): a skin shell over a stable eye that rolls down from the top, the
         // lid line riding its edge. Squints, blinks and the gaze move the lid; the eye itself never changes shape.
-        const space = new THREE.Group(); space.scale.set(0.9, 1.12, D * 1.45); lid.add(space);   // deep enough to cover the iris and catch light
+        // just deep enough to cover the iris and the catch light, so a closed eye stays a shallow lid, not a capsule
+        const space = new THREE.Group(); space.scale.set(0.9, 1.12, (D + 0.14) / 1.05); lid.add(space);
         lidPivot = new THREE.Group(); lidPivot.rotation.order = "ZYX"; space.add(lidPivot);
         const shell = new THREE.Mesh(new THREE.SphereGeometry(r * 1.05, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), lids); lidPivot.add(shell);
         // the edge of the shell is the circle y = 0; its front half (z > 0) is the lid line
@@ -88,6 +90,10 @@ export class Face {
         pts.sort((a, b) => side * (a.x - b.x));   // inner corner first, so the line thickens towards the outer side
         lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 44, 8, lineR), this.inkMat);
         lidPivot.add(lash);
+        // the lower lid: rises late in a blink to meet the upper one a little below the middle, so the shut eye ends in one
+        // downward-curving crease on the front of the eye instead of the upper lid's edge rolling round to the bottom
+        lowPivot = new THREE.Group(); space.add(lowPivot);
+        lowPivot.add(new THREE.Mesh(new THREE.SphereGeometry(r * 1.04, 40, 20, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), lids));
       } else {
         // no lids (props with faces): the lash sits in the lid group and closes with the eye on a blink
         const pts = [];
@@ -97,7 +103,7 @@ export class Face {
         lid.add(lash);
       }
       this.group.add(root);
-      return { side, root, lid, look, pupil: pu, lash, lidPivot, glints, r };
+      return { side, root, lid, look, pupil: pu, lash, lidPivot, lowPivot, glints, r };
     });
     const bt = blushTexture(cheeks, arguments[0].blush ?? 1);   // blush: how strong the cheeks are (less for the Reaper and Samurai)
     this.cheeks = [-1, 1].map((side) => {
@@ -147,12 +153,16 @@ export class Face {
         let k = sq + own - 0.14 * look[1];
         k = k + (1 - k) * blink;
         k = Math.max(-0.12, Math.min(1, k));
-        eye.lidPivot.rotation.x = -Math.PI / 2 + k * Math.PI;
+        eye.lidPivot.rotation.x = -Math.PI / 2 + k * (Math.PI / 2 + SEAM);
+        const lo = Math.max(0, Math.min(1, (k - 0.6) / 0.4)), lw = lo * lo * (3 - 2 * lo);
+        eye.lowPivot.rotation.x = Math.PI / 2 - lw * (Math.PI / 2 - SEAM);
         eye.lidPivot.rotation.z = eye.side * (this.eyeStyle.tilt || 0) * Math.min(1, Math.max(0, k * 4));   // the character's lid angle, as soon as the lid is on the eye
         // the catch lights stand proud of the eye: tuck them away as the lid closes over them
         const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
         for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
-        eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1);
+        // as it shuts the whole eye settles into the face: a closed eye stands out about a third as far as an open one
+        const cl = Math.max(0, Math.min(1, (k - 0.3) / 0.7));
+        eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1 - 0.7 * cl * cl * (3 - 2 * cl));
       } else {
         const open = Math.max(0.06, e.eye * (1 - blink));
         eye.lid.scale.set(1 + (e.eye - 1) * 0.25, open, 1);
@@ -232,12 +242,12 @@ export class Face {
         if (tongue > 0.01) patch(0.22, 0.78, (t) => 1 - 0.42 * tongue * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.22) / 0.56)))), 0.5), () => 0.96, 0.0078, this.tongueMat);
       }
       const ring = [...upper, ...lower.slice().reverse()];
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.01 * s), true);
-      this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.0085 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.006 * s), true);
+      this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.0072 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
     } else {
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.01 * s));
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.005 * s));
       // a closed smile: a brush line, fuller in the middle, fine at the corners
-      this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * (0.006 + 0.01 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.6))), this.inkMat); this.group.add(this.mouthLine);
+      this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * (0.0035 + 0.0085 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.inkMat); this.group.add(this.mouthLine);
     }
   }
 }

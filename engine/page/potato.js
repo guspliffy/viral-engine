@@ -1,9 +1,11 @@
 import * as THREE from "three";
 const _fist = new THREE.Quaternion();
+const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
+import { taperedTube } from "./geo.js";
 
 const LEG_H = 0.14;
 
@@ -78,6 +80,7 @@ export class Character {
 
     // limbs
     this.limbMat = new THREE.MeshStandardMaterial({ color: def.limbs.color, roughness: 0.5 });
+    if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
     this.legs = { R: { mesh: null, foot: null }, L: { mesh: null, foot: null } };
@@ -97,16 +100,20 @@ export class Character {
   // on its own pivot so the grip shapes (timeline.js GRIPS) can curl them. Local frame: +y along the forearm out to
   // the fingertips, +z out of the palm, +x towards the thumb. `grip` marks where a held handle sits.
   _mitten(s) {
-    const g = new THREE.Group(), m = this.limbMat, cap = (r, len) => new THREE.CapsuleGeometry(r, len, 6, 12);
+    const g = new THREE.Group(), cap = (r, len) => new THREE.CapsuleGeometry(r, len, 6, 12);
+    // debug "colors": flat colours per part (palm red, fingers orange, index yellow, thumb magenta) to read the grip
+    const dc = globalThis.__DIAG?.colors, m = this.limbMat, M = (c) => (dc ? new THREE.MeshLambertMaterial({ color: c }) : m);
     g.userData.size = this.def.hands?.size ?? 1.3;   // the concept's big round mittens
-    const palm = new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 16), m); palm.scale.set(1, 0.95, 0.78); palm.castShadow = true; g.add(palm);
+    const palm = new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 16), M("#e03030")); palm.scale.set(1, 0.95, 0.78); palm.castShadow = true; g.add(palm);
     const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
-    const fingers = piv(-0.012, 0.03, 0), mitt = new THREE.Mesh(new THREE.SphereGeometry(0.046, 20, 14), m);
-    mitt.scale.set(0.95, 1.05, 0.66); mitt.position.y = 0.04; mitt.castShadow = true; fingers.add(mitt);
-    const index = piv(0.032, 0.034, 0.002), ix = new THREE.Mesh(cap(0.017, 0.036), m); ix.position.y = 0.034; ix.castShadow = true; index.add(ix);
-    const thumb = piv(0.042, -0.008, 0.016), th = new THREE.Mesh(cap(0.019, 0.03), m);
+    const fingers = piv(-0.012, 0.04, 0), mitt = new THREE.Mesh(new THREE.SphereGeometry(0.046, 20, 14), M("#ff9a20"));
+    mitt.scale.set(0.95, 1.05, 0.66); mitt.position.y = 0.045; mitt.castShadow = true; fingers.add(mitt);
+    const index = piv(0.032, 0.04, 0.004), ix = new THREE.Mesh(cap(0.017, 0.036), M("#f5e020")); ix.position.y = 0.032; ix.castShadow = true; index.add(ix);
+    const thumb = piv(0.042, -0.008, 0.016), th = new THREE.Mesh(cap(0.019, 0.03), M("#e020e0"));
     th.position.set(0.026, 0.012, 0); th.rotation.z = -1.0; th.castShadow = true; thumb.add(th);
-    const grip = new THREE.Object3D(); grip.position.set(0.004, 0.034, 0.03); g.add(grip);
+    // the handle runs along x through the curl of the fingers, between them and the top of the palm
+    const grip = dc ? new THREE.Mesh(new THREE.SphereGeometry(0.008, 8, 6), new THREE.MeshBasicMaterial({ color: "#ffffff", depthTest: false })) : new THREE.Object3D();
+    grip.position.set(0.002, 0.04, 0.016); g.add(grip);
     g.userData = { ...g.userData, fingers, index, thumb, grip, side: s };
     return g;
   }
@@ -118,13 +125,15 @@ export class Character {
     const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
     z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
     hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y, z), y, z));
-    // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops
-    const w = axis ? Math.min(1, Math.max(0, (gr.curl - 0.6) / 0.3)) : 0;
+    // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops. The
+    // forearm direction, taken square to the handle, is the hand's own axis: the wrist enters the fist from the side and
+    // the handle passes in front of the palm (grip frame: +x along the handle, thumb end; +z palm side)
+    const w = axis ? fistWeight(gr.curl) : 0;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
-      const f = y.clone(); f.y = 0; f.multiplyScalar(0.5).add(new THREE.Vector3(0, 0, 1)).addScaledVector(x, -f.dot(x)).normalize();
+      const f = y.clone().addScaledVector(x, -y.dot(x)); if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, f, new THREE.Vector3().crossVectors(x, f)));
-      hand.quaternion.slerp(_fist, w * w * (3 - 2 * w));
+      hand.quaternion.slerp(_fist, w);
     }
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
@@ -155,10 +164,13 @@ export class Character {
   topY() { return this.cy + this.ry * (1 + this.lumpAt(new THREE.Vector3(0, 1, 0))); }
   lumpAt(d) { let r = 0; for (const L of this.lumps) r += L.a * Math.exp(-L.k * (1 - d.dot(L.d))); return r; }
 
-  _tube(old, a, c, b, w) {
+  _tube(old, a, c, b, w, arm = false) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = new THREE.QuadraticBezierCurve3(a, c, b);
-    const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 14, w, 8, false), this.limbMat); m.castShadow = true; this.root.add(m);
+    // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten
+    const geo = arm ? taperedTube(curve, 0, 0, 20, 10, (t) => w * (t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1))
+      : new THREE.TubeGeometry(curve, 14, w, 8, false);
+    const m = new THREE.Mesh(geo, this.limbMat); m.castShadow = true; this.root.add(m);
     return m;
   }
 
@@ -196,11 +208,17 @@ export class Character {
       const h = new THREE.Vector3().fromArray(from).lerp(new THREE.Vector3().fromArray(to), a.p);
       h.y = LEG_H + (h.y - LEG_H) * S.y;
       hands[s] = h;
-      const sh = this.surf(sx * 1.38, 0.02).pos; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
+      const shp = this.surf(sx * 1.38, 0.02), sh = shp.pos, shN = shp.normal; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
       const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
+      // a hand closed on a staff or handle: the elbow drops below and behind the shoulder-hand line, so the forearm rises
+      // into the fist from behind and across the handle instead of running down alongside it
+      const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) : null;
+      const hw = ax ? fistWeight(gr.curl) : 0;
+      if (hw > 0) mid.lerp(sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * 0.02, -0.13, -0.07)), hw);
       this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, this.costume.propAxis?.(st, s));
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax);
+      this.arms[s].elbow = mid;
       this.arms[s].hand.visible = showLimbs;
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
@@ -217,16 +235,38 @@ export class Character {
       } else this.legs[s].foot.quaternion.identity();
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
-      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out].map((x) => x.toFixed(4)).join(",");
+      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out, hw].map((x) => x.toFixed(4)).join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
-        this.arms[s].mesh = this._tube(this.arms[s].mesh, sh, mid, h, this.limbW);
+        this.arms[s].mesh = this._tube(this.arms[s].mesh, sh.clone().addScaledVector(shN, -0.035), mid, h, this.limbW, true);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }
     this.costume.apply(st, t, hands, fries);
+    if (globalThis.__DIAG?.clearance && !fries) this._clearance(t);
+  }
+
+  // diagnostic: the gap between the held prop's shaft and the holding arm (outside the fist) and the body, logged as
+  // "diag: clearance t=.. arm=.. body=.." in metres (negative = they intersect). Storyboard "debug": { "clearance": true }.
+  _clearance(t) {
+    const L = this.costume.propLine?.(); if (!L) return;
+    const s = L.hand, a = this.arms[s]; if (!a.elbow) return;
+    const sh = this.surf((s === "R" ? -1 : 1) * 1.38, 0.02).pos, S = this.bodyGroup.scale; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
+    const curve = new THREE.QuadraticBezierCurve3(sh, a.elbow, a.hand.position), seg = new THREE.Line3(L.a, L.b), q = new THREE.Vector3(), c = new THREE.Vector3();
+    let arm = Infinity, body = Infinity;
+    for (let i = 0; i <= 60; i++) {
+      curve.getPoint(i / 60, c);
+      if (c.distanceTo(L.grip) < 0.09) continue;   // the fist itself, where the hand is meant to touch the wood
+      seg.closestPointToPoint(c, true, q); arm = Math.min(arm, c.distanceTo(q) - L.r - this.limbW);
+    }
+    for (let i = 0; i <= 60; i++) {
+      seg.at(i / 60, c); const d = c.clone().sub(new THREE.Vector3(0, this.cy * S.y, 0));
+      const e = Math.sqrt((d.x / (this.rx * S.x)) ** 2 + (d.y / (this.ry * S.y)) ** 2 + (d.z / (this.rz * S.z)) ** 2);
+      body = Math.min(body, (e - 1) * Math.min(this.rx, this.rz) - L.r);
+    }
+    console.log(`diag: clearance t=${t.toFixed(2)} arm=${arm.toFixed(3)} body=${body.toFixed(3)} tip=${L.a.y.toFixed(3)}`);
   }
 }
 
