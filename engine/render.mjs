@@ -11,8 +11,13 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
-//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs (seconds)
+//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
+//   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
+//
+// Contact gate: before drawing any frame, the layout pass (seconds) checks for characters overlapping, an arm through
+// a held staff or a hat brim, and a staff in the body (qa/check.mjs clipResults, contactResults). A failure stops the
+// render with the times to fix, so a 10-minute render never starts on a glitch the storyboard already contains.
 //
 // Each frame is drawn by a headless Chromium at a fixed time t = frame / fps, so renders are deterministic
 // and independent of machine speed. Set CHROME_PATH to use a specific Chromium build.
@@ -29,6 +34,7 @@ import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { compile } from "./compile.mjs";
 import { renderBeat, musicFlavour, seedOf } from "../puppet/beat.mjs";
+import { clipResults, contactResults } from "../qa/check.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -50,6 +56,7 @@ function args() {
     else if (a[i] === "--from") o.from = Number(a[++i]);
     else if (a[i] === "--to") o.to = Number(a[++i]);
     else if (a[i] === "--gl") o.gl = a[++i];
+    else if (a[i] === "--force") o.force = true;
     else o.file = a[i];
   }
   if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
@@ -218,13 +225,31 @@ async function main() {
       const samples = [];
       for (let t = 0; t < dur - 1e-6; t += 0.1) samples.push(await page.evaluate((tt) => window.ENGINE.layout(tt), Math.round(t * 1000) / 1000));
       const f = path.join(o.out, `${sb.id}${tag}.layout.json`);
-      fs.writeFileSync(f, JSON.stringify({ fps, duration: dur, width: 1080, height: 1920, samples }));
+      // contact measures (grips, arms, hat brims) at every frame, so a one-frame pop shows
+      const contacts = [];
+      for (let i = 0; i < Math.round(dur * fps); i++) contacts.push(await page.evaluate((tt) => window.ENGINE.contact(tt), Math.round((i / fps) * 10000) / 10000));
+      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts };
+      fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
+      return lay;
     };
-    if (o.layoutOnly) { await writeLayout(); return; }
+    // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
+    const contactGate = (lay) => {
+      const res = [...clipResults(sb, lay), ...contactResults(lay)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop"].includes(r.check));
+      for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
+      if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims)");
+      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume"].includes(r.check));
+    };
+    if (o.layoutOnly) { contactGate(await writeLayout()); return; }
     if (o.stills) {
       for (const t of o.stills) { const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f); }
       return;
+    }
+    const lay = await writeLayout();
+    const gate = contactGate(lay);
+    if (gate.length) {
+      console.log(`contact gate: ${gate.length} problem${gate.length > 1 ? "s" : ""} in the storyboard, fix before rendering${o.force ? " (--force: rendering anyway)" : " (or --force)"}`);
+      if (!o.force) { process.exitCode = 1; return; }
     }
     const a = Math.round((o.from ?? 0) * fps), b = Math.round((o.to ?? dur) * fps);
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
@@ -238,7 +263,6 @@ async function main() {
     }
     ff.stdin.end(); await done;
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
-    if (!range) await writeLayout();
     if (sb.cover != null && !range) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
     await browser.close(); srv.close();

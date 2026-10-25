@@ -10,6 +10,10 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - 1080×1920, 30 fps, H.264 + AAC. Duration must equal the storyboard's `duration`.
 - **No blank frames**: no fully white frame (flashes peak at 0.85 at most) and no empty black frame. No one-frame
   pops or strobing, nobody passing through props, no part of a character jumping between frames (`qa/motion.mjs`).
+- **No contact glitches** (layout `contacts`, every frame): characters never overlap each other, no arm passes
+  through a held staff or a hat brim, no staff goes into the body. These fail the check, and `render.mjs` refuses to
+  start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip` window with
+  a `reason`; a window without one is ignored. A hand turning more than 60° in one frame is a warning: look at it.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
@@ -52,6 +56,26 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   new traits as proposals.
 - Jonny decides anything that changes a character's look or personality, and any new drawing in the game's style.
 
+## Contact and grips (lessons from the look C session, 25 Oct; paper: https://claude.ai/artifact/R4fEStmWqDtDsVHbyTZL54)
+
+Every glitch Jonny caught after the look was set was a contact problem the file checks couldn't see. So:
+
+1. **Grab from behind**: the palm on the far side of the object, the fingers wrap the camera side, the thumb locks.
+2. **A held object is rigid in the hand**: no gap, no drift, no sliding through. A cup stays level until the sip.
+3. **The staff stands in front of the arm**: the fist closes round the shaft, the forearm square to it, never along it.
+4. **Keep characters a body-width apart** unless the beat needs contact. Raised arms go wider than the hat brim.
+5. **Check every costume prop** (pistols, staff, orb, axe) in every pose the clip uses.
+6. **When a model, grip or prop changes, re-check every storyboard pose that uses it** before rendering. Old poses
+   break on a new grip (the jar zap at 4 s).
+7. **Copy Jonny's reference images point by point**, or a real-world hold, rather than a new idea of the grip.
+8. **If a move can't be done cleanly, replace it** instead of tuning it, and check reviewer notes against the geometry
+   before applying them (a deeper hat pull would have pushed the crown further through the head).
+9. **Remaking an old storyboard**: re-check spacing, poses and old "intended" notes against the current models.
+10. **No blink on a key line**: set `blink: false` on looks at key lines (the engine auto-blinks on big look changes).
+11. **When Jonny reports a glitch, describe it back first**: the times, what moves wrong and why. Then fix it, and
+    send a before/after strip of the same moments.
+12. **A/B option sheets get a pixel-difference check**, so two "different" options are never the same picture.
+
 ## Writing clips
 
 Write new clips as **beat storyboards** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards
@@ -62,25 +86,29 @@ still work.
 1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then
    `node engine/render.mjs <sb> --stills beats --draft --safe`. Look at them scaled down (≤ 360 px wide).
    `node qa/motion.mjs <sb>` (under a second) finds hands, bodies or wings that jump between two frames, straight
-   from the storyboard. Fix those before any render.
+   from the storyboard. Fix those before any render. `--layout` also prints the contact results (overlap, grips,
+   arms through staffs or brims, hand pops), and fixes for them come first too. Look at a 10–15 fps draft strip of
+   every grab, release, raise and contact.
 2. **Creative director review A (storyboard)**: Fable reviews the storyboard and a contact sheet of the draft stills.
    See `qa/REVIEW.md`. **Default for every new clip**, one round. Apply the notes, then go to step 3.
 3. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-5. **Full render** in the background, `qa/check.mjs` on the final MP4, then **creative director review B (cut)**
+5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs` on the final MP4,
+   a 15 fps strip of every contact moment, then **creative director review B (cut)**
    on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
 6. **Deliver** the MP4, its cover, a one-line check result and Fable's notes in one line each, marked
-   applied or not. Don't post anywhere: Jonny posts by hand.
+   applied or not. For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
 
 Fable is the creative director, Jonny is the producer: premise, characters, look, and anything that needs new art
 are his call. Skip the reviews only for pure engine tests, and say so.
 
 ## Keeping it fast and cheap
 
-- Judge a clip from its contact sheet, not by reading frame after frame.
+- Judge a clip from its contact sheet, not by reading frame after frame. The exception is contact: a contact sheet
+  missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
 - Full renders take about 1.7 s per frame on the CPU (10 minutes for a 12 s clip), almost all of it SwiftShader
