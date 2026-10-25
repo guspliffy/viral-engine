@@ -84,19 +84,19 @@
   {
    "at": 1.9,
    "pos": [
-    0.5,
+    0.62,
     1.4,
     3.6
    ],
    "look": [
-    0.48,
+    0.6,
     1.1,
     0
    ],
    "fov": 32,
    "to": {
     "pos": [
-     0.55,
+     0.67,
      1.38,
      3.2
     ]
@@ -520,14 +520,44 @@
   {
    "who": "hero",
    "at": 10.4,
+   "do": "move",
+   "to": [
+    -0.9,
+    -0.32
+   ],
+   "dur": 0.4,
+   "ease": "out"
+  },
+  {
+   "who": "hero",
+   "at": 10.8,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.3,
+   "ease": "settle"
+  },
+  {
+   "who": "hero",
+   "at": 10.4,
+   "do": "look",
+   "to": [
+    -0.6,
+    0.05
+   ],
+   "dur": 0.15,
+   "blink": false
+  },
+  {
+   "who": "hero",
+   "at": 10.4,
    "do": "hat",
    "off": [
     0,
-    -0.2,
-    0.07
+    -0.07,
+    0.05
    ],
    "spin": [
-    12,
+    10,
     0,
     0
    ],
@@ -638,5 +668,5 @@
  "loop": false,
  "sfx": [],
  "look": "anime-pro",
- "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks."
+ "status": "Remake of test-11 (batch 4) in look C with models v2 and mitten grips, same joke and beats, for an old vs new comparison (Jonny, 2026-10-25). Changes: panic pose keeps the pistols beside the face, the Sorcerer's free hand closes to a fist while he casts, no blink on the three key looks. Fable review B: on *hides* he ducks behind the Phoenix and one eye peeks out (pulling the hat over the eyes pushed the hat through the head), the Sorcerer close-up shifted right to keep the pistol out of it."
 }
