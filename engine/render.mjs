@@ -230,7 +230,10 @@ async function main() {
       // contact measures (grips, arms, hat brims) at every frame, so a one-frame pop shows
       const contacts = [];
       for (let i = 0; i < Math.round(dur * fps); i++) contacts.push(await page.evaluate((tt) => window.ENGINE.contact(tt), Math.round((i / fps) * 10000) / 10000));
-      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts };
+      // extra samples at the storyboard's "aimAt" times (a generator script aims throws and cuts from them)
+      const aims = [];
+      for (const t of sb.aimAt || []) aims.push(await page.evaluate((tt) => window.ENGINE.layout(tt), t));
+      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}) };
       fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
       return lay;

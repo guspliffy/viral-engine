@@ -11,7 +11,7 @@ import { makeLook } from "./looks.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
-let roomLights = [], lamp = null, bulb = null, charMats = [];   // what the "lights" effect dims (timeline.js lightsAt)
+let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
@@ -208,6 +208,67 @@ function headFx(f, t, i) {
   ctx.restore();
 }
 
+// the point of a character's held prop in the world (the blade tip of the Samurai's katana), from its shaft line
+function propTip(who, k = 1) {
+  const A = poseStates[who]; if (!A) return null;
+  const L = A.a.ch.costume.propLine?.(); if (!L) return null;
+  A.a.ch.root.updateMatrixWorld(true);
+  return A.a.ch.root.localToWorld(L.a.clone().lerp(L.b, k));
+}
+// "glint": the anime "bling" on a blade: a four-point star that flares on the tip (who: the holder; at: 0..1 along
+// the shaft, default the tip; or pos: a world point), turns a little and fades. Over 0.5 s by default.
+function glintFx(f, t) {
+  const d = f.dur ?? 0.5, k = (t - f.at) / d;
+  if (k < 0 || k > 1) return;
+  const w = f.pos ? new THREE.Vector3().fromArray(f.pos) : propTip(f.who, f.along ?? 0.98);
+  if (!w) return;
+  const c = toScreen(w.toArray()), grow = k < 0.25 ? ease("out")(k / 0.25) : 1 - ease("in")((k - 0.25) / 0.75);
+  const r = (f.size ?? 0.22) * c.m * grow, rot = (f.turn ?? 0.6) * k;
+  ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(rot);
+  ctx.globalCompositeOperation = "lighter";
+  const halo = ctx.createRadialGradient(0, 0, 0, 0, 0, r * 0.9); halo.addColorStop(0, `rgba(255,255,255,${0.8 * grow})`); halo.addColorStop(0.3, `rgba(170,255,210,${0.35 * grow})`); halo.addColorStop(1, "rgba(120,255,180,0)");
+  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(0, 0, r * 0.9, 0, Math.PI * 2); ctx.fill();
+  const spike = (len, wid, a) => { ctx.save(); ctx.rotate(a); ctx.beginPath(); ctx.moveTo(0, -len); ctx.quadraticCurveTo(wid * 0.25, -wid * 0.25, wid, 0); ctx.quadraticCurveTo(wid * 0.25, wid * 0.25, 0, len); ctx.quadraticCurveTo(-wid * 0.25, wid * 0.25, -wid, 0); ctx.quadraticCurveTo(-wid * 0.25, -wid * 0.25, 0, -len); ctx.fill(); ctx.restore(); };
+  ctx.fillStyle = `rgba(255,255,255,${Math.min(1, grow * 1.4)})`;
+  spike(r, r * 0.09, 0); spike(r * 1.15, r * 0.08, Math.PI / 2); spike(r * 0.45, r * 0.06, Math.PI / 4); spike(r * 0.45, r * 0.06, -Math.PI / 4);
+  ctx.restore();
+}
+
+// "trail": the arc a swung blade leaves in the air, a ribbon from the blade's middle to its tip over the last `len`
+// seconds (default 0.12), bright at the blade and fading behind it. { fx: "trail", who, at, dur, color, len }
+function buildTrail(f) {
+  const N = 10, geo = new THREE.BufferGeometry(), pos = new Float32Array(N * 2 * 3), age = new Float32Array(N * 2), idx = [];
+  for (let i = 0; i < N; i++) { age[i * 2] = age[i * 2 + 1] = i / (N - 1); if (i < N - 1) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
+  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setAttribute("age", new THREE.BufferAttribute(age, 1)); geo.setIndex(idx);
+  const m = new THREE.ShaderMaterial({
+    uniforms: { uColor: { value: new THREE.Color(f.color || "#7dffb4") }, uFade: { value: 1 } },
+    vertexShader: "attribute float age; varying float vAge; void main() { vAge = age; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    fragmentShader: "uniform vec3 uColor; uniform float uFade; varying float vAge; void main() { float a = 0.75 * (1.0 - vAge) * (1.0 - vAge) * uFade; gl_FragColor = vec4(mix(uColor, vec3(1.0), 0.45 * (1.0 - vAge)) * a, a); }",
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+  });
+  m.userData.outlineParameters = { visible: false };
+  const mesh = new THREE.Mesh(geo, m); mesh.frustumCulled = false; mesh.renderOrder = 4; mesh.visible = false; scene.add(mesh);
+  const A = () => actors.find((a) => a.c.id === f.who);
+  return {
+    sample(t) {
+      const d = f.dur ?? 0.3, on = t >= f.at && t <= f.at + d + (f.len ?? 0.12);
+      mesh.visible = on; if (!on) return;
+      const a = A(); if (!a) { mesh.visible = false; return; }
+      for (let i = 0; i < N; i++) {
+        // the ribbon never reaches back before the swing started, and stops growing after it ends
+        const u = Math.max(f.at, Math.min(f.at + d, t) - (i / (N - 1)) * (f.len ?? 0.12));
+        a.ch.apply(actorState(sb, a.c, a.def, u), u); a.ch.root.updateMatrixWorld(true);
+        const L = a.ch.costume.propLine?.(); if (!L) { mesh.visible = false; return; }
+        const p0 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, f.from ?? 0.35)), p1 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, 1.0));
+        pos.set([p0.x, p0.y, p0.z], i * 6); pos.set([p1.x, p1.y, p1.z], i * 6 + 3);
+      }
+      geo.attributes.position.needsUpdate = true;
+      // it fades out over its len once the swing is over
+      m.uniforms.uFade.value = t <= f.at + d ? 1 : 1 - (t - f.at - d) / (f.len ?? 0.12);
+    },
+  };
+}
+
 // glows (sprites on a character, like the blazing Phoenix's halo) would turn into black squares in an ink render:
 // hide them and return them, to be shown again after
 function inkGlows() { const out = []; for (const a of actors) a.ch.root.traverse((o) => { if (o.isSprite && o.visible) { o.visible = false; out.push(o); } }); return out; }
@@ -268,7 +329,7 @@ function photoCard(f, i, t) {
 
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c);
@@ -312,6 +373,7 @@ async function init(data) {
     return { c, def, ch };
   });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
+  trails = (sb.fx || []).filter((f) => f.do === "trail").map(buildTrail);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d");
@@ -409,6 +471,7 @@ function pose(t) {
 
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
+  for (const tr of trails) tr.sample(t);   // poses the swordsman in the recent past, so it goes before pose(t)
   pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
@@ -453,7 +516,9 @@ function layout(t) {
     }
     const hat = a.ch.costume && a.ch.costume.hat ? a.ch.costume.hat.getWorldPosition(new THREE.Vector3()).toArray().map(r3) : undefined;
     const hands = Object.fromEntries(["R", "L"].map((h) => [h, a.ch.arms[h].hand.getWorldPosition(new THREE.Vector3()).toArray().map(r3)]));
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands };
+    // a held costume prop's shaft in the world (the katana: a = the handle's foot, b = the blade tip), for aiming
+    const L = a.ch.costume.propLine?.(), prop = L ? { a: a.ch.root.localToWorld(L.a.clone()).toArray().map(r3), b: a.ch.root.localToWorld(L.b.clone()).toArray().map(r3) } : undefined;
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));
