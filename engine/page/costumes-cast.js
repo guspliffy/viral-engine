@@ -246,7 +246,7 @@ export function castCostume(C, ch) {
     const prev = out.apply;
     out.apply = (st, t, hands, fries) => {
       prev(st, t, hands, fries);
-      for (const k in guns) { guns[k].visible = !fries; guns[k].position.copy(hands[k]); guns[k].rotation.set(st.arms[k].pose === "rest" ? 0.9 : 0, 0, 0); }
+      for (const k in guns) { guns[k].visible = !fries; guns[k].position.copy(ch.gripPoint ? ch.gripPoint(k) : hands[k]); guns[k].rotation.set(st.arms[k].pose === "rest" ? 0.9 : 0, 0, 0); }
     };
   }
   return out;

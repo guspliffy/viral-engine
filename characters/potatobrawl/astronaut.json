@@ -19,7 +19,20 @@
   "face": {
     "default": "delighted",
     "iris": "#3a2a1a",
-    "cheeks": "#ff6f6f"
+    "cheeks": "#ff6f6f",
+    "neutral": {
+      "curve": 0.55,
+      "open": 0.15,
+      "eye": 1.05
+    },
+    "eye": {
+      "flick": 0.4
+    },
+    "browShape": {
+      "arch": 0.06,
+      "thick": 0.85
+    },
+    "blush": 1.1
   },
   "sprout": {
     "color": "#6cbf3a",
@@ -41,5 +54,8 @@
     "vibrato": 0.02,
     "seed": 31
   },
-  "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off."
+  "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off.",
+  "hands": {
+    "type": "mitten"
+  }
 }

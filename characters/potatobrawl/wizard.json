@@ -20,7 +20,18 @@
     "default": "kind",
     "iris": "#5a3418",
     "cheeks": "#ff6f6f",
-    "lids": true
+    "neutral": {
+      "curve": 0.5,
+      "lidL": 0.12,
+      "lidR": 0.18,
+      "browL": 0.12
+    },
+    "eye": {
+      "flick": 0.6
+    },
+    "browShape": {
+      "arch": 0.06
+    }
   },
   "sprout": {
     "color": "#6cbf3a",
