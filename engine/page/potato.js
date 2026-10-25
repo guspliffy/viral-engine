@@ -87,8 +87,6 @@ export class Character {
     for (const s of ["R", "L"]) {
       const hand = (def.hands?.type ?? "mitten") === "mitten" ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
       hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
-      // a rounded shoulder where the arm leaves the body (no tube end or cone shows at the root)
-      const sho = new THREE.Mesh(new THREE.SphereGeometry(def.limbs.width * 1.02, 16, 12), this.limbMat); sho.castShadow = true; this.root.add(sho); this.arms[s].shoulder = sho;
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
 
@@ -237,11 +235,9 @@ export class Character {
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, sh.clone().addScaledVector(shN, -0.035), mid, h, this.limbW, true);
-        this.arms[s].shoulder.position.copy(sh).addScaledVector(shN, -0.02);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
-      this.arms[s].shoulder.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }
     this.costume.apply(st, t, hands, fries);
