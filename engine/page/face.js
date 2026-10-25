@@ -100,7 +100,10 @@ export class Face {
         // keeps its width), shown in place of the lid line once the eye is nearly shut
         const cz = (D + 0.14) * 0.32, cp = [];
         for (let i = 0; i <= 10; i++) { const x = -0.92 + i * 0.184, q = 1 - x * x; cp.push(new THREE.Vector3(x * r * 0.9, r * (-0.06 + 0.13 * q), r * (cz * Math.sqrt(Math.max(0, q)) + 0.03))); }
-        crease = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(cp), 0, 0, 30, 8, (t) => r * (0.012 + 0.05 * Math.pow(Math.sin(Math.PI * t), 0.7))), this.inkMat);
+        // it lies only a hair above the shut lid and the skin, so it is drawn pulled towards the camera (polygon offset)
+        // to win the depth test where they nearly touch
+        if (!this.creaseMat) { this.creaseMat = this.inkMat.clone(); Object.assign(this.creaseMat, { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -8 }); }
+        crease = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(cp), 0, 0, 30, 8, (t) => r * (0.012 + 0.05 * Math.pow(Math.sin(Math.PI * t), 0.7))), this.creaseMat);
         crease.visible = false; root.add(crease);
         lowPivot.add(new THREE.Mesh(new THREE.SphereGeometry(r * 1.0, 40, 20, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), lids));
       } else {
@@ -160,13 +163,16 @@ export class Face {
         // and the per-eye control (lidR is the character's right eye, at -u)
         const sq = Math.max(0, Math.min(0.95, (1 - e.eye) * 0.85)), own = eye.side < 0 ? c.lidR : c.lidL;
         // squints, half-lids and the gaze stop short of shut (a crease only when a lid control asks for 1, or a blink)
-        let k = Math.min(own >= 0.99 ? 1 : 0.86, sq + own - 0.14 * look[1]);
+        // (the cap rises with the control above 0.86, so a slow close glides shut instead of waiting at 0.86 and popping)
+        let k = Math.min(Math.max(0.86, own), sq + own - 0.14 * look[1]);
         k = k + (1 - k) * blink;
-        k = Math.max(-0.12, Math.min(1, k));
+        // the lid edge never rides up off the top of the eye (at 0 or a raised gaze the lash line vanished behind it)
+        k = Math.max(0.1, Math.min(1, k));
         eye.lidPivot.rotation.x = -Math.PI / 2 + k * (Math.PI / 2 + SEAM);
-        const lo = Math.max(0, Math.min(1, (k - 0.6) / 0.4)), lw = lo * lo * (3 - 2 * lo);
+        const lo = Math.max(0, Math.min(1, (k - 0.5) / 0.37)), lw = lo * lo * (3 - 2 * lo);   // up before the crease shows, so it never sweeps over it
         eye.lowPivot.rotation.x = Math.PI / 2 - lw * (Math.PI / 2 - SEAM);
-        eye.crease.visible = k > 0.95; eye.lash.visible = !eye.crease.visible;
+        // the crease takes over just above the half-lid cap (0.86), so only a blink or a shut lid shows it
+        eye.crease.visible = k > 0.87; eye.lash.visible = !eye.crease.visible;
         eye.lidPivot.rotation.z = eye.side * (this.eyeStyle.tilt || 0) * Math.min(1, Math.max(0, k * 4));   // the character's lid angle, as soon as the lid is on the eye
         // the catch lights stand proud of the eye: tuck them away as the lid closes over them
         const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
