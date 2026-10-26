@@ -242,7 +242,7 @@ function build(variant) {
   A(13.65, "odin", "look", { to: [0, 0.05], dur: 0.2, blink: false });                  // back at us, disgusted
   prop(13.95, "doors", { open: 0 }, 0.9, "inOut");
   sfx(13.95, "doorslide", { gain: 0.35, dur: 0.85 });
-  sfx(14.82, "latch", { gain: 0.9 });
+  sfx(14.82, "latch", { gain: 0.55 });   // a very sharp click: louder, it rings over the true-peak limit after AAC
   sfx(14.84, "thud-soft", { gain: 0.35 });
 
   let END = 15.0;
