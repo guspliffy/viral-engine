@@ -24,7 +24,7 @@ manual work as possible. First for our own channels (PotatoBrawl and later games
 ## Build order
 
 1. **Engine core (now).** Character + storyboard → MP4, rendered in code at no cost per video. You post by hand.
-2. **Sound.** Done in v0.2: code-generated voices and effects, lip sync, loudness normalised. Still open: a real spoken hook (TTS or recorded), music slot for trending sounds added in TikTok.
+2. **Sound.** Done in v0.2: code-generated voices and effects, lip sync, loudness normalised. Done 2026-10-25: real voices (local Kokoro TTS, `engine/voice/`) for Phoenix, Reaper, the Wizard and Odin, with phoneme lip sync; gibberish stays as the fallback. Still open: music slot for trending sounds added in TikTok.
 3. **All eight fighters** and more sets, poses and props.
 4. **Control panel** on the VPS: characters, trend board, storyboards, render queue, approval queue, manual stats entry.
 5. **Trend scout + scripting:** scheduled scans, format templates (hook → beats → payoff → loop), storyboards written from them.
@@ -122,4 +122,4 @@ speed lines, impact frames; fits the game's manga KO pages). Worth A/B-testing a
   with a GPU. Jonny's call.
 - **Character bible:** relationships, running gags, tone limits per fighter. Drafted in the earlier game-marketing chat;
   needs to be brought in and signed off.
-- **Voice:** gibberish synthesis in code vs. a TTS service (cost, and whether it is reachable from where we render).
+- **Voice:** decided 2026-10-25 (Jonny): free local TTS (Kokoro) first, voices picked by ear; a paid service only if it isn't good enough.

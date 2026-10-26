@@ -44,6 +44,7 @@
     "tip": "#ffd23f"
   },
   "personality": "Wants to impress people and feel capable; commits to elaborate shortcuts before understanding the problem; enthusiastic, generous, keeps trying. Canon since 24 Oct 2026, see docs/character-bible.md.",
+  "tts": "phoenix",
   "voice": {
     "pitch": 205,
     "rate": 4.3,

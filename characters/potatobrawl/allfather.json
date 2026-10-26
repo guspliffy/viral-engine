@@ -50,6 +50,7 @@
     "cape": "#9c2a2a"
   },
   "personality": "Old Norse god with a raven on his shoulder. Ancient, solemn, overdramatic about small things (proposal).",
+  "tts": "odin",
   "voice": {
     "pitch": 88,
     "rate": 2.4,

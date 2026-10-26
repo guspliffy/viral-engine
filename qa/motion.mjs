@@ -13,7 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { compile } from "../engine/compile.mjs";
+import { loadStoryboard } from "../engine/load.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // how far a value may move between two frames before it counts as a jump (metres, radians, or 0..1 levels),
@@ -129,7 +129,7 @@ export async function storyNotes(sb, fps = 30) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const sb = compile(JSON.parse(fs.readFileSync(process.argv[2], "utf8")));
+  const sb = loadStoryboard(process.argv[2]);
   if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: 120 };
   const j = await motionJumps(sb, sb.fps ?? 30);
   if (!j.length) console.log("motion: no jumps");

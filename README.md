@@ -69,9 +69,19 @@ storyboards/*.json ┘
   `engine/page/index.html` in headless Chromium, calls `ENGINE.frame(t)` for every frame, reads the composed canvas
   (`ENGINE.capture`) and pipes the frames into ffmpeg (H.264, yuv420p). Finally it muxes picture and sound with
   two-pass loudness normalisation to -14 LUFS, true peak -2 dBTP.
-- `engine/audio.mjs` synthesises everything in code: gibberish voices (formant synthesis) for `talk` actions and sound
+- **Real voices** (`engine/voice/`): characters with a speaking voice (`"tts"`) say their lines with Kokoro text-to-speech,
+  run locally on the CPU (about a second per line, cached in `out/speech/`). It runs before compile, so a line lasts
+  exactly as long as it is spoken and the mouth follows the real phonemes (`engine/shared/visemes.js`). One-time
+  setup: `node engine/voice/setup.mjs` (Python venv + ~350 MB of model files). Without it, every line falls back to
+  the gibberish voice. Voices and licenses: `engine/voice/README.md`.
+- `engine/audio.mjs` synthesises everything else in code: gibberish voices (formant synthesis) for other `talk` actions and sound
   effects placed automatically from the storyboard (hop, land, pop, charge, whoosh, tink, sting, sad slide, impact, poof).
   Claude can't listen, so audio is checked by measurement (levels, spectrum, timing); a human has to judge the sound.
+- `engine/sfx/library.mjs` plays recorded sounds from the sound library (`assets/sfx/`, 552 CC0 Kenney sounds,
+  `catalog.json` built by `assets/sfx/make-catalog.mjs`): automatic footsteps on every footfall of a walk (surface
+  from the set: wood, carpet, concrete, grass), a grab when a hand closes, a creak when someone sits, and any named
+  sound in `sfx` (`katana-slice`, `knock`, `door-slam`, `typing`, `hit-wood`, `jingle-sax`, ...). Other sources
+  (AI-generated sounds) drop in as `assets/sfx/<source>/` with a `manifest.json`.
 - `engine/shared/syllables.js` plans each line as syllables. The voice speaks them and the mouth shapes them
   (round on o/u, closed on b/p/m), so lip sync comes for free.
 - `engine/page/` is the browser side:
@@ -95,7 +105,8 @@ storyboards/*.json ┘
 | `face.default` | resting expression (see below), iris and blush colours |
 | `sprout` | the leaves; `placement`: `top`, `hat-top`, `hat-brim` or `none` |
 | `costume` | `type` (`wizard`, `cowboy`, `magician` (top hat + wand), `cap` (backwards cap), `none`), colours, `tie` (a colour adds a necktie), `propHand` (`L` / `R`) |
-| `voice` | `pitch` (Hz), `rate` (syllables/s), `formant` (voice size: >1 smaller, cartoonier), `range` (semitones), `breath`, `vibrato`, `seed` |
+| `tts` | speaking voice from `engine/voice/voices.json` (`phoenix`, `reaper`, `wizard`, `odin`, ...); without it the character speaks gibberish |
+| `voice` | gibberish voice (and the fallback when real speech isn't set up): `pitch` (Hz), `rate` (syllables/s), `formant` (voice size: >1 smaller, cartoonier), `range` (semitones), `breath`, `vibrato`, `seed` |
 | `personality`, `notes` | for scripting; not used by the renderer |
 
 Expressions: `kind happy delighted eager cocky smug shocked sad evil focused stern deadpan`.
@@ -128,7 +139,7 @@ Expressions: `kind happy delighted eager cocky smug shocked sad evil focused ste
   Clip props: A table top is at y 0.62, a chair seat at 0.42. A clock prop hides the kitchen's own clock. `gate` tweens `open latch slice smash scorch`; `portal` `open`; `bolt` `on`; `flames` `fire` (all 0..1). `pizza` (10 slices on a board) shows `slices` (0..10); `slice` is one of them, at `rot` i·36 it lies exactly on slice i, and `toast` 0..1 browns it. `tree` (an apple tree, its foot at x/z) shows `apples` 0..10 (fractional regrows them one by one) and `steps` 0..1 ledges; an `apple` at `TREE_APPLES[i]` covers hanging apple i. Set `forest`: a clearing with the tree's spot at x 0, z -0.6. Action `climb`: `{ to: { y }, steps, dur }` hand over hand, stays up until a drop. `cloth` is a checked tablecloth for a table at the same spot; `cheese` a melted string `len` m long. `bus` (origin: the middle of its front door on the near side, front towards +x) tweens `open`, `full` (passengers in the windows), `bulge`, and its wheels turn with its x; `bench` has a chair's seat height (so `sit` works); Sets `restaurant` (a pizzeria, table at x 0, z 0) and `street` (a bus stop, kerb at z -1.15, road at y -0.12, a puddle at x -0.2). Fx `zzz`: sleepy z's off a character's head. Sfx `horn`, `screech`, `hiss`. Any prop also takes `tilt` and `roll` (degrees). `allowClip` entries can name a pair: `{ who, with, from, to }`.
 - `captions` style `label`: white letters on a dark plate (the pinned title word of the "each character vs X" format).
 - `fx`: `flash` `{ peak }`, `shake` `{ amp }`, `poof` `{ who | pos, spark }`, `speedlines` `{ center: [px, px], inner, count }` (manga focus lines), `impact` (black silhouettes on white, a few frames), `sparkle` and `notes` `{ who, count }` round a character's head, `lights` `{ to, lamp, dur }` fades the room's lights (1 = as built; `set.lights` sets the starting level, 0.1 is lights off), `photo` `{ look: dark|normal|ink, cam: { pos, look, fov }, shot, hide: [ids], pos: [px, px], w, tilt, dur }` pops up a phone showing a photo taken from `cam` at time `shot` (default: its own start); `ink` is a silhouette against a glow; `zzz` `{ who, count }` sleepy z's off a character's head
-- `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones (`hop land whoosh charge impact poof pop click creak shing tink sting sadslide horn screech hiss`). `sound`: `{ auto, voice, sfx, reverb }` mix settings.
+- `sfx`: extra sounds `{ at, sound, gain, pan, dur }` on top of the automatic ones. `sound` is a code effect (`hop land whoosh charge impact poof pop click creak shing tink sting sadslide horn screech hiss`) or a library sound from `assets/sfx/catalog.json` (named ones: `step-wood step-grass step-concrete step-carpet step-snow grab put-down put-down-glass put-down-metal cloth sit blade-draw blade-cut katana-slice katana-draw chop punch thud thud-soft hit-wood hit-metal hit-glass hit-plate bell pan-bonk knock door-open door-close door-slam door-creak latch coins book-flip book-close key typing mouse-click ui-click ui-error ui-confirm magic-up zap force-field laser laser-big jingle-sax jingle-pizzicato jingle-8bit jingle-steel jingle-hit`, plus every `kenney/...` family). A library sound's `gain` multiplies its catalogued level (default 1); `typing` lasts `dur`. `sound`: `{ auto, foley, surface, voice, sfx, reverb }` mix settings (`foley: false` drops the automatic footsteps, grabs and sits; `surface` overrides the floor: `wood carpet concrete grass snow indoor`).
 - `style`: default render style. Any action, fx, caption, shot or sfx with `"only": "anime"` (or a list) is used only in that style.
 - `captions`: `{ from, to, text, pos: top|mid|low|<px>, x (centre in px, optional), style: main|sub, pop }`. A `\n` in the text forces a line break. Captions stay inside the TikTok safe zone.
 

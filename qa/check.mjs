@@ -21,7 +21,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { compile } from "../engine/compile.mjs";
+import { loadStoryboard } from "../engine/load.mjs";
 import { motionJumps, storyNotes } from "./motion.mjs";
 import { musicFlavour, seedOf } from "../puppet/beat.mjs";
 
@@ -404,7 +404,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const guess = o.clip.replace(/(-safe)?(-draft)?\.mp4$/, ".layout.json");
   const layoutFile = o.layout || (fs.existsSync(guess) ? guess : null);
   const layout = layoutFile ? JSON.parse(fs.readFileSync(layoutFile, "utf8")) : null;
-  let sb = o.sb ? compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))) : null;
+  let sb = o.sb ? loadStoryboard(o.sb) : null;
   if (!sb && layout?.duration != null) sb = { duration: layout.duration };
   const res = checkClip(o.clip, { sb, layout, profile: o.profile });
   const profile = o.profile || sb?.profile || "short";

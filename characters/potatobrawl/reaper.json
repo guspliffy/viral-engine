@@ -51,6 +51,7 @@
     "propHand": "R"
   },
   "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
+  "tts": "reaper",
   "voice": {
     "pitch": 92,
     "rate": 2.5,
