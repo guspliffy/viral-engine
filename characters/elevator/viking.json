@@ -1,0 +1,68 @@
+{
+  "id": "elevator/viking",
+  "name": "Viking (no axe)",
+  "franchise": "PotatoBrawl",
+  "source": "Jonny's reference portraits, 2026-10-24",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 1.02,
+    "width": 0.86,
+    "depth": 0.74,
+    "lump": 0.04,
+    "seed": 17
+  },
+  "limbs": {
+    "color": "#1f1d26",
+    "width": 0.034
+  },
+  "face": {
+    "default": "delighted",
+    "iris": "#3a5a2a",
+    "cheeks": "#ff6f6f",
+    "neutral": {
+      "smirk": 0.2,
+      "curve": 0.35,
+      "open": 0,
+      "browL": 0.25,
+      "tilt": 0.02
+    },
+    "eye": {
+      "flick": 0.5,
+      "lash": 1.1
+    },
+    "browShape": {
+      "arch": 0.04,
+      "thick": 1.25
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "hat-top"
+  },
+  "costume": {
+    "type": "viking",
+    "hair": "#b8652a",
+    "belt": "#a8322a",
+    "wood": "#6b4a2b",
+    "propHand": "L",
+    "noProp": true
+  },
+  "personality": "Raider with an axe. Loud, cheerful, solves everything by charging at it (proposal).",
+  "voice": {
+    "pitch": 125,
+    "rate": 3.6,
+    "formant": 0.98,
+    "range": 7,
+    "breath": 0.08,
+    "vibrato": 0.01,
+    "seed": 41
+  },
+  "notes": "Fart in the Elevator (26 Oct 2026): the Viking without his axe (Jonny's brief). Otherwise potatobrawl/viking.",
+  "hands": {
+    "type": "mitten",
+    "grip": {
+      "L": "hold"
+    }
+  }
+}

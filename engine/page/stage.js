@@ -11,7 +11,7 @@ import { makeLook } from "./looks.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
-let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [];   // what the "lights" effect dims (timeline.js lightsAt)
+let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
@@ -372,6 +372,9 @@ async function init(data) {
     ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; charMats.push(m); } });
     return { c, def, ch };
   });
+  // set pieces and props that belong to one side of a wall (set-elevator.js: the car's front wall and the hallway show
+  // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
+  camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   trails = (sb.fx || []).filter((f) => f.do === "trail").map(buildTrail);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
@@ -467,6 +470,7 @@ function pose(t) {
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
   const cam = cameraState(sb, t);
   camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));
+  for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
 }
 
 function frame(t) {

@@ -1,0 +1,15 @@
+{
+ "source": {
+  "name": "OpenGameArt: \"Gastric Distress\" by LFA (recorded with mouth and hands)",
+  "url": "https://opengameart.org/content/gastric-distress",
+  "license": "CC0 1.0 (public domain): commercial use, no credit needed",
+  "downloaded": "2026-10-26",
+  "processed": "single takes cut from gastricdistress_bylfa_0.wav, picked by CLAP (laion/larger_clap_general) as 'short dry fart' / 'squeaky fart', pitched per character with ffmpeg rubberband (Fart in the Elevator)"
+ },
+ "sounds": [
+  { "id": "fart-viking", "files": ["fart/fart-viking.ogg"], "gain": 0.5, "tags": ["fart", "short", "low"], "note": "take at 16.1 s, 2 semitones down" },
+  { "id": "fart-viking-2", "files": ["fart/fart-viking-2.ogg"], "gain": 0.5, "tags": ["fart", "short", "low"], "note": "take at 18.2 s, 3 semitones down" },
+  { "id": "fart-wizard", "files": ["fart/fart-wizard.ogg"], "gain": 0.45, "tags": ["fart", "squeaky"], "note": "take at 18.4 s, as recorded" },
+  { "id": "fart-astronaut", "files": ["fart/fart-astronaut.ogg"], "gain": 0.45, "tags": ["fart", "high", "muffled"], "note": "take at 19.4 s, 3 semitones up, low-passed at 2.6 kHz (muffled by the suit)" }
+ ]
+}

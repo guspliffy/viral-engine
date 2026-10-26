@@ -206,6 +206,21 @@ export function castCostume(C, ch) {
     glass.position.set(0, ch.cy + ch.ry * 0.22, 0.01); parts.add(glass);
     out.helmet = { mesh: glass, r: R };   // potato.js contact(): a raised arm must not run up inside the glass
     out.sitDepth = 0.02;
+    // button: a round suit button just under the helmet ring and a status light beside it, lit by the `charge`
+    // action (0.25 and up is fully on, so it stays clear of the staff's charge sound): sealed, protected breathing
+    if (C.button) {
+      const bp = ch.surf(0.05, -0.55), n = bp.normal.clone();
+      const btn = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.052, 0.03, 24), std(C.buttonColor || "#2f64d6", { roughness: 0.35 }));
+      btn.position.copy(bp.pos).addScaledVector(n, 0.045); btn.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), n); btn.castShadow = true; parts.add(btn);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.054, 0.009, 8, 24), trimM); rim.position.copy(bp.pos).addScaledVector(n, 0.035); rim.lookAt(rim.position.clone().add(n)); parts.add(rim);
+      const lp = ch.surf(0.32, -0.5), ln = lp.normal.clone(), lightCol = new THREE.Color(C.light || "#5ab8ff");
+      const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.03, 16, 12), new THREE.MeshStandardMaterial({ color: "#3a4658", emissive: lightCol, emissiveIntensity: 0, roughness: 0.3 }));
+      lamp.position.copy(lp.pos).addScaledVector(ln, 0.04); parts.add(lamp);
+      const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(230,245,255,1)"], [0.3, "rgba(90,184,255,0.6)"], [1, "rgba(90,184,255,0)"]]), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
+      glow.position.copy(lamp.position).addScaledVector(ln, 0.01); glow.scale.setScalar(0.2); parts.add(glow);
+      out.apply = (st) => { const k = Math.min(1, (st.charge || 0) * 4); lamp.material.emissiveIntensity = 2.2 * k; lamp.material.color.set(k > 0.5 ? "#bfe4ff" : "#3a4658"); glow.material.opacity = 0.8 * k; glow.visible = k > 0.01; };
+      out.button = btn;
+    }
   }
   if (T === "viking") {
     out.hat = vikingHair(C, ch); out.sitDepth = 0.06;

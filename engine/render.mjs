@@ -27,7 +27,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
@@ -142,6 +142,18 @@ function applyStyle(sb, style) {
   return out;
 }
 
+// a recorded music bed (assets/music/..., e.g. the AI beds in assets/music/ai): looped to fill the clip from `from`
+// (default 0) and cut at `until` (default the end) with a 40 ms fade, so "the music stops" lands on its frame
+function fileMusic(music, dur, sr) {
+  const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(ROOT, "assets/music", music.file), "-ac", "2", "-ar", String(sr), "-f", "f32le", "-"], { maxBuffer: 1 << 29 });
+  if (r.status !== 0) throw new Error(`music: can't decode ${music.file}: ${r.stderr}`);
+  const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length)), m = x.length / 2;
+  const n = Math.round(dur * sr), L = new Float32Array(n), R = new Float32Array(n);
+  const a = Math.round((music.from ?? 0) * sr), b = Math.min(n, Math.round((music.until ?? dur) * sr)), fade = Math.round(0.04 * sr);
+  for (let i = a; i < b; i++) { const k = (i - a) % m, f = Math.min(1, (b - i) / fade); L[i] = x[2 * k] * f; R[i] = x[2 * k + 1] * f; }
+  return { L, R };
+}
+
 async function main() {
   const o = args();
   const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
@@ -168,8 +180,8 @@ async function main() {
     // "music": false turns it off, a music block pins tempo, style, key and parts
     const music = sb.music === false ? null : { gain: 0.45, ...(sb.music || {}) };
     if (music) {
-      const M = renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
-      console.log(`music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
+      const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
+      console.log(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
       for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
       if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
     }

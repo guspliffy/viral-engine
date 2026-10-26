@@ -264,6 +264,16 @@ const SFX = {
     }
     return x;
   },
+  ding(r, d = 1.6) { // a lift arriving: one soft bell tone (a struck bar: a fundamental, its slightly sharp octave and a high partial)
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 1175 * t) * 0.6 + Math.sin(TAU * 2362 * t) * 0.22 * Math.exp(-t / 0.25) + Math.sin(TAU * 3290 * t) * 0.08 * Math.exp(-t / 0.08)) * env(t, 0.002, d * 0.5, d); }
+    return x;
+  },
+  doorslide(r, d = 0.8) { // lift doors gliding: a soft low rumble of rollers and a whisper of air, easing in and out
+    const x = buf(d), lp = biquad("lp", 220, 0.8), bp = biquad("bp", 1400, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = Math.sin(Math.PI * Math.min(1, t / d)) ** 1.5; x[i] = (run(lp, r() * 2 - 1) * 1.4 + run(bp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 62 * t) * 0.08) * k; }
+    return x;
+  },
   hiss(r, d = 0.3) { // bus doors: air brakes' hiss
     const x = buf(d), hp = biquad("hp", 2500, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
@@ -392,6 +402,9 @@ function ambience(type, seconds, r) {
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.12;
     for (const [f, rate, ph, g] of [[4300, 2.1, 0, 0.05], [4700, 2.6, 1.7, 0.035], [3900, 1.8, 0.6, 0.03]]) for (let i = 0; i < n; i++) { const t = i / SR, chirp = Math.max(0, Math.sin(TAU * rate * t + ph)) ** 8 * (0.5 + 0.5 * Math.sin(TAU * 38 * t)); x[i] += Math.sin(TAU * f * t) * chirp * g; }
     const owl = 1.5 + r() * Math.max(0.5, seconds - 4); for (const k of [0, 0.35]) { const a = Math.round((owl + k) * SR); for (let i = 0; i < 0.3 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (390 - 30 * t) * t) * env(t, 0.03, 0.15, 0.3) * 0.05; } }
+  } else if (type === "elevator") { // a lift on the move: a low motor hum with a slow beat and the whir of the cables
+    const lp = biquad("lp", 300, 0.7), lp2 = biquad("lp", 1200, 0.6);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 58 * t) * 0.07 + Math.sin(TAU * 116.4 * t) * 0.035) * (0.85 + 0.15 * Math.sin(TAU * 0.7 * t)) + run(lp, r() * 2 - 1) * 0.16 + run(lp2, r() * 2 - 1) * 0.015; }
   } else if (type === "apartment") { // a quiet flat in the afternoon: soft room tone, a faint far-off street now and then
     const lp = biquad("lp", 260, 0.6), lp2 = biquad("lp", 900, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(lp, r() * 2 - 1) * 0.14 + run(lp2, r() * 2 - 1) * 0.025 * (0.6 + 0.4 * Math.sin(TAU * 0.11 * t)); }

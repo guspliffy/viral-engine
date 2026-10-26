@@ -12,6 +12,13 @@
    "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
    "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
    "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
+  },
+  "oga": {
+   "name": "OpenGameArt: \"Gastric Distress\" by LFA (recorded with mouth and hands)",
+   "url": "https://opengameart.org/content/gastric-distress",
+   "license": "CC0 1.0 (public domain): commercial use, no credit needed",
+   "downloaded": "2026-10-26",
+   "processed": "single takes cut from gastricdistress_bylfa_0.wav, picked by CLAP (laion/larger_clap_general) as 'short dry fart' / 'squeaky fart', pitched per character with ffmpeg rubberband (Fart in the Elevator)"
   }
  },
  "sounds": {
@@ -2091,6 +2098,53 @@
     "wings",
     "flap",
     "phoenix"
+   ]
+  },
+  "oga/fart-viking": {
+   "source": "oga",
+   "files": [
+    "oga/fart/fart-viking.ogg"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "fart",
+    "short",
+    "low"
+   ]
+  },
+  "oga/fart-viking-2": {
+   "source": "oga",
+   "files": [
+    "oga/fart/fart-viking-2.ogg"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "fart",
+    "short",
+    "low"
+   ]
+  },
+  "oga/fart-wizard": {
+   "source": "oga",
+   "files": [
+    "oga/fart/fart-wizard.ogg"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "fart",
+    "squeaky"
+   ]
+  },
+  "oga/fart-astronaut": {
+   "source": "oga",
+   "files": [
+    "oga/fart/fart-astronaut.ogg"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "fart",
+    "high",
+    "muffled"
    ]
   }
  }
