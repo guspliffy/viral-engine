@@ -11,7 +11,7 @@ import { canvas, tex } from "./set-porch.js";
 // and the hallway beyond appear instead: a warm corridor with sconces, plants and a painting, where someone waits.
 // Each piece says which side it belongs to in userData.camGate (stage.js shows it only when the camera is on that side).
 // spec: { type: "elevator", seed }.
-export const ELEVATOR = { halfW: 2.05, backZ: -1.6, frontZ: 1.25, gateZ: 1.2, H: 3.4, rail: 0.72, door: { halfW: 0.62, h: 2.05 }, hallEnd: 7.5, hallHalfW: 1.7 };
+export const ELEVATOR = { halfW: 2.05, backZ: -1.6, frontZ: 1.25, gateZ: 1.2, H: 3.4, rail: 0.5, door: { halfW: 0.62, h: 2.05 }, hallEnd: 7.5, hallHalfW: 1.7 };
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.8, ...o });
 const basic = (o) => { const m = new THREE.MeshBasicMaterial({ fog: false, ...o }); m.userData.noOutline = true; return m; };
@@ -30,7 +30,7 @@ function steelTex(rnd, w, h, panel = 0.9) {
   for (let i = 0; i < 160; i++) { const x = rnd() * W, a = 0.01 + rnd() * 0.015; g.fillStyle = rnd() < 0.5 ? `rgba(255,248,236,${a})` : `rgba(70,60,50,${a})`; g.fillRect(x, 0, 1, H); }
   g.fillStyle = "rgba(60,48,38,0.5)";
   for (let x = 0; x < W + 1; x += px) g.fillRect(x - 1.5, 0, 3, H);
-  g.fillRect(0, H * (1 - 1.15 / h), W, 3);   // a seam just above the handrail
+  g.fillRect(0, H * (1 - 0.62 / h), W, 3);   // a seam just above the handrail
   return tex(c);
 }
 

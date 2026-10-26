@@ -193,8 +193,8 @@ export const ELEVATOR_KINDS = {
     ball.material.userData.outlineParameters = { visible: false }; ball.renderOrder = 4; P.whole.add(ball);
     const halo = glowSprite("rgba(150,230,90,0.55)", R * 5); P.whole.add(halo);
     const to = (P.spec.to || [[-1, 0, -0.4], [1, 0, -0.4], [0, 0, -0.4]]).map((v) => new THREE.Vector3(...v));
-    const sparks = to.map(() => { const head = glowSprite("rgba(220,255,140,0.95)", 0.16), trail = Array.from({ length: 6 }, (_, i) => glowSprite("rgba(170,240,90,0.7)", 0.12 * (1 - i * 0.13))); P.whole.add(head, ...trail); return { head, trail }; });
-    const at = (v, k, out) => out.copy(v).multiplyScalar(k).setY(v.y * k + 0.28 * Math.sin(Math.PI * k));   // an arc up and over
+    const sparks = to.map(() => { const head = glowSprite("rgba(230,255,150,1)", 0.34), trail = Array.from({ length: 7 }, (_, i) => glowSprite("rgba(170,240,90,0.85)", 0.24 * (1 - i * 0.11))); P.whole.add(head, ...trail); return { head, trail }; });
+    const at = (v, k, out) => out.copy(v).multiplyScalar(k).setY(v.y * k + 0.12 * Math.sin(Math.PI * k));   // a low arc, under the faces
     const tmp = new THREE.Vector3();
     return {
       apply(ps, t) {
@@ -210,7 +210,7 @@ export const ELEVATOR_KINDS = {
           s.head.visible = on; for (const q of s.trail) q.visible = on;
           if (!on) return;
           s.head.position.copy(at(to[i], k, tmp)); s.head.material.opacity = out;
-          s.trail.forEach((q, j) => { q.position.copy(at(to[i], Math.max(0, k - (j + 1) * 0.05), tmp)); q.material.opacity = out * 0.7 * (1 - j * 0.17); });
+          s.trail.forEach((q, j) => { q.position.copy(at(to[i], Math.max(0, k - (j + 1) * 0.04), tmp)); q.material.opacity = out * 0.7 * (1 - j * 0.17); });
         });
       },
     };
