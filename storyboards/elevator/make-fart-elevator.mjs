@@ -32,9 +32,11 @@ function build(variant) {
   // ---------------------------------------------------------------- places (set-elevator.js ELEVATOR)
   const Z = -0.3, VIK = [-1.1, Z], AST = [0, Z], WIZ = [1.1, Z];
   const ODIN = [0, 2.45], ODIN_BACK = [0, 3.05];
-  const SPELL = [0.62, 0.66, 0.3];                         // in front, between the Astronaut and the Wizard, chest high
+  const SPELL = [0.64, 0.7, 0.32];                         // in front, between the Astronaut and the Wizard, chest high
   // where each fart puffs out: low, behind and a little to one side of each body, so it shows from the front
   const BEHIND = { vik: [-1.53, 0.26, -0.5], wiz: [1.53, 0.28, -0.55], ast: [0.42, 0.3, -0.68] };
+  // the chain farts in the wide puff out low at the feet, where the floor shows them clearly from the front
+  const LOW = { vik: [-1.28, 0.1, -0.12], wiz: [1.28, 0.1, -0.12], ast: [0.16, 0.1, -0.1] };
 
   const cast = [
     { id: "vik", character: "elevator/viking", at: VIK, face: "camera", expr: "kind", follow: 0.3, seed: 1.3 },
@@ -51,9 +53,9 @@ function build(variant) {
     { id: "spell", kind: "spell", x: SPELL[0], y: SPELL[1], z: SPELL[2], size: 0.46 },
     { id: "orb", kind: "orb", x: SPELL[0], y: SPELL[1], z: SPELL[2], glow: 0,
       to: [VIK, AST, WIZ].map(([x, z]) => [r3(x - SPELL[0]), r3(0.4 - SPELL[1]), r3(z + 0.42 - SPELL[2])]) },   // each spark hits a belly from the front
-    { id: "gas2", kind: "gas", x: BEHIND.vik[0], y: BEHIND.vik[1], z: BEHIND.vik[2], len: 0.4, seed: 2, size: 0.46 },
-    { id: "gas3", kind: "gas", x: BEHIND.wiz[0], y: BEHIND.wiz[1], z: BEHIND.wiz[2], len: 0.4, seed: 3, size: 0.46 },
-    { id: "gas4", kind: "gas", x: BEHIND.ast[0], y: BEHIND.ast[1], z: BEHIND.ast[2], len: 0.4, seed: 5, size: 0.46 },
+    { id: "gas2", kind: "gas", x: LOW.vik[0], y: LOW.vik[1], z: LOW.vik[2], len: 0.4, seed: 2, size: 0.62 },
+    { id: "gas3", kind: "gas", x: LOW.wiz[0], y: LOW.wiz[1], z: LOW.wiz[2], len: 0.4, seed: 3, size: 0.62 },
+    { id: "gas4", kind: "gas", x: LOW.ast[0], y: LOW.ast[1], z: LOW.ast[2], len: 0.4, seed: 5, size: 0.62 },
     { id: "gas5", kind: "gas", x: 0.05, y: 0.06, z: 0.7, len: 0.24, seed: 6, n: 2, w: 0.04, size: 0.26 },
   ];
 
@@ -104,7 +106,8 @@ function build(variant) {
   arm(2.75, "ast", "R", { x: [-0.06, 0.25, 0.44] }, 0.4, "out");
   arm(3.2, "ast", "R", { x: [-0.05, 0.25, 0.4] }, 0.08, "inOut");
   sfx(3.24, "kenney/switch", { gain: 0.9 });
-  A(3.26, "ast", "charge", { to: 0.3, dur: 0.06 });                                     // the blue status light
+  A(3.26, "ast", "charge", { to: 1, dur: 0.06, quiet: true });                          // the blue status light flashes
+  A(3.4, "ast", "charge", { to: 0.3, dur: 0.3 });                                       // and stays on
   sfx(3.3, "ui-confirm", { gain: 0.6 });
   sfx(3.42, "hiss", { gain: 0.25, dur: 0.55 });
   arm(3.5, "ast", "R", "rest", 0.45, "inOut");
@@ -173,7 +176,7 @@ function build(variant) {
     A(t, who, "squash", { amount: 0.1, dur: 0.26 });
     A(t, who, "face", { lid: 0.7, press: 1, dur: 0.08 });
     A(t, who, "expr", { set: { eye: 0.7, curve: -0.2, smirk: 0 }, dur: 0.08 });
-    prop(t + 0.02, id, { puff: 1 }, 0.9, "out");
+    prop(t + 0.02, id, { puff: 1 }, 0.5, "out");   // bursts on the sound
     // then embarrassed: eyes open, looking down and away, brows up and in, mouth a flat wobble
     A(t + 0.3, who, "face", { lid: 0.3, press: 0.3, brow: 0.35, dur: 0.2 });
     A(t + 0.3, who, "expr", { expr: "sad", set: { curve: -0.25, eye: 0.85, tilt: 0.45 }, dur: 0.2 });
@@ -194,6 +197,7 @@ function build(variant) {
   arm(9.25, "ast", "R", { x: [-0.06, 0.25, 0.44] }, 0.25, "out");
   arm(9.5, "ast", "R", { x: [-0.05, 0.25, 0.4] }, 0.07, "inOut");
   sfx(9.54, "kenney/switch", { gain: 0.8 });
+  for (const t of [9.52, 9.71]) { A(t, "ast", "charge", { to: 1, dur: 0.04, quiet: true }); A(t + 0.09, "ast", "charge", { to: 0.3, dur: 0.06 }); }
   arm(9.62, "ast", "R", { x: [-0.06, 0.25, 0.44] }, 0.07, "inOut");
   arm(9.69, "ast", "R", { x: [-0.05, 0.25, 0.4] }, 0.07, "inOut");
   sfx(9.73, "kenney/switch", { gain: 0.7 });
@@ -214,23 +218,24 @@ function build(variant) {
   A(0, "odin", "hide");
   A(10.5, "odin", "look", { to: [0, 0.0], dur: 0.01, blink: false });
   A(10.5, "odin", "noblink");
-  prop(10.62, "doors", { open: 1 }, 0.75, "inOut");
-  sfx(10.6, "doorslide", { gain: 0.35, dur: 0.8 });
-  still(10.6, "odin", 1.6, 0.12);
+  prop(10.4, "doors", { open: 1 }, 0.7, "inOut");     // already parting on the cut (the doors only show from inside)
+  sfx(10.48, "doorslide", { gain: 0.35, dur: 0.7 });
+  still(10.6, "odin", 1.15, 0.12);
   // a thin wisp drifts out through the doorway at knee height and reaches him
-  prop(11.15, "gas5", { puff: 1 }, 0.6, "out");
-  prop(11.15, "gas5", { z: 1.95, y: 0.08, x: 0.0 }, 1.05, "inOut");
-  for (const t of [12.1, 12.3]) A(t, "odin", "squash", { amount: 0.025, dur: 0.14 });   // two sniffs
-  A(12.3, "odin", "look", { to: [0, -0.7], dur: 0.15, blink: false });                  // down at the gas
-  A(12.6, "odin", "look", { to: [0, 0.0], dur: 0.15, blink: false });                   // back up at the lift
-  A(12.6, "odin", "face", { lid: 0.6, dur: 0.15 });                                     // narrows his eyes
-  A(12.6, "odin", "expr", { set: { curve: -0.5 }, dur: 0.15 });
-  still(12.6, "odin", 0.3, 0.04);
-  A(12.8, "odin", "face", { browL: 0.6, browR: -0.25, dur: 0.15 });                     // one brow up
-  A(12.8, "odin", "expr", { set: { smirk: 0.3, raise: 0.0 }, dur: 0.15 });
-  A(13.0, "odin", "pitch", { to: -16, dur: 0.35, ease: "out" });                       // leans away
-  A(13.25, "odin", "move", { to: ODIN_BACK, dur: 0.45, ease: "inOut", steps: 1.1 });    // one step back; he never enters
-  prop(13.0, "gas5", { fade: 0.6, y: 0.14 }, 1.2, "inOut");
+  prop(10.85, "gas5", { puff: 1 }, 0.6, "out");
+  prop(10.85, "gas5", { z: 1.95, y: 0.08, x: 0.0 }, 0.9, "inOut");
+  for (const t of [11.75, 11.95]) A(t, "odin", "squash", { amount: 0.025, dur: 0.14 });   // two sniffs
+  A(11.95, "odin", "look", { to: [0, -0.7], dur: 0.15, blink: false });                  // down at the gas
+  A(12.25, "odin", "look", { to: [0, 0.0], dur: 0.15, blink: false });                   // back up at the lift
+  A(12.25, "odin", "face", { lid: 0.6, dur: 0.15 });                                     // narrows his eyes
+  A(12.25, "odin", "expr", { set: { curve: -0.5 }, dur: 0.15 });
+  still(12.25, "odin", 0.3, 0.04);
+  A(12.45, "odin", "face", { browL: 0.6, browR: -0.25, dur: 0.15 });                     // one brow up
+  A(12.45, "odin", "expr", { set: { smirk: 0.3, raise: 0.0 }, dur: 0.15 });
+  A(12.65, "odin", "pitch", { to: -16, dur: 0.35, ease: "out" });                       // leans away
+  A(12.9, "odin", "move", { to: ODIN_BACK, dur: 0.45, ease: "inOut", steps: 1.1 });    // one step back; he never enters
+  still(13.35, "odin", 0.25, 0.04);                                                       // holds the disgusted face
+  prop(12.65, "gas5", { fade: 0.6, y: 0.14 }, 1.2, "inOut");
   still(13.6, "odin", 1.4, 0.05);
 
   // ---------------------------------------------------------------- 8 HARD PASS 13.6-15.0 (the doors close on him)
@@ -257,7 +262,7 @@ function build(variant) {
   const VIK_CU = { pos: [-1.08, 0.92, 2.45], look: [-1.1, 0.72, -0.3], fov: 32 };
   const TWO = { pos: [-0.55, 1.0, 4.7], look: [-0.55, 0.72, -0.3], fov: 36 };
   const AST_CU = { pos: [0.02, 0.92, 2.6], look: [0.0, 0.7, -0.3], fov: 34 };
-  const WIZ_MED = { pos: [1.12, 0.98, 3.4], look: [1.12, 0.8, -0.2], fov: 44 };
+  const WIZ_MED = { pos: [1.0, 0.98, 3.4], look: [1.0, 0.8, -0.2], fov: 47 };   // room for the spell between the two
   const WIZ_CU = { pos: [0.98, 0.98, 2.55], look: [1.0, 0.84, -0.3], fov: 34 };
   const REV = { pos: [0, 1.04, -1.25], look: [0, 0.95, 2.4], fov: 54 };
   const REV_MID = { pos: [0, 1.0, -0.85], look: [0, 0.93, 2.5], fov: 50 };
