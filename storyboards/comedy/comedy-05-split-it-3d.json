@@ -10,7 +10,7 @@
   "time": 2.75
  },
  "music": {
-  "bpm": 96,
+  "bpm": 112,
   "offset": 0,
   "gain": 0.3,
   "parts": [
@@ -18,14 +18,17 @@
     "at": 0,
     "part": "main"
    }
-  ]
+  ],
+  "style": "march",
+  "key": 9,
+  "lead": "bell"
  },
  "cast": [
   {
    "id": "phx",
    "character": "potatobrawl/phoenix",
    "at": [
-    -0.78,
+    -0.88,
     0
    ],
    "face": "right",
@@ -36,7 +39,7 @@
    "id": "rea",
    "character": "potatobrawl/reaper",
    "at": [
-    0.78,
+    0.96,
     0
    ],
    "face": "left",
@@ -59,7 +62,7 @@
   {
    "id": "chairL",
    "kind": "chair",
-   "x": -0.78,
+   "x": -0.88,
    "y": 0,
    "z": 0,
    "rot": 90
@@ -67,7 +70,7 @@
   {
    "id": "chairR",
    "kind": "chair",
-   "x": 0.78,
+   "x": 0.96,
    "y": 0,
    "z": 0,
    "rot": -90
@@ -89,7 +92,7 @@
   {
    "id": "cup",
    "kind": "teacup",
-   "x": 0.32,
+   "x": 0.18,
    "y": 0.62,
    "z": 0
   }
@@ -100,11 +103,11 @@
    "pos": [
     0,
     1.5,
-    4.6
+    5.8
    ],
    "look": [
     0,
-    0.75,
+    0.8,
     0
    ],
    "fov": 34
@@ -113,29 +116,29 @@
    "at": 5.3,
    "pos": [
     0,
-    1.35,
-    6.0
+    1.45,
+    7.2
    ],
    "look": [
     0,
-    1.0,
+    1.05,
     0
    ],
-   "fov": 34
+   "fov": 36
   },
   {
    "at": 10.6,
    "pos": [
     0,
-    1.35,
-    6.0
+    1.45,
+    7.2
    ],
    "look": [
     0,
-    1.0,
+    1.05,
     0
    ],
-   "fov": 34,
+   "fov": 36,
    "to": {
     "pos": [
      0.65,
@@ -143,7 +146,7 @@
      3.4
     ],
     "look": [
-     0.78,
+     0.88,
      0.95,
      0
     ]
@@ -183,19 +186,39 @@
   },
   {
    "who": "rea",
-   "at": 3.8,
+   "at": 3.7,
    "do": "stand",
    "dur": 0.3
   },
   {
    "who": "rea",
-   "at": 4.0,
+   "at": 3.8,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    1.0,
+    0.95
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 4.15,
    "do": "swing",
    "dur": 0.45
   },
   {
    "who": "rea",
-   "at": 4.8,
+   "at": 4.7,
+   "do": "move",
+   "dur": 0.3,
+   "to": [
+    0.96,
+    0
+   ]
+  },
+  {
+   "who": "rea",
+   "at": 5.05,
    "do": "sit",
    "seat": "chairR",
    "hands": "lap"
@@ -304,6 +327,47 @@
    "do": "turn",
    "dur": 0.9,
    "to": "camera"
+  },
+  {
+   "who": "phx",
+   "at": 6.0,
+   "do": "shake",
+   "dur": 0.6,
+   "amp": 1.2
+  },
+  {
+   "who": "rea",
+   "at": 7.1,
+   "do": "shake",
+   "dur": 0.8,
+   "amp": 0.8
+  },
+  {
+   "who": "phx",
+   "at": 7.9,
+   "do": "lean",
+   "dur": 0.5,
+   "to": 5
+  },
+  {
+   "who": "phx",
+   "at": 8.5,
+   "do": "lean",
+   "dur": 0.3,
+   "to": 0
+  },
+  {
+   "who": "phx",
+   "at": 9.1,
+   "do": "bounce",
+   "dur": 0.9,
+   "amp": 0.5
+  },
+  {
+   "who": "rea",
+   "at": 12.4,
+   "do": "blink",
+   "dur": 0.3
   }
  ],
  "fx": [
@@ -317,13 +381,13 @@
  "sfx": [
   {
    "sound": "whoosh",
-   "at": 4.0,
+   "at": 4.15,
    "gain": 0.4,
    "dur": 0.4
   },
   {
    "sound": "tink",
-   "at": 4.5,
+   "at": 4.6,
    "gain": 0.6
   },
   {
@@ -355,6 +419,16 @@
    "sound": "pop",
    "at": 10.3,
    "gain": 0.4
+  },
+  {
+   "sound": "tink",
+   "at": 12.2,
+   "gain": 0.3
+  },
+  {
+   "sound": "tink",
+   "at": 13.1,
+   "gain": 0.3
   }
  ],
  "captions": [
@@ -375,6 +449,26 @@
    "to": 13.8,
    "text": "Thanks for\nsplitting it.",
    "pos": "top"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 4.65,
+   "to": 5.5
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 0,
+   "to": 0.5
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 3.65,
+   "to": 4.0
   }
  ]
 }

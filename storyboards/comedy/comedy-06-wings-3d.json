@@ -10,7 +10,7 @@
   "time": 2.75
  },
  "music": {
-  "bpm": 96,
+  "bpm": 100,
   "offset": 0,
   "gain": 0.35,
   "parts": [
@@ -22,7 +22,10 @@
     "at": 15.0,
     "part": "stop"
    }
-  ]
+  ],
+  "style": "warm",
+  "key": 5,
+  "lead": "bell"
  },
  "cast": [
   {
@@ -574,7 +577,7 @@
   {
    "from": 0.1,
    "to": 4.3,
-   "text": "my wings only work\nwhen nobody's looking",
+   "text": "my wings only work\nwhen nobody's\nlooking",
    "pos": "top"
   },
   {
@@ -593,7 +596,7 @@
    "from": 8.6,
    "to": 9.3,
    "text": "AH-CHOO",
-   "pos": "top"
+   "pos": "mid"
   },
   {
    "from": 10.2,
