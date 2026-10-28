@@ -1,0 +1,62 @@
+{
+ "id": "duo/astronaut",
+ "name": "Astronaut (DUO: Launch Day, weapon stowed, glove hands)",
+ "franchise": "PotatoBrawl",
+ "source": "Jonny's reference portraits, 2026-10-24",
+ "rig": "potato",
+ "body": {
+  "color": "#e8b467",
+  "height": 0.98,
+  "width": 0.82,
+  "depth": 0.7,
+  "lump": 0.03,
+  "seed": 21
+ },
+ "limbs": {
+  "color": "#e9ebf0",
+  "width": 0.034
+ },
+ "face": {
+  "default": "delighted",
+  "iris": "#3a2a1a",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "curve": 0.35,
+   "open": 0,
+   "eye": 1.0
+  },
+  "eye": {
+   "flick": 0.4
+  },
+  "browShape": {
+   "arch": 0.06,
+   "thick": 0.85
+  },
+  "blush": 1.1
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "astronaut",
+  "suit": "#eef0f4",
+  "trim": "#9aa3b2",
+  "badge": "#3d6fd8"
+ },
+ "personality": "Space explorer. Wide-eyed, a little floaty, everything is a new discovery (proposal).",
+ "voice": {
+  "pitch": 190,
+  "rate": 3.8,
+  "formant": 1.15,
+  "range": 6,
+  "breath": 0.06,
+  "vibrato": 0.02,
+  "seed": 31
+ },
+ "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off.",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "id": "duo/samurai",
+ "name": "Samurai (DUO: Launch Day, weapon stowed, glove hands)",
+ "franchise": "PotatoBrawl",
+ "source": "Jonny's reference portraits, 2026-10-24",
+ "rig": "potato",
+ "body": {
+  "color": "#e8b467",
+  "height": 1.0,
+  "width": 0.82,
+  "depth": 0.7,
+  "lump": 0.03,
+  "seed": 37
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.032
+ },
+ "face": {
+  "default": "focused",
+  "iris": "#2a2a2a",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "tilt": -0.08,
+   "curve": 0,
+   "eye": 1,
+   "lidL": 0.3,
+   "lidR": 0.3
+  },
+  "eye": {
+   "flick": 0.3,
+   "tilt": 0.12
+  },
+  "browShape": {
+   "arch": 0.015,
+   "thick": 1.05
+  },
+  "blush": 0.55
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "samurai",
+  "blade": "#3dff8a",
+  "sash": "#2b3a5c",
+  "propHand": "R",
+  "noProp": true
+ },
+ "personality": "Swordsman with a green blade. Calm, precise, takes every small task with full honour (proposal).",
+ "voice": {
+  "pitch": 140,
+  "rate": 3.0,
+  "formant": 1.0,
+  "range": 2.5,
+  "breath": 0.08,
+  "vibrato": 0.005,
+  "seed": 71
+ },
+ "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off.",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ }
+}

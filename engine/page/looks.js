@@ -31,7 +31,8 @@ function dirLight(color, intensity, pos, shadow) {
   const l = new THREE.DirectionalLight(color, intensity); l.position.set(...pos);
   if (shadow) {
     l.castShadow = true; l.shadow.mapSize.set(2048, 2048); l.shadow.bias = -0.0004; l.shadow.normalBias = 0.02; l.shadow.radius = shadow.radius ?? 4;
-    Object.assign(l.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 0.5, far: 24 });
+    const z = shadow.size ?? 4;   // half the shadow map's width in metres (a long set, the DUO queue, needs more)
+    Object.assign(l.shadow.camera, { left: -z, right: z, top: z, bottom: -z, near: 0.5, far: 24 });
   }
   return l;
 }
@@ -419,7 +420,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
-  relight(scene, [golden ? dirLight("#ffffff", 2.0, setSpec?.key || [4.2, 4.0, 2.6], { radius: 2 }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
+  relight(scene, [golden ? dirLight("#ffffff", 2.0, setSpec?.key || [4.2, 4.0, 2.6], { radius: 2, size: setSpec?.shadowSize }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
