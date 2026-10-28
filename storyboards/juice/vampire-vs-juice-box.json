@@ -820,7 +820,7 @@
     },
     {
      "sfx": "kenney/tick",
-     "gain": 0.3,
+     "gain": 0.6,
      "reason": "the dry blink",
      "at": 0.15
     },
@@ -957,7 +957,7 @@
     },
     {
      "sfx": "cloth",
-     "gain": 0.3,
+     "gain": 0.45,
      "reason": "the carton's light rustle as it is passed",
      "at": 0.5
     },
@@ -1256,14 +1256,29 @@
      "side": "R",
      "pose": {
       "world": [
+       -0.339,
+       0.601,
+       0.664
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.72
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
        -0.66,
        0.275,
        0.6
       ]
      },
-     "dur": 0.4,
+     "dur": 0.32,
      "ease": "inOut",
-     "at": 1.75
+     "at": 1.92
     },
     {
      "who": "wiz",
@@ -1271,7 +1286,7 @@
      "side": "R",
      "shape": "paw",
      "dur": 0.25,
-     "at": 1.85
+     "at": 2.05
     }
    ]
   },

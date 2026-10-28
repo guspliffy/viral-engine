@@ -156,7 +156,7 @@ A(1.8, "wiz", "expr", { expr: "deadpan", set: { curve: -0.1 }, dur: 0.2 });
 A(1.8, "wiz", "pitch", { to: 0, dur: 0.3 });
 A(1.85, "wiz", "turn", { to: WIZ_FACE, dur: 0.3 });
 A(1.82, "wiz", "look", { to: WIZ_AT_REA, dur: 0.15, blink: false });
-sfx(1.95, "kenney/tick", { gain: 0.3, reason: "the dry blink" });
+sfx(1.95, "kenney/tick", { gain: 0.6, reason: "the dry blink" });
 A(1.92, "wiz", "blink", { dur: 0.2 });
 // the left hand opens, palm up, under where the carton will come
 A(2.1, "wiz", "arm", { side: "L", pose: { world: under(C_PASS) }, dur: 0.35, ease: "inOut" });
@@ -168,7 +168,7 @@ A(2.0, "rea", "arm", { side: "R", pose: { world: sideR(C_LOW), palm: mid(C_LOW) 
 A(2.0, "rea", "arm", { side: "L", pose: { world: sideL(C_LOW), palm: mid(C_LOW) }, dur: 0.2 });
 A(2.25, "rea", "arm", { side: "R", pose: { world: sideR(C_PASS), palm: mid(C_PASS) }, dur: 0.4, ease: "inOut" });
 A(2.25, "rea", "arm", { side: "L", pose: { world: sideL(C_PASS), palm: mid(C_PASS) }, dur: 0.4, ease: "inOut" });
-sfx(2.3, "cloth", { gain: 0.3, reason: "the carton's light rustle as it is passed" });
+sfx(2.3, "cloth", { gain: 0.45, reason: "the carton's light rustle as it is passed" });
 A(2.65, "wiz", "grab", { prop: "carton", hand: "L", grip: [0, -PALM / CS, 0], pose: null });   // on his palm
 A(2.68, "rea", "arm", { side: "R", pose: { world: [0.3, TABLE_H + 0.035, 0.55] }, dur: 0.35, ease: "inOut" });
 A(2.68, "rea", "arm", { side: "L", pose: { world: [0.68, TABLE_H + 0.035, 0.55] }, dur: 0.35, ease: "inOut" });
@@ -200,8 +200,9 @@ c.prop(4.68, "straw", { scale: 0 }, 0);
 c.prop(4.68, "carton", { straw: 1 }, 0);
 A(4.68, "wiz", "release", { prop: "straw" });
 A(4.72, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
-A(4.75, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.4, ease: "inOut" });
-A(4.85, "wiz", "grip", { side: "R", shape: "paw", dur: 0.25 });
+A(4.72, "wiz", "arm", { side: "R", pose: { world: add(strawFist(S_IN, 0, S_ROT), [-0.18, 0.01, -0.03]) }, dur: 0.22, ease: "out" });   // sideways off the straw first, above the carton
+A(4.92, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.32, ease: "inOut" });
+A(5.05, "wiz", "grip", { side: "R", shape: "paw", dur: 0.25 });
 
 // ---------------------------------------------------------------- 06 GIVE IT BACK 5.10-6.50
 A(5.1, "wiz", "look", { to: WIZ_AT_REA, dur: 0.2, blink: false });
