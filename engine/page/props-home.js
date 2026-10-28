@@ -9,9 +9,10 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 //           with nothing passing through the wood.
 //   coffeetable  a low, wide living-room table in grained honey wood (style match, 28 Oct): top at spec.h (0.42),
 //           spec.w x spec.d (1.7 x 1.2), four square legs (spec.legW thick, at x = ±spec.legX), spec.apron (m) a skirt under the top, spec.bevel the top's rounded edge (0.016),
-//           spec.gloss the window's reflection in the top (0.35). Put things on it at y = h.
+//           spec.gloss the window's reflection in the top (0.35), spec.broad (0..1) wide light and dark streaks along the
+//           grain, spec.apronColor the skirt's wood. Put things on it at y = h.
 //   rug     a soft, fluffy carpet lying on the floor: spec.w x spec.d (2.6 x 1.8), spec.color (a warm beige), spec.pattern
-//           (true: woven bands and a border).
+//           (true: woven bands and a border; "quiet": the border only), spec.pile (0..1: the pile brushed different ways).
 const SEAT_Y = 0.42;   // props3d.js SEAT_Y (not imported: props3d imports this file)
 const R_STOOL = 0.25, T_SEAT = 0.05;
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
@@ -29,8 +30,16 @@ function canvasTex(w, h, draw) {
 }
 function rnd(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 // planks: each board (spec planks across the depth) its own tone, so the top isn't one flat colour
-const woodGrain = (base, seed, planks = 4) => canvasTex(1024, 512, (g, w, h) => {
+const woodGrain = (base, seed, planks = 4, broad = 0) => canvasTex(1024, 512, (g, w, h) => {
   const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
+  // broad (spec.broad, 0 none .. 1): wide, soft lighter and darker streaks along the grain, so the top reads as real
+  // boards from a distance and not one flat honey colour
+  for (let i = 0; i < 9 * broad; i++) {
+    const y = r() * h, hh = h * (0.08 + r() * 0.2), x0 = r() * w * 0.6, ww = w * (0.4 + r() * 0.6), light = r() < 0.5, a = (0.1 + r() * 0.12) * Math.min(1, broad);
+    const gr = g.createLinearGradient(0, y - hh / 2, 0, y + hh / 2), c = light ? "255,222,170" : "96,48,16";
+    gr.addColorStop(0, `rgba(${c},0)`); gr.addColorStop(0.5, `rgba(${c},${a})`); gr.addColorStop(1, `rgba(${c},0)`);
+    g.save(); g.globalAlpha = 1; g.fillStyle = gr; g.beginPath(); g.ellipse(x0 + ww / 2, y, ww / 2, hh / 2, 0, 0, Math.PI * 2); g.fill(); g.restore();
+  }
   for (let k = 0; k < planks; k++) { const v = r() - 0.5; g.fillStyle = v > 0 ? `rgba(255,226,180,${0.04 + v * 0.12})` : `rgba(110,58,22,${0.04 - v * 0.14})`; g.fillRect(0, (k * h) / planks, w, h / planks); }
   // long, gently wavy grain lines and a few darker streaks, as on the references' tables
   for (let i = 0; i < 46; i++) {
@@ -61,13 +70,24 @@ const glossTex = () => canvasTex(512, 256, (g, w, h) => {
 });
 // carpet: fluff, slow patches of lighter and darker pile, and a woven pattern of soft bands and a border, as on the
 // references' rugs
-const fluff = (base, seed, pattern = false) => canvasTex(1024, 1024, (g, w, h) => {
+const fluff = (base, seed, pattern = false, pile = 0) => canvasTex(1024, 1024, (g, w, h) => {
   const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
   for (let i = 0; i < 26; i++) {
     const x = r() * w, y = r() * h, rr = 80 + r() * 200, gr = g.createRadialGradient(x, y, 0, x, y, rr), light = r() < 0.5;
     gr.addColorStop(0, light ? "rgba(255,246,228,0.16)" : "rgba(120,92,64,0.12)"); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
   }
-  if (pattern) {
+  // pile (spec.pile, 0 none .. 1): the pile brushed different ways in long soft swathes, lighter and darker
+  for (let i = 0; i < 18 * pile; i++) {
+    const x = r() * w, y = r() * h, a = r() * Math.PI, len = 160 + r() * 260, wd = 30 + r() * 60, light = r() < 0.5;
+    g.save(); g.translate(x, y); g.rotate(a); const gr = g.createRadialGradient(0, 0, 0, 0, 0, len / 2);
+    gr.addColorStop(0, light ? `rgba(255,246,228,${0.3 * pile})` : `rgba(110,82,56,${0.26 * pile})`); gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.scale(1, wd / len); g.fillStyle = gr; g.beginPath(); g.arc(0, 0, len / 2, 0, Math.PI * 2); g.fill(); g.restore();
+  }
+  // pattern "quiet": only the border and one faint inner line, as on the references' plain rugs
+  if (pattern === "quiet") {
+    g.fillStyle = "rgba(150,96,60,0.14)"; for (const k of [0.05, 0.93]) g.fillRect(0, k * h, w, 0.016 * h);
+    g.fillStyle = "rgba(150,96,60,0.06)"; for (const k of [0.1, 0.89]) g.fillRect(0, k * h, w, 0.008 * h);
+  } else if (pattern) {
     g.fillStyle = "rgba(150,96,60,0.22)"; for (const k of [0.05, 0.93]) g.fillRect(0, k * h, w, 0.02 * h);
     g.fillStyle = "rgba(150,96,60,0.12)"; for (let k = 0.16; k < 0.86; k += 0.14) g.fillRect(0, k * h, w, 0.035 * h);
     g.fillStyle = "rgba(255,240,215,0.18)"; for (let k = 0.23; k < 0.86; k += 0.14) g.fillRect(0, k * h, w, 0.012 * h);
@@ -78,9 +98,9 @@ const fluff = (base, seed, pattern = false) => canvasTex(1024, 1024, (g, w, h) =
 export const HOME_KINDS = {
   coffeetable(P) {
     const S = P.spec, H = S.h ?? 0.42, W = S.w ?? 1.7, D = S.d ?? 1.2, T = 0.07;
-    const top = mat("#ffffff", { map: woodGrain(S.color ?? "#b6773f", 7), roughness: 0.35, emissive: "#ffffff", emissiveMap: glossTex(), emissiveIntensity: S.gloss ?? 0.35 });
+    const top = mat("#ffffff", { map: woodGrain(S.color ?? "#b6773f", 7, 4, S.broad ?? 0), roughness: 0.35, emissive: "#ffffff", emissiveMap: glossTex(), emissiveIntensity: S.gloss ?? 0.35 });
     const legMap = woodGrain(S.leg ?? "#a86d3a", 11, 2); legMap.rotation = Math.PI / 2; legMap.center.set(0.5, 0.5);   // grain running down the legs
-    const leg = mat("#ffffff", { map: legMap, roughness: 0.55 }), apron = mat("#ffffff", { map: woodGrain(S.leg ?? "#a86d3a", 5, 1), roughness: 0.5 });
+    const leg = mat("#ffffff", { map: legMap, roughness: 0.55 }), apron = mat("#ffffff", { map: woodGrain(S.apronColor ?? S.leg ?? "#a86d3a", 5, 1), roughness: 0.5 });   // spec.apronColor: a darker skirt
     top.userData.lookRole = leg.userData.lookRole = apron.userData.lookRole = "wood";   // looks.js shades it as wood, not as a character
     // the top: rounded edges (a bevel catching a line of light), not a sharp box
     const t = mesh(new RoundedBoxGeometry(W, T, D, 3, S.bevel ?? 0.016), top, P.whole, 0, H - T / 2, 0);
@@ -93,7 +113,7 @@ export const HOME_KINDS = {
     return { grip: H };
   },
   rug(P) {
-    const S = P.spec, m = mat("#ffffff", { map: fluff(S.color ?? "#d8c3a5", 3, S.pattern), roughness: 1 });
+    const S = P.spec, m = mat("#ffffff", { map: fluff(S.color ?? "#d8c3a5", 3, S.pattern, S.pile ?? 0), roughness: 1 });
     const o = mesh(new THREE.BoxGeometry(S.w ?? 2.6, 0.02, S.d ?? 1.8), m, P.whole, 0, 0.01, 0); o.castShadow = false;
     return { grip: 0.02 };
   },

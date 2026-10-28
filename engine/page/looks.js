@@ -240,13 +240,13 @@ function patchToon(m, o) {
     sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
-    sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 };
+    sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -268,7 +268,7 @@ function patchToon(m, o) {
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
-            float hk = uHatK * smoothstep(-0.07, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
+            float hk = uHatK * smoothstep(-uHatD, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
             col *= mix(vec3(1.0), uShade * 0.92, hk);
           }
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
@@ -588,7 +588,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
           const sh = t && t.userData.shader;
           if (!sh) continue;
           sh.uniforms.uHatC.value.copy(hatC); sh.uniforms.uHatUp.value.copy(hatUp); sh.uniforms.uHatR.value = 0.47 * hatS.x;
-          sh.uniforms.uHatK.value = shown(brim) ? 0.75 : 0;
+          // a hat can ask for a deeper, softer band (costume hatShade: the crisp Wizard hat, like Jonny's target)
+          const hs = brim.userData.shade;
+          sh.uniforms.uHatK.value = shown(brim) ? hs?.k ?? 0.75 : 0; sh.uniforms.uHatD.value = hs?.depth ?? 0.07;
         }
       }
     },

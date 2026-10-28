@@ -44,11 +44,12 @@ const NO_CTL = { lidL: 0, lidR: 0, browL: 0, browR: 0, tiltL: 0, tiltR: 0, corne
 export class Face {
   // eye: the character's eye design (character file face.eye): depth (how far the eye stands out of the face),
   // iris (radius as a share of the eye), lash (lid line thickness), flick (outer-corner flick, 0 none), tilt (lid angle:
-  // + lifts the outer corner, - drops it), glints (1 or 2 catch lights), oval (height to width, 1.24 default: a tall oval)
+  // + lifts the outer corner, - drops it), glints (1 or 2 catch lights), oval (height to width, 1.24 default: a tall oval),
+  // corner (a lower-lash tick at the outer corner, 0 none .. 1)
   constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
-    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, oval: 1.12 / 0.9, ...eye };
+    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, corner: 0, tilt: 0, glints: 1, shine: 1, oval: 1.12 / 0.9, ...eye };
     this.eyeStyle = E;
     // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness, taper, tip, lift
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
@@ -93,6 +94,13 @@ export class Face {
         pts.sort((a, b) => side * (a.x - b.x));   // inner corner first, so the line thickens towards the outer side
         lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 44, 8, lineR), this.inkMat);
         lidPivot.add(lash);
+        // corner (face.eye.corner, 0 none): a short lower-lash tick hugging the outer bottom of the eye, like the
+        // painted references; it stays put on a blink (the lower lid rises inside it)
+        if (E.corner > 0) {
+          const cp = [];
+          for (let k = 0; k <= 6; k++) { const t = k / 6, az = 1.0 + 0.5 * t, el = -0.5 - 0.4 * E.corner * (1 - t); cp.push(new THREE.Vector3(side * Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)).multiplyScalar(r * 1.05)); }
+          space.add(new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(cp), 0, 0, 16, 6, (t) => r * E.lash * 0.05 * Math.pow(Math.sin(Math.PI * (0.15 + 0.85 * t)), 0.6)), this.inkMat));
+        }
         // the lower lid: rises late in a blink to meet the upper one a little below the middle, so the shut eye ends in one
         // downward-curving crease on the front of the eye instead of the upper lid's edge rolling round to the bottom
         lowPivot = new THREE.Group(); space.add(lowPivot);
