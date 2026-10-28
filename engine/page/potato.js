@@ -352,7 +352,7 @@ export class Character {
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
       // body into the side of the fist, square to the handle, instead of running down alongside it
-      const gr = st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
+      const gr = { ...(st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }) }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
       const hw = ax ? fistWeight(gr.curl) : 0;
       // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
       // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
@@ -360,6 +360,15 @@ export class Character {
       if (hw > 0) {
         const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.12, h.y - 0.09, h.z - 0.02) : sh.clone().lerp(h, 0.5);
         mid.lerp(g, hw);
+      }
+      // a paw resting on a table (grip down): a real elbow, the upper arm down the side and the forearm forward onto
+      // the top, like Jonny's target, instead of one long curve from the shoulder; the fingers settle a little now
+      // and then so a resting hand isn't frozen while the body breathes
+      const dn = Math.min(1, Math.max(0, gr.down || 0));
+      if (dn > 0) {
+        mid.lerp(new THREE.Vector3(sh.x + sx * 0.05, h.y + 0.05, sh.z + (h.z - sh.z) * 0.3), dn);
+        const ph = (s === "R" ? 0 : 2.1) + (this.def.body.seed || 0);
+        gr.curl += dn * 0.06 * Math.sin(t * 0.9 + ph); gr.index += dn * 0.08 * Math.sin(t * 0.7 + ph + 1.3);
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
       this.arms[s].hand.position.copy(h);

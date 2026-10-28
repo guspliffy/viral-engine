@@ -59,7 +59,11 @@
   "blade": "#c9ced6",
   "propHand": "R",
   "noProp": true,
-  "hoodPeak": 0
+  "hoodPeak": 0,
+  "hoodStyle": "cloth",
+  "hoodOpen": 1.0,
+  "hoodOverhang": 0.2,
+  "hoodRim": 0.028
  },
  "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "tts": "reaper",
