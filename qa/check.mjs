@@ -7,7 +7,8 @@
 //   node qa/check.mjs clip.mp4 --sb x.json --profile rewards           -> publishing profile (default: the storyboard's, else "short")
 //
 // Results come in three groups, kept apart so a report never passes off a creative guess as a platform fact:
-//   technical   defects in the file, picture or sound: blank or odd frames, loudness, clipping, hidden captions (fail/warn)
+//   technical   defects in the file, picture or sound: blank or odd frames, loudness, clipping, hidden captions,
+//               sound sync and levels (qa/sound.mjs) (fail/warn)
 //   publishing  the target platform's published requirements, per profile (PROFILES), with the date they were checked
 //   creative    house-style defaults (opening motion, event gaps, target length, loop seam, still holds, reading
 //               speed): hypotheses to test, measured as diagnostics. They add notes and never fail a clip. A storyboard
@@ -21,10 +22,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { loadStoryboard } from "../engine/load.mjs";
+import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { motionJumps, storyNotes } from "./motion.mjs";
+import { soundNotes, soundMeasure } from "./sound.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
-import { musicFlavour, seedOf } from "../puppet/beat.mjs";
+import { seedOf } from "../puppet/beat.mjs";
+import { lockMusic } from "../engine/music.mjs";
 
 export const RULES = {
   size: [1080, 1920],
@@ -411,10 +414,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const profile = o.profile || sb?.profile || "short";
   // the storyboard's own motion, frame by frame (qa/motion.mjs): values that jump in one frame
   if (sb?.cast && sb?.actions) {
-    if (sb.music !== false && !sb.music?.bpm) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
+    if (!sb.music?.lock) sb.music = lockMusic(sb);   // the grid the render used (dance moves follow it)
     const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
     res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
     for (const r of await storyNotes(sb, sb.fps ?? 30)) res.push({ group: "technical", ...r });
+    // the sound (qa/sound.mjs): repeats, sounds with nothing on screen, the floor, the music lock, then on the file
+    // its sync to the picture and how each effect stands over the bed
+    res.push(...soundNotes(sb), ...(fs.existsSync(o.clip) ? soundMeasure(o.clip, sb, loadCharacters(sb)) : []));
   }
   const failed = res.some((r) => r.level === "fail"), notes = res.filter((r) => r.level === "note").length;
   if (o.json) console.log(JSON.stringify({ clip: o.clip, layout: layoutFile, profile, experiment: sb?.experiment ?? null, pass: !failed, results: res }, null, 2));
