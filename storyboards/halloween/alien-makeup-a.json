@@ -12,9 +12,11 @@
  "look": "anime-pro",
  "profile": "short",
  "loop": false,
+ "captionStyle": "kinetic",
  "set": {
   "type": "apartment",
-  "seed": 7
+  "seed": 7,
+  "light": "golden"
  },
  "music": {
   "styles": [

@@ -45,7 +45,7 @@ const MS = 1.6;   // the hand mirror, scaled up to read at phone size
 const POT_AT = [-0.85, TOP, 0.47], BRUSH_AT = [-0.36, TOP + 0.015, 0.5], MIRROR_AT = [-0.12, TOP + 0.016 * MS, 0.5];
 
 function build(variant) {
-  const c = clip(), { A, sfx, cap } = c;
+  const c = clip(), { A, sfx } = c;
   const START = variant === "C" ? 1.2 : 0;   // C opens on shot 03: its timeline starts there
   const END = 10 - START;
   // story time -> clip time. Before START (C only), state actions collapse onto frame 0 (dur 0, in order), sounds drop
@@ -178,7 +178,8 @@ function build(variant) {
   act.blinksAt(C2, "wiz", [9.35]);
 
   // ------------------------------------------------------------ captions (B only)
-  if (variant === "B") cap(0, 3.3, "When your friend does your Halloween makeup", 300);
+  // held still (not word by word), so the whole line is up from frame 0
+  if (variant === "B") c.captions.push({ from: 0, to: 3.3, text: "When your friend does your Halloween makeup", pos: 300, pop: false, kinetic: false });
 
   // ------------------------------------------------------------ shots
   const tip = STROKE[1];
@@ -200,8 +201,8 @@ function build(variant) {
     idea: "Jonny's story library #03: the Wizard paints the alien face on the outside of the visor, not on the Astronaut",
     experiment: { id: "hook-2026-11", episode: "alien-makeup", variant },
     seed: 3031,
-    fps: 30, look: "anime-pro", profile: "short", loop: false,
-    set: { type: "apartment", seed: 7 },
+    fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
+    set: { type: "apartment", seed: 7, light: "golden" },
     music: { styles: ["warm", "sneaky"], payoff: r3(4.15 - START), parts },
     sound: { sfx: 0.7, ambience: 0.3 },
     cast, props, captions: c.captions, beats,

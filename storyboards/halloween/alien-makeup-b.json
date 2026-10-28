@@ -12,9 +12,11 @@
  "look": "anime-pro",
  "profile": "short",
  "loop": false,
+ "captionStyle": "kinetic",
  "set": {
   "type": "apartment",
-  "seed": 7
+  "seed": 7,
+  "light": "golden"
  },
  "music": {
   "styles": [
@@ -133,7 +135,8 @@
    "to": 3.3,
    "text": "When your friend does your Halloween makeup",
    "pos": 300,
-   "pop": false
+   "pop": false,
+   "kinetic": false
   }
  ],
  "beats": [
