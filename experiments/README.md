@@ -50,8 +50,12 @@ platform's analytics by hand. **Leave a cell empty when the platform doesn't giv
 not zero.
 
 ```
-post_id,platform,clip,variant,family,published,age_days,views,avg_watch_s,completion,shares,comments,likes,follows,minutes_spent
+post_id,platform,clip,variant,family,published,age_days,views,avg_watch_s,completion,shares,comments,likes,follows,minutes_spent,held_2s
 ```
+
+`held_2s` is the share of viewers still watching at 2 s, read off the retention graph (TikTok and Instagram both show
+one). Keep the whole curve too, as `experiments/<id>/curves/<post_id>-<platform>.csv` (`t,pct`, one row a second), and
+run `node qa/retention.mjs <clip.mp4> <curve.csv>` for the clip with its curve underneath (`qa/HOOK.md`).
 
 `family` groups similar premises (assign variants within a family, so the strongest ideas don't all land in one
 arm). `minutes_spent` is the active writing and editing time for the episode.
