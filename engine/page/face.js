@@ -28,6 +28,20 @@ export const EXPRESSIONS = {
 };
 export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + (b[k] - a[k]) * t; return o; };
 
+// a juice splat on a cheek (c.juiceL / c.juiceR, Vampire vs Juice Box): an irregular purple blob, a few flecks and two
+// short runs down the cheek, with a wet highlight
+function juiceTexture(color) {
+  const c = document.createElement("canvas"); c.width = c.height = 128;
+  const g = c.getContext("2d"), col = new THREE.Color(color), rgb = (k) => `rgb(${[col.r, col.g, col.b].map((v) => Math.round(255 * Math.min(1, v * k))).join(",")})`;
+  g.fillStyle = rgb(1);
+  for (const [x, y, r] of [[60, 56, 22], [76, 50, 15], [48, 66, 13], [70, 70, 14], [56, 42, 11]]) { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); }
+  for (const [x, y, r] of [[96, 36, 5], [26, 44, 4], [100, 66, 3.5], [34, 84, 3]]) { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); }
+  // two runs: a narrow streak ending in a round drop
+  for (const [x, y0, y1, w] of [[52, 70, 100, 6], [72, 76, 94, 5]]) { g.fillRect(x - w / 2, y0, w, y1 - y0); g.beginPath(); g.arc(x, y1, w * 0.85, 0, Math.PI * 2); g.fill(); }
+  g.fillStyle = "rgba(255,255,255,0.55)"; g.beginPath(); g.ellipse(52, 46, 7, 4, -0.6, 0, Math.PI * 2); g.fill();
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; return tex;
+}
+
 function blushTexture(color, k = 1) {
   const c = document.createElement("canvas"); c.width = c.height = 128;
   const g = c.getContext("2d"); const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62);
@@ -39,7 +53,7 @@ function blushTexture(color, k = 1) {
 
 // A face drawn onto any surface. `place(u, v)` maps face coordinates (u: -1 left .. 1 right,
 // v: -1 chin .. 1 forehead) to { pos, normal } on the host surface, in the host group's space.
-const NO_CTL = { lidL: 0, lidR: 0, browL: 0, browR: 0, tiltL: 0, tiltR: 0, cornerL: 0, cornerR: 0, press: 0, tearL: 0, tearR: 0 };
+const NO_CTL = { lidL: 0, lidR: 0, browL: 0, browR: 0, tiltL: 0, tiltR: 0, cornerL: 0, cornerR: 0, press: 0, tearL: 0, tearR: 0, fangs: 0, juiceL: 0, juiceR: 0 };
 
 export class Face {
   // eye: the character's eye design (character file face.eye): depth (how far the eye stands out of the face),
@@ -146,6 +160,7 @@ export class Face {
       const m = new THREE.Mesh(new THREE.PlaneGeometry(0.2 * size, 0.13 * size), new THREE.MeshBasicMaterial({ map: bt, transparent: true, depthWrite: false }));
       this.group.add(m); return { side, m };
     });
+    this.juiceColor = arguments[0].juice ?? "#8a33b8";
     this.brows = [null, null]; this.mouthLine = null; this.mouthFill = null; this.mouthInner = [];
     this.teethMat = new THREE.MeshStandardMaterial({ color: "#fbf7ee", emissive: "#5a5650", roughness: 0.35 });
     this.tongueMat = new THREE.MeshStandardMaterial({ color: "#e0606a", roughness: 0.55 });
@@ -193,6 +208,19 @@ export class Face {
     const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
     ch.m.geometry.dispose(); ch.m.geometry = g; ch.m.position.set(0, 0, 0); ch.m.rotation.set(0, 0, 0);
     ch.m.material.side = THREE.DoubleSide; ch.curved = true;
+  }
+
+  // a decal laid on the face's surface round (u0, v0), w x h in metres (a juice splat), in the host's space
+  _decal(u0, v0, w, h, material, lift = 0.005) {
+    const e = 0.01, c = this.place(u0, v0).pos, du = this.place(u0 + e, v0).pos.distanceTo(c) / e, dv = this.place(u0, v0 + e).pos.distanceTo(c) / e;
+    const hu = (w / 2) / du, hv = (h / 2) / dv, n = 8, pos = [], uv = [], idx = [];
+    for (let j = 0; j <= n; j++) for (let i = 0; i <= n; i++) {
+      const a = i / n, b = j / n, p = this.place(u0 + (a * 2 - 1) * hu, v0 + (b * 2 - 1) * hv), q = p.pos.clone().addScaledVector(p.normal, lift * this.size);
+      pos.push(q.x, q.y, q.z); uv.push(a, b);
+    }
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const k = j * (n + 1) + i; idx.push(k, k + 1, k + n + 1, k + 1, k + n + 2, k + n + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
+    const m = new THREE.Mesh(g, material); m.renderOrder = 3; this.group.add(m); return m;
   }
 
   // aim the part along the surface normal, in the host's local space (Object3D.lookAt takes a world target, which
@@ -261,9 +289,19 @@ export class Face {
     // blush follows the curve of the face: a flat card on a round body dips under the skin at its edges and shows
     // a hard cut. Built once, in the host's space, from the same surface mapping as the rest of the face.
     for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
+    // juice splats on the cheeks (juiceR is the character's right cheek, at -u): built the first time one shows
+    if ((c.juiceL || c.juiceR) && !this.juices) {
+      const tex = juiceTexture(this.juiceColor);
+      this.juices = [-1, 1].map((side) => {
+        const m = this._decal(side * (L.cheekU - 0.06), L.cheekV + 0.06, 0.15 * s, 0.15 * s, new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide }), 0.006);
+        if (side < 0) m.scale.x = 1;
+        return { side, m };
+      });
+    }
+    if (this.juices) for (const sp of this.juices) { const k = Math.max(0, Math.min(1, (sp.side < 0 ? c.juiceR : c.juiceL) || 0)); sp.m.visible = k > 0.01; sp.m.material.opacity = Math.min(1, k * 1.6); }
     // geometry that depends on the expression is rebuilt only when it changes
     const round = e.round || 0;
-    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press].map((x) => x.toFixed(3)).join("|");
+    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, c.fangs || 0].map((x) => x.toFixed(3)).join("|");
     if (key === this._lastKey) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
@@ -288,6 +326,8 @@ export class Face {
     if (this.mouthFill) { this.group.remove(this.mouthFill); this.mouthFill.geometry.dispose(); this.mouthFill = null; }
     for (const m of this.mouthInner) { this.group.remove(m); m.geometry.dispose(); }
     this.mouthInner = [];
+    for (const m of this.fangMeshes || []) { this.group.remove(m); m.geometry.dispose(); }
+    this.fangMeshes = [];
     // pressed lips (c.press) close and flatten the mouth and pull it in; mouth corners move on their own (cornerR is the
     // character's right corner, at -u; + up)
     const press = c.press, open = e.open * (1 - press), smile = e.curve * (1 - 0.8 * press);
@@ -299,6 +339,21 @@ export class Face {
       const bow = -Math.sin(t * Math.PI) * smile * 0.13; // smile pulls the middle down
       upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * 0.06 * Math.sin(t * Math.PI)]);
       lower.push([u, mv + bow + sm - open * 0.3 * Math.sin(t * Math.PI)]);
+    }
+    // fangs (c.fangs 0..1, a vampire costume): two small white points hanging from the upper lip a third of the way in
+    // from each corner, over the lower lip when the mouth is shut
+    const fk = Math.max(0, Math.min(1, c.fangs || 0));
+    if (fk > 0.01) {
+      if (!this.fangMat) this.fangMat = new THREE.MeshStandardMaterial({ color: "#fffaf2", emissive: "#6a6660", roughness: 0.3 });
+      for (const t of [0.3, 0.7]) {
+        const k = Math.round(t * n), lip = open > 0.04 ? upper[k] : lower[k];
+        const [b, tip] = this._surfLine([[lip[0], lip[1] + 0.012], [lip[0], lip[1] - 0.115 * fk]], 0.009 * s);
+        const len = b.distanceTo(tip), cone = new THREE.ConeGeometry(0.0135 * s * (0.4 + 0.6 * fk), len, 10);
+        cone.rotateX(Math.PI); cone.translate(0, 0, 0);   // apex down the cone's -y
+        const m = new THREE.Mesh(cone, this.fangMat);
+        m.position.copy(b).lerp(tip, 0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), tip.clone().sub(b).normalize());
+        this.group.add(m); this.fangMeshes.push(m);
+      }
     }
     if (open > 0.04) {
       const up = this._surfLine(upper, 0.006 * s), lo = this._surfLine(lower, 0.006 * s);

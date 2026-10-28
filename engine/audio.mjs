@@ -190,6 +190,23 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; let e = 0; for (const h of hits) e += env(t - h, 0.0003, 0.006, d); x[i] = run(hp, r() * 2 - 1) * e * 0.9; }
     return x;
   },
+  // a fang through a juice carton: a tiny dry card pop, a soft thock with a crackle on top
+  puncture(r) {
+    const d = 0.08, x = buf(d), hp = biquad("hp", 2600, 0.9), lp = biquad("lp", 700, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * env(t, 0.0004, 0.006, d) * 0.9 + run(lp, r() * 2 - 1) * env(t, 0.0008, 0.012, d) * 1.6; }
+    return x;
+  },
+  // a short squirt of juice out of a squeezed carton: a wet, hissy jet whose pitch drops as the pressure goes, with bubbly flutter
+  squirt(r, d = 0.35) {
+    const x = buf(d); let bp = biquad("bp", 2400, 1.6);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = t / d;
+      if (i % 64 === 0) bp = { ...biquad("bp", 2600 * Math.pow(0.45, k), 1.6), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 };
+      const flutter = 0.65 + 0.35 * Math.sin(TAU * (34 + 20 * k) * t) ** 2;
+      x[i] = run(bp, r() * 2 - 1) * flutter * Math.min(1, t / 0.01) * Math.pow(1 - k, 1.4) * 1.8;
+    }
+    return x;
+  },
   // an iron door latch dropping into its catch: a metal clack with a short ring
   latch(r) {
     const d = 0.25, x = buf(d), bp = biquad("bp", 2400, 3);

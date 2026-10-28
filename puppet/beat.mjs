@@ -120,7 +120,8 @@ export function renderBeat(music, duration, id = "") {
       if (t < 0 || t >= duration) continue;
       const P = partAt(t); if (!P) continue;
       const part = P.part, bar = Math.floor(b / 4), beatInBar = ((b % 4) + 4) % 4, ch = chordAt(bar);
-      if (part === "stop") continue;
+      if (part === "stop" || part === "hush") continue;   // hush: a silent stretch the music comes back from (engine/music.mjs
+      // treats only "stop" as the end of the music)
       if (part === "build") {
         // a snare roll that doubles up towards the drop, and a riser across the whole build
         const len = (parts[parts.indexOf(P) + 1]?.at ?? duration) - P.at, k = (t - P.at) / Math.max(0.01, len);
