@@ -139,3 +139,21 @@ moving at once.
   and `nameplate` (`text`, grip `back`; `split` cuts it in two, each half tipping over its outer edge).
 
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.
+
+## Starting a clip from the template
+
+`storyboards/templates/clip-template.mjs` is a working 8 s clip built only from the shared library; copy it to
+`storyboards/<topic>/make-<clip>.mjs`. `storyboards/lib/clip.mjs` gives the builder (`A`, `prop`, `sfx`, `arm`,
+`still`, `say`, `macro`, `cap`, `beats(shots, end)`, `write`). `storyboards/lib/acting.mjs` holds acting loops taken
+from finished clips:
+
+| Loop | Options | What it does | From |
+|---|---|---|---|
+| `blinksAt(c, who, times)` | `dur` | No automatic blinks; blinks only at the given times (off key lines) | Still Scrolling |
+| `scrollPhone(c, who, times)` | | Right thumb lifts and flicks on a phone held in both hands | Still Scrolling |
+| `idea(c, t, who, { at })` | `hold` | Eyes drop to `at`, a brow goes up, a sly smile, the body holds | Still Scrolling |
+| `checkOn(c, t, who, { at, back })` | `hold` | Eyes up to someone, a held beat, eyes back | Still Scrolling |
+| `shock(c, t, who)` | `open`, `eye`, `curve`, `brow`, `hold`, `dur` | Quiet shock: wide eyes, brows up, the body holds | Still Scrolling |
+| `grin(c, t, who)` | `back`, `lid`, `rest` | Closed-eye grin (at a notification), eyes back after `back` s | Still Scrolling |
+| `defeated(c, t, who)` | `turn`, `hold`, `blink` | Sigh, flat face, shoulders drop, turn and look into the camera | Still Scrolling |
+| `backToStart(c, t, end, cast, look)` | | Loop tail: places, facing, face and eyes ease back to frame 0 | template |

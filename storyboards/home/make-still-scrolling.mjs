@@ -13,6 +13,7 @@
 //
 // Run: node storyboards/home/make-still-scrolling.mjs   -> storyboards/home/still-scrolling.json, still-scrolling-loop.json
 import { clip, write, r3 } from "../lib/clip.mjs";
+import * as act from "../lib/acting.mjs";
 
 function build(variant) {
   const LOOP = variant === "loop";
@@ -27,7 +28,7 @@ function build(variant) {
   const SEAT = 0.42 - 0.12, LIFT = 0.12;                         // Phoenix's seated root height, and how far he rises
 
   // eye targets (face look space: + right on screen, + up)
-  const AT_PHONE = [0.03, -1], AT_CAM = [0, 0];
+  const AT_PHONE = [0.03, -1];
   const WIZ_AT_STOOL = [-0.75, -0.45], WIZ_AT_PHX = [-0.8, 0.12], WIZ_AT_STOOL_HOME = [-0.35, -0.5];
 
   // poses (character space). Phoenix holds the phone in both hands in front of his chest, palms in on its edges
@@ -53,20 +54,14 @@ function build(variant) {
   A(0, "phx", "sit", { seat: "stool", dur: 0.01, hands: "keep", feet: [0.38, 0.1] });   // legs out over the edge
   A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
   A(0, "phx", "look", { to: AT_PHONE, dur: 0.01, blink: false });
-  A(0, "phx", "noblink");                                                          // placed blinks only, off the key beats
-  for (const t of [1.95, 5.2, 7.0, 11.0]) A(t, "phx", "blink", { dur: 0.22 });
+  act.blinksAt(c, "phx", [1.95, 5.2, 7.0, 11.0]);                                  // placed blinks only, off the key beats
   A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 });
   A(0, "phx", "face", { lid: 0.42, dur: 0.01 });                                 // eyes down at the screen
   A(0, "wiz", "look", { to: WIZ_AT_PHX, dur: 0.01, blink: false });
   // the idea: eyes drop to the stool, one brow up, a sly smile
-  A(0.25, "wiz", "look", { to: WIZ_AT_STOOL, dur: 0.3, blink: false });
-  A(0.5, "wiz", "expr", { set: { raise: 0.05 }, dur: 0.15 });
-  A(0.5, "wiz", "face", { brow: 0.3, dur: 0.2 });
-  A(0.6, "wiz", "expr", { set: { smirk: 0.35, curve: 0.3 }, dur: 0.2 });
-  A(0.5, "wiz", "still", { dur: 0.7, idle: 0.2 });
+  act.idea(c, 0.25, "wiz", { at: WIZ_AT_STOOL });
   // Phoenix scrolls: the right thumb lifts and flicks every second or so
-  const scroll = (t) => { A(t, "phx", "grip", { side: "R", shape: "scroll", dur: 0.1 }); A(t + 0.16, "phx", "grip", { side: "R", shape: "hold", dur: 0.12 }); };
-  for (const t of [0.1, 1.2, 2.5, 6.0, 7.1, 8.45, 9.3, 10.5, 11.4]) scroll(t);
+  act.scrollPhone(c, "phx", [0.1, 1.2, 2.5, 6.0, 7.1, 8.45, 9.3, 10.5, 11.4]);
   A(11.42, "phx", "squash", { amount: 0.02, dur: 0.25 });
   cap(0, 3.3, "That friend who never looks up.", 250);
 
@@ -80,9 +75,7 @@ function build(variant) {
   A(2.25, "wiz", "grip", { side: "both", shape: RIM_SHAPE, dur: 0.15 });
   sfx(2.3, "tink", { gain: 0.05 });
   // he checks Phoenix's face: eyes up, a beat, back to the stool
-  A(2.45, "wiz", "look", { to: WIZ_AT_PHX, dur: 0.2, blink: false });
-  A(2.45, "wiz", "still", { dur: 0.75, idle: 0.1 });
-  A(3.05, "wiz", "look", { to: WIZ_AT_STOOL_HOME, dur: 0.2, blink: false });
+  act.checkOn(c, 2.45, "wiz", { at: WIZ_AT_PHX, back: WIZ_AT_STOOL_HOME });
 
   // ---------------------------------------------------------------- 3 REMOVE THE SEAT 3.3-5.5
   // the wings start beating just before the seat moves; the stool's slow start lets him rise clear before it travels
@@ -101,9 +94,7 @@ function build(variant) {
   A(5.6, "wiz", "look", { to: [-0.3, -0.45], dur: 0.25, blink: false });        // at the stool in his hands
   A(6.15, "wiz", "look", { to: [-0.8, 0.2], dur: 0.3, blink: false });          // up at the hovering Phoenix
   A(6.15, "wiz", "turn", { to: -55, dur: 0.35 });                                  // toward us, so the shock reads (hands stay on the rim)
-  A(6.2, "wiz", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.25, curve: -0.05 }, dur: 0.15 });
-  A(6.2, "wiz", "face", { brow: 0.45, dur: 0.15 });
-  A(6.2, "wiz", "still", { dur: 1.0, idle: 0.08 });
+  act.shock(c, 6.2, "wiz");
 
   // ---------------------------------------------------------------- 5 NO RESPONSE 7.3-9.7
   A(7.0, "wiz", "turn", { to: -78, dur: 0.3 });                                   // back to the stool before letting go (the arms drop cleanly from there)
@@ -115,26 +106,12 @@ function build(variant) {
   A(7.75, "wiz", "move", { to: WIZ_STAND, dur: 0.5, ease: "inOut", steps: 1 });   // a step in, the stool stays beside him
   sfx(8.0, "notify", { gain: 0.3 });
   // the only "response": a closed-eye grin at the screen, never at the Wizard
-  A(8.12, "phx", "expr", { expr: "happy", set: { curve: 0.6 }, dur: 0.25 });
-  A(8.12, "phx", "face", { lid: 0.9, dur: 0.2 });
-  A(8.2, "phx", "squash", { amount: 0.025, dur: 0.25 });
-  A(9.05, "phx", "face", { lid: 0.42, dur: 0.3 });
-  A(9.05, "phx", "expr", { expr: "kind", set: { curve: 0.4, eye: 0.95 }, dur: 0.35 });   // eyes back on the screen
+  act.grin(c, 8.12, "phx");                                                         // eyes back on the screen at 9.05
   A(8.0, "wiz", "look", { to: [-0.75, 0.1], dur: 0.2, blink: false });
-  A(8.05, "wiz", "expr", { expr: "shocked", set: { open: 0.18, eye: 1.2 }, dur: 0.2 });
-  A(8.05, "wiz", "face", { brow: 0.3, dur: 0.2 });
-  A(8.05, "wiz", "still", { dur: 1.0, idle: 0.08 });
+  act.shock(c, 8.05, "wiz", { open: 0.18, eye: 1.2, curve: null, brow: 0.3, dur: 0.2 });
 
   // ---------------------------------------------------------------- 6 DEFEATED 9.7-12.0
-  c.macro(9.7, "wiz", "sigh");
-  A(9.75, "wiz", "expr", { expr: "deadpan", set: { curve: -0.12 }, dur: 0.35 });
-  A(9.75, "wiz", "face", { lid: 0.42, brow: -0.25, dur: 0.4 });
-  arm(9.8, "wiz", "R", { o: [0.03, 0.2, 0.03] }, 0.5, "inOut");   // the shoulders drop: the arms hang lower and closer
-  arm(9.8, "wiz", "L", { o: [0.03, 0.2, 0.03] }, 0.5, "inOut");
-  A(10.1, "wiz", "turn", { to: -12, dur: 0.5 });
-  A(10.2, "wiz", "look", { to: AT_CAM, dur: 0.35, blink: false });
-  A(10.6, "wiz", "still", { dur: LOOP ? 1.0 : 1.4, idle: 0.1, sink: 0.012 });
-  if (!LOOP) { A(11.3, "wiz", "face", { lid: 0.85, dur: 0.15 }); A(11.48, "wiz", "face", { lid: 0.42, dur: 0.15 }); }   // one slow blink
+  act.defeated(c, 9.7, "wiz", { hold: LOOP ? 1.0 : 1.4, blink: !LOOP });           // the loop cut gets up instead of the slow blink
 
   let END = 12.0;
   if (LOOP) {

@@ -87,8 +87,11 @@ Every glitch Jonny caught after the look was set was a contact problem the file 
 
 ## Writing clips
 
-Write new clips as **beat storyboards** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards
-still work.
+Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it, fill the four brief lines, keep
+the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in
+`storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of
+actions shows up in a second clip, move it into `acting.mjs` (the first clip must still produce the same storyboard).
+The output is a **beat storyboard** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards still work.
 
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 
