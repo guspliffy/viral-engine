@@ -1,0 +1,1242 @@
+{
+ "id": "nothing-scares-reaper",
+ "title": "Nothing Scares Reaper",
+ "idea": "Jonny's production brief v1, 25 Oct 2026 (+ the push-forward ending)",
+ "format": "one joke, one reversal: fearless at the haunted house, terrified of an icebreaker",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": true,
+ "cover": 8.6,
+ "creative": {
+  "length": [
+   12,
+   22
+  ]
+ },
+ "set": {
+  "type": "haunted",
+  "night": true,
+  "nook": true,
+  "pumpkin": false,
+  "seed": 4
+ },
+ "music": {
+  "style": "sneaky",
+  "parts": [
+   {
+    "at": 0,
+    "part": "intro"
+   },
+   {
+    "at": 4.2,
+    "part": "main"
+   },
+   {
+    "at": 7.95,
+    "part": "stop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.5,
+  "ambience": 0.3
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -0.35,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.6,
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    0.85,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0.5,
+   "seed": 2.1,
+   "arms": {
+    "R": {
+     "o": [
+      0.24,
+      0.36,
+      0.08
+     ]
+    }
+   }
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    1.8,
+    -3.05
+   ],
+   "face": "3q-left",
+   "expr": "kind",
+   "follow": 0.5,
+   "seed": 2.8
+  }
+ ],
+ "props": [
+  {
+   "id": "ghost",
+   "kind": "popghost",
+   "x": 1.32,
+   "z": -1.3,
+   "rise": 0.3,
+   "lift": 1.22
+  },
+  {
+   "id": "door",
+   "kind": "door",
+   "x": 0.925,
+   "y": 0,
+   "z": -1.6600000000000001,
+   "w": 1.23,
+   "h": 1.88,
+   "swing": "in",
+   "angle": 100,
+   "color": "#3d2a4a",
+   "open": 0
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": 2.78,
+   "z": -3.2
+  },
+  {
+   "id": "chair1",
+   "kind": "chair",
+   "x": 2.52,
+   "z": -3.68
+  },
+  {
+   "id": "chair2",
+   "kind": "chair",
+   "x": 3.06,
+   "z": -3.68
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.7,
+   "text": "He said nothing scares him.",
+   "pos": 250,
+   "pop": false
+  },
+  {
+   "from": 5.3,
+   "to": 6.6,
+   "text": "Let's go around…",
+   "pos": 250,
+   "pop": false
+  },
+  {
+   "from": 6.6,
+   "to": 7.95,
+   "text": "and share a…",
+   "pos": 430,
+   "pop": false
+  },
+  {
+   "from": 7.95,
+   "to": 9.3,
+   "text": "and share a\nFUN FACT.",
+   "pos": 430,
+   "pop": true
+  },
+  {
+   "from": 12.55,
+   "to": 13.95,
+   "text": "Get me out.",
+   "pos": 430,
+   "pop": false
+  },
+  {
+   "from": 14.25,
+   "to": 15.1,
+   "text": "You first.",
+   "pos": 250,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "fearless",
+   "at": 0,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     0.3,
+     1.05,
+     6.5
+    ],
+    "look": [
+     0.3,
+     0.72,
+     -0.5
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ghost",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.4,
+     "ease": "back",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ghost",
+     "set": {
+      "wobble": 7
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.25,
+     "dur": 0.6,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 3.3,
+     "idle": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 0.16
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.38,
+     "at": 0.16
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.5,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "sfx": "hop",
+     "gain": 0.12,
+     "at": 0.18
+    },
+    {
+     "fx": "alert",
+     "who": "phx",
+     "dur": 0.6,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.3
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "ghost",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 1.1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3,
+      "browY": 0.02
+     },
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.55,
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "ghost",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.35
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.06,
+     "at": 3.35
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the next room",
+   "at": 3.4,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.3,
+     1.05,
+     6.5
+    ],
+    "look": [
+     0.3,
+     0.72,
+     -0.5
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      2.15,
+      1.25,
+      5.4
+     ],
+     "look": [
+      1.8,
+      0.92,
+      -2.4
+     ],
+     "fov": 34
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.85,
+      0.12
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.85,
+      0.12
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.22,
+     "dur": 0.7,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.08
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "bell",
+     "gain": 0.18,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.3,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "friendly host",
+   "at": 5.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.6,
+     1.3,
+     -0.6
+    ],
+    "look": [
+     1.62,
+     1.02,
+     -3.05
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.36,
+       0.32
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "Let's go around",
+     "tone": "calm",
+     "dur": 1,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "the real scare",
+   "at": 6.6,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0.72,
+     0.98,
+     3.4
+    ],
+    "look": [
+     0.8,
+     0.88,
+     -0.2
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.35,
+     "idle": 0.2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      0.02
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "and share a",
+     "tone": "calm",
+     "dur": 0.95,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "fun fact",
+     "tone": "calm",
+     "dur": 0.6,
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 1.22,
+      "pupil": 0.58,
+      "browY": 0.05,
+      "raise": 0.045
+     },
+     "dur": 0.12,
+     "at": 1.43
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "fx": "sweat",
+     "who": "rea",
+     "dur": 1,
+     "at": 1.8
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "curve": -0.28,
+      "open": 0.26
+     },
+     "dur": 0.15,
+     "at": 1.85
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.04,
+     "sink": 0.02,
+     "at": 1.97
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 1.97
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "find cover",
+   "at": 9.9,
+   "len": 4.1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.05,
+     6.5
+    ],
+    "look": [
+     0.3,
+     0.72,
+     -0.5
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -0.28,
+      1.05,
+      6.5
+     ],
+     "look": [
+      -0.28,
+      0.72,
+      -0.5
+     ],
+     "fov": 34
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.6,
+      -1.08
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "land",
+     "gain": 0.14,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.05
+     ],
+     "dur": 0.45,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.05,
+      "browY": 0.02
+     },
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -1.15,
+      -0.82
+     ],
+     "dur": 0.6,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.5,
+     "at": 0.8
+    },
+    {
+     "sfx": "land",
+     "gain": 0.14,
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.6,
+     "idle": 0.1,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.65
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "Get me out",
+     "tone": "whisper",
+     "dur": 0.8,
+     "at": 2.7
+    }
+   ]
+  },
+  {
+   "name": "chosen",
+   "at": 14,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.6,
+     1.3,
+     -0.6
+    ],
+    "look": [
+     1.62,
+     1.02,
+     -3.05
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.12
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.26,
+       0.42
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "You first",
+     "tone": "calm",
+     "dur": 0.6,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "retreat",
+   "at": 15.1,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.05,
+     5
+    ],
+    "look": [
+     -0.55,
+     0.78,
+     -0.6
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.62,
+      -0.98
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "steps": 1,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.45,
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 0.25
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.08,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.85,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "fx": "alert",
+     "who": "phx",
+     "dur": 0.7,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.25
+     },
+     "dur": 0.25,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "the button",
+   "at": 16.7,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.04,
+     1.5,
+     7.4
+    ],
+    "look": [
+     0.06,
+     0.72,
+     -0.9
+    ],
+    "fov": 37
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      1.55,
+      -2.05
+     ],
+     "dur": 0.6,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.78,
+      -0.98
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 1,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.39999999999999997,
+       0.45,
+       -0.62
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.4,
+      -0.45
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.2,
+      -1.1
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.35000000000000003,
+       0.45,
+       -0.87
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.62,
+      -0.8
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.25,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.1,
+      "browY": 0.03
+     },
+     "dur": 0.2,
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 1.85
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.12,
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.9,
+     "idle": 0.15,
+     "at": 2.1
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.5,
+     "at": 2.35
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "phx",
+   "from": 16.85,
+   "to": 18.1,
+   "reason": "Reaper's hand pushes Phoenix's back (the button)"
+  }
+ ],
+ "notes": "Generated by storyboards/halloween/make-nothing-scares.mjs. English lines are captions; voices are gibberish."
+}

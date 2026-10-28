@@ -1,0 +1,3425 @@
+{
+ "id": "pizza-02-restaurant",
+ "title": "PIZZA: how each fighter eats their pizza (in a pizzeria)",
+ "format": "each-character-vs-X, one continuous take: fighters queue in, each eats a slice their own way, the pizza shrinks, biggest last",
+ "fps": 30,
+ "set": {
+  "type": "restaurant"
+ },
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": false,
+ "loop": true,
+ "cover": 9.85,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    0,
+    -0.75
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 1.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "evil",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "cocky",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "cocky",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "focused",
+   "seed": 6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "stern",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    -2.7,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "delighted",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: the cheese pull that never ends (zero gravity)",
+   "at": 0,
+   "len": 2.36,
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 0,
+     "dur": 0.528,
+     "ease": "out",
+     "set": {
+      "x": 0.3,
+      "y": 1.05,
+      "z": -0.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "cheese",
+     "at": 0,
+     "dur": 0.528,
+     "ease": "out",
+     "set": {
+      "len": 0.51
+     }
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0,
+     "to": [
+      0.4,
+      0.5
+     ],
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "cheese",
+     "at": 0.528,
+     "dur": 0.07,
+     "ease": "in",
+     "set": {
+      "len": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 0.528,
+     "dur": 0.308,
+     "ease": "out",
+     "set": {
+      "y": 1.15
+     }
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 0.546,
+     "expr": "shocked"
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 0.66,
+     "to": {
+      "y": 0.45
+     },
+     "dur": 0.308
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.66,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 0.968,
+     "dur": 0.176,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 1.09,
+      "z": -0.25
+     }
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 0.968,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.132
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.012,
+     "expr": "delighted"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.012,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 1.144,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.825
+     }
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 1.144,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.007,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 1.32,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 1.32,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.162,
+     "gain": 0.18
+    },
+    {
+     "who": "ast",
+     "do": "drop",
+     "at": 1.54,
+     "to": 0,
+     "dur": 0.22
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0,
+     "dur": 0.6,
+     "gain": 0.15
+    },
+    {
+     "sfx": "pop",
+     "at": 0.528,
+     "gain": 0.3
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.84,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.76
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 2.36
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 0.176
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.176
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 0.776
+    }
+   ]
+  },
+  {
+   "name": "rea: the slow eater: three tiny, very polite bites",
+   "at": 1.76,
+   "len": 2.258,
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 8
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 0.25,
+     "side": "L",
+     "pose": "hold",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 0.294,
+     "dur": 0.308,
+     "ease": "inOut",
+     "set": {
+      "x": -0.05,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 432,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 0.558,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 1.2374999999999998
+     }
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "at": 0.558,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 0.741,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 0.822,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.825
+     }
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "at": 0.822,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 0.973,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 1.086,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.4125
+     }
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "at": 1.086,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.206,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-rea",
+     "at": 1.35,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "at": 1.35,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.438,
+     "gain": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "at": 0.954,
+     "dur": 0.132
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.526,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.132
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "at": 1.738,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.658
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 2.258
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "sor: the greedy one: takes two slices, makes a pizza sandwich",
+   "at": 3.418,
+   "len": 2.39,
+   "do": [
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.25,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.338,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 7
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 0.338,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 0.347,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.382,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 6
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 0.382,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 0.391,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 0.338,
+     "dur": 0.352,
+     "ease": "out",
+     "set": {
+      "y": 0.95,
+      "z": -0.1,
+      "rot": 162,
+      "tilt": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 0.382,
+     "dur": 0.352,
+     "ease": "out",
+     "set": {
+      "y": 1.1,
+      "z": -0.1,
+      "rot": 162,
+      "tilt": 0
+     }
+    },
+    {
+     "fx": "sparkle",
+     "who": "sor",
+     "at": 0.338,
+     "dur": 0.8,
+     "count": 6,
+     "color": "#b6ff9a"
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "at": 0.602,
+     "to": [
+      0.2,
+      0.7
+     ],
+     "dur": 0.132
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 0.778,
+     "dur": 0.308,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 0.778,
+     "dur": 0.308,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.675,
+      "z": -0.25,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.866,
+     "to": 0,
+     "dur": 0.264
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.866,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "at": 0.866,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.132
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 1.13,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.825
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 1.13,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.825
+     }
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "at": 1.13,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.244,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor",
+     "at": 1.341,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sor-2",
+     "at": 1.341,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "at": 1.341,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.43,
+     "gain": 0.18
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 1.57,
+     "expr": "smug"
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "at": 1.87,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.79
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 2.39
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "wiz: a spell to make it bigger shrinks it (messes up)",
+   "at": 5.208,
+   "len": 2.346,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 5
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-wiz",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-wiz",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.25,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.176
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.264
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.541,
+      0.1
+     ],
+     "at": 0.602,
+     "dur": 0.45,
+     "puffs": 5,
+     "sparks": 10,
+     "spark": "#c8b6ff"
+    },
+    {
+     "do": "prop",
+     "id": "slice-wiz",
+     "at": 0.602,
+     "dur": 0.22,
+     "ease": "in",
+     "set": {
+      "scale": 0.3
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.646,
+     "to": 0,
+     "dur": 0.132
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.69,
+     "expr": "sad"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 0.69,
+     "to": 1,
+     "dur": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.91,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-wiz",
+     "at": 0.998,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-wiz",
+     "at": 1.306,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "at": 1.306,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.399,
+     "gain": 0.18
+    },
+    {
+     "sfx": "sadslide",
+     "at": 0.646,
+     "gain": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "at": 1.826,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.746
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 2.346
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "dra: bites too soon: too hot, breathes fire",
+   "at": 6.954,
+   "len": 2.566,
+   "do": [
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 4
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.25,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.558,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 1.1
+     }
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "at": 0.558,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.69,
+     "expr": "shocked"
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.69,
+     "dur": 0.176,
+     "ease": "out",
+     "set": {
+      "x": 0.45,
+      "y": 0.55,
+      "z": -0.15
+     }
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 0.734,
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.132
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 0.734,
+     "to": 1,
+     "dur": 0.132
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "at": 0.778,
+     "dur": 0.009,
+     "ease": "inOut",
+     "set": {
+      "x": 0.14,
+      "y": 0.7,
+      "z": -0.12
+     }
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "at": 0.796,
+     "dur": 0.106,
+     "ease": "out",
+     "set": {
+      "fire": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 0.822,
+     "dur": 0.352,
+     "ease": "inOut",
+     "set": {
+      "toast": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "at": 1.13,
+     "dur": 0.176,
+     "ease": "in",
+     "set": {
+      "fire": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 1.174,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 1.174,
+     "to": 0,
+     "dur": 0.22
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.218,
+     "expr": "delighted"
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 1.262,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-dra",
+     "at": 1.526,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "at": 1.526,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.593,
+     "gain": 0.18
+    },
+    {
+     "fx": "shake",
+     "at": 0.796,
+     "dur": 0.15,
+     "amp": 0.03
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.14,
+      0.85,
+      -0.1
+     ],
+     "at": 1.13,
+     "dur": 0.5,
+     "puffs": 3,
+     "sparks": 0
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.796,
+     "dur": 0.4,
+     "gain": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 2.046,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.966
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 2.566
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "phx: the messy eater: flips it to catch it, it lands on his face",
+   "at": 8.92,
+   "len": 2.522,
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.25,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.132
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 0.294,
+     "dur": 0.44,
+     "ease": "out",
+     "set": {
+      "y": 1.55,
+      "z": -0.3,
+      "rot": 520,
+      "tilt": 200
+     }
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 0.426,
+     "to": 1,
+     "dur": 0.176
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.514,
+     "expr": "shocked"
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 0.514,
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.132
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 0.734,
+     "dur": 0.264,
+     "ease": "in",
+     "set": {
+      "y": 0.8,
+      "z": -0.36,
+      "rot": 522,
+      "tilt": 270
+     }
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 0.998,
+     "amount": 0.18,
+     "dur": 0.176
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 0.998,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.088
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.998,
+     "expr": "dizzy"
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 1.13,
+     "dur": 0.308,
+     "ease": "in",
+     "set": {
+      "y": 0.64,
+      "tilt": 350
+     }
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 1.13,
+     "to": 0,
+     "dur": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "slice-phx",
+     "at": 1.438,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 1.438,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.515,
+     "gain": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.658,
+     "expr": "cocky"
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.294,
+     "dur": 0.5,
+     "gain": 0.25
+    },
+    {
+     "sfx": "land",
+     "at": 0.998,
+     "gain": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 2.002,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.922
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 2.522
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "gun: the one-bite eater: shoots it off the plate, eats it in one",
+   "at": 10.842,
+   "len": 2.258,
+   "do": [
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.25,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.132
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.25,
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.106
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.47,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-gun",
+     "at": 0.47,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-gun",
+     "at": 0.479,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-gun",
+     "at": 0.47,
+     "dur": 0.308,
+     "ease": "out",
+     "set": {
+      "y": 1.35,
+      "z": -0.2,
+      "roll": 360
+     }
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.514,
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 0.106
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.558,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-gun",
+     "at": 0.778,
+     "dur": 0.264,
+     "ease": "in",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 790
+     }
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "at": 0.998,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.088
+    },
+    {
+     "do": "prop",
+     "id": "slice-gun",
+     "at": 1.042,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "at": 1.042,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.167,
+     "gain": 0.18
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 1.218,
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.176
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.218,
+     "expr": "smug"
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.05,
+      0.541,
+      0
+     ],
+     "at": 0.461,
+     "dur": 0.35,
+     "puffs": 2,
+     "sparks": 8,
+     "spark": "#ffd34d"
+    },
+    {
+     "sfx": "impact",
+     "at": 0.461,
+     "gain": 0.3
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.47,
+     "dur": 0.6,
+     "gain": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.738,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.658
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 2.258
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "sam: the knife-and-fork eater: cuts it into perfect pieces",
+   "at": 12.5,
+   "len": 2.434,
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 0.25,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "x": 0.32,
+      "y": 0.85,
+      "z": -0.1,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 10
+     }
+    },
+    {
+     "who": "sam",
+     "do": "charge",
+     "at": 0.25,
+     "to": 1,
+     "dur": 0.176
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.514,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.114
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.637,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.106
+    },
+    {
+     "fx": "speedlines",
+     "at": 0.646,
+     "dur": 0.15
+    },
+    {
+     "fx": "flash",
+     "at": 0.664,
+     "dur": 0.08,
+     "peak": 0.25
+    },
+    {
+     "fx": "sparkle",
+     "who": "sam",
+     "at": 0.664,
+     "dur": 0.25,
+     "count": 2,
+     "color": "#b6ffd0"
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 0.664,
+     "dur": 0.053,
+     "ease": "out",
+     "set": {
+      "roll": 40
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 0.734,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 1.1
+     }
+    },
+    {
+     "who": "sam",
+     "do": "squash",
+     "at": 0.734,
+     "amount": 0.06,
+     "dur": 0.088
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.866,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.114
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.989,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.106
+    },
+    {
+     "fx": "speedlines",
+     "at": 0.998,
+     "dur": 0.15
+    },
+    {
+     "fx": "flash",
+     "at": 1.016,
+     "dur": 0.08,
+     "peak": 0.25
+    },
+    {
+     "fx": "sparkle",
+     "who": "sam",
+     "at": 1.016,
+     "dur": 0.25,
+     "count": 2,
+     "color": "#b6ffd0"
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 1.016,
+     "dur": 0.053,
+     "ease": "out",
+     "set": {
+      "roll": 70
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 1.086,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.55
+     }
+    },
+    {
+     "who": "sam",
+     "do": "squash",
+     "at": 1.086,
+     "amount": 0.06,
+     "dur": 0.088
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.218,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.114
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.341,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.106
+    },
+    {
+     "fx": "speedlines",
+     "at": 1.35,
+     "dur": 0.15
+    },
+    {
+     "fx": "flash",
+     "at": 1.368,
+     "dur": 0.08,
+     "peak": 0.25
+    },
+    {
+     "fx": "sparkle",
+     "who": "sam",
+     "at": 1.368,
+     "dur": 0.25,
+     "count": 2,
+     "color": "#b6ffd0"
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 1.368,
+     "dur": 0.053,
+     "ease": "out",
+     "set": {
+      "roll": 100
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-sam",
+     "at": 1.438,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "sam",
+     "do": "squash",
+     "at": 1.438,
+     "amount": 0.06,
+     "dur": 0.088
+    },
+    {
+     "who": "sam",
+     "do": "charge",
+     "at": 1.526,
+     "to": 0,
+     "dur": 0.176
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.526,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.22
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.57,
+     "expr": "serene"
+    },
+    {
+     "sfx": "tink",
+     "at": 0.646,
+     "gain": 0.2
+    },
+    {
+     "sfx": "tink",
+     "at": 0.998,
+     "gain": 0.2
+    },
+    {
+     "sfx": "tink",
+     "at": 1.35,
+     "gain": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.914,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.834
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 2.434
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "all: the dad who reheats it: one lightning bolt",
+   "at": 14.334,
+   "len": 2.478,
+   "do": [
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 0.25,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 0.259,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "scale": 1.65
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 0.25,
+     "dur": 0.264,
+     "ease": "inOut",
+     "set": {
+      "x": -0.35,
+      "y": 0.78,
+      "z": -0.2,
+      "rot": 72,
+      "tilt": 0,
+      "roll": 70
+     }
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.294,
+     "side": "L",
+     "pose": "hold",
+     "dur": 0.176
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.514,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.132
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 0.514,
+     "to": [
+      -0.4,
+      0.2
+     ],
+     "dur": 0.106
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "at": 0.646,
+     "dur": 0.009,
+     "ease": "linear",
+     "set": {
+      "on": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "at": 0.822,
+     "dur": 0.009,
+     "ease": "linear",
+     "set": {
+      "on": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 0.646,
+     "dur": 0.176,
+     "ease": "inOut",
+     "set": {
+      "toast": 0.35
+     }
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.822,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.866,
+     "expr": "smug"
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 0.954,
+     "dur": 0.22,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25
+     }
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 0.954,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.106
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.954,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.176
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 1.218,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0.825
+     }
+    },
+    {
+     "who": "all",
+     "do": "squash",
+     "at": 1.218,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.322,
+     "gain": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "slice-all",
+     "at": 1.429,
+     "dur": 0.088,
+     "ease": "out",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "all",
+     "do": "squash",
+     "at": 1.429,
+     "amount": 0.08,
+     "dur": 0.106
+    },
+    {
+     "sfx": "pop",
+     "at": 1.508,
+     "gain": 0.18
+    },
+    {
+     "fx": "shake",
+     "at": 0.646,
+     "dur": 0.2,
+     "amp": 0.02
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.35,
+      0.85,
+      -0.2
+     ],
+     "at": 0.831,
+     "dur": 0.5,
+     "puffs": 3,
+     "sparks": 0
+    },
+    {
+     "sfx": "impact",
+     "at": 0.646,
+     "gain": 0.3
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.958,
+     "to": "right",
+     "dur": 0.22
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3,
+     "at": 1.878
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 2.478
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0.426
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 3,
+     "at": 0.426
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.026
+    }
+   ]
+  },
+  {
+   "name": "vik: nothing left (the Sorcerer took two): eats the board",
+   "at": 16.212,
+   "len": 3.4,
+   "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.25,
+     "side": "both",
+     "pose": "table",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 0.25,
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.3,
+     "expr": "shocked"
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 0.7,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1,
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 1,
+     "dur": 0.35,
+     "ease": "out",
+     "set": {
+      "y": 0.5,
+      "z": -0.2,
+      "tilt": 25
+     }
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.45,
+     "expr": "eager"
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 1.6,
+     "dur": 0.1,
+     "ease": "out",
+     "set": {
+      "scale": 0.6
+     }
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 1.6,
+     "amount": 0.12,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 1.8,
+     "dur": 0.12,
+     "ease": "in",
+     "set": {
+      "scale": 0.02
+     }
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 1.8,
+     "amount": 0.3,
+     "dur": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.85,
+     "expr": "delighted"
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "at": 1.85,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2,
+     "side": "both",
+     "pose": "fist",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "hop",
+     "at": 2.1,
+     "height": 0.08,
+     "count": 1,
+     "dur": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 2.05,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "slices": 10,
+      "y": 0.477,
+      "z": 0,
+      "tilt": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 2.5,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 2.5,
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 2.55,
+     "to": "right",
+     "dur": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 2.55,
+     "to": [
+      2.7,
+      -1.1
+     ],
+     "dur": 0.6,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "fx": "shake",
+     "at": 1.8,
+     "dur": 0.3,
+     "amp": 0.04
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.68,
+      -0.3
+     ],
+     "at": 1.8,
+     "dur": 0.7,
+     "puffs": 0,
+     "sparks": 16,
+     "spark": "#f2c46b"
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.515,
+      0
+     ],
+     "at": 2.45,
+     "dur": 0.5,
+     "puffs": 5,
+     "sparks": 6,
+     "spark": "#ffe08a"
+    },
+    {
+     "sfx": "pop",
+     "at": 1.6,
+     "gain": 0.3
+    },
+    {
+     "sfx": "pop",
+     "at": 1.8,
+     "gain": 0.5
+    },
+    {
+     "sfx": "tink",
+     "at": 2.5,
+     "gain": 0.25
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      -2.7,
+      -1.5
+     ],
+     "dur": 0.01,
+     "at": 1.89
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.01,
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "eager",
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      -0.9,
+      -1.5
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 3,
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3,
+     "at": 2.55
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.15,
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 3.03,
+     "dur": 0,
+     "set": {
+      "x": 0,
+      "y": 0.503,
+      "z": 0,
+      "rot": 324,
+      "tilt": 0,
+      "roll": 0,
+      "toast": 0,
+      "scale": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "pizza",
+     "at": 3.08,
+     "dur": 0,
+     "set": {
+      "slices": 9
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 3.08,
+     "dur": 0,
+     "set": {
+      "scale": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "slice-ast",
+     "at": 3.09,
+     "dur": 0.3,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": -0.25,
+      "rot": 432,
+      "roll": 70,
+      "scale": 1.65
+     }
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "eager",
+     "at": 3.08
+    }
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "table",
+   "x": 0,
+   "z": 0,
+   "scale": 0.75
+  },
+  {
+   "id": "cloth",
+   "kind": "cloth",
+   "x": 0,
+   "z": 0,
+   "scale": 0.75
+  },
+  {
+   "id": "pizza",
+   "kind": "pizza",
+   "x": 0,
+   "y": 0.477,
+   "z": 0,
+   "slices": 9,
+   "scale": 1.2
+  },
+  {
+   "id": "fire",
+   "kind": "flames",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0.45
+  },
+  {
+   "id": "cheese",
+   "kind": "cheese",
+   "x": 0,
+   "y": 0.64,
+   "z": -0.25,
+   "rot": 80.5,
+   "tilt": -53.4,
+   "len": 0
+  },
+  {
+   "id": "bolt",
+   "kind": "bolt",
+   "x": -0.35,
+   "y": 0.8,
+   "z": -0.2
+  },
+  {
+   "id": "slice-ast",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.64,
+   "z": -0.25,
+   "rot": 432,
+   "roll": 70,
+   "scale": 1.65
+  },
+  {
+   "id": "slice-rea",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 288,
+   "scale": 0
+  },
+  {
+   "id": "slice-sor",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 252,
+   "scale": 0
+  },
+  {
+   "id": "slice-sor-2",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 216,
+   "scale": 0
+  },
+  {
+   "id": "slice-wiz",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "slice-dra",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 144,
+   "scale": 0
+  },
+  {
+   "id": "slice-phx",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 108,
+   "scale": 0
+  },
+  {
+   "id": "slice-gun",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 72,
+   "scale": 0
+  },
+  {
+   "id": "slice-sam",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 36,
+   "scale": 0
+  },
+  {
+   "id": "slice-all",
+   "kind": "slice",
+   "x": 0,
+   "y": 0.503,
+   "z": 0,
+   "rot": 0,
+   "scale": 0
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.5,
+    4.4
+   ],
+   "look": [
+    0,
+    0.78,
+    -0.6
+   ],
+   "fov": 38
+  },
+  {
+   "at": 16.462,
+   "pos": [
+    0,
+    1.5,
+    4.4
+   ],
+   "look": [
+    0,
+    0.78,
+    -0.6
+   ],
+   "fov": 38,
+   "to": {
+    "pos": [
+     0,
+     1.32,
+     3.4
+    ],
+    "look": [
+     0,
+     0.8,
+     -0.5
+    ],
+    "fov": 34.5
+   },
+   "dur": 0.4,
+   "ease": "out"
+  },
+  {
+   "at": 18.012,
+   "pos": [
+    0,
+    1.32,
+    3.4
+   ],
+   "look": [
+    0,
+    0.8,
+    -0.5
+   ],
+   "fov": 34.5,
+   "to": {
+    "pos": [
+     0,
+     1.5,
+     4.4
+    ],
+    "look": [
+     0,
+     0.78,
+     -0.6
+    ],
+    "fov": 38
+   },
+   "dur": 1.5,
+   "ease": "inOut"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 19.612,
+   "text": "PIZZA",
+   "style": "label",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 2.4,
+   "text": "1 pizza. 10 fighters.",
+   "pos": 340
+  },
+  {
+   "from": 2.4,
+   "to": 3.668,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 2.4,
+   "to": 3.668,
+   "text": "eats sooo slowly",
+   "pos": 425
+  },
+  {
+   "from": 3.668,
+   "to": 5.458,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 3.668,
+   "to": 5.458,
+   "text": "takes two",
+   "pos": 425
+  },
+  {
+   "from": 5.458,
+   "to": 7.204,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 5.458,
+   "to": 7.204,
+   "text": "the spell goes wrong",
+   "pos": 425
+  },
+  {
+   "from": 7.204,
+   "to": 9.17,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 7.204,
+   "to": 9.17,
+   "text": "bites too soon",
+   "pos": 425
+  },
+  {
+   "from": 9.17,
+   "to": 11.092,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 9.17,
+   "to": 11.092,
+   "text": "the messy one",
+   "pos": 425
+  },
+  {
+   "from": 11.092,
+   "to": 12.75,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 11.092,
+   "to": 12.75,
+   "text": "one bite",
+   "pos": 425
+  },
+  {
+   "from": 12.75,
+   "to": 14.584,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 12.75,
+   "to": 14.584,
+   "text": "knife & fork",
+   "pos": 425
+  },
+  {
+   "from": 14.584,
+   "to": 16.462,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.584,
+   "to": 16.462,
+   "text": "reheats it",
+   "pos": 425
+  },
+  {
+   "from": 16.462,
+   "to": 18.112,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 16.462,
+   "to": 18.112,
+   "text": "nothing left?!",
+   "pos": 425
+  },
+  {
+   "from": 18.112,
+   "to": 19.612,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "ast",
+   "with": "slice-ast",
+   "from": 0,
+   "to": 2.06
+  },
+  {
+   "who": "rea",
+   "with": "slice-rea",
+   "from": 1.76,
+   "to": 3.718
+  },
+  {
+   "who": "sor",
+   "with": "slice-sor",
+   "from": 3.418,
+   "to": 5.508
+  },
+  {
+   "who": "sor",
+   "with": "slice-sor-2",
+   "from": 3.418,
+   "to": 5.508
+  },
+  {
+   "who": "wiz",
+   "with": "slice-wiz",
+   "from": 5.208,
+   "to": 7.254
+  },
+  {
+   "who": "dra",
+   "with": "slice-dra",
+   "from": 6.954,
+   "to": 9.22
+  },
+  {
+   "who": "phx",
+   "with": "slice-phx",
+   "from": 8.92,
+   "to": 11.142
+  },
+  {
+   "who": "gun",
+   "with": "slice-gun",
+   "from": 10.842,
+   "to": 12.8
+  },
+  {
+   "who": "sam",
+   "with": "slice-sam",
+   "from": 12.5,
+   "to": 14.634
+  },
+  {
+   "who": "all",
+   "with": "slice-all",
+   "from": 14.334,
+   "to": 16.512
+  },
+  {
+   "who": "vik",
+   "with": "pizza",
+   "from": 16.212,
+   "to": 19.662
+  },
+  {
+   "who": "ast",
+   "with": "slice-ast",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "bolt",
+   "from": 0,
+   "to": 99
+  }
+ ]
+}

@@ -1,0 +1,1968 @@
+{
+ "id": "gate-01-the-gate",
+ "title": "GATE: how each fighter gets past it",
+ "format": "each-character-vs-X: one set, one obstacle, each fighter crosses it in their own way in ~2 s, hard cuts, biggest last",
+ "fps": 30,
+ "set": {
+  "type": "garden",
+  "gap": 1.5
+ },
+ "sound": {
+  "sfx": 0.6
+ },
+ "music": {
+  "bpm": 120,
+  "offset": 0,
+  "gain": 0.55,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 1.3
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "cocky",
+   "seed": 2
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "focused",
+   "seed": 2.7
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 3.3999999999999995
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "evil",
+   "seed": 4.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "seed": 4.8
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "seed": 5.499999999999999
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "cocky",
+   "seed": 6.199999999999999
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    0,
+    -0.9
+   ],
+   "face": "camera",
+   "expr": "stern",
+   "seed": 6.8999999999999995
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    0,
+    -2
+   ],
+   "face": "camera",
+   "expr": "delighted",
+   "seed": 7.6
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.6,
+    2,
+    4.7
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.552,
+     1.92,
+     4.5
+    ]
+   },
+   "dur": 2.3,
+   "ease": "linear"
+  },
+  {
+   "at": 2.3,
+   "pos": [
+    -0.8,
+    1.7,
+    4.5
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.1
+   ],
+   "fov": 36,
+   "to": {
+    "pos": [
+     -0.7360000000000001,
+     1.6199999999999999,
+     4.3
+    ]
+   },
+   "dur": 2.2,
+   "ease": "linear"
+  },
+  {
+   "at": 4.5,
+   "pos": [
+    0.6,
+    2,
+    4.7
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.552,
+     1.92,
+     4.5
+    ]
+   },
+   "dur": 2.2,
+   "ease": "linear"
+  },
+  {
+   "at": 6.7,
+   "pos": [
+    -0.8,
+    2,
+    5
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     -0.7360000000000001,
+     1.92,
+     4.8
+    ]
+   },
+   "dur": 2.3,
+   "ease": "linear"
+  },
+  {
+   "at": 9,
+   "pos": [
+    -0.8,
+    1.7,
+    4.5
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.1
+   ],
+   "fov": 36,
+   "to": {
+    "pos": [
+     -0.7360000000000001,
+     1.6199999999999999,
+     4.3
+    ]
+   },
+   "dur": 2.1,
+   "ease": "linear"
+  },
+  {
+   "at": 11.1,
+   "pos": [
+    0.6,
+    2,
+    4.7
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.552,
+     1.92,
+     4.5
+    ]
+   },
+   "dur": 1.5,
+   "ease": "linear"
+  },
+  {
+   "at": 12.6,
+   "pos": [
+    0.5,
+    1.1,
+    4.8
+   ],
+   "look": [
+    0,
+    0.8,
+    -0.2
+   ],
+   "fov": 42,
+   "to": {
+    "pos": [
+     0.46,
+     1.02,
+     4.6
+    ]
+   },
+   "dur": 2.4,
+   "ease": "linear"
+  },
+  {
+   "at": 15,
+   "pos": [
+    -0.8,
+    1.9,
+    5
+   ],
+   "look": [
+    0,
+    1,
+    -0.1
+   ],
+   "fov": 44,
+   "to": {
+    "pos": [
+     -0.7360000000000001,
+     1.8199999999999998,
+     4.8
+    ]
+   },
+   "dur": 2.3,
+   "ease": "linear"
+  },
+  {
+   "at": 17.3,
+   "pos": [
+    0.6,
+    2,
+    4.7
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.552,
+     1.92,
+     4.5
+    ]
+   },
+   "dur": 2.3,
+   "ease": "linear"
+  },
+  {
+   "at": 19.6,
+   "pos": [
+    0.5,
+    1,
+    4.6
+   ],
+   "look": [
+    0,
+    0.75,
+    -0.2
+   ],
+   "fov": 40,
+   "to": {
+    "pos": [
+     0.3,
+     1,
+     4.3
+    ]
+   },
+   "dur": 0.6,
+   "ease": "in"
+  }
+ ],
+ "actions": [
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "show"
+  },
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "fly",
+   "to": {
+    "y": 0.42,
+    "z": -0.2
+   },
+   "dur": 0.7,
+   "ease": "out"
+  },
+  {
+   "who": "ast",
+   "at": 0,
+   "do": "arm",
+   "side": "both",
+   "pose": "up",
+   "dur": 0.3
+  },
+  {
+   "who": "ast",
+   "at": 0.9,
+   "do": "fly",
+   "to": {
+    "y": 0.3,
+    "z": 0.55
+   },
+   "dur": 0.7,
+   "ease": "inOut"
+  },
+  {
+   "who": "ast",
+   "at": 0.9,
+   "do": "expr",
+   "expr": "delighted"
+  },
+  {
+   "who": "ast",
+   "at": 1.6,
+   "do": "drop",
+   "to": 0,
+   "dur": 0.3
+  },
+  {
+   "who": "ast",
+   "at": 0.9,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.2
+  },
+  {
+   "who": "ast",
+   "at": 1.7,
+   "do": "arm",
+   "side": "R",
+   "pose": "wave",
+   "dur": 0.25
+  },
+  {
+   "who": "ast",
+   "at": 2.3,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 0,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 0,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 0,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 0,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "gun",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "gun",
+   "at": 2.3,
+   "do": "show"
+  },
+  {
+   "who": "gun",
+   "at": 2.4,
+   "do": "arm",
+   "side": "R",
+   "pose": "point",
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 2.65,
+   "dur": 0.55,
+   "ease": "out",
+   "set": {
+    "latch": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 3,
+   "dur": 0.35,
+   "ease": "out",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "gun",
+   "at": 3.25,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.9
+  },
+  {
+   "who": "gun",
+   "at": 3.3,
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.3
+  },
+  {
+   "who": "gun",
+   "at": 4.15,
+   "do": "arm",
+   "side": "L",
+   "pose": "hips",
+   "dur": 0.2
+  },
+  {
+   "who": "gun",
+   "at": 4.5,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 2.3,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 2.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 2.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 2.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "sam",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "sam",
+   "at": 4.5,
+   "do": "show"
+  },
+  {
+   "who": "sam",
+   "at": 4.5,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.3
+  },
+  {
+   "who": "sam",
+   "at": 4.75,
+   "do": "arm",
+   "side": "R",
+   "pose": "up",
+   "dur": 0.12
+  },
+  {
+   "who": "sam",
+   "at": 4.95,
+   "do": "arm",
+   "side": "R",
+   "pose": "point",
+   "dur": 0.08
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 5,
+   "dur": 0.8,
+   "ease": "linear",
+   "set": {
+    "slice": 1
+   }
+  },
+  {
+   "who": "sam",
+   "at": 5.6,
+   "do": "hop",
+   "height": 0.45,
+   "dur": 0.55
+  },
+  {
+   "who": "sam",
+   "at": 5.6,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.55
+  },
+  {
+   "who": "sam",
+   "at": 6.2,
+   "do": "charge",
+   "to": 0,
+   "dur": 0.3
+  },
+  {
+   "who": "sam",
+   "at": 6.2,
+   "do": "expr",
+   "expr": "serene"
+  },
+  {
+   "who": "sam",
+   "at": 6.7,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 4.5,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 4.5,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 4.5,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 4.5,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "wiz",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "wiz",
+   "at": 6.7,
+   "do": "show"
+  },
+  {
+   "who": "wiz",
+   "at": 6.75,
+   "do": "arm",
+   "side": "R",
+   "pose": "cast",
+   "dur": 0.2
+  },
+  {
+   "who": "wiz",
+   "at": 6.75,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.35
+  },
+  {
+   "who": "wiz",
+   "at": 7.25,
+   "do": "charge",
+   "to": 0,
+   "dur": 0.15
+  },
+  {
+   "who": "wiz",
+   "at": 7.3,
+   "do": "expr",
+   "expr": "sad"
+  },
+  {
+   "who": "wiz",
+   "at": 7.3,
+   "do": "droop",
+   "to": 1,
+   "dur": 0.3
+  },
+  {
+   "who": "wiz",
+   "at": 7.7,
+   "do": "hop",
+   "height": 0.4,
+   "dur": 0.75
+  },
+  {
+   "who": "wiz",
+   "at": 7.7,
+   "do": "move",
+   "to": [
+    0,
+    0.2
+   ],
+   "dur": 0.75
+  },
+  {
+   "who": "wiz",
+   "at": 7.4,
+   "do": "arm",
+   "side": "both",
+   "pose": "shrug",
+   "dur": 0.25
+  },
+  {
+   "who": "wiz",
+   "at": 8.45,
+   "do": "hat",
+   "off": [
+    0.15,
+    -0.1,
+    0.05
+   ],
+   "spin": [
+    0,
+    0,
+    -35
+   ],
+   "dur": 0.2
+  },
+  {
+   "who": "wiz",
+   "at": 8.45,
+   "do": "expr",
+   "expr": "dizzy"
+  },
+  {
+   "who": "wiz",
+   "at": 9,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 6.7,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 6.7,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 6.7,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 6.7,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "sor",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "sor",
+   "at": 9,
+   "do": "show"
+  },
+  {
+   "who": "sor",
+   "at": 9,
+   "do": "charge",
+   "to": 1,
+   "dur": 0.3
+  },
+  {
+   "who": "sor",
+   "at": 9.05,
+   "do": "arm",
+   "side": "L",
+   "pose": "cast",
+   "dur": 0.2
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 9.15,
+   "dur": 0.35,
+   "ease": "back",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 9.15,
+   "dur": 0.35,
+   "ease": "back",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "sor",
+   "at": 9.55,
+   "do": "move",
+   "to": [
+    0,
+    -0.75
+   ],
+   "dur": 0.25
+  },
+  {
+   "who": "sor",
+   "at": 9.8,
+   "do": "hide"
+  },
+  {
+   "who": "sor",
+   "at": 9.8,
+   "do": "move",
+   "to": [
+    0,
+    0.3
+   ],
+   "dur": 0.01
+  },
+  {
+   "who": "sor",
+   "at": 9.95,
+   "do": "show"
+  },
+  {
+   "who": "sor",
+   "at": 9.95,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.3
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 10.3,
+   "dur": 0.3,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 10.3,
+   "dur": 0.3,
+   "ease": "in",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "who": "sor",
+   "at": 10.4,
+   "do": "expr",
+   "expr": "smug"
+  },
+  {
+   "who": "sor",
+   "at": 11.1,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 9,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 9,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 9,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 9,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "rea",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "rea",
+   "at": 11.1,
+   "do": "show"
+  },
+  {
+   "who": "rea",
+   "at": 11.15,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.9,
+   "steps": 1.6
+  },
+  {
+   "who": "rea",
+   "at": 12.1,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.15
+  },
+  {
+   "who": "rea",
+   "at": 12.15,
+   "do": "lean",
+   "to": 6,
+   "dur": 0.2
+  },
+  {
+   "who": "rea",
+   "at": 12.6,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 11.1,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 11.1,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 11.1,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 11.1,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "dra",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "dra",
+   "at": 12.6,
+   "do": "show"
+  },
+  {
+   "who": "dra",
+   "at": 12.7,
+   "do": "fly",
+   "to": {
+    "y": 0.6,
+    "z": -0.2
+   },
+   "dur": 0.6
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 13.15,
+   "dur": 0.4,
+   "ease": "out",
+   "set": {
+    "fire": 1
+   }
+  },
+  {
+   "who": "dra",
+   "at": 13.35,
+   "do": "fly",
+   "to": {
+    "y": 0.5,
+    "z": 0.55
+   },
+   "dur": 0.5
+  },
+  {
+   "who": "dra",
+   "at": 13.85,
+   "do": "drop",
+   "to": 0,
+   "dur": 0.25
+  },
+  {
+   "who": "dra",
+   "at": 14.15,
+   "do": "turn",
+   "to": "3q-left",
+   "dur": 0.2
+  },
+  {
+   "who": "dra",
+   "at": 14.2,
+   "do": "expr",
+   "expr": "shocked"
+  },
+  {
+   "who": "dra",
+   "at": 14.2,
+   "do": "arm",
+   "side": "both",
+   "pose": "cheeks",
+   "dur": 0.2
+  },
+  {
+   "who": "dra",
+   "at": 15,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 12.6,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 12.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 12.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 12.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "phx",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "phx",
+   "at": 15,
+   "do": "show"
+  },
+  {
+   "who": "phx",
+   "at": 15,
+   "do": "wings",
+   "to": 1,
+   "dur": 0.25
+  },
+  {
+   "who": "phx",
+   "at": 15.3,
+   "do": "hop",
+   "height": 0.6,
+   "dur": 0.85
+  },
+  {
+   "who": "phx",
+   "at": 15.3,
+   "do": "move",
+   "to": [
+    0.45,
+    0.4
+   ],
+   "dur": 0.85
+  },
+  {
+   "who": "phx",
+   "at": 15.3,
+   "do": "pitch",
+   "to": 360,
+   "dur": 0.75
+  },
+  {
+   "who": "phx",
+   "at": 16.08,
+   "do": "lean",
+   "to": 88,
+   "dur": 0.14,
+   "ease": "in"
+  },
+  {
+   "who": "phx",
+   "at": 16.08,
+   "do": "expr",
+   "expr": "dizzy"
+  },
+  {
+   "who": "phx",
+   "at": 16.15,
+   "do": "wings",
+   "to": 0.2,
+   "dur": 0.3
+  },
+  {
+   "who": "phx",
+   "at": 17.3,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 15,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 15,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 15,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 15,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "all",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "all",
+   "at": 17.3,
+   "do": "show"
+  },
+  {
+   "who": "all",
+   "at": 17.35,
+   "do": "arm",
+   "side": "R",
+   "pose": "up",
+   "dur": 0.25
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "at": 17.7,
+   "dur": 0.01,
+   "ease": "linear",
+   "set": {
+    "on": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "at": 18,
+   "dur": 0.01,
+   "ease": "linear",
+   "set": {
+    "on": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 17.72,
+   "dur": 0.1,
+   "ease": "inOut",
+   "set": {
+    "scorch": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 18.2,
+   "dur": 0.5,
+   "ease": "out",
+   "set": {
+    "open": 1
+   }
+  },
+  {
+   "who": "all",
+   "at": 18.5,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.9,
+   "steps": 1.8
+  },
+  {
+   "who": "all",
+   "at": 18.5,
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.3
+  },
+  {
+   "who": "all",
+   "at": 19.6,
+   "do": "hide"
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 17.3,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 17.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 17.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 17.3,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  },
+  {
+   "who": "vik",
+   "at": 0,
+   "do": "hide"
+  },
+  {
+   "who": "vik",
+   "at": 19.6,
+   "do": "show"
+  },
+  {
+   "who": "vik",
+   "at": 19.6,
+   "do": "arm",
+   "side": "L",
+   "pose": "up",
+   "dur": 0.2
+  },
+  {
+   "who": "vik",
+   "at": 19.75,
+   "do": "move",
+   "to": [
+    0,
+    -0.25
+   ],
+   "dur": 0.45,
+   "ease": "in",
+   "steps": 4
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 20.2,
+   "dur": 1,
+   "ease": "linear",
+   "set": {
+    "smash": 1
+   }
+  },
+  {
+   "who": "vik",
+   "at": 20.2,
+   "do": "move",
+   "to": [
+    0,
+    0.55
+   ],
+   "dur": 0.5,
+   "ease": "out",
+   "steps": 3
+  },
+  {
+   "who": "vik",
+   "at": 20.9,
+   "do": "arm",
+   "side": "both",
+   "pose": "up",
+   "dur": 0.25
+  },
+  {
+   "who": "vik",
+   "at": 20.9,
+   "do": "hop",
+   "height": 0.3,
+   "count": 2,
+   "dur": 0.7
+  },
+  {
+   "who": "vik",
+   "at": 21.4,
+   "do": "turn",
+   "to": "camera",
+   "dur": 0.2
+  },
+  {
+   "who": "vik",
+   "at": 21.35,
+   "do": "arm",
+   "side": "both",
+   "pose": "hips",
+   "dur": 0.25
+  },
+  {
+   "who": "vik",
+   "at": 21.4,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0.15
+  },
+  {
+   "do": "prop",
+   "id": "gate",
+   "at": 19.6,
+   "dur": 0,
+   "ease": "inOut",
+   "set": {
+    "open": 0,
+    "latch": 0,
+    "slice": 0,
+    "smash": 0,
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-b",
+   "at": 19.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "portal-f",
+   "at": 19.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "open": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fire",
+   "at": 19.6,
+   "dur": 0,
+   "ease": "linear",
+   "set": {
+    "fire": 0
+   }
+  }
+ ],
+ "props": [
+  {
+   "id": "gate",
+   "kind": "gate",
+   "x": 0,
+   "z": 0
+  },
+  {
+   "id": "portal-b",
+   "kind": "portal",
+   "x": 0,
+   "z": -0.6,
+   "scale": 0.8
+  },
+  {
+   "id": "portal-f",
+   "kind": "portal",
+   "x": 0,
+   "z": 0.3,
+   "scale": 0.8
+  },
+  {
+   "id": "bolt",
+   "kind": "bolt",
+   "x": 0,
+   "z": 0.05
+  },
+  {
+   "id": "fire",
+   "kind": "flames",
+   "x": -1,
+   "y": 1.05,
+   "z": 0.3,
+   "scale": 1.4
+  }
+ ],
+ "fx": [
+  {
+   "do": "flash",
+   "at": 2.65,
+   "dur": 0.12,
+   "peak": 0.35
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0.05,
+    0.62,
+    0.15
+   ],
+   "at": 2.65,
+   "dur": 0.5,
+   "puffs": 6,
+   "sparks": 14,
+   "spark": "#ffd36b"
+  },
+  {
+   "do": "speedlines",
+   "at": 4.95,
+   "dur": 0.3,
+   "alpha": 0.55
+  },
+  {
+   "do": "flash",
+   "at": 5,
+   "dur": 0.15,
+   "peak": 0.4
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    1.2,
+    -1
+   ],
+   "at": 7.2,
+   "dur": 0.4,
+   "puffs": 4,
+   "sparks": 6,
+   "spark": "#c8b6ff"
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    0.6,
+    0
+   ],
+   "at": 11.85,
+   "dur": 0.6,
+   "puffs": 8,
+   "sparks": 0
+  },
+  {
+   "do": "flash",
+   "at": 13.15,
+   "dur": 0.15,
+   "peak": 0.25
+  },
+  {
+   "do": "poof",
+   "pos": [
+    -1,
+    1.1,
+    0.3
+   ],
+   "at": 13.15,
+   "dur": 0.6,
+   "puffs": 6,
+   "sparks": 16,
+   "spark": "#ff9a2e"
+  },
+  {
+   "do": "speedlines",
+   "at": 13.15,
+   "dur": 0.3,
+   "alpha": 0.4,
+   "center": [
+    300,
+    1000
+   ]
+  },
+  {
+   "do": "shake",
+   "at": 16.18,
+   "dur": 0.2,
+   "amp": 0.03
+  },
+  {
+   "do": "impact",
+   "at": 16.18,
+   "dur": 0.1
+  },
+  {
+   "do": "impact",
+   "at": 17.7,
+   "dur": 0.1
+  },
+  {
+   "do": "flash",
+   "at": 17.8,
+   "dur": 0.2,
+   "peak": 0.5
+  },
+  {
+   "do": "shake",
+   "at": 17.7,
+   "dur": 0.3,
+   "amp": 0.05
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    0.4,
+    0.1
+   ],
+   "at": 17.85,
+   "dur": 0.9,
+   "puffs": 14,
+   "sparks": 10,
+   "spark": "#bfe4ff"
+  },
+  {
+   "do": "speedlines",
+   "at": 19.75,
+   "dur": 0.45,
+   "alpha": 0.6
+  },
+  {
+   "do": "impact",
+   "at": 20.2,
+   "dur": 0.1
+  },
+  {
+   "do": "flash",
+   "at": 20.3,
+   "dur": 0.2,
+   "peak": 0.5
+  },
+  {
+   "do": "shake",
+   "at": 20.2,
+   "dur": 0.45,
+   "amp": 0.08
+  },
+  {
+   "do": "poof",
+   "pos": [
+    0,
+    0.3,
+    0.1
+   ],
+   "at": 20.22,
+   "dur": 0.9,
+   "puffs": 18,
+   "sparks": 12,
+   "spark": "#ffcf6b"
+  }
+ ],
+ "sfx": [
+  {
+   "sound": "whoosh",
+   "at": 0,
+   "dur": 0.8,
+   "gain": 0.25
+  },
+  {
+   "sound": "impact",
+   "at": 2.65,
+   "gain": 0.4
+  },
+  {
+   "sound": "tink",
+   "at": 2.9,
+   "gain": 0.3
+  },
+  {
+   "sound": "whoosh",
+   "at": 4.92,
+   "dur": 0.2,
+   "gain": 0.35
+  },
+  {
+   "sound": "tink",
+   "at": 5.02,
+   "gain": 0.3
+  },
+  {
+   "sound": "sadslide",
+   "at": 7.25,
+   "gain": 0.25
+  },
+  {
+   "sound": "charge",
+   "at": 9.1,
+   "dur": 0.5,
+   "gain": 0.25
+  },
+  {
+   "sound": "pop",
+   "at": 9.8,
+   "gain": 0.35
+  },
+  {
+   "sound": "pop",
+   "at": 9.95,
+   "gain": 0.35
+  },
+  {
+   "sound": "whoosh",
+   "at": 11.8,
+   "dur": 0.4,
+   "gain": 0.2
+  },
+  {
+   "sound": "whoosh",
+   "at": 13.1,
+   "dur": 0.6,
+   "gain": 0.3
+  },
+  {
+   "sound": "land",
+   "at": 16.18,
+   "gain": 0.5
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 22.8,
+   "text": "GATE",
+   "style": "label",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 2.1999999999999997,
+   "text": "10 fighters. 1 gate.",
+   "style": "sub",
+   "pos": 340
+  },
+  {
+   "from": 21.400000000000002,
+   "to": 22.8,
+   "text": "which one are you?",
+   "pos": 370
+  }
+ ],
+ "beats": [
+  {
+   "who": "ast",
+   "character": "astronaut",
+   "stunt": "floats over in zero gravity",
+   "from": 0,
+   "to": 2.3
+  },
+  {
+   "who": "gun",
+   "character": "gunslinger",
+   "stunt": "shoots the latch off and struts through",
+   "from": 2.3,
+   "to": 4.5
+  },
+  {
+   "who": "sam",
+   "character": "samurai",
+   "stunt": "slices the gate and hops the stump",
+   "from": 4.5,
+   "to": 6.7
+  },
+  {
+   "who": "wiz",
+   "character": "wizard",
+   "stunt": "spell fizzles, so he scrambles over",
+   "from": 6.7,
+   "to": 9
+  },
+  {
+   "who": "sor",
+   "character": "sorcerer",
+   "stunt": "portals through",
+   "from": 9,
+   "to": 11.1
+  },
+  {
+   "who": "rea",
+   "character": "reaper",
+   "stunt": "phases straight through the wood",
+   "from": 11.1,
+   "to": 12.6
+  },
+  {
+   "who": "dra",
+   "character": "dragon",
+   "stunt": "flies over and sets the hedge on fire",
+   "from": 12.6,
+   "to": 15
+  },
+  {
+   "who": "phx",
+   "character": "phoenix",
+   "stunt": "flashy flip, lands flat on his side",
+   "from": 15,
+   "to": 17.3
+  },
+  {
+   "who": "all",
+   "character": "allfather",
+   "stunt": "lightning, then walks through the ash",
+   "from": 17.3,
+   "to": 19.6
+  },
+  {
+   "who": "vik",
+   "character": "viking",
+   "stunt": "charges and smashes it to splinters",
+   "from": 19.6,
+   "to": 22.8
+  }
+ ],
+ "duration": 22.8,
+ "cover": 20.35
+}

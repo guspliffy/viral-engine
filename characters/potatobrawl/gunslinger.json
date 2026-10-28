@@ -19,7 +19,23 @@
   "face": {
     "default": "cocky",
     "iris": "#4a2a14",
-    "cheeks": "#ff6f6f"
+    "cheeks": "#ff6f6f",
+    "neutral": {
+      "tilt": 0,
+      "raise": 0.03,
+      "curve": 0.35,
+      "smirk": 0.3,
+      "eye": 1,
+      "lidL": 0.18,
+      "lidR": 0.26
+    },
+    "eye": {
+      "flick": 0.6
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 1.1
+    }
   },
   "sprout": {
     "color": "#6cbf3a",
@@ -42,5 +58,12 @@
     "seed": 7
   },
   "notes": "Personality line is the game's own fighter description. Pistols are not modelled yet.",
-  "voiceNote": "gibberish, quick and bouncy"
+  "voiceNote": "gibberish, quick and bouncy",
+  "hands": {
+    "type": "mitten",
+    "grip": {
+      "R": "hold",
+      "L": "hold"
+    }
+  }
 }

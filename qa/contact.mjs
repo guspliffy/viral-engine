@@ -2,7 +2,7 @@
 // Contact sheet of a clip for a quick human or model review: one still per beat, labelled with its time,
 // in a grid of small frames (a few hundred KB, so a review costs a handful of image tokens, not a video).
 //
-//   node qa/contact.mjs out/test-01-golden-v2.mp4 --sb storyboards/test-01-golden-v2.json   -> out/test-01-golden-v2.contact.png
+//   node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   -> out/test-01-golden.contact.png
 //   node qa/contact.mjs clip.mp4 --times 0.5,2,3.1 [--cols 4] [--width 270] [--out sheet.png]
 //   node qa/contact.mjs out/x-safe-draft-t0.50.png out/x-safe-draft-t2.00.png ...           -> sheet of draft stills (pre-render review)
 //
@@ -13,7 +13,7 @@ import path from "node:path";
 import os from "node:os";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { compile } from "../engine/compile.mjs";
+import { loadStoryboard } from "../engine/load.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
@@ -78,7 +78,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   let times = o.times;
   if (Array.isArray(o.clip)) times = [];
   else if (!times) {
-    if (o.sb) times = beatTimes(compile(JSON.parse(fs.readFileSync(o.sb, "utf8"))));
+    if (o.sb) times = beatTimes(loadStoryboard(o.sb));
     else {
       const d = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", o.clip], { encoding: "utf8" }).stdout);
       times = Array.from({ length: 8 }, (_, i) => Math.round(((i + 0.5) / 8) * d * 100) / 100);

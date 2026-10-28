@@ -1,0 +1,270 @@
+{
+ "source": {
+  "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+  "url": "https://huggingface.co/stabilityai/stable-audio-3-small-music",
+  "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+  "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
+ },
+ "sounds": [
+  {
+   "id": "elevator-bossa",
+   "kind": "music",
+   "files": [
+    "elevator-bossa/elevator-bossa-01.ogg",
+    "elevator-bossa/elevator-bossa-02.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 92.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 92,
+   "loopable": true,
+   "durationSec": 10.438,
+   "prompt": [
+    "smooth bossa nova elevator music, soft nylon guitar, electric piano, light brushed drums, upright bass, relaxed lounge, 92 BPM"
+   ],
+   "seed": [
+    101,
+    102
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "elevator-bossa/elevator-bossa-01.ogg",
+     "seed": 101,
+     "durationSec": 10.449,
+     "bars": 4,
+     "bpm": 91.9,
+     "beatSpread": 0.013,
+     "steadyBeat": true,
+     "clap": 0.302,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "elevator-bossa/elevator-bossa-02.ogg",
+     "seed": 102,
+     "durationSec": 10.426,
+     "bars": 4,
+     "bpm": 92.1,
+     "beatSpread": 0.012,
+     "steadyBeat": true,
+     "clap": 0.332,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "sneaky",
+   "kind": "music",
+   "files": [
+    "sneaky/sneaky-01.ogg",
+    "sneaky/sneaky-02.ogg"
+   ],
+   "tags": [
+    "sneaky"
+   ],
+   "mood": "sneaky",
+   "bpm": 120.0,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 104,
+   "loopable": true,
+   "durationSec": 15.999,
+   "prompt": [
+    "sneaky cartoon tiptoe music, pizzicato strings, bassoon and muted plucks, playful suspense, 104 BPM"
+   ],
+   "seed": [
+    111,
+    112
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "sneaky/sneaky-01.ogg",
+     "seed": 111,
+     "durationSec": 15.999,
+     "bars": 8,
+     "bpm": 120.0,
+     "beatSpread": 0.02,
+     "steadyBeat": true,
+     "clap": 0.053,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "sneaky/sneaky-02.ogg",
+     "seed": 112,
+     "durationSec": 15.999,
+     "bars": 8,
+     "bpm": 120.0,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": 0.033,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "spooky",
+   "kind": "music",
+   "files": [
+    "spooky/spooky-01.ogg",
+    "spooky/spooky-02.ogg"
+   ],
+   "tags": [
+    "spooky"
+   ],
+   "mood": "spooky",
+   "bpm": 83.8,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 84,
+   "loopable": true,
+   "durationSec": 11.447,
+   "prompt": [
+    "spooky halloween music, eerie music box, theremin, low strings, playful creepy cartoon mood, 84 BPM"
+   ],
+   "seed": [
+    121,
+    122
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "spooky/spooky-01.ogg",
+     "seed": 121,
+     "durationSec": 11.436,
+     "bars": 4,
+     "bpm": 83.9,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": 0.058,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "spooky/spooky-02.ogg",
+     "seed": 122,
+     "durationSec": 11.459,
+     "bars": 4,
+     "bpm": 83.8,
+     "beatSpread": 0.016,
+     "steadyBeat": true,
+     "clap": 0.015,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "epic",
+   "kind": "music",
+   "files": [
+    "epic/epic-01.ogg",
+    "epic/epic-02.ogg"
+   ],
+   "tags": [
+    "epic"
+   ],
+   "mood": "epic",
+   "bpm": 120.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 120,
+   "loopable": true,
+   "durationSec": 11.999,
+   "prompt": [
+    "epic orchestral battle music, big taiko drums, heroic brass, driving strings, trailer style, 120 BPM"
+   ],
+   "seed": [
+    131,
+    132
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "epic/epic-01.ogg",
+     "seed": 131,
+     "durationSec": 15.999,
+     "bars": 8,
+     "bpm": 120.0,
+     "beatSpread": 0.015,
+     "steadyBeat": true,
+     "clap": 0.074,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "epic/epic-02.ogg",
+     "seed": 132,
+     "durationSec": 7.999,
+     "bars": 4,
+     "bpm": 120.0,
+     "beatSpread": 0.013,
+     "steadyBeat": true,
+     "clap": 0.049,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "sad",
+   "kind": "music",
+   "files": [
+    "sad/sad-01.ogg",
+    "sad/sad-02.ogg"
+   ],
+   "tags": [
+    "sad"
+   ],
+   "mood": "sad",
+   "bpm": 70.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 70,
+   "loopable": true,
+   "durationSec": 13.717,
+   "prompt": [
+    "sad slow piano melody with soft strings, melancholic, emotional, gentle, 70 BPM"
+   ],
+   "seed": [
+    141,
+    142
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "sad/sad-01.ogg",
+     "seed": 141,
+     "durationSec": 13.723,
+     "bars": 4,
+     "bpm": 70.0,
+     "beatSpread": 0.007,
+     "steadyBeat": true,
+     "clap": 0.154,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "sad/sad-02.ogg",
+     "seed": 142,
+     "durationSec": 13.711,
+     "bars": 4,
+     "bpm": 70.0,
+     "beatSpread": 0.005,
+     "steadyBeat": true,
+     "clap": 0.14,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  }
+ ]
+}

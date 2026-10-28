@@ -1,0 +1,2828 @@
+{
+ "fps": 30,
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": true,
+ "loop": true,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.1,
+   "hidden": false
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    4.8,
+    -2.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: the pro: one smooth move, perfectly straight",
+   "at": 0,
+   "len": 1.75,
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": -0.1,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -0.68,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": -0.1,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "who": "ast",
+     "do": "ride",
+     "at": -0.1,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.1,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": -0.1,
+     "expr": "kind"
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.15,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.15000000000000002,
+      "z": -2.2,
+      "rot": -58
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.5,
+     "dur": 0.35,
+     "ease": "out",
+     "set": {
+      "x": 0,
+      "z": -1.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 0.75,
+     "expr": "delighted"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "fx": "sparkle",
+     "who": "ast",
+     "dur": 0.6,
+     "at": 0.9
+    },
+    {
+     "sfx": "tink",
+     "at": 0.9,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.4,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.4,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.47,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "at": 1.48,
+     "prop": "c1",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "at": 1.48,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.5,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.5,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "rea: parks by feel: bump the car behind, bump the car in front, done",
+   "at": 1.75,
+   "len": 2.4,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 0.05,
+     "expr": "deadpan"
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.35,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "x": -0.010000000000000009,
+      "z": -2.2,
+      "rot": -58
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.65,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "x": 0.28,
+      "z": -1.7,
+      "rot": -90
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carB",
+     "at": 0.95,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "bump": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carB",
+     "at": 1.25,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "bump": 0
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 0.95,
+     "gain": 0.35
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.04,
+     "at": 0.95
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1,
+      0.3,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 2,
+     "sparks": 6,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.95,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "bump": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.25,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "bump": 0
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 0.95,
+     "gain": 0.35
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.04,
+     "at": 0.95
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1,
+      0.3,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 2,
+     "sparks": 6,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.1,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "x": -0.3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 1.4,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "bump": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 1.7,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "bump": 0
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 1.4,
+     "gain": 0.35
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.04,
+     "at": 1.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1,
+      0.3,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 2,
+     "sparks": 6,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.4,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "bump": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.7,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "bump": 0
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 1.4,
+     "gain": 0.35
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.04,
+     "at": 1.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1,
+      0.3,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 2,
+     "sparks": 6,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.45,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "x": 0
+     }
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "at": 1.8,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 2.05,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.05,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.12,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 2.13
+    },
+    {
+     "who": "sor",
+     "do": "ride",
+     "at": 2.13,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 2.13,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.15,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.15,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "sor: doesn't bother steering: floats the car sideways into the gap",
+   "at": 4.15,
+   "len": 2,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "smug"
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.35,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.35,
+     "to": 1,
+     "dur": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.8,
+      0.3,
+      -2.7
+     ],
+     "dur": 0.5,
+     "puffs": 3,
+     "sparks": 12,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 0.45
+    },
+    {
+     "sfx": "charge",
+     "at": 0.45,
+     "dur": 0.7,
+     "gain": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.45,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "y": 0.3
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.65,
+     "dur": 0.45,
+     "ease": "inOut",
+     "set": {
+      "x": 0,
+      "z": -1.7
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.1,
+     "dur": 0.2,
+     "ease": "in",
+     "set": {
+      "y": 0
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 1.3,
+     "gain": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 1.3,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 1.3,
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.65,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.65,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.72,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 1.73
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "at": 1.73,
+     "prop": "c1",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 1.73,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.75,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.75,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "wiz: a parking spell shrinks the car to a toy; he trundles in on it",
+   "at": 6.15,
+   "len": 2.4,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.35,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.35,
+     "to": 0.7,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "stern"
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.8,
+      0.4,
+      -2.7
+     ],
+     "dur": 0.5,
+     "puffs": 8,
+     "sparks": 10,
+     "spark": "#c8b6ff",
+     "at": 0.55
+    },
+    {
+     "sfx": "poof",
+     "at": 0.55,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.57,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "tiny": 1
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.65,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.7,
+     "expr": "shocked"
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.7,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.9,
+     "dur": 0.45,
+     "ease": "in",
+     "set": {
+      "x": -0.15000000000000002,
+      "z": -2.2,
+      "rot": -58
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.35,
+     "dur": 0.45,
+     "ease": "out",
+     "set": {
+      "x": 0,
+      "z": -1.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.5,
+     "expr": "sad"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.5,
+     "to": 1,
+     "dur": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 2,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 2.05,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.05,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.12,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 2.13
+    },
+    {
+     "who": "dra",
+     "do": "ride",
+     "at": 2.13,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "at": 2.13,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.15,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.15,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "dra: twenty tries: back and forth, still crooked, a fire snort",
+   "at": 8.55,
+   "len": 2.4,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "stern"
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.35,
+     "dur": 0.35,
+     "ease": "inOut",
+     "set": {
+      "x": 0.6,
+      "z": -2.15,
+      "rot": -65
+     }
+    },
+    {
+     "fx": "shake",
+     "dur": 0.1,
+     "amp": 0.03,
+     "at": 0.7
+    },
+    {
+     "sfx": "screech",
+     "at": 0.7,
+     "dur": 0.2,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.75,
+     "dur": 0.35,
+     "ease": "inOut",
+     "set": {
+      "x": -0.6,
+      "z": -2.3,
+      "rot": -115
+     }
+    },
+    {
+     "fx": "shake",
+     "dur": 0.1,
+     "amp": 0.03,
+     "at": 1.1
+    },
+    {
+     "sfx": "screech",
+     "at": 1.1,
+     "dur": 0.2,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.15,
+     "dur": 0.35,
+     "ease": "inOut",
+     "set": {
+      "x": 0.5,
+      "z": -1.95,
+      "rot": -68
+     }
+    },
+    {
+     "fx": "shake",
+     "dur": 0.1,
+     "amp": 0.03,
+     "at": 1.5
+    },
+    {
+     "sfx": "screech",
+     "at": 1.5,
+     "dur": 0.2,
+     "gain": 0.12
+    },
+    {
+     "fx": "sweat",
+     "who": "dra",
+     "dur": 1,
+     "count": 6,
+     "at": 0.7
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "at": 1.45,
+     "amount": 0.1,
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "sad"
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.85,
+      0.9,
+      -1.35
+     ],
+     "dur": 0.45,
+     "puffs": 3,
+     "sparks": 12,
+     "color": "#ffc27a",
+     "spark": "#ff7a1a",
+     "at": 1.6
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.6,
+     "dur": 0.3,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.05,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.05,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 2.12,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 2.13
+    },
+    {
+     "who": "phx",
+     "do": "ride",
+     "at": 2.13,
+     "prop": "c1",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 2.13,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 2.15,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2.15,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "phx: stops in the middle of the road, checks his look: parked",
+   "at": 10.95,
+   "len": 1.9,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "cocky"
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.35,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0,
+      "z": -2.6,
+      "rot": -90
+     }
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.85,
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 0.85,
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.9,
+     "expr": "smug"
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 0.6,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.3,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.3,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.55,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.55,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.62,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 1.63
+    },
+    {
+     "who": "gun",
+     "do": "ride",
+     "at": 1.63,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 1.63,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.65,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.65,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "gun: the gap's too small: shoots the car in front so it rolls away, drives straight in",
+   "at": 12.85,
+   "len": 2.05,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "stern"
+    },
+    {
+     "who": "gun",
+     "do": "ride",
+     "at": 0.35,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 25,
+     "sit": true,
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.4,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.6
+    },
+    {
+     "sfx": "impact",
+     "at": 0.6,
+     "gain": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.4500000000000002,
+      0.4,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 2,
+     "sparks": 10,
+     "spark": "#ffd34d",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 0.65,
+     "dur": 0.7,
+     "ease": "in",
+     "set": {
+      "x": -3.85
+     }
+    },
+    {
+     "sfx": "creak",
+     "at": 0.65,
+     "dur": 0.5,
+     "gain": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "ride",
+     "at": 0.8,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.8,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.2,
+      "z": -1.7,
+      "rot": -110
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.15,
+     "dur": 0.25,
+     "ease": "out",
+     "set": {
+      "x": -0.5,
+      "rot": -90
+     }
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1.4,
+     "expr": "smug"
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.7,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.7,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.77,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "sam",
+     "do": "ride",
+     "at": 1.78,
+     "prop": "c1",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.78,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.8,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.8,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "sam: the car's too long: one cut takes the front off, then he backs in",
+   "at": 14.9,
+   "len": 2.25,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "serene"
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.4,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.55,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.08
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.12,
+     "at": 0.55
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.57
+    },
+    {
+     "sfx": "shing",
+     "at": 0.57,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.6,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "chop": 1
+     }
+    },
+    {
+     "sfx": "land",
+     "at": 0.9,
+     "gain": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 0.85,
+     "expr": "kind"
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "x": -0.15000000000000002,
+      "z": -2.2,
+      "rot": -58
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.3,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "x": 0,
+      "z": -1.7,
+      "rot": -90
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.9,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.9,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.35,
+      0.5,
+      -1.7
+     ],
+     "dur": 0.5,
+     "puffs": 6,
+     "sparks": 4,
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.97,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 1.98
+    },
+    {
+     "who": "all",
+     "do": "ride",
+     "at": 1.98,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.98,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "all: the dad reverse: arm over the seat, looks over his shoulder, in in one go",
+   "at": 17.15,
+   "len": 2.15,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 0,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -1.85
+     }
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "focused"
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 0.35,
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       -0.2
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 0.35,
+     "to": [
+      0.9,
+      0.1
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "ride",
+     "at": 0.35,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 135,
+     "sit": true,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.5,
+     "dur": 0.375,
+     "ease": "in",
+     "set": {
+      "x": -0.15000000000000002,
+      "z": -2.2,
+      "rot": -58
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0.875,
+     "dur": 0.375,
+     "ease": "out",
+     "set": {
+      "x": 0,
+      "z": -1.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "all",
+     "do": "ride",
+     "at": 1.25,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 1.25,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 1.3,
+     "expr": "smug"
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 1.35,
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "squash",
+     "at": 1.4,
+     "amount": 0.06,
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 1.8,
+     "dur": 0.35,
+     "ease": "in",
+     "set": {
+      "x": -0.8,
+      "z": -2.45,
+      "rot": -115
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.8,
+     "dur": 0.6,
+     "gain": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.87,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 1.88
+    },
+    {
+     "who": "vik",
+     "do": "ride",
+     "at": 1.88,
+     "prop": "c1",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.88,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.9,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.8
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.9,
+     "dur": 0.5,
+     "gain": 0.12
+    }
+   ]
+  },
+  {
+   "name": "vik: bumper cars: rams the car behind away, then the car in front",
+   "at": 19.3,
+   "len": 2.95,
+   "do": [
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 0,
+     "dur": 0.5,
+     "ease": "linear",
+     "set": {
+      "x": -4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0.51
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.35,
+     "expr": "stern"
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.35,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "x": 0.45,
+      "z": -1.7,
+      "rot": -80
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carB",
+     "at": 0.65,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 5.35,
+      "smash": 0.5,
+      "roll": 30
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 0.65,
+     "gain": 0.45
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.05,
+     "at": 0.65
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.3,
+      0.4,
+      -1.7
+     ],
+     "dur": 0.5,
+     "puffs": 6,
+     "sparks": 10,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 0.7,
+     "dur": 0.3,
+     "ease": "in",
+     "set": {
+      "x": -0.4,
+      "rot": -90
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 1,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": -5.35,
+      "smash": 0.5,
+      "roll": -30
+     }
+    },
+    {
+     "sfx": "impact",
+     "at": 1,
+     "gain": 0.45
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.05,
+     "at": 1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.3,
+      0.4,
+      -1.7
+     ],
+     "dur": 0.5,
+     "puffs": 6,
+     "sparks": 10,
+     "color": "#e9e4d8",
+     "spark": "#ffe08a",
+     "at": 1.01
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.05,
+     "dur": 0.3,
+     "ease": "out",
+     "set": {
+      "x": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1,
+     "dur": 0.05,
+     "ease": "inOut",
+     "set": {
+      "bump": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 1.35,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "bump": 0
+     }
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 1.35,
+     "expr": "smug"
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 1.35,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.5,
+      -1.7
+     ],
+     "dur": 0.4,
+     "puffs": 12,
+     "sparks": 8,
+     "spark": "#ffe08a",
+     "at": 2.4
+    },
+    {
+     "sfx": "poof",
+     "at": 2.4,
+     "gain": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 2.48
+    },
+    {
+     "do": "prop",
+     "id": "c1",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carA",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -1.85,
+      "smash": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "carB",
+     "at": 2.48,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": 1.85,
+      "smash": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.35,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "split": 0,
+      "chop": 0,
+      "smash": 0,
+      "tiny": 0,
+      "bump": 0,
+      "y": 0,
+      "x": 4.8,
+      "z": -2.7,
+      "rot": -90
+     }
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 2.35
+    },
+    {
+     "who": "ast",
+     "do": "ride",
+     "at": 2.35,
+     "prop": "c0",
+     "off": [
+      0,
+      0.37,
+      -0.12
+     ],
+     "yaw": 60,
+     "sit": true,
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 2.35,
+     "expr": "kind"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 2.35,
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.12,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "c0",
+     "at": 2.35,
+     "dur": 0.6,
+     "ease": "out",
+     "set": {
+      "x": -0.68
+     }
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    2.9,
+    3.1
+   ],
+   "look": [
+    0,
+    0.6,
+    -2
+   ],
+   "fov": 52
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "1 gap. 10 drivers.",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1.75,
+   "text": "ASTRONAUT",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1,
+   "to": 1.75,
+   "text": "one smooth move",
+   "pos": 425
+  },
+  {
+   "from": 1.75,
+   "to": 4.15,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1.75,
+   "to": 4.15,
+   "text": "parks by feel",
+   "pos": 425
+  },
+  {
+   "from": 4.15,
+   "to": 6.15,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 4.15,
+   "to": 6.15,
+   "text": "floats it in",
+   "pos": 425
+  },
+  {
+   "from": 6.15,
+   "to": 8.55,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 6.15,
+   "to": 8.55,
+   "text": "the spell goes wrong",
+   "pos": 425
+  },
+  {
+   "from": 8.55,
+   "to": 10.95,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 8.55,
+   "to": 10.95,
+   "text": "twenty tries",
+   "pos": 425
+  },
+  {
+   "from": 10.95,
+   "to": 12.85,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 10.95,
+   "to": 12.85,
+   "text": "parks in the road",
+   "pos": 425
+  },
+  {
+   "from": 12.85,
+   "to": 14.9,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 12.85,
+   "to": 14.9,
+   "text": "makes space",
+   "pos": 425
+  },
+  {
+   "from": 14.9,
+   "to": 17.15,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.9,
+   "to": 17.15,
+   "text": "makes it fit",
+   "pos": 425
+  },
+  {
+   "from": 17.15,
+   "to": 19.3,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 17.15,
+   "to": 19.3,
+   "text": "the dad reverse",
+   "pos": 425
+  },
+  {
+   "from": 19.3,
+   "to": 20.65,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 19.3,
+   "to": 20.65,
+   "text": "makes room",
+   "pos": 425
+  },
+  {
+   "from": 20.65,
+   "to": 22.25,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "props": [
+  {
+   "id": "carA",
+   "kind": "car",
+   "x": -1.85,
+   "z": -1.7,
+   "rot": -90,
+   "color": "#4f86cf"
+  },
+  {
+   "id": "carB",
+   "kind": "car",
+   "x": 1.85,
+   "z": -1.7,
+   "rot": -90,
+   "color": "#5cbf55"
+  },
+  {
+   "id": "c0",
+   "kind": "car",
+   "x": 4.8,
+   "z": -2.7,
+   "rot": -90,
+   "color": "#e85d4f"
+  },
+  {
+   "id": "c1",
+   "kind": "car",
+   "x": 4.8,
+   "z": -2.7,
+   "rot": -90,
+   "color": "#f2b51f"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "carA",
+   "with": "carB",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "c0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "c1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sor",
+   "with": "c0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "c1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "c0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "c1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "gun",
+   "with": "c0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "c1",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "c0",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "c1",
+   "from": 0,
+   "to": 99
+  }
+ ],
+ "id": "parking-01-parallel",
+ "title": "PARKING: how each fighter parallel parks",
+ "format": "each-character-vs-X, one continuous take: fighters take turns parking one little car in one gap between two parked cars",
+ "set": {
+  "type": "street",
+  "parking": true
+ },
+ "duration": 22.25,
+ "cover": 20.35
+}

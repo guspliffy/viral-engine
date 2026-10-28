@@ -1,13 +1,17 @@
-// Sound for a storyboard, synthesised in code: gibberish voices for every `talk` action and sound effects placed
-// automatically from the storyboard's events (hops, poofs, flashes, charges, ...), plus any explicit `sfx` entries.
+// Sound for a storyboard: real speech for lines that have it (engine/voice/), gibberish voices for every other `talk`
+// action, sound effects synthesised in code and placed automatically from the storyboard's events (hops, poofs,
+// flashes, charges, ...), recorded foley from the sound library (engine/sfx/: footsteps on every footfall, grabs,
+// sitting down), plus any explicit `sfx` entries, which may name a code effect or a library sound.
 // Deterministic like the picture: the same storyboard always gives the same audio.
 //
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
-import { rng } from "./page/util.js";
+import { rng, hopCrouch } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
+import { speechSamples } from "./voice/speech.mjs";
+import { isLibrarySound, librarySound, surfaceOf } from "./sfx/library.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -58,6 +62,8 @@ function syllable(s, v, r) {
   const nasal = s.cons === "m" || s.cons === "n", glide = s.cons === "l" || s.cons === "w";
   const jit = rng(Math.floor(s.f0 * 1000 + (s.jt ?? s.t0) * 1e4)); // jt: time within the line for keyed lines
   const breath = biquad("bp", F[1], 1.2);
+  // a whisper: no voiced tone, just breath noise shaped by the first two formants (tone "whisper")
+  const hush = s.whisper ? biquad("bp", F[0], 2.2) : null, voiced = s.whisper ? 0 : 1;
   let f0 = s.f0;
   for (let i = 0; i < vd * SR + 0.05 * SR; i++) {
     const t = i / SR, k = Math.min(1, t / vd);
@@ -75,11 +81,13 @@ function syllable(s, v, r) {
     let y = 0;
     for (let n = 1; n <= nH; n++) { ph[n] += TAU * n * f0 / SR; y += amps[n] * Math.sin(ph[n]); }
     const e = t < 0.018 ? t / 0.018 : t > vd ? Math.max(0, 1 - (t - vd) / 0.05) : 1 - 0.25 * k;
-    y += run(breath, r() * 2 - 1) * (v.breath ?? 0.08) * 2;
+    y *= voiced;
+    y += run(breath, r() * 2 - 1) * (s.whisper ? 0.9 : (v.breath ?? 0.08) * 2);
+    if (hush) y += run(hush, r() * 2 - 1) * 1.1;
     const at = Math.round(v0 * SR) + i;
     if (at < x.length) x[at] += y * e * 0.12;
   }
-  return normalise(x, s.amp);
+  return normalise(x, s.amp * (s.whisper ? 0.6 : 1));
 }
 
 function voice(bus, a, v, pan, gain) {
@@ -165,7 +173,55 @@ const SFX = {
     }
     return x;
   },
+  // a knuckle on a wooden door: a short hollow thud with a click on top
+  knock(r) {
+    const d = 0.16, x = buf(d), bp = biquad("bp", 260, 2.2), hp = biquad("hp", 1500, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 210 * Math.pow(150 / 210, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) * 0.8 + run(bp, r() * 2 - 1) * 2.2) * env(t, 0.001, 0.035, d) + run(hp, r() * 2 - 1) * env(t, 0.0005, 0.004, d) * 0.6; }
+    return x;
+  },
+  // a front door slammed shut: a deep thump, the frame rattling and a latch click
+  slam(r) {
+    const d = 0.7, x = buf(d), lp = biquad("lp", 700, 0.7), rat = biquad("bp", 1400, 3); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 95 * Math.pow(48 / 95, Math.min(1, t / 0.25)); p += TAU * f / SR;
+      x[i] = Math.sin(p) * env(t, 0.002, 0.18, d) * 1.3 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.06, d) * 1.2
+        + run(rat, r() * 2 - 1) * env(t - 0.03, 0.002, 0.12, d) * (0.6 + 0.4 * Math.sin(TAU * 31 * t)) * 0.9 + Math.sin(TAU * 2300 * t) * env(t - 0.02, 0.0005, 0.01, d) * 0.25;
+    }
+    return x;
+  },
   tink(r) { const d = 0.35, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 2100 * t) * 0.6 + Math.sin(TAU * 5300 * t) * 0.25) * env(t, 0.001, 0.07, d); } return x; },
+  // a small bright ring off a blade tip: a high bell partial that rings out
+  ting(r) { const d = 0.7, x = buf(d); for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 3950 * t) * 0.5 + Math.sin(TAU * 6120 * t) * 0.22 + Math.sin(TAU * 9480 * t) * 0.08) * env(t, 0.0008, 0.22, d); } return x; },
+  // a sweet's wrapper: a few quick, crisp crackles
+  crinkle(r, d = 0.3) {
+    const x = buf(d), hp = biquad("hp", 3000, 0.8), hits = Array.from({ length: 9 }, () => r() * (d - 0.03));
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let e = 0; for (const h of hits) e += env(t - h, 0.0003, 0.006, d); x[i] = run(hp, r() * 2 - 1) * e * 0.9; }
+    return x;
+  },
+  // an iron door latch dropping into its catch: a metal clack with a short ring
+  latch(r) {
+    const d = 0.25, x = buf(d), bp = biquad("bp", 2400, 3);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(bp, r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 2 + (Math.sin(TAU * 1850 * t) * 0.3 + Math.sin(TAU * 3020 * t) * 0.15) * env(t - 0.004, 0.0005, 0.05, d) + run(bp, r() * 2 - 1) * env(t - 0.06, 0.0005, 0.008, d); }
+    return x;
+  },
+  // a blade through paper and card: a dry tearing hiss with a soft thock of the core
+  papercut(r) {
+    const d = 0.22, x = buf(d), bp = biquad("bp", 3800, 1.2), lp = biquad("lp", 500, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, grain = 0.6 + 0.4 * Math.sin(TAU * 140 * t + r() * 0.5) ** 2; x[i] = run(bp, r() * 2 - 1) * env(t, 0.002, 0.06, d) * grain * 1.4 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.02, d) * 1.5; }
+    return x;
+  },
+  // a small surprised gasp: a quick breathy inhale that rises
+  gasp(r) {
+    const d = 0.3, x = buf(d); let bp = biquad("bp", 900, 2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d; if (i % 64 === 0) bp = { ...biquad("bp", 800 + 1400 * k, 2.2), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * Math.sin(Math.PI * Math.min(1, t / 0.22)) * (t < 0.22 ? 1 : 0) * 1.6; }
+    return x;
+  },
+  // one weighted footstep on stone: a dull low thud and a little grit
+  step(r) {
+    const d = 0.2, x = buf(d), lp = biquad("lp", 300, 0.7), hp = biquad("hp", 2500, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 90 * Math.pow(50 / 90, t / d); p += TAU * f / SR; x[i] = Math.sin(p) * env(t, 0.002, 0.05, d) * 1.2 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.03, d) * 1.5 + run(hp, r() * 2 - 1) * env(t - 0.01, 0.001, 0.02, d) * 0.25; }
+    return x;
+  },
   sting(r) {
     const d = 0.7, x = buf(d), lp = biquad("lp", 1600, 0.8);
     for (let i = 0; i < x.length; i++) {
@@ -173,6 +229,89 @@ const SFX = {
       for (const f of [110, 130.8, 164.8, 220]) y += ((t * f) % 1) * 2 - 1; // minor chord of saw waves: "dun!"
       x[i] = run(lp, y * 0.25) * env(t, 0.005, 0.22, d) + (r() * 2 - 1) * env(t, 0.001, 0.02, d) * 0.3;
     }
+    return x;
+  },
+  horn(r, d = 0.45) { // a bus horn: two detuned square tones, a little muffled ("baap")
+    const x = buf(d), lp = biquad("lp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (const f of [311, 392]) y += (t * f) % 1 < 0.5 ? 1 : -1; x[i] = run(lp, y * 0.35) * env(t, 0.01, 0.4, d) * Math.min(1, (d - t) / 0.04); }
+    return x;
+  },
+  screech(r, d = 0.5) { // brakes: a narrow band of noise sliding down
+    const x = buf(d); let bp = biquad("bp", 3200, 9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; if (i % 64 === 0) bp = { ...biquad("bp", 3200 - 900 * (t / d), 9), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 }; x[i] = run(bp, r() * 2 - 1) * 3 * env(t, 0.02, 0.3, d) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  ring(r, d = 0.8) { // an alarm clock's bells: a hammer trilling between two bells
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 24) % 1, f = Math.floor(t * 24) % 2 ? 2350 : 2650; x[i] = (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2.76 * t) * 0.18) * Math.exp(-hit * 4) * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  scribble(r, d = 0.6) { // a pencil writing fast: short scratchy strokes of band-passed noise
+    const x = buf(d), bp = biquad("bp", 3200, 1.2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = (t * 9) % 1; x[i] = run(bp, r() * 2 - 1) * 0.7 * Math.sin(k * Math.PI) ** 2 * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  bell(r, d = 1.0) { // a school bell: a fast hammer on one big bell
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, hit = (t * 18) % 1; x[i] = (Math.sin(TAU * 1250 * t) * 0.5 + Math.sin(TAU * 1250 * 2.4 * t) * 0.2 + Math.sin(TAU * 1250 * 3.9 * t) * 0.08) * Math.exp(-hit * 2.5) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  splash(r) { // a wheel through a puddle: a band-passed noise burst and two falling bloops
+    const d = 0.5, x = buf(d), bp = biquad("bp", 1400, 0.9);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f1 = 900 - 900 * t, f2 = 650 - 500 * t;
+      x[i] = run(bp, r() * 2 - 1) * 0.55 * env(t, 0.004, 0.09, d) + (Math.sin(TAU * f1 * t) * env(t - 0.03, 0.005, 0.04, d) + Math.sin(TAU * f2 * t) * env(t - 0.11, 0.005, 0.04, d)) * 0.3;
+    }
+    return x;
+  },
+  ding(r, d = 1.6) { // a lift arriving: one soft bell tone (a struck bar: a fundamental, its slightly sharp octave and a high partial)
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 1175 * t) * 0.6 + Math.sin(TAU * 2362 * t) * 0.22 * Math.exp(-t / 0.25) + Math.sin(TAU * 3290 * t) * 0.08 * Math.exp(-t / 0.08)) * env(t, 0.002, d * 0.5, d); }
+    return x;
+  },
+  doorslide(r, d = 0.8) { // lift doors gliding: a soft low rumble of rollers and a whisper of air, easing in and out
+    const x = buf(d), lp = biquad("lp", 220, 0.8), bp = biquad("bp", 1400, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = Math.sin(Math.PI * Math.min(1, t / d)) ** 1.5; x[i] = (run(lp, r() * 2 - 1) * 1.4 + run(bp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 62 * t) * 0.08) * k; }
+    return x;
+  },
+  hiss(r, d = 0.3) { // bus doors: air brakes' hiss
+    const x = buf(d), hp = biquad("hp", 2500, 0.7);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
+    return x;
+  },
+  partyhorn(r, d = 0.55) { // a paper party horn: a buzzy reed tone that bends up as it unrolls
+    const x = buf(d), lp = biquad("lp", 2600, 0.9); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 330 * (1 + 0.12 * Math.min(1, t / 0.12)) * (1 + 0.01 * Math.sin(TAU * 7 * t)); p += f / SR; const saw = (p % 1) * 2 - 1, sq = (p % 1) < 0.3 ? 1 : -1; x[i] = run(lp, saw * 0.4 + sq * 0.25) * env(t, 0.015, 0.45, d) * Math.min(1, (d - t) / 0.05); }
+    return x;
+  },
+  ringtone(r, d = 0.9) { // a phone ringing: a fast trill of two tones in short bursts
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, burst = (t % 0.45) < 0.3 ? 1 : 0, f = Math.floor(t * 16) % 2 ? 1320 : 1760; x[i] = (Math.sin(TAU * f * t) * 0.45 + Math.sin(TAU * f * 2 * t) * 0.1) * burst * Math.min(1, (d - t) / 0.03); }
+    return x;
+  },
+  flutter(r, d = 0.8) { // a flurry of paper: many soft flaps of band-passed noise, thinning out
+    const x = buf(d), bp = biquad("bp", 1800, 0.9);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, flap = 0.5 + 0.5 * Math.sin(TAU * (26 - 14 * k) * t + 3 * Math.sin(TAU * 3 * t)); x[i] = run(bp, r() * 2 - 1) * 0.8 * flap * (1 - k) * Math.min(1, t / 0.02); }
+    return x;
+  },
+  scrape(r, d = 0.6) { // wooden stool feet dragged over a wooden floor: a woody, chattering rub that fades in and out
+    const x = buf(d), bp = biquad("bp", 520, 1.6), bp2 = biquad("bp", 1500, 2.2);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, shape = Math.sin(Math.PI * Math.min(1, k * 1.15)) ** 0.7, chat = 0.55 + 0.45 * Math.sin(TAU * (34 + 6 * Math.sin(TAU * 1.3 * t)) * t) ** 2, n = r() * 2 - 1; x[i] = (run(bp, n) * 0.9 + run(bp2, n) * 0.35) * chat * shape; }
+    return x;
+  },
+  wings(r, d = 2.0) { // soft feathery wing beats about three times a second, for a hover: each beat a low airy push
+    const x = buf(d), lp = biquad("lp", 700, 0.7), bp = biquad("bp", 1700, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, beat = Math.max(0, Math.sin(TAU * 3.1 * t)) ** 3, n = r() * 2 - 1, fade = Math.min(1, t / 0.15, (d - t) / 0.25); x[i] = (run(lp, n) * 0.9 + run(bp, n) * 0.18) * beat * fade; }
+    return x;
+  },
+  notify(r) { // a soft phone notification: two quick rounded tones, up a fourth
+    const d = 0.55, x = buf(d);
+    for (const [t0, f] of [[0, 1175], [0.11, 1568]]) for (let i = Math.round(t0 * SR); i < x.length; i++) { const t = i / SR - t0; x[i] += (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2 * t) * 0.08) * env(t, 0.004, 0.12, d - t0); }
+    return x;
+  },
+  gunshot(r) { // a cartoon pistol: a sharp crack and a short boom
+    const d = 0.45, x = buf(d), lp = biquad("lp", 1800, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, f = 120 * Math.pow(50 / 120, Math.min(1, t / 0.2)); p += TAU * f / SR; x[i] = (r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 1.1 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.07, d) * 0.7 + Math.sin(p) * env(t, 0.002, 0.12, d) * 0.8; }
     return x;
   },
   sadslide(r) { // descending "wah wah wah-wahhh"
@@ -212,7 +351,7 @@ function reverb(x, wet, stereoOffset) {
 // The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
 // random pitch shift, and some get a second layer picked from a few variants.
 const hashStr = (str) => { let h = 2166136261; for (const ch of String(str)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
-const SEMIS = { hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
+const SEMIS = { splash: 3, hop: 3, land: 2, whoosh: 4, charge: 2, impact: 2, poof: 3, pop: 3, tink: 5, sting: 0, sadslide: 2 };
 function repitch(x, k) { // resample by factor k (k > 1 = higher and shorter)
   if (Math.abs(k - 1) < 1e-3) return x;
   const y = new Float32Array(Math.max(1, Math.floor(x.length / k)));
@@ -258,6 +397,17 @@ function ambience(type, seconds, r) {
     let lp = biquad("lp", 400, 0.7); const low = biquad("lp", 160, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; if (i % 256 === 0) lp = { ...biquad("lp", 300 + 250 * (0.5 + 0.5 * Math.sin(TAU * 0.13 * t + 1.3) * Math.sin(TAU * 0.07 * t)), 0.7), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 }; const w = r() * 2 - 1; x[i] = run(lp, w) * 0.35 + run(low, r() * 2 - 1) * 0.5; }
     const honk = 0.8 + r() * Math.max(0.5, seconds - 2); const a = Math.round(honk * SR), f = 330 + r() * 80; for (let i = 0; i < 0.35 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (((t * f) % 1) * 2 - 1 + ((t * f * 1.26) % 1) * 2 - 1) * env(t, 0.02, 0.2, 0.35) * 0.05; }
+  } else if (type === "porch") { // a quiet autumn night: a soft breeze, crickets and the odd far-off owl
+    const lp = biquad("lp", 380, 0.7);
+    for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.12;
+    for (const [f, rate, ph, g] of [[4300, 2.1, 0, 0.05], [4700, 2.6, 1.7, 0.035], [3900, 1.8, 0.6, 0.03]]) for (let i = 0; i < n; i++) { const t = i / SR, chirp = Math.max(0, Math.sin(TAU * rate * t + ph)) ** 8 * (0.5 + 0.5 * Math.sin(TAU * 38 * t)); x[i] += Math.sin(TAU * f * t) * chirp * g; }
+    const owl = 1.5 + r() * Math.max(0.5, seconds - 4); for (const k of [0, 0.35]) { const a = Math.round((owl + k) * SR); for (let i = 0; i < 0.3 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (390 - 30 * t) * t) * env(t, 0.03, 0.15, 0.3) * 0.05; } }
+  } else if (type === "elevator") { // a lift on the move: a low motor hum with a slow beat and the whir of the cables
+    const lp = biquad("lp", 300, 0.7), lp2 = biquad("lp", 1200, 0.6);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 58 * t) * 0.07 + Math.sin(TAU * 116.4 * t) * 0.035) * (0.85 + 0.15 * Math.sin(TAU * 0.7 * t)) + run(lp, r() * 2 - 1) * 0.16 + run(lp2, r() * 2 - 1) * 0.015; }
+  } else if (type === "apartment") { // a quiet flat in the afternoon: soft room tone, a faint far-off street now and then
+    const lp = biquad("lp", 260, 0.6), lp2 = biquad("lp", 900, 0.7);
+    for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(lp, r() * 2 - 1) * 0.14 + run(lp2, r() * 2 - 1) * 0.025 * (0.6 + 0.4 * Math.sin(TAU * 0.11 * t)); }
   } else { // meadow and anything else: a breeze and a few birds
     const lp = biquad("lp", 500, 0.7);
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;
@@ -265,7 +415,7 @@ function ambience(type, seconds, r) {
   }
   for (let i = 0; i < Math.min(n, 0.3 * SR); i++) { x[i] *= i / (0.3 * SR); x[n - 1 - i] *= i / (0.3 * SR); } // fade in and out
   // balance the beds against each other: roughly 18-22 dB under the voices and effects
-  const level = { party: 1.0, office: 2.5, rooftop: 2 }[type] ?? 3;
+  const level = { party: 1.0, office: 2.5, rooftop: 2, porch: 2.5 }[type] ?? 3;
   for (let i = 0; i < n; i++) x[i] *= level;
   return x;
 }
@@ -279,9 +429,9 @@ export function soundEvents(sb) {
     for (const a of [...(sb.actions || [])].sort((p, q) => p.at - q.at)) {
       const pan = panOf(a.who), d = a.dur ?? 0.3;
       if (a.do === "talk") ev.push({ kind: "voice", at: a.at, action: a, who: a.who, pan });
-      if (a.do === "hop") { const n = a.count ?? 1; for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + (k * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
+      if (a.do === "hop") { const n = a.count ?? 1, qa = hopCrouch(d, n); for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + ((k + qa) * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
       if (a.do === "swap") ev.push({ kind: "pop", at: a.at + 0.03, pan, gain: 0.45 });
-      if (a.do === "charge" && (a.to ?? 1) > 0.3) ev.push({ kind: "charge", at: a.at, dur: d, pan, gain: 0.28 });
+      if (a.do === "charge" && (a.to ?? 1) > 0.3 && !a.quiet) ev.push({ kind: "charge", at: a.at, dur: d, pan, gain: 0.28 });
       if (a.do === "hat") {
         const up = (a.off || [0, 0, 0])[1] > 0.1;
         if (up) { ev.push({ kind: "whoosh", at: a.at, dur: 0.3, pan, gain: 0.35 }); hats[a.who] = true; }
@@ -298,20 +448,49 @@ export function soundEvents(sb) {
       if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
-  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? 0.4 });
+  if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));
+  // a library sound already has its loudness from the catalog, so its gain is a multiplier (1 = as catalogued)
+  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
   return ev.sort((p, q) => p.at - q.at);
+}
+
+// recorded foley from the sound library: a footstep on every footfall of a walk (the same phase the legs use in
+// page/potato.js, softer while the walk eases in and out), a grab when the hand closes (not for props already in hand
+// at the start), a creak when someone sits. Not while flying or hovering, and no footsteps if the storyboard places
+// its own. A release stays silent: it may be a throw, a drop or a hand-over, so the storyboard names that sound.
+function foley(sb, panOf) {
+  const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
+  const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
+  for (const a of acts) {
+    const pan = panOf(a.who), d = a.dur ?? 0.3;
+    if (a.do === "fly" || a.do === "hover") air[a.who] = true;
+    if (a.do === "drop") air[a.who] = false;
+    if (a.do === "move" && !ownSteps && !air[a.who] && (a.steps ?? 2.2) > 0) {
+      // the walk phase advances `steps` cycles a second and a foot lands every half cycle; quick little steps (a run)
+      // are lighter, or a dash off screen turns into a drum roll
+      const rate = a.steps ?? 2.2, per = 0.5 / rate, light = Math.min(1, Math.sqrt(2.5 / rate));
+      for (let t = per; t < d - 0.02; t += per) ev.push({ kind: step, at: a.at + t, pan, gain: light * (0.55 + 0.45 * Math.min(1, Math.min(t / d, 1 - t / d) * 8)) });
+    }
+    if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
+    if (a.do === "sit" && a.at > 0.05) ev.push({ kind: "sit", at: a.at + (a.dur ?? 0.35) * 0.75, pan, gain: 1 });
+  }
+  return ev;
 }
 
 export function renderAudio(sb, chars) {
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
+  const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
   const events = soundEvents(sb);
   for (const e of events) {
-    if (e.kind === "voice") {
+    if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice, e.pan); // real speech (engine/voice/)
+    else if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
-    } else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
+    } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
+    else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
+    else if (isLibrarySound(e.kind)) fx.add(e.at, librarySound(e.kind, rl, { dur: e.dur, code: effect }), e.gain * cfg.sfx, e.pan); // engine/sfx/
     else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
   // room sound for the set: sound.ambience is its gain (0 turns it off)

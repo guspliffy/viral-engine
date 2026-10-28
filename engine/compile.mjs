@@ -25,11 +25,18 @@ const sayLen = (line, tone) => Math.max(0.45, line.trim().split(/\s+/).length * 
 
 // Each macro returns items timed relative to its own start (same item kinds as above, macros excluded).
 export const MACROS = {
-  // a line of dialogue: voice + mouth, and the line as a caption unless caption: false
-  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed }) => {
+  // a line of dialogue: voice + mouth, and the line as a caption unless caption: false. With real speech
+  // (engine/voice/speech.mjs runs first) dur is the spoken length and speech carries the audio id and mouth keys.
+  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed, speech }) => {
     const d = dur ?? sayLen(line, tone);
     // the line rides on the talk action: it seeds the voice, so the same line always sounds the same wherever it is
-    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}), ...(speech ? { speech } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+  },
+  // a narrator nobody on screen speaks for (voice: "storyteller-warm" by default, see engine/voice/voices.json):
+  // sound only, no mouth, and the line as a caption unless caption: false. Needs real speech; without it, captions only.
+  narrate: ({ line, dur, caption = true, pos, speech, gain = 0.5 }) => {
+    const d = dur ?? sayLen(line, "calm");
+    return [{ sfx: "speech", dur: d, line, gain, ...(speech ? { speech } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3), pos }] : [])];
   },
   // walks in to a spot and settles with a small squash
   enter: ({ who, to, dur = 0.7 }) => [{ who, do: "move", to, dur, ease: "out" }, { who, do: "squash", amount: 0.08, dur: 0.2, at: dur - 0.05 }],
@@ -111,6 +118,17 @@ export const MACROS = {
     { who, do: "blink", dur: 0.35, at: 0.35 }, { who, do: "expr", expr: "kind", dur: 0.5, at: 0.6 },
     { who, do: "look", to: away || [other[0] * 0.3, -0.35], dur: 0.3, at: 1.2 }, { who, do: "squash", amount: 0.04, dur: 0.3, at: 1.5 },
   ],
+  // something hits them (a bonk on the hat): the hit, then the body, then the eyes, then the face, five frames
+  // apart instead of all on one frame, with the eyes kept open through the take. The hat is knocked up and askew
+  // (pushed down, its cone would cut into the head); hat: { off, spin } knocks it another way, false leaves it alone;
+  // hold is how long it stays askew
+  hit: ({ who, look = [0, 0.7], expr = "shocked", set, hat = true, recoil = -5, hold = 0.4 }) => [
+    { who, do: "still", dur: hold + 0.35, idle: 0.5, fade: 0.05 },
+    ...(hat ? [{ who, do: "hat", off: hat.off || [0.02, 0.05, -0.01], spin: hat.spin || [-6, 0, -15], dur: 0.16 }, { who, do: "hat", off: [0, 0, 0], spin: [0, 0, 0], dur: 0.3, ease: "settle", at: hold }] : []),
+    { who, do: "squash", amount: 0.16, dur: 0.25, at: 0.02 },
+    { who, do: "pitch", to: recoil, dur: 0.12, ease: "out", at: 0.03 }, { who, do: "pitch", to: 0, dur: 0.3, ease: "settle", at: 0.2 },
+    { who, do: "look", to: look, dur: 0.08, at: 0.07 }, { who, do: "expr", expr, ...(set ? { set } : {}), dur: 0.08, at: 0.1 },
+  ],
   // magic transformation cover: flash + poof + shake at once
   zap: ({ who, color = "#ffe27a" }) => [
     { fx: "flash", dur: 0.25, only: "standard" }, { fx: "impact", dur: 0.1, only: "anime" }, { fx: "flash", dur: 0.2, peak: 0.8, at: 0.1, only: "anime" },
@@ -168,8 +186,8 @@ export function compile(sb) {
       if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top" }); continue; }
       if (rest.fx) { const { fx, ...f } = rest; out.fx.push({ do: fx, at: abs, ...f }); continue; }
       if (rest.sfx) { const { sfx, ...f } = rest; out.sfx.push({ sound: sfx, at: abs, ...f }); continue; }
-      // a prop tween ({ do: "prop", id, set }) belongs to no one
-      if (!rest.do || (!rest.who && rest.do !== "prop")) throw new Error(`beat "${b.name ?? bi}": item needs who + do, do: "prop", fx, sfx, caption or macro: ${JSON.stringify(g)}`);
+      // a prop tween ({ do: "prop", id, set }) and a prop carrying another ({ do: "carry", prop, by }) belong to no one
+      if (!rest.do || (!rest.who && rest.do !== "prop" && rest.do !== "carry")) throw new Error(`beat "${b.name ?? bi}": item needs who + do, do: "prop", fx, sfx, caption or macro: ${JSON.stringify(g)}`);
       out.actions.push({ ...rest, at: abs });
     }
     if (b.caption != null) {

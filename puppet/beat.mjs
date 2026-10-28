@@ -107,7 +107,7 @@ export function renderBeat(music, duration, id = "") {
   const n = Math.ceil(duration * SR), L = new Float32Array(n), R = new Float32Array(n);
   const F = musicFlavour(music, id), r = mulberry(F.seed ^ 0x5bd1e995);
   const add = (t, x, g, pan = 0) => { const a = Math.round(t * SR), p = (pan + 1) * Math.PI / 4, gl = Math.cos(p) * g, gr = Math.sin(p) * g; for (let i = 0; i < x.length; i++) { const k = a + i; if (k < 0 || k >= n) continue; L[k] += x[i] * gl; R[k] += x[i] * gr; } };
-  const bpm = F.bpm, spb = 60 / bpm, off = music.offset || 0, st = F.style;
+  const bpm = F.bpm, spb = 60 / bpm, off = music.offset || 0;
   const parts = (music.parts || [{ at: 0, part: "main" }]).slice().sort((a, b) => a.at - b.at);
   const partAt = (t) => { let p = null; for (const q of parts) if (q.at <= t + 1e-6) p = q; return p; };
   const chordAt = (bar) => { const c = TRIAD(F.prog[((bar % 4) + 4) % 4]); return { root: c.root + F.key, notes: c.notes.map((x) => x + F.key) }; };

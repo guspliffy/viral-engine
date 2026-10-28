@@ -11,8 +11,13 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
-//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs (seconds)
+//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
+//   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
+//
+// Contact gate: before drawing any frame, the layout pass (seconds) checks for characters overlapping, an arm through
+// a held staff or a hat brim, and a staff in the body (qa/check.mjs clipResults, contactResults). A failure stops the
+// render with the times to fix, so a 10-minute render never starts on a glitch the storyboard already contains.
 //
 // Each frame is drawn by a headless Chromium at a fixed time t = frame / fps, so renders are deterministic
 // and independent of machine speed. Set CHROME_PATH to use a specific Chromium build.
@@ -22,13 +27,14 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
-import { compile } from "./compile.mjs";
+import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { renderBeat, musicFlavour, seedOf } from "../puppet/beat.mjs";
+import { clipResults, contactResults } from "../qa/check.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -45,10 +51,12 @@ function args() {
     else if (a[i] === "--silent") o.silent = true;
     else if (a[i] === "--audio-only") o.audioOnly = true;
     else if (a[i] === "--style") o.style = a[++i];
+    else if (a[i] === "--look") o.look = a[++i];
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
     else if (a[i] === "--from") o.from = Number(a[++i]);
     else if (a[i] === "--to") o.to = Number(a[++i]);
     else if (a[i] === "--gl") o.gl = a[++i];
+    else if (a[i] === "--force") o.force = true;
     else o.file = a[i];
   }
   if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
@@ -89,12 +97,6 @@ function glArgs(mode) {
   return ["--enable-gpu", "--ignore-gpu-blocklist", ...angle, ...extra, "--enable-unsafe-swiftshader"]; // last: software fallback, reported below
 }
 
-function loadCharacters(sb) {
-  const chars = {};
-  for (const c of sb.cast) chars[c.character] = JSON.parse(fs.readFileSync(path.join(ROOT, "characters", `${c.character}.json`), "utf8"));
-  return chars;
-}
-
 function ffmpeg(argv) {
   return new Promise((ok, bad) => {
     const p = spawn("ffmpeg", argv, { stdio: ["ignore", "ignore", "pipe"] }); let err = "";
@@ -103,14 +105,34 @@ function ffmpeg(argv) {
   });
 }
 
-// two-pass loudness normalisation: measure, then apply linearly (no pumping)
+// two-pass loudness normalisation: measure, then one fixed gain for the whole clip (no pumping) and a limiter for
+// the rare peak the gain pushes too high. (loudnorm's own second pass falls back to its dynamic mode when the
+// loudness range is wide, as with sparse sound effects and no music, and then lands up to 2 LU off target.)
 async function mux(video, wav, outFile, from, len) {
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
-  const ln = `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:measured_I=${j.input_i}:measured_TP=${j.input_tp}:measured_LRA=${j.input_lra}:measured_thresh=${j.input_thresh}:offset=${j.target_offset}:linear=true`;
-  await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", ln, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
-  return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp) };
+  let gain = LOUDNESS.I - Number(j.input_i);
+  // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
+  // otherwise comes out of the AAC encoder above the true-peak limit). It starts 0.6 dB below the target, since AAC
+  // rings over a bright transient (a blade "ting"); a very sharp click (a door latch) can still ring well over it
+  // after encoding, so the encoded file is measured and, while it is over, encoded again with the limit lowered.
+  // On a sparse mix (no music, a few loud effects over room tone) the limiter also takes loudness away: when the file
+  // lands more than 0.5 LU under the target, the gain goes up by the shortfall (at most 6 dB in all) and it is redone
+  let ceiling = LOUDNESS.TP - 0.6, tp = null, lufs = null;
+  const gain0 = gain;
+  for (let round = 0; round < 6; round++) {
+    const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${Math.pow(10, ceiling / 20).toFixed(4)}:attack=2:release=60:level=0,aresample=44100`;
+    await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", af, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
+    const e = await ffmpeg(["-hide_banner", "-nostats", "-i", outFile, "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"]);
+    const sum = e.slice(e.lastIndexOf("Summary:"));
+    tp = Number((sum.match(/Peak:\s+(-?[\d.]+)/) || [])[1]);
+    lufs = Number((sum.match(/I:\s+(-?[\d.]+) LUFS/) || [])[1]);
+    if (tp > LOUDNESS.TP + 0.5) { ceiling -= (tp - LOUDNESS.TP) / 2 + 0.2; continue; }   // half the excess at a time: the ringing does not shrink dB for dB
+    if (lufs < LOUDNESS.I - 0.5 && gain < gain0 + 6) { gain = Math.min(gain0 + 6, gain + LOUDNESS.I - lufs); continue; }
+    break;
+  }
+  return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp), truePeak: tp, lufs };
 }
 
 // entries marked { "only": "anime" } (or a list of styles) are used only when rendering in that style
@@ -135,18 +157,33 @@ function applyStyle(sb, style) {
   return out;
 }
 
+// a recorded music bed (assets/music/..., e.g. the AI beds in assets/music/ai): looped to fill the clip from `from`
+// (default 0) and cut at `until` (default the end) with a 40 ms fade, so "the music stops" lands on its frame
+function fileMusic(music, dur, sr) {
+  const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(ROOT, "assets/music", music.file), "-ac", "2", "-ar", String(sr), "-f", "f32le", "-"], { maxBuffer: 1 << 29 });
+  if (r.status !== 0) throw new Error(`music: can't decode ${music.file}: ${r.stderr}`);
+  const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length)), m = x.length / 2;
+  const n = Math.round(dur * sr), L = new Float32Array(n), R = new Float32Array(n);
+  const a = Math.round((music.from ?? 0) * sr), b = Math.min(n, Math.round((music.until ?? dur) * sr)), fade = Math.round(0.04 * sr);
+  for (let i = a; i < b; i++) { const k = (i - a) % m, f = Math.min(1, (b - i) / fade); L[i] = x[2 * k] * f; R[i] = x[2 * k + 1] * f; }
+  return { L, R };
+}
+
 async function main() {
   const o = args();
-  const raw = compile(JSON.parse(fs.readFileSync(o.file, "utf8"))); // beat storyboards -> flat (engine/compile.mjs)
+  const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
-  const style = o.style || raw.style || "standard", sb = applyStyle(raw, style);
+  // a look (engine/page/looks.js) sits on top of a style; anime-pro keeps the anime style's devices (impact frames)
+  const look = o.look || raw.look || null;
+  const style = o.style || raw.style || (look === "anime-pro" ? "anime" : "standard"), sb = applyStyle(raw, style);
   // pin the seeded tempo so dance moves on the page follow the same beat as the music
   if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
   const range = o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : "";
-  const base = `${sb.id}${style !== "standard" ? "-" + style : ""}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
+  const tag = look ? `-${look}` : style !== "standard" ? "-" + style : "";
+  const base = `${sb.id}${tag}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
   const videoFile = path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.wav`);
 
   // sound first: it is quick, and a broken storyboard fails before minutes of rendering
@@ -158,8 +195,8 @@ async function main() {
     // "music": false turns it off, a music block pins tempo, style, key and parts
     const music = sb.music === false ? null : { gain: 0.45, ...(sb.music || {}) };
     if (music) {
-      const M = renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
-      console.log(`music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
+      const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
+      console.log(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
       for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
       if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
     }
@@ -181,12 +218,13 @@ async function main() {
     const errors = [];
     page.on("pageerror", (e) => errors.push(String(e)));
     page.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errors.push(m.text()); });
+    page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
     await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
-    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style } });
+    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look } });
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
     const soft = /swiftshader|llvmpipe|software/i.test(info.renderer || "");
@@ -209,14 +247,35 @@ async function main() {
     const writeLayout = async () => {
       const samples = [];
       for (let t = 0; t < dur - 1e-6; t += 0.1) samples.push(await page.evaluate((tt) => window.ENGINE.layout(tt), Math.round(t * 1000) / 1000));
-      const f = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.layout.json`);
-      fs.writeFileSync(f, JSON.stringify({ fps, duration: dur, width: 1080, height: 1920, samples }));
+      const f = path.join(o.out, `${sb.id}${tag}.layout.json`);
+      // contact measures (grips, arms, hat brims) at every frame, so a one-frame pop shows
+      const contacts = [];
+      for (let i = 0; i < Math.round(dur * fps); i++) contacts.push(await page.evaluate((tt) => window.ENGINE.contact(tt), Math.round((i / fps) * 10000) / 10000));
+      // extra samples at the storyboard's "aimAt" times (a generator script aims throws and cuts from them)
+      const aims = [];
+      for (const t of sb.aimAt || []) aims.push(await page.evaluate((tt) => window.ENGINE.layout(tt), t));
+      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}) };
+      fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
+      return lay;
     };
-    if (o.layoutOnly) { await writeLayout(); return; }
+    // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
+    const contactGate = (lay) => {
+      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "face-covered", "staging"].includes(r.check));
+      for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
+      if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters and faces)");
+      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "face-covered"].includes(r.check));
+    };
+    if (o.layoutOnly) { contactGate(await writeLayout()); return; }
     if (o.stills) {
       for (const t of o.stills) { const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f); }
       return;
+    }
+    const lay = await writeLayout();
+    const gate = contactGate(lay);
+    if (gate.length) {
+      console.log(`contact gate: ${gate.length} problem${gate.length > 1 ? "s" : ""} in the storyboard, fix before rendering${o.force ? " (--force: rendering anyway)" : " (or --force)"}`);
+      if (!o.force) { process.exitCode = 1; return; }
     }
     const a = Math.round((o.from ?? 0) * fps), b = Math.round((o.to ?? dur) * fps);
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
@@ -230,7 +289,6 @@ async function main() {
     }
     ff.stdin.end(); await done;
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
-    if (!range) await writeLayout();
     if (sb.cover != null && !range) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
     await browser.close(); srv.close();

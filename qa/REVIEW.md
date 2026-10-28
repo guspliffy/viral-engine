@@ -51,7 +51,10 @@ Give at most 6 notes, most valuable first. For each:
 
 Cover: the first second (does it hook?), cut points and shot variety, whether each beat reads at phone size, the
 payoff, background and set detail that would make frames richer without clutter, and the ending (does it invite a
-rewatch?). Keep the premise, cast and art style. Don't judge sound (you can't hear it) or predict views.
+rewatch?). Also flag contact that would read as a glitch: a hand beside or through what it holds
+(it should grab from behind and wrap the front), a staff behind the arm, an arm through a hat brim, characters
+closer than a body-width. Before suggesting a bigger move, check it can be done without parts passing through each
+other; if not, suggest a different move. Keep the premise, cast and art style. Don't judge sound (you can't hear it) or predict views.
 Then answer five pass/fail questions, one line each (they are logged per clip and later compared with retention):
 P1 premise readable by 3 s? P2 punchline lands? P3 loop seamless (last frame flows into the first)?
 P4 anything graphic or off-model? P5 from the stills alone, without the premise line, could a first-time viewer say

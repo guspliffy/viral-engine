@@ -1,6 +1,8 @@
 import * as THREE from "three";
+import { taperedTube } from "./geo.js";
 
-const _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
+const SEAM = 0.05;   // where the shut lids meet: this far (radians) below the front of the eye
+const _gz = new THREE.Vector3(1, 1.1, 0.5), _q = new THREE.Quaternion(), _d = new THREE.Vector3(), _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 
 // Expression presets. Every value is a plain number so two expressions can be blended.
 //   tilt   brow rotation: + inner ends up (kind, worried), - inner ends down (angry, focused)
@@ -26,48 +28,105 @@ export const EXPRESSIONS = {
 };
 export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + (b[k] - a[k]) * t; return o; };
 
-function blushTexture(color) {
+function blushTexture(color, k = 1) {
   const c = document.createElement("canvas"); c.width = c.height = 128;
   const g = c.getContext("2d"); const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62);
   const col = new THREE.Color(color); const rgb = `${(col.r * 255) | 0},${(col.g * 255) | 0},${(col.b * 255) | 0}`;
-  gr.addColorStop(0, `rgba(${rgb},0.62)`); gr.addColorStop(0.55, `rgba(${rgb},0.32)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+  gr.addColorStop(0, `rgba(${rgb},${Math.min(1, 0.45 * k)})`); gr.addColorStop(0.55, `rgba(${rgb},${Math.min(1, 0.22 * k)})`); gr.addColorStop(1, `rgba(${rgb},0)`);
   g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; return tex;
 }
 
 // A face drawn onto any surface. `place(u, v)` maps face coordinates (u: -1 left .. 1 right,
 // v: -1 chin .. 1 forehead) to { pos, normal } on the host surface, in the host group's space.
+const NO_CTL = { lidL: 0, lidR: 0, browL: 0, browR: 0, tiltL: 0, tiltR: 0, cornerL: 0, cornerR: 0, press: 0 };
+
 export class Face {
-  constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#1b1a22" }) {
+  // eye: the character's eye design (character file face.eye): depth (how far the eye stands out of the face),
+  // iris (radius as a share of the eye), lash (lid line thickness), flick (outer-corner flick, 0 none), tilt (lid angle:
+  // + lifts the outer corner, - drops it), glints (1 or 2 catch lights)
+  constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
+    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, ...eye };
+    this.eyeStyle = E;
+    // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness
+    this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
     this.inkMat = new THREE.MeshStandardMaterial({ color: ink, roughness: 0.55 });
-    this.mouthMat = new THREE.MeshStandardMaterial({ color: "#4a1418", roughness: 0.6, side: THREE.DoubleSide });
-    const white = new THREE.MeshPhysicalMaterial({ color: "#ffffff", roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.08 });
-    const irisM = new THREE.MeshPhysicalMaterial({ color: iris, roughness: 0.2, clearcoat: 1 });
-    const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.3 });
+    this.browMat = brow ? new THREE.MeshStandardMaterial({ color: brow, roughness: 0.9 }) : this.inkMat;   // white brows for the Norse god
+    this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
+       roughness: 0.6, side: THREE.DoubleSide });
+    // a warm off-white, matte enough that the one painted catch light is the only highlight
+    const white = new THREE.MeshStandardMaterial({ color: "#fbf5ea", roughness: 0.45 });
+    const irisM = new THREE.MeshStandardMaterial({ color: iris, roughness: 0.4 });
+    const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.4 });
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
+    // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
+    // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
+    if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
     this.eyes = [-1, 1].map((side) => {
       const root = new THREE.Group(); // placed on the surface, z = out of the surface
-      const lid = new THREE.Group(); root.add(lid); // scaled for blinks and squints
-      const r = 0.085 * size;
-      const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 1.12, 0.62); lid.add(ball);
+      const lid = new THREE.Group(); root.add(lid); // scaled for blinks and squints (no lids) or widened (wide eyes)
+      const r = 0.08 * size, D = E.depth, ri = E.iris;
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 1.12, D); lid.add(ball);
       const look = new THREE.Group(); lid.add(look);
-      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * 0.62, 28, 20), irisM); ir.scale.set(1, 1.08, 0.35); ir.position.z = r * 0.42; look.add(ir);
-      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * 0.36, 24, 16), pupilM); pu.scale.set(1, 1.08, 0.3); pu.position.z = r * 0.55; look.add(pu);
-      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.16, 12, 8), glint); g1.position.set(r * 0.22, r * 0.3, r * 0.62); look.add(g1);
-      const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.08, 10, 6), glint); g2.position.set(-r * 0.2, -r * 0.18, r * 0.6); look.add(g2);
+      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
+      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
+      // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
+      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14, 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
+      const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
+      if (E.glints > 1) { const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.07, 10, 6), glint); g2.scale.set(1, 1, 0.5); g2.position.set(-r * ri * 0.3, -r * ri * 0.36, r * (D + 0.02)); look.add(g2); glints.push(g2); }
+      // the lid line, tapered at both ends, thickest over the pupil, with the character's outer-corner flick
+      const lineR = (t) => r * E.lash * (0.016 + 0.07 * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, 0.08 + t * 0.96))), 0.75));
+      let lidPivot = null, lowPivot = null, crease = null, lash;
+      if (lids) {
+        // real upper lids (`lids`: the skin material): a skin shell over a stable eye that rolls down from the top, the
+        // lid line riding its edge. Squints, blinks and the gaze move the lid; the eye itself never changes shape.
+        // just deep enough to cover the iris and the catch light, so a closed eye stays a shallow lid, not a capsule
+        const space = new THREE.Group(); space.scale.set(0.9, 1.12, (D + 0.14) / 1.05); lid.add(space);
+        lidPivot = new THREE.Group(); lidPivot.rotation.order = "ZYX"; space.add(lidPivot);
+        const shell = new THREE.Mesh(new THREE.SphereGeometry(r * 1.05, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), lids); lidPivot.add(shell);
+        // the edge of the shell is the circle y = 0; its front half (z > 0) is the lid line
+        const pts = [];
+        for (let k = 0; k <= 10; k++) { const ph = 0.12 + k * ((Math.PI - 0.24) / 10), x = Math.cos(ph) * side; pts.push(new THREE.Vector3(-x * r * 1.07, -0.015 * r, Math.sin(ph) * r * 1.07)); }
+        if (E.flick > 0) pts.push(new THREE.Vector3(side * r * (1.07 + 0.15 * E.flick), -0.015 * r, r * (0.55 - 0.21 * E.flick)));
+        pts.sort((a, b) => side * (a.x - b.x));   // inner corner first, so the line thickens towards the outer side
+        lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 44, 8, lineR), this.inkMat);
+        lidPivot.add(lash);
+        // the lower lid: rises late in a blink to meet the upper one a little below the middle, so the shut eye ends in one
+        // downward-curving crease on the front of the eye instead of the upper lid's edge rolling round to the bottom
+        lowPivot = new THREE.Group(); space.add(lowPivot);
+        // the closed-eye crease: a gently arched tapered line drawn on the shut lid (in the eye's own unscaled frame, so it
+        // keeps its width), shown in place of the lid line once the eye is nearly shut
+        const cz = (D + 0.14) * 0.32, cp = [];
+        for (let i = 0; i <= 10; i++) { const x = -0.92 + i * 0.184, q = 1 - x * x; cp.push(new THREE.Vector3(x * r * 0.9, r * (-0.06 + 0.13 * q), r * (cz * Math.sqrt(Math.max(0, q)) + 0.03))); }
+        // it lies only a hair above the shut lid and the skin, so it is drawn pulled towards the camera (polygon offset)
+        // to win the depth test where they nearly touch
+        if (!this.creaseMat) { this.creaseMat = this.inkMat.clone(); Object.assign(this.creaseMat, { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -8 }); }
+        crease = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(cp), 0, 0, 30, 8, (t) => r * (0.012 + 0.05 * Math.pow(Math.sin(Math.PI * t), 0.7))), this.creaseMat);
+        crease.visible = false; root.add(crease);
+        lowPivot.add(new THREE.Mesh(new THREE.SphereGeometry(r * 1.0, 40, 20, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), lids));
+      } else {
+        // no lids (props with faces): the lash sits in the lid group and closes with the eye on a blink
+        const pts = [];
+        for (let k = 0; k <= 8; k++) { const a = 2.75 - k * (2.55 / 8); pts.push(new THREE.Vector3(side * Math.cos(a) * r * 0.97, Math.sin(a) * r * 1.16 - r * 0.05, r * (0.3 + 0.12 * Math.sin(a)) * D / 0.62)); }
+        if (E.flick > 0) pts.push(new THREE.Vector3(side * r * (0.97 + 0.15 * E.flick), r * 0.3, r * 0.2 * D / 0.62));
+        lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 40, 8, lineR), this.inkMat);
+        lid.add(lash);
+      }
       this.group.add(root);
-      return { side, root, lid, look, pupil: pu, r };
+      return { side, root, lid, look, pupil: pu, lash, lidPivot, lowPivot, crease, glints, r };
     });
-    const bt = blushTexture(cheeks);
+    const bt = blushTexture(cheeks, arguments[0].blush ?? 1);   // blush: how strong the cheeks are (less for the Reaper and Samurai)
     this.cheeks = [-1, 1].map((side) => {
       const m = new THREE.Mesh(new THREE.PlaneGeometry(0.2 * size, 0.13 * size), new THREE.MeshBasicMaterial({ map: bt, transparent: true, depthWrite: false }));
       this.group.add(m); return { side, m };
     });
-    this.brows = [null, null]; this.mouthLine = null; this.mouthFill = null;
+    this.brows = [null, null]; this.mouthLine = null; this.mouthFill = null; this.mouthInner = [];
+    this.teethMat = new THREE.MeshStandardMaterial({ color: "#fbf7ee", emissive: "#5a5650", roughness: 0.35 });
+    this.tongueMat = new THREE.MeshStandardMaterial({ color: "#e0606a", roughness: 0.55 });
     this._lastKey = "";
-    this.layout = { eyeU: 0.36, eyeV: 0.32, browV: 0.62, mouthV: -0.12, mouthW: 0.36, cheekU: 0.66, cheekV: 0.0 };
+    this.layout = { eyeU: 0.35, eyeV: 0.32, browV: 0.86, mouthV: -0.12, mouthW: 0.27, cheekU: 0.68, cheekV: -0.06 };
   }
 
   _curveCheek(ch, L, s) {
@@ -93,15 +152,44 @@ export class Face {
     return pts.map(([u, v]) => { const p = this.place(u, v); return p.pos.clone().addScaledVector(p.normal, lift); });
   }
 
-  // e: expression params, look: [x,y] in -1..1, blink: 0 open .. 1 closed
-  set(e, look = [0, 0], blink = 0) {
+  // e: expression params, look: [x,y] in -1..1, blink: 0 open .. 1 closed, c: fine controls (timeline.js FACE_KEYS)
+  set(e, look = [0, 0], blink = 0, c = NO_CTL) {
     const L = this.layout, s = this.size;
     for (const eye of this.eyes) {
       const p = this.place(eye.side * L.eyeU, L.eyeV);
       this._orient(eye.root, { pos: p.pos.clone().addScaledVector(p.normal, -0.012 * s), normal: p.normal });
-      const open = Math.max(0.06, e.eye * (1 - blink));
-      eye.lid.scale.set(1 + (e.eye - 1) * 0.25, open, 1);
-      eye.look.position.set(look[0] * eye.r * 0.28, look[1] * eye.r * 0.22, 0);
+      if (eye.lidPivot) {
+        // closing 0 open .. 1 shut: from the squint, then the blink on top, the lid following the gaze up and down,
+        // and the per-eye control (lidR is the character's right eye, at -u)
+        const sq = Math.max(0, Math.min(0.95, (1 - e.eye) * 0.85)), own = eye.side < 0 ? c.lidR : c.lidL;
+        // squints, half-lids and the gaze stop short of shut (a crease only when a lid control asks for 1, or a blink)
+        // (the cap rises with the control above 0.86, so a slow close glides shut instead of waiting at 0.86 and popping)
+        let k = Math.min(Math.max(0.86, own), sq + own - 0.14 * look[1]);
+        k = k + (1 - k) * blink;
+        // the lid edge never rides up off the top of the eye (at 0 or a raised gaze the lash line vanished behind it)
+        k = Math.max(0.1, Math.min(1, k));
+        eye.lidPivot.rotation.x = -Math.PI / 2 + k * (Math.PI / 2 + SEAM);
+        const lo = Math.max(0, Math.min(1, (k - 0.5) / 0.37)), lw = lo * lo * (3 - 2 * lo);   // up before the crease shows, so it never sweeps over it
+        eye.lowPivot.rotation.x = Math.PI / 2 - lw * (Math.PI / 2 - SEAM);
+        // the crease takes over just above the half-lid cap (0.86), so only a blink or a shut lid shows it
+        eye.crease.visible = k > 0.87; eye.lash.visible = !eye.crease.visible;
+        eye.lidPivot.rotation.z = eye.side * (this.eyeStyle.tilt || 0) * Math.min(1, Math.max(0, k * 4));   // the character's lid angle, as soon as the lid is on the eye
+        // the catch lights stand proud of the eye: tuck them away as the lid closes over them
+        const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
+        for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
+        // as it shuts the whole eye settles into the face: a closed eye stands out about a third as far as an open one
+        const cl = Math.max(0, Math.min(1, (k - 0.3) / 0.7));
+        eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1 - 0.7 * cl * cl * (3 - 2 * cl));
+      } else {
+        const open = Math.max(0.06, e.eye * (1 - blink));
+        eye.lid.scale.set(1 + (e.eye - 1) * 0.25, open, 1);
+      }
+      // both pupils aim at one target: the gaze direction in the host's space, taken into each eye's own frame (the eyes
+      // sit on a curved face and point apart, so straight ahead means a little inwards for each)
+      _q.copy(eye.root.quaternion).invert();
+      _d.set(look[0] * 0.55, look[1] * 0.45, 1).applyQuaternion(_q);
+      const gx = Math.max(-0.45, Math.min(0.45, _d.x / Math.max(0.3, _d.z))), gy = Math.max(-0.5, Math.min(0.5, _d.y / Math.max(0.3, _d.z)));
+      eye.look.position.set(gx * eye.r * 0.5, gy * eye.r * 0.48, 0);
       eye.pupil.scale.set(e.pupil, e.pupil * 1.08, 0.3);
     }
     // blush follows the curve of the face: a flat card on a round body dips under the skin at its edges and shows
@@ -109,48 +197,74 @@ export class Face {
     for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
     // geometry that depends on the expression is rebuilt only when it changes
     const round = e.round || 0;
-    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round].map((x) => x.toFixed(3)).join("|");
+    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press].map((x) => x.toFixed(3)).join("|");
     if (key === this._lastKey) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
       const side = i ? 1 : -1;
       if (this.brows[i]) { this.group.remove(this.brows[i]); this.brows[i].geometry.dispose(); }
-      const yb = L.browV + e.browY * 6 + (side < 0 ? e.raise * 6 : 0);
-      const inner = 0.16, outer = 0.6;
+      // browR / tiltR drive the character's right brow (at -u), browL / tiltL the left
+      const yb = L.browV + e.browY * 6 + (side < 0 ? e.raise * 6 : 0) + (side < 0 ? c.browR : c.browL) * 0.3, tilt = e.tilt + (side < 0 ? c.tiltR : c.tiltL);
+      const B = this.browStyle, inner = B.inner, outer = B.outer;
       const pts = [];
       for (let k = 0; k <= 6; k++) {
         const t = k / 6, u = side * (inner + (outer - inner) * t);
-        const arch = Math.sin(t * Math.PI) * 0.05;
-        pts.push([u, yb + arch + (1 - t) * e.tilt * 0.35 - t * e.tilt * 0.05]);
+        const arch = Math.sin(t * Math.PI) * B.arch;
+        pts.push([u, yb + arch + (1 - t) * tilt * 0.35 - t * tilt * 0.05]);
       }
       const curve = new THREE.CatmullRomCurve3(this._surfLine(pts, 0.012 * s));
-      const g = new THREE.TubeGeometry(curve, 16, 0.019 * s, 8, false);
-      this.brows[i] = new THREE.Mesh(g, this.inkMat); this.group.add(this.brows[i]);
+      // thick in the middle, tapering to both ends, like the portraits' brush-stroke brows
+      const g = taperedTube(curve, 0, 0, 20, 8, (t) => s * B.thick * (0.006 + 0.013 * Math.pow(Math.sin(Math.PI * (0.06 + 0.88 * t)), 0.55)));
+      this.brows[i] = new THREE.Mesh(g, this.browMat); this.group.add(this.brows[i]);
     }
     if (this.mouthLine) { this.group.remove(this.mouthLine); this.mouthLine.geometry.dispose(); this.mouthLine = null; }
     if (this.mouthFill) { this.group.remove(this.mouthFill); this.mouthFill.geometry.dispose(); this.mouthFill = null; }
-    const w = L.mouthW * (1 - e.open * 0.35 - round * 0.3), mv = L.mouthV, n = 14;
+    for (const m of this.mouthInner) { this.group.remove(m); m.geometry.dispose(); }
+    this.mouthInner = [];
+    // pressed lips (c.press) close and flatten the mouth and pull it in; mouth corners move on their own (cornerR is the
+    // character's right corner, at -u; + up)
+    const press = c.press, open = e.open * (1 - press), smile = e.curve * (1 - 0.8 * press);
+    const w = L.mouthW * (1 - open * 0.35 - round * 0.3) * (1 - 0.28 * press), mv = L.mouthV, n = 14;
     const upper = [], lower = [];
     for (let k = 0; k <= n; k++) {
       const t = k / n, u = -w + 2 * w * t;
-      const sm = e.smirk * (t - 0.5) * 0.16;
-      const bow = -Math.sin(t * Math.PI) * e.curve * 0.13; // smile pulls the middle down
-      upper.push([u, mv + bow * (1 - e.open * 0.6) + sm + e.open * 0.06 * Math.sin(t * Math.PI)]);
-      lower.push([u, mv + bow + sm - e.open * 0.3 * Math.sin(t * Math.PI)]);
+      const sm = e.smirk * (t - 0.5) * 0.16 + 0.12 * (c.cornerR * (1 - t) ** 3 + c.cornerL * t ** 3);
+      const bow = -Math.sin(t * Math.PI) * smile * 0.13; // smile pulls the middle down
+      upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * 0.06 * Math.sin(t * Math.PI)]);
+      lower.push([u, mv + bow + sm - open * 0.3 * Math.sin(t * Math.PI)]);
     }
-    if (e.open > 0.04) {
+    if (open > 0.04) {
       const up = this._surfLine(upper, 0.006 * s), lo = this._surfLine(lower, 0.006 * s);
       const pos = [], idx = [];
       for (let k = 0; k <= n; k++) { pos.push(up[k].x, up[k].y, up[k].z, lo[k].x, lo[k].y, lo[k].z); }
       for (let k = 0; k < n; k++) { const a = k * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
       const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
       this.mouthFill = new THREE.Mesh(g, this.mouthMat); this.group.add(this.mouthFill);
+      // a row of upper teeth under the top lip and a tongue in the bottom of the mouth, once it is open enough to see
+      const lerp = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+      const patch = (k0, k1, f0, f1, lift, mat) => {
+        const i0 = Math.round(k0 * n), i1 = Math.round(k1 * n), top = [], bot = [];
+        for (let k = i0; k <= i1; k++) { top.push(lerp(upper[k], lower[k], f0(k / n))); bot.push(lerp(upper[k], lower[k], f1(k / n))); }
+        const a = this._surfLine(top, lift * s), b = this._surfLine(bot, lift * s), ps = [], ix = [];
+        for (let k = 0; k < a.length; k++) ps.push(a[k].x, a[k].y, a[k].z, b[k].x, b[k].y, b[k].z);
+        for (let k = 0; k < a.length - 1; k++) { const q = k * 2; ix.push(q, q + 1, q + 2, q + 1, q + 3, q + 2); }
+        const pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.Float32BufferAttribute(ps, 3)); pg.setIndex(ix); pg.computeVertexNormals();
+        const m = new THREE.Mesh(pg, mat); m.material.side = THREE.DoubleSide; this.group.add(m); this.mouthInner.push(m);
+      };
+      if (open > 0.06) {
+        // they grow in with the opening, so a mouth starting to talk never shows them appearing in one frame
+        const ramp = Math.min(1, (open - 0.06) / 0.22), teeth = Math.max(0, Math.min(1, (smile - 0.35) / 0.3)) * Math.max(0, Math.min(1, (open - 0.25) / 0.2)),
+          tongue = Math.max(0, Math.min(1, (open - 0.35) / 0.2)), tw = Math.min(0.42, 0.2 + open * 0.3) * ramp * teeth;   // one restrained tooth row, only in a broad smile
+        if (tw > 0.005) patch(0.1, 0.9, () => 0.02, (t) => tw * Math.pow(Math.max(0, Math.sin(Math.PI * t)), 0.35), 0.0075, this.teethMat);
+        if (tongue > 0.01) patch(0.22, 0.78, (t) => 1 - 0.42 * tongue * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.22) / 0.56)))), 0.5), () => 0.96, 0.0078, this.tongueMat);
+      }
       const ring = [...upper, ...lower.slice().reverse()];
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.01 * s), true);
-      this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.012 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.006 * s), true);
+      this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.0072 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
     } else {
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.01 * s));
-      this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 28, 0.014 * s, 8, false), this.inkMat); this.group.add(this.mouthLine);
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.005 * s));
+      // a closed smile: a brush line, fuller in the middle, fine at the corners
+      this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * (0.003 + 0.0065 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.inkMat); this.group.add(this.mouthLine);
     }
   }
 }

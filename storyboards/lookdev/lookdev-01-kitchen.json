@@ -1,0 +1,119 @@
+{
+ "id": "lookdev-01-kitchen",
+ "title": "Look-dev: Phoenix and Samurai in the kitchen (engine test, no story)",
+ "status": "Pure engine test for comparing render looks; reviews skipped.",
+ "fps": 30,
+ "duration": 5.0,
+ "cover": 2.6,
+ "set": {
+  "type": "kitchen",
+  "time": 2.75
+ },
+ "music": false,
+ "cast": [
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    -0.48,
+    0.1
+   ],
+   "face": "3q-right",
+   "expr": "cocky",
+   "seed": 2.2
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    0.5,
+    -0.05
+   ],
+   "face": "3q-left",
+   "expr": "stern",
+   "seed": 6.3
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.05,
+    1.2,
+    6.6
+   ],
+   "look": [
+    0.02,
+    0.8,
+    0
+   ],
+   "fov": 34,
+   "to": {
+    "pos": [
+     -0.05,
+     1.1,
+     5.5
+    ],
+    "look": [
+     0.0,
+     0.78,
+     0
+    ]
+   },
+   "dur": 5.0,
+   "ease": "inOut"
+  }
+ ],
+ "actions": [
+  {
+   "who": "phx",
+   "at": 0.3,
+   "do": "wings",
+   "dur": 0.5,
+   "to": 1
+  },
+  {
+   "who": "phx",
+   "at": 1.1,
+   "do": "hop",
+   "dur": 0.55,
+   "height": 0.22
+  },
+  {
+   "who": "phx",
+   "at": 2.2,
+   "do": "arm",
+   "side": "R",
+   "pose": "hips",
+   "dur": 0.4
+  },
+  {
+   "who": "phx",
+   "at": 2.2,
+   "do": "talk",
+   "dur": 1.0,
+   "line": "Watch this."
+  },
+  {
+   "who": "sam",
+   "at": 0.8,
+   "do": "turn",
+   "dur": 0.4,
+   "to": "3q-right"
+  },
+  {
+   "who": "sam",
+   "at": 1.6,
+   "do": "expr",
+   "dur": 0.2,
+   "expr": "deadpan"
+  },
+  {
+   "who": "sam",
+   "at": 3.3,
+   "do": "lean",
+   "dur": 0.4,
+   "to": -6
+  }
+ ]
+}

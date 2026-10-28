@@ -1,12 +1,12 @@
 {
  "id": "motion-test-wizard-jar",
  "title": "8-second movement test: the Wizard and the jar",
- "status": "Look-dev benchmark (engine test, no reviews): notice, reach and lift, a quick zap, the consequence, an embarrassed recovery. Same acting for every look; set type hills on look-dev, meadow here for blocking.",
+ "status": "Look-dev benchmark toward Jonny's concept (25 Oct): smiling at the jar with the staff planted, reach and lift, try the lid, a zap, the lid flies off, the pickle sticks to the hat, deadpan to camera. Same acting for every look; meadow set here for blocking. 25 Oct, look C review B: bigger pickle on the front of the hat, grip on the camera side of the glass, the lid try reads as \"can't open\".",
  "fps": 30,
- "duration": 8.0,
+ "duration": 8,
  "music": false,
  "set": {
-  "type": "meadow",
+  "type": "hills",
   "seed": 3
  },
  "cast": [
@@ -19,7 +19,8 @@
    ],
    "face": "3q-left",
    "expr": "kind",
-   "seed": 4.4
+   "seed": 4.4,
+   "follow": 1
   }
  ],
  "props": [
@@ -30,7 +31,15 @@
    "y": 0,
    "z": 0.25,
    "empty": true,
+   "noLid": true,
    "lidSide": -1
+  },
+  {
+   "id": "lid",
+   "kind": "lid",
+   "x": -0.55,
+   "y": 0.2775,
+   "z": 0.25
   },
   {
    "id": "pickle",
@@ -43,19 +52,19 @@
  "beats": [
   {
    "name": "notices the jar",
-   "len": 1.5,
+   "len": 1.3,
    "shot": {
     "pos": [
-     0.25,
-     0.65,
-     3.2
+     -0.25,
+     0.8,
+     3.5
     ],
     "look": [
-     -0.12,
-     0.85,
+     -0.02,
+     0.87,
      0
     ],
-    "fov": 36
+    "fov": 43
    },
    "do": [
     {
@@ -66,7 +75,7 @@
       -0.6
      ],
      "expr": "eager",
-     "at": 0.25
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -74,38 +83,57 @@
      "to": -50,
      "dur": 0.4,
      "ease": "settle",
-     "at": 0.75
+     "at": 0.65
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 4,
      "dur": 0.4,
-     "at": 0.8
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.12,
+     "at": 1.05
     }
    ]
   },
   {
    "name": "reach, grasp, lift, try",
-   "len": 2.0,
+   "len": 2.3,
    "do": [
     {
      "macro": "reach",
      "who": "wiz",
      "side": "R",
      "pose": {
-      "x": [
-       -0.3,
-       0.0,
-       0.5
-      ]
+      "prop": "jar",
+      "grip": [
+       0.1,
+       0.15,
+       -0.14
+      ],
+      "palm": "wrap"
      },
      "look": [
       -0.3,
       -0.65
      ],
-     "dur": 0.45,
+     "dur": 0.4,
      "hesitate": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.4,
+     "at": 0
     },
     {
      "who": "wiz",
@@ -116,31 +144,75 @@
     },
     {
      "who": "wiz",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
      "do": "grab",
      "prop": "jar",
      "hand": "R",
      "dur": 0.25,
-     "at": 0.68
+     "at": 0.85,
+     "pose": null,
+     "grip": [
+      0.1,
+      0.15,
+      -0.14
+     ]
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "lid",
+     "hand": "R",
+     "dur": 0.25,
+     "at": 0.85,
+     "pose": null,
+     "grip": [
+      0.1,
+      -0.1275,
+      -0.14
+     ]
     },
     {
      "who": "wiz",
      "do": "grab",
      "prop": "pickle",
      "hand": "R",
-     "off": [
-      0,
-      -0.01,
-      0
-     ],
      "dur": 0.25,
-     "at": 0.68
+     "at": 0.85,
+     "pose": null,
+     "grip": [
+      0.1,
+      0.135,
+      -0.14
+     ]
     },
     {
      "who": "wiz",
      "do": "pitch",
      "to": 0,
-     "dur": 0.45,
-     "at": 0.85
+     "dur": 0.5,
+     "at": 1
     },
     {
      "who": "wiz",
@@ -148,52 +220,256 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.2,
-       0.45,
-       0.42
+       -0.42,
+       0.08,
+       0.47
       ]
      },
-     "dur": 0.45,
-     "ease": "settle",
-     "at": 0.9
+     "dur": 0.55,
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "jar",
+     "hand": "R",
+     "grip": [
+      0.08,
+      -0.03,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "lid",
+     "hand": "R",
+     "grip": [
+      0.08,
+      -0.3075,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "R",
+     "grip": [
+      0.08,
+      -0.045,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 1.05,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "jar",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.065,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "lid",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.3425,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.08,
+      0.06
+     ],
+     "dur": 0.25,
+     "at": 1.22,
+     "pose": null
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "pickle",
+     "set": {
+      "tilt": -20
+     },
+     "dur": 0.25,
+     "at": 1.22
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.25,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.4,
+     "at": 1.05
     },
     {
      "who": "wiz",
      "do": "look",
      "to": [
-      -0.2,
-      -0.25
+      -0.1,
+      -0.65
      ],
      "dur": 0.2,
-     "at": 0.95
+     "at": 1.1
     },
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "focused",
+     "expr": "stern",
+     "set": {
+      "eye": 0.8,
+      "curve": -0.35,
+      "tilt": -0.45
+     },
      "dur": 0.12,
-     "at": 1.4
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.45
     },
     {
      "who": "wiz",
      "do": "shake",
      "amp": 0.6,
-     "dur": 0.3,
+     "dur": 0.5,
      "at": 1.45
     },
     {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.08,
-     "dur": 0.3,
+     "amount": 0.12,
+     "dur": 0.5,
      "at": 1.45
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "twist": 30
+     },
+     "dur": 0.15,
+     "at": 1.45,
+     "ease": "out"
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "twist": 0
+     },
+     "dur": 0.08,
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "twist": 40
+     },
+     "dur": 0.15,
+     "at": 1.72,
+     "ease": "out"
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "twist": 0
+     },
+     "dur": 0.08,
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.95
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.2,
-     "at": 1.8
+     "at": 2,
+     "set": {
+      "eye": 0.9
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.12,
+     "at": 2.05
     }
    ]
   },
@@ -203,17 +479,27 @@
    "do": [
     {
      "who": "wiz",
+     "do": "look",
+     "to": [
+      0.7,
+      0.6
+     ],
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
      "do": "expr",
      "expr": "cocky",
      "dur": 0.12,
-     "at": 0.05
+     "at": 0.2
     },
     {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.12,
-     "dur": 0.22,
-     "at": 0.05
+     "amount": 0.1,
+     "dur": 0.2,
+     "at": 0.25
     },
     {
      "who": "wiz",
@@ -221,48 +507,155 @@
      "side": "L",
      "pose": {
       "o": [
-       0.0,
-       0.75,
-       -0.1
+       0.26,
+       0.3,
+       0.06
       ]
      },
      "dur": 0.22,
      "ease": "settle",
-     "at": 0.18
+     "at": 0.35
     },
     {
      "who": "wiz",
      "do": "charge",
      "to": 1,
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "in",
-     "at": 0.3
+     "at": 0.45
     },
     {
      "sfx": "charge",
      "gain": 0.3,
-     "at": 0.3
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.65
+     ],
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.62,
+       0.12
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.12,
+     "at": 0.75
     },
     {
      "fx": "flash",
      "peak": 0.35,
      "dur": 0.18,
-     "at": 0.62
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.3,
+     "idle": 0.1,
+     "at": 0.8
     },
     {
      "who": "wiz",
      "do": "charge",
      "to": 0,
-     "dur": 0.45,
-     "at": 0.85
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.15,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.1
     },
     {
      "who": "wiz",
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.4,
-     "at": 1.0
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "lid": 0.5
+     },
+     "dur": 0.04,
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.04,
+     "at": 1.33
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "lid": 0.35
+     },
+     "dur": 0.04,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.04,
+     "at": 1.43
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.15,
+     "at": 1.28
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.12,
+     "at": 1.38
     }
    ]
   },
@@ -271,41 +664,106 @@
    "len": 1.5,
    "do": [
     {
+     "who": "wiz",
+     "do": "release",
+     "prop": "lid",
+     "to": [
+      -0.62,
+      1,
+      0.3
+     ],
+     "arc": 0.08,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "do": "prop",
-     "id": "jar",
+     "id": "lid",
      "set": {
-      "lid": 1
+      "spin": 220,
+      "tilt": 0
      },
-     "dur": 0.45,
-     "at": 0.0
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "x": -0.5,
+      "y": 0,
+      "z": 0.6
+     },
+     "dur": 0.42,
+     "at": 0.35,
+     "ease": "in"
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "spin": 540
+     },
+     "dur": 0.34,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "y": 0.025
+     },
+     "dur": 0.06,
+     "at": 0.77,
+     "ease": "out"
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.07,
+     "at": 0.83,
+     "ease": "in"
     },
     {
      "sfx": "pop",
      "gain": 0.5,
-     "at": 0.0
+     "at": 0
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.2,
+     "at": 0.77
     },
     {
      "who": "wiz",
      "do": "release",
      "prop": "pickle",
      "to": [
-      -0.02,
-      1.38,
-      0.18
+      -0.082,
+      1.116,
+      0.267
      ],
-     "arc": 0.08,
-     "dur": 0.3,
+     "arc": 0.06,
+     "dur": 0.27,
      "ease": "out",
-     "at": 0.05
+     "at": 0.08
     },
     {
      "do": "prop",
      "id": "pickle",
      "set": {
-      "spin": 200
+      "spin": 360,
+      "scale": 1.6,
+      "rot": -94,
+      "tilt": 0
      },
-     "dur": 0.3,
-     "at": 0.05
+     "dur": 0.27,
+     "at": 0.08
     },
     {
      "sfx": "tink",
@@ -314,160 +772,107 @@
     },
     {
      "who": "wiz",
-     "do": "hat",
-     "off": [
-      0.02,
-      -0.04,
-      0
-     ],
-     "spin": [
-      0,
-      0,
-      -14
-     ],
-     "dur": 0.08,
+     "do": "grab",
+     "prop": "pickle",
+     "hand": "hat",
+     "keep": true,
      "at": 0.35
     },
     {
+     "macro": "hit",
      "who": "wiz",
-     "do": "squash",
-     "amount": 0.16,
-     "dur": 0.25,
-     "at": 0.35
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "shocked",
-     "dur": 0.08,
-     "at": 0.35
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0,
-      0.7
-     ],
-     "dur": 0.08,
-     "at": 0.36
-    },
-    {
-     "fx": "sparkle",
-     "who": "wiz",
-     "count": 5,
-     "dur": 0.8,
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "pickle",
-     "set": {
-      "x": 0.5,
-      "y": 1.5,
-      "z": 0.35,
-      "spin": 420
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.36
-    },
-    {
-     "do": "prop",
-     "id": "pickle",
-     "set": {
-      "x": 0.58,
-      "y": 0,
-      "z": 0.5,
-      "spin": 700
-     },
-     "dur": 0.4,
-     "ease": "in",
-     "at": 0.58
-    },
-    {
-     "who": "wiz",
-     "do": "hat",
-     "off": [
-      0,
-      0,
-      0
-     ],
-     "spin": [
-      0,
-      0,
-      0
-     ],
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 0.7
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0.35,
+     "expr": "deadpan",
+     "look": [
+      -0.1,
       -0.6
      ],
-     "dur": 0.15,
-     "at": 0.95
+     "recoil": -3,
+     "at": 0.35,
+     "set": {
+      "eye": 0.9
+     }
     },
     {
      "who": "wiz",
-     "do": "blink",
-     "dur": 0.2,
-     "at": 1.15
+     "do": "look",
+     "to": [
+      0.1,
+      0.95
+     ],
+     "dur": 0.35,
+     "at": 1.3,
+     "blink": false
     }
    ]
   },
   {
-   "name": "embarrassed recovery",
-   "len": 1.5,
+   "name": "deadpan",
+   "len": 1.4,
    "shot": {
     "pos": [
-     0.25,
-     0.65,
-     3.2
+     -0.25,
+     0.8,
+     3.5
     ],
     "look": [
-     -0.12,
-     0.85,
+     -0.02,
+     0.87,
      0
     ],
-    "fov": 36,
+    "fov": 43,
     "to": {
      "pos": [
-      0.22,
-      0.68,
-      2.7
-     ]
+      -0.24,
+      0.82,
+      3.3
+     ],
+     "look": [
+      -0.02,
+      0.9,
+      0
+     ],
+     "fov": 43
     },
-    "dur": 1.5
+    "dur": 1.4
    },
    "do": [
     {
-     "macro": "recover",
      "who": "wiz",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
      "to": [
-      0.25,
+      0.3,
       0.05
      ],
-     "pose": null,
-     "expr": "happy"
+     "dur": 0.2,
+     "at": 0.3,
+     "blink": false
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.5,
+     "at": 0.35
     },
     {
      "who": "wiz",
      "do": "droop",
      "to": 0.3,
-     "dur": 0.3,
-     "at": 0.75
+     "dur": 0.4,
+     "at": 0.35
     },
     {
      "who": "wiz",
-     "do": "still",
-     "dur": 0.75,
-     "idle": 0.2,
-     "at": 0.8
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.85
     }
    ]
   }

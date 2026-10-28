@@ -1,0 +1,2724 @@
+{
+ "id": "bus-01-bus-stop",
+ "title": "BUS: how each fighter catches the bus",
+ "format": "each-character-vs-X, one continuous take: fighters queue at a bus stop, each catches (or misses) a bus their own way",
+ "fps": 30,
+ "set": {
+  "type": "street"
+ },
+ "sound": {
+  "sfx": 0.5
+ },
+ "escalation": true,
+ "loop": true,
+ "cover": 18.76,
+ "cast": [
+  {
+   "id": "ast",
+   "character": "potatobrawl/astronaut",
+   "at": [
+    0.2,
+    -0.5
+   ],
+   "face": "camera",
+   "expr": "delighted",
+   "seed": 1.1
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -0.75,
+    -0.8
+   ],
+   "face": "camera",
+   "expr": "serene",
+   "seed": 1.8
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 2.5
+  },
+  {
+   "id": "wiz",
+   "character": "potatobrawl/wizard",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.1999999999999997
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 3.9
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 4.6
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 5.299999999999999
+  },
+  {
+   "id": "sam",
+   "character": "potatobrawl/samurai",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6
+  },
+  {
+   "id": "all",
+   "character": "potatobrawl/allfather",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 6.699999999999999
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking",
+   "at": [
+    2.9,
+    -0.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 7.4
+  }
+ ],
+ "beats": [
+  {
+   "name": "ast: always on the app: the bus comes and goes while he stares at his phone, then he floats after it",
+   "at": 0,
+   "len": 1.95,
+   "do": [
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "R",
+     "at": -0.1,
+     "dur": 0.05,
+     "off": [
+      0.02,
+      0.08,
+      0.04
+     ]
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.08,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.62,
+       0.34
+      ]
+     },
+     "dur": 0.05
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": -0.1,
+     "to": [
+      0.25,
+      -0.35
+     ],
+     "dur": 0.05
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": -0.1,
+     "expr": "delighted",
+     "dur": 0.05
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": -0.1,
+     "side": "L",
+     "pose": "cheeks",
+     "dur": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "at": -0.1,
+     "seat": "bench",
+     "dur": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": -0.1,
+     "to": -0.3,
+     "dur": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0,
+     "dur": 0.325,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.245,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.5,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 0.15,
+     "amount": 0.05,
+     "dur": 0.18
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 0.5,
+     "amount": 0.05,
+     "dur": 0.18
+    },
+    {
+     "who": "ast",
+     "do": "squash",
+     "at": 0.85,
+     "amount": 0.05,
+     "dur": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.15,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.15,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 1.3,
+     "to": [
+      0.8,
+      0.2
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.3,
+     "expr": "shocked"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.3,
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "fly",
+     "at": 1.45,
+     "to": {
+      "y": 0.35
+     },
+     "dur": 0.3
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.45,
+     "to": "right",
+     "dur": 0.2
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.55,
+     "to": [
+      3.1,
+      -0.5
+     ],
+     "dur": 0.7,
+     "ease": "in",
+     "steps": 0
+    }
+   ]
+  },
+  {
+   "name": "rea: falls asleep at the stop: sleeps through his bus, opens his eyes as it goes, sleeps on",
+   "at": 1.95,
+   "len": 1.77,
+   "do": [
+    {
+     "who": "ast",
+     "do": "hide",
+     "at": 0.35
+    },
+    {
+     "who": "sor",
+     "do": "show",
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0.3,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "fx": "zzz",
+     "who": "rea",
+     "dur": 1.2,
+     "count": 3,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 0.1,
+     "to": -0.42,
+     "dur": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 0.5,
+     "to": -0.25,
+     "dur": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.03,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.05,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.47,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.6,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.15,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.3,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.3,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.15,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 1.15,
+     "expr": "deadpan",
+     "dur": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 1.2,
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 1.55,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "at": 1.55,
+     "expr": "serene",
+     "dur": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "at": 1.55,
+     "to": -0.3,
+     "dur": 0.3
+    },
+    {
+     "fx": "zzz",
+     "who": "rea",
+     "dur": 1.4,
+     "count": 3,
+     "at": 1.7
+    }
+   ]
+  },
+  {
+   "name": "sor: pushes in: the queue jumper, portals himself straight into the bus ahead of the Wizard",
+   "at": 3.72,
+   "len": 1.45,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0.08,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "at": 0,
+     "expr": "evil"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.08,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.1,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.52,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.6,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "at": 0.5,
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "at": 0.6,
+     "to": 0.15,
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "at": 1.1,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "charge",
+     "at": 0.75,
+     "to": 1,
+     "dur": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "at": 0.75,
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "fx": "poof",
+     "who": "sor",
+     "dur": 0.5,
+     "puffs": 8,
+     "sparks": 10,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 1
+    },
+    {
+     "who": "sor",
+     "do": "hide",
+     "at": 1.05
+    },
+    {
+     "sfx": "poof",
+     "at": 1,
+     "gain": 0.3
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.75,
+      0.6,
+      -1.3199999999999998
+     ],
+     "dur": 0.45,
+     "puffs": 5,
+     "sparks": 8,
+     "color": "#c9f7b0",
+     "spark": "#9dff6a",
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.05,
+     "expr": "shocked"
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 1.1,
+     "to": [
+      -0.4,
+      -0.2
+     ],
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.4,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.4,
+     "dur": 0.5,
+     "gain": 0.15
+    }
+   ]
+  },
+  {
+   "name": "wiz: the spell goes wrong: summons a toy bus, shrinks himself and rides it",
+   "at": 5.17,
+   "len": 1.65,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 0.05,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.1,
+     "expr": "eager"
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.35,
+     "side": "R",
+     "pose": "cast",
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.35,
+     "to": 1,
+     "dur": 0.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.35,
+      0.05,
+      0.4
+     ],
+     "dur": 0.5,
+     "puffs": 6,
+     "sparks": 10,
+     "spark": "#c8b6ff",
+     "at": 0.6
+    },
+    {
+     "sfx": "poof",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "toy",
+     "at": 0.62,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "scale": 0.45
+     }
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "at": 0.65,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "at": 0.7,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0.6,
+      -0.6
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 0.8,
+     "expr": "sad"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 0.8,
+     "to": 1,
+     "dur": 0.25
+    },
+    {
+     "sfx": "sadslide",
+     "at": 0.8,
+     "gain": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "at": 1.05,
+     "expr": "eager"
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "at": 1.05,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "fx": "poof",
+     "who": "wiz",
+     "dur": 0.45,
+     "puffs": 6,
+     "sparks": 8,
+     "spark": "#c8b6ff",
+     "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "grow",
+     "at": 1.15,
+     "to": 0.3,
+     "dur": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "hop",
+     "at": 1.4,
+     "height": 0.15,
+     "dur": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "at": 1.4,
+     "to": [
+      0.45,
+      0.4
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    }
+   ]
+  },
+  {
+   "name": "dra: keeps checking if it's coming: leans out into the road, the bus nearly gets him, a fright of fire",
+   "at": 6.82,
+   "len": 1.8,
+   "do": [
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "toy",
+     "at": 0.1,
+     "dur": 0.6,
+     "ease": "in",
+     "set": {
+      "x": 3.6
+     }
+    },
+    {
+     "do": "prop",
+     "id": "toy",
+     "at": 0.75,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "scale": 0
+     }
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.2,
+      -0.9
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 0.3,
+     "expr": "eager"
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.4,
+     "to": -0.45,
+     "dur": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 0.4,
+     "to": [
+      -0.9,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.75,
+     "to": -0.1,
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 0.75,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 0.95,
+     "to": -0.5,
+     "dur": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 0.95,
+     "to": [
+      -0.9,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.73,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.75,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 1.17,
+     "gain": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.05,
+     "expr": "shocked"
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 1.05,
+     "to": 0.1,
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 1.05,
+     "to": 1,
+     "dur": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "hop",
+     "at": 1.08,
+     "height": 0.15,
+     "dur": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 1.08,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "steps": 2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.1,
+      1,
+      -0.6
+     ],
+     "dur": 0.45,
+     "puffs": 4,
+     "sparks": 10,
+     "color": "#ffc27a",
+     "spark": "#ff7a1a",
+     "at": 1.1
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.1,
+     "dur": 0.35,
+     "gain": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "at": 1.45,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "at": 1.45,
+     "to": 0,
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "at": 1.5,
+     "expr": "happy"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.3,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "at": 1.55,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "at": 1.6,
+     "to": "back",
+     "dur": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "hop",
+     "at": 1.65,
+     "height": 0.12,
+     "dur": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "at": 1.65,
+     "to": [
+      0.75,
+      -1.5699999999999998
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.2,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.5,
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.5,
+     "expr": "cocky"
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 1.75,
+     "amount": 0.04,
+     "dur": 0.2
+    }
+   ]
+  },
+  {
+   "name": "phx: runs for it: too busy with his hair, dashes as the doors close, splat",
+   "at": 8.62,
+   "len": 1.65,
+   "do": [
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 0.2,
+     "amount": 0.04,
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.45,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.45,
+     "expr": "shocked"
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 0.45,
+     "to": [
+      -0.6,
+      -0.2
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 0.5,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 0.6,
+     "to": 1,
+     "dur": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "at": 0.6,
+     "to": [
+      0.8,
+      -1.08
+     ],
+     "dur": 0.25,
+     "ease": "in",
+     "steps": 3
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.8,
+      0.75,
+      -1.15
+     ],
+     "dur": 0.6,
+     "puffs": 3,
+     "sparks": 12,
+     "spark": "#ffe14d",
+     "at": 0.85
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.035,
+     "at": 0.85
+    },
+    {
+     "sfx": "impact",
+     "at": 0.85,
+     "gain": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "at": 0.85,
+     "amount": 0.3,
+     "dur": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 0.85,
+     "expr": "dizzy"
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "at": 0.85,
+     "to": 0,
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.05,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.05,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "at": 1.45,
+     "expr": "cocky"
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "at": 1.45,
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "at": 1.45,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "show",
+     "at": 0.6
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0.6,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    }
+   ]
+  },
+  {
+   "name": "gun: waves it down: the bus almost drives past, one shot in the air, it screeches to a stop",
+   "at": 10.27,
+   "len": 2.12,
+   "do": [
+    {
+     "who": "phx",
+     "do": "turn",
+     "at": 0.1,
+     "to": "right",
+     "dur": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "at": 0.1,
+     "to": {
+      "x": 3.4,
+      "y": 1,
+      "z": -0.9
+     },
+     "dur": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.65
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 0.1,
+     "expr": "cocky"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.15,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.2,
+     "dur": 0.42,
+     "ease": "linear",
+     "set": {
+      "x": 1.9
+     }
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.45,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.12
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.4,
+      1.45,
+      -0.5
+     ],
+     "dur": 0.35,
+     "puffs": 2,
+     "sparks": 8,
+     "spark": "#ffd34d",
+     "at": 0.6
+    },
+    {
+     "sfx": "impact",
+     "at": 0.6,
+     "gain": 0.3
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.7,
+     "dur": 0.45,
+     "ease": "inOut",
+     "set": {
+      "x": 0.75,
+      "roll": -2.5
+     }
+    },
+    {
+     "sfx": "screech",
+     "at": 0.62,
+     "dur": 0.5,
+     "gain": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.15,
+     "dur": 0.2,
+     "ease": "out",
+     "set": {
+      "roll": 0
+     }
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "at": 0.8,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "at": 1,
+     "expr": "smug"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.2,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "at": 1.35,
+     "to": "back",
+     "dur": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "hop",
+     "at": 1.4,
+     "height": 0.12,
+     "dur": 0.3
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "at": 1.4,
+     "to": [
+      0.75,
+      -1.5699999999999998
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.7,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.85,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.85,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0.1,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    }
+   ]
+  },
+  {
+   "name": "sam: stands too close to the kerb: the bus splashes him, he cuts the splash in half",
+   "at": 12.39,
+   "len": 2.27,
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.35,
+      -0.95
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 0.1,
+     "expr": "focused"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.28,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.3,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.72,
+     "gain": 0.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.2,
+      -0.2,
+      -1.4
+     ],
+     "dur": 0.25,
+     "puffs": 10,
+     "sparks": 14,
+     "color": "#bfe6ff",
+     "spark": "#4aa8ff",
+     "at": 0.72
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.72,
+     "dur": 0.3,
+     "gain": 0.25
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.64,
+     "side": "R",
+     "pose": "up",
+     "dur": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 0.78,
+     "side": "R",
+     "pose": "point",
+     "dur": 0.12
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.18,
+     "at": 0.8
+    },
+    {
+     "fx": "flash",
+     "dur": 0.08,
+     "peak": 0.25,
+     "at": 0.82
+    },
+    {
+     "sfx": "tink",
+     "at": 0.82,
+     "gain": 0.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.75,
+      0.1,
+      -0.9
+     ],
+     "dur": 0.45,
+     "puffs": 5,
+     "sparks": 8,
+     "color": "#bfe6ff",
+     "spark": "#4aa8ff",
+     "at": 0.86
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.95,
+      0.1,
+      -0.9
+     ],
+     "dur": 0.45,
+     "puffs": 5,
+     "sparks": 8,
+     "color": "#bfe6ff",
+     "spark": "#4aa8ff",
+     "at": 0.86
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "at": 1.12,
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.17,
+     "expr": "serene"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.95,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "at": 1.25,
+     "expr": "focused"
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "at": 1.25,
+     "to": "back",
+     "dur": 0.15
+    },
+    {
+     "who": "sam",
+     "do": "hop",
+     "at": 1.3,
+     "height": 0.12,
+     "dur": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "at": 1.3,
+     "to": [
+      0.75,
+      -1.5699999999999998
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.6,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.75,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 1.75,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 0.08
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.08,
+     "to": [
+      1,
+      -0.15
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "steps": 3
+    }
+   ]
+  },
+  {
+   "name": "all: gets on the wrong bus: on, off again, glares at it",
+   "at": 14.66,
+   "len": 2.8,
+   "do": [
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "expr",
+     "at": 0.1,
+     "expr": "stern"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.03,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.05,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.47,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.55,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 0.65,
+     "to": "back",
+     "dur": 0.15
+    },
+    {
+     "who": "all",
+     "do": "hop",
+     "at": 0.7,
+     "height": 0.12,
+     "dur": 0.3
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0.7,
+     "to": [
+      0.75,
+      -1.5699999999999998
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.05,
+     "dur": 0.3,
+     "ease": "inOut",
+     "set": {
+      "x": 1.15
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 1.3,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.3,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1.25,
+     "to": [
+      1.15,
+      -1.3
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.25,
+     "to": "camera",
+     "dur": 0.01
+    },
+    {
+     "who": "all",
+     "do": "show",
+     "at": 1.4
+    },
+    {
+     "who": "all",
+     "do": "hop",
+     "at": 1.42,
+     "height": 0.1,
+     "dur": 0.22
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 1.42,
+     "to": [
+      0.85,
+      -0.7
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 1.7,
+     "to": "back",
+     "dur": 0.25
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 1.75,
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.85,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 2,
+     "dur": 0.55,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "sfx": "whoosh",
+     "at": 2,
+     "dur": 0.5,
+     "gain": 0.15
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 2.2,
+     "to": "camera",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "arm",
+     "at": 2.25,
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "look",
+     "at": 2.25,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1
+    },
+    {
+     "who": "all",
+     "do": "turn",
+     "at": 2.5,
+     "to": "left",
+     "dur": 0.2
+    },
+    {
+     "who": "all",
+     "do": "move",
+     "at": 2.5,
+     "to": [
+      0.55,
+      0.15
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 2.7
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 2.7,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.7,
+     "ease": "out",
+     "steps": 3
+    }
+   ]
+  },
+  {
+   "name": "vik: squeezes into a full bus: it bulges and drives off with him stuck in the door",
+   "at": 17.46,
+   "len": 3,
+   "do": [
+    {
+     "who": "all",
+     "do": "move",
+     "at": 0,
+     "to": [
+      -2.9,
+      0.15
+     ],
+     "dur": 0.7,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "all",
+     "do": "hide",
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.3,
+     "expr": "delighted"
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.08,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0,
+      "full": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.1,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "sfx": "hiss",
+     "at": 0.52,
+     "gain": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 0.6,
+     "dur": 0.2,
+     "ease": "inOut",
+     "set": {
+      "open": 1
+     }
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.55,
+     "expr": "shocked"
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "at": 0.85,
+     "expr": "stern"
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "at": 0.85,
+     "to": "back",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "at": 0.85,
+     "side": "both",
+     "pose": "up",
+     "dur": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 0.9,
+     "to": [
+      0.75,
+      -1.27
+     ],
+     "dur": 0.3,
+     "ease": "in",
+     "steps": 2
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.15,
+     "dur": 0.15,
+     "ease": "out",
+     "set": {
+      "bulge": 1.2
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.3,
+     "dur": 0.12,
+     "ease": "inOut",
+     "set": {
+      "bulge": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.42,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "bulge": 1.1
+     }
+    },
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.04,
+     "at": 1.15
+    },
+    {
+     "sfx": "impact",
+     "at": 1.15,
+     "gain": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "at": 1.15,
+     "amount": 0.2,
+     "dur": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.2,
+     "dur": 0.15,
+     "ease": "inOut",
+     "set": {
+      "open": 0.45
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 1.75,
+     "dur": 0.9,
+     "ease": "in",
+     "set": {
+      "x": 6.9
+     }
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "at": 1.75,
+     "to": [
+      6.9,
+      -1.27
+     ],
+     "dur": 0.9,
+     "ease": "in",
+     "steps": 0
+    },
+    {
+     "sfx": "horn",
+     "at": 1.75,
+     "dur": 0.45,
+     "gain": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 2.65
+    },
+    {
+     "who": "ast",
+     "do": "drop",
+     "at": 1.9,
+     "to": 0,
+     "dur": 0.02
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.9,
+     "to": [
+      -2.9,
+      0.15
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 1.9,
+     "to": "right",
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "at": 1.9,
+     "expr": "delighted"
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.9,
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.62,
+       0.34
+      ]
+     },
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "at": 1.9,
+     "side": "L",
+     "pose": "cheeks",
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "at": 1.9,
+     "to": [
+      0.25,
+      -0.35
+     ],
+     "dur": 0.01
+    },
+    {
+     "who": "ast",
+     "do": "show",
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 1.95,
+     "to": [
+      -0.15,
+      0.05
+     ],
+     "dur": 0.5,
+     "ease": "linear",
+     "steps": 3
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "at": 2.45,
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "steps": 2
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "at": 2.5,
+     "to": "camera",
+     "dur": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 2.775,
+     "dur": 0,
+     "ease": "inOut",
+     "set": {
+      "x": -3,
+      "open": 0,
+      "bulge": 0,
+      "tilt": 0,
+      "roll": 0,
+      "full": 0
+     }
+    },
+    {
+     "do": "prop",
+     "id": "bus",
+     "at": 2.825,
+     "dur": 0.5,
+     "ease": "out",
+     "set": {
+      "x": 0.75
+     }
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "at": 2.4,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.12,
+    1.65,
+    7
+   ],
+   "look": [
+    0.12,
+    1.35,
+    -1.5
+   ],
+   "fov": 35
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 20.46,
+   "text": "BUS STOP",
+   "style": "label",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 0,
+   "to": 1,
+   "text": "1 bus. 10 fighters.",
+   "pos": 340
+  },
+  {
+   "from": 1,
+   "to": 1.95,
+   "text": "ASTRONAUT",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1,
+   "to": 1.95,
+   "text": "always on the app",
+   "pos": 425
+  },
+  {
+   "from": 1.95,
+   "to": 3.72,
+   "text": "REAPER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 1.95,
+   "to": 3.72,
+   "text": "falls asleep",
+   "pos": 425
+  },
+  {
+   "from": 3.72,
+   "to": 5.17,
+   "text": "SORCERER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 3.72,
+   "to": 5.17,
+   "text": "pushes in",
+   "pos": 425
+  },
+  {
+   "from": 5.17,
+   "to": 6.82,
+   "text": "WIZARD",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 5.17,
+   "to": 6.82,
+   "text": "the spell goes wrong",
+   "pos": 425
+  },
+  {
+   "from": 6.82,
+   "to": 8.62,
+   "text": "DRAGON",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 6.82,
+   "to": 8.62,
+   "text": "keeps checking",
+   "pos": 425
+  },
+  {
+   "from": 8.62,
+   "to": 10.27,
+   "text": "PHOENIX",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 8.62,
+   "to": 10.27,
+   "text": "runs for it",
+   "pos": 425
+  },
+  {
+   "from": 10.27,
+   "to": 12.39,
+   "text": "GUNSLINGER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 10.27,
+   "to": 12.39,
+   "text": "waves it down",
+   "pos": 425
+  },
+  {
+   "from": 12.39,
+   "to": 14.66,
+   "text": "SAMURAI",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 12.39,
+   "to": 14.66,
+   "text": "too close to the kerb",
+   "pos": 425
+  },
+  {
+   "from": 14.66,
+   "to": 17.46,
+   "text": "ALLFATHER",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 14.66,
+   "to": 17.46,
+   "text": "takes the wrong bus",
+   "pos": 425
+  },
+  {
+   "from": 17.46,
+   "to": 19.51,
+   "text": "VIKING",
+   "style": "label",
+   "pos": 340,
+   "pop": false
+  },
+  {
+   "from": 17.46,
+   "to": 19.51,
+   "text": "the bus is full",
+   "pos": 425
+  },
+  {
+   "from": 19.51,
+   "to": 20.46,
+   "text": "which one are you?",
+   "pos": 340
+  }
+ ],
+ "props": [
+  {
+   "id": "bench",
+   "kind": "bench",
+   "x": -0.75,
+   "z": -0.8
+  },
+  {
+   "id": "bus",
+   "kind": "bus",
+   "x": -0.834,
+   "y": -0.12,
+   "z": -1.42,
+   "scale": 1.5
+  },
+  {
+   "id": "toy",
+   "kind": "bus",
+   "x": 0.75,
+   "y": 0,
+   "z": 0.6,
+   "scale": 0
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 0.5,
+   "y": 0.5,
+   "z": -0.2,
+   "glow": 1,
+   "scale": 1.6
+  }
+ ],
+ "duration": 20.46,
+ "allowClip": [
+  {
+   "who": "gun",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "sam",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "all",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "vik",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "dra",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "phx",
+   "with": "bus",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "rea",
+   "with": "bench",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "ast",
+   "with": "phone",
+   "from": 0,
+   "to": 99
+  },
+  {
+   "who": "wiz",
+   "with": "toy",
+   "from": 0,
+   "to": 99
+  }
+ ]
+}

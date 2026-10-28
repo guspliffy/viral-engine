@@ -195,7 +195,7 @@
     },
     {
       "who": "hero",
-      "at": 0.05,
+      "at": -0.05,
       "do": "turn",
       "to": "camera",
       "dur": 0.01
