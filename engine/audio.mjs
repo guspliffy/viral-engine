@@ -359,7 +359,7 @@ function effect(kind, r, dur) {
 }
 
 // a quiet bed of room sound for the set, so the clips don't all sit in the same silence
-function ambience(type, seconds, r) {
+function ambience(type, seconds, r, fade = 0.3) {
   const x = buf(seconds), n = x.length;
   if (type === "party") { // crowd murmur and the odd glass clink (the clip's own music plays on top, so no second song here)
     const mur = biquad("bp", 500, 0.6), mur2 = biquad("bp", 900, 0.8);
@@ -383,6 +383,9 @@ function ambience(type, seconds, r) {
   } else if (type === "elevator") { // a lift on the move: a low motor hum with a slow beat and the whir of the cables
     const lp = biquad("lp", 300, 0.7), lp2 = biquad("lp", 1200, 0.6);
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 58 * t) * 0.07 + Math.sin(TAU * 116.4 * t) * 0.035) * (0.85 + 0.15 * Math.sin(TAU * 0.7 * t)) + run(lp, r() * 2 - 1) * 0.16 + run(lp2, r() * 2 - 1) * 0.015; }
+  } else if (type === "road") { // an open car on a country road: a small engine's purr (whole cycles, so a loop meets itself) and the wind
+    const lp = biquad("lp", 700, 0.6), wind = biquad("lp", 260, 0.7);
+    for (let i = 0; i < n; i++) { const t = i / SR, p = TAU * 41 * t; x[i] = (Math.sin(p) * 0.06 + Math.sin(2 * p) * 0.05 + Math.sin(3 * p) * 0.025) * (0.8 + 0.2 * Math.sin(TAU * 7 * t)) + run(lp, r() * 2 - 1) * 0.05 + run(wind, r() * 2 - 1) * 0.2; }
   } else if (type === "apartment") { // a quiet flat in the afternoon: soft room tone, a faint far-off street now and then
     const lp = biquad("lp", 260, 0.6), lp2 = biquad("lp", 900, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(lp, r() * 2 - 1) * 0.14 + run(lp2, r() * 2 - 1) * 0.025 * (0.6 + 0.4 * Math.sin(TAU * 0.11 * t)); }
@@ -391,9 +394,9 @@ function ambience(type, seconds, r) {
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;
     for (let k = 0; k < Math.floor(seconds / 2.5) + 1; k++) { const a = Math.round((0.4 + r() * (seconds - 0.8)) * SR), f0 = 2800 + r() * 1500; for (let j = 0; j < 3; j++) { const b = a + Math.round(j * 0.09 * SR); for (let i = 0; i < 0.06 * SR && b + i < n; i++) { const t = i / SR; x[b + i] += Math.sin(TAU * (f0 + 1500 * t / 0.06) * t) * env(t, 0.004, 0.02, 0.06) * 0.15; } } }
   }
-  for (let i = 0; i < Math.min(n, 0.3 * SR); i++) { x[i] *= i / (0.3 * SR); x[n - 1 - i] *= i / (0.3 * SR); } // fade in and out
+  for (let i = 0; i < Math.min(n, fade * SR); i++) { x[i] *= i / (fade * SR); x[n - 1 - i] *= i / (fade * SR); } // fade in and out (sound.bedFade: a loop that meets itself only needs a click guard, 0.005)
   // balance the beds against each other: roughly 18-22 dB under the voices and effects
-  const level = { party: 1.0, office: 2.5, rooftop: 2, porch: 2.5 }[type] ?? 3;
+  const level = { party: 1.0, office: 2.5, rooftop: 2, porch: 2.5, road: 2.2 }[type] ?? 3;
   for (let i = 0; i < n; i++) x[i] *= level;
   return x;
 }
@@ -494,7 +497,7 @@ export function renderAudio(sb, chars) {
   const wv = roomSound(voices.L, voices.R, room, send), wf = roomSound(fx.L, fx.R, room, send * 0.6);
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
-  if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995)), amb, 0);
+  if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   let peak = 0;
   for (let i = 0; i < L.length; i++) {

@@ -37,7 +37,7 @@ const WHEEL = DIST / ((2 * Math.PI / SPOKES) * Math.round(DIST / ((2 * Math.PI /
 const T_HIT = 0.7, HIT_Z = 1.42;   // the right-front tyre (x -0.95, z 1.25) meets the divider's bevel at 0.70 s
 const set = {
   type: "road", seed: 5, speed: speedKeys(V).map(([t, v]) => [t, r3(v)]),
-  divider: { x: -0.95, width: 0.5, height: 0.18, length: 3.2, bevel: 0.55, hit: [T_HIT, HIT_Z] },
+  divider: { x: -0.95, width: 0.5, height: 0.18, length: 3.2, bevel: 0.85, hit: [T_HIT, HIT_Z] },
   dust: [
     { at: 0.72, x: -1.05, z: 1.3, n: 12, size: 0.4, dur: 1.4 },          // the tyre scuffing up the bevel
     { at: 0.95, x: 0.95, z: 1.2, n: 10, size: 0.45, dur: 1.6 },          // the driver's side tyres as it kicks over
@@ -59,7 +59,7 @@ const herm = (K, t) => {   // [t, value, slope] keys, cubic Hermite
   const [t0, v0, m0] = K[i], [t1, v1, m1] = K[i + 1], h = t1 - t0, u = (t - t0) / h;
   return (2 * u ** 3 - 3 * u ** 2 + 1) * v0 + (u ** 3 - 2 * u ** 2 + u) * h * m0 + (-2 * u ** 3 + 3 * u ** 2) * v1 + (u ** 3 - u ** 2) * h * m1;
 };
-const ROLL = [[0, 0, 0], [T_HIT, 0, 0], [0.86, -6, -60], [1.25, -21, -40], [1.8, -42, -50], [4.3, -192, -63], [6.4, -321, -52], [7.05, -360, -28], [7.24, -362.6, 0], [7.55, -359.4, 0], [7.95, -360, 0], [END, -360, 0]];
+const ROLL = [[0, 0, 0], [T_HIT, 0, 0], [0.78, -2.5, -38], [0.9, -7.5, -55], [1.25, -21, -40], [1.8, -42, -50], [4.3, -192, -63], [6.4, -321, -52], [7.05, -360, -28], [7.24, -362.6, 0], [7.55, -359.4, 0], [7.95, -360, 0], [END, -360, 0]];
 const HEAVE = [[0, 0, 0], [0.84, 0, 0.3], [1.25, 0.33, 1.1], [1.8, 0.95, 1.05], [3.0, 1.75, 0.45], [4.2, 1.98, 0], [5.4, 1.62, -0.55], [6.4, 0.9, -1.0], [7.05, 0, -1.2], [7.17, -0.075, 0], [7.42, 0.025, 0], [7.68, -0.008, 0], [8.0, 0, 0], [END, 0, 0]];
 const SIDE = [[0, 0, 0], [0.84, 0, 0], [1.8, 0.45, 0.4], [4.3, 0.85, 0], [6.4, 0.6, -0.2], [7.05, 0.45, -0.2], [8.6, 0.3, -0.15], [10.6, 0, 0], [END, 0, 0]];
 const FWD = [[0, 0, 0], [7.05, 0, 0], [8.2, -0.45, -0.15], [9.4, -0.3, 0.2], [11.0, 0, 0], [END, 0, 0]];
@@ -92,6 +92,19 @@ const carAt = (t) => {
 const keys = [];
 for (let f = 0; f <= END * 30; f++) keys.push(carAt(f / 30));
 const rig = { id: "car", kind: "roadster", color: "#ec4b3c", pivot: PIVOT, wheel: r3(WHEEL * 1e4) / 1e4, keys };
+// where a tyre on the divider would need more than its travel, lift the car by the excess (spread over the
+// neighbouring keys so the lift stays smooth)
+for (let pass = 0; pass < 4; pass++) {
+  const lift = keys.map(() => 0);
+  for (let i = 0; i <= END * 120; i++) {
+    const t = i / 120, ex = Math.max(...wheelNeed(rig, set, t)) - ROADSTER.travel + 0.006;
+    if (ex <= 0) continue;
+    const k = Math.round(t * 30);
+    for (let j = -2; j <= 2; j++) if (keys[k + j]) lift[k + j] = Math.max(lift[k + j], ex * (1 - Math.abs(j) / 3));
+  }
+  if (!lift.some((v) => v > 0)) break;
+  keys.forEach((k, i) => { k.pos[1] = r3(k.pos[1] + lift[i]); });
+}
 // check: no tyre goes more than its travel into the road or the divider, at 120 checks a second
 {
   let worst = { d: -1 };
@@ -106,9 +119,9 @@ const WIZ = [WIZ_X, SEAT_Z + 0.03], DRA = [DRA_X, SEAT_Z + 0.03];
 const AT_PHONE = [0.05, -0.95];                 // the Wizard's eyes on his screen
 const ROAD_AHEAD = [0, 0.02];                    // Dragon watching the road (toward the camera in the front view)
 // the Wizard's right hand holds the phone in front of his chest; his left index scrolls it (character space)
-const PH = { up: 0.37, fwd: 0.42 };
+const PH = { up: 0.32, fwd: 0.4 };
 const PHONE_HAND = { x: [-0.07, PH.up, PH.fwd] };
-const SCROLL_REST = { x: [0.05, PH.up + 0.08, PH.fwd - 0.09] }, SCROLL_LOW = { x: [0.03, PH.up + 0.05, PH.fwd - 0.05] }, SCROLL_HIGH = { x: [0.03, PH.up + 0.17, PH.fwd - 0.05] };
+const SCROLL_REST = { x: [0.05, PH.up + 0.08, PH.fwd - 0.06] }, SCROLL_LOW = { x: [0.03, PH.up + 0.05, PH.fwd - 0.035] }, SCROLL_HIGH = { x: [0.03, PH.up + 0.17, PH.fwd - 0.04] };
 const WHEEL_L = { prop: "wheel", grip: "L" }, WHEEL_R = { prop: "wheel", grip: "R" };
 
 const cast = [
@@ -120,12 +133,12 @@ const cast = [
 const props = [
   { id: "seatW", kind: "carseat", rig: "car", x: WIZ_X, y: SEAT_Y, z: SEAT_Z },
   { id: "seatD", kind: "carseat", rig: "car", x: DRA_X, y: SEAT_Y, z: SEAT_Z },
-  { id: "wheel", kind: "steer", rig: "car", x: DRA_X, y: 0.98, z: 0.24, tip: 32 },
-  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -24, scale: 1.9, case: "#2b2d36" },
+  { id: "wheel", kind: "steer", rig: "car", x: DRA_X, y: 0.9, z: 0.25, tip: 34 },
+  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -24, scale: 1.9, case: "#36cfc0" },
 ];
 
 // ---------------------------------------------------------------- 0 setup at frame 0 (already driving, already scrolling)
-for (const w of ["wiz", "dra"]) A(0, w, "sit", { seat: w === "wiz" ? "seatW" : "seatD", dur: 0.01, hands: "keep" });
+for (const w of ["wiz", "dra"]) A(0, w, "sit", { seat: w === "wiz" ? "seatW" : "seatD", dur: 0, hands: "keep" });
 A(0, "wiz", "grab", { prop: "phone", hand: "R", grip: [0.032, 0.03, 0], pose: null });
 A(0, "wiz", "look", { to: AT_PHONE, dur: 0.01, blink: false });
 A(0, "wiz", "face", { lid: 0.4, dur: 0.01 });
@@ -144,12 +157,16 @@ const swipe = (t) => {
   A(t + 0.27, "wiz", "squash", { amount: 0.008, dur: 0.2 });
 };
 for (const t of [0.15, 2.2, 3.7, 5.15, 7.9, 9.7, 11.6]) swipe(t);
+sfx(5.29, "kenney/scroll", { gain: 0.5, reason: "the one swipe upside down (the payoff)" });
 
 // ---------------------------------------------------------------- 1 NORMAL 0-0.7 (21 frames): calm driving
 cap(0, 2.0, "Just one more video.", 250);
 
 // ---------------------------------------------------------------- 2 IMPACT 0.7-1.8: the tyre hits the divider
-sfx(T_HIT, "thump", { gain: 0.9, reason: "the tyre hits the divider's bevel" });
+sfx(T_HIT, "thud", { gain: 0.9, reason: "the tyre hits the divider's bevel" });
+sfx(T_HIT + 0.03, "screech", { dur: 0.55, gain: 0.35, reason: "the tyres scrabble as the car kicks up" });
+sfx(0.76, "gasp", { gain: 0.5, reason: "Dragon's shock" });
+sfx(1.85, "whoosh", { dur: 0.7, gain: 0.45, reason: "the car lifts into the roll (slow motion)" });
 A(0.74, "dra", "expr", { expr: "shocked", set: { open: 0.55, eye: 1.3 }, dur: 0.12 });
 A(0.74, "dra", "face", { brow: 0.6, dur: 0.12 });
 A(0.76, "dra", "squash", { amount: 0.06, dur: 0.22 });
@@ -171,7 +188,9 @@ A(2.0, "dra", "still", { dur: 4.8, idle: 0.2 });
 A(4.5, "wiz", "still", { dur: 1.5, idle: 0.1 });
 
 // ---------------------------------------------------------------- 5 LANDING 6.0-8.5
-sfx(7.05, "thump", { gain: 1.0, reason: "all four tyres land" });
+sfx(7.05, "thud", { gain: 1.0, reason: "all four tyres land" });
+sfx(7.17, "creak", { dur: 0.35, gain: 0.3, reason: "the springs compress and rebound" });
+sfx(7.3, "screech", { dur: 0.9, gain: 0.45, reason: "the short skid" });
 A(7.06, "dra", "squash", { amount: 0.08, dur: 0.25 });
 A(7.06, "wiz", "squash", { amount: 0.05, dur: 0.25 });
 A(7.08, "wiz", "hatwobble", { amount: 9, freq: 2.8, dur: 1.0 });
@@ -181,26 +200,31 @@ A(7.1, "dra", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.25, curve: -0
 A(8.7, "dra", "face", { lid: 0.85, brow: -0.2, dur: 0.35 });
 A(8.7, "dra", "expr", { expr: "kind", set: { open: 0.22, round: 0.8, curve: 0.0, eye: 1.0 }, dur: 0.35 });
 A(8.75, "dra", "squash", { amount: 0.05, dur: 0.7 });
-sfx(8.75, "sigh", { gain: 0.6, reason: "Dragon's relieved breath" });
 A(9.6, "dra", "face", { lid: 0, brow: 0, dur: 0.35 });
 A(9.6, "dra", "expr", { expr: "kind", dur: 0.5 });
 A(9.65, "dra", "look", { to: ROAD_AHEAD, dur: 0.3, blink: false });
 
 // ---------------------------------------------------------------- 7 RETURN 11.5-14: the opening frame again
 // faces and eyes ease back to frame 0 (places never moved: they ride in the car)
-A(11.5, "dra", "expr", { expr: "kind", dur: 0.5 });
-A(11.5, "dra", "face", { lid: 0, brow: 0, dur: 0.4 });
+// Dragon side-eyes the Wizard (eyes first, then a flat look), who swipes again without looking up, then back to the road
+A(10.3, "dra", "look", { to: [-0.55, -0.05], dur: 0.3, blink: false });
+A(10.45, "dra", "expr", { expr: "deadpan", dur: 0.35 });
+A(10.45, "dra", "face", { lid: 0.35, brow: -0.25, dur: 0.35 });
+A(12.3, "dra", "look", { to: ROAD_AHEAD, dur: 0.35, blink: false });
+A(12.4, "dra", "expr", { expr: "kind", dur: 0.5 });
+A(12.4, "dra", "face", { lid: 0, brow: 0, dur: 0.4 });
 A(11.5, "wiz", "face", { lid: 0.4, dur: 0.3 });
 
 // ---------------------------------------------------------------- shots (world frame; the car stays near the origin)
-const FRONT = { pos: [0, 1.62, 5.1], look: [0, 1.02, -0.25], fov: 42 };
+const FRONT = { pos: [0, 1.66, 5.1], look: [0, 1.12, -0.25], fov: 42 };
 const beats = c.beats([
   ["normal", 0, FRONT, "hook"],
-  ["impact", T_HIT, { pos: [-2.7, 0.32, 3.5], look: [-0.95, 0.42, 1.3], fov: 36, to: { pos: [-3.8, 0.9, 4.6], look: [-0.35, 1.05, 0.7], fov: 40 }, dur: 1.1, ease: "inOut" }],
-  ["the roll", 1.8, { pos: [-7.4, 1.6, 6.4], look: [0.3, 1.25, 0.3], fov: 40, to: { pos: [-8.0, 2.5, 6.2], look: [0.6, 2.1, 0.3] }, dur: 2.7, ease: "inOut" }, "escalation"],
-  ["still scrolling", 4.5, { rig: "car", pos: [-0.36, 1.32, 0.46], look: [-0.38, 1.12, -0.3], fov: 50 }, "payoff"],
-  ["landing", 6.0, { pos: [-6.8, 2.3, 6.4], look: [0.6, 1.7, 0.2], fov: 40, to: { pos: [-6.4, 1.35, 6.8], look: [0.4, 0.75, 0.3] }, dur: 1.3, ease: "inOut" }],
-  ["everything is fine", 8.5, { pos: [-2.7, 1.6, 4.6], look: [0.05, 1.02, -0.25], fov: 40, to: { pos: [-2.45, 1.58, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],
+  ["impact", T_HIT, { pos: [-3.7, 0.55, 5.4], look: [-0.7, 0.8, 0.9], fov: 40, to: { pos: [-3.9, 0.7, 5.6], look: [-0.6, 0.95, 0.9] }, dur: 0.45, ease: "out" }],
+  ["shock", 1.15, { pos: [2.6, 1.0, 6.6], look: [0.05, 1.15, 0.8], fov: 40, to: { pos: [2.9, 1.4, 7.4], look: [0.4, 1.5, 0.6], fov: 42 }, dur: 0.65, ease: "inOut" }],
+  ["the roll", 1.8, { pos: [2.6, 1.9, 10.5], look: [0.4, 1.75, 0], fov: 38, to: { pos: [3.0, 2.5, 10.2], look: [0.6, 2.25, 0] }, dur: 2.7, ease: "inOut" }, "escalation"],
+  ["still scrolling", 4.5, { rig: "car", pos: [-2.5, 1.8, 3.0], look: [-0.15, 1.2, -0.2], fov: 40 }, "payoff"],
+  ["landing", 6.0, { pos: [-6.4, 2.2, 6.2], look: [0.6, 1.7, 0.2], fov: 42, to: { pos: [-6.0, 1.35, 6.6], look: [0.4, 0.8, 0.3] }, dur: 1.3, ease: "inOut" }],
+  ["everything is fine", 8.5, { pos: [2.5, 1.8, 4.6], look: [0.05, 1.05, -0.25], fov: 40, to: { pos: [2.25, 1.77, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],
   ["return", 11.5, FRONT],
 ], END);
 
@@ -211,7 +235,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   set, rigs: [rig],
   music: false,
-  sound: { sfx: 0.7, ambience: 0.4 },
+  sound: { sfx: 0.7, ambience: 0.4, bedFade: 0.005 },
   cast, props, captions: c.captions, beats,
   allowClip: [
     { who: "wiz", with: "seatW", from: 0, to: END, reason: "the Wizard sits in his seat" },

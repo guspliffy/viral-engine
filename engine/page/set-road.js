@@ -11,7 +11,7 @@ import { roadDistance, dividerZ } from "./vehicle.js";
 //   spec: { type: "road", speed: m/s or [[t, v], ...], divider: { x, width, height, length, bevel, hit: [t, z] },
 //           dust: [{ at, x, z, y?, n?, size?, dur?, color? }] (puffs left on the road that scroll away with it) }
 export const PERIOD = 24;
-export const ROAD = { right: -2.9, left: 4.4, wallX: 4.7, parapetX: -3.4, centre: 1.25 };
+export const ROAD = { right: -7.2, left: 4.4, wallX: 4.7, parapetX: -7.7, centre: 1.6, lane: -2.6 };
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -123,7 +123,7 @@ export function buildRoad(scene, S = {}) {
   road.rotation.x = -Math.PI / 2; road.position.set((ROAD.left + ROAD.right) / 2, 0, (Z0 + Z1 + PERIOD) / 2); road.name = "set-floor"; tread.add(road);
   const paint = lam("#f4f1e8"); paint.userData.noOutline = true;
   const edge = flat(new THREE.Mesh(new THREE.PlaneGeometry(0.14, roadLen), paint)); edge.rotation.x = -Math.PI / 2; edge.position.set(ROAD.right + 0.35, 0.004, road.position.z); tread.add(edge);
-  for (let z = Z0; z < Z1 + PERIOD; z += 6) { const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(0.14, 3), paint)); d.rotation.x = -Math.PI / 2; d.position.set(ROAD.centre, 0.004, z); tread.add(d); }
+  for (let z = Z0; z < Z1 + PERIOD; z += 6) for (const x of [ROAD.centre, ROAD.lane]) { const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(0.14, 3), paint)); d.rotation.x = -Math.PI / 2; d.position.set(x, 0.004, z); tread.add(d); }
 
   // the driver's side: a tall cream retaining wall of big stone blocks, greenery spilling over the top, trees behind
   const stone = canvasTex(512, 256, (c, w, h) => {
