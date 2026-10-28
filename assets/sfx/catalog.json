@@ -333,17 +333,17 @@
   "knock": {
    "layers": [
     [
-     "hit-wood",
+     "knock-hit",
      0,
      0.8
     ],
     [
-     "hit-wood",
+     "knock-hit",
      0.17,
      0.75
     ],
     [
-     "hit-wood",
+     "knock-hit",
      0.33,
      0.85
     ]
@@ -2104,6 +2104,16 @@
     "ai/wing-flap/wing-flap-01.wav"
    ],
    "gain": 0.3,
+   "anchor": "hit"
+  },
+  "knock-hit": {
+   "source": "ai",
+   "files": [
+    "ai/knock/knock-04.wav",
+    "ai/knock/knock-05.wav",
+    "ai/knock/knock-06.wav"
+   ],
+   "gain": 0.45,
    "anchor": "hit"
   }
  }
