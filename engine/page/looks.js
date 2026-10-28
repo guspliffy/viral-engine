@@ -216,6 +216,18 @@ function smoothRamp(lo, hi, at, soft) {
   return t;
 }
 
+// three broad cel values (shadow, half tone, light) with a narrow soft step between them: at: the two steps, v: the values
+function stepRamp(at, v, soft) {
+  const n = 256, data = new Uint8Array(n * 4), ss = (x, e) => { const k = Math.min(1, Math.max(0, (x - e + soft) / (2 * soft))); return k * k * (3 - 2 * k); };
+  for (let i = 0; i < n; i++) {
+    const x = i / (n - 1), y = v[0] + (v[1] - v[0]) * ss(x, at[0]) + (v[2] - v[1]) * ss(x, at[1]);
+    const c = Math.round(y * 255); data.set([c, c, c, 255], i * 4);
+  }
+  const t = new THREE.DataTexture(data, n, 1, THREE.RGBAFormat);
+  t.minFilter = t.magFilter = THREE.LinearFilter; t.generateMipmaps = false; t.needsUpdate = true;
+  return t;
+}
+
 // The anime shading: colours come from the material, not from light intensities. The toon ramp tells how lit a
 // point is (0 in shadow .. 1 lit, the cast shadow included); lit areas get the material colour with a warm light
 // tint, shadows the same colour multiplied by a hue-shifted shade (warm for skin, cool for the set), so shadows stay
@@ -396,7 +408,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  const charRamp = golden ? smoothRamp(0, 1, 0.5, 0.2) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = smoothRamp(0, 1, 0.55, golden ? 0.2 : 0.09);
+  const charRamp = golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -412,11 +424,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // eyelids: shaded like the skin they lie on (bodyN: the body's surface direction, not the lid's dome), so a closed
   // eye doesn't bulge out of the face with its own shadow, and a lid in the hat's shadow is as dark as the face there
   if (golden) {
-    const back = { back: "#ffc35e", backDir: [-0.9, 0.55, -0.3] };   // the window is on the left of the frame
+    // a warm amber edge on the skin only: dark cloth and gloves keep their values (no glow on the hat or hood)
+    const back = { back: "#e09a3c", backDir: [-0.9, 0.55, -0.3] };
     Object.assign(ROLE, {
-      char: { ...ROLE.char, lit: [1.06, 1.0, 0.9], shade: [0.84, 0.62, 0.52], ...back },
-      skin: { ...ROLE.skin, lit: [1.06, 1.14, 1.06], shade: [0.88, 0.6, 0.44], grad: 0.12, ...back },
-      cloth: { ...ROLE.cloth, lit: [1.1, 1.0, 0.95], shade: [0.62, 0.48, 0.62], grad: 0.18, ...back, back: "#ff9f6a" },
+      char: { ...ROLE.char, lit: [1.04, 1.0, 0.94], shade: [0.7, 0.6, 0.66] },
+      skin: { ...ROLE.skin, lit: [1.05, 1.14, 1.08], shade: [0.84, 0.6, 0.48], grad: 0.06, ...back },
+      cloth: { ...ROLE.cloth, lit: [1.02, 0.98, 1.04], shade: [0.6, 0.52, 0.74], grad: 0.1 },
       wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
       set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
     });
@@ -458,7 +471,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
-      const thick = isSet ? 0.0016 : golden ? 0.0045 : 0.0058;
+      const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
       t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
@@ -492,18 +505,22 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
-  const bokeh = golden ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
+  const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   if (bokeh) composer.addPass(bokeh);
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
   // (eyes, clouds) sit at 1 and stay clean. Golden: the warm haze of the sunlit areas too
-  composer.addPass(golden ? new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.8, 0.95) : new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
+  // golden: glow only from emissive accents by default (the window is painted bright on the plate); "haze" is the
+  // old wide warm glow over everything, which veiled the faces
+  if (golden && setSpec.bloom === "haze") composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.8, 0.95));
+  else if (setSpec.bloom !== false) composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
   if (golden) {
-    grade.uniforms.para.value = 0.62; grade.uniforms.paraPos.value.set(0.02, 0.95); grade.uniforms.paraColor.value.set(1.0, 0.72, 0.38);
-    grade.uniforms.saturation.value = 1.12; grade.uniforms.vignette.value = 0.24;
+    // crisp: no light wash over the frame by default (para), restrained grade (Jonny's brief, 28 Oct)
+    grade.uniforms.para.value = setSpec.para ?? 0; grade.uniforms.paraPos.value.set(0.02, 0.95); grade.uniforms.paraColor.value.set(1.0, 0.72, 0.38);
+    grade.uniforms.contrast.value = 1.05; grade.uniforms.saturation.value = 1.03; grade.uniforms.vignette.value = 0.08;
     grade.uniforms.shadowTint.value.set(0.02, 0.0, -0.01); grade.uniforms.highTint.value.set(0.035, 0.015, -0.025);
   }
   composer.addPass(grade);

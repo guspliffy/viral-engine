@@ -28,13 +28,13 @@ function rnd(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 10139
 const woodGrain = (base, seed) => canvasTex(1024, 512, (g, w, h) => {
   const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
   // long, gently wavy grain lines and a few darker streaks, as on the references' tables
-  for (let i = 0; i < 140; i++) {
-    const y0 = r() * h, a = 2 + r() * 6, f = 0.002 + r() * 0.004, dark = r() < 0.5;
-    g.strokeStyle = dark ? `rgba(100,50,18,${0.14 + r() * 0.2})` : `rgba(255,220,160,${0.08 + r() * 0.12})`; g.lineWidth = 1 + r() * 3;
+  for (let i = 0; i < 46; i++) {
+    const y0 = r() * h, a = 3 + r() * 8, f = 0.002 + r() * 0.003, dark = r() < 0.5;
+    g.strokeStyle = dark ? `rgba(120,62,24,${0.04 + r() * 0.05})` : `rgba(255,224,170,${0.03 + r() * 0.05})`; g.lineWidth = 2 + r() * 6;
     g.beginPath(); for (let x = 0; x <= w; x += 16) g.lineTo(x, y0 + a * Math.sin(x * f + i)); g.stroke();
   }
   // plank joints
-  g.fillStyle = "rgba(90,50,20,0.35)"; for (const y of [h / 3, (2 * h) / 3]) g.fillRect(0, y, w, 2);
+  g.fillStyle = "rgba(90,50,20,0.3)"; for (const y of [h / 4, h / 2, (3 * h) / 4]) g.fillRect(0, y, w, 3);
 });
 const fluff = (base, seed) => canvasTex(512, 512, (g, w, h) => {
   const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
