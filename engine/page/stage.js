@@ -383,6 +383,7 @@ async function init(data) {
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
+  await Promise.all(globalThis.__loads || []);   // pictures the set loads (set-plate.js)
   const gl = R.getContext(), dbg = gl.getExtension("WEBGL_debug_renderer_info");
   return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: gl.getParameter(gl.VERSION), renderer: gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) };
 }
