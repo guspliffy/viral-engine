@@ -495,7 +495,7 @@ function pose(t) {
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
   // hide: actors left out of a shot (whoever holds the phone in a shot from behind its screen)
-  for (const a of actors) a.ch.root.visible = !shot?.hide?.includes(a.c.id);
+  for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
 }
 
 function frame(t) {
