@@ -1,0 +1,70 @@
+{
+ "id": "lookdev/wizard-crisp",
+ "name": "Wizard (crisp look-dev)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Dusk) and game/portraits/wizard.jpg",
+ "rig": "potato",
+ "body": {
+  "color": "#f2b04e",
+  "height": 1.0,
+  "width": 0.82,
+  "depth": 0.7,
+  "lump": 0.035,
+  "seed": 4
+ },
+ "limbs": {
+  "color": "#262540",
+  "width": 0.042
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#5a3418",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "curve": 0.35,
+   "smirk": 0.12,
+   "lidL": 0.12,
+   "lidR": 0.18,
+   "browL": 0.12,
+   "tilt": 0.12
+  },
+  "eye": {
+   "flick": 0.6,
+   "depth": 0.2,
+   "iris": 0.7,
+   "glints": 1
+  },
+  "browShape": {
+   "arch": 0.06
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "hat-brim"
+ },
+ "costume": {
+  "type": "wizard",
+  "accent": "#2e2b4e",
+  "band": "#1f1d36",
+  "glow": "#f2c14e",
+  "staffWood": "#7a4e2a",
+  "propHand": "L",
+  "noProp": true
+ },
+ "personality": "Occasional third character. Wants to be useful and respected; overcomplicates simple requests; patient and sincerely curious. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "voice": {
+  "pitch": 118,
+  "rate": 2.7,
+  "formant": 1.0,
+  "range": 3,
+  "breath": 0.14,
+  "vibrato": 0.025,
+  "seed": 4
+ },
+ "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): flatter eyes set into the face, bigger irises, one catch light, thicker tapered arms. Not canon until Jonny approves.",
+ "voiceNote": "gibberish, low and slow, a little breathy",
+ "hands": {
+  "type": "mitten",
+  "size": 1.6
+ }
+}
