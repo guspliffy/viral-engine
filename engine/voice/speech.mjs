@@ -12,11 +12,12 @@ import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { mouthKeys } from "../shared/visemes.js";
+import { wordTimes } from "../shared/captions.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(HERE, "../..");
 export const CACHE = path.join(ROOT, "out", "speech");
-const VERSION = 1; // bump when tts.py changes how a line sounds or is timed
+const VERSION = 2; // bump when tts.py changes how a line sounds or is timed (2: non-words like "hnnngh" are sounds, not spelled)
 const VOICES = JSON.parse(fs.readFileSync(path.join(HERE, "voices.json"), "utf8"));
 
 // tone -> how the line is read: speed factor and the punctuation the model takes its intonation from
@@ -62,7 +63,8 @@ function synthesise(jobs) {
 }
 
 // sb: the storyboard as written (beats or flat). Returns a copy whose say/narrate items (or flat talk actions with a
-// line) carry dur = spoken length and speech = { id, mouth }. Characters: { "potatobrawl/reaper": {...} }.
+// line) carry dur = spoken length and speech = { id, mouth, words } (words: when each word is said, for kinetic
+// captions; left out when the voice read the line as a different number of words). Characters: { "potatobrawl/reaper": {...} }.
 // SPEECH=off in the environment does the same as "speech": false for every storyboard (qa/golden.mjs: the golden
 // stills keep their timing whether or not the voice model is set up on the machine)
 export function withSpeech(sb, chars) {
@@ -80,7 +82,9 @@ export function withSpeech(sb, chars) {
     const info = JSON.parse(fs.readFileSync(path.join(CACHE, `${j.id}.json`), "utf8"));
     if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
     item.dur = info.dur;
-    item.speech = { id: j.id, mouth: mouthKeys(info.phones) };
+    const words = wordTimes(info.phones, item.line);
+    if (!words) console.warn(`speech: "${item.line}" was read as a different number of words, its caption uses the syllable guess`);
+    item.speech = { id: j.id, mouth: mouthKeys(info.phones), ...(words ? { words } : {}) };
   }
   return out;
 }

@@ -18,6 +18,13 @@ Characters speak their `say` lines with **Kokoro-82M** text-to-speech, run local
 Whispers: `"tone": "whisper"` or `"soft": true` reads the line in the same voice, 9 % slower, darker (low-pass at
 5.5 kHz) and 7 dB quieter. Jonny picked this over breath-noise whispers, which sounded evil.
 
+Non-words are sounds, not spelled: the text reader would say "hnnnngh!" letter by letter, so `tts.py` (`SOUNDS`)
+turns these into the sound in the character's voice: a straining hum that shakes (`hnnngh`, `nnngh`), a hum (`hmm`,
+`mmm`), `mm-hmm`, `hmph`, a growl (`grrr`), `brrr`, a shush (`shhh`), `pfff` and `zzz`. They mix with words
+("hmm, okay."). Words espeak knows already sound right (`ugh`, `aah`, `hehe`, `huh?`, `whoa`). Add a pattern there
+for a new one; the voice model invents vowels when a sound is stretched with long marks or a repeated hiss, so
+lengthen a nasal by repeating it and a hiss by slowing it down.
+
 Claude can't hear audio. `tts.py` measures loudness and clipping, and speech recognition (Whisper) understood every
 test line, but how a voice sounds is Jonny's call.
 

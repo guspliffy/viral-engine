@@ -1047,6 +1047,298 @@
      "loudnessLUFS": -22.9
     }
    ]
+  },
+  {
+   "id": "sip",
+   "kind": "sfx",
+   "files": [
+    "sip/sip-01.wav",
+    "sip/sip-02.wav",
+    "sip/sip-03.wav",
+    "sip/sip-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "sip",
+    "taste",
+    "mouth"
+   ],
+   "durationSec": 0.8,
+   "prompt": [
+    "a tiny quiet sip of hot soup from a spoon, small slurp, close up, dry, no music",
+    "one small polite sip from a teaspoon, soft lips, close up, quiet room"
+   ],
+   "seed": [
+    42,
+    41,
+    41,
+    42
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.3,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sip/sip-01.wav",
+     "take": "p0-s42",
+     "prompt": "a tiny quiet sip of hot soup from a spoon, small slurp, close up, dry, no music",
+     "seed": 42,
+     "startSec": 3.586,
+     "durationSec": 0.8,
+     "clap": 0.041,
+     "snrDb": 62.4,
+     "loudnessLUFS": -18.8
+    },
+    {
+     "file": "sip/sip-02.wav",
+     "take": "p0-s41",
+     "prompt": "a tiny quiet sip of hot soup from a spoon, small slurp, close up, dry, no music",
+     "seed": 41,
+     "startSec": 0.629,
+     "durationSec": 0.8,
+     "clap": 0.016,
+     "snrDb": 72.2,
+     "loudnessLUFS": -19.8
+    },
+    {
+     "file": "sip/sip-03.wav",
+     "take": "p0-s41",
+     "prompt": "a tiny quiet sip of hot soup from a spoon, small slurp, close up, dry, no music",
+     "seed": 41,
+     "startSec": 2.558,
+     "durationSec": 0.281,
+     "clap": -0.058,
+     "snrDb": 67.9,
+     "loudnessLUFS": -24.8
+    },
+    {
+     "file": "sip/sip-04.wav",
+     "take": "p1-s42",
+     "prompt": "one small polite sip from a teaspoon, soft lips, close up, quiet room",
+     "seed": 42,
+     "startSec": 1.891,
+     "durationSec": 0.8,
+     "clap": -0.126,
+     "snrDb": 52.9,
+     "loudnessLUFS": -18.2
+    }
+   ]
+  },
+  {
+   "id": "heartbeat",
+   "kind": "sfx",
+   "files": [
+    "heartbeat/heartbeat-01.wav",
+    "heartbeat/heartbeat-02.wav",
+    "heartbeat/heartbeat-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "heartbeat",
+    "tension"
+   ],
+   "durationSec": 0.769,
+   "prompt": [
+    "a single slow deep heartbeat, low muffled double thump, cinematic tension, close"
+   ],
+   "seed": [
+    51,
+    51,
+    52
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "heartbeat/heartbeat-01.wav",
+     "take": "p0-s51",
+     "prompt": "a single slow deep heartbeat, low muffled double thump, cinematic tension, close",
+     "seed": 51,
+     "startSec": 4.278,
+     "durationSec": 0.769,
+     "clap": 0.15,
+     "snrDb": 43.5,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "heartbeat/heartbeat-02.wav",
+     "take": "p0-s51",
+     "prompt": "a single slow deep heartbeat, low muffled double thump, cinematic tension, close",
+     "seed": 51,
+     "startSec": 2.862,
+     "durationSec": 0.606,
+     "clap": 0.113,
+     "snrDb": 44.5,
+     "loudnessLUFS": -22.2
+    },
+    {
+     "file": "heartbeat/heartbeat-03.wav",
+     "take": "p0-s52",
+     "prompt": "a single slow deep heartbeat, low muffled double thump, cinematic tension, close",
+     "seed": 52,
+     "startSec": 0.033,
+     "durationSec": 1.6,
+     "clap": 0.079,
+     "snrDb": 57.8,
+     "loudnessLUFS": -18.4
+    }
+   ]
+  },
+  {
+   "id": "blep",
+   "kind": "sfx",
+   "files": [
+    "blep/blep-01.wav",
+    "blep/blep-02.wav",
+    "blep/blep-03.wav",
+    "blep/blep-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "mouth",
+    "blep",
+    "cartoon"
+   ],
+   "durationSec": 0.259,
+   "prompt": [
+    "a tiny wet cartoon blep mouth sound, small and short, cute, close up, dry",
+    "small soft wet hiccup blurp from a mouth, cartoon, short, quiet"
+   ],
+   "seed": [
+    61,
+    62,
+    62,
+    62
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "blep/blep-01.wav",
+     "take": "p0-s61",
+     "prompt": "a tiny wet cartoon blep mouth sound, small and short, cute, close up, dry",
+     "seed": 61,
+     "startSec": 0.451,
+     "durationSec": 0.135,
+     "clap": 0.137,
+     "snrDb": 70.8,
+     "loudnessLUFS": -20.3
+    },
+    {
+     "file": "blep/blep-02.wav",
+     "take": "p0-s62",
+     "prompt": "a tiny wet cartoon blep mouth sound, small and short, cute, close up, dry",
+     "seed": 62,
+     "startSec": 3.847,
+     "durationSec": 0.5,
+     "clap": 0.098,
+     "snrDb": 67.0,
+     "loudnessLUFS": -23.2
+    },
+    {
+     "file": "blep/blep-03.wav",
+     "take": "p1-s62",
+     "prompt": "small soft wet hiccup blurp from a mouth, cartoon, short, quiet",
+     "seed": 62,
+     "startSec": 6.069,
+     "durationSec": 0.256,
+     "clap": 0.066,
+     "snrDb": 47.3,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "blep/blep-04.wav",
+     "take": "p1-s62",
+     "prompt": "small soft wet hiccup blurp from a mouth, cartoon, short, quiet",
+     "seed": 62,
+     "startSec": 3.063,
+     "durationSec": 0.261,
+     "clap": 0.064,
+     "snrDb": 42.9,
+     "loudnessLUFS": -17.5
+    }
+   ]
+  },
+  {
+   "id": "drip",
+   "kind": "sfx",
+   "files": [
+    "drip/drip-01.wav",
+    "drip/drip-02.wav",
+    "drip/drip-03.wav",
+    "drip/drip-04.wav"
+   ],
+   "gain": 0.25,
+   "tags": [
+    "liquid",
+    "drip",
+    "drop"
+   ],
+   "durationSec": 0.5,
+   "prompt": [
+    "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet"
+   ],
+   "seed": [
+    72,
+    71,
+    72,
+    71
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "drip/drip-01.wav",
+     "take": "p0-s72",
+     "prompt": "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet",
+     "seed": 72,
+     "startSec": 3.249,
+     "durationSec": 0.272,
+     "clap": 0.003,
+     "snrDb": 43.3,
+     "loudnessLUFS": -29.8
+    },
+    {
+     "file": "drip/drip-02.wav",
+     "take": "p0-s71",
+     "prompt": "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet",
+     "seed": 71,
+     "startSec": 3.805,
+     "durationSec": 0.5,
+     "clap": -0.037,
+     "snrDb": 69.2,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "drip/drip-03.wav",
+     "take": "p0-s72",
+     "prompt": "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet",
+     "seed": 72,
+     "startSec": 5.54,
+     "durationSec": 0.5,
+     "clap": -0.049,
+     "snrDb": 38.0,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "drip/drip-04.wav",
+     "take": "p0-s71",
+     "prompt": "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet",
+     "seed": 71,
+     "startSec": 0.88,
+     "durationSec": 0.5,
+     "clap": -0.126,
+     "snrDb": 71.7,
+     "loudnessLUFS": -27.2
+    }
+   ]
   }
  ]
 }

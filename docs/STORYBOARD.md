@@ -32,10 +32,12 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   one, see "Directed camera" below). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
-  word pops in as it is said (timed from the talk line it matches), the word being said is lit in the speaker's
+  word pops in as it is said (timed from the talk line it matches: with a real voice, from the voice model's own
+  word timings; with the gibberish voice, from a syllable count), the word being said is lit in the speaker's
   colour, ALL CAPS or `*starred*` words punch in in that colour, and a caption shrinks out instead of cutting. A
   caption that repeats the one before it and adds words ("and share a…" then "and share a\nFUN FACT.") keeps the
-  first words still. Unspoken captions (a hook) pop in word by word. `"kinetic": false` on one caption keeps
+  first words still. Unspoken captions (a hook) pop in word by word; a
+  `narrate` line with a real voice is timed like a talk line. `"kinetic": false` on one caption keeps
   it in the classic style (Nothing Scares Reaper's hook, so it doesn't fight the "BOO!"). Without it, captions keep the classic style.
 - **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
   character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
@@ -49,7 +51,8 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   replaced, with a warning when they differ), so anything timed after it follows the voice. `"tone"` sets the
   reading (`excited` a bit faster with "!", `question` rises, `sad` slower, `whisper` = Jonny's soft voice: same
   voice, slower, quieter, no breath effect). `"soft": true` does the same for any tone. `"voice": "robot"` speaks a
-  line in another voice, `"voice": false` keeps it gibberish, and `"sound": { "speech": false }` keeps the whole clip
+  line in another voice, grunts and hums are written as they sound (`"hnnnngh!"`, `"hmm."`, `"shhh!"`, `"pfff."`:
+  list in `engine/voice/README.md`), `"voice": false` keeps it gibberish, and `"sound": { "speech": false }` keeps the whole clip
   gibberish. Gibberish lines are seeded by speaker + line: the same line always sounds the same, and moving or
   retiming it keeps its gibberish and lip sync. `"seed"` on the macro gives a gibberish line a different take.
 - **Experiments and checks**: `"experiment": { "id", "episode", "variant" }` marks a variant (see

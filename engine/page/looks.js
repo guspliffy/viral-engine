@@ -240,13 +240,13 @@ function patchToon(m, o) {
     sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
-    sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 };
+    sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -268,7 +268,7 @@ function patchToon(m, o) {
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
-            float hk = uHatK * smoothstep(-0.07, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
+            float hk = uHatK * smoothstep(-uHatD, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
             col *= mix(vec3(1.0), uShade * 0.92, hk);
           }
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
@@ -445,12 +445,17 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     Object.assign(ROLE, {
       char: { ...ROLE.char, lit: [1.04, 1.0, 0.94], shade: [0.7, 0.6, 0.66] },
       skin: { ...ROLE.skin, lit: [1.05, 1.14, 1.08], shade: [0.84, 0.6, 0.48], grad: 0.06, ...back },
-      cloth: { ...ROLE.cloth, lit: [1.02, 0.98, 1.04], shade: [0.6, 0.52, 0.74], grad: 0.1 },
+      // cloth gets a narrower, dimmer warm edge on the same window side as the skin (a fold catching the sun), not a halo
+      cloth: { ...ROLE.cloth, lit: [1.02, 0.98, 1.04], shade: [0.6, 0.52, 0.74], grad: 0.1, back: "#b8702c", backDir: [-0.9, 0.55, -0.3] },
       wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
       set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
     });
     if (!setSpec.plate) sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall (a painted plate has its own light)
   }
+  // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
+  // their own finger planes readable in dark fabric
+  ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3, back: null };
+  ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12, back: null };
   ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
@@ -469,6 +474,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   for (const a of actors) for (const e of (a.ch.face && a.ch.face.eyes) || []) if (e.lidPivot) e.lidPivot.traverse((o) => { if (o.isMesh) o.userData.bareLook = true; });
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
   const convert = (m, noLines = false) => {
+    // storyboard "debug": { "silhouette": true }: characters and props flat black, the set pale, to judge shapes alone
+    if (m && globalThis.__DIAG?.silhouette && !m.isSpriteMaterial && !m.isShaderMaterial) {
+      if (!convert.chars) { convert.chars = new Set(); for (const a of actors) { if (a.ch.limbMat) convert.chars.add(a.ch.limbMat); } for (const a of actors) a.ch.root.traverse((x) => { if (x.material) for (const k of [].concat(x.material)) convert.chars.add(k); }); }
+      const t = new THREE.MeshBasicMaterial({ color: convert.chars.has(m) ? "#141218" : setMats.has(m) ? "#e8e4dc" : "#b8b2a8", side: m.side, fog: false, toneMapped: false });
+      t.userData.outlineParameters = noLine; made.add(t); return t;
+    }
     if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial) {
       if (m && !m.userData.outlineParameters) m.userData.outlineParameters = noLine;
       return m;
@@ -477,9 +488,15 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     let t = cache.get(m);
     if (!t && (m.userData.glass || m.userData.liquid)) { t = animeGlass(m, !!m.userData.liquid); t.userData.outlineParameters = noLine; t.userData.glassOf = m; cache.set(m, t); made.add(t); }
     if (!t) {
-      const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
+      const isSet = setMats.has(m), lr = m.userData.lookRole && ROLE[m.userData.lookRole] ? m.userData.lookRole : null;
+      const role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : lr || (cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char");
+      // storyboard "debug": { "roles": true }: every surface in a flat colour per role, to check which shading it gets
+      if (globalThis.__DIAG?.roles) {
+        const RC = { skin: "#f0c040", lid: "#f0c040", cloth: "#8040c0", lining: "#e040a0", glove: "#2080ff", wood: "#a06020", set: "#909090", char: "#30c060" };
+        t = new THREE.MeshBasicMaterial({ color: RC[role] || "#ff0000", side: m.side }); t.userData.outlineParameters = noLine; cache.set(m, t); made.add(t); return t;
+      }
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
@@ -571,7 +588,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
           const sh = t && t.userData.shader;
           if (!sh) continue;
           sh.uniforms.uHatC.value.copy(hatC); sh.uniforms.uHatUp.value.copy(hatUp); sh.uniforms.uHatR.value = 0.47 * hatS.x;
-          sh.uniforms.uHatK.value = shown(brim) ? 0.75 : 0;
+          // a hat can ask for a deeper, softer band (costume hatShade: the crisp Wizard hat, like Jonny's target)
+          const hs = brim.userData.shade;
+          sh.uniforms.uHatK.value = shown(brim) ? hs?.k ?? 0.75 : 0; sh.uniforms.uHatD.value = hs?.depth ?? 0.07;
         }
       }
     },

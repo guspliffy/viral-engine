@@ -28,9 +28,9 @@
   "para": 0,
   "bloom": "emissive",
   "key": [
-   1.8,
-   3.6,
-   4.4
+   3.2,
+   3.2,
+   2.0
   ]
  },
  "cast": [
@@ -41,7 +41,7 @@
     -0.5,
     -1.17
    ],
-   "face": "camera",
+   "face": 14,
    "expr": "sad",
    "follow": 0.3
   },
@@ -52,7 +52,7 @@
     0.5,
     -1.17
    ],
-   "face": "camera",
+   "face": -14,
    "expr": "kind",
    "follow": 0.4
   }
@@ -74,20 +74,24 @@
    "z": 0.3,
    "w": 3.2,
    "d": 2.6,
-   "color": "#b39477"
+   "color": "#b39477",
+   "pattern": "quiet",
+   "pile": 0.8
   },
   {
    "id": "table",
    "kind": "coffeetable",
    "x": 0,
-   "z": 0.35,
+   "z": -0.02,
    "h": 0.68,
    "d": 1.8,
    "w": 1.9,
    "color": "#d39d62",
    "apron": 0.09,
    "legW": 0.12,
-   "legX": 0.62
+   "legX": 0.62,
+   "broad": 1,
+   "apronColor": "#7a4a26"
   }
  ],
  "shots": [
@@ -119,7 +123,7 @@
    "who": "wiz",
    "do": "sit",
    "seat": "couch",
-   "along": -0.36,
+   "along": -0.44,
    "at": 0,
    "dur": 0
   },
@@ -127,7 +131,7 @@
    "who": "rea",
    "do": "sit",
    "seat": "couch",
-   "along": 0.36,
+   "along": 0.44,
    "at": 0,
    "dur": 0
   },
@@ -135,8 +139,8 @@
    "who": "wiz",
    "do": "hatsway",
    "tip": [
-    10,
-    -38
+    6,
+    0
    ],
    "brim": 0.2,
    "at": 0,
@@ -149,9 +153,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.69,
+     -0.8,
      0.76,
-     -0.72
+     -0.78
     ]
    },
    "dur": 0,
@@ -172,9 +176,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.3,
+     -0.2,
      0.76,
-     -0.72
+     -0.78
     ]
    },
    "dur": 0,
@@ -195,9 +199,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.3,
+     0.2,
      0.76,
-     -0.72
+     -0.78
     ]
    },
    "dur": 0,
@@ -218,9 +222,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.69,
+     0.8,
      0.76,
-     -0.72
+     -0.78
     ]
    },
    "dur": 0,
@@ -277,6 +281,20 @@
    "expr": "happy",
    "at": 2.3,
    "dur": 0.3
+  },
+  {
+   "who": "wiz",
+   "do": "lean",
+   "to": -6,
+   "at": 0.3,
+   "dur": 0.6
+  },
+  {
+   "who": "rea",
+   "do": "lean",
+   "to": 5,
+   "at": 0.9,
+   "dur": 0.6
   }
  ]
 }

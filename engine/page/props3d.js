@@ -8,6 +8,8 @@ import { HOME_KINDS, HOME_GRIPS } from "./props-home.js";
 import { ELEVATOR_KINDS, ELEVATOR_GRIPS } from "./props-elevator.js";
 import { ROAD_KINDS, ROAD_GRIPS } from "./props-road.js";
 import { MAKEUP_KINDS, MAKEUP_GRIPS } from "./props-makeup.js";
+import { CHEF_KINDS, CHEF_GRIPS } from "./props-chef.js";
+import { steamWisps } from "./steam.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -28,7 +30,7 @@ const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
   ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
-  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS,
+  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -1254,36 +1256,6 @@ const KINDS = {
   },
 };
 
-// steam: three thin wavy wisps rising from a hot drink, drawn as ribbons that always face the camera. The waves travel
-// up and the wisps fade in at the bottom and out at the top. amount 0..1 (the prop's `steam`), t the clip time.
-function steamWisps(parent, top) {
-  const geo = new THREE.PlaneGeometry(1, 1, 1, 24); geo.translate(0.5, 0.5, 0);   // uv.x across, uv.y up
-  const wisps = [[-0.022, 0.0, 0.9], [0.004, 0.6, 1.0], [0.026, 2.3, 0.8]].map(([x, phase, len]) => {
-    const m = new THREE.ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uAmount: { value: 0 }, uPhase: { value: phase }, uLen: { value: len } },
-      vertexShader: `uniform float uTime, uPhase, uLen; varying vec2 vUv;
-        void main() {
-          vUv = uv; float v = uv.y, u = uv.x - 0.5, s = length(modelMatrix[0].xyz);
-          vec4 c = modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0);
-          float wob = sin(v * 7.0 - uTime * 3.2 + uPhase) * 0.022 * (0.25 + v);
-          c.xy += vec2(wob + u * 0.026 * (1.0 - 0.5 * v), 0.3 * uLen * v) * s;
-          gl_Position = projectionMatrix * c;
-        }`,
-      fragmentShader: `uniform float uTime, uAmount, uPhase; varying vec2 vUv;
-        void main() {
-          float v = vUv.y, edge = 1.0 - smoothstep(0.15, 0.5, abs(vUv.x - 0.5));
-          float a = uAmount * edge * smoothstep(0.0, 0.18, v) * (1.0 - smoothstep(0.45, 1.0, v)) * (0.55 + 0.45 * sin(v * 11.0 - uTime * 4.0 + uPhase * 2.0));
-          gl_FragColor = vec4(1.0, 1.0, 1.0, clamp(a, 0.0, 1.0) * 0.75);
-        }`,
-      // opacity below 0.95 keeps the wisps out of the caption check (stage.js treats them as see-through)
-      transparent: true, depthWrite: false, opacity: 0.5,
-    });
-    m.userData.noOutline = true;
-    const o = new THREE.Mesh(geo, m); o.position.set(x, top, 0); o.frustumCulled = false; o.renderOrder = 3; o.userData.steam = true; parent.add(o);
-    return o;
-  });
-  return (amount, t) => { for (const o of wisps) { o.visible = amount > 0.01; o.material.uniforms.uAmount.value = amount; o.material.uniforms.uTime.value = t; } };
-}
 
 // the apple tree of the TREE clip (its origin at the foot of the trunk): a trunk, a leafy crown from y 1.95, and
 // 10 apples hanging under the crown's front edge. apples 0..10 is how many still hang (slot i shows while i < apples,
@@ -1295,7 +1267,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

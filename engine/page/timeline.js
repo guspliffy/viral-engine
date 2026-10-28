@@ -23,10 +23,11 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // time: t × speed would jump whenever the speed changes. The integral is summed in fixed steps from 0 and cached,
 // so it is the same whatever order frames are drawn in (stills, drafts and full renders agree).
 // fine face controls on top of the expression (face.js Face.set): per-eye lid closing, per-side brow height and tilt,
-// per-side mouth corners and pressed lips. All 0 by default; "face" actions blend them.
+// per-side mouth corners, pressed lips and tears (0 dry .. 0.5 wet lower lid .. 1 a tear gathered on it). All 0 by
+// default; "face" actions blend them.
 const neutralExpr = (def) => { const n = def.face?.neutral || {}, o = {}; for (const k in EXPRESSIONS.kind) if (n[k] != null) o[k] = n[k]; return o; };
-export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press"];
-const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"] };
+export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR"];
+const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"], tear: ["tearL", "tearR"] };
 // mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
 export const GRIPS = {
   open:  { curl: 0.15, index: 0.12, thumb: 0.1 },
@@ -222,7 +223,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         st.hatSpin = lerp3(st.hatSpin, (a.spin || [0, 0, 0]).map((x) => (x * Math.PI) / 180), e);
         break;
       }
-      // { do: "face", lidL, lidR, browL, browR, tiltL, tiltR, cornerL, cornerR, press } (or lid, brow, tilt, corner for
+      // { do: "face", lidL, lidR, browL, browR, tiltL, tiltR, cornerL, cornerR, press, tearL, tearR } (or lid, brow, tilt, corner, tear for
       // both sides): blends the given controls to the given values; the ones left out keep theirs
       case "face": {
         for (const k of FACE_KEYS) if (a[k] != null) st.face[k] = lerp(st.face[k], a[k], e);
@@ -231,7 +232,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
       case "grip": {
-        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e);
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e), since: a.at + (a.dur ?? 0.3) };
         break;
       }
       // the Wizard hat's secondary motion: tip: [forward, sideways] in degrees bends the top of the cone, brim tips the brim

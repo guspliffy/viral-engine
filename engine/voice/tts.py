@@ -9,7 +9,7 @@ with its start and length, read from the model's own duration predictor, so the 
 
 Deterministic: the same job always gives the same file. Claude can't hear the result; levels are measured here.
 """
-import json, os, subprocess, sys, tempfile
+import json, os, re, subprocess, sys, tempfile
 import numpy as np, soundfile as sf, pyloudnorm as pyln
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -30,6 +30,51 @@ def durations_model():
     return dst
 
 
+# Non-words. espeak spells a word it doesn't know letter by letter, so "hnnnngh!" came out as "aitch en en en...".
+# These become the sound itself instead: (pattern, phonemes, speed factor, effect). Kokoro invents vowels when a sound
+# is stretched with long marks (ː) or a repeated hiss, so length comes from repeating a voiced nasal or from speaking
+# a single sound slower. n = how many times the word's main letter repeats.
+STRAIN = "vibrato=f=7:d=0.25"  # a straining "hnnnngh": the voice shakes with the effort
+SOUNDS = [
+    (r"h?n+g*h?", lambda n: ("h" if n["w"][0] == "h" else "ʔ") + "ŋ" * min(6, max(3, n["n"])), 1.0, STRAIN),  # hnnngh, nnngh
+    (r"h?m{2,}|hm", lambda n: ("h" if n["w"][0] == "h" else "") + "m" * min(5, max(2, n["m"])), 1.0, None),   # hmm, mmm
+    (r"hmph", lambda n: "hmf", 0.8, None),
+    (r"m+-?hm+|mhm", lambda n: "mhˈm", 0.8, None),                                                            # mm-hmm
+    (r"g*r{2,}", lambda n: "ɡɹ", 0.6, None),                                                                  # grrr
+    (r"b+r{2,}", lambda n: "bɹ", 0.6, None),                                                                  # brrr
+    (r"s?h{2,}|sh+", lambda n: "ʃ", 0.45, None),                                                              # shhh
+    (r"p+f+t?", lambda n: "pf", 0.45, None),                                                                  # pfff
+    (r"z{3,}", lambda n: "z", 0.4, None),                                                                     # zzz
+]
+
+
+def sound(word):
+    w = word.lower()
+    for pat, ph, sp, fx in SOUNDS:
+        if re.fullmatch(pat, w):
+            return ph({"w": w, "n": w.count("n"), "m": w.count("m")}), sp, fx
+    return None
+
+
+def segments(k, text, lang, speed):
+    """The line as [(phonemes, speed, effect)]: espeak reads the words, SOUNDS makes the non-words."""
+    out, words = [], ""
+    for m in re.finditer(r"([A-Za-z][A-Za-z'-]*)?([^A-Za-z]*)", text):
+        word, tail = m.group(1) or "", m.group(2)
+        s = sound(word) if word else None
+        if not s:
+            words += word + tail
+            continue
+        if re.search(r"[A-Za-z]", words):
+            out.append((k.tokenizer.phonemize(words, lang), speed, None))
+        words = ""
+        ph, sp, fx = s
+        out.append((ph + (re.sub(r"[^.!?,…]", "", tail)[:1] or "."), speed * sp, fx))
+    if re.search(r"[A-Za-z]", words) or not out:
+        out.append((k.tokenizer.phonemize(words, lang), speed, None))
+    return out
+
+
 def ffmpeg(x, sr, af, out_sr):
     with tempfile.TemporaryDirectory() as d:
         a, b = os.path.join(d, "a.wav"), os.path.join(d, "b.wav")
@@ -43,25 +88,27 @@ def synth(k, job):
     mix = job["voice"]
     style_all = sum(k.get_voice_style(v) * (w / sum(mix.values())) for v, w in mix.items())
     speed = job.get("speed", 1.0) * (SOFT["speed"] if job.get("soft") else 1.0)
-    ph = k.tokenizer.phonemize(job["text"], job.get("lang", "en-us"))
     audio, phones, t = [], [], 0.0
-    for chunk in k._split_phonemes(ph):
-        toks = k.tokenizer.tokenize(chunk)[:MAX_PHONEME_LENGTH]
-        style = style_all[len(toks)].reshape(1, 256).astype(np.float32)
-        a, d = k.sess.run(None, {"tokens": np.array([[0, *toks, 0]], dtype=np.int64), "style": style,
-                                 "speed": np.array([speed], dtype=np.float32)})
-        d = d.ravel()
-        # d[0] and d[-1] are the start and end pads: keep a little of each, the rest is silence
-        lead, tail = int(d[0] * HOP), int(d[-1] * HOP)
-        keep0 = max(0, lead - int(0.03 * SR_MODEL))
-        body = a[keep0: len(a) - max(0, tail - int(0.08 * SR_MODEL))]
-        t0 = t + (lead - keep0) / SR_MODEL
-        chars = [c for c in chunk if k.tokenizer.tokenize(c)]  # the characters that became tokens, in order
-        for c, f in zip(chars, d[1:-1]):
-            phones.append([c, round(float(t0), 4), round(float(f) * HOP / SR_MODEL, 4)])
-            t0 += f * HOP / SR_MODEL
-        audio.append(body)
-        t += len(body) / SR_MODEL
+    for ph, sp, fx in segments(k, job["text"], job.get("lang", "en-us"), speed):
+        for chunk in k._split_phonemes(ph):
+            toks = k.tokenizer.tokenize(chunk)[:MAX_PHONEME_LENGTH]
+            style = style_all[len(toks)].reshape(1, 256).astype(np.float32)
+            a, d = k.sess.run(None, {"tokens": np.array([[0, *toks, 0]], dtype=np.int64), "style": style,
+                                     "speed": np.array([sp], dtype=np.float32)})
+            d = d.ravel()
+            # d[0] and d[-1] are the start and end pads: keep a little of each, the rest is silence
+            lead, tail = int(d[0] * HOP), int(d[-1] * HOP)
+            keep0 = max(0, lead - int(0.03 * SR_MODEL))
+            body = a[keep0: len(a) - max(0, tail - int(0.08 * SR_MODEL))]
+            if fx:
+                body = ffmpeg(body, SR_MODEL, fx, SR_MODEL)[:len(body)]
+            t0 = t + (lead - keep0) / SR_MODEL
+            chars = [c for c in chunk if k.tokenizer.tokenize(c)]  # the characters that became tokens, in order
+            for c, f in zip(chars, d[1:-1]):
+                phones.append([c, round(float(t0), 4), round(float(f) * HOP / SR_MODEL, 4)])
+                t0 += f * HOP / SR_MODEL
+            audio.append(body)
+            t += len(body) / SR_MODEL
     x = np.concatenate(audio).astype(np.float32)
     af = ["highpass=f=40"]
     if job.get("pitch"):
