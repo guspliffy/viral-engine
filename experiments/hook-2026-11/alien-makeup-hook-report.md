@@ -40,7 +40,7 @@ Storyboard: `storyboards/halloween/alien-makeup-c.json`
 
 ## Pick
 
-Jonny's pick and why: _
+Jonny's pick and why: **B** (28 Oct, 17:19, "i prefer opening B aswell"), matching the cold read. Posting copy: B with the caption shortened to 0-1.8 s and the first three shots pulled back so the caption clears both characters.
 
 ## Cold read, round 1 (28 Oct, openings framed as the brief: extreme close-up on the brush; C on the frontal alien close-up)
 

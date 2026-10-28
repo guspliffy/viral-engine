@@ -104,7 +104,7 @@ function build(variant) {
   }
   arm(2.0, "ast", "L", "rest", 0.4);
   on(2.0, "ast", "grip", { side: "L", shape: "open", dur: 0.2 });
-  fx(1.22, "jingle-pizzicato", { gain: 0.35 });
+  fx(1.22, "jingle-pizzicato", { gain: 0.6 });
 
   // ------------------------------------------------------------ 04 admire the work (1.8-3.3)
   // brush and pot down on the table at once (real contact: the hands go to the table, then let go)
@@ -149,11 +149,11 @@ function build(variant) {
   on(4.2, "wiz", "still", { dur: 1.2, idle: 0.08 });
 
   // ------------------------------------------------------------ 06 the Wizard understands (5.5-6.6)
-  on(5.55, "wiz", "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.2 });
+  on(5.5, "wiz", "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.2 });   // the smile falls (held 0.3 s), then the shock
   act.shock(C2, 5.8, "wiz", { open: 0.12, eye: 1.15, curve: -0.1, brow: 0.35, hold: 0.7, dur: 0.2 });
   on(5.8, "wiz", "look", { to: [0.45, 0.35], dur: 0.15 });
   act.blinksAt(C2, "wiz", [6.2]);
-  fx(6.2, "kenney/tick", { gain: 0.18 });
+  fx(6.2, "kenney/tick", { gain: 0.18, reason: "the brief's quiet blink: the Wizard blinks at 6.2 s" });
 
   // ------------------------------------------------------------ 07 it is still useful (6.6-8.2)
   const DOWN = 6.8, DOWN_DUR = 0.75;
@@ -177,7 +177,7 @@ function build(variant) {
   arm(8.22, "ast", "L", { world: [AST[0] + 0.14, 0.5, AST[1] + 0.62], palm: [AST[0] - 0.06, 0.5, AST[1] + 0.62] }, 0.28, "settle");
   on(8.22, "ast", "grip", { side: "L", shape: "thumb", dur: 0.15 });
   on(8.3, "ast", "expr", { expr: "delighted", dur: 0.2 });
-  fx(8.38, "jingle-hit", { gain: 0.3 });
+  fx(8.38, "jingle-hit", { gain: 0.08 });
   on(8.5, "wiz", "expr", { expr: "deadpan", set: { curve: -0.1 }, dur: 0.3 });
   on(8.5, "wiz", "face", { lid: 0.4, brow: -0.2, dur: 0.3 });
   on(8.5, "wiz", "look", { to: [0.5, 0.15], dur: 0.2, blink: false });
@@ -185,16 +185,17 @@ function build(variant) {
   act.blinksAt(C2, "wiz", [9.35]);
 
   // ------------------------------------------------------------ captions (B only)
-  // held still (not word by word), so the whole line is up from frame 0
-  if (variant === "B") c.captions.push({ from: 0, to: 3.3, text: "When your friend does your Halloween makeup", pos: 300, pop: false, kinetic: false });
+  // held still (not word by word), so the whole line is up from frame 0; off before the wide shot. The first three
+  // shots keep the band under it clear of the characters (qa/check.mjs caption-overlap)
+  if (variant === "B") c.captions.push({ from: 0, to: 1.8, text: "When your friend does your Halloween makeup", pos: 220, pop: false, kinetic: false });
 
   // ------------------------------------------------------------ shots
   const tip = STROKE[1];
   // the opening: a close two-shot (his proud face, the brush on the glass, the alien face), as in the storyboard's
   // first panel. The brief's extreme close-up on the brush read as "a brush and a green blob" in the cold read (28 Oct)
-  const S1 = { pos: [-0.5, 0.9, 2.2], look: [-0.02, 0.74, -0.3], fov: 38 };
-  const S2 = { pos: [-0.05, 0.86, 1.95], look: [-0.36, 0.76, -0.05], fov: 36 };
-  const S3 = { pos: [HC[0], 0.8, 1.45], look: [HC[0], 0.74, HC[2]], fov: 36 };
+  const S1 = { pos: [-0.5, 1.0, 2.75], look: [-0.06, 1.02, -0.3], fov: 38 };
+  const S2 = { pos: [-0.12, 1.0, 2.95], look: [-0.42, 1.12, -0.05], fov: 38 };
+  const S3 = { pos: [HC[0], 0.9, 2.3], look: [HC[0], 1.08, HC[2]], fov: 36 };
   const S4 = { pos: [-0.14, 0.86, 3.2], look: [-0.14, 0.76, -0.3], fov: 40 };
   const S5 = { pos: [1.3, 1.3, 1.75], look: [0.3, 0.86, -0.5], fov: 36 };
   const S6 = { pos: [-0.05, 0.86, 1.85], look: [-0.36, 0.78, -0.05], fov: 34 };

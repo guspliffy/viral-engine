@@ -138,12 +138,12 @@
    "shot": {
     "pos": [
      -0.5,
-     0.9,
-     2.2
+     1,
+     2.75
     ],
     "look": [
-     -0.02,
-     0.74,
+     -0.06,
+     1.02,
      -0.3
     ],
     "fov": 38
@@ -438,7 +438,7 @@
     },
     {
      "sfx": "jingle-pizzicato",
-     "gain": 0.35,
+     "gain": 0.6,
      "at": 0.02
     }
    ],
@@ -954,7 +954,7 @@
       "curve": 0.2
      },
      "dur": 0.2,
-     "at": 0.05
+     "at": 0
     },
     {
      "who": "wiz",
@@ -1001,6 +1001,7 @@
     {
      "sfx": "kenney/tick",
      "gain": 0.18,
+     "reason": "the brief's quiet blink: the Wizard blinks at 6.2 s",
      "at": 0.7
     }
    ]
@@ -1319,7 +1320,7 @@
     },
     {
      "sfx": "jingle-hit",
-     "gain": 0.3,
+     "gain": 0.08,
      "at": 0.18
     },
     {
