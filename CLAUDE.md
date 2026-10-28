@@ -40,7 +40,7 @@ Studio roadmap) and are hypotheses to test with experiments (`experiments/README
 diagnostics and adds notes, never failures. A storyboard changes them in a `creative` block.
 
 - Frame 0 shows a character mid-action (no title card, fade-in or establishing shot), the premise reads by 3 s, the
-  ending loops into the start (no end card), something new happens at least every 2 s, and the length is 12–20 s
+  ending loops into the start (no end card; `loop-seam` checks that actors, camera and picture keep their speed across it), something new happens at least every 2 s, and the length is 12–20 s
   (longer with an escalation beat). A deliberate pause or reaction hold is fine when the story needs it.
 - Never show or mention the game in the first 3 s, and never use an outro card.
 - The eyes lead every walk, turn and reach by about 4 frames (`act.eyesLead`), and a reaction holds 0.3 s or more.
@@ -58,6 +58,9 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   escalation), a recorded bed's stop (`until`) lands on a bar line, and parts and hits sit near beats. Without its own
   `parts` a clip gets one beat of silence before the payoff and a drop on it. `"lock": false` or a pinned `offset`
   opts out; dance clips stay on their own grid.
+- **The payoff is the loudest moment, after a dip**: `qa/sound.mjs` notes (creative, never a failure) when the clip's
+  loudest 100 ms isn't on the payoff beat, or the quietest 0.5 s of the 4 s before it isn't 12 dB under the payoff's
+  peak. `python qa/pace.py <clip> --ref <clip that holds viewers>` compares cuts, motion and loudness per second.
 - **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
@@ -134,10 +137,11 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor),
    a 15 fps strip of every contact moment, then **creative director review B (cut)**
-   on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
+   on its contact sheet, cut strips and phone sheet (`node qa/contact.mjs <clip> --sb <sb>`, then `--cuts --phone`), one round. Apply the notes that are cheap
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
 6. **Deliver** the MP4, its cover, a one-line check result and Fable's notes in one line each, marked
-   applied or not. For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
+   applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
+   viewer read ("would you finish, where would you stop") from review B (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
 
 Fable is the creative director, Jonny is the producer: premise, characters, look, and anything that needs new art
 are his call. Skip the reviews only for pure engine tests, and say so.

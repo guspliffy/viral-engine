@@ -434,9 +434,12 @@ export function soundEvents(sb, chars) {
     let defs = chars; if (!defs) try { defs = loadCharacters(sb); } catch { defs = {}; }
     const known = { ...sb, cast: (sb.cast || []).filter((c) => defs[c.character]?.body) }; // 3D characters only (not the puppet's)
     for (const e of signatureEvents(known, defs, { actorState, cameraState })) ev.push({ ...e, pan: panOf(e.who), gain: signatureGain(e.kind) });
+    if (cfg.foley !== false && cfg.flaps !== false) ev.push(...wingFlaps(known, defs, panOf));
   }
   // a library sound already has its loudness from the catalog, so its gain is a multiplier (1 = as catalogued)
-  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isSignature(s.sound) ? signatureGain(s.sound) : isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
+  // the code "wings" bed (beats not tied to the picture) gives way to the auto flaps where they play
+  const flaps = ev.filter((e) => e.kind === "wing-flap").map((e) => e.at);
+  for (const s of sb.sfx || []) if (!(s.sound === "wings" && flaps.some((t) => t >= s.at && t <= s.at + (s.dur ?? 2)))) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isSignature(s.sound) ? signatureGain(s.sound) : isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
   return ev.sort((p, q) => p.at - q.at);
 }
 
@@ -459,6 +462,31 @@ function foley(sb, panOf) {
     }
     if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
     if (a.do === "sit" && a.at > 0.05) ev.push({ kind: "sit", at: a.at + (a.dur ?? 0.35) * 0.75, pan, gain: 1 });
+  }
+  return ev;
+}
+
+// a wing flap on every downstroke of a winged character in the air (Phoenix's flame wings, the Dragon's), from the same
+// phase the wings use on screen: page/timeline.js integrates 7 + 17 * flap for the Phoenix, the Dragon's wings run at
+// t * (6 + 16 * flap). The downstroke is where the flap angle falls fastest (phase = pi, mod 2 pi). Louder as the
+// flapping gets bigger, silent on the ground and for small idle flutters. Off with sound.flaps false, or when the
+// storyboard places its own wing-flap sounds. A placed code "wings" bed that they overlap is dropped (soundEvents).
+const WINGED = { phoenix: "integrated", dragon: "direct" };
+function wingFlaps(sb, defs, panOf) {
+  const ev = [], STEP = 1 / 120;
+  if ((sb.sfx || []).some((s) => /wing-flap/.test(s.sound))) return ev;
+  for (const c of sb.cast || []) {
+    const def = defs[c.character] || {}, kind = WINGED[def.costume?.type];
+    if (!kind || !(sb.actions || []).some((a) => a.who === c.id && (a.do === "fly" || a.do === "hover"))) continue;
+    let phase = 0, prev = null;
+    for (let t = 0; t <= sb.duration; t += STEP) {
+      const st = actorState(sb, c, def, t, true), fl = st.flap || 0;
+      phase = kind === "direct" ? t * (6 + 16 * fl) : phase + (7 + 17 * fl) * STEP;
+      const k = Math.floor((phase - Math.PI) / (2 * Math.PI));
+      if (prev != null && k > prev && fl >= 0.25 && (st.wings || 0) > 0.5 && st.visible !== false && t > 0.05)
+        ev.push({ kind: "wing-flap", at: t, pan: panOf(c.id), gain: 0.5 + 0.5 * Math.min(1, fl) });
+      prev = k;
+    }
   }
   return ev;
 }

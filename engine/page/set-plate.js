@@ -18,6 +18,7 @@ import * as THREE from "three";
 // Everything moving is a function of the frame time (globalThis.__setTicks, called by stage.js pose), so renders
 // stay deterministic. The pictures load before the first frame: stage.js waits for globalThis.__loads.
 export function addPlate(scene, P, ctx = {}) {
+  if (globalThis.__DIAG?.silhouette) return;   // debug silhouettes: shapes on a plain background
   const mat = new THREE.MeshBasicMaterial({ color: P.tint || "#ffffff", fog: false, toneMapped: false });
   mat.userData.noOutline = true;
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
