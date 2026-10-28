@@ -27,7 +27,16 @@ function sprout(color) {
     const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.003, 0.0045, 0.115, 6), vein); rib.position.set(0, 0.062, 0.01); leaf.add(rib);
     return { pivot, s };
   });
-  return { group: g, droop(d) { for (const L of leaves) L.pivot.rotation.z = -L.s * 0.9 * d; } };
+  // ft: follow-through (timeline.js st.ft), the stem bends with the lag and the leaves lift or flop with the bounce
+  let base = null;
+  return {
+    group: g,
+    droop(d, ft) {
+      for (const L of leaves) L.pivot.rotation.z = -L.s * 0.9 * (d - 0.8 * (ft?.u || 0));
+      base ??= g.rotation.clone();
+      g.rotation.set(base.x + 0.8 * (ft?.f || 0), base.y, base.z - 0.8 * (ft?.s || 0));
+    },
+  };
 }
 
 // a few deliberate folds in a tube made by taperedTube (no fine wrinkles): three broad ripples round the cone and two
@@ -265,6 +274,7 @@ export function buildCostume(def, ch) {
   };
   return {
     tip: prop && prop.tip ? prop.tip : null,
+    prop: prop ? prop.group : null,   // the held prop (stage.js face check: hands and held props have their own check)
     hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
     // the brim as a disc (potato.js contact(): arms reaching through it)
     hatBrim: hat && hat.brimR ? { group: hat.group, r: hat.brimR } : null,
@@ -290,9 +300,12 @@ export function buildCostume(def, ch) {
       mount.position.set(st.hatOff[0], top - sitDepth + st.hatOff[1], st.hatOff[2]);
       mount.rotation.set(st.hatSpin[0], st.hatSpin[1], st.hatSpin[2]);
       mount.visible = st.hatOn !== false;
-      sprt.droop(st.droop);
+      sprt.droop(st.droop, st.ft);
       if (pb) pb.apply(st, t);
-      if (hat && hat.sway) hat.sway(st.hatTip, st.hatBrim);
+      // follow-through on top of any hand-made sway: the tip trails, the brim's front lifts as the hat moves forward
+      const ft = st.ft || { f: 0, s: 0, u: 0 };
+      if (hat && hat.sway) hat.sway([st.hatTip[0] + ft.f, st.hatTip[1] + ft.s], st.hatBrim - 0.5 * ft.f);
+      for (const soft of ch.softParts || []) soft(ft);
       if (cc) cc.apply(st, t, hands, fries);
       if (prop) {
         prop.group.visible = !fries;

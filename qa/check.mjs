@@ -50,6 +50,7 @@ export const RULES = {
   // (metres, hand radius included) fails; within a centimetre for touchHold warns; a hand on screen over a face's
   // eyes fails from faceCoverFail (s), warns from faceCoverWarn; a fist over a head or a prop growing out of a body warns
   reachIn: 0.02, touchHold: 0.2, faceCoverFail: 0.3, faceCoverWarn: 0.1, readHold: 0.2,
+  faceHide: 0.35,   // share of the eye points hidden (stage.js hiddenFaces) that counts as a hidden face: about a third
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
   strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
@@ -83,7 +84,8 @@ export const PROFILES = {
 
 // which group each check belongs to (anything not listed is technical)
 const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "cartoon-only": "publishing",
-  opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative" };
+  opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
+  "eyes-lead": "creative", "reaction-hold": "creative" };
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
@@ -242,6 +244,21 @@ function reachResults(layout, sb) {
   }
   const heads = track((x) => `${x.by}|${x.head}`, (r) => (r.covers || []).filter((x) => x.head));
   for (const { x, f } of heads.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.by}'s fist (holding the prop) sits over ${x.by === x.head ? "its own" : x.head + "'s"} head on screen at ${list(sps)}: it reads as stuck on the head; hold it out to the side` }); }
+  // a face hidden by another character, a hat brim, wings or a prop (stage.js hiddenFaces) while that character acts: a
+  // line, or the first second of a new expression. Hidden by RULES.faceHide or more for faceCoverFail s fails
+  const acts = sb?.actions || [];
+  const acting = (id, t) => acts.some((a) => a.who === id && (((a.do === "talk" || a.do === "say") && t >= a.at - 0.1 && t <= a.at + (a.dur ?? 1)) || (a.do === "expr" && t >= a.at && t <= a.at + 1)));
+  const hid = track((x) => `${x.face}|${x.by}`, (r) => (r.faces || []).filter((x) => x.hidden >= RULES.faceHide && !allowed(x.by, x.face, rows.indexOf(r))));
+  for (const { x, f } of hid.values()) {
+    const sps = runs(f.map((v, i) => v && acting(x.face, i / fps)), frames(RULES.faceCoverWarn));
+    if (!sps.length) continue;
+    const by = x.by === x.face ? "its own hat or costume" : x.by;
+    // standing behind someone (most of the body hidden too) is staging: the reaction just won't be seen
+    const behind = sps.every(([p, q]) => rows.slice(p, q + 1).every((r) => (r.faces || []).some((y) => y.face === x.face && (y.body ?? 0) >= 0.5)));
+    if (behind) { out.push({ level: "warn", check: "face-hidden", msg: `${x.face} acts (a line or a reaction) behind ${by} at ${list(sps)}: the face can't be seen; fine if it isn't their moment` }); continue; }
+    const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
+    out.push({ level: lvl, check: "face-hidden", msg: `${x.face}'s eyes are hidden behind ${by} while acting (a line or a reaction) at ${list(sps)}: move one of them or the camera, or add an allowClip window with a reason` });
+  }
   const sprout = track((x) => `${x.who}|${x.behind}`, (r) => r.sprout || []);
   for (const { x, f } of sprout.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.who}'s fist is hidden behind ${x.behind === x.who ? "its own body" : x.behind} at ${list(sps)} while the prop shows: it reads as growing out of the body` }); }
   if (!found) out.push({ level: "pass", check: "character-overlap", msg: "hands and held props stay out of the other characters and off the faces" });
@@ -419,7 +436,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     if (!sb.music?.lock) sb.music = lockMusic(sb);   // the grid the render used (dance moves follow it)
     const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
     res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
-    for (const r of await storyNotes(sb, sb.fps ?? 30)) res.push({ group: "technical", ...r });
+    for (const r of await storyNotes(sb, sb.fps ?? 30)) { const group = groupOf(r.check); res.push({ group, ...r, ...(group === "creative" && { level: "note" }) }); }
     // the sound (qa/sound.mjs): repeats, sounds with nothing on screen, the floor, the music lock, then on the file
     // its sync to the picture and how each effect stands over the bed
     res.push(...soundNotes(sb), ...(fs.existsSync(o.clip) ? soundMeasure(o.clip, sb, loadCharacters(sb)) : []));

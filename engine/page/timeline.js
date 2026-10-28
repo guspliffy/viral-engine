@@ -65,6 +65,45 @@ function phases(sb, actor, def, t) {
   return { flapPhase: P.flap[k] + f * r, chargePhase: P.charge[k] + c * r };
 }
 
+// Follow-through: soft parts on top (a hat's tip and brim, the sprout, a crest, a tail, a cape) trail the body and
+// settle after it stops. The top of the head pulls a damped spring (about 2.2 Hz, a visible overshoot or two, settled
+// within half a second); how far the spring lags, in the body's own frame, becomes the part's bend: st.ft = { f, s, u },
+// in radians, f toward the front, s toward the actor's +x, u up. A turn adds a sideways lag of its own. Like the wing
+// beat, the spring is stepped at a fixed rate from 0 and cached, so a frame comes out the same in a still, a draft or
+// a full render. A hard cut or a jump of the body (a re-placement) resets it, so nothing swings at a cut.
+// cast `sway` scales it per actor (0 turns it off); sb.followThrough: false turns it off for the clip.
+const FT = { w: 2 * Math.PI * 2.2, z: 0.35, gain: 2.0, turn: 0.45, max: 0.35, dt: 1 / 120 };
+const FTS = new WeakMap();
+const soft = (x) => FT.max * Math.tanh(x / FT.max);
+function headOf(st, H) {
+  const h = H * st.squash * (st.scale ?? 1), p = st.pitch || 0, l = st.lean || 0, cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
+  const x = -h * Math.sin(l), y = h * Math.cos(l) * Math.cos(p), z = h * Math.cos(l) * Math.sin(p);
+  return [st.x + x * cy + z * sy, st.y + y, st.z - x * sy + z * cy, st.yaw, st.visible !== false];
+}
+function followThrough(sb, actor, def, t) {
+  const amt = sb.followThrough === false ? 0 : actor.sway ?? 1;
+  if (!amt || !def?.body) return { f: 0, s: 0, u: 0 };
+  let per = FTS.get(sb); if (!per) { per = new Map(); FTS.set(sb, per); }
+  let F = per.get(actor.id);
+  if (!F) { F = { out: [], X: null, V: [0, 0, 0], Y: 0, VY: 0, prev: null }; per.set(actor.id, F); }
+  const k = Math.max(0, Math.floor(t / FT.dt) + 1), { w, z, dt } = FT;
+  for (let i = F.out.length; i <= k; i++) {
+    const u = i * dt, P = headOf(actorState(sb, actor, def, u, true), def.body.height);
+    // start at rest; a cut, a jump of more than 15 cm in one step (re-placed) or a hidden body starts it again
+    if (!F.X || !P[4] || (F.prev && (Math.hypot(P[0] - F.prev[0], P[1] - F.prev[1], P[2] - F.prev[2]) > 0.15 || cutBetween(sb, u - dt, u)))) {
+      F.X = P.slice(0, 3); F.V = [0, 0, 0]; F.Y = P[3]; F.VY = 0;
+    }
+    for (let j = 0; j < 3; j++) { F.V[j] += (w * w * (P[j] - F.X[j]) - 2 * z * w * F.V[j]) * dt; F.X[j] += F.V[j] * dt; }
+    F.VY += (w * w * (P[3] - F.Y) - 2 * z * w * F.VY) * dt; F.Y += F.VY * dt;
+    const L = [F.X[0] - P[0], F.X[1] - P[1], F.X[2] - P[2]], cy = Math.cos(P[3]), sy = Math.sin(P[3]);
+    const lx = L[0] * cy - L[2] * sy, lz = L[0] * sy + L[2] * cy;
+    F.out.push([soft(FT.gain * lz), soft(FT.gain * lx - FT.turn * (F.Y - P[3])), soft(FT.gain * L[1])]);
+    F.prev = P;
+  }
+  const i = Math.floor(t / FT.dt), r = t / FT.dt - i, a = F.out[i], b = F.out[i + 1] || a;
+  return { f: amt * lerp(a[0], b[0], r), s: amt * lerp(a[1], b[1], r), u: amt * lerp(a[2], b[2], r) };
+}
+
 // where the eyes look at time u, from the look actions alone (the body's follow reads it a little in the past)
 function lookAt(looks, u) {
   let l = [0, 0];
@@ -355,7 +394,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = (t + off) % period;
     if (blinkFree(sb, c.id, t - ph)) st.blink = blinkAt(ph);
   }
-  if (!raw) { Object.assign(st, phases(sb, actor, def, t)); resolveArms(sb, st, def, t); }
+  if (!raw) { Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t); resolveArms(sb, st, def, t); }
   return st;
 }
 
