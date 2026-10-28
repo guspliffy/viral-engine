@@ -63,3 +63,14 @@ Change made: the opening shot (A/B shot 01, C's first shot) is now a close two-s
 
 **Reading:** on mute, the caption is what makes this setup read; without it the green paint looks like the Astronaut's real face (which the twist needs later, but it hides the "makeup" want at the start). Starting on the result (C) removes the one clue (the brush). Recommendation: **B**.
 Open point from two readers: the hand mirror reads as a magnifying glass at phone size.
+
+## First numbers (TikTok, read 28 Oct ~20:35 Berlin, 1.5 h after posting at 19:06)
+
+160 views, avg watch 3.8 s, 15 % finished, 95.6 % For You, no likes yet. Retention per second 0-10 s:
+100, 79, 45, 30, 24, 20, 18, 16, 16, 14, 13 %. Held at 2 s: **45 %**, the lowest of the seven posts (others 48-67 %),
+with the biggest one-second fall in the set (79 -> 45 between 0:01 and 0:02; others 15-24 points).
+
+Reading (early, 160 views, about +-4 points of noise): the caption sets up "bad makeup by a friend", and 1-2 s shows
+exactly that (proud Wizard, green visor from the front), so nothing promises a twist; the wrong-surface joke only reads
+when the visor lifts at 3.3-5.5 s. The cold read rated B best of the three openings, but it only measured whether the
+premise was understood, not whether viewers wanted to see what happens next. Re-read at 72 h before concluding.
