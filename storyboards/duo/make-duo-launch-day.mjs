@@ -274,8 +274,8 @@ for (const [i, id] of WAIT.entries()) {
 }
 
 // ---------------------------------------------------------------- 09 THEY SAW IT 8.20-9.00 (eyes A -> B, then turn)
-// the front three tuck their hands in for the close shot (their rest arms reach toward each other over the belt)
-c.arm(8.19, "sam", "R", { x: [-0.12, 0.36, 0.42] }, 0.005); c.arm(8.19, "rea", "L", { x: [0.12, 0.36, 0.42] }, 0.005);
+// the front two pull their hands in as they freeze (their rest arms reach toward each other over the belt)
+c.arm(8.21, "sam", "L", { x: [0.12, 0.36, 0.42] }, 0.16); c.arm(8.21, "rea", "R", { x: [-0.12, 0.36, 0.42] }, 0.16);   // they freeze and pull their hands in
 for (const [i, id] of ["sam", "rea", "gun"].entries()) {
   A(8.2, id, "still", { dur: 0.45, idle: 0.02 });
   A(8.22, id, "expr", { set: { curve: 0.2, open: 0.0, eye: 1.25, pupil: 0.72 }, dur: 0.08 });   // the eager smile freezes
@@ -349,7 +349,7 @@ const sb = (variant, captions) => ({
   fps: FPS, look: "anime-pro", profile: "short", loop: false,
   creative: { length: [8, 14], loop: false },
   set: { type: "storefront", seed: 5, light: "golden", key: [5.5, 5.0, 3.6], shadowSize: 7, wallZ: -9, aperture: 0, bloom: "emissive" },
-  music: { file: "ai/epic/epic-01.ogg", until: SNAP, gain: 0.35 },
+  music: { file: "ai/epic/epic-02.ogg", until: SNAP, gain: 0.35 },
   sound: { sfx: 0.7, ambience: 0.1, speech: false },
   experiment: { id: "hook-2026-11", episode: "duo-launch-day", variant },
   cast, props, captions, beats,
