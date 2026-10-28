@@ -20,6 +20,7 @@ import { buildCottage } from "./set-cottage.js";
 import { buildApartment } from "./set-apartment.js";
 import { buildElevator } from "./set-elevator.js";
 import { buildRoad } from "./set-road.js";
+import { buildStorefront } from "./set-storefront.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -74,6 +75,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "apartment") return buildApartment(scene, spec);   // set-apartment.js
   if (type === "elevator") return buildElevator(scene, spec);   // set-elevator.js
   if (type === "road") return buildRoad(scene, spec);   // set-road.js: a treadmill road for the car clips
+  if (type === "storefront") return buildStorefront(scene, spec);   // set-storefront.js: the DUO launch-day store
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });

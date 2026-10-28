@@ -1,0 +1,63 @@
+{
+ "id": "duo/phoenix",
+ "name": "Phoenix (DUO: Launch Day, weapon stowed, glove hands)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Ember) and game/ui/draw-fighters.js (flame crest, flame wings)",
+ "rig": "potato",
+ "body": {
+  "color": "#f2c46b",
+  "height": 1.0,
+  "width": 0.84,
+  "depth": 0.72,
+  "lump": 0.03,
+  "seed": 9
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.032
+ },
+ "face": {
+  "default": "eager",
+  "iris": "#4a1f14",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "eye": 1.0,
+   "curve": 0.5,
+   "open": 0,
+   "tilt": 0.2
+  },
+  "eye": {
+   "flick": 1
+  },
+  "browShape": {
+   "arch": 0.07
+  },
+  "blush": 1.2
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "phoenix",
+  "accent": "#ff6a2b",
+  "tip": "#ffd23f"
+ },
+ "personality": "Wants to impress people and feel capable; commits to elaborate shortcuts before understanding the problem; enthusiastic, generous, keeps trying. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "tts": "phoenix",
+ "voice": {
+  "pitch": 205,
+  "rate": 4.3,
+  "formant": 1.2,
+  "range": 6,
+  "breath": 0.05,
+  "vibrato": 0.02,
+  "seed": 11
+ },
+ "voiceNote": "gibberish, bright and quick (same as the puppet voice, puppet/cast.json)",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ },
+ "notes": ""
+}
