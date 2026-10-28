@@ -35,7 +35,7 @@ export const ROOMS = {
 export const SET_ROOMS = {
   kitchen: "room", apartment: "room", bedroom: "room", livingroom: "livingroom", party: "livingroom", restaurant: "livingroom",
   office: "office", elevator: "box", bathroom: "tiles", classroom: "classroom", gym: "hall", haunted: "manor",
-  cottage: "cottage", porch: "porch", rooftop: "street", street: "street", forest: "forest",
+  cottage: "cottage", porch: "porch", rooftop: "street", street: "street", storefront: "street", forest: "forest",
   meadow: "open", hills: "open", park: "open", garden: "open", backyard: "open",
 };
 
