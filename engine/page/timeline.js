@@ -40,6 +40,7 @@ export const GRIPS = {
   rim:   { curl: 0.55, index: 0.5,  thumb: 0.35 },   // a half-curled hand pressed on the edge of a seat or a board  // holding a phone, the thumb lifted off the screen to flick it
   // a teacup or mug handle: the fist closes round the handle's upright bar (axis: up), thumb on top of the handle, the
   // curled fingers under and round it, lying against the cup body in front
+  thumb: { curl: 1.2,  index: 1.2,  thumb: 0.0 },   // thumbs up: a fist with the thumb straight (forearm forward, palm in: it points up)
   teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
 };
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below)
