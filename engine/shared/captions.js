@@ -3,8 +3,10 @@
 // and qa/ see the same times. Shared by Node (compile.mjs) and the page (stage.js reads the result).
 //
 // A caption's words are matched to the talk lines that overlap it (the say macro's line, or a hand-written caption
-// whose words are the line's words). A matched word starts at its share of the line's spoken time, weighted by its
-// syllables; a word nobody says (a narrator's hook) pops in on a quick stagger instead. When a caption carries on
+// whose words are the line's words), and to narrated lines that have a real voice. With real speech
+// (engine/voice/speech.mjs) a matched word pops in when the voice starts it and stays lit until the next word starts,
+// from the voice model's own phoneme timings; without it, at its share of the line's time, weighted by its
+// syllables. A word nobody says (a narrator's hook without a voice) pops in on a quick stagger instead. When a caption carries on
 // the one before it ("and share a…" then "and share a\nFUN FACT."), the words already on screen stay put and the
 // first caption doesn't play its exit.
 
@@ -15,9 +17,31 @@ export const tokens = (text) => text.split(/\s+/).filter(Boolean);
 // ALL CAPS words (two letters or more) and *starred* words are the caption's punch: drawn in the accent colour
 export const isPunch = (w) => /^\*.+\*[^\p{L}]*$/u.test(w) || (/\p{Lu}.*\p{Lu}/u.test(w) && w === w.toUpperCase());
 export const shown = (w) => w.replace(/\*/g, "");
+const ms = (t) => Math.round(t * 1000) / 1000;
+
+// Real speech -> word times. phones: [[symbol, start, length], ...] from engine/voice/tts.py, where word gaps and
+// punctuation are phones of their own. Returns one entry per token of the line: [start, end] in seconds from the
+// line's start for a spoken word, null for a token with no letters ("…", "—"). null overall when the voice read the
+// line as a different number of words ("10" -> "ten" is fine, "trick-or-treat" may not be), so the caption keeps
+// the syllable guess rather than drift.
+const BREAK = /[\s.,!?;:—…"()«»“”¡¿-]/;
+export function wordTimes(phones, line) {
+  const said = [];
+  let cur = null;
+  for (const [ph, t0, d] of phones) {
+    if (BREAK.test(ph)) { cur = null; continue; }
+    if (!cur) said.push((cur = [t0, t0 + d])); else cur[1] = t0 + d;
+  }
+  const toks = tokens(line), spoken = toks.map((w) => /[\p{L}\p{N}]/u.test(w));
+  if (spoken.filter(Boolean).length !== said.length) return null;
+  let k = 0;
+  return toks.map((_, i) => (spoken[i] ? said[k++].map(ms) : null));
+}
 
 export function timeCaptionWords(sb) {
-  const talks = (sb.actions || []).filter((a) => a.do === "talk" && a.line);
+  // narrated lines count only with a real voice: without one nobody says them
+  const talks = [...(sb.actions || []).filter((a) => a.do === "talk" && a.line),
+    ...(sb.sfx || []).filter((s) => s.sound === "speech" && s.line && s.speech)];
   const caps = sb.captions || [];
   caps.forEach((c, ci) => {
     const words = tokens(c.text), out = words.map(() => ({ at: null }));
@@ -35,16 +59,27 @@ export function timeCaptionWords(sb) {
       const lw = tokens(a.line).map(norm);
       for (let s = from; s + lw.length <= words.length; s++) {
         if (!lw.every((w, i) => w === norm(words[s + i]))) continue;
-        const dur = a.dur ?? 1, wt = lw.map((_, i) => syllables(words[s + i])), tot = wt.reduce((p, q) => p + q, 0);
-        let acc = 0;
-        lw.forEach((_, i) => { out[s + i] = { at: Math.round((a.at + (dur * acc) / tot) * 1000) / 1000, end: Math.round((a.at + (dur * (acc + wt[i])) / tot) * 1000) / 1000, who: a.who }; acc += wt[i]; });
+        const said = a.speech?.words?.length === lw.length ? a.speech.words : null;
+        if (said) {
+          // the voice's own word starts; a word stays lit through the gap until the next one starts
+          let at = a.at;
+          lw.forEach((_, i) => { if (said[i]) at = ms(a.at + said[i][0]); out[s + i] = { at, who: a.who }; });
+          let end = null;
+          for (let i = lw.length - 1; i >= 0; i--) {
+            if (said[i]) { out[s + i].end = end ?? ms(a.at + said[i][1]); end = out[s + i].at; } else out[s + i].end = end ?? ms(a.at + (a.dur ?? 1));
+          }
+        } else {
+          const dur = a.dur ?? 1, wt = lw.map((_, i) => syllables(words[s + i])), tot = wt.reduce((p, q) => p + q, 0);
+          let acc = 0;
+          lw.forEach((_, i) => { out[s + i] = { at: ms(a.at + (dur * acc) / tot), end: ms(a.at + (dur * (acc + wt[i])) / tot), who: a.who }; acc += wt[i]; });
+        }
         from = s + lw.length;
         break;
       }
     }
     // unspoken words pop in on a stagger after the word before them (or the caption's start)
     let last = c.from - STAGGER;
-    for (const w of out) { if (w.at == null) w.at = Math.round(Math.max(c.from, last + STAGGER) * 1000) / 1000; last = Math.max(last, w.at); }
+    for (const w of out) { if (w.at == null) w.at = ms(Math.max(c.from, last + STAGGER)); last = Math.max(last, w.at); }
     c.words = out;
   });
   return sb;
