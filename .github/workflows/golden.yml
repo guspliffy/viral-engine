@@ -1,0 +1,41 @@
+# Golden stills (qa/golden.mjs) on every pull request that touches the engine, characters or assets: the 12 approved
+# frames are drawn again and compared pixel by pixel. A change fails the check, and the run's "golden" artifact holds
+# the sheet (approved | new | difference | zoom) for 3 days. If the change is wanted (Jonny approved the new look),
+# run node qa/golden.mjs --update <names> and commit qa/golden/.
+name: Golden stills
+on:
+  pull_request:
+    paths:
+      - "engine/**"
+      - "characters/**"
+      - "assets/**"
+      - "qa/golden*"
+      - "qa/golden/**"
+      - "qa/pixels.mjs"
+      - "package-lock.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  golden:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Compare with the approved stills
+        shell: bash
+        run: |
+          node qa/golden.mjs | tee golden.txt
+          status=${PIPESTATUS[0]}
+          { echo '```'; cat golden.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden
+          path: |
+            out/golden/sheet.png
+            out/golden/golden.json
+          retention-days: 3
+          if-no-files-found: ignore

@@ -63,8 +63,10 @@ function synthesise(jobs) {
 
 // sb: the storyboard as written (beats or flat). Returns a copy whose say/narrate items (or flat talk actions with a
 // line) carry dur = spoken length and speech = { id, mouth }. Characters: { "potatobrawl/reaper": {...} }.
+// SPEECH=off in the environment does the same as "speech": false for every storyboard (qa/golden.mjs: the golden
+// stills keep their timing whether or not the voice model is set up on the machine)
 export function withSpeech(sb, chars) {
-  if (sb.sound?.speech === false) return sb;
+  if (sb.sound?.speech === false || process.env.SPEECH === "off") return sb;
   const out = structuredClone(sb), lines = [];
   const castVoice = (who) => { const c = (sb.cast || []).find((x) => x.id === who); return c && chars[c.character]?.tts; };
   const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, job: job(item.line, rec, opts) }); };
