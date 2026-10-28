@@ -112,21 +112,27 @@ async function mux(video, wav, outFile, from, len) {
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
-  const gain = LOUDNESS.I - Number(j.input_i);
+  let gain = LOUDNESS.I - Number(j.input_i);
   // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
   // otherwise comes out of the AAC encoder above the true-peak limit). It starts 0.6 dB below the target, since AAC
   // rings over a bright transient (a blade "ting"); a very sharp click (a door latch) can still ring well over it
-  // after encoding, so the encoded file is measured and, while it is over, encoded again with the limit lowered
-  let ceiling = LOUDNESS.TP - 0.6, tp = null;
-  for (let round = 0; round < 4; round++) {
+  // after encoding, so the encoded file is measured and, while it is over, encoded again with the limit lowered.
+  // On a sparse mix (no music, a few loud effects over room tone) the limiter also takes loudness away: when the file
+  // lands more than 0.5 LU under the target, the gain goes up by the shortfall (at most 6 dB in all) and it is redone
+  let ceiling = LOUDNESS.TP - 0.6, tp = null, lufs = null;
+  const gain0 = gain;
+  for (let round = 0; round < 6; round++) {
     const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${Math.pow(10, ceiling / 20).toFixed(4)}:attack=2:release=60:level=0,aresample=44100`;
     await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", af, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
     const e = await ffmpeg(["-hide_banner", "-nostats", "-i", outFile, "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"]);
-    tp = Number((e.slice(e.lastIndexOf("Summary:")).match(/Peak:\s+(-?[\d.]+)/) || [])[1]);
-    if (!(tp > LOUDNESS.TP + 0.5)) break;
-    ceiling -= (tp - LOUDNESS.TP) / 2 + 0.2;   // half the excess at a time: the ringing does not shrink dB for dB
+    const sum = e.slice(e.lastIndexOf("Summary:"));
+    tp = Number((sum.match(/Peak:\s+(-?[\d.]+)/) || [])[1]);
+    lufs = Number((sum.match(/I:\s+(-?[\d.]+) LUFS/) || [])[1]);
+    if (tp > LOUDNESS.TP + 0.5) { ceiling -= (tp - LOUDNESS.TP) / 2 + 0.2; continue; }   // half the excess at a time: the ringing does not shrink dB for dB
+    if (lufs < LOUDNESS.I - 0.5 && gain < gain0 + 6) { gain = Math.min(gain0 + 6, gain + LOUDNESS.I - lufs); continue; }
+    break;
   }
-  return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp), truePeak: tp };
+  return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp), truePeak: tp, lufs };
 }
 
 // entries marked { "only": "anime" } (or a list of styles) are used only when rendering in that style
