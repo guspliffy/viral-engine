@@ -146,7 +146,7 @@ act(1.08, "b", "move", to=B_SERVE, dur=0.35, ease="inOut")
 prop(1.3, "door", 0.55, ease="out", open=1)
 sfx(1.3, "creak", 0.22, dur=0.5)
 act(1.75, "wiz", "move", to=WIZ_SERVE, dur=0.55, ease="inOut")
-sfx(2.25, "step", 0.25)
+sfx(2.25, "step-wood", 0.8)
 act(1.9, "wiz", "expr", expr="happy", dur=0.2)
 act(2.0, "wiz", "look", to=[0.15, -0.55], dur=0.25, blink=False)
 for k, d in (("a", 0.0), ("b", 0.08)):
@@ -255,7 +255,7 @@ for k in ("a", "b"):
     act(P5, k, "still", dur=S["realize"] - P5 - 0.2, idle=0.0, fade=0.2)    # the slow motion holds them
     act(P5, k, "arm", side=THROW_SIDE[k], pose=THROW_UP, dur=0.01)
 act(P5 + 0.25, "sam", "move", to=SAM_OUT, dur=0.6, ease="inOut", steps=1.0)
-sfx(P5 + 0.82, "step", 0.6)
+sfx(P5 + 0.82, "step-wood", 1.3)
 act(P5 + 0.82, "sam", "squash", amount=0.05, dur=0.25)
 act(P5, "sam", "still", dur=0.2, idle=0.05)
 sfx(P5, "sting", 0.35)
@@ -338,8 +338,8 @@ for k, d, to, steps in (("a", 0.0, A_FLEE, 5.0), ("b", 0.18, B_FLEE, 6.5)):
     act(P12 + 0.05 + d, k, "move", to=to, dur=1.6, ease="in", steps=steps)
     act(P12 + 0.05 + d, k, "arm", side="R", pose={"o": [0.22, 0.5, 0.1]}, dur=0.2)
     act(P12 + 0.05 + d, k, "arm", side="L", pose={"o": [0.22, 0.5, 0.1]}, dur=0.2)
-for t in (P12 + 0.25, P12 + 0.5, P12 + 0.75, P12 + 1.0):
-    sfx(t, "step", 0.18)
+for t in (P12 + 0.25, P12 + 0.55, P12 + 0.75, P12 + 1.0):   # on the first kid's footfalls
+    sfx(t, "step-wood", 0.8)
 act(P11 - 0.3, "sam", "arm", side="R", pose=HOLD_UP, dur=0.5, ease="inOut")
 act(P11 - 0.3, "sam", "tilt", to=HOLD_UP_T, dur=0.5)
 act(P12 + 1.2, "sam", "blink")

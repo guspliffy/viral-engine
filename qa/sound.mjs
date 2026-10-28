@@ -23,7 +23,8 @@
 //   ears-sync      earshot listens to the file and finds the onset that answers each hit's picture moment (knocks,
 //                  slams, put-downs; not footsteps): the share within a frame, against what chance would score
 //   ears-floor     each footstep, heard on its own as the engine placed it, against the other floors: does it sound
-//                  like the set's floor (wood, carpet, concrete...)
+//                  like the set's floor (wood, carpet, concrete...). Earshot can't tell grass from snow or carpet
+//                  from other indoor floors (qa/ears.py SAME), so those only fail on a clear contradiction.
 //                  Install once: clone earshot next to this repo (../earshot), make its .venv with CPU torch,
 //                  pip install -e ., earshot doctor --fetch. Or point EARSHOT_PYTHON at a Python that has it.
 import fs from "node:fs";
@@ -41,6 +42,18 @@ const SR = 44100, FRAME = 1 / 30;
 const NOT_PHYSICAL = /^(sting|sadslide|jingle|ui-|notify|ringtone|gasp|speech|magic-up|kenney\/(tone|two-tone|three-tone|pep-sound|power-up))/;
 const WHOOSH = /whoosh|swish/;
 const QUIET_ACTIONS = new Set(["look", "blink", "noblink", "expr", "still"]);
+// the physical moments of the storyboard: actions starting and ending, and every footfall of a walk (a foot lands
+// every half step cycle, as in audio.mjs foley and page/potato.js)
+function physicalMoments(sb) {
+  const out = [];
+  for (const a of sb.actions || []) {
+    if (QUIET_ACTIONS.has(a.do)) continue;
+    const d = a.dur ?? 0.3; out.push(a.at, a.at + d);
+    if (a.do === "move" && (a.steps ?? 2.2) > 0) for (let t = 0.5 / (a.steps ?? 2.2); t < d; t += 0.5 / (a.steps ?? 2.2)) out.push(a.at + t);
+  }
+  for (const f of sb.fx || []) out.push(f.at);
+  return out;
+}
 const list = (ts) => ts.slice(0, 6).map((t) => `${(+t).toFixed(2)}s`).join(", ") + (ts.length > 6 ? ", ..." : "");
 
 export function soundNotes(sb) {
@@ -49,9 +62,8 @@ export function soundNotes(sb) {
   const wh = ev.filter((e) => WHOOSH.test(e.kind));
   if (wh.length > 2) add("warn", "whoosh-repeat", `${wh.length} whooshes (${list(wh.map((e) => e.at))}): more than two of the same air sound reads cheap; vary them (shing, cloth, flutter) or drop the quieter ones`);
   // physical moments: actions starting and ending, effects
-  const moments = [], spans = [];
-  for (const a of sb.actions || []) if (!QUIET_ACTIONS.has(a.do)) { const d = a.dur ?? 0.3; moments.push(a.at, a.at + d); spans.push([a.at, a.at + d]); }
-  for (const f of sb.fx || []) moments.push(f.at);
+  const moments = physicalMoments(sb), spans = [];
+  for (const a of sb.actions || []) if (!QUIET_ACTIONS.has(a.do)) spans.push([a.at, a.at + (a.dur ?? 0.3)]);
   const lonely = [];
   for (const s of sb.sfx || []) {
     if (s.reason || NOT_PHYSICAL.test(s.sound)) continue;
@@ -81,13 +93,11 @@ function envelope(x, hop) { const e = new Float64Array(Math.floor(x.length / hop
 const db = (p) => 10 * Math.log10(p + 1e-12);
 
 // timing from a render of the sound (no clip needed): each named hit's loudest moment against the physical moment
-// nearest to it (an action starting or ending, an effect). Automatic sounds (footfalls, hops, grabs) are placed by
+// nearest to it (an action starting or ending, a footfall, an effect). Automatic sounds (footfalls, hops, grabs) are placed by
 // the engine on its own moments and aren't re-checked.
 export function soundTiming(sb, events) {
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
-  const moments = [];
-  for (const a of sb.actions || []) if (!QUIET_ACTIONS.has(a.do)) moments.push(a.at, a.at + (a.dur ?? 0.3));
-  for (const f of sb.fx || []) moments.push(f.at);
+  const moments = physicalMoments(sb);
   const named = new Set((sb.sfx || []).filter((s) => !s.reason).map((s) => `${s.sound}@${s.at}`));
   const hits = events.filter((e) => e.hit != null && isHit(e.kind) && named.has(`${e.kind}@${e.at}`)), off = [];
   for (const e of hits) {
@@ -178,7 +188,7 @@ export function soundEars(clip, sb, chars) {
   if (f?.n) {
     const heard = Object.entries(f.heard).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${v}x "${k}"`).join(", ");
     const kinds = [...new Set(a.events.filter((e) => e.samples && /^step/.test(e.kind)).map((e) => e.kind))].join(", ");
-    add(f.share >= 0.5 ? "pass" : "warn", "ears-floor", `${f.top} of ${f.n} footsteps (${kinds}) sound most like ${fl.surface} against the other floors (heard: ${heard}; median p ${f.median_p})${f.share < 0.5 && !kinds.includes(`step-${fl.surface}`) ? `: the clip uses ${kinds}, not step-${fl.surface}` : ""}`);
+    add(f.share >= 0.5 ? "pass" : "warn", "ears-floor", `${f.top} of ${f.n} footsteps (${kinds}) sound like ${fl.surface}${["grass", "snow", "carpet", "indoor"].includes(fl.surface) ? " or a floor earshot can't tell from it" : ""} against the other floors (heard: ${heard}; median p ${f.median_p})${f.share < 0.5 && !kinds.includes(`step-${fl.surface}`) ? `: the clip uses ${kinds}, not step-${fl.surface}` : ""}`);
   }
   return out;
 }
