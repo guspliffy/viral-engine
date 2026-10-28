@@ -33,7 +33,7 @@ import { chromium } from "playwright-core";
 import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
-import { renderBeat, musicFlavour, seedOf } from "../puppet/beat.mjs";
+import { lockMusic, addMusic } from "./music.mjs";
 import { clipResults, contactResults } from "../qa/check.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -157,18 +157,6 @@ function applyStyle(sb, style) {
   return out;
 }
 
-// a recorded music bed (assets/music/..., e.g. the AI beds in assets/music/ai): looped to fill the clip from `from`
-// (default 0) and cut at `until` (default the end) with a 40 ms fade, so "the music stops" lands on its frame
-function fileMusic(music, dur, sr) {
-  const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(ROOT, "assets/music", music.file), "-ac", "2", "-ar", String(sr), "-f", "f32le", "-"], { maxBuffer: 1 << 29 });
-  if (r.status !== 0) throw new Error(`music: can't decode ${music.file}: ${r.stderr}`);
-  const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length)), m = x.length / 2;
-  const n = Math.round(dur * sr), L = new Float32Array(n), R = new Float32Array(n);
-  const a = Math.round((music.from ?? 0) * sr), b = Math.min(n, Math.round((music.until ?? dur) * sr)), fade = Math.round(0.04 * sr);
-  for (let i = a; i < b; i++) { const k = (i - a) % m, f = Math.min(1, (b - i) / fade); L[i] = x[2 * k] * f; R[i] = x[2 * k + 1] * f; }
-  return { L, R };
-}
-
 async function main() {
   const o = args();
   const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
@@ -176,8 +164,9 @@ async function main() {
   // a look (engine/page/looks.js) sits on top of a style; anime-pro keeps the anime style's devices (impact frames)
   const look = o.look || raw.look || null;
   const style = o.style || raw.style || (look === "anime-pro" ? "anime" : "standard"), sb = applyStyle(raw, style);
-  // pin the seeded tempo so dance moves on the page follow the same beat as the music
-  if (sb.music !== false) sb.music = { ...(sb.music || {}), bpm: musicFlavour(sb.music || {}, seedOf(sb)).bpm };
+  // the music's tempo and grid, locked to the story (engine/music.mjs) and pinned, so dance moves on the page follow
+  // the same beat as the music
+  sb.music = lockMusic(sb);
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
@@ -191,15 +180,8 @@ async function main() {
   if (!o.stills && !o.silent && !o.layoutOnly) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
-    // background music (puppet/beat.mjs): on by default, a different variation per clip (seeded by the id);
-    // "music": false turns it off, a music block pins tempo, style, key and parts
-    const music = sb.music === false ? null : { gain: 0.45, ...(sb.music || {}) };
-    if (music) {
-      const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain ?? 0.5; let pk = 0;
-      console.log(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
-      for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
-      if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
-    }
+    // background music (puppet/beat.mjs, or a recorded bed): on by default, a different variation per clip
+    for (const line of addMusic(sb, audio)) console.log(line);
     writeWav(wavFile, audio.L, audio.R, audio.sr);
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);

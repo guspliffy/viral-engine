@@ -53,6 +53,15 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   storyboard's `seed`, else its experiment id + episode, else its id; the seed picks style, key, chords, tempo and lead. Never
   reuse one track across different clips. Pin options in a `music` block (`style`, `styles` pool, `key`,
   `progression`, `bpm`, `lead`, `drums`, `parts`, `seed`, `gain`), or set `"music": false` for a trend sound.
+- **Music is locked to the story** (`engine/music.mjs`): the tempo (inside the style's range) and the grid are picked
+  so the payoff lands on beat 1 (mark it `"kind": "payoff"`; else a beat named payoff/reveal, else the last
+  escalation), a recorded bed's stop (`until`) lands on a bar line, and parts and hits sit near beats. Without its own
+  `parts` a clip gets one beat of silence before the payoff and a drop on it. `"lock": false` or a pinned `offset`
+  opts out; dance clips stay on their own grid.
+- **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
+  sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
+  than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
+  more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
@@ -109,7 +118,8 @@ The output is a **beat storyboard** (relative timing + macros): see `docs/STORYB
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs` on the final MP4,
+5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
+   (earshot listens: hits on their frame, footsteps on the right floor),
    a 15 fps strip of every contact moment, then **creative director review B (cut)**
    on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.

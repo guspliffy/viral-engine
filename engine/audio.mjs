@@ -11,7 +11,7 @@ import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng, hopCrouch } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
-import { isLibrarySound, librarySound, surfaceOf } from "./sfx/library.mjs";
+import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
 
 const SR = 44100;
 const TAU = Math.PI * 2;
@@ -489,9 +489,14 @@ export function renderAudio(sb, chars) {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
     } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
-    else if (SFX[e.kind]) fx.add(e.at, effect(e.kind, r, e.dur), e.gain * cfg.sfx, e.pan);
-    else if (isLibrarySound(e.kind)) fx.add(e.at, librarySound(e.kind, rl, { dur: e.dur, code: effect }), e.gain * cfg.sfx, e.pan); // engine/sfx/
-    else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
+    else if (SFX[e.kind] || isLibrarySound(e.kind)) {
+      // a hit sound goes in so its loudest moment lands on the event (engine/sfx/library.mjs isHit); e.start and e.hit
+      // say where it went, for qa/sound.mjs
+      const x = SFX[e.kind] ? effect(e.kind, r, e.dur) : librarySound(e.kind, rl, { dur: e.dur, code: effect }); // engine/sfx/
+      const hit = isHit(e.kind) ? x.hit ?? hitTime(x) : 0;
+      e.start = Math.max(0, e.at - hit); e.hit = e.start + hit; Object.defineProperty(e, "samples", { value: x, enumerable: false });
+      fx.add(e.start, x, e.gain * cfg.sfx, e.pan);
+    } else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1;
