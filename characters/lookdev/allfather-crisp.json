@@ -1,0 +1,78 @@
+{
+ "id": "lookdev/allfather-crisp",
+ "name": "Norse god (crisp look-dev)",
+ "franchise": "PotatoBrawl",
+ "source": "Jonny's reference portraits, 2026-10-24",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 1.04,
+  "width": 0.88,
+  "depth": 0.76,
+  "lump": 0.035,
+  "seed": 33,
+  "taper": 0.16
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.047
+ },
+ "face": {
+  "default": "stern",
+  "iris": "#3e5f9a",
+  "cheeks": "#ff7a6a",
+  "brow": "#ecebe6",
+  "neutral": {
+   "tilt": -0.05,
+   "browY": -0.004,
+   "curve": 0.2,
+   "eye": 1,
+   "lidL": 0.18,
+   "lidR": 0.18
+  },
+  "eye": {
+   "flick": 0.2,
+   "iris": 0.62,
+   "depth": 0.2,
+   "oval": 1.32,
+   "glints": 1,
+   "lash": 1.15,
+   "irisShade": true
+  },
+  "browShape": {
+   "arch": 0.03,
+   "thick": 1.4,
+   "outer": 0.64,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "allfather",
+  "hair": "#ece9e3",
+  "armour": "#2e2f36",
+  "cape": "#9c2a2a",
+  "raven": false
+ },
+ "personality": "Old Norse god with a raven on his shoulder. Ancient, solemn, overdramatic about small things (proposal).",
+ "tts": "odin",
+ "voice": {
+  "pitch": 88,
+  "rate": 2.4,
+  "formant": 0.9,
+  "range": 3,
+  "breath": 0.16,
+  "vibrato": 0.03,
+  "seed": 61
+ },
+ "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): the crisp face, body and hand values on the Norse god, for Compliments to the Chef. Not canon until Jonny approves.",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ }
+}

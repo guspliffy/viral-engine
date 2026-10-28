@@ -2047,6 +2047,64 @@
     "phoenix"
    ]
   },
+  "ai/sip": {
+   "source": "ai",
+   "files": [
+    "ai/sip/sip-01.wav",
+    "ai/sip/sip-02.wav",
+    "ai/sip/sip-03.wav",
+    "ai/sip/sip-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "sip",
+    "taste",
+    "mouth"
+   ]
+  },
+  "ai/heartbeat": {
+   "source": "ai",
+   "files": [
+    "ai/heartbeat/heartbeat-01.wav",
+    "ai/heartbeat/heartbeat-02.wav",
+    "ai/heartbeat/heartbeat-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "heartbeat",
+    "tension"
+   ]
+  },
+  "ai/blep": {
+   "source": "ai",
+   "files": [
+    "ai/blep/blep-01.wav",
+    "ai/blep/blep-02.wav",
+    "ai/blep/blep-03.wav",
+    "ai/blep/blep-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "mouth",
+    "blep",
+    "cartoon"
+   ]
+  },
+  "ai/drip": {
+   "source": "ai",
+   "files": [
+    "ai/drip/drip-01.wav",
+    "ai/drip/drip-02.wav",
+    "ai/drip/drip-03.wav",
+    "ai/drip/drip-04.wav"
+   ],
+   "gain": 0.25,
+   "tags": [
+    "liquid",
+    "drip",
+    "drop"
+   ]
+  },
   "oga/fart-viking": {
    "source": "oga",
    "files": [
