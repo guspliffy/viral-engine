@@ -77,7 +77,7 @@ A(0, "gun", "grip", { side: "L", shape: "paw", dur: 0 });
 A(0, "odn", "grab", { prop: "ladle", hand: "L", grip: "handle", dur: 0, pose: null });
 A(0, "odn", "grip", { side: "L", shape: "hold", dur: 0 });
 A(0, "odn", "arm", { side: "L", pose: { world: [LADLE_AT.x, LADLE_AT.y, LADLE_AT.z] }, dur: 0 });
-A(0, "odn", "arm", { side: "R", pose: { world: [0.33, TABLE_H + 0.035, 0.55] }, dur: 0 });
+A(0, "odn", "arm", { side: "R", pose: { world: [0.22, TABLE_H + 0.035, 0.62] }, dur: 0 });   // out beside the beard, not through it
 A(0, "odn", "grip", { side: "R", shape: "paw", dur: 0 });
 A(0, "gun", "noblink"); A(0, "odn", "noblink");
 
