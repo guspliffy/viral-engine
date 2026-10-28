@@ -12,8 +12,8 @@
 //   Ending:      everyone is fine, back to the opening frame (designed loop).
 //
 // Time: the roll was first timed in "story time" (tau, the v1 clip's seconds). Jonny wanted the roll half as fast
-// again in the wide shots but the cabin shot (the payoff) at its old pace, so it plays as the slow-motion moment. The
-// clip's time runs through tau at RATE: 1.5 in the wide shots of the roll, 1 in the cabin shot and the rest; the
+// again in the wide shots, then half again (2.25x), but the cabin shot (the payoff) at its old pace, so it plays as the slow-motion moment. The
+// clip's time runs through tau at RATE: FAST in the wide shots of the roll, 1 in the cabin shot and the rest; the
 // speed changes sit on the cuts (or ease in over 0.15 s). The swerve before the trip is new and keyed straight in tau.
 // The road is a treadmill (set-road.js): its speed is solved so the clip scrolls a whole number of road patterns and
 // the wheels turn a whole number of spoke steps, so the loop is seamless.
@@ -29,7 +29,8 @@ const WIZ_CHAR = process.env.WIZ_CHAR || "lookdev/wizard-crisp", DRA_CHAR = proc
 // ---------------------------------------------------------------- time: tau (story time) -> clip time
 const TAU0 = -0.5, TRIP = 0.7, TAU_END = 13.6;   // the clip starts at tau -0.5; the tyres trip on the kerb at tau 0.7
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
-const RATE = (u) => u < 0.98 ? 1 : u < 1.13 ? 1 + 0.5 * lin(u, 0.98, 1.13) : u < 4.5 ? 1.5 : u < 6.0 ? 1 : u < 7.5 ? 1.5 : u < 7.9 ? 1.5 - 0.5 * lin(u, 7.5, 7.9) : 1;
+const FAST = 2.25;   // v1 x 1.5 (Jonny, 17:16), then x 1.5 again (17:58)
+const RATE = (u) => u < 0.98 ? 1 : u < 1.13 ? 1 + (FAST - 1) * lin(u, 0.98, 1.13) : u < 4.5 ? FAST : u < 6.0 ? 1 : u < 7.1 ? FAST : u < 7.5 ? FAST - (FAST - 1) * lin(u, 7.1, 7.5) : 1;
 const TAB = []; { let t = 0; for (let u = TAU0; u <= TAU_END + 0.2; u += 0.001) { TAB.push([u, t]); t += 0.001 / RATE(u + 0.0005); } }
 const T = (u) => { const i = Math.min(TAB.length - 2, Math.max(0, Math.floor((u - TAU0) / 0.001))), [u0, t0] = TAB[i], [, t1] = TAB[i + 1]; return t0 + (t1 - t0) * (u - u0) / 0.001; };
 const tauOf = (t) => { let lo = 0, hi = TAB.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (TAB[m][1] <= t) lo = m; else hi = m; } const [u0, t0] = TAB[lo], [u1, t1] = TAB[hi]; return u0 + (u1 - u0) * (t - t0) / (t1 - t0 || 1); };
@@ -192,7 +193,7 @@ for (const u of [2.4, 3.9, 7.9, 10.35, 12.0]) swipe(At(u));
 swipe(0.05);
 swipe(At(5.15), true);
 c.textPop(At(5.3), "wiz", "swipe", { dur: 0.65 });
-sfx(At(5.29), "kenney/scroll", { gain: 0.5, reason: "the one swipe upside down (the payoff)" });
+sfx(At(5.29), "kenney/scroll", { gain: 0.8, reason: "the one swipe upside down (the payoff)" });
 
 // ---------------------------------------------------------------- 1 NORMAL: calm driving, then the rock
 cap(0, At(1.15) - 0.05, "Just one more video.", 250);
