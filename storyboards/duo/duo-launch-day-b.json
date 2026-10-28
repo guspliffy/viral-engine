@@ -30,11 +30,11 @@
  "music": {
   "file": "ai/epic/epic-01.ogg",
   "until": 3.85,
-  "gain": 0.5
+  "gain": 0.35
  },
  "sound": {
   "sfx": 0.7,
-  "ambience": 0.3,
+  "ambience": 0.1,
   "speech": false
  },
  "experiment": {
@@ -942,7 +942,7 @@
     },
     {
      "sfx": "door-open",
-     "gain": 0.8,
+     "gain": 1.2,
      "reason": "the sliding glass doors",
      "at": 0
     },
@@ -1409,21 +1409,21 @@
    "len": 2.6,
    "shot": {
     "pos": [
-     -1.634,
-     1.896,
-     3.906
+     -1.622,
+     1.452,
+     4.019
     ],
     "look": [
      -2,
-     0.62,
+     0.55,
      0.42
     ],
     "fov": 22,
     "to": {
      "pos": [
-      -1.689,
-      1.704,
-      3.383
+      -1.678,
+      1.317,
+      3.479
      ]
     },
     "dur": 1.85
@@ -1639,7 +1639,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.8,
+     "gain": 1.2,
      "at": 0.3
     },
     {
@@ -1690,7 +1690,7 @@
     },
     {
      "sfx": "cloth",
-     "gain": 0.5,
+     "gain": 0.9,
      "reason": "the lid slides off the box",
      "at": 0.48
     },
@@ -1779,7 +1779,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.55,
+     "gain": 0.9,
      "at": 0.84
     },
     {
@@ -1801,7 +1801,7 @@
     },
     {
      "sfx": "grab",
-     "gain": 0.5,
+     "gain": 0.9,
      "at": 0.9
     },
     {
@@ -1827,7 +1827,7 @@
      "id": "phA",
      "set": {
       "x": -2.05,
-      "y": 0.3,
+      "y": 0.36,
       "z": 0.5700000000000001,
       "tilt": 0,
       "rot": -40
@@ -1891,7 +1891,7 @@
     },
     {
      "sfx": "kenney/cloth",
-     "gain": 0.45,
+     "gain": 0.8,
      "reason": "the phone's halves swing open",
      "at": 1.25
     },
@@ -2130,7 +2130,7 @@
     },
     {
      "sfx": "magic-up",
-     "gain": 0.18,
+     "gain": 0.3,
      "reason": "the restrained product gleam as the display opens",
      "at": 1.55
     },
@@ -2346,7 +2346,7 @@
     },
     {
      "sfx": "kenney/metal-click",
-     "gain": 0.7,
+     "gain": 1.1,
      "reason": "the hinge snaps",
      "at": 1.85
     },
@@ -2685,21 +2685,21 @@
    "len": 2.3,
    "shot": {
     "pos": [
-     -0.821,
-     2.1,
-     5.194
+     -0.871,
+     1.763,
+     5.29
     ],
     "look": [
-     -1.32,
+     -1.38,
      0.55,
      0.45
     ],
     "fov": 22,
     "to": {
      "pos": [
-      -0.911,
-      1.821,
-      4.34
+      -0.973,
+      1.521,
+      4.322
      ]
     },
     "dur": 1.65
@@ -2749,7 +2749,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.8,
+     "gain": 1.2,
      "at": 0.25
     },
     {
@@ -2811,7 +2811,7 @@
     },
     {
      "sfx": "cloth",
-     "gain": 0.5,
+     "gain": 0.9,
      "reason": "the lid slides off the box",
      "at": 0.43
     },
@@ -2905,7 +2905,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.55,
+     "gain": 0.9,
      "at": 0.79
     },
     {
@@ -2922,7 +2922,7 @@
     },
     {
      "sfx": "grab",
-     "gain": 0.5,
+     "gain": 0.9,
      "at": 0.82
     },
     {
@@ -2990,7 +2990,7 @@
      "id": "phB",
      "set": {
       "x": -1.1,
-      "y": 0.3,
+      "y": 0.36,
       "z": 0.5700000000000001,
       "tilt": 0,
       "rot": -40
@@ -3012,7 +3012,7 @@
     },
     {
      "sfx": "kenney/cloth",
-     "gain": 0.45,
+     "gain": 0.8,
      "reason": "the phone's halves swing open",
      "at": 1.07
     },
@@ -3490,26 +3490,6 @@
     "fov": 26
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "phA",
-     "set": {
-      "y": 0.335
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.01
-    },
-    {
-     "do": "prop",
-     "id": "phB",
-     "set": {
-      "y": 0.335
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.01
-    },
     {
      "who": "drg",
      "do": "expr",

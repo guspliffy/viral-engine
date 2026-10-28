@@ -111,7 +111,7 @@ function purchase(id, box, lid, ph, T) {
   A(T.arrive + 0.01, id, "move", { to: ST[id], dur: T.set - T.arrive - 0.01, ease: "out", steps: 2.6 });
   c.prop(T.arrive + 0.01, box, { x: at[0], y: at[1], z: at[2] }, T.set - T.arrive - 0.01, "inOut");
   A(T.arrive, id, "pitch", { to: 7, dur: 0.25 });
-  sfx(T.set, "put-down", { gain: 0.8 });
+  sfx(T.set, "put-down", { gain: 1.2 });
   // lid: carried by the base until it is lifted; the right hand (screen left) steadies the base
   look(T.lid - 0.13, id, [0.15, -0.85], 0.1);     // eyes on the lid first
   c.at(T.lid, { do: "carry", prop: lid });
@@ -120,11 +120,11 @@ function purchase(id, box, lid, ph, T) {
   grip(T.lid, id, "L", "paw", 0.12);
   const l0 = add(at, LID_ON);
   c.prop(T.lid + 0.16, lid, { x: l0[0] + 0.05, y: l0[1] + 0.11, z: l0[2] - 0.01 }, 0.16, "out");
-  sfx(T.lid + 0.16, "cloth", { gain: 0.5, reason: "the lid slides off the box" });
+  sfx(T.lid + 0.16, "cloth", { gain: 0.9, reason: "the lid slides off the box" });
   const pk = LID_PARK[id];
   c.prop(T.lid + 0.32, lid, { x: pk[0], y: pk[1] + 0.03, z: pk[2] }, 0.14, "inOut");
   c.prop(T.lid + 0.46, lid, { y: pk[1] }, 0.06, "in");
-  sfx(T.lid + 0.52, "put-down", { gain: 0.55 });
+  sfx(T.lid + 0.52, "put-down", { gain: 0.9 });
   // the phone: both hands to its ends in the tray, lift it out, stand it upright in front of the chest
   look(T.lift - 0.3, id, [0.05, -0.9], 0.1);      // eyes on the phone in its tray before the hands go in
   c.at(T.lift - 0.02, { do: "carry", prop: ph });
@@ -132,11 +132,11 @@ function purchase(id, box, lid, ph, T) {
   c.arm(T.lift - 0.16, id, "R", onProp(ph, END_GRIP.top, [0, FOLD.H, FOLD.W * 0.62]), 0.16, "inOut");
   c.arm(T.lift - 0.16, id, "L", onProp(ph, END_GRIP.bottom, [0, 0, FOLD.W * 0.62]), 0.16, "inOut");
   grip(T.lift - 0.1, id, "both", "hold", 0.1);
-  const hold = [sx + 0.0, 0.3, sz + 0.45];
+  const hold = [sx + 0.0, 0.36, sz + 0.45];   // high enough that the ledge never hides the screens, below the mouth
   c.prop(T.lift, ph, { x: tray[0], y: tray[1] + 0.05, z: tray[2] }, 0.12, "out");
   c.prop(T.lift + 0.12, ph, { x: hold[0], y: hold[1], z: hold[2], tilt: 0, rot: -40 }, T.open - T.lift - 0.12, "inOut");
   A(T.lift + 0.1, id, "pitch", { to: 2, dur: 0.3 });
-  sfx(T.lift + 0.02, "grab", { gain: 0.5 });
+  sfx(T.lift + 0.02, "grab", { gain: 0.9 });
   // unfold: the halves swing out toward the camera, one hand on each, the phone turning square to us as it opens
   const n = Math.round((T.flat - T.open) * FPS / 2);
   for (let k = 0; k <= n; k++) {
@@ -148,7 +148,7 @@ function purchase(id, box, lid, ph, T) {
     c.arm(t1, id, "L", { ...HALF(open, 0, 1), prop: ph }, d, k === 0 ? "inOut" : "linear");
   }
   c.prop(T.open, ph, { open: 0.98, rot: 0 }, T.flat - T.open, "inOut");
-  sfx(T.open + 0.05, "kenney/cloth", { gain: 0.45, reason: "the phone's halves swing open" });
+  sfx(T.open + 0.05, "kenney/cloth", { gain: 0.8, reason: "the phone's halves swing open" });
   return hold;
 }
 
@@ -189,7 +189,7 @@ A(1.12, "wiz", "hop", { height: 0.035, dur: 0.24 }); A(1.2, "drg", "hop", { heig
 
 // ---------------------------------------------------------------- 04 DOORS 1.50-2.00 (the glass slides open, the pair rushes in)
 c.prop(1.5, "doors", { open: 1 }, 0.32, "inOut");
-sfx(1.5, "door-open", { gain: 0.8, reason: "the sliding glass doors" });
+sfx(1.5, "door-open", { gain: 1.2, reason: "the sliding glass doors" });
 A(1.53, "wiz", "turn", { to: "back", dur: 0.12 });
 A(1.56, "wiz", "move", { to: [DOOR_X - 0.05, WALL_Z - 0.6], dur: 0.42, steps: 4.2 });
 A(1.55, "drg", "turn", { to: 200, dur: 0.18 });
@@ -221,10 +221,10 @@ const holdA = purchase("wiz", "boxA", "lidA", "phA", WT);
 look(2.9, "wiz", [0.0, -0.45], 0.2);
 look(3.3, "wiz", [0.0, -0.2], 0.25);
 A(3.3, "wiz", "expr", { set: { open: 0.5, curve: 1, eye: 1.2, pupil: 1.15 }, dur: 0.2 });   // the glowing screen: delight
-sfx(3.55, "magic-up", { gain: 0.18, reason: "the restrained product gleam as the display opens" });
+sfx(3.55, "magic-up", { gain: 0.3, reason: "the restrained product gleam as the display opens" });
 // the snap: a tiny dry crack as the opening finishes, the hinge parts, each hand keeps its half
 const SNAP = 3.85;
-sfx(SNAP, "kenney/metal-click", { gain: 0.7, reason: "the hinge snaps" });
+sfx(SNAP, "kenney/metal-click", { gain: 1.1, reason: "the hinge snaps" });
 c.prop(SNAP, "phA", { gap: 0.05 }, 0.07, "out");
 // then the halves drift apart in his hands, so the golden body shows between them: the break reads at phone size
 c.prop(SNAP + 0.1, "phA", { gap: 0.13 }, 0.55, "out");
@@ -262,8 +262,6 @@ A(CRACK + 0.08, "drg", "squash", { amount: 0.04, dur: 0.12 });
 A(CRACK + 0.2, "drg", "expr", { set: { eye: 1.28, pupil: 0.75 }, dur: 0.08 });
 
 // ---------------------------------------------------------------- 08 TWO DISASTERS 7.40-8.20
-// both lift their phones a little, screens to the lens, clear of the boxes, and keep them there to the end
-for (const ph of ["phA", "phB"]) c.prop(7.41, ph, { y: 0.335 }, 0.22, "out");
 A(7.42, "drg", "expr", { expr: "shock", set: { open: 0.55, curve: -0.3, eye: 1.25 }, dur: 0.15 });
 A(7.45, "drg", "face", { brow: 0.6, tilt: 0.5, tear: 0.6, dur: 0.3 });
 look(7.45, "wiz", [0.55, -0.2], 0.2);
@@ -319,9 +317,9 @@ const S01 = { pos: [8.0, 2.3, 3.6], look: [1.2, 1.0, -1.3], fov: 42 };
 const S02 = frame([VIK_SIT[0], 0.6, VIK_SIT[1]], { az: 10, el: 12, h: 2.1, fov: 24 });
 const S03 = frame([(Q.wiz + Q.drg) / 2 - 0.0, 0.66, QZ], { az: 0, el: 4, h: 2.4, fov: 22 });
 const S04 = frame([-1.9, 1.05, -1.1], { az: 18, el: 6, h: 3.4, fov: 30 });
-const S05 = frame([-2.0, 0.62, 0.42], { az: 6, el: 20, h: 1.45, fov: 22, push: 0.15, dur: 1.85 });
+const S05 = frame([-2.0, 0.55, 0.42], { az: 6, el: 14, h: 1.45, fov: 22, push: 0.15, dur: 1.85 });
 const S06 = frame([-2.04, 0.62, 0.3], { az: 4, el: 8, h: 0.8, fov: 18, push: 0.04, dur: 0.5 });
-const S07 = frame([-1.32, 0.55, 0.45], { az: 6, el: 18, h: 1.95, fov: 22, push: 0.18, dur: 1.65 });
+const S07 = frame([-1.38, 0.55, 0.45], { az: 6, el: 14, h: 1.95, fov: 22, push: 0.2, dur: 1.65 });
 const S08 = frame([-1.5, 0.72, -0.1], { az: 18, el: 8, h: 3.4, fov: 26 });
 const S09 = frame([0.1, 0.72, QZ], { az: 0, el: 16, h: 2.9, fov: 22 });
 const S10 = { pos: [-5.5, 2.1, 2.2], look: [4.0, 0.5, -1.0], fov: 38 };
@@ -347,8 +345,8 @@ const sb = (variant, captions) => ({
   fps: FPS, look: "anime-pro", profile: "short", loop: false,
   creative: { length: [8, 14], loop: false },
   set: { type: "storefront", seed: 5, light: "golden", key: [5.5, 5.0, 3.6], shadowSize: 7, wallZ: -9, aperture: 0, bloom: "emissive" },
-  music: { file: "ai/epic/epic-01.ogg", until: SNAP, gain: 0.5 },
-  sound: { sfx: 0.7, ambience: 0.3, speech: false },
+  music: { file: "ai/epic/epic-01.ogg", until: SNAP, gain: 0.35 },
+  sound: { sfx: 0.7, ambience: 0.1, speech: false },
   experiment: { id: "hook-2026-11", episode: "duo-launch-day", variant },
   cast, props, captions, beats,
   allowClip: [
