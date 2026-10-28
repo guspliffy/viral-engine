@@ -5,6 +5,7 @@
 //   node qa/check.mjs out/test-01-golden.mp4                       -> finds out/test-01-golden.layout.json if present
 //   node qa/check.mjs clip.mp4 --sb storyboards/x.json --layout x.layout.json --json
 //   node qa/check.mjs clip.mp4 --sb x.json --profile rewards           -> publishing profile (default: the storyboard's, else "short")
+//   node qa/check.mjs clip.mp4 --sb x.json --ears                      -> earshot listens too (sync, floors; ~1 min, qa/sound.mjs)
 //
 // Results come in three groups, kept apart so a report never passes off a creative guess as a platform fact:
 //   technical   defects in the file, picture or sound: blank or odd frames, loudness, clipping, hidden captions,
@@ -24,7 +25,7 @@ import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { motionJumps, storyNotes } from "./motion.mjs";
-import { soundNotes, soundMeasure } from "./sound.mjs";
+import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
@@ -86,15 +87,16 @@ const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing",
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
-  const a = process.argv.slice(2), o = { clip: null, sb: null, layout: null, json: false, profile: null };
+  const a = process.argv.slice(2), o = { clip: null, sb: null, layout: null, json: false, profile: null, ears: false };
   for (let i = 0; i < a.length; i++) {
     if (a[i] === "--sb") o.sb = a[++i];
     else if (a[i] === "--profile") o.profile = a[++i];
     else if (a[i] === "--layout") o.layout = a[++i];
     else if (a[i] === "--json") o.json = true;
+    else if (a[i] === "--ears") o.ears = true;
     else o.clip = a[i];
   }
-  if (!o.clip) { console.error("usage: node qa/check.mjs <clip.mp4> [--sb storyboard.json] [--layout layout.json] [--profile short|rewards] [--json]"); process.exit(2); }
+  if (!o.clip) { console.error("usage: node qa/check.mjs <clip.mp4> [--sb storyboard.json] [--layout layout.json] [--profile short|rewards] [--json] [--ears]"); process.exit(2); }
   return o;
 }
 
@@ -421,6 +423,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     // the sound (qa/sound.mjs): repeats, sounds with nothing on screen, the floor, the music lock, then on the file
     // its sync to the picture and how each effect stands over the bed
     res.push(...soundNotes(sb), ...(fs.existsSync(o.clip) ? soundMeasure(o.clip, sb, loadCharacters(sb)) : []));
+    // --ears: earshot listens to the file too (about a minute; qa/ears.py)
+    if (o.ears && fs.existsSync(o.clip)) res.push(...soundEars(o.clip, sb, loadCharacters(sb)));
   }
   const failed = res.some((r) => r.level === "fail"), notes = res.filter((r) => r.level === "note").length;
   if (o.json) console.log(JSON.stringify({ clip: o.clip, layout: layoutFile, profile, experiment: sb?.experiment ?? null, pass: !failed, results: res }, null, 2));

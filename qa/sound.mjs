@@ -3,6 +3,7 @@
 //
 //   node qa/sound.mjs storyboards/x.json                 -> storyboard notes only (well under a second)
 //   node qa/sound.mjs storyboards/x.json out/x.mp4       -> plus the measurements on the rendered file (a few seconds)
+//   node qa/sound.mjs storyboards/x.json out/x.mp4 --ears -> plus earshot listening to it (about a minute)
 //
 // soundNotes(sb), from the storyboard alone:
 //   whoosh-repeat  the same whoosh more than twice reads cheap: vary it or drop the quieter ones
@@ -18,12 +19,21 @@
 //   sound-level    how far each effect stands over what plays under it: its loudest 50 ms against the median level
 //                  of the second before (music, voices, room). Under ~1 dB it is buried (footsteps: under -3 dB);
 //                  over 20 dB above a real bed it jumps out. Hypotheses from earshot's launch mixes (3-10 dB), warn only.
+// soundEars(clip, sb, chars), with --ears (earshot: github.com/Leonxlnx/earshot, run through qa/ears.py, ~1 min):
+//   ears-sync      earshot listens to the file and finds the onset that answers each hit's picture moment (knocks,
+//                  slams, put-downs; not footsteps): the share within a frame, against what chance would score
+//   ears-floor     each footstep, heard on its own as the engine placed it, against the other floors: does it sound
+//                  like the set's floor (wood, carpet, concrete...)
+//                  Install once: clone earshot next to this repo (../earshot), make its .venv with CPU torch,
+//                  pip install -e ., earshot doctor --fetch. Or point EARSHOT_PYTHON at a Python that has it.
 import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
-import { renderAudio, soundEvents } from "../engine/audio.mjs";
-import { isHit, floorOf } from "../engine/sfx/library.mjs";
+import { renderAudio, soundEvents, writeWav } from "../engine/audio.mjs";
+import { isHit, floorOf, SURFACES } from "../engine/sfx/library.mjs";
 import { lockMusic, addMusic } from "../engine/music.mjs";
 
 const SR = 44100, FRAME = 1 / 30;
@@ -135,12 +145,51 @@ export function soundMeasure(clip, sb, chars) {
   return out;
 }
 
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+export function earshotPython() {
+  const c = [process.env.EARSHOT_PYTHON, path.join(ROOT, "../earshot/.venv/bin/python"), path.join(ROOT, "../earshot/.venv/Scripts/python.exe")];
+  return c.find((p) => p && fs.existsSync(p)) ?? null;
+}
+
+export function soundEars(clip, sb, chars) {
+  const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
+  const py = earshotPython();
+  if (!py) { add("note", "ears", "earshot not installed, so nothing was listened to (see qa/sound.mjs for the one-time setup)"); return out; }
+  const a = renderAudio(sb, chars), dir = fs.mkdtempSync(path.join(os.tmpdir(), "ears-"));
+  // each footstep on its own, as the engine placed it (no music, voices, room tone or the next step): room noise
+  // and overlapping steps both make every floor sound like snow
+  const norm = (x) => { let pk = 0; for (const v of x) pk = Math.max(pk, Math.abs(v)); const y = new Float32Array(x.length + Math.round(0.05 * SR)); for (let i = 0; i < x.length; i++) y[i] = pk ? (x[i] * 0.9) / pk : 0; return y; };
+  const hits = a.events.filter((e) => e.hit != null && isHit(e.kind) && !/^step/.test(e.kind));
+  const steps = a.events.filter((e) => e.samples && /^step/.test(e.kind)).slice(0, 12).map((e, i) => { const f = path.join(dir, `step-${i}.wav`), y = norm(e.samples); writeWav(f, y, y, SR); return { t: +e.at.toFixed(3), file: f }; });
+  const fl = floorOf(sb), floors = [...new Set(Object.values(SURFACES).concat("grass", "snow"))];
+  const job = { mix: path.resolve(clip), fps: sb.fps ?? 30, cues: hits.map((e) => ({ t: +e.at.toFixed(3), kind: "hit", id: `${e.kind}@${e.at}` })),
+    floor: steps.length ? { surface: fl.surface, alts: floors, steps } : null };
+  fs.writeFileSync(path.join(dir, "job.json"), JSON.stringify(job));
+  const r = spawnSync(py, [path.join(ROOT, "qa/ears.py"), path.join(dir, "job.json"), path.join(dir, "out.json")], { encoding: "utf8", maxBuffer: 64 << 20 });
+  if (r.status !== 0) { add("warn", "ears", `earshot failed: ${(r.stderr || "").trim().split("\n").pop()}`); return out; }
+  const res = JSON.parse(fs.readFileSync(path.join(dir, "out.json"), "utf8"));
+  fs.rmSync(dir, { recursive: true, force: true });
+  const st = res.sync?.stats;
+  if (st?.n) {
+    const share = st.hit_within_1_frame, chance = st.chance_within_1_frame ?? 0, miss = res.sync.misses.slice(0, 5).map((m) => `${m.id} ${m.status}${m.offset_ms != null ? ` ${m.offset_ms > 0 ? "+" : ""}${Math.round(m.offset_ms)} ms` : ""}`);
+    add(share >= 0.7 ? "pass" : "warn", "ears-sync", `earshot hears ${Math.round(share * 100)}% of ${st.n} hits within a frame of their picture moment (chance ${Math.round(chance * 100)}%), ${Math.round(st.hit_within_100ms * 100)}% within 100 ms${miss.length ? `; missed: ${miss.join(", ")}` : ""}`);
+  }
+  const f = res.floor;
+  if (f?.n) {
+    const heard = Object.entries(f.heard).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${v}x "${k}"`).join(", ");
+    const kinds = [...new Set(a.events.filter((e) => e.samples && /^step/.test(e.kind)).map((e) => e.kind))].join(", ");
+    add(f.share >= 0.5 ? "pass" : "warn", "ears-floor", `${f.top} of ${f.n} footsteps (${kinds}) sound most like ${fl.surface} against the other floors (heard: ${heard}; median p ${f.median_p})${f.share < 0.5 && !kinds.includes(`step-${fl.surface}`) ? `: the clip uses ${kinds}, not step-${fl.surface}` : ""}`);
+  }
+  return out;
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const [file, clip] = process.argv.slice(2);
-  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4]"); process.exit(2); }
+  const argv = process.argv.slice(2), ears = argv.includes("--ears"), [file, clip] = argv.filter((x) => x !== "--ears");
+  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4] [--ears]"); process.exit(2); }
   const sb = loadStoryboard(file);
   const chars = loadCharacters(sb);
   const res = [...soundNotes(sb), ...(!clip ? soundTiming(sb, renderAudio(sb, chars).events) : fs.existsSync(clip) ? soundMeasure(clip, sb, chars) : [{ level: "fail", check: "file", msg: `${clip} not found` }])];
+  if (ears && clip && fs.existsSync(clip)) res.push(...soundEars(clip, sb, chars));
   for (const r of res) console.log(`  ${{ pass: "ok  ", warn: "WARN", fail: "FAIL", note: "note" }[r.level]}  ${r.check}: ${r.msg}`);
   process.exit(res.some((r) => r.level === "fail") ? 1 : 0);
 }

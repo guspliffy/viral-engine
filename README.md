@@ -51,7 +51,7 @@ Rules for every clip are in [`CLAUDE.md`](CLAUDE.md). Two small tools check a cl
 node engine/render.mjs storyboards/test-01-golden.json --layout     # caption + character boxes, seconds
 node qa/check.mjs out/test-01-golden.mp4                            # size, duration, blank frames, loudness, captions
 node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   # contact sheet for review
-node qa/sound.mjs storyboards/test-01-golden.json [out/test-01-golden.mp4]   # sound: repeats, sync, levels (check.mjs runs it too)
+node qa/sound.mjs storyboards/test-01-golden.json [out/test-01-golden.mp4] [--ears]   # sound: repeats, sync, levels (check.mjs runs it too); --ears: earshot listens
 ```
 
 `qa/check.mjs` works on any MP4. The caption checks read a `layout.json`
