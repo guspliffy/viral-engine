@@ -70,7 +70,7 @@ write(import.meta.url, {
   id: "template-demo",
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
-  fps: 30, look: "anime-pro", profile: "short", loop: true,
+  fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   set: { type: "apartment", seed: 5 },
   music: false,
   sound: { sfx: 0.6, ambience: 0.34 },

@@ -7,6 +7,7 @@
  "look": "anime-pro",
  "profile": "short",
  "loop": true,
+ "captionStyle": "kinetic",
  "cover": 8.6,
  "creative": {
   "length": [
@@ -136,7 +137,8 @@
    "to": 2.7,
    "text": "He said nothing scares him.",
    "pos": 250,
-   "pop": false
+   "pop": false,
+   "kinetic": false
   },
   {
    "from": 5.3,
@@ -251,6 +253,17 @@
      "dur": 3.3,
      "idle": 0.2,
      "at": 0
+    },
+    {
+     "fx": "pop",
+     "text": "BOO!",
+     "who": "rea",
+     "dx": 0.95,
+     "dy": -0.3,
+     "dur": 0.75,
+     "color": "#e4f6ff",
+     "angle": -10,
+     "at": 0.05
     },
     {
      "who": "phx",
@@ -622,6 +635,18 @@
      },
      "dur": 0.15,
      "at": 1.85
+    },
+    {
+     "fx": "pop",
+     "text": "gulp",
+     "who": "rea",
+     "dx": 0.75,
+     "dy": -0.15,
+     "dur": 0.85,
+     "color": "#7cc8ff",
+     "angle": 6,
+     "size": 100,
+     "at": 1.9
     },
     {
      "who": "rea",
