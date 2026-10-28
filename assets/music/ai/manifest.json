@@ -205,6 +205,55 @@
     }
    ],
    "pickedBy": "Jonny, by ear, 2026-10-28 (AI sound test 01)"
+  },
+  {
+   "id": "drama-swell",
+   "kind": "music",
+   "files": [
+    "drama-swell/drama-swell-01.ogg",
+    "drama-swell/drama-swell-02.ogg"
+   ],
+   "tags": [
+    "drama",
+    "swell"
+   ],
+   "mood": "drama",
+   "bpm": null,
+   "bars": null,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "swell": true,
+   "durationSec": 10.0,
+   "prompt": [
+    "dramatic orchestral string swell with soaring choir, slow crescendo building to a huge emotional climax, epic anime drama, cinematic, no drums",
+    "emotional cinematic strings and choir rising crescendo, heroic last stand, tense and grand, building intensity, film score, no percussion"
+   ],
+   "seed": [
+    202,
+    202
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "drama-swell/drama-swell-01.ogg",
+     "seed": 202,
+     "durationSec": 10.0,
+     "ramp": 0.652,
+     "riseDb": 13.3,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "drama-swell/drama-swell-02.ogg",
+     "seed": 202,
+     "durationSec": 10.0,
+     "ramp": 0.694,
+     "riseDb": 6.8,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }

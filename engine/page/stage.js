@@ -486,7 +486,9 @@ function layout(t) {
     // character (hat or crest included)
     const E = a.ch.face?.eyes, eyes = E && E.length > 1 ? E[0].root.getWorldPosition(new THREE.Vector3()).add(E[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).toArray().map(r3) : undefined;
     const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, top: r3(box.max.y) };
+    // the middle of the mouth on the face's surface (aiming a spoon or anything that leaves the mouth)
+    const F = a.ch.face, mouth = F && F.place ? F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()).toArray().map(r3) : undefined;
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));

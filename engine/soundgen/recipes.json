@@ -219,6 +219,101 @@
     "phoenix"
    ],
    "gain": 0.3
+  },
+  {
+   "id": "sip",
+   "kind": "oneshot",
+   "len": [
+    0.2,
+    0.8
+   ],
+   "duration": 8,
+   "tags": [
+    "sip",
+    "taste",
+    "mouth"
+   ],
+   "prompts": [
+    "a tiny quiet sip of hot soup from a spoon, small slurp, close up, dry, no music",
+    "one small polite sip from a teaspoon, soft lips, close up, quiet room"
+   ],
+   "seeds": [
+    41,
+    42,
+    43
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "heartbeat",
+   "kind": "oneshot",
+   "len": [
+    0.6,
+    1.6
+   ],
+   "duration": 8,
+   "tags": [
+    "heartbeat",
+    "tension"
+   ],
+   "prompts": [
+    "a single slow deep heartbeat, low muffled double thump, cinematic tension, close",
+    "deep muffled heartbeat pulse, lub dub, slow, dramatic, sound effect"
+   ],
+   "seeds": [
+    51,
+    52,
+    53
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "blep",
+   "kind": "oneshot",
+   "len": [
+    0.12,
+    0.5
+   ],
+   "duration": 8,
+   "tags": [
+    "mouth",
+    "blep",
+    "cartoon"
+   ],
+   "prompts": [
+    "a tiny wet cartoon blep mouth sound, small and short, cute, close up, dry",
+    "small soft wet hiccup blurp from a mouth, cartoon, short, quiet"
+   ],
+   "seeds": [
+    61,
+    62,
+    63
+   ],
+   "gain": 0.3
+  },
+  {
+   "id": "drip",
+   "kind": "oneshot",
+   "len": [
+    0.08,
+    0.5
+   ],
+   "duration": 8,
+   "tags": [
+    "liquid",
+    "drip",
+    "drop"
+   ],
+   "prompts": [
+    "a small drop of thick soup falling into a bowl of soup, tiny wet plop, close up, quiet",
+    "single tiny liquid drip landing in a bowl, soft plip, close up, dry"
+   ],
+   "seeds": [
+    71,
+    72,
+    73
+   ],
+   "gain": 0.25
   }
  ],
  "music": [
@@ -286,6 +381,22 @@
     142
    ],
    "mood": "sad"
+  },
+  {
+   "id": "drama-swell",
+   "bpm": 60,
+   "bars": 2,
+   "swell": true,
+   "prompts": [
+    "dramatic orchestral string swell with soaring choir, slow crescendo building to a huge emotional climax, epic anime drama, cinematic, no drums",
+    "emotional cinematic strings and choir rising crescendo, heroic last stand, tense and grand, building intensity, film score, no percussion"
+   ],
+   "seeds": [
+    201,
+    202,
+    203
+   ],
+   "mood": "drama"
   }
  ]
 }
