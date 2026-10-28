@@ -545,7 +545,7 @@ function layout(t) {
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
 // 1 = reaching the centre. Only visible meshes; a held prop is skipped for its holder only.
 function clipping() {
-  const out = [], tmp = new THREE.Box3(), inv = new THREE.Matrix4(), m = new THREE.Matrix4();
+  const out = [], inv = new THREE.Matrix4(), m = new THREE.Matrix4();
   const bodies = actors.map((a) => ({ id: a.c.id, a, mesh: a.ch.body })).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
   const depthIn = (body, mesh) => {
     if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();

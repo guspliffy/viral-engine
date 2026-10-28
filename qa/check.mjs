@@ -2,7 +2,7 @@
 // Cheap automatic checks for a rendered clip. Run them on a --draft render before spending minutes on the full one,
 // and again on the final MP4. Exit code 0 = pass (warnings and notes allowed), 1 = fail, 2 = usage error.
 //
-//   node qa/check.mjs out/test-01-golden-v2.mp4                       -> finds out/test-01-golden-v2.layout.json if present
+//   node qa/check.mjs out/test-01-golden.mp4                       -> finds out/test-01-golden.layout.json if present
 //   node qa/check.mjs clip.mp4 --sb storyboards/x.json --layout x.layout.json --json
 //   node qa/check.mjs clip.mp4 --sb x.json --profile rewards           -> publishing profile (default: the storyboard's, else "short")
 //
@@ -23,6 +23,7 @@ import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
 import { motionJumps, storyNotes } from "./motion.mjs";
+import { cutBetween } from "../engine/page/timeline.js";
 import { musicFlavour, seedOf } from "../puppet/beat.mjs";
 
 export const RULES = {
@@ -177,7 +178,7 @@ export function contactResults(layout, sb = null) {
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
       for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
       for (let i = 1; i < st.length; i++) {
-        const a = st[i - 1], b = st[i]; if (!a || !b) continue;
+        const a = st[i - 1], b = st[i]; if (!a || !b || (sb && cutBetween(sb, (i - 1) / fps, i / fps))) continue;
         const d = turn(a.q[s], b.q[s]);
         if (d > RULES.handTurnWarn) { out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns ${Math.round(d)}° in one frame at ${(i / fps).toFixed(2)}s: look at it at full speed (fine if hidden)` }); }
       }
@@ -221,7 +222,7 @@ function reachResults(layout, sb) {
       touch.set(k, e);
     }
   }
-  for (const [k, e] of into) {
+  for (const e of into.values()) {
     found++;
     if (e.x.with === e.x.who) out.push({ level: "fail", check: "limb-through-costume", msg: `${e.x.who}: ${e.by} sinks into its own body at ${list(runs(e.f, 1))}: keep the fist outside the body` });
     else out.push({ level: "fail", check: "character-overlap", msg: `${e.x.who}'s ${e.by} goes into ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm: keep it clear, or add an allowClip window with a reason` });

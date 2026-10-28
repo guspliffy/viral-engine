@@ -12,20 +12,11 @@
 //         the last frame leads into the first.
 //
 // Run: node storyboards/home/make-still-scrolling.mjs   -> storyboards/home/still-scrolling.json, still-scrolling-loop.json
-import { writeFileSync } from "node:fs";
-
-const r3 = (x) => Math.round(x * 1000) / 1000;
+import { clip, write, r3 } from "../lib/clip.mjs";
 
 function build(variant) {
   const LOOP = variant === "loop";
-  const items = [];
-  const at = (t, it) => items.push({ ...it, at: r3(t) });
-  const A = (t, who, what, o = {}) => at(t, { who, do: what, ...o });
-  const prop = (t, id, set, dur = 0.3, ease = "inOut") => at(t, { do: "prop", id, set, dur, ease });
-  const sfx = (t, s, o = {}) => at(t, { sfx: s, ...o });
-  const arm = (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, dur, ...(ease && { ease }) });
-  const captions = [];
-  const cap = (from, to, text, pos, pop = false) => captions.push({ from: r3(from), to: r3(to), text, pos, pop });
+  const c = clip(), { A, prop, sfx, arm, cap, captions } = c;
 
   // ---------------------------------------------------------------- places (set-apartment.js APARTMENT)
   const STOOL0 = [-0.5, 0.06], STOOL1 = [0.16, 0.14];           // the stool slides right, a little toward us
@@ -135,7 +126,7 @@ function build(variant) {
   A(8.05, "wiz", "still", { dur: 1.0, idle: 0.08 });
 
   // ---------------------------------------------------------------- 6 DEFEATED 9.7-12.0
-  A(9.7, "wiz", "macro_sigh", {});
+  c.macro(9.7, "wiz", "sigh");
   A(9.75, "wiz", "expr", { expr: "deadpan", set: { curve: -0.12 }, dur: 0.35 });
   A(9.75, "wiz", "face", { lid: 0.42, brow: -0.25, dur: 0.4 });
   arm(9.8, "wiz", "R", { o: [0.03, 0.2, 0.03] }, 0.5, "inOut");   // the shoulders drop: the arms hang lower and closer
@@ -194,16 +185,7 @@ function build(variant) {
   ];
   if (LOOP) { SHOTS[5][2] = { ...REVEAL, to: PUSH, dur: 1.6, ease: "inOut" }; SHOTS.push(["put it back", 11.6, REVEAL, "escalation"], ["landing", 13.1, MED]); }
 
-  // the sigh macro is expanded here (a beat item, not an action)
-  for (const it of items) if (it.do === "macro_sigh") { delete it.do; it.macro = "sigh"; }
-  items.sort((a, b) => a.at - b.at);
-  const beats = SHOTS.map(([name, start, shot, kind], i) => {
-    const end = SHOTS[i + 1]?.[1] ?? END;
-    const mine = items.filter((x) => x.at >= start - 1e-6 && (i === SHOTS.length - 1 || x.at < end - 1e-6)).map((x) => ({ ...x, at: r3(x.at - start) }));
-    return { name, at: start, len: r3(end - start), ...(shot && { shot }), do: mine, ...(kind && { kind }) };
-  });
-  const late = items.filter((x) => x.at >= END);
-  if (late.length) throw new Error(`items after the end: ${JSON.stringify(late.slice(0, 3))}`);
+  const beats = c.beats(SHOTS, END);
 
   return {
     id: LOOP ? "still-scrolling-loop" : "still-scrolling",
@@ -225,8 +207,4 @@ function build(variant) {
   };
 }
 
-for (const v of ["main", "loop"]) {
-  const sb = build(v);
-  writeFileSync(new URL(`./${sb.id}.json`, import.meta.url), JSON.stringify(sb, null, 1) + "\n");
-  console.log(`${sb.id}: ${sb.beats.reduce((s, b) => s + b.len, 0).toFixed(2)} s, ${sb.beats.length} beats`);
-}
+for (const v of ["main", "loop"]) write(import.meta.url, build(v));

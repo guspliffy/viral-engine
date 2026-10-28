@@ -59,7 +59,7 @@ export function buildBedroom(scene, S = {}) {
   box(g, 1.0, 2.0, 0.6, lam("#e6c9a8"), 2.75, 1.0, WZ + 0.32);
   box(g, 0.02, 1.9, 0.02, lam("#b48a62"), 2.75, 1.0, WZ + 0.63);
   for (const x of [2.68, 2.82]) box(g, 0.03, 0.12, 0.03, lam("#6b4423"), x, 1.0, WZ + 0.64);
-  const lampPost = box(g, 0.04, 1.3, 0.04, lam("#3b4250"), -2.3, 0.65, WZ + 0.4);
+  box(g, 0.04, 1.3, 0.04, lam("#3b4250"), -2.3, 0.65, WZ + 0.4);
   const shade = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.25, 20, 1, true), lam("#ffe7a8", { side: THREE.DoubleSide })); shade.position.set(-2.3, 1.38, WZ + 0.4); g.add(shade);
   if (S.flip) g.scale.x = -1;
   return g;

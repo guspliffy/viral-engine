@@ -433,6 +433,10 @@ function pathAt(keys, t) {
   return { pos: [0, 1, 2].map((c) => herm((k) => k.pos[c])), look: [0, 1, 2].map((c) => herm((k) => k.look[c])), fov: herm(fov0) };
 }
 
+// a hard cut between two frames (a new shot starts after t0, up to t1): anything may be re-placed behind it. A camera
+// path (sb.camera) is one continuous move, so it never cuts.
+export const cutBetween = (sb, t0, t1) => !(Array.isArray(sb.camera) && sb.camera.length) && (sb.shots || []).some((s) => s.at > t0 + 1e-6 && s.at <= t1 + 1e-6 && s.at > 0);
+
 export function cameraState(sb, t) {
   const shots = (sb.shots || []).filter((s) => s.at <= t).sort((a, b) => a.at - b.at);
   const s = shots[shots.length - 1] || { pos: [0, 1, 6], look: [0, 0.7, 0], fov: 32 };

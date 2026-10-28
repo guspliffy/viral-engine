@@ -15,19 +15,11 @@
 // Gas stays below the faces, the helmet glass stays clear (no hand near it), feet stay planted, nobody moves places.
 // Voices stay gibberish (Jonny, 26 Oct). No captions: the cause and effect read with the sound off.
 // Run: node storyboards/elevator/make-fart-elevator.mjs  -> storyboards/elevator/fart-elevator.json, fart-elevator-loop.json
-import { writeFileSync } from "node:fs";
-
-const r3 = (x) => Math.round(x * 1000) / 1000;
+import { clip, write, r3 } from "../lib/clip.mjs";
 
 function build(variant) {
   const LOOP = variant === "loop";
-  const items = [];
-  const at = (t, it) => items.push({ ...it, at: r3(t) });
-  const A = (t, who, what, o = {}) => at(t, { who, do: what, ...o });
-  const prop = (t, id, set, dur = 0.3, ease = "inOut") => at(t, { do: "prop", id, set, dur, ease });
-  const sfx = (t, s, o = {}) => at(t, { sfx: s, ...o });
-  const arm = (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, dur, ...(ease && { ease }) });
-  const still = (t, who, dur, idle = 0.12) => A(t, who, "still", { dur, idle });
+  const c = clip(), { at, A, prop, sfx, arm, still } = c;
 
   // ---------------------------------------------------------------- places (set-elevator.js ELEVATOR)
   const Z = -0.3, VIK = [-1.1, Z], AST = [0, Z], WIZ = [1.1, Z];
@@ -280,14 +272,7 @@ function build(variant) {
   ];
   if (LOOP) SHOTS.push(["up again", 15.0, WIDE]);
 
-  items.sort((a, b) => a.at - b.at);
-  const beats = SHOTS.map(([name, start, shot, kind], i) => {
-    const end = SHOTS[i + 1]?.[1] ?? END;
-    const mine = items.filter((x) => x.at >= start - 1e-6 && (i === SHOTS.length - 1 || x.at < end - 1e-6)).map((x) => ({ ...x, at: r3(x.at - start) }));
-    return { name, at: start, len: r3(end - start), ...(shot && { shot }), do: mine, ...(kind && { kind }) };
-  });
-  const late = items.filter((x) => x.at >= END);
-  if (late.length) throw new Error(`items after the end: ${JSON.stringify(late.slice(0, 3))}`);
+  const beats = c.beats(SHOTS, END);
 
   return {
     id: LOOP ? "fart-elevator-loop" : "fart-elevator",
@@ -305,8 +290,4 @@ function build(variant) {
   };
 }
 
-for (const v of ["main", "loop"]) {
-  const sb = build(v);
-  writeFileSync(new URL(`./${sb.id}.json`, import.meta.url), JSON.stringify(sb, null, 1) + "\n");
-  console.log(`${sb.id}: ${sb.beats.reduce((s, b) => s + b.len, 0).toFixed(2)} s, ${sb.beats.length} beats`);
-}
+for (const v of ["main", "loop"]) write(import.meta.url, build(v));

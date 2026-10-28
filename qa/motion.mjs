@@ -28,7 +28,7 @@ export async function motionJumps(sb, fps = 30) {
   const { handTarget } = await import("../engine/page/potato.js");
   const { isDance } = await import("../engine/page/dance.js");
   const THREE = await import("three"), cam = new THREE.PerspectiveCamera(32, 1080 / 1920, 0.05, 300), v3 = new THREE.Vector3();
-  const { cameraState } = await import("../engine/page/timeline.js");
+  const { cameraState, cutBetween } = await import("../engine/page/timeline.js");
   // off camera (a cheat behind a cut is fine): the body's middle projects outside the frame with a margin
   const offScreen = (st, t) => {
     const k = cameraState(sb, t); cam.position.fromArray(k.pos); cam.fov = k.fov; cam.updateProjectionMatrix(); cam.lookAt(v3.fromArray(k.look)); cam.updateMatrixWorld(true);
@@ -60,7 +60,7 @@ export async function motionJumps(sb, fps = 30) {
     }
     for (let i = 1; i < rows.length; i++) {
       const a = rows[i - 1], b = rows[i];
-      if (!a.feet || !b.feet || a.stepping || b.stepping || b.skip) continue;
+      if (!a.feet || !b.feet || a.stepping || b.stepping || b.skip || cutBetween(sb, a.t, b.t)) continue;
       for (let f = 0; f < 2; f++) {
         const d = Math.hypot(b.feet[f][0] - a.feet[f][0], b.feet[f][1] - a.feet[f][1]);
         if (d > SLIDE) out.push({ who: c.id, what: `foot ${f ? "L" : "R"} slides`, t: Math.round(b.t * 1000) / 1000, size: d });
@@ -75,7 +75,7 @@ export async function motionJumps(sb, fps = 30) {
     for (const k of [...Object.keys(LIMIT).filter((q) => q !== "hand"), "handR", "handL"]) {
       const lim = k.startsWith("hand") ? LIMIT.hand : LIMIT[k];
       for (let i = 2; i < rows.length - 1; i++) {
-        if (rows[i].skip || rows[i - 1].skip || (k.startsWith("hand") && (rows[i].fries || rows[i - 1].fries))) continue;
+        if (rows[i].skip || rows[i - 1].skip || cutBetween(sb, rows[i - 1].t, rows[i].t) || (k.startsWith("hand") && (rows[i].fries || rows[i - 1].fries))) continue;
         const d = step(i, k), around = Math.max(step(i - 1, k), step(i + 1, k));
         if (d > lim && d > RATIO * around) out.push({ who: c.id, what: k, t: Math.round(rows[i].t * 1000) / 1000, from: rows[i - 1].v[k], to: rows[i].v[k], size: d });
       }

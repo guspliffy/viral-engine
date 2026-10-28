@@ -145,7 +145,7 @@ function nookWallTex(w, h, seed) {
   return c;
 }
 function bannerTex(text) {
-  const [c, g] = canvas(1024, 256), W = 1024, H = 256;
+  const [c, g] = canvas(1024, 256), W = 1024;
   // paper bunting: a row of triangles on a string, then the word on a cream ribbon
   const cols = ["#ef8a5b", "#f2c14e", "#7cc4a4", "#7aa6e0", "#e78fb3"];
   g.strokeStyle = "#7a5a3a"; g.lineWidth = 4; g.beginPath(); g.moveTo(0, 18); g.quadraticCurveTo(W / 2, 46, W, 18); g.stroke();

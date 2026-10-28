@@ -48,9 +48,9 @@ GPU should be much faster (not measured yet).
 Rules for every clip are in [`CLAUDE.md`](CLAUDE.md). Two small tools check a clip before it counts as done:
 
 ```bash
-node engine/render.mjs storyboards/test-01-golden-v2.json --layout     # caption + character boxes, seconds
-node qa/check.mjs out/test-01-golden-v2.mp4                            # size, duration, blank frames, loudness, captions
-node qa/contact.mjs out/test-01-golden-v2.mp4 --sb storyboards/test-01-golden-v2.json   # contact sheet for review
+node engine/render.mjs storyboards/test-01-golden.json --layout     # caption + character boxes, seconds
+node qa/check.mjs out/test-01-golden.mp4                            # size, duration, blank frames, loudness, captions
+node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   # contact sheet for review
 ```
 
 `qa/check.mjs` works on any MP4. The caption checks read a `layout.json`

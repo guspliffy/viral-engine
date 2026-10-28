@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { taperedTube, lathe, radialTexture } from "./geo.js";
+import { taperedTube, radialTexture } from "./geo.js";
 import { hoodGeometry } from "./costumes-pb.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
@@ -12,12 +12,6 @@ const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness
 // a shell a little outside the body below elevation `from` (radians, 0 = middle, negative = lower): suits, armour
 function lowerShell(ch, from, scale = 1.045) {
   const t0 = Math.PI / 2 - from, g = new THREE.SphereGeometry(1, 96, 48, 0, Math.PI * 2, t0, Math.PI - t0), p = g.attributes.position, v = new THREE.Vector3();
-  for (let i = 0; i < p.count; i++) { const q = ch.bodyPoint(v.fromBufferAttribute(p, i).normalize()); p.setXYZ(i, q.x * scale, ch.cy + (q.y - ch.cy) * scale, q.z * scale); }
-  g.computeVertexNormals(); return g;
-}
-// a shell a little outside the body above elevation `from`: caps, hoods without a face opening
-function upperShell(ch, from, scale = 1.06) {
-  const t1 = Math.PI / 2 - from, g = new THREE.SphereGeometry(1, 64, 24, 0, Math.PI * 2, 0, t1), p = g.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) { const q = ch.bodyPoint(v.fromBufferAttribute(p, i).normalize()); p.setXYZ(i, q.x * scale, ch.cy + (q.y - ch.cy) * scale, q.z * scale); }
   g.computeVertexNormals(); return g;
 }

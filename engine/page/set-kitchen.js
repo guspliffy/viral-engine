@@ -79,7 +79,7 @@ export function buildKitchen(scene, S = {}) {
 
   // the fridge on the left
   const fridgeM = std("#e9e6dc", { roughness: 0.35 });
-  const fr = box(0.9, 2.0, 0.75, fridgeM, -3.0, 1.0, WALL_Z + 0.4, room);
+  box(0.9, 2.0, 0.75, fridgeM, -3.0, 1.0, WALL_Z + 0.4, room);
   box(0.04, 0.4, 0.05, std("#9aa0a8", { metalness: 0.6, roughness: 0.3 }), -2.62, 1.35, WALL_Z + 0.8, room);
   box(0.84, 0.02, 0.02, std("#bdb8ab"), -3.0, 1.32, WALL_Z + 0.78, room);
   const note = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.16), lam("#f6e58d")); note.position.set(-3.15, 1.6, WALL_Z + 0.78); note.rotation.z = 0.08; room.add(note);

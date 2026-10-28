@@ -424,4 +424,3 @@ export class Character {
   }
 }
 
-export const DEFAULT_EXPR = (def) => EXPRESSIONS[(def.face && def.face.default) || "kind"] || EXPRESSIONS.kind;

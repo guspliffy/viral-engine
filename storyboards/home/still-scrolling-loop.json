@@ -853,8 +853,8 @@
    "do": [
     {
      "who": "wiz",
-     "at": 0,
-     "macro": "sigh"
+     "macro": "sigh",
+     "at": 0
     },
     {
      "who": "wiz",

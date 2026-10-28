@@ -17,7 +17,6 @@ export const DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".
 let CAT = null;
 const catalog = () => (CAT ??= JSON.parse(fs.readFileSync(path.join(DIR, "catalog.json"), "utf8")));
 export const isLibrarySound = (id) => !!catalog().sounds[id];
-export const librarySounds = () => Object.keys(catalog().sounds);
 
 const decoded = new Map();
 function decode(file) {

@@ -2,7 +2,7 @@
 // Contact sheet of a clip for a quick human or model review: one still per beat, labelled with its time,
 // in a grid of small frames (a few hundred KB, so a review costs a handful of image tokens, not a video).
 //
-//   node qa/contact.mjs out/test-01-golden-v2.mp4 --sb storyboards/test-01-golden-v2.json   -> out/test-01-golden-v2.contact.png
+//   node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   -> out/test-01-golden.contact.png
 //   node qa/contact.mjs clip.mp4 --times 0.5,2,3.1 [--cols 4] [--width 270] [--out sheet.png]
 //   node qa/contact.mjs out/x-safe-draft-t0.50.png out/x-safe-draft-t2.00.png ...           -> sheet of draft stills (pre-render review)
 //

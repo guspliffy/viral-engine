@@ -608,7 +608,7 @@ const KINDS = {
     const pil = mesh(new THREE.SphereGeometry(0.3, 18, 10), pillowM, frame, 0, top + 0.06, Z0 + 0.14); pil.scale.set(1.45, 0.32, 0.6);
     const legs = [[-1, 0], [1, 0], [-1, 1], [1, 1]].map(([sx, k]) => mesh(new THREE.BoxGeometry(0.08, top - 0.28, 0.08), wood, frame, sx * (W / 2), (top - 0.28) / 2, Z0 + 0.06 + k * (L - 0.12)));
     // the blanket: flat over the bed, and its turned-down top edge that rises to the sleeper's chest
-    const flat = mesh(new THREE.BoxGeometry(W + 0.06, 0.06, L - 0.5), blanketM, frame, 0, top + 0.02, Z0 + 0.5 + (L - 0.5) / 2);
+    mesh(new THREE.BoxGeometry(W + 0.06, 0.06, L - 0.5), blanketM, frame, 0, top + 0.02, Z0 + 0.5 + (L - 0.5) / 2);
     const edge = new THREE.Group(); edge.position.set(0, top, 0.16); frame.add(edge);
     const flap = mesh(new THREE.BoxGeometry(W + 0.06, 1, 0.07), blanketM, edge, 0, 0.5, 0);
     const lump = mesh(new THREE.SphereGeometry(0.5, 22, 14), blanketM, frame, 0, top + 0.05, 0.05);
@@ -681,7 +681,7 @@ const KINDS = {
       c.font = "600 18px sans-serif"; c.textAlign = "left"; c.fillText("Name:", 18, 86); c.fillRect(80, 88, 150, 2);
       for (let i = 0; i < 5; i++) { const y = 128 + i * 44; c.fillText(`${i + 1}.`, 18, y); c.fillStyle = "#9aa6bf"; c.fillRect(50, y + 4, 180, 2); c.fillStyle = "#1f2a44"; }
     });
-    const paperM = new THREE.MeshStandardMaterial({ map: page, roughness: 0.9 }), ashM = mat("#2b2624", { roughness: 1 });
+    const paperM = new THREE.MeshStandardMaterial({ map: page, roughness: 0.9 });
     const answers = [], holesArr = [], sheets = [];
     for (const [s, h] of P.halves) {
       const geo = new THREE.PlaneGeometry(W / 2, L); const uv = geo.attributes.uv;
@@ -1082,7 +1082,7 @@ const KINDS = {
     const signG = new THREE.Group(); signG.position.set(P.spec.sign ?? -0.9, 0, P.spec.sign != null ? -0.34 : 0); P.whole.add(signG);
     mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.4, 8), steel, signG, 0, 0.7, 0);
     const tex = (() => { const c = document.createElement("canvas"); c.width = 128; c.height = 80; const g = c.getContext("2d"); g.fillStyle = "#2f6fd1"; g.fillRect(0, 0, 128, 80); g.fillStyle = "#fff"; g.font = "900 30px sans-serif"; g.textAlign = "center"; g.fillText("CARTS", 64, 52); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
-    const sign = mesh(new THREE.BoxGeometry(0.42, 0.26, 0.02), blue, signG, 0, 1.3, 0.02); mesh(new THREE.PlaneGeometry(0.4, 0.24), new THREE.MeshBasicMaterial({ map: tex }), signG, 0, 1.3, 0.035);
+    mesh(new THREE.BoxGeometry(0.42, 0.26, 0.02), blue, signG, 0, 1.3, 0.02); mesh(new THREE.PlaneGeometry(0.4, 0.24), new THREE.MeshBasicMaterial({ map: tex }), signG, 0, 1.3, 0.035);
     const nest = Array.from({ length: 6 }, (_, i) => { const g = new THREE.Group(); g.position.x = -0.55 + i * 0.2; P.whole.add(g); const c = KINDS.cart({ root: g, whole: g, halves: [], spec: { color: P.spec.color } }); g.rotation.y = -Math.PI / 2; g.scale.setScalar(0.98); return [g, c]; });
     return {
       grip: 0,
@@ -1319,7 +1319,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, burn: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, hold: null, left: null, carry: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, hold: null, left: null, carry: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
