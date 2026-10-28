@@ -245,7 +245,7 @@ export function buildCostume(def, ch) {
   if (C.type === "wizard" || (C.type === "kid" && C.outfit === "witch")) hat = wizardHat(C);
   if (C.type === "cowboy") hat = cowboyHat(C);
   const pb = C.type === "phoenix" ? phoenixCostume(C, ch) : C.type === "reaper" ? reaperCostume(C, ch) : null;   // costumes-pb.js
-  if (pb) { hat = pb.hat; prop = pb.prop || null; }
+  if (pb) { hat = pb.hat; prop = C.noProp ? null : pb.prop || null; }   // noProp: the scythe is left at home
   const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols ? castCostume(C, ch) : null;   // costumes-cast.js
   if (isCast) { hat = cc.hat || hat; prop = C.noProp ? null : cc.prop; }   // noProp: the axe (katana, ...) is left at home
   if (C.type === "magician") hat = topHat(C);
