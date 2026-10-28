@@ -64,7 +64,7 @@ const C_LOW = add(C_BITE, [-0.03, -0.06, 0.05]);           // lowered, sheepish,
 const C_PASS = [0.0, TABLE_H + 0.1, 0.52];                  // the handoff into the Wizard's left palm
 const C_WIZ = [-0.2, TABLE_H + 0.06, 0.7];                 // held steady for the straw
 const C_BACK = [0.06, TABLE_H + 0.1, 0.52]; 
-const C_DOWN = [0.13, TABLE_H + 0.035, 0.6];                // lowered in front of him, after the sip
+const C_DOWN = [0.1, TABLE_H + 0.035, 0.6];                // lowered in front of him, after the sip
                 // handed back
 // the straw lying on the table in front of the Wizard: its foot, pointing right-front (rot 70: the long part toward
 // +x, the bend lying flat toward the back)
@@ -141,6 +141,7 @@ A(HIT, "wiz", "face", { juiceL: 1, dur: 0.05 });
 A(HIT + 0.02, "wiz", "face", { stainL: 1, dur: 0.05 });
 A(HIT, "wiz", "squash", { amount: 0.05, dur: 0.25 });
 sfx(HIT, "kenney/slime", { gain: 0.45 });
+c.textPop(HIT, "wiz", "SPLORT!", { dur: 0.5 });
 A(1.0, "wiz", "still", { dur: 0.75, idle: 0.05 });
 c.prop(1.3, "carton", { squeeze: 0 }, 0.25);                        // the pressure goes, the jets stop
 A(1.3, "rea", "arm", { side: "R", pose: { world: sideR(C_BITE), palm: mid(C_BITE) }, dur: 0.25 });
@@ -241,7 +242,7 @@ A(8.35, "rea", "expr", { expr: "delighted", set: { open: 0.6, curve: 1, eye: 0.7
 A(8.35, "rea", "face", { lid: 0.5, fangs: 1, dur: 0.3 });
 // the right hand keeps the carton, the left points at the fangs (the storyboard's last panel)
 A(8.5, "rea", "grab", { prop: "carton", hand: "R", grip: [-(JUICE.w / 2 + GAP / CS), JUICE.h * 0.42, 0], pose: null });
-A(8.55, "rea", "arm", { side: "L", pose: { world: add(MOUTH_REA, rotY([0.21, 0.0, 0.0], REA_FACE)) }, dur: 0.35, ease: "inOut" });
+A(8.55, "rea", "arm", { side: "L", pose: { world: add(MOUTH_REA, rotY([0.27, -0.05, 0.0], REA_FACE)) }, dur: 0.35, ease: "inOut" });
 A(8.6, "rea", "grip", { side: "L", shape: "point", dur: 0.25 });
 A(8.7, "rea", "face", { lid: 0.6, dur: 0.2 });                      // eyes squeezed in a proud grin
 sfx(8.4, "kenney/cloth", { gain: 0.08, reason: "a tiny satisfied breath as the chin goes up" });
@@ -256,6 +257,7 @@ A(9.45, "wiz", "pitch", { to: 5, dur: 0.3 });
 A(9.5, "wiz", "expr", { expr: "deadpan", set: { curve: -0.2 }, dur: 0.3 });
 A(10.15, "wiz", "look", { to: WIZ_AT_REA, dur: 0.18, blink: false });   // the flat sideways glance
 A(10.15, "wiz", "pitch", { to: 0, dur: 0.3 });
+A(10.15, "wiz", "turn", { to: 16, dur: 0.25 });                     // the head carries the glance
 A(10.15, "wiz", "face", { lid: 0.42, dur: 0.2 });
 A(10.2, "wiz", "still", { dur: 0.8, idle: 0.06 });
 A(10.3, "rea", "look", { to: REA_AT_WIZ, dur: 0.25, blink: false });   // his waiting-for-praise grin meets the glance
@@ -274,13 +276,13 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
   return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
 };
 const S1 = frame(add(MOUTH_REA, [-0.03, -0.02, 0]), { az: -18, el: 6, h: 0.95, fov: 18 });
-const S2 = frame(mid(C_BITE, 0.7), { az: -22, el: 8, h: 0.6, fov: 16 });
+const S2 = frame(add(mid(C_BITE, 0.7), [0, 0.05, 0]), { az: -22, el: 8, h: 0.72, fov: 16 });   // the eyes in frame
 const S3 = frame([-0.12, 0.62, 0.38], { az: 24, el: 3, h: 1.35, fov: 20 });   // wide enough for the jets coming in
 const S4 = frame([0.0, 0.58, 0.3], { az: -4, el: 5, h: 2.0, fov: 22 });
 const S5 = frame(add(C_WIZ, [-0.06, 0.16, -0.06]), { az: 0, el: 30, h: 1.1, fov: 18, push: 0.3, dur: 2.1 });
 const S6 = frame([-0.03, 0.55, 0.35], { az: -4, el: 5, h: 1.75, fov: 22 });
 const S7 = frame(add(MOUTH_REA, [-0.02, -0.03, 0]), { az: -18, el: 4, h: 0.95, fov: 18 });
-const S8 = frame(add(MOUTH_REA, [-0.02, 0.02, 0]), { az: -12, el: -4, h: 1.25, fov: 20 });   // low angle: proud
+const S8 = frame(add(MOUTH_REA, [-0.02, -0.02, 0]), { az: 4, el: 2, h: 1.5, fov: 20 });   // wider and from his other side: a real cut, the straw off his face
 const S9 = frame([-0.02, 0.6, 0.28], { az: 0, el: 3, h: 1.65, fov: 22 });
 const beats = c.beats([
   ["01 wrong tool", 0, S1, "hook"],
