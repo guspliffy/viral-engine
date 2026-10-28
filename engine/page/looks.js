@@ -420,7 +420,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
       set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
     });
-    sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall
+    if (!setSpec.plate) sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall (a painted plate has its own light)
   }
   ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
