@@ -86,10 +86,9 @@ export const CHEF_KINDS = {
   },
   spoon(P) {
     const steel = mat(P.spec.color ?? "#d9dee6", { roughness: 0.22, metalness: 0.55 });
-    // the handle: a flat, slightly tapered strip, widening to an oval end the fist closes on, then a narrow neck
-    const pts = [[0, 0, -0.03], [0, 0.004, 0.03], [0, 0.012, 0.09], [0, 0.02, 0.125]].map((p) => new THREE.Vector3(...p));
+    // the handle: a flat, slightly tapered strip (its end inside the fist), then a narrow neck
+    const pts = [[0, 0, -0.012], [0, 0.004, 0.03], [0, 0.012, 0.09], [0, 0.02, 0.125]].map((p) => new THREE.Vector3(...p));
     const h = mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, 0.0055, 8, false), steel, P.whole); h.scale.x = 1.6;
-    const end = mesh(new THREE.SphereGeometry(0.012, 14, 10), steel, P.whole, 0, -0.001, -0.032); end.scale.set(1.2, 0.45, 1.6);
     // the bowl: a shallow oval cup, open side up
     const cup = mesh(new THREE.SphereGeometry(0.022, 24, 12, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), steel, P.whole, 0, 0.026, 0.15);
     cup.scale.set(1, 0.42, 1.45); cup.material.side = THREE.DoubleSide;

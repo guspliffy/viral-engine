@@ -59,6 +59,17 @@ export class Face {
     // a warm off-white, matte enough that the one painted catch light is the only highlight
     const white = new THREE.MeshStandardMaterial({ color: "#fbf5ea", roughness: 0.45 });
     const irisM = new THREE.MeshStandardMaterial({ color: iris, roughness: 0.4 });
+    // eye.irisShade: the anime iris, painted top to bottom: dark under the upper lid, the colour, then a bright warm
+    // band low in the iris (reads in extreme close-ups; off by default so older clips keep their eyes)
+    if (E.irisShade) {
+      const cv = document.createElement("canvas"); cv.width = 4; cv.height = 256; const g = cv.getContext("2d"), col = new THREE.Color(iris);
+      const sh = (k, w = 0) => `rgb(${[col.r, col.g, col.b].map((v) => Math.round(255 * Math.min(1, v * k + w))).join(",")})`;
+      const gr = g.createLinearGradient(0, 0, 0, 256);   // canvas top = the sphere's top (v 1)
+      gr.addColorStop(0, sh(0.7)); gr.addColorStop(0.38, sh(0.8)); gr.addColorStop(0.5, sh(1.25, 0.02)); gr.addColorStop(0.6, sh(1.9, 0.08)); gr.addColorStop(0.68, sh(2.6, 0.16)); gr.addColorStop(1, sh(1.6, 0.05));
+      g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
+      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+      irisM.color.set("#ffffff"); irisM.map = tex;
+    }
     const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.4 });
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
     // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
@@ -138,7 +149,7 @@ export class Face {
   _tear(side, r, D, oval) {
     const g = new THREE.Group(), rx = r * 0.9, ry = r * 0.9 * oval, zf = r * D + 0.0025;
     if (!this.waterMat) {
-      this.waterMat = new THREE.MeshBasicMaterial({ color: "#d4efff", transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+      this.waterMat = new THREE.MeshBasicMaterial({ color: "#c4e6fb", transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
       this.shineMat = new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
       this.beadMat = new THREE.MeshBasicMaterial({ color: "#c6e8fb", transparent: true, opacity: 0, depthWrite: false });
       this.beadEdge = new THREE.MeshBasicMaterial({ color: "#7fb4d6", transparent: true, opacity: 0, depthWrite: false, side: THREE.BackSide });
@@ -237,7 +248,7 @@ export class Face {
     }
     if (this.waterMat) {
       const tk = Math.max(c.tearL || 0, c.tearR || 0), wet = Math.min(1, tk / 0.5);
-      this.waterMat.opacity = 0.5 * wet; this.shineMat.opacity = 0.95 * wet; this.beadMat.opacity = 0.82; this.beadEdge.opacity = 0.55;
+      this.waterMat.opacity = 0.62 * wet; this.shineMat.opacity = 0.95 * wet; this.beadMat.opacity = 0.82; this.beadEdge.opacity = 0.55;
     }
     // blush follows the curve of the face: a flat card on a round body dips under the skin at its edges and shows
     // a hard cut. Built once, in the host's space, from the same surface mapping as the rest of the face.

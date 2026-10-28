@@ -19,7 +19,7 @@
  },
  "face": {
   "default": "cocky",
-  "iris": "#4a2a14",
+  "iris": "#7a4520",
   "cheeks": "#ff6f6f",
   "neutral": {
    "tilt": 0,
@@ -36,7 +36,8 @@
    "iris": 0.66,
    "oval": 1.32,
    "glints": 1,
-   "lash": 1.15
+   "lash": 1.15,
+   "irisShade": true
   },
   "browShape": {
    "arch": 0.03,

@@ -19,7 +19,7 @@
  },
  "face": {
   "default": "stern",
-  "iris": "#3a4a6a",
+  "iris": "#3e5f9a",
   "cheeks": "#ff7a6a",
   "brow": "#ecebe6",
   "neutral": {
@@ -36,7 +36,8 @@
    "depth": 0.2,
    "oval": 1.32,
    "glints": 1,
-   "lash": 1.15
+   "lash": 1.15,
+   "irisShade": true
   },
   "browShape": {
    "arch": 0.03,
