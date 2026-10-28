@@ -247,39 +247,12 @@ const KINDS = {
     };
   },
   // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
-  // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands.
-  // spec.screen { src, cols, rows, next? } plays pictures on a 9:16 screen: src is an atlas of video frames (cols x
-  // rows tiles, row by row), `feed` picks the tile (tween it to play them), a swipe (`scroll` 0..1) slides the picture up
-  // and the `nextFeed` tile in from below; `next` is a full-size picture used for that tile instead (the shot that ends
-  // filling the frame with the screen, shots `prop`). The screen is unlit and never outlined: it looks like the picture.
+  // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands. style "iphone" builds
+  // a modern iPhone instead (iphone() below), the one that can play pictures on its screen
   phone(P) {
+    if (P.spec.style === "iphone") return iphone(P);
     const BODY = P.spec.case ?? "#23242c", body = mat(BODY, { roughness: P.spec.case ? 0.6 : 0.35, metalness: P.spec.case ? 0 : 0.4 });
     mesh(new THREE.BoxGeometry(0.078, 0.155, 0.012), body, P.whole, 0, 0.0775, 0);
-    const SC = P.spec.screen;
-    if (SC) {
-      const cv = document.createElement("canvas"); cv.width = 1080; cv.height = 1920;
-      const g = cv.getContext("2d"), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
-      const sm = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false }); sm.userData.noOutline = true;
-      mesh(new THREE.PlaneGeometry(0.068, 0.068 * 16 / 9), sm, P.whole, 0, 0.0775, 0.0062).castShadow = false;
-      const img = (src) => new THREE.ImageLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
-      const pics = {};
-      (globalThis.__loads ||= []).push(Promise.all([img(SC.src), SC.next && img(SC.next)]).then(([a, n]) => { pics.atlas = a; pics.next = n; }));
-      const tile = (i, y) => {
-        if (SC.next && i === SC.cols * SC.rows) { g.drawImage(pics.next, 0, y, 1080, 1920); return; }
-        const w = pics.atlas.width / SC.cols, h = pics.atlas.height / SC.rows;
-        g.drawImage(pics.atlas, (i % SC.cols) * w, Math.floor(i / SC.cols) * h, w, h, 0, y, 1080, 1920);
-      };
-      let drawn = "";
-      return { grip: 0.05, apply(ps) {
-        const f = Math.max(0, Math.floor(ps.feed + 1e-6)), n = Math.floor(ps.nextFeed + 1e-6), sc = clamp(ps.scroll), key = `${f}|${n}|${sc.toFixed(4)}`;
-        if (key === drawn || !pics.atlas) return;
-        drawn = key; g.fillStyle = "#000"; g.fillRect(0, 0, 1080, 1920);
-        const e = ease("inOut")(sc);
-        if (e < 1) tile(f, -1920 * e);
-        if (e > 0) tile(n, 1920 * (1 - e));
-        tex.needsUpdate = true;
-      } };
-    }
     const screenM = new THREE.MeshStandardMaterial({ color: "#1c3a52", roughness: 0.2, emissive: new THREE.Color("#8fd0ff"), emissiveIntensity: 0.25 });
     mesh(new THREE.PlaneGeometry(0.068, 0.138), screenM, P.whole, 0, 0.0775, 0.0062).castShadow = false;
     // the camera bump on the back
@@ -1323,6 +1296,102 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
 Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js)
+
+// a rounded rectangle centred on the origin (w x h, corner radius r)
+function roundRect(w, h, r) {
+  const s = new THREE.Shape(), x = w / 2, y = h / 2;
+  s.moveTo(-x + r, -y); s.lineTo(x - r, -y); s.absarc(x - r, -y + r, r, -Math.PI / 2, 0); s.lineTo(x, y - r); s.absarc(x - r, y - r, r, 0, Math.PI / 2);
+  s.lineTo(-x + r, y); s.absarc(-x + r, y - r, r, Math.PI / 2, Math.PI); s.lineTo(-x, -y + r); s.absarc(-x + r, -y + r, r, Math.PI, Math.PI * 1.5);
+  return s;
+}
+// a flat shape whose texture spans its bounding box (ShapeGeometry's own UVs are its raw coordinates)
+function shapeGeo(shape, seg = 12) {
+  const g = new THREE.ShapeGeometry(shape, seg); g.computeBoundingBox();
+  const b = g.boundingBox, uv = g.attributes.uv, pos = g.attributes.position;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, (pos.getX(i) - b.min.x) / (b.max.x - b.min.x), (pos.getY(i) - b.min.y) / (b.max.y - b.min.y));
+  return g;
+}
+
+// A modern iPhone (proportions of a 6.1-inch Pro: 146.6 x 70.6 x 8.25 mm, 1.55 mm screen border, the Dynamic Island,
+// a square camera plateau with three lenses, flash and sensor), built at 0.078 wide like the old phone, its middle at
+// y 0.0775 and the screen facing +z. spec.color is the back glass (white titanium by default), spec.frame the rounded
+// metal band. The screen is unlit and never outlined: it looks like the picture on it. Seen from the back, the plateau
+// sits top left.
+// spec.screen { src, cols, rows, next? } plays pictures: src is an atlas of video frames (cols x rows tiles, row by
+// row), drawn as a 9:16 video across the screen's width, between a status bar (9:41, signal, battery) and the home
+// bar; `feed` picks the tile (tween it to play them), a swipe (`scroll` 0..1) slides the video up and the `nextFeed`
+// tile in from below; `next` is a full-size picture used for that tile instead (a shot locked to the phone, shots
+// `prop`, can end with the video filling the frame: it is IPHONE.videoH tall, centred on the screen).
+export const IPHONE = { w: 0.078, h: 0.162, d: 0.0091, screenW: 0.0717, screenH: 0.1546, cy: 0.0775 };
+IPHONE.videoH = (IPHONE.screenW * 16) / 9;
+function iphone(P) {
+  const { w: W, h: H, d: D, screenW: SW, screenH: SH, cy: CY } = IPHONE, R = 0.0115, B = 0.0016;
+  const frameM = mat(P.spec.frame ?? "#d6d3cd", { roughness: 0.32, metalness: 0.75 });
+  const backM = mat(P.spec.color ?? "#ebe8e2", { roughness: 0.55, metalness: 0.05 });
+  const blackM = new THREE.MeshStandardMaterial({ color: "#07070a", roughness: 0.12, metalness: 0.2 });
+  // the metal band: a rounded slab with rounded edges
+  const band = new THREE.ExtrudeGeometry(roundRect(W - 2 * B, H - 2 * B, R - B), { depth: D - 2 * B, bevelEnabled: true, bevelThickness: B, bevelSize: B, bevelSegments: 4, curveSegments: 18 });
+  band.translate(0, 0, -(D - 2 * B) / 2);
+  mesh(band, frameM, P.whole, 0, CY, 0);
+  // back glass, and on it the camera plateau (seen from the back: top left, the phone's +x) with its lenses
+  const back = mesh(shapeGeo(roundRect(W - 0.0024, H - 0.0024, R - 0.0012), 18), backM, P.whole, 0, CY, -D / 2 - 0.0002); back.rotation.y = Math.PI;
+  const PW = 0.0385, px = W / 2 - 0.0035 - PW / 2, py = CY + H / 2 - 0.0035 - PW / 2;
+  const plat = new THREE.ExtrudeGeometry(roundRect(PW, PW, 0.0085), { depth: 0.0008, bevelEnabled: true, bevelThickness: 0.0004, bevelSize: 0.0004, bevelSegments: 2, curveSegments: 12 });
+  mesh(plat, mat(P.spec.color ?? "#ebe8e2", { roughness: 0.25, metalness: 0.1 }), P.whole, px, py, -D / 2 - 0.0012);
+  const ringM = mat(P.spec.frame ?? "#d6d3cd", { roughness: 0.3, metalness: 0.8 }), glassM = new THREE.MeshStandardMaterial({ color: "#10131c", roughness: 0.05, metalness: 0.4 });
+  const lens = (x, y) => {
+    const ring = mesh(new THREE.CylinderGeometry(0.0072, 0.0075, 0.0022, 28), ringM, P.whole, px + x, py + y, -D / 2 - 0.0022); ring.rotation.x = Math.PI / 2;
+    const gl = mesh(new THREE.CylinderGeometry(0.0055, 0.0055, 0.0004, 28), glassM, P.whole, px + x, py + y, -D / 2 - 0.0034); gl.rotation.x = Math.PI / 2;
+    const glint = mesh(new THREE.CircleGeometry(0.0013, 12), new THREE.MeshBasicMaterial({ color: "#9fb4ff" }), P.whole, px + x - 0.0018, py + y + 0.0018, -D / 2 - 0.0037); glint.rotation.y = Math.PI; glint.castShadow = false;
+  };
+  // from the back, the two lenses on the outer edge (the phone's +x) are stacked, the third sits between them inward
+  lens(0.0088, 0.0094); lens(0.0088, -0.0094); lens(-0.0088, 0);
+  mesh(new THREE.CylinderGeometry(0.0028, 0.0028, 0.0008, 18), mat("#fff6dc", { roughness: 0.3 }), P.whole, px - 0.0105, py + 0.0118, -D / 2 - 0.0016).rotation.x = Math.PI / 2;   // flash
+  mesh(new THREE.CylinderGeometry(0.0025, 0.0025, 0.0008, 18), blackM, P.whole, px - 0.0105, py - 0.0118, -D / 2 - 0.0016).rotation.x = Math.PI / 2;      // sensor
+  // side buttons: action button and volume on one side, the side button on the other
+  for (const [x, y, h] of [[-1, 0.046, 0.007], [-1, 0.031, 0.012], [-1, 0.015, 0.012], [1, 0.024, 0.018]]) mesh(new THREE.BoxGeometry(0.0016, h, 0.0034), frameM, P.whole, x * (W / 2 + 0.0004), CY + y, 0);
+  // the front: black glass to the edge, the screen inside a thin border, the Dynamic Island over it
+  mesh(shapeGeo(roundRect(W - 0.0024, H - 0.0024, R - 0.0012), 18), blackM, P.whole, 0, CY, D / 2 + 0.0002);
+  const island = mesh(shapeGeo(roundRect(0.0232, 0.0068, 0.0034)), new THREE.MeshStandardMaterial({ color: "#000000", roughness: 0.08, metalness: 0.5 }), P.whole, 0, CY + SH / 2 - 0.0022 - 0.0034, D / 2 + 0.0007);
+  island.castShadow = false;
+  const SC = P.spec.screen, CW = 1080, CH = Math.round((CW * SH) / SW);
+  const cv = document.createElement("canvas"); cv.width = CW; cv.height = CH;
+  const g = cv.getContext("2d"), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const sm = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false }); sm.userData.noOutline = true;
+  mesh(shapeGeo(roundRect(SW, SH, R - 0.0026), 18), sm, P.whole, 0, CY, D / 2 + 0.0004).castShadow = false;
+  const VY = (CH - 1920) / 2;   // the video's top on the canvas: centred, so a shot can end with it filling the frame
+  const pics = {};
+  if (SC) (globalThis.__loads ||= []).push(Promise.all([SC.src, SC.next].map((src) => src && new THREE.ImageLoader().loadAsync(`/${src.replace(/^\/+/, "")}`))).then(([a, n]) => { pics.atlas = a; pics.next = n; }));
+  const tile = (i, y) => {
+    if (SC.next && i === SC.cols * SC.rows) { g.drawImage(pics.next, 0, y, 1080, 1920); return; }
+    const tw = pics.atlas.width / SC.cols, th = pics.atlas.height / SC.rows;
+    g.drawImage(pics.atlas, (i % SC.cols) * tw, Math.floor(i / SC.cols) * th, tw, th, 0, y, 1080, 1920);
+  };
+  // the status bar and the home bar, white on black like an app playing a video
+  const chrome = () => {
+    g.fillStyle = "#fff"; g.font = "600 58px Helvetica, Arial, sans-serif"; g.textBaseline = "middle"; g.fillText("9:41", 96, 92);
+    for (let i = 0; i < 4; i++) g.fillRect(CW - 300 + i * 22, 112 - 14 - i * 9, 14, 14 + i * 9);   // signal
+    g.lineWidth = 5; g.strokeStyle = "rgba(255,255,255,0.55)"; g.beginPath(); g.roundRect(CW - 190, 70, 96, 46, 13); g.stroke();
+    g.fillRect(CW - 182, 78, 66, 30); g.fillStyle = "rgba(255,255,255,0.55)"; g.fillRect(CW - 90, 84, 6, 18);   // battery
+    g.fillStyle = "#fff"; g.beginPath(); g.roundRect(CW / 2 - 190, CH - 46, 380, 15, 8); g.fill();   // home bar
+  };
+  let drawn = "";
+  const draw = (f, n, sc) => {
+    g.fillStyle = "#000"; g.fillRect(0, 0, CW, CH);
+    if (SC && pics.atlas) {
+      g.save(); g.beginPath(); g.rect(0, VY, CW, 1920); g.clip();
+      const e = ease("inOut")(sc);
+      if (e < 1) tile(f, VY - 1920 * e);
+      if (e > 0) tile(n, VY + 1920 * (1 - e));
+      g.restore();
+    } else { const gr = g.createLinearGradient(0, 0, CW, CH); gr.addColorStop(0, "#3d6fd6"); gr.addColorStop(1, "#b04ad8"); g.fillStyle = gr; g.fillRect(0, 0, CW, CH); }
+    chrome(); tex.needsUpdate = true;
+  };
+  return { grip: 0.05, apply(ps) {
+    const f = Math.max(0, Math.floor(ps.feed + 1e-6)), n = Math.floor(ps.nextFeed + 1e-6), sc = clamp(ps.scroll), key = `${f}|${n}|${sc.toFixed(4)}|${!!pics.atlas}`;
+    if (key !== drawn) { drawn = key; draw(f, n, sc); }
+  } };
+}
 
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);

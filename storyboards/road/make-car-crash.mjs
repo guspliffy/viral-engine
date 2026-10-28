@@ -183,7 +183,7 @@ const props = [
   { id: "wheel", kind: "steer", rig: "car", x: DRA_X, y: 0.9, z: 0.25, tip: 34 },
   // the screen plays the crash itself (frames of this clip, made by make-car-crash-screen.sh) and, after the swipe,
   // the clip's first frame: the last shot pushes into it until it fills the frame, so the loop starts again on screen
-  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -32, scale: 2.15, case: "#36cfc0",
+  { id: "phone", kind: "phone", style: "iphone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -32, scale: 2.15,
     screen: { src: "assets/screens/car-crash/atlas.jpg", cols: 4, rows: 3, next: "assets/screens/car-crash/next.jpg" } },
   // loose snacks that float round the cabin while the car turns over (the phone never moves)
   ...SNACKS.map(([id, kind, at, o]) => ({ id, kind, rig: "car", x: at[0], y: at[1], z: at[2], ...o })),
@@ -310,6 +310,9 @@ const ENGINE = [[0, 2300, 0.5, 1], [At(-0.15), 2300, 0.5, 1], [At(-0.05), 1700, 
   [At(9.3), 2500, 0.6, 1], [At(11.6), 2350, 0.55, 1], [END, 2300, 0.5, 1]].map(([t, ...v]) => [r3(t), ...v]);
 
 // ---------------------------------------------------------------- shots (world frame; the car stays near z 0)
+// the distance (phone units) at which the iPhone's 9:16 video (props3d.js IPHONE.videoH = 0.0717 * 16 / 9 tall) fills a
+// 50 degree frame, a hair closer so no edge shows
+const VIDEO_FILL = r3((0.0717 * 16 / 9 / 2) / Math.tan((25 * Math.PI) / 180) - 0.0005);
 const xAt = (u) => herm(SIDE, u);
 const beats = c.beats([
   // frame 0: closer on the two of them, a quick push toward Dragon as he sees the rock
@@ -326,8 +329,8 @@ const beats = c.beats([
   ["everything is fine", At(8.5), { track: "car", pos: [-2.5, 2.0, 4.6], look: [-0.1, 1.1, -0.25], fov: 40, to: { pos: [-2.25, 1.97, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],   // the v3 push-in pace; the cut now comes before it ends
   // his phone, locked to it (the world turns behind it), seen from where his eyes are (he is left out of these two
   // shots, his head would fill them): the crash on screen, then into the next video
-  ["his phone", TP, { prop: "phone", hide: ["wiz"], pos: [0, 0.095, 0.185], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, 0.175], look: [0, 0.0775, 0] }, dur: SW - TP, ease: "inOut" }],
-  ["next video", ZOOM, { prop: "phone", hide: ["wiz"], pos: [0, 0.0775, 0.175], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, 0.1293], look: [0, 0.0775, 0] }, dur: r3(END - ZOOM - 1 / 30), ease: "in" }],
+  ["his phone", TP, { prop: "phone", hide: ["wiz"], pos: [0, 0.098, 0.205], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, 0.19], look: [0, 0.0775, 0] }, dur: SW - TP, ease: "inOut" }],
+  ["next video", ZOOM, { prop: "phone", hide: ["wiz"], pos: [0, 0.0775, 0.19], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, VIDEO_FILL], look: [0, 0.0775, 0] }, dur: r3(END - ZOOM - 1 / 30), ease: "in" }],
 ].map(([n, t, s, k]) => [n, r3(t), s, k]), END);
 
 write(import.meta.url, {
