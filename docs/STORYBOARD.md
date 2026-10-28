@@ -128,6 +128,12 @@ moving at once.
   Held props stay rigid. A cast entry's `"sway": 0.5` halves it for that character (0 turns it off);
   `"followThrough": false` on the storyboard turns it off for the clip. A hard cut or a re-placed character starts
   it again at rest, so nothing swings across a cut.
+- **Motion blur is automatic in full renders** (`engine/render.mjs` `BLUR`): a frame where a part moves fast (a sword
+  swing, an axe, a snap) is averaged from extra frames drawn across half the frame time, like a film camera's shutter.
+  Calm frames stay one sample, a very fast part gets a shorter shutter (a smear of 60 px at most, so it never shows as
+  stripes), and the samples never cross a cut, an impact frame or a flash. `"motionBlur": false`
+  turns it off for the clip; `"motionBlur": { "shutter": 0.5, "gap": 5, "min": 12, "max": 13 }` tunes it (smear in px).
+  Drafts skip it (`--blur` turns it on), `--no-blur` turns it off.
 
 **Contact: hands, props and feet**
 
