@@ -56,15 +56,18 @@
    "source": "kenney"
   },
   "step-carpet": {
+   "source": "ai",
    "files": [
-    "kenney/impact/footstep_carpet_000.ogg",
-    "kenney/impact/footstep_carpet_001.ogg",
-    "kenney/impact/footstep_carpet_002.ogg",
-    "kenney/impact/footstep_carpet_003.ogg",
-    "kenney/impact/footstep_carpet_004.ogg"
+    "ai/step-carpet/step-carpet-01.wav",
+    "ai/step-carpet/step-carpet-02.wav",
+    "ai/step-carpet/step-carpet-03.wav",
+    "ai/step-carpet/step-carpet-04.wav",
+    "ai/step-carpet/step-carpet-05.wav",
+    "ai/step-carpet/step-carpet-06.wav",
+    "ai/step-carpet/step-carpet-07.wav",
+    "ai/step-carpet/step-carpet-08.wav"
    ],
-   "gain": 0.35,
-   "source": "kenney"
+   "gain": 0.35
   },
   "step-snow": {
    "files": [
@@ -179,18 +182,9 @@
   "katana-slice": {
    "layers": [
     [
-     "whoosh",
+     "shing",
      0,
-     0.35
-    ],
-    [
-     "blade-cut",
-     0.07
-    ],
-    [
-     "tink",
-     0.14,
-     0.15
+     0.45
     ]
    ]
   },
@@ -443,65 +437,18 @@
    "source": "kenney"
   },
   "key": {
+   "source": "ai",
    "files": [
-    "kenney/interface/switch_001.ogg",
-    "kenney/interface/switch_002.ogg",
-    "kenney/interface/switch_003.ogg",
-    "kenney/interface/switch_004.ogg",
-    "kenney/interface/switch_005.ogg",
-    "kenney/interface/switch_006.ogg",
-    "kenney/interface/switch_007.ogg",
-    "kenney/ui/switch1.ogg",
-    "kenney/ui/switch10.ogg",
-    "kenney/ui/switch11.ogg",
-    "kenney/ui/switch12.ogg",
-    "kenney/ui/switch13.ogg",
-    "kenney/ui/switch14.ogg",
-    "kenney/ui/switch15.ogg",
-    "kenney/ui/switch16.ogg",
-    "kenney/ui/switch17.ogg",
-    "kenney/ui/switch18.ogg",
-    "kenney/ui/switch19.ogg",
-    "kenney/ui/switch2.ogg",
-    "kenney/ui/switch20.ogg",
-    "kenney/ui/switch21.ogg",
-    "kenney/ui/switch22.ogg",
-    "kenney/ui/switch23.ogg",
-    "kenney/ui/switch24.ogg",
-    "kenney/ui/switch25.ogg",
-    "kenney/ui/switch26.ogg",
-    "kenney/ui/switch27.ogg",
-    "kenney/ui/switch28.ogg",
-    "kenney/ui/switch29.ogg",
-    "kenney/ui/switch3.ogg",
-    "kenney/ui/switch30.ogg",
-    "kenney/ui/switch31.ogg",
-    "kenney/ui/switch32.ogg",
-    "kenney/ui/switch33.ogg",
-    "kenney/ui/switch34.ogg",
-    "kenney/ui/switch35.ogg",
-    "kenney/ui/switch36.ogg",
-    "kenney/ui/switch37.ogg",
-    "kenney/ui/switch38.ogg",
-    "kenney/ui/switch4.ogg",
-    "kenney/ui/switch5.ogg",
-    "kenney/ui/switch6.ogg",
-    "kenney/ui/switch7.ogg",
-    "kenney/ui/switch8.ogg",
-    "kenney/ui/switch9.ogg",
-    "kenney/interface/click_001.ogg",
-    "kenney/interface/click_002.ogg",
-    "kenney/interface/click_003.ogg",
-    "kenney/interface/click_004.ogg",
-    "kenney/interface/click_005.ogg",
-    "kenney/ui/click1.ogg",
-    "kenney/ui/click2.ogg",
-    "kenney/ui/click3.ogg",
-    "kenney/ui/click4.ogg",
-    "kenney/ui/click5.ogg"
+    "ai/key-press/key-press-01.wav",
+    "ai/key-press/key-press-02.wav",
+    "ai/key-press/key-press-03.wav",
+    "ai/key-press/key-press-04.wav",
+    "ai/key-press/key-press-05.wav",
+    "ai/key-press/key-press-06.wav",
+    "ai/key-press/key-press-07.wav",
+    "ai/key-press/key-press-08.wav"
    ],
-   "gain": 0.16,
-   "source": "kenney"
+   "gain": 0.16
   },
   "typing": {
    "pattern": {
@@ -2146,6 +2093,18 @@
     "high",
     "muffled"
    ]
+  },
+  "wing-flap": {
+   "source": "ai",
+   "files": [
+    "ai/wing-flap/wing-flap-05.wav",
+    "ai/wing-flap/wing-flap-06.wav",
+    "ai/wing-flap/wing-flap-07.wav",
+    "ai/wing-flap/wing-flap-08.wav",
+    "ai/wing-flap/wing-flap-01.wav"
+   ],
+   "gain": 0.3,
+   "anchor": "hit"
   }
  }
 }
