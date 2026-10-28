@@ -245,10 +245,39 @@ const KINDS = {
     };
   },
   // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
-  // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands
+  // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands.
+  // spec.screen { src, cols, rows, next? } plays pictures on a 9:16 screen: src is an atlas of video frames (cols x
+  // rows tiles, row by row), `feed` picks the tile (tween it to play them), a swipe (`scroll` 0..1) slides the picture up
+  // and the `nextFeed` tile in from below; `next` is a full-size picture used for that tile instead (the shot that ends
+  // filling the frame with the screen, shots `prop`). The screen is unlit and never outlined: it looks like the picture.
   phone(P) {
     const BODY = P.spec.case ?? "#23242c", body = mat(BODY, { roughness: P.spec.case ? 0.6 : 0.35, metalness: P.spec.case ? 0 : 0.4 });
     mesh(new THREE.BoxGeometry(0.078, 0.155, 0.012), body, P.whole, 0, 0.0775, 0);
+    const SC = P.spec.screen;
+    if (SC) {
+      const cv = document.createElement("canvas"); cv.width = 1080; cv.height = 1920;
+      const g = cv.getContext("2d"), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+      const sm = new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, fog: false }); sm.userData.noOutline = true;
+      mesh(new THREE.PlaneGeometry(0.068, 0.068 * 16 / 9), sm, P.whole, 0, 0.0775, 0.0062).castShadow = false;
+      const img = (src) => new THREE.ImageLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
+      const pics = {};
+      (globalThis.__loads ||= []).push(Promise.all([img(SC.src), SC.next && img(SC.next)]).then(([a, n]) => { pics.atlas = a; pics.next = n; }));
+      const tile = (i, y) => {
+        if (SC.next && i === SC.cols * SC.rows) { g.drawImage(pics.next, 0, y, 1080, 1920); return; }
+        const w = pics.atlas.width / SC.cols, h = pics.atlas.height / SC.rows;
+        g.drawImage(pics.atlas, (i % SC.cols) * w, Math.floor(i / SC.cols) * h, w, h, 0, y, 1080, 1920);
+      };
+      let drawn = "";
+      return { grip: 0.05, apply(ps) {
+        const f = Math.max(0, Math.floor(ps.feed + 1e-6)), n = Math.floor(ps.nextFeed + 1e-6), sc = clamp(ps.scroll), key = `${f}|${n}|${sc.toFixed(4)}`;
+        if (key === drawn || !pics.atlas) return;
+        drawn = key; g.fillStyle = "#000"; g.fillRect(0, 0, 1080, 1920);
+        const e = ease("inOut")(sc);
+        if (e < 1) tile(f, -1920 * e);
+        if (e > 0) tile(n, 1920 * (1 - e));
+        tex.needsUpdate = true;
+      } };
+    }
     const screenM = new THREE.MeshStandardMaterial({ color: "#1c3a52", roughness: 0.2, emissive: new THREE.Color("#8fd0ff"), emissiveIntensity: 0.25 });
     mesh(new THREE.PlaneGeometry(0.068, 0.138), screenM, P.whole, 0, 0.0775, 0.0062).castShadow = false;
     // the camera bump on the back
@@ -1320,7 +1349,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, hold: null, left: null, carry: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, hold: null, left: null, carry: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
