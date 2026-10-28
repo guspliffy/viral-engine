@@ -76,12 +76,15 @@ A(0, "wiz", "grab", { prop: "parcel", hand: "both", grip: "middle", dur: 0, pose
 A(0, "wiz", "grip", { side: "both", shape: "hold", dur: 0 });
 holdAt(0, "wiz", BOX_OUT, W_YAW, 0);
 A(0, "wiz", "noblink"); A(0, "rea", "noblink");
-// Reaper's right hand is out, palm up, cupped just past the parcel's far side (on screen: right of it), inches short
-const R_HAND_OUT = rel(W0, W_YAW, 0.08, 0.3, 0.8);
+// Reaper's right hand is out at the parcel's height, palm up, just past its far side (on screen: right of it), inches
+// short, and he leans into the reach: the want reads in frame 0
+const R_HAND_OUT = rel(W0, W_YAW, 0.06, 0.4, 0.82);
 c.arm(0, "rea", "R", { world: R_HAND_OUT, palm: [R_HAND_OUT[0], 1.2, R_HAND_OUT[2]] }, 0);
 A(0, "rea", "grip", { side: "R", shape: "cup", dur: 0 });
 A(0, "rea", "grip", { side: "L", shape: "relaxed", dur: 0 });
 A(0, "rea", "look", { to: [-0.5, -0.35], dur: 0, blink: false });
+A(0, "rea", "pitch", { to: 9, dur: 0 });
+A(0.3, "rea", "pitch", { to: 0, dur: 0.35 });                          // the reach comes up short: he straightens
 
 // ---------------------------------------------------------------- 01 ALMOST HANDED OVER 0.0-0.6
 holdAt(0.04, "wiz", BOX_CHEST, W_YAW, 0.3, "out");                      // snatched back into his own two-handed grip
