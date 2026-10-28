@@ -57,6 +57,26 @@ function crumple(geo, curve, segs, radial, amount) {
   return geo;
 }
 
+// a crisp crown (hatShape "crisp"): the section is a rounded five-sided shape whose flat sides turn a little up the
+// cone, so the felt reads as a few broad planes with creases between them; a crease pinches the inside of the bend
+function planes(geo, curve, segs, radial) {
+  const p = geo.attributes.position, c = new THREE.Vector3(), v = new THREE.Vector3(), N = 5, seg = (Math.PI * 2) / N;
+  for (let i = 0; i <= segs; i++) {
+    const t = i / segs, k = Math.min(1, t / 0.25) * 0.75, twist = t * 0.9 + 0.3;
+    curve.getPointAt(t, c);
+    const pinch = Math.exp(-(((t - 0.66) / 0.05) ** 2));
+    for (let j = 0; j <= radial; j++) {
+      const n = i * (radial + 1) + j, a = (j / radial) * Math.PI * 2, m = ((((a + twist) % seg) + seg) % seg) - seg / 2;
+      const poly = Math.cos(seg / 2) / Math.cos(m);   // 1 at the creases, less across each flat side
+      v.fromBufferAttribute(p, n).sub(c);
+      const f = (1 - k * (1 - poly) * 0.9) / (1 - k * 0.05) - 0.16 * pinch * Math.max(0, -Math.cos(a));   // the bend's inside is -x
+      v.multiplyScalar(f).add(c); p.setXYZ(n, v.x, v.y, v.z);
+    }
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
 // the portraits' wizard hat: a wide soft brim with a thin rolled edge, a tall cone with a few folds, its tip flopping
 // back and over. The tip and the brim are driven by sway(tip, brim) (timeline "hatsway" / "hatwobble"): the cone bends
 // smoothly above its middle and the brim tips front to back, both by moving the vertices, so there is no seam.
@@ -70,13 +90,20 @@ function wizardHat(C) {
   for (let i = 0; i < bp.count; i++) { const x = bp.getX(i), z = bp.getZ(i), r = Math.hypot(x, z), a = Math.atan2(z, x), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, bp.getY(i) + k * k * (0.02 * Math.sin(3 * a + 0.7) + 0.008 * Math.sin(2 * a))); }
   brimG.computeVertexNormals();
   const brim = new THREE.Mesh(brimG, felt); brim.castShadow = true; g.add(brim);
-  const spine = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.28, -0.02), new THREE.Vector3(0.02, 0.5, -0.06), new THREE.Vector3(0.11, 0.66, -0.12), new THREE.Vector3(0.24, 0.68, -0.17)]);
-  const segs = 48, radial = 40;
-  const coneG = crumple(taperedTube(spine, 0.27, 0.012, segs, radial, (t) => 0.27 * Math.pow(1 - t, 1.05) + 0.01), spine, segs, radial, 1);
+  // hatShape "crisp" (Jonny's hood/hat review, 28 Oct): a shorter, broader crown that stands straight for two thirds and
+  // bends over to the wearer's left in the upper third, ending in a small hook; its folds are a few flat planes with
+  // creases between them instead of round ripples
+  const crisp = C.hatShape === "crisp";
+  const spine = new THREE.CatmullRomCurve3(crisp
+    ? [new THREE.Vector3(0, -0.03, 0), new THREE.Vector3(-0.005, 0.2, -0.015), new THREE.Vector3(0.0, 0.37, -0.04), new THREE.Vector3(0.06, 0.48, -0.06), new THREE.Vector3(0.17, 0.53, -0.07), new THREE.Vector3(0.26, 0.5, -0.06)]
+    : [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.28, -0.02), new THREE.Vector3(0.02, 0.5, -0.06), new THREE.Vector3(0.11, 0.66, -0.12), new THREE.Vector3(0.24, 0.68, -0.17)]);
+  const segs = crisp ? 64 : 48, radial = crisp ? 60 : 40, r0c = crisp ? 0.315 : 0.27;
+  const tube = taperedTube(spine, r0c, 0.012, segs, radial, (t) => (crisp ? r0c * Math.pow(1 - t, 1.25) + 0.004 : 0.27 * Math.pow(1 - t, 1.05) + 0.01));
+  const coneG = crisp ? planes(tube, spine, segs, radial) : crumple(tube, spine, segs, radial, 1);
   const cone = new THREE.Mesh(coneG, felt); cone.castShadow = true; g.add(cone);
   // the band is cut from the cone itself (rows 1-6 of its rings, pushed out along their normals), so it follows the
   // crown's folds all the way round instead of a cylinder that sinks into the cloth in places and floats in others
-  const bandG = new THREE.BufferGeometry(), cpos = coneG.attributes.position, cnor = coneG.attributes.normal, r0 = 1, r1 = 6, bv = [], bi = [];
+  const bandG = new THREE.BufferGeometry(), cpos = coneG.attributes.position, cnor = coneG.attributes.normal, r0 = crisp ? 3 : 1, r1 = crisp ? 10 : 6, bv = [], bi = [];
   for (let i = r0; i <= r1; i++) for (let j = 0; j <= radial; j++) {
     const n = i * (radial + 1) + j, lip = i === r0 || i === r1 ? 0.0045 : 0.0075;   // the edges tuck in a little, a soft rolled band
     bv.push(cpos.getX(n) + cnor.getX(n) * lip, cpos.getY(n) + cnor.getY(n) * lip, cpos.getZ(n) + cnor.getZ(n) * lip);
@@ -101,7 +128,7 @@ function wizardHat(C) {
     for (let i = 0; i < bp.count; i++) { const x = brim0[i * 3], z = brim0[i * 3 + 2], r = Math.hypot(x, z), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, brim0[i * 3 + 1] + tilt * 0.12 * k * k * (z / Math.max(r, 1e-6))); }
     bp.needsUpdate = true; brimG.computeVertexNormals();
   };
-  return { group: g, height: 0.62, brimR: 0.47, sway };
+  return { group: g, height: crisp ? 0.5 : 0.62, brimR: 0.47, sway };
 }
 
 function cowboyBrim(r0, r1, curl) {

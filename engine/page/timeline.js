@@ -230,7 +230,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
       case "grip": {
-        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e);
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e), since: a.at + (a.dur ?? 0.3) };
         break;
       }
       // the Wizard hat's secondary motion: tip: [forward, sideways] in degrees bends the top of the cone, brim tips the brim

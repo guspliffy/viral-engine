@@ -34,7 +34,7 @@
   "eye": {
    "flick": 0,
    "lash": 1.15,
-   "depth": 0.2,
+   "depth": 0.27,
    "iris": 0.62,
    "glints": 1,
    "oval": 1.32
@@ -50,7 +50,7 @@
  },
  "sprout": {
   "color": "#6cbf3a",
-  "placement": "top"
+  "placement": "none"
  },
  "costume": {
   "type": "reaper",
@@ -61,9 +61,11 @@
   "noProp": true,
   "hoodPeak": 0,
   "hoodStyle": "cloth",
-  "hoodOpen": 1.0,
-  "hoodOverhang": 0.2,
-  "hoodRim": 0.028
+  "hoodOpen": 0.82,
+  "hoodOverhang": 0.18,
+  "hoodRim": 0.024,
+  "hoodOpenH": 0.92,
+  "hoodDiag": 0.1
  },
  "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "tts": "reaper",

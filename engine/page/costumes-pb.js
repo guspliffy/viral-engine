@@ -80,58 +80,106 @@ export function hoodGeometry(ch, extent = 0.82, peak = 0, lining = 0, fine = lin
   g.computeVertexNormals();
   return g;
 }
-// costume.hoodStyle "cloth" (Jonny, 28 Oct: "the hoodie shouldn't look like part of the body"): a hood made as its own
-// piece of cloth instead of a shell that sinks into the face. It stands off the head with some volume, its opening
-// round the face ends in a thick rolled edge, its top hangs forward over the forehead (it shades the face), the
-// lower part falls in soft folds and flares a little at the hem.
-//   C.hoodOpen (1): opening size, C.hoodOverhang (0.14): how far the top edge reaches forward, C.hoodRim (0.024 m),
-//   C.hoodRound (0.07): how much the crown rounds off, C.hoodSlump (0.05): how far it falls to one side
+// costume.hoodStyle "cloth" (Jonny, 28 Oct: "the hoodie shouldn't look like part of the body", and his hood review):
+// a hood designed as its own piece of cloth. Its outer shape and its face opening are authored separately:
+//   - the opening is a contour, not an ellipse: a diagonal upper edge (hoodDiag), one cheek wider than the other
+//     (hoodAsym), width hoodOpen and height hoodOpenH (default hoodOpen). Keep the brows clear of it: they act
+//   - a roomy dome above the head (hoodDome), off centre with a soft point flopping back to one side (hoodTip;
+//     hoodSide -1 mirrors it), one broad fold running from the crown to a temple and one over the wide cheek
+//     (hoodFold), and three big folds where the cloth gathers on the shoulders
+//   - the edge stands off the face more on the wide cheek, so the lining shows there
+//   - the opening ends in a folded hem whose width changes round the face (hoodRim: its base width, m), with a dark
+//     lining recessed behind it
+// Returns { shell, hem, lining } geometries in the body group's space; costume materials set their look roles.
 export function hoodClothGeometry(ch, C = {}) {
   const sstep = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
-  const o = C.hoodOpen ?? 1, ovh = C.hoodOverhang ?? 0.14, AZ = 0.95 * o, EL = 0.62 * o, E0 = -0.05;
-  // where a direction lands on the cloth; near = 0 on the opening's edge, 1 away from it
-  const place = (n, face) => {
+  const o = C.hoodOpen ?? 1, AZ = 0.95 * o, EL = 0.62 * (C.hoodOpenH ?? o), E0 = -0.05;   // hoodOpenH: the height on its own
+  const diag = C.hoodDiag ?? 0.16, asym = C.hoodAsym ?? 0.08, ovh = C.hoodOverhang ?? 0.14, side = C.hoodSide ?? 1;
+  // the opening's edge at angle th round the face (th 0 = the wide cheek, pi/2 = top): [az, el]
+  const edge = (th) => {
+    const c = Math.cos(th), sn = Math.sin(th), az = AZ * c * (1 + side * asym * Math.sign(c) * Math.abs(c));
+    return [az, E0 + EL * sn - diag * side * az * Math.max(0, sn)];
+  };
+  // how far a direction is from the opening: < 1 inside, 1 on the edge (measured along the ray from the centre)
+  const faceOf = (az, el) => {
+    const th = Math.atan2((el - E0) / EL, az / AZ), [ea, ee] = edge(th);
+    return Math.hypot(az, (el - E0)) / Math.max(1e-4, Math.hypot(ea, ee - E0));
+  };
+  const dir = (az, el) => new THREE.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+  // broad folds: a band (great circle through a and b, width w) bulging out on one side and creased on the other
+  const band = (n, a, b, w, amp) => {
+    const ax = new THREE.Vector3().crossVectors(a, b).normalize(), d = n.dot(ax);
+    return amp * (Math.exp(-(((d - w) / w) ** 2)) - 0.7 * Math.exp(-(((d + 0.3 * w) / (0.6 * w)) ** 2)));
+  };
+  const crownDir = new THREE.Vector3(side * 0.18, 1, -0.25).normalize(), temple = dir(-side * 0.75, 0.35);
+  const cheekA = dir(side * 1.0, 0.25), cheekB = dir(side * 1.25, -0.5);
+  const tipDir = new THREE.Vector3(side * 0.4, 1, -0.3).normalize(), tipH = C.hoodTip ?? 0.16;
+  // where a direction lands on the cloth; face: its distance from the opening (1 on the edge); lift: off the shell
+  const place = (n, face, lift = 0) => {
     const near = sstep(1.0, 1.7, face), az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
     const q = ch.bodyPoint(n);
-    const fold = 0.014 * Math.sin(az * 7 + 0.6) * sstep(0.1, -0.7, n.y) * near;
+    const folds = near * ((0.4 + 0.6 * sstep(-0.2, 0.4, n.z)) * band(n, crownDir, temple, 0.14, C.hoodFold ?? 0.07) + band(n, cheekA, cheekB, 0.12, 0.7 * (C.hoodFold ?? 0.07)));
+    const shoulders = 0.05 * Math.sin(az * 3 + 0.4 * side) * sstep(-0.05, -0.65, n.y) * near;
     const back = Math.max(0, -n.z) * Math.max(0, n.y);
-    // a seam groove over the crown, front to back, and two drape folds running down from the cheeks
-    const seam = -0.012 * Math.exp(-(((Math.abs(az) < Math.PI / 2 ? az : Math.PI - Math.abs(az)) / 0.07) ** 2)) * sstep(0.35, 0.85, n.y);
-    const drape = 0.018 * near * sstep(0.2, -0.5, n.y) * (Math.exp(-(((Math.abs(az) - 1.25) / 0.16) ** 2)));
-    const sc = 1.04 + 0.06 * near + 0.08 * sstep(-0.1, 0.8, n.y) * near + fold + seam + drape + 0.06 * sstep(-0.55, -0.9, n.y);
+    // uneven cheek clearance: the edge stands off the face more on the wide side, so the lining shows there
+    const clear = (1 - near) * (0.035 + 0.03 * side * Math.sin(az)) * sstep(-0.8, -0.1, el - E0 + 0.3);
+    const sc = 1.02 + clear + 0.06 * near + 0.08 * sstep(-0.1, 0.8, n.y) * near + folds + shoulders + 0.06 * sstep(-0.55, -0.9, n.y) + lift;
     const p = new THREE.Vector3(q.x * sc, ch.cy + (q.y - ch.cy) * sc + back * back * 0.12, q.z * sc - back * back * 0.05);
-    // a cloth dome, not the egg's point: the crown rounds off wider and lower and slumps back to one side
-    const crown = sstep(0.35, 0.95, n.y);
-    p.x *= 1 + 0.08 * sstep(0.2, 0.8, n.y); p.z *= 1 + 0.05 * sstep(0.2, 0.8, n.y);
-    p.y -= (C.hoodRound ?? 0.07) * ch.ry * crown; p.x += (C.hoodSlump ?? 0.05) * ch.rx * crown; p.z -= 0.04 * ch.rz * crown;
-    // the top of the opening hangs forward and a little down over the brow
-    const top = sstep(-0.05, 0.45, el - E0) * (1 - sstep(0.0, 0.8, near)) * sstep(0.6, 1.0, Math.cos(az / AZ * 1.2));
+    // the crown: a roomy dome well above the head (the egg's point rounded off), off centre, slumping to one side
+    const crown = sstep(0.35, 0.95, n.y), dome = sstep(0.05, 0.75, n.y) * (1 - 0.6 * sstep(0.7, 1.0, n.y));
+    p.x *= 1 + 0.1 * dome; p.z *= 1 + 0.08 * dome;
+    p.y += (C.hoodDome ?? 0.1) * ch.ry * dome; p.x += side * (C.hoodSlump ?? 0.09) * ch.rx * crown; p.z -= 0.05 * ch.rz * crown;
+    // a soft point where the cloth gathers above the crown, flopping back and to the slumped side
+    // (a broad cone: lifted along the tip direction, and bent over sideways more the nearer the point)
+    const u = Math.max(0, 1 - (1 - n.dot(tipDir)) / 0.2), tip = u * u * tipH;
+    p.y += tip * ch.ry; p.x += side * (0.3 * tip + 0.7 * tip * u * u) * ch.rx; p.z -= 0.4 * tip * u * ch.rz;
+    // the top of the opening hangs forward over the brow, more on the high side of the diagonal edge
+    const top = sstep(-0.05, 0.45, el - E0) * (1 - sstep(0.0, 0.8, near)) * sstep(0.6, 1.0, Math.cos(az / AZ * 1.2)) * (1 - 0.35 * side * Math.sin(az));
     p.z += ovh * ch.rz * top; p.y -= 0.08 * ovh * ch.ry * top;
     return p;
   };
-  const g = new THREE.SphereGeometry(1, 220, 150, 0, Math.PI * 2, 0, Math.PI * 0.86), P = g.attributes.position, v = new THREE.Vector3();
-  const inside = new Uint8Array(P.count);
-  for (let i = 0; i < P.count; i++) {
-    const n = v.fromBufferAttribute(P, i).clone().normalize();
-    let az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
-    let face = (az / AZ) ** 2 + ((el - E0) / EL) ** 2;
-    if (face < 1 && n.z > 0) {   // inside the opening: pulled out onto its edge, so the cut is a smooth line
-      inside[i] = 1; const k = 1 / Math.sqrt(Math.max(1e-6, face)); az *= k; el = E0 + (el - E0) * k; face = 1;
-      n.set(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+  const sheet = (lift, keepFace) => {
+    const g = new THREE.SphereGeometry(1, 220, 150, 0, Math.PI * 2, 0, Math.PI * 0.86), P = g.attributes.position, v = new THREE.Vector3();
+    const inside = new Uint8Array(P.count), outside = new Uint8Array(P.count);
+    for (let i = 0; i < P.count; i++) {
+      const n = v.fromBufferAttribute(P, i).clone().normalize();
+      let az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
+      let face = n.z > 0 ? faceOf(az, el) : 9;
+      if (face < 1) {   // inside the opening: pulled out onto its edge, so the cut is a smooth line
+        inside[i] = 1; az /= face; el = E0 + (el - E0) / face; face = 1; n.copy(dir(az, el));
+      }
+      if (face > keepFace) outside[i] = 1;
+      const p = place(n, face, lift); P.setXYZ(i, p.x, p.y, p.z);
     }
-    const p = place(n, face); P.setXYZ(i, p.x, p.y, p.z);
+    const idx = g.index.array, keep = [];
+    for (let i = 0; i < idx.length; i += 3) {
+      const a = idx[i], b = idx[i + 1], c = idx[i + 2];
+      if (!(inside[a] && inside[b] && inside[c]) && !(outside[a] && outside[b] && outside[c])) keep.push(a, b, c);
+    }
+    g.setIndex(keep); g.computeVertexNormals(); return g;
+  };
+  // the folded hem: an oval section swept round the opening, its width changing round the face, lying on the
+  // cloth and rolled a little into the opening
+  const N = 220, R = C.hoodRim ?? 0.022, ring = 14, pos = [], index = [], cen = [];
+  for (let k = 0; k < N; k++) { const [az, el] = edge((k / N) * Math.PI * 2); cen.push(place(dir(az, el), 1)); }
+  const body = new THREE.Vector3(0, ch.cy, 0);
+  for (let k = 0; k < N; k++) {
+    const th = (k / N) * Math.PI * 2, p = cen[k], T = cen[(k + 1) % N].clone().sub(cen[(k + N - 1) % N]).normalize();
+    const Nn = p.clone().sub(body).normalize(), B = new THREE.Vector3().crossVectors(T, Nn).normalize();   // B: across the hem
+    const w = R * (1 + 0.45 * Math.sin(2 * th + 0.7) + 0.2 * Math.sin(5 * th + 1.1)), tk = R * 0.45;
+    const c = p.clone().addScaledVector(B, -0.3 * w).addScaledVector(Nn, 0.25 * tk);
+    for (let r = 0; r < ring; r++) {
+      const a = (r / ring) * Math.PI * 2;
+      const q = c.clone().addScaledVector(B, Math.cos(a) * w).addScaledVector(Nn, Math.sin(a) * tk);
+      pos.push(q.x, q.y, q.z);
+    }
   }
-  const idx = g.index.array, keep = [];
-  for (let i = 0; i < idx.length; i += 3) if (!(inside[idx[i]] && inside[idx[i + 1]] && inside[idx[i + 2]])) keep.push(idx[i], idx[i + 1], idx[i + 2]);
-  g.setIndex(keep); g.computeVertexNormals();
-  // the rolled edge round the face
-  const pts = [];
-  for (let k = 0; k < 160; k++) {
-    const th = (k / 160) * Math.PI * 2, az = AZ * Math.cos(th), el = E0 + EL * Math.sin(th);
-    pts.push(place(new THREE.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)), 1));
+  for (let k = 0; k < N; k++) for (let r = 0; r < ring; r++) {
+    const a = k * ring + r, b = ((k + 1) % N) * ring + r, c = ((k + 1) % N) * ring + ((r + 1) % ring), d = k * ring + ((r + 1) % ring);
+    index.push(a, b, d, b, c, d);
   }
-  const rim = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 200, C.hoodRim ?? 0.024, 12, true);
-  return { shell: g, rim };
+  const hem = new THREE.BufferGeometry(); hem.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); hem.setIndex(index); hem.computeVertexNormals();
+  return { shell: sheet(0, 99), hem, lining: sheet(-0.022, 1.45) };
 }
 function scythe(C) {
   const g = new THREE.Group();
@@ -153,10 +201,12 @@ function scythe(C) {
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
   if (C.hoodStyle === "cloth") {
-    const { shell, rim } = hoodClothGeometry(ch, C);
-    // the rolled edge catches a little more light than the hood (C.hoodRimColor), so the opening reads as a cloth edge
-    const edge = new THREE.MeshStandardMaterial({ color: C.hoodRimColor || new THREE.Color(C.accent || "#34313a").multiplyScalar(1.45), roughness: 0.9 });
-    for (const [geo, m] of [[shell, cloth], [rim, edge]]) { const o = new THREE.Mesh(geo, m); o.castShadow = true; ch.bodyGroup.add(o); }
+    const { shell, hem, lining } = hoodClothGeometry(ch, C);
+    // explicit look roles (looks.js): outer cloth, the hem catching a little more light, the dark recessed lining
+    const edge = new THREE.MeshStandardMaterial({ color: C.hoodRimColor || new THREE.Color(C.accent || "#34313a").multiplyScalar(1.3), roughness: 0.9 });
+    const inner = new THREE.MeshStandardMaterial({ color: C.lining || "#1e1b25", roughness: 0.95, side: THREE.DoubleSide });
+    cloth.userData.lookRole = edge.userData.lookRole = "cloth"; inner.userData.lookRole = "lining";
+    for (const [geo, m] of [[shell, cloth], [hem, edge], [lining, inner]]) { const g = new THREE.Mesh(geo, m); g.castShadow = g.receiveShadow = true; ch.bodyGroup.add(g); }
     const { g, tip } = scythe(C);
     return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
   }

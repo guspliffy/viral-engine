@@ -81,6 +81,7 @@ export class Character {
 
     // limbs
     this.limbMat = new THREE.MeshStandardMaterial({ color: def.limbs.color, roughness: 0.5 });
+    if (def.hands?.type === "glove") this.limbMat.userData.lookRole = "glove";   // looks.js: its own toon values
     if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
@@ -157,6 +158,7 @@ export class Character {
     });
     const tf = new THREE.Mesh(cap(0.0145, 0.03), M("#e020e0")); tf.rotation.x = Math.PI / 2 - 0.35; tf.rotation.z = -0.25;
     tf.rotation.order = "ZXY"; tf.position.set(0.04, -0.012, 0.03); tf.castShadow = true; fist.add(tf);
+    if (glove) g.traverse((o) => { if (o.isMesh) o.receiveShadow = true; });   // fingers shade each other
     g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove };
     return g;
   }
@@ -302,9 +304,11 @@ export class Character {
   topY() { return this.cy + this.ry * (1 + this.lumpAt(new THREE.Vector3(0, 1, 0))); }
   lumpAt(d) { let r = 0; for (const L of this.lumps) r += L.a * Math.exp(-L.k * (1 - d.dot(L.d))); return r; }
 
-  _tube(old, a, c, b, w, arm = false) {
+  _tube(old, a, c, b, w, arm = false, joint = false) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
-    const curve = new THREE.QuadraticBezierCurve3(a, c, b);
+    // joint: c is an elbow the arm passes through (two segments with a rounded turn), not a curve's pull point
+    const curve = joint ? new THREE.CatmullRomCurve3([a, a.clone().lerp(c, 0.55), c, c.clone().lerp(b, 0.5), b], false, "centripetal")
+      : new THREE.QuadraticBezierCurve3(a, c, b);
     // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten
     const geo = arm ? taperedTube(curve, 0, 0, 20, 10, (t) => w * (t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1))
       : new THREE.TubeGeometry(curve, 14, w, 8, false);
@@ -366,9 +370,10 @@ export class Character {
       // and then so a resting hand isn't frozen while the body breathes
       const dn = Math.min(1, Math.max(0, gr.down || 0));
       if (dn > 0) {
-        mid.lerp(new THREE.Vector3(sh.x + sx * 0.05, h.y + 0.05, sh.z + (h.z - sh.z) * 0.3), dn);
-        const ph = (s === "R" ? 0 : 2.1) + (this.def.body.seed || 0);
-        gr.curl += dn * 0.06 * Math.sin(t * 0.9 + ph); gr.index += dn * 0.08 * Math.sin(t * 0.7 + ph + 1.3);
+        mid.lerp(new THREE.Vector3(sh.x + sx * 0.05, h.y + 0.06, sh.z + (h.z - sh.z) * 0.3), dn);
+        // the fingers settle onto the top once, just after the paw lands, then hold still (weight, not a fidget)
+        const k = gr.since != null ? Math.min(1, Math.max(0, (t - gr.since) / 0.6)) : 1, settle = 1 - k * k * (3 - 2 * k);
+        gr.curl -= dn * 0.12 * settle; gr.index -= dn * 0.14 * settle;
       }
       this._outside(mid, S, 1.3);   // the elbow never sinks into the body
       this.arms[s].hand.position.copy(h);
@@ -392,10 +397,10 @@ export class Character {
       } else this.legs[s].foot.quaternion.identity();
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
-      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out, hw].map((x) => x.toFixed(4)).join(",");
+      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out, hw, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
-        this.arms[s].mesh = this._tube(this.arms[s].mesh, sh.clone().addScaledVector(shN, -0.035), mid, h, this.limbW, true);
+        this.arms[s].mesh = this._tube(this.arms[s].mesh, sh.clone().addScaledVector(shN, -0.035), mid, h, this.limbW, true, (st.grip?.[s]?.down || 0) > 0.5);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;

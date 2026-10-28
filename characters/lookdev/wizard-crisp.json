@@ -32,7 +32,7 @@
   },
   "eye": {
    "flick": 0.6,
-   "depth": 0.2,
+   "depth": 0.27,
    "iris": 0.62,
    "glints": 1,
    "oval": 1.32,
@@ -57,7 +57,8 @@
   "glow": "#f2c14e",
   "staffWood": "#7a4e2a",
   "propHand": "L",
-  "noProp": true
+  "noProp": true,
+  "hatShape": "crisp"
  },
  "personality": "Occasional third character. Wants to be useful and respected; overcomplicates simple requests; patient and sincerely curious. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "voice": {

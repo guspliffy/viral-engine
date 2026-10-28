@@ -451,6 +451,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     });
     if (!setSpec.plate) sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall (a painted plate has its own light)
   }
+  // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
+  // their own finger planes readable in dark fabric
+  ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3 };
+  ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12 };
   ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
@@ -469,6 +473,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   for (const a of actors) for (const e of (a.ch.face && a.ch.face.eyes) || []) if (e.lidPivot) e.lidPivot.traverse((o) => { if (o.isMesh) o.userData.bareLook = true; });
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
   const convert = (m, noLines = false) => {
+    // storyboard "debug": { "silhouette": true }: characters and props flat black, the set pale, to judge shapes alone
+    if (m && globalThis.__DIAG?.silhouette && !m.isSpriteMaterial && !m.isShaderMaterial) {
+      if (!convert.chars) { convert.chars = new Set(); for (const a of actors) { if (a.ch.limbMat) convert.chars.add(a.ch.limbMat); } for (const a of actors) a.ch.root.traverse((x) => { if (x.material) for (const k of [].concat(x.material)) convert.chars.add(k); }); }
+      const t = new THREE.MeshBasicMaterial({ color: convert.chars.has(m) ? "#141218" : setMats.has(m) ? "#e8e4dc" : "#b8b2a8", side: m.side, fog: false, toneMapped: false });
+      t.userData.outlineParameters = noLine; made.add(t); return t;
+    }
     if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial) {
       if (m && !m.userData.outlineParameters) m.userData.outlineParameters = noLine;
       return m;
@@ -477,9 +487,15 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     let t = cache.get(m);
     if (!t && (m.userData.glass || m.userData.liquid)) { t = animeGlass(m, !!m.userData.liquid); t.userData.outlineParameters = noLine; t.userData.glassOf = m; cache.set(m, t); made.add(t); }
     if (!t) {
-      const isSet = setMats.has(m), role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char";
+      const isSet = setMats.has(m), lr = m.userData.lookRole && ROLE[m.userData.lookRole] ? m.userData.lookRole : null;
+      const role = isSet ? "set" : skins.has(m) ? (noLines ? "lid" : "skin") : lr || (cloth.has(m) ? "cloth" : wood.has(m) ? "wood" : "char");
+      // storyboard "debug": { "roles": true }: every surface in a flat colour per role, to check which shading it gets
+      if (globalThis.__DIAG?.roles) {
+        const RC = { skin: "#f0c040", lid: "#f0c040", cloth: "#8040c0", lining: "#e040a0", glove: "#2080ff", wood: "#a06020", set: "#909090", char: "#30c060" };
+        t = new THREE.MeshBasicMaterial({ color: RC[role] || "#ff0000", side: m.side }); t.userData.outlineParameters = noLine; cache.set(m, t); made.add(t); return t;
+      }
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
