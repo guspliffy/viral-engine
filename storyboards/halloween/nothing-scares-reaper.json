@@ -137,7 +137,8 @@
    "to": 2.7,
    "text": "He said nothing scares him.",
    "pos": 250,
-   "pop": false
+   "pop": false,
+   "kinetic": false
   },
   {
    "from": 5.3,

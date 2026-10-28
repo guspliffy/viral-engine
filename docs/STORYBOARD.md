@@ -33,7 +33,8 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   word pops in as it is said (timed from the talk line it matches), the word being said is lit in the speaker's
   colour, ALL CAPS or `*starred*` words punch in in that colour, and a caption shrinks out instead of cutting. A
   caption that repeats the one before it and adds words ("and share a…" then "and share a\nFUN FACT.") keeps the
-  first words still. Unspoken captions (a hook) pop in word by word. Without it, captions keep the classic style.
+  first words still. Unspoken captions (a hook) pop in word by word. `"kinetic": false` on one caption keeps
+  it in the classic style (Nothing Scares Reaper's hook, so it doesn't fight the "BOO!"). Without it, captions keep the classic style.
 - **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
   character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
   out. Options: `color`, `size` (px, default 120), `angle` (degrees, default -7), `burst` (a colour: a comic star

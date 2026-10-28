@@ -68,7 +68,7 @@ A(0, "rea", "still", { dur: 3.3, idle: 0.2 });
 A(0.35, "rea", "look", { to: AT_GHOST, dur: 0.35, blink: false });
 A(1.45, "rea", "blink", { dur: 0.55 });
 A(2.15, "rea", "look", { to: AT_CAM, dur: 0.3, blink: false });
-cap(0, 2.7, "He said nothing scares him.", TOP);
+c.cap(0, 2.7, "He said nothing scares him.", TOP, false, { kinetic: false });   // Jonny: keep the hook still, so it doesn't fight the BOO
 
 // ---------------------------------------------------------------- 2 THE NEXT ROOM 3.4-5.2: the door swings into the warm room
 A(3.4, "phx", "look", { to: AT_DOOR, dur: 0.25, blink: false });

@@ -56,7 +56,7 @@ export function captionBox(c) {
   ctx.restore();
   return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2), Math.round(w), Math.round(lines.length * lh + st.stroke + pad)];
 }
-const kinetic = (c) => sb.captionStyle === "kinetic" && c.words && !capStyle(c).box;
+const kinetic = (c) => sb.captionStyle === "kinetic" && c.kinetic !== false && c.words && !capStyle(c).box;
 export function drawCaption(c, t) {
   if (kinetic(c)) return drawKinetic(c, t);
   ctx.save();

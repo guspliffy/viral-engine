@@ -27,7 +27,7 @@ export function clip() {
     still: (t, who, dur, idle = 0.12) => A(t, who, "still", { dur, idle }),
     say: (t, who, line, dur, tone = "calm") => A(t, who, "talk", { line, tone, dur }),
     macro: (t, who, macro, o = {}) => at(t, { who, macro, ...o }),
-    cap: (from, to, text, pos, pop = false) => captions.push({ from: r3(from), to: r3(to), text, pos, pop }),
+    cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: r3(from), to: r3(to), text, pos, pop, ...o }),
     // a text pop: one comic word beside a character's head (docs/STORYBOARD.md, "Text pops")
     textPop: (t, who, text, o = {}) => at(t, { fx: "pop", text, who, ...o }),
     // shots: [[name, start, shot | null (keep the camera), kind?], ...] in time order; each beat gets the items from
