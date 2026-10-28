@@ -44,11 +44,11 @@ const NO_CTL = { lidL: 0, lidR: 0, browL: 0, browR: 0, tiltL: 0, tiltR: 0, corne
 export class Face {
   // eye: the character's eye design (character file face.eye): depth (how far the eye stands out of the face),
   // iris (radius as a share of the eye), lash (lid line thickness), flick (outer-corner flick, 0 none), tilt (lid angle:
-  // + lifts the outer corner, - drops it), glints (1 or 2 catch lights)
+  // + lifts the outer corner, - drops it), glints (1 or 2 catch lights), oval (height to width, 1.24 default: a tall oval)
   constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
-    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, ...eye };
+    const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, oval: 1.12 / 0.9, ...eye };
     this.eyeStyle = E;
     // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
@@ -68,7 +68,7 @@ export class Face {
       const root = new THREE.Group(); // placed on the surface, z = out of the surface
       const lid = new THREE.Group(); root.add(lid); // scaled for blinks and squints (no lids) or widened (wide eyes)
       const r = 0.08 * size, D = E.depth, ri = E.iris;
-      const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 1.12, D); lid.add(ball);
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 0.9 * E.oval, D); lid.add(ball);
       const look = new THREE.Group(); lid.add(look);
       const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
       const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
@@ -83,7 +83,7 @@ export class Face {
         // real upper lids (`lids`: the skin material): a skin shell over a stable eye that rolls down from the top, the
         // lid line riding its edge. Squints, blinks and the gaze move the lid; the eye itself never changes shape.
         // just deep enough to cover the iris and the catch light, so a closed eye stays a shallow lid, not a capsule
-        const space = new THREE.Group(); space.scale.set(0.9, 1.12, (D + 0.14) / 1.05); lid.add(space);
+        const space = new THREE.Group(); space.scale.set(0.9, 0.9 * E.oval, (D + 0.14) / 1.05); lid.add(space);
         lidPivot = new THREE.Group(); lidPivot.rotation.order = "ZYX"; space.add(lidPivot);
         const shell = new THREE.Mesh(new THREE.SphereGeometry(r * 1.05, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), lids); lidPivot.add(shell);
         // the edge of the shell is the circle y = 0; its front half (z > 0) is the lid line
@@ -109,7 +109,7 @@ export class Face {
       } else {
         // no lids (props with faces): the lash sits in the lid group and closes with the eye on a blink
         const pts = [];
-        for (let k = 0; k <= 8; k++) { const a = 2.75 - k * (2.55 / 8); pts.push(new THREE.Vector3(side * Math.cos(a) * r * 0.97, Math.sin(a) * r * 1.16 - r * 0.05, r * (0.3 + 0.12 * Math.sin(a)) * D / 0.62)); }
+        for (let k = 0; k <= 8; k++) { const a = 2.75 - k * (2.55 / 8); pts.push(new THREE.Vector3(side * Math.cos(a) * r * 0.97, Math.sin(a) * r * 1.16 * (E.oval * 0.9 / 1.12) - r * 0.05, r * (0.3 + 0.12 * Math.sin(a)) * D / 0.62)); }
         if (E.flick > 0) pts.push(new THREE.Vector3(side * r * (0.97 + 0.15 * E.flick), r * 0.3, r * 0.2 * D / 0.62));
         lash = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 40, 8, lineR), this.inkMat);
         lid.add(lash);

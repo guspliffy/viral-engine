@@ -313,7 +313,7 @@ async function init(data) {
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
   buildLights(scene, sb.set);
   const before = scene.children.length;
-  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null);
+  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos);
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
@@ -341,12 +341,14 @@ async function init(data) {
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
+  await Promise.all(globalThis.__loads || []);   // pictures the set loads (set-plate.js)
   const gl = R.getContext(), dbg = gl.getExtension("WEBGL_debug_renderer_info");
   return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: gl.getParameter(gl.VERSION), renderer: gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) };
 }
 
 // places characters, effects and camera for time t without drawing anything
 function pose(t) {
+  for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   const states = {};
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {

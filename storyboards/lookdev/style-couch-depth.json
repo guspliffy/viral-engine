@@ -1,0 +1,275 @@
+{
+ "id": "style-couch-depth",
+ "title": "Style match: 2.5D depth plate with ambient motion",
+ "idea": "Look-dev only: the couch shot with a sideways camera move on the depth-relief plate, leaves swaying, sunlight shimmer and dust (B of the 2.5D test)",
+ "fps": 30,
+ "duration": 3,
+ "look": "anime-pro",
+ "profile": "short",
+ "music": false,
+ "sound": {
+  "speech": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#e9c9a0",
+  "floor": "#b98256",
+  "light": "golden",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.5,
+   "center": [
+    0,
+    1.2
+   ],
+   "height": 4.9,
+   "relief": 0.7
+  },
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.5,
+    -1.17
+   ],
+   "face": "camera",
+   "expr": "sad",
+   "follow": 0.3
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.5,
+    -1.17
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.4
+  }
+ ],
+ "props": [
+  {
+   "id": "couch",
+   "kind": "couch",
+   "x": 0,
+   "z": -1.2,
+   "scale": 1.25,
+   "color": "#c99c74",
+   "color2": "#d4a983"
+  },
+  {
+   "id": "rug",
+   "kind": "rug",
+   "x": 0,
+   "z": 0.3,
+   "w": 3.2,
+   "d": 2.6,
+   "color": "#b39477"
+  },
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.58,
+   "h": 0.68,
+   "d": 2.4,
+   "w": 2.2,
+   "color": "#d39d62"
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    -0.22,
+    1.15,
+    4.4
+   ],
+   "look": [
+    0,
+    0.98,
+    -1.1
+   ],
+   "fov": 30,
+   "to": {
+    "pos": [
+     0.22,
+     1.12,
+     4.2
+    ]
+   },
+   "dur": 3
+  }
+ ],
+ "actions": [
+  {
+   "who": "wiz",
+   "do": "sit",
+   "seat": "couch",
+   "along": -0.36,
+   "at": 0,
+   "dur": 0
+  },
+  {
+   "who": "rea",
+   "do": "sit",
+   "seat": "couch",
+   "along": 0.36,
+   "at": 0,
+   "dur": 0
+  },
+  {
+   "who": "wiz",
+   "do": "hatsway",
+   "tip": [
+    10,
+    -38
+   ],
+   "brim": 0.2,
+   "at": 0,
+   "dur": 0
+  },
+  {
+   "who": "wiz",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "table",
+    "grip": [
+     -0.65,
+     0.72,
+     -0.95
+    ]
+   },
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "wiz",
+   "do": "grip",
+   "side": "R",
+   "shape": "hold",
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "wiz",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "table",
+    "grip": [
+     -0.25,
+     0.72,
+     -0.95
+    ]
+   },
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "wiz",
+   "do": "grip",
+   "side": "L",
+   "shape": "hold",
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "table",
+    "grip": [
+     0.25,
+     0.72,
+     -0.95
+    ]
+   },
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "hold",
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "table",
+    "grip": [
+     0.65,
+     0.72,
+     -0.95
+    ]
+   },
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "hold",
+   "dur": 0,
+   "at": 0
+  },
+  {
+   "who": "wiz",
+   "do": "look",
+   "to": [
+    0.2,
+    -0.5
+   ],
+   "at": 0.3,
+   "dur": 0.4
+  },
+  {
+   "who": "rea",
+   "do": "look",
+   "to": [
+    -0.7,
+    -0.1
+   ],
+   "at": 0.9,
+   "dur": 0.35
+  },
+  {
+   "who": "rea",
+   "do": "expr",
+   "expr": "sad",
+   "at": 1.4,
+   "dur": 0.3
+  },
+  {
+   "who": "wiz",
+   "do": "look",
+   "to": [
+    0.6,
+    0.0
+   ],
+   "at": 2.0,
+   "dur": 0.35
+  },
+  {
+   "who": "wiz",
+   "do": "expr",
+   "expr": "happy",
+   "at": 2.3,
+   "dur": 0.3
+  }
+ ]
+}

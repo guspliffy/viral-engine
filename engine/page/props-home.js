@@ -6,6 +6,9 @@ import * as THREE from "three";
 //           right edge toward the front and toward the back (rimL / rimLb the left), each a hand's thickness outside
 //           the rim, just under the top: aim both hands there with palm: true and they press on the edge from outside
 //           with nothing passing through the wood.
+//   coffeetable  a low, wide living-room table in grained honey wood (style match, 28 Oct): top at spec.h (0.42),
+//           spec.w x spec.d (1.7 x 1.2), four square legs. Put things on it at y = h.
+//   rug     a soft, fluffy carpet lying on the floor: spec.w x spec.d (2.6 x 1.8), spec.color (a warm beige).
 const SEAT_Y = 0.42;   // props3d.js SEAT_Y (not imported: props3d imports this file)
 const R_STOOL = 0.25, T_SEAT = 0.05;
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
@@ -16,7 +19,44 @@ export const HOME_GRIPS = {
   stool: { rimR: rim(1, false), rimRb: rim(1, true), rimL: rim(-1, false), rimLb: rim(-1, true) },
 };
 
+// seeded canvas textures for the style-match props: wood grain along x, and carpet fluff
+function canvasTex(w, h, draw) {
+  const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
+}
+function rnd(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+const woodGrain = (base, seed) => canvasTex(1024, 512, (g, w, h) => {
+  const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
+  // long, gently wavy grain lines and a few darker streaks, as on the references' tables
+  for (let i = 0; i < 46; i++) {
+    const y0 = r() * h, a = 3 + r() * 8, f = 0.002 + r() * 0.003, dark = r() < 0.5;
+    g.strokeStyle = dark ? `rgba(120,62,24,${0.04 + r() * 0.05})` : `rgba(255,224,170,${0.03 + r() * 0.05})`; g.lineWidth = 2 + r() * 6;
+    g.beginPath(); for (let x = 0; x <= w; x += 16) g.lineTo(x, y0 + a * Math.sin(x * f + i)); g.stroke();
+  }
+  // plank joints
+  g.fillStyle = "rgba(90,50,20,0.3)"; for (const y of [h / 4, h / 2, (3 * h) / 4]) g.fillRect(0, y, w, 3);
+  // two broad, soft reflections of the window (the references' polished tables)
+  for (const [x, ww] of [[0.3, 0.16], [0.52, 0.07]]) { const gr = g.createLinearGradient(w * (x - ww), 0, w * (x + ww), 0); gr.addColorStop(0, "rgba(255,240,210,0)"); gr.addColorStop(0.5, "rgba(255,240,210,0.22)"); gr.addColorStop(1, "rgba(255,240,210,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }
+});
+const fluff = (base, seed) => canvasTex(512, 512, (g, w, h) => {
+  const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 14000; i++) { const v = r() < 0.5; g.fillStyle = v ? "rgba(255,248,235,0.28)" : "rgba(120,95,70,0.22)"; g.fillRect(r() * w, r() * h, 1 + r() * 2, 1 + r() * 2); }
+});
+
 export const HOME_KINDS = {
+  coffeetable(P) {
+    const S = P.spec, H = S.h ?? 0.42, W = S.w ?? 1.7, D = S.d ?? 1.2, T = 0.07;
+    const top = mat("#ffffff", { map: woodGrain(S.color ?? "#b6773f", 7), roughness: 0.35 }), leg = mat(S.leg ?? "#a86d3a", { roughness: 0.55 });
+    const t = mesh(new THREE.BoxGeometry(W, T, D), top, P.whole, 0, H - T / 2, 0);
+    t.material.userData.noShine = false;
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) mesh(new THREE.BoxGeometry(0.08, H - T, 0.08), leg, P.whole, sx * (W / 2 - 0.1), (H - T) / 2, sz * (D / 2 - 0.1));
+    return { grip: H };
+  },
+  rug(P) {
+    const S = P.spec, m = mat("#ffffff", { map: fluff(S.color ?? "#d8c3a5", 3), roughness: 1 });
+    const o = mesh(new THREE.BoxGeometry(S.w ?? 2.6, 0.02, S.d ?? 1.8), m, P.whole, 0, 0.01, 0); o.castShadow = false;
+    return { grip: 0.02 };
+  },
   stool(P) {
     const R = P.spec.r ?? R_STOOL, wood = mat(P.spec.color ?? "#c99560", { roughness: 0.7 }), dark = mat("#a8743f", { roughness: 0.7 });
     // the seat: a thick disc with a rounded edge (a lathe profile), top at SEAT_Y
