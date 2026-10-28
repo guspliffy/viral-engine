@@ -51,6 +51,15 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   storyboard's `seed`, else its experiment id + episode, else its id; the seed picks style, key, chords, tempo and lead. Never
   reuse one track across different clips. Pin options in a `music` block (`style`, `styles` pool, `key`,
   `progression`, `bpm`, `lead`, `drums`, `parts`, `seed`, `gain`), or set `"music": false` for a trend sound.
+- **Music is locked to the story** (`engine/music.mjs`): the tempo (inside the style's range) and the grid are picked
+  so the payoff lands on beat 1 (mark it `"kind": "payoff"`; else a beat named payoff/reveal, else the last
+  escalation), a recorded bed's stop (`until`) lands on a bar line, and parts and hits sit near beats. Without its own
+  `parts` a clip gets one beat of silence before the payoff and a drop on it. `"lock": false` or a pinned `offset`
+  opts out; dance clips stay on their own grid.
+- **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
+  sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
+  than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
+  more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
