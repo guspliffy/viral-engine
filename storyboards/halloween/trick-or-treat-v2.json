@@ -989,8 +989,8 @@
      "at": 0.8
     },
     {
-     "sfx": "step",
-     "gain": 0.25,
+     "sfx": "step-wood",
+     "gain": 0.8,
      "at": 1.05
     },
     {
@@ -3686,8 +3686,8 @@
      "at": 0.799
     },
     {
-     "sfx": "step",
-     "gain": 0.6,
+     "sfx": "step-wood",
+     "gain": 1.3,
      "at": 0.82
     },
     {
@@ -9971,23 +9971,23 @@
      "at": 0.23
     },
     {
-     "sfx": "step",
-     "gain": 0.18,
+     "sfx": "step-wood",
+     "gain": 0.8,
      "at": 0.25
     },
     {
-     "sfx": "step",
-     "gain": 0.18,
-     "at": 0.5
+     "sfx": "step-wood",
+     "gain": 0.8,
+     "at": 0.55
     },
     {
-     "sfx": "step",
-     "gain": 0.18,
+     "sfx": "step-wood",
+     "gain": 0.8,
      "at": 0.75
     },
     {
-     "sfx": "step",
-     "gain": 0.18,
+     "sfx": "step-wood",
+     "gain": 0.8,
      "at": 1.0
     },
     {
