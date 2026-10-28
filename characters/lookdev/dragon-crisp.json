@@ -1,0 +1,69 @@
+{
+ "id": "lookdev/dragon-crisp",
+ "name": "Dragon (crisp look-dev)",
+ "franchise": "PotatoBrawl",
+ "source": "Jonny's reference portraits, 2026-10-24",
+ "rig": "potato",
+ "body": {
+  "color": "#e9b768",
+  "height": 0.96,
+  "width": 0.84,
+  "depth": 0.72,
+  "lump": 0.03,
+  "seed": 27,
+  "taper": 0.16
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.05
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#4a2a14",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "curve": 0.4,
+   "eye": 1.05,
+   "tilt": 0.22
+  },
+  "eye": {
+   "flick": 0.3,
+   "lash": 1.15,
+   "depth": 0.2,
+   "iris": 0.62,
+   "oval": 1.32,
+   "glints": 1
+  },
+  "browShape": {
+   "arch": 0.06,
+   "thick": 0.8,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
+  },
+  "blush": 1.1
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "dragon",
+  "wing": "#c4772e"
+ },
+ "personality": "Small dragon with tiny wings. Sweet, wants to be fearsome, isn't yet (proposal).",
+ "voice": {
+  "pitch": 200,
+  "rate": 4.0,
+  "formant": 1.2,
+  "range": 8,
+  "breath": 0.07,
+  "vibrato": 0.03,
+  "seed": 51
+ },
+ "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): the crisp Wizard's face, body and hand values on the Dragon (from the style-match thread), for Still Scrolling \u2014 Car Crash. Not canon until Jonny approves.",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ }
+}
