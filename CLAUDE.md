@@ -116,7 +116,8 @@ The output is a **beat storyboard** (relative timing + macros): see `docs/STORYB
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs` on the final MP4,
+5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
+   (earshot listens: hits on their frame, footsteps on the right floor),
    a 15 fps strip of every contact moment, then **creative director review B (cut)**
    on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
