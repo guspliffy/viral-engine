@@ -137,7 +137,7 @@ const quiver = [[4.4, -0.35], [4.62, 0], [4.8, -0.35], [5.0, 0.02], [5.9, -0.35]
 for (const [t, v] of quiver) A(t, "gun", "face", { cornerR: v, dur: 0.12 });
 A(4.32, "gun", "face", { press: 0.35, dur: 0.2 });
 A(5.15, "gun", "face", { press: 0.9, cornerR: 0.1, dur: 0.12 });   // the swallow: lips pressed
-A(5.2, "gun", "squash", { amount: 0.09, dur: 0.35 });                // cheeks and shoulders tighten
+A(5.2, "gun", "squash", { amount: 0.05, dur: 0.45 });                // cheeks and shoulders tighten
 A(5.2, "gun", "pitch", { to: 1.5, dur: 0.25 });                       // the gulp dips the head
 A(5.45, "gun", "pitch", { to: 0, dur: 0.3 });
 A(5.2, "gun", "expr", { set: { eye: 0.75 }, dur: 0.1 });

@@ -870,8 +870,8 @@
     {
      "who": "gun",
      "do": "squash",
-     "amount": 0.09,
-     "dur": 0.35,
+     "amount": 0.05,
+     "dur": 0.45,
      "at": 1
     },
     {
