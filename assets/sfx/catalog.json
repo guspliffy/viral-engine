@@ -13,6 +13,13 @@
    "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
    "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
   },
+  "ai-package": {
+   "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+   "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)",
+   "note": "Just Hand Me the Package's sounds (engine/soundgen/recipes-package.json); own folder so parallel clips don't edit assets/sfx/ai/manifest.json. Ids: ai-package/<id>. box-lift was dropped (no take scored above 0 on CLAP); the lift uses cardboard-rustle."
+  },
   "oga": {
    "name": "OpenGameArt: \"Gastric Distress\" by LFA (recorded with mouth and hands)",
    "url": "https://opengameart.org/content/gastric-distress",
@@ -2103,6 +2110,51 @@
     "liquid",
     "drip",
     "drop"
+   ]
+  },
+  "ai-package/cardboard-rustle": {
+   "source": "ai-package",
+   "files": [
+    "ai-package/cardboard-rustle/cardboard-rustle-01.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-02.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-03.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "cardboard",
+    "box",
+    "rustle",
+    "grab"
+   ]
+  },
+  "ai-package/box-set-down": {
+   "source": "ai-package",
+   "files": [
+    "ai-package/box-set-down/box-set-down-01.wav",
+    "ai-package/box-set-down/box-set-down-02.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "cardboard",
+    "box",
+    "put-down",
+    "thud"
+   ]
+  },
+  "ai-package/flat-exhale": {
+   "source": "ai-package",
+   "files": [
+    "ai-package/flat-exhale/flat-exhale-01.wav",
+    "ai-package/flat-exhale/flat-exhale-02.wav",
+    "ai-package/flat-exhale/flat-exhale-03.wav",
+    "ai-package/flat-exhale/flat-exhale-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "breath",
+    "exhale",
+    "sigh"
    ]
   },
   "oga/fart-viking": {

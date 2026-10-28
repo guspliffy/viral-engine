@@ -5,7 +5,8 @@ import { canvas, tex, card, glow, hallBackTex, hallSideTex } from "./set-porch.j
 // "doorstep": a house's front door on a warm afternoon, for "Just Hand Me the Package" (Jonny's story library #04).
 // A cream rendered front with white trim round one doorway (the door itself is a prop, props-package.js "frontdoor",
 // so it can swing in and latch), a warm hallway behind it, a plain rust doormat, a pale stone step, two potted
-// plants left of the door and a brass wall lamp right of it. Nothing to read: no house number, no lettering.
+// plants left of the door, a doorbell, a wall letterbox and a brass wall lamp right of it. Nothing to read: no house
+// number, no lettering.
 // The stage is the step (y 0) in front of the wall; the hallway floor is level with it.
 // spec: { type: "doorstep", light: "golden", wallZ: -9 }. Layout constants are exported so the storyboard and the
 // door prop line up with them. (wallZ in the spec only moves the golden look's window-light patches out of sight
@@ -126,5 +127,12 @@ export function buildDoorstep(scene, S = {}) {
   box(set, 0.08, 0.16, 0.03, brass, lampX, lampY, z0 + 0.015);
   box(set, 0.13, 0.2, 0.13, std("#fff4d8", { roughness: 0.2, transparent: true, opacity: 0.85 }), lampX, lampY, z0 + 0.1);
   box(set, 0.16, 0.03, 0.16, brass, lampX, lampY + 0.115, z0 + 0.1); box(set, 0.14, 0.025, 0.14, brass, lampX, lampY - 0.11, z0 + 0.1);
+  // beside the door at a potato's reach: a doorbell (a brass rose and a cream button) and a dark green wall letterbox
+  // with a brass flap, so a tight shot of the shut door isn't a blank door on a blank wall
+  box(set, 0.07, 0.11, 0.02, brass, dr + 0.18, 1.08, z0 + 0.01);
+  const bell = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.02, 16), std("#f4ead2", { roughness: 0.4 })); bell.rotation.x = Math.PI / 2; bell.position.set(dr + 0.18, 1.09, z0 + 0.025); set.add(bell);
+  const green = std("#3e5a46", { roughness: 0.5 });
+  box(set, 0.3, 0.36, 0.12, green, dr + 0.46, 0.95, z0 + 0.06); box(set, 0.33, 0.03, 0.15, green, dr + 0.46, 1.145, z0 + 0.07);
+  box(set, 0.2, 0.035, 0.012, brass, dr + 0.46, 1.03, z0 + 0.125);
   return set;
 }
