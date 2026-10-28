@@ -57,6 +57,7 @@ A(0, "phx", "look", { to: PHX_AT_GHOST, dur: 0.12, blink: false });
 A(0.16, "phx", "expr", { expr: "shocked", set: { open: 0.5 }, dur: 0.08 });
 A(0.16, "phx", "hop", { height: 0.12, dur: 0.38 });
 at(0.2, { fx: "alert", who: "phx", dur: 0.6 });
+at(0.05, { fx: "pop", text: "BOO!", who: "rea", dx: 0.95, dy: -0.3, dur: 0.75, color: "#e4f6ff", angle: -10 });   // the ghost's line
 A(0.18, "phx", "wings", { to: 0.5, dur: 0.15, ease: "out" });
 sfx(0.18, "hop", { gain: 0.12 });
 A(0.85, "phx", "wings", { to: 0, dur: 0.45 });
@@ -100,6 +101,7 @@ A(FF + 0.5, "rea", "expr", { set: { curve: -0.28, open: 0.26 }, dur: 0.15 });
 A(FF + 0.62, "rea", "still", { dur: 1.0, idle: 0.04, sink: 0.02 });
 A(FF + 0.62, "rea", "squash", { amount: 0.06, dur: 0.18 });
 at(FF + 0.45, { fx: "sweat", who: "rea", dur: 1.0 });   // on screen for the cover frame (8.6 s)
+at(FF + 0.55, { fx: "pop", text: "gulp", who: "rea", dx: 0.75, dy: -0.15, dur: 0.85, color: "#7cc8ff", angle: 6, size: 100 });
 
 // ---------------------------------------------------------------- 5 FIND COVER 9.9-14.0: two planted steps behind Phoenix
 A(9.95, "rea", "move", { to: MID, dur: 0.55, ease: "inOut", steps: 2 });
@@ -196,7 +198,7 @@ const sb = {
   title: "Nothing Scares Reaper",
   idea: "Jonny's production brief v1, 25 Oct 2026 (+ the push-forward ending)",
   format: "one joke, one reversal: fearless at the haunted house, terrified of an icebreaker",
-  fps: 30, look: "anime-pro", profile: "short", loop: true,
+  fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   cover: 8.6,
   creative: { length: [12, 22] },
   set: { type: "haunted", night: true, nook: true, pumpkin: false, seed: 4 },

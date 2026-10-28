@@ -103,6 +103,8 @@ the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and th
 `storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of
 actions shows up in a second clip, move it into `acting.mjs` (the first clip must still produce the same storyboard).
 The output is a **beat storyboard** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards still work.
+The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
+speaker's colour) and its builder has `textPop` for a comic word beside a head; both are 2D only (`engine/page/text.js`).
 
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 

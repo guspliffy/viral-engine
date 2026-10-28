@@ -6,6 +6,7 @@
  "look": "anime-pro",
  "profile": "short",
  "loop": true,
+ "captionStyle": "kinetic",
  "set": {
   "type": "apartment",
   "seed": 5

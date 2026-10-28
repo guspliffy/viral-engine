@@ -29,6 +29,16 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`kind: "payoff"`** marks the punchline: the music's grid is locked so it lands on beat 1 (`engine/music.mjs`).
 - **`shot`** starts at the beat (omit it to keep the camera). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
+- **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
+  word pops in as it is said (timed from the talk line it matches), the word being said is lit in the speaker's
+  colour, ALL CAPS or `*starred*` words punch in in that colour, and a caption shrinks out instead of cutting. A
+  caption that repeats the one before it and adds words ("and share a…" then "and share a\nFUN FACT.") keeps the
+  first words still. Unspoken captions (a hook) pop in word by word. Without it, captions keep the classic style.
+- **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
+  character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
+  out. Options: `color`, `size` (px, default 120), `angle` (degrees, default -7), `burst` (a colour: a comic star
+  behind it). It is pushed inside the safe zone, and `qa/check.mjs` checks it there. Use one or two per clip, on a
+  sound the viewer should "see" (a BOO, a gulp), not on every hit.
 - **`kind: "escalation"`** marks the second turn of the joke; `qa/check.mjs` notes clips over the 20 s house target
   without one.
 - **Voices**: characters with a speaking voice (`"tts"` in their file: Phoenix, Reaper, Wizard, Allfather/Odin) say

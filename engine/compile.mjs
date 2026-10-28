@@ -18,6 +18,8 @@
 // camera. A beat's "caption" (text or { text, pos, style, beats }) shows for that beat, or for "beats" beats.
 // A flat storyboard (no "beats", or its own "actions") passes through unchanged.
 
+import { timeCaptionWords } from "./shared/captions.js";
+
 const r3 = (x) => Math.round(x * 1000) / 1000;
 
 // roughly how long a line of gibberish takes to say, so voice, mouth and caption agree
@@ -143,6 +145,12 @@ const itemEnd = (it) => {
 };
 
 export function compile(sb) {
+  const out = compileBeats(sb);
+  // kinetic captions: each word's time, from the talk lines (engine/shared/captions.js)
+  return out.captionStyle === "kinetic" ? timeCaptionWords({ ...out, captions: (out.captions || []).map((c) => ({ ...c })) }) : out;
+}
+
+function compileBeats(sb) {
   // flat storyboards (with their own "actions") pass through, even if they carry a "beats" list as notes
   if (!Array.isArray(sb.beats) || Array.isArray(sb.actions)) return sb;
   const out = { ...sb, shots: [...(sb.shots || [])], actions: [...(sb.actions || [])], fx: [...(sb.fx || [])], sfx: [...(sb.sfx || [])], captions: [...(sb.captions || [])] };
