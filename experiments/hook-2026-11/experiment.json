@@ -1,0 +1,18 @@
+{
+  "id": "hook-2026-11",
+  "status": "running",
+  "question": "Do clips whose opening went through the hook lab (opening rules + cold read + Jonny's pick of three) keep more viewers at 2 s than the clips posted before it?",
+  "variants": {
+    "lab": "Opening picked in the hook lab (qa/HOOK.md): readable face, motion and a sound by 0.25 s, a short question-raising caption, the situation clear by 2 s",
+    "before": "Clips posted before the hook lab (Still Scrolling, Nothing Scares Reaper, trick-or-treat, ...), logged from their analytics"
+  },
+  "audience": "Viewers of short character comedy who don't know the cast (For You / Reels, Europe and the US)",
+  "fixed": ["cast and look C", "English captions, works on mute", "length 7-20 s", "the same MP4 on TikTok and Instagram, posted the same day", "posting slot 19-21 local", "no outro card, loop into the start"],
+  "primaryOutcome": "held_2s (share still watching at 2 s, from the retention graph) at 3 days, per platform",
+  "diagnostics": ["views at 7 days", "avg_watch_s", "completion", "shares", "likes", "the steepest drop (qa/retention.mjs)"],
+  "observeDays": 3,
+  "threshold": "About 10 points more viewers held at 2 s, on most lab posts, before calling the lab worth its extra ~10 minutes a clip",
+  "decisionRule": "Keep the lab if lab posts beat the 'before' median on held_2s on both platforms over about 10 posts; the before group is not randomised (different premises and dates), so treat it as a strong hint, then confirm with in-clip A/B openings (Instagram Trial Reels)",
+  "costGuardrail": "Hook lab adds about 8 minutes of rendering and 10 minutes of attention per clip",
+  "notes": "Started 2026-10-28 (Jonny approved the quality plan, item 1). Curves go in curves/<post_id>-<platform>.csv."
+}

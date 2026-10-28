@@ -7,6 +7,7 @@ import { HALLOWEEN_KINDS, HALLOWEEN_GRIPS } from "./props-halloween.js";
 import { HOME_KINDS, HOME_GRIPS } from "./props-home.js";
 import { ELEVATOR_KINDS, ELEVATOR_GRIPS } from "./props-elevator.js";
 import { ROAD_KINDS, ROAD_GRIPS } from "./props-road.js";
+import { MAKEUP_KINDS, MAKEUP_GRIPS } from "./props-makeup.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -27,7 +28,7 @@ const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
   ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
-  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS,
+  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -82,9 +83,10 @@ function jarLid(parent) {
 }
 
 const KINDS = {
+  // spec: color (the top), legs (their colour), w and d (metres; 1.1 x 0.7)
   table(P) {
-    const top = mat("#c98a4b", { roughness: 0.55 }), leg = mat("#8a5a2e");
-    const W = 1.1, D = 0.7;
+    const top = mat(P.spec.color ?? "#c98a4b", { roughness: 0.55 }), leg = mat(P.spec.legs ?? "#8a5a2e");
+    const W = P.spec.w ?? 1.1, D = P.spec.d ?? 0.7;
     for (const [s, h] of P.halves) {
       mesh(new THREE.BoxGeometry(W / 2, 0.06, D), top, h, (s * W) / 4, TABLE_Y - 0.03, 0);
       for (const z of [-1, 1]) mesh(new THREE.CylinderGeometry(0.03, 0.025, TABLE_Y - 0.06, 12), leg, h, s * (W / 2 - 0.08), (TABLE_Y - 0.06) / 2, z * (D / 2 - 0.08));
@@ -1320,7 +1322,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), carseat, steer (props-road.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js)
 
 export function buildProp(spec) {
   const root = new THREE.Group(), whole = new THREE.Group(); root.add(whole);

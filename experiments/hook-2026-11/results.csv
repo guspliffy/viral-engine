@@ -1,0 +1,7 @@
+post_id,platform,clip,variant,family,published,age_days,views,avg_watch_s,completion,shares,comments,likes,follows,minutes_spent,held_2s
+tt-look-busy,tiktok,test-13-look-busy,before,office,2026-10-24,4,250,6.36,0.215,0,0,6,0,,63
+tt-gate,tiktok,gate-02-one-take,before,each-character,2026-10-25,3,277,8.64,0.231,0,0,2,0,,67
+tt-tag-a-friend,tiktok,test-11-hide-me,before,party,2026-10-25,3,244,4.35,0.117,0,0,1,0,,48
+tt-still-scrolling,tiktok,still-scrolling-loop,before,phone,2026-10-26,2,239,5.52,0.12,1,0,13,0,,55
+tt-elevator,tiktok,fart-elevator,before,elevator,2026-10-26,2,256,6.35,0.186,0,0,4,0,,51
+tt-trick-or-treat,tiktok,trick-or-treat-v2,before,halloween,2026-10-27,1,243,6.4,0.162,0,0,4,0,,53

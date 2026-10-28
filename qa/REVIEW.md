@@ -14,7 +14,11 @@ Make the sheets:
 node engine/render.mjs <sb> --stills beats --draft --safe --out <dir>     # A: ~1 min
 node qa/contact.mjs <dir>/<id>-safe-draft-t*.png --out <dir>/<id>.stills.contact.png
 node qa/contact.mjs out/<id>.mp4 --sb <sb>                                 # B: seconds
+node qa/contact.mjs out/<id>.mp4 --sb <sb> --cuts --phone                  # B: cut strips + phone sheet, ~20 s
 ```
+
+For review B also hand over `<id>.cuts.png` (one row per cut, 0.2 s either side, the first new frame edged red; with
+`loop: true` the seam gets a row) and `<id>.phone.png` (one frame a second at 360 px, the size people watch at).
 
 Spawn the reviewer with the Agent tool on model `fable`. Give it the two file paths (it reads the image itself) and
 the prompt below, with the brackets filled in. Ask for the answer as text only: no files, no edits.
@@ -59,4 +63,24 @@ Then answer five pass/fail questions, one line each (they are logged per clip an
 P1 premise readable by 3 s? P2 punchline lands? P3 loop seamless (last frame flows into the first)?
 P4 anything graphic or off-model? P5 from the stills alone, without the premise line, could a first-time viewer say
 what the character wants and what went wrong? (Answer that one in their words.)
+Then the viewer read, instead of a score: you are a first-time viewer scrolling your feed. Would you watch to the end?
+If not, at which second would you swipe away, and what made you go? (One or two lines, in a viewer's words. No 1-10
+scores: a number says nothing about where the clip loses people; a second and a reason do.)
 End with: "If only one: <note number>".
+
+---
+
+# Delivering a clip: what Jonny checks
+
+Every delivery carries two short things for Jonny, because Claude can't hear and a reviewer's opinion is not a viewer:
+
+1. **Five timestamps to check with headphones.** `node qa/risky.mjs out/<id>.mp4 --sb <sb>` picks them: the payoff,
+   effects the mix buries or blares, the loudest moment when it isn't the payoff, a line spoken over a hit, the loop
+   seam, the first second, the cut with the biggest jump in loudness. Paste its five lines as they are. Jonny listens at
+   those moments only, which takes a minute, and says which sound wrong.
+2. **The viewer read** from review B ("would you finish, where would you stop"), in one line, next to the clip's real
+   retention curve once it is posted (qa/retention.mjs). When the read and the curve disagree, trust the curve.
+
+Before the full render, and whenever a clip feels slow, compare its pace with a clip that holds viewers:
+`python qa/pace.py out/<id>.mp4 --ref <good clip>.mp4 --png out/<id>.pace.png` (cuts, motion and loudness per
+second, side by side; a few seconds). It measures the cut, not whether the joke lands.

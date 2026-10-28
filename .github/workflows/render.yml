@@ -1,0 +1,120 @@
+# Renders one storyboard on free GitHub runners (the repo is public, so minutes are free): the clip is cut into
+# frame ranges, each drawn on its own 4-core machine at the same time, then joined and given its sound.
+#
+# Start it from the Actions tab (Render a clip -> Run workflow) or: gh workflow run render.yml -f storyboard=... -f flags="--draft"
+# The MP4, its cover and the check result are under the run's Artifacts for 3 days. Jonny OK'd (28 Oct 2026) that
+# anyone with a GitHub account can download them while they are kept.
+name: Render a clip
+run-name: "Render ${{ inputs.storyboard }} ${{ inputs.flags }}"
+on:
+  workflow_dispatch:
+    inputs:
+      storyboard:
+        description: "Storyboard, e.g. storyboards/elevator/fart-elevator.json"
+        required: true
+      shards:
+        description: "Machines to split the clip over (1-20; about 1 per second of clip)"
+        default: "16"
+      flags:
+        description: "Extra render flags, e.g. --draft, --look anime-pro, --from 0 --to 3"
+        default: ""
+permissions:
+  contents: read
+env:
+  SB: ${{ inputs.storyboard }}
+  FLAGS: ${{ inputs.flags }}
+
+jobs:
+  plan:
+    name: Check the storyboard
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      shards: ${{ steps.split.outputs.list }}
+      n: ${{ steps.split.outputs.n }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          voice: "true"
+      # the contact gate once for all shards (they skip it), and real speech into out/speech for all of them
+      - name: Contact gate and speech
+        run: node engine/render.mjs "$SB" --layout $FLAGS
+      - id: split
+        env:
+          SHARDS: ${{ inputs.shards }}
+        run: |
+          n=$(( SHARDS < 1 ? 1 : SHARDS > 20 ? 20 : SHARDS ))
+          echo "n=$n" >> "$GITHUB_OUTPUT"
+          echo "list=$(seq -s, 1 "$n" | sed 's/^/[/;s/$/]/')" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plan
+          path: |
+            out/speech/
+            out/*.layout.json
+          retention-days: 1
+          if-no-files-found: ignore
+
+  shard:
+    name: Shard ${{ matrix.shard }}
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: true
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@v4
+        with:
+          name: plan
+          path: out
+      - name: Render
+        run: node engine/render.mjs "$SB" --shard ${{ matrix.shard }}/${{ needs.plan.outputs.n }} --skip-gate $FLAGS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: part-${{ matrix.shard }}
+          path: |
+            out/*.part-*.video.mp4
+            out/*-cover.png
+          retention-days: 1
+          if-no-files-found: error
+
+  stitch:
+    name: Join and add sound
+    needs: [plan, shard]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@v4
+        with:
+          name: plan
+          path: out
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: out
+          merge-multiple: true
+      - name: Join
+        run: node engine/render.mjs "$SB" --stitch ${{ needs.plan.outputs.n }} $FLAGS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clip
+          path: |
+            out/*.mp4
+            !out/*.video.mp4
+            out/*-cover.png
+          retention-days: 3
+          if-no-files-found: error
+      - name: qa/check
+        shell: bash
+        run: |
+          clip=$(ls out/*.mp4 | grep -v '\.video\.mp4$' | head -1)
+          layout=$(ls out/*.layout.json | head -1)
+          node qa/check.mjs "$clip" --sb "$SB" --layout "$layout" | tee check.txt
+          { echo '```'; cat check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -35,9 +35,16 @@ Useful flags:
 | `--png` | Lossless frames into the encoder instead of JPEG q95. Slower, rarely visible after H.264. |
 | `--layout` | Writes only `<id>.layout.json` (caption and character boxes, hand, hat and prop positions every 0.1 s) for `qa/check.mjs` and for aiming throws. Takes seconds. |
 | `--out dir` | Output folder (default `out/`). |
+| `--shard 3/12` | Video only, the 3rd of 12 equal frame ranges (shard 1 also draws the cover). For splitting a render over machines. |
+| `--stitch 12` | Joins the 12 shards (no re-encode, frame count checked) and adds the sound. Same other flags as the shards. |
+| `--skip-gate` | Skips the contact gate, for shards after a `--layout` run of the same storyboard passed. |
+| `--ids` | With `--stills`: also a map of which character covers each pixel (`qa/readability.mjs`). |
 
 Rendering is deterministic: every frame is drawn at a fixed time `t = frame / fps`, so the same storyboard always
 gives the same video, however fast or slow the machine is.
+
+Long renders can run on GitHub's free runners: `.github/workflows/render.yml` splits the clip over up to 20 machines
+and joins it (`gh workflow run render.yml -f storyboard=storyboards/x.json`; the MP4 is the run's artifact for 3 days).
 
 Speed on a 2-core machine without a GPU (software WebGL): about 1.8 s per frame at full quality (a 9 s clip in
 about 8 minutes) and 0.55 s per frame with `--draft`. Most of the time is lighting the pixels; a machine with a real
@@ -52,6 +59,8 @@ node engine/render.mjs storyboards/test-01-golden.json --layout     # caption + 
 node qa/check.mjs out/test-01-golden.mp4                            # size, duration, blank frames, loudness, captions
 node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   # contact sheet for review
 node qa/sound.mjs storyboards/test-01-golden.json [out/test-01-golden.mp4] [--ears]   # sound: repeats, sync, levels (check.mjs runs it too); --ears: earshot listens
+node qa/readability.mjs storyboards/test-01-golden.json              # each character against the set, silhouettes per beat
+node qa/golden.mjs                                                  # after an engine change: 12 approved stills against main, pixel diff
 ```
 
 `qa/check.mjs` works on any MP4. The caption checks read a `layout.json`
