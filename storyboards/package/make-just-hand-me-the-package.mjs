@@ -36,7 +36,7 @@ const PW = 0.42, PH = 0.26;                                                    /
 const W0 = [-0.45, 0.18], W_YAW = 72;             // the Wizard: outside, left of the doorway, turned toward Reaper
 const W1 = [-0.95, 0.2], W_BOW_YAW = 10;         // a step back for the bow, bowing to us, his back to Reaper (his hat clears him)
 const W2 = [-0.62, 0.24], W_TADA_YAW = 45;        // up and a step in: "ta-da" at the mat and the door
-const R0 = [0.58, -0.24], R_YAW = -42;             // Reaper: a half step out of the doorway, reaching for it
+const R0 = [0.58, -0.24], R_YAW = -20;             // Reaper: a half step out of the doorway, reaching for it
 const SPIN_TO = W_YAW + 360 + 40;                 // one full turn, ending squared up to the mat (112 deg)
 const MAT_SPOT = [-0.024, 0.016, 0.008];            // the parcel's bottom centre on the mat (mat top y 0.016)
 const R1 = [0.402, -0.164], R_PICK_YAW = -68;      // a step out onto the mat, square to the parcel, to pick it up
@@ -108,7 +108,8 @@ A(1.62, "wiz", "pitch", { to: 0, dur: 0.24 });
 A(1.62, "wiz", "crouch", { to: 0, dur: 0.24 });
 holdAt(1.25, "wiz", rel(W0, W_YAW, 0, 0.45, 0.46), W_YAW, 0.35);         // the parcel hugged a little higher
 A(1.25, "wiz", "hatwobble", { amount: 4, freq: 3, dur: 0.6 });
-A(1.6, "rea", "arm", { side: "R", pose: "rest", dur: 0.5 });             // Reaper's hand gives up and drops
+// Reaper's hand gives up: it sinks and turns in, palm to his side, and hangs there (a drop to "rest" flips the palm)
+c.arm(1.3, "rea", "R", { world: [R_HAND_OUT[0] + 0.06, 0.24, R_HAND_OUT[2] - 0.12], palm: [R0[0], 0.3, R0[1]] }, 0.4);
 A(1.6, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.4 });
 
 // ---------------------------------------------------------------- 04 ONE FLOURISH, THEN DOWN 1.8-4.0
@@ -183,7 +184,7 @@ const ENDL = [r3(-(PW / 2 + 0.012)), r3(PH / 2), 0];   // his left hand is on it
 A(5.5, "rea", "grab", { prop: "parcel", hand: "L", grip: ENDL, dur: 0, pose: null });
 A(5.52, "rea", "grab", { prop: "parcel", hand: "L", grip: [0, 0, 0], dur: 0.4 });
 A(5.52, "rea", "grip", { side: "L", shape: "cup", dur: 0.3 });
-c.arm(5.52, "rea", "L", { x: [0.52, 0.27, 0.14], palm: [0.52, 1.2, 0.14] }, 0.4);
+c.arm(5.52, "rea", "L", { x: [0.52, 0.27, 0.14], palm: [0.52, 1.2, 0.14] }, 0.55);
 c.arm(5.52, "rea", "R", "rest", 0.4);
 A(5.52, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
 A(5.36, "rea", "look", { to: [-0.3, -0.15], dur: 0.12, blink: false });
@@ -203,7 +204,7 @@ c.arm(6.36, "rea", "R", { world: [EDGE[0] + 0.03, EDGE[1], EDGE[2] - 0.06], palm
 A(6.36, "rea", "grip", { side: "R", shape: "flat", dur: 0.15 });
 c.prop(6.52, "door", { open: 0 }, 0.6, "in");
 c.prop(7.12, "door", { latch: 1 }, 0.04);
-c.arm(6.62, "rea", "R", "rest", 0.35);
+c.arm(6.62, "rea", "R", { world: [EDGE[0] + 0.12, 0.22, EDGE[2] - 0.04], palm: [EDGE[0] - 0.08, 0.22, EDGE[2] + 0.16] }, 0.45);   // the pushing hand just sinks, palm still out (a drop to "rest" flips it)
 A(6.62, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
 sfx(7.12, "latch", { gain: 0.75, reason: "the door latches" });
 
@@ -240,9 +241,9 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
   const pos = target.map((v, i) => r3(v + dir[i] * d));
   return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
 };
-const S1 = frame([0.18, 0.44, 0.3], { az: 45, el: 18, h: 1.35, fov: 22 });   // from the right: Reaper's dark glove against the parcel and the Wizard
-const S2 = frame([0.44, 0.6, -0.1], { az: -25, el: 3, h: 1.35, fov: 18 });
-const S3 = frame([-0.42, 0.95, 0.2], { az: 35, el: 2, h: 1.35, fov: 18 });
+const S1 = frame([0.1, 0.74, 0.05], { az: 30, el: 10, h: 2.3, fov: 22 });   // both faces and the door; from the right, so Reaper's dark glove reads against the parcel, not his hoodie
+const S2 = frame([0.44, 0.7, -0.1], { az: -25, el: 3, h: 1.75, fov: 18 });
+const S3 = frame([-0.4, 1.0, 0.2], { az: 35, el: 2, h: 1.75, fov: 18 });
 const S4 = frame([0.04, 0.85, 0.0], { az: 0, el: 5, h: 3.1, fov: 26 });
 const S5 = frame([-0.3, 0.62, 0.0], { az: -25, el: 3, h: 2.8, fov: 22 });
 const S6 = frame([0.4, 0.85, -0.75], { az: -22, el: 4, h: 2.9, fov: 26 });
