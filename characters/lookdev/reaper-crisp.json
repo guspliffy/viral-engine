@@ -51,7 +51,8 @@
  },
  "sprout": {
   "color": "#6cbf3a",
-  "placement": "none"
+  "placement": "top",
+  "lift": [0.025, -0.03]
  },
  "costume": {
   "type": "reaper",
