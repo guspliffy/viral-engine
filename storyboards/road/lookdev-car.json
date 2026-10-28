@@ -1,0 +1,24 @@
+{
+ "id": "lookdev-car", "fps": 30, "duration": 5, "look": "anime-pro", "music": false,
+ "set": { "type": "road", "speed": 10, "divider": { "x": -0.95, "width": 0.5, "height": 0.18, "length": 4, "bevel": 0.5, "hit": [3.6, 1.6] } },
+ "rigs": [{ "id": "car", "kind": "roadster", "color": "#ec4b3c", "pivot": [0, 0.55, 0], "keys": [{ "at": 0, "pos": [0, 0, 0] }] }],
+ "cast": [
+  { "id": "wiz", "character": "lookdev/wizard-crisp", "rig": "car", "at": [-0.47, -0.29], "shadowFall": 0.001, "belt": { "side": "R" } },
+  { "id": "dra", "character": "potatobrawl/dragon", "rig": "car", "at": [0.47, -0.29], "shadowFall": 0.001, "belt": { "side": "L" } }
+ ],
+ "props": [
+  { "id": "seatW", "kind": "carseat", "rig": "car", "x": -0.47, "y": 0.12, "z": -0.32 },
+  { "id": "seatD", "kind": "carseat", "rig": "car", "x": 0.47, "y": 0.12, "z": -0.32 },
+  { "id": "wheel", "kind": "steer", "rig": "car", "x": 0.47, "y": 0.93, "z": 0.22, "tip": 30 }
+ ],
+ "actions": [
+  { "who": "wiz", "do": "sit", "seat": "seatW", "at": 0, "dur": 0.01, "hands": "keep" },
+  { "who": "dra", "do": "sit", "seat": "seatD", "at": 0, "dur": 0.01, "hands": "keep" }
+ ],
+ "shots": [ { "at": 3.9, "pos": [-3.0, 0.9, 5.2], "look": [0, 0.6, 0.6], "fov": 40 },
+  { "at": 0, "pos": [0, 1.5, 5.2], "look": [0, 1.0, -0.2], "fov": 40 },
+  { "at": 1, "pos": [-6.5, 2.0, 5.5], "look": [0, 0.8, 0], "fov": 36 },
+  { "at": 2, "pos": [-5.5, 1.0, 0], "look": [0, 0.7, 0], "fov": 40 },
+  { "at": 3, "pos": [-3.2, 0.4, 4.0], "look": [-0.95, 0.35, 1.3], "fov": 34 }
+ ]
+}

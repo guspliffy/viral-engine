@@ -9,11 +9,41 @@ import { rng, clamp, ease } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
+import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
+import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
+let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
+const D2R = Math.PI / 180;
+// a point in a character's own parent frame (a rig, or the world) in the world
+const worldOf = (a, p) => (a.ch.root.parent && a.ch.root.parent !== scene ? a.ch.root.parent.localToWorld(p) : p);
+
+// a seatbelt across a seated character (cast "belt": { side: "R" | "L", the shoulder it comes over, color }): a flat
+// strap lying on the body from that shoulder, across the front under the face, to the other hip, a lap strap and a
+// chrome buckle. It lies on the body (Character.surf), so it squashes and breathes with it.
+function seatBelt(ch, B) {
+  const s = B.side === "L" ? 1 : -1, m = new THREE.MeshStandardMaterial({ color: B.color || "#2a2b33", roughness: 0.8 });
+  const strap = (path, w) => {
+    const c = new THREE.CatmullRomCurve3(path.map(([th, ph]) => new THREE.Vector3(th, ph, 0))), N = 40, pos = [], idx = [];
+    for (let i = 0; i <= N; i++) {
+      const q = c.getPoint(i / N), q2 = c.getPoint(Math.min(1, i / N + 0.01)), q0 = c.getPoint(Math.max(0, i / N - 0.01));
+      const a = ch.surf(q.x, q.y), b = ch.surf(q2.x, q2.y), b0 = ch.surf(q0.x, q0.y);
+      const tan = b.pos.clone().sub(b0.pos).normalize(), side = tan.clone().cross(a.normal).normalize();
+      for (const [u, v] of [[-1, 0], [1, 0], [1, 1], [-1, 1]]) pos.push(...a.pos.clone().addScaledVector(side, (u * w) / 2).addScaledVector(a.normal, 0.006 + v * 0.012).toArray());
+    }
+    for (let i = 0; i < N; i++) for (let k = 0; k < 4; k++) { const a = i * 4 + k, b = i * 4 + ((k + 1) % 4); idx.push(a, b, a + 4, b, b + 4, a + 4); }
+    for (const e of [0, N * 4]) idx.push(e, e + 1, e + 2, e, e + 2, e + 3);
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    const o = new THREE.Mesh(g, m); o.castShadow = true; o.receiveShadow = true; o.name = "seatbelt"; ch.potatoParts.add(o); return o;
+  };
+  strap([[1.5, 0.36], [1.05, 0.06], [0.55, -0.27], [0, -0.47], [-0.6, -0.58], [-1.15, -0.6]].map(([th, ph]) => [s * th, ph]), B.width ?? 0.075);
+  strap([[1.35, -0.66], [0.5, -0.74], [-0.5, -0.74], [-1.35, -0.66]], (B.width ?? 0.075) * 0.9);
+  const at = ch.surf(-s * 1.08, -0.62), buckle = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.05, 0.02), new THREE.MeshStandardMaterial({ color: "#d9dde4", metalness: 0.85, roughness: 0.2 }));
+  buckle.position.copy(at.pos).addScaledVector(at.normal, 0.02); buckle.lookAt(at.pos.clone().addScaledVector(at.normal, 1)); buckle.castShadow = true; ch.potatoParts.add(buckle);
+}
 
 // Particle bursts ("poof"): smoke puffs and sparkles, positions are a pure function of time.
 function buildPoof(f, i) {
@@ -123,7 +153,7 @@ function headFx(f, t, i) {
   const d = f.dur ?? 1, k = (t - f.at) / d, A = f.who && poseStates[f.who];
   if (k < 0 || k > 1 || (!A && !f.pos)) return;
   // at a character's head, or at a point in the scene (`pos` [x, y, z], e.g. sparkles on a prop, z's over a box)
-  const c = f.pos ? toScreen(f.pos) : toScreen([A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z]), n = f.count ?? 6, r = rng(4242 + i * 97);
+  const c = f.pos ? toScreen(f.pos) : toScreen(worldOf(A.a, new THREE.Vector3(A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z)).toArray()), n = f.count ?? 6, r = rng(4242 + i * 97);
   ctx.save(); ctx.lineJoin = "round";
   for (let j = 0; j < n; j++) {
     const ph = r(), ang = r() * Math.PI * 2, rad = (0.35 + r() * 0.3) * c.m, lk = clamp((k * 1.3 - ph * 0.3) / 0.75);
@@ -162,7 +192,7 @@ function headFx(f, t, i) {
 function popAnchor(f) {
   if (f.xy) return { x: f.xy[0], y: f.xy[1] };
   const A = f.who && poseStates[f.who]; if (!A) return null;
-  const c = toScreen([A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z]);
+  const c = toScreen(worldOf(A.a, new THREE.Vector3(A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z)).toArray());
   return { x: c.x + (f.dx ?? 0.55) * c.m, y: c.y + (f.dy ?? -0.3) * c.m };
 }
 
@@ -319,14 +349,22 @@ async function init(data) {
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
   lamp = scene.getObjectByName("set-lamp"); lamp = lamp ? { o: lamp, base: lamp.intensity } : null;
   bulb = scene.getObjectByName("set-bulb"); bulb = bulb ? { o: bulb, base: bulb.material.color.clone() } : null;
-  props = (sb.props || []).map((spec) => { const p = buildProp(spec); scene.add(p.root); return p; });
+  // vehicle rigs (vehicle.js): characters and props with "rig" ride in them
+  rigs = new Map((sb.rigs || []).map((r) => {
+    const g = new THREE.Group(); g.name = `rig-${r.id}`; g.rotation.order = "YXZ"; scene.add(g);
+    const car = r.kind === "roadster" ? buildRoadster(r) : null; if (car) g.add(car.root);
+    return [r.id, { r, g, car }];
+  }));
+  const parentOf = (o) => (o.rig ? rigs.get(o.rig)?.g || (() => { throw new Error(`unknown rig: ${o.rig}`); })() : scene);
+  props = (sb.props || []).map((spec) => { const p = buildProp(spec); parentOf(spec).add(p.root); return p; });
   // a clock prop replaces the kitchen's own clock
   if (props.some((p) => p.spec.kind === "clock")) { const c = scene.getObjectByName("set-clock"); if (c) c.visible = false; }
   inkMat = new THREE.MeshBasicMaterial({ color: "#000000" });
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
-    const ch = new Character(def, c.id); scene.add(ch.root);
+    const ch = new Character(def, c.id); parentOf(c).add(ch.root);
+    if (c.belt) seatBelt(ch, c.belt);
     ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; charMats.push(m); } });
     return { c, def, ch };
   });
@@ -349,12 +387,20 @@ async function init(data) {
 // places characters, effects and camera for time t without drawing anything
 function pose(t) {
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
+  // vehicle rigs first: everything riding in them is placed in their frame
+  for (const V of rigs.values()) {
+    const s = rigState(V.r, t), p = V.r.pivot || [0, 0.55, 0];
+    V.g.rotation.set(s.pitch * D2R, s.yaw * D2R, s.roll * D2R); V.g.position.set(0, 0, 0); V.g.updateMatrix();
+    const piv = new THREE.Vector3(...p).applyMatrix4(V.g.matrix);
+    V.g.position.set(s.pos[0] + p[0] - piv.x, s.pos[1] + p[1] - piv.y, s.pos[2] + p[2] - piv.z); V.g.updateMatrixWorld(true);
+    if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
+  }
   const states = {};
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
-    const o = who ? new THREE.Vector3(who.st.x, who.st.y, who.st.z + 0.15) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
+    const o = who ? worldOf(who.a, new THREE.Vector3(who.st.x, who.st.y, who.st.z + 0.15)) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
     p.apply(t, o);
   }
   poseStates = states;
@@ -371,13 +417,16 @@ function pose(t) {
     return { pos: hs.reduce((acc, h) => acc.add(A.a.ch.arms[h].hand.getWorldPosition(v)), new THREE.Vector3()).multiplyScalar(1 / hs.length) };
   };
   // where a held prop sits for its holder's pose right now
+  // in a rig the prop is placed in the rig's frame: hands and hats are measured in the world, then brought into it
+  const inFrame = (p, v) => (p.root.parent && p.root.parent !== scene ? p.root.parent.worldToLocal(v.clone()) : v);
   const heldAt = (p, ps, hold) => {
     const k = hold.keep ? keptOffset(p, hold) : null;   // first: it poses the holder at the grab and back
     const an = anchor(hold.who, hold.hand); if (!an) return null;
     if (k) {
-      return an.obj ? an.obj.localToWorld(new THREE.Vector3().fromArray(k)).toArray() : [an.pos.x + k[0], an.pos.y + k[1], an.pos.z + k[2]];
+      if (an.obj) return inFrame(p, an.obj.localToWorld(new THREE.Vector3().fromArray(k))).toArray();
+      const q = inFrame(p, an.pos); return [q.x + k[0], q.y + k[1], q.z + k[2]];
     }
-    const h = an.obj ? an.obj.getWorldPosition(new THREE.Vector3()) : an.pos, o = hold.off;
+    const h = inFrame(p, an.obj ? an.obj.getWorldPosition(new THREE.Vector3()) : an.pos), o = hold.off;
     // a grip point: the prop sits so that point is in the hand; otherwise its own grip height is
     const g = hold.grip ? gripWorld(p.spec, hold.grip, [0, 0, 0], ps.rot, ps.scale, ps.tilt, ps.tip) : [0, p.grip * ps.scale, 0];
     return [h.x - g[0] + o[0], h.y - g[1] + o[1], h.z - g[2] + o[2]];
@@ -390,7 +439,8 @@ function pose(t) {
       const A = states[hold.who];
       A.a.ch.apply(actorState(sb, A.a.c, A.a.def, hold.at), hold.at);
       const an = anchor(hold.who, hold.hand), w = new THREE.Vector3().fromArray(hold.from);
-      p.kept = { key, off: an.obj ? an.obj.worldToLocal(w).toArray() : [w.x - an.pos.x, w.y - an.pos.y, w.z - an.pos.z] };
+      const ap = an.obj ? null : inFrame(p, an.pos);
+      p.kept = { key, off: an.obj ? an.obj.worldToLocal(p.root.parent && p.root.parent !== scene ? p.root.parent.localToWorld(w) : w).toArray() : [w.x - ap.x, w.y - ap.y, w.z - ap.z] };
       A.a.ch.apply(A.st, t);
     }
     return p.kept.off;
@@ -429,7 +479,15 @@ function pose(t) {
   if (bulb) bulb.o.material.color.copy(bulb.base).multiplyScalar(0.12 + 0.88 * Math.min(1, L.lamp));
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
   const cam = cameraState(sb, t);
-  camera.position.fromArray(cam.pos); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(new THREE.Vector3().fromArray(cam.look));
+  // a shot with "rig" is fixed to that rig: its pos and look are in the rig's frame, and its up turns with it
+  const shot = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
+  const cp = new THREE.Vector3().fromArray(cam.pos), cl = new THREE.Vector3().fromArray(cam.look);
+  if (V) { cp.applyMatrix4(V.g.matrixWorld); cl.applyMatrix4(V.g.matrixWorld); camera.up.set(0, 1, 0).transformDirection(V.g.matrixWorld); }
+  else camera.up.set(0, 1, 0);
+  // a shot with "track" follows that rig across the road (its x and z, not its turns): pos and look ride along with it
+  const TR = shot && shot.track && rigs.get(shot.track);
+  if (TR) { const p = rigState(TR.r, t).pos; cp.x += p[0]; cp.z += p[2]; cl.x += p[0]; cl.z += p[2]; }
+  camera.position.copy(cp); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(cl);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
 }
 
@@ -594,6 +652,7 @@ function silhouette() {
   // props marked scenery (a door, a gate) count as set, not as a character covering the caption
   const sceneryProps = props.filter((p) => p.spec.scenery && p.root.visible); for (const p of sceneryProps) p.root.visible = false;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
+  const cars = [...rigs.values()].filter((V) => V.car && V.car.root.visible); for (const V of cars) V.car.root.visible = false;
   // props are scenery (a tree's leaves behind the title are fine); only the characters count
   const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
   // glows and other see-through parts are effects, not the character's body; so is added light (golden light's sun
@@ -608,6 +667,7 @@ function silhouette() {
   for (const o of setObjs) o.visible = true;
   for (const p of sceneryProps) p.root.visible = true;
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
+  for (const V of cars) V.car.root.visible = true;
   props.forEach((p, i) => (p.root.visible = prv[i]));
   for (const o of glass) o.visible = true;
   return px;
