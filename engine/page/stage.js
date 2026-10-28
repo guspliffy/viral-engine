@@ -872,6 +872,65 @@ function reach() {
     }
   }
   out.faces = hiddenFaces(live, shownIn);
+  out.inProps = handsInProps(live, shownIn);
+  return out;
+}
+
+// fingers in props (DUO launch day: a glove through a box lid, fingertips out under a box, a fist sunk in the ledge;
+// none of it was measured, as reach() only knows characters): each visible part of a hand (palm, fingers, thumb, the
+// fist's knuckles) as a ball or a capsule round its own axis, against every mesh of every scene prop as its own box.
+// The depth is the part's radius minus how far its axis is outside that box (a finger resting on a surface: about 0;
+// a finger through a thin wall: its whole radius), in metres; only hands on screen, deeper than 5 mm.
+const PART = new WeakMap();
+function handsInProps(live, shownIn) {
+  const out = [], sc = new THREE.Vector3(), inv = new THREE.Matrix4(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), q = new THREE.Vector3(), lp = new THREE.Vector3();
+  const solids = [];
+  for (const p of props) {
+    if (!p.root.visible || !shownIn(p.root, scene)) continue;
+    p.root.updateMatrixWorld(true);
+    p.root.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry || o.isSprite) return;
+      const m = Array.isArray(o.material) ? o.material[0] : o.material;
+      if (m && m.transparent && m.opacity < 0.5) return;   // glass, glows, shadows
+      if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      solids.push({ id: p.spec.id, o, bb: o.geometry.boundingBox });
+    });
+  }
+  if (!solids.length) return out;
+  const frustum = new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+  // a hand part's axis in its own frame (a capsule's two cap centres, a ball's centre) and its radius, unscaled
+  const shape = (o) => {
+    if (PART.has(o)) return PART.get(o);
+    const g = o.geometry, P = g.parameters || {};
+    const s = g.type === "CapsuleGeometry" ? { a: [0, -P.length / 2, 0], b: [0, P.length / 2, 0], r: P.radius } : g.type === "SphereGeometry" ? { a: [0, 0, 0], b: [0, 0, 0], r: P.radius } : null;
+    PART.set(o, s); return s;
+  };
+  for (const a of live) for (const side of ["R", "L"]) {
+    const h = a.ch.arms[side].hand; if (!shownIn(h, a.ch.root)) continue;
+    h.updateMatrixWorld(true);
+    const held = new Set(poseStates[a.c.id]?.st.arms?.[side]?.on || []);
+    if (!frustum.containsPoint(h.getWorldPosition(q))) continue;
+    const best = new Map();
+    h.traverseVisible((o) => {
+      if (!o.isMesh) return; const s = shape(o); if (!s) return;
+      o.getWorldScale(sc); const r = s.r * Math.min(Math.abs(sc.x), Math.abs(sc.y), Math.abs(sc.z));
+      if (r < 0.004) return;   // the fist while it is still growing in (it starts at a thousandth of its size)
+      a0.fromArray(s.a).applyMatrix4(o.matrixWorld); a1.fromArray(s.b).applyMatrix4(o.matrixWorld);
+      for (const { id, o: m, bb } of solids) {
+        if (held.has(id)) continue;   // what the hand holds sits in its curl: the strips judge that grip
+        inv.copy(m.matrixWorld).invert(); m.getWorldScale(sc); const k = Math.min(Math.abs(sc.x), Math.abs(sc.y), Math.abs(sc.z));
+        let d = Infinity;
+        for (let i = 0; i <= 4; i++) {
+          lp.copy(a0).lerp(a1, i / 4).applyMatrix4(inv);
+          // signed distance to the box in the mesh's frame (negative inside), in metres
+          const dx = Math.max(bb.min.x - lp.x, lp.x - bb.max.x), dy = Math.max(bb.min.y - lp.y, lp.y - bb.max.y), dz = Math.max(bb.min.z - lp.z, lp.z - bb.max.z);
+          d = Math.min(d, (Math.hypot(Math.max(dx, 0), Math.max(dy, 0), Math.max(dz, 0)) + Math.min(Math.max(dx, dy, dz), 0)) * k);
+        }
+        if (r - d > 0.005 && r - d > (best.get(id) ?? 0)) best.set(id, r - d);
+      }
+    });
+    for (const [id, depth] of best) out.push({ who: a.c.id, hand: side, prop: id, depth: Math.round(depth * 1000) / 1000 });
+  }
   return out;
 }
 

@@ -454,7 +454,9 @@ function resolveArms(sb, st, def, t) {
     return w ? { ...toLocal(world(q)), palm: toLocal(w).x, ...(q.palm === "wrap" ? { wrap: true } : {}) } : toLocal(world(q));
   };
   const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? aim(q) : q);
-  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose) }; }
+  // on: the props this hand is going from and to (stage.js handsInProps: a hand may hold what it is on)
+  const on = (q) => (q && q.mix ? [...on(q.mix.from), ...on(q.mix.pose)] : q && q.prop ? [q.prop] : []);
+  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose), on: [...on(a.from), ...on(a.pose)] }; }
 }
 
 // a camera path: sb.camera = [{ at, pos, look, fov, stop? }, ...] keys the camera through one continuous move. Between

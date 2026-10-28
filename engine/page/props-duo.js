@@ -23,8 +23,11 @@ import { clamp, rng } from "./util.js";
 //   campmug     a steel camping mug with a wire handle.     campchair  a folding camp chair facing +z.
 //   stanchions  queue posts with black belts between them: spec.posts = [[x, z], ...] in the prop's frame.
 //   seatmark    nothing visible: a seat for `sit` on the ground (put it at y -0.35 for a body sitting on the floor).
-export const FOLD = { W: 0.17, H: 0.22, T: 0.0048 };
-export const BOX = { W: 0.31, D: 0.26, H: 0.075, SKIRT: 0.032, TRAY: 0.058 };
+// a big cartoon phone: two gloves (13 cm each) fit on it closed without meeting
+export const FOLD = { W: 0.19, H: 0.24, T: 0.0048 };
+// the box leaves a glove's width (7 cm) round the closed phone and stands taller than a glove's half height, so hands
+// carrying it by its ends, or taking the phone out, stay clear of its walls and of the surface under it
+export const BOX = { W: 0.38, D: 0.33, H: 0.08, SKIRT: 0.035, TRAY: 0.0744 };
 export const DUO_GRIPS = {};
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.55, ...o });
