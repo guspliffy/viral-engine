@@ -20,13 +20,18 @@
    "src": "assets/plates/livingroom-golden.png",
    "z": -2.3,
    "center": [
-    -0.1,
-    1.15
+    0,
+    1.35
    ],
-   "height": 3.8
+   "height": 5.0
   },
   "para": 0,
-  "bloom": "emissive"
+  "bloom": "emissive",
+  "key": [
+   1.8,
+   3.6,
+   4.4
+  ]
  },
  "cast": [
   {
@@ -75,11 +80,14 @@
    "id": "table",
    "kind": "coffeetable",
    "x": 0,
-   "z": 0.58,
+   "z": 0.35,
    "h": 0.68,
-   "d": 2.4,
-   "w": 2.2,
-   "color": "#d39d62"
+   "d": 1.8,
+   "w": 1.9,
+   "color": "#d39d62",
+   "apron": 0.09,
+   "legW": 0.12,
+   "legX": 0.62
   }
  ],
  "shots": [
@@ -87,20 +95,20 @@
    "at": 0,
    "pos": [
     0,
-    1.14,
-    4.4
+    1.0,
+    3.75
    ],
    "look": [
     0,
-    0.98,
-    -1.1
+    1.08,
+    -1.0
    ],
-   "fov": 30,
+   "fov": 37,
    "to": {
     "pos": [
      0,
-     1.13,
-     4.15
+     0.99,
+     3.55
     ]
    },
    "dur": 3
@@ -141,9 +149,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.65,
-     0.72,
-     -0.95
+     -0.69,
+     0.76,
+     -0.72
     ]
    },
    "dur": 0,
@@ -153,7 +161,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "R",
-   "shape": "rim",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -164,9 +172,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.25,
-     0.72,
-     -0.95
+     -0.3,
+     0.76,
+     -0.72
     ]
    },
    "dur": 0,
@@ -176,7 +184,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "L",
-   "shape": "rim",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -187,9 +195,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.25,
-     0.72,
-     -0.95
+     0.3,
+     0.76,
+     -0.72
     ]
    },
    "dur": 0,
@@ -199,7 +207,7 @@
    "who": "rea",
    "do": "grip",
    "side": "R",
-   "shape": "rim",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -210,9 +218,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.65,
-     0.72,
-     -0.95
+     0.69,
+     0.76,
+     -0.72
     ]
    },
    "dur": 0,
@@ -222,7 +230,7 @@
    "who": "rea",
    "do": "grip",
    "side": "L",
-   "shape": "rim",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
