@@ -60,7 +60,7 @@ node qa/check.mjs out/test-01-golden.mp4                            # size, dura
 node qa/contact.mjs out/test-01-golden.mp4 --sb storyboards/test-01-golden.json   # contact sheet for review
 node qa/sound.mjs storyboards/test-01-golden.json [out/test-01-golden.mp4] [--ears]   # sound: repeats, sync, levels (check.mjs runs it too); --ears: earshot listens
 node qa/readability.mjs storyboards/test-01-golden.json              # each character against the set, silhouettes per beat
-node qa/golden.mjs                                                  # after an engine change: 12 approved stills, pixel diff
+node qa/golden.mjs                                                  # after an engine change: 12 approved stills against main, pixel diff
 ```
 
 `qa/check.mjs` works on any MP4. The caption checks read a `layout.json`

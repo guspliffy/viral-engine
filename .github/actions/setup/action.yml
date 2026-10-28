@@ -24,8 +24,23 @@ runs:
         key: chromium-${{ runner.os }}-${{ steps.pw.outputs.version }}
     - shell: bash
       run: npx playwright-core install chromium
+    # ffmpeg from Ubuntu: apt-get update + install takes over a minute, so the .deb files are cached per runner image
+    # and installed straight from the cache (seconds) on later runs
+    - uses: actions/cache@v4
+      with:
+        path: ~/ffmpeg-debs
+        key: ffmpeg-debs-${{ runner.os }}-${{ env.ImageOS }}-${{ env.ImageVersion }}
     - shell: bash
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && ffmpeg -version | head -1
+      run: |
+        if ls ~/ffmpeg-debs/*.deb > /dev/null 2>&1; then
+          sudo dpkg -i --force-depends ~/ffmpeg-debs/*.deb > /dev/null
+        else
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends --download-only ffmpeg > /dev/null
+          mkdir -p ~/ffmpeg-debs && cp /var/cache/apt/archives/*.deb ~/ffmpeg-debs/
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
+        fi
+        ffmpeg -version | head -1
     - if: inputs.voice == 'true'
       uses: actions/cache@v4
       with:

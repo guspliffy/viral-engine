@@ -155,6 +155,7 @@ are his call. Skip the reviews only for pure engine tests, and say so.
   by anyone on GitHub (the repo is public): fine for clips Jonny is about to post, not for anything private. The same
   split works by hand: `--shard 3/12` on each machine, `--stitch 12` where the shards are collected.
 - **Engine changes**: after changing anything in `engine/`, `characters/` or `assets/`, run `node qa/golden.mjs`
-  (about 2.5 minutes; also runs on every pull request). It redraws 12 approved stills and fails on any changed pixel
-  beyond noise, with a sheet of approved | new | difference | zoom. A change you meant goes to Jonny with that sheet;
-  only after his OK run `node qa/golden.mjs --update <names>` and commit `qa/golden/`.
+  (also runs on every pull request). It draws 12 approved stills (`qa/golden/golden.json`) with your working tree and
+  with `origin/main` on the same machine (2.5 minutes each; main's are kept per commit) and fails on any changed pixel,
+  with a sheet of main | now | difference | zoom in `out/golden/`. A change you meant goes to Jonny with that sheet;
+  merging it makes it the golden look. Add a still to the list when Jonny approves a clip.
