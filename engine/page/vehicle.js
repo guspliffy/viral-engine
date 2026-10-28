@@ -2,7 +2,8 @@
 // "rig": "<id>" is placed in the rig's own frame (x right, y up, z its front, metres from the ground under its middle)
 // and moves, banks and rolls with it: stage.js parents them to the rig, so grips, held props, contact and face checks
 // all work as usual. A shot with "rig": "<id>" is a camera fixed to the rig (pos and look in its frame; the horizon
-// turns behind it). The road under a vehicle is a treadmill: the set scrolls past (set-road.js) while the rig stays
+// turns behind it); a shot with "track": "<id>" follows the rig across the road (its x and z only, pos and look are
+// offsets from it). The road under a vehicle is a treadmill: the set scrolls past (set-road.js) while the rig stays
 // near the origin, so a clip loops by scrolling a whole number of road patterns.
 //   sb.rigs[]: { id, kind: "roadster", color, pivot: [x, y, z] (what it rolls and turns about),
 //                keys: [{ at, pos: [x, y, z], roll, pitch, yaw, steer }, ...] (degrees; roll + lifts its left side,
@@ -32,20 +33,23 @@ export function roadDistance(set, t) {
   return c[k] + 0.5 * (roadSpeed(set, k * STEP) + roadSpeed(set, t)) * r;
 }
 
-// the raised lane divider (set.divider: { x, width, height, length, bevel, hit: [t, z] }): its near end, the bevelled
-// one the car runs onto, is at z = hit[1] at time hit[0] and scrolls with the road. Returns its near end's z.
-export function dividerZ(set, t) {
-  const d = set?.divider; if (!d) return null;
-  const [th, zh] = d.hit;
+// things on the road that scroll with it (set.island, set.rock, ...: each has at: [t, z], its near end, the end the
+// car meets first, is at z at time t). Returns that end's z at time t.
+export function roadZ(set, obj, t) {
+  const [th, zh] = obj.at;
   return zh - (roadDistance(set, t) - roadDistance(set, th));
 }
-// the ground's height at (x, z) at time t: the road (0), or on the divider (its bevel ramps up from its near end)
+// a traffic island (set.island: { x, width, length, height, chamfer, at }): a raised kerb island along the road, round
+// at both ends, its kerb chamfered (a sliding tyre trips on it). The ground's height at (x, z) at time t: the road (0)
+// or the island.
 export function groundAt(set, t, x, z) {
-  const d = set?.divider; if (!d) return 0;
-  const z0 = dividerZ(set, t), w = (d.width ?? 0.5) / 2, b = d.bevel ?? 0.5, h = d.height ?? 0.18, L = d.length ?? 4;
-  if (Math.abs(x - d.x) > w || z < z0 || z > z0 + L) return 0;
-  const u = Math.min(z - z0, z0 + L - z);   // bevelled at both ends
-  return h * Math.min(1, u / b);
+  const d = set?.island; if (!d) return 0;
+  const z0 = roadZ(set, d, t), w = (d.width ?? 1) / 2, L = d.length ?? 6, h = d.height ?? 0.16, c = d.chamfer ?? 0.08;
+  const u = z - z0, v = x - d.x;
+  if (u < 0 || u > L || Math.abs(v) > w) return 0;
+  const dist = u < w ? Math.hypot(v, u - w) : u > L - w ? Math.hypot(v, u - (L - w)) : Math.abs(v);
+  const depth = w - dist;
+  return depth <= 0 ? 0 : h * Math.min(1, depth / c);
 }
 
 // the rig's pose at t: keys blended with a cubic Hermite curve (Catmull-Rom tangents in time), like a camera path
@@ -92,7 +96,7 @@ export function rigToWorld(rig, t, q) {
 // the roadster's wheels in its own frame: [x, z] of each hub, and the suspension's travel (metres up and down)
 export const ROADSTER = { track: 0.95, front: 1.25, rear: -1.2, rideY: 0.358, travel: 0.12, width: 0.26 };
 // how far each wheel is pushed up into its arch (+) or hangs down (-) at time t: on the ground the tyre sits on the
-// road or the divider, in the air it hangs at full droop; tipped past ~45 degrees it just hangs
+// road or the traffic island, in the air it hangs at full droop; tipped past ~45 degrees it just hangs
 export function wheelTravel(rig, set, t) {
   const s = rigState(rig, t), R = rigRotation(s), o = rigOrigin(rig, s, R), r = rig.wheel ?? ROADSTER.rideY, T = ROADSTER.travel;
   const up = R[1][1];   // the rig's own up, as seen by the world's up

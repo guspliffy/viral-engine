@@ -466,6 +466,30 @@ function foley(sb, panOf) {
   return ev;
 }
 
+// a car's engine that follows the story (sound.engine: { keys: [[t, rpm, load, road], ...], gain, cyl }): the firing
+// note (rpm / 60 * cyl / 2) with its harmonics, brighter and louder under load, a little intake hiss, and the tyres'
+// rumble on the road (road 0..1: 0 in the air). The note is tuned to whole cycles over the clip, so a loop meets itself.
+function engineSound(E, seconds, r) {
+  const n = Math.ceil(seconds * SR), x = new Float32Array(n), K = E.keys, cyl = E.cyl ?? 4;
+  const at = (t, j) => { if (t <= K[0][0]) return K[0][j]; for (let i = 1; i < K.length; i++) if (t <= K[i][0]) { const u = (t - K[i - 1][0]) / (K[i][0] - K[i - 1][0]), e = u * u * (3 - 2 * u); return K[i - 1][j] + (K[i][j] - K[i - 1][j]) * e; } return K[K.length - 1][j]; };
+  const f = new Float32Array(n), ld = new Float32Array(n), rd = new Float32Array(n);
+  let cycles = 0;
+  for (let i = 0; i < n; i++) { const t = i / SR; f[i] = (at(t, 1) / 60) * cyl / 2; ld[i] = at(t, 2) ?? 0.5; rd[i] = at(t, 3) ?? 1; cycles += f[i] / SR; }
+  const tune = cycles > 1 ? Math.round(cycles) / cycles : 1;
+  const lp = biquad("lp", 900, 0.8), hiss = biquad("bp", 2400, 0.9), rum = biquad("lp", 180, 0.7), rum2 = biquad("bp", 420, 1.1);
+  let ph = 0;
+  for (let i = 0; i < n; i++) {
+    ph += (2 * Math.PI * f[i] * tune) / SR;
+    const L = ld[i], bright = 0.35 + 0.65 * L, wob = 1 + 0.06 * Math.sin(ph / cyl);   // each cylinder a touch different
+    let tone = 0;
+    for (let h = 1; h <= 8; h++) tone += Math.sin(h * ph + h * h * 0.7) * Math.pow(bright, h - 1) / h;
+    const pulse = 0.75 + 0.25 * Math.max(0, Math.sin(ph)) ** 3;   // the exhaust's beat on each firing
+    x[i] = run(lp, tone * pulse * wob) * (0.45 + 0.55 * L) + run(hiss, r() * 2 - 1) * 0.05 * L
+      + (run(rum, r() * 2 - 1) * 0.5 + run(rum2, r() * 2 - 1) * 0.12) * rd[i];
+  }
+  return x;
+}
+
 export function renderAudio(sb, chars) {
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
@@ -498,6 +522,7 @@ export function renderAudio(sb, chars) {
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
   if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
+  if (cfg.engine) bed.add(0, engineSound(cfg.engine, sb.duration, rng(seed ^ 0x27d4eb2d)), cfg.engine.gain ?? 0.3, cfg.engine.pan ?? 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   let peak = 0;
   for (let i = 0; i < L.length; i++) {

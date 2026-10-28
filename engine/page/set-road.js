@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { rng } from "./util.js";
-import { roadDistance, dividerZ } from "./vehicle.js";
+import { roadDistance, roadZ } from "./vehicle.js";
 
 // "road": a sunny empty coastal road for the car clips (Still Scrolling — Car Crash). The road runs along z and is a
 // treadmill: the car (a rig, vehicle.js) stays near the origin facing +z while the road, its lines, the walls and the
@@ -8,10 +8,13 @@ import { roadDistance, dividerZ } from "./vehicle.js";
 // metres, so a clip whose total distance is a whole number of periods loops seamlessly (set.speed is chosen for that).
 // The driver's side (+x) has a tall cream retaining wall with greenery on top; the passenger side (-x) a low stone
 // parapet, and beyond it a far-off hill town, cypresses and hills under a blue sky with soft clouds.
-//   spec: { type: "road", speed: m/s or [[t, v], ...], divider: { x, width, height, length, bevel, hit: [t, z] },
+// The car's lane is around x 0; a traffic island can sit on the centre line, the oncoming lane runs on to the wall.
+//   spec: { type: "road", speed: m/s or [[t, v], ...],
+//           island: { x, width, length, height, chamfer, at: [t, z] } (a kerbed island with a keep-right sign, vehicle.js),
+//           rock: { x, size, at: [t, z] } (a fallen rock in the lane), both scrolling with the road,
 //           dust: [{ at, x, z, y?, n?, size?, dur?, color? }] (puffs left on the road that scroll away with it) }
 export const PERIOD = 24;
-export const ROAD = { right: -7.2, left: 4.4, wallX: 4.7, parapetX: -7.7, centre: 1.6, lane: -2.6 };
+export const ROAD = { right: -7.2, left: 6.3, wallX: 6.6, parapetX: -7.7, centre: 2.4, lane: -2.6 };
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -78,27 +81,63 @@ function town(g, rnd, x0, z0, hill) {
   put(g, new THREE.ConeGeometry(1.3, 1.6, 4), roof, x0 + 2, hill * 0.83 + 6, z0, false).rotation.y = Math.PI / 4;
 }
 
-// the raised lane divider: a low concrete island, bevelled down to the road at both ends, with yellow and black
-// chevrons painted on the bevels so its end reads as the thing the tyre hits
-function divider(spec) {
-  const d = spec.divider, w = d.width ?? 0.5, h = d.height ?? 0.18, b = d.bevel ?? 0.5, L = d.length ?? 4;
-  const g = new THREE.Group(); g.name = "set-divider";
-  // side profile in (z, y), extruded across x
-  const sh = new THREE.Shape([[0, 0], [b, h], [L - b, h], [L, 0]].map(([z, y]) => new THREE.Vector2(z, y)));
-  const geo = new THREE.ExtrudeGeometry(sh, { depth: w, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2 });
-  geo.rotateY(-Math.PI / 2); geo.translate(w / 2, 0, 0);   // shape x -> world z, extruded along -x... centred on x
-  const conc = lam("#d9d6cc"); put(g, geo, conc, 0, 0, 0);
-  const chev = canvasTex(256, 128, (c, W, H) => {
-    c.fillStyle = "#ffd23a"; c.fillRect(0, 0, W, H); c.fillStyle = "#1d1d22";
-    for (let i = -4; i < 8; i++) { c.beginPath(); c.moveTo(i * 48, H); c.lineTo(i * 48 + 24, H); c.lineTo(i * 48 + 24 + 64, 0); c.lineTo(i * 48 + 64, 0); c.closePath(); c.fill(); }
+// a traffic island on the centre line: a raised stadium of kerb stones (chamfered, so a sliding tyre trips on it) with
+// grass on top, a blue keep-right sign and a white bollard at its near end, and white hatching painted on the road
+// before it. Built from its near end (z 0) to z = length, centred on x 0.
+function island(d) {
+  const w = (d.width ?? 1) / 2, L = d.length ?? 6, h = d.height ?? 0.16, c = d.chamfer ?? 0.08;
+  const g = new THREE.Group(); g.name = "set-island";
+  const stadium = (r, inset = 0) => {   // in the shape's (x, y) = world (x, -z)
+    const sh = new THREE.Shape(), rr = r - inset;
+    sh.absarc(0, -w, rr, 0, Math.PI, false);              // the near nose (world z 0..w)
+    sh.absarc(0, -(L - w), rr, Math.PI, 2 * Math.PI, false);   // the far nose
+    sh.closePath(); return sh;
+  };
+  const kerbGeo = new THREE.ExtrudeGeometry(stadium(w, c), { depth: h - c, curveSegments: 24, bevelEnabled: true, bevelThickness: c, bevelSize: c, bevelSegments: 3 });
+  kerbGeo.rotateX(-Math.PI / 2);   // shape (x, y, depth) -> world (x, depth, -y)
+  const kerb = put(g, kerbGeo, lam("#d2cdc2"), 0, 0, 0); kerb.name = "island-kerb";
+  const grass = canvasTex(128, 128, (cx, W, H) => { cx.fillStyle = "#79ad55"; cx.fillRect(0, 0, W, H); const r = rng(77); for (let i = 0; i < 700; i++) { cx.fillStyle = `rgba(${60 + r() * 40},${120 + r() * 50},${40 + r() * 30},0.7)`; cx.fillRect(r() * W, r() * H, 2, 3); } }, 1, L / 2);
+  const top = new THREE.ShapeGeometry(stadium(w, 0.14), 24); top.rotateX(-Math.PI / 2);
+  flat(put(g, top, lam("#ffffff", { map: grass }), 0, h + 0.004, 0, false));
+  // the keep-right sign: a blue disc with a white arrow down to the right, on a grey pole, facing the oncoming car (-z)
+  const signTex = canvasTex(256, 256, (cx, W) => {
+    cx.fillStyle = "#ffffff"; cx.beginPath(); cx.arc(W / 2, W / 2, W / 2, 0, 7); cx.fill();
+    cx.fillStyle = "#1f5fbf"; cx.beginPath(); cx.arc(W / 2, W / 2, W / 2 - 10, 0, 7); cx.fill();
+    cx.save(); cx.translate(W / 2, W / 2); cx.rotate(-Math.PI / 4); cx.fillStyle = "#ffffff";
+    cx.fillRect(-16, -70, 32, 100); cx.beginPath(); cx.moveTo(-48, 26); cx.lineTo(48, 26); cx.lineTo(0, 82); cx.closePath(); cx.fill(); cx.restore();
   });
-  const len = Math.hypot(b, h), ang = Math.atan2(h, b);
-  for (const end of [0, 1]) {
-    const p = flat(new THREE.Mesh(new THREE.PlaneGeometry(w * 0.98, len * 0.96), lam("#ffffff", { map: chev })));
-    p.rotation.order = "YXZ"; p.rotation.x = end ? -(Math.PI / 2 - ang) : -(Math.PI / 2 + ang) + Math.PI;
-    if (end) p.rotation.y = Math.PI;
-    p.position.set(0, h / 2 + 0.006, end ? L - b / 2 + 0.004 : b / 2 - 0.004); g.add(p);
-  }
+  put(g, new THREE.CylinderGeometry(0.035, 0.035, 1.75, 10), lam("#9aa0a8"), 0, h + 0.875, w * 0.9);
+  const disc = put(g, new THREE.CircleGeometry(0.3, 40), lam("#ffffff", { map: signTex, side: THREE.DoubleSide }), 0, h + 1.5, w * 0.9 - 0.045);
+  disc.rotation.y = Math.PI;
+  put(g, new THREE.CylinderGeometry(0.31, 0.31, 0.03, 40), lam("#8d939b"), 0, h + 1.5, w * 0.9 - 0.02).rotation.x = Math.PI / 2;
+  // the bollard on the nose: white with a red reflector band
+  const bol = new THREE.Group(); bol.position.set(0, h, w * 0.35); g.add(bol);
+  put(bol, new THREE.CylinderGeometry(0.09, 0.1, 0.72, 16), lam("#f4f2ec"), 0, 0.36, 0);
+  put(bol, new THREE.CylinderGeometry(0.093, 0.093, 0.1, 16), lam("#d8352a", { emissive: "#5a0d08" }), 0, 0.56, 0);
+  put(bol, new THREE.SphereGeometry(0.09, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), lam("#f4f2ec"), 0, 0.72, 0);
+  // white hatching on the road before the island's nose, narrowing to the centre line
+  const hatchL = 4.5, hatch = canvasTex(128, 512, (cx, W, H) => {
+    cx.clearRect(0, 0, W, H); cx.strokeStyle = "#f2f0ea"; cx.lineWidth = 7;
+    cx.beginPath(); cx.moveTo(W / 2, H); cx.lineTo(4, 4); cx.lineTo(W - 4, 4); cx.closePath(); cx.stroke();
+    cx.save(); cx.beginPath(); cx.moveTo(W / 2, H); cx.lineTo(4, 4); cx.lineTo(W - 4, 4); cx.closePath(); cx.clip();
+    cx.lineWidth = 10; for (let y = -W; y < H + W; y += 46) { cx.beginPath(); cx.moveTo(0, y); cx.lineTo(W, y + W * 0.6); cx.stroke(); } cx.restore();
+  });
+  const hp = flat(put(g, new THREE.PlaneGeometry(w * 2, hatchL), lam("#ffffff", { map: hatch, transparent: true }), 0, 0.005, -hatchL / 2 + 0.05, false));
+  hp.rotation.x = -Math.PI / 2; hp.rotation.z = Math.PI;
+  return g;
+}
+
+// a rock fallen into the lane: a lumpy sandstone boulder (warm, so it reads against the grey road) with a few small stones beside it
+function rock(d) {
+  const g = new THREE.Group(); g.name = "set-rock"; const r = rng(311), S = d.size ?? 0.6;
+  const lump = (rad, x, z, k) => {
+    const geo = new THREE.IcosahedronGeometry(rad, 2), p = geo.attributes.position, v = new THREE.Vector3();
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const n = 0.82 + 0.3 * Math.sin(v.x * 7.1 + k) * Math.sin(v.y * 6.3 + 2 * k) * Math.sin(v.z * 5.7 + k); v.multiplyScalar(n); v.y *= 0.72; p.setXYZ(i, v.x, v.y, v.z); }
+    geo.computeVertexNormals();
+    return put(g, geo, lam(k > 1 ? "#c2ae8f" : "#b59f80"), x, rad * 0.55, z);
+  };
+  lump(S / 2, 0, 0, 0.4);
+  for (let i = 0; i < 4; i++) lump(S * (0.09 + r() * 0.08), (r() - 0.5) * S * 1.8, (r() - 0.5) * S * 1.6, 2 + i);
   return g;
 }
 
@@ -190,9 +229,8 @@ export function buildRoad(scene, S = {}) {
     c.position.set(Math.cos(a) * 70, 16 + rnd() * 18, Math.sin(a) * 60 - 10); c.scale.setScalar(2.4 + rnd() * 2); c.lookAt(0, c.position.y, 0); fixed.add(c);
   }
 
-  // the divider and the dust puffs: they scroll with the road from where they are
-  const div = S.divider ? divider(S) : null;
-  if (div) { div.position.x = S.divider.x; scene.add(div); }
+  // the island, the rock and the dust puffs: they scroll with the road from where they are
+  const things = [[S.island, island], [S.rock, rock]].filter(([d]) => d).map(([d, make]) => { const o = make(d); o.position.x = d.x; scene.add(o); return [d, o]; });
   const puffTex = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d"), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.55, "rgba(255,255,255,0.7)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
   const puffs = (S.dust || []).map((d, j) => {
     const r = rng(500 + j * 31), n = d.n ?? 14;
@@ -207,7 +245,7 @@ export function buildRoad(scene, S = {}) {
   (globalThis.__setTicks ||= []).push((t) => {
     const s = roadDistance(S, t);
     tread.position.z = -(((s % PERIOD) + PERIOD) % PERIOD);
-    if (div) div.position.z = dividerZ(S, t);
+    for (const [d, o] of things) o.position.z = roadZ(S, d, t);
     for (const p of puffs) {
       const d = p.d, dur = d.dur ?? 1.6, k = (t - d.at - p.delay) / dur;
       p.s.visible = k > 0 && k < 1; if (!p.s.visible) continue;
@@ -217,5 +255,5 @@ export function buildRoad(scene, S = {}) {
       p.s.material.opacity = Math.min(1, k * 10) * (1 - k) ** 1.5 * (d.opacity ?? 0.9);
     }
   });
-  return { tread, divider: div };
+  return { tread, things: things.map(([, o]) => o) };
 }

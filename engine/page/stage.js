@@ -484,6 +484,9 @@ function pose(t) {
   const cp = new THREE.Vector3().fromArray(cam.pos), cl = new THREE.Vector3().fromArray(cam.look);
   if (V) { cp.applyMatrix4(V.g.matrixWorld); cl.applyMatrix4(V.g.matrixWorld); camera.up.set(0, 1, 0).transformDirection(V.g.matrixWorld); }
   else camera.up.set(0, 1, 0);
+  // a shot with "track" follows that rig across the road (its x and z, not its turns): pos and look ride along with it
+  const TR = shot && shot.track && rigs.get(shot.track);
+  if (TR) { const p = rigState(TR.r, t).pos; cp.x += p[0]; cp.z += p[2]; cl.x += p[0]; cl.z += p[2]; }
   camera.position.copy(cp); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(cl);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
 }
