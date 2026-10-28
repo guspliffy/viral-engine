@@ -107,6 +107,9 @@ the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and th
 `storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of
 actions shows up in a second clip, move it into `acting.mjs` (the first clip must still produce the same storyboard).
 The output is a **beat storyboard** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards still work.
+The template's camera is **directed from the story** (`"direct"`, `engine/direct.mjs`): mark each beat's `kind`
+(hook, payoff, reaction, reveal) and leave its camera out; set a shot by hand only where the story needs one the
+grammar doesn't give, and check the result with `qa/framing.mjs` and the draft stills.
 The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
 speaker's colour) and its builder has `textPop` for a comic word beside a head; both are 2D only (`engine/page/text.js`).
 
