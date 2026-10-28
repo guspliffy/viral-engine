@@ -780,6 +780,64 @@ function reach() {
       if (s.y < mp.y - faceR && ((s.x - cx) / (ex + rr)) ** 2 + ((s.y - cy) / (ey + rr)) ** 2 < 1) out.covers.push({ head: b.c.id, by: a.c.id, part: `hand${L.hand}`, prop: true });
     }
   }
+  out.faces = hiddenFaces(live, shownIn);
+  return out;
+}
+
+// faces: how much of each face's eyes is hidden from the camera by anything other than hands and held props (they have
+// the covers check above): another character's body, hat, wings or cape, the character's own hat brim or wings, or a
+// prop. Rays from the camera to 9 points on each eye; a hit in front of the point hides it. The character's own body
+// (an eye turned away round the head), a face turned away from the camera and the set don't count. Only faces at
+// least 0.3 hidden are listed, with who hides them most (the largest share of hidden points).
+const ray = new THREE.Raycaster();
+function hiddenFaces(live, shownIn) {
+  const out = [], limbs = new Set();
+  scene.updateMatrixWorld(true);   // props and doors move in pose() after the last render: raycast where they are now
+  for (const a of live) {
+    for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.legs[s].mesh, a.ch.legs[s].foot]) if (o) o.traverse((q) => limbs.add(q));
+    if (a.ch.costume?.prop) a.ch.costume.prop.traverse((q) => limbs.add(q));
+  }
+  // what may hide a face: each character's visible solid meshes, and the props that are not scenery
+  const solid = (o) => o.isMesh && !limbs.has(o) && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6);
+  const cands = [];
+  for (const a of live) a.ch.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: a.c.id, a }); });
+  for (const p of props) if (p.root.visible && !p.spec.scenery) p.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: p.spec.id }); });
+  const objs = cands.map((c) => c.o), owner = new Map(cands.map((c) => [c.o, c]));
+  for (const b of live) {
+    const eyes = b.ch.face?.eyes; if (!eyes || eyes.length < 2 || !shownIn(b.ch.face.group, b.ch.root)) continue;
+    const mid = eyes[0].root.getWorldPosition(new THREE.Vector3()).add(eyes[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).project(camera);
+    if (Math.abs(mid.x) > 1 || Math.abs(mid.y) > 1 || mid.z > 1) continue;
+    // a face turned away from the camera (a character seen from behind) can't be seen anyway
+    const em = eyes[0].root.getWorldPosition(new THREE.Vector3()).add(eyes[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5);
+    const bc = b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
+    if (em.clone().sub(bc).normalize().dot(camera.position.clone().sub(em).normalize()) < 0.2) continue;
+    const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body);
+    let hidden = 0, n = 0; const by = new Map();
+    for (const e of eyes) {
+      const c = e.root.getWorldPosition(new THREE.Vector3()), r = e.r * e.root.getWorldScale(new THREE.Vector3()).x * 0.7;
+      const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+      for (const [dx, dy] of [[0, 0], ...Array.from({ length: 8 }, (_, k) => [Math.cos(k * Math.PI / 4), Math.sin(k * Math.PI / 4)])]) {
+        const p = c.clone().addScaledVector(right, dx * r).addScaledVector(up, dy * r), dir = p.clone().sub(camera.position), d = dir.length();
+        ray.set(camera.position, dir.normalize()); ray.far = d - 0.02; n++;
+        const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object));
+        if (hit) { hidden++; const w = owner.get(hit.object).who; by.set(w, (by.get(w) || 0) + 1); }
+      }
+    }
+    if (hidden / n < 0.3) continue;
+    // and how much of the body is hidden too (or out of frame): a face behind someone else's body is staging (the
+    // character stands behind them), a face hidden on a body in plain view is a hat brim, a wing or a prop across it
+    const g = b.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c0 = bb.getCenter(new THREE.Vector3()).applyMatrix4(b.ch.body.matrixWorld);
+    const hs = bb.getSize(new THREE.Vector3()).multiply(b.ch.body.getWorldScale(new THREE.Vector3())).multiplyScalar(0.25), right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+    let bh = 0, bn = 0;
+    for (const dx of [-1, 0, 1]) for (const dy of [-1, 0, 1]) {
+      const p = c0.clone().addScaledVector(right, dx * hs.x).addScaledVector(up, dy * hs.y), dir = p.clone().sub(camera.position), d = dir.length();
+      const q = p.clone().project(camera); bn++;
+      if (Math.abs(q.x) > 1 || Math.abs(q.y) > 1) { bh++; continue; }   // out of frame counts as unseen
+      ray.set(camera.position, dir.normalize()); ray.far = d;
+      if (ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && owner.get(h.object).a !== b)) bh++;
+    }
+    out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, body: Math.round((bh / bn) * 100) / 100, by: [...by.entries()].sort((x, y) => y[1] - x[1])[0][0] });
+  }
   return out;
 }
 

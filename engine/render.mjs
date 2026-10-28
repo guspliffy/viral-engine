@@ -261,10 +261,10 @@ async function main() {
     };
     // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
     const contactGate = (lay) => {
-      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "face-covered", "staging"].includes(r.check));
+      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "face-covered", "face-hidden", "staging"].includes(r.check));
       for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters and faces)");
-      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "face-covered"].includes(r.check));
+      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "face-covered", "face-hidden"].includes(r.check));
     };
     if (o.layoutOnly) { contactGate(await writeLayout()); return; }
     if (o.stills) {

@@ -13,9 +13,10 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
 - **No contact glitches** (layout `contacts`, every frame): characters never overlap each other, no arm passes
   through a held staff or a hat brim, no staff goes into the body, no hand or held prop goes into another character
   (body, hood, hat, helmet, face) or sinks into its own body, and no hand sits in front of a face's eyes for 0.3 s or
-  more. These fail the check, and `render.mjs` refuses to
-  start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip` window with
-  a `reason`; a window without one is ignored. An arm up inside a helmet glass fails too. Warnings to look at:
+  more, and no hat, wing, prop or other character hides a third of the eyes of whoever is acting (a line, or a new
+  expression) for 0.3 s (`face-hidden`; standing behind someone only warns). These fail the check, and `render.mjs`
+  refuses to start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip`
+  window with a `reason`; a window without one is ignored. An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
@@ -42,6 +43,7 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   ending loops into the start (no end card), something new happens at least every 2 s, and the length is 12–20 s
   (longer with an escalation beat). A deliberate pause or reaction hold is fine when the story needs it.
 - Never show or mention the game in the first 3 s, and never use an outro card.
+- The eyes lead every walk, turn and reach by about 4 frames (`act.eyesLead`), and a reaction holds 0.3 s or more.
 - Don't call these "algorithm rules" in reports: the checker measures pixels and event starts, not whether the
   premise is clear or the joke lands. That is what the reviews and the experiments are for.
 

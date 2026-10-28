@@ -16,6 +16,12 @@ export function blinksAt(c, who, times, dur = 0.22) {
   for (const t of times) c.A(t, who, "blink", { dur });
 }
 
+// the eyes lead a move: a look toward where the body is about to go, starting `lead` s (about 4 frames) before the walk,
+// turn or reach at t (qa/motion.mjs eyes-lead). Add the move itself at t as usual.
+export function eyesLead(c, t, who, to, { lead = 0.13, dur = 0.2 } = {}) {
+  c.A(Math.max(0, t - lead), who, "look", { to, dur, blink: false });
+}
+
 // a phone held in both hands: the right thumb lifts and flicks once at each time (Still Scrolling)
 export function scrollPhone(c, who, times) {
   for (const t of times) { c.A(t, who, "grip", { side: "R", shape: "scroll", dur: 0.1 }); c.A(t + 0.16, who, "grip", { side: "R", shape: "hold", dur: 0.12 }); }

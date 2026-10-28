@@ -106,7 +106,12 @@ moving at once.
   a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
 - `{ "who", "do": "hatsway", "tip": [forward, sideways], "brim": 0.5, "dur" }` bends the Wizard hat's tip (degrees) and
   tips its brim (+ front up). `{ "who", "do": "hatwobble", "amount": 8, "freq": 3, "dur": 0.8 }` adds a wobble that
-  dies away: secondary motion after a hop, a turn or a bump.
+  dies away. Both add on top of the automatic follow-through.
+- **Follow-through is automatic**: the Wizard hat's tip and brim, every sprout, Phoenix's crest, the capes and the
+  Dragon's tail trail each walk, hop and turn and settle within about half a second (timeline.js `followThrough`).
+  Held props stay rigid. A cast entry's `"sway": 0.5` halves it for that character (0 turns it off);
+  `"followThrough": false` on the storyboard turns it off for the clip. A hard cut or a re-placed character starts
+  it again at rest, so nothing swings across a cut.
 
 **Contact: hands, props and feet**
 
@@ -150,6 +155,7 @@ from finished clips:
 | Loop | Options | What it does | From |
 |---|---|---|---|
 | `blinksAt(c, who, times)` | `dur` | No automatic blinks; blinks only at the given times (off key lines) | Still Scrolling |
+| `eyesLead(c, t, who, to)` | `lead`, `dur` | A look toward `to` about 4 frames before a walk, turn or reach at `t` (the `eyes-lead` note) | jar-short breakdown |
 | `scrollPhone(c, who, times)` | | Right thumb lifts and flicks on a phone held in both hands | Still Scrolling |
 | `idea(c, t, who, { at })` | `hold` | Eyes drop to `at`, a brow goes up, a sly smile, the body holds | Still Scrolling |
 | `checkOn(c, t, who, { at, back })` | `hold` | Eyes up to someone, a held beat, eyes back | Still Scrolling |

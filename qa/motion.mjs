@@ -3,7 +3,8 @@
 // actor's state frame by frame (the same timeline.js the renderer uses) and flags a value that jumps between two
 // frames far more than it moves in the frames around it: a hand that teleports, a body that snaps, wings that flick.
 //
-//   node qa/motion.mjs storyboards/x.json          -> list of jumps, blinks on key lines, long hop crouches (exit 0; all warnings)
+//   node qa/motion.mjs storyboards/x.json          -> list of jumps, blinks on key lines, long hop crouches, eyes that
+//                                                     don't lead a move, reactions too short to read (exit 0; all warnings)
 //
 // Covered on purpose: frames under a flash of 0.5 or more, actors hidden or off camera, limbs in the fries form,
 // whole turns.
@@ -90,6 +91,8 @@ export async function motionJumps(sb, fps = 30) {
 //                  not reported.
 //   long-hop       a hop whose crouch lasts over 0.4 s (the crouch is 15-35% of each hop): a long lift reads as a
 //                  stuck squat; use "fly" for a long lift-off, or shorter hops.
+//   eyes-lead      a walk, turn or reach with no look starting just before it (the character doesn't think first).
+//   reaction-hold  an expression replaced by another within 0.3 s.
 export async function storyNotes(sb, fps = 30) {
   const { actorState } = await import("../engine/page/timeline.js");
   const { hopCrouch } = await import("../engine/page/util.js");
@@ -119,6 +122,25 @@ export async function storyNotes(sb, fps = 30) {
         break;
       }
     }
+  }
+  // eyes-lead: a character thinks before it moves. A walk of 30 cm or more, a turn of 30° or more, or a reach for a
+  // prop should start with a look that began in the 0.6 s before it (or on the same frame); the eyes about 4 frames
+  // ahead reads best (acting.mjs eyesLead).
+  // reaction-hold: a new expression replaced by another within 0.3 s doesn't read.
+  const yawDeg = (v) => (typeof v === "number" ? v : { camera: 0, front: 0, right: 90, left: -90, "3q-right": 35.5, "3q-left": -35.5, back: 180 }[v] ?? 0);
+  for (const c of sb.cast || []) {
+    const mine = acts.filter((a) => a.who === c.id).sort((a, b) => a.at - b.at), looks = mine.filter((a) => a.do === "look");
+    let pos = c.at, yaw = yawDeg(c.face ?? "camera"), last = -1;
+    const ahead = (t) => looks.some((l) => l.at <= t + 1 / fps + 1e-6 && l.at >= t - 0.6);
+    for (const a of mine) {
+      let what = null;
+      if (a.do === "move" && a.to) { if (Math.hypot(a.to[0] - pos[0], a.to[1] - pos[1]) >= 0.3) what = "walks"; pos = a.to; }
+      else if (a.do === "turn") { const to = yawDeg(a.to), d = Math.abs(((to - yaw + 540) % 360) - 180); if (d >= 30) what = "turns"; yaw = to; }
+      else if (a.do === "arm" && a.pose && typeof a.pose === "object" && a.pose.prop) what = `reaches for the ${a.pose.prop}`;
+      if (what && a.at > 0.05 && a.at - last > 0.3 && !ahead(a.at) && (last = a.at)) out.push({ level: "warn", check: "eyes-lead", msg: `${c.id} ${what} at ${a.at.toFixed(2)}s with no look first: start a look about 0.13 s before (acting.mjs eyesLead) so the move reads as a thought` });
+    }
+    const ex = mine.filter((a) => a.do === "expr" && a.expr);
+    for (let i = 1; i < ex.length; i++) if (ex[i].expr !== ex[i - 1].expr && ex[i].at - ex[i - 1].at < 0.3 && ex[i].at > ex[i - 1].at) out.push({ level: "warn", check: "reaction-hold", msg: `${c.id}: "${ex[i - 1].expr}" at ${ex[i - 1].at.toFixed(2)}s is replaced after ${(ex[i].at - ex[i - 1].at).toFixed(2)}s: hold a reaction 0.3 s or more so it reads` });
   }
   for (const a of acts) {
     if (a.do !== "hop") continue;

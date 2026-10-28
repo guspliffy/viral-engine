@@ -53,7 +53,8 @@ export function phoenixCostume(C, ch) {
       const rest = C.restWings ?? 0.85, w = (rest + (1 - rest) * (st.wings || 0)) * (st.span ?? 1), fl = (st.flap || 0) * (0.5 + 0.5 * (st.span ?? 1)),   // the portraits show the wings half open at rest; span tucks them
        flap = Math.sin(st.flapPhase ?? t * 7) * (0.08 * (0.4 + w) + 0.45 * fl);
       for (const W of wings) { W.fan.rotation.set(-0.25 - 0.2 * w, W.s * (0.5 - 0.35 * w - 0.25 * fl), W.s * (-2.2 + 2.0 * w + 0.15 * fl + flap)); W.fan.scale.setScalar(1.0 + 0.4 * w + 0.4 * fl); }
-      crest.rotation.x = 0.05 * Math.sin(t * 3.1);
+      const ft = st.ft || { f: 0, s: 0 };   // follow-through (timeline.js): the fan trails the head
+      crest.rotation.set(0.05 * Math.sin(t * 3.1) + 0.7 * ft.f, 0, 0.06 - 0.7 * ft.s);
     },
   };
 }

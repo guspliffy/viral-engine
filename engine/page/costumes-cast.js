@@ -33,7 +33,12 @@ function cape(ch, color) {
   const top = ch.cy + ch.ry * 0.35, bottom = 0.16, h = top - bottom;
   const g = new THREE.CylinderGeometry(ch.rx * 1.06, ch.rx * 1.35, h, 40, 6, true, Math.PI - 1.25, 2.5);
   g.translate(0, bottom + h / 2, 0); g.scale(1, 1, (ch.rz / ch.rx) * 1.08);
-  const m = new THREE.Mesh(g, std(color, { roughness: 0.85, side: THREE.DoubleSide })); m.castShadow = true; return m;
+  const m = new THREE.Mesh(g, std(color, { roughness: 0.85, side: THREE.DoubleSide })); m.castShadow = true;
+  // hung from its top edge so it can trail (follow-through, timeline.js st.ft): the hem swings back and to the side,
+  // never forward into the legs
+  const pivot = new THREE.Group(); pivot.position.y = top; m.position.y = -top; pivot.add(m); pivot.userData.mesh = m;
+  (ch.softParts ??= []).push((ft) => pivot.rotation.set(Math.max(-0.03, -0.9 * ft.f), 0, 0.6 * ft.s));
+  return pivot;
 }
 // a held prop: { group, charge } like the staff; `glow` adds the shared glowing tip
 function held(g) { return { group: g, charge() {} }; }
@@ -245,11 +250,11 @@ export function castCostume(C, ch) {
     });
     const tail = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.3, -ch.rz * 0.8), new THREE.Vector3(0.05, 0.16, -ch.rz - 0.15), new THREE.Vector3(0.18, 0.12, -ch.rz - 0.3), new THREE.Vector3(0.3, 0.2, -ch.rz - 0.36)]), 0.06, 0.012, 24, 10), ch.skin);
     tail.castShadow = true; ch.bodyGroup.add(tail);
-    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.1, 4), std(wm)); tip.position.set(0.34, 0.22, -ch.rz - 0.37); tip.rotation.z = -1.2; tip.scale.z = 0.4; ch.bodyGroup.add(tip);
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.1, 4), std(wm)); tip.position.set(0.34, 0.22, -ch.rz - 0.37); tip.rotation.z = -1.2; tip.scale.z = 0.4; tail.add(tip);   // swings with the tail
     out.apply = (st, t) => {
       const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (6 + 16 * fl)) * (0.12 + 0.5 * fl);
       for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.12 - 0.1 * w), W.s * (-0.12 + 0.6 * w + flap));
-      tail.rotation.y = 0.15 * Math.sin(t * 2.2); tip.rotation.y = tail.rotation.y;
+      tail.rotation.y = 0.15 * Math.sin(t * 2.2) - 0.9 * (st.ft?.s || 0);   // follow-through: the tail trails a sideways move or a turn
     };
   }
   if (T === "allfather") {
@@ -302,12 +307,12 @@ export function castCostume(C, ch) {
       // a dark purple cape with a red lining and a stand-up collar behind the head
       const outer = cape(ch, C.cape || "#3a1d5c"); parts.add(outer);
       // soft folds down the cape and a scalloped hem, so it hangs like cloth rather than a panel
-      { const g = outer.geometry, p = g.attributes.position, y0 = ch.cy + ch.ry * 0.35, y1 = 0.16;
+      { const g = outer.userData.mesh.geometry, p = g.attributes.position, y0 = ch.cy + ch.ry * 0.35, y1 = 0.16;
         for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), k = Math.min(1, Math.max(0, (y0 - y) / (y0 - y1))), a = Math.atan2(x, z);
           const f = 1 + 0.07 * k * Math.sin(a * 9); p.setX(i, x * f); p.setZ(i, z * f); if (k > 0.99) p.setY(i, y + 0.03 * Math.abs(Math.sin(a * 4.5))); }
         g.computeVertexNormals(); }
-      const lin = outer.geometry.clone(); lin.scale(0.985, 1, 0.985);
-      const lining = new THREE.Mesh(lin, std(C.lining || "#a3203a", { roughness: 0.8, side: THREE.BackSide })); parts.add(lining);
+      const lin = outer.userData.mesh.geometry.clone(); lin.scale(0.985, 1, 0.985);
+      const lining = new THREE.Mesh(lin, std(C.lining || "#a3203a", { roughness: 0.8, side: THREE.BackSide })); lining.position.copy(outer.userData.mesh.position); outer.add(lining);   // swings with the cape
       // the collar: a stand-up band behind the head whose top edge rises to two points (the classic vampire collar)
       const top = ch.cy + ch.ry * 0.3, ch0 = ch.ry * 0.32, cg = new THREE.CylinderGeometry(ch.rx * 1.2, ch.rx * 1.05, ch0, 48, 4, true, Math.PI - 1.4, 2.8);
       { const p = cg.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i), k = (y + ch0 / 2) / ch0; if (k <= 0) continue;
