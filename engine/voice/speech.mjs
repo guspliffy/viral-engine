@@ -16,7 +16,7 @@ import { mouthKeys } from "../shared/visemes.js";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(HERE, "../..");
 export const CACHE = path.join(ROOT, "out", "speech");
-const VERSION = 1; // bump when tts.py changes how a line sounds or is timed
+const VERSION = 2; // bump when tts.py changes how a line sounds or is timed (2: non-words like "hnnngh" are sounds, not spelled)
 const VOICES = JSON.parse(fs.readFileSync(path.join(HERE, "voices.json"), "utf8"));
 
 // tone -> how the line is read: speed factor and the punctuation the model takes its intonation from
