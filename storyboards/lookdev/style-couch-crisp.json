@@ -120,7 +120,7 @@
    "who": "wiz",
    "do": "sit",
    "seat": "couch",
-   "along": -0.36,
+   "along": -0.44,
    "at": 0,
    "dur": 0
   },
@@ -128,7 +128,7 @@
    "who": "rea",
    "do": "sit",
    "seat": "couch",
-   "along": 0.36,
+   "along": 0.44,
    "at": 0,
    "dur": 0
   },
@@ -150,7 +150,7 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.74,
+     -0.8,
      0.76,
      -0.78
     ]
@@ -219,7 +219,7 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.74,
+     0.8,
      0.76,
      -0.78
     ]

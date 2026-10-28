@@ -16,7 +16,7 @@
  "limbs": {
   "color": "#1f1d26",
   "width": 0.05,
-  "shoulder": -0.2
+  "shoulder": -0.42
  },
  "face": {
   "default": "smug",
@@ -61,11 +61,14 @@
   "noProp": true,
   "hoodPeak": 0,
   "hoodStyle": "cloth",
-  "hoodOpen": 0.82,
+  "hoodOpen": 0.86,
   "hoodOverhang": 0.18,
   "hoodRim": 0.024,
   "hoodOpenH": 0.92,
-  "hoodDiag": 0.1
+  "hoodDiag": 0.1,
+  "hoodDome": 0.0,
+  "hoodTip": 0.12,
+  "hoodCrown": 0.0
  },
  "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "tts": "reaper",

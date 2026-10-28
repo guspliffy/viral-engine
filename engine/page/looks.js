@@ -445,7 +445,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     Object.assign(ROLE, {
       char: { ...ROLE.char, lit: [1.04, 1.0, 0.94], shade: [0.7, 0.6, 0.66] },
       skin: { ...ROLE.skin, lit: [1.05, 1.14, 1.08], shade: [0.84, 0.6, 0.48], grad: 0.06, ...back },
-      cloth: { ...ROLE.cloth, lit: [1.02, 0.98, 1.04], shade: [0.6, 0.52, 0.74], grad: 0.1 },
+      // cloth gets a narrower, dimmer warm edge on the same window side as the skin (a fold catching the sun), not a halo
+      cloth: { ...ROLE.cloth, lit: [1.02, 0.98, 1.04], shade: [0.6, 0.52, 0.74], grad: 0.1, back: "#b8702c", backDir: [-0.9, 0.55, -0.3] },
       wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
       set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
     });
@@ -453,8 +454,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   }
   // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
   // their own finger planes readable in dark fabric
-  ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3 };
-  ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12 };
+  ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3, back: null };
+  ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12, back: null };
   ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {

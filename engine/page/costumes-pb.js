@@ -123,7 +123,7 @@ export function hoodClothGeometry(ch, C = {}) {
     const back = Math.max(0, -n.z) * Math.max(0, n.y);
     // uneven cheek clearance: the edge stands off the face more on the wide side, so the lining shows there
     const clear = (1 - near) * (0.035 + 0.03 * side * Math.sin(az)) * sstep(-0.8, -0.1, el - E0 + 0.3);
-    const sc = 1.02 + clear + 0.06 * near + 0.08 * sstep(-0.1, 0.8, n.y) * near + folds + shoulders + 0.06 * sstep(-0.55, -0.9, n.y) + lift;
+    const sc = 1.02 + clear + 0.06 * near + (C.hoodCrown ?? 0.08) * sstep(-0.1, 0.8, n.y) * near + folds + shoulders + 0.06 * sstep(-0.55, -0.9, n.y) + lift;
     const p = new THREE.Vector3(q.x * sc, ch.cy + (q.y - ch.cy) * sc + back * back * 0.12, q.z * sc - back * back * 0.05);
     // the crown: a roomy dome well above the head (the egg's point rounded off), off centre, slumping to one side
     const crown = sstep(0.35, 0.95, n.y), dome = sstep(0.05, 0.75, n.y) * (1 - 0.6 * sstep(0.7, 1.0, n.y));
