@@ -34,7 +34,7 @@
  "music": {
   "file": "ai/sneaky/sneaky-01.ogg",
   "until": 6.4,
-  "gain": 0.42
+  "gain": 0.3
  },
  "sound": {
   "sfx": 0.7,
@@ -519,7 +519,7 @@
     },
     {
      "sfx": "ai/crunch",
-     "gain": 0.9,
+     "gain": 1,
      "at": 1.42
     },
     {

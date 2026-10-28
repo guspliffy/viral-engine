@@ -101,7 +101,7 @@ c.arm(1.25, "dra", "R", { world: beside(IN_MOUTH) }, 0.17, "in");               
 c.prop(1.42, "bisA", { eaten: 1 }, 0.01);
 A(1.42, "dra", "expr", { set: { open: 0, curve: 0.7 }, dur: 0.06 });
 A(1.42, "dra", "squash", { amount: 0.04, dur: 0.2 });
-sfx(1.42, "ai/crunch", { gain: 0.9 });
+sfx(1.42, "ai/crunch", { gain: 1.0 });
 A(1.45, "dra", "face", { lid: 0.85, dur: 0.1 });                                 // a happy closed-eye chew
 c.arm(1.45, "dra", "R", { world: beside([AT_LIPS[0], AT_LIPS[1] - 0.07, AT_LIPS[2] + 0.04]) }, 0.12, "out");   // the empty hand comes out, down...
 c.arm(1.57, "dra", "R", { world: [0.3, TABLE_H + 0.18, 0.6] }, 0.45, "inOut");    // ...and away
@@ -220,7 +220,7 @@ const sb = (variant, captions) => ({
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0, 1.2], height: 3.9 } },
   // the sneaky bed (Jonny picked sneaky-01) under the two thefts; it stops on a bar line as the reach for the plug
   // begins, so the approach plays in a quiet room (the brief's short gap) and the catch needs no hit
-  music: { file: "ai/sneaky/sneaky-01.ogg", until: 6.4, gain: 0.42 },
+  music: { file: "ai/sneaky/sneaky-01.ogg", until: 6.4, gain: 0.3 },
   sound: { sfx: 0.7, ambience: 0.3, speech: false },
   experiment: { id: "hook-2026-11", episode: "dont-touch-the-charger", variant },
   cast, props, captions, beats,
