@@ -62,6 +62,10 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
   more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
+- **Each lead has a signature sound and each set its room** (`engine/sfx/signature.mjs`, `engine/sfx/rooms.mjs`):
+  Phoenix's flame whoosh, Reaper's low bell and the Wizard's sparkle play when a lead first walks or cuts into frame
+  and on the payoff, never varied; mark the punchline `"kind": "payoff"` so it gets one. Don't add more by hand
+  unless the beat is about who just arrived. The reverb follows the set type (a lift is a box, the haunted house a hall).
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
