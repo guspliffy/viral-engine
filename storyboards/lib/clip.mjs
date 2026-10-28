@@ -30,7 +30,8 @@ export function clip() {
     cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: r3(from), to: r3(to), text, pos, pop, ...o }),
     // a text pop: one comic word beside a character's head (docs/STORYBOARD.md, "Text pops")
     textPop: (t, who, text, o = {}) => at(t, { fx: "pop", text, who, ...o }),
-    // shots: [[name, start, shot | null (keep the camera), kind?], ...] in time order; each beat gets the items from
+    // shots: [[name, start, shot | null (keep the camera; in a directed clip, the beat's kind picks it), kind?], ...]
+    // in time order (a shot can also be "keep", a size like "close", or { size, who }); each beat gets the items from
     // its start up to the next shot, at times relative to that start. Nothing may happen at or after `end`.
     beats(shots, end) {
       items.sort((a, b) => a.at - b.at);

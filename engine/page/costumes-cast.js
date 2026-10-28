@@ -211,11 +211,14 @@ export function castCostume(C, ch) {
     parts.add(ring(ch, -0.42, 0.03, trimM, 0.04));
     const pack = new THREE.Mesh(new THREE.BoxGeometry(ch.rx * 1.1, ch.ry * 0.9, 0.16), suitM); pack.position.set(0, ch.cy + 0.02, -ch.rz - 0.04); pack.castShadow = true; parts.add(pack);
     const badge = new THREE.Mesh(new THREE.CircleGeometry(0.035, 16), std(C.badge || "#3d6fd8")); const b = ch.surf(-0.45, -0.62); badge.position.copy(b.pos).addScaledVector(b.normal, 0.05); badge.lookAt(b.pos.clone().addScaledVector(b.normal, 1)); parts.add(badge);
-    // the bubble helmet: see-through, so it never counts as a character in the caption check
-    const R = Math.max(ch.rx, ch.ry * 0.78) + 0.12;
-    const glass = new THREE.Mesh(new THREE.SphereGeometry(R, 40, 28, 0, Math.PI * 2, 0, Math.PI * 0.62), new THREE.MeshPhysicalMaterial({ color: "#dff2ff", roughness: 0.05, metalness: 0, transparent: true, opacity: 0.16, depthWrite: false, clearcoat: 1 }));
-    glass.position.set(0, ch.cy + ch.ry * 0.22, 0.01); parts.add(glass);
-    out.helmet = { mesh: glass, r: R };   // potato.js contact(): a raised arm must not run up inside the glass
+    // the bubble helmet: see-through, so it never counts as a character in the caption check. "helmet": false leaves
+    // it off, for a clip that handles it as a prop (props-makeup.js bubblehelmet, the same size and glass)
+    if (C.helmet !== false) {
+      const R = Math.max(ch.rx, ch.ry * 0.78) + 0.12;
+      const glass = new THREE.Mesh(new THREE.SphereGeometry(R, 40, 28, 0, Math.PI * 2, 0, Math.PI * 0.62), new THREE.MeshPhysicalMaterial({ color: "#dff2ff", roughness: 0.05, metalness: 0, transparent: true, opacity: 0.16, depthWrite: false, clearcoat: 1 }));
+      glass.position.set(0, ch.cy + ch.ry * 0.22, 0.01); parts.add(glass);
+      out.helmet = { mesh: glass, r: R };   // potato.js contact(): a raised arm must not run up inside the glass
+    }
     out.sitDepth = 0.02;
     // button: a round suit button just under the helmet ring and a status light beside it, lit by the `charge`
     // action: 0.25 and up is fully on, above 0.3 the light flashes bigger (a press). Pass `quiet: true` on charges

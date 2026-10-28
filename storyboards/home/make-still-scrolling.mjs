@@ -5,8 +5,10 @@
 // a soft shadow on the floor. The Wizard looks from the stool to Phoenix, lets go and straightens. A notification;
 // Phoenix smiles and scrolls on. The Wizard's shoulders drop and he gives us a quiet, defeated look. End on that.
 //
-// Two cuts from one generator:
+// Three cuts from one generator:
 //   main  12.0 s, Jonny's brief exactly (no loop)
+//   directed  the main cut with its camera directed from the story (engine/direct.mjs) instead of the hand-set shots:
+//         medium two-shot, wide for the reveal, a snap-in on the payoff, a close-up with a push on the defeated look
 //   loop  14.8 s, the coordinator's optional ending (approved as an alternate): the Wizard sighs, slides the stool
 //         back under Phoenix, Phoenix lands on it without looking up, the Wizard steps back to his first mark, so
 //         the last frame leads into the first.
@@ -16,7 +18,7 @@ import { clip, write, r3 } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
 
 function build(variant) {
-  const LOOP = variant === "loop";
+  const LOOP = variant === "loop", DIRECTED = variant === "directed";
   const c = clip(), { A, prop, sfx, arm, cap, captions } = c;
 
   // ---------------------------------------------------------------- places (set-apartment.js APARTMENT)
@@ -162,10 +164,20 @@ function build(variant) {
   ];
   if (LOOP) { SHOTS[5][2] = { ...REVEAL, to: PUSH, dur: 1.6, ease: "inOut" }; SHOTS.push(["put it back", 11.6, REVEAL, "escalation"], ["landing", 13.1, MED]); }
 
-  const beats = c.beats(SHOTS, END);
+  // the directed cut: the same acting, shots chosen from each beat's kind (the payoff gets its own beat at the notification)
+  const DIRECT = [
+    ["absorbed", 0, null, "hook"],
+    ["the idea", 1.3, null],
+    ["remove the seat", 3.3, null],
+    ["still there", 5.5, null, "reveal"],
+    ["no response", 7.3, "keep"],
+    ["the notification", 8.0, null, "payoff"],
+    ["defeated", 9.7, null, "reaction"],
+  ];
+  const beats = c.beats(DIRECTED ? DIRECT : SHOTS, END);
 
   return {
-    id: LOOP ? "still-scrolling-loop" : "still-scrolling",
+    id: LOOP ? "still-scrolling-loop" : DIRECTED ? "still-scrolling-directed" : "still-scrolling",
     title: "Still Scrolling",
     idea: `Jonny's brief and storyboard, 25 Oct 2026${LOOP ? " + the loop ending (Wizard puts the stool back)" : ""}`,
     format: "one joke, one reversal: the prank fails because Phoenix never looks up",
@@ -174,6 +186,7 @@ function build(variant) {
     creative: { length: [10, 16], maxEventGap: 2.6 },
     set: { type: "apartment", seed: 5 },
     music: false,
+    ...(DIRECTED && { direct: { master: MED } }),
     sound: { sfx: 0.6, ambience: 0.34 },
     cast, props, captions, beats,
     allowClip: [
@@ -184,4 +197,4 @@ function build(variant) {
   };
 }
 
-for (const v of ["main", "loop"]) write(import.meta.url, build(v));
+for (const v of ["main", "loop", "directed"]) write(import.meta.url, build(v));

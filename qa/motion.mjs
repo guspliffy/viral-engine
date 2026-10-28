@@ -24,6 +24,17 @@ const RATIO = 4;
 const SLIDE = 0.003;   // metres a planted foot may drift in one frame (9 cm a second) outside a step
 const STEPS = new Set(["move", "turn", "hop", "fly", "hover", "drop", "sit", "stand", "kneel", "grow"]);   // grow: the feet spread as it grows
 
+// the values the checks follow for one actor at one moment: body position and pose, and both hands
+function values(st, def, t, handTarget) {
+  const rx = def.body.width / 2, H = def.body.height, v = {};
+  for (const k of ["x", "y", "z", "yaw", "lean", "pitch", "squash", "wings", "flap", "tuck"]) v[k] = st[k] ?? 0;
+  for (const [s, sx] of [["R", -1], ["L", 1]]) {
+    const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t);
+    v[`hand${s}`] = f.map((q, j) => q + (g[j] - q) * a.p);
+  }
+  return v;
+}
+
 export async function motionJumps(sb, fps = 30) {
   const { actorState, flashAt } = await import("../engine/page/timeline.js");
   const { handTarget } = await import("../engine/page/potato.js");
@@ -41,14 +52,9 @@ export async function motionJumps(sb, fps = 30) {
     const file = path.join(ROOT, "characters", `${c.character}.json`);
     if (!fs.existsSync(file)) { out.push({ who: c.id, what: "missing", t: 0, size: 0, note: `character file not found: ${c.character}` }); continue; }
     const def = JSON.parse(fs.readFileSync(file, "utf8"));
-    const rx = def.body.width / 2, H = def.body.height, rows = [];
+    const rows = [];
     for (let i = 0; i <= n; i++) {
-      const t = i / fps, st = actorState(sb, c, def, t), v = {};
-      for (const k of ["x", "y", "z", "yaw", "lean", "pitch", "squash", "wings", "flap", "tuck"]) v[k] = st[k] ?? 0;
-      for (const [s, sx] of [["R", -1], ["L", 1]]) {
-        const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t);
-        v[`hand${s}`] = f.map((q, j) => q + (g[j] - q) * a.p);
-      }
+      const t = i / fps, st = actorState(sb, c, def, t), v = values(st, def, t, handTarget);
       // the feet where the plant puts them (in the air or sitting they go with the body: not checked)
       const P = st.plant, sc = st.scale ?? 1;
       const feet = P && P.w === 0 ? [-1, 1].map((sx) => [P.x + sc * (sx * 0.13 * Math.cos(P.yaw) + 0.04 * Math.sin(P.yaw)), P.z + sc * (-sx * 0.13 * Math.sin(P.yaw) + 0.04 * Math.cos(P.yaw))]) : null;
@@ -83,6 +89,46 @@ export async function motionJumps(sb, fps = 30) {
     }
   }
   return out.sort((a, b) => a.t - b.t);
+}
+
+// Loop seam (a storyboard with "loop": true): the replay starts where the clip ends, so the last frame should flow into
+// the first the way any frame flows into the next. For every actor and the camera, from the timeline: the step from
+// the last frame to the first should be what the motion either side of it predicts (a pop if it is more than a jump
+// in motionJumps), and the speed should carry across (a walk that stops dead or starts from nothing at the seam).
+// Idea from whaleyxbt/claude-motion (MIT); check.mjs adds the same speed test on the pixels.
+export async function loopSeam(sb, fps = 30) {
+  const { actorState, cameraState } = await import("../engine/page/timeline.js");
+  const { handTarget } = await import("../engine/page/potato.js");
+  const n = Math.round(sb.duration * fps), T = [(n - 2) / fps, (n - 1) / fps, 0, 1 / fps], out = [];
+  const sub = (a, b) => (Array.isArray(a) ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) : Math.abs(a - b));
+  const wrap = (d) => Math.abs(d - 2 * Math.PI * Math.round(d / (2 * Math.PI)));
+  // seam: the step across the seam against the mean of the steps either side; speed: how much the step changes
+  const test = (who, k, [a, b, c, d], lim) => {
+    const vec = Array.isArray(a), yaw = k === "yaw", st = (p, q) => (vec ? q.map((x, j) => x - p[j]) : q - p);
+    const e = st(a, b), s = st(c, d), seam = st(b, c), mid = vec ? e.map((x, j) => (x + s[j]) / 2) : (e + s) / 2;
+    const jump = vec ? sub(seam, mid) : yaw ? wrap(seam - mid) : Math.abs(seam - mid), dv = vec ? sub(s, e) : yaw ? wrap(s - e) : Math.abs(s - e);
+    const speed = (v) => (vec ? Math.hypot(...v) : yaw ? wrap(v) : Math.abs(v));
+    if (jump > lim) out.push({ who, what: k, kind: "jump", size: jump });
+    else if (dv > lim / 2) out.push({ who, what: k, kind: "speed", size: dv, end: speed(e), start: speed(s) });
+  };
+  const LIM = { x: 0.03, y: 0.03, z: 0.03, yaw: 0.12, lean: 0.1, pitch: 0.1, squash: 0.06, wings: 0.25, flap: 0.25, tuck: 0.3 };
+  for (const c of sb.cast || []) {
+    const file = path.join(ROOT, "characters", `${c.character}.json`);
+    if (!fs.existsSync(file)) continue;
+    const def = JSON.parse(fs.readFileSync(file, "utf8")), sts = T.map((t) => actorState(sb, c, def, t));
+    const vis = sts.map((x) => x.visible !== false);
+    if (vis[1] !== vis[2]) { out.push({ who: c.id, what: vis[1] ? "vanishes" : "appears", kind: "show" }); continue; }
+    if (!vis[1]) continue;
+    const v = sts.map((x, i) => values(x, def, T[i], handTarget));
+    for (const k of ["pos", ...Object.keys(LIM).filter((q) => !"xyz".includes(q)), "handR", "handL"]) {
+      const four = v.map((x) => (k === "pos" ? [x.x, x.y, x.z] : x[k]));
+      test(c.id, k, four, k === "pos" ? 0.03 : k.startsWith("hand") ? 0.04 : LIM[k]);
+    }
+  }
+  // the camera too: a last shot framed like the first carries on, a different one is a cut at the seam
+  const cam = T.map((t) => cameraState(sb, t));
+  test("camera", "position", cam.map((k) => k.pos), 0.03); test("camera", "aim", cam.map((k) => k.look), 0.03);
+  return out;
 }
 
 // Storyboard habits that read as glitches, found from the timeline alone (warnings):

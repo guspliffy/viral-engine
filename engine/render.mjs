@@ -4,6 +4,7 @@
 //   node engine/render.mjs storyboards/test-01-golden.json            -> out/test-01-golden.mp4 + cover PNG + WAV
 //   node engine/render.mjs <storyboard> --stills 0.5,3.2,7              -> PNG stills only (quick checks)
 //   node engine/render.mjs <storyboard> --stills beats --draft          -> one draft still per beat (for the pre-render review)
+//   node engine/render.mjs <storyboard> --stills beats --ids            -> plus a map of which character covers each pixel (qa/readability.mjs)
 //   node engine/render.mjs <storyboard> --safe                          -> draws the TikTok safe zone on top
 //   node engine/render.mjs <storyboard> --from 2 --to 4                 -> renders only part of the timeline
 //   node engine/render.mjs <storyboard> --draft                         -> fast preview: half-res 3D, no anti-aliasing
@@ -11,9 +12,16 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
-//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds)
+//   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds; exits 1 when the gate would stop a render)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
+//   node engine/render.mjs <storyboard> --shard 3/12                    -> video only, the 3rd of 12 equal frame ranges
+//   node engine/render.mjs <storyboard> --stitch 12                     -> joins the 12 shards, adds the sound
+//
+// Sharding: every frame is drawn at its own time t (no state carries from one frame to the next), so a clip can be
+// cut into ranges, drawn on several machines at once (.github/workflows/render.yml: free GitHub runners) and joined
+// without a seam. Give the shards and the stitch the same flags (--draft, --look, --from/--to, --out) so they agree on
+// the file names. Shard 1 also draws the cover.
 //
 // Contact gate: before drawing any frame, the layout pass (seconds) checks for characters overlapping, an arm through
 // a held staff or a hat brim, and a staff in the body (qa/check.mjs clipResults, contactResults). A failure stops the
@@ -57,6 +65,10 @@ function args() {
     else if (a[i] === "--to") o.to = Number(a[++i]);
     else if (a[i] === "--gl") o.gl = a[++i];
     else if (a[i] === "--force") o.force = true;
+    else if (a[i] === "--skip-gate") o.skipGate = true;
+    else if (a[i] === "--ids") o.ids = true;
+    else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
+    else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
   }
   if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
@@ -173,11 +185,12 @@ async function main() {
   const range = o.from != null || o.to != null ? `-${o.from ?? 0}-${o.to ?? dur}` : "";
   const tag = look ? `-${look}` : style !== "standard" ? "-" + style : "";
   const base = `${sb.id}${tag}${range}${o.safe ? "-safe" : ""}${o.draft ? "-draft" : ""}`;
-  const videoFile = path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.wav`);
+  const partFile = (i, n) => path.join(o.out, `${base}.part-${String(i).padStart(2, "0")}-of-${n}.video.mp4`);
+  const videoFile = o.shard ? partFile(o.shard.i, o.shard.n) : path.join(o.out, `${base}.video.mp4`), outFile = path.join(o.out, `${base}.mp4`), wavFile = path.join(o.out, `${sb.id}${style !== "standard" ? "-" + style : ""}.wav`);
 
   // sound first: it is quick, and a broken storyboard fails before minutes of rendering
   let audio = null;
-  if (!o.stills && !o.silent && !o.layoutOnly) {
+  if (!o.stills && !o.silent && !o.layoutOnly && !o.shard) {
     const ta = Date.now();
     audio = renderAudio(sb, chars);
     // background music (puppet/beat.mjs, or a recorded bed): on by default, a different variation per clip
@@ -186,10 +199,23 @@ async function main() {
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);
   }
-  if (o.audioOnly) {
+  const frameA = Math.round((o.from ?? 0) * fps), frameB = Math.round((o.to ?? dur) * fps);
+  // the stitch: the shards joined as they are (no re-encode; each starts on a keyframe), then the sound as usual
+  if (o.stitch) {
+    const parts = Array.from({ length: o.stitch }, (_, k) => partFile(k + 1, o.stitch)), missing = parts.filter((f) => !fs.existsSync(f));
+    if (missing.length) throw new Error(`--stitch ${o.stitch}: missing shard${missing.length > 1 ? "s" : ""}:\n${missing.join("\n")}`);
+    const list = path.join(o.out, `${base}.parts.txt`);
+    fs.writeFileSync(list, parts.map((f) => `file '${f.replace(/\\/g, "/").replace(/'/g, "'\\''")}'`).join("\n") + "\n");
+    await ffmpeg(["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", videoFile]);
+    const probe = spawnSync("ffprobe", ["-v", "error", "-count_packets", "-select_streams", "v:0", "-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", videoFile], { encoding: "utf8" });
+    const got = Number(probe.stdout.trim());
+    if (got !== frameB - frameA) throw new Error(`stitched ${got} frames, expected ${frameB - frameA}: a shard is short or rendered with other flags`);
+    fs.rmSync(list);
+    console.log(`stitched ${o.stitch} shards (${got} frames) -> ${videoFile}`);
+  }
+  if (o.audioOnly || o.stitch) {
     if (!fs.existsSync(videoFile)) throw new Error(`--audio-only needs an earlier render: ${videoFile} not found`);
-    const l = await mux(videoFile, wavFile, outFile, o.from, (o.to ?? dur) - (o.from ?? 0));
-    console.log(`wrote ${outFile} (sound only; mix measured ${l.measuredLUFS} LUFS, normalised to ${LOUDNESS.I})`);
+    await finish(audio, videoFile, wavFile, outFile, o, dur, o.audioOnly ? "sound only; " : "");
     return;
   }
 
@@ -248,18 +274,23 @@ async function main() {
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters and faces)");
       return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "face-covered", "face-hidden"].includes(r.check));
     };
-    if (o.layoutOnly) { contactGate(await writeLayout()); return; }
+    if (o.layoutOnly) { if (contactGate(await writeLayout()).length) process.exitCode = 1; return; }
     if (o.stills) {
-      for (const t of o.stills) { const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f); }
+      for (const t of o.stills) {
+        const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f);
+        // --ids: which character covers each pixel, beside the still (qa/readability.mjs)
+        if (o.ids) { const r = await page.evaluate((tt) => window.ENGINE.ids(tt), t); fs.writeFileSync(f.replace(/\.png$/, ".ids.png"), Buffer.from(r.png.slice(r.png.indexOf(",") + 1), "base64")); fs.writeFileSync(f.replace(/\.png$/, ".ids.json"), JSON.stringify({ t, cast: r.cast })); }
+      }
       return;
     }
-    const lay = await writeLayout();
-    const gate = contactGate(lay);
+    // --skip-gate: only after a --layout run of the same storyboard passed (the render workflow checks once, not per shard)
+    const gate = o.skipGate ? [] : contactGate(await writeLayout());
     if (gate.length) {
       console.log(`contact gate: ${gate.length} problem${gate.length > 1 ? "s" : ""} in the storyboard, fix before rendering${o.force ? " (--force: rendering anyway)" : " (or --force)"}`);
       if (!o.force) { process.exitCode = 1; return; }
     }
-    const a = Math.round((o.from ?? 0) * fps), b = Math.round((o.to ?? dur) * fps);
+    let a = frameA, b = frameB;
+    if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
       "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((ok, bad) => ff.on("close", (c) => (c === 0 ? ok() : bad(new Error("ffmpeg exited " + c)))));
@@ -271,13 +302,19 @@ async function main() {
     }
     ff.stdin.end(); await done;
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
-    if (sb.cover != null && !range) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
+    if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
     await browser.close(); srv.close();
   }
+  if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
+  await finish(audio, videoFile, wavFile, outFile, o, dur, "");
+}
+
+// the drawn video plus its sound (normalised), or a silent track
+async function finish(audio, videoFile, wavFile, outFile, o, dur, note) {
   if (audio) {
     const l = await mux(videoFile, wavFile, outFile, o.from, (o.to ?? dur) - (o.from ?? 0));
-    console.log(`wrote ${outFile} (mix measured ${l.measuredLUFS} LUFS, normalised to ${LOUDNESS.I})`);
+    console.log(`wrote ${outFile} (${note}mix measured ${l.measuredLUFS} LUFS, normalised to ${LOUDNESS.I})`);
   } else {
     await ffmpeg(["-y", "-loglevel", "error", "-i", videoFile, "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", "-movflags", "+faststart", outFile]);
     console.log(`wrote ${outFile} (silent)`);

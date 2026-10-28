@@ -24,7 +24,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
-import { motionJumps, storyNotes } from "./motion.mjs";
+import { motionJumps, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
 import { seedOf } from "../puppet/beat.mjs";
@@ -85,7 +85,7 @@ export const PROFILES = {
 // which group each check belongs to (anything not listed is technical)
 const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "cartoon-only": "publishing",
   opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
-  "eyes-lead": "creative", "reaction-hold": "creative" };
+  "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative" };
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
@@ -125,6 +125,17 @@ export function oddFrames(clip, fps = 30) {
     if (best > 0) out.push({ t: i / fps, score: best, where: `${["left", "middle", "middle", "right", "right"][at[0] / 6]} ${at[1] < 22 ? "top" : at[1] < 42 ? "centre" : "bottom"}` });
   }
   return out.sort((x, y) => y.score - x.score);
+}
+
+// the picture's speed either side of the loop seam: mean |dY| per frame on a 72x128 grey copy for the last three and
+// first three steps, and the step from the last frame to the first
+export function seamSpeed(clip) {
+  const W = 72, H = 128, N = W * H, grab = (pre) => { const r = run("ffmpeg", ["-v", "error", ...pre, "-i", clip, "-vf", `scale=${W}:${H}:flags=area,format=gray`, "-f", "rawvideo", "-"]); return Buffer.isBuffer(r.stdout) ? r.stdout : Buffer.from(r.stdout || "", "latin1"); };
+  const head = grab(["-t", "0.15"]), tail = grab(["-sseof", "-0.2"]), nh = Math.floor(head.length / N), nt = Math.floor(tail.length / N);
+  if (nh < 4 || nt < 4) return null;
+  const F = (b, i) => b.subarray(i * N, (i + 1) * N), d = (p, q) => { let s = 0; for (let k = 0; k < N; k++) s += Math.abs(p[k] - q[k]); return s / N; };
+  const last = (i) => F(tail, nt - 4 + i);
+  return { end: [1, 2, 3].map((i) => d(last(i - 1), last(i))), start: [1, 2, 3].map((i) => d(F(head, i - 1), F(head, i))), seam: d(last(3), F(head, 0)) };
 }
 
 // characters passing through props or each other, from the layout's "clips" (stage.js clipping()). Two characters
@@ -346,6 +357,12 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     const r = run("ffmpeg", ["-v", "info", "-i", clip, "-sseof", "-0.04", "-i", clip, "-filter_complex", "[0:v]trim=end_frame=1,scale=270:480[a];[1:v]trim=end_frame=1,scale=270:480[b];[a][b]ssim", "-f", "null", "-"]).stderr;
     const ssim = Number((r.match(/All:([\d.]+)/) || [])[1]);
     if (Number.isFinite(ssim)) add(ssim >= C.loopSSIM ? "pass" : "note", "loop", `last frame vs first: similarity (SSIM) ${ssim.toFixed(2)} (house style: ${C.loopSSIM} or more)`);
+    const sp = seamSpeed(clip);
+    if (sp) {
+      const typ = [...sp.end, ...sp.start].sort((x, y) => x - y)[2], e = sp.end.reduce((x, y) => x + y) / 3, b = sp.start.reduce((x, y) => x + y) / 3;
+      const jump = sp.seam > Math.max(3 * typ, typ + 2), lurch = Math.max(e, b) > 3 * RULES.stillDiff && Math.max(e, b) > 3 * Math.min(e, b);
+      add(jump || lurch ? "note" : "pass", "loop-seam", `picture across the seam: last frame to first changes ${sp.seam.toFixed(2)} (the frames either side move ${typ.toFixed(2)} a frame), speed ${e.toFixed(2)} at the end, ${b.toFixed(2)} at the start${jump ? ": the replay jumps, it reads as a skip" : lurch ? `: the picture ${e < b ? "starts moving" : "stops"} at the seam, the replay lurches` : ""}`);
+    }
   }
 
   // --- storyboard: length (platform limits, then the house target), event gaps, reading speed, cartoon-only violence
@@ -423,6 +440,13 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
   return res;
 }
 
+// the storyboard's loop seam (qa/motion.mjs loopSeam) as one creative result
+export function seamResult(seam) {
+  const say = (x) => x.kind === "show" ? `${x.who} ${x.what} at the seam`
+    : x.kind === "jump" ? `${x.who} ${x.what} jumps ${x.size.toFixed(2)} at the seam` : `${x.who} ${x.what} ${x.end < x.start ? "starts moving" : "stops dead"} at the seam (${Math.max(x.end, x.start).toFixed(3)} a frame)`;
+  return { group: "creative", level: seam.length ? "note" : "pass", check: "loop-seam", msg: seam.length ? `storyboard across the seam: ${seam.slice(0, 5).map(say).join(", ")}${seam.length > 5 ? ", ..." : ""}: end the clip where and how it starts (the seam's row in qa/contact.mjs --cuts shows it)` : "storyboard across the seam: every actor and the camera carry on where they were, at the same speed" };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const o = args();
   const guess = o.clip.replace(/(-safe)?(-draft)?\.mp4$/, ".layout.json");
@@ -438,6 +462,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
     res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
     for (const r of await storyNotes(sb, sb.fps ?? 30)) { const group = groupOf(r.check); res.push({ group, ...r, ...(group === "creative" && { level: "note" }) }); }
+    if (sb.loop) res.push(seamResult(await loopSeam(sb, sb.fps ?? 30)));
     // the sound (qa/sound.mjs): repeats, sounds with nothing on screen, the floor, the music lock, then on the file
     // its sync to the picture and how each effect stands over the bed
     res.push(...soundNotes(sb), ...(fs.existsSync(o.clip) ? soundMeasure(o.clip, sb, loadCharacters(sb)) : []));

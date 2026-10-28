@@ -482,7 +482,11 @@ function layout(t) {
     const hands = Object.fromEntries(["R", "L"].map((h) => [h, a.ch.arms[h].hand.getWorldPosition(new THREE.Vector3()).toArray().map(r3)]));
     // a held costume prop's shaft in the world (the katana: a = the handle's foot, b = the blade tip), for aiming
     const L = a.ch.costume.propLine?.(), prop = L ? { a: a.ch.root.localToWorld(L.a.clone()).toArray().map(r3), b: a.ch.root.localToWorld(L.b.clone()).toArray().map(r3) } : undefined;
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop };
+    // world anchors for framing (engine/direct.mjs is checked against them): the eyes' midpoint and the top of the
+    // character (hat or crest included)
+    const E = a.ch.face?.eyes, eyes = E && E.length > 1 ? E[0].root.getWorldPosition(new THREE.Vector3()).add(E[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).toArray().map(r3) : undefined;
+    const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));
@@ -590,8 +594,9 @@ function silhouette() {
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
   // props are scenery (a tree's leaves behind the title are fine); only the characters count
   const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
-  // glows and other see-through parts are effects, not the character's body
-  const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && m.transparent && m.opacity < 0.95 || o.isSprite || o.isPoints) glass.push(o); });
+  // glows and other see-through parts are effects, not the character's body; so is added light (golden light's sun
+  // patches on the wall, opaque but additive)
+  const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && (m.transparent && m.opacity < 0.95 || m.blending === THREE.AdditiveBlending) || o.isSprite || o.isPoints) glass.push(o); });
   for (const o of glass) o.visible = false;
   scene.background = new THREE.Color("#000000"); scene.fog = null; scene.overrideMaterial = silMat;
   R.setRenderTarget(silRT); R.render(scene, camera);
@@ -803,5 +808,44 @@ function hiddenFaces(live, shownIn) {
   return out;
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact };
+// which character covers each pixel, for qa/readability.mjs (render.mjs --stills ... --ids): each visible character
+// (with what it holds and wears) in its own flat grey level (its place in the cast + 1), the set and the loose props in
+// black (0) so they still hide what is behind them. Half size, no anti-aliasing, no outlines; glows, sparkles and
+// see-through scenery are left out. Returns the cast ids in order and a PNG.
+let idRT, idCanvas;
+const idMats = [];
+function ids(t) {
+  pose(t);
+  const w = W / 2, h = H / 2;
+  if (!idRT) { idRT = new THREE.WebGLRenderTarget(w, h); idCanvas = document.createElement("canvas"); idCanvas.width = w; idCanvas.height = h; }
+  // the same faces as the real material (a one-sided wall seen from behind stays see-through)
+  const flat = (k, side) => idMats[k * 3 + side] || (idMats[k * 3 + side] = new THREE.ShaderMaterial({ vertexShader: "void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }", fragmentShader: `void main() { gl_FragColor = vec4(vec3(${(k / 255).toFixed(6)}), 1.0); }`, side }));
+  const owner = new Map();
+  actors.forEach((a, i) => a.ch.root.traverse((o) => owner.set(o, i + 1)));
+  const swapped = [], hidden = [];
+  scene.traverseVisible((o) => {
+    const m = o.material;
+    const m0 = Array.isArray(m) ? m[0] : m;
+    // effects, see-through parts (a helmet glass: the shape people see is the body inside it), and what never hides
+    // anything (the sky, drawn without depth) are left out
+    if (o.isSprite || o.isPoints || o.isLine || (m0 && ((m0.transparent && m0.opacity < 0.95) || m0.depthWrite === false || m0.colorWrite === false || m0.visible === false))) { hidden.push(o); return; }
+    if (o.isMesh) { swapped.push([o, m]); o.material = flat(owner.get(o) || 0, m0?.side ?? THREE.FrontSide); }
+  });
+  for (const o of hidden) o.visible = false;
+  const bg = scene.background, fog = scene.fog;
+  scene.background = new THREE.Color("#000000"); scene.fog = null;
+  R.setRenderTarget(idRT); R.render(scene, camera);
+  const px = new Uint8Array(w * h * 4); R.readRenderTargetPixels(idRT, 0, 0, w, h, px);
+  R.setRenderTarget(null);
+  scene.background = bg; scene.fog = fog;
+  for (const [o, m] of swapped) o.material = m;
+  for (const o of hidden) o.visible = true;
+  // the render target is bottom-up; the PNG is top-down like the frame
+  const g = idCanvas.getContext("2d"), img = g.createImageData(w, h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const v = px[((h - 1 - y) * w + x) * 4], j = (y * w + x) * 4; img.data[j] = img.data[j + 1] = img.data[j + 2] = v; img.data[j + 3] = 255; }
+  g.putImageData(img, 0, 0);
+  return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
+}
+
+window.ENGINE = { init, frame, sync, capture, layout, contact, ids };
 window.ENGINE_READY = true;

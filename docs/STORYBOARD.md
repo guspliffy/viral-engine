@@ -20,14 +20,16 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   0.5 s past the voice, so `"+0.2"` leaves a pause and `"voice+0.2"` answers straight away. Choose on purpose.
 - **Items**: an action `{ "who", "do", ... }` (all engine actions), an effect `{ "fx": "flash", ... }`, a sound
   `{ "sfx": "tink", ... }`, a caption `{ "caption": "text", "len": 1 }`, or a macro `{ "macro", "who", ... }`.
-- **Sounds**: walks, grabs and sits get recorded foley on their own (footsteps land on the legs' footfalls). Name a
+- **Sounds**: walks, grabs and sits get recorded foley on their own (footsteps land on the legs' footfalls), and a
+  flying Phoenix (or Dragon) gets a wing flap on every downstroke (`"sound": { "flaps": false }` turns it off). Name a
   library sound for everything else the picture does: `{ "sfx": "katana-slice" }` on the frame the blade starts
   moving (the cut lands 0.07 s later), `knock`, `door-slam`, `typing` with a `dur`, `put-down` when a prop is set
   down (a release is silent: it might be a throw). Full list in README (`sfx`).
   A hit (footstep, knock, slam, put-down) goes on the contact frame: the engine lines up its loudest moment with it.
   A sound with nothing happening on screen gets a warning; give it `"reason": "off-screen horn"` if that's intended.
 - **`kind: "payoff"`** marks the punchline: the music's grid is locked so it lands on beat 1 (`engine/music.mjs`).
-- **`shot`** starts at the beat (omit it to keep the camera). **`caption`** shows for the beat, or for
+- **`shot`** starts at the beat (omit it to keep the camera; in a directed clip, omit it to let the beat's kind pick
+  one, see "Directed camera" below). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
   word pops in as it is said (timed from the talk line it matches), the word being said is lit in the speaker's
@@ -158,6 +160,36 @@ moving at once.
   and `nameplate` (`text`, grip `back`; `split` cuts it in two, each half tipping over its outer edge).
 
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.
+
+## Directed camera
+
+With `"direct": { "master": { "pos", "look", "fov" } }` in the storyboard, the camera is chosen from the story
+(`engine/direct.mjs`, run by `engine/load.mjs` after compile, so the renderer and every `qa/` tool see the same
+shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
+
+| Beat | Shot |
+|---|---|
+| hook, setup, escalation, no kind | **medium** on everyone in the scene |
+| `payoff` | **snap-in**: a 0.22 s push from wherever the camera is to a medium close-up on the faces of who acts in its first 0.6 s, starting on their first big action |
+| `reaction` | **close-up** on who reacts, with a slow 4 % push to the next cut |
+| `reveal` | **wide** |
+| the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
+
+- **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
+  on the upper third, every head (hat or crest included) keeps its headroom, heads stay under a caption that is up
+  (a tall hat's tip may reach into it), feet stay above the app's caption bar (about 0.72 of the frame), a group
+  fits the width, and a single close-up leaves look room on the side the character faces. A close-up may crop the
+  top of a tall hat. Every shot keeps the master's direction, so the camera never crosses the line.
+- **Cuts land on action**: a cut moves to two frames into the nearest move, turn, crouch or reach of who acts
+  (within 0.35 s of the beat start), and never comes within 0.7 s of the last cut.
+- **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
+  camera keeps the shot, or eases over to the new framing with the action (up to 1.2 s).
+- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`), `{ "size": "close", "who": "wiz",
+  "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `"keep"`, or a plain `{ pos, look, fov }`.
+  `"who"` on the beat names who acts; otherwise it is the actor doing the most. Options in the `direct` block:
+  `push` (0.04), `snap` (seconds, 0.22).
+- What was chosen and why is in the compiled storyboard's `directed` list. `node qa/framing.mjs <sb> <layout.json>`
+  measures where each shot actually puts the faces (eye line, headroom, lowest point) from the render layout.
 
 ## Starting a clip from the template
 
