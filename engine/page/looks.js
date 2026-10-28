@@ -306,22 +306,46 @@ function groundShadows(scene, actors, props, color, camera) {
     m.rotation.x = -Math.PI / 2; m.renderOrder = 1; m.material.userData.noOutline = true; m.userData.lookOnly = true; scene.add(m); blobs.push(m); return m;
   };
   // h: height above the ground (m), fall: the height where it is gone
-  const put = (m, x, z, sx, sz, h, fall, strength) => {
+  const put = (m, x, z, sx, sz, h, fall, strength, y = 0.008) => {
     const k = Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
-    m.visible = k > 0.01; m.position.set(x, 0.008, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
+    m.visible = k > 0.01; m.position.set(x, y, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
   };
-  const v = new THREE.Vector3(), box = new THREE.Box3();
+  const v = new THREE.Vector3();
   const parts = actors.map((a) => {
     const tips = []; a.ch.root.traverse((o) => { if (o.userData.groundTip !== undefined) tips.push(o); });
-    return { a, body: blob(), feet: ["L", "R"].map((sd) => [a.ch.legs[sd].foot, blob()]), tips: tips.map((o) => [o, blob()]) };
+    return { a, body: blob(), feet: ["L", "R"].map((sd) => [a.ch.legs[sd].foot, blob()]), tips: tips.map((o) => [o, blob()]),
+      hands: ["L", "R"].map((sd) => [a.ch.arms[sd].hand, blob()]) };
   });
-  const propBlobs = props.map((p) => [p, blob()]);
+  // a hand resting on a prop's top (a table, a counter) gets a small shadow right under its palm: a ray straight down
+  // from the hand finds the surface, and only a flat, upward-facing one counts. A prop round the hand (one it holds:
+  // a cup, a jar) is skipped, so no shadow lands on the saucer or the tea
+  const ray = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0), solid = [], owner = new Map();
+  props.forEach((p, i) => p.root.traverse((o) => { if (o.isMesh && !o.userData.lookOnly) { solid.push(o); owner.set(o, i); } }));
+  const propBlobs = props.map((p) => [p, blob(), new THREE.Box3()]);
   return {
     update() {
       scene.updateMatrixWorld();
-      for (const { a, body, feet, tips } of parts) {
+      for (const [p, m, box] of propBlobs) {
+        box.makeEmpty();
+        if (!shown(p.root)) { m.visible = false; continue; }
+        p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly && !o.userData.steam) box.expandByObject(o, false); });
+        if (box.isEmpty()) { m.visible = false; continue; }
+        const sx = box.max.x - box.min.x, sz = box.max.z - box.min.z;
+        put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75);
+      }
+      for (const { a, body, feet, tips, hands } of parts) {
         const r = a.ch.root, vis = shown(r) && a.ch.potatoParts.visible, s = r.scale.x || 1, h = Math.max(0, r.position.y);
-        if (!vis) { body.visible = false; for (const [, m] of [...feet, ...tips]) m.visible = false; continue; }
+        if (!vis) { body.visible = false; for (const [, m] of [...feet, ...tips, ...hands]) m.visible = false; continue; }
+        for (const [hd, m] of hands) {
+          m.visible = false;
+          if (!hd || !shown(hd) || !solid.length) continue;
+          hd.getWorldPosition(v); ray.set(v, down); ray.far = 0.3;
+          const hit = ray.intersectObjects(solid, false).find((i) => shown(i.object) && i.face && i.face.normal.clone().transformDirection(i.object.matrixWorld).y > 0.7
+            && !propBlobs[owner.get(i.object)][2].clone().expandByScalar(0.03).containsPoint(v));
+          if (!hit) continue;
+          const z = (hd.userData.size ?? 1) * s, palm = 0.06 * 0.95 * z;   // the mitten palm's half height
+          put(m, hit.point.x + 0.015 * z, hit.point.z - 0.01 * z, 0.2 * z, 0.15 * z, Math.max(0, hit.distance - palm), 0.1, 0.7, hit.point.y + 0.003);
+        }
         // the broad one sits a little toward the sunlight shadow (the key light is on the left)
         put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, a.c?.shadowFall ?? 0.7, 0.4);   // cast shadowFall: a long hover keeps a soft shadow
         for (const [f, m] of feet) {
@@ -332,14 +356,6 @@ function groundShadows(scene, actors, props, color, camera) {
           if (!shown(o)) { m.visible = false; continue; }
           o.getWorldPosition(v); const w = (o.userData.groundTip || 0.05) * 4 * s; put(m, v.x + 0.03 * s, v.z - 0.01 * s, w, w * 0.8, Math.max(0, v.y), 0.3, 0.9);
         }
-      }
-      for (const [p, m] of propBlobs) {
-        if (!shown(p.root)) { m.visible = false; continue; }
-        box.makeEmpty();
-        p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly && !o.userData.steam) box.expandByObject(o, false); });
-        if (box.isEmpty()) { m.visible = false; continue; }
-        const sx = box.max.x - box.min.x, sz = box.max.z - box.min.z;
-        put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75);
       }
     },
   };
@@ -403,7 +419,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
-  relight(scene, [golden ? dirLight("#ffffff", 2.0, [4.2, 4.0, 2.6], { radius: 2 }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
+  relight(scene, [golden ? dirLight("#ffffff", 2.0, setSpec?.key || [4.2, 4.0, 2.6], { radius: 2 }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
