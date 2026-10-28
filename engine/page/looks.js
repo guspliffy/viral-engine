@@ -87,20 +87,20 @@ const GradeShader = {
   uniforms: {
     tDiffuse: { value: null }, contrast: { value: 1.06 }, saturation: { value: 1.08 }, lift: { value: new THREE.Vector3(0, 0, 0) },
     shadowTint: { value: new THREE.Vector3(-0.01, 0.0, 0.025) }, highTint: { value: new THREE.Vector3(0.025, 0.01, -0.02) },
-    vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, aspect: { value: 1080 / 1920 },
+    vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, paraPos: { value: new THREE.Vector2(0.15, 1.05) }, aspect: { value: 1080 / 1920 },
   },
   vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: /* glsl */`
     uniform sampler2D tDiffuse; uniform float contrast, saturation, vignette, para, aspect;
-    uniform vec3 lift, shadowTint, highTint, paraColor; varying vec2 vUv;
+    uniform vec3 lift, shadowTint, highTint, paraColor; uniform vec2 paraPos; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb;
       float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
       c = mix(vec3(l), c, saturation);
       c = (c - 0.5) * contrast + 0.5 + lift;
       c += shadowTint * (1.0 - smoothstep(0.0, 0.55, l)) + highTint * smoothstep(0.45, 1.0, l);
-      // light falling in from the top left, screen-blended
-      vec2 p = vUv - vec2(0.15, 1.05); p.x *= aspect;
+      // light falling in from the top left (paraPos), screen-blended
+      vec2 p = vUv - paraPos; p.x *= aspect;
       float g = para * pow(clamp(1.0 - length(p) / 1.15, 0.0, 1.0), 1.6);
       c = 1.0 - (1.0 - c) * (1.0 - paraColor * g);
       vec2 q = (vUv - 0.5) * vec2(aspect, 1.0) * 1.6;
@@ -225,6 +225,7 @@ function patchToon(m, o) {
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
+    sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 };
@@ -233,7 +234,7 @@ function patchToon(m, o) {
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -263,6 +264,8 @@ function patchToon(m, o) {
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
           col += uSpec * smoothstep(0.97 - sw, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);
+          // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
+          col += uBack * smoothstep(0.35, 0.9, fr) * clamp(dot(normal, uBackDir) * 1.3, 0.0, 1.0) * min(base * 2.0 + 0.15, vec3(1.0));
           outgoingLight = col + totalEmissiveRadiance;
         }
         #endif
@@ -359,15 +362,41 @@ function animeGlass(m, liquid = false) {
   });
 }
 
+// Golden hour (set "light": "golden", the look of Jonny's 28 Oct reference panels): warm sun through a window, painted
+// as light patches on the back wall; a soft wide shading ramp with amber shadows instead of a crisp two-tone cel cut;
+// a glowing warm edge on the side away from the camera; no lines on the set; depth of field on the background; a
+// low bloom threshold and a big warm light gradient from the window side for the haze.
+function sunPatches(scene, wallZ) {
+  const mat = new THREE.ShaderMaterial({
+    uniforms: { uColor: { value: new THREE.Color("#ffb25a") } },
+    vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    // a window's light: four panes with soft edges, fading toward the bottom
+    fragmentShader: `uniform vec3 uColor; varying vec2 vUv;
+      void main() {
+        vec2 q = abs(fract(vUv * vec2(2.0, 2.0)) - 0.5);
+        float pane = (1.0 - smoothstep(0.38, 0.47, q.x)) * (1.0 - smoothstep(0.38, 0.47, q.y));
+        float edge = smoothstep(0.0, 0.08, vUv.x) * smoothstep(0.0, 0.08, 1.0 - vUv.x) * smoothstep(0.0, 0.1, vUv.y) * smoothstep(0.0, 0.06, 1.0 - vUv.y);
+        gl_FragColor = vec4(uColor * 0.42 * pane * edge * mix(0.6, 1.0, vUv.y), 1.0);
+      }`,
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2,
+  });
+  mat.userData.outlineParameters = { visible: false };
+  for (const [x, y, w, h] of [[-0.95, 1.85, 0.95, 1.25], [0.55, 1.95, 0.8, 1.1]]) {
+    const g = new THREE.PlaneGeometry(w, h); g.applyMatrix4(new THREE.Matrix4().makeShear(0, 0, -0.55, 0, 0, 0));   // slanting down to the left
+    const m = new THREE.Mesh(g, mat); m.position.set(x, y, wallZ + 0.02); m.userData.lookOnly = true; m.renderOrder = 2; scene.add(m);
+  }
+}
+
 function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [] }) {
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
-  // one key light: it only decides where light and shadow fall (patchToon sets the colours)
-  relight(scene, [dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
+  const golden = !night && setSpec?.light === "golden";
+  // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
+  relight(scene, [golden ? dirLight("#ffffff", 2.0, [4.2, 4.0, 2.6], { radius: 2 }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  const charRamp = smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, 0.08), clothRamp = smoothRamp(0, 1, 0.55, 0.09);
+  const charRamp = golden ? smoothRamp(0, 1, 0.5, 0.2) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = smoothRamp(0, 1, 0.55, golden ? 0.2 : 0.09);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -382,6 +411,17 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   ROLE.set = { ...ROLE.set, rimK: 0 };
   // eyelids: shaded like the skin they lie on (bodyN: the body's surface direction, not the lid's dome), so a closed
   // eye doesn't bulge out of the face with its own shadow, and a lid in the hat's shadow is as dark as the face there
+  if (golden) {
+    const back = { back: "#ffc35e", backDir: [-0.9, 0.55, -0.3] };   // the window is on the left of the frame
+    Object.assign(ROLE, {
+      char: { ...ROLE.char, lit: [1.06, 1.0, 0.9], shade: [0.84, 0.62, 0.52], ...back },
+      skin: { ...ROLE.skin, lit: [1.06, 1.14, 1.06], shade: [0.88, 0.6, 0.44], grad: 0.12, ...back },
+      cloth: { ...ROLE.cloth, lit: [1.1, 1.0, 0.95], shade: [0.62, 0.48, 0.62], grad: 0.18, ...back, back: "#ff9f6a" },
+      wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
+      set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
+    });
+    sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall
+  }
   ROLE.lid = { ...ROLE.skin, bodyN: true };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
@@ -418,10 +458,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
-      const thick = isSet ? 0.0016 : 0.0058;
+      const thick = isSet ? 0.0016 : golden ? 0.0045 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : 0.26), alpha: 1 };
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -452,13 +492,20 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
+  const bokeh = golden ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
+  if (bokeh) composer.addPass(bokeh);
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
-  // (eyes, clouds) sit at 1 and stay clean
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
+  // (eyes, clouds) sit at 1 and stay clean. Golden: the warm haze of the sunlit areas too
+  composer.addPass(golden ? new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.8, 0.95) : new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
+  if (golden) {
+    grade.uniforms.para.value = 0.62; grade.uniforms.paraPos.value.set(0.02, 0.95); grade.uniforms.paraColor.value.set(1.0, 0.72, 0.38);
+    grade.uniforms.saturation.value = 1.12; grade.uniforms.vignette.value = 0.24;
+    grade.uniforms.shadowTint.value.set(0.02, 0.0, -0.01); grade.uniforms.highTint.value.set(0.035, 0.015, -0.025);
+  }
   composer.addPass(grade);
 
   return {
@@ -474,6 +521,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
+      if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set
         if (h.material.opacity !== h.userData.lookOpacity) { h.material.opacity *= 0.5; h.userData.lookOpacity = h.material.opacity; }
