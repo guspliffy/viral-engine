@@ -1,0 +1,84 @@
+{
+ "id": "lookdev/reaper-crisp",
+ "name": "Reaper (crisp look-dev)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Shroud) and game/ui/draw-fighters.js (hood, farm scythe)",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 1.04,
+  "width": 0.76,
+  "depth": 0.72,
+  "lump": 0.035,
+  "seed": 13,
+  "taper": 0.16
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.042
+ },
+ "face": {
+  "default": "smug",
+  "iris": "#4a1f14",
+  "cheeks": "#ff7a6a",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.15,
+   "smirk": 0.35,
+   "eye": 1,
+   "browY": -0.005,
+   "lidL": 0.42,
+   "lidR": 0.42
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 1.15,
+   "depth": 0.2,
+   "iris": 0.72,
+   "glints": 1,
+   "oval": 1.32
+  },
+  "browShape": {
+   "arch": 0.01,
+   "thick": 1.05
+  },
+  "blush": 0.5
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top",
+  "lift": [
+   0.092,
+   -0.055
+  ]
+ },
+ "costume": {
+  "type": "reaper",
+  "accent": "#34313a",
+  "wood": "#6b4a2b",
+  "blade": "#c9ced6",
+  "propHand": "R",
+  "noProp": true,
+  "hoodPeak": 0.8
+ },
+ "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "tts": "reaper",
+ "voice": {
+  "pitch": 92,
+  "rate": 2.5,
+  "formant": 0.92,
+  "range": 1.5,
+  "breath": 0.12,
+  "vibrato": 0.006,
+  "seed": 23
+ },
+ "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)",
+ "hands": {
+  "type": "mitten",
+  "grip": {
+   "R": "hold"
+  },
+  "size": 1.6
+ },
+ "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): flatter eyes set into the face, bigger irises, one catch light, thicker tapered arms. Not canon until Jonny approves."
+}

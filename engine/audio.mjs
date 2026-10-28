@@ -1,7 +1,9 @@
 // Sound for a storyboard: real speech for lines that have it (engine/voice/), gibberish voices for every other `talk`
 // action, sound effects synthesised in code and placed automatically from the storyboard's events (hops, poofs,
 // flashes, charges, ...), recorded foley from the sound library (engine/sfx/: footsteps on every footfall, grabs,
-// sitting down), plus any explicit `sfx` entries, which may name a code effect or a library sound.
+// sitting down), the leads' signature sounds on their entrance and the payoff (engine/sfx/signature.mjs), plus any
+// explicit `sfx` entries, which may name a code effect or a library sound. Everything but the room bed then goes
+// through the set's own room (engine/sfx/rooms.mjs).
 // Deterministic like the picture: the same storyboard always gives the same audio.
 //
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
@@ -12,9 +14,11 @@ import { rng, hopCrouch } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
-
-const SR = 44100;
-const TAU = Math.PI * 2;
+import { SR, TAU, biquad, run, env, buf, normalise } from "./sfx/dsp.mjs";
+import { roomOf, roomSound } from "./sfx/rooms.mjs";
+import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
+import { actorState, cameraState } from "./page/timeline.js";
+import { loadCharacters } from "./load.mjs";
 
 // ---------- small DSP helpers ----------
 class Bus {
@@ -26,18 +30,6 @@ class Bus {
     for (let i = 0; i < mono.length; i++) { const k = a + i; if (k < 0 || k >= this.n) continue; this.L[k] += mono[i] * gl; this.R[k] += mono[i] * gr; }
   }
 }
-function biquad(type, f, q) {
-  const w = TAU * f / SR, c = Math.cos(w), s = Math.sin(w), al = s / (2 * q);
-  let b0, b1, b2, a0 = 1 + al, a1 = -2 * c, a2 = 1 - al;
-  if (type === "lp") { b0 = (1 - c) / 2; b1 = 1 - c; b2 = (1 - c) / 2; }
-  else if (type === "hp") { b0 = (1 + c) / 2; b1 = -(1 + c); b2 = (1 + c) / 2; }
-  else { b0 = al; b1 = 0; b2 = -al; } // band-pass, constant peak gain
-  return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: a1 / a0, a2: a2 / a0, x1: 0, x2: 0, y1: 0, y2: 0 };
-}
-function run(fl, x) { const y = fl.b0 * x + fl.b1 * fl.x1 + fl.b2 * fl.x2 - fl.a1 * fl.y1 - fl.a2 * fl.y2; fl.x2 = fl.x1; fl.x1 = x; fl.y2 = fl.y1; fl.y1 = y; return y; }
-const env = (t, a, d, total) => (t < 0 || t > total ? 0 : t < a ? t / a : Math.exp(-(t - a) / d));
-const buf = (sec) => new Float32Array(Math.max(1, Math.ceil(sec * SR)));
-function normalise(x, peak) { let m = 0; for (const v of x) m = Math.max(m, Math.abs(v)); if (m > 0) for (let i = 0; i < x.length; i++) x[i] *= peak / m; return x; }
 
 // ---------- voice ----------
 const CONS = { // duration (s), noise band (Hz), Q, voiced?
@@ -333,20 +325,6 @@ const SFX = {
   },
 };
 
-// ---------- small room reverb (Schroeder: 4 combs, 2 all-passes) ----------
-function reverb(x, wet, stereoOffset) {
-  const combs = [1116, 1188, 1277, 1356].map((n) => ({ b: new Float32Array(n + stereoOffset), i: 0, s: 0 }));
-  const aps = [556, 441].map((n) => ({ b: new Float32Array(n + stereoOffset), i: 0 }));
-  const out = new Float32Array(x.length);
-  for (let k = 0; k < x.length; k++) {
-    let y = 0;
-    for (const c of combs) { const o = c.b[c.i]; c.s = o * 0.8 + c.s * 0.2; c.b[c.i] = x[k] * 0.015 + c.s * 0.78; c.i = (c.i + 1) % c.b.length; y += o; }
-    for (const a of aps) { const o = a.b[a.i]; const v = y + o * 0.5; a.b[a.i] = v; y = o - v * 0.5; a.i = (a.i + 1) % a.b.length; }
-    out[k] = x[k] + y * wet * 6;
-  }
-  return out;
-}
-
 // ---------- variation: every clip and every event sounds a little different, same family of sounds ----------
 // The clip's seed comes from seedOf(sb) (or sound.seed), so a re-render is still identical. Each effect gets a small
 // random pitch shift, and some get a second layer picked from a few variants.
@@ -421,7 +399,9 @@ function ambience(type, seconds, r) {
 }
 
 // ---------- the storyboard -> sound events ----------
-export function soundEvents(sb) {
+// chars: the character files (loaded from the storyboard when not given); the signature sounds need them to know
+// where each lead is
+export function soundEvents(sb, chars) {
   const cfg = { auto: true, ...(sb.sound || {}) }, ev = [];
   const panOf = (who) => { const c = sb.cast.find((x) => x.id === who); return c ? Math.max(-0.3, Math.min(0.3, c.at[0] * 0.4)) : 0; }; // gentle pan: most people watch on one phone speaker
   if (cfg.auto !== false) {
@@ -449,8 +429,14 @@ export function soundEvents(sb) {
     }
   }
   if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));
+  // the leads' signature sounds on their entrance and on the payoff (engine/sfx/signature.mjs)
+  if (cfg.auto !== false) {
+    let defs = chars; if (!defs) try { defs = loadCharacters(sb); } catch { defs = {}; }
+    const known = { ...sb, cast: (sb.cast || []).filter((c) => defs[c.character]?.body) }; // 3D characters only (not the puppet's)
+    for (const e of signatureEvents(known, defs, { actorState, cameraState })) ev.push({ ...e, pan: panOf(e.who), gain: signatureGain(e.kind) });
+  }
   // a library sound already has its loudness from the catalog, so its gain is a multiplier (1 = as catalogued)
-  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
+  for (const s of sb.sfx || []) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isSignature(s.sound) ? signatureGain(s.sound) : isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
   return ev.sort((p, q) => p.at - q.at);
 }
 
@@ -482,14 +468,18 @@ export function renderAudio(sb, chars) {
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
-  const events = soundEvents(sb);
+  const events = soundEvents(sb, chars);
   for (const e of events) {
     if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice, e.pan); // real speech (engine/voice/)
     else if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
     } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
-    else if (SFX[e.kind] || isLibrarySound(e.kind)) {
+    else if (isSignature(e.kind)) { // a lead's signature: always the same take, its hit (Phoenix's burst, the bell's strike) on the event
+      const x = signatureSound(e.kind);
+      e.start = Math.max(0, e.at - x.hit); e.hit = e.start + x.hit; Object.defineProperty(e, "samples", { value: x, enumerable: false });
+      fx.add(e.start, x, e.gain * cfg.sfx, e.pan);
+    } else if (SFX[e.kind] || isLibrarySound(e.kind)) {
       // a hit sound goes in so its loudest moment lands on the event (engine/sfx/library.mjs isHit); e.start and e.hit
       // say where it went, for qa/sound.mjs
       const x = SFX[e.kind] ? effect(e.kind, r, e.dur) : librarySound(e.kind, rl, { dur: e.dur, code: effect }); // engine/sfx/
@@ -498,16 +488,21 @@ export function renderAudio(sb, chars) {
       fx.add(e.start, x, e.gain * cfg.sfx, e.pan);
     } else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
   }
+  // the set's room (engine/sfx/rooms.mjs): voices go in fully, effects a little less; sound.reverb scales it (0.12 is
+  // the room as set, 0 dry). The room bed (ambience) is a recording of the room already, so it stays out of it.
+  const room = roomOf(sb), send = cfg.reverb / 0.12;
+  const wv = roomSound(voices.L, voices.R, room, send), wf = roomSound(fx.L, fx.R, room, send * 0.6);
   // room sound for the set: sound.ambience is its gain (0 turns it off)
-  const amb = cfg.ambience ?? 0.1;
-  if (amb > 0) fx.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995)), amb, 0);
+  const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
+  if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995)), amb, 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
-  const vl = reverb(voices.L, cfg.reverb, 0), vr = reverb(voices.R, cfg.reverb, 23);
-  const fl = reverb(fx.L, cfg.reverb * 0.6, 0), fr = reverb(fx.R, cfg.reverb * 0.6, 23);
   let peak = 0;
-  for (let i = 0; i < L.length; i++) { L[i] = vl[i] + fl[i]; R[i] = vr[i] + fr[i]; peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i])); }
+  for (let i = 0; i < L.length; i++) {
+    L[i] = voices.L[i] + fx.L[i] + bed.L[i] + wv.L[i] + wf.L[i]; R[i] = voices.R[i] + fx.R[i] + bed.R[i] + wv.R[i] + wf.R[i];
+    peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i]));
+  }
   if (peak > 0.89) { const g = 0.89 / peak; for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; } }
-  return { L, R, sr: SR, events, peak };
+  return { L, R, sr: SR, events, peak, room: room.name };
 }
 
 export function writeWav(file, L, R, sr = SR) {

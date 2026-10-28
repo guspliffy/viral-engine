@@ -391,6 +391,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
         const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
         const [x, y, w, h] = box;
         if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
+        if (c.pop) return;   // a text pop sits beside its character on purpose
         let cov = c.covered;
         if (cov == null) { // fallback: share of the caption box inside any character box
           cov = 0;

@@ -15,6 +15,16 @@ export function loadCharacters(sb) {
 
 export function loadStoryboard(file) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
+  if (sb.set?.plate) plateFiles(sb.set.plate);
   const chars = loadCharacters(sb);
   return direct(compile(withSpeech(sb, chars)), chars);
+}
+
+// A painted plate uses the depth and motion maps next to its picture (engine/plates/depth.py) when they exist, so the
+// 2.5D relief and ambient motion are on by default (set-plate.js); false in the storyboard turns one off.
+function plateFiles(P) {
+  for (const [key, ext] of [["depth", ".depth.png"], ["motion", ".motion.png"]]) {
+    const f = P.src.replace(/\.\w+$/, ext);
+    if (P[key] === undefined && fs.existsSync(path.join(ROOT, f))) P[key] = f;
+  }
 }

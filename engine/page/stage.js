@@ -8,6 +8,7 @@ import { buildProp, propState, gripWorld } from "./props3d.js";
 import { rng, clamp, ease } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -86,61 +87,9 @@ function buildSlash(f) {
   };
 }
 
-// Captions, flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas is what
-// gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
+// Captions (text.js), flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas
+// is what gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
 let out, ctx, showSafe = false;
-const CAP = {
-  main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
-  sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
-  // a title plate: white letters on a dark box (the "each character vs X" format's pinned word)
-  label: { font: '900 96px "CapBlack"', size: 96, stroke: 0, pad: 34, box: "#24232b" },
-};
-// a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
-function wrap(text, maxW) {
-  if (text.includes("\n")) return text.split("\n").flatMap((t) => wrap(t, maxW));
-  const words = text.split(/\s+/), lines = []; let line = "";
-  for (const w of words) { const test = line ? line + " " + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
-  if (line) lines.push(line);
-  return lines;
-}
-// "size" (px) scales a caption's style down or up: a long pinned title that would wrap at the label's 96 px
-function capStyle(c) {
-  const st = CAP[c.style] || CAP.main;
-  if (!c.size || c.size === st.size) return st;
-  const k = c.size / st.size;
-  return { ...st, size: c.size, font: st.font.replace(/\d+px/, `${c.size}px`), stroke: Math.round(st.stroke * k), ...(st.pad && { pad: Math.round(st.pad * k) }) };
-}
-function captionLayout(c) {
-  const st = capStyle(c), pos = c.pos || "top";
-  const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
-  // full width at the top; lower down, keep clear of TikTok's right-hand buttons
-  const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
-  ctx.font = st.font; ctx.letterSpacing = "-0.5px";
-  const lines = wrap(c.text, maxW), lh = st.size * 1.12;
-  return { st, top, cx, lines, lh };
-}
-// the caption's ink box in output pixels [x, y, w, h], stroke included
-function captionBox(c) {
-  ctx.save();
-  const { st, top, cx, lines, lh } = captionLayout(c);
-  const pad = st.pad ?? 0, w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke + pad * 2;
-  ctx.restore();
-  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2), Math.round(w), Math.round(lines.length * lh + st.stroke + pad)];
-}
-function drawCaption(c) {
-  ctx.save();
-  const { st, top, cx, lines, lh } = captionLayout(c), cy = top + (lines.length * lh) / 2;
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.lineJoin = "round"; ctx.miterLimit = 2;
-  ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
-  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; ctx.fillRect(bx, by, bw, bh); }
-  lines.forEach((ln, i) => {
-    const y = top + lh * (i + 0.5);
-    if (st.stroke) { ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y); }
-    ctx.fillStyle = "#fff"; ctx.fillText(ln, cx, y);
-  });
-  ctx.restore();
-}
 // manga focus lines converging on a point
 function speedLines(f, t, i) {
   const d = f.dur ?? 0.6, k = (t - f.at) / d;
@@ -206,6 +155,15 @@ function headFx(f, t, i) {
     }
   }
   ctx.restore();
+}
+
+// where a text pop sits: beside the head (dx, dy in head sizes) or at "xy" in output pixels; text.js keeps it in the
+// safe zone
+function popAnchor(f) {
+  if (f.xy) return { x: f.xy[0], y: f.xy[1] };
+  const A = f.who && poseStates[f.who]; if (!A) return null;
+  const c = toScreen([A.st.x, A.st.y + A.a.ch.topY() * (A.st.scale ?? 1) * 0.85, A.st.z]);
+  return { x: c.x + (f.dx ?? 0.55) * c.m, y: c.y + (f.dy ?? -0.3) * c.m };
 }
 
 // the point of a character's held prop in the world (the blade tip of the Samurai's katana), from its shaft line
@@ -329,10 +287,10 @@ function photoCard(f, i, t) {
 
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
-  for (const c of captionsAt(sb, t)) drawCaption(c);
+  for (const c of captionsAt(sb, t)) drawCaption(c, t);
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
@@ -355,7 +313,7 @@ async function init(data) {
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
   buildLights(scene, sb.set);
   const before = scene.children.length;
-  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null);
+  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos);
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
@@ -379,16 +337,18 @@ async function init(data) {
   trails = (sb.fx || []).filter((f) => f.do === "trail").map(buildTrail);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
-  out = document.getElementById("out"); ctx = out.getContext("2d");
+  out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
   await Promise.all([...document.fonts].map((f) => f.load().catch(() => null)));
+  await Promise.all(globalThis.__loads || []);   // pictures the set loads (set-plate.js)
   const gl = R.getContext(), dbg = gl.getExtension("WEBGL_debug_renderer_info");
   return { ok: true, fonts: [...document.fonts].map((f) => `${f.family}:${f.status}`), gl: gl.getParameter(gl.VERSION), renderer: gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) };
 }
 
 // places characters, effects and camera for time t without drawing anything
 function pose(t) {
+  for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   const states = {};
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
@@ -531,6 +491,8 @@ function layout(t) {
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
+  // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
+  const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);
   // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
   // characters actually cover, from a quarter-resolution silhouette render
   if (caps.length) {
@@ -543,7 +505,7 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: caps, actors: actorsOut, props: propsOut, clips: clipping() };
+  return { t, captions: [...caps, ...pops], actors: actorsOut, props: propsOut, clips: clipping() };
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,

@@ -6,6 +6,7 @@
 //   c.A(0.4, "wiz", "look", { to: [-0.5, 0.1], dur: 0.2 });       // an action: time, who, what, options
 //   c.prop(1.2, "stool", { x: 0.2 }, 0.8);                          // a prop tween
 //   c.sfx(1.25, "scrape", { gain: 0.4 });  c.cap(0, 3, "That friend who never looks up.", 250);
+//   c.textPop(6.1, "rea", "gulp", { dur: 0.8 });                    // a comic word beside a head
 //   const beats = c.beats([["hook", 0, SHOT_A, "hook"], ["payoff", 6, SHOT_B]], 12);
 //   write(import.meta.url, { id: "my-clip", ...meta, cast, props, captions: c.captions, beats });
 //
@@ -26,7 +27,9 @@ export function clip() {
     still: (t, who, dur, idle = 0.12) => A(t, who, "still", { dur, idle }),
     say: (t, who, line, dur, tone = "calm") => A(t, who, "talk", { line, tone, dur }),
     macro: (t, who, macro, o = {}) => at(t, { who, macro, ...o }),
-    cap: (from, to, text, pos, pop = false) => captions.push({ from: r3(from), to: r3(to), text, pos, pop }),
+    cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: r3(from), to: r3(to), text, pos, pop, ...o }),
+    // a text pop: one comic word beside a character's head (docs/STORYBOARD.md, "Text pops")
+    textPop: (t, who, text, o = {}) => at(t, { fx: "pop", text, who, ...o }),
     // shots: [[name, start, shot | null (keep the camera; in a directed clip, the beat's kind picks it), kind?], ...]
     // in time order (a shot can also be "keep", a size like "close", or { size, who }); each beat gets the items from
     // its start up to the next shot, at times relative to that start. Nothing may happen at or after `end`.

@@ -1,0 +1,75 @@
+{
+ "id": "lookdev/reaper-home-eyes",
+ "name": "Reaper (at home, look-dev eyes)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Shroud) and game/ui/draw-fighters.js (hood, farm scythe)",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 1.0,
+  "width": 0.84,
+  "depth": 0.72,
+  "lump": 0.035,
+  "seed": 13
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.032
+ },
+ "face": {
+  "default": "smug",
+  "iris": "#4a1f14",
+  "cheeks": "#ff7a6a",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.15,
+   "smirk": 0.35,
+   "eye": 1,
+   "browY": -0.005,
+   "lidL": 0.42,
+   "lidR": 0.42
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 0.9,
+   "iris": 0.74,
+   "glints": 2
+  },
+  "browShape": {
+   "arch": 0.01,
+   "thick": 0.9
+  },
+  "blush": 0.5
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "reaper",
+  "accent": "#34313a",
+  "wood": "#6b4a2b",
+  "blade": "#c9ced6",
+  "propHand": "R",
+  "noProp": true
+ },
+ "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "tts": "reaper",
+ "voice": {
+  "pitch": 92,
+  "rate": 2.5,
+  "formant": 0.92,
+  "range": 1.5,
+  "breath": 0.12,
+  "vibrato": 0.006,
+  "seed": 23
+ },
+ "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)",
+ "hands": {
+  "type": "mitten",
+  "grip": {
+   "R": "hold"
+  }
+ },
+ "notes": "Look-dev only (style match, 28 Oct 2026): scythe left at home, bigger irises and two catch lights as in Jonny's reference panels."
+}
