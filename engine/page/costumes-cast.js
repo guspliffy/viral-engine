@@ -276,9 +276,11 @@ export function castCostume(C, ch) {
     parts.add(ring(ch, -0.36, 0.018, std("#8d9099", { metalness: 0.7, roughness: 0.35 }), 0.03));
     parts.add(ring(ch, -0.72, 0.03, std(C.belt || "#7a2424", { roughness: 0.7 }), 0.05));
     parts.add(cape(ch, C.cape || "#9c2a2a"));
-    const bird = raven(ch), perch = ch.surf(1.2, 0.05); bird.scale.setScalar(1.35); bird.position.copy(perch.pos).add(new THREE.Vector3(0.06, 0.06, 0.0)); bird.rotation.y = -0.45; parts.add(bird);
     out.sitDepth = -0.035;
-    out.apply = (st, t) => { bird.rotation.y = -0.45 + 0.25 * Math.sin(t * 0.9); bird.children[1].rotation.x = 0.15 * Math.sin(t * 2.3); };
+    if (C.raven !== false) {   // `"raven": false` leaves the shoulder raven out (a clip where it would crowd a held prop)
+      const bird = raven(ch), perch = ch.surf(1.2, 0.05); bird.scale.setScalar(1.35); bird.position.copy(perch.pos).add(new THREE.Vector3(0.06, 0.06, 0.0)); bird.rotation.y = -0.45; parts.add(bird);
+      out.apply = (st, t) => { bird.rotation.y = -0.45 + 0.25 * Math.sin(t * 0.9); bird.children[1].rotation.x = 0.15 * Math.sin(t * 2.3); };
+    }
   }
   if (T === "samurai") {
     parts.add(ring(ch, -0.5, 0.03, std(C.sash || "#2b3a5c", { roughness: 0.8 }), 0.02));

@@ -56,7 +56,8 @@
   "type": "allfather",
   "hair": "#ece9e3",
   "armour": "#2e2f36",
-  "cape": "#9c2a2a"
+  "cape": "#9c2a2a",
+  "raven": false
  },
  "personality": "Old Norse god with a raven on his shoulder. Ancient, solemn, overdramatic about small things (proposal).",
  "tts": "odin",

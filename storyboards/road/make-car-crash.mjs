@@ -28,7 +28,7 @@ const c = clip(), { A, sfx, arm, cap } = c;
 const WIZ_CHAR = process.env.WIZ_CHAR || "lookdev/wizard-crisp", DRA_CHAR = process.env.DRA_CHAR || "lookdev/dragon-crisp";
 
 // ---------------------------------------------------------------- time: tau (story time) -> clip time
-const TAU0 = -0.5, TRIP = 0.7, TAU_END = 13.6;   // the clip starts at tau -0.5; the tyres trip on the kerb at tau 0.7
+const TAU0 = -0.45, TRIP = 0.7, TAU_END = 13.75;   // the clip starts at tau -0.45 (Dragon already seeing the rock); the tyres trip on the kerb at tau 0.7
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
 const FAST = 2.25;    // v1 x 1.5 (Jonny, 17:16), then x 1.5 again (17:58)
 const CABIN = 2 / 3;  // the swipe in the air a third slower than v1 (Jonny, 18:28)
@@ -168,11 +168,25 @@ const cast = [
   { id: "dra", character: DRA_CHAR, rig: "car", at: DRA, face: "camera", expr: "kind", seed: 4.1, shadowFall: 0.001, belt: { side: "L" }, sway: 0.7,
     arms: { R: WHEEL_R, L: WHEEL_L }, grip: { R: "hold", L: "hold" } },
 ];
+// [id, kind, rest (out of sight: below the dash, or on the rear deck behind the seats), spec, float path (car frame)
+// while the car is in the air, where it drops at the landing (out of sight below the dash)]: they rise round the two
+// of them, never past a face, and float round the still phone in the cabin shot
+const SNACKS = [
+  ["apple", "apple", [-0.02, 0.42, 0.05], { scale: 1.3 }, [[1.25, [-0.05, 0.8, 0.42]], [2.2, [-0.1, 1.0, 0.42]], [4.4, [-0.13, 1.05, 0.4]], [6.3, [-0.15, 1.09, 0.38]]], [-0.02, 0.42, 0.05]],
+  ["cookie", "cookie", [-0.82, 0.9, -1.0], { scale: 1.25 }, [[1.3, [-1.0, 1.0, -0.7]], [2.4, [-1.02, 1.0, 0.2]], [4.5, [-0.84, 0.98, 0.5]], [6.3, [-0.8, 1.02, 0.5]]], [-0.56, 0.5, 0.45]],
+  ["candyA", "candy", [-0.6, 0.9, -1.05], { color: "#e8b53a", big: 1.9 }, [[1.3, [-1.0, 1.25, -0.8]], [2.5, [-1.04, 1.36, 0.1]], [4.5, [-0.96, 1.38, 0.4]], [6.3, [-0.95, 1.42, 0.4]]], [-0.6, 0.5, 0.42]],
+  ["candyB", "candy", [0.02, 0.42, -0.05], { color: "#e0475b", big: 1.9 }, [[1.3, [0.02, 0.95, 0.2]], [2.3, [0.02, 1.62, 0.1]], [4.4, [0.0, 1.78, 0.05]], [6.3, [-0.02, 1.84, 0.02]]], [0.02, 0.42, -0.05]],
+];
 const props = [
   { id: "seatW", kind: "carseat", rig: "car", x: WIZ_X, y: SEAT_Y, z: SEAT_Z },
   { id: "seatD", kind: "carseat", rig: "car", x: DRA_X, y: SEAT_Y, z: SEAT_Z },
   { id: "wheel", kind: "steer", rig: "car", x: DRA_X, y: 0.9, z: 0.25, tip: 34 },
-  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -32, scale: 2.15, case: "#36cfc0" },
+  // the screen plays the crash itself (frames of this clip, made by make-car-crash-screen.sh) and, after the swipe,
+  // the clip's first frame: the last shot pushes into it until it fills the frame, so the loop starts again on screen
+  { id: "phone", kind: "phone", style: "iphone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -32, scale: 2.15,
+    screen: { src: "assets/screens/car-crash/atlas.jpg", cols: 4, rows: 3, next: "assets/screens/car-crash/next.jpg" } },
+  // loose snacks that float round the cabin while the car turns over (the phone never moves)
+  ...SNACKS.map(([id, kind, at, o]) => ({ id, kind, rig: "car", x: at[0], y: at[1], z: at[2], ...o })),
 ];
 
 // ---------------------------------------------------------------- 0 setup at frame 0 (already driving, already scrolling)
@@ -181,7 +195,7 @@ A(0, "wiz", "grab", { prop: "phone", hand: "R", grip: [0.032, 0.03, 0], pose: nu
 A(0, "wiz", "look", { to: AT_PHONE, dur: 0.01, blink: false });
 A(0, "wiz", "face", { lid: 0.4, dur: 0.01 });
 A(0, "wiz", "expr", { expr: "kind", set: { curve: 0.22 }, dur: 0.01 });
-act.blinksAt(c, "wiz", [At(2.9), At(9.1), At(12.6)]);
+act.blinksAt(c, "wiz", [At(2.9), At(9.1)]);
 A(0, "dra", "look", { to: ROAD_AHEAD, dur: 0.01, blink: false });
 act.blinksAt(c, "dra", [At(12.9)]);
 // the steering wheel follows STEER (the hands are on its rim, so they turn with it)
@@ -196,7 +210,7 @@ const swipe = (t, big = false) => {
   arm(t + 0.26 * k, "wiz", "L", SCROLL_REST, 0.2 * k, "inOut");
   A(t + 0.27 * k, "wiz", "squash", { amount: 0.008, dur: 0.2 * k });
 };
-for (const u of [2.4, 3.9, 7.9, 10.35, 12.0]) swipe(At(u));
+for (const u of [2.4, 3.9, 7.9, 10.35]) swipe(At(u));
 swipe(0.05);
 swipe(At(5.15), true);
 c.textPop(At(5.3), "wiz", "swipe", { dur: 0.9 });
@@ -204,9 +218,9 @@ sfx(At(5.29), "kenney/scroll", { gain: 0.8, reason: "the one swipe upside down (
 
 // ---------------------------------------------------------------- 1 NORMAL: calm driving, then the rock
 cap(0, At(1.15) - 0.12, "Just one more video.", 250);
-A(At(-0.3), "dra", "look", { to: AT_ROCK, dur: 0.12, blink: false });
-A(At(-0.28), "dra", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.3 }, dur: 0.1 });
-A(At(-0.28), "dra", "face", { brow: 0.6, dur: 0.1 });
+A(0, "dra", "look", { to: AT_ROCK, dur: 0.14, blink: false });   // frame 0: his eyes are already going to the rock
+A(0.03, "dra", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.3 }, dur: 0.12 });
+A(0.03, "dra", "face", { brow: 0.6, dur: 0.12 });
 
 // ---------------------------------------------------------------- 2 SWERVE: round the rock, the back steps out, over-correction
 sfx(At(-0.1), "screech", { dur: 0.45, gain: 0.6, reason: "the tyres squeal as Dragon yanks the wheel" });
@@ -235,6 +249,13 @@ A(At(1.2), "dra", "expr", { expr: "shocked", set: { open: 0.75, eye: 1.4 }, dur:
 A(At(1.9), "dra", "look", { to: [0.25, 0.05], dur: 0.2, blink: false });
 A(At(3.4), "dra", "look", { to: ROAD_AHEAD, dur: 0.25, blink: false });
 A(At(2.0), "dra", "still", { dur: D(2.0, 4.8), idle: 0.2 });
+
+// loose snacks float up as the car turns over, drift round the cabin, and drop out of sight at the landing
+for (const [id, , , , path, land] of SNACKS) {
+  let prev = 1.0;
+  path.forEach(([u, p], i) => { c.prop(At(prev), id, { x: p[0], y: p[1], z: p[2], rot: 40 * (i + 1) * (id.length % 2 ? 1 : -1), tip: 25 * (i + 1) }, D(prev, u - prev), i ? "inOut" : "out"); prev = u; });
+  c.prop(At(6.75), id, { x: land[0], y: land[1], z: land[2], rot: 0, tip: 0 }, D(6.75, LAND - 6.75 + 0.02), "in");
+}
 
 // ---------------------------------------------------------------- 5 STILL SCROLLING (camera on the cabin, the slow-motion moment)
 A(At(4.5), "wiz", "still", { dur: D(4.5, 1.5), idle: 0.1 });
@@ -271,8 +292,15 @@ A(At(11.35), "dra", "expr", { expr: "kind", dur: 0.4 });
 
 // ---------------------------------------------------------------- 8 RETURN: the opening frame again
 // one more glance at the phone (eyes only) before the loop: back on the road in time, so the end matches frame 0
-A(At(12.5), "dra", "look", { to: [-0.6, -0.3], dur: 0.25, blink: false });
-A(At(13.05), "dra", "look", { to: ROAD_AHEAD, dur: 0.3, blink: false });
+// the last shot: his phone. The crash plays on the screen (the video he is watching is this one), he swipes, the next
+// video is the clip's first frame, and the camera pushes into it until it fills the frame
+const TP = At(11.5), SW = TP + 1.0, ZOOM = SW + 0.75;
+c.prop(TP, "phone", { feed: 11 }, 0.98, "linear");
+swipe(SW);
+c.prop(SW + 0.08, "phone", { nextFeed: 12, scroll: 1 }, 0.72, "inOut");   // slow enough that no frame jumps
+c.prop(0, "phone", { nextFeed: 12 }, 0.01);
+sfx(SW + 0.2, "kenney/scroll", { gain: 0.6, reason: "the swipe to the next video" });
+sfx(ZOOM, "whoosh", { dur: 0.4, gain: 0.35, reason: "the push into the screen (the loop)" });
 A(At(11.5), "wiz", "face", { lid: 0.4, dur: 0.3 });
 
 // ---------------------------------------------------------------- the engine (audio.mjs engineSound): [t, rpm, load, road]
@@ -282,10 +310,13 @@ const ENGINE = [[0, 2300, 0.5, 1], [At(-0.15), 2300, 0.5, 1], [At(-0.05), 1700, 
   [At(9.3), 2500, 0.6, 1], [At(11.6), 2350, 0.55, 1], [END, 2300, 0.5, 1]].map(([t, ...v]) => [r3(t), ...v]);
 
 // ---------------------------------------------------------------- shots (world frame; the car stays near z 0)
-const FRONT = { pos: [0, 1.66, 5.1], look: [0, 1.12, -0.25], fov: 42 };
+// the distance (phone units) at which the iPhone's 9:16 video (props3d.js IPHONE.videoH = 0.0717 * 16 / 9 tall) fills a
+// 50 degree frame, a hair closer so no edge shows
+const VIDEO_FILL = r3((0.0717 * 16 / 9 / 2) / Math.tan((25 * Math.PI) / 180) - 0.0005);
 const xAt = (u) => herm(SIDE, u);
 const beats = c.beats([
-  ["normal", 0, FRONT, "hook"],
+  // frame 0: closer on the two of them, a quick push toward Dragon as he sees the rock
+  ["normal", 0, { pos: [0.05, 1.66, 4.7], look: [0.05, 1.18, -0.25], fov: 40, to: { pos: [0.25, 1.62, 4.05], look: [0.25, 1.22, -0.25] }, dur: D(TAU0, -0.12 - TAU0), ease: "out" }, "hook"],
   // high in front, the rock in the foreground on the left, the island on the right: the car swerves round the rock
   ["swerve", At(-0.12), { pos: [0.4, 3.4, 7.6], look: [-0.2, 0.5, 0.6], fov: 46, to: { pos: [0.8, 3.0, 7.0], look: [0.6, 0.55, 0.2] }, dur: D(-0.12, 0.82), ease: "inOut" }],
   // one take (Jonny, 18:28): low ahead of the car along the gap to the island as the sliding tyres strike the kerb,
@@ -296,7 +327,10 @@ const beats = c.beats([
   // from the front and low: the cabin swings back up to face us before the touchdown
   ["landing", At(6.0), { pos: [xAt(6.0) + 0.6, 1.7, 7.2], look: [xAt(6.0), 1.4, 0.2], fov: 42, to: { pos: [xAt(8.0) + 0.7, 1.35, 6.4], look: [xAt(8.0), 1.0, 0.2] }, dur: D(6.0, 2.0), ease: "inOut" }],
   ["everything is fine", At(8.5), { track: "car", pos: [-2.5, 2.0, 4.6], look: [-0.1, 1.1, -0.25], fov: 40, to: { pos: [-2.25, 1.97, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],   // the v3 push-in pace; the cut now comes before it ends
-  ["return", At(11.5), { pos: [0.3, 1.72, 4.8], look: FRONT.look, fov: FRONT.fov, to: FRONT, dur: r3(END - T(11.5)), ease: "inOut" }],
+  // his phone, locked to it (the world turns behind it), seen from where his eyes are (he is left out of these two
+  // shots, his head would fill them): the crash on screen, then into the next video
+  ["his phone", TP, { prop: "phone", hide: ["wiz"], pos: [0, 0.098, 0.205], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, 0.19], look: [0, 0.0775, 0] }, dur: SW - TP, ease: "inOut" }],
+  ["next video", ZOOM, { prop: "phone", hide: ["wiz"], pos: [0, 0.0775, 0.19], look: [0, 0.0775, 0], fov: 50, to: { pos: [0, 0.0775, VIDEO_FILL], look: [0, 0.0775, 0] }, dur: r3(END - ZOOM - 1 / 30), ease: "in" }],
 ].map(([n, t, s, k]) => [n, r3(t), s, k]), END);
 
 write(import.meta.url, {
@@ -315,3 +349,5 @@ write(import.meta.url, {
   notes: `Generated by storyboards/road/make-car-crash.mjs (v2). Road ${DIST} m at cruise ${V} m/s.`,
 });
 console.log(`END ${END} s, cruise ${V} m/s, road ${DIST} m; trip at ${At(TRIP)} s, cabin ${At(4.5)}-${At(6.0)} s, landing ${TL} s`);
+// the screen's video (make-car-crash-screen.sh renders these): 12 frames of the roll, then the first frame
+console.log(`screen: ${Array.from({ length: 12 }, (_, i) => r3(At(1.0) + (i / 11) * (At(4.45) - At(1.0)))).join(",")}`);

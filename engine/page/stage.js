@@ -487,8 +487,15 @@ function pose(t) {
   // a shot with "track" follows that rig across the road (its x and z, not its turns): pos and look ride along with it
   const TR = shot && shot.track && rigs.get(shot.track);
   if (TR) { const p = rigState(TR.r, t).pos; cp.x += p[0]; cp.z += p[2]; cl.x += p[0]; cl.z += p[2]; }
-  camera.position.copy(cp); camera.fov = cam.fov; camera.updateProjectionMatrix(); camera.lookAt(cl);
+  // a shot with "prop" is fixed to that prop (a phone held up to the lens): pos and look in the prop's own frame;
+  // the holder's head is usually between, so such a shot sets `near` past it
+  const PR = shot && shot.prop && props.find((p) => p.spec.id === shot.prop);
+  if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
+  // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
+  camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
+  // hide: actors left out of a shot (whoever holds the phone in a shot from behind its screen)
+  for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
 }
 
 function frame(t) {
