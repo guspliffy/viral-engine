@@ -106,6 +106,12 @@ export class Character {
     const dc = globalThis.__DIAG?.colors, m = this.limbMat, M = (c) => (dc ? new THREE.MeshLambertMaterial({ color: c }) : m);
     g.userData.size = this.def.hands?.size ?? 1.3;   // the concept's big round mittens
     const palm = new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 16), M("#e03030")); palm.scale.set(1, 0.95, 0.78); palm.castShadow = true; g.add(palm);
+    // hands.wrist: the heel of the hand, a short cone from the forearm's wrist out to the palm, so arm and mitten read as
+    // one construction instead of a ball stuck on a tube (Jonny's crisp-anime paper, 28 Oct)
+    if (this.def.hands?.wrist) {
+      const w = (this.def.limbs.width * 0.78) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.046, w, 0.055, 20, 1), M("#e03030"));
+      heel.position.y = -0.05; heel.scale.z = 0.8; heel.castShadow = true; g.add(heel);
+    }
     const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
     const fingers = piv(-0.012, 0.04, 0), mitt = new THREE.Mesh(new THREE.SphereGeometry(0.046, 20, 14), M("#ff9a20"));
     mitt.scale.set(1.05, 1.05, 0.8); mitt.position.y = 0.045; mitt.castShadow = true; fingers.add(mitt);

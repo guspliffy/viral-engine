@@ -39,7 +39,10 @@
   },
   "browShape": {
    "arch": 0.06,
-   "thick": 1.05
+   "thick": 1.05,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
   }
  },
  "sprout": {
@@ -69,6 +72,7 @@
  "voiceNote": "gibberish, low and slow, a little breathy",
  "hands": {
   "type": "mitten",
-  "size": 1.6
+  "size": 1.6,
+  "wrist": true
  }
 }

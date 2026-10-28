@@ -40,7 +40,10 @@
   },
   "browShape": {
    "arch": 0.01,
-   "thick": 1.05
+   "thick": 1.05,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
   },
   "blush": 0.5
  },
@@ -59,7 +62,8 @@
   "blade": "#c9ced6",
   "propHand": "R",
   "noProp": true,
-  "hoodPeak": 0.8
+  "hoodPeak": 0.8,
+  "hoodLining": 0.09
  },
  "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "tts": "reaper",
@@ -78,7 +82,8 @@
   "grip": {
    "R": "hold"
   },
-  "size": 1.6
+  "size": 1.6,
+  "wrist": true
  },
  "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): flatter eyes set into the face, bigger irises, one catch light, thicker tapered arms. Not canon until Jonny approves."
 }

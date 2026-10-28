@@ -153,7 +153,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "R",
-   "shape": "hold",
+   "shape": "rim",
    "dur": 0,
    "at": 0
   },
@@ -176,7 +176,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "L",
-   "shape": "hold",
+   "shape": "rim",
    "dur": 0,
    "at": 0
   },
@@ -199,7 +199,7 @@
    "who": "rea",
    "do": "grip",
    "side": "R",
-   "shape": "hold",
+   "shape": "rim",
    "dur": 0,
    "at": 0
   },
@@ -222,7 +222,7 @@
    "who": "rea",
    "do": "grip",
    "side": "L",
-   "shape": "hold",
+   "shape": "rim",
    "dur": 0,
    "at": 0
   },
