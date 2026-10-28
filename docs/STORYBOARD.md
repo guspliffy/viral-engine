@@ -31,10 +31,12 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   one, see "Directed camera" below). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
-  word pops in as it is said (timed from the talk line it matches), the word being said is lit in the speaker's
+  word pops in as it is said (timed from the talk line it matches: with a real voice, from the voice model's own
+  word timings; with the gibberish voice, from a syllable count), the word being said is lit in the speaker's
   colour, ALL CAPS or `*starred*` words punch in in that colour, and a caption shrinks out instead of cutting. A
   caption that repeats the one before it and adds words ("and share a…" then "and share a\nFUN FACT.") keeps the
-  first words still. Unspoken captions (a hook) pop in word by word. `"kinetic": false` on one caption keeps
+  first words still. Unspoken captions (a hook) pop in word by word; a
+  `narrate` line with a real voice is timed like a talk line. `"kinetic": false` on one caption keeps
   it in the classic style (Nothing Scares Reaper's hook, so it doesn't fight the "BOO!"). Without it, captions keep the classic style.
 - **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
   character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
