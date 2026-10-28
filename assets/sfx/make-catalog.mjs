@@ -111,7 +111,7 @@ for (const dir of fs.readdirSync(HERE).filter((d) => fs.existsSync(path.join(HER
 // sounds take the winner's takes. Kept as they were: step-wood, step-concrete, step-grass and zap (Kenney won).
 const take = (id, nums) => { const f = sounds[id]?.files; if (!f) throw new Error(`no ${id}`); return nums ? nums.map((n) => f[n - 1]) : f; };
 Object.assign(sounds, {
-  "katana-slice": { layers: [["shing", 0, 0.45]] }, // the engine's own code "shing" beat Kenney and AI
+  "katana-slice": { layers: [["shing", 0.07, 0.45]] }, // the engine's own code "shing" beat Kenney and AI; still 0.07 s after the swing starts
   "step-carpet": { source: "ai", files: take("ai/step-carpet"), gain: 0.35 },
   key: { source: "ai", files: take("ai/key-press"), gain: 0.16 }, // the typing pattern's pool
   "wing-flap": { source: "ai", files: take("ai/wing-flap", [5, 6, 7, 8, 1]), gain: 0.3, anchor: "hit" }, // "AI B" on the sheet; auto on Phoenix's downstrokes

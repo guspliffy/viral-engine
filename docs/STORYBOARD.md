@@ -20,7 +20,8 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   0.5 s past the voice, so `"+0.2"` leaves a pause and `"voice+0.2"` answers straight away. Choose on purpose.
 - **Items**: an action `{ "who", "do", ... }` (all engine actions), an effect `{ "fx": "flash", ... }`, a sound
   `{ "sfx": "tink", ... }`, a caption `{ "caption": "text", "len": 1 }`, or a macro `{ "macro", "who", ... }`.
-- **Sounds**: walks, grabs and sits get recorded foley on their own (footsteps land on the legs' footfalls). Name a
+- **Sounds**: walks, grabs and sits get recorded foley on their own (footsteps land on the legs' footfalls), and a
+  flying Phoenix (or Dragon) gets a wing flap on every downstroke (`"sound": { "flaps": false }` turns it off). Name a
   library sound for everything else the picture does: `{ "sfx": "katana-slice" }` on the frame the blade starts
   moving (the cut lands 0.07 s later), `knock`, `door-slam`, `typing` with a `dur`, `put-down` when a prop is set
   down (a release is silent: it might be a throw). Full list in README (`sfx`).
