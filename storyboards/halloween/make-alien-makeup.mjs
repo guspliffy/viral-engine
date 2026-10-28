@@ -97,6 +97,13 @@ function build(variant) {
   // ------------------------------------------------------------ 03 the finished alien (1.2-1.8)
   on(1.2, "ast", "expr", { expr: "eager", dur: 0.15 });
   on(1.2, "ast", "look", { to: [0, 0], dur: 0 });
+  // he shows it off: both fists up in front of the suit, below the helmet rim (C's frame 0 moves at once)
+  for (const [side, dx] of [["R", -0.17], ["L", 0.17]]) {
+    arm(1.2, "ast", side, { world: [AST[0] + dx, 0.5, AST[1] + 0.58] }, 0.22, "settle");
+    on(1.2, "ast", "grip", { side, shape: "fist", dur: 0.15 });
+  }
+  arm(2.0, "ast", "L", "rest", 0.4);
+  on(2.0, "ast", "grip", { side: "L", shape: "open", dur: 0.2 });
   fx(1.22, "jingle-pizzicato", { gain: 0.35 });
 
   // ------------------------------------------------------------ 04 admire the work (1.8-3.3)
@@ -183,14 +190,17 @@ function build(variant) {
 
   // ------------------------------------------------------------ shots
   const tip = STROKE[1];
-  const S1 = { pos: [0.22, 0.8, 0.95], look: [-0.1, 0.72, -0.15], fov: 42 };   // close two-shot: his face, the brush on the glass
+  // the opening: a close two-shot (his proud face, the brush on the glass, the alien face), as in the storyboard's
+  // first panel. The brief's extreme close-up on the brush read as "a brush and a green blob" in the cold read (28 Oct)
+  const S1 = { pos: [-0.5, 0.9, 2.2], look: [-0.02, 0.74, -0.3], fov: 38 };
   const S2 = { pos: [-0.05, 0.86, 1.95], look: [-0.36, 0.76, -0.05], fov: 36 };
   const S3 = { pos: [HC[0], 0.8, 1.45], look: [HC[0], 0.74, HC[2]], fov: 36 };
   const S4 = { pos: [-0.14, 0.86, 3.2], look: [-0.14, 0.76, -0.3], fov: 40 };
   const S5 = { pos: [1.3, 1.3, 1.75], look: [0.3, 0.86, -0.5], fov: 36 };
   const S6 = { pos: [-0.05, 0.86, 1.85], look: [-0.36, 0.78, -0.05], fov: 34 };
   const S8 = { pos: [-0.12, 0.84, 3.15], look: [-0.12, 0.74, -0.3], fov: 41, to: { pos: [-0.1, 0.83, 2.95], look: [-0.1, 0.74, -0.3], fov: 41 }, dur: 1.8, ease: "out" };
-  const story = [["paint", 0, S1, "hook"], ["proud", 0.6, S2], ["alien", 1.2, S3], ["admire", 1.8, S4], ["lift", 3.3, S5, "payoff"], ["wizard", 5.5, S6], ["lower", 6.6, S5], ["thumbs-up", 8.2, S8]];
+  const story = [["paint", 0, S1, "hook"], ["proud", 0.6, S2], ["alien", 1.2, START > 0 ? S1 : S3], ["admire", 1.8, S4], ["lift", 3.3, S5, "payoff"], ["wizard", 5.5, S6], ["lower", 6.6, S5], ["thumbs-up", 8.2, S8]];
+  // C opens on story shot 03 framed as the two-shot (the cold read wanted both of them in the first frame)
   const shots = story.filter(([, t]) => t >= START).map(([n, t, s, k]) => [n, r3(t - START), s, k ?? (t === START ? "hook" : undefined)]);
   const beats = c.beats(shots, END);
 

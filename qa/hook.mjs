@@ -46,8 +46,9 @@ export function openingRules(sb, layout) {
     // actor boxes are screen-space [x, y, w, h]; clip them to the frame (a body half off-screen reads half as big)
     const vis = (s0.actors || []).filter((a) => a.box).map((a) => {
       const [x, y, w, h] = a.box, y0 = Math.max(0, y), y1 = Math.min(H, y + h), x0 = Math.max(0, x), x1 = Math.min(W, x + w);
-      return { id: a.id, share: x1 > x0 ? Math.max(0, y1 - y0) / H : 0, inFrame: w > 0 && h > 0 ? Math.max(0, (x1 - x0) * (y1 - y0)) / (w * h) : 0 };
-    }).sort((a, b) => b.share - a.share);
+      const area = Math.max(0, x1 - x0) * Math.max(0, y1 - y0);
+      return { id: a.id, area, share: x1 > x0 ? Math.max(0, y1 - y0) / H : 0, inFrame: w > 0 && h > 0 ? area / (w * h) : 0 };
+    }).sort((a, b) => b.area - a.area);   // the one taking the most of the screen (a sliver at the edge can be full height)
     const big = vis[0];
     add(big && big.share >= OPENING.bodyShare, "face-size", big ? `biggest character at frame 0: ${big.id}, ${(big.share * 100).toFixed(0)}% of the frame height${big.inFrame < 0.8 ? `, only ${(big.inFrame * 100).toFixed(0)}% of it in frame` : ""} (rule: ${OPENING.bodyShare * 100}% or more)` : "no character on screen at frame 0");
   } else out.push({ level: "note", rule: "face-size", msg: "no layout, so the frame-0 size wasn't measured" });
