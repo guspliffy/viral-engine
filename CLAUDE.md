@@ -120,14 +120,18 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    `node qa/motion.mjs <sb>` (under a second) finds hands, bodies or wings that jump between two frames, straight
    from the storyboard. Fix those before any render. `--layout` also prints the contact results (overlap, grips,
    arms through staffs or brims, hand pops), and fixes for them come first too. Look at a 10–15 fps draft strip of
-   every grab, release, raise and contact.
-2. **Creative director review A (storyboard)**: Fable reviews the storyboard and a contact sheet of the draft stills.
+   every grab, release, raise and contact. `node qa/readability.mjs <sb>` (about a minute) warns when a character
+   melts into the set or into another character at a beat, and draws each beat as a frame with the lost outline in
+   red above all characters as black silhouettes: a pose that doesn't read in black won't read in a feed.
+2. **Creative director review A (storyboard)**: Fable reviews the storyboard, a contact sheet of the draft stills and
+   the readability sheet.
    See `qa/REVIEW.md`. **Default for every new clip**, one round. Apply the notes, then go to step 3.
 3. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-5. **Full render** in the background (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
+5. **Full render** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in the
+   background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor),
    a 15 fps strip of every contact moment, then **creative director review B (cut)**
    on its contact sheet (`node qa/contact.mjs <clip> --sb <sb>`), one round. Apply the notes that are cheap
@@ -148,3 +152,13 @@ are his call. Skip the reviews only for pure engine tests, and say so.
   drawing. Run them in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
   machine with a graphics card, try `--gl gpu` on a 1 s range (`--from 4 --to 5`) and compare the timing line; the
   "stage ready" line names the renderer actually used.
+- **Render farm** (Jonny OK'd 28 Oct 2026): `.github/workflows/render.yml` cuts a clip into frame ranges, draws them on
+  up to 20 free GitHub runners at once and joins them (`gh workflow run render.yml -f storyboard=<sb> -f flags="--draft"`,
+  or Actions → Render a clip). The MP4, cover and check result are the run's `clip` artifact for 3 days, downloadable
+  by anyone on GitHub (the repo is public): fine for clips Jonny is about to post, not for anything private. The same
+  split works by hand: `--shard 3/12` on each machine, `--stitch 12` where the shards are collected.
+- **Engine changes**: after changing anything in `engine/`, `characters/` or `assets/`, run `node qa/golden.mjs`
+  (also runs on every pull request). It draws 12 approved stills (`qa/golden/golden.json`) with your working tree and
+  with `origin/main` on the same machine (2.5 minutes each; main's are kept per commit) and fails on any changed pixel,
+  with a sheet of main | now | difference | zoom in `out/golden/`. A change you meant goes to Jonny with that sheet;
+  merging it makes it the golden look. Add a still to the list when Jonny approves a clip.

@@ -1,0 +1,55 @@
+# Golden stills (qa/golden.mjs) on every pull request that touches the engine, characters or assets: the 12 approved
+# frames are drawn with the pull request and with its base branch on the same runner and compared pixel by pixel. A
+# change fails the check, and the run's "golden" artifact holds the sheet (base | now | difference | zoom) for 3 days.
+# A change Jonny wants is simply merged: main is the golden look.
+name: Golden stills
+on:
+  pull_request:
+    paths:
+      - "engine/**"
+      - "characters/**"
+      - "assets/**"
+      - "qa/golden*"
+      - "qa/golden/**"
+      - "qa/pixels.mjs"
+      - ".github/workflows/golden.yml"
+      - "package-lock.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  golden:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      - id: base
+        run: echo "sha=$(git rev-parse "origin/${BASE}^{commit}")" >> "$GITHUB_OUTPUT"
+        env:
+          BASE: ${{ github.base_ref || 'main' }}
+      # the base branch's stills, drawn once per base commit
+      - uses: actions/cache@v4
+        with:
+          path: out/golden/base-*
+          key: golden-base-${{ steps.base.outputs.sha }}-${{ hashFiles('qa/golden/golden.json') }}
+      - name: Compare with the base branch
+        shell: bash
+        env:
+          BASE: ${{ github.base_ref || 'main' }}
+        run: |
+          node qa/golden.mjs --base "origin/$BASE" | tee golden.txt
+          status=${PIPESTATUS[0]}
+          { echo '```'; cat golden.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden
+          path: |
+            out/golden/sheet.png
+            out/golden/golden.json
+          retention-days: 3
+          if-no-files-found: ignore
