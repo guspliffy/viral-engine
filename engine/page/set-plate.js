@@ -5,16 +5,19 @@ import * as THREE from "three";
 // Use it on a "plain" set (its floor takes the shadows).
 //   spec.plate: { src: "assets/plates/<name>.png", z: -2.2 (where it hangs), center: [x, y] (its middle),
 //                 height: 3.2 (metres; the width follows the picture), tint: "#ffffff" (multiplies it),
-//                 depth: "assets/plates/<name>.depth.png", relief: 0.6 (metres the nearest parts come forward),
-//                 eye: [0, 1.2, 4.4] (where the picture looks right from: the first camera position),
-//                 motion: "assets/plates/<name>.motion.png" (red = leaves sway, green = sunlight shimmers),
-//                 dust: 40 (motes floating in the sunlight), dustBox: [[x0, y0, z0], [x1, y1, z1]], dustSize: 0.014 (m),
-//                 dustOpacity: 0.85, dustColor: "#ffe0a0" }
+//                 depth: "<name>.depth.png", relief: 0.6 (metres the nearest parts come forward),
+//                 eye: [x, y, z] (where the picture looks right from; default the camera at 0 s),
+//                 motion: "<name>.motion.png" (red = leaves sway, green = sunlight shimmers),
+//                 dust: 40 (motes floating in the light; default 40 in golden light, else 0),
+//                 dustBox: [[x0, y0, z0], [x1, y1, z1]] (default: the upper middle, a little in front of the plate),
+//                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0" }
+// Depth and motion are on by default: engine/load.mjs fills them in when the files next to the picture exist (false
+// turns one off).
 // depth.png and motion.png come from engine/plates/depth.py. With relief the plate becomes a relief: each point moves
 // toward the eye by its depth, so from the eye it looks exactly like the picture and a moving camera sees parallax.
 // Everything moving is a function of the frame time (globalThis.__setTicks, called by stage.js pose), so renders
 // stay deterministic. The pictures load before the first frame: stage.js waits for globalThis.__loads.
-export function addPlate(scene, P) {
+export function addPlate(scene, P, ctx = {}) {
   const mat = new THREE.MeshBasicMaterial({ color: P.tint || "#ffffff", fog: false, toneMapped: false });
   mat.userData.noOutline = true;
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
@@ -22,6 +25,7 @@ export function addPlate(scene, P) {
   mesh.name = "set-plate"; scene.add(mesh);
   const tex = (src) => new THREE.TextureLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
   const loads = [tex(P.src), P.depth && tex(P.depth), P.motion && tex(P.motion)];
+  P = { eye: ctx.eye, ...P };
   const load = Promise.all(loads).then(([map, depth, motion]) => {
     map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 4;
     const w = h * map.image.width / map.image.height;
@@ -31,7 +35,11 @@ export function addPlate(scene, P) {
     mat.needsUpdate = true;
   });
   (globalThis.__loads ||= []).push(load);
-  if (P.dust) dust(scene, P);
+  const motes = P.dust ?? (ctx.light === "golden" ? 40 : 0);
+  if (motes) {
+    const half = h * 0.4, box = [[x - half * 0.56, y, z + 0.5], [x + half * 0.56, y + half, z + 1.0]];
+    dust(scene, { dustBox: box, ...P, dust: motes });
+  }
   return mesh;
 }
 
@@ -86,7 +94,7 @@ function dust(scene, P) {
   const g = dot.getContext("2d"), grd = g.createRadialGradient(16, 16, 0, 16, 16, 16);
   grd.addColorStop(0, "rgba(255,255,255,1)"); grd.addColorStop(0.4, "rgba(255,255,255,0.5)"); grd.addColorStop(1, "rgba(255,255,255,0)");
   g.fillStyle = grd; g.fillRect(0, 0, 32, 32);
-  const mat = new THREE.PointsMaterial({ color: P.dustColor || "#ffe0a0", size: P.dustSize ?? 0.014, map: new THREE.CanvasTexture(dot),
+  const mat = new THREE.PointsMaterial({ color: P.dustColor || "#ffe0a0", size: P.dustSize ?? 0.04, map: new THREE.CanvasTexture(dot),
     vertexColors: true, transparent: true, opacity: P.dustOpacity ?? 0.85, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, fog: false });
   mat.userData.outlineParameters = { visible: false };
   const pts = new THREE.Points(geo, mat); pts.name = "set-dust"; pts.frustumCulled = false; scene.add(pts);

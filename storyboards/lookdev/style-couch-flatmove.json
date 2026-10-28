@@ -23,7 +23,10 @@
     0,
     1.2
    ],
-   "height": 4.9
+   "height": 4.9,
+   "depth": false,
+   "motion": false,
+   "dust": 0
   },
   "para": 0,
   "bloom": "emissive"

@@ -355,7 +355,7 @@ async function init(data) {
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
   buildLights(scene, sb.set);
   const before = scene.children.length;
-  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null);
+  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos);
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });

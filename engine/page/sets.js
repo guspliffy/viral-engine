@@ -47,9 +47,9 @@ function groundTexture(inner, outer) {
 
 // Every set object must be added here: stage.js treats whatever buildSet adds as scenery (hidden in impact frames
 // and in the caption-coverage silhouette). The stage is around x -1..1, z 0; cameras look from +z.
-export function buildSet(scene, spec = {}, palette = null) {
+export function buildSet(scene, spec = {}, palette = null, eye = null) {
   const r = buildSetType(scene, spec, palette);
-  if (spec.plate) addPlate(scene, spec.plate);   // set-plate.js: a painted backdrop behind the 3D stage
+  if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light });   // set-plate.js: a painted backdrop behind the 3D stage
   return r;
 }
 function buildSetType(scene, spec, palette) {
