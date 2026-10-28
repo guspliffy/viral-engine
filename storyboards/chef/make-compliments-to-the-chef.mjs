@@ -133,12 +133,14 @@ A(3.6, "gun", "face", { lid: 0.34, tilt: 0.2, dur: 0.4 });         // the strain
 
 // ---------------------------------------------------------------- 05 HOLD THE SMILE 4.20-6.60
 // the quiver: one corner, small and irregular, as if held down
-const quiver = [[4.35, -0.2], [4.5, 0.03], [4.62, -0.25], [4.8, -0.04], [4.92, -0.22], [5.08, 0], [5.85, -0.18], [6.0, 0.05], [6.12, -0.26], [6.32, -0.06]];
-for (const [t, v] of quiver) A(t, "gun", "face", { cornerR: v, dur: 0.1 });
+const quiver = [[4.4, -0.35], [4.62, 0], [4.8, -0.35], [5.0, 0.02], [5.9, -0.35], [6.12, 0]];   // slow and big enough to read on a phone
+for (const [t, v] of quiver) A(t, "gun", "face", { cornerR: v, dur: 0.12 });
 A(4.32, "gun", "face", { press: 0.35, dur: 0.2 });
 A(5.15, "gun", "face", { press: 0.9, cornerR: 0.1, dur: 0.12 });   // the swallow: lips pressed
-A(5.2, "gun", "squash", { amount: 0.05, dur: 0.35 });                // cheeks and shoulders tighten
-A(5.2, "gun", "expr", { set: { eye: 0.8 }, dur: 0.1 });
+A(5.2, "gun", "squash", { amount: 0.09, dur: 0.35 });                // cheeks and shoulders tighten
+A(5.2, "gun", "pitch", { to: 4, dur: 0.15 });                       // the gulp dips the head
+A(5.38, "gun", "pitch", { to: 0, dur: 0.22 });
+A(5.2, "gun", "expr", { set: { eye: 0.75 }, dur: 0.1 });
 A(5.55, "gun", "face", { press: 0.35, dur: 0.15 });
 A(6.4, "gun", "face", { press: 0, dur: 0.15 });
 A(5.6, "gun", "expr", { set: { curve: 0.9, eye: 0.86 }, dur: 0.15 }); // presses the smile back into place
@@ -165,9 +167,9 @@ sfx(7.5, "ai/blep", { gain: 0.8 });
 sfx(7.68, "ai/drip", { gain: 0.9 });
 sfx(7.76, "ai/drip", { gain: 0.6 });
 A(7.76, "gun", "expr", { set: { open: 0, curve: -0.1, eye: 0.95 }, dur: 0.1 });
-A(7.82, "gun", "face", { lid: 0.3, dur: 0.15 });
-A(7.84, "gun", "look", { to: GUN_AT_BOWL, dur: 0.15, blink: false });
-A(7.9, "gun", "pitch", { to: 2, dur: 0.3 });
+A(7.95, "gun", "face", { lid: 0.3, dur: 0.15 });                     // eyes stay shut until the drops are in
+A(7.97, "gun", "look", { to: GUN_AT_BOWL, dur: 0.15, blink: false });
+A(8.0, "gun", "pitch", { to: 2, dur: 0.2 });
 A(6.6, "gun", "still", { dur: 1.6, idle: 0.12 });
 
 // ---------------------------------------------------------------- 07 CHEF IS WATCHING 8.20-10.0
@@ -186,6 +188,7 @@ A(8.3, "odn", "face", { brow: 0, dur: 0.25 });
 A(8.6, "odn", "face", { browR: 1.3, dur: 0.35 });                     // one white eyebrow rises (his right, screen left)
 A(8.6, "odn", "pitch", { to: 0, dur: 0.4 });
 A(8.9, "gun", "still", { dur: 1.1, idle: 0.08 });
+A(8.9, "odn", "face", { lid: 0.32, dur: 0.3 });                      // the proud look narrows: he saw that
 A(9.2, "gun", "face", { lid: 0.4, dur: 0.12 });
 A(9.34, "gun", "face", { lid: 0.28, dur: 0.15 });
 
@@ -198,13 +201,14 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
   const pos = target.map((v, i) => r3(v + dir[i] * d));
   return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
 };
-const S1 = frame([0.2, 0.8, 0.42], { az: -30, el: 4, h: 1.75, fov: 24 });
+const S1 = frame([0.1, 0.8, 0.42], { az: -30, el: 4, h: 1.75, fov: 24 });
 const S2 = frame([-0.33, 0.92, 0.42], { az: -10, el: 6, h: 1.7, fov: 20 });
-const S3 = frame([-0.06, 0.9, 0.34], { az: -20, el: 4, h: 1.75, fov: 22 });
+const S3 = frame([-0.06, 0.9, 0.34], { az: -10, el: 4, h: 1.75, fov: 22 });
 const S4 = frame([-0.37, 0.8, 0.36], { az: -5, el: -16, h: 0.5, fov: 12, push: 0.07, dur: 2.4 });
-const S5 = frame([-0.37, 0.61, 0.39], { az: -5, el: -3, h: 0.4, fov: 12 });
+S4.to.look = [-0.33, 0.79, 0.36];   // the creep ends centred on both eyes
+const S5 = frame([-0.38, 0.63, 0.37], { az: 35, el: -3, h: 0.45, fov: 14 });   // from the cook's side: a new angle on the mouth
 const S6 = frame([-0.27, 0.58, 0.44], { az: -10, el: 7, h: 0.95, fov: 20 });
-const S7 = frame([-0.1, 0.69, 0.32], { az: -16, el: 2, h: 1.48, fov: 22 });
+const S7 = frame([-0.03, 0.72, 0.32], { az: -10, el: 2, h: 1.85, fov: 22 });
 const beats = c.beats([
   ["01 proud chef", 0, S1, "hook"],
   ["02 taste", 0.5, S2],

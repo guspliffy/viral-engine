@@ -65,7 +65,7 @@ export const CHEF_KINDS = {
     ringM.userData.noOutline = true;
     const drops = [], rings = [];
     for (let i = 0; i < DROPS; i++) {
-      const d = mesh(new THREE.SphereGeometry(0.011 * [1, 0.85, 0.75, 0.6][i], 14, 10), dropM, P.whole); d.castShadow = false; d.visible = false; drops.push(d);
+      const d = mesh(new THREE.SphereGeometry(0.015 * [1, 0.85, 0.75, 0.6][i], 14, 10), dropM, P.whole); d.castShadow = false; d.visible = false; drops.push(d);
       const r = mesh(new THREE.RingGeometry(0.8, 1, 32), ringM.clone(), P.whole, ...landing(from, i)); r.rotation.x = -Math.PI / 2; r.castShadow = false; r.visible = false; rings.push(r);
     }
     return {
