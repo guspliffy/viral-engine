@@ -1,0 +1,68 @@
+{
+ "id": "duo/sorcerer",
+ "name": "Sorcerer (DUO: Launch Day, weapon stowed, glove hands)",
+ "franchise": "PotatoBrawl",
+ "source": "Jonny's reference portraits, 2026-10-24",
+ "rig": "potato",
+ "body": {
+  "color": "#e6b062",
+  "height": 1.0,
+  "width": 0.86,
+  "depth": 0.74,
+  "lump": 0.035,
+  "seed": 43
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.032
+ },
+ "face": {
+  "default": "evil",
+  "iris": "#3a1f4a",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "tilt": -0.08,
+   "curve": 0.4,
+   "open": 0,
+   "smirk": 0.45,
+   "eye": 1,
+   "lidL": 0.28,
+   "lidR": 0.2,
+   "browL": 0.4
+  },
+  "eye": {
+   "tilt": 0.3,
+   "flick": 0.8
+  },
+  "browShape": {
+   "arch": 0.03,
+   "thick": 1.05
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "costume": {
+  "type": "sorcerer",
+  "accent": "#5a2f8f",
+  "glow": "#5dff6a",
+  "propHand": "L",
+  "noProp": true
+ },
+ "personality": "Hooded sorcerer with a green orb. Grins like a villain, means well (proposal).",
+ "voice": {
+  "pitch": 150,
+  "rate": 3.4,
+  "formant": 1.05,
+  "range": 6,
+  "breath": 0.12,
+  "vibrato": 0.04,
+  "seed": 81
+ },
+ "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off.",
+ "hands": {
+  "type": "glove",
+  "size": 1.7
+ }
+}

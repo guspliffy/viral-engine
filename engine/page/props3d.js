@@ -9,8 +9,9 @@ import { ELEVATOR_KINDS, ELEVATOR_GRIPS } from "./props-elevator.js";
 import { ROAD_KINDS, ROAD_GRIPS } from "./props-road.js";
 import { MAKEUP_KINDS, MAKEUP_GRIPS } from "./props-makeup.js";
 import { CHEF_KINDS, CHEF_GRIPS } from "./props-chef.js";
-import { CHARGER_KINDS, CHARGER_GRIPS } from "./props-charger.js";
 import { steamWisps } from "./steam.js";
+import { DUO_KINDS, DUO_GRIPS } from "./props-duo.js";
+import { CHARGER_KINDS, CHARGER_GRIPS } from "./props-charger.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -31,7 +32,7 @@ const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
   ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
-  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...CHARGER_GRIPS,
+  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...CHARGER_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -1268,7 +1269,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, CHARGER_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), chargebank, snackbowl, biscuit (props-charger.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, CHARGER_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), chargebank, snackbowl, biscuit (props-charger.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
@@ -1393,7 +1394,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, hold: null, left: null, carry: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, hold: null, left: null, carry: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

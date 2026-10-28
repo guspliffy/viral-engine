@@ -371,7 +371,7 @@ function ambience(type, seconds, r, fade = 0.3) {
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 60 * t) * 0.03; }
     let t0 = 0.3 + r() * 0.8;
     while (t0 < seconds - 0.1) { const burst = 4 + Math.floor(r() * 8); for (let k = 0; k < burst; k++) { const a = Math.round((t0 + k * (0.07 + r() * 0.08)) * SR), f = 1800 + r() * 1500; for (let i = 0; i < 0.02 * SR && a + i < n; i++) x[a + i] += (r() * 2 - 1) * Math.exp(-i / SR / 0.004) * 0.25 + Math.sin(TAU * f * i / SR) * Math.exp(-i / SR / 0.006) * 0.1; } t0 += 1.5 + r() * 2.5; }
-  } else if (type === "rooftop") { // wind and a distant city
+  } else if (type === "rooftop" || type === "storefront") { // wind and a distant city (a rooftop, the DUO store's street)
     let lp = biquad("lp", 400, 0.7); const low = biquad("lp", 160, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; if (i % 256 === 0) lp = { ...biquad("lp", 300 + 250 * (0.5 + 0.5 * Math.sin(TAU * 0.13 * t + 1.3) * Math.sin(TAU * 0.07 * t)), 0.7), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 }; const w = r() * 2 - 1; x[i] = run(lp, w) * 0.35 + run(low, r() * 2 - 1) * 0.5; }
     const honk = 0.8 + r() * Math.max(0.5, seconds - 2); const a = Math.round(honk * SR), f = 330 + r() * 80; for (let i = 0; i < 0.35 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (((t * f) % 1) * 2 - 1 + ((t * f * 1.26) % 1) * 2 - 1) * env(t, 0.02, 0.2, 0.35) * 0.05; }
