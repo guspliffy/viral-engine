@@ -111,7 +111,7 @@ A(1.12, "gun", "expr", { expr: "kind", set: { curve: 0.85, smirk: 0.05, eye: 0.8
 A(1.12, "gun", "face", { lid: 0.32, brow: 0.12, dur: 0.3 });
 A(1.15, "gun", "turn", { to: 12, dur: 0.35 });
 A(1.1, "odn", "expr", { expr: "happy", set: { open: 0, curve: 1, eye: 0.9 }, dur: 0.2 });
-A(1.1, "odn", "face", { lid: 0.62, dur: 0.25 });                   // beaming
+A(1.1, "odn", "face", { lid: 0.36, dur: 0.25 });                   // beaming, eyes still on him
 sfx(1.12, "kenney/low-random", { gain: 0.08, reason: "a tense string onset under the forced smile" });
 
 // ---------------------------------------------------------------- 04 EYES BETRAY HIM 1.80-4.20
@@ -119,10 +119,10 @@ spoonTo(1.85, CUP_REST, D_REST, 0.7);
 A(1.8, "gun", "look", { to: GUN_AHEAD, dur: 0.2, blink: false });
 A(1.8, "gun", "still", { dur: 2.3, idle: 0.1 });
 A(1.85, "gun", "face", { tear: 0.5, lid: 0.25, brow: -0.08, tilt: 0.12, dur: 0.8 });
-A(2.45, "gun", "squash", { amount: 0.04, dur: 0.22 });                // a suppressed heave: the smile buckles and recovers
-A(2.45, "gun", "pitch", { to: 3, dur: 0.12 });
+A(2.45, "gun", "squash", { amount: 0.04, dur: 0.3 });                // a suppressed heave: the smile buckles and recovers
+A(2.45, "gun", "pitch", { to: 2, dur: 0.2 });
 A(2.47, "gun", "expr", { set: { curve: 0.62, pupil: 0.66 }, dur: 0.1 });
-A(2.47, "gun", "face", { lid: 0.48, dur: 0.1 });
+A(2.47, "gun", "face", { lid: 0.44, dur: 0.16 });
 A(2.62, "gun", "pitch", { to: 0, dur: 0.3 });
 A(2.65, "gun", "expr", { set: { curve: 0.85, pupil: 0.8 }, dur: 0.2 });
 A(2.65, "gun", "face", { lid: 0.25, dur: 0.2 });
@@ -161,9 +161,9 @@ A(7.46, "gun", "face", { press: 0, lid: 0.96, dur: 0.05 });
 A(7.46, "gun", "expr", { set: { open: 0.5, curve: -0.2, eye: 0.9 }, dur: 0.05 });
 A(7.47, "gun", "pitch", { to: 6, dur: 0.12, ease: "out" });
 c.prop(7.5, "bowl", { fall: 2 }, 0.8, "linear");
-sfx(7.5, "ai/blep", { gain: 0.32 });
-sfx(7.68, "ai/drip", { gain: 0.22 });
-sfx(7.76, "ai/drip", { gain: 0.14 });
+sfx(7.5, "ai/blep", { gain: 0.8 });
+sfx(7.68, "ai/drip", { gain: 0.9 });
+sfx(7.76, "ai/drip", { gain: 0.6 });
 A(7.76, "gun", "expr", { set: { open: 0, curve: -0.1, eye: 0.95 }, dur: 0.1 });
 A(7.82, "gun", "face", { lid: 0.3, dur: 0.15 });
 A(7.84, "gun", "look", { to: GUN_AT_BOWL, dur: 0.15, blink: false });
@@ -198,9 +198,9 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
   const pos = target.map((v, i) => r3(v + dir[i] * d));
   return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
 };
-const S1 = frame([0.16, 0.66, 0.42], { az: -30, el: 4, h: 1.5, fov: 24 });
-const S2 = frame([-0.37, 0.62, 0.42], { az: -10, el: 0, h: 0.82, fov: 20 });
-const S3 = frame([-0.2, 0.68, 0.34], { az: -20, el: 2, h: 1.2, fov: 22 });
+const S1 = frame([0.2, 0.8, 0.42], { az: -30, el: 4, h: 1.75, fov: 24 });
+const S2 = frame([-0.33, 0.92, 0.42], { az: -10, el: 6, h: 1.7, fov: 20 });
+const S3 = frame([-0.06, 0.9, 0.34], { az: -20, el: 4, h: 1.75, fov: 22 });
 const S4 = frame([-0.37, 0.8, 0.36], { az: -5, el: -16, h: 0.5, fov: 12, push: 0.07, dur: 2.4 });
 const S5 = frame([-0.37, 0.61, 0.39], { az: -5, el: -3, h: 0.4, fov: 12 });
 const S6 = frame([-0.27, 0.58, 0.44], { az: -10, el: 7, h: 0.95, fov: 20 });
