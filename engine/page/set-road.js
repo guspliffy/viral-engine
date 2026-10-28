@@ -12,7 +12,9 @@ import { roadDistance, roadZ } from "./vehicle.js";
 //   spec: { type: "road", speed: m/s or [[t, v], ...],
 //           island: { x, width, length, height, chamfer, at: [t, z] } (a kerbed island with a keep-right sign, vehicle.js),
 //           rock: { x, size, at: [t, z] } (a fallen rock in the lane), both scrolling with the road,
-//           dust: [{ at, x, z, y?, n?, size?, dur?, color? }] (puffs left on the road that scroll away with it) }
+//           dust: [{ at, x, z, y?, n?, size?, dur?, color? }] (puffs left on the road that scroll away with it),
+//           sparks: [{ at, x, z, y?, n?, dur?, speed?, size?, drag?, aim? }] (a burst of hot sparks where metal hits the road:
+//             each flies out and falls with a short streak behind it, drifting back with `drag` of the road's speed; `aim` [x, y, z] m/s is added to every spark) }
 export const PERIOD = 24;
 export const ROAD = { right: -7.2, left: 6.3, wallX: 6.6, parapetX: -7.7, centre: 2.4, lane: -2.6 };
 
@@ -242,6 +244,21 @@ export function buildRoad(scene, S = {}) {
     });
   }).flat();
 
+  // sparks: a glowing head and a short streak of fading copies along its path (additive, so they read as light)
+  const glowTex = (() => { const c = document.createElement("canvas"); c.width = c.height = 32; const g = c.getContext("2d"), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, "rgba(255,255,240,1)"); gr.addColorStop(0.3, "rgba(255,220,120,0.9)"); gr.addColorStop(1, "rgba(255,140,30,0)"); g.fillStyle = gr; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+  const TRAIL = 4;
+  const sparks = (S.sparks || []).map((d, j) => {
+    const r = rng(900 + j * 47), n = d.n ?? 10, sp = d.speed ?? 3.2;
+    return Array.from({ length: n }, () => {
+      const parts = Array.from({ length: TRAIL }, (_, i) => {
+        const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: i ? "#ffb347" : "#fff3c4", transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+        s.material.userData.outlineParameters = { visible: false }; s.userData.lookOnly = true; scene.add(s); return s;
+      });
+      const a = r() * Math.PI * 2, v = sp * (0.5 + r() * 0.7);
+      return { parts, d, vel: [Math.cos(a) * v * 0.9 + (d.aim?.[0] ?? 0), v * (0.35 + r() * 0.5) + (d.aim?.[1] ?? 0), Math.sin(a) * v * 0.6 + (d.aim?.[2] ?? 0)], life: (d.dur ?? 0.45) * (0.6 + r() * 0.6), delay: r() * 0.05, size: (d.size ?? 0.1) * (0.7 + r() * 0.6) };
+    });
+  }).flat();
+
   (globalThis.__setTicks ||= []).push((t) => {
     const s = roadDistance(S, t);
     tread.position.z = -(((s % PERIOD) + PERIOD) % PERIOD);
@@ -253,6 +270,17 @@ export function buildRoad(scene, S = {}) {
       p.s.position.set(d.x + p.dir[0] * out, (d.y ?? 0.15) + p.dir[1] * out + 0.1 * k, d.z + p.dir[2] * out - back);
       p.s.scale.setScalar(p.size * (0.4 + 1.3 * out));
       p.s.material.opacity = Math.min(1, k * 10) * (1 - k) ** 1.5 * (d.opacity ?? 0.9);
+    }
+    for (const p of sparks) {
+      const d = p.d, t0 = d.at + p.delay;
+      p.parts.forEach((s, i) => {
+        const age = t - t0 - i * 0.018, k = age / p.life;
+        s.visible = age > 0 && k < 1; if (!s.visible) return;
+        const back = (d.drag ?? 1) * (roadDistance(S, t0 + age) - roadDistance(S, t0));
+        s.position.set(d.x + p.vel[0] * age, Math.max(0.02, (d.y ?? 0.08) + p.vel[1] * age - 4.9 * age * age), d.z + p.vel[2] * age - back);
+        s.scale.setScalar(p.size * (1 - i / (TRAIL + 1)) * (1 - 0.5 * k));
+        s.material.opacity = (1 - k) * (1 - i / (TRAIL + 0.5));
+      });
     }
   });
   return { tread, things: things.map(([, o]) => o) };

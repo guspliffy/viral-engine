@@ -12,9 +12,10 @@
 //   Ending:      everyone is fine, back to the opening frame (designed loop).
 //
 // Time: the roll was first timed in "story time" (tau, the v1 clip's seconds). Jonny wanted the roll half as fast
-// again in the wide shots, then half again (2.25x), but the cabin shot (the payoff) at its old pace, so it plays as the slow-motion moment. The
-// clip's time runs through tau at RATE: FAST in the wide shots of the roll, 1 in the cabin shot and the rest; the
-// speed changes sit on the cuts (or ease in over 0.15 s). The swerve before the trip is new and keyed straight in tau.
+// again in the wide shots, then half again (2.25x), but the cabin shot (the payoff) slower than before (2/3), so it plays as the slow-motion
+// moment. The clip's time runs through tau at RATE: FAST in the wide shots of the roll, CABIN in the cabin shot, 1 in the
+// rest, and half a second of story is skipped at the cut to the last shot; the speed changes sit on the cuts (or ease
+// in over 0.15 s). The swerve before the trip is new and keyed straight in tau.
 // The road is a treadmill (set-road.js): its speed is solved so the clip scrolls a whole number of road patterns and
 // the wheels turn a whole number of spoke steps, so the loop is seamless.
 //
@@ -29,8 +30,10 @@ const WIZ_CHAR = process.env.WIZ_CHAR || "lookdev/wizard-crisp", DRA_CHAR = proc
 // ---------------------------------------------------------------- time: tau (story time) -> clip time
 const TAU0 = -0.5, TRIP = 0.7, TAU_END = 13.6;   // the clip starts at tau -0.5; the tyres trip on the kerb at tau 0.7
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
-const FAST = 2.25;   // v1 x 1.5 (Jonny, 17:16), then x 1.5 again (17:58)
-const RATE = (u) => u < 0.98 ? 1 : u < 1.13 ? 1 + (FAST - 1) * lin(u, 0.98, 1.13) : u < 4.5 ? FAST : u < 6.0 ? 1 : u < 7.1 ? FAST : u < 7.5 ? FAST - (FAST - 1) * lin(u, 7.1, 7.5) : 1;
+const FAST = 2.25;    // v1 x 1.5 (Jonny, 17:16), then x 1.5 again (17:58)
+const CABIN = 2 / 3;  // the swipe in the air a third slower than v1 (Jonny, 18:28)
+const SKIP = [11.0, 11.5];   // story time cut out at the cut to the last shot (Jonny: cut half a second sooner after the phew)
+const RATE = (u) => u < 0.98 ? 1 : u < 1.13 ? 1 + (FAST - 1) * lin(u, 0.98, 1.13) : u < 4.5 ? FAST : u < 6.0 ? CABIN : u < 7.1 ? FAST : u < 7.5 ? FAST - (FAST - 1) * lin(u, 7.1, 7.5) : u >= SKIP[0] && u < SKIP[1] ? Infinity : 1;
 const TAB = []; { let t = 0; for (let u = TAU0; u <= TAU_END + 0.2; u += 0.001) { TAB.push([u, t]); t += 0.001 / RATE(u + 0.0005); } }
 const T = (u) => { const i = Math.min(TAB.length - 2, Math.max(0, Math.floor((u - TAU0) / 0.001))), [u0, t0] = TAB[i], [, t1] = TAB[i + 1]; return t0 + (t1 - t0) * (u - u0) / 0.001; };
 const tauOf = (t) => { let lo = 0, hi = TAB.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (TAB[m][1] <= t) lo = m; else hi = m; } const [u0, t0] = TAB[lo], [u1, t1] = TAB[hi]; return u0 + (u1 - u0) * (t - t0) / (t1 - t0 || 1); };
@@ -141,6 +144,9 @@ dust(0.3, 2, { n: 8, size: 0.38, color: "#e8e6e2", opacity: 0.6 }); dust(0.3, 3,
 dust(0.55, 2, { n: 9, size: 0.42, color: "#e8e6e2", opacity: 0.7 }); dust(0.55, 0, { n: 7, size: 0.36, color: "#e8e6e2", opacity: 0.6 });
 dust(TRIP + 0.02, 2, { n: 12, size: 0.42 }); dust(TRIP + 0.05, 0, { n: 10, size: 0.4 });   // the tyres striking the kerb
 for (const w of [0, 1, 2, 3]) dust(LAND, w, { n: 10, size: 0.55, dur: 1.5 });              // the landing, all four tyres
+// sparks where the rims hit the road: sprayed outward and forward (toward the front camera), most from the front tyres
+set.sparks = [0, 1, 2, 3].map((w) => ({ at: At(LAND), ...tyreAt(T(LAND), w), n: w < 2 ? 18 : 10, speed: 3.5, size: 0.2, drag: 0.15, aim: [(w % 2 ? -1 : 1) * 2.6, 1.2, 2.4] }));
+{ const f = rigToWorld(rig, T(LAND), [0, 0.12, ROADSTER.front + 0.25]); set.sparks.push({ at: At(LAND), x: r3(f[0]), z: r3(f[2]), n: 22, speed: 3.2, size: 0.2, drag: 0.15, aim: [0, 1.4, 3.2] }); }   // the front valance scrapes
 dust(7.4, 3, { n: 10, size: 0.45, opacity: 0.7 });                                         // the skid
 
 // ---------------------------------------------------------------- places (car frame: x left of the car, z its front)
@@ -184,19 +190,20 @@ for (let t = 0; t < END - 0.05; t += 0.1) c.prop(t, "wheel", { tilt: r3(0.6 * he
 // the Wizard's scroll: the index lifts to the lower screen, swipes up, lifts away and comes back to rest
 const SCROLL_BIG = { x: [0.03, PH.up + 0.25, PH.fwd - 0.04] };   // the payoff's swipe: a long, slower stroke that reads
 const swipe = (t, big = false) => {
-  arm(t, "wiz", "L", SCROLL_LOW, 0.12, "inOut");
-  arm(t + 0.12, "wiz", "L", big ? SCROLL_BIG : SCROLL_HIGH, 0.14, "inOut");
-  arm(t + 0.26, "wiz", "L", SCROLL_REST, 0.2, "inOut");
-  A(t + 0.27, "wiz", "squash", { amount: 0.008, dur: 0.2 });
+  const k = big ? 1 / CABIN : 1;   // the payoff's swipe plays in the cabin's slow motion
+  arm(t, "wiz", "L", SCROLL_LOW, 0.12 * k, "inOut");
+  arm(t + 0.12 * k, "wiz", "L", big ? SCROLL_BIG : SCROLL_HIGH, 0.14 * k, "inOut");
+  arm(t + 0.26 * k, "wiz", "L", SCROLL_REST, 0.2 * k, "inOut");
+  A(t + 0.27 * k, "wiz", "squash", { amount: 0.008, dur: 0.2 * k });
 };
 for (const u of [2.4, 3.9, 7.9, 10.35, 12.0]) swipe(At(u));
 swipe(0.05);
 swipe(At(5.15), true);
-c.textPop(At(5.3), "wiz", "swipe", { dur: 0.65 });
+c.textPop(At(5.3), "wiz", "swipe", { dur: 0.9 });
 sfx(At(5.29), "kenney/scroll", { gain: 0.8, reason: "the one swipe upside down (the payoff)" });
 
 // ---------------------------------------------------------------- 1 NORMAL: calm driving, then the rock
-cap(0, At(1.15) - 0.05, "Just one more video.", 250);
+cap(0, At(1.15) - 0.12, "Just one more video.", 250);
 A(At(-0.3), "dra", "look", { to: AT_ROCK, dur: 0.12, blink: false });
 A(At(-0.28), "dra", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.3 }, dur: 0.1 });
 A(At(-0.28), "dra", "face", { brow: 0.6, dur: 0.1 });
@@ -236,6 +243,7 @@ A(At(4.5), "wiz", "still", { dur: D(4.5, 1.5), idle: 0.1 });
 const TL = At(LAND);
 sfx(TL, "thud", { gain: 1.0, reason: "all four tyres land" });
 sfx(TL, "kenney/impact-metal-heavy", { gain: 0.55, reason: "the body slams down on its springs" });
+sfx(TL + 0.05, "kenney/impact-metal-light", { gain: 0.4, reason: "the rims scrape the road (the sparks)" });
 sfx(TL + 0.04, "screech", { dur: 0.22, gain: 0.35, reason: "the tyres chirp as they touch down spinning" });
 c.at(TL, { fx: "shake", dur: 0.18, amp: 0.05 });
 sfx(TL + 0.1, "creak", { dur: 0.35, gain: 0.35, reason: "the springs compress and rebound" });
@@ -280,15 +288,14 @@ const beats = c.beats([
   ["normal", 0, FRONT, "hook"],
   // high in front, the rock in the foreground on the left, the island on the right: the car swerves round the rock
   ["swerve", At(-0.12), { pos: [0.4, 3.4, 7.6], look: [-0.2, 0.5, 0.6], fov: 46, to: { pos: [0.8, 3.0, 7.0], look: [0.6, 0.55, 0.2] }, dur: D(-0.12, 0.82), ease: "inOut" }],
-  // low ahead of the car, along the gap between the car and the island: the sliding tyres strike the kerb
-  ["trip", At(TRIP), { pos: [1.55, 0.42, 5.6], look: [2.1, 0.45, 0.2], fov: 42, to: { pos: [1.4, 0.75, 6.2], look: [2.0, 0.9, 0.2] }, dur: D(TRIP, 0.45), ease: "out" }],
-  // from beyond the island, the cabin tipping toward the camera: both faces
-  ["shock", At(1.15), { pos: [5.6, 1.2, 5.6], look: [xAt(1.15) + 0.2, 1.2, 0.5], fov: 40, to: { pos: [5.8, 1.6, 6.6], look: [xAt(1.8), 1.6, 0.4], fov: 42 }, dur: D(1.15, 0.65), ease: "inOut" }],
+  // one take (Jonny, 18:28): low ahead of the car along the gap to the island as the sliding tyres strike the kerb,
+  // then rising and swinging out beyond the island as the cabin tips toward the camera (both faces)
+  ["trip", At(TRIP), { pos: [1.55, 0.42, 5.6], look: [2.1, 0.45, 0.2], fov: 42, to: { pos: [5.8, 1.6, 6.6], look: [xAt(1.8), 1.6, 0.4], fov: 42 }, dur: D(TRIP, 1.1), ease: "inOut" }],
   ["the roll", At(1.8), { pos: [xAt(1.8) + 1.7, 1.9, 8.2], look: [xAt(1.8) + 0.3, 1.6, 0], fov: 36, to: { pos: [xAt(4.5) + 0.6, 1.75, 7.6], look: [xAt(4.5) + 0.2, 2.2, 0] }, dur: D(1.8, 2.7), ease: "inOut" }, "escalation"],
   ["still scrolling", At(4.5), { rig: "car", pos: [-0.45, 1.5, 3.1], look: [-0.27, 1.32, -0.3], fov: 50, to: { pos: [-0.45, 1.4, 2.5], look: [-0.4, 1.2, -0.1] }, dur: 0.75, ease: "inOut" }, "payoff"],
   // from the front and low: the cabin swings back up to face us before the touchdown
-  ["landing", At(6.0), { pos: [xAt(6.0) + 0.6, 1.7, 7.2], look: [xAt(6.0), 1.4, 0.2], fov: 42, to: { pos: [xAt(8.0) + 0.3, 1.3, 6.4], look: [xAt(8.0), 1.0, 0.2] }, dur: D(6.0, 2.0), ease: "inOut" }],
-  ["everything is fine", At(8.5), { track: "car", pos: [-2.5, 1.8, 4.6], look: [-0.1, 1.05, -0.25], fov: 40, to: { pos: [-2.25, 1.77, 4.3] }, dur: D(8.5, 3.0), ease: "inOut" }, "reaction"],
+  ["landing", At(6.0), { pos: [xAt(6.0) + 0.6, 1.7, 7.2], look: [xAt(6.0), 1.4, 0.2], fov: 42, to: { pos: [xAt(8.0) + 0.7, 1.35, 6.4], look: [xAt(8.0), 1.0, 0.2] }, dur: D(6.0, 2.0), ease: "inOut" }],
+  ["everything is fine", At(8.5), { track: "car", pos: [-2.5, 2.0, 4.6], look: [-0.1, 1.1, -0.25], fov: 40, to: { pos: [-2.25, 1.97, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],   // the v3 push-in pace; the cut now comes before it ends
   ["return", At(11.5), { pos: [0.3, 1.72, 4.8], look: FRONT.look, fov: FRONT.fov, to: FRONT, dur: r3(END - T(11.5)), ease: "inOut" }],
 ].map(([n, t, s, k]) => [n, r3(t), s, k]), END);
 
