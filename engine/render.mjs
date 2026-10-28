@@ -12,6 +12,7 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
+//   node engine/render.mjs <storyboard> --no-blur                       -> no motion blur (--blur turns it on in a draft)
 //   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds; exits 1 when the gate would stop a render)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
@@ -47,6 +48,19 @@ import { clipResults, contactResults } from "../qa/check.mjs";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
 const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical for short-form platforms
+// Motion blur: a frame where something moves fast is the average of several samples spread over a film shutter (half
+// the frame time, centred on the frame), so a swing or a snap reads as one smooth smear instead of a jump. The number
+// of samples follows how far the fastest on-screen corner of any character or prop part moved over the last two frames
+// (window.ENGINE.motion): one sample per `gap` px of smear, at most `max`, and a frame with less than `min` px of smear
+// stays one sample, so calm stretches cost nothing. A very fast part (a blade in a close-up) gets a shorter shutter, so
+// its smear is at most (max - 1) x gap px: wider than that, the samples would show as separate stripes. The estimate only sets the cost: the samples are real frames at
+// their own times, so a part that has stopped just draws the same picture again. Samples never cross a cut, an impact
+// frame or the start of a flash. A storyboard tunes it with "motionBlur": { ... } or turns it
+// off with "motionBlur": false; drafts skip it unless --blur.
+const BLUR = { shutter: 0.5, gap: 5, min: 12, max: 13 };
+// The picture is stored as BT.709 (the HD standard phones and the apps assume) and tagged so: left alone, ffmpeg
+// stores a browser frame as BT.601, which a player reading it as HD shows more saturated (orange 242,107,29 -> 254,114,21).
+const COLOR = ["-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"];
 
 function args() {
   const a = process.argv.slice(2), o = { file: null, out: path.join(ROOT, "out"), stills: null, safe: false, from: null, to: null, style: null };
@@ -54,6 +68,8 @@ function args() {
     if (a[i] === "--stills") { const v = a[++i]; o.stills = v === "beats" ? "beats" : v.split(",").map(Number); }
     else if (a[i] === "--safe") o.safe = true;
     else if (a[i] === "--png") o.png = true;
+    else if (a[i] === "--no-blur") o.blur = false;
+    else if (a[i] === "--blur") o.blur = true;
     else if (a[i] === "--layout") o.layoutOnly = true;
     else if (a[i] === "--draft") o.draft = true;
     else if (a[i] === "--silent") o.silent = true;
@@ -239,12 +255,13 @@ async function main() {
     if (o.gl === "gpu" && soft) console.log(`warning: --gl gpu asked for the graphics card, but Chrome is drawing in software (${info.renderer}); try GL_ARGS, e.g. "--use-angle=vulkan" or "--use-angle=gl"`);
     // per frame: posing (JS), drawing (the software GPU), encoding (JPEG in the page plus the copy to Node)
     const timing = { pose: 0, draw: 0, grab: 0, n: 0 };
-    const shot = async (t, fmt = "png") => {
+    const shot = async (t, fmt = "png", after = null) => {
       const a = Date.now();
       await page.evaluate((tt) => window.ENGINE.frame(tt), t);
       if (errors.length) throw new Error(errors.join("\n"));
       const b = Date.now();
       await page.evaluate(() => window.ENGINE.sync());
+      if (after) await after(t);
       const c = Date.now();
       const url = await page.evaluate((f) => window.ENGINE.capture(f), fmt);
       timing.pose += b - a; timing.draw += c - b; timing.grab += Date.now() - c; timing.n++;
@@ -292,15 +309,30 @@ async function main() {
     let a = frameA, b = frameB;
     if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
-      "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
+      ...COLOR, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((ok, bad) => ff.on("close", (c) => (c === 0 ? ok() : bad(new Error("ffmpeg exited " + c)))));
     const tr = Date.now();
+    const bl = blurPlan(sb, o, fps), blurred = { frames: 0, samples: 0, ms: 0 };
+    if (bl) {
+      console.log(`motion blur: shutter ${bl.shutter}, a sample per ${bl.gap} px of smear from ${bl.min} px, up to ${bl.max} (--no-blur turns it off)`);
+      await page.evaluate((ts) => window.ENGINE.prime(ts), [a - 2, a - 1].filter((k) => k >= 0).map((k) => k / fps));
+    }
+    // after a frame is drawn: how fast it moves, and if fast, more samples averaged in
+    const blurAfter = bl && (async (t) => {
+      const v = await page.evaluate(() => window.ENGINE.motion()), s = blurSamples(bl, t, fps, v);
+      if (!s) return;
+      const tb = Date.now();
+      await page.evaluate(([ts, keep]) => window.ENGINE.blur(ts, keep), [s.times, s.keep]);
+      if (errors.length) throw new Error(errors.join("\n"));
+      blurred.frames++; blurred.samples += s.times.length + (s.keep ? 1 : 0); blurred.ms += Date.now() - tb;
+    });
     for (let i = a; i < b; i++) {
-      const img = await shot(i / fps, o.png ? "png" : "jpeg");
+      const img = await shot(i / fps, o.png ? "png" : "jpeg", blurAfter);
       if (!ff.stdin.write(img)) await new Promise((ok) => ff.stdin.once("drain", ok));
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
     }
     ff.stdin.end(); await done;
+    if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
@@ -308,6 +340,32 @@ async function main() {
   }
   if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
   await finish(audio, videoFile, wavFile, outFile, o, dur, "");
+}
+
+// motion blur settings for this render, or null when it is off
+function blurPlan(sb, o, fps) {
+  if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
+  const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}) };
+  // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
+  const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
+  bl.walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];
+  bl.end = sb.duration;
+  return bl;
+}
+// the samples for the frame at t moving v px per frame, or null when one is enough: an odd number spread evenly over
+// the shutter, ends included, so the middle one is the frame already drawn (keep). A wall at w belongs to the time
+// after it (a shot that starts at w is on screen at w), so the shutter is cut short on the frame's own side of it.
+function blurSamples(bl, t, fps, v) {
+  if (v * bl.shutter < bl.min) return null;
+  const sh = Math.min(bl.shutter, ((bl.max - 1) * bl.gap) / v);
+  let a = Math.max(0, t - sh / 2 / fps), b = Math.min(bl.end, t + sh / 2 / fps);
+  for (const w of bl.walls) { if (w > a && w <= t + 1e-6) a = w; else if (w > t + 1e-6 && w < b) b = w - 1e-4; }
+  if (b - a < 1e-3) return null;
+  let n = Math.min(bl.max, Math.ceil((v * sh) / bl.gap) + 1);
+  if (n % 2 === 0) n++;
+  const all = Array.from({ length: n }, (_, k) => a + (k * (b - a)) / (n - 1)), mid = all[(n - 1) / 2];
+  const keep = Math.abs(mid - t) < 1e-6;
+  return { times: keep ? all.filter((_, k) => k !== (n - 1) / 2) : all, keep };
 }
 
 // the drawn video plus its sound (normalised), or a silent track

@@ -527,6 +527,61 @@ function sync() { ctx.getImageData(0, 0, 1, 1); return true; }
 // the composed frame as a data URL: "jpeg" for video frames, "png" for stills and the cover
 function capture(fmt = "jpeg") { return fmt === "png" ? out.toDataURL("image/png") : out.toDataURL("image/jpeg", 0.95); }
 
+// Motion blur (render.mjs decides how many samples a frame gets, from motion()).
+// screen position (output px) of points on every visible part of the characters and props, as posed now: a grid over
+// its box, finer along its length (a blade crossing a close-up has its ends off screen, some of its length on)
+function corners() {
+  camera.updateMatrixWorld(true);
+  const pts = new Map(), v = new THREE.Vector3();
+  for (const root of [...actors.map((a) => a.ch.root), ...props.map((p) => p.root)]) {
+    root.updateMatrixWorld(true);
+    root.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry) return;
+      if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      const b = o.geometry.boundingBox, xy = [], s = b.getSize(v), long = s.x >= s.y && s.x >= s.z ? 0 : s.y >= s.z ? 1 : 2;
+      const k = [0, 1, 2].map((ax) => (ax === long ? 9 : 3)), lo = b.min.toArray(), hi = b.max.toArray(), q = [0, 0, 0];
+      for (let i = 0; i < k[0] * k[1] * k[2]; i++) {
+        q[0] = i % k[0]; q[1] = Math.floor(i / k[0]) % k[1]; q[2] = Math.floor(i / (k[0] * k[1]));
+        v.set(...q.map((n, ax) => lo[ax] + ((hi[ax] - lo[ax]) * n) / (k[ax] - 1))).applyMatrix4(o.matrixWorld).project(camera);
+        xy.push(v.z < 1 ? [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H] : null);
+      }
+      pts.set(o, xy);
+    });
+  }
+  return pts;
+}
+// the corners of the last two frames drawn, in order. A render starts by priming it with the two frames before its
+// first one, so a frame gets the same samples whether it is drawn alone, in a shard or in the whole clip.
+let recent = [];
+function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
+// how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
+// its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
+// happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
+function motion() {
+  const c = corners(), [p2, p1] = recent.length === 2 ? recent : [null, recent[0]];
+  const on = (q) => q && q[0] > -W * 0.1 && q[0] < W * 1.1 && q[1] > -H * 0.1 && q[1] < H * 1.1, d = (x, y) => Math.hypot(x[0] - y[0], x[1] - y[1]);
+  let m = 0;
+  if (p1 && p2) for (const [o, q0] of c) {
+    const q1 = p1.get(o), q2 = p2.get(o); if (!q1 || !q2) continue;
+    for (let i = 0; i < q0.length; i++) if (q0[i] && q1[i] && q2[i] && (on(q0[i]) || on(q1[i]))) { const s1 = d(q0[i], q1[i]), s2 = d(q1[i], q2[i]), lo = Math.min(s1, s2), hi = Math.max(s1, s2); m = Math.max(m, hi <= 4 * lo + 2 ? hi : lo); }
+  }
+  recent = [...recent, c].slice(-2);
+  return Math.round(m * 10) / 10;
+}
+// the frame as the average of the frames drawn at each sample time (a film shutter open for that stretch); with
+// keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
+function blur(times, keep) {
+  const n = times.length + (keep ? 1 : 0);
+  let acc = null;
+  const add = () => { const d = ctx.getImageData(0, 0, W, H).data; if (!acc) acc = new Uint16Array(d.length); for (let i = 0; i < d.length; i++) acc[i] += d[i]; };
+  if (keep) add();
+  for (const t of times) { frame(t); add(); }
+  const img = ctx.createImageData(W, H), o = img.data;   // a clamped array: assigning rounds to the nearest level
+  for (let i = 0; i < o.length; i++) o[i] = acc[i] / n;
+  ctx.putImageData(img, 0, 0);
+  return true;
+}
+
 // screen-space layout for the QA checks (qa/check.mjs): caption boxes and each character's visible bounding box,
 // in output pixels. Nothing is drawn, so sampling a whole clip takes seconds.
 const r3 = (x) => Math.round(x * 1000) / 1000;
@@ -916,5 +971,5 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids };
+window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur };
 window.ENGINE_READY = true;
