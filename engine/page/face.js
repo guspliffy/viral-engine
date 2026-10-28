@@ -50,7 +50,7 @@ export class Face {
     this.group = new THREE.Group();
     const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, tilt: 0, glints: 1, shine: 1, oval: 1.12 / 0.9, ...eye };
     this.eyeStyle = E;
-    // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness
+    // the character's brow design (face.browShape): arch height, inner and outer ends (face u), thickness, taper, tip, lift
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
     this.inkMat = new THREE.MeshStandardMaterial({ color: ink, roughness: 0.55 });
     this.browMat = brow ? new THREE.MeshStandardMaterial({ color: brow, roughness: 0.9 }) : this.inkMat;   // white brows for the Norse god
@@ -212,9 +212,10 @@ export class Face {
         const arch = Math.sin(t * Math.PI) * B.arch;
         pts.push([u, yb + arch + (1 - t) * tilt * 0.35 - t * tilt * 0.05]);
       }
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(pts, 0.012 * s));
-      // thick in the middle, tapering to both ends, like the portraits' brush-stroke brows
-      const g = taperedTube(curve, 0, 0, 20, 8, (t) => s * B.thick * (0.006 + 0.013 * Math.pow(Math.sin(Math.PI * (0.06 + 0.88 * t)), 0.55)));
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(pts, (B.lift ?? 0.012) * s));
+      // thick in the middle, tapering to both ends, like the portraits' brush-stroke brows (browShape.taper: higher is
+      // a finer point, tip: the width left at the ends, lift: how far off the skin it sits)
+      const g = taperedTube(curve, 0, 0, 20, 8, (t) => s * B.thick * ((B.tip ?? 0.006) + 0.013 * Math.pow(Math.sin(Math.PI * (0.06 + 0.88 * t)), B.taper ?? 0.55)));
       this.brows[i] = new THREE.Mesh(g, this.browMat); this.group.add(this.brows[i]);
     }
     if (this.mouthLine) { this.group.remove(this.mouthLine); this.mouthLine.geometry.dispose(); this.mouthLine = null; }

@@ -20,13 +20,18 @@
    "src": "assets/plates/livingroom-golden.png",
    "z": -2.3,
    "center": [
-    -0.1,
-    1.15
+    0,
+    1.35
    ],
-   "height": 3.8
+   "height": 5.0
   },
   "para": 0,
-  "bloom": "emissive"
+  "bloom": "emissive",
+  "key": [
+   3.2,
+   3.2,
+   2.0
+  ]
  },
  "cast": [
   {
@@ -69,17 +74,21 @@
    "z": 0.3,
    "w": 3.2,
    "d": 2.6,
-   "color": "#b39477"
+   "color": "#b39477",
+   "pattern": true
   },
   {
    "id": "table",
    "kind": "coffeetable",
    "x": 0,
-   "z": 0.58,
+   "z": -0.02,
    "h": 0.68,
-   "d": 2.4,
-   "w": 2.2,
-   "color": "#d39d62"
+   "d": 1.8,
+   "w": 1.9,
+   "color": "#d39d62",
+   "apron": 0.09,
+   "legW": 0.12,
+   "legX": 0.62
   }
  ],
  "shots": [
@@ -87,20 +96,20 @@
    "at": 0,
    "pos": [
     0,
-    1.14,
-    4.4
+    1.0,
+    3.75
    ],
    "look": [
     0,
-    0.98,
-    -1.1
+    1.08,
+    -1.0
    ],
-   "fov": 30,
+   "fov": 37,
    "to": {
     "pos": [
      0,
-     1.13,
-     4.15
+     0.99,
+     3.55
     ]
    },
    "dur": 3
@@ -111,7 +120,7 @@
    "who": "wiz",
    "do": "sit",
    "seat": "couch",
-   "along": -0.36,
+   "along": -0.44,
    "at": 0,
    "dur": 0
   },
@@ -119,7 +128,7 @@
    "who": "rea",
    "do": "sit",
    "seat": "couch",
-   "along": 0.36,
+   "along": 0.44,
    "at": 0,
    "dur": 0
   },
@@ -127,8 +136,8 @@
    "who": "wiz",
    "do": "hatsway",
    "tip": [
-    10,
-    -38
+    6,
+    0
    ],
    "brim": 0.2,
    "at": 0,
@@ -141,9 +150,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.65,
-     0.72,
-     -0.95
+     -0.8,
+     0.76,
+     -0.78
     ]
    },
    "dur": 0,
@@ -153,7 +162,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "R",
-   "shape": "hold",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -164,9 +173,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     -0.25,
-     0.72,
-     -0.95
+     -0.2,
+     0.76,
+     -0.78
     ]
    },
    "dur": 0,
@@ -176,7 +185,7 @@
    "who": "wiz",
    "do": "grip",
    "side": "L",
-   "shape": "hold",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -187,9 +196,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.25,
-     0.72,
-     -0.95
+     0.2,
+     0.76,
+     -0.78
     ]
    },
    "dur": 0,
@@ -199,7 +208,7 @@
    "who": "rea",
    "do": "grip",
    "side": "R",
-   "shape": "hold",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },
@@ -210,9 +219,9 @@
    "pose": {
     "prop": "table",
     "grip": [
-     0.65,
-     0.72,
-     -0.95
+     0.8,
+     0.76,
+     -0.78
     ]
    },
    "dur": 0,
@@ -222,7 +231,7 @@
    "who": "rea",
    "do": "grip",
    "side": "L",
-   "shape": "hold",
+   "shape": "paw",
    "dur": 0,
    "at": 0
   },

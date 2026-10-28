@@ -15,7 +15,8 @@
  },
  "limbs": {
   "color": "#262540",
-  "width": 0.042
+  "width": 0.05,
+  "shoulder": -0.42
  },
  "face": {
   "default": "kind",
@@ -31,15 +32,18 @@
   },
   "eye": {
    "flick": 0.6,
-   "depth": 0.2,
-   "iris": 0.72,
+   "depth": 0.27,
+   "iris": 0.62,
    "glints": 1,
    "oval": 1.32,
    "lash": 1.15
   },
   "browShape": {
    "arch": 0.06,
-   "thick": 1.05
+   "thick": 0.8,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
   }
  },
  "sprout": {
@@ -48,12 +52,13 @@
  },
  "costume": {
   "type": "wizard",
-  "accent": "#2e2b4e",
-  "band": "#1f1d36",
+  "accent": "#4b238c",
+  "band": "#1c1530",
   "glow": "#f2c14e",
   "staffWood": "#7a4e2a",
   "propHand": "L",
-  "noProp": true
+  "noProp": true,
+  "hatShape": "crisp"
  },
  "personality": "Occasional third character. Wants to be useful and respected; overcomplicates simple requests; patient and sincerely curious. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "voice": {
@@ -68,7 +73,7 @@
  "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): flatter eyes set into the face, bigger irises, one catch light, thicker tapered arms. Not canon until Jonny approves.",
  "voiceNote": "gibberish, low and slow, a little breathy",
  "hands": {
-  "type": "mitten",
-  "size": 1.6
+  "type": "glove",
+  "size": 1.7
  }
 }
