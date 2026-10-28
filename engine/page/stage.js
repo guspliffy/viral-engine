@@ -390,6 +390,7 @@ async function init(data) {
 
 // places characters, effects and camera for time t without drawing anything
 function pose(t) {
+  for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   const states = {};
   for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
