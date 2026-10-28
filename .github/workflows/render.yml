@@ -7,8 +7,6 @@
 name: Render a clip
 run-name: "Render ${{ inputs.storyboard }} ${{ inputs.flags }}"
 on:
-  push:   # TEMPORARY: first test run from the branch; removed before merge
-    branches: [render-farm]
   workflow_dispatch:
     inputs:
       storyboard:
@@ -23,7 +21,7 @@ on:
 permissions:
   contents: read
 env:
-  SB: ${{ inputs.storyboard || 'storyboards/elevator/fart-elevator.json' }}
+  SB: ${{ inputs.storyboard }}
   FLAGS: ${{ inputs.flags }}
 
 jobs:
@@ -44,7 +42,7 @@ jobs:
         run: node engine/render.mjs "$SB" --layout $FLAGS
       - id: split
         env:
-          SHARDS: ${{ inputs.shards || '16' }}
+          SHARDS: ${{ inputs.shards }}
         run: |
           n=$(( SHARDS < 1 ? 1 : SHARDS > 20 ? 20 : SHARDS ))
           echo "n=$n" >> "$GITHUB_OUTPUT"
