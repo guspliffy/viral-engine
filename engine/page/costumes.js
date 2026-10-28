@@ -138,6 +138,8 @@ function wizardHat(C) {
     for (let i = 0; i < bp.count; i++) { const x = brim0[i * 3], z = brim0[i * 3 + 2], r = Math.hypot(x, z), k = Math.max(0, (r - 0.24) / 0.23); bp.setY(i, brim0[i * 3 + 1] + tilt * 0.12 * k * k * (z / Math.max(r, 1e-6))); }
     bp.needsUpdate = true; brimG.computeVertexNormals();
   };
+  // costume.hatShade { depth, k }: the brim's shadow on the forehead, as a band this deep (m) below the brim, this dark
+  if (C.hatShade) g.userData.shade = C.hatShade;
   return { group: g, height: crisp ? 0.5 : 0.62, brimR: 0.47, sway };
 }
 

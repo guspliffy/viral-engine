@@ -31,6 +31,7 @@
    "tilt": 0.12
   },
   "eye": {
+   "corner": 1,
    "flick": 0.6,
    "depth": 0.27,
    "iris": 0.62,
@@ -52,6 +53,7 @@
  },
  "costume": {
   "type": "wizard",
+  "hatShade": { "depth": 0.15, "k": 0.6 },
   "accent": "#4b238c",
   "band": "#1c1530",
   "glow": "#f2c14e",

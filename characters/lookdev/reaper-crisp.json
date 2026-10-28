@@ -32,6 +32,7 @@
    "lidR": 0.42
   },
   "eye": {
+   "corner": 1,
    "flick": 0,
    "lash": 1.15,
    "depth": 0.27,
