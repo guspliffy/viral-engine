@@ -1,0 +1,1148 @@
+{
+ "id": "compliments-to-the-chef",
+ "title": "Compliments to the Chef",
+ "idea": "Story library 09: Gunslinger tastes Odin's soup, heroically keeps a polite smile, and loses to one tiny puke",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/kitchen-golden.png",
+   "z": -2.3,
+   "center": [
+    0,
+    1.2
+   ],
+   "height": 3.9
+  }
+ },
+ "music": {
+  "file": "ai/drama-swell/drama-swell-01.ogg",
+  "from": 1.1,
+  "until": 7.5,
+  "gain": 0.5
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "speech": false
+ },
+ "cast": [
+  {
+   "id": "gun",
+   "character": "lookdev/gunslinger-crisp",
+   "at": [
+    -0.42,
+    0.05
+   ],
+   "face": 4,
+   "expr": "cocky",
+   "follow": 0.25,
+   "seed": 2.2
+  },
+  {
+   "id": "odn",
+   "character": "lookdev/allfather-crisp",
+   "at": [
+    0.5,
+    -0.02
+   ],
+   "face": -30,
+   "expr": "happy",
+   "follow": 0.25,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.86,
+   "h": 0.33,
+   "w": 2.8,
+   "d": 0.82,
+   "color": "#e6c493",
+   "leg": "#c99a64"
+  },
+  {
+   "id": "bowl",
+   "kind": "soupbowl",
+   "x": -0.24,
+   "y": 0.33,
+   "z": 0.6,
+   "scale": 1.15,
+   "steam": 0.55,
+   "from": [
+    -0.104,
+    0.191,
+    -0.177
+   ]
+  },
+  {
+   "id": "spoon",
+   "kind": "spoon",
+   "x": -0.593,
+   "y": 0.466,
+   "z": 0.697,
+   "rot": 104.931,
+   "tip": -3.686,
+   "scale": 1.45
+  },
+  {
+   "id": "ladle",
+   "kind": "ladle",
+   "x": 0.86,
+   "y": 0.42,
+   "z": 0.27999999999999997,
+   "rot": -20,
+   "scale": 1.3
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "01 proud chef",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -1.776,
+     0.902,
+     2.827
+    ],
+    "look": [
+     0.26,
+     0.68,
+     0.4
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "spoon",
+     "hand": "R",
+     "grip": "handle",
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.593,
+       0.466,
+       0.697
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.02,
+       0.365,
+       0.5
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "grab",
+     "prop": "ladle",
+     "hand": "L",
+     "grip": "handle",
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.86,
+       0.42,
+       0.27999999999999997
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.14,
+       0.365,
+       0.5
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "grip",
+     "side": "R",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.08
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0,
+      "curve": 0.8,
+      "eye": 1.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.55
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.541,
+       0.505,
+       0.736
+      ]
+     },
+     "dur": 0.46,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 116.565,
+      "tip": -14.335
+     },
+     "dur": 0.46,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "sfx": "kenney/impact-plate-light",
+     "gain": 0.22,
+     "at": 0.03
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.524,
+       0.481,
+       0.569
+      ]
+     },
+     "dur": 0.24,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 136.79,
+      "tip": -24.882
+     },
+     "dur": 0.24,
+     "ease": "out",
+     "at": 0.48
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 taste",
+   "at": 0.5,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.774,
+     0.62,
+     2.71
+    ],
+    "look": [
+     -0.37,
+     0.62,
+     0.42
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "curve": 0.15,
+      "smirk": 0.1,
+      "open": 0.12
+     },
+     "dur": 0.08,
+     "at": 0.16
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.32,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fill": 0.25
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "open": 0,
+      "curve": 0.3,
+      "smirk": 0.35
+     },
+     "dur": 0.1,
+     "at": 0.32
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.585,
+       0.45,
+       0.606
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 126.327,
+      "tip": -19.567
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.08,
+     "at": 0.46
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "pupil": 0.72,
+      "eye": 1.08
+     },
+     "dur": 0.06,
+     "at": 0.48
+    },
+    {
+     "who": "gun",
+     "do": "still",
+     "dur": 0.2,
+     "idle": 0.05,
+     "at": 0.48
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.75,
+      0.08
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.58
+    }
+   ]
+  },
+  {
+   "name": "03 the lie",
+   "at": 1.1,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -1.24,
+     0.757,
+     2.934
+    ],
+    "look": [
+     -0.2,
+     0.66,
+     0.36
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.645,
+       0.494,
+       0.752
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 109.44,
+      "tip": -9.448
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0,
+      "curve": 1,
+      "eye": 0.9
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "face",
+     "lid": 0.62,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.85,
+      "smirk": 0.05,
+      "eye": 0.86,
+      "pupil": 0.8,
+      "tilt": 0.22
+     },
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "lid": 0.32,
+     "brow": 0.12,
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "sfx": "kenney/low-random",
+     "gain": 0.08,
+     "reason": "a tense string onset under the forced smile",
+     "at": 0.02
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.35,
+     "at": 0.05
+    }
+   ]
+  },
+  {
+   "name": "04 eyes betray him",
+   "at": 1.8,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.569,
+     0.144,
+     2.638
+    ],
+    "look": [
+     -0.37,
+     0.8,
+     0.36
+    ],
+    "fov": 12,
+    "to": {
+     "pos": [
+      -0.555,
+      0.19,
+      2.478
+     ]
+    },
+    "dur": 2.4
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.1,
+      0.02
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "still",
+     "dur": 2.3,
+     "idle": 0.1,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.68,
+       0.411,
+       0.726
+      ]
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 107.526,
+      "tip": 2.873
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "tear": 0.5,
+     "lid": 0.25,
+     "brow": -0.08,
+     "tilt": 0.12,
+     "dur": 0.8,
+     "at": 0.05
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "tearR": 1,
+     "tearL": 0.62,
+     "dur": 0.75,
+     "at": 1
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.75,
+      0.08
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.25
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.1,
+      0.02
+     ],
+     "dur": 0.22,
+     "blink": false,
+     "at": 1.7
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "lid": 0.34,
+     "tilt": 0.2,
+     "dur": 0.4,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "05 hold the smile",
+   "at": 4.2,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.527,
+     0.475,
+     2.188
+    ],
+    "look": [
+     -0.37,
+     0.57,
+     0.39
+    ],
+    "fov": 12
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "still",
+     "dur": 2.3,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.12,
+     "dur": 0.07,
+     "at": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": 0.02,
+     "dur": 0.07,
+     "at": 0.27
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.18,
+     "dur": 0.07,
+     "at": 0.35
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.05,
+     "dur": 0.07,
+     "at": 0.5
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.15,
+     "dur": 0.07,
+     "at": 0.58
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": 0,
+     "dur": 0.07,
+     "at": 0.78
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "press": 0.85,
+     "cornerR": 0.1,
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.35,
+     "at": 1
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "eye": 0.8
+     },
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "press": 0,
+     "dur": 0.15,
+     "at": 1.35
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "curve": 0.9,
+      "eye": 0.86
+     },
+     "dur": 0.15,
+     "at": 1.4
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.1,
+     "dur": 0.07,
+     "at": 1.7
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": 0.03,
+     "dur": 0.07,
+     "at": 1.8
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.16,
+     "dur": 0.07,
+     "at": 1.92
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": -0.04,
+     "dur": 0.07,
+     "at": 2.1
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "06 tiny defeat",
+   "at": 6.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.857,
+     0.928,
+     2.97
+    ],
+    "look": [
+     -0.12,
+     0.6,
+     0.4
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "still",
+     "dur": 1.6,
+     "idle": 0.12,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "cornerR": 0.05,
+     "press": 0,
+     "dur": 0.1,
+     "at": 0.02
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "curve": 1,
+      "eye": 0.9
+     },
+     "dur": 0.12,
+     "at": 0.08
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 4,
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "who": "gun",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "press": 1,
+     "dur": 0.1,
+     "at": 0.52
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "eye": 1.12,
+      "pupil": 0.7,
+      "curve": 0.4
+     },
+     "dur": 0.1,
+     "at": 0.55
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "press": 0,
+     "lid": 0.55,
+     "dur": 0.05,
+     "at": 0.86
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "open": 0.38,
+      "curve": -0.2,
+      "eye": 0.9
+     },
+     "dur": 0.05,
+     "at": 0.86
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.87
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "fall": 2
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/blep",
+     "gain": 0.32,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.22,
+     "at": 1.08
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.14,
+     "at": 1.16
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "set": {
+      "open": 0,
+      "curve": -0.1,
+      "eye": 0.95
+     },
+     "dur": 0.12,
+     "at": 1.2
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.15,
+     "at": 1.22
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 2,
+     "dur": 0.3,
+     "at": 1.3
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "07 chef is watching",
+   "at": 8.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -1.525,
+     0.807,
+     3.655
+    ],
+    "look": [
+     -0.04,
+     0.68,
+     0.32
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.75,
+      0.08
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "odn",
+     "do": "still",
+     "dur": 1.75,
+     "idle": 0.05,
+     "at": 0.05
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "odn",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "odn",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "curve": 0,
+      "tilt": -0.1
+     },
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "tilt": 0.45,
+      "eye": 0.9,
+      "pupil": 0.95
+     },
+     "dur": 0.35,
+     "at": 0.15
+    },
+    {
+     "who": "gun",
+     "do": "face",
+     "tear": 0.6,
+     "lid": 0.28,
+     "dur": 0.4,
+     "at": 0.15
+    },
+    {
+     "who": "odn",
+     "do": "face",
+     "browR": 0.7,
+     "dur": 0.35,
+     "at": 0.4
+    },
+    {
+     "who": "odn",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "gun",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.7
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "gun",
+   "with": "table",
+   "from": 0,
+   "to": 10,
+   "reason": "his left paw rests on the tabletop"
+  },
+  {
+   "who": "odn",
+   "with": "table",
+   "from": 0,
+   "to": 10,
+   "reason": "his right paw rests on the tabletop"
+  }
+ ],
+ "notes": "Generated by storyboards/chef/make-compliments-to-the-chef.mjs (Jonny's story library 09)."
+}

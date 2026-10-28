@@ -33,6 +33,10 @@ LABELS = {
     "knock": "a single knock on a wooden door",
     "magic-zap": "a magic spell zap with sparkles",
     "wing-flap": "a single flap of large bird wings",
+    "sip": "a small sip of soup from a spoon",
+    "heartbeat": "a single slow heartbeat thump",
+    "blep": "a tiny wet cartoon mouth blep",
+    "drip": "a small drop of liquid falling into a bowl",
 }
 DISTRACTORS = ["music", "people talking", "static noise", "an explosion", "a gunshot", "water splashing",
                "a dog barking", "wind blowing", "a car engine", "applause"]
@@ -198,6 +202,8 @@ def music(rec, raw, outdir, clap, report):
     beds = []
     meter = pyln.Meter(SR)
     for r in rec["music"]:
+        if r.get("swell"):   # one-shot swells (a crescendo, not a loop) are picked by swell.py
+            continue
         rid, bpm, bars = r["id"], r["bpm"], r["bars"]
         m = int(0.25 * SR)  # crossfade length
         files, rows = [], []
