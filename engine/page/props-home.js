@@ -7,7 +7,7 @@ import * as THREE from "three";
 //           the rim, just under the top: aim both hands there with palm: true and they press on the edge from outside
 //           with nothing passing through the wood.
 //   coffeetable  a low, wide living-room table in grained honey wood (style match, 28 Oct): top at spec.h (0.42),
-//           spec.w x spec.d (1.7 x 1.2), four square legs. Put things on it at y = h.
+//           spec.w x spec.d (1.7 x 1.2), four square legs (spec.legW thick, at x = ±spec.legX), spec.apron (m) a skirt under the top. Put things on it at y = h.
 //   rug     a soft, fluffy carpet lying on the floor: spec.w x spec.d (2.6 x 1.8), spec.color (a warm beige).
 const SEAT_Y = 0.42;   // props3d.js SEAT_Y (not imported: props3d imports this file)
 const R_STOOL = 0.25, T_SEAT = 0.05;
@@ -49,7 +49,11 @@ export const HOME_KINDS = {
     const top = mat("#ffffff", { map: woodGrain(S.color ?? "#b6773f", 7), roughness: 0.35 }), leg = mat(S.leg ?? "#a86d3a", { roughness: 0.55 });
     const t = mesh(new THREE.BoxGeometry(W, T, D), top, P.whole, 0, H - T / 2, 0);
     t.material.userData.noShine = false;
-    for (const sx of [-1, 1]) for (const sz of [-1, 1]) mesh(new THREE.BoxGeometry(0.08, H - T, 0.08), leg, P.whole, sx * (W / 2 - 0.1), (H - T) / 2, sz * (D / 2 - 0.1));
+    const L = S.legW ?? 0.08;
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) mesh(new THREE.BoxGeometry(L, H - T, L), leg, P.whole, sx * (S.legX ?? W / 2 - 0.1), (H - T) / 2, sz * (D / 2 - 0.1));
+    // spec.apron: the skirt board under the top's edge, all round (m tall), set in a little
+    if (S.apron) for (const [w, d, x, z] of [[W - 0.12, 0.03, 0, D / 2 - 0.07], [W - 0.12, 0.03, 0, -(D / 2 - 0.07)], [0.03, D - 0.12, W / 2 - 0.07, 0], [0.03, D - 0.12, -(W / 2 - 0.07), 0]])
+      mesh(new THREE.BoxGeometry(w, S.apron, d), leg, P.whole, x, H - T - S.apron / 2, z);
     return { grip: H };
   },
   rug(P) {

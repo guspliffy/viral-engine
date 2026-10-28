@@ -61,22 +61,77 @@ export function phoenixCostume(C, ch) {
 
 // the hood: the top and back of a slightly larger potato shell, open at the front around the face, a soft point at the back
 // peak (0..1): the crown rises into a soft point that leans back, like a cloak's hood (the face-targets sheet)
-export function hoodGeometry(ch, extent = 0.82, peak = 0) {
+export function hoodGeometry(ch, extent = 0.82, peak = 0, lining = 0, fine = lining > 0) {
   // a shell a little bigger than the body over the top and down the back. Round the face (an oval) and below it at
   // the front the shell sinks inside the body, so the opening's edge is where the two surfaces meet: smooth at any size
-  const g = new THREE.SphereGeometry(1, 120, 80, 0, Math.PI * 2, 0, Math.PI * extent), p = g.attributes.position, v = new THREE.Vector3();
+  const g = new THREE.SphereGeometry(1, fine ? 200 : 120, fine ? 130 : 80, 0, Math.PI * 2, 0, Math.PI * extent), p = g.attributes.position, v = new THREE.Vector3();
   const sstep = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
   for (let i = 0; i < p.count; i++) {
     const n = v.fromBufferAttribute(p, i).clone().normalize(), q = ch.bodyPoint(n);
     const az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
-    const face = (az / 0.95) ** 2 + ((el + 0.05) / 0.62) ** 2, front = n.z > -0.15 && n.y < -0.2 ? 0 : 1;
-    const out = Math.min(sstep(0.85, 1.15, face), front ? 1 : sstep(-0.35, -0.15, n.z)), sc = 0.9 + 0.18 * out;
+    // lining: the hood's inside, a shell between body and hood whose opening is that much smaller, so a dark band shows
+    // just inside the hood's edge round the face
+    const k = 1 - lining, face = (az / (0.95 * k)) ** 2 + ((el + 0.05) / (0.62 * k)) ** 2, front = n.z > -0.15 && n.y < -0.2 ? 0 : 1;
+    const out = Math.min(sstep(0.85, 1.15, face), front ? 1 : sstep(-0.35, -0.15, n.z)), sc = 0.9 + (lining ? 0.155 : 0.18) * out;
     const back = Math.max(0, -n.z) * Math.max(0, n.y);
     const top = peak * sstep(0.45, 1.0, n.y) * out;
     p.setXYZ(i, q.x * sc * (1 - 0.35 * top * top), ch.cy + (q.y - ch.cy) * sc + back * back * 0.14 * out + top * top * 0.3 * ch.ry, q.z * sc * (1 - 0.35 * top * top) - back * back * 0.06 * out - top * top * 0.16 * ch.ry);
   }
   g.computeVertexNormals();
   return g;
+}
+// costume.hoodStyle "cloth" (Jonny, 28 Oct: "the hoodie shouldn't look like part of the body"): a hood made as its own
+// piece of cloth instead of a shell that sinks into the face. It stands off the head with some volume, its opening
+// round the face ends in a thick rolled edge, its top hangs forward over the forehead (it shades the face), the
+// lower part falls in soft folds and flares a little at the hem.
+//   C.hoodOpen (1): opening size, C.hoodOverhang (0.14): how far the top edge reaches forward, C.hoodRim (0.024 m),
+//   C.hoodRound (0.07): how much the crown rounds off, C.hoodSlump (0.05): how far it falls to one side
+export function hoodClothGeometry(ch, C = {}) {
+  const sstep = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const o = C.hoodOpen ?? 1, ovh = C.hoodOverhang ?? 0.14, AZ = 0.95 * o, EL = 0.62 * o, E0 = -0.05;
+  // where a direction lands on the cloth; near = 0 on the opening's edge, 1 away from it
+  const place = (n, face) => {
+    const near = sstep(1.0, 1.7, face), az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
+    const q = ch.bodyPoint(n);
+    const fold = 0.014 * Math.sin(az * 7 + 0.6) * sstep(0.1, -0.7, n.y) * near;
+    const back = Math.max(0, -n.z) * Math.max(0, n.y);
+    // a seam groove over the crown, front to back, and two drape folds running down from the cheeks
+    const seam = -0.012 * Math.exp(-(((Math.abs(az) < Math.PI / 2 ? az : Math.PI - Math.abs(az)) / 0.07) ** 2)) * sstep(0.35, 0.85, n.y);
+    const drape = 0.018 * near * sstep(0.2, -0.5, n.y) * (Math.exp(-(((Math.abs(az) - 1.25) / 0.16) ** 2)));
+    const sc = 1.04 + 0.06 * near + 0.08 * sstep(-0.1, 0.8, n.y) * near + fold + seam + drape + 0.06 * sstep(-0.55, -0.9, n.y);
+    const p = new THREE.Vector3(q.x * sc, ch.cy + (q.y - ch.cy) * sc + back * back * 0.12, q.z * sc - back * back * 0.05);
+    // a cloth dome, not the egg's point: the crown rounds off wider and lower and slumps back to one side
+    const crown = sstep(0.35, 0.95, n.y);
+    p.x *= 1 + 0.08 * sstep(0.2, 0.8, n.y); p.z *= 1 + 0.05 * sstep(0.2, 0.8, n.y);
+    p.y -= (C.hoodRound ?? 0.07) * ch.ry * crown; p.x += (C.hoodSlump ?? 0.05) * ch.rx * crown; p.z -= 0.04 * ch.rz * crown;
+    // the top of the opening hangs forward and a little down over the brow
+    const top = sstep(-0.05, 0.45, el - E0) * (1 - sstep(0.0, 0.8, near)) * sstep(0.6, 1.0, Math.cos(az / AZ * 1.2));
+    p.z += ovh * ch.rz * top; p.y -= 0.08 * ovh * ch.ry * top;
+    return p;
+  };
+  const g = new THREE.SphereGeometry(1, 220, 150, 0, Math.PI * 2, 0, Math.PI * 0.86), P = g.attributes.position, v = new THREE.Vector3();
+  const inside = new Uint8Array(P.count);
+  for (let i = 0; i < P.count; i++) {
+    const n = v.fromBufferAttribute(P, i).clone().normalize();
+    let az = Math.atan2(n.x, n.z), el = Math.asin(Math.max(-1, Math.min(1, n.y)));
+    let face = (az / AZ) ** 2 + ((el - E0) / EL) ** 2;
+    if (face < 1 && n.z > 0) {   // inside the opening: pulled out onto its edge, so the cut is a smooth line
+      inside[i] = 1; const k = 1 / Math.sqrt(Math.max(1e-6, face)); az *= k; el = E0 + (el - E0) * k; face = 1;
+      n.set(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+    }
+    const p = place(n, face); P.setXYZ(i, p.x, p.y, p.z);
+  }
+  const idx = g.index.array, keep = [];
+  for (let i = 0; i < idx.length; i += 3) if (!(inside[idx[i]] && inside[idx[i + 1]] && inside[idx[i + 2]])) keep.push(idx[i], idx[i + 1], idx[i + 2]);
+  g.setIndex(keep); g.computeVertexNormals();
+  // the rolled edge round the face
+  const pts = [];
+  for (let k = 0; k < 160; k++) {
+    const th = (k / 160) * Math.PI * 2, az = AZ * Math.cos(th), el = E0 + EL * Math.sin(th);
+    pts.push(place(new THREE.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)), 1));
+  }
+  const rim = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 200, C.hoodRim ?? 0.024, 12, true);
+  return { shell: g, rim };
 }
 function scythe(C) {
   const g = new THREE.Group();
@@ -97,7 +152,19 @@ function scythe(C) {
 }
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
-  const hood = new THREE.Mesh(hoodGeometry(ch, 0.82, C.hoodPeak ?? 0), cloth); hood.castShadow = true; ch.bodyGroup.add(hood);
+  if (C.hoodStyle === "cloth") {
+    const { shell, rim } = hoodClothGeometry(ch, C);
+    // the rolled edge catches a little more light than the hood (C.hoodRimColor), so the opening reads as a cloth edge
+    const edge = new THREE.MeshStandardMaterial({ color: C.hoodRimColor || new THREE.Color(C.accent || "#34313a").multiplyScalar(1.45), roughness: 0.9 });
+    for (const [geo, m] of [[shell, cloth], [rim, edge]]) { const o = new THREE.Mesh(geo, m); o.castShadow = true; ch.bodyGroup.add(o); }
+    const { g, tip } = scythe(C);
+    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
+  }
+  const hood = new THREE.Mesh(hoodGeometry(ch, 0.82, C.hoodPeak ?? 0, 0, !!C.hoodLining), cloth); hood.castShadow = true; ch.bodyGroup.add(hood);
+  // costume.hoodLining (0.06 to 0.12): the dark inside of the hood showing as a band round the face (both shells finer,
+  // so the edges where they cross stay smooth)
+  if (C.hoodLining) ch.bodyGroup.add(new THREE.Mesh(hoodGeometry(ch, 0.82, C.hoodPeak ?? 0, C.hoodLining),
+    new THREE.MeshStandardMaterial({ color: C.lining || "#1e1b25", roughness: 0.95, side: THREE.DoubleSide })));
   const { g, tip } = scythe(C);
   return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
 }
