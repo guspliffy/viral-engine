@@ -2105,6 +2105,40 @@
     "drop"
    ]
   },
+  "ai/crunch": {
+   "source": "ai",
+   "files": [
+    "ai/crunch/crunch-01.wav",
+    "ai/crunch/crunch-02.wav",
+    "ai/crunch/crunch-03.wav",
+    "ai/crunch/crunch-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "crunch",
+    "bite",
+    "biscuit",
+    "eat",
+    "mouth"
+   ]
+  },
+  "ai/bowl-scrape": {
+   "source": "ai",
+   "files": [
+    "ai/bowl-scrape/bowl-scrape-01.wav",
+    "ai/bowl-scrape/bowl-scrape-02.wav",
+    "ai/bowl-scrape/bowl-scrape-03.wav",
+    "ai/bowl-scrape/bowl-scrape-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "scrape",
+    "slide",
+    "bowl",
+    "ceramic",
+    "table"
+   ]
+  },
   "oga/fart-viking": {
    "source": "oga",
    "files": [

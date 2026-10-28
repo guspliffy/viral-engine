@@ -1339,6 +1339,164 @@
      "loudnessLUFS": -27.2
     }
    ]
+  },
+  {
+   "id": "crunch",
+   "kind": "sfx",
+   "files": [
+    "crunch/crunch-01.wav",
+    "crunch/crunch-02.wav",
+    "crunch/crunch-03.wav",
+    "crunch/crunch-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "crunch",
+    "bite",
+    "biscuit",
+    "eat",
+    "mouth"
+   ],
+   "durationSec": 0.6,
+   "prompt": [
+    "one single crisp bite into a crunchy biscuit, one crunch, close up, dry, no music",
+    "a single crunchy bite of a dry cookie, close microphone, short, quiet room"
+   ],
+   "seed": [
+    73,
+    71,
+    71,
+    72
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "crunch/crunch-01.wav",
+     "take": "p0-s73",
+     "prompt": "one single crisp bite into a crunchy biscuit, one crunch, close up, dry, no music",
+     "seed": 73,
+     "startSec": 2.343,
+     "durationSec": 0.6,
+     "clap": 0.363,
+     "snrDb": 57.8,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "crunch/crunch-02.wav",
+     "take": "p0-s71",
+     "prompt": "one single crisp bite into a crunchy biscuit, one crunch, close up, dry, no music",
+     "seed": 71,
+     "startSec": 0.355,
+     "durationSec": 0.565,
+     "clap": 0.309,
+     "snrDb": 58.6,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "crunch/crunch-03.wav",
+     "take": "p1-s71",
+     "prompt": "a single crunchy bite of a dry cookie, close microphone, short, quiet room",
+     "seed": 71,
+     "startSec": 0.596,
+     "durationSec": 0.6,
+     "clap": 0.301,
+     "snrDb": 56.6,
+     "loudnessLUFS": -14.0
+    },
+    {
+     "file": "crunch/crunch-04.wav",
+     "take": "p0-s72",
+     "prompt": "one single crisp bite into a crunchy biscuit, one crunch, close up, dry, no music",
+     "seed": 72,
+     "startSec": 2.216,
+     "durationSec": 0.6,
+     "clap": 0.3,
+     "snrDb": 47.7,
+     "loudnessLUFS": -18.0
+    }
+   ]
+  },
+  {
+   "id": "bowl-scrape",
+   "kind": "sfx",
+   "files": [
+    "bowl-scrape/bowl-scrape-01.wav",
+    "bowl-scrape/bowl-scrape-02.wav",
+    "bowl-scrape/bowl-scrape-03.wav",
+    "bowl-scrape/bowl-scrape-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "scrape",
+    "slide",
+    "bowl",
+    "ceramic",
+    "table"
+   ],
+   "durationSec": 1.427,
+   "prompt": [
+    "a small ceramic bowl slowly sliding across a wooden table, one smooth soft scrape, close up, no music",
+    "dragging a porcelain dish slowly over a wooden tabletop, a single soft continuous scrape, quiet room"
+   ],
+   "seed": [
+    81,
+    82,
+    82,
+    83
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -26.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bowl-scrape/bowl-scrape-01.wav",
+     "take": "p0-s81",
+     "prompt": "a small ceramic bowl slowly sliding across a wooden table, one smooth soft scrape, close up, no music",
+     "seed": 81,
+     "startSec": 0.644,
+     "durationSec": 1.466,
+     "clap": 0.155,
+     "snrDb": 70.9,
+     "loudnessLUFS": -24.8
+    },
+    {
+     "file": "bowl-scrape/bowl-scrape-02.wav",
+     "take": "p1-s82",
+     "prompt": "dragging a porcelain dish slowly over a wooden tabletop, a single soft continuous scrape, quiet room",
+     "seed": 82,
+     "startSec": 1.694,
+     "durationSec": 2.2,
+     "clap": 0.125,
+     "snrDb": 65.3,
+     "loudnessLUFS": -17.4
+    },
+    {
+     "file": "bowl-scrape/bowl-scrape-03.wav",
+     "take": "p0-s82",
+     "prompt": "a small ceramic bowl slowly sliding across a wooden table, one smooth soft scrape, close up, no music",
+     "seed": 82,
+     "startSec": 3.679,
+     "durationSec": 1.389,
+     "clap": 0.092,
+     "snrDb": 56.1,
+     "loudnessLUFS": -27.4
+    },
+    {
+     "file": "bowl-scrape/bowl-scrape-04.wav",
+     "take": "p0-s83",
+     "prompt": "a small ceramic bowl slowly sliding across a wooden table, one smooth soft scrape, close up, no music",
+     "seed": 83,
+     "startSec": 0.383,
+     "durationSec": 1.362,
+     "clap": -0.043,
+     "snrDb": 58.7,
+     "loudnessLUFS": -28.7
+    }
+   ]
   }
  ]
 }
