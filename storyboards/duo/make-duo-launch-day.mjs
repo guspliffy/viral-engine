@@ -88,7 +88,9 @@ const grip = (t, id, side, shape, dur = 0.12) => A(t, id, "grip", { side, shape,
 const onProp = (prop, g, palm) => ({ prop, grip: g.map(r3), ...(palm && { palm: palm.map(r3) }) });
 const BOX_SIDE = (s) => [s * (BOX.W / 2 + 0.035), 0.045, 0];   // s -1: the box's left side (the buyer's own right hand)
 // the closed phone's two ends (its top and bottom), held near the free edge; and a hand on a half, behind it
-const END_GRIP = { top: [0, FOLD.H + 0.03, FOLD.W * 0.62], bottom: [0, -0.03, FOLD.W * 0.62] };
+// the closed phone's two ends, pinched from above as it lies in its tray (phone -x is up there): the gloves stay over
+// the box, never down through its walls
+const END_GRIP = { top: [-0.035, FOLD.H - 0.02, FOLD.W * 0.62], bottom: [-0.035, 0.02, FOLD.W * 0.62] };
 const HALF = (open, gap, side) => onProp(null, foldPoint(open, gap, side, 1.04, 0.5, 0.03), foldPoint(open, gap, side, 0.8, 0.5, 0));
 
 // a buyer's whole handling chain: arrive with the box, set it down, lid off and parked, the phone out of the tray,
@@ -129,8 +131,8 @@ function purchase(id, box, lid, ph, T) {
   look(T.lift - 0.3, id, [0.05, -0.9], 0.1);      // eyes on the phone in its tray before the hands go in
   c.at(T.lift - 0.02, { do: "carry", prop: ph });
   const tray = add(at, IN_TRAY);
-  c.arm(T.lift - 0.16, id, "R", onProp(ph, END_GRIP.top, [0, FOLD.H, FOLD.W * 0.62]), 0.16, "inOut");
-  c.arm(T.lift - 0.16, id, "L", onProp(ph, END_GRIP.bottom, [0, 0, FOLD.W * 0.62]), 0.16, "inOut");
+  c.arm(T.lift - 0.16, id, "R", onProp(ph, END_GRIP.top, [0, FOLD.H - 0.02, FOLD.W * 0.62]), 0.16, "inOut");
+  c.arm(T.lift - 0.16, id, "L", onProp(ph, END_GRIP.bottom, [0, 0.02, FOLD.W * 0.62]), 0.16, "inOut");
   grip(T.lift - 0.1, id, "both", "hold", 0.1);
   const hold = [sx + 0.0, 0.36, sz + 0.45];   // high enough that the ledge never hides the screens, below the mouth
   c.prop(T.lift, ph, { x: tray[0], y: tray[1] + 0.05, z: tray[2] }, 0.12, "out");
@@ -225,10 +227,10 @@ sfx(3.55, "magic-up", { gain: 0.3, reason: "the restrained product gleam as the 
 // the snap: a tiny dry crack as the opening finishes, the hinge parts, each hand keeps its half
 const SNAP = 3.85;
 sfx(SNAP, "kenney/metal-click", { gain: 1.1, reason: "the hinge snaps" });
-c.prop(SNAP, "phA", { gap: 0.05 }, 0.07, "out");
+c.prop(SNAP, "phA", { gap: 0.08 }, 0.07, "out");
 // then the halves drift apart in his hands, so the golden body shows between them: the break reads at phone size
 c.prop(SNAP + 0.1, "phA", { gap: 0.13 }, 0.55, "out");
-for (const [t, g, d] of [[SNAP, 0.05, 0.07], [SNAP + 0.1, 0.13, 0.55]]) {
+for (const [t, g, d] of [[SNAP, 0.08, 0.07], [SNAP + 0.1, 0.13, 0.55]]) {
   c.arm(t, "wiz", "R", { ...HALF(0.98, g, -1), prop: "phA" }, d, "out");
   c.arm(t, "wiz", "L", { ...HALF(0.98, g, 1), prop: "phA" }, d, "out");
 }
@@ -245,13 +247,13 @@ A(4.62, "wiz", "still", { dur: 0.5, idle: 0.03 });
 A(4.588, "drg", "move", { to: [DOOR_X + 0.1, WALL_Z - 0.3], dur: 0.005 });
 
 // ---------------------------------------------------------------- 07 SECOND PURCHASE 5.10-7.40
-const DT = { arrive: 5.1, set: 5.35, lid: 5.37, lift: 5.9, open: 6.12, flat: 6.75 };
+const DT = { arrive: 5.1, set: 5.35, lid: 5.37, lift: 5.9, open: 6.1, flat: 6.52 };   // open early: a quarter second of intact screens before the crack
 A(5.088, "drg", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(5.088, "drg", [0, -0.75], 0.005);
 purchase("drg", "boxB", "lidB", "phB", DT);
-look(5.92, "drg", [0, -0.45], 0.2); look(6.3, "drg", [0, -0.2], 0.25);
-A(6.3, "drg", "expr", { set: { open: 0.55, curve: 1, eye: 1.2, pupil: 1.15 }, dur: 0.2 });
-sfx(6.5, "kenney/power-up", { gain: 0.18, reason: "a hopeful pickup: his phone opens intact" });
+look(5.92, "drg", [0, -0.45], 0.2); look(6.22, "drg", [0, -0.2], 0.25);
+A(6.22, "drg", "expr", { set: { open: 0.55, curve: 1, eye: 1.2, pupil: 1.15 }, dur: 0.2 });
+sfx(6.45, "kenney/power-up", { gain: 0.18, reason: "a hopeful pickup: his phone opens intact" });
 look(5.4, "wiz", [0.6, -0.2], 0.25);   // Wizard watches, smile still stuck
 const CRACK = 6.78;
 c.prop(CRACK, "phB", { crack: 1 }, 0.32, "linear");
@@ -272,6 +274,8 @@ for (const [i, id] of WAIT.entries()) {
 }
 
 // ---------------------------------------------------------------- 09 THEY SAW IT 8.20-9.00 (eyes A -> B, then turn)
+// the front three tuck their hands in for the close shot (their rest arms reach toward each other over the belt)
+c.arm(8.19, "sam", "R", { x: [-0.12, 0.36, 0.42] }, 0.005); c.arm(8.19, "rea", "L", { x: [0.12, 0.36, 0.42] }, 0.005);
 for (const [i, id] of ["sam", "rea", "gun"].entries()) {
   A(8.2, id, "still", { dur: 0.45, idle: 0.02 });
   A(8.22, id, "expr", { set: { curve: 0.2, open: 0.0, eye: 1.25, pupil: 0.72 }, dur: 0.08 });   // the eager smile freezes
@@ -289,7 +293,7 @@ sfx(8.78, "cloth", { gain: 0.5, reason: "the eight pivot together toward the way
 
 // ---------------------------------------------------------------- 10 REVERSE QUEUE 9.00-10.8 (the eight run away)
 [...WAIT].reverse().forEach((id, i) => {
-  const t = 8.98 + i * 0.1;
+  const t = 8.98 + i * 0.06;
   look(t - 0.14, id, [1, 0.05], 0.08);
   A(t, id, "pitch", { to: 10, dur: 0.15 });
   // a flat-out run from the first frame (no slow start), along the lane between the belt and the gear by the wall
@@ -320,7 +324,7 @@ const S04 = frame([-1.9, 1.05, -1.1], { az: 18, el: 6, h: 3.4, fov: 30 });
 const S05 = frame([-2.0, 0.55, 0.42], { az: 6, el: 14, h: 1.45, fov: 22, push: 0.15, dur: 1.85 });
 const S06 = frame([-2.04, 0.62, 0.3], { az: 4, el: 8, h: 0.8, fov: 18, push: 0.04, dur: 0.5 });
 const S07 = frame([-1.38, 0.55, 0.45], { az: 6, el: 14, h: 1.95, fov: 22, push: 0.2, dur: 1.65 });
-const S08 = frame([-1.5, 0.72, -0.1], { az: 18, el: 8, h: 3.4, fov: 26 });
+const S08 = frame([-1.6, 0.6, -0.1], { az: 18, el: 8, h: 3.0, fov: 26 });
 const S09 = frame([0.1, 0.72, QZ], { az: 0, el: 16, h: 2.9, fov: 22 });
 const S10 = { pos: [-5.5, 2.1, 2.2], look: [4.0, 0.5, -1.0], fov: 38 };
 const S11 = frame([-1.4, 0.66, 0.2], { az: -22, el: 10, h: 3.0, fov: 24, push: 0.04, dur: 1.2 });
