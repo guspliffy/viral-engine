@@ -134,7 +134,7 @@ const props = [
   { id: "seatW", kind: "carseat", rig: "car", x: WIZ_X, y: SEAT_Y, z: SEAT_Z },
   { id: "seatD", kind: "carseat", rig: "car", x: DRA_X, y: SEAT_Y, z: SEAT_Z },
   { id: "wheel", kind: "steer", rig: "car", x: DRA_X, y: 0.9, z: 0.25, tip: 34 },
-  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -24, scale: 2.15, case: "#36cfc0" },
+  { id: "phone", kind: "phone", rig: "car", x: WIZ_X, y: 1.0, z: 0.1, rot: 180, tip: -32, scale: 2.15, case: "#36cfc0" },
 ];
 
 // ---------------------------------------------------------------- 0 setup at frame 0 (already driving, already scrolling)
@@ -150,13 +150,16 @@ act.blinksAt(c, "dra", [0.35, 12.9]);
 for (let t = 0; t < END - 0.05; t += 0.1) c.prop(t, "wheel", { tilt: r3(herm(STEER, t + 0.1)) }, 0.1, "linear");
 
 // the Wizard's scroll: the index lifts to the lower screen, swipes up, lifts away and comes back to rest
-const swipe = (t) => {
+const SCROLL_BIG = { x: [0.03, PH.up + 0.25, PH.fwd - 0.04] };   // the payoff's swipe: a long, slower stroke that reads
+const swipe = (t, big = false) => {
   arm(t, "wiz", "L", SCROLL_LOW, 0.12, "inOut");
-  arm(t + 0.12, "wiz", "L", SCROLL_HIGH, 0.14, "inOut");
+  arm(t + 0.12, "wiz", "L", big ? SCROLL_BIG : SCROLL_HIGH, 0.14, "inOut");
   arm(t + 0.26, "wiz", "L", SCROLL_REST, 0.2, "inOut");
   A(t + 0.27, "wiz", "squash", { amount: 0.008, dur: 0.2 });
 };
-for (const t of [0.15, 2.2, 3.7, 5.15, 7.9, 10.35, 12.0]) swipe(t);
+for (const t of [0.15, 2.2, 3.7, 7.9, 10.35, 12.0]) swipe(t);
+swipe(5.15, true);
+c.textPop(5.3, "wiz", "swipe", { dur: 0.65 });
 sfx(5.29, "kenney/scroll", { gain: 0.5, reason: "the one swipe upside down (the payoff)" });
 
 // ---------------------------------------------------------------- 1 NORMAL 0-0.7 (21 frames): calm driving
@@ -195,7 +198,7 @@ sfx(7.3, "screech", { dur: 0.9, gain: 0.45, reason: "the short skid" });
 A(7.06, "dra", "squash", { amount: 0.08, dur: 0.25 });
 A(7.06, "wiz", "squash", { amount: 0.05, dur: 0.25 });
 A(7.08, "wiz", "hatwobble", { amount: 9, freq: 2.8, dur: 1.0 });
-A(7.1, "dra", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.25, curve: -0.2 }, dur: 0.2 });
+A(7.1, "dra", "expr", { expr: "shocked", set: { open: 0.6, eye: 1.35, curve: -0.2 }, dur: 0.2 });
 
 // ---------------------------------------------------------------- 6 EVERYTHING IS FINE 8.5-11.5: Dragon breathes out
 A(8.7, "dra", "face", { lid: 0.85, brow: -0.2, dur: 0.35 });
@@ -209,9 +212,9 @@ A(9.65, "dra", "look", { to: ROAD_AHEAD, dur: 0.3, blink: false });
 // ---------------------------------------------------------------- 7 RETURN 11.5-14: the opening frame again
 // faces and eyes ease back to frame 0 (places never moved: they ride in the car)
 // Dragon side-eyes the Wizard (eyes first, then a flat look), who swipes again without looking up, then back to the road
-A(10.3, "dra", "look", { to: [-0.55, -0.05], dur: 0.3, blink: false });
-A(10.45, "dra", "expr", { expr: "deadpan", dur: 0.35 });
-A(10.45, "dra", "face", { lid: 0.35, brow: -0.25, dur: 0.35 });
+A(10.0, "dra", "look", { to: [-0.55, -0.05], dur: 0.3, blink: false });
+A(10.15, "dra", "expr", { expr: "deadpan", dur: 0.35 });
+A(10.15, "dra", "face", { lid: 0.35, brow: -0.25, dur: 0.35 });
 A(11.6, "dra", "look", { to: ROAD_AHEAD, dur: 0.35, blink: false });
 A(11.7, "dra", "expr", { expr: "kind", dur: 0.5 });
 A(11.7, "dra", "face", { lid: 0, brow: 0, dur: 0.4 });
@@ -227,10 +230,10 @@ const beats = c.beats([
   ["impact", T_HIT, { pos: [-3.7, 0.55, 5.4], look: [-0.7, 0.8, 0.9], fov: 40, to: { pos: [-3.9, 0.7, 5.6], look: [-0.6, 0.95, 0.9] }, dur: 0.45, ease: "out" }],
   ["shock", 1.15, { pos: [2.6, 1.0, 6.6], look: [0.05, 1.15, 0.8], fov: 40, to: { pos: [2.9, 1.4, 7.4], look: [0.4, 1.5, 0.6], fov: 42 }, dur: 0.65, ease: "inOut" }],
   ["the roll", 1.8, { pos: [2.2, 1.9, 8.2], look: [0.5, 1.6, 0], fov: 36, to: { pos: [1.9, 2.7, 7.7], look: [0.95, 2.35, 0] }, dur: 2.7, ease: "inOut" }, "escalation"],
-  ["still scrolling", 4.5, { rig: "car", pos: [-0.45, 1.5, 3.1], look: [-0.27, 1.32, -0.3], fov: 50 }, "payoff"],
-  ["landing", 6.0, { pos: [3.6, 1.1, 5.2], look: [0.3, 0.9, 0.2], fov: 40, to: { pos: [3.2, 1.3, 4.8], look: [0.3, 1.0, 0.2] }, dur: 1.3, ease: "inOut" }],
+  ["still scrolling", 4.5, { rig: "car", pos: [-0.45, 1.5, 3.1], look: [-0.27, 1.32, -0.3], fov: 50, to: { pos: [-0.45, 1.4, 2.5], look: [-0.4, 1.2, -0.1] }, dur: 0.75, ease: "inOut" }, "payoff"],
+  ["landing", 6.0, { pos: [3.6, 0.6, 6.0], look: [0.3, 1.0, 0.2], fov: 40, to: { pos: [3.2, 1.2, 5.0], look: [0.3, 1.0, 0.2] }, dur: 1.3, ease: "inOut" }],
   ["everything is fine", 8.5, { pos: [2.5, 1.8, 4.6], look: [0.05, 1.05, -0.25], fov: 40, to: { pos: [2.25, 1.77, 4.3] }, dur: 3.0, ease: "inOut" }, "reaction"],
-  ["return", 11.5, FRONT],
+  ["return", 11.5, { pos: [0.3, 1.72, 4.8], look: FRONT.look, fov: FRONT.fov, to: FRONT, dur: 2.5, ease: "inOut" }],
 ], END);
 
 write(import.meta.url, {
