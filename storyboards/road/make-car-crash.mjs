@@ -168,13 +168,14 @@ const cast = [
   { id: "dra", character: DRA_CHAR, rig: "car", at: DRA, face: "camera", expr: "kind", seed: 4.1, shadowFall: 0.001, belt: { side: "L" }, sway: 0.7,
     arms: { R: WHEEL_R, L: WHEEL_L }, grip: { R: "hold", L: "hold" } },
 ];
-// [id, kind, rest (out of sight below the dash and the door tops), spec, float path (car frame) while the car is in the
-// air]: they rise in front of the two of them, never past a face, and float round the still phone in the cabin shot
+// [id, kind, rest (out of sight: below the dash, or on the rear deck behind the seats), spec, float path (car frame)
+// while the car is in the air, where it drops at the landing (out of sight below the dash)]: they rise round the two
+// of them, never past a face, and float round the still phone in the cabin shot
 const SNACKS = [
-  ["apple", "apple", [-0.02, 0.42, 0.05], { scale: 1.3 }, [[1.25, [-0.05, 0.8, 0.42]], [2.2, [-0.1, 1.0, 0.42]], [4.4, [-0.13, 1.05, 0.4]], [6.3, [-0.15, 1.09, 0.38]]]],
-  ["cookie", "cookie", [-0.95, 0.45, 0.2], { scale: 1.5 }, [[1.3, [-0.92, 0.8, 0.3]], [2.4, [-0.88, 1.08, 0.32]], [4.5, [-0.86, 1.14, 0.32]], [6.3, [-0.85, 1.2, 0.3]]]],
-  ["candyA", "candy", [-1.0, 0.45, -0.1], { color: "#e8b53a", big: 1.9 }, [[1.3, [-1.02, 0.95, 0.05]], [2.5, [-1.04, 1.38, 0.1]], [4.5, [-1.05, 1.45, 0.1]], [6.3, [-1.05, 1.5, 0.08]]]],
-  ["candyB", "candy", [0.02, 0.42, -0.05], { color: "#e0475b", big: 1.9 }, [[1.3, [0.02, 0.95, 0.2]], [2.3, [0.02, 1.62, 0.1]], [4.4, [0.0, 1.78, 0.05]], [6.3, [-0.02, 1.84, 0.02]]]],
+  ["apple", "apple", [-0.02, 0.42, 0.05], { scale: 1.3 }, [[1.25, [-0.05, 0.8, 0.42]], [2.2, [-0.1, 1.0, 0.42]], [4.4, [-0.13, 1.05, 0.4]], [6.3, [-0.15, 1.09, 0.38]]], [-0.02, 0.42, 0.05]],
+  ["cookie", "cookie", [-0.82, 0.9, -1.0], { scale: 1.25 }, [[1.3, [-1.0, 1.0, -0.7]], [2.4, [-1.02, 1.0, 0.2]], [4.5, [-0.84, 0.98, 0.5]], [6.3, [-0.8, 1.02, 0.5]]], [-0.56, 0.5, 0.45]],
+  ["candyA", "candy", [-0.6, 0.9, -1.05], { color: "#e8b53a", big: 1.9 }, [[1.3, [-1.0, 1.25, -0.8]], [2.5, [-1.04, 1.36, 0.1]], [4.5, [-0.96, 1.38, 0.4]], [6.3, [-0.95, 1.42, 0.4]]], [-0.6, 0.5, 0.42]],
+  ["candyB", "candy", [0.02, 0.42, -0.05], { color: "#e0475b", big: 1.9 }, [[1.3, [0.02, 0.95, 0.2]], [2.3, [0.02, 1.62, 0.1]], [4.4, [0.0, 1.78, 0.05]], [6.3, [-0.02, 1.84, 0.02]]], [0.02, 0.42, -0.05]],
 ];
 const props = [
   { id: "seatW", kind: "carseat", rig: "car", x: WIZ_X, y: SEAT_Y, z: SEAT_Z },
@@ -249,11 +250,11 @@ A(At(1.9), "dra", "look", { to: [0.25, 0.05], dur: 0.2, blink: false });
 A(At(3.4), "dra", "look", { to: ROAD_AHEAD, dur: 0.25, blink: false });
 A(At(2.0), "dra", "still", { dur: D(2.0, 4.8), idle: 0.2 });
 
-// loose snacks float up from below the dash as the car turns over, drift round the cabin, and drop back at the landing
-for (const [id, , rest, , path] of SNACKS) {
+// loose snacks float up as the car turns over, drift round the cabin, and drop out of sight at the landing
+for (const [id, , , , path, land] of SNACKS) {
   let prev = 1.0;
   path.forEach(([u, p], i) => { c.prop(At(prev), id, { x: p[0], y: p[1], z: p[2], rot: 40 * (i + 1) * (id.length % 2 ? 1 : -1), tip: 25 * (i + 1) }, D(prev, u - prev), i ? "inOut" : "out"); prev = u; });
-  c.prop(At(6.75), id, { x: rest[0], y: rest[1], z: rest[2], rot: 0, tip: 0 }, D(6.75, LAND - 6.75 + 0.02), "in");
+  c.prop(At(6.75), id, { x: land[0], y: land[1], z: land[2], rot: 0, tip: 0 }, D(6.75, LAND - 6.75 + 0.02), "in");
 }
 
 // ---------------------------------------------------------------- 5 STILL SCROLLING (camera on the cabin, the slow-motion moment)
