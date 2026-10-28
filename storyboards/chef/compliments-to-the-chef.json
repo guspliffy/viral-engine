@@ -631,13 +631,13 @@
     "fov": 12,
     "to": {
      "pos": [
-      -0.555,
-      0.19,
-      2.478
+      -0.559,
+      0.177,
+      2.524
      ],
      "look": [
-      -0.33,
-      0.79,
+      -0.355,
+      0.795,
       0.36
      ]
     },
@@ -877,8 +877,8 @@
     {
      "who": "gun",
      "do": "pitch",
-     "to": 4,
-     "dur": 0.15,
+     "to": 1.5,
+     "dur": 0.25,
      "at": 1
     },
     {
@@ -900,8 +900,8 @@
      "who": "gun",
      "do": "pitch",
      "to": 0,
-     "dur": 0.22,
-     "at": 1.18
+     "dur": 0.3,
+     "at": 1.25
     },
     {
      "who": "gun",
@@ -1100,11 +1100,13 @@
     {
      "sfx": "ai/drip",
      "gain": 0.9,
+     "reason": "the first drops land in the soup (bowl fall)",
      "at": 1.08
     },
     {
      "sfx": "ai/drip",
      "gain": 0.6,
+     "reason": "the last drop lands in the soup (bowl fall)",
      "at": 1.16
     },
     {

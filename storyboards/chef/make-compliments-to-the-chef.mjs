@@ -138,8 +138,8 @@ for (const [t, v] of quiver) A(t, "gun", "face", { cornerR: v, dur: 0.12 });
 A(4.32, "gun", "face", { press: 0.35, dur: 0.2 });
 A(5.15, "gun", "face", { press: 0.9, cornerR: 0.1, dur: 0.12 });   // the swallow: lips pressed
 A(5.2, "gun", "squash", { amount: 0.09, dur: 0.35 });                // cheeks and shoulders tighten
-A(5.2, "gun", "pitch", { to: 4, dur: 0.15 });                       // the gulp dips the head
-A(5.38, "gun", "pitch", { to: 0, dur: 0.22 });
+A(5.2, "gun", "pitch", { to: 1.5, dur: 0.25 });                       // the gulp dips the head
+A(5.45, "gun", "pitch", { to: 0, dur: 0.3 });
 A(5.2, "gun", "expr", { set: { eye: 0.75 }, dur: 0.1 });
 A(5.55, "gun", "face", { press: 0.35, dur: 0.15 });
 A(6.4, "gun", "face", { press: 0, dur: 0.15 });
@@ -164,8 +164,8 @@ A(7.46, "gun", "expr", { set: { open: 0.5, curve: -0.2, eye: 0.9 }, dur: 0.05 })
 A(7.47, "gun", "pitch", { to: 6, dur: 0.12, ease: "out" });
 c.prop(7.5, "bowl", { fall: 2 }, 0.8, "linear");
 sfx(7.5, "ai/blep", { gain: 0.8 });
-sfx(7.68, "ai/drip", { gain: 0.9 });
-sfx(7.76, "ai/drip", { gain: 0.6 });
+sfx(7.68, "ai/drip", { gain: 0.9, reason: "the first drops land in the soup (bowl fall)" });
+sfx(7.76, "ai/drip", { gain: 0.6, reason: "the last drop lands in the soup (bowl fall)" });
 A(7.76, "gun", "expr", { set: { open: 0, curve: -0.1, eye: 0.95 }, dur: 0.1 });
 A(7.95, "gun", "face", { lid: 0.3, dur: 0.15 });                     // eyes stay shut until the drops are in
 A(7.97, "gun", "look", { to: GUN_AT_BOWL, dur: 0.15, blink: false });
@@ -204,8 +204,8 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
 const S1 = frame([0.1, 0.8, 0.42], { az: -30, el: 4, h: 1.75, fov: 24 });
 const S2 = frame([-0.33, 0.92, 0.42], { az: -10, el: 6, h: 1.7, fov: 20 });
 const S3 = frame([-0.06, 0.9, 0.34], { az: -10, el: 4, h: 1.75, fov: 22 });
-const S4 = frame([-0.37, 0.8, 0.36], { az: -5, el: -16, h: 0.5, fov: 12, push: 0.07, dur: 2.4 });
-S4.to.look = [-0.33, 0.79, 0.36];   // the creep ends centred on both eyes
+const S4 = frame([-0.37, 0.8, 0.36], { az: -5, el: -16, h: 0.5, fov: 12, push: 0.05, dur: 2.4 });
+S4.to.look = [-0.355, 0.795, 0.36];   // the creep stays centred on both eyes
 const S5 = frame([-0.38, 0.63, 0.37], { az: 35, el: -3, h: 0.45, fov: 14 });   // from the cook's side: a new angle on the mouth
 const S6 = frame([-0.27, 0.58, 0.44], { az: -10, el: 7, h: 0.95, fov: 20 });
 const S7 = frame([-0.03, 0.72, 0.32], { az: -10, el: 2, h: 1.85, fov: 22 });
