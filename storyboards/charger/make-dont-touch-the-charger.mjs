@@ -32,7 +32,7 @@ const WIZ = [-0.47, 0.0], DRA = [0.44, 0.0];
 const TABLE_H = 0.33, TABLE_Z = 0.86, TABLE_D = 0.82;
 const BANK_S = 1.6, BANK = [-0.04, TABLE_H, 0.52];
 const PLUG = [r3(BANK[0] - (CHARGER.bank.w / 2 + CHARGER.plugOut * 0.6) * BANK_S), r3(TABLE_H + CHARGER.bank.h * 0.5 * BANK_S), BANK[2]];   // the plug housing, in the world
-const BOWL_S = 1.4, BOWL0 = [0.3, TABLE_H, 0.82], BOWL1 = [0.45, TABLE_H, 0.8];    // ends in front of Dragon, inside the safe zone
+const BOWL_S = 1.4, BOWL0 = [0.1, TABLE_H, 0.82], BOWL1 = [0.42, TABLE_H, 0.8];    // from the middle (the Wizard's snacks too) to in front of Dragon
 const BISCUIT_S = BOWL_S;
 const seatA = (b) => [r3(b[0] + CHARGER.seatA[0] * BOWL_S), r3(b[1] + CHARGER.seatA[1] * BOWL_S), r3(b[2] + CHARGER.seatA[2] * BOWL_S)];
 const MOUTH_D = [r3(DRA[0] - 0.103), 0.557, 0.351];  // Dragon's mouth on his face (render --layout "mouth")
@@ -91,7 +91,7 @@ c.arm(0, "dra", "R", { world: beside(seatA(BOWL0), 0) }, 0.35, "inOut");        
 A(0.33, "dra", "grip", { side: "R", shape: "pinch", dur: 0.08 });
 A(0.36, "dra", "grab", { prop: "bisA", hand: "R", grip: "side", pose: null });
 sfx(0.36, "grab", { gain: 0.25 });
-c.arm(0.4, "dra", "R", { world: [0.3, 0.5, 0.62] }, 0.3, "inOut");               // lifted clear of the bowl by 0.70
+c.arm(0.4, "dra", "R", { world: [0.14, 0.5, 0.66] }, 0.3, "inOut");               // lifted clear of the bowl by 0.70
 c.prop(0.4, "bisA", { tip: 0, rot: ROT_A }, 0.4);                                  // its round face to the camera
 A(0.55, "dra", "look", { to: DRA_AT_WIZ, dur: 0.18, blink: false });             // a check on the Wizard: nothing
 A(0.95, "dra", "look", { to: [-0.1, -0.45], dur: 0.15, blink: false });
@@ -179,10 +179,7 @@ A(10.9, "dra", "look", { to: DRA_AT_PLUG, dur: 0.15, blink: false });           
 A(11.35, "dra", "look", { to: DRA_AT_WIZ, dur: 0.15, blink: false });              // ...and back
 A(11.7, "dra", "expr", { expr: "nervous", set: { open: 0, curve: 0.3, eye: 1.0, tilt: 0.3 }, dur: 0.35 });   // a sheepish smile
 A(11.7, "dra", "face", { brow: 0.35, dur: 0.3 });
-A(12.0, "wiz", "look", { to: WIZ_AT_PHONE, dur: 0.2, blink: false });           // the button: back to his phone...
-A(12.0, "wiz", "face", { lid: 0.4, brow: 0, dur: 0.25 });
-A(12.0, "wiz", "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.25 });               // ...his hand still on the wrist
-A(12.4, "dra", "look", { to: [-0.3, -0.6], dur: 0.15, blink: false });              // Dragon looks down at his trapped wrist
+A(12.1, "wiz", "face", { browL: -0.2, browR: -0.75, dur: 0.3 });                     // one brow lower: "don't" (the brief: his firm stare holds to the end)
 
 // ---------------------------------------------------------------- shots (fixed by the brief; [name, start, camera, kind])
 // a camera on `target` from azimuth az (degrees round y, 0 = straight from the front, - = from the left) and

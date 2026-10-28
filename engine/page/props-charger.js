@@ -22,7 +22,7 @@ export const CHARGER = {
   bowlRim: 0.088,                          // the bowl's rim height
   biscuitR: 0.042,                         // a biscuit's radius
   // where biscuit A sits in the bowl before it is taken (in the bowl's frame, before its scale), and its lean (deg)
-  seatA: [-0.01, 0.095, 0.045], leanA: -15,
+  seatA: [-0.01, 0.13, 0.0], leanA: -15,
 };
 export const CHARGER_GRIPS = {
   biscuit: { edge: [0, CHARGER.biscuitR * 0.75, 0], side: [-CHARGER.biscuitR * 1.35, 0, 0] },
