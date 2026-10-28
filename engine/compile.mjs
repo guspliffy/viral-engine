@@ -15,7 +15,7 @@
 // the clip lasts as long as its beats.
 // Item kinds: an action ({ who, do }), an effect ({ fx: "flash", ... }), a sound ({ sfx: "tink", ... }) or a
 // macro ({ macro, who, ... }, see MACROS). A beat's "shot" starts at the beat; "shot": "keep" (default) keeps the
-// camera. A beat's "caption" (text or { text, pos, style, beats }) shows for that beat, or for "beats" beats.
+// camera. In a directed clip (sb.direct) a beat without a camera gets a placeholder that engine/direct.mjs resolves. A beat's "caption" (text or { text, pos, style, beats }) shows for that beat, or for "beats" beats.
 // A flat storyboard (no "beats", or its own "actions") passes through unchanged.
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
@@ -151,7 +151,11 @@ export function compile(sb) {
   const openCaps = [];
   sb.beats.forEach((b, bi) => {
     const start = b.at != null ? b.at : t;
-    if (b.shot && b.shot !== "keep") out.shots.push({ ...b.shot, at: r3(start) });
+    // a directed clip (sb.direct, engine/direct.mjs): a beat without a camera, or with a shot size, gets one chosen
+    // from its kind and who acts in it
+    const sized = b.shot && b.shot !== "keep" && !b.shot.pos;
+    if (sb.direct && (b.shot == null || sized)) out.shots.push({ at: r3(start), direct: { kind: b.kind, ...(b.who && { who: b.who }), ...(sized && (typeof b.shot === "string" ? { size: b.shot } : b.shot)) } });
+    else if (b.shot && b.shot !== "keep") out.shots.push({ ...b.shot, at: r3(start) });
     // expand macros, then resolve relative times
     const items = [];
     for (const it of b.do || []) {

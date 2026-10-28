@@ -27,7 +27,8 @@ export function clip() {
     say: (t, who, line, dur, tone = "calm") => A(t, who, "talk", { line, tone, dur }),
     macro: (t, who, macro, o = {}) => at(t, { who, macro, ...o }),
     cap: (from, to, text, pos, pop = false) => captions.push({ from: r3(from), to: r3(to), text, pos, pop }),
-    // shots: [[name, start, shot | null (keep the camera), kind?], ...] in time order; each beat gets the items from
+    // shots: [[name, start, shot | null (keep the camera; in a directed clip, the beat's kind picks it), kind?], ...]
+    // in time order (a shot can also be "keep", a size like "close", or { size, who }); each beat gets the items from
     // its start up to the next shot, at times relative to that start. Nothing may happen at or after `end`.
     beats(shots, end) {
       items.sort((a, b) => a.at - b.at);

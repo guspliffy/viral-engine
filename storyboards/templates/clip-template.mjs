@@ -55,15 +55,18 @@ act.shock(c, 4.2, "wiz", { open: 0.18, eye: 1.2, curve: null, brow: 0.3, dur: 0.
 act.defeated(c, 5.6, "wiz", { hold: 0.5, blink: false });
 act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_PHX });
 
-// ---------------------------------------------------------------- shots: [name, start, camera or null (keep), kind?]
-const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };
-const PUSH = { pos: [0.3, 0.95, 4.6], look: [0.3, 0.8, 0], fov: 36 };
+// ---------------------------------------------------------------- shots: [name, start, camera, kind?]
+// The camera is directed from the story (engine/direct.mjs): leave the camera null and the beat's kind picks the shot
+// (setup: medium on everyone, payoff: snap-in on its actor, reaction: close-up with a slow push, the loop tail: the
+// opening shot again), framed from where the characters are, cut on action. A size ("close", "mcu", "medium",
+// "wide") or { size, who } overrides it, "keep" holds the camera, and a plain { pos, look, fov } is used as it is.
+const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };   // the master: its direction is every shot's
 const beats = c.beats([
-  ["hook", 0, MED, "hook"],
+  ["hook", 0, null, "hook"],
   ["try", 2.0, null],
-  ["payoff", 4.0, { ...MED, to: PUSH, dur: 1.6, ease: "inOut" }],
-  ["reaction", 5.6, null],
-  ["back to the start", 7.2, MED],
+  ["payoff", 4.0, null, "payoff"],
+  ["reaction", 5.6, { who: "wiz" }, "reaction"],
+  ["back to the start", 7.2, null],
 ], END);
 
 write(import.meta.url, {
@@ -73,6 +76,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: true,
   set: { type: "apartment", seed: 5 },
   music: false,
+  direct: { master: MED },
   sound: { sfx: 0.6, ambience: 0.34 },
   cast, props, captions: c.captions, beats,
   // contact a beat needs goes here, always with a reason (a window without one is ignored by the checks)

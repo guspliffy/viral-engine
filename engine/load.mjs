@@ -4,6 +4,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
+import { direct } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 
 export function loadCharacters(sb) {
@@ -14,5 +15,6 @@ export function loadCharacters(sb) {
 
 export function loadStoryboard(file) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
-  return compile(withSpeech(sb, loadCharacters(sb)));
+  const chars = loadCharacters(sb);
+  return direct(compile(withSpeech(sb, chars)), chars);
 }
