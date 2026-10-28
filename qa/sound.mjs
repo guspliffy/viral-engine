@@ -19,6 +19,12 @@
 //   sound-level    how far each effect stands over what plays under it: its loudest 50 ms against the median level
 //                  of the second before (music, voices, room). Under ~1 dB it is buried (footsteps: under -3 dB);
 //                  over 20 dB above a real bed it jumps out. Hypotheses from earshot's launch mixes (3-10 dB), warn only.
+//   payoff-sound   (creative, a note) the payoff is the loudest moment of the clip and has a quiet dip before it: the
+//                  loudest 100 ms window of the file falls in the payoff beat (within 1 dB), and the quietest 0.5 s of the
+//                  4 s before it sits 12 dB or more under the payoff's peak. Idea from cth9191/animate tools/review.mjs
+//                  (MIT), which wants 0.5-4 s of silence before the payoff; ours is relative because a bed or a voice
+//                  rarely drops to digital silence. The payoff: "music": { "payoff": t }, else the beat marked
+//                  "kind": "payoff", else one named payoff / reveal / punchline, else the last escalation (said so).
 // soundEars(clip, sb, chars), with --ears (earshot: github.com/Leonxlnx/earshot, run through qa/ears.py, ~1 min):
 //   ears-sync      earshot listens to the file and finds the onset that answers each hit's picture moment (knocks,
 //                  slams, put-downs; not footsteps): the share within a frame, against what chance would score
@@ -83,14 +89,14 @@ export function soundNotes(sb) {
   return out;
 }
 
-function decodeMono(file) {
+export function decodeMono(file) {
   const r = spawnSync("ffmpeg", ["-v", "error", "-i", file, "-vn", "-ac", "1", "-ar", String(SR), "-f", "f32le", "-"], { maxBuffer: 1 << 29 });
   if (r.status !== 0) throw new Error(`sound: can't decode ${file}`);
   return new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length));
 }
 // energy in blocks of `hop` samples
-function envelope(x, hop) { const e = new Float64Array(Math.floor(x.length / hop)); for (let i = 0; i < e.length; i++) { let s = 0; for (let k = i * hop; k < (i + 1) * hop; k++) s += x[k] * x[k]; e[i] = s / hop; } return e; }
-const db = (p) => 10 * Math.log10(p + 1e-12);
+export function envelope(x, hop) { const e = new Float64Array(Math.floor(x.length / hop)); for (let i = 0; i < e.length; i++) { let s = 0; for (let k = i * hop; k < (i + 1) * hop; k++) s += x[k] * x[k]; e[i] = s / hop; } return e; }
+export const db = (p) => 10 * Math.log10(p + 1e-12);
 
 // timing from a render of the sound (no clip needed): each named hit's loudest moment against the physical moment
 // nearest to it (an action starting or ending, a footfall, an effect). Automatic sounds (footfalls, hops, grabs) are placed by
@@ -110,6 +116,22 @@ export function soundTiming(sb, events) {
   if (off.length) add("warn", "sound-sync", `${off.length} of ${hits.length} named hits peak more than a frame from the action they belong to (${off.slice(0, 5).join(", ")}${off.length > 5 ? ", ..." : ""}): move them onto the contact frame`);
   if (cut.length) add("warn", "sound-sync", `${cut.join(", ")}: too close to the start for the sound to lead into its hit; it lands late`);
   if (!off.length && !cut.length) add("pass", "sound-sync", `${hits.length ? `${hits.length} named hit${hits.length > 1 ? "s peak" : " peaks"} within a frame of the action` : "no named hits"}; every hit sound peaks on its event (engine/sfx/library.mjs)`);
+  return out;
+}
+
+// how far each hit stands over what plays under it in the file: its loudest 50 ms against the median level of the
+// second before. { e, d (dB), buried, loud }
+export function effectLevels(mix, events, offset = 0) {
+  const W = 2205, e50 = envelope(mix, 441), at = (t) => Math.max(0, Math.round((t + offset) * SR / 441)), out = [];
+  const lvl = (i) => { let s = 0, n = 0; for (let k = i; k < i + W / 441 && k < e50.length; k++) { s += e50[k]; n++; } return n ? s / n : 0; };
+  for (const e of events.filter((x) => x.hit != null)) {
+    const h = at(e.hit), top = Math.max(...Array.from({ length: 30 }, (_, j) => lvl(Math.max(0, h - 1 + j))));
+    const bed = []; for (let i = at(e.hit - 1); i < at(e.hit - 0.08); i += 5) bed.push(lvl(i));
+    if (!bed.length) continue;
+    bed.sort((x, y) => x - y);
+    const b = db(bed[Math.floor(bed.length / 2)]), d = db(top) - b, step = /^step/.test(e.kind);
+    out.push({ e, d, buried: d < (step ? -3 : 1), loud: d > 20 && b > -45 });
+  }
   return out;
 }
 
@@ -134,24 +156,54 @@ export function soundMeasure(clip, sb, chars) {
   if (best < 0.8) add("warn", "sound-file", `the file's sound matches a fresh render only ${(best * 100).toFixed(0)}%: it was made by an older storyboard or engine (redo it with render.mjs --audio-only)`);
   else add(Math.abs(offset) > FRAME ? "fail" : "pass", "sound-file", `the file's sound is this storyboard's (${(best * 100).toFixed(0)}% match), ${Math.abs(offset) > FRAME ? `but ${ms} ms out of sync with the picture` : `in sync with the picture (${ms} ms)`}`);
   // 3. level over what plays under it, in the file (music included), 50 ms windows
-  const W = 2205, e50 = envelope(mix, 441), at = (t) => Math.max(0, Math.round((t + offset) * SR / 441));
-  const lvl = (i) => { let s = 0, n = 0; for (let k = i; k < i + W / 441 && k < e50.length; k++) { s += e50[k]; n++; } return n ? s / n : 0; };
   const buried = [], loud = [], over = [];
-  for (const e of a.events.filter((x) => x.hit != null)) {
-    const h = at(e.hit), top = Math.max(...Array.from({ length: 30 }, (_, j) => lvl(Math.max(0, h - 1 + j))));
-    const bed = []; for (let i = at(e.hit - 1); i < at(e.hit - 0.08); i += 5) bed.push(lvl(i));
-    if (!bed.length) continue;
-    bed.sort((x, y) => x - y);
-    const b = db(bed[Math.floor(bed.length / 2)]), d = db(top) - b, step = /^step/.test(e.kind);
-    over.push(d);
-    if (d < (step ? -3 : 1)) buried.push(`${e.kind}@${e.at} ${d.toFixed(1)} dB`);
-    else if (d > 20 && b > -45) loud.push(`${e.kind}@${e.at} +${d.toFixed(0)} dB`);
+  for (const x of effectLevels(mix, a.events, offset)) {
+    over.push(x.d);
+    if (x.buried) buried.push(`${x.e.kind}@${x.e.at} ${x.d.toFixed(1)} dB`);
+    else if (x.loud) loud.push(`${x.e.kind}@${x.e.at} +${x.d.toFixed(0)} dB`);
   }
   over.sort((x, y) => x - y);
   const med = over.length ? over[Math.floor(over.length / 2)] : 0;
   if (buried.length) add("warn", "sound-level", `${buried.length} of ${over.length} effects buried under the music, voices or room (${buried.slice(0, 5).join(", ")}${buried.length > 5 ? ", ..." : ""}): raise them or duck the bed`);
   if (loud.length) add("warn", "sound-level", `${loud.length} effects jump far out of the mix (${loud.slice(0, 5).join(", ")})`);
   if (!buried.length && !loud.length && over.length) add("pass", "sound-level", `${over.length} effects stand ${over[0].toFixed(0)} to ${over[over.length - 1].toFixed(0)} dB over what plays under them (median ${med.toFixed(0)} dB)`);
+  out.push(...payoffSound(sb, envelope(mix, 441)));
+  return out;
+}
+
+// the payoff beat: { name, from, to, how }. "how" says when it is the music lock's fallback (the last escalation),
+// which may not be the punchline
+export function payoffBeat(sb) {
+  const b = sb.beatSpans || [];
+  if (sb.music?.payoff != null) { const t = sb.music.payoff, s = b.find((x) => t >= x.from && t < x.to); return { name: s?.name ?? "payoff", from: t, to: s ? s.to : t + 1.5, how: "music.payoff" }; }
+  const p = b.find((x) => x.kind === "payoff") ?? b.find((x) => /payoff|reveal|punch/i.test(x.name || ""));
+  if (p) return { name: p.name, from: p.from, to: p.to, how: "marked" };
+  const e = [...b].reverse().find((x) => x.kind === "escalation");
+  return e ? { name: e.name, from: e.from, to: e.to, how: "last escalation" } : null;
+}
+
+// e10: the file's energy in 10 ms blocks (envelope(mix, 441)). Loudness in dBFS, mono
+export function payoffSound(sb, e10) {
+  const out = [], add = (level, msg) => out.push({ group: "creative", level, check: "payoff-sound", msg });
+  const p = payoffBeat(sb);
+  if (!p) { add("note", `no payoff beat (mark the punchline "kind": "payoff"), so the payoff's sound wasn't measured`); return out; }
+  const mean = (k) => { const o = new Float64Array(Math.max(0, e10.length - k + 1)); let s = 0; for (let i = 0; i < e10.length; i++) { s += e10[i]; if (i >= k) s -= e10[i - k]; if (i >= k - 1) o[i - k + 1] = db(s / k); } return o; };
+  const w100 = mean(10), w500 = mean(50), T = (i) => i / 100, at = (t) => Math.max(0, Math.round(t * 100));
+  const peak = (a, b) => { let m = -Infinity, k = a; for (let i = a; i < Math.min(b, w100.length); i++) if (w100[i] > m) { m = w100[i]; k = i; } return [m, k]; };
+  const [top, topI] = peak(0, w100.length), end = Math.min(p.to, p.from + 3), [pk, pkI] = peak(at(p.from - 0.1), at(end));
+  if (!Number.isFinite(pk)) return out;
+  const beatAt = (t) => (sb.beatSpans || []).find((x) => t >= x.from && t < x.to)?.name;
+  // the quietest 0.5 s in the 4 s before, and how long the level stays 12 dB under the payoff's peak around it
+  let q = Infinity, qI = 0;
+  for (let i = at(p.from - 4); i <= at(p.from) - 50 && i < w500.length; i++) if (w500[i] < q) { q = w500[i]; qI = i; }
+  let a = qI + 25, b = qI + 25; const low = (i) => w100[Math.max(0, i - 5)] <= pk - 12;
+  if (low(a)) { while (a > at(p.from - 4) && low(a - 1)) a--; while (b < at(p.from) && low(b + 1)) b++; }
+  const dip = low(qI + 25) ? (b - a + 1) / 100 : 0, depth = pk - q;
+  const loudOk = pk >= top - 1, dipOk = depth >= 12 && dip >= 0.5;
+  const who = `payoff "${p.name}" at ${p.from}s${p.how === "last escalation" ? ` (no payoff marked: the last escalation; mark the punchline "kind": "payoff")` : ""}`;
+  const loud = loudOk ? `its peak (${pk.toFixed(1)} dBFS at ${T(pkI).toFixed(2)}s) is the clip's loudest 100 ms` : `the clip's loudest 100 ms is at ${T(topI).toFixed(2)}s${beatAt(T(topI)) ? ` in "${beatAt(T(topI))}"` : ""}, ${(top - pk).toFixed(1)} dB louder than the payoff's peak (${pk.toFixed(1)} dBFS at ${T(pkI).toFixed(2)}s)`;
+  const quiet = Number.isFinite(q) ? `the quietest 0.5 s before it (${T(qI).toFixed(2)}-${T(qI + 50).toFixed(2)}s) sits ${depth.toFixed(0)} dB under it${dip ? `, ${dip.toFixed(1)} s at 12 dB down` : ""}` : "no room for a dip before it";
+  add(loudOk && dipOk ? "pass" : "note", `${who}: ${loud}; ${quiet}${loudOk && dipOk ? "" : " (house style: the payoff is the loudest moment, after a dip of 0.5 s or more at least 12 dB down: duck the bed or hold the voices before it)"}`);
   return out;
 }
 
