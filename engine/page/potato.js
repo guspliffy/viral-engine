@@ -249,7 +249,7 @@ export class Character {
   bodyPoint(d) {
     let r = 1;
     for (const L of this.lumps) r += L.a * Math.exp(-L.k * (1 - d.dot(L.d)));
-    const taper = 1 - 0.07 * d.y;
+    const taper = 1 - (this.def.body.taper ?? 0.07) * d.y;   // body.taper: how much narrower the top is (an egg: ~0.16)
     return new THREE.Vector3(d.x * this.rx * taper * r, this.cy + d.y * this.ry * r, d.z * this.rz * taper * r);
   }
   // surface point + outward normal by angle around (theta, 0 = front) and elevation (phi)

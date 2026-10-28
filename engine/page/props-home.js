@@ -35,6 +35,8 @@ const woodGrain = (base, seed) => canvasTex(1024, 512, (g, w, h) => {
   }
   // plank joints
   g.fillStyle = "rgba(90,50,20,0.3)"; for (const y of [h / 4, h / 2, (3 * h) / 4]) g.fillRect(0, y, w, 3);
+  // two broad, soft reflections of the window (the references' polished tables)
+  for (const [x, ww] of [[0.3, 0.16], [0.52, 0.07]]) { const gr = g.createLinearGradient(w * (x - ww), 0, w * (x + ww), 0); gr.addColorStop(0, "rgba(255,240,210,0)"); gr.addColorStop(0.5, "rgba(255,240,210,0.22)"); gr.addColorStop(1, "rgba(255,240,210,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }
 });
 const fluff = (base, seed) => canvasTex(512, 512, (g, w, h) => {
   const r = rnd(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);

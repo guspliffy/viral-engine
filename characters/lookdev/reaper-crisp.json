@@ -6,11 +6,12 @@
  "rig": "potato",
  "body": {
   "color": "#e2a95c",
-  "height": 1.0,
-  "width": 0.84,
+  "height": 1.04,
+  "width": 0.76,
   "depth": 0.72,
   "lump": 0.035,
-  "seed": 13
+  "seed": 13,
+  "taper": 0.16
  },
  "limbs": {
   "color": "#1f1d26",
@@ -31,20 +32,25 @@
   },
   "eye": {
    "flick": 0,
-   "lash": 0.9,
+   "lash": 1.15,
    "depth": 0.2,
-   "iris": 0.7,
-   "glints": 1
+   "iris": 0.72,
+   "glints": 1,
+   "oval": 1.32
   },
   "browShape": {
    "arch": 0.01,
-   "thick": 0.9
+   "thick": 1.05
   },
   "blush": 0.5
  },
  "sprout": {
   "color": "#6cbf3a",
-  "placement": "top"
+  "placement": "top",
+  "lift": [
+   0.092,
+   -0.055
+  ]
  },
  "costume": {
   "type": "reaper",
@@ -52,7 +58,8 @@
   "wood": "#6b4a2b",
   "blade": "#c9ced6",
   "propHand": "R",
-  "noProp": true
+  "noProp": true,
+  "hoodPeak": 0.8
  },
  "personality": "Wants peace, order and ordinary comforts; takes instructions literally and struggles to show affection; quietly helps when nobody is watching. Canon since 24 Oct 2026, see docs/character-bible.md.",
  "tts": "reaper",

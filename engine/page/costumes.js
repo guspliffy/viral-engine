@@ -257,7 +257,7 @@ export function buildCostume(def, ch) {
   if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.14, 0.05, 0.24); sprt.group.rotation.set(0.3, -0.45, 0.45); hat.group.add(sprt.group); }   // tucked into the front-left of the band, as in the reference art
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
   else if (where === "none") sprt.group.visible = false;
-  else mount.add(sprt.group);
+  else { mount.add(sprt.group); if (sp.lift) sprt.group.position.add(new THREE.Vector3(0, sp.lift[0], sp.lift[1])); }   // lift [up, forward]: onto a peaked hood
   if (C.type === "wizard" && !C.noProp) { prop = staff(C); ch.root.add(prop.group); }   // noProp: the staff is put away (serving sweets)
   if (prop && globalThis.__DIAG?.colors) { const g = new THREE.MeshLambertMaterial({ color: "#20b040" }); prop.group.traverse((o) => { if (o.isMesh) o.material = g; }); prop.group.add(new THREE.Mesh(new THREE.SphereGeometry(0.006, 8, 6), new THREE.MeshBasicMaterial({ color: "#000000", depthTest: false }))); }   // its grip point black   // debug: the prop green
   if ((pb || isCast) && prop) ch.root.add(prop.group);

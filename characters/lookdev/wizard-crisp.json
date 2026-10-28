@@ -6,11 +6,12 @@
  "rig": "potato",
  "body": {
   "color": "#f2b04e",
-  "height": 1.0,
-  "width": 0.82,
+  "height": 1.04,
+  "width": 0.76,
   "depth": 0.7,
   "lump": 0.035,
-  "seed": 4
+  "seed": 4,
+  "taper": 0.16
  },
  "limbs": {
   "color": "#262540",
@@ -31,11 +32,14 @@
   "eye": {
    "flick": 0.6,
    "depth": 0.2,
-   "iris": 0.7,
-   "glints": 1
+   "iris": 0.72,
+   "glints": 1,
+   "oval": 1.32,
+   "lash": 1.15
   },
   "browShape": {
-   "arch": 0.06
+   "arch": 0.06,
+   "thick": 1.05
   }
  },
  "sprout": {
