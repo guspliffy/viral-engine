@@ -74,3 +74,14 @@ Reading (early, 160 views, about +-4 points of noise): the caption sets up "bad 
 exactly that (proud Wizard, green visor from the front), so nothing promises a twist; the wrong-surface joke only reads
 when the visor lifts at 3.3-5.5 s. The cold read rated B best of the three openings, but it only measured whether the
 premise was understood, not whether viewers wanted to see what happens next. Re-read at 72 h before concluding.
+
+## Second read (29 Oct ~08:45 Berlin)
+
+TikTok at 13.7 h: **747 views**, the first post past the ~250-view first batch. Avg watch 4.4 s, 17.6 % finished,
+97.4 % For You, 4 likes. Retention 0-10 s: 100, 82, 48, 34, 28, 24, 21, 19, 18, 17, 16 %. Held at 2 s: 48 %, the
+bottom of the range of the earlier posts (48-67 %), so the 45 % at 1.5 h was mostly small-sample noise.
+Instagram at 2.8 h: 1,103 views, 588 accounts reached, 0.4 % from followers (only in-app numbers for retention).
+
+Reading: the opening did not hold better than before, yet the clip was pushed further. What differs from the six earlier
+posts is more than the hook (10 s length, Halloween timing, a caption), so this one post can't say which helped. The
+0:01 -> 0:02 fall (82 -> 48) is still the biggest in the set: the twist hint by 2 s is the thing to test next.
