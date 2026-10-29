@@ -56,16 +56,19 @@ function fromAbove(c, who, spec, { side = "R", y = 0.09, lift = 0.06 } = {}) {
       c.A(t + reach + settle + 0.04, who, "grab", { prop: id, hand: side, dur: 0, pose: null, keep: true });
       return r3(t + reach + settle + 0.08);
     },
-    carry(t, at, dur, ease = "inOut") { c.arm(t, who, side, on({ at: at.map(r3) }), dur, ease); return r3(t + dur); },
+    carry(t, at, dur, ease = "inOut") { c.arm(t, who, side, on({ at: at.map(r3) }), dur, ease); h.at = at; return r3(t + dur); },
     place(t, at, dur = 0.35) {
       const e = h.carry(t, at, dur, "out");
       c.prop(e, id, { squash: 0.05 }, 0.05, "out"); c.prop(e + 0.05, id, { squash: 0 }, 0.15, "settle");
       return e;
     },
-    release(t, rest, { back = 0.22 } = {}) {
+    release(t, rest, { back = 0.22, up = lift + 0.03 } = {}) {
       c.A(t, who, "release", { prop: id, dur: 0 });
       c.A(t, who, "grip", { side, shape: "hover", dur: 0.14 });
-      c.arm(t + 0.04, who, side, on({ off: [0, lift + 0.03, 0] }), back, "out");
+      // back off in the world, above where it was put down (a prop pose would aim at the prop's starting place: once
+      // let go, the arm doesn't know where it lies now)
+      c.arm(t + 0.04, who, side, { world: [r3(h.at[0]), r3(h.at[1] + y + up), r3(h.at[2])] }, back, "out");
+      if (rest === null) return r3(t + 0.04 + back);
       if (rest) { c.arm(t + 0.04 + back, who, side, rest, 0.4, "settle"); c.A(t + 0.04 + back, who, "grip", { side, shape: "relaxed", dur: 0.3 }); }
       return r3(t + 0.04 + back);
     },
@@ -86,7 +89,7 @@ const SPIDER_LOW = [-0.3, 0.12, 0.52];                                  // below
 const SPIDER_AT = [-0.27, H, 0.9];                                      // its place for good: front-left of the bowl
 const A0 = [-0.07, 0.464, 0.83], B0 = [0.07, 0.462, 0.9];              // the two named sweets on top of the heap
 const A_CHEST = [-0.42, 0.5, 0.54];                                     // sweet A held near the Wizard's chest
-const B_LANE = [0.24, H + 0.004, 0.8], B_STOP = [0.52, H + 0.004, 0.8];   // the clear lane on the bowl's right, toward the door
+const B_LANE = [0.24, H + 0.004, 0.8], B_STOP = [0.48, H + 0.004, 0.8];   // the clear lane on the bowl's right, toward the door
 
 // eye targets (face look space: + right on screen, + up)
 const WIZ_AT_BOWL = [0.45, -0.6], WIZ_AT_REA = [0.8, 0.05], WIZ_AT_HAND = [-0.15, -0.35];
@@ -130,7 +133,7 @@ c.arm(0.1, "rea", "L", { x: [0.36, 1.0, 0.22] }, 0.16, "out");
 A(0.1, "rea", "grip", { side: "both", ...CLAW, dur: 0.12 });
 A(0.1, "rea", "expr", { expr: "angry", set: { open: 0.55, curve: -0.3, eye: 1.1 }, dur: 0.12 });   // a snarl, not a grin (review A)
 A(0.1, "rea", "hop", { height: 0.08, dur: 0.22 });
-c.textPop(0.14, "rea", "GRR!", { dur: 0.6, size: 96, dx: -0.3, dy: -0.9, angle: -6, color: "speaker" });
+c.textPop(0.14, "rea", "GRR!", { dur: 0.6, size: 96, dx: 0.6, dy: -0.15, angle: -6, color: "speaker" });   // beside his head, clear of the caption
 A(0.1, "rea", "face", { lid: 0.1, dur: 0.12 });
 A(0.12, "rea", "look", { to: REA_AT_WIZ, dur: 0.1, blink: false });
 c.macro(0.14, "rea", "say", { line: "grrr!", tone: "excited", caption: false });
@@ -195,6 +198,7 @@ A(3.6, "wiz", "pitch", { to: 4, dur: 0.3 });
 A(3.3, "rea", "look", { to: [-0.35, -0.25], dur: 0.25, blink: false });               // his eyes begin to drift toward it
 
 // ---------------------------------------------------------------- 05 FREEZE 3.75-4.75
+A(3.7, "rea", "face", { lid: 0.22, dur: 0.1 });                                        // eyes open enough to read the look down
 A(3.8, "rea", "look", { to: [-0.6, -0.85], dur: 0.1, blink: false });                 // the gaze finds it
 A(3.95, "rea", "face", { lid: 0, brow: 0.5, dur: 0.16 });                              // lids open wide, brows up
 A(3.95, "rea", "expr", { expr: "shocked", set: { eye: 1.3, open: 0.22, curve: -0.6, tilt: 0.5 }, dur: 0.2 });   // the smile drops
@@ -260,7 +264,8 @@ sfx(t - 0.05, "crinkle", { gain: 0.45, reason: "the purple wrapper crinkling as 
 t = hb.place(t + 0.02, B_LANE, 0.25);                                                 // on the table by ~7.75
 t = hb.carry(t + 0.04, B_STOP, 0.42, "out");                                          // the gentle slide, slowing to a stop
 sfx(t - 0.42, "ai/cookie-scrape", { gain: 0.3, reason: "the soft tabletop slide of the purple sweet toward Reaper" });
-t = hb.release(t + 0.06, { world: [0.2, H + 0.07, 0.66] });                         // let go; the hand rests on the table
+t = hb.release(t + 0.06, null, { back: 0.15, up: 0.03 });                             // let go...
+c.arm(t + 0.02, "wiz", "L", { world: [B_STOP[0] - 0.1, H + 0.075, B_STOP[2] - 0.05] }, 0.3, "inOut");  // ...and the hand settles on the table beside it
 A(t + 0.1, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 sfx(t - 0.2, "ai/warm-resolve", { gain: 0.45, reason: "the warm resolving chord as he lets go of the offered sweet" });
 A(7.0, "wiz", "look", { to: [0.45, -0.7], dur: 0.15, blink: false });
@@ -301,8 +306,8 @@ const S3 = frame([-0.5, 0.64, 0.5], { az: 6, el: 2, h: 1.25, fov: 28 });        
 const S4 = frame([-0.24, 0.46, 0.82], { az: -12, el: 24, h: 0.66, fov: 30 });             // tabletop insert, Reaper behind
 const S5 = frame([0.36, 0.62, 0.18], { az: -22, el: 2, h: 0.95, fov: 28, push: 0.05, dur: 1.0 });   // Reaper's face
 const S6 = frame([0.12, 0.72, -0.2], { az: -8, el: 5, h: 2.45, fov: 30 });               // the scramble behind the jamb
-const S7 = frame([0.14, 0.62, 0.45], { az: -10, el: 15, h: 1.75, fov: 30, push: 0.12, dur: 2.15 });             // face and hands: the two sweets
-const S8 = frame([0.25, 0.66, -0.15], { az: -10, el: 4, h: 2.05, fov: 28, push: 0.06, dur: 1.6 });   // the two-shot: friend, sweet, toy
+const S7 = frame([0.24, 0.6, 0.5], { az: -10, el: 15, h: 1.75, fov: 30, push: 0.05, dur: 2.15 });             // face and hands: the two sweets
+const S8 = frame([0.27, 0.68, -0.12], { az: -10, el: 4, h: 2.25, fov: 28, push: 0.06, dur: 1.6 });   // the two-shot: friend, sweet, toy
 const beats = c.beats([
   ["01 the bodyguard", 0, S1, "hook"],
   ["02 smug", 1.4, S2],
