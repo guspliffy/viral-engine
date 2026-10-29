@@ -237,7 +237,7 @@ cap(0.6, 2.0, "My friend\ndressed as me.", 300, false, { kinetic: false });   //
 
 // ---------------------------------------------------------------- shots (by hand: the brief fixes all eight)
 const S1 = { pos: [-0.95, 0.12, 1.75], look: [-0.72, 0.14, 0.0], fov: 40 };                      // low: feet + feather
-const S2 = { pos: [-0.2, 1.0, 2.75], look: [-0.62, 0.76, 0.2], fov: 30 };                       // close: face + taped wing root
+const S2 = { pos: [-0.2, 1.2, 2.75], look: [-0.62, 0.95, 0.2], fov: 36 };                       // close: face + taped wing root
 const MASTER = { pos: [0.02, 1.05, 5.9], look: [0.02, 0.72, 0.3], fov: 37 };                    // medium: both, wings and ground
 const S3 = MASTER;
 const S4 = { pos: [0.06, 1.0, 5.4], look: [0.0, 0.8, 0.3], fov: 37, to: { pos: [0.03, 0.98, 4.5], look: [0.0, 0.8, 0.3] }, dur: 2.4 };                          // the two-shot, a step nearer
