@@ -199,9 +199,9 @@ A(5.83, "wiz", "lean", { to: 0, dur: 0.4 });
 A(5.83, "wiz", "look", { to: WIZ_AT_DOME, dur: 0.2, blink: false });
 c.arm(6.0, "wiz", "L", { prop: "dome", grip: "knob", at: DOME0 }, 0.2, "inOut");       // on the table at 6.2
 sfx(6.2, "put-down-glass", { gain: 0.25, reason: "the dome set back down on the wooden table" });
-A(6.24, "wiz", "release", { prop: "dome", dur: 0 });
-A(6.2, "wiz", "grip", { side: "L", shape: "open", dur: 0.12 });
-c.arm(6.25, "wiz", "L", { world: [-0.1, 0.42, 0.82] }, 0.15, "out");   // the hand drops off the knob to the right, down and in front, below his face...
+A(6.21, "wiz", "release", { prop: "dome", dur: 0 });
+A(6.2, "wiz", "grip", { side: "L", shape: "open", dur: 0.08 });
+c.arm(6.22, "wiz", "L", { world: [-0.1, 0.42, 0.82] }, 0.15, "out");   // the hand drops off the knob to the right, down and in front, below his face...
 c.arm(6.4, "wiz", "L", { world: [-0.08, 0.36, 0.55] }, 0.2, "inOut"); // ...back past the dome's side...
 c.arm(6.6, "wiz", "L", PAW(-0.16, 0.4), 0.2, "inOut");                // ...to rest between the dome and the plate
 A(6.4, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
@@ -271,7 +271,7 @@ const beats = c.beats([
   ["03b dome", 3.95, INSERT],
   ["03c see?", 4.95, S5],
   ["03d dome off", 5.65, INSERT],
-  ["04 relief", 6.32, S4],                            // after the hand has left the knob
+  ["04 relief", 6.2, S4],                             // as the dome lands; the hand drops off the knob at once
   ["05 fwoomp", 7.05, "keep", "payoff"],                // the joke: the sigh relights it, bigger than ever
 ], END);
 

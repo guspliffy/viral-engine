@@ -1376,7 +1376,7 @@
   {
    "name": "03d dome off",
    "at": 5.65,
-   "len": 0.67,
+   "len": 0.55,
    "shot": {
     "pos": [
      0.207,
@@ -1525,49 +1525,13 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.52
-    },
-    {
-     "sfx": "put-down-glass",
-     "gain": 0.25,
-     "reason": "the dome set back down on the wooden table",
-     "at": 0.55
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.12,
-     "at": 0.55
-    },
-    {
-     "who": "wiz",
-     "do": "release",
-     "prop": "dome",
-     "dur": 0,
-     "at": 0.59
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       -0.1,
-       0.42,
-       0.82
-      ]
-     },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.6
     }
    ]
   },
   {
    "name": "04 relief",
-   "at": 6.32,
-   "len": 0.73,
+   "at": 6.2,
+   "len": 0.85,
    "shot": {
     "pos": [
      -0.42,
@@ -1591,6 +1555,42 @@
    },
    "do": [
     {
+     "sfx": "put-down-glass",
+     "gain": 0.25,
+     "reason": "the dome set back down on the wooden table",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "dome",
+     "dur": 0,
+     "at": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.1,
+       0.42,
+       0.82
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
      "who": "wiz",
      "do": "arm",
      "side": "L",
@@ -1603,7 +1603,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.08
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1611,7 +1611,7 @@
      "side": "L",
      "shape": "paw",
      "dur": 0.3,
-     "at": 0.08
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1622,7 +1622,7 @@
       "eye": 0.9
      },
      "dur": 0.25,
-     "at": 0.08
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1630,7 +1630,7 @@
      "lid": 0.25,
      "brow": 0.15,
      "dur": 0.25,
-     "at": 0.08
+     "at": 0.2
     },
     {
      "who": "dra",
@@ -1638,7 +1638,7 @@
      "to": -2,
      "dur": 0.5,
      "ease": "inOut",
-     "at": 0.08
+     "at": 0.2
     },
     {
      "who": "dra",
@@ -1650,20 +1650,20 @@
       "open": 0.22
      },
      "dur": 0.15,
-     "at": 0.13
+     "at": 0.25
     },
     {
      "who": "dra",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.5,
-     "at": 0.13
+     "at": 0.25
     },
     {
      "sfx": "ai-package/flat-exhale",
      "gain": 0.35,
      "reason": "Dragon's big relieved sigh (6.45-7.05)",
-     "at": 0.13
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -1675,7 +1675,7 @@
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 0.13
+     "at": 0.25
     },
     {
      "who": "wiz",
@@ -1690,19 +1690,19 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.28
+     "at": 0.4
     },
     {
      "sfx": "ai/ignite",
      "gain": 0.6,
      "reason": "the wick catching under the fwoomp (7.05): fwip",
-     "at": 0.56
+     "at": 0.68
     },
     {
      "sfx": "ai/flare",
      "gain": 2.2,
      "reason": "the sigh relights it into a tall flare (7.05): fwoomp",
-     "at": 0.63
+     "at": 0.75
     }
    ]
   },
