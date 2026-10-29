@@ -61,6 +61,12 @@
  "notes": "3D build from Jonny's reference image. Personality is a proposal until the character bible is signed off.",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  }
 }
