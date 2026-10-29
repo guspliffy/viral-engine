@@ -23,8 +23,11 @@ import { clamp, rng } from "./util.js";
 //   campmug     a steel camping mug with a wire handle.     campchair  a folding camp chair facing +z.
 //   stanchions  queue posts with black belts between them: spec.posts = [[x, z], ...] in the prop's frame.
 //   seatmark    nothing visible: a seat for `sit` on the ground (put it at y -0.35 for a body sitting on the floor).
-export const FOLD = { W: 0.17, H: 0.22, T: 0.0048 };
-export const BOX = { W: 0.31, D: 0.26, H: 0.075, SKIRT: 0.032, TRAY: 0.058 };
+// a big cartoon phone: two gloves (13 cm each) fit on it closed without meeting
+export const FOLD = { W: 0.19, H: 0.24, T: 0.0048 };
+// the box leaves a glove's width (7 cm) round the closed phone and stands taller than a glove's half height, so hands
+// carrying it by its ends, or taking the phone out, stay clear of its walls and of the surface under it
+export const BOX = { W: 0.38, D: 0.33, H: 0.08, SKIRT: 0.035, TRAY: 0.0744 };
 export const DUO_GRIPS = {};
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.55, ...o });
@@ -135,10 +138,19 @@ function brokenScreen(g, w, h, k, seed, side) {
 // a point on a phone half in the prop's frame: side -1 (the left half) or +1 (the right half), u 0 at the hinge .. 1
 // at its free edge, v 0 bottom .. 1 top, out = metres off its back (+) or its screen (-)
 export function foldPoint(open, gap, side, u, v, out = 0) {
-  const x = side * u * FOLD.W, y = v * FOLD.H, z = -FOLD.T / 2 - out - FOLD.T / 2;
-  const a = -side * (Math.PI / 2) * (1 - open), c = Math.cos(a), s = Math.sin(a);
-  return [x * c + z * s + (side * gap) / 2, y, -x * s + z * c];
+  return onHalf(open, gap, side, [side * u * FOLD.W, v * FOLD.H, -FOLD.T - out]);
 }
+// a point (or with dir, a direction) in a half's own frame -> the prop's frame: the one transform the half's pivot
+// gets in the mesh (apply below), so a hand on a half and the half itself never disagree. The half's own frame: x
+// across the phone (the right half's free edge at +W, the left half's at -W), y up from its bottom, z out of its screen
+export function onHalf(open, gap, side, [x, y, z], dir = false) {
+  const a = -side * (Math.PI / 2) * (1 - clamp(open)), c = Math.cos(a), s = Math.sin(a);
+  return [x * c + z * s + (dir ? 0 : (side * gap) / 2), y, -x * s + z * c];
+}
+// the parts of a duo prop a hand can hold (props3d.js partPoint): a foldphone's halves, "L" and "R"
+export const DUO_PARTS = {
+  foldphone: (ps, part, p, dir) => onHalf(ps.open ?? 0, ps.gap ?? 0, part === "L" ? -1 : 1, p, dir),
+};
 
 export const DUO_KINDS = {
   foldphone(P) {
@@ -172,7 +184,7 @@ export const DUO_KINDS = {
         const gap = ps.gap ?? 0, k = Math.min(4, Math.floor(clamp(ps.crack ?? 0) * 4 + 1e-6)), glow = ps.glow ?? 1;
         for (const h of halves) {
           h.piv.position.x = (h.s * gap) / 2;
-          h.piv.rotation.y = -h.s * (Math.PI / 2) * (1 - clamp(ps.open));
+          h.piv.rotation.y = -h.s * (Math.PI / 2) * (1 - clamp(ps.open));   // the same turn as onHalf
           h.scrM.map = k > 0 ? (h.s < 0 ? broken : brokenR)[k - 1] : h.intact;
           h.scrM.color.setScalar(0.35 + 0.65 * glow);
         }

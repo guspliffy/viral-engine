@@ -449,7 +449,7 @@ function pose(t) {
   };
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
-    p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null;
+    p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null; p.holdHand = ps.hold ? ps.hold.hand : null;
     // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
     if (ps.left) {
       const key = `${ps.left.who}@${ps.left.at}`;
@@ -747,8 +747,9 @@ function silhouette() {
 
 // contact measures per actor at time t (potato.js contact()), for qa/check.mjs: no pixels drawn, so a whole clip at
 // full frame rate takes seconds
+let contactT = 0;   // the time contact() measures (inProps: a grab a moment away)
 function contact(t) {
-  pose(t);
+  contactT = t; pose(t);
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
@@ -882,7 +883,261 @@ function reach() {
     }
   }
   out.faces = hiddenFaces(live, shownIn);
+  Object.assign(out, inProps(live, shownIn));
   return out;
+}
+
+// what touches the scene props (DUO launch day: a glove through a box lid; the morning notes of 29 Oct: a parcel
+// through Reaper's forearm, Dragon's glove inside the bowl wall it pushed, the straw through the Wizard's glove; none
+// of it was measured, as reach() only knows characters and the first version of this check took props as boxes and
+// skipped what a hand holds):
+// - every visible part of a hand (palm, wrist, fingers, thumb, the fist's knuckles), as balls along its own axis;
+//   pad: a finger or the thumb
+// - each arm's tube from the shoulder to the wrist, as balls along its centre line (the hand has its own parts)
+// - costume parts (hat, brim, beard, raven, hood, wings, the costume's own staff or blade), by their corners
+// against every mesh of every scene prop, the props someone holds included, measured on the prop's real surface: a
+// closed mesh (a box, a phone, a parcel) is solid inside, an open one (a bowl's wall, a lathe shell, a plane) a thin
+// skin. Per part and prop (only parts on screen, deeper than 5 mm), in metres: depth, how far it goes past the
+// surface (a finger resting on it: about 0; through a thin wall: its whole radius); seenDepth, the same where it
+// comes out on a side the camera sees; core, how far its centre line goes in there. held: a prop the character works
+// with (see heldBy), which qa/check.mjs judges by what shows.
+// thin: a thin held prop (a straw, a pencil) and how far it shows past the fist at its shorter end, on screen (show)
+// and in space (out).
+const PART = new WeakMap(), SOLID = new WeakMap();
+// a geometry's triangles in its own frame, whether they close round a solid (every edge shared by two triangles once
+// corners at the same place are merged; a sphere's poles drop out as empty triangles), and up to 160 of its corners
+function solidOf(g) {
+  if (SOLID.has(g)) return SOLID.get(g);
+  const pos = g.attributes.position, idx = g.index, n = idx ? idx.count : pos.count, ids = new Map(), edges = new Map(), tri = [], pts = [];
+  const vid = (i) => { const k = `${Math.round(pos.getX(i) * 1e5)},${Math.round(pos.getY(i) * 1e5)},${Math.round(pos.getZ(i) * 1e5)}`; let v = ids.get(k); if (v === undefined) { ids.set(k, (v = ids.size)); pts.push(i); } return v; };
+  for (let i = 0; i + 2 < n; i += 3) {
+    const c = [0, 1, 2].map((j) => (idx ? idx.getX(i + j) : i + j)), v = c.map(vid);
+    if (v[0] === v[1] || v[1] === v[2] || v[0] === v[2]) continue;
+    for (const j of c) tri.push(pos.getX(j), pos.getY(j), pos.getZ(j));
+    for (const [p, q] of [[v[0], v[1]], [v[1], v[2]], [v[2], v[0]]]) { const k = p < q ? p * 4194304 + q : q * 4194304 + p; edges.set(k, (edges.get(k) || 0) + 1); }
+  }
+  let closed = edges.size > 0;
+  for (const c of edges.values()) if (c !== 2) { closed = false; break; }
+  const step = Math.max(1, Math.ceil(pts.length / 160)), corners = [];
+  for (let i = 0; i < pts.length; i += step) corners.push(pos.getX(pts[i]), pos.getY(pts[i]), pos.getZ(pts[i]));
+  if (!g.boundingBox) g.computeBoundingBox();
+  const s = { tri: new Float32Array(tri), closed, corners, bb: g.boundingBox };
+  SOLID.set(g, s); return s;
+}
+// squared distance from p to triangle i of T (Ericson, Real-Time Collision Detection 5.1.5); the nearest point goes in CP
+const CP = [0, 0, 0];
+function triDist2(px, py, pz, T, i) {
+  const ax = T[i], ay = T[i + 1], az = T[i + 2], bx = T[i + 3], by = T[i + 4], bz = T[i + 5], cx = T[i + 6], cy = T[i + 7], cz = T[i + 8];
+  const abx = bx - ax, aby = by - ay, abz = bz - az, acx = cx - ax, acy = cy - ay, acz = cz - az, apx = px - ax, apy = py - ay, apz = pz - az;
+  const d1 = abx * apx + aby * apy + abz * apz, d2 = acx * apx + acy * apy + acz * apz;
+  const q = (x, y, z) => { CP[0] = x; CP[1] = y; CP[2] = z; return (px - x) ** 2 + (py - y) ** 2 + (pz - z) ** 2; };
+  if (d1 <= 0 && d2 <= 0) return q(ax, ay, az);
+  const bpx = px - bx, bpy = py - by, bpz = pz - bz, d3 = abx * bpx + aby * bpy + abz * bpz, d4 = acx * bpx + acy * bpy + acz * bpz;
+  if (d3 >= 0 && d4 <= d3) return q(bx, by, bz);
+  const vc = d1 * d4 - d3 * d2;
+  if (vc <= 0 && d1 >= 0 && d3 <= 0) { const v = d1 / (d1 - d3); return q(ax + abx * v, ay + aby * v, az + abz * v); }
+  const cpx = px - cx, cpy = py - cy, cpz = pz - cz, d5 = abx * cpx + aby * cpy + abz * cpz, d6 = acx * cpx + acy * cpy + acz * cpz;
+  if (d6 >= 0 && d5 <= d6) return q(cx, cy, cz);
+  const vb = d5 * d2 - d1 * d6;
+  if (vb <= 0 && d2 >= 0 && d6 <= 0) { const w = d2 / (d2 - d6); return q(ax + acx * w, ay + acy * w, az + acz * w); }
+  const va = d3 * d6 - d5 * d4;
+  if (va <= 0 && d4 - d3 >= 0 && d5 - d6 >= 0) { const w = (d4 - d3) / (d4 - d3 + (d5 - d6)); return q(bx + (cx - bx) * w, by + (cy - by) * w, bz + (cz - bz) * w); }
+  const dn = 1 / (va + vb + vc), v = vb * dn, w = vc * dn;
+  return q(ax + abx * v + acx * w, ay + aby * v + acy * w, az + abz * v + acz * w);
+}
+// p (in the mesh's own frame) inside a closed mesh: a ray crosses its surface an odd number of times (a slightly
+// skewed ray, so it doesn't run along an edge)
+function insideOf(S, px, py, pz) {
+  const T = S.tri, dx = 0.9993, dy = 0.0291, dz = 0.0237;
+  let n = 0;
+  for (let i = 0; i < T.length; i += 9) {
+    const e1x = T[i + 3] - T[i], e1y = T[i + 4] - T[i + 1], e1z = T[i + 5] - T[i + 2], e2x = T[i + 6] - T[i], e2y = T[i + 7] - T[i + 1], e2z = T[i + 8] - T[i + 2];
+    const hx = dy * e2z - dz * e2y, hy = dz * e2x - dx * e2z, hz = dx * e2y - dy * e2x, a = e1x * hx + e1y * hy + e1z * hz;
+    if (Math.abs(a) < 1e-12) continue;
+    const f = 1 / a, sx = px - T[i], sy = py - T[i + 1], sz = pz - T[i + 2], u = f * (sx * hx + sy * hy + sz * hz);
+    if (u < 0 || u > 1) continue;
+    const qx = sy * e1z - sz * e1y, qy = sz * e1x - sx * e1z, qz = sx * e1y - sy * e1x, v = f * (dx * qx + dy * qy + dz * qz);
+    if (v < 0 || u + v > 1) continue;
+    if (f * (e2x * qx + e2y * qy + e2z * qz) > 0) n++;
+  }
+  return n % 2 === 1;
+}
+// the nearest point of solid m's surface to lp (in its own frame): its distance in metres, and the point (world) in c
+function nearest(m, lp, c) {
+  let d2 = Infinity; const T = m.S.tri;
+  for (let i = 0; i < T.length; i += 9) { const e = triDist2(lp.x, lp.y, lp.z, T, i); if (e < d2) { d2 = e; c.set(CP[0], CP[1], CP[2]); } }
+  c.applyMatrix4(m.o.matrixWorld);
+  return Math.sqrt(d2) * m.k;
+}
+// a part of radius r (metres) centred at world point w against solid m, or null when it is clear of it:
+//   depth: how far the part goes past the surface (a finger resting on it: about 0)
+//   core: how far its centre line goes past the surface (a finger resting on it: minus its radius; half sunk: 0). A thin
+//     skin has no inside, so there the centre line counts as past it once it is within half the radius of the skin
+//   seen: the part comes out of the prop on a side facing the camera (a hand sunk into the back of a parcel it carries
+//     is hidden behind the parcel; one sunk into its front, or through a bowl's wall, shows)
+const NC = new THREE.Vector3(), OUT = new THREE.Vector3();
+function pastSurface(m, w, r, lp) {
+  lp.copy(w).applyMatrix4(m.inv);
+  const bb = m.S.bb, dx = Math.max(bb.min.x - lp.x, lp.x - bb.max.x), dy = Math.max(bb.min.y - lp.y, lp.y - bb.max.y), dz = Math.max(bb.min.z - lp.z, lp.z - bb.max.z);
+  const box = (Math.hypot(Math.max(dx, 0), Math.max(dy, 0), Math.max(dz, 0)) + Math.min(Math.max(dx, dy, dz), 0)) * m.k;
+  if (box >= r) return null;   // the whole mesh is inside its box: clear of the box, clear of the mesh
+  const d = nearest(m, lp, NC), inside = m.S.closed && box < 0 && insideOf(m.S, lp.x, lp.y, lp.z);
+  if (!inside && d >= r) return null;
+  // the way out of the prop at the nearest point: from the centre to the surface when inside, else away from it
+  if (inside) OUT.copy(NC).sub(w); else OUT.copy(w).sub(NC);
+  const seen = !m.S.closed || OUT.dot(camera.position.clone().sub(NC)) > 0;
+  return { depth: inside ? r + d : r - d, core: inside ? d : m.S.closed ? -d : r / 2 - d, seen };
+}
+function inProps(live, shownIn) {
+  const out = [], thin = [], sc = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), q = new THREE.Vector3(), lp = new THREE.Vector3(), w = new THREE.Vector3();
+  const solids = [];
+  const scaleK = (o) => { o.getWorldScale(sc); return Math.cbrt(Math.abs(sc.x * sc.y * sc.z)); };
+  for (const p of props) {
+    if (!p.root.visible || !shownIn(p.root, scene)) continue;
+    p.root.updateMatrixWorld(true);
+    p.root.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry || o.isSprite || !o.geometry.attributes.position) return;
+      const mt = Array.isArray(o.material) ? o.material[0] : o.material;
+      if (mt && mt.transparent && mt.opacity < 0.5) return;   // glass, glows, shadows
+      const S = solidOf(o.geometry), wb = S.bb.clone().applyMatrix4(o.matrixWorld);
+      solids.push({ p, id: p.spec.id, o, S, inv: o.matrixWorld.clone().invert(), k: scaleK(o), wb });
+    });
+  }
+  if (!solids.length) return { inProps: out, thin };
+  const frustum = new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+  // a hand part's axis in its own frame (a capsule's two cap centres, a ball's centre) and its radius, unscaled
+  const shape = (o) => {
+    if (PART.has(o)) return PART.get(o);
+    const g = o.geometry, P = g.parameters || {};
+    // the glove's wrist (a tapered cylinder) as a capsule of its mean radius. A capsule's straight part is `height` in
+    // three r16x+ (`length` before: reading only that left every finger and thumb unmeasured)
+    const L = P.height ?? P.length;
+    const s = g.type === "CapsuleGeometry" ? { a: [0, -L / 2, 0], b: [0, L / 2, 0], r: P.radius } : g.type === "SphereGeometry" ? { a: [0, 0, 0], b: [0, 0, 0], r: P.radius }
+      : g.type === "CylinderGeometry" ? { a: [0, -P.height / 2, 0], b: [0, P.height / 2, 0], r: (P.radiusTop + P.radiusBottom) / 2 } : null;
+    PART.set(o, s); return s;
+  };
+  // the props a hand works with: what this character holds in either hand (a grab: the other hand's thumb scrolls on
+  // the phone the first holds), what this arm is aimed at (an arm pose on the prop: a push, a cup, a pinch), and, for a
+  // paw resting on a surface (grip down), whatever it rests on
+  const heldBy = (a, side) => {
+    const s = new Set(poseStates[a.c.id]?.st.arms?.[side]?.on || []);
+    // (or will hold, or just held, within a quarter second: the fingers close round it as the hand arrives, and open
+    // as it lets go)
+    const mine = (h) => h && h.who === a.c.id && ["R", "L", "both"].includes(h.hand);
+    for (const p of props) if (mine(p.held && { who: p.holder, hand: p.holdHand }) || [-0.25, 0.25].some((d) => mine(propState(sb, p.spec, contactT + d).hold))) s.add(p.spec.id);
+    s.rest = (poseStates[a.c.id]?.st.grip?.[side]?.down || 0) > 0.5;
+    return s;
+  };
+  const works = (held, id) => (held.rest || held.has(id) ? { held: true } : {});
+  const rd = (x) => Math.round(x * 1000) / 1000;
+  // per part and prop, the deepest overall and the deepest centre line coming out on a side the camera sees
+  // per part and prop: the deepest overall (depth), and on a side the camera sees, the deepest part (seenDepth) and
+  // centre line (core)
+  const keep = (best, key, x, row) => {
+    if (!x || x.depth <= 0.005) return;
+    const b = best.get(key) || { ...row, depth: 0, seenDepth: 0, core: -1 };
+    b.depth = Math.max(b.depth, rd(x.depth));
+    if (x.seen) { b.seenDepth = Math.max(b.seenDepth, rd(x.depth)); b.core = Math.max(b.core, rd(x.core)); }
+    best.set(key, b);
+  };
+  // each hand part as balls along its axis, in the world: [{ c, r, pad }]. pad: a finger or the thumb (on their own
+  // pivots), the parts that may press into what the hand holds; the palm and the wrist hang straight off the hand
+  const handBalls = (h) => {
+    const balls = [];
+    h.traverseVisible((o) => {
+      if (!o.isMesh) return; const s = shape(o); if (!s) return;
+      o.getWorldScale(sc); const r = s.r * Math.min(Math.abs(sc.x), Math.abs(sc.y), Math.abs(sc.z));
+      if (r < 0.004) return;   // the fist while it is still growing in (it starts at a thousandth of its size)
+      a0.fromArray(s.a).applyMatrix4(o.matrixWorld); a1.fromArray(s.b).applyMatrix4(o.matrixWorld);
+      for (let i = 0; i <= 4; i++) balls.push({ c: a0.clone().lerp(a1, i / 4), r, pad: o !== h && o.parent !== h });
+    });
+    return balls;
+  };
+  for (const a of live) {
+    const best = new Map();
+    for (const side of ["R", "L"]) {
+      const h = a.ch.arms[side].hand, held = heldBy(a, side);
+      // hands
+      if (shownIn(h, a.ch.root)) {
+        h.updateMatrixWorld(true);
+        for (const b of handBalls(h)) {
+          if (!frustum.containsPoint(b.c)) continue;   // off screen: the fingers below the frame's edge
+          for (const m of solids) keep(best, `hand|${side}|${b.pad}|${m.id}`, pastSurface(m, b.c, b.r, lp), { who: a.c.id, part: "hand", hand: side, prop: m.id, ...(b.pad ? { pad: true } : {}), ...works(held, m.id) });
+        }
+      }
+      // the arm: balls along its centre line, from where it leaves the body (a fifth of the way) to the wrist
+      for (const b of a.ch.armBalls?.(side) || []) {
+        if (!frustum.containsPoint(b.c)) continue;
+        for (const m of solids) keep(best, `arm|${side}|${m.id}`, pastSurface(m, b.c, b.r, lp), { who: a.c.id, part: "arm", hand: side, prop: m.id, ...works(held, m.id) });
+      }
+    }
+    // costume parts: their corners inside a solid prop, and the prop's corners inside a solid costume part
+    const own = new Set(props.filter((p) => p.held && p.holder === a.c.id && (p.holdHand === "hat" || p.holdHand === "tip")).map((p) => p.spec.id));   // stuck to the hat on purpose
+    const withProps = new Set([...heldBy(a, "R"), ...heldBy(a, "L")]);   // what either hand works with (a parcel hugged to the cloak)
+    for (const c of a.ch.costumeMeshes?.() || []) {
+      const S = solidOf(c.o.geometry), cb = S.bb.clone().applyMatrix4(c.o.matrixWorld), cinv = c.o.matrixWorld.clone().invert(), ck = scaleK(c.o);
+      for (const m of solids) {
+        if (own.has(m.id) || !cb.intersectsBox(m.wb)) continue;
+        // a corner inside a solid: how deep, and whether it comes out on a side the camera sees
+        let depth = 0, core = -1;
+        const corner = (into, from, x, y, z) => {
+          w.set(x, y, z).applyMatrix4(from.matrixWorld);
+          if (!into.wb.containsPoint(w) || !frustum.containsPoint(w)) return;
+          lp.copy(w).applyMatrix4(into.inv); if (!into.S.bb.containsPoint(lp) || !insideOf(into.S, lp.x, lp.y, lp.z)) return;
+          const d = nearest(into, lp, NC); depth = Math.max(depth, d);
+          if (NC.clone().sub(w).dot(camera.position.clone().sub(NC)) > 0) core = Math.max(core, d);
+        };
+        if (m.S.closed) for (let i = 0; i < S.corners.length; i += 3) corner(m, c.o, S.corners[i], S.corners[i + 1], S.corners[i + 2]);
+        // the prop's corners inside the costume: not for a prop this character works with (a parcel hugged to the cloak)
+        const mine = withProps.has(m.id);
+        if (S.closed && !mine) { const into = { S, inv: cinv, k: ck, o: c.o, wb: cb }; for (let i = 0; i < m.S.corners.length; i += 3) corner(into, m.o, m.S.corners[i], m.S.corners[i + 1], m.S.corners[i + 2]); }
+        keep(best, `costume|${c.name}|${m.id}`, depth > 0.005 ? { depth, core, seen: core > -1 } : null, { who: a.c.id, part: "costume", what: c.name, prop: m.id, ...(mine ? { held: true } : {}) });
+      }
+    }
+    out.push(...best.values());
+  }
+  // thin held props (a straw, a pencil): the prop's long axis (its corners' main direction) and the stretch of it the
+  // holding fist covers (the hand parts near that axis). show: how far the prop is seen past the fist at its shorter
+  // end, on screen: its corners beyond the fist that no hand part covers from the camera (a straw end held low in the
+  // big glove sits behind the fingers: 0, though it reaches past them). out: the same, ignoring what covers what
+  const fovK = H / (2 * Math.tan((camera.fov * Math.PI) / 360)), px = (v) => { const c = v.clone().project(camera); return new THREE.Vector2(((c.x + 1) / 2) * W, ((1 - c.y) / 2) * H); };
+  for (const p of props) {
+    if (!p.held || !["R", "L", "both"].includes(p.holdHand) || !p.root.visible) continue;
+    const a = live.find((x) => x.c.id === p.holder); if (!a) continue;
+    const pts = [];
+    for (const m of solids) if (m.p === p) for (let i = 0; i < m.S.corners.length; i += 3) pts.push(new THREE.Vector3(m.S.corners[i], m.S.corners[i + 1], m.S.corners[i + 2]).applyMatrix4(m.o.matrixWorld));
+    if (pts.length < 8) continue;
+    const ctr = pts.reduce((s, v) => s.add(v), new THREE.Vector3()).multiplyScalar(1 / pts.length);
+    const C = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (const v of pts) { const d = [v.x - ctr.x, v.y - ctr.y, v.z - ctr.z]; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[i * 3 + j] += d[i] * d[j]; }
+    let ax = new THREE.Vector3(1, 0.7, 0.4).normalize();
+    for (let it = 0; it < 24; it++) ax = new THREE.Vector3(C[0] * ax.x + C[1] * ax.y + C[2] * ax.z, C[3] * ax.x + C[4] * ax.y + C[5] * ax.z, C[6] * ax.x + C[7] * ax.y + C[8] * ax.z).normalize();
+    let lo = Infinity, hi = -Infinity; const across = [], along = pts.map((v) => v.clone().sub(ctr).dot(ax));
+    pts.forEach((v, i) => { lo = Math.min(lo, along[i]); hi = Math.max(hi, along[i]); across.push(v.clone().sub(ctr).addScaledVector(ax, -along[i]).length()); });
+    across.sort((x, y) => x - y);
+    const wide = across[Math.floor(across.length * 0.9)];   // the thickness, a bend or a cap left out
+    if (wide > 0.025 || hi - lo < 0.08 || hi - lo < 6 * wide) continue;
+    let f0 = Infinity, f1 = -Infinity; const balls = [];
+    for (const side of p.holdHand === "both" ? ["R", "L"] : [p.holdHand]) {
+      const h = a.ch.arms[side].hand; if (!shownIn(h, a.ch.root)) continue;
+      h.updateMatrixWorld(true); if (!frustum.containsPoint(h.getWorldPosition(q))) continue;
+      for (const b of handBalls(h)) {
+        balls.push({ ...b, s: px(b.c), d: b.c.distanceTo(camera.position) });
+        const d = b.c.clone().sub(ctr), s = d.dot(ax);
+        if (d.addScaledVector(ax, -s).length() > b.r + wide + 0.01) continue;   // a part away from the prop (the thumb up)
+        f0 = Math.min(f0, s - b.r); f1 = Math.max(f1, s + b.r);
+      }
+    }
+    if (f0 === Infinity) continue;
+    const covered = (v) => { const sv = px(v), dv = v.distanceTo(camera.position); return balls.some((b) => b.d - b.r < dv && sv.distanceTo(b.s) < (b.r * fovK) / b.d); };
+    let s0 = 0, s1 = 0;
+    pts.forEach((v, i) => {
+      if (along[i] < f0 && frustum.containsPoint(v) && !covered(v)) s0 = Math.max(s0, f0 - along[i]);
+      if (along[i] > f1 && frustum.containsPoint(v) && !covered(v)) s1 = Math.max(s1, along[i] - f1);
+    });
+    thin.push({ who: a.c.id, hand: p.holdHand, prop: p.spec.id, show: rd(Math.min(s0, s1)), out: rd(Math.min(f0 - lo, hi - f1)), len: rd(hi - lo) });
+  }
+  return { inProps: out, thin };
 }
 
 // faces: how much of each face's eyes is hidden from the camera by anything other than hands and held props (they have
