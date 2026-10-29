@@ -259,9 +259,9 @@
   "oga/fart-viking-2": { "family": "body", "says": "a short low fart, two pulses (3 semitones down)" },
   "oga/fart-wizard": { "family": "body", "says": "a squeaky fart, eight quick flutters" },
   "oga/fart-astronaut": { "family": "body", "says": "a higher fart muffled as if inside a suit" },
-  "ai-package/cardboard-rustle": { "family": "handling", "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)", "words": ["cardboard"], "pending": "the Package branch" },
-  "ai-package/box-set-down": { "family": "handling", "says": "a small cardboard box set down: a soft hollow thud (AI)", "pending": "the Package branch" },
-  "ai-package/flat-exhale": { "family": "body", "says": "a flat, deflated exhale (AI)", "words": ["sigh", "seufz"], "pending": "the Package branch" },
+  "ai-package/cardboard-rustle": { "family": "handling", "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)", "words": ["cardboard"] },
+  "ai-package/box-set-down": { "family": "handling", "says": "a small cardboard box set down: a soft hollow thud (AI)" },
+  "ai-package/flat-exhale": { "family": "body", "says": "a flat, deflated exhale (AI)", "words": ["sigh", "seufz"] },
   "wing-flap": { "family": "cartoon", "says": "one big feathered wing beat with a whoosh of air (AI 'AI B'; auto on Phoenix's downstrokes)", "words": ["flap"] },
 
   "speech": { "family": "body", "says": "not a sound effect: a narrator's line from engine/voice (sfx entries with a speech id)" }
