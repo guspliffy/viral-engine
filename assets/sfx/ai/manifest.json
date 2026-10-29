@@ -1541,6 +1541,123 @@
    ]
   },
   {
+   "id": "flare",
+   "kind": "sfx",
+   "files": [
+    "flare/flare-01.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "flare",
+    "fire",
+    "flame",
+    "whoosh",
+    "fwoomp"
+   ],
+   "durationSec": 0.527,
+   "prompt": [
+    "a small flame suddenly flaring up, one short soft fwoomp of fire, close up, no explosion, no music",
+    "a gas stove burner igniting with a soft whoomp, one short burst of flame, quiet room, no music"
+   ],
+   "seed": 113,
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -17.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "flare/flare-01.wav",
+     "take": "p0-s113",
+     "prompt": "a small flame suddenly flaring up, one short soft fwoomp of fire, close up, no explosion, no music",
+     "seed": 113,
+     "startSec": 4.532,
+     "durationSec": 0.527,
+     "clap": -0.06,
+     "snrDb": 68.4,
+     "loudnessLUFS": -16.5
+    }
+   ],
+   "note": "take 1: compact (0.5 s), peaks at once, a soft body with a hiss on top; the brief wants a compact whoosh (picked from measurements: Claude cannot hear)"
+  },
+  {
+   "id": "snuff",
+   "kind": "sfx",
+   "files": [
+    "snuff/snuff-03.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "snuff",
+    "extinguish",
+    "candle",
+    "hiss",
+    "out"
+   ],
+   "durationSec": 0.772,
+   "prompt": [
+    "a candle flame being snuffed out, a tiny soft hiss and puff, close up, very quiet, no music",
+    "a small candle going out under a glass, a very short soft fizz, close microphone, no music"
+   ],
+   "seed": 121,
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "snuff/snuff-03.wav",
+     "take": "p1-s121",
+     "prompt": "a small candle going out under a glass, a very short soft fizz, close microphone, no music",
+     "seed": 121,
+     "startSec": 3.677,
+     "durationSec": 0.772,
+     "clap": 0.073,
+     "snrDb": 40.0,
+     "loudnessLUFS": -21.7
+    }
+   ],
+   "note": "take 3: a short bright hiss, gone by 0.37 s (the tiny extinguish) (picked from measurements: Claude cannot hear)"
+  },
+  {
+   "id": "ignite",
+   "kind": "sfx",
+   "files": [
+    "ignite/ignite-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "ignite",
+    "light",
+    "match",
+    "fwip",
+    "flame"
+   ],
+   "durationSec": 0.231,
+   "prompt": [
+    "a match flame catching, one tiny soft fwip of a small flame lighting, close up, quiet, no music",
+    "a lighter flame catching with a short soft whoosh, a tiny flame igniting, close microphone, no music"
+   ],
+   "seed": 132,
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "ignite/ignite-03.wav",
+     "take": "p1-s132",
+     "prompt": "a lighter flame catching with a short soft whoosh, a tiny flame igniting, close microphone, no music",
+     "seed": 132,
+     "startSec": 0.501,
+     "durationSec": 0.231,
+     "clap": 0.062,
+     "snrDb": 42.6,
+     "loudnessLUFS": -25.6
+    }
+   ],
+   "note": "take 3: 0.2 s, a small low pop with a bright tick on top (the relight) (picked from measurements: Claude cannot hear)"
+  },
+  {
    "id": "screen-crack",
    "kind": "sfx",
    "files": [
@@ -1856,123 +1973,6 @@
      "loudnessLUFS": -13.7
     }
    ]
-  },
-  {
-   "id": "flare",
-   "kind": "sfx",
-   "files": [
-    "flare/flare-01.wav"
-   ],
-   "gain": 0.45,
-   "tags": [
-    "flare",
-    "fire",
-    "flame",
-    "whoosh",
-    "fwoomp"
-   ],
-   "durationSec": 0.527,
-   "prompt": [
-    "a small flame suddenly flaring up, one short soft fwoomp of fire, close up, no explosion, no music",
-    "a gas stove burner igniting with a soft whoomp, one short burst of flame, quiet room, no music"
-   ],
-   "seed": 113,
-   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
-   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
-   "loudnessLUFS": -17.4,
-   "replaces": null,
-   "takes": [
-    {
-     "file": "flare/flare-01.wav",
-     "take": "p0-s113",
-     "prompt": "a small flame suddenly flaring up, one short soft fwoomp of fire, close up, no explosion, no music",
-     "seed": 113,
-     "startSec": 4.532,
-     "durationSec": 0.527,
-     "clap": -0.06,
-     "snrDb": 68.4,
-     "loudnessLUFS": -16.5
-    }
-   ],
-   "note": "take 1: compact (0.5 s), peaks at once, a soft body with a hiss on top; the brief wants a compact whoosh (picked from measurements: Claude cannot hear)"
-  },
-  {
-   "id": "snuff",
-   "kind": "sfx",
-   "files": [
-    "snuff/snuff-03.wav"
-   ],
-   "gain": 0.3,
-   "tags": [
-    "snuff",
-    "extinguish",
-    "candle",
-    "hiss",
-    "out"
-   ],
-   "durationSec": 0.772,
-   "prompt": [
-    "a candle flame being snuffed out, a tiny soft hiss and puff, close up, very quiet, no music",
-    "a small candle going out under a glass, a very short soft fizz, close microphone, no music"
-   ],
-   "seed": 121,
-   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
-   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
-   "loudnessLUFS": -19.1,
-   "replaces": null,
-   "takes": [
-    {
-     "file": "snuff/snuff-03.wav",
-     "take": "p1-s121",
-     "prompt": "a small candle going out under a glass, a very short soft fizz, close microphone, no music",
-     "seed": 121,
-     "startSec": 3.677,
-     "durationSec": 0.772,
-     "clap": 0.073,
-     "snrDb": 40.0,
-     "loudnessLUFS": -21.7
-    }
-   ],
-   "note": "take 3: a short bright hiss, gone by 0.37 s (the tiny extinguish) (picked from measurements: Claude cannot hear)"
-  },
-  {
-   "id": "ignite",
-   "kind": "sfx",
-   "files": [
-    "ignite/ignite-03.wav"
-   ],
-   "gain": 0.35,
-   "tags": [
-    "ignite",
-    "light",
-    "match",
-    "fwip",
-    "flame"
-   ],
-   "durationSec": 0.231,
-   "prompt": [
-    "a match flame catching, one tiny soft fwip of a small flame lighting, close up, quiet, no music",
-    "a lighter flame catching with a short soft whoosh, a tiny flame igniting, close microphone, no music"
-   ],
-   "seed": 132,
-   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
-   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
-   "loudnessLUFS": -19.8,
-   "replaces": null,
-   "takes": [
-    {
-     "file": "ignite/ignite-03.wav",
-     "take": "p1-s132",
-     "prompt": "a lighter flame catching with a short soft whoosh, a tiny flame igniting, close microphone, no music",
-     "seed": 132,
-     "startSec": 0.501,
-     "durationSec": 0.231,
-     "clap": 0.062,
-     "snrDb": 42.6,
-     "loudnessLUFS": -25.6
-    }
-   ],
-   "note": "take 3: 0.2 s, a small low pop with a bright tick on top (the relight) (picked from measurements: Claude cannot hear)"
   }
  ]
 }
