@@ -36,7 +36,7 @@ const c = clip();
 // THE 10 S CUT (Jonny 29 Oct 16:51: "a bit too long, about 10 sec"): the timeline below is written in the brief's
 // 14 s times and squeezed shot by shot into 10 s. W maps a brief time to the cut, D squeezes a duration that starts
 // there (never under 0.25 s for anything that was at least that long: faces ease over 0.25 s or more).
-const KEYS = [[0, 0], [0.6, 0.6], [1.2, 1.1], [2.0, 1.8], [4.4, 3.6], [7.2, 5.3], [10.0, 7.1], [12.0, 8.4], [14.0, 10.0]];
+const KEYS = [[0, 0], [0.6, 0.6], [1.2, 1.1], [2.0, 1.8], [4.4, 3.6], [7.2, 5.3], [10.0, 7.35], [12.0, 8.4], [14.0, 10.0]];
 const W = (t) => { for (let i = 1; i < KEYS.length; i++) { const [a, x] = KEYS[i - 1], [b, y] = KEYS[i]; if (t <= b || i === KEYS.length - 1) return r3(x + ((t - a) * (y - x)) / (b - a)); } };
 const D = (t, d) => (d ? r3(Math.max(W(t + d) - W(t), Math.min(d, 0.25))) : d);
 const A = (t, who, what, o = {}) => c.A(W(t), who, what, o.dur != null ? { ...o, dur: D(t, o.dur) } : o);
@@ -54,7 +54,7 @@ const TRI = { x: 0.75, z: 5.0, h: 0.85 };                      // the tripod cam
 const LENS = [TRI.x, TRI.h, TRI.z - 0.2];
 const FLASH = W(10.0), SNAP = r3(FLASH + 0.03);
 // the timer (in the cut's times): a steady blink at first, faster over the last 0.7 s
-const BLINKS = [...[...Array.from({ length: 16 }, (_, i) => 0.25 + i * 0.45), 0.93].map(W), 6.4, 6.62, 6.8, 6.92, 7.01].sort((a, b) => a - b);
+const BLINKS = [...[...Array.from({ length: 16 }, (_, i) => 0.25 + i * 0.45), 0.93].map(W), 6.65, 6.87, 7.05, 7.17, 7.26].sort((a, b) => a - b);
 
 const SHEET = { r: 0.5, hem: 0.66, dz: 0.92, eyeY: 0.8, lift: 0.88 };
 const cast = [
@@ -136,11 +136,17 @@ sfx(4.6, "ai/flare", { gain: 0.8, reason: "fwoomp: the sweep of flame catching t
 sfx(4.9, "sizzle", { gain: 0.35, dur: 1.0, reason: "the sweep crackling through the cloth" });
 prop(5.5, "s-phx", { wobble: 1, rise: 1.56 }, 1.2, "inOut");
 // a real ghost: all three scared (Jonny 29 Oct: "scared and shocked when the ghost appears")
-mood(4.7, "phx", "shocked", { hold: 1.4 });
-mood(4.75, "rea", "shocked", { hold: 1.4, squash: 0.04 });
-mood(4.8, "wiz", "shocked", { hold: 1.4, squash: 0.04 });
+// fear, not delight: brows up and pinched in, a small open frown, wide eyes with small pupils, a flinch
+const fear = (t, who, sq = 0.05) => {
+  A(t, who, "face", { brow: 0.45, lid: 0, dur: 0.25 });
+  A(t, who, "expr", { expr: "shocked", set: { tilt: 0.5, curve: -0.7, open: 0.35, eye: 1.22, pupil: 0.55 }, dur: 0.25 });
+  A(t + 0.05, who, "squash", { amount: sq, dur: 0.2 });
+};
+fear(4.7, "phx", 0.07); fear(4.75, "rea"); fear(4.8, "wiz");
+A(4.75, "phx", "wings", { to: 0.35, dur: 0.35, ease: "out" });                 // the wings flinch in
+act.emote(c, W(4.8), "phx", "AAH!", { dur: 0.7, dx: 0.5, dy: -0.5 });   // beside his head, below the ghost
 A(5.95, "phx", "look", { to: [0.1, 0.98], dur: 0.25, blink: false });           // he stares up at what his sheet became
-A(6.7, "phx", "wings", { to: 0, dur: 0.8, ease: "inOut" });                     // wings pulled in, scared
+A(6.7, "phx", "wings", { to: 0, dur: 0.8, ease: "inOut" });                     // wings folded away
 A(6.9, "phx", "span", { to: 0.25, dur: 0.6 });
 
 // ---------------------------------------------------------------- 6 WIDE 7.2-10.0: the fourth member; the timer speeds up
@@ -148,11 +154,14 @@ A(7.3, "phx", "look", { to: UP, dur: 0.3, blink: false });
 A(7.35, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
 A(7.4, "wiz", "look", { to: [-0.35, 0.95], dur: 0.3, blink: false });
 A(7.3, "rea", "still", { dur: 1.4, idle: 0.06 }); A(7.3, "wiz", "still", { dur: 1.4, idle: 0.06 });
-for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.3 ? 0.42 : 0.25, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
+for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.55 ? 0.42 : 0.25, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
 // ... then they look at each other, accept their fourth member and smile
 A(7.95, "phx", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });
 A(8.0, "rea", "look", { to: [0.6, 0.05], dur: 0.25, blink: false });
 A(8.0, "wiz", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });
+c.arm(W(8.0), "phx", "R", { x: [-0.5, 0.62, 0.16] }, 0.4, "inOut"); c.arm(W(8.0), "phx", "L", { x: [0.5, 0.62, 0.16] }, 0.4, "inOut");   // a shrug: oh well
+c.A(W(8.0), "phx", "grip", { side: "both", shape: "open", dur: 0.35 });
+c.arm(W(8.45), "phx", "R", "rest", 0.5, "inOut"); c.arm(W(8.45), "phx", "L", "rest", 0.5, "inOut");
 for (const [w, dt, e] of [["phx", 0.15, "happy"], ["rea", 0.25, "happy"], ["wiz", 0.2, "delighted"]]) {
   A(8.0 + dt, w, "face", { brow: 0, lid: 0, dur: 0.3 });
   A(8.0 + dt, w, "expr", { expr: e, dur: 0.3 });
@@ -190,8 +199,8 @@ const SHOTS = {
   timer: { pos: [1.02, 1.16, 6.2], look: [0.62, 0.88, 4.6], fov: 38 },
   trio: { pos: [0.45, 1.1, 5.4], look: [0, 1.0, 0], fov: 50 },
   rise: { pos: [0, 1.4, 5.8], look: [0, 1.35, 0], fov: 60, to: { pos: [0, 1.5, 5.6], look: [0, 1.45, 0], fov: 60 } },   // wide enough for both peeks
-  ember: { pos: [0, 1.75, 4.4], look: [0, 1.62, 0], fov: 48, to: { pos: [0, 1.8, 4.1], look: [0, 1.72, 0], fov: 48 } },
-  wide: { pos: [0.35, 1.5, 8.6], look: [0, 1.38, 0], fov: 46, to: { pos: [0.35, 1.55, 7.6], look: [0, 1.45, 0], fov: 44 } },   // the camera back stays in frame
+  ember: { pos: [0, 1.75, 4.4], look: [0, 1.62, 0], fov: 56, to: { pos: [0, 1.8, 4.1], look: [0, 1.72, 0], fov: 56 } },   // wide enough for the side pair's flinch
+  wide: { pos: [0.35, 1.5, 8.6], look: [0, 1.38, 0], fov: 46, to: { pos: [0.35, 1.55, 7.3], look: [0, 1.48, 0], fov: 44 } },   // the camera back stays in frame
   flash: { pos: [1.7, 1.0, 6.4], look: [0, 1.35, 0], fov: 50 },
 };
 const beats = c.beats([
