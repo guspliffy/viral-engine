@@ -50,6 +50,9 @@ export const RULES = {
   // (metres, hand radius included) fails; within a centimetre for touchHold warns; a hand on screen over a face's
   // eyes fails from faceCoverFail (s), warns from faceCoverWarn; a fist over a head or a prop growing out of a body warns
   reachIn: 0.02, touchHold: 0.2, faceCoverFail: 0.3, faceCoverWarn: 0.1, readHold: 0.2,
+  // fingers in a scene prop (stage.js handsInProps: a glove through a box lid, under a box, into a ledge), metres past the
+  // surface with the finger's own radius: over handInProp fails, over handTouchProp warns (each for contactHold frames)
+  handInProp: 0.02, handTouchProp: 0.012,
   faceHide: 0.35,   // share of the eye points hidden (stage.js hiddenFaces) that counts as a hidden face: about a third
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
@@ -203,7 +206,29 @@ export function contactResults(layout, sb = null) {
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
-  out.push(...reachResults(layout, sb));
+  out.push(...reachResults(layout, sb), ...propResults(layout, sb));
+  return out;
+}
+
+// fingers in scene props (stage.js handsInProps), the props a hand holds left out: one line per hand and prop, all the
+// times, the deepest. A hand a beat puts inside a prop (under a blanket) goes in an allowClip window with a reason
+// (who: the character, with: the prop's id).
+function propResults(layout, sb) {
+  const out = [], rows = layout?.contacts || [];
+  if (!rows.some((r) => r.inProps)) return out;
+  const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
+  const windows = (sb?.allowClip || []).filter((w) => w.reason);
+  const allowed = (who, prop, i) => windows.some((w) => w.who === who && (!w.with || w.with === prop) && i / fps >= w.from && i / fps <= w.to);
+  const runs = (flags) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= RULES.contactHold); };
+  const m = new Map();
+  rows.forEach((r, i) => { for (const x of r.inProps || []) { if (allowed(x.who, x.prop, i)) continue; const k = `${x.who}|${x.hand}|${x.prop}`; if (!m.has(k)) m.set(k, { x, d: new Array(n).fill(0) }); m.get(k).d[i] = x.depth; } });
+  for (const { x, d } of m.values()) {
+    const deep = runs(d.map((v) => v > RULES.handInProp)), touch = runs(d.map((v) => v > RULES.handTouchProp));
+    const max = Math.round(Math.max(...d) * 100);
+    if (deep.length) out.push({ level: "fail", check: "hand-in-prop", msg: `${x.who}: hand ${x.hand} goes into ${x.prop} at ${deep.map(when).join(", ")}, up to ${max} cm: keep the glove outside it (hold it from outside, lift it clear), or add an allowClip window with a reason` });
+    else if (touch.length) out.push({ level: "warn", check: "hand-in-prop", msg: `${x.who}: hand ${x.hand} dips ${max} cm into ${x.prop} at ${touch.map(when).join(", ")}: look at it in a 15 fps strip` });
+  }
+  if (!out.length) out.push({ level: "pass", check: "hand-in-prop", msg: "hands stay out of the props they don't hold" });
   return out;
 }
 

@@ -24,7 +24,8 @@
 // so nothing slides in a hand. Each buyer's phone opens like a book toward the camera, one hand on each half.
 import { clip, write, r3 } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
-import { FOLD, BOX, foldPoint } from "../../engine/page/props-duo.js";
+import { FOLD, BOX } from "../../engine/page/props-duo.js";
+import { PHONE_EDGE } from "../../engine/page/timeline.js";
 
 const c = clip(), { A, sfx } = c;
 const END = 12.0, FPS = 30;
@@ -37,15 +38,20 @@ const Q = { wiz: -2.4, drg: -1.35, sam: -0.3, rea: 0.75, gun: 1.8, vik: 2.85, as
 const WAIT = ["sam", "rea", "gun", "vik", "ast", "odn", "sor", "phx"];
 const SURGE = 0.22;                                     // how far the eight step up when the doors open
 const VIK_SIT = [2.85, -1.0];                            // Viking on his sleeping bag in front of his tent, just behind his spot
-const LEDGE = { x: -1.575, z: 0.82, w: 2.0, h: 0.34, d: 0.4 };
-const ST = { wiz: [-2.05, 0.12], drg: [-1.1, 0.12] };   // the buyers' stations behind the ledge
+const LEDGE = { x: -1.575, z: 0.87, w: 2.2, h: 0.34, d: 0.5 };
+const ST = { wiz: [-2.05, 0.2], drg: [-1.02, 0.2] };   // close to the ledge: short reaches, bent elbows   // the buyers' stations behind the ledge
 const HIDE = [-3.4, -7.5];                              // inside the store behind its back wall: out of sight
-const BOX_Z = 0.8, BOX_Y = LEDGE.h;
-const BOX_AT = { wiz: [-2.2, BOX_Y, BOX_Z], drg: [-1.22, BOX_Y, BOX_Z] };
-const LID_PARK = { wiz: [-1.82, BOX_Y, BOX_Z + 0.02], drg: [-0.82, BOX_Y, BOX_Z + 0.02] };
-const LID_ON = [0, BOX.H - BOX.SKIRT, 0];               // a lid on its base, in the base's frame
+const BOX_Z = 0.88, BOX_Y = LEDGE.h;
+// each box stands to the buyer's right (screen left), so once the phone is out nothing stands in front of it: the
+// gloves holding it from below stay in view
+const BOX_AT = { wiz: [-2.42, BOX_Y, BOX_Z], drg: [-1.39, BOX_Y, BOX_Z] };
+const LID_PARK = { wiz: [-1.98, BOX_Y, BOX_Z - 0.01], drg: [-0.95, BOX_Y, BOX_Z - 0.01] };
+// a lid on its base, in the base's frame: it sits 12 mm proud, as the phone's back stands a little above the base's
+// rim (so both palms can lie flat on it to lift it out without a glove going down into the box)
+const LID_ON = [0, BOX.H - BOX.SKIRT + 0.012, 0];
 const IN_TRAY = [FOLD.H / 2, BOX.TRAY + FOLD.T + 0.002, -FOLD.W / 2];   // a closed phone lying in the tray (tilt -90)
 const add = (a, b) => a.map((v, i) => r3(v + b[i]));
+const clamp = (x) => Math.min(1, Math.max(0, x));
 
 // ---------------------------------------------------------------- cast and props
 const who = (id, character, at, face, o = {}) => ({ id, character, at, face, expr: "kind", follow: 0.3, seed: 1 + Object.keys(Q).indexOf(id) * 1.1, ...o });
@@ -71,7 +77,7 @@ const props = [
   { id: "tent1", kind: "tent", x: 3.0, z: -1.75, w: 1.5, d: 0.5, h: 1.15, color: "#2aa6c9", rot: 0 },
   { id: "tent2", kind: "tent", x: 8.6, z: -1.7, w: 1.4, d: 0.6, h: 1.05, color: "#f0a43a", trim: "#fff3dc", rot: 6 },
   { id: "mug", kind: "campmug", x: VIK_SIT[0] - 0.45, z: VIK_SIT[1] - 0.12, scale: 1.3 },
-  { id: "chair", kind: "campchair", x: 9.95, z: -1.45, rot: -25 },
+  { id: "chair", kind: "campchair", x: 9.95, z: -1.62, rot: -25 },
   { id: "boxA", kind: "duobox", ...hidden(-3.0) },
   { id: "lidA", kind: "duolid", ...hidden(-3.0) },
   { id: "phA", kind: "foldphone", ...hidden(-3.0), tilt: -90, seed: 3 },
@@ -86,20 +92,37 @@ const look = (t, id, to, dur = 0.15) => A(t, id, "look", { to, dur, blink: false
 const grip = (t, id, side, shape, dur = 0.12) => A(t, id, "grip", { side, shape, dur });
 // a hand on a prop's grip point (in the prop's own frame), its palm turned to `palm` (a point in the prop's frame)
 const onProp = (prop, g, palm) => ({ prop, grip: g.map(r3), ...(palm && { palm: palm.map(r3) }) });
-const BOX_SIDE = (s) => [s * (BOX.W / 2 + 0.035), 0.045, 0];   // s -1: the box's left side (the buyer's own right hand)
-// the closed phone's two ends (its top and bottom), held near the free edge; and a hand on a half, behind it
-// the closed phone's two ends, pinched from above as it lies in its tray (phone -x is up there): the gloves stay over
-// the box, never down through its walls
-const END_GRIP = { top: [-0.035, FOLD.H - 0.02, FOLD.W * 0.62], bottom: [-0.035, 0.02, FOLD.W * 0.62] };
-const HALF = (open, gap, side) => onProp(null, foldPoint(open, gap, side, 1.04, 0.5, 0.03), foldPoint(open, gap, side, 0.8, 0.5, 0));
+// Hands and the box, lid and phone (Jonny 28 Oct: gloves went through the lid, the box and the ledge, and merged into one
+// lump on the phone). A glove is 13 cm across and 9 cm thick, as big as the box is tall, so every hold keeps the glove
+// outside the prop: palms flat on the box's ends, the lid pinched at its end and lifted straight up, the phone pinched
+// at its two ends from above, then each hand on its own half at opposite corners until the phone is open.
+// stage.js handsInProps measures fingers in props; qa/check fails on it.
+const BOX_END = (s) => [s * (BOX.W / 2 + 0.062), 0.075, 0];   // s -1: the box's left end (the buyer's own right hand)
+// the lid's right end pinched from above and outside: the thumb over its top, the fingers down its end
+const LID_END = [BOX.W / 2 + 0.012 + 0.03, BOX.SKIRT + 0.03, 0], LID_PALM = [BOX.W / 2 - 0.02, BOX.SKIRT - 0.01, 0];
+// the closed phone lying in its tray (phone +x is up there, the right half's back): picked up with both palms flat on
+// its back, one on each end, so no glove goes down into the gap between the phone and the box's walls
+const END_GRIP = { top: [0.042, FOLD.H * 0.74, FOLD.W * 0.5], bottom: [0.042, FOLD.H * 0.26, FOLD.W * 0.5] };
+// palms down on it, fingers pointing away from the buyer (in the tray the phone's +z is the world's forward, its -x
+// down), locked to the phone (frame) so the hands turn with it as it stands up, and from there turn onto its edges
+const ON_BACK = (ph, end) => ({ ...onProp(ph, END_GRIP[end]), frame: { y: [0, 0, 1], z: [-1, 0, 0] } });
+// a hand locked to one half's outer edge (the phone-edge grip, timeline.js phoneEdge): v up the edge (0 bottom, 1 top),
+// the fingers in along the half's back and tipped up a little, the palm facing the half's screen side from behind
+const EDGE_TILT = (5 * Math.PI) / 180;
+const EDGE = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [side * FOLD.W, v * FOLD.H, -FOLD.T / 2].map(r3),
+  frame: { y: [r3(-side * Math.cos(EDGE_TILT)), r3(Math.sin(EDGE_TILT)), 0], z: [0, 0, 1], at: PHONE_EDGE, elbow: 1 } });
+// on the way there (the closed phone): beside the free edge, palm to it, fingers out of its back side (AROUND), or
+// behind the half near its edge, fingers up (BEHIND); each a quarter turn from the hold before it and the one after
+const AROUND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * (FOLD.W + 0.075)), r3(v * FOLD.H), r3(-FOLD.T / 2)], frame: { y: [0, 0, -1], z: [-side, 0, 0], elbow: 0.4 } });
+const BEHIND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * FOLD.W * 0.75), r3(v * FOLD.H), r3(-FOLD.T - 0.046)], frame: { y: [0, 1, 0], z: [0, 0, 1] } });
 
 // a buyer's whole handling chain: arrive with the box, set it down, lid off and parked, the phone out of the tray,
 // upright, unfolded. Times from the brief (t: the beat starts). Returns where the phone ends up.
 function purchase(id, box, lid, ph, T) {
   const [sx, sz] = ST[id], at = BOX_AT[id];
-  const start = [sx - 0.03, sz - 0.24];
-  // arrive: the box carried in front of the chest, lid on, phone inside
-  const carry0 = [sx - 0.05, 0.45, start[1] + 0.58];
+  const start = [sx - 0.03, sz - 0.32];
+  // arrive: the box carried in front of the chest by its ends, lid on, phone inside
+  const carry0 = [sx - 0.05, 0.47, start[1] + 0.64];
   // everything is put in place between the last frame of the shot before and the first of this one (a time cut)
   const t0 = T.arrive - 0.012;
   A(t0, id, "move", { to: start, dur: 0.005 });
@@ -107,48 +130,75 @@ function purchase(id, box, lid, ph, T) {
   c.prop(t0, box, { x: carry0[0], y: carry0[1], z: carry0[2] }, 0.005);
   c.at(t0, { do: "carry", prop: lid, by: box, off: LID_ON });
   c.at(t0, { do: "carry", prop: ph, by: box, off: IN_TRAY });
-  c.arm(t0, id, "R", onProp(box, BOX_SIDE(-1), [0, 0.045, 0]), 0.005);
-  c.arm(t0, id, "L", onProp(box, BOX_SIDE(1), [0, 0.045, 0]), 0.005);
-  grip(t0, id, "both", "flat", 0.005);
+  // palm "wrap": the palm on the end, the fingers lying level round the corner (not hanging down past the box)
+  for (const [s, k] of [["R", -1], ["L", 1]]) c.arm(t0, id, s, { ...onProp(box, BOX_END(k)), palm: "wrap" }, 0.005);
+  grip(t0, id, "both", "relaxed", 0.005);
   A(T.arrive + 0.01, id, "move", { to: ST[id], dur: T.set - T.arrive - 0.01, ease: "out", steps: 2.6 });
   c.prop(T.arrive + 0.01, box, { x: at[0], y: at[1], z: at[2] }, T.set - T.arrive - 0.01, "inOut");
   A(T.arrive, id, "pitch", { to: 7, dur: 0.25 });
   sfx(T.set, "put-down", { gain: 1.2 });
-  // lid: carried by the base until it is lifted; the right hand (screen left) steadies the base
+  // the hands let go as it lands (a glove is taller than the box: left on its ends they would sink into the ledge); the
+  // right one waits over the box's left end, then holds its rim once the lid is off (steadying the base)
+  const rest = [at[0] - BOX.W / 2 - 0.12, LEDGE.h + BOX.H + 0.06, at[2] - 0.1];
+  c.arm(T.set - 0.12, id, "R", { world: rest, palm: add(rest, [0.02, -0.1, 0.02]) }, 0.16, "inOut");
+  grip(T.set - 0.12, id, "R", "relaxed", 0.12);
+  const RIM = [-BOX.W / 2 - 0.012, BOX.H + 0.05, -0.02], RIM_PALM = [-BOX.W / 2 + 0.05, BOX.H - 0.02, -0.02];
+  c.arm(T.lid + 0.3, id, "R", onProp(box, RIM, RIM_PALM), 0.12, "inOut");
+  grip(T.lid + 0.34, id, "R", "rim", 0.08);
+  // lid: the left hand (screen right) leaves the box's end for the lid's, pinches it, lifts it straight up, carries it
+  // to the right and lets it drop the last centimetres flat; the right hand stays on the box's other end
   look(T.lid - 0.13, id, [0.15, -0.85], 0.1);     // eyes on the lid first
   c.at(T.lid, { do: "carry", prop: lid });
-  const lidG = [BOX.W / 2 - 0.035, BOX.SKIRT + 0.05, 0], lidPalm = [BOX.W / 2 - 0.035, 0, 0];
-  c.arm(T.lid, id, "L", onProp(lid, lidG, lidPalm), 0.14, "inOut");
-  grip(T.lid, id, "L", "paw", 0.12);
-  const l0 = add(at, LID_ON);
-  c.prop(T.lid + 0.16, lid, { x: l0[0] + 0.05, y: l0[1] + 0.11, z: l0[2] - 0.01 }, 0.16, "out");
-  sfx(T.lid + 0.16, "cloth", { gain: 0.9, reason: "the lid slides off the box" });
-  const pk = LID_PARK[id];
-  c.prop(T.lid + 0.32, lid, { x: pk[0], y: pk[1] + 0.03, z: pk[2] }, 0.14, "inOut");
-  c.prop(T.lid + 0.46, lid, { y: pk[1] }, 0.06, "in");
-  sfx(T.lid + 0.52, "put-down", { gain: 0.9 });
-  // the phone: both hands to its ends in the tray, lift it out, stand it upright in front of the chest
+  c.arm(T.set - 0.22, id, "L", onProp(lid, LID_END, LID_PALM), 0.26, "inOut");
+  grip(T.lid, id, "L", "pinch", 0.06);
+  const l0 = add(at, LID_ON), pk = LID_PARK[id];
+  // (the whole lid move takes 0.39 s, so the hand is free for the phone 0.56 s after T.lid; the sideways move gets the
+  // most of it: faster, the lid jumps across in one frame)
+  c.prop(T.lid + 0.06, lid, { y: l0[1] + 0.09 }, 0.08, "out");
+  sfx(T.lid + 0.06, "cloth", { gain: 0.9, reason: "the lid slides off the box" });
+  c.prop(T.lid + 0.14, lid, { x: pk[0], y: pk[1] + 0.07, z: pk[2] }, 0.18, "inOut");
+  c.prop(T.lid + 0.32, lid, { y: pk[1] + 0.035 }, 0.03, "in");
+  // let go: the hand opens and rises off the lid, which drops flat onto the ledge
+  const lift = add(add(pk, [0, 0.035, 0]), LID_END);
+  c.arm(T.lid + 0.35, id, "L", { world: add(lift, [0.02, 0.13, -0.04]), palm: add(lift, [-0.1, 0, 0]) }, 0.07, "out");
+  grip(T.lid + 0.35, id, "L", "relaxed", 0.06);
+  c.prop(T.lid + 0.35, lid, { y: pk[1] }, 0.04, "in");
+  sfx(T.lid + 0.39, "put-down", { gain: 0.9 });
+  if (T.lift - 0.16 < T.lid + 0.39) throw new Error(`${id}: the lid hand is still letting go when the phone needs it`);
+  // the phone: both hands over its two ends, palms down, lift it straight up out of the tray, stand it up
   look(T.lift - 0.3, id, [0.05, -0.9], 0.1);      // eyes on the phone in its tray before the hands go in
   c.at(T.lift - 0.02, { do: "carry", prop: ph });
   const tray = add(at, IN_TRAY);
-  c.arm(T.lift - 0.16, id, "R", onProp(ph, END_GRIP.top, [0, FOLD.H - 0.02, FOLD.W * 0.62]), 0.16, "inOut");
-  c.arm(T.lift - 0.16, id, "L", onProp(ph, END_GRIP.bottom, [0, 0.02, FOLD.W * 0.62]), 0.16, "inOut");
-  grip(T.lift - 0.1, id, "both", "hold", 0.1);
-  const hold = [sx + 0.0, 0.36, sz + 0.45];   // high enough that the ledge never hides the screens, below the mouth
-  c.prop(T.lift, ph, { x: tray[0], y: tray[1] + 0.05, z: tray[2] }, 0.12, "out");
-  c.prop(T.lift + 0.12, ph, { x: hold[0], y: hold[1], z: hold[2], tilt: 0, rot: -40 }, T.open - T.lift - 0.12, "inOut");
+  c.arm(T.lift - 0.18, id, "R", ON_BACK(ph, "top"), 0.16, "inOut");
+  c.arm(T.lift - 0.16, id, "L", ON_BACK(ph, "bottom"), 0.14, "inOut");
+  grip(T.lift - 0.08, id, "both", "flat", 0.08);
+  // high enough that the ledge never hides the screens, below the mouth; the buyer steps back half a pace as the phone
+  // comes up, so the half that swings open toward the camera passes behind the box, not through it
+  // (0.45 m in front of the body: any closer and the mouth, drawn on the skin, shows through the phone)
+  const hold = [sx - 0.1, 0.35, sz + 0.25], back = [sx, sz - 0.2];
+  A(T.lift + 0.1, id, "move", { to: back, dur: T.open - T.lift - 0.06, ease: "inOut" });
+  c.prop(T.lift, ph, { x: tray[0], y: tray[1] + 0.06, z: tray[2] }, 0.12, "out");
+  c.prop(T.lift + 0.12, ph, { x: hold[0], y: hold[1], z: hold[2], tilt: 0, rot: 90 }, T.open - T.lift - 0.12, "inOut");
   A(T.lift + 0.1, id, "pitch", { to: 2, dur: 0.3 });
   sfx(T.lift + 0.02, "grab", { gain: 0.9 });
-  // unfold: the halves swing out toward the camera, one hand on each, the phone turning square to us as it opens
-  const n = Math.round((T.flat - T.open) * FPS / 2);
-  for (let k = 0; k <= n; k++) {
-    const u = k / n, t = T.open + (T.flat - T.open) * u, e = u * u * (3 - 2 * u), open = 0.98 * e;
-    const step = (T.flat - T.open) / n;
-    // the first key: the hands move from the phone's ends to its halves just before it starts to open
-    const t1 = k === 0 ? t - 0.12 : t, d = k === 0 ? 0.12 : step;
-    c.arm(t1, id, "R", { ...HALF(open, 0, -1), prop: ph }, d, k === 0 ? "inOut" : "linear");
-    c.arm(t1, id, "L", { ...HALF(open, 0, 1), prop: ph }, d, k === 0 ? "inOut" : "linear");
-  }
+  // the closed phone stood up like a book, its spine to the left and its front cover (the left half) to the camera, both
+  // palms riding on its back. Then each hand takes its own half by the outer edge, the way a person holds a book-style
+  // phone (Jonny 29 Oct): the fingers along the half's back, the palm beside the edge, the thumb ready by it. The right
+  // hand reaches across to the cover's edge (higher), the left takes the back half's (lower), one in front of the closed
+  // phone and one behind. Locked to its half (part + frame), each hand turns with it: as the cover swings open the
+  // right hand rides it round, and the thumbs close onto the screens as they come apart. No hand lets go or slides
+  // until the end: the snap and the crack happen in hands that already hold their halves.
+  // Each hand gets there in two quarter turns, after the phone is out of the tray: the right hand lets go of the back,
+  // goes round the free edge (palm to the edge, fingers to the camera) and closes on the cover from the front; the left
+  // turns its fingers up and slides out to the back half's edge, still behind it. (One half turn in one go has no
+  // way round: the glove turned through the phone or flipped in one frame.)
+  const tm = T.edges, t2 = tm + (T.open - tm) * 0.5;
+  c.arm(tm, id, "R", AROUND(ph, -1, 0.95), t2 - tm, "in");
+  c.arm(t2, id, "R", EDGE(ph, -1, 0.52), T.open - t2, "out");
+  c.arm(tm, id, "L", BEHIND(ph, 1, 0.26), t2 - tm, "in");
+  c.arm(t2, id, "L", EDGE(ph, 1, 0.26), T.open - t2, "out");
+  grip(tm, id, "R", "open", 0.06); grip(t2, id, "both", "phoneEdgeReady", T.open - t2);
+  grip(T.open + 0.04, id, "both", "phoneEdge", 0.18);
   c.prop(T.open, ph, { open: 0.98, rot: 0 }, T.flat - T.open, "inOut");
   sfx(T.open + 0.05, "kenney/cloth", { gain: 0.8, reason: "the phone's halves swing open" });
   return hold;
@@ -197,7 +247,8 @@ A(1.56, "wiz", "move", { to: [DOOR_X - 0.05, WALL_Z - 0.6], dur: 0.42, steps: 4.
 A(1.55, "drg", "turn", { to: 200, dur: 0.18 });
 A(1.7, "drg", "move", { to: [DOOR_X + 0.45, -1.35], dur: 0.22, ease: "in", steps: 4.2 });
 A(1.92, "drg", "move", { to: [DOOR_X + 0.1, WALL_Z - 0.4], dur: 0.2, steps: 4.2 });
-for (const id of ["wiz", "drg"]) { c.arm(1.55, id, "both", "rest", 0.15); grip(1.55, id, "both", "open"); }
+// the fists drop before the turn (dropped during it, the far arm sweeps across the face)
+for (const id of ["wiz", "drg"]) { c.arm(1.45, id, "both", "rest", 0.1); grip(1.45, id, "both", "open", 0.1); }
 // the eight surge one short step and lean in, but stay outside
 WAIT.filter((id) => id !== "vik").forEach((id, i) => {
   A(1.86 + i * 0.03, id, "move", { to: [Q[id] - SURGE, QZ], dur: 0.3, steps: 2 });
@@ -216,7 +267,7 @@ look(1.55, "vik", AT_DOOR, 0.15);
 // Dragon waits inside, out of sight, until his turn
 A(1.988, "drg", "move", { to: HIDE, dur: 0.005 });
 for (const id of WAIT) { A(2.0, id, "pitch", { to: 3, dur: 0.3 }); look(2.0, id, [-0.8, -0.2], 0.2); }
-const WT = { arrive: 2.0, set: 2.3, lid: 2.32, lift: 2.88, open: 3.2, flat: 3.85 };
+const WT = { arrive: 2.0, set: 2.3, lid: 2.32, lift: 2.88, edges: 2.94, open: 3.2, flat: 3.85 };   // edges: the hands start onto the edges
 A(1.988, "wiz", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(1.988, "wiz", [0, -0.75], 0.005);
 const holdA = purchase("wiz", "boxA", "lidA", "phA", WT);
@@ -230,10 +281,7 @@ sfx(SNAP, "kenney/metal-click", { gain: 1.1, reason: "the hinge snaps" });
 c.prop(SNAP, "phA", { gap: 0.08 }, 0.07, "out");
 // then the halves drift apart in his hands, so the golden body shows between them: the break reads at phone size
 c.prop(SNAP + 0.1, "phA", { gap: 0.13 }, 0.55, "out");
-for (const [t, g, d] of [[SNAP, 0.08, 0.07], [SNAP + 0.1, 0.13, 0.55]]) {
-  c.arm(t, "wiz", "R", { ...HALF(0.98, g, -1), prop: "phA" }, d, "out");
-  c.arm(t, "wiz", "L", { ...HALF(0.98, g, 1), prop: "phA" }, d, "out");
-}
+// (the hands hold their halves through it: each follows its own as they part)
 A(SNAP, "wiz", "still", { dur: 0.75, idle: 0.04 });
 A(SNAP + 0.02, "wiz", "squash", { amount: 0.03, dur: 0.12 });
 A(SNAP + 0.18, "wiz", "expr", { set: { open: 0.3, eye: 1.25, pupil: 0.8 }, dur: 0.08 });   // the eyes understand first
@@ -247,7 +295,7 @@ A(4.62, "wiz", "still", { dur: 0.5, idle: 0.03 });
 A(4.588, "drg", "move", { to: [DOOR_X + 0.1, WALL_Z - 0.3], dur: 0.005 });
 
 // ---------------------------------------------------------------- 07 SECOND PURCHASE 5.10-7.40
-const DT = { arrive: 5.1, set: 5.35, lid: 5.37, lift: 5.9, open: 6.1, flat: 6.52 };   // open early: a quarter second of intact screens before the crack
+const DT = { arrive: 5.1, set: 5.32, lid: 5.33, lift: 5.88, edges: 6.01, open: 6.26, flat: 6.58 };   // open early: intact screens before the crack; edges later than the Wizard: his box is right under the free edge
 A(5.088, "drg", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(5.088, "drg", [0, -0.75], 0.005);
 purchase("drg", "boxB", "lidB", "phB", DT);
@@ -321,9 +369,9 @@ const S01 = { pos: [8.0, 2.3, 3.6], look: [1.2, 1.0, -1.3], fov: 42 };
 const S02 = frame([VIK_SIT[0], 0.6, VIK_SIT[1]], { az: 10, el: 12, h: 2.1, fov: 24 });
 const S03 = frame([(Q.wiz + Q.drg) / 2 - 0.0, 0.66, QZ], { az: 0, el: 4, h: 2.4, fov: 22 });
 const S04 = frame([-1.9, 1.05, -1.1], { az: 18, el: 6, h: 3.4, fov: 30 });
-const S05 = frame([-2.0, 0.55, 0.42], { az: 6, el: 14, h: 1.45, fov: 22, push: 0.15, dur: 1.85 });
+const S05 = frame([-2.12, 0.55, 0.42], { az: 6, el: 22, h: 1.45, fov: 22, push: 0.15, dur: 1.85 });
 const S06 = frame([-2.04, 0.62, 0.3], { az: 4, el: 8, h: 0.8, fov: 18, push: 0.04, dur: 0.5 });
-const S07 = frame([-1.38, 0.55, 0.45], { az: 6, el: 14, h: 1.95, fov: 22, push: 0.2, dur: 1.65 });
+const S07 = frame([-1.36, 0.55, 0.45], { az: 6, el: 22, h: 1.95, fov: 22, push: 0.2, dur: 1.65 });
 const S08 = frame([-1.6, 0.6, -0.1], { az: 18, el: 8, h: 3.0, fov: 26 });
 const S09 = frame([0.1, 0.72, QZ], { az: 0, el: 16, h: 2.9, fov: 22 });
 const S10 = { pos: [-5.5, 2.1, 2.2], look: [4.0, 0.5, -1.0], fov: 38 };
@@ -354,9 +402,9 @@ const sb = (variant, captions) => ({
   experiment: { id: "hook-2026-11", episode: "duo-launch-day", variant },
   cast, props, captions, beats,
   allowClip: [
-    { who: "vik", with: "bag", from: 0, to: 2.4, reason: "Viking sits on his sleeping bag, then gets up off it" },
-    { who: "wiz", with: "ledge", from: 2.0, to: END, reason: "his gloves reach over the ledge to the box" },
-    { who: "drg", with: "ledge", from: 5.1, to: END, reason: "his gloves reach over the ledge to the box" },
+    { who: "vik", with: "bag", from: 0, to: 2.4, reason: "Viking sits in his sleeping bag (his hand under its cover), then gets up off it" },
+    { who: "wiz", with: "lidA", from: WT.arrive - 0.05, to: WT.set, reason: "carrying the box by its ends: the fingers round the corners hold the lid on too" },
+    { who: "drg", with: "lidB", from: DT.arrive - 0.05, to: DT.set, reason: "carrying the box by its ends: the fingers round the corners hold the lid on too" },
   ],
   notes: "Generated by storyboards/duo/make-duo-launch-day.mjs (Jonny's story library 10).",
 });
