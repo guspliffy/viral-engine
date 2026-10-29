@@ -50,9 +50,15 @@ export const RULES = {
   // (metres, hand radius included) fails; within a centimetre for touchHold warns; a hand on screen over a face's
   // eyes fails from faceCoverFail (s), warns from faceCoverWarn; a fist over a head or a prop growing out of a body warns
   reachIn: 0.02, touchHold: 0.2, faceCoverFail: 0.3, faceCoverWarn: 0.1, readHold: 0.2,
-  // fingers in a scene prop (stage.js handsInProps: a glove through a box lid, under a box, into a ledge), metres past the
-  // surface with the finger's own radius: over handInProp fails, over handTouchProp warns (each for contactHold frames)
-  handInProp: 0.02, handTouchProp: 0.012,
+  // hands, arms and costume parts in scene props (stage.js inProps), metres past the prop's surface, each for
+  // contactHold frames. A prop nobody here holds (a parcel someone else carries, a bowl, a box lid): a hand part over
+  // handInProp fails, over handTouchProp warns; an arm (a soft tube that may rest against it) over armInProp fails. A
+  // costume part over costumeInProp fails, on a side the camera sees. The prop the character works with (holds, pushes,
+  // cups, rests a paw on): fingers and thumb may press in; the palm, wrist or arm coming out of it on a side the camera
+  // sees over heldInProp fails on a thin prop (a straw through the glove), warns from heldWarn on any other (a fist
+  // sunk into a phone). A thin held prop must show past the fist at both ends, on screen, by thinShow (for
+  // thinHold s or more: a straw picked up off the table hides an end for a moment)
+  handInProp: 0.02, handTouchProp: 0.012, armInProp: 0.03, costumeInProp: 0.02, heldInProp: 0.01, heldWarn: 0.03, thinShow: 0.01, thinHold: 0.5,
   faceHide: 0.35,   // share of the eye points hidden (stage.js hiddenFaces) that counts as a hidden face: about a third
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
@@ -210,25 +216,52 @@ export function contactResults(layout, sb = null) {
   return out;
 }
 
-// fingers in scene props (stage.js handsInProps), the props a hand holds left out: one line per hand and prop, all the
-// times, the deepest. A hand a beat puts inside a prop (under a blanket) goes in an allowClip window with a reason
-// (who: the character, with: the prop's id).
+// hands, arms and costume parts in scene props (stage.js inProps), and thin held props hidden in the fist: one line
+// per part and prop, all the times, the deepest. Contact a beat needs (a hand under a blanket, a straw pushed into a
+// carton) goes in an allowClip window with a reason (who: the character, with: the prop's id).
 function propResults(layout, sb) {
   const out = [], rows = layout?.contacts || [];
-  if (!rows.some((r) => r.inProps)) return out;
+  if (!rows.some((r) => r.inProps || r.thin)) return out;
   const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
   const windows = (sb?.allowClip || []).filter((w) => w.reason);
   const allowed = (who, prop, i) => windows.some((w) => w.who === who && (!w.with || w.with === prop) && i / fps >= w.from && i / fps <= w.to);
   const runs = (flags) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= RULES.contactHold); };
+  // per part and prop, per frame: [the measure, its fail limit, its warn limit] (see RULES.handInProp)
   const m = new Map();
-  rows.forEach((r, i) => { for (const x of r.inProps || []) { if (allowed(x.who, x.prop, i)) continue; const k = `${x.who}|${x.hand}|${x.prop}`; if (!m.has(k)) m.set(k, { x, d: new Array(n).fill(0) }); m.get(k).d[i] = x.depth; } });
-  for (const { x, d } of m.values()) {
-    const deep = runs(d.map((v) => v > RULES.handInProp)), touch = runs(d.map((v) => v > RULES.handTouchProp));
-    const max = Math.round(Math.max(...d) * 100);
-    if (deep.length) out.push({ level: "fail", check: "hand-in-prop", msg: `${x.who}: hand ${x.hand} goes into ${x.prop} at ${deep.map(when).join(", ")}, up to ${max} cm: keep the glove outside it (hold it from outside, lift it clear), or add an allowClip window with a reason` });
-    else if (touch.length) out.push({ level: "warn", check: "hand-in-prop", msg: `${x.who}: hand ${x.hand} dips ${max} cm into ${x.prop} at ${touch.map(when).join(", ")}: look at it in a 15 fps strip` });
+  rows.forEach((r, i) => {
+    const thin = new Set((r.thin || []).map((t) => t.prop));
+    for (const x of r.inProps || []) {
+      if (allowed(x.who, x.prop, i)) continue;
+      const part = x.part || "hand", held = !!x.held, k = `${x.who}|${part}|${x.hand || x.what}|${x.pad ? "pad" : ""}|${x.prop}`;
+      const seen = x.seenDepth ?? x.depth;
+      const v = part === "costume" ? (held ? [x.core, Infinity, RULES.costumeInProp] : [x.core, RULES.costumeInProp, RULES.handTouchProp])
+        : !held ? (part === "arm" ? [x.depth, RULES.armInProp, RULES.handInProp] : [x.depth, RULES.handInProp, RULES.handTouchProp])
+        : x.pad ? [x.core ?? x.depth, Infinity, Infinity]
+        : [seen, thin.has(x.prop) ? RULES.heldInProp : Infinity, RULES.heldWarn];
+      if (!m.has(k)) m.set(k, { x: { ...x, part }, f: [] });
+      m.get(k).f[i] = { v: v[0], fail: v[1], warn: v[2], held };
+    }
+  });
+  const check = { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop" };
+  const name = (x) => (x.part === "costume" ? x.what : x.part === "hand" ? `hand ${x.hand}${x.pad ? " (fingers)" : " (palm)"}` : `arm ${x.hand}`);
+  for (const { x, f } of m.values()) {
+    const at = (k) => runs(Array.from({ length: n }, (_, i) => !!f[i] && f[i].v > f[i][k])), deep = at("fail"), touch = at("warn");
+    const spans = deep.length ? deep : touch, max = Math.round(Math.max(...f.filter(Boolean).map((e) => e.v)) * 100);
+    const held = spans.some(([a, b]) => f.slice(a, b + 1).some((e) => e && e.held));   // what the failing frames measured
+    const fix = x.part === "hand" ? (held ? "hold it with the finger and thumb pads, the palm and wrist beside or behind it" : "keep the glove outside it (hold it from outside, lift it clear)")
+      : x.part === "arm" ? "move the prop or the elbow so the arm passes beside it" : "keep the costume clear of it (move the prop, turn or lean)";
+    const what = held ? `${x.prop}, which it works with,` : x.prop;
+    if (deep.length) out.push({ level: "fail", check: check[x.part], msg: `${x.who}: ${name(x)} goes into ${what} at ${deep.map(when).join(", ")}, up to ${max} cm${held ? " on the side the camera sees" : ""}: ${fix}, or add an allowClip window with a reason` });
+    else if (touch.length) out.push({ level: "warn", check: check[x.part], msg: `${x.who}: ${name(x)} ${held ? "sinks" : "dips"} ${max} cm into ${what} at ${touch.map(when).join(", ")}${held ? " on the side the camera sees" : ""}: look at it in a 15 fps strip` });
   }
-  if (!out.length) out.push({ level: "pass", check: "hand-in-prop", msg: "hands stay out of the props they don't hold" });
+  // thin held props: both ends show past the fist
+  const t = new Map();
+  rows.forEach((r, i) => { for (const x of r.thin || []) { if (allowed(x.who, x.prop, i)) continue; const k = `${x.who}|${x.prop}`; if (!t.has(k)) t.set(k, { x, s: new Array(n).fill(Infinity) }); t.get(k).s[i] = x.show; } });
+  for (const { x, s } of t.values()) {
+    const hid = runs(s.map((v) => v < RULES.thinShow)).filter(([a, b]) => (b - a + 1) / fps >= RULES.thinHold);
+    if (hid.length) out.push({ level: "fail", check: "thin-prop-hidden", msg: `${x.who}: one end of ${x.prop} doesn't show past the fist at ${hid.map(when).join(", ")}: grip it higher, so both ends show past the glove, the prop a little in front of the palm (fingers over it on the camera side)` });
+  }
+  if (!out.length) out.push({ level: "pass", check: "hand-in-prop", msg: "hands, arms and costumes stay out of the props, and thin props show past the fist" });
   return out;
 }
 
