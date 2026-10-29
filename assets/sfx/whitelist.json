@@ -68,9 +68,9 @@
   "gunshot": { "family": "hit", "says": "a cartoon pistol: a sharp crack and a short low boom", "words": ["bang", "peng"] },
   "sadslide": { "family": "music", "says": "the sad trombone: four notes sliding down, 'wah wah wah-wahhh', 1.8 s. Off by default on a droop: \"sound\": { \"autoTrombone\": true }", "words": ["sad trombone", "wah wah"] },
 
-  "puncture": { "family": "food", "says": "a tiny dry card pop with a soft thock (a fang or straw through a carton), from its code", "pending": "the Vampire branch" },
-  "squirt": { "family": "wet", "says": "a wet, hissy jet whose pitch drops as the pressure goes, with bubbly flutter (a squeezed carton), from its code", "words": ["spritz"], "pending": "the Vampire branch" },
-  "splort": { "family": "wet", "says": "a soft wet slap, a squelch sinking in pitch, then a few drips (juice landing on a face), from its code", "words": ["splat", "squelch", "splurt", "goo"], "pending": "the Vampire branch" },
+  "puncture": { "family": "food", "says": "a tiny dry card pop with a soft thock (a fang or straw through a carton), from its code" },
+  "squirt": { "family": "wet", "says": "a wet, hissy jet whose pitch drops as the pressure goes, with bubbly flutter (a squeezed carton), from its code", "words": ["spritz"] },
+  "splort": { "family": "wet", "says": "a soft wet slap, a squelch sinking in pitch, then a few drips (juice landing on a face), from its code", "words": ["splat", "squelch", "splurt", "goo"] },
 
   "sig-phoenix": { "family": "signature", "says": "Phoenix's flame whoosh: air rushing in, a low 'fwoomp' and roar, embers crackling, a short bird cry, 1.3 s" },
   "sig-reaper": { "family": "signature", "says": "Reaper's bell: one deep church-bell toll in D that slowly swells and fades, 2.8 s" },

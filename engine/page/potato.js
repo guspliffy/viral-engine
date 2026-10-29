@@ -505,6 +505,26 @@ export class Character {
     return m;
   }
 
+  _stain(s, a, c, b, joint) {
+    const A = this.arms[s];
+    if (!A.stain) {
+      const cv = document.createElement("canvas"); cv.width = 256; cv.height = 128; const g = cv.getContext("2d");
+      g.fillStyle = "#a245d6";
+      // blotches all the way round the sleeve (the tube's frame turns with the arm, so no side is "the front"), thinning
+      // toward both ends; each one drawn again across the seam so the ring closes
+      for (const [x, y, r] of [[120, 64, 30], [150, 30, 24], [96, 100, 24], [170, 84, 20], [70, 40, 16], [196, 112, 13], [128, 8, 18], [110, 128, 14], [40, 76, 8], [222, 20, 7], [88, 70, 12], [160, 56, 16]])
+        for (const dy of [-128, 0, 128]) { g.beginPath(); g.arc(x, y + dy, r, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = "rgba(255,235,255,0.5)"; for (const [x, y] of [[112, 50], [160, 22], [100, 104]]) { g.beginPath(); g.ellipse(x, y, 12, 4, 0, 0, Math.PI * 2); g.fill(); }
+      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+      A.stain = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: 0.3, depthWrite: false }));
+      A.stain.material.userData.noOutline = true; A.stain.renderOrder = 2; this.root.add(A.stain);
+    }
+    const arm = Character.armCurve(a, c, b, joint), t0 = 0.56, t1 = 0.9, pts = [];
+    for (let k = 0; k <= 12; k++) pts.push(arm.getPoint(t0 + (t1 - t0) * (k / 12)));
+    const w = this.limbW, rad = (t) => { const u = t0 + (t1 - t0) * t; return w * 1.1 * (u > 0.8 ? 1 - (u - 0.8) * 1.1 : 1); };
+    A.stain.geometry.dispose(); A.stain.geometry = taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 20, 16, rad);
+  }
+
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
@@ -639,6 +659,13 @@ export class Character {
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
+      // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
+      // round the arm just above the wrist, rebuilt with the arm
+      const stn = Math.min(1, Math.max(0, st.face?.[s === "R" ? "stainR" : "stainL"] || 0));
+      if (stn > 0.01 && showLimbs) {
+        if (this[`_sk${s}`] !== key) { this[`_sk${s}`] = key; this._stain(s, this.arms[s].shoulder, mid, h, joint); }
+        this.arms[s].stain.visible = true; this.arms[s].stain.material.opacity = Math.min(1, stn * 1.4);
+      } else if (this.arms[s].stain) this.arms[s].stain.visible = false;
       if (this.seamless) { this._skin(s, showLimbs); const a = this.arms[s]; a.tubeInk.geometry = a.mesh.geometry; a.tubeInk.visible = showLimbs; }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
