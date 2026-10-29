@@ -37,7 +37,8 @@
   "ambience": 0.3,
   "speech": false,
   "surface": "concrete",
-  "signature": false
+  "signature": false,
+  "auto": false
  },
  "hook": {
   "show": [
@@ -486,7 +487,7 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.2,
+     "gain": 0.34,
      "reason": "the timer lamp (tripod in the foreground)",
      "at": 0.35
     },
@@ -1423,11 +1424,25 @@
      "at": 1.57
     },
     {
+     "sfx": "step-concrete",
+     "gain": 1,
+     "pan": -0.3,
+     "reason": "Reaper's huddle step landing",
+     "at": 1.636
+    },
+    {
      "who": "phx",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.25,
      "at": 1.647
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 1,
+     "pan": 0.3,
+     "reason": "the Wizard's huddle step landing",
+     "at": 1.672
     },
     {
      "who": "rea",

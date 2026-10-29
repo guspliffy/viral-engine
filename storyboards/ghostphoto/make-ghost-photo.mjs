@@ -96,7 +96,7 @@ A(1.42, "wiz", "turn", { to: -24, dur: 0.14 });                 // the Wizard sn
 prop(1.42, "s-wiz", { rot: -24, squash: 0.06 }, 0.14); prop(1.56, "s-wiz", { squash: 0 }, 0.16);
 A(1.76, "wiz", "turn", { to: 0, dur: 0.12 });                   // ... and snaps back into the pose
 prop(1.76, "s-wiz", { rot: 0 }, 0.12);
-for (const b of BLINKS) if (b > W(1.2) && b < W(2.0)) c.sfx(b, "timer-beep", { gain: 0.2, reason: "the timer lamp (tripod in the foreground)" });
+for (const b of BLINKS) if (b > W(1.2) && b < W(2.0)) c.sfx(b, "timer-beep", { gain: 0.34, reason: "the timer lamp (tripod in the foreground)" });
 
 // ---------------------------------------------------------------- 4 REVEAL 2.0-4.4: the sheet rises, faces show
 // a quiet beat (2.0-2.3), then the hot sheet lifts off Phoenix; his face shows as the hem passes his eyes (~2.95 s)
@@ -173,6 +173,9 @@ A(8.85, "wiz", "look", { to: AT_CAM, dur: 0.18, blink: false });
 A(9.1, "rea", "turn", { to: 0, dur: 0.25 }); prop(9.1, "s-rea", { rot: 0 }, 0.25);   // (he turned back to the camera at the peek too)
 A(9.15, "rea", "move", { to: REA1, dur: 0.5, steps: 2.4 }); prop(9.15, "s-rea", { x: REA1[0], z: REA1[1] }, 0.5);
 A(9.2, "wiz", "move", { to: WIZ1, dur: 0.5, steps: 2.4 }); prop(9.2, "s-wiz", { x: WIZ1[0], z: WIZ1[1] }, 0.5);
+// the huddle's landing footsteps, by hand (the automatic sounds are off; these are where the engine put them)
+c.sfx(6.936, "step-concrete", { gain: 1, pan: -0.3, reason: "Reaper's huddle step landing" });
+c.sfx(6.972, "step-concrete", { gain: 1, pan: 0.3, reason: "the Wizard's huddle step landing" });
 // the pose the photo keeps: big happy faces for the picture, the ghost included
 A(9.45, "phx", "expr", { expr: "delighted", dur: 0.25 });
 A(9.5, "rea", "expr", { expr: "happy", set: { curve: 0.75 }, dur: 0.25 });
@@ -223,7 +226,7 @@ write(import.meta.url, {
   set: { type: "plain", color: "#25305e", floor: "#4a424e", light: "golden", key: [3.2, 4.2, 4.0],
     plate: { src: "assets/plates/courtyard-dusk.png", z: -2.6, center: [0, 3.6], height: 11.2, tint: "#9aa3d4" } },
   music: { style: "sneaky", drums: false },
-  sound: { sfx: 0.7, ambience: 0.3, speech: false, surface: "concrete", signature: false },
+  sound: { sfx: 0.7, ambience: 0.3, speech: false, surface: "concrete", signature: false, auto: false },   // auto off: a flash fx adds a thud under the hand-picked "klick-pff"
   hook: { show: ["s-phx"], hint: 0, what: "the middle ghost's sheet already glows orange and smokes at the shoulders" },
   cast, props, captions: c.captions, beats,
   allowClip: [
