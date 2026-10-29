@@ -194,7 +194,7 @@ c.prop(T_LAND + 0.05, "path", { y: LAND.y - 0.04 }, 0.2, "out");
 A(T_LAND, "wiz", "squash", { amount: 0.14, dur: 0.24 });
 A(T_LAND, "wiz", "hatwobble", { amount: 7, freq: 3, dur: 0.8 });
 sfx(T_LAND, "ai/cushion-poof", { gain: 0.35, reason: "soft cushion poof (no scream): he lands belly-first on the cushion" });
-const FLAT = (s) => ({ x: [s * 0.55, 0.72, 0.36] });                      // the arms flop down onto the cushion
+const FLAT = (s) => ({ x: [s * 0.55, 0.72, 0.31] });                      // the arms flop down onto the cushion
 c.arm(T_LAND - 0.04, "wiz", "L", FLAT(1), 0.22, "out");
 c.arm(T_LAND - 0.04, "wiz", "R", FLAT(-1), 0.22, "out");
 A(T_LAND, "wiz", "grip", { side: "both", shape: "flat", dur: 0.2 });
