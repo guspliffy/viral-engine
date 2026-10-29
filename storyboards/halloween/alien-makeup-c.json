@@ -49,7 +49,11 @@
  },
  "sound": {
   "sfx": 0.7,
-  "ambience": 0.3
+  "ambience": 0.3,
+  "scenes": [
+   "scifi",
+   "jingle"
+  ]
  },
  "cast": [
   {

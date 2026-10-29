@@ -398,7 +398,7 @@ const sb = (variant, captions) => ({
   creative: { length: [8, 14], loop: false },
   set: { type: "storefront", seed: 5, light: "golden", key: [5.5, 5.0, 3.6], shadowSize: 7, wallZ: -9, aperture: 0, bloom: "emissive" },
   music: { file: "ai/epic/epic-02.ogg", until: SNAP, gain: 0.35 },
-  sound: { sfx: 0.7, ambience: 0.1, speech: false },
+  sound: { sfx: 0.7, ambience: 0.1, speech: false, scenes: ["ui"] },   // the phones' screens: power-up and glitch are screen sounds (engine/sfx/whitelist.mjs)
   experiment: { id: "hook-2026-11", episode: "duo-launch-day", variant },
   cast, props, captions, beats,
   allowClip: [

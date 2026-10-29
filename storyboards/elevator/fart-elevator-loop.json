@@ -27,7 +27,10 @@
  "sound": {
   "sfx": 0.75,
   "ambience": 0.3,
-  "speech": false
+  "speech": false,
+  "scenes": [
+   "ui"
+  ]
  },
  "cast": [
   {
@@ -995,6 +998,7 @@
     {
      "sfx": "kenney/slime",
      "gain": 0.8,
+     "asPosted": true,
      "at": 1.45
     },
     {
@@ -1021,6 +1025,7 @@
     {
      "sfx": "kenney/zap-three-tone-down",
      "gain": 0.9,
+     "asPosted": true,
      "at": 1.75
     },
     {
