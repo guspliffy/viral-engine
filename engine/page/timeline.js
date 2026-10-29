@@ -45,10 +45,6 @@ export const GRIPS = {
   // curled fingers under and round it, lying against the cup body in front
   thumb: { curl: 1.2,  index: 1.2,  thumb: 0.0 },   // thumbs up: a fist with the thumb straight (forearm forward, palm in: it points up)
   teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
-  // a fingertip pinch on a thin upright thing (a straw): the thumb and index pads opposing on it, the other fingers
-  // loosely curled, the palm beside it, the fingers running on along the forearm (glove hands; the prop is held at the
-  // pinch with grab point "pinch"). roll turns the hand about the straw; thin: its radius in the hand's own units
-  tip: { curl: 0.95, index: 0.35, thumb: 0.5, axis: [0, 1, 0], pinch: 1, lean: 30 },
   // a thin slab held by its edge (a phone, a card): the fingers lie flat along its back, the thumb pad on its front by
   // the edge, the palm beside the edge (edge: the thumb moves to its place for this hold, potato.js). Used with a framed
   // arm pose whose `at` is PHONE_EDGE: the edge in the hand, past the top of the palm, a finger's thickness in front of
@@ -59,6 +55,15 @@ export const GRIPS = {
   hover: { curl: 0.25, index: 0.02, thumb: 0.3, down: 1, ahead: 0 },
   // a hand closed from above round something thin (a wrist, a rail): palm down, the fingers curled down round it
   clasp: { curl: 0.8, index: 0.75, thumb: 0.7, down: 1, ahead: 0 },
+  // carrying something from below its side (a bowl in both hands, storyboards/lib/grips.mjs): the palm half turned up
+  // under it, the fingers gently curved along it
+  carry: { curl: 0.45, index: 0.4, thumb: 0.3, up: 0.5 },
+  // palms pressed flat on the two ends of a box, the thumb laid forward along the side instead of sticking up
+  press: { curl: 0.18, index: 0.12, thumb: 0.75 },
+  // a fingertip pinch on a thin upright thing (a straw): the thumb and index pads opposing on it, the other fingers
+  // loosely curled, the palm beside it, the fingers running on along the forearm (glove hands; the prop is held at the
+  // pinch with grab point "pinch"). roll turns the hand about the straw; thin: its radius in the hand's own units
+  tip: { curl: 0.95, index: 0.35, thumb: 0.5, axis: [0, 1, 0], pinch: 1, lean: 30 },
 };
 export const PHONE_EDGE = [0.02, 0.04, 0.0215];
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw
@@ -209,7 +214,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         // synth speaks (engine/shared/syllables.js)
         if (t < a.at + (a.dur ?? 1)) {
           const m = a.speech ? speechMouthAt(a.speech.mouth, t - a.at) : mouthAt(planFor(a, typeof def.voice === "object" ? def.voice : {}), t);
-          if (m.open > st.talk) { st.talk = m.open * 0.75; st.round = m.round; }
+          if (m.open * (a.amp ?? 1) > st.talk) { st.talk = m.open * 0.75 * (a.amp ?? 1); st.round = m.round; }
         }
         break;
       }
@@ -490,10 +495,11 @@ function resolveArms(sb, st, def, t) {
     const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t), g = q.grip ?? [0, 0.05, 0];
     return gripWorld(spec, onPart(q, spec, ps, Array.isArray(q.palm) ? q.palm : [0, g[1], 0]), q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
   };
+  // point "pinch": the grip point is where a glove's fingertip pinch goes, not the hand's centre (potato.js)
   const aim = (q, s) => {
     if (q.frame && !q.world) return framed(q, s);
-    const w = q.palm ? palmWorld(q) : null;
-    return w ? { ...toLocal(world(q)), palm: toLocal(w).x, ...(q.palm === "wrap" ? { wrap: true } : {}) } : toLocal(world(q));
+    const w = q.palm ? palmWorld(q) : null, pt = q.point ? { point: q.point } : {};
+    return w ? { ...toLocal(world(q)), palm: toLocal(w).x, ...(q.palm === "wrap" ? { wrap: true } : {}), ...pt } : { ...toLocal(world(q)), ...pt };
   };
   const res = (q, s) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from, s), pose: res(q.mix.pose, s) } } : q && (q.prop || q.world) ? aim(q, s) : q);
   // on: the props this hand is going from and to (stage.js handsInProps: a hand may hold what it is on)

@@ -1,0 +1,169 @@
+{
+ "_note": "Recipes for The Slow-Motion Cookie Rescue (story library 05), kept in their own file so parallel clips don't edit recipes.json. Same format and tools: generate.py, pick.py (see recipes.json).",
+ "sfx": [
+  {
+   "id": "cookie-scrape",
+   "kind": "oneshot",
+   "len": [
+    0.15,
+    0.6
+   ],
+   "duration": 8,
+   "tags": [
+    "cookie",
+    "scrape",
+    "slide"
+   ],
+   "prompts": [
+    "a small dry biscuit sliding a few centimetres over the edge of a wooden table, one tiny dry scrape, close up, quiet room, no music",
+    "a crumbly cookie scraping softly across a wooden tabletop, one short gritty dry scrape, close microphone, no music"
+   ],
+   "seeds": [
+    501,
+    502
+   ],
+   "gain": 0.4,
+   "label": "a tiny dry scrape of a biscuit sliding on a wooden table"
+  },
+  {
+   "id": "hero-hit",
+   "kind": "oneshot",
+   "len": [
+    0.6,
+    1.8
+   ],
+   "duration": 8,
+   "tags": [
+    "music",
+    "orchestral",
+    "hit",
+    "heroic"
+   ],
+   "prompts": [
+    "one single heroic orchestral hit, a big brass stab with timpani and a cymbal, movie trailer, then silence",
+    "a single dramatic heroic brass and timpani hit, one blast, epic film score sting, then silence"
+   ],
+   "seeds": [
+    511,
+    512
+   ],
+   "gain": 0.6,
+   "label": "a single heroic orchestral brass and timpani hit"
+  },
+  {
+   "id": "slowmo-air",
+   "kind": "oneshot",
+   "len": [
+    1.2,
+    2.6
+   ],
+   "duration": 8,
+   "tags": [
+    "air",
+    "slow motion",
+    "whoosh",
+    "drone"
+   ],
+   "prompts": [
+    "a long stretched slow motion whoosh, deep airy sustained rushing tone, time slowing down, cinematic, no music",
+    "slow motion sound effect, a low slowed-down breathy whoosh that hangs in the air, dreamy, cinematic, no voice"
+   ],
+   "seeds": [
+    521,
+    522
+   ],
+   "gain": 0.4,
+   "label": "a long slow motion whoosh, a deep airy sustained rushing sound"
+  },
+  {
+   "id": "cushion-poof",
+   "kind": "oneshot",
+   "len": [
+    0.2,
+    0.8
+   ],
+   "duration": 8,
+   "tags": [
+    "cushion",
+    "landing",
+    "soft",
+    "thud"
+   ],
+   "prompts": [
+    "a body flopping belly first onto a thick soft floor cushion, one muffled soft fabric poof of air, close up, no voice",
+    "jumping onto a big soft pillow, a single deep muffled cushion thump and puff of air, close up, quiet room, no voice"
+   ],
+   "seeds": [
+    531,
+    532
+   ],
+   "gain": 0.6,
+   "label": "a soft muffled thump of a body landing on a big soft cushion"
+  },
+  {
+   "id": "fingertip-catch",
+   "kind": "oneshot",
+   "len": [
+    0.06,
+    0.35
+   ],
+   "duration": 8,
+   "tags": [
+    "catch",
+    "hand",
+    "grab",
+    "tap"
+   ],
+   "prompts": [
+    "catching a small biscuit in the palm of a hand, one tiny soft tap and skin rub, close up, quiet, dry",
+    "a hand softly snatching a small cookie out of the air, single light soft slap of fingers, close microphone, dry"
+   ],
+   "seeds": [
+    541,
+    542
+   ],
+   "gain": 0.45,
+   "label": "a tiny soft tap of a hand catching a small object"
+  },
+  {
+   "id": "warm-resolve",
+   "kind": "oneshot",
+   "len": [
+    1.4,
+    3.2
+   ],
+   "duration": 8,
+   "tags": [
+    "music",
+    "warm",
+    "resolution",
+    "ending"
+   ],
+   "prompts": [
+    "a short warm gentle resolving major chord on soft strings and felt piano, tender happy ending, no bells, no chimes, no drums",
+    "a soft warm string swell resolving to a major chord, sweet and calm cartoon ending, felt piano, no bells, no percussion"
+   ],
+   "seeds": [
+    551,
+    552
+   ],
+   "gain": 0.5,
+   "label": "a short warm gentle major chord on soft strings and piano"
+  }
+ ],
+ "music": [
+  {
+   "id": "hero-bed",
+   "bpm": 120,
+   "bars": 4,
+   "prompts": [
+    "heroic orchestral action hero theme, soaring brass fanfare, driving strings and timpani, triumphant movie music, 120 BPM"
+   ],
+   "seeds": [
+    561,
+    562
+   ],
+   "mood": "heroic"
+  }
+ ]
+}

@@ -46,6 +46,16 @@ export function clip() {
   };
 }
 
+// a camera on `target` from azimuth az (degrees round y, 0 = straight from the front, - = from the left) and elevation
+// el, far enough that the frame is h metres tall at the target with lens fov; push (0..1) moves it that share of the
+// way in over dur seconds (Don't Touch the Charger, Dragon vs. the Candle)
+export function frame(target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = {}) {
+  const a = (az * Math.PI) / 180, e = (el * Math.PI) / 180, d = h / 2 / Math.tan((fov * Math.PI) / 360);
+  const dir = [Math.sin(a) * Math.cos(e), Math.sin(e), Math.cos(a) * Math.cos(e)];
+  const pos = target.map((v, i) => r3(v + dir[i] * d));
+  return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
+}
+
 // writes <id>.json next to the generator (pass its import.meta.url) and prints the length
 export function write(base, sb) {
   writeFileSync(new URL(`./${sb.id}.json`, base), JSON.stringify(sb, null, 1) + "\n");

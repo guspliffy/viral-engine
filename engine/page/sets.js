@@ -53,6 +53,7 @@ function groundTexture(inner, outer) {
 export function buildSet(scene, spec = {}, palette = null, eye = null) {
   const r = buildSetType(scene, spec, palette);
   if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light });   // set-plate.js: a painted backdrop behind the 3D stage
+  for (const p of spec.plates || []) addPlate(scene, { dust: 0, ...p, depth: false, motion: false }, { eye, light: spec.light });   // side walls
   return r;
 }
 function buildSetType(scene, spec, palette) {

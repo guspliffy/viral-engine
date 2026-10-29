@@ -23,7 +23,6 @@
 // Continuity: one carton (props-juice.js juicebox), one straw (bendystraw, swapped for the carton's own when it is
 // in), the stains stay (face juiceL, stainL on the Wizard: his left cheek and forearm, the side toward Reaper).
 import { clip, write, r3 } from "../lib/clip.mjs";
-import { existsSync, readFileSync } from "node:fs";
 import { JUICE, CUP, strawEnd } from "../../engine/page/props-juice.js";
 
 const c = clip(), { A, sfx } = c;
@@ -56,14 +55,13 @@ const STRAW_FOOT = (C) => add(onCarton(C, [JUICE.port[0], JUICE.h, JUICE.port[1]
 const STRAW_TOP = (C) => add(STRAW_FOOT(C), rotY(rotY(strawEnd(), STRAW_ROT).map((v) => v * SS), RC));
 // the Wizard's straw grip (Jonny's reference, 29 Oct): the straight shaft pinched between the thumb and index pads
 // (grip "tip", the prop held at the pinch point), below the bend, so the lower shaft shows all the way into the foil.
-// The hand is placed so its pinch lands on the straw: PINCH holds the hand's offset from its pinch point at each key,
-// measured from the layout (aimAt; node storyboards/juice/aim-pinch.mjs), a first guess until then
+// The arm poses aim the pinch itself (point "pinch"), so the hand stays aimed along the forearm and the wrist on the arm
+// (the grip library's thin hold, storyboards/lib/grips.mjs, tested on the pencil): roll 20 shows the index over the
+// camera side, the open hand comes in at -20 (no hand pop), and thin is the straw's radius in hand units
 const S_GRIP = [0, 0.12, 0], G_S = S_GRIP[1] * SS;      // on the straw's own frame; its height above the foot in metres
-const PINCH_FILE = new URL("./vampire-pinch.json", import.meta.url);
-const PINCH = existsSync(PINCH_FILE) ? JSON.parse(readFileSync(PINCH_FILE, "utf8")) : {};
-const ROLL = -50;                                 // the hand turned about the straw: the index pad and thumb both show
-export const AIM = { reach: 3.34, cup: 3.5, up: 3.87, above: 4.28, touch: 4.5, in: 4.73 };   // a time the hand rests on each key
-const handFor = (key, p) => add(p, PINCH[key] ?? [-0.02, -0.03, -0.06]);
+const PINCH = { roll: 20, lean: 30, thin: r3((JUICE.strawR * SS) / 1.7) };
+const READY = { ...PINCH, roll: -20, close: 0, curl: 0.7, index: 0.5 };   // open, the other fingers loose
+const pinchAt = (p) => ({ world: p, point: "pinch" });
 
 // the carton's keys (its bottom centre)
 const C_BITE = add(MOUTH_REA_BITE, [0, -0.03 - H, 0]).map((v, i) => r3(v + rotY([0, 0, D / 2 - 0.022], RC)[i]));
@@ -75,7 +73,7 @@ const C_DOWN = [0.1, TABLE_H + 0.035, 0.6];                // lowered in front o
 const CUP_AT = [-0.24, TABLE_H, 0.78], S_ROT = RC + STRAW_ROT, S_CUP = add(CUP_AT, [0, 0.036, 0]);
 // the pinch point at each key: in the cup, lifted clear of it, its tip 4 cm over the port, on the foil, pushed in
 const PORT = onCarton(C_WIZ, [JUICE.port[0], JUICE.h, JUICE.port[1]]), S_IN = STRAW_FOOT(C_WIZ);
-const P_CUP = add(S_CUP, [0, G_S, 0]), P_UP = add(P_CUP, [0.04, CUP.h + 0.03, -0.01]);
+const P_CUP = add(S_CUP, [0, G_S, 0]), P_UP = add(P_CUP, [0, CUP.h + 0.03, 0]);   // straight up until its tip clears the rim, then across
 const P_ABOVE = add(PORT, [0, 0.04 + G_S, 0]), P_TOUCH = add(PORT, [0, G_S, 0]), P_IN = add(S_IN, [0, G_S, 0]);
 
 // eye targets (face look space: + right on screen, + up)
@@ -90,7 +88,7 @@ const props = [
   { id: "table", kind: "coffeetable", x: 0, z: TABLE_Z, h: TABLE_H, w: 2.8, d: TABLE_D, color: "#e9d3a8", leg: "#c9a273" },
   { id: "carton", kind: "juicebox", x: C_BITE[0], y: C_BITE[1], z: C_BITE[2], rot: RC, scale: CS, strawRot: STRAW_ROT, strawScale: r3(SS / CS),
     jets: [] },   // filled below, once the targets are known
-  { id: "cup", kind: "papercup", x: CUP_AT[0], y: CUP_AT[1], z: CUP_AT[2], rot: 129, straws: 2, strawScale: SS },
+  { id: "cup", kind: "papercup", x: CUP_AT[0], y: CUP_AT[1], z: CUP_AT[2], rot: 200, straws: 2, strawScale: SS },
   { id: "straw", kind: "bendystraw", x: S_CUP[0], y: S_CUP[1], z: S_CUP[2], rot: S_ROT, tip: 0, scale: SS },
 ];
 
@@ -203,19 +201,19 @@ A(2.75, "wiz", "look", { to: WIZ_AT_CARTON, dur: 0.15, blink: false });
 // thumb and index pinch the straight shaft below the bend (grip "tip"), lift it out of the cup, tip over the port,
 // touch down, press it in along its length, open the fingers, then take the hand away
 A(3.0, "wiz", "look", { to: WIZ_AT_STRAW, dur: 0.15, blink: false });
-A(3.0, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 0 }, dur: 0.3 });
-A(3.05, "wiz", "arm", { side: "R", pose: { world: handFor("reach", add(P_CUP, [0, 0.035, 0])) }, dur: 0.3, ease: "inOut" });
-A(3.35, "wiz", "arm", { side: "R", pose: { world: handFor("cup", P_CUP) }, dur: 0.12, ease: "out" });
-A(3.45, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 1 }, dur: 0.08 });
+A(3.0, "wiz", "grip", { side: "R", shape: "tip", set: READY, dur: 0.3 });
+A(3.05, "wiz", "arm", { side: "R", pose: pinchAt(add(P_CUP, [0, 0.035, 0])), dur: 0.3, ease: "inOut" });
+A(3.35, "wiz", "arm", { side: "R", pose: pinchAt(P_CUP), dur: 0.12, ease: "out" });
+A(3.45, "wiz", "grip", { side: "R", shape: "tip", set: PINCH, dur: 0.08 });
 A(3.53, "wiz", "grab", { prop: "straw", hand: "R", point: "pinch", grip: S_GRIP, dur: 0, pose: null });
 // out of the cup, straight up, then across to hang over the port
-A(3.6, "wiz", "arm", { side: "R", pose: { world: handFor("up", P_UP) }, dur: 0.28, ease: "inOut" });
-A(3.88, "wiz", "arm", { side: "R", pose: { world: handFor("above", P_ABOVE) }, dur: 0.36, ease: "inOut" });
+A(3.6, "wiz", "arm", { side: "R", pose: pinchAt(P_UP), dur: 0.28, ease: "inOut" });
+A(3.88, "wiz", "arm", { side: "R", pose: pinchAt(P_ABOVE), dur: 0.36, ease: "inOut" });
 A(3.75, "wiz", "look", { to: WIZ_AT_PORT, dur: 0.2, blink: false });
 A(3.6, "wiz", "still", { dur: 1.4, idle: 0.08 });
 // aim, touch the foil, then press straight down along the straw
-A(4.3, "wiz", "arm", { side: "R", pose: { world: handFor("touch", P_TOUCH) }, dur: 0.14, ease: "inOut" });
-A(4.52, "wiz", "arm", { side: "R", pose: { world: handFor("in", P_IN) }, dur: 0.2, ease: "in" });
+A(4.3, "wiz", "arm", { side: "R", pose: pinchAt(P_TOUCH), dur: 0.14, ease: "inOut" });
+A(4.52, "wiz", "arm", { side: "R", pose: pinchAt(P_IN), dur: 0.2, ease: "in" });
 const POP = 4.52 + 0.2 * 0.35;
 c.prop(POP, "carton", { port: 1 }, 0.05, "out");
 sfx(POP, "puncture", { gain: 0.4 });   // the straw through the foil
@@ -224,8 +222,8 @@ A(4.52, "wiz", "squash", { amount: 0.015, dur: 0.25 });
 c.prop(4.74, "straw", { scale: 0 }, 0);
 c.prop(4.74, "carton", { straw: 1 }, 0);
 A(4.74, "wiz", "release", { prop: "straw" });
-A(4.74, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 0 }, dur: 0.12 });
-A(4.88, "wiz", "arm", { side: "R", pose: { world: add(handFor("in", P_IN), [-0.05, 0.05, -0.01]) }, dur: 0.16, ease: "out" });
+A(4.74, "wiz", "grip", { side: "R", shape: "tip", set: { ...PINCH, close: 0 }, dur: 0.12 });   // only the thumb opens
+A(4.88, "wiz", "arm", { side: "R", pose: pinchAt(add(P_IN, [-0.01, 0.08, -0.01])), dur: 0.16, ease: "out" });
 A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.34, ease: "inOut" });
 A(5.04, "wiz", "grip", { side: "R", shape: "paw", dur: 0.3 });
 
@@ -330,6 +328,7 @@ const sb = (variant, captions) => ({
   idea: "Story library 02: Reaper's new vampire fangs spray juice over the Wizard, who silently hands him a straw",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
   creative: { length: [8, 14], loop: false },
+  allowClip: [{ who: "wiz", with: "carton", from: 4.72, to: 5.12, reason: "his pinch on the straw now seated in the carton (the carton's own straw), until the fingers have opened and lifted off it" }],
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", aperture: 0, para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0, 1.2], height: 3.9 } },
   music: { style: "sneaky", gain: 0.45, parts: [{ at: 0, part: "intro" }, { at: 1.0, part: "hush" }, { at: 1.8, part: "intro" }, { at: 6.5, part: "main" }, { at: 9.4, part: "intro" }] },
@@ -344,7 +343,6 @@ const sb = (variant, captions) => ({
     { who: "rea", with: "table", from: 2.7, to: 5.6, reason: "his paws rest on the tabletop" },
   ],
   notes: "Generated by storyboards/juice/make-vampire-vs-juice-box.mjs (Jonny's story library 02).",
-  aimAt: Object.values(AIM),   // the pinch keys, for storyboards/juice/aim-pinch.mjs
 });
 // A: the brief as written (no on-screen text). B: A plus a setup caption over the opening (the hook lab: on mute, a
 // caption carried the setup). Pick with qa/hook.mjs.

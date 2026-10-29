@@ -1,0 +1,2072 @@
+{
+ "id": "dragon-vs-the-candle",
+ "title": "Dragon vs. the Candle",
+ "cover": 1.3,
+ "idea": "Story library 14 v2: told to blow out his birthday candle, Dragon spits fire; even his relieved sigh relights it",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#f3ead8",
+  "floor": "#d8bf98",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/dining-blue-window.png",
+   "z": -2.3,
+   "center": [
+    0,
+    1.2
+   ],
+   "height": 3.9
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "drums": false,
+  "gain": 0.24,
+  "seed": 14,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 0.95,
+    "part": "stop"
+   },
+   {
+    "at": 3.85,
+    "part": "main"
+   },
+   {
+    "at": 6,
+    "part": "stop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.18,
+  "speech": false,
+  "signature": false,
+  "auto": false
+ },
+ "experiment": {
+  "id": "hook-2026-11",
+  "episode": "dragon-vs-the-candle",
+  "variant": "A"
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "dra",
+   "cupcake"
+  ],
+  "hint": 0.95,
+  "what": "told to blow out his candle, Dragon spits fire at it"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 14,
+   "expr": "eager",
+   "follow": 0.2,
+   "seed": 2.6,
+   "signature": false
+  },
+  {
+   "id": "dra",
+   "character": "lookdev/dragon-crisp-table",
+   "at": [
+    0.53,
+    -0.04
+   ],
+   "face": -16,
+   "expr": "focused",
+   "follow": 0.25,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.8,
+   "h": 0.27,
+   "w": 2.8,
+   "d": 0.9,
+   "color": "#ecd6ad",
+   "leg": "#c99a64"
+  },
+  {
+   "id": "plate",
+   "kind": "dessertplate",
+   "x": 0.03,
+   "y": 0.27,
+   "z": 0.66,
+   "scale": 1.6
+  },
+  {
+   "id": "cupcake",
+   "kind": "cupcake",
+   "x": 0.03,
+   "y": 0.283,
+   "z": 0.66,
+   "scale": 1.6,
+   "lit": 1
+  },
+  {
+   "id": "dome",
+   "kind": "cakedome",
+   "x": -0.27,
+   "y": 0.27,
+   "z": 0.74,
+   "scale": 1.6
+  },
+  {
+   "id": "breath",
+   "kind": "breath",
+   "mouth": "dra",
+   "target": "cupcake",
+   "at": [
+    0,
+    0.136,
+    0
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.75,
+   "text": "Happy BIRTHDAY! Blow out the candle!",
+   "pos": 225,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 happy birthday",
+   "at": 0,
+   "len": 2.05,
+   "shot": {
+    "pos": [
+     -0.438,
+     1.274,
+     5.06
+    ],
+    "look": [
+     -0.03,
+     0.7,
+     0.4
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.397,
+      1.217,
+      4.594
+     ]
+    },
+    "dur": 3.4
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.74,
+       0.305,
+       0.48
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.47,
+       0.305,
+       0.44
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.9,
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.5,
+       0.305,
+       0.44
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "R",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.78,
+       0.305,
+       0.44
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 0.5,
+      "open": 0.25,
+      "eye": 1.05
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 9,
+     "dur": 0.85,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.85,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.14,
+     "dur": 0.85,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.45,
+     "reason": "Dragon draws a big breath in (0-0.9)",
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 0.7,
+      "open": 0.1,
+      "eye": 0.6
+     },
+     "dur": 0.6,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.88
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.88
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 0.88
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 1,
+      "open": 0.55,
+      "eye": 0.8
+     },
+     "dur": 0.1,
+     "at": 0.88
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": -0.3,
+     "lid": 0.2,
+     "dur": 0.1,
+     "at": 0.88
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.7,
+     "reason": "the fire jet leaves his mouth (0.95)",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 1,
+      "fire": 1,
+      "len": 0.15
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.98
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 1.4,
+     "reason": "the candle erupts into a tall flame (1.1): fwoomp, loudest 0.1 s in",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 1,
+      "bend": 0.15
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "fx": "flash",
+     "peak": 0.35,
+     "dur": 0.25,
+     "at": 1.1
+    },
+    {
+     "fx": "shake",
+     "amp": 0.06,
+     "dur": 0.45,
+     "at": 1.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.03,
+      -0.012,
+      0.66
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 36,
+     "spark": "#ffb347",
+     "sparkSize": 0.45,
+     "speed": 0.55,
+     "dur": 0.9,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      0.25
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": -0.2
+     },
+     "dur": 0.12,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.5,
+     "dur": 0.12,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 7,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "pucker": 0,
+      "curve": -0.25
+     },
+     "dur": 0.12,
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.5,
+     "lid": 0,
+     "dur": 0.12,
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -3,
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.32
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.42,
+     "idle": 0.08,
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.85
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.85
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.15,
+      "open": 0.1,
+      "eye": 1.1
+     },
+     "dur": 0.25,
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 1.9
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 1,
+      "open": 0.12,
+      "curve": 0,
+      "eye": 0.85
+     },
+     "dur": 0.18,
+     "at": 1.9
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": -0.1,
+     "lid": 0.15,
+     "dur": 0.18,
+     "at": 1.9
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -7,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.95
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 be careful",
+   "at": 2.05,
+   "len": 1.35,
+   "shot": "keep",
+   "do": [
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0.7,
+      "fire": 0.3,
+      "len": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "sfx": "blow",
+     "dur": 0.45,
+     "gain": 0.25,
+     "reason": "Dragon's tiny careful puff (2.3-2.75): fff",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.3
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.8,
+     "reason": "the second flare (2.6): a smaller fwoomp",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 0.75,
+      "bend": 0.1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.03,
+      -0.012,
+      0.66
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 12,
+     "spark": "#ffb347",
+     "sparkSize": 0.45,
+     "speed": 0.55,
+     "dur": 0.7,
+     "at": 0.55
+    },
+    {
+     "fx": "shake",
+     "amp": 0.025,
+     "dur": 0.3,
+     "at": 0.55
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "nervous",
+     "set": {
+      "pucker": 0,
+      "open": 0.05,
+      "curve": -0.1,
+      "eye": 1.15
+     },
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.4,
+     "lid": 0,
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -1,
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.18,
+       0.56,
+       0.58
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.3,
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 0,
+      "bend": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 0.95
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.08,
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.18,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.22
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "03 solved",
+   "at": 3.4,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     0.56,
+     2.922,
+     5.042
+    ],
+    "look": [
+     0,
+     0.68,
+     0.48
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2,
+      "eye": 0.9
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.15,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.17,
+       0.5,
+       0.62
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": [
+       0.05,
+       0.23950000000000002,
+       0.01
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob"
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "clasp",
+     "dur": 0.1,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.37
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "dome",
+     "hand": "L",
+     "grip": "knob",
+     "pose": null,
+     "dur": 0,
+     "at": 0.45
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.3,
+     "reason": "the Wizard's glove closes on the glass knob",
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       -0.1,
+       0.558,
+       0.7
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "03b dome",
+   "at": 3.95,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.207,
+     0.996,
+     2.099
+    ],
+    "look": [
+     0.03,
+     0.41,
+     0.66
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.1,
+      "eye": 1.1
+     },
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.25,
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.35,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       0.03,
+       0.573,
+       0.66
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.32,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.32
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       0.03,
+       0.283,
+       0.66
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.45
+    },
+    {
+     "sfx": "put-down-glass",
+     "gain": 0.3,
+     "reason": "the dome's glass rim lands on the china plate: clink",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "dome",
+     "set": {
+      "squash": 0.03
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.65,
+     "idle": 0.06,
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/snuff",
+     "gain": 0.9,
+     "reason": "the flame goes out under the dome: tss, loudest as it dies (4.95)",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "dome",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.12,
+     "ease": "settle",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0.9,
+      "rise": 0.25
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "03c see?",
+   "at": 4.95,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -0.292,
+     1.967,
+     5.07
+    ],
+    "look": [
+     -0.05,
+     0.64,
+     0.45
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.65,
+      "eye": 0.85
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.15,
+     "lid": 0.3,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "open": 0.15,
+      "eye": 1
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.1,
+     "lid": 0.05,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.45,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.42,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.47
+    }
+   ]
+  },
+  {
+   "name": "03d dome off",
+   "at": 5.65,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     0.207,
+     0.996,
+     2.099
+    ],
+    "look": [
+     0.03,
+     0.41,
+     0.66
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       0.03,
+       0.518,
+       0.66
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       -0.1,
+       0.518,
+       0.7
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.18,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dome",
+      "grip": "knob",
+      "at": [
+       -0.27,
+       0.27,
+       0.74
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.45
+     },
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0.9,
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.25
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.52
+    }
+   ]
+  },
+  {
+   "name": "04 relief",
+   "at": 6.2,
+   "len": 0.85,
+   "shot": {
+    "pos": [
+     -0.42,
+     1.17,
+     4.881
+    ],
+    "look": [
+     -0.03,
+     0.62,
+     0.42
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.381,
+      1.115,
+      4.435
+     ]
+    },
+    "dur": 3.5
+   },
+   "do": [
+    {
+     "sfx": "put-down-glass",
+     "gain": 0.25,
+     "reason": "the dome set back down on the wooden table",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "dome",
+     "dur": 0,
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.06,
+       0.52,
+       0.8
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.85,
+      "eye": 0.9
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.25,
+     "brow": 0.15,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -2,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.1,
+      "pucker": 0.9,
+      "open": 0.22
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.5,
+     "at": 0.25
+    },
+    {
+     "sfx": "ai-package/flat-exhale",
+     "gain": 0.35,
+     "reason": "Dragon's big relieved sigh (6.45-7.05)",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 1,
+      "fire": 0.25,
+      "len": 1
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.12,
+       0.4,
+       0.55
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0.35,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.16,
+       0.305,
+       0.4
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/ignite",
+     "gain": 0.6,
+     "reason": "the wick catching under the fwoomp (7.05): fwip",
+     "at": 0.68
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 2.2,
+     "reason": "the sigh relights it into a tall flare (7.05): fwoomp",
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "05 fwoomp",
+   "at": 7.05,
+   "len": 2.25,
+   "shot": "keep",
+   "do": [
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "lit": 1,
+      "fire": 1,
+      "bend": -0.25
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "flash",
+     "peak": 0.5,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "amp": 0.05,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.03,
+      -0.012,
+      0.66
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 30,
+     "spark": "#ffb347",
+     "sparkSize": 0.45,
+     "speed": 0.55,
+     "dur": 0.9,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.4,
+      "pucker": 0,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.47,
+       0.305,
+       0.44
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      0.25
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.1,
+      "eye": 1.05
+     },
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.2,
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.45,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.2,
+     "dur": 0.15,
+     "at": 0.57
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3,
+      "eye": 1.05
+     },
+     "dur": 0.2,
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 0.7
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.85,
+     "idle": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.12,
+      "eye": 0.62
+     },
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "brow": -0.15,
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.45,
+     "idle": 0.04,
+     "sink": 0.01,
+     "at": 0.8
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": -0.1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "sfx": "plunk",
+     "gain": 0.25,
+     "reason": "one dry musical note as the Wizard's look lands: dum",
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "nervous",
+     "set": {
+      "open": 0.1,
+      "eye": 1.2,
+      "curve": -0.1
+     },
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "nervous",
+     "set": {
+      "open": 0,
+      "curve": 0.4,
+      "eye": 1,
+      "tilt": 0.3
+     },
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.3,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": -0.1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.05
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "dra",
+   "with": "table",
+   "from": 0,
+   "to": 9.3,
+   "reason": "his paws rest on the tabletop"
+  },
+  {
+   "who": "wiz",
+   "with": "table",
+   "from": 0,
+   "to": 9.3,
+   "reason": "his paws rest on the tabletop"
+  }
+ ],
+ "notes": "Generated by storyboards/candle/make-dragon-vs-the-candle.mjs (Jonny's story library 14, v2 after his notes of 29 Oct)."
+}
