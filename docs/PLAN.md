@@ -123,3 +123,8 @@ speed lines, impact frames; fits the game's manga KO pages). Worth A/B-testing a
 - **Character bible:** relationships, running gags, tone limits per fighter. Drafted in the earlier game-marketing chat;
   needs to be brought in and signed off.
 - **Voice:** decided 2026-10-25 (Jonny): free local TTS (Kokoro) first, voices picked by ear; a paid service only if it isn't good enough.
+
+## Engine wishes
+
+- **A second light for doorway sets** (Fable, Don't Let Dragon Light the Pumpkin, 29 Oct): cool daylight on the porch
+  outside and the warm hall light inside, so a door frame separates the two. Sets have one key light today.

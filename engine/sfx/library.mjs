@@ -103,7 +103,7 @@ export function librarySound(id, r, { dur, code } = {}) {
 // what the floor sounds like for a set: sound.surface overrides it
 // the floor of each set (from its set-*.js); a set not listed here is outdoors (grass, or concrete for a street)
 export const SURFACES = { kitchen: "wood", party: "wood", porch: "wood", cottage: "wood", office: "carpet", rooftop: "concrete", meadow: "grass",
-  apartment: "wood", bedroom: "wood", livingroom: "wood", restaurant: "wood", haunted: "wood",
+  apartment: "wood", bedroom: "wood", livingroom: "wood", restaurant: "wood", haunted: "wood", hallway: "wood",
   bathroom: "indoor", classroom: "indoor", elevator: "indoor", gym: "indoor", storefront: "concrete" };
 // { sound, how }: how is "storyboard" (sound.surface), "set" (SURFACES) or "guess" (the outdoor fallback)
 export function floorOf(sb) {
