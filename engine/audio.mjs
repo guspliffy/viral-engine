@@ -205,6 +205,19 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, grain = 0.6 + 0.4 * Math.sin(TAU * 140 * t + r() * 0.5) ** 2; x[i] = run(bp, r() * 2 - 1) * env(t, 0.002, 0.06, d) * grain * 1.4 + run(lp, r() * 2 - 1) * env(t, 0.001, 0.02, d) * 1.5; }
     return x;
   },
+  // a breath blown through pursed lips at a candle: an airy "fff" (noise around 1.4 kHz with a little flutter) that
+  // starts fast, holds and dies away; d is how long the breath is (Dragon vs. the Candle)
+  blow(r, d = 0.7) {
+    const x = buf(d), bp = biquad("bp", 1400, 0.7), hp = biquad("hp", 350, 0.7);
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, a = Math.min(1, t / 0.05) * (k < 0.55 ? 1 : Math.cos((k - 0.55) / 0.45 * Math.PI / 2) ** 2); x[i] = run(hp, run(bp, r() * 2 - 1)) * a * (0.85 + 0.15 * Math.sin(TAU * 11 * t)) * 1.6; }
+    return x;
+  },
+  // one dry muted pluck, a low "dum" (A2, the strings stopped at once): a deadpan button, no tail
+  plunk(r) {
+    const d = 0.42, x = buf(d), f = 110 * (1 + (r() - 0.5) * 0.002);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (let h = 1; h <= 6; h++) y += Math.sin(TAU * f * h * t) * Math.exp(-t * (9 + h * 7)) / h; x[i] = y * Math.min(1, t / 0.003) * (t > d - 0.03 ? (d - t) / 0.03 : 1) * 0.8; }
+    return x;
+  },
   // a small surprised gasp: a quick breathy inhale that rises
   gasp(r) {
     const d = 0.3, x = buf(d); let bp = biquad("bp", 900, 2);

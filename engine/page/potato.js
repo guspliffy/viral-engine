@@ -380,7 +380,8 @@ export class Character {
     this.fries.group.visible = fries;
     if (fries) this.fries.apply(st, t);
 
-    const e = { ...st.expr };
+    // only speech rounds the lips through `round` (an expression's own "round" was never drawn; use "pucker")
+    const e = { ...st.expr }; delete e.round;
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink, st.face);
 
