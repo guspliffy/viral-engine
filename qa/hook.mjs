@@ -31,9 +31,19 @@ export const OPENING = {
   captionBy: 0.3,    // the first caption is up by this time...
   captionWords: 6,   // ...and is this many words or fewer
   setupBy: 2.5,      // the hook beat hands over to the next beat by this time (the situation is clear, the story moves)
+  hintBy: 2.0,       // the viewer first sees trouble coming by this time (most of them have decided by 0:02, 28 Oct analytics)
 };
 const STILL_VERBS = new Set(["noblink", "blink", "expr", "face", "grip", "grab", "release", "still", "hide", "show", "span", "hatsway", "hatwobble", "look"]);
 const COLD_TIMES =[0, 0.4, 0.8, 1.3, 2.0, 2.8]; // frames the cold reader sees (no sound, no storyboard, no premise)
+
+// who and what must be in frame 0: the storyboard's hook.show, else everyone who acts in the hook or payoff beat
+export function hookShow(sb) {
+  if (Array.isArray(sb.hook?.show)) return sb.hook.show;
+  const spans = sb.beatSpans || [], keep = spans.filter((b, i) => i === 0 || b.kind === "payoff");
+  const ids = new Set();
+  for (const a of sb.actions || []) if (a.who && keep.some((b) => a.at >= b.from - 1e-6 && a.at < b.to - 1e-6) && !["noblink", "blink"].includes(a.do)) ids.add(a.who);
+  return [...ids].filter((id) => (sb.cast || []).some((c) => c.id === id));
+}
 
 const words = (s) => String(s || "").replace(/[*_]/g, "").split(/\s+/).filter(Boolean).length;
 
@@ -51,6 +61,16 @@ export function openingRules(sb, layout) {
     }).sort((a, b) => b.area - a.area);   // the one taking the most of the screen (a sliver at the edge can be full height)
     const big = vis[0];
     add(big && big.share >= OPENING.bodyShare, "face-size", big ? `biggest character at frame 0: ${big.id}, ${(big.share * 100).toFixed(0)}% of the frame height${big.inFrame < 0.8 ? `, only ${(big.inFrame * 100).toFixed(0)}% of it in frame` : ""} (rule: ${OPENING.bodyShare * 100}% or more)` : "no character on screen at frame 0");
+    // two-shot at frame 0: every face the joke needs and the thing it's about. Four cold reads in a row (Alien
+    // Makeup, Chef, Package, Charger) needed a second round because frame 0 was missing one of them.
+    const need = hookShow(sb), inside = (p) => p && p[0] >= 0 && p[0] <= W && p[1] >= 0 && p[1] <= H;
+    const missing = need.filter((id) => {
+      const a = (s0.actors || []).find((q) => q.id === id);
+      if (a) return !inside(a.eyesPx);
+      const pr = (s0.props || []).find((q) => q.id === id);
+      return !(pr && pr.visible !== false && inside(pr.px));
+    });
+    add(need.length > 1 && !missing.length, "two-shot-0", !need.length ? "nothing named: set \"hook\": { \"show\": [the cast ids and the prop the joke is about] }" : missing.length ? `not in frame 0: ${missing.join(", ")} (rule: ${need.join(", ")} all in frame${sb.hook?.show ? "" : "; from the hook and payoff beats' actors, name the joke's prop in hook.show"})` : `${need.join(", ")} all in frame 0`);
   } else out.push({ level: "note", rule: "face-size", msg: "no layout, so the frame-0 size wasn't measured" });
 
   // visible motion only: a body, a limb, a wing or a prop moving. Eye darts, thumb grips, expression changes and
@@ -69,6 +89,11 @@ export function openingRules(sb, layout) {
 
   const spans = sb.beatSpans || [], hook = spans[0];
   if (hook) add(spans.length > 1 && spans[1].from <= OPENING.setupBy, "setup-by", `first beat "${hook.name}" runs ${hook.from.toFixed(1)}-${hook.to.toFixed(1)} s (rule: the next beat starts by ${OPENING.setupBy} s)`);
+
+  // the hint: when a viewer first sees trouble coming (a glance at the bowl, a wobble, a creak). The writer marks it,
+  // "hook": { "hint": 1.2, "what": "Dragon's eyes find the biscuits" }, and the cold read confirms they saw it.
+  const hint = sb.hook?.hint;
+  add(hint != null && hint <= OPENING.hintBy, "hint-by", hint == null ? `no hint marked: set "hook": { "hint": <s>, "what": "..." } at the first moment trouble shows (rule: by ${OPENING.hintBy} s)` : `trouble shows at ${Number(hint).toFixed(2)} s${sb.hook.what ? `: ${sb.hook.what}` : ""} (rule: by ${OPENING.hintBy} s)`);
   return out;
 }
 

@@ -611,7 +611,12 @@ function layout(t) {
     return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
-  const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));
+  // and where it lands on screen (px; null when behind the camera), so qa/hook.mjs can see whether the joke's prop is in frame 0
+  const propsOut = props.map((p) => {
+    const w = new THREE.Vector3(); p.root.getWorldPosition(w);
+    const v = w.clone().project(camera), px = v.z < 1 ? [Math.round((v.x + 1) / 2 * W), Math.round((1 - v.y) / 2 * H)] : null;
+    return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible };
+  });
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
   const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);

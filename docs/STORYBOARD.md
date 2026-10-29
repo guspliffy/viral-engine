@@ -41,9 +41,13 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   it in the classic style (Nothing Scares Reaper's hook, so it doesn't fight the "BOO!"). Without it, captions keep the classic style.
 - **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
   character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
-  out. Options: `color`, `size` (px, default 120), `angle` (degrees, default -7), `burst` (a colour: a comic star
-  behind it). It is pushed inside the safe zone, and `qa/check.mjs` checks it there. Use one or two per clip, on a
+  out. Options: `color` (`"speaker"`: the character's caption colour), `size` (px, default 120), `angle` (degrees,
+  default -7), `burst` (a colour: a comic star behind it). `act.emote` (storyboards/lib/acting.mjs) is a small one
+  over the head for an emotion word ("annoyed"), and `act.mood` lands an angry or annoyed face at full strength. It is pushed inside the safe zone, and `qa/check.mjs` checks it there. Use one or two per clip, on a
   sound the viewer should "see" (a BOO, a gulp), not on every hit.
+- **`"hook": { "show": ["wiz", "dra", "bowl"], "hint": 1.2, "what": "Dragon eyes the biscuits" }`** names who and
+  what must be in frame 0 (cast ids and prop ids) and when trouble first shows; `qa/hook.mjs` checks both
+  (two-shot-0, hint-by). Without `show` it takes whoever acts in the hook and payoff beats.
 - **`kind: "escalation"`** marks the second turn of the joke; `qa/check.mjs` notes clips over the 20 s house target
   without one.
 - **Voices**: characters with a speaking voice (`"tts"` in their file: Phoenix, Reaper, Wizard, Allfather/Odin) say
