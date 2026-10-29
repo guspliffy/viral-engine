@@ -862,9 +862,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.18,
-       0.56,
-       0.58
+       -0.06,
+       0.74,
+       0.4
       ]
      },
      "dur": 0.22,
@@ -1565,7 +1565,7 @@
      "do": "grip",
      "side": "L",
      "shape": "open",
-     "dur": 0.12,
+     "dur": 0.08,
      "at": 0
     },
     {
@@ -1573,7 +1573,7 @@
      "do": "release",
      "prop": "dome",
      "dur": 0,
-     "at": 0.08
+     "at": 0.01
     },
     {
      "who": "wiz",
@@ -1581,14 +1581,37 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.06,
-       0.52,
-       0.8
+       -0.1,
+       0.42,
+       0.82
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.08,
+       0.36,
+       0.55
       ]
      },
      "dur": 0.2,
-     "ease": "out",
-     "at": 0.1
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1660,37 +1683,14 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.12,
-       0.4,
-       0.55
-      ]
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "paw",
-     "dur": 0.35,
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
        -0.16,
        0.305,
        0.4
       ]
      },
-     "dur": 0.25,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 0.5
+     "at": 0.4
     },
     {
      "sfx": "ai/ignite",

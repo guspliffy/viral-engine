@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { taperedTube, lathe, radialTexture } from "./geo.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
+import { cardWings } from "./costumes-card.js";
 import { castCostume, CAST_TYPES } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
@@ -290,6 +291,7 @@ export function buildCostume(def, ch) {
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
+  const card = C.cardWings ? cardWings(C.cardWings, ch) : null;   // homemade cardboard wings and their straps (costumes-card.js)
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
@@ -341,6 +343,7 @@ export function buildCostume(def, ch) {
       mount.visible = st.hatOn !== false;
       sprt.droop(st.droop, st.ft);
       if (pb) pb.apply(st, t);
+      if (card) card.apply(st, t);
       // follow-through on top of any hand-made sway: the tip trails, the brim's front lifts as the hat moves forward
       const ft = st.ft || { f: 0, s: 0, u: 0 };
       if (hat && hat.sway) hat.sway([st.hatTip[0] + ft.f, st.hatTip[1] + ft.s], st.hatBrim - 0.5 * ft.f);

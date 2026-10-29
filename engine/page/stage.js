@@ -284,10 +284,11 @@ function snapshot(f, i) {
     scene.overrideMaterial = null; scene.background = bg;
   } else { styler.prepare(scene); styler.render(scene, pc); }
   for (const o of hidden) o.visible = true;
-  const S = 720, cv = document.createElement("canvas"); cv.width = cv.height = S;
+  // aspect: the picture's height over its width (1, a square, by default; a print can be 1.25, portrait)
+  const S = 720, A = f.aspect ?? 1, cv = document.createElement("canvas"); cv.width = S; cv.height = Math.round(S * A);
   const g = cv.getContext("2d"), src = R.domElement, k = src.width / W;   // a draft draws at half resolution
-  g.drawImage(src, 0, ((H - W) / 2) * k, W * k, W * k, 0, 0, S, S);
-  if (f.look === "dark") { g.fillStyle = "rgba(14,9,22,0.82)"; g.fillRect(0, 0, S, S); }
+  g.drawImage(src, 0, ((H - W * A) / 2) * k, W * k, W * A * k, 0, 0, S, S * A);
+  if (f.look === "dark") { g.fillStyle = "rgba(14,9,22,0.82)"; g.fillRect(0, 0, S, S * A); }
   if (f.look === "ink") {
     g.globalCompositeOperation = "multiply";
     const gr = g.createRadialGradient(S / 2, S * 0.45, 0, S / 2, S * 0.45, S * 0.8);
@@ -296,9 +297,28 @@ function snapshot(f, i) {
   }
   photos.set(i, cv);
 }
+// style "print": the photo as a printed picture with a white border (thicker at the bottom) filling the frame's width,
+// over the scene dimmed by `dim` (0.6); it drops in with a little settle, develops from white over `develop` (0.35 s)
+// and drifts closer by `push` (0.03) over its whole length. { fx: "photo", style: "print", aspect: 1.25, w: 980, ... }
+function printCard(f, pic, k, d) {
+  const [cx, cy] = f.pos || [W / 2, H * 0.48], w = f.w ?? 980, m = w * 0.045, pw = w - 2 * m, ph = pw * (pic.height / pic.width), h = ph + m + m * 3.2;
+  const inK = ease("settle")(clamp(k / 0.35)), s = (0.9 + 0.1 * inK) * (1 + (f.push ?? 0.03) * clamp(k / d));
+  ctx.save();
+  ctx.globalAlpha = Math.min(1, k / 0.12) * (f.dim ?? 0.6); ctx.fillStyle = "#0d0b16"; ctx.fillRect(0, 0, W, H);
+  ctx.globalAlpha = Math.min(1, k / 0.08);
+  ctx.translate(cx, cy + (1 - inK) * 60); ctx.rotate((((f.tilt ?? -2.5) * Math.PI) / 180) * (0.6 + 0.4 * inK)); ctx.scale(s, s);
+  ctx.shadowColor = "rgba(0,0,0,0.45)"; ctx.shadowBlur = 40; ctx.shadowOffsetY = 16;
+  ctx.fillStyle = "#fbf8f1"; ctx.fillRect(-w / 2, -h / 2, w, h); ctx.shadowColor = "transparent";
+  ctx.drawImage(pic, -pw / 2, -h / 2 + m, pw, ph);
+  ctx.lineWidth = 2; ctx.strokeStyle = "rgba(0,0,0,0.12)"; ctx.strokeRect(-pw / 2, -h / 2 + m, pw, ph);
+  const dev = 1 - clamp(k / (f.develop ?? 0.35));
+  if (dev > 0) { ctx.globalAlpha *= dev; ctx.fillStyle = "#fffdf6"; ctx.fillRect(-pw / 2, -h / 2 + m, pw, ph); }
+  ctx.restore();
+}
 function photoCard(f, i, t) {
   const d = f.dur ?? 1.5, k = t - f.at, pic = photos.get(i);
   if (k < 0 || k > d || !pic) return;
+  if (f.style === "print") return printCard(f, pic, k, d);
   const [cx, cy] = f.pos || [500, 1000], w = f.w ?? 560, h = w * 1.5, m = 24, pw = w - 2 * m;
   // pops in with a little overshoot and tilt, drops away at the end
   const inK = ease("back")(clamp(k / 0.22)), outK = clamp((d - k) / 0.18), s = 0.6 + 0.4 * inK;
