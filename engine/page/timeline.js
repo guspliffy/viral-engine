@@ -4,6 +4,7 @@ import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y, propState, gripWorld, partPoint } from "./props3d.js";
+import { CARD_REST } from "./costumes-card.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -26,7 +27,7 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // per-side mouth corners, pressed lips and tears (0 dry .. 0.5 wet lower lid .. 1 a tear gathered on it). All 0 by
 // default; "face" actions blend them.
 const neutralExpr = (def) => { const n = def.face?.neutral || {}, o = {}; for (const k in EXPRESSIONS.kind) if (n[k] != null) o[k] = n[k]; return o; };
-export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR"];
+export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR", "fangs", "juiceL", "juiceR", "stainL", "stainR"];
 const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"], tear: ["tearL", "tearR"] };
 // mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
 export const GRIPS = {
@@ -262,7 +263,9 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
+      // { do: "hat", off, spin } tips or lifts the hat; on: false hides it (a costume pulled over it, the sheet ghost)
       case "hat": {
+        if (a.on != null) st.hatOn = a.on;
         st.hatOff = lerp3(st.hatOff, a.off || [0, 0, 0], e);
         st.hatSpin = lerp3(st.hatSpin, (a.spin || [0, 0, 0]).map((x) => (x * Math.PI) / 180), e);
         break;
@@ -297,7 +300,20 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "hide": st.visible = false; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
-      case "wings": st.wings = lerp(st.wings, a.to ?? 1, e); break;   // Phoenix: 0 folded, 1 spread
+      // Phoenix: 0 folded, 1 spread. side "R" | "L": only that wing, as an offset on top of both (-1 tucks it in, so one
+      // wing can hang while the other is up)
+      case "wings": if (a.side) { st.wingSide = { R: 0, L: 0, ...st.wingSide }; st.wingSide[a.side] = lerp(st.wingSide[a.side], a.to ?? 0, e); } else st.wings = lerp(st.wings, a.to ?? 1, e); break;
+      // homemade cardboard wings (costume.cardWings, costumes-card.js): set { raise, fold, crook, flutter } on side
+      // "R", "L" or "both"
+      case "card": {
+        st.card = st.card || { R: { ...CARD_REST }, L: { ...CARD_REST } };
+        for (const s of a.side === "R" || a.side === "L" ? [a.side] : ["R", "L"]) {
+          const w = { ...st.card[s] };
+          for (const [k, v] of Object.entries(a.set || {})) w[k] = lerp(w[k] ?? 0, v, e);
+          st.card = { ...st.card, [s]: w };
+        }
+        break;
+      }
       // Phoenix: how far the wings may open at all, 0 tucked tight against the back .. 1 the model's own (half open at
       // rest, spread in flight). It caps what "wings", "fly" and the hover do (a half-open beat in a tight spot)
       case "span": st.span = lerp(st.span, a.to ?? 1, e); break;

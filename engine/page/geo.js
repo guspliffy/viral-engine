@@ -3,7 +3,7 @@ import * as THREE from "three";
 // A tube along `curve` whose radius goes from r0 to r1 (or follows radiusAt(t)), closed at the tip.
 export function taperedTube(curve, r0, r1, segs = 32, radial = 24, radiusAt = null) {
   const frames = curve.computeFrenetFrames(segs, false);
-  const pos = [], idx = [];
+  const pos = [], idx = [], uv = [];
   for (let i = 0; i <= segs; i++) {
     const t = i / segs, p = curve.getPointAt(t);
     const r = radiusAt ? radiusAt(t) : r0 + (r1 - r0) * t;
@@ -11,6 +11,7 @@ export function taperedTube(curve, r0, r1, segs = 32, radial = 24, radiusAt = nu
     for (let j = 0; j <= radial; j++) {
       const a = (j / radial) * Math.PI * 2, c = Math.cos(a), s = Math.sin(a);
       pos.push(p.x + r * (c * N.x + s * B.x), p.y + r * (c * N.y + s * B.y), p.z + r * (c * N.z + s * B.z));
+      uv.push(t, j / radial);   // u along the tube, v round it (a decal on a sleeve)
     }
   }
   for (let i = 0; i < segs; i++) for (let j = 0; j < radial; j++) {
@@ -18,7 +19,7 @@ export function taperedTube(curve, r0, r1, segs = 32, radial = 24, radiusAt = nu
     idx.push(a, a + 1, b, b, a + 1, b + 1); // counter-clockwise seen from outside, so normals point outward
   }
   const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
   g.setIndex(idx); g.computeVertexNormals();
   return g;
 }
