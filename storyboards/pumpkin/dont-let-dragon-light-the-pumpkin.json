@@ -3665,7 +3665,7 @@
   {
    "name": "8 the pumpkin comes off",
    "at": 7.69,
-   "len": 2.31,
+   "len": 2.91,
    "shot": {
     "pos": [
      0,
@@ -3838,6 +3838,61 @@
      "dur": 1.1,
      "idle": 0.05,
      "at": 0.9
+    },
+    {
+     "sfx": "sigh",
+     "gain": 0.6,
+     "reason": "Phoenix's annoyed sigh at Dragon's sheepish face",
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.07,
+     "dur": 0.5,
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "fx": "pop",
+     "text": "*sigh*",
+     "xy": [
+      540,
+      400
+     ],
+     "dur": 1.71,
+     "size": 130,
+     "angle": -5,
+     "color": "#dfe8f5",
+     "at": 1.2
+    },
+    {
+     "sfx": "sigh",
+     "gain": 0.5,
+     "reason": "Reaper sighs too (their shoulders drop at the frame's edges)",
+     "at": 1.23
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.07,
+     "dur": 0.5,
+     "at": 1.23
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.23
     }
    ],
    "kind": "reaction"
@@ -3848,7 +3903,7 @@
    "who": "dra",
    "with": "helmet",
    "from": 0,
-   "to": 10,
+   "to": 10.6,
    "reason": "Dragon wears the pumpkin over his head; it hides his eyes until he lifts it off (the brief)"
   }
  ],

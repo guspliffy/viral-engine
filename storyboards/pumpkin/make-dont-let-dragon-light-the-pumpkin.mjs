@@ -33,7 +33,7 @@ import * as act from "../lib/acting.mjs";
 import { PUMPKIN } from "../../engine/page/props-pumpkin.js";
 
 const c = clip(), { A, sfx } = c;
-const END = 10.0;
+const END = 10.6;
 
 // ---------------------------------------------------------------- places
 const DRA0 = [0, -5.25], DRA_DOOR = [0, -0.42];         // Dragon at the far end; at last in the doorway, just inside
@@ -273,6 +273,13 @@ A(r3(LIFT + 0.7), "dra", "face", { brow: 0.3, dur: 0.3 });
 A(r3(LIFT + 0.75), "dra", "look", { to: [0.35, 0.05], dur: 0.2, blink: false });
 A(r3(LIFT + 0.95), "dra", "still", { dur: 1.1, idle: 0.05 });
 sfx(r3(LIFT + 0.9), "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
+// ...and both let out a long, annoyed sigh (Jonny 21:33), lettered on screen; their shoulders drop
+const SIGH = r3(LIFT + 1.2);
+sfx(SIGH, "sigh", { gain: 0.6, reason: "Phoenix's annoyed sigh at Dragon's sheepish face" });
+sfx(r3(SIGH + 0.08), "sigh", { gain: 0.5, reason: "Reaper sighs too (their shoulders drop at the frame's edges)" });
+A(SIGH, "phx", "squash", { amount: -0.07, dur: 0.5 }); A(r3(SIGH + 0.08), "rea", "squash", { amount: -0.07, dur: 0.5 });
+A(SIGH, "phx", "pitch", { to: 5, dur: 0.5, ease: "inOut" }); A(r3(SIGH + 0.08), "rea", "pitch", { to: 5, dur: 0.5, ease: "inOut" });
+c.at(r3(SIGH + 0.05), { fx: "pop", text: "*sigh*", xy: [540, 400], dur: r3(END - SIGH - 0.05), size: 130, angle: -5, color: "#dfe8f5" });   // comic lettering over the doorway
 
 // ---------------------------------------------------------------- shots
 const ZP = (t) => P.at(t)[2];
