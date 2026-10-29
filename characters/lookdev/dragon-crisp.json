@@ -64,6 +64,12 @@
  "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): the crisp Wizard's face, body and hand values on the Dragon (from the style-match thread), for Still Scrolling \u2014 Car Crash. Not canon until Jonny approves.",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  }
 }
