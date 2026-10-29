@@ -207,6 +207,20 @@ const SFX = {
     }
     return x;
   },
+  // juice landing on a face: a soft wet slap, a squelch that sinks in pitch, and a few drips after it (a "splort")
+  splort(r) {
+    const d = 0.45, x = buf(d), lp = biquad("lp", 380, 0.7), drips = [0.11 + r() * 0.03, 0.19 + r() * 0.04, 0.29 + r() * 0.05];
+    let bp = biquad("bp", 1500, 2.2);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / 0.16);
+      if (i % 64 === 0) bp = { ...biquad("bp", 1500 * Math.pow(0.32, k), 2.2), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 };
+      const gurgle = 0.55 + 0.45 * Math.sin(TAU * (48 - 20 * k) * t) ** 2;
+      let v = run(lp, r() * 2 - 1) * env(t, 0.001, 0.035, d) * 2.2 + run(bp, r() * 2 - 1) * gurgle * env(t - 0.004, 0.003, 0.07, d) * 2.4;
+      for (const [j, h] of drips.entries()) { const u = t - h; if (u > 0 && u < 0.05) v += Math.sin(TAU * (500 + j * 120 + 2400 * u) * u) * Math.exp(-u / 0.012) * (0.32 - j * 0.07); }
+      x[i] = v;
+    }
+    return x;
+  },
   // an iron door latch dropping into its catch: a metal clack with a short ring
   latch(r) {
     const d = 0.25, x = buf(d), bp = biquad("bp", 2400, 3);

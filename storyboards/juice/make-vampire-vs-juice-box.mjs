@@ -52,10 +52,13 @@ const mid = (C, y = 0.42) => onCarton(C, [0, JUICE.h * y, 0]);
 // where the carton's own straw stands (its foot), and the loose straw's grip, for the carton at C
 const STRAW_FOOT = (C) => add(onCarton(C, [JUICE.port[0], JUICE.h, JUICE.port[1]]), [0, -JUICE.strawIn * SS, 0]);
 const STRAW_TOP = (C) => add(STRAW_FOOT(C), rotY(rotY(strawEnd(), STRAW_ROT).map((v) => v * SS), RC));
-const LIFT = 0.035;                               // the fist pinches the straw this far above its axis
+// the Wizard holds the loose straw high up, so its pointed end shows below his hand all the way into the foil, and
+// in front of his palm: the fingers close round it on the camera side (a straw held low and at the fist's centre
+// looked as if it grew out of the glove, Jonny 29 Oct)
+const S_GRIP = [0, 0.09, 0], S_OFF = [0, -0.035, 0.026];   // grip on the straw (its own frame); the straw off the fist's centre (world)
 const strawFist = (foot, tipDeg, rot) => {       // the fist for the loose straw's foot at `foot`
-  const g = JUICE.strawGrip * SS, k = (tipDeg * Math.PI) / 180, d = rotY([0, Math.cos(k) * g, Math.sin(k) * g], rot);
-  return add(foot, [d[0], d[1] + LIFT, d[2]]);
+  const g = S_GRIP[1] * SS, k = (tipDeg * Math.PI) / 180, d = rotY([0, Math.cos(k) * g, Math.sin(k) * g], rot);
+  return add(foot, [d[0] - S_OFF[0], d[1] - S_OFF[1], d[2] - S_OFF[2]]);
 };
 
 // the carton's keys (its bottom centre)
@@ -140,7 +143,7 @@ A(HIT - 0.04, "wiz", "expr", { expr: "focused", set: { curve: -0.25, eye: 0.6 },
 A(HIT, "wiz", "face", { juiceL: 1, dur: 0.05 });
 A(HIT + 0.02, "wiz", "face", { stainL: 1, dur: 0.05 });
 A(HIT, "wiz", "squash", { amount: 0.05, dur: 0.25 });
-sfx(HIT, "kenney/slime", { gain: 0.45 });
+sfx(HIT, "splort", { gain: 0.6 });
 c.textPop(HIT, "wiz", "SPLORT!", { dur: 0.5 });
 A(1.0, "wiz", "still", { dur: 0.75, idle: 0.05 });
 c.prop(1.3, "carton", { squeeze: 0 }, 0.25);                        // the pressure goes, the jets stop
@@ -184,7 +187,7 @@ A(3.1, "wiz", "arm", { side: "R", pose: { world: add(FIST_LIE, [0, 0.05, 0]) }, 
 A(3.1, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
 A(3.4, "wiz", "arm", { side: "R", pose: { world: FIST_LIE }, dur: 0.12, ease: "out" });
 A(3.5, "wiz", "grip", { side: "R", shape: "pinch", dur: 0.1 });
-A(3.52, "wiz", "grab", { prop: "straw", hand: "R", grip: "mid", off: [0, -LIFT, 0], pose: null });
+A(3.52, "wiz", "grab", { prop: "straw", hand: "R", grip: S_GRIP, off: S_OFF, pose: null });
 sfx(3.52, "kenney/tick", { gain: 0.25, reason: "fingers close on the straw" });
 // lift it, stand it up and bring it over the port
 A(3.6, "wiz", "arm", { side: "R", pose: { world: strawFist(S_ABOVE, 0, S_ROT) }, dur: 0.55, ease: "inOut" });
@@ -201,7 +204,7 @@ c.prop(4.68, "straw", { scale: 0 }, 0);
 c.prop(4.68, "carton", { straw: 1 }, 0);
 A(4.68, "wiz", "release", { prop: "straw" });
 A(4.72, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
-A(4.72, "wiz", "arm", { side: "R", pose: { world: add(strawFist(S_IN, 0, S_ROT), [-0.18, 0.01, -0.03]) }, dur: 0.22, ease: "out" });   // sideways off the straw first, above the carton
+A(4.72, "wiz", "arm", { side: "R", pose: { world: add(strawFist(S_IN, 0, S_ROT), [-0.16, -0.04, 0.05]) }, dur: 0.22, ease: "out" });   // sideways and down off the straw first, above the carton and below his eyes
 A(4.92, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.32, ease: "inOut" });
 A(5.05, "wiz", "grip", { side: "R", shape: "paw", dur: 0.25 });
 

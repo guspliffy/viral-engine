@@ -24,7 +24,7 @@ export const isLibrarySound = (id) => !!catalog().sounds[id];
 // sounds whose loudest moment is the contact (a foot, a hand, a door, a blade meeting something), library ids and
 // code effects alike; a catalog entry's "anchor": "onset" or "hit" overrides. Everything else (whooshes, risers,
 // jingles, UI tones, a katana-slice that starts on the swing) still starts on its frame.
-const HIT = /^(step|kenney\/(footstep|impact)|put-down|grab|sit|blade-cut|chop|punch|thud|hit-|bell$|pan-bonk|knock|door-close|door-slam|slam|latch|coins|book-close|key$|mouse-click|land|impact|gunshot|tink|ting|papercut|puncture|splash)/;
+const HIT = /^(step|kenney\/(footstep|impact)|put-down|grab|sit|blade-cut|chop|punch|thud|hit-|bell$|pan-bonk|knock|door-close|door-slam|slam|latch|coins|book-close|key$|mouse-click|land|impact|gunshot|tink|ting|papercut|puncture|splort|splash)/;
 export const isHit = (id) => { const a = catalog().sounds[id]?.anchor; return a ? a === "hit" : HIT.test(id); };
 
 // the hit of a sound: on a 5 ms loudness envelope, the first point within 3 dB of the loudest, then the top of that
