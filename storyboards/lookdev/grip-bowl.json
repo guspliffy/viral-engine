@@ -1,0 +1,508 @@
+{
+ "id": "grip-bowl",
+ "title": "Grip test: bowl",
+ "idea": "Grip library test bench, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "apartment",
+  "seed": 5
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "it"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    0,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.5,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.5
+  },
+  {
+   "id": "it",
+   "kind": "snackbowl",
+   "scale": 1.2,
+   "biscuits": 2,
+   "x": 0,
+   "y": 0.36,
+   "z": 0.44,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 3.5,
+   "text": "Bowl: cupped from outside, both hands",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "bowl",
+   "at": 0,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     -0.75,
+     1.05,
+     2.3
+    ],
+    "look": [
+     -0.05,
+     0.55,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "off": [
+       -0.06,
+       0.08,
+       -0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.08,
+       -0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "carry",
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "carry",
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "it",
+     "hand": "both",
+     "grip": [
+      0,
+      0.07,
+      0.018
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.86
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.44,
+       0.42
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.44,
+       0.42
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0.05,
+       0.47,
+       0.42
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0.05,
+       0.47,
+       0.42
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 2.55
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "it",
+     "dur": 0,
+     "at": 2.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 2.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 2.6
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "off": [
+       -0.06,
+       0.08,
+       -0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.64
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.201,
+       0.07,
+       0.018
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.08,
+       -0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.64
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 2.84
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 2.84
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 2.84
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 2.84
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-grip-tests.mjs (engine test, no reviews)."
+}

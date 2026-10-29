@@ -65,6 +65,12 @@
  "notes": "Copy of lookdev/dragon-crisp with the arms coming out lower on the body (limbs.shoulder -0.3, like the crisp Wizard's -0.42), so a reach over a tabletop runs forward instead of hanging straight down from beside the face (Don't Touch the Charger, 28 Oct 2026). Not canon until Jonny approves.",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  }
 }

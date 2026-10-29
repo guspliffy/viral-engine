@@ -57,7 +57,13 @@
  "voiceNote": "gibberish, bright and quick (same as the puppet voice, puppet/cast.json)",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  },
  "notes": ""
 }
