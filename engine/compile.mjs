@@ -141,7 +141,7 @@ export const MACROS = {
 
 const itemEnd = (it) => {
   if (it.caption != null) return it.len ?? 0;
-  if (it.do === "hop" || it.do === "move" || it.do === "talk" || it.do === "charge") return it.dur ?? 0.3;
+  if (it.do === "hop" || it.do === "move" || it.do === "run" || it.do === "talk" || it.do === "charge") return it.dur ?? 0.3;
   return it.dur ?? (it.fx ? 0.1 : it.sfx ? 0.2 : 0.3);
 };
 

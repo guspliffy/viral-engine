@@ -43,7 +43,7 @@ const HEADROOM = 0.03, EYE_GIVE = 0.08, SIDE = 0.08, FACE = 0.3;   // headroom (
 const JUMP = 1.4;    // two framings closer than this in size (and centre) would be a jump cut: keep one shot
 const MIN_SHOT = 0.7;   // seconds: never cut sooner than this after the last cut
 // actions a cut can ride on (a body movement, not an eye or face change)
-const MOTION = new Set(["move", "turn", "crouch", "stand", "sit", "hop", "fly", "land", "grab", "arm", "drop", "kneel", "throw", "swing", "slash", "charge"]);
+const MOTION = new Set(["move", "run", "turn", "crouch", "stand", "sit", "hop", "fly", "land", "grab", "arm", "drop", "kneel", "throw", "swing", "slash", "charge"]);
 // how much each kind of action counts toward "who acts" in a beat
 const WEIGHT = { talk: 4, expr: 3, move: 2, crouch: 2, grab: 2, fly: 2, sit: 2, hop: 2, land: 2, turn: 1, arm: 1, face: 1, squash: 0.5, look: 0.5 };
 

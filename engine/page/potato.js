@@ -638,8 +638,8 @@ export class Character {
       this.arms[s].hand.visible = showLimbs;
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
-      const lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07;
-      const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05);
+      const sd = st.stride ?? 1, lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07 * sd;
+      const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
