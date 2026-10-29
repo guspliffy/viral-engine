@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { clamp, rng } from "./util.js";
+import { damageTextures, mendGlow } from "./props-unboxing.js";
 
 // Props for "DUO: Launch Day" (Jonny's story library #10, 28 Oct 2026): a phone-launch queue outside the bitten-peach
 // store, two foldable phones that fail in two different ways, their boxes, and the queue's camping gear.
@@ -10,6 +11,13 @@ import { clamp, rng } from "./util.js";
 //               at z W), at 1 flat. `gap` (metres) snaps the hinge: each half slides gap/2 outward and keeps its half
 //               of the barrel. `crack` 0..1 breaks both screens (branching cracks, dead ink-bleed patches, static
 //               cyan/magenta/white bands) in four steps. `glow` 0..1 lights the display (default 1).
+//               `damage: "map"` (spec, Not Even Magic) swaps the four crack steps for ONE fixed damage map per half
+//               (props-unboxing.js): crack > 0 shows it, glow 1 lit, 0 powered off (dark glass, the cracks still
+//               pale), `fault` 0..1 the failed boot's bright corrupted bands over it, `slip` (metres) slides the right
+//               half up its hinge line (the snapped hinge's offset), `mend` 0..1 a small golden glow along the hinge.
+//               `pin` -1 keeps the left half still while the right one swings (+1 the other way round), so a phone
+//               lying open closes like a book on a table; switch it only while the phone is fully open (open 1).
+//               Start fault/slip/mend/pin with a zero-length prop tween at 0 so later tweens ease from there.
 //               Lying in its box: tilt -90 (the length along -x, the back of the right half up).
 //               foldPoint(open, gap, side, u, v, out) gives a point on a half for the clip to aim a hand at.
 //   duobox      the white box's base with its fitted tray: origin the bottom centre, open at the top (BOX.H).
@@ -143,13 +151,13 @@ export function foldPoint(open, gap, side, u, v, out = 0) {
 // a point (or with dir, a direction) in a half's own frame -> the prop's frame: the one transform the half's pivot
 // gets in the mesh (apply below), so a hand on a half and the half itself never disagree. The half's own frame: x
 // across the phone (the right half's free edge at +W, the left half's at -W), y up from its bottom, z out of its screen
-export function onHalf(open, gap, side, [x, y, z], dir = false) {
-  const a = -side * (Math.PI / 2) * (1 - clamp(open)), c = Math.cos(a), s = Math.sin(a);
-  return [x * c + z * s + (dir ? 0 : (side * gap) / 2), y, -x * s + z * c];
+export function onHalf(open, gap, side, [x, y, z], dir = false, slip = 0, pin = 0) {
+  const a = -side * (Math.PI / 2) * (1 - clamp(open)) + pin * (Math.PI / 2) * (1 - clamp(open)), c = Math.cos(a), s = Math.sin(a);
+  return [x * c + z * s + (dir ? 0 : (side * gap) / 2), y + (dir || side < 0 ? 0 : slip), -x * s + z * c];
 }
 // the parts of a duo prop a hand can hold (props3d.js partPoint): a foldphone's halves, "L" and "R"
 export const DUO_PARTS = {
-  foldphone: (ps, part, p, dir) => onHalf(ps.open ?? 0, ps.gap ?? 0, part === "L" ? -1 : 1, p, dir),
+  foldphone: (ps, part, p, dir) => onHalf(ps.open ?? 0, ps.gap ?? 0, part === "L" ? -1 : 1, p, dir, ps.slip || 0, ps.pin || 0),
 };
 
 export const DUO_KINDS = {
@@ -176,18 +184,37 @@ export const DUO_KINDS = {
         const logo = mesh(new THREE.PlaneGeometry(0.06, 0.06), new THREE.MeshStandardMaterial({ map: lg, transparent: true, roughness: 0.3, metalness: 0.3 }), piv, W * 0.5, H * 0.55, -T - 0.0009);
         logo.rotation.y = Math.PI; logo.castShadow = false; logo.material.userData.noOutline = true;
       }
-      return { s, piv, scrM, intact: scrM.map, barrel };
+      // Not Even Magic: one damage map per half, its lit / powered-off / failed-boot drawings stacked on the screen
+      let dmg = null;
+      if (S.damage === "map") {
+        const under = (g, w, h) => { g.save(); if (s > 0) g.translate(-w, 0); wallpaper(g, 2 * w, h); g.restore(); };
+        const tx = damageTextures((S.seed ?? 5) * 101 + (s > 0 ? 7 : 3), s, under, canvasTex);
+        const layer = (map, z) => { const m = basic({ map, toneMapped: false, transparent: true, opacity: 0, depthWrite: false }); const o = mesh(new THREE.PlaneGeometry(W - 0.016, H - 0.018), m, piv, s * (W / 2 + 0.002), H / 2, z); o.castShadow = o.receiveShadow = false; o.renderOrder = 2; return m; };
+        dmg = { lit: tx.lit, off: layer(tx.off, 0.001), fault: layer(tx.fault, 0.0012) };
+      }
+      return { s, piv, scrM, intact: scrM.map, barrel, dmg };
     });
+    const mend = S.damage === "map" ? mendGlow(P.whole, H) : null;
     return {
       grip: 0,
       apply(ps) {
         const gap = ps.gap ?? 0, k = Math.min(4, Math.floor(clamp(ps.crack ?? 0) * 4 + 1e-6)), glow = ps.glow ?? 1;
         for (const h of halves) {
           h.piv.position.x = (h.s * gap) / 2;
-          h.piv.rotation.y = -h.s * (Math.PI / 2) * (1 - clamp(ps.open));   // the same turn as onHalf
+          h.piv.rotation.y = (-h.s + (ps.pin || 0)) * (Math.PI / 2) * (1 - clamp(ps.open));   // the same turn as onHalf
+          if (h.dmg) {
+            const broke = (ps.crack ?? 0) > 0, g1 = clamp(glow);
+            h.piv.position.y = h.s > 0 ? ps.slip || 0 : 0;
+            h.scrM.map = broke ? h.dmg.lit : h.intact;
+            h.scrM.color.setScalar(broke ? 1 : 0.06 + 0.94 * g1);   // unbroken and off: the dark glass of a sleeping screen
+            h.dmg.off.opacity = broke ? 1 - g1 : 0;
+            h.dmg.fault.opacity = broke ? clamp(ps.fault || 0) * g1 : 0;
+            continue;
+          }
           h.scrM.map = k > 0 ? (h.s < 0 ? broken : brokenR)[k - 1] : h.intact;
           h.scrM.color.setScalar(0.35 + 0.65 * glow);
         }
+        if (mend) mend(ps.mend || 0, gap);
       },
     };
   },

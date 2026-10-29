@@ -25,7 +25,7 @@
 import { clip, write, r3 } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
 import { FOLD, BOX } from "../../engine/page/props-duo.js";
-import { PHONE_EDGE } from "../../engine/page/timeline.js";
+import { EDGE, AROUND, BEHIND } from "../lib/foldphone.mjs";
 
 const c = clip(), { A, sfx } = c;
 const END = 12.0, FPS = 30;
@@ -106,15 +106,8 @@ const END_GRIP = { top: [0.042, FOLD.H * 0.74, FOLD.W * 0.5], bottom: [0.042, FO
 // palms down on it, fingers pointing away from the buyer (in the tray the phone's +z is the world's forward, its -x
 // down), locked to the phone (frame) so the hands turn with it as it stands up, and from there turn onto its edges
 const ON_BACK = (ph, end) => ({ ...onProp(ph, END_GRIP[end]), frame: { y: [0, 0, 1], z: [-1, 0, 0] } });
-// a hand locked to one half's outer edge (the phone-edge grip, timeline.js phoneEdge): v up the edge (0 bottom, 1 top),
-// the fingers in along the half's back and tipped up a little, the palm facing the half's screen side from behind
-const EDGE_TILT = (5 * Math.PI) / 180;
-const EDGE = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [side * FOLD.W, v * FOLD.H, -FOLD.T / 2].map(r3),
-  frame: { y: [r3(-side * Math.cos(EDGE_TILT)), r3(Math.sin(EDGE_TILT)), 0], z: [0, 0, 1], at: PHONE_EDGE, elbow: 1 } });
-// on the way there (the closed phone): beside the free edge, palm to it, fingers out of its back side (AROUND), or
-// behind the half near its edge, fingers up (BEHIND); each a quarter turn from the hold before it and the one after
-const AROUND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * (FOLD.W + 0.075)), r3(v * FOLD.H), r3(-FOLD.T / 2)], frame: { y: [0, 0, -1], z: [-side, 0, 0], elbow: 0.4 } });
-const BEHIND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * FOLD.W * 0.75), r3(v * FOLD.H), r3(-FOLD.T - 0.046)], frame: { y: [0, 1, 0], z: [0, 0, 1] } });
+// the hands on the phone's halves: EDGE (the phone-edge grip, timeline.js phoneEdge), and on the way there AROUND and
+// BEHIND, each a quarter turn from the hold before it and the one after (storyboards/lib/foldphone.mjs)
 
 // a buyer's whole handling chain: arrive with the box, set it down, lid off and parked, the phone out of the tray,
 // upright, unfolded. Times from the brief (t: the beat starts). Returns where the phone ends up.

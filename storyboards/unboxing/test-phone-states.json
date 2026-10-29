@@ -1,0 +1,244 @@
+{
+ "id": "test-phone-states",
+ "title": "DUO phone states test",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "plain",
+  "color": "#efe6d6",
+  "floor": "#c9b08a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.9,
+   "h": 0.33,
+   "w": 2.4,
+   "d": 0.9,
+   "color": "#e8cf9f",
+   "leg": "#c9a06c"
+  },
+  {
+   "id": "ph",
+   "kind": "foldphone",
+   "x": 0,
+   "y": 0.33,
+   "z": 0.75,
+   "open": 1,
+   "tip": -90,
+   "seed": 3,
+   "damage": "map"
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "working",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "glow": 1,
+      "fault": 0,
+      "slip": 0,
+      "mend": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "broken",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "crack": 1,
+      "gap": 0.03,
+      "slip": 0.012,
+      "glow": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "mending",
+   "at": 1,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "gap": 0.015,
+      "slip": 0.006,
+      "mend": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "reconnected",
+   "at": 1.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "gap": 0,
+      "slip": 0,
+      "mend": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "failed boot",
+   "at": 2,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "glow": 1,
+      "fault": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "off",
+   "at": 2.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.474,
+     1.412,
+     1.932
+    ],
+    "look": [
+     0,
+     0.33,
+     0.63
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ph",
+     "set": {
+      "glow": 0,
+      "fault": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Test bench, not a clip."
+}
