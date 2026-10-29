@@ -151,9 +151,9 @@ A(6.45, "dra", "look", { to: DRA_AT_PLUG, dur: 0.2, blink: false });
 A(6.45, "dra", "still", { dur: 2.5, idle: 0.1 });
 
 // ---------------------------------------------------------------- 05 HE NOTICED 8.40-8.90
-A(8.42, "wiz", "look", { to: WIZ_AT_HAND, dur: 0.07, blink: false });             // a snap: eyes first
-A(8.47, "wiz", "face", { lid: 0.12, brow: -0.3, dur: 0.28 });                        // the lids narrow, the brows angle in (they stay clear of the eyes: browShape.clear)
-A(8.47, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15, tilt: -0.22 }, dur: 0.28 });   // eased, so the squint and the brows never snap
+A(8.41, "wiz", "look", { to: WIZ_AT_HAND, dur: 0.14, blink: false });             // a snap: eyes first
+A(8.56, "wiz", "face", { lid: 0.12, brow: -0.3, dur: 0.3 });                        // the lids narrow, the brows angle in (they stay clear of the eyes: browShape.clear)
+A(8.56, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15, tilt: -0.22, eye: 0.8 }, dur: 0.3 });   // squint + lid + downward gaze stay under half shut: past it the lower lid rises and the iris pokes through it   // eased, so the squint and the brows never snap
 A(8.45, "wiz", "still", { dur: 0.45, idle: 0.05 });
 
 // ---------------------------------------------------------------- 06 BOUNDARY 8.90-10.40
@@ -180,8 +180,8 @@ A(9.45, "wiz", "turn", { to: 26, dur: 0.4 });
 A(9.55, "wiz", "face", { lid: 0.08, dur: 0.2 });
 // angry and annoyed by 10 s (Jonny 29 Oct): brows angled in, a flat frown, the lids squinting; Jonny's brow fix (29 Oct):
 // focus comes from a slight inward brow angle plus the squint, the brows always clear of the eyes
-A(9.75, "wiz", "expr", { expr: "stern", set: { tilt: -0.32, curve: -0.45, eye: 0.74 }, dur: 0.25 });
-A(9.75, "wiz", "face", { brow: -0.2, lid: 0.38, dur: 0.25 });
+A(9.75, "wiz", "expr", { expr: "stern", set: { tilt: -0.32, curve: -0.45, eye: 0.8 }, dur: 0.25 });
+A(9.75, "wiz", "face", { brow: -0.2, lid: 0.36, dur: 0.25 });
 A(9.75, "wiz", "squash", { amount: 0.02, dur: 0.2 });
 
 // ---------------------------------------------------------------- 07 CAUGHT 10.40-13.00
