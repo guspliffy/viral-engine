@@ -163,12 +163,12 @@ export function box(c, who, spec, { gap = 0.045, height = 0.55 } = {}) {
 // (grip "tip", arm poses with point "pinch": the pinch, not the hand's centre, goes on the grip), so the wrist always
 // stays on the arm. roll: degrees the hand turns about the shaft to show the thumb to the camera. from: where on the
 // shaft the pinch is (0 bottom .. 1 top).
-export function thin(c, who, spec, { side = "R", from = 0.6, roll = -20, lean = 30 } = {}) {
+export function thin(c, who, spec, { side = "R", from = 0.6, roll = 20, lean = 30 } = {}) {
   const { len, r } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
   const grip = toProp(spec, [0, from * len * k, 0]);
   const set = { roll, lean, thin: r3((r * k) / HAND) };
   const hands = { [side]: { grip, away: toWorld(spec, [sx * 0.07, 0.07, 0.04]) } };
-  return holder(c, who, spec, { hands, shape: { shape: "tip", set }, ready: { shape: "tip", set: { ...set, close: 0, curl: 0.7, index: 0.5 } }, grab: grip, point: "pinch" });
+  return holder(c, who, spec, { hands, shape: { shape: "tip", set }, ready: { shape: "tip", set: { ...set, roll: roll - 40, close: 0, curl: 0.7, index: 0.5 } }, grab: grip, point: "pinch" });
 }
 
 // PHONE in one hand (phone, iphone): upright in the palm, screen to the holder, the fingers round its far edge and the

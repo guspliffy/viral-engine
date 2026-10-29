@@ -172,7 +172,7 @@
      "side": "R",
      "shape": "tip",
      "set": {
-      "roll": -20,
+      "roll": 20,
       "lean": 30,
       "thin": 0.006
      },
