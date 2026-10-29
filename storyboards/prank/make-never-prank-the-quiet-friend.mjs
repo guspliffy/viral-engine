@@ -18,15 +18,16 @@
 //                 steps in closer to watch
 //   04b 3.10-3.40 insert: the foam hand lifts off the armrest (the expected self-smear)
 //   05 3.40-4.30  close: Reaper's eye nearest the Wizard opens a slit, slides to him, shuts. The music stops
-//   06 4.30-6.30  one held medium from above the Wizard's brim: the hand comes up and across, SPLORT, presses the
+//   06 4.30-6.30  one held medium from just above the Wizard's brim: the hand comes up and across, SPLORT, presses the
 //                 Wizard's cheek (4.95), squash, off; Reaper's eyes stay shut; the Wizard jolts back a step, hat wobbling
-//   07 6.30-7.50  the Wizard frozen, foam on his cheek; his eyes dart down to it and back
-//   08 7.50-10.0  the Wizard lowers the feather, defeated; then Reaper's tiny satisfied smile; a drip of foam falls
+//   07 6.30-7.20  the Wizard frozen, foam on his cheek, Reaper's hood beside him; his eyes dart down to it and back
+//   08 7.20-10.0  the Wizard lowers the feather, defeated; then Reaper's small satisfied smile
 //
 // Hands: Reaper's own RIGHT palm (on the left armrest, screen left) carries the foam all clip; his LEFT rests on the
 // right armrest. The Wizard's own RIGHT hand pinches the feather's quill all clip (grip library `thin`); his left hangs.
 // State: one dollop on Reaper's palm -> pressed flat at T_PRESS, when the patch appears on the Wizard's cheek -> the
-// patch stays on his cheek to the end; the palm keeps a flattened smear.
+// patch stays on his cheek to the end; the palm keeps a small flattened smear (review B: most of the foam
+// goes to the cheek, and the patch is big enough to read as foam, not tears).
 // Body moves: `pitch` + tips a body forward, `lean` + tips it toward its own right (- toward its left).
 import { clip, write, r3, frame } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
@@ -52,7 +53,7 @@ const CHEEK = { x: -0.15, y: 0.58, z: 0.31, rot: -26 };
 // aims at this point, `out` metres off it along that way
 const CHEEK_W = [0.05, 0.545, 0.69], CHEEK_ROT = WIZ_YAW + CHEEK.rot;
 // the feather's quill bottom on its way in (world; the feather leans top-left toward Reaper's face)
-const F0 = [0.26, 0.8, 0.8], F_TICKLE = [0.07, 0.76, 0.7];
+const F0 = [0.3, 0.6, 0.9], F_TICKLE = [0.07, 0.76, 0.7];
 
 // eye targets (face look space: + right on screen, + up)
 const REA_AT_WIZ = [0.85, -0.15], WIZ_AT_REA = [-0.7, 0.25], WIZ_AT_HAND = [-0.85, 0.0];
@@ -67,7 +68,7 @@ const props = [
   { id: "foam", kind: "foam", x: PALM[0], y: PALM[1], z: PALM[2], scale: 1 },
   FEATHER_SPEC,
   { id: "cheek", kind: "carrier", x: CHEEK_W[0], y: CHEEK_W[1], z: CHEEK_W[2], rot: CHEEK_ROT },
-  { id: "patch", kind: "foampatch", wear: "wiz", ...CHEEK, r: 0.1, scale: 0 },
+  { id: "patch", kind: "foampatch", wear: "wiz", ...CHEEK, r: 0.16, scale: 0 },
 ];
 const ON_CHEEK = (out, up = 0) => ({ prop: "cheek", grip: [0, up, out], palm: true });
 
@@ -93,7 +94,7 @@ A(0, "wiz", "pitch", { to: 3, dur: 0 });
 A(0, "wiz", "lean", { to: 2, dur: 0 });
 A(0, "wiz", "look", { to: WIZ_AT_REA, dur: 0, blink: false });
 A(0, "wiz", "expr", { expr: "evil", set: { open: 0.15, curve: 0.75 }, dur: 0 });
-act.blinksAt(c, "wiz", [7.5, 9.3]);
+act.blinksAt(c, "wiz", [7.25, 9.4]);
 
 c.cap(0, 2.0, "Never prank the quiet friend.", 250, false, { kinetic: false });
 
@@ -101,7 +102,7 @@ c.cap(0, 2.0, "Never prank the quiet friend.", 250, false, { kinetic: false });
 fh.carry(0.02, F_TICKLE, 1.4, "inOut");                                // the feather creeps in from frame 0 across the setup cuts (review A)
 A(0.1, "wiz", "pitch", { to: 6, dur: 1.0, ease: "inOut" });
 A(0.1, "wiz", "lean", { to: 4, dur: 1.0, ease: "inOut" });
-c.prop(0.6, "foam", { squash: 0.12 }, 0.08, "out"); c.prop(0.68, "foam", { squash: 0 }, 0.35, "settle");   // a soft wobble
+c.prop(0.6, "foam", { squash: 0.2 }, 0.08, "out"); c.prop(0.68, "foam", { squash: 0 }, 0.35, "settle");   // a soft wobble
 sfx(0.62, "ai/drip", { gain: 0.4, reason: "the foam dollop wobbling on his palm (0.6-1.0): a tiny wet plop" });
 A(1.2, "wiz", "expr", { expr: "evil", set: { open: 0.3, curve: 0.9 }, dur: 0.3 });
 
@@ -150,8 +151,8 @@ A(4.3, "rea", "turn", { to: CHAIR_ROT + 22, dur: 0.55 });
 A(4.3, "rea", "pitch", { to: 12, dur: 0.55 });
 c.arm(4.3, "rea", "R", { world: [-0.5, 0.72, 0.62] }, 0.28, "inOut");   // under the hat brim, at cheek height (review A)
 c.prop(4.3, "foam", { tilt: 55 }, 0.3, "inOut");
-fh.carry(4.25, [0.08, 0.38, 0.86], 0.35, "inOut");                     // the feather drops low, out of the way, to watch
-c.prop(4.25, "feather", { tilt: -95 }, 0.35, "inOut");
+fh.carry(4.25, [0.08, 0.38, 0.86], 0.5, "inOut");                     // the feather drops low, out of the way, to watch
+c.prop(4.25, "feather", { tilt: -95 }, 0.5, "inOut");
 // ...then across in front of it and onto the Wizard's cheek
 c.arm(4.58, "rea", "R", ON_CHEEK(0.16, 0.03), 0.22, "inOut");
 c.prop(4.58, "foam", { tilt: 82 }, 0.22, "inOut");
@@ -166,7 +167,7 @@ A(T_PRESS + 0.04, "wiz", "lean", { to: -4, dur: 0.2, ease: "out" });
 A(T_PRESS + 0.04, "wiz", "pitch", { to: 0, dur: 0.25, ease: "out" });
 // separation: the palm comes off, its foam a flat smear
 c.arm(5.3, "rea", "R", ON_CHEEK(0.18, 0.03), 0.2, "out");
-c.prop(5.3, "foam", { scale: 0.75 }, 0.2);
+c.prop(5.3, "foam", { scale: 0.35 }, 0.2);                            // most of the foam stays on the cheek (review B)
 // the Wizard jolts: eyes wide, mouth open, a step back, hat wobbling, the feather still in his hand
 A(T_PRESS + 0.02, "wiz", "expr", { expr: "shocked", set: { open: 0.6, eye: 1.25 }, dur: 0.08 });
 A(T_PRESS + 0.02, "wiz", "face", { brow: 0.5, dur: 0.08 });
@@ -185,40 +186,38 @@ A(5.55, "rea", "grip", { side: "R", ...CUP, dur: 0.2 });
 A(5.55, "rea", "turn", { to: CHAIR_ROT, dur: 0.6 });
 A(5.55, "rea", "pitch", { to: 0, dur: 0.6 });
 
-// ---------------------------------------------------------------- 07 frozen (6.3-8.0)
+// ---------------------------------------------------------------- 07 frozen (6.3-7.2)
 A(6.0, "wiz", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.15, curve: -0.2 }, dur: 0.3 });
 A(6.0, "wiz", "face", { brow: 0.4, dur: 0.3 });
-A(6.1, "wiz", "still", { dur: 1.3, idle: 0.02 });
+A(6.1, "wiz", "still", { dur: 1.0, idle: 0.02 });
 A(6.6, "wiz", "look", { to: [-0.7, -0.45], dur: 0.12, blink: false });   // his eyes dart down to his own cheek...
-A(7.2, "wiz", "look", { to: [-0.2, 0.1], dur: 0.15, blink: false });     // ...and back to Reaper
-c.prop(6.8, "patch", { drip: 0.35 }, 0.6, "in");
+A(6.95, "wiz", "look", { to: [-0.45, 0.1], dur: 0.15, blink: false });    // ...and back to Reaper
+c.prop(6.7, "patch", { drip: 0.25 }, 0.5, "in");                       // one drop slides down (no further: his feather hand is below it)
 
-// ---------------------------------------------------------------- 08 the feather comes down, then the smallest smile (7.5-10.0)
-A(7.55, "wiz", "look", { to: [0.1, -0.15], dur: 0.4, blink: false });
-A(7.6, "wiz", "expr", { expr: "sad", set: { curve: -0.35, eye: 0.9 }, dur: 0.4 });
-A(7.6, "wiz", "face", { brow: 0.25, lid: 0.25, dur: 0.4 });
-fh.carry(7.9, [0.42, 0.42, 0.95], 0.8, "inOut");
-c.prop(7.9, "feather", { tilt: -150 }, 0.8, "inOut");                   // the feather droops tip-down
-A(8.0, "wiz", "squash", { amount: 0.03, dur: 1.2 });
-A(8.0, "wiz", "pitch", { to: 4, dur: 0.8 });                           // the shoulders sag
+// ---------------------------------------------------------------- 08 the feather comes down, then the smallest smile (7.2-10.0)
+A(7.25, "wiz", "look", { to: [0.1, -0.15], dur: 0.4, blink: false });
+A(7.3, "wiz", "expr", { expr: "sad", set: { curve: -0.35, eye: 0.9 }, dur: 0.4 });
+A(7.3, "wiz", "face", { brow: 0.25, lid: 0.15, dur: 0.4 });
+fh.carry(7.6, [0.5, 0.36, 1.08], 0.8, "inOut");
+c.prop(7.6, "feather", { tilt: -150 }, 0.8, "inOut");                   // the feather droops tip-down
+A(7.7, "wiz", "squash", { amount: 0.03, dur: 1.2 });
+A(7.7, "wiz", "pitch", { to: 4, dur: 0.8 });                           // the shoulders sag
 // the last word is the quiet friend's: the smallest satisfied smile, eyes still shut (review A)
-A(8.85, "rea", "expr", { expr: "serene", set: { curve: 0.55, smirk: 0.25 }, dur: 0.35 });
-c.prop(8.8, "patch", { drip: 1 }, 0.5, "in");
-sfx(9.3, "ai/drip", { gain: 0.35, reason: "a drop of foam falling from his cheek (9.3): plop" });
+A(8.4, "rea", "expr", { expr: "serene", set: { curve: 0.7, smirk: 0.45 }, dur: 0.35 });   // big enough for a phone (review B)
 
 // ---------------------------------------------------------------- shots
 const PALM_T = [PALM[0] + 0.04, PALM[1] + 0.07, PALM[2]];
 const TWO = [-0.02, 0.82, 0.45];
-const S1 = frame([-0.2, 0.8, 0.42], { az: -8, el: 10, h: 2.5, fov: 30, push: 0.1, dur: 0.55 });
+const S1 = frame([-0.22, 0.8, 0.42], { az: -8, el: 10, h: 2.9, fov: 30, push: 0.1, dur: 0.55 });
 const S2 = frame([PALM_T[0] - 0.16, PALM_T[1], PALM_T[2]], { az: -10, el: 6, h: 0.6, fov: 30, push: 0.12, dur: 0.5 });   // the palm at the right, so the caption sits over the chair, not the hood
 const S3 = frame([FACE_R[0] + 0.08, FACE_R[1] + 0.31, FACE_R[2]], { az: -24, el: 4, h: 1.05, fov: 30, push: 0.08, dur: 0.55 });   // the wall above the hood for the caption
 const S4 = frame(TWO, { az: -6, el: 8, h: 1.85, fov: 30, push: 0.06, dur: 1.8 });
 const S5 = frame([FACE_R[0] + 0.04, FACE_R[1] + 0.03, FACE_R[2]], { az: -34, el: 3, h: 0.62, fov: 30 });
 // from the front and above the Wizard's hat brim, so Reaper's sleeping face and the Wizard's cheek are both seen at the press (review A)
-const S6 = frame([0.0, 0.82, 0.45], { az: 4, el: 22, h: 1.85, fov: 30 });
+const S6 = frame([0.0, 0.82, 0.45], { az: 4, el: 15, h: 1.85, fov: 30 });
 // the foam hand lifting off the armrest (the expected self-smear), the beat-02 framing on where the hand is then
 const S4B = frame([-0.74, 0.82, 0.43], { az: 6, el: 16, h: 0.75, fov: 30, push: 0.1, dur: 0.3 });
-const S7 = frame([0.26, 0.76, 0.7], { az: -16, el: 4, h: 1.35, fov: 30 });
+const S7 = frame([0.12, 0.78, 0.6], { az: -16, el: 4, h: 1.5, fov: 30 });   // Reaper's hood in the left of frame (review B)
 const S8 = { pos: [-0.05, 1.25, 4.6], look: [0.2, 0.78, 0.4], fov: 30 };
 const beats = c.beats([
   ["01 the prank", 0, S1, "hook"],
@@ -230,7 +229,7 @@ const beats = c.beats([
   ["06 the hand comes over", 4.3, S6, "escalation"],
   ["06b splort", T_PRESS, "keep", "payoff"],
   ["07 frozen", 6.3, S7, "reaction"],
-  ["08 the smallest smile", 7.5, S8],
+  ["08 the smallest smile", 7.2, S8],
 ], END);
 
 write(import.meta.url, {
