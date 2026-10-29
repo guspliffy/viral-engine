@@ -254,6 +254,46 @@
      "loudnessLUFS": -16.0
     }
    ]
+  },
+  {
+   "id": "elegant-reveal",
+   "kind": "music",
+   "files": [
+    "elegant-reveal/elegant-reveal-02.ogg"
+   ],
+   "tags": [
+    "elegant"
+   ],
+   "mood": "elegant",
+   "bpm": 83.9,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 84,
+   "loopable": true,
+   "durationSec": 11.436,
+   "prompt": [
+    "elegant minimal product reveal music, soft felt piano and celesta, gentle warm strings pad, light and premium, calm, 84 BPM"
+   ],
+   "seed": [
+    132
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "elegant-reveal/elegant-reveal-02.ogg",
+     "seed": 132,
+     "durationSec": 11.436,
+     "bars": 4,
+     "bpm": 83.9,
+     "beatSpread": 0.011,
+     "steadyBeat": true,
+     "clap": 0.171,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "note": "made for Not Even Magic (29 Oct 2026); take 01 dropped (unsteady beat)"
   }
  ]
 }

@@ -1,0 +1,31 @@
+{
+ "_note": "AI sounds for Not Even Magic - DUO Unboxing (story library 11, 29 Oct 2026), kept in their own recipe file so parallel clips don't edit recipes.json. Same tools: generate.py -> pick.py (see README).",
+ "sfx": [
+  {
+   "id": "screen-crack",
+   "kind": "oneshot",
+   "len": [0.12, 0.5],
+   "duration": 8,
+   "tags": ["crack", "glass", "screen", "phone", "break"],
+   "prompts": [
+    "one tiny dry crack of a phone glass screen breaking, a single small sharp crackle, close up, quiet room, no music",
+    "a smartphone screen cracking once, a short dry glassy snap, very close microphone, no music"
+   ],
+   "seeds": [121, 122, 123],
+   "gain": 0.35,
+   "label": "a phone glass screen cracking once"
+  }
+ ],
+ "music": [
+  {
+   "id": "elegant-reveal",
+   "bpm": 84,
+   "bars": 4,
+   "prompts": [
+    "elegant minimal product reveal music, soft felt piano and celesta, gentle warm strings pad, light and premium, calm, 84 BPM"
+   ],
+   "seeds": [131, 132],
+   "mood": "elegant"
+  }
+ ]
+}
