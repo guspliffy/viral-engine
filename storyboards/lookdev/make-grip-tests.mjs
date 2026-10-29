@@ -23,7 +23,7 @@ const TESTS = [
 for (const [name, kind, spot, held, label, more = []] of TESTS) {
   const c = clip(), { A } = c;
   const spec = { id: "it", ...kind, ...grips.placeFor(kind.kind, spot, YAW) };
-  const h = grips[name](c, "wiz", spec, { side: "R" });
+  const h = grips[name](c, "wiz", spec, { side: "R", ...(name === "thin" && process.env.ROLL && { roll: +process.env.ROLL, readyRoll: +(process.env.READY ?? process.env.ROLL - 40) }) });
   A(0, "wiz", "noblink");
   A(0, "wiz", "look", { to: AT_PROP, dur: 0.01, blink: false });
   let t = h.take(0.3);                                      // 01 approach + 02 secure

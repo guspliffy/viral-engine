@@ -117,7 +117,7 @@
      "side": "R",
      "shape": "tip",
      "set": {
-      "roll": -20,
+      "roll": -30,
       "lean": 30,
       "thin": 0.006,
       "close": 0,
@@ -172,7 +172,7 @@
      "side": "R",
      "shape": "tip",
      "set": {
-      "roll": 20,
+      "roll": -30,
       "lean": 30,
       "thin": 0.006
      },
@@ -359,7 +359,7 @@
      "side": "R",
      "shape": "tip",
      "set": {
-      "roll": -20,
+      "roll": -30,
       "lean": 30,
       "thin": 0.006,
       "close": 0,
