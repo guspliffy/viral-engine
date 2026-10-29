@@ -8,14 +8,15 @@
 //   Wants:       the trio want a cool retro ghost photo before the timer runs out.
 //   Consequence: Phoenix's sheet rises off him on his unfolding wings and one sweep turns it into a floating ember ghost
 //                that keeps its shape and his sunglasses; the timer fires with it hovering above them.
-//   Ending:      the finished photograph fills the frame: three baffled potatoes and one sunglasses-wearing ember ghost.
+//   Ending:      the finished photograph fills the frame: three happy potatoes and one sunglasses-wearing ember ghost
+//                (Jonny 29 Oct: scared when the ghost appears, then they accept it and smile for the photo).
 //
 //   1 0.00-0.60  close: orange glow and a first curl of smoke at the middle sheet's shoulders, sunglasses above (sizzle)
 //   2 0.60-1.20  insert: the tripod camera's amber timer lamp blinks, the lens on the trio                    (beep)
 //   3 1.20-2.00  medium trio: Reaper's covered head turns to the glowing middle; the Wizard tries to hold the pose
 //   4 2.00-4.40  the sheet rises, Phoenix's face shows; side ghosts lift their hems to peek; his wings unfold after
 //   5 4.40-7.20  one controlled sweep turns the sheet into a translucent ember outline with the sunglasses; Phoenix
-//                solid and embarrassed below it                                                         (flame whoosh)
+//                solid and scared below it                                                              (flame whoosh)
 //   6 7.20-10.0  wide: the ember ghost floats above Phoenix; all three stare up, then glance at the camera as the timer
 //                speeds up (and huddle in for the picture)                                              (faster beeps)
 //   7 10.0-12.0  the camera flashes once; the accidental group pose holds                                (click-pff)
@@ -35,7 +36,7 @@ const c = clip();
 // THE 10 S CUT (Jonny 29 Oct 16:51: "a bit too long, about 10 sec"): the timeline below is written in the brief's
 // 14 s times and squeezed shot by shot into 10 s. W maps a brief time to the cut, D squeezes a duration that starts
 // there (never under 0.25 s for anything that was at least that long: faces ease over 0.25 s or more).
-const KEYS = [[0, 0], [0.6, 0.6], [1.2, 1.1], [2.0, 1.8], [4.4, 3.6], [7.2, 5.4], [10.0, 7.0], [12.0, 8.4], [14.0, 10.0]];
+const KEYS = [[0, 0], [0.6, 0.6], [1.2, 1.1], [2.0, 1.8], [4.4, 3.6], [7.2, 5.3], [10.0, 7.1], [12.0, 8.4], [14.0, 10.0]];
 const W = (t) => { for (let i = 1; i < KEYS.length; i++) { const [a, x] = KEYS[i - 1], [b, y] = KEYS[i]; if (t <= b || i === KEYS.length - 1) return r3(x + ((t - a) * (y - x)) / (b - a)); } };
 const D = (t, d) => (d ? r3(Math.max(W(t + d) - W(t), Math.min(d, 0.25))) : d);
 const A = (t, who, what, o = {}) => c.A(W(t), who, what, o.dur != null ? { ...o, dur: D(t, o.dur) } : o);
@@ -53,7 +54,7 @@ const TRI = { x: 0.75, z: 5.0, h: 0.85 };                      // the tripod cam
 const LENS = [TRI.x, TRI.h, TRI.z - 0.2];
 const FLASH = W(10.0), SNAP = r3(FLASH + 0.03);
 // the timer (in the cut's times): a steady blink at first, faster over the last 0.7 s
-const BLINKS = [...[...Array.from({ length: 16 }, (_, i) => 0.25 + i * 0.45), 0.93].map(W), 6.3, 6.52, 6.7, 6.82, 6.91].sort((a, b) => a - b);
+const BLINKS = [...[...Array.from({ length: 16 }, (_, i) => 0.25 + i * 0.45), 0.93].map(W), 6.4, 6.62, 6.8, 6.92, 7.01].sort((a, b) => a - b);
 
 const SHEET = { r: 0.5, hem: 0.66, dz: 0.92, eyeY: 0.8, lift: 0.88 };
 const cast = [
@@ -134,48 +135,49 @@ prop(4.6, "s-phx", { glow: 0, puff: 0.6 }, 0.6);
 sfx(4.6, "ai/flare", { gain: 0.8, reason: "fwoomp: the sweep of flame catching the sheet" });
 sfx(4.9, "sizzle", { gain: 0.35, dur: 1.0, reason: "the sweep crackling through the cloth" });
 prop(5.5, "s-phx", { wobble: 1, rise: 1.56 }, 1.2, "inOut");
-A(4.7, "phx", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.15 }, dur: 0.2 });
-A(5.9, "phx", "expr", { expr: "kind", set: { tilt: 0.36, curve: 0.42, open: 0.1, eye: 1.0, smirk: 0.35 }, dur: 0.35 });   // embarrassed
-A(5.95, "phx", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });          // a glance at Reaper ...
-A(6.55, "phx", "look", { to: AT_CAM, dur: 0.25, blink: false });              // ... then a sheepish look at us
-A(6.7, "phx", "wings", { to: 0, dur: 0.8, ease: "inOut" });                     // wings tucked in, embarrassed
+// a real ghost: all three scared (Jonny 29 Oct: "scared and shocked when the ghost appears")
+mood(4.7, "phx", "shocked", { hold: 1.4 });
+mood(4.75, "rea", "shocked", { hold: 1.4, squash: 0.04 });
+mood(4.8, "wiz", "shocked", { hold: 1.4, squash: 0.04 });
+A(5.95, "phx", "look", { to: [0.1, 0.98], dur: 0.25, blink: false });           // he stares up at what his sheet became
+A(6.7, "phx", "wings", { to: 0, dur: 0.8, ease: "inOut" });                     // wings pulled in, scared
 A(6.9, "phx", "span", { to: 0.25, dur: 0.6 });
-A(6.6, "phx", "blink", { dur: 0.2 });
 
 // ---------------------------------------------------------------- 6 WIDE 7.2-10.0: the fourth member; the timer speeds up
 A(7.3, "phx", "look", { to: UP, dur: 0.3, blink: false });
 A(7.35, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
 A(7.4, "wiz", "look", { to: [-0.35, 0.95], dur: 0.3, blink: false });
 A(7.3, "rea", "still", { dur: 1.4, idle: 0.06 }); A(7.3, "wiz", "still", { dur: 1.4, idle: 0.06 });
-for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.2 ? 0.42 : 0.25, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
+for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.3 ? 0.42 : 0.25, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
+// ... then they look at each other, accept their fourth member and smile
+A(7.95, "phx", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });
+A(8.0, "rea", "look", { to: [0.6, 0.05], dur: 0.25, blink: false });
+A(8.0, "wiz", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });
+for (const [w, dt, e] of [["phx", 0.15, "happy"], ["rea", 0.25, "happy"], ["wiz", 0.2, "delighted"]]) {
+  A(8.0 + dt, w, "face", { brow: 0, lid: 0, dur: 0.3 });
+  A(8.0 + dt, w, "expr", { expr: e, dur: 0.3 });
+}
 // they notice the timer: eyes to the camera, then a hurried shuffle in and a frozen pose
 A(8.75, "phx", "look", { to: AT_CAM, dur: 0.18, blink: false });
 A(8.8, "rea", "look", { to: AT_CAM, dur: 0.18, blink: false });
 A(8.85, "wiz", "look", { to: AT_CAM, dur: 0.18, blink: false });
-mood(8.85, "wiz", "shocked", { strength: 0.8, hold: 0.5 });
 A(9.1, "rea", "turn", { to: 0, dur: 0.25 }); prop(9.1, "s-rea", { rot: 0 }, 0.25);   // (he turned back to the camera at the peek too)
 A(9.15, "rea", "move", { to: REA1, dur: 0.5, steps: 2.4 }); prop(9.15, "s-rea", { x: REA1[0], z: REA1[1] }, 0.5);
 A(9.2, "wiz", "move", { to: WIZ1, dur: 0.5, steps: 2.4 }); prop(9.2, "s-wiz", { x: WIZ1[0], z: WIZ1[1] }, 0.5);
-// the pose the photo keeps: everyone baffled, Phoenix still embarrassed
-A(9.45, "phx", "expr", { expr: "kind", set: { tilt: 0.4, curve: 0.15, open: 0.3, eye: 1.08, smirk: 0.25 }, dur: 0.25 });   // a sheepish grimace
-A(9.45, "phx", "face", { brow: 0.35, dur: 0.25 });
-A(9.5, "rea", "expr", { expr: "deadpan", set: { eye: 0.78, curve: -0.12, smirk: 0.2 }, dur: 0.25 });
-A(9.5, "rea", "face", { browL: 0.5, dur: 0.25 });
-A(9.5, "wiz", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.12, curve: 0.05 }, dur: 0.25 });
+// the pose the photo keeps: big happy faces for the picture, the ghost included
+A(9.45, "phx", "expr", { expr: "delighted", dur: 0.25 });
+A(9.5, "rea", "expr", { expr: "happy", set: { curve: 0.75 }, dur: 0.25 });
+A(9.5, "wiz", "expr", { expr: "delighted", dur: 0.25 });
 for (const w of ["rea", "phx", "wiz"]) A(9.75, w, "still", { dur: 1.7, idle: 0.02 });
 
 // ---------------------------------------------------------------- 7 FLASH 10.0-12.0: one flash, the pose holds
 c.at(FLASH, { fx: "flash", dur: 0.5, peak: 0.85 });    // 0.85: the most the checks allow (a pure white frame reads as a glitch); 0.5 s so the fade has no strobing steps
 c.sfx(FLASH, "flash", { gain: 0.8, reason: "the camera firing (the flash on screen)" });
-// the flash-blink, then the baffled looks
+// the flash-blink, then happy looks up at their new friend
 for (const [w, dt] of [["phx", 0.0], ["rea", 0.06], ["wiz", 0.03]]) A(10.4 + dt, w, "blink", { dur: 0.22 });
 A(10.7, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
-A(10.75, "wiz", "look", { to: [-0.6, 0.1], dur: 0.3, blink: false });
-A(10.8, "phx", "look", { to: [0.2, 0.9], dur: 0.3, blink: false });
-A(10.7, "rea", "face", { browL: 0.75, lid: 0.3, dur: 0.3 });                              // a real glare up at the ghost
-A(10.75, "wiz", "turn", { to: -20, dur: 0.3 }); prop(10.75, "s-wiz", { rot: -20 }, 0.3);  // his body says "you"
-A(10.8, "phx", "expr", { expr: "kind", set: { tilt: 0.4, curve: 0.15, open: 0.5, eye: 1.08, smirk: 0.25 }, dur: 0.3 });   // the grin becomes a wince
-A(10.8, "phx", "face", { brow: 0.45, dur: 0.3 });
+A(10.75, "wiz", "look", { to: [-0.35, 0.95], dur: 0.3, blink: false });
+act.grin(c, W(10.85), "phx");                                                   // a closed-eye grin: he likes his ghost
 
 // ---------------------------------------------------------------- 8 THE PHOTO 12.0-14.0
 c.at(W(12.0), { fx: "photo", style: "print", dur: D(12.0, 2.0), shot: SNAP, aspect: 1.05, w: 1000, pos: [540, 880], tilt: -2.5, dim: 0.62, push: 0.03,
