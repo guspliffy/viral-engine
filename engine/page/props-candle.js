@@ -11,7 +11,7 @@ import { clamp } from "./util.js";
 //   cupcake       a fluted golden liner, a red-velvet top, a pink swirl of frosting with sprinkles and a short blue
 //                 candle with a white stripe, origin = the liner's bottom centre. Its flame (a flat, camera-facing
 //                 teardrop, cel banded, drawn by a shader) is lit by `lit` 0..1 (it shrinks onto the wick as it goes
-//                 out), stretched into one tall narrow flare by `fire` 0..1, and leant by `bend` (-1 left .. 1 right on
+//                 out), stretched into one big flare by `fire` 0..1, and leant by `bend` (-1 left .. 1 right on
 //                 screen). `puff` 0..1 is the thin smoke wisp off a just-out wick, `rise` 0..1 how tall it curls.
 //                 CANDLE.wickTop is the flame's root.
 //   cakedome      a clear glass bell, open side down, origin = its rim's centre, with one round knob on top. Grip
@@ -21,6 +21,7 @@ import { clamp } from "./util.js";
 //                 that prop's frame; default the cupcake's wick). stage.js calls aim(mouth, target) every frame, so
 //                 the breath leaves the mouth wherever the head is. `on` 0..1 is its strength (width and
 //                 brightness), `len` 0..1 how far it has reached along the way (it grows out of the mouth).
+//                 `fire` 0..1 turns it into a jet of flame: wider toward its head, ragged edges, a hot yellow-white core.
 // The flame, wisp and breath are see-through (material opacity under 0.5), so the contact and caption checks leave
 // them out; the dome's walls are thin glass (left out the same way), its knob is solid glass and is checked.
 export const CANDLE = {
@@ -64,10 +65,10 @@ function flameMesh(parent, y) {
         // the tip sways (faster and wilder in a flare) and leans with the bend
         float wob = (sin(v * 5.0 - uTime * 11.0) * 0.09 + sin(v * 9.0 - uTime * 17.0 + 1.3) * 0.04) * v * (1.0 + 1.5 * uFire);
         x -= wob + uBend * v * v * 0.9;
-        float w = 1.22 * pow(max(v, 0.0), 0.4) * pow(max(1.0 - v, 0.0), 0.85 + 0.6 * uFire);
+        float w = 1.22 * pow(max(v, 0.0), 0.4 - 0.1 * uFire) * pow(max(1.0 - v, 0.0), 0.85 + 0.15 * uFire);
         float d = abs(x) / max(w, 1e-3);
         if (d > 1.0 || v > 0.995) discard;
-        float k = d * 0.85 + v * 0.45;   // bands climb toward the tip: the core is low and wide, the tip all orange
+        float k = d * 0.85 + v * 0.45 + uFire * 0.18;   // bands climb toward the tip: the core is low and wide, the tip all orange (a flare is hotter-coloured: less white)
         vec3 core = vec3(1.0, 0.97, 0.82), mid = vec3(1.0, 0.78, 0.25), outer = vec3(1.0, 0.47, 0.12);
         vec3 col = mix(core, mid, bandStep(0.42, k));
         col = mix(col, outer, bandStep(0.78, k));
@@ -173,15 +174,16 @@ export const CANDLE_KINDS = {
         const l = clamp(ps.lit), f = clamp(ps.fire), fl = 1 + 0.06 * Math.sin(t * 13.1) + 0.04 * Math.sin(t * 21.7 + 1);
         const u = flame.material.uniforms;
         u.uTime.value = t; u.uFire.value = f; u.uBend.value = ps.bend ?? 0;
-        // out: it shrinks down onto the wick and thins; flare: one tall narrow tongue (about 6x as tall)
-        u.uH.value = 0.04 * Math.pow(l, 0.7) * (1 + 4.6 * f) * fl; u.uW.value = 0.0135 * Math.pow(l, 0.5) * (1 + 0.85 * f);
+        // out: it shrinks down onto the wick and thins; flare: one big tongue of fire (9x as tall, 6x as wide, Jonny 29 Oct:
+        // "the candle should immediately lit bigger when the fire hits it")
+        u.uH.value = 0.04 * Math.pow(l, 0.7) * (1 + 8 * f) * fl; u.uW.value = 0.0135 * Math.pow(l, 0.5) * (1 + 5 * f);
         u.uA.value = clamp(l * 1.6);
         flame.visible = l > 0.01;
-        const g = glow.material.uniforms; g.uR.value = 0.055 * (1 + 1.6 * f) * (0.6 + 0.4 * l); g.uA.value = 0.36 * l * (1 + 0.6 * f) * fl; g.uLift.value = 0.08 * f;
+        const g = glow.material.uniforms; g.uR.value = 0.055 * (1 + 2.6 * f) * (0.6 + 0.4 * l); g.uA.value = 0.36 * l * (1 + 0.8 * f) * fl; g.uLift.value = 0.16 * f;
         glow.visible = l > 0.01;
         const w = wisp.material.uniforms; w.uTime.value = t; w.uAmount.value = clamp(ps.puff); w.uLen.value = 0.012 + 0.11 * clamp(ps.rise);
         wisp.visible = ps.puff > 0.01;
-        light.intensity = 0.7 * l * (1 + 2.2 * f) * fl;
+        light.intensity = 0.7 * l * (1 + 3.5 * f) * fl;
       },
     };
   },
@@ -217,21 +219,23 @@ export const CANDLE_KINDS = {
     geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setAttribute("aNext", new THREE.BufferAttribute(nxt, 3));
     geo.setAttribute("aSide", new THREE.BufferAttribute(side, 1)); geo.setAttribute("aU", new THREE.BufferAttribute(uu, 1)); geo.setIndex(idx);
     const m = new THREE.ShaderMaterial({
-      uniforms: { uTime: { value: 0 }, uOn: { value: 0 }, uLen: { value: 0 }, uW: { value: S.width ?? 0.013 } },
-      vertexShader: `attribute vec3 aNext; attribute float aSide, aU; uniform float uW, uOn, uLen, uTime; varying vec2 vUv;
+      uniforms: { uTime: { value: 0 }, uOn: { value: 0 }, uLen: { value: 0 }, uW: { value: S.width ?? 0.013 }, uFire: { value: 0 } },
+      vertexShader: `attribute vec3 aNext; attribute float aSide, aU; uniform float uW, uOn, uLen, uTime, uFire; varying vec2 vUv;
         void main() {
           vUv = vec2(aU, aSide);
           vec4 c = modelViewMatrix * vec4(position, 1.0), n = modelViewMatrix * vec4(aNext, 1.0);
           vec2 d = normalize(n.xy - c.xy + vec2(1e-6, 0.0)), q = vec2(-d.y, d.x);
           // narrow at the lips, a soft swell, then a taper to the head; it wavers a little as it goes
-          float u = aU / max(uLen, 0.02), w = uW * (0.45 + 0.9 * sin(clamp(u, 0.0, 1.0) * 2.4) ) * (0.55 + 0.45 * uOn);
-          c.xy += q * (aSide * w + sin(aU * 14.0 - uTime * 22.0) * 0.0025 * aU);
+          // fire (a jet of flame, not a breath) is up to seven times as wide and widens toward its head
+          float u = aU / max(uLen, 0.02), w = uW * (0.45 + 0.9 * sin(clamp(u, 0.0, 1.0) * 2.4) ) * (0.55 + 0.45 * uOn) * (1.0 + uFire * (2.2 + 3.8 * clamp(u, 0.0, 1.0)));
+          c.xy += q * (aSide * w + sin(aU * 14.0 - uTime * 22.0) * (0.0025 + 0.006 * uFire) * aU);
           gl_Position = projectionMatrix * c;
         }`,
-      fragmentShader: `uniform float uTime, uOn, uLen; varying vec2 vUv;
+      fragmentShader: `uniform float uTime, uOn, uLen, uFire; varying vec2 vUv;
         float bandStep(float e, float x) { float w = fwidth(x) * 0.9 + 0.01; return smoothstep(e - w, e + w, x); }
         void main() {
           float u = vUv.x, s = abs(vUv.y);
+          s += uFire * (0.18 * sin(u * 31.0 - uTime * 41.0) + 0.1 * sin(u * 57.0 - uTime * 63.0 + 2.0)) * u;   // ragged flame edges
           if (u > uLen) discard;
           float head = 1.0 - smoothstep(uLen - 0.12, uLen, u);
           // puffs travelling along it: bright knots moving from the mouth to the head
@@ -239,6 +243,7 @@ export const CANDLE_KINDS = {
           float k = s * 0.9 + (1.0 - knots) * 0.35 + u * 0.25;
           vec3 col = mix(vec3(1.0, 0.8, 0.45), vec3(1.0, 0.62, 0.18), bandStep(0.38, k));   // warm all through: an orange breath, not white (review B)
           col = mix(col, vec3(1.0, 0.45, 0.14), bandStep(0.7, k));
+          col = mix(col, mix(vec3(1.0, 0.97, 0.8), vec3(1.0, 0.82, 0.3), bandStep(0.3, s)), uFire * (1.0 - bandStep(0.55, s)));   // a hot yellow-white core in a jet
           float a = (1.0 - smoothstep(0.75, 1.0, s)) * uOn * mix(0.75, 1.0, knots) * mix(1.0, head, 0.85) * smoothstep(0.0, 0.05, u);
           gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));
         }`,
@@ -250,7 +255,7 @@ export const CANDLE_KINDS = {
     let st = { on: 0, len: 0 };
     return {
       grip: 0,
-      apply(ps, t) { st = { on: clamp(ps.on), len: clamp(ps.len) }; m.uniforms.uTime.value = t; m.uniforms.uOn.value = st.on; m.uniforms.uLen.value = st.len; ribbon.visible = st.on > 0.01 && st.len > 0.01; },
+      apply(ps, t) { st = { on: clamp(ps.on), len: clamp(ps.len) }; m.uniforms.uTime.value = t; m.uniforms.uOn.value = st.on; m.uniforms.uLen.value = st.len; m.uniforms.uFire.value = clamp(ps.fire); ribbon.visible = st.on > 0.01 && st.len > 0.01; },
       // mouth and target in the world: the path, in this prop's frame, a gentle arc up from the lips to the target
       aim(mouth, target) {
         if (!ribbon.visible) return;

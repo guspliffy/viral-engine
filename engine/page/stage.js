@@ -57,7 +57,7 @@ function buildPoof(f, i) {
   });
   const sparkM = new THREE.MeshBasicMaterial({ color: f.spark || "#ffe27a" });
   const sparks = Array.from({ length: f.sparks ?? 22 }, () => {
-    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03, 0), sparkM); g.add(m);
+    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03 * (f.sparkSize ?? 1), 0), sparkM); g.add(m);
     const a = rnd() * Math.PI * 2;
     return { m, v: new THREE.Vector3(Math.cos(a) * (1.2 + rnd() * 2), 1.5 + rnd() * 2.5, Math.sin(a) * (0.6 + rnd())), spin: rnd() * 10 };
   });
@@ -75,9 +75,10 @@ function buildPoof(f, i) {
         p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
+      const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
       for (const s of sparks) {
         const q = Math.min(k, 0.9);
-        s.m.position.set(s.v.x * q * 0.7, 0.5 + s.v.y * q * 0.7 - 4.2 * q * q * 0.7, s.v.z * q * 0.7);
+        s.m.position.set(s.v.x * q * sp, 0.5 + s.v.y * q * sp - 4.2 * q * q * sp, s.v.z * q * sp);
         s.m.rotation.set(s.spin * k, s.spin * k * 0.7, 0);
         s.m.visible = k < 0.9;
         s.m.scale.setScalar(1.4 * (1 - k / 0.9) + 0.2);
