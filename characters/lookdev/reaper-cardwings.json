@@ -91,7 +91,13 @@
  "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  },
  "notes": "Reaper crisp with the homemade cardboard Phoenix wings and shoulder straps (costumes-card.js), for 'Your Costume Is Better Than Mine' (29 Oct 2026). Same body, face and hood as lookdev/reaper-crisp."
 }
