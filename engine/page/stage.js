@@ -474,6 +474,14 @@ function pose(t) {
   // a charger's cable runs to the prop its spec.to names (props3d.js charger, props-charger.js chargebank), wherever that
   // is now (link gets its position and its root, for the way it faces)
   for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3()), q.root); } }
+  // a breath runs from an actor's mouth (spec.mouth) to a point on a prop (spec.target, spec.at in its frame), wherever
+  // the head is now (props-candle.js breath)
+  for (const p of props) if (p.aim && p.spec.mouth) {
+    const a = actors.find((o) => o.c.id === p.spec.mouth), F = a && a.ch.face, q = props.find((o) => o.spec.id === p.spec.target);
+    if (!F || !F.place || !q) continue;
+    a.ch.root.updateMatrixWorld(true); q.root.updateMatrixWorld(true);
+    p.aim(F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()), q.root.localToWorld(new THREE.Vector3(...(p.spec.at || [0, 0, 0]))));
+  }
   const L = lightsAt(sb, t);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;

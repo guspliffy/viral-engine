@@ -20,7 +20,7 @@
 // wrist. Dragon's own RIGHT takes the biscuit, slides the bowl and reaches for the plug; his left rests on the table.
 // State: biscuit A bowl -> Dragon's right hand -> mouth (hidden inside); bowl centre -> sliding -> beside Dragon;
 // phone always in the Wizard's right; cable always plugged into the bank's left port; B and C never move in the bowl.
-import { clip, write, r3 } from "../lib/clip.mjs";
+import { clip, write, r3, frame } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
 import { CHARGER } from "../../engine/page/props-charger.js";
 
@@ -195,14 +195,6 @@ A(11.7, "dra", "face", { brow: 0.35, dur: 0.3 });
 A(12.1, "wiz", "face", { browL: -0.2, browR: -0.3, dur: 0.3 });                     // a touch lower on one side: "don't" (the brief: his firm stare holds to the end)
 
 // ---------------------------------------------------------------- shots (fixed by the brief; [name, start, camera, kind])
-// a camera on `target` from azimuth az (degrees round y, 0 = straight from the front, - = from the left) and
-// elevation el, far enough that the frame is h metres tall at the target with lens fov
-const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = {}) => {
-  const a = (az * Math.PI) / 180, e = (el * Math.PI) / 180, d = h / 2 / Math.tan((fov * Math.PI) / 360);
-  const dir = [Math.sin(a) * Math.cos(e), Math.sin(e), Math.cos(a) * Math.cos(e)];
-  const pos = target.map((v, i) => r3(v + dir[i] * d));
-  return { pos, look: target.map(r3), fov, ...(push && { to: { pos: target.map((v, i) => r3(v + dir[i] * d * (1 - push))) }, dur }) };
-};
 // 01 and 02 share one camera (02 just pushes in), 06 and 07 too: a cut between two near-identical wides reads as a
 // dropped frame (review B)
 const S1 = frame([0.03, 0.73, 0.33], { az: 5, el: 8, h: 2.15, fov: 24 });

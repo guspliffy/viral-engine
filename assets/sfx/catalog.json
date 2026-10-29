@@ -2819,6 +2819,54 @@
     "brass"
    ]
   },
+  "ai/flare": {
+   "family": "fire",
+   "says": "a small flame flaring up: a soft compact fwoomp with a hiss on top, loudest at once, gone by 0.5 s",
+   "source": "ai",
+   "files": [
+    "ai/flare/flare-01.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "flare",
+    "fire",
+    "flame",
+    "whoosh",
+    "fwoomp"
+   ]
+  },
+  "ai/snuff": {
+   "family": "fire",
+   "says": "a candle going out: a tiny bright tss (almost all above 4 kHz), gone by 0.37 s",
+   "source": "ai",
+   "files": [
+    "ai/snuff/snuff-03.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "snuff",
+    "extinguish",
+    "candle",
+    "hiss",
+    "out"
+   ]
+  },
+  "ai/ignite": {
+   "family": "fire",
+   "says": "a wick catching: a tiny low pop with a bright tick on top, 0.2 s",
+   "source": "ai",
+   "files": [
+    "ai/ignite/ignite-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "ignite",
+    "light",
+    "match",
+    "fwip",
+    "flame"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
