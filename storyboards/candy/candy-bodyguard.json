@@ -555,7 +555,7 @@
     },
     {
      "sfx": "gasp",
-     "gain": 0.55,
+     "gain": 0.8,
      "reason": "the Wizard's short intake of breath as he flinches",
      "at": 0.38
     },
@@ -1214,7 +1214,7 @@
     },
     {
      "sfx": "gasp",
-     "gain": 0.45,
+     "gain": 0.75,
      "reason": "Reaper's tiny breath catch as he recognises the spider",
      "at": 0.3
     },

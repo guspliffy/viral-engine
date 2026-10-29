@@ -148,7 +148,7 @@ A(0.36, "wiz", "hatwobble", { amount: 8, freq: 3, dur: 0.8 });
 A(0.34, "wiz", "look", { to: WIZ_AT_REA, dur: 0.08, blink: false });
 A(0.34, "wiz", "expr", { expr: "shocked", set: { open: 0.5, curve: -0.5, eye: 1.25 }, dur: 0.1 });
 A(0.36, "wiz", "face", { brow: 0.4, dur: 0.12 });
-sfx(0.38, "gasp", { gain: 0.55, reason: "the Wizard's short intake of breath as he flinches" });
+sfx(0.38, "gasp", { gain: 0.8, reason: "the Wizard's short intake of breath as he flinches" });
 // Reaper holds the scare a beat, then the claws come down
 A(0.3, "rea", "still", { dur: 0.45, idle: 0.05 });
 A(0.8, "rea", "pitch", { to: 0, dur: 0.3, ease: "inOut" });
@@ -204,7 +204,7 @@ A(3.8, "rea", "look", { to: [-0.6, -0.85], dur: 0.1, blink: false });           
 A(3.95, "rea", "face", { lid: 0, brow: 0.5, dur: 0.16 });                              // lids open wide, brows up
 A(3.95, "rea", "expr", { expr: "shocked", set: { eye: 1.3, open: 0.22, curve: -0.6, tilt: 0.5 }, dur: 0.2 });   // the smile drops
 A(4.02, "rea", "still", { dur: 0.45, idle: 0 });                                       // the frozen thought
-sfx(4.05, "gasp", { gain: 0.45, reason: "Reaper's tiny breath catch as he recognises the spider" });
+sfx(4.05, "gasp", { gain: 0.75, reason: "Reaper's tiny breath catch as he recognises the spider" });
 A(4.25, "rea", "look", { to: [0, 0], dur: 0.08, blink: false });                          // a look at us: did you see that?
 A(4.48, "rea", "pitch", { to: -10, dur: 0.18, ease: "out" });                          // a small recoil
 A(4.48, "rea", "squash", { amount: 0.05, dur: 0.2 });
