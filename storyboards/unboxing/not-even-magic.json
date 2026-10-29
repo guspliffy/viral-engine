@@ -637,17 +637,6 @@
     },
     {
      "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.05,
-      -0.8
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1
-    },
-    {
-     "who": "wiz",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -670,16 +659,9 @@
        ]
       }
      },
-     "dur": 0.22000000000000022,
+     "dur": 0.3800000000000002,
      "ease": "inOut",
-     "at": 1.06
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 6,
-     "dur": 0.3,
-     "at": 1.08
+     "at": 0.9
     },
     {
      "who": "wiz",
@@ -705,8 +687,26 @@
        ]
       }
      },
-     "dur": 0.2000000000000002,
+     "dur": 0.3600000000000002,
      "ease": "inOut",
+     "at": 0.92
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.8
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 6,
+     "dur": 0.3,
      "at": 1.08
     }
    ]
@@ -1061,7 +1061,20 @@
      0.5,
      0.55
     ],
-    "fov": 20
+    "fov": 20,
+    "to": {
+     "pos": [
+      -0.85,
+      1.47,
+      2.886
+     ],
+     "look": [
+      -0.2,
+      0.42,
+      0.62
+     ]
+    },
+    "dur": 2.3
    },
    "do": [
     {
@@ -1544,7 +1557,7 @@
      "who": "wiz",
      "do": "face",
      "brow": 0,
-     "lid": 0.21,
+     "lid": 0.135,
      "dur": 0.25,
      "at": 0.32
     },
@@ -1554,11 +1567,11 @@
      "expr": "focused",
      "dur": 0.25,
      "set": {
-      "tilt": -0.198,
-      "browY": -0.007,
-      "curve": 0.25,
+      "tilt": -0.063,
+      "browY": -0.005,
+      "curve": 0.375,
       "open": 0,
-      "eye": 0.86,
+      "eye": 0.91,
       "pupil": 1,
       "smirk": 0,
       "raise": 0
@@ -1694,6 +1707,13 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.6,
+     "at": 0.1
+    },
+    {
      "who": "dra",
      "do": "look",
      "to": [
@@ -1732,15 +1752,14 @@
      "at": 0.2
     },
     {
-     "fx": "sparkle",
+     "fx": "glint",
      "pos": [
       -0.18,
-      0.356,
+      0.358,
       0.68
      ],
-     "count": 4,
+     "size": 0.07,
      "dur": 0.4,
-     "color": "#ffd86b",
      "at": 0.2
     },
     {
@@ -1827,9 +1846,23 @@
      "at": 1.55
     },
     {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 2,
+     "dur": 0.4,
+     "at": 1.6
+    },
+    {
      "sfx": "latch-click",
      "gain": 2.6,
      "reason": "the hinge clicks back together",
+     "at": 1.75
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.2,
      "at": 1.75
     },
     {
@@ -2064,23 +2097,13 @@
     },
     {
      "who": "dra",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "curve": -0.08,
-      "open": 0
-     },
-     "dur": 0.3,
-     "at": 0.05
-    },
-    {
-     "who": "dra",
      "macro": "say",
      "caption": false,
      "line": "Even magic can't fix that.",
      "tone": "sad",
      "voice": "phoenix",
      "pos": 300,
+     "amp": 0.4,
      "at": 0.05
     },
     {
@@ -2105,6 +2128,17 @@
      "do": "still",
      "dur": 0.4,
      "idle": 0.06,
+     "at": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.15,
+      "open": 0
+     },
+     "dur": 0.3,
      "at": 0.12
     },
     {

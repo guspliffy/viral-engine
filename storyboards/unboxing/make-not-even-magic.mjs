@@ -149,8 +149,9 @@ A(1.7, "dra", "expr", { expr: "kind", set: { curve: 0.45 }, dur: 0.3 });
 const T3 = { reach: 2.36, lift: 2.6, up: 2.72, edges: 2.84, held: 3.18 };
 look(2.3, "wiz", [-0.05, -0.8], 0.15);
 A(2.38, "wiz", "turn", { to: 6, dur: 0.3 });
-c.arm(T3.reach, "wiz", "R", ON_BACK("top"), T3.lift - T3.reach - 0.02, "inOut");
-c.arm(T3.reach + 0.02, "wiz", "L", ON_BACK("bottom"), T3.lift - T3.reach - 0.04, "inOut");
+// the reach starts in the close-up, so the cut to the two-shot lands mid-move (Fable B: no streak across the cut)
+c.arm(T3.reach - 0.16, "wiz", "R", ON_BACK("top"), T3.lift - T3.reach + 0.14, "inOut");
+c.arm(T3.reach - 0.14, "wiz", "L", ON_BACK("bottom"), T3.lift - T3.reach + 0.12, "inOut");
 grip(T3.lift - 0.1, "wiz", "both", "flat", 0.08);
 c.at(T3.lift - 0.02, { do: "carry", prop: "ph" });
 sfx(T3.lift + 0.02, "grab", { gain: 0.85, reason: "both palms take the phone out of its tray" });
@@ -223,7 +224,9 @@ A(5.8, "wiz", "face", { brow: 0.35, lid: 0, dur: 0.25 });     // a quiet stunned
 A(5.8, "wiz", "expr", { expr: "shocked", set: { open: 0.16, curve: -0.2, eye: 1.2 }, dur: 0.25 });
 A(5.82, "wiz", "still", { dur: 0.3, idle: 0.03 });
 sfx(5.84, "gasp", { gain: 0.35, reason: "a short breath as he sees it" });
-act.mood(c, 6.12, "wiz", "focused", { strength: 0.7, hold: 0.3, squash: 0 });   // the thought changes: concentration
+act.mood(c, 6.12, "wiz", "focused", { strength: 0.45, hold: 0.3, squash: 0 });   // the thought changes: concentration, gentle (not a scowl, Fable B4)
+A(6.5, "wiz", "pitch", { to: 6, dur: 0.6 });                // he leans in over the spell
+A(8.0, "wiz", "pitch", { to: 2, dur: 0.4 });
 // the hands come back over the table, ready (still clear of the phone)
 
 // ---------------------------------------------------------------- 06 FALSE HOPE 6.40-8.70 (the spell)
@@ -239,8 +242,9 @@ sfx(SPELL, "charge", { gain: 0.08, reason: "the small spell rising (a restrained
 c.prop(SPELL, "ph", { gap: 0, slip: 0 }, JOINED - SPELL, "inOut");
 // small golden glints running along the hinge line as the halves close (the glow carries the rest)
 for (let i = 0; i < 6; i++) c.at(SPELL + 0.15 + i * 0.24, { fx: "glint", pos: add(HINGE, [0, 0.008, r3(((i * 7) % 6) / 5 * 0.16 - 0.08)]), size: 0.06, dur: 0.38 });
-c.at(SPELL, { fx: "sparkle", pos: add(HINGE, [0, 0.01, 0]), count: 4, dur: 0.4, color: "#ffd86b" });   // the spell starts at the gap
+c.at(SPELL, { fx: "glint", pos: add(HINGE, [0, 0.012, 0]), size: 0.07, dur: 0.4 });   // the spell starts at the gap (a sparkle burst strayed off the table)
 sfx(JOINED, "latch-click", { gain: 2.6, reason: "the hinge clicks back together" });
+A(JOINED, "wiz", "squash", { amount: -0.015, dur: 0.2 });   // a small breath of relief that sets up the hopeful smile
 c.at(JOINED, { fx: "glint", pos: add(HINGE, [0, 0.01, 0]), size: 0.09, dur: 0.35 });
 c.prop(JOINED + 0.02, "ph", { mend: 0 }, 0.3, "in");
 // the hands relax back to the table after the click; the hope arrives after the reconnection, readable by 8.70
@@ -265,9 +269,9 @@ A(9.0, "wiz", "still", { dur: 1.0, idle: 0.04 });
 look(10.0, "dra", D_AT_WIZ, 0.25);
 A(10.0, "dra", "turn", { to: -22, dur: 0.4 });
 act.mood(c, 10.02, "dra", "sad", { strength: 0.55, hold: 0.4, squash: 0 });
-A(10.05, "dra", "expr", { expr: "sad", set: { curve: -0.08, open: 0 }, dur: 0.3 });   // compassion: no upturn, so the line never reads as a smirk (Fable A6)
+A(10.12, "dra", "expr", { expr: "sad", set: { curve: -0.15, open: 0 }, dur: 0.3 });   // compassion, no upturn, so the line never reads as a smirk (Fable A6); after the mood preset at 10.07 so it wins
 c.cap(10.05, 12.1, "Even magic can't fix that.", 300, false, { x: 512 });   // over the Dragon's side, clear of the Wizard's hat
-c.macro(10.05, "dra", "say", { caption: false, line: "Even magic can't fix that.", tone: "sad", voice: "phoenix", pos: 300 });
+c.macro(10.05, "dra", "say", { caption: false, line: "Even magic can't fix that.", tone: "sad", voice: "phoenix", pos: 300, amp: 0.4 });   // a small mouth: said gently
 act.mood(c, 10.2, "wiz", "sad", { strength: 0.8, hold: 1.6, squash: 0 });
 look(10.25, "wiz", W_DOWN, 0.35);                        // the gaze lowers
 A(10.4, "wiz", "still", { dur: 1.7, idle: 0.03, sink: 0.01 });
@@ -338,7 +342,7 @@ A(13.0, "dra", "expr", { expr: "sad", set: { curve: 0.1 }, dur: 0.4 });
 const S01 = aim([-0.62, 0.58, 0.5], { az: -12, el: 18, h: 1.75, fov: 26, push: 0.05, dur: 1.3 });
 const S02 = aim([-0.5, 0.95, 0.3], { az: -6, el: 6, h: 1.6, fov: 22, push: 0.04, dur: 1.1 });
 const S03 = aim([-0.06, 0.7, 0.3], { az: 4, el: 10, h: 2.6, fov: 24 });
-const S04 = aim([-0.28, 0.5, 0.55], { az: -16, el: 24, h: 1.3, fov: 20 });   // hands, phone and tabletop (Fable A1)
+const S04 = aim([-0.28, 0.5, 0.55], { az: -16, el: 24, h: 1.3, fov: 20, push: 0.3, to: [-0.2, 0.42, 0.62], dur: 2.3 });   // a slow push that ends on the resting phone (Fable B2)   // hands, phone and tabletop (Fable A1)
 const S05 = aim([-0.46, 0.9, 0.3], { az: -8, el: 4, h: 0.98, fov: 20, push: 0.03, dur: 0.6 });
 const S06 = aim([-0.26, 0.55, 0.45], { az: 10, el: 20, h: 1.6, fov: 22, push: 0.04, dur: 2.3 });
 const S07 = aim([FLAT[0] - 0.03, TH + 0.01, FLAT[2] - FOLD.H / 2], { az: -6, el: 62, h: 0.84, fov: 20, push: 0.04, dur: 1.3 });
