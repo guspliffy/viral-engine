@@ -1,0 +1,54 @@
+{
+ "source": {
+  "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+  "url": "https://huggingface.co/stabilityai/stable-audio-3-small-music",
+  "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+  "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)",
+  "note": "Just Hand Me the Package's own bed (engine/soundgen/recipes-package.json), kept out of assets/music/ai/manifest.json so parallel clips don't edit it; storyboards use it as music.file"
+ },
+ "sounds": [
+  {
+   "id": "fanfare",
+   "kind": "music",
+   "files": [
+    "fanfare-03.ogg"
+   ],
+   "tags": [
+    "theatrical"
+   ],
+   "mood": "theatrical",
+   "bpm": 104.2,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 104,
+   "loopable": false,
+   "durationSec": 9.213,
+   "prompt": [
+    "grand theatrical orchestral fanfare, pompous brass and timpani, harp glissando, ceremonial royal reveal, comedic and proud, 104 BPM",
+    "playful pompous circus ringmaster fanfare, trumpets, snare roll, cymbal, orchestra, ta-da showman music, 104 BPM"
+   ],
+   "seed": [
+    341,
+    342,
+    341,
+    342
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "fanfare-03.ogg",
+     "seed": 341,
+     "durationSec": 9.253,
+     "bars": 4,
+     "bpm": 103.7,
+     "beatSpread": 0.015,
+     "steadyBeat": true,
+     "clap": 0.281,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  }
+ ]
+}

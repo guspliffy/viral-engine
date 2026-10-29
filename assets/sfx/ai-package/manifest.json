@@ -1,0 +1,218 @@
+{
+ "source": {
+  "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+  "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
+  "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+  "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)",
+  "note": "Just Hand Me the Package's sounds (engine/soundgen/recipes-package.json); own folder so parallel clips don't edit assets/sfx/ai/manifest.json. Ids: ai-package/<id>. box-lift was dropped (no take scored above 0 on CLAP); the lift uses cardboard-rustle."
+ },
+ "sounds": [
+  {
+   "id": "cardboard-rustle",
+   "kind": "sfx",
+   "files": [
+    "cardboard-rustle/cardboard-rustle-01.wav",
+    "cardboard-rustle/cardboard-rustle-02.wav",
+    "cardboard-rustle/cardboard-rustle-03.wav",
+    "cardboard-rustle/cardboard-rustle-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "cardboard",
+    "box",
+    "rustle",
+    "grab"
+   ],
+   "durationSec": 0.9,
+   "prompt": [
+    "a cardboard box snatched and pulled back quickly, dry cardboard rustle and scrape, close up, dry, sound effect",
+    "handling a small cardboard parcel, quick cardboard crinkle and rub, close up, quiet room"
+   ],
+   "seed": [
+    302,
+    302,
+    301,
+    301
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "cardboard-rustle/cardboard-rustle-01.wav",
+     "take": "p1-s302",
+     "prompt": "handling a small cardboard parcel, quick cardboard crinkle and rub, close up, quiet room",
+     "seed": 302,
+     "startSec": 3.356,
+     "durationSec": 0.9,
+     "clap": 0.058,
+     "snrDb": 54.0,
+     "loudnessLUFS": -22.4
+    },
+    {
+     "file": "cardboard-rustle/cardboard-rustle-02.wav",
+     "take": "p0-s302",
+     "prompt": "a cardboard box snatched and pulled back quickly, dry cardboard rustle and scrape, close up, dry, sound effect",
+     "seed": 302,
+     "startSec": 5.651,
+     "durationSec": 0.9,
+     "clap": 0.048,
+     "snrDb": 60.4,
+     "loudnessLUFS": -26.1
+    },
+    {
+     "file": "cardboard-rustle/cardboard-rustle-03.wav",
+     "take": "p0-s301",
+     "prompt": "a cardboard box snatched and pulled back quickly, dry cardboard rustle and scrape, close up, dry, sound effect",
+     "seed": 301,
+     "startSec": 0.453,
+     "durationSec": 0.9,
+     "clap": 0.04,
+     "snrDb": 72.4,
+     "loudnessLUFS": -28.7
+    },
+    {
+     "file": "cardboard-rustle/cardboard-rustle-04.wav",
+     "take": "p0-s301",
+     "prompt": "a cardboard box snatched and pulled back quickly, dry cardboard rustle and scrape, close up, dry, sound effect",
+     "seed": 301,
+     "startSec": 5.274,
+     "durationSec": 0.9,
+     "clap": 0.033,
+     "snrDb": 68.5,
+     "loudnessLUFS": -21.9
+    }
+   ]
+  },
+  {
+   "id": "box-set-down",
+   "kind": "sfx",
+   "files": [
+    "box-set-down/box-set-down-01.wav",
+    "box-set-down/box-set-down-02.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "cardboard",
+    "box",
+    "put-down",
+    "thud"
+   ],
+   "durationSec": 0.164,
+   "prompt": [
+    "a small cardboard box set down gently on a coir doormat, soft hollow cardboard thud, close up, dry",
+    "placing a light cardboard parcel on the floor, single soft cardboard tap and thud, close up"
+   ],
+   "seed": [
+    311,
+    311
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "box-set-down/box-set-down-01.wav",
+     "take": "p0-s311",
+     "prompt": "a small cardboard box set down gently on a coir doormat, soft hollow cardboard thud, close up, dry",
+     "seed": 311,
+     "startSec": 2.014,
+     "durationSec": 0.151,
+     "clap": 0.02,
+     "snrDb": 79.2,
+     "loudnessLUFS": -22.7
+    },
+    {
+     "file": "box-set-down/box-set-down-02.wav",
+     "take": "p1-s311",
+     "prompt": "placing a light cardboard parcel on the floor, single soft cardboard tap and thud, close up",
+     "seed": 311,
+     "startSec": 6.571,
+     "durationSec": 0.238,
+     "clap": 0.004,
+     "snrDb": 80.1,
+     "loudnessLUFS": -20.7
+    }
+   ]
+  },
+  {
+   "id": "flat-exhale",
+   "kind": "sfx",
+   "files": [
+    "flat-exhale/flat-exhale-01.wav",
+    "flat-exhale/flat-exhale-02.wav",
+    "flat-exhale/flat-exhale-03.wav",
+    "flat-exhale/flat-exhale-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "breath",
+    "exhale",
+    "sigh"
+   ],
+   "durationSec": 1.1,
+   "prompt": [
+    "a short flat unimpressed exhale through the nose, one breath, close up, dry, no voice",
+    "a single tired impatient sigh, breath only, soft, close microphone, no speech"
+   ],
+   "seed": [
+    321,
+    322,
+    322,
+    321
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -13.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "flat-exhale/flat-exhale-01.wav",
+     "take": "p1-s321",
+     "prompt": "a single tired impatient sigh, breath only, soft, close microphone, no speech",
+     "seed": 321,
+     "startSec": 3.435,
+     "durationSec": 1.1,
+     "clap": 0.326,
+     "snrDb": 48.4,
+     "loudnessLUFS": -11.5
+    },
+    {
+     "file": "flat-exhale/flat-exhale-02.wav",
+     "take": "p0-s322",
+     "prompt": "a short flat unimpressed exhale through the nose, one breath, close up, dry, no voice",
+     "seed": 322,
+     "startSec": 0.39,
+     "durationSec": 1.1,
+     "clap": 0.256,
+     "snrDb": 49.0,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "flat-exhale/flat-exhale-03.wav",
+     "take": "p1-s322",
+     "prompt": "a single tired impatient sigh, breath only, soft, close microphone, no speech",
+     "seed": 322,
+     "startSec": 2.099,
+     "durationSec": 1.05,
+     "clap": 0.246,
+     "snrDb": 47.8,
+     "loudnessLUFS": -11.8
+    },
+    {
+     "file": "flat-exhale/flat-exhale-04.wav",
+     "take": "p0-s321",
+     "prompt": "a short flat unimpressed exhale through the nose, one breath, close up, dry, no voice",
+     "seed": 321,
+     "startSec": 4.695,
+     "durationSec": 1.1,
+     "clap": 0.237,
+     "snrDb": 47.5,
+     "loudnessLUFS": -18.1
+    }
+   ]
+  }
+ ]
+}
