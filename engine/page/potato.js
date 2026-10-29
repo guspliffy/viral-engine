@@ -338,6 +338,9 @@ export class Character {
     return joint ? new THREE.CatmullRomCurve3([a, a.clone().lerp(c, 0.5), c.clone().lerp(a, 0.2), c.clone().lerp(b, 0.2), c.clone().lerp(b, 0.6), b], false, "centripetal")
       : new THREE.QuadraticBezierCurve3(a, c, b);
   }
+  // the arm tube's radius at t along it (0: the shoulder, 1: the wrist) for limb width w: rooted inside the body with a
+  // wider shoulder (no cut tube end shows), narrowing to a wrist before the mitten
+  static armRadius(t, w) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1); }
   // storyboard "debug": { "anchors": true }: shoulder (red), elbow (green) and hand (blue) of each arm, drawn on top
   _anchors(s, pts) {
     this._anc ??= {};
@@ -352,7 +355,7 @@ export class Character {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = Character.armCurve(a, c, b, joint);
     // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten
-    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1))
+    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w))
       : new THREE.TubeGeometry(curve, 14, w, 8, false);
     const m = new THREE.Mesh(geo, this.limbMat); m.castShadow = true; this.root.add(m);
     return m;
@@ -533,6 +536,44 @@ export class Character {
       }
     }
     for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
+    return out;
+  }
+  // the drawn arm s as balls along its centre line, in the world (stage.js inProps: an arm through a prop), from where
+  // it leaves the body (a fifth of the way along) to the wrist; the last 8 cm before the hand are the hand's own parts
+  armBalls(s) {
+    const A = this.arms[s];
+    if (!A.mesh || !A.mesh.visible || !A.elbow || !this.root.visible) return [];
+    this.root.updateMatrixWorld(true); A.hand.updateMatrixWorld(true);
+    const curve = Character.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), hand = A.hand.getWorldPosition(new THREE.Vector3());
+    const k = this.root.getWorldScale(new THREE.Vector3()).x, out = [];
+    for (let i = 5; i <= 24; i++) {
+      const c = curve.getPointAt(i / 24).applyMatrix4(this.root.matrixWorld);
+      if (c.distanceTo(hand) < 0.08 * k) continue;
+      out.push({ c, r: Character.armRadius(i / 24, this.limbW) * k });
+    }
+    return out;
+  }
+  // the visible costume meshes (hat, brim, beard, raven, hood, wings, the costume's own staff or blade) with a name for
+  // reports: everything drawn on the character except its body, face, specks, arms, hands, legs and feet; parts under
+  // 3 cm and see-through ones (glows, glass) left out
+  costumeMeshes() {
+    const skip = new Set([this.potatoParts, this.fries.group, ...["R", "L"].flatMap((s) => [this.arms[s].mesh, this.arms[s].hand, this.legs[s].mesh, this.legs[s].foot]), ...Object.values(this._anc || {}).flat()].filter(Boolean));
+    const C = this.costume, out = [], sc = new THREE.Vector3(), size = new THREE.Vector3();
+    const walk = (o, name) => {
+      if (skip.has(o) || !o.visible) return;
+      if (C.hat && o === C.hat) name = "hat"; else if (C.prop && o === C.prop) name = "prop"; else if (C.helmet && o === C.helmet.mesh) name = "helmet"; else if (o.name && !o.isMesh) name = o.name;
+      if (o.isMesh && o.geometry?.attributes?.position && !o.isSprite) {
+        const m = Array.isArray(o.material) ? o.material[0] : o.material;
+        if (!(m && m.transparent && m.opacity < 0.5 && !(C.helmet && o === C.helmet.mesh))) {
+          if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+          o.geometry.boundingBox.getSize(size).multiply(o.getWorldScale(sc));
+          if (Math.max(size.x, size.y, size.z) >= 0.03) out.push({ o, name: o.name || name });
+        }
+      }
+      for (const c of o.children) walk(c, name);
+    };
+    this.root.updateMatrixWorld(true);
+    for (const c of this.root.children) walk(c, "costume");
     return out;
   }
   // diagnostic: "diag: clearance t=.. arm=.. body=.." per frame. Storyboard "debug": { "clearance": true }.
