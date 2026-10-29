@@ -165,7 +165,9 @@ look(4.45, "rea", R_NOSE, 0.25);
 A(4.5, "rea", "face", { press: 0, dur: 0.2 });
 A(4.6, "rea", "expr", { expr: "kind", set: { open: 0.35, curve: -0.6, eye: 0.95 }, dur: 0.25 });   // the sneeze coming: not a smile
 A(4.6, "rea", "face", { brow: 0.4, lid: 0.4, dur: 0.25 });
-c.macro(4.62, "rea", "say", { line: "Ahh...", tone: "calm", pos: 300 });
+// its subtitle ends where "Ahh... CHOO!" starts (both at the top: two overlapping lines drew over each other)
+c.macro(4.62, "rea", "say", { line: "Ahh...", tone: "calm", caption: false });
+c.cap(4.62, 5.4, "Ahh...", 300);
 A(4.62, "rea", "pitch", { to: -6, dur: 0.6 });         // the head tips back as he breathes in
 A(4.62, "rea", "still", { dur: 0.75, idle: 0.04 });
 

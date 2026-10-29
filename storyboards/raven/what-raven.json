@@ -140,6 +140,13 @@
    "text": "Seen my raven?",
    "pos": 470,
    "pop": false
+  },
+  {
+   "from": 4.62,
+   "to": 5.4,
+   "text": "Ahh...",
+   "pos": 300,
+   "pop": false
   }
  ],
  "beats": [
@@ -1153,7 +1160,7 @@
      "macro": "say",
      "line": "Ahh...",
      "tone": "calm",
-     "pos": 300,
+     "caption": false,
      "at": 0.72
     },
     {
