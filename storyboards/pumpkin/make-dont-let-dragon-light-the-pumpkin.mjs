@@ -300,23 +300,23 @@ A(FLY, "dra", "fly", { to: { y: 0.55 }, dur: 0.4, ease: "inOut" });
 A(r3(FLY + 0.4), "dra", "hover", { dur: r3(END - FLY - 0.4) });
 // his wing beats placed by hand (the automatic ones jumped 20 dB out of the mix): a few strong ones to lift, then soft
 for (let t = FLY, k = 0; t < END - 0.1; t += k < 3 ? 0.13 : 0.22, k++) sfx(r3(t), "wing-flap", { gain: k < 3 ? 0.3 : 0.15, reason: "Dragon's wings beat as he lifts and hovers over the pumpkin" });
-A(r3(PUFF - 0.3), "dra", "pitch", { to: 16, dur: 0.25, ease: "inOut" }); A(r3(PUFF + 0.3), "dra", "pitch", { to: 0, dur: 0.25, ease: "inOut" });
+A(r3(PUFF - 0.3), "dra", "pitch", { to: 16, dur: 0.25, ease: "inOut" }); A(r3(PUFF + 0.45), "dra", "pitch", { to: 0, dur: 0.25, ease: "inOut" });
 A(r3(PUFF - 0.35), "dra", "expr", { expr: "focused", set: { pucker: 1, open: 0, eye: 0.7, curve: 0 }, dur: 0.25 });
 A(r3(PUFF - 0.35), "dra", "face", { lid: 0.25, brow: -0.15, dur: 0.25 });
 sfx(r3(PUFF - 0.3), "gasp", { gain: 0.2, reason: "a small careful breath in" });
 c.prop(PUFF, "breath", { on: 1, fire: 0.45, len: 1 }, 0.15, "out");
-c.prop(r3(PUFF + 0.3), "breath", { on: 0, len: 0, fire: 0 }, 0.15);
+c.prop(r3(PUFF + 0.45), "breath", { on: 0, len: 0, fire: 0 }, 0.15);
 sfx(PUFF, "blow", { gain: 0.25, dur: 0.3, reason: "the careful little puff (a thin lick of fire)" });
-c.prop(LIT, "lantern", { glow: 1, on: 0.65 }, 0.35, "out");
+c.prop(LIT, "lantern", { glow: 1, on: 1 }, 0.35, "out");
 sfx(r3(LIT - 0.01), "ai/ignite", { gain: 0.8, reason: "the pumpkin lights from inside the way it should: the same fwip as frame 0" });
-for (const w of ["phx", "rea"]) { A(r3(FLY + 0.1), w, "look", { to: [0, 0.1], dur: 0.15, blink: false }); A(r3(LIT - 0.05), w, "look", { to: [0, -0.45], dur: 0.12, blink: false }); }
+for (const w of ["phx", "rea"]) { A(r3(FLY + 0.1), w, "look", { to: [0, 0.1], dur: 0.15, blink: false }); A(r3(PUFF - 0.05), w, "look", { to: [0, -0.45], dur: 0.12, blink: false }); }
 // all three admire it: Dragon proud, Phoenix delighted, even Reaper's mouth gives a little
 const ADMIRE = r3(LIT + 0.3);
 A(ADMIRE, "dra", "expr", { expr: "kind", set: { curve: 0.6, open: 0.1, eye: 1.0, tilt: 0 }, dur: 0.3 }); A(ADMIRE, "dra", "face", { lid: 0, brow: 0.25, dur: 0.3 });
 A(r3(ADMIRE + 0.5), "dra", "look", { to: AT_CAM, dur: 0.2, blink: false });
 A(ADMIRE, "phx", "expr", { expr: "delighted", dur: 0.3 }); A(ADMIRE, "phx", "face", { lid: 0, brow: 0.3, dur: 0.3 });
 A(r3(ADMIRE + 0.15), "phx", "hop", { height: 0.1, dur: 0.3 });
-A(r3(ADMIRE + 0.35), "rea", "expr", { expr: "kind", set: { curve: 0.3, open: 0, eye: 0.9 }, dur: 0.35 }); A(r3(ADMIRE + 0.35), "rea", "face", { lid: 0.3, brow: 0.1, dur: 0.35 });
+A(r3(ADMIRE + 0.2), "rea", "expr", { expr: "kind", set: { curve: 0.45, open: 0, eye: 0.9 }, dur: 0.35 }); A(r3(ADMIRE + 0.2), "rea", "face", { lid: 0.45, brow: 0.1, dur: 0.35 });
 
 // ---------------------------------------------------------------- shots
 const ZP = (t) => P.at(t)[2];
@@ -330,9 +330,9 @@ const beats = c.beats([
   // low from the porch: the doorway blast and the charge tower over us; then up and back for the jump (no cut)
   ["6 the second blast", 3.6, { pos: [0, 0.45, 5.6], look: [0, 0.9, -0.8], fov: 46, to: { pos: [0, 1.3, 6.0], look: [0, 0.85, 0.0] }, dur: 2.0, ease: "inOut" }],
   ["7 the pumpkin comes off", r3(LIFT + 0.2), { pos: [0, 1.45, 3.0], look: [0, 1.0, 0.3], fov: 48 }, "reaction"],
-  ["8 they stare", r3(STARE - 0.1), { pos: [0, 1.65, 5.8], look: [0, 1.0, 0.6], fov: 46 }, "reaction"],
+  ["8 they stare", r3(STARE - 0.1), { pos: [0, 1.65, 5.8], look: [0, 1.0, 0.6], fov: 52 }, "reaction"],
   // high and wide over the deck: the lit pumpkin between all three faces (from lower, it hides Dragon's mouth and the puff)
-  ["9 he lights it right", LAND, { pos: [0.7, 4.5, 8.2], look: [0.1, 0.95, 1.7], fov: 50, to: { pos: [0.6, 4.1, 7.5], look: [0.1, 0.95, 1.7] }, dur: r3(END - LAND), ease: "inOut" }, "reaction"],
+  ["9 he lights it right", APEX, { pos: [0.7, 4.5, 8.2], look: [0.1, 0.95, 1.7], fov: 50, to: { pos: [0.6, 3.95, 7.15], look: [0.1, 0.9, 1.7] }, dur: r3(LIT + 0.2 - APEX), ease: "out" }, "reaction"],
 ], END);
 
 write(import.meta.url, {
