@@ -9,6 +9,7 @@
 // Text pops (fx "pop"): one comic word ("GULP", "BONK!") that slams in beside a character's head (or at "xy" in
 // output pixels), holds, and puffs out: { "fx": "pop", "text": "GULP", "who": "rea", "dur": 0.8, "color": "#ffd60a",
 // "angle": -8, "size": 120, "burst": "#ffffff", "dx": 0.55, "dy": -0.3 }. It is kept inside the safe zone.
+// "color": "speaker" uses the character's caption colour (an emotion word over a head, acting.mjs emote).
 import { clamp, ease } from "./util.js";
 import { isPunch, shown } from "../shared/captions.js";
 
@@ -151,7 +152,7 @@ export function drawPop(f, t, anchor) {
   for (const pass of ["shadow", "ink", "fill"]) letters.forEach((ch, i) => {
     const y = Math.sin(i * 1.7 + 0.6) * size * 0.05, off = pass === "shadow" ? size * 0.07 : 0;
     ctx.lineWidth = size * 0.17;
-    if (pass === "fill") { ctx.fillStyle = f.color || DEFAULT_ACCENT; ctx.fillText(ch, xs[i], y); }
+    if (pass === "fill") { ctx.fillStyle = f.color === "speaker" ? accentOf(f.who) : f.color || DEFAULT_ACCENT; ctx.fillText(ch, xs[i], y); }
     else { ctx.strokeStyle = INK; ctx.fillStyle = INK; ctx.strokeText(ch, xs[i] + off, y + off); if (off) ctx.fillText(ch, xs[i] + off, y + off); }
   });
   ctx.restore();

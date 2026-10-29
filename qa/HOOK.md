@@ -64,6 +64,8 @@ It writes to `out/hook/<episode>/`: `openings-3up.mp4` (the three side by side, 
 | sound-0 | a sound effect or a line by 0.25 s (music alone doesn't count) | sound says something is happening; Still Scrolling had none |
 | caption | first caption up by 0.3 s, 6 words or fewer, raises a question | read in one glance; "That friend who…" beats a description |
 | setup-by | the hook beat hands over by 2.5 s | the situation is clear and moving before the 2 s exit point |
+| two-shot-0 | every name in `hook.show` (default: whoever acts in the hook and payoff beats) has its eyes in frame at 0 s; a prop named there is in frame too | four cold reads in a row (Alien Makeup, Chef, Package, Charger) needed a second round because frame 0 lacked a face or the thing the joke is about |
+| hint-by | `hook.hint` (the second trouble first shows, with `what`) is 2.0 s or earlier | 33-52 % of viewers are gone by 0:02 while our twists land at 3.9-8.9 s: the twist can wait, the hint can't |
 
 Measured on 28 Oct: Still Scrolling misses motion-0 and sound-0 (it opens on a held pose in silence), Nothing Scares
 Reaper misses setup-by (its first beat runs 3.4 s), and the clip template misses motion-0, sound-0 and the caption length.
@@ -80,12 +82,19 @@ each only its `cold-read-<X>.png` path and this prompt. No storyboard, no brief,
 > 3. From which frame did you understand that? (or "not yet")
 > 4. What do you expect to happen next?
 > 5. Would you keep watching? 1 (swipe) to 5 (must see), and the reason in five words.
-> 6. One change to the first frame that would make it clearer.
+> 6. Does the caption or the picture already tell you how it ends? (yes / no)
+> 7. One change to the first frame that would make it clearer.
 > Don't guess the premise if you can't see it; "not clear" is a useful answer.
 
 Score each opening against the brief's *Joke* and *Wants* lines: **understood** (1 and 2 match the brief by 1.3 s),
 **late** (they match, but only by 2.8 s), or **missed**. Paste the answers into `hook-report.md`. An opening that's
 missed doesn't go to Jonny; replace it.
+
+**Pick by curiosity, not only clarity.** Understanding the situation isn't enough: Alien Makeup was understood at 0 s
+and still held only 45 % at 2 s, the lowest of seven posts, because its caption told the whole joke. Recommend the
+opening that is understood (or late) with the highest "keep watching" (question 5), and only if it is 4 or 5 and
+question 6 is "no". If none gets there, change the opening once (show the hint earlier, make the caption a question,
+pull back to a two-shot) and read it again; after that round, send the best one with its score.
 
 ## 5. Jonny picks
 

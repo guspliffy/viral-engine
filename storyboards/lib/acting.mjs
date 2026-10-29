@@ -10,6 +10,8 @@
 // Add a loop here when the same group of actions shows up in a second clip (the first clip keeps working: the
 // loop must give the same actions it used to write by hand).
 
+import { EXPRESSIONS } from "../../engine/page/face.js";
+
 // no automatic blinks; blinks only where they don't land on a key beat
 export function blinksAt(c, who, times, dur = 0.22) {
   c.A(0, who, "noblink");
@@ -84,4 +86,36 @@ export function backToStart(c, t, end, start, look = {}) {
     c.A(t, m.id, "face", { lid: 0, brow: 0, dur: Math.min(0.4, d) });
     if (look[m.id]) c.A(t + 0.1, m.id, "look", { to: look[m.id], dur: 0.3, blink: false });
   }
+}
+
+// Reactions play at full strength by default (Jonny, 29 Oct: the Wizard "should look a bit more angry and annoyed",
+// and he asked for an "annoyed" word over Reaper). At phone size a medium face reads as no reaction; pass a lower
+// `strength` only when the story wants a small one.
+
+// a mood lands: brows first, then the mouth, a small squash, and the body holds while it reads. mood: "angry",
+// "annoyed" or any expression in engine/page/face.js. `word` adds an emotion word over the head for the hold.
+export function mood(c, t, who, mood, { strength = 1, hold = 0.8, brow, lid, word, squash = 0.02 } = {}) {
+  const k = Math.max(0, Math.min(1, strength));
+  // Jonny's eyebrow sheet (29 Oct): focus and anger come from an inward brow angle (the preset's tilt) and a lid squint,
+  // never from pushing the brows down into the eyes. A brow tilt steeper than about -0.35 reads surprised on a face
+  // with browShape.clear (the whole brow lifts until its inner end clears the eye); a lid past ~0.4 on top of the
+  // presets' eye 0.74 eats the white. Faces without browShape.clear (all but lookdev/wizard-crisp so far) have no
+  // guard against a brow in the eye: keep `brow` at 0 there and check the close-up.
+  const BROW = { sad: 0.35, shocked: 0.45 }, LID = { angry: 0.38, annoyed: 0.38, stern: 0.3, focused: 0.3 };
+  c.A(t, who, "face", { brow: (brow ?? BROW[mood] ?? 0) * k, lid: (lid ?? LID[mood] ?? 0) * k, dur: 0.25 });
+  c.A(t + 0.05, who, "expr", { expr: mood, dur: 0.25, ...(k < 1 && { set: scaled(mood, k) }) });
+  if (squash) c.A(t + 0.05, who, "squash", { amount: squash * k, dur: 0.2 });
+  c.A(t + 0.1, who, "still", { dur: hold, idle: 0.06 });
+  if (word) emote(c, t + 0.1, who, word, { dur: Math.max(0.6, hold) });
+}
+// a weaker version of a preset: each number moved toward "kind" (the resting face) by 1 - k
+function scaled(mood, k) {
+  const m = EXPRESSIONS[mood], kind = EXPRESSIONS.kind; if (!m) return undefined;
+  return Object.fromEntries(Object.entries(m).map(([key, v]) => [key, Math.round((kind[key] + (v - kind[key]) * k) * 1000) / 1000]));
+}
+
+// an emotion word over a head ("annoyed", "?!", "..."): small, in the character's caption colour, held while the
+// reaction reads. One or two per clip, on a reaction a face alone might not carry at phone size.
+export function emote(c, t, who, word, { dur = 1.0, size = 88, dx = 0.35, dy = -0.95, angle = -4 } = {}) {
+  c.textPop(t, who, word, { dur, size, dx, dy, angle, color: "speaker" });
 }

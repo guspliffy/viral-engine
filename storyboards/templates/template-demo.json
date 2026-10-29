@@ -31,6 +31,15 @@
   "sfx": 0.6,
   "ambience": 0.34
  },
+ "hook": {
+  "show": [
+   "phx",
+   "wiz",
+   "phone"
+  ],
+  "hint": 0,
+  "what": "the Wizard stares at Phoenix, who only sees his phone"
+ },
  "cast": [
   {
    "id": "phx",

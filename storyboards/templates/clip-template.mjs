@@ -52,6 +52,8 @@ act.grin(c, 4.1, "phx");
 act.shock(c, 4.2, "wiz", { open: 0.18, eye: 1.2, curve: null, brow: 0.3, dur: 0.2, hold: 1.0 });
 
 // ---------------------------------------------------------------- 4 REACTION 5.6-7.2, then the loop tail to 8.0
+// reactions play at full strength: act.mood(c, t, who, "angry" | "annoyed", { word: "annoyed" }) lands a mood and
+// can put a small emotion word over the head (act.emote) when a face alone won't carry it at phone size
 act.defeated(c, 5.6, "wiz", { hold: 0.5, blink: false });
 act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_PHX });
 
@@ -78,6 +80,8 @@ write(import.meta.url, {
   music: false,
   direct: { master: MED },
   sound: { sfx: 0.6, ambience: 0.34 },
+  // frame 0 shows every face the joke needs and the thing it's about, and trouble shows by 2 s (qa/hook.mjs)
+  hook: { show: ["phx", "wiz", "phone"], hint: 0, what: "the Wizard stares at Phoenix, who only sees his phone" },
   cast, props, captions: c.captions, beats,
   // contact a beat needs goes here, always with a reason (a window without one is ignored by the checks)
   allowClip: [{ who: "phx", with: "stool", from: 0, to: END, reason: "Phoenix sits on the stool (his legs rest over its edge)" }],
