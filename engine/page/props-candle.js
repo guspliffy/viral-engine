@@ -237,7 +237,7 @@ export const CANDLE_KINDS = {
           // puffs travelling along it: bright knots moving from the mouth to the head
           float knots = 0.5 + 0.5 * sin(u * 26.0 - uTime * 30.0);
           float k = s * 0.9 + (1.0 - knots) * 0.35 + u * 0.25;
-          vec3 col = mix(vec3(1.0, 0.95, 0.75), vec3(1.0, 0.72, 0.22), bandStep(0.38, k));
+          vec3 col = mix(vec3(1.0, 0.8, 0.45), vec3(1.0, 0.62, 0.18), bandStep(0.38, k));   // warm all through: an orange breath, not white (review B)
           col = mix(col, vec3(1.0, 0.45, 0.14), bandStep(0.7, k));
           float a = (1.0 - smoothstep(0.75, 1.0, s)) * uOn * mix(0.75, 1.0, knots) * mix(1.0, head, 0.85) * smoothstep(0.0, 0.05, u);
           gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));

@@ -1,6 +1,7 @@
 {
  "id": "dragon-vs-the-candle",
  "title": "Dragon vs. the Candle",
+ "cover": 1.25,
  "idea": "Story library 14: Dragon's breath keeps strengthening a birthday flame; even his relieved sigh relights it",
  "fps": 30,
  "look": "anime-pro",
@@ -50,7 +51,7 @@
     "part": "main"
    },
    {
-    "at": 3.1,
+    "at": 2.8,
     "part": "stop"
    },
    {
@@ -251,7 +252,7 @@
      "side": "R",
      "pose": {
       "world": [
-       0.46,
+       0.5,
        0.305,
        0.44
       ]
@@ -303,7 +304,14 @@
     {
      "who": "dra",
      "do": "lean",
-     "to": -6,
+     "to": -10,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -3,
      "dur": 0.01,
      "at": 0
     },
@@ -334,7 +342,7 @@
      "id": "breath",
      "set": {
       "on": 1,
-      "len": 0.3
+      "len": 1
      },
      "dur": 0.01,
      "ease": "inOut",
@@ -346,16 +354,6 @@
      "gain": 0.35,
      "reason": "Dragon's soft blow toward the candle (0.0-0.85): fff",
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "breath",
-     "set": {
-      "len": 1
-     },
-     "dur": 0.38,
-     "ease": "out",
-     "at": 0.01
     },
     {
      "do": "prop",
@@ -578,23 +576,17 @@
    "do": [
     {
      "who": "dra",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.15
-    },
-    {
-     "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.3
-    },
-    {
-     "who": "dra",
      "do": "lean",
      "to": -7,
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.4
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.15
     },
     {
      "who": "dra",
@@ -607,7 +599,13 @@
       "eye": 0.85
      },
      "dur": 0.18,
-     "at": 0.5
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -618,14 +616,14 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 0.68
+     "at": 0.38
     },
     {
      "sfx": "blow",
      "dur": 0.55,
      "gain": 0.2,
-     "reason": "Dragon's second, gentler blow (2.9-3.4): a smaller fff",
-     "at": 0.68
+     "reason": "Dragon's second, gentler blow (2.6-3.1): a smaller fff",
+     "at": 0.38
     },
     {
      "do": "prop",
@@ -635,13 +633,13 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.85
+     "at": 0.55
     },
     {
      "sfx": "ai/flare",
      "gain": 0.6,
-     "reason": "the second, smaller flare (3.15-3.5): a smaller fwoomp",
-     "at": 0.87
+     "reason": "the second flare (2.85-3.2): fwoomp again, a little softer",
+     "at": 0.57
     },
     {
      "do": "prop",
@@ -652,7 +650,7 @@
      },
      "dur": 0.3,
      "ease": "settle",
-     "at": 0.95
+     "at": 0.65
     },
     {
      "who": "wiz",
@@ -663,7 +661,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 1.2
+     "at": 0.9
     },
     {
      "who": "wiz",
@@ -678,7 +676,7 @@
      },
      "dur": 0.22,
      "ease": "out",
-     "at": 1.2
+     "at": 0.9
     },
     {
      "who": "wiz",
@@ -686,7 +684,7 @@
      "side": "L",
      "shape": "point",
      "dur": 0.18,
-     "at": 1.2
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -697,7 +695,7 @@
      },
      "dur": 0.15,
      "ease": "inOut",
-     "at": 1.22
+     "at": 0.92
     },
     {
      "who": "wiz",
@@ -705,21 +703,21 @@
      "brow": 0,
      "lid": 0.3,
      "dur": 0.25,
-     "at": 1.25
+     "at": 0.95
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "stern",
      "dur": 0.25,
-     "at": 1.3
+     "at": 1
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 1.3
+     "at": 1
     },
     {
      "who": "dra",
@@ -730,14 +728,14 @@
      ],
      "dur": 0.18,
      "blink": false,
-     "at": 1.3
+     "at": 1
     },
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.45,
+     "dur": 0.75,
      "idle": 0.06,
-     "at": 1.35
+     "at": 1.05
     },
     {
      "who": "dra",
@@ -750,7 +748,7 @@
       "eye": 1.08
      },
      "dur": 0.2,
-     "at": 1.35
+     "at": 1.05
     },
     {
      "who": "dra",
@@ -758,14 +756,14 @@
      "brow": 0.3,
      "lid": 0,
      "dur": 0.2,
-     "at": 1.35
+     "at": 1.05
     },
     {
      "who": "dra",
      "do": "lean",
      "to": -2,
      "dur": 0.35,
-     "at": 1.35
+     "at": 1.05
     },
     {
      "do": "prop",
@@ -776,14 +774,14 @@
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.05
     },
     {
      "who": "dra",
      "do": "still",
-     "dur": 0.7,
+     "dur": 1,
      "idle": 0.08,
-     "at": 1.4
+     "at": 1.1
     },
     {
      "who": "wiz",
@@ -881,13 +879,13 @@
    "len": 4.4,
    "shot": {
     "pos": [
-     0.508,
-     3.006,
-     4.617
+     0.56,
+     2.922,
+     5.042
     ],
     "look": [
      0,
-     0.6,
+     0.68,
      0.48
     ],
     "fov": 28
@@ -1123,10 +1121,10 @@
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "smug",
+     "expr": "kind",
      "set": {
       "curve": 0.6,
-      "eye": 0.8
+      "eye": 0.85
      },
      "dur": 0.3,
      "at": 2.35
@@ -1135,7 +1133,7 @@
      "who": "wiz",
      "do": "face",
      "brow": 0.1,
-     "lid": 0.12,
+     "lid": 0.3,
      "dur": 0.3,
      "at": 2.35
     },
@@ -1201,11 +1199,11 @@
       "grip": "knob",
       "at": [
        0.17,
-       0.573,
+       0.518,
        0.66
       ]
      },
-     "dur": 0.5,
+     "dur": 0.35,
      "ease": "inOut",
      "at": 2.75
     },
@@ -1234,20 +1232,20 @@
       "grip": "knob",
       "at": [
        -0.04,
-       0.558,
+       0.518,
        0.7
       ]
      },
-     "dur": 0.3,
+     "dur": 0.35,
      "ease": "inOut",
-     "at": 3.25
+     "at": 3.1
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.5,
-     "at": 3.25
+     "at": 3.1
     },
     {
      "who": "wiz",
@@ -1258,7 +1256,7 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 3.25
+     "at": 3.1
     },
     {
      "who": "wiz",
@@ -1273,9 +1271,9 @@
        0.74
       ]
      },
-     "dur": 0.5,
+     "dur": 0.6,
      "ease": "inOut",
-     "at": 3.55
+     "at": 3.45
     },
     {
      "do": "prop",
@@ -1521,21 +1519,11 @@
    "do": [
     {
      "do": "prop",
-     "id": "breath",
-     "set": {
-      "on": 0,
-      "len": 1
-     },
-     "dur": 0.35,
-     "ease": "in",
-     "at": 0
-    },
-    {
-     "do": "prop",
      "id": "cupcake",
      "set": {
       "lit": 1,
-      "fire": 0.5
+      "fire": 0.85,
+      "bend": -0.3
      },
      "dur": 0.12,
      "ease": "out",
@@ -1555,12 +1543,24 @@
     },
     {
      "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 1
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
      "id": "cupcake",
      "set": {
-      "fire": 0
+      "fire": 0,
+      "bend": 0
      },
-     "dur": 0.38,
-     "ease": "inOut",
+     "dur": 0.35,
+     "ease": "settle",
      "at": 0.12
     },
     {
@@ -1646,7 +1646,7 @@
       -0.5,
       -0.3
      ],
-     "dur": 0.15,
+     "dur": 0.1,
      "blink": false,
      "at": 0.4
     },

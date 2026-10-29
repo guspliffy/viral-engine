@@ -37,6 +37,8 @@ const DOME0 = [-0.2, TABLE_H, 0.74];                               // left of th
 const FLAME_TIP = WICK[1] + 0.06;                                   // the flame's tip at rest (world)
 const LIFT = r3(FLAME_TIP + 0.025);                                 // the rim's height while the dome passes over the flame
 const ON_PLATE = [PLATE[0], PLATE_TOP, PLATE[2]], UP_PLATE = [PLATE[0], LIFT, PLATE[2]];
+// on the way back the flame is out, so the rim only has to clear the candle: a lower lift keeps the fist off Dragon's face
+const OFF_PLATE = [PLATE[0], r3(WICK[1] + 0.03), PLATE[2]];
 // the way over: up and toward the plate at once, so the dome rises beside the Wizard's face, never in front of it; the
 // rim is already above the frosting when it reaches the cupcake and above the flame's tip when it passes the wick
 const WAY = [r3(PLATE[0] - 0.21), r3(LIFT - 0.015), r3((PLATE[2] + DOME0[2]) / 2)];
@@ -65,12 +67,13 @@ A(0, "wiz", "arm", { side: "L", pose: PAW(-0.47, 0.44), dur: 0 });
 A(0, "wiz", "grip", { side: "L", shape: "paw", dur: 0 });
 A(0, "wiz", "look", { to: WIZ_AT_CAKE, dur: 0.01, blink: false });
 A(0, "wiz", "expr", { expr: "eager", set: { curve: 0.85, open: 0.12 }, dur: 0.01 });   // hopeful
-A(0, "dra", "arm", { side: "R", pose: PAW(0.46, 0.44), dur: 0 });
+A(0, "dra", "arm", { side: "R", pose: PAW(0.5, 0.44), dur: 0 });   // clear of the plate rim
 A(0, "dra", "grip", { side: "R", shape: "paw", dur: 0 });
 A(0, "dra", "arm", { side: "L", pose: PAW(0.78, 0.44), dur: 0 });
 A(0, "dra", "grip", { side: "L", shape: "paw", dur: 0 });
 A(0, "dra", "look", { to: DRA_AT_CAKE, dur: 0.01, blink: false });
-A(0, "dra", "lean", { to: -6, dur: 0.01 });
+A(0, "dra", "lean", { to: -10, dur: 0.01 });
+A(0, "dra", "pitch", { to: -3, dur: 0.01 });          // head toward the candle: he is blowing (review B)
 act.blinksAt(c, "wiz", [2.5, 5.3, 7.4]);
 act.blinksAt(c, "dra", [2.35, 4.25, 8.2]);
 
@@ -84,8 +87,7 @@ const stopBlow = (t, dur = 0.15) => c.prop(t, "breath", { on: 0, len: 0 }, dur);
 // ---------------------------------------------------------------- 01 THE ATTEMPT 0.00-0.70 + 02 WRONG RESULT 0.70-2.20
 // frame 0: already blowing, the breath a third of the way out
 A(0, "dra", "expr", { expr: "focused", set: { pucker: 1, open: 0.3, curve: 0 }, dur: 0.01 });
-c.prop(0, "breath", { on: 1, len: 0.3 }, 0.01);
-c.prop(0.01, "breath", { len: 1 }, 0.38, "out");                    // it reaches the wick by 0.4
+c.prop(0, "breath", { on: 1, len: 1 }, 0.01);                       // already all the way to the wick on frame 0 (review B)
 sfx(0, "blow", { dur: 0.85, gain: 0.35, reason: "Dragon's soft blow toward the candle (0.0-0.85): fff" });
 c.prop(0.2, "cupcake", { bend: -0.5 }, 0.3);                        // the flame bends away from his breath...
 c.prop(0.7, "cupcake", { fire: 1, bend: -0.15 }, 0.45, "settle");   // ...and stretches into one tall narrow flare (read by 1.2)
@@ -112,26 +114,26 @@ A(2.05, "dra", "lean", { to: -3, dur: 0.5 });
 A(2.1, "dra", "look", { to: DRA_AT_CAKE, dur: 0.2, blink: false });
 A(2.15, "dra", "expr", { expr: "focused", set: { curve: 0.05 }, dur: 0.3 });   // a pause: OK. carefully this time.
 A(2.15, "dra", "face", { brow: -0.1, lid: 0.15, dur: 0.3 });
-A(2.6, "dra", "lean", { to: -7, dur: 0.35, ease: "inOut" });
-A(2.7, "dra", "expr", { expr: "focused", set: { pucker: 1, open: 0.16, curve: 0, eye: 0.85 }, dur: 0.18 });   // lips pursed tight: exaggeratedly gentle
-c.prop(2.88, "breath", { on: 0.5, len: 1 }, 0.4, "out");             // a thinner, slower breath
-sfx(2.88, "blow", { dur: 0.55, gain: 0.2, reason: "Dragon's second, gentler blow (2.9-3.4): a smaller fff" });
-c.prop(3.05, "cupcake", { bend: -0.35 }, 0.2);
-c.prop(3.15, "cupcake", { fire: 1, bend: -0.1 }, 0.3, "settle");    // it flares again, as tall as the first (review A)
-sfx(3.07, "ai/flare", { gain: 0.6, reason: "the second, smaller flare (3.15-3.5): a smaller fwoomp" });
+A(2.3, "dra", "lean", { to: -7, dur: 0.35, ease: "inOut" });
+A(2.4, "dra", "expr", { expr: "focused", set: { pucker: 1, open: 0.16, curve: 0, eye: 0.85 }, dur: 0.18 });   // lips pursed tight: exaggeratedly gentle
+c.prop(2.58, "breath", { on: 0.5, len: 1 }, 0.4, "out");             // a thinner, slower breath
+sfx(2.58, "blow", { dur: 0.55, gain: 0.2, reason: "Dragon's second, gentler blow (2.6-3.1): a smaller fff" });
+c.prop(2.75, "cupcake", { bend: -0.35 }, 0.2);
+c.prop(2.85, "cupcake", { fire: 1, bend: -0.1 }, 0.3, "settle");    // it flares again, as tall as the first (review A)
+sfx(2.77, "ai/flare", { gain: 0.6, reason: "the second flare (2.85-3.2): fwoomp again, a little softer" });
 // the Wizard's free palm comes up: stop
 // (after the flare has had its moment: a reaction to it, not at the same instant, review A)
-A(3.4, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.15, blink: false });
-c.arm(3.4, "wiz", "L", { world: [-0.07, 0.6, 0.55] }, 0.22, "out");  // the hand up between the two faces: stop
-A(3.4, "wiz", "grip", { side: "L", shape: "point", dur: 0.18 });    // one finger up: "wait"
-act.mood(c, 3.45, "wiz", "stern", { hold: 0.45 });
-stopBlow(3.42, 0.15);
-A(3.55, "dra", "expr", { expr: "nervous", set: { pucker: 0, open: 0.05, curve: -0.05, eye: 1.08 }, dur: 0.2 });
-A(3.55, "dra", "face", { brow: 0.3, lid: 0, dur: 0.2 });
-A(3.55, "dra", "lean", { to: -2, dur: 0.35 });
-A(3.5, "dra", "look", { to: DRA_AT_WIZ, dur: 0.18, blink: false });  // he stops and looks at the Wizard
-A(3.6, "dra", "still", { dur: 0.7, idle: 0.08 });
-c.prop(3.55, "cupcake", { fire: 0, bend: 0 }, 0.45, "inOut");
+A(3.1, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.15, blink: false });
+c.arm(3.1, "wiz", "L", { world: [-0.07, 0.6, 0.55] }, 0.22, "out");  // the hand up between the two faces: stop
+A(3.1, "wiz", "grip", { side: "L", shape: "point", dur: 0.18 });    // one finger up: "wait"
+act.mood(c, 3.15, "wiz", "stern", { hold: 0.75 });
+stopBlow(3.12, 0.15);
+A(3.25, "dra", "expr", { expr: "nervous", set: { pucker: 0, open: 0.05, curve: -0.05, eye: 1.08 }, dur: 0.2 });
+A(3.25, "dra", "face", { brow: 0.3, lid: 0, dur: 0.2 });
+A(3.25, "dra", "lean", { to: -2, dur: 0.35 });
+A(3.2, "dra", "look", { to: DRA_AT_WIZ, dur: 0.18, blink: false });  // he stops and looks at the Wizard
+A(3.3, "dra", "still", { dur: 1.0, idle: 0.08 });
+c.prop(3.25, "cupcake", { fire: 0, bend: 0 }, 0.45, "inOut");
 // ...then the Wizard's eyes go to the dome, and the same hand goes for its knob
 const KNOB_ABOVE = { prop: "dome", grip: [0.05, CANDLE.knobY + 0.03, 0.01] };   // above and to the right of the knob, below his eyes
 act.eyesLead(c, 3.95, "wiz", WIZ_AT_DOME);
@@ -165,8 +167,8 @@ c.prop(6.0, "cupcake", { lit: 0 }, 0.6, "in");
 sfx(6.2, "ai/snuff", { gain: 0.95, reason: "the flame goes out under the dome: a soft tss that swells to its peak as the flame dies (6.6)" });
 c.prop(6.48, "cupcake", { puff: 0.85, rise: 0.22 }, 0.3);
 A(6.7, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.18, blink: false });  // "see?" (review A)
-A(6.75, "wiz", "expr", { expr: "smug", set: { curve: 0.6, eye: 0.8 }, dur: 0.3 });   // job done
-A(6.75, "wiz", "face", { brow: 0.1, lid: 0.12, dur: 0.3 });
+A(6.75, "wiz", "expr", { expr: "kind", set: { curve: 0.6, eye: 0.85 }, dur: 0.3 });   // job done: pleased, eyes open (review B)
+A(6.75, "wiz", "face", { brow: 0.1, lid: 0.3, dur: 0.3 });
 // Dragon watches the wick go out, then his shoulders let go
 A(6.8, "dra", "expr", { expr: "happy", set: { curve: 0.55, open: 0.12, eye: 1.0 }, dur: 0.3 });
 A(6.8, "dra", "face", { brow: 0.1, lid: 0.08, dur: 0.3 });
@@ -175,13 +177,13 @@ A(6.85, "dra", "squash", { amount: 0.04, dur: 0.5 });              // his should
 A(6.85, "dra", "still", { dur: 1.6, idle: 0.12, sink: 0.012 });
 // the dome lifts clear, goes back to its own place and down
 act.eyesLead(c, 7.15, "wiz", [0.42, -0.3]);
-c.arm(7.15, "wiz", "L", { prop: "dome", grip: "knob", at: UP_PLATE }, 0.5, "inOut");     // clear by 7.65
+c.arm(7.15, "wiz", "L", { prop: "dome", grip: "knob", at: OFF_PLATE }, 0.35, "inOut");   // clear of the candle by 7.5
 c.prop(7.5, "cupcake", { rise: 1 }, 0.9, "out");                    // free of the glass, the wisp rises and thins away
 c.prop(8.0, "cupcake", { puff: 0 }, 0.8, "in");
-c.arm(7.65, "wiz", "L", { prop: "dome", grip: "knob", at: WAY }, 0.3, "inOut");
-A(7.65, "wiz", "lean", { to: 0, dur: 0.5 });
-A(7.65, "wiz", "look", { to: WIZ_AT_DOME, dur: 0.25, blink: false });
-c.arm(7.95, "wiz", "L", { prop: "dome", grip: "knob", at: DOME0 }, 0.5, "inOut");       // down on the table at 8.45
+c.arm(7.5, "wiz", "L", { prop: "dome", grip: "knob", at: [WAY[0], OFF_PLATE[1], WAY[2]] }, 0.35, "inOut");   // away from Dragon at once (review B)
+A(7.5, "wiz", "lean", { to: 0, dur: 0.5 });
+A(7.5, "wiz", "look", { to: WIZ_AT_DOME, dur: 0.25, blink: false });
+c.arm(7.85, "wiz", "L", { prop: "dome", grip: "knob", at: DOME0 }, 0.6, "inOut");       // down on the table at 8.45
 sfx(8.45, "put-down-glass", { gain: 0.35, reason: "the dome set back down on the wooden table" });
 A(8.58, "wiz", "release", { prop: "dome", dur: 0 });
 A(8.5, "wiz", "grip", { side: "L", shape: "open", dur: 0.15 });
@@ -205,9 +207,9 @@ A(9.65, "dra", "squash", { amount: 0.05, dur: 0.6 });
 A(9.65, "dra", "still", { dur: 1.9, idle: 0.1, sink: 0.015 });
 sfx(9.68, "ai-package/flat-exhale", { gain: 0.35, reason: "Dragon's relieved sigh (9.7-10.4)" });
 c.prop(9.7, "breath", { on: 0.75, len: 1 }, 0.6, "inOut");             // a warm sigh you can see drifts to the wick by 10.4
-c.prop(10.4, "breath", { on: 0, len: 1 }, 0.35, "in");
-c.prop(10.4, "cupcake", { lit: 1, fire: 0.5 }, 0.12, "out");        // it catches with a little pop (half the first flare)...
-c.prop(10.52, "cupcake", { fire: 0 }, 0.38, "inOut");                // ...and settles to a normal flame by 10.9
+c.prop(10.5, "breath", { on: 0, len: 1 }, 0.3, "in");               // still touching the wick as it catches
+c.prop(10.4, "cupcake", { lit: 1, fire: 0.85, bend: -0.3 }, 0.12, "out");   // it catches with a flare, the same look as the first two (review B)...
+c.prop(10.52, "cupcake", { fire: 0, bend: 0 }, 0.35, "settle");       // ...and settles to a normal flame by 10.9
 sfx(10.22, "ai/ignite", { gain: 0.95, reason: "the wick catches again (10.4): a tiny fwip, loudest 0.19 s in" });
 A(10.45, "dra", "expr", { expr: "serene", set: { curve: 0.45, pucker: 0, open: 0 }, dur: 0.3 });
 // the Wizard sees it before Dragon does
@@ -224,7 +226,7 @@ A(12.05, "wiz", "still", { dur: 1.95, idle: 0.04, sink: 0.01 });
 sfx(12.15, "plunk", { gain: 0.12, reason: "one quiet dry musical note as the Wizard's look lands: dum" });
 A(11.85, "dra", "face", { lid: 0, brow: 0.2, dur: 0.2 });               // Dragon opens his eyes...
 A(11.85, "dra", "expr", { expr: "kind", set: { curve: 0.3, eye: 1.05 }, dur: 0.25 });
-A(12.0, "dra", "look", { to: DRA_AT_CAKE, dur: 0.15, blink: false });  // ...sees the flame...
+A(12.0, "dra", "look", { to: DRA_AT_CAKE, dur: 0.1, blink: false });  // ...sees the flame...
 A(12.2, "dra", "expr", { expr: "nervous", set: { open: 0.08, eye: 1.18, curve: -0.05 }, dur: 0.18 });
 A(12.2, "dra", "face", { brow: 0.4, dur: 0.18 });
 A(12.55, "dra", "look", { to: DRA_AT_WIZ, dur: 0.18, blink: false });  // ...then the Wizard's face
@@ -240,7 +242,7 @@ A(12.0, "dra", "still", { dur: 1.95, idle: 0.1 });
 const TIGHT = [-0.03, 0.6, 0.4];
 const S1 = frame(TIGHT, { az: -5, el: 7, h: 2.35, fov: 28 });
 const S2 = frame(TIGHT, { az: -5, el: 7, h: 2.35, fov: 28, push: 0.07, dur: 2.2 });
-const S3 = frame([0.0, 0.6, 0.48], { az: 7, el: 30, h: 2.4, fov: 28 });   // from a little right and above: the lifted dome stays below both faces (review A)
+const S3 = frame([0.0, 0.68, 0.48], { az: 7, el: 26, h: 2.55, fov: 28 });   // from a little right and above: the lifted dome stays below both faces (review A)
 const S4 = frame([-0.03, 0.6, 0.42], { az: -5, el: 7, h: 2.25, fov: 28, push: 0.08, dur: 5.2 });   // a little closer for the ending (review A)
 const beats = c.beats([
   ["01 the attempt", 0, S1, "hook"],
@@ -254,6 +256,7 @@ const beats = c.beats([
 write(import.meta.url, {
   id: "dragon-vs-the-candle",
   title: "Dragon vs. the Candle",
+  cover: 1.25,                                   // the first flare, both faces reacting (the cover title "ONE SIMPLE JOB." stays outside the clip)
   idea: "Story library 14: Dragon's breath keeps strengthening a birthday flame; even his relieved sigh relights it",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
   creative: { length: [12, 16], loop: false },
@@ -261,7 +264,7 @@ write(import.meta.url, {
     plate: { src: "assets/plates/dining-blue-window.png", z: -2.3, center: [0, 1.2], height: 3.9 } },
   // a light drumless pizzicato walk that each flare cuts off (the brief's "restrained musical interruption"), back for the careful solve,
   // cut again by the relight; then one dry "dum" and room tone
-  music: { style: "sneaky", drums: false, gain: 0.3, seed: 14, parts: [{ at: 0, part: "main" }, { at: 0.66, part: "stop" }, { at: 1.84, part: "main" }, { at: 3.1, part: "stop" }, { at: 5.36, part: "main" }, { at: 10.4, part: "stop" }] },
+  music: { style: "sneaky", drums: false, gain: 0.3, seed: 14, parts: [{ at: 0, part: "main" }, { at: 0.66, part: "stop" }, { at: 1.84, part: "main" }, { at: 2.8, part: "stop" }, { at: 5.36, part: "main" }, { at: 10.4, part: "stop" }] },
   sound: { sfx: 0.7, ambience: 0.18, speech: false, signature: false },
   experiment: { id: "hook-2026-11", episode: "dragon-vs-the-candle", variant: "A" },
   // frame 0 shows both faces and the lit candle, the breath already on its way; the flare (trouble) is up by 1.2 s
