@@ -59,7 +59,8 @@ const mid = (ctr) => [ctr[0], r3(ctr[1] - PH / 2), ctr[2]];   // a centre -> the
 
 // the parcel's centre: held out toward Reaper at frame 0 (ahead and to the Wizard's left, over Reaper's palm), pulled
 // in to the Wizard's chest: a 27 cm snatch that reads in the tight hook shot
-const BOX_OUT = rel(W0, W_YAW, 0.12, 0.44, 0.6), BOX_CHEST = rel(W0, W_YAW, 0, 0.52, 0.42);   // back and up: the pull reads at phone size
+const BOX_OUT = rel(W0, W_YAW, 0.04, 0.44, 0.5),   // (Jonny 29 Oct: further from Reaper's hand, whose forearm ran through its back corner)
+  BOX_CHEST = rel(W0, W_YAW, 0, 0.52, 0.42);   // back and up: the pull reads at phone size
 const BOX_MAT = [MAT_SPOT[0], r3(MAT_SPOT[1] + PH / 2), MAT_SPOT[2]];
 
 const cast = [
@@ -78,7 +79,7 @@ holdAt(0, "wiz", BOX_OUT, W_YAW, 0);
 A(0, "wiz", "noblink"); A(0, "rea", "noblink");
 // Reaper's right hand is out at the parcel's height, palm up, just past its far side (on screen: right of it), inches
 // short, and he leans into the reach: the want reads in frame 0
-const R_HAND_OUT = rel(W0, W_YAW, 0.06, 0.4, 0.82);
+const R_HAND_OUT = rel(W0, W_YAW, 0.06, 0.3, 0.86);   // about 20 cm short of the parcel's far side, under its level: clear of it on screen too
 c.arm(0, "rea", "R", { world: R_HAND_OUT, palm: [R_HAND_OUT[0], 1.2, R_HAND_OUT[2]] }, 0);
 A(0, "rea", "grip", { side: "R", shape: "cup", dur: 0 });
 A(0, "rea", "grip", { side: "L", shape: "relaxed", dur: 0 });
@@ -118,6 +119,7 @@ c.arm(1.3, "rea", "R", { world: [R_HAND_OUT[0] + 0.06, 0.24, R_HAND_OUT[2] - 0.1
 A(1.6, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.4 });
 
 // ---------------------------------------------------------------- 04 ONE FLOURISH, THEN DOWN 1.8-4.0
+c.textPop(1.95, "rea", "annoyed", { dur: 1.05, size: 96, dx: -0.35, dy: -0.75 });   // Jonny 29 Oct: over Reaper's head while the Wizard spins
 // the turn: arms switch to the same hold in his own frame, so the parcel turns with him (one full turn + 28 deg)
 const localHold = (y, fwd) => ["L", "R"].map((s) => [s, { x: [r3((s === "L" ? 1 : -1) * (PW / 2 + 0.012)), r3((y - 0.14) / 1.04), fwd], palm: [0, r3((y - 0.14) / 1.04), fwd] }]);
 for (const [s, pose] of localHold(0.45, 0.46)) c.arm(1.88, "wiz", s, pose, 0.02);
