@@ -728,7 +728,7 @@ export class Character {
   // reports: everything drawn on the character except its body, face, specks, arms, hands, legs and feet; parts under
   // 3 cm and see-through ones (glows, glass) left out
   costumeMeshes() {
-    const skip = new Set([this.potatoParts, this.fries.group, ...["R", "L"].flatMap((s) => [this.arms[s].mesh, this.arms[s].hand, this.legs[s].mesh, this.legs[s].foot]), ...Object.values(this._anc || {}).flat()].filter(Boolean));
+    const skip = new Set([this.potatoParts, this.fries.group, ...["R", "L"].flatMap((s) => [this.arms[s].mesh, this.arms[s].hand, this.arms[s].skin, this.arms[s].ink, this.arms[s].tubeInk, this.legs[s].mesh, this.legs[s].foot]), ...Object.values(this._anc || {}).flat()].filter(Boolean));
     const C = this.costume, out = [], sc = new THREE.Vector3(), size = new THREE.Vector3();
     const walk = (o, name) => {
       if (skip.has(o) || !o.visible) return;

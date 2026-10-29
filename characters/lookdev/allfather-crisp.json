@@ -73,6 +73,12 @@
  "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): the crisp face, body and hand values on the Norse god, for Compliments to the Chef. Not canon until Jonny approves.",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  }
 }

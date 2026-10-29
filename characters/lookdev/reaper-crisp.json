@@ -87,7 +87,13 @@
  "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)",
  "hands": {
   "type": "glove",
-  "size": 1.7
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
  },
  "notes": "Look-dev only (crisp anime pass, 28 Oct 2026): flatter eyes set into the face, bigger irises, one catch light, thicker tapered arms. Not canon until Jonny approves."
 }
