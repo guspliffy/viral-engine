@@ -22,6 +22,15 @@ added later. Renderer-specific notes live in each renderer's README. Roadmap and
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
   hand or prop touching another character, a fist holding a prop over a head on screen (it reads as stuck on the
   head), and a prop whose fist is hidden behind another character (it reads as growing out of them).
+  Hands (palm, wrist, fingers, thumb), arms and costume parts (hat, brim, beard, raven, hood, wings, the costume's own
+  weapon) are measured against every scene prop on its real surface, including props someone else holds (stage.js
+  inProps). Closed meshes count as solid, a bowl's wall as a thin skin. Going in fails: a hand part over 2 cm for 0.15
+  s or more (hand-in-prop; shorter, as in a grab or release, only warns), an arm over 3 cm (arm-in-prop), a costume
+  corner over 2 cm on a side the camera sees (costume-in-prop). On a prop the character works with (holds, pushes,
+  cups, rests a paw on, or grabs or lets go within 0.25 s), the finger and thumb pads may press in. The palm, wrist or
+  arm coming out on a side the camera sees fails on a thin prop (a straw through the glove) and warns from 3 cm on any
+  other. A thin held prop must show past the fist at both ends on screen for any 0.5 s it is held (thin-prop-hidden).
+  render.mjs refuses to render on all of these.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
@@ -125,8 +134,8 @@ Every glitch Jonny caught after the look was set was a contact problem the file 
     glove inside the bowl it slides). Arms, beards and costume parts count as body against every prop in reach,
     including props someone else holds (Package: the parcel through Reaper's forearm).
 15. **A thin prop shows on both sides of the fist** (straw, pen, cable): grip it high, the working end clearly below
-    the hand, the fingers over it on the camera side (Vampire: a straw held near its end looked like it grew out of
-    the glove).
+    the hand, the fingers over it on the camera side, a little in front of the palm, never through the middle of the
+    glove (Vampire: a straw held near its end looked like it grew out of the glove).
 16. **Keep the real-world hold.** When a check fails, change the path, the prop's size or the camera, not the hold.
     A grip a person wouldn't use is a fail even when every check passes (DUO: "nobody would hold a phone like this").
 
@@ -140,6 +149,9 @@ Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it
 the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in
 `storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of
 actions shows up in a second clip, move it into `acting.mjs` (the first clip must still produce the same storyboard).
+Hands on props come from the **grip library** `storyboards/lib/grips.mjs` (mug, bowl, box, thin, phone): pick the hold,
+don't build a new one. A prop it doesn't cover gets a new hold there, tested on its close-up bench
+(`storyboards/lookdev/make-grip-tests.mjs`) and approved by Jonny from the video before a clip uses it.
 The output is a **beat storyboard** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards still work.
 The template's camera is **directed from the story** (`"direct"`, `engine/direct.mjs`): mark each beat's `kind`
 (hook, payoff, reaction, reveal) and leave its camera out; set a shot by hand only where the story needs one the
