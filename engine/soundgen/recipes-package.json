@@ -1,0 +1,27 @@
+{
+ "_note": "Recipes for Just Hand Me the Package (story library 04), kept in their own file so parallel clips don't edit recipes.json. Same format and tools: generate.py, pick.py (see recipes.json).",
+ "sfx": [
+  { "id": "cardboard-rustle", "kind": "oneshot", "len": [0.25, 0.9], "duration": 8, "tags": ["cardboard", "box", "rustle", "grab"],
+    "prompts": ["a cardboard box snatched and pulled back quickly, dry cardboard rustle and scrape, close up, dry, sound effect",
+                "handling a small cardboard parcel, quick cardboard crinkle and rub, close up, quiet room"],
+    "seeds": [301, 302], "gain": 0.45 },
+  { "id": "box-set-down", "kind": "oneshot", "len": [0.12, 0.6], "duration": 8, "tags": ["cardboard", "box", "put-down", "thud"],
+    "prompts": ["a small cardboard box set down gently on a coir doormat, soft hollow cardboard thud, close up, dry",
+                "placing a light cardboard parcel on the floor, single soft cardboard tap and thud, close up"],
+    "seeds": [311, 312], "gain": 0.55 },
+  { "id": "flat-exhale", "kind": "oneshot", "len": [0.3, 1.1], "duration": 8, "tags": ["breath", "exhale", "sigh"],
+    "prompts": ["a short flat unimpressed exhale through the nose, one breath, close up, dry, no voice",
+                "a single tired impatient sigh, breath only, soft, close microphone, no speech"],
+    "seeds": [321, 322], "gain": 0.4 },
+  { "id": "box-lift", "kind": "oneshot", "len": [0.2, 0.8], "duration": 8, "tags": ["cardboard", "box", "lift", "grab"],
+    "prompts": ["picking up a small cardboard box from the floor, light cardboard creak and rustle, close up, dry",
+                "lifting a cardboard parcel, soft cardboard flex and rub, close up"],
+    "seeds": [331, 332], "gain": 0.45 }
+ ],
+ "music": [
+  { "id": "fanfare", "bpm": 104, "bars": 4, "mood": "theatrical",
+    "prompts": ["grand theatrical orchestral fanfare, pompous brass and timpani, harp glissando, ceremonial royal reveal, comedic and proud, 104 BPM",
+                "playful pompous circus ringmaster fanfare, trumpets, snare roll, cymbal, orchestra, ta-da showman music, 104 BPM"],
+    "seeds": [341, 342], "tags": ["theatrical", "fanfare"] }
+ ]
+}

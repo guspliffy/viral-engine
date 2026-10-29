@@ -1,9 +1,11 @@
 // Sound for a storyboard: real speech for lines that have it (engine/voice/), gibberish voices for every other `talk`
 // action, sound effects synthesised in code and placed automatically from the storyboard's events (hops, poofs,
 // flashes, charges, ...), recorded foley from the sound library (engine/sfx/: footsteps on every footfall, grabs,
-// sitting down), the leads' signature sounds on their entrance and the payoff (engine/sfx/signature.mjs), plus any
-// explicit `sfx` entries, which may name a code effect or a library sound. Everything but the room bed then goes
-// through the set's own room (engine/sfx/rooms.mjs).
+// sitting down), the leads' signature sounds on their entrance, and on the payoff only when it is their own trick
+// (engine/sfx/signature.mjs), plus any explicit `sfx` entries, which name a whitelisted sound: a code effect or a
+// library sound (engine/sfx/whitelist.mjs). The sad trombone on a droop and the "dun!" sting on a shocked face are
+// opt-in ("sound": { "autoTrombone": true, "autoSting": true }). Everything but the room bed then goes through the
+// set's own room (engine/sfx/rooms.mjs).
 // Deterministic like the picture: the same storyboard always gives the same audio.
 //
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
@@ -16,6 +18,7 @@ import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
 import { SR, TAU, biquad, run, env, buf, normalise } from "./sfx/dsp.mjs";
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
+import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
 import { actorState, cameraState } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
@@ -165,8 +168,8 @@ const SFX = {
     }
     return x;
   },
-  // a knuckle on a wooden door: a short hollow thud with a click on top
-  knock(r) {
+  // a knuckle on a wooden door: a short hollow thud with a click on top ("knock" is the library's AI knock, Jonny's pick)
+  "knock-tap"(r) {
     const d = 0.16, x = buf(d), bp = biquad("bp", 260, 2.2), hp = biquad("hp", 1500, 0.7); let p = 0;
     for (let i = 0; i < x.length; i++) { const t = i / SR, f = 210 * Math.pow(150 / 210, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) * 0.8 + run(bp, r() * 2 - 1) * 2.2) * env(t, 0.001, 0.035, d) + run(hp, r() * 2 - 1) * env(t, 0.0005, 0.004, d) * 0.6; }
     return x;
@@ -389,6 +392,15 @@ function effect(kind, r, dur) {
   return repitch(x, Math.pow(2, semis / 12));
 }
 
+// any sound a storyboard can name (a code effect, a library sound or a signature) as mono samples, for the
+// whitelist's listen sheet and measurements (engine/sfx/measure.mjs, engine/sfx/sheet.mjs); seed picks the take
+export const CODE_SOUNDS = Object.keys(SFX);
+export function soundSamples(id, seed = 1, dur) {
+  if (isSignature(id)) return signatureSound(id);
+  const r = rng(seed);
+  return SFX[id] ? effect(id, r, dur) : librarySound(id, r, { dur, code: effect });
+}
+
 // a quiet bed of room sound for the set, so the clips don't all sit in the same silence
 function ambience(type, seconds, r, fade = 0.3) {
   const x = buf(seconds), n = x.length;
@@ -451,8 +463,9 @@ export function soundEvents(sb, chars) {
         if (up) { ev.push({ kind: "whoosh", at: a.at, dur: 0.3, pan, gain: 0.35 }); hats[a.who] = true; }
         else if (hats[a.who]) { ev.push({ kind: "tink", at: a.at + d * 0.55, pan, gain: 0.2 }); hats[a.who] = false; }
       }
-      if (a.do === "droop" && (a.to ?? 1) > 0.5) ev.push({ kind: "sadslide", at: a.at, pan, gain: 0.3 });
-      if (a.do === "expr" && a.expr === "shocked") ev.push({ kind: "sting", at: a.at, pan: 0, gain: 0.35 });
+      // meme sounds only when asked for: a sad trombone on a big droop, a "dun!" on a shocked face
+      if (cfg.autoTrombone && a.do === "droop" && (a.to ?? 1) > 0.5) ev.push({ kind: "sadslide", at: a.at, pan, gain: 0.3 });
+      if (cfg.autoSting && a.do === "expr" && a.expr === "shocked") ev.push({ kind: "sting", at: a.at, pan: 0, gain: 0.35 });
     }
     const impacts = (sb.fx || []).filter((f) => f.do === "impact").map((f) => f.at);
     for (const f of sb.fx || []) {
@@ -572,7 +585,7 @@ export function renderAudio(sb, chars) {
       const hit = isHit(e.kind) ? x.hit ?? hitTime(x) : 0;
       e.start = Math.max(0, e.at - hit); e.hit = e.start + hit; Object.defineProperty(e, "samples", { value: x, enumerable: false });
       fx.add(e.start, x, e.gain * cfg.sfx, e.pan);
-    } else console.warn(`unknown sound "${e.kind}" at ${e.at}s, skipped`);
+    } else throw new Error(`sound "${e.kind}" at ${e.at} s isn't in this checkout${entry(e.kind)?.pending ? ` (it comes with ${entry(e.kind).pending})` : ""}`);
   }
   // the set's room (engine/sfx/rooms.mjs): voices go in fully, effects a little less; sound.reverb scales it (0.12 is
   // the room as set, 0 dry). The room bed (ambience) is a recording of the room already, so it stays out of it.

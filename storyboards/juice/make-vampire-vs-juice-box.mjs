@@ -160,7 +160,6 @@ A(1.8, "wiz", "expr", { expr: "deadpan", set: { curve: -0.1 }, dur: 0.2 });
 A(1.8, "wiz", "pitch", { to: 0, dur: 0.3 });
 A(1.85, "wiz", "turn", { to: WIZ_FACE, dur: 0.3 });
 A(1.82, "wiz", "look", { to: WIZ_AT_REA, dur: 0.15, blink: false });
-sfx(1.95, "kenney/tick", { gain: 0.6, reason: "the dry blink" });
 A(1.92, "wiz", "blink", { dur: 0.2 });
 // the left hand opens, palm up, under where the carton will come
 A(2.1, "wiz", "arm", { side: "L", pose: { world: under(C_PASS) }, dur: 0.35, ease: "inOut" });
@@ -188,7 +187,6 @@ A(3.1, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
 A(3.4, "wiz", "arm", { side: "R", pose: { world: FIST_LIE }, dur: 0.12, ease: "out" });
 A(3.5, "wiz", "grip", { side: "R", shape: "pinch", dur: 0.1 });
 A(3.52, "wiz", "grab", { prop: "straw", hand: "R", grip: S_GRIP, off: S_OFF, pose: null });
-sfx(3.52, "kenney/tick", { gain: 0.25, reason: "fingers close on the straw" });
 // lift it, stand it up and bring it over the port
 A(3.6, "wiz", "arm", { side: "R", pose: { world: strawFist(S_ABOVE, 0, S_ROT) }, dur: 0.55, ease: "inOut" });
 c.prop(3.6, "straw", { tip: 0 }, 0.5);
@@ -198,7 +196,7 @@ A(3.6, "wiz", "still", { dur: 1.4, idle: 0.08 });
 A(4.3, "wiz", "arm", { side: "R", pose: { world: strawFist(S_IN, 0, S_ROT) }, dur: 0.32, ease: "inOut" });
 const POP = 4.3 + 0.32 * 0.3;
 c.prop(POP, "carton", { port: 1 }, 0.05, "out");
-sfx(POP, "pop", { gain: 0.35 });
+sfx(POP, "puncture", { gain: 0.4 });   // the straw through the foil
 // swap the loose straw for the carton's own, then let go
 c.prop(4.68, "straw", { scale: 0 }, 0);
 c.prop(4.68, "carton", { straw: 1 }, 0);
