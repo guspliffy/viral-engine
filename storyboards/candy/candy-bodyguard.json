@@ -167,12 +167,12 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     -0.367,
+     -0.467,
      0.598,
      3.938
     ],
     "look": [
-     0,
+     -0.1,
      0.72,
      0.45
     ],
@@ -518,7 +518,15 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": -9,
+     "to": -14,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -6,
      "dur": 0.18,
      "ease": "out",
      "at": 0.36
@@ -550,6 +558,13 @@
      "gain": 0.55,
      "reason": "the Wizard's short intake of breath as he flinches",
      "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.6
     },
     {
      "who": "wiz",
@@ -871,9 +886,9 @@
        0
       ],
       "at": [
-       -0.62,
-       0.4,
-       0.66
+       -0.55,
+       0.38,
+       0.64
       ]
      },
      "dur": 0.24,
@@ -912,7 +927,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.55,
+     "dur": 0.25,
      "idle": 0.1,
      "at": 0.3
     },
@@ -925,7 +940,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.6
+     "at": 0.35
     },
     {
      "who": "wiz",
@@ -933,14 +948,7 @@
      "lid": 0.4,
      "brow": 0.2,
      "dur": 0.2,
-     "at": 0.62
-    },
-    {
-     "who": "wiz",
-     "do": "pitch",
-     "to": 12,
-     "dur": 0.35,
-     "at": 0.88
+     "at": 0.37
     },
     {
      "who": "wiz",
@@ -951,7 +959,14 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.88
+     "at": 0.54
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.35,
+     "at": 0.56
     },
     {
      "who": "wiz",
@@ -970,9 +985,19 @@
        0.9
       ]
      },
-     "dur": 0.45,
+     "dur": 0.42,
      "ease": "out",
-     "at": 0.88
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "spider",
+     "set": {
+      "rot": 35
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.6
     }
    ]
   },
@@ -982,14 +1007,14 @@
    "len": 0.75,
    "shot": {
     "pos": [
-     -0.474,
-     0.961,
-     1.921
+     -0.798,
+     0.941,
+     1.888
     ],
     "look": [
-     -0.24,
-     0.46,
-     0.82
+     -0.34,
+     0.44,
+     0.86
     ],
     "fov": 30
    },
@@ -998,38 +1023,17 @@
      "do": "prop",
      "id": "spider",
      "set": {
-      "rot": 35
-     },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      -0.35,
-      -0.25
-     ],
-     "dur": 0.25,
-     "blink": false,
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "spider",
-     "set": {
       "squash": 0.05
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 0.43
+     "at": 0.12
     },
     {
      "sfx": "put-down",
      "gain": 0.3,
      "reason": "the tiny rubber toy touching the wood",
-     "at": 0.43
+     "at": 0.12
     },
     {
      "do": "prop",
@@ -1039,14 +1043,14 @@
      },
      "dur": 0.15,
      "ease": "settle",
-     "at": 0.48
+     "at": 0.17
     },
     {
      "who": "wiz",
      "do": "release",
      "prop": "spider",
      "dur": 0,
-     "at": 0.53
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1054,7 +1058,7 @@
      "side": "R",
      "shape": "hover",
      "dur": 0.14,
-     "at": 0.53
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1069,7 +1073,41 @@
      },
      "dur": 0.22,
      "ease": "out",
-     "at": 0.57
+     "at": 0.24
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.25
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.46,
+       0.42
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.46
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.46
     },
     {
      "who": "wiz",
@@ -1113,29 +1151,6 @@
     "dur": 1
    },
    "do": [
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.3,
-       0.46,
-       0.42
-      ]
-     },
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.04
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.04
-    },
     {
      "who": "rea",
      "do": "look",
@@ -1235,8 +1250,8 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.2,
-       0.62,
+       -0.3,
+       0.48,
        0.36
       ]
      },
@@ -1250,8 +1265,8 @@
      "side": "L",
      "pose": {
       "x": [
-       0.2,
-       0.62,
+       0.3,
+       0.48,
        0.36
       ]
      },
@@ -1537,12 +1552,42 @@
      "at": 0.95
     },
     {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.03
+    },
+    {
      "who": "rea",
      "do": "lean",
      "to": -10,
      "dur": 0.25,
      "ease": "settle",
      "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.2,
+      0.22
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 28,
+     "dur": 0.35,
+     "at": 1.15
     },
     {
      "who": "wiz",
@@ -1570,17 +1615,6 @@
      "brow": 0.35,
      "dur": 0.25,
      "at": 1.25
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0.3,
-      -0.6
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 1.37
     }
    ],
    "kind": "payoff"
@@ -1611,25 +1645,6 @@
     "dur": 2.15
    },
    "do": [
-    {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -0.1,
-      0.22
-     ],
-     "dur": 0.35,
-     "ease": "inOut",
-     "steps": 2,
-     "at": 0
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 22,
-     "dur": 0.35,
-     "at": 0
-    },
     {
      "who": "wiz",
      "do": "pitch",
@@ -1884,7 +1899,7 @@
        0.8
       ]
      },
-     "dur": 0.25,
+     "dur": 0.22,
      "ease": "out",
      "at": 1.26
     },
@@ -1896,34 +1911,32 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.51
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sweetB",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.53
     },
     {
      "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "sweetB",
-      "grip": [
-       0,
-       0.085,
-       0
-      ],
-      "at": [
-       0.48,
-       0.364,
-       0.8
-      ]
-     },
-     "dur": 0.42,
-     "ease": "out",
-     "at": 1.55
+     "do": "release",
+     "prop": "sweetB",
+     "dur": 0,
+     "at": 1.53
     },
     {
-     "sfx": "ai/cookie-scrape",
-     "gain": 0.3,
-     "reason": "the soft tabletop slide of the purple sweet toward Reaper",
-     "at": 1.55
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hover",
+     "dur": 0.14,
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -1937,14 +1950,19 @@
      "at": 1.55
     },
     {
-     "do": "prop",
-     "id": "sweetB",
-     "set": {
-      "squash": 0
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.479,
+       0.8
+      ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.56
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.57
     },
     {
      "who": "rea",
@@ -1958,25 +1976,37 @@
      "at": 1.6
     },
     {
-     "sfx": "ai/warm-resolve",
-     "gain": 0.45,
-     "reason": "the warm resolving chord as he lets go of the offered sweet",
-     "at": 2.02
-    },
-    {
      "who": "wiz",
-     "do": "release",
-     "prop": "sweetB",
-     "dur": 0,
-     "at": 2.03
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.155,
+       0.414,
+       0.81
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.67
     },
     {
      "who": "wiz",
      "do": "grip",
      "side": "L",
      "shape": "hover",
-     "dur": 0.14,
-     "at": 2.03
+     "dur": 0.12,
+     "at": 1.67
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "sweetB",
+     "hand": "L",
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 1.83
     },
     {
      "who": "wiz",
@@ -1984,14 +2014,26 @@
      "side": "L",
      "pose": {
       "world": [
-       0.48,
-       0.479,
-       0.8
+       0.395,
+       0.414,
+       0.81
       ]
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "out",
-     "at": 2.07
+     "at": 1.85
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.3,
+     "reason": "the soft tabletop slide of the purple sweet toward Reaper",
+     "at": 1.85
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.45,
+     "reason": "the warm resolving chord as he lets go of the offered sweet",
+     "at": 2.09
     }
    ]
   },
@@ -2001,24 +2043,16 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     -0.512,
-     0.995,
-     4.313
+     -0.36,
+     1.022,
+     4.406
     ],
     "look": [
-     0.27,
-     0.68,
-     -0.12
+     0.28,
+     0.7,
+     -0.15
     ],
-    "fov": 28,
-    "to": {
-     "pos": [
-      -0.465,
-      0.976,
-      4.047
-     ]
-    },
-    "dur": 1.6
+    "fov": 28
    },
    "do": [
     {
@@ -2044,21 +2078,6 @@
      "at": 0.05
     },
     {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.38,
-       0.435,
-       0.75
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.09
-    },
-    {
      "who": "rea",
      "do": "expr",
      "expr": "kind",
@@ -2074,7 +2093,7 @@
     {
      "who": "rea",
      "do": "lean",
-     "to": -12,
+     "to": -17,
      "dur": 0.4,
      "at": 0.1
     },
@@ -2084,6 +2103,13 @@
      "to": 2,
      "dur": 0.35,
      "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "sweetB",
+     "dur": 0,
+     "at": 0.14
     },
     {
      "who": "wiz",
@@ -2098,9 +2124,9 @@
       ],
       "point": "pinch",
       "at": [
-       -0.42,
-       0.56,
-       0.56
+       -0.5,
+       0.66,
+       0.54
       ]
      },
      "dur": 0.35,
@@ -2109,11 +2135,26 @@
     },
     {
      "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.36,
+       0.435,
+       0.75
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
      "do": "grip",
      "side": "L",
      "shape": "paw",
      "dur": 0.3,
-     "at": 0.17
+     "at": 0.24
     },
     {
      "who": "wiz",
@@ -2148,7 +2189,7 @@
     {
      "who": "wiz",
      "do": "lean",
-     "to": 5,
+     "to": -3,
      "dur": 0.4,
      "at": 0.4
     },
@@ -2217,7 +2258,7 @@
     {
      "who": "rea",
      "do": "lean",
-     "to": -13,
+     "to": -18,
      "dur": 0.3,
      "at": 1
     },

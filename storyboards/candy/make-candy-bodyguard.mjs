@@ -81,7 +81,7 @@ const END = 10.0;
 const H = 0.36;                                                         // the table top
 const TABLE = { x: -0.05, z: 0.9, w: 1.5, d: 0.6 };                     // x -0.8..0.7, z 0.6..1.2
 const BOWL = [0.0, H, 0.86];
-const WIZ0 = [-0.62, 0.2], WIZ_YAW = 26, WIZ1 = [-0.1, 0.22];             // the Wizard steps in for the sweets (07)
+const WIZ0 = [-0.62, 0.2], WIZ_YAW = 26, WIZ1 = [-0.2, 0.22];             // the Wizard steps in for the sweets (07)
 const REA0 = [0.44, 0.04], REA_YAW = -28;                                // guarding, behind the bowl's right side
 const JAMB_X = 0.66, JAMB_Z = -0.52;                                    // the doorway's jamb (the wall's left edge), wall centre z
 const REA_BACK = [-0.04, -0.98], REA_HIDE = [0.86, -1.15], HIDE_YAW = -45; // backing off, then behind the wall
@@ -141,7 +141,8 @@ sfx(0.1, "cloth", { gain: 0.6, reason: "the hood and sleeves whipping up as Reap
 // 0.36: the Wizard flinches: the empty hand snaps back to his chest, the body leans away, the hat wobbles
 c.arm(0.36, "wiz", "R", { x: [-0.22, 0.6, 0.28] }, 0.14, "out");
 A(0.36, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
-A(0.36, "wiz", "pitch", { to: -9, dur: 0.18, ease: "out" });
+A(0.36, "wiz", "pitch", { to: -14, dur: 0.18, ease: "out" });
+A(0.36, "wiz", "lean", { to: -6, dur: 0.18, ease: "out" }); A(0.6, "wiz", "lean", { to: 0, dur: 0.4 });
 A(0.36, "wiz", "squash", { amount: 0.06, dur: 0.24 });
 A(0.36, "wiz", "hatwobble", { amount: 8, freq: 3, dur: 0.8 });
 A(0.34, "wiz", "look", { to: WIZ_AT_REA, dur: 0.08, blink: false });
@@ -178,22 +179,22 @@ let t = sp.take(1.42, { reach: 0.32, settle: 0.18 });                           
 
 // ---------------------------------------------------------------- 03 THE IDEA 2.10-3.00
 t = sp.carry(2.1, [-0.32, 0.44, 0.52], 0.2, "in");                                    // straight up past the table's back edge
-t = sp.carry(t, [-0.62, 0.4, 0.66], 0.24, "out");                                  // up into view, in front of his chest
+t = sp.carry(t, [-0.55, 0.38, 0.64], 0.24, "out");                                  // up into view, in front of his chest
 sfx(2.14, "cloth", { gain: 0.35, reason: "soft handling rustle as his hand comes up from under the table" });
 A(2.3, "wiz", "look", { to: [0.1, -0.5], dur: 0.12, blink: false });
 A(2.32, "wiz", "expr", { expr: "sly", set: { curve: 0.5, smirk: 0.75 }, dur: 0.25 });
 A(2.32, "wiz", "face", { lid: 0.42, dur: 0.25 });
-A(2.7, "wiz", "look", { to: WIZ_AT_REA, dur: 0.1, blink: false });                    // a sideways look at Reaper
-A(2.72, "wiz", "face", { lid: 0.4, brow: 0.2, dur: 0.2 });
-A(2.4, "wiz", "still", { dur: 0.55, idle: 0.1 });
+A(2.45, "wiz", "look", { to: WIZ_AT_REA, dur: 0.1, blink: false });                    // a sideways look at Reaper
+A(2.47, "wiz", "face", { lid: 0.4, brow: 0.2, dur: 0.2 });
+A(2.4, "wiz", "still", { dur: 0.25, idle: 0.1 });
 
 // ---------------------------------------------------------------- 04 TINY THREAT 3.00-3.75
-A(2.98, "wiz", "pitch", { to: 12, dur: 0.35 });
-A(2.98, "wiz", "look", { to: [0.1, -0.75], dur: 0.12, blink: false });
-t = sp.place(2.98, SPIDER_AT, 0.45);                                                   // contact at 3.38
+A(2.66, "wiz", "pitch", { to: 12, dur: 0.35 });
+A(2.64, "wiz", "look", { to: [0.1, -0.75], dur: 0.12, blink: false });
+t = sp.place(2.7, SPIDER_AT, 0.42);                                                    // on the table by the cut to the insert
 sfx(t, "put-down", { gain: 0.3, reason: "the tiny rubber toy touching the wood" });
-c.prop(3.0, "spider", { rot: 35 }, 0.36, "inOut");                                    // turned to face Reaper as it goes down
-t = sp.release(t + 0.1, { x: [-0.3, 0.46, 0.42] });                         // fingers open and lift away
+c.prop(2.7, "spider", { rot: 35 }, 0.36, "inOut");                                    // turned to face Reaper as it goes down
+t = sp.release(t + 0.08, { x: [-0.3, 0.46, 0.42] });                         // fingers open and lift away
 A(3.6, "wiz", "pitch", { to: 4, dur: 0.3 });
 A(3.3, "rea", "look", { to: [-0.35, -0.25], dur: 0.25, blink: false });               // his eyes begin to drift toward it
 
@@ -207,8 +208,8 @@ sfx(4.05, "gasp", { gain: 0.45, reason: "Reaper's tiny breath catch as he recogn
 A(4.25, "rea", "look", { to: [0, 0], dur: 0.08, blink: false });                          // a look at us: did you see that?
 A(4.48, "rea", "pitch", { to: -10, dur: 0.18, ease: "out" });                          // a small recoil
 A(4.48, "rea", "squash", { amount: 0.05, dur: 0.2 });
-c.arm(4.48, "rea", "R", { x: [-0.2, 0.62, 0.36] }, 0.16, "out");                       // hands up to his chest
-c.arm(4.48, "rea", "L", { x: [0.2, 0.62, 0.36] }, 0.16, "out");
+c.arm(4.48, "rea", "R", { x: [-0.3, 0.48, 0.36] }, 0.16, "out");                       // hands up to his chest
+c.arm(4.48, "rea", "L", { x: [0.3, 0.48, 0.36] }, 0.16, "out");
 A(4.48, "rea", "grip", { side: "both", shape: "fist", set: { curl: 0.9 }, dur: 0.12 });
 A(4.5, "rea", "expr", { expr: "shocked", set: { eye: 1.25, open: 0.35, curve: -0.7, tilt: 0.5 }, dur: 0.15 });
 // the Wizard watches him, enjoying it
@@ -247,9 +248,9 @@ act.blinksAt(c, "wiz", [5.95]);
 
 // ---------------------------------------------------------------- 07 A SWEET GESTURE 6.25-8.40
 // a step in toward the bowl, then the right hand takes sweet A and keeps it by his chest
-A(6.12, "wiz", "look", { to: [0.3, -0.6], dur: 0.12, blink: false });                // eyes to the bowl, then the step
-A(6.25, "wiz", "move", { to: WIZ1, dur: 0.35, ease: "inOut", steps: 2 });
-A(6.25, "wiz", "turn", { to: 22, dur: 0.35 });
+A(5.78, "wiz", "look", { to: [0.3, -0.6], dur: 0.12, blink: false });                // eyes to the bowl, then the step
+A(5.9, "wiz", "move", { to: WIZ1, dur: 0.35, ease: "inOut", steps: 2 });
+A(5.9, "wiz", "turn", { to: 28, dur: 0.35 });
 A(6.3, "wiz", "pitch", { to: 12, dur: 0.3 });
 A(6.3, "wiz", "look", { to: [0.35, -0.7], dur: 0.12, blink: false });
 const ha = grips.thin(c, "wiz", SWEET_A, { side: "R", from: 0.5, roll: 10 });
@@ -261,11 +262,21 @@ A(6.82, "wiz", "look", { to: [0.35, -0.65], dur: 0.12, blink: false });         
 const hb = fromAbove(c, "wiz", SWEET_B, { side: "L", y: 0.085 });
 t = hb.take(6.95, { reach: 0.28, settle: 0.18 });                                     // closed by ~7.47
 sfx(t - 0.05, "crinkle", { gain: 0.45, reason: "the purple wrapper crinkling as he takes sweet B" });
-t = hb.place(t + 0.02, B_LANE, 0.25);                                                 // on the table by ~7.75
-t = hb.carry(t + 0.04, B_STOP, 0.42, "out");                                          // the gentle slide, slowing to a stop
-sfx(t - 0.42, "ai/cookie-scrape", { gain: 0.3, reason: "the soft tabletop slide of the purple sweet toward Reaper" });
-t = hb.release(t + 0.06, null, { back: 0.15, up: 0.03 });                             // let go...
-c.arm(t + 0.02, "wiz", "L", { world: [B_STOP[0] - 0.1, H + 0.075, B_STOP[2] - 0.05] }, 0.3, "inOut");  // ...and the hand settles on the table beside it
+t = hb.place(t + 0.02, B_LANE, 0.22);                                                 // on the table by ~7.7
+t = hb.release(t + 0.05, null, { back: 0.1, up: 0.03 });                              // let go, the hand lifts a little
+// the slide: the fingertips come down behind it (on the side away from the door) and push it along the lane, so the
+// sweet stays in sight ahead of the hand; it slows to a stop well before the table's end, then the hand lets go
+const PUSH = [-0.085, 0.05, 0.01];                                                     // the hand's place beside the sweet
+const behind = (p) => ({ world: [r3(p[0] + PUSH[0]), r3(p[1] + PUSH[1]), r3(p[2] + PUSH[2])] });
+c.arm(t, "wiz", "L", behind(B_LANE), 0.14, "inOut");
+A(t, "wiz", "grip", { side: "L", shape: "hover", dur: 0.12 });
+t = r3(t + 0.16);
+A(t, "wiz", "grab", { prop: "sweetB", hand: "L", dur: 0, pose: null, keep: true });
+c.arm(t + 0.02, "wiz", "L", behind(B_STOP), 0.4, "out");
+sfx(t + 0.02, "ai/cookie-scrape", { gain: 0.3, reason: "the soft tabletop slide of the purple sweet toward Reaper" });
+t = r3(t + 0.46);
+A(t, "wiz", "release", { prop: "sweetB", dur: 0 });
+c.arm(t + 0.04, "wiz", "L", { world: [r3(B_STOP[0] - 0.12), H + 0.075, r3(B_STOP[2] - 0.05)] }, 0.3, "inOut");  // the hand settles on the table beside it
 A(t + 0.1, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 sfx(t - 0.2, "ai/warm-resolve", { gain: 0.45, reason: "the warm resolving chord as he lets go of the offered sweet" });
 A(7.0, "wiz", "look", { to: [0.45, -0.7], dur: 0.15, blink: false });
@@ -278,36 +289,36 @@ act.blinksAt(c, "rea", [6.9]);
 // ---------------------------------------------------------------- 08 EVERYONE HAS A WEAKNESS 8.40-10.0
 A(8.45, "rea", "look", { to: [-0.3, -0.6], dur: 0.1, blink: false });
 A(8.5, "rea", "expr", { expr: "kind", set: { eye: 1.15, open: 0.05, curve: 0.15, tilt: 0.3 }, dur: 0.3 });   // tempted
-A(8.5, "rea", "lean", { to: -12, dur: 0.4 });                                           // leans a little further out
+A(8.5, "rea", "lean", { to: -17, dur: 0.4 });                                           // leans a little further out
 A(8.95, "rea", "look", { to: [-0.85, -0.45], dur: 0.1, blink: false });                // checks the spider
 A(8.97, "rea", "face", { brow: 0.5, lid: 0, dur: 0.12 });
 A(8.97, "rea", "expr", { expr: "sad", set: { eye: 1.2, curve: -0.3, tilt: 0.5 }, dur: 0.12 });
 A(8.97, "rea", "lean", { to: -4, dur: 0.15 });                                          // pulls back
 A(9.4, "rea", "look", { to: [-0.1, -0.8], dur: 0.15, blink: false });
-A(9.4, "rea", "lean", { to: -13, dur: 0.3 });                                          // leans out again                // back to the sweet
+A(9.4, "rea", "lean", { to: -18, dur: 0.3 });                                          // leans out again                // back to the sweet
 A(9.45, "rea", "expr", { expr: "kind", set: { eye: 1.1, curve: 0.05, tilt: 0.35, press: 0.4 }, dur: 0.3 });
 A(9.45, "rea", "face", { brow: 0.3, lid: 0.1, dur: 0.3 });
 A(9.5, "rea", "still", { dur: 0.48, idle: 0.05 });
 // the Wizard: an affectionate, knowing look at his friend, his own sweet up where it shows
 A(8.42, "wiz", "look", { to: [-0.3, -0.3], dur: 0.1, blink: false });
-ha.carry(8.55, [-0.42, 0.56, 0.56], 0.35, "inOut");
+ha.carry(8.55, [-0.5, 0.66, 0.54], 0.35, "inOut");
 A(8.5, "wiz", "pitch", { to: 2, dur: 0.35 });
 A(8.8, "wiz", "look", { to: WIZ_AT_REA, dur: 0.2, blink: false });
 A(8.65, "wiz", "expr", { expr: "kind", set: { curve: 0.65, smirk: 0.2 }, dur: 0.35 });
 A(8.65, "wiz", "face", { lid: 0.32, brow: 0.2, dur: 0.35 });
-A(8.8, "wiz", "lean", { to: 5, dur: 0.4 });
+A(8.8, "wiz", "lean", { to: -3, dur: 0.4 });
 act.blinksAt(c, "wiz", [9.2]);
 A(9.0, "wiz", "still", { dur: 0.98, idle: 0.06 });
 
 // ---------------------------------------------------------------- shots ([name, start, camera, kind]; the brief fixes them)
-const S1 = frame([0.0, 0.72, 0.45], { az: -6, el: -2, h: 1.75, fov: 28 });                    // low two-shot over the bowl, room for the caption
+const S1 = frame([-0.1, 0.72, 0.45], { az: -6, el: -2, h: 1.75, fov: 28 });                    // low two-shot over the bowl, room for the caption
 const S2 = frame([0.24, 0.66, 0.15], { az: -18, el: 0, h: 1.1, fov: 28, push: 0.04, dur: 0.7 });   // Reaper, the Wizard's hat edge at left
 const S3 = frame([-0.5, 0.64, 0.5], { az: 6, el: 2, h: 1.25, fov: 28 });                 // the Wizard and the rising hand
-const S4 = frame([-0.24, 0.46, 0.82], { az: -12, el: 24, h: 0.66, fov: 30 });             // tabletop insert, Reaper behind
+const S4 = frame([-0.34, 0.44, 0.86], { az: -24, el: 24, h: 0.66, fov: 30 });             // tabletop insert, Reaper behind
 const S5 = frame([0.36, 0.62, 0.18], { az: -22, el: 2, h: 0.95, fov: 28, push: 0.05, dur: 1.0 });   // Reaper's face
 const S6 = frame([0.12, 0.72, -0.2], { az: -8, el: 5, h: 2.45, fov: 30 });               // the scramble behind the jamb
 const S7 = frame([0.24, 0.6, 0.5], { az: -10, el: 15, h: 1.75, fov: 30, push: 0.05, dur: 2.15 });             // face and hands: the two sweets
-const S8 = frame([0.27, 0.68, -0.12], { az: -10, el: 4, h: 2.25, fov: 28, push: 0.06, dur: 1.6 });   // the two-shot: friend, sweet, toy
+const S8 = frame([0.28, 0.7, -0.15], { az: -8, el: 4, h: 2.3, fov: 28 });   // the two-shot: friend, sweet, toy
 const beats = c.beats([
   ["01 the bodyguard", 0, S1, "hook"],
   ["02 smug", 1.4, S2],
