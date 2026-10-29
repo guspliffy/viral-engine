@@ -11,6 +11,9 @@ import * as THREE from "three";
 //                 dust: 40 (motes floating in the light; default 40 in golden light, else 0),
 //                 dustBox: [[x0, y0, z0], [x1, y1, z1]] (default: the upper middle, a little in front of the plate),
 //                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0" }
+//   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
+//                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
+//                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
 // Depth and motion are on by default: engine/load.mjs fills them in when the files next to the picture exist (false
 // turns one off).
 // depth.png and motion.png come from engine/plates/depth.py. With relief the plate becomes a relief: each point moves
@@ -30,7 +33,8 @@ export function addPlate(scene, P, ctx = {}) {
   const load = Promise.all(loads).then(([map, depth, motion]) => {
     map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 4;
     const w = h * map.image.width / map.image.height;
-    mesh.geometry = depth ? relief(depth.image, w, h, x, y, z, P) : new THREE.PlaneGeometry(w, h).translate(x, y, z);
+    if (P.turn) { mesh.geometry = new THREE.PlaneGeometry(w, h); mesh.position.set(x, y, z); mesh.rotation.y = THREE.MathUtils.degToRad(P.turn); }
+    else mesh.geometry = depth ? relief(depth.image, w, h, x, y, z, P) : new THREE.PlaneGeometry(w, h).translate(x, y, z);
     mat.map = map;
     if (motion) animate(mat, motion, map.image.width);
     mat.needsUpdate = true;

@@ -214,7 +214,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         // synth speaks (engine/shared/syllables.js)
         if (t < a.at + (a.dur ?? 1)) {
           const m = a.speech ? speechMouthAt(a.speech.mouth, t - a.at) : mouthAt(planFor(a, typeof def.voice === "object" ? def.voice : {}), t);
-          if (m.open > st.talk) { st.talk = m.open * 0.75; st.round = m.round; }
+          if (m.open * (a.amp ?? 1) > st.talk) { st.talk = m.open * 0.75 * (a.amp ?? 1); st.round = m.round; }
         }
         break;
       }

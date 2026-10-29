@@ -71,7 +71,7 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 
 | Macro | Parameters | What it does |
 |---|---|---|
-| `say` | `line`, `tone`, `dur?`, `caption?`, `pos?`, `seed?`, `voice?`, `soft?` | Spoken line (real voice, or gibberish sized to the line) + lip sync, and the line as a caption |
+| `say` | `line`, `tone`, `dur?`, `caption?`, `pos?`, `seed?`, `voice?`, `soft?`, `amp?` (0..1, how wide the mouth opens) | Spoken line (real voice, or gibberish sized to the line) + lip sync, and the line as a caption |
 | `narrate` | `line`, `voice?` (default `storyteller-warm`; `storyteller-deep`), `caption?`, `pos?`, `gain?` | A narrator nobody on screen speaks for: voice and caption, no mouth (needs real speech) |
 | `enter` | `to`, `dur?` | Walks to a spot and settles |
 | `take` | `to` (look target), `away?` | Double take: glance, look away, snap back shocked |

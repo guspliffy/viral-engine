@@ -57,7 +57,7 @@ function buildPoof(f, i) {
   });
   const sparkM = new THREE.MeshBasicMaterial({ color: f.spark || "#ffe27a" });
   const sparks = Array.from({ length: f.sparks ?? 22 }, () => {
-    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03, 0), sparkM); g.add(m);
+    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03 * (f.sparkSize ?? 1), 0), sparkM); g.add(m);
     const a = rnd() * Math.PI * 2;
     return { m, v: new THREE.Vector3(Math.cos(a) * (1.2 + rnd() * 2), 1.5 + rnd() * 2.5, Math.sin(a) * (0.6 + rnd())), spin: rnd() * 10 };
   });
@@ -75,9 +75,10 @@ function buildPoof(f, i) {
         p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
+      const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
       for (const s of sparks) {
         const q = Math.min(k, 0.9);
-        s.m.position.set(s.v.x * q * 0.7, 0.5 + s.v.y * q * 0.7 - 4.2 * q * q * 0.7, s.v.z * q * 0.7);
+        s.m.position.set(s.v.x * q * sp, 0.5 + s.v.y * q * sp - 4.2 * q * q * sp, s.v.z * q * sp);
         s.m.rotation.set(s.spin * k, s.spin * k * 0.7, 0);
         s.m.visible = k < 0.9;
         s.m.scale.setScalar(1.4 * (1 - k / 0.9) + 0.2);
@@ -315,9 +316,23 @@ function photoCard(f, i, t) {
   ctx.restore();
 }
 
+// a dramatic shadow crossing the frame (Cookie Rescue, the hero close-up): a soft dark band at `angle` degrees from
+// vertical sweeps from `from` to `to` (0..1 of the frame width) over dur, `width` (of the frame width) wide, darkening
+// by up to `peak`; it fades in and out over its first and last fifth. { fx: "shade", at, dur, from, to, width, peak, angle }
+function shadeFx(f, t) {
+  const d = f.dur ?? 0.5, k = (t - f.at) / d;
+  if (k < 0 || k > 1) return;
+  const x = W * ((f.from ?? -0.4) + ((f.to ?? 1.4) - (f.from ?? -0.4)) * k), w = W * (f.width ?? 0.5), a = ((f.angle ?? 18) * Math.PI) / 180;
+  const fade = Math.min(1, k * 5, (1 - k) * 5) * (f.peak ?? 0.45), c = f.color || "20,10,30";
+  ctx.save(); ctx.translate(x, H / 2); ctx.rotate(a);
+  const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
+  g.addColorStop(0, `rgba(${c},0)`); g.addColorStop(0.35, `rgba(${c},${fade})`); g.addColorStop(0.65, `rgba(${c},${fade})`); g.addColorStop(1, `rgba(${c},0)`);
+  ctx.fillStyle = g; ctx.fillRect(-w / 2, -H, w, 2 * H); ctx.restore();
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
@@ -476,6 +491,14 @@ function pose(t) {
   // a charger's cable runs to the prop its spec.to names (props3d.js charger, props-charger.js chargebank), wherever that
   // is now (link gets its position and its root, for the way it faces)
   for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3()), q.root); } }
+  // a breath runs from an actor's mouth (spec.mouth) to a point on a prop (spec.target, spec.at in its frame), wherever
+  // the head is now (props-candle.js breath)
+  for (const p of props) if (p.aim && p.spec.mouth) {
+    const a = actors.find((o) => o.c.id === p.spec.mouth), F = a && a.ch.face, q = props.find((o) => o.spec.id === p.spec.target);
+    if (!F || !F.place || !q) continue;
+    a.ch.root.updateMatrixWorld(true); q.root.updateMatrixWorld(true);
+    p.aim(F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()), q.root.localToWorld(new THREE.Vector3(...(p.spec.at || [0, 0, 0]))));
+  }
   const L = lightsAt(sb, t);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
@@ -496,6 +519,9 @@ function pose(t) {
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
+  // the layout and contact checks project with the camera before anything is drawn: without this they used the
+  // previous sample's camera (frame 0 of a clip, and the first frame after every cut, measured the wrong shot)
+  camera.updateMatrixWorld(true);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
   // hide: actors left out of a shot (whoever holds the phone in a shot from behind its screen)
   for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
