@@ -129,13 +129,23 @@
    ]
   },
   {
+   "id": "cup",
+   "kind": "papercup",
+   "x": -0.24,
+   "y": 0.24,
+   "z": 0.78,
+   "rot": 30,
+   "straws": 2,
+   "strawScale": 1.35
+  },
+  {
    "id": "straw",
    "kind": "bendystraw",
-   "x": -0.53,
-   "y": 0.24647999999999998,
-   "z": 0.68,
+   "x": -0.24,
+   "y": 0.246,
+   "z": 0.78,
    "rot": 70,
-   "tip": 90,
+   "tip": 0,
    "scale": 1.35
   }
  ],
@@ -826,12 +836,6 @@
      "at": 0.12
     },
     {
-     "sfx": "kenney/tick",
-     "gain": 0.6,
-     "reason": "the dry blink",
-     "at": 0.15
-    },
-    {
      "who": "rea",
      "do": "expr",
      "expr": "sad",
@@ -906,11 +910,11 @@
      "pose": {
       "world": [
        0,
-       0.31,
-       0.52
+       0.32999999999999996,
+       0.5
       ]
      },
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0.3
     },
@@ -928,17 +932,17 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.108,
-       0.439,
-       0.481
+       -0.058,
+       0.369,
+       0.581
       ],
       "palm": [
-       0,
-       0.439,
-       0.52
+       0.05,
+       0.369,
+       0.62
       ]
      },
-     "dur": 0.4,
+     "dur": 0.35,
      "ease": "inOut",
      "at": 0.45
     },
@@ -948,17 +952,17 @@
      "side": "L",
      "pose": {
       "world": [
-       0.108,
-       0.439,
-       0.559
+       0.158,
+       0.369,
+       0.659
       ],
       "palm": [
-       0,
-       0.439,
-       0.52
+       0.05,
+       0.369,
+       0.62
       ]
      },
-     "dur": 0.4,
+     "dur": 0.35,
      "ease": "inOut",
      "at": 0.45
     },
@@ -970,16 +974,18 @@
     },
     {
      "who": "wiz",
-     "do": "grab",
-     "prop": "carton",
-     "hand": "L",
-     "grip": [
-      0,
-      -0.02142857142857143,
-      0
-     ],
-     "pose": null,
-     "at": 0.85
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.12,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.6
     },
     {
      "who": "rea",
@@ -987,14 +993,19 @@
      "side": "R",
      "pose": {
       "world": [
-       0.3,
-       0.275,
-       0.55
+       -0.078,
+       0.339,
+       0.601
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
       ]
      },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.88
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.8
     },
     {
      "who": "rea",
@@ -1002,37 +1013,44 @@
      "side": "L",
      "pose": {
       "world": [
-       0.68,
-       0.275,
-       0.55
+       0.138,
+       0.339,
+       0.679
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
       ]
      },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.88
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "carton",
+     "to": [
+      0.03,
+      0.24,
+      0.64
+     ],
+     "dur": 0,
+     "at": 0.9
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.35,
+     "at": 0.9
     },
     {
      "who": "rea",
      "do": "grip",
      "side": "both",
-     "shape": "paw",
-     "dur": 0.25,
-     "at": 0.95
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       -0.2,
-       0.27,
-       0.7
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.95
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.94
     },
     {
      "who": "wiz",
@@ -1044,6 +1062,72 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.14,
+       0.32999999999999996,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.62,
+       0.32999999999999996,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.138,
+       0.339,
+       0.679
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.12
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.3,
+     "at": 1.12
     }
    ]
   },
@@ -1053,21 +1137,21 @@
    "len": 2.1,
    "shot": {
     "pos": [
-     -0.26,
-     2.196,
-     3.647
+     -0.09,
+     2.04,
+     3.666
     ],
     "look": [
-     -0.26,
-     0.46,
-     0.64
+     -0.09,
+     0.41,
+     0.6
     ],
     "fov": 18,
     "to": {
      "pos": [
-      -0.26,
-      1.675,
-      2.745
+      -0.09,
+      1.747,
+      3.114
      ]
     },
     "dur": 2.1
@@ -1086,13 +1170,40 @@
     },
     {
      "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -50,
+      "close": 0
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
      "do": "arm",
      "side": "R",
      "pose": {
       "world": [
-       -0.416,
-       0.331,
-       0.696
+       -0.33,
+       0.448,
+       0.686
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.3,
+       0.275,
+       0.55
       ]
      },
      "dur": 0.3,
@@ -1100,11 +1211,26 @@
      "at": 0.1
     },
     {
-     "who": "wiz",
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.68,
+       0.275,
+       0.55
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
      "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.2,
+     "side": "both",
+     "shape": "paw",
+     "dur": 0.3,
      "at": 0.1
     },
     {
@@ -1113,46 +1239,41 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.416,
-       0.281,
-       0.696
+       -0.329,
+       0.413,
+       0.685
       ]
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 0.4
+     "at": 0.35
     },
     {
      "who": "wiz",
      "do": "grip",
      "side": "R",
-     "shape": "pinch",
-     "dur": 0.1,
-     "at": 0.5
+     "shape": "tip",
+     "set": {
+      "roll": -50,
+      "close": 1
+     },
+     "dur": 0.08,
+     "at": 0.45
     },
     {
      "who": "wiz",
      "do": "grab",
      "prop": "straw",
      "hand": "R",
+     "point": "pinch",
      "grip": [
       0,
-      0.09,
+      0.12,
       0
      ],
-     "off": [
-      0,
-      -0.035,
-      0.026
-     ],
+     "dur": 0,
      "pose": null,
-     "at": 0.52
-    },
-    {
-     "sfx": "kenney/tick",
-     "gain": 0.25,
-     "reason": "fingers close on the straw",
-     "at": 0.52
+     "at": 0.53
     },
     {
      "who": "wiz",
@@ -1160,22 +1281,12 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.159,
-       0.713,
-       0.668
+       -0.297,
+       0.543,
+       0.683
       ]
      },
-     "dur": 0.55,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "straw",
-     "set": {
-      "tip": 0
-     },
-     "dur": 0.5,
+     "dur": 0.28,
      "ease": "inOut",
      "at": 0.6
     },
@@ -1203,14 +1314,51 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.159,
-       0.652,
-       0.668
+       -0.05,
+       0.681,
+       0.587
       ]
      },
-     "dur": 0.32,
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.05,
+       0.641,
+       0.587
+      ]
+     },
+     "dur": 0.14,
      "ease": "inOut",
      "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.05,
+       0.601,
+       0.587
+      ]
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.52
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.25,
+     "at": 1.52
     },
     {
      "do": "prop",
@@ -1220,12 +1368,12 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.396
+     "at": 1.59
     },
     {
-     "sfx": "pop",
-     "gain": 0.35,
-     "at": 1.396
+     "sfx": "puncture",
+     "gain": 0.4,
+     "at": 1.59
     },
     {
      "do": "prop",
@@ -1235,7 +1383,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.68
+     "at": 1.74
     },
     {
      "do": "prop",
@@ -1245,21 +1393,25 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.68
+     "at": 1.74
     },
     {
      "who": "wiz",
      "do": "release",
      "prop": "straw",
-     "at": 1.68
+     "at": 1.74
     },
     {
      "who": "wiz",
      "do": "grip",
      "side": "R",
-     "shape": "open",
-     "dur": 0.2,
-     "at": 1.72
+     "shape": "tip",
+     "set": {
+      "roll": -50,
+      "close": 0
+     },
+     "dur": 0.12,
+     "at": 1.74
     },
     {
      "who": "wiz",
@@ -1267,14 +1419,14 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.319,
-       0.612,
-       0.718
+       -0.1,
+       0.651,
+       0.577
       ]
      },
-     "dur": 0.22,
+     "dur": 0.16,
      "ease": "out",
-     "at": 1.72
+     "at": 1.88
     },
     {
      "who": "wiz",
@@ -1287,17 +1439,17 @@
        0.6
       ]
      },
-     "dur": 0.32,
+     "dur": 0.34,
      "ease": "inOut",
-     "at": 1.92
+     "at": 2.04
     },
     {
      "who": "wiz",
      "do": "grip",
      "side": "R",
      "shape": "paw",
-     "dur": 0.25,
-     "at": 2.05
+     "dur": 0.3,
+     "at": 2.04
     }
    ]
   },
@@ -1321,14 +1473,11 @@
    "do": [
     {
      "who": "wiz",
-     "do": "look",
-     "to": [
-      0.75,
-      -0.05
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.02
     },
     {
      "who": "wiz",
@@ -1336,14 +1485,14 @@
      "side": "L",
      "pose": {
       "world": [
-       0.06,
-       0.31,
-       0.52
+       -0.26,
+       0.275,
+       0.64
       ]
      },
-     "dur": 0.45,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 0.05
+     "at": 0.08
     },
     {
      "who": "rea",
@@ -1373,19 +1522,19 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.048,
-       0.439,
-       0.481
+       -0.058,
+       0.409,
+       0.541
       ],
       "palm": [
-       0.06,
-       0.439,
-       0.52
+       0.03,
+       0.339,
+       0.64
       ]
      },
-     "dur": 0.35,
+     "dur": 0.28,
      "ease": "inOut",
-     "at": 0.3
+     "at": 0.2
     },
     {
      "who": "rea",
@@ -1396,19 +1545,47 @@
      "at": 0.3
     },
     {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.078,
+       0.339,
+       0.601
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "L",
      "pose": {
       "world": [
-       0.168,
-       0.439,
-       0.559
+       0.138,
+       0.339,
+       0.679
       ],
       "palm": [
-       0.06,
-       0.439,
-       0.52
+       0.03,
+       0.339,
+       0.64
       ]
      },
      "dur": 0.35,
@@ -1421,13 +1598,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.3,
-     "at": 0.5
-    },
-    {
-     "sfx": "cloth",
-     "gain": 0.25,
-     "reason": "quiet handling as Reaper takes the carton",
-     "at": 0.75
+     "at": 0.55
     },
     {
      "who": "rea",
@@ -1440,30 +1611,13 @@
       0
      ],
      "pose": null,
-     "at": 0.85
+     "at": 0.88
     },
     {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       -0.26,
-       0.275,
-       0.64
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.95
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "paw",
-     "dur": 0.3,
-     "at": 1
+     "sfx": "cloth",
+     "gain": 0.25,
+     "reason": "quiet handling as Reaper takes the carton",
+     "at": 0.9
     }
    ]
   },
@@ -1917,5 +2071,13 @@
    "reason": "his paws rest on the tabletop"
   }
  ],
- "notes": "Generated by storyboards/juice/make-vampire-vs-juice-box.mjs (Jonny's story library 02)."
+ "notes": "Generated by storyboards/juice/make-vampire-vs-juice-box.mjs (Jonny's story library 02).",
+ "aimAt": [
+  3.34,
+  3.5,
+  3.87,
+  4.28,
+  4.5,
+  4.73
+ ]
 }

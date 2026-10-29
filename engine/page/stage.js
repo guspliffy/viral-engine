@@ -408,9 +408,11 @@ function pose(t) {
   const v = new THREE.Vector3();
   // the holder's anchor: a hand (position only, so a held prop stays upright), both hands, the point of the
   // character's own prop ("tip"), or the hat ("hat": position and tilt, something stuck to the hat tips with it)
-  const anchor = (who, hand) => {
+  // point "pinch": a glove's fingertip pinch (potato.js pinchPt) instead of the hand's centre
+  const anchor = (who, hand, point) => {
     const A = states[who]; if (!A) return null;
     A.a.ch.root.updateMatrixWorld(true);
+    if (point === "pinch" && A.a.ch.arms[hand]?.hand.userData.pinchPt) return { pos: A.a.ch.arms[hand].hand.userData.pinchPt.getWorldPosition(new THREE.Vector3()) };
     if (hand === "hat") return A.a.ch.costume.hat ? { obj: A.a.ch.costume.hat } : null;
     if (hand === "tip") return A.a.ch.costume.tip ? { pos: A.a.ch.costume.tip.getWorldPosition(new THREE.Vector3()) } : null;
     const hs = hand === "both" ? ["R", "L"] : [hand];
@@ -421,7 +423,7 @@ function pose(t) {
   const inFrame = (p, v) => (p.root.parent && p.root.parent !== scene ? p.root.parent.worldToLocal(v.clone()) : v);
   const heldAt = (p, ps, hold) => {
     const k = hold.keep ? keptOffset(p, hold) : null;   // first: it poses the holder at the grab and back
-    const an = anchor(hold.who, hold.hand); if (!an) return null;
+    const an = anchor(hold.who, hold.hand, hold.point); if (!an) return null;
     if (k) {
       if (an.obj) return inFrame(p, an.obj.localToWorld(new THREE.Vector3().fromArray(k))).toArray();
       const q = inFrame(p, an.pos); return [q.x + k[0], q.y + k[1], q.z + k[2]];
@@ -600,6 +602,8 @@ function layout(t) {
     }
     const hat = a.ch.costume && a.ch.costume.hat ? a.ch.costume.hat.getWorldPosition(new THREE.Vector3()).toArray().map(r3) : undefined;
     const hands = Object.fromEntries(["R", "L"].map((h) => [h, a.ch.arms[h].hand.getWorldPosition(new THREE.Vector3()).toArray().map(r3)]));
+    // a glove's fingertip pinch point, for a hand in a pinch (a generator aims a held straw from it, via aimAt)
+    const pinch = Object.fromEntries(["R", "L"].filter((h) => a.ch.arms[h].hand.userData.pinchW > 0).map((h) => [h, a.ch.arms[h].hand.userData.pinchPt.getWorldPosition(new THREE.Vector3()).toArray().map((v) => Math.round(v * 1e4) / 1e4)]));
     // a held costume prop's shaft in the world (the katana: a = the handle's foot, b = the blade tip), for aiming
     const L = a.ch.costume.propLine?.(), prop = L ? { a: a.ch.root.localToWorld(L.a.clone()).toArray().map(r3), b: a.ch.root.localToWorld(L.b.clone()).toArray().map(r3) } : undefined;
     // world anchors for framing (engine/direct.mjs is checked against them): the eyes' midpoint and the top of the
@@ -608,7 +612,7 @@ function layout(t) {
     const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
     // the middle of the mouth on the face's surface (aiming a spoon or anything that leaves the mouth)
     const F = a.ch.face, mouth = F && F.place ? F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()).toArray().map(r3) : undefined;
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, ...(Object.keys(pinch).length && { pinch }), prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   const propsOut = props.map((p) => ({ id: p.spec.id, at: p.root.position.toArray().map(r3), visible: p.root.visible }));

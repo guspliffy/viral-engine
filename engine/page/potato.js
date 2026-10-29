@@ -1,5 +1,7 @@
 import * as THREE from "three";
 const _fist = new THREE.Quaternion();
+// the glove thumb's tip (the centre of its end) in its pivot's frame: the capsule at (0.024, 0.018) turned -0.75
+const THUMB_TIP = new THREE.Vector3(0.024 + 0.017 * Math.sin(0.75), 0.018 + 0.017 * Math.cos(0.75), 0);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
@@ -129,6 +131,8 @@ export class Character {
       // short, plump fingers (Jonny's hand study: the glove's fingers are about as long as the palm is deep)
       finger(fingers, 0.011, 0.034, 0.0175, -0.01); finger(fingers, -0.017, 0.032, 0.017, 0.03); finger(fingers, -0.042, 0.026, 0.0157, 0.08);
       finger(index, 0, 0.032, 0.0175, -0.04);
+      // the index finger's pad, on the palm side of its last joint: a fingertip pinch (grip pinch > 0) closes on it
+      const pad = new THREE.Object3D(); pad.position.set(0, 0.016, 0.017); bends[bends.length - 1].add(pad); g.userData.pad = pad;
       thumb = piv(0.044, -0.01, 0.012);
       const th = new THREE.Mesh(cap(0.0165, 0.034), M("#e020e0")); th.position.set(0.024, 0.018, 0); th.rotation.z = -0.75; th.castShadow = true; thumb.add(th);
       // the wrist: the heel of the hand narrowing into the forearm
@@ -164,7 +168,9 @@ export class Character {
     const tf = new THREE.Mesh(cap(0.0145, 0.03), M("#e020e0")); tf.rotation.x = Math.PI / 2 - 0.35; tf.rotation.z = -0.25;
     tf.rotation.order = "ZXY"; tf.position.set(0.04, -0.012, 0.03); tf.castShadow = true; fist.add(tf);
     if (glove) g.traverse((o) => { if (o.isMesh) o.receiveShadow = true; });   // fingers shade each other
-    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove };
+    // where a fingertip pinch holds a thin prop (a straw): between the index pad and the thumb, set by _pose
+    const pinchPt = new THREE.Object3D(); g.add(pinchPt);
+    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove, pinchPt };
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
@@ -185,7 +191,9 @@ export class Character {
     // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops. The
     // forearm direction, taken square to the handle, is the hand's own axis: the wrist enters the fist from the side and
     // the handle passes in front of the palm (grip frame: +x along the handle, thumb end; +z palm side)
-    const w = axis ? fistWeight(gr.curl) : 0;
+    // a fingertip pinch (grip pinch, glove hands) turns the hand onto the axis too, without closing the fist on it
+    const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
+    const w = axis ? Math.max(fistWeight(gr.curl), pw) : 0;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
       // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
@@ -193,8 +201,14 @@ export class Character {
       // or flip it, so the steady out-and-forward pull takes over, smoothly, and keeps the knuckles to the front
       const o = new THREE.Vector3(at.x, 0, 0).normalize().add(new THREE.Vector3(0, 0, 1));
       if (at.x === 0) o.set(-sx, 0, 1);
-      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4);
+      // a pinch keeps the fingers running on along the forearm (a pen hold), not pulled out to the front
+      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4 * (1 - pw));
       if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      // roll: the hand turned about the held axis (degrees), to show the pinch to the camera
+      if (gr.roll) f.applyAxisAngle(x, (gr.roll * Math.PI) / 180);
+      // lean: a pinch's knuckle line tips off the held axis (degrees, the little finger end back towards the wrist), so
+      // the curled fingers stay clear of a straw that runs on below the fingertips, as in Jonny's grip reference
+      if (gr.lean) { const l = (gr.lean * Math.PI) / 180, x0 = x.clone(); x.multiplyScalar(Math.cos(l)).addScaledVector(f, Math.sin(l)); f.multiplyScalar(Math.cos(l)).addScaledVector(x0, -Math.sin(l)); }
       U.fistPar = Math.abs(y.dot(x));
       // fwd: the fist turns its knuckles to face forward (a mug or teacup handle held beside the cup: the fingers wrap
       // the front of the handle and the palm faces the cup)
@@ -251,13 +265,29 @@ export class Character {
     } else { U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index; }
     U.thumb.rotation.set(0, -1.15 * gr.thumb, 0.35 * gr.thumb);
     // on a handle the wrapped fist (U.fist) takes over from the mitten fingers
-    const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
+    const tw = axis && !(pw > 0) ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);   // a pinch keeps its own fingers
     U.thumb.position.copy(U.thumbRest);
     U.fist.visible = tw > 0.001; U.fist.scale.setScalar(Math.max(0.001, tw));
     // a closed fist is more compact than the open mitten, and its palm draws back behind the handle so the handle always
     // runs through the fingers, never through the palm
     const pr = U.palm.userData.rest; U.palm.scale.set(pr[0], pr[1], pr[2] - 0.18 * tw).multiplyScalar(1 - 0.15 * tw); U.palm.position.z = -0.034 * tw;
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
+    // a fingertip pinch: the held thing's axis runs through pinchPt, against the index finger's pad, and the thumb turns
+    // and reaches so its tip closes on the other side of it (the thumb and index pads opposing, Jonny's straw grip)
+    if (U.pad) {
+      const pad = U.pad, mid = pad.parent, chain = [mid, mid.parent, U.index], p = pad.position.clone(), n = new THREE.Vector3(0, 0, 1);
+      for (const o of chain) { o.updateMatrix(); p.applyMatrix4(o.matrix); n.applyQuaternion(o.quaternion); }
+      const rs = gr.thin ?? 0.005, q = p.addScaledVector(n, rs);
+      U.pinchPt.position.copy(q); U.pinchW = pw;
+      // close: 0 the thumb stands open (reaching for it, letting go), 1 its pad is on the straw
+      const tk = pw * Math.min(1, Math.max(0, gr.close ?? 1));
+      if (tk > 0) {
+        const tc = q.clone().addScaledVector(n, rs + 0.0165), d = tc.clone().sub(U.thumbRest);
+        const qa = new THREE.Quaternion().setFromUnitVectors(THUMB_TIP.clone().normalize(), d.normalize());
+        U.thumb.quaternion.slerp(qa, tk);
+        U.thumb.position.lerp(tc.sub(THUMB_TIP.clone().applyQuaternion(qa)), tk);
+      }
+    }
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
   // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one.
@@ -397,7 +427,7 @@ export class Character {
       // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
       // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = { ...(st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }) }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
-      const hw = ax ? fistWeight(gr.curl) : 0;
+      const hw = ax ? Math.max(fistWeight(gr.curl), this.arms[s].hand.userData.glove ? Math.min(1, gr.pinch || 0) : 0) : 0;
       // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
       // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
       // way round the body from the shoulder to the hand, so the arm wraps round the body instead of through it

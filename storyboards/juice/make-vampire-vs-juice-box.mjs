@@ -23,7 +23,8 @@
 // Continuity: one carton (props-juice.js juicebox), one straw (bendystraw, swapped for the carton's own when it is
 // in), the stains stay (face juiceL, stainL on the Wizard: his left cheek and forearm, the side toward Reaper).
 import { clip, write, r3 } from "../lib/clip.mjs";
-import { JUICE, strawEnd } from "../../engine/page/props-juice.js";
+import { existsSync, readFileSync } from "node:fs";
+import { JUICE, CUP, strawEnd } from "../../engine/page/props-juice.js";
 
 const c = clip(), { A, sfx } = c;
 const END = 11.0;
@@ -52,27 +53,29 @@ const mid = (C, y = 0.42) => onCarton(C, [0, JUICE.h * y, 0]);
 // where the carton's own straw stands (its foot), and the loose straw's grip, for the carton at C
 const STRAW_FOOT = (C) => add(onCarton(C, [JUICE.port[0], JUICE.h, JUICE.port[1]]), [0, -JUICE.strawIn * SS, 0]);
 const STRAW_TOP = (C) => add(STRAW_FOOT(C), rotY(rotY(strawEnd(), STRAW_ROT).map((v) => v * SS), RC));
-// the Wizard holds the loose straw high up, so its pointed end shows below his hand all the way into the foil, and
-// in front of his palm: the fingers close round it on the camera side (a straw held low and at the fist's centre
-// looked as if it grew out of the glove, Jonny 29 Oct)
-const S_GRIP = [0, 0.09, 0], S_OFF = [0, -0.035, 0.026];   // grip on the straw (its own frame); the straw off the fist's centre (world)
-const strawFist = (foot, tipDeg, rot) => {       // the fist for the loose straw's foot at `foot`
-  const g = S_GRIP[1] * SS, k = (tipDeg * Math.PI) / 180, d = rotY([0, Math.cos(k) * g, Math.sin(k) * g], rot);
-  return add(foot, [d[0] - S_OFF[0], d[1] - S_OFF[1], d[2] - S_OFF[2]]);
-};
+// the Wizard's straw grip (Jonny's reference, 29 Oct): the straight shaft pinched between the thumb and index pads
+// (grip "tip", the prop held at the pinch point), below the bend, so the lower shaft shows all the way into the foil.
+// The hand is placed so its pinch lands on the straw: PINCH holds the hand's offset from its pinch point at each key,
+// measured from the layout (aimAt; node storyboards/juice/aim-pinch.mjs), a first guess until then
+const S_GRIP = [0, 0.12, 0], G_S = S_GRIP[1] * SS;      // on the straw's own frame; its height above the foot in metres
+const PINCH_FILE = new URL("./vampire-pinch.json", import.meta.url);
+const PINCH = existsSync(PINCH_FILE) ? JSON.parse(readFileSync(PINCH_FILE, "utf8")) : {};
+const ROLL = -50;                                 // the hand turned about the straw: the index pad and thumb both show
+export const AIM = { reach: 3.34, cup: 3.5, up: 3.87, above: 4.28, touch: 4.5, in: 4.73 };   // a time the hand rests on each key
+const handFor = (key, p) => add(p, PINCH[key] ?? [-0.02, -0.03, -0.06]);
 
 // the carton's keys (its bottom centre)
 const C_BITE = add(MOUTH_REA_BITE, [0, -0.03 - H, 0]).map((v, i) => r3(v + rotY([0, 0, D / 2 - 0.022], RC)[i]));
 const C_LOW = add(C_BITE, [-0.03, -0.06, 0.05]);           // lowered, sheepish, after the spray
-const C_PASS = [0.0, TABLE_H + 0.1, 0.52];                  // the handoff into the Wizard's left palm
-const C_WIZ = [-0.2, TABLE_H + 0.06, 0.7];                 // held steady for the straw
-const C_BACK = [0.06, TABLE_H + 0.1, 0.52]; 
+const C_WIZ = [0.03, TABLE_H, 0.64];                     // set down in front of the Wizard for the straw
 const C_DOWN = [0.1, TABLE_H + 0.035, 0.6];                // lowered in front of him, after the sip
-                // handed back
-// the straw lying on the table in front of the Wizard: its foot, pointing right-front (rot 70: the long part toward
-// +x, the bend lying flat toward the back)
-const S_LIE = [-0.53, TABLE_H + JUICE.strawR * SS, 0.68], S_ROT = RC + STRAW_ROT;
-const S_IN = STRAW_FOOT(C_WIZ), S_ABOVE = add(S_IN, [0, JUICE.strawIn * SS + 0.02, 0]);
+// the paper cup of straws beside it (the Wizard came prepared), the one he takes standing in its middle, its bend
+// already turned the way it will sit in the carton (rot = the carton's rot + STRAW_ROT), so it never turns in the hand
+const CUP_AT = [-0.24, TABLE_H, 0.78], S_ROT = RC + STRAW_ROT, S_CUP = add(CUP_AT, [0, 0.006, 0]);
+// the pinch point at each key: in the cup, lifted clear of it, its tip 4 cm over the port, on the foil, pushed in
+const PORT = onCarton(C_WIZ, [JUICE.port[0], JUICE.h, JUICE.port[1]]), S_IN = STRAW_FOOT(C_WIZ);
+const P_CUP = add(S_CUP, [0, G_S, 0]), P_UP = add(P_CUP, [0.04, CUP.h + 0.03, -0.01]);
+const P_ABOVE = add(PORT, [0, 0.04 + G_S, 0]), P_TOUCH = add(PORT, [0, G_S, 0]), P_IN = add(S_IN, [0, G_S, 0]);
 
 // eye targets (face look space: + right on screen, + up)
 const REA_AT_CARTON = [-0.2, -0.75], REA_AT_WIZ = [-0.75, -0.05], REA_AHEAD = [-0.1, 0.05], REA_DOWN = [-0.3, -0.6];
@@ -86,7 +89,8 @@ const props = [
   { id: "table", kind: "coffeetable", x: 0, z: TABLE_Z, h: TABLE_H, w: 2.8, d: TABLE_D, color: "#e9d3a8", leg: "#c9a273" },
   { id: "carton", kind: "juicebox", x: C_BITE[0], y: C_BITE[1], z: C_BITE[2], rot: RC, scale: CS, strawRot: STRAW_ROT, strawScale: r3(SS / CS),
     jets: [] },   // filled below, once the targets are known
-  { id: "straw", kind: "bendystraw", x: S_LIE[0], y: S_LIE[1], z: S_LIE[2], rot: S_ROT, tip: 90, scale: SS },
+  { id: "cup", kind: "papercup", x: CUP_AT[0], y: CUP_AT[1], z: CUP_AT[2], rot: 30, straws: 2, strawScale: SS },
+  { id: "straw", kind: "bendystraw", x: S_CUP[0], y: S_CUP[1], z: S_CUP[2], rot: S_ROT, tip: 0, scale: SS },
 ];
 
 // ---------------------------------------------------------------- frame 0: everything already in place
@@ -161,68 +165,84 @@ A(1.8, "wiz", "pitch", { to: 0, dur: 0.3 });
 A(1.85, "wiz", "turn", { to: WIZ_FACE, dur: 0.3 });
 A(1.82, "wiz", "look", { to: WIZ_AT_REA, dur: 0.15, blink: false });
 A(1.92, "wiz", "blink", { dur: 0.2 });
-// the left hand opens, palm up, under where the carton will come
-A(2.1, "wiz", "arm", { side: "L", pose: { world: under(C_PASS) }, dur: 0.35, ease: "inOut" });
+// the left hand opens, palm up: give it here. Reaper sets the carton down in front of him instead
+A(2.1, "wiz", "arm", { side: "L", pose: { world: [0.0, TABLE_H + 0.09, 0.5] }, dur: 0.3, ease: "inOut" });
 A(2.1, "wiz", "grip", { side: "L", shape: "cup", dur: 0.3 });
 A(2.0, "rea", "expr", { expr: "sad", set: { curve: 0.15, eye: 0.95, open: 0 }, dur: 0.3 });   // sheepish
 A(2.0, "rea", "face", { brow: 0.15, dur: 0.3 });
 A(2.05, "rea", "look", { to: REA_DOWN, dur: 0.2, blink: false });
 A(2.0, "rea", "arm", { side: "R", pose: { world: sideR(C_LOW), palm: mid(C_LOW) }, dur: 0.2 });
 A(2.0, "rea", "arm", { side: "L", pose: { world: sideL(C_LOW), palm: mid(C_LOW) }, dur: 0.2 });
-A(2.25, "rea", "arm", { side: "R", pose: { world: sideR(C_PASS), palm: mid(C_PASS) }, dur: 0.4, ease: "inOut" });
-A(2.25, "rea", "arm", { side: "L", pose: { world: sideL(C_PASS), palm: mid(C_PASS) }, dur: 0.4, ease: "inOut" });
+const C_SET = add(C_WIZ, [0.02, 0.03, -0.02]);
+A(2.25, "rea", "arm", { side: "R", pose: { world: sideR(C_SET), palm: mid(C_SET) }, dur: 0.35, ease: "inOut" });
+A(2.25, "rea", "arm", { side: "L", pose: { world: sideL(C_SET), palm: mid(C_SET) }, dur: 0.35, ease: "inOut" });
+A(2.4, "wiz", "arm", { side: "L", pose: { world: [0.12, TABLE_H + 0.06, 0.42] }, dur: 0.25, ease: "inOut" });   // out of the way
+A(2.6, "rea", "arm", { side: "R", pose: { world: sideR(C_WIZ), palm: mid(C_WIZ) }, dur: 0.1, ease: "out" });
+A(2.6, "rea", "arm", { side: "L", pose: { world: sideL(C_WIZ), palm: mid(C_WIZ) }, dur: 0.1, ease: "out" });
+A(2.7, "rea", "release", { prop: "carton", to: C_WIZ, dur: 0 });
+sfx(2.7, "put-down", { gain: 0.35 });
 sfx(2.3, "cloth", { gain: 0.45, reason: "the carton's light rustle as it is passed" });
-A(2.65, "wiz", "grab", { prop: "carton", hand: "L", grip: [0, -PALM / CS, 0], pose: null });   // on his palm
-A(2.68, "rea", "arm", { side: "R", pose: { world: [0.3, TABLE_H + 0.035, 0.55] }, dur: 0.35, ease: "inOut" });
-A(2.68, "rea", "arm", { side: "L", pose: { world: [0.68, TABLE_H + 0.035, 0.55] }, dur: 0.35, ease: "inOut" });
-A(2.75, "rea", "grip", { side: "both", shape: "paw", dur: 0.25 });
-A(2.75, "wiz", "arm", { side: "L", pose: { world: under(C_WIZ) }, dur: 0.3, ease: "inOut" });
+A(2.74, "rea", "grip", { side: "both", shape: "open", dur: 0.12 });
+// the hands open, come back over the table and settle as paws again
+A(2.8, "rea", "arm", { side: "R", pose: { world: [0.14, TABLE_H + 0.09, 0.5] }, dur: 0.3, ease: "inOut" });
+A(2.8, "rea", "arm", { side: "L", pose: { world: [0.62, TABLE_H + 0.09, 0.5] }, dur: 0.3, ease: "inOut" });
+A(3.1, "rea", "arm", { side: "R", pose: { world: [0.3, TABLE_H + 0.035, 0.55] }, dur: 0.3, ease: "inOut" });
+A(3.1, "rea", "arm", { side: "L", pose: { world: [0.68, TABLE_H + 0.035, 0.55] }, dur: 0.3, ease: "inOut" });
+A(2.82, "rea", "grip", { side: "both", shape: "relaxed", dur: 0.2 });
+A(3.1, "rea", "grip", { side: "both", shape: "paw", dur: 0.3 });
+// the Wizard's left hand steadies it from its far side (palm on it, fingers round its front), and keeps it there
+A(2.92, "wiz", "arm", { side: "L", pose: { world: sideL(C_WIZ), palm: mid(C_WIZ) }, dur: 0.3, ease: "inOut" });
+A(2.92, "wiz", "grip", { side: "L", shape: "hold", dur: 0.3 });
 A(2.75, "wiz", "look", { to: WIZ_AT_CARTON, dur: 0.15, blink: false });
 
 // ---------------------------------------------------------------- 05 USE THE STRAW 3.00-5.10
+// thumb and index pinch the straight shaft below the bend (grip "tip"), lift it out of the cup, tip over the port,
+// touch down, press it in along its length, open the fingers, then take the hand away
 A(3.0, "wiz", "look", { to: WIZ_AT_STRAW, dur: 0.15, blink: false });
-const FIST_LIE = strawFist(S_LIE, 90, S_ROT);
-A(3.1, "wiz", "arm", { side: "R", pose: { world: add(FIST_LIE, [0, 0.05, 0]) }, dur: 0.3, ease: "inOut" });
-A(3.1, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
-A(3.4, "wiz", "arm", { side: "R", pose: { world: FIST_LIE }, dur: 0.12, ease: "out" });
-A(3.5, "wiz", "grip", { side: "R", shape: "pinch", dur: 0.1 });
-A(3.52, "wiz", "grab", { prop: "straw", hand: "R", grip: S_GRIP, off: S_OFF, pose: null });
-// lift it, stand it up and bring it over the port
-A(3.6, "wiz", "arm", { side: "R", pose: { world: strawFist(S_ABOVE, 0, S_ROT) }, dur: 0.55, ease: "inOut" });
-c.prop(3.6, "straw", { tip: 0 }, 0.5);
+A(3.0, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 0 }, dur: 0.3 });
+A(3.05, "wiz", "arm", { side: "R", pose: { world: handFor("reach", add(P_CUP, [0, 0.035, 0])) }, dur: 0.3, ease: "inOut" });
+A(3.35, "wiz", "arm", { side: "R", pose: { world: handFor("cup", P_CUP) }, dur: 0.12, ease: "out" });
+A(3.45, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 1 }, dur: 0.08 });
+A(3.53, "wiz", "grab", { prop: "straw", hand: "R", point: "pinch", grip: S_GRIP, dur: 0, pose: null });
+// out of the cup, straight up, then across to hang over the port
+A(3.6, "wiz", "arm", { side: "R", pose: { world: handFor("up", P_UP) }, dur: 0.28, ease: "inOut" });
+A(3.88, "wiz", "arm", { side: "R", pose: { world: handFor("above", P_ABOVE) }, dur: 0.36, ease: "inOut" });
 A(3.75, "wiz", "look", { to: WIZ_AT_PORT, dur: 0.2, blink: false });
 A(3.6, "wiz", "still", { dur: 1.4, idle: 0.08 });
-// a beat of aim, then the push through the foil
-A(4.3, "wiz", "arm", { side: "R", pose: { world: strawFist(S_IN, 0, S_ROT) }, dur: 0.32, ease: "inOut" });
-const POP = 4.3 + 0.32 * 0.3;
+// aim, touch the foil, then press straight down along the straw
+A(4.3, "wiz", "arm", { side: "R", pose: { world: handFor("touch", P_TOUCH) }, dur: 0.14, ease: "inOut" });
+A(4.52, "wiz", "arm", { side: "R", pose: { world: handFor("in", P_IN) }, dur: 0.2, ease: "in" });
+const POP = 4.52 + 0.2 * 0.35;
 c.prop(POP, "carton", { port: 1 }, 0.05, "out");
 sfx(POP, "puncture", { gain: 0.4 });   // the straw through the foil
-// swap the loose straw for the carton's own, then let go
-c.prop(4.68, "straw", { scale: 0 }, 0);
-c.prop(4.68, "carton", { straw: 1 }, 0);
-A(4.68, "wiz", "release", { prop: "straw" });
-A(4.72, "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });
-A(4.72, "wiz", "arm", { side: "R", pose: { world: add(strawFist(S_IN, 0, S_ROT), [-0.16, -0.04, 0.05]) }, dur: 0.22, ease: "out" });   // sideways and down off the straw first, above the carton and below his eyes
-A(4.92, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.32, ease: "inOut" });
-A(5.05, "wiz", "grip", { side: "R", shape: "paw", dur: 0.25 });
+A(4.52, "wiz", "squash", { amount: 0.015, dur: 0.25 });
+// the carton's own straw takes over where the held one is, the fingers open, then the hand leaves (up, then away)
+c.prop(4.74, "straw", { scale: 0 }, 0);
+c.prop(4.74, "carton", { straw: 1 }, 0);
+A(4.74, "wiz", "release", { prop: "straw" });
+A(4.74, "wiz", "grip", { side: "R", shape: "tip", set: { roll: ROLL, close: 0 }, dur: 0.12 });
+A(4.88, "wiz", "arm", { side: "R", pose: { world: add(handFor("in", P_IN), [-0.05, 0.05, -0.01]) }, dur: 0.16, ease: "out" });
+A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.34, ease: "inOut" });
+A(5.04, "wiz", "grip", { side: "R", shape: "paw", dur: 0.3 });
 
 // ---------------------------------------------------------------- 06 GIVE IT BACK 5.10-6.50
-A(5.1, "wiz", "look", { to: WIZ_AT_REA, dur: 0.2, blink: false });
-A(5.15, "wiz", "arm", { side: "L", pose: { world: under(C_BACK) }, dur: 0.45, ease: "inOut" });
+// the Wizard lets go and sits back; Reaper takes it in both hands, right then left, and lifts it
+A(5.12, "wiz", "grip", { side: "L", shape: "open", dur: 0.12 });
+A(5.18, "wiz", "arm", { side: "L", pose: { world: [-0.26, TABLE_H + 0.035, 0.64] }, dur: 0.4, ease: "inOut" });
+A(5.45, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 A(5.2, "rea", "look", { to: [-0.45, -0.5], dur: 0.15, blink: false });
 A(5.2, "rea", "expr", { expr: "eager", set: { open: 0, eye: 1.05 }, dur: 0.25 });
-A(5.4, "rea", "arm", { side: "R", pose: { world: sideR(C_BACK), palm: mid(C_BACK) }, dur: 0.35, ease: "inOut" });
+A(5.3, "rea", "arm", { side: "R", pose: { world: add(sideR(C_WIZ), [0.02, 0.07, -0.06]), palm: mid(C_WIZ) }, dur: 0.28, ease: "inOut" });   // over, then down onto its side
+A(5.58, "rea", "arm", { side: "R", pose: { world: sideR(C_WIZ), palm: mid(C_WIZ) }, dur: 0.16, ease: "out" });
 A(5.4, "rea", "grip", { side: "R", shape: "hold", dur: 0.3 });
-A(5.6, "rea", "arm", { side: "L", pose: { world: sideL(C_BACK), palm: mid(C_BACK) }, dur: 0.35, ease: "inOut" });
-A(5.6, "rea", "grip", { side: "L", shape: "hold", dur: 0.3 });
-A(5.95, "rea", "grab", { prop: "carton", hand: "both", grip: [0, JUICE.h * 0.42, 0], pose: null });
-sfx(5.85, "cloth", { gain: 0.25, reason: "quiet handling as Reaper takes the carton" });
-A(6.05, "wiz", "arm", { side: "L", pose: { world: [-0.26, TABLE_H + 0.035, 0.64] }, dur: 0.4, ease: "inOut" });
-A(6.1, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
+A(5.6, "rea", "arm", { side: "L", pose: { world: sideL(C_WIZ), palm: mid(C_WIZ) }, dur: 0.35, ease: "inOut" });
+A(5.65, "rea", "grip", { side: "L", shape: "hold", dur: 0.3 });
+A(5.98, "rea", "grab", { prop: "carton", hand: "both", grip: [0, JUICE.h * 0.42, 0], pose: null });
+sfx(6.0, "cloth", { gain: 0.25, reason: "quiet handling as Reaper takes the carton" });
 
 // ---------------------------------------------------------------- 07 IT WORKS 6.50-8.00
 // the carton comes up until the straw's end is at his lips
-const SIP = MOUTH_REA, C_SIP = add(C_BACK, SIP.map((v, i) => v - STRAW_TOP(C_BACK)[i]));
+const SIP = MOUTH_REA, C_SIP = add(C_WIZ, SIP.map((v, i) => v - STRAW_TOP(C_WIZ)[i]));
 const REA_HANDS = (C) => [{ world: sideR(C), palm: mid(C) }, { world: sideL(C), palm: mid(C) }];
 A(6.5, "rea", "look", { to: [-0.1, -0.6], dur: 0.15, blink: false });
 A(6.5, "rea", "arm", { side: "R", pose: REA_HANDS(C_SIP)[0], dur: 0.45, ease: "inOut" });
@@ -280,7 +300,7 @@ const S1 = frame(add(MOUTH_REA, [-0.03, -0.02, 0]), { az: -18, el: 6, h: 0.95, f
 const S2 = frame(add(mid(C_BITE, 0.7), [0, 0.05, 0]), { az: -22, el: 8, h: 0.72, fov: 16 });   // the eyes in frame
 const S3 = frame([-0.12, 0.62, 0.38], { az: 24, el: 3, h: 1.35, fov: 20 });   // wide enough for the jets coming in
 const S4 = frame([0.0, 0.58, 0.3], { az: -4, el: 5, h: 2.0, fov: 22 });
-const S5 = frame(add(C_WIZ, [-0.06, 0.16, -0.06]), { az: 0, el: 30, h: 1.1, fov: 18, push: 0.3, dur: 2.1 });
+const S5 = frame(add(C_WIZ, [-0.12, 0.17, -0.04]), { az: 0, el: 28, h: 1.1, fov: 18, push: 0.18, dur: 2.1 });
 const S6 = frame([-0.03, 0.55, 0.35], { az: -4, el: 5, h: 1.75, fov: 22 });
 const S7 = frame(add(MOUTH_REA, [-0.02, -0.03, 0]), { az: -18, el: 4, h: 0.95, fov: 18 });
 const S8 = frame(add(MOUTH_REA, [-0.02, -0.02, 0]), { az: 4, el: 2, h: 1.5, fov: 20 });   // wider and from his other side: a real cut, the straw off his face
@@ -317,6 +337,7 @@ const sb = (variant, captions) => ({
     { who: "rea", with: "table", from: 2.7, to: 5.6, reason: "his paws rest on the tabletop" },
   ],
   notes: "Generated by storyboards/juice/make-vampire-vs-juice-box.mjs (Jonny's story library 02).",
+  aimAt: Object.values(AIM),   // the pinch keys, for storyboards/juice/aim-pinch.mjs
 });
 // A: the brief as written (no on-screen text). B: A plus a setup caption over the opening (the hook lab: on mute, a
 // caption carried the setup). Pick with qa/hook.mjs.

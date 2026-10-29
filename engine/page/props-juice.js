@@ -15,6 +15,7 @@ import { taperedTube } from "./geo.js";
 //   bendystraw  origin = its bottom end, standing up along +y; its bend near the top turns the short end toward +x.
 //               Lying on a table: tip 90 (the long end toward +z, the bend flat), y = the table + JUICE.strawR.
 //               Grip "mid" is on the long part just under the bend.
+//   papercup    origin = its bottom centre: a striped paper cup (CUP) with spec.straws spare straws leaning in it.
 // Swapping the held straw for the carton's own (straw 1, the loose one scaled to 0) is invisible when the loose straw
 // stands upright at the carton's port with rot = the carton's rot + strawRot (storyboards/juice/make-vampire-vs-juice-box.mjs STRAW_FOOT).
 export const JUICE = {
@@ -25,6 +26,7 @@ export const JUICE = {
   strawR: 0.0048, strawL: 0.16, strawTip: 0.045, strawBend: 62, strawIn: 0.03, strawGrip: 0.045,
   color: "#7a2aa8",
 };
+export const CUP = { h: 0.1, top: 0.042, bottom: 0.032 };   // the paper cup of spare straws
 export const JUICE_GRIPS = {
   bendystraw: { mid: [0, JUICE.strawGrip, 0] },
 };
@@ -165,5 +167,25 @@ export const JUICE_KINDS = {
   bendystraw(P) {
     straw(P.whole, mat(P.spec.color ?? "#ffffff", { roughness: 0.35 }));
     return { grip: JUICE.strawGrip };
+  },
+  // a striped paper cup that keeps the spare straws (the Wizard's: he came prepared). spec.straws: how many spares stand
+  // in it, leaning on the rim; the one he takes is its own bendystraw prop, standing at the cup's centre
+  papercup(P) {
+    const c = document.createElement("canvas"); c.width = 128; c.height = 64; const x = c.getContext("2d");
+    x.fillStyle = "#fbfaf6"; x.fillRect(0, 0, 128, 64); x.fillStyle = P.spec.stripe ?? "#7a2aa8";
+    for (let i = 0; i < 8; i++) x.fillRect(i * 16 + 4, 0, 6, 64);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = THREE.RepeatWrapping;
+    const H = CUP.h, side = mesh(new THREE.CylinderGeometry(CUP.top, CUP.bottom, H, 28, 1, true), mat("#ffffff", { map: t, roughness: 0.7, side: THREE.DoubleSide }), P.whole, 0, H / 2, 0);
+    side.material.side = THREE.DoubleSide;
+    mesh(new THREE.CircleGeometry(CUP.bottom, 24), mat("#e8e2d6"), P.whole, 0, 0.004, 0).rotation.x = -Math.PI / 2;
+    const rim = mesh(new THREE.TorusGeometry(CUP.top, 0.0028, 6, 28), mat("#fbfaf6"), P.whole, 0, H, 0); rim.rotation.x = Math.PI / 2;
+    const sm = mat("#ffffff", { roughness: 0.35 });
+    for (let i = 0; i < (P.spec.straws ?? 2); i++) {
+      const a = 2.2 + i * 2.1, g = straw(P.whole, sm);
+      g.position.set(Math.cos(a) * CUP.bottom * 0.55, 0.006, Math.sin(a) * CUP.bottom * 0.55);
+      g.rotation.set(Math.sin(a) * 0.16, a * 0.7, -Math.cos(a) * 0.16);
+      g.scale.setScalar(P.spec.strawScale ?? 1);
+    }
+    return {};
   },
 };

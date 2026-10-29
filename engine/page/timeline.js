@@ -45,13 +45,17 @@ export const GRIPS = {
   // curled fingers under and round it, lying against the cup body in front
   thumb: { curl: 1.2,  index: 1.2,  thumb: 0.0 },   // thumbs up: a fist with the thumb straight (forearm forward, palm in: it points up)
   teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
+  // a fingertip pinch on a thin upright thing (a straw): the thumb and index pads opposing on it, the other fingers
+  // loosely curled, the palm beside it, the fingers running on along the forearm (glove hands; the prop is held at the
+  // pinch with grab point "pinch"). roll turns the hand about the straw; thin: its radius in the hand's own units
+  tip: { curl: 0.95, index: 0.35, thumb: 0.5, axis: [0, 1, 0], pinch: 1, lean: 30 },
 };
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw
 // palm down on a surface, its fingers turned that far from the forearm towards straight ahead
 // axis: a handle held without a costume prop (the teacup), in the actor's root space; the fist only turns onto it once
 // the hand is closing, so taking it from either end of the blend never pops. fwd: how far the fist turns its
 // knuckles to face forward (0 along the forearm, 1 straight ahead)
-const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t), fwd: lerp(a.fwd || 0, b.fwd || 0, t), down: lerp(a.down || 0, b.down || 0, t), ahead: lerp(a.ahead ?? 0.7, b.ahead ?? 0.7, t), axis: (t < 0.5 ? a.axis || b.axis : b.axis || a.axis) || null });
+const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t), fwd: lerp(a.fwd || 0, b.fwd || 0, t), down: lerp(a.down || 0, b.down || 0, t), ahead: lerp(a.ahead ?? 0.7, b.ahead ?? 0.7, t), axis: (t < 0.5 ? a.axis || b.axis : b.axis || a.axis) || null, ...((a.pinch || b.pinch) && { pinch: lerp(a.pinch || 0, b.pinch || 0, t), roll: lerp(a.roll || 0, b.roll || 0, t), lean: lerp(a.lean || 0, b.lean || 0, t), close: lerp(a.close ?? 1, b.close ?? 1, t), thin: b.thin ?? a.thin }) });
 
 // a blink at 30 fps: closes over about 2.5 frames, shut for one, reopens over about 4 (u: seconds since it began)
 export const BLINK_LEN = 0.26;
@@ -232,7 +236,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
       case "grip": {
-        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], GRIPS[a.shape] || GRIPS.hold, e), since: a.at + (a.dur ?? 0.3) };
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], { ...(GRIPS[a.shape] || GRIPS.hold), ...(a.set || {}) }, e), since: a.at + (a.dur ?? 0.3) };
         break;
       }
       // the Wizard hat's secondary motion: tip: [forward, sideways] in degrees bends the top of the cone, brim tips the brim
