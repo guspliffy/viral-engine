@@ -31,7 +31,7 @@ import * as act from "../lib/acting.mjs";
 import { PUMPKIN } from "../../engine/page/props-pumpkin.js";
 
 const c = clip(), { A, sfx } = c;
-const END = 10.2;
+const END = 11.0;
 
 // ---------------------------------------------------------------- places
 const DRA0 = [0, -5.25], DRA_END = [0, 0.3];              // Dragon at the far end; at last just out of the door
@@ -40,6 +40,7 @@ const SPLIT = 0.84;                                       // in the slow motion 
 const PHX_END = [-0.86, 1.6], REA_END = [0.86, 1.4];   // wide apart: Dragon stands between and behind them      // on the porch, either side of the doormat
 const HELM = [0, 0.78, -0.02];                              // the helmet's centre in Dragon's body frame (worn)
 const H_DRA = 0.96, LEG = 0.14;                           // lookdev/dragon-crisp body height, potato.js LEG_H
+const LANT = [0, r3(-PUMPKIN.r * PUMPKIN.squashY * Math.cos(PUMPKIN.open)), 1.1];   // on the deck, rim down (body frame)
 const AT_CAM = [0, 0];
 
 // ---------------------------------------------------------------- runs: a path from a speed profile (m/s by time)
@@ -112,6 +113,8 @@ const props = [
   { id: "helmet", kind: "pumpkinhelm", wear: "dra", x: HELM[0], y: HELM[1], z: HELM[2], glow: 0 },
   { id: "plume", kind: "fireplume", x: 0, y: MOUTH_Y, z: mouthZ(Z1), length: 2.3, width: 0.8, balls: 32 },
   { id: "plume2", kind: "fireplume", x: 0, y: MOUTH_Y, z: mouthZ(Z2), length: LEN2, width: 0.8, balls: 32 },
+  { id: "lantern", kind: "pumpkinhelm", x: 0, y: LANT[1], z: r3(DRA_END[1] + LANT[2]), glow: 0, scale: 0 },
+  { id: "breath", kind: "breath", mouth: "dra", target: "lantern", at: [0, 0.45, -0.1] },
   { id: "soot", kind: "soot", wear: "rea", x: 0.25, y: 0.8, z: 0.3, rot: 25, tip: -22, size: 0.12, scale: 0 },
 ];
 
@@ -245,27 +248,75 @@ A(LIFT + 0.35, "dra", "expr", { expr: "kind", set: { curve: 0.55, open: 0.0, eye
 A(LIFT + 0.4, "dra", "face", { brow: 0.3, dur: 0.3 });
 A(LIFT + 0.45, "dra", "look", { to: AT_CAM, dur: 0.2, blink: false });
 sfx(LIFT + 0.55, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
-// the friends turn their faces to us, dead flat (the soot on Reaper's hood)
-const STARE = r3(LIFT + 1.25);   // after the single on Dragon, back on the wide
+// the pumpkin is just a pumpkin now: its glow goes out as it comes off
+c.prop(LIFT + 0.12, "helmet", { glow: 0, on: 0 }, 0.45, "inOut");
+// the friends, dead flat (the soot on Reaper's hood)
+const STARE = r3(LIFT + 0.95);   // after the single on Dragon, back on the wide
 A(STARE, "phx", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE, "phx", "face", { lid: 0.45, brow: 0, dur: 0.3 });
 A(STARE + 0.1, "rea", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE + 0.1, "rea", "face", { lid: 0.5, brow: 0, dur: 0.3 });
-A(STARE + 0.1, "phx", "still", { dur: 1.0, idle: 0.03 }); A(STARE + 0.2, "rea", "still", { dur: 0.9, idle: 0.03 });
-// ...and the pumpkin's eyes light up again above his head: his eyes go up to it, theirs go wide, they run for it
-const AGAIN = r3(STARE + 0.9);
-c.prop(AGAIN, "helmet", { glow: 1, on: 0.4 }, 0.2, "out");
-sfx(AGAIN - 0.01, "ai/ignite", { gain: 0.9, reason: "the pumpkin's eyes light up again over his head: the same small fwip" });
-A(AGAIN + 0.12, "dra", "look", { to: [0, 0.9], dur: 0.15, blink: false });
-A(AGAIN + 0.2, "dra", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.2 }, dur: 0.15 });
-A(AGAIN + 0.15, "phx", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.3 }, dur: 0.12 }); A(AGAIN + 0.15, "phx", "face", { lid: 0, brow: 0.4, dur: 0.12 });
-A(AGAIN + 0.18, "rea", "expr", { expr: "shocked", set: { open: 0.12, eye: 1.25 }, dur: 0.12 }); A(AGAIN + 0.18, "rea", "face", { lid: 0, brow: 0.35, dur: 0.12 });
-const FLEE = r3(AGAIN + 0.5);
-A(FLEE - 0.08, "phx", "look", { to: [-0.8, 0], dur: 0.1, blink: false }); A(FLEE, "phx", "turn", { to: -90, dur: 0.22 });
-A(FLEE - 0.05, "rea", "look", { to: [0.8, 0], dur: 0.1, blink: false }); A(FLEE + 0.03, "rea", "turn", { to: 90, dur: 0.22 });
-A(FLEE + 0.12, "phx", "move", { to: [-3.1, 1.7], dur: 0.6, steps: 3.5, ease: "in" });
-A(FLEE + 0.15, "rea", "move", { to: [3.1, 1.5], dur: 0.6, steps: 3.5, ease: "in" });
-A(FLEE + 0.1, "phx", "pitch", { to: 10, dur: 0.15 }); A(FLEE + 0.13, "rea", "pitch", { to: 10, dur: 0.15 });
-for (const w of ["phx", "rea"]) A(FLEE + 0.1, w, "grip", { side: "both", shape: "fist", dur: 0.1 });
-sfx(FLEE + 0.12, "whoosh", { gain: 0.5, reason: "the two of them zip off either side of the frame" });
+// THE RESOLUTION: a pumpkin bigger than he is can't be set down at arm's length, so he swings it forward off his head
+// and lets it plonk onto the deck in front of him; they hop back from it. Then one careful little puff, and it lights
+// the way a jack-o'-lantern should. All three admire it.
+const SWING = r3(STARE + 0.45), APEX = r3(SWING + 0.22), LAND = r3(APEX + 0.3);
+const hand = (s, Y, Z) => ({ x: [s * 0.67, r3((Y - 0.22 - LEG) / H_DRA), r3(Z + 0.07)] });
+A(SWING - 0.15, "dra", "look", { to: [0, -0.5], dur: 0.15, blink: false });   // his eyes go to the spot first
+A(SWING - 0.1, "dra", "expr", { expr: "focused", set: { curve: 0.2, open: 0.05, eye: 1.0 }, dur: 0.25 });
+A(SWING - 0.1, "dra", "face", { brow: 0.2, lid: 0.1, dur: 0.25 });
+const zAt = (t) => r3(HELM[2] + (LANT[2] - HELM[2]) * ((t - SWING) / (LAND - SWING)));
+c.prop(SWING, "helmet", { z: LANT[2], tip: 0 }, r3(LAND - SWING), "linear");
+c.prop(SWING, "helmet", { y: r3(HELM[1] + 0.52) }, r3(APEX - SWING), "out");
+c.prop(APEX, "helmet", { y: LANT[1] }, r3(LAND - APEX), "in");
+for (const s of ["R", "L"]) {
+  A(SWING, "dra", "arm", { side: s, pose: hand(s === "R" ? -1 : 1, HELM[1] + 0.52, zAt(APEX)), dur: r3(APEX - SWING), ease: "linear" });
+  c.arm(r3(APEX + 0.02), "dra", s, { o: [0.08, 0.55, 0.32] }, 0.18);
+  c.arm(r3(LAND + 0.05), "dra", s, "rest", 0.4);
+}
+A(APEX, "dra", "grip", { side: "both", shape: "open", dur: 0.1 });
+sfx(SWING, "whoosh", { gain: 0.3, reason: "the pumpkin swings forward off his head (SWING-LAND)" });
+sfx(LAND, "thud", { gain: 0.7, reason: "the pumpkin plonks down onto the porch deck" });
+c.prop(LAND, "helmet", { squash: 0.08 }, 0.05, "out"); c.prop(r3(LAND + 0.05), "helmet", { squash: 0 }, 0.3, "settle");
+c.at(LAND, { fx: "shake", amp: 0.012, dur: 0.2 });
+A(r3(LAND - 0.1), "dra", "still", { dur: 0.6, idle: 0 });   // dead still while the pumpkin on the deck still rides on him
+// then it stays on the deck by itself: the worn pumpkin hands over to a loose one in exactly its place, between two frames
+const SWAP = r3(Math.round((LAND + 0.4) * 30) / 30 + 0.002);
+c.prop(SWAP, "helmet", { scale: 0 }, 0.01); c.prop(SWAP, "lantern", { scale: 1 }, 0.01);
+// they hop back from it as it comes at them, then watch it, wary
+for (const [w, to, d] of [["phx", [-1.05, 2.3], 0], ["rea", [1.05, 2.2], 0.04]]) {
+  A(r3(SWING + 0.1 + d), w, "look", { to: [0, 0.3], dur: 0.1, blink: false });
+  A(r3(SWING + 0.12 + d), w, "expr", { expr: "shocked", set: { open: 0.25, eye: 1.25 }, dur: 0.12 });
+  A(r3(SWING + 0.12 + d), w, "face", { lid: 0, brow: 0.35, dur: 0.12 });
+  A(r3(SWING + 0.15 + d), w, "hop", { height: 0.12, dur: 0.32, quiet: true });
+  A(r3(SWING + 0.15 + d), w, "move", { to, dur: 0.32, steps: 0 });
+  for (const s of ["L", "R"]) { c.arm(r3(SWING + 0.15 + d), w, s, "up", 0.15); c.arm(r3(LAND + 0.15 + d), w, s, "rest", 0.4); }
+  A(r3(LAND + 0.2 + d), w, "look", { to: [0, -0.45], dur: 0.15, blink: false });
+  A(r3(LAND + 0.25 + d), w, "expr", { expr: "focused", set: { open: 0.05, curve: -0.1 }, dur: 0.3 });
+  A(r3(LAND + 0.25 + d), w, "face", { lid: 0.3, brow: -0.1, dur: 0.3 });
+}
+// the careful puff: he's shorter than the pumpkin, so a few wing beats lift him over it; eyes on it, a small breath in,
+// a thin lick of fire down onto it, and it lights from inside. He stays up there, proud (on the deck it would hide his eyes)
+const FLY = r3(SWAP + 0.05), PUFF = r3(FLY + 0.5), LIT = r3(PUFF + 0.18);
+A(r3(FLY - 0.1), "dra", "look", { to: [0, -0.45], dur: 0.15, blink: false });
+A(FLY, "dra", "fly", { to: { y: 0.55 }, dur: 0.4, ease: "inOut" });
+A(r3(FLY + 0.4), "dra", "hover", { dur: r3(END - FLY - 0.4) });
+// his wing beats placed by hand (the automatic ones jumped 20 dB out of the mix): a few strong ones to lift, then soft
+for (let t = FLY, k = 0; t < END - 0.1; t += k < 3 ? 0.13 : 0.22, k++) sfx(r3(t), "wing-flap", { gain: k < 3 ? 0.3 : 0.15, reason: "Dragon's wings beat as he lifts and hovers over the pumpkin" });
+A(r3(PUFF - 0.3), "dra", "pitch", { to: 16, dur: 0.25, ease: "inOut" }); A(r3(PUFF + 0.3), "dra", "pitch", { to: 0, dur: 0.25, ease: "inOut" });
+A(r3(PUFF - 0.35), "dra", "expr", { expr: "focused", set: { pucker: 1, open: 0, eye: 0.7, curve: 0 }, dur: 0.25 });
+A(r3(PUFF - 0.35), "dra", "face", { lid: 0.25, brow: -0.15, dur: 0.25 });
+sfx(r3(PUFF - 0.3), "gasp", { gain: 0.2, reason: "a small careful breath in" });
+c.prop(PUFF, "breath", { on: 1, fire: 0.45, len: 1 }, 0.15, "out");
+c.prop(r3(PUFF + 0.3), "breath", { on: 0, len: 0, fire: 0 }, 0.15);
+sfx(PUFF, "blow", { gain: 0.25, dur: 0.3, reason: "the careful little puff (a thin lick of fire)" });
+c.prop(LIT, "lantern", { glow: 1, on: 0.65 }, 0.35, "out");
+sfx(r3(LIT - 0.01), "ai/ignite", { gain: 0.8, reason: "the pumpkin lights from inside the way it should: the same fwip as frame 0" });
+for (const w of ["phx", "rea"]) { A(r3(FLY + 0.1), w, "look", { to: [0, 0.1], dur: 0.15, blink: false }); A(r3(LIT - 0.05), w, "look", { to: [0, -0.45], dur: 0.12, blink: false }); }
+// all three admire it: Dragon proud, Phoenix delighted, even Reaper's mouth gives a little
+const ADMIRE = r3(LIT + 0.3);
+A(ADMIRE, "dra", "expr", { expr: "kind", set: { curve: 0.6, open: 0.1, eye: 1.0, tilt: 0 }, dur: 0.3 }); A(ADMIRE, "dra", "face", { lid: 0, brow: 0.25, dur: 0.3 });
+A(r3(ADMIRE + 0.5), "dra", "look", { to: AT_CAM, dur: 0.2, blink: false });
+A(ADMIRE, "phx", "expr", { expr: "delighted", dur: 0.3 }); A(ADMIRE, "phx", "face", { lid: 0, brow: 0.3, dur: 0.3 });
+A(r3(ADMIRE + 0.15), "phx", "hop", { height: 0.1, dur: 0.3 });
+A(r3(ADMIRE + 0.35), "rea", "expr", { expr: "kind", set: { curve: 0.3, open: 0, eye: 0.9 }, dur: 0.35 }); A(r3(ADMIRE + 0.35), "rea", "face", { lid: 0.3, brow: 0.1, dur: 0.35 });
 
 // ---------------------------------------------------------------- shots
 const ZP = (t) => P.at(t)[2];
@@ -280,6 +331,8 @@ const beats = c.beats([
   ["6 the second blast", 3.6, { pos: [0, 0.45, 5.6], look: [0, 0.9, -0.8], fov: 46, to: { pos: [0, 1.3, 6.0], look: [0, 0.85, 0.0] }, dur: 2.0, ease: "inOut" }],
   ["7 the pumpkin comes off", r3(LIFT + 0.2), { pos: [0, 1.45, 3.0], look: [0, 1.0, 0.3], fov: 48 }, "reaction"],
   ["8 they stare", r3(STARE - 0.1), { pos: [0, 1.65, 5.8], look: [0, 1.0, 0.6], fov: 46 }, "reaction"],
+  // high and wide over the deck: the lit pumpkin between all three faces (from lower, it hides Dragon's mouth and the puff)
+  ["9 he lights it right", LAND, { pos: [0.7, 4.5, 8.2], look: [0.1, 0.95, 1.7], fov: 50, to: { pos: [0.6, 4.1, 7.5], look: [0.1, 0.95, 1.7] }, dur: r3(END - LAND), ease: "inOut" }, "reaction"],
 ], END);
 
 write(import.meta.url, {

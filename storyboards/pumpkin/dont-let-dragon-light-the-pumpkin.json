@@ -116,6 +116,26 @@
    "balls": 32
   },
   {
+   "id": "lantern",
+   "kind": "pumpkinhelm",
+   "x": 0,
+   "y": 0.334,
+   "z": 1.4,
+   "glow": 0,
+   "scale": 0
+  },
+  {
+   "id": "breath",
+   "kind": "breath",
+   "mouth": "dra",
+   "target": "lantern",
+   "at": [
+    0,
+    0.45,
+    -0.1
+   ]
+  },
+  {
    "id": "soot",
    "kind": "soot",
    "wear": "rea",
@@ -3944,13 +3964,24 @@
      "dur": 0.45,
      "ease": "inOut",
      "at": 3.07
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "glow": 0,
+      "on": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.07
     }
    ]
   },
   {
    "name": "7 the pumpkin comes off",
    "at": 6.75,
-   "len": 0.95,
+   "len": 0.65,
    "shot": {
     "pos": [
      0,
@@ -4007,8 +4038,8 @@
   },
   {
    "name": "8 they stare",
-   "at": 7.7,
-   "len": 2.5,
+   "at": 7.4,
+   "len": 1.07,
    "shot": {
     "pos": [
      0,
@@ -4054,76 +4085,179 @@
      "at": 0.2
     },
     {
-     "who": "phx",
-     "do": "still",
-     "dur": 1,
-     "idle": 0.03,
-     "at": 0.2
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
     },
     {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.9,
-     "idle": 0.03,
-     "at": 0.3
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": 0.2,
+      "open": 0.05,
+      "eye": 1
+     },
+     "dur": 0.25,
+     "at": 0.45
     },
     {
-     "sfx": "ai/ignite",
-     "gain": 0.9,
-     "reason": "the pumpkin's eyes light up again over his head: the same small fwip",
-     "at": 0.99
+     "who": "dra",
+     "do": "face",
+     "brow": 0.2,
+     "lid": 0.1,
+     "dur": 0.25,
+     "at": 0.45
     },
     {
      "do": "prop",
      "id": "helmet",
      "set": {
-      "glow": 1,
-      "on": 0.4
+      "z": 1.1,
+      "tip": 0
      },
-     "dur": 0.2,
+     "dur": 0.52,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "y": 1.3
+     },
+     "dur": 0.22,
      "ease": "out",
-     "at": 1
+     "at": 0.55
     },
     {
      "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.67,
+       0.979,
+       0.524
+      ]
+     },
+     "dur": 0.22,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.67,
+       0.979,
+       0.524
+      ]
+     },
+     "dur": 0.22,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.3,
+     "reason": "the pumpkin swings forward off his head (SWING-LAND)",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
      "do": "look",
      "to": [
       0,
-      0.9
+      0.3
      ],
-     "dur": 0.15,
+     "dur": 0.1,
      "blink": false,
-     "at": 1.12
+     "at": 0.65
     },
     {
      "who": "phx",
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.3,
-      "eye": 1.3
+      "open": 0.25,
+      "eye": 1.25
      },
      "dur": 0.12,
-     "at": 1.15
+     "at": 0.67
     },
     {
      "who": "phx",
      "do": "face",
      "lid": 0,
-     "brow": 0.4,
+     "brow": 0.35,
      "dur": 0.12,
-     "at": 1.15
+     "at": 0.67
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.69
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.32,
+     "quiet": true,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -1.05,
+      2.3
+     ],
+     "dur": 0.32,
+     "steps": 0,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15,
+     "at": 0.7
     },
     {
      "who": "rea",
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.12,
+      "open": 0.25,
       "eye": 1.25
      },
      "dur": 0.12,
-     "at": 1.18
+     "at": 0.71
     },
     {
      "who": "rea",
@@ -4131,114 +4265,592 @@
      "lid": 0,
      "brow": 0.35,
      "dur": 0.12,
-     "at": 1.18
+     "at": 0.71
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.32,
+     "quiet": true,
+     "at": 0.74
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1.05,
+      2.2
+     ],
+     "dur": 0.32,
+     "steps": 0,
+     "at": 0.74
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.15,
+     "at": 0.74
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.15,
+     "at": 0.74
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "y": 0.334
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.77
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.77
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.55,
+       0.32
+      ]
+     },
+     "dur": 0.18,
+     "at": 0.79
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.55,
+       0.32
+      ]
+     },
+     "dur": 0.18,
+     "at": 0.79
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.6,
+     "idle": 0,
+     "at": 0.97
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "9 he lights it right",
+   "at": 8.47,
+   "len": 2.53,
+   "shot": {
+    "pos": [
+     0.7,
+     4.5,
+     8.2
+    ],
+    "look": [
+     0.1,
+     0.95,
+     1.7
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      0.6,
+      4.1,
+      7.5
+     ],
+     "look": [
+      0.1,
+      0.95,
+      1.7
+     ]
+    },
+    "dur": 2.53,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "thud",
+     "gain": 0.7,
+     "reason": "the pumpkin plonks down onto the porch deck",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "amp": 0.012,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.19
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.19
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.05,
+      "curve": -0.1
+     },
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.3,
+     "brow": -0.1,
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.05,
+      "curve": -0.1
+     },
+     "dur": 0.3,
+     "at": 0.29
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "brow": -0.1,
+     "dur": 0.3,
+     "at": 0.29
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.349
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.399
+    },
+    {
+     "do": "prop",
+     "id": "lantern",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.399
+    },
+    {
+     "who": "dra",
+     "do": "fly",
+     "to": {
+      "y": 0.55
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.449
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.3,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 0.449
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.549
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.549
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.3,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 0.579
     },
     {
      "who": "dra",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "focused",
      "set": {
-      "open": 0.15,
-      "eye": 1.2
+      "pucker": 1,
+      "open": 0,
+      "eye": 0.7,
+      "curve": 0
+     },
+     "dur": 0.25,
+     "at": 0.599
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0.25,
+     "brow": -0.15,
+     "dur": 0.25,
+     "at": 0.599
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 16,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.649
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.2,
+     "reason": "a small careful breath in",
+     "at": 0.649
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.3,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 0.709
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 0.839
+    },
+    {
+     "who": "dra",
+     "do": "hover",
+     "dur": 1.681,
+     "at": 0.849
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 1,
+      "fire": 0.45,
+      "len": 1
      },
      "dur": 0.15,
-     "at": 1.2
+     "ease": "out",
+     "at": 0.949
+    },
+    {
+     "sfx": "blow",
+     "gain": 0.25,
+     "dur": 0.3,
+     "reason": "the careful little puff (a thin lick of fire)",
+     "at": 0.949
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 1.059
     },
     {
      "who": "phx",
      "do": "look",
      "to": [
-      -0.8,
-      0
+      0,
+      -0.45
      ],
-     "dur": 0.1,
+     "dur": 0.12,
      "blink": false,
-     "at": 1.42
+     "at": 1.079
     },
     {
      "who": "rea",
      "do": "look",
      "to": [
-      0.8,
+      0,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.079
+    },
+    {
+     "sfx": "ai/ignite",
+     "gain": 0.8,
+     "reason": "the pumpkin lights from inside the way it should: the same fwip as frame 0",
+     "at": 1.119
+    },
+    {
+     "do": "prop",
+     "id": "lantern",
+     "set": {
+      "glow": 1,
+      "on": 0.65
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.129
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.249
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.249
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 1.279
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.6,
+      "open": 0.1,
+      "eye": 1,
+      "tilt": 0
+     },
+     "dur": 0.3,
+     "at": 1.429
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.25,
+     "dur": 0.3,
+     "at": 1.429
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.3,
+     "at": 1.429
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.3,
+     "dur": 0.3,
+     "at": 1.429
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 1.499
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.1,
+     "dur": 0.3,
+     "at": 1.579
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 1.719
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3,
+      "open": 0,
+      "eye": 0.9
+     },
+     "dur": 0.35,
+     "at": 1.779
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "brow": 0.1,
+     "dur": 0.35,
+     "at": 1.779
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
       0
      ],
-     "dur": 0.1,
+     "dur": 0.2,
      "blink": false,
-     "at": 1.45
+     "at": 1.929
     },
     {
-     "who": "phx",
-     "do": "turn",
-     "to": -90,
-     "dur": 0.22,
-     "at": 1.5
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 1.939
     },
     {
-     "who": "rea",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.22,
-     "at": 1.53
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 2.159
     },
     {
-     "who": "phx",
-     "do": "pitch",
-     "to": 10,
-     "dur": 0.15,
-     "at": 1.6
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "both",
-     "shape": "fist",
-     "dur": 0.1,
-     "at": 1.6
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "both",
-     "shape": "fist",
-     "dur": 0.1,
-     "at": 1.6
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      -3.1,
-      1.7
-     ],
-     "dur": 0.6,
-     "steps": 3.5,
-     "ease": "in",
-     "at": 1.62
-    },
-    {
-     "sfx": "whoosh",
-     "gain": 0.5,
-     "reason": "the two of them zip off either side of the frame",
-     "at": 1.62
-    },
-    {
-     "who": "rea",
-     "do": "pitch",
-     "to": 10,
-     "dur": 0.15,
-     "at": 1.63
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      3.1,
-      1.5
-     ],
-     "dur": 0.6,
-     "steps": 3.5,
-     "ease": "in",
-     "at": 1.65
+     "sfx": "wing-flap",
+     "gain": 0.15,
+     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
+     "at": 2.379
     }
    ],
    "kind": "reaction"
@@ -4249,7 +4861,7 @@
    "who": "dra",
    "with": "helmet",
    "from": 0,
-   "to": 10.2,
+   "to": 11,
    "reason": "Dragon wears the pumpkin over his head; it hides his eyes until he lifts it off (the brief)"
   }
  ],
