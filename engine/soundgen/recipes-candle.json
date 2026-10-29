@@ -1,0 +1,87 @@
+{
+ "_note": "AI sounds for Dragon vs. the Candle (story library 14, 29 Oct 2026), kept in their own recipe file so parallel clips don't edit recipes.json. Same tools: generate.py -> pick.py (see README). The blow and dry-note takes came out as low rumble by the numbers (over 80% of their energy under 150 Hz), so the clip uses the code sounds \"blow\" and \"plunk\" instead; the kept takes were high-passed at 150 Hz.",
+ "sfx": [
+  {
+   "id": "flare",
+   "kind": "oneshot",
+   "len": [
+    0.4,
+    1.1
+   ],
+   "duration": 8,
+   "tags": [
+    "flare",
+    "fire",
+    "flame",
+    "whoosh",
+    "fwoomp"
+   ],
+   "prompts": [
+    "a small flame suddenly flaring up, one short soft fwoomp of fire, close up, no explosion, no music",
+    "a gas stove burner igniting with a soft whoomp, one short burst of flame, quiet room, no music"
+   ],
+   "seeds": [
+    111,
+    112,
+    113
+   ],
+   "gain": 0.45,
+   "label": "a small flame flaring up with a soft whoosh"
+  },
+  {
+   "id": "snuff",
+   "kind": "oneshot",
+   "len": [
+    0.2,
+    0.8
+   ],
+   "duration": 8,
+   "tags": [
+    "snuff",
+    "extinguish",
+    "candle",
+    "hiss",
+    "out"
+   ],
+   "prompts": [
+    "a candle flame being snuffed out, a tiny soft hiss and puff, close up, very quiet, no music",
+    "a small candle going out under a glass, a very short soft fizz, close microphone, no music"
+   ],
+   "seeds": [
+    121,
+    122,
+    123
+   ],
+   "gain": 0.3,
+   "label": "a candle flame snuffed out with a tiny hiss"
+  },
+  {
+   "id": "ignite",
+   "kind": "oneshot",
+   "len": [
+    0.15,
+    0.7
+   ],
+   "duration": 8,
+   "tags": [
+    "ignite",
+    "light",
+    "match",
+    "fwip",
+    "flame"
+   ],
+   "prompts": [
+    "a match flame catching, one tiny soft fwip of a small flame lighting, close up, quiet, no music",
+    "a lighter flame catching with a short soft whoosh, a tiny flame igniting, close microphone, no music"
+   ],
+   "seeds": [
+    131,
+    132,
+    133
+   ],
+   "gain": 0.35,
+   "label": "a small flame catching with a tiny fwip"
+  }
+ ],
+ "music": []
+}
