@@ -1,0 +1,1548 @@
+{
+ "id": "ghost-photo",
+ "title": "The Ghost Photo Had One Extra Ghost",
+ "idea": "Eight trend tests #01 (ghost photoshoot trend): Phoenix's sheet turns into an ember ghost that ends up in the photo",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "set": {
+  "type": "plain",
+  "color": "#25305e",
+  "floor": "#4a424e",
+  "light": "golden",
+  "key": [
+   3.2,
+   4.2,
+   4
+  ],
+  "plate": {
+   "src": "assets/plates/courtyard-dusk.png",
+   "z": -2.6,
+   "center": [
+    0,
+    3.6
+   ],
+   "height": 9.6,
+   "tint": "#9aa3d4"
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "drums": false
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "speech": false,
+  "surface": "concrete",
+  "signature": false
+ },
+ "hook": {
+  "show": [
+   "s-phx"
+  ],
+  "hint": 0,
+  "what": "the middle ghost's sheet already glows orange and smokes at the shoulders"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    -1.3,
+    0
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0,
+    0.06
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "span": 0,
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    1.3,
+    0
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.5,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "cobbles",
+   "x": 0,
+   "z": 1.5,
+   "w": 14,
+   "d": 13,
+   "seed": 4,
+   "leaves": 16
+  },
+  {
+   "id": "s-rea",
+   "kind": "sheetghost",
+   "x": -1.3,
+   "z": 0,
+   "seed": 1,
+   "h": 1.42,
+   "r": 0.5,
+   "hem": 0.66,
+   "dz": 0.92,
+   "eyeY": 0.8,
+   "lift": 0.88
+  },
+  {
+   "id": "s-phx",
+   "kind": "sheetghost",
+   "x": 0,
+   "z": 0.06,
+   "seed": 2,
+   "h": 1.45,
+   "r": 0.5,
+   "hem": 0.66,
+   "dz": 0.92,
+   "eyeY": 0.8,
+   "lift": 0.88,
+   "glow": 0.45,
+   "puff": 0.5
+  },
+  {
+   "id": "s-wiz",
+   "kind": "sheetghost",
+   "shape": "hat",
+   "x": 1.3,
+   "z": 0,
+   "seed": 3,
+   "hatTip": 1.76,
+   "brimY": 1.13,
+   "brimR": 0.55,
+   "tipBend": [
+    0.1,
+    -0.18
+   ],
+   "r": 0.5,
+   "hem": 0.66,
+   "dz": 0.92,
+   "eyeY": 0.8,
+   "lift": 0.88
+  },
+  {
+   "id": "cam",
+   "kind": "tripodcam",
+   "x": 0.75,
+   "z": 5,
+   "h": 0.85,
+   "blinks": [
+    0.25,
+    0.7,
+    1.15,
+    1.6,
+    2.05,
+    2.5,
+    2.95,
+    3.4,
+    3.85,
+    4.3,
+    4.75,
+    5.2,
+    5.65,
+    6.1,
+    6.55,
+    7,
+    7.45,
+    7.9,
+    8.35,
+    8.85,
+    9.15,
+    9.4,
+    9.58,
+    9.72,
+    9.83,
+    9.92
+   ],
+   "flash": 10
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2,
+   "text": "Our ghost photo had one extra ghost.",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "clue",
+   "at": 0,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.05,
+     1.24,
+     3.7
+    ],
+    "look": [
+     0,
+     1.04,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 2.2,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 2.2,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.34,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 2.2,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "glow": 1,
+      "puff": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.5,
+     "dur": 1.4,
+     "reason": "the sheet starting to smoulder at Phoenix's shoulders (on screen)",
+     "at": 0.05
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "timer",
+   "at": 0.6,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     1.02,
+     1.16,
+     6.2
+    ],
+    "look": [
+     0.62,
+     0.88,
+     4.6
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "sfx": "timer-beep",
+     "gain": 0.32,
+     "reason": "the self-timer lamp blinking (on screen)",
+     "at": 0.1
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.32,
+     "reason": "the self-timer lamp blinking (on screen)",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "trio",
+   "at": 1.2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0.45,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0,
+     1,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "s-rea",
+     "set": {
+      "rot": 45
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.35,
+     "reason": "Reaper's sheet turning",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -24,
+     "dur": 0.14,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "rot": -24,
+      "squash": 0.06
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the timer lamp (tripod in the foreground)",
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.12,
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.56
+    }
+   ]
+  },
+  {
+   "name": "reveal",
+   "at": 2,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0,
+     1.4,
+     5.8
+    ],
+    "look": [
+     0,
+     1.35,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      0,
+      1.5,
+      5.3
+     ],
+     "look": [
+      0,
+      1.45,
+      0
+     ],
+     "fov": 52
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "rise": 0.95
+     },
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.28,
+     "reason": "the sheet lifting off Phoenix",
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.75
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -1.5,
+      0
+     ],
+     "dur": 0.35,
+     "steps": 1.6,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "s-rea",
+     "set": {
+      "x": -1.5,
+      "z": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.58,
+       0.33
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.58,
+       0.33
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "s-rea",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.62
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.4,
+     "pan": -0.4,
+     "reason": "a sheet hem lifted to peek",
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      1.5,
+      0
+     ],
+     "dur": 0.35,
+     "steps": 1.6,
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "x": 1.5,
+      "z": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.58,
+       0.33
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.58,
+       0.33
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.2,
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.4,
+     "pan": 0.4,
+     "reason": "a sheet hem lifted to peek",
+     "at": 0.83
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.34,
+      "curve": 0.38,
+      "open": 0.12,
+      "eye": 1.02,
+      "smirk": 0.32
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.25,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.27,
+     "lid": 0,
+     "dur": 0.25,
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.25,
+     "set": {
+      "tilt": 0.3,
+      "browY": 0.033,
+      "curve": 0.18,
+      "open": 0.57,
+      "eye": 1.108,
+      "pupil": 0.772,
+      "smirk": 0,
+      "raise": 0
+     },
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.06,
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "rise": 1.5
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.32
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.6,
+     "reason": "his wings unfolding",
+     "at": 1.36
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.95
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.45,
+      0.95
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.95
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.1
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "ember",
+   "at": 4.4,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0,
+     1.75,
+     4.4
+    ],
+    "look": [
+     0,
+     1.62,
+     0
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0,
+      1.8,
+      4.1
+     ],
+     "look": [
+      0,
+      1.72,
+      0
+     ],
+     "fov": 48
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "burn": 1
+     },
+     "dur": 1.25,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "glow": 0,
+      "puff": 0.6
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "sig-phoenix",
+     "gain": 0.7,
+     "reason": "the sweep of flame through the sheet: Phoenix's own fire",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.15
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.35,
+     "dur": 1,
+     "reason": "the sweep crackling through the cloth",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "s-phx",
+     "set": {
+      "wobble": 1,
+      "rise": 1.56
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.36,
+      "curve": 0.42,
+      "open": 0.1,
+      "eye": 1,
+      "smirk": 0.35
+     },
+     "dur": 0.35,
+     "at": 1.5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.55
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.06,
+      -0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.15
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.25,
+     "dur": 0.6,
+     "at": 2.5
+    }
+   ]
+  },
+  {
+   "name": "fourth member",
+   "at": 7.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0.35,
+     1.5,
+     8.6
+    ],
+    "look": [
+     0,
+     1.38,
+     0
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.35,
+      1.55,
+      7
+     ],
+     "look": [
+      0,
+      1.55,
+      0
+     ],
+     "fov": 44
+    }
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.95
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.06,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.06,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      0.95
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.95
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.25,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 0.25
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.25,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 0.7
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.25,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.06,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.06,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 1.65
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.06,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.36000000000000004,
+     "lid": 0,
+     "dur": 0.25,
+     "at": 1.65
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.25,
+     "set": {
+      "tilt": 0.34,
+      "browY": 0.044,
+      "curve": 0.04,
+      "open": 0.76,
+      "eye": 1.144,
+      "pupil": 0.696,
+      "smirk": 0,
+      "raise": 0
+     },
+     "at": 1.7
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.016,
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 1.75
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.25,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "s-rea",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 1.95
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -1.22,
+      0.3
+     ],
+     "dur": 0.5,
+     "steps": 2.4,
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "s-rea",
+     "set": {
+      "x": -1.22,
+      "z": 0.3
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      1.22,
+      0.3
+     ],
+     "dur": 0.5,
+     "steps": 2.4,
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "x": 1.22,
+      "z": 0.3
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.4,
+      "curve": 0.15,
+      "open": 0.3,
+      "eye": 1.08,
+      "smirk": 0.25
+     },
+     "dur": 0.25,
+     "at": 2.25
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 2.25
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 0.78,
+      "curve": -0.12,
+      "smirk": 0.2
+     },
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "browL": 0.5,
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.12,
+      "curve": 0.05
+     },
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 2.38
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 2.52
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.7,
+     "idle": 0.02,
+     "at": 2.55
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.7,
+     "idle": 0.02,
+     "at": 2.55
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.7,
+     "idle": 0.02,
+     "at": 2.55
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 2.63
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.42,
+     "reason": "the self-timer counting down, faster at the end (tripod on screen)",
+     "at": 2.72
+    }
+   ]
+  },
+  {
+   "name": "flash",
+   "at": 10,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.7,
+     1,
+     6.4
+    ],
+    "look": [
+     0,
+     1.35,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "fx": "flash",
+     "dur": 0.25,
+     "peak": 0.85,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.8,
+     "reason": "the camera firing (the flash on screen)",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.43
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.46
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      0.95
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.2,
+      0.9
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.8
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the photo",
+   "at": 12,
+   "len": 2,
+   "shot": "keep",
+   "do": [
+    {
+     "fx": "photo",
+     "style": "print",
+     "dur": 2,
+     "shot": 10.03,
+     "aspect": 1.05,
+     "w": 1000,
+     "pos": [
+      540,
+      880
+     ],
+     "tilt": -2.5,
+     "dim": 0.62,
+     "push": 0.03,
+     "cam": {
+      "pos": [
+       0.75,
+       0.85,
+       4.8
+      ],
+      "look": [
+       0,
+       1.5,
+       0
+      ],
+      "fov": 62
+     },
+     "hide": [
+      "cam"
+     ],
+     "at": 0
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.3,
+     "reason": "the print dropping in",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "s-rea",
+   "from": 0,
+   "to": 14,
+   "reason": "rea wears the sheet (props-ghostphoto.js sheetghost: a costume over the whole body)"
+  },
+  {
+   "who": "wiz",
+   "with": "s-wiz",
+   "from": 0,
+   "to": 14,
+   "reason": "wiz wears the sheet (props-ghostphoto.js sheetghost: a costume over the whole body)"
+  },
+  {
+   "who": "phx",
+   "with": "s-phx",
+   "from": 0,
+   "to": 3.4,
+   "reason": "phx wears the sheet until it lifts clear (props-ghostphoto.js sheetghost: a costume over the whole body)"
+  },
+  {
+   "who": "phx",
+   "with": "s-rea",
+   "from": 0,
+   "to": 14,
+   "reason": "Phoenix's tucked hand under the edge of Reaper's sheet hem beside him (the sheets nearly touch for the pose)"
+  },
+  {
+   "who": "phx",
+   "with": "s-wiz",
+   "from": 0,
+   "to": 14,
+   "reason": "Phoenix's tucked hand under the edge of the Wizard's sheet hem beside him"
+  }
+ ],
+ "notes": "Generated by storyboards/ghostphoto/make-ghost-photo.mjs. Brief: Jonny's eight trend tests pack, 01-ghost-photo."
+}
