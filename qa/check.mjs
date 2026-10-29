@@ -56,9 +56,10 @@ export const RULES = {
   // costume part over costumeInProp fails, on a side the camera sees. The prop the character works with (holds, pushes,
   // cups, rests a paw on): fingers and thumb may press in; the palm, wrist or arm coming out of it on a side the camera
   // sees over heldInProp fails on a thin prop (a straw through the glove), warns from heldWarn on any other (a fist
-  // sunk into a phone). A thin held prop must show past the fist at both ends, on screen, by thinShow (for
+  // sunk into a phone). A hand on a prop it doesn't work with fails only from handPopHold s (shorter: fingers brushing
+  // a lid or a chair as a hand grabs or lets go, a warning to look at). A thin held prop must show past the fist at both ends, on screen, by thinShow (for
   // thinHold s or more: a straw picked up off the table hides an end for a moment)
-  handInProp: 0.02, handTouchProp: 0.012, armInProp: 0.03, costumeInProp: 0.02, heldInProp: 0.01, heldWarn: 0.03, thinShow: 0.01, thinHold: 0.5,
+  handInProp: 0.02, handTouchProp: 0.012, armInProp: 0.03, costumeInProp: 0.02, heldInProp: 0.01, heldWarn: 0.03, thinShow: 0.01, thinHold: 0.5, handPopHold: 0.15,
   faceHide: 0.35,   // share of the eye points hidden (stage.js hiddenFaces) that counts as a hidden face: about a third
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
@@ -245,7 +246,10 @@ function propResults(layout, sb) {
   const check = { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop" };
   const name = (x) => (x.part === "costume" ? x.what : x.part === "hand" ? `hand ${x.hand}${x.pad ? " (fingers)" : " (palm)"}` : `arm ${x.hand}`);
   for (const { x, f } of m.values()) {
-    const at = (k) => runs(Array.from({ length: n }, (_, i) => !!f[i] && f[i].v > f[i][k])), deep = at("fail"), touch = at("warn");
+    const at = (k) => runs(Array.from({ length: n }, (_, i) => !!f[i] && f[i].v > f[i][k]));
+    // a hand going into a prop it doesn't work with for under handPopHold s only warns (Jonny, 29 Oct)
+    const brief = ([a, b]) => x.part === "hand" && (b - a + 1) / fps < RULES.handPopHold && !f.slice(a, b + 1).some((e) => e && e.held);
+    const all = at("fail"), deep = all.filter((sp) => !brief(sp)), touch = [...all.filter(brief), ...at("warn")];
     const spans = deep.length ? deep : touch, max = Math.round(Math.max(...f.filter(Boolean).map((e) => e.v)) * 100);
     const held = spans.some(([a, b]) => f.slice(a, b + 1).some((e) => e && e.held));   // what the failing frames measured
     const fix = x.part === "hand" ? (held ? "hold it with the finger and thumb pads, the palm and wrist beside or behind it" : "keep the glove outside it (hold it from outside, lift it clear)")
