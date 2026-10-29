@@ -50,7 +50,7 @@ const CUSH = [0.28, 0.95], CUSH_R = 0.62, CUSH_H = 0.26, CUSH_Y = 0.02;      // 
 const W0 = [-0.55, -0.7], W_YAW = 50;                                      // the Wizard: behind the table, left of the cookie
 const R0 = [1.05, -0.18], R_YAW = -60;                                        // Reaper: right of the table's end, out of the dive's path
 const R0b = [1.2, -0.25];                                                   // a small step back after the catch
-const R1 = [1.22, 0.62], R1_YAW = -58;                                        // two steps to beside the Wizard's head, to offer
+const R1 = [1.17, 0.5], R1_YAW = -58;                                         // two steps to beside the Wizard's head, to offer
 
 // the cookie's path. Its origin is its centre; it lies flat (face up). A point is { x, y, z, tilt, rot, tip }.
 // Tipping over the table's edge: the centre turns about the edge line (x EDGE_X, y TOP) by `tilt` (top toward +x)
@@ -61,10 +61,10 @@ const onEdge = (tilt, past) => {
 };
 const CK = {
   t0: onEdge(20, -0.012),                                  // frame 0: already over the edge and tipping
-  t05: onEdge(32, -0.004),                                 // a big tip in the first half second (review A)
-  t15: onEdge(42, 0.008),                                  // it leaves the edge here
-  slow: { x: 0.57, y: 0.385, z: CK_Z, tilt: 24 },          // the slow fall: it drops and rocks back toward flat
-  catch: { x: 0.62, y: 0.36, z: CK_Z + 0.01, tilt: 8 },    // lands in Reaper's palm
+  t05: onEdge(42, 0.0),                                    // a big tip in the first half second (reviews A and B)
+  t15: onEdge(55, 0.012),                                  // it leaves the edge here, 1.3 s
+  slow: { x: 0.6, y: 0.3, z: CK_Z, tilt: 20 },             // the slow fall: clearly in the air, dropping, rocking back toward flat (review B)
+  catch: { x: 0.62, y: 0.27, z: CK_Z + 0.01, tilt: 8 },    // lands in Reaper's palm
 };
 
 // ---------------------------------------------------------------- the cast
@@ -73,7 +73,7 @@ const cast = [
   { id: "rea", character: "lookdev/reaper-crisp", at: R0, face: R_YAW, expr: "deadpan", follow: 0.2, seed: 4.1 },
 ];
 const props = [
-  { id: "rug", kind: "rug", x: 0.1, z: 0.4, w: 3.8, d: 2.8, color: "#e6d3b6", pattern: "quiet", pile: 0.5 },
+  { id: "rug", kind: "rug", x: 0.1, z: 0.9, w: 4.4, d: 3.8, color: "#e6d3b6", pattern: "quiet", pile: 0.5 },
   { id: "table", kind: "coffeetable", x: TABLE.x, z: TABLE.z, h: TABLE.h, w: TABLE.w, d: TABLE.d, color: "#ecd3a8", leg: "#cfa26b", legX: 0.6, apron: 0.04 },
   { id: "cushion", kind: "floorcushion", x: CUSH[0], y: CUSH_Y, z: CUSH[1], r: CUSH_R, h: CUSH_H },
   { id: "cookie", kind: "chunkcookie", x: CK.t0.x, y: CK.t0.y, z: CK.t0.z, tilt: CK.t0.tilt, rot: 0, biteAt: 180 },
@@ -82,9 +82,10 @@ const props = [
 
 // ---------------------------------------------------------------- the cookie, start to end (Reaper's hand follows it)
 c.prop(0, "cookie", CK.t05, 0.5, "linear");
-c.prop(0.5, "cookie", CK.t15, 1.05, "in");
-c.prop(1.55, "cookie", { x: CK.slow.x, z: CK.slow.z, tilt: CK.slow.tilt }, 1.85, "out");
-c.prop(1.55, "cookie", { y: CK.slow.y }, 1.85, "in");
+c.prop(0.5, "cookie", CK.t15, 0.8, "in");
+c.prop(1.3, "cookie", { x: 0.55, y: 0.4, z: CK_Z, tilt: 50 }, 0.3, "in");    // off the edge at speed
+c.prop(1.6, "cookie", { x: CK.slow.x, z: CK.slow.z, tilt: CK.slow.tilt }, 1.8, "out");
+c.prop(1.6, "cookie", { y: CK.slow.y }, 1.8, "linear");
 c.prop(3.4, "cookie", { x: CK.catch.x, z: CK.catch.z, tilt: CK.catch.tilt }, 0.12, "out");
 c.prop(3.4, "cookie", { y: CK.catch.y }, 0.12, "in");
 sfx(0.0, "ai/cookie-scrape", { gain: 0.45, reason: "tiny dry scrape: the cookie sliding over the table's edge" });
@@ -200,6 +201,7 @@ A(T_LAND, "wiz", "grip", { side: "both", shape: "flat", dur: 0.2 });
 A(T_LAND + 0.3, "wiz", "still", { dur: 1.5, idle: 0.04 });
 A(T_LAND + 0.4, "wiz", "droop", { to: 0.6, dur: 0.6 });
 A(T_LAND - 0.05, "rea", "look", { to: [-0.15, -0.65], dur: 0.15, blink: false });   // Reaper looks down at him, unmoved
+A(T_LAND - 0.05, "rea", "face", { lid: 0.3, dur: 0.2 });                               // awake, not asleep (review B)
 A(T_LAND + 0.4, "rea", "still", { dur: 1.3, idle: 0.05 });
 act.blinksAt(c, "rea", [5.6]);
 // after the poof: one limp flop of his near hand, then Reaper tips his head to him and looks down at the cookie (review A)
@@ -243,17 +245,18 @@ A(8.0, "rea", "move", { to: R1, dur: 0.75 });
 for (const t of [8.23, 8.45, 8.68]) sfx(t, "step-carpet", { gain: 0.55, reason: "Reaper's steps to the Wizard" });
 A(8.0, "rea", "turn", { to: R1_YAW, dur: 0.75 });
 c.prop(8.0, "cookie", { x: 0.92, y: 0.56, z: 0.96, rot: -58 }, 0.75, "inOut");   // low, by his side, clear of his face   // it goes with him
-const OFFER = { x: 0.83, y: 0.6, z: 0.95, tilt: 90, rot: -58 };
+const OFFER = { x: 0.73, y: 0.59, z: 0.86, tilt: 90, rot: -58 };   // arm out, short of his face (review B)
 c.prop(8.75, "cookie", OFFER, 0.6, "inOut");
 sfx(8.8, "ai/warm-resolve", { gain: 0.55, reason: "the warm musical resolution as he holds the cookie out" });
 A(8.7, "rea", "look", { to: [-0.2, -0.35], dur: 0.2, blink: false });
-A(8.7, "rea", "pitch", { to: 3, dur: 0.4 });
+A(8.7, "rea", "pitch", { to: 10, dur: 0.4 });
 A(8.8, "rea", "expr", { expr: "kind", set: { curve: 0.35, smirk: 0.2 }, dur: 0.4 });
 A(8.8, "rea", "still", { dur: 2.1, idle: 0.05 });
 A(9.8, "rea", "pitch", { to: 8, dur: 0.2 }); A(10.0, "rea", "pitch", { to: 3, dur: 0.25 });   // a small nod: go on
 act.blinksAt(c, "rea", [9.9]);
 // the Wizard looks up at it: tired, then a small grateful smile
-c.arm(8.0, "wiz", "L", { x: [0.42, 0.45, 0.45] }, 0.4);                    // his hands stay on the cushion, empty
+c.arm(8.0, "wiz", "L", { x: [0.5, 0.3, 0.22] }, 0.4);                       // his hands stay on the cushion, empty, away from the offer (review B)
+A(8.0, "wiz", "grip", { side: "L", shape: "hover", dur: 0.3 });
 A(8.5, "wiz", "look", { to: [0.45, 0.3], dur: 0.25, blink: false });         // the cookie
 A(9.6, "wiz", "look", { to: [0.55, 0.55], dur: 0.15, blink: false });        // Reaper
 A(10.3, "wiz", "look", { to: [0.45, 0.3], dur: 0.15, blink: false });        // the cookie again
@@ -274,16 +277,16 @@ const frame = (target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur = 0 } = 
 };
 const move = (a, b, dur) => ({ ...a, to: { pos: b.pos, look: b.look, ...(b.fov && { fov: b.fov }) }, dur });
 // (the cast at real scale: a potato is about 1 m tall with its hat, so a phone frame needs h >= 1.4 for one actor)
-const S1 = frame([0.08, 0.52, -0.1], { az: 30, el: 3, h: 1.6, fov: 30 });                      // close on the tipping cookie, the Wizard behind it, the cushion's edge (review A)
+const S1 = frame([0.15, 0.48, -0.05], { az: 30, el: 3, h: 1.35, fov: 26 });                     // close on the tipping cookie, the Wizard behind it, the cushion's edge (review A)
 const S2 = frame([-0.268, 0.648, -0.473], { az: 50, el: 2, h: 0.42, fov: 24, push: 0.12, dur: 0.5 });   // his eyes (render --layout "eyes" at 0.7 s)
 const S3 = frame([-0.15, 0.55, -0.3], { az: 20, el: 6, h: 2.3, fov: 30 });                  // the launch, toward us, the cushion in front
 // (review A: the cookie must stay in frame ahead of the fingertips; start tight on hand and cookie, pull back to his face)
-const S4 = move(frame([0.38, 0.55, 0.1], { az: 20, el: 2, h: 1.45, fov: 26 }),
-  frame([0.2, 0.56, 0.15], { az: 22, el: 1, h: 1.9, fov: 26 }), 1.8);
+const S4 = move({ pos: [1.2, 0.55, 2.0], look: [0.5, 0.42, 0.1], fov: 20 },             // tight on the fingertips and the falling cookie,
+  { pos: [1.2, 0.55, 2.0], look: [0.3, 0.55, 0.1], fov: 34 }, 1.8);                     // opening out to his face and Reaper's waiting hand (review B)
 // (review A: hold on the hand while it closes, then pull back so the Wizard sails across the lower left, Reaper whole)
 const S5 = { ...move(frame([0.62, 0.45, 0.1], { az: -15, el: 18, h: 1.05, fov: 24 }), { pos: [1.3, 1.3, 4.5], look: [0.65, 0.45, 0.3], fov: 32 }, 1.2), ease: "inOut" };
 const S6 = frame([0.7, 0.5, 0.55], { az: -55, el: 28, h: 2.8, fov: 30 });                   // the landing from the side: belly-first, Reaper behind with the cookie
-const S7 = { pos: [1.05, 1.0, 4.3], look: [0.75, 0.55, 0.6], fov: 26 };                       // the bite, the Wizard lifting his face
+const S7 = { pos: [1.5, 1.05, 4.0], look: [0.95, 0.55, 0.6], fov: 24 };                          // the bite, the Wizard lifting his face
 const S8 = frame([0.8, 0.6, 0.8], { az: 6, el: 6, h: 2.6, fov: 28, push: 0.15, dur: 3 });   // the offer, between their faces
 const beats = c.beats([
   ["01 cookie in danger", 0, S1, "hook"],
