@@ -33,6 +33,7 @@ const SIZE = {
   gift: { w: 0.3, h: 0.24, d: 0.3 },
   pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
+  ravenphoto: { w: 0.1, h: 0.13, t: 0.004 },       // props-raven.js photo print: held with the phone hold, its picture (-z) faces away from the holder
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

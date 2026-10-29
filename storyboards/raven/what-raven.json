@@ -1,0 +1,2160 @@
+{
+ "id": "what-raven",
+ "title": "What Raven?",
+ "idea": "Eight trend tests #04 (hidden-in-plain-sight 'What iPad?' format): Reaper denies hiding Odin's raven until a sneeze blows three out of his hood",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "set": {
+  "type": "plain",
+  "color": "#e9c9a0",
+  "floor": "#b98256",
+  "light": "golden",
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.4,
+   "center": [
+    0,
+    1.4
+   ],
+   "height": 5.6,
+   "relief": 0.6
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "bpm": 110
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "signature": false
+ },
+ "hook": {
+  "show": [
+   "rea",
+   "r1"
+  ],
+  "hint": 0,
+  "what": "a raven's beak pokes out of Reaper's hood and he shoves it back in"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.2,
+    0.03
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "odin",
+   "character": "lookdev/allfather-crisp",
+   "at": [
+    -1,
+    0.84
+   ],
+   "face": 52,
+   "expr": "stern",
+   "follow": 0.3,
+   "seed": 6.3
+  }
+ ],
+ "props": [
+  {
+   "id": "rug",
+   "kind": "rug",
+   "x": -0.2,
+   "z": 0.6,
+   "w": 3.4,
+   "d": 2.4,
+   "color": "#d8c4a0"
+  },
+  {
+   "id": "chair",
+   "kind": "armchair",
+   "x": 0.2,
+   "z": 0
+  },
+  {
+   "id": "photo",
+   "kind": "ravenphoto",
+   "scale": 1.6,
+   "x": -0.72,
+   "y": 0.34,
+   "z": 1.18,
+   "rot": 204
+  },
+  {
+   "id": "r1",
+   "kind": "raven",
+   "x": 0.2,
+   "y": 1.3,
+   "z": 0.05,
+   "scale": 0
+  },
+  {
+   "id": "r2",
+   "kind": "raven",
+   "x": 0.2,
+   "y": 1.3,
+   "z": 0.05,
+   "scale": 0
+  },
+  {
+   "id": "r3",
+   "kind": "raven",
+   "x": 0.2,
+   "y": 1.3,
+   "z": 0.05,
+   "scale": 0
+  },
+  {
+   "id": "feather",
+   "kind": "feather",
+   "x": 0.3,
+   "y": 1.3,
+   "z": 0.47,
+   "scale": 1.1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.2,
+   "text": "When you borrowed\nOdin's raven",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0.35,
+   "to": 1.2,
+   "text": "Seen my raven?",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "beak",
+   "at": 0,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.25,
+     3.2
+    ],
+    "look": [
+     -0.28,
+     1.08,
+     0.45
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.24,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.24,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "photo",
+      "grip": [
+       0.072,
+       0.055,
+       -0.006
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      -0.9,
+      0.78
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "steps": 2.5,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 1.3,
+      "x": 0.09,
+      "y": 1.15,
+      "z": 0.22,
+      "rot": 0,
+      "tip": 25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.15,
+      0.85
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.1,
+      "eye": 1.12
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "flap": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.3,
+     "reason": "the peeking raven (on screen at the hood edge)",
+     "at": 0.04
+    },
+    {
+     "who": "odin",
+     "do": "grab",
+     "prop": "photo",
+     "hand": "R",
+     "grip": [
+      0.072,
+      0.055,
+      -0.006
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 0
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.74,
+       0.42
+      ],
+      "palm": [
+       -0.05,
+       0.74,
+       0.22
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.22
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "Seen my raven?",
+     "tone": "question",
+     "caption": false,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.05
+     },
+     "dur": 0.17,
+     "ease": "in",
+     "at": 0.38
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.5,
+     "reason": "the raven shoved back under the hood (on screen)",
+     "at": 0.38
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "smirk": 0.15
+     },
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.53
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.24,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.58
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "photo",
+      "grip": [
+       0.072,
+       0.055,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       -0.46,
+       0.3,
+       1.16
+      ]
+     },
+     "dur": 0.24,
+     "ease": "out",
+     "at": 0.66
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.25,
+     "reason": "the photo snapped up into frame",
+     "at": 0.7
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.85
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "photo",
+   "at": 1.2,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.12,
+     0.72,
+     1.85
+    ],
+    "look": [
+     -0.45,
+     0.62,
+     1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.35
+    }
+   ]
+  },
+  {
+   "name": "what raven",
+   "at": 1.7,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.05,
+     1,
+     4
+    ],
+    "look": [
+     -0.25,
+     0.85,
+     0.4
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.33,
+       0.48,
+       0.45
+      ],
+      "palm": [
+       -0.33,
+       0.75,
+       1.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.48,
+       0.45
+      ],
+      "palm": [
+       0.33,
+       0.75,
+       1.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "set": {
+      "up": 1
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "still",
+     "dur": 1.15,
+     "idle": 0.06,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "What raven?",
+     "tone": "calm",
+     "pos": 300,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 1.08
+     },
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -9,
+     "dur": 0.16,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 9,
+     "dur": 0.18,
+     "at": 0.26
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -6,
+     "dur": 0.16,
+     "at": 0.44
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "bulge",
+   "at": 2.9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.15,
+     1.02,
+     3.4
+    ],
+    "look": [
+     -0.3,
+     0.92,
+     0.4
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.15,
+      1.02,
+      3.15
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.45,
+     "dur": 0.6,
+     "reason": "muffled wing beats inside the bulging hood (on screen)",
+     "at": 0.05
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.15,
+      0.85
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.55,
+      "smirk": 0,
+      "open": 0,
+      "eye": 1.15
+     },
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "press": 0.6,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 1.3,
+      "x": 0.31,
+      "y": 1.15,
+      "z": 0.22,
+      "rot": 20,
+      "tip": 20,
+      "flap": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "y": 1.18
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.16
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      0.85
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.13,
+       0.74,
+       0.42
+      ],
+      "palm": [
+       0.05,
+       0.74,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.3,
+     "reason": "a muffled caw from inside the bulging hood (on screen)",
+     "at": 0.22
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -4,
+     "dur": 0.14,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.28
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.05
+     },
+     "dur": 0.17,
+     "ease": "in",
+     "at": 0.42
+    },
+    {
+     "sfx": "cloth",
+     "gain": 1,
+     "reason": "the raven patted back under the hood (on screen)",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "fx": "sweat",
+     "who": "rea",
+     "dur": 0.5,
+     "count": 3,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.12,
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.33,
+       0.48,
+       0.45
+      ],
+      "palm": [
+       0.33,
+       0.75,
+       1.2
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "set": {
+      "up": 1
+     },
+     "dur": 0.15,
+     "at": 0.62
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "raise": 0.06
+     },
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      -0.82,
+      0.8
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "steps": 1,
+     "at": 0.65
+    }
+   ]
+  },
+  {
+   "name": "feather",
+   "at": 3.9,
+   "len": 1.97,
+   "shot": {
+    "pos": [
+     0.2,
+     1.3,
+     3.1
+    ],
+    "look": [
+     0.2,
+     1.25,
+     0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.2,
+      1.28,
+      2.9
+     ]
+    },
+    "dur": 1.9
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "feather",
+     "set": {
+      "fall": 0.002,
+      "roll": 20
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "feather",
+     "set": {
+      "x": 0.22,
+      "y": 1.22,
+      "z": 0.47,
+      "roll": -40
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.05,
+      0.4
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "feather",
+     "set": {
+      "x": 0.3,
+      "y": 1.12,
+      "z": 0.46,
+      "roll": 25
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.02,
+      -0.55
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "press": 0,
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "feather",
+     "set": {
+      "x": 0.12,
+      "y": 0.935,
+      "z": 0.455,
+      "roll": -70
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0.62
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0.35,
+      "curve": -0.6,
+      "eye": 0.95
+     },
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.4,
+     "lid": 0.4,
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Ahh...",
+     "tone": "calm",
+     "pos": 300,
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.6,
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.75,
+     "idle": 0.04,
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Ahh... CHOO!",
+     "tone": "excited",
+     "pos": 300,
+     "at": 1.52
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.45,
+     "at": 1.52
+    }
+   ]
+  },
+  {
+   "name": "sneeze",
+   "at": 5.87,
+   "len": 1.33,
+   "shot": {
+    "pos": [
+     -0.05,
+     1.3,
+     4
+    ],
+    "look": [
+     0,
+     1.35,
+     0.3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 9,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.1,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.06,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0.65,
+      "curve": -0.45
+     },
+     "dur": 0.06,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "feather",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "fx": "shake",
+     "amp": 0.05,
+     "dur": 0.35,
+     "at": 0.05
+    },
+    {
+     "sfx": "poof",
+     "gain": 0.5,
+     "reason": "the sneeze's puff of air as the birds burst out (on screen)",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "scale": 1.3,
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.05,
+      "flap": 1,
+      "rot": 0,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      -1.04,
+      0.74
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "steps": 1,
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.22,
+      "eye": 1.25,
+      "curve": -0.05
+     },
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "still",
+     "dur": 0.9,
+     "idle": 0.08,
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "photo",
+      "grip": [
+       0.072,
+       0.055,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       -0.62,
+       0.34,
+       1.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "x": 0.2,
+      "y": 1.5,
+      "z": 0.3,
+      "flap": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "x": -0.3,
+      "y": 1.75,
+      "z": 0.8,
+      "flap": 1,
+      "rot": -60
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "arc": 0.12,
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "scale": 1.3,
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.05,
+      "flap": 1,
+      "rot": 0,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.19
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.7,
+     "pan": -0.3,
+     "reason": "a raven bursting out of the hood (on screen)",
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "x": 0.2,
+      "y": 1.5,
+      "z": 0.3,
+      "flap": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.55,
+      0.75
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.4,
+     "pan": -0.25,
+     "reason": "a raven calling as it bursts out (on screen)",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "x": 0.85,
+      "y": 1.85,
+      "z": 0.7,
+      "flap": 1,
+      "rot": 60
+     },
+     "dur": 0.34,
+     "ease": "inOut",
+     "arc": 0.12,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 1.3,
+      "x": 0.2,
+      "y": 1.3,
+      "z": 0.05,
+      "flap": 1,
+      "rot": 0,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.31
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.7,
+     "pan": 0.3,
+     "reason": "a raven bursting out of the hood (on screen)",
+     "at": 0.31
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.2,
+      "y": 1.5,
+      "z": 0.3,
+      "flap": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "tilt": 0.5,
+      "curve": -0.5,
+      "open": 0.3,
+      "eye": 1.2,
+      "pupil": 0.6
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.15,
+      "y": 2.05,
+      "z": 0.6,
+      "flap": 1,
+      "rot": 0
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "arc": 0.1,
+     "at": 0.42
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.7,
+     "pan": 0,
+     "reason": "a raven bursting out of the hood (on screen)",
+     "at": 0.43
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "x": -0.55,
+      "y": 1.6,
+      "z": 0.75,
+      "flap": 1,
+      "rot": -150
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "arc": 0.05,
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.5,
+     "pan": 0.3,
+     "reason": "the second raven calling in flight (on screen)",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "x": 1.05,
+      "y": 1.2,
+      "z": 0.55,
+      "flap": 1,
+      "rot": 150
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "arc": 0.05,
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.45,
+      "y": 1.95,
+      "z": 0.15,
+      "flap": 1,
+      "rot": 120
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "arc": 0.06,
+     "at": 0.74
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "x": -0.45,
+      "y": 0.67,
+      "z": 0.12,
+      "flap": 0.35,
+      "rot": 25
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.45,
+     "reason": "r2 braking to land (on screen)",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "x": 0.85,
+      "y": 0.67,
+      "z": 0.12,
+      "flap": 0.35,
+      "rot": -25
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.94
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.45,
+     "reason": "r3 braking to land (on screen)",
+     "at": 0.98
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "x": 0.13,
+      "y": 1.56,
+      "z": -0.03,
+      "flap": 0.35,
+      "rot": 0
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.04
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.45,
+     "reason": "r1 braking to land (on screen)",
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "flap": 0,
+      "squash": 0.12
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.35,
+     "pan": -0.3,
+     "reason": "the raven landing on the left armrest",
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "flap": 0,
+      "squash": 0.12
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.24
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.35,
+     "pan": 0.4,
+     "reason": "the raven landing on the right armrest",
+     "at": 1.24
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.32
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "count",
+   "at": 7.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.05,
+     1.05,
+     4
+    ],
+    "look": [
+     -0.1,
+     0.95,
+     0.4
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "flap": 0,
+      "squash": 0.12
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.45,
+     "reason": "the raven landing on the hood",
+     "at": 0.01
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "photo",
+      "grip": [
+       0.072,
+       0.055,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       -0.46,
+       0.3,
+       1.16
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.09
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.25
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.25
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.7,
+      0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.78
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.22
+    }
+   ]
+  },
+  {
+   "name": "what ravens",
+   "at": 8.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     1.05,
+     3.8
+    ],
+    "look": [
+     -0.05,
+     1,
+     0.3
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      0,
+      1.05,
+      3.5
+     ]
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.9,
+     "idle": 0.03,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "...What ravens?",
+     "tone": "calm",
+     "pos": 300,
+     "at": 0.05
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.1
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "odin",
+     "do": "face",
+     "lid": 0.32,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "odin",
+     "do": "still",
+     "dur": 1.7,
+     "idle": 0.04,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.3,
+     "reason": "the raven's beak tapping his hood",
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.3,
+     "reason": "the second beak tap",
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "peck": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "happy": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.3,
+     "reason": "the hood raven's happy little call as it hops (on screen)",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "happy": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.2,
+     "at": 1.25
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "odin stares",
+   "at": 10,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.05,
+     0.85,
+     2.45
+    ],
+    "look": [
+     -0.8,
+     0.7,
+     0.9
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.4
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "chair",
+   "from": 0,
+   "to": 10.6,
+   "reason": "Reaper sits in the armchair (his body and hood rest against its back and cushions)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 0,
+   "to": 0.6,
+   "reason": "r1 peeks out of the hood's top edge and is pushed back in (a bird inside Reaper's hood: the body hides it)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 3,
+   "to": 3.55,
+   "reason": "r1 peeks out a second time and is patted back in (a bird inside Reaper's hood: the body hides it)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 3.15,
+   "to": 3.55,
+   "reason": "his left glove pats the second peek back under the hood (palm on the bird's head)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 0.2,
+   "to": 0.6,
+   "reason": "his right glove pushes the beak back under the hood (a push: palm on the bird's head)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 5.92,
+   "to": 6.37,
+   "reason": "r1 bursts out of the hood opening (a bird inside Reaper's hood: the body hides it)"
+  },
+  {
+   "who": "rea",
+   "with": "r2",
+   "from": 5.92,
+   "to": 6.17,
+   "reason": "r2 bursts out of the hood opening (a bird inside Reaper's hood: the body hides it)"
+  },
+  {
+   "who": "rea",
+   "with": "r3",
+   "from": 5.92,
+   "to": 6.27,
+   "reason": "r3 bursts out of the hood opening (a bird inside Reaper's hood: the body hides it)"
+  },
+  {
+   "who": "rea",
+   "with": "feather",
+   "from": 4.7,
+   "to": 5.92,
+   "reason": "the feather rests across his face (it landed there)"
+  },
+  {
+   "who": "rea",
+   "with": "r1",
+   "from": 7.11,
+   "to": 10.6,
+   "reason": "the raven perches on top of his hood (its feet on the cloth) and taps his head"
+  }
+ ],
+ "notes": "Generated by storyboards/raven/make-what-raven.mjs. Brief: Jonny's eight trend tests pack, 04-what-raven."
+}
