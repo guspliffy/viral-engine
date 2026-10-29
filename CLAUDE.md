@@ -140,6 +140,9 @@ Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it
 the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in
 `storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of
 actions shows up in a second clip, move it into `acting.mjs` (the first clip must still produce the same storyboard).
+Hands on props come from the **grip library** `storyboards/lib/grips.mjs` (mug, bowl, box, thin, phone): pick the hold,
+don't build a new one. A prop it doesn't cover gets a new hold there, tested on its close-up bench
+(`storyboards/lookdev/make-grip-tests.mjs`) and approved by Jonny from the video before a clip uses it.
 The output is a **beat storyboard** (relative timing + macros): see `docs/STORYBOARD.md`. Old flat storyboards still work.
 The template's camera is **directed from the story** (`"direct"`, `engine/direct.mjs`): mark each beat's `kind`
 (hook, payoff, reaction, reveal) and leave its camera out; set a shot by hand only where the story needs one the
