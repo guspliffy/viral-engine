@@ -224,15 +224,15 @@ c.prop(4.74, "carton", { straw: 1 }, 0);
 A(4.74, "wiz", "release", { prop: "straw" });
 A(4.74, "wiz", "grip", { side: "R", shape: "tip", set: { ...PINCH, close: 0 }, dur: 0.12 });   // only the thumb opens
 A(4.88, "wiz", "arm", { side: "R", pose: pinchAt(add(P_IN, [-0.01, 0.08, -0.01])), dur: 0.16, ease: "out" });
-A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.34, ease: "inOut" });
+A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.46, ease: "inOut" });
 A(5.04, "wiz", "grip", { side: "R", shape: "paw", dur: 0.3 });
 
 // ---------------------------------------------------------------- 06 GIVE IT BACK 5.10-6.50
 // the Wizard lets go and sits back; Reaper takes it in both hands, right then left, and lifts it
 A(5.12, "wiz", "grip", { side: "L", shape: "open", dur: 0.12 });
-A(5.14, "wiz", "arm", { side: "L", pose: { world: add(sideL(C_WIZ), [0.05, 0.3, -0.05]) }, dur: 0.16, ease: "out" });   // up off its side, over behind it, then home
-A(5.3, "wiz", "arm", { side: "L", pose: { world: [-0.14, TABLE_H + 0.34, 0.44] }, dur: 0.2, ease: "inOut" });
-A(5.5, "wiz", "arm", { side: "L", pose: { world: [-0.26, TABLE_H + 0.035, 0.64] }, dur: 0.3, ease: "inOut" });
+A(5.14, "wiz", "arm", { side: "L", pose: { world: add(sideL(C_WIZ), [0.03, 0.01, -0.12]) }, dur: 0.16, ease: "out" });   // back off its side, low behind it (never up by Reaper's face), then home
+A(5.3, "wiz", "arm", { side: "L", pose: { world: [-0.1, TABLE_H + 0.12, 0.47] }, dur: 0.22, ease: "inOut" });
+A(5.52, "wiz", "arm", { side: "L", pose: { world: [-0.26, TABLE_H + 0.035, 0.64] }, dur: 0.3, ease: "inOut" });
 A(5.45, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 A(5.2, "rea", "look", { to: [-0.45, -0.5], dur: 0.15, blink: false });
 A(5.2, "rea", "expr", { expr: "eager", set: { open: 0, eye: 1.05 }, dur: 0.25 });
