@@ -54,7 +54,7 @@
     -0.42,
     -2.8
    ],
-   "face": 150,
+   "face": 60,
    "expr": "kind",
    "follow": 0.25,
    "seed": 1.7
@@ -111,9 +111,9 @@
    "x": 0,
    "y": 0.512,
    "z": -2.158,
-   "length": 2.008,
-   "width": 0.7,
-   "balls": 30
+   "length": 2.708,
+   "width": 0.8,
+   "balls": 32
   },
   {
    "id": "soot",
@@ -329,6 +329,14 @@
     },
     {
      "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
      "do": "look",
      "to": [
       0,
@@ -337,14 +345,6 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.06
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.08
     },
     {
      "who": "phx",
@@ -2064,21 +2064,21 @@
    "len": 1.1,
    "shot": {
     "pos": [
-     0,
+     0.25,
      1.5,
-     4
+     4.2
     ],
     "look": [
-     0,
+     0.1,
      0.7,
      -3.6
     ],
-    "fov": 46,
+    "fov": 50,
     "to": {
      "pos": [
-      0,
+      0.25,
       1.45,
-      3.7
+      3.9
      ]
     },
     "dur": 1.1,
@@ -2243,6 +2243,33 @@
      "at": 0.35
     },
     {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
      "sfx": "whoosh",
      "gain": 0.8,
      "reason": "the plume rolls down the hall between them (2.83-3.6)",
@@ -2258,6 +2285,22 @@
      "dur": 0.4,
      "ease": "inOut",
      "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.65
     },
     {
      "who": "dra",
@@ -2296,6 +2339,17 @@
      "dur": 0.55,
      "ease": "inOut",
      "at": 0.74
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.79
     },
     {
      "who": "rea",
@@ -2339,22 +2393,32 @@
      "at": 0.8
     },
     {
-     "who": "dra",
+     "who": "phx",
      "do": "look",
      "to": [
       0,
       0
      ],
-     "dur": 0.2,
+     "dur": 0.12,
      "blink": false,
-     "at": 0.92
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.8
     },
     {
      "who": "dra",
      "do": "pitch",
      "to": 12,
      "dur": 0.2,
-     "at": 1
+     "at": 0.88
     },
     {
      "who": "dra",
@@ -2464,7 +2528,7 @@
      "stride": 2,
      "bob": 0.035,
      "dur": 0.75,
-     "at": 1.05
+     "at": 0.92
     },
     {
      "who": "dra",
@@ -2479,7 +2543,7 @@
      },
      "dur": 0.22916666666666669,
      "ease": "inOut",
-     "at": 1.05
+     "at": 0.92
     },
     {
      "who": "dra",
@@ -2494,7 +2558,7 @@
      },
      "dur": 0.22916666666666669,
      "ease": "inOut",
-     "at": 1.05
+     "at": 0.92
     },
     {
      "who": "dra",
@@ -2506,7 +2570,7 @@
       "pucker": 0
      },
      "dur": 0.15,
-     "at": 1.05
+     "at": 0.92
     }
    ],
    "kind": "payoff"
@@ -2514,28 +2578,62 @@
   {
    "name": "6 the second blast",
    "at": 3.6,
-   "len": 1.3,
+   "len": 3.15,
    "shot": {
     "pos": [
      0,
-     1,
-     5.9
+     0.45,
+     5.6
     ],
     "look": [
      0,
-     0.75,
+     0.9,
      -0.8
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      0,
+      1.3,
+      6
+     ],
+     "look": [
+      0,
+      0.85,
+      0
+     ]
+    },
+    "dur": 2,
+    "ease": "inOut"
    },
    "do": [
     {
-     "do": "prop",
-     "id": "plume",
-     "set": {
-      "fade": 1
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.32,
+       0.24
+      ]
      },
-     "dur": 0.6,
+     "dur": 0.22916666666666669,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.18,
+       -0.14
+      ]
+     },
+     "dur": 0.22916666666666669,
      "ease": "inOut",
      "at": 0
     },
@@ -2570,36 +2668,6 @@
      "at": 0.08
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 0.13
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 0.13
-    },
-    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -2630,6 +2698,36 @@
      "at": 0.14
     },
     {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.32,
+       0.24
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.18,
+       -0.14
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
      "who": "phx",
      "do": "arm",
      "side": "L",
@@ -2658,36 +2756,6 @@
      "dur": 0.16176470588235295,
      "ease": "inOut",
      "at": 0.24
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.29
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.29
     },
     {
      "who": "rea",
@@ -2712,6 +2780,36 @@
       "o": [
        0.1,
        0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.32,
+       0.24
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.18,
        -0.14
       ]
      },
@@ -2753,66 +2851,6 @@
      },
      "dur": 0.12,
      "at": 0.33
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.43
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.43
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.04,
-       0.5,
-       0.26
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.44
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.28,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 0.44
     },
     {
      "who": "dra",
@@ -2820,7 +2858,37 @@
      "to": -12,
      "dur": 0.22,
      "ease": "out",
-     "at": 0.5
+     "at": 0.37
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.44
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.16176470588235295,
+     "ease": "inOut",
+     "at": 0.44
     },
     {
      "who": "dra",
@@ -2835,7 +2903,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.57
+     "at": 0.44
     },
     {
      "who": "dra",
@@ -2850,42 +2918,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.57
-    },
-    {
-     "who": "rea",
-     "do": "hop",
-     "height": 0.28,
-     "dur": 0.42,
-     "at": 0.59
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.62,
-       0.3
-      ]
-     },
-     "dur": 0.12,
-     "at": 0.59
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.62,
-       0.3
-      ]
-     },
-     "dur": 0.12,
-     "at": 0.59
+     "at": 0.44
     },
     {
      "who": "dra",
@@ -2897,17 +2930,42 @@
       "eye": 0.6
      },
      "dur": 0.12,
-     "at": 0.65
+     "at": 0.52
     },
     {
-     "do": "prop",
-     "id": "soot",
-     "set": {
-      "scale": 1
+     "who": "rea",
+     "do": "hop",
+     "height": 0.28,
+     "dur": 0.42,
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.62,
+       0.3
+      ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.76
+     "dur": 0.12,
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "at": 0.59
     },
     {
      "who": "dra",
@@ -2915,14 +2973,14 @@
      "to": 14,
      "dur": 0.14,
      "ease": "out",
-     "at": 0.78
+     "at": 0.65
     },
     {
      "who": "dra",
      "do": "squash",
      "amount": 0.12,
      "dur": 0.25,
-     "at": 0.78
+     "at": 0.65
     },
     {
      "who": "dra",
@@ -2934,13 +2992,13 @@
       "eye": 0.15
      },
      "dur": 0.06,
-     "at": 0.78
+     "at": 0.65
     },
     {
      "sfx": "ai/flare",
      "gain": 1.4,
      "reason": "the second blast fills the hall to the door (B2): fwoomp",
-     "at": 0.78
+     "at": 0.65
     },
     {
      "do": "prop",
@@ -2950,7 +3008,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.82
+     "at": 0.69
     },
     {
      "do": "prop",
@@ -2960,13 +3018,23 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 0.82
+     "at": 0.69
     },
     {
      "fx": "shake",
      "amp": 0.03,
      "dur": 0.35,
-     "at": 0.82
+     "at": 0.69
+    },
+    {
+     "do": "prop",
+     "id": "soot",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.07
     },
     {
      "who": "dra",
@@ -2978,6 +3046,16 @@
      "dur": 0.2,
      "blink": false,
      "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "plume2",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.14
     },
     {
      "who": "phx",
@@ -3225,42 +3303,12 @@
      "at": 1.25
     },
     {
-     "do": "prop",
-     "id": "plume2",
-     "set": {
-      "fade": 1
-     },
-     "dur": 0.8,
-     "ease": "inOut",
-     "at": 1.27
-    }
-   ]
-  },
-  {
-   "name": "7 he charges out",
-   "at": 4.9,
-   "len": 1.35,
-   "shot": {
-    "pos": [
-     0,
-     1.3,
-     6
-    ],
-    "look": [
-     0,
-     0.85,
-     0
-    ],
-    "fov": 46
-   },
-   "do": [
-    {
      "who": "phx",
      "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.02
+     "at": 1.32
     },
     {
      "who": "phx",
@@ -3268,14 +3316,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.02
+     "at": 1.32
     },
     {
      "who": "phx",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 0.02
+     "at": 1.32
     },
     {
      "who": "rea",
@@ -3283,7 +3331,7 @@
      "to": -4,
      "dur": 0.3,
      "ease": "out",
-     "at": 0.03
+     "at": 1.33
     },
     {
      "who": "rea",
@@ -3294,7 +3342,7 @@
       "eye": 1.05
      },
      "dur": 0.2,
-     "at": 0.08
+     "at": 1.38
     },
     {
      "who": "phx",
@@ -3302,7 +3350,7 @@
      "side": "both",
      "shape": "open",
      "dur": 0.3,
-     "at": 0.12
+     "at": 1.42
     },
     {
      "who": "dra",
@@ -3317,7 +3365,7 @@
      },
      "dur": 0.22916666666666669,
      "ease": "inOut",
-     "at": 0.15
+     "at": 1.45
     },
     {
      "who": "dra",
@@ -3332,7 +3380,7 @@
      },
      "dur": 0.22916666666666669,
      "ease": "inOut",
-     "at": 0.15
+     "at": 1.45
     },
     {
      "who": "rea",
@@ -3340,7 +3388,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.18
+     "at": 1.48
     },
     {
      "who": "rea",
@@ -3348,14 +3396,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.18
+     "at": 1.48
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 0.18
+     "at": 1.48
     },
     {
      "who": "phx",
@@ -3363,14 +3411,14 @@
      "to": 10,
      "dur": 0.35,
      "ease": "settle",
-     "at": 0.22
+     "at": 1.52
     },
     {
      "who": "phx",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.38,
-     "at": 0.27
+     "at": 1.57
     },
     {
      "who": "rea",
@@ -3378,7 +3426,7 @@
      "side": "both",
      "shape": "open",
      "dur": 0.3,
-     "at": 0.28
+     "at": 1.58
     },
     {
      "who": "dra",
@@ -3393,7 +3441,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.29
+     "at": 1.59
     },
     {
      "who": "dra",
@@ -3408,7 +3456,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.29
+     "at": 1.59
     },
     {
      "who": "rea",
@@ -3416,7 +3464,7 @@
      "to": 10,
      "dur": 0.35,
      "ease": "settle",
-     "at": 0.38
+     "at": 1.68
     },
     {
      "who": "dra",
@@ -3431,7 +3479,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.43
+     "at": 1.73
     },
     {
      "who": "dra",
@@ -3446,20 +3494,20 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.43
+     "at": 1.73
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.38,
-     "at": 0.48
+     "at": 1.78
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.5
+     "at": 1.8
     },
     {
      "who": "phx",
@@ -3471,7 +3519,7 @@
       "eye": 1
      },
      "dur": 0.3,
-     "at": 0.52
+     "at": 1.82
     },
     {
      "who": "dra",
@@ -3486,7 +3534,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.59
+     "at": 1.89
     },
     {
      "who": "dra",
@@ -3501,20 +3549,20 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.59
+     "at": 1.89
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.6
+     "at": 1.9
     },
     {
      "who": "phx",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.38,
-     "at": 0.67
+     "at": 1.97
     },
     {
      "who": "rea",
@@ -3522,7 +3570,7 @@
      "lid": 0.3,
      "brow": 0,
      "dur": 0.3,
-     "at": 0.73
+     "at": 2.03
     },
     {
      "who": "dra",
@@ -3537,7 +3585,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.73
+     "at": 2.03
     },
     {
      "who": "dra",
@@ -3552,7 +3600,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.73
+     "at": 2.03
     },
     {
      "who": "dra",
@@ -3567,7 +3615,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.87
+     "at": 2.17
     },
     {
      "who": "dra",
@@ -3582,35 +3630,36 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 0.87
+     "at": 2.17
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.38,
-     "at": 0.88
+     "at": 2.18
     },
     {
      "who": "phx",
      "do": "hop",
      "height": 0.22,
      "dur": 0.38,
-     "at": 0.95
+     "quiet": true,
+     "at": 2.25
     },
     {
      "who": "phx",
      "do": "pitch",
      "to": 0,
      "dur": 0.15,
-     "at": 0.95
+     "at": 2.25
     },
     {
      "who": "rea",
      "do": "pitch",
      "to": 0,
      "dur": 0.15,
-     "at": 0.95
+     "at": 2.25
     },
     {
      "who": "phx",
@@ -3621,7 +3670,7 @@
       "eye": 1.3
      },
      "dur": 0.1,
-     "at": 0.95
+     "at": 2.25
     },
     {
      "who": "phx",
@@ -3629,7 +3678,7 @@
      "lid": 0,
      "brow": 0.4,
      "dur": 0.1,
-     "at": 0.95
+     "at": 2.25
     },
     {
      "who": "phx",
@@ -3637,7 +3686,7 @@
      "side": "L",
      "pose": "up",
      "dur": 0.15,
-     "at": 0.95
+     "at": 2.25
     },
     {
      "who": "phx",
@@ -3645,14 +3694,21 @@
      "side": "R",
      "pose": "up",
      "dur": 0.15,
-     "at": 0.95
+     "at": 2.25
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.45,
+     "reason": "both of them gasp as Dragon bursts out of the door behind them",
+     "at": 2.27
     },
     {
      "who": "rea",
      "do": "hop",
      "height": 0.18,
      "dur": 0.38,
-     "at": 0.98
+     "quiet": true,
+     "at": 2.28
     },
     {
      "who": "rea",
@@ -3663,7 +3719,7 @@
       "eye": 1.25
      },
      "dur": 0.1,
-     "at": 0.98
+     "at": 2.28
     },
     {
      "who": "rea",
@@ -3671,7 +3727,7 @@
      "lid": 0,
      "brow": 0.35,
      "dur": 0.1,
-     "at": 0.98
+     "at": 2.28
     },
     {
      "who": "rea",
@@ -3679,7 +3735,7 @@
      "side": "L",
      "pose": "up",
      "dur": 0.15,
-     "at": 0.98
+     "at": 2.28
     },
     {
      "who": "rea",
@@ -3687,7 +3743,7 @@
      "side": "R",
      "pose": "up",
      "dur": 0.15,
-     "at": 0.98
+     "at": 2.28
     },
     {
      "who": "dra",
@@ -3702,7 +3758,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 1.03
+     "at": 2.33
     },
     {
      "who": "dra",
@@ -3717,7 +3773,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 1.03
+     "at": 2.33
     },
     {
      "who": "dra",
@@ -3725,7 +3781,7 @@
      "to": -8,
      "dur": 0.25,
      "ease": "out",
-     "at": 1.1
+     "at": 2.4
     },
     {
      "who": "dra",
@@ -3740,7 +3796,7 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 1.17
+     "at": 2.47
     },
     {
      "who": "dra",
@@ -3755,21 +3811,204 @@
      },
      "dur": 0.16176470588235295,
      "ease": "inOut",
-     "at": 1.17
+     "at": 2.47
     },
     {
      "who": "dra",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.25,
-     "at": 1.25
+     "at": 2.55
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 2.65
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.67,
+       0.438,
+       0.05
+      ]
+     },
+     "dur": 0.27,
+     "ease": "settle",
+     "at": 2.68
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.67,
+       0.438,
+       0.05
+      ]
+     },
+     "dur": 0.27,
+     "ease": "settle",
+     "at": 2.68
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.78
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.78
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.93
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.35,
+     "reason": "his gloves close on the pumpkin's sides",
+     "at": 2.95
+    },
+    {
+     "do": "prop",
+     "id": "helmet",
+     "set": {
+      "y": 1.2,
+      "tip": -14
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.07
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.67,
+       0.875,
+       0.05
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.07
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.67,
+       0.875,
+       0.05
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.07
     }
    ]
   },
   {
-   "name": "8 the pumpkin comes off",
-   "at": 6.25,
-   "len": 3.95,
+   "name": "7 the pumpkin comes off",
+   "at": 6.75,
+   "len": 0.95,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3
+    ],
+    "look": [
+     0,
+     1,
+     0.3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.55,
+      "open": 0,
+      "eye": 0.9,
+      "tilt": 0.35
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "sfx": "plunk",
+     "gain": 0.22,
+     "reason": "the dry 'dum' as his sheepish face is revealed",
+     "at": 0.35
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "8 they stare",
+   "at": 7.7,
+   "len": 2.5,
    "shot": {
     "pos": [
      0,
@@ -3785,173 +4024,11 @@
    },
    "do": [
     {
-     "who": "dra",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 0
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.67,
-       0.438,
-       0.05
-      ]
-     },
-     "dur": 0.27,
-     "ease": "settle",
-     "at": 0.03
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.67,
-       0.438,
-       0.05
-      ]
-     },
-     "dur": 0.27,
-     "ease": "settle",
-     "at": 0.03
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.13
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.13
-    },
-    {
-     "who": "dra",
-     "do": "grip",
-     "side": "both",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.28
-    },
-    {
-     "sfx": "grab",
-     "gain": 0.35,
-     "reason": "his gloves close on the pumpkin's sides",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "y": 1.2,
-      "tip": -14
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.42
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.67,
-       0.875,
-       0.05
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.42
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.67,
-       0.875,
-       0.05
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.42
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.55,
-      "open": 0,
-      "eye": 0.9,
-      "tilt": 0.35
-     },
-     "dur": 0.3,
-     "at": 0.65
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "brow": 0.3,
-     "dur": 0.3,
-     "at": 0.7
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0.75
-    },
-    {
-     "sfx": "plunk",
-     "gain": 0.22,
-     "reason": "the dry 'dum' as his sheepish face is revealed",
-     "at": 0.85
-    },
-    {
      "who": "phx",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.3,
-     "at": 1.05
+     "at": 0.1
     },
     {
      "who": "phx",
@@ -3959,14 +4036,14 @@
      "lid": 0.45,
      "brow": 0,
      "dur": 0.3,
-     "at": 1.05
+     "at": 0.1
     },
     {
      "who": "rea",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.3,
-     "at": 1.15
+     "at": 0.2
     },
     {
      "who": "rea",
@@ -3974,27 +4051,27 @@
      "lid": 0.5,
      "brow": 0,
      "dur": 0.3,
-     "at": 1.15
+     "at": 0.2
     },
     {
      "who": "phx",
      "do": "still",
      "dur": 1,
      "idle": 0.03,
-     "at": 1.15
+     "at": 0.2
     },
     {
      "who": "rea",
      "do": "still",
      "dur": 0.9,
      "idle": 0.03,
-     "at": 1.25
+     "at": 0.3
     },
     {
      "sfx": "ai/ignite",
      "gain": 0.9,
      "reason": "the pumpkin's eyes light up again over his head: the same small fwip",
-     "at": 2.29
+     "at": 0.99
     },
     {
      "do": "prop",
@@ -4005,7 +4082,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 2.3
+     "at": 1
     },
     {
      "who": "dra",
@@ -4016,7 +4093,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 2.42
+     "at": 1.12
     },
     {
      "who": "phx",
@@ -4027,7 +4104,7 @@
       "eye": 1.3
      },
      "dur": 0.12,
-     "at": 2.45
+     "at": 1.15
     },
     {
      "who": "phx",
@@ -4035,7 +4112,7 @@
      "lid": 0,
      "brow": 0.4,
      "dur": 0.12,
-     "at": 2.45
+     "at": 1.15
     },
     {
      "who": "rea",
@@ -4046,7 +4123,7 @@
       "eye": 1.25
      },
      "dur": 0.12,
-     "at": 2.48
+     "at": 1.18
     },
     {
      "who": "rea",
@@ -4054,7 +4131,7 @@
      "lid": 0,
      "brow": 0.35,
      "dur": 0.12,
-     "at": 2.48
+     "at": 1.18
     },
     {
      "who": "dra",
@@ -4065,7 +4142,7 @@
       "eye": 1.2
      },
      "dur": 0.15,
-     "at": 2.5
+     "at": 1.2
     },
     {
      "who": "phx",
@@ -4076,7 +4153,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 2.72
+     "at": 1.42
     },
     {
      "who": "rea",
@@ -4087,28 +4164,28 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 2.75
+     "at": 1.45
     },
     {
      "who": "phx",
      "do": "turn",
      "to": -90,
      "dur": 0.22,
-     "at": 2.8
+     "at": 1.5
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 90,
      "dur": 0.22,
-     "at": 2.83
+     "at": 1.53
     },
     {
      "who": "phx",
      "do": "pitch",
      "to": 10,
      "dur": 0.15,
-     "at": 2.9
+     "at": 1.6
     },
     {
      "who": "phx",
@@ -4116,7 +4193,7 @@
      "side": "both",
      "shape": "fist",
      "dur": 0.1,
-     "at": 2.9
+     "at": 1.6
     },
     {
      "who": "rea",
@@ -4124,7 +4201,7 @@
      "side": "both",
      "shape": "fist",
      "dur": 0.1,
-     "at": 2.9
+     "at": 1.6
     },
     {
      "who": "phx",
@@ -4136,20 +4213,20 @@
      "dur": 0.6,
      "steps": 3.5,
      "ease": "in",
-     "at": 2.92
+     "at": 1.62
     },
     {
      "sfx": "whoosh",
      "gain": 0.5,
      "reason": "the two of them zip off either side of the frame",
-     "at": 2.92
+     "at": 1.62
     },
     {
      "who": "rea",
      "do": "pitch",
      "to": 10,
      "dur": 0.15,
-     "at": 2.93
+     "at": 1.63
     },
     {
      "who": "rea",
@@ -4161,7 +4238,7 @@
      "dur": 0.6,
      "steps": 3.5,
      "ease": "in",
-     "at": 2.95
+     "at": 1.65
     }
    ],
    "kind": "reaction"

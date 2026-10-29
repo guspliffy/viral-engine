@@ -94,24 +94,24 @@ const DIVE_P = crossAt(PP), DIVE_R = crossAt(RP, 0.06);
 const D1 = runPath(1.12, DRA0[1], -4.2, [[1.12, 0], [1.45, 1.5], [1.6, 1.5], [1.7, 0.32], [2.3, 0.32]], () => 0, 0.8);
 const Z1 = D1.at(-1)[2];
 const DR1 = run("dra", D1, [[0, 1.6], [0.3, 3.2], [0.48, 3.2], [0.58, 0.8], [1.2, 0.8], [1.5, 0.4]], 0, { stride: 1.8, bob: 0.03 });
-const D2 = runPath(3.55, Z1, -2.7, [[3.55, 0], [3.75, 3.0]], () => 0, 0.25);
+const D2 = runPath(3.42, Z1, -2.7, [[3.42, 0], [3.62, 3.0]], () => 0, 0.25);
 const Z2 = D2.at(-1)[2];
 const DR2 = run("dra", D2, [[0, 2.4], [0.2, 3.4]], 0, { stride: 2.0, bob: 0.035 });
 const D3 = runPath(4.85, Z2, DRA_END[1], [[4.85, 0], [5.1, 2.9]], () => 0, 0.3);
 const DR3 = run("dra", D3, [[0, 2.4], [0.25, 3.4]], 0, { stride: 2.0, bob: 0.035 });
 const MOUTH_Y = r3(HELM[1] + PUMPKIN.mouthAt[1]), mouthZ = (z) => r3(z + PUMPKIN.mouthAt[2] + 0.02);
-// the second blast stops at the doorway, behind them as they dive out
-const LEN2 = r3(-0.15 - mouthZ(Z2));
+// the second blast reaches just out of the doorway, licking at their backs as they dive out
+const LEN2 = r3(0.55 - mouthZ(Z2));
 
 const cast = [
-  { id: "phx", character: "duo/phoenix", at: PHX0, face: 150, expr: "kind", follow: 0.25, seed: 1.7 },
+  { id: "phx", character: "duo/phoenix", at: PHX0, face: 60, expr: "kind", follow: 0.25, seed: 1.7 },
   { id: "rea", character: "lookdev/reaper-crisp", at: REA0, face: -10, expr: "kind", follow: 0.25, seed: 3.3 },
   { id: "dra", character: "lookdev/dragon-crisp", at: DRA0, face: 0, expr: "focused", follow: 0, seed: 4.1, signature: false },
 ];
 const props = [
   { id: "helmet", kind: "pumpkinhelm", wear: "dra", x: HELM[0], y: HELM[1], z: HELM[2], glow: 0 },
   { id: "plume", kind: "fireplume", x: 0, y: MOUTH_Y, z: mouthZ(Z1), length: 2.3, width: 0.8, balls: 32 },
-  { id: "plume2", kind: "fireplume", x: 0, y: MOUTH_Y, z: mouthZ(Z2), length: LEN2, width: 0.7, balls: 30 },
+  { id: "plume2", kind: "fireplume", x: 0, y: MOUTH_Y, z: mouthZ(Z2), length: LEN2, width: 0.8, balls: 32 },
   { id: "soot", kind: "soot", wear: "rea", x: 0.25, y: 0.8, z: 0.3, rot: 25, tip: -22, size: 0.12, scale: 0 },
 ];
 
@@ -134,7 +134,7 @@ act.blinksAt(c, "phx", [5.4]); act.blinksAt(c, "rea", [5.5]); act.blinksAt(c, "d
 A(0.52, "rea", "expr", { expr: "shocked", set: { open: 0.12, curve: -0.2, eye: 1.25 }, dur: 0.12 });   // his eyes go wide
 A(0.52, "rea", "face", { lid: 0, brow: 0.35, dur: 0.12 });
 A(0.56, "phx", "look", { to: AT_CAM, dur: 0.12, blink: false });     // Phoenix's eyes lead the turn to the door
-A(0.58, "phx", "turn", { to: 0, dur: 0.45, ease: "inOut" });          // not faster: a 0.3 s turn pops a wing for a frame
+A(0.55, "phx", "turn", { to: 0, dur: 0.3, ease: "inOut" });
 A(0.62, "phx", "expr", { expr: "shocked", set: { open: 0.2, eye: 1.2 }, dur: 0.15 });
 A(0.8, "rea", "look", { to: AT_CAM, dur: 0.12, blink: false });
 A(0.86, "rea", "turn", { to: 0, dur: 0.15 });
@@ -148,6 +148,10 @@ A(1.55, "phx", "expr", { expr: "focused", set: { open: 0.15, curve: -0.25 }, dur
 A(1.55, "rea", "expr", { expr: "focused", set: { open: 0.05, curve: -0.2 }, dur: 0.25 }); A(1.55, "rea", "face", { lid: 0.25, brow: -0.1, dur: 0.25 });
 // Reaper slides his eyes back over his shoulder as the fire comes (face kept serious)
 A(2.85, "rea", "look", { to: [-0.6, 0], dur: 0.12, blink: false }); A(3.3, "rea", "look", { to: AT_CAM, dur: 0.12, blink: false });
+A(2.85, "phx", "look", { to: [0.6, 0], dur: 0.12, blink: false }); A(3.3, "phx", "look", { to: AT_CAM, dur: 0.12, blink: false });
+// both lean away from the fire as it passes between them
+A(2.85, "phx", "lean", { to: 12, dur: 0.2, ease: "out" }); A(3.15, "phx", "lean", { to: 0, dur: 0.3, ease: "inOut" });
+A(2.85, "rea", "lean", { to: -12, dur: 0.2, ease: "out" }); A(3.15, "rea", "lean", { to: 0, dur: 0.3, ease: "inOut" });
 // Dragon gives chase: eyes on them first, a lean, the arms pumping low (clear of the shell above)
 act.eyesLead(c, 1.12, "dra", [0, 0]);
 A(1.1, "dra", "pitch", { to: 10, dur: 0.25 });
@@ -173,12 +177,12 @@ sfx(2.88, "whoosh", { gain: 0.8, reason: "the plume rolls down the hall between 
 c.at(2.83, { fx: "shake", amp: 0.035, dur: 0.45 });
 c.prop(3.0, "helmet", { on: 0.5, glow: 0.8 }, 0.4);
 A(3.2, "dra", "pitch", { to: 4, dur: 0.3, ease: "inOut" });
-c.prop(3.6, "plume", { fade: 1 }, 0.6, "inOut");   // short: a longer fade shows a purple smoke stage
+c.prop(3.3, "plume", { fade: 1 }, 0.3, "inOut");   // gone before he runs on: its smoke would hide the chase
 // BLAST 2 (normal speed): he runs on, plants at the door's end of the hall and blasts again; they dive out of the door
-act.eyesLead(c, 3.55, "dra", [0, 0]);
-A(3.5, "dra", "pitch", { to: 12, dur: 0.2 });
+act.eyesLead(c, 3.42, "dra", [0, 0]);
+A(3.38, "dra", "pitch", { to: 12, dur: 0.2 });
 pump("dra", DR2, { ...LOW, rest: false });
-A(3.55, "dra", "expr", { expr: "focused", set: { open: 0.2, eye: 1.0, pucker: 0 }, dur: 0.15 });
+A(3.42, "dra", "expr", { expr: "focused", set: { open: 0.2, eye: 1.0, pucker: 0 }, dur: 0.15 });
 A(DR2.t1 - 0.2, "dra", "pitch", { to: -12, dur: 0.22, ease: "out" });
 A(DR2.t1 - 0.05, "dra", "expr", { expr: "focused", set: { pucker: 0.4, open: 0.3, eye: 0.6 }, dur: 0.12 });
 const B2 = r3(DR2.t1 + 0.12);
@@ -195,7 +199,7 @@ for (const [w, t] of [["phx", DIVE_P], ["rea", DIVE_R]]) {
   A(r3(t - 0.12), w, "hop", { height: 0.28, dur: 0.42 });
   for (const s of ["L", "R"]) c.arm(r3(t - 0.12), w, s, { o: [0.06, 0.62, 0.3] }, 0.12);
 }
-c.prop(r3(DIVE_R + 0.05), "soot", { scale: 1 }, 0.2, "out");                // a spark catches his hood on the way out
+c.prop(r3(B2 + 0.38), "soot", { scale: 1 }, 0.15, "out");                  // the tip of the blast catches his hood on the way out
 
 // ---------------------------------------------------------------- shots 6-7: on the porch, Dragon charges out after them
 A(P.t1 - 0.25, "phx", "pitch", { to: -4, dur: 0.3, ease: "out" }); A(P.t1 + 0.1, "phx", "pitch", { to: 10, dur: 0.35, ease: "settle" });
@@ -217,7 +221,9 @@ A(DR3.t1 - 0.2, "dra", "pitch", { to: -8, dur: 0.25, ease: "out" }); A(DR3.t1 + 
 A(DR3.t1 - 0.05, "dra", "squash", { amount: 0.1, dur: 0.25 });
 // they hear him burst out behind them and jump
 const JUMP = r3(DR3.t1 - 0.35);
-A(JUMP, "phx", "hop", { height: 0.22, dur: 0.38 }); A(JUMP + 0.03, "rea", "hop", { height: 0.18, dur: 0.38 });
+// a startle, not a hop: no automatic hop/land sounds (quiet), a gasp instead
+A(JUMP, "phx", "hop", { height: 0.22, dur: 0.38, quiet: true }); A(JUMP + 0.03, "rea", "hop", { height: 0.18, dur: 0.38, quiet: true });
+sfx(JUMP + 0.02, "gasp", { gain: 0.45, reason: "both of them gasp as Dragon bursts out of the door behind them" });
 A(JUMP, "phx", "pitch", { to: 0, dur: 0.15 }); A(JUMP, "rea", "pitch", { to: 0, dur: 0.15 });
 A(JUMP, "phx", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.3 }, dur: 0.1 }); A(JUMP, "phx", "face", { lid: 0, brow: 0.4, dur: 0.1 });
 A(JUMP + 0.03, "rea", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.25 }, dur: 0.1 }); A(JUMP + 0.03, "rea", "face", { lid: 0, brow: 0.35, dur: 0.1 });
@@ -240,12 +246,12 @@ A(LIFT + 0.4, "dra", "face", { brow: 0.3, dur: 0.3 });
 A(LIFT + 0.45, "dra", "look", { to: AT_CAM, dur: 0.2, blink: false });
 sfx(LIFT + 0.55, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
 // the friends turn their faces to us, dead flat (the soot on Reaper's hood)
-const STARE = r3(LIFT + 0.75);
+const STARE = r3(LIFT + 1.25);   // after the single on Dragon, back on the wide
 A(STARE, "phx", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE, "phx", "face", { lid: 0.45, brow: 0, dur: 0.3 });
 A(STARE + 0.1, "rea", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE + 0.1, "rea", "face", { lid: 0.5, brow: 0, dur: 0.3 });
 A(STARE + 0.1, "phx", "still", { dur: 1.0, idle: 0.03 }); A(STARE + 0.2, "rea", "still", { dur: 0.9, idle: 0.03 });
 // ...and the pumpkin's eyes light up again above his head: his eyes go up to it, theirs go wide, they run for it
-const AGAIN = r3(STARE + 1.25);
+const AGAIN = r3(STARE + 0.9);
 c.prop(AGAIN, "helmet", { glow: 1, on: 0.4 }, 0.2, "out");
 sfx(AGAIN - 0.01, "ai/ignite", { gain: 0.9, reason: "the pumpkin's eyes light up again over his head: the same small fwip" });
 A(AGAIN + 0.12, "dra", "look", { to: [0, 0.9], dur: 0.15, blink: false });
@@ -269,10 +275,11 @@ const beats = c.beats([
   ["2 they notice", 0.5, { pos: [0.02, 0.85, 0.4], look: [0.02, 0.7, -3.0], fov: 40 }, "reaction"],
   ["3 they bolt, he chases", 1.0, { pos: [0, 1.85, 4.6], look: [0, 0.5, -3.6], fov: 44 }, "reveal"],
   ["4 slow motion", 1.6, { pos: [0, 0.55, r3(ZP(1.6) + 3.6)], look: [0, 0.8, r3(ZP(1.6) - 1.8)], fov: 50, to: { pos: [0, 0.55, r3(ZP(2.5) + 3.8)], look: [0, 0.8, r3(ZP(2.5) - 1.8)] }, dur: 0.9, ease: "linear" }],
-  ["5 the first blast", 2.5, { pos: [0, 1.5, 4.0], look: [0, 0.7, -3.6], fov: 46, to: { pos: [0, 1.45, 3.7] }, dur: 1.1, ease: "linear" }, "payoff"],
-  ["6 the second blast", 3.6, { pos: [0, 1.0, 5.9], look: [0, 0.75, -0.8], fov: 46 }],
-  ["7 he charges out", 4.9, { pos: [0, 1.3, 6.0], look: [0, 0.85, 0.0], fov: 46 }],
-  ["8 the pumpkin comes off", r3(LIFT - 0.3), { pos: [0, 1.65, 5.8], look: [0, 1.0, 0.6], fov: 46 }, "reaction"],   // high: his face shows over theirs
+  ["5 the first blast", 2.5, { pos: [0.25, 1.5, 4.2], look: [0.1, 0.7, -3.6], fov: 50, to: { pos: [0.25, 1.45, 3.9] }, dur: 1.1, ease: "linear" }, "payoff"],
+  // low from the porch: the doorway blast and the charge tower over us; then up and back for the jump (no cut)
+  ["6 the second blast", 3.6, { pos: [0, 0.45, 5.6], look: [0, 0.9, -0.8], fov: 46, to: { pos: [0, 1.3, 6.0], look: [0, 0.85, 0.0] }, dur: 2.0, ease: "inOut" }],
+  ["7 the pumpkin comes off", r3(LIFT + 0.2), { pos: [0, 1.45, 3.0], look: [0, 1.0, 0.3], fov: 48 }, "reaction"],
+  ["8 they stare", r3(STARE - 0.1), { pos: [0, 1.65, 5.8], look: [0, 1.0, 0.6], fov: 46 }, "reaction"],
 ], END);
 
 write(import.meta.url, {
