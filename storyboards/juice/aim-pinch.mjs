@@ -8,7 +8,8 @@ const sb = new URL("vampire-vs-juice-box.json", here).pathname;
 for (let round = 0; round < Number(process.argv[2] || 3); round++) {
   const { AIM } = await import(`${gen.href}?r=${round}`);
   execFileSync("node", [gen.pathname]);
-  execFileSync("node", ["engine/render.mjs", sb, "--layout"], { stdio: "ignore" });
+  // the layout is written even when its contact gate fails (exit code 1): the aim comes first, the contacts after
+  try { execFileSync("node", ["engine/render.mjs", sb, "--layout"], { stdio: "ignore" }); } catch (e) { if (e.status !== 1) throw e; }
   const lay = JSON.parse(readFileSync("out/vampire-vs-juice-box-anime-pro.layout.json", "utf8"));
   const old = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
   const want = JSON.parse(readFileSync(sb, "utf8"));

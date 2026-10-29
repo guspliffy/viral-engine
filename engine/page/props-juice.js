@@ -181,9 +181,11 @@ export const JUICE_KINDS = {
     const rim = mesh(new THREE.TorusGeometry(CUP.top, 0.0028, 6, 28), mat("#fbfaf6"), P.whole, 0, H, 0); rim.rotation.x = Math.PI / 2;
     const sm = mat("#ffffff", { roughness: 0.35 });
     for (let i = 0; i < (P.spec.straws ?? 2); i++) {
-      const a = 2.2 + i * 2.1, g = straw(P.whole, sm);
-      g.position.set(Math.cos(a) * CUP.bottom * 0.55, 0.006, Math.sin(a) * CUP.bottom * 0.55);
-      g.rotation.set(Math.sin(a) * 0.16, a * 0.7, -Math.cos(a) * 0.16);
+      // each stands on the far side of the bottom and leans across against the rim (lean, radians), so its top end
+      // is well out of the middle, where a hand reaches in for the one standing there
+      const a = 2.2 + i * 2.1, L = P.spec.lean ?? 0.45, g = straw(P.whole, sm);
+      g.position.set(-Math.cos(a) * CUP.bottom * 0.5, 0.006, -Math.sin(a) * CUP.bottom * 0.5);
+      g.rotation.set(Math.sin(a) * L, a * 0.7, -Math.cos(a) * L);
       g.scale.setScalar(P.spec.strawScale ?? 1);
     }
     return {};
