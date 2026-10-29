@@ -386,19 +386,19 @@
    "do": [
     {
      "sfx": "timer-beep",
-     "gain": 0.32,
+     "gain": 0.24,
      "reason": "the self-timer lamp blinking (on screen)",
      "at": 0.083
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.32,
+     "gain": 0.24,
      "reason": "the self-timer lamp blinking (on screen)",
      "at": 0.275
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.32,
+     "gain": 0.24,
      "reason": "the self-timer lamp blinking (on screen)",
      "at": 0.458
     },
@@ -487,7 +487,7 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.34,
+     "gain": 0.26,
      "reason": "the timer lamp (tripod in the foreground)",
      "at": 0.35
     },
@@ -1352,7 +1352,7 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.42,
+     "gain": 0.3,
      "reason": "the self-timer counting down, faster at the end (tripod on screen)",
      "at": 1.35
     },
@@ -1419,7 +1419,7 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.42,
+     "gain": 0.3,
      "reason": "the self-timer counting down, faster at the end (tripod on screen)",
      "at": 1.57
     },
@@ -1463,7 +1463,7 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.42,
+     "gain": 0.3,
      "reason": "the self-timer counting down, faster at the end (tripod on screen)",
      "at": 1.75
     },
@@ -1490,13 +1490,13 @@
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.42,
+     "gain": 0.3,
      "reason": "the self-timer counting down, faster at the end (tripod on screen)",
      "at": 1.87
     },
     {
      "sfx": "timer-beep",
-     "gain": 0.42,
+     "gain": 0.3,
      "reason": "the self-timer counting down, faster at the end (tripod on screen)",
      "at": 1.96
     }
@@ -1528,7 +1528,7 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.8,
+     "gain": 1.4,
      "reason": "the camera firing (the flash on screen)",
      "at": 0
     },

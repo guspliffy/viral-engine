@@ -85,7 +85,7 @@ sfx(0.05, "sizzle", { gain: 0.5, dur: 1.4, reason: "the sheet starting to smould
 c.cap(0, W(2.0), "Our ghost photo had one extra ghost.", 250, false, { kinetic: false });
 
 // ---------------------------------------------------------------- 2 TIMER 0.6-1.2: why they hold still
-for (const b of BLINKS) if (b > W(0.6) && b < W(1.2)) c.sfx(b, "timer-beep", { gain: 0.32, reason: "the self-timer lamp blinking (on screen)" });
+for (const b of BLINKS) if (b > W(0.6) && b < W(1.2)) c.sfx(b, "timer-beep", { gain: 0.24, reason: "the self-timer lamp blinking (on screen)" });
 
 // ---------------------------------------------------------------- 3 TRIO 1.2-2.0: eyelines converge on the glow
 A(1.15, "rea", "look", { to: [0.6, 0.1], dur: 0.15, blink: false });
@@ -96,7 +96,7 @@ A(1.42, "wiz", "turn", { to: -24, dur: 0.14 });                 // the Wizard sn
 prop(1.42, "s-wiz", { rot: -24, squash: 0.06 }, 0.14); prop(1.56, "s-wiz", { squash: 0 }, 0.16);
 A(1.76, "wiz", "turn", { to: 0, dur: 0.12 });                   // ... and snaps back into the pose
 prop(1.76, "s-wiz", { rot: 0 }, 0.12);
-for (const b of BLINKS) if (b > W(1.2) && b < W(2.0)) c.sfx(b, "timer-beep", { gain: 0.34, reason: "the timer lamp (tripod in the foreground)" });
+for (const b of BLINKS) if (b > W(1.2) && b < W(2.0)) c.sfx(b, "timer-beep", { gain: 0.26, reason: "the timer lamp (tripod in the foreground)" });
 
 // ---------------------------------------------------------------- 4 REVEAL 2.0-4.4: the sheet rises, faces show
 // a quiet beat (2.0-2.3), then the hot sheet lifts off Phoenix; his face shows as the hem passes his eyes (~2.95 s)
@@ -154,7 +154,7 @@ A(7.3, "phx", "look", { to: UP, dur: 0.3, blink: false });
 A(7.35, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
 A(7.4, "wiz", "look", { to: [-0.35, 0.95], dur: 0.3, blink: false });
 A(7.3, "rea", "still", { dur: 1.4, idle: 0.06 }); A(7.3, "wiz", "still", { dur: 1.4, idle: 0.06 });
-for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.55 ? 0.42 : 0.25, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
+for (const b of BLINKS) if (b > W(7.2) && b < FLASH) c.sfx(b, "timer-beep", { gain: b > 6.55 ? 0.3 : 0.22, reason: "the self-timer counting down, faster at the end (tripod on screen)" });
 // ... then they look at each other, accept their fourth member and smile
 A(7.95, "phx", "look", { to: [-0.6, 0.05], dur: 0.25, blink: false });
 A(8.0, "rea", "look", { to: [0.6, 0.05], dur: 0.25, blink: false });
@@ -184,7 +184,7 @@ for (const w of ["rea", "phx", "wiz"]) A(9.75, w, "still", { dur: 1.7, idle: 0.0
 
 // ---------------------------------------------------------------- 7 FLASH 10.0-12.0: one flash, the pose holds
 c.at(FLASH, { fx: "flash", dur: 0.5, peak: 0.85 });    // 0.85: the most the checks allow (a pure white frame reads as a glitch); 0.5 s so the fade has no strobing steps
-c.sfx(FLASH, "flash", { gain: 0.8, reason: "the camera firing (the flash on screen)" });
+c.sfx(FLASH, "flash", { gain: 1.4, reason: "the camera firing (the flash on screen)" });
 // the flash-blink, then happy looks up at their new friend
 for (const [w, dt] of [["phx", 0.0], ["rea", 0.06], ["wiz", 0.03]]) A(10.4 + dt, w, "blink", { dur: 0.22 });
 A(10.7, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
