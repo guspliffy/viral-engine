@@ -10,6 +10,7 @@ import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
+import { cone, meshShape, inkMaterial } from "./handmesh.js";
 
 const LEG_H = 0.14;
 
@@ -88,11 +89,13 @@ export class Character {
     if (def.hands?.type === "glove") this.limbMat.userData.lookRole = "glove";   // looks.js: its own toon values
     if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
+    this.seamless = def.hands?.type === "glove" && !!def.hands?.seamless;
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
     this.legs = { R: { mesh: null, foot: null }, L: { mesh: null, foot: null } };
     for (const s of ["R", "L"]) {
       const hand = ["mitten", "glove"].includes(def.hands?.type ?? "mitten") ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
       hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
+      if (this.seamless) this._skinInit(s);
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
 
@@ -115,7 +118,7 @@ export class Character {
     palm.userData.rest = glove ? [0.88, 0.82, 0.55] : [1, 0.95, 0.78]; palm.scale.fromArray(palm.userData.rest);
     const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
     let fingers, index, thumb;
-    const bends = [];
+    const bends = [], digits = [], rolls = [];
     if (glove) {
       // hands.type "glove": Jonny's hand & grip study, a cartoon glove with four separate rounded fingers, a thumb and
       // a wrist. Each finger bends at the knuckle (fingers / index pivot) and again half way (bends), so a curl rolls it
@@ -125,18 +128,25 @@ export class Character {
         const a = new THREE.Mesh(cap(r, len * 0.5), M("#ff9a20")); a.position.y = len * 0.25 + r * 0.6; a.castShadow = true; base.add(a);
         const mid = new THREE.Group(); mid.position.y = len * 0.5 + r * 0.6; base.add(mid); bends.push(mid);
         const b = new THREE.Mesh(cap(r * 0.97, len * 0.38), M("#ff9a20")); b.position.y = len * 0.19 + r * 0.4; b.castShadow = true; mid.add(b);
+        // the seamless skin's bones: a finger thickest just past its root, tapering to a round tip (hands.seamless)
+        a.userData.seg = { half: len * 0.25, r1: r * 1.02, r2: r * 0.95 }; b.userData.seg = { half: len * 0.19, r1: r * 0.95, r2: r * 0.8 };
+        digits.push([a, b]);
         // round knuckles: a ball where the finger leaves the palm and one in the middle joint, so a curled finger reads as
         // a soft rolled glove finger instead of two blocks with a crease between them
         const k0 = new THREE.Mesh(new THREE.SphereGeometry(r * 1.04, 14, 10), M("#ff9a20")); k0.position.y = r * 0.35; base.add(k0);
         const k1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.99, 14, 10), M("#ff9a20")); mid.add(k1);
       };
-      // short, plump fingers (Jonny's hand study: the glove's fingers are about as long as the palm is deep)
-      finger(fingers, 0.011, 0.034, 0.0175, -0.01); finger(fingers, -0.017, 0.032, 0.017, 0.03); finger(fingers, -0.042, 0.026, 0.0157, 0.08);
-      finger(index, 0, 0.032, 0.0175, -0.04);
+      // short, plump fingers (Jonny's hand study: the glove's fingers are about as long as the palm is deep); hands.fingers
+      // 3: three fingers and a thumb (Jonny, 29 Oct), the outer two a little fatter to fill the palm
+      const H3 = this.def.hands?.fingers === 3, sp = this.def.hands?.spread ?? 1;
+      if (H3) { finger(fingers, 0.004, 0.041, 0.0185, 0.03 * sp); finger(fingers, -0.031, 0.036, 0.0178, 0.17 * sp); }
+      else { finger(fingers, 0.011, 0.034, 0.0175, -0.01); finger(fingers, -0.017, 0.032, 0.017, 0.03); finger(fingers, -0.042, 0.026, 0.0157, 0.08); }
+      finger(index, 0, H3 ? 0.038 : 0.032, 0.0175, H3 ? -0.1 * sp : -0.04);
       // the index finger's pad, on the palm side of its last joint: a fingertip pinch (grip pinch > 0) closes on it
       const pad = new THREE.Object3D(); pad.position.set(0, 0.016, 0.017); bends[bends.length - 1].add(pad); g.userData.pad = pad;
       thumb = piv(0.044, -0.01, 0.012);
       const th = new THREE.Mesh(cap(0.0165, 0.034), M("#e020e0")); th.position.set(0.024, 0.018, 0); th.rotation.z = -0.75; th.castShadow = true; thumb.add(th);
+      th.userData.seg = { half: 0.017, r1: 0.019, r2: 0.0145 }; digits.push([th]);
       // the wrist: the heel of the hand narrowing into the forearm
       const w = (this.def.limbs.width * 0.82) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.042, w, 0.05, 20, 1), M("#e03030"));
       heel.position.y = -0.052; heel.scale.z = 0.66; heel.castShadow = true; g.add(heel);
@@ -163,7 +173,7 @@ export class Character {
       const R = 0.019 + tr, pts = [];
       for (let k = 0; k <= 12; k++) { const ph = (-60 + (k * 255) / 12) * (Math.PI / 180); pts.push(new THREE.Vector3(x, R * Math.cos(ph), R * Math.sin(ph))); }
       const roll = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 24, 10, (t) => tr * (0.75 + 0.25 * Math.sin(Math.PI * Math.min(1, t * 1.15)))), mm);
-      roll.castShadow = true; fist.add(roll);
+      roll.castShadow = true; fist.add(roll); rolls.push({ pts, tr });
       const tip = new THREE.Mesh(new THREE.SphereGeometry(tr * 0.78, 10, 8), mm); tip.position.copy(pts[pts.length - 1]); fist.add(tip);   // fingertip
       const knuckle = new THREE.Mesh(new THREE.SphereGeometry(tr * 1.05, 12, 10), mm); knuckle.position.copy(pts[2]); fist.add(knuckle);
     });
@@ -172,7 +182,10 @@ export class Character {
     if (glove) g.traverse((o) => { if (o.isMesh) o.receiveShadow = true; });   // fingers shade each other
     // where a fingertip pinch holds a thin prop (a straw): between the index pad and the thumb, set by _pose
     const pinchPt = new THREE.Object3D(); g.add(pinchPt);
-    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove, pinchPt };
+    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove, pinchPt, digits, rolls };
+    // hands.seamless: the parts stay as the hand's bones (posed, measured by the contact checks) but aren't drawn; one
+    // skin grown over them is (Character._skin)
+    if (glove && this.def.hands?.seamless) g.traverse((o) => { if (o.isMesh) o.layers.set(1); });
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
@@ -386,13 +399,79 @@ export class Character {
     pts.forEach((p, i) => this._anc[s][i].position.copy(p));
   }
 
-  _tube(old, a, c, b, w, arm = false, joint = false) {
+  // the skin and its ink shell are made with the character (the look converts their materials once, at the start): the
+  // skin takes the limbs' colour and shading but not three's outline (it shows through the skin's small dips as specks);
+  // its own ink shell draws the line, thinning away in creases, in the colour and width the look gives the arm tube
+  _skinInit(s) {
+    const a = this.arms[s];
+    this.skinMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
+    a.skin = new THREE.Mesh(new THREE.BufferGeometry(), this.skinMat);
+    a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);
+    const im = inkMaterial(); im.userData.outlineParameters = { visible: false };
+    // the line the look gives the legs (same material as the arms used to have)
+    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? op.thickness : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
+    a.ink = new THREE.Mesh(a.skin.geometry, im); a.ink.frustumCulled = false; a.ink.onBeforeRender = line; a.ink.matrixAutoUpdate = false; this.root.add(a.ink);
+    // the arm tube: the same ink, instead of three's outline
+    this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
+    a.tubeInk = new THREE.Mesh(new THREE.BufferGeometry(), im); a.tubeInk.frustumCulled = false; a.tubeInk.onBeforeRender = line; this.root.add(a.tubeInk);
+  }
+
+  // hands.seamless: one skin over the glove and the end of its forearm, grown from the posed hand parts (handmesh.js):
+  // the palm two fat round cones (a flat mitten block that runs up into the finger roots), the fingers and thumb, and
+  // the last stretch of the arm's own curve a hair inside the arm tube, so the arm runs into the hand through a soft
+  // wrist instead of meeting a separate blob. Blends from the research (wrist ~0.8, finger root ~0.5, knuckle ~0.15
+  // finger radius). A pose that hasn't changed since the last frame (to a tenth of a millimetre) keeps its mesh.
+  _skin(s, show) {
+    const a = this.arms[s], hand = a.hand, U = hand.userData, hs = this.def.hands;
+    a.skin.visible = a.ink.visible = show && !globalThis.__noSkin;
+    if (!a.skin.visible || !a.elbow) return;
+    this.root.updateMatrixWorld(true);
+    const inv = this.root.matrixWorld.clone().invert(), M = new THREE.Matrix4(), A = new THREE.Vector3(), B = new THREE.Vector3(), sc = new THREE.Vector3();
+    // a motion blur sample (stage.js blur, a fraction of a frame away) carries the frame's skin along with the hand
+    // instead of growing a new one: the hand barely changes shape in that time
+    if (globalThis.__skinRigid && a.skinH) {
+      M.multiplyMatrices(inv, hand.matrixWorld).multiply(a.skinH.clone().invert());
+      a.skin.matrix.copy(M); a.ink.matrix.copy(M); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true; return;
+    }
+    const shown = (o) => { for (let q = o; q && q !== hand; q = q.parent) if (!q.visible) return false; return true; };
+    const seg = (o) => { M.multiplyMatrices(inv, o.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.z) / 2, d = o.userData.seg; return cone(A.set(0, -d.half, 0).applyMatrix4(M), B.set(0, d.half, 0).applyMatrix4(M), d.r1 * k, d.r2 * k); };
+    const digits = U.digits.filter((d) => shown(d[0]) && d[0].getWorldScale(sc).y > 0.05).map((d) => d.map(seg));
+    if (U.fist.visible) {
+      M.multiplyMatrices(inv, U.fist.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.y + sc.z) / 3, w = (u) => 0.75 + 0.25 * Math.sin(Math.PI * Math.min(1, u * 1.15));
+      for (const r of U.rolls) { const p = r.pts.map((q) => q.clone().applyMatrix4(M)), n = p.length - 1; digits.push(p.slice(1).map((q, i) => cone(p[i], q, r.tr * k * w(i / n), r.tr * k * w((i + 1) / n)))); }
+    }
+    M.multiplyMatrices(inv, hand.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.y + sc.z) / 3;
+    const P = (x, y, z) => new THREE.Vector3(x, y, z).applyMatrix4(M);
+    const palm = (hs.palm || [[-0.02, -0.025, 0, -0.021, 0.028, 0, 0.031, 0.029], [0.02, -0.025, 0, 0.022, 0.028, 0.002, 0.032, 0.029]]).map((c) => cone(P(c[0], c[1], c[2]), P(c[3], c[4], c[5]), c[6] * k, c[7] * k));
+    // the forearm's last stretch (hands.stub metres of it), on the arm's own curve and 1 % thinner than its tube
+    const curve = Character.armCurve(a.shoulder, a.elbow, hand.position, a.joint), arm = [], L = curve.getLength(), N = 4;
+    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW) * 0.99;
+    for (let i = 0; i < N; i++) { const ta = t0 + ((1 - t0) * i) / N, tb = t0 + ((1 - t0) * (i + 1)) / N; arm.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta), R(tb))); }
+    // hands.cuff { at, r, len }: a rolled glove rim round the wrist, at metres from the hand's centre, r times the arm
+    const cuff = [];
+    if (hs.cuff) { const c = hs.cuff, ta = 1 - (c.at ?? 0.1) / L, tb = 1 - ((c.at ?? 0.1) - (c.len ?? 0.025)) / L; cuff.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta) * (c.r ?? 1.25), R(tb) * (c.r ?? 1.25))); }
+    const fr = 0.0185 * k, b = hs.blend || {};
+    const shape = { arm, palm, digits, cuff, sep: (b.sep ?? 0.12) * fr, wrist: (b.wrist ?? 0.8) * fr, root: (b.root ?? 0.5) * fr, joint: (b.joint ?? 0.15) * fr, palmK: (b.palm ?? 0.7) * fr };
+    const key = [...arm, ...palm, ...digits.flat(), ...cuff].map((c) => [...c.a, ...c.ba, c.r1, c.r2].map((x) => Math.round(x * 1e4)).join(",")).join(";");
+    a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
+    a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
+    if (key === a.skinKey) return;
+    a.skinKey = key; a.skin.geometry.dispose();
+    a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
+  }
+
+  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = Character.armCurve(a, c, b, joint);
-    // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten
-    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w))
+    // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten.
+    // stub: under a seamless hand's skin (which carries on over the last `stub` metres of the arm), the tube closes in a
+    // round cap half way along that stretch, so its outline never shows through the hand
+    const L = stub ? curve.getLength() : 1, ts = 1 - (stub * 0.5) / L, tc = (w * 0.9) / L;
+    const cap = (t) => (!stub || t <= ts ? 1 : Math.sqrt(Math.max(0, 1 - ((t - ts) / tc) ** 2)));
+    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
       : new THREE.TubeGeometry(curve, 14, w, 8, false);
-    const m = new THREE.Mesh(geo, this.limbMat); m.castShadow = true; this.root.add(m);
+    if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
+    const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
     return m;
   }
 
@@ -526,9 +605,10 @@ export class Character {
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
-        this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint);
+        this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
+      if (this.seamless) { this._skin(s, showLimbs); const a = this.arms[s]; a.tubeInk.geometry = a.mesh.geometry; a.tubeInk.visible = showLimbs; }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }

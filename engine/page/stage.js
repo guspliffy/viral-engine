@@ -556,7 +556,9 @@ function corners() {
 // the corners of the last two frames drawn, in order. A render starts by priming it with the two frames before its
 // first one, so a frame gets the same samples whether it is drawn alone, in a shard or in the whole clip.
 let recent = [];
-function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
+// QA passes that pose but draw nothing skip meshing the seamless glove skins (potato.js _skin), the slow part of a pose
+const lean = (on) => { globalThis.__noSkin = on; };
+function prime(times) { recent = []; lean(true); for (const t of times) { pose(t); recent.push(corners()); } lean(false); return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
@@ -578,7 +580,9 @@ function blur(times, keep) {
   let acc = null;
   const add = () => { const d = ctx.getImageData(0, 0, W, H).data; if (!acc) acc = new Uint16Array(d.length); for (let i = 0; i < d.length; i++) acc[i] += d[i]; };
   if (keep) add();
+  globalThis.__skinRigid = true;   // seamless glove skins ride along with their hands (potato.js _skin)
   for (const t of times) { frame(t); add(); }
+  globalThis.__skinRigid = false;
   const img = ctx.createImageData(W, H), o = img.data;   // a clamped array: assigning rounds to the nearest level
   for (let i = 0; i < o.length; i++) o[i] = acc[i] / n;
   ctx.putImageData(img, 0, 0);
@@ -589,7 +593,7 @@ function blur(times, keep) {
 // in output pixels. Nothing is drawn, so sampling a whole clip takes seconds.
 const r3 = (x) => Math.round(x * 1000) / 1000;
 function layout(t) {
-  pose(t);
+  lean(true); pose(t); lean(false);
   const actorsOut = actors.map((a) => {
     const box = new THREE.Box3(), tmp = new THREE.Box3();
     a.ch.root.updateMatrixWorld(true);
@@ -749,7 +753,7 @@ function silhouette() {
 // full frame rate takes seconds
 let contactT = 0;   // the time contact() measures (inProps: a grab a moment away)
 function contact(t) {
-  contactT = t; pose(t);
+  contactT = t; lean(true); pose(t); lean(false);
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
