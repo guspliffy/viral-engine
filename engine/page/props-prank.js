@@ -18,10 +18,14 @@ import { clamp } from "./util.js";
 //   foampatch the foam left on a cheek: a cluster of soft round blobs in the x/y plane, bulging out along +z (put it on
 //             a body with spec.wear, stage.js). Shown by `scale` 0 -> 1 on the frame the palm presses; `drip` 0..1
 //             lets one small blob slide down from its lower edge (spec.r: its radius, default 0.075).
+//   foamcan   a shaving-foam can, origin at its bottom centre, FOAMCAN.h tall and FOAMCAN.r round: a blue and white
+//             body, a domed shoulder and a white push-button head whose spout points along +x. The grip library holds
+//             it like a mug body (grips.mjs SIZE.foamcan). `spray` 0..1 shows a short curl of foam leaving the spout.
 // The foam is one matte white; no see-through parts, so the contact checks treat every piece as solid.
 export const ARMCHAIR = { armX: 0.53, armY: 0.64, armW: 0.2, armFront: 0.3, seatW: 0.86, seatD: 0.66, backZ: -0.4 };
 export const FEATHER = { len: 0.34, quill: 0.11, r: 0.0065 };
 export const FOAM = { r: 0.06, h: 0.085 };
+export const FOAMCAN = { r: 0.034, h: 0.15 };
 export const PRANK_GRIPS = {};
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
@@ -129,6 +133,34 @@ export const PRANK_KINDS = {
         const f = clamp(ps.flat || 0);
         g.scale.set(1 + 0.55 * f, 1 - 0.7 * f, 1 + 0.55 * f);
         peak.visible = f < 0.5; ring2.visible = f < 0.8;
+      },
+    };
+  },
+
+  foamcan(P) {
+    const C = FOAMCAN, body = canvasTex(256, 128, (g, w, h) => {
+      g.fillStyle = "#f4f7fb"; g.fillRect(0, 0, w, h);
+      g.fillStyle = "#2f6fd0"; g.fillRect(0, h * 0.18, w, h * 0.5);
+      g.fillStyle = "#ffffff"; for (let i = 0; i < 4; i++) { g.beginPath(); g.arc(w * (0.12 + i * 0.25), h * 0.43, h * 0.11, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = "#1d4a94"; g.fillRect(0, h * 0.86, w, h * 0.14);
+    });
+    const can = mesh(new THREE.CylinderGeometry(C.r, C.r, C.h * 0.82, 28, 1), mat("#ffffff", { map: body, roughness: 0.35, metalness: 0.2 }), P.whole, 0, C.h * 0.41, 0);
+    const dome = mesh(new THREE.SphereGeometry(C.r, 28, 10, 0, Math.PI * 2, 0, Math.PI / 2), mat("#c9d2dc", { roughness: 0.3, metalness: 0.6 }), P.whole, 0, C.h * 0.82, 0);
+    dome.scale.y = 0.45;
+    const white = mat("#fbfbf8", { roughness: 0.6 });
+    mesh(new THREE.CylinderGeometry(C.r * 0.42, C.r * 0.46, C.h * 0.1, 18), white, P.whole, 0, C.h * 0.93, 0);
+    const spout = mesh(new THREE.BoxGeometry(C.r * 0.9, C.r * 0.28, C.r * 0.34), white, P.whole, C.r * 0.55, C.h * 0.95, 0);
+    spout.castShadow = false; void can;
+    // the foam leaving the spout: a soft curl that grows out and down while `spray` is on
+    const curl = new THREE.Group(); curl.position.set(C.r * 1.0, C.h * 0.95, 0); P.whole.add(curl);
+    const fm = mat("#fbfbf8", { roughness: 0.95 });
+    const blobs = [0, 1, 2, 3].map((i) => mesh(new THREE.SphereGeometry(C.r * (0.32 - 0.03 * i), 12, 10), fm, curl, C.r * 0.35 * i, -C.r * 0.3 * i * i * 0.5, 0));
+    return {
+      grip: 0,
+      apply(ps) {
+        const s = clamp(ps.spray || 0);
+        curl.visible = s > 0.02;
+        blobs.forEach((b, i) => { const k = clamp(s * 4 - i); b.visible = k > 0.02; b.scale.setScalar(Math.max(0.01, k)); });
       },
     };
   },

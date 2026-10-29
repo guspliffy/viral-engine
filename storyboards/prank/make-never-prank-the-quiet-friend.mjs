@@ -45,6 +45,12 @@ const rad = (d) => (d * Math.PI) / 180;
 const inChair = ([x, y, z]) => { const a = rad(CHAIR_ROT); return [r3(CHAIR[0] + x * Math.cos(a) + z * Math.sin(a)), r3(y), r3(CHAIR[1] - x * Math.sin(a) + z * Math.cos(a))]; };
 const PALM = inChair([-ARMCHAIR.armX, ARMCHAIR.armY + 0.035, ARMCHAIR.armFront - 0.12]);   // the foam palm on the left armrest
 const PAW_L = inChair([ARMCHAIR.armX, ARMCHAIR.armY + 0.035, ARMCHAIR.armFront - 0.14]);  // his left paw on the right armrest
+// the opening (Jonny 29 Oct): the Wizard sprays the foam into Reaper's palm from beside its armrest, then (across the
+// cut to the foam insert) he is on his own side with the feather. Off unless SPRAY=1 (still being staged); off keeps the
+// cut-1 opening (foam already on the palm)
+const SPRAY = process.env.SPRAY === "1";
+const WIZ_SPRAY = [-1.15, 0.6], WIZ_SPRAY_YAW = 30, T_SIDE = 0.55;    // where he sprays from; when he is back on his side
+const CAN0 = [-0.95, 0.78, 0.4];                                       // the can's bottom, its spout over the palm
 const WIZ = [0.5, 0.56], WIZ_NEAR = [0.42, 0.6], WIZ_BACK = [0.6, 0.68], WIZ_YAW = -45;
 const FACE_R = [-0.24, 0.96, 0.36];                           // Reaper's face seated (between eyes and mouth), from --layout
 // the Wizard's right cheek on his body (body frame: +z his front, -x his right), where the patch appears
@@ -54,21 +60,26 @@ const CHEEK = { x: -0.15, y: 0.58, z: 0.31, rot: -26 };
 const CHEEK_W = [0.05, 0.545, 0.69], CHEEK_ROT = WIZ_YAW + CHEEK.rot;
 // the feather's quill bottom on its way in (world; the feather leans top-left toward Reaper's face)
 const F0 = [0.3, 0.6, 0.9], F_TICKLE = [0.07, 0.76, 0.7];
+const F_SPRAY = [-1.45, 0.4, 0.88];                                    // the feather low in his right hand while he sprays
+const CAN_REST = [0.72, 0.3, 0.78];                                     // the can low in his left hand on his own side
 
 // eye targets (face look space: + right on screen, + up)
 const REA_AT_WIZ = [0.85, -0.15], WIZ_AT_REA = [-0.7, 0.25], WIZ_AT_HAND = [-0.85, 0.0];
 
 const cast = [
   { id: "rea", character: "lookdev/reaper-crisp", at: CHAIR, face: CHAIR_ROT, expr: "serene", follow: 0, seed: 3.3 },
-  { id: "wiz", character: "lookdev/wizard-crisp", at: WIZ, face: WIZ_YAW, expr: "evil", follow: 0.2, seed: 2.6, signature: false },
+  { id: "wiz", character: "lookdev/wizard-crisp", at: SPRAY ? WIZ_SPRAY : WIZ, face: SPRAY ? WIZ_SPRAY_YAW : WIZ_YAW, expr: "evil", follow: 0.2, seed: 2.6, signature: false },
 ];
-const FEATHER_SPEC = { id: "feather", kind: "feather", x: F0[0], y: F0[1], z: F0[2], rot: 0, tilt: -64, tip: -22, scale: 1.5 };
+const CAN_SPEC = { id: "can", kind: "foamcan", ...grips.placeFor("foamcan", CAN0, WIZ_SPRAY_YAW, { turn: 90 }), tilt: 55, scale: 1.5 };
+const FS = SPRAY ? F_SPRAY : F0;
+const FEATHER_SPEC = { id: "feather", kind: "feather", x: FS[0], y: FS[1], z: FS[2], rot: 0, tilt: -64, tip: -22, scale: 1.5 };
 const props = [
   { id: "chair", kind: "armchair", x: CHAIR[0], z: CHAIR[1], rot: CHAIR_ROT },
-  { id: "foam", kind: "foam", x: PALM[0], y: PALM[1], z: PALM[2], scale: 1 },
+  { id: "foam", kind: "foam", x: PALM[0], y: PALM[1], z: PALM[2], scale: SPRAY ? 0.3 : 1.35 },
   FEATHER_SPEC,
+  ...(SPRAY ? [CAN_SPEC] : []),
   { id: "cheek", kind: "carrier", x: CHEEK_W[0], y: CHEEK_W[1], z: CHEEK_W[2], rot: CHEEK_ROT },
-  { id: "patch", kind: "foampatch", wear: "wiz", ...CHEEK, r: 0.16, scale: 0 },
+  { id: "patch", kind: "foampatch", wear: "wiz", ...CHEEK, r: 0.2, scale: 0 },
 ];
 const ON_CHEEK = (out, up = 0) => ({ prop: "cheek", grip: [0, up, out], palm: true });
 
@@ -88,20 +99,43 @@ for (const t of [0.15, 1.7, 6.6, 8.3]) A(t, "rea", "squash", { amount: 0.02, dur
 
 const fh = grips.thin(c, "wiz", FEATHER_SPEC, { side: "R", from: 0.22, roll: -30, readyRoll: -30 });
 fh.secure(0, 0);
-c.arm(0, "wiz", "L", { o: [0.06, 0.27, 0.08] }, 0);
-A(0, "wiz", "grip", { side: "L", shape: "relaxed", dur: 0 });
-A(0, "wiz", "pitch", { to: 3, dur: 0 });
-A(0, "wiz", "lean", { to: 2, dur: 0 });
-A(0, "wiz", "look", { to: WIZ_AT_REA, dur: 0, blink: false });
-A(0, "wiz", "expr", { expr: "evil", set: { open: 0.15, curve: 0.75 }, dur: 0 });
+const T0 = SPRAY ? T_SIDE : 0;                                         // when the feather part starts on his side
+if (SPRAY) {
+  // 00 the spray: the can in his left hand over the palm, pssh, the dollop swells; the feather waits low in his right
+  const ch = grips.mug(c, "wiz", CAN_SPEC, { side: "L", height: 0.5 });
+  ch.secure(0, 0);
+  fh.carry(0, F_SPRAY, 0);
+  A(0, "wiz", "pitch", { to: 10, dur: 0 });
+  A(0, "wiz", "look", { to: [0.35, -0.6], dur: 0, blink: false });
+  A(0, "wiz", "expr", { expr: "evil", set: { open: 0.3, curve: 0.9 }, dur: 0 });
+  c.prop(0, "can", { spray: 1 }, 0.05, "out");
+  c.prop(0.0, "foam", { scale: 1.35 }, 0.42, "out");
+  c.prop(0.4, "can", { spray: 0 }, 0.08);
+  ch.carry(0.42, [CAN0[0] - 0.05, CAN0[1] + 0.06, CAN0[2] - 0.02], 0.12, "out");   // the can lifts off as the spray stops
+  sfx(0.02, "hiss", { gain: 0.45, reason: "the foam can spraying into the palm (0-0.4): pssh" });
+  A(0.25, "wiz", "squash", { amount: 0.04, dur: 0.3 });                // a silent snigger
+  // across the cut to the foam insert he is on his own side, the can low in his left hand, the feather ready
+  A(T_SIDE, "wiz", "move", { to: WIZ, dur: 0 });
+  A(T_SIDE, "wiz", "turn", { to: WIZ_YAW, dur: 0 });
+  ch.carry(T_SIDE, CAN_REST, 0, "inOut", { rot: grips.placeFor("foamcan", CAN_REST, WIZ_YAW, { turn: 90 }).rot });
+  c.prop(T_SIDE, "can", { tilt: 0 }, 0);
+  fh.carry(T_SIDE, F0, 0);
+} else {
+  c.arm(0, "wiz", "L", { o: [0.06, 0.27, 0.08] }, 0);
+  A(0, "wiz", "grip", { side: "L", shape: "relaxed", dur: 0 });
+}
+A(T0, "wiz", "pitch", { to: 3, dur: 0 });
+A(T0, "wiz", "lean", { to: 2, dur: 0 });
+A(T0, "wiz", "look", { to: WIZ_AT_REA, dur: 0, blink: false });
+A(T0, "wiz", "expr", { expr: "evil", set: { open: 0.15, curve: 0.75 }, dur: 0 });
 act.blinksAt(c, "wiz", [7.25, 9.4]);
 
 c.cap(0, 2.0, "Never prank the quiet friend.", 250, false, { kinetic: false });
 
 // ---------------------------------------------------------------- 01-03 the setup: feather in, foam, the face (0-1.6)
-fh.carry(0.02, F_TICKLE, 1.4, "inOut");                                // the feather creeps in from frame 0 across the setup cuts (review A)
-A(0.1, "wiz", "pitch", { to: 6, dur: 1.0, ease: "inOut" });
-A(0.1, "wiz", "lean", { to: 4, dur: 1.0, ease: "inOut" });
+fh.carry(T0 + 0.02, F_TICKLE, 1.42 - T0, "inOut");                      // the feather creeps in across the setup cuts (review A)
+A(T0 + 0.1, "wiz", "pitch", { to: 6, dur: 1.0 - T0 / 2, ease: "inOut" });
+A(T0 + 0.1, "wiz", "lean", { to: 4, dur: 1.0 - T0 / 2, ease: "inOut" });
 c.prop(0.6, "foam", { squash: 0.2 }, 0.08, "out"); c.prop(0.68, "foam", { squash: 0 }, 0.35, "settle");   // a soft wobble
 sfx(0.62, "ai/drip", { gain: 0.4, reason: "the foam dollop wobbling on his palm (0.6-1.0): a tiny wet plop" });
 A(1.2, "wiz", "expr", { expr: "evil", set: { open: 0.3, curve: 0.9 }, dur: 0.3 });
@@ -147,27 +181,29 @@ A(3.5, "wiz", "still", { dur: 0.8, idle: 0.05 });
 
 // ---------------------------------------------------------------- 06 SPLORT (4.3-6.3)
 // a sleepy shift toward the Wizard brings the hand up beside his own face...
-A(4.3, "rea", "turn", { to: CHAIR_ROT + 22, dur: 0.55 });
-A(4.3, "rea", "pitch", { to: 12, dur: 0.55 });
-c.arm(4.3, "rea", "R", { world: [-0.5, 0.72, 0.62] }, 0.28, "inOut");   // under the hat brim, at cheek height (review A)
-c.prop(4.3, "foam", { tilt: 55 }, 0.3, "inOut");
+A(4.58, "rea", "turn", { to: CHAIR_ROT + 22, dur: 0.3 });              // the smack is quick: 0.37 s from the armrest to the cheek (Jonny 29 Oct)
+A(4.58, "rea", "pitch", { to: 12, dur: 0.3 });
+c.arm(4.58, "rea", "R", { world: [-0.5, 0.72, 0.62] }, 0.13, "in");     // under the hat brim, at cheek height (review A)
+c.prop(4.58, "foam", { tilt: 55 }, 0.13, "in");
 fh.carry(4.25, [0.08, 0.38, 0.86], 0.5, "inOut");                     // the feather drops low, out of the way, to watch
 c.prop(4.25, "feather", { tilt: -95 }, 0.5, "inOut");
 // ...then across in front of it and onto the Wizard's cheek
-c.arm(4.58, "rea", "R", ON_CHEEK(0.16, 0.03), 0.22, "inOut");
-c.prop(4.58, "foam", { tilt: 82 }, 0.22, "inOut");
-c.arm(4.8, "rea", "R", ON_CHEEK(0.065), 0.15, "in");
+c.arm(4.71, "rea", "R", ON_CHEEK(0.16, 0.03), 0.12);
+c.prop(4.71, "foam", { tilt: 82 }, 0.12);
+c.arm(4.83, "rea", "R", ON_CHEEK(0.065), 0.1, "in");
 // contact: the dollop squashes flat, the patch is on the cheek, the cheek gives (a squash, the body tips away)
-c.prop(T_PRESS, "foam", { flat: 1 }, 0.08, "out");
+c.prop(T_PRESS, "foam", { flat: 1 }, 0.04, "out");
+c.prop(T_PRESS + 0.04, "foam", { scale: 0.01 }, 0.03);
+A(T_PRESS + 0.08, "rea", "release", { prop: "foam", dur: 0 });            // the shrunk dollop is let go...
+c.prop(T_PRESS + 0.1, "foam", { y: -0.5 }, 0);                         // ...and put away under the floor                // all of it goes to the cheek, under the palm: a flat disc left on the turning palm read as a floating sliver (Jonny 29 Oct)
 c.prop(T_PRESS, "patch", { scale: 1 }, 0.06, "out");
 sfx(T_PRESS, "splort", { gain: 0.9, reason: "the foam palm presses onto the Wizard's cheek (4.95): splort" });
 c.arm(T_PRESS + 0.02, "rea", "R", ON_CHEEK(0.045), 0.2, "out");       // compression: a gentle press in
 A(T_PRESS + 0.02, "wiz", "squash", { amount: 0.06, dur: 0.3 });
 A(T_PRESS + 0.04, "wiz", "lean", { to: -4, dur: 0.2, ease: "out" });
 A(T_PRESS + 0.04, "wiz", "pitch", { to: 0, dur: 0.25, ease: "out" });
-// separation: the palm comes off, its foam a flat smear
+// separation: the palm comes off, empty
 c.arm(5.3, "rea", "R", ON_CHEEK(0.18, 0.03), 0.2, "out");
-c.prop(5.3, "foam", { scale: 0.35 }, 0.2);                            // most of the foam stays on the cheek (review B)
 // the Wizard jolts: eyes wide, mouth open, a step back, hat wobbling, the feather still in his hand
 A(T_PRESS + 0.02, "wiz", "expr", { expr: "shocked", set: { open: 0.6, eye: 1.25 }, dur: 0.08 });
 A(T_PRESS + 0.02, "wiz", "face", { brow: 0.5, dur: 0.08 });
@@ -180,7 +216,6 @@ fh.carry(5.3, [0.26, 0.44, 1.02], 0.3, "out");                           // the 
 c.prop(5.3, "feather", { tilt: -75 }, 0.3, "out");
 // the hand back down to the armrest, palm up again; Reaper settles back into the chair
 c.arm(5.55, "rea", "R", { world: [-0.55, 0.84, 0.6] }, 0.3, "inOut");
-c.prop(5.55, "foam", { tilt: 0 }, 0.4, "inOut");
 c.arm(5.85, "rea", "R", { world: PALM }, 0.4, "inOut");
 A(5.55, "rea", "grip", { side: "R", ...CUP, dur: 0.2 });
 A(5.55, "rea", "turn", { to: CHAIR_ROT, dur: 0.6 });
@@ -208,7 +243,8 @@ A(8.4, "rea", "expr", { expr: "serene", set: { curve: 0.7, smirk: 0.45 }, dur: 0
 // ---------------------------------------------------------------- shots
 const PALM_T = [PALM[0] + 0.04, PALM[1] + 0.07, PALM[2]];
 const TWO = [-0.02, 0.82, 0.45];
-const S1 = frame([-0.22, 0.8, 0.42], { az: -8, el: 10, h: 2.9, fov: 30, push: 0.1, dur: 0.55 });
+const S1 = SPRAY ? frame([-0.8, 0.8, 0.45], { az: 0, el: 12, h: 2.2, fov: 30, push: 0.1, dur: 0.55 })   // the Wizard spraying, Reaper asleep
+  : frame([-0.22, 0.8, 0.42], { az: -8, el: 10, h: 2.9, fov: 30, push: 0.1, dur: 0.55 });
 const S2 = frame([PALM_T[0] - 0.16, PALM_T[1], PALM_T[2]], { az: -10, el: 6, h: 0.6, fov: 30, push: 0.12, dur: 0.5 });   // the palm at the right, so the caption sits over the chair, not the hood
 const S3 = frame([FACE_R[0] + 0.08, FACE_R[1] + 0.31, FACE_R[2]], { az: -24, el: 4, h: 1.05, fov: 30, push: 0.08, dur: 0.55 });   // the wall above the hood for the caption
 const S4 = frame(TWO, { az: -6, el: 8, h: 1.85, fov: 30, push: 0.06, dur: 1.8 });
@@ -246,7 +282,8 @@ write(import.meta.url, {
   // auto off: every sound is placed by hand (the payoff's splort above all)
   sound: { sfx: 0.7, ambience: 0.3, speech: false, signature: false, auto: false, surface: "carpet" },
   experiment: { id: "hook-2026-11", episode: "never-prank-the-quiet-friend", variant: "A" },
-  hook: { show: ["rea", "wiz", "foam", "feather"], hint: 0, what: "the Wizard creeps a feather toward sleeping Reaper, who has foam on his palm" },
+  hook: SPRAY ? { show: ["rea", "wiz", "foam", "can"], hint: 0, what: "the Wizard sprays shaving foam into sleeping Reaper's palm" }
+    : { show: ["rea", "wiz", "foam", "feather"], hint: 0, what: "the Wizard creeps a feather toward sleeping Reaper, who has foam on his palm" },
   cast, props, captions: c.captions, beats,
   allowClip: [
     { who: "rea", with: "chair", from: 0, to: END, reason: "Reaper sits in the armchair, his hands on its arms" },

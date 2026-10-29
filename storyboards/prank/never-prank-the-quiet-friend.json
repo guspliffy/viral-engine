@@ -103,7 +103,7 @@
    "x": -0.796,
    "y": 0.675,
    "z": 0.35,
-   "scale": 1
+   "scale": 1.35
   },
   {
    "id": "feather",
@@ -132,7 +132,7 @@
    "y": 0.58,
    "z": 0.31,
    "rot": -26,
-   "r": 0.16,
+   "r": 0.2,
    "scale": 0
   }
  ],
@@ -382,7 +382,7 @@
        0.7
       ]
      },
-     "dur": 1.4,
+     "dur": 1.42,
      "ease": "inOut",
      "at": 0.02
     },
@@ -1160,15 +1160,15 @@
      "who": "rea",
      "do": "turn",
      "to": 42,
-     "dur": 0.55,
-     "at": 0
+     "dur": 0.3,
+     "at": 0.28
     },
     {
      "who": "rea",
      "do": "pitch",
      "to": 12,
-     "dur": 0.55,
-     "at": 0
+     "dur": 0.3,
+     "at": 0.28
     },
     {
      "who": "rea",
@@ -1181,9 +1181,9 @@
        0.62
       ]
      },
-     "dur": 0.28,
-     "ease": "inOut",
-     "at": 0
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.28
     },
     {
      "do": "prop",
@@ -1191,9 +1191,9 @@
      "set": {
       "tilt": 55
      },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.28
     },
     {
      "who": "rea",
@@ -1208,9 +1208,8 @@
       ],
       "palm": true
      },
-     "dur": 0.22,
-     "ease": "inOut",
-     "at": 0.28
+     "dur": 0.12,
+     "at": 0.41
     },
     {
      "do": "prop",
@@ -1218,9 +1217,9 @@
      "set": {
       "tilt": 82
      },
-     "dur": 0.22,
+     "dur": 0.12,
      "ease": "inOut",
-     "at": 0.28
+     "at": 0.41
     },
     {
      "who": "rea",
@@ -1235,9 +1234,9 @@
       ],
       "palm": true
      },
-     "dur": 0.15,
+     "dur": 0.1,
      "ease": "in",
-     "at": 0.5
+     "at": 0.53
     }
    ],
    "kind": "escalation"
@@ -1254,7 +1253,7 @@
      "set": {
       "flat": 1
      },
-     "dur": 0.08,
+     "dur": 0.04,
      "ease": "out",
      "at": 0
     },
@@ -1328,6 +1327,16 @@
      "at": 0.02
     },
     {
+     "do": "prop",
+     "id": "foam",
+     "set": {
+      "scale": 0.01
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
      "who": "wiz",
      "do": "lean",
      "to": -4,
@@ -1342,6 +1351,23 @@
      "dur": 0.25,
      "ease": "out",
      "at": 0.04
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "foam",
+     "dur": 0,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "foam",
+     "set": {
+      "y": -0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.1
     },
     {
      "sfx": "gasp",
@@ -1372,16 +1398,6 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.35
-    },
-    {
-     "do": "prop",
-     "id": "foam",
-     "set": {
-      "scale": 0.35
-     },
-     "dur": 0.2,
-     "ease": "inOut",
      "at": 0.35
     },
     {
@@ -1446,16 +1462,6 @@
       ]
      },
      "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "foam",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.4,
      "ease": "inOut",
      "at": 0.6
     },
