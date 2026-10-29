@@ -213,7 +213,7 @@ c.prop(6.58, "door", { open: 0 }, 0.6, "in");
 c.prop(7.18, "door", { latch: 1 }, 0.04);
 c.arm(6.68, "rea", "R", { world: [EDGE[0] + 0.12, 0.22, EDGE[2] - 0.04], palm: [EDGE[0] - 0.08, 0.22, EDGE[2] + 0.16] }, 0.45);   // the pushing hand just sinks, palm still out (a drop to "rest" flips it)
 A(6.68, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
-sfx(7.18, "latch", { gain: 0.75, reason: "the door latches" });
+sfx(7.18, "door-slam", { gain: 0.9, reason: "the door slams shut (Jonny 29 Oct: a strong closing door)" });
 
 // ---------------------------------------------------------------- 07 PRESENTING NOTHING 7.6-10
 A(7.56, "wiz", "look", { to: [0.3, 0.1], dur: 0.1, blink: false });

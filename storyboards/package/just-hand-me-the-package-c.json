@@ -1589,9 +1589,9 @@
      "at": 1.18
     },
     {
-     "sfx": "latch",
-     "gain": 0.75,
-     "reason": "the door latches",
+     "sfx": "door-slam",
+     "gain": 0.9,
+     "reason": "the door slams shut (Jonny 29 Oct: a strong closing door)",
      "at": 1.18
     },
     {
