@@ -96,6 +96,17 @@
    "glow": 0
   },
   {
+   "id": "plume0",
+   "kind": "fireplume",
+   "x": 0,
+   "y": 0.512,
+   "z": -4.708,
+   "tip": -35,
+   "length": 1.6,
+   "width": 0.5,
+   "balls": 24
+  },
+  {
    "id": "plume",
    "kind": "fireplume",
    "x": 0,
@@ -114,26 +125,6 @@
    "length": 2.708,
    "width": 0.8,
    "balls": 32
-  },
-  {
-   "id": "lantern",
-   "kind": "pumpkinhelm",
-   "x": 0,
-   "y": 0.334,
-   "z": 1.4,
-   "glow": 0,
-   "scale": 0
-  },
-  {
-   "id": "breath",
-   "kind": "breath",
-   "mouth": "dra",
-   "target": "lantern",
-   "at": [
-    0,
-    0.45,
-    -0.1
-   ]
   },
   {
    "id": "soot",
@@ -394,6 +385,35 @@
      "to": 0,
      "dur": 0.15,
      "at": 0.36
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.38
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 1.1,
+     "reason": "the first spit of fire leaves the pumpkin's grin (1.0): fwoomp",
+     "at": 0.46
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.47
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.47
     },
     {
      "who": "phx",
@@ -876,6 +896,32 @@
      "stride": 2.1,
      "bob": 0.035,
      "dur": 4.02,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plume0",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plume0",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "amp": 0.02,
+     "dur": 0.25,
      "at": 0
     },
     {
@@ -1625,6 +1671,16 @@
      "dur": 0.34375,
      "ease": "inOut",
      "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "plume0",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.3
     },
     {
      "who": "rea",
@@ -2598,7 +2654,7 @@
   {
    "name": "6 the second blast",
    "at": 3.6,
-   "len": 3.15,
+   "len": 2.24,
    "shot": {
     "pos": [
      0,
@@ -3057,17 +3113,6 @@
      "at": 1.07
     },
     {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 1.12
-    },
-    {
      "do": "prop",
      "id": "plume2",
      "set": {
@@ -3076,6 +3121,17 @@
      "dur": 0.8,
      "ease": "inOut",
      "at": 1.14
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.16
     },
     {
      "who": "phx",
@@ -3099,187 +3155,35 @@
     },
     {
      "who": "dra",
-     "do": "pitch",
-     "to": 12,
-     "dur": 0.25,
-     "at": 1.22
+     "do": "move",
+     "to": [
+      0,
+      -0.42
+     ],
+     "dur": 2.8,
+     "steps": 2.4,
+     "ease": "inOut",
+     "at": 1.29
     },
     {
      "who": "dra",
-     "do": "run",
-     "pts": [
-      [
-       0,
-       0,
-       -2.7
-      ],
-      [
-       0.05,
-       0,
-       -2.7
-      ],
-      [
-       0.1,
-       0,
-       -2.671
-      ],
-      [
-       0.15,
-       0,
-       -2.613
-      ],
-      [
-       0.2,
-       0,
-       -2.526
-      ],
-      [
-       0.25,
-       0,
-       -2.41
-      ],
-      [
-       0.3,
-       0,
-       -2.265
-      ],
-      [
-       0.35,
-       0,
-       -2.12
-      ],
-      [
-       0.4,
-       0,
-       -1.975
-      ],
-      [
-       0.45,
-       0,
-       -1.83
-      ],
-      [
-       0.5,
-       0,
-       -1.685
-      ],
-      [
-       0.55,
-       0,
-       -1.54
-      ],
-      [
-       0.6,
-       0,
-       -1.395
-      ],
-      [
-       0.65,
-       0,
-       -1.25
-      ],
-      [
-       0.7,
-       0,
-       -1.105
-      ],
-      [
-       0.75,
-       0,
-       -0.96
-      ],
-      [
-       0.8,
-       0,
-       -0.815
-      ],
-      [
-       0.85,
-       0,
-       -0.67
-      ],
-      [
-       0.9,
-       0,
-       -0.525
-      ],
-      [
-       0.95,
-       0,
-       -0.38
-      ],
-      [
-       1,
-       0,
-       -0.235
-      ],
-      [
-       1.087,
-       0,
-       0.001
-      ],
-      [
-       1.125,
-       0,
-       0.081
-      ],
-      [
-       1.162,
-       0,
-       0.148
-      ],
-      [
-       1.2,
-       0,
-       0.202
-      ],
-      [
-       1.237,
-       0,
-       0.245
-      ],
-      [
-       1.275,
-       0,
-       0.276
-      ],
-      [
-       1.312,
-       0,
-       0.294
-      ],
-      [
-       1.35,
-       0,
-       0.3
-      ]
-     ],
-     "rate": [
-      [
-       0,
-       2.4
-      ],
-      [
-       0.25,
-       3.4
-      ]
-     ],
-     "stride": 2,
-     "bob": 0.035,
-     "dur": 1.35,
-     "at": 1.25
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.29
     },
     {
      "who": "dra",
      "do": "expr",
-     "expr": "focused",
+     "expr": "kind",
      "set": {
-      "open": 0.2,
-      "eye": 1,
-      "pucker": 0
+      "curve": 0.1,
+      "open": 0,
+      "eye": 1
      },
-     "dur": 0.2,
-     "at": 1.25
+     "dur": 0.3,
+     "at": 1.29
     },
     {
      "do": "prop",
@@ -3290,37 +3194,31 @@
      },
      "dur": 0.6,
      "ease": "inOut",
-     "at": 1.25
+     "at": 1.29
     },
     {
      "who": "dra",
      "do": "arm",
      "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 1.25
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.29
     },
     {
      "who": "dra",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 1.25
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.29
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.29
     },
     {
      "who": "phx",
@@ -3373,36 +3271,6 @@
      "at": 1.42
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 1.45
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.22916666666666669,
-     "ease": "inOut",
-     "at": 1.45
-    },
-    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -3449,72 +3317,12 @@
      "at": 1.58
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 1.59
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 1.59
-    },
-    {
      "who": "rea",
      "do": "pitch",
      "to": 10,
      "dur": 0.35,
      "ease": "settle",
      "at": 1.68
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 1.73
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 1.73
     },
     {
      "who": "rea",
@@ -3542,33 +3350,86 @@
      "at": 1.82
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.84
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.84
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -4,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.84
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.84
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.25,
+     "at": 1.84
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.25,
+     "at": 1.84
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0,
+      "curve": 0.15,
+      "eye": 1
      },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
+     "dur": 0.25,
      "at": 1.89
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
+     "who": "phx",
+     "do": "face",
+     "press": 0.4,
+     "dur": 0.25,
+     "at": 1.89
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "open": 0
      },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
+     "dur": 0.25,
+     "at": 1.89
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0,
+     "dur": 0.25,
      "at": 1.89
     },
     {
@@ -3593,260 +3454,180 @@
      "at": 2.03
     },
     {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.03
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.03
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.17
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.17
-    },
-    {
      "who": "rea",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.38,
      "at": 2.18
+    }
+   ]
+  },
+  {
+   "name": "7 calm",
+   "at": 5.84,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     0,
+     0.88,
+     6.3
+    ],
+    "look": [
+     0,
+     0.75,
+     1.45
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      0,
+      0.88,
+      6.1
+     ]
+    },
+    "dur": 1.85,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.95,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
     },
     {
      "who": "phx",
-     "do": "hop",
-     "height": 0.22,
-     "dur": 0.38,
-     "quiet": true,
-     "at": 2.25
-    },
-    {
-     "who": "phx",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.15,
-     "at": 2.25
-    },
-    {
-     "who": "rea",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.15,
-     "at": 2.25
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.35,
-      "eye": 1.3
-     },
-     "dur": 0.1,
-     "at": 2.25
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.4,
-     "dur": 0.1,
-     "at": 2.25
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 2.25
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 2.25
-    },
-    {
-     "sfx": "gasp",
-     "gain": 0.45,
-     "reason": "both of them gasp as Dragon bursts out of the door behind them",
-     "at": 2.27
-    },
-    {
-     "who": "rea",
-     "do": "hop",
-     "height": 0.18,
-     "dur": 0.38,
-     "quiet": true,
-     "at": 2.28
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.15,
-      "eye": 1.25
-     },
-     "dur": 0.1,
-     "at": 2.28
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.35,
-     "dur": 0.1,
-     "at": 2.28
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 2.28
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 2.28
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.33
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.33
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": -8,
-     "dur": 0.25,
-     "ease": "out",
-     "at": 2.4
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.06,
-       0.32,
-       0.24
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.47
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.18,
-       -0.14
-      ]
-     },
-     "dur": 0.16176470588235295,
-     "ease": "inOut",
-     "at": 2.47
-    },
-    {
-     "who": "dra",
-     "do": "squash",
-     "amount": 0.1,
-     "dur": 0.25,
-     "at": 2.55
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": 0,
+     "do": "turn",
+     "to": 100,
      "dur": 0.3,
      "ease": "settle",
-     "at": 2.65
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.95,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -100,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 62,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -42,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "open": 0,
+      "eye": 0.95
+     },
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.3,
+     "press": 0.4,
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": 0.12
+     },
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "sfx": "ai-package/flat-exhale",
+     "gain": 0.35,
+     "reason": "a calm-looking breath out (both of them)",
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.9,
+     "idle": 0.05,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.85,
+     "idle": 0.05,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 130,
+     "dur": 0.35,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -130,
+     "dur": 0.35,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
     },
     {
      "who": "dra",
@@ -3861,7 +3642,7 @@
      },
      "dur": 0.27,
      "ease": "settle",
-     "at": 2.68
+     "at": 1.8
     },
     {
      "who": "dra",
@@ -3876,39 +3657,86 @@
      },
      "dur": 0.27,
      "ease": "settle",
-     "at": 2.68
-    },
+     "at": 1.8
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "8 the pumpkin comes off",
+   "at": 7.69,
+   "len": 2.31,
+   "shot": {
+    "pos": [
+     0,
+     1.75,
+     4.5
+    ],
+    "look": [
+     0,
+     1.55,
+     -0.4
+    ],
+    "fov": 42
+   },
+   "do": [
     {
      "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 2.75
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 2.75
+     "do": "face",
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
+     "at": 0
     },
     {
      "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 2.78
+     "do": "face",
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.05
     },
     {
      "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 2.78
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.06,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.06,
+     "at": 0.1
     },
     {
      "who": "dra",
@@ -3916,24 +3744,26 @@
      "side": "both",
      "shape": "hold",
      "dur": 0.12,
-     "at": 2.93
+     "at": 0.2
     },
     {
      "sfx": "grab",
      "gain": 0.35,
      "reason": "his gloves close on the pumpkin's sides",
-     "at": 2.95
+     "at": 0.22
     },
     {
      "do": "prop",
      "id": "helmet",
      "set": {
       "y": 1.2,
-      "tip": -14
+      "tip": -14,
+      "glow": 0,
+      "on": 0
      },
-     "dur": 0.45,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 3.07
+     "at": 0.35
     },
     {
      "who": "dra",
@@ -3946,9 +3776,9 @@
        0.05
       ]
      },
-     "dur": 0.45,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 3.07
+     "at": 0.35
     },
     {
      "who": "dra",
@@ -3961,41 +3791,10 @@
        0.05
       ]
      },
-     "dur": 0.45,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 3.07
+     "at": 0.35
     },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "glow": 0,
-      "on": 0
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 3.07
-    }
-   ]
-  },
-  {
-   "name": "7 the pumpkin comes off",
-   "at": 6.75,
-   "len": 0.55,
-   "shot": {
-    "pos": [
-     0,
-     1.45,
-     3
-    ],
-    "look": [
-     0,
-     1,
-     0.3
-    ],
-    "fov": 48
-   },
-   "do": [
     {
      "who": "dra",
      "do": "expr",
@@ -4007,1037 +3806,38 @@
       "tilt": 0.35
      },
      "dur": 0.3,
-     "at": 0.15
+     "at": 0.6
     },
     {
      "who": "dra",
      "do": "face",
      "brow": 0.3,
      "dur": 0.3,
-     "at": 0.2
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0.25
-    },
-    {
-     "sfx": "plunk",
-     "gain": 0.22,
-     "reason": "the dry 'dum' as his sheepish face is revealed",
-     "at": 0.35
-    }
-   ],
-   "kind": "reaction"
-  },
-  {
-   "name": "8 they stare",
-   "at": 7.3,
-   "len": 1.52,
-   "shot": {
-    "pos": [
-     0,
-     1.65,
-     5.8
-    ],
-    "look": [
-     0,
-     1,
-     0.6
-    ],
-    "fov": 52
-   },
-   "do": [
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0.6,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "open": 0.1,
-      "curve": 0,
-      "eye": 1.1
-     },
-     "dur": 0.25,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.25,
-     "dur": 0.25,
-     "at": 0.1
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      -0.6,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.13
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "open": 0.05,
-      "curve": 0,
-      "eye": 1.05
-     },
-     "dur": 0.25,
-     "at": 0.13
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0.1,
-     "brow": 0.2,
-     "dur": 0.25,
-     "at": 0.13
-    },
-    {
-     "sfx": "sigh",
-     "gain": 0.45,
-     "reason": "a flat breath out as they realise it's only Dragon",
-     "at": 0.4
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.49
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.52
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.38,
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "hips",
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "hips",
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.38,
-     "dur": 0.25,
-     "at": 0.59
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "hips",
-     "dur": 0.25,
-     "at": 0.59
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "hips",
-     "dur": 0.25,
-     "at": 0.59
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "at": 0.6
-    },
-    {
-     "who": "phx",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.6
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "at": 0.64
-    },
-    {
-     "who": "rea",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.64
-    },
-    {
-     "who": "phx",
-     "do": "still",
-     "dur": 0.65,
-     "idle": 0.06,
      "at": 0.65
-    },
-    {
-     "fx": "pop",
-     "text": "ugh.",
-     "who": "phx",
-     "dur": 0.65,
-     "size": 88,
-     "dx": 0.35,
-     "dy": -0.95,
-     "angle": -4,
-     "color": "speaker",
-     "at": 0.65
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.35,
-      "open": 0,
-      "eye": 0.85,
-      "tilt": 0.5
-     },
-     "dur": 0.25,
-     "at": 0.65
-    },
-    {
-     "who": "dra",
-     "do": "squash",
-     "amount": -0.05,
-     "dur": 0.25,
-     "at": 0.65
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.6,
-     "idle": 0.06,
-     "at": 0.69
     },
     {
      "who": "dra",
      "do": "look",
      "to": [
       0.35,
-      0.15
+      0.05
      ],
-     "dur": 0.15,
+     "dur": 0.2,
      "blink": false,
      "at": 0.7
     },
     {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      -0.5
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1.15
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "focused",
-     "set": {
-      "curve": 0.2,
-      "open": 0.05,
-      "eye": 1
-     },
-     "dur": 0.25,
-     "at": 1.2
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "brow": 0.2,
-     "lid": 0.1,
-     "dur": 0.25,
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "z": 1.1,
-      "tip": 0
-     },
-     "dur": 0.52,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "y": 1.3
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 1.3
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.67,
-       0.979,
-       0.524
-      ]
-     },
-     "dur": 0.22,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.67,
-       0.979,
-       0.524
-      ]
-     },
-     "dur": 0.22,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "sfx": "whoosh",
-     "gain": 0.3,
-     "reason": "the pumpkin swings forward off his head (SWING-LAND)",
-     "at": 1.3
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      0.3
-     ],
-     "dur": 0.1,
-     "blink": false,
-     "at": 1.4
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.25,
-      "eye": 1.25
-     },
-     "dur": 0.12,
-     "at": 1.42
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.35,
-     "dur": 0.12,
-     "at": 1.42
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      0.3
-     ],
-     "dur": 0.1,
-     "blink": false,
-     "at": 1.44
-    },
-    {
-     "who": "phx",
-     "do": "hop",
-     "height": 0.12,
-     "dur": 0.32,
-     "quiet": true,
-     "at": 1.45
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      -1.05,
-      2.3
-     ],
-     "dur": 0.32,
-     "steps": 0,
-     "at": 1.45
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 1.45
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 1.45
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.25,
-      "eye": 1.25
-     },
-     "dur": 0.12,
-     "at": 1.46
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.35,
-     "dur": 0.12,
-     "at": 1.46
-    },
-    {
-     "who": "rea",
-     "do": "hop",
-     "height": 0.12,
-     "dur": 0.32,
-     "quiet": true,
-     "at": 1.49
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      1.05,
-      2.2
-     ],
-     "dur": 0.32,
-     "steps": 0,
-     "at": 1.49
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 1.49
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.15,
-     "at": 1.49
-    }
-   ],
-   "kind": "reaction"
-  },
-  {
-   "name": "9 he lights it right",
-   "at": 8.82,
-   "len": 2.78,
-   "shot": {
-    "pos": [
-     0.7,
-     4.5,
-     8.2
-    ],
-    "look": [
-     0.1,
-     0.95,
-     1.7
-    ],
-    "fov": 50,
-    "to": {
-     "pos": [
-      0.6,
-      3.95,
-      7.15
-     ],
-     "look": [
-      0.1,
-      0.9,
-      1.7
-     ]
-    },
-    "dur": 1.645,
-    "ease": "out"
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "y": 0.334
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0
-    },
-    {
-     "who": "dra",
-     "do": "grip",
-     "side": "both",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.08,
-       0.55,
-       0.32
-      ]
-     },
-     "dur": 0.18,
-     "at": 0.02
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.08,
-       0.55,
-       0.32
-      ]
-     },
-     "dur": 0.18,
-     "at": 0.02
+     "sfx": "plunk",
+     "gain": 0.22,
+     "reason": "the dry 'dum' as his sheepish face is revealed",
+     "at": 0.85
     },
     {
      "who": "dra",
      "do": "still",
-     "dur": 0.6,
-     "idle": 0,
-     "at": 0.2
-    },
-    {
-     "sfx": "thud",
-     "gain": 0.7,
-     "reason": "the pumpkin plonks down onto the porch deck",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "squash": 0.08
-     },
-     "dur": 0.05,
-     "ease": "out",
-     "at": 0.3
-    },
-    {
-     "fx": "shake",
-     "amp": 0.012,
-     "dur": 0.2,
-     "at": 0.3
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.35
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.35
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "squash": 0
-     },
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 0.35
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.45
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.49
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 0.49
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      -0.45
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.5
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      -0.45
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.54
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "focused",
-     "set": {
-      "open": 0.05,
-      "curve": -0.1
-     },
-     "dur": 0.3,
-     "at": 0.55
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "lid": 0.3,
-     "brow": -0.1,
-     "dur": 0.3,
-     "at": 0.55
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "focused",
-     "set": {
-      "open": 0.05,
-      "curve": -0.1
-     },
-     "dur": 0.3,
-     "at": 0.59
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0.3,
-     "brow": -0.1,
-     "dur": 0.3,
-     "at": 0.59
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      -0.45
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.665
-    },
-    {
-     "do": "prop",
-     "id": "helmet",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.715
-    },
-    {
-     "do": "prop",
-     "id": "lantern",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.715
-    },
-    {
-     "who": "dra",
-     "do": "fly",
-     "to": {
-      "y": 0.55
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.765
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.3,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 0.765
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      0.1
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.865
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      0.1
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.865
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.3,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 0.895
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "focused",
-     "set": {
-      "pucker": 1,
-      "open": 0,
-      "eye": 0.7,
-      "curve": 0
-     },
-     "dur": 0.25,
-     "at": 0.915
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "lid": 0.25,
-     "brow": -0.15,
-     "dur": 0.25,
-     "at": 0.915
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": 16,
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 0.965
-    },
-    {
-     "sfx": "gasp",
-     "gain": 0.2,
-     "reason": "a small careful breath in",
-     "at": 0.965
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.3,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 1.025
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 1.155
-    },
-    {
-     "who": "dra",
-     "do": "hover",
-     "dur": 1.615,
-     "at": 1.165
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      -0.45
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 1.215
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      -0.45
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 1.215
-    },
-    {
-     "do": "prop",
-     "id": "breath",
-     "set": {
-      "on": 1,
-      "fire": 0.45,
-      "len": 1
-     },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.265
-    },
-    {
-     "sfx": "blow",
-     "gain": 0.25,
-     "dur": 0.3,
-     "reason": "the careful little puff (a thin lick of fire)",
-     "at": 1.265
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 1.375
-    },
-    {
-     "sfx": "ai/ignite",
-     "gain": 0.8,
-     "reason": "the pumpkin lights from inside the way it should: the same fwip as frame 0",
-     "at": 1.435
-    },
-    {
-     "do": "prop",
-     "id": "lantern",
-     "set": {
-      "glow": 1,
-      "on": 1
-     },
-     "dur": 0.35,
-     "ease": "out",
-     "at": 1.445
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 1.595
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.715
-    },
-    {
-     "do": "prop",
-     "id": "breath",
-     "set": {
-      "on": 0,
-      "len": 0,
-      "fire": 0
-     },
-     "dur": 0.15,
-     "ease": "inOut",
-     "at": 1.715
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.6,
-      "open": 0.1,
-      "eye": 1,
-      "tilt": 0
-     },
-     "dur": 0.3,
-     "at": 1.745
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.25,
-     "dur": 0.3,
-     "at": 1.745
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.3,
-     "at": 1.745
-    },
-    {
-     "who": "phx",
-     "do": "face",
-     "lid": 0,
-     "brow": 0.3,
-     "dur": 0.3,
-     "at": 1.745
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 1.815
-    },
-    {
-     "who": "phx",
-     "do": "hop",
-     "height": 0.1,
-     "dur": 0.3,
-     "at": 1.895
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.45,
-      "open": 0,
-      "eye": 0.9
-     },
-     "dur": 0.35,
-     "at": 1.945
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0.45,
-     "brow": 0.1,
-     "dur": 0.35,
-     "at": 1.945
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 2.035
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 2.245
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 2.255
-    },
-    {
-     "sfx": "wing-flap",
-     "gain": 0.15,
-     "reason": "Dragon's wings beat as he lifts and hovers over the pumpkin",
-     "at": 2.475
+     "dur": 1.1,
+     "idle": 0.05,
+     "at": 0.9
     }
    ],
    "kind": "reaction"
@@ -5048,7 +3848,7 @@
    "who": "dra",
    "with": "helmet",
    "from": 0,
-   "to": 11.6,
+   "to": 10,
    "reason": "Dragon wears the pumpkin over his head; it hides his eyes until he lifts it off (the brief)"
   }
  ],
