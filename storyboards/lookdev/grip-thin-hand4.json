@@ -1,0 +1,415 @@
+{
+ "id": "grip-thin-hand4",
+ "title": "Grip test: thin",
+ "idea": "Grip library test bench, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "apartment",
+  "seed": 5
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "it"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp-hand4",
+   "at": [
+    0,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.5,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.5
+  },
+  {
+   "id": "cup",
+   "kind": "campmug",
+   "x": -0.08,
+   "y": 0.36,
+   "z": 0.4,
+   "rot": 200,
+   "scale": 0.72
+  },
+  {
+   "id": "it",
+   "kind": "pencil",
+   "len": 1,
+   "scale": 1,
+   "x": -0.08,
+   "y": 0.365,
+   "z": 0.4,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 4.3,
+   "text": "Pencil: pinched near the top, both ends show",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "thin",
+   "at": 0,
+   "len": 4.3,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.35,
+     2.2
+    ],
+    "look": [
+     -0.1,
+     0.52,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.006,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.006
+     },
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "it",
+     "hand": "R",
+     "grip": [
+      0,
+      0.153,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.86
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.08,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.03,
+       0.42,
+       0.46
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.07,
+       0.43,
+       0.46
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.35
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.08,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.45
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.08,
+       0.365,
+       0.4
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.95
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 3.3
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 3.35
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "it",
+     "dur": 0,
+     "at": 3.4
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.006,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 3.4
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       0,
+       0.153,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 3.44
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 3.64
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.64
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-grip-tests.mjs (engine test, no reviews)."
+}
