@@ -94,10 +94,15 @@ export function backToStart(c, t, end, start, look = {}) {
 
 // a mood lands: brows first, then the mouth, a small squash, and the body holds while it reads. mood: "angry",
 // "annoyed" or any expression in engine/page/face.js. `word` adds an emotion word over the head for the hold.
-export function mood(c, t, who, mood, { strength = 1, hold = 0.8, brow, word, squash = 0.02 } = {}) {
+export function mood(c, t, who, mood, { strength = 1, hold = 0.8, brow, lid, word, squash = 0.02 } = {}) {
   const k = Math.max(0, Math.min(1, strength));
-  const BROW = { angry: -0.3, annoyed: -0.3, stern: -0.3, focused: -0.2, sad: 0.35, shocked: 0.45 };
-  c.A(t, who, "face", { brow: (brow ?? BROW[mood] ?? 0) * k, dur: 0.2 });
+  // Jonny's eyebrow sheet (29 Oct): focus and anger come from an inward brow angle (the preset's tilt) and a lid squint,
+  // never from pushing the brows down into the eyes. A brow tilt steeper than about -0.35 reads surprised on a face
+  // with browShape.clear (the whole brow lifts until its inner end clears the eye); a lid past ~0.4 on top of the
+  // presets' eye 0.74 eats the white. Faces without browShape.clear (all but lookdev/wizard-crisp so far) have no
+  // guard against a brow in the eye: keep `brow` at 0 there and check the close-up.
+  const BROW = { sad: 0.35, shocked: 0.45 }, LID = { angry: 0.38, annoyed: 0.38, stern: 0.3, focused: 0.3 };
+  c.A(t, who, "face", { brow: (brow ?? BROW[mood] ?? 0) * k, lid: (lid ?? LID[mood] ?? 0) * k, dur: 0.25 });
   c.A(t + 0.05, who, "expr", { expr: mood, dur: 0.25, ...(k < 1 && { set: scaled(mood, k) }) });
   if (squash) c.A(t + 0.05, who, "squash", { amount: squash * k, dur: 0.2 });
   c.A(t + 0.1, who, "still", { dur: hold, idle: 0.06 });

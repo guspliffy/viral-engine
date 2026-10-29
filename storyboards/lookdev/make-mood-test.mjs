@@ -7,7 +7,7 @@ import * as act from "../lib/acting.mjs";
 
 const c = clip(), { A } = c;
 const END = 6.0, AT_CAM = [0, 0];
-const cast = [{ id: "wiz", character: "halloween/wizard-host", at: [0, 0.3], face: "camera", expr: "kind", follow: 0.3, seed: 2.6 }];
+const cast = [{ id: "wiz", character: "lookdev/wizard-crisp", at: [0, 0.3], face: "camera", expr: "kind", follow: 0.3, seed: 2.6 }];
 
 act.blinksAt(c, "wiz", [0.6]);
 A(0, "wiz", "look", { to: AT_CAM, dur: 0.01, blink: false });
@@ -17,7 +17,7 @@ c.textPop(1.25, "wiz", "before", { dur: 1.1, size: 70, dx: 0, dy: -0.8, angle: 0
 act.mood(c, 2.6, "wiz", "annoyed", { word: "annoyed", hold: 1.3 });
 act.mood(c, 4.2, "wiz", "angry", { word: "angry", hold: 1.4 });
 
-const MED = { pos: [0, 1.0, 4.2], look: [0, 0.82, 0], fov: 32 };
+const MED = { pos: [0, 1.0, 3.2], look: [0, 0.85, 0], fov: 30 };
 const beats = c.beats([["rest", 0, MED], ["before", 1.2, "keep"], ["annoyed", 2.6, "keep"], ["angry", 4.2, "keep"]], END);
 
 write(import.meta.url, {

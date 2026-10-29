@@ -43,7 +43,9 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   and something hints at trouble by 2.0 s (`"hook": { "hint", "what" }`; the twist itself can come later). Most
   viewers have decided by 0:02 (TikTok, 28 Oct). `qa/hook.mjs` notes both; the cold read picks by "keep watching".
 - Reactions play at full strength (`act.mood`: angry, annoyed, any face preset; medium only when the story wants a
-  small one). A reaction a face won't carry at phone size gets a small emotion word over the head (`act.emote`,
+  small one). Following Jonny's eyebrow sheet (29 Oct), focus and anger come from an inward brow angle plus a lid
+  squint. Brows stay outside the eye whites with a strip of skin under them, and the lid line is thinner than the
+  brow. Never push the brows down into the eyes, and ease a face change over 0.25 s or more. A reaction a face won't carry at phone size gets a small emotion word over the head (`act.emote`,
   "annoyed", "?!"), one or two per clip.
 - Frame 0 shows a character mid-action (no title card, fade-in or establishing shot), the premise reads by 3 s, the
   ending loops into the start (no end card; `loop-seam` checks that actors, camera and picture keep their speed across it), something new happens at least every 2 s, and the length is 12–20 s
@@ -72,13 +74,20 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
   more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
 - **Every named sound is chosen for what happens on screen**, and the delivery says it in Jonny's words (splort,
-  dö-döm, crunch). Library names can lie: `kenney/slime` is a sci-fi blip, and an automatic sound (a signature,
-  the shocked sting, the sad trombone) can land on a payoff that wants something else. Both "bling"s Jonny caught on
-  29 Oct came from those two. The payoff's sound is always picked by hand.
+  dö-döm, crunch). The payoff's sound is always picked by hand. Both "bling"s Jonny caught on 29 Oct came from a
+  library name that lied (`kenney/slime` is a sci-fi blip) and an automatic signature sparkle on a payoff.
+- **Only whitelisted sounds** (`assets/sfx/whitelist.json`, `engine/sfx/whitelist.mjs`): every sound has a plain line
+  saying what it really sounds like, written from measurements (`engine/sfx/measure.mjs`), never from its file name.
+  Pick sounds by what they should sound like (`node engine/sfx/whitelist.mjs wet`), or name them in Jonny's words
+  ("bonk", "dö-döm", "splort"). Sci-fi blips, menu beeps and jingles only play in a clip that declares the scene
+  (`"sound": { "scenes": ["ui"] }` / `"scifi"` / `"jingle"`). `loadStoryboard` refuses undescribed or out-of-scene
+  sounds before any render. A new sound gets measured and described in `whitelist.json` first.
 - **Each lead has a signature sound and each set its room** (`engine/sfx/signature.mjs`, `engine/sfx/rooms.mjs`):
-  Phoenix's flame whoosh, Reaper's low bell and the Wizard's sparkle play when a lead first walks or cuts into frame
-  and on the payoff, never varied; mark the punchline `"kind": "payoff"` so it gets one. Don't add more by hand
-  unless the beat is about who just arrived. The reverb follows the set type (a lift is a box, the haunted house a hall).
+  Phoenix's flame whoosh, Reaper's low bell and the Wizard's sparkle, never varied. They play on a lead's entrance
+  (the first time they walk or cut into frame), and on the payoff only when the payoff is that lead's own trick
+  (Wizard charge, Phoenix fly/flare, Reaper slash). Don't add more by hand unless the beat is about who just arrived.
+  The sad trombone on a droop and the "dun!" sting on a shocked face are opt-in (`sound.autoTrombone` /
+  `sound.autoSting`). The reverb follows the set type (a lift is a box, the haunted house a hall).
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).

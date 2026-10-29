@@ -22,10 +22,10 @@ export const EXPRESSIONS = {
   evil:      { tilt: -0.5, browY: 0.0,   curve: 0.85, open: 0.4,  eye: 0.8,  pupil: 0.9,  smirk: 0.0, raise: 0.0 },
   focused:   { tilt: -0.36, browY: -0.01, curve: 0.1, open: 0.0,  eye: 0.8,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   stern:     { tilt: -0.45, browY: -0.01, curve: -0.2, open: 0.0, eye: 0.85, pupil: 1.0,  smirk: 0.0, raise: 0.0 },
-  // full-strength reactions (Jonny, 29 Oct: "should look a bit more angry and annoyed"): the brows do the work, the
-  // eyes narrow with them, never the lids over the pupils (that reads as glitched)
-  annoyed:   { tilt: -0.45, browY: -0.02, curve: -0.4, open: 0.0, eye: 0.68, pupil: 1.0,  smirk: 0.22, raise: 0.035 },
-  angry:     { tilt: -0.7,  browY: 0.0,   curve: -0.75, open: 0.08, eye: 0.82, pupil: 0.85, smirk: 0.0, raise: 0.0 },
+  // full-strength reactions (Jonny, 29 Oct: "more angry and annoyed", and his eyebrow sheet): the brows angle in and
+  // stay above the eyes, the lids squint (acting.mjs mood sets them), the mouth carries the rest
+  annoyed:   { tilt: -0.25, browY: -0.03, curve: -0.2, open: 0.0,  eye: 0.74, pupil: 1.0,  smirk: 0.18, raise: 0.03 },
+  angry:     { tilt: -0.35, browY: -0.03, curve: -0.6, open: 0.06, eye: 0.74, pupil: 0.9,  smirk: 0.0, raise: 0.0 },
   deadpan:   { tilt: 0.0,  browY: -0.015, curve: 0.0, open: 0.0,  eye: 0.6,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   serene:    { tilt: 0.1,  browY: 0.0,   curve: 0.35, open: 0.0,  eye: 0.06, pupil: 1.0,  smirk: 0.0, raise: 0.0 },   // eyes closed, content
   dizzy:     { tilt: 0.42, browY: 0.02,  curve: -0.35, open: 0.3, eye: 1.08, pupil: 0.45, smirk: 0.4, raise: 0.02 },

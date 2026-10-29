@@ -25,7 +25,7 @@
  "cast": [
   {
    "id": "wiz",
-   "character": "halloween/wizard-host",
+   "character": "lookdev/wizard-crisp",
    "at": [
     0,
     0.3
@@ -47,14 +47,14 @@
     "pos": [
      0,
      1,
-     4.2
+     3.2
     ],
     "look": [
      0,
-     0.82,
+     0.85,
      0
     ],
-    "fov": 32
+    "fov": 30
    },
    "do": [
     {
@@ -124,8 +124,9 @@
     {
      "who": "wiz",
      "do": "face",
-     "brow": -0.3,
-     "dur": 0.2,
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
      "at": 0
     },
     {
@@ -172,8 +173,9 @@
     {
      "who": "wiz",
      "do": "face",
-     "brow": -0.3,
-     "dur": 0.2,
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
      "at": 0
     },
     {
