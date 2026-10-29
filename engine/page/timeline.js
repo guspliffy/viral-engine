@@ -3,7 +3,7 @@ import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch } from "
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
-import { SEAT_Y, propState, gripWorld } from "./props3d.js";
+import { SEAT_Y, propState, gripWorld, partPoint } from "./props3d.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -45,13 +45,20 @@ export const GRIPS = {
   // curled fingers under and round it, lying against the cup body in front
   thumb: { curl: 1.2,  index: 1.2,  thumb: 0.0 },   // thumbs up: a fist with the thumb straight (forearm forward, palm in: it points up)
   teacup: { curl: 0.95, index: 0.95, thumb: 0.9, axis: [0, 1, 0], fwd: 0.7 },
+  // a thin slab held by its edge (a phone, a card): the fingers lie flat along its back, the thumb pad on its front by
+  // the edge, the palm beside the edge (edge: the thumb moves to its place for this hold, potato.js). Used with a framed
+  // arm pose whose `at` is PHONE_EDGE: the edge in the hand, past the top of the palm, a finger's thickness in front of
+  // the fingers, by the thumb
+  phoneEdge: { curl: 0.04, index: 0.04, thumb: 0.9, edge: 1 },
+  phoneEdgeReady: { curl: 0.04, index: 0.04, thumb: 0.15, edge: 0 },   // the same, the thumb held off beside the edge
 };
+export const PHONE_EDGE = [0.02, 0.04, 0.0215];
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw
 // palm down on a surface, its fingers turned that far from the forearm towards straight ahead
 // axis: a handle held without a costume prop (the teacup), in the actor's root space; the fist only turns onto it once
 // the hand is closing, so taking it from either end of the blend never pops. fwd: how far the fist turns its
 // knuckles to face forward (0 along the forearm, 1 straight ahead)
-const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t), fwd: lerp(a.fwd || 0, b.fwd || 0, t), down: lerp(a.down || 0, b.down || 0, t), ahead: lerp(a.ahead ?? 0.7, b.ahead ?? 0.7, t), axis: (t < 0.5 ? a.axis || b.axis : b.axis || a.axis) || null });
+const blendGrip = (a, b, t) => ({ curl: lerp(a.curl, b.curl, t), index: lerp(a.index, b.index, t), thumb: lerp(a.thumb, b.thumb, t), up: lerp(a.up || 0, b.up || 0, t), fwd: lerp(a.fwd || 0, b.fwd || 0, t), edge: lerp(a.edge || 0, b.edge || 0, t), down: lerp(a.down || 0, b.down || 0, t), ahead: lerp(a.ahead ?? 0.7, b.ahead ?? 0.7, t), axis: (t < 0.5 ? a.axis || b.axis : b.axis || a.axis) || null });
 
 // a blink at 30 fps: closes over about 2.5 frames, shut for one, reopens over about 4 (u: seconds since it began)
 export const BLINK_LEN = 0.26;
@@ -433,13 +440,39 @@ function resolveArms(sb, st, def, t) {
     // potato.js squashes hand heights with the body; aim so the squashed hand lands on the point
     return { x: [x, (LEG_H + (y - LEG_H) / st.squash - LEG_H) / H, z] };
   };
+  // part: a moving part of the prop (a foldphone's half, "L" or "R"); grip, palm and frame are then in that part's frame
+  const onPart = (q, spec, ps, p, dir = false) => (q.part ? partPoint(spec, ps, q.part, p, dir) : p);
   const world = (q) => {
     if (q.world) return q.world;
     const spec = (sb.props || []).find((p) => p.id === q.prop);
     if (!spec) throw new Error(`arm pose aims at unknown prop: ${q.prop}`);
     const ps = propState(sb, spec, t), o = q.off || [0, 0, 0];
-    const w = gripWorld(spec, q.grip ?? [0, 0.05, 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
+    const w = gripWorld(spec, onPart(q, spec, ps, q.grip ?? [0, 0.05, 0]), q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
     return [w[0] + o[0], w[1] + o[1], w[2] + o[2]];
+  };
+  // frame: a hand locked to the prop (or part) in position AND rotation: { y, z, at } with y the way the fingers point
+  // and z the way the palm faces, in the prop's (part's) frame, and at the point of the hand (in its own frame, before
+  // the hand's size; potato.js _mitten: +y to the fingertips, +z out of the palm, +x to the thumb) that sits on the
+  // grip point. The hand's centre is placed so that point lands on the grip, and potato.js turns the hand to the frame
+  // instead of aiming it along the forearm, so it turns with what it holds and can't flip where the forearm lines up
+  // with the palm. The left hand is the right's mirror image: the same frame puts its thumb on the other side.
+  const rotLocal = (v) => {
+    let [x, y, z] = v;
+    [x, z] = [x * Math.cos(yaw) - z * Math.sin(yaw), x * Math.sin(yaw) + z * Math.cos(yaw)];
+    [y, z] = [y * Math.cos(pitch) + z * Math.sin(pitch), -y * Math.sin(pitch) + z * Math.cos(pitch)];
+    [x, y] = [x * Math.cos(lean) + y * Math.sin(lean), -x * Math.sin(lean) + y * Math.cos(lean)];
+    return [x, y, z];
+  };
+  const unit = (v) => { const l = Math.hypot(...v) || 1; return v.map((c) => c / l); };
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const framed = (q, s) => {
+    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t);
+    const dirW = (v) => gripWorld(spec, onPart(q, spec, ps, v, true), [0, 0, 0], ps.rot, 1, ps.tilt, ps.tip);
+    const Z = unit(dirW(q.frame.z)), y0 = dirW(q.frame.y), d = y0[0] * Z[0] + y0[1] * Z[1] + y0[2] * Z[2];
+    const Y = unit(y0.map((c, i) => c - d * Z[i])), X = cross(Y, Z), mx = s === "L" ? -1 : 1;
+    const at = q.frame.at || [0, 0, 0], k = (def.hands?.size ?? 1.3) * sc, g = world(q);
+    const hand = g.map((c, i) => c - k * (mx * at[0] * X[i] + at[1] * Y[i] + at[2] * Z[i]));
+    return { ...toLocal(hand), frame: { y: rotLocal(Y), z: rotLocal(Z) } };
   };
   // palm: the point the palm turns to face (mitten hands): true for the prop's own axis at the grip's height, or a point
   // on the prop ([x, y, z] in its own space; a world point for a world pose). "wrap": the axis too, with the fingers
@@ -447,16 +480,17 @@ function resolveArms(sb, st, def, t) {
   const palmWorld = (q) => {
     if (q.world) return Array.isArray(q.palm) ? q.palm : null;
     const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t), g = q.grip ?? [0, 0.05, 0];
-    return gripWorld(spec, Array.isArray(q.palm) ? q.palm : [0, g[1], 0], q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
+    return gripWorld(spec, onPart(q, spec, ps, Array.isArray(q.palm) ? q.palm : [0, g[1], 0]), q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
   };
-  const aim = (q) => {
+  const aim = (q, s) => {
+    if (q.frame && !q.world) return framed(q, s);
     const w = q.palm ? palmWorld(q) : null;
     return w ? { ...toLocal(world(q)), palm: toLocal(w).x, ...(q.palm === "wrap" ? { wrap: true } : {}) } : toLocal(world(q));
   };
-  const res = (q) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from), pose: res(q.mix.pose) } } : q && (q.prop || q.world) ? aim(q) : q);
+  const res = (q, s) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from, s), pose: res(q.mix.pose, s) } } : q && (q.prop || q.world) ? aim(q, s) : q);
   // on: the props this hand is going from and to (stage.js handsInProps: a hand may hold what it is on)
   const on = (q) => (q && q.mix ? [...on(q.mix.from), ...on(q.mix.pose)] : q && q.prop ? [q.prop] : []);
-  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from), pose: res(a.pose), on: [...on(a.from), ...on(a.pose)] }; }
+  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from, s), pose: res(a.pose, s), on: [...on(a.from), ...on(a.pose)] }; }
 }
 
 // a camera path: sb.camera = [{ at, pos, look, fov, stop? }, ...] keys the camera through one continuous move. Between

@@ -1,0 +1,244 @@
+{
+ "id": "test-phone-grip",
+ "title": "Phone edge grip test",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "storefront",
+  "seed": 5,
+  "light": "golden",
+  "key": [
+   5.5,
+   5,
+   3.6
+  ],
+  "wallZ": -9,
+  "aperture": 0
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1
+  }
+ ],
+ "props": [
+  {
+   "id": "ph",
+   "kind": "foldphone",
+   "x": 0,
+   "y": 0.33,
+   "z": 0.42,
+   "open": 1,
+   "gap": 0,
+   "seed": 3
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "front",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.19,
+     0.555,
+     1.235
+    ],
+    "look": [
+     0.19,
+     0.44,
+     0.42
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ph",
+      "part": "L",
+      "grip": [
+       -0.19,
+       0.108,
+       -0.002
+      ],
+      "frame": {
+       "y": [
+        0.866,
+        0.5,
+        0
+       ],
+       "z": [
+        0,
+        0,
+        1
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ]
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ph",
+      "part": "R",
+      "grip": [
+       0.19,
+       0.108,
+       -0.002
+      ],
+      "frame": {
+       "y": [
+        -0.866,
+        0.5,
+        0
+       ],
+       "z": [
+        0,
+        0,
+        1
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ]
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "phoneEdge",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.19,
+     1.235,
+     0.633
+    ],
+    "look": [
+     0.19,
+     0.44,
+     0.42
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "side",
+   "at": 1,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     1.01,
+     0.512,
+     0.42
+    ],
+    "look": [
+     0.19,
+     0.44,
+     0.42
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "under",
+   "at": 1.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.351,
+     -0.234,
+     0.864
+    ],
+    "look": [
+     0.19,
+     0.44,
+     0.42
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "wide",
+   "at": 2,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.704,
+     1.165,
+     4.412
+    ],
+    "look": [
+     0,
+     0.45,
+     0.42
+    ],
+    "fov": 22
+   },
+   "do": []
+  }
+ ],
+ "notes": "Test bench, not a clip.",
+ "debug": {
+  "colors": true
+ }
+}

@@ -24,7 +24,8 @@
 // so nothing slides in a hand. Each buyer's phone opens like a book toward the camera, one hand on each half.
 import { clip, write, r3 } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
-import { FOLD, BOX, foldPoint } from "../../engine/page/props-duo.js";
+import { FOLD, BOX } from "../../engine/page/props-duo.js";
+import { PHONE_EDGE } from "../../engine/page/timeline.js";
 
 const c = clip(), { A, sfx } = c;
 const END = 12.0, FPS = 30;
@@ -102,17 +103,18 @@ const LID_END = [BOX.W / 2 + 0.012 + 0.03, BOX.SKIRT + 0.03, 0], LID_PALM = [BOX
 // the closed phone lying in its tray (phone +x is up there, the right half's back): picked up with both palms flat on
 // its back, one on each end, so no glove goes down into the gap between the phone and the box's walls
 const END_GRIP = { top: [0.042, FOLD.H * 0.74, FOLD.W * 0.5], bottom: [0.042, FOLD.H * 0.26, FOLD.W * 0.5] };
-const END_PALM = { top: [-0.05, FOLD.H * 0.74, FOLD.W * 0.5], bottom: [-0.05, FOLD.H * 0.26, FOLD.W * 0.5] };
-// a hand on one half: u across the half (1 its free edge), v along it (0 bottom, 1 top), held from behind (out)
-const HALF = (open, gap, side, u = 1.04, v = 0.5, out = 0.03) =>
-  onProp(null, foldPoint(open, gap, side, u, v, out), foldPoint(open, gap, side, Math.min(u, 0.8), Math.min(Math.max(v, 0.15), 0.85), 0));
-// a hand under one half's bottom edge, palm up, u across the half (the gloves hold the phone from below)
-const UNDER = (open, gap, side, u) => onProp(null, foldPoint(open, gap, side, u, -0.09, 0), foldPoint(open, gap, side, u, 0.2, 0));
-// a hand holding one half by its outer edge, a little below the middle, the fingers round the back (how a person holds
-// an open book-style phone)
-// an open book-style phone). The palm faces in along the half and up: facing straight in (or tipped toward the screen)
-// it faced along the forearm, which comes in from the elbow out at the side, and the glove flipped in one frame
-const EDGE = (open, gap, side) => onProp(null, foldPoint(open, gap, side, 1.1, 0.5, 0.03), foldPoint(open, gap, side, 0.93, 0.67, 0.03));
+// palms down on it, fingers pointing away from the buyer (in the tray the phone's +z is the world's forward, its -x
+// down), locked to the phone (frame) so the hands turn with it as it stands up, and from there turn onto its edges
+const ON_BACK = (ph, end) => ({ ...onProp(ph, END_GRIP[end]), frame: { y: [0, 0, 1], z: [-1, 0, 0] } });
+// a hand locked to one half's outer edge (the phone-edge grip, timeline.js phoneEdge): v up the edge (0 bottom, 1 top),
+// the fingers in along the half's back and tipped up a little, the palm facing the half's screen side from behind
+const EDGE_TILT = (5 * Math.PI) / 180;
+const EDGE = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [side * FOLD.W, v * FOLD.H, -FOLD.T / 2].map(r3),
+  frame: { y: [r3(-side * Math.cos(EDGE_TILT)), r3(Math.sin(EDGE_TILT)), 0], z: [0, 0, 1], at: PHONE_EDGE } });
+// on the way there (the closed phone): beside the free edge, palm to it, fingers out of its back side (AROUND), or
+// behind the half near its edge, fingers up (BEHIND); each a quarter turn from the hold before it and the one after
+const AROUND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * (FOLD.W + 0.075)), r3(v * FOLD.H), r3(-FOLD.T / 2)], frame: { y: [0, 0, -1], z: [-side, 0, 0] } });
+const BEHIND = (ph, side, v) => ({ prop: ph, part: side < 0 ? "L" : "R", grip: [r3(side * FOLD.W * 0.75), r3(v * FOLD.H), r3(-FOLD.T - 0.046)], frame: { y: [0, 1, 0], z: [0, 0, 1] } });
 
 // a buyer's whole handling chain: arrive with the box, set it down, lid off and parked, the phone out of the tray,
 // upright, unfolded. Times from the brief (t: the beat starts). Returns where the phone ends up.
@@ -167,8 +169,8 @@ function purchase(id, box, lid, ph, T) {
   look(T.lift - 0.3, id, [0.05, -0.9], 0.1);      // eyes on the phone in its tray before the hands go in
   c.at(T.lift - 0.02, { do: "carry", prop: ph });
   const tray = add(at, IN_TRAY);
-  c.arm(T.lift - 0.18, id, "R", onProp(ph, END_GRIP.top, END_PALM.top), 0.16, "inOut");
-  c.arm(T.lift - 0.16, id, "L", onProp(ph, END_GRIP.bottom, END_PALM.bottom), 0.14, "inOut");
+  c.arm(T.lift - 0.18, id, "R", ON_BACK(ph, "top"), 0.16, "inOut");
+  c.arm(T.lift - 0.16, id, "L", ON_BACK(ph, "bottom"), 0.14, "inOut");
   grip(T.lift - 0.08, id, "both", "flat", 0.08);
   // high enough that the ledge never hides the screens, below the mouth; the buyer steps back half a pace as the phone
   // comes up, so the half that swings open toward the camera passes behind the box, not through it
@@ -180,26 +182,23 @@ function purchase(id, box, lid, ph, T) {
   A(T.lift + 0.1, id, "pitch", { to: 2, dur: 0.3 });
   sfx(T.lift + 0.02, "grab", { gain: 0.9 });
   // the closed phone stood up like a book, its spine to the left and its front cover (the left half) to the camera, both
-  // palms riding on its back. Then held the way a person holds a book-style phone (Jonny 29 Oct: "nobody would hold a
-  // phone like this" from below): the left hand on the back half's outer edge, which stays still while the front cover
-  // swings open; the right hand carries the cover from below and takes its outer edge only once it has landed (a hand
-  // riding the swinging half's edge the whole way faces along its forearm half way round and flips in one frame)
-  c.arm(T.open - 0.06, id, "R", { ...UNDER(0, 0, -1, 0.25), prop: ph }, 0.2, "inOut");
-  const openAt = (t) => { const u = clamp((t - T.open) / (T.flat - T.open)); return 0.98 * u * u * (3 - 2 * u); };
-  c.arm(T.open - 0.06, id, "L", { ...EDGE(openAt(T.open + 0.14), 0, 1), prop: ph }, 0.2, "inOut");
-  grip(T.open, id, "R", "relaxed", 0.08); grip(T.open, id, "L", "hold", 0.12);   // the left hand closes on the edge
-  // unfold: the front cover swings toward the camera and over to the left, the back half stays where it is
-  // (the keys start once the hands are on it: before that they would fight the move onto the phone)
-  const n = Math.round((T.flat - T.open) * FPS / 2);
-  for (let k = Math.ceil(0.2 / (T.flat - T.open) * n) + 1; k <= n; k++) {
-    const u = k / n, t = T.open + (T.flat - T.open) * u, e = u * u * (3 - 2 * u), open = 0.98 * e;
-    const b = clamp((u - 0.5) / 0.5), sb = b * b * (3 - 2 * b), step = (T.flat - T.open) / n;
-    c.arm(t - step, id, "R", { ...UNDER(open, 0, -1, 0.25 + 0.4 * sb), prop: ph }, step, "linear");
-    c.arm(t - step, id, "L", { ...EDGE(open, 0, 1), prop: ph }, step, "linear");
-  }
-  // landed: the right hand slides from under the cover to its outer edge
-  c.arm(T.flat, id, "R", { ...EDGE(0.98, 0, -1), prop: ph }, 0.18, "inOut");
-  grip(T.flat + 0.04, id, "R", "hold", 0.12);
+  // palms riding on its back. Then each hand takes its own half by the outer edge, the way a person holds a book-style
+  // phone (Jonny 29 Oct): the fingers along the half's back, the palm beside the edge, the thumb ready by it. The right
+  // hand reaches across to the cover's edge (higher), the left takes the back half's (lower), one in front of the closed
+  // phone and one behind. Locked to its half (part + frame), each hand turns with it: as the cover swings open the
+  // right hand rides it round, and the thumbs close onto the screens as they come apart. No hand lets go or slides
+  // until the end: the snap and the crack happen in hands that already hold their halves.
+  // Each hand gets there in two quarter turns, after the phone is out of the tray: the right hand lets go of the back,
+  // goes round the free edge (palm to the edge, fingers to the camera) and closes on the cover from the front; the left
+  // turns its fingers up and slides out to the back half's edge, still behind it. (One half turn in one go has no
+  // way round: the glove turned through the phone or flipped in one frame.)
+  const tm = T.edges, t2 = tm + (T.open - tm) * 0.5;
+  c.arm(tm, id, "R", AROUND(ph, -1, 0.52), t2 - tm, "in");
+  c.arm(t2, id, "R", EDGE(ph, -1, 0.52), T.open - t2, "out");
+  c.arm(tm, id, "L", BEHIND(ph, 1, 0.26), t2 - tm, "in");
+  c.arm(t2, id, "L", EDGE(ph, 1, 0.26), T.open - t2, "out");
+  grip(tm, id, "R", "open", 0.06); grip(t2, id, "both", "phoneEdgeReady", T.open - t2);
+  grip(T.open + 0.04, id, "both", "phoneEdge", 0.18);
   c.prop(T.open, ph, { open: 0.98, rot: 0 }, T.flat - T.open, "inOut");
   sfx(T.open + 0.05, "kenney/cloth", { gain: 0.8, reason: "the phone's halves swing open" });
   return hold;
@@ -268,7 +267,7 @@ look(1.55, "vik", AT_DOOR, 0.15);
 // Dragon waits inside, out of sight, until his turn
 A(1.988, "drg", "move", { to: HIDE, dur: 0.005 });
 for (const id of WAIT) { A(2.0, id, "pitch", { to: 3, dur: 0.3 }); look(2.0, id, [-0.8, -0.2], 0.2); }
-const WT = { arrive: 2.0, set: 2.3, lid: 2.32, lift: 2.88, open: 3.2, flat: 3.85 };
+const WT = { arrive: 2.0, set: 2.3, lid: 2.32, lift: 2.88, edges: 2.94, open: 3.2, flat: 3.85 };   // edges: the hands start onto the edges
 A(1.988, "wiz", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(1.988, "wiz", [0, -0.75], 0.005);
 const holdA = purchase("wiz", "boxA", "lidA", "phA", WT);
@@ -282,10 +281,7 @@ sfx(SNAP, "kenney/metal-click", { gain: 1.1, reason: "the hinge snaps" });
 c.prop(SNAP, "phA", { gap: 0.08 }, 0.07, "out");
 // then the halves drift apart in his hands, so the golden body shows between them: the break reads at phone size
 c.prop(SNAP + 0.1, "phA", { gap: 0.13 }, 0.55, "out");
-for (const [t, g, d] of [[SNAP, 0.08, 0.07], [SNAP + 0.1, 0.13, 0.55]]) {
-  c.arm(t, "wiz", "R", { ...EDGE(0.98, g, -1), prop: "phA" }, d, "out");
-  c.arm(t, "wiz", "L", { ...EDGE(0.98, g, 1), prop: "phA" }, d, "out");
-}
+// (the hands hold their halves through it: each follows its own as they part)
 A(SNAP, "wiz", "still", { dur: 0.75, idle: 0.04 });
 A(SNAP + 0.02, "wiz", "squash", { amount: 0.03, dur: 0.12 });
 A(SNAP + 0.18, "wiz", "expr", { set: { open: 0.3, eye: 1.25, pupil: 0.8 }, dur: 0.08 });   // the eyes understand first
@@ -299,7 +295,7 @@ A(4.62, "wiz", "still", { dur: 0.5, idle: 0.03 });
 A(4.588, "drg", "move", { to: [DOOR_X + 0.1, WALL_Z - 0.3], dur: 0.005 });
 
 // ---------------------------------------------------------------- 07 SECOND PURCHASE 5.10-7.40
-const DT = { arrive: 5.1, set: 5.32, lid: 5.33, lift: 5.88, open: 6.18, flat: 6.56 };   // open early: a quarter second of intact screens before the crack
+const DT = { arrive: 5.1, set: 5.32, lid: 5.33, lift: 5.88, edges: 5.98, open: 6.22, flat: 6.58 };   // open early: intact screens before the crack; edges later than the Wizard: his box is right under the free edge
 A(5.088, "drg", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(5.088, "drg", [0, -0.75], 0.005);
 purchase("drg", "boxB", "lidB", "phB", DT);

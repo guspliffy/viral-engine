@@ -1,5 +1,7 @@
 import * as THREE from "three";
 const _fist = new THREE.Quaternion();
+// the thumb on a slab's front (grip edge, timeline.js phoneEdge): its pivot's place and turn in the hand
+const _edgeThumb = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.46, -0.118, 1.006)), _edgeThumbAt = new THREE.Vector3(0.0273, 0.0086, 0.023);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
@@ -171,7 +173,7 @@ export class Character {
   // axis: the held handle's direction (a staff, a scythe). A closed hand then turns its fist around it: the handle runs
   // through the curled fingers from the little finger to the thumb, thumb on top, knuckles out, fingers pointing forward.
   // sh, mv: the shoulder, and how far the arm is into a move (0 at either end, 1 half way)
-  _pose(hand, elbow, at, sx, gr, axis = null, palm = null, sh = null, mv = 0) {
+  _pose(hand, elbow, at, sx, gr, axis = null, palm = null, sh = null, mv = 0, frame = null) {
     const U = hand.userData, y = at.clone().sub(elbow);
     // the hand aims along elbow -> hand. When a moving hand sweeps past the elbow point (an arm swinging out from the
     // side to reach), that line shrinks to nothing and turns round in a frame or two, which spun the hand; below 14 cm
@@ -227,6 +229,8 @@ export class Character {
         }
       }
     }
+    // a hand locked to what it holds (arm pose frame, timeline.js): its rotation is the hold's, whatever the forearm does
+    if (frame && frame.w > 0) hand.quaternion.slerp(frame.q, frame.w);
     const up = Math.min(1, Math.max(0, gr.up || 0));
     if (up > 0) {
       const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
@@ -253,11 +257,28 @@ export class Character {
     // on a handle the wrapped fist (U.fist) takes over from the mitten fingers
     const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
     U.thumb.position.copy(U.thumbRest);
+    // grip edge (phoneEdge): the thumb's root moves up the front of the palm and the thumb lies across the slab's front,
+    // its pad just past the edge (the glove's thumb is too short to reach round a thin edge from its resting root)
+    const ed = Math.min(1, Math.max(0, gr.edge || 0));
+    if (ed > 0) { U.thumb.quaternion.slerp(_edgeThumb, ed); U.thumb.position.lerp(_edgeThumbAt, ed); }
     U.fist.visible = tw > 0.001; U.fist.scale.setScalar(Math.max(0.001, tw));
     // a closed fist is more compact than the open mitten, and its palm draws back behind the handle so the handle always
     // runs through the fingers, never through the palm
     const pr = U.palm.userData.rest; U.palm.scale.set(pr[0], pr[1], pr[2] - 0.18 * tw).multiplyScalar(1 - 0.15 * tw); U.palm.position.z = -0.034 * tw;
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
+  }
+  // the rotation of a hand locked to a hold (arm poses with frame, resolved by timeline.js), blended with the arm's move:
+  // from one hold to another the hand turns the short way between the two; onto or off a hold, it turns onto it as it
+  // arrives (w: how far)
+  _frame(a) {
+    const one = (q) => {
+      if (q && q.mix) return mix(one(q.mix.from), one(q.mix.pose), q.mix.p);
+      if (!q || !q.frame) return null;
+      const Y = new THREE.Vector3(...q.frame.y), Z = new THREE.Vector3(...q.frame.z);
+      return { q: new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(Y, Z), Y, Z)), w: 1 };
+    };
+    const mix = (f0, f1, p) => (f0 && f1 ? { q: f0.q.clone().slerp(f1.q, p), w: 1 } : f0 ? { q: f0.q, w: 1 - p } : f1 ? { q: f1.q, w: p } : null);
+    return mix(one(a.from), one(a.pose), a.p);
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
   // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one.
@@ -403,10 +424,18 @@ export class Character {
       }
       // the elbow never sinks into the body (a curve's pull point needs the wider margin: the curve passes inside it;
       // the jointed paw arm passes through its elbow, so it only needs the arm's own radius)
+      // a hand locked to a hold (arm pose frame): the elbow out beside the body and below the shoulder-hand line, so the
+      // upper arm hangs and the forearm comes into the hold from the side, low and relaxed (a phone held by its edges),
+      // instead of hooked straight up from the shoulder
+      const fr = this._frame(a);
+      if (fr && fr.w > 0) {
+        const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35);
+        mid.lerp(elbow, fr.w);
+      }
       const joint = dn > 0.5;
       this._outside(mid, S, joint ? 1 : 1.3);
       this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))));
+      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr);
       this.arms[s].elbow = mid; this.arms[s].joint = joint; this.arms[s].shoulder = sh.clone().addScaledVector(shN, -0.035);
       if (globalThis.__DIAG?.anchors) this._anchors(s, [this.arms[s].shoulder, mid, h]);
       this.arms[s].hand.visible = showLimbs;
