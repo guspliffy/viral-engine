@@ -233,7 +233,7 @@ const sb = (variant, captions) => ({
   // the sneaky bed (Jonny picked sneaky-01) under the two thefts; it stops on a bar line as the reach for the plug
   // begins, so the approach plays in a quiet room (the brief's short gap) and the catch needs no hit
   music: { file: "ai/sneaky/sneaky-01.ogg", until: 6.4, gain: 0.3 },
-  sound: { sfx: 0.7, ambience: 0.3, speech: false, signature: { payoff: false } },   // no sparkle on the catch (Jonny: "not a bling")
+  sound: { sfx: 0.7, ambience: 0.3, speech: false, scenes: ["ui"], signature: { payoff: false } },   // ui: the phone swipes; no sparkle on the catch (Jonny: "not a bling")
   experiment: { id: "hook-2026-11", episode: "dont-touch-the-charger", variant },
   cast, props, captions, beats,
   allowClip: [

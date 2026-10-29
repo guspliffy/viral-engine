@@ -13,6 +13,13 @@
    "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
    "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)"
   },
+  "ai-package": {
+   "name": "Stable Audio 3 Small (generated locally with sa3.cpp)",
+   "url": "https://huggingface.co/stabilityai/stable-audio-3-small-sfx",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "generated": "engine/soundgen (recipes.json -> generate.py -> pick.py)",
+   "note": "Just Hand Me the Package's sounds (engine/soundgen/recipes-package.json); own folder so parallel clips don't edit assets/sfx/ai/manifest.json. Ids: ai-package/<id>. box-lift was dropped (no take scored above 0 on CLAP); the lift uses cardboard-rustle."
+  },
   "oga": {
    "name": "OpenGameArt: \"Gastric Distress\" by LFA (recorded with mouth and hands)",
    "url": "https://opengameart.org/content/gastric-distress",
@@ -23,6 +30,8 @@
  },
  "sounds": {
   "step-wood": {
+   "family": "steps",
+   "says": "a footstep on wooden floorboards: a short low knock",
    "files": [
     "kenney/impact/footstep_wood_000.ogg",
     "kenney/impact/footstep_wood_001.ogg",
@@ -34,6 +43,8 @@
    "source": "kenney"
   },
   "step-grass": {
+   "family": "steps",
+   "says": "a footstep on grass: a very short soft crunch",
    "files": [
     "kenney/impact/footstep_grass_000.ogg",
     "kenney/impact/footstep_grass_001.ogg",
@@ -45,6 +56,8 @@
    "source": "kenney"
   },
   "step-concrete": {
+   "family": "steps",
+   "says": "a footstep on concrete: a short hard tap with grit",
    "files": [
     "kenney/impact/footstep_concrete_000.ogg",
     "kenney/impact/footstep_concrete_001.ogg",
@@ -56,6 +69,8 @@
    "source": "kenney"
   },
   "step-carpet": {
+   "family": "steps",
+   "says": "a footstep on carpet: a soft muffled low pad (AI takes, Jonny's pick)",
    "source": "ai",
    "files": [
     "ai/step-carpet/step-carpet-01.wav",
@@ -70,6 +85,8 @@
    "gain": 0.35
   },
   "step-snow": {
+   "family": "steps",
+   "says": "a footstep in snow: a low soft crunch",
    "files": [
     "kenney/impact/footstep_snow_000.ogg",
     "kenney/impact/footstep_snow_001.ogg",
@@ -81,6 +98,8 @@
    "source": "kenney"
   },
   "step-indoor": {
+   "family": "steps",
+   "says": "a shoe on a hard indoor floor: a short knock",
    "files": [
     "kenney/rpg/footstep00.ogg",
     "kenney/rpg/footstep01.ogg",
@@ -97,6 +116,8 @@
    "source": "kenney"
   },
   "grab": {
+   "family": "handling",
+   "says": "a quick soft leather or cloth rub (a hand closing on something)",
    "files": [
     "kenney/rpg/handleSmallLeather.ogg",
     "kenney/rpg/handleSmallLeather2.ogg",
@@ -109,6 +130,8 @@
    "source": "kenney"
   },
   "put-down": {
+   "family": "handling",
+   "says": "a light wooden tap (something set down on wood)",
    "files": [
     "kenney/impact/impactWood_light_000.ogg",
     "kenney/impact/impactWood_light_001.ogg",
@@ -120,6 +143,8 @@
    "source": "kenney"
   },
   "put-down-glass": {
+   "family": "handling",
+   "says": "a light glass clink around 1 kHz (a glass set down)",
    "files": [
     "kenney/impact/impactGlass_light_000.ogg",
     "kenney/impact/impactGlass_light_001.ogg",
@@ -131,6 +156,8 @@
    "source": "kenney"
   },
   "put-down-metal": {
+   "family": "handling",
+   "says": "a light metal tink around 3 kHz (a metal thing set down)",
    "files": [
     "kenney/impact/impactMetal_light_000.ogg",
     "kenney/impact/impactMetal_light_001.ogg",
@@ -142,6 +169,8 @@
    "source": "kenney"
   },
   "cloth": {
+   "family": "handling",
+   "says": "cloth rustling: a few soft rubs (clothes, a bag)",
    "files": [
     "kenney/rpg/cloth1.ogg",
     "kenney/rpg/cloth2.ogg",
@@ -154,6 +183,8 @@
    "source": "kenney"
   },
   "sit": {
+   "family": "handling",
+   "says": "a short wooden creak (someone sitting on a chair)",
    "files": [
     "kenney/rpg/creak1.ogg",
     "kenney/rpg/creak2.ogg",
@@ -163,6 +194,8 @@
    "source": "kenney"
   },
   "blade-draw": {
+   "family": "blade",
+   "says": "a knife pulled from a sheath: a short metal scrape",
    "files": [
     "kenney/rpg/drawKnife1.ogg",
     "kenney/rpg/drawKnife2.ogg",
@@ -172,6 +205,8 @@
    "source": "kenney"
   },
   "blade-cut": {
+   "family": "blade",
+   "says": "a knife slicing: a quick bright swish and cut",
    "files": [
     "kenney/rpg/knifeSlice.ogg",
     "kenney/rpg/knifeSlice2.ogg"
@@ -180,6 +215,8 @@
    "source": "kenney"
   },
   "katana-slice": {
+   "family": "blade",
+   "says": "a sword slash: the engine's 'shing' 0.07 s after the swing starts",
    "layers": [
     [
      "shing",
@@ -189,6 +226,8 @@
    ]
   },
   "katana-draw": {
+   "family": "blade",
+   "says": "a blade drawn from its sheath with a tiny ping at the end",
    "layers": [
     [
      "blade-draw",
@@ -202,6 +241,8 @@
    ]
   },
   "chop": {
+   "family": "blade",
+   "says": "one chop of an axe or cleaver into wood",
    "files": [
     "kenney/rpg/chop.ogg"
    ],
@@ -209,6 +250,8 @@
    "source": "kenney"
   },
   "punch": {
+   "family": "hit",
+   "says": "a cartoon punch: a short meaty low thud",
    "files": [
     "kenney/impact/impactPunch_medium_000.ogg",
     "kenney/impact/impactPunch_medium_001.ogg",
@@ -225,6 +268,8 @@
    "source": "kenney"
   },
   "thud": {
+   "family": "hit",
+   "says": "a heavy soft thud, low (a body or a sack hitting the floor)",
    "files": [
     "kenney/impact/impactSoft_heavy_000.ogg",
     "kenney/impact/impactSoft_heavy_001.ogg",
@@ -236,6 +281,8 @@
    "source": "kenney"
   },
   "thud-soft": {
+   "family": "hit",
+   "says": "a light soft thud (a cushion, a soft bump)",
    "files": [
     "kenney/impact/impactSoft_medium_000.ogg",
     "kenney/impact/impactSoft_medium_001.ogg",
@@ -247,6 +294,8 @@
    "source": "kenney"
   },
   "hit-wood": {
+   "family": "hit",
+   "says": "a solid hit on wood, medium to heavy: a dark knock",
    "files": [
     "kenney/impact/impactWood_medium_000.ogg",
     "kenney/impact/impactWood_medium_001.ogg",
@@ -263,6 +312,8 @@
    "source": "kenney"
   },
   "hit-metal": {
+   "family": "hit",
+   "says": "a metal clang ringing around 1 kHz, medium to heavy",
    "files": [
     "kenney/impact/impactMetal_medium_000.ogg",
     "kenney/impact/impactMetal_medium_001.ogg",
@@ -279,6 +330,8 @@
    "source": "kenney"
   },
   "hit-glass": {
+   "family": "hit",
+   "says": "a glass hit: a ringing clink, medium to heavy",
    "files": [
     "kenney/impact/impactGlass_medium_000.ogg",
     "kenney/impact/impactGlass_medium_001.ogg",
@@ -295,6 +348,8 @@
    "source": "kenney"
   },
   "hit-plate": {
+   "family": "hit",
+   "says": "a ceramic plate hit, low and dull",
    "files": [
     "kenney/impact/impactPlate_medium_000.ogg",
     "kenney/impact/impactPlate_medium_001.ogg",
@@ -310,7 +365,9 @@
    "gain": 0.4,
    "source": "kenney"
   },
-  "bell": {
+  "bell-heavy": {
+   "family": "bells",
+   "says": "one heavy metal bell strike, dark (about 325 Hz)",
    "files": [
     "kenney/impact/impactBell_heavy_000.ogg",
     "kenney/impact/impactBell_heavy_001.ogg",
@@ -322,6 +379,8 @@
    "source": "kenney"
   },
   "pan-bonk": {
+   "family": "hit",
+   "says": "a metal cooking pot hit: a hollow ringing bonk with a rattle",
    "files": [
     "kenney/rpg/metalPot1.ogg",
     "kenney/rpg/metalPot2.ogg",
@@ -331,6 +390,8 @@
    "source": "kenney"
   },
   "knock": {
+   "family": "door",
+   "says": "three knuckle knocks on a solid wooden door (the AI takes Jonny picked, 'AI B')",
    "layers": [
     [
      "knock-hit",
@@ -350,30 +411,30 @@
    ]
   },
   "door-open": {
+   "family": "door",
+   "says": "an old wooden door opening: a creak and the latch",
    "files": [
     "kenney/rpg/doorOpen_1.ogg",
-    "kenney/rpg/doorOpen_2.ogg",
-    "kenney/scifi/doorOpen_000.ogg",
-    "kenney/scifi/doorOpen_001.ogg",
-    "kenney/scifi/doorOpen_002.ogg"
+    "kenney/rpg/doorOpen_2.ogg"
    ],
    "gain": 0.4,
    "source": "kenney"
   },
   "door-close": {
+   "family": "door",
+   "says": "an old wooden door closing with a clunk",
    "files": [
     "kenney/rpg/doorClose_1.ogg",
     "kenney/rpg/doorClose_2.ogg",
     "kenney/rpg/doorClose_3.ogg",
-    "kenney/rpg/doorClose_4.ogg",
-    "kenney/scifi/doorClose_000.ogg",
-    "kenney/scifi/doorClose_001.ogg",
-    "kenney/scifi/doorClose_002.ogg"
+    "kenney/rpg/doorClose_4.ogg"
    ],
    "gain": 0.45,
    "source": "kenney"
   },
   "door-slam": {
+   "family": "door",
+   "says": "a wooden door slammed: the close, a deep thud and a latch click",
    "layers": [
     [
      "door-close",
@@ -386,13 +447,15 @@
      0.9
     ],
     [
-     "latch",
+     "latch-click",
      0.05,
      0.6
     ]
    ]
   },
   "door-creak": {
+   "family": "door",
+   "says": "a short wooden creak (a door or a floorboard; the same takes as 'sit')",
    "files": [
     "kenney/rpg/creak1.ogg",
     "kenney/rpg/creak2.ogg",
@@ -401,7 +464,9 @@
    "gain": 0.35,
    "source": "kenney"
   },
-  "latch": {
+  "latch-click": {
+   "family": "door",
+   "says": "a small metal latch clicking shut (recorded)",
    "files": [
     "kenney/rpg/metalLatch.ogg",
     "kenney/rpg/metalClick.ogg"
@@ -410,6 +475,8 @@
    "source": "kenney"
   },
   "coins": {
+   "family": "handling",
+   "says": "a few coins jingling in a hand",
    "files": [
     "kenney/rpg/handleCoins.ogg",
     "kenney/rpg/handleCoins2.ogg"
@@ -418,6 +485,8 @@
    "source": "kenney"
   },
   "book-flip": {
+   "family": "office",
+   "says": "pages flipping: two quick papery flaps",
    "files": [
     "kenney/rpg/bookFlip1.ogg",
     "kenney/rpg/bookFlip2.ogg",
@@ -427,6 +496,8 @@
    "source": "kenney"
   },
   "book-close": {
+   "family": "office",
+   "says": "a book shut or set down: a soft papery thump",
    "files": [
     "kenney/rpg/bookClose.ogg",
     "kenney/rpg/bookPlace1.ogg",
@@ -437,6 +508,8 @@
    "source": "kenney"
   },
   "key": {
+   "family": "office",
+   "says": "one mechanical keyboard key press (AI)",
    "source": "ai",
    "files": [
     "ai/key-press/key-press-01.wav",
@@ -451,6 +524,8 @@
    "gain": 0.16
   },
   "typing": {
+   "family": "office",
+   "says": "typing on a keyboard, about 11 key presses a second for the event's dur",
    "pattern": {
     "pool": "key",
     "rate": 11,
@@ -458,6 +533,8 @@
    }
   },
   "mouse-click": {
+   "family": "office",
+   "says": "a computer mouse button: a click and its release",
    "layers": [
     [
      "kenney/mouseclick",
@@ -472,6 +549,12 @@
    ]
   },
   "ui-click": {
+   "family": "ui",
+   "says": "a tiny synthetic menu click, dark",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/interface/click_001.ogg",
     "kenney/interface/click_002.ogg",
@@ -488,6 +571,12 @@
    "source": "kenney"
   },
   "ui-error": {
+   "family": "ui",
+   "says": "a low buzzy menu 'nope' beep",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/interface/error_001.ogg",
     "kenney/interface/error_002.ogg",
@@ -502,6 +591,12 @@
    "source": "kenney"
   },
   "ui-confirm": {
+   "family": "ui",
+   "says": "a bright menu 'OK' beep gliding up (2.4 to 5.9 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/interface/confirmation_001.ogg",
     "kenney/interface/confirmation_002.ogg",
@@ -512,6 +607,8 @@
    "source": "kenney"
   },
   "magic-up": {
+   "family": "magic",
+   "says": "a retro video-game power-up: a short bright synth blip around 1.2 kHz. Synthetic: it reads as a game, not as real magic",
    "files": [
     "kenney/digital/powerUp1.ogg",
     "kenney/digital/powerUp10.ogg",
@@ -530,6 +627,8 @@
    "source": "kenney"
   },
   "zap": {
+   "family": "magic",
+   "says": "a retro synth zap, a dark buzz around 280 Hz (Jonny kept it over the AI zap for magic)",
    "files": [
     "kenney/digital/zap1.ogg",
     "kenney/digital/zap2.ogg",
@@ -540,6 +639,12 @@
    "source": "kenney"
   },
   "force-field": {
+   "family": "scifi",
+   "says": "a sci-fi force field: a low electric hum",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/scifi/forceField_000.ogg",
     "kenney/scifi/forceField_001.ogg",
@@ -551,6 +656,12 @@
    "source": "kenney"
   },
   "laser": {
+   "family": "scifi",
+   "says": "a small sci-fi laser: a synth tone diving from 550 Hz to almost nothing",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/scifi/laserSmall_000.ogg",
     "kenney/scifi/laserSmall_001.ogg",
@@ -562,6 +673,12 @@
    "source": "kenney"
   },
   "laser-big": {
+   "family": "scifi",
+   "says": "a big sci-fi laser blast, low (about 100 Hz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/scifi/laserLarge_000.ogg",
     "kenney/scifi/laserLarge_001.ogg",
@@ -573,6 +690,13 @@
    "source": "kenney"
   },
   "jingle-sax": {
+   "family": "music",
+   "says": "one of 17 short saxophone tunes, the seed picks which (cheerful or sad, you don't choose)",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/jingles/Sax/jingles_SAX00.ogg",
     "kenney/jingles/Sax/jingles_SAX01.ogg",
@@ -596,6 +720,13 @@
    "source": "kenney"
   },
   "jingle-pizzicato": {
+   "family": "music",
+   "says": "one of 17 short plucked-string tunes, the seed picks which (cheerful or sad, you don't choose)",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/jingles/Pizzicato/jingles_PIZZI00.ogg",
     "kenney/jingles/Pizzicato/jingles_PIZZI01.ogg",
@@ -619,6 +750,13 @@
    "source": "kenney"
   },
   "jingle-8bit": {
+   "family": "music",
+   "says": "one of 17 short 8-bit video-game tunes, the seed picks which",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/jingles/8-Bit/jingles_NES00.ogg",
     "kenney/jingles/8-Bit/jingles_NES01.ogg",
@@ -642,6 +780,13 @@
    "source": "kenney"
   },
   "jingle-steel": {
+   "family": "music",
+   "says": "one of 17 short steel-drum tunes, the seed picks which",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/jingles/Steel/jingles_STEEL00.ogg",
     "kenney/jingles/Steel/jingles_STEEL01.ogg",
@@ -665,6 +810,13 @@
    "source": "kenney"
   },
   "jingle-hit": {
+   "family": "music",
+   "says": "one of 17 short orchestral hit stings, the seed picks which",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "files": [
     "kenney/jingles/Hit/jingles_HIT00.ogg",
     "kenney/jingles/Hit/jingles_HIT01.ogg",
@@ -688,6 +840,12 @@
    "source": "kenney"
   },
   "kenney/high-down": {
+   "family": "scifi",
+   "says": "a synth blip falling from 1.5 to 0.8 kHz (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/highDown.ogg"
@@ -695,6 +853,12 @@
    "gain": 0.35
   },
   "kenney/high-up": {
+   "family": "scifi",
+   "says": "a synth blip rising, a few quick steps (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/highUp.ogg"
@@ -702,6 +866,12 @@
    "gain": 0.35
   },
   "kenney/laser": {
+   "family": "scifi",
+   "says": "a retro synth laser 'pew' diving from 2 kHz",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/laser1.ogg",
@@ -717,6 +887,12 @@
    "gain": 0.35
   },
   "kenney/low-down": {
+   "family": "scifi",
+   "says": "a low synth tone, about 100 Hz (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/lowDown.ogg"
@@ -724,6 +900,12 @@
    "gain": 0.35
   },
   "kenney/low-random": {
+   "family": "scifi",
+   "says": "a short low synth blip dropping from 124 to 80 Hz (retro game). Not a string or an instrument",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/lowRandom.ogg"
@@ -731,6 +913,12 @@
    "gain": 0.35
   },
   "kenney/low-three-tone": {
+   "family": "scifi",
+   "says": "three low synth tones going up (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/lowThreeTone.ogg"
@@ -738,6 +926,12 @@
    "gain": 0.35
   },
   "kenney/pep-sound": {
+   "family": "scifi",
+   "says": "a synth 'pep' tone around 310 Hz, two pulses (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/pepSound1.ogg",
@@ -749,6 +943,12 @@
    "gain": 0.35
   },
   "kenney/phase-jump": {
+   "family": "scifi",
+   "says": "a synth zap diving from 1 kHz (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/phaseJump1.ogg",
@@ -760,6 +960,12 @@
    "gain": 0.35
   },
   "kenney/phaser-down": {
+   "family": "scifi",
+   "says": "a phaser sweep falling from 700 to 170 Hz",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/phaserDown1.ogg",
@@ -769,6 +975,12 @@
    "gain": 0.35
   },
   "kenney/phaser-up": {
+   "family": "scifi",
+   "says": "a phaser sweep rising from 120 to 350 Hz",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/phaserUp1.ogg",
@@ -782,6 +994,12 @@
    "gain": 0.35
   },
   "kenney/power-up": {
+   "family": "scifi",
+   "says": "a retro video-game power-up blip",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/powerUp1.ogg",
@@ -800,6 +1018,12 @@
    "gain": 0.35
   },
   "kenney/space-trash": {
+   "family": "scifi",
+   "says": "a bright metallic synth rattle, five clanks",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/spaceTrash1.ogg",
@@ -811,6 +1035,12 @@
    "gain": 0.35
   },
   "kenney/three-tone": {
+   "family": "scifi",
+   "says": "three synth tones (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/threeTone1.ogg",
@@ -819,6 +1049,12 @@
    "gain": 0.35
   },
   "kenney/tone": {
+   "family": "scifi",
+   "says": "one tiny synth tone, about 260 Hz",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/tone1.ogg"
@@ -826,6 +1062,12 @@
    "gain": 0.35
   },
   "kenney/two-tone": {
+   "family": "scifi",
+   "says": "two synth tones (retro game)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/twoTone1.ogg",
@@ -834,6 +1076,12 @@
    "gain": 0.35
   },
   "kenney/zap": {
+   "family": "scifi",
+   "says": "a retro synth zap",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/zap1.ogg",
@@ -842,6 +1090,12 @@
    "gain": 0.35
   },
   "kenney/zap-three-tone-down": {
+   "family": "scifi",
+   "says": "a synth zap in three falling steps, 1.2 s",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/zapThreeToneDown.ogg"
@@ -849,6 +1103,12 @@
    "gain": 0.35
   },
   "kenney/zap-three-tone-up": {
+   "family": "scifi",
+   "says": "a synth zap in three rising steps",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/zapThreeToneUp.ogg"
@@ -856,6 +1116,12 @@
    "gain": 0.35
   },
   "kenney/zap-two-tone": {
+   "family": "scifi",
+   "says": "a two-step synth zap",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/digital/zapTwoTone.ogg",
@@ -864,6 +1130,8 @@
    "gain": 0.35
   },
   "kenney/footstep-carpet": {
+   "family": "steps",
+   "says": "a recorded footstep on carpet (the old take; step-carpet now uses the AI one)",
    "source": "kenney",
    "files": [
     "kenney/impact/footstep_carpet_000.ogg",
@@ -875,6 +1143,8 @@
    "gain": 0.35
   },
   "kenney/footstep-concrete": {
+   "family": "steps",
+   "says": "a footstep on concrete",
    "source": "kenney",
    "files": [
     "kenney/impact/footstep_concrete_000.ogg",
@@ -886,6 +1156,8 @@
    "gain": 0.35
   },
   "kenney/footstep-grass": {
+   "family": "steps",
+   "says": "a footstep on grass",
    "source": "kenney",
    "files": [
     "kenney/impact/footstep_grass_000.ogg",
@@ -897,6 +1169,8 @@
    "gain": 0.35
   },
   "kenney/footstep-snow": {
+   "family": "steps",
+   "says": "a footstep in snow",
    "source": "kenney",
    "files": [
     "kenney/impact/footstep_snow_000.ogg",
@@ -908,6 +1182,8 @@
    "gain": 0.35
   },
   "kenney/footstep-wood": {
+   "family": "steps",
+   "says": "a footstep on wood",
    "source": "kenney",
    "files": [
     "kenney/impact/footstep_wood_000.ogg",
@@ -919,6 +1195,8 @@
    "gain": 0.35
   },
   "kenney/impact-bell-heavy": {
+   "family": "bells",
+   "says": "one heavy metal bell strike",
    "source": "kenney",
    "files": [
     "kenney/impact/impactBell_heavy_000.ogg",
@@ -930,6 +1208,8 @@
    "gain": 0.35
   },
   "kenney/impact-generic-light": {
+   "family": "hit",
+   "says": "a light dull tap on something hard",
    "source": "kenney",
    "files": [
     "kenney/impact/impactGeneric_light_000.ogg",
@@ -941,6 +1221,8 @@
    "gain": 0.35
   },
   "kenney/impact-glass-heavy": {
+   "family": "hit",
+   "says": "a heavy glass hit, darker clink (about 620 Hz)",
    "source": "kenney",
    "files": [
     "kenney/impact/impactGlass_heavy_000.ogg",
@@ -952,6 +1234,8 @@
    "gain": 0.35
   },
   "kenney/impact-glass-light": {
+   "family": "hit",
+   "says": "a light glass clink",
    "source": "kenney",
    "files": [
     "kenney/impact/impactGlass_light_000.ogg",
@@ -963,6 +1247,8 @@
    "gain": 0.35
   },
   "kenney/impact-glass-medium": {
+   "family": "hit",
+   "says": "a glass clink ringing around 950 Hz",
    "source": "kenney",
    "files": [
     "kenney/impact/impactGlass_medium_000.ogg",
@@ -974,6 +1260,8 @@
    "gain": 0.35
   },
   "kenney/impact-metal-heavy": {
+   "family": "hit",
+   "says": "a heavy dull metal bang",
    "source": "kenney",
    "files": [
     "kenney/impact/impactMetal_heavy_000.ogg",
@@ -985,6 +1273,8 @@
    "gain": 0.35
   },
   "kenney/impact-metal-light": {
+   "family": "hit",
+   "says": "a light metal tink",
    "source": "kenney",
    "files": [
     "kenney/impact/impactMetal_light_000.ogg",
@@ -996,6 +1286,8 @@
    "gain": 0.35
   },
   "kenney/impact-metal-medium": {
+   "family": "hit",
+   "says": "a metal clang around 1.1 kHz",
    "source": "kenney",
    "files": [
     "kenney/impact/impactMetal_medium_000.ogg",
@@ -1007,6 +1299,8 @@
    "gain": 0.35
   },
   "kenney/impact-mining": {
+   "family": "hit",
+   "says": "a pickaxe on rock: dull low hits",
    "source": "kenney",
    "files": [
     "kenney/impact/impactMining_000.ogg",
@@ -1018,6 +1312,8 @@
    "gain": 0.35
   },
   "kenney/impact-plank-medium": {
+   "family": "hit",
+   "says": "a wooden plank hit: a low hollow thud",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPlank_medium_000.ogg",
@@ -1029,6 +1325,8 @@
    "gain": 0.35
   },
   "kenney/impact-plate-heavy": {
+   "family": "hit",
+   "says": "a heavy ceramic plate hit, low",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPlate_heavy_000.ogg",
@@ -1040,6 +1338,8 @@
    "gain": 0.35
   },
   "kenney/impact-plate-light": {
+   "family": "hit",
+   "says": "a light ceramic tap, low and dull (a spoon on a bowl rim)",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPlate_light_000.ogg",
@@ -1051,6 +1351,8 @@
    "gain": 0.35
   },
   "kenney/impact-plate-medium": {
+   "family": "hit",
+   "says": "a ceramic plate hit, low",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPlate_medium_000.ogg",
@@ -1062,6 +1364,8 @@
    "gain": 0.35
   },
   "kenney/impact-punch-heavy": {
+   "family": "hit",
+   "says": "a heavy punch: a low meaty thud",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPunch_heavy_000.ogg",
@@ -1073,6 +1377,8 @@
    "gain": 0.35
   },
   "kenney/impact-punch-medium": {
+   "family": "hit",
+   "says": "a punch: a short thud",
    "source": "kenney",
    "files": [
     "kenney/impact/impactPunch_medium_000.ogg",
@@ -1084,6 +1390,8 @@
    "gain": 0.35
   },
   "kenney/impact-soft-heavy": {
+   "family": "hit",
+   "says": "a heavy soft thud",
    "source": "kenney",
    "files": [
     "kenney/impact/impactSoft_heavy_000.ogg",
@@ -1095,6 +1403,8 @@
    "gain": 0.35
   },
   "kenney/impact-soft-medium": {
+   "family": "hit",
+   "says": "a light soft thud",
    "source": "kenney",
    "files": [
     "kenney/impact/impactSoft_medium_000.ogg",
@@ -1106,6 +1416,8 @@
    "gain": 0.35
   },
   "kenney/impact-tin-medium": {
+   "family": "hit",
+   "says": "a tin can hit: a hollow clank around 720 Hz",
    "source": "kenney",
    "files": [
     "kenney/impact/impactTin_medium_000.ogg",
@@ -1117,6 +1429,8 @@
    "gain": 0.35
   },
   "kenney/impact-wood-heavy": {
+   "family": "hit",
+   "says": "a heavy hit on wood: a dark knock",
    "source": "kenney",
    "files": [
     "kenney/impact/impactWood_heavy_000.ogg",
@@ -1128,6 +1442,8 @@
    "gain": 0.35
   },
   "kenney/impact-wood-light": {
+   "family": "hit",
+   "says": "a light wooden tap",
    "source": "kenney",
    "files": [
     "kenney/impact/impactWood_light_000.ogg",
@@ -1139,6 +1455,8 @@
    "gain": 0.35
   },
   "kenney/impact-wood-medium": {
+   "family": "hit",
+   "says": "a hit on wood: a knock around 290 Hz",
    "source": "kenney",
    "files": [
     "kenney/impact/impactWood_medium_000.ogg",
@@ -1150,6 +1468,12 @@
    "gain": 0.35
   },
   "kenney/back": {
+   "family": "ui",
+   "says": "a menu 'back' click",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/back_001.ogg",
@@ -1160,6 +1484,12 @@
    "gain": 0.35
   },
   "kenney/bong": {
+   "family": "ui",
+   "says": "a short low synthetic 'bong' (about 230 Hz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/bong_001.ogg"
@@ -1167,6 +1497,12 @@
    "gain": 0.35
   },
   "kenney/click": {
+   "family": "ui",
+   "says": "a tiny synthetic menu click",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/click_001.ogg",
@@ -1183,6 +1519,12 @@
    "gain": 0.35
   },
   "kenney/close": {
+   "family": "ui",
+   "says": "a menu 'close' swish-click",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/close_001.ogg",
@@ -1193,6 +1535,12 @@
    "gain": 0.35
   },
   "kenney/confirmation": {
+   "family": "ui",
+   "says": "a bright menu 'OK' beep",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/confirmation_001.ogg",
@@ -1203,6 +1551,12 @@
    "gain": 0.35
   },
   "kenney/drop": {
+   "family": "ui",
+   "says": "a tiny synthetic drop blip (about 730 Hz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/drop_001.ogg",
@@ -1213,6 +1567,12 @@
    "gain": 0.35
   },
   "kenney/error": {
+   "family": "ui",
+   "says": "a low buzzy menu error beep",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/error_001.ogg",
@@ -1227,6 +1587,12 @@
    "gain": 0.35
   },
   "kenney/glass": {
+   "family": "ui",
+   "says": "a tiny glassy synthetic ping (about 2.2 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/glass_001.ogg",
@@ -1239,6 +1605,12 @@
    "gain": 0.35
   },
   "kenney/glitch": {
+   "family": "ui",
+   "says": "a short digital glitch crackle (a screen breaking up)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/glitch_001.ogg",
@@ -1249,6 +1621,12 @@
    "gain": 0.35
   },
   "kenney/maximize": {
+   "family": "ui",
+   "says": "a quick menu tone sweeping up (2.3 to 3 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/maximize_001.ogg",
@@ -1264,6 +1642,12 @@
    "gain": 0.35
   },
   "kenney/minimize": {
+   "family": "ui",
+   "says": "a quick menu tone sweeping down (3 to 2.3 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/minimize_001.ogg",
@@ -1279,6 +1663,12 @@
    "gain": 0.35
   },
   "kenney/open": {
+   "family": "ui",
+   "says": "a menu 'open' swish-click",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/open_001.ogg",
@@ -1289,6 +1679,12 @@
    "gain": 0.35
   },
   "kenney/pluck": {
+   "family": "ui",
+   "says": "a tiny plucked synthetic tone (about 1.25 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/pluck_001.ogg",
@@ -1297,6 +1693,12 @@
    "gain": 0.35
   },
   "kenney/question": {
+   "family": "ui",
+   "says": "a menu 'question' beep rising (2 to 3.7 kHz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/question_001.ogg",
@@ -1307,6 +1709,12 @@
    "gain": 0.35
   },
   "kenney/scratch": {
+   "family": "ui",
+   "says": "a short synthetic scratch, a few quick rubs",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/scratch_001.ogg",
@@ -1318,6 +1726,12 @@
    "gain": 0.35
   },
   "kenney/scroll": {
+   "family": "ui",
+   "says": "a fast run of tiny bright ticks (a list scrolling, a swipe)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/scroll_001.ogg",
@@ -1329,6 +1743,12 @@
    "gain": 0.35
   },
   "kenney/select": {
+   "family": "ui",
+   "says": "a menu 'select' beep going up (440 to 610 Hz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/select_001.ogg",
@@ -1343,6 +1763,8 @@
    "gain": 0.35
   },
   "kenney/switch": {
+   "family": "handling",
+   "says": "a small plastic switch or button click (recorded; 45 takes)",
    "source": "kenney",
    "files": [
     "kenney/interface/switch_001.ogg",
@@ -1394,6 +1816,12 @@
    "gain": 0.35
   },
   "kenney/tick": {
+   "family": "ui",
+   "says": "one tiny bright synthetic tick",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/tick_001.ogg",
@@ -1403,6 +1831,12 @@
    "gain": 0.35
   },
   "kenney/toggle": {
+   "family": "ui",
+   "says": "a tiny toggle click",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/interface/toggle_001.ogg",
@@ -1413,6 +1847,13 @@
    "gain": 0.35
   },
   "kenney/nes": {
+   "family": "music",
+   "says": "a short 8-bit tune",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/jingles/8-Bit/jingles_NES00.ogg",
@@ -1436,6 +1877,13 @@
    "gain": 0.35
   },
   "kenney/hit": {
+   "family": "music",
+   "says": "a short orchestral hit sting",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/jingles/Hit/jingles_HIT00.ogg",
@@ -1459,6 +1907,13 @@
    "gain": 0.35
   },
   "kenney/pizzi": {
+   "family": "music",
+   "says": "a short plucked-string tune",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/jingles/Pizzicato/jingles_PIZZI00.ogg",
@@ -1482,6 +1937,13 @@
    "gain": 0.35
   },
   "kenney/sax": {
+   "family": "music",
+   "says": "a short saxophone tune",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/jingles/Sax/jingles_SAX00.ogg",
@@ -1505,6 +1967,13 @@
    "gain": 0.35
   },
   "kenney/steel": {
+   "family": "music",
+   "says": "a short steel-drum tune",
+   "scenes": [
+    "jingle",
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/jingles/Steel/jingles_STEEL00.ogg",
@@ -1528,6 +1997,8 @@
    "gain": 0.35
   },
   "kenney/belt-handle": {
+   "family": "handling",
+   "says": "a belt buckle and leather handled: small bright jingles",
    "source": "kenney",
    "files": [
     "kenney/rpg/beltHandle1.ogg",
@@ -1536,6 +2007,8 @@
    "gain": 0.35
   },
   "kenney/book-close": {
+   "family": "office",
+   "says": "a book shut",
    "source": "kenney",
    "files": [
     "kenney/rpg/bookClose.ogg"
@@ -1543,6 +2016,8 @@
    "gain": 0.35
   },
   "kenney/book-flip": {
+   "family": "office",
+   "says": "pages flipping",
    "source": "kenney",
    "files": [
     "kenney/rpg/bookFlip1.ogg",
@@ -1552,6 +2027,8 @@
    "gain": 0.35
   },
   "kenney/book-open": {
+   "family": "office",
+   "says": "a book opened: a soft low thump",
    "source": "kenney",
    "files": [
     "kenney/rpg/bookOpen.ogg"
@@ -1559,6 +2036,8 @@
    "gain": 0.35
   },
   "kenney/book-place": {
+   "family": "office",
+   "says": "a book set down: a papery thump",
    "source": "kenney",
    "files": [
     "kenney/rpg/bookPlace1.ogg",
@@ -1568,6 +2047,8 @@
    "gain": 0.35
   },
   "kenney/chop": {
+   "family": "blade",
+   "says": "one chop into wood",
    "source": "kenney",
    "files": [
     "kenney/rpg/chop.ogg"
@@ -1575,6 +2056,8 @@
    "gain": 0.35
   },
   "kenney/cloth": {
+   "family": "handling",
+   "says": "cloth handled: a few soft low rubs",
    "source": "kenney",
    "files": [
     "kenney/rpg/cloth1.ogg",
@@ -1585,6 +2068,8 @@
    "gain": 0.35
   },
   "kenney/cloth-belt": {
+   "family": "handling",
+   "says": "cloth and a belt: soft rubs with a little jingle",
    "source": "kenney",
    "files": [
     "kenney/rpg/clothBelt.ogg",
@@ -1593,6 +2078,8 @@
    "gain": 0.35
   },
   "kenney/creak": {
+   "family": "door",
+   "says": "a short wooden creak",
    "source": "kenney",
    "files": [
     "kenney/rpg/creak1.ogg",
@@ -1602,30 +2089,30 @@
    "gain": 0.35
   },
   "kenney/door-close": {
+   "family": "door",
+   "says": "an old wooden door closing",
    "source": "kenney",
    "files": [
     "kenney/rpg/doorClose_1.ogg",
     "kenney/rpg/doorClose_2.ogg",
     "kenney/rpg/doorClose_3.ogg",
-    "kenney/rpg/doorClose_4.ogg",
-    "kenney/scifi/doorClose_000.ogg",
-    "kenney/scifi/doorClose_001.ogg",
-    "kenney/scifi/doorClose_002.ogg"
+    "kenney/rpg/doorClose_4.ogg"
    ],
    "gain": 0.35
   },
   "kenney/door-open": {
+   "family": "door",
+   "says": "an old wooden door opening",
    "source": "kenney",
    "files": [
     "kenney/rpg/doorOpen_1.ogg",
-    "kenney/rpg/doorOpen_2.ogg",
-    "kenney/scifi/doorOpen_000.ogg",
-    "kenney/scifi/doorOpen_001.ogg",
-    "kenney/scifi/doorOpen_002.ogg"
+    "kenney/rpg/doorOpen_2.ogg"
    ],
    "gain": 0.35
   },
   "kenney/draw-knife": {
+   "family": "blade",
+   "says": "a knife drawn from a sheath",
    "source": "kenney",
    "files": [
     "kenney/rpg/drawKnife1.ogg",
@@ -1635,6 +2122,8 @@
    "gain": 0.35
   },
   "kenney/drop-leather": {
+   "family": "handling",
+   "says": "a leather bag dropped: a soft low flop",
    "source": "kenney",
    "files": [
     "kenney/rpg/dropLeather.ogg"
@@ -1642,6 +2131,8 @@
    "gain": 0.35
   },
   "kenney/footstep": {
+   "family": "steps",
+   "says": "a shoe on a hard indoor floor",
    "source": "kenney",
    "files": [
     "kenney/rpg/footstep00.ogg",
@@ -1658,6 +2149,8 @@
    "gain": 0.35
   },
   "kenney/handle-coins": {
+   "family": "handling",
+   "says": "coins jingling",
    "source": "kenney",
    "files": [
     "kenney/rpg/handleCoins.ogg",
@@ -1666,6 +2159,8 @@
    "gain": 0.35
   },
   "kenney/handle-small-leather": {
+   "family": "handling",
+   "says": "a small leather pouch handled: a quick rub",
    "source": "kenney",
    "files": [
     "kenney/rpg/handleSmallLeather.ogg",
@@ -1674,6 +2169,8 @@
    "gain": 0.35
   },
   "kenney/knife-slice": {
+   "family": "blade",
+   "says": "a knife slicing",
    "source": "kenney",
    "files": [
     "kenney/rpg/knifeSlice.ogg",
@@ -1682,6 +2179,8 @@
    "gain": 0.35
   },
   "kenney/metal-click": {
+   "family": "handling",
+   "says": "a small metal click rising bright (a clasp, a buckle)",
    "source": "kenney",
    "files": [
     "kenney/rpg/metalClick.ogg"
@@ -1689,6 +2188,8 @@
    "gain": 0.35
   },
   "kenney/metal-latch": {
+   "family": "door",
+   "says": "a metal latch dropping: a bright clack",
    "source": "kenney",
    "files": [
     "kenney/rpg/metalLatch.ogg"
@@ -1696,6 +2197,8 @@
    "gain": 0.35
   },
   "kenney/metal-pot": {
+   "family": "hit",
+   "says": "a metal pot hit",
    "source": "kenney",
    "files": [
     "kenney/rpg/metalPot1.ogg",
@@ -1705,6 +2208,12 @@
    "gain": 0.35
   },
   "kenney/computer-noise": {
+   "family": "scifi",
+   "says": "a 5 s sci-fi computer warble (a robot thinking)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/computerNoise_000.ogg",
@@ -1714,7 +2223,43 @@
    ],
    "gain": 0.35
   },
+  "kenney/scifi-door-close": {
+   "family": "scifi",
+   "says": "a sci-fi airlock door closing: a pneumatic hiss and clunk",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
+   "source": "kenney",
+   "files": [
+    "kenney/scifi/doorClose_000.ogg",
+    "kenney/scifi/doorClose_001.ogg",
+    "kenney/scifi/doorClose_002.ogg"
+   ],
+   "gain": 0.35
+  },
+  "kenney/scifi-door-open": {
+   "family": "scifi",
+   "says": "a sci-fi airlock door opening: a pneumatic hiss",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
+   "source": "kenney",
+   "files": [
+    "kenney/scifi/doorOpen_000.ogg",
+    "kenney/scifi/doorOpen_001.ogg",
+    "kenney/scifi/doorOpen_002.ogg"
+   ],
+   "gain": 0.35
+  },
   "kenney/engine-circular": {
+   "family": "scifi",
+   "says": "a 5 s spaceship engine with a fast pulsing loop",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/engineCircular_000.ogg",
@@ -1726,6 +2271,12 @@
    "gain": 0.35
   },
   "kenney/explosion-crunch": {
+   "family": "scifi",
+   "says": "a sci-fi explosion with a low crunching rumble, 1.5 s",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/explosionCrunch_000.ogg",
@@ -1737,6 +2288,12 @@
    "gain": 0.35
   },
   "kenney/force-field": {
+   "family": "scifi",
+   "says": "a force field hum",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/forceField_000.ogg",
@@ -1748,6 +2305,12 @@
    "gain": 0.35
   },
   "kenney/impact-metal": {
+   "family": "scifi",
+   "says": "a sci-fi metal impact, low and boomy",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/impactMetal_000.ogg",
@@ -1759,6 +2322,12 @@
    "gain": 0.35
   },
   "kenney/laser-large": {
+   "family": "scifi",
+   "says": "a big laser blast",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/laserLarge_000.ogg",
@@ -1770,6 +2339,12 @@
    "gain": 0.35
   },
   "kenney/laser-retro": {
+   "family": "scifi",
+   "says": "a retro laser 'pew' around 2 kHz",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/laserRetro_000.ogg",
@@ -1781,6 +2356,12 @@
    "gain": 0.35
   },
   "kenney/laser-small": {
+   "family": "scifi",
+   "says": "a small laser",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/laserSmall_000.ogg",
@@ -1792,6 +2373,12 @@
    "gain": 0.35
   },
   "kenney/low-frequency-explosion": {
+   "family": "scifi",
+   "says": "a deep sci-fi boom with rumble",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/lowFrequency_explosion_000.ogg",
@@ -1800,6 +2387,12 @@
    "gain": 0.35
   },
   "kenney/slime": {
+   "family": "scifi",
+   "says": "a 4.7 s bubbly electronic warble around 1.4 kHz (a sci-fi alien blip). NOT goo or a wet splat: for that ask for 'splort'",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/slime_000.ogg",
@@ -1808,6 +2401,12 @@
    "gain": 0.35
   },
   "kenney/space-engine-large": {
+   "family": "scifi",
+   "says": "a 5 s big spaceship engine drone, low",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/spaceEngineLarge_000.ogg",
@@ -1819,6 +2418,12 @@
    "gain": 0.35
   },
   "kenney/space-engine-low": {
+   "family": "scifi",
+   "says": "a 5 s low spaceship engine drone",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/spaceEngineLow_000.ogg",
@@ -1830,6 +2435,12 @@
    "gain": 0.35
   },
   "kenney/space-engine-small": {
+   "family": "scifi",
+   "says": "a 5 s small spaceship engine, buzzing",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/spaceEngineSmall_000.ogg",
@@ -1841,6 +2452,12 @@
    "gain": 0.35
   },
   "kenney/space-engine": {
+   "family": "scifi",
+   "says": "a 5 s spaceship engine drone",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/spaceEngine_000.ogg",
@@ -1851,6 +2468,12 @@
    "gain": 0.35
   },
   "kenney/thruster-fire": {
+   "family": "scifi",
+   "says": "a 5 s rocket thruster roar, crackling",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/scifi/thrusterFire_000.ogg",
@@ -1862,6 +2485,8 @@
    "gain": 0.35
   },
   "kenney/mouseclick": {
+   "family": "office",
+   "says": "a real computer mouse button pressed",
    "source": "kenney",
    "files": [
     "kenney/ui/mouseclick1.ogg"
@@ -1869,6 +2494,8 @@
    "gain": 0.35
   },
   "kenney/mouserelease": {
+   "family": "office",
+   "says": "a real computer mouse button released",
    "source": "kenney",
    "files": [
     "kenney/ui/mouserelease1.ogg"
@@ -1876,6 +2503,12 @@
    "gain": 0.35
   },
   "kenney/rollover": {
+   "family": "ui",
+   "says": "a tiny menu hover blip (about 710 Hz)",
+   "scenes": [
+    "scifi",
+    "ui"
+   ],
    "source": "kenney",
    "files": [
     "kenney/ui/rollover1.ogg",
@@ -1888,6 +2521,8 @@
    "gain": 0.35
   },
   "ai/katana-slice": {
+   "family": "blade",
+   "says": "an AI sword slash with a bright ring (Jonny preferred the code 'shing')",
    "source": "ai",
    "files": [
     "ai/katana-slice/katana-slice-01.wav",
@@ -1903,6 +2538,8 @@
    ]
   },
   "ai/step-wood": {
+   "family": "steps",
+   "says": "AI footsteps on wood (Jonny kept the Kenney ones)",
    "source": "ai",
    "files": [
     "ai/step-wood/step-wood-01.wav",
@@ -1921,6 +2558,8 @@
    ]
   },
   "ai/step-grass": {
+   "family": "steps",
+   "says": "AI footsteps on grass and leaves (Jonny kept the Kenney ones)",
    "source": "ai",
    "files": [
     "ai/step-grass/step-grass-01.wav",
@@ -1939,6 +2578,8 @@
    ]
   },
   "ai/step-concrete": {
+   "family": "steps",
+   "says": "AI footsteps on concrete (Jonny kept the Kenney ones)",
    "source": "ai",
    "files": [
     "ai/step-concrete/step-concrete-01.wav",
@@ -1957,6 +2598,8 @@
    ]
   },
   "ai/step-carpet": {
+   "family": "steps",
+   "says": "AI footsteps on carpet",
    "source": "ai",
    "files": [
     "ai/step-carpet/step-carpet-01.wav",
@@ -1975,6 +2618,8 @@
    ]
   },
   "ai/key-press": {
+   "family": "office",
+   "says": "AI keyboard key presses",
    "source": "ai",
    "files": [
     "ai/key-press/key-press-01.wav",
@@ -1994,6 +2639,8 @@
    ]
   },
   "ai/knock": {
+   "family": "door",
+   "says": "AI knuckle knocks on a wooden door (all 8 takes; 'knock' uses Jonny's three)",
    "source": "ai",
    "files": [
     "ai/knock/knock-01.wav",
@@ -2013,6 +2660,8 @@
    ]
   },
   "ai/magic-zap": {
+   "family": "magic",
+   "says": "an AI magic zap: a 2 s bright sparkly crackle (Jonny kept the Kenney 'zap')",
    "source": "ai",
    "files": [
     "ai/magic-zap/magic-zap-01.wav",
@@ -2029,6 +2678,8 @@
    ]
   },
   "ai/wing-flap": {
+   "family": "cartoon",
+   "says": "AI wing beats",
    "source": "ai",
    "files": [
     "ai/wing-flap/wing-flap-01.wav",
@@ -2048,6 +2699,8 @@
    ]
   },
   "ai/sip": {
+   "family": "food",
+   "says": "a tiny polite sip from a spoon: a small bright slurp",
    "source": "ai",
    "files": [
     "ai/sip/sip-01.wav",
@@ -2063,6 +2716,8 @@
    ]
   },
   "ai/heartbeat": {
+   "family": "body",
+   "says": "one slow deep heartbeat: a low muffled double thump, 1.6 s",
    "source": "ai",
    "files": [
     "ai/heartbeat/heartbeat-01.wav",
@@ -2076,6 +2731,8 @@
    ]
   },
   "ai/blep": {
+   "family": "body",
+   "says": "a tiny wet cartoon mouth 'blep' or hiccup",
    "source": "ai",
    "files": [
     "ai/blep/blep-01.wav",
@@ -2091,6 +2748,8 @@
    ]
   },
   "ai/drip": {
+   "family": "wet",
+   "says": "a small drop of soup falling into a bowl: a tiny wet plop",
    "source": "ai",
    "files": [
     "ai/drip/drip-01.wav",
@@ -2106,6 +2765,8 @@
    ]
   },
   "ai/crunch": {
+   "family": "food",
+   "says": "one crisp bite into a dry biscuit: a bright crackly crunch",
    "source": "ai",
    "files": [
     "ai/crunch/crunch-01.wav",
@@ -2123,6 +2784,8 @@
    ]
   },
   "ai/bowl-scrape": {
+   "family": "food",
+   "says": "a ceramic bowl slid over a wooden table: a soft continuous scrape, 1.4 to 2.2 s",
    "source": "ai",
    "files": [
     "ai/bowl-scrape/bowl-scrape-01.wav",
@@ -2140,6 +2803,8 @@
    ]
   },
   "ai/dundun": {
+   "family": "music",
+   "says": "a dramatic two-hit sting, brass and timpani: 'dö-döm', 1.4 s (made for Charger's catch)",
    "source": "ai",
    "files": [
     "ai/dundun/dundun-01.wav"
@@ -2154,7 +2819,60 @@
     "brass"
    ]
   },
+  "ai-package/cardboard-rustle": {
+   "family": "handling",
+   "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
+   "source": "ai-package",
+   "files": [
+    "ai-package/cardboard-rustle/cardboard-rustle-01.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-02.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-03.wav",
+    "ai-package/cardboard-rustle/cardboard-rustle-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "cardboard",
+    "box",
+    "rustle",
+    "grab"
+   ]
+  },
+  "ai-package/box-set-down": {
+   "family": "handling",
+   "says": "a small cardboard box set down: a soft hollow thud (AI)",
+   "source": "ai-package",
+   "files": [
+    "ai-package/box-set-down/box-set-down-01.wav",
+    "ai-package/box-set-down/box-set-down-02.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "cardboard",
+    "box",
+    "put-down",
+    "thud"
+   ]
+  },
+  "ai-package/flat-exhale": {
+   "family": "body",
+   "says": "a flat, deflated exhale (AI)",
+   "source": "ai-package",
+   "files": [
+    "ai-package/flat-exhale/flat-exhale-01.wav",
+    "ai-package/flat-exhale/flat-exhale-02.wav",
+    "ai-package/flat-exhale/flat-exhale-03.wav",
+    "ai-package/flat-exhale/flat-exhale-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "breath",
+    "exhale",
+    "sigh"
+   ]
+  },
   "oga/fart-viking": {
+   "family": "body",
+   "says": "a short low fart, a few flutters (recorded by mouth, 2 semitones down)",
    "source": "oga",
    "files": [
     "oga/fart/fart-viking.ogg"
@@ -2167,6 +2885,8 @@
    ]
   },
   "oga/fart-viking-2": {
+   "family": "body",
+   "says": "a short low fart, two pulses (3 semitones down)",
    "source": "oga",
    "files": [
     "oga/fart/fart-viking-2.ogg"
@@ -2179,6 +2899,8 @@
    ]
   },
   "oga/fart-wizard": {
+   "family": "body",
+   "says": "a squeaky fart, eight quick flutters",
    "source": "oga",
    "files": [
     "oga/fart/fart-wizard.ogg"
@@ -2190,6 +2912,8 @@
    ]
   },
   "oga/fart-astronaut": {
+   "family": "body",
+   "says": "a higher fart muffled as if inside a suit",
    "source": "oga",
    "files": [
     "oga/fart/fart-astronaut.ogg"
@@ -2202,6 +2926,8 @@
    ]
   },
   "wing-flap": {
+   "family": "cartoon",
+   "says": "one big feathered wing beat with a whoosh of air (AI 'AI B'; auto on Phoenix's downstrokes)",
    "source": "ai",
    "files": [
     "ai/wing-flap/wing-flap-05.wav",
@@ -2214,6 +2940,8 @@
    "anchor": "hit"
   },
   "knock-hit": {
+   "family": "door",
+   "says": "one knuckle knock on solid wood (AI)",
    "source": "ai",
    "files": [
     "ai/knock/knock-04.wav",

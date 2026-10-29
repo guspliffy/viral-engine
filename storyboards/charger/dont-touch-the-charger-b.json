@@ -40,6 +40,9 @@
   "sfx": 0.7,
   "ambience": 0.3,
   "speech": false,
+  "scenes": [
+   "ui"
+  ],
   "signature": {
    "payoff": false
   }
