@@ -39,6 +39,14 @@ date it was checked; recheck the sources when it is months old.
 Studio roadmap) and are hypotheses to test with experiments (`experiments/README.md`). The checker measures them as
 diagnostics and adds notes, never failures. A storyboard changes them in a `creative` block.
 
+- Frame 0 is a two-shot of the joke: every face it needs and the thing it's about are in frame (`"hook": { "show" }`),
+  and something hints at trouble by 2.0 s (`"hook": { "hint", "what" }`; the twist itself can come later). Most
+  viewers have decided by 0:02 (TikTok, 28 Oct). `qa/hook.mjs` notes both; the cold read picks by "keep watching".
+- Reactions play at full strength (`act.mood`: angry, annoyed, any face preset; medium only when the story wants a
+  small one). Following Jonny's eyebrow sheet (29 Oct), focus and anger come from an inward brow angle plus a lid
+  squint. Brows stay outside the eye whites with a strip of skin under them, and the lid line is thinner than the
+  brow. Never push the brows down into the eyes, and ease a face change over 0.25 s or more. A reaction a face won't carry at phone size gets a small emotion word over the head (`act.emote`,
+  "annoyed", "?!"), one or two per clip.
 - Frame 0 shows a character mid-action (no title card, fade-in or establishing shot), the premise reads by 3 s, the
   ending loops into the start (no end card; `loop-seam` checks that actors, camera and picture keep their speed across it), something new happens at least every 2 s, and the length is 12–20 s
   (longer with an escalation beat). A deliberate pause or reaction hold is fine when the story needs it.
@@ -65,10 +73,21 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
   more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
+- **Every named sound is chosen for what happens on screen**, and the delivery says it in Jonny's words (splort,
+  dö-döm, crunch). The payoff's sound is always picked by hand. Both "bling"s Jonny caught on 29 Oct came from a
+  library name that lied (`kenney/slime` is a sci-fi blip) and an automatic signature sparkle on a payoff.
+- **Only whitelisted sounds** (`assets/sfx/whitelist.json`, `engine/sfx/whitelist.mjs`): every sound has a plain line
+  saying what it really sounds like, written from measurements (`engine/sfx/measure.mjs`), never from its file name.
+  Pick sounds by what they should sound like (`node engine/sfx/whitelist.mjs wet`), or name them in Jonny's words
+  ("bonk", "dö-döm", "splort"). Sci-fi blips, menu beeps and jingles only play in a clip that declares the scene
+  (`"sound": { "scenes": ["ui"] }` / `"scifi"` / `"jingle"`). `loadStoryboard` refuses undescribed or out-of-scene
+  sounds before any render. A new sound gets measured and described in `whitelist.json` first.
 - **Each lead has a signature sound and each set its room** (`engine/sfx/signature.mjs`, `engine/sfx/rooms.mjs`):
-  Phoenix's flame whoosh, Reaper's low bell and the Wizard's sparkle play when a lead first walks or cuts into frame
-  and on the payoff, never varied; mark the punchline `"kind": "payoff"` so it gets one. Don't add more by hand
-  unless the beat is about who just arrived. The reverb follows the set type (a lift is a box, the haunted house a hall).
+  Phoenix's flame whoosh, Reaper's low bell and the Wizard's sparkle, never varied. They play on a lead's entrance
+  (the first time they walk or cut into frame), and on the payoff only when the payoff is that lead's own trick
+  (Wizard charge, Phoenix fly/flare, Reaper slash). Don't add more by hand unless the beat is about who just arrived.
+  The sad trombone on a droop and the "dun!" sting on a shocked face are opt-in (`sound.autoTrombone` /
+  `sound.autoSting`). The reverb follows the set type (a lift is a box, the haunted house a hall).
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).
@@ -102,8 +121,20 @@ Every glitch Jonny caught after the look was set was a contact problem the file 
 12. **A/B option sheets get a pixel-difference check**, so two "different" options are never the same picture.
 13. **Hands and held props stay off other characters' heads and faces**, and a fist holding a prop stays off the top of
     a head on screen: in front or behind, it reads as stuck to the head (the look busy remake).
+14. **A hand on a prop touches its surface**, holding or pushing, and never sinks more than about 1 cm in (Charger: a
+    glove inside the bowl it slides). Arms, beards and costume parts count as body against every prop in reach,
+    including props someone else holds (Package: the parcel through Reaper's forearm).
+15. **A thin prop shows on both sides of the fist** (straw, pen, cable): grip it high, the working end clearly below
+    the hand, the fingers over it on the camera side (Vampire: a straw held near its end looked like it grew out of
+    the glove).
+16. **Keep the real-world hold.** When a check fails, change the path, the prop's size or the camera, not the hold.
+    A grip a person wouldn't use is a fail even when every check passes (DUO: "nobody would hold a phone like this").
 
 ## Writing clips
+
+When Jonny wrote a brief (his story library's ENGINE-PROMPT.md), follow its shots, placements, props and "no ..."
+rules literally; a theft reads only if the thing starts where the brief puts it (Charger). Departures go in the
+delivery with a reason.
 
 Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it, fill the four brief lines, keep
 the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in
@@ -128,7 +159,8 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    red above all characters as black silhouettes: a pose that doesn't read in black won't read in a feed.
 2. **Creative director review A (storyboard)**: Fable reviews the storyboard, a contact sheet of the draft stills and
    the readability sheet.
-   See `qa/REVIEW.md`. **Default for every new clip**, one round. Apply the notes, then go to step 3.
+   See `qa/REVIEW.md`. **Default for every new clip**, one round. Give it Jonny's brief: the brief wins, and
+   notes against it are dropped without a round. Apply the notes, then go to step 3.
 3. **Draft render + checks** (~2 min): `node engine/render.mjs <sb> --draft`, then
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
@@ -141,7 +173,8 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
 6. **Deliver** the MP4, its cover, a one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
-   viewer read ("would you finish, where would you stop") from review B (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
+   viewer read ("would you finish, where would you stop") from review B, and the ten self-review answers
+   (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
 
 Fable is the creative director, Jonny is the producer: premise, characters, look, and anything that needs new art
 are his call. Skip the reviews only for pure engine tests, and say so.

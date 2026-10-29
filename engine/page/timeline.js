@@ -51,6 +51,10 @@ export const GRIPS = {
   // the fingers, by the thumb
   phoneEdge: { curl: 0.04, index: 0.04, thumb: 0.9, edge: 1 },
   phoneEdgeReady: { curl: 0.04, index: 0.04, thumb: 0.15, edge: 0 },   // the same, the thumb held off beside the edge
+  // a hand reaching out over a tabletop, palm down, the index leading along the forearm (a reach for a plug)
+  hover: { curl: 0.25, index: 0.02, thumb: 0.3, down: 1, ahead: 0 },
+  // a hand closed from above round something thin (a wrist, a rail): palm down, the fingers curled down round it
+  clasp: { curl: 0.8, index: 0.75, thumb: 0.7, down: 1, ahead: 0 },
 };
 export const PHONE_EDGE = [0.02, 0.04, 0.0215];
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw

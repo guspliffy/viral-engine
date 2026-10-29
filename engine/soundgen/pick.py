@@ -147,10 +147,10 @@ class Clap:
 
 def sfx(rec, raw, outdir, clap, report):
     sounds = []
-    labels = list(LABELS.values())
+    labels = list(LABELS.values()) + [r["label"] for r in rec["sfx"] if r.get("label")]
     for r in rec["sfx"]:
         rid, kind, (lo, hi) = r["id"], r["kind"], r["len"]
-        label = LABELS[rid]
+        label = r.get("label") or LABELS[rid]   # a recipe file of its own can carry its CLAP label
         extra = [l for l in labels if l != label and not (rid.startswith("step-") and "footstep" in l)] + DISTRACTORS
         cands = []
         for pi, prompt in enumerate(r["prompts"]):
@@ -262,7 +262,10 @@ def music(rec, raw, outdir, clap, report):
 def manifest(path, items, model_url):
     src = dict(name="Stable Audio 3 Small (generated locally with sa3.cpp)", url=model_url, license=LICENSE,
                generated="engine/soundgen (recipes.json -> generate.py -> pick.py)")
-    json.dump(dict(source=src, sounds=items), open(path, "w"), indent=1)
+    # sounds made from another recipe file stay in the manifest; only the ids made now are replaced
+    try: old = [x for x in json.load(open(path))["sounds"] if x["id"] not in {i["id"] for i in items}]
+    except (OSError, ValueError, KeyError): old = []
+    json.dump(dict(source=src, sounds=old + items), open(path, "w"), indent=1)
 
 
 def main():

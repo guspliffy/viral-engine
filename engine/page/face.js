@@ -22,6 +22,10 @@ export const EXPRESSIONS = {
   evil:      { tilt: -0.5, browY: 0.0,   curve: 0.85, open: 0.4,  eye: 0.8,  pupil: 0.9,  smirk: 0.0, raise: 0.0 },
   focused:   { tilt: -0.36, browY: -0.01, curve: 0.1, open: 0.0,  eye: 0.8,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   stern:     { tilt: -0.45, browY: -0.01, curve: -0.2, open: 0.0, eye: 0.85, pupil: 1.0,  smirk: 0.0, raise: 0.0 },
+  // full-strength reactions (Jonny, 29 Oct: "more angry and annoyed", and his eyebrow sheet): the brows angle in and
+  // stay above the eyes, the lids squint (acting.mjs mood sets them), the mouth carries the rest
+  annoyed:   { tilt: -0.25, browY: -0.03, curve: -0.2, open: 0.0,  eye: 0.74, pupil: 1.0,  smirk: 0.18, raise: 0.03 },
+  angry:     { tilt: -0.35, browY: -0.03, curve: -0.6, open: 0.06, eye: 0.74, pupil: 0.9,  smirk: 0.0, raise: 0.0 },
   deadpan:   { tilt: 0.0,  browY: -0.015, curve: 0.0, open: 0.0,  eye: 0.6,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   serene:    { tilt: 0.1,  browY: 0.0,   curve: 0.35, open: 0.0,  eye: 0.06, pupil: 1.0,  smirk: 0.0, raise: 0.0 },   // eyes closed, content
   dizzy:     { tilt: 0.42, browY: 0.02,  curve: -0.35, open: 0.3, eye: 1.08, pupil: 0.45, smirk: 0.4, raise: 0.02 },
@@ -199,6 +203,26 @@ export class Face {
   // turned eyes and cheeks the wrong way whenever a character stood away from the origin)
   _orient(obj, p) { obj.position.copy(p.pos); _m.lookAt(_t.copy(p.pos).add(p.normal), p.pos, _up); obj.quaternion.setFromRotationMatrix(_m); }
 
+  // browShape.clear (metres): how far a brow is lifted, as a whole, so a strip of skin at least that wide shows between
+  // its underside and the top of the eye's lid line at every point along it, whatever the expression asks (the brow
+  // keeps its angle; it never runs into the eye white or merges with the lid line). The eye is an ellipse on the
+  // face (its size in face units measured on the surface, wide eyes taller); points outside its width only need to
+  // clear its edge height. Continuous in every control, so a change of expression never snaps the brow.
+  _browClear(side, pts, e) {
+    const L = this.layout, s = this.size, B = this.browStyle, E = this.eyeStyle, r = 0.08 * s, d = 0.01;
+    const o = this.place(side * L.eyeU, L.eyeV).pos;
+    const su = this.place(side * (L.eyeU + d), L.eyeV).pos.distanceTo(o) / d, sv = this.place(side * L.eyeU, L.eyeV + d).pos.distanceTo(o) / d;
+    const a = (r * 0.9) / su, b = (r * 0.9 * E.oval * Math.max(1, e.eye)) / sv;
+    // the brow's widest half-thickness and the lid line's, both in metres
+    const need = B.clear + s * B.thick * ((B.tip ?? 0.006) + 0.013) + r * E.lash * 0.086;
+    let up = 0;
+    for (const [u, v] of pts) {
+      const dx = (Math.abs(u) - L.eyeU) / a, top = L.eyeV + b * Math.sqrt(Math.max(0, 1 - dx * dx));
+      up = Math.max(up, top + need / sv - v);
+    }
+    return up;
+  }
+
   _surfLine(pts, lift) {
     // pts: [[u,v],...] in face coords -> points just above the surface
     return pts.map(([u, v]) => { const p = this.place(u, v); return p.pos.clone().addScaledVector(p.normal, lift); });
@@ -263,7 +287,7 @@ export class Face {
     for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
     // geometry that depends on the expression is rebuilt only when it changes
     const round = e.round || 0;
-    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press].map((x) => x.toFixed(3)).join("|");
+    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, this.browStyle.clear != null ? e.eye : 0].map((x) => x.toFixed(3)).join("|");
     if (key === this._lastKey) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
@@ -278,6 +302,7 @@ export class Face {
         const arch = Math.sin(t * Math.PI) * B.arch;
         pts.push([u, yb + arch + (1 - t) * tilt * 0.35 - t * tilt * 0.05]);
       }
+      if (B.clear != null) { const up = this._browClear(side, pts, e); for (const q of pts) q[1] += up; }
       const curve = new THREE.CatmullRomCurve3(this._surfLine(pts, (B.lift ?? 0.012) * s));
       // thick in the middle, tapering to both ends, like the portraits' brush-stroke brows (browShape.taper: higher is
       // a finer point, tip: the width left at the ends, lift: how far off the skin it sits)

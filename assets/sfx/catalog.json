@@ -2764,6 +2764,61 @@
     "drop"
    ]
   },
+  "ai/crunch": {
+   "family": "food",
+   "says": "one crisp bite into a dry biscuit: a bright crackly crunch",
+   "source": "ai",
+   "files": [
+    "ai/crunch/crunch-01.wav",
+    "ai/crunch/crunch-02.wav",
+    "ai/crunch/crunch-03.wav",
+    "ai/crunch/crunch-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "crunch",
+    "bite",
+    "biscuit",
+    "eat",
+    "mouth"
+   ]
+  },
+  "ai/bowl-scrape": {
+   "family": "food",
+   "says": "a ceramic bowl slid over a wooden table: a soft continuous scrape, 1.4 to 2.2 s",
+   "source": "ai",
+   "files": [
+    "ai/bowl-scrape/bowl-scrape-01.wav",
+    "ai/bowl-scrape/bowl-scrape-02.wav",
+    "ai/bowl-scrape/bowl-scrape-03.wav",
+    "ai/bowl-scrape/bowl-scrape-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "scrape",
+    "slide",
+    "bowl",
+    "ceramic",
+    "table"
+   ]
+  },
+  "ai/dundun": {
+   "family": "music",
+   "says": "a dramatic two-hit sting, brass and timpani: 'dö-döm', 1.4 s (made for Charger's catch)",
+   "source": "ai",
+   "files": [
+    "ai/dundun/dundun-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sting",
+    "dun dun",
+    "dramatic",
+    "suspense",
+    "caught",
+    "brass"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
