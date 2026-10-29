@@ -152,8 +152,8 @@ A(6.45, "dra", "still", { dur: 2.5, idle: 0.1 });
 
 // ---------------------------------------------------------------- 05 HE NOTICED 8.40-8.90
 A(8.42, "wiz", "look", { to: WIZ_AT_HAND, dur: 0.07, blink: false });             // a snap: eyes first
-A(8.5, "wiz", "face", { lid: 0.12, brow: -0.3, dur: 0.12 });                        // the lids narrow, the brows angle in (they stay clear of the eyes: browShape.clear)
-A(8.5, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15, tilt: -0.22 }, dur: 0.12 });
+A(8.47, "wiz", "face", { lid: 0.12, brow: -0.3, dur: 0.28 });                        // the lids narrow, the brows angle in (they stay clear of the eyes: browShape.clear)
+A(8.47, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15, tilt: -0.22 }, dur: 0.28 });   // eased, so the squint and the brows never snap
 A(8.45, "wiz", "still", { dur: 0.45, idle: 0.05 });
 
 // ---------------------------------------------------------------- 06 BOUNDARY 8.90-10.40
