@@ -35,7 +35,10 @@
  "sound": {
   "sfx": 0.7,
   "ambience": 0.1,
-  "speech": false
+  "speech": false,
+  "scenes": [
+   "ui"
+  ]
  },
  "experiment": {
   "id": "hook-2026-11",
