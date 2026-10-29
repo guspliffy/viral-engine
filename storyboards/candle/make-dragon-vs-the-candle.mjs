@@ -148,7 +148,7 @@ A(2.7, "dra", "face", { brow: 0.4, lid: 0, dur: 0.15 });
 A(2.7, "dra", "lean", { to: -1, dur: 0.3 });
 // the Wizard: a finger up, wait
 A(2.85, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.12, blink: false });
-c.arm(2.85, "wiz", "L", { world: [-0.18, 0.56, 0.58] }, 0.22, "out");   // below his eyes, clear of Dragon's cheek
+c.arm(2.85, "wiz", "L", { world: [-0.06, 0.74, 0.4] }, 0.22, "out");   // the finger up in the gap between the faces (the new hand points along the forearm)
 A(2.85, "wiz", "grip", { side: "L", shape: "point", dur: 0.15 });
 act.mood(c, 2.9, "wiz", "stern", { hold: 0.5 });
 A(3.0, "dra", "look", { to: DRA_AT_WIZ, dur: 0.15, blink: false });
@@ -199,12 +199,12 @@ A(5.83, "wiz", "lean", { to: 0, dur: 0.4 });
 A(5.83, "wiz", "look", { to: WIZ_AT_DOME, dur: 0.2, blink: false });
 c.arm(6.0, "wiz", "L", { prop: "dome", grip: "knob", at: DOME0 }, 0.2, "inOut");       // on the table at 6.2
 sfx(6.2, "put-down-glass", { gain: 0.25, reason: "the dome set back down on the wooden table" });
-A(6.28, "wiz", "release", { prop: "dome", dur: 0 });
-A(6.2, "wiz", "grip", { side: "L", shape: "open", dur: 0.12 });
-c.arm(6.3, "wiz", "L", { world: [-0.06, 0.52, 0.8] }, 0.2, "out");   // the hand leaves the knob to the right and in front, away from his face...
-c.arm(6.5, "wiz", "L", { world: [-0.12, 0.4, 0.55] }, 0.2, "inOut"); // ...down past the dome's side...
-c.arm(6.7, "wiz", "L", PAW(-0.16, 0.4), 0.25, "inOut");                // ...to rest between the dome and the plate
-A(6.5, "wiz", "grip", { side: "L", shape: "paw", dur: 0.35 });
+A(6.21, "wiz", "release", { prop: "dome", dur: 0 });
+A(6.2, "wiz", "grip", { side: "L", shape: "open", dur: 0.08 });
+c.arm(6.22, "wiz", "L", { world: [-0.1, 0.42, 0.82] }, 0.15, "out");   // the hand drops off the knob to the right, down and in front, below his face...
+c.arm(6.4, "wiz", "L", { world: [-0.08, 0.36, 0.55] }, 0.2, "inOut"); // ...back past the dome's side...
+c.arm(6.6, "wiz", "L", PAW(-0.16, 0.4), 0.2, "inOut");                // ...to rest between the dome and the plate
+A(6.4, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 act.eyesLead(c, 6.3, "wiz", WIZ_AT_DRA, { dur: 0.2 });
 A(6.4, "wiz", "expr", { expr: "kind", set: { curve: 0.85, eye: 0.9 }, dur: 0.25 });   // pleased with himself
 A(6.4, "wiz", "face", { lid: 0.25, brow: 0.15, dur: 0.25 });
@@ -271,7 +271,7 @@ const beats = c.beats([
   ["03b dome", 3.95, INSERT],
   ["03c see?", 4.95, S5],
   ["03d dome off", 5.65, INSERT],
-  ["04 relief", 6.2, S4],
+  ["04 relief", 6.2, S4],                             // as the dome lands; the hand drops off the knob at once
   ["05 fwoomp", 7.05, "keep", "payoff"],                // the joke: the sigh relights it, bigger than ever
 ], END);
 
