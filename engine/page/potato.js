@@ -275,9 +275,10 @@ export class Character {
       if (q && q.mix) return mix(one(q.mix.from), one(q.mix.pose), q.mix.p);
       if (!q || !q.frame) return null;
       const Y = new THREE.Vector3(...q.frame.y), Z = new THREE.Vector3(...q.frame.z);
-      return { q: new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(Y, Z), Y, Z)), w: 1 };
+      return { q: new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(Y, Z), Y, Z)), w: 1, e: q.frame.elbow ?? 0 };
     };
-    const mix = (f0, f1, p) => (f0 && f1 ? { q: f0.q.clone().slerp(f1.q, p), w: 1 } : f0 ? { q: f0.q, w: 1 - p } : f1 ? { q: f1.q, w: p } : null);
+    // e: how much the hold's elbow guide applies (frame.elbow), blended like the frame
+    const mix = (f0, f1, p) => (f0 && f1 ? { q: f0.q.clone().slerp(f1.q, p), w: 1, e: f0.e + (f1.e - f0.e) * p } : f0 ? { q: f0.q, w: 1 - p, e: f0.e * (1 - p) } : f1 ? { q: f1.q, w: p, e: f1.e * p } : null);
     return mix(one(a.from), one(a.pose), a.p);
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
@@ -424,13 +425,16 @@ export class Character {
       }
       // the elbow never sinks into the body (a curve's pull point needs the wider margin: the curve passes inside it;
       // the jointed paw arm passes through its elbow, so it only needs the arm's own radius)
-      // a hand locked to a hold (arm pose frame): the elbow out beside the body and below the shoulder-hand line, so the
+      // a hand locked to a hold whose frame asks for it (frame.elbow): the elbow out beside the body and below the shoulder-hand line, so the
       // upper arm hangs and the forearm comes into the hold from the side, low and relaxed (a phone held by its edges),
       // instead of hooked straight up from the shoulder
       const fr = this._frame(a);
-      if (fr && fr.w > 0) {
-        const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35);
-        mid.lerp(elbow, fr.w);
+      if (fr && fr.e > 0) {
+        // a hand reaching across in front of the body (round a held phone's far edge): the elbow comes forward to the
+        // hand's depth and a little in front, so the forearm passes in front of the prop instead of through it
+        const across = Math.min(1, Math.max(0, (0.25 - h.x * sx) / 0.2));
+        const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35 + (h.z + 0.06 - sh.z - (h.z - sh.z) * 0.35) * across);
+        mid.lerp(elbow, fr.e);
       }
       const joint = dn > 0.5;
       this._outside(mid, S, joint ? 1 : 1.3);

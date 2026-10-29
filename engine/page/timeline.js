@@ -472,7 +472,7 @@ function resolveArms(sb, st, def, t) {
     const Y = unit(y0.map((c, i) => c - d * Z[i])), X = cross(Y, Z), mx = s === "L" ? -1 : 1;
     const at = q.frame.at || [0, 0, 0], k = (def.hands?.size ?? 1.3) * sc, g = world(q);
     const hand = g.map((c, i) => c - k * (mx * at[0] * X[i] + at[1] * Y[i] + at[2] * Z[i]));
-    return { ...toLocal(hand), frame: { y: rotLocal(Y), z: rotLocal(Z) } };
+    return { ...toLocal(hand), frame: { y: rotLocal(Y), z: rotLocal(Z), ...(q.frame.elbow && { elbow: q.frame.elbow }) } };
   };
   // palm: the point the palm turns to face (mitten hands): true for the prop's own axis at the grip's height, or a point
   // on the prop ([x, y, z] in its own space; a world point for a world pose). "wrap": the axis too, with the fingers
