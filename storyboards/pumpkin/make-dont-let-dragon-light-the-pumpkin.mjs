@@ -219,7 +219,7 @@ A(12.85, "dra", "expr", { expr: "kind", set: { curve: 0.55, open: 0.0, eye: 0.9,
 A(12.9, "dra", "face", { brow: 0.3, dur: 0.3 });
 A(12.95, "dra", "look", { to: [0.35, 0.05], dur: 0.2, blink: false });
 A(13.1, "dra", "still", { dur: 0.9, idle: 0.05 });
-sfx(13.1, "plunk", { gain: 0.5, reason: "the dry 'dum' as his sheepish face is revealed" });
+sfx(13.1, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
 A(13.0, "phx", "still", { dur: 1.0, idle: 0.04 }); A(13.0, "rea", "still", { dur: 1.0, idle: 0.04 });
 
 // ---------------------------------------------------------------- shots
