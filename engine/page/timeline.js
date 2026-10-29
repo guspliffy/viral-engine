@@ -239,7 +239,9 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
+      // { do: "hat", off, spin } tips or lifts the hat; on: false hides it (a costume pulled over it, the sheet ghost)
       case "hat": {
+        if (a.on != null) st.hatOn = a.on;
         st.hatOff = lerp3(st.hatOff, a.off || [0, 0, 0], e);
         st.hatSpin = lerp3(st.hatSpin, (a.spin || [0, 0, 0]).map((x) => (x * Math.PI) / 180), e);
         break;
