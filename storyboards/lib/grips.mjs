@@ -17,7 +17,6 @@
 // its middle), so a prop's scale never pushes a hand into it.
 // Each hold names what it follows: CLAUDE.md grip rules 1-3 and 13-16, and docs/STORYBOARD.md "Contact".
 import { r3 } from "./clip.mjs";
-import { THIN_PINCH } from "../../engine/page/timeline.js";
 
 const rad = (d) => (d * Math.PI) / 180;
 const rotY = ([x, y, z], d) => { const a = rad(d); return [x * Math.cos(a) + z * Math.sin(a), y, -x * Math.sin(a) + z * Math.cos(a)]; };
@@ -32,7 +31,7 @@ const SIZE = {
   soupbowl: { rim: 0.1, wall: [[0, 0.07], [0.02, 0.1], [0.05, 0.142], [0.084, 0.162], [0.1, 0.165]] },           // props-chef.js
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
-  pencil: { len: 0.255 },                          // props3d.js pencil (len 1): eraser at the bottom, point at the top
+  pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
 };
 // a bowl's outside radius at height y (before scale)
@@ -42,6 +41,8 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
 const TURN = { campmug: -125 };
+// the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
+const HAND = 1.7;
 
 // the prop's place for a holder facing `yaw` (degrees, cast "face"): { x, y, z, rot }
 export function placeFor(kind, at, yaw, { turn = 0 } = {}) {
@@ -52,23 +53,27 @@ export function placeFor(kind, at, yaw, { turn = 0 } = {}) {
 // the hand waits before it touches and goes back to after, an offset from the grip in the world, for the prop's rot
 // when the hold is made), shape: the closed
 // hand, ready: the open hand on the way in.
-function holder(c, who, spec, { hands, shape, ready = "open", grab, take }) {
+function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take }) {
   const id = spec.id, sides = Object.keys(hands), hand = sides.length > 1 ? "both" : sides[0];
-  const pose = (s, o = {}) => ({ prop: id, grip: hands[s].grip, ...(hands[s].palm != null && { palm: hands[s].palm }), ...(hands[s].frame && { frame: hands[s].frame }), ...o });
+  const pose = (s, o = {}) => ({ prop: id, grip: hands[s].grip, ...(hands[s].palm != null && { palm: hands[s].palm }), ...(hands[s].frame && { frame: hands[s].frame }), ...(point && { point }), ...o });
+  // a grip shape: a GRIPS name, or { shape, set } with the shape's fields overridden (a pinch's roll, its thumb open)
+  const shp = (x) => (typeof x === "string" ? { shape: x } : x);
   const each = (f) => sides.forEach(f);
   const h = {
     sides, hand,
     // 01 approach: the hand opens on the way and stops a few centimetres off its grip, on the side it closes from
     approach(t, dur = 0.3) {
-      each((s) => { c.A(t, who, "grip", { side: s, shape: ready, dur: Math.min(0.2, dur) }); c.arm(t, who, s, pose(s, { off: hands[s].away }), dur, "inOut"); });
+      each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: Math.min(0.2, dur) }); c.arm(t, who, s, pose(s, { off: hands[s].away }), dur, "inOut"); });
       return r3(t + dur);
     },
     // 02 secure: onto the grip (contact), then the fingers close; the grab comes once they have, so the prop never
-    // moves before the hand is on it
+    // moves before the hand is on it. A pinch lands without the settle's overshoot, which pushes the pads through a
+    // thin shaft
     secure(t, dur = 0.2) {
-      each((s) => { c.arm(t, who, s, pose(s), dur, "settle"); c.A(t + dur * 0.6, who, "grip", { side: s, shape, dur: 0.12 }); });
-      // a hand locked to the prop (frame) holds it exactly where it touched it (keep), not at the middle of the hand
-      c.A(t + dur + 0.06, who, "grab", { prop: id, hand, grip: grab, dur: 0, pose: null, ...(sides.some((s) => hands[s].frame) && { keep: true }) });
+      each((s) => { c.arm(t, who, s, pose(s), dur, point ? "out" : "settle"); c.A(t + dur * 0.6, who, "grip", { side: s, ...shp(shape), dur: 0.12 }); });
+      // a hand locked to the prop (frame) holds it exactly where it touched it (keep), not at the middle of the hand; a
+      // pinch holds it at the pinch (point)
+      c.A(t + dur + 0.06, who, "grab", { prop: id, hand, grip: grab, dur: 0, pose: null, ...(point ? { point } : sides.some((s) => hands[s].frame) && { keep: true }) });
       return r3(t + dur + 0.1);
     },
     take(t, { reach = 0.3, settle = 0.2 } = {}) { const e = h.secure(h.approach(t, reach), settle); return take ? take(h, e) : e; },
@@ -99,7 +104,7 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, take }) {
     // pose) for the arm afterwards, false to leave it waiting beside the prop
     release(t, { rest = "rest", back = 0.2 } = {}) {
       c.A(t, who, "release", { prop: id, dur: 0 });
-      each((s) => { c.A(t, who, "grip", { side: s, shape: ready, dur: 0.15 }); c.arm(t + 0.04, who, s, pose(s, { off: hands[s].away }), back, "out"); });
+      each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: 0.15 }); c.arm(t + 0.04, who, s, pose(s, { off: hands[s].away }), back, "out"); });
       if (rest) { each((s) => { c.arm(t + 0.04 + back, who, s, rest, 0.4, "settle"); c.A(t + 0.04 + back, who, "grip", { side: s, shape: "relaxed", dur: 0.3 }); }); return r3(t + 0.44 + back); }
       return r3(t + 0.04 + back);
     },
@@ -151,19 +156,19 @@ export function box(c, who, spec, { gap = 0.045, height = 0.55 } = {}) {
   return holder(c, who, spec, { hands, shape: "press", ready: "open", grab: toProp(spec, [0, y, 0]) });
 }
 
-// THIN (pencil; the same for a straw, a pen, a spoon handle): Jonny's straw grip sheet (29 Oct: pinch, align,
-// press). The hand comes in from the side with a long, level forearm, palm down, a loose fist: the thumb and the
-// index pinch the shaft near its upper part, the index curled over it on the camera side and the thumb behind it, the
-// other fingers curled. The shaft shows clearly below the hand and a little above it, and it never runs through the
-// palm (Vampire 29 Oct: a straw through the middle of the glove). The hand is locked to the shaft (a framed pose), so
-// the wrist stays in line and the arm stays straight while it is carried (grip lesson 29 Oct: no elbow flipping).
-// from: where on the shaft the pinch is (0 bottom .. 1 top).
-export function thin(c, who, spec, { side = "R", from = 0.52 } = {}) {
-  const { len } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
+// THIN (pencil; the same for a straw, a pen): a fingertip pinch (Jonny's straw sheet and his artist's pencil and straw
+// boards, 29 Oct). The thumb and index pads close on opposite sides of the shaft at the same height, in its upper
+// third (a straw: below its bend); the palm stays beside it and the other fingers curl loosely out of the way, so the
+// shaft shows clearly above and below the hand and never runs through the palm. The hand points along the forearm
+// (grip "tip", arm poses with point "pinch": the pinch, not the hand's centre, goes on the grip), so the wrist always
+// stays on the arm. roll: degrees the hand turns about the shaft to show the thumb to the camera. from: where on the
+// shaft the pinch is (0 bottom .. 1 top).
+export function thin(c, who, spec, { side = "R", from = 0.6, roll = -20, lean = 30 } = {}) {
+  const { len, r } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
   const grip = toProp(spec, [0, from * len * k, 0]);
-  const frame = { y: toProp(spec, [-sx, -0.1, 0]).map((v) => r3(v * k)), z: [0, -1, 0], at: THIN_PINCH, elbow: 0.6 };
-  const hands = { [side]: { grip, frame, away: toWorld(spec, [sx * 0.07, 0.03, 0.01]) } };
-  return holder(c, who, spec, { hands, shape: "straw", ready: "relaxed", grab: grip });
+  const set = { roll, lean, thin: r3((r * k) / HAND) };
+  const hands = { [side]: { grip, away: toWorld(spec, [sx * 0.07, 0.07, 0.04]) } };
+  return holder(c, who, spec, { hands, shape: { shape: "tip", set }, ready: { shape: "tip", set: { ...set, close: 0, curl: 0.7, index: 0.5 } }, grab: grip, point: "pinch" });
 }
 
 // PHONE in one hand (phone, iphone): upright in the palm, screen to the holder, the fingers round its far edge and the
