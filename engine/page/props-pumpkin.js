@@ -134,7 +134,8 @@ function fireballMaterial() {
         vec3 col = mix(core, yel, bandStep(0.35, k));
         col = mix(col, ora, bandStep(0.62, k));
         col = mix(col, red, bandStep(0.88, k));
-        col = mix(col, vec3(0.42, 0.4, 0.42) + 0.08 * (1.0 - d), uSmoke);
+        // cooling: through a sooty brown to warm grey (a cool grey over the red read as purple smoke)
+        col = mix(col, vec3(0.36, 0.3, 0.26) + 0.08 * (1.0 - d), uSmoke);
         float alpha = (1.0 - smoothstep(0.9, 1.0, d)) * uA;
         gl_FragColor = vec4(col, alpha);
       }`,
@@ -192,7 +193,7 @@ export const PUMPKIN_KINDS = {
           b.m.uniforms.uR.value = r0 * (0.25 + 0.75 * k) * (1 + 0.7 * fade);
           b.m.uniforms.uA.value = k * on * (1 - Math.pow(fade, 1.4));
           b.m.uniforms.uHeat.value = 1 - 0.55 * fade - 0.25 * b.s * (1 - len);
-          b.m.uniforms.uSmoke.value = clamp((fade - 0.3) / 0.6);
+          b.m.uniforms.uSmoke.value = clamp((fade - 0.15) / 0.5);
           b.m.uniforms.uTime.value = t;
           b.o.visible = k > 0.001 && on > 0.001 && fade < 0.999;
         }
