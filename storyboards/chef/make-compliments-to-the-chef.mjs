@@ -112,7 +112,7 @@ A(1.12, "gun", "face", { lid: 0.32, brow: 0.12, dur: 0.3 });
 A(1.15, "gun", "turn", { to: 12, dur: 0.35 });
 A(1.1, "odn", "expr", { expr: "happy", set: { open: 0, curve: 1, eye: 0.9 }, dur: 0.2 });
 A(1.1, "odn", "face", { lid: 0.36, dur: 0.25 });                   // beaming, eyes still on him
-sfx(1.12, "kenney/low-random", { gain: 0.08, reason: "a tense string onset under the forced smile" });
+sfx(1.12, "kenney/low-random", { gain: 0.08, reason: "a tense onset under the forced smile", asPosted: true }); // really a low synth blip (whitelist), kept as posted
 
 // ---------------------------------------------------------------- 04 EYES BETRAY HIM 1.80-4.20
 spoonTo(1.85, CUP_REST, D_REST, 0.7);

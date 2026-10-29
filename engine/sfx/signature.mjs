@@ -4,11 +4,15 @@
 // a celesta-like tone, a high twinkle and glitter).
 //
 // They play by themselves on a lead's entrance (the first time they come into frame after the opening: walking in,
-// a `show`, or a cut to them) and on the payoff (the lead who acts first in the beat marked "kind": "payoff"),
-// at most once each per clip. A storyboard can name them as sounds too: { "sfx": "sig-reaper" }.
+// a `show`, or a cut to them), at most once each per clip. On the payoff (the beat marked "kind": "payoff") only
+// when the payoff is that lead's own trick: the Wizard charging a spell, Phoenix flying or flaring its wings, Reaper's
+// scythe. Anything else on the payoff stays free of them: in Don't Touch the Charger the Wizard's sparkle played on
+// the catch and Jonny heard it as a "bling" that had nothing to do with the joke. A storyboard can name them as
+// sounds too: { "sfx": "sig-reaper" }.
 //   "sound": { "signature": false }                     none in this clip
-//   "sound": { "signature": { "entrances": false } }    only on the payoff ("payoff": false: only entrances;
-//                                                       "payoff": "<cast id>" picks who gets it)
+//   "sound": { "signature": { "entrances": false } }    no entrances
+//   "sound": { "signature": { "payoff": false } }       never on the payoff; true: whichever lead acts first on it
+//                                                       (the old default); "<cast id>": that one
 //   a cast entry's "signature": false keeps that member silent, "signature": "reaper" gives them that sound
 //
 // Unlike the other effects these never vary (no seeded pitch or take): a signature has to sound the same in every
@@ -98,6 +102,8 @@ export function signatureSound(kind) { const k = kind.slice(4); if (!made[k]) { 
 export const signatureGain = (kind) => GAIN[kind.slice(4)] ?? 0.45;
 
 // ---------- where they go ----------
+// each lead's own trick: the actions that make a payoff theirs (docs/character-bible.md)
+export const TRICKS = { wizard: ["charge"], phoenix: ["fly", "hover", "flare", "wings"], reaper: ["slash"] };
 const QUIET = new Set(["look", "blink", "noblink", "still", "expr", "face", "grip", "hatsway", "hatwobble", "hide"]);
 
 // is a point on screen at time t: a pinhole camera from timeline.js cameraState, 9:16 frame, a little margin inside
@@ -145,8 +151,9 @@ export function signatureEvents(sb, chars, tl, payoff = punchline(sb)) {
     out.push({ kind: `sig-${lead}`, at: Math.round(t * 1000) / 1000, who: c.id, why: "entrance" });
   }
   if (payoff != null && opt.payoff !== false) {
-    const pick = typeof opt.payoff === "string" ? opt.payoff : null;
-    const acts = (sb.actions || []).filter((a) => !QUIET.has(a.do) && a.at >= payoff - 0.1 && a.at <= payoff + 1.2 && leads.some((l) => l.c.id === a.who) && (!pick || a.who === pick)).sort((p, q) => p.at - q.at);
+    const pick = typeof opt.payoff === "string" ? opt.payoff : null, trick = opt.payoff === undefined;
+    const isTrick = (a) => TRICKS[leads.find((l) => l.c.id === a.who).lead]?.includes(a.do);
+    const acts = (sb.actions || []).filter((a) => !QUIET.has(a.do) && a.at >= payoff - 0.1 && a.at <= payoff + 1.2 && leads.some((l) => l.c.id === a.who) && (!pick || a.who === pick) && (!trick || isTrick(a))).sort((p, q) => p.at - q.at);
     const a = acts.find((x) => seen(leads.find((l) => l.c.id === x.who).c, Math.max(payoff, x.at) + 0.05));
     if (a) {
       const lead = leads.find((l) => l.c.id === a.who).lead, at = Math.round(Math.max(payoff, a.at) * 1000) / 1000;

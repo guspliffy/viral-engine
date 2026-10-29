@@ -215,7 +215,7 @@ function build(variant) {
     fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
     set: { type: "apartment", seed: 7, light: "golden" },
     music: { styles: ["warm", "sneaky"], payoff: r3(4.15 - START), parts },
-    sound: { sfx: 0.7, ambience: 0.3 },
+    sound: { sfx: 0.7, ambience: 0.3, scenes: ["scifi", "jingle"] },   // an alien look, and the jingles are meant (engine/sfx/whitelist.mjs)
     cast, props, captions: c.captions, beats,
     allowClip: [
       { who: "wiz", with: "helmet", from: 0, to: r3(Math.max(0.01, 0.75 - START)), reason: "the brush tip touches the visor glass" },

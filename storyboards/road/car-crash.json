@@ -5186,7 +5186,10 @@
  "sound": {
   "sfx": 0.7,
   "ambience": 0.4,
-  "bedFade": 0.005
+  "bedFade": 0.005,
+  "scenes": [
+   "ui"
+  ]
  },
  "cast": [
   {
