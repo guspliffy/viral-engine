@@ -31,7 +31,7 @@ import * as act from "../lib/acting.mjs";
 import { PUMPKIN } from "../../engine/page/props-pumpkin.js";
 
 const c = clip(), { A, sfx } = c;
-const END = 11.0;
+const END = 11.6;
 
 // ---------------------------------------------------------------- places
 const DRA0 = [0, -5.25], DRA_END = [0, 0.3];              // Dragon at the far end; at last just out of the door
@@ -251,13 +251,24 @@ sfx(LIFT + 0.55, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish f
 // the pumpkin is just a pumpkin now: its glow goes out as it comes off
 c.prop(LIFT + 0.12, "helmet", { glow: 0, on: 0 }, 0.45, "inOut");
 // the friends, dead flat (the soot on Reaper's hood)
-const STARE = r3(LIFT + 0.95);   // after the single on Dragon, back on the wide
-A(STARE, "phx", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE, "phx", "face", { lid: 0.45, brow: 0, dur: 0.3 });
-A(STARE + 0.1, "rea", "expr", { expr: "deadpan", dur: 0.3 }); A(STARE + 0.1, "rea", "face", { lid: 0.5, brow: 0, dur: 0.3 });
+// Jonny 20:33: they realise it was only Dragon, not a monster, and then look annoyed. Back on the wide: a glance at each
+// other ("...it's just him"), a flat breath out, then both turn to us properly annoyed, hands on hips; Dragon shrinks
+const STARE = r3(LIFT + 0.85);   // after the single on Dragon, back on the wide
+A(STARE, "phx", "look", { to: [0.6, 0], dur: 0.15, blink: false }); A(r3(STARE + 0.03), "rea", "look", { to: [-0.6, 0], dur: 0.15, blink: false });
+A(STARE, "phx", "expr", { expr: "kind", set: { open: 0.1, curve: 0, eye: 1.1 }, dur: 0.25 }); A(STARE, "phx", "face", { lid: 0, brow: 0.25, dur: 0.25 });
+A(r3(STARE + 0.03), "rea", "expr", { expr: "kind", set: { open: 0.05, curve: 0, eye: 1.05 }, dur: 0.25 }); A(r3(STARE + 0.03), "rea", "face", { lid: 0.1, brow: 0.2, dur: 0.25 });
+sfx(r3(STARE + 0.3), "sigh", { gain: 0.45, reason: "a flat breath out as they realise it's only Dragon" });
+const ANNOYED = r3(STARE + 0.45);
+A(r3(ANNOYED - 0.06), "phx", "look", { to: AT_CAM, dur: 0.15, blink: false }); A(r3(ANNOYED - 0.03), "rea", "look", { to: AT_CAM, dur: 0.15, blink: false });
+act.mood(c, ANNOYED, "phx", "annoyed", { hold: 0.65, word: "ugh." }); act.mood(c, r3(ANNOYED + 0.04), "rea", "annoyed", { hold: 0.6 });
+for (const s of ["L", "R"]) { c.arm(ANNOYED, "phx", s, "hips", 0.25); c.arm(r3(ANNOYED + 0.04), "rea", s, "hips", 0.25); }
+A(r3(ANNOYED + 0.1), "dra", "expr", { expr: "kind", set: { curve: 0.35, open: 0, eye: 0.85, tilt: 0.5 }, dur: 0.25 });   // a guiltier grin
+A(r3(ANNOYED + 0.1), "dra", "squash", { amount: -0.05, dur: 0.25 });
+A(r3(ANNOYED + 0.15), "dra", "look", { to: [0.35, 0.15], dur: 0.15, blink: false });
 // THE RESOLUTION: a pumpkin bigger than he is can't be set down at arm's length, so he swings it forward off his head
 // and lets it plonk onto the deck in front of him; they hop back from it. Then one careful little puff, and it lights
 // the way a jack-o'-lantern should. All three admire it.
-const SWING = r3(STARE + 0.45), APEX = r3(SWING + 0.22), LAND = r3(APEX + 0.3);
+const SWING = r3(ANNOYED + 0.75), APEX = r3(SWING + 0.22), LAND = r3(APEX + 0.3);
 const hand = (s, Y, Z) => ({ x: [s * 0.67, r3((Y - 0.22 - LEG) / H_DRA), r3(Z + 0.07)] });
 A(SWING - 0.15, "dra", "look", { to: [0, -0.5], dur: 0.15, blink: false });   // his eyes go to the spot first
 A(SWING - 0.1, "dra", "expr", { expr: "focused", set: { curve: 0.2, open: 0.05, eye: 1.0 }, dur: 0.25 });
@@ -341,8 +352,8 @@ write(import.meta.url, {
   idea: "Eight trend tests #06 (Pray For Me slow-motion run): Dragon's pumpkin helmet lights up and he chases his friends down the hall, blasting fire after them",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   set: { type: "hallway", light: "golden", key: [4.2, 4.0, 2.6], wallZ: -30, shadowSize: 8, seed: 6 },
-  // the hero music under the slow-motion chase, cut when the action goes back to normal speed
-  music: { file: "ai/hero-bed/hero-bed-02.ogg", from: 1.0, until: 3.6, gain: 0.55 },
+  // the hero music under the chase, to 5 s (Jonny 20:33): it stops as Dragon bursts out of the door
+  music: { file: "ai/hero-bed/hero-bed-02.ogg", from: 1.0, until: 5.0, gain: 0.55 },
   sound: { sfx: 0.7, ambience: 0.25, signature: { payoff: false } },
   hook: { show: ["dra", "helmet"], hint: 0.1, what: "a jack-o'-lantern's eyes light up and the potato under it puffs his cheeks" },
   creative: { length: [10, 20] },
