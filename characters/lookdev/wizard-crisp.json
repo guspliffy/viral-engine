@@ -37,14 +37,15 @@
    "iris": 0.62,
    "glints": 1,
    "oval": 1.32,
-   "lash": 1.15
+   "lash": 0.85
   },
   "browShape": {
    "arch": 0.06,
-   "thick": 0.8,
+   "thick": 0.9,
    "taper": 1.1,
    "tip": 0.0035,
-   "lift": 0.008
+   "lift": 0.008,
+   "clear": 0.008
   }
  },
  "sprout": {

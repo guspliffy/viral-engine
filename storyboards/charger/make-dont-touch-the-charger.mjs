@@ -152,8 +152,8 @@ A(6.45, "dra", "still", { dur: 2.5, idle: 0.1 });
 
 // ---------------------------------------------------------------- 05 HE NOTICED 8.40-8.90
 A(8.42, "wiz", "look", { to: WIZ_AT_HAND, dur: 0.07, blink: false });             // a snap: eyes first
-A(8.5, "wiz", "face", { lid: 0.12, brow: -0.8, dur: 0.12 });                        // brows do the work (lids over the pupils read as a glitch)                       // lids narrow, brows down
-A(8.5, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15 }, dur: 0.12 });
+A(8.5, "wiz", "face", { lid: 0.12, brow: -0.3, dur: 0.12 });                        // the lids narrow, the brows angle in (they stay clear of the eyes: browShape.clear)
+A(8.5, "wiz", "expr", { expr: "deadpan", set: { curve: -0.15, tilt: -0.22 }, dur: 0.12 });
 A(8.45, "wiz", "still", { dur: 0.45, idle: 0.05 });
 
 // ---------------------------------------------------------------- 06 BOUNDARY 8.90-10.40
@@ -178,10 +178,10 @@ A(9.7, "dra", "expr", { expr: "nervous", set: { open: 0.15, curve: -0.1, eye: 1.
 A(9.45, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.2, blink: false });                  // the Wizard looks up, finally
 A(9.45, "wiz", "turn", { to: 26, dur: 0.4 });
 A(9.55, "wiz", "face", { lid: 0.08, dur: 0.2 });
-// angry and annoyed by 10 s (Jonny 29 Oct): brows pulled down hard at the inner ends, a flat frown, the eyes narrowed
-// with the brows (never the lids over the pupils)
-A(9.75, "wiz", "expr", { expr: "stern", set: { tilt: -0.75, curve: -0.45, eye: 0.82 }, dur: 0.25 });
-A(9.75, "wiz", "face", { brow: -0.4, dur: 0.25 });
+// angry and annoyed by 10 s (Jonny 29 Oct): brows angled in, a flat frown, the lids squinting; Jonny's brow fix (29 Oct):
+// focus comes from a slight inward brow angle plus the squint, the brows always clear of the eyes
+A(9.75, "wiz", "expr", { expr: "stern", set: { tilt: -0.32, curve: -0.45, eye: 0.74 }, dur: 0.25 });
+A(9.75, "wiz", "face", { brow: -0.2, lid: 0.38, dur: 0.25 });
 A(9.75, "wiz", "squash", { amount: 0.02, dur: 0.2 });
 
 // ---------------------------------------------------------------- 07 CAUGHT 10.40-13.00
@@ -192,7 +192,7 @@ A(10.9, "dra", "look", { to: DRA_AT_PLUG, dur: 0.15, blink: false });           
 A(11.35, "dra", "look", { to: DRA_AT_WIZ, dur: 0.15, blink: false });              // ...and back
 A(11.7, "dra", "expr", { expr: "nervous", set: { open: 0, curve: 0.3, eye: 1.0, tilt: 0.3 }, dur: 0.35 });   // a sheepish smile
 A(11.7, "dra", "face", { brow: 0.35, dur: 0.3 });
-A(12.1, "wiz", "face", { browL: -0.35, browR: -0.5, dur: 0.3 });                     // a touch lower on one side: "don't" (the brief: his firm stare holds to the end)
+A(12.1, "wiz", "face", { browL: -0.2, browR: -0.3, dur: 0.3 });                     // a touch lower on one side: "don't" (the brief: his firm stare holds to the end)
 
 // ---------------------------------------------------------------- shots (fixed by the brief; [name, start, camera, kind])
 // a camera on `target` from azimuth az (degrees round y, 0 = straight from the front, - = from the left) and

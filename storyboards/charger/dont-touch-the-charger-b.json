@@ -1384,7 +1384,7 @@
      "who": "wiz",
      "do": "face",
      "lid": 0.12,
-     "brow": -0.8,
+     "brow": -0.3,
      "dur": 0.12,
      "at": 0.1
     },
@@ -1393,7 +1393,8 @@
      "do": "expr",
      "expr": "deadpan",
      "set": {
-      "curve": -0.15
+      "curve": -0.15,
+      "tilt": -0.22
      },
      "dur": 0.12,
      "at": 0.1
@@ -1563,9 +1564,9 @@
      "do": "expr",
      "expr": "stern",
      "set": {
-      "tilt": -0.75,
+      "tilt": -0.32,
       "curve": -0.45,
-      "eye": 0.82
+      "eye": 0.74
      },
      "dur": 0.25,
      "at": 0.85
@@ -1573,7 +1574,8 @@
     {
      "who": "wiz",
      "do": "face",
-     "brow": -0.4,
+     "brow": -0.2,
+     "lid": 0.38,
      "dur": 0.25,
      "at": 0.85
     },
@@ -1685,8 +1687,8 @@
     {
      "who": "wiz",
      "do": "face",
-     "browL": -0.35,
-     "browR": -0.5,
+     "browL": -0.2,
+     "browR": -0.3,
      "dur": 0.3,
      "at": 1.7
     }
