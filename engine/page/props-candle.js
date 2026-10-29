@@ -179,7 +179,7 @@ export const CANDLE_KINDS = {
         u.uH.value = 0.04 * Math.pow(l, 0.7) * (1 + 8 * f) * fl; u.uW.value = 0.0135 * Math.pow(l, 0.5) * (1 + 5 * f);
         u.uA.value = clamp(l * 1.6);
         flame.visible = l > 0.01;
-        const g = glow.material.uniforms; g.uR.value = 0.055 * (1 + 2.6 * f) * (0.6 + 0.4 * l); g.uA.value = 0.36 * l * (1 + 0.8 * f) * fl; g.uLift.value = 0.16 * f;
+        const g = glow.material.uniforms; g.uR.value = 0.055 * (1 + 1.6 * f) * (0.6 + 0.4 * l); g.uA.value = 0.36 * l * (1 + 0.15 * f) * fl; g.uLift.value = 0.12 * f;   // a flare's glow stays off the faces (review B: it bleached the Wizard)
         glow.visible = l > 0.01;
         const w = wisp.material.uniforms; w.uTime.value = t; w.uAmount.value = clamp(ps.puff); w.uLen.value = 0.012 + 0.11 * clamp(ps.rise);
         wisp.visible = ps.puff > 0.01;

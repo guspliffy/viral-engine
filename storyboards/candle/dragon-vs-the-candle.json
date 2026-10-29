@@ -36,7 +36,7 @@
  "music": {
   "style": "sneaky",
   "drums": false,
-  "gain": 0.3,
+  "gain": 0.24,
   "seed": 14,
   "parts": [
    {
@@ -52,7 +52,7 @@
     "part": "main"
    },
    {
-    "at": 7.05,
+    "at": 6,
     "part": "stop"
    }
   ]
@@ -61,7 +61,8 @@
   "sfx": 0.7,
   "ambience": 0.18,
   "speech": false,
-  "signature": false
+  "signature": false,
+  "auto": false
  },
  "experiment": {
   "id": "hook-2026-11",
@@ -481,7 +482,7 @@
     },
     {
      "fx": "flash",
-     "peak": 0.55,
+     "peak": 0.35,
      "dur": 0.25,
      "at": 1.1
     },
@@ -498,7 +499,7 @@
       -0.012,
       0.66
      ],
-     "puffs": 2,
+     "puffs": 0,
      "color": "#ffd9a8",
      "sparks": 36,
      "spark": "#ffb347",
@@ -601,18 +602,6 @@
      "at": 1.25
     },
     {
-     "do": "prop",
-     "id": "breath",
-     "set": {
-      "on": 0,
-      "len": 0,
-      "fire": 0
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
      "who": "wiz",
      "do": "still",
      "dur": 0.5,
@@ -635,6 +624,18 @@
      "dur": 0.42,
      "idle": 0.08,
      "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.55
     },
     {
      "do": "prop",
@@ -732,11 +733,11 @@
      "do": "prop",
      "id": "breath",
      "set": {
-      "on": 0.4,
-      "fire": 0,
+      "on": 0.7,
+      "fire": 0.3,
       "len": 1
      },
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "out",
      "at": 0.25
     },
@@ -746,6 +747,16 @@
      "gain": 0.25,
      "reason": "Dragon's tiny careful puff (2.3-2.75): fff",
      "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.3
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.45
     },
     {
      "sfx": "ai/flare",
@@ -761,6 +772,14 @@
       "bend": 0.1
      },
      "dur": 0.06,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.15,
      "ease": "out",
      "at": 0.55
     },
@@ -843,9 +862,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.12,
-       0.6,
-       0.55
+       -0.18,
+       0.56,
+       0.58
       ]
      },
      "dur": 0.22,
@@ -917,12 +936,6 @@
      "dur": 0.7,
      "idle": 0.08,
      "at": 1.05
-    },
-    {
-     "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.2
     },
     {
      "who": "wiz",
@@ -1016,6 +1029,12 @@
     },
     {
      "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -1053,6 +1072,12 @@
      "grip": "knob",
      "pose": null,
      "dur": 0,
+     "at": 0.45
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.3,
+     "reason": "the Wizard's glove closes on the glass knob",
      "at": 0.45
     },
     {
@@ -1256,7 +1281,7 @@
   {
    "name": "03c see?",
    "at": 4.95,
-   "len": 0.4,
+   "len": 0.7,
    "shot": {
     "pos": [
      -0.292,
@@ -1344,14 +1369,14 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.22
+     "at": 0.47
     }
    ]
   },
   {
    "name": "03d dome off",
-   "at": 5.35,
-   "len": 0.65,
+   "at": 5.65,
+   "len": 0.55,
    "shot": {
     "pos": [
      0.207,
@@ -1379,7 +1404,7 @@
        0.66
       ]
      },
-     "dur": 0.22,
+     "dur": 0.18,
      "ease": "inOut",
      "at": 0
     },
@@ -1389,9 +1414,15 @@
      "set": {
       "rise": 1
      },
-     "dur": 0.8,
+     "dur": 0.7,
      "ease": "out",
-     "at": 0.15
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.1
     },
     {
      "who": "wiz",
@@ -1406,16 +1437,16 @@
        0.7
       ]
      },
-     "dur": 0.2,
+     "dur": 0.17,
      "ease": "inOut",
-     "at": 0.22
+     "at": 0.18
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.4,
-     "at": 0.22
+     "at": 0.18
     },
     {
      "who": "wiz",
@@ -1426,13 +1457,17 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.22
+     "at": 0.18
     },
     {
-     "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.4
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.35
     },
     {
      "who": "wiz",
@@ -1447,40 +1482,56 @@
        0.74
       ]
      },
-     "dur": 0.22,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 0.42
+     "at": 0.35
     },
     {
-     "do": "prop",
-     "id": "cupcake",
+     "who": "dra",
+     "do": "expr",
+     "expr": "serene",
      "set": {
-      "puff": 0
+      "curve": 0.45
      },
-     "dur": 0.5,
-     "ease": "in",
+     "dur": 0.3,
      "at": 0.45
     },
     {
-     "sfx": "put-down-glass",
-     "gain": 0.25,
-     "reason": "the dome set back down on the wooden table",
-     "at": 0.64
+     "who": "dra",
+     "do": "face",
+     "lid": 0.9,
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.25
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.45
     },
     {
      "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.12,
-     "at": 0.64
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.52
     }
    ]
   },
   {
    "name": "04 relief",
-   "at": 6,
-   "len": 1.05,
+   "at": 6.2,
+   "len": 0.85,
    "shot": {
     "pos": [
      -0.42,
@@ -1504,22 +1555,25 @@
    },
    "do": [
     {
+     "sfx": "put-down-glass",
+     "gain": 0.25,
+     "reason": "the dome set back down on the wooden table",
+     "at": 0
+    },
+    {
      "who": "wiz",
-     "do": "look",
-     "to": [
-      0.8,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0.02
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "release",
      "prop": "dome",
      "dur": 0,
-     "at": 0.07
+     "at": 0.08
     },
     {
      "who": "wiz",
@@ -1534,35 +1588,6 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.09
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "serene",
-     "set": {
-      "curve": 0.45
-     },
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "lid": 0.9,
-     "brow": 0.15,
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      -0.3,
-      -0.25
-     ],
-     "dur": 0.25,
-     "blink": false,
      "at": 0.1
     },
     {
@@ -1574,7 +1599,7 @@
       "eye": 0.9
      },
      "dur": 0.25,
-     "at": 0.25
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1582,6 +1607,51 @@
      "lid": 0.25,
      "brow": 0.15,
      "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -2,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.1,
+      "pucker": 0.9,
+      "open": 0.22
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.5,
+     "at": 0.25
+    },
+    {
+     "sfx": "ai-package/flat-exhale",
+     "gain": 0.35,
+     "reason": "Dragon's big relieved sigh (6.45-7.05)",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 1,
+      "fire": 0.25,
+      "len": 1
+     },
+     "dur": 0.45,
+     "ease": "inOut",
      "at": 0.25
     },
     {
@@ -1597,7 +1667,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.29
+     "at": 0.3
     },
     {
      "who": "wiz",
@@ -1605,52 +1675,7 @@
      "side": "L",
      "shape": "paw",
      "dur": 0.35,
-     "at": 0.29
-    },
-    {
-     "who": "dra",
-     "do": "lean",
-     "to": -2,
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "serene",
-     "set": {
-      "curve": 0.1,
-      "pucker": 0.9,
-      "open": 0.22
-     },
-     "dur": 0.15,
-     "at": 0.45
-    },
-    {
-     "who": "dra",
-     "do": "squash",
-     "amount": 0.1,
-     "dur": 0.5,
-     "at": 0.45
-    },
-    {
-     "sfx": "ai-package/flat-exhale",
-     "gain": 0.35,
-     "reason": "Dragon's big relieved sigh (6.45-7.05)",
-     "at": 0.45
-    },
-    {
-     "do": "prop",
-     "id": "breath",
-     "set": {
-      "on": 1,
-      "fire": 0.25,
-      "len": 1
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.45
+     "at": 0.3
     },
     {
      "who": "wiz",
@@ -1665,26 +1690,26 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.49
+     "at": 0.5
     },
     {
      "sfx": "ai/ignite",
      "gain": 0.6,
      "reason": "the wick catching under the fwoomp (7.05): fwip",
-     "at": 0.88
+     "at": 0.68
     },
     {
      "sfx": "ai/flare",
-     "gain": 1.4,
+     "gain": 2.2,
      "reason": "the sigh relights it into a tall flare (7.05): fwoomp",
-     "at": 0.95
+     "at": 0.75
     }
    ]
   },
   {
    "name": "05 fwoomp",
    "at": 7.05,
-   "len": 2.55,
+   "len": 2.25,
    "shot": "keep",
    "do": [
     {
@@ -1718,7 +1743,7 @@
       -0.012,
       0.66
      ],
-     "puffs": 2,
+     "puffs": 0,
      "color": "#ffd9a8",
      "sparks": 30,
      "spark": "#ffb347",
@@ -1749,6 +1774,21 @@
      },
      "dur": 0.25,
      "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.47,
+       0.305,
+       0.44
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
      "at": 0.05
     },
     {
@@ -1815,7 +1855,7 @@
      "lid": 0,
      "brow": 0.2,
      "dur": 0.15,
-     "at": 0.63
+     "at": 0.57
     },
     {
      "who": "dra",
@@ -1826,7 +1866,7 @@
       "eye": 1.05
      },
      "dur": 0.2,
-     "at": 0.63
+     "at": 0.57
     },
     {
      "do": "prop",
@@ -1841,7 +1881,7 @@
     {
      "who": "dra",
      "do": "still",
-     "dur": 1.15,
+     "dur": 0.85,
      "idle": 0.1,
      "at": 0.75
     },
@@ -1867,7 +1907,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 1.75,
+     "dur": 1.45,
      "idle": 0.04,
      "sink": 0.01,
      "at": 0.8
@@ -1909,14 +1949,45 @@
       "curve": -0.1
      },
      "dur": 0.15,
-     "at": 0.95
+     "at": 0.9
     },
     {
      "who": "dra",
      "do": "face",
      "brow": 0.45,
      "dur": 0.15,
-     "at": 0.95
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "nervous",
+     "set": {
+      "open": 0,
+      "curve": 0.4,
+      "eye": 1,
+      "tilt": 0.3
+     },
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.3,
+     "at": 1.2
     },
     {
      "do": "prop",
@@ -1930,41 +2001,10 @@
     },
     {
      "who": "dra",
-     "do": "look",
-     "to": [
-      -0.8,
-      -0.02
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1.25
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "nervous",
-     "set": {
-      "open": 0,
-      "curve": 0.4,
-      "eye": 1,
-      "tilt": 0.3
-     },
-     "dur": 0.3,
-     "at": 1.5
-    },
-    {
-     "who": "dra",
-     "do": "face",
-     "brow": 0.3,
-     "dur": 0.3,
-     "at": 1.5
-    },
-    {
-     "who": "dra",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.3,
-     "at": 1.55
+     "at": 1.25
     },
     {
      "do": "prop",
@@ -1985,17 +2025,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.95
-    },
-    {
-     "do": "prop",
-     "id": "cupcake",
-     "set": {
-      "bend": 0.1
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 2.05
+     "at": 1.65
     },
     {
      "who": "dra",
@@ -2006,7 +2036,17 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.25
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0.1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.05
     }
    ],
    "kind": "payoff"
@@ -2017,14 +2057,14 @@
    "who": "dra",
    "with": "table",
    "from": 0,
-   "to": 9.6,
+   "to": 9.3,
    "reason": "his paws rest on the tabletop"
   },
   {
    "who": "wiz",
    "with": "table",
    "from": 0,
-   "to": 9.6,
+   "to": 9.3,
    "reason": "his paws rest on the tabletop"
   }
  ],
