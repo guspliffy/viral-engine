@@ -161,7 +161,31 @@ export function actorState(sb, actor, def, t, raw = false) {
     switch (a.do) {
       case "move": {
         st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e);
-        if (p < 1) { st.walkAmt = Math.min(1, Math.min(p, 1 - p) * 8); st.walk = (t - a.at) * (a.steps ?? 2.2); }
+        // stride: how long and high the steps are (1 a walk; about 2 a run), bob: metres the body rises between footfalls
+        if (p < 1) { st.walkAmt = Math.min(1, Math.min(p, 1 - p) * 8); st.walk = (t - a.at) * (a.steps ?? 2.2); st.stride = a.stride ?? 1; if (a.bob) st.y += a.bob * st.walkAmt * Math.abs(Math.sin(st.walk * Math.PI * 2)); }
+        break;
+      }
+      // a run along a path with its own speed: pts [[t, x, z], ...] (times from the action's start; the body goes
+      // straight from point to point, so give them densely for a smooth speed change), rate [[t, steps a second], ...]
+      // (the footfalls follow it: a slow-motion stretch gets slow, long steps), stride (1 a walk, about 2 a run) and bob
+      // (metres the body rises between footfalls). One action for the whole run, so the legs never stop between parts
+      // (Don't Let Dragon Light the Pumpkin: a run that slows into slow motion and speeds up again)
+      case "run": {
+        const T = t - a.at, P = a.pts, n = P.length, end = P[n - 1][0];
+        let k = 0; while (k < n - 2 && P[k + 1][0] <= T) k++;
+        const q = clamp((T - P[k][0]) / Math.max(1e-6, P[k + 1][0] - P[k][0]));
+        st.x = lerp(P[k][1], P[k + 1][1], q); st.z = lerp(P[k][2], P[k + 1][2], q);
+        if (T < end) {
+          // the footfall phase: the step rate integrated over time (linear between the rate keys)
+          const R = a.rate || [[0, a.steps ?? 3]];
+          let ph = 0;
+          for (let i = 0; i < R.length && T > R[i][0]; i++) {
+            const t0 = R[i][0], last = i + 1 >= R.length, t1 = last ? T : R[i + 1][0], u = Math.min(T, t1) - t0;
+            ph += u * R[i][1] + (last ? 0 : ((R[i + 1][1] - R[i][1]) * u * u) / (2 * (t1 - t0)));
+          }
+          st.walk = ph; st.walkAmt = clamp(Math.min(T, end - T) / 0.15); st.stride = a.stride ?? 2;
+          if (a.bob) st.y += a.bob * st.walkAmt * Math.abs(Math.sin(ph * Math.PI * 2));
+        }
         break;
       }
       case "hop": {
