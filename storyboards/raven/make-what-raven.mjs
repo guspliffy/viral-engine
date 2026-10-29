@@ -7,17 +7,17 @@
 //                ravens out of it.
 //   Wants:       Reaper wants Odin to believe him (and to keep the birds).
 //   Consequence: the evidence perches on him: one on his hood, one on each armrest, the hood one nuzzling him.
-//   Ending:      Reaper, palms up, deadpan: "...What ravens?" Odin's deadpan stare holds. No loop, no rewind.
+//   Ending:      Reaper, hands in his lap, deadpan: "...What ravens?" Odin's deadpan stare holds. No loop, no rewind.
 //
 //   1 0.00-1.20  two-shot: Odin strides in at the left edge, photo up; a raven beak pokes out of the hood above
 //                Reaper's forehead and his own right hand pushes it back in (frame 0 two-shot: the analytics read)
 //   2 1.20-1.70  insert: Odin's glove thrusts a photo of ONE black raven into frame. Odin: "Seen my raven?" (from 0.35)
-//   3 1.70-2.90  medium: Reaper spreads empty palms and shakes his head: "What raven?" Odin studies him from the left
+//   3 1.70-2.90  medium: Reaper, hands in his lap, shakes his head: "What raven?" Odin studies him from the left
 //   4 2.90-3.90  the hood bulges (muffled flapping); his smile tightens; Odin raises one brow and leans in
 //   5 3.90-5.40  close: one black feather drifts down onto his face; his eyes drop to it: "Ahh..."
 //   6 5.40-7.20  "Ahh... CHOO!" three small ravens burst out above his forehead in a staggered arc and swoop round
 //   7 7.20-8.60  they land: one on the hood, one on each armrest; Odin looks from his one-bird photo to the three
-//   8 8.60-10.6  Reaper frozen, palms up: "...What ravens?" The hood raven taps his head fondly. Odin's deadpan stare.
+//   8 8.60-10.6  Reaper frozen, hands in his lap: "...What ravens?" The hood raven taps his head fondly. Odin's deadpan stare.
 //
 // Blocking (x right, z toward the camera): the armchair faces the camera at x 0.2; Reaper sits in it. Odin stands at
 // the left edge, turned toward him (yaw 58), and holds the photo in his own RIGHT hand (the camera side) all clip.
@@ -68,12 +68,7 @@ const props = [
 const look = (t, who, to, dur = 0.2) => A(t, who, "look", { to, dur, blink: false });
 const fly = (t, id, to, dur, { arc = 0, rot, flap = 1, ease = "inOut" } = {}) =>
   c.at(t, { do: "prop", id, set: { x: r3(to[0]), y: r3(to[1]), z: r3(to[2]), flap, ...(rot != null && { rot }) }, dur, ease, ...(arc && { arc }) });
-// Reaper's hands: empty palms, turned up, held in front of him clear of the armrests (and of the birds on them)
-const palmsUp = (t, dur = 0.3) => {
-  c.arm(t, "rea", "R", { x: [-0.33, 0.48, 0.45], palm: [-0.33, 0.75, 1.2] }, dur, "settle");   // open palms to the lens: "see, nothing"
-  c.arm(t, "rea", "L", { x: [0.33, 0.48, 0.45], palm: [0.33, 0.75, 1.2] }, dur, "settle");
-  A(t, "rea", "grip", { side: "both", shape: "open", set: { up: 1 }, dur: Math.min(0.2, dur) });
-};
+// Reaper's hands rest in his lap between the pushes (Jonny 29 Oct 21:54: the palms-to-the-lens pose looked unnatural)
 const lap = (t, dur = 0.35) => {
   c.arm(t, "rea", "R", { x: [-0.24, 0.22, 0.34] }, dur, "inOut"); c.arm(t, "rea", "L", { x: [0.24, 0.22, 0.34] }, dur, "inOut");
   A(t, "rea", "grip", { side: "both", shape: "relaxed", dur: 0.2 });
@@ -118,9 +113,8 @@ sfx(0.7, "whoosh", { gain: 0.25, reason: "the photo snapped up into frame" });
 c.macro(0.35, "odin", "say", { line: "Seen my raven?", tone: "question", caption: false });
 c.cap(0.35, 1.2, "Seen my raven?", 470);
 
-// ---------------------------------------------------------------- 3 MEDIUM 1.30-2.90: empty palms, "What raven?"
+// ---------------------------------------------------------------- 3 MEDIUM 1.30-2.90: hands in his lap, "What raven?"
 look(1.55, "rea", R_AT_ODIN, 0.15);
-palmsUp(1.7, 0.3);
 A(1.7, "rea", "squash", { amount: -0.04, dur: 0.15 });   // a little innocent shrug, chin up
 A(1.7, "rea", "pitch", { to: -4, dur: 0.2 }); A(2.35, "rea", "pitch", { to: 0, dur: 0.3 });
 c.macro(1.72, "rea", "say", { line: "What raven?", tone: "calm", pos: 300 });
@@ -142,7 +136,7 @@ A(3.18, "rea", "grip", { side: "L", shape: "flat", dur: 0.12 });
 c.prop(3.32, "r1", { x: INSIDE[0], y: INSIDE[1], z: INSIDE[2] }, 0.17, "in");
 sfx(3.32, "cloth", { gain: 1.0, reason: "the raven patted back under the hood (on screen)" });
 c.prop(3.5, "r1", { scale: 0 }, 0.01);
-c.arm(3.5, "rea", "L", { x: [0.33, 0.48, 0.45], palm: [0.33, 0.75, 1.2] }, 0.35, "inOut"); A(3.52, "rea", "grip", { side: "L", shape: "open", set: { up: 1 }, dur: 0.15 });
+c.arm(3.5, "rea", "L", { x: [0.24, 0.22, 0.34] }, 0.35, "inOut"); A(3.52, "rea", "grip", { side: "L", shape: "relaxed", dur: 0.2 });   // back into his lap
 look(3.0, "rea", R_UP, 0.12);
 A(3.0, "rea", "expr", { expr: "kind", set: { curve: 0.55, smirk: 0, open: 0, eye: 1.15 }, dur: 0.15 });   // the smile goes stiff
 A(3.0, "rea", "face", { press: 0.6, dur: 0.15 });
@@ -226,7 +220,7 @@ look(T7 + 1.0, "odin", O_AT_ARM_R, 0.15);
 look(T7 + 1.22, "odin", O_AT_REA, 0.15);
 look(T7 + 0.2, "rea", [-0.55, -0.25], 0.2);           // at the bird on his right armrest (screen-left) ...
 look(T7 + 0.6, "rea", [0.6, -0.25], 0.2);              // ... the left ...
-look(T7 + 1.0, "rea", R_AT_ODIN, 0.2);                 // ... and back to Odin, palms still up
+look(T7 + 1.0, "rea", R_AT_ODIN, 0.2);                 // ... and back to Odin
 A(T7 + 0.3, "rea", "expr", { expr: "deadpan", dur: 0.3 });
 
 // ---------------------------------------------------------------- 8 THE DENIAL 8.60-10.6: "...What ravens?"
