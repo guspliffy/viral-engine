@@ -294,6 +294,58 @@
     }
    ],
    "note": "made for Not Even Magic (29 Oct 2026); take 01 dropped (unsteady beat)"
+  },
+  {
+   "id": "hero-bed",
+   "kind": "music",
+   "files": [
+    "hero-bed/hero-bed-01.ogg",
+    "hero-bed/hero-bed-02.ogg"
+   ],
+   "tags": [
+    "heroic"
+   ],
+   "mood": "heroic",
+   "bpm": 119.7,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 120,
+   "loopable": true,
+   "durationSec": 8.022,
+   "prompt": [
+    "heroic orchestral action hero theme, soaring brass fanfare, driving strings and timpani, triumphant movie music, 120 BPM"
+   ],
+   "seed": [
+    561,
+    562
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hero-bed/hero-bed-01.ogg",
+     "seed": 561,
+     "durationSec": 8.022,
+     "bars": 4,
+     "bpm": 119.7,
+     "beatSpread": 0.017,
+     "steadyBeat": true,
+     "clap": 0.26,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hero-bed/hero-bed-02.ogg",
+     "seed": 562,
+     "durationSec": 8.022,
+     "bars": 4,
+     "bpm": 119.7,
+     "beatSpread": 0.023,
+     "steadyBeat": true,
+     "clap": 0.299,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }

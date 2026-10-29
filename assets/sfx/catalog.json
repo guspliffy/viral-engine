@@ -2836,6 +2836,96 @@
     "break"
    ]
   },
+  "ai/cookie-scrape": {
+   "family": "food",
+   "says": "a short gritty dry scrape, bright and crumbly, 0.6 s (a biscuit sliding over a wooden edge; made for the Cookie Rescue)",
+   "source": "ai",
+   "files": [
+    "ai/cookie-scrape/cookie-scrape-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "cookie",
+    "scrape",
+    "slide"
+   ]
+  },
+  "ai/hero-hit": {
+   "family": "music",
+   "says": "one big orchestral hit, brass and timpani: a dark low blast at once that rings and fades over 1.8 s (a mock-heroic 'dah!')",
+   "source": "ai",
+   "files": [
+    "ai/hero-hit/hero-hit-01.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "music",
+    "orchestral",
+    "hit",
+    "heroic"
+   ]
+  },
+  "ai/slowmo-air": {
+   "family": "cartoon",
+   "says": "a low dark airy rumble that swells slowly for 2.4 s and peaks at its end (time slowing down)",
+   "source": "ai",
+   "files": [
+    "ai/slowmo-air/slowmo-air-02.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "air",
+    "slow motion",
+    "whoosh",
+    "drone"
+   ]
+  },
+  "ai/cushion-poof": {
+   "family": "hit",
+   "says": "a short low muffled thump, no click or chime, about 0.5 s (a body flopping onto a big soft cushion)",
+   "source": "ai",
+   "files": [
+    "ai/cushion-poof/cushion-poof-02.wav",
+    "ai/cushion-poof/cushion-poof-03.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "cushion",
+    "landing",
+    "soft",
+    "thud"
+   ]
+  },
+  "ai/fingertip-catch": {
+   "family": "handling",
+   "says": "one tiny bright tick, 0.1 s (fingertips closing on a small biscuit)",
+   "source": "ai",
+   "files": [
+    "ai/fingertip-catch/fingertip-catch-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "catch",
+    "hand",
+    "grab",
+    "tap"
+   ]
+  },
+  "ai/warm-resolve": {
+   "family": "music",
+   "says": "a warm chord on strings and piano, full from the start, settling and fading over 3 s; no bells (a soft happy ending)",
+   "source": "ai",
+   "files": [
+    "ai/warm-resolve/warm-resolve-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "music",
+    "warm",
+    "resolution",
+    "ending"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
