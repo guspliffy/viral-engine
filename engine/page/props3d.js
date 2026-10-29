@@ -11,7 +11,7 @@ import { MAKEUP_KINDS, MAKEUP_GRIPS } from "./props-makeup.js";
 import { CHEF_KINDS, CHEF_GRIPS } from "./props-chef.js";
 import { PACKAGE_KINDS, PACKAGE_GRIPS } from "./props-package.js";
 import { steamWisps } from "./steam.js";
-import { DUO_KINDS, DUO_GRIPS } from "./props-duo.js";
+import { DUO_KINDS, DUO_GRIPS, DUO_PARTS } from "./props-duo.js";
 import { CHARGER_KINDS, CHARGER_GRIPS } from "./props-charger.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
@@ -40,6 +40,14 @@ export function gripPoint(spec, grip) {
   const g = (GRIPS[spec.kind] || {})[grip];
   if (!g) throw new Error(`prop ${spec.id} (${spec.kind}) has no grip "${grip}"`);
   return spec.kind === "teacup" && spec.saucer === false ? [g[0], g[1] - 0.012, g[2]] : g;
+}
+// a point (dir: a direction) on a moving part of a prop (a foldphone's half) -> the prop's own frame, for the part's
+// state at that moment (ps: propState). Hands that hold a part follow it through gripWorld from there.
+const PARTS = { ...DUO_PARTS };
+export function partPoint(spec, ps, part, p, dir = false) {
+  const f = PARTS[spec.kind];
+  if (!f) throw new Error(`prop ${spec.id} (${spec.kind}) has no parts to hold`);
+  return f(ps, part, p, dir);
 }
 // a grip point in the world for a prop whose bottom centre is at `at`: its scale, then its tilt (about its own z),
 // tip (about its own x) and rot (about y) applied, the same order as the prop's root (YXZ)
