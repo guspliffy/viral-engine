@@ -161,6 +161,7 @@ export class Character {
       const th = new THREE.Mesh(cap(0.0165, 2 * tl), M("#e020e0")); th.position.set(0.007 + tl * Math.sin(ta), 0.004 + tl * Math.cos(ta), 0); th.rotation.z = -ta; th.castShadow = true; thumb.add(th);
       if (!this.seamless) th.position.set(0.024, 0.018, 0);
       g.userData.thumbTip = th.position.clone().add(new THREE.Vector3(Math.sin(ta), Math.cos(ta), 0).multiplyScalar(tl));
+      if (this.seamless) g.userData.thumbBone = { mesh: th, base: new THREE.Vector3(0.007, 0.004, 0), dir: new THREE.Vector3(Math.sin(ta), Math.cos(ta), 0), len: tl };
       th.userData.seg = { half: tl, r1: 0.019, r2: 0.0145 }; digits.push([th]);
       // the wrist: the heel of the hand narrowing into the forearm
       const w = (this.def.limbs.width * 0.82) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.042, w, 0.05, 20, 1), M("#e03030"));
@@ -321,11 +322,16 @@ export class Character {
       U.pinchPt.position.copy(q); U.pinchW = pw;
       // close: 0 the thumb stands open (reaching for it, letting go), 1 its pad is on the straw
       const tk = pw * Math.min(1, Math.max(0, gr.close ?? 1));
+      const tb = U.thumbBone;
+      if (tb) { tb.mesh.scale.y = 1; tb.mesh.position.copy(tb.base).addScaledVector(tb.dir, tb.len); }
       if (tk > 0) {
-        const tc = q.clone().addScaledVector(n, rs + 0.0165), d = tc.clone().sub(U.thumbRest);
+        const tc = q.clone().addScaledVector(n, rs + 0.0165), d = tc.clone().sub(U.thumbRest), dl = d.length();
         const TT = U.thumbTip || THUMB_TIP, qa = new THREE.Quaternion().setFromUnitVectors(TT.clone().normalize(), d.normalize());
         U.thumb.quaternion.slerp(qa, tk);
-        U.thumb.position.lerp(tc.sub(TT.clone().applyQuaternion(qa)), tk);
+        // the seamless glove's thumb keeps its root on the palm's thenar mound (moving the root made the thumb read as a
+        // separate lump on the back of the hand, Jonny 29 Oct): it only swings to the pinch, stretching a little if short
+        if (tb) { const st = 1 + tk * (Math.min(1.3, Math.max(0.85, dl / TT.length())) - 1); tb.mesh.scale.y = st; tb.mesh.position.copy(tb.base).addScaledVector(tb.dir, tb.len * st); }
+        else U.thumb.position.lerp(tc.sub(TT.clone().applyQuaternion(qa)), tk);
       }
     }
   }
