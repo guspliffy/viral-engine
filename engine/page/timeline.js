@@ -4,6 +4,7 @@ import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y, propState, gripWorld, partPoint } from "./props3d.js";
+import { CARD_REST } from "./costumes-card.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -275,7 +276,20 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "hide": st.visible = false; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
-      case "wings": st.wings = lerp(st.wings, a.to ?? 1, e); break;   // Phoenix: 0 folded, 1 spread
+      // Phoenix: 0 folded, 1 spread. side "R" | "L": only that wing, as an offset on top of both (-1 tucks it in, so one
+      // wing can hang while the other is up)
+      case "wings": if (a.side) { st.wingSide = { R: 0, L: 0, ...st.wingSide }; st.wingSide[a.side] = lerp(st.wingSide[a.side], a.to ?? 0, e); } else st.wings = lerp(st.wings, a.to ?? 1, e); break;
+      // homemade cardboard wings (costume.cardWings, costumes-card.js): set { raise, fold, crook, flutter } on side
+      // "R", "L" or "both"
+      case "card": {
+        st.card = st.card || { R: { ...CARD_REST }, L: { ...CARD_REST } };
+        for (const s of a.side === "R" || a.side === "L" ? [a.side] : ["R", "L"]) {
+          const w = { ...st.card[s] };
+          for (const [k, v] of Object.entries(a.set || {})) w[k] = lerp(w[k] ?? 0, v, e);
+          st.card = { ...st.card, [s]: w };
+        }
+        break;
+      }
       // Phoenix: how far the wings may open at all, 0 tucked tight against the back .. 1 the model's own (half open at
       // rest, spread in flight). It caps what "wings", "fly" and the hover do (a half-open beat in a tight spot)
       case "span": st.span = lerp(st.span, a.to ?? 1, e); break;
