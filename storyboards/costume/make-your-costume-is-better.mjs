@@ -37,7 +37,7 @@ const END = 14.0;
 const R_START = [-0.58, -0.4], R0 = [-0.58, 0.25];       // Reaper walks toward us to his mark
 const P_START = [1.85, 0.38], P0 = [0.62, 0.38];            // Phoenix walks in from the right
 const P1 = [0.17, 0.27];                                // beside Reaper, facing him side-on, for the catch
-const LIFT = 0.3, SAG = 0.2;
+const LIFT = 0.4, SAG = 0.2;
 const SHOW = 1;                                          // Phoenix's wings spread (his canonical wings: the brief's rig wins over the board's bigger ones)                             // how high the gust lifts him; where the fold drops him to
 
 // eye targets (face look space: + right on screen, + up)
@@ -149,7 +149,7 @@ A(FOLD, "rea", "card", { side: "both", set: { fold: 1, flutter: 0, raise: 0.55 }
 A(FOLD, "rea", "card", { side: "L", set: { crook: 1 }, dur: 0.25, ease: "in" });
 sfx(FOLD, "creak", { gain: 0.5, reason: "the card hinges straining as they bend" });
 sfx(FOLD + 0.12, "ai-package/cardboard-rustle", { gain: 0.45, reason: "the card folding over" });
-c.prop(FOLD + 0.15, "lift", { y: 0.12 }, 0.18, "in");                               // the card gives: his stomach drops
+c.prop(FOLD + 0.15, "lift", { y: 0.22 }, 0.18, "in");                               // the card gives: his stomach drops (still off the ground)
 A(FOLD + 0.33, "rea", "squash", { amount: 0.06, dur: 0.2 });
 c.at(FOLD + 0.3, { fx: "shake", dur: 0.15, amp: 0.025 });
 A(FOLD + 0.2, "rea", "expr", { expr: "shocked", set: { open: 0.18, curve: -0.1 }, dur: 0.15 });
@@ -170,13 +170,14 @@ act.eyesLead(c, FOLD + 0.8, "phx", [-0.8, -0.2]);
 A(FOLD + 0.6, "phx", "crouch", { to: 0.5, dur: 0.4 });                               // down to Reaper's height
 c.arm(FOLD + 0.8, "phx", "R", { prop: "lift", grip: [0.32, 0.16, 0.04] }, 0.35, "out");     // both hands under his torso, from his side
 c.arm(FOLD + 0.8, "phx", "L", { prop: "lift", grip: [0.3, 0.17, -0.2] }, 0.35, "out");
-c.prop(9.55, "lift", { y: 0.08 }, 0.4, "in");                                      // he slips down...
+c.prop(9.7, "lift", { y: 0.15 }, 0.25, "in");                                       // he slips down, feet still off the stones...
 
 // ---------------------------------------------------------------- 7 THE CATCH, SET DOWN 10.0-12.0
 // ...into Phoenix's hands, which have been under him since 9.55: a small give, then down to his feet
 A(10.0, "phx", "squash", { amount: 0.04, dur: 0.25 });
 sfx(10.0, "thud-soft", { gain: 0.5, reason: "Reaper dropping into Phoenix's hands" });
-A(10.0, "phx", "expr", { expr: "focused", set: { curve: 0.2 }, dur: 0.2 });
+A(10.0, "phx", "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.2 });   // careful, not angry (a squint reads angry at phone size)
+A(10.0, "phx", "face", { lid: 0.25, dur: 0.2 });
 A(10.05, "rea", "expr", { expr: "kind", set: { open: 0.12, eye: 1.15 }, dur: 0.25 });    // relief
 A(10.1, "rea", "look", { to: [0.7, -0.15], dur: 0.2, blink: false });
 c.prop(10.35, "lift", { y: 0 }, 0.9, "inOut");
@@ -219,12 +220,13 @@ A(12.95, "rea", "expr", { expr: "smug", set: { curve: 0.65, smirk: 0.2 }, dur: 0
 A(12.95, "rea", "face", { lid: 0.3, brow: 0, dur: 0.3 });
 A(13.05, "phx", "look", { to: P_AT_R, dur: 0.2, blink: false });
 A(13.25, "phx", "wings", { to: SHOW, dur: 0.4 });
-A(13.25, "phx", "wings", { side: "R", to: -0.8, dur: 0.4 });
-A(13.25, "phx", "wings", { side: "L", to: 0.1, dur: 0.4 });
+A(13.25, "phx", "wings", { side: "R", to: -1, dur: 0.4 });
+A(13.25, "phx", "wings", { side: "L", to: 1, dur: 0.4 });
 c.arm(13.25, "phx", "R", "hips", 0.3, "settle");
 c.arm(13.25, "phx", "L", "hips", 0.3, "settle");
-A(13.3, "phx", "lean", { to: 9, dur: 0.35, ease: "settle" });
-A(13.3, "phx", "pitch", { to: -6, dur: 0.35 });
+A(13.3, "phx", "lean", { to: 14, dur: 0.35, ease: "settle" });   // a body copy of his tilt, not only the wings
+A(13.3, "phx", "pitch", { to: -10, dur: 0.35 });
+A(13.55, "phx", "squash", { amount: 0.03, dur: 0.2 });
 A(13.3, "phx", "expr", { expr: "happy", set: { curve: 0.8 }, dur: 0.3 });
 A(13.55, "phx", "look", { to: AT_CAM, dur: 0.2, blink: false });
 A(13.45, "rea", "look", { to: R_AT_P, dur: 0.2, blink: false });
@@ -232,19 +234,19 @@ A(13.5, "rea", "expr", { expr: "happy", set: { curve: 0.6 }, dur: 0.3 });
 sfx(12.9, "ai/warm-resolve", { gain: 0.3, reason: "a warm ending under the two proud poses" });
 
 // hook caption: on screen from frame 0 (not word by word), cleared before the reveal settles
-cap(0, 0.6, "My friend\ndressed as me.", 1180, false, { kinetic: false });   // low over the paving while the shot is on his feet
+cap(0, 0.6, "My friend\ndressed as me.", 1180, false, { kinetic: false });   // low over the paving while the shot is on his feet (his body fills the top)
 cap(0.6, 2.0, "My friend\ndressed as me.", 300, false, { kinetic: false });   // then above the heads
 
 // ---------------------------------------------------------------- shots (by hand: the brief fixes all eight)
-const S1 = { pos: [-0.95, 0.12, 1.75], look: [-0.72, 0.14, 0.0], fov: 40 };                      // low: feet + feather
-const S2 = { pos: [-0.2, 1.2, 2.75], look: [-0.62, 0.95, 0.2], fov: 36 };                       // close: face + taped wing root
+const S1 = { pos: [-1.08, 0.1, 1.45], look: [-0.86, 0.06, 0.0], fov: 34 };                        // low: feet + feather
+const S2 = { pos: [-0.2, 1.1, 2.9], look: [-0.6, 0.85, 0.2], fov: 44 };                           // close: face + taped wing root
 const MASTER = { pos: [0.02, 1.05, 5.9], look: [0.02, 0.72, 0.3], fov: 37 };                    // medium: both, wings and ground
 const S3 = MASTER;
-const S4 = { pos: [0.06, 1.0, 5.4], look: [0.0, 0.8, 0.3], fov: 37, to: { pos: [0.03, 0.98, 4.5], look: [0.0, 0.8, 0.3] }, dur: 2.4 };                          // the two-shot, a step nearer
-const S5 = { pos: [-0.05, 0.45, 6.3], look: [-0.05, 0.55, 0.3], fov: 37 };                       // wider: both + the ground
+const S4 = { pos: [0.02, 1.05, 5.9], look: [0.02, 0.72, 0.3], fov: 37, to: { pos: [0.03, 0.98, 4.5], look: [0.0, 0.8, 0.3] }, dur: 2.4 };                          // the two-shot, a step nearer
+const S5 = { pos: [-0.05, 0.6, 5.4], look: [-0.05, 0.6, 0.3], fov: 37 };                         // wider: both + the ground
 const S6 = { pos: [-0.05, 1.05, 5.4], look: [-0.15, 0.85, 0.35], fov: 37, to: { pos: [-0.12, 1.0, 4.7], look: [-0.12, 0.84, 0.35] }, dur: 1.4 };
 const S7 = { pos: [-0.15, 0.95, 4.6], look: [-0.18, 0.66, 0.4], fov: 37 };
-const S8 = { pos: [0.12, 1.0, 5.2], look: [0.12, 0.74, 0.3], fov: 44 };                         // the two poses, a step nearer
+const S8 = { pos: [0.1, 0.98, 5.2], look: [0.1, 0.74, 0.3], fov: 44, to: { pos: [0.1, 0.96, 4.95], look: [0.1, 0.74, 0.3] }, dur: 2 };   // both wing spans need ~2.4 m: no closer                         // the two poses, a step nearer
 const beats = c.beats([
   ["1 feet and feather", 0, S1, "hook"],
   ["2 tape and pride", 0.6, S2],
