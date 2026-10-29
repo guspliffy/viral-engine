@@ -147,6 +147,30 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * (env(t, 0.0005, 0.004, d) + 0.7 * env(t - 0.055, 0.0005, 0.006, d)) + Math.sin(TAU * 1400 * t) * 0.3 * env(t, 0.0005, 0.01, d); }
     return x;
   },
+  // a camera's self-timer: one short pure beep near 3 kHz with soft edges (Ghost Photo)
+  "timer-beep"(r) {
+    const d = 0.1, x = buf(d);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 3050 * t) * 0.55 + Math.sin(TAU * 6100 * t) * 0.08) * Math.min(1, t / 0.004, Math.max(0, 0.075 - t) / 0.01); }
+    return x;
+  },
+  // cloth starting to smoulder: a quiet airy hiss with a few tiny crackles in it (Ghost Photo's glowing sheet)
+  sizzle(r, d = 0.8) {
+    const x = buf(d), bp = biquad("bp", 5200, 0.9), hp = biquad("hp", 3500, 0.8), hits = Array.from({ length: 11 }, () => 0.04 + r() * (d - 0.1));
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let e = 0; for (const h of hits) e += env(t - h, 0.0003, 0.004, d);
+      x[i] = run(bp, r() * 2 - 1) * 0.35 * Math.min(1, t / 0.12, (d - t) / 0.2) + run(hp, r() * 2 - 1) * e * 0.9;
+    }
+    return x;
+  },
+  // a camera flash firing: the shutter's two clicks and a soft bright 'pff' of the flash between them
+  flash(r) {
+    const d = 0.35, x = buf(d), hp = biquad("hp", 1800, 0.8), bp = biquad("bp", 4200, 0.8);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR;
+      x[i] = run(hp, r() * 2 - 1) * (env(t, 0.0005, 0.004, d) + 0.7 * env(t - 0.07, 0.0005, 0.006, d)) + run(bp, r() * 2 - 1) * env(t - 0.012, 0.002, 0.05, d) * 0.7 + Math.sin(TAU * 1400 * t) * 0.25 * env(t, 0.0005, 0.01, d);
+    }
+    return x;
+  },
   // a lid straining on its thread: a slow, rough squeak that wobbles in pitch
   creak(r, d = 0.5) {
     const x = buf(d), bp = biquad("bp", 900, 6); let p = 0;
@@ -191,6 +215,37 @@ const SFX = {
   crinkle(r, d = 0.3) {
     const x = buf(d), hp = biquad("hp", 3000, 0.8), hits = Array.from({ length: 9 }, () => r() * (d - 0.03));
     for (let i = 0; i < x.length; i++) { const t = i / SR; let e = 0; for (const h of hits) e += env(t - h, 0.0003, 0.006, d); x[i] = run(hp, r() * 2 - 1) * e * 0.9; }
+    return x;
+  },
+  // a fang through a juice carton: a tiny dry card pop, a soft thock with a crackle on top
+  puncture(r) {
+    const d = 0.08, x = buf(d), hp = biquad("hp", 2600, 0.9), lp = biquad("lp", 700, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * env(t, 0.0004, 0.006, d) * 0.9 + run(lp, r() * 2 - 1) * env(t, 0.0008, 0.012, d) * 1.6; }
+    return x;
+  },
+  // a short squirt of juice out of a squeezed carton: a wet, hissy jet whose pitch drops as the pressure goes, with bubbly flutter
+  squirt(r, d = 0.35) {
+    const x = buf(d); let bp = biquad("bp", 2400, 1.6);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = t / d;
+      if (i % 64 === 0) bp = { ...biquad("bp", 2600 * Math.pow(0.45, k), 1.6), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 };
+      const flutter = 0.65 + 0.35 * Math.sin(TAU * (34 + 20 * k) * t) ** 2;
+      x[i] = run(bp, r() * 2 - 1) * flutter * Math.min(1, t / 0.01) * Math.pow(1 - k, 1.4) * 1.8;
+    }
+    return x;
+  },
+  // juice landing on a face: a soft wet slap, a squelch that sinks in pitch, and a few drips after it (a "splort")
+  splort(r) {
+    const d = 0.45, x = buf(d), lp = biquad("lp", 380, 0.7), drips = [0.11 + r() * 0.03, 0.19 + r() * 0.04, 0.29 + r() * 0.05];
+    let bp = biquad("bp", 1500, 2.2);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / 0.16);
+      if (i % 64 === 0) bp = { ...biquad("bp", 1500 * Math.pow(0.32, k), 2.2), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 };
+      const gurgle = 0.55 + 0.45 * Math.sin(TAU * (48 - 20 * k) * t) ** 2;
+      let v = run(lp, r() * 2 - 1) * env(t, 0.001, 0.035, d) * 2.2 + run(bp, r() * 2 - 1) * gurgle * env(t - 0.004, 0.003, 0.07, d) * 2.4;
+      for (const [j, h] of drips.entries()) { const u = t - h; if (u > 0 && u < 0.05) v += Math.sin(TAU * (500 + j * 120 + 2400 * u) * u) * Math.exp(-u / 0.012) * (0.32 - j * 0.07); }
+      x[i] = v;
+    }
     return x;
   },
   // an iron door latch dropping into its catch: a metal clack with a short ring

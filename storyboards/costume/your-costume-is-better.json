@@ -1,0 +1,1861 @@
+{
+ "id": "your-costume-is-better",
+ "title": "Your Costume Is Better Than Mine",
+ "idea": "Eight trend tests 02 (Ramalama costume walk, adapted): Reaper in homemade cardboard Phoenix wings; Phoenix's wingbeat lifts him, the card folds, Phoenix catches him",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   12,
+   16
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#f3d9a8",
+  "floor": "#a88f78",
+  "light": "golden",
+  "key": [
+   -4.5,
+   4.2,
+   3.2
+  ],
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/autumn-sidewalk.png",
+   "z": -2.2,
+   "center": [
+    0,
+    1.7
+   ],
+   "height": 6.8
+  }
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.25,
+  "surface": "concrete",
+  "signature": false
+ },
+ "hook": {
+  "show": [
+   "rea"
+  ],
+  "hint": 0.6,
+  "what": "a homemade cardboard feather scraping beside Reaper's feet, then his proud face (the brief opens on the feet)"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-cardwings",
+   "at": [
+    -0.58,
+    -0.4
+   ],
+   "face": "camera",
+   "expr": "smug",
+   "follow": 0.25,
+   "seed": 4.1
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    1.85,
+    0.38
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "pave",
+   "kind": "pavement",
+   "x": 0,
+   "z": 1.2,
+   "w": 8,
+   "d": 9,
+   "seed": 3
+  },
+  {
+   "id": "leaves",
+   "kind": "leaves",
+   "x": 0,
+   "z": 0.45,
+   "w": 2,
+   "d": 1.2,
+   "n": 48,
+   "dir": -1,
+   "reach": 1.3,
+   "seed": 5
+  },
+  {
+   "id": "pumpL",
+   "kind": "pumpkin",
+   "x": -1.1,
+   "z": -1.4,
+   "r": 0.16,
+   "rot": 0.35
+  },
+  {
+   "id": "pumpR",
+   "kind": "pumpkin",
+   "x": 1,
+   "z": 1.05,
+   "r": 0.15,
+   "rot": -0.4
+  },
+  {
+   "id": "lift",
+   "kind": "carrier",
+   "x": -0.58,
+   "y": 0,
+   "z": 0.25,
+   "rot": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.6,
+   "text": "My friend\ndressed as me.",
+   "pos": 1180,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0.6,
+   "to": 2,
+   "text": "My friend\ndressed as me.",
+   "pos": 300,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "1 feet and feather",
+   "at": 0,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -1.08,
+     0.1,
+     1.45
+    ],
+    "look": [
+     -0.86,
+     0.06,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "R",
+     "set": {
+      "raise": -0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "L",
+     "set": {
+      "raise": 0.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.58,
+      0.25
+     ],
+     "dur": 1.15,
+     "ease": "out",
+     "steps": 2.4,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.45,
+      "smirk": 0.25
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.45,
+     "reason": "the cardboard feather tip scraping the pavement beside his feet",
+     "at": 0.05
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 tape and pride",
+   "at": 0.6,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     2.9
+    ],
+    "look": [
+     -0.6,
+     0.85,
+     0.2
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "raise": 0.8
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.6,
+      "smirk": 0.2,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.35,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.52
+    }
+   ]
+  },
+  {
+   "name": "3 the whole costume",
+   "at": 1.2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0.02,
+     1.05,
+     5.9
+    ],
+    "look": [
+     0.02,
+     0.72,
+     0.3
+    ],
+    "fov": 37
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "raise": 0.6
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.62,
+      0.38
+     ],
+     "dur": 0.8,
+     "ease": "out",
+     "steps": 2.4,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -14,
+     "dur": 0.3,
+     "at": 0.7
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "4 study, smile, open",
+   "at": 2,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0.02,
+     1.05,
+     5.9
+    ],
+    "look": [
+     0.02,
+     0.72,
+     0.3
+    ],
+    "fov": 37,
+    "to": {
+     "pos": [
+      0.03,
+      0.98,
+      4.5
+     ],
+     "look": [
+      0,
+      0.8,
+      0.3
+     ]
+    },
+    "dur": 2.4
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "raise": 0.05,
+      "curve": 0.2
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.35,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.55,
+     "ease": "out",
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.3,
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "raise": 0.85
+     },
+     "dur": 0.3,
+     "ease": "anticSettle",
+     "at": 1.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.75
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.4,
+      "open": 0.15
+     },
+     "dur": 0.25,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "5 the wingbeat",
+   "at": 4.4,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     -0.05,
+     0.6,
+     5.4
+    ],
+    "look": [
+     -0.05,
+     0.6,
+     0.3
+    ],
+    "fov": 37
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "R",
+     "to": 0.12,
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "L",
+     "to": 0.12,
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "5 the gust lifts him",
+   "at": 4.95,
+   "len": 2.25,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "R",
+     "to": -0.8,
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "L",
+     "to": -0.8,
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.16,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.03,
+     "at": 0
+    },
+    {
+     "sfx": "wing-flap",
+     "gain": 0.9,
+     "reason": "Phoenix's one big downstroke",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "rise": 1
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.55,
+     "reason": "the gust from the wingbeat crossing to Reaper (leaves blowing)",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "raise": 1,
+      "flutter": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.35,
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.5,
+     "reason": "the card wings shivering in the gust",
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "lift",
+     "dur": 0.01,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.36,
+       0.5,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.36,
+       0.5,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "R",
+     "to": 0,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "L",
+     "to": 0,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "y": 0.4
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.3
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "flutter": 0.4
+     },
+     "dur": 0.5,
+     "at": 1.45
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "6 joy, the fold, the reach",
+   "at": 7.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -0.05,
+     1.05,
+     5.4
+    ],
+    "look": [
+     -0.15,
+     0.85,
+     0.35
+    ],
+    "fov": 37,
+    "to": {
+     "pos": [
+      -0.12,
+      1,
+      4.7
+     ],
+     "look": [
+      -0.12,
+      0.84,
+      0.35
+     ]
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.5,
+      "eye": 1.15
+     },
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.2,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.82,
+       0.12
+      ]
+     },
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.82,
+       0.12
+      ]
+     },
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "both",
+     "set": {
+      "fold": 1,
+      "flutter": 0,
+      "raise": 0.55
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.4
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "L",
+     "set": {
+      "crook": 1
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 1.4
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.5,
+     "reason": "the card hinges straining as they bend",
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.45,
+     "reason": "the card folding over",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "y": 0.22
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.18,
+      "curve": -0.1
+     },
+     "dur": 0.15,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.45,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.45,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.025,
+     "at": 1.7
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.2,
+     "at": 1.73
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.45,
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "R",
+     "to": -0.6,
+     "dur": 0.45,
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "L",
+     "to": -0.6,
+     "dur": 0.45,
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.17,
+      0.27
+     ],
+     "dur": 0.6,
+     "ease": "inOut",
+     "steps": 2.4,
+     "at": 1.8
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -65,
+     "dur": 0.5,
+     "at": 1.8
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.4,
+     "at": 2
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.07
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "lift",
+      "grip": [
+       0.32,
+       0.16,
+       0.04
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "lift",
+      "grip": [
+       0.3,
+       0.17,
+       -0.2
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "y": 0.15
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 2.5
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "7 the catch",
+   "at": 10,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.15,
+     0.95,
+     4.6
+    ],
+    "look": [
+     -0.18,
+     0.66,
+     0.4
+    ],
+    "fov": 37
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "reason": "Reaper dropping into Phoenix's hands",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0.12,
+      "eye": 1.15
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.9,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": null,
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.2,
+     "at": 1.25
+    },
+    {
+     "sfx": "step",
+     "gain": 0.6,
+     "reason": "his feet touching the pavement",
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.3,
+       0.02
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.26
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.67
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.82,
+      0.42
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "steps": 2.4,
+     "at": 1.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.95
+    }
+   ]
+  },
+  {
+   "name": "8 crooked pride",
+   "at": 12,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.1,
+     0.98,
+     5.2
+    ],
+    "look": [
+     0.1,
+     0.74,
+     0.3
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.1,
+      0.96,
+      4.95
+     ],
+     "look": [
+      0.1,
+      0.74,
+      0.3
+     ]
+    },
+    "dur": 2
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -22,
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "L",
+     "set": {
+      "raise": 0.9,
+      "fold": 0.6
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.5,
+       0.75,
+       -0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "L",
+     "set": {
+      "crook": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.3,
+     "reason": "the bent card feather pushed straight",
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.35,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "R",
+     "set": {
+      "raise": 0.8,
+      "fold": 0.5
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "card",
+     "side": "L",
+     "set": {
+      "fold": 0.85,
+      "raise": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -9,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.3,
+     "reason": "a warm ending under the two proud poses",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.65,
+      "smirk": 0.2
+     },
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.4,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "R",
+     "to": -1,
+     "dur": 0.4,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "side": "L",
+     "to": 1,
+     "dur": 0.4,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.35,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.2,
+     "at": 1.55
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.55
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "phx",
+   "with": "rea",
+   "from": 9.3,
+   "to": 12,
+   "reason": "the catch: Phoenix's hands under Reaper's torso (brief shot 7), until he steps back"
+  }
+ ],
+ "notes": "Generated by storyboards/costume/make-your-costume-is-better.mjs (eight-trend-tests 02-copycat-costume)."
+}

@@ -1,0 +1,2172 @@
+{
+ "id": "vampire-vs-juice-box",
+ "title": "Vampire vs Juice Box",
+ "idea": "Story library 02: Reaper's new vampire fangs spray juice over the Wizard, who silently hands him a straw",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "creative": {
+  "length": [
+   8,
+   14
+  ],
+  "loop": false
+ },
+ "allowClip": [
+  {
+   "who": "wiz",
+   "with": "carton",
+   "from": 1,
+   "to": 1.8,
+   "reason": "the juice jets land on his cheek and forearm (the carton's jets)"
+  },
+  {
+   "who": "rea",
+   "with": "carton",
+   "from": 0,
+   "to": 0.75,
+   "reason": "the fangs bite the carton's top edge against his chin"
+  },
+  {
+   "who": "rea",
+   "with": "carton",
+   "from": 6.75,
+   "to": 8.05,
+   "reason": "his lips on the straw's end for the sip"
+  },
+  {
+   "who": "wiz",
+   "with": "table",
+   "from": 0,
+   "to": 11,
+   "reason": "his paws rest on the tabletop"
+  },
+  {
+   "who": "rea",
+   "with": "table",
+   "from": 2.7,
+   "to": 5.6,
+   "reason": "his paws rest on the tabletop"
+  }
+ ],
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.3,
+   "center": [
+    0,
+    1.2
+   ],
+   "height": 3.9
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "gain": 0.45,
+  "parts": [
+   {
+    "at": 0,
+    "part": "intro"
+   },
+   {
+    "at": 1,
+    "part": "hush"
+   },
+   {
+    "at": 1.8,
+    "part": "intro"
+   },
+   {
+    "at": 6.5,
+    "part": "main"
+   },
+   {
+    "at": 9.4,
+    "part": "intro"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "speech": false
+ },
+ "experiment": {
+  "id": "hook-2026-11",
+  "episode": "vampire-vs-juice-box",
+  "variant": "A"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.47,
+    0.05
+   ],
+   "face": 24,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.47,
+    0.02
+   ],
+   "face": -24,
+   "expr": "focused",
+   "follow": 0.25,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.92,
+   "h": 0.24,
+   "w": 2.8,
+   "d": 0.82,
+   "color": "#e9d3a8",
+   "leg": "#c9a273"
+  },
+  {
+   "id": "carton",
+   "kind": "juicebox",
+   "x": 0.313,
+   "y": 0.304,
+   "z": 0.376,
+   "rot": -20,
+   "scale": 1.4,
+   "strawRot": 90,
+   "strawScale": 0.964,
+   "jets": [
+    [
+     -0.229,
+     0.673,
+     0.31
+    ],
+    [
+     -0.104,
+     0.453,
+     0.44
+    ]
+   ]
+  },
+  {
+   "id": "cup",
+   "kind": "papercup",
+   "x": -0.24,
+   "y": 0.24,
+   "z": 0.78,
+   "rot": 200,
+   "straws": 2,
+   "strawScale": 1.35
+  },
+  {
+   "id": "straw",
+   "kind": "bendystraw",
+   "x": -0.24,
+   "y": 0.276,
+   "z": 0.78,
+   "rot": 70,
+   "tip": 0,
+   "scale": 1.35
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "01 wrong tool",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.632,
+     0.883,
+     3.187
+    ],
+    "look": [
+     0.29,
+     0.57,
+     0.35
+    ],
+    "fov": 18
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "carton",
+     "hand": "both",
+     "grip": [
+      0,
+      0.07056,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.205,
+       0.403,
+       0.337
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.421,
+       0.403,
+       0.415
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "fangs": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.66,
+       0.275,
+       0.6
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.26,
+       0.275,
+       0.64
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "paw",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.75
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.42,
+      "curve": 0.1,
+      "eye": 0.85
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": -0.2,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 8,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.55
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.05,
+      "eye": 1,
+      "tilt": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.25,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.16,
+     "dur": 0.35,
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "squeeze": 0.2
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.208,
+       0.403,
+       0.338
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.418,
+       0.403,
+       0.414
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": -0.35,
+     "dur": 0.3,
+     "at": 0.1
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 pressure",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.637,
+     0.875,
+     2.728
+    ],
+    "look": [
+     0.313,
+     0.519,
+     0.376
+    ],
+    "fov": 16
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.217,
+       0.403,
+       0.341
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.409,
+       0.403,
+       0.411
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "squeeze": 0.75
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "holes": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "puncture",
+     "gain": 0.5,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.2,
+     "at": 0.16
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0.18,
+      "eye": 1.05
+     },
+     "dur": 0.12,
+     "at": 0.16
+    },
+    {
+     "sfx": "puncture",
+     "gain": 0.42,
+     "at": 0.19
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "jet": 1
+     },
+     "dur": 0.72,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "sfx": "squirt",
+     "gain": 0.55,
+     "dur": 0.38,
+     "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.094,
+       0.513,
+       0.414
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.2,
+     "at": 0.45
+    }
+   ]
+  },
+  {
+   "name": "03 immediate splash",
+   "at": 1,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     1.435,
+     0.82,
+     3.872
+    ],
+    "look": [
+     -0.12,
+     0.62,
+     0.38
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.75,
+     "idle": 0.05,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "press": 0.8,
+     "brow": -0.15,
+     "dur": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": -0.25,
+      "eye": 0.6
+     },
+     "dur": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "juiceL": 1,
+     "dur": 0.05,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 0.24
+    },
+    {
+     "sfx": "splort",
+     "gain": 0.6,
+     "at": 0.24
+    },
+    {
+     "fx": "pop",
+     "text": "SPLORT!",
+     "who": "wiz",
+     "dur": 0.5,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "stainL": 1,
+     "dur": 0.05,
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "squeeze": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.205,
+       0.403,
+       0.337
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.421,
+       0.403,
+       0.415
+      ],
+      "palm": [
+       0.313,
+       0.403,
+       0.376
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.2,
+     "at": 0.3
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "04 the silent solution",
+   "at": 1.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.358,
+     1.028,
+     5.412
+    ],
+    "look": [
+     0,
+     0.58,
+     0.3
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "press": 0.3,
+     "brow": 0,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.1
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 24,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.15,
+      "eye": 0.95,
+      "open": 0
+     },
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.175,
+       0.343,
+       0.387
+      ],
+      "palm": [
+       0.283,
+       0.343,
+       0.426
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.391,
+       0.343,
+       0.465
+      ],
+      "palm": [
+       0.283,
+       0.343,
+       0.426
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0,
+       0.32999999999999996,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.02,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.058,
+       0.369,
+       0.581
+      ],
+      "palm": [
+       0.05,
+       0.369,
+       0.62
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.158,
+       0.369,
+       0.659
+      ],
+      "palm": [
+       0.05,
+       0.369,
+       0.62
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.45,
+     "reason": "the carton's light rustle as it is passed",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.078,
+       0.339,
+       0.601
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.138,
+       0.339,
+       0.679
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "carton",
+     "to": [
+      0.03,
+      0.24,
+      0.64
+     ],
+     "dur": 0,
+     "at": 0.9
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.35,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.94
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.55
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.14,
+       0.32999999999999996,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.62,
+       0.32999999999999996,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.13,
+       0.565,
+       0.59
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.04
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.3,
+     "at": 1.12
+    }
+   ]
+  },
+  {
+   "name": "05 use the straw",
+   "at": 3,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     -0.09,
+     2.04,
+     3.666
+    ],
+    "look": [
+     -0.09,
+     0.41,
+     0.6
+    ],
+    "fov": 18,
+    "to": {
+     "pos": [
+      -0.09,
+      1.747,
+      3.114
+     ]
+    },
+    "dur": 2.1
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.75
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.004,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.178,
+       0.359,
+       0.649
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.24,
+       0.473,
+       0.78
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.3,
+       0.275,
+       0.55
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.68,
+       0.275,
+       0.55
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.138,
+       0.339,
+       0.679
+      ],
+      "palm": [
+       0.03,
+       0.339,
+       0.64
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.24,
+       0.438,
+       0.78
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0.08,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "straw",
+     "hand": "R",
+     "point": "pinch",
+     "grip": [
+      0,
+      0.12,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.53
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.24,
+       0.568,
+       0.78
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.08,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.071,
+       0.677,
+       0.634
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.071,
+       0.637,
+       0.634
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.071,
+       0.597,
+       0.634
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.52
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.25,
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "port": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.59
+    },
+    {
+     "sfx": "puncture",
+     "gain": 0.4,
+     "at": 1.59
+    },
+    {
+     "do": "prop",
+     "id": "straw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.74
+    },
+    {
+     "do": "prop",
+     "id": "carton",
+     "set": {
+      "straw": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.74
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "straw",
+     "at": 1.74
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004,
+      "close": 0
+     },
+     "dur": 0.12,
+     "at": 1.74
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.061,
+       0.677,
+       0.624
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.88
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.42,
+       0.44,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.04
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 2.04
+    }
+   ]
+  },
+  {
+   "name": "06 give it back",
+   "at": 5.1,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.343,
+     0.942,
+     4.823
+    ],
+    "look": [
+     -0.03,
+     0.55,
+     0.35
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.168,
+       0.349,
+       0.559
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.04
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0,
+      "eye": 1.05
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.1,
+       0.36,
+       0.47
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.66,
+       0.275,
+       0.6
+      ]
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.26,
+       0.275,
+       0.64
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.138,
+       0.44,
+       0.679
+      ],
+      "palm": [
+       0.03,
+       0.44,
+       0.64
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.058,
+       0.41,
+       0.541
+      ]
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.3,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.078,
+       0.44,
+       0.601
+      ],
+      "palm": [
+       0.03,
+       0.44,
+       0.64
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.76
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "carton",
+     "hand": "both",
+     "grip": [
+      0,
+      0.1428,
+      0
+     ],
+     "pose": null,
+     "at": 0.9
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.25,
+     "reason": "quiet handling as Reaper takes the carton",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "07 it works",
+   "at": 6.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.624,
+     0.769,
+     3.195
+    ],
+    "look": [
+     0.3,
+     0.56,
+     0.35
+    ],
+    "fov": 18
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.153,
+       0.35,
+       0.367
+      ],
+      "palm": [
+       0.261,
+       0.35,
+       0.406
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.369,
+       0.35,
+       0.445
+      ],
+      "palm": [
+       0.261,
+       0.35,
+       0.406
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0.08,
+      "curve": 0.1,
+      "eye": 0.9
+     },
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.7,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.4,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.5,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.2,
+     "brow": 0.3,
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.25,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "08 still proud",
+   "at": 8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.597,
+     0.718,
+     4.591
+    ],
+    "look": [
+     0.3,
+     0.57,
+     0.35
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.008,
+       0.475,
+       0.561
+      ],
+      "palm": [
+       0.1,
+       0.475,
+       0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.208,
+       0.475,
+       0.639
+      ],
+      "palm": [
+       0.1,
+       0.475,
+       0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.35,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.6,
+      "curve": 1,
+      "eye": 0.7,
+      "tilt": 0.1
+     },
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "fangs": 1,
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.9,
+     "idle": 0.1,
+     "at": 0.35
+    },
+    {
+     "sfx": "kenney/cloth",
+     "gain": 0.08,
+     "reason": "a tiny satisfied breath as the chin goes up",
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "carton",
+     "hand": "R",
+     "grip": [
+      -0.082,
+      0.1428,
+      0
+     ],
+     "pose": null,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.567,
+       0.54,
+       0.46
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.2,
+     "at": 0.7
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "09 the cost of helping",
+   "at": 9.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.02,
+     0.822,
+     4.518
+    ],
+    "look": [
+     -0.02,
+     0.6,
+     0.28
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.85
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 6,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.3,
+       0.55,
+       0.6
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.2
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.05
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 16,
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      -0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -9,
+     "dur": 0.3,
+     "at": 0.9
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "notes": "Generated by storyboards/juice/make-vampire-vs-juice-box.mjs (Jonny's story library 02)."
+}
