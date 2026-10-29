@@ -108,10 +108,15 @@ const HALF = (open, gap, side, u = 1.04, v = 0.5, out = 0.03) =>
   onProp(null, foldPoint(open, gap, side, u, v, out), foldPoint(open, gap, side, Math.min(u, 0.8), Math.min(Math.max(v, 0.15), 0.85), 0));
 // a hand under one half's bottom edge, palm up, u across the half (the gloves hold the phone from below)
 const UNDER = (open, gap, side, u) => onProp(null, foldPoint(open, gap, side, u, -0.09, 0), foldPoint(open, gap, side, u, 0.2, 0));
+// a hand holding one half by its outer edge, a little below the middle, the fingers round the back (how a person holds
+// an open book-style phone)
+// an open book-style phone). The palm faces in along the half and up: facing straight in (or tipped toward the screen)
+// it faced along the forearm, which comes in from the elbow out at the side, and the glove flipped in one frame
+const EDGE = (open, gap, side) => onProp(null, foldPoint(open, gap, side, 1.1, 0.5, 0.03), foldPoint(open, gap, side, 0.93, 0.67, 0.03));
 
 // a buyer's whole handling chain: arrive with the box, set it down, lid off and parked, the phone out of the tray,
 // upright, unfolded. Times from the brief (t: the beat starts). Returns where the phone ends up.
-function purchase(id, box, lid, ph, T, UL = 0.65) {   // UL: how far out under its half the left hand sits
+function purchase(id, box, lid, ph, T) {
   const [sx, sz] = ST[id], at = BOX_AT[id];
   const start = [sx - 0.03, sz - 0.32];
   // arrive: the box carried in front of the chest by its ends, lid on, phone inside
@@ -175,22 +180,26 @@ function purchase(id, box, lid, ph, T, UL = 0.65) {   // UL: how far out under i
   A(T.lift + 0.1, id, "pitch", { to: 2, dur: 0.3 });
   sfx(T.lift + 0.02, "grab", { gain: 0.9 });
   // the closed phone stood up like a book, its spine to the left and its front cover (the left half) to the camera, both
-  // palms riding on its back. Then both take it from below, one under each half, palms up, so nothing covers the
-  // screens or the face, and the palms never face along the forearm (a hand riding the swinging half's back did, half
-  // way round, and flipped in one frame)
+  // palms riding on its back. Then held the way a person holds a book-style phone (Jonny 29 Oct: "nobody would hold a
+  // phone like this" from below): the left hand on the back half's outer edge, which stays still while the front cover
+  // swings open; the right hand carries the cover from below and takes its outer edge only once it has landed (a hand
+  // riding the swinging half's edge the whole way faces along its forearm half way round and flips in one frame)
   c.arm(T.open - 0.06, id, "R", { ...UNDER(0, 0, -1, 0.25), prop: ph }, 0.2, "inOut");
-  c.arm(T.open - 0.06, id, "L", { ...UNDER(0, 0, 1, UL), prop: ph }, 0.2, "inOut");
-  grip(T.open, id, "both", "relaxed", 0.08);
-  // unfold: the front cover swings toward the camera and over to the left, the back half stays where it is; the right
-  // hand rides under the opening half and slides out along it
-  // (the keys start once the hands are under it: before that they would fight the move to the bottom edge)
+  const openAt = (t) => { const u = clamp((t - T.open) / (T.flat - T.open)); return 0.98 * u * u * (3 - 2 * u); };
+  c.arm(T.open - 0.06, id, "L", { ...EDGE(openAt(T.open + 0.14), 0, 1), prop: ph }, 0.2, "inOut");
+  grip(T.open, id, "R", "relaxed", 0.08); grip(T.open, id, "L", "hold", 0.12);   // the left hand closes on the edge
+  // unfold: the front cover swings toward the camera and over to the left, the back half stays where it is
+  // (the keys start once the hands are on it: before that they would fight the move onto the phone)
   const n = Math.round((T.flat - T.open) * FPS / 2);
   for (let k = Math.ceil(0.2 / (T.flat - T.open) * n) + 1; k <= n; k++) {
     const u = k / n, t = T.open + (T.flat - T.open) * u, e = u * u * (3 - 2 * u), open = 0.98 * e;
     const b = clamp((u - 0.5) / 0.5), sb = b * b * (3 - 2 * b), step = (T.flat - T.open) / n;
     c.arm(t - step, id, "R", { ...UNDER(open, 0, -1, 0.25 + 0.4 * sb), prop: ph }, step, "linear");
-    c.arm(t - step, id, "L", { ...UNDER(open, 0, 1, UL), prop: ph }, step, "linear");
+    c.arm(t - step, id, "L", { ...EDGE(open, 0, 1), prop: ph }, step, "linear");
   }
+  // landed: the right hand slides from under the cover to its outer edge
+  c.arm(T.flat, id, "R", { ...EDGE(0.98, 0, -1), prop: ph }, 0.18, "inOut");
+  grip(T.flat + 0.04, id, "R", "hold", 0.12);
   c.prop(T.open, ph, { open: 0.98, rot: 0 }, T.flat - T.open, "inOut");
   sfx(T.open + 0.05, "kenney/cloth", { gain: 0.8, reason: "the phone's halves swing open" });
   return hold;
@@ -274,8 +283,8 @@ c.prop(SNAP, "phA", { gap: 0.08 }, 0.07, "out");
 // then the halves drift apart in his hands, so the golden body shows between them: the break reads at phone size
 c.prop(SNAP + 0.1, "phA", { gap: 0.13 }, 0.55, "out");
 for (const [t, g, d] of [[SNAP, 0.08, 0.07], [SNAP + 0.1, 0.13, 0.55]]) {
-  c.arm(t, "wiz", "R", { ...UNDER(0.98, g, -1, 0.65), prop: "phA" }, d, "out");
-  c.arm(t, "wiz", "L", { ...UNDER(0.98, g, 1, 0.65), prop: "phA" }, d, "out");
+  c.arm(t, "wiz", "R", { ...EDGE(0.98, g, -1), prop: "phA" }, d, "out");
+  c.arm(t, "wiz", "L", { ...EDGE(0.98, g, 1), prop: "phA" }, d, "out");
 }
 A(SNAP, "wiz", "still", { dur: 0.75, idle: 0.04 });
 A(SNAP + 0.02, "wiz", "squash", { amount: 0.03, dur: 0.12 });
@@ -293,7 +302,7 @@ A(4.588, "drg", "move", { to: [DOOR_X + 0.1, WALL_Z - 0.3], dur: 0.005 });
 const DT = { arrive: 5.1, set: 5.32, lid: 5.33, lift: 5.88, open: 6.18, flat: 6.56 };   // open early: a quarter second of intact screens before the crack
 A(5.088, "drg", "expr", { expr: "happy", set: { open: 0.35, curve: 1, eye: 1.12, pupil: 1.05 }, dur: 0.005 });
 look(5.088, "drg", [0, -0.75], 0.005);
-purchase("drg", "boxB", "lidB", "phB", DT, 0.4);   // his faster unfold swings the half low over the ledge: hold it nearer the spine
+purchase("drg", "boxB", "lidB", "phB", DT);
 look(5.92, "drg", [0, -0.45], 0.2); look(6.22, "drg", [0, -0.2], 0.25);
 A(6.22, "drg", "expr", { set: { open: 0.55, curve: 1, eye: 1.2, pupil: 1.15 }, dur: 0.2 });
 sfx(6.45, "kenney/power-up", { gain: 0.18, reason: "a hopeful pickup: his phone opens intact" });
