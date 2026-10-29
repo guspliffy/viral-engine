@@ -340,7 +340,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   set, rigs: [rig],
   music: false,
-  sound: { sfx: 0.7, ambience: 0.25, bedFade: 0.005, engine: { keys: ENGINE, gain: 0.17, cyl: 4 } },
+  sound: { sfx: 0.7, ambience: 0.25, bedFade: 0.005, engine: { keys: ENGINE, gain: 0.17, cyl: 4 }, scenes: ["ui"] }, // the phone's swipes
   cast, props, captions: c.captions, beats,
   allowClip: [
     { who: "wiz", with: "seatW", from: 0, to: END, reason: "the Wizard sits in his seat" },

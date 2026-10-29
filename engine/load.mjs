@@ -1,11 +1,12 @@
 // Read a storyboard file the way every tool should: real speech first (engine/voice/speech.mjs, so lines last as
-// long as they are spoken), then compile beats to the flat storyboard. Renderer and qa/ all use this, so they agree
+// long as they are spoken), then compile beats to the flat storyboard, then check its sounds against the whitelist. Renderer and qa/ all use this, so they agree
 // on every time in the clip.
 import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
 import { direct } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
+import { soundsOf } from "./sfx/whitelist.mjs";
 
 export function loadCharacters(sb) {
   const chars = {};
@@ -17,7 +18,7 @@ export function loadStoryboard(file) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
   if (sb.set?.plate) plateFiles(sb.set.plate);
   const chars = loadCharacters(sb);
-  return direct(compile(withSpeech(sb, chars)), chars);
+  return direct(soundsOf(compile(withSpeech(sb, chars))), chars); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
 }
 
 // A painted plate uses the depth and motion maps next to its picture (engine/plates/depth.py) when they exist, so the

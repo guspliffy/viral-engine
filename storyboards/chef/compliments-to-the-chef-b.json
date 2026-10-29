@@ -609,7 +609,8 @@
     {
      "sfx": "kenney/low-random",
      "gain": 0.08,
-     "reason": "a tense string onset under the forced smile",
+     "reason": "a tense onset under the forced smile",
+     "asPosted": true,
      "at": 0.02
     },
     {
