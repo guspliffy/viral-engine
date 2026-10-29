@@ -30,7 +30,8 @@ export const EXPRESSIONS = {
   serene:    { tilt: 0.1,  browY: 0.0,   curve: 0.35, open: 0.0,  eye: 0.06, pupil: 1.0,  smirk: 0.0, raise: 0.0 },   // eyes closed, content
   dizzy:     { tilt: 0.42, browY: 0.02,  curve: -0.35, open: 0.3, eye: 1.08, pupil: 0.45, smirk: 0.4, raise: 0.02 },
 };
-export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + (b[k] - a[k]) * t; return o; };
+// keys only one side has (pucker: pursed lips, Dragon vs. the Candle) blend from or to 0
+export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + ((b[k] ?? 0) - a[k]) * t; for (const k in b) if (!(k in a)) o[k] = b[k] * t; return o; };
 
 function blushTexture(color, k = 1) {
   const c = document.createElement("canvas"); c.width = c.height = 128;
@@ -286,7 +287,8 @@ export class Face {
     // a hard cut. Built once, in the host's space, from the same surface mapping as the rest of the face.
     for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
     // geometry that depends on the expression is rebuilt only when it changes
-    const round = e.round || 0;
+    // round: the lips rounding on a vowel (speech); pucker: pursed lips set by an expression (blowing out a candle)
+    const round = Math.max(e.round || 0, e.pucker || 0);
     const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, this.browStyle.clear != null ? e.eye : 0].map((x) => x.toFixed(3)).join("|");
     if (key === this._lastKey) return;
     this._lastKey = key;
@@ -316,7 +318,7 @@ export class Face {
     // pressed lips (c.press) close and flatten the mouth and pull it in; mouth corners move on their own (cornerR is the
     // character's right corner, at -u; + up)
     const press = c.press, open = e.open * (1 - press), smile = e.curve * (1 - 0.8 * press);
-    const w = L.mouthW * (1 - open * 0.35 - round * 0.3) * (1 - 0.28 * press), mv = L.mouthV, n = 14;
+    const w = L.mouthW * (1 - open * 0.35 - round * 0.3 - (e.pucker || 0) * 0.2) * (1 - 0.28 * press), mv = L.mouthV, n = 14;
     const upper = [], lower = [];
     for (let k = 0; k <= n; k++) {
       const t = k / n, u = -w + 2 * w * t;

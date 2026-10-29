@@ -126,7 +126,7 @@ moving at once.
   down. Corners: + up. `press`: 1 = lips pressed tight.
 - `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point" | "cup" | "flat", "dur" }`
   curls a mitten hand (`"hands": { "type": "mitten" }` in the character file, so far the Wizard). `hold` wraps a handle,
-  a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
+  a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm; `carry` holds something from below its side, palm half up (a bowl in both hands); `press` is a palm flat on a box's end with the thumb along the side; `tip` pinches a thin prop between the thumb and index pads at the same height, the index curled over the camera side, the palm beside the shaft and the other fingers curled loose (grip `set` tunes `roll`, `lean`, `close` 0 open to 1 closed, `thin` = the prop's radius in hand units). An arm pose with `"point": "pinch"` puts the pinch point, not the hand, on its target, and a grab with `"point": "pinch"` holds the prop there, so the hand stays aimed along the forearm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
 - `{ "who", "do": "hatsway", "tip": [forward, sideways], "brim": 0.5, "dur" }` bends the Wizard hat's tip (degrees) and
   tips its brim (+ front up). `{ "who", "do": "hatwobble", "amount": 8, "freq": 3, "dur": 0.8 }` adds a wobble that
   dies away. Both add on top of the automatic follow-through.
@@ -222,3 +222,33 @@ from finished clips:
 | `grin(c, t, who)` | `back`, `lid`, `rest` | Closed-eye grin (at a notification), eyes back after `back` s | Still Scrolling |
 | `defeated(c, t, who)` | `turn`, `hold`, `blink` | Sigh, flat face, shoulders drop, turn and look into the camera | Still Scrolling |
 | `backToStart(c, t, end, cast, look)` | | Loop tail: places, facing, face and eyes ease back to frame 0 | template |
+
+### Picking a hold from the grip library
+
+`storyboards/lib/grips.mjs` holds one tested hold per kind of prop, each in the order of Jonny's handling sheets:
+approach (the hand opens and stops beside its grip), secure (it touches, the fingers close, then the grab), lift,
+hold, place (down with a two-frame squash) and release (let go, back off the way it came, rest). The prop never moves
+before the hand is on it. A hold is written for a holder on the prop's front: `grips.placeFor(kind, at, yaw)` gives
+the prop's place and turn for a holder facing `yaw`.
+
+```js
+const MUG = { id: "mug", kind: "campmug", scale: 1.9, ...grips.placeFor("campmug", [-0.13, 0.36, 0.42], 0) };
+const h = grips.mug(c, "wiz", MUG, { side: "R" });
+let t = h.take(1.0);                              // approach + secure, returns when the fingers have closed
+t = h.carry(t + 0.05, [-0.1, 0.46, 0.38], 0.45);  // lift: the prop's bottom centre goes there (rot, tip: turn it)
+t = h.put(t + 0.6, [-0.13, 0.36, 0.42]);          // place + release, returns when the hand is off
+```
+
+| Hold | Props | How it holds | From |
+|---|---|---|---|
+| `mug` | campmug | One hand round the body from the holder's side, fingers over the camera side, thumb up, handle turned away | teacup test (25 Oct) |
+| `bowl` | snackbowl, soupbowl | Both hands carry it from below its sides (grip `carry`: palms half up), thumbs by the rim, high on the wall so the fingers stay off the table | Charger, grip library v1 |
+| `bowlPush` | snackbowl, soupbowl | One hand on its far side, for a slide | Charger |
+| `box` | parcel, gift | Both palms pressed on the two ends (grip `press`: thumb along the side, not up) | Package |
+| `thin` | pencil (a straw, a pen) | the artist's pinch brief: thumb and index pads pinch the upper third (`from` 0.6), index over the front, thumb behind, wrist in line with the forearm; lift straight out of the cup before moving sideways, both ends show (grip `tip`, point `pinch`) | Vampire, straw and pencil grip sheets |
+| `phone` | phone, iphone | Upright in the palm, screen to the holder, fingers round the back; lying on its back (`tip` -90) it is taken by its edge and rolls into the palm, and `put` lays it back down | Charger |
+
+Each hold has `approach`, `secure`, `take`, `carry`, `regrip`, `place`, `release` and `put`; options per hold (side,
+gap, height) are in the file. `node storyboards/lookdev/make-grip-tests.mjs` writes a close-up test bench per hold
+(`storyboards/lookdev/grip-<hold>.json`). A new hold is added there and approved by Jonny from its close-up video
+before a clip uses it.

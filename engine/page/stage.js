@@ -57,7 +57,7 @@ function buildPoof(f, i) {
   });
   const sparkM = new THREE.MeshBasicMaterial({ color: f.spark || "#ffe27a" });
   const sparks = Array.from({ length: f.sparks ?? 22 }, () => {
-    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03, 0), sparkM); g.add(m);
+    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.03 * (f.sparkSize ?? 1), 0), sparkM); g.add(m);
     const a = rnd() * Math.PI * 2;
     return { m, v: new THREE.Vector3(Math.cos(a) * (1.2 + rnd() * 2), 1.5 + rnd() * 2.5, Math.sin(a) * (0.6 + rnd())), spin: rnd() * 10 };
   });
@@ -75,9 +75,10 @@ function buildPoof(f, i) {
         p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
+      const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
       for (const s of sparks) {
         const q = Math.min(k, 0.9);
-        s.m.position.set(s.v.x * q * 0.7, 0.5 + s.v.y * q * 0.7 - 4.2 * q * q * 0.7, s.v.z * q * 0.7);
+        s.m.position.set(s.v.x * q * sp, 0.5 + s.v.y * q * sp - 4.2 * q * q * sp, s.v.z * q * sp);
         s.m.rotation.set(s.spin * k, s.spin * k * 0.7, 0);
         s.m.visible = k < 0.9;
         s.m.scale.setScalar(1.4 * (1 - k / 0.9) + 0.2);
@@ -422,9 +423,11 @@ function pose(t) {
   const v = new THREE.Vector3();
   // the holder's anchor: a hand (position only, so a held prop stays upright), both hands, the point of the
   // character's own prop ("tip"), or the hat ("hat": position and tilt, something stuck to the hat tips with it)
-  const anchor = (who, hand) => {
+  // point "pinch": a glove's fingertip pinch (potato.js pinchPt) instead of the hand's centre
+  const anchor = (who, hand, point) => {
     const A = states[who]; if (!A) return null;
     A.a.ch.root.updateMatrixWorld(true);
+    if (point === "pinch" && A.a.ch.arms[hand]?.hand.userData.pinchPt) return { pos: A.a.ch.arms[hand].hand.userData.pinchPt.getWorldPosition(new THREE.Vector3()) };
     if (hand === "hat") return A.a.ch.costume.hat ? { obj: A.a.ch.costume.hat } : null;
     if (hand === "tip") return A.a.ch.costume.tip ? { pos: A.a.ch.costume.tip.getWorldPosition(new THREE.Vector3()) } : null;
     const hs = hand === "both" ? ["R", "L"] : [hand];
@@ -435,7 +438,7 @@ function pose(t) {
   const inFrame = (p, v) => (p.root.parent && p.root.parent !== scene ? p.root.parent.worldToLocal(v.clone()) : v);
   const heldAt = (p, ps, hold) => {
     const k = hold.keep ? keptOffset(p, hold) : null;   // first: it poses the holder at the grab and back
-    const an = anchor(hold.who, hold.hand); if (!an) return null;
+    const an = anchor(hold.who, hold.hand, hold.point); if (!an) return null;
     if (k) {
       if (an.obj) return inFrame(p, an.obj.localToWorld(new THREE.Vector3().fromArray(k))).toArray();
       const q = inFrame(p, an.pos); return [q.x + k[0], q.y + k[1], q.z + k[2]];
@@ -488,6 +491,14 @@ function pose(t) {
   // a charger's cable runs to the prop its spec.to names (props3d.js charger, props-charger.js chargebank), wherever that
   // is now (link gets its position and its root, for the way it faces)
   for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3()), q.root); } }
+  // a breath runs from an actor's mouth (spec.mouth) to a point on a prop (spec.target, spec.at in its frame), wherever
+  // the head is now (props-candle.js breath)
+  for (const p of props) if (p.aim && p.spec.mouth) {
+    const a = actors.find((o) => o.c.id === p.spec.mouth), F = a && a.ch.face, q = props.find((o) => o.spec.id === p.spec.target);
+    if (!F || !F.place || !q) continue;
+    a.ch.root.updateMatrixWorld(true); q.root.updateMatrixWorld(true);
+    p.aim(F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()), q.root.localToWorld(new THREE.Vector3(...(p.spec.at || [0, 0, 0]))));
+  }
   const L = lightsAt(sb, t);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
@@ -571,7 +582,9 @@ function corners() {
 // the corners of the last two frames drawn, in order. A render starts by priming it with the two frames before its
 // first one, so a frame gets the same samples whether it is drawn alone, in a shard or in the whole clip.
 let recent = [];
-function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
+// QA passes that pose but draw nothing skip meshing the seamless glove skins (potato.js _skin), the slow part of a pose
+const lean = (on) => { globalThis.__noSkin = on; };
+function prime(times) { recent = []; lean(true); for (const t of times) { pose(t); recent.push(corners()); } lean(false); return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
@@ -593,7 +606,9 @@ function blur(times, keep) {
   let acc = null;
   const add = () => { const d = ctx.getImageData(0, 0, W, H).data; if (!acc) acc = new Uint16Array(d.length); for (let i = 0; i < d.length; i++) acc[i] += d[i]; };
   if (keep) add();
+  globalThis.__skinRigid = true;   // seamless glove skins ride along with their hands (potato.js _skin)
   for (const t of times) { frame(t); add(); }
+  globalThis.__skinRigid = false;
   const img = ctx.createImageData(W, H), o = img.data;   // a clamped array: assigning rounds to the nearest level
   for (let i = 0; i < o.length; i++) o[i] = acc[i] / n;
   ctx.putImageData(img, 0, 0);
@@ -604,7 +619,7 @@ function blur(times, keep) {
 // in output pixels. Nothing is drawn, so sampling a whole clip takes seconds.
 const r3 = (x) => Math.round(x * 1000) / 1000;
 function layout(t) {
-  pose(t);
+  lean(true); pose(t); lean(false);
   const actorsOut = actors.map((a) => {
     const box = new THREE.Box3(), tmp = new THREE.Box3();
     a.ch.root.updateMatrixWorld(true);
@@ -618,6 +633,8 @@ function layout(t) {
     }
     const hat = a.ch.costume && a.ch.costume.hat ? a.ch.costume.hat.getWorldPosition(new THREE.Vector3()).toArray().map(r3) : undefined;
     const hands = Object.fromEntries(["R", "L"].map((h) => [h, a.ch.arms[h].hand.getWorldPosition(new THREE.Vector3()).toArray().map(r3)]));
+    // a glove's fingertip pinch point, for a hand in a pinch (a generator aims a held straw from it, via aimAt)
+    const pinch = Object.fromEntries(["R", "L"].filter((h) => a.ch.arms[h].hand.userData.pinchW > 0).map((h) => [h, a.ch.arms[h].hand.userData.pinchPt.getWorldPosition(new THREE.Vector3()).toArray().map((v) => Math.round(v * 1e4) / 1e4)]));
     // a held costume prop's shaft in the world (the katana: a = the handle's foot, b = the blade tip), for aiming
     const L = a.ch.costume.propLine?.(), prop = L ? { a: a.ch.root.localToWorld(L.a.clone()).toArray().map(r3), b: a.ch.root.localToWorld(L.b.clone()).toArray().map(r3) } : undefined;
     // world anchors for framing (engine/direct.mjs is checked against them): the eyes' midpoint and the top of the
@@ -626,7 +643,7 @@ function layout(t) {
     const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
     // the middle of the mouth on the face's surface (aiming a spoon or anything that leaves the mouth)
     const F = a.ch.face, mouth = F && F.place ? F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()).toArray().map(r3) : undefined;
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, ...(Object.keys(pinch).length && { pinch }), prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   // and where it lands on screen (px; null when behind the camera), so qa/hook.mjs can see whether the joke's prop is in frame 0
@@ -762,7 +779,7 @@ function silhouette() {
 // full frame rate takes seconds
 let contactT = 0;   // the time contact() measures (inProps: a grab a moment away)
 function contact(t) {
-  contactT = t; pose(t);
+  contactT = t; lean(true); pose(t); lean(false);
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));

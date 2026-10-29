@@ -2,12 +2,15 @@ import * as THREE from "three";
 const _fist = new THREE.Quaternion();
 // the thumb on a slab's front (grip edge, timeline.js phoneEdge): its pivot's place and turn in the hand
 const _edgeThumb = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.46, -0.118, 1.006)), _edgeThumbAt = new THREE.Vector3(0.0273, 0.0086, 0.023);
+// the glove thumb's tip (the centre of its end) in its pivot's frame: the capsule at (0.024, 0.018) turned -0.75
+const THUMB_TIP = new THREE.Vector3(0.024 + 0.017 * Math.sin(0.75), 0.018 + 0.017 * Math.cos(0.75), 0);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
+import { cone, meshShape, inkMaterial } from "./handmesh.js";
 
 const LEG_H = 0.14;
 
@@ -86,11 +89,13 @@ export class Character {
     if (def.hands?.type === "glove") this.limbMat.userData.lookRole = "glove";   // looks.js: its own toon values
     if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
+    this.seamless = def.hands?.type === "glove" && !!def.hands?.seamless;
     this.arms = { R: { mesh: null, hand: null }, L: { mesh: null, hand: null } };
     this.legs = { R: { mesh: null, foot: null }, L: { mesh: null, foot: null } };
     for (const s of ["R", "L"]) {
       const hand = ["mitten", "glove"].includes(def.hands?.type ?? "mitten") ? this._mitten(s) : new THREE.Mesh(new THREE.SphereGeometry(0.056, 20, 14), this.limbMat);
       hand.castShadow = true; this.root.add(hand); this.arms[s].hand = hand;
+      if (this.seamless) this._skinInit(s);
       const foot = new THREE.Mesh(new THREE.SphereGeometry(0.075, 20, 14), this.limbMat); foot.scale.set(0.9, 0.5, 1.25); foot.castShadow = true; this.root.add(foot); this.legs[s].foot = foot;
     }
 
@@ -113,26 +118,51 @@ export class Character {
     palm.userData.rest = glove ? [0.88, 0.82, 0.55] : [1, 0.95, 0.78]; palm.scale.fromArray(palm.userData.rest);
     const piv = (x, y, z) => { const p = new THREE.Group(); p.position.set(x, y, z); g.add(p); return p; };
     let fingers, index, thumb;
-    const bends = [];
+    const bends = [], digits = [], rolls = [];
     if (glove) {
       // hands.type "glove": Jonny's hand & grip study, a cartoon glove with four separate rounded fingers, a thumb and
       // a wrist. Each finger bends at the knuckle (fingers / index pivot) and again half way (bends), so a curl rolls it
       fingers = piv(-0.002, 0.034, 0); index = piv(0.031, 0.034, 0.002);
-      const finger = (parent, x, len, r, spread) => {
-        const base = new THREE.Group(); base.position.x = x; base.rotation.z = spread; parent.add(base);
+      const finger = (parent, x, len, r, spread, y = 0) => {
+        const base = new THREE.Group(); base.position.set(x, y, 0); base.rotation.z = spread; parent.add(base);
         const a = new THREE.Mesh(cap(r, len * 0.5), M("#ff9a20")); a.position.y = len * 0.25 + r * 0.6; a.castShadow = true; base.add(a);
         const mid = new THREE.Group(); mid.position.y = len * 0.5 + r * 0.6; base.add(mid); bends.push(mid);
         const b = new THREE.Mesh(cap(r * 0.97, len * 0.38), M("#ff9a20")); b.position.y = len * 0.19 + r * 0.4; b.castShadow = true; mid.add(b);
+        // the seamless skin's bones: a finger thickest just past its root, tapering to a round tip (hands.seamless)
+        a.userData.seg = { half: len * 0.25, r1: r * 1.02, r2: r * 0.95 }; b.userData.seg = { half: len * 0.19, r1: r * 0.95, r2: r * 0.8 };
+        digits.push([a, b]);
         // round knuckles: a ball where the finger leaves the palm and one in the middle joint, so a curled finger reads as
         // a soft rolled glove finger instead of two blocks with a crease between them
         const k0 = new THREE.Mesh(new THREE.SphereGeometry(r * 1.04, 14, 10), M("#ff9a20")); k0.position.y = r * 0.35; base.add(k0);
         const k1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.99, 14, 10), M("#ff9a20")); mid.add(k1);
       };
-      // short, plump fingers (Jonny's hand study: the glove's fingers are about as long as the palm is deep)
-      finger(fingers, 0.011, 0.034, 0.0175, -0.01); finger(fingers, -0.017, 0.032, 0.017, 0.03); finger(fingers, -0.042, 0.026, 0.0157, 0.08);
-      finger(index, 0, 0.032, 0.0175, -0.04);
-      thumb = piv(0.044, -0.01, 0.012);
-      const th = new THREE.Mesh(cap(0.0165, 0.034), M("#e020e0")); th.position.set(0.024, 0.018, 0); th.rotation.z = -0.75; th.castShadow = true; thumb.add(th);
+      // short, plump fingers (Jonny's hand study: the glove's fingers are about as long as the palm is deep); hands.fingers
+      // 3: three fingers and a thumb (Jonny, 29 Oct), the outer two a little fatter to fill the palm
+      const H3 = this.def.hands?.fingers === 3, sp = this.def.hands?.spread ?? 1;
+      if (this.seamless) {
+        // the seamless glove follows the artist's construction sheet (29 Oct): slimmer fingers about two thirds of the
+        // palm's length, the middle longest and the little one shortest and set a little lower on the knuckle arch, with
+        // small gaps between them when the hand is open
+        if (H3) { finger(fingers, 0.004, 0.045, 0.017, 0.03 * sp); finger(fingers, -0.028, 0.04, 0.0165, 0.15 * sp, -0.003); }
+        else { finger(fingers, 0.004, 0.045, 0.0158, 0.01 * sp); finger(fingers, -0.024, 0.042, 0.0152, 0.07 * sp, -0.002); finger(fingers, -0.047, 0.034, 0.014, 0.16 * sp, -0.008); }
+        finger(index, 0, 0.041, 0.0158, -0.07 * sp);
+      } else if (H3) { finger(fingers, 0.004, 0.041, 0.0185, 0.03 * sp); finger(fingers, -0.031, 0.036, 0.0178, 0.17 * sp); }
+      else { finger(fingers, 0.011, 0.034, 0.0175, -0.01); finger(fingers, -0.017, 0.032, 0.017, 0.03); finger(fingers, -0.042, 0.026, 0.0157, 0.08); }
+      if (!this.seamless) finger(index, 0, H3 ? 0.038 : 0.032, 0.0175, H3 ? -0.1 * sp : -0.04);
+      // the index finger's pad, on the palm side of its last joint: a fingertip pinch (grip pinch > 0) closes on it
+      const pad = new THREE.Object3D(); pad.position.set(0, 0.016, 0.017); bends[bends.length - 1].add(pad); g.userData.pad = pad;
+      // the seamless glove pinches with the index's fingertip (the artist's precision pinch): the pad sits at the tip, the
+      // index bends further so its tip, not its side, meets the thin thing, and the other fingers stay loosely curled
+      if (this.seamless) { pad.position.set(0, 0.027, 0.006); g.userData.pinchBend = { index: 0.1, curl: -0.3 }; g.userData.pinchToThumb = true; }
+      // the seamless glove's thumb grows from the lower side of the palm, out of the thenar mound, and leans in towards
+      // the fingers (opposing the index) instead of sticking out sideways
+      const ta = this.seamless ? 0.5 : 0.75, tl = this.seamless ? 0.019 : 0.017;
+      thumb = this.seamless ? piv(0.04, -0.022, 0.014) : piv(0.044, -0.01, 0.012);
+      const th = new THREE.Mesh(cap(0.0165, 2 * tl), M("#e020e0")); th.position.set(0.007 + tl * Math.sin(ta), 0.004 + tl * Math.cos(ta), 0); th.rotation.z = -ta; th.castShadow = true; thumb.add(th);
+      if (!this.seamless) th.position.set(0.024, 0.018, 0);
+      g.userData.thumbTip = th.position.clone().add(new THREE.Vector3(Math.sin(ta), Math.cos(ta), 0).multiplyScalar(tl));
+      if (this.seamless) g.userData.thumbBone = { mesh: th, base: new THREE.Vector3(0.007, 0.004, 0), dir: new THREE.Vector3(Math.sin(ta), Math.cos(ta), 0), len: tl };
+      th.userData.seg = { half: tl, r1: 0.019, r2: 0.0145 }; digits.push([th]);
       // the wrist: the heel of the hand narrowing into the forearm
       const w = (this.def.limbs.width * 0.82) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.042, w, 0.05, 20, 1), M("#e03030"));
       heel.position.y = -0.052; heel.scale.z = 0.66; heel.castShadow = true; g.add(heel);
@@ -159,14 +189,19 @@ export class Character {
       const R = 0.019 + tr, pts = [];
       for (let k = 0; k <= 12; k++) { const ph = (-60 + (k * 255) / 12) * (Math.PI / 180); pts.push(new THREE.Vector3(x, R * Math.cos(ph), R * Math.sin(ph))); }
       const roll = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 24, 10, (t) => tr * (0.75 + 0.25 * Math.sin(Math.PI * Math.min(1, t * 1.15)))), mm);
-      roll.castShadow = true; fist.add(roll);
+      roll.castShadow = true; fist.add(roll); rolls.push({ pts, tr });
       const tip = new THREE.Mesh(new THREE.SphereGeometry(tr * 0.78, 10, 8), mm); tip.position.copy(pts[pts.length - 1]); fist.add(tip);   // fingertip
       const knuckle = new THREE.Mesh(new THREE.SphereGeometry(tr * 1.05, 12, 10), mm); knuckle.position.copy(pts[2]); fist.add(knuckle);
     });
     const tf = new THREE.Mesh(cap(0.0145, 0.03), M("#e020e0")); tf.rotation.x = Math.PI / 2 - 0.35; tf.rotation.z = -0.25;
     tf.rotation.order = "ZXY"; tf.position.set(0.04, -0.012, 0.03); tf.castShadow = true; fist.add(tf);
     if (glove) g.traverse((o) => { if (o.isMesh) o.receiveShadow = true; });   // fingers shade each other
-    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove };
+    // where a fingertip pinch holds a thin prop (a straw): between the index pad and the thumb, set by _pose
+    const pinchPt = new THREE.Object3D(); g.add(pinchPt);
+    g.userData = { ...g.userData, fingers, index, thumb, thumbRest: thumb.position.clone(), grip, fist, palm, side: s, bends, glove, pinchPt, digits, rolls };
+    // hands.seamless: the parts stay as the hand's bones (posed, measured by the contact checks) but aren't drawn; one
+    // skin grown over them is (Character._skin)
+    if (glove && this.def.hands?.seamless) g.traverse((o) => { if (o.isMesh) o.layers.set(1); });
     return g;
   }
   // aim a mitten along the forearm (elbow -> hand) with the palm turned in towards the body, and curl it to the grip
@@ -187,7 +222,9 @@ export class Character {
     // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops. The
     // forearm direction, taken square to the handle, is the hand's own axis: the wrist enters the fist from the side and
     // the handle passes in front of the palm (grip frame: +x along the handle, thumb end; +z palm side)
-    const w = axis ? fistWeight(gr.curl) : 0;
+    // a fingertip pinch (grip pinch, glove hands) turns the hand onto the axis too, without closing the fist on it
+    const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
+    const w = axis ? Math.max(fistWeight(gr.curl), pw) : 0;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
       // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
@@ -195,8 +232,14 @@ export class Character {
       // or flip it, so the steady out-and-forward pull takes over, smoothly, and keeps the knuckles to the front
       const o = new THREE.Vector3(at.x, 0, 0).normalize().add(new THREE.Vector3(0, 0, 1));
       if (at.x === 0) o.set(-sx, 0, 1);
-      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4);
+      // a pinch keeps the fingers running on along the forearm (a pen hold), not pulled out to the front
+      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4 * (1 - pw));
       if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      // roll: the hand turned about the held axis (degrees), to show the pinch to the camera
+      if (gr.roll) f.applyAxisAngle(x, (gr.roll * Math.PI) / 180);
+      // lean: a pinch's knuckle line tips off the held axis (degrees, the little finger end back towards the wrist), so
+      // the curled fingers stay clear of a straw that runs on below the fingertips, as in Jonny's grip reference
+      if (gr.lean) { const l = (gr.lean * Math.PI) / 180, x0 = x.clone(); x.multiplyScalar(Math.cos(l)).addScaledVector(f, Math.sin(l)); f.multiplyScalar(Math.cos(l)).addScaledVector(x0, -Math.sin(l)); }
       U.fistPar = Math.abs(y.dot(x));
       // fwd: the fist turns its knuckles to face forward (a mug or teacup handle held beside the cup: the fingers wrap
       // the front of the handle and the palm faces the cup)
@@ -249,13 +292,14 @@ export class Character {
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
     if (U.glove) {   // the knuckle takes half the bend, the middle joint the rest (the last finger is the index)
-      U.fingers.rotation.x = 0.85 * gr.curl; U.index.rotation.x = 0.85 * gr.index;
+      const pb = U.pinchBend && pw > 0 ? U.pinchBend : null, ci = gr.index + (pb ? pb.index * pw : 0), cc = gr.curl + (pb ? pb.curl * pw : 0);
+      U.fingers.rotation.x = 0.85 * cc; U.index.rotation.x = 0.85 * ci;
       // a resting paw (grip down) tucks its fingertips under onto the table, so only a short rounded finger run shows
-      U.bends.forEach((b, i) => { b.rotation.x = 1.0 * (i === U.bends.length - 1 ? gr.index : gr.curl) + 0.45 * Math.min(1, gr.down || 0); });
+      U.bends.forEach((b, i) => { b.rotation.x = 1.0 * (i === U.bends.length - 1 ? ci : cc) + 0.45 * Math.min(1, gr.down || 0); });
     } else { U.fingers.rotation.x = 1.65 * gr.curl; U.index.rotation.x = 1.75 * gr.index; }
     U.thumb.rotation.set(0, -1.15 * gr.thumb, 0.35 * gr.thumb);
     // on a handle the wrapped fist (U.fist) takes over from the mitten fingers
-    const tw = axis ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);
+    const tw = axis && !(pw > 0) ? fistWeight(gr.curl) : 0, keep = Math.max(0.001, 1 - tw);   // a pinch keeps its own fingers
     U.thumb.position.copy(U.thumbRest);
     // grip edge (phoneEdge): the thumb's root moves up the front of the palm and the thumb lies across the slab's front,
     // its pad just past the edge (the glove's thumb is too short to reach round a thin edge from its resting root)
@@ -266,6 +310,30 @@ export class Character {
     // runs through the fingers, never through the palm
     const pr = U.palm.userData.rest; U.palm.scale.set(pr[0], pr[1], pr[2] - 0.18 * tw).multiplyScalar(1 - 0.15 * tw); U.palm.position.z = -0.034 * tw;
     for (const part of [U.fingers, U.index, U.thumb]) { part.visible = keep > 0.002; part.scale.setScalar(keep); }
+    // a fingertip pinch: the held thing's axis runs through pinchPt, against the index finger's pad, and the thumb turns
+    // and reaches so its tip closes on the other side of it (the thumb and index pads opposing, Jonny's straw grip)
+    if (U.pad) {
+      const pad = U.pad, mid = pad.parent, chain = [mid, mid.parent, U.index], p = pad.position.clone(), n = new THREE.Vector3(0, 0, 1);
+      for (const o of chain) { o.updateMatrix(); p.applyMatrix4(o.matrix); n.applyQuaternion(o.quaternion); }
+      // the seamless glove's fingertip pinch: the thin thing sits between the index tip and the thumb's tip, so the pads
+      // close on it from either side at the front of the hand, with the curled fingers below it, not round it
+      if (U.pinchToThumb) { const tt = U.thumbRest.clone().add(U.thumbTip); n.copy(tt.sub(p)).normalize(); }
+      const rs = gr.thin ?? 0.005, q = p.addScaledVector(n, rs);
+      U.pinchPt.position.copy(q); U.pinchW = pw;
+      // close: 0 the thumb stands open (reaching for it, letting go), 1 its pad is on the straw
+      const tk = pw * Math.min(1, Math.max(0, gr.close ?? 1));
+      const tb = U.thumbBone;
+      if (tb) { tb.mesh.scale.y = 1; tb.mesh.position.copy(tb.base).addScaledVector(tb.dir, tb.len); }
+      if (tk > 0) {
+        const tc = q.clone().addScaledVector(n, rs + 0.0165), d = tc.clone().sub(U.thumbRest), dl = d.length();
+        const TT = U.thumbTip || THUMB_TIP, qa = new THREE.Quaternion().setFromUnitVectors(TT.clone().normalize(), d.normalize());
+        U.thumb.quaternion.slerp(qa, tk);
+        // the seamless glove's thumb keeps its root on the palm's thenar mound (moving the root made the thumb read as a
+        // separate lump on the back of the hand, Jonny 29 Oct): it only swings to the pinch, stretching a little if short
+        if (tb) { const st = 1 + tk * (Math.min(1.3, Math.max(0.85, dl / TT.length())) - 1); tb.mesh.scale.y = st; tb.mesh.position.copy(tb.base).addScaledVector(tb.dir, tb.len * st); }
+        else U.thumb.position.lerp(tc.sub(TT.clone().applyQuaternion(qa)), tk);
+      }
+    }
   }
   // the rotation of a hand locked to a hold (arm poses with frame, resolved by timeline.js), blended with the arm's move:
   // from one hold to another the hand turns the short way between the two; onto or off a hold, it turns onto it as it
@@ -280,6 +348,11 @@ export class Character {
     // e: how much the hold's elbow guide applies (frame.elbow), blended like the frame
     const mix = (f0, f1, p) => (f0 && f1 ? { q: f0.q.clone().slerp(f1.q, p), w: 1, e: f0.e + (f1.e - f0.e) * p } : f0 ? { q: f0.q, w: 1 - p, e: f0.e * (1 - p) } : f1 ? { q: f1.q, w: p, e: f1.e * p } : null);
     return mix(one(a.from), one(a.pose), a.p);
+  }
+  // how far an arm's move is aimed with point "pinch" (arm poses resolved by timeline.js), blended like the pose
+  _pointW(a) {
+    const one = (q) => (q && q.mix ? one(q.mix.from) * (1 - q.mix.p) + one(q.mix.pose) * q.mix.p : q && q.point === "pinch" ? 1 : 0);
+    return one(a.from) * (1 - a.p) + one(a.pose) * a.p;
   }
   // the point an arm's palm faces (arm poses with palm, resolved by timeline.js), blended with the arm's move: the hand
   // turns onto it as it reaches and back to its own pose as it leaves; null when neither end of the move has one.
@@ -351,13 +424,84 @@ export class Character {
     pts.forEach((p, i) => this._anc[s][i].position.copy(p));
   }
 
-  _tube(old, a, c, b, w, arm = false, joint = false) {
+  // the skin and its ink shell are made with the character (the look converts their materials once, at the start): the
+  // skin takes the limbs' colour and shading but not three's outline (it shows through the skin's small dips as specks);
+  // its own ink shell draws the line, thinning away in creases, in the colour and width the look gives the arm tube
+  _skinInit(s) {
+    const a = this.arms[s];
+    this.skinMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
+    a.skin = new THREE.Mesh(new THREE.BufferGeometry(), this.skinMat);
+    a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);
+    const im = inkMaterial(); im.userData.outlineParameters = { visible: false };
+    // the line the look gives the legs (same material as the arms used to have)
+    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? op.thickness : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
+    a.ink = new THREE.Mesh(a.skin.geometry, im); a.ink.frustumCulled = false; a.ink.onBeforeRender = line; a.ink.matrixAutoUpdate = false; this.root.add(a.ink);
+    // the arm tube: the same ink, instead of three's outline
+    this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
+    a.tubeInk = new THREE.Mesh(new THREE.BufferGeometry(), im); a.tubeInk.frustumCulled = false; a.tubeInk.onBeforeRender = line; this.root.add(a.tubeInk);
+  }
+
+  // hands.seamless: one skin over the glove and the end of its forearm, grown from the posed hand parts (handmesh.js):
+  // the palm two fat round cones (a flat mitten block that runs up into the finger roots), the fingers and thumb, and
+  // the last stretch of the arm's own curve a hair inside the arm tube, so the arm runs into the hand through a soft
+  // wrist instead of meeting a separate blob. Blends from the research (wrist ~0.8, finger root ~0.5, knuckle ~0.15
+  // finger radius). A pose that hasn't changed since the last frame (to a tenth of a millimetre) keeps its mesh.
+  _skin(s, show) {
+    const a = this.arms[s], hand = a.hand, U = hand.userData, hs = this.def.hands;
+    a.skin.visible = a.ink.visible = show && !globalThis.__noSkin;
+    if (!a.skin.visible || !a.elbow) return;
+    this.root.updateMatrixWorld(true);
+    const inv = this.root.matrixWorld.clone().invert(), M = new THREE.Matrix4(), A = new THREE.Vector3(), B = new THREE.Vector3(), sc = new THREE.Vector3();
+    // a motion blur sample (stage.js blur, a fraction of a frame away) carries the frame's skin along with the hand
+    // instead of growing a new one: the hand barely changes shape in that time
+    if (globalThis.__skinRigid && a.skinH) {
+      M.multiplyMatrices(inv, hand.matrixWorld).multiply(a.skinH.clone().invert());
+      a.skin.matrix.copy(M); a.ink.matrix.copy(M); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true; return;
+    }
+    const shown = (o) => { for (let q = o; q && q !== hand; q = q.parent) if (!q.visible) return false; return true; };
+    const seg = (o) => { M.multiplyMatrices(inv, o.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.z) / 2, d = o.userData.seg; return cone(A.set(0, -d.half, 0).applyMatrix4(M), B.set(0, d.half, 0).applyMatrix4(M), d.r1 * k, d.r2 * k); };
+    const digits = U.digits.filter((d) => shown(d[0]) && d[0].getWorldScale(sc).y > 0.05).map((d) => d.map(seg));
+    if (U.fist.visible) {
+      M.multiplyMatrices(inv, U.fist.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.y + sc.z) / 3, w = (u) => 0.75 + 0.25 * Math.sin(Math.PI * Math.min(1, u * 1.15));
+      for (const r of U.rolls) { const p = r.pts.map((q) => q.clone().applyMatrix4(M)), n = p.length - 1; digits.push(p.slice(1).map((q, i) => cone(p[i], q, r.tr * k * w(i / n), r.tr * k * w((i + 1) / n)))); }
+    }
+    M.multiplyMatrices(inv, hand.matrixWorld); sc.setFromMatrixScale(M); const k = (sc.x + sc.y + sc.z) / 3;
+    const P = (x, y, z) => new THREE.Vector3(x, y, z).applyMatrix4(M);
+    // the palm (artist's sheet, 29 Oct): three flat-ish round cones fanning from a narrow wrist (about 55 % of the
+    // knuckle width) out to a broad knuckle arch, the middle one set back so the palm is gently cupped, and a thenar
+    // mound on the lower thumb side that the thumb grows out of through a soft web. [x, y, z at the wrist, x, y, z at the
+    // knuckles, radius there, radius here] in hand units
+    const PALM = [[-0.01, -0.03, 0.002, -0.032, 0.03, 0.005, 0.019, 0.021], [0.001, -0.032, -0.002, 0.001, 0.031, -0.003, 0.021, 0.023], [0.012, -0.03, 0.002, 0.03, 0.028, 0.005, 0.019, 0.021], [0.012, -0.03, 0.009, 0.036, -0.018, 0.013, 0.019, 0.018]];
+    const palm = (hs.palm || PALM).map((c) => cone(P(c[0], c[1], c[2]), P(c[3], c[4], c[5]), c[6] * k, c[7] * k));
+    // the forearm's last stretch (hands.stub metres of it), on the arm's own curve and 1 % thinner than its tube
+    const curve = Character.armCurve(a.shoulder, a.elbow, hand.position, a.joint), arm = [], L = curve.getLength(), N = 4;
+    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW) * 0.99;
+    for (let i = 0; i < N; i++) { const ta = t0 + ((1 - t0) * i) / N, tb = t0 + ((1 - t0) * (i + 1)) / N; arm.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta), R(tb))); }
+    // hands.cuff { at, r, len }: a rolled glove rim round the wrist, at metres from the hand's centre, r times the arm
+    const cuff = [];
+    if (hs.cuff) { const c = hs.cuff, ta = 1 - (c.at ?? 0.1) / L, tb = 1 - ((c.at ?? 0.1) - (c.len ?? 0.025)) / L; cuff.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta) * (c.r ?? 1.25), R(tb) * (c.r ?? 1.25))); }
+    const fr = 0.0185 * k, b = hs.blend || {};
+    const shape = { arm, palm, digits, cuff, sep: (b.sep ?? 0.12) * fr, wrist: (b.wrist ?? 0.8) * fr, root: (b.root ?? 0.5) * fr, joint: (b.joint ?? 0.15) * fr, palmK: (b.palm ?? 0.7) * fr };
+    const key = [...arm, ...palm, ...digits.flat(), ...cuff].map((c) => [...c.a, ...c.ba, c.r1, c.r2].map((x) => Math.round(x * 1e4)).join(",")).join(";");
+    a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
+    a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
+    if (key === a.skinKey) return;
+    a.skinKey = key; a.skin.geometry.dispose();
+    a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
+  }
+
+  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = Character.armCurve(a, c, b, joint);
-    // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten
-    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w))
+    // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten.
+    // stub: under a seamless hand's skin (which carries on over the last `stub` metres of the arm), the tube closes in a
+    // round cap half way along that stretch, so its outline never shows through the hand
+    const L = stub ? curve.getLength() : 1, ts = 1 - (stub * 0.5) / L, tc = (w * 0.9) / L;
+    const cap = (t) => (!stub || t <= ts ? 1 : Math.sqrt(Math.max(0, 1 - ((t - ts) / tc) ** 2)));
+    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
       : new THREE.TubeGeometry(curve, 14, w, 8, false);
-    const m = new THREE.Mesh(geo, this.limbMat); m.castShadow = true; this.root.add(m);
+    if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
+    const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
     return m;
   }
 
@@ -380,7 +524,8 @@ export class Character {
     this.fries.group.visible = fries;
     if (fries) this.fries.apply(st, t);
 
-    const e = { ...st.expr };
+    // only speech rounds the lips through `round` (an expression's own "round" was never drawn; use "pucker")
+    const e = { ...st.expr }; delete e.round;
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink, st.face);
 
@@ -397,52 +542,77 @@ export class Character {
       hands[s] = h;
       // limbs.shoulder: where on the body's side the arm comes out (surf height; lower for short arms over a table)
       const shp = this.surf(sx * 1.38, this.def.limbs.shoulder ?? 0.02), sh = shp.pos, shN = shp.normal; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
-      const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
-      const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
-      // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
-      // body into the side of the fist, square to the handle, instead of running down alongside it
       const gr = { ...(st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }) }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
-      const hw = ax ? fistWeight(gr.curl) : 0;
-      // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
-      // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
-      // way round the body from the shoulder to the hand, so the arm wraps round the body instead of through it
-      if (hw > 0) {
-        const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.12, h.y - 0.09, h.z - 0.02) : sh.clone().lerp(h, 0.5);
-        mid.lerp(g, hw);
-      }
-      // a paw resting on a table (grip down): a real elbow, the upper arm down the side and the forearm forward onto
-      // the top, like Jonny's target, instead of one long curve from the shoulder; the fingers settle a little now
-      // and then so a resting hand isn't frozen while the body breathes
       const dn = Math.min(1, Math.max(0, gr.down || 0));
       if (dn > 0) {
-        // the authored elbow: low at the front corner of the body just above the table (not straight out to the side, where
-        // it would push into a neighbour), a forearm's length behind the paw, so the upper
-        // arm drops down the side and only a short forearm comes forward onto the top
-        const el = Math.asin(Math.max(-0.95, Math.min(0.95, (h.y / S.y - this.cy) / this.ry))), side = this.surf(sx * 1.2, el);
-        const elbow = side.pos.set(side.pos.x * S.x, side.pos.y * S.y, side.pos.z * S.z).addScaledVector(side.normal, this.limbW * 1.05);
-        elbow.y = h.y + 0.035; elbow.z += (h.z - elbow.z) * 0.12;
-        mid.lerp(elbow, dn);
         // the fingers settle onto the top once, just after the paw lands, then hold still (weight, not a fidget)
         const k = gr.since != null ? Math.min(1, Math.max(0, (t - gr.since) / 0.6)) : 1, settle = 1 - k * k * (3 - 2 * k);
         gr.curl -= dn * 0.12 * settle; gr.index -= dn * 0.14 * settle;
       }
-      // the elbow never sinks into the body (a curve's pull point needs the wider margin: the curve passes inside it;
-      // the jointed paw arm passes through its elbow, so it only needs the arm's own radius)
-      // a hand locked to a hold whose frame asks for it (frame.elbow): the elbow out beside the body and below the shoulder-hand line, so the
-      // upper arm hangs and the forearm comes into the hold from the side, low and relaxed (a phone held by its edges),
-      // instead of hooked straight up from the shoulder
       const fr = this._frame(a);
-      if (fr && fr.e > 0) {
-        // a hand reaching across in front of the body (round a held phone's far edge): the elbow comes forward to the
-        // hand's depth and a little in front, so the forearm passes in front of the prop instead of through it
-        const across = Math.min(1, Math.max(0, (0.25 - h.x * sx) / 0.2));
-        const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35 + (h.z + 0.06 - sh.z - (h.z - sh.z) * 0.35) * across);
-        mid.lerp(elbow, fr.e);
+      // the elbow (the arm curve's pull point) for the hand at h
+      const elbowFor = (h) => {
+        const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
+        const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
+        // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
+        // body into the side of the fist, square to the handle, instead of running down alongside it
+        const pw = ax && this.arms[s].hand.userData.glove ? Math.min(1, gr.pinch || 0) : 0, hw = ax ? fistWeight(gr.curl) * (1 - pw) : 0;
+        // elbow guide: beside the body a little below the fist, so the forearm rises into the fist as in the reference art
+        // (upper arm down and out from the shoulder, a bend, forearm up to the staff); for a hand in front of the belly, half
+        // way round the body from the shoulder to the hand, so the arm wraps round the body instead of through it
+        if (hw > 0) {
+          const g = Math.abs(h.x) > this.rx * S.x * 0.9 ? new THREE.Vector3(h.x - sx * 0.12, h.y - 0.09, h.z - 0.02) : sh.clone().lerp(h, 0.5);
+          mid.lerp(g, hw);
+        }
+        // a fingertip pinch (a straw, a pencil): a long, level forearm coming in from the shoulder's side (Jonny's straw
+        // sheet), its elbow a little over half the shoulder-hand distance straight back from the hand, so the hand, which
+        // points along the forearm, turns smoothly as the hand moves and the wrist stays in line with the arm
+        if (pw > 0) {
+          const d = h.clone().sub(sh), L = d.length(); d.y = 0;
+          if (d.lengthSq() > 1e-6) { d.normalize(); const e = h.clone().addScaledVector(d, -0.55 * L); e.y = h.y - 0.03; mid.lerp(e, pw); }
+        }
+        // a paw resting on a table (grip down): a real elbow, the upper arm down the side and the forearm forward onto
+        // the top, like Jonny's target, instead of one long curve from the shoulder; the fingers settle a little now
+        // and then so a resting hand isn't frozen while the body breathes
+        if (dn > 0) {
+          // the authored elbow: low at the front corner of the body just above the table (not straight out to the side, where
+          // it would push into a neighbour), a forearm's length behind the paw, so the upper
+          // arm drops down the side and only a short forearm comes forward onto the top
+          const el = Math.asin(Math.max(-0.95, Math.min(0.95, (h.y / S.y - this.cy) / this.ry))), side = this.surf(sx * 1.2, el);
+          const elbow = side.pos.set(side.pos.x * S.x, side.pos.y * S.y, side.pos.z * S.z).addScaledVector(side.normal, this.limbW * 1.05);
+          elbow.y = h.y + 0.035; elbow.z += (h.z - elbow.z) * 0.12;
+          mid.lerp(elbow, dn);
+        }
+        // the elbow never sinks into the body (a curve's pull point needs the wider margin: the curve passes inside it;
+        // the jointed paw arm passes through its elbow, so it only needs the arm's own radius)
+        // a hand locked to a hold whose frame asks for it (frame.elbow): the elbow out beside the body and below the shoulder-hand line, so the
+        // upper arm hangs and the forearm comes into the hold from the side, low and relaxed (a phone held by its edges),
+        // instead of hooked straight up from the shoulder
+        if (fr && fr.e > 0) {
+          // a hand reaching across in front of the body (round a held phone's far edge): the elbow comes forward to the
+          // hand's depth and a little in front, so the forearm passes in front of the prop instead of through it
+          const across = Math.min(1, Math.max(0, (0.25 - h.x * sx) / 0.2));
+          const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35 + (h.z + 0.06 - sh.z - (h.z - sh.z) * 0.35) * across);
+          mid.lerp(elbow, fr.e);
+        }
+        const joint = dn > 0.5;
+        this._outside(mid, S, joint ? 1 : 1.3);
+        return mid;
+      };
+      let mid = elbowFor(h);
+      const hand = this.arms[s].hand, U = hand.userData, pose = (h, mid) => { hand.position.copy(h); if (U.fingers) this._pose(hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr); };
+      pose(h, mid);
+      // an arm pose aimed with point "pinch" (a straw, a pencil): the fingertip pinch lands on the target, not the hand's
+      // centre, so the prop runs between the pads. The hand is posed for the target first; then hand and elbow shift
+      // together by the pinch's offset, so the hand keeps its turn and the forearm still runs straight into the wrist
+      // (blended like the pose itself)
+      const pp = U.pinchPt ? this._pointW(a) : 0;
+      if (pp > 0 && U.pinchW > 0) {
+        hand.updateMatrix();
+        const off = U.pinchPt.position.clone().applyMatrix4(hand.matrix).sub(h).multiplyScalar(pp);
+        h.sub(off); mid.sub(off); pose(h, mid);
       }
       const joint = dn > 0.5;
-      this._outside(mid, S, joint ? 1 : 1.3);
-      this.arms[s].hand.position.copy(h);
-      if (this.arms[s].hand.userData.fingers) this._pose(this.arms[s].hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr);
       this.arms[s].elbow = mid; this.arms[s].joint = joint; this.arms[s].shoulder = sh.clone().addScaledVector(shN, -0.035);
       if (globalThis.__DIAG?.anchors) this._anchors(s, [this.arms[s].shoulder, mid, h]);
       this.arms[s].hand.visible = showLimbs;
@@ -463,12 +633,13 @@ export class Character {
       } else this.legs[s].foot.quaternion.identity();
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
-      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, out, hw, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
+      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
-        this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint);
+        this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
       }
+      if (this.seamless) { this._skin(s, showLimbs); const a = this.arms[s]; a.tubeInk.geometry = a.mesh.geometry; a.tubeInk.visible = showLimbs; }
       if (this.arms[s].mesh) this.arms[s].mesh.visible = showLimbs;
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }
