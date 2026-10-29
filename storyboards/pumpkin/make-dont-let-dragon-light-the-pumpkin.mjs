@@ -62,7 +62,7 @@ const cast = [
 const props = [
   { id: "helmet", kind: "pumpkinhelm", wear: "dra", x: HELM[0], y: HELM[1], z: HELM[2], glow: 0 },
   { id: "plume", kind: "fireplume", x: 0, y: MOUTH_Y, z: MOUTH_Z, length: 2.5, width: 0.9, balls: 34 },
-  { id: "soot", kind: "soot", wear: "rea", x: 0.17, y: 0.86, z: 0.3, rot: 25, tip: -40, size: 0.09, scale: 0 },
+  { id: "soot", kind: "soot", wear: "rea", x: 0.25, y: 0.8, z: 0.3, rot: 25, tip: -22, size: 0.12, scale: 0 },
 ];
 
 // ---------------------------------------------------------------- the run: one path per runner, speed in m/s by time
@@ -125,7 +125,7 @@ A(0.62, "rea", "expr", { expr: "shocked", set: { open: 0.12, curve: -0.2, eye: 1
 A(0.62, "rea", "face", { lid: 0, brow: 0.35, dur: 0.12 });
 A(0.62, "rea", "still", { dur: 0.6, idle: 0.04 });
 A(0.66, "phx", "look", { to: AT_CAM, dur: 0.12, blink: false });     // Phoenix's eyes lead the turn to the door
-A(0.7, "phx", "turn", { to: 0, dur: 0.3, ease: "settle" });
+A(0.68, "phx", "turn", { to: 0, dur: 0.48, ease: "inOut" });   // not faster: a 0.3 s turn popped a wing for a frame
 A(0.72, "phx", "expr", { expr: "shocked", set: { open: 0.2, eye: 1.2 }, dur: 0.15 });
 A(0.95, "rea", "look", { to: AT_CAM, dur: 0.12, blink: false });
 
@@ -143,7 +143,7 @@ A(1.95, "rea", "expr", { expr: "focused", set: { open: 0.05, curve: -0.2 }, dur:
 // mid slow motion Reaper slides his eyes to Phoenix and back (face kept serious)
 A(3.3, "rea", "look", { to: [-0.6, 0], dur: 0.15, blink: false }); A(3.75, "rea", "look", { to: AT_CAM, dur: 0.15, blink: false });
 // the fire builds inside the pumpkin while they run: the orange light swells behind them
-c.prop(2.0, "helmet", { on: 1 }, 2.4, "in");
+c.prop(2.0, "helmet", { on: 1 }, 1.0, "inOut");
 A(2.0, "dra", "squash", { amount: -0.14, dur: 2.2 });
 // shot 5: ah... ah... CHOO (slow): he rears back, then throws the sneeze forward; one plume down the middle
 A(4.2, "dra", "pitch", { to: -12, dur: 0.45, ease: "inOut" });
@@ -163,7 +163,7 @@ c.prop(4.9, "helmet", { on: 0.35, glow: 0.7 }, 0.6);
 A(5.2, "dra", "pitch", { to: 0, dur: 0.8, ease: "inOut" });
 A(5.3, "dra", "expr", { expr: "kind", set: { open: 0.1, curve: 0.1, eye: 0.85 }, dur: 0.6 });
 // the fire holds a moment behind them, then dies down inside the hall (rising, cooling to smoke)
-c.prop(6.0, "plume", { fade: 1 }, 2.6, "inOut");
+c.prop(6.0, "plume", { fade: 1 }, 1.4, "inOut");
 c.prop(6.4, "helmet", { on: 0, glow: 0.25 }, 1.4);
 c.prop(6.95, "soot", { scale: 1 }, 0.25, "out");                       // a spark caught his hood on the way out
 
@@ -188,17 +188,16 @@ act.eyesLead(c, 8.2, "dra", [0, 0]);
 A(8.2, "dra", "move", { to: DRA_DOOR, dur: 3.6, steps: 2.4, ease: "inOut" });
 
 // ---------------------------------------------------------------- shot 7: both look back, trying to seem calm (10-12)
-A(10.0, "phx", "look", { to: AT_BACK_L, dur: 0.15, blink: false }); A(10.05, "phx", "turn", { to: 130, dur: 0.35, ease: "settle" });
-A(10.05, "rea", "look", { to: AT_BACK_R, dur: 0.15, blink: false }); A(10.1, "rea", "turn", { to: -130, dur: 0.35, ease: "settle" });
-A(10.45, "phx", "still", { dur: 0.3, idle: 0.03 }); A(10.5, "rea", "still", { dur: 0.3, idle: 0.03 });
+A(10.0, "phx", "look", { to: AT_BACK_L, dur: 0.15, blink: false }); A(10.05, "phx", "turn", { to: 100, dur: 0.3, ease: "settle" });
+A(10.05, "rea", "look", { to: AT_BACK_R, dur: 0.15, blink: false }); A(10.1, "rea", "turn", { to: -100, dur: 0.3, ease: "settle" });
 // ...and back round to each other, trying to look calm
-A(10.75, "phx", "look", { to: AT_BACK_L, dur: 0.15, blink: false }); A(10.8, "phx", "turn", { to: 62, dur: 0.35, ease: "settle" });
-A(10.8, "rea", "look", { to: AT_BACK_R, dur: 0.15, blink: false }); A(10.85, "rea", "turn", { to: -42, dur: 0.35, ease: "settle" });   // less: the hood hides a face turned further
-A(10.95, "phx", "expr", { expr: "kind", set: { curve: 0.35, open: 0.0, eye: 0.95 }, dur: 0.3 });   // a too-casual little smile
-A(10.95, "phx", "face", { lid: 0.3, press: 0.4, dur: 0.3 });
-A(11.0, "rea", "expr", { expr: "deadpan", set: { curve: 0.12 }, dur: 0.3 });
-A(11.15, "phx", "still", { dur: 0.55, idle: 0.05 }); A(11.2, "rea", "still", { dur: 0.5, idle: 0.05 });
-sfx(11.05, "ai-package/flat-exhale", { gain: 0.35, reason: "a calm-looking breath out (both of them, 11.05)" });
+A(10.35, "phx", "look", { to: AT_BACK_L, dur: 0.15, blink: false }); A(10.4, "phx", "turn", { to: 62, dur: 0.35, ease: "settle" });
+A(10.4, "rea", "look", { to: AT_BACK_R, dur: 0.15, blink: false }); A(10.45, "rea", "turn", { to: -42, dur: 0.35, ease: "settle" });   // less: the hood hides a face turned further
+A(10.55, "phx", "expr", { expr: "kind", set: { curve: 0.35, open: 0.0, eye: 0.95 }, dur: 0.3 });   // a too-casual little smile
+A(10.55, "phx", "face", { lid: 0.3, press: 0.4, dur: 0.3 });
+A(10.6, "rea", "expr", { expr: "deadpan", set: { curve: 0.12 }, dur: 0.3 });
+A(10.8, "phx", "still", { dur: 0.9, idle: 0.05 }); A(10.85, "rea", "still", { dur: 0.85, idle: 0.05 });
+sfx(10.7, "ai-package/flat-exhale", { gain: 0.35, reason: "a calm-looking breath out (both of them, 10.7)" });
 // they turn fully to the doorway as Dragon arrives in it
 A(11.75, "phx", "turn", { to: 130, dur: 0.35 }); A(11.75, "rea", "turn", { to: -130, dur: 0.35 });
 A(11.75, "phx", "look", { to: AT_CAM, dur: 0.2, blink: false }); A(11.75, "rea", "look", { to: AT_CAM, dur: 0.2, blink: false });
@@ -208,18 +207,18 @@ A(12.0, "phx", "expr", { expr: "deadpan", dur: 0.3 }); A(12.0, "rea", "expr", { 
 // both hands come up to the shell's sides, close on it, and carry it up and back off his head
 // (just outside the shell, under its bulge: the shell is 0.58 m out at 0.18 m below its middle)
 const side = (s, up) => ({ x: [s * 0.67, r3((HELM[1] - 0.18 - LEG + up) / H_DRA), 0.05] });
-A(12.1, "dra", "arm", { side: "R", pose: side(-1, -0.04), dur: 0.35, ease: "settle" });
-A(12.1, "dra", "arm", { side: "L", pose: side(1, -0.04), dur: 0.35, ease: "settle" });
-A(12.45, "dra", "grip", { side: "both", shape: "hold", dur: 0.12 });
-sfx(12.47, "grab", { gain: 0.35, reason: "his gloves close on the pumpkin's sides" });
-c.prop(12.6, "helmet", { y: r3(HELM[1] + 0.42), tip: -14 }, 0.5, "inOut");
-A(12.6, "dra", "arm", { side: "R", pose: side(-1, 0.38), dur: 0.5, ease: "inOut" });
-A(12.6, "dra", "arm", { side: "L", pose: side(1, 0.38), dur: 0.5, ease: "inOut" });
-A(12.85, "dra", "expr", { expr: "kind", set: { curve: 0.55, open: 0.0, eye: 0.9, tilt: 0.35 }, dur: 0.3 });   // a sheepish grin
-A(12.9, "dra", "face", { brow: 0.3, dur: 0.3 });
-A(12.95, "dra", "look", { to: [0.35, 0.05], dur: 0.2, blink: false });
-A(13.1, "dra", "still", { dur: 0.9, idle: 0.05 });
-sfx(13.1, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
+A(11.95, "dra", "arm", { side: "R", pose: side(-1, -0.04), dur: 0.27, ease: "settle" });
+A(11.95, "dra", "arm", { side: "L", pose: side(1, -0.04), dur: 0.27, ease: "settle" });
+A(12.2, "dra", "grip", { side: "both", shape: "hold", dur: 0.12 });
+sfx(12.22, "grab", { gain: 0.35, reason: "his gloves close on the pumpkin's sides" });
+c.prop(12.35, "helmet", { y: r3(HELM[1] + 0.42), tip: -14 }, 0.5, "inOut");
+A(12.35, "dra", "arm", { side: "R", pose: side(-1, 0.38), dur: 0.5, ease: "inOut" });
+A(12.35, "dra", "arm", { side: "L", pose: side(1, 0.38), dur: 0.5, ease: "inOut" });
+A(12.6, "dra", "expr", { expr: "kind", set: { curve: 0.55, open: 0.0, eye: 0.9, tilt: 0.35 }, dur: 0.3 });   // a sheepish grin
+A(12.65, "dra", "face", { brow: 0.3, dur: 0.3 });
+A(12.7, "dra", "look", { to: [0.35, 0.05], dur: 0.2, blink: false });
+A(12.9, "dra", "still", { dur: 1.1, idle: 0.05 });
+sfx(12.85, "plunk", { gain: 0.22, reason: "the dry 'dum' as his sheepish face is revealed" });
 A(13.0, "phx", "still", { dur: 1.0, idle: 0.04 }); A(13.0, "rea", "still", { dur: 1.0, idle: 0.04 });
 
 // ---------------------------------------------------------------- shots
@@ -232,7 +231,7 @@ const beats = c.beats([
   ["4 slow motion", 2.0, { pos: [0, 0.5, r3(ZP(2.0) + 3.4)], look: [0, 0.85, r3(ZP(2.0) - 1.5)], fov: 48, to: { pos: [0, 0.5, r3(ZP(4.2) + 4.0)], look: [0, 0.85, r3(ZP(4.2) - 1.5)] }, dur: 2.2, ease: "linear" }],
   ["5 the sneeze", 4.2, { pos: [0, 1.45, 4.4], look: [0, 0.7, -3.6], fov: 46, to: { pos: [0, 1.4, 3.9] }, dur: 2.8, ease: "linear" }, "payoff"],
   ["6 out on the porch", 7.0, { pos: [0, 1.0, 5.8], look: [0, 0.75, -0.6], fov: 46 }],
-  ["7 calm", 10.0, { pos: [0, 0.88, 5.6], look: [0, 0.75, 1.45], fov: 50, to: { pos: [0, 0.88, 5.4] }, dur: 2.0, ease: "linear" }, "reaction"],
+  ["7 calm", 10.0, { pos: [0, 0.88, 6.1], look: [0, 0.75, 1.45], fov: 50, to: { pos: [0, 0.88, 5.9] }, dur: 2.0, ease: "linear" }, "reaction"],
   ["8 the pumpkin comes off", 12.0, { pos: [0, 1.75, 4.5], look: [0, 1.55, -0.4], fov: 42 }, "reaction"],
 ], END);
 

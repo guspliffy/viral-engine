@@ -17,7 +17,7 @@ import { clamp } from "./util.js";
 //                the side or straight down its length. `len` 0..1: how far it has reached (spec.length metres at 1),
 //                `on` 0..1 its strength, `fade` 0..1 dissipation (the balls swell, rise, cool to grey smoke and go).
 //                spec.width: the head's radius. A warm glow travels with its head.
-//   soot         a tiny dark smudge (spec.size metres across), a flat decal facing its +z; shown by `scale` 0 -> 1.
+//   soot         a tiny smudge of soot and grey ash (spec.size metres across), a flat decal facing its +z; shown by `scale` 0 -> 1.
 // The fire and the aura are see-through (opacity under 0.5) and flagged as steam, so the contact and caption checks
 // leave them out; the helmet's shell is solid and is checked like any prop.
 export const PUMPKIN = { r: 0.62, squashY: 0.8, open: 2.31, lobes: 8,
@@ -206,7 +206,8 @@ export const PUMPKIN_KINDS = {
   soot(P) {
     const S = P.spec, c = document.createElement("canvas"); c.width = c.height = 64;
     const g = c.getContext("2d"), gr = g.createRadialGradient(32, 32, 2, 32, 32, 30);
-    gr.addColorStop(0, "rgba(40,36,38,0.95)"); gr.addColorStop(0.55, "rgba(55,50,52,0.7)"); gr.addColorStop(1, "rgba(60,55,58,0)");
+    // a dark core in a ring of grey ash: the ash is what reads on a black hood at phone size
+    gr.addColorStop(0, "rgba(52,47,46,0.95)"); gr.addColorStop(0.35, "rgba(96,89,86,0.9)"); gr.addColorStop(0.7, "rgba(150,142,136,0.75)"); gr.addColorStop(1, "rgba(160,152,146,0)");
     g.fillStyle = gr; g.beginPath(); g.ellipse(32, 32, 30, 22, 0.4, 0, Math.PI * 2); g.fill();
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
     const m = new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
