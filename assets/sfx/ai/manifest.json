@@ -1539,6 +1539,269 @@
      "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
     }
    ]
+  },
+  {
+   "id": "cookie-scrape",
+   "kind": "sfx",
+   "files": [
+    "cookie-scrape/cookie-scrape-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "cookie",
+    "scrape",
+    "slide"
+   ],
+   "durationSec": 0.6,
+   "prompt": [
+    "a small dry biscuit sliding a few centimetres over the edge of a wooden table, one tiny dry scrape, close up, quiet room, no music",
+    "a crumbly cookie scraping softly across a wooden tabletop, one short gritty dry scrape, close microphone, no music"
+   ],
+   "seed": [
+    502,
+    501,
+    501,
+    502
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "cookie-scrape/cookie-scrape-01.wav",
+     "take": "p1-s502",
+     "prompt": "a crumbly cookie scraping softly across a wooden tabletop, one short gritty dry scrape, close microphone, no music",
+     "seed": 502,
+     "startSec": 1.335,
+     "durationSec": 0.6,
+     "clap": 0.127,
+     "snrDb": 45.8,
+     "loudnessLUFS": -18.5
+    }
+   ]
+  },
+  {
+   "id": "hero-hit",
+   "kind": "sfx",
+   "files": [
+    "hero-hit/hero-hit-01.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "music",
+    "orchestral",
+    "hit",
+    "heroic"
+   ],
+   "durationSec": 1.8,
+   "prompt": [
+    "one single heroic orchestral hit, a big brass stab with timpani and a cymbal, movie trailer, then silence",
+    "a single dramatic heroic brass and timpani hit, one blast, epic film score sting, then silence"
+   ],
+   "seed": [
+    512,
+    511,
+    512,
+    511
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -13.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "hero-hit/hero-hit-01.wav",
+     "take": "p0-s512",
+     "prompt": "one single heroic orchestral hit, a big brass stab with timpani and a cymbal, movie trailer, then silence",
+     "seed": 512,
+     "startSec": 0.0,
+     "durationSec": 1.8,
+     "clap": 0.188,
+     "snrDb": 49.6,
+     "loudnessLUFS": -16.6
+    }
+   ]
+  },
+  {
+   "id": "slowmo-air",
+   "kind": "sfx",
+   "files": [
+    "slowmo-air/slowmo-air-02.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "air",
+    "slow motion",
+    "whoosh",
+    "drone"
+   ],
+   "durationSec": 2.6,
+   "prompt": [
+    "a long stretched slow motion whoosh, deep airy sustained rushing tone, time slowing down, cinematic, no music",
+    "slow motion sound effect, a low slowed-down breathy whoosh that hangs in the air, dreamy, cinematic, no voice"
+   ],
+   "seed": [
+    522,
+    521,
+    521,
+    522
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -17.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "slowmo-air/slowmo-air-02.wav",
+     "take": "p1-s521",
+     "prompt": "slow motion sound effect, a low slowed-down breathy whoosh that hangs in the air, dreamy, cinematic, no voice",
+     "seed": 521,
+     "startSec": 1.127,
+     "durationSec": 2.6,
+     "clap": 0.122,
+     "snrDb": 38.7,
+     "loudnessLUFS": -16.5
+    }
+   ]
+  },
+  {
+   "id": "cushion-poof",
+   "kind": "sfx",
+   "files": [
+    "cushion-poof/cushion-poof-02.wav",
+    "cushion-poof/cushion-poof-03.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "cushion",
+    "landing",
+    "soft",
+    "thud"
+   ],
+   "durationSec": 0.563,
+   "prompt": [
+    "a body flopping belly first onto a thick soft floor cushion, one muffled soft fabric poof of air, close up, no voice",
+    "jumping onto a big soft pillow, a single deep muffled cushion thump and puff of air, close up, quiet room, no voice"
+   ],
+   "seed": [
+    531,
+    532,
+    531,
+    532
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "cushion-poof/cushion-poof-02.wav",
+     "take": "p0-s532",
+     "prompt": "a body flopping belly first onto a thick soft floor cushion, one muffled soft fabric poof of air, close up, no voice",
+     "seed": 532,
+     "startSec": 2.53,
+     "durationSec": 0.482,
+     "clap": -0.038,
+     "snrDb": 54.4,
+     "loudnessLUFS": -23.5
+    },
+    {
+     "file": "cushion-poof/cushion-poof-03.wav",
+     "take": "p0-s531",
+     "prompt": "a body flopping belly first onto a thick soft floor cushion, one muffled soft fabric poof of air, close up, no voice",
+     "seed": 531,
+     "startSec": 4.28,
+     "durationSec": 0.51,
+     "clap": -0.049,
+     "snrDb": 49.6,
+     "loudnessLUFS": -24.8
+    }
+   ]
+  },
+  {
+   "id": "fingertip-catch",
+   "kind": "sfx",
+   "files": [
+    "fingertip-catch/fingertip-catch-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "catch",
+    "hand",
+    "grab",
+    "tap"
+   ],
+   "durationSec": 0.291,
+   "prompt": [
+    "catching a small biscuit in the palm of a hand, one tiny soft tap and skin rub, close up, quiet, dry",
+    "a hand softly snatching a small cookie out of the air, single light soft slap of fingers, close microphone, dry"
+   ],
+   "seed": [
+    542,
+    542,
+    542,
+    541
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "fingertip-catch/fingertip-catch-03.wav",
+     "take": "p1-s542",
+     "prompt": "a hand softly snatching a small cookie out of the air, single light soft slap of fingers, close microphone, dry",
+     "seed": 542,
+     "startSec": 1.265,
+     "durationSec": 0.122,
+     "clap": -0.132,
+     "snrDb": 60.4,
+     "loudnessLUFS": -18.9
+    }
+   ]
+  },
+  {
+   "id": "warm-resolve",
+   "kind": "sfx",
+   "files": [
+    "warm-resolve/warm-resolve-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "music",
+    "warm",
+    "resolution",
+    "ending"
+   ],
+   "durationSec": 3.2,
+   "prompt": [
+    "a short warm gentle resolving major chord on soft strings and felt piano, tender happy ending, no bells, no chimes, no drums",
+    "a soft warm string swell resolving to a major chord, sweet and calm cartoon ending, felt piano, no bells, no percussion"
+   ],
+   "seed": [
+    551,
+    552,
+    551,
+    552
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.3,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "warm-resolve/warm-resolve-01.wav",
+     "take": "p0-s551",
+     "prompt": "a short warm gentle resolving major chord on soft strings and felt piano, tender happy ending, no bells, no chimes, no drums",
+     "seed": 551,
+     "startSec": 0.006,
+     "durationSec": 3.2,
+     "clap": 0.073,
+     "snrDb": 45.8,
+     "loudnessLUFS": -13.7
+    }
+   ]
   }
  ]
 }

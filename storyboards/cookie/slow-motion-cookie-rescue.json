@@ -1,0 +1,1898 @@
+{
+ "id": "slow-motion-cookie-rescue",
+ "title": "The Slow-Motion Cookie Rescue",
+ "idea": "Story library 05: the Wizard stages a heroic slow-motion dive for a falling cookie; Reaper just catches it, takes a bite and offers it to him",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.3,
+   "center": [
+    0,
+    1.2
+   ],
+   "height": 3.9
+  }
+ },
+ "music": {
+  "file": "ai/hero-bed/hero-bed-02.ogg",
+  "from": 0.5,
+  "until": 3.52,
+  "gain": 0.5
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "speech": false,
+  "surface": "carpet",
+  "signature": false
+ },
+ "experiment": {
+  "id": "hook-2026-11",
+  "episode": "slow-motion-cookie-rescue",
+  "variant": "A"
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "cookie"
+  ],
+  "hint": 0,
+  "what": "the cookie tips over the table's edge and the Wizard is already reaching for it"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.55,
+    -0.7
+   ],
+   "face": 50,
+   "expr": "shocked",
+   "follow": 0.25,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    1.05,
+    -0.18
+   ],
+   "face": -60,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "rug",
+   "kind": "rug",
+   "x": 0.1,
+   "z": 0.4,
+   "w": 3.8,
+   "d": 2.8,
+   "color": "#e6d3b6",
+   "pattern": "quiet",
+   "pile": 0.5
+  },
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": -0.1,
+   "z": 0,
+   "h": 0.42,
+   "w": 1.1,
+   "d": 0.7,
+   "color": "#ecd3a8",
+   "leg": "#cfa26b",
+   "legX": 0.6,
+   "apron": 0.04
+  },
+  {
+   "id": "cushion",
+   "kind": "floorcushion",
+   "x": 0.28,
+   "y": 0.02,
+   "z": 0.95,
+   "r": 0.62,
+   "h": 0.26
+  },
+  {
+   "id": "cookie",
+   "kind": "chunkcookie",
+   "x": 0.443,
+   "y": 0.436,
+   "z": 0.12,
+   "tilt": 20,
+   "rot": 0,
+   "biteAt": 180
+  },
+  {
+   "id": "path",
+   "kind": "carrier",
+   "x": -0.55,
+   "y": 0,
+   "z": -0.7,
+   "rot": 50
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "01 cookie in danger",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     1.571,
+     0.676,
+     2.482
+    ],
+    "look": [
+     0.08,
+     0.52,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.453,
+      "y": 0.433,
+      "z": 0.12,
+      "tilt": 32
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.45,
+     "reason": "tiny dry scrape: the cookie sliding over the table's edge",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "curve": -0.75,
+      "eye": 1.25
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 8,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.42,
+       0.5
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.3,
+       -0.06
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hover",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.5
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 3.4,
+     "idle": 0.05,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.47,
+       0.56
+      ]
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.06
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.4,
+     "at": 0.08
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 hero mode",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.488,
+     0.682,
+     0.162
+    ],
+    "look": [
+     -0.268,
+     0.648,
+     -0.473
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      0.398,
+      0.678,
+      0.086
+     ]
+    },
+    "dur": 0.5
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.465,
+      "y": 0.424,
+      "z": 0.12,
+      "tilt": 42
+     },
+     "dur": 1.05,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/hero-hit",
+     "gain": 0.75,
+     "reason": "the mock-heroic 'dah!' on his determined eyes; the hero music starts under it",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.32,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "fx": "shade",
+     "dur": 0.46,
+     "from": -0.45,
+     "to": 1.45,
+     "width": 0.55,
+     "peak": 0.42,
+     "angle": 16,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "hatwobble",
+     "amount": 2,
+     "freq": 2,
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.25,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": -0.25,
+      "open": 0,
+      "eye": 0.82
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.42,
+     "idle": 0.06,
+     "at": 0.12
+    }
+   ]
+  },
+  {
+   "name": "03 launch",
+   "at": 1,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     1.31,
+     0.999,
+     3.711
+    ],
+    "look": [
+     -0.15,
+     0.55,
+     -0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 22,
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.32,
+       0.2,
+       0.25
+      ]
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.4,
+       0.26,
+       -0.22
+      ]
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "sfx": "ai/slowmo-air",
+     "gain": 0.6,
+     "reason": "the stretched airy slow-mo rumble: it swells through the slow motion and peaks on the catch",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "path",
+     "dur": 0.01,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 42,
+     "dur": 0.38,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.32,
+       0.75,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.56,
+       0.62,
+       -0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "x": -0.5,
+      "z": -0.45,
+      "rot": 56
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "y": 0.3
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "sfx": "step-carpet",
+     "gain": 1,
+     "reason": "the foot push off the rug",
+     "at": 0.25
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.6,
+     "reason": "his short whoosh into the dive",
+     "at": 0.27
+    },
+    {
+     "who": "wiz",
+     "do": "hatsway",
+     "tip": [
+      -14,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.57,
+      "z": 0.12,
+      "tilt": 24
+     },
+     "dur": 1.85,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "y": 0.385
+     },
+     "dur": 1.85,
+     "ease": "in",
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "04 one slow-motion beat",
+   "at": 1.6,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     1.453,
+     0.66,
+     3.049
+    ],
+    "look": [
+     0.38,
+     0.55,
+     0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      1.741,
+      0.632,
+      3.965
+     ],
+     "look": [
+      0.2,
+      0.56,
+      0.15
+     ],
+     "fov": 26
+    },
+    "dur": 1.8
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "x": -0.35,
+      "z": -0.1,
+      "rot": 60
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "y": 0.38
+     },
+     "dur": 1.8,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.65,
+       0.55
+      ]
+     },
+     "dur": 1.8,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.8,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.7
+     ],
+     "dur": 1.6,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 50,
+     "dur": 1.75,
+     "ease": "linear",
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.5
+     ],
+     "dur": 1,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "hatsway",
+     "tip": [
+      -10,
+      0
+     ],
+     "dur": 1.6,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cookie",
+      "grip": [
+       0,
+       -0.013,
+       0
+      ],
+      "frame": {
+       "y": [
+        -1,
+        0,
+        0
+       ],
+       "z": [
+        0,
+        1,
+        0
+       ],
+       "at": [
+        0,
+        0.03,
+        0.02
+       ]
+      },
+      "at": [
+       0.62,
+       0.3,
+       0.13
+      ],
+      "off": [
+       0.02,
+       -0.03,
+       0.03
+      ]
+     },
+     "dur": 1.7,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 1.2,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": -0.4,
+      "open": 0.35,
+      "eye": 0.9
+     },
+     "dur": 1.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 8,
+     "dur": 1.4,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.75
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.67
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "05 effortless catch",
+   "at": 3.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.012,
+     1.213,
+     2.369
+    ],
+    "look": [
+     0.62,
+     0.45,
+     0.1
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      1.3,
+      1.3,
+      4.5
+     ],
+     "look": [
+      0.65,
+      0.45,
+      0.3
+     ],
+     "fov": 32
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.62,
+      "z": 0.13,
+      "tilt": 8
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "y": 0.36
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cookie",
+      "grip": [
+       0,
+       -0.013,
+       0
+      ],
+      "frame": {
+       "y": [
+        -1,
+        0,
+        0
+       ],
+       "z": [
+        0,
+        1,
+        0
+       ],
+       "at": [
+        0,
+        0.03,
+        0.02
+       ]
+      }
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "x": 0.2,
+      "z": 0.81,
+      "rot": 32
+     },
+     "dur": 1.28,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "y": 0.13
+     },
+     "dur": 1.28,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 88,
+     "dur": 1.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.04
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.3,
+     "reason": "his fingers closing round it",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.62,
+       0.7,
+       -0.12
+      ]
+     },
+     "dur": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.62,
+       0.7,
+       -0.12
+      ]
+     },
+     "dur": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.55,
+     "reason": "the tiny fingertip catch: the tick of the cookie landing in his palm",
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.02,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.12,
+     "ease": "settle",
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 1.26,
+      "y": 0.5,
+      "z": 0.22,
+      "rot": -20
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.25
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.5,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1.2,
+      -0.25
+     ],
+     "dur": 0.45,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.44,
+       0.42,
+       -0.1
+      ]
+     },
+     "dur": 0.5,
+     "at": 0.55
+    },
+    {
+     "sfx": "step-carpet",
+     "gain": 0.95,
+     "reason": "his one step back (the storyboard names its own steps, so the auto ones are off)",
+     "at": 0.78
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "06 safe landing",
+   "at": 4.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -3.079,
+     2.953,
+     3.196
+    ],
+    "look": [
+     0.7,
+     0.5,
+     0.55
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.65
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.55,
+       0.72,
+       0.36
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.04
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.55,
+       0.72,
+       0.36
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "squash": 0.28
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "bend": 0.6
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.14,
+     "dur": 0.24,
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "hatwobble",
+     "amount": 7,
+     "freq": 3,
+     "dur": 0.8,
+     "at": 0.08
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.35,
+     "reason": "soft cushion poof (no scream): he lands belly-first on the cushion",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "path",
+     "set": {
+      "y": 0.09
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "squash": 0.06
+     },
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.16
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.04,
+     "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.55,
+       0.72,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 0.6,
+     "dur": 0.6,
+     "at": 0.48
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.3,
+     "idle": 0.05,
+     "at": 0.48
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.55,
+       0.72,
+       0.36
+      ]
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "squash": 0.1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "squash": 0.06
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.76
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.15
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "07 one bite",
+   "at": 6.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     1.05,
+     1,
+     4.3
+    ],
+    "look": [
+     0.75,
+     0.55,
+     0.6
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cookie",
+      "grip": [
+       0.079,
+       -0.013,
+       0
+      ],
+      "frame": {
+       "y": [
+        -1,
+        0,
+        0
+       ],
+       "z": [
+        0,
+        1,
+        0
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ]
+      }
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "phoneEdge",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 1.077,
+      "y": 0.53,
+      "z": 0.118,
+      "tilt": 90,
+      "rot": -90
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 0.3,
+     "dur": 0.6,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 40,
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.55,
+       0.5
+      ]
+     },
+     "dur": 0.6,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.45,
+       0.55,
+       0.5
+      ]
+     },
+     "dur": 0.6,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.08,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "z": 0.098,
+      "y": 0.545
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "cut": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.66
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.05,
+     "at": 0.66
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.8,
+     "reason": "tiny crisp crunch: the one bite",
+     "at": 0.66
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 1.26,
+      "y": 0.5,
+      "z": 0.22
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.1,
+      "open": 0.12,
+      "eye": 0.82
+     },
+     "dur": 0.4,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.45,
+     "brow": 0.15,
+     "dur": 0.4,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0.12,
+      "curve": 0.25
+     },
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0,
+      "curve": 0.25
+     },
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0.1,
+      "curve": 0.25
+     },
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "set": {
+      "open": 0,
+      "curve": 0.25
+     },
+     "dur": 0.1,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.67
+    }
+   ]
+  },
+  {
+   "name": "08 offer the rescued treasure",
+   "at": 8,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1.342,
+     1.145,
+     5.957
+    ],
+    "look": [
+     0.8,
+     0.6,
+     0.8
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.261,
+      1.063,
+      5.183
+     ]
+    },
+    "dur": 3
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1.22,
+      0.62
+     ],
+     "dur": 0.75,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -58,
+     "dur": 0.75,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.92,
+      "y": 0.56,
+      "z": 0.96,
+      "rot": -58
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.45,
+       0.45
+      ]
+     },
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "sfx": "step-carpet",
+     "gain": 0.55,
+     "reason": "Reaper's steps to the Wizard",
+     "at": 0.23
+    },
+    {
+     "sfx": "step-carpet",
+     "gain": 0.55,
+     "reason": "Reaper's steps to the Wizard",
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "sfx": "step-carpet",
+     "gain": 0.55,
+     "reason": "Reaper's steps to the Wizard",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "cookie",
+     "set": {
+      "x": 0.83,
+      "y": 0.6,
+      "z": 0.95,
+      "tilt": 90,
+      "rot": -58
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.55,
+     "reason": "the warm musical resolution as he holds the cookie out",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "smirk": 0.2
+     },
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 2.1,
+     "idle": 0.05,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.25,
+      "eye": 0.85,
+      "open": 0
+     },
+     "dur": 0.5,
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0.2,
+     "dur": 0.5,
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.8,
+     "idle": 0.04,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.35
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.55,
+      0.55
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 8,
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.6,
+      "eye": 0.85,
+      "open": 0
+     },
+     "dur": 0.5,
+     "at": 2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.3
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wiz",
+   "with": "cushion",
+   "from": 4.63,
+   "to": 11,
+   "reason": "he lands belly-first on the cushion and lies on it"
+  },
+  {
+   "who": "rea",
+   "with": "cookie",
+   "from": 6.45,
+   "to": 7,
+   "reason": "the bite: the cookie comes up to his mouth"
+  }
+ ],
+ "notes": "Generated by storyboards/cookie/make-slow-motion-cookie-rescue.mjs (Jonny's story library 05)."
+}
