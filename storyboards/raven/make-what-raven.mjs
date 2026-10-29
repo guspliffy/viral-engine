@@ -38,7 +38,7 @@ const REA = [0.2, 0.03], ODIN = [-0.9, 0.78], ODIN_IN = [-0.82, 0.8], ODIN_BACK 
 const ODIN_YAW = 52;
 const HOOD_OUT = [0.2, 1.5, 0.3];                    // the hood opening above his forehead: where every bird comes out
 const INSIDE = [0.2, 1.3, 0.05];                       // inside the head (the body hides it)
-const PERCH = { top: [0.13, 1.56, -0.03], L: [-0.45, 0.67, 0.12], R: [0.85, 0.67, 0.12] };   // hood top, armrests (screen-left, screen-right)
+const PERCH = { top: [0.03, 1.53, -0.01], L: [-0.45, 0.67, 0.12], R: [0.85, 0.67, 0.12] };   // hood top, armrests (screen-left, screen-right)
 const RAVEN = 1.3;                                     // a small raven (the robbed clip's was 1.6)
 
 // the photo in Odin's right hand (grip library phone hold: upright in the palm, the picture away from him)
@@ -61,7 +61,7 @@ const props = [
   { id: "r1", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },   // the peeker (later the hood one)
   { id: "r2", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
   { id: "r3", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
-  { id: "feather", kind: "feather", x: 0.3, y: 1.3, z: 0.47, scale: 1.1 },
+  { id: "feather", kind: "feather", x: 0.3, y: 1.5, z: 0.47, scale: 1.25 },
 ];
 
 // ---------------------------------------------------------------- helpers
@@ -82,7 +82,7 @@ const lap = (t, dur = 0.35) => {
 // ---------------------------------------------------------------- setup at frame 0
 A(0, "rea", "sit", { seat: "chair", dur: 0, hands: "keep" });   // dur 0: seated on frame 0 itself
 act.blinksAt(c, "rea", [3.5, 7.55]);
-act.blinksAt(c, "odin", [2.6, 6.9, 10.4]);
+act.blinksAt(c, "odin", [2.6, 6.9]);   // no blink in his closing stare
 lap(0, 0);
 const photo = grips.phone(c, "odin", PHOTO, { side: "R" });
 photo.secure(0, 0.01);
@@ -92,17 +92,17 @@ A(0, "odin", "move", { to: ODIN, dur: 0.6, ease: "out", steps: 2.5 });
 
 // ---------------------------------------------------------------- 1 HOOK 0.00-0.65: the beak, shoved back in
 // frame 0: the beak already out of the hood's top edge (left of the middle, his right), his eyes sliding up to it
-c.prop(0, "r1", { scale: RAVEN, x: 0.09, y: 1.15, z: 0.22, rot: 0, tip: 25 }, 0);   // beak and eyes to the lens
+c.prop(0, "r1", { scale: RAVEN, x: 0.09, y: 1.22, z: 0.22, rot: 0, tip: 35 }, 0);   // head and both eyes over the hood edge   // beak and eyes to the lens
 c.prop(0.03, "r1", { flap: 1 }, 0.05); c.prop(0.14, "r1", { flap: 0 }, 0.06);   // the first thing that moves is the bird
 c.prop(0.12, "r1", { peck: 1 }, 0.06); c.prop(0.18, "r1", { peck: 0 }, 0.08);
 look(0, "rea", R_UP, 0.01);
 A(0, "rea", "expr", { expr: "kind", set: { curve: 0.1, eye: 1.12 }, dur: 0.01 });
 c.cap(0, 1.2, "When you borrowed\nOdin's raven", 250, false, { kinetic: false });   // the analytics read (29 Oct evening): a relatable "When..." line
 // his own right hand comes up and pushes the beak back under the hood
-c.arm(0.22, "rea", "R", { x: [-0.13, 0.74, 0.42], palm: [-0.05, 0.74, 0.22] }, 0.18, "out");
-A(0.22, "rea", "grip", { side: "R", shape: "flat", dur: 0.12 });
-c.prop(0.38, "r1", { x: INSIDE[0], y: INSIDE[1], z: INSIDE[2] }, 0.17, "in");
-sfx(0.38, "cloth", { gain: 0.5, reason: "the raven shoved back under the hood (on screen)" });
+c.arm(0.34, "rea", "R", { x: [-0.13, 0.78, 0.42], palm: [-0.05, 0.78, 0.22] }, 0.16, "out");
+A(0.34, "rea", "grip", { side: "R", shape: "flat", dur: 0.12 });
+c.prop(0.5, "r1", { x: INSIDE[0], y: INSIDE[1], z: INSIDE[2] }, 0.12, "in");
+sfx(0.5, "cloth", { gain: 0.5, reason: "the raven shoved back under the hood (on screen)" });
 sfx(0.04, "ai/raven-caw", { gain: 0.3, reason: "the peeking raven (on screen at the hood edge)" });
 c.arm(0.56, "rea", "R", { x: [-0.24, 0.22, 0.34] }, 0.3, "inOut"); A(0.58, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 c.prop(0.57, "r1", { scale: 0 }, 0.01);                // out of sight inside the hood
@@ -156,10 +156,10 @@ look(3.5, "odin", O_AT_REA, 0.2);
 // ---------------------------------------------------------------- 5 THE FEATHER 3.90-5.40: it drifts onto his face
 // it drifts down by hand (fall 0.002 keeps it visible and upright, facing the camera), swaying, and comes to rest
 // across his face between the eyes and the mouth, like a little moustache
-c.prop(3.9, "feather", { fall: 0.002, roll: 20 }, 0.01);
-c.prop(3.92, "feather", { x: 0.22, y: 1.22, z: 0.47, roll: -40 }, 0.3, "inOut");
-c.prop(4.22, "feather", { x: 0.3, y: 1.12, z: 0.46, roll: 25 }, 0.3, "inOut");
-c.prop(4.52, "feather", { x: 0.12, y: 0.935, z: 0.455, roll: -70 }, 0.28, "out");
+c.prop(3.9, "feather", { fall: 0.002, roll: 0 }, 0.01);
+c.prop(3.92, "feather", { x: 0.12, y: 1.3, z: 0.47, roll: -25 }, 0.3, "inOut");
+c.prop(4.22, "feather", { x: 0.3, y: 1.13, z: 0.46, roll: 20 }, 0.3, "inOut");
+c.prop(4.52, "feather", { x: 0.1, y: 0.945, z: 0.455, roll: -80 }, 0.28, "out");   // across his face under the eyes, like a little moustache
 look(3.95, "rea", [0.05, 0.4], 0.15);
 look(4.45, "rea", R_NOSE, 0.25);
 A(4.5, "rea", "face", { press: 0, dur: 0.2 });
@@ -196,7 +196,7 @@ const burst = (id, t, path, perch, rot) => {
 };
 const LAND_R2 = burst("r2", CHOO + 0.02, [[[-0.3, 1.75, 0.8], 0.32, 0.12, -60], [[-0.55, 1.6, 0.75], 0.3, 0.05, -150]], PERCH.L, 25);
 const LAND_R3 = burst("r3", CHOO + 0.14, [[[0.85, 1.85, 0.7], 0.34, 0.12, 60], [[1.05, 1.2, 0.55], 0.3, 0.05, 150]], PERCH.R, -25);
-const LAND_R1 = burst("r1", CHOO + 0.26, [[[0.15, 2.05, 0.6], 0.32, 0.1, 0], [[0.45, 1.95, 0.15], 0.3, 0.06, 120]], PERCH.top, 0);
+const LAND_R1 = burst("r1", CHOO + 0.26, [[[0.15, 2.05, 0.6], 0.32, 0.1, 0], [[0.0, 1.95, 0.45], 0.3, 0.06, 0]], PERCH.top, 15);   // drops onto the hood from the front
 for (const [t, pan] of [[CHOO + 0.14, -0.3], [CHOO + 0.26, 0.3], [CHOO + 0.38, 0]]) sfx(t, "wing-flap", { gain: 0.7, pan, reason: "a raven bursting out of the hood (on screen)" });
 sfx(CHOO + 0.2, "ai/raven-caw", { gain: 0.4, pan: -0.25, reason: "a raven calling as it bursts out (on screen)" });
 sfx(CHOO + 0.45, "ai/raven-caw", { gain: 0.5, pan: 0.3, reason: "the second raven calling in flight (on screen)" });
@@ -240,18 +240,18 @@ c.prop(T8 + 0.75, "r1", { happy: 1 }, 0.2);
 sfx(T8 + 0.77, "ai/raven-caw", { gain: 0.3, reason: "the hood raven's happy little call as it hops (on screen)" }); c.prop(T8 + 1.15, "r1", { happy: 0 }, 0.2);
 A(T8 + 1.25, "rea", "face", { lid: 0.42, dur: 0.2 });   // a slow, flat blink-half: deadpan
 A(T8 + 0.1, "odin", "expr", { expr: "deadpan", set: { curve: -0.1 }, dur: 0.3 });
-A(T8 + 0.1, "odin", "face", { lid: 0.32, dur: 0.3 });
+A(T8 + 0.1, "odin", "face", { lid: 0.2, dur: 0.3 });
 A(T8 + 0.2, "odin", "still", { dur: 1.7, idle: 0.04 });
 
 // ---------------------------------------------------------------- shots
 const SHOTS = {
   beak: { pos: [-0.3, 1.25, 3.2], look: [-0.28, 1.08, 0.45], fov: 48 },   // frame 0: a two-shot, Odin striding in at the left edge
-  insert: { pos: [0.12, 0.72, 1.85], look: [-0.45, 0.62, 1.0], fov: 38 },
+  insert: { pos: [0.12, 0.66, 1.85], look: [-0.45, 0.5, 1.0], fov: 38 },
   medium: { pos: [0.05, 1.0, 4.0], look: [-0.25, 0.85, 0.4], fov: 44 },
-  bulge: { pos: [-0.15, 1.02, 3.4], look: [-0.3, 0.92, 0.4], fov: 44, to: { pos: [-0.15, 1.02, 3.15] }, dur: 1.0 },
+  bulge: { pos: [0.0, 1.08, 3.5], look: [-0.12, 0.98, 0.4], fov: 46, to: { pos: [0.0, 1.08, 3.25] }, dur: 1.0 },   // both sides of the hood in frame (the second peek is on his left)
   close: { pos: [0.2, 1.3, 3.1], look: [0.2, 1.25, 0.2], fov: 36, to: { pos: [0.2, 1.28, 2.9] }, dur: 1.9 },   // room above the hood for the subtitle
   wide: { pos: [-0.05, 1.3, 4.0], look: [0.0, 1.35, 0.3], fov: 48 },
-  count: { pos: [-0.05, 1.05, 4.0], look: [-0.1, 0.95, 0.4], fov: 50 },   // both armrests and Odin's face
+  count: { pos: [-0.12, 1.05, 4.0], look: [-0.17, 0.95, 0.4], fov: 56 },   // both armrests and Odin's face
   denial: { pos: [0.0, 1.05, 3.8], look: [-0.05, 1.0, 0.3], fov: 50, to: { pos: [0.0, 1.05, 3.5] }, dur: 1.4 },
   stare: { pos: [0.05, 0.85, 2.45], look: [-0.8, 0.7, 0.9], fov: 48 },   // the last 0.6 s: Odin's deadpan stare closes the joke
 };
@@ -261,10 +261,11 @@ const beats = c.beats([
   ["what raven", 1.7, SHOTS.medium],
   ["bulge", 2.9, SHOTS.bulge],
   ["feather", 3.9, SHOTS.close],
-  ["sneeze", r3(CHOO - 0.05), SHOTS.wide, "payoff"],   // cut on the CHOO: the music drops out over the inhale and hits here
+  ["sneeze", r3(CHOO - 0.05), "keep", "payoff"],   // the close carries the CHOO (the music drops out over the inhale and hits here)
+  ["burst", r3(CHOO + 0.2), SHOTS.wide],
   ["count", T7, SHOTS.count],
   ["what ravens", T8, SHOTS.denial, "reaction"],
-  ["odin stares", 10.0, SHOTS.stare],
+  ["odin stares", 9.8, SHOTS.stare],
 ], END);
 
 const inHood = (id, from, to, why) => ({ who: "rea", with: id, from, to, reason: `${id} ${why} (a bird inside Reaper's hood: the body hides it)` });
