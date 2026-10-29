@@ -111,18 +111,22 @@ A(2.1, "dra", "face", { lid: 0, dur: 0.12 });
 A(2.12, "dra", "look", { to: DRA_AT_BOWL, dur: 0.15, blink: false });
 
 // ---------------------------------------------------------------- 02 WHOLE BOWL 2.20-5.20
-const RIM = (b) => [r3(b[0] - 0.135 * BOWL_S), r3(b[1] + CHARGER.bowlRim * BOWL_S + 0.02), r3(b[2])];   // his paw over the far (left) rim
+// his glove cups the bowl's far (left) side from outside, the palm on the china, a hand's thickness off the wall, so
+// nothing sinks into the bowl (Jonny 29 Oct: "glitched in the cup and not just touching it"); the hand follows the
+// bowl as it slides, then lifts clear before it drops to the table
+const CUP = { prop: "bowl", grip: [-0.186, 0.06, -0.035], palm: true };
 A(2.3, "dra", "expr", { expr: "sly", set: { curve: 0.55, smirk: 0.45 }, dur: 0.2 });
 A(2.3, "dra", "face", { brow: 0.2, dur: 0.2 });
-c.arm(2.25, "dra", "R", { world: RIM(BOWL0) }, 0.25, "inOut");                   // on the rim by 2.5
-A(2.4, "dra", "grip", { side: "R", shape: "rim", dur: 0.12 });
+c.arm(2.25, "dra", "R", CUP, 0.25, "inOut");                                       // on the bowl by 2.5
+A(2.4, "dra", "grip", { side: "R", shape: "relaxed", dur: 0.12 });
 A(2.55, "dra", "still", { dur: 0.25, idle: 0.1 });
-c.arm(2.8, "dra", "R", { world: RIM(BOWL1) }, 1.7, "inOut");                     // the slide, 2.80-4.50
-c.prop(2.8, "bowl", xyz(BOWL1), 1.7, "inOut");
+c.prop(2.8, "bowl", xyz(BOWL1), 1.7, "inOut");                                     // the slide, 2.80-4.50 (the hand rides along)
 sfx(2.8, "ai/bowl-scrape", { gain: 0.45, reason: "the bowl slides across the wooden tabletop (2.8-4.5)" });
 A(2.8, "dra", "lean", { to: 4, dur: 1.7 });
-c.arm(4.6, "dra", "R", { world: [0.25, TABLE_H + 0.035, 0.55] }, 0.3, "inOut");    // released by 4.9, the paw on the table left of the bowl
-A(4.6, "dra", "grip", { side: "R", shape: "paw", dur: 0.2 });
+const OFF = [r3(BOWL1[0] - 0.3), r3(TABLE_H + 0.17), r3(BOWL1[2] - 0.12)];
+c.arm(4.55, "dra", "R", { world: OFF }, 0.2, "out");                                // lifts up and away from the bowl...
+c.arm(4.75, "dra", "R", { world: [0.2, TABLE_H + 0.035, 0.45] }, 0.25, "inOut");    // ...and rests on the table behind it by 5.0
+A(4.75, "dra", "grip", { side: "R", shape: "paw", dur: 0.2 });
 A(4.6, "dra", "lean", { to: 0, dur: 0.4 });
 act.checkOn(c, 4.5, "dra", { at: DRA_AT_WIZ, back: [-0.2, -0.2], hold: 0.55 });   // he checks: still scrolling
 
@@ -160,7 +164,10 @@ const WRIST = STOP.map((v, i) => r3(v + FOREARM[i] * 0.11));   // a hand-width u
 c.arm(8.95, "wiz", "L", { world: [WRIST[0] - 0.06, WRIST[1] + 0.08, WRIST[2] + 0.02] }, 0.14, "out");
 c.arm(9.09, "wiz", "L", { world: [WRIST[0], WRIST[1] + 0.045, WRIST[2]] }, 0.12, "out");
 A(9.03, "wiz", "grip", { side: "L", shape: "clasp", dur: 0.14 });
-sfx(9.18, "thud-soft", { gain: 0.3, reason: "the soft stop: the Wizard's glove closes on Dragon's wrist" });
+sfx(9.18, "thud-soft", { gain: 0.2, reason: "the soft stop: the Wizard's glove closes on Dragon's wrist" });
+// "dö ... döm" (Jonny 29 Oct, instead of the Wizard's sparkle): the first hit on the catch, the second as the Wizard's
+// brows come down
+sfx(9.15, "ai/dundun", { gain: 0.6, reason: "the catch: a deep two-hit sting, dö on the grip, döm on the angry stare" });
 A(8.7, "dra", "grip", { side: "R", shape: "pinch", dur: 0.25 });                    // the fingers start to close on it...
 A(9.18, "dra", "squash", { amount: 0.03, dur: 0.15 });
 A(9.18, "dra", "still", { dur: 1.22, idle: 0.02 });                                 // he freezes
@@ -171,6 +178,11 @@ A(9.7, "dra", "expr", { expr: "nervous", set: { open: 0.15, curve: -0.1, eye: 1.
 A(9.45, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.2, blink: false });                  // the Wizard looks up, finally
 A(9.45, "wiz", "turn", { to: 26, dur: 0.4 });
 A(9.55, "wiz", "face", { lid: 0.08, dur: 0.2 });
+// angry and annoyed by 10 s (Jonny 29 Oct): brows pulled down hard at the inner ends, a flat frown, the eyes narrowed
+// with the brows (never the lids over the pupils)
+A(9.75, "wiz", "expr", { expr: "stern", set: { tilt: -0.75, curve: -0.45, eye: 0.82 }, dur: 0.25 });
+A(9.75, "wiz", "face", { brow: -0.4, dur: 0.25 });
+A(9.75, "wiz", "squash", { amount: 0.02, dur: 0.2 });
 
 // ---------------------------------------------------------------- 07 CAUGHT 10.40-13.00
 A(10.4, "wiz", "still", { dur: 2.6, idle: 0.05 });
@@ -180,7 +192,7 @@ A(10.9, "dra", "look", { to: DRA_AT_PLUG, dur: 0.15, blink: false });           
 A(11.35, "dra", "look", { to: DRA_AT_WIZ, dur: 0.15, blink: false });              // ...and back
 A(11.7, "dra", "expr", { expr: "nervous", set: { open: 0, curve: 0.3, eye: 1.0, tilt: 0.3 }, dur: 0.35 });   // a sheepish smile
 A(11.7, "dra", "face", { brow: 0.35, dur: 0.3 });
-A(12.1, "wiz", "face", { browL: -0.2, browR: -0.75, dur: 0.3 });                     // one brow lower: "don't" (the brief: his firm stare holds to the end)
+A(12.1, "wiz", "face", { browL: -0.35, browR: -0.5, dur: 0.3 });                     // a touch lower on one side: "don't" (the brief: his firm stare holds to the end)
 
 // ---------------------------------------------------------------- shots (fixed by the brief; [name, start, camera, kind])
 // a camera on `target` from azimuth az (degrees round y, 0 = straight from the front, - = from the left) and
@@ -221,7 +233,7 @@ const sb = (variant, captions) => ({
   // the sneaky bed (Jonny picked sneaky-01) under the two thefts; it stops on a bar line as the reach for the plug
   // begins, so the approach plays in a quiet room (the brief's short gap) and the catch needs no hit
   music: { file: "ai/sneaky/sneaky-01.ogg", until: 6.4, gain: 0.3 },
-  sound: { sfx: 0.7, ambience: 0.3, speech: false },
+  sound: { sfx: 0.7, ambience: 0.3, speech: false, signature: { payoff: false } },   // no sparkle on the catch (Jonny: "not a bling")
   experiment: { id: "hook-2026-11", episode: "dont-touch-the-charger", variant },
   cast, props, captions, beats,
   allowClip: [

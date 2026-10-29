@@ -2139,6 +2139,21 @@
     "table"
    ]
   },
+  "ai/dundun": {
+   "source": "ai",
+   "files": [
+    "ai/dundun/dundun-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sting",
+    "dun dun",
+    "dramatic",
+    "suspense",
+    "caught",
+    "brass"
+   ]
+  },
   "oga/fart-viking": {
    "source": "oga",
    "files": [

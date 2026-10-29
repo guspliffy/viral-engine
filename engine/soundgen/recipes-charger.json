@@ -54,6 +54,34 @@
    ],
    "gain": 0.3,
    "label": "a ceramic bowl sliding across a wooden table"
+  },
+  {
+   "id": "dundun",
+   "kind": "oneshot",
+   "len": [
+    0.7,
+    2.2
+   ],
+   "duration": 8,
+   "tags": [
+    "sting",
+    "dun dun",
+    "dramatic",
+    "suspense",
+    "caught",
+    "brass"
+   ],
+   "prompts": [
+    "a dramatic suspense sting, two deep heavy orchestral brass and timpani hits, dun dun, cinematic, then silence",
+    "classic cartoon dramatic reveal sting, two low loud orchestra stabs, dun dunn, short, no melody"
+   ],
+   "seeds": [
+    91,
+    92,
+    93
+   ],
+   "gain": 0.5,
+   "label": "two dramatic deep orchestral hits, dun dun"
   }
  ],
  "music": []

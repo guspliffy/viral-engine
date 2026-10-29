@@ -1497,6 +1497,48 @@
      "loudnessLUFS": -28.7
     }
    ]
+  },
+  {
+   "id": "dundun",
+   "kind": "sfx",
+   "files": [
+    "dundun/dundun-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sting",
+    "dun dun",
+    "dramatic",
+    "suspense",
+    "caught",
+    "brass"
+   ],
+   "durationSec": 1.4,
+   "prompt": [
+    "a dramatic suspense sting, two deep heavy orchestral brass and timpani hits, dun dun, cinematic, then silence",
+    "classic cartoon dramatic reveal sting, two low loud orchestra stabs, dun dunn, short, no melody"
+   ],
+   "seed": [
+    "p1-s93"
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "dundun/dundun-01.wav",
+     "take": "p1-s93",
+     "prompt": "classic cartoon dramatic reveal sting, two low loud orchestra stabs, dun dunn, short, no melody",
+     "seed": 93,
+     "startSec": 0.434,
+     "durationSec": 2.2,
+     "clap": 0.039,
+     "snrDb": 69.6,
+     "loudnessLUFS": -17,
+     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
+    }
+   ]
   }
  ]
 }
