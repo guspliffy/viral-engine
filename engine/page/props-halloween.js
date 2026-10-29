@@ -193,7 +193,7 @@ export const HALLOWEEN_KINDS = {
     const rim = mesh(new THREE.TorusGeometry(0.168, 0.008, 8, 48), mat(wood ? "#6a3f22" : "#1d1820", { roughness: 0.4 }), P.whole, 0, 0.106, 0); rim.rotation.x = Math.PI / 2;
     // a little bat painted round the side: two dark marks
     if (!wood) for (const a of [0.4, 2.5, 4.6]) { const m = mesh(new THREE.SphereGeometry(0.02, 8, 6), mat("#1d1820"), P.whole, Math.sin(a) * 0.15, 0.06, Math.cos(a) * 0.15); m.scale.set(1.6, 0.5, 0.3); m.lookAt(0, 0.06, 0); m.castShadow = false; }
-    const cols = ["#e8b53a", "#8e3fd1", "#e2372f", "#2fa86a", "#f2f2f2", "#ff8a1a"];
+    const cols = P.spec.colors || ["#e8b53a", "#8e3fd1", "#e2372f", "#2fa86a", "#f2f2f2", "#ff8a1a"];   // spec.colors: the wrappers
     let k = 0;
     for (const [r, y, n] of [[0.11, 0.07, 9], [0.06, 0.09, 6], [0.0, 0.105, 1]]) for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2 + y * 9; sweet(P.whole, cols[k++ % cols.length], Math.cos(a) * r, y, Math.sin(a) * r, a); }
     return { grip: 0 };

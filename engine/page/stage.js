@@ -451,10 +451,11 @@ function pose(t) {
   // keep: the offset from the holder that leaves the prop exactly where it was at the grab (measured once, with
   // the holder posed at that moment)
   const keptOffset = (p, hold) => {
-    const key = `${hold.who}/${hold.hand}@${hold.at}`;
+    // (a let-go prop's hold carries the release time in `at` and the grab's in `grabAt`: measure at the grab)
+    const at = hold.grabAt ?? hold.at, key = `${hold.who}/${hold.hand}@${at}`;
     if (!p.kept || p.kept.key !== key) {
       const A = states[hold.who];
-      A.a.ch.apply(actorState(sb, A.a.c, A.a.def, hold.at), hold.at);
+      A.a.ch.apply(actorState(sb, A.a.c, A.a.def, at), at);
       const an = anchor(hold.who, hold.hand), w = new THREE.Vector3().fromArray(hold.from);
       const ap = an.obj ? null : inFrame(p, an.pos);
       p.kept = { key, off: an.obj ? an.obj.worldToLocal(p.root.parent && p.root.parent !== scene ? p.root.parent.localToWorld(w) : w).toArray() : [w.x - ap.x, w.y - ap.y, w.z - ap.z] };

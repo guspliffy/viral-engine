@@ -15,6 +15,7 @@ import { DUO_KINDS, DUO_GRIPS, DUO_PARTS } from "./props-duo.js";
 import { CHARGER_KINDS, CHARGER_GRIPS } from "./props-charger.js";
 import { CANDLE_KINDS, CANDLE_GRIPS } from "./props-candle.js";
 import { COOKIE_KINDS, COOKIE_GRIPS } from "./props-cookie.js";
+import { CANDY_KINDS, CANDY_GRIPS } from "./props-candy.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -35,7 +36,7 @@ const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
   ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
-  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS,
+  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS, ...CANDY_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -1280,7 +1281,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, CANDY_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), toyspider, jambwall (props-candy.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
@@ -1432,7 +1433,7 @@ export function propState(sb, spec, t) {
     else if (a.do === "release") {
       if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1, arc: a.to && a.arc ? 4 * a.arc * e * (1 - e) : 0 };
       // without "to" it stays where the hand let go (stage.js works out where that was)
-      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
+      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, grabAt: ps.hold.at, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }
     // carried by another prop (a raven's beak): { do: "carry", prop, by, off: [x, y, z] (in the carrier's own turned,
     // scaled frame), at } and from then on it rides along; { do: "carry", prop, at } with no `by` lets go of it there
