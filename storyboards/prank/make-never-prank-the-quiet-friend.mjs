@@ -110,7 +110,7 @@ for (const [k, tt] of [[0, 1.7], [1, 2.05], [2, 2.4]]) {
   c.prop(tt, "feather", { tilt: -52 }, 0.15, "inOut"); c.prop(tt + 0.17, "feather", { tilt: -70 }, 0.15, "inOut");
   fh.carry(tt, [F_TICKLE[0] + 0.01 * k, F_TICKLE[1] + 0.03, F_TICKLE[2]], 0.15, "inOut"); fh.carry(tt + 0.17, F_TICKLE, 0.15, "inOut");
 }
-sfx(1.7, "kenney/cloth", { gain: 0.1, reason: "the feather brushing his face (three strokes 1.7-2.7)" });
+sfx(1.7, "kenney/cloth", { gain: 0.04, reason: "the feather brushing his face (three strokes 1.7-2.7)" });
 // Reaper's face twitches twice (lips purse, brows pinch, a little shudder)
 for (const tt of [1.95, 2.33]) {
   A(tt, "rea", "expr", { expr: "serene", set: { curve: -0.2, pucker: 0.6 }, dur: 0.08 });
@@ -210,7 +210,7 @@ sfx(9.3, "ai/drip", { gain: 0.35, reason: "a drop of foam falling from his cheek
 const PALM_T = [PALM[0] + 0.04, PALM[1] + 0.07, PALM[2]];
 const TWO = [-0.02, 0.82, 0.45];
 const S1 = frame([-0.2, 0.8, 0.42], { az: -8, el: 10, h: 2.5, fov: 30, push: 0.1, dur: 0.55 });
-const S2 = frame(PALM_T, { az: 6, el: 20, h: 0.6, fov: 30, push: 0.12, dur: 0.5 });
+const S2 = frame([PALM_T[0] - 0.16, PALM_T[1], PALM_T[2]], { az: -10, el: 6, h: 0.6, fov: 30, push: 0.12, dur: 0.5 });   // the palm at the right, so the caption sits over the chair, not the hood
 const S3 = frame([FACE_R[0] + 0.08, FACE_R[1] + 0.31, FACE_R[2]], { az: -24, el: 4, h: 1.05, fov: 30, push: 0.08, dur: 0.55 });   // the wall above the hood for the caption
 const S4 = frame(TWO, { az: -6, el: 8, h: 1.85, fov: 30, push: 0.06, dur: 1.8 });
 const S5 = frame([FACE_R[0] + 0.04, FACE_R[1] + 0.03, FACE_R[2]], { az: -34, el: 3, h: 0.62, fov: 30 });
@@ -242,8 +242,8 @@ write(import.meta.url, {
   creative: { length: [8, 12], loop: false },
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", aperture: 0, para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 } },
-  // a tiptoe pizzicato walk from frame 0, full level; it stops for the eye (the silence), the drop on the splort
-  music: { style: "sneaky", seed: 8, gain: 0.32, parts: [{ at: 0, part: "main" }, { at: 3.55, part: "stop" }, { at: T_PRESS, part: "drop" }] },
+  // a tiptoe pizzicato walk from frame 0, full level; the lock puts one beat of silence before the splort and the drop on it
+  music: { style: "sneaky", seed: 8, gain: 0.32, payoff: T_PRESS },
   // auto off: every sound is placed by hand (the payoff's splort above all)
   sound: { sfx: 0.7, ambience: 0.3, speech: false, signature: false, auto: false, surface: "carpet" },
   experiment: { id: "hook-2026-11", episode: "never-prank-the-quiet-friend", variant: "A" },

@@ -37,20 +37,7 @@
   "style": "sneaky",
   "seed": 8,
   "gain": 0.32,
-  "parts": [
-   {
-    "at": 0,
-    "part": "main"
-   },
-   {
-    "at": 3.55,
-    "part": "stop"
-   },
-   {
-    "at": 4.95,
-    "part": "drop"
-   }
-  ]
+  "payoff": 4.95
  },
  "sound": {
   "sfx": 0.7,
@@ -446,21 +433,21 @@
    "len": 0.5,
    "shot": {
     "pos": [
-     -0.646,
-     1.128,
-     1.396
+     -1.109,
+     0.862,
+     1.447
     ],
     "look": [
-     -0.756,
+     -0.916,
      0.745,
      0.35
     ],
     "fov": 30,
     "to": {
      "pos": [
-      -0.659,
-      1.082,
-      1.271
+      -1.086,
+      0.848,
+      1.315
      ]
     },
     "dur": 0.5
@@ -600,7 +587,7 @@
     },
     {
      "sfx": "kenney/cloth",
-     "gain": 0.1,
+     "gain": 0.04,
      "reason": "the feather brushing his face (three strokes 1.7-2.7)",
      "at": 0.1
     },
