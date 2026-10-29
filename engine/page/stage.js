@@ -511,6 +511,17 @@ function pose(t) {
   // a charger's cable runs to the prop its spec.to names (props3d.js charger, props-charger.js chargebank), wherever that
   // is now (link gets its position and its root, for the way it faces)
   for (const p of props) if (p.link && p.spec.to) { const q = props.find((o) => o.spec.id === p.spec.to); if (q) { q.root.updateMatrixWorld(true); p.link(q.root.getWorldPosition(new THREE.Vector3()), q.root); } }
+  // a worn prop (spec.wear: an actor id) rides on that character's body: its x, y, z (and their tweens) are a point in
+  // the body's frame, so it follows every step, lean, pitch and squash, and it turns with the body (rot, tip and tilt
+  // on top) unless spec.wearTurn is false (a plume that keeps its own direction). props-pumpkin.js pumpkinhelm, soot
+  const _wq = new THREE.Quaternion();
+  for (const p of props) if (p.spec.wear) {
+    const A = states[p.spec.wear]; if (!A) continue;
+    const ch = A.a.ch; ch.root.updateMatrixWorld(true);
+    const w = ch.bodyGroup.localToWorld(p.root.position.clone());
+    p.root.position.copy(inFrame(p, w));
+    if (p.spec.wearTurn !== false) p.root.quaternion.premultiply(ch.root.getWorldQuaternion(_wq));
+  }
   // a breath runs from an actor's mouth (spec.mouth) to a point on a prop (spec.target, spec.at in its frame), wherever
   // the head is now (props-candle.js breath)
   for (const p of props) if (p.aim && p.spec.mouth) {

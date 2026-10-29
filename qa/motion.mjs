@@ -22,7 +22,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LIMIT = { x: 0.03, y: 0.03, z: 0.03, yaw: 0.12, lean: 0.1, pitch: 0.1, squash: 0.06, wings: 0.25, flap: 0.25, tuck: 0.3, hand: 0.04 };
 const RATIO = 4;
 const SLIDE = 0.003;   // metres a planted foot may drift in one frame (9 cm a second) outside a step
-const STEPS = new Set(["move", "turn", "hop", "fly", "hover", "drop", "sit", "stand", "kneel", "grow"]);   // grow: the feet spread as it grows
+const STEPS = new Set(["move", "run", "turn", "hop", "fly", "hover", "drop", "sit", "stand", "kneel", "grow"]);   // grow: the feet spread as it grows
 
 // the values the checks follow for one actor at one moment: body position and pose, and both hands
 function values(st, def, t, handTarget) {
