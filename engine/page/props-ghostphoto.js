@@ -74,9 +74,9 @@ const EMBER_VS = `varying vec3 vN; varying vec3 vV; varying float vY;
 const EMBER_FS = `uniform vec3 uBody; uniform vec3 uRim; uniform float uOp; uniform float uTop; varying vec3 vN; varying vec3 vV; varying float vY;
   void main() {
     float f = 1.0 - abs(dot(normalize(vN), normalize(vV)));
-    float rim = pow(f, 2.4), h = clamp(vY / uTop, 0.0, 1.0);
+    float rim = pow(f, 2.0), h = clamp(vY / uTop, 0.0, 1.0);
     vec3 c = mix(uBody, uRim, clamp(rim * 1.3 + 0.15 * h, 0.0, 1.0));
-    float a = uOp * (0.2 + 0.12 * h + 1.1 * rim); gl_FragColor = vec4(c * a, a);
+    float a = uOp * (0.3 + 0.14 * h + 1.6 * rim); gl_FragColor = vec4(c * a, a);
   }`;
 const BAND_FS = `uniform float uOp; varying vec2 vUv;
   void main() { float a = sin(vUv.y * 3.14159); a = a * a * uOp; vec3 c = mix(vec3(1.0, 0.38, 0.06), vec3(1.0, 0.78, 0.36), a); gl_FragColor = vec4(c * a, a); }`;

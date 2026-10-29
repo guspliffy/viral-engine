@@ -24,7 +24,7 @@
     0,
     3.6
    ],
-   "height": 9.6,
+   "height": 11.2,
    "tint": "#9aa3d4"
   }
  },
@@ -170,6 +170,7 @@
     7.45,
     7.9,
     8.35,
+    0.93,
     8.85,
     9.15,
     9.4,
@@ -342,6 +343,13 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "hat",
+     "on": false,
+     "dur": 0,
+     "at": 0
+    },
+    {
      "do": "prop",
      "id": "s-phx",
      "set": {
@@ -385,6 +393,12 @@
      "gain": 0.32,
      "reason": "the self-timer lamp blinking (on screen)",
      "at": 0.1
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.32,
+     "reason": "the self-timer lamp blinking (on screen)",
+     "at": 0.33
     },
     {
      "sfx": "timer-beep",
@@ -515,19 +529,19 @@
      1.35,
      0
     ],
-    "fov": 52,
+    "fov": 60,
     "to": {
      "pos": [
       0,
       1.5,
-      5.3
+      5.6
      ],
      "look": [
       0,
       1.45,
       0
      ],
-     "fov": 52
+     "fov": 60
     }
    },
    "do": [
@@ -1050,11 +1064,11 @@
      "pos": [
       0.35,
       1.55,
-      7
+      7.6
      ],
      "look": [
       0,
-      1.55,
+      1.45,
       0
      ],
      "fov": 44
@@ -1396,7 +1410,7 @@
    "do": [
     {
      "fx": "flash",
-     "dur": 0.25,
+     "dur": 0.5,
      "peak": 0.85,
      "at": 0
     },
@@ -1436,6 +1450,14 @@
      "at": 0.7
     },
     {
+     "who": "rea",
+     "do": "face",
+     "browL": 0.75,
+     "lid": 0.3,
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
      "who": "wiz",
      "do": "look",
      "to": [
@@ -1447,6 +1469,23 @@
      "at": 0.75
     },
     {
+     "who": "wiz",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "s-wiz",
+     "set": {
+      "rot": -20
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
      "who": "phx",
      "do": "look",
      "to": [
@@ -1455,6 +1494,27 @@
      ],
      "dur": 0.3,
      "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.4,
+      "curve": 0.15,
+      "open": 0.5,
+      "eye": 1.08,
+      "smirk": 0.25
+     },
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.3,
      "at": 0.8
     }
    ],
@@ -1482,16 +1542,16 @@
      "push": 0.03,
      "cam": {
       "pos": [
-       0.75,
-       0.85,
-       4.8
+       0.2,
+       1,
+       4.3
       ],
       "look": [
        0,
-       1.5,
+       1.55,
        0
       ],
-      "fov": 62
+      "fov": 54
      },
      "hide": [
       "cam"

@@ -41,7 +41,7 @@ const TRI = { x: 0.75, z: 5.0, h: 0.85 };                      // the tripod cam
 const LENS = [TRI.x, TRI.h, TRI.z - 0.2];
 const FLASH = 10.0, SNAP = 10.03;
 // the timer: one blink a second at first, faster over the last 1.4 s
-const BLINKS = [...Array.from({ length: 19 }, (_, i) => r3(0.25 + i * 0.45)), 8.85, 9.15, 9.4, 9.58, 9.72, 9.83, 9.92];
+const BLINKS = [...Array.from({ length: 19 }, (_, i) => r3(0.25 + i * 0.45)), 0.93, 8.85, 9.15, 9.4, 9.58, 9.72, 9.83, 9.92];
 
 const SHEET = { r: 0.5, hem: 0.66, dz: 0.92, eyeY: 0.8, lift: 0.88 };
 const cast = [
@@ -64,6 +64,7 @@ const UP = [0, 0.95], AT_CAM = [0.06, -0.05];
 const tuck = (t, who, dur = 0.01) => { c.arm(t, who, "R", { x: [-0.42, 0.34, 0.04] }, dur); c.arm(t, who, "L", { x: [0.42, 0.34, 0.04] }, dur); };
 for (const w of ["rea", "phx", "wiz"]) { tuck(0, w); A(0, w, "noblink"); A(0, w, "still", { dur: 2.2, idle: 0.08 }); }
 A(0, "phx", "look", { to: [0, 0.1], dur: 0, blink: false });
+A(0, "wiz", "hat", { on: false, dur: 0 });   // the hat stays under the sheet all clip: the sheet carries its shape (its bent tip poked through the cloth)
 
 // ---------------------------------------------------------------- 1 CLUE 0.0-0.6: the middle sheet glows and smokes
 c.prop(0, "s-phx", { glow: 1, puff: 1 }, 0.6, "out");                // the heat blooms inside the first shot
@@ -152,17 +153,21 @@ A(9.5, "wiz", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.12, curve: 0.
 for (const w of ["rea", "phx", "wiz"]) A(9.75, w, "still", { dur: 1.7, idle: 0.02 });
 
 // ---------------------------------------------------------------- 7 FLASH 10.0-12.0: one flash, the pose holds
-c.at(FLASH, { fx: "flash", dur: 0.25, peak: 0.85 });   // 0.85: the most the checks allow (a pure white frame reads as a glitch)
+c.at(FLASH, { fx: "flash", dur: 0.5, peak: 0.85 });    // 0.85: the most the checks allow (a pure white frame reads as a glitch); 0.5 s so the fade has no strobing steps
 sfx(FLASH, "flash", { gain: 0.8, reason: "the camera firing (the flash on screen)" });
 // the flash-blink, then the baffled looks
 for (const [w, dt] of [["phx", 0.0], ["rea", 0.06], ["wiz", 0.03]]) A(10.4 + dt, w, "blink", { dur: 0.22 });
 A(10.7, "rea", "look", { to: [0.35, 0.95], dur: 0.3, blink: false });
 A(10.75, "wiz", "look", { to: [-0.6, 0.1], dur: 0.3, blink: false });
 A(10.8, "phx", "look", { to: [0.2, 0.9], dur: 0.3, blink: false });
+A(10.7, "rea", "face", { browL: 0.75, lid: 0.3, dur: 0.3 });                              // a real glare up at the ghost
+A(10.75, "wiz", "turn", { to: -20, dur: 0.3 }); c.prop(10.75, "s-wiz", { rot: -20 }, 0.3);  // his body says "you"
+A(10.8, "phx", "expr", { expr: "kind", set: { tilt: 0.4, curve: 0.15, open: 0.5, eye: 1.08, smirk: 0.25 }, dur: 0.3 });   // the grin becomes a wince
+A(10.8, "phx", "face", { brow: 0.45, dur: 0.3 });
 
 // ---------------------------------------------------------------- 8 THE PHOTO 12.0-14.0
 c.at(12.0, { fx: "photo", style: "print", dur: 2.0, shot: SNAP, aspect: 1.05, w: 1000, pos: [540, 880], tilt: -2.5, dim: 0.62, push: 0.03,
-  cam: { pos: LENS, look: [0, 1.5, 0], fov: 62 }, hide: ["cam"] });
+  cam: { pos: [0.2, 1.0, 4.3], look: [0, 1.55, 0], fov: 54 }, hide: ["cam"] });   // closer than the lens, so the extra ghost is big in the print
 sfx(12.0, "book-flip", { gain: 0.3, reason: "the print dropping in" });
 
 // ---------------------------------------------------------------- shots
@@ -170,9 +175,9 @@ const SHOTS = {
   clue: { pos: [0.05, 1.24, 3.7], look: [0, 1.04, 0], fov: 44 },
   timer: { pos: [1.02, 1.16, 6.2], look: [0.62, 0.88, 4.6], fov: 38 },
   trio: { pos: [0.45, 1.1, 5.4], look: [0, 1.0, 0], fov: 50 },
-  rise: { pos: [0, 1.4, 5.8], look: [0, 1.35, 0], fov: 52, to: { pos: [0, 1.5, 5.3], look: [0, 1.45, 0], fov: 52 } },
+  rise: { pos: [0, 1.4, 5.8], look: [0, 1.35, 0], fov: 60, to: { pos: [0, 1.5, 5.6], look: [0, 1.45, 0], fov: 60 } },   // wide enough for both peeks
   ember: { pos: [0, 1.75, 4.4], look: [0, 1.62, 0], fov: 48, to: { pos: [0, 1.8, 4.1], look: [0, 1.72, 0], fov: 48 } },
-  wide: { pos: [0.35, 1.5, 8.6], look: [0, 1.38, 0], fov: 46, to: { pos: [0.35, 1.55, 7.0], look: [0, 1.55, 0], fov: 44 } },
+  wide: { pos: [0.35, 1.5, 8.6], look: [0, 1.38, 0], fov: 46, to: { pos: [0.35, 1.55, 7.6], look: [0, 1.45, 0], fov: 44 } },   // the camera back stays in frame
   flash: { pos: [1.7, 1.0, 6.4], look: [0, 1.35, 0], fov: 50 },
 };
 const beats = c.beats([
@@ -193,7 +198,7 @@ write(import.meta.url, {
   idea: "Eight trend tests #01 (ghost photoshoot trend): Phoenix's sheet turns into an ember ghost that ends up in the photo",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   set: { type: "plain", color: "#25305e", floor: "#4a424e", light: "golden", key: [3.2, 4.2, 4.0],
-    plate: { src: "assets/plates/courtyard-dusk.png", z: -2.6, center: [0, 3.6], height: 9.6, tint: "#9aa3d4" } },
+    plate: { src: "assets/plates/courtyard-dusk.png", z: -2.6, center: [0, 3.6], height: 11.2, tint: "#9aa3d4" } },
   music: { style: "sneaky", drums: false },
   sound: { sfx: 0.7, ambience: 0.3, speech: false, surface: "concrete", signature: false },
   hook: { show: ["s-phx"], hint: 0, what: "the middle ghost's sheet already glows orange and smokes at the shoulders" },
