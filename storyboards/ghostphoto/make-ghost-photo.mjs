@@ -118,7 +118,7 @@ A(4.1, "wiz", "look", { to: [-0.45, 0.95], dur: 0.25, blink: false });
 // ---------------------------------------------------------------- 5 EMBER 4.4-7.2: one sweep, cloth to ember outline
 c.prop(4.6, "s-phx", { burn: 1 }, 1.25, "inOut");
 c.prop(4.6, "s-phx", { glow: 0, puff: 0.6 }, 0.6);
-sfx(4.6, "sig-phoenix", { gain: 0.7, reason: "the sweep of flame through the sheet: Phoenix's own fire" });
+sfx(4.6, "ai/flare", { gain: 0.8, reason: "fwoomp: the sweep of flame catching the sheet" });
 sfx(4.9, "sizzle", { gain: 0.35, dur: 1.0, reason: "the sweep crackling through the cloth" });
 c.prop(5.5, "s-phx", { wobble: 1, rise: 1.56 }, 1.2, "inOut");
 A(4.7, "phx", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.15 }, dur: 0.2 });

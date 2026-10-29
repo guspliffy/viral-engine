@@ -937,9 +937,9 @@
      "at": 0.2
     },
     {
-     "sfx": "sig-phoenix",
-     "gain": 0.7,
-     "reason": "the sweep of flame through the sheet: Phoenix's own fire",
+     "sfx": "ai/flare",
+     "gain": 0.8,
+     "reason": "fwoomp: the sweep of flame catching the sheet",
      "at": 0.2
     },
     {
