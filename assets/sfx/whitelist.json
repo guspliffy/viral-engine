@@ -260,6 +260,7 @@
   "ai/cushion-poof": { "family": "hit", "says": "a short low muffled thump, no click or chime, about 0.5 s (a body flopping onto a big soft cushion)", "words": ["cushion poof", "flump", "plumps"] },
   "ai/fingertip-catch": { "family": "handling", "says": "one tiny bright tick, 0.1 s (fingertips closing on a small biscuit)", "words": ["fingertip catch", "catch tick"] },
   "ai/warm-resolve": { "family": "music", "says": "a warm chord on strings and piano, full from the start, settling and fading over 3 s; no bells (a soft happy ending)", "words": ["warm ending", "resolution", "aww"] },
+  "ai/screen-crack": { "family": "handling", "says": "a short dry glassy crackle: 3 to 5 tiny bright ticks in half a second, no thud, no ring (made for a phone screen cracking)", "words": ["crack", "knacks"] },
   "ai/dundun": { "family": "music", "says": "a dramatic two-hit sting, brass and timpani: 'dö-döm', 1.4 s (made for Charger's catch)", "words": ["dö-döm", "dun dun", "dun-dunn"] },
   "oga/fart-viking": { "family": "body", "says": "a short low fart, a few flutters (recorded by mouth, 2 semitones down)", "words": ["fart", "pups"] },
   "oga/fart-viking-2": { "family": "body", "says": "a short low fart, two pulses (3 semitones down)" },

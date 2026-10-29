@@ -1,0 +1,234 @@
+{
+ "id": "test-flat-grip",
+ "title": "Flat phone grip test",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "plain",
+  "color": "#efe6d6",
+  "floor": "#c9b08a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.42,
+    0.2
+   ],
+   "face": 8,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.95,
+   "h": 0.34,
+   "w": 2.6,
+   "d": 0.8,
+   "color": "#e8cf9f",
+   "leg": "#c9a06c"
+  },
+  {
+   "id": "ph",
+   "kind": "foldphone",
+   "x": -0.22,
+   "y": 0.34480000000000005,
+   "z": 0.92,
+   "open": 1,
+   "tip": -90,
+   "seed": 3,
+   "damage": "map",
+   "glow": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "lead",
+   "at": 0,
+   "len": 0.1,
+   "shot": {
+    "pos": [
+     -0.22,
+     0.986,
+     2.492
+    ],
+    "look": [
+     -0.22,
+     0.37,
+     0.8
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ph",
+      "part": "L",
+      "grip": [
+       -0.19,
+       0.132,
+       -0.002
+      ],
+      "frame": {
+       "y": [
+        0.342,
+        0,
+        -0.94
+       ],
+       "z": [
+        0.94,
+        0,
+        0.342
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ],
+       "elbow": 1
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ph",
+      "part": "R",
+      "grip": [
+       0.19,
+       0.132,
+       -0.002
+      ],
+      "frame": {
+       "y": [
+        -0.342,
+        0,
+        -0.94
+       ],
+       "z": [
+        -0.94,
+        0,
+        0.342
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ],
+       "elbow": 1
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "phoneEdge",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.8
+     ],
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "clip view left",
+   "at": 0.1,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     -0.976,
+     1.183,
+     2.341
+    ],
+    "look": [
+     -0.22,
+     0.46,
+     0.72
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "clip view right",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.536,
+     1.183,
+     2.341
+    ],
+    "look": [
+     -0.22,
+     0.46,
+     0.72
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "low side",
+   "at": 1,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.927,
+     0.513,
+     1.148
+    ],
+    "look": [
+     -0.03,
+     0.37,
+     0.8
+    ],
+    "fov": 22
+   },
+   "do": []
+  }
+ ],
+ "notes": "Test bench, not a clip."
+}

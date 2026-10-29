@@ -1541,6 +1541,60 @@
    ]
   },
   {
+   "id": "screen-crack",
+   "kind": "sfx",
+   "files": [
+    "screen-crack/screen-crack-02.wav",
+    "screen-crack/screen-crack-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "crack",
+    "glass",
+    "screen",
+    "phone",
+    "break"
+   ],
+   "durationSec": 0.418,
+   "prompt": [
+    "one tiny dry crack of a phone glass screen breaking, a single small sharp crackle, close up, quiet room, no music",
+    "a smartphone screen cracking once, a short dry glassy snap, very close microphone, no music"
+   ],
+   "seed": [
+    122,
+    121
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "screen-crack/screen-crack-02.wav",
+     "take": "p0-s122",
+     "prompt": "one tiny dry crack of a phone glass screen breaking, a single small sharp crackle, close up, quiet room, no music",
+     "seed": 122,
+     "startSec": 2.646,
+     "durationSec": 0.5,
+     "clap": -0.106,
+     "snrDb": 53.4,
+     "loudnessLUFS": -20.8
+    },
+    {
+     "file": "screen-crack/screen-crack-03.wav",
+     "take": "p0-s121",
+     "prompt": "one tiny dry crack of a phone glass screen breaking, a single small sharp crackle, close up, quiet room, no music",
+     "seed": 121,
+     "startSec": 4.033,
+     "durationSec": 0.5,
+     "clap": -0.106,
+     "snrDb": 44.4,
+     "loudnessLUFS": -20.0
+    }
+   ],
+   "note": "takes 01 (peaks late) and 04 (a steady 3.7 kHz ring, not a crack) dropped after measuring"
+  },
+  {
    "id": "cookie-scrape",
    "kind": "sfx",
    "files": [

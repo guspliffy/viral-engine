@@ -2819,6 +2819,23 @@
     "brass"
    ]
   },
+  "ai/screen-crack": {
+   "family": "handling",
+   "says": "a short dry glassy crackle: 3 to 5 tiny bright ticks in half a second, no thud, no ring (made for a phone screen cracking)",
+   "source": "ai",
+   "files": [
+    "ai/screen-crack/screen-crack-02.wav",
+    "ai/screen-crack/screen-crack-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "crack",
+    "glass",
+    "screen",
+    "phone",
+    "break"
+   ]
+  },
   "ai/cookie-scrape": {
    "family": "food",
    "says": "a short gritty dry scrape, bright and crumbly, 0.6 s (a biscuit sliding over a wooden edge; made for the Cookie Rescue)",
