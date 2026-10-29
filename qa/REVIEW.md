@@ -24,6 +24,9 @@ Spawn the reviewer with the Agent tool on model `fable`. Give it the two file pa
 the prompt below, with the brackets filled in. Ask for the answer as text only: no files, no edits.
 
 What the producer does with the notes:
+- **The brief wins.** When Jonny wrote a brief (his story library's ENGINE-PROMPT.md, or his message), the reviewer
+  gets it, and a note that contradicts it (an extra prop, a different ending, a placement the brief fixes) is dropped
+  without a round and listed as "not applied: brief". In Charger, two of Fable's notes asked for what the brief ruled out.
 - Apply notes that keep the premise, cast and style. That covers framing, timing, acting, captions, effects and detail.
 - Anything that changes the premise, a character's personality or look, or needs new art goes to Jonny as a question.
 - If a note needs an engine feature that doesn't exist, write it down in `docs/PLAN.md` under "Engine wishes"
@@ -44,6 +47,9 @@ You get: the storyboard (JSON: `shots` are camera set-ups with start times, `act
 [B: The stills come from the finished clip.]
 
 Premise: [one line]. Cast: [names and one-line personalities]. The joke or hook: [one line].
+The producer's brief, which wins over any note: [paste its Joke / Wants / Consequence / Ending lines and every fixed
+shot, timing, placement, prop and "no ..." rule]. Don't suggest anything it rules out; if you think the brief itself
+is wrong somewhere, say so in one line after the notes instead of making it a note.
 Length: [s]. Engine vocabulary you can use in notes: shots (pos/look/fov, push-in via `to`), actions
 [list the action names in use, e.g. move, hop, turn, look, expr, talk, arm, charge, swap, hat, squash, lean, droop, blink],
 fx [flash, shake, poof, speedlines, impact], captions (text, from, to, pos).
@@ -80,6 +86,24 @@ Every delivery carries two short things for Jonny, because Claude can't hear and
    those moments only, which takes a minute, and says which sound wrong.
 2. **The viewer read** from review B ("would you finish, where would you stop"), in one line, next to the clip's real
    retention curve once it is posted (qa/retention.mjs). When the read and the curve disagree, trust the curve.
+3. **The self-review**: ten questions, answered in one line each in the delivery notes before anything is sent. A
+   "no" means fix it first, or say plainly why it stays. They come from Jonny's notes on the clips of 28-29 Oct,
+   which all passed every check and still had a glitch or a wrong sound he caught.
+
+   1. **Scroll test**: with the sound off, does the frame at 0.0 s show both faces and the thing the joke is about?
+   2. **Curiosity**: at 2.0 s, would a stranger want to know what happens next, not only what is happening?
+   3. **Twist timing**: does the twist land by about 6 s, or is there something new every 2 s until it does?
+   4. **Hands at half speed**: in the close-up of every grab, hold, pass and release, does anything go into anything
+      else, even for one frame (arms and costume parts too, and props someone else holds)?
+   5. **Real-world hold**: would a real person hold this prop like this? Seen fresh, does it look natural? (DUO: a
+      grip that passed the check, "nobody would hold a phone like this".)
+   6. **Faces at phone size**: on the 360 px phone sheet, can you name each character's emotion at every reaction?
+   7. **Sound words**: for each named sound, the word Jonny would use (splort, dö-döm, crunch). Does the sound match it?
+   8. **Automatic sounds**: which sounds did the engine add by itself (signature sounds, the shocked sting, the sad
+      trombone, footsteps, grabs), and does each one fit its moment?
+   9. **Brief match**: does every shot, placement and timing match the brief, with each departure listed and why?
+   10. **Ending**: if the brief wants a loop, does the last frame flow into the first; if not, does the last shot hold
+       long enough for the payoff to land?
 
 Before the full render, and whenever a clip feels slow, compare its pace with a clip that holds viewers:
 `python qa/pace.py out/<id>.mp4 --ref <good clip>.mp4 --png out/<id>.pace.png` (cuts, motion and loudness per

@@ -49,6 +49,10 @@ export const GRIPS = {
   // loosely curled, the palm beside it, the fingers running on along the forearm (glove hands; the prop is held at the
   // pinch with grab point "pinch"). roll turns the hand about the straw; thin: its radius in the hand's own units
   tip: { curl: 0.95, index: 0.35, thumb: 0.5, axis: [0, 1, 0], pinch: 1, lean: 30 },
+  // a hand reaching out over a tabletop, palm down, the index leading along the forearm (a reach for a plug)
+  hover: { curl: 0.25, index: 0.02, thumb: 0.3, down: 1, ahead: 0 },
+  // a hand closed from above round something thin (a wrist, a rail): palm down, the fingers curled down round it
+  clasp: { curl: 0.8, index: 0.75, thumb: 0.7, down: 1, ahead: 0 },
 };
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw
 // palm down on a surface, its fingers turned that far from the forearm towards straight ahead
