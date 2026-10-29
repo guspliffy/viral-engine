@@ -146,8 +146,7 @@ A(4.0, "wiz", "grip", { side: "L", shape: "open", dur: 0.25 });
 // ---------------------------------------------------------------- 04 SOLVED 4.40-8.80 (one continuous medium shot)
 c.arm(4.35, "wiz", "L", { prop: "dome", grip: "knob" }, 0.25, "out"); // ...down onto it by 4.6
 A(4.45, "wiz", "grip", { side: "L", shape: "clasp", dur: 0.15 });
-A(4.62, "wiz", "grab", { prop: "dome", hand: "L", grip: "knob", pose: null });
-sfx(4.62, "grab", { gain: 0.18 });
+A(4.62, "wiz", "grab", { prop: "dome", hand: "L", grip: "knob", pose: null, dur: 0 });   // the engine's own grab sound lands on this frame
 A(4.4, "wiz", "still", { dur: 0.2, idle: 0.1 });
 c.arm(4.7, "wiz", "L", { prop: "dome", grip: "knob", at: WAY }, 0.45, "inOut");         // up and toward the plate: clear of the table by 4.8
 act.eyesLead(c, 4.7, "wiz", WIZ_AT_CAKE, { dur: 0.3 });
@@ -155,7 +154,7 @@ c.arm(5.15, "wiz", "L", { prop: "dome", grip: "knob", at: UP_PLATE }, 0.4, "inOu
 A(5.1, "wiz", "lean", { to: 4, dur: 0.5 });
 act.eyesLead(c, 5.55, "wiz", [0.48, -0.55]);
 c.arm(5.55, "wiz", "L", { prop: "dome", grip: "knob", at: ON_PLATE }, 0.27, "out");      // down: the rim meets the plate at 5.82
-sfx(5.82, "put-down-glass", { gain: 0.3, reason: "the dome's glass rim settles on the china plate" });
+sfx(5.82, "put-down-glass", { gain: 0.16, reason: "the dome's glass rim settles on the china plate" });
 c.prop(5.82, "dome", { squash: 0.02 }, 0.06); c.prop(5.88, "dome", { squash: 0 }, 0.12, "settle");
 A(5.82, "wiz", "still", { dur: 1.3, idle: 0.06 });
 A(4.75, "dra", "look", { to: [-0.55, 0.05], dur: 0.25, blink: false });   // he watches the dome go up...

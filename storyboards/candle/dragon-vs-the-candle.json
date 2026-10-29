@@ -924,11 +924,7 @@
      "hand": "L",
      "grip": "knob",
      "pose": null,
-     "at": 0.22
-    },
-    {
-     "sfx": "grab",
-     "gain": 0.18,
+     "dur": 0,
      "at": 0.22
     },
     {
@@ -1049,7 +1045,7 @@
     },
     {
      "sfx": "put-down-glass",
-     "gain": 0.3,
+     "gain": 0.16,
      "reason": "the dome's glass rim settles on the china plate",
      "at": 1.42
     },
