@@ -224,7 +224,8 @@ c.prop(4.74, "carton", { straw: 1 }, 0);
 A(4.74, "wiz", "release", { prop: "straw" });
 A(4.74, "wiz", "grip", { side: "R", shape: "tip", set: { ...PINCH, close: 0 }, dur: 0.12 });   // only the thumb opens
 A(4.88, "wiz", "arm", { side: "R", pose: pinchAt(add(P_IN, [-0.01, 0.08, -0.01])), dur: 0.16, ease: "out" });
-A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.46, ease: "inOut" });
+A(5.04, "wiz", "arm", { side: "R", pose: { world: [-0.42, TABLE_H + 0.2, 0.5] }, dur: 0.3, ease: "inOut" });   // back towards him, then down: no fast sweep past the cup
+A(5.34, "wiz", "arm", { side: "R", pose: { world: [-0.66, TABLE_H + 0.035, 0.6] }, dur: 0.36, ease: "inOut" });
 A(5.04, "wiz", "grip", { side: "R", shape: "paw", dur: 0.3 });
 
 // ---------------------------------------------------------------- 06 GIVE IT BACK 5.10-6.50
