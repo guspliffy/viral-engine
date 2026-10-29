@@ -60,8 +60,13 @@ export const GRIPS = {
   carry: { curl: 0.45, index: 0.4, thumb: 0.3, up: 0.5 },
   // palms pressed flat on the two ends of a box, the thumb laid forward along the side instead of sticking up
   press: { curl: 0.18, index: 0.12, thumb: 0.75 },
+  // a thin prop pinched upright (a straw, a pencil; Jonny's straw grip sheet): palm down, the index curled over the
+  // camera side of it, the thumb half closed against it from behind, the other fingers loosely curled. Used with a
+  // framed arm pose whose `at` is THIN_PINCH, so the prop runs between the two clear of the palm
+  straw: { curl: 0.75, index: 0.85, thumb: 0.5 },
 };
 export const PHONE_EDGE = [0.02, 0.04, 0.0215];
+export const THIN_PINCH = [0.06, 0.045, 0.03];
 // up: how far the palm turns to face the sky (1 for a cupped hand carrying something from below); down, ahead: a paw
 // palm down on a surface, its fingers turned that far from the forearm towards straight ahead
 // axis: a handle held without a costume prop (the teacup), in the actor's root space; the fist only turns onto it once

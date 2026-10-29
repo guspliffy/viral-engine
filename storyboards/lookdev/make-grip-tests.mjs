@@ -14,8 +14,8 @@ const TESTS = [
   ["bowl", { kind: "snackbowl", scale: 1.2, biscuits: 2 }, [0, TABLE_H, 0.44], [0, 0.44, 0.42], "Bowl: cupped from outside, both hands"],
   ["box", { kind: "parcel", scale: 0.8 }, [0, TABLE_H, 0.46], [0, 0.42, 0.44], "Box: palms on the ends"],
   // the pencil stands in a mug (a pen cup): out, held up, back in
-  ["thin", { kind: "pencil", len: 1, scale: 1.5 }, [-0.32, TABLE_H + 0.005, 0.45], [-0.44, TABLE_H + 0.15, 0.58], "Pencil: held high, both ends show",
-    [{ id: "cup", kind: "campmug", x: -0.32, y: TABLE_H, z: 0.45, rot: 200, scale: 1.4 }]],
+  ["thin", { kind: "pencil", len: 1, scale: 1.0 }, [-0.08, TABLE_H + 0.005, 0.4], [0.03, TABLE_H + 0.08, 0.44], "Pencil: pinched near the top, both ends show",
+    [{ id: "cup", kind: "campmug", x: -0.08, y: TABLE_H, z: 0.4, rot: 200, scale: 0.85 }]],
   // the phone lies on its back (its top away from the Wizard), is picked up by its edge and rolls into the palm
   ["phone", { kind: "phone", style: "iphone", scale: 1.35, tip: -90 }, [-0.15, TABLE_H + 0.008, 0.36], [-0.16, 0.45, 0.44], "Phone: one hand, thumb free"],
 ];
@@ -27,16 +27,16 @@ for (const [name, kind, spot, held, label, more = []] of TESTS) {
   A(0, "wiz", "noblink");
   A(0, "wiz", "look", { to: AT_PROP, dur: 0.01, blink: false });
   let t = h.take(0.3);                                      // 01 approach + 02 secure
-  if (name === "thin") t = h.carry(t + 0.05, [spot[0], spot[1] + 0.15, spot[2]], 0.3, "in");   // straight up out of the cup
+  if (name === "thin") t = h.carry(t + 0.05, [spot[0], spot[1] + 0.085, spot[2]], 0.3, "in");   // straight up out of the cup
   t = h.carry(t + 0.05, held, 0.45);                        // 03 lift
   A(t, "wiz", "look", { to: AT_CAM, dur: 0.2, blink: false });
-  t = h.carry(t + 0.1, [held[0] + (name === "thin" ? -0.04 : 0.05), held[1] + (name === "thin" ? -0.01 : 0.03), held[2]], 0.5);   // 04 hold: a small sway, rigid in the hand
+  t = h.carry(t + 0.1, [held[0] + (name === "thin" ? 0.04 : 0.05), held[1] + (name === "thin" ? 0.01 : 0.03), held[2]], 0.5);   // 04 hold: a small sway, rigid in the hand
   A(t, "wiz", "look", { to: AT_PROP, dur: 0.15, blink: false });
-  if (name === "thin") t = h.carry(t + 0.1, [spot[0], spot[1] + 0.15, spot[2]], 0.35);   // over the cup, then straight down
+  if (name === "thin") t = h.carry(t + 0.1, [spot[0], spot[1] + 0.085, spot[2]], 0.35);   // over the cup, then straight down
   t = h.put(t + 0.15, spot);                                // 05 place + 06 release
   const end = Math.max(END, Math.ceil((t + 0.2) * 10) / 10);
   c.cap(0, end, label, 1500, false, { kinetic: false });
-  const CAM = { pos: [-0.75, 1.05, 2.3], look: [name === "thin" ? -0.27 : -0.05, 0.55, 0.3], fov: 30 };
+  const CAM = name === "thin" ? { pos: [-0.6, 1.35, 2.2], look: [-0.1, 0.52, 0.3], fov: 30 } : { pos: [-0.75, 1.05, 2.3], look: [-0.05, 0.55, 0.3], fov: 30 };
   write(import.meta.url, {
     id: `grip-${name}`, title: `Grip test: ${name}`, idea: "Grip library test bench, not a clip",
     fps: 30, look: "anime-pro", profile: "short", loop: false,
