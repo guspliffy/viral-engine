@@ -316,9 +316,23 @@ function photoCard(f, i, t) {
   ctx.restore();
 }
 
+// a dramatic shadow crossing the frame (Cookie Rescue, the hero close-up): a soft dark band at `angle` degrees from
+// vertical sweeps from `from` to `to` (0..1 of the frame width) over dur, `width` (of the frame width) wide, darkening
+// by up to `peak`; it fades in and out over its first and last fifth. { fx: "shade", at, dur, from, to, width, peak, angle }
+function shadeFx(f, t) {
+  const d = f.dur ?? 0.5, k = (t - f.at) / d;
+  if (k < 0 || k > 1) return;
+  const x = W * ((f.from ?? -0.4) + ((f.to ?? 1.4) - (f.from ?? -0.4)) * k), w = W * (f.width ?? 0.5), a = ((f.angle ?? 18) * Math.PI) / 180;
+  const fade = Math.min(1, k * 5, (1 - k) * 5) * (f.peak ?? 0.45), c = f.color || "20,10,30";
+  ctx.save(); ctx.translate(x, H / 2); ctx.rotate(a);
+  const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
+  g.addColorStop(0, `rgba(${c},0)`); g.addColorStop(0.35, `rgba(${c},${fade})`); g.addColorStop(0.65, `rgba(${c},${fade})`); g.addColorStop(1, `rgba(${c},0)`);
+  ctx.fillStyle = g; ctx.fillRect(-w / 2, -H, w, 2 * H); ctx.restore();
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
-  (sb.fx || []).forEach((f, i) => { if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
@@ -503,6 +517,9 @@ function pose(t) {
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
+  // the layout and contact checks project with the camera before anything is drawn: without this they used the
+  // previous sample's camera (frame 0 of a clip, and the first frame after every cut, measured the wrong shot)
+  camera.updateMatrixWorld(true);
   for (const o of camGates) o.visible = !!o.userData.camGate(camera.position);
   // hide: actors left out of a shot (whoever holds the phone in a shot from behind its screen)
   for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
