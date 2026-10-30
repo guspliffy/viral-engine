@@ -556,7 +556,7 @@ function frame(t) {
     const progs = R.info.programs.length;
     styler.prepare(scene);
     styler.render(scene, camera);
-    if (R.info.programs.length !== progs && !globalThis.__noRedraw) { styler.prepare(scene); styler.render(scene, camera); }
+    if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, camera); }
   }
   composite(t);
   return true;
@@ -623,9 +623,9 @@ function motion() {
 // keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
 // cost trace (render.mjs --cost): pose frame t as a render would (full skins unless lean) and return motion(), without
 // drawing, so a render's blur samples per frame are known before any shard starts
-// Frame cache sketch (render-measure-01, not for merging): a digest of everything the picture at t depends on that the
+// Frame cache sketch (render-measure-01, used only by render.mjs --hashes): a digest of everything the picture at t depends on that the
 // timeline can change. Geometry that existed after init is identified by its place in the scene graph; geometry built
-// later (glove skins, brows, mouths, trails) is hashed by content. The 2D layer is keyed by the effects and captions
+// later (glove skins, brows, mouths) is hashed by content. The 2D layer is keyed by the effects and captions
 // active at t plus t itself. What init builds (cast, props, set, look) goes into the key outside, as a whole.
 let initGeoms = null;
 function fnv(h, x) { h ^= x; return Math.imul(h, 16777619) >>> 0; }
@@ -633,7 +633,6 @@ function hashFloats(h, arr, q = 1e5) { for (let i = 0; i < arr.length; i++) h = 
 function stateHash(t, samples = []) {
   if (!initGeoms) { initGeoms = new WeakSet(); scene.traverse((o) => { if (o.geometry) initGeoms.add(o.geometry); }); }
   const one = (tt) => {
-    for (const tr of trails) tr.sample(tt);
     pose(tt); scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
     let h = 2166136261, n = 0;
     h = hashFloats(h, camera.matrixWorld.elements); h = hashFloats(h, camera.projectionMatrix.elements, 1e4);
