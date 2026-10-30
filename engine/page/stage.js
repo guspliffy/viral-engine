@@ -69,11 +69,12 @@ function buildPoof(f, i) {
       g.visible = k >= 0 && k <= d;
       if (!g.visible) return;
       g.position.copy(origin);
+      const sz = f.size ?? 1;   // `size` scales the puffs and their spread, `lift` raises the cloud (a landing's dust: small and low)
       for (const p of puffs) {
         const q = clamp((k - p.delay) / d);
         const r = p.dist * (1 - Math.exp(-q * 7));
-        p.s.position.copy(p.dir).multiplyScalar(r).add(new THREE.Vector3(0, 0.45 + q * 0.25, 0));
-        p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
+        p.s.position.copy(p.dir).multiplyScalar(r * sz).add(new THREE.Vector3(0, (f.lift ?? 0.45) + q * 0.25 * sz, 0));
+        p.s.scale.setScalar(p.size * sz * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
       const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
