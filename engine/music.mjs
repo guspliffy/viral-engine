@@ -18,7 +18,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { musicFlavour, seedOf, renderBeat } from "../puppet/beat.mjs";
-import { isHit } from "./sfx/library.mjs";
+import { isHit, hitTime } from "./sfx/library.mjs";
 import { isDance } from "./page/dance.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -118,6 +118,58 @@ export function fileMusic(music, dur, sr) {
   return { L, R };
 }
 
+// the bed's gain over time (1 = as set): it gives way under the big hits and the voices, and drops before the payoff,
+// so every hit is heard over the music and the payoff lands after a real dip (qa/sound.mjs measures both). Overlapping
+// dips take the deepest, never a sum; every ramp is 10 ms or longer, so nothing clicks.
+//   "music": { "duck": false }   no ducking          "duck": { "db": -6, "voice": -4, "hold": 0.12, "release": 0.25 }
+//   "music": { "dip": false }    no dip              "dip": { "db": -12, "len": 0.6 }
+// small handling sounds the bed needn't move for; every other effect ducks it at its loudest moment
+const SMALL = /^(?:[\w-]+\/)?(step|grab|sit|hop|land|tink|pop|key|wing|swap|cloth|crinkle|rustle|whoosh|gasp|breath|ai-package\/flat-exhale)/;
+// RMS of x (mono samples, or a { L, R } bed) over [t, t + len) seconds
+function rms(x, t, len, sr = 44100) {
+  const a = Math.max(0, Math.round(t * sr)), b = Math.round((t + len) * sr), st = x.L ? null : x; let s = 0, n = 0;
+  for (let i = a; i < b && i < (st ? st.length : x.L.length); i++) { const v = st ? st[i] : (x.L[i] + x.R[i]) / 2; s += v * v; n++; }
+  return n ? Math.sqrt(s / n) : 0;
+}
+const DUCK = { db: -6, voice: -4, attack: 0.015, hold: 0.12, release: 0.25 }, DIP = { db: -12, len: 0.6, down: 0.06, up: 0.02 };
+export function duckEnvelope(sb, music, audio, log = [], bed = null) {
+  const sr = audio.sr, n = audio.L.length, env = new Float32Array(n).fill(1);
+  const lin = (d) => Math.pow(10, d / 20), at = (t) => Math.max(0, Math.min(n, Math.round(t * sr)));
+  // one dip: down over [t0, t1], held to t2, back up by t3 (cosine ramps); keeps the lowest gain where dips meet
+  const dip = (t0, t1, t2, t3, k) => {
+    for (let i = at(t0); i < at(t3); i++) {
+      const t = i / sr, u = t < t1 ? (t - t0) / Math.max(1e-6, t1 - t0) : t <= t2 ? 1 : 1 - (t - t2) / Math.max(1e-6, t3 - t2);
+      const v = 1 - (1 - k) * (0.5 - 0.5 * Math.cos(Math.PI * Math.max(0, Math.min(1, u))));
+      if (v < env[i]) env[i] = v;
+    }
+  };
+  const D = music.duck === false ? null : { ...DUCK, ...(typeof music.duck === "object" ? music.duck : {}) };
+  let hits = 0, lines = 0;
+  if (D) for (const e of audio.events || []) {
+    if ((e.kind === "voice" || e.kind === "speech") && D.voice) {
+      const len = e.action?.dur ?? e.dur ?? 0.6;
+      dip(e.at - 0.05, e.at, e.at + len, e.at + len + D.release, lin(D.voice)); lines++;
+    } else if (e.start != null && !SMALL.test(e.kind)) {
+      // a hit was placed by its loudest moment (e.hit); anything else starts at e.start, so find its loudest moment
+      const top = e.hit > e.start + 1e-4 || isHit(e.kind) ? e.hit : e.start + (e.samples?.length ? hitTime(e.samples) : 0);
+      // only a hit at least as loud as the bed under it: a quiet one would sink with the bed (the dip takes the jump
+      // it is heard by), so it is left as it is (qa/sound.mjs flags it if it is buried)
+      if (bed && e.samples?.length && rms(e.samples, top - e.start, D.hold) * (e.gain ?? 1) < rms(bed, top, D.hold, sr)) continue;
+      dip(top - D.attack, top, top + D.hold, top + D.hold + D.release, lin(D.db)); hits++;
+    }
+  }
+  const P = music.dip === false ? null : { ...DIP, ...(typeof music.dip === "object" ? music.dip : {}) }, pay = payoffOf(sb);
+  // a generated bed with the lock's one-beat stop before the payoff is silent there already, and a bed that stops
+  // before the payoff has nothing to dip
+  const stopped = (music.parts || []).some((p) => p.part === "stop" && p.at <= pay && p.at >= pay - P?.len - 0.2) || (music.until != null && music.until <= pay);
+  if (P && pay != null && pay >= P.len + 0.5 && !stopped) {
+    dip(pay - P.len - P.down, pay - P.len, pay - P.up, pay, lin(P.db));
+    log.push(`music dips ${P.db} dB for ${P.len} s before the payoff at ${pay}s`);
+  }
+  if (hits || lines) log.push(`music ducks under ${hits} hit${hits === 1 ? "" : "s"} (${D.db} dB) and ${lines} voice line${lines === 1 ? "" : "s"} (${D.voice} dB)`);
+  return env;
+}
+
 // background music into the mix: on by default, a different variation per clip (seeded by puppet/beat.mjs seedOf);
 // "music": false turns it off, a music block pins tempo, style, key and parts. sb.music is the locked block.
 export function addMusic(sb, audio) {
@@ -129,7 +181,8 @@ export function addMusic(sb, audio) {
     const m = music.lock.miss, key = m.find((x) => x.what === "payoff" || x.what === "music stops");
     log.push(`music locked to the story: grid from ${music.lock.offset.toFixed(3)}s${music.skip != null ? ` (${music.skip}s into the file)` : ""}${music.parts ? `, parts ${music.parts.map((p) => `${p.part}@${p.at}`).join(" ")}` : ""}; ${key ? `${key.what} at ${key.t}s ${key.ms} ms off beat 1, ` : ""}${m.filter((x) => x.ms <= 33).length}/${m.length} story moments within a frame of a beat`);
   }
-  for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+  const env = duckEnvelope(sb, music, audio, log, { L: M.L.map((v) => v * g), R: M.R.map((v) => v * g) });
+  for (let i = 0; i < audio.L.length; i++) { const k = g * env[i]; audio.L[i] += M.L[i] * k; audio.R[i] += M.R[i] * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
   if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
   return log;
 }
