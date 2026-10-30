@@ -40,7 +40,8 @@
   "sfx": 0.7,
   "ambience": 0.3,
   "surface": "wood",
-  "signature": false
+  "signature": false,
+  "speech": false
  },
  "hook": {
   "show": [

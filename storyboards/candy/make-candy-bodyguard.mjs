@@ -344,7 +344,7 @@ write(import.meta.url, {
     plate: { src: "assets/plates/entry-hall-golden.png", z: -2.3, center: [-0.2, 1.2], height: 4.2 } },
   // Jonny liked the clips with background music best: his picked spooky bed under the whole clip
   music: { file: "ai/spooky/spooky-02.ogg", gain: 0.5 },
-  sound: { sfx: 0.7, ambience: 0.3, surface: "wood", signature: false },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "wood", signature: false, speech: false },   // speech false: gibberish voices (Jonny 30 Oct 03:42)
   hook: { show: ["wiz", "rea", "bowl"], hint: 0.14, what: "the Wizard's hand is over the candy and Reaper lunges at him" },
   cast, props, captions: c.captions, beats,
   allowClip: [
