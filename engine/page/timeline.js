@@ -574,11 +574,11 @@ export const cutBetween = (sb, t0, t1) => !(Array.isArray(sb.camera) && sb.camer
 export function cameraState(sb, t) {
   const shots = (sb.shots || []).filter((s) => s.at <= t).sort((a, b) => a.at - b.at);
   const s = shots[shots.length - 1] || { pos: [0, 1, 6], look: [0, 0.7, 0], fov: 32 };
-  let pos = s.pos, look = s.look, fov = s.fov ?? 32;
+  let pos = s.pos, look = s.look, fov = s.fov ?? 32, roll = s.roll ?? 0;
   if (Array.isArray(sb.camera) && sb.camera.length) ({ pos, look, fov } = pathAt(sb.camera, t));
   else if (s.to) {
     const e = ease(s.ease || "inOut")(prog(t, s.at, s.dur ?? 1));
-    pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e);
+    pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e); roll = lerp(roll, s.to.roll ?? roll, e);
   }
   let shake = [0, 0, 0];
   for (const f of sb.fx || []) {
@@ -588,8 +588,9 @@ export function cameraState(sb, t) {
     shake = [shake[0] + amp * (0.65 * Math.sin(t * 45.9 + 1.3) + 0.35 * Math.sin(t * 74.8 + 4.1)), shake[1] + amp * (0.65 * Math.sin(t * 52.2 + 2.7) + 0.35 * Math.sin(t * 69.1 + 0.6)), 0];
   }
   // focus: the world point a shot wants sharp (an insert's prop); looks.js depth of field focuses there when it is set
-  const focus = !Array.isArray(sb.camera) && s.focus ? { focus: s.focus } : {};
-  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus };
+  // roll: a dutch tilt in degrees (+ turns the picture clockwise); stage.js turns camera.up by it
+  const focus = !Array.isArray(sb.camera) && s.focus ? { focus: s.focus } : {}, tilt = !Array.isArray(sb.camera) && roll ? { roll } : {};
+  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus, ...tilt };
 }
 
 export function flashAt(sb, t) {

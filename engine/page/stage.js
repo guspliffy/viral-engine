@@ -315,8 +315,20 @@ function shadeFx(f, t) {
   ctx.fillStyle = g; ctx.fillRect(-w / 2, -H, w, 2 * H); ctx.restore();
 }
 
+// an establishing shot ({ plate: "assets/plates/<name>.png", push }): the painted picture fills the frame instead of
+// the 3D scene, centred and cropped to 9:16, pushing in slowly over the shot
+const plateShots = new Map();
+function establishing(t) {
+  const shots = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at), s = shots.at(-1), img = s?.plate && plateShots.get(s.plate);
+  if (!img) return false;
+  const next = (sb.shots || []).filter((q) => q.at > s.at).sort((a, b) => a.at - b.at)[0], dur = (next?.at ?? sb.duration) - s.at;
+  const k = 1 + (s.push ?? 0.04) * Math.min(1, Math.max(0, (t - s.at) / dur)), c = Math.max(W / img.width, H / img.height) * k;
+  ctx.drawImage(img, (W - img.width * c) / 2, (H - img.height * c) / 2, img.width * c, img.height * c);
+  return true;
+}
+
 function composite(t) {
-  ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
+  ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
@@ -325,7 +337,11 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; charMats = []; photos.clear();
+  sb = data.sb; charMats = []; photos.clear(); plateShots.clear();
+  for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
+    const img = new Image(); plateShots.set(s.plate, img);
+    (globalThis.__loads ||= []).push(new Promise((ok) => { img.onload = ok; img.onerror = ok; img.src = `/${s.plate.replace(/^\/+/, "")}`; }));
+  }
   globalThis.__DIAG = sb.debug || null;   // storyboard "debug": { "clearance": true } logs staff/arm clearance per frame
   const canvas = document.getElementById("gl");
   const opts = data.opts || {};
@@ -526,6 +542,8 @@ function pose(t) {
   // the holder's head is usually between, so such a shot sets `near` past it
   const PR = shot && shot.prop && props.find((p) => p.spec.id === shot.prop);
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
+  // roll (a dutch tilt): up turned about the view direction, so the picture turns clockwise by cam.roll degrees
+  if (cam.roll) camera.up.applyAxisAngle(cl.clone().sub(cp).normalize(), (cam.roll * Math.PI) / 180);
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
   // the layout and contact checks project with the camera before anything is drawn: without this they used the
