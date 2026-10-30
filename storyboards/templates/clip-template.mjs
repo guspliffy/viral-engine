@@ -76,6 +76,7 @@ write(import.meta.url, {
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
+  castLook: "golden",   // golden skin, bigger eyes (Jonny, 30 Oct; engine/load.mjs castLook)
   set: { type: "apartment", seed: 5 },
   music: false,
   direct: { master: MED },
