@@ -171,16 +171,8 @@
     {
      "who": "phx",
      "do": "squash",
-     "amount": 0.24,
+     "amount": 0.2,
      "dur": 0.25,
-     "at": 0
-    },
-    {
-     "who": "phx",
-     "do": "crouch",
-     "to": 0.35,
-     "dur": 0.2,
-     "ease": "out",
      "at": 0
     },
     {
@@ -189,13 +181,6 @@
      "to": 1,
      "dur": 0.12,
      "at": 0.12
-    },
-    {
-     "who": "phx",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.08,
-     "at": 0.2
     },
     {
      "who": "phx",
@@ -316,7 +301,7 @@
     {
      "who": "phx",
      "do": "squash",
-     "amount": 0.12,
+     "amount": 0.08,
      "dur": 0.2,
      "at": 0.45
     },

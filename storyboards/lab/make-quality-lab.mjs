@@ -29,14 +29,13 @@ function scene(o = {}) {
   A(0, "rea", "expr", { expr: "deadpan", dur: 0 });
   A(0, "rea", "still", { dur: T_HIT, idle: 0.1 });
   A(0, "phx", "expr", { expr: "cocky", dur: 0.1 });
-  A(0, "phx", "squash", { amount: F ? 0.24 : 0.14, dur: 0.25 });                       // the wind-up
-  if (F) A(0, "phx", "crouch", { to: 0.35, dur: 0.2, ease: "out" }), A(0.2, "phx", "crouch", { to: 0, dur: 0.08 });
+  A(0, "phx", "squash", { amount: F ? 0.2 : 0.14, dur: 0.25 });                       // the wind-up
   A(0.2, "phx", "arm", { side: "both", pose: "up", dur: F ? 0.16 : 0.25, ease: F ? "anticSettle" : "settle" });
   A(0.2, "phx", "hop", { height: F ? 0.16 : 0.06, dur: F ? 0.32 : 0.25 });
   A(0.12, "phx", "span", { to: 1, dur: 0.12 });
   A(0.24, "phx", "wings", { to: 1, dur: F ? 0.12 : 0.2, ease: F ? "anticSettle" : "out" });   // the flare: the fast move
   A(0.8, "phx", "arm", { side: "both", pose: "hips", dur: 0.3, ease: "settle" });
-  A(0.85, "phx", "squash", { amount: F ? 0.12 : 0.05, dur: 0.2 });
+  A(0.85, "phx", "squash", { amount: F ? 0.08 : 0.05, dur: 0.2 });
   // the flame reaches Reaper: a puff of fire at his head
   c.at(T_HIT - 0.02, { fx: "poof", pos: [REA[0] - 0.06, 0.72, REA[1] + 0.05], dur: 0.6, color: "#ffb36b", spark: "#ffd23f", puffs: F ? 12 : 7, sparks: F ? 22 : 12 });   // at the sprout, above the face
   c.sfx(T_HIT - 0.02, "poof", { gain: 0.8 });
