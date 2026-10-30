@@ -745,9 +745,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.16,
-       0.86,
-       -0.06
+       0.3,
+       0.98,
+       0.1
       ]
      },
      "dur": 0.24,
@@ -794,9 +794,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.16,
-       0.86,
-       -0.06
+       0.3,
+       0.98,
+       0.1
       ]
      },
      "dur": 0.24,
@@ -1353,7 +1353,7 @@
     ],
     "look": [
      1.25,
-     1.4,
+     1.62,
      -3.3
     ],
     "fov": 58,
@@ -1365,7 +1365,7 @@
      ],
      "look": [
       1.25,
-      1.4,
+      1.55,
       -4.8
      ]
     },
@@ -1666,6 +1666,17 @@
      "pose": "rest",
      "dur": 0.35,
      "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.18
     }
    ]
   },
@@ -1718,22 +1729,11 @@
     },
     {
      "who": "rea",
-     "do": "look",
-     "to": [
-      0.4,
-      -0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.3
-    },
-    {
-     "who": "rea",
      "do": "turn",
      "to": 115,
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "settle",
-     "at": 0.35
+     "at": 0.02
     },
     {
      "who": "rea",
@@ -1745,7 +1745,7 @@
       "curve": -0.2
      },
      "dur": 0.15,
-     "at": 0.4
+     "at": 0.1
     },
     {
      "who": "rea",
@@ -1753,7 +1753,7 @@
      "lid": 0,
      "brow": 0.5,
      "dur": 0.15,
-     "at": 0.4
+     "at": 0.1
     },
     {
      "fx": "pop",
@@ -1765,7 +1765,7 @@
      "dy": -0.95,
      "angle": -4,
      "color": "speaker",
-     "at": 0.5
+     "at": 0.3
     },
     {
      "who": "rea",
@@ -1814,27 +1814,25 @@
      ],
      "dur": 0.08,
      "blink": false,
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "basket",
+     "set": {
+      "y": -0.99
+     },
+     "dur": 0.2,
+     "ease": "out",
      "at": 1.7
     },
     {
-     "do": "prop",
-     "id": "basket",
-     "set": {
-      "y": -1.44
-     },
-     "dur": 0.12,
+     "who": "rea",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.15,
      "ease": "out",
-     "at": 1.74
-    },
-    {
-     "do": "prop",
-     "id": "basket",
-     "set": {
-      "y": -1.49
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 1.86
+     "at": 1.72
     }
    ],
    "kind": "reveal"
@@ -1900,7 +1898,7 @@
      "do": "expr",
      "expr": "kind",
      "set": {
-      "curve": 0.7,
+      "curve": 0.9,
       "open": 0,
       "eye": 0.9,
       "tilt": 0.1
@@ -1911,7 +1909,7 @@
     {
      "who": "spud",
      "do": "face",
-     "lid": 0.42,
+     "lid": 0.5,
      "dur": 0.25,
      "at": 0.45
     },
@@ -1937,9 +1935,9 @@
      "pose": {
       "prop": "basket",
       "grip": [
-       -0.38,
-       0.8,
-       0.32
+       -0.3,
+       0.78,
+       0.38
       ],
       "frame": {
        "y": [
@@ -1984,6 +1982,17 @@
      "at": 0.83
     },
     {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.89
+    },
+    {
      "do": "prop",
      "id": "basket",
      "set": {
@@ -1994,29 +2003,12 @@
      "at": 0.9
     },
     {
-     "sfx": "ai/drip",
-     "gain": 0.35,
-     "reason": "oil drips from the raised basket back into the vat",
-     "at": 0.98
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.08,
-     "blink": false,
-     "at": 1.04
-    },
-    {
      "who": "rea",
      "do": "turn",
      "to": 0,
      "dur": 0.15,
      "ease": "inOut",
-     "at": 1.1
+     "at": 0.95
     },
     {
      "who": "rea",
@@ -2027,13 +2019,7 @@
       "eye": 1.2
      },
      "dur": 0.12,
-     "at": 1.1
-    },
-    {
-     "sfx": "ai/drip",
-     "gain": 0.25,
-     "reason": "oil drips from the raised basket back into the vat",
-     "at": 1.12
+     "at": 0.95
     },
     {
      "who": "rea",
@@ -2063,6 +2049,11 @@
        0.82,
        -0.55,
        -4.4
+      ],
+      [
+       1.03,
+       -0.55,
+       -3.6
       ]
      ],
      "rate": [
@@ -2077,15 +2068,15 @@
      ],
      "stride": 2,
      "bob": 0.035,
-     "dur": 0.78,
-     "at": 1.12
+     "dur": 1.03,
+     "at": 0.97
     },
     {
      "who": "rea",
      "do": "pitch",
      "to": -12,
      "dur": 0.15,
-     "at": 1.12
+     "at": 0.97
     },
     {
      "who": "rea",
@@ -2100,7 +2091,7 @@
      },
      "dur": 0.18333333333333335,
      "ease": "inOut",
-     "at": 1.12
+     "at": 0.97
     },
     {
      "who": "rea",
@@ -2115,7 +2106,79 @@
      },
      "dur": 0.18333333333333335,
      "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.35,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 0.98
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.25,
+     "reason": "oil drips from the raised basket back into the vat",
      "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 1.25
     },
     {
      "sfx": "ai/drip",
@@ -2136,7 +2199,7 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 1.28
+     "at": 1.39
     },
     {
      "who": "rea",
@@ -2151,7 +2214,7 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 1.28
+     "at": 1.39
     }
    ],
    "kind": "payoff"
@@ -2191,36 +2254,6 @@
    },
    "do": [
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.04,
-       0.5,
-       0.26
-      ]
-     },
-     "dur": 0.14473684210526316,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.28,
-       -0.14
-      ]
-     },
-     "dur": 0.14473684210526316,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
      "sfx": "sting",
      "gain": 0.5,
      "reason": "the panic sting as the camera flees (7.4)",
@@ -2241,7 +2274,7 @@
     {
      "who": "rea",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "o": [
        0.04,
@@ -2251,12 +2284,12 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.14
+     "at": 0.13
     },
     {
      "who": "rea",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
        0.1,
@@ -2266,7 +2299,7 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.14
+     "at": 0.13
     }
    ]
   },
@@ -2319,7 +2352,7 @@
     {
      "who": "rea",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
        0.04,
@@ -2329,12 +2362,12 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.08
+     "at": 0.05
     },
     {
      "who": "rea",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "o": [
        0.1,
@@ -2344,7 +2377,7 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.08
+     "at": 0.05
     },
     {
      "sfx": "step-concrete",
@@ -2355,7 +2388,7 @@
     {
      "who": "rea",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "o": [
        0.04,
@@ -2365,12 +2398,12 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.2
+     "at": 0.19
     },
     {
      "who": "rea",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
        0.1,
@@ -2380,7 +2413,7 @@
      },
      "dur": 0.14473684210526316,
      "ease": "inOut",
-     "at": 0.2
+     "at": 0.19
     },
     {
      "sfx": "step-concrete",
