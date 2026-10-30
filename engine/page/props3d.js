@@ -26,7 +26,7 @@ import { CANDY_KINDS, CANDY_GRIPS } from "./props-candy.js";
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
 // cuts into confetti (shred) and a desk nameplate that splits in two. The first seven have the same names and
-// settings as the puppet props (puppet/page/props.js), so a puppet storyboard ports over.
+// settings as the old puppet props (archived 30 Oct 2026, see puppet/README.md).
 //   sb.props[]: { id, kind, x, y (the prop's bottom), z, rot (degrees about y; a chair at 90 faces right), scale }
 //   { do: "prop", id, at, dur, ease, set: { split, shred, glow, lid, twist, fill, spill, lit, spin, x, y, z, rot, scale } } tweens the numbers
 //   { who, do: "grab", prop, hand: R | L | both, off: [x, y, z] } the prop follows the hand (it lifts its arm to "hold")
