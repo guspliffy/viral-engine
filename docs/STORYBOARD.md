@@ -73,13 +73,11 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 |---|---|---|
 | `say` | `line`, `tone`, `dur?`, `caption?`, `pos?`, `seed?`, `voice?`, `soft?`, `amp?` (0..1, how wide the mouth opens) | Spoken line (real voice, or gibberish sized to the line) + lip sync, and the line as a caption |
 | `narrate` | `line`, `voice?` (default `storyteller-warm`; `storyteller-deep`), `caption?`, `pos?`, `gain?` | A narrator nobody on screen speaks for: voice and caption, no mouth (needs real speech) |
-| `enter` | `to`, `dur?` | Walks to a spot and settles |
 | `take` | `to` (look target), `away?` | Double take: glance, look away, snap back shocked |
 | `react` | `expr`, `big?` | Expression + squash (+ hop when big) |
 | `nod` | `times?` | Nods |
 | `shrug` | `hold?`, `expr?` | Smug shrug with lean, arms back down after `hold` |
 | `sigh` | | Deadpan, sprout droops, small sag |
-| `fail-and-recover` | | Hop, it goes wrong, pretends it was on purpose |
 | `zap` | `color?` | Transformation cover: flash (impact frame in anime), shake, poof |
 
 ### Performances
@@ -92,10 +90,6 @@ moving at once.
 |---|---|---|---|
 | `realize` | `to` (eye target), `then?`, `expr?`, `big?` | Eyes find it, body holds 0.3 s, face changes, body reacts, then looks at `then` | anyone |
 | `reach` | `side`, `pose`, `look?`, `dur?`, `hesitate?` | Eyes first, a small lean away, then the arm winds up, goes, overshoots a touch and settles | anyone |
-| `precise` | `side`, `pose`, `back?`, `hold?`, `look?` | The body goes still, one arm snaps to the pose and settles, holds, goes back | Reaper |
-| `demonstrate` | `expr?` | Crouch, spring up with arms open, a flourish, land on hands on hips | Phoenix |
-| `recover` | `to` (eye target after), `pose?` (`null` keeps the arms), `expr?` | Caught failing: freeze, eyes dart, sag, snap into a confident pose | Phoenix |
-| `affection` | `other` (eye target), `away?` | Looks at them, slow blink, slow smile, looks away, the smallest nod | Reaper |
 | `hit` | `look?`, `expr?`, `set?` (face numbers, as `expr`), `hat?` (`false`, or `{ off, spin }`), `recoil?`, `hold?` | Something bonks them: the hat is knocked askew, then the body squashes and recoils, then the eyes, then the face, five frames apart; no blink in the take | anyone |
 
 **Holds and eases for your own acting**
