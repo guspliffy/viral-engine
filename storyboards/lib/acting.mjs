@@ -126,6 +126,24 @@ export function emote(c, t, who, word, { dur = 1.0, size = 88, dx = 0.35, dy = -
   c.textPop(t, who, word, { dur, size, dx, dy, angle, color: "speaker" });
 }
 
+// arms pumping with the footfalls of a `run` (R: { t0, t1, rate } of the run, its rate keys [[t, steps a second], ...]
+// from its start): forward and up, back and down, the other arm opposite, on the same phase the legs use; at the end
+// both arms go back to rest (rest: false keeps them). From Don't Let Dragon Light the Pumpkin; Real Footage of Hell.
+export function pump(c, who, R, { FWD = { o: [0.04, 0.5, 0.26] }, BACK = { o: [0.1, 0.28, -0.14] }, rest = true, until = R.t1 } = {}) {
+  const RATE = R.rate;
+  const phase = (T) => { let ph = 0; for (let i = 0; i < RATE.length && T > RATE[i][0]; i++) { const a = RATE[i], b = RATE[i + 1], u = Math.min(T, b ? b[0] : T) - a[0]; ph += u * a[1] + (b ? ((b[1] - a[1]) * u * u) / (2 * (b[0] - a[0])) : 0); } return ph; };
+  let k = 0;
+  for (let t = R.t0; t < until - 0.1; t += 0.02) {
+    const ph = phase(t - R.t0);
+    if (ph >= k * 0.5) {
+      const dur = Math.max(0.12, Math.min(0.55, 0.5 / (RATE.find((r, i) => !RATE[i + 1] || RATE[i + 1][0] > t - R.t0)[1]) * 1.1));
+      c.arm(t, who, k % 2 ? "R" : "L", FWD, dur, "inOut"); c.arm(t, who, k % 2 ? "L" : "R", BACK, dur, "inOut");
+      k++;
+    }
+  }
+  if (rest) { c.arm(R.t1 - 0.1, who, "R", "rest", 0.35); c.arm(R.t1 - 0.1, who, "L", "rest", 0.35); }
+}
+
 // ---------------------------------------------------------------- the quality lab picks (Jonny, 30 Oct 2026)
 // Stronger faces: clip({ faces: "strong" }) pushes these loops to the extremes Jonny picked from the lab's e-faces
 // (same face shapes, bigger numbers) and holds every reaction 0.2 s longer. Face changes still ease over 0.25 s or more

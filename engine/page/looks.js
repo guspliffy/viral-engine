@@ -395,6 +395,18 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     });
     if (!setSpec.plate) sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall (a painted plate has its own light)
   }
+  if (setSpec?.light === "furnace") {
+    // a furnace ahead (Real Footage of Hell): red-orange light on the lit side, indigo shadows, a hot orange edge from
+    // the fire; the potato skin keeps more of its gold so the characters stay recognisable
+    const back = { back: "#ff6a26", backDir: [0.2, 0.35, -1] };
+    Object.assign(ROLE, {
+      char: { ...ROLE.char, lit: [1.08, 0.86, 0.74], shade: [0.5, 0.36, 0.6] },
+      skin: { ...ROLE.skin, lit: [1.1, 1.0, 0.86], shade: [0.66, 0.44, 0.56], ...back },
+      cloth: { ...ROLE.cloth, lit: [1.05, 0.84, 0.82], shade: [0.46, 0.36, 0.62], back: "#d8501c", backDir: back.backDir },
+      wood: { ...ROLE.wood, lit: [1.08, 0.86, 0.74], shade: [0.5, 0.36, 0.6] },
+      set: { ...ROLE.set, lit: [0.9, 0.78, 0.78], shade: [0.42, 0.34, 0.6] },
+    });
+  }
   // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
   // their own finger planes readable in dark fabric
   ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3, back: null };

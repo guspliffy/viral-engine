@@ -581,6 +581,30 @@ export function cameraState(sb, t) {
   else if (s.to) {
     const e = ease(s.ease || "inOut")(prog(t, s.at, s.dur ?? 1));
     pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e); roll = lerp(roll, s.to.roll ?? roll, e);
+    // spin: the look turns round the camera (its heading and pitch eased, `spin` +1 / -1 the way round) instead of
+    // sliding in a straight line, so a whip pan of 90° or more never swings through the lens (Real Footage of Hell)
+    if (s.spin && s.to.look) {
+      const dir = (p, l) => { const d = [l[0] - p[0], l[1] - p[1], l[2] - p[2]], h = Math.hypot(d[0], d[2]); return { yaw: Math.atan2(d[0], d[2]), pitch: Math.atan2(d[1], h), r: Math.hypot(h, d[1]) }; };
+      const a = dir(s.pos, s.look), b = dir(s.to.pos || s.pos, s.to.look);
+      let dy = b.yaw - a.yaw; while (s.spin > 0 && dy < 0) dy += 2 * Math.PI; while (s.spin < 0 && dy > 0) dy -= 2 * Math.PI;
+      const yaw = a.yaw + dy * e, pitch = lerp(a.pitch, b.pitch, e), r = lerp(a.r, b.r, e);
+      look = [pos[0] + Math.sin(yaw) * Math.cos(pitch) * r, pos[1] + Math.sin(pitch) * r, pos[2] + Math.cos(yaw) * Math.cos(pitch) * r];
+    }
+  }
+  // handheld: a shot carried by someone walking or running ({ rate: footfalls a second, bob, sway: metres, roll:
+  // degrees, dips: [[t, metres, dur], ...] a startled drop of the hands at clip time t}). The bob rises between
+  // footfalls, the sway and roll swing once a stride, and a slow drift keeps it from looking mechanical; every wave is
+  // under 15 Hz (faster aliases into jitter). Smooth from the shot's first frame (no jump on the cut).
+  let hroll = 0;
+  if (s.hand) {
+    const H = s.hand, w = Math.PI * (H.rate ?? 3), u = t - s.at, k = Math.min(1, (u + (H.lead ?? 0.25)) / 0.25);
+    const by = (H.bob ?? 0) * (Math.abs(Math.sin(w * t)) - 0.64) * k, sx = (H.sway ?? 0) * Math.sin(w * t * 0.5) * k;
+    const dx = (H.drift ?? 0.006) * Math.sin(t * 1.7 + 0.4), dy = (H.drift ?? 0.006) * 0.7 * Math.sin(t * 2.3 + 1.9);
+    let dip = 0;
+    for (const [t0, amt, d = 0.35] of H.dips || []) if (t >= t0 && t < t0 + d) dip -= amt * Math.sin(((t - t0) / d) * Math.PI) ** 2;
+    pos = [pos[0] + sx + dx, pos[1] + by + dy + dip, pos[2]];
+    look = [look[0] + sx * 0.6 + dx * 2, look[1] + by * 0.5 + dy * 2 + dip * 1.6, look[2]];
+    hroll = ((H.roll ?? 0) * Math.sin(w * t * 0.5 + 0.6) + (H.roll ?? 0) * 0.35 * Math.sin(t * 1.3)) * k + (H.tilt ?? 0);
   }
   let shake = [0, 0, 0];
   for (const f of sb.fx || []) {
@@ -590,9 +614,10 @@ export function cameraState(sb, t) {
     shake = [shake[0] + amp * (0.65 * Math.sin(t * 45.9 + 1.3) + 0.35 * Math.sin(t * 74.8 + 4.1)), shake[1] + amp * (0.65 * Math.sin(t * 52.2 + 2.7) + 0.35 * Math.sin(t * 69.1 + 0.6)), 0];
   }
   // focus: the world point a shot wants sharp (an insert's prop); looks.js depth of field focuses there when it is set
-  // roll: a dutch tilt in degrees (+ turns the picture clockwise); stage.js turns camera.up by it
+  // roll: a dutch tilt in degrees (+ turns the picture clockwise); stage.js turns camera.up by it. hroll: a handheld
+  // shot's swaying horizon (degrees), stage.js turns the camera about its own axis by it
   const focus = !Array.isArray(sb.camera) && s.focus ? { focus: s.focus } : {}, tilt = !Array.isArray(sb.camera) && roll ? { roll } : {};
-  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus, ...tilt };
+  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus, ...tilt, ...(hroll && { hroll }) };
 }
 
 export function flashAt(sb, t) {
