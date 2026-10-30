@@ -44,6 +44,7 @@ import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { lockMusic, addMusic } from "./music.mjs";
 import { clipResults, contactResults } from "../qa/check.mjs";
+import { renderTime } from "./shared/holds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
@@ -213,7 +214,7 @@ function applyStyle(sb, style) {
 async function main() {
   const o = args();
   const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
-  if (o.stills === "beats") o.stills = beatTimes(raw); // one still per beat, the same times qa/contact.mjs uses
+  if (o.stills === "beats") o.stills = beatTimes(raw).map((t) => renderTime(raw.holds, t)); // one still per beat, the same times qa/contact.mjs uses (on the video's clock)
   // a look (engine/page/looks.js) sits on top of a style; anime-pro keeps the anime style's devices (impact frames)
   const look = o.look || raw.look || null;
   const style = o.style || raw.style || (look === "anime-pro" ? "anime" : "standard"), sb = applyStyle(raw, style);
@@ -438,7 +439,9 @@ function blurPlan(sb, o, fps) {
   const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
-  bl.walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];
+  const walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];
+  // samples are render times: with hit-stops the walls move with their picture, and a hold is sharp (a wall either end)
+  bl.walls = [...walls.map((w) => renderTime(sb.holds, w)), ...(sb.holds || []).flatMap((h) => { const a = renderTime(sb.holds, h.at); return [a, a + h.dur]; })];
   bl.end = sb.duration;
   return bl;
 }

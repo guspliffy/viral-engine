@@ -216,6 +216,30 @@ from finished clips:
 | `grin(c, t, who)` | `back`, `lid`, `rest` | Closed-eye grin (at a notification), eyes back after `back` s | Still Scrolling |
 | `defeated(c, t, who)` | `turn`, `hold`, `blink` | Sigh, flat face, shoulders drop, turn and look into the camera | Still Scrolling |
 | `backToStart(c, t, end, cast, look)` | | Loop tail: places, facing, face and eyes ease back to frame 0 | template |
+| `opener(c, who, line)` | `at`, `dur`, `tone`, `words`, `pos` | A lead's short line in the first 0.5 s: gibberish, or `words: true` for the real voice with a subtitle | lab pick |
+| `impact(c, t, who)` | `frames`, `stop`, `shake`, `stars`, `squash`, `recoil`, `look`, `sound`, `take` | Comic force on a hit: two impact frames, shake, stars, deep squash and recoil, eyes widen as it lands, then a 3-frame hit-stop | lab pick |
+| `windUp(c, t, who)` / `landDust(c, t, [x, z])` | `amount`, `dur` / `color`, `puffs` | Deep anticipation squash before a big move / a dust puff on a landing | lab pick |
+| `sheepish(c, t, who)` | `brow` | Tilted half smile with brows up | lab |
+| `mood`, `shock`, `grin`, `defeated` | | With `clip({ faces: "strong" })`: bigger extremes (same face shapes) and holds 0.2-0.3 s longer; face changes still ease over 0.25 s or more | lab pick |
+
+**The lab picks (Jonny, 30 Oct 2026)** are on in the template for every new clip, and each is opt-in per storyboard,
+so older clips don't change. The template's flags at the top turn one off for a clip:
+
+- `OPENER`: `act.opener` with a lead's line in the first half second (gibberish unless `words: true`).
+- `FOCUS`: depth of field in look C on the golden set: `"set": { "aperture": 0.045, "focus": "acting" }`. Focus
+  follows who acts (a line, a face change or a body move; `engine/focus.mjs` writes the storyboard's `focusTrack`),
+  pulled over 0.3 s, else the nearest face in frame; a shot's own `focus` point wins (an insert on a prop). A band
+  `"focusBand"` (0.25 m) either side of the focus stays sharp, so a second face beside the actor does too, while the
+  room behind and the floor in front soften. Without `"focus"`, `aperture` focuses as before (the cast's middle).
+- `FACES`: `clip({ faces: "strong" })` for the acting loops above.
+- Force on a hit: `act.windUp`, `act.impact`, `act.landDust` (the template's example has no hit;
+  `storyboards/lab/make-lab-picks.mjs` uses all four).
+
+**Hit-stops** (`"hitStop": [{ "at": 0.487, "frames": 3 }]`, written by `c.hitStop(t)` and `act.impact`): the whole
+picture holds for that many frames from `at` (snap it to a frame), then the clip carries on where it stopped. Every
+time in the storyboard stays story time; the video is that many frames longer (`loadStoryboard` sets `duration` to
+the video's length and keeps `storyDuration`), and every sound after `at` plays that much later, so it stays on its
+picture (`engine/shared/holds.js`). A sound exactly on `at` plays on the held frame.
 
 ### Picking a hold from the grip library
 
