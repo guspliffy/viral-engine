@@ -62,21 +62,8 @@ function run(who, pts, rate, delay = 0, { stride = 2.1, bob = 0.035 } = {}) {
   A(t0, who, "run", { pts: rel, rate, stride, bob, dur: rel.at(-1)[0] });
   return { t0, t1: r3(t0 + rel.at(-1)[0]), rate, at: (t) => { const p = pts.find((q) => q[0] + delay >= t) || pts.at(-1); return p; } };
 }
-// arms pump with the footfalls (the same phase the legs use): forward and up, back and down, the other arm opposite
-function pump(who, R, { FWD = { o: [0.04, 0.5, 0.26] }, BACK = { o: [0.1, 0.28, -0.14] }, rest = true, until = R.t1 } = {}) {
-  const RATE = R.rate;
-  const phase = (T) => { let ph = 0; for (let i = 0; i < RATE.length && T > RATE[i][0]; i++) { const a = RATE[i], b = RATE[i + 1], u = Math.min(T, b ? b[0] : T) - a[0]; ph += u * a[1] + (b ? ((b[1] - a[1]) * u * u) / (2 * (b[0] - a[0])) : 0); } return ph; };
-  let k = 0;
-  for (let t = R.t0; t < until - 0.1; t += 0.02) {
-    const ph = phase(t - R.t0);
-    if (ph >= k * 0.5) {
-      const dur = Math.max(0.12, Math.min(0.55, 0.5 / (RATE.find((r, i) => !RATE[i + 1] || RATE[i + 1][0] > t - R.t0)[1]) * 1.1));
-      c.arm(t, who, k % 2 ? "R" : "L", FWD, dur, "inOut"); c.arm(t, who, k % 2 ? "L" : "R", BACK, dur, "inOut");
-      k++;
-    }
-  }
-  if (rest) { c.arm(R.t1 - 0.1, who, "R", "rest", 0.35); c.arm(R.t1 - 0.1, who, "L", "rest", 0.35); }
-}
+// arms pump with the footfalls: act.pump (storyboards/lib/acting.mjs)
+const pump = (who, R, o) => act.pump(c, who, R, o);
 
 // the friends: a quick start at 1.0, slow motion 1.65-3.55 (a fifth), a sprint for the door at normal speed
 const FRIENDS = [[1.0, 0], [1.35, 1.6], [1.55, 1.6], [1.66, 0.35], [3.55, 0.35], [3.7, 2.7]];
