@@ -14,7 +14,7 @@ import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
-let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
+let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
@@ -223,41 +223,6 @@ function glintFx(f, t) {
   ctx.restore();
 }
 
-// "trail": the arc a swung blade leaves in the air, a ribbon from the blade's middle to its tip over the last `len`
-// seconds (default 0.12), bright at the blade and fading behind it. { fx: "trail", who, at, dur, color, len }
-function buildTrail(f) {
-  const N = 10, geo = new THREE.BufferGeometry(), pos = new Float32Array(N * 2 * 3), age = new Float32Array(N * 2), idx = [];
-  for (let i = 0; i < N; i++) { age[i * 2] = age[i * 2 + 1] = i / (N - 1); if (i < N - 1) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
-  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setAttribute("age", new THREE.BufferAttribute(age, 1)); geo.setIndex(idx);
-  const m = new THREE.ShaderMaterial({
-    uniforms: { uColor: { value: new THREE.Color(f.color || "#7dffb4") }, uFade: { value: 1 } },
-    vertexShader: "attribute float age; varying float vAge; void main() { vAge = age; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
-    fragmentShader: "uniform vec3 uColor; uniform float uFade; varying float vAge; void main() { float a = 0.75 * (1.0 - vAge) * (1.0 - vAge) * uFade; gl_FragColor = vec4(mix(uColor, vec3(1.0), 0.45 * (1.0 - vAge)) * a, a); }",
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-  });
-  m.userData.outlineParameters = { visible: false };
-  const mesh = new THREE.Mesh(geo, m); mesh.frustumCulled = false; mesh.renderOrder = 4; mesh.visible = false; scene.add(mesh);
-  const A = () => actors.find((a) => a.c.id === f.who);
-  return {
-    sample(t) {
-      const d = f.dur ?? 0.3, on = t >= f.at && t <= f.at + d + (f.len ?? 0.12);
-      mesh.visible = on; if (!on) return;
-      const a = A(); if (!a) { mesh.visible = false; return; }
-      for (let i = 0; i < N; i++) {
-        // the ribbon never reaches back before the swing started, and stops growing after it ends
-        const u = Math.max(f.at, Math.min(f.at + d, t) - (i / (N - 1)) * (f.len ?? 0.12));
-        a.ch.apply(actorState(sb, a.c, a.def, u), u); a.ch.root.updateMatrixWorld(true);
-        const L = a.ch.costume.propLine?.(); if (!L) { mesh.visible = false; return; }
-        const p0 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, f.from ?? 0.35)), p1 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, 1.0));
-        pos.set([p0.x, p0.y, p0.z], i * 6); pos.set([p1.x, p1.y, p1.z], i * 6 + 3);
-      }
-      geo.attributes.position.needsUpdate = true;
-      // it fades out over its len once the swing is over
-      m.uniforms.uFade.value = t <= f.at + d ? 1 : 1 - (t - f.at - d) / (f.len ?? 0.12);
-    },
-  };
-}
-
 // glows (sprites on a character, like the blazing Phoenix's halo) would turn into black squares in an ink render:
 // hide them and return them, to be shown again after
 function inkGlows() { const out = []; for (const a of actors) a.ch.root.traverse((o) => { if (o.isSprite && o.visible) { o.visible = false; out.push(o); } }); return out; }
@@ -407,7 +372,6 @@ async function init(data) {
   // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
-  trails = (sb.fx || []).filter((f) => f.do === "trail").map(buildTrail);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
@@ -574,7 +538,6 @@ function pose(t) {
 
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
-  for (const tr of trails) tr.sample(t);   // poses the swordsman in the recent past, so it goes before pose(t)
   pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {

@@ -1,9 +1,9 @@
 import { clamp, armNow } from "./util.js";
 
 // Dance moves for the 3D engine, on the music's beat (sb.music: { bpm, offset }). The same names as the puppet
-// renderer's move library (puppet/page/moves.js), so one choreography reads the same in both.
+// renderer's move library (archived 30 Oct 2026, see puppet/README.md).
 //
-//   { who, at, dur, do: "bounce" | "groove" | "point" | "floss" | "clap" | "roof" | "wave2" | "nod" | "tada" | "flare" | "wobble",
+//   { who, at, dur, do: "bounce" | "point" | "floss" | "clap" | "roof" | "tada" | "flare" | "wobble",
 //     amp (1 = normal, 0.3 = a half-hearted copy), speed (beat multiple) }
 //   added on top of anything: "spin" (turns, dir), "shake" (amp)
 // A move blends in over 0.12 s and out over 0.18 s after its end. Arms are hand targets (potato.js handTarget):
@@ -15,7 +15,6 @@ const sm = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
 
 const MOVES = {
   bounce({ b, amp }) { const k = pulse(b) * amp; return { y: 0.045 * (1 - pulse(b)) * amp, squash: 1 - 0.09 * k, arms: { R: { o: [0.1, 0.55 - 0.1 * k, 0.26] }, L: { o: [0.1, 0.55 - 0.1 * k, 0.26] } } }; },
-  groove({ b, amp }) { const s = Math.sin(Math.PI * b) * amp; return { lean: 0.1 * s, x: 0.035 * s, squash: 1 - 0.05 * pulse(b) * amp, arms: { R: { o: [0.08 + 0.07 * s, 0.32, 0.14] }, L: { o: [0.08 - 0.07 * s, 0.32, 0.14] } } }; },
   point({ b, amp }) {
     const up = Math.floor(b + 0.25) % 2 === 0, k = sm(((b + 0.25) % 1) * 4);
     const hi = [0.22 + 0.12 * amp, 0.75 + 0.5 * amp, 0.2], lo = [-0.3 * amp, 0.25, 0.32], r = (p, q) => p.map((v, i) => v + (q[i] - v) * k);
@@ -29,8 +28,6 @@ const MOVES = {
   },
   clap({ b, amp }) { const k = pulse(b), w = 0.07 + 0.3 * (1 - k) * amp; return { squash: 1 - 0.05 * k * amp, arms: { R: { x: [-w, 0.5, 0.38] }, L: { x: [w, 0.5, 0.38] } } }; },
   roof({ b, amp }) { const k = pulse(b); return { squash: 1 - 0.06 * k * amp, arms: { R: { o: [-0.04, 1.05 + 0.15 * (1 - k) * amp, 0.1] }, L: { o: [-0.04, 1.05 + 0.15 * (1 - k) * amp, 0.1] } } }; },
-  wave2({ b, amp }) { return { squash: 1 - 0.04 * pulse(b) * amp, arms: { R: { o: [0.3, 0.6 + 0.28 * Math.sin(Math.PI * b) * amp, 0.05] }, L: { o: [0.3, 0.6 + 0.28 * Math.sin(Math.PI * b - 1.4) * amp, 0.05] } } }; },
-  nod({ b, amp }) { return { pitch: 0.14 * pulse(b) * amp, squash: 1 - 0.03 * pulse(b) * amp }; },
   tada({ k }) { const e = sm(k * 5); return { squash: 1 + 0.05 * e, wings: e, arms: { R: { o: [0.08 + 0.2 * e, 0.4 + 0.85 * e, 0.06] }, L: { o: [0.08 + 0.2 * e, 0.4 + 0.85 * e, 0.06] } } }; },
   flare({ k }) { const e = sm(k * 4); return { wings: e, arms: { R: { o: [0.4 * e + 0.08, 0.3 + 0.45 * e, 0.0] }, L: { o: [0.4 * e + 0.08, 0.3 + 0.45 * e, 0.0] } } }; },
   wobble({ u }) {
