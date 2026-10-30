@@ -528,6 +528,7 @@ function pose(t) {
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
+  if (cam.roll) camera.rotateZ((cam.roll * Math.PI) / 180);   // a handheld shot's horizon tilt (timeline.js cameraState)
   // the layout and contact checks project with the camera before anything is drawn: without this they used the
   // previous sample's camera (frame 0 of a clip, and the first frame after every cut, measured the wrong shot)
   camera.updateMatrixWorld(true);

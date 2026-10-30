@@ -162,6 +162,36 @@ const SFX = {
     }
     return x;
   },
+  // hot oil boiling in a giant fryer: a low bubbling bed with many small wet pops on top, fading in and out (Real
+  // Footage of Hell)
+  bubbling(r, d = 2) {
+    const x = buf(d), lp = biquad("lp", 420, 0.8), pops = Array.from({ length: Math.round(d * 34) }, () => [0.03 + r() * (d - 0.1), 180 + r() * 420, 0.4 + r() * 0.6]);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, fade = Math.min(1, t / 0.25, (d - t) / 0.3);
+      let v = run(lp, r() * 2 - 1) * 0.5 * (0.7 + 0.3 * Math.sin(TAU * 3.1 * t));
+      for (const [h, f, a] of pops) { const u = t - h; if (u > 0 && u < 0.06) v += Math.sin(TAU * f * (1 + 2.5 * u) * u) * a * Math.exp(-u * 70); }
+      x[i] = v * fade * 0.8;
+    }
+    return x;
+  },
+  // a low dark rumble under everything, swelling slowly (a furnace far off; the bed under the hell tunnel)
+  rumble(r, d = 3) {
+    const x = buf(d), lp = biquad("lp", 140, 0.9), lp2 = biquad("lp", 60, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, swell = Math.min(1, t / (d * 0.8)) * Math.min(1, (d - t) / 0.3);
+      x[i] = (run(lp, r() * 2 - 1) * 1.6 + run(lp2, r() * 2 - 1) * 2.2 + Math.sin(TAU * 41 * t) * 0.12) * (0.45 + 0.55 * swell);
+    }
+    return x;
+  },
+  // a fierce jet of steam from a pipe: a hard bright hiss that bursts in and roars, then tails off
+  steam(r, d = 0.7) {
+    const x = buf(d), hp = biquad("hp", 2600, 0.7), bp = biquad("bp", 6500, 0.9);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, e = Math.min(1, t / 0.015) * Math.min(1, (d - t) / (d * 0.55));
+      x[i] = (run(hp, r() * 2 - 1) * 0.8 + run(bp, r() * 2 - 1) * 0.6) * e * (0.9 + 0.1 * Math.sin(TAU * 23 * t));
+    }
+    return x;
+  },
   // a camera flash firing: the shutter's two clicks and a soft bright 'pff' of the flash between them
   flash(r) {
     const d = 0.35, x = buf(d), hp = biquad("hp", 1800, 0.8), bp = biquad("bp", 4200, 0.8);

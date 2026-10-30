@@ -1,0 +1,2348 @@
+{
+ "id": "real-footage-of-hell",
+ "title": "Real Footage of Hell",
+ "idea": "Jonny's brief 30 Oct 2026 (Content gap 'hell real footage'): a first-person run into hell, which is a giant deep fryer; the potato inside loves it",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "set": {
+  "type": "furnace",
+  "night": true,
+  "light": "furnace",
+  "seed": 9,
+  "shadowSize": 10
+ },
+ "music": {
+  "file": "ai/drama-swell/drama-swell-01.ogg",
+  "from": 0,
+  "until": 6,
+  "gain": 0.55,
+  "lock": false
+ },
+ "motionBlur": false,
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.2,
+  "signature": {
+   "payoff": false,
+   "entrances": false
+  },
+  "surface": "concrete"
+ },
+ "hook": {
+  "show": [
+   "rea"
+  ],
+  "hint": 0,
+  "what": "Reaper waves the running camera on down a red-glowing tunnel"
+ },
+ "creative": {
+  "length": [
+   8,
+   8
+  ]
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.32,
+    1.95
+   ],
+   "face": 8,
+   "expr": "shocked",
+   "follow": 0.25,
+   "seed": 3.3
+  },
+  {
+   "id": "spud",
+   "character": "hell/crispy-spud",
+   "at": [
+    2,
+    -9.6
+   ],
+   "y": -1.49,
+   "face": -44,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 5.2,
+   "signature": false
+  }
+ ],
+ "props": [
+  {
+   "id": "oil",
+   "kind": "fryoil",
+   "x": 1.95,
+   "y": -0.04,
+   "z": -8.4,
+   "w": 2.5,
+   "d": 5.2
+  },
+  {
+   "id": "flames",
+   "kind": "burnerflames",
+   "x": 0.52,
+   "y": -0.54,
+   "z": -8.4,
+   "rot": -90,
+   "w": 0.44,
+   "h": 0.3,
+   "at": [
+    [
+     2,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     -1,
+     0
+    ],
+    [
+     -2,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "flames2",
+   "kind": "burnerflames",
+   "x": 1.95,
+   "y": -0.54,
+   "z": -5.62,
+   "w": 0.44,
+   "h": 0.3,
+   "xs": [
+    -0.7,
+    0.1,
+    0.9
+   ]
+  },
+  {
+   "id": "basket",
+   "kind": "fryerbasket",
+   "x": 2,
+   "y": -1.49,
+   "z": -9.6,
+   "rot": -54,
+   "w": 1.3,
+   "d": 1.05,
+   "h": 0.45,
+   "bail": 1.62,
+   "top": 2.04,
+   "oil": -0.04
+  },
+  {
+   "id": "spud1",
+   "kind": "bobspud",
+   "x": 1.25,
+   "y": 0,
+   "z": -6.6,
+   "r": 0.3,
+   "seed": 1
+  },
+  {
+   "id": "spud2",
+   "kind": "bobspud",
+   "x": 2.6,
+   "y": -0.01,
+   "z": -7,
+   "r": 0.34,
+   "seed": 2
+  },
+  {
+   "id": "spud3",
+   "kind": "bobspud",
+   "x": 1.6,
+   "y": -0.02,
+   "z": -8.1,
+   "r": 0.28,
+   "seed": 3,
+   "amp": 0.04
+  },
+  {
+   "id": "spud4",
+   "kind": "bobspud",
+   "x": 2.75,
+   "y": -0.01,
+   "z": -8.5,
+   "r": 0.31,
+   "seed": 4
+  },
+  {
+   "id": "spud5",
+   "kind": "bobspud",
+   "x": 1.1,
+   "y": -0.01,
+   "z": -10.5,
+   "r": 0.27,
+   "seed": 5,
+   "amp": 0.045
+  },
+  {
+   "id": "vent1",
+   "kind": "steamjet",
+   "x": -0.97,
+   "y": 0.32,
+   "z": -0.55,
+   "len": 1,
+   "width": 0.2
+  },
+  {
+   "id": "vent2",
+   "kind": "steamjet",
+   "x": -0.97,
+   "y": 1.05,
+   "z": -2.25,
+   "len": 1.1,
+   "width": 0.24,
+   "puffs": 22
+  },
+  {
+   "id": "shadows",
+   "kind": "spudshadows",
+   "x": 1.2,
+   "y": 1.5,
+   "z": -4.1,
+   "rot": -90,
+   "w": 3,
+   "h": 1.5,
+   "hot": 0
+  },
+  {
+   "id": "vathaze",
+   "kind": "steamhaze",
+   "x": 1.95,
+   "y": 0.26,
+   "z": -9.2,
+   "w": 2.2,
+   "d": 3.4,
+   "r": 0.8,
+   "a": 0.1,
+   "n": 5
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2,
+   "text": "real footage of hell",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "1 follow me",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.08,
+     0.72,
+     4.6
+    ],
+    "look": [
+     0.12,
+     0.82,
+     -2.3
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      0.08,
+      0.72,
+      1.1
+     ],
+     "look": [
+      0.1,
+      0.8,
+      -5.8
+     ]
+    },
+    "dur": 2,
+    "ease": "linear",
+    "hand": {
+     "rate": 3.2,
+     "bob": 0.035,
+     "sway": 0.03,
+     "roll": 2.2,
+     "tilt": -1.2,
+     "dips": [
+      [
+       1.46,
+       0.07,
+       0.32
+      ]
+     ]
+    }
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.32,
+       1.95
+      ],
+      [
+       0.5,
+       0.33,
+       1.45
+      ],
+      [
+       1,
+       0.35,
+       0.95
+      ],
+      [
+       1.05,
+       0.35,
+       0.87
+      ],
+      [
+       1.1,
+       0.35,
+       0.77
+      ],
+      [
+       1.15,
+       0.35,
+       0.65
+      ],
+      [
+       1.2,
+       0.35,
+       0.51
+      ],
+      [
+       1.25,
+       0.35,
+       0.35
+      ],
+      [
+       1.3,
+       0.35,
+       0.19
+      ],
+      [
+       1.35,
+       0.35,
+       0.03
+      ],
+      [
+       1.4,
+       0.35,
+       -0.13
+      ],
+      [
+       1.45,
+       0.35,
+       -0.29
+      ],
+      [
+       1.5,
+       0.37,
+       -0.45
+      ],
+      [
+       1.55,
+       0.42,
+       -0.61
+      ],
+      [
+       1.6,
+       0.485,
+       -0.77
+      ],
+      [
+       1.65,
+       0.55,
+       -0.93
+      ],
+      [
+       1.7,
+       0.6,
+       -1.09
+      ],
+      [
+       1.75,
+       0.62,
+       -1.25
+      ],
+      [
+       1.8,
+       0.62,
+       -1.41
+      ],
+      [
+       1.85,
+       0.62,
+       -1.57
+      ],
+      [
+       1.9,
+       0.62,
+       -1.73
+      ],
+      [
+       1.95,
+       0.62,
+       -1.89
+      ],
+      [
+       2,
+       0.62,
+       -2.05
+      ],
+      [
+       2.05,
+       0.62,
+       -2.21
+      ],
+      [
+       2.1,
+       0.62,
+       -2.37
+      ],
+      [
+       2.15,
+       0.608,
+       -2.53
+      ],
+      [
+       2.2,
+       0.561,
+       -2.69
+      ],
+      [
+       2.25,
+       0.486,
+       -2.85
+      ],
+      [
+       2.3,
+       0.387,
+       -3.01
+      ],
+      [
+       2.35,
+       0.271,
+       -3.17
+      ],
+      [
+       2.4,
+       0.143,
+       -3.33
+      ],
+      [
+       2.45,
+       0.008,
+       -3.49
+      ],
+      [
+       2.5,
+       -0.126,
+       -3.65
+      ],
+      [
+       2.55,
+       -0.255,
+       -3.81
+      ],
+      [
+       2.6,
+       -0.373,
+       -3.97
+      ],
+      [
+       2.65,
+       -0.474,
+       -4.13
+      ],
+      [
+       2.7,
+       -0.553,
+       -4.29
+      ],
+      [
+       2.75,
+       -0.603,
+       -4.45
+      ],
+      [
+       2.8,
+       -0.62,
+       -4.61
+      ],
+      [
+       2.85,
+       -0.62,
+       -4.77
+      ],
+      [
+       2.9,
+       -0.62,
+       -4.93
+      ],
+      [
+       2.95,
+       -0.62,
+       -5.09
+      ],
+      [
+       3,
+       -0.62,
+       -5.25
+      ],
+      [
+       3.05,
+       -0.62,
+       -5.41
+      ],
+      [
+       3.1,
+       -0.62,
+       -5.57
+      ],
+      [
+       3.15,
+       -0.62,
+       -5.73
+      ],
+      [
+       3.2,
+       -0.62,
+       -5.89
+      ],
+      [
+       3.25,
+       -0.62,
+       -6.05
+      ],
+      [
+       3.3,
+       -0.62,
+       -6.21
+      ],
+      [
+       3.35,
+       -0.62,
+       -6.37
+      ],
+      [
+       3.4,
+       -0.62,
+       -6.53
+      ],
+      [
+       3.519,
+       -0.62,
+       -6.81
+      ],
+      [
+       3.587,
+       -0.62,
+       -6.913
+      ],
+      [
+       3.656,
+       -0.62,
+       -7.001
+      ],
+      [
+       3.725,
+       -0.62,
+       -7.073
+      ],
+      [
+       3.794,
+       -0.62,
+       -7.128
+      ],
+      [
+       3.862,
+       -0.62,
+       -7.168
+      ],
+      [
+       3.931,
+       -0.62,
+       -7.192
+      ],
+      [
+       4,
+       -0.62,
+       -7.2
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       2.6
+      ],
+      [
+       0.9,
+       2.4
+      ],
+      [
+       1.05,
+       3.6
+      ],
+      [
+       3.6,
+       3.6
+      ],
+      [
+       3.95,
+       1.6
+      ]
+     ],
+     "stride": 1.6,
+     "bob": 0.03,
+     "dur": 4,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.02
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "brow": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.14,
+      "curve": -0.25,
+      "eye": 1.08
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.62,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "basket",
+     "off": [
+      0,
+      0.02,
+      0
+     ],
+     "yaw": 10,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.32,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.5,
+      "open": 0,
+      "eye": 0.95
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.86,
+       -0.06
+      ]
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.62,
+       0.34
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 0.39
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.86,
+       -0.06
+      ]
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.56
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.82
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 9,
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 1.32
+    },
+    {
+     "sfx": "steam",
+     "gain": 0.55,
+     "dur": 0.6,
+     "pan": -0.5,
+     "reason": "the side vent on the left spits steam beside Reaper (1.42)",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "vent1",
+     "set": {
+      "jet": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.42
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.1,
+     "dur": 0.34,
+     "at": 1.46
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.46
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.35,
+     "reason": "the camera operator's startled breath as the vent fires (the camera dips)",
+     "at": 1.5
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.32,
+     "reason": "the camera operator's running steps (first-person shot)",
+     "at": 1.63
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.72
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.21153846153846154,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "vent1",
+     "set": {
+      "jet": 0.25
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.92
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 steam",
+   "at": 2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.46,
+     0.98,
+     -1.25
+    ],
+    "look": [
+     -1,
+     1.08,
+     -2.32
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.5,
+      0.98,
+      -1.4
+     ]
+    },
+    "dur": 0.8,
+    "ease": "out",
+    "hand": {
+     "rate": 2.4,
+     "bob": 0.012,
+     "sway": 0.01,
+     "roll": 1,
+     "drift": 0.004
+    }
+   },
+   "do": [
+    {
+     "sfx": "steam",
+     "gain": 0.8,
+     "dur": 0.75,
+     "reason": "the steam jet bursts from the pipe in the close-up (2.05): pssssh",
+     "at": 0.03
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.22916666666666669,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.22916666666666669,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "vent2",
+     "set": {
+      "jet": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.19
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.19
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.33
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "vent1",
+     "set": {
+      "jet": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "vent2",
+     "set": {
+      "jet": 0.55
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.61
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.61
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "3 shadows",
+   "at": 2.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.72,
+     -0.9
+    ],
+    "look": [
+     1.25,
+     1.4,
+     -3.3
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      -0.3,
+      0.72,
+      -2.3
+     ],
+     "look": [
+      1.25,
+      1.4,
+      -4.8
+     ]
+    },
+    "dur": 1.2,
+    "ease": "linear",
+    "hand": {
+     "rate": 3,
+     "bob": 0.028,
+     "sway": 0.024,
+     "roll": 1.8,
+     "tilt": 0.8
+    }
+   },
+   "do": [
+    {
+     "sfx": "bubbling",
+     "gain": 0.45,
+     "dur": 1.25,
+     "reason": "off screen ahead: the oil bubbling, growing louder as the shadows bob on the wall",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "vent2",
+     "set": {
+      "jet": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.93
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 0.93
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.1527777777777778,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "4 the fryer",
+   "at": 4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.9,
+     0.86,
+     -4.3
+    ],
+    "look": [
+     0.4,
+     -0.25,
+     -9
+    ],
+    "fov": 70,
+    "to": {
+     "pos": [
+      -0.9,
+      0.86,
+      -4.55
+     ]
+    },
+    "dur": 2,
+    "ease": "out",
+    "hand": {
+     "rate": 1.1,
+     "bob": 0.008,
+     "sway": 0.006,
+     "roll": 0.6,
+     "drift": 0.004
+    }
+   },
+   "do": [
+    {
+     "sfx": "bubbling",
+     "gain": 0.8,
+     "dur": 2,
+     "reason": "the giant fryer's oil bubbling (the reveal)",
+     "at": 0
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.5,
+     "reason": "the burner flames roar under the vat as it is revealed (4.0)",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 115,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.2,
+      "curve": -0.2
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.5,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "fx": "pop",
+     "text": "!",
+     "who": "rea",
+     "dur": 0.8,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.45,
+     "idle": 0.08,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.02
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.15
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -8,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.12,
+      "eye": 1.1,
+      "curve": -0.25
+     },
+     "dur": 0.2,
+     "at": 1.25
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "5 he loves it",
+   "at": 6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.76,
+     -7.9
+    ],
+    "look": [
+     1.9,
+     0.83,
+     -9.73
+    ],
+    "fov": 44,
+    "hand": {
+     "rate": 0.8,
+     "bob": 0.003,
+     "sway": 0.002,
+     "roll": 0.3,
+     "drift": 0.002
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "basket",
+     "set": {
+      "y": 0.21
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "basket",
+     "set": {
+      "spill": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.03,
+      0.04
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.7,
+      "open": 0,
+      "eye": 0.9,
+      "tilt": 0.1
+     },
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.22,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "basket",
+      "grip": [
+       -0.46,
+       0.68,
+       0.3
+      ],
+      "frame": {
+       "y": [
+        -0.5,
+        0,
+        0.87
+       ],
+       "z": [
+        0.87,
+        0,
+        0.5
+       ]
+      }
+     },
+     "dur": 0.22,
+     "ease": "settle",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.75,
+     "idle": 0.04,
+     "at": 0.62
+    },
+    {
+     "sfx": "ding",
+     "gain": 0.32,
+     "reason": "one tiny cheerful chime as the thumbs-up lands (6.6)",
+     "at": 0.62
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.4,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 0.66
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.3,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "basket",
+     "set": {
+      "spill": 0.45
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.35,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 0.98
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.25,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.16
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.2
+     },
+     "dur": 0.12,
+     "at": 1.22
+    },
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -0.62,
+       -7.2
+      ],
+      [
+       0.2,
+       -0.6,
+       -6.7
+      ],
+      [
+       0.4,
+       -0.58,
+       -6
+      ],
+      [
+       0.62,
+       -0.56,
+       -5.2
+      ],
+      [
+       0.82,
+       -0.55,
+       -4.4
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       3
+      ],
+      [
+       0.15,
+       3.8
+      ]
+     ],
+     "stride": 2,
+     "bob": 0.035,
+     "dur": 0.78,
+     "at": 1.24
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -12,
+     "dur": 0.15,
+     "at": 1.24
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.18333333333333335,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.18333333333333335,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.3,
+     "reason": "oil drips from the raised basket back into the vat",
+     "at": 1.27
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "6a nope (whip)",
+   "at": 7.4,
+   "len": 0.2,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.76,
+     -7.9
+    ],
+    "look": [
+     1.9,
+     0.83,
+     -9.73
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.4,
+      0.48,
+      -7.85
+     ],
+     "look": [
+      -0.5,
+      0.3,
+      -3.5
+     ],
+     "fov": 62
+    },
+    "dur": 0.2,
+    "ease": "in",
+    "spin": -1
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "sting",
+     "gain": 0.5,
+     "reason": "the panic sting as the camera flees (7.4)",
+     "at": 0
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.5,
+     "reason": "the camera operator's short startled breath",
+     "at": 0.01
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.45,
+     "reason": "the whip pan back toward the tunnel (7.4-7.6)",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.12
+    }
+   ]
+  },
+  {
+   "name": "6b nope (run)",
+   "at": 7.6,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.48,
+     -7.85
+    ],
+    "look": [
+     -0.5,
+     0.3,
+     -3.5
+    ],
+    "fov": 62,
+    "to": {
+     "pos": [
+      -0.42,
+      0.48,
+      -7.1
+     ],
+     "look": [
+      -0.5,
+      0.3,
+      -2.8
+     ]
+    },
+    "dur": 0.4,
+    "ease": "linear",
+    "hand": {
+     "rate": 3.6,
+     "bob": 0.04,
+     "sway": 0.035,
+     "roll": 3,
+     "tilt": 2.5,
+     "lead": 0
+    }
+   },
+   "do": [
+    {
+     "sfx": "step-concrete",
+     "gain": 0.38,
+     "reason": "the camera operator's running steps as it flees",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.38,
+     "reason": "the camera operator's running steps as it flees",
+     "at": 0.14
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.28,
+       -0.14
+      ]
+     },
+     "dur": 0.14473684210526316,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.38,
+     "reason": "the camera operator's running steps as it flees",
+     "at": 0.26
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "basket",
+   "from": 0,
+   "to": 8,
+   "reason": "the crispy potato stands in the wire basket (its feet on the floor wires, the walls round it)"
+  },
+  {
+   "who": "spud",
+   "with": "oil",
+   "from": 0,
+   "to": 6.4,
+   "reason": "the basket and the potato in it are under the oil until it rises"
+  },
+  {
+   "who": "rea",
+   "with": "spud",
+   "from": 0,
+   "to": 6,
+   "reason": "the crispy potato is out of sight under the oil until 6.0, so nothing of Reaper covers his face"
+  }
+ ],
+ "notes": "Generated by storyboards/hell/make-real-footage-of-hell.mjs."
+}

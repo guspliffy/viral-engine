@@ -34,7 +34,7 @@ export const ROOMS = {
 // the room of each set (engine/page/set-*.js); a set not listed is outdoors: street-like names get "street", the rest "open"
 export const SET_ROOMS = {
   kitchen: "room", apartment: "room", bedroom: "room", livingroom: "livingroom", party: "livingroom", restaurant: "livingroom",
-  office: "office", elevator: "box", bathroom: "tiles", classroom: "classroom", gym: "hall", haunted: "manor",
+  office: "office", elevator: "box", bathroom: "tiles", classroom: "classroom", gym: "hall", haunted: "manor", furnace: "hall",
   cottage: "cottage", porch: "porch", rooftop: "street", street: "street", storefront: "street", forest: "forest",
   meadow: "open", hills: "open", park: "open", garden: "open", backyard: "open",
 };

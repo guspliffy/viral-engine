@@ -23,6 +23,7 @@ import { buildRoad } from "./set-road.js";
 import { buildStorefront } from "./set-storefront.js";
 import { buildDoorstep } from "./set-doorstep.js";
 import { buildHallway } from "./set-hallway.js";
+import { buildFurnace } from "./set-furnace.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -81,6 +82,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "storefront") return buildStorefront(scene, spec);   // set-storefront.js: the DUO launch-day store
   if (type === "doorstep") return buildDoorstep(scene, spec);   // set-doorstep.js: a front door on a sunny afternoon
   if (type === "hallway") return buildHallway(scene, spec);   // set-hallway.js: a cream hallway out to a sunny porch
+  if (type === "furnace") return buildFurnace(scene, spec);   // set-furnace.js: the hell tunnel and the giant fryer
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
