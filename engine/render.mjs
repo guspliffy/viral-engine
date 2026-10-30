@@ -331,8 +331,9 @@ async function main() {
       // contacts every 0.2 s, a drawn frame per beat plus one blurred and one id map, then the coverage
       const n = Math.round(dur * fps), tc = Date.now();
       await page.evaluate(() => window.ENGINE.prime([]));
-      for (let i = 0; i < n; i += 2) { await page.evaluate((tt) => window.ENGINE.layout(tt), i / fps); if (i % 4 === 0) await page.evaluate((tt) => window.ENGINE.trace(tt, false), i / fps); if (i % 6 === 0) await page.evaluate((tt) => window.ENGINE.contact(tt), i / fps); }
-      for (const t of beatTimes(raw)) await shot(t);
+      const step = Number(process.env.COVER_STEP || 2), beats = beatTimes(raw).filter((_, k, all) => k % Math.max(1, Math.ceil(all.length / Number(process.env.COVER_DRAWN || 99))) === 0);
+      for (let i = 0; i < n; i += step) { await page.evaluate((tt) => window.ENGINE.layout(tt), i / fps); if (i % (2 * step) === 0) await page.evaluate((tt) => window.ENGINE.trace(tt, false), i / fps); if (i % (3 * step) === 0) await page.evaluate((tt) => window.ENGINE.contact(tt), i / fps); }
+      for (const t of beats) await shot(t);
       const tb = beatTimes(raw)[1] ?? 0.5; await shot(tb); await page.evaluate(([ts]) => window.ENGINE.blur(ts, true), [[tb + 0.004, tb + 0.008]]);
       await page.evaluate((tt) => window.ENGINE.ids(tt), tb);
       const cov = await page.coverage.stopJSCoverage();
