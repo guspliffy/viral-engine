@@ -168,7 +168,7 @@
     0.115,
     0
    ],
-   "width": 0.011
+   "width": 0.022
   },
   {
    "id": "sidewall",
@@ -699,7 +699,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.9,
+     "gain": 1.3,
      "at": 1.05
     },
     {
@@ -783,7 +783,7 @@
     },
     {
      "sfx": "put-down",
-     "gain": 0.9,
+     "gain": 1.3,
      "at": 1.2
     },
     {
@@ -961,7 +961,7 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.12,
+       0.1,
        1.2,
        0.02
       ]
@@ -984,7 +984,7 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.12,
+       -0.2,
        1.2,
        0.02
       ]
@@ -1032,7 +1032,7 @@
      "pose": {
       "o": [
        0.2,
-       1.12,
+       1.14,
        0.06
       ]
      },
@@ -1054,8 +1054,8 @@
      "side": "L",
      "pose": {
       "o": [
-       0.2,
-       1.12,
+       0.26,
+       1.14,
        0.06
       ]
      },
@@ -1184,12 +1184,6 @@
     },
     {
      "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.05
-    },
-    {
-     "who": "wiz",
      "do": "move",
      "to": [
       0.7,
@@ -1199,6 +1193,12 @@
      "steps": 2,
      "ease": "inOut",
      "at": 0.17
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.27
     },
     {
      "who": "dra",
@@ -1267,7 +1267,19 @@
    "name": "small flame",
    "at": 3.6,
    "len": 0.9,
-   "shot": "keep",
+   "shot": {
+    "pos": [
+     0.12,
+     0.8,
+     5.301
+    ],
+    "look": [
+     0.12,
+     0.8,
+     0.3
+    ],
+    "fov": 30
+   },
    "do": [
     {
      "who": "dra",
@@ -1337,12 +1349,12 @@
      "id": "spark",
      "set": {
       "on": 1,
-      "fire": 0.35,
+      "fire": 0.6,
       "len": 0.1
      },
      "dur": 0.03,
      "ease": "inOut",
-     "at": 0.25
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -1350,9 +1362,9 @@
      "set": {
       "len": 1
      },
-     "dur": 0.1,
+     "dur": 0.07,
      "ease": "out",
-     "at": 0.28
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -1385,28 +1397,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 0.45
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.3,
-     "at": 0.5
-    },
-    {
-     "who": "dra",
-     "do": "turn",
-     "to": 18,
-     "dur": 0.35,
-     "at": 0.5
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "smug",
-     "dur": 0.25,
-     "at": 0.52
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -1418,6 +1409,27 @@
      "dur": 0.3,
      "blink": false,
      "at": 0.6
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.62
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 18,
+     "dur": 0.35,
+     "at": 0.62
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0.64
     },
     {
      "who": "wiz",
@@ -1862,7 +1874,7 @@
   {
    "name": "too much",
    "at": 5.8,
-   "len": 1.5,
+   "len": 0.7,
    "shot": {
     "pos": [
      -0.633,
@@ -1972,15 +1984,15 @@
     {
      "fx": "poof",
      "pos": [
-      1.438,
+      1.388,
       0.45,
-      0.75
+      0.3
      ],
      "color": "#f1dfc2",
-     "puffs": 8,
+     "puffs": 14,
      "sparks": 0,
      "speed": 0.6,
-     "dur": 1,
+     "dur": 0.8,
      "at": 0.3
     },
     {
@@ -2042,94 +2054,14 @@
      "to": 0,
      "dur": 0.3,
      "at": 0.65
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 40,
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.7
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0.7,
-      0.45
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.7
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.45,
-      "eye": 1.3
-     },
-     "dur": 0.15,
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "blast",
-     "set": {
-      "len": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.82
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": -14,
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 1.2
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.8,
-      0.02
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1.25
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "tilt": 0.45,
-      "curve": 0.42,
-      "open": 0.16,
-      "eye": 1.08,
-      "smirk": 0.4
-     },
-     "dur": 0.3,
-     "at": 1.3
-    },
-    {
-     "who": "wiz",
-     "do": "face",
-     "brow": 0.4,
-     "dur": 0.3,
-     "at": 1.3
     }
    ],
    "kind": "reveal"
   },
   {
-   "name": "copy back",
-   "at": 7.3,
-   "len": 1.7,
+   "name": "shocked",
+   "at": 6.5,
+   "len": 0.8,
    "shot": {
     "pos": [
      0,
@@ -2143,6 +2075,94 @@
     ],
     "fov": 30
    },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.7,
+      0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.3
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "blast",
+     "set": {
+      "len": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -14,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "copy back",
+   "at": 7.3,
+   "len": 1.7,
+   "shot": "keep",
    "do": [
     {
      "who": "dra",
@@ -2214,7 +2234,7 @@
      "do": "grip",
      "side": "L",
      "shape": "open",
-     "dur": 0.2,
+     "dur": 0.14,
      "at": 0.32
     },
     {
@@ -2235,7 +2255,7 @@
        -0.038
       ]
      },
-     "dur": 0.22,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 0.32
     },
@@ -2252,9 +2272,9 @@
       ],
       "palm": "wrap"
      },
-     "dur": 0.14,
+     "dur": 0.1,
      "ease": "settle",
-     "at": 0.54
+     "at": 0.46
     },
     {
      "who": "dra",
@@ -2262,7 +2282,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.624
+     "at": 0.52
     },
     {
      "who": "dra",
@@ -2276,7 +2296,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.74
+     "at": 0.62
     },
     {
      "who": "dra",
@@ -2296,9 +2316,9 @@
        0.56
       ]
      },
-     "dur": 0.12,
+     "dur": 0.1,
      "ease": "inOut",
-     "at": 0.78
+     "at": 0.66
     },
     {
      "who": "dra",
@@ -2318,9 +2338,9 @@
        0.46
       ]
      },
-     "dur": 0.14,
+     "dur": 0.12,
      "ease": "inOut",
-     "at": 0.9
+     "at": 0.76
     },
     {
      "do": "prop",
@@ -2328,9 +2348,9 @@
      "set": {
       "tip": -70
      },
-     "dur": 0.14,
+     "dur": 0.12,
      "ease": "inOut",
-     "at": 0.9
+     "at": 0.76
     },
     {
      "do": "prop",
@@ -2338,25 +2358,28 @@
      "set": {
       "fill": 0
      },
-     "dur": 0.2,
+     "dur": 0.16,
      "ease": "inOut",
-     "at": 1.04
+     "at": 0.88
     },
     {
      "sfx": "gulp",
      "gain": 0.45,
-     "at": 1.06
+     "at": 0.9
     },
     {
      "who": "dra",
      "do": "expr",
-     "expr": "focused",
-     "set": {
-      "eye": 0.4,
-      "open": 0.15
-     },
+     "expr": "deadpan",
      "dur": 0.08,
-     "at": 1.06
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0.08,
+     "at": 0.9
     },
     {
      "who": "wiz",
@@ -2367,7 +2390,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 1.09
+     "at": 0.93
     },
     {
      "who": "wiz",
@@ -2379,26 +2402,26 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 1.14
+     "at": 0.98
     },
     {
      "who": "wiz",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 1.14
+     "at": 0.98
     },
     {
      "who": "wiz",
      "do": "still",
      "dur": 0.8,
      "idle": 0.08,
-     "at": 1.14
+     "at": 0.98
     },
     {
      "sfx": "gulp",
      "gain": 0.4,
-     "at": 1.2
+     "at": 1.04
     },
     {
      "who": "dra",
@@ -2418,9 +2441,9 @@
        0.54
       ]
      },
-     "dur": 0.4,
+     "dur": 0.34,
      "ease": "inOut",
-     "at": 1.26
+     "at": 1.06
     },
     {
      "do": "prop",
@@ -2428,24 +2451,24 @@
      "set": {
       "tip": -15
      },
-     "dur": 0.4,
+     "dur": 0.34,
      "ease": "inOut",
-     "at": 1.26
+     "at": 1.06
     },
     {
      "who": "dra",
      "do": "pitch",
      "to": -8,
-     "dur": 0.3,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 1.28
+     "at": 1.08
     },
     {
      "who": "dra",
      "do": "squash",
      "amount": -0.15,
-     "dur": 0.6,
-     "at": 1.28
+     "dur": 0.4,
+     "at": 1.08
     },
     {
      "who": "dra",
@@ -2458,20 +2481,20 @@
       "curve": -0.1
      },
      "dur": 0.12,
-     "at": 1.28
+     "at": 1.08
     },
     {
      "who": "dra",
      "do": "face",
      "press": 1,
      "dur": 0.12,
-     "at": 1.28
+     "at": 1.08
     },
     {
      "sfx": "gasp",
      "gain": 0.35,
      "reason": "dra breathes in after the hot sauce",
-     "at": 1.28
+     "at": 1.08
     }
    ],
    "kind": "payoff"

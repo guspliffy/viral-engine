@@ -75,7 +75,7 @@ const props = [
   { id: "table", kind: "cafetable", x: TABLE[0], z: TABLE[1], h: TH, r: TABLE_R },
   MUG_D, MUG_W, B1, B2,
   { id: "candle", kind: "pillarcandle", x: CANDLE[0], y: CANDLE[1], z: CANDLE[2], scale: CAN_S, lit: 0 },
-  { id: "spark", kind: "breath", mouth: "dra", target: "candle", at: [0, COPYCAT.candle.wickTop + 0.006, 0], width: 0.011 },
+  { id: "spark", kind: "breath", mouth: "dra", target: "candle", at: [0, COPYCAT.candle.wickTop + 0.006, 0], width: 0.022 },
   { id: "sidewall", kind: "sidewall", x: SIDE_X, z: -0.1, rot: -90, w: 4.4, h: 3.6 },
   { id: "hole", kind: "wallhole", x: HOLE[0], y: HOLE[1], z: HOLE[2], rot: -90, r: 0.42, floor: HOLE[1], wall: "#f1dfc2", open: 0, burst: 0 },
   { id: "blast", kind: "breath", mouth: "wiz", target: "hole", at: [0, 0, 0], width: 0.07 },
@@ -95,7 +95,11 @@ const inhale = (t, who, d = 0.35) => {
   sfx(t, "gasp", { gain: 0.35, reason: `${who} breathes in after the hot sauce` });
 };
 // a gulp: two swallows (the same two sounds for both, so the copy is heard too)
-const gulp = (t, who) => { sfx(t, "gulp", { gain: 0.45 }); sfx(r3(t + 0.14), "gulp", { gain: 0.4 }); A(t, who, "expr", { expr: "focused", set: { eye: 0.4, open: 0.15 }, dur: 0.08 }); };
+const gulp = (t, who, calm = false) => {
+  sfx(t, "gulp", { gain: 0.45 }); sfx(r3(t + 0.14), "gulp", { gain: 0.4 });
+  if (calm) { A(t, who, "expr", { expr: "deadpan", dur: 0.08 }); A(t, who, "face", { lid: 0.35, dur: 0.08 }); }   // Dragon: unbothered
+  else A(t, who, "expr", { expr: "focused", set: { eye: 0.4, open: 0.15 }, dur: 0.08 });
+};
 
 // ---------------------------------------------------------------- 01 SIP 0.0-1.3
 A(0, "dra", "wings", { to: 0.3, dur: 0 });                               // his orange wings a little open, so they read
@@ -118,9 +122,9 @@ wCup.carry(0.6, CHEST_W, 0.25, "inOut", { tip: 0 });
 A(0.6, "wiz", "expr", { expr: "happy", set: { eye: 0.4 }, dur: 0.15 });
 A(0.6, "wiz", "talk", { line: "aah!", tone: "excited", dur: 0.45, voice: false });
 dCup.put(0.75, MUG_D0, { dur: 0.3 });
-sfx(1.05, "put-down", { gain: 0.9 });
+sfx(1.05, "put-down", { gain: 1.3 });
 wCup.put(0.9, MUG_W0, { dur: 0.3 });
-sfx(1.2, "put-down", { gain: 0.9 });
+sfx(1.2, "put-down", { gain: 1.3 });
 A(0.95, "dra", "look", { to: DRA_AT_WIZ, dur: 0.15, blink: false });
 A(1.0, "dra", "expr", { expr: "deadpan", set: { curve: -0.05 }, dur: 0.25 });
 A(1.1, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.15, blink: false });
@@ -136,9 +140,9 @@ A(1.9, "dra", "lean", { to: 0, dur: 0.25 }); A(2.05, "wiz", "lean", { to: 0, dur
 
 // ---------------------------------------------------------------- 03 STRETCH 2.1-2.9: arms up wider than the hat brim
 // Dragon (no hat) reaches straight up; the Wizard the same, only wide enough to clear his hat brim
-const UP = { dra: { o: [-0.12, 1.2, 0.02] }, wiz: { o: [0.2, 1.12, 0.06] } };
+const UP = { dra: { R: { o: [0.1, 1.2, 0.02] }, L: { o: [-0.2, 1.2, 0.02] } }, wiz: { R: { o: [0.2, 1.14, 0.06] }, L: { o: [0.26, 1.14, 0.06] } } };
 for (const [who, t0] of [["dra", 2.12], ["wiz", 2.27]]) {
-  for (const s of ["R", "L"]) { c.arm(t0, who, s, UP[who], 0.3, "settle"); A(t0, who, "grip", { side: s, shape: "fist", dur: 0.2 }); }
+  for (const s of ["R", "L"]) { c.arm(t0, who, s, UP[who][s], 0.3, "settle"); A(t0, who, "grip", { side: s, shape: "fist", dur: 0.2 }); }
   A(t0, who, "squash", { amount: -0.08, dur: 0.6 });
   for (const s of ["R", "L"]) { c.arm(t0 + 0.45, who, s, "rest", 0.3, "inOut"); A(t0 + 0.55, who, "grip", { side: s, shape: "relaxed", dur: 0.2 }); }
 }
@@ -160,13 +164,13 @@ A(3.65, "dra", "turn", { to: 30, dur: 0.3, ease: "inOut" });
 A(3.65, "dra", "pitch", { to: 9, dur: 0.3, ease: "inOut" });
 A(3.7, "dra", "face", { lid: 0.15, brow: 0, dur: 0.15 });
 A(3.7, "dra", "expr", { expr: "focused", set: { pucker: 0.9, open: 0.15 }, dur: 0.15 });
-c.prop(3.85, "spark", { on: 1, fire: 0.35, len: 0.1 }, 0.03);
-c.prop(3.88, "spark", { len: 1 }, 0.1, "out");
+c.prop(3.82, "spark", { on: 1, fire: 0.6, len: 0.1 }, 0.03);
+c.prop(3.85, "spark", { len: 1 }, 0.07, "out");
 sfx(3.8, "ai/ignite", { gain: 0.8, reason: "the wick catches (3.98)" });
 c.prop(3.98, "candle", { lit: 1 }, 0.12, "out");
-c.prop(4.05, "spark", { on: 0, len: 0, fire: 0 }, 0.08);
-A(4.1, "dra", "pitch", { to: 0, dur: 0.3 }); A(4.1, "dra", "turn", { to: DRA_YAW, dur: 0.35 });
-A(4.12, "dra", "expr", { expr: "smug", dur: 0.25 });
+c.prop(4.18, "spark", { on: 0, len: 0, fire: 0 }, 0.08);   // held long enough to read as fire breath (review A)
+A(4.22, "dra", "pitch", { to: 0, dur: 0.3 }); A(4.22, "dra", "turn", { to: DRA_YAW, dur: 0.35 });
+A(4.24, "dra", "expr", { expr: "smug", dur: 0.25 });
 A(3.75, "wiz", "look", { to: WIZ_AT_CANDLE, dur: 0.15, blink: false });
 A(4.0, "wiz", "expr", { expr: "shocked", set: { eye: 1.2, open: 0.2 }, dur: 0.15 });
 act.idea(c, 4.2, "wiz", { at: WIZ_AT_BOTTLE, hold: 0.2 });
@@ -202,7 +206,7 @@ c.prop(6.07, "hole", { burst: 3 }, 3, "linear");
 c.hitStop(6.07);
 c.at(6.07, { fx: "flash", peak: 0.35, dur: 0.2 });
 c.at(6.07, { fx: "shake", amp: 0.07, dur: 0.5 });
-c.at(6.1, { fx: "poof", pos: [HOLE[0], r3(HOLE[1] - 0.5), r3(HOLE[2] + 0.3)], color: "#f1dfc2", puffs: 8, sparks: 0, speed: 0.6, dur: 1.0 });
+c.at(6.1, { fx: "poof", pos: [r3(HOLE[0] - 0.05), r3(HOLE[1] - 0.5), r3(HOLE[2] - 0.15)], color: "#f1dfc2", puffs: 14, sparks: 0, speed: 0.6, dur: 0.8 });   // at the wall, clear of the Wizard's face
 sfx(6.07, "impact", { gain: 0.9 });
 sfx(6.1, "crumble", { gain: 0.8 });
 c.prop(6.4, "blast", { on: 0, fire: 0 }, 0.2, "inOut");
@@ -223,33 +227,35 @@ A(7.3, "dra", "expr", { expr: "deadpan", set: { curve: 0 }, dur: 0.3 });
 A(7.3, "dra", "face", { lid: 0.35, brow: 0, dur: 0.3 });
 A(7.3, "dra", "still", { dur: 0.32, idle: 0.05 });
 A(7.62, "dra", "look", { to: DRA_AT_BOTTLE, dur: 0.12, blink: false });
-let tb = dBot.take(7.62, { reach: 0.22, settle: 0.14 });
-tb = dBot.carry(tb, OVER_D, 0.12, "inOut");
-tb = dBot.carry(tb, GULP_D, 0.14, "inOut", { tip: -70 });
-gulp(r3(tb + 0.02), "dra");
-c.prop(tb, "bottle2", { fill: 0 }, 0.2, "inOut");
-dBot.carry(r3(tb + 0.22), [-0.24, 0.48, 0.54], 0.4, "inOut", { tip: -15 });   // the bottle lowering
-inhale(r3(tb + 0.24), "dra", 0.3);
+let tb = dBot.take(7.62, { reach: 0.14, settle: 0.1 });
+tb = dBot.carry(tb, OVER_D, 0.1, "inOut");
+tb = dBot.carry(tb, GULP_D, 0.12, "inOut", { tip: -70 });
+gulp(r3(tb + 0.02), "dra", true);
+c.prop(tb, "bottle2", { fill: 0 }, 0.16, "inOut");
+dBot.carry(r3(tb + 0.18), [-0.24, 0.48, 0.54], 0.34, "inOut", { tip: -15 });   // the bottle lowering
+inhale(r3(tb + 0.2), "dra", 0.2);   // held from about 8.5 to the end
 A(r3(tb + 0.05), "wiz", "look", { to: WIZ_AT_DRA, dur: 0.1, blink: false });
 act.shock(c, r3(tb + 0.1), "wiz", { open: 0.35, eye: 1.3, brow: 0.45, dur: 0.15, hold: 0.6 });
 act.blinksAt(c, "dra", [2.85, 5.25]);
-act.blinksAt(c, "wiz", [2.95, 4.9]);
+act.blinksAt(c, "wiz", [3.17, 4.9]);   // he copies the blink too, a beat late
 
 // ---------------------------------------------------------------- shots (set by hand: a vertical two-shot crops the
 // outer shoulders, as the board does; the wide shows the wall hole)
 const TWO = frame([0, 0.9, 0.3], { h: 3.05, fov: 30 });
 const CLOSE2 = frame([-0.16, 0.84, 0.3], { h: 2.6, fov: 30 });
 const WIDE = frame([0.56, 1.0, 0.2], { h: 4.2, fov: 34, az: -10 });
+const NEAR = frame([0.12, 0.8, 0.3], { h: 2.68, fov: 30 });   // closer for the candle and the bottles (review A)
 const PAY = frame([0, 0.86, 0.3], { h: 2.9, fov: 30 });
 const beats = c.beats([
   ["sip", 0, TWO, "hook"],
   ["tilt", 1.3, CLOSE2],
   ["stretch", 2.1, TWO],
   ["step", 2.9, "keep"],
-  ["small flame", 3.6, "keep"],
+  ["small flame", 3.6, NEAR],
   ["hot sauce", 4.5, "keep", "escalation"],
   ["too much", 5.8, WIDE, "reveal"],
-  ["copy back", 7.3, PAY, "payoff"],
+  ["shocked", 6.5, PAY],                          // review A: back to the two-shot for both shocked faces
+  ["copy back", 7.3, "keep", "payoff"],
 ], END);
 
 write(import.meta.url, {
