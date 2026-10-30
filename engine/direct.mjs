@@ -13,15 +13,18 @@
 // stays under a caption, feet stay above the app's caption bar, and a close-up leaves look room on the side the
 // character faces. Every shot keeps the master camera's direction, so the camera never crosses the line.
 // Cuts land on action: a cut moves to two frames into the nearest move, turn or reach of who acts (within 0.35 s of
-// the beat), and two shots that would differ by less than a jump-cut's worth stay one shot.
+// the beat), and two shots that would differ by less than a jump-cut's worth stay one shot. When a music beat is within
+// two frames of that cut and still between one and four frames into the move, the cut goes onto the beat (the grid
+// comes from music.mjs lockMusic, the same one the render locks the music to); action beats beat-sync.
 //
-//   "direct": { "master": { "pos": [...], "look": [...], "fov": 36 }, "push": 0.04, "snap": 0.22 }
+//   "direct": { "master": { "pos": [...], "look": [...], "fov": 36 }, "push": 0.04, "snap": 0.22, "beatCuts": true }
 //   a beat:   "kind": "reaction", "who": "wiz"                 (who: optional, else the actor who does the most)
 //             "shot": { "size": "close", "who": "wiz", "push": 0.05 } or "shot": "keep" or a plain camera
 //
 // Runs after compile (engine/load.mjs), so the renderer and every qa/ tool see the same resolved shots.
 import { actorState } from "./page/timeline.js";
 import { ease } from "./page/util.js";
+import { lockMusic } from "./music.mjs";
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const LEG_H = 0.14, EYE_K = 0.56;   // potato.js: legs, and the eyes' height on the body (measured from the layout)
@@ -123,17 +126,41 @@ const jump = (a, b) => {
   return ratio < JUMP && shift < 0.15 * Math.min(Va, Vb);
 };
 
-// the start of the nearest body movement of `who` near t: a cut rides on it, two frames in
+// the start of the nearest body movement of `who` near t: a cut rides on it, two frames in ({ c: the cut, at: the
+// move's start }, or null)
 function onAction(sb, who, t, lo, hi, fps) {
   let best = null;
   for (const a of sb.actions || []) {
     if (!who.includes(a.who) || !MOTION.has(a.do)) continue;
     const c = a.at + 2 / fps;
     if (a.at < t - 0.35 || a.at > t + 0.35 + 1e-6 || c < lo || c > hi) continue;
-    if (!best || Math.abs(c - t) < Math.abs(best - t)) best = c;
+    if (!best || Math.abs(c - t) < Math.abs(best.c - t)) best = { c, at: a.at };
   }
   return best;
 }
+
+// the music's beat times over the clip (seconds), from the grid music.mjs locks the bed to; [] without a grid (no
+// music, a trend sound, a file bed with a pinned skip)
+export function beatGrid(sb) {
+  const m = lockMusic(sb), dur = sb.duration;
+  const bpm = m && (m.lock?.bpm ?? (m.file ? null : m.bpm)), off = m && (m.lock?.offset ?? m.offset);
+  if (!bpm || off == null) return [];
+  const spb = 60 / bpm, out = [], from = m.from ?? 0, until = m.until ?? dur;
+  for (let k = Math.ceil((from - off) / spb - 1e-9); off + k * spb <= until + 1e-9; k++) out.push(off + k * spb);
+  return out;
+}
+
+// a cut on action moved onto a music beat: a beat within two frames of the cut, still one to four frames into the move
+// and inside [lo, hi], wins; the cut lands on the frame that shows the beat. Returns { c, onBeat }
+const nearest = (grid, t) => grid.reduce((b, g) => (b == null || Math.abs(g - t) < Math.abs(b - t) ? g : b), null);
+function toBeat(cut, grid, fps, lo, hi, snap = true) {
+  if (!cut || !grid.length || !snap) return { c: cut?.c, onBeat: false };
+  const b = nearest(grid, cut.c), f = Math.round(b * fps) / fps, t = Math.floor(f * 1000 + 1e-6) / 1000;   // never past the frame
+  if (Math.abs(b - cut.c) <= 2 / fps + 1e-6 && f >= cut.at + 1 / fps - 1e-6 && f <= cut.at + 4 / fps + 1e-6 && t >= lo - 1e-6 && t <= hi + 1e-6) return { c: t, onBeat: true };
+  return { c: cut.c, onBeat: false };
+}
+// a cut's distance to the nearest beat in ms (for reviews), or nothing without a grid
+const beatMs = (grid, t) => (grid.length ? { beatMs: Math.round((t - nearest(grid, t)) * 1000) } : {});
 
 // resolves the directed shots ({ direct, at } placeholders from compile.mjs) into cameras. Returns sb with
 // sb.shots replaced and sb.directed listing what was chosen (for reviews and qa).
@@ -145,6 +172,7 @@ export function direct(sb, chars) {
   const ctx = { D: dv.map((v) => v / n), fov: master.fov ?? 36, cast: Object.fromEntries((sb.cast || []).map((c) => [c.id, c])), chars };
   const caps = sb.captions || [], all = (sb.cast || []).map((c) => c.id);
   const plan = [...sb.shots].sort((a, b) => a.at - b.at).map((s, i, L) => ({ ...s, end: L[i + 1]?.at ?? dur }));
+  const grid = beatGrid(sb), snapBeats = cfg.beatCuts !== false;
 
   // 1. what each beat wants: a size, a subject, how it moves
   const want = plan.map((s, i) => {
@@ -170,9 +198,9 @@ export function direct(sb, chars) {
     if (w.s.direct.keep) return;
     const t0 = w.s.at, t1 = w.s.end, note = (o) => directed.push({ at: r3(o.at ?? t0), beat: i, kind: w.kind, size: w.size, ...o, at: r3(o.at ?? t0) });
     if (w.loopTail && out.length) {
-      const first = out[0], cut = onAction(sb, all, t0, lastCut + MIN_SHOT, t1 - 0.3, fps) ?? t0;
+      const first = out[0], lo = lastCut + MIN_SHOT, hi = t1 - 0.3, b = toBeat(onAction(sb, all, t0, lo, hi, fps), grid, fps, lo, hi, snapBeats), cut = b.c ?? t0;
       out.push({ at: r3(cut), pos: first.pos, look: first.look, fov: first.fov });
-      note({ at: cut, size: "opening", why: "loop: back to the opening shot" }); lastCut = cut; return;
+      note({ at: cut, size: "opening", why: "loop: back to the opening shot", onBeat: b.onBeat, ...beatMs(grid, cut) }); lastCut = cut; return;
     }
     const fr = frame(sb, ctx, { who: w.who, size: w.size, eyeOf: w.eyeOf, t0, t1, caps });
     if (!fr) return;
@@ -189,11 +217,12 @@ export function direct(sb, chars) {
       // too close to the shot already up for a cut: keep it, or ease it over with the action when the beat needs room
       const Vp = heightOf(prev), Vf = heightOf(fr);
       if (Math.max(Vp, Vf) / Math.min(Vp, Vf) < 1.08 && Math.hypot(prev.look[0] - fr.look[0], prev.look[1] - fr.look[1]) < 0.04 * Vp) { note({ why: "kept the shot (a cut would be a jump cut)" }); return; }
-      const go = onAction(sb, movers, t0, t0 - 0.35, t1 - 0.6, fps) ?? t0, from = camAt(out, go), d = r3(Math.min(1.2, t1 - go - 0.2));
+      const go = onAction(sb, movers, t0, t0 - 0.35, t1 - 0.6, fps)?.c ?? t0, from = camAt(out, go), d = r3(Math.min(1.2, t1 - go - 0.2));
       out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), to: cam(fr), dur: d, ease: "inOut" });
       note({ at: go, who: w.who, why: `reframed with the action over ${d} s (a cut would be a jump cut)` }); return;
     }
-    const cut = out.length ? onAction(sb, movers, t0, lastCut + MIN_SHOT, t1 - MIN_SHOT, fps) ?? t0 : 0;
+    const lo = lastCut + MIN_SHOT, hi = t1 - MIN_SHOT, b = out.length ? toBeat(onAction(sb, movers, t0, lo, hi, fps), grid, fps, lo, hi, snapBeats) : { c: 0, onBeat: false };
+    const cut = b.c ?? t0;
     const shot = { at: r3(cut), ...cam(fr) };
     if (w.push) {
       const k = 1 - w.push, L = fr.look, end = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
@@ -201,7 +230,7 @@ export function direct(sb, chars) {
       shot.dur = r3(end - cut); shot.ease = "linear";
     }
     out.push(shot); lastCut = cut;
-    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(cut !== t0 && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }) });
+    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(cut !== t0 && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }), ...(out.length > 1 && { onBeat: b.onBeat, ...beatMs(grid, cut) }) });
   });
   return { ...sb, shots: out, directed };
 }
