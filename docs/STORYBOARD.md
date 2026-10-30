@@ -182,6 +182,7 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
 | `reveal` | **wide** |
 | `insert` | **insert**: the prop the beat is about (or the hand on it) fills the frame, about 0.5 m of picture, 0.4-0.8 s, then back to the shot before it |
 | `threat` | **low angle** on who acts: the camera low (knee height), looking up 10-15°, a wider lens |
+| `chaos` | **dutch tilt**: medium on everyone, the picture turned 10° |
 | the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
 
 - **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
@@ -210,11 +211,26 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   the caption bar or out of the picture. From that low the floor sits near the horizon, so the lens gets wider
   (50-60°) and the picture has to stay on the painted plate: a plate hung for eye-level shots (3.9 m) is too small,
   Light My Candle uses 5.6 m. When nothing fits, `sb.directed` says so and the beat gets a straight shot.
-- After an insert or a low angle the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
+- **Dutch tilt** (`"kind": "chaos"`, or `"roll": 12` on any shot, 8-15°, + turns the picture clockwise): for chaos
+  beats. The shot gets a little more picture so heads and feet keep their places in the turned frame. A shot's
+  `roll` reaches the renderer through `cameraState` (`page/timeline.js`) and turns `camera.up` (`page/stage.js`).
+- **Over the shoulder** (`"shot": { "size": "ots", "who": "wiz", "over": "dra" }`): the face we read (`who`) over
+  the near one's shoulder (`over`, else whoever stands nearest), which takes about a third of the frame from the
+  side. The camera stays on the master's side of the line between the two, behind and beside the near one at its eye
+  height, and the near one never covers the far face. The two must face each other (turn them for the beat); the shot
+  sets `focus` on the far face, so the near one goes soft where the set has an aperture. Without a fit it is a close-up.
+- **Top-down** (`"shot": { "size": "top", "on": "cupcake", "at": [0, 0.13, 0] }`): straight down on a prop (table
+  scenes), 80° from level, about 0.95 m of picture, the far side of the table at the top.
+- **Establishing** (`"shot": { "size": "establishing", "plate": "assets/plates/<exterior>.png", "push": 0.04 }`): a
+  painted exterior fills the frame (cropped to 9:16, a slow push) for 0.5 s, then the shot before it comes back. Only
+  as a setup cut: never at frame 0 (frame 0 is action) and never from the payoff on. It needs a painted plate of the
+  place (new art: Jonny's call).
+- Dutch and over-the-shoulder shots warn in `sb.directed` when the picture shows past the set's plate.
+- After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
   from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
   camera keeps the shot, or eases over to the new framing with the action (up to 1.2 s).
-- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`, `"insert"`), `{ "size": "close", "who": "wiz",
+- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`, `"insert"`, `"top"`), `{ "size": "close", "who": "wiz",
   "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `{ "size": "medium", "push": 0.08 }` (a slow
   push to the next cut: one moving take for an opening), `"keep"`, or a plain `{ pos, look, fov }`.
   `"who"` on the beat names who acts; otherwise it is the actor doing the most. Options in the `direct` block:

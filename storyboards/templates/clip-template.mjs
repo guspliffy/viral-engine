@@ -63,7 +63,9 @@ act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_P
 // opening shot again), framed from where the characters are, cut on action (onto a music beat when one is within
 // two frames). Two more kinds: "insert" (the prop the beat is about fills the frame for 0.4-0.8 s; never in 0-3 s; give
 // { size: "insert", on: "<prop id>", at: [x, y, z] } for the point on it) and "threat" (a low angle on who acts, once
-// per clip). A size ("close", "mcu", "medium", "wide", "insert") or { size, who, push, angle: "low" } overrides it,
+// per clip), "chaos" (a dutch tilt). More by size: { size: "ots", who, over } over a shoulder, { size: "top", on }
+// straight down on a prop, { size: "establishing", plate } a painted exterior for 0.5 s (never at frame 0).
+// A size ("close", "mcu", "medium", "wide", "insert") or { size, who, push, angle: "low", roll } overrides it,
 // "keep" holds the camera, and a plain { pos, look, fov } is used as it is. docs/STORYBOARD.md, "Directed camera".
 const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };   // the master: its direction is every shot's
 const beats = c.beats([

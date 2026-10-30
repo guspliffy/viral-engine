@@ -11,6 +11,9 @@
 //                                                       0.4-0.8 s, then back to the wider shot; never in the first 3 s
 //   threat                                              low angle on who acts: the camera at knee height looking up
 //                                                       10-15 degrees, a wider lens; once per clip
+//   chaos                                               medium with a dutch tilt (10 degrees; "roll" sets 8-15)
+//   (by size) ots, top, establishing                    over the shoulder of `over` onto `who`; straight down on a prop;
+//                                                       a painted exterior for 0.5 s (never at frame 0)
 //
 // Framing comes from where the characters are (timeline.js, the same state the renderer draws): the acting face's
 // eye line sits on the upper third, the top of every head in shot (hat or crest included) keeps its headroom and
@@ -25,7 +28,9 @@
 //   a beat:   "kind": "reaction", "who": "wiz"                 (who: optional, else the actor who does the most)
 //             "shot": { "size": "close", "who": "wiz", "push": 0.05 } or "shot": "keep" or a plain camera
 //             "shot": { "size": "insert", "on": "cupcake", "at": [0, 0.12, 0] }   (at: the point on the prop, its own frame)
-//             "shot": { "size": "medium", "angle": "low" }
+//             "shot": { "size": "medium", "angle": "low" }   "shot": { "size": "mcu", "roll": -12 }
+//             "shot": { "size": "ots", "who": "wiz", "over": "dra" }   "shot": { "size": "top", "on": "cupcake" }
+//             "shot": { "size": "establishing", "plate": "assets/plates/autumn-sidewalk.png" }
 //
 // Runs after compile (engine/load.mjs), so the renderer and every qa/ tool see the same resolved shots.
 import fs from "node:fs";
@@ -51,8 +56,15 @@ export const SIZES = {
   close:  { V: 1.55, eye: 0.36, feet: null, head: "body" },
   // a prop (or the hand on it) filling the frame: picture height at the prop, where the prop's point sits (from the top)
   insert: { V: 0.52, at: 0.45 },
+  // over the shoulder: the picture at the far face, its eye line, where it sits across (away from the near one), and
+  // how much of the frame the near one's shoulder and head take
+  ots: { V: 1.75, eye: 0.36, across: 0.64, near: 0.33 },
+  // straight down on a table: the picture at the prop and how far from vertical the camera looks down (degrees)
+  top: { V: 0.95, pitch: 80, at: 0.5 },
 };
-const KIND_SIZE = { payoff: "mcu", reaction: "close", reveal: "wide", insert: "insert", threat: "medium" };
+const KIND_SIZE = { payoff: "mcu", reaction: "close", reveal: "wide", insert: "insert", threat: "medium", chaos: "medium" };
+const ROLL = [8, 15, 10];   // a dutch tilt's range and default (degrees)
+const EST = [0.4, 0.6];     // an establishing shot's length (s)
 const INSERT = [0.4, 0.8], INSERT_FROM = 3.0;   // an insert's length (s), and the earliest it may start (more cuts in 0-3 s lost viewers)
 const LOW = { tilts: [12, 11, 13, 10, 14, 15], feet: 0.72, maxFov: 64 };   // low angle: degrees up, the lowest the feet may sit, the widest lens
 const HEADROOM = 0.03, EYE_GIVE = 0.08, SIDE = 0.08, FACE = 0.3;   // headroom (share of the frame), how far the eye line may drop to keep it, side margin (m)
@@ -166,10 +178,11 @@ function project(pos, look, fov, p) {
 // does the picture stay on the set's painted plate? (a low or wide lens would show past its edges) The four corner
 // rays must meet the floor, or the plate's plane inside the picture; true without a plate
 const plateSize = (src) => { try { const b = fs.readFileSync(new URL(`../${src}`, import.meta.url)); return [b.readUInt32BE(16), b.readUInt32BE(20)]; } catch { return null; } };
-function onPlate(sb, pos, look, fov) {
+function onPlate(sb, pos, look, fov, roll = 0) {
   const P = sb.set?.plate, wh = P?.src && plateSize(P.src); if (!wh) return true;
   const h = P.height ?? 3.2, w = (h * wh[0]) / wh[1], [cx, cy] = P.center || [0, h / 2], z = P.z ?? -2.2;
-  const f = unit(sub(look, pos)), r = unit(cross(f, [0, 1, 0])), u = cross(r, f), k = Math.tan((fov * Math.PI) / 360);
+  const f = unit(sub(look, pos)), r0 = unit(cross(f, [0, 1, 0])), u0 = cross(r0, f), k = Math.tan((fov * Math.PI) / 360);
+  const q = (roll * Math.PI) / 180, r = r0.map((v, i) => v * Math.cos(q) - u0[i] * Math.sin(q)), u = u0.map((v, i) => v * Math.cos(q) + r0[i] * Math.sin(q));
   for (const [a, b] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
     const d = f.map((v, i) => v + r[i] * a * k * 9 / 16 + u[i] * b * k);
     if (d[2] >= -1e-6) return false;
@@ -192,6 +205,63 @@ function frameInsert(sb, ctx, { on, at, t0, t1, size }) {
   const el = Math.max(Math.asin(ctx.D[1]), (18 * Math.PI) / 180), h = unit([ctx.D[0], 0, ctx.D[2]]);
   const D = [h[0] * Math.cos(el), Math.sin(el), h[2] * Math.cos(el)], look = [P[0], P[1] - (0.5 - Z.at) * V, P[2]], d = V / k;
   return { pos: look.map((v, i) => r3(v + D[i] * d)), look: look.map(r3), fov, V, size, who: [], on, focus: P.map(r3) };
+}
+
+// straight down on a prop (a table scene): its point (median over the shot) in the middle, the camera on the master's
+// side tipped SIZES.top.pitch degrees down from level, so the top of the picture is the far side of the table
+function frameTop(sb, ctx, { on, at, t0, t1, size }) {
+  const pts = [];
+  for (let t = t0 + 0.02; t < t1 - 1e-6 || !pts.length; t += 0.05) { const p = propPoint(sb, ctx, on, at, Math.min(t, t1 - 0.01)); if (p) pts.push(p); else break; }
+  if (!pts.length) return null;
+  const med = (i) => { const v = pts.map((p) => p[i]).sort((a, b) => a - b); return v[v.length >> 1]; }, P = [med(0), med(1), med(2)];
+  const Z = SIZES.top, { fov } = ctx, k = 2 * Math.tan((fov * Math.PI) / 360), el = (Z.pitch * Math.PI) / 180, h = unit([ctx.D[0], 0, ctx.D[2]]);
+  const D = [h[0] * Math.cos(el), Math.sin(el), h[2] * Math.cos(el)], d = Z.V / k;
+  return { pos: P.map((v, i) => r3(v + D[i] * d)), look: P.map(r3), fov, V: Z.V, size, who: [], on, focus: P.map(r3), angle: "top" };
+}
+
+// over the shoulder of `over` (near, back to us, a third of the frame and soft) onto `who` (far, the face we read).
+// The camera stays on the master's side of the line between the two, behind and beside the near one at its eye
+// height; the far face's eye line on the upper third, across from the near one; the near one never covers the far
+// face. Searched over how far behind and beside the near one the camera sits; the near one's share nearest a third wins
+function frameOts(sb, ctx, { who, over, t0, t1, caps, size }) {
+  const A = ctx.cast[who], B = ctx.cast[over]; if (!A || !B) return null;
+  const tm = (t0 + Math.min(t1, t0 + 1.2)) / 2, a = anchors(sb, A, ctx.chars[A.character], tm), b0 = anchors(sb, B, ctx.chars[B.character], tm);
+  // the near one by its body's middle (anchors' x and z sit on the face, in front of it)
+  const bs = actorState(sb, B, ctx.chars[B.character], tm), b = { ...b0, x: bs.x, z: bs.z };
+  const u = unit([b.x - a.x, 0, b.z - a.z]), n0 = [-u[2], 0, u[0]], n = dot(n0, ctx.D) >= 0 ? n0 : n0.map((v) => -v), Z = SIZES.ots;
+  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / 1920;
+  const others = Object.values(ctx.cast).filter((c) => c.id !== who && c.id !== over).map((c) => anchors(sb, c, ctx.chars[c.character], tm));
+  let best = null;
+  for (let back = 0.2; back <= 1.6 + 1e-6; back += 0.1) for (let side = 0.15; side <= 1.4 + 1e-6; side += 0.05) for (const lift of [0.04, 0.12]) {
+    const C = [b.x + u[0] * back + n[0] * side, b.eye + lift, b.z + u[2] * back + n[2] * side];
+    if (Math.hypot(C[0] - b.x, C[2] - b.z) < b.half + 0.12 || others.some((o) => Math.hypot(C[0] - o.x, C[2] - o.z) < o.half + 0.12)) continue;
+    const E = [a.x, a.eye, a.z], dist = Math.hypot(...sub(E, C)), fov = (2 * Math.atan(Z.V / 2 / dist) * 180) / Math.PI;
+    if (fov < 18 || fov > 50) continue;
+    // which side the near one lands on with the far face centred, then the far face across from it
+    const f0 = unit(sub(E, C)), r0 = unit(cross(f0, [0, 1, 0])), nearLeft = dot(sub([b.x, b.eye, b.z], C), r0) < 0;
+    const W = (Z.V * 9) / 16, across = nearLeft ? Z.across : 1 - Z.across, up0 = cross(r0, f0);
+    const look = E.map((v, i) => v - r0[i] * (across - 0.5) * W - up0[i] * (0.5 - Z.eye) * Z.V);
+    // (like a close-up it may crop a tall hat: the top of the body keeps the headroom)
+    const fa = project(C, look, fov, E), top = project(C, look, fov, [a.x, Math.min(a.hat, a.body + 0.1), a.z])[1];
+    if (Math.abs(fa[1] - Z.eye) > 0.03 || top < Math.max(HEADROOM, capBottom)) continue;
+    // the near one's inner edge over its whole height (body sides, head, hat), and the far face's near edge
+    const pts = [];
+    for (const y of [b.feet + 0.2, (b.feet + b.eye) / 2, b.eye, b.body, b.hat]) for (let k = 0; k < 16; k++) {
+      const g = (k * Math.PI) / 8, rr = (y > b.body ? 0.4 : 0.85) * b.half;   // the body round (tapered: 0.85 of its widest), the hat narrower
+      const q = project(C, look, fov, [b.x + rr * Math.cos(g), y, b.z + rr * Math.sin(g)]); if (q[2] > 0.05) pts.push(q);
+    }
+    if (!pts.length) continue;
+    const inner = nearLeft ? Math.max(...pts.map((q) => q[0])) : 1 - Math.min(...pts.map((q) => q[0]));
+    const faceEdge = (nearLeft ? fa[0] : 1 - fa[0]) - FACE / W;
+    if (inner > faceEdge - 0.03 || inner < 0.15) continue;
+    // on the plate first, then the near one's share nearest a third, from close to the line (about 30 degrees off it)
+    const off = (Math.atan2(side, back) * 180) / Math.PI;
+    const score = Math.abs(inner - Z.near) + 0.002 * Math.abs(fov - 30) + 0.002 * Math.abs(off - 30) + (onPlate(sb, C, look, fov) ? 0 : 1);
+    if (!best || score < best.score) best = { score, pos: C.map(r3), look: look.map(r3), fov: r3(fov), V: Z.V, size, who: [who], over, focus: E.map(r3), angle: "ots", near: r3(inner) };
+  }
+  if (!best) return null;
+  const { score, ...fr } = best;
+  return fr;
 }
 
 // a low angle on `id`: the camera low on the master's side of the line (from the knees to a quarter of the body up:
@@ -236,7 +306,7 @@ function camAt(shots, t) {
   if (!s.to) return s;
   const e = ease(s.ease || "inOut")(Math.min(1, Math.max(0, (t - s.at) / (s.dur ?? 1))));
   const L = (a, b) => a.map((v, i) => v + ((b ?? a)[i] - v) * e);
-  return { pos: L(s.pos, s.to.pos), look: L(s.look, s.to.look), fov: (s.fov ?? 32) + ((s.to.fov ?? s.fov ?? 32) - (s.fov ?? 32)) * e };
+  return { pos: L(s.pos, s.to.pos), look: L(s.look, s.to.look), fov: (s.fov ?? 32) + ((s.to.fov ?? s.fov ?? 32) - (s.fov ?? 32)) * e, roll: (s.roll ?? 0) + ((s.to.roll ?? s.roll ?? 0) - (s.roll ?? 0)) * e };
 }
 
 // the height of the picture at the look point (metres)
@@ -305,14 +375,18 @@ export function direct(sb, chars) {
     const acting = d.who ? [].concat(d.who) : quick.length ? quick : actorsIn(sb, s.at, s.end);
     const loopTail = sb.loop && i === plan.length - 1 && i > 0 && !d.size && !kind?.match(/payoff|reaction|reveal/);
     const size = d.size || KIND_SIZE[kind] || "medium", angle = d.angle || (kind === "threat" ? "low" : null);
+    const r = d.roll ?? (kind === "chaos" ? ROLL[2] : 0), roll = r ? Math.sign(r) * Math.min(ROLL[1], Math.max(ROLL[0], Math.abs(r))) : 0;
     // a medium or wide shot holds everyone in the scene, a medium close-up (the payoff) the faces of who acts, a
     // close-up only the lead, a low angle the one who acts, an insert no one (its prop: `on`, else the first prop
     // something happens to in the beat)
     const lead = acting.length ? acting.slice(0, 1) : all.slice(0, 1);
-    const who = d.frame ? [].concat(d.frame) : size === "insert" ? [] : angle === "low" ? (d.who ? [].concat(d.who) : lead) : size === "medium" || size === "wide" ? all : (size === "close" ? acting.slice(0, 1) : acting.slice(0, 2)).concat(acting.length ? [] : all.slice(0, 1));
+    const who = d.frame ? [].concat(d.frame) : size === "insert" || size === "top" || size === "establishing" ? [] : size === "ots" ? (d.who ? [].concat(d.who) : lead) : angle === "low" ? (d.who ? [].concat(d.who) : lead) : size === "medium" || size === "wide" ? all : (size === "close" ? acting.slice(0, 1) : acting.slice(0, 2)).concat(acting.length ? [] : all.slice(0, 1));
     const inBeat = (sb.actions || []).filter((a) => a.at >= s.at - 1e-6 && a.at < s.end);
-    const on = size === "insert" ? d.on ?? inBeat.map((a) => a.prop ?? (a.do === "prop" ? a.id : null)).find(Boolean) : null;
-    return { s, kind, size, angle, who, on, at: d.at, eyeOf: acting[0] || who[0], snap: d.snap ?? (kind === "payoff" ? cfg.snap ?? 0.22 : null), push: d.push ?? (size === "close" ? cfg.push ?? 0.04 : 0), loopTail, acting };
+    const on = size === "insert" || size === "top" ? d.on ?? inBeat.map((a) => a.prop ?? (a.do === "prop" ? a.id : null)).find(Boolean) : null;
+    // over the shoulder of: `over`, else whoever in the scene is nearest the one we read
+    const near = (id) => { const c = ctx.cast[id], p = c?.at || [0, 0]; return all.filter((q) => q !== id).sort((x, y) => Math.hypot(ctx.cast[x].at[0] - p[0], ctx.cast[x].at[1] - p[1]) - Math.hypot(ctx.cast[y].at[0] - p[0], ctx.cast[y].at[1] - p[1]))[0]; };
+    const over = size === "ots" ? d.over ?? near(who[0]) : null;
+    return { s, kind, size, angle, roll, over, plate: d.plate, who, on, at: d.at, eyeOf: acting[0] || who[0], snap: d.snap ?? (kind === "payoff" ? cfg.snap ?? 0.22 : null), push: d.push ?? (size === "close" ? cfg.push ?? 0.04 : 0), loopTail, acting };
   });
 
   // 2. the shots, beat by beat: a cut on action to a new framing, a reframe where a cut would be a jump cut
@@ -331,7 +405,26 @@ export function direct(sb, chars) {
     }
     const movers = w.acting.length ? w.acting : w.who;
     let fr = null;
-    if (w.size === "insert") {
+    if (w.size === "establishing") {
+      // a painted exterior for about half a second as a setup cut: never at frame 0 (frame 0 is action), never from the
+      // payoff on; the 3D camera stays where it is under it, and the shot before comes back after it
+      const why = !w.plate ? "no plate to show" : t0 < 1 / fps ? "frame 0 is action, never an establishing shot" : pay != null && t0 >= pay - 1e-6 ? "no establishing shot from the payoff on" : !out.length ? "nothing to come back to" : null;
+      if (why) { note({ why: `kept the shot (${why})` }); return; }
+      const prev = camAt(out, t0), cut = Math.max(t0, lastCut + EST[0]), next = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
+      out.push({ at: r3(cut), pos: prev.pos.map(r3), look: prev.look.map(r3), fov: r3(prev.fov), plate: w.plate, push: w.s.direct.push ?? 0.04, angle: "establishing" });
+      note({ at: cut, plate: w.plate, ...beatMs(grid, cut), ...(next - cut < EST[0] - 1e-6 && { warn: `the establishing shot lasts ${r3(next - cut)} s (at least ${EST[0]})` }) });
+      const back = Math.floor(Math.round((cut + 0.5) * fps) / fps * 1000 + 1e-6) / 1000;
+      if (next > cut + EST[1] + 1e-6) { out.push({ at: back, pos: prev.pos.map(r3), look: prev.look.map(r3), fov: r3(prev.fov), ...(prev.roll && { roll: prev.roll }) }); note({ at: back, size: "back", why: "back from the establishing shot to the shot before it" }); lastCut = back; }
+      else lastCut = cut - MIN_SHOT + EST[0];
+      return;
+    }
+    if (w.size === "top") {
+      fr = w.on ? frameTop(sb, ctx, { on: w.on, at: w.at, t0, t1, size: w.size }) : null;
+      if (!fr) note({ why: "no prop to look down on: a medium instead" });
+    } else if (w.size === "ots") {
+      fr = w.over ? frameOts(sb, ctx, { who: w.who[0], over: w.over, t0, t1, caps, size: w.size }) : null;
+      if (!fr) note({ why: "no over-the-shoulder fits (camera inside someone, the near one over the face): a close-up instead" });
+    } else if (w.size === "insert") {
       // an insert only sets up (before the payoff), never in the first 3 s, and needs something moving in it
       const why = !w.on ? "no prop to insert on" : t0 < (cfg.insertFrom ?? INSERT_FROM) - 1e-6 ? `no insert before ${cfg.insertFrom ?? INSERT_FROM} s` : pay != null && t0 >= pay - 1e-6 ? "no insert from the payoff on" : null;
       if (why) { note({ why: `kept the shot (${why})` }); return; }
@@ -340,8 +433,13 @@ export function direct(sb, chars) {
       if (lows++ < 1) fr = frameLow(sb, ctx, { who: w.who, t0, t1, caps, size: w.size });
       if (!fr) note({ why: lows > 1 ? "one low angle per clip: a straight shot instead" : "no low angle fits (headroom, feet, width): a straight shot instead" });
     }
-    fr ||= frame(sb, ctx, { who: w.who, size: w.size === "insert" ? "medium" : w.size, eyeOf: w.eyeOf, t0, t1, caps });
+    fr ||= frame(sb, ctx, { who: w.who.length ? w.who : all, size: w.size === "ots" ? "close" : SIZES[w.size]?.eye ? w.size : "medium", eyeOf: w.eyeOf, t0, t1, caps });
     if (!fr) return;
+    if (w.roll) {
+      // a dutch tilt: a little more picture, so the turned frame keeps the heads and feet in their places
+      const g = 1 + 0.6 * Math.sin((Math.abs(w.roll) * Math.PI) / 180), L = fr.look;
+      fr = { ...fr, pos: fr.pos.map((v, q) => r3(L[q] + (v - L[q]) * g)), V: fr.V * g, roll: w.roll };
+    }
     if (w.snap && out.length) {
       // the snap-in starts on the payoff's first big action and moves on from wherever the camera is (no cut)
       const go = (sb.actions || []).filter((a) => w.acting.includes(a.who) && (WEIGHT[a.do] ?? 0) >= 2 && a.at >= t0 - 1e-6 && a.at < t0 + 0.6).map((a) => a.at)[0] ?? t0;
@@ -349,30 +447,31 @@ export function direct(sb, chars) {
       // 15 % wider and snap in from there
       const up = camAt(out, go), other = !!out.findLast((q) => q.at <= go + 1e-6)?.angle;
       const L = fr.look, from = other ? { pos: fr.pos.map((v, q) => L[q] + (v - L[q]) * 1.15), look: L, fov: fr.fov } : up;
-      out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), to: cam(fr), dur: w.snap, ease: "out" });
+      out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), ...(from.roll && { roll: r3(from.roll) }), to: { ...cam(fr), ...(from.roll && { roll: 0 }) }, dur: w.snap, ease: "out" });
       note({ at: go, who: w.who, why: `snap-in to ${w.size} on ${w.who.join(" + ")} (${w.snap} s)` }); return;
     }
-    const prev = out.length ? camAt(out, t0) : null, newAngle = fr.size === "insert" || fr.angle === "low";
+    const prev = out.length ? camAt(out, t0) : null, newAngle = fr.size === "insert" || !!fr.angle || Math.abs((fr.roll ?? 0) - (prev?.roll ?? 0)) >= ROLL[0];
     if (prev && !w.push && !newAngle && jump(prev, fr)) {
       // too close to the shot already up for a cut: keep it, or ease it over with the action when the beat needs room
       const Vp = heightOf(prev), Vf = heightOf(fr);
       if (Math.max(Vp, Vf) / Math.min(Vp, Vf) < 1.08 && Math.hypot(prev.look[0] - fr.look[0], prev.look[1] - fr.look[1]) < 0.04 * Vp) { note({ why: "kept the shot (a cut would be a jump cut)" }); return; }
       const go = onAction(sb, movers, t0, t0 - 0.35, t1 - 0.6, fps)?.c ?? t0, from = camAt(out, go), d = r3(Math.min(1.2, t1 - go - 0.2));
-      out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), to: cam(fr), dur: d, ease: "inOut" });
+      out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), ...(from.roll && { roll: r3(from.roll) }), to: { ...cam(fr), ...((from.roll || fr.roll) && { roll: fr.roll ?? 0 }) }, dur: d, ease: "inOut" });
       note({ at: go, who: w.who, why: `reframed with the action over ${d} s (a cut would be a jump cut)` }); return;
     }
     const lo = lastCut + MIN_SHOT, hi = t1 - MIN_SHOT, move = out.length ? onAction(sb, movers, t0, lo, hi, fps) : null;
     const b = out.length ? toBeat(move, t0, grid, fps, lo, hi, snapBeats) : { c: 0, onBeat: false };
     const cut = b.c;
-    const shot = { at: r3(cut), ...cam(fr), ...(fr.focus && { focus: fr.focus }), ...(fr.size === "insert" ? { angle: "insert" } : fr.angle && { angle: fr.angle }) };
+    const shot = { at: r3(cut), ...cam(fr), ...(fr.focus && { focus: fr.focus }), ...(fr.roll && { roll: fr.roll }), ...(fr.size === "insert" ? { angle: "insert" } : fr.angle && { angle: fr.angle }) };
     if (w.push) {
       const k = 1 - w.push, L = fr.look, end = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
-      shot.to = { pos: fr.pos.map((v, q) => r3(L[q] + (v - L[q]) * k)) };
+      shot.to = { pos: fr.pos.map((v, q) => r3(L[q] + (v - L[q]) * k)), ...(fr.roll && { roll: fr.roll }) };
       shot.dur = r3(end - cut); shot.ease = "linear";
     }
     out.push(shot); lastCut = cut;
-    const extra = fr.size === "insert" ? { on: fr.on, ...(!movesOn(sb, fr.on, cut, Math.min(t1, cut + INSERT[1])) && { warn: "nothing moves in the insert" }) } : fr.angle === "low" ? { angle: "low", tilt: fr.tilt, turn: fr.turn, height: fr.height, fov: fr.fov } : {};
-    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(move && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }), ...(out.length > 1 && { onBeat: b.onBeat, ...beatMs(grid, cut) }), ...extra });
+    const past = (fr.roll || fr.angle === "ots") && !onPlate(sb, fr.pos, fr.look, fr.fov, fr.roll ?? 0) ? { warn: "the picture shows past the set's plate" } : {};
+    const extra = fr.angle === "ots" ? { over: fr.over, near: fr.near, fov: fr.fov } : fr.angle === "top" ? { on: fr.on } : fr.roll ? { roll: fr.roll } : fr.size === "insert" ? { on: fr.on, ...(!movesOn(sb, fr.on, cut, Math.min(t1, cut + INSERT[1])) && { warn: "nothing moves in the insert" }) } : fr.angle === "low" ? { angle: "low", tilt: fr.tilt, turn: fr.turn, height: fr.height, fov: fr.fov } : {};
+    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(move && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }), ...(out.length > 1 && { onBeat: b.onBeat, ...beatMs(grid, cut) }), ...extra, ...past });
     if (fr.size === "insert") {
       // 0.4-0.8 s, then back to the shot before it (wider) unless the next beat cuts first; the next cut may come 0.4 s in
       const back = cut + INSERT[1], next = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
