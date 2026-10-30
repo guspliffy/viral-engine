@@ -425,7 +425,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  // quality lab (branch quality-lab-01 only): set.lab { rim, occ, ground, charSat, line, soft } scales the character
+  // quality lab (branch quality-lab-01 only): set.lab { rim, occ, ground, charSat, skinGold, line, soft } scales the character
   // finish so one scene can be drawn in variants side by side; without it nothing changes
   const lab = setSpec?.lab || {};
   const charRamp = lab.soft ? smoothRamp(0, 1, 0.5, 0.35) : golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
@@ -511,6 +511,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       });
       patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });
       if (lab.charSat && !isSet && t.color) { const h = {}; t.color.getHSL(h); t.color.setHSL(h.h, Math.min(1, h.s * lab.charSat), h.l); }
+      // lab.skinGold (0 today .. 1): pulls the potato skin's base hue toward golden orange (29° in sRGB, about 30° in the lit
+      // frame, the reference's skin) by that share, so a lemon skin moves further than an already warm one (skin test 01)
+      if (lab.skinGold && (role === "skin" || role === "lid" || m.userData.skinTone) && t.color) { const h = {}, S = THREE.SRGBColorSpace; t.color.getHSL(h, S); t.color.setHSL(h.h + lab.skinGold * (29 / 360 - h.h), h.s, h.l, S); }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
