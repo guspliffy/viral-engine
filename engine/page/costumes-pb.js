@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { taperedTube, radialTexture } from "./geo.js";
+import { rad } from "./util.js";
 
 // PotatoBrawl's Phoenix and Reaper in 3D, from the game's colours and drawings (game/core.js palettes,
 // game/ui/draw-fighters.js): the Phoenix's flame crest and flame wings, the Reaper's hood and farm scythe.
@@ -46,7 +47,7 @@ export function phoenixCostume(C, ch) {
   return {
     hat: { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
     apply(st, t) {
-      const c = Math.max(0, st.charge || 0), fk = 1 + 0.06 * Math.sin(t * 11.3) + 0.04 * Math.sin(t * 17.9);
+      const c = Math.max(0, st.charge || 0), fk = 1 + 0.06 * Math.sin(t * rad(11.3)) + 0.04 * Math.sin(t * rad(17.9));
       mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
       halo.visible = c > 0.01; halo.scale.setScalar((0.5 + 2.1 * c) * fk); halo.material.opacity = Math.min(0.95, c * 1.2);
       // the beat's phase is integrated over time in timeline.js (t × speed would jump when the speed changes)
@@ -57,7 +58,7 @@ export function phoenixCostume(C, ch) {
         W.fan.rotation.set(-0.25 - 0.2 * ws, W.s * (0.5 - 0.35 * ws - 0.25 * fl), W.s * (-2.2 + 2.0 * ws + 0.15 * fl + flap)); W.fan.scale.setScalar(1.0 + 0.4 * ws + 0.4 * fl);
       }
       const ft = st.ft || { f: 0, s: 0 };   // follow-through (timeline.js): the fan trails the head
-      crest.rotation.set(0.05 * Math.sin(t * 3.1) + 0.7 * ft.f, 0, 0.06 - 0.7 * ft.s);
+      crest.rotation.set(0.05 * Math.sin(t * rad(3.1)) + 0.7 * ft.f, 0, 0.06 - 0.7 * ft.s);
     },
   };
 }

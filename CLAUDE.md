@@ -156,7 +156,10 @@ The output is a **beat storyboard** (relative timing + macros): see `docs/STORYB
 The template's camera is **directed from the story** (`"direct"`, `engine/direct.mjs`): mark each beat's `kind`
 (hook, payoff, reaction, reveal) and leave its camera out; set a shot by hand only where the story needs one the
 grammar doesn't give, and check the result with `qa/framing.mjs` and the draft stills.
-The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
+The template also carries **Jonny's lab picks** (30 Oct): a lead's gibberish line in the first half second
+(`act.opener`), depth of field with focus on who acts (`set.focus: "acting"`), stronger faces held longer
+(`clip({ faces: "strong" })`) and, on a hit, `act.impact` (impact frame, shake, stars and a 3-frame hit-stop). Each is
+opt-in per storyboard and has a flag at the top of the template; see `docs/STORYBOARD.md`. The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
 speaker's colour) and its builder has `textPop` for a comic word beside a head; both are 2D only (`engine/page/text.js`).
 
 ## Workflow for a clip: creative review and cheap checks first, then the full render

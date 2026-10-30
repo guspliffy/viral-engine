@@ -18,6 +18,7 @@ import os from "node:os";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
+import { renderTime } from "../engine/shared/holds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FONT = path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf");
@@ -144,7 +145,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   let times = o.times;
   if (Array.isArray(o.clip)) times = [];
   else if (!times) {
-    if (o.sb) times = beatTimes(loadStoryboard(o.sb));
+    if (o.sb) { const sb = loadStoryboard(o.sb); times = beatTimes(sb).map((t) => renderTime(sb.holds, t)); }   // on the video's clock (hit-stops)
     else {
       const d = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", o.clip], { encoding: "utf8" }).stdout);
       times = Array.from({ length: 8 }, (_, i) => Math.round(((i + 0.5) / 8) * d * 100) / 100);

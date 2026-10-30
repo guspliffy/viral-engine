@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { clamp } from "./util.js";
+import { clamp, rad } from "./util.js";
 
 // Props for "Don't Let Dragon Light the Pumpkin" (eight trend tests #06, 29 Oct 2026): Dragon's hollow pumpkin helmet,
 // the one flame plume his sneeze sends down the hall, and a tiny soot spot for Reaper's hood.
@@ -163,7 +163,7 @@ export const PUMPKIN_KINDS = {
     return {
       grip: 0,
       apply(ps, t) {
-        const g = clamp(ps.glow), on = clamp(ps.on), fl = 1 + 0.05 * Math.sin(t * 15.3) + 0.03 * Math.sin(t * 23.1 + 2);
+        const g = clamp(ps.glow), on = clamp(ps.on), fl = 1 + 0.05 * Math.sin(t * rad(15.3)) + 0.03 * Math.sin(t * rad(23.1) + 2);
         shellM.uniforms.uGlow.value = g * fl;
         eyeGlow.material.uniforms.uR.value = 0.3 + 0.1 * on; eyeGlow.material.uniforms.uA.value = 0.25 * g * fl;
         aura.material.uniforms.uR.value = 0.6 + 2.2 * on; aura.material.uniforms.uA.value = 0.6 * on * fl;

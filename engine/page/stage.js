@@ -5,11 +5,12 @@ import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld } from "./props3d.js";
-import { rng, clamp, ease } from "./util.js";
+import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
-import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
+import { storyTime } from "../shared/holds.js";
 import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
@@ -68,11 +69,12 @@ function buildPoof(f, i) {
       g.visible = k >= 0 && k <= d;
       if (!g.visible) return;
       g.position.copy(origin);
+      const sz = f.size ?? 1;   // `size` scales the puffs and their spread, `lift` raises the cloud (a landing's dust: small and low)
       for (const p of puffs) {
         const q = clamp((k - p.delay) / d);
         const r = p.dist * (1 - Math.exp(-q * 7));
-        p.s.position.copy(p.dir).multiplyScalar(r).add(new THREE.Vector3(0, 0.45 + q * 0.25, 0));
-        p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
+        p.s.position.copy(p.dir).multiplyScalar(r * sz).add(new THREE.Vector3(0, (f.lift ?? 0.45) + q * 0.25 * sz, 0));
+        p.s.scale.setScalar(p.size * sz * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
       const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
@@ -315,17 +317,35 @@ function shadeFx(f, t) {
   ctx.fillStyle = g; ctx.fillRect(-w / 2, -H, w, 2 * H); ctx.restore();
 }
 
+// an establishing shot ({ plate: "assets/plates/<name>.png", push }): the painted picture fills the frame instead of
+// the 3D scene, centred and cropped to 9:16, pushing in slowly over the shot
+const plateShots = new Map();
+function establishing(t) {
+  const shots = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at), s = shots.at(-1), img = s?.plate && plateShots.get(s.plate);
+  if (!img) return false;
+  const next = (sb.shots || []).filter((q) => q.at > s.at).sort((a, b) => a.at - b.at)[0], dur = (next?.at ?? sb.duration) - s.at;
+  const k = 1 + (s.push ?? 0.04) * Math.min(1, Math.max(0, (t - s.at) / dur)), c = Math.max(W / img.width, H / img.height) * k;
+  ctx.drawImage(img, (W - img.width * c) / 2, (H - img.height * c) / 2, img.width * c, img.height * c);
+  return true;
+}
+
 function composite(t) {
-  ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
+  ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
+  for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
 async function init(data) {
-  sb = data.sb; charMats = []; photos.clear();
+  sb = data.sb; charMats = []; photos.clear(); plateShots.clear();
+  setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
+  for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
+    const img = new Image(); plateShots.set(s.plate, img);
+    (globalThis.__loads ||= []).push(new Promise((ok) => { img.onload = ok; img.onerror = ok; img.src = `/${s.plate.replace(/^\/+/, "")}`; }));
+  }
   globalThis.__DIAG = sb.debug || null;   // storyboard "debug": { "clearance": true } logs staff/arm clearance per frame
   const canvas = document.getElementById("gl");
   const opts = data.opts || {};
@@ -373,7 +393,7 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -526,6 +546,8 @@ function pose(t) {
   // the holder's head is usually between, so such a shot sets `near` past it
   const PR = shot && shot.prop && props.find((p) => p.spec.id === shot.prop);
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
+  // roll (a dutch tilt): up turned about the view direction, so the picture turns clockwise by cam.roll degrees
+  if (cam.roll) camera.up.applyAxisAngle(cl.clone().sub(cp).normalize(), (cam.roll * Math.PI) / 180);
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
   // the layout and contact checks project with the camera before anything is drawn: without this they used the
@@ -554,9 +576,10 @@ function frame(t) {
     // lids' light), so a frame that compiled a new program is drawn again: the picture no longer depends on what the
     // page drew before (a shard's first frame, a photo taken first, a prop's first appearance)
     const progs = R.info.programs.length;
-    styler.prepare(scene);
+    const fp = sb.set && sb.set.focus ? cameraState(sb, t).focus : undefined;   // a shot's own focus point (depth of field)
+    styler.prepare(scene, t, fp);
     styler.render(scene, camera);
-    if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, camera); }
+    if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
   }
   composite(t);
   return true;
@@ -712,6 +735,8 @@ function layout(t) {
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
   const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);
+  // slam words are over the action on purpose too: checked for the safe zone here, for the faces by qa/hook.mjs
+  for (const f of sb.fx || []) if (f.do === "slam" && t >= f.at && t <= f.at + (f.dur ?? 1.4)) { const L = slamBox(f); if (L) pops.push({ text: f.text, box: L.box, size: L.size, pop: true, slam: true }); }
   // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
   // characters actually cover, from a quarter-resolution silhouette render
   if (caps.length) {
@@ -1323,5 +1348,13 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur, trace, stateHash, movingBox };
+// every call takes render time; a hit-stop (engine/shared/holds.js) shows story time frozen for its frames, so the
+// picture holds while the video (and its sound) runs on. Without hit-stops the two clocks are the same.
+const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o === "object" && "t" in o ? { ...o, t } : o);
+window.ENGINE = {
+  init, sync, capture, motion, movingBox,
+  frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
+  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), trace: (t, thin) => trace(st(t), thin),
+  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+};
 window.ENGINE_READY = true;

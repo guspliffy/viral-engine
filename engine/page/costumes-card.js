@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { rad } from "./util.js";
 
 // Homemade cardboard wings ("Your Costume Is Better Than Mine", 29 Oct 2026): a copy of Phoenix's wings cut from
 // orange-painted card, strapped over the costume with two brown shoulder straps, tape on the seams. Any character gets
@@ -150,7 +151,7 @@ export function cardWings(C0, ch) {
     apply(st, t) {
       for (const side of ["R", "L"]) {
         const W = wings[side], k = { ...CARD_REST, ...(st.card?.[side] || {}) };
-        const fl = k.flutter * (Math.sin(t * 23 + W.phase) * 0.6 + Math.sin(t * 37.3 + 2 * W.phase) * 0.4);
+        const fl = k.flutter * (Math.sin(t * rad(23) + W.phase) * 0.6 + Math.sin(t * rad(37.3) + 2 * W.phase) * 0.4);
         // raise: from hanging (-1.3 rad at 0, straight down below 0, the tip by the feet) to lifted up and out (+0.9 at 1); the fold lets the whole wing sag
         W.raiseG.rotation.set(0, 0, -1.3 + 2.2 * k.raise - 0.3 * sstep(0, 1, k.fold) + 0.12 * fl);
         // the hinge gives: the outer feathers drop down
