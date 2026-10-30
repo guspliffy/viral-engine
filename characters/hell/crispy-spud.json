@@ -4,13 +4,20 @@
  "franchise": "PotatoBrawl",
  "rig": "potato",
  "body": {
-  "color": "#d8933c",
+  "color": "#c9761f",
   "height": 1,
   "width": 0.74,
   "depth": 0.7,
   "lump": 0.04,
   "seed": 21,
-  "taper": 0.16
+  "taper": 0.16,
+  "specks": 24,
+  "speckColor": "#a2581a",
+  "speckSize": 1.35,
+  "gloss": 0.85,
+  "drips": 10,
+  "shine": 3,
+  "dripColor": "#ffc53d"
  },
  "limbs": {
   "color": "#1f1d26",

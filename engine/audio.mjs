@@ -192,6 +192,17 @@ const SFX = {
     }
     return x;
   },
+  // a jet of fire from a pipe: a deep roaring fwoosh that bursts in, a ragged flutter of flame and crackles, tailing
+  // off (Real Footage of Hell: the tunnel's pipes)
+  flamejet(r, d = 0.8) {
+    const x = buf(d), lp = biquad("lp", 520, 0.8), bp = biquad("bp", 1400, 0.7), hp = biquad("hp", 3000, 0.8), cr = Array.from({ length: Math.round(d * 22) }, () => 0.05 + r() * (d - 0.12));
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, e = Math.min(1, t / 0.03) * Math.min(1, (d - t) / (d * 0.6)), flut = 0.75 + 0.25 * Math.sin(TAU * 17 * t + 2 * Math.sin(TAU * 5 * t));
+      let c = 0; for (const h of cr) c += env(t - h, 0.0004, 0.006, d);
+      x[i] = (run(lp, r() * 2 - 1) * 2.2 * flut + run(bp, r() * 2 - 1) * 0.5 * e) * e + run(hp, r() * 2 - 1) * c * 0.5;
+    }
+    return x;
+  },
   // a camera flash firing: the shutter's two clicks and a soft bright 'pff' of the flash between them
   flash(r) {
     const d = 0.35, x = buf(d), hp = biquad("hp", 1800, 0.8), bp = biquad("bp", 4200, 0.8);

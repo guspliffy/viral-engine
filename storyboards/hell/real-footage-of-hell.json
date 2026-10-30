@@ -149,7 +149,58 @@
    "h": 0.45,
    "bail": 1.62,
    "top": 2.04,
-   "oil": -0.04
+   "oil": -0.04,
+   "fries": [
+    [
+     -0.57,
+     0.3,
+     0,
+     0.1,
+     0.55
+    ],
+    [
+     -0.56,
+     -0.25,
+     -10,
+     0.1,
+     0.6
+    ],
+    [
+     0.57,
+     0.3,
+     0,
+     -0.1,
+     0.55
+    ],
+    [
+     0.56,
+     -0.24,
+     12,
+     -0.1,
+     0.5
+    ],
+    [
+     -0.05,
+     -0.42,
+     90,
+     -0.3,
+     0.55
+    ],
+    [
+     0.2,
+     -0.42,
+     80,
+     -0.22,
+     0.5
+    ],
+    [
+     -0.28,
+     -0.43,
+     100,
+     -0.26,
+     0.48
+    ]
+   ]
   },
   {
    "id": "spud1",
@@ -199,22 +250,68 @@
    "amp": 0.045
   },
   {
+   "id": "fries",
+   "kind": "fryfloat",
+   "x": 1.95,
+   "y": -0.04,
+   "z": -8.4,
+   "at": [
+    [
+     -0.55,
+     1.35,
+     30
+    ],
+    [
+     0.2,
+     0.9,
+     -50
+    ],
+    [
+     0.45,
+     2.1,
+     80
+    ],
+    [
+     -0.75,
+     -0.2,
+     10
+    ],
+    [
+     0.95,
+     -0.3,
+     -20
+    ],
+    [
+     -0.9,
+     -2.3,
+     60
+    ],
+    [
+     0.05,
+     0.1,
+     110
+    ]
+   ]
+  },
+  {
    "id": "vent1",
    "kind": "steamjet",
+   "fire": true,
    "x": -0.97,
    "y": 0.32,
    "z": -0.55,
    "len": 1,
-   "width": 0.2
+   "width": 0.22
   },
   {
    "id": "vent2",
    "kind": "steamjet",
+   "fire": true,
    "x": -0.97,
    "y": 1.05,
    "z": -2.25,
    "len": 1.1,
-   "width": 0.24,
+   "width": 0.26,
    "puffs": 22
   },
   {
@@ -933,11 +1030,11 @@
      "at": 1.32
     },
     {
-     "sfx": "steam",
-     "gain": 0.55,
-     "dur": 0.6,
+     "sfx": "flamejet",
+     "gain": 0.6,
+     "dur": 0.7,
      "pan": -0.5,
-     "reason": "the side vent on the left spits steam beside Reaper (1.42)",
+     "reason": "the pipe on the left spits a jet of fire beside Reaper (1.42): fwoosh",
      "at": 1.4
     },
     {
@@ -1123,10 +1220,10 @@
    },
    "do": [
     {
-     "sfx": "steam",
-     "gain": 0.8,
-     "dur": 0.75,
-     "reason": "the steam jet bursts from the pipe in the close-up (2.05): pssssh",
+     "sfx": "flamejet",
+     "gain": 0.85,
+     "dur": 0.8,
+     "reason": "the fire jet bursts from the pipe in the close-up (2.05): fwoosh",
      "at": 0.03
     },
     {
@@ -1971,13 +2068,13 @@
     },
     {
      "sfx": "ai/drip",
-     "gain": 0.4,
+     "gain": 0.18,
      "reason": "oil drips from the raised basket back into the vat",
      "at": 0.66
     },
     {
      "sfx": "ai/drip",
-     "gain": 0.3,
+     "gain": 0.15,
      "reason": "oil drips from the raised basket back into the vat",
      "at": 0.83
     },
@@ -2110,13 +2207,13 @@
     },
     {
      "sfx": "ai/drip",
-     "gain": 0.35,
+     "gain": 0.17,
      "reason": "oil drips from the raised basket back into the vat",
      "at": 0.98
     },
     {
      "sfx": "ai/drip",
-     "gain": 0.25,
+     "gain": 0.13,
      "reason": "oil drips from the raised basket back into the vat",
      "at": 1.12
     },
@@ -2182,7 +2279,7 @@
     },
     {
      "sfx": "ai/drip",
-     "gain": 0.3,
+     "gain": 0.15,
      "reason": "oil drips from the raised basket back into the vat",
      "at": 1.27
     },

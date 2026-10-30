@@ -67,16 +67,44 @@ export class Character {
     this.potatoParts.add(this.body);
 
     // specks
-    const speckM = new THREE.MeshStandardMaterial({ color: new THREE.Color(B.color).multiplyScalar(0.8), roughness: 0.9 });
+    // body.speckColor / speckSize: crispier marks (a fried potato: dark golden-brown, bigger)
+    const speckM = new THREE.MeshStandardMaterial({ color: B.speckColor ? new THREE.Color(B.speckColor) : new THREE.Color(B.color).multiplyScalar(0.8), roughness: 0.9 });
     speckM.userData.noOutline = true;
     for (let i = 0; i < (B.specks ?? 9); i++) {
       const th = (rnd() * 2 - 1) * 2.6, ph = (rnd() * 2 - 1) * 0.9;
       if (Math.abs(th) < 0.65 && ph > -0.45 && ph < 0.6) continue; // keep the face clear
       const s = this.surf(th, ph);
       // flat, low-contrast marks sunk into the skin (a colour patch, not a bead stuck on it)
-      const m = new THREE.Mesh(new THREE.SphereGeometry(0.018 + rnd() * 0.014, 12, 8), speckM);
+      const m = new THREE.Mesh(new THREE.SphereGeometry((0.018 + rnd() * 0.014) * (B.speckSize ?? 1), 12, 8), speckM);
       m.scale.set(1, 1, 0.12); m.position.copy(s.pos).addScaledVector(s.normal, -0.0015); m.lookAt(s.pos.clone().add(s.normal));
       this.potatoParts.add(m);
+    }
+
+    // body.drips: drops of hot fat running down the skin (glossy amber beads that slide down the sides and the chin,
+    // stretch and drop off, each on its own loop; drawn from the clip time in apply), and body.shine: white
+    // greasy highlights on the upper side. Their own random stream, so the rest of the body stays the same
+    this.drips = [];
+    if (B.drips || B.shine) {
+      const dr = rng((B.seed || 1) * 104729);
+      const dripM = new THREE.MeshPhysicalMaterial({ color: B.dripColor || "#f6b53c", roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.1 });
+      dripM.userData.noOutline = true; dripM.userData.lookRole = "drip";
+      const glintM = new THREE.MeshBasicMaterial({ color: "#fffaf0" }); glintM.userData.noOutline = true;
+      // the paths keep off the face (theta within 0.65 of the front, between the brows and below the mouth)
+      const paths = [[-0.95, 0.75], [0.95, 0.7], [-1.25, 0.55], [1.3, 0.6], [-1.6, 0.4], [1.65, 0.45], [-0.32, -0.42], [0.36, -0.45], [-0.75, 0.2], [0.8, 0.15], [-2.2, 0.5], [2.25, 0.55]];
+      for (let i = 0; i < (B.drips || 0); i++) {
+        const [th, ph0] = paths[i % paths.length], rad = 0.026 + dr() * 0.012, m = new THREE.Mesh(new THREE.SphereGeometry(rad, 12, 8), dripM);
+        // a white glint on the bead, so it reads as wet at phone size
+        const gl = new THREE.Mesh(new THREE.SphereGeometry(rad * 0.35, 8, 6), glintM); gl.position.set(-0.3 * rad, 0.4 * rad, 0.75 * rad); m.add(gl);
+        m.castShadow = false; this.potatoParts.add(m);
+        this.drips.push({ m, th: th + (dr() - 0.5) * 0.12, ph0, per: 1.1 + dr() * 0.9, off: dr() });
+      }
+      const shineM = new THREE.MeshBasicMaterial({ color: "#fff6dc", transparent: true, opacity: 0.75 }); shineM.userData.noOutline = true;
+      for (let i = 0; i < (B.shine || 0); i++) {
+        const [th, ph, w, h] = [[-0.9, 0.6, 0.022, 0.1], [-0.7, 0.76, 0.016, 0.05], [1.0, 0.5, 0.018, 0.07], [-1.15, 0.28, 0.014, 0.05]][i % 4];
+        const sp = this.surf(th, ph), m = new THREE.Mesh(new THREE.CircleGeometry(1, 20), shineM);
+        m.scale.set(w, h, 1); m.position.copy(sp.pos).addScaledVector(sp.normal, 0.003); m.lookAt(sp.pos.clone().add(sp.normal)); m.rotateZ(-0.5 * Math.sign(th));
+        this.potatoParts.add(m);
+      }
     }
 
     // face
@@ -541,6 +569,14 @@ export class Character {
 
     const fries = st.form === "fries";
     this.potatoParts.visible = !fries;
+    // fat drips: each slides down from its start, speeding up, stretches at the bottom and drops off, then a new
+    // bead swells at the start
+    for (const d of this.drips) {
+      const u = ((t / d.per + d.off) % 1), ph = d.ph0 - (d.ph0 + 0.95) * u ** 1.7, sp = this.surf(d.th, ph);
+      d.m.position.copy(sp.pos).addScaledVector(sp.normal, 0.012);
+      const grow = Math.min(1, u * 6), stretch = 1.3 + 2.2 * u;
+      d.m.scale.set(grow * 0.75, grow * stretch, grow * 0.7); d.m.visible = u < 0.97;
+    }
     this.fries.group.visible = fries;
     if (fries) this.fries.apply(st, t);
 

@@ -7,9 +7,9 @@
 //   Consequence: the crispy potato in the basket is delighted: a serene smile and a thumbs-up.
 //   Ending:      the frightened camera flees, Reaper with it (a hard cut at 8.00, no loop).
 //
-//   1 0.00-2.00  FOLLOW ME: running down the red tunnel, Reaper jogs backwards waving us on, turns and runs; a vent
-//                spits steam beside him, he flinches and keeps going, the camera dips                (steps, hiss)
-//   2 2.00-2.80  STEAM: a close-up of a fierce steam jet from a pipe, its feed pipe a silhouette in front  (pssssh)
+//   1 0.00-2.00  FOLLOW ME: running down the red tunnel, Reaper jogs backwards waving us on, turns and runs; a pipe
+//                spits fire beside him, he flinches and keeps going, the camera dips                 (steps, fwoosh)
+//   2 2.00-2.80  STEAM: a close-up of a jet of fire from a pipe (Jonny, 30 Oct: fire, not steam)        (fwoosh)
 //   3 2.80-4.00  SHADOWS: big potato-shaped shadows bobbing on the wall ahead through steam            (bubbling)
 //   4 4.00-6.00  THE FRYER: wide from the tunnel mouth: the vat, bubbling oil, bobbing potatoes, flames under it,
 //                the basket down in the oil on its chain; Reaper at the railing for scale              (roar)
@@ -71,14 +71,19 @@ const props = [
   // the flames roar in the burner's windows under the vat (they never come out of the oil): the walkway side, the front
   { id: "flames", kind: "burnerflames", x: r3(V.x - V.w / 2 - 0.08), y: r3(F.floor + 0.06), z: V.z, rot: -90, w: 0.44, h: 0.3, at: F.windows.map((z) => [r3(z - V.z), 0]) },
   { id: "flames2", kind: "burnerflames", x: V.x, y: r3(F.floor + 0.06), z: r3(V.z + V.d / 2 + 0.08), w: 0.44, h: 0.3, xs: F.frontWindows.map((x) => r3(x - V.x)) },
-  { id: "basket", kind: "fryerbasket", x: BK.x, y: SUB_Y, z: BK.z, rot: BASKET_ROT, w: 1.3, d: 1.05, h: 0.45, bail: 1.62, top: r3(F.gantry.y - 0.36), oil: V.oil },
+  { id: "basket", kind: "fryerbasket", x: BK.x, y: SUB_Y, z: BK.z, rot: BASKET_ROT, w: 1.3, d: 1.05, h: 0.45, bail: 1.62, top: r3(F.gantry.y - 0.36), oil: V.oil,
+    // French fries in the basket with him (Jonny, 30 Oct): leaning on the side walls, clear of the bail posts, and a row at the back
+    fries: [[-0.57, 0.3, 0, 0.1, 0.55], [-0.56, -0.25, -10, 0.1, 0.6], [0.57, 0.3, 0, -0.1, 0.55], [0.56, -0.24, 12, -0.1, 0.5], [-0.05, -0.42, 90, -0.3, 0.55], [0.2, -0.42, 80, -0.22, 0.5], [-0.28, -0.43, 100, -0.26, 0.48]] },
   { id: "spud1", kind: "bobspud", x: 1.25, y: r3(V.oil + 0.04), z: -6.6, r: 0.3, seed: 1 },
   { id: "spud2", kind: "bobspud", x: 2.6, y: r3(V.oil + 0.03), z: -7.0, r: 0.34, seed: 2 },
   { id: "spud3", kind: "bobspud", x: 1.6, y: r3(V.oil + 0.02), z: -8.1, r: 0.28, seed: 3, amp: 0.04 },
   { id: "spud4", kind: "bobspud", x: 2.75, y: r3(V.oil + 0.03), z: -8.5, r: 0.31, seed: 4 },
   { id: "spud5", kind: "bobspud", x: 1.1, y: r3(V.oil + 0.03), z: -10.5, r: 0.27, seed: 5, amp: 0.045 },
-  { id: "vent1", kind: "steamjet", x: r3(F.vents.shot1[0] + 0.28), y: F.vents.shot1[1], z: F.vents.shot1[2], len: 1.0, width: 0.2 },
-  { id: "vent2", kind: "steamjet", x: r3(F.vents.shot2[0] + 0.28), y: F.vents.shot2[1], z: F.vents.shot2[2], len: 1.1, width: 0.24, puffs: 22 },
+  // fries floating in the oil among the potatoes
+  { id: "fries", kind: "fryfloat", x: V.x, y: V.oil, z: V.z, at: [[-0.55, 1.35, 30], [0.2, 0.9, -50], [0.45, 2.1, 80], [-0.75, -0.2, 10], [0.95, -0.3, -20], [-0.9, -2.3, 60], [0.05, 0.1, 110]] },
+  // the tunnel's pipes spit fire (Jonny, 30 Oct: "there should come fire out of these pipes")
+  { id: "vent1", kind: "steamjet", fire: true, x: r3(F.vents.shot1[0] + 0.28), y: F.vents.shot1[1], z: F.vents.shot1[2], len: 1.0, width: 0.22 },
+  { id: "vent2", kind: "steamjet", fire: true, x: r3(F.vents.shot2[0] + 0.28), y: F.vents.shot2[1], z: F.vents.shot2[2], len: 1.1, width: 0.26, puffs: 22 },
   { id: "shadows", kind: "spudshadows", x: r3(F.half - 0.05), y: 1.5, z: -4.1, rot: -90, w: 3.0, h: 1.5, hot: 0 },
   { id: "vathaze", kind: "steamhaze", x: V.x, y: r3(V.oil + 0.3), z: r3(V.z - 0.8), w: 2.2, d: 3.4, r: 0.8, a: 0.1, n: 5 },
 ];
@@ -102,17 +107,17 @@ A(0.88, "rea", "turn", { to: 180, dur: 0.3, ease: "inOut" });
 A(1.0, "rea", "pitch", { to: 9, dur: 0.25 });
 A(0.95, "rea", "grip", { side: "both", shape: "fist", dur: 0.3 });
 act.pump(c, "rea", { ...RUN, t0: 1.05 }, { until: 4.05 });
-// the vent beside him spits steam: he flinches (a hop and a lean away from it) and keeps running
+// the pipe beside him spits fire: he flinches (a hop and a lean away from it) and keeps running
 const VENT = 1.42;
 c.prop(VENT, "vent1", { jet: 1 }, 0.06, "out"); c.prop(r3(VENT + 0.5), "vent1", { jet: 0.25 }, 0.4); c.prop(r3(VENT + 1.0), "vent1", { jet: 0 }, 0.3);
-sfx(r3(VENT - 0.02), "steam", { gain: 0.55, dur: 0.6, pan: -0.5, reason: "the side vent on the left spits steam beside Reaper (1.42)" });
+sfx(r3(VENT - 0.02), "flamejet", { gain: 0.6, dur: 0.7, pan: -0.5, reason: "the pipe on the left spits a jet of fire beside Reaper (1.42): fwoosh" });
 A(r3(VENT + 0.04), "rea", "hop", { height: 0.1, dur: 0.34 });
 A(r3(VENT + 0.04), "rea", "lean", { to: 14, dur: 0.12, ease: "out" }); A(r3(VENT + 0.3), "rea", "lean", { to: 0, dur: 0.3, ease: "inOut" });
 sfx(r3(VENT + 0.08), "gasp", { gain: 0.35, reason: "the camera operator's startled breath as the vent fires (the camera dips)" });
 
 // ---------------------------------------------------------------- 2 STEAM (2.0-2.8)
 c.prop(2.05, "vent2", { jet: 1 }, 0.05, "out"); c.prop(2.55, "vent2", { jet: 0.55 }, 0.25); c.prop(2.85, "vent2", { jet: 0 }, 0.3);
-sfx(2.03, "steam", { gain: 0.8, dur: 0.75, reason: "the steam jet bursts from the pipe in the close-up (2.05): pssssh" });
+sfx(2.03, "flamejet", { gain: 0.85, dur: 0.8, reason: "the fire jet bursts from the pipe in the close-up (2.05): fwoosh" });
 
 // ---------------------------------------------------------------- 3 SHADOWS (2.8-4.0)
 sfx(2.8, "bubbling", { gain: 0.45, dur: 1.25, reason: "off screen ahead: the oil bubbling, growing louder as the shadows bob on the wall" });
@@ -159,7 +164,7 @@ A(6.45, "spud", "expr", { expr: "kind", set: { curve: 0.9, open: 0, eye: 0.9, ti
 A(6.45, "spud", "face", { lid: 0.5, dur: 0.25 });
 A(6.62, "spud", "still", { dur: 0.75, idle: 0.04 });
 sfx(6.62, "ding", { gain: 0.32, reason: "one tiny cheerful chime as the thumbs-up lands (6.6)" });
-for (const [t, g] of [[6.66, 0.4], [6.83, 0.3], [6.98, 0.35], [7.12, 0.25], [7.27, 0.3]]) sfx(t, "ai/drip", { gain: g, reason: "oil drips from the raised basket back into the vat" });
+for (const [t, g] of [[6.66, 0.18], [6.83, 0.15], [6.98, 0.17], [7.12, 0.13], [7.27, 0.15]]) sfx(t, "ai/drip", { gain: g, reason: "oil drips from the raised basket back into the vat" });
 
 // ---------------------------------------------------------------- 6 NOPE (7.4-8.0)
 // Reaper (behind the camera, off screen) turns and flees with it; after the whip he runs ahead of us, his boots and

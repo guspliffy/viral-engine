@@ -12,9 +12,13 @@ import { clamp } from "./util.js";
 //                to spec.top (world y; it shortens as the basket rises, so it stays taut). `spill` 0..1 makes oil drip
 //                from its bottom back down to spec.oil (world y). A character stands in it with { do: "ride" }.
 //   steamjet     a jet of steam from a vent along the prop's +x: puffs that stream out, swell and thin. `jet` 0..1
-//                is how hard it blows (spec.len metres at full), spec.width the puffs' size.
+//                is how hard it blows (spec.len metres at full), spec.width the puffs' size. spec.fire: a jet of
+//                flame instead (white-yellow core, orange, red ragged edge; the tongues rise as they burn out) with a
+//                glow round the nozzle.
 //   steamhaze    a few large soft drifting veils of steam (spec.w wide), always there, spec.a their strength.
 //   bobspud      a whole plain potato floating in the oil (spec.r its size), bobbing and turning slowly.
+//   fryfloat     a few French fries floating in the oil (spec.at: [[x, z, yaw], ...] in the prop's frame), bobbing.
+// fryerbasket spec.fries: [[x, z, yaw, tilt, len], ...] French fries leaning in the basket (they ride it).
 //   spudshadows  the furnace light on a wall with big potato-shaped shadows bobbing across it (spec.w x spec.h,
 //                facing the prop's +z; spec.hot 1 or 0: which end the light comes from): what the oil throws on the tunnel wall before the reveal.
 // Oil, flames, steam, drips, shadows and light are see-through for the checks (opacity under 0.5); the basket's bars
@@ -23,23 +27,47 @@ const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return 
 const steamy = (o, order = 3) => { o.frustumCulled = false; o.renderOrder = order; o.castShadow = false; o.userData.steam = true; return o; };
 
 // a camera-facing disc of steam: soft round edge, lit warm from below (the furnace), white in the middle
-function puffMaterial() {
+function puffMaterial(fire = false) {
   const m = new THREE.ShaderMaterial({
-    uniforms: { uR: { value: 0.1 }, uA: { value: 0 }, uSeed: { value: 0 }, uTime: { value: 0 } },
+    uniforms: { uR: { value: 0.1 }, uA: { value: 0 }, uSeed: { value: 0 }, uTime: { value: 0 }, uFire: { value: fire ? 1 : 0 }, uHeat: { value: 1 } },
     vertexShader: `uniform float uR; varying vec2 vUv;
       void main() { vUv = uv; vec4 c = modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0); c.xy += (uv - 0.5) * 2.0 * uR; gl_Position = projectionMatrix * c; }`,
-    fragmentShader: `uniform float uA, uSeed, uTime; varying vec2 vUv;
+    fragmentShader: `uniform float uA, uSeed, uTime, uFire, uHeat; varying vec2 vUv;
       void main() {
         vec2 q = (vUv - 0.5) * 2.0; float a = atan(q.y, q.x), r = length(q);
-        float edge = 0.86 + 0.08 * sin(a * 4.0 + uSeed * 6.3 + uTime * 1.5) + 0.05 * sin(a * 7.0 - uSeed * 2.0);
+        float rag = uFire > 0.5 ? 0.16 : 0.08;
+        float edge = 0.86 + rag * sin(a * 4.0 + uSeed * 6.3 + uTime * (uFire > 0.5 ? 9.0 : 1.5)) + rag * 0.6 * sin(a * 7.0 - uSeed * 2.0 - uTime * 6.0 * uFire);
         float d = r / edge; if (d > 1.0) discard;
         vec3 col = mix(vec3(1.0, 0.97, 0.94), vec3(1.0, 0.62, 0.48), smoothstep(0.1, 0.9, -q.y * 0.5 + d * 0.6));
-        gl_FragColor = vec4(col, uA * (1.0 - smoothstep(0.45, 1.0, d)));
+        float al = uA * (1.0 - smoothstep(0.45, 1.0, d));
+        if (uFire > 0.5) {
+          // flame: a white-yellow core, orange, a red ragged rim; cooler (redder) as the tongue burns out (uHeat 1 -> 0)
+          float k = clamp(d * 1.1 + (1.0 - uHeat) * 0.6, 0.0, 1.0);
+          col = mix(vec3(1.0, 0.97, 0.7), vec3(1.0, 0.66, 0.12), smoothstep(0.0, 0.45, k));
+          col = mix(col, vec3(0.92, 0.22, 0.06), smoothstep(0.55, 0.95, k));
+          al = uA * (1.0 - smoothstep(0.75, 1.0, d));
+        }
+        gl_FragColor = vec4(col, al);
       }`,
     transparent: true, depthWrite: false, opacity: 0.4,
   });
   m.userData.noOutline = true;
   return m;
+}
+
+// a French fry: a long square stick with soft edges, golden with a browner, crispier tip at each end and a little
+// bend; origin at its bottom end, along +y
+const fryMats = () => ({
+  gold: new THREE.MeshStandardMaterial({ color: "#f2b53a", roughness: 0.35 }),
+  tip: new THREE.MeshStandardMaterial({ color: "#c9741e", roughness: 0.5 }),
+});
+function fryStick(M, len, th = 0.06, seed = 0) {
+  const g = new THREE.Group(), body = new THREE.Mesh(new THREE.BoxGeometry(th, len - 0.04, th, 1, 4, 1), M.gold);
+  const p = body.geometry.attributes.position, bend = 0.04 * (rnd(seed) - 0.5);
+  for (let i = 0; i < p.count; i++) { const y = p.getY(i) / (len - 0.04); p.setX(i, p.getX(i) + bend * (1 - 4 * y * y)); }
+  body.geometry.computeVertexNormals(); body.position.y = len / 2; body.castShadow = true; g.add(body);
+  for (const y of [0.02, len - 0.02]) { const e = new THREE.Mesh(new THREE.BoxGeometry(th * 0.96, 0.04, th * 0.96), M.tip); e.position.y = y; e.castShadow = true; g.add(e); }
+  return g;
 }
 
 export const HELL_KINDS = {
@@ -149,8 +177,15 @@ export const HELL_KINDS = {
       const o = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.009, 6, 12), linkM); o.scale.set(1, 1.5, 1);
       o.rotation.y = i % 2 ? Math.PI / 2 : 0; o.position.set(0, B + 0.12 + i * L, 0); o.castShadow = true; P.whole.add(o); return o;
     });
+    // French fries leaning in the basket (spec.fries), riding it with the potato
+    const FM = fryMats();
+    for (const [i, [fx, fz, yaw = 0, tilt = 0.3, len = 0.5]] of (S.fries || []).entries()) {
+      // standing on the floor wires, turned by yaw and leaning by tilt (radians) against the wall
+      const lean = new THREE.Group(), f = new THREE.Group(); lean.rotation.z = tilt; lean.add(fryStick(FM, len, 0.065, i + 3));
+      f.position.set(fx, 0.03, fz); f.rotation.y = (yaw * Math.PI) / 180; f.add(lean); P.whole.add(f);
+    }
     // the drips: drops that fall from the floor's wires to the oil, each on its own loop
-    const dropM = new THREE.MeshBasicMaterial({ color: "#ffb347", transparent: true, opacity: 0.45 }); dropM.userData.noOutline = true;
+    const dropM = new THREE.MeshBasicMaterial({ color: "#ffb43a", transparent: true, opacity: 0.45 }); dropM.userData.noOutline = true;
     const drops = Array.from({ length: 26 }, (_, i) => {
       const o = steamy(new THREE.Mesh(new THREE.SphereGeometry(0.022, 8, 6), dropM), 3); o.scale.set(1, 1.8, 1); P.whole.add(o);
       return { o, x: (rnd(i) - 0.5) * (W - 0.1), z: (rnd(i + 50) - 0.5) * (D - 0.1), ph: rnd(i + 90), per: 0.32 + rnd(i + 130) * 0.25 };
@@ -171,9 +206,17 @@ export const HELL_KINDS = {
     };
   },
   steamjet(P) {
-    const S = P.spec, n = S.puffs ?? 18, L = S.len ?? 1.2, W = S.width ?? 0.22;
+    const S = P.spec, n = S.puffs ?? 18, L = S.len ?? 1.2, W = S.width ?? 0.22, fire = !!S.fire;
+    // a flame jet lights the wall round its nozzle
+    let glow = null;
+    if (fire) {
+      const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d"), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.35, "rgba(255,255,255,0.35)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+      const gm = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), color: "#ff7a1a", transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+      gm.userData.noOutline = true; glow = steamy(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), gm), 4); glow.scale.setScalar(L * 1.4); glow.position.set(L * 0.35, 0, 0); P.whole.add(glow);
+    }
     const puffs = Array.from({ length: n }, (_, i) => {
-      const m = puffMaterial(); m.uniforms.uSeed.value = rnd(i);
+      const m = puffMaterial(fire); m.uniforms.uSeed.value = rnd(i);
       const o = steamy(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), m), 5 + (i % 3)); P.whole.add(o);
       return { o, m, ph: i / n + rnd(i + 11) * 0.05, jy: rnd(i + 21) - 0.5, jz: rnd(i + 31) - 0.5 };
     });
@@ -183,13 +226,22 @@ export const HELL_KINDS = {
         const j = clamp(ps.jet);
         for (const p of puffs) {
           // each puff runs out along +x over 0.5 s on a loop, swelling and rising as it slows
-          const u = (t * 2.2 + p.ph) % 1, s = 1 - (1 - u) * (1 - u);
-          p.o.position.set(s * L * (0.4 + 0.6 * j), p.jy * W * 0.6 * u + u * u * 0.18, p.jz * W * 0.6 * u);
-          p.m.uniforms.uR.value = W * (0.3 + 1.5 * u) * (0.5 + 0.5 * j);
-          p.m.uniforms.uA.value = j * 0.85 * Math.min(1, u * 8) * (1 - u) ** 1.2;
+          const u = (t * (fire ? 3.0 : 2.2) + p.ph) % 1, s = 1 - (1 - u) * (1 - u);
+          if (fire) {
+            // a tongue of flame: shoots out, rises as it burns, swells and then shrinks away
+            p.o.position.set(s * L * (0.35 + 0.65 * j), p.jy * W * 0.5 * u + u * u * 0.32 * L, p.jz * W * 0.5 * u);
+            p.m.uniforms.uR.value = W * (0.45 + 1.4 * Math.sin(Math.PI * Math.min(1, u * 1.15)) ) * (0.5 + 0.5 * j);
+            p.m.uniforms.uA.value = j * Math.min(1, u * 10) * (1 - u) ** 0.6;
+            p.m.uniforms.uHeat.value = 1 - u;
+          } else {
+            p.o.position.set(s * L * (0.4 + 0.6 * j), p.jy * W * 0.6 * u + u * u * 0.18, p.jz * W * 0.6 * u);
+            p.m.uniforms.uR.value = W * (0.3 + 1.5 * u) * (0.5 + 0.5 * j);
+            p.m.uniforms.uA.value = j * 0.85 * Math.min(1, u * 8) * (1 - u) ** 1.2;
+          }
           p.m.uniforms.uTime.value = t;
           p.o.visible = j > 0.01;
         }
+        if (glow) { glow.material.opacity = 0.75 * j * (0.85 + 0.15 * Math.sin(t * 23)); glow.visible = j > 0.01; }
       },
     };
   },
@@ -224,6 +276,22 @@ export const HELL_KINDS = {
     const spotM = new THREE.MeshStandardMaterial({ color: "#a8622a", roughness: 0.9 });
     for (let i = 0; i < 4; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(R * 0.16, 10, 8), spotM); const a = rnd(sd + i) * 6.28, b = 0.2 + rnd(sd + i + 9) * 0.8; s.position.set(Math.cos(a) * R * 1.22 * Math.cos(b) * 0.98, Math.sin(b) * R * 0.8, Math.sin(a) * R * Math.cos(b) * 0.98); s.scale.set(1, 0.35, 1); s.lookAt(0, 0, 0); body.add(s); }
     return { grip: 0, apply(ps, t) { const ph = sd * 1.7; bob.position.y = (S.amp ?? 0.05) * Math.sin(t * 2.6 + ph); bob.rotation.set(0.12 * Math.sin(t * 1.9 + ph), t * 0.25 + ph, 0.1 * Math.sin(t * 2.2 + ph * 2)); } };
+  },
+  fryfloat(P) {
+    const S = P.spec, FM = fryMats();
+    const fries = (S.at || []).map(([x, z, yaw = 0], i) => {
+      const f = fryStick(FM, 0.42 + 0.12 * rnd(i + 40), 0.065, i + 17); f.rotation.set(0, 0, Math.PI / 2);
+      const g = new THREE.Group(); g.add(f); f.position.set(0.24, 0, 0); g.position.set(x, 0, z); g.rotation.y = (yaw * Math.PI) / 180; P.whole.add(g);
+      // floating in the oil: no ground blob under them (it would darken the whole vat) and out of the contact checks
+      g.traverse((o) => { o.castShadow = false; o.userData.steam = true; });
+      return { g, ph: rnd(i + 60) * 6.3, x, z };
+    });
+    return {
+      grip: 0,
+      apply(ps, t) {
+        for (const f of fries) { f.g.position.y = -0.02 + 0.015 * Math.sin(t * 2.1 + f.ph); f.g.rotation.x = 0.08 * Math.sin(t * 1.7 + f.ph); }
+      },
+    };
   },
   spudshadows(P) {
     const S = P.spec, w = S.w ?? 2.4, h = S.h ?? 2.0;
