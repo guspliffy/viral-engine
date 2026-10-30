@@ -304,7 +304,7 @@
       "lean": 30,
       "thin": 0.006
      },
-     "dur": 0.12,
+     "dur": 0,
      "at": 0
     },
     {
@@ -405,7 +405,7 @@
      "dur": 0,
      "pose": null,
      "point": "pinch",
-     "at": 0.06
+     "at": 0
     },
     {
      "who": "wiz",

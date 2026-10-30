@@ -11,6 +11,14 @@ const CLIPS = [
     title: "Never Prank the Quiet Friend (one-take opening)",
     replace: ["01 the prank", "02 the foam", "03 the target", "04 the tickle"],
     // both faces, the feather and the foam on his palm in one frame from 0.0; a slow push until the cut at 3.1
+    // the Wizard's hand settles into the feather pinch over the first 0.1 s (a 71 deg turn and a smear at 0.07 s); in the
+    // master it hides in a tight shot, in the wider take it is on screen, so the pinch is set from frame 0
+    fix: sb => {
+      const b = sb.beats.find(b => b.name === "01 the prank");
+      const grip = b.do.find(d => d.who === "wiz" && d.do === "grip" && d.side === "R");
+      const grab = b.do.find(d => d.who === "wiz" && d.do === "grab" && d.prop === "feather");
+      grip.dur = 0; grab.at = 0;
+    },
     shot: { pos: [-0.45, 1.58, 6.5], look: [-0.04, 0.8, 0.42], fov: 30, to: { pos: [-0.4, 1.44, 5.7], look: [-0.03, 0.81, 0.45] }, dur: 3.1, ease: "inOut" },
   },
   {
@@ -30,6 +38,7 @@ for (const c of CLIPS) {
   const sb = JSON.parse(readFileSync(new URL(c.src, import.meta.url)));
   const beats = c.replace.map(n => sb.beats.find(b => b.name === n));
   if (beats.some(b => !b)) throw new Error(`${c.id}: the merged clip's opening changed`);
+  c.fix?.(sb);
   beats[0].shot = c.shot;
   for (const b of beats.slice(1)) b.shot = "keep";
   sb.id = c.id; sb.title = c.title;
