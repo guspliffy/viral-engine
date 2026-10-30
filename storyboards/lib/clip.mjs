@@ -8,19 +8,25 @@
 //   c.sfx(1.25, "scrape", { gain: 0.4 });  c.cap(0, 3, "That friend who never looks up.", 250);
 //   c.textPop(6.1, "rea", "gulp", { dur: 0.8 });                    // a comic word beside a head
 //   const beats = c.beats([["hook", 0, SHOT_A, "hook"], ["payoff", 6, SHOT_B]], 12);
-//   write(import.meta.url, { id: "my-clip", ...meta, cast, props, captions: c.captions, beats });
+//   write(import.meta.url, { id: "my-clip", ...meta, cast, props, captions: c.captions, beats, hitStop: c.hitStops });
+//
+// clip({ faces: "strong" }) makes the acting loops play stronger faces and hold them longer (Jonny's pick from the
+// quality lab, 30 Oct); c.hitStop(t) freezes the picture for three frames there (engine/shared/holds.js).
 //
 // Acting loops built on it live in acting.mjs; a new clip starts from templates/clip-template.mjs.
 import { writeFileSync } from "node:fs";
 
 export const r3 = (x) => Math.round(x * 1000) / 1000;
 
-export function clip() {
-  const items = [], captions = [];
+export function clip({ faces = "normal", fps = 30 } = {}) {
+  const items = [], captions = [], hitStops = [];
   const at = (t, it) => items.push({ ...it, at: r3(t) });
   const A = (t, who, what, o = {}) => at(t, { who, do: what, ...o });
   return {
-    items, captions, at, A,
+    items, captions, hitStops, at, A, faces, fps,
+    // a hit-stop: the whole picture holds for `frames` frames from t (snapped to a frame), then the clip carries on;
+    // the video gets that much longer and every sound after it moves with its picture
+    hitStop: (t, frames = 3) => hitStops.push({ at: r3(Math.round(t * fps) / fps), frames }),
     prop: (t, id, set, dur = 0.3, ease = "inOut") => at(t, { do: "prop", id, set, dur, ease }),
     sfx: (t, s, o = {}) => at(t, { sfx: s, ...o }),
     arm: (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, dur, ...(ease && { ease }) }),

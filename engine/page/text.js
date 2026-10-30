@@ -10,7 +10,9 @@
 // output pixels), holds, and puffs out: { "fx": "pop", "text": "GULP", "who": "rea", "dur": 0.8, "color": "#ffd60a",
 // "angle": -8, "size": 120, "burst": "#ffffff", "dx": 0.55, "dy": -0.3 }. It is kept inside the safe zone.
 // "color": "speaker" uses the character's caption colour (an emotion word over a head, acting.mjs emote).
-import { clamp, ease } from "./util.js";
+//
+// Slam words (fx "slam", at the end of this file): one or two huge words over the action in place of a hook caption.
+import { clamp, ease, lerp } from "./util.js";
 import { isPunch, shown } from "../shared/captions.js";
 
 const W = 1080;
@@ -154,6 +156,60 @@ export function drawPop(f, t, anchor) {
     ctx.lineWidth = size * 0.17;
     if (pass === "fill") { ctx.fillStyle = f.color === "speaker" ? accentOf(f.who) : f.color || DEFAULT_ACCENT; ctx.fillText(ch, xs[i], y); }
     else { ctx.strokeStyle = INK; ctx.fillStyle = INK; ctx.strokeText(ch, xs[i] + off, y + off); if (off) ctx.fillText(ch, xs[i] + off, y + off); }
+  });
+  ctx.restore();
+}
+
+// --- slam words (fx "slam"): one or two huge words that slam in over the action on the first frame, in place of a
+// hook caption (Scenario brief task 6, a hook-lab test): { "fx": "slam", "at": 0, "text": "NO!", "dur": 1.4,
+// "size": 300, "y": 230, "x": 490, "color": "#fff", "angle": -5 }. "text" is one or two words; a "\n" or a space puts
+// the second word on its own line. Frame 0 already shows it whole and readable (a little big), it squashes down onto
+// its place by the third frame with a short shake, holds, and shrinks out over the last 0.14 s. "size" is the cap
+// letters' font size in px (at least 300 on the 1080 frame); a word too wide for the safe zone is drawn smaller,
+// and qa/hook.mjs notes it. "color": "speaker" uses the caption colour of "who".
+const SLAM = { size: 300, x: (SAFE.x0 + SAFE.x1) / 2, y: 230, start: 1.1, land: 0.07, settle: 0.3, out: 0.14, squash: [1.06, 0.86], track: -0.02, cap: 0.73, line: 0.86, ink: 0.13, drop: 0.06 };
+const slamLines = (f) => String(f.text || "").trim().split(/\n|\s+/).filter(Boolean);
+// the size it is drawn at, its line height, and its ink box [x, y, w, h] at its biggest (frame 0), tilt included,
+// inside the safe zone. Capital letters only, so the box is the cap height, not the font's full line.
+export function slamBox(f) {
+  const lines = slamLines(f);
+  if (!lines.length) return null;
+  const big = Math.max(SLAM.start, SLAM.squash[0]), room = SAFE.x1 - SAFE.x0 - 16, a = Math.abs(((f.angle ?? -5) * Math.PI) / 180);
+  const widest = (s) => { ctx.save(); ctx.font = `900 ${s}px "CapBlack"`; ctx.letterSpacing = `${Math.round(SLAM.track * s)}px`; const w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)); ctx.restore(); return w; };
+  const dims = (s) => {
+    const w0 = (widest(s) + (SLAM.ink + SLAM.drop) * s) * big, h0 = ((lines.length - 1) * SLAM.line + SLAM.cap + SLAM.ink + SLAM.drop) * s * big;
+    return [w0 * Math.cos(a) + h0 * Math.sin(a), h0 * Math.cos(a) + w0 * Math.sin(a)];
+  };
+  let size = f.size ?? SLAM.size;
+  if (dims(size)[0] > room) size = Math.floor((size * room) / dims(size)[0]);
+  const [w, h] = dims(size);
+  const x = clamp((f.x ?? SLAM.x) - w / 2, SAFE.x0 + 8, SAFE.x1 - 8 - w), y = clamp(f.y ?? SLAM.y, SAFE.y0 + 8, SAFE.y1 - 8 - h);
+  return { box: [Math.round(x), Math.round(y), Math.round(w), Math.round(h)], size, lines, lh: size * SLAM.line };
+}
+export function drawSlam(f, t) {
+  const d = f.dur ?? 1.4, k = t - (f.at ?? 0);
+  if (k < 0 || k > d) return;
+  const L = slamBox(f); if (!L) return;
+  const { box, size, lines, lh } = L, cx = box[0] + box[2] / 2, cy = box[1] + box[3] / 2;
+  // scale: big on frame 0, squashed flat on landing, a springy settle; a decaying shake after the hit
+  const hit = clamp(k / SLAM.land), back = clamp((k - SLAM.land) / (SLAM.settle - SLAM.land)), out = clamp((k - (d - SLAM.out)) / SLAM.out);
+  const [qx, qy] = SLAM.squash, e = ease("back")(back);
+  let sx = k < SLAM.land ? lerp(SLAM.start, qx, ease("in")(hit)) : lerp(qx, 1, e), sy = k < SLAM.land ? lerp(SLAM.start, qy, ease("in")(hit)) : lerp(qy, 1, e);
+  const so = 1 - 0.1 * ease("in")(out); sx *= so; sy *= so;
+  const shake = k > SLAM.land ? Math.exp(-(k - SLAM.land) * 16) : 0, dx = 9 * shake * Math.sin(k * 97), dy = 6 * shake * Math.sin(k * 131 + 1);
+  ctx.save();
+  ctx.globalAlpha = 1 - ease("in")(out);
+  ctx.translate(cx + dx, cy + dy); ctx.rotate(((f.angle ?? -5) * Math.PI) / 180); ctx.scale(sx, sy);
+  ctx.font = `900 ${size}px "CapBlack"`; ctx.letterSpacing = `${Math.round(SLAM.track * size)}px`;
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic"; ctx.lineJoin = "round"; ctx.miterLimit = 2;
+  // baselines placed so the block of capitals (and its shadow) is centred on the box
+  const fill = f.color === "speaker" ? accentOf(f.who) : f.color || "#fff", y0 = ((SLAM.cap - SLAM.drop) * size) / 2 - ((lines.length - 1) * lh) / 2;
+  // hard drop shadow, a thick ink outline, then the fill (the caption and pop look, at poster size)
+  for (const pass of ["shadow", "ink", "fill"]) lines.forEach((ln, i) => {
+    const y = y0 + i * lh, off = pass === "shadow" ? size * SLAM.drop : 0;
+    ctx.lineWidth = size * SLAM.ink;
+    if (pass === "fill") { ctx.fillStyle = fill; ctx.fillText(ln, 0, y); }
+    else { ctx.strokeStyle = pass === "shadow" ? SHADOW : INK; ctx.fillStyle = pass === "shadow" ? SHADOW : INK; ctx.strokeText(ln, off, y + off); if (off) ctx.fillText(ln, off, y + off); }
   });
   ctx.restore();
 }

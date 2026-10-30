@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { clamp, lerp } from "./util.js";
+import { clamp, lerp, rad } from "./util.js";
 import { radialTexture } from "./geo.js";
 
 // Props for "The Ghost Photo Had One Extra Ghost" (eight trend tests #01, 29 Oct 2026), in their own file so clips made
@@ -244,7 +244,7 @@ export const GHOSTPHOTO_KINDS = {
         shades.position.set(gb * BEND[0], gy, gr * (1 - 0.22 * eShape * 0) * DZ + 0.006 + gb * BEND[1] + 0.03 * open);
         shades.rotation.set(-Math.atan2(gr - gr2, 0.04) * 0.8, 0, 0);
         // the shoulder glow and the smoke (grey on the cloth, glowing once it is ember)
-        const fl = 0.85 + 0.15 * Math.sin(t * 17.3) * Math.sin(t * 7.1 + 1);
+        const fl = 0.85 + 0.15 * Math.sin(t * rad(17.3)) * Math.sin(t * rad(7.1) + 1);
         glows.forEach((g, n) => {
           const th = (n ? 1 : -1) * 0.95, [rr, yy] = profAt(PROF, vAtY(PROF, (sp.shoulderY ?? (S.shape === "hat" ? S.brimY - 0.15 : S.h - S.r * 0.72))));
           g.position.set(Math.sin(th) * (rr + 0.03), yy, Math.cos(th) * (rr + 0.03) * DZ); const k = glow * (1 - burn); g.scale.setScalar(0.42 * k * fl + 1e-4); g.material.opacity = k; g.visible = k > 0.01;

@@ -42,6 +42,7 @@ import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { renderAudio, soundEvents, writeWav } from "../engine/audio.mjs";
 import { isHit, floorOf, SURFACES } from "../engine/sfx/library.mjs";
 import { lockMusic, addMusic } from "../engine/music.mjs";
+import { soundClock } from "../engine/shared/holds.js";
 
 const SR = 44100, FRAME = 1 / 30;
 // named sounds that are not a physical event on screen: music stings, jingles, UI tones, voices
@@ -63,6 +64,7 @@ function physicalMoments(sb) {
 const list = (ts) => ts.slice(0, 6).map((t) => `${(+t).toFixed(2)}s`).join(", ") + (ts.length > 6 ? ", ..." : "");
 
 export function soundNotes(sb) {
+  sb = soundClock(sb);   // hit-stops: times as the video plays them (engine/shared/holds.js)
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
   const ev = soundEvents(sb);
   const wh = ev.filter((e) => WHOOSH.test(e.kind));
@@ -102,6 +104,7 @@ export const db = (p) => 10 * Math.log10(p + 1e-12);
 // nearest to it (an action starting or ending, a footfall, an effect). Automatic sounds (footfalls, hops, grabs) are placed by
 // the engine on its own moments and aren't re-checked.
 export function soundTiming(sb, events) {
+  sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
   const moments = physicalMoments(sb);
   const named = new Set((sb.sfx || []).filter((s) => !s.reason).map((s) => `${s.sound}@${s.at}`));
@@ -138,6 +141,7 @@ export function effectLevels(mix, events, offset = 0) {
 // on the rendered file: is its sound the one this storyboard makes now, in sync with the picture, and does each
 // effect stand out from what plays under it
 export function soundMeasure(clip, sb, chars) {
+  sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
   const a = renderAudio(sb, chars);
   out.push(...soundTiming(sb, a.events));
@@ -174,6 +178,7 @@ export function soundMeasure(clip, sb, chars) {
 // the payoff beat: { name, from, to, how }. "how" says when it is the music lock's fallback (the last escalation),
 // which may not be the punchline
 export function payoffBeat(sb) {
+  sb = soundClock(sb);
   const b = sb.beatSpans || [];
   if (sb.music?.payoff != null) { const t = sb.music.payoff, s = b.find((x) => t >= x.from && t < x.to); return { name: s?.name ?? "payoff", from: t, to: s ? s.to : t + 1.5, how: "music.payoff" }; }
   const p = b.find((x) => x.kind === "payoff") ?? b.find((x) => /payoff|reveal|punch/i.test(x.name || ""));
@@ -184,6 +189,7 @@ export function payoffBeat(sb) {
 
 // e10: the file's energy in 10 ms blocks (envelope(mix, 441)). Loudness in dBFS, mono
 export function payoffSound(sb, e10) {
+  sb = soundClock(sb);
   const out = [], add = (level, msg) => out.push({ group: "creative", level, check: "payoff-sound", msg });
   const p = payoffBeat(sb);
   if (!p) { add("note", `no payoff beat (mark the punchline "kind": "payoff"), so the payoff's sound wasn't measured`); return out; }
@@ -214,6 +220,7 @@ export function earshotPython() {
 }
 
 export function soundEars(clip, sb, chars) {
+  sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
   const py = earshotPython();
   if (!py) { add("note", "ears", "earshot not installed, so nothing was listened to (see qa/sound.mjs for the one-time setup)"); return out; }

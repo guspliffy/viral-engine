@@ -485,7 +485,7 @@ export class Character {
     const key = [...arm, ...palm, ...digits.flat(), ...cuff].map((c) => [...c.a, ...c.ba, c.r1, c.r2].map((x) => Math.round(x * 1e4)).join(",")).join(";");
     a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
     a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
-    if (key === a.skinKey) return;
+    if (key === a.skinKey && !globalThis.__noGeomCache) return;
     a.skinKey = key; a.skin.geometry.dispose();
     a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
   }

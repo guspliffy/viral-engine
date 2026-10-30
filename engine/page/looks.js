@@ -11,13 +11,12 @@ import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
-//   "film"      the Pixar-like look of Jonny's reference portraits: warm key, cool fill, two rims, soft-skin
-//               potatoes (wrap light + sheen + fine skin texture), contact shadows, depth of field, bloom, grade
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
 //               cool ambient, crisp two-tone ramp, rim and spec highlights, coloured line art, thin set lines,
 //               then anime compositing: diffusion glow, a light gradient from above, depth of field, grade
-// Everything is a function of the scene at time t, so renders stay deterministic.
-export const LOOKS = ["film", "anime-pro"];
+// Everything is a function of the scene at time t, so renders stay deterministic. (The "film" look, unused by any
+// storyboard, was removed 30 Oct 2026; it is in git history before that.)
+export const LOOKS = ["anime-pro"];
 
 // --- shared pieces -----------------------------------------------------------------------------------------
 
@@ -35,26 +34,6 @@ function dirLight(color, intensity, pos, shadow) {
     Object.assign(l.shadow.camera, { left: -z, right: z, top: z, bottom: -z, near: 0.5, far: 24 });
   }
   return l;
-}
-
-// soft contact shadow under each character: grounds them where the shadow map is too soft or falls behind
-function contactShadows(scene, actors, strength) {
-  const tex = radialTexture([[0, "rgba(0,0,0,1)"], [0.45, "rgba(0,0,0,0.55)"], [1, "rgba(0,0,0,0)"]]);
-  return actors.map((a) => {
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, opacity: strength }));
-    m.rotation.x = -Math.PI / 2; m.renderOrder = 1; m.material.userData.noOutline = true; m.userData.lookOnly = true; scene.add(m);
-    return {
-      update() {
-        const r = a.ch.root, vis = r.visible && a.ch.potatoParts.visible, s = r.scale.x || 1;
-        // fades and grows as the character leaves the ground (a hop, flying)
-        const h = Math.max(0, r.position.y), k = Math.max(0, 1 - h / 0.6);
-        m.visible = vis && k > 0.01;
-        m.position.set(r.position.x, 0.004, r.position.z);
-        m.scale.set(a.ch.rx * 2.5 * s * (1 + h * 0.6), a.ch.rz * 2.3 * s * (1 + h * 0.6), 1);
-        m.material.opacity = strength * k;
-      },
-    };
-  });
 }
 
 // a horizontally tileable skin texture: fine dimples and soft blotches (bump), and a near-white colour mottling
@@ -139,72 +118,35 @@ function focusDistance(camera, actors) {
   return n ? sum / n : 5;
 }
 
-// --- film: the Pixar-like look -------------------------------------------------------------------------------
-
-function patchSkin(m, sss) {
-  m.onBeforeCompile = (sh) => {
-    sh.uniforms.uSSS = { value: new THREE.Color(sss).multiplyScalar(0.25) };
-    sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", "uniform vec3 uSSS;\nvoid main() {")
-      .replace("#include <lights_fragment_end>", `#include <lights_fragment_end>
-        #if NUM_DIR_LIGHTS > 0
-        {
-          // wrap lighting: light bleeding past the terminator, tinted red-orange like light through a thin skin
-          float ndl = dot(normal, directionalLights[0].direction);
-          float wrapT = clamp((ndl + 0.55) / 1.55, 0.0, 1.0) - clamp(ndl, 0.0, 1.0);
-          reflectedLight.directDiffuse += uSSS * max(wrapT, 0.0) * directionalLights[0].color * diffuseColor.rgb;
-        }
-        #endif`);
-  };
-  m.customProgramCacheKey = () => "film-skin";
-  m.needsUpdate = true;
+// focus that follows the story ("set": { "aperture": 0.045, "focus": "acting" }): the eyes of who acts at t (the
+// storyboard's focusTrack, engine/focus.mjs), pulled over PULL seconds when that changes; the nearest face in frame
+// when nobody acts or the actor is out of frame. Worked out from the frame's own pose, so it holds no state between
+// frames (shards and stills agree). A shot can name its own focus point (timeline.js cameraState(sb, t).focus, an
+// insert on a prop); that wins.
+const PULL = 0.3;
+function eyeDepth(camera, a, dir) {
+  if (!a || !a.ch.root.visible) return null;
+  a.ch.root.updateMatrixWorld(true);
+  const E = a.ch.face && a.ch.face.eyes, p = new THREE.Vector3();
+  if (E && E.length) { for (const e of E) p.add(e.root.getWorldPosition(new THREE.Vector3())); p.multiplyScalar(1 / E.length); }
+  else { p.copy(a.ch.root.position); p.y += a.ch.cy * (a.ch.root.scale.y || 1); }
+  const v = p.clone().project(camera);
+  if (v.z > 1 || Math.abs(v.x) > 1 || Math.abs(v.y) > 1) return null;   // out of frame
+  return p.sub(camera.position).dot(dir);
 }
-
-function filmLook({ R, scene, camera, W, H, actors, draft, setSpec }) {
-  const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
-  relight(scene, [
-    new THREE.HemisphereLight(night ? "#9fb6e8" : "#bcd6ff", "#6b5038", 0.55),
-    dirLight("#ffe2bd", 3.0, [-4.2, 5.2, 3.6], { radius: 7 }),            // key: warm, from the side and above
-    dirLight("#cfe0ff", 0.3, [4.5, 1.8, 4.5]),                              // fill: cool and low
-    dirLight("#ffd29a", 4.5, [3.2, 3.2, -4.5]),                             // rim: warm, from behind right
-    dirLight(night ? "#8fb8ff" : "#d8ecff", 2.2, [-4, 2.4, -4]),            // rim: cool, from behind left
-  ]);
-  R.toneMapping = THREE.NeutralToneMapping; R.toneMappingExposure = 0.95;
-  R.shadowMap.type = THREE.PCFSoftShadowMap;
-
-  for (const a of actors) {
-    const tx = skinTextures(a.def.body.seed || 1), sk = a.ch.skin;
-    Object.assign(sk, { map: tx.color, bumpMap: tx.bump, bumpScale: 0.6, roughness: 0.55, clearcoat: 0.18, clearcoatRoughness: 0.4,
-      sheen: 0.3, sheenColor: new THREE.Color("#ffe0b0"), sheenRoughness: 0.55 });
-    patchSkin(sk, "#ff6a2a");
-    a.ch.root.traverse((o) => {
-      for (const m of o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []) {
-        if (m.isMeshStandardMaterial) m.envMapIntensity = 0.55;
-      }
-    });
-    if (a.ch.limbMat) { a.ch.limbMat.roughness = 0.32; a.ch.limbMat.envMapIntensity = 0.8; }
-  }
-  const shadows = contactShadows(scene, actors, 0.6);
-
-  const composer = composerFor(R, W, H, draft);
-  composer.addPass(new RenderPass(scene, camera));
-  const bokeh = new BokehPass(scene, camera, { focus: 5, aperture: 0.006, maxblur: 0.009 });
-  composer.addPass(bokeh);
-  // bloom before tone mapping with a high threshold: only light sources glow (the gem, the blade, the window),
-  // not lit whites like eyes and clouds
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.3, 0.5, 2.4));
-  composer.addPass(new OutputPass());
-  const grade = new ShaderPass(GradeShader);
-  Object.assign(grade.uniforms.contrast, { value: 1.07 }); grade.uniforms.saturation.value = 1.0; grade.uniforms.vignette.value = 0.28;
-  composer.addPass(grade);
-
-  return {
-    prepare() { for (const s of shadows) s.update(); camera.updateMatrixWorld(); bokeh.uniforms.focus.value = focusDistance(camera, actors); },
-    render() { composer.render(); },
-  };
+function storyFocus(camera, actors, track, t, point) {
+  const dir = camera.getWorldDirection(new THREE.Vector3());
+  if (point) return new THREE.Vector3(...point).sub(camera.position).dot(dir);   // a shot that names what is sharp (an insert on a prop)
+  const nearest = () => { let d = Infinity; for (const a of actors) { const z = eyeDepth(camera, a, dir); if (z != null && z > 0) d = Math.min(d, z); } return Number.isFinite(d) ? d : 5; };
+  const of = (who) => eyeDepth(camera, who && actors.find((a) => a.c.id === who), dir) ?? nearest();
+  if (t == null || !track || !track.length) return nearest();
+  let i = -1; for (let k = 0; k < track.length && track[k].at <= t + 1e-6; k++) i = k;
+  if (i < 0) return of(track[0].who);
+  const now = of(track[i].who), k = (t - track[i].at) / PULL;
+  if (i === 0 || k >= 1) return now;
+  const was = of(track[i - 1].who), s = k * k * (3 - 2 * k);
+  return was + (now - was) * s;
 }
-
-// --- anime-pro: premium cel look -------------------------------------------------------------------------------
 
 function smoothRamp(lo, hi, at, soft) {
   const n = 256, data = new Uint8Array(n * 4);
@@ -416,7 +358,7 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [] }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null }) {
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
@@ -540,6 +482,16 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
+  // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
+  // while the room behind and the floor in front soften
+  const follow = bokeh && setSpec.focus === "acting";
+  if (follow) {
+    const m = bokeh.materialBokeh;
+    m.uniforms.band = { value: setSpec.focusBand ?? 0.25 };
+    m.fragmentShader = m.fragmentShader.replace("uniform float focus;", "uniform float focus;\nuniform float band;")
+      .replace("float factor = ( focus + viewZ );", "float factor = focus + viewZ; factor = sign( factor ) * max( abs( factor ) - band, 0.0 );");
+    if (!m.fragmentShader.includes("band, 0.0")) throw new Error("depth of field: three's BokehShader changed, the focus band patch no longer applies");
+  }
   if (bokeh) composer.addPass(bokeh);
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
   // (eyes, clouds) sit at 1 and stay clean. Golden: the warm haze of the sunlit areas too
@@ -560,7 +512,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   composer.addPass(grade);
 
   return {
-    prepare() {
+    prepare(scene, t, focusPoint) {
       for (const [m, t] of [...toon, ...bare]) {
         if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.userData.liquid ? m.opacity * 0.32 / 0.35 : m.opacity; continue; }
         if (m.emissiveIntensity !== undefined) t.emissiveIntensity = Math.min(m.emissiveIntensity, 2.4); t.opacity = m.opacity;
@@ -572,7 +524,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
-      if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
+      if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set
         if (h.material.opacity !== h.userData.lookOpacity) { h.material.opacity *= 0.5; h.userData.lookOpacity = h.material.opacity; }
@@ -600,7 +552,6 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 }
 
 export function makeLook(name, ctx) {
-  if (name === "film") return filmLook(ctx);
   if (name === "anime-pro") return animeProLook(ctx);
   throw new Error(`unknown look: ${name} (looks: ${LOOKS.join(", ")})`);
 }

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { taperedTube, lathe, radialTexture } from "./geo.js";
+import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { cardWings } from "./costumes-card.js";
@@ -187,7 +188,7 @@ function glowTip(g, C, at, gemGeo, size = 1) {
   // ph: the integral of the charge over time (timeline.js), so spin and orbits speed up smoothly instead of jumping
   return (c, t, ph = 0) => {
     crystalM.emissiveIntensity = 0.6 + c * 5;
-    halo.scale.setScalar(size * (0.22 + c * 1.1 + 0.04 * Math.sin(t * 40) * c));
+    halo.scale.setScalar(size * (0.22 + c * 1.1 + 0.04 * Math.sin(t * rad(40)) * c));
     halo.material.opacity = 0.35 + 0.65 * c;
     light.intensity = c * 6;
     crystal.rotation.y = t + 6 * ph;

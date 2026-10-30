@@ -1,0 +1,1148 @@
+{
+ "id": "light-my-candle-grid",
+ "title": "Light My Candle (shot grid)",
+ "cover": 6.5,
+ "idea": "Camera test (dutch, over the shoulder, top-down) on Light My Candle",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#f3ead8",
+  "floor": "#d8bf98",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/dining-blue-window.png",
+   "z": -2.3,
+   "center": [
+    0,
+    2
+   ],
+   "height": 5.6
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "gain": 0.28,
+  "seed": 31
+ },
+ "direct": {
+  "master": {
+   "pos": [
+    0,
+    0.97,
+    5.9
+   ],
+   "look": [
+    0,
+    0.76,
+    0
+   ],
+   "fov": 36
+  }
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.18,
+  "speech": false,
+  "signature": false,
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "dra",
+   "cupcake"
+  ],
+  "hint": 0.9,
+  "what": "Dragon blows at the candle and nothing happens"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.62,
+    0
+   ],
+   "face": 18,
+   "expr": "eager",
+   "follow": 0.2,
+   "seed": 2.6,
+   "signature": false
+  },
+  {
+   "id": "dra",
+   "character": "lookdev/dragon-crisp",
+   "at": [
+    0.62,
+    -0.04
+   ],
+   "face": -20,
+   "expr": "focused",
+   "follow": 0.25,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "stool",
+   "kind": "stool",
+   "x": 0,
+   "z": 0.34
+  },
+  {
+   "id": "plate",
+   "kind": "dessertplate",
+   "x": 0,
+   "y": 0.42,
+   "z": 0.34,
+   "scale": 1.6
+  },
+  {
+   "id": "cupcake",
+   "kind": "cupcake",
+   "x": 0,
+   "y": 0.433,
+   "z": 0.34,
+   "scale": 1.6,
+   "lit": 0
+  },
+  {
+   "id": "breath",
+   "kind": "breath",
+   "mouth": "dra",
+   "target": "cupcake",
+   "at": [
+    0,
+    0.136,
+    0
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2,
+   "text": "When you ask a DRAGON to light your candle",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 9.25,
+   "to": 10,
+   "text": "...thanks.",
+   "pos": 230,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 hook",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "size": "medium",
+    "push": 0.08
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 0.9,
+      "open": 0.15,
+      "eye": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0.55,
+      "fire": 0,
+      "len": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "blow",
+     "dur": 0.8,
+     "gain": 0.3,
+     "reason": "Dragon's careful puff at the wick (0-0.8): fff",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.7,
+      "open": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.2,
+       0.66,
+       0.44
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "confused",
+     "set": {
+      "pucker": 0,
+      "eye": 1.05
+     },
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.2,
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 1
+     },
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.15,
+     "at": 1.25
+    },
+    {
+     "who": "dra",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.42
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.25,
+     "at": 1.5
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 harder",
+   "at": 2,
+   "len": 1.4,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 1,
+      "open": 0.2,
+      "eye": 0.75
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": -0.25,
+     "lid": 0.15,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0.9,
+      "fire": 0.12,
+      "len": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "blow",
+     "dur": 0.9,
+     "gain": 0.45,
+     "reason": "the harder puff (2.1-3.0): FFFF",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.3,
+      "eye": 1.1
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.138,
+      0.34
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 7,
+     "spark": "#ffb347",
+     "sparkSize": 0.4,
+     "speed": 0.4,
+     "dur": 0.6,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0.35,
+      "rise": 0.25
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -2,
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0.6,
+      "rise": 0.8
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 1.3
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "03 the wick",
+   "at": 3.4,
+   "len": 0.6,
+   "shot": {
+    "size": "insert",
+    "on": "cupcake",
+    "at": [
+     0,
+     0.128,
+     0
+    ]
+   },
+   "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.138,
+      0.34
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 3,
+     "spark": "#ffb347",
+     "sparkSize": 0.4,
+     "speed": 0.4,
+     "dur": 0.45,
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/snuff",
+     "gain": 0.5,
+     "reason": "the wick fizzles: tss, as the smoke curls up in the insert",
+     "at": 0.05
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "04 all his power",
+   "at": 4,
+   "len": 1.6,
+   "shot": {
+    "who": "dra"
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 9,
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 10,
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.14,
+     "dur": 1,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "puff": 0,
+      "rise": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 0.8,
+      "open": 0.05,
+      "eye": 0.55
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": -0.35,
+     "lid": 0.35,
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.55,
+     "reason": "Dragon draws an enormous breath in (4.0-5.0)",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "nervous",
+     "set": {
+      "eye": 1.15,
+      "curve": -0.1
+     },
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.1,
+     "at": 1
+    }
+   ],
+   "kind": "threat"
+  },
+  {
+   "name": "05 fwoomp",
+   "at": 5.6,
+   "len": 0.7,
+   "do": [
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 1,
+      "open": 0.55,
+      "eye": 0.8
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.7,
+     "reason": "the fire jet leaves his mouth (5.65)",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 1,
+      "fire": 1,
+      "len": 0.15
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 1.6,
+     "reason": "the candle erupts into a fireball (5.8): fwoomp, loudest 0.1 s in",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "lit": 1,
+      "fire": 1,
+      "bend": 0.15
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "fx": "flash",
+     "peak": 0.4,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "fx": "shake",
+     "amp": 0.06,
+     "dur": 0.45,
+     "at": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.138,
+      0.34
+     ],
+     "puffs": 0,
+     "color": "#ffd9a8",
+     "sparks": 34,
+     "spark": "#ffb347",
+     "sparkSize": 0.4,
+     "speed": 0.4,
+     "dur": 0.9,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": -0.2
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.5,
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.2,
+      "pucker": 0,
+      "curve": -0.1
+     },
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.57,
+      1.45,
+      0.05
+     ],
+     "puffs": 5,
+     "color": "#6d6660",
+     "sparks": 0,
+     "dur": 1.3,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "bend": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "breath",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fire": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.65
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "05b fireball",
+   "at": 6.3,
+   "len": 1.1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "cupcake",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.77
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.82
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": -65,
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.45,
+     "at": 0.95
+    }
+   ],
+   "kind": "chaos"
+  },
+  {
+   "name": "06 singed",
+   "at": 7.4,
+   "len": 1,
+   "shot": {
+    "size": "ots",
+    "who": "wiz",
+    "over": "dra"
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.7,
+      "open": 0.2,
+      "eye": 1
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.6,
+      1.5,
+      0.05
+     ],
+     "puffs": 3,
+     "color": "#6d6660",
+     "sparks": 0,
+     "dur": 1.1,
+     "at": 0.2
+    },
+    {
+     "sfx": "plunk",
+     "gain": 0.25,
+     "reason": "one dry note as his look lands: dum",
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "07 lit",
+   "at": 8.4,
+   "len": 0.7,
+   "shot": {
+    "size": "top",
+    "on": "cupcake",
+    "at": [
+     0,
+     0.128,
+     0
+    ]
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.02
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.95,
+     "idle": 0.04,
+     "at": 0.6
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.65
+    }
+   ]
+  },
+  {
+   "name": "07b thanks",
+   "at": 9.1,
+   "len": 0.9,
+   "do": [
+    {
+     "who": "dra",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.1
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/shots/make-light-my-candle.mjs (camera test for dutch, over-the-shoulder and top-down shots)."
+}

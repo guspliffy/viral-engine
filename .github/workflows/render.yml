@@ -18,11 +18,16 @@ on:
       flags:
         description: "Extra render flags, e.g. --draft, --look anime-pro, --from 0 --to 3"
         default: ""
+      balance:
+        description: "Split frames by expected cost (blur samples) instead of equal counts"
+        default: "true"
 permissions:
   contents: read
 env:
   SB: ${{ inputs.storyboard }}
   FLAGS: ${{ inputs.flags }}
+  BAL: ${{ inputs.balance == 'true' && '--balance' || '' }}
+  COST: ${{ inputs.balance == 'true' && '--cost --thin-trace' || '' }}
 
 jobs:
   plan:
@@ -39,7 +44,7 @@ jobs:
           voice: "true"
       # the contact gate once for all shards (they skip it), and real speech into out/speech for all of them
       - name: Contact gate and speech
-        run: node engine/render.mjs "$SB" --layout $FLAGS
+        run: node engine/render.mjs "$SB" --layout $COST $FLAGS
       - id: split
         env:
           SHARDS: ${{ inputs.shards }}
@@ -53,6 +58,7 @@ jobs:
           path: |
             out/speech/
             out/*.layout.json
+            out/*.cost.json
           retention-days: 1
           if-no-files-found: ignore
 
@@ -73,13 +79,16 @@ jobs:
           name: plan
           path: out
       - name: Render
-        run: node engine/render.mjs "$SB" --shard ${{ matrix.shard }}/${{ needs.plan.outputs.n }} --skip-gate $FLAGS
+        run: |
+          echo "cpu: $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2) x $(nproc)"
+          node engine/render.mjs "$SB" --shard ${{ matrix.shard }}/${{ needs.plan.outputs.n }} --skip-gate $BAL --timing-json out/timing-${{ matrix.shard }}.json $FLAGS
       - uses: actions/upload-artifact@v4
         with:
           name: part-${{ matrix.shard }}
           path: |
             out/*.part-*.video.mp4
             out/*-cover.png
+            out/timing-*.json
           retention-days: 1
           if-no-files-found: error
 

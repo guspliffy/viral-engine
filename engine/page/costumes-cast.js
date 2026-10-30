@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { taperedTube, radialTexture } from "./geo.js";
 import { hoodGeometry } from "./costumes-pb.js";
+import { rad } from "./util.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
 // Norse god (Odin-like, with raven), Samurai and Sorcerer, plus the Gunslinger's two pistols (`pistols: true`).
@@ -54,7 +55,7 @@ function glowOrb(C) {
   return {
     group: g,
     charge(c, t) {
-      const pulse = 0.5 + 0.5 * Math.sin(t * 5);
+      const pulse = 0.5 + 0.5 * Math.sin(t * rad(5));
       orbM.emissiveIntensity = 1.0 + 0.4 * pulse + c * 4; halo.scale.setScalar(0.2 + 0.03 * pulse + c * 1.2); light.intensity = 0.5 + c * 6;
       orb.scale.setScalar(1 + c * 0.35); core.scale.setScalar(1 + c * 0.5);
     },
@@ -255,9 +256,9 @@ export function castCostume(C, ch) {
     tail.castShadow = true; ch.bodyGroup.add(tail);
     const tip = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.1, 4), std(wm)); tip.position.set(0.34, 0.22, -ch.rz - 0.37); tip.rotation.z = -1.2; tip.scale.z = 0.4; tail.add(tip);   // swings with the tail
     out.apply = (st, t) => {
-      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (6 + 16 * fl)) * (0.12 + 0.5 * fl);
+      const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (rad(6) + 16 * fl)) * (0.12 + 0.5 * fl);
       for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.12 - 0.1 * w), W.s * (-0.12 + 0.6 * w + flap));
-      tail.rotation.y = 0.15 * Math.sin(t * 2.2) - 0.9 * (st.ft?.s || 0);   // follow-through: the tail trails a sideways move or a turn
+      tail.rotation.y = 0.15 * Math.sin(t * rad(2.2)) - 0.9 * (st.ft?.s || 0);   // follow-through: the tail trails a sideways move or a turn
     };
   }
   if (T === "allfather") {
@@ -279,7 +280,7 @@ export function castCostume(C, ch) {
     out.sitDepth = -0.035;
     if (C.raven !== false) {   // `"raven": false` leaves the shoulder raven out (a clip where it would crowd a held prop)
       const bird = raven(ch), perch = ch.surf(1.2, 0.05); bird.scale.setScalar(1.35); bird.position.copy(perch.pos).add(new THREE.Vector3(0.06, 0.06, 0.0)); bird.rotation.y = -0.45; parts.add(bird);
-      out.apply = (st, t) => { bird.rotation.y = -0.45 + 0.25 * Math.sin(t * 0.9); bird.children[1].rotation.x = 0.15 * Math.sin(t * 2.3); };
+      out.apply = (st, t) => { bird.rotation.y = -0.45 + 0.25 * Math.sin(t * rad(0.9)); bird.children[1].rotation.x = 0.15 * Math.sin(t * rad(2.3)); };
     }
   }
   if (T === "samurai") {

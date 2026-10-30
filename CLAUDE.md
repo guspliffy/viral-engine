@@ -1,7 +1,7 @@
 # viral-engine: rules for every session
 
-These rules apply to the whole repo: the 3D engine (`engine/`), the game-puppet renderer (`puppet/`) and anything
-added later. Renderer-specific notes live in each renderer's README. Roadmap and Jonny's decisions: `docs/PLAN.md`.
+These rules apply to the whole repo: the 3D engine (`engine/`), the background music (`puppet/beat.mjs`; the old
+game-puppet renderer is archived, see `puppet/README.md`) and anything added later. Renderer-specific notes live in each renderer's README. Roadmap and Jonny's decisions: `docs/PLAN.md`.
 
 ## Output rules (`qa/check.mjs` reports three groups; only technical and publishing results can fail a clip)
 
@@ -75,9 +75,17 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   escalation), a recorded bed's stop (`until`) lands on a bar line, and parts and hits sit near beats. Without its own
   `parts` a clip gets one beat of silence before the payoff and a drop on it. `"lock": false` or a pinned `offset`
   opts out; dance clips stay on their own grid.
+- **The music gives way** (`engine/music.mjs` `duckEnvelope`): the bed ducks 6 dB under every hit at least as loud as
+  the bed (not steps, grabs, cloth and other handling sounds), 4 dB under voice lines, and drops 12 dB for the 0.6 s
+  before the payoff (unless the bed is already stopped there). `"music": { "duck": false }` / `{ "dip": false }`
+  turn them off; `"duck": { "db", "voice", "hold", "release" }` and `"dip": { "db", "len" }` tune them.
 - **The payoff is the loudest moment, after a dip**: `qa/sound.mjs` notes (creative, never a failure) when the clip's
   loudest 100 ms isn't on the payoff beat, or the quietest 0.5 s of the 4 s before it isn't 12 dB under the payoff's
   peak. `python qa/pace.py <clip> --ref <clip that holds viewers>` compares cuts, motion and loudness per second.
+- **The opening's pace** (`qa/check.mjs` "pace", creative note from `qa/pace.py`): 2+ hard cuts in the first 2 s, or a
+  first second quieter than -20 dBFS, bring a note. On the 10 posted clips more early cuts went with fewer viewers at
+  0:02 (r -0.71) and a quiet start with fewer too, so a cut-heavy opening is an A/B question, not a default. Tune with
+  `"creative": { "openingCuts": 3, "quietStart": -24 }`.
 - **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
@@ -156,7 +164,10 @@ The output is a **beat storyboard** (relative timing + macros): see `docs/STORYB
 The template's camera is **directed from the story** (`"direct"`, `engine/direct.mjs`): mark each beat's `kind`
 (hook, payoff, reaction, reveal) and leave its camera out; set a shot by hand only where the story needs one the
 grammar doesn't give, and check the result with `qa/framing.mjs` and the draft stills.
-The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
+The template also carries **Jonny's lab picks** (30 Oct): a lead's gibberish line in the first half second
+(`act.opener`), depth of field with focus on who acts (`set.focus: "acting"`), stronger faces held longer
+(`clip({ faces: "strong" })`) and, on a hit, `act.impact` (impact frame, shake, stars and a 3-frame hit-stop). Each is
+opt-in per storyboard and has a flag at the top of the template; see `docs/STORYBOARD.md`. The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
 speaker's colour) and its builder has `textPop` for a comic word beside a head; both are 2D only (`engine/page/text.js`).
 
 ## Workflow for a clip: creative review and cheap checks first, then the full render
@@ -197,8 +208,10 @@ are his call. Skip the reviews only for pure engine tests, and say so.
   missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
-- Full renders take about 1.7 s per frame on the CPU (10 minutes for a 12 s clip), almost all of it SwiftShader
-  drawing. Run them in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
+- Renders draw on the CPU with Mesa llvmpipe (`--gl llvmpipe`, the default since 30 Oct 2026; it needs Xvfb), about
+  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears really fast moves (Jonny, 30 Oct: 48 px
+  of smear before a frame blurs, `engine/render.mjs` BLUR); it used to take 62-73 % of a clip's render time
+  (`/mnt/project-files/engine/render-measure-01/report.md`). Run full renders in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
   machine with a graphics card, try `--gl gpu` on a 1 s range (`--from 4 --to 5`) and compare the timing line; the
   "stage ready" line names the renderer actually used.
 - **Render farm** (Jonny OK'd 28 Oct 2026): `.github/workflows/render.yml` cuts a clip into frame ranges, draws them on

@@ -5,16 +5,17 @@ import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld } from "./props3d.js";
-import { rng, clamp, ease } from "./util.js";
+import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
-import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
+import { storyTime } from "../shared/holds.js";
 import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
-let roomLights = [], lamp = null, bulb = null, charMats = [], trails = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
+let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
@@ -68,11 +69,12 @@ function buildPoof(f, i) {
       g.visible = k >= 0 && k <= d;
       if (!g.visible) return;
       g.position.copy(origin);
+      const sz = f.size ?? 1;   // `size` scales the puffs and their spread, `lift` raises the cloud (a landing's dust: small and low)
       for (const p of puffs) {
         const q = clamp((k - p.delay) / d);
         const r = p.dist * (1 - Math.exp(-q * 7));
-        p.s.position.copy(p.dir).multiplyScalar(r).add(new THREE.Vector3(0, 0.45 + q * 0.25, 0));
-        p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
+        p.s.position.copy(p.dir).multiplyScalar(r * sz).add(new THREE.Vector3(0, (f.lift ?? 0.45) + q * 0.25 * sz, 0));
+        p.s.scale.setScalar(p.size * sz * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
       const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
@@ -223,41 +225,6 @@ function glintFx(f, t) {
   ctx.restore();
 }
 
-// "trail": the arc a swung blade leaves in the air, a ribbon from the blade's middle to its tip over the last `len`
-// seconds (default 0.12), bright at the blade and fading behind it. { fx: "trail", who, at, dur, color, len }
-function buildTrail(f) {
-  const N = 10, geo = new THREE.BufferGeometry(), pos = new Float32Array(N * 2 * 3), age = new Float32Array(N * 2), idx = [];
-  for (let i = 0; i < N; i++) { age[i * 2] = age[i * 2 + 1] = i / (N - 1); if (i < N - 1) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
-  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setAttribute("age", new THREE.BufferAttribute(age, 1)); geo.setIndex(idx);
-  const m = new THREE.ShaderMaterial({
-    uniforms: { uColor: { value: new THREE.Color(f.color || "#7dffb4") }, uFade: { value: 1 } },
-    vertexShader: "attribute float age; varying float vAge; void main() { vAge = age; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
-    fragmentShader: "uniform vec3 uColor; uniform float uFade; varying float vAge; void main() { float a = 0.75 * (1.0 - vAge) * (1.0 - vAge) * uFade; gl_FragColor = vec4(mix(uColor, vec3(1.0), 0.45 * (1.0 - vAge)) * a, a); }",
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-  });
-  m.userData.outlineParameters = { visible: false };
-  const mesh = new THREE.Mesh(geo, m); mesh.frustumCulled = false; mesh.renderOrder = 4; mesh.visible = false; scene.add(mesh);
-  const A = () => actors.find((a) => a.c.id === f.who);
-  return {
-    sample(t) {
-      const d = f.dur ?? 0.3, on = t >= f.at && t <= f.at + d + (f.len ?? 0.12);
-      mesh.visible = on; if (!on) return;
-      const a = A(); if (!a) { mesh.visible = false; return; }
-      for (let i = 0; i < N; i++) {
-        // the ribbon never reaches back before the swing started, and stops growing after it ends
-        const u = Math.max(f.at, Math.min(f.at + d, t) - (i / (N - 1)) * (f.len ?? 0.12));
-        a.ch.apply(actorState(sb, a.c, a.def, u), u); a.ch.root.updateMatrixWorld(true);
-        const L = a.ch.costume.propLine?.(); if (!L) { mesh.visible = false; return; }
-        const p0 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, f.from ?? 0.35)), p1 = a.ch.root.localToWorld(L.a.clone().lerp(L.b, 1.0));
-        pos.set([p0.x, p0.y, p0.z], i * 6); pos.set([p1.x, p1.y, p1.z], i * 6 + 3);
-      }
-      geo.attributes.position.needsUpdate = true;
-      // it fades out over its len once the swing is over
-      m.uniforms.uFade.value = t <= f.at + d ? 1 : 1 - (t - f.at - d) / (f.len ?? 0.12);
-    },
-  };
-}
-
 // glows (sprites on a character, like the blazing Phoenix's halo) would turn into black squares in an ink render:
 // hide them and return them, to be shown again after
 function inkGlows() { const out = []; for (const a of actors) a.ch.root.traverse((o) => { if (o.isSprite && o.visible) { o.visible = false; out.push(o); } }); return out; }
@@ -282,7 +249,7 @@ function snapshot(f, i) {
     const bg = scene.background; scene.background = new THREE.Color("#ffffff"); scene.overrideMaterial = inkMat;
     R.render(scene, pc);
     scene.overrideMaterial = null; scene.background = bg;
-  } else { styler.prepare(scene); styler.render(scene, pc); }
+  } else { const progs = R.info.programs.length; styler.prepare(scene); styler.render(scene, pc); if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, pc); } }
   for (const o of hidden) o.visible = true;
   // aspect: the picture's height over its width (1, a square, by default; a print can be 1.25, portrait)
   const S = 720, A = f.aspect ?? 1, cv = document.createElement("canvas"); cv.width = S; cv.height = Math.round(S * A);
@@ -350,17 +317,35 @@ function shadeFx(f, t) {
   ctx.fillStyle = g; ctx.fillRect(-w / 2, -H, w, 2 * H); ctx.restore();
 }
 
+// an establishing shot ({ plate: "assets/plates/<name>.png", push }): the painted picture fills the frame instead of
+// the 3D scene, centred and cropped to 9:16, pushing in slowly over the shot
+const plateShots = new Map();
+function establishing(t) {
+  const shots = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at), s = shots.at(-1), img = s?.plate && plateShots.get(s.plate);
+  if (!img) return false;
+  const next = (sb.shots || []).filter((q) => q.at > s.at).sort((a, b) => a.at - b.at)[0], dur = (next?.at ?? sb.duration) - s.at;
+  const k = 1 + (s.push ?? 0.04) * Math.min(1, Math.max(0, (t - s.at) / dur)), c = Math.max(W / img.width, H / img.height) * k;
+  ctx.drawImage(img, (W - img.width * c) / 2, (H - img.height * c) / 2, img.width * c, img.height * c);
+  return true;
+}
+
 function composite(t) {
-  ctx.globalAlpha = 1; ctx.drawImage(R.domElement, 0, 0, W, H);
+  ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
+  for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
 async function init(data) {
-  sb = data.sb; charMats = []; photos.clear();
+  sb = data.sb; charMats = []; photos.clear(); plateShots.clear();
+  setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
+  for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
+    const img = new Image(); plateShots.set(s.plate, img);
+    (globalThis.__loads ||= []).push(new Promise((ok) => { img.onload = ok; img.onerror = ok; img.src = `/${s.plate.replace(/^\/+/, "")}`; }));
+  }
   globalThis.__DIAG = sb.debug || null;   // storyboard "debug": { "clearance": true } logs staff/arm clearance per frame
   const canvas = document.getElementById("gl");
   const opts = data.opts || {};
@@ -407,9 +392,8 @@ async function init(data) {
   // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
-  trails = (sb.fx || []).filter((f) => f.do === "trail").map(buildTrail);
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -562,6 +546,8 @@ function pose(t) {
   // the holder's head is usually between, so such a shot sets `near` past it
   const PR = shot && shot.prop && props.find((p) => p.spec.id === shot.prop);
   if (PR) { PR.root.updateWorldMatrix(true, false); const M = PR.root.matrixWorld; cp.applyMatrix4(M); cl.applyMatrix4(M); camera.up.set(0, 1, 0).transformDirection(M); }
+  // roll (a dutch tilt): up turned about the view direction, so the picture turns clockwise by cam.roll degrees
+  if (cam.roll) camera.up.applyAxisAngle(cl.clone().sub(cp).normalize(), (cam.roll * Math.PI) / 180);
   // near: a shot can clip what is closer than that to the lens (a point of view from inside a head)
   camera.position.copy(cp); camera.fov = cam.fov; camera.near = shot?.near ?? 0.05; camera.updateProjectionMatrix(); camera.lookAt(cl);
   // the layout and contact checks project with the camera before anything is drawn: without this they used the
@@ -574,7 +560,6 @@ function pose(t) {
 
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
-  for (const tr of trails) tr.sample(t);   // poses the swordsman in the recent past, so it goes before pose(t)
   pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
@@ -587,8 +572,14 @@ function frame(t) {
     for (const o of setObjs) o.visible = true;
     for (const o of glows) o.visible = true;
   } else {
-    styler.prepare(scene);
+    // a material drawn for the first time misses what prepare() sets on its compiled shader (the hat-brim band, the
+    // lids' light), so a frame that compiled a new program is drawn again: the picture no longer depends on what the
+    // page drew before (a shard's first frame, a photo taken first, a prop's first appearance)
+    const progs = R.info.programs.length;
+    const fp = sb.set && sb.set.focus ? cameraState(sb, t).focus : undefined;   // a shot's own focus point (depth of field)
+    styler.prepare(scene, t, fp);
     styler.render(scene, camera);
+    if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
   }
   composite(t);
   return true;
@@ -629,23 +620,67 @@ function corners() {
 let recent = [];
 // QA passes that pose but draw nothing skip meshing the seamless glove skins (potato.js _skin), the slow part of a pose
 const lean = (on) => { globalThis.__noSkin = on; };
-function prime(times) { recent = []; lean(true); for (const t of times) { pose(t); recent.push(corners()); } lean(false); return true; }
+// (posed with the glove skins, as a drawn frame is: without them a shard's first two frames measured slower motion,
+// got a longer shutter and a visibly longer smear than the same frames in a whole render)
+function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
+let mbox = [Infinity, Infinity, -Infinity, -Infinity];
+function movingBox() { const b = mbox.map((x, i) => Math.round(Math.min(i % 2 ? H : W, Math.max(0, x)))); return b[2] > b[0] && b[3] > b[1] ? b : null; }
 function motion() {
+  mbox = [Infinity, Infinity, -Infinity, -Infinity];
   const c = corners(), [p2, p1] = recent.length === 2 ? recent : [null, recent[0]];
   const on = (q) => q && q[0] > -W * 0.1 && q[0] < W * 1.1 && q[1] > -H * 0.1 && q[1] < H * 1.1, d = (x, y) => Math.hypot(x[0] - y[0], x[1] - y[1]);
   let m = 0;
   if (p1 && p2) for (const [o, q0] of c) {
     const q1 = p1.get(o), q2 = p2.get(o); if (!q1 || !q2) continue;
-    for (let i = 0; i < q0.length; i++) if (q0[i] && q1[i] && q2[i] && (on(q0[i]) || on(q1[i]))) { const s1 = d(q0[i], q1[i]), s2 = d(q1[i], q2[i]), lo = Math.min(s1, s2), hi = Math.max(s1, s2); m = Math.max(m, hi <= 4 * lo + 2 ? hi : lo); }
+    for (let i = 0; i < q0.length; i++) if (q0[i] && q1[i] && q2[i] && (on(q0[i]) || on(q1[i]))) { const s1 = d(q0[i], q1[i]), s2 = d(q1[i], q2[i]), lo = Math.min(s1, s2), hi = Math.max(s1, s2), sp = hi <= 4 * lo + 2 ? hi : lo; m = Math.max(m, sp);
+      // experiment (scissored blur samples): the screen box of every point that moved 4 px or more, with its smear
+      if (sp >= 4) for (const q of [q0[i], q1[i]]) { mbox[0] = Math.min(mbox[0], q[0]); mbox[1] = Math.min(mbox[1], q[1]); mbox[2] = Math.max(mbox[2], q[0]); mbox[3] = Math.max(mbox[3], q[1]); } }
   }
   recent = [...recent, c].slice(-2);
   return Math.round(m * 10) / 10;
 }
 // the frame as the average of the frames drawn at each sample time (a film shutter open for that stretch); with
 // keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
+// cost trace (render.mjs --cost): pose frame t as a render would (full skins unless lean) and return motion(), without
+// drawing, so a render's blur samples per frame are known before any shard starts
+// Frame cache sketch (render-measure-01, used only by render.mjs --hashes): a digest of everything the picture at t depends on that the
+// timeline can change. Geometry that existed after init is identified by its place in the scene graph; geometry built
+// later (glove skins, brows, mouths) is hashed by content. The 2D layer is keyed by the effects and captions
+// active at t plus t itself. What init builds (cast, props, set, look) goes into the key outside, as a whole.
+let initGeoms = null;
+function fnv(h, x) { h ^= x; return Math.imul(h, 16777619) >>> 0; }
+function hashFloats(h, arr, q = 1e5) { for (let i = 0; i < arr.length; i++) h = fnv(h, Math.round(arr[i] * q) | 0); return h; }
+function stateHash(t, samples = []) {
+  if (!initGeoms) { initGeoms = new WeakSet(); scene.traverse((o) => { if (o.geometry) initGeoms.add(o.geometry); }); }
+  const one = (tt) => {
+    pose(tt); scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
+    let h = 2166136261, n = 0;
+    h = hashFloats(h, camera.matrixWorld.elements); h = hashFloats(h, camera.projectionMatrix.elements, 1e4);
+    scene.traverseVisible((o) => {
+      h = fnv(h, n++); h = hashFloats(h, o.matrixWorld.elements);
+      if (o.isLight) { h = hashFloats(h, [o.intensity, o.color.r, o.color.g, o.color.b]); }
+      if (o.morphTargetInfluences) h = hashFloats(h, o.morphTargetInfluences);
+      if (o.geometry && !initGeoms.has(o.geometry)) { const p = o.geometry.attributes.position; if (p) h = hashFloats(h, p.array, 1e4); h = fnv(h, o.geometry.index ? o.geometry.index.count : -1); }
+      for (const m of o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []) {
+        h = hashFloats(h, [m.opacity, m.visible ? 1 : 0, m.color ? m.color.r : 0, m.color ? m.color.g : 0, m.color ? m.color.b : 0, m.emissive ? m.emissive.r + m.emissive.g + m.emissive.b : 0, m.emissiveIntensity ?? 0]);
+        if (m.uniforms) for (const k of Object.keys(m.uniforms).sort()) { const v = m.uniforms[k].value; if (typeof v === "number") h = hashFloats(h, [v]); else if (v && v.isColor) h = hashFloats(h, [v.r, v.g, v.b]); else if (v && (v.isVector2 || v.isVector3 || v.isVector4)) h = hashFloats(h, v.toArray()); }
+      }
+    });
+    return h.toString(16).padStart(8, "0");
+  };
+  const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => t >= (f.at ?? 0) - 0.05 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 0.5);
+  const caps = captionsAt(sb, t);
+  const two = JSON.stringify([fxOn, caps, flashAt(sb, t), showSafe, fxOn.length || caps.length ? t : null]);
+  let h2 = 2166136261; for (let i = 0; i < two.length; i++) h2 = fnv(h2, two.charCodeAt(i));
+  // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
+  const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
+  return { scene: one(t), samples: samples.map(one), overlay: h2.toString(16).padStart(8, "0"), photos: shots };
+}
+globalThis.__noGeomCache = new URLSearchParams(location.search).has("nocache");   // experiment: rebuild brows and glove skins every frame
+function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
 function blur(times, keep) {
   const n = times.length + (keep ? 1 : 0);
   let acc = null;
@@ -700,6 +735,8 @@ function layout(t) {
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
   const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);
+  // slam words are over the action on purpose too: checked for the safe zone here, for the faces by qa/hook.mjs
+  for (const f of sb.fx || []) if (f.do === "slam" && t >= f.at && t <= f.at + (f.dur ?? 1.4)) { const L = slamBox(f); if (L) pops.push({ text: f.text, box: L.box, size: L.size, pop: true, slam: true }); }
   // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
   // characters actually cover, from a quarter-resolution silhouette render
   if (caps.length) {
@@ -1311,5 +1348,13 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur };
+// every call takes render time; a hit-stop (engine/shared/holds.js) shows story time frozen for its frames, so the
+// picture holds while the video (and its sound) runs on. Without hit-stops the two clocks are the same.
+const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o === "object" && "t" in o ? { ...o, t } : o);
+window.ENGINE = {
+  init, sync, capture, motion, movingBox,
+  frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
+  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), trace: (t, thin) => trace(st(t), thin),
+  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+};
 window.ENGINE_READY = true;

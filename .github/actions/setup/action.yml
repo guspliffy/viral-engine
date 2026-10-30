@@ -41,6 +41,9 @@ runs:
           sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
         fi
         ffmpeg -version | head -1
+    # Xvfb and Mesa for the default renderer (render.mjs --gl llvmpipe); GitHub's Ubuntu runners already have them
+    - shell: bash
+      run: command -v Xvfb > /dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends xvfb libgl1-mesa-dri > /dev/null)
     - if: inputs.voice == 'true'
       uses: actions/cache@v4
       with:
