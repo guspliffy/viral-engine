@@ -282,7 +282,7 @@ function snapshot(f, i) {
     const bg = scene.background; scene.background = new THREE.Color("#ffffff"); scene.overrideMaterial = inkMat;
     R.render(scene, pc);
     scene.overrideMaterial = null; scene.background = bg;
-  } else { styler.prepare(scene); styler.render(scene, pc); }
+  } else { const progs = R.info.programs.length; styler.prepare(scene); styler.render(scene, pc); if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, pc); } }
   for (const o of hidden) o.visible = true;
   // aspect: the picture's height over its width (1, a square, by default; a print can be 1.25, portrait)
   const S = 720, A = f.aspect ?? 1, cv = document.createElement("canvas"); cv.width = S; cv.height = Math.round(S * A);
@@ -587,8 +587,13 @@ function frame(t) {
     for (const o of setObjs) o.visible = true;
     for (const o of glows) o.visible = true;
   } else {
+    // a material drawn for the first time misses what prepare() sets on its compiled shader (the hat-brim band, the
+    // lids' light), so a frame that compiled a new program is drawn again: the picture no longer depends on what the
+    // page drew before (a shard's first frame, a photo taken first, a prop's first appearance)
+    const progs = R.info.programs.length;
     styler.prepare(scene);
     styler.render(scene, camera);
+    if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, camera); }
   }
   composite(t);
   return true;
@@ -629,7 +634,9 @@ function corners() {
 let recent = [];
 // QA passes that pose but draw nothing skip meshing the seamless glove skins (potato.js _skin), the slow part of a pose
 const lean = (on) => { globalThis.__noSkin = on; };
-function prime(times) { recent = []; lean(true); for (const t of times) { pose(t); recent.push(corners()); } lean(false); return true; }
+// (posed with the glove skins, as a drawn frame is: without them a shard's first two frames measured slower motion,
+// got a longer shutter and a visibly longer smear than the same frames in a whole render)
+function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
