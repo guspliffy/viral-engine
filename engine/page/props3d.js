@@ -1431,7 +1431,8 @@ export function propState(sb, spec, t) {
         continue;
       }
       const k = a.keep || a.grip ? 1 : ease("out")(prog(t, a.at, a.dur ?? 0.25));
-      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}) };
+      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}), ...(ps.left && { prev: ps.left }) };
+      // (taken again after a let-go without a place: `prev` is that hold, so stage.js starts from where it was left)
       ps.left = null;
     }
     else if (a.do === "release") {

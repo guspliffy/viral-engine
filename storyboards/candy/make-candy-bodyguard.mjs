@@ -89,7 +89,7 @@ const SPIDER_LOW = [-0.3, 0.12, 0.52];                                  // below
 const SPIDER_AT = [-0.27, H, 0.9];                                      // its place for good: front-left of the bowl
 const A0 = [-0.07, 0.464, 0.83], B0 = [0.07, 0.462, 0.9];              // the two named sweets on top of the heap
 const A_CHEST = [-0.42, 0.5, 0.54];                                     // sweet A held near the Wizard's chest
-const B_LANE = [0.24, H + 0.004, 0.8], B_STOP = [0.48, H + 0.004, 0.8];   // the clear lane on the bowl's right, toward the door
+const B_LANE = [0.27, H + 0.004, 0.8], B_STOP = [0.48, H + 0.004, 0.8];   // the clear lane on the bowl's right, toward the door
 
 // eye targets (face look space: + right on screen, + up)
 const WIZ_AT_BOWL = [0.45, -0.6], WIZ_AT_REA = [0.8, 0.05], WIZ_AT_HAND = [-0.15, -0.35];
@@ -266,7 +266,7 @@ t = hb.place(t + 0.02, B_LANE, 0.22);                                           
 t = hb.release(t + 0.05, null, { back: 0.1, up: 0.03 });                              // let go, the hand lifts a little
 // the slide: the fingertips come down behind it (on the side away from the door) and push it along the lane, so the
 // sweet stays in sight ahead of the hand; it slows to a stop well before the table's end, then the hand lets go
-const PUSH = [-0.085, 0.05, 0.01];                                                     // the hand's place beside the sweet
+const PUSH = [-0.115, 0.05, 0.01];                                                     // the hand's place beside the sweet
 const behind = (p) => ({ world: [r3(p[0] + PUSH[0]), r3(p[1] + PUSH[1]), r3(p[2] + PUSH[2])] });
 c.arm(t, "wiz", "L", behind(B_LANE), 0.14, "inOut");
 A(t, "wiz", "grip", { side: "L", shape: "hover", dur: 0.12 });
@@ -276,7 +276,10 @@ c.arm(t + 0.02, "wiz", "L", behind(B_STOP), 0.4, "out");
 sfx(t + 0.02, "ai/cookie-scrape", { gain: 0.3, reason: "the soft tabletop slide of the purple sweet toward Reaper" });
 t = r3(t + 0.46);
 A(t, "wiz", "release", { prop: "sweetB", dur: 0 });
-c.arm(t + 0.04, "wiz", "L", { world: [r3(B_STOP[0] - 0.12), H + 0.075, r3(B_STOP[2] - 0.05)] }, 0.3, "inOut");  // the hand settles on the table beside it
+// let go and take the hand back toward himself, so the offered sweet sits alone on the table (a hand left resting
+// beside it reached over it: the big glove's fingers covered the wrapper, Jonny 30 Oct)
+c.arm(t + 0.04, "wiz", "L", { world: [r3(B_STOP[0] - 0.2), H + 0.14, r3(B_STOP[2] - 0.1)] }, 0.2, "out");
+c.arm(t + 0.24, "wiz", "L", { world: [r3(B_STOP[0] - 0.33), H + 0.075, r3(B_STOP[2] - 0.16)] }, 0.3, "inOut");  // settles on the table by the bowl
 A(t + 0.1, "wiz", "grip", { side: "L", shape: "paw", dur: 0.3 });
 sfx(t - 0.2, "ai/warm-resolve", { gain: 0.45, reason: "the warm resolving chord as he lets go of the offered sweet" });
 A(7.0, "wiz", "look", { to: [0.45, -0.7], dur: 0.15, blink: false });
