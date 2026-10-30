@@ -55,9 +55,12 @@ const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical 
 // stays one sample, so calm stretches cost nothing. A very fast part (a blade in a close-up) gets a shorter shutter, so
 // its smear is at most (max - 1) x gap px: wider than that, the samples would show as separate stripes. The estimate only sets the cost: the samples are real frames at
 // their own times, so a part that has stopped just draws the same picture again. Samples never cross a cut, an impact
-// frame or the start of a flash. A storyboard tunes it with "motionBlur": { ... } or turns it
-// off with "motionBlur": false; drafts skip it unless --blur.
-const BLUR = { shutter: 0.5, gap: 5, min: 12, max: 13 };
+// frame or the start of a flash. Only really fast moves are blurred (Jonny, 30 Oct 2026: "cut the blur except for
+// really fast movements"): 48 px of smear before a frame blurs at all, a sample per 10 px, at most 7. Until then it
+// was 12 px, 5 px and 13, which blurred two thirds of a busy clip and took 62-73 % of its render time
+// (render-measure-01). A storyboard tunes it with "motionBlur": { ... } or turns it off with "motionBlur": false;
+// --no-blur turns it off, and drafts skip it unless --blur.
+const BLUR = { shutter: 0.5, gap: 10, min: 48, max: 7 };
 // The picture is stored as BT.709 (the HD standard phones and the apps assume) and tagged so: left alone, ffmpeg
 // stores a browser frame as BT.601, which a player reading it as HD shows more saturated (orange 242,107,29 -> 254,114,21).
 const COLOR = ["-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"];
@@ -83,12 +86,21 @@ function args() {
     else if (a[i] === "--force") o.force = true;
     else if (a[i] === "--skip-gate") o.skipGate = true;
     else if (a[i] === "--ids") o.ids = true;
+    else if (a[i] === "--cost") o.cost = true;                       // with --layout: also <id>.cost.json (blur samples per frame)
+    else if (a[i] === "--thin-trace") o.thinTrace = true;            // cost trace without glove skins (faster, approximate)
+    else if (a[i] === "--balance") o.balance = true;                 // with --shard: ranges of equal expected cost from <id>.cost.json
+    else if (a[i] === "--blur-set") o.blurSet = Object.fromEntries(a[++i].split(",").map((kv) => kv.split("=")).map(([k, v]) => [k, Number(v)]));
+    else if (a[i] === "--frames-dir") o.framesDir = path.resolve(a[++i]);   // every finished frame as a PNG too (agreement tests)
+    else if (a[i] === "--timing-json") o.timingJson = path.resolve(a[++i]);
+    else if (a[i] === "--cover") o.cover = path.resolve(a[++i]);    // dead-code study: run every code path a clip uses, write V8 coverage
+    else if (a[i] === "--hashes") o.hashes = path.resolve(a[++i]);
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
   }
-  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
-  if (o.gl && !["soft", "gpu"].includes(o.gl)) { console.error(`--gl ${o.gl}: use soft (CPU, the default) or gpu`); process.exit(2); }
+  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl llvmpipe|soft|gpu] [--no-blur] [--out dir]"); process.exit(2); }
+  o.gl = o.gl || "llvmpipe";
+  if (!["soft", "gpu", "llvmpipe"].includes(o.gl)) { console.error(`--gl ${o.gl}: use llvmpipe (CPU, the default), soft (SwiftShader) or gpu`); process.exit(2); }
   return o;
 }
 
@@ -117,12 +129,25 @@ function findChrome() {
   return undefined; // let playwright decide
 }
 
-// Chrome flags for drawing: SwiftShader on the CPU (the same pixels everywhere), or the machine's graphics card
+// Chrome flags for drawing: Mesa llvmpipe or SwiftShader on the CPU, or the machine's graphics card
 function glArgs(mode) {
+  // llvmpipe (the default since 30 Oct 2026): Mesa's CPU rasteriser through ANGLE's desktop-GL backend, which needs an X
+  // display (startXvfb) and LIBGL_ALWAYS_SOFTWARE=1 (https://microlink.io/blog/webgl-without-a-gpu). It draws about 3x
+  // faster than SwiftShader (--gl soft) on the same CPU (render-measure-01), and Jonny saw no difference side by side
+  if (mode === "llvmpipe") return ["--use-angle=gl", "--enable-gpu", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"];
   if (mode !== "gpu") return ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"];
   const angle = process.platform === "win32" ? ["--use-angle=d3d11"] : process.platform === "darwin" ? ["--use-angle=metal"] : [];
   const extra = (process.env.GL_ARGS || "").split(/\s+/).filter(Boolean);
   return ["--enable-gpu", "--ignore-gpu-blocklist", ...angle, ...extra, "--enable-unsafe-swiftshader"]; // last: software fallback, reported below
+}
+
+// a virtual X display for --gl llvmpipe; Xvfb prints the display number it picked on fd 3
+function startXvfb() {
+  return new Promise((ok, bad) => {
+    const p = spawn("Xvfb", ["-displayfd", "3", "-screen", "0", "1280x2000x24", "-nolisten", "tcp"], { stdio: ["ignore", "ignore", "ignore", "pipe"] });
+    p.on("error", (e) => bad(new Error(`--gl llvmpipe needs Xvfb (apt install xvfb): ${e.message}`)));
+    p.stdio[3].once("data", (d) => ok({ proc: p, display: ":" + String(d).trim() }));
+  });
 }
 
 function ffmpeg(argv) {
@@ -236,7 +261,8 @@ async function main() {
   }
 
   const srv = await serve();
-  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl) });
+  const xvfb = o.gl === "llvmpipe" ? await startXvfb() : null;
+  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl), ...(xvfb ? { env: { ...process.env, DISPLAY: xvfb.display, LIBGL_ALWAYS_SOFTWARE: "1" } } : {}) });
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     const errors = [];
@@ -244,7 +270,8 @@ async function main() {
     page.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errors.push(m.text()); });
     page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
-    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html`);
+    if (o.cover) await page.coverage.startJSCoverage({ resetOnNavigation: false });
+    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html${process.env.NOCACHE ? "?nocache" : ""}`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
@@ -291,7 +318,54 @@ async function main() {
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
       return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden"].includes(r.check));
     };
-    if (o.layoutOnly) { if (contactGate(await writeLayout()).length) process.exitCode = 1; return; }
+    // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
+    // bulk of a render's time) are known per frame before any shard starts
+    const writeCost = async () => {
+      const bl = blurPlan(sb, o, fps), tc = Date.now(), n = Math.round(dur * fps), frames = [];
+      await page.evaluate((ts) => window.ENGINE.prime(ts), []);
+      for (let i = 0; i < n; i++) {
+        const v = await page.evaluate(([tt, thin]) => window.ENGINE.trace(tt, thin), [i / fps, !!o.thinTrace]);
+        const s = bl && blurSamples(bl, i / fps, fps, v), box = await page.evaluate(() => window.ENGINE.movingBox?.());
+        frames.push({ v, samples: s ? s.times.length : 0, box });
+      }
+      const f = path.join(o.out, `${sb.id}${tag}.cost.json`);
+      fs.writeFileSync(f, JSON.stringify({ fps, frames, blur: bl && { ...bl, walls: undefined }, traceS: (Date.now() - tc) / 1000, thin: !!o.thinTrace }));
+      console.log(`wrote ${f}: ${frames.filter((x) => x.samples).length} of ${n} frames blurred, ${frames.reduce((m, x) => m + x.samples, 0)} extra samples, traced in ${((Date.now() - tc) / 1000).toFixed(1)}s`);
+    };
+    if (o.cover) {
+      // every frame posed (layout, as the checks pose), every 3rd frame posed with skins and its motion measured,
+      // contacts every 0.2 s, a drawn frame per beat plus one blurred and one id map, then the coverage
+      const n = Math.round(dur * fps), tc = Date.now();
+      await page.evaluate(() => window.ENGINE.prime([]));
+      const step = Number(process.env.COVER_STEP || 2), beats = beatTimes(raw).filter((_, k, all) => k % Math.max(1, Math.ceil(all.length / Number(process.env.COVER_DRAWN || 99))) === 0);
+      for (let i = 0; i < n; i += step) { await page.evaluate((tt) => window.ENGINE.layout(tt), i / fps); if (i % (2 * step) === 0) await page.evaluate((tt) => window.ENGINE.trace(tt, false), i / fps); if (i % (3 * step) === 0) await page.evaluate((tt) => window.ENGINE.contact(tt), i / fps); }
+      for (const t of beats) await shot(t);
+      const tb = beatTimes(raw)[1] ?? 0.5; await shot(tb); await page.evaluate(([ts]) => window.ENGINE.blur(ts, true), [[tb + 0.004, tb + 0.008]]);
+      await page.evaluate((tt) => window.ENGINE.ids(tt), tb);
+      const cov = await page.coverage.stopJSCoverage();
+      fs.writeFileSync(o.cover, JSON.stringify(cov.filter((e) => /\/engine\/page\//.test(e.url)).map((e) => ({ url: e.url.replace(/^.*?\/engine\//, "engine/"), functions: e.functions }))));
+      console.log(`coverage: ${n} frames posed, ${beatTimes(raw).length} drawn, in ${((Date.now() - tc) / 1000).toFixed(0)}s -> ${o.cover}`);
+      return;
+    }
+    if (o.hashes) {
+      // frame cache sketch: a key per frame = engine version + what init builds + the frame's own state (and its blur
+      // samples' states). Two keys equal -> the frame can be reused.
+      const crypto = await import("node:crypto"), H = (x) => crypto.createHash("sha256").update(x).digest("hex").slice(0, 16);
+      const eng = spawnSync("git", ["-C", ROOT, "ls-files", "-s", "engine/page", "engine/render.mjs", "characters", "assets", "package-lock.json"], { encoding: "utf8" }).stdout;
+      const dirty = spawnSync("git", ["-C", ROOT, "diff", "HEAD", "--", "engine/page", "engine/render.mjs"], { encoding: "utf8" }).stdout;
+      const engine = H(eng + dirty), statics = H(JSON.stringify({ cast: sb.cast, props: sb.props, set: sb.set, look, style, chars, fps, draft: !!o.draft }));
+      const bl = blurPlan(sb, o, fps), n = Math.round(dur * fps), keys = [], th = Date.now();
+      await page.evaluate((ts) => window.ENGINE.prime(ts), []);
+      for (let i = 0; i < n; i++) {
+        const t = i / fps, v = await page.evaluate((tt) => window.ENGINE.trace(tt, false), t), s = bl && blurSamples(bl, t, fps, v);
+        const st = await page.evaluate(([tt, ss]) => window.ENGINE.stateHash(tt, ss), [t, s ? s.times : []]);
+        keys.push({ i, key: H(engine + statics + JSON.stringify(st) + JSON.stringify(s || null)), ...st, samples: s ? s.times.length : 0 });
+      }
+      fs.writeFileSync(o.hashes, JSON.stringify({ engine, statics, ms: Date.now() - th, keys }));
+      console.log(`frame keys: ${n} in ${((Date.now() - th) / 1000).toFixed(1)}s -> ${o.hashes}`);
+      return;
+    }
+    if (o.layoutOnly) { const lay = await writeLayout(); if (o.cost) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
     if (o.stills) {
       for (const t of o.stills) {
         const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f);
@@ -307,7 +381,18 @@ async function main() {
       if (!o.force) { process.exitCode = 1; return; }
     }
     let a = frameA, b = frameB;
-    if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
+    if (o.shard && o.balance) {
+      // contiguous ranges of equal expected cost: a frame costs PER_FRAME s plus PER_SAMPLE s per extra blur sample
+      // (fitted on 96 farm shards, 30 Oct 2026)
+      const cf = path.join(o.out, `${sb.id}${tag}.cost.json`), PER_FRAME = 1.65, PER_SAMPLE = 2.57;
+      if (!fs.existsSync(cf)) throw new Error(`--balance needs ${cf} (render.mjs --layout --cost)`);
+      const fr = JSON.parse(fs.readFileSync(cf, "utf8")).frames.slice(frameA, frameB), cost = fr.map((x) => PER_FRAME + PER_SAMPLE * x.samples);
+      const total = cost.reduce((m, x) => m + x, 0), cut = (k) => { if (k <= 0) return 0; if (k >= o.shard.n) return cost.length; let acc = 0; for (let j = 0; j < cost.length; j++) { if (acc + cost[j] / 2 >= (total * k) / o.shard.n) return j; acc += cost[j]; } return cost.length; };
+      a = frameA + cut(o.shard.i - 1); b = frameA + cut(o.shard.i);
+      console.log(`shard ${o.shard.i}/${o.shard.n} (balanced): frames ${a}-${b - 1}, expected ${cost.slice(a - frameA, b - frameA).reduce((m, x) => m + x, 0).toFixed(0)}s of ${total.toFixed(0)}s`);
+    } else if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
+    if (o.framesDir) { fs.mkdirSync(o.framesDir, { recursive: true }); o.png = true; }
+    const perFrame = [];
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
       ...COLOR, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((ok, bad) => ff.on("close", (c) => (c === 0 ? ok() : bad(new Error("ffmpeg exited " + c)))));
@@ -320,6 +405,7 @@ async function main() {
     // after a frame is drawn: how fast it moves, and if fast, more samples averaged in
     const blurAfter = bl && (async (t) => {
       const v = await page.evaluate(() => window.ENGINE.motion()), s = blurSamples(bl, t, fps, v);
+      perFrame.at(-1).v = v; perFrame.at(-1).samples = s ? s.times.length : 0;
       if (!s) return;
       const tb = Date.now();
       await page.evaluate(([ts, keep]) => window.ENGINE.blur(ts, keep), [s.times, s.keep]);
@@ -327,16 +413,20 @@ async function main() {
       blurred.frames++; blurred.samples += s.times.length + (s.keep ? 1 : 0); blurred.ms += Date.now() - tb;
     });
     for (let i = a; i < b; i++) {
+      const tf = Date.now(); perFrame.push({ i });
       const img = await shot(i / fps, o.png ? "png" : "jpeg", blurAfter);
+      perFrame.at(-1).ms = Date.now() - tf;
+      if (o.framesDir) fs.writeFileSync(path.join(o.framesDir, `f${String(i).padStart(4, "0")}.png`), img);
       if (!ff.stdin.write(img)) await new Promise((ok) => ff.stdin.once("drain", ok));
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
     }
     ff.stdin.end(); await done;
     if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
+    if (o.timingJson) fs.writeFileSync(o.timingJson, JSON.stringify({ a, b, totalS: (Date.now() - tr) / 1000, pose: timing.pose, draw: timing.draw, grab: timing.grab, blurred, frames: perFrame }));
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
-    await browser.close(); srv.close();
+    await browser.close(); srv.close(); if (xvfb) xvfb.proc.kill();
   }
   if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
   await finish(audio, videoFile, wavFile, outFile, o, dur, "");
@@ -345,7 +435,7 @@ async function main() {
 // motion blur settings for this render, or null when it is off
 function blurPlan(sb, o, fps) {
   if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
-  const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}) };
+  const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
   bl.walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];

@@ -603,19 +603,61 @@ function prime(times) { recent = []; for (const t of times) { pose(t); recent.pu
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
+let mbox = [Infinity, Infinity, -Infinity, -Infinity];
+function movingBox() { const b = mbox.map((x, i) => Math.round(Math.min(i % 2 ? H : W, Math.max(0, x)))); return b[2] > b[0] && b[3] > b[1] ? b : null; }
 function motion() {
+  mbox = [Infinity, Infinity, -Infinity, -Infinity];
   const c = corners(), [p2, p1] = recent.length === 2 ? recent : [null, recent[0]];
   const on = (q) => q && q[0] > -W * 0.1 && q[0] < W * 1.1 && q[1] > -H * 0.1 && q[1] < H * 1.1, d = (x, y) => Math.hypot(x[0] - y[0], x[1] - y[1]);
   let m = 0;
   if (p1 && p2) for (const [o, q0] of c) {
     const q1 = p1.get(o), q2 = p2.get(o); if (!q1 || !q2) continue;
-    for (let i = 0; i < q0.length; i++) if (q0[i] && q1[i] && q2[i] && (on(q0[i]) || on(q1[i]))) { const s1 = d(q0[i], q1[i]), s2 = d(q1[i], q2[i]), lo = Math.min(s1, s2), hi = Math.max(s1, s2); m = Math.max(m, hi <= 4 * lo + 2 ? hi : lo); }
+    for (let i = 0; i < q0.length; i++) if (q0[i] && q1[i] && q2[i] && (on(q0[i]) || on(q1[i]))) { const s1 = d(q0[i], q1[i]), s2 = d(q1[i], q2[i]), lo = Math.min(s1, s2), hi = Math.max(s1, s2), sp = hi <= 4 * lo + 2 ? hi : lo; m = Math.max(m, sp);
+      // experiment (scissored blur samples): the screen box of every point that moved 4 px or more, with its smear
+      if (sp >= 4) for (const q of [q0[i], q1[i]]) { mbox[0] = Math.min(mbox[0], q[0]); mbox[1] = Math.min(mbox[1], q[1]); mbox[2] = Math.max(mbox[2], q[0]); mbox[3] = Math.max(mbox[3], q[1]); } }
   }
   recent = [...recent, c].slice(-2);
   return Math.round(m * 10) / 10;
 }
 // the frame as the average of the frames drawn at each sample time (a film shutter open for that stretch); with
 // keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
+// cost trace (render.mjs --cost): pose frame t as a render would (full skins unless lean) and return motion(), without
+// drawing, so a render's blur samples per frame are known before any shard starts
+// Frame cache sketch (render-measure-01, used only by render.mjs --hashes): a digest of everything the picture at t depends on that the
+// timeline can change. Geometry that existed after init is identified by its place in the scene graph; geometry built
+// later (glove skins, brows, mouths) is hashed by content. The 2D layer is keyed by the effects and captions
+// active at t plus t itself. What init builds (cast, props, set, look) goes into the key outside, as a whole.
+let initGeoms = null;
+function fnv(h, x) { h ^= x; return Math.imul(h, 16777619) >>> 0; }
+function hashFloats(h, arr, q = 1e5) { for (let i = 0; i < arr.length; i++) h = fnv(h, Math.round(arr[i] * q) | 0); return h; }
+function stateHash(t, samples = []) {
+  if (!initGeoms) { initGeoms = new WeakSet(); scene.traverse((o) => { if (o.geometry) initGeoms.add(o.geometry); }); }
+  const one = (tt) => {
+    pose(tt); scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
+    let h = 2166136261, n = 0;
+    h = hashFloats(h, camera.matrixWorld.elements); h = hashFloats(h, camera.projectionMatrix.elements, 1e4);
+    scene.traverseVisible((o) => {
+      h = fnv(h, n++); h = hashFloats(h, o.matrixWorld.elements);
+      if (o.isLight) { h = hashFloats(h, [o.intensity, o.color.r, o.color.g, o.color.b]); }
+      if (o.morphTargetInfluences) h = hashFloats(h, o.morphTargetInfluences);
+      if (o.geometry && !initGeoms.has(o.geometry)) { const p = o.geometry.attributes.position; if (p) h = hashFloats(h, p.array, 1e4); h = fnv(h, o.geometry.index ? o.geometry.index.count : -1); }
+      for (const m of o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []) {
+        h = hashFloats(h, [m.opacity, m.visible ? 1 : 0, m.color ? m.color.r : 0, m.color ? m.color.g : 0, m.color ? m.color.b : 0, m.emissive ? m.emissive.r + m.emissive.g + m.emissive.b : 0, m.emissiveIntensity ?? 0]);
+        if (m.uniforms) for (const k of Object.keys(m.uniforms).sort()) { const v = m.uniforms[k].value; if (typeof v === "number") h = hashFloats(h, [v]); else if (v && v.isColor) h = hashFloats(h, [v.r, v.g, v.b]); else if (v && (v.isVector2 || v.isVector3 || v.isVector4)) h = hashFloats(h, v.toArray()); }
+      }
+    });
+    return h.toString(16).padStart(8, "0");
+  };
+  const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => t >= (f.at ?? 0) - 0.05 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 0.5);
+  const caps = captionsAt(sb, t);
+  const two = JSON.stringify([fxOn, caps, flashAt(sb, t), showSafe, fxOn.length || caps.length ? t : null]);
+  let h2 = 2166136261; for (let i = 0; i < two.length; i++) h2 = fnv(h2, two.charCodeAt(i));
+  // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
+  const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
+  return { scene: one(t), samples: samples.map(one), overlay: h2.toString(16).padStart(8, "0"), photos: shots };
+}
+globalThis.__noGeomCache = new URLSearchParams(location.search).has("nocache");   // experiment: rebuild brows and glove skins every frame
+function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
 function blur(times, keep) {
   const n = times.length + (keep ? 1 : 0);
   let acc = null;
@@ -1281,5 +1323,5 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur };
+window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur, trace, stateHash, movingBox };
 window.ENGINE_READY = true;

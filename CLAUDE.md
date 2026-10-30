@@ -197,8 +197,10 @@ are his call. Skip the reviews only for pure engine tests, and say so.
   missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
-- Full renders take about 1.7 s per frame on the CPU (10 minutes for a 12 s clip), almost all of it SwiftShader
-  drawing. Run them in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
+- Renders draw on the CPU with Mesa llvmpipe (`--gl llvmpipe`, the default since 30 Oct 2026; it needs Xvfb), about
+  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears really fast moves (Jonny, 30 Oct: 48 px
+  of smear before a frame blurs, `engine/render.mjs` BLUR); it used to take 62-73 % of a clip's render time
+  (`/mnt/project-files/engine/render-measure-01/report.md`). Run full renders in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
   machine with a graphics card, try `--gl gpu` on a 1 s range (`--from 4 --to 5`) and compare the timing line; the
   "stage ready" line names the renderer actually used.
 - **Render farm** (Jonny OK'd 28 Oct 2026): `.github/workflows/render.yml` cuts a clip into frame ranges, draws them on
