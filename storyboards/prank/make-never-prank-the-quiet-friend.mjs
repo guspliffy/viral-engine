@@ -72,7 +72,7 @@ const cast = [
 ];
 const CAN_SPEC = { id: "can", kind: "foamcan", ...grips.placeFor("foamcan", CAN0, WIZ_SPRAY_YAW, { turn: 90 }), tilt: 55, scale: 1.5 };
 const FS = SPRAY ? F_SPRAY : F0;
-const FEATHER_SPEC = { id: "feather", kind: "feather", x: FS[0], y: FS[1], z: FS[2], rot: 0, tilt: -64, tip: -22, scale: 1.5 };
+const FEATHER_SPEC = { id: "feather", kind: "orangefeather", x: FS[0], y: FS[1], z: FS[2], rot: 0, tilt: -64, tip: -22, scale: 1.5 };
 const props = [
   { id: "chair", kind: "armchair", x: CHAIR[0], z: CHAIR[1], rot: CHAIR_ROT },
   { id: "foam", kind: "foam", x: PALM[0], y: PALM[1], z: PALM[2], scale: SPRAY ? 0.3 : 1.35 },

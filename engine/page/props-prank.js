@@ -8,10 +8,10 @@ import { clamp } from "./util.js";
 //             ARMCHAIR.armY, centred at x +-ARMCHAIR.armX, the front roll at z ARMCHAIR.armFront), a tall padded back and
 //             short dark wooden feet. A woven blanket hangs over the left arm (the sitter's right) like the board.
 //             spec.color / spec.color2 (fabric / cushion), spec.throw: false leaves the blanket off.
-//   feather   one clean orange feather, origin at the bottom of its bare quill, pointing up +y (FEATHER.len long): a
+//   orangefeather one clean orange feather (not "feather": that is the black raven feather in props-robbed.js), origin at the bottom of its bare quill, pointing up +y (FEATHER.len long): a
 //             cream quill, a stiff rachis and a soft orange vane (yellow toward the tip) in the x/y plane, both sides
 //             drawn. Lean it with tilt (top toward +x) and tip (top toward +z). A thin prop: the grip library's `thin`
-//             hold pinches its quill (grips.mjs SIZE.feather).
+//             hold pinches its quill (grips.mjs SIZE.orangefeather).
 //   foam      one dollop of white shaving foam, a soft-serve swirl FOAM.r wide, origin at its bottom centre (it sits on
 //             a cupped palm). `flat` 0..1 presses it down and out into a smear (the palm pressed onto a cheek);
 //             `scale` (every prop has it) makes it smaller.
@@ -81,7 +81,7 @@ export const PRANK_KINDS = {
     return { grip: SY };
   },
 
-  feather(P) {
+  orangefeather(P) {
     const F = FEATHER, L = F.len;
     const quillM = mat("#f3e6c8", { roughness: 0.5 });
     // the bare quill and the rachis up the middle of the vane (thinning to the tip)
