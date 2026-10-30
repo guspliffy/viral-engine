@@ -1,0 +1,1064 @@
+{
+ "id": "five-minutes-away",
+ "title": "I'm 5 Minutes Away",
+ "cover": 3.6,
+ "idea": "Test 2 quiet gag: Phoenix fakes being on his way, mouth-made horn, running and engine, all from bed; asleep the second the call ends",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": true,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ]
+ },
+ "set": {
+  "type": "plain",
+  "color": "#3a6fe0",
+  "floor": "#2c58bd",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "music": {
+  "style": "funk",
+  "seed": 41,
+  "gain": 0.26,
+  "payoff": 5.85
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0,
+  "signature": false,
+  "auto": false,
+  "scenes": [
+   "ui"
+  ]
+ },
+ "experiment": {
+  "id": "test-2-quiet",
+  "episode": "five-minutes-away",
+  "variant": "quiet"
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "bed",
+   "phone"
+  ],
+  "hint": 0,
+  "what": "Phoenix in bed, half asleep, talking fast at his phone"
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0,
+    -0.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7,
+   "signature": false
+  }
+ ],
+ "props": [
+  {
+   "id": "bed",
+   "kind": "bed",
+   "x": 0,
+   "z": -0.1,
+   "cover": 1,
+   "blanket": "#e8574a",
+   "dots": "#fff1d6"
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 0.02,
+   "y": 0.5,
+   "z": 0.7000000000000001,
+   "tip": -70,
+   "rot": -12,
+   "scale": 1.8,
+   "case": "#ff5d73",
+   "glow": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 6.15,
+   "text": "my friend: \"I'm 5 minutes away\"",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "on my way",
+   "at": 0,
+   "len": 1.05,
+   "shot": {
+    "pos": [
+     0,
+     1.299,
+     4.418
+    ],
+    "look": [
+     0,
+     0.85,
+     0.15
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "sit",
+     "seat": "bed",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.55
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.62,
+      "open": 0.3,
+      "curve": 0.45
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.34,
+       0.64,
+       0.30000000000000004
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.34,
+       0.64,
+       0.30000000000000004
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "yeah yeah I'm on my way, totally",
+     "dur": 1,
+     "tone": "excited",
+     "gain": 1,
+     "at": 0
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "yawn",
+   "at": 1.05,
+   "len": 0.55,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.35,
+      "open": 0.6,
+      "curve": -0.1
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.45,
+       "st": 3,
+       "glide": -7
+      }
+     ],
+     "dur": 0.5,
+     "gain": 0.8,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "mouth horn",
+   "at": 1.6,
+   "len": 0.5,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "b",
+       "v": "i",
+       "d": 0.12,
+       "st": 7,
+       "gap": 0.05
+      },
+      {
+       "c": "b",
+       "v": "i",
+       "d": 0.2,
+       "st": 7,
+       "gap": 0.3
+      }
+     ],
+     "dur": 0.42,
+     "gain": 1.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.62,
+      "open": 0.15,
+      "curve": 0.2
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.2,
+     "at": 0.17
+    }
+   ]
+  },
+  {
+   "name": "fake running",
+   "at": 2.1,
+   "len": 1.2,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.62,
+      "open": 0.35,
+      "curve": 0.1
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "u",
+       "d": 0.1,
+       "st": 2,
+       "whisper": true,
+       "gap": 0.09
+      }
+     ],
+     "dur": 1.1,
+     "gain": 1.4,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 0.43
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.43
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.43
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.43
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 0.81
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.17,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.441,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 1
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "mouth engine",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.62,
+      "open": 0.25,
+      "curve": 0.2
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.24,
+       0.48,
+       0.42
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.24,
+       0.48,
+       0.42
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "w",
+       "v": "u",
+       "d": 0.95,
+       "st": -2,
+       "glide": 9
+      }
+     ],
+     "dur": 1,
+     "gain": 1.3,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.34,
+       0.64,
+       0.30000000000000004
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.34,
+       0.64,
+       0.30000000000000004
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "wind",
+   "at": 4.4,
+   "len": 1.15,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.5,
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "almost there!",
+     "dur": 0.75,
+     "tone": "excited",
+     "gain": 1,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.15,
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.44
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.5,
+     "at": 0.46
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.66
+    }
+   ]
+  },
+  {
+   "name": "call ends",
+   "at": 5.55,
+   "len": 0.3,
+   "shot": "keep",
+   "do": [
+    {
+     "sfx": "kenney/bong",
+     "gain": 0.7,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.25,
+     "idle": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "asleep",
+   "at": 5.85,
+   "len": 1.55,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "open": 0,
+      "curve": 0.25
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -22,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.15,
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "o",
+       "d": 0.55,
+       "st": -6,
+       "whisper": true
+      }
+     ],
+     "dur": 0.6,
+     "gain": 1,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.6,
+     "at": 0.65
+    },
+    {
+     "sfx": "blow",
+     "gain": 0.45,
+     "at": 1.3
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "it rings again",
+   "at": 7.4,
+   "len": 1.4,
+   "shot": "keep",
+   "do": [
+    {
+     "sfx": "ringtone",
+     "gain": 0.7,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.1
+     },
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.62,
+      "open": 0.3,
+      "curve": 0.45
+     },
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "yes yes I'm here",
+     "dur": 0.5500000000000004,
+     "tone": "excited",
+     "gain": 1,
+     "at": 0.8
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "phx",
+   "with": "bed",
+   "from": 0,
+   "to": 8.8,
+   "reason": "Phoenix sits up in bed under the blanket"
+  }
+ ],
+ "notes": "Generated by storyboards/quiet/make-five-minutes-away.mjs (Test 2, quiet relatable gags)."
+}

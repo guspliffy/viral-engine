@@ -26,6 +26,7 @@ export const voiceKey = (a) => (a.seed != null ? `${a.who}#${a.seed}` : a.line !
 // Planned in time relative to the action's start, so the plan only shifts when the action moves.
 export function planSyllables(action, voice = {}) {
   const v = { ...DEFAULT_VOICE, ...voice };
+  if (action.pattern) return planPattern(action, v);
   const r = rng(hash(voiceKey(action)) ^ ((v.seed ?? 0) * 7919)), keyed = action.line != null || action.seed != null;
   const tone = action.tone || "calm", end = action.dur ?? 1;
   const rate = (action.rate ?? v.rate) * (tone === "excited" ? 1.3 : tone === "sad" ? 0.8 : 1);
@@ -51,6 +52,25 @@ export function planSyllables(action, voice = {}) {
     }
     t += 0.05 + r() * 0.1; // gap between words
     word++;
+  }
+  return out;
+}
+
+// A non-word written out syllable by syllable (a laugh, a mouth-made horn, a snore): action.pattern is a list of
+// { c: consonant, v: vowel, d: seconds, st: semitones from the voice's pitch, glide: semitones over the syllable,
+// gap: seconds after it, amp: 0..1, whisper: true for breath only }. Every key is optional ("ha ha ha" is
+// [{ c: "h", v: "a" }, ...]); the list repeats until the action's dur is filled, so a held laugh keeps going.
+// Nothing random in it: the same pattern always sounds and moves the same.
+function planPattern(action, v) {
+  const P = action.pattern, end = action.dur ?? 1, out = [];
+  let t = 0, i = 0;
+  while (t < end - 0.04 && i < 400) {
+    const p = P[i % P.length], d = Math.min(p.d ?? 0.14, end - t);
+    out.push({
+      t0: action.at + t, jt: t, dur: d, vowel: p.v ?? "a", cons: p.c ?? "", f0: v.pitch * Math.pow(2, (p.st ?? 0) / 12),
+      amp: p.amp ?? 1, fall: p.glide ?? 0, ...((p.whisper || action.tone === "whisper") && { whisper: true }),
+    });
+    t += d + (p.gap ?? 0.04); i++;
   }
   return out;
 }

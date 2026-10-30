@@ -610,10 +610,11 @@ export function renderAudio(sb, chars) {
   const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
   const events = soundEvents(sb, chars);
   for (const e of events) {
-    if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice, e.pan); // real speech (engine/voice/)
+    // a talk action's gain scales its line (a shout, a mumble across the room); 1 = as the voice is set
+    if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice * (e.action.gain ?? 1), e.pan); // real speech (engine/voice/)
     else if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
-      voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice);
+      voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice * (e.action.gain ?? 1));
     } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
     else if (isSignature(e.kind)) { // a lead's signature: always the same take, its hit (Phoenix's burst, the bell's strike) on the event
       const x = signatureSound(e.kind);

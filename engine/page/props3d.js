@@ -622,7 +622,7 @@ const KINDS = {
   bed(P) {
     const wood = mat("#a8744a", { roughness: 0.7 }), sheet = mat("#f4f1ea", { roughness: 0.8 }), pillowM = mat("#ffffff", { roughness: 0.8 });
     const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
-    x.fillStyle = "#5b8fd6"; x.fillRect(0, 0, 128, 128); x.fillStyle = "#ffd75e";
+    x.fillStyle = P.spec.blanket || "#5b8fd6"; x.fillRect(0, 0, 128, 128); x.fillStyle = P.spec.dots || "#ffd75e";   // spec.blanket / dots: its colours
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { x.beginPath(); x.arc(16 + i * 32 + (j % 2) * 16, 16 + j * 32, 6, 0, 7); x.fill(); }
     const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(3, 3);
     const blanketM = mat("#ffffff", { map: tx, roughness: 0.85 });
