@@ -32,6 +32,8 @@ const SIZE = {
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
   pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
+  feather: { len: 0.34, r: 0.0065 },               // props-prank.js FEATHER: the quill at the bottom, the vane up to the tip
+  foamcan: { r: 0.034, h: 0.15 },                  // props-prank.js FOAMCAN: held round its body like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
 };
 // a bowl's outside radius at height y (before scale)
