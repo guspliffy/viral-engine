@@ -7,28 +7,85 @@
     "three-cuts": "The merged master as rendered, with its setup cuts in the first 3 s"
   },
   "blocks": [
-    { "family": "A", "one-take": "Never Prank the Quiet Friend", "three-cuts": "What Raven?" },
-    { "family": "B", "one-take": "Dragon vs. the Candle", "three-cuts": "Don't Touch the Charger", "status": "on hold: both masters already open without a cut in the first 3 s (Dragon first cut 3.4 s, Charger 5.2 s); Jonny decides whether to drop or redraw it" },
-    { "family": "C", "one-take": "Vampire vs Juice Box", "three-cuts": "Just Hand Me the Package" }
+    {
+      "family": "A",
+      "one-take": "Never Prank the Quiet Friend",
+      "three-cuts": "What Raven?"
+    },
+    {
+      "family": "C",
+      "one-take": "Vampire vs Juice Box",
+      "three-cuts": "Just Hand Me the Package"
+    }
   ],
   "measuredCuts": {
-    "Never Prank the Quiet Friend": [0.57, 1.07, 1.6, 3.1],
-    "What Raven?": [1.2, 1.7, 2.9],
-    "Dragon vs. the Candle": [3.4],
-    "Don't Touch the Charger": [5.2],
-    "Vampire vs Juice Box": [0.5, 1.0, 1.8, 3.0],
-    "Just Hand Me the Package": [0.6, 1.2, 1.8],
+    "Never Prank the Quiet Friend": [
+      0.57,
+      1.07,
+      1.6,
+      3.1
+    ],
+    "What Raven?": [
+      1.2,
+      1.7,
+      2.9
+    ],
+    "Dragon vs. the Candle": [
+      3.4
+    ],
+    "Don't Touch the Charger": [
+      5.2
+    ],
+    "Vampire vs Juice Box": [
+      0.5,
+      1.0,
+      1.8,
+      3.0
+    ],
+    "Just Hand Me the Package": [
+      0.6,
+      1.2,
+      1.8
+    ],
     "how": "ffmpeg scene score > 0.25 on the ready-to-post MP4s, checked against the storyboards' shots"
   },
-  "postingOrder": ["Never Prank the Quiet Friend", "What Raven?", "Don't Touch the Charger", "Dragon vs. the Candle", "Just Hand Me the Package", "Vampire vs Juice Box"],
+  "postingOrder": [
+    "Never Prank the Quiet Friend",
+    "What Raven?",
+    "Just Hand Me the Package",
+    "Vampire vs Juice Box"
+  ],
   "assignment": "Python random.seed(20261030), before any result",
   "audience": "Viewers of short character comedy who don't know the cast (For You / Reels, Europe and the US)",
-  "fixed": ["same file on both platforms, same day", "posting slot 13:00 Berlin, one clip a day", "caption policy", "music and sound (the master's audio stream, copied)", "length", "renderer: SwiftShader on the render farm, like the masters"],
-  "departures": ["Vampire's master has no on-screen caption; its one take adds \"New vampire. Still learning.\" (0-1.2 s) so pair C matches Package's captioned opening and Jonny's 29 Oct caption rule. A no-caption copy exists if Jonny prefers it."],
+  "fixed": [
+    "same file on both platforms, same day",
+    "posting slot 13:00 Berlin, one clip a day",
+    "caption policy",
+    "music and sound (the master's audio stream, copied)",
+    "length",
+    "renderer: SwiftShader on the render farm, like the masters"
+  ],
+  "departures": [
+    "Vampire's master has no on-screen caption; its one take adds \"New vampire. Still learning.\" (0-1.2 s) so pair C matches Package's captioned opening and Jonny's 29 Oct caption rule. A no-caption copy exists if Jonny prefers it."
+  ],
   "primaryOutcome": "TikTok hold at 0:03 at 24 h, within each pair (Jonny confirms before posting)",
-  "diagnostics": ["average watch seconds", "48-hour views per platform", "shares", "comments", "saves", "follows", "Instagram 0:03 hold if Jonny reads it in the app"],
+  "diagnostics": [
+    "average watch seconds",
+    "48-hour views per platform",
+    "shares",
+    "comments",
+    "saves",
+    "follows",
+    "Instagram 0:03 hold if Jonny reads it in the app"
+  ],
   "observeDays": 2,
-  "decisionRule": "One take wins at least 2 of 3 pairs by 8 points or more at 0:03 (both pairs if pair B is dropped). Repeat on new stories before changing the rule.",
+  "decisionRule": "One take wins both pairs by 8 points or more at 0:03 (pair B dropped, so two pairs only show a direction). Repeat on new stories before changing the rule.",
   "costGuardrail": "About 14 min of farm time per re-cut; here only the opening is drawn (0-3.4 s)",
-  "notes": "Clips and before/after videos: /mnt/project-files/videos/test-1-openings/ (project files). Claude can't hear audio; the sound is the master's stream, copied unchanged."
+  "notes": "Clips and before/after videos: /mnt/project-files/videos/test-1-openings/ (project files). Claude can't hear audio; the sound is the master's stream, copied unchanged.",
+  "droppedBlock": {
+    "family": "B",
+    "one-take": "Dragon vs. the Candle",
+    "three-cuts": "Don't Touch the Charger",
+    "why": "both masters already open without a cut in the first 3 s (Dragon first cut 3.4 s, Charger 5.2 s); Jonny chose to run two pairs only (30 Oct 2026 15:46 UTC)"
+  }
 }
