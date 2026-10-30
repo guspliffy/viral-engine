@@ -8,8 +8,23 @@
  "loop": true,
  "captionStyle": "kinetic",
  "set": {
-  "type": "apartment",
-  "seed": 5
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.3,
+   "center": [
+    0.3,
+    1.7
+   ],
+   "height": 6.4
+  },
+  "aperture": 0.045,
+  "focus": "acting"
  },
  "music": false,
  "direct": {
@@ -197,6 +212,15 @@
     },
     {
      "who": "phx",
+     "do": "talk",
+     "line": "ooh, nice!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "scroll",
@@ -335,7 +359,7 @@
      "do": "expr",
      "expr": "happy",
      "set": {
-      "curve": 0.6
+      "curve": 0.72
      },
      "dur": 0.25,
      "at": 0.1
@@ -367,32 +391,40 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.18,
-      "eye": 1.2
+      "open": 0.38,
+      "eye": 1.368
      },
-     "dur": 0.2,
+     "dur": 0.25,
      "at": 0.2
     },
     {
      "who": "wiz",
      "do": "face",
      "brow": 0.3,
-     "dur": 0.2,
+     "dur": 0.25,
      "at": 0.2
     },
     {
      "who": "wiz",
      "do": "still",
-     "dur": 1,
+     "dur": 1.2,
      "idle": 0.08,
      "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.2
     },
     {
      "who": "phx",
      "do": "face",
      "lid": 0.42,
      "dur": 0.3,
-     "at": 1.03
+     "at": 1.23
     },
     {
      "who": "phx",
@@ -403,15 +435,7 @@
       "eye": 0.95
      },
      "dur": 0.35,
-     "at": 1.03
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 1.2
+     "at": 1.23
     },
     {
      "who": "phx",
@@ -514,7 +538,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.5,
+     "dur": 0.6,
      "idle": 0.1,
      "sink": 0.012,
      "at": 0.9

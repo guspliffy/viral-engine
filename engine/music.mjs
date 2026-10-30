@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import { musicFlavour, seedOf, renderBeat } from "../puppet/beat.mjs";
 import { isHit } from "./sfx/library.mjs";
 import { isDance } from "./page/dance.js";
+import { soundClock } from "./shared/holds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MANIFEST = path.join(ROOT, "assets/music/ai/manifest.json");
@@ -68,6 +69,7 @@ function solve(anchors, bpms, offsets) {
 }
 
 export function lockMusic(sb) {
+  sb = soundClock(sb);   // hit-stops: the grid locks to the payoff as the video plays it (engine/shared/holds.js)
   if (sb.music === false) return false;
   const music = { ...(sb.music || {}) };
   // dance moves that follow the beat (spin and shake keep their own time)
@@ -121,6 +123,7 @@ export function fileMusic(music, dur, sr) {
 // background music into the mix: on by default, a different variation per clip (seeded by puppet/beat.mjs seedOf);
 // "music": false turns it off, a music block pins tempo, style, key and parts. sb.music is the locked block.
 export function addMusic(sb, audio) {
+  sb = soundClock(sb);
   if (sb.music === false) return [];
   const music = { gain: 0.45, ...(sb.music || {}) }, dur = sb.duration, log = [];
   const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain; let pk = 0;

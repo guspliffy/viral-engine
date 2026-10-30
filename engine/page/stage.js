@@ -10,6 +10,7 @@ import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
+import { storyTime } from "../shared/holds.js";
 import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
@@ -68,11 +69,12 @@ function buildPoof(f, i) {
       g.visible = k >= 0 && k <= d;
       if (!g.visible) return;
       g.position.copy(origin);
+      const sz = f.size ?? 1;   // `size` scales the puffs and their spread, `lift` raises the cloud (a landing's dust: small and low)
       for (const p of puffs) {
         const q = clamp((k - p.delay) / d);
         const r = p.dist * (1 - Math.exp(-q * 7));
-        p.s.position.copy(p.dir).multiplyScalar(r).add(new THREE.Vector3(0, 0.45 + q * 0.25, 0));
-        p.s.scale.setScalar(p.size * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
+        p.s.position.copy(p.dir).multiplyScalar(r * sz).add(new THREE.Vector3(0, (f.lift ?? 0.45) + q * 0.25 * sz, 0));
+        p.s.scale.setScalar(p.size * sz * (0.3 + 1.2 * (1 - Math.exp(-q * 5))));
         p.s.material.opacity = q <= 0 ? 0 : Math.min(1, q * 12) * Math.pow(1 - q, 1.6);
       }
       const sp = (f.speed ?? 1) * 0.7;   // `speed` scales how far the sparks fly (embers: slower, smaller with `sparkSize`)
@@ -389,7 +391,7 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -572,9 +574,10 @@ function frame(t) {
     // lids' light), so a frame that compiled a new program is drawn again: the picture no longer depends on what the
     // page drew before (a shard's first frame, a photo taken first, a prop's first appearance)
     const progs = R.info.programs.length;
-    styler.prepare(scene);
+    const fp = sb.set && sb.set.focus ? cameraState(sb, t).focus : undefined;   // a shot's own focus point (depth of field)
+    styler.prepare(scene, t, fp);
     styler.render(scene, camera);
-    if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, camera); }
+    if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
   }
   composite(t);
   return true;
@@ -1341,5 +1344,13 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur, trace, stateHash, movingBox };
+// every call takes render time; a hit-stop (engine/shared/holds.js) shows story time frozen for its frames, so the
+// picture holds while the video (and its sound) runs on. Without hit-stops the two clocks are the same.
+const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o === "object" && "t" in o ? { ...o, t } : o);
+window.ENGINE = {
+  init, sync, capture, motion, movingBox,
+  frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
+  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), trace: (t, thin) => trace(st(t), thin),
+  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+};
 window.ENGINE_READY = true;
