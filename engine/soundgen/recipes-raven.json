@@ -1,0 +1,32 @@
+{
+ "_note": "AI sounds for What Raven? (eight trend tests #04, 29 Oct 2026), kept in their own recipe file so parallel clips don't edit recipes.json. Same tools: generate.py -> pick.py (see README). The library had no bird call.",
+ "sfx": [
+  {
+   "id": "raven-caw",
+   "kind": "oneshot",
+   "len": [
+    0.25,
+    0.8
+   ],
+   "duration": 8,
+   "tags": [
+    "caw",
+    "raven",
+    "crow",
+    "bird"
+   ],
+   "prompts": [
+    "a single raven caw, one short hoarse crow call, close up, quiet room, no music",
+    "a crow cawing once, a short raspy bird call, close microphone, no other sounds, no music"
+   ],
+   "seeds": [
+    211,
+    212,
+    213
+   ],
+   "gain": 0.45,
+   "label": "a single raven caw"
+  }
+ ],
+ "music": []
+}

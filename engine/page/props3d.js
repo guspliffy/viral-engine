@@ -20,6 +20,7 @@ import { COOKIE_KINDS, COOKIE_GRIPS } from "./props-cookie.js";
 import { COSTUME_KINDS, COSTUME_GRIPS } from "./props-costume.js";
 import { GHOSTPHOTO_KINDS, GHOSTPHOTO_GRIPS } from "./props-ghostphoto.js";
 import { PRANK_KINDS, PRANK_GRIPS } from "./props-prank.js";
+import { RAVEN_KINDS, RAVEN_GRIPS } from "./props-raven.js";
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -40,7 +41,7 @@ const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
   ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
-  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...JUICE_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS, ...GHOSTPHOTO_GRIPS, ...COSTUME_GRIPS, ...PUMPKIN_GRIPS, ...PRANK_GRIPS,
+  ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...JUICE_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS, ...GHOSTPHOTO_GRIPS, ...COSTUME_GRIPS, ...PUMPKIN_GRIPS, ...PRANK_GRIPS, ...RAVEN_GRIPS,
 };
 export function gripPoint(spec, grip) {
   if (Array.isArray(grip)) return grip;
@@ -1285,7 +1286,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
