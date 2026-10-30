@@ -7,6 +7,10 @@
 //   reaction                                            close-up on who reacts, with a slow 4 % push
 //   reveal                                              wide
 //   the last beat of a loop clip                        the opening shot again, so the last frame runs into the first
+//   insert                                              the prop the beat is about (or the hand on it), 0.5 m of picture,
+//                                                       0.4-0.8 s, then back to the wider shot; never in the first 3 s
+//   threat                                              low angle on who acts: the camera at knee height looking up
+//                                                       10-15 degrees, a wider lens; once per clip
 //
 // Framing comes from where the characters are (timeline.js, the same state the renderer draws): the acting face's
 // eye line sits on the upper third, the top of every head in shot (hat or crest included) keeps its headroom and
@@ -20,11 +24,16 @@
 //   "direct": { "master": { "pos": [...], "look": [...], "fov": 36 }, "push": 0.04, "snap": 0.22, "beatCuts": true }
 //   a beat:   "kind": "reaction", "who": "wiz"                 (who: optional, else the actor who does the most)
 //             "shot": { "size": "close", "who": "wiz", "push": 0.05 } or "shot": "keep" or a plain camera
+//             "shot": { "size": "insert", "on": "cupcake", "at": [0, 0.12, 0] }   (at: the point on the prop, its own frame)
+//             "shot": { "size": "medium", "angle": "low" }
 //
 // Runs after compile (engine/load.mjs), so the renderer and every qa/ tool see the same resolved shots.
+import fs from "node:fs";
 import { actorState } from "./page/timeline.js";
+import { propState, gripWorld } from "./page/props3d.js";
+import { handTarget } from "./page/potato.js";
 import { ease } from "./page/util.js";
-import { lockMusic } from "./music.mjs";
+import { lockMusic, payoffOf } from "./music.mjs";
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const LEG_H = 0.14, EYE_K = 0.56;   // potato.js: legs, and the eyes' height on the body (measured from the layout)
@@ -40,8 +49,12 @@ export const SIZES = {
   medium: { V: 2.7, eye: 1 / 3, feet: 0.72, head: "hat", fit: true },
   mcu:    { V: 2.0, eye: 0.35, feet: null, head: "hat", fit: "faces" },
   close:  { V: 1.55, eye: 0.36, feet: null, head: "body" },
+  // a prop (or the hand on it) filling the frame: picture height at the prop, where the prop's point sits (from the top)
+  insert: { V: 0.52, at: 0.45 },
 };
-const KIND_SIZE = { payoff: "mcu", reaction: "close", reveal: "wide" };
+const KIND_SIZE = { payoff: "mcu", reaction: "close", reveal: "wide", insert: "insert", threat: "medium" };
+const INSERT = [0.4, 0.8], INSERT_FROM = 3.0;   // an insert's length (s), and the earliest it may start (more cuts in 0-3 s lost viewers)
+const LOW = { tilts: [12, 11, 13, 10, 14, 15], feet: 0.72, maxFov: 64 };   // low angle: degrees up, the lowest the feet may sit, the widest lens
 const HEADROOM = 0.03, EYE_GIVE = 0.08, SIDE = 0.08, FACE = 0.3;   // headroom (share of the frame), how far the eye line may drop to keep it, side margin (m)
 const JUMP = 1.4;    // two framings closer than this in size (and centre) would be a jump cut: keep one shot
 const MIN_SHOT = 0.7;   // seconds: never cut sooner than this after the last cut
@@ -109,6 +122,114 @@ function frame(sb, ctx, { who, size, eyeOf, t0, t1, caps }) {
   return { pos: look.map((v, i) => r3(v + D[i] * d)), look: look.map(r3), fov, V, size, who };
 }
 
+// where a hand is at t (world metres): the hand target potato.js draws, through the body's turn, pitch, lean and scale
+function handWorld(sb, c, def, t, side) {
+  const st = actorState(sb, c, def, t), a = st.arms[side], sx = side === "R" ? -1 : 1, rx = def.body.width / 2, H = def.body.height;
+  const f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t), s = st.scale ?? 1;
+  let [x, y, z] = f.map((v, i) => v + (g[i] - v) * a.p);
+  y = LEG_H + (y - LEG_H) * (st.squash ?? 1); [x, y, z] = [x * s, y * s, z * s];
+  const yaw = st.yaw ?? 0, pitch = st.pitch || 0, lean = st.lean || 0;
+  [x, y] = [x * Math.cos(lean) - y * Math.sin(lean), x * Math.sin(lean) + y * Math.cos(lean)];
+  [y, z] = [y * Math.cos(pitch) - z * Math.sin(pitch), y * Math.sin(pitch) + z * Math.cos(pitch)];
+  [x, z] = [x * Math.cos(yaw) + z * Math.sin(yaw), -x * Math.sin(yaw) + z * Math.cos(yaw)];
+  return [st.x + x, st.y - 0.1 * (st.kneel || 0) + y, st.z + z];
+}
+
+// a point on a prop at t (world): `at` in its own frame (scaled and turned with it); a held prop is where its hand is
+function propPoint(sb, ctx, id, at, t) {
+  const spec = (sb.props || []).find((p) => p.id === id); if (!spec) return null;
+  const ps = propState(sb, spec, t), h = ps.hold;
+  if (h && ctx.cast[h.who]) {
+    const c = ctx.cast[h.who], def = ctx.chars[c.character], hands = h.hand === "both" ? ["R", "L"] : [h.hand];
+    const ws = hands.map((s) => handWorld(sb, c, def, t, s)), w = ws[0].map((_, i) => ws.reduce((m, q) => m + q[i], 0) / ws.length);
+    return h.k < 1 && h.to ? h.to.map((v, i) => v + (w[i] - v) * h.k) : w;
+  }
+  return gripWorld(spec, at || [0, 0.05, 0], [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
+}
+// does something move on the prop over [t0, t1)? (a tween on it, a grab or release, a hand aimed at it, an effect)
+function movesOn(sb, id, t0, t1) {
+  const live = (a) => a.at < t1 && a.at + (a.dur ?? 0.3) > t0;
+  const aims = (q) => q && (q.prop === id || aims(q.mix?.pose));
+  return (sb.actions || []).some((a) => live(a) && ((a.do === "prop" && a.id === id) || a.prop === id || aims(a.pose))) ||
+    (sb.props || []).some((p) => p.target === id && (sb.actions || []).some((a) => live(a) && a.do === "prop" && a.id === p.id));
+}
+
+const sub = (a, b) => a.map((v, i) => v - b[i]), dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const unit = (v) => { const l = Math.hypot(...v) || 1; return v.map((c) => c / l); };
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+// where a world point lands in a camera's picture: [across from the left, down from the top] (shares of the frame)
+function project(pos, look, fov, p) {
+  const f = unit(sub(look, pos)), r = unit(cross(f, [0, 1, 0])), u = cross(r, f), d = sub(p, pos), z = dot(d, f), k = 2 * Math.tan((fov * Math.PI) / 360);
+  return [0.5 + dot(d, r) / z / (k * 9 / 16), 0.5 - dot(d, u) / z / k, z];
+}
+
+// does the picture stay on the set's painted plate? (a low or wide lens would show past its edges) The four corner
+// rays must meet the floor, or the plate's plane inside the picture; true without a plate
+const plateSize = (src) => { try { const b = fs.readFileSync(new URL(`../${src}`, import.meta.url)); return [b.readUInt32BE(16), b.readUInt32BE(20)]; } catch { return null; } };
+function onPlate(sb, pos, look, fov) {
+  const P = sb.set?.plate, wh = P?.src && plateSize(P.src); if (!wh) return true;
+  const h = P.height ?? 3.2, w = (h * wh[0]) / wh[1], [cx, cy] = P.center || [0, h / 2], z = P.z ?? -2.2;
+  const f = unit(sub(look, pos)), r = unit(cross(f, [0, 1, 0])), u = cross(r, f), k = Math.tan((fov * Math.PI) / 360);
+  for (const [a, b] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+    const d = f.map((v, i) => v + r[i] * a * k * 9 / 16 + u[i] * b * k);
+    if (d[2] >= -1e-6) return false;
+    const s = (z - pos[2]) / d[2], x = pos[0] + d[0] * s, y = pos[1] + d[1] * s;
+    if (y < 0) continue;   // it meets the floor first
+    if (Math.abs(x - cx) > w / 2 || y > cy + h / 2) return false;
+  }
+  return true;
+}
+
+// an insert: the prop's point (median over the shot) at `at` from the top, from the master's side but at least 18
+// degrees down onto it, a picture of SIZES.insert.V (more when the point travels)
+function frameInsert(sb, ctx, { on, at, t0, t1, size }) {
+  const pts = [];
+  for (let t = t0 + 0.02; t < t1 - 1e-6 || !pts.length; t += 0.05) { const p = propPoint(sb, ctx, on, at, Math.min(t, t1 - 0.01)); if (p) pts.push(p); else break; }
+  if (!pts.length) return null;
+  const med = (i) => { const v = pts.map((p) => p[i]).sort((a, b) => a - b); return v[v.length >> 1]; }, P = [med(0), med(1), med(2)];
+  const span = (i) => Math.max(...pts.map((p) => p[i])) - Math.min(...pts.map((p) => p[i]));
+  const Z = SIZES.insert, V = Math.max(Z.V, span(1) + 0.25, (span(0) + 0.2) * 16 / 9), { fov } = ctx, k = 2 * Math.tan((fov * Math.PI) / 360);
+  const el = Math.max(Math.asin(ctx.D[1]), (18 * Math.PI) / 180), h = unit([ctx.D[0], 0, ctx.D[2]]);
+  const D = [h[0] * Math.cos(el), Math.sin(el), h[2] * Math.cos(el)], look = [P[0], P[1] - (0.5 - Z.at) * V, P[2]], d = V / k;
+  return { pos: look.map((v, i) => r3(v + D[i] * d)), look: look.map(r3), fov, V, size, who: [], on, focus: P.map(r3) };
+}
+
+// a low angle on `id`: the camera low on the master's side of the line (from the knees to a quarter of the body up:
+// on a potato with 14 cm legs, human knee height is about there), looking up 10-15 degrees (12 when it can), the eye
+// line on the upper third (or a little under it), the hat under its headroom (and under a caption that is up), the feet above the app's
+// caption bar or out of the picture, the picture on the set's plate. The narrowest lens that works wins, then the
+// lowest camera, then the smallest turn off the master's direction (up to 30 degrees, never across the line), then the
+// tilt nearest 12
+function frameLow(sb, ctx, { who, t0, t1, caps, size }) {
+  const id = who[0], c = ctx.cast[id]; if (!c) return null;
+  // the eye line where it spends the shot, the hat at its highest and the feet at their lowest over it
+  const def = ctx.chars[c.character], ts = [];
+  for (let t = t0 + 0.05; t < t1 - 1e-6 || !ts.length; t += 0.1) ts.push(Math.min(t, t1 - 0.01));
+  const all = ts.map((t) => anchors(sb, c, def, t)), mid = all[all.length >> 1], eyes = all.map((q) => q.eye).sort((p, q) => p - q);
+  const a = { ...mid, eye: eyes[eyes.length >> 1], hat: Math.max(...all.map((q) => q.hat)), feet: Math.min(...all.map((q) => q.feet)), half: Math.max(...all.map((q) => q.half)) };
+  const s = actorState(sb, c, def, ts[ts.length >> 1]).scale ?? 1, h0 = unit([ctx.D[0], 0, ctx.D[2]]);
+  const lo = a.feet + 0.5 * LEG_H * s, hi = a.feet + 0.25 * (a.hat - a.feet), heights = [0, 0.25, 0.5, 0.75, 1].map((q) => lo + (hi - lo) * q);
+  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / 1920;
+  const E = [a.x, a.eye, a.z], turns = [0, ...[5, 10, 15, 20, 25, 30].flatMap((v) => [v, -v])];
+  // the eye line drops below the third only as far as the headroom needs (as frame() does, up to EYE_GIVE)
+  const eyesAt = [0, 0.25, 0.5, 0.75, 1].map((q) => Z(size).eye + EYE_GIVE * q);
+  for (let fov = Math.round(ctx.fov); fov <= LOW.maxFov; fov++) for (const cy of heights) for (const want of eyesAt) for (const az of turns) for (const tilt of LOW.tilts) {
+    const g = (az * Math.PI) / 180, h = [h0[0] * Math.cos(g) + h0[2] * Math.sin(g), 0, -h0[0] * Math.sin(g) + h0[2] * Math.cos(g)];
+    const th = (tilt * Math.PI) / 180, k = 2 * Math.tan((fov * Math.PI) / 360), dy = a.eye - cy, q = k * (0.5 - want);
+    // the horizontal distance that puts the eye line on `want`: (dy cos - x sin) / (x cos + dy sin) = q
+    const x = (dy * (Math.cos(th) - q * Math.sin(th))) / (Math.sin(th) + q * Math.cos(th));
+    if (!(x > 0.6)) continue;
+    const pos = [E[0] + h[0] * x, cy, E[2] + h[2] * x], dir = [-h[0] * Math.cos(th), Math.sin(th), -h[2] * Math.cos(th)];
+    const dist = x / Math.cos(th), look = pos.map((v, i) => v + dir[i] * dist);
+    const top = project(pos, look, fov, [a.x, a.hat, a.z])[1], feet = project(pos, look, fov, [a.x, a.feet, a.z + 0.15])[1];
+    const side = [-1, 1].map((m) => project(pos, look, fov, [a.x + m * a.half * h[2], a.eye, a.z - m * a.half * h[0]])[0]).sort((p, q) => p - q);
+    if (top < Math.max(HEADROOM, capBottom) || (feet > LOW.feet && feet < 1.02) || side[0] < 0.02 || side[1] > 0.98 || !onPlate(sb, pos, look, fov)) continue;
+    return { pos: pos.map(r3), look: look.map(r3), fov, V: k * dist, size, who, angle: "low", tilt, turn: az, height: r3(cy - a.feet) };
+  }
+  return null;
+}
+const Z = (size) => SIZES[size] || SIZES.medium;
+
 // the camera state a shot list gives at t (timeline.js cameraState without the shake)
 function camAt(shots, t) {
   const s = [...shots].filter((q) => q.at <= t + 1e-6).pop(); if (!s) return null;
@@ -150,14 +271,15 @@ export function beatGrid(sb) {
   return out;
 }
 
-// a cut on action moved onto a music beat: a beat within two frames of the cut, still one to four frames into the move
-// and inside [lo, hi], wins; the cut lands on the frame that shows the beat. Returns { c, onBeat }
+// a cut moved onto a music beat. A cut on action: a beat within two frames of it, still one to four frames into the
+// move and inside [lo, hi], wins. A cut with no move to ride on (at the beat start t0): a beat within four frames.
+// The cut lands on the frame that shows the beat. Returns { c, onBeat }
 const nearest = (grid, t) => grid.reduce((b, g) => (b == null || Math.abs(g - t) < Math.abs(b - t) ? g : b), null);
-function toBeat(cut, grid, fps, lo, hi, snap = true) {
-  if (!cut || !grid.length || !snap) return { c: cut?.c, onBeat: false };
-  const b = nearest(grid, cut.c), f = Math.round(b * fps) / fps, t = Math.floor(f * 1000 + 1e-6) / 1000;   // never past the frame
-  if (Math.abs(b - cut.c) <= 2 / fps + 1e-6 && f >= cut.at + 1 / fps - 1e-6 && f <= cut.at + 4 / fps + 1e-6 && t >= lo - 1e-6 && t <= hi + 1e-6) return { c: t, onBeat: true };
-  return { c: cut.c, onBeat: false };
+function toBeat(cut, t0, grid, fps, lo, hi, snap = true) {
+  if (!grid.length || !snap) return { c: cut?.c ?? t0, onBeat: false };
+  const c = cut?.c ?? t0, b = nearest(grid, c), f = Math.round(b * fps) / fps, t = Math.floor(f * 1000 + 1e-6) / 1000;   // never past the frame
+  const ok = cut ? Math.abs(b - c) <= 2 / fps + 1e-6 && f >= cut.at + 1 / fps - 1e-6 && f <= cut.at + 4 / fps + 1e-6 : Math.abs(b - c) <= 4 / fps + 1e-6;
+  return ok && t >= lo - 1e-6 && t <= hi + 1e-6 ? { c: t, onBeat: true } : { c, onBeat: false };
 }
 // a cut's distance to the nearest beat in ms (for reviews), or nothing without a grid
 const beatMs = (grid, t) => (grid.length ? { beatMs: Math.round((t - nearest(grid, t)) * 1000) } : {});
@@ -182,38 +304,56 @@ export function direct(sb, chars) {
     const quick = kind === "payoff" ? [...new Set((sb.actions || []).filter((a) => a.who && (WEIGHT[a.do] ?? 0) >= 2 && a.at >= s.at - 1e-6 && a.at < s.at + 0.6).map((a) => a.who))] : [];
     const acting = d.who ? [].concat(d.who) : quick.length ? quick : actorsIn(sb, s.at, s.end);
     const loopTail = sb.loop && i === plan.length - 1 && i > 0 && !d.size && !kind?.match(/payoff|reaction|reveal/);
-    const size = d.size || KIND_SIZE[kind] || "medium";
+    const size = d.size || KIND_SIZE[kind] || "medium", angle = d.angle || (kind === "threat" ? "low" : null);
     // a medium or wide shot holds everyone in the scene, a medium close-up (the payoff) the faces of who acts, a
-    // close-up only the lead
-    const who = d.frame ? [].concat(d.frame) : size === "medium" || size === "wide" ? all : (size === "close" ? acting.slice(0, 1) : acting.slice(0, 2)).concat(acting.length ? [] : all.slice(0, 1));
-    return { s, kind, size, who, eyeOf: acting[0] || who[0], snap: d.snap ?? (kind === "payoff" ? cfg.snap ?? 0.22 : null), push: d.push ?? (size === "close" ? cfg.push ?? 0.04 : 0), loopTail, acting };
+    // close-up only the lead, a low angle the one who acts, an insert no one (its prop: `on`, else the first prop
+    // something happens to in the beat)
+    const lead = acting.length ? acting.slice(0, 1) : all.slice(0, 1);
+    const who = d.frame ? [].concat(d.frame) : size === "insert" ? [] : angle === "low" ? (d.who ? [].concat(d.who) : lead) : size === "medium" || size === "wide" ? all : (size === "close" ? acting.slice(0, 1) : acting.slice(0, 2)).concat(acting.length ? [] : all.slice(0, 1));
+    const inBeat = (sb.actions || []).filter((a) => a.at >= s.at - 1e-6 && a.at < s.end);
+    const on = size === "insert" ? d.on ?? inBeat.map((a) => a.prop ?? (a.do === "prop" ? a.id : null)).find(Boolean) : null;
+    return { s, kind, size, angle, who, on, at: d.at, eyeOf: acting[0] || who[0], snap: d.snap ?? (kind === "payoff" ? cfg.snap ?? 0.22 : null), push: d.push ?? (size === "close" ? cfg.push ?? 0.04 : 0), loopTail, acting };
   });
 
   // 2. the shots, beat by beat: a cut on action to a new framing, a reframe where a cut would be a jump cut
   const out = [], directed = [];
   const cam = (f) => ({ pos: f.pos, look: f.look, fov: f.fov });
-  let lastCut = 0;
+  let lastCut = 0, lows = 0;
+  const pay = payoffOf(sb);
   want.forEach((w, i) => {
     if (w.fixed) { const { end, ...s } = w.s; out.push(s); lastCut = s.at; return; }
     if (w.s.direct.keep) return;
     const t0 = w.s.at, t1 = w.s.end, note = (o) => directed.push({ at: r3(o.at ?? t0), beat: i, kind: w.kind, size: w.size, ...o, at: r3(o.at ?? t0) });
     if (w.loopTail && out.length) {
-      const first = out[0], lo = lastCut + MIN_SHOT, hi = t1 - 0.3, b = toBeat(onAction(sb, all, t0, lo, hi, fps), grid, fps, lo, hi, snapBeats), cut = b.c ?? t0;
+      const first = out[0], lo = lastCut + MIN_SHOT, hi = t1 - 0.3, b = toBeat(onAction(sb, all, t0, lo, hi, fps), t0, grid, fps, lo, hi, snapBeats), cut = b.c;
       out.push({ at: r3(cut), pos: first.pos, look: first.look, fov: first.fov });
       note({ at: cut, size: "opening", why: "loop: back to the opening shot", onBeat: b.onBeat, ...beatMs(grid, cut) }); lastCut = cut; return;
     }
-    const fr = frame(sb, ctx, { who: w.who, size: w.size, eyeOf: w.eyeOf, t0, t1, caps });
-    if (!fr) return;
     const movers = w.acting.length ? w.acting : w.who;
+    let fr = null;
+    if (w.size === "insert") {
+      // an insert only sets up (before the payoff), never in the first 3 s, and needs something moving in it
+      const why = !w.on ? "no prop to insert on" : t0 < (cfg.insertFrom ?? INSERT_FROM) - 1e-6 ? `no insert before ${cfg.insertFrom ?? INSERT_FROM} s` : pay != null && t0 >= pay - 1e-6 ? "no insert from the payoff on" : null;
+      if (why) { note({ why: `kept the shot (${why})` }); return; }
+      fr = frameInsert(sb, ctx, { on: w.on, at: w.at, t0, t1: Math.min(t1, t0 + INSERT[1]), size: w.size });
+    } else if (w.angle === "low") {
+      if (lows++ < 1) fr = frameLow(sb, ctx, { who: w.who, t0, t1, caps, size: w.size });
+      if (!fr) note({ why: lows > 1 ? "one low angle per clip: a straight shot instead" : "no low angle fits (headroom, feet, width): a straight shot instead" });
+    }
+    fr ||= frame(sb, ctx, { who: w.who, size: w.size === "insert" ? "medium" : w.size, eyeOf: w.eyeOf, t0, t1, caps });
+    if (!fr) return;
     if (w.snap && out.length) {
       // the snap-in starts on the payoff's first big action and moves on from wherever the camera is (no cut)
       const go = (sb.actions || []).filter((a) => w.acting.includes(a.who) && (WEIGHT[a.do] ?? 0) >= 2 && a.at >= t0 - 1e-6 && a.at < t0 + 0.6).map((a) => a.at)[0] ?? t0;
-      const from = camAt(out, go);
+      // after an insert or a low angle the camera is somewhere else entirely: cut on the action to the payoff's framing
+      // 15 % wider and snap in from there
+      const up = camAt(out, go), other = !!out.findLast((q) => q.at <= go + 1e-6)?.angle;
+      const L = fr.look, from = other ? { pos: fr.pos.map((v, q) => L[q] + (v - L[q]) * 1.15), look: L, fov: fr.fov } : up;
       out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), to: cam(fr), dur: w.snap, ease: "out" });
       note({ at: go, who: w.who, why: `snap-in to ${w.size} on ${w.who.join(" + ")} (${w.snap} s)` }); return;
     }
-    const prev = out.length ? camAt(out, t0) : null;
-    if (prev && !w.push && jump(prev, fr)) {
+    const prev = out.length ? camAt(out, t0) : null, newAngle = fr.size === "insert" || fr.angle === "low";
+    if (prev && !w.push && !newAngle && jump(prev, fr)) {
       // too close to the shot already up for a cut: keep it, or ease it over with the action when the beat needs room
       const Vp = heightOf(prev), Vf = heightOf(fr);
       if (Math.max(Vp, Vf) / Math.min(Vp, Vf) < 1.08 && Math.hypot(prev.look[0] - fr.look[0], prev.look[1] - fr.look[1]) < 0.04 * Vp) { note({ why: "kept the shot (a cut would be a jump cut)" }); return; }
@@ -221,16 +361,28 @@ export function direct(sb, chars) {
       out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), to: cam(fr), dur: d, ease: "inOut" });
       note({ at: go, who: w.who, why: `reframed with the action over ${d} s (a cut would be a jump cut)` }); return;
     }
-    const lo = lastCut + MIN_SHOT, hi = t1 - MIN_SHOT, b = out.length ? toBeat(onAction(sb, movers, t0, lo, hi, fps), grid, fps, lo, hi, snapBeats) : { c: 0, onBeat: false };
-    const cut = b.c ?? t0;
-    const shot = { at: r3(cut), ...cam(fr) };
+    const lo = lastCut + MIN_SHOT, hi = t1 - MIN_SHOT, move = out.length ? onAction(sb, movers, t0, lo, hi, fps) : null;
+    const b = out.length ? toBeat(move, t0, grid, fps, lo, hi, snapBeats) : { c: 0, onBeat: false };
+    const cut = b.c;
+    const shot = { at: r3(cut), ...cam(fr), ...(fr.focus && { focus: fr.focus }), ...(fr.size === "insert" ? { angle: "insert" } : fr.angle && { angle: fr.angle }) };
     if (w.push) {
       const k = 1 - w.push, L = fr.look, end = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
       shot.to = { pos: fr.pos.map((v, q) => r3(L[q] + (v - L[q]) * k)) };
       shot.dur = r3(end - cut); shot.ease = "linear";
     }
     out.push(shot); lastCut = cut;
-    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(cut !== t0 && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }), ...(out.length > 1 && { onBeat: b.onBeat, ...beatMs(grid, cut) }) });
+    const extra = fr.size === "insert" ? { on: fr.on, ...(!movesOn(sb, fr.on, cut, Math.min(t1, cut + INSERT[1])) && { warn: "nothing moves in the insert" }) } : fr.angle === "low" ? { angle: "low", tilt: fr.tilt, turn: fr.turn, height: fr.height, fov: fr.fov } : {};
+    note({ at: cut, who: w.who, eyeOf: w.eyeOf, ...(move && { cutOnAction: r3(cut - t0) }), ...(w.push && { push: w.push }), ...(out.length > 1 && { onBeat: b.onBeat, ...beatMs(grid, cut) }), ...extra });
+    if (fr.size === "insert") {
+      // 0.4-0.8 s, then back to the shot before it (wider) unless the next beat cuts first; the next cut may come 0.4 s in
+      const back = cut + INSERT[1], next = want.slice(i + 1).find((q) => q.fixed || !q.s.direct.keep)?.s.at ?? dur;
+      if (next - cut < INSERT[0] - 1e-6) directed[directed.length - 1].warn = `the insert lasts ${r3(next - cut)} s (at least ${INSERT[0]})`;
+      if (next > back + 1e-6 && prev) {
+        const t = Math.floor(Math.round(back * fps) / fps * 1000 + 1e-6) / 1000;
+        out.push({ at: t, pos: prev.pos.map(r3), look: prev.look.map(r3), fov: r3(prev.fov) });
+        note({ at: t, size: "back", why: `back from the insert to the shot before it (${INSERT[1]} s at most)`, ...beatMs(grid, t) }); lastCut = t;
+      } else lastCut = cut - MIN_SHOT + INSERT[0];
+    }
   });
   return { ...sb, shots: out, directed };
 }

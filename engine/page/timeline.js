@@ -587,7 +587,9 @@ export function cameraState(sb, t) {
     // two sines under 15 Hz: anything faster than half the frame rate aliases into random-looking jitter
     shake = [shake[0] + amp * (0.65 * Math.sin(t * 45.9 + 1.3) + 0.35 * Math.sin(t * 74.8 + 4.1)), shake[1] + amp * (0.65 * Math.sin(t * 52.2 + 2.7) + 0.35 * Math.sin(t * 69.1 + 0.6)), 0];
   }
-  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1 };
+  // focus: the world point a shot wants sharp (an insert's prop); looks.js depth of field focuses there when it is set
+  const focus = !Array.isArray(sb.camera) && s.focus ? { focus: s.focus } : {};
+  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus };
 }
 
 export function flashAt(sb, t) {
