@@ -89,12 +89,13 @@ function args() {
     else if (a[i] === "--blur-set") o.blurSet = Object.fromEntries(a[++i].split(",").map((kv) => kv.split("=")).map(([k, v]) => [k, Number(v)]));
     else if (a[i] === "--frames-dir") o.framesDir = path.resolve(a[++i]);   // every finished frame as a PNG too (agreement tests)
     else if (a[i] === "--timing-json") o.timingJson = path.resolve(a[++i]);
+    else if (a[i] === "--cover") o.cover = path.resolve(a[++i]);    // dead-code study: run every code path a clip uses, write V8 coverage
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
   }
   if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl soft|gpu] [--out dir]"); process.exit(2); }
-  if (o.gl && !["soft", "gpu"].includes(o.gl)) { console.error(`--gl ${o.gl}: use soft (CPU, the default) or gpu`); process.exit(2); }
+  if (o.gl && !["soft", "gpu", "llvmpipe"].includes(o.gl)) { console.error(`--gl ${o.gl}: use soft (CPU, the default) or gpu`); process.exit(2); }
   return o;
 }
 
@@ -125,10 +126,22 @@ function findChrome() {
 
 // Chrome flags for drawing: SwiftShader on the CPU (the same pixels everywhere), or the machine's graphics card
 function glArgs(mode) {
+  // llvmpipe (experiment, render-measure-01): Mesa's CPU rasteriser through ANGLE's desktop-GL backend, which needs an X
+  // display (startXvfb) and LIBGL_ALWAYS_SOFTWARE=1 (https://microlink.io/blog/webgl-without-a-gpu)
+  if (mode === "llvmpipe") return ["--use-angle=gl", "--enable-gpu", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"];
   if (mode !== "gpu") return ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist", "--disable-gpu-sandbox"];
   const angle = process.platform === "win32" ? ["--use-angle=d3d11"] : process.platform === "darwin" ? ["--use-angle=metal"] : [];
   const extra = (process.env.GL_ARGS || "").split(/\s+/).filter(Boolean);
   return ["--enable-gpu", "--ignore-gpu-blocklist", ...angle, ...extra, "--enable-unsafe-swiftshader"]; // last: software fallback, reported below
+}
+
+// a virtual X display for --gl llvmpipe; Xvfb prints the display number it picked on fd 3
+function startXvfb() {
+  return new Promise((ok, bad) => {
+    const p = spawn("Xvfb", ["-displayfd", "3", "-screen", "0", "1280x2000x24", "-nolisten", "tcp"], { stdio: ["ignore", "ignore", "ignore", "pipe"] });
+    p.on("error", (e) => bad(new Error(`--gl llvmpipe needs Xvfb (apt install xvfb): ${e.message}`)));
+    p.stdio[3].once("data", (d) => ok({ proc: p, display: ":" + String(d).trim() }));
+  });
 }
 
 function ffmpeg(argv) {
@@ -242,7 +255,8 @@ async function main() {
   }
 
   const srv = await serve();
-  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl) });
+  const xvfb = o.gl === "llvmpipe" ? await startXvfb() : null;
+  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl), ...(xvfb ? { env: { ...process.env, DISPLAY: xvfb.display, LIBGL_ALWAYS_SOFTWARE: "1" } } : {}) });
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     const errors = [];
@@ -250,6 +264,7 @@ async function main() {
     page.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errors.push(m.text()); });
     page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
+    if (o.cover) await page.coverage.startJSCoverage({ resetOnNavigation: false });
     await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
@@ -311,6 +326,20 @@ async function main() {
       fs.writeFileSync(f, JSON.stringify({ fps, frames, blur: bl && { ...bl, walls: undefined }, traceS: (Date.now() - tc) / 1000, thin: !!o.thinTrace }));
       console.log(`wrote ${f}: ${frames.filter((x) => x.samples).length} of ${n} frames blurred, ${frames.reduce((m, x) => m + x.samples, 0)} extra samples, traced in ${((Date.now() - tc) / 1000).toFixed(1)}s`);
     };
+    if (o.cover) {
+      // every frame posed (layout, as the checks pose), every 3rd frame posed with skins and its motion measured,
+      // contacts every 0.2 s, a drawn frame per beat plus one blurred and one id map, then the coverage
+      const n = Math.round(dur * fps), tc = Date.now();
+      await page.evaluate(() => window.ENGINE.prime([]));
+      for (let i = 0; i < n; i += 2) { await page.evaluate((tt) => window.ENGINE.layout(tt), i / fps); if (i % 4 === 0) await page.evaluate((tt) => window.ENGINE.trace(tt, false), i / fps); if (i % 6 === 0) await page.evaluate((tt) => window.ENGINE.contact(tt), i / fps); }
+      for (const t of beatTimes(raw)) await shot(t);
+      const tb = beatTimes(raw)[1] ?? 0.5; await shot(tb); await page.evaluate(([ts]) => window.ENGINE.blur(ts, true), [[tb + 0.004, tb + 0.008]]);
+      await page.evaluate((tt) => window.ENGINE.ids(tt), tb);
+      const cov = await page.coverage.stopJSCoverage();
+      fs.writeFileSync(o.cover, JSON.stringify(cov.filter((e) => /\/engine\/page\//.test(e.url)).map((e) => ({ url: e.url.replace(/^.*?\/engine\//, "engine/"), functions: e.functions }))));
+      console.log(`coverage: ${n} frames posed, ${beatTimes(raw).length} drawn, in ${((Date.now() - tc) / 1000).toFixed(0)}s -> ${o.cover}`);
+      return;
+    }
     if (o.layoutOnly) { const lay = await writeLayout(); if (o.cost) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
     if (o.stills) {
       for (const t of o.stills) {
@@ -372,7 +401,7 @@ async function main() {
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
-    await browser.close(); srv.close();
+    await browser.close(); srv.close(); if (xvfb) xvfb.proc.kill();
   }
   if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
   await finish(audio, videoFile, wavFile, outFile, o, dur, "");
