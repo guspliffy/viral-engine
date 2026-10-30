@@ -234,13 +234,13 @@ export const HELL_KINDS = {
         float blob(vec2 p, vec2 c, vec2 r, float lump) { vec2 d = (p - c) / r; float a = atan(d.y, d.x); return (length(d) - (1.0 + lump * sin(a * 3.0 + c.x * 5.0) + lump * 0.6 * sin(a * 5.0 - c.y * 3.0))) * min(r.x, r.y); }
         void main() {
           vec2 p = vUv * uSize;
-          // the furnace light: hottest at the u = 1 end (spec.hot 0: the u = 0 end), toward the mouth, and low down
-          float light = smoothstep(0.0, 1.0, mix(1.0 - vUv.x, vUv.x, uHot)) * (1.0 - 0.45 * vUv.y);
+          // the furnace light over the whole wall, hottest at the u = 1 end (spec.hot 0: the u = 0 end) and low down
+          float light = (0.45 + 0.55 * smoothstep(0.0, 1.0, mix(1.0 - vUv.x, vUv.x, uHot))) * (1.0 - 0.35 * vUv.y);
           float s = 1e3;
           for (int i = 0; i < 3; i++) {
             float fi = float(i), sp = 0.55 + 0.15 * fi;
             vec2 r = vec2(0.36 + 0.04 * fi, 0.46 + 0.04 * fi);
-            vec2 c = vec2(uSize.x * (0.18 + 0.32 * fi) + 0.12 * sin(uTime * sp + fi), uSize.y * (0.36 + 0.06 * fi) + 0.16 * abs(sin(uTime * 2.6 + fi * 2.1)));
+            vec2 c = vec2(uSize.x * (0.18 + 0.32 * fi) + 0.12 * sin(uTime * sp + fi), uSize.y * (0.36 + 0.06 * fi) + 0.22 * abs(sin(uTime * 2.6 + fi * 2.1)));
             s = min(s, blob(p, c, r, 0.05));
             // the sprout on top: a short stem and two leaves
             vec2 st = p - c - vec2(0.0, r.y);
@@ -253,7 +253,7 @@ export const HELL_KINDS = {
           // the furnace light added over the wall (orange), and the shadows cut out of it, near black
           vec3 lit = vec3(1.0, 0.45, 0.14);
           vec3 col = mix(lit, vec3(0.03, 0.01, 0.01), shadow);
-          gl_FragColor = vec4(col, max(light * 0.5 * (1.0 - shadow), shadow * 0.97));
+          gl_FragColor = vec4(col, max(light * 0.7 * (1.0 - shadow), shadow * 0.97));
         }`,
       transparent: true, depthWrite: false, opacity: 0.4,
     });
