@@ -129,7 +129,27 @@ export function addMusic(sb, audio) {
     const m = music.lock.miss, key = m.find((x) => x.what === "payoff" || x.what === "music stops");
     log.push(`music locked to the story: grid from ${music.lock.offset.toFixed(3)}s${music.skip != null ? ` (${music.skip}s into the file)` : ""}${music.parts ? `, parts ${music.parts.map((p) => `${p.part}@${p.at}`).join(" ")}` : ""}; ${key ? `${key.what} at ${key.t}s ${key.ms} ms off beat 1, ` : ""}${m.filter((x) => x.ms <= 33).length}/${m.length} story moments within a frame of a beat`);
   }
-  for (let i = 0; i < audio.L.length; i++) { audio.L[i] += M.L[i] * g; audio.R[i] += M.R[i] * g; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+  // quality lab (branch quality-lab-01): music.duck { amount } lowers the bed under the effects and voices (a peak
+  // follower on everything else, 10 ms attack, 250 ms release); music.dips [[from, to], ...] silences it (30 ms fades)
+  const gain = labGain(music, audio);
+  if (gain) log.push(`music: ${music.duck ? `ducks ${Math.round(music.duck.amount * 100)}% under the effects` : ""}${music.dips ? ` silent ${music.dips.map(([x, y]) => `${x}-${y}s`).join(", ")}` : ""}`);
+  for (let i = 0; i < audio.L.length; i++) { const k = gain ? gain[i] : 1; audio.L[i] += M.L[i] * g * k; audio.R[i] += M.R[i] * g * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
   if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
   return log;
+}
+
+function labGain(music, audio) {
+  if (!music.duck && !music.dips) return null;
+  const n = audio.L.length, sr = audio.sr, k = new Float32Array(n).fill(1);
+  if (music.duck) {
+    const att = Math.exp(-1 / (0.01 * sr)), rel = Math.exp(-1 / (0.25 * sr)), amt = music.duck.amount ?? 0.5, thr = music.duck.threshold ?? 0.08;
+    let env = 0;
+    for (let i = 0; i < n; i++) { const x = Math.max(Math.abs(audio.L[i]), Math.abs(audio.R[i])); env = x > env ? att * env + (1 - att) * x : rel * env + (1 - rel) * x; k[i] = 1 - amt * Math.min(1, env / thr); }
+  }
+  const fade = Math.round(0.03 * sr);
+  for (const [from, to] of music.dips || []) {
+    const a = Math.round(from * sr), b = Math.round(to * sr);
+    for (let i = Math.max(0, a - fade); i < Math.min(n, b + fade); i++) k[i] *= i < a ? (a - i) / fade : i >= b ? (i - b) / fade : 0;
+  }
+  return k;
 }

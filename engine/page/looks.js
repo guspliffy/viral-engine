@@ -293,7 +293,7 @@ const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; ret
 // Grounding for the drawn look: tight, dark, painted ovals where things touch the ground (each foot, the staff's
 // foot, every prop standing on the floor) over a broader soft one under the body. They are tinted with the ground's
 // own shadow colour instead of grey, overlap into a darker core, and shrink away as a thing leaves the ground.
-function groundShadows(scene, actors, props, color, camera) {
+function groundShadows(scene, actors, props, color, camera, gain = 1) {
   // a soft-edged oval drawn by a shader (a gradient texture came out far too faint after the canvas upload)
   const shadowMat = () => new THREE.ShaderMaterial({
     uniforms: { uColor: { value: new THREE.Color(color) }, uOpacity: { value: 0 } },
@@ -309,7 +309,7 @@ function groundShadows(scene, actors, props, color, camera) {
   // h: height above the ground (m), fall: the height where it is gone
   const put = (m, x, z, sx, sz, h, fall, strength, y = 0.008) => {
     const k = Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
-    m.visible = k > 0.01; m.position.set(x, y, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
+    m.visible = k > 0.01; m.position.set(x, y, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = Math.min(1, strength * gain) * k * k;
   };
   const v = new THREE.Vector3();
   const parts = actors.map((a) => {
@@ -425,7 +425,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;
 
-  const charRamp = golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
+  // quality lab (branch quality-lab-01 only): set.lab { rim, occ, ground, charSat, line, soft } scales the character
+  // finish so one scene can be drawn in variants side by side; without it nothing changes
+  const lab = setSpec?.lab || {};
+  const charRamp = lab.soft ? smoothRamp(0, 1, 0.5, 0.35) : golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -455,6 +458,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   }
   // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
   // their own finger planes readable in dark fabric
+  if (lab.rim) {
+    // a lit rim on the light side and a stronger warm edge on the far side, on skin and cloth
+    for (const r of ["skin", "char", "cloth"]) ROLE[r] = { ...ROLE[r], rimK: (ROLE[r].rimK || 0) + 0.1 * lab.rim, ...(ROLE[r].back && { back: "#" + new THREE.Color(ROLE[r].back).multiplyScalar(Math.min(1.8, 0.6 + 0.4 * lab.rim)).getHexString() }) };
+  }
+  if (lab.occ) for (const r of ["skin", "char", "cloth", "wood"]) ROLE[r] = { ...ROLE[r], occ: Math.min(0.6, (ROLE[r].occ ?? 0.14) * lab.occ) };
   ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3, back: null };
   ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12, back: null };
   ROLE.lid = { ...ROLE.skin, bodyN: true };
@@ -502,13 +510,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
       patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });
+      if (lab.charSat && !isSet && t.color) { const h = {}; t.color.getHSL(h); t.color.setHSL(h.h, Math.min(1, h.s * lab.charSat), h.l); }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
-      const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
+      const thick = isSet ? 0.0016 : (golden ? 0.004 : 0.0058) * (lab.line ?? 1);
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
+      t.userData.outlineParameters = noLines || (lab.line === 0 && !isSet) || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -534,7 +543,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     }));
     pool.rotation.x = -Math.PI / 2; pool.position.set(v3.x, 0.004, v3.z + 0.5); pool.renderOrder = 0; pool.userData.lookOnly = true; scene.add(pool);
   }
-  const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && (setSpec.type === "hills" || setSpec.type === "backyard") ? "#0f2e12" : "#2a2019", camera);
+  const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && (setSpec.type === "hills" || setSpec.type === "backyard") ? "#0f2e12" : "#2a2019", camera, lab.ground ?? 1);
   const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
   const composer = composerFor(R, W, H, draft);

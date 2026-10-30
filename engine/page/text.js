@@ -22,6 +22,8 @@ const CAP = {
   sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
   // a title plate: white letters on a dark box (the "each character vs X" format's pinned word)
   label: { font: '900 96px "CapBlack"', size: 96, stroke: 0, pad: 34, box: "#24232b" },
+  // quality lab: white words on a soft, rounded, half-see-through dark box, no outline
+  soft: { font: '900 74px "CapBlack"', size: 74, stroke: 0, pad: 30, box: "rgba(20,16,28,0.55)", round: 28 },
 };
 // a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
 function wrap(text, maxW) {
@@ -65,7 +67,7 @@ export function drawCaption(c, t) {
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.lineJoin = "round"; ctx.miterLimit = 2;
   ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
-  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; ctx.fillRect(bx, by, bw, bh); }
+  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; if (st.round) { ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, st.round); ctx.fill(); } else ctx.fillRect(bx, by, bw, bh); }
   lines.forEach((ln, i) => {
     const y = top + lh * (i + 0.5);
     if (st.stroke) { ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y); }

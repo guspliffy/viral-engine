@@ -1,0 +1,386 @@
+{
+ "id": "ql-e-faces",
+ "title": "Quality lab: stronger faces, longer holds",
+ "idea": "Quality lab 01: Phoenix's flame-wing flare singes Reaper, Reaper glares, Phoenix grins sheepishly (one variable per variant)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   2,
+   4
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.3,
+   "center": [
+    0.3,
+    1.7
+   ],
+   "height": 6.4
+  }
+ },
+ "music": {
+  "file": "ai/hero-bed/hero-bed-01.ogg",
+  "gain": 0.45
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "carpet",
+  "signature": false,
+  "speech": false
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea"
+  ],
+  "hint": 0.2,
+  "what": "Phoenix winds up a flame-wing flare right next to deadpan Reaper"
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.44,
+    0.22
+   ],
+   "face": 24,
+   "expr": "cocky",
+   "span": 0,
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.48,
+    0.12
+   ],
+   "face": -26,
+   "expr": "deadpan",
+   "follow": 0.25,
+   "seed": 4.1
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.7,
+   "text": "When your friend says “watch this”",
+   "pos": 250,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "the flare",
+   "at": 0,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     0,
+     1.559,
+     5.744
+    ],
+    "look": [
+     0,
+     0.78,
+     0.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0,
+      1.52,
+      5.466
+     ]
+    },
+    "dur": 3
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.42,
+     "idle": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.14,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.12,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.06,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.24
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "singed",
+   "at": 0.4,
+   "len": 0.65,
+   "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      0.42,
+      0.72,
+      0.16999999999999998
+     ],
+     "dur": 0.6,
+     "color": "#ffb36b",
+     "spark": "#ffd23f",
+     "puffs": 7,
+     "sparks": 12,
+     "at": 0
+    },
+    {
+     "sfx": "poof",
+     "gain": 0.8,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "macro": "hit",
+     "hat": false,
+     "look": [
+      0,
+      0.35
+     ],
+     "recoil": -5,
+     "expr": "shocked",
+     "hold": 0.55,
+     "set": {
+      "eye": 1.42,
+      "open": 0.72,
+      "curve": -0.75
+     },
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.75,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the glare",
+   "at": 1.05,
+   "len": 1.95,
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.45,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.06,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.25,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.25,
+     "idle": 0.08,
+     "at": 0.65
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "notes": "Generated by storyboards/lab/make-quality-lab.mjs (quality lab 01, engine test, not for posting)."
+}
