@@ -82,6 +82,10 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
 - **The payoff is the loudest moment, after a dip**: `qa/sound.mjs` notes (creative, never a failure) when the clip's
   loudest 100 ms isn't on the payoff beat, or the quietest 0.5 s of the 4 s before it isn't 12 dB under the payoff's
   peak. `python qa/pace.py <clip> --ref <clip that holds viewers>` compares cuts, motion and loudness per second.
+- **The opening's pace** (`qa/check.mjs` "pace", creative note from `qa/pace.py`): 2+ hard cuts in the first 2 s, or a
+  first second quieter than -20 dBFS, bring a note. On the 10 posted clips more early cuts went with fewer viewers at
+  0:02 (r -0.71) and a quiet start with fewer too, so a cut-heavy opening is an A/B question, not a default. Tune with
+  `"creative": { "openingCuts": 3, "quietStart": -24 }`.
 - **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
