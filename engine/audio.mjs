@@ -290,6 +290,29 @@ const SFX = {
     }
     return x;
   },
+  // one cartoon swallow, "glk": a short throat click, then a low round gulp that bloops up and back down (a mouthful
+  // of hot sauce going down, Friends Who Copy Everything)
+  gulp(r) {
+    const d = 0.24, x = buf(d), bp = biquad("bp", 1800, 2.5); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t - 0.03;
+      let v = run(bp, r() * 2 - 1) * env(t, 0.0005, 0.008, d) * 0.9;   // the click
+      if (u > 0) { const k = Math.min(1, u / 0.16), f = 150 + 210 * Math.sin(k * Math.PI) ** 1.5; p += TAU * f / SR; v += (Math.sin(p) + 0.3 * Math.sin(2 * p)) * Math.sin(k * Math.PI) * Math.exp(-u / 0.12) * 0.95; }
+      x[i] = v;
+    }
+    return x;
+  },
+  // a chunk of plaster wall breaking: a sharp dry crack, a crunchy low burst and pieces clattering down after it
+  crumble(r) {
+    const d = 1.1, x = buf(d), lp = biquad("lp", 600, 0.7), hp = biquad("hp", 1800, 0.7), bp = biquad("bp", 1100, 1.2), bits = Array.from({ length: 14 }, (_, j) => 0.12 + j * 0.06 + r() * 0.05);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1;
+      let v = run(hp, n) * env(t, 0.0005, 0.02, d) * 0.8 + run(lp, n) * env(t, 0.002, 0.22, d) * 2.2;
+      for (const [j, h] of bits.entries()) { const u = t - h; if (u > 0 && u < 0.05) v += run(bp, r() * 2 - 1) * Math.exp(-u / 0.01) * (1.6 - j * 0.08) + Math.sin(TAU * (220 + (j % 5) * 70) * u) * Math.exp(-u / 0.01) * 0.1; }
+      x[i] = v;
+    }
+    return x;
+  },
   // an iron door latch dropping into its catch: a metal clack with a short ring
   latch(r) {
     const d = 0.25, x = buf(d), bp = biquad("bp", 2400, 3);
