@@ -5,10 +5,10 @@ import { buildSet, buildLights } from "./sets.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld } from "./props3d.js";
-import { rng, clamp, ease } from "./util.js";
+import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
-import { bindText, captionBox, drawCaption, popBox, drawPop } from "./text.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { buildRoadster } from "./car-roadster.js";
 
@@ -321,11 +321,13 @@ function composite(t) {
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
+  for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
 async function init(data) {
   sb = data.sb; charMats = []; photos.clear();
+  setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   globalThis.__DIAG = sb.debug || null;   // storyboard "debug": { "clearance": true } logs staff/arm clearance per frame
   const canvas = document.getElementById("gl");
   const opts = data.opts || {};
@@ -712,6 +714,8 @@ function layout(t) {
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
   const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);
+  // slam words are over the action on purpose too: checked for the safe zone here, for the faces by qa/hook.mjs
+  for (const f of sb.fx || []) if (f.do === "slam" && t >= f.at && t <= f.at + (f.dur ?? 1.4)) { const L = slamBox(f); if (L) pops.push({ text: f.text, box: L.box, size: L.size, pop: true, slam: true }); }
   // boxes are coarse (a raised staff makes the whole box tall), so also measure how much of each caption box the
   // characters actually cover, from a quarter-resolution silhouette render
   if (caps.length) {

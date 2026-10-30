@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { rad, loopNow } from "./util.js";
 
 // A painted background plate: a picture of the room (painted once per set, e.g. by the image model in engine/plates)
 // hung as a backdrop behind the 3D stage, so the characters and the props they touch stay 3D in front of it.
@@ -66,25 +67,31 @@ function relief(img, w, h, x, y, z, P) {
   return geo;
 }
 
-// leaves sway and sunlight shimmers, read from the motion mask, in the plate's own shader
+// leaves sway and sunlight shimmers, read from the motion mask, in the plate's own shader. With loop-safe idle
+// (util.js loopNow) every rhythm, the shimmer's drift included, turns a whole number of times over the clip.
 function animate(mat, motion, width) {
   const time = { value: 0 };
   (globalThis.__setTicks ||= []).push((t) => { time.value = t; });
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, { uTime: time, uMotion: { value: motion }, uPx: { value: 1 / width } });
+    const f = (w) => rad(w).toFixed(6);
+    // the shimmer's drift (q moves by 0.21 and -0.08 a second) folded into the speed of each wave it feeds
+    const shimmer = loopNow() ? /* glsl */`
+      vec2 q = vMapUv * vec2(5.0, 9.0);
+      float n = sin(q.x * 2.3 + uTime * ${f(0.21 * 2.3)} + sin(q.y * 1.7 + uTime * ${f(0.6 - 0.08 * 1.7)})) * sin(q.y * 1.9 + uTime * ${f(-0.08 * 1.9)} - sin(q.x * 1.3 + uTime * ${f(0.21 * 1.3 - 0.4)}));` : /* glsl */`
+      vec2 q = vMapUv * vec2(5.0, 9.0) + vec2(uTime * 0.21, -uTime * 0.08);
+      float n = sin(q.x * 2.3 + sin(q.y * 1.7 + uTime * 0.6)) * sin(q.y * 1.9 - sin(q.x * 1.3 - uTime * 0.4));`;
     sh.fragmentShader = sh.fragmentShader.replace("#include <map_fragment>", /* glsl */`
       vec4 mo = texture2D(uMotion, vMapUv);
       float ph = vMapUv.x * 23.0 + vMapUv.y * 11.0;   // nearby leaves move together, far ones out of step
-      vec2 sway = vec2(sin(uTime * 1.3 + ph) * 0.7 + sin(uTime * 3.7 + ph * 2.1) * 0.3,
-                       sin(uTime * 1.9 + ph * 1.3) * 0.35) * uPx * 3.0;
-      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * mo.r);
-      vec2 q = vMapUv * vec2(5.0, 9.0) + vec2(uTime * 0.21, -uTime * 0.08);
-      float n = sin(q.x * 2.3 + sin(q.y * 1.7 + uTime * 0.6)) * sin(q.y * 1.9 - sin(q.x * 1.3 - uTime * 0.4));
+      vec2 sway = vec2(sin(uTime * ${loopNow() ? f(1.3) : "1.3"} + ph) * 0.7 + sin(uTime * ${loopNow() ? f(3.7) : "3.7"} + ph * 2.1) * 0.3,
+                       sin(uTime * ${loopNow() ? f(1.9) : "1.9"} + ph * 1.3) * 0.35) * uPx * 3.0;
+      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * mo.r);${shimmer}
       sampledDiffuseColor.rgb *= 1.0 + mo.g * n * 0.07;   // leaf shadows passing over the sun patches
       diffuseColor *= sampledDiffuseColor;`);
     sh.fragmentShader = "uniform float uTime; uniform sampler2D uMotion; uniform float uPx;\n" + sh.fragmentShader;
   };
-  mat.customProgramCacheKey = () => "set-plate-motion";
+  mat.customProgramCacheKey = () => (loopNow() ? `set-plate-motion-loop-${loopNow()}` : "set-plate-motion");
 }
 
 // warm dust motes drifting in the sunlight: fixed starting points from a seeded hash, moved by the frame time
@@ -104,14 +111,22 @@ function dust(scene, P) {
   mat.userData.outlineParameters = { visible: false };
   const pts = new THREE.Points(geo, mat); pts.name = "set-dust"; pts.frustumCulled = false; scene.add(pts);
   const wrap = (v, lo, hi) => lo + ((((v - lo) % (hi - lo)) + (hi - lo)) % (hi - lo));
+  // loop-safe idle: a mote drifts a whole number of box widths over the clip (none when that rounds to 0), and bobs
+  // and twinkles a whole number of times
+  const L = loopNow(), drift = (v, span) => (L ? (Math.round((v * L) / span) * span) / L : v);
   const tick = (t) => {
     for (let i = 0; i < n; i++) {
       const [s0, s1, s2, s3, s4] = seed[i], f = 0.5 + s3;
-      pos[3 * i] = wrap(a[0] + s0 * (b[0] - a[0]) + t * 0.025 * f + Math.sin(t * 0.7 * f + s4 * 6.3) * 0.03, a[0], b[0]);
-      pos[3 * i + 1] = wrap(a[1] + s1 * (b[1] - a[1]) - t * 0.012 * f + Math.sin(t * 0.5 * f + s3 * 6.3) * 0.04, a[1], b[1]);
+      if (L) {
+        pos[3 * i] = wrap(a[0] + s0 * (b[0] - a[0]) + t * drift(0.025 * f, b[0] - a[0]) + Math.sin(t * rad(0.7 * f) + s4 * 6.3) * 0.03, a[0], b[0]);
+        pos[3 * i + 1] = wrap(a[1] + s1 * (b[1] - a[1]) - t * drift(0.012 * f, b[1] - a[1]) + Math.sin(t * rad(0.5 * f) + s3 * 6.3) * 0.04, a[1], b[1]);
+      } else {
+        pos[3 * i] = wrap(a[0] + s0 * (b[0] - a[0]) + t * 0.025 * f + Math.sin(t * 0.7 * f + s4 * 6.3) * 0.03, a[0], b[0]);
+        pos[3 * i + 1] = wrap(a[1] + s1 * (b[1] - a[1]) - t * 0.012 * f + Math.sin(t * 0.5 * f + s3 * 6.3) * 0.04, a[1], b[1]);
+      }
       pos[3 * i + 2] = a[2] + s2 * (b[2] - a[2]);
       const ex = (pos[3 * i] - a[0]) / (b[0] - a[0]), ey = (pos[3 * i + 1] - a[1]) / (b[1] - a[1]);
-      const k = Math.min(1, ex * 6, (1 - ex) * 6, ey * 6, (1 - ey) * 6) * (0.6 + 0.4 * Math.sin(t * 1.1 * f + s0 * 6.3));
+      const k = Math.min(1, ex * 6, (1 - ex) * 6, ey * 6, (1 - ey) * 6) * (0.6 + 0.4 * Math.sin(L ? t * rad(1.1 * f) + s0 * 6.3 : t * 1.1 * f + s0 * 6.3));
       col[3 * i] = col[3 * i + 1] = col[3 * i + 2] = Math.max(0, k);
     }
     geo.attributes.position.needsUpdate = geo.attributes.color.needsUpdate = true;

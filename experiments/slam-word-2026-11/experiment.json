@@ -1,0 +1,19 @@
+{
+  "id": "slam-word-2026-11",
+  "status": "ready",
+  "question": "Does one huge slam word over the action at frame 0 keep more viewers at 2 s than a short hook caption line?",
+  "variants": {
+    "A": "Hook caption line, as posted so far: \"When the candy has security\" at the top, 0-1.4 s, classic (not kinetic) so it is whole on frame 0",
+    "B": "Slam word: \"NO\" at 300 px, slamming in over Reaper's lunge on frame 0 (squash by the third frame, short shake), 0-1.4 s, in place of the caption"
+  },
+  "episodes": { "candy-bodyguard": { "A": "storyboards/candy/candy-bodyguard.json", "B": "storyboards/candy/candy-bodyguard-slam.json" } },
+  "audience": "Viewers of short character comedy who don't know the cast (For You / Reels, Europe and the US)",
+  "fixed": ["the picture, cuts and timing (only the text in 0-1.4 s differs)", "music bed, sound effects and gibberish voices (same file, checked with --audio-only)", "length 10 s", "look C (anime-pro)", "the GRR! text pop at 0.2 s", "the same MP4 on TikTok and Instagram, posted the same day"],
+  "primaryOutcome": "TikTok hold at 0:02 (held_2s) at 24 h, read off the retention graph",
+  "diagnostics": ["hold at 0:01 and 0:03", "avg_watch_s", "completion", "views at 48 h", "likes, shares, comments, follows per 100 views"],
+  "observeDays": 1,
+  "threshold": "5 points or more at 0:02, in the same direction on a second pair on a new story, before slam words become a default",
+  "decisionRule": "One pair is a pilot, not a result: posts on different days differ by date, slot and premise as much as by the hook. Repeat on a second story before changing the template.",
+  "costGuardrail": "A slam word costs one storyboard line and a 0-3 s hook render (about 5 minutes)",
+  "notes": "Scenario brief task 6 (/mnt/project-files/engine/scenario-lessons-01/BRIEF.md), Test 3 list in the two-week test plan. Built 30 Oct 2026. Jonny decides whether and how both get posted (the rules say never the same clip twice on one account, so the pair needs either two stories or Instagram Trial Reels)."
+}

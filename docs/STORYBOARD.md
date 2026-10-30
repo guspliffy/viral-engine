@@ -45,6 +45,19 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   default -7), `burst` (a colour: a comic star behind it). `act.emote` (storyboards/lib/acting.mjs) is a small one
   over the head for an emotion word ("annoyed"), and `act.mood` lands an angry or annoyed face at full strength. It is pushed inside the safe zone, and `qa/check.mjs` checks it there. Use one or two per clip, on a
   sound the viewer should "see" (a BOO, a gulp), not on every hit.
+- **Slam words** (a hook-lab test, `experiments/slam-word-2026-11`): `{ "do": "slam", "at": 0, "dur": 1.4, "text": "NO",
+  "size": 300, "x": 330, "y": 212, "angle": -6 }` in the top-level `fx` puts one or two huge words over the action in
+  place of the hook caption. Frame 0 already shows them whole (a little big), they squash onto their place by the
+  third frame with a short shake, hold, and shrink out over the last 0.14 s. `size` is the font size in px (300 or
+  more on the 1080 frame; a word too wide for the safe zone is drawn smaller), `x` the centre, `y` the top, `color`
+  (`"speaker"` with `who`: that character's caption colour). Capitals at 300 px fit about three letters across the
+  safe zone, so pick a short word. `qa/hook.mjs` checks the size, that no face is under it at frame 0 and that no
+  caption shares the screen with it; `qa/check.mjs` checks it stays in the safe zone. It makes no sound of its own.
+- **`"loopIdle": true`** (with `"loop": true`): loop-safe idle. Breathing, the idle sway, automatic blinks, a hover's
+  bob, an idle wing beat, tails, the raven, crests, an orb's pulse, flame flicker lights and a plate's leaves and dust
+  each turn a whole number of times over the clip, so the last frame runs into the first with no jump (a rhythm is
+  nudged to the nearest whole count, at least one). Off by default, so older loop clips stay as they are; flame
+  shapes drawn in shaders (candle, pumpkin) aren't covered yet.
 - **`"hook": { "show": ["wiz", "dra", "bowl"], "hint": 1.2, "what": "Dragon eyes the biscuits" }`** names who and
   what must be in frame 0 (cast ids and prop ids) and when trouble first shows; `qa/hook.mjs` checks both
   (two-shot-0, hint-by). Without `show` it takes whoever acts in the hook and payoff beats.
