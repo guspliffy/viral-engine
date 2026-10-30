@@ -42,6 +42,9 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           voice: "true"
+      - name: Xvfb for --gl llvmpipe
+        if: contains(inputs.flags, 'llvmpipe')
+        run: command -v Xvfb || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends xvfb libgl1-mesa-dri)
       # the contact gate once for all shards (they skip it), and real speech into out/speech for all of them
       - name: Contact gate and speech
         run: node engine/render.mjs "$SB" --layout $COST $FLAGS
@@ -78,6 +81,9 @@ jobs:
         with:
           name: plan
           path: out
+      - name: Xvfb for --gl llvmpipe
+        if: contains(inputs.flags, 'llvmpipe')
+        run: command -v Xvfb || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends xvfb libgl1-mesa-dri)
       - name: Render
         run: node engine/render.mjs "$SB" --shard ${{ matrix.shard }}/${{ needs.plan.outputs.n }} --skip-gate $BAL --timing-json out/timing-${{ matrix.shard }}.json $FLAGS
       - uses: actions/upload-artifact@v4
