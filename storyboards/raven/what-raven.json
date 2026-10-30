@@ -79,7 +79,7 @@
   },
   {
    "id": "chair",
-   "kind": "armchair",
+   "kind": "redarmchair",
    "x": 0.2,
    "z": 0
   },
@@ -118,7 +118,7 @@
   },
   {
    "id": "feather",
-   "kind": "feather",
+   "kind": "ravenfeather",
    "x": 0.3,
    "y": 1.5,
    "z": 0.47,

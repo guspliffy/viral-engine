@@ -1,10 +1,12 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mat, mesh, canvasTex } from "./props-trend.js";
+import { ROBBED_KINDS } from "./props-robbed.js";
 
 // Props for "What Raven?" (eight trend tests #04, 29 Oct 2026), in their own file so the clips made in parallel never
 // edit the same one (props3d.js merges these into its KINDS):
-//   armchair    one plush red armchair facing +z, for one sitter (sit works on it: seat at SEAT_Y 0.42). Rounded
+//   ravenfeather the black feather of props-robbed.js under its own name (props-prank.js has an orange "feather")
+//   redarmchair one plush red armchair facing +z, for one sitter (sit works on it: seat at SEAT_Y 0.42). Rounded
 //               cushions, a high back at z -0.42 and two broad padded arms at x +-ARMCHAIR.armX whose flat tops
 //               (y ARMCHAIR.armY) are wide enough for a small bird to perch on. spec.color for the fabric.
 //   ravenphoto  a small photo print (10 x 13 cm, 4 mm card) standing upright: a white border round a pale sky with ONE
@@ -18,7 +20,9 @@ const SEAT_Y = 0.42;   // props3d.js SEAT_Y (not imported: props3d imports this 
 export const RAVEN_GRIPS = {};
 
 export const RAVEN_KINDS = {
-  armchair(P) {
+  // the black raven feather from props-robbed.js under its own name: props-prank.js (30 Oct) has an orange "feather"
+  ravenfeather: ROBBED_KINDS.feather,
+  redarmchair(P) {
     const fab = mat(P.spec.color || "#b33a2c", { roughness: 0.9 }), fab2 = mat(P.spec.color2 || "#c4473a", { roughness: 0.92 });
     const wood = mat("#5a3520", { roughness: 0.6 });
     const rb = (w, h, d, r, m, x, y, z) => mesh(new RoundedBoxGeometry(w, h, d, 4, r), m, P.whole, x, y, z);

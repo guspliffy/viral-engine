@@ -30,6 +30,10 @@ import * as act from "../lib/acting.mjs";
 import * as grips from "../lib/grips.mjs";
 
 const c = clip(), { A, sfx } = c;
+// --gibberish writes what-raven-gibberish.json (Jonny 30 Oct): the words in the characters' gibberish voices, the
+// sneeze still real (it isn't a word), the same English subtitles, music and timing
+const GIB = process.argv.includes("--gibberish");
+const words = GIB ? { voice: false } : {};
 const END = 10.6;
 
 // ---------------------------------------------------------------- places
@@ -56,12 +60,12 @@ const cast = [
 ];
 const props = [
   { id: "rug", kind: "rug", x: -0.2, z: 0.6, w: 3.4, d: 2.4, color: "#d8c4a0" },
-  { id: "chair", kind: "armchair", x: CHAIR[0], z: CHAIR[1] },
+  { id: "chair", kind: "redarmchair", x: CHAIR[0], z: CHAIR[1] },
   PHOTO,
   { id: "r1", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },   // the peeker (later the hood one)
   { id: "r2", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
   { id: "r3", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
-  { id: "feather", kind: "feather", x: 0.3, y: 1.5, z: 0.47, scale: 1.25 },
+  { id: "feather", kind: "ravenfeather", x: 0.3, y: 1.5, z: 0.47, scale: 1.25 },
 ];
 
 // ---------------------------------------------------------------- helpers
@@ -110,14 +114,14 @@ photo.carry(0.66, PHOTO_SHOW, 0.24, "out");
 look(0.85, "odin", O_AT_REA, 0.15);
 sfx(0.7, "whoosh", { gain: 0.25, reason: "the photo snapped up into frame" });
 // his subtitle sits under the hook caption and goes with the two-shot (the insert is all Odin: no text over him)
-c.macro(0.35, "odin", "say", { line: "Seen my raven?", tone: "question", caption: false });
+c.macro(0.35, "odin", "say", { line: "Seen my raven?", tone: "question", caption: false, ...words });
 c.cap(0.35, 1.2, "Seen my raven?", 470);
 
 // ---------------------------------------------------------------- 3 MEDIUM 1.30-2.90: hands in his lap, "What raven?"
 look(1.55, "rea", R_AT_ODIN, 0.15);
 A(1.7, "rea", "squash", { amount: -0.04, dur: 0.15 });   // a little innocent shrug, chin up
 A(1.7, "rea", "pitch", { to: -4, dur: 0.2 }); A(2.35, "rea", "pitch", { to: 0, dur: 0.3 });
-c.macro(1.72, "rea", "say", { line: "What raven?", tone: "calm", pos: 300 });
+c.macro(1.72, "rea", "say", { line: "What raven?", tone: "calm", pos: 300, ...words });
 A(1.8, "rea", "turn", { to: -9, dur: 0.16 }); A(1.96, "rea", "turn", { to: 9, dur: 0.18 }); A(2.14, "rea", "turn", { to: -6, dur: 0.16 }); A(2.3, "rea", "turn", { to: 0, dur: 0.18 });
 A(1.72, "rea", "expr", { expr: "kind", set: { curve: 0.4, eye: 1.08 }, dur: 0.25 });
 A(1.7, "odin", "still", { dur: 1.15, idle: 0.06 });
@@ -226,7 +230,7 @@ A(T7 + 0.3, "rea", "expr", { expr: "deadpan", dur: 0.3 });
 // ---------------------------------------------------------------- 8 THE DENIAL 8.60-10.6: "...What ravens?"
 const T8 = 8.6;
 A(T8, "rea", "still", { dur: 1.9, idle: 0.03 });
-c.macro(T8 + 0.05, "rea", "say", { line: "...What ravens?", tone: "calm", pos: 300 });
+c.macro(T8 + 0.05, "rea", "say", { line: "...What ravens?", tone: "calm", pos: 300, ...words });
 // the hood raven nuzzles him: two little beak taps on the top of his head, a happy hop
 c.prop(T8 + 0.25, "r1", { peck: 1 }, 0.1, "out"); c.prop(T8 + 0.35, "r1", { peck: 0 }, 0.12);
 c.prop(T8 + 0.48, "r1", { peck: 1 }, 0.1, "out"); c.prop(T8 + 0.58, "r1", { peck: 0 }, 0.12);
@@ -266,7 +270,8 @@ const beats = c.beats([
 
 const inHood = (id, from, to, why) => ({ who: "rea", with: id, from, to, reason: `${id} ${why} (a bird inside Reaper's hood: the body hides it)` });
 write(import.meta.url, {
-  id: "what-raven",
+  id: GIB ? "what-raven-gibberish" : "what-raven",
+  ...(GIB && { seed: "what-raven" }),   // the same music as the English cut
   title: "What Raven?",
   idea: "Eight trend tests #04 (hidden-in-plain-sight 'What iPad?' format): Reaper denies hiding Odin's raven until a sneeze blows three out of his hood",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
