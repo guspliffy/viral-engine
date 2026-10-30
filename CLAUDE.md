@@ -75,6 +75,10 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   escalation), a recorded bed's stop (`until`) lands on a bar line, and parts and hits sit near beats. Without its own
   `parts` a clip gets one beat of silence before the payoff and a drop on it. `"lock": false` or a pinned `offset`
   opts out; dance clips stay on their own grid.
+- **The music gives way** (`engine/music.mjs` `duckEnvelope`): the bed ducks 6 dB under every hit at least as loud as
+  the bed (not steps, grabs, cloth and other handling sounds), 4 dB under voice lines, and drops 12 dB for the 0.6 s
+  before the payoff (unless the bed is already stopped there). `"music": { "duck": false }` / `{ "dip": false }`
+  turn them off; `"duck": { "db", "voice", "hold", "release" }` and `"dip": { "db", "len" }` tune them.
 - **The payoff is the loudest moment, after a dip**: `qa/sound.mjs` notes (creative, never a failure) when the clip's
   loudest 100 ms isn't on the payoff beat, or the quietest 0.5 s of the 4 s before it isn't 12 dB under the payoff's
   peak. `python qa/pace.py <clip> --ref <clip that holds viewers>` compares cuts, motion and loudness per second.
