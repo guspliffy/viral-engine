@@ -12,7 +12,7 @@
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
-//   node engine/render.mjs <storyboard> --blur                          -> with motion blur (off by default)
+//   node engine/render.mjs <storyboard> --no-blur                       -> no motion blur (--blur turns it on in a draft)
 //   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds; exits 1 when the gate would stop a render)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
@@ -55,10 +55,12 @@ const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical 
 // stays one sample, so calm stretches cost nothing. A very fast part (a blade in a close-up) gets a shorter shutter, so
 // its smear is at most (max - 1) x gap px: wider than that, the samples would show as separate stripes. The estimate only sets the cost: the samples are real frames at
 // their own times, so a part that has stopped just draws the same picture again. Samples never cross a cut, an impact
-// frame or the start of a flash. It is off by default (Jonny, 30 Oct 2026: "motion blur is not needed, the difference
-// is really small"; it was 62-73 % of a clip's render time). --blur or "motionBlur": true / { ... } in a storyboard
-// turns it on.
-const BLUR = { shutter: 0.5, gap: 5, min: 12, max: 13 };
+// frame or the start of a flash. Only really fast moves are blurred (Jonny, 30 Oct 2026: "cut the blur except for
+// really fast movements"): 48 px of smear before a frame blurs at all, a sample per 10 px, at most 7. Until then it
+// was 12 px, 5 px and 13, which blurred two thirds of a busy clip and took 62-73 % of its render time
+// (render-measure-01). A storyboard tunes it with "motionBlur": { ... } or turns it off with "motionBlur": false;
+// --no-blur turns it off, and drafts skip it unless --blur.
+const BLUR = { shutter: 0.5, gap: 10, min: 48, max: 7 };
 // The picture is stored as BT.709 (the HD standard phones and the apps assume) and tagged so: left alone, ffmpeg
 // stores a browser frame as BT.601, which a player reading it as HD shows more saturated (orange 242,107,29 -> 254,114,21).
 const COLOR = ["-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"];
@@ -96,7 +98,7 @@ function args() {
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
   }
-  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl llvmpipe|soft|gpu] [--blur] [--out dir]"); process.exit(2); }
+  if (!o.file) { console.error("usage: node engine/render.mjs <storyboard.json> [--stills t,t] [--draft] [--style s] [--audio-only] [--silent] [--safe] [--from s --to s] [--gl llvmpipe|soft|gpu] [--no-blur] [--out dir]"); process.exit(2); }
   o.gl = o.gl || "llvmpipe";
   if (!["soft", "gpu", "llvmpipe"].includes(o.gl)) { console.error(`--gl ${o.gl}: use llvmpipe (CPU, the default), soft (SwiftShader) or gpu`); process.exit(2); }
   return o;
@@ -397,7 +399,7 @@ async function main() {
     const tr = Date.now();
     const bl = blurPlan(sb, o, fps), blurred = { frames: 0, samples: 0, ms: 0 };
     if (bl) {
-      console.log(`motion blur: shutter ${bl.shutter}, a sample per ${bl.gap} px of smear from ${bl.min} px, up to ${bl.max} (on by --blur or the storyboard)`);
+      console.log(`motion blur: shutter ${bl.shutter}, a sample per ${bl.gap} px of smear from ${bl.min} px, up to ${bl.max} (--no-blur turns it off)`);
       await page.evaluate((ts) => window.ENGINE.prime(ts), [a - 2, a - 1].filter((k) => k >= 0).map((k) => k / fps));
     }
     // after a frame is drawn: how fast it moves, and if fast, more samples averaged in
@@ -432,7 +434,7 @@ async function main() {
 
 // motion blur settings for this render, or null when it is off
 function blurPlan(sb, o, fps) {
-  if (o.blur === false || !(o.blur || sb.motionBlur)) return null;
+  if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
   const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
