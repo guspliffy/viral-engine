@@ -1,0 +1,1988 @@
+{
+ "id": "too-much-energy",
+ "title": "Too Much Energy",
+ "cover": 3.5,
+ "idea": "Friend comedies 23 (Jonny's brief 30 Oct 2026): 6 AM, Phoenix crashes in with too much energy and burns out into ash; Reaper sweeps him out of the window and goes back to sleep; the window glows again",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "golden",
+ "set": {
+  "type": "energyroom",
+  "night": true,
+  "seed": 6,
+  "aperture": 0.03,
+  "focus": "acting"
+ },
+ "music": {
+  "style": "chip",
+  "seed": 23,
+  "gain": 0.32,
+  "until": 4.78,
+  "dip": false
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.15,
+  "speech": false,
+  "signature": false,
+  "surface": "wood"
+ },
+ "creative": {
+  "length": [
+   9,
+   9
+  ]
+ },
+ "hook": {
+  "show": [
+   "rea",
+   "phx",
+   "clock"
+  ],
+  "hint": 0,
+  "what": "6 AM: Phoenix slams into the window beside sleeping Reaper"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    -0.75,
+    -1.5
+   ],
+   "face": "camera",
+   "expr": "serene",
+   "follow": 0.3,
+   "seed": 3.3
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0.7000000000000001,
+    -2.95
+   ],
+   "y": 0.6,
+   "face": "camera",
+   "expr": "eager",
+   "follow": 0.4,
+   "seed": 1.7,
+   "span": 0.55
+  }
+ ],
+ "props": [
+  {
+   "id": "frame",
+   "kind": "bedframe",
+   "x": -0.75,
+   "z": -1.5
+  },
+  {
+   "id": "mat",
+   "kind": "tipmattress",
+   "x": -1.3,
+   "y": 0.28,
+   "z": -1.5,
+   "cover": 1
+  },
+  {
+   "id": "stand",
+   "kind": "nightstand",
+   "x": 0.1,
+   "z": -2.05
+  },
+  {
+   "id": "clock",
+   "kind": "digiclock",
+   "x": 0.1,
+   "y": 0.5,
+   "z": -1.9899999999999998,
+   "scale": 1.25,
+   "text": "06:00"
+  },
+  {
+   "id": "glass",
+   "kind": "winglass",
+   "x": 0.7000000000000001,
+   "y": 0.55,
+   "z": -2.375,
+   "w": 0.8,
+   "h": 1.05
+  },
+  {
+   "id": "curtL",
+   "kind": "firecurtain",
+   "x": 0.09999999999999998,
+   "y": 0.55,
+   "z": -2.2199999999999998,
+   "w": 0.32,
+   "h": 1.3,
+   "edge": 1
+  },
+  {
+   "id": "curtR",
+   "kind": "firecurtain",
+   "x": 1.3,
+   "y": 0.12,
+   "z": -2.2199999999999998,
+   "w": 0.34,
+   "h": 1.73,
+   "edge": -1
+  },
+  {
+   "id": "glow",
+   "kind": "outglow",
+   "x": 0.7000000000000001,
+   "y": 1.05,
+   "z": -3,
+   "w": 1.9,
+   "h": 1.9
+  },
+  {
+   "id": "broom",
+   "kind": "broom",
+   "x": 0.42,
+   "z": -1.95,
+   "tilt": -12
+  },
+  {
+   "id": "pan",
+   "kind": "dustpan",
+   "x": 0.68,
+   "z": -1.72,
+   "fill": 0
+  },
+  {
+   "id": "pile",
+   "kind": "ashpile",
+   "x": 0.696,
+   "z": -0.754,
+   "scale": 0
+  },
+  {
+   "id": "ash",
+   "kind": "ashfall",
+   "x": 0.44,
+   "y": 0.46,
+   "z": -2.74,
+   "dur": 0.8
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.6,
+   "text": "that one friend with too much energy",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "6 am",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.205,
+     1.942,
+     4.221
+    ],
+    "look": [
+     0,
+     0.92,
+     -1.45
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.7000000000000001,
+      "y": 0.6,
+      "z": -2.95
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.38,
+     "dur": 0.34,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 0.7
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.03,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "bulge": 0.75
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/impact-glass-heavy",
+     "gain": 0.8,
+     "at": 0
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.6,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "heyheyhey wake up!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "frame",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      -0.15
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.3,
+       0.38
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.3,
+       0.38
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "bulge": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "bulge": 0.45
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 1
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.7000000000000001,
+      "y": 0.65,
+      "z": -3.3000000000000003
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.75,
+     "dur": 0.3,
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.35,
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.75,
+      "y": 0.4,
+      "z": -1.2
+     },
+     "dur": 0.36,
+     "ease": "in",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "smash": 1
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0.97
+    },
+    {
+     "sfx": "kenney/impact-glass-heavy",
+     "gain": 1,
+     "at": 0.97
+    },
+    {
+     "sfx": "punch",
+     "gain": 0.5,
+     "at": 0.97
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.8,
+     "at": 0.99
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "arrival",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.491,
+     1.444,
+     4.295
+    ],
+    "look": [
+     0,
+     0.8,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.7,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.45,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "it's morning it's morning get up get up",
+     "dur": 0.8,
+     "tone": "excited",
+     "at": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.78,
+       0.22
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.78,
+       0.22
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lidL": 0.3,
+     "browL": -0.1,
+     "dur": 0.18,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.38,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.86,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.86,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "bounce",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.086,
+     2.02,
+     4.8
+    ],
+    "look": [
+     0.5,
+     1.05,
+     -1.6
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 1.45,
+      "y": 0.85,
+      "z": -1.25
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "wheee boing boing",
+     "dur": 0.6,
+     "tone": "excited",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.25,
+     "dur": 0.12,
+     "at": 0.18
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.7,
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 1.2,
+      "y": 0.88,
+      "z": -1.7
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 0.22
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.25,
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.6,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "curtR",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.42
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.5,
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.55,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.26,
+      "y": 0.3,
+      "z": -0.75
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.44
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": "left",
+     "dur": 0.2,
+     "at": 0.84
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.84
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mat",
+      "grip": [
+       1.135,
+       0.07,
+       0.91
+      ],
+      "palm": true
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mat",
+      "grip": [
+       1.135,
+       0.07,
+       0.59
+      ],
+      "palm": true
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.86
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "mattress",
+   "at": 3,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -2.751,
+     3.814,
+     3.415
+    ],
+    "look": [
+     -0.5,
+     0.85,
+     -1.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "hup! hup! look look!",
+     "dur": 0.85,
+     "tone": "excited",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "mat",
+     "off": [
+      0.55,
+      0.02,
+      0.03
+     ],
+     "tilt": true,
+     "dur": 0.01,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "tilt": -45
+     },
+     "dur": 0.45999999999999996,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.02,
+      "y": 0.5,
+      "z": -0.75
+     },
+     "dur": 0.45999999999999996,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.6,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lidL": 0.5,
+     "lidR": 0.6,
+     "dur": 0.15,
+     "at": 0.17
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.86,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.86,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.86
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.18000000000000016,
+     "ease": "in",
+     "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": 0.696,
+      "y": 0.25,
+      "z": -0.754
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": "3q-left",
+     "dur": 0.25,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "tilt": 2.5
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.04
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.22,
+     "at": 1.04
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.9,
+     "at": 1.04
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "at": 1.04
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 1.12
+    },
+    {
+     "who": "phx",
+     "do": "land",
+     "to": 0,
+     "dur": 0.16,
+     "at": 1.24
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": null,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.55,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "again again let's go again let's",
+     "dur": 0.4800000000000004,
+     "tone": "excited",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.38,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.38,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.05,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.16,
+     "at": 1.36
+    }
+   ]
+  },
+  {
+   "name": "burnout",
+   "at": 4.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.407,
+     1.198,
+     2.866
+    ],
+    "look": [
+     0,
+     0.62,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.16,
+     "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.1,
+     "at": 0.28
+    },
+    {
+     "sfx": "ai/snuff",
+     "gain": 0.7,
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "grow",
+     "to": 0.12,
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0.38
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.12,
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "curtR",
+     "set": {
+      "fire": 0,
+      "scorch": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.38
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.696,
+      0.18,
+      -0.754
+     ],
+     "color": "#9b97a3",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.6,
+     "dur": 0.6,
+     "at": 0.44
+    },
+    {
+     "sfx": "poof",
+     "gain": 0.35,
+     "at": 0.44
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 1,
+      "glow": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.52
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lidL": 0.5,
+     "lidR": 0.5,
+     "browL": 0,
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.74
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "cover": 0
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.6,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "stand",
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.18,
+     "dur": 0.34,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.3,
+      -1.15
+     ],
+     "dur": 0.34,
+     "ease": "inOut",
+     "steps": 0,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": "right",
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.93
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "sweep",
+   "at": 5.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     2.972,
+     1.048,
+     0.746
+    ],
+    "look": [
+     0.55,
+     0.42,
+     -0.95
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "x": 0.908,
+      "z": -0.966,
+      "rot": -45
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "broom",
+     "set": {
+      "x": 0.555,
+      "z": -0.613,
+      "tip": 0,
+      "tilt": 25.057,
+      "rot": -165.895
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "broom",
+      "grip": "hand"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "broom",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.325,
+       0.507,
+       -0.555
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.537,
+       0.507,
+       -0.767
+      ]
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.26
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.8,
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "x": 0.8518528137423858,
+      "z": -0.9098528137423857,
+      "scale": 0.55
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "broom",
+     "to": [
+      -0.04,
+      0,
+      -1
+     ],
+     "dur": 0.22,
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "broom",
+     "set": {
+      "tilt": -18,
+      "rot": 0
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.56
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.56
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pan",
+      "grip": "handle",
+      "palm": true
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 0.76
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.25,
+     "at": 0.78
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "pan",
+     "hand": "L",
+     "grip": "handle",
+     "dur": 0,
+     "pose": null,
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": "back",
+     "dur": 0.32,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.8600000000000001,
+      -1.74
+     ],
+     "dur": 0.4,
+     "steps": 2.4,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.32,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.44,
+       0.8,
+       -2.2
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "outside",
+   "at": 6.8,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.094,
+     0.907,
+     -4.999
+    ],
+    "look": [
+     0.75,
+     0.62,
+     -2.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.44,
+       0.76,
+       -2.46
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.44,
+       0.68,
+       -2.46
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "tip": 50
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "ash",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 0.26
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.2,
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "pan",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.44,
+       0.84,
+       -2.15
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.4400000000000001,
+       0.24,
+       -1.76
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "pan",
+     "to": [
+      0.4400000000000001,
+      0,
+      -1.64
+     ],
+     "dur": 0.04,
+     "at": 0.74
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.35,
+     "at": 0.77
+    }
+   ]
+  },
+  {
+   "name": "again",
+   "at": 7.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -1.205,
+     1.942,
+     4.221
+    ],
+    "look": [
+     0,
+     0.92,
+     -1.45
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.35,
+      -1.45
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "frame",
+     "dur": 0.38,
+     "hands": "keep",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.36,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "mat",
+     "set": {
+      "cover": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.5,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.3,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.3,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      -0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.79,
+     "idle": 0.3,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 0.95
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.22,
+     "at": 1.12
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "frame",
+   "from": 0,
+   "to": 5.5,
+   "reason": "Reaper sits in bed (his legs under the blanket, over the frame)"
+  },
+  {
+   "who": "rea",
+   "with": "mat",
+   "from": 0,
+   "to": 5.5,
+   "reason": "Reaper sits in bed on the mattress, under the blanket, and rides it when it tips"
+  },
+  {
+   "who": "rea",
+   "with": "frame",
+   "from": 7.6,
+   "to": 9,
+   "reason": "Reaper gets back into bed"
+  },
+  {
+   "who": "rea",
+   "with": "mat",
+   "from": 7.6,
+   "to": 9,
+   "reason": "Reaper gets back into bed under the blanket"
+  },
+  {
+   "who": "phx",
+   "with": "mat",
+   "from": 2.84,
+   "to": 3.9,
+   "reason": "Phoenix's hands are on the mattress's edge while he tips it up"
+  }
+ ],
+ "notes": "Generated by storyboards/friend-comedies/23-too-much-energy/make-too-much-energy.mjs."
+}
