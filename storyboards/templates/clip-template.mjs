@@ -60,8 +60,11 @@ act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_P
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 // The camera is directed from the story (engine/direct.mjs): leave the camera null and the beat's kind picks the shot
 // (setup: medium on everyone, payoff: snap-in on its actor, reaction: close-up with a slow push, the loop tail: the
-// opening shot again), framed from where the characters are, cut on action. A size ("close", "mcu", "medium",
-// "wide") or { size, who } overrides it, "keep" holds the camera, and a plain { pos, look, fov } is used as it is.
+// opening shot again), framed from where the characters are, cut on action (onto a music beat when one is within
+// two frames). Two more kinds: "insert" (the prop the beat is about fills the frame for 0.4-0.8 s; never in 0-3 s; give
+// { size: "insert", on: "<prop id>", at: [x, y, z] } for the point on it) and "threat" (a low angle on who acts, once
+// per clip). A size ("close", "mcu", "medium", "wide", "insert") or { size, who, push, angle: "low" } overrides it,
+// "keep" holds the camera, and a plain { pos, look, fov } is used as it is. docs/STORYBOARD.md, "Directed camera".
 const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };   // the master: its direction is every shot's
 const beats = c.beats([
   ["hook", 0, null, "hook"],

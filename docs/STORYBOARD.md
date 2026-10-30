@@ -180,6 +180,8 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
 | `payoff` | **snap-in**: a 0.22 s push from wherever the camera is to a medium close-up on the faces of who acts in its first 0.6 s, starting on their first big action |
 | `reaction` | **close-up** on who reacts, with a slow 4 % push to the next cut |
 | `reveal` | **wide** |
+| `insert` | **insert**: the prop the beat is about (or the hand on it) fills the frame, about 0.5 m of picture, 0.4-0.8 s, then back to the shot before it |
+| `threat` | **low angle** on who acts: the camera low (knee height), looking up 10-15°, a wider lens |
 | the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
 
 - **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
@@ -189,10 +191,32 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   top of a tall hat. Every shot keeps the master's direction, so the camera never crosses the line.
 - **Cuts land on action**: a cut moves to two frames into the nearest move, turn, crouch or reach of who acts
   (within 0.35 s of the beat start), and never comes within 0.7 s of the last cut.
+- **Cuts on the beat** (`engine/music.mjs` `lockMusic` gives the grid, the same one the music is locked to): a cut on
+  action moves onto a music beat when one is within two frames and the cut stays one to four frames into the move; a
+  cut with no move to ride on moves onto a beat within four frames. Otherwise the action wins. The payoff's snap-in
+  is already on beat 1. Off with `"direct": { "beatCuts": false }`; clips without music have no grid.
+- **Insert** (`"kind": "insert"`, or `"shot": { "size": "insert", "on": "cupcake", "at": [0, 0.13, 0] }`): `on` is the
+  prop (else the first prop something happens to in the beat), `at` the point on it in its own frame (before its
+  scale). A held prop is framed on its hand. The camera keeps the master's side, looks down on it at least 18°, and
+  the shot sets `focus` on the prop (the depth of field focuses there when the set has an aperture). Rules: only before
+  the payoff, never before 3 s (`"insertFrom"` in the direct block changes that; more cuts in 0-3 s lost viewers), 0.4-0.8 s
+  (a longer beat cuts back to the shot before the insert at 0.8 s), and something must move in it (a tween, grab or
+  release on the prop, a hand aimed at it, a breath or flame aimed at it): `sb.directed` says `warn` otherwise.
+  Hands fill the frame in an insert: `qa/contact.mjs` must pass and Jonny sees a half-speed close-up first.
+- **Low angle** (`"kind": "threat"`, or `"shot": { "size": "medium", "angle": "low" }`): for Dragon, Reaper or a
+  reveal of power, once per clip (a second one gets a straight shot). The camera sits between the feet and a quarter
+  of the body up (knee height on a potato), on the master's side of the line (turned up to 30° off it), and looks up
+  10-15°; the eye line stays near the upper third, the hat keeps its headroom under a caption, and the feet stay above
+  the caption bar or out of the picture. From that low the floor sits near the horizon, so the lens gets wider
+  (50-60°) and the picture has to stay on the painted plate: a plate hung for eye-level shots (3.9 m) is too small,
+  Light My Candle uses 5.6 m. When nothing fits, `sb.directed` says so and the beat gets a straight shot.
+- After an insert or a low angle the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
+  from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
   camera keeps the shot, or eases over to the new framing with the action (up to 1.2 s).
-- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`), `{ "size": "close", "who": "wiz",
-  "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `"keep"`, or a plain `{ pos, look, fov }`.
+- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`, `"insert"`), `{ "size": "close", "who": "wiz",
+  "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `{ "size": "medium", "push": 0.08 }` (a slow
+  push to the next cut: one moving take for an opening), `"keep"`, or a plain `{ pos, look, fov }`.
   `"who"` on the beat names who acts; otherwise it is the actor doing the most. Options in the `direct` block:
   `push` (0.04), `snap` (seconds, 0.22).
 - What was chosen and why is in the compiled storyboard's `directed` list. `node qa/framing.mjs <sb> <layout.json>`
