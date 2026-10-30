@@ -22,6 +22,7 @@ import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
 import { actorState, cameraState } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
+import { soundClock } from "./shared/holds.js";
 
 // ---------- small DSP helpers ----------
 class Bus {
@@ -485,6 +486,7 @@ function ambience(type, seconds, r, fade = 0.3) {
 // chars: the character files (loaded from the storyboard when not given); the signature sounds need them to know
 // where each lead is
 export function soundEvents(sb, chars) {
+  sb = soundClock(sb);   // hit-stops: sounds on the video's clock (engine/shared/holds.js)
   const cfg = { auto: true, ...(sb.sound || {}) }, ev = [];
   const panOf = (who) => { const c = sb.cast.find((x) => x.id === who); return c ? Math.max(-0.3, Math.min(0.3, c.at[0] * 0.4)) : 0; }; // gentle pan: most people watch on one phone speaker
   if (cfg.auto !== false) {
@@ -601,6 +603,7 @@ function wingFlaps(sb, defs, panOf) {
 }
 
 export function renderAudio(sb, chars) {
+  sb = soundClock(sb);
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);

@@ -7,6 +7,8 @@ import { compile } from "./compile.mjs";
 import { direct } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
+import { holdsOf, heldFor } from "./shared/holds.js";
+import { focusTrack } from "./focus.mjs";
 
 export function loadCharacters(sb) {
   const chars = {};
@@ -18,7 +20,17 @@ export function loadStoryboard(file) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
   if (sb.set?.plate) plateFiles(sb.set.plate);
   const chars = loadCharacters(sb);
-  return direct(soundsOf(compile(withSpeech(sb, chars))), chars); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  return withHolds(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+}
+
+// hit-stops (engine/shared/holds.js): every time in the storyboard stays story time; "duration" becomes the video's
+// length (the story plus the held frames), "storyDuration" keeps the story's own
+function withHolds(sb) {
+  const holds = holdsOf(sb);
+  if (!holds.length) return sb;
+  const bad = holds.find((h) => h.at < 0 || h.at >= sb.duration);
+  if (bad) throw new Error(`hitStop at ${bad.at} s is outside the clip (0-${sb.duration} s)`);
+  return { ...sb, holds, storyDuration: sb.duration, duration: Math.round((sb.duration + heldFor(holds)) * 1e6) / 1e6 };
 }
 
 // A painted plate uses the depth and motion maps next to its picture (engine/plates/depth.py) when they exist, so the

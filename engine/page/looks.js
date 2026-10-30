@@ -118,6 +118,36 @@ function focusDistance(camera, actors) {
   return n ? sum / n : 5;
 }
 
+// focus that follows the story ("set": { "aperture": 0.045, "focus": "acting" }): the eyes of who acts at t (the
+// storyboard's focusTrack, engine/focus.mjs), pulled over PULL seconds when that changes; the nearest face in frame
+// when nobody acts or the actor is out of frame. Worked out from the frame's own pose, so it holds no state between
+// frames (shards and stills agree). A shot can name its own focus point (timeline.js cameraState(sb, t).focus, an
+// insert on a prop); that wins.
+const PULL = 0.3;
+function eyeDepth(camera, a, dir) {
+  if (!a || !a.ch.root.visible) return null;
+  a.ch.root.updateMatrixWorld(true);
+  const E = a.ch.face && a.ch.face.eyes, p = new THREE.Vector3();
+  if (E && E.length) { for (const e of E) p.add(e.root.getWorldPosition(new THREE.Vector3())); p.multiplyScalar(1 / E.length); }
+  else { p.copy(a.ch.root.position); p.y += a.ch.cy * (a.ch.root.scale.y || 1); }
+  const v = p.clone().project(camera);
+  if (v.z > 1 || Math.abs(v.x) > 1 || Math.abs(v.y) > 1) return null;   // out of frame
+  return p.sub(camera.position).dot(dir);
+}
+function storyFocus(camera, actors, track, t, point) {
+  const dir = camera.getWorldDirection(new THREE.Vector3());
+  if (point) return new THREE.Vector3(...point).sub(camera.position).dot(dir);   // a shot that names what is sharp (an insert on a prop)
+  const nearest = () => { let d = Infinity; for (const a of actors) { const z = eyeDepth(camera, a, dir); if (z != null && z > 0) d = Math.min(d, z); } return Number.isFinite(d) ? d : 5; };
+  const of = (who) => eyeDepth(camera, who && actors.find((a) => a.c.id === who), dir) ?? nearest();
+  if (t == null || !track || !track.length) return nearest();
+  let i = -1; for (let k = 0; k < track.length && track[k].at <= t + 1e-6; k++) i = k;
+  if (i < 0) return of(track[0].who);
+  const now = of(track[i].who), k = (t - track[i].at) / PULL;
+  if (i === 0 || k >= 1) return now;
+  const was = of(track[i - 1].who), s = k * k * (3 - 2 * k);
+  return was + (now - was) * s;
+}
+
 function smoothRamp(lo, hi, at, soft) {
   const n = 256, data = new Uint8Array(n * 4);
   for (let i = 0; i < n; i++) {
@@ -328,7 +358,7 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [] }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null }) {
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
@@ -452,6 +482,16 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
+  // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
+  // while the room behind and the floor in front soften
+  const follow = bokeh && setSpec.focus === "acting";
+  if (follow) {
+    const m = bokeh.materialBokeh;
+    m.uniforms.band = { value: setSpec.focusBand ?? 0.25 };
+    m.fragmentShader = m.fragmentShader.replace("uniform float focus;", "uniform float focus;\nuniform float band;")
+      .replace("float factor = ( focus + viewZ );", "float factor = focus + viewZ; factor = sign( factor ) * max( abs( factor ) - band, 0.0 );");
+    if (!m.fragmentShader.includes("band, 0.0")) throw new Error("depth of field: three's BokehShader changed, the focus band patch no longer applies");
+  }
   if (bokeh) composer.addPass(bokeh);
   // glow only from what is brighter than white (emissive gems, blades, sparks): colours are authored, so whites
   // (eyes, clouds) sit at 1 and stay clean. Golden: the warm haze of the sunlit areas too
@@ -472,7 +512,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   composer.addPass(grade);
 
   return {
-    prepare() {
+    prepare(scene, t, focusPoint) {
       for (const [m, t] of [...toon, ...bare]) {
         if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.userData.liquid ? m.opacity * 0.32 / 0.35 : m.opacity; continue; }
         if (m.emissiveIntensity !== undefined) t.emissiveIntensity = Math.min(m.emissiveIntensity, 2.4); t.opacity = m.opacity;
@@ -484,7 +524,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
-      if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
+      if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set
         if (h.material.opacity !== h.userData.lookOpacity) { h.material.opacity *= 0.5; h.userData.lookOpacity = h.material.opacity; }
