@@ -1,0 +1,2338 @@
+{
+ "id": "candy-bodyguard-slam",
+ "title": "The Candy Bodyguard (slam word)",
+ "idea": "Story library 12: Reaper scares the Wizard away from the candy bowl, a tiny toy spider sends him behind the doorway, and the Wizard slides him a sweet",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/entry-hall-golden.png",
+   "z": -2.3,
+   "center": [
+    -0.2,
+    1.2
+   ],
+   "height": 4.2
+  }
+ },
+ "music": {
+  "file": "ai/spooky/spooky-02.ogg",
+  "gain": 0.5
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "signature": false,
+  "speech": false
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "rea",
+   "bowl"
+  ],
+  "hint": 0.14,
+  "what": "the Wizard's hand is over the candy and Reaper lunges at him"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    -0.62,
+    0.2
+   ],
+   "face": 26,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.44,
+    0.04
+   ],
+   "face": -28,
+   "expr": "smug",
+   "follow": 0.25,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": -0.05,
+   "z": 0.9,
+   "h": 0.36,
+   "w": 1.5,
+   "d": 0.6,
+   "color": "#ecd8b4",
+   "leg": "#cfa874",
+   "legX": 0.62,
+   "apron": 0.04
+  },
+  {
+   "id": "bowl",
+   "kind": "bowl",
+   "x": 0,
+   "y": 0.36,
+   "z": 0.86,
+   "colors": [
+    "#ff8a1a",
+    "#8e3fd1",
+    "#ffa43a",
+    "#6f2fb8"
+   ]
+  },
+  {
+   "id": "jamb",
+   "kind": "jambwall",
+   "x": 0.66,
+   "z": -0.52,
+   "w": 1.8,
+   "h": 2.6,
+   "room": {
+    "x": -0.3,
+    "d": 1.15,
+    "color": "#8e84b4"
+   }
+  },
+  {
+   "id": "sweetA",
+   "kind": "candy",
+   "x": -0.07,
+   "y": 0.464,
+   "z": 0.83,
+   "rot": 20,
+   "color": "#ff8a1a",
+   "big": 1.35
+  },
+  {
+   "id": "sweetB",
+   "kind": "candy",
+   "x": 0.07,
+   "y": 0.462,
+   "z": 0.9,
+   "rot": -12,
+   "color": "#8e3fd1",
+   "big": 1.35
+  },
+  {
+   "id": "spider",
+   "kind": "toyspider",
+   "span": 0.2,
+   "color": "#2b2036",
+   "mark": "#ff8a1a",
+   "x": -0.3,
+   "y": 0.12,
+   "z": 0.52,
+   "rot": 30,
+   "scale": 0.001
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "01 the bodyguard",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.467,
+     0.598,
+     3.938
+    ],
+    "look": [
+     -0.1,
+     0.72,
+     0.45
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.56,
+       0.74
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hover",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.55,
+      "eye": 1.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.68,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.68,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "set": {
+      "curl": 0.5,
+      "index": 0.45,
+      "thumb": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.25,
+      "curve": -0.2,
+      "eye": 1.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.1,
+       0.53,
+       0.8
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       1,
+       0.22
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       1,
+       0.22
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "set": {
+      "curl": 0.62,
+      "index": 0.55,
+      "thumb": 0.45
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.55,
+      "curve": -0.3,
+      "eye": 1.1
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.08,
+     "dur": 0.22,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.6,
+     "reason": "the hood and sleeves whipping up as Reaper lunges",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "fx": "pop",
+     "text": "GRR!",
+     "who": "rea",
+     "dur": 0.6,
+     "size": 96,
+     "dx": 0.6,
+     "dy": -0.15,
+     "angle": -6,
+     "color": "speaker",
+     "at": 0.14
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "grrr!",
+     "tone": "excited",
+     "caption": false,
+     "at": 0.14
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.45,
+     "idle": 0.05,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "curve": -0.5,
+      "eye": 1.25
+     },
+     "dur": 0.1,
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.22,
+       0.6,
+       0.28
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -14,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24,
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "hatwobble",
+     "amount": 8,
+     "freq": 3,
+     "dur": 0.8,
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.8,
+     "reason": "the Wizard's short intake of breath as he flinches",
+     "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.35,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.4,
+      "smirk": 0.5
+     },
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": -0.1,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 0.9
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 smug",
+   "at": 1.4,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -0.442,
+     0.66,
+     2.248
+    ],
+    "look": [
+     0.24,
+     0.66,
+     0.15
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.414,
+      0.66,
+      2.164
+     ]
+    },
+    "dur": 0.7
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spider",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hover",
+     "dur": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spider",
+      "grip": [
+       0,
+       0.115,
+       0
+      ],
+      "off": [
+       0,
+       0.06,
+       0
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.55,
+      "smirk": 0.65
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.52,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "hmph.",
+     "tone": "calm",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.35,
+     "brow": 0.05,
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "sly",
+     "set": {
+      "curve": 0.35,
+      "smirk": 0.5
+     },
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spider",
+      "grip": [
+       0,
+       0.115,
+       0
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "clasp",
+     "dur": 0.12,
+     "at": 0.43
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.08,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "spider",
+     "hand": "R",
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 0.56
+    }
+   ]
+  },
+  {
+   "name": "03 the idea",
+   "at": 2.1,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     -0.238,
+     0.727,
+     2.991
+    ],
+    "look": [
+     -0.5,
+     0.64,
+     0.5
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spider",
+      "grip": [
+       0,
+       0.115,
+       0
+      ],
+      "at": [
+       -0.32,
+       0.44,
+       0.52
+      ]
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.35,
+     "reason": "soft handling rustle as his hand comes up from under the table",
+     "at": 0.04
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spider",
+      "grip": [
+       0,
+       0.115,
+       0
+      ],
+      "at": [
+       -0.55,
+       0.38,
+       0.64
+      ]
+     },
+     "dur": 0.24,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "sly",
+     "set": {
+      "curve": 0.5,
+      "smirk": 0.75
+     },
+     "dur": 0.25,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.25,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.25,
+     "idle": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.4,
+     "brow": 0.2,
+     "dur": 0.2,
+     "at": 0.37
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.54
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.35,
+     "at": 0.56
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spider",
+      "grip": [
+       0,
+       0.115,
+       0
+      ],
+      "at": [
+       -0.27,
+       0.36,
+       0.9
+      ]
+     },
+     "dur": 0.42,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "spider",
+     "set": {
+      "rot": 35
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "04 tiny threat",
+   "at": 3,
+   "len": 0.75,
+   "shot": {
+    "pos": [
+     -0.798,
+     0.941,
+     1.888
+    ],
+    "look": [
+     -0.34,
+     0.44,
+     0.86
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "spider",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.3,
+     "reason": "the tiny rubber toy touching the wood",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "spider",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.17
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "spider",
+     "dur": 0,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hover",
+     "dur": 0.14,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.27,
+       0.565,
+       0.9
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.24
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.25
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.46,
+       0.42
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.46
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.46
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 4,
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.22,
+     "dur": 0.1,
+     "at": 0.7
+    }
+   ]
+  },
+  {
+   "name": "05 freeze",
+   "at": 3.75,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.353,
+     0.686,
+     1.945
+    ],
+    "look": [
+     0.36,
+     0.62,
+     0.18
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.318,
+      0.683,
+      1.857
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.85
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "sly",
+     "set": {
+      "curve": 0.65,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.5,
+     "dur": 0.16,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.22,
+      "curve": -0.6,
+      "tilt": 0.5
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.45,
+     "idle": 0,
+     "at": 0.27
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.75,
+     "reason": "Reaper's tiny breath catch as he recognises the spider",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.48,
+       0.36
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.48,
+       0.36
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "set": {
+      "curl": 0.9
+     },
+     "dur": 0.12,
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25,
+      "open": 0.35,
+      "curve": -0.7,
+      "tilt": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.75
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "06 hiding",
+   "at": 4.75,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.514,
+     1.118,
+     4.31
+    ],
+    "look": [
+     0.12,
+     0.72,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.36,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.42,
+       0.92,
+       0.2
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.92,
+       0.2
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "sfx": "sting",
+     "gain": 0.5,
+     "reason": "the 'dun!' shock sting on Reaper's startle jump (analytics 29 Oct: a sting on the scare)",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "eek!",
+     "tone": "excited",
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "fx": "pop",
+     "text": "EEK!",
+     "who": "rea",
+     "dur": 0.9,
+     "size": 104,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.09
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.65
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.04,
+      -0.98
+     ],
+     "dur": 0.42,
+     "ease": "inOut",
+     "steps": 4.6,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.4,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "set": {
+      "curl": 0.9
+     },
+     "dur": 0.15,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.3,
+     "at": 0.41
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 34,
+     "dur": 0.4,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.6,
+      "smirk": 0.3
+     },
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.86,
+      -1.15
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 4.2,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.4,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.7
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.03
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -10,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.2,
+      0.22
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 28,
+     "dur": 0.35,
+     "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "eye": 1.15,
+      "open": 0.08,
+      "curve": -0.35,
+      "tilt": 0.45
+     },
+     "dur": 0.25,
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.08,
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 1.25
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "07 a sweet gesture",
+   "at": 6.25,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     -0.308,
+     1.445,
+     3.606
+    ],
+    "look": [
+     0.24,
+     0.6,
+     0.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.28,
+      1.403,
+      3.451
+     ]
+    },
+    "dur": 2.15
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -30,
+      "lean": 30,
+      "thin": 0.014,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sweetA",
+      "grip": [
+       0,
+       0.02,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       0.079,
+       0.07,
+       0.014
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sweetA",
+      "grip": [
+       0,
+       0.02,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.65
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.57
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 10,
+      "lean": 30,
+      "thin": 0.014
+     },
+     "dur": 0.12,
+     "at": 0.608
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hover",
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sweetB",
+      "grip": [
+       0,
+       0.085,
+       0
+      ],
+      "off": [
+       0,
+       0.06,
+       0
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.5,
+     "reason": "the orange wrapper crinkling as he takes sweet A",
+     "at": 0.73
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "sweetA",
+     "hand": "R",
+     "grip": [
+      0,
+      0.02,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.74
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.7
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sweetA",
+      "grip": [
+       0,
+       0.02,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.42,
+       0.5,
+       0.54
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sweetB",
+      "grip": [
+       0,
+       0.085,
+       0
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.98
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "clasp",
+     "dur": 0.12,
+     "at": 1.07
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.45,
+     "reason": "the purple wrapper crinkling as he takes sweet B",
+     "at": 1.19
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "sweetB",
+     "hand": "L",
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sweetB",
+      "grip": [
+       0,
+       0.085,
+       0
+      ],
+      "at": [
+       0.27,
+       0.364,
+       0.8
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.26
+    },
+    {
+     "do": "prop",
+     "id": "sweetB",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sweetB",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.53
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "sweetB",
+     "dur": 0,
+     "at": 1.53
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hover",
+     "dur": 0.14,
+     "at": 1.53
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.55
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.55
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.27,
+       0.479,
+       0.8
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.57
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.6
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.155,
+       0.414,
+       0.81
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.67
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hover",
+     "dur": 0.12,
+     "at": 1.67
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "sweetB",
+     "hand": "L",
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 1.83
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.365,
+       0.414,
+       0.81
+      ]
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.3,
+     "reason": "the soft tabletop slide of the purple sweet toward Reaper",
+     "at": 1.85
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.45,
+     "reason": "the warm resolving chord as he lets go of the offered sweet",
+     "at": 2.09
+    }
+   ]
+  },
+  {
+   "name": "08 everyone has a weakness",
+   "at": 8.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.36,
+     1.022,
+     4.406
+    ],
+    "look": [
+     0.28,
+     0.7,
+     -0.15
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.6
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.15,
+      "open": 0.05,
+      "curve": 0.15,
+      "tilt": 0.3
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -17,
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 2,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "sweetB",
+     "dur": 0,
+     "at": 0.14
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sweetA",
+      "grip": [
+       0,
+       0.02,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.5,
+       0.66,
+       0.54
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.28,
+       0.5,
+       0.7
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "paw",
+     "dur": 0.3,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.65,
+      "smirk": 0.2
+     },
+     "dur": 0.35,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.32,
+     "brow": 0.2,
+     "dur": 0.35,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.15,
+       0.435,
+       0.64
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.5,
+     "lid": 0,
+     "dur": 0.12,
+     "at": 0.57
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "eye": 1.2,
+      "curve": -0.3,
+      "tilt": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.57
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -4,
+     "dur": 0.15,
+     "at": 0.57
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.98,
+     "idle": 0.06,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.8
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -18,
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.1,
+      "curve": 0.05,
+      "tilt": 0.35,
+      "press": 0.4
+     },
+     "dur": 0.3,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.3,
+     "lid": 0.1,
+     "dur": 0.3,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.48,
+     "idle": 0.05,
+     "at": 1.1
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wiz",
+   "with": "bowl",
+   "from": 6.55,
+   "to": 7.25,
+   "reason": "his fingers dip among the sweets on top of the heap as he takes the orange one"
+  },
+  {
+   "who": "wiz",
+   "with": "sweetB",
+   "from": 6.55,
+   "to": 7.25,
+   "reason": "the purple sweet lies next to the orange one his fingers close on"
+  }
+ ],
+ "notes": "Generated by storyboards/candy/make-candy-bodyguard.mjs: candy-bodyguard.json with a slam word instead of the hook caption.",
+ "seed": "candy-bodyguard",
+ "fx": [
+  {
+   "do": "slam",
+   "at": 0,
+   "dur": 1.4,
+   "text": "NO",
+   "size": 300,
+   "x": 330,
+   "y": 212,
+   "angle": -6
+  }
+ ],
+ "experiment": {
+  "id": "slam-word-2026-11",
+  "episode": "candy-bodyguard",
+  "variant": "B"
+ }
+}

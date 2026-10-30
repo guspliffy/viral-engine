@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { clamp, lerp, ease, prog, rng as rngOf } from "./util.js";
+import { clamp, lerp, ease, prog, rng as rngOf, rad } from "./util.js";
 import { TREND_KINDS, TREND_GRIPS } from "./props-trend.js";
 import { CATCH_KINDS, CATCH_GRIPS } from "./props-catch.js";
 import { ROBBED_KINDS, ROBBED_GRIPS } from "./props-robbed.js";
@@ -189,7 +189,7 @@ const KINDS = {
     return {
       grip: 0.14,
       apply(ps, t) {
-        const g = clamp(ps.glow), pulse = 1 + 0.12 * Math.sin(t * 9);
+        const g = clamp(ps.glow), pulse = 1 + 0.12 * Math.sin(t * rad(9));
         pickleM.emissiveIntensity = 1.4 * g * pulse; light.intensity = 2.2 * g * pulse;
         // the lid hops off and comes to rest on its edge against the jar (it used to stay 0.5 m up in the air, where
         // it went through the face of whoever stood next to the jar)
@@ -312,8 +312,8 @@ const KINDS = {
     return {
       grip: H0 * 0.5, splitApart: 0.05, splitTip: 0.12, splitDrop: 0,
       apply(ps, t) {
-        const l = clamp(ps.lit), fl = 1 + 0.08 * Math.sin(t * 13.1) + 0.05 * Math.sin(t * 21.7 + 1);
-        flames.forEach((f, i) => { f.visible = l > 0.02; f.scale.set(l, l * (1 + 0.1 * Math.sin(t * 17 + i * 2.1)), l); });
+        const l = clamp(ps.lit), fl = 1 + 0.08 * Math.sin(t * rad(13.1)) + 0.05 * Math.sin(t * rad(21.7) + 1);
+        flames.forEach((f, i) => { f.visible = l > 0.02; f.scale.set(l, l * (1 + 0.1 * Math.sin(t * rad(17) + i * 2.1)), l); });
         light.intensity = 3.2 * l * fl;
       },
     };
@@ -467,7 +467,7 @@ const KINDS = {
       grip: 0,
       apply(ps, t) {
         const f = clamp(ps.fire ?? 0); P.whole.visible = f > 0.01; light.intensity = 2.5 * f;
-        for (const q of fl) { const k = Math.max(0.01, f * q.h * (0.8 + 0.25 * Math.sin(t * q.sp + q.ph))); q.c.scale.set(1, k, 1); q.c.position.y = k / 2; }
+        for (const q of fl) { const k = Math.max(0.01, f * q.h * (0.8 + 0.25 * Math.sin(t * rad(q.sp) + q.ph))); q.c.scale.set(1, k, 1); q.c.position.y = k / 2; }
       },
     };
   },
@@ -623,7 +623,7 @@ const KINDS = {
   bed(P) {
     const wood = mat("#a8744a", { roughness: 0.7 }), sheet = mat("#f4f1ea", { roughness: 0.8 }), pillowM = mat("#ffffff", { roughness: 0.8 });
     const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
-    x.fillStyle = "#5b8fd6"; x.fillRect(0, 0, 128, 128); x.fillStyle = "#ffd75e";
+    x.fillStyle = P.spec.blanket || "#5b8fd6"; x.fillRect(0, 0, 128, 128); x.fillStyle = P.spec.dots || "#ffd75e";   // spec.blanket / dots: its colours
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { x.beginPath(); x.arc(16 + i * 32 + (j % 2) * 16, 16 + j * 32, 6, 0, 7); x.fill(); }
     const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(3, 3);
     const blanketM = mat("#ffffff", { map: tx, roughness: 0.85 });

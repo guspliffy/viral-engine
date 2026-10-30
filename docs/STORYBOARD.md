@@ -45,6 +45,19 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   default -7), `burst` (a colour: a comic star behind it). `act.emote` (storyboards/lib/acting.mjs) is a small one
   over the head for an emotion word ("annoyed"), and `act.mood` lands an angry or annoyed face at full strength. It is pushed inside the safe zone, and `qa/check.mjs` checks it there. Use one or two per clip, on a
   sound the viewer should "see" (a BOO, a gulp), not on every hit.
+- **Slam words** (a hook-lab test, `experiments/slam-word-2026-11`): `{ "do": "slam", "at": 0, "dur": 1.4, "text": "NO",
+  "size": 300, "x": 330, "y": 212, "angle": -6 }` in the top-level `fx` puts one or two huge words over the action in
+  place of the hook caption. Frame 0 already shows them whole (a little big), they squash onto their place by the
+  third frame with a short shake, hold, and shrink out over the last 0.14 s. `size` is the font size in px (300 or
+  more on the 1080 frame; a word too wide for the safe zone is drawn smaller), `x` the centre, `y` the top, `color`
+  (`"speaker"` with `who`: that character's caption colour). Capitals at 300 px fit about three letters across the
+  safe zone, so pick a short word. `qa/hook.mjs` checks the size, that no face is under it at frame 0 and that no
+  caption shares the screen with it; `qa/check.mjs` checks it stays in the safe zone. It makes no sound of its own.
+- **`"loopIdle": true`** (with `"loop": true`): loop-safe idle. Breathing, the idle sway, automatic blinks, a hover's
+  bob, an idle wing beat, tails, the raven, crests, an orb's pulse, flame flicker lights and a plate's leaves and dust
+  each turn a whole number of times over the clip, so the last frame runs into the first with no jump (a rhythm is
+  nudged to the nearest whole count, at least one). Off by default, so older loop clips stay as they are; flame
+  shapes drawn in shaders (candle, pumpkin) aren't covered yet.
 - **`"hook": { "show": ["wiz", "dra", "bowl"], "hint": 1.2, "what": "Dragon eyes the biscuits" }`** names who and
   what must be in frame 0 (cast ids and prop ids) and when trouble first shows; `qa/hook.mjs` checks both
   (two-shot-0, hint-by). Without `show` it takes whoever acts in the hook and payoff beats.
@@ -180,6 +193,9 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
 | `payoff` | **snap-in**: a 0.22 s push from wherever the camera is to a medium close-up on the faces of who acts in its first 0.6 s, starting on their first big action |
 | `reaction` | **close-up** on who reacts, with a slow 4 % push to the next cut |
 | `reveal` | **wide** |
+| `insert` | **insert**: the prop the beat is about (or the hand on it) fills the frame, about 0.5 m of picture, 0.4-0.8 s, then back to the shot before it |
+| `threat` | **low angle** on who acts: the camera low (knee height), looking up 10-15°, a wider lens |
+| `chaos` | **dutch tilt**: medium on everyone, the picture turned 10° |
 | the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
 
 - **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
@@ -189,10 +205,47 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   top of a tall hat. Every shot keeps the master's direction, so the camera never crosses the line.
 - **Cuts land on action**: a cut moves to two frames into the nearest move, turn, crouch or reach of who acts
   (within 0.35 s of the beat start), and never comes within 0.7 s of the last cut.
+- **Cuts on the beat** (`engine/music.mjs` `lockMusic` gives the grid, the same one the music is locked to): a cut on
+  action moves onto a music beat when one is within two frames and the cut stays one to four frames into the move; a
+  cut with no move to ride on moves onto a beat within four frames. Otherwise the action wins. The payoff's snap-in
+  is already on beat 1. Off with `"direct": { "beatCuts": false }`; clips without music have no grid.
+- **Insert** (`"kind": "insert"`, or `"shot": { "size": "insert", "on": "cupcake", "at": [0, 0.13, 0] }`): `on` is the
+  prop (else the first prop something happens to in the beat), `at` the point on it in its own frame (before its
+  scale). A held prop is framed on its hand. The camera keeps the master's side, looks down on it at least 18°, and
+  the shot sets `focus` on the prop (the depth of field focuses there when the set has an aperture). Rules: only before
+  the payoff, never before 3 s (`"insertFrom"` in the direct block changes that; more cuts in 0-3 s lost viewers), 0.4-0.8 s
+  (a longer beat cuts back to the shot before the insert at 0.8 s), and something must move in it (a tween, grab or
+  release on the prop, a hand aimed at it, a breath or flame aimed at it): `sb.directed` says `warn` otherwise.
+  Hands fill the frame in an insert: `qa/contact.mjs` must pass and Jonny sees a half-speed close-up first.
+- **Low angle** (`"kind": "threat"`, or `"shot": { "size": "medium", "angle": "low" }`): for Dragon, Reaper or a
+  reveal of power, once per clip (a second one gets a straight shot). The camera sits between the feet and a quarter
+  of the body up (knee height on a potato), on the master's side of the line (turned up to 30° off it), and looks up
+  10-15°; the eye line stays near the upper third, the hat keeps its headroom under a caption, and the feet stay above
+  the caption bar or out of the picture. From that low the floor sits near the horizon, so the lens gets wider
+  (50-60°) and the picture has to stay on the painted plate: a plate hung for eye-level shots (3.9 m) is too small,
+  Light My Candle uses 5.6 m. When nothing fits, `sb.directed` says so and the beat gets a straight shot.
+- **Dutch tilt** (`"kind": "chaos"`, or `"roll": 12` on any shot, 8-15°, + turns the picture clockwise): for chaos
+  beats. The shot gets a little more picture so heads and feet keep their places in the turned frame. A shot's
+  `roll` reaches the renderer through `cameraState` (`page/timeline.js`) and turns `camera.up` (`page/stage.js`).
+- **Over the shoulder** (`"shot": { "size": "ots", "who": "wiz", "over": "dra" }`): the face we read (`who`) over
+  the near one's shoulder (`over`, else whoever stands nearest), which takes about a third of the frame from the
+  side. The camera stays on the master's side of the line between the two, behind and beside the near one at its eye
+  height, and the near one never covers the far face. The two must face each other (turn them for the beat); the shot
+  sets `focus` on the far face, so the near one goes soft where the set has an aperture. Without a fit it is a close-up.
+- **Top-down** (`"shot": { "size": "top", "on": "cupcake", "at": [0, 0.13, 0] }`): straight down on a prop (table
+  scenes), 80° from level, about 0.95 m of picture, the far side of the table at the top.
+- **Establishing** (`"shot": { "size": "establishing", "plate": "assets/plates/<exterior>.png", "push": 0.04 }`): a
+  painted exterior fills the frame (cropped to 9:16, a slow push) for 0.5 s, then the shot before it comes back. Only
+  as a setup cut: never at frame 0 (frame 0 is action) and never from the payoff on. It needs a painted plate of the
+  place (new art: Jonny's call).
+- Dutch and over-the-shoulder shots warn in `sb.directed` when the picture shows past the set's plate.
+- After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
+  from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
   camera keeps the shot, or eases over to the new framing with the action (up to 1.2 s).
-- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`), `{ "size": "close", "who": "wiz",
-  "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `"keep"`, or a plain `{ pos, look, fov }`.
+- Override per beat: `"shot": "close"` (or `"mcu"`, `"medium"`, `"wide"`, `"insert"`, `"top"`), `{ "size": "close", "who": "wiz",
+  "push": 0.05 }`, `{ "frame": ["phx", "wiz"] }` (who must be in shot), `{ "size": "medium", "push": 0.08 }` (a slow
+  push to the next cut: one moving take for an opening), `"keep"`, or a plain `{ pos, look, fov }`.
   `"who"` on the beat names who acts; otherwise it is the actor doing the most. Options in the `direct` block:
   `push` (0.04), `snap` (seconds, 0.22).
 - What was chosen and why is in the compiled storyboard's `directed` list. `node qa/framing.mjs <sb> <layout.json>`
@@ -216,6 +269,30 @@ from finished clips:
 | `grin(c, t, who)` | `back`, `lid`, `rest` | Closed-eye grin (at a notification), eyes back after `back` s | Still Scrolling |
 | `defeated(c, t, who)` | `turn`, `hold`, `blink` | Sigh, flat face, shoulders drop, turn and look into the camera | Still Scrolling |
 | `backToStart(c, t, end, cast, look)` | | Loop tail: places, facing, face and eyes ease back to frame 0 | template |
+| `opener(c, who, line)` | `at`, `dur`, `tone`, `words`, `pos` | A lead's short line in the first 0.5 s: gibberish, or `words: true` for the real voice with a subtitle | lab pick |
+| `impact(c, t, who)` | `frames`, `stop`, `shake`, `stars`, `squash`, `recoil`, `look`, `sound`, `take` | Comic force on a hit: two impact frames, shake, stars, deep squash and recoil, eyes widen as it lands, then a 3-frame hit-stop | lab pick |
+| `windUp(c, t, who)` / `landDust(c, t, [x, z])` | `amount`, `dur` / `color`, `puffs` | Deep anticipation squash before a big move / a dust puff on a landing | lab pick |
+| `sheepish(c, t, who)` | `brow` | Tilted half smile with brows up | lab |
+| `mood`, `shock`, `grin`, `defeated` | | With `clip({ faces: "strong" })`: bigger extremes (same face shapes) and holds 0.2-0.3 s longer; face changes still ease over 0.25 s or more | lab pick |
+
+**The lab picks (Jonny, 30 Oct 2026)** are on in the template for every new clip, and each is opt-in per storyboard,
+so older clips don't change. The template's flags at the top turn one off for a clip:
+
+- `OPENER`: `act.opener` with a lead's line in the first half second (gibberish unless `words: true`).
+- `FOCUS`: depth of field in look C on the golden set: `"set": { "aperture": 0.045, "focus": "acting" }`. Focus
+  follows who acts (a line, a face change or a body move; `engine/focus.mjs` writes the storyboard's `focusTrack`),
+  pulled over 0.3 s, else the nearest face in frame; a shot's own `focus` point wins (an insert on a prop). A band
+  `"focusBand"` (0.25 m) either side of the focus stays sharp, so a second face beside the actor does too, while the
+  room behind and the floor in front soften. Without `"focus"`, `aperture` focuses as before (the cast's middle).
+- `FACES`: `clip({ faces: "strong" })` for the acting loops above.
+- Force on a hit: `act.windUp`, `act.impact`, `act.landDust` (the template's example has no hit;
+  `storyboards/lab/make-lab-picks.mjs` uses all four).
+
+**Hit-stops** (`"hitStop": [{ "at": 0.487, "frames": 3 }]`, written by `c.hitStop(t)` and `act.impact`): the whole
+picture holds for that many frames from `at` (snap it to a frame), then the clip carries on where it stopped. Every
+time in the storyboard stays story time; the video is that many frames longer (`loadStoryboard` sets `duration` to
+the video's length and keeps `storyDuration`), and every sound after `at` plays that much later, so it stays on its
+picture (`engine/shared/holds.js`). A sound exactly on `at` plays on the held frame.
 
 ### Picking a hold from the grip library
 

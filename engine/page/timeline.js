@@ -1,5 +1,5 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
@@ -17,7 +17,8 @@ const YAW = { camera: 0, front: 0, right: Math.PI / 2, left: -Math.PI / 2, "3q-r
 const yawOf = (v) => (typeof v === "number" ? (v * Math.PI) / 180 : YAW[v] ?? 0);
 
 // hovering after a fly: a gentle bob that fades in, and a wing beat that settles from full to 60 %
-const hoverBob = (u) => 0.035 * Math.sin(u * 5.5) * clamp(u / 0.3);
+// (D: the loop length when loop-safe idle is on, util.js loopLen)
+const hoverBob = (u, D = 0) => 0.035 * Math.sin(u * loopRad(5.5, D)) * clamp(u / 0.3);
 const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 
 // Wing beats and a charged staff's sparkles speed up and slow down. Their phase is the integral of the speed over
@@ -83,7 +84,7 @@ function phases(sb, actor, def, t) {
   let per = PHASES.get(sb); if (!per) { per = new Map(); PHASES.set(sb, per); }
   let P = per.get(actor.id);
   if (!P) { P = { flap: [0], charge: [0], need: (sb.actions || []).some((a) => a.who === actor.id && ["fly", "hover", "drop", "land", "charge"].includes(a.do)) }; per.set(actor.id, P); }
-  if (!P.need) return { flapPhase: 7 * t, chargePhase: 0 };
+  if (!P.need) { const LD = loopLen(sb); return { flapPhase: LD ? loopRad(7, LD) * t : 7 * t, chargePhase: 0 }; }
   const k = Math.max(0, Math.floor(t / STEP));
   const rate = (u) => { const s = actorState(sb, actor, def, u, true); return [7 + 17 * (s.flap || 0), s.charge || 0]; };
   for (let i = P.flap.length; i <= k; i++) { const [f, c] = rate((i - 1) * STEP); P.flap.push(P.flap[i - 1] + f * STEP); P.charge.push(P.charge[i - 1] + c * STEP); }
@@ -149,7 +150,7 @@ function rideAt(sb, a, u) {
 }
 
 export function actorState(sb, actor, def, t, raw = false) {
-  const c = actor;
+  const c = actor, LD = loopLen(sb);   // LD: the loop length when loop-safe idle is on, else 0 (util.js)
   const st = {
     x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1, span: c.span ?? 1,
     // the character's designed neutral face (face.neutral in its file) sits on top of its default expression; an
@@ -324,7 +325,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "fly": {
         // already hovering (a fly after a fly): start from where the bob had it and from the wing beat it had
         const hov = airSince != null ? a.at - airSince : null;
-        if (hov != null) st.y += hoverBob(hov);
+        if (hov != null) st.y += hoverBob(hov, LD);
         const to = a.to || {}, k = ease(a.ease || "inOut")(p), dir = Math.sign((to.x ?? st.x) - st.x);
         st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
         // wings, wing beat and tucked feet ease in over a few frames (a step from one frame to the next reads as a glitch)
@@ -339,7 +340,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       case "drop": {
         // it starts from where the hover bob had it, with the wing beat it had, and both fade out over 0.12 s
-        const bob0 = airSince != null ? hoverBob(a.at - airSince) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
+        const bob0 = airSince != null ? hoverBob(a.at - airSince, LD) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
         const y0 = st.y + bob0, to = a.to ?? 0, k = clamp((t - a.at) / d), out = 1 - clamp((t - a.at) / 0.12);
         airSince = null; st.flap = f0 * out;
         st.y = lerp(y0, to, k * k);   // speeds up like a falling stone
@@ -351,7 +352,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       // a gentle landing from a hover (onto a seat, or the floor at to: 0): it sinks from where the bob had it to y `to`
       // with the wings still beating softly, touches down, and only then folds the wings; a small settle at the end
       case "land": {
-        const bob0 = airSince != null ? hoverBob(a.at - airSince) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
+        const bob0 = airSince != null ? hoverBob(a.at - airSince, LD) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
         const y0 = st.y + bob0, k = ease("inOut")(p), after = t - (a.at + d);
         airSince = null;
         st.y = lerp(y0, a.to ?? 0, k);
@@ -367,7 +368,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         const to = a.to || {}, n = a.steps ?? 4, local = Math.min(p, 0.9999) * n, j = Math.floor(local), q = local - j;
         const k = p >= 1 ? 1 : (j + ease("inOut")(q)) / n;
         // from a hover it starts at the bob's height and the wing beat fades out (as a drop does)
-        const bob0 = airSince != null ? hoverBob(a.at - airSince) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
+        const bob0 = airSince != null ? hoverBob(a.at - airSince, LD) : 0, f0 = airSince != null ? hoverFlap(a.at - airSince) : st.flap;
         st.x = lerp(st.x, to.x ?? st.x, k); st.y = lerp(st.y + bob0, to.y ?? st.y, k); st.z = lerp(st.z, to.z ?? st.z, k);
         airSince = null; st.flap = f0 * (1 - clamp((t - a.at) / 0.12));
         if (p < 1) {
@@ -431,7 +432,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
-    st.y += hoverBob(t - airSince); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);
+    st.y += hoverBob(t - airSince, LD); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);
   }
   // the body follows the eyes (cast "follow", 0..1): it turns and tips toward where they look, by about a fifth of
   // the look, averaged over the last 0.3 s so it trails the eyes by a few frames and arrives softly
@@ -451,12 +452,13 @@ export function actorState(sb, actor, def, t, raw = false) {
   // in the air, sitting, or tipped far over (a flip) the feet go with the body instead, blended so nothing pops
   plant.w = Math.max(clamp(plant.y / 0.03), st.sit || 0, clamp((Math.abs(st.flip) - 0.5) / 0.3));
   st.plant = plant;
-  // idle life: breathing, a little sway, automatic blinks
+  // idle life: breathing, a little sway, automatic blinks. With loop-safe idle each rhythm turns a whole number of
+  // times over the clip (breathing about 0.8 Hz, the blink period about 2.6-3.8 s), so the loop closes exactly.
   const seed = c.seed ?? c.id.length * 3.1;
-  st.squash *= (1 + 0.012 * idle * Math.sin(t * 6.283 * 0.8 + seed)) * (1 - sink);
-  st.lean += 0.012 * idle * wobble(t, seed, 0.35);
+  st.squash *= (1 + 0.012 * idle * Math.sin(LD ? t * loopRad(2 * Math.PI * 0.8, LD) + seed : t * 6.283 * 0.8 + seed)) * (1 - sink);
+  st.lean += 0.012 * idle * wobble(t, seed, 0.35, LD);
   if (autoBlink && st.blink === 0) {
-    const r = rng(Math.floor(seed * 1000)), period = 2.6 + r() * 1.2, off = r() * period, ph = (t + off) % period;
+    const r = rng(Math.floor(seed * 1000)), p0 = 2.6 + r() * 1.2, period = LD ? LD / Math.max(1, Math.round(LD / p0)) : p0, off = r() * period, ph = (t + off) % period;
     if (blinkFree(sb, c.id, t - ph)) st.blink = blinkAt(ph);
   }
   if (!raw) { Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t); resolveArms(sb, st, def, t); }
@@ -574,11 +576,11 @@ export const cutBetween = (sb, t0, t1) => !(Array.isArray(sb.camera) && sb.camer
 export function cameraState(sb, t) {
   const shots = (sb.shots || []).filter((s) => s.at <= t).sort((a, b) => a.at - b.at);
   const s = shots[shots.length - 1] || { pos: [0, 1, 6], look: [0, 0.7, 0], fov: 32 };
-  let pos = s.pos, look = s.look, fov = s.fov ?? 32;
+  let pos = s.pos, look = s.look, fov = s.fov ?? 32, roll = s.roll ?? 0;
   if (Array.isArray(sb.camera) && sb.camera.length) ({ pos, look, fov } = pathAt(sb.camera, t));
   else if (s.to) {
     const e = ease(s.ease || "inOut")(prog(t, s.at, s.dur ?? 1));
-    pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e);
+    pos = lerp3(s.pos, s.to.pos || s.pos, e); look = lerp3(s.look, s.to.look || s.look, e); fov = lerp(fov, s.to.fov ?? fov, e); roll = lerp(roll, s.to.roll ?? roll, e);
     // spin: the look turns round the camera (its heading and pitch eased, `spin` +1 / -1 the way round) instead of
     // sliding in a straight line, so a whip pan of 90° or more never swings through the lens (Real Footage of Hell)
     if (s.spin && s.to.look) {
@@ -593,7 +595,7 @@ export function cameraState(sb, t) {
   // degrees, dips: [[t, metres, dur], ...] a startled drop of the hands at clip time t}). The bob rises between
   // footfalls, the sway and roll swing once a stride, and a slow drift keeps it from looking mechanical; every wave is
   // under 15 Hz (faster aliases into jitter). Smooth from the shot's first frame (no jump on the cut).
-  let roll = 0;
+  let hroll = 0;
   if (s.hand) {
     const H = s.hand, w = Math.PI * (H.rate ?? 3), u = t - s.at, k = Math.min(1, (u + (H.lead ?? 0.25)) / 0.25);
     const by = (H.bob ?? 0) * (Math.abs(Math.sin(w * t)) - 0.64) * k, sx = (H.sway ?? 0) * Math.sin(w * t * 0.5) * k;
@@ -602,7 +604,7 @@ export function cameraState(sb, t) {
     for (const [t0, amt, d = 0.35] of H.dips || []) if (t >= t0 && t < t0 + d) dip -= amt * Math.sin(((t - t0) / d) * Math.PI) ** 2;
     pos = [pos[0] + sx + dx, pos[1] + by + dy + dip, pos[2]];
     look = [look[0] + sx * 0.6 + dx * 2, look[1] + by * 0.5 + dy * 2 + dip * 1.6, look[2]];
-    roll = ((H.roll ?? 0) * Math.sin(w * t * 0.5 + 0.6) + (H.roll ?? 0) * 0.35 * Math.sin(t * 1.3)) * k + (H.tilt ?? 0);
+    hroll = ((H.roll ?? 0) * Math.sin(w * t * 0.5 + 0.6) + (H.roll ?? 0) * 0.35 * Math.sin(t * 1.3)) * k + (H.tilt ?? 0);
   }
   let shake = [0, 0, 0];
   for (const f of sb.fx || []) {
@@ -611,7 +613,11 @@ export function cameraState(sb, t) {
     // two sines under 15 Hz: anything faster than half the frame rate aliases into random-looking jitter
     shake = [shake[0] + amp * (0.65 * Math.sin(t * 45.9 + 1.3) + 0.35 * Math.sin(t * 74.8 + 4.1)), shake[1] + amp * (0.65 * Math.sin(t * 52.2 + 2.7) + 0.35 * Math.sin(t * 69.1 + 0.6)), 0];
   }
-  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...(roll && { roll }) };
+  // focus: the world point a shot wants sharp (an insert's prop); looks.js depth of field focuses there when it is set
+  // roll: a dutch tilt in degrees (+ turns the picture clockwise); stage.js turns camera.up by it. hroll: a handheld
+  // shot's swaying horizon (degrees), stage.js turns the camera about its own axis by it
+  const focus = !Array.isArray(sb.camera) && s.focus ? { focus: s.focus } : {}, tilt = !Array.isArray(sb.camera) && roll ? { roll } : {};
+  return { pos: [pos[0] + shake[0], pos[1] + shake[1], pos[2]], look: [look[0] + shake[0] * 0.5, look[1] + shake[1] * 0.5, look[2]], fov, shotIndex: shots.length - 1, ...focus, ...tilt, ...(hroll && { hroll }) };
 }
 
 export function flashAt(sb, t) {

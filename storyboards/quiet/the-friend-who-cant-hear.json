@@ -1,0 +1,686 @@
+{
+ "id": "the-friend-who-cant-hear",
+ "title": "The Friend Who Can't Hear",
+ "cover": 4.1,
+ "idea": "Test 2 quiet gag: POV, the Wizard can't hear you however loud you shout, but hears a whispered 'free pizza'",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ],
+  "loop": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#ffc93c",
+  "floor": "#f0b21f",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "music": {
+  "style": "bounce",
+  "seed": 21,
+  "gain": 0.3,
+  "payoff": 6.7
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0,
+  "signature": false,
+  "auto": false
+ },
+ "fx": [
+  {
+   "do": "shake",
+   "at": 3.75,
+   "dur": 0.6,
+   "amp": 0.05
+  }
+ ],
+ "experiment": {
+  "id": "test-2-quiet",
+  "episode": "the-friend-who-cant-hear",
+  "variant": "quiet"
+ },
+ "hook": {
+  "show": [
+   "wiz"
+  ],
+  "hint": 0,
+  "what": "the Wizard leans in with a hand cupped by his head: he can't hear you"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    0,
+    0
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6,
+   "signature": false,
+   "arms": {
+    "R": {
+     "x": [
+      -0.47,
+      0.6,
+      0.12
+     ],
+     "palm": [
+      -0.3,
+      0.62,
+      1.2
+     ]
+    }
+   },
+   "grip": {
+    "R": "cup"
+   }
+  },
+  {
+   "id": "you",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.15,
+    6.5
+   ],
+   "face": 180,
+   "expr": "kind",
+   "seed": 4.1,
+   "signature": false
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0,
+   "to": 4.35,
+   "text": "POV: your friend can't hear",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "talking",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0,
+     1.15,
+     4.379
+    ],
+    "look": [
+     0,
+     0.92,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0,
+      1.131,
+      4.029
+     ]
+    },
+    "dur": 8.9
+   },
+   "do": [
+    {
+     "who": "you",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "you",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "you",
+     "do": "talk",
+     "line": "so are you coming tonight or not",
+     "dur": 1.25,
+     "tone": "calm",
+     "gain": 0.9,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.02,
+      0.02
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 0.9,
+      "curve": -0.2,
+      "tilt": 0.25
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 4,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 9,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -10,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 0.85,
+      "curve": -0.25,
+      "tilt": 0.3,
+      "open": 0.05
+     },
+     "dur": 0.25,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "macro": "say",
+     "line": "Huh?",
+     "tone": "question",
+     "voice": "wizard",
+     "caption": false,
+     "at": 1.35
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "louder",
+   "at": 2,
+   "len": 1.75,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "you",
+     "do": "talk",
+     "line": "ARE YOU COMING TONIGHT",
+     "dur": 1.2,
+     "tone": "excited",
+     "gain": 1.5,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 15,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 0.8,
+      "curve": -0.25,
+      "tilt": 0.35,
+      "open": 0.08
+     },
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "macro": "say",
+     "line": "Huh?",
+     "tone": "question",
+     "voice": "wizard",
+     "caption": false,
+     "seed": 2,
+     "at": 1.25
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "the shout",
+   "at": 3.75,
+   "len": 1.05,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "you",
+     "do": "talk",
+     "line": "ARE. YOU. COMING",
+     "dur": 1,
+     "tone": "excited",
+     "gain": 2.4,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 0.3,
+      "open": 0.15,
+      "curve": -0.4
+     },
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.25,
+     "ease": "out",
+     "steps": 1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "off": [
+      1.9,
+      1.1,
+      -0.6
+     ],
+     "spin": [
+      -40,
+      60,
+      -70
+     ],
+     "dur": 0.55,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.05,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "on": false,
+     "dur": 0,
+     "at": 0.6
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "still nothing",
+   "at": 4.8,
+   "len": 1.1,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.05
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "macro": "say",
+     "line": "Huh?",
+     "tone": "question",
+     "voice": "wizard",
+     "caption": false,
+     "seed": 3,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "the whisper",
+   "at": 5.9,
+   "len": 0.8,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "you",
+     "macro": "say",
+     "line": "Free pizza.",
+     "tone": "whisper",
+     "caption": false,
+     "gain": 0.8,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.15,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "where?!",
+   "at": 6.7,
+   "len": 2.2,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.4,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.25,
+      "open": 0.45
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -2,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.5,
+       0.5,
+       0.15
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hop",
+     "dur": 0.32,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "macro": "say",
+     "line": "Where?!",
+     "tone": "excited",
+     "voice": "wizard",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "on": true,
+     "off": [
+      0.05,
+      1.5,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      8
+     ],
+     "dur": 0,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.87
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.2,
+     "at": 1.32
+    },
+    {
+     "sfx": "land",
+     "gain": 0.12,
+     "at": 1.32
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.02,
+      0.02
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "notes": "Generated by storyboards/quiet/make-the-friend-who-cant-hear.mjs (Test 2, quiet relatable gags)."
+}

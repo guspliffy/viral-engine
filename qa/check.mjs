@@ -22,7 +22,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { pathToFileURL } from "node:url";
+import { pathToFileURL, fileURLToPath } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { motionJumps, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
@@ -75,6 +75,8 @@ export const CREATIVE = {
   stillHold: 2.0, // longest stretch where the picture barely changes
   loopSSIM: 0.55, // similarity of last and first frame, when the storyboard says loop: true
   wordsPerSec: 3.5, // caption reading speed
+  openingCuts: 2, // hard cuts in the first 2 s that bring a note (posted clips: more early cuts, fewer viewers at 0:02)
+  quietStart: -20, // dBFS: the first second's loud moments (90th percentile of 100 ms windows) under this bring a note
 };
 
 // Publishing profiles: what the target platforms publish as requirements, and when that was last checked. Length is
@@ -95,7 +97,7 @@ export const PROFILES = {
 // which group each check belongs to (anything not listed is technical)
 const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "cartoon-only": "publishing",
   opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
-  "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative" };
+  "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative", pace: "creative" };
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
@@ -338,6 +340,16 @@ function reachResults(layout, sb) {
   return out;
 }
 
+// qa/pace.py's measures of one clip (cuts, and per second: cuts, motion, held %, loudness), or null without python
+function paceOf(clip) {
+  const script = path.join(path.dirname(fileURLToPath(import.meta.url)), "pace.py");
+  for (const py of [process.env.PYTHON, "python3", "python"].filter(Boolean)) {
+    const r = spawnSync(py, [script, clip, "--json"], { encoding: "utf8", maxBuffer: 64 << 20 });
+    if (!r.error && r.status === 0) { try { return JSON.parse(r.stdout)[0]; } catch { return null; } }
+  }
+  return null;
+}
+
 export function checkClip(clip, { sb = null, layout = null, profile = null } = {}) {
   const pname = profile || sb?.profile || "short", P = PROFILES[pname];
   if (!P) throw new Error(`unknown profile "${pname}" (known: ${Object.keys(PROFILES).join(", ")})`);
@@ -385,6 +397,18 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     let run = 0, worst = 0, at = 0;
     for (const f of frames.slice(1)) { if ((f.YDIF || 0) < RULES.stillDiff) { run += 1 / fps; if (run > worst) { worst = run; at = f.t - run; } } else run = 0; }
     add(worst > C.stillHold ? "note" : "pass", "still-hold", `longest near-still stretch ${worst.toFixed(1)} s${worst > 1 ? " from " + at.toFixed(1) + " s" : ""}${worst > C.stillHold ? ` (house style: under ${C.stillHold} s)` : ""}`);
+  }
+
+  // --- pace of the opening (qa/pace.py): hard cuts in the first 2 s and how loud the first second is. On the 10
+  // posted TikTok clips (render-measure-01 report, H5) more cuts in the first 2 s went with fewer viewers left at 0:02
+  // (r -0.71: GATE 0 cuts kept 67 %, Chef 3 kept 42 %) and a quiet first second with fewer too (r +0.46 for its
+  // loudness; Chef -31 dBFS). Ten clips is a lead for an A/B, not a rule, so these are notes.
+  const pace = paceOf(clip);
+  if (!pace) add("note", "pace", "qa/pace.py didn't run (needs python with numpy), so the opening's cuts and loudness weren't measured");
+  else {
+    const early = pace.cuts.filter((t) => t < 2), loud = pace.rows[0]?.db_p90;
+    const many = early.length >= C.openingCuts, quiet = loud == null || loud < C.quietStart;
+    add(many || quiet ? "note" : "pass", "pace", `${early.length} hard cut${early.length === 1 ? "" : "s"} in the first 2 s${early.length ? ` (${early.map((t) => t.toFixed(2)).join(", ")} s)` : ""}, first second ${loud != null ? `${loud.toFixed(1)} dBFS loud` : "without sound"}, ${pace.rows.slice(0, 2).map((r) => r.held.toFixed(0)).join("/")} % of frames held in seconds 0/1${many ? `; posted clips with ${C.openingCuts}+ early cuts held fewer viewers at 0:02 (keep the opening on one moving shot, A/B before cutting more)` : ""}${quiet ? `; the first second is quieter than ${C.quietStart} dBFS (start on full sound: a hit, a voice or the music)` : ""}`);
   }
 
   // --- clean picture: one-frame pops away from cuts and effects, strobing

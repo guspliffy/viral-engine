@@ -41,8 +41,23 @@ export const hopCrouch = (d, n = 1) => clamp(0.1 / (d / n), 0.15, 0.35);
 // progress of an action that starts at `at` and lasts `dur`, at time t
 export const prog = (t, at, dur) => (dur > 0 ? clamp((t - at) / dur) : t >= at ? 1 : 0);
 
-// smooth deterministic wobble, for idle motion and camera shake
-export function wobble(t, seed, freq = 1) {
+// Loop-safe idle (storyboard "loop": true plus "loopIdle": true): a loop closes exactly when every rhythm turns a whole
+// number of times over the clip, so its last frame runs into its first with no jump and no crossfade. loopLen(sb) is
+// the clip length when that is on (else 0); loopRad(w, D) nudges an angular speed (rad/s) to the nearest one that turns
+// a whole number of times (at least once) in D seconds, and leaves it as it is when D is 0, so other clips don't change.
+export const loopLen = (sb) => (sb && sb.loop === true && sb.loopIdle === true && sb.duration > 0 ? sb.duration : 0);
+export const loopRad = (w, D) => (D ? (Math.sign(w) * 2 * Math.PI * Math.max(1, Math.round((Math.abs(w) * D) / (2 * Math.PI)))) / D : w);
+// the same for the page's drawing code (costumes, props, sets), which gets the frame time but not the storyboard:
+// stage.js calls setLoop(sb) when it loads a clip, and rad(w) is loopRad(w, that clip's loop length)
+let LOOP = 0;
+export const setLoop = (sb) => { LOOP = loopLen(sb); };
+export const loopNow = () => LOOP;
+export const rad = (w) => loopRad(w, LOOP);
+
+// smooth deterministic wobble, for idle motion and camera shake; D (a loop length, see loopLen) makes each of its
+// three rhythms turn a whole number of times over the clip
+export function wobble(t, seed, freq = 1, D = 0) {
   const s = seed * 12.9898;
+  if (D) { const T = 2 * Math.PI; return Math.sin(t * loopRad(freq * T, D) + s) * 0.6 + Math.sin(t * loopRad(freq * 2.71 * T, D) + s * 1.7) * 0.3 + Math.sin(t * loopRad(freq * 5.13 * T, D) + s * 2.3) * 0.1; }
   return (Math.sin(t * freq * 6.283 + s) * 0.6 + Math.sin(t * freq * 2.71 * 6.283 + s * 1.7) * 0.3 + Math.sin(t * freq * 5.13 * 6.283 + s * 2.3) * 0.1);
 }

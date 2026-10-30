@@ -1,0 +1,1210 @@
+{
+ "id": "the-weirdest-laugh",
+ "title": "The Friend With the Weirdest Laugh",
+ "cover": 4.6,
+ "idea": "Test 2 quiet gag: deadpan Reaper tries to hold in a laugh that comes out as a squeak, snort, wheeze, kettle squeal and honk",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": true,
+ "captionStyle": "kinetic",
+ "creative": {
+  "length": [
+   8,
+   12
+  ]
+ },
+ "set": {
+  "type": "plain",
+  "color": "#2cc7b5",
+  "floor": "#1fa797",
+  "light": "golden",
+  "aperture": 0,
+  "para": 0,
+  "bloom": "emissive"
+ },
+ "music": {
+  "style": "lofi",
+  "seed": 31,
+  "gain": 0.26,
+  "payoff": 3.75
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0,
+  "signature": false,
+  "auto": false
+ },
+ "fx": [
+  {
+   "do": "shake",
+   "at": 3.75,
+   "dur": 0.4,
+   "amp": 0.025
+  }
+ ],
+ "experiment": {
+  "id": "test-2-quiet",
+  "episode": "the-weirdest-laugh",
+  "variant": "quiet"
+ },
+ "hook": {
+  "show": [
+   "rea"
+  ],
+  "hint": 0.45,
+  "what": "Reaper, trembling with his lips pressed, lets a squeak out"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0,
+    0
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0,
+   "seed": 4.1,
+   "signature": false
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0,
+   "to": 3.95,
+   "text": "that friend with the weirdest laugh",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "holding it in",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.013,
+     4.188
+    ],
+    "look": [
+     0,
+     0.72,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.02
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": 0,
+      "eye": 1.15
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "press": 1,
+     "brow": 0.35,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.09
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.27
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.27
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.36
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "v": "i",
+       "d": 0.11,
+       "st": 26,
+       "glide": 4
+      }
+     ],
+     "dur": 0.14,
+     "gain": 0.55,
+     "tone": "calm",
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "press": 0.3,
+     "dur": 0.05,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.54
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.54
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.63
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.63
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.81
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.99
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.08,
+     "at": 1
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "snort",
+   "at": 1.1,
+   "len": 0.6,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 8,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "n",
+       "v": "u",
+       "d": 0.2,
+       "st": -3,
+       "whisper": true
+      }
+     ],
+     "dur": 0.22,
+     "gain": 1.3,
+     "tone": "calm",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.8,
+     "dur": 0.06,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 2,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "giggle",
+   "at": 1.7,
+   "len": 0.95,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.5,
+      "open": 0.3,
+      "eye": 0.7
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.7,
+     "press": 0,
+     "brow": 0.3,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.08,
+       "st": 14,
+       "glide": -2,
+       "gap": 0.06
+      }
+     ],
+     "dur": 0.86,
+     "gain": 0.9,
+     "tone": "calm",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0.14
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0.28
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0.56
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12600000000000003,
+     "at": 0.7
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "wheeze",
+   "at": 2.65,
+   "len": 1.1,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 18,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.25,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.25,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "open": 0.55,
+      "eye": 0.6
+     },
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.92,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.32,
+       "st": 18,
+       "whisper": true,
+       "gap": 0.12
+      },
+      {
+       "c": "h",
+       "v": "i",
+       "d": 0.32,
+       "st": 18,
+       "whisper": true,
+       "gap": 0.12
+      }
+     ],
+     "dur": 0.82,
+     "gain": 0.55,
+     "tone": "calm",
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.396,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.396,
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.2,
+     "idle": 0,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -20,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.72,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.72,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.45,
+     "dur": 0.06,
+     "at": 1.02
+    }
+   ]
+  },
+  {
+   "name": "the squeal",
+   "at": 3.75,
+   "len": 1.1,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.85,
+      "curve": 0.7,
+      "eye": 0.5
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "v": "i",
+       "d": 1.05,
+       "st": 25,
+       "glide": 6
+      }
+     ],
+     "dur": 1.1,
+     "gain": 1.5,
+     "tone": "calm",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0.1,
+     "at": 0.12
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "honk",
+   "at": 4.85,
+   "len": 1.3,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.22,
+       0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.75,
+      "curve": 0.6,
+      "eye": 0.6
+     },
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.17,
+       "st": -3,
+       "glide": -3,
+       "gap": 0.1
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.17,
+       "st": -3,
+       "glide": -3,
+       "gap": 0.1
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.17,
+       "st": -3,
+       "glide": -3,
+       "gap": 0.1
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.17,
+       "st": -3,
+       "glide": -3,
+       "gap": 0.1
+      }
+     ],
+     "dur": 1.1,
+     "gain": 1.2,
+     "tone": "calm",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 13,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24300000000000002,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 13,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.47
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24300000000000002,
+     "at": 0.47
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 13,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.74
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24300000000000002,
+     "at": 0.74
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 13,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24300000000000002,
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 5,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.13
+    }
+   ]
+  },
+  {
+   "name": "ahem",
+   "at": 6.15,
+   "len": 1.85,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "sfx": "blow",
+     "gain": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.45,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0,
+     "press": 0,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Ahem.",
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.05,
+     "at": 1.45
+    }
+   ]
+  },
+  {
+   "name": "the last squeak",
+   "at": 8,
+   "len": 1.05,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "do": "talk",
+     "pattern": [
+      {
+       "v": "i",
+       "d": 0.1,
+       "st": 27,
+       "glide": 3
+      }
+     ],
+     "dur": 0.13,
+     "gain": 0.5,
+     "tone": "calm",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 1.2,
+      "curve": 0,
+      "open": 0.1
+     },
+     "dur": 0.06,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "brow": 0.35,
+     "dur": 0.06,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": 0,
+      "eye": 1.15
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "press": 1,
+     "brow": 0.35,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.59
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.77
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -3.5,
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.09,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.08,
+     "at": 0.98
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/quiet/make-the-weirdest-laugh.mjs (Test 2, quiet relatable gags)."
+}

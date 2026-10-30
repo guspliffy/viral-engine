@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { clamp } from "./util.js";
+import { clamp, rad } from "./util.js";
 
 // Props for "Dragon vs. the Candle" (Jonny's story library #14, 29 Oct 2026): one white dessert plate, one pink-frosted
 // cupcake with one short blue candle, one clear glass cake dome with one top knob, and Dragon's small fire breath.
@@ -171,7 +171,7 @@ export const CANDLE_KINDS = {
     return {
       grip: h,
       apply(ps, t) {
-        const l = clamp(ps.lit), f = clamp(ps.fire), fl = 1 + 0.06 * Math.sin(t * 13.1) + 0.04 * Math.sin(t * 21.7 + 1);
+        const l = clamp(ps.lit), f = clamp(ps.fire), fl = 1 + 0.06 * Math.sin(t * rad(13.1)) + 0.04 * Math.sin(t * rad(21.7) + 1);
         const u = flame.material.uniforms;
         u.uTime.value = t; u.uFire.value = f; u.uBend.value = ps.bend ?? 0;
         // out: it shrinks down onto the wick and thins; flare: one big tongue of fire (9x as tall, 6x as wide, Jonny 29 Oct:
