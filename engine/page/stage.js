@@ -457,7 +457,7 @@ function pose(t) {
   // in a rig the prop is placed in the rig's frame: hands and hats are measured in the world, then brought into it
   const inFrame = (p, v) => (p.root.parent && p.root.parent !== scene ? p.root.parent.worldToLocal(v.clone()) : v);
   const heldAt = (p, ps, hold) => {
-    const k = hold.keep ? keptOffset(p, hold) : null;   // first: it poses the holder at the grab and back
+    const k = hold.keep ? keptOffset(p, hold, ps) : null;   // first: it poses the holder at the grab and back
     const an = anchor(hold.who, hold.hand, hold.point); if (!an) return null;
     if (k) {
       if (an.obj) return inFrame(p, an.obj.localToWorld(new THREE.Vector3().fromArray(k))).toArray();
@@ -470,12 +470,26 @@ function pose(t) {
   };
   // keep: the offset from the holder that leaves the prop exactly where it was at the grab (measured once, with
   // the holder posed at that moment)
-  const keptOffset = (p, hold) => {
-    const key = `${hold.who}/${hold.hand}@${hold.at}`;
+  const keptOffset = (p, hold, ps) => {
+    // (a let-go prop's hold carries the release time in `at` and the grab's in `grabAt`: measure at the grab)
+    const at = hold.grabAt ?? hold.at, key = `${hold.who}/${hold.hand}@${at}`;
     if (!p.kept || p.kept.key !== key) {
+      // a prop taken again after it was let go without a place starts where that hand left it, not at `from` (its
+      // last placed spot): pose the earlier holder at the let-go once (Candy Bodyguard: the slid sweet jumped back
+      // into the glove)
+      let from = hold.from;
+      if (hold.prev) {
+        const B = states[hold.prev.who];
+        if (B) {
+          if (hold.prev.keep) keptOffset(p, hold.prev, ps);   // (it poses and restores the holder itself: first)
+          B.a.ch.apply(actorState(sb, B.a.c, B.a.def, hold.prev.at), hold.prev.at);
+          from = heldAt(p, ps, hold.prev) ?? from;
+          B.a.ch.apply(B.st, t);
+        }
+      }
       const A = states[hold.who];
-      A.a.ch.apply(actorState(sb, A.a.c, A.a.def, hold.at), hold.at);
-      const an = anchor(hold.who, hold.hand), w = new THREE.Vector3().fromArray(hold.from);
+      A.a.ch.apply(actorState(sb, A.a.c, A.a.def, at), at);
+      const an = anchor(hold.who, hold.hand), w = new THREE.Vector3().fromArray(from);
       const ap = an.obj ? null : inFrame(p, an.pos);
       p.kept = { key, off: an.obj ? an.obj.worldToLocal(p.root.parent && p.root.parent !== scene ? p.root.parent.localToWorld(w) : w).toArray() : [w.x - ap.x, w.y - ap.y, w.z - ap.z] };
       A.a.ch.apply(A.st, t);
@@ -491,7 +505,7 @@ function pose(t) {
       if (!p.leftAt || p.leftAt.key !== key) {
         const A = states[ps.left.who];
         if (A) {
-          if (ps.left.keep) keptOffset(p, ps.left);
+          if (ps.left.keep) keptOffset(p, ps.left, ps);
           A.a.ch.apply(actorState(sb, A.a.c, A.a.def, ps.left.at), ps.left.at);
           p.leftAt = { key, pos: heldAt(p, ps, ps.left) };
           A.a.ch.apply(A.st, t);
