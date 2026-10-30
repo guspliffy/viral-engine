@@ -328,7 +328,7 @@ export class Face {
     // round: the lips rounding on a vowel (speech); pucker: pursed lips set by an expression (blowing out a candle)
     const round = Math.max(e.round || 0, e.pucker || 0);
     const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, this.browStyle.clear != null ? e.eye : 0, c.fangs || 0].map((x) => x.toFixed(3)).join("|");
-    if (key === this._lastKey) return;
+    if (key === this._lastKey && !globalThis.__noGeomCache) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
       const side = i ? 1 : -1;

@@ -90,6 +90,7 @@ function args() {
     else if (a[i] === "--frames-dir") o.framesDir = path.resolve(a[++i]);   // every finished frame as a PNG too (agreement tests)
     else if (a[i] === "--timing-json") o.timingJson = path.resolve(a[++i]);
     else if (a[i] === "--cover") o.cover = path.resolve(a[++i]);    // dead-code study: run every code path a clip uses, write V8 coverage
+    else if (a[i] === "--hashes") o.hashes = path.resolve(a[++i]);
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
@@ -265,7 +266,7 @@ async function main() {
     page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
     if (o.cover) await page.coverage.startJSCoverage({ resetOnNavigation: false });
-    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html`);
+    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html${process.env.NOCACHE ? "?nocache" : ""}`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
@@ -319,8 +320,8 @@ async function main() {
       await page.evaluate((ts) => window.ENGINE.prime(ts), []);
       for (let i = 0; i < n; i++) {
         const v = await page.evaluate(([tt, thin]) => window.ENGINE.trace(tt, thin), [i / fps, !!o.thinTrace]);
-        const s = bl && blurSamples(bl, i / fps, fps, v);
-        frames.push({ v, samples: s ? s.times.length : 0 });
+        const s = bl && blurSamples(bl, i / fps, fps, v), box = await page.evaluate(() => window.ENGINE.movingBox?.());
+        frames.push({ v, samples: s ? s.times.length : 0, box });
       }
       const f = path.join(o.out, `${sb.id}${tag}.cost.json`);
       fs.writeFileSync(f, JSON.stringify({ fps, frames, blur: bl && { ...bl, walls: undefined }, traceS: (Date.now() - tc) / 1000, thin: !!o.thinTrace }));
@@ -338,6 +339,24 @@ async function main() {
       const cov = await page.coverage.stopJSCoverage();
       fs.writeFileSync(o.cover, JSON.stringify(cov.filter((e) => /\/engine\/page\//.test(e.url)).map((e) => ({ url: e.url.replace(/^.*?\/engine\//, "engine/"), functions: e.functions }))));
       console.log(`coverage: ${n} frames posed, ${beatTimes(raw).length} drawn, in ${((Date.now() - tc) / 1000).toFixed(0)}s -> ${o.cover}`);
+      return;
+    }
+    if (o.hashes) {
+      // frame cache sketch: a key per frame = engine version + what init builds + the frame's own state (and its blur
+      // samples' states). Two keys equal -> the frame can be reused.
+      const crypto = await import("node:crypto"), H = (x) => crypto.createHash("sha256").update(x).digest("hex").slice(0, 16);
+      const eng = spawnSync("git", ["-C", ROOT, "ls-files", "-s", "engine/page", "engine/render.mjs", "characters", "assets", "package-lock.json"], { encoding: "utf8" }).stdout;
+      const dirty = spawnSync("git", ["-C", ROOT, "diff", "HEAD", "--", "engine/page", "engine/render.mjs"], { encoding: "utf8" }).stdout;
+      const engine = H(eng + dirty), statics = H(JSON.stringify({ cast: sb.cast, props: sb.props, set: sb.set, look, style, chars, fps, draft: !!o.draft }));
+      const bl = blurPlan(sb, o, fps), n = Math.round(dur * fps), keys = [], th = Date.now();
+      await page.evaluate((ts) => window.ENGINE.prime(ts), []);
+      for (let i = 0; i < n; i++) {
+        const t = i / fps, v = await page.evaluate((tt) => window.ENGINE.trace(tt, false), t), s = bl && blurSamples(bl, t, fps, v);
+        const st = await page.evaluate(([tt, ss]) => window.ENGINE.stateHash(tt, ss), [t, s ? s.times : []]);
+        keys.push({ i, key: H(engine + statics + JSON.stringify(st) + JSON.stringify(s || null)), ...st, samples: s ? s.times.length : 0 });
+      }
+      fs.writeFileSync(o.hashes, JSON.stringify({ engine, statics, ms: Date.now() - th, keys }));
+      console.log(`frame keys: ${n} in ${((Date.now() - th) / 1000).toFixed(1)}s -> ${o.hashes}`);
       return;
     }
     if (o.layoutOnly) { const lay = await writeLayout(); if (o.cost) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
