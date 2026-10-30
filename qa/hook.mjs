@@ -32,6 +32,8 @@ export const OPENING = {
   captionWords: 6,   // ...and is this many words or fewer
   setupBy: 2.5,      // the hook beat hands over to the next beat by this time (the situation is clear, the story moves)
   hintBy: 2.0,       // the viewer first sees trouble coming by this time (most of them have decided by 0:02, 28 Oct analytics)
+  slamSize: 300,     // a slam word (fx "slam", in place of the caption) is drawn at least this big on the 1080 frame...
+  slamWords: 2,      // ...in one or two words
 };
 const STILL_VERBS = new Set(["noblink", "blink", "expr", "face", "grip", "grab", "release", "still", "hide", "show", "span", "hatsway", "hatwobble", "look"]);
 const COLD_TIMES =[0, 0.4, 0.8, 1.3, 2.0, 2.8]; // frames the cold reader sees (no sound, no storyboard, no premise)
@@ -85,7 +87,17 @@ export function openingRules(sb, layout) {
   add(sfx0.length || talk0.length, "sound-0", sfx0.length || talk0.length ? `sound by ${OPENING.soundBy} s: ${[...sfx0, ...talk0].join(", ")}` : `no sound effect or line before ${OPENING.soundBy} s${music ? " (music only)" : ""}: a sound at 0.0 s says something is happening`);
 
   const caps = [...(sb.captions || [])].sort((a, b) => a.from - b.from), c0 = caps[0];
-  add(c0 && c0.from <= OPENING.captionBy && words(c0.text) <= OPENING.captionWords, "caption", c0 ? `first caption at ${c0.from.toFixed(2)} s, ${words(c0.text)} words: "${c0.text}" (rule: by ${OPENING.captionBy} s, ${OPENING.captionWords} words or fewer, and it should raise a question, not describe the picture)` : "no caption: fine if the picture alone tells the situation, but a muted viewer gets nothing to read");
+  // a slam word (text.js fx "slam") takes the caption's place: one or two huge words over the action at frame 0
+  const slam = (sb.fx || []).find((f) => f.do === "slam" && (f.at ?? 0) <= OPENING.captionBy);
+  if (slam) {
+    const at = slam.at ?? 0, end = at + (slam.dur ?? 1.4), n = words(slam.text), L = (s0?.captions || []).find((c) => c.slam);
+    add(n <= OPENING.slamWords && (!L || L.size >= OPENING.slamSize), "caption", `slam word "${String(slam.text).replace(/\n/g, " ")}" at ${at.toFixed(2)}-${end.toFixed(2)} s instead of a caption, ${n} word${n > 1 ? "s" : ""}${L ? `, drawn at ${L.size} px` : ""} (rule: ${OPENING.slamWords} words or fewer, ${OPENING.slamSize} px or more)`);
+    // it sits over the action, so it must not cover a face, and nothing else written should share the screen with
+    // it (PR #18: an animated caption fought the BOO! pop)
+    const eyes = L ? (s0.actors || []).filter((a) => a.eyesPx && a.eyesPx[0] >= L.box[0] && a.eyesPx[0] <= L.box[0] + L.box[2] && a.eyesPx[1] >= L.box[1] && a.eyesPx[1] <= L.box[1] + L.box[3]).map((a) => a.id) : [];
+    const both = caps.filter((c) => c.from < end && c.to > at);
+    add(L && !eyes.length && !both.length, "slam-clear", !L ? "no layout, so the slam word's place wasn't measured" : `slam word box ${L.box.join(", ")} px at frame 0${eyes.length ? `: covers the eyes of ${eyes.join(", ")}` : ", clear of every face"}${both.length ? `; on screen with the caption "${both[0].text}"` : ""}`);
+  } else add(c0 && c0.from <= OPENING.captionBy && words(c0.text) <= OPENING.captionWords, "caption", c0 ? `first caption at ${c0.from.toFixed(2)} s, ${words(c0.text)} words: "${c0.text}" (rule: by ${OPENING.captionBy} s, ${OPENING.captionWords} words or fewer, and it should raise a question, not describe the picture)` : "no caption: fine if the picture alone tells the situation, but a muted viewer gets nothing to read");
 
   const spans = sb.beatSpans || [], hook = spans[0];
   if (hook) add(spans.length > 1 && spans[1].from <= OPENING.setupBy, "setup-by", `first beat "${hook.name}" runs ${hook.from.toFixed(1)}-${hook.to.toFixed(1)} s (rule: the next beat starts by ${OPENING.setupBy} s)`);

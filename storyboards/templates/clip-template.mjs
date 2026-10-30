@@ -92,6 +92,9 @@ write(import.meta.url, {
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
+  // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
+  // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
+  loopIdle: true,
   // the warm living room the recent clips use (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },

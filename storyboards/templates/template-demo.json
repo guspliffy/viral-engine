@@ -7,6 +7,7 @@
  "profile": "short",
  "loop": true,
  "captionStyle": "kinetic",
+ "loopIdle": true,
  "set": {
   "type": "plain",
   "color": "#efe2c8",
