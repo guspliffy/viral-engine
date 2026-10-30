@@ -83,6 +83,12 @@ function args() {
     else if (a[i] === "--force") o.force = true;
     else if (a[i] === "--skip-gate") o.skipGate = true;
     else if (a[i] === "--ids") o.ids = true;
+    else if (a[i] === "--cost") o.cost = true;                       // with --layout: also <id>.cost.json (blur samples per frame)
+    else if (a[i] === "--thin-trace") o.thinTrace = true;            // cost trace without glove skins (faster, approximate)
+    else if (a[i] === "--balance") o.balance = true;                 // with --shard: ranges of equal expected cost from <id>.cost.json
+    else if (a[i] === "--blur-set") o.blurSet = Object.fromEntries(a[++i].split(",").map((kv) => kv.split("=")).map(([k, v]) => [k, Number(v)]));
+    else if (a[i] === "--frames-dir") o.framesDir = path.resolve(a[++i]);   // every finished frame as a PNG too (agreement tests)
+    else if (a[i] === "--timing-json") o.timingJson = path.resolve(a[++i]);
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
@@ -291,7 +297,21 @@ async function main() {
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
       return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden"].includes(r.check));
     };
-    if (o.layoutOnly) { if (contactGate(await writeLayout()).length) process.exitCode = 1; return; }
+    // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
+    // bulk of a render's time) are known per frame before any shard starts
+    const writeCost = async () => {
+      const bl = blurPlan(sb, o, fps), tc = Date.now(), n = Math.round(dur * fps), frames = [];
+      await page.evaluate((ts) => window.ENGINE.prime(ts), []);
+      for (let i = 0; i < n; i++) {
+        const v = await page.evaluate(([tt, thin]) => window.ENGINE.trace(tt, thin), [i / fps, !!o.thinTrace]);
+        const s = bl && blurSamples(bl, i / fps, fps, v);
+        frames.push({ v, samples: s ? s.times.length : 0 });
+      }
+      const f = path.join(o.out, `${sb.id}${tag}.cost.json`);
+      fs.writeFileSync(f, JSON.stringify({ fps, frames, blur: bl && { ...bl, walls: undefined }, traceS: (Date.now() - tc) / 1000, thin: !!o.thinTrace }));
+      console.log(`wrote ${f}: ${frames.filter((x) => x.samples).length} of ${n} frames blurred, ${frames.reduce((m, x) => m + x.samples, 0)} extra samples, traced in ${((Date.now() - tc) / 1000).toFixed(1)}s`);
+    };
+    if (o.layoutOnly) { const lay = await writeLayout(); if (o.cost) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
     if (o.stills) {
       for (const t of o.stills) {
         const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f);
@@ -307,7 +327,18 @@ async function main() {
       if (!o.force) { process.exitCode = 1; return; }
     }
     let a = frameA, b = frameB;
-    if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
+    if (o.shard && o.balance) {
+      // contiguous ranges of equal expected cost: a frame costs PER_FRAME s plus PER_SAMPLE s per extra blur sample
+      // (fitted on 96 farm shards, 30 Oct 2026)
+      const cf = path.join(o.out, `${sb.id}${tag}.cost.json`), PER_FRAME = 1.65, PER_SAMPLE = 2.57;
+      if (!fs.existsSync(cf)) throw new Error(`--balance needs ${cf} (render.mjs --layout --cost)`);
+      const fr = JSON.parse(fs.readFileSync(cf, "utf8")).frames.slice(frameA, frameB), cost = fr.map((x) => PER_FRAME + PER_SAMPLE * x.samples);
+      const total = cost.reduce((m, x) => m + x, 0), cut = (k) => { if (k <= 0) return 0; if (k >= o.shard.n) return cost.length; let acc = 0; for (let j = 0; j < cost.length; j++) { if (acc + cost[j] / 2 >= (total * k) / o.shard.n) return j; acc += cost[j]; } return cost.length; };
+      a = frameA + cut(o.shard.i - 1); b = frameA + cut(o.shard.i);
+      console.log(`shard ${o.shard.i}/${o.shard.n} (balanced): frames ${a}-${b - 1}, expected ${cost.slice(a - frameA, b - frameA).reduce((m, x) => m + x, 0).toFixed(0)}s of ${total.toFixed(0)}s`);
+    } else if (o.shard) { const n = frameB - frameA; a = frameA + Math.floor((n * (o.shard.i - 1)) / o.shard.n); b = frameA + Math.floor((n * o.shard.i) / o.shard.n); console.log(`shard ${o.shard.i}/${o.shard.n}: frames ${a}-${b - 1}`); }
+    if (o.framesDir) { fs.mkdirSync(o.framesDir, { recursive: true }); o.png = true; }
+    const perFrame = [];
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
       ...COLOR, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((ok, bad) => ff.on("close", (c) => (c === 0 ? ok() : bad(new Error("ffmpeg exited " + c)))));
@@ -320,6 +351,7 @@ async function main() {
     // after a frame is drawn: how fast it moves, and if fast, more samples averaged in
     const blurAfter = bl && (async (t) => {
       const v = await page.evaluate(() => window.ENGINE.motion()), s = blurSamples(bl, t, fps, v);
+      perFrame.at(-1).v = v; perFrame.at(-1).samples = s ? s.times.length : 0;
       if (!s) return;
       const tb = Date.now();
       await page.evaluate(([ts, keep]) => window.ENGINE.blur(ts, keep), [s.times, s.keep]);
@@ -327,12 +359,16 @@ async function main() {
       blurred.frames++; blurred.samples += s.times.length + (s.keep ? 1 : 0); blurred.ms += Date.now() - tb;
     });
     for (let i = a; i < b; i++) {
+      const tf = Date.now(); perFrame.push({ i });
       const img = await shot(i / fps, o.png ? "png" : "jpeg", blurAfter);
+      perFrame.at(-1).ms = Date.now() - tf;
+      if (o.framesDir) fs.writeFileSync(path.join(o.framesDir, `f${String(i).padStart(4, "0")}.png`), img);
       if (!ff.stdin.write(img)) await new Promise((ok) => ff.stdin.once("drain", ok));
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
     }
     ff.stdin.end(); await done;
     if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
+    if (o.timingJson) fs.writeFileSync(o.timingJson, JSON.stringify({ a, b, totalS: (Date.now() - tr) / 1000, pose: timing.pose, draw: timing.draw, grab: timing.grab, blurred, frames: perFrame }));
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
@@ -345,7 +381,7 @@ async function main() {
 // motion blur settings for this render, or null when it is off
 function blurPlan(sb, o, fps) {
   if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
-  const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}) };
+  const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
   bl.walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];

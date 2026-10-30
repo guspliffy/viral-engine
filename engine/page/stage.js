@@ -646,6 +646,9 @@ function motion() {
 }
 // the frame as the average of the frames drawn at each sample time (a film shutter open for that stretch); with
 // keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
+// cost trace (render.mjs --cost): pose frame t as a render would (full skins unless lean) and return motion(), without
+// drawing, so a render's blur samples per frame are known before any shard starts
+function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
 function blur(times, keep) {
   const n = times.length + (keep ? 1 : 0);
   let acc = null;
@@ -1311,5 +1314,5 @@ function ids(t) {
   return { cast: actors.map((a) => a.c.id), png: idCanvas.toDataURL("image/png") };
 }
 
-window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur };
+window.ENGINE = { init, frame, sync, capture, layout, contact, ids, prime, motion, blur, trace };
 window.ENGINE_READY = true;
