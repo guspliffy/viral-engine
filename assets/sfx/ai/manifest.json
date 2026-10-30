@@ -1973,6 +1973,58 @@
      "loudnessLUFS": -13.7
     }
    ]
+  },
+  {
+   "id": "raven-caw",
+   "kind": "sfx",
+   "files": [
+    "raven-caw/raven-caw-01.wav",
+    "raven-caw/raven-caw-02.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "caw",
+    "raven",
+    "crow",
+    "bird"
+   ],
+   "durationSec": 0.345,
+   "prompt": [
+    "a single raven caw, one short hoarse crow call, close up, quiet room, no music",
+    "a crow cawing once, a short raspy bird call, close microphone, no other sounds, no music"
+   ],
+   "seed": [
+    211,
+    211
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "raven-caw/raven-caw-01.wav",
+     "take": "p0-s211",
+     "prompt": "a single raven caw, one short hoarse crow call, close up, quiet room, no music",
+     "seed": 211,
+     "startSec": 0.715,
+     "durationSec": 0.368,
+     "clap": 0.286,
+     "snrDb": 75.1,
+     "loudnessLUFS": -14.4
+    },
+    {
+     "file": "raven-caw/raven-caw-02.wav",
+     "take": "p0-s211",
+     "prompt": "a single raven caw, one short hoarse crow call, close up, quiet room, no music",
+     "seed": 211,
+     "startSec": 5.132,
+     "durationSec": 0.321,
+     "clap": 0.282,
+     "snrDb": 75.0,
+     "loudnessLUFS": -15.1
+    }
+   ]
   }
  ]
 }

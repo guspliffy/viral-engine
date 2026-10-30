@@ -2974,6 +2974,22 @@
     "ending"
    ]
   },
+  "ai/raven-caw": {
+   "family": "animal",
+   "says": "a short bird call (AI, made as one raven caw): one or two quick tonal pulses around 1.4-1.7 kHz gliding down, loudest at 0.1 s, about 0.35 s",
+   "source": "ai",
+   "files": [
+    "ai/raven-caw/raven-caw-01.wav",
+    "ai/raven-caw/raven-caw-02.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "caw",
+    "raven",
+    "crow",
+    "bird"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
