@@ -44,8 +44,8 @@ Fable is the creative director (`CLAUDE.md`, `qa/REVIEW.md`). The algorithm rese
    speed, stricter safe zone for faces and text (x 120–960, y 240–1260, clear of the right button column), and a
    cartoon-violence lint. The review frames are fixed: 0.0, 1.5, 3.0 s, the punchline, and the last/first pair,
    with four pass/fail questions logged per clip.
-3. **Relative timing and beat macros.** Actions are timed relative to the previous beat. Macros (`enter`, `react`,
-   `take`, `fail-and-recover`, ...) expand into actions, so a 20 s clip is 20–30 lines.
+3. **Relative timing and beat macros.** Actions are timed relative to the previous beat. Macros (`say`, `react`,
+   `take`, `sigh`, ...) expand into actions, so a 20 s clip is 20–30 lines.
 4. **Format templates** (research #11). Templates: "each character vs X" (GATE first), literal-genie, rivalry skit,
    "rank the potatoes" tier list, comment reply, and 2–3 part cliffhanger arc. Each declares hook, escalation and
    a loop ending, and builds a full storyboard.

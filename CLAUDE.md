@@ -1,7 +1,7 @@
 # viral-engine: rules for every session
 
-These rules apply to the whole repo: the 3D engine (`engine/`), the game-puppet renderer (`puppet/`) and anything
-added later. Renderer-specific notes live in each renderer's README. Roadmap and Jonny's decisions: `docs/PLAN.md`.
+These rules apply to the whole repo: the 3D engine (`engine/`), the background music (`puppet/beat.mjs`; the old
+game-puppet renderer is archived, see `puppet/README.md`) and anything added later. Renderer-specific notes live in each renderer's README. Roadmap and Jonny's decisions: `docs/PLAN.md`.
 
 ## Output rules (`qa/check.mjs` reports three groups; only technical and publishing results can fail a clip)
 
