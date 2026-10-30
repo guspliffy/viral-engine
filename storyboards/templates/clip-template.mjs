@@ -13,10 +13,20 @@
 import { clip, write } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
 
-const c = clip(), { A, sfx, cap } = c;
+// ---------------------------------------------------------------- the lab picks (Jonny, 30 Oct 2026): on for new clips
+// Each is opt-in per storyboard (clips made before them don't change); set one to false to leave it out of a clip.
+const OPENER = { who: "phx", line: "ooh, nice!", words: false };   // a lead's short line in the first 0.5 s (act.opener):
+                                    // gibberish, or words: true for a real voice with a subtitle; false: none
+const FOCUS = true;                 // depth of field (golden look): the room softens, focus follows who acts (set.focus)
+const FACES = "strong";             // stronger faces and longer holds in the acting loops ("normal": as before)
+// FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
+// impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
+// stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
+
+const c = clip({ faces: FACES }), { A, sfx, cap } = c;
 const END = 8.0;
 
-// ---------------------------------------------------------------- places (set-apartment.js APARTMENT; x right, z toward us)
+// ---------------------------------------------------------------- places (the golden living room plate; x right, z toward us)
 // keep characters a body-width apart (about 1.0 m centre to centre with the Wizard's hat brim)
 const PHX = [-0.5, 0.06], WIZ0 = [0.62, 0.3], WIZ_NEAR = [0.45, 0.32];
 const AT_PHONE = [0.03, -1], WIZ_AT_PHX = [-0.8, 0.12];   // eye targets: + right on screen, + up
@@ -41,6 +51,7 @@ act.scrollPhone(c, "phx", [0.1, 1.3, 2.6, 4.0, 5.2, 6.4]);
 A(0, "wiz", "look", { to: WIZ_AT_PHX, dur: 0.01, blink: false });
 act.blinksAt(c, "wiz", [1.7, 3.95]);
 cap(0, 2.6, "When your friend gets a new phone.", 250);
+if (OPENER) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 
 // ---------------------------------------------------------------- 2 TRY 2.0-4.0: he steps in and waits to be seen
 A(2.0, "wiz", "move", { to: WIZ_NEAR, dur: 0.45, ease: "inOut", steps: 1 });
@@ -54,14 +65,19 @@ act.shock(c, 4.2, "wiz", { open: 0.18, eye: 1.2, curve: null, brow: 0.3, dur: 0.
 // ---------------------------------------------------------------- 4 REACTION 5.6-7.2, then the loop tail to 8.0
 // reactions play at full strength: act.mood(c, t, who, "angry" | "annoyed", { word: "annoyed" }) lands a mood and
 // can put a small emotion word over the head (act.emote) when a face alone won't carry it at phone size
-act.defeated(c, 5.6, "wiz", { hold: 0.5, blink: false });
+act.defeated(c, 5.6, "wiz", { hold: 0.3, blink: false });   // strong faces hold it 0.3 s longer
 act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_PHX });
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 // The camera is directed from the story (engine/direct.mjs): leave the camera null and the beat's kind picks the shot
 // (setup: medium on everyone, payoff: snap-in on its actor, reaction: close-up with a slow push, the loop tail: the
-// opening shot again), framed from where the characters are, cut on action. A size ("close", "mcu", "medium",
-// "wide") or { size, who } overrides it, "keep" holds the camera, and a plain { pos, look, fov } is used as it is.
+// opening shot again), framed from where the characters are, cut on action (onto a music beat when one is within
+// two frames). Two more kinds: "insert" (the prop the beat is about fills the frame for 0.4-0.8 s; never in 0-3 s; give
+// { size: "insert", on: "<prop id>", at: [x, y, z] } for the point on it) and "threat" (a low angle on who acts, once
+// per clip), "chaos" (a dutch tilt). More by size: { size: "ots", who, over } over a shoulder, { size: "top", on }
+// straight down on a prop, { size: "establishing", plate } a painted exterior for 0.5 s (never at frame 0).
+// A size ("close", "mcu", "medium", "wide", "insert") or { size, who, push, angle: "low", roll } overrides it,
+// "keep" holds the camera, and a plain { pos, look, fov } is used as it is. docs/STORYBOARD.md, "Directed camera".
 const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };   // the master: its direction is every shot's
 const beats = c.beats([
   ["hook", 0, null, "hook"],
@@ -76,13 +92,19 @@ write(import.meta.url, {
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
-  set: { type: "apartment", seed: 5 },
+  // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
+  // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
+  loopIdle: true,
+  // the warm living room the recent clips use (look C crisp, golden plate); FOCUS adds the look's depth of field
+  set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
+    plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }) },
   music: false,
   direct: { master: MED },
   sound: { sfx: 0.6, ambience: 0.34 },
   // frame 0 shows every face the joke needs and the thing it's about, and trouble shows by 2 s (qa/hook.mjs)
   hook: { show: ["phx", "wiz", "phone"], hint: 0, what: "the Wizard stares at Phoenix, who only sees his phone" },
-  cast, props, captions: c.captions, beats,
+  cast, props, captions: c.captions, beats, ...(c.hitStops.length && { hitStop: c.hitStops }),
   // contact a beat needs goes here, always with a reason (a window without one is ignored by the checks)
   allowClip: [{ who: "phx", with: "stool", from: 0, to: END, reason: "Phoenix sits on the stool (his legs rest over its edge)" }],
   notes: "Generated by storyboards/templates/clip-template.mjs.",
