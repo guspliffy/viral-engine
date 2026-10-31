@@ -194,14 +194,14 @@
      "lead": 1,
      "dips": [
       [
-       2.36,
-       -0.06,
-       0.34
+       2.24,
+       -0.32,
+       0.52
       ],
       [
-       2.7,
-       0.035,
-       0.15
+       2.76,
+       0.07,
+       0.18
       ],
       [
        3.03,
@@ -751,9 +751,9 @@
      "set": {
       "y": 0
      },
-     "dur": 0.32,
+     "dur": 0.42,
      "ease": "inOut",
-     "arc": 0.07,
+     "arc": 0.36,
      "at": 0.47
     },
     {
@@ -928,11 +928,22 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": 11
+      "tip": 17
      },
-     "dur": 0.16,
+     "dur": 0.15,
      "ease": "out",
-     "at": 0.26
+     "at": 0.21
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.52,
+     "ease": "inOut",
+     "arc": 0.45,
+     "at": 0.24
     },
     {
      "do": "prop",
@@ -959,12 +970,11 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0
+      "tip": -5
      },
-     "dur": 0.34,
+     "dur": 0.3,
      "ease": "inOut",
-     "arc": 0.17,
-     "at": 0.36
+     "at": 0.38
     },
     {
      "do": "prop",
@@ -976,16 +986,6 @@
      "dur": 0.1,
      "ease": "linear",
      "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "tip": 0
-     },
-     "dur": 0.24,
-     "ease": "inOut",
-     "at": 0.42
     },
     {
      "do": "prop",
@@ -1027,10 +1027,20 @@
      "at": 0.7
     },
     {
-     "sfx": "thud-soft",
-     "gain": 0.55,
-     "reason": "the bike lands after hopping the root (one bump)",
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
      "at": 0.7
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.7,
+     "reason": "the bike lands after hopping the root (one bump)",
+     "at": 0.76
     },
     {
      "do": "prop",

@@ -44,7 +44,7 @@ const bikeZ = (t) => BZ0 - V * t;
 const TURN = 1.257;                            // metres per wheel turn (props3d.js bike: radius 0.2)
 const RIDE = { off: [0, 0.36, -0.16], yaw: 0, sit: true };   // on the saddle (the bike clip's seat)
 const LAUNCH = 5.2;                            // the back wheel leaves the edge: from here the bike falls
-const ROOT_HOP = 2.36, PLANK_ON = 3.03, PLANK_OFF = 3.97;
+const ROOT_HOP = 2.24, HOP_LEN = 0.52, HOP_UP = 0.45, PLANK_ON = 3.03, PLANK_OFF = 3.97;
 // the first-person camera rides in the Wizard's head (his body is not drawn: "pov"), a little behind his face so his
 // gloves on the bars sit low in the frame
 const EYE = 1.15, camPos = (t) => [0, EYE, r3(bikeZ(t) + 0.26)], camLook = (t) => [0, r3(EYE - 0.73), r3(bikeZ(t) - 2)];
@@ -152,15 +152,17 @@ A(1.82, "rea", "arm", { side: "R", pose: RBAR(-1), dur: 0.2, ease: "inOut" }); A
 A(1.9, "rea", "grip", { side: "both", shape: "clasp", dur: 0.12 });
 act.blinksAt(c, "rea", [2.6]);
 // Reaper hops the root casually just after (his wheels lift a little)
-{ const t = r3(at(reaZ, TRAIL.root + 0.36 * RS) - 0.1); c.at(t, { do: "prop", id: "br", set: { y: 0 }, dur: 0.32, ease: "inOut", arc: 0.07 }); }
+{ const t = r3(at(reaZ, TRAIL.root + 0.36 * RS) - 0.1); c.at(t, { do: "prop", id: "br", set: { y: 0 }, dur: 0.42, ease: "inOut", arc: 0.36 }); }   // he clears it too, without effort
 
 // ---------------------------------------------------------------- 3 ROOT (2.0-3.0): the front wheel rises, one landing
 // the nose comes up with the prop's tip, not the bike's wheelie: the hands are locked to the prop's frame, and wheelie
 // turns the bike inside it, so the bars would leave the gloves
-c.prop(r3(ROOT_HOP - 0.1), "bw", { tip: 11 }, 0.16, "out");
-c.prop(r3(ROOT_HOP + 0.06), "bw", { tip: 0 }, 0.24, "inOut");
-c.at(ROOT_HOP, { do: "prop", id: "bw", set: { y: 0 }, dur: 0.34, ease: "inOut", arc: 0.17 });
-sfx(r3(ROOT_HOP + 0.34), "thud-soft", { gain: 0.55, reason: "the bike lands after hopping the root (one bump)" });
+// a big bunny hop: nose up as he springs, level at the top, nose a touch down to land, one landing
+c.prop(r3(ROOT_HOP - 0.03), "bw", { tip: 17 }, 0.15, "out");
+c.prop(r3(ROOT_HOP + 0.14), "bw", { tip: -5 }, 0.3, "inOut");
+c.prop(r3(ROOT_HOP + HOP_LEN - 0.06), "bw", { tip: 0 }, 0.08, "in");
+c.at(ROOT_HOP, { do: "prop", id: "bw", set: { y: 0 }, dur: HOP_LEN, ease: "inOut", arc: HOP_UP });
+sfx(r3(ROOT_HOP + HOP_LEN), "thud-soft", { gain: 0.7, reason: "the bike lands after hopping the root (one bump)" });
 
 // ---------------------------------------------------------------- 4 PLANK (3.0-4.0): on and off the plank
 c.prop(PLANK_ON, "bw", { y: TRAIL.plank.top }, 0.1, "inOut"); c.prop(PLANK_OFF, "bw", { y: 0 }, 0.1, "inOut");
@@ -263,7 +265,7 @@ A(9.78, "rea", "look", { to: [0, 0], dur: 0.15, blink: false });
 // ---------------------------------------------------------------- shots
 // 1-5: one first-person take along the trail with a rider's vibration, the root hop and the plank in it
 const POV = { pos: camPos(0), look: camLook(0), fov: 75, to: { pos: camPos(5.0), look: camLook(5.0) }, dur: 5.0, ease: "linear",
-  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.4, lead: 1, dips: [[ROOT_HOP, -0.06, 0.34], [r3(ROOT_HOP + 0.34), 0.035, 0.15], [PLANK_ON, -0.05, 0.12], [3.3, 0.015, 0.08], [3.6, 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
+  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.4, lead: 1, dips: [[ROOT_HOP, -0.32, HOP_LEN], [r3(ROOT_HOP + HOP_LEN), 0.07, 0.18], [PLANK_ON, -0.05, 0.12], [3.3, 0.015, 0.08], [3.6, 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
 // 6-7: a side wide from beyond the edge, panning with the fall and the catch (the cliff wall recedes at the left)
 // it pans at a steady speed onto Dragon's line, then rides along with him at his speed until the cut
 const WIDE_END = 7.2, OFF = [6.3, 1.4, 0.9], onDra = (t) => { const d = draAt(t); return [r3(d[0]), r3(d[1] + 1.2), r3(d[2])]; };

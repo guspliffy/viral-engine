@@ -175,10 +175,17 @@ export function buildTrail(scene, S = {}) {
   {
     const bark = canvasTex(256, 64, (c, w, h) => { c.fillStyle = "#7a5233"; c.fillRect(0, 0, w, h); for (let i = 0; i < 30; i++) { c.fillStyle = "rgba(60,38,22,0.5)"; c.fillRect(rnd() * w, 0, 2 + rnd() * 3, h); } }, 4, 1);
     const bm = lam("#ffffff", { map: bark });
-    const pts = [[-1.6, -0.08, 0.5], [-0.9, 0.04, 0.12], [-0.3, 0.1, -0.02], [0.3, 0.1, 0.04], [0.85, 0.05, -0.1], [1.5, -0.08, -0.45]].map(([x, y, z]) => new THREE.Vector3(x, y, T.root + z));
-    const root = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.06, 10), bm); root.castShadow = root.receiveShadow = true; g.add(root);
-    const side = [[-0.5, 0.07, 0.0], [-0.65, 0.03, 0.35], [-0.95, -0.05, 0.75]].map(([x, y, z]) => new THREE.Vector3(x, y, T.root + z));
-    const sr = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(side), 16, 0.032, 8), bm); sr.castShadow = sr.receiveShadow = true; g.add(sr);
+    // a thick main root humped right across the trail (top about 0.3 m), knotted, with a second root crossing it
+    const tube = (pts, r, seg = 40) => { const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map(([x, y, z]) => new THREE.Vector3(x, y, T.root + z))), seg, r, 12), bm); m.castShadow = m.receiveShadow = true; g.add(m); return m; };
+    tube([[-1.9, -0.14, 0.6], [-1.1, 0.06, 0.16], [-0.35, 0.15, -0.02], [0.3, 0.16, 0.04], [0.9, 0.1, -0.12], [1.7, -0.14, -0.55]], 0.14);
+    tube([[-1.5, -0.1, -0.5], [-0.7, 0.07, -0.16], [0.05, 0.1, 0.02], [0.75, 0.04, 0.28], [1.4, -0.1, 0.7]], 0.085);
+    tube([[-0.5, 0.12, 0.0], [-0.7, 0.04, 0.4], [-1.05, -0.06, 0.85]], 0.05, 16);
+    // knots and swellings along it, and earth heaped where it dives in at the trail's edges
+    for (const [x, y, z, sx, sy, sz] of [[-0.62, 0.13, 0.05, 0.2, 0.17, 0.18], [0.12, 0.17, 0.02, 0.17, 0.16, 0.16], [0.62, 0.13, -0.06, 0.19, 0.16, 0.17]]) {
+      const k = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), bm); k.scale.set(sx, sy, sz); k.position.set(x, y, T.root + z); k.castShadow = k.receiveShadow = true; g.add(k);
+    }
+    const earth = lam("#6e4a2c");
+    for (const [x, z] of [[-1.25, 0.25], [1.2, -0.3]]) { const e = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8), earth); e.scale.set(0.35, 0.09, 0.3); e.position.set(x, 0, T.root + z); e.receiveShadow = true; g.add(e); }
   }
 
   // the forest: tall leafy trees and firs, kept off the trail and the gully, denser further out; bushes and ferns line
