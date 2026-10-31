@@ -26,6 +26,7 @@ import { buildHallway } from "./set-hallway.js";
 import { buildFurnace } from "./set-furnace.js";
 import { buildEnergyRoom } from "./set-energy.js";
 import { buildLanding } from "./set-landing.js";
+import { buildTrail } from "./set-trail.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -87,6 +88,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "furnace") return buildFurnace(scene, spec);   // set-furnace.js: the hell tunnel and the giant fryer
   if (type === "energyroom") return buildEnergyRoom(scene, spec);   // set-energy.js: Reaper's bedroom at 6 AM
   if (type === "landing") return buildLanding(scene, spec);   // set-landing.js: a stairwell landing, a narrow doorway (Moving One Sofa)
+  if (type === "trail") return buildTrail(scene, spec);   // set-trail.js: The Easy Trail's forest trail, plank gully and cliff
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
