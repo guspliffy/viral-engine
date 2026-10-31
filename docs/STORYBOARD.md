@@ -156,6 +156,10 @@ moving at once.
   past the end. `sit`: the body tips forward while sitting down and bounces once on the seat; standing up swings
   forward first and rises after. `jiggle`: the body squashes a little with the follow-through spring when it stops or
   lands. Bench: `storyboards/lookdev/make-natural-motion-tests.mjs` (walk, reach and drink, everyday).
+- **A toe tap** (`"do": "tap"`, `side` R/L, `count` 3, `every` 0.3 s, `lift` 1): the heel stays on the floor and the
+  toe lifts and slaps down; each slap lands 60 % into its cycle with a soft footstep on the set's floor (no step if the
+  storyboard places its own). `act.tapFoot` wraps it. The small gestures and `act.ma` are in the table below; bench:
+  `storyboards/lookdev/make-natural-acting-tests.mjs`.
 - **Motion blur is automatic in full renders** (`engine/render.mjs` `BLUR`): a frame where a part moves fast (a sword
   swing, an axe, a snap) is averaged from extra frames drawn across half the frame time, like a film camera's shutter.
   Calm frames stay one sample, a very fast part gets a shorter shutter (a smear of 60 px at most, so it never shows as
@@ -287,6 +291,13 @@ from finished clips:
 | `impact(c, t, who)` | `frames`, `stop`, `shake`, `stars`, `squash`, `recoil`, `look`, `sound`, `take` | Comic force on a hit: two impact frames, shake, stars, deep squash and recoil, eyes widen as it lands, then a 3-frame hit-stop | lab pick |
 | `windUp(c, t, who)` / `landDust(c, t, [x, z])` | `amount`, `dur` / `color`, `puffs` | Deep anticipation squash before a big move / a dust puff on a landing | lab pick |
 | `sheepish(c, t, who)` | `brow` | Tilted half smile with brows up | lab |
+| `breath(c, t, who)` | `big`, `hold`, `eyes`, `back` | A breath before acting: eyes lift, the chest rises and tips back, a hold, then a sink lower than before | Phase 3 study |
+| `brushOff(c, t, who)` | `side`, `strokes`, `big`, `back` | Eyes down, a lean in, the hand brushes the belly twice (each stroke shorter), a nod, eyes up | Phase 3 study |
+| `rubHands(c, t, who)` | `rubs`, `every`, `big`, `hold`, `sly`, `rest` | Scheming: eyes narrow, a small crouch, hands meet in front of the belly and rub past each other | Phase 3 study |
+| `hipsSettle(c, t, who)` | `big`, `hold` (null keeps them) | Chest up, hands land on the hips with an overshoot, a lean back and a settle | Phase 3 study |
+| `tapFoot(c, t, who)` | `side`, `count`, `every`, `eyes`, `big` | Impatient toe tap (the `tap` action): heel down, the toe lifts and slaps about three a second, a soft step on the set's floor on each slap | Phase 3 study |
+| `thinkChin(c, t, who)` | `side`, `hold`, `big`, `back` | Eyes up and aside first, a hand to just under the mouth, a head tilt, a still hold | Phase 3 study |
+| `ma(c, payoff, whos)` | `len` (0.5), `idle` | The pause before the payoff: everyone named holds still, eyes and blinks held, for `len` s ending at the payoff (the music's dip sits under it). Finish gestures before it starts | Phase 3 study |
 | `mood`, `shock`, `grin`, `defeated` | | With `clip({ faces: "strong" })`: bigger extremes (same face shapes) and holds 0.2-0.3 s longer; face changes still ease over 0.25 s or more | lab pick |
 
 **The lab picks (Jonny, 30 Oct 2026)** are on in the template for every new clip, and each is opt-in per storyboard,

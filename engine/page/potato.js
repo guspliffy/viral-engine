@@ -723,6 +723,9 @@ export class Character {
         foot.lerp(planted, 1 - pl.w);
         this.legs[s].foot.quaternion.identity().slerp(this._footQ, 1 - pl.w);
       } else this.legs[s].foot.quaternion.identity();
+      // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
+      const tp = st.tap?.[s] || 0;
+      if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
