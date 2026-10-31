@@ -174,6 +174,7 @@ export async function storyNotes(sb, fps = 30) {
   // ahead reads best (acting.mjs eyesLead).
   // reaction-hold: a new expression replaced by another within 0.3 s doesn't read.
   const yawDeg = (v) => (typeof v === "number" ? v : { camera: 0, front: 0, right: 90, left: -90, "3q-right": 35.5, "3q-left": -35.5, back: 180 }[v] ?? 0);
+  const natTurn = !!(sb.motion && (sb.motion === "natural" || sb.motion === true || (typeof sb.motion === "object" && sb.motion.turn !== false)));
   for (const c of sb.cast || []) {
     const mine = acts.filter((a) => a.who === c.id).sort((a, b) => a.at - b.at), looks = mine.filter((a) => a.do === "look");
     let pos = c.at, yaw = yawDeg(c.face ?? "camera"), last = -1;
@@ -181,7 +182,8 @@ export async function storyNotes(sb, fps = 30) {
     for (const a of mine) {
       let what = null;
       if (a.do === "move" && a.to) { if (Math.hypot(a.to[0] - pos[0], a.to[1] - pos[1]) >= 0.3) what = "walks"; pos = a.to; }
-      else if (a.do === "turn") { const to = yawDeg(a.to), d = Math.abs(((to - yaw + 540) % 360) - 180); if (d >= 30) what = "turns"; yaw = to; }
+      // a natural turn (storyboard "motion", timeline.js) sends the eyes ahead by itself
+      else if (a.do === "turn") { const to = yawDeg(a.to), d = Math.abs(((to - yaw + 540) % 360) - 180); if (d >= 30 && !(natTurn && (!a.ease || a.ease === "inOut"))) what = "turns"; yaw = to; }
       else if (a.do === "arm" && a.pose && typeof a.pose === "object" && a.pose.prop) what = `reaches for the ${a.pose.prop}`;
       if (what && a.at > 0.05 && a.at - last > 0.3 && !ahead(a.at) && (last = a.at)) out.push({ level: "warn", check: "eyes-lead", msg: `${c.id} ${what} at ${a.at.toFixed(2)}s with no look first: start a look about 0.13 s before (acting.mjs eyesLead) so the move reads as a thought` });
     }

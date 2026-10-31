@@ -170,6 +170,18 @@ The template also carries **Jonny's lab picks** (30 Oct): a lead's gibberish lin
 opt-in per storyboard and has a flag at the top of the template; see `docs/STORYBOARD.md`. The template turns on **kinetic captions** (`"captionStyle": "kinetic"`: words pop in as they're said, lit in the
 speaker's colour) and its builder has `textPop` for a comic word beside a head; both are 2D only (`engine/page/text.js`).
 
+## Movement (Jonny, 31 Oct 2026: "the natural movement is way better")
+
+- **New clips move naturally**: `"motion": "natural"` is on in the clip template (walks with planted feet and weight
+  shift, hands on arcs, the body leading reaches, eyes-first turns, weight when sitting and stopping; docs/STORYBOARD.md
+  "motion"). Old clips keep today's motion.
+- **Study the natural way before building any new movement.** Before a new action or move goes into the engine or
+  acting.mjs (lying down, a throw, a climb, a heavy lift), find how real people, athletes and top animation (Studio
+  Ghibli first) do it: which body part leads and which trails, the timing, where the weight goes, the arcs, the pauses.
+  Write the beats down, then adapt them to round potato bodies with short limbs and 3-finger gloves (rules in the
+  movement study: https://claude.ai/artifact/Sd9NtkpDDtfJ5GTmiuYjZE). Show Jonny a side by side (old | new) with a
+  close-up that follows the character, at normal and half speed, before it becomes a default.
+
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 
 1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then

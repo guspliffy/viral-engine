@@ -12,7 +12,7 @@
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
-import { rng, hopCrouch } from "./page/util.js";
+import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
@@ -647,6 +647,22 @@ export function soundEvents(sb, chars) {
 // page/potato.js, softer while the walk eases in and out), a grab when the hand closes (not for props already in hand
 // at the start), a creak when someone sits. Not while flying or hovering, and no footsteps if the storyboard places
 // its own. A release stays silent: it may be a throw, a drop or a hand-over, so the storyboard names that sound.
+// footfalls of a natural-gait walk: the times its phase passes a whole or half cycle (a foot touching down), and how far
+// into the walk it is (amt, softer while it speeds up and slows down)
+function natSteps(sb, a) {
+  const actor = (sb.cast || []).find((c) => c.id === a.who);
+  if (!actor) return [];
+  const out = [], d = a.dur ?? 0.3, dt = 1 / 240;
+  let prev = null;
+  for (let u = dt; u < d - 0.02; u += dt) {
+    const g = actorState(sb, actor, {}, a.at + u, true).gait;
+    if (!g) continue;
+    if (prev != null && Math.floor(g.ph * 2) > Math.floor(prev * 2)) out.push({ at: a.at + u, amt: g.amt });
+    prev = g.ph;
+  }
+  return out;
+}
+
 function foley(sb, panOf) {
   const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
   const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
@@ -658,6 +674,8 @@ function foley(sb, panOf) {
       // the walk phase advances `steps` cycles a second and a foot lands every half cycle; quick little steps (a run)
       // are lighter, or a dash off screen turns into a drum roll
       const rate = a.steps ?? 2.2, per = 0.5 / rate, light = Math.min(1, Math.sqrt(2.5 / rate));
+      // natural gait (timeline.js natMove): the feet land where the walk's own phase crosses each half cycle
+      if (naturalOf(sb)?.gait && (!a.ease || a.ease === "inOut")) { for (const f of natSteps(sb, a)) ev.push({ kind: step, at: f.at, pan, gain: light * (0.55 + 0.45 * f.amt) }); continue; }
       for (let t = per; t < d - 0.02; t += per) ev.push({ kind: step, at: a.at + t, pan, gain: light * (0.55 + 0.45 * Math.min(1, Math.min(t / d, 1 - t / d) * 8)) });
     }
     if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });

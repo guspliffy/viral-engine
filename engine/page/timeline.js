@@ -1,5 +1,5 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
@@ -153,6 +153,54 @@ function rideAt(sb, a, u) {
   return { x: ps.x + Math.cos(r) * ox + Math.sin(r) * oz, y: ps.y + oy, z: ps.z - Math.sin(r) * ox + Math.cos(r) * oz, yaw: r + ((a.yaw ?? 0) * Math.PI) / 180, lean };
 }
 
+// Natural motion helpers (util.js naturalOf). natMove: a walk from where the body is to a.to with a cruise speed (ramps
+// of up to 0.28 s at each end), footfalls paced by the distance covered so each standing foot stays put on the floor
+// (step length from the cruise speed at the walk's own cadence, a.steps cycles a second; a.stride fixes it instead),
+// and the gait the body shows on top (natApply).
+function natMove(st, a, t, d, nat) {
+  const dx = a.to[0] - st.x, dz = a.to[1] - st.z, dist = Math.hypot(dx, dz), p = prog(t, a.at, d);
+  const r = Math.min(0.28, 0.3 * d), q = d > 0 ? r / d : 0, s = cruiseDist(p, q);
+  st.x += dx * s; st.z += dz * s;
+  if (p >= 1 || dist < 1e-4 || d <= 0) return;
+  const V = dist / (d * (1 - q)), sd = a.stride ?? clamp(V / (a.steps ?? 2.2) / 0.2, 0.5, 2.2), L = 0.2 * sd;
+  const vn = cruiseVel(p, q), v = V * vn, cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
+  // the walk's direction in the body's own frame (it may walk sideways or backwards: the feet step that way)
+  const ux = dx / dist, uz = dz / dist, lx = ux * cy - uz * sy, lz = ux * sy + uz * cy;
+  // the lean into the walk: with the speed, plus a little back while it sets off and forward while it slows (the stop
+  // carries forward); sin humps over the ramps, so even a short shuffle's lean never steps between frames
+  const ramp = (u) => Math.sin(Math.PI * clamp(u)), fwd = clamp(0.13 * v + 0.07 * V * (q > 0 ? ramp((p - (1 - q)) / q) - 0.5 * ramp(p / q) : 0), -0.08, 0.16);
+  nat.gait = { ph: (dist * s) / L, amt: clamp(vn * 1.6), sd, dir: [lx, lz], v, fwd, bob: a.bob };
+  st.walk = nat.gait.ph; st.walkAmt = nat.gait.amt; st.stride = sd; st.gait = nat.gait;
+}
+// natLead: the body starts a reach. It leans toward the front and the arm's side from about 2 frames before the hand
+// moves, the lean peaks a little past the middle of the move and eases off after the hand arrives (a.lead scales it).
+function natLead(a, t, d, nat) {
+  const k = (typeof a.lead === "number" ? a.lead : 1) * bump(t, a.at - 0.07, a.at + 0.55 * d, a.at + d + 0.35);
+  if (!k) return;
+  const pose = a.pose, back = pose === "rest" || pose === "hips" || pose === "lap", up = pose === "up" || pose === "hat" || pose === "wave";
+  const side = a.side === "L" ? 1 : a.side === "R" ? -1 : 0;
+  if (back) { nat.squash -= 0.012 * k; return; }   // an arm coming home: only a small settle
+  if (up) { nat.squash += 0.018 * k; nat.lean += side * 0.03 * k; return; }   // reaching up: the body stretches toward it
+  nat.pitch += 0.06 * k; nat.lean += side * 0.035 * k; nat.squash -= 0.01 * k;
+}
+// natApply: the walk's bob (lowest just after each footfall), the weight shift and roll over the standing foot, the lean
+// into the walk (more while slowing down, so the stop carries forward; less while setting off), then the reach leans,
+// the turn's eyes and dip and the sit's lean
+function natApply(st, nat) {
+  const g = nat.gait;
+  if (g) {
+    const A = g.amt, w = 2 * Math.PI, B = (g.bob ?? 0.024 * clamp(g.sd, 0.6, 1.6)) * A;
+    const low = 0.5 + 0.5 * Math.cos(2 * w * (g.ph - 0.08));
+    st.y -= B * low; st.squash *= 1 - 0.025 * A * low;
+    const sway = 0.018 * A * Math.cos(w * (g.ph - 0.29)), cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
+    st.x -= sway * cy; st.z += sway * sy;   // the body's own -x is its right: over the right foot while it stands
+    st.lean += 0.05 * A * Math.cos(w * (g.ph - 0.29));
+    st.pitch = (st.pitch || 0) + g.fwd * g.dir[1]; st.lean -= g.fwd * g.dir[0];
+  }
+  st.pitch = (st.pitch || 0) + nat.pitch; st.lean += nat.lean; st.squash *= 1 + nat.squash;
+  if (nat.look) st.look = [st.look[0] + nat.look, st.look[1]];
+}
+
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor, LD = loopLen(sb);   // LD: the loop length when loop-safe idle is on, else 0 (util.js)
   const st = {
@@ -170,11 +218,15 @@ export function actorState(sb, actor, def, t, raw = false) {
   };
   let autoBlink = true, airSince = null, riding = null, unsit = null;   // airSince: when the last fly or hover ended (it then hovers until a drop)
   let idle = 1, sink = 0, shakeDx = 0;   // a "still" turns the idle breathing and sway down (see below the loop)
+  // natural motion (util.js naturalOf; null when the storyboard doesn't ask for it): what the walk, reaches, turns and
+  // sitting add on top of the pose, applied below the loop (after the feet are planted, so they stay on the floor)
+  const N = naturalOf(sb), nat = { gait: null, pitch: 0, lean: 0, squash: 0, look: 0 };
   const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || "inOut")(p);
     switch (a.do) {
       case "move": {
+        if (N?.gait && (!a.ease || a.ease === "inOut")) { natMove(st, a, t, d, nat); break; }
         st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e);
         // stride: how long and high the steps are (1 a walk; about 2 a run), bob: metres the body rises between footfalls
         if (p < 1) { st.walkAmt = Math.min(1, Math.min(p, 1 - p) * 8); st.walk = (t - a.at) * (a.steps ?? 2.2); st.stride = a.stride ?? 1; if (a.bob) st.y += a.bob * st.walkAmt * Math.abs(Math.sin(st.walk * Math.PI * 2)); }
@@ -226,6 +278,14 @@ export function actorState(sb, actor, def, t, raw = false) {
         let to = yawOf(a.to);
         while (to - st.yaw > Math.PI + 0.01) to -= 2 * Math.PI;
         while (to - st.yaw < -Math.PI - 0.01) to += 2 * Math.PI;
+        // natural turn: the eyes go first (about 0.12 s ahead), the body dips a little on the way round and swings
+        // about 4 % past the end before it settles (with a 4 % wind-up the other way first)
+        if (N?.turn && (!a.ease || a.ease === "inOut") && Math.abs(to - st.yaw) > 0.35) {
+          const big = clamp(Math.abs(to - st.yaw) / 1.2);
+          nat.look += Math.sign(to - st.yaw) * 0.55 * big * bump(t, a.at - 0.12, a.at + 0.25 * d, a.at + d + 0.1);
+          nat.squash -= 0.022 * big * (p < 1 ? Math.sin(Math.PI * p) : 0);
+          st.yaw = lerp(st.yaw, to, ease("anticSettle")(p)); break;
+        }
         st.yaw = lerp(st.yaw, to, e); break;
       }
       case "lean": st.lean = lerp(st.lean, ((a.to ?? 0) * Math.PI) / 180, e); break;
@@ -252,6 +312,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         // "rest" is the character's own resting pose when it has one (the Wizard's hand on his staff)
         const own = (s) => (a.pose === "rest" ? c.arms?.[s] || def?.arms?.[s] || "rest" : a.pose);
         for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: own(s), p: e };
+        if (N?.lead && a.lead !== false && d >= 0.2) natLead(a, t, d, nat);
         break;
       }
       case "blink": if (p < 1) st.blink = a.dur ? Math.sin(p * Math.PI) : blinkAt(t - a.at); break;
@@ -393,6 +454,8 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "sit": {
         const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: 0, scale: 1 };
         const k = ease("inOut")(prog(t, a.at, a.dur ?? 0.35)), sc = ch.scale ?? 1, yaw = ((ch.rot ?? 0) * Math.PI) / 180;
+        // natural: the body tips forward over the feet while it lowers, then bounces once on the seat
+        if (N?.sit) { const D = a.dur ?? 0.35, after = t - a.at - D; nat.pitch += 0.12 * Math.sin(Math.PI * k); if (after > 0 && after < 0.32) nat.squash -= 0.035 * Math.sin(Math.PI * after / 0.32) * (1 - after / 0.32); }
         const along = (a.along ?? 0) * sc;   // along the seat (its own x), e.g. at one end of a bench
         st.x = lerp(st.x, ch.x + Math.cos(yaw) * along + Math.sin(yaw) * 0.03, k); st.z = lerp(st.z, ch.z - Math.sin(yaw) * along + Math.cos(yaw) * 0.03, k);
         st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat; if (a.feet) st.sitFeet = a.feet;
@@ -401,7 +464,10 @@ export function actorState(sb, actor, def, t, raw = false) {
         break;
       }
       case "stand": {
-        const k = e;
+        // natural: the body swings forward first to bring its weight over the feet (in a real chair rise the forward swing
+        // takes about the first quarter), and only then rises
+        const k = N?.sit ? ease("inOut")(clamp((p - 0.22) / 0.78)) : e;
+        if (N?.sit) nat.pitch += 0.2 * bump(t, a.at, a.at + 0.35 * d, a.at + d + 0.08);
         st.y = lerp(st.y, 0, k) + 0.06 * Math.sin(Math.PI * k); st.sit = (st.sit || 0) * (1 - k); st.z = lerp(st.z, st.z + 0.12, k);
         for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: c.arms?.[s] || def?.arms?.[s] || "rest", p: k };
         break;
@@ -437,6 +503,8 @@ export function actorState(sb, actor, def, t, raw = false) {
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
   const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
   if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
+  if (N) natApply(st, nat);   // after the plant too: the walk's bob and weight shift move the body, not the feet
+  if (N?.arcs) st.arcs = true;   // potato.js arcLerp
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
     st.y += hoverBob(t - airSince, LD); st.wings = Math.max(st.wings, 1); st.flap = Math.max(st.flap, hoverFlap(t - airSince)); st.tuck = Math.max(st.tuck, 0.7);
@@ -468,7 +536,12 @@ export function actorState(sb, actor, def, t, raw = false) {
     const r = rng(Math.floor(seed * 1000)), p0 = 2.6 + r() * 1.2, period = LD ? LD / Math.max(1, Math.round(LD / p0)) : p0, off = r() * period, ph = (t + off) % period;
     if (blinkFree(sb, c.id, t - ph)) st.blink = blinkAt(ph);
   }
-  if (!raw) { Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t); resolveArms(sb, st, def, t); }
+  if (!raw) {
+    Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t);
+    // natural jiggle: when the body stops or lands, the follow-through spring overshoots and the body squashes with it
+    if (N?.jiggle) st.squash *= 1 - 0.16 * st.ft.u;
+    resolveArms(sb, st, def, t);
+  }
   return st;
 }
 
