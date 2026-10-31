@@ -110,7 +110,10 @@ A(0, "wiz", "expr", { expr: "kind", set: { curve: -0.05 }, dur: 0 });
 A(0, "rea", "look", { to: [-0.6, -0.05], dur: 0, blink: false }); A(0, "rea", "face", { lid: 0.45, dur: 0 });
 A(0, "rea", "expr", { expr: "kind", set: { curve: 0, open: 0 }, dur: 0 });
 A(0.1, "rea", "still", { dur: 5.9, idle: 0.08 });
-act.blinksAt(c, "rea", [2.9, 6.05]); act.blinksAt(c, "wiz", [1.0, 5.95]); act.blinksAt(c, "phx", [3.05]);
+// the friction starts here: the Wizard rolls his eyes at Phoenix's shoving
+A(0.78, "wiz", "look", { to: [-0.2, 0.6], dur: 0.15, blink: false }); A(0.78, "wiz", "expr", { expr: "smug", dur: 0.25 });
+A(1.08, "wiz", "look", { to: [-0.7, -0.05], dur: 0.15, blink: false });
+act.blinksAt(c, "rea", [2.9, 6.05]); act.blinksAt(c, "wiz", [2.55]); act.blinksAt(c, "phx", [3.05]);
 
 // ---------------------------------------------------------------- 2 CHARGE (1.2-2.2)
 c.arm(1.2, "phx", "R", "rest", 0.2, "inOut"); c.arm(1.2, "phx", "L", "rest", 0.2, "inOut");
@@ -146,12 +149,18 @@ A(2.7, "phx", "still", { dur: 0.5, idle: 0.3 });
 // the Wizard's eyes follow the bounce; the sofa holds, unchanged
 A(2.25, "wiz", "look", { to: [-0.85, -0.12], dur: 0.15, blink: false });
 A(2.75, "wiz", "face", { lid: 0.45, dur: 0.25 });
+// the Wizard snickers at him (off camera); Phoenix shakes off the daze and glares his way
+A(2.74, "wiz", "talk", { line: "pff-heh-heh", tone: "excited", dur: 0.36, voice: false });
+A(2.98, "phx", "look", { to: [0.85, 0.05], dur: 0.12, blink: false });
+act.mood(c, 3.0, "phx", "angry", { hold: 0.3 });
 
 // ---------------------------------------------------------------- 4 MAGIC (3.2-4.2)
 // the Wizard raises his staff (left hand, the grip library's staff hold) and lifts the sofa a hand's height
 A(3.2, "wiz", "look", { to: [-0.45, -0.1], dur: 0.12, blink: false });
 A(3.22, "wiz", "turn", { to: -55, dur: 0.25 });
-A(3.25, "wiz", "expr", { expr: "focused", dur: 0.25 }); A(3.25, "wiz", "face", { lid: 0.2, dur: 0.25 });
+A(3.22, "wiz", "expr", { expr: "smug", dur: 0.25 }); A(3.22, "wiz", "face", { lid: 0.3, dur: 0.25 });
+A(3.24, "wiz", "talk", { line: "tsk. ama-teurs", tone: "calm", dur: 0.42, voice: false });
+A(3.68, "wiz", "expr", { expr: "focused", dur: 0.25 }); A(3.68, "wiz", "face", { lid: 0.2, dur: 0.25 });
 A(3.25, "wiz", "grip", { side: "L", shape: "fist", dur: 0.12 });
 c.arm(3.3, "wiz", "L", { o: [0.4, 0.7, 0.32] }, 0.3, "out"); A(3.3, "wiz", "tilt", { to: [18, 8], dur: 0.3 });
 A(3.45, "wiz", "charge", { to: 1, dur: 0.3 });
@@ -160,7 +169,7 @@ c.prop(3.55, "aura", { glow: 1 }, 0.25);
 sofaKey(3.6, 0.2, 0, 0.5, "inOut");
 for (const [t, r] of [[3.95, 1.5], [4.1, -1.0]]) sofaKey(t, 0.2 + (t > 4 ? 0.02 : 0), r, 0.15, "inOut");
 // Phoenix gets up and looks
-A(3.3, "phx", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.1 }, dur: 0.25 });
+A(3.4, "phx", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.1 }, dur: 0.25 });
 A(3.35, "phx", "look", { to: [0.5, 0.2], dur: 0.15, blink: false });
 A(3.5, "rea", "look", { to: [-0.45, 0.1], dur: 0.2, blink: false });
 
@@ -203,8 +212,21 @@ sfx(LAND, "thud", { gain: 0.9, reason: "the sofa drops back into the same jam" }
 c.at(LAND, { fx: "shake", dur: 0.2, amp: 0.025 });
 for (const x of [L0[0], R0[0]]) act.landDust(c, LAND, [x, SZ + 0.1], { puffs: 7 });
 A(LAND, "wiz", "move", { to: WIZ_FLINCH, dur: 0.2, ease: "out", steps: 1 });
-A(5.8, "wiz", "expr", { expr: "annoyed", dur: 0.3 }); A(5.8, "wiz", "face", { lid: 0.4, brow: 0, dur: 0.3 });
-A(5.8, "phx", "expr", { expr: "shocked", set: { open: 0.2, eye: 1.1, curve: -0.35 }, dur: 0.3 });
+// they turn on each other: Phoenix points at the Wizard and yells, the Wizard jabs back; they talk over each other
+A(5.74, "phx", "look", { to: [0.9, 0.0], dur: 0.1, blink: false }); A(5.76, "phx", "turn", { to: 75, dur: 0.2 });
+act.mood(c, 5.8, "phx", "angry", { hold: 0.4 });
+c.arm(5.8, "phx", "L", { o: [0.42, 0.52, 0.3] }, 0.14, "out"); A(5.82, "phx", "grip", { side: "L", shape: "point", dur: 0.1 });
+A(5.84, "phx", "talk", { line: "you broke the CEIL-ing!", tone: "excited", dur: 0.4, voice: false });
+A(5.9, "wiz", "look", { to: [-0.95, 0.0], dur: 0.1, blink: false }); A(5.92, "wiz", "turn", { to: -78, dur: 0.2 });
+act.mood(c, 5.95, "wiz", "angry", { hold: 0.4 });
+c.arm(5.98, "wiz", "R", { o: [0.2, 0.5, 0.3] }, 0.12, "out"); A(6.04, "wiz", "grip", { side: "R", shape: "point", dur: 0.1 });
+A(6.06, "wiz", "talk", { line: "YOU bounced off it!", tone: "excited", dur: 0.38, voice: false });
+c.arm(6.48, "phx", "L", "rest", 0.25, "inOut"); A(6.5, "phx", "grip", { side: "L", shape: "open", dur: 0.1 });
+// he snatches the hand back as Reaper walks right past it
+c.arm(6.2, "wiz", "R", "rest", 0.2, "inOut"); A(6.22, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
+// Reaper has had enough of both of them
+A(5.86, "rea", "expr", { expr: "deadpan", dur: 0.25 }); A(5.86, "rea", "face", { lid: 0.62, dur: 0.25 });
+act.emote(c, 5.9, "rea", "sigh", { dur: 0.6, dx: -0.45 });
 // Reaper: one calm step forward, to the front of the seam
 A(6.05, "rea", "look", { to: [-0.6, -0.15], dur: 0.15, blink: false });
 A(6.1, "rea", "move", { to: [0.95, 1.55], dur: 0.3, ease: "in", steps: 1 });
@@ -284,7 +306,7 @@ const beats = c.beats([
   ["3 bounce", 2.2, "keep"],
   ["4 magic", 3.2, { pos: [1.7, 1.05, 6.2], look: [0.5, 1.05, 0.9], fov: 54, focus: [1.0, 0.9, 1.3], to: { pos: [1.65, 1.05, 6.0] }, dur: 1.0, ease: "linear" }],
   ["5 ceiling", 4.2, { pos: [1.1, 0.55, 5.9], look: [0.1, 1.45, 0.5], fov: 66, focus: [0.6, 1.2, 1.3] }],
-  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 64, focus: [0.2, 0.9, 1.5] }],
+  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 64, focus: [0.2, 0.9, 1.5], to: { pos: [0.28, 1.15, 6.3] }, dur: 1.0, ease: "inOut" }],
   ["7 cut", 6.7, { pos: [-1.35, 1.05, 5.5], look: [-0.1, 0.8, 0.9], fov: 50, focus: [0, 0.8, 1.3] }, "payoff"],
   ["7b stare", STARE, { pos: [0.3, 1.05, 6.8], look: [0.3, 0.85, 2.0], fov: 62, focus: [0.3, 0.9, 2.1] }],
   ["8a solved", 7.97, { pos: [-0.5, 2.1, 5.2], look: [0.05, 0.5, -1.0], fov: 48, focus: [0.4, 0.7, 0.5] }],

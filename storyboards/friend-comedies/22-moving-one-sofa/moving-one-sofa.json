@@ -476,6 +476,24 @@
      "at": 0.12
     },
     {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0.18
+    },
+    {
      "who": "phx",
      "do": "squash",
      "amount": 0.07,
@@ -504,9 +522,14 @@
     },
     {
      "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.4
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.48
     }
    ]
   },
@@ -870,6 +893,12 @@
      "at": 0.22
     },
     {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
      "who": "phx",
      "do": "wings",
      "to": 0,
@@ -938,6 +967,15 @@
     },
     {
      "who": "wiz",
+     "do": "talk",
+     "line": "pff-heh-heh",
+     "tone": "excited",
+     "dur": 0.36,
+     "voice": false,
+     "at": 0.54
+    },
+    {
+     "who": "wiz",
      "do": "face",
      "lid": 0.45,
      "dur": 0.25,
@@ -951,9 +989,49 @@
     },
     {
      "who": "phx",
+     "do": "look",
+     "to": [
+      0.85,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.78
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
      "do": "blink",
      "dur": 0.22,
      "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 0.9
     }
    ]
   },
@@ -1010,16 +1088,25 @@
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "focused",
+     "expr": "smug",
      "dur": 0.25,
-     "at": 0.05
+     "at": 0.02
     },
     {
      "who": "wiz",
      "do": "face",
-     "lid": 0.2,
+     "lid": 0.3,
      "dur": 0.25,
-     "at": 0.05
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "tsk. ama-teurs",
+     "tone": "calm",
+     "dur": 0.42,
+     "voice": false,
+     "at": 0.04
     },
     {
      "who": "wiz",
@@ -1056,17 +1143,6 @@
     },
     {
      "who": "phx",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.15,
-      "eye": 1.1
-     },
-     "dur": 0.25,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
      "do": "look",
      "to": [
       0.5,
@@ -1081,6 +1157,17 @@
      "gain": 0.3,
      "dur": 1,
      "reason": "the Wizard's compact lift spell",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15,
+      "eye": 1.1
+     },
+     "dur": 0.25,
      "at": 0.2
     },
     {
@@ -1145,6 +1232,20 @@
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.25,
+     "at": 0.48
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.25,
+     "at": 0.48
     },
     {
      "do": "prop",
@@ -1719,7 +1820,16 @@
      0.2,
      0.9,
      1.5
-    ]
+    ],
+    "to": {
+     "pos": [
+      0.28,
+      1.15,
+      6.3
+     ]
+    },
+    "dur": 1,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -1799,6 +1909,24 @@
      "at": 0
     },
     {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.04
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 75,
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
      "do": "prop",
      "id": "sofaL",
      "set": {
@@ -1819,42 +1947,166 @@
      "at": 0.08
     },
     {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "wiz",
+     "who": "phx",
      "do": "face",
-     "lid": 0.4,
      "brow": 0,
-     "dur": 0.3,
+     "lid": 0.46,
+     "dur": 0.25,
      "at": 0.1
     },
     {
      "who": "phx",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.2,
-      "eye": 1.1,
-      "curve": -0.35
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.42,
+       0.52,
+       0.3
+      ]
      },
-     "dur": 0.3,
+     "dur": 0.14,
+     "ease": "out",
      "at": 0.1
     },
     {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "you broke the CEIL-ing!",
+     "tone": "excited",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0.16
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.62,
+     "dur": 0.25,
+     "at": 0.16
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.06,
+     "at": 0.2
+    },
+    {
      "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
+     "do": "look",
+     "to": [
+      -0.95,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "fx": "pop",
+     "text": "sigh",
+     "who": "rea",
+     "dur": 0.6,
+     "size": 88,
+     "dx": -0.45,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -78,
+     "dur": 0.2,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
      "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.34
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.06,
      "at": 0.35
     },
     {
@@ -1869,6 +2121,15 @@
      "at": 0.35
     },
     {
+     "who": "wiz",
+     "do": "talk",
+     "line": "YOU bounced off it!",
+     "tone": "excited",
+     "dur": 0.38,
+     "voice": false,
+     "at": 0.36
+    },
+    {
      "who": "rea",
      "do": "move",
      "to": [
@@ -1879,6 +2140,23 @@
      "ease": "in",
      "steps": 1,
      "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.52
     },
     {
      "who": "rea",
@@ -1898,6 +2176,23 @@
      "ease": "out",
      "steps": 1,
      "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.8
     },
     {
      "who": "phx",
