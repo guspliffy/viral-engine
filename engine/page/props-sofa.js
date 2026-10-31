@@ -22,13 +22,20 @@ export const SOFA = { half: 0.84, d: 0.82, legH: 0.09, baseTop: 0.39, seat: 0.44
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.85, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 // a box with softly rounded edges (cushions, the arm): a box whose corners are pulled in a little
-function softBox(w, h, d, r = 0.03) {
-  const g = new THREE.BoxGeometry(w, h, d, 6, 4, 6), p = g.attributes.position, v = new THREE.Vector3();
+// o.dome puffs the top up (a stuffed cushion), o.front / o.back bulge the +z / -z face out, o.sq (-1 or 1) keeps that
+// x side square and full (the seam side of a sofa half, so the two halves meet without a notch)
+function softBox(w, h, d, r = 0.03, o = {}) {
+  const { dome = 0, front = 0, back = 0, sq = 0 } = o;
+  const g = new THREE.BoxGeometry(w, h, d, 10, 6, 10), p = g.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) {
     v.fromBufferAttribute(p, i);
-    const ex = Math.max(0, Math.abs(v.x) - (w / 2 - r)) / r, ey = Math.max(0, Math.abs(v.y) - (h / 2 - r)) / r, ez = Math.max(0, Math.abs(v.z) - (d / 2 - r)) / r;
+    const ex = sq && Math.sign(v.x) === sq ? 0 : Math.max(0, Math.abs(v.x) - (w / 2 - r)) / r, ey = Math.max(0, Math.abs(v.y) - (h / 2 - r)) / r, ez = Math.max(0, Math.abs(v.z) - (d / 2 - r)) / r;
     const k = Math.min(1, Math.hypot(ex, ey, ez)) * r * 0.45;
     if (k > 0) { v.x -= Math.sign(v.x) * k * (ex > 0 ? 1 : 0); v.y -= Math.sign(v.y) * k * (ey > 0 ? 1 : 0); v.z -= Math.sign(v.z) * k * (ez > 0 ? 1 : 0); }
+    const ux = sq && Math.sign(v.x) === sq ? 1 : 1 - (2 * v.x / w) ** 2, uy = 1 - (2 * v.y / h) ** 2, uz = 1 - (2 * v.z / d) ** 2;
+    if (dome && v.y > 0) v.y += dome * Math.max(0, ux) * Math.max(0, uz) * (v.y / (h / 2));
+    const bz = v.z > 0 ? front : back;
+    if (bz) v.z += bz * Math.max(0, ux) * Math.max(0, uy) * (v.z / (d / 2));
     p.setXYZ(i, v.x, v.y, v.z);
   }
   g.computeVertexNormals(); return g;
@@ -44,21 +51,39 @@ function foamTex(seed) {
 export const SOFA_KINDS = {
   sofahalf(P) {
     const S = P.spec, sx = S.side === "R" ? 1 : -1, W = SOFA.half, D = SOFA.d, inner = (sx * -W) / 2, outer = (sx * W) / 2;
-    const fab = mat(S.color ?? "#2f8f93", { roughness: 0.9 }), cush = mat(S.color2 ?? "#38a2a4", { roughness: 0.92 }), wood = mat("#6b4428", { roughness: 0.6 });
-    const B = SOFA.baseTop, L = SOFA.legH, A = SOFA.arm;
-    // the base (seat box) and the backrest frame, each the half's full width from the seam to the outside
-    mesh(new THREE.BoxGeometry(W, B - L, D), fab, P.whole, 0, (B + L) / 2, 0);
-    mesh(softBox(W, SOFA.back - B, 0.2, 0.04), fab, P.whole, 0, (SOFA.back + B) / 2, -D / 2 + 0.1);
-    // the outside arm: from the base up to the arm top, the whole depth, rounded on top
-    mesh(softBox(A, SOFA.armTop - B + 0.02, D, 0.05), fab, P.whole, outer - (sx * A) / 2, (SOFA.armTop + B) / 2, 0.005);
-    // the seat cushion and the back cushion, between the arm and the seam (a little gap at the seam: two cushions)
-    const cw = W - A - 0.025, cx = (outer - sx * A + inner + sx * 0.025) / 2;
+    const fab = mat(S.color ?? "#2a8488", { roughness: 0.9 }), cush = mat(S.color2 ?? "#3fb0ad", { roughness: 0.92 }), wood = mat("#5a3620", { roughness: 0.55 });
+    const pipe = mat(S.color3 ?? "#1f6a6e", { roughness: 0.85 });
+    const B = SOFA.baseTop, L = SOFA.legH, A = SOFA.arm, RR = A / 2;
+    // the base (seat box, a little rounded, its front gently bulged) and the backrest frame (rounded top), each the
+    // half's full width from the seam to the outside; a darker welt along the base's front edge
+    mesh(softBox(W, B - L, D, 0.03, { front: 0.012, sq: -sx }), fab, P.whole, 0, (B + L) / 2, 0);
+    mesh(new THREE.BoxGeometry(W - 0.01, 0.018, 0.02), pipe, P.whole, 0, B - 0.012, D / 2 + 0.004);
+    mesh(softBox(W, SOFA.back - B, 0.2, 0.07, { dome: 0.03, sq: -sx }), fab, P.whole, 0, (SOFA.back + B) / 2, -D / 2 + 0.1);
+    // the outside arm: a rolled arm, a panel up to the roll and a cylinder roll along its whole depth on top (flush
+    // with the panel's outer face), with a round scroll panel on its front end
+    const ax = outer - sx * RR, armH = SOFA.armTop - RR - B + 0.02;
+    mesh(softBox(A, armH, D, 0.03), fab, P.whole, ax, B - 0.02 + armH / 2, 0.005);
+    const roll = mesh(new THREE.CylinderGeometry(RR, RR, D + 0.01, 20), fab, P.whole, ax, SOFA.armTop - RR, 0.005); roll.rotation.x = Math.PI / 2;
+    const scroll = mesh(new THREE.CylinderGeometry(RR * 1.06, RR * 1.06, 0.02, 20), pipe, P.whole, ax, SOFA.armTop - RR, D / 2 + 0.012); scroll.rotation.x = Math.PI / 2;
+    mesh(new THREE.BoxGeometry(A * 1.02, armH - 0.02, 0.02), pipe, P.whole, ax, B - 0.02 + (armH - 0.02) / 2, D / 2 + 0.012);
+    // the seat cushion (stuffed: domed top, bulged front, a welt round its front) and the back cushion (a pillow), between
+    // the arm and the seam (a little gap at the seam: two cushions)
+    const cw = W - A - 0.025, cx = (outer - sx * A + inner + sx * 0.025) / 2, ch = SOFA.seat - B + 0.02, cd = D - 0.24;
     const seat = new THREE.Group(); seat.position.set(cx, B, D / 2 - 0.02); P.whole.add(seat);
-    const sc = mesh(softBox(cw, SOFA.seat - B + 0.02, D - 0.24, 0.04), cush, seat, 0, (SOFA.seat - B + 0.02) / 2, -(D - 0.24) / 2);
+    mesh(softBox(cw, ch - 0.02, cd, 0.06, { dome: 0.035, front: 0.03 }), cush, seat, 0, (ch - 0.02) / 2, -cd / 2);
+    mesh(new THREE.BoxGeometry(cw - 0.08, 0.014, 0.014), pipe, seat, 0, ch - 0.03, 0.02);
     const backC = new THREE.Group(); backC.position.set(cx, B + 0.04, -D / 2 + 0.2); P.whole.add(backC);
-    const bc = mesh(softBox(cw, 0.4, 0.13, 0.05), cush, backC, 0, 0.2, 0.065); bc.rotation.x = -0.12;
-    // legs: two under the outer side, two under the inner edge (the centre pair of the whole sofa)
-    for (const x of [outer - sx * 0.06, inner + sx * 0.05]) for (const z of [D / 2 - 0.07, -D / 2 + 0.07]) mesh(new THREE.CylinderGeometry(0.026, 0.02, L, 10), wood, P.whole, x, L / 2, z);
+    const bc = mesh(softBox(cw, 0.42, 0.14, 0.1, { front: 0.07, dome: 0.02 }), cush, backC, 0, 0.21, 0.07); bc.rotation.x = -0.14;
+    // a throw pillow tucked in the right half's outer corner (spec.pillow false leaves it out)
+    if (S.pillow ?? S.side === "R") {
+      const pil = mesh(new THREE.SphereGeometry(0.14, 24, 16), mat(S.pillowColor ?? "#e7b23f", { roughness: 0.9 }), P.whole, outer - sx * (A + 0.17), SOFA.seat + 0.16, -D / 2 + 0.33);
+      pil.scale.set(1, 0.95, 0.42); pil.rotation.set(-0.25, -sx * 0.2, sx * 0.6);
+    }
+    // legs: tapered and splayed a little; two under the outer side, two under the inner edge (the centre pair)
+    for (const x of [outer - sx * 0.06, inner + sx * 0.05]) for (const z of [D / 2 - 0.07, -D / 2 + 0.07]) {
+      const leg = mesh(new THREE.CylinderGeometry(0.028, 0.016, L + 0.01, 10), wood, P.whole, x, L / 2, z);
+      leg.rotation.set(Math.sign(z) * 0.12, 0, x === outer - sx * 0.06 ? -sx * 0.12 : 0);
+    }
     // the cut face on the inner side (shown from cut > 0): foam through backrest, cushions and base, the frame's wood
     // (a plane faces +z; turned so it faces out of the cut, toward where the other half was: its x runs along the sofa's z)
     const faceG = new THREE.Group(); faceG.position.x = inner - sx * 0.002; faceG.rotation.y = -sx * Math.PI / 2; P.whole.add(faceG);

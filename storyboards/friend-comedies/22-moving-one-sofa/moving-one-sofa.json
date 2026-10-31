@@ -12,9 +12,7 @@
   "type": "landing",
   "light": "golden",
   "wallZ": -3.4,
-  "aperture": 0.045,
-  "focus": "acting",
-  "focusBand": 0.7
+  "aperture": 0
  },
  "music": {
   "gain": 0.8
@@ -2633,8 +2631,8 @@
      "prop": "sofaL",
      "off": [
       0,
-      0.35,
-      0.03
+      0.37,
+      0.22
      ],
      "sit": true,
      "dur": 0.18,

@@ -42,7 +42,7 @@ import { LANDING as LD } from "../../../engine/page/set-landing.js";
 import { SOFA } from "../../../engine/page/props-sofa.js";
 
 const OPENER = { who: "phx", line: "hnnngh!", words: false };
-const FOCUS = true;
+const FOCUS = false;
 const FACES = "strong";
 
 const c = clip({ faces: FACES }), { A, sfx } = c;
@@ -268,7 +268,7 @@ c.arm(8.84, "rea", "L", LET_GO, 0.12, "out"); c.arm(8.98, "rea", "L", "rest", 0.
 A(8.85, "rea", "look", { to: [0, -0.2], dur: 0.12, blink: false });
 A(8.98, "rea", "move", { to: [LIN[0], r3(LIN[1] + D / 2 + 0.42)], dur: 0.26, ease: "inOut", steps: 2 });
 A(9.14, "rea", "turn", { to: 0, dur: 0.2, ease: "inOut" });
-A(9.14, "rea", "ride", { prop: "sofaL", off: [0, 0.35, 0.03], sit: true, dur: 0.18 });
+A(9.14, "rea", "ride", { prop: "sofaL", off: [0, 0.37, 0.22], sit: true, dur: 0.18 });
 sfx(9.3, "sit", { gain: 0.5, reason: "the seat creaks as Reaper sits on his half" });
 A(9.25, "rea", "look", { to: [0, 0.05], dur: 0.15, blink: false });
 A(9.28, "rea", "expr", { expr: "kind", set: { curve: 0.3, open: 0 }, dur: 0.3 }); A(9.28, "rea", "face", { lid: 0.62, dur: 0.3 });
