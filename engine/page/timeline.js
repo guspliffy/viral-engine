@@ -144,9 +144,13 @@ function lookAt(looks, u) {
 
 // where a "ride" action puts its rider at time u: the prop's position plus the offset turned with the prop
 function rideAt(sb, a, u) {
-  const spec = (sb.props || []).find((q) => q.id === a.prop); if (!spec) return { x: 0, y: 0, z: 0, yaw: 0 };
-  const ps = propState(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1, [ox, oy, oz] = (a.off || [0, 0, 0]).map((v) => v * s);
-  return { x: ps.x + Math.cos(r) * ox + Math.sin(r) * oz, y: ps.y + oy, z: ps.z - Math.sin(r) * ox + Math.cos(r) * oz, yaw: r + ((a.yaw ?? 0) * Math.PI) / 180 };
+  const spec = (sb.props || []).find((q) => q.id === a.prop); if (!spec) return { x: 0, y: 0, z: 0, yaw: 0, lean: 0 };
+  const ps = propState(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1;
+  let [ox, oy, oz] = (a.off || [0, 0, 0]).map((v) => v * s), lean = 0;
+  // tilt: true also follows the prop's tilt (a mattress tipped up like a lid): the offset turns with it about the
+  // prop's own z, and the rider leans with it (for a rider facing along the prop's z)
+  if (a.tilt) { const c = -((ps.tilt ?? 0) * Math.PI) / 180; [ox, oy] = [ox * Math.cos(c) - oy * Math.sin(c), ox * Math.sin(c) + oy * Math.cos(c)]; lean = c; }
+  return { x: ps.x + Math.cos(r) * ox + Math.sin(r) * oz, y: ps.y + oy, z: ps.z - Math.sin(r) * ox + Math.cos(r) * oz, yaw: r + ((a.yaw ?? 0) * Math.PI) / 180, lean };
 }
 
 export function actorState(sb, actor, def, t, raw = false) {
@@ -426,7 +430,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   if (riding) {
     const { a, from } = riding, T = rideAt(sb, a, t), k = ease(a.ease || "inOut")(prog(t, a.at, a.dur ?? 0.3));
     st.x = lerp(from.x, T.x, k) + (st.x - from.x); st.y = lerp(from.y, T.y, k) + (st.y - from.y); st.z = lerp(from.z, T.z, k) + (st.z - from.z);
-    st.yaw = lerp(from.yaw, T.yaw, k) + (st.yaw - from.yaw);
+    st.yaw = lerp(from.yaw, T.yaw, k) + (st.yaw - from.yaw); st.lean += T.lean * k;
     if (a.sit) st.sit = Math.max(st.sit || 0, k);
   }
   // planted feet: the feet stay where the last step left them (a move, a turn, a dance step). What the body does on
