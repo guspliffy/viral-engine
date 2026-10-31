@@ -115,7 +115,7 @@ A(0.1, "rea", "still", { dur: 5.9, idle: 0.08 });
 // gibberish), then rolls his eyes
 A(0.62, "wiz", "expr", { expr: "smug", dur: 0.25 }); A(0.62, "wiz", "face", { lid: 0.38, dur: 0.25 });
 A(0.66, "wiz", "talk", { line: "nah, that won't work like that", tone: "calm", dur: 0.55, voice: false });
-c.cap(0.66, 1.55, "nah, that won't work like that", SUB, false, SUBS);   // subtitles translate the gibberish (Jonny 31 Oct)
+c.cap(0.66, 1.55, "nah, that won't\nwork like that", SUB, false, SUBS);   // subtitles translate the gibberish (Jonny 31 Oct)
 for (const [t, y] of [[0.66, -25], [0.8, -46], [0.94, -25], [1.08, -44], [1.22, -35]]) A(t, "wiz", "turn", { to: y, dur: 0.14, ease: "inOut" });
 A(1.12, "wiz", "look", { to: [-0.2, 0.6], dur: 0.12, blink: false });
 A(1.4, "wiz", "look", { to: [-0.7, -0.05], dur: 0.15, blink: false });
@@ -240,6 +240,7 @@ A(6.4, "rea", "move", { to: REA_CUT, dur: 0.32, ease: "out", steps: 1 });
 A(6.3, "rea", "turn", { to: -95, dur: 0.4 });
 A(6.7, "wiz", "look", { to: [-0.6, 0], dur: 0.2, blink: false }); A(6.6, "phx", "look", { to: [0.7, -0.05], dur: 0.15, blink: false });
 A(6.72, "phx", "turn", { to: 35, dur: 0.3 });
+A(6.75, "phx", "expr", { expr: "focused", set: { curve: 0 }, dur: 0.25 });   // watching Reaper, not glaring at him
 
 // ---------------------------------------------------------------- 7 CUT (6.7-8.3)
 // he raises the scythe, then one vertical cut down the seam between the seats
@@ -306,14 +307,14 @@ A(B8, "phx", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.2, curve: -0.3
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 const beats = c.beats([
-  ["1a jammed", 0, { pos: [-0.4, 1.5, 6.9], look: [-0.4, 0.85, 0.5], fov: 60, to: { pos: [-0.4, 1.45, 6.4] }, dur: 0.6, ease: "linear" }, "hook"],
+  ["1a jammed", 0, { pos: [-0.4, 1.5, 6.9], look: [-0.4, 0.85, 0.5], fov: 70, to: { pos: [-0.4, 1.45, 6.6] }, dur: 0.6, ease: "linear" }, "hook"],
   ["1b watching", 0.6, { pos: [0.3, 1.1, 5.8], look: [1.15, 0.9, 1.3], fov: 48, focus: [1.45, 0.9, 1.4] }],
   ["2 charge", 1.2, { pos: [-2.0, 0.95, 4.7], look: [-2.15, 0.72, 0.8], fov: 50 }],
   ["3 bounce", 2.2, "keep"],
   ["4 magic", 3.2, { pos: [1.7, 1.05, 6.2], look: [0.5, 1.05, 0.9], fov: 54, focus: [1.0, 0.9, 1.3], to: { pos: [1.65, 1.05, 6.0] }, dur: 1.0, ease: "linear" }],
   ["5 ceiling", 4.2, { pos: [1.1, 0.55, 5.9], look: [0.1, 1.45, 0.5], fov: 66, focus: [0.6, 1.2, 1.3] }],
-  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 64, focus: [0.2, 0.9, 1.5], to: { pos: [0.28, 1.15, 6.3] }, dur: 1.0, ease: "inOut" }],
-  ["7 cut", 6.7, { pos: [-1.35, 1.05, 5.5], look: [-0.1, 0.8, 0.9], fov: 50, focus: [0, 0.8, 1.3] }, "payoff"],
+  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 70, focus: [0.2, 0.9, 1.5], to: { pos: [0.28, 1.15, 6.5] }, dur: 1.0, ease: "inOut" }],
+  ["7 cut", 6.7, { pos: [-0.3, 1.1, 5.5], look: [-0.35, 0.8, 0.9], fov: 52, focus: [0, 0.8, 1.3] }, "payoff"],
   ["7b stare", STARE, { pos: [0.3, 1.05, 6.8], look: [0.3, 0.85, 2.0], fov: 62, focus: [0.3, 0.9, 2.1] }],
   ["8a solved", 7.97, { pos: [-0.5, 2.1, 5.2], look: [0.05, 0.5, -1.0], fov: 48, focus: [0.4, 0.7, 0.5] }],
   ["8b solved", B8, { pos: [-0.1, 2.3, 5.0], look: [0.05, 0.55, -1.3], fov: 52, focus: [-0.25, 0.8, -1.2] }],
