@@ -162,6 +162,11 @@ c.arm(T_DROP, "phx", "R", { x: [-0.36, 0.86, 0.2] }, 0.18, "out"); c.arm(T_DROP,
 c.prop(T_DROP, "mat", { tilt: 0 }, T_FLAT - T_DROP, "in");
 c.prop(T_FLAT, "mat", { tilt: 2.5 }, 0.08, "out"); c.prop(T_FLAT + 0.08, "mat", { tilt: 0 }, 0.14, "settle");
 A(T_FLAT, "rea", "squash", { amount: 0.12, dur: 0.22 });
+// the conflict, still deadpan (brief): a flat, annoyed stare at Phoenix and a weary "..." (Jonny, 31 Oct: show the friction)
+A(T_FLAT + 0.08, "rea", "expr", { expr: "annoyed", dur: 0.25 });
+A(T_FLAT + 0.08, "rea", "face", { lidL: 0.5, lidR: 0.5, dur: 0.25 });
+A(T_FLAT + 0.08, "rea", "look", { to: [0.7, -0.1], dur: 0.15, blink: false });
+act.emote(c, T_FLAT + 0.12, "rea", "...", { dur: 0.6 });
 sfx(T_FLAT, "ai/cushion-poof", { gain: 0.9 }); sfx(T_FLAT, "thud-soft", { gain: 0.5 });
 A(T_DROP + 0.04, "phx", "fly", { to: { x: P_SPOT[0], y: 0.25, z: P_SPOT[1] }, dur: 0.36, ease: "inOut" });
 A(T_DROP + 0.12, "phx", "turn", { to: "3q-left", dur: 0.25 });
@@ -175,6 +180,7 @@ A(4.3, "phx", "talk", { line: "again again let's go again let's", dur: T_OUT - 4
 for (const t of [4.36, 4.54]) A(t, "phx", "squash", { amount: 0.08, dur: 0.16 });   // bouncing on his toes
 c.arm(4.3, "phx", "R", { x: [-0.38, 0.62, 0.3] }, 0.15, "out"); c.arm(4.3, "phx", "L", { x: [0.38, 0.62, 0.3] }, 0.15, "out");
 // the sputter: a wobble, then down into the pile; the curtain fire dies with him
+A(4.56, "phx", "face", { lid: 0.55, dur: 0.12 });                           // running out: the lids drop mid-word
 A(T_OUT - 0.1, "phx", "squash", { amount: 0.1, dur: 0.1 });
 A(T_OUT, "phx", "grow", { to: 0.12, dur: 0.16, ease: "in" });
 A(T_OUT, "phx", "wings", { to: 0, dur: 0.12 });
@@ -185,16 +191,18 @@ c.prop(T_OUT, "curtR", { fire: 0, scorch: 1 }, 0.12, "out");
 c.at(T_OUT + 0.06, { fx: "poof", pos: [P_SPOT[0], 0.18, P_SPOT[1]], color: "#9b97a3", puffs: 14, sparks: 0, size: 0.6, dur: 0.6 });
 sfx(T_OUT - 0.02, "ai/snuff", { gain: 0.7 }); sfx(T_OUT + 0.06, "poof", { gain: 0.35 });
 // the still beat: Reaper looks down at the pile, both eyes half open; he knows the drill
-A(4.3, "rea", "still", { dur: 1.0, idle: 0.05 });
+A(4.3, "rea", "still", { dur: 0.94, idle: 0.05 });
 A(4.4, "rea", "look", { to: [0.75, -0.25], dur: 0.15, blink: false });
-A(4.92, "rea", "look", { to: [0, 0], dur: 0.12, blink: false });            // a deadpan glance at us: every morning
-A(5.14, "rea", "look", { to: [0.6, -0.3], dur: 0.1, blink: false });
-A(T_OUT + 0.22, "rea", "face", { lidL: 0.5, lidR: 0.5, browL: 0, dur: 0.2 });
+A(4.86, "rea", "look", { to: [0, 0], dur: 0.1, blink: false });            // a deadpan glance at us: every morning
+A(5.12, "rea", "look", { to: [0.6, -0.3], dur: 0.1, blink: false });
+A(T_OUT + 0.22, "rea", "expr", { expr: "deadpan", dur: 0.25 });
+A(T_OUT + 0.22, "rea", "face", { lidL: 0.5, lidR: 0.5, browL: 0, dur: 0.25 });
 // out of bed on the window side: blanket off, one hop down, turning to the pile
-const T_OFF = 5.2;
+// (the clip renders without motion blur: Jonny, 31 Oct, saw blur as soft focus, and it smeared Reaper's face here)
+const T_OFF = 5.24;
 c.prop(T_OFF, "mat", { cover: 0 }, 0.18, "out"); sfx(T_OFF, "cloth", { gain: 0.6 });
-A(T_OFF, "rea", "stand", { dur: 0.3 });
-A(T_OFF, "rea", "hop", { height: 0.18, dur: 0.34 });
+A(T_OFF, "rea", "stand", { dur: 0.28 });
+A(T_OFF, "rea", "hop", { height: 0.16, dur: 0.34 });
 A(T_OFF, "rea", "move", { to: LAND, dur: 0.34, ease: "inOut", steps: 0 });
 A(T_OFF + 0.05, "rea", "turn", { to: "right", dur: 0.3 });
 c.arm(T_OFF, "rea", "R", "rest", 0.25); c.arm(T_OFF, "rea", "L", "rest", 0.25);
@@ -262,37 +270,45 @@ sfx(7.57, "put-down", { gain: 0.35 });
 // ---------------------------------------------------------------- 8 AGAIN 7.6-9.0: back to bed, and the glow comes back
 const T_BED = 7.6;
 A(T_BED, "rea", "turn", { to: "camera", dur: 0 });
-A(T_BED, "rea", "move", { to: [0.35, -1.45], dur: 0 });
+A(T_BED, "rea", "move", { to: [0.12, -1.45], dur: 0 });   // close by the bed, so the hop in stays under the blur speed
 c.arm(T_BED, "rea", "L", "rest", 0);
-A(T_BED + 0.02, "rea", "sit", { seat: "frame", dur: 0.38, hands: "keep" });
-A(T_BED + 0.02, "rea", "hop", { height: 0.12, dur: 0.36 });
-c.prop(7.95, "mat", { cover: 1 }, 0.3, "out"); sfx(7.95, "cloth", { gain: 0.5 });
-c.arm(7.95, "rea", "R", { x: [-0.2, 0.3, 0.38] }, 0.3); c.arm(7.95, "rea", "L", { x: [0.2, 0.3, 0.38] }, 0.3);
-A(8.2, "rea", "face", { lid: 1, dur: 0.25 });
-A(8.2, "rea", "look", { to: [0, -0.15], dur: 0.2, blink: false });
-A(8.2, "rea", "still", { dur: 0.79, idle: 0.3 });
+A(T_BED + 0.02, "rea", "sit", { seat: "frame", dur: 0.5, hands: "keep" });
+A(T_BED + 0.02, "rea", "hop", { height: 0.1, dur: 0.48 });
+c.prop(8.08, "mat", { cover: 1 }, 0.28, "out"); sfx(8.08, "cloth", { gain: 0.5 });
+c.arm(8.08, "rea", "R", { x: [-0.2, 0.3, 0.38] }, 0.28); c.arm(8.08, "rea", "L", { x: [0.2, 0.3, 0.38] }, 0.28);
+A(8.25, "rea", "expr", { expr: "serene", dur: 0.25 });
+A(8.25, "rea", "face", { lid: 1, dur: 0.25 });
+A(8.25, "rea", "look", { to: [0, -0.15], dur: 0.2, blink: false });
+A(8.25, "rea", "still", { dur: 0.74, idle: 0.3 });
 c.prop(8.62, "glow", { glow: 0.95 }, 0.22, "out");
 sfx(8.72, "sizzle", { gain: 0.22 });
+A(8.74, "rea", "face", { lidR: 0.35, dur: 0.12 }); A(8.74, "rea", "look", { to: [0.6, 0.1], dur: 0.12, blink: false });   // one tired eye: here we go again
 
 // the hook caption (Jonny's rule: on screen from frame 0)
 cap(0, 2.6, "that one friend with too much energy", 250, false, { kinetic: false });
+// Phoenix's gibberish in plain words (Jonny, 31 Oct: every gibberish line gets a subtitle), one line, low in the safe zone
+const SUB = 1240, sub = (from, to, text) => cap(from, to, text, SUB, false, { kinetic: false, size: 62 });
+sub(0, 1.1, "WAKE UP!");
+sub(1.18, 2.05, "it's MORNING!");
+sub(2.1, 2.9, "wheee! boing!");
+sub(3.0, 3.95, "look! LOOK!");
+sub(4.3, T_OUT + 0.1, "again! ag—");
 
 // ---------------------------------------------------------------- shots
 const MASTER = frame([0.0, 0.92, -1.45], { az: -12, el: 10, h: 3.6, fov: 34 });
 const BURN = frame([0.0, 0.62, -1.0], { az: 20, el: 8, h: 2.7, fov: 36 });
-const ARRIVE_SHOT = frame([0.0, 0.8, -1.3], { az: -24, el: 6, h: 3.3, fov: 30 });
 const BOUNCE = frame([0.5, 1.05, -1.6], { az: -22, el: 8, h: 4.8, fov: 38 });
-const LIFT = frame([-0.5, 0.85, -1.2], { az: -26, el: 30, h: 3.4, fov: 32 });
+const LIFT = frame([-0.3, 0.85, -1.2], { az: -26, el: 30, h: 3.6, fov: 32 });
 const SWEEP = frame([0.55, 0.42, -0.95], { az: 55, el: 12, h: 2.2, fov: 40 });
 const WINDOW = frame([WIN_X + 0.05, 0.62, -2.4], { az: 198, el: 6, h: 2.0, fov: 40 });   // from outside, looking in
 const beats = c.beats([
   ["6 am", 0, MASTER, "hook"],
-  ["arrival", 1.0, ARRIVE_SHOT],
+  ["arrival", 1.0, "keep"],
   ["bounce", 2.0, BOUNCE, "escalation"],
   ["mattress", 3.0, LIFT],
   ["burnout", 4.4, BURN, "payoff"],
   ["sweep", T_SW, SWEEP],
-  ["outside", 6.8, WINDOW],
+  ["outside", 6.64, WINDOW],
   ["again", 7.6, MASTER, "reaction"],
 ], END);
 
@@ -302,6 +318,7 @@ write(import.meta.url, {
   cover: 3.5,
   idea: "Friend comedies 23 (Jonny's brief 30 Oct 2026): 6 AM, Phoenix crashes in with too much energy and burns out into ash; Reaper sweeps him out of the window and goes back to sleep; the window glows again",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
+  motionBlur: false,   // Jonny 31 Oct: blur read as soft focus; at 30 fps it smeared Reaper's face on his hops
   castLook: "golden",
   set: { type: "energyroom", night: true, seed: 6, aperture: FOCUS ? 0.03 : 0, ...(FOCUS && { focus: "acting" }) },
   // a bright, busy bed for Phoenix's energy, cut dead at the burnout (the brief's silence)

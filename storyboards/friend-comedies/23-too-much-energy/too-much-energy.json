@@ -8,6 +8,7 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
+ "motionBlur": false,
  "castLook": "golden",
  "set": {
   "type": "energyroom",
@@ -179,6 +180,51 @@
    "pos": 250,
    "pop": false,
    "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 1.1,
+   "text": "WAKE UP!",
+   "pos": 1240,
+   "pop": false,
+   "kinetic": false,
+   "size": 62
+  },
+  {
+   "from": 1.18,
+   "to": 2.05,
+   "text": "it's MORNING!",
+   "pos": 1240,
+   "pop": false,
+   "kinetic": false,
+   "size": 62
+  },
+  {
+   "from": 2.1,
+   "to": 2.9,
+   "text": "wheee! boing!",
+   "pos": 1240,
+   "pop": false,
+   "kinetic": false,
+   "size": 62
+  },
+  {
+   "from": 3,
+   "to": 3.95,
+   "text": "look! LOOK!",
+   "pos": 1240,
+   "pop": false,
+   "kinetic": false,
+   "size": 62
+  },
+  {
+   "from": 4.3,
+   "to": 4.88,
+   "text": "again! ag—",
+   "pos": 1240,
+   "pop": false,
+   "kinetic": false,
+   "size": 62
   }
  ],
  "beats": [
@@ -463,19 +509,7 @@
    "name": "arrival",
    "at": 1,
    "len": 1,
-   "shot": {
-    "pos": [
-     -2.491,
-     1.444,
-     4.295
-    ],
-    "look": [
-     0,
-     0.8,
-     -1.3
-    ],
-    "fov": 30
-   },
+   "shot": "keep",
    "do": [
     {
      "do": "prop",
@@ -839,12 +873,12 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     -2.751,
-     3.814,
-     3.415
+     -2.683,
+     3.989,
+     3.686
     ],
     "look": [
-     -0.5,
+     -0.3,
      0.85,
      -1.2
     ],
@@ -1031,6 +1065,44 @@
      "at": 1.12
     },
     {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lidL": 0.5,
+     "lidR": 0.5,
+     "dur": 0.25,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.12
+    },
+    {
+     "fx": "pop",
+     "text": "...",
+     "who": "rea",
+     "dur": 0.6,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 1.16
+    },
+    {
      "who": "phx",
      "do": "land",
      "to": 0,
@@ -1095,7 +1167,7 @@
     {
      "who": "rea",
      "do": "still",
-     "dur": 1,
+     "dur": 0.94,
      "idle": 0.05,
      "at": 1.3
     },
@@ -1143,6 +1215,13 @@
      "amount": 0.08,
      "dur": 0.16,
      "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.12,
+     "at": 0.16
     },
     {
      "who": "phx",
@@ -1219,9 +1298,9 @@
       0,
       0
      ],
-     "dur": 0.12,
+     "dur": 0.1,
      "blink": false,
-     "at": 0.52
+     "at": 0.46
     },
     {
      "who": "phx",
@@ -1230,11 +1309,18 @@
     },
     {
      "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
      "do": "face",
      "lidL": 0.5,
      "lidR": 0.5,
      "browL": 0,
-     "dur": 0.2,
+     "dur": 0.25,
      "at": 0.6
     },
     {
@@ -1246,7 +1332,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.74
+     "at": 0.72
     },
     {
      "do": "prop",
@@ -1256,25 +1342,25 @@
      },
      "dur": 0.18,
      "ease": "out",
-     "at": 0.8
+     "at": 0.84
     },
     {
      "sfx": "cloth",
      "gain": 0.6,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
      "do": "stand",
-     "dur": 0.3,
-     "at": 0.8
+     "dur": 0.28,
+     "at": 0.84
     },
     {
      "who": "rea",
      "do": "hop",
-     "height": 0.18,
+     "height": 0.16,
      "dur": 0.34,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
@@ -1286,7 +1372,7 @@
      "dur": 0.34,
      "ease": "inOut",
      "steps": 0,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
@@ -1294,7 +1380,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.25,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
@@ -1302,7 +1388,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.25,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
@@ -1310,14 +1396,14 @@
      "side": "both",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 0.8
+     "at": 0.84
     },
     {
      "who": "rea",
      "do": "turn",
      "to": "right",
      "dur": 0.3,
-     "at": 0.85
+     "at": 0.89
     },
     {
      "do": "prop",
@@ -1335,7 +1421,7 @@
   {
    "name": "sweep",
    "at": 5.6,
-   "len": 1.2,
+   "len": 1.04,
    "shot": {
     "pos": [
      2.972,
@@ -1642,28 +1728,13 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.44,
-       0.8,
-       -2.2
-      ]
-     },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 1.18
     }
    ]
   },
   {
    "name": "outside",
-   "at": 6.8,
-   "len": 0.8,
+   "at": 6.64,
+   "len": 0.96,
    "shot": {
     "pos": [
      -0.094,
@@ -1685,13 +1756,28 @@
      "pose": {
       "world": [
        0.44,
+       0.8,
+       -2.2
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.44,
        0.76,
        -2.46
       ]
      },
      "dur": 0.1,
      "ease": "inOut",
-     "at": 0.08
+     "at": 0.24
     },
     {
      "who": "rea",
@@ -1706,7 +1792,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.18
+     "at": 0.34
     },
     {
      "do": "prop",
@@ -1716,7 +1802,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.18
+     "at": 0.34
     },
     {
      "do": "prop",
@@ -1726,12 +1812,12 @@
      },
      "dur": 0.8,
      "ease": "linear",
-     "at": 0.26
+     "at": 0.42
     },
     {
      "sfx": "sizzle",
      "gain": 0.2,
-     "at": 0.26
+     "at": 0.42
     },
     {
      "do": "prop",
@@ -1741,7 +1827,7 @@
      },
      "dur": 0.22,
      "ease": "inOut",
-     "at": 0.28
+     "at": 0.44
     },
     {
      "do": "prop",
@@ -1751,7 +1837,7 @@
      },
      "dur": 0.14,
      "ease": "inOut",
-     "at": 0.42
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -1766,7 +1852,7 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.42
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -1781,7 +1867,7 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.58
+     "at": 0.74
     },
     {
      "who": "rea",
@@ -1793,12 +1879,12 @@
       -1.64
      ],
      "dur": 0.04,
-     "at": 0.74
+     "at": 0.9
     },
     {
      "sfx": "put-down",
      "gain": 0.35,
-     "at": 0.77
+     "at": 0.93
     }
    ]
   },
@@ -1831,7 +1917,7 @@
      "who": "rea",
      "do": "move",
      "to": [
-      0.35,
+      0.12,
       -1.45
      ],
      "dur": 0,
@@ -1849,15 +1935,15 @@
      "who": "rea",
      "do": "sit",
      "seat": "frame",
-     "dur": 0.38,
+     "dur": 0.5,
      "hands": "keep",
      "at": 0.02
     },
     {
      "who": "rea",
      "do": "hop",
-     "height": 0.12,
-     "dur": 0.36,
+     "height": 0.1,
+     "dur": 0.48,
      "at": 0.02
     },
     {
@@ -1866,14 +1952,14 @@
      "set": {
       "cover": 1
      },
-     "dur": 0.3,
+     "dur": 0.28,
      "ease": "out",
-     "at": 0.35
+     "at": 0.48
     },
     {
      "sfx": "cloth",
      "gain": 0.5,
-     "at": 0.35
+     "at": 0.48
     },
     {
      "who": "rea",
@@ -1886,8 +1972,8 @@
        0.38
       ]
      },
-     "dur": 0.3,
-     "at": 0.35
+     "dur": 0.28,
+     "at": 0.48
     },
     {
      "who": "rea",
@@ -1900,15 +1986,22 @@
        0.38
       ]
      },
-     "dur": 0.3,
-     "at": 0.35
+     "dur": 0.28,
+     "at": 0.48
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.25,
+     "at": 0.65
     },
     {
      "who": "rea",
      "do": "face",
      "lid": 1,
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.65
     },
     {
      "who": "rea",
@@ -1919,14 +2012,14 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.6
+     "at": 0.65
     },
     {
      "who": "rea",
      "do": "still",
-     "dur": 0.79,
+     "dur": 0.74,
      "idle": 0.3,
-     "at": 0.6
+     "at": 0.65
     },
     {
      "do": "prop",
@@ -1942,6 +2035,24 @@
      "sfx": "sizzle",
      "gain": 0.22,
      "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lidR": 0.35,
+     "dur": 0.12,
+     "at": 1.14
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.14
     }
    ],
    "kind": "reaction"
