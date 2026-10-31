@@ -142,6 +142,20 @@ moving at once.
   Held props stay rigid. A cast entry's `"sway": 0.5` halves it for that character (0 turns it off);
   `"followThrough": false` on the storyboard turns it off for the clip. A hard cut or a re-placed character starts
   it again at rest, so nothing swings across a cut.
+- **Natural motion is opt-in** (`"motion": "natural"`, movement study 31 Oct 2026, util.js `naturalOf`): what the
+  study of Ghibli, sports and everyday movement asks of our round bodies. `"motion": { "arcs": false }` keeps every
+  part except the ones set false. Off by default, so old clips render the same. Parts:
+  `gait`: a `move` (default ease) speeds up over at most 0.28 s, cruises and slows down; each standing foot stays put
+  on the floor (the steps are paced by the distance covered, `steps` is the cadence at cruise speed, `stride` fixes the
+  step length instead); the body bobs about 2.4 cm (lowest just after each footfall), shifts its weight about 2 cm and
+  rolls about 3° over the standing foot, leans into the walk (more while it slows, so the stop carries forward) and arms at rest
+  swing against their own side's leg; footsteps sound on the real footfalls. `arcs`: a hand moving 12 cm or more bows
+  forward on an arc (up to 8 cm) and comes in straight at the end, so grips land where they did. `lead`: on an arm move
+  of 0.2 s or more the body leans toward it from 2 frames before the hand moves (`"lead": false` or a number on the
+  action). `turn`: a turn of 20° or more (default ease) sends the eyes about 0.12 s ahead, dips the body and swings 4 %
+  past the end. `sit`: the body tips forward while sitting down and bounces once on the seat; standing up swings
+  forward first and rises after. `jiggle`: the body squashes a little with the follow-through spring when it stops or
+  lands. Bench: `storyboards/lookdev/make-natural-motion-tests.mjs` (walk, reach and drink, everyday).
 - **Motion blur is automatic in full renders** (`engine/render.mjs` `BLUR`): a frame where a part moves fast (a sword
   swing, an axe, a snap) is averaged from extra frames drawn across half the frame time, like a film camera's shutter.
   Calm frames stay one sample, a very fast part gets a shorter shutter (a smear of 60 px at most, so it never shows as

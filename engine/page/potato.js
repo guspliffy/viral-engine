@@ -16,10 +16,29 @@ const LEG_H = 0.14;
 
 // Hand targets per arm pose, in the character's own space (it faces +z, its right hand is at -x).
 // sx = -1 for the right arm, +1 for the left.
+// Natural arcs (storyboard "motion", util.js naturalOf): a hand going from one pose to another bows out on an arc
+// instead of a straight line, as a real arm turning at the shoulder does (and a straight line from the hip to the head
+// would cut through a round body). The bow is 6.75 p (1 - p)²: it peaks a third of the way and comes in along the
+// straight line at the end, so the hand lands on a grip exactly as before. It bows forward, a little in and up,
+// about a fifth of the distance (at most 8 cm); moves under 12 cm stay straight. Character.apply sets ARCS
+// for the frame it draws; a blend an arm is still in when a new move starts (a mix) bows the same way, so the hand
+// never jumps.
+let ARCS = false;
+export function arcLerp(a, b, p, sx) {
+  const out = a.map((v, i) => v + (b[i] - v) * p);
+  if (!ARCS || p <= 0 || p >= 1) return out;
+  const d = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]);
+  if (d < 0.12) return out;
+  // the bow: forward and a little in across the front of the belly (where a swinging forearm goes) and up. Bowing out to
+  // the side swung the hand past the elbow point and spun it (hand-pop, natural-motion bench 31 Oct)
+  const ox = -0.4 * sx, oy = 0.2, oz = 0.9, ol = Math.hypot(ox, oy, oz);
+  const k = (Math.min(0.08, 0.2 * d) * 6.75 * p * (1 - p) * (1 - p)) / ol;
+  return [out[0] + k * ox, out[1] + k * oy, out[2] + k * oz];
+}
 export function handTarget(pose, sx, rx, H, t) {
   const top = LEG_H + H;
   // an arm still moving when a new move starts (util.js armNow): the blend it was in
-  if (pose && pose.mix) { const m = pose.mix, a = handTarget(m.from, sx, rx, H, t), b = handTarget(m.pose, sx, rx, H, t); return a.map((v, i) => v + (b[i] - v) * m.p); }
+  if (pose && pose.mix) { const m = pose.mix, a = handTarget(m.from, sx, rx, H, t), b = handTarget(m.pose, sx, rx, H, t); return arcLerp(a, b, m.p, sx); }
   // dance.js: { o: [out, up, fwd] } mirrored per side, { x: [x, up, fwd] } an absolute x
   if (pose && typeof pose === "object") return pose.x ? [pose.x[0], LEG_H + H * pose.x[1], pose.x[2]] : [sx * (rx + pose.o[0]), LEG_H + H * pose.o[1], pose.o[2]];
   switch (pose) {
@@ -556,6 +575,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   apply(st, t) {
     const R = this.root;
+    ARCS = !!st.arcs;
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     this.bodyGroup.visible = !st.pov;   // first person (timeline.js "pov"): only the limbs are drawn
@@ -594,7 +614,13 @@ export class Character {
     for (const s of ["R", "L"]) {
       const sx = sxOf[s], a = st.arms[s];
       const from = handTarget(a.from, sx, this.rx, this.H, t), to = handTarget(a.pose, sx, this.rx, this.H, t);
-      const h = new THREE.Vector3().fromArray(from).lerp(new THREE.Vector3().fromArray(to), a.p);
+      const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
+      // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
+      const g = st.gait, rw = g ? (a.pose === "rest" ? a.p : 0) + (a.from === "rest" ? 1 - a.p : 0) : 0;
+      if (rw > 0) {
+        const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
+        h.x += sw * g.dir[0]; h.z += sw * g.dir[1];
+      }
       h.y = LEG_H + (h.y - LEG_H) * S.y;
       hands[s] = h;
       // limbs.shoulder: where on the body's side the arm comes out (surf height; lower for short arms over a table)
@@ -677,6 +703,15 @@ export class Character {
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
       const sd = st.stride ?? 1, lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07 * sd;
       const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
+      if (st.gait) {
+        // natural gait: each foot stands for 58 % of the cycle and slides back under the body at exactly the body's
+        // speed (so it stays put on the floor), then swings forward along the walk, lifted, easing out and in
+        const G = st.gait, u = (((G.ph + (s === "R" ? 0 : 0.5)) % 1) + 1) % 1, ST = 0.58, A = 0.5 * ST * 0.2 * G.sd * G.amt;
+        let along, up = 0;
+        if (u < ST) along = A * (1 - (2 * u) / ST);
+        else { const w = (u - ST) / (1 - ST); along = -A + 2 * A * (w - Math.sin(2 * Math.PI * w) / (2 * Math.PI)); up = Math.sin(Math.PI * w) * 0.065 * Math.min(1.4, G.sd) * G.amt; }
+        foot.set(sx * 0.13 + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
+      }
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;

@@ -31,6 +31,38 @@ export const EASE = {
 };
 export const ease = (name) => EASE[name] || EASE.inOut;
 
+// Natural motion (movement study, 31 Oct 2026; storyboard "motion"): opt-in, off by default so old clips render the
+// same. "motion": "natural" turns on every part; an object turns them all on except the keys set false
+// ({ "arcs": false }). Parts: gait (a walk that keeps its feet on the floor: cruise speed, feet locked while they
+// stand, bob, weight shift over the standing foot, lean into the walk, arm swing), arcs (hands travel on arcs between
+// poses), lead (the body leans into a reach a few frames before the hand gets there), turn (eyes lead, a dip and a
+// small overshoot), sit (lean forward before standing up, a bounce on the seat), jiggle (the body squashes a little
+// when it stops or lands, from the follow-through spring)
+export const NATURAL_PARTS = ["gait", "arcs", "lead", "turn", "sit", "jiggle"];
+const NAT = new WeakMap();
+export function naturalOf(sb) {
+  const m = sb && sb.motion;
+  if (!m) return null;
+  let n = NAT.get(sb);
+  if (!n) { n = {}; for (const k of NATURAL_PARTS) n[k] = m === "natural" || m === true || (typeof m === "object" && m[k] !== false); NAT.set(sb, n); }
+  return n;
+}
+// a walk's speed over its trip (natural gait): it speeds up over the first ramp q (a share of the trip's time), cruises
+// at one speed, and slows over the last q. vel: speed as a share of the cruise speed (smoothstep ramps, so the
+// acceleration starts and ends at 0); dist: the share of the way covered at progress p (the integral of vel)
+export const cruiseVel = (p, q) => { if (q <= 0) return 1; const sm = (u) => u * u * (3 - 2 * u); return p < q ? sm(clamp(p / q)) : p > 1 - q ? sm(clamp((1 - p) / q)) : 1; };
+export const cruiseAcc = (p, q) => { if (q <= 0) return 0; const d = (u) => 6 * u * (1 - u) / q; return p < q ? d(clamp(p / q)) : p > 1 - q ? -d(clamp((1 - p) / q)) : 0; };   // d vel / d p
+export function cruiseDist(p, q) {
+  if (q <= 0) return clamp(p);
+  const ramp = (u) => q * (u * u * u - (u * u * u * u) / 2), tot = 1 - q;
+  p = clamp(p);
+  if (p < q) return ramp(p / q) / tot;
+  if (p <= 1 - q) return (q / 2 + (p - q)) / tot;
+  return 1 - ramp((1 - p) / q) / tot;
+}
+// a soft bump from 0 up to 1 and back to 0: rises over [a, b], falls over [b, c] (sin² edges, no kink anywhere)
+export const bump = (t, a, b, c) => (t <= a || t >= c ? 0 : t < b ? Math.sin((Math.PI / 2) * (t - a) / (b - a)) ** 2 : Math.cos((Math.PI / 2) * (t - b) / (c - b)) ** 2);
+
 // an arm's current target for a new arm action to start from: the pose it is on, or, while it is still moving, the
 // blend it is in (potato.js resolves { mix }), so a new move never makes the hand jump
 // (an acting ease can overshoot past 1 or start below 0, and that in-between blend is where the next move starts)
