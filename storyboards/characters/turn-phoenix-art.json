@@ -21,7 +21,11 @@
    "taper": 0.8,
    "tint": 0.6
   },
-  "brush": true
+  "brush": {
+   "glow": 0,
+   "wrap": 0.12,
+   "cool": 0.2
+  }
  },
  "music": false,
  "sound": {
