@@ -37,6 +37,8 @@
   "rumble": { "family": "cartoon", "says": "a low dark rumble, almost all under 200 Hz (around 80 Hz), swelling slowly to its end; length = its dur (a furnace far off; code-made)", "words": ["rumble", "grollen"] },
   "steam": { "family": "street", "says": "a hard bright hiss (centroid about 11 kHz) that bursts in at once and tails off, 0.7 s by default (a fierce steam jet from a pipe; code-made)", "words": ["pssssh", "steam", "zisch"] },
   "flamejet": { "family": "fire", "says": "a roaring fwoosh of flame: a dark rushing roar (centroid about 2.4 kHz, a low body gliding 350->280 Hz) with a fluttering edge and a few crackles, bursts in, loudest at 0.3 s, tails off by 0.8 s (a jet of fire from a pipe; code-made)", "words": ["fwoosh", "whoosh of fire", "flamejet"] },
+  "gulp": { "family": "body", "says": "one cartoon swallow, 'glk': a tiny click, then a short low bloop that rises and falls round 200-350 Hz, 0.19 s, two hits (a mouthful going down; code-made)", "words": ["gulp", "glk", "schluck"] },
+  "crumble": { "family": "hit", "says": "a plaster wall breaking: a dry crack and a low crunchy burst (loudest at once), then about ten small pieces clattering down over 0.9 s (centroid about 1.3 kHz; code-made)", "words": ["crumble", "crash", "rubble", "bröckeln"] },
   "sizzle": { "family": "handling", "says": "a quiet bright airy hiss with about nine tiny crackles in it, 0.8 s (cloth starting to smoulder; code-made)", "words": ["zischel", "brutzel"] },
   "flash": { "family": "handling", "says": "a camera firing: a sharp click, a short bright 'pff' of noise and a second click, 0.23 s (code-made)", "words": ["klick-pff"] },
   "click": { "family": "handling", "says": "two tiny sharp clicks (a camera shutter or a light switch)", "words": ["klick"] },

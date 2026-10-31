@@ -24,6 +24,7 @@ import { buildStorefront } from "./set-storefront.js";
 import { buildDoorstep } from "./set-doorstep.js";
 import { buildHallway } from "./set-hallway.js";
 import { buildFurnace } from "./set-furnace.js";
+import { buildEnergyRoom } from "./set-energy.js";
 import { buildLanding } from "./set-landing.js";
 
 function skyDome(top, horizon, bottom) {
@@ -84,6 +85,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "doorstep") return buildDoorstep(scene, spec);   // set-doorstep.js: a front door on a sunny afternoon
   if (type === "hallway") return buildHallway(scene, spec);   // set-hallway.js: a cream hallway out to a sunny porch
   if (type === "furnace") return buildFurnace(scene, spec);   // set-furnace.js: the hell tunnel and the giant fryer
+  if (type === "energyroom") return buildEnergyRoom(scene, spec);   // set-energy.js: Reaper's bedroom at 6 AM
   if (type === "landing") return buildLanding(scene, spec);   // set-landing.js: a stairwell landing, a narrow doorway (Moving One Sofa)
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
