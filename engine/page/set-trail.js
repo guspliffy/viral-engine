@@ -184,8 +184,8 @@ export function buildTrail(scene, S = {}) {
     c.fillStyle = "#4f8f4e"; c.fillRect(0, 0, w, h);
     for (let i = 0; i < 2600; i++) { const v = rnd(); c.fillStyle = v < 0.45 ? `rgba(38,92,52,${0.5 + 0.3 * rnd()})` : v < 0.8 ? `rgba(98,160,78,${0.45 + 0.3 * rnd()})` : `rgba(150,190,96,0.5)`; c.beginPath(); c.arc(rnd() * w, rnd() * h, 4 + rnd() * 10, 0, 7); c.fill(); }
   }, 10, 10);
-  const valley = flat(new THREE.Mesh(new THREE.PlaneGeometry(500, 500), lam("#ffffff", { map: valleyTex }))); valley.rotation.x = -Math.PI / 2; valley.position.set(0, T.valley, -60); g.add(valley);
-  const lake = flat(new THREE.Mesh(new THREE.CircleGeometry(1, 48), lam("#5fb3e0", { emissive: new THREE.Color("#1f5a86") }))); lake.rotation.x = -Math.PI / 2; lake.scale.set(34, 20, 1); lake.position.set(-26, T.valley + 0.05, -70); g.add(lake);
+  const valley = flat(new THREE.Mesh(new THREE.PlaneGeometry(500, 500), lam("#ffffff", { map: valleyTex }))); valley.rotation.x = -Math.PI / 2; valley.position.set(0, T.valley, -60); valley.name = "trail-valley"; g.add(valley);
+  const lake = flat(new THREE.Mesh(new THREE.CircleGeometry(1, 48), lam("#5fb3e0", { emissive: new THREE.Color("#1f5a86") }))); lake.rotation.x = -Math.PI / 2; lake.scale.set(34, 20, 1); lake.position.set(-26, T.valley + 0.05, -70); lake.name = "trail-valley-lake"; g.add(lake);
   {
     const firs = [], firM = lam("#3b7d4c"), trunks = [];
     for (let i = 0; i < 260; i++) {
@@ -194,7 +194,7 @@ export function buildTrail(scene, S = {}) {
       firs.push([new THREE.ConeGeometry(0.42, 1, 8), M4(x, T.valley + s * 0.62, z, s, s * 1.3, s)]);
       trunks.push([new THREE.CylinderGeometry(0.06, 0.08, 1, 6), M4(x, T.valley + s * 0.12, z, s, s * 0.25, s)]);
     }
-    g.add(merged(firs, firM, false)); g.add(merged(trunks, lam("#6b4a32"), false));
+    const vf = merged(firs, firM, false), vt = merged(trunks, lam("#6b4a32"), false); vf.name = "trail-valley-firs"; vt.name = "trail-valley-trunks"; g.add(vf); g.add(vt);
   }
 
   // the cliff: a rough rock wall from the plateau's edge down to the valley, with a grassy lip and bushes on top
@@ -208,7 +208,7 @@ export function buildTrail(scene, S = {}) {
     geo.computeVertexNormals();
     const wall = new THREE.Mesh(geo, lam("#ffffff", { map: rockTex(rnd, "#a39280", 30, 8) })); wall.rotation.y = Math.PI; wall.position.set(0, -H / 2, E); wall.receiveShadow = true; wall.castShadow = true; g.add(wall);
     // the lip: a turf band along the edge, a little rounded over
-    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 140, 10, 1, false, 0, Math.PI), lam("#79b85a")); lip.rotation.z = Math.PI / 2; lip.position.set(0, -0.2, E + 0.2); lip.receiveShadow = true; g.add(lip);
+    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 140, 10, 1, false, 0, Math.PI), lam(S.lip || (S.moss && S.leaf ? S.leaf[1] : "#79b85a"))); lip.rotation.z = Math.PI / 2; lip.position.set(0, -0.2, E + 0.2); lip.receiveShadow = true; g.add(lip);
   }
 
   // the plateau's mossy ground, in two pieces either side of the gully, and the dirt trail along x 0

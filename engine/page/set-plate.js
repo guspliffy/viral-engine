@@ -14,7 +14,10 @@ import { rad, loopNow } from "./util.js";
 //                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0",
 //                 follow: { push: 0.04, shift: [0, 0], cover: 1.04 } (a backdrop that rides with the camera: it fills
 //                 the frame behind everything, always facing the lens, for a long ride the picture can't hold still
-//                 for; push grows it by that fraction a second, shift moves it in frame heights. No relief, no dust) }
+//                 for; push grows it by that fraction a second, shift moves it in frame heights. No relief, no dust.
+//                 swap: { at, src, fog: [colour, near, far] | false, fade: 0.6 } changes the picture by a cut (a new
+//                 place) with its own fog, fading it in over the fade seconds before at; hide: "trail-valley" hides
+//                 the set's meshes whose name starts with it, for a picture that paints them) }
 //   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
 //                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
 //                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
@@ -63,20 +66,36 @@ function followPlate(scene, mesh, mat, loads, P) {
   (globalThis.__setTicks ||= []).push((t) => { now.t = t; });
   Object.assign(mat, { depthTest: false, depthWrite: false });
   mesh.renderOrder = -1000; mesh.frustumCulled = false; mesh.receiveShadow = false;
-  let aspect = 9 / 16;
-  const load = Promise.all(loads).then(([map, , motion]) => {
-    map.colorSpace = THREE.SRGBColorSpace; mat.map = map; aspect = map.image.width / map.image.height;
+  const W = F.swap, fogs = [scene.fog, W && (W.fog ? new THREE.Fog(...W.fog) : null)], aspects = [9 / 16, 9 / 16];
+  // the second picture rides on its own plate over the first and fades in over swap.fade seconds before swap.at
+  // (custom blending keeps it in the opaque pass, drawn right after the first: a transparent one would cover the stage)
+  const mat2 = W && new THREE.MeshBasicMaterial({ fog: false, toneMapped: false, opacity: 0, depthTest: false, depthWrite: false,
+    blending: THREE.CustomBlending, blendSrc: THREE.SrcAlphaFactor, blendDst: THREE.OneMinusSrcAlphaFactor, blendSrcAlpha: THREE.ZeroFactor, blendDstAlpha: THREE.OneFactor });
+  const mesh2 = W && new THREE.Mesh(mesh.geometry, mat2);
+  if (W) { mat2.userData.noOutline = true; mesh2.name = "set-plate-2"; mesh2.renderOrder = -999; mesh2.frustumCulled = false; scene.add(mesh2); }
+  const load = Promise.all([...loads, W && new THREE.TextureLoader().loadAsync(`/${W.src.replace(/^\/+/, "")}`)]).then(([map, , motion, map2]) => {
+    map.colorSpace = THREE.SRGBColorSpace; mat.map = map; aspects[0] = map.image.width / map.image.height;
+    if (map2) { map2.colorSpace = THREE.SRGBColorSpace; mat2.map = map2; aspects[1] = map2.image.width / map2.image.height; mat2.needsUpdate = true; }
     if (motion) animate(mat, motion, map.image.width);
     mat.needsUpdate = true;
   });
   (globalThis.__loads ||= []).push(load);
-  mesh.onBeforeRender = (r, s, cam) => {
+  if (F.hide) scene.traverse((o) => { if (o.name?.startsWith(F.hide)) o.visible = false; });
+  const place = (m, aspect, cam) => {
     const d = (cam.near + cam.far) / 2, viewH = 2 * d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
     const k = Math.max(viewH, viewH * cam.aspect / aspect) * (F.cover ?? 1.04) * (1 + (F.push ?? 0) * now.t), [sx, sy] = F.shift || [0, 0];
-    mesh.quaternion.copy(cam.quaternion);
-    mesh.position.copy(cam.position).add(v.set(sx * viewH, sy * viewH, -d).applyQuaternion(cam.quaternion));
-    mesh.scale.set(k * aspect, k, 1);
-    mesh.updateMatrixWorld();
+    m.quaternion.copy(cam.quaternion);
+    m.position.copy(cam.position).add(v.set(sx * viewH, sy * viewH, -d).applyQuaternion(cam.quaternion));
+    m.scale.set(k * aspect, k, 1);
+    m.updateMatrixWorld();
+  };
+  mesh.onBeforeRender = (r, s, cam) => {
+    place(mesh, aspects[0], cam);
+    if (!W) return;
+    const f = W.fade ? THREE.MathUtils.smoothstep(now.t, W.at - W.fade, W.at) : now.t >= W.at - 1e-4 ? 1 : 0;   // a function of time only
+    mat2.opacity = f; mesh2.visible = f > 0;
+    s.fog = now.t >= W.at - 1e-4 ? fogs[1] : fogs[0];
+    if (f > 0) place(mesh2, aspects[1], cam);
   };
   return mesh;
 }
