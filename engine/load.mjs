@@ -23,8 +23,12 @@ export function loadCharacters(sb) {
 // "board" (look match with Jonny's AI storyboards, 31 Oct 2026, a proposal until he approves it): golden skin, much
 // (and his clean-anime character sheet): golden skin, eyes mostly dark iris inside a thin white rim with two catch
 // lights, stronger blush.
+// "art" (thread "Make the characters more detailed and beautiful", 31 Oct 2026, a proposal until Jonny approves it):
+// the board look plus costume.art (costumes-art*.js: cloth that hangs with folds and a hem, flat belts, hair in locks
+// from a scalp, wings that grow from the back, matte cloth) and the one-piece 3-finger glove for every fighter.
 const CAST_LOOKS = {
   golden: { skinGold: 1, eyeSize: 1.12, lash: 1.6, browClear: 0.008 },
+  art: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true },
   board: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true },
 };
 export function castLook(def, look) {
@@ -45,6 +49,13 @@ export function castLook(def, look) {
     def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)
     // the Wizard's hat band turns gold (the Reaper keeps his approved hoodie: the cloth hood read worse, Jonny 31 Oct)
     if (def.costume.type === "wizard") def.costume.band = "#d6a23c";
+  }
+  if (L.art && def.costume) {
+    def.costume.art = true;
+    // every fighter gets the seamless 3-finger glove (PR #44/#47), keeping its grips
+    if ((def.hands?.type ?? "mitten") === "mitten") def.hands = { type: "glove", size: 1.7, fingers: 3, seamless: true, cell: 0.0035, blend: { root: 0.35 }, ...(def.hands?.grip ? { grip: def.hands.grip } : {}) };
+    // the Norse god's brows are white and bushy like his hair (the face study)
+    if (def.costume.type === "allfather") { F.brow = def.costume.hair || "#ece9e2"; F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * 1.6).toFixed(3) }; }
   }
   if (L.browThick) F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * L.browThick).toFixed(3) };
   if (L.blush) F.blush = +((F.blush ?? 1) * L.blush).toFixed(3);
