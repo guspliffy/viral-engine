@@ -266,7 +266,7 @@ write(import.meta.url, {
   castLook: "golden",
   set: { type: "plain", color: "#efe2c8", floor: "#b98a5f", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/cafe-golden.png", z: -2.3, center: [0.3, 1.3], height: 5.6 },
-    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }) },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting", focusBand: 0.7 }) },   // both sit at one depth: a 0.7 m sharp band keeps both faces crisp (0.25 blurred them, Jonny 31 Oct)
   music: { style: "bounce", gain: 0.22, parts: [{ at: 0, part: "main" }, { at: 7.25, part: "stop" }, { at: 7.62, part: "main" }] },
   direct: { master: TWO },
   sound: { sfx: 0.6, ambience: 0.3, surface: "wood" },

@@ -25,7 +25,8 @@
    "height": 5.6
   },
   "aperture": 0.045,
-  "focus": "acting"
+  "focus": "acting",
+  "focusBand": 0.7
  },
  "music": {
   "style": "bounce",
