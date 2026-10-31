@@ -406,9 +406,10 @@ async function init(data) {
 }
 
 // places characters, effects and camera for time t without drawing anything
-function pose(t) {
-  // the drawn look on 2s (drawn.js): everything in the scene holds each drawing for 2 frames; the camera (tc) doesn't
-  const tc = t; t = onTwos(drawnD, t);
+function pose(t0) {
+  // the drawn look on 2s (drawn.js): everything holds each drawing for 2 frames, the camera too unless the storyboard
+  // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
+  const t = onTwos(drawnD, t0), tc = drawnD && drawnD.camera === 1 ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
@@ -563,8 +564,12 @@ function pose(t) {
   for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
 }
 
+let drawnQ = null;   // the held drawing on the canvas (drawn look on 2s): a frame that shows the same drawing only redraws the captions
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
+  const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null;
+  if (q !== null && q === drawnQ) { composite(t); return true; }
+  drawnQ = null;
   pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
@@ -586,6 +591,7 @@ function frame(t) {
     styler.render(scene, camera);
     if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
   }
+  drawnQ = q;
   composite(t);
   return true;
 }

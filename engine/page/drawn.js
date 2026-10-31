@@ -8,10 +8,14 @@ import { Pass, FullScreenQuad } from "three/addons/postprocessing/Pass.js";
 //   "drawn": { "twos": 2,                 characters, props and set motion hold each drawing for 2 frames (3: on 3s,
 //                                         1 or false: every frame); the camera and captions stay on every frame
 //              "ones": [[4.2, 4.6]],      story-time windows drawn on every frame (a really fast move)
+//              "camera": 1,               the camera on every frame (default: on the drawings too, so a rider the camera
+//                                         follows doesn't judder; a held frame then costs only its captions)
 //              "lines": { "width": 4.2,   brush lines from the scene's shapes (px at 1080 wide): thick where a shape
 //                         "boil": 1.4,    turns away or overlaps, thin creases inside; boil: px the line field wobbles,
 //                         "pressure": 0.8 with a new wobble for every drawing; pressure: how much the width swells
-//                       },                and thins along a line (0 = even). false keeps the old outline
+//                         "set": 0 },     and thins along a line (0 = even); set: line width on the set (0: no lines,
+//                                         like a painted background; 0.6: thinner lines that fade with distance).
+//                                         false keeps the old outline
 //              "paint": { "edge": 0.22 }, shadow edges painted with a ragged brush instead of a clean computer edge
 //              "paper": { "grain": 0.09,  paper grain, a slightly uneven wash and watercolour edges on top of it all
 //                         "wash": 0.07, "pool": 0.12 } }
@@ -23,8 +27,9 @@ export function drawnSpec(d) {
   const pick = (v, def) => (v === false ? null : { ...def, ...(typeof v === "object" ? v : {}) });
   return {
     twos: o.twos === false ? 1 : o.twos ?? 2,
+    camera: o.camera === 1 ? 1 : "drawn",
     ones: o.ones || [],
-    lines: pick(o.lines, { width: 4.2, boil: 1.4, pressure: 0.8, strength: 1 }),
+    lines: pick(o.lines, { width: 4.2, boil: 1.4, pressure: 0.8, strength: 1, set: 0 }),
     paint: pick(o.paint, { edge: 0.22, scale: 9 }),
     paper: pick(o.paper, { grain: 0.09, wash: 0.07, pool: 0.12 }),
   };
@@ -57,13 +62,13 @@ const LineShader = {
   uniforms: {
     tDiffuse: { value: null }, tND: { value: null }, tDepth: { value: null }, res: { value: new THREE.Vector2(1080, 1920) },
     cNear: { value: 0.05 }, cFar: { value: 100 }, width: { value: 3.2 }, boil: { value: 1.2 }, pressure: { value: 0.7 },
-    strength: { value: 1 }, seed: { value: 0 }, ink: { value: new THREE.Vector3(0.05, 0.03, 0.025) }, scale: { value: 1 },
+    strength: { value: 1 }, seed: { value: 0 }, debug: { value: 0 }, setW: { value: 0 }, ink: { value: new THREE.Vector3(0.05, 0.03, 0.025) }, scale: { value: 1 },
   },
   vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: /* glsl */`
     #include <packing>
     uniform sampler2D tDiffuse, tND, tDepth; uniform vec2 res; uniform float cNear, cFar, width, boil, pressure, strength, seed, scale;
-    uniform vec3 ink; varying vec2 vUv;
+    uniform vec3 ink; uniform float debug, setW; varying vec2 vUv;
     ${NOISE}
     float zAt(vec2 uv) { return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, cNear, cFar); }
     void main() {
@@ -73,10 +78,13 @@ const LineShader = {
       vec2 p = px + bo;
       vec4 c0 = texture2D(tND, p / res);
       vec3 base = texture2D(tDiffuse, vUv).rgb;
-      if (c0.a < 0.75) { gl_FragColor = vec4(base, 1.0); return; }
+      if (debug > 0.5) { gl_FragColor = vec4(c0.a > 0.9 ? vec3(1.0, 0.2, 0.2) : c0.a > 0.7 ? vec3(0.8, 0.6, 0.2) : c0.a > 0.25 ? vec3(0.3) : vec3(0.0, 0.0, 0.4), 1.0); return; }   // lines.debug: red inked, grey set, blue nothing
+      if (c0.a < 0.7) { gl_FragColor = vec4(base, 1.0); return; }
       float z0 = zAt(p / res); vec3 n0 = c0.rgb * 2.0 - 1.0;
+      // the set (alpha 0.8) is drawn with a thinner line that thins out further with distance
+      float wk = c0.a > 0.9 ? 1.0 : setW * clamp(4.0 / z0, 0.3, 1.0);
       // pressure: the brush swells and thins along the line
-      float w = width * scale * (1.0 - 0.5 * pressure + pressure * dFbm(p / (64.0 * scale) + s1 * 0.37));
+      float w = wk * width * scale * (1.0 - 0.5 * pressure + pressure * dFbm(p / (64.0 * scale) + s1 * 0.37));
       float sil = 0.0, crease = 0.0;
       for (int i = 0; i < 12; i++) {
         float a = float(i) * 0.5235988;
@@ -102,12 +110,12 @@ const LineShader = {
 export class DrawnLinesPass extends Pass {
   constructor(scene, camera, L, inkRoots) {
     super();
-    this.scene = scene; this.camera = camera; this.L = L; this.inkRoots = inkRoots;   // inked: the characters and props
+    this.scene = scene; this.camera = camera; this.L = L; this.inkRoots = new Set(inkRoots); this.inkRoots.delete(scene);   // inked: the characters and props (a prop with no body of its own can report the scene as its root)
     this.nd = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 0 });
     this.nd.depthTexture = new THREE.DepthTexture(1, 1, THREE.UnsignedIntType);
     this.mats = new Map();
     this.quad = new FullScreenQuad(new THREE.ShaderMaterial({ ...LineShader, uniforms: THREE.UniformsUtils.clone(LineShader.uniforms) }));
-    const u = this.quad.material.uniforms; u.width.value = L.width; u.boil.value = L.boil; u.pressure.value = L.pressure; u.strength.value = L.strength;
+    const u = this.quad.material.uniforms; u.width.value = L.width; u.boil.value = L.boil; u.pressure.value = L.pressure; u.strength.value = L.strength; u.debug.value = L.debug ? 1 : 0; u.setW.value = L.set || 0;
   }
   set seed(v) { this.quad.material.uniforms.seed.value = v; }
   setSize(w, h) { this.nd.setSize(w, h); this.quad.material.uniforms.res.value.set(w, h); this.quad.material.uniforms.scale.value = w / 1080; }
@@ -115,7 +123,8 @@ export class DrawnLinesPass extends Pass {
     const key = `${ink}|${m.side}|${m.polygonOffset ? `${m.polygonOffsetFactor},${m.polygonOffsetUnits}` : ""}`;
     let t = this.mats.get(key);
     if (!t) {
-      t = new THREE.MeshNormalMaterial({ side: m.side, opacity: ink ? 1 : 0.5, polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits });
+      // NoBlending: three forces alpha to 1 on an opaque normal-blended material, and the alpha carries the ink flag
+      t = new THREE.MeshNormalMaterial({ side: m.side, opacity: ink ? 1 : this.L.set ? 0.8 : 0.5, blending: THREE.NoBlending, polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits });
       this.mats.set(key, t);
     }
     return t;
@@ -130,7 +139,6 @@ export class DrawnLinesPass extends Pass {
       if (m.transparent || m.depthWrite === false || o.userData.lookOnly || m.colorWrite === false) { hidden.push(o); return; }
       let ink = false;
       for (let p = o; p; p = p.parent) if (this.inkRoots.has(p)) { ink = true; break; }
-      if (m.userData.outlineParameters && m.userData.outlineParameters.visible === false) ink = false;
       swapped.push([o, o.material]); o.material = this.matFor(m, ink);
     });
     for (const o of hidden) o.visible = false;
