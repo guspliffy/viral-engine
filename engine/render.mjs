@@ -404,7 +404,10 @@ async function main() {
       await page.evaluate((ts) => window.ENGINE.prime(ts), [a - 2, a - 1].filter((k) => k >= 0).map((k) => k / fps));
     }
     // after a frame is drawn: how fast it moves, and if fast, more samples averaged in
-    const blurAfter = bl && (async (t) => {
+    // the drawn look's smear on fast moves (drawn.smear, stage.js smear): walls in story time (the page maps the time)
+    const sm = smearPlan(sb), smeared = { frames: 0 };
+    const smearAfter = sm && (async (t) => { if (await page.evaluate(([tt, S]) => window.ENGINE.smear(tt, S), [t, sm])) smeared.frames++; if (errors.length) throw new Error(errors.join("\n")); });
+    const blurAfter = bl ? (async (t) => {
       const v = await page.evaluate(() => window.ENGINE.motion()), s = blurSamples(bl, t, fps, v);
       perFrame.at(-1).v = v; perFrame.at(-1).samples = s ? s.times.length : 0;
       if (!s) return;
@@ -412,7 +415,7 @@ async function main() {
       await page.evaluate(([ts, keep]) => window.ENGINE.blur(ts, keep), [s.times, s.keep]);
       if (errors.length) throw new Error(errors.join("\n"));
       blurred.frames++; blurred.samples += s.times.length + (s.keep ? 1 : 0); blurred.ms += Date.now() - tb;
-    });
+    }) : smearAfter;
     for (let i = a; i < b; i++) {
       const tf = Date.now(); perFrame.push({ i });
       const img = await shot(i / fps, o.png ? "png" : "jpeg", blurAfter);
@@ -422,6 +425,7 @@ async function main() {
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
     }
     ff.stdin.end(); await done;
+    if (sm) console.log(`smear: ${smeared.frames} of ${b - a} frames drew a trail behind a fast move`);
     if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
     if (o.timingJson) fs.writeFileSync(o.timingJson, JSON.stringify({ a, b, totalS: (Date.now() - tr) / 1000, pose: timing.pose, draw: timing.draw, grab: timing.grab, blurred, frames: perFrame }));
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
@@ -434,8 +438,18 @@ async function main() {
 }
 
 // motion blur settings for this render, or null when it is off
+// the drawn look's smear (drawn.smear): its settings plus the story times a trail may not reach across (cuts, impact
+// frames, flash starts), or null
+function smearPlan(sb) {
+  const D = sb.drawn && typeof sb.drawn === "object" ? sb.drawn : null;
+  if (!D || !D.smear || (D.twos ?? 2) <= 1) return null;
+  const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
+  const walls = [...cuts, ...(sb.fx || []).flatMap((f) => (f.do === "impact" ? [f.at, f.at + (f.dur ?? 0.1)] : f.do === "flash" ? [f.at] : []))];
+  return { min: 70, n: 3, span: 1, ghost: 0.6, ...(D.smear === true ? {} : D.smear), walls };
+}
 function blurPlan(sb, o, fps) {
   if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
+  if (sb.drawn && (sb.drawn === true || (sb.drawn.twos ?? 2) > 1)) return null;   // drawn on 2s: no in-between samples to blur
   const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);

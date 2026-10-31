@@ -20,7 +20,13 @@ export function loadCharacters(sb) {
 // potato's skin hue is pulled toward golden orange (29° in sRGB; lemon Phoenix moves furthest, warm Reaper least),
 // the eyes are 12% bigger with a 1.6x heavier upper lid line, and the brows lift clear of the bigger eye. A storyboard
 // without it draws the cast exactly as before. An object { skinGold, eyeSize, lash, browClear } sets the parts.
-const CAST_LOOKS = { golden: { skinGold: 1, eyeSize: 1.12, lash: 1.6, browClear: 0.008 } };
+// "board" (look match with Jonny's AI storyboards, 31 Oct 2026, a proposal until he approves it): golden skin, much
+// (and his clean-anime character sheet): golden skin, eyes mostly dark iris inside a thin white rim with two catch
+// lights, stronger blush.
+const CAST_LOOKS = {
+  golden: { skinGold: 1, eyeSize: 1.12, lash: 1.6, browClear: 0.008 },
+  board: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true },
+};
 export function castLook(def, look) {
   const L = typeof look === "string" ? CAST_LOOKS[look] : look;
   if (!L || def.rig !== "potato") return def;
@@ -31,6 +37,23 @@ export function castLook(def, look) {
   if (L.eyeSize) F.size = (F.size ?? 1) * L.eyeSize;
   if (L.lash) F.eye = { ...F.eye, lash: +((F.eye?.lash ?? 1) * L.lash).toFixed(3) };
   if (L.browClear && F.browShape?.clear == null) F.browShape = { ...F.browShape, clear: L.browClear };
+  if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
+  if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
+  if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  if (L.oval) F.eye = { ...F.eye, oval: L.oval };
+  if (L.detail && def.costume) {
+    def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)
+    // the Wizard's hat band turns gold (the Reaper keeps his approved hoodie: the cloth hood read worse, Jonny 31 Oct)
+    if (def.costume.type === "wizard") def.costume.band = "#d6a23c";
+  }
+  if (L.browThick) F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * L.browThick).toFixed(3) };
+  if (L.blush) F.blush = +((F.blush ?? 1) * L.blush).toFixed(3);
+  if (L.glints) F.eye = { ...F.eye, glints: L.glints };
+  if (L.iris) F.eye = { ...F.eye, iris: L.iris };
+  if (L.corner != null) F.eye = { ...F.eye, corner: L.corner };
+  if (L.irisShade) F.eye = { ...F.eye, irisShade: true };
+  const ih = hexHsl(F.iris || "#4a2a14");
+  if (L.irisColor && ih[0] <= 40 && ih[2] < 0.35) F.iris = L.irisColor;   // brown eyes only (blue, green, purple keep theirs)
   return def;
 }
 function hexHsl(hex) {

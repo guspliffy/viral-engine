@@ -182,6 +182,11 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
   movement study: https://claude.ai/artifact/Sd9NtkpDDtfJ5GTmiuYjZE). Show Jonny a side by side (old | new) with a
   close-up that follows the character, at normal and half speed, before it becomes a default.
 
+- **Copy nature for scenery too** (Jonny, 31 Oct 2026). Before building trees, branches, rocks, water or any other
+  part of a set, write down how it is in nature (spacing, sizes and ages, growth direction, what is dead or broken,
+  where it clumps) and build from that: groups and gaps, many small and few big, nothing in a rhythm or alternating.
+  Everything that hangs or sticks out is attached to something, and every change in the world has a visible cause.
+
 ## Workflow for a clip: creative review and cheap checks first, then the full render
 
 1. **Layout + draft stills** (about a minute): `node engine/render.mjs <sb> --layout`, then

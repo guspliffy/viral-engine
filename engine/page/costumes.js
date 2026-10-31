@@ -4,7 +4,7 @@ import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { cardWings } from "./costumes-card.js";
-import { castCostume, CAST_TYPES } from "./costumes-cast.js";
+import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
 function leafGeometry(w, len, thick) {
@@ -287,11 +287,15 @@ export function buildCostume(def, ch) {
   if (C.type === "cowboy") hat = cowboyHat(C);
   const pb = C.type === "phoenix" ? phoenixCostume(C, ch) : C.type === "reaper" ? reaperCostume(C, ch) : null;   // costumes-pb.js
   if (pb) { hat = pb.hat; prop = C.noProp ? null : pb.prop || null; }   // noProp: the scythe is left at home
-  const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols ? castCostume(C, ch) : null;   // costumes-cast.js
+  const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols || (C.type === "cowboy" && C.detail) ? castCostume(C, ch) : null;   // costumes-cast.js
   if (isCast) { hat = cc.hat || hat; prop = C.noProp ? null : cc.prop; }   // noProp: the axe (katana, ...) is left at home
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
+  if (C.type === "wizard" && C.detail) {
+    // costume.detail (Jonny's clean-anime sheet, 31 Oct): a purple cloak hanging behind, trailing a move
+    ch.bodyGroup.add(clothCape(ch, C.robe || "#4a2a86", { trim: C.band || "#d6a23c", top: 0.55, half: 1.45 }));
+  }
   const card = C.cardWings ? cardWings(C.cardWings, ch) : null;   // homemade cardboard wings and their straps (costumes-card.js)
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");

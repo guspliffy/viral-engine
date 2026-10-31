@@ -13,6 +13,7 @@ import { buildClassroom } from "./set-classroom.js";
 import { buildBathroom } from "./set-bathroom.js";
 import { buildLivingroom } from "./set-livingroom.js";
 import { addPlate } from "./set-plate.js";
+import { addAir } from "./set-air.js";
 import { buildGym } from "./set-gym.js";
 import { buildPark } from "./set-park.js";
 import { buildPorch } from "./set-porch.js";
@@ -59,6 +60,7 @@ export function buildSet(scene, spec = {}, palette = null, eye = null) {
   const r = buildSetType(scene, spec, palette);
   if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light });   // set-plate.js: a painted backdrop behind the 3D stage
   for (const p of spec.plates || []) addPlate(scene, { dust: 0, ...p, depth: false, motion: false }, { eye, light: spec.light });   // side walls
+  if (spec.air) addAir(scene, spec.air, { eye });   // set-air.js: sunbeams and drifting motes (Phase 2, living world)
   return r;
 }
 function buildSetType(scene, spec, palette) {

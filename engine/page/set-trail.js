@@ -7,7 +7,8 @@ import { rng } from "./util.js";
 // narrow plank, then the plateau ends at a cliff (z TRAIL.edge) over a forested valley far below, a lake and blue
 // mountains all round. The trail is lined with bushes close by (they rush past the rider's view), tall leafy trees and
 // firs further out. Everything the clip moves is a prop (props-trail.js); this is the still scenery.
-// spec: { type: "trail", seed }
+// spec: { type: "trail", seed, trees: false (no tall trees: a painted plate's forest instead), moss: tint of the ground,
+//         leaf: [three bush/crown colours] }
 export const TRAIL = {
   edge: -8,                       // the cliff's top edge (z); the plateau is z > edge
   root: 3.8,                      // the root across the trail (z of its middle)
@@ -16,6 +17,16 @@ export const TRAIL = {
   plank: { z0: -0.5, z1: -3.9, w: 0.3, top: 0.06 },   // one narrow plank from bank to bank, its top surface at y top
   valley: -36,                    // the valley floor (y)
 };
+
+// bend: { z0, z1, x } (Jonny 31 Oct: "we need a turn in the path ... logic"): after the plank the trail swings out to x
+// round a big boulder that blocks the straight line and comes back to x 0 before the cliff edge. trailX(z) is the
+// trail's middle at z; the storyboard's riders follow the same curve
+export function trailX(z, B) {
+  if (!B || z > B.z0 || z < B.z1) return 0;
+  const u = (B.z0 - z) / (B.z0 - B.z1); return B.x * Math.sin(Math.PI * u) ** 2;
+}
+// the trail's heading at z: degrees, + to the left (the way a rider riding toward -z turns)
+export function trailYaw(z, B) { const d = 0.01; return (Math.atan((trailX(z + d, B) - trailX(z - d, B)) / (2 * d)) * 180) / Math.PI; }
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -41,6 +52,200 @@ function rockTex(rnd, base = "#9a8a78", rx = 1, ry = 1) {
     for (let i = 0; i < 26; i++) { let x = rnd() * w, y = rnd() * h; c.beginPath(); c.moveTo(x, y); for (let k = 0; k < 5; k++) { x += (rnd() - 0.5) * 40; y += 10 + rnd() * 30; c.lineTo(x, y); } c.stroke(); }
     for (let y = 30; y < h; y += 40 + rnd() * 50) { c.fillStyle = "rgba(80,66,55,0.18)"; c.fillRect(0, y, w, 3 + rnd() * 5); }
   }, rx, ry);
+}
+
+// leafy: each bush blob becomes a darker core covered in leaf cards (a painted leaf with a midrib, cut out by its
+// alpha), turned outwards with some scatter, plus fern fronds arching out at the foot of the bush. Its own random
+// stream, so the layout of everything else stays as it was.
+function leafTex(draw) { const t = canvasTex(128, 128, draw); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; return t; }
+function leafyBushes(g, bushes, S, rnd) {
+  const cols = S.leaf || ["#5fae4c", "#73c25a", "#4c9a48"];
+  const leafT = leafTex((c, w, h) => {
+    for (const [cx, cy, a, k] of [[64, 66, -0.5, 1], [40, 44, 0.6, 0.8], [88, 40, -1.1, 0.75]]) {
+      c.save(); c.translate(cx, cy); c.rotate(a); c.scale(k, k);
+      const gr = c.createLinearGradient(-22, 0, 22, 0); gr.addColorStop(0, "#c8c8c8"); gr.addColorStop(0.5, "#ffffff"); gr.addColorStop(1, "#a8a8a8");
+      c.fillStyle = gr; c.beginPath(); c.moveTo(0, -46); c.quadraticCurveTo(30, -10, 0, 46); c.quadraticCurveTo(-30, -10, 0, -46); c.fill();
+      c.strokeStyle = "rgba(90,90,90,0.55)"; c.lineWidth = 2.5; c.beginPath(); c.moveTo(0, -40); c.lineTo(0, 44); c.stroke();
+      c.lineWidth = 1.2; for (let y = -26; y < 34; y += 11) { c.beginPath(); c.moveTo(0, y + 6); c.lineTo(13, y - 3); c.moveTo(0, y + 6); c.lineTo(-13, y - 3); c.stroke(); }
+      c.restore();
+    }
+  });
+  const fernT = leafTex((c, w, h) => {
+    c.strokeStyle = "#9a9a9a"; c.lineWidth = 3; c.beginPath(); c.moveTo(64, 128); c.lineTo(64, 4); c.stroke();
+    for (let y = 120; y > 8; y -= 7) { const L = 8 + 44 * Math.sin(Math.PI * (128 - y) / 128) * (y / 128 + 0.2); c.fillStyle = y % 14 < 7 ? "#ffffff" : "#e6e6e6";
+      for (const s of [-1, 1]) { c.beginPath(); c.moveTo(64, y); c.quadraticCurveTo(64 + s * L * 0.6, y - 9, 64 + s * L, y - 12); c.quadraticCurveTo(64 + s * L * 0.5, y - 2, 64, y + 3); c.fill(); } }
+  });
+  const card = new THREE.PlaneGeometry(1, 1), q = new THREE.Quaternion(), e = new THREE.Euler(), n = new THREE.Vector3(), up = new THREE.Vector3(0, 0, 1);
+  bushes.forEach((parts, li) => {
+    if (!parts.length) return;
+    const core = new THREE.Color(cols[li]).multiplyScalar(0.62), cards = [], ferns = [];
+    for (const [, M] of parts) {
+      const p = new THREE.Vector3(), sc = new THREE.Vector3(); M.decompose(p, q, sc);
+      cards.push([new THREE.IcosahedronGeometry(0.86, 1), M]);   // the shadowed inside, so no gaps show through
+      const nCards = Math.round(26 + 60 * sc.x);
+      for (let k = 0; k < nCards; k++) {
+        const th = rnd() * Math.PI * 2, ph = Math.asin(rnd() * 1.8 - 0.8);   // more on top than underneath
+        n.set(Math.cos(ph) * Math.sin(th), Math.sin(ph), Math.cos(ph) * Math.cos(th));
+        const at = new THREE.Vector3(n.x * sc.x, n.y * sc.y, n.z * sc.z).multiplyScalar(0.92).add(p);
+        q.setFromUnitVectors(up, n); e.set((rnd() - 0.5) * 1.1, (rnd() - 0.5) * 1.1, rnd() * 6.3); const tw = new THREE.Quaternion().setFromEuler(e);
+        const s = (0.13 + rnd() * 0.09) * Math.min(1.4, 0.6 + sc.x);
+        cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(tw), new THREE.Vector3(s, s, s))]);
+      }
+      if (rnd() < 0.55) for (let f = 0; f < 3; f++) {   // ferns at the foot, arching out and down
+        const a = rnd() * Math.PI * 2, L = 0.35 + rnd() * 0.25, fq = new THREE.Quaternion().setFromEuler(new THREE.Euler(-1.0 - rnd() * 0.4, a, 0, "YXZ"));
+        ferns.push([card, new THREE.Matrix4().compose(new THREE.Vector3(p.x + Math.sin(a) * sc.x * 0.9, 0.08, p.z + Math.cos(a) * sc.z * 0.9), fq, new THREE.Vector3(L * 0.55, L, 1))]);
+      }
+    }
+    // overhang (Phase 2): trees beside the trail, and the branches some of them reach over it, laid out the way a
+    // forest grows (forestTrees); the leaves at the branch tips go into the colour this tree was given
+    if (S.overhang) {
+      const T = (leafyBushes.trees ||= forestTrees(S, rnd));
+      if (li === 0) for (const [k, parts] of T.wood.entries()) if (parts.length) g.add(merged(parts, lam(["#57402f", "#6b5240", "#4a382c"][k]), false));
+      for (const c of T.clusters.filter((c) => c.li === li)) for (let k = 0; k < c.n; k++) {
+        // a clump of a few sub-blobs, more leaves on the outside and top (where the light is)
+        const b = c.blobs[k % c.blobs.length];
+        n.set(rnd() - 0.5, rnd() - 0.35, rnd() - 0.5).normalize();
+        const at = b.p.clone().addScaledVector(n, b.r * (0.55 + rnd() * 0.5));
+        q.setFromUnitVectors(up, n.clone().add(new THREE.Vector3(0, 0.6, 0)).normalize()); e.set((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2, rnd() * 6.3);
+        const s = 0.1 + rnd() * 0.09; cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(new THREE.Quaternion().setFromEuler(e)), new THREE.Vector3(s, s, s))]);
+      }
+      if (li === 2) leafyBushes.trees = null;
+    }
+    const coreParts = cards.filter(([geo]) => geo !== card), leafParts = cards.filter(([geo]) => geo === card);
+    g.add(merged(coreParts, lam(core)));
+    const lm = lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide }), fm = lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide });
+    if (S.wind) { lm.userData.wind = { amp: 0.018 * S.wind, h: 0, flutter: 1.8 }; fm.userData.wind = { amp: 0.05 * S.wind, h: 0.5, flutter: 1 }; }   // Phase 2: leaves shiver, fronds bend
+    g.add(merged(leafParts, lm));
+    if (ferns.length) g.add(merged(ferns, fm, false));
+  });
+}
+
+// The trees along the trail, the way a forest stands (31 Oct 2026, Jonny: "look how trees are in nature"):
+// - spacing is uneven: trees come in loose groups with gaps between, each side on its own (no rhythm, no alternating)
+// - most trunks are young and thin, a few are old and thick; they stand at different depths from the trail, curve
+//   a little and lean toward the light of the trail's opening
+// - lower branches of forest trees die and drop off (short dead stubs on the trunk); the live branches that reach over
+//   the trail are those of trees near its edge, at different heights, rising from the trunk, then arcing out and
+//   drooping at the tip under their leaves, with a few side forks
+// - leaves clump at the branch ends, in irregular sub-clumps of different sizes
+// Returns wood parts per bark tone and leaf clusters (blobs, card count, colour layer). Branches keep a rider's head
+// clear: nothing below 1.75 m within a metre of the trail's middle.
+function forestTrees(S, rnd) {
+  const wood = [[], [], []], clusters = [], Y = new THREE.Vector3(0, 1, 0);
+  const seg = (tone, a, b, r0, r1) => {
+    const d = b.clone().sub(a), L = d.length();
+    wood[tone].push([new THREE.CylinderGeometry(r1, r0, L, 8), new THREE.Matrix4().compose(a.clone().add(b).multiplyScalar(0.5), new THREE.Quaternion().setFromUnitVectors(Y, d.normalize()), new THREE.Vector3(1, 1, 1))]);
+    wood[tone].push([new THREE.SphereGeometry(r1, 8, 6), new THREE.Matrix4().makeTranslation(b.x, b.y, b.z)]);   // a smooth joint
+  };
+  const curve = (tone, pts, r0, r1) => { for (let i = 1; i < pts.length; i++) seg(tone, pts[i - 1], pts[i], r0 + (r1 - r0) * (i - 1) / (pts.length - 1), r0 + (r1 - r0) * i / (pts.length - 1)); };
+  const bez = (p0, p1, p2, n) => Array.from({ length: n + 1 }, (_, i) => { const t = i / n; return p0.clone().multiplyScalar((1 - t) ** 2).addScaledVector(p1, 2 * t * (1 - t)).addScaledVector(p2, t * t); });
+  // over the root the rider hops a metre up: there nothing reaches within 1.9 m of the trail's middle (the camera
+  // would fly through the leaves); elsewhere a branch end over the trail stays above head height
+  const hopZone = (z) => z < TRAIL.root + 1.5 && z > TRAIL.root - 4.5;
+  const keepOut = (p, from) => {
+    const c = trailX(p.z, S.bend), off = Math.abs(p.x - c), sd = Math.sign(from.x - c) || 1;
+    if (hopZone(p.z) && off < 1.9) p.x = c + sd * 1.9;
+    else if (off < 1.0) p.y = Math.max(p.y, 1.85 + rnd() * 0.2);
+    else p.y = Math.max(p.y, 1.45);
+  };
+  const leaves = (p, size, li) => {
+    const blobs = Array.from({ length: 2 + Math.floor(rnd() * 3) }, () => ({ p: p.clone().add(new THREE.Vector3((rnd() - 0.5) * size, (rnd() - 0.4) * size * 0.6, (rnd() - 0.5) * size)), r: size * (0.35 + rnd() * 0.4) }));
+    clusters.push({ li, blobs, n: Math.round(30 + 110 * size) });
+  };
+  for (const side of [-1, 1]) {
+    let z = 13 - rnd() * 2;
+    while (z > TRAIL.edge + 1.2) {
+      const zz = z;
+      // the next tree: mostly 1.5-4 m on, now and then a close neighbour or a wide gap
+      const u = rnd(); z -= u < 0.2 ? 0.5 + rnd() * 0.6 : u > 0.85 ? 4.5 + rnd() * 3 : 1.4 + rnd() * 2.6;
+      if (zz < TRAIL.gully[0] + 0.4 && zz > TRAIL.gully[1] - 0.4) continue;
+      const d = 1.7 + rnd() ** 1.4 * 3.2, x = trailX(zz, S.bend) + side * d;
+      if (inRock(x, zz, S.bend) || inRock(x - side * 0.6, zz, S.bend)) continue;
+      const r = 0.07 + 0.3 * rnd() ** 2.2, tone = Math.floor(rnd() * 3), li = Math.floor(rnd() * 3);
+      // the trunk: a gentle curve leaning toward the opening, up out of the frame
+      const lean = -side * (0.03 + rnd() * 0.1), wob = (rnd() - 0.5) * 0.25;
+      const trunkAt = (h) => new THREE.Vector3(x + lean * h + wob * Math.sin(h * 0.6), h, zz + (rnd() - 0.5) * 0.0 + wob * 0.3 * Math.sin(h * 0.4));
+      curve(tone, [0, 1.6, 3.4, 5.6, 8.5].map((h) => trunkAt(h)), r * 1.25, r * 0.55);
+      for (let f = 0; f < 3; f++) {   // the root flare
+        const a = rnd() * Math.PI * 2, L = r * (1.6 + rnd());
+        seg(tone, trunkAt(0.25 + rnd() * 0.15), new THREE.Vector3(x + Math.cos(a) * L, -0.04, zz + Math.sin(a) * L), r * 0.42, r * 0.12);
+      }
+      for (let k = Math.floor(rnd() * 3); k > 0; k--) {   // dead stubs where the lower branches broke off
+        const h = 1.2 + rnd() * 3.5, a = rnd() * Math.PI * 2, p0 = trunkAt(h);
+        seg(tone, p0, p0.clone().add(new THREE.Vector3(Math.cos(a) * (r + 0.12 + rnd() * 0.2), (rnd() - 0.3) * 0.2, Math.sin(a) * (r + 0.12 + rnd() * 0.2))), 0.035 + r * 0.08, 0.012);
+      }
+      // live branches over the trail: likelier from trees close to it, at their own heights
+      const nb = d < 2.7 ? (rnd() < 0.75 ? 1 + (rnd() < 0.3 ? 1 : 0) : 0) : rnd() < 0.3 ? 1 : 0;
+      for (let k = 0; k < nb; k++) {
+        const h = 2.0 + rnd() * 1.6 + r * 2, p0 = trunkAt(h), yaw = (rnd() - 0.5) * 1.1;
+        const dir = new THREE.Vector3(-side * Math.cos(yaw), 0, Math.sin(yaw));
+        const reach = Math.max(0.9, d - 0.35 - rnd() * 0.9 - r);   // how far toward the middle it gets
+        const tip = p0.clone().addScaledVector(dir, reach + r); tip.y = h - 0.15 - rnd() * 0.5;
+        keepOut(tip, p0);
+        const mid = p0.clone().addScaledVector(dir, (reach + r) * 0.45); mid.y = Math.max(h, tip.y) + 0.25 + rnd() * 0.35;
+        const pts = bez(p0, mid, tip, 4), rb = Math.min(r * 0.45, 0.07);
+        curve(tone, pts, rb, 0.012);
+        leaves(tip, 0.32 + rnd() * 0.25, li);
+        for (let f = 1 + Math.floor(rnd() * 2); f > 0; f--) {   // side forks, out and up a little, each with its own clump
+          const at = pts[1 + Math.floor(rnd() * 3)], fd = dir.clone().applyAxisAngle(Y, (rnd() < 0.5 ? -1 : 1) * (0.5 + rnd() * 0.6));
+          const fl = 0.35 + rnd() * 0.45, fe = at.clone().addScaledVector(fd, fl); fe.y += (rnd() - 0.3) * 0.3;
+          keepOut(fe, p0);
+          curve(tone, bez(at, at.clone().addScaledVector(fd, fl * 0.5).add(new THREE.Vector3(0, 0.12, 0)), fe, 2), rb * 0.5, 0.008);
+          leaves(fe, 0.18 + rnd() * 0.18, li);
+        }
+      }
+    }
+  }
+  return { wood, clusters };
+}
+
+// the bend's boulder: where it sits (on the straight line the trail no longer takes), and whether x, z is inside it
+const rockAt = (B) => B && { x: B.rockX ?? -B.x * 0.4, z: B.rockZ ?? (B.z0 + B.z1) / 2, r: B.rockR ?? 0.85 };
+const inRock = (x, z, B) => { const R = rockAt(B); return !!R && Math.hypot((x - R.x) / R.r, (z - R.z) / (R.r * 1.1)) < 1; };
+// with leafy: grass tufts and small ferns along the trail's edges, pebbles and twigs on the dirt, and dappled sunlight
+// (soft dark patches where the trees shade the trail) over the ground
+function groundDetail(g, S, rnd, free) {
+  const T = TRAIL, [G0, G1] = T.gully, E = T.edge, bx = (z) => trailX(z, S.bend);
+  const grassT = leafTex((c, w, h) => {
+    for (let i = 0; i < 26; i++) {
+      const x0 = 30 + rnd() * 68, lean = (x0 - 64) * 0.9 + (rnd() - 0.5) * 30, top = 10 + rnd() * 60, wd = 3 + rnd() * 3;
+      const sh = 170 + Math.round(rnd() * 85); c.fillStyle = `rgb(${sh},${sh},${sh})`;
+      c.beginPath(); c.moveTo(x0 - wd, 128); c.quadraticCurveTo(x0 + lean * 0.3, (128 + top) / 2, x0 + lean, top); c.quadraticCurveTo(x0 + lean * 0.3 + wd, (128 + top) / 2, x0 + wd, 128); c.fill();
+    }
+  });
+  const card = new THREE.PlaneGeometry(1, 1).translate(0, 0.5, 0), tufts = [], pebbles = [], twigs = [];
+  const onTrail = (z) => !(z < G0 + 0.15 && z > G1 - 0.15) && z > E + 0.4;
+  for (let z = E + 0.5; z < 40; z += 0.025) {
+    for (const side of [-1, 1]) {
+      const x = bx(z) + side * (0.7 + Math.pow(rnd(), 1.8) * 3.4);
+      if (!onTrail(z) || inRock(x, z, S.bend)) continue;
+      const hgt = 0.12 + rnd() * 0.16, wd = hgt * (1.1 + rnd() * 0.6), a = rnd() * Math.PI;
+      for (const k of [0, 1]) tufts.push([card, new THREE.Matrix4().compose(new THREE.Vector3(x, 0, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, a + k * Math.PI / 2, 0)), new THREE.Vector3(wd, hgt, 1))]);
+    }
+    if (rnd() < 0.5 && onTrail(z)) {   // pebbles and twigs on the dirt, mostly toward its edges
+      const x = bx(z) + (rnd() < 0.5 ? -1 : 1) * Math.pow(rnd(), 0.6) * 0.7, r = 0.012 + rnd() * 0.03;
+      if (rnd() < 0.8) pebbles.push([new THREE.DodecahedronGeometry(1, 0), M4(x, r * 0.35, z, r * 1.3, r * 0.6, r, rnd() * 6)]);
+      else twigs.push([new THREE.CylinderGeometry(0.006, 0.004, 1, 5), M4(x, 0.008, z, 1, 0.1 + rnd() * 0.18, 1, 0, Math.PI / 2, rnd() * 6)]);
+    }
+  }
+  const grassCol = new THREE.Color(S.grass || (S.leaf ? S.leaf[1] : "#73c25a"));
+  const gm = lam(grassCol, { map: grassT, alphaTest: 0.5, side: THREE.DoubleSide });
+  if (S.wind) gm.userData.wind = { amp: 0.06 * S.wind, h: 0.3, flutter: 1.2 };   // Phase 2: grass bends with the gusts
+  g.add(merged(tufts, gm, false));
+  if (pebbles.length) g.add(merged(pebbles, lam("#857a68")));
+  if (twigs.length) g.add(merged(twigs, lam("#6a4a30"), false));
+  // dappled light: soft shade patches on a plane just above the ground, darker in the middle, drifting nowhere
+  const dap = canvasTex(512, 512, (c, w, h) => {
+    for (let i = 0; i < 70; i++) {
+      const x = rnd() * w, y = rnd() * h, r = 20 + rnd() * 70, gr = c.createRadialGradient(x, y, r * 0.2, x, y, r);
+      gr.addColorStop(0, "rgba(30,24,8,0.6)"); gr.addColorStop(0.6, "rgba(30,24,8,0.45)"); gr.addColorStop(1, "rgba(40,30,10,0)");
+      c.fillStyle = gr; c.beginPath(); c.ellipse(x, y, r * 1.4, r, rnd() * 3, 0, 7); c.fill();
+    }
+  }, 6, 30);
+  for (const [z0, z1] of [[50, G0], [G1, E]]) {
+    const L = z0 - z1, m = new THREE.Mesh(new THREE.PlaneGeometry(12, L), new THREE.MeshBasicMaterial({ map: dap, transparent: true, depthWrite: false, fog: true }));
+    dap.repeat.set(2.4, L / 2); m.rotation.x = -Math.PI / 2; m.position.set(0, 0.006, (z0 + z1) / 2); m.renderOrder = 2; m.material.userData.noOutline = true; g.add(m);
+  }
 }
 
 export function buildTrail(scene, S = {}) {
@@ -90,8 +295,8 @@ export function buildTrail(scene, S = {}) {
     c.fillStyle = "#4f8f4e"; c.fillRect(0, 0, w, h);
     for (let i = 0; i < 2600; i++) { const v = rnd(); c.fillStyle = v < 0.45 ? `rgba(38,92,52,${0.5 + 0.3 * rnd()})` : v < 0.8 ? `rgba(98,160,78,${0.45 + 0.3 * rnd()})` : `rgba(150,190,96,0.5)`; c.beginPath(); c.arc(rnd() * w, rnd() * h, 4 + rnd() * 10, 0, 7); c.fill(); }
   }, 10, 10);
-  const valley = flat(new THREE.Mesh(new THREE.PlaneGeometry(500, 500), lam("#ffffff", { map: valleyTex }))); valley.rotation.x = -Math.PI / 2; valley.position.set(0, T.valley, -60); g.add(valley);
-  const lake = flat(new THREE.Mesh(new THREE.CircleGeometry(1, 48), lam("#5fb3e0", { emissive: new THREE.Color("#1f5a86") }))); lake.rotation.x = -Math.PI / 2; lake.scale.set(34, 20, 1); lake.position.set(-26, T.valley + 0.05, -70); g.add(lake);
+  const valley = flat(new THREE.Mesh(new THREE.PlaneGeometry(500, 500), lam("#ffffff", { map: valleyTex }))); valley.rotation.x = -Math.PI / 2; valley.position.set(0, T.valley, -60); valley.name = "trail-valley"; g.add(valley);
+  const lake = flat(new THREE.Mesh(new THREE.CircleGeometry(1, 48), lam("#5fb3e0", { emissive: new THREE.Color("#1f5a86") }))); lake.rotation.x = -Math.PI / 2; lake.scale.set(34, 20, 1); lake.position.set(-26, T.valley + 0.05, -70); lake.name = "trail-valley-lake"; g.add(lake);
   {
     const firs = [], firM = lam("#3b7d4c"), trunks = [];
     for (let i = 0; i < 260; i++) {
@@ -100,7 +305,7 @@ export function buildTrail(scene, S = {}) {
       firs.push([new THREE.ConeGeometry(0.42, 1, 8), M4(x, T.valley + s * 0.62, z, s, s * 1.3, s)]);
       trunks.push([new THREE.CylinderGeometry(0.06, 0.08, 1, 6), M4(x, T.valley + s * 0.12, z, s, s * 0.25, s)]);
     }
-    g.add(merged(firs, firM, false)); g.add(merged(trunks, lam("#6b4a32"), false));
+    const vf = merged(firs, firM, false), vt = merged(trunks, lam("#6b4a32"), false); vf.name = "trail-valley-firs"; vt.name = "trail-valley-trunks"; g.add(vf); g.add(vt);
   }
 
   // the cliff: a rough rock wall from the plateau's edge down to the valley, with a grassy lip and bushes on top
@@ -114,7 +319,7 @@ export function buildTrail(scene, S = {}) {
     geo.computeVertexNormals();
     const wall = new THREE.Mesh(geo, lam("#ffffff", { map: rockTex(rnd, "#a39280", 30, 8) })); wall.rotation.y = Math.PI; wall.position.set(0, -H / 2, E); wall.receiveShadow = true; wall.castShadow = true; g.add(wall);
     // the lip: a turf band along the edge, a little rounded over
-    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 140, 10, 1, false, 0, Math.PI), lam("#79b85a")); lip.rotation.z = Math.PI / 2; lip.position.set(0, -0.2, E + 0.2); lip.receiveShadow = true; g.add(lip);
+    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 140, 10, 1, false, 0, Math.PI), lam(S.lip || (S.moss && S.leaf ? S.leaf[1] : "#79b85a"))); lip.rotation.z = Math.PI / 2; lip.position.set(0, -0.2, E + 0.2); lip.receiveShadow = true; g.add(lip);
   }
 
   // the plateau's mossy ground, in two pieces either side of the gully, and the dirt trail along x 0
@@ -134,9 +339,12 @@ export function buildTrail(scene, S = {}) {
   }, 1, 1);
   const ground = (z0, z1) => {
     const L = z0 - z1, zc = (z0 + z1) / 2, mt = mossTex.clone(); mt.needsUpdate = true; mt.repeat.set(40, L / 3);
-    const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(120, L), lam("#ffffff", { map: mt }))); m.rotation.x = -Math.PI / 2; m.position.set(0, 0, zc); g.add(m);
+    const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(120, L), lam(S.moss || "#ffffff", { map: mt })));   // moss: a tint (to sit in a painted plate's forest) m.rotation.x = -Math.PI / 2; m.position.set(0, 0, zc); g.add(m);
     const dt = dirtTex.clone(); dt.needsUpdate = true; dt.repeat.set(1, L / 2.2);
-    const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.7, L), lam("#ffffff", { map: dt, transparent: true }))); d.rotation.x = -Math.PI / 2; d.position.set(0, 0.004, zc); d.renderOrder = 1; g.add(d);
+    // the dirt strip: straight, or bent sideways along the trail's middle where it meets S.bend (a ribbon of rows)
+    const rows = S.bend ? Math.max(1, Math.round(L * 12)) : 1, dg = new THREE.PlaneGeometry(1.7, L, 1, rows);
+    if (S.bend) { const P = dg.attributes.position; for (let i = 0; i < P.count; i++) { const z = zc - P.getY(i); P.setX(i, P.getX(i) * Math.cos((trailYaw(z, S.bend) * Math.PI) / 180) + trailX(z, S.bend)); } }
+    const d = flat(new THREE.Mesh(dg, lam("#ffffff", { map: dt, transparent: true }))); d.rotation.x = -Math.PI / 2; d.position.set(0, 0.004, zc); d.renderOrder = 1; g.add(d);
   };
   ground(60, G0); ground(G1, E);
 
@@ -192,9 +400,10 @@ export function buildTrail(scene, S = {}) {
   // the trail close by so they rush past the rider's view; mossy rocks
   {
     const trunkTex = canvasTex(128, 256, (c, w, h) => { c.fillStyle = "#8a6242"; c.fillRect(0, 0, w, h); for (let i = 0; i < 26; i++) { c.fillStyle = `rgba(60,40,26,${0.3 + 0.3 * rnd()})`; c.fillRect(rnd() * w, 0, 2 + rnd() * 4, h); } }, 2, 2);
-    const trunkM = lam("#ffffff", { map: trunkTex }), leaf = [lam("#5fae4c"), lam("#73c25a"), lam("#4c9a48")], firM = lam("#3e8b55");
+    const trunkM = lam("#ffffff", { map: trunkTex }), leaf = (S.leaf || ["#5fae4c", "#73c25a", "#4c9a48"]).map((c) => lam(c)), firM = lam("#3e8b55");
     const trunks = [], crowns = [[], [], []], firs = [], bushes = [[], [], []], rocks = [];
-    const free = (x, z, r) => Math.abs(x) > 1.05 + r && !(z < G0 + r + 0.2 && z > G1 - r - 0.2) && z > E + 0.6 + r;
+    const bx = (z) => trailX(z, S.bend);
+    const free = (x, z, r) => Math.abs(x - bx(z)) > 1.05 + r && !(z < G0 + r + 0.2 && z > G1 - r - 0.2) && z > E + 0.6 + r && !inRock(x, z, S.bend);
     for (let i = 0; i < 150; i++) {
       const side = i % 2 ? 1 : -1, near = i < 60, x = side * (near ? 1.6 + rnd() * 3 : 4 + rnd() * 18), z = E + 0.8 + rnd() * 52, s = 0.8 + rnd() * 0.6;
       if (!free(x, z, 0.5)) continue;
@@ -211,7 +420,7 @@ export function buildTrail(scene, S = {}) {
     // bushes and ferns right beside the trail (every half metre or so, with gaps), and a few rocks
     for (let z = E + 0.9; z < 40; z += 0.45 + rnd() * 0.5) for (const side of [-1, 1]) {
       if (rnd() < 0.25) continue;
-      const x = side * (1.0 + rnd() * 0.9), r = 0.22 + rnd() * 0.25;
+      const x = bx(z) + side * (1.0 + rnd() * 0.9), r = 0.22 + rnd() * 0.25;
       if (!free(x, z, 0.05)) continue;
       const li = Math.floor(rnd() * 3);
       for (let k = 0; k < 3; k++) bushes[li].push([new THREE.IcosahedronGeometry(1, 1), M4(x + (k - 1) * r * 0.7, r * 0.7, z + (rnd() - 0.5) * r, r, r * 0.8, r)]);
@@ -219,9 +428,26 @@ export function buildTrail(scene, S = {}) {
     }
     // a few bushes along the cliff's top edge, kept off the trail's end
     for (let x = -12; x < 12; x += 0.7 + rnd() * 0.6) { if (Math.abs(x) < 1.2) continue; const r = 0.25 + rnd() * 0.25; bushes[1].push([new THREE.IcosahedronGeometry(1, 1), M4(x, r * 0.6, E + 0.45 + rnd() * 0.4, r, r * 0.8, r)]); }
-    g.add(merged(trunks, trunkM)); g.add(merged(firs, firM));
-    crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
-    bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
+    // trees: false leaves the tall forest to a painted plate (set.plate.follow) and keeps the bushes along the trail
+    // the bend's boulder: a big mossy rock on the straight line, so the trail has a reason to swing round it, with
+    // bushes and ferns round its foot; it hides the cliff edge until the rider is round it
+    const R = rockAt(S.bend);
+    if (R) {
+      const geo = new THREE.IcosahedronGeometry(1, 3), P = geo.attributes.position, v = new THREE.Vector3(), rr = rng(41);
+      const bumps = Array.from({ length: 11 }, () => [new THREE.Vector3(rr() - 0.5, rr() - 0.25, rr() - 0.5).normalize(), 0.18 + rr() * 0.22]);
+      for (let i = 0; i < P.count; i++) {
+        v.fromBufferAttribute(P, i); let k = 1; for (const [d, a] of bumps) k += a * Math.max(0, v.dot(d)) ** 3;
+        k += 0.035 * Math.sin(v.x * 9 + v.y * 5) * Math.sin(v.z * 8 - v.y * 6) + 0.1 * Math.sin(v.x * 2.3 + v.z * 3.1 + 1) * Math.cos(v.y * 2.7 - v.z * 1.9);
+        if (v.y > 0.45) v.y = 0.45 + (v.y - 0.45) * 0.45;   // a broad, flattish top, not a ball
+        v.multiplyScalar(k); if (v.y < -0.35) v.y = -0.35 + (v.y + 0.35) * 0.2; P.setXYZ(i, v.x, v.y, v.z);
+      }
+      geo.computeVertexNormals();
+      const rock = new THREE.Mesh(geo, lam("#ffffff", { map: rockTex(rnd, "#8e8574", 2, 2) })); rock.scale.set(R.r * 1.0, (S.bend.rockH ?? 1.1) * 0.8, R.r * 1.1); rock.position.set(R.x, 0.22, R.z); rock.rotation.y = 0.35; rock.castShadow = rock.receiveShadow = true; g.add(rock);
+      for (let k = 0; k < 9; k++) { const a = (k / 9) * Math.PI * 2 + 0.3, x = R.x + Math.cos(a) * R.r * 1.02, z = R.z + Math.sin(a) * R.r * 0.92, r = 0.2 + rnd() * 0.18; if (Math.abs(x - bx(z)) < 0.75) continue; const li = k % 3; for (let j = 0; j < 2; j++) bushes[li].push([new THREE.IcosahedronGeometry(1, 1), M4(x + (j - 0.5) * r * 0.6, r * 0.7, z, r, r * 0.8, r)]); }
+    }
+    if (S.trees !== false) { g.add(merged(trunks, trunkM)); g.add(merged(firs, firM)); crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i]))); }
+    if (S.leafy) { leafyBushes(g, bushes, S, rng((S.seed || 7) * 977)); groundDetail(g, S, rng((S.seed || 7) * 613), free); }   // leaves instead of smooth blobs (Jonny 31 Oct: "green clouds")
+    else bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
     if (rocks.length) g.add(merged(rocks, lam("#a8a296")));
   }
   return g;

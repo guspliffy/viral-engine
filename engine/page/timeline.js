@@ -686,6 +686,21 @@ export function cameraState(sb, t) {
       look = [pos[0] + Math.sin(yaw) * Math.cos(pitch) * r, pos[1] + Math.sin(pitch) * r, pos[2] + Math.cos(yaw) * Math.cos(pitch) * r];
     }
   }
+  // yaw: { keys: [[t, degrees, x], ...] (clip time; eased inOut between keys unless ease: "linear"; + turns left; x
+  // slides the lens sideways), pivot }: the view swings round a point `pivot` metres ahead of the lens (a rider's bike turning under him: a skid round a bend) while the move goes on
+  if (s.yaw) {
+    const K = s.yaw.keys || s.yaw, i = K.findIndex((k) => k[0] > t), E = ease(s.yaw.ease || "inOut");
+    const at = (j) => (i === 0 ? K[0][j] ?? 0 : i < 0 ? K.at(-1)[j] ?? 0 : lerp(K[i - 1][j] ?? 0, K[i][j] ?? 0, E(prog(t, K[i - 1][0], K[i][0] - K[i - 1][0]))));
+    const deg = at(1), dx = at(2);   // [t, degrees, x]: the third value slides the lens sideways (a rider following a bend)
+    if (dx) { pos = [pos[0] + dx, pos[1], pos[2]]; look = [look[0] + dx, look[1], look[2]]; }
+    if (deg) {
+      const a = (deg * Math.PI) / 180, c = Math.cos(a), sn = Math.sin(a), d = [look[0] - pos[0], look[2] - pos[2]], h = Math.hypot(d[0], d[1]) || 1;
+      const pv = s.yaw.pivot ?? 0, P = [pos[0] + (d[0] / h) * pv, pos[2] + (d[1] / h) * pv];
+      // a turn of +a about y: (x, z) -> (x c + z s, -x s + z c), round the pivot
+      const rot = ([x, y, z]) => { const u = x - P[0], w = z - P[1]; return [P[0] + u * c + w * sn, y, P[1] - u * sn + w * c]; };
+      pos = rot(pos); look = rot(look);
+    }
+  }
   // handheld: a shot carried by someone walking or running ({ rate: footfalls a second, bob, sway: metres, roll:
   // degrees, dips: [[t, metres, dur], ...] a startled drop of the hands at clip time t}). The bob rises between
   // footfalls, the sway and roll swing once a stride, and a slow drift keeps it from looking mechanical; every wave is

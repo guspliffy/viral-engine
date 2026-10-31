@@ -11,7 +11,14 @@ import { rad, loopNow } from "./util.js";
 //                 motion: "<name>.motion.png" (red = leaves sway, green = sunlight shimmers),
 //                 dust: 40 (motes floating in the light; default 40 in golden light, else 0),
 //                 dustBox: [[x0, y0, z0], [x1, y1, z1]] (default: the upper middle, a little in front of the plate),
-//                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0" }
+//                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0",
+//                 follow: { push: 0.04, shift: [0, 0], cover: 1.04 } (a backdrop that rides with the camera: it fills
+//                 the frame behind everything, always facing the lens, for a long ride the picture can't hold still
+//                 for; push grows it by that fraction a second, shift moves it in frame heights. No relief, no dust.
+//                 swap: { at, src, fog: [colour, near, far] | false, fade: 0.6 } changes the picture by a cut (a new
+//                 place) with its own fog, fading it in over the fade seconds before at; hide: "trail-valley" hides
+//                 the set's meshes whose name starts with it, for a picture that paints them; pan: 0.4, panRef: 180
+//                 slides the picture when the lens swings off that heading, like a far background) }
 //   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
 //                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
 //                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
@@ -31,6 +38,7 @@ export function addPlate(scene, P, ctx = {}) {
   const tex = (src) => new THREE.TextureLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
   const loads = [tex(P.src), P.depth && tex(P.depth), P.motion && tex(P.motion)];
   P = { eye: ctx.eye, ...P };
+  if (P.follow) return followPlate(scene, mesh, mat, loads, P);
   const load = Promise.all(loads).then(([map, depth, motion]) => {
     map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 4;
     const w = h * map.image.width / map.image.height;
@@ -46,6 +54,60 @@ export function addPlate(scene, P, ctx = {}) {
     const half = h * 0.4, box = [[x - half * 0.56, y, z + 0.5], [x + half * 0.56, y + half, z + 1.0]];
     dust(scene, { dustBox: box, ...P, dust: motes });
   }
+  return mesh;
+}
+
+// a painted backdrop pinned to the camera: drawn first and behind everything (no depth), sized to cover the view
+// (the set's own sky domes and painted rings, back-facing and unfogged, are hidden; fog: [colour, near, far] fades
+// the 3D ground into the picture)
+function followPlate(scene, mesh, mat, loads, P) {
+  const F = P.follow === true ? {} : P.follow, now = { t: 0 }, v = new THREE.Vector3(), dir = new THREE.Vector3();
+  scene.traverse((o) => { if (o !== mesh && o.isMesh && o.material?.side === THREE.BackSide && o.material.fog === false) o.visible = false; });
+  if (F.fog) scene.fog = new THREE.Fog(...F.fog);
+  (globalThis.__setTicks ||= []).push((t) => { now.t = t; });
+  Object.assign(mat, { depthTest: false, depthWrite: false });
+  mesh.renderOrder = -1000; mesh.frustumCulled = false; mesh.receiveShadow = false;
+  const W = F.swap, fogs = [scene.fog, W && (W.fog ? new THREE.Fog(...W.fog) : null)], aspects = [9 / 16, 9 / 16];
+  // the second picture rides on its own plate over the first and fades in over swap.fade seconds before swap.at
+  // (custom blending keeps it in the opaque pass, drawn right after the first: a transparent one would cover the stage)
+  const mat2 = W && new THREE.MeshBasicMaterial({ fog: false, toneMapped: false, opacity: 0, depthTest: false, depthWrite: false,
+    blending: THREE.CustomBlending, blendSrc: THREE.SrcAlphaFactor, blendDst: THREE.OneMinusSrcAlphaFactor, blendSrcAlpha: THREE.ZeroFactor, blendDstAlpha: THREE.OneFactor });
+  const mesh2 = W && new THREE.Mesh(mesh.geometry, mat2);
+  if (W) { mat2.userData.noOutline = true; mesh2.name = "set-plate-2"; mesh2.renderOrder = -999; mesh2.frustumCulled = false; scene.add(mesh2); }
+  const load = Promise.all([...loads, W && new THREE.TextureLoader().loadAsync(`/${W.src.replace(/^\/+/, "")}`)]).then(([map, , motion, map2]) => {
+    map.colorSpace = THREE.SRGBColorSpace; mat.map = map; aspects[0] = map.image.width / map.image.height;
+    if (map2) { map2.colorSpace = THREE.SRGBColorSpace; mat2.map = map2; aspects[1] = map2.image.width / map2.image.height; mat2.needsUpdate = true; }
+    if (motion) animate(mat, motion, map.image.width);
+    mat.needsUpdate = true;
+  });
+  (globalThis.__loads ||= []).push(load);
+  if (F.hide) scene.traverse((o) => { if (o.name?.startsWith(F.hide)) o.visible = false; });
+  const place = (m, aspect, cam) => {
+    const d = (cam.near + cam.far) / 2, viewH = 2 * d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
+    const k = Math.max(viewH, viewH * cam.aspect / aspect) * (F.cover ?? 1.04) * (1 + (F.push ?? 0) * now.t);
+    let [sx, sy] = F.shift || [0, 0];
+    // pan: when the lens turns away from the heading the picture faces (panRef, degrees, atan2(x, z) of the view), the
+    // picture slides the other way by pan x the turn (1 = as far as a distant background would), up to 60° off
+    if (F.pan) {
+      cam.getWorldDirection(dir);
+      let dh = Math.atan2(dir.x, dir.z) - THREE.MathUtils.degToRad(F.panRef ?? 180);
+      dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+      const hfov = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect);
+      if (Math.abs(dh) < Math.PI / 3) sx += F.pan * (dh / hfov) * cam.aspect;
+    }
+    m.quaternion.copy(cam.quaternion);
+    m.position.copy(cam.position).add(v.set(sx * viewH, sy * viewH, -d).applyQuaternion(cam.quaternion));
+    m.scale.set(k * aspect, k, 1);
+    m.updateMatrixWorld();
+  };
+  mesh.onBeforeRender = (r, s, cam) => {
+    place(mesh, aspects[0], cam);
+    if (!W) return;
+    const f = W.fade ? THREE.MathUtils.smoothstep(now.t, W.at - W.fade, W.at) : now.t >= W.at - 1e-4 ? 1 : 0;   // a function of time only
+    mat2.opacity = f; mesh2.visible = f > 0;
+    s.fog = now.t >= W.at - 1e-4 ? fogs[1] : fogs[0];
+    if (f > 0) place(mesh2, aspects[1], cam);
+  };
   return mesh;
 }
 

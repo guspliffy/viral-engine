@@ -128,7 +128,7 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     this.potatoParts.add(this.face.group);
 
     // limbs

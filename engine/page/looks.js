@@ -9,6 +9,7 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
+import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -175,10 +176,31 @@ function stepRamp(at, v, soft) {
 // point is (0 in shadow .. 1 lit, the cast shadow included); lit areas get the material colour with a warm light
 // tint, shadows the same colour multiplied by a hue-shifted shade (warm for skin, cool for the set), so shadows stay
 // rich instead of grey. A gentle gradient inside the light, a crisp rim on the lit edge and optional glossy spec.
+let PAINT = null;   // the drawn look's painted shadow edges (drawn.js), set by the look for the materials it converts
+// wind (Phase 2, living world): a set material with userData.wind = { amp (m), h (m: full sway at this height above
+// the ground, 0 = everywhere: leaves), flutter (Hz-ish, leaves shiver faster than grass bends) } sways in the vertex
+// shader. Gusts roll across the ground; everything is a function of the frame time (deterministic)
+const WIND_T = { value: 0 };
+(globalThis.__setTicks ||= []).push((t) => { WIND_T.value = t; });
+function windVertex(sh, w) {
+  sh.uniforms.uWindT = WIND_T;
+  sh.vertexShader = sh.vertexShader.replace("void main() {", "uniform float uWindT;\nvoid main() {").replace("#include <begin_vertex>", `#include <begin_vertex>
+  {
+    vec3 wp = (modelMatrix * vec4(transformed, 1.0)).xyz;
+    float h = ${w.h ? `clamp(wp.y / ${(+w.h).toFixed(3)}, 0.0, 1.0)` : "1.0"}, ph = dot(wp.xz, vec2(0.71, 1.31));
+    float gust = 0.55 + 0.45 * sin(uWindT * 0.9 - wp.z * 0.35 + 0.6 * sin(wp.x * 0.4));
+    float f = ${(+(w.flutter ?? 1)).toFixed(3)};
+    vec2 sway = vec2(sin(uWindT * 1.7 * f + ph) + 0.45 * sin(uWindT * 4.1 * f + ph * 2.3), 0.6 * sin(uWindT * 1.3 * f + ph * 1.7));
+    transformed.x += sway.x * ${(+w.amp).toFixed(4)} * h * h * gust;
+    transformed.z += sway.y * ${(+w.amp).toFixed(4)} * h * h * gust;
+  }`);
+}
 function patchToon(m, o) {
+  const paint = PAINT;
   m.onBeforeCompile = (sh) => {
+    if (o.wind) windVertex(sh, o.wind);
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
-    sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
+    sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec }; sh.uniforms.uSpecW = { value: o.specW ?? 0 };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
     sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
@@ -189,7 +211,7 @@ function patchToon(m, o) {
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -218,15 +240,16 @@ function patchToon(m, o) {
           // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
-          col += uSpec * smoothstep(0.97 - sw, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);
+          col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
           col += uBack * smoothstep(0.35, 0.9, fr) * clamp(dot(normal, uBackDir) * 1.3, 0.0, 1.0) * min(base * 2.0 + 0.15, vec3(1.0));
           outgoingLight = col + totalEmissiveRadiance;
         }
         #endif
         #include <opaque_fragment>`);
+    if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -360,7 +383,9 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null }) {
+  const D = drawnSpec(drawn);
+  PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
@@ -370,6 +395,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   R.shadowMap.type = THREE.PCFShadowMap;
 
   const charRamp = golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
+  // set.shade "soft" (look-match test, 31 Oct): rounded, film-like shading on the cast instead of the cel bands: a wide
+  // soft ramp, more gradient across the body, a soft gloss and a stronger warm back edge (Jonny's AI boards)
+  const soft = setSpec?.shade === "soft";
+  if (soft) { charRamp.dispose(); clothRamp.dispose(); }
+  const charR = soft ? smoothRamp(0.12, 1, 0.36, 0.3) : charRamp, clothR = soft ? smoothRamp(0.05, 1, 0.5, 0.3) : clothRamp;
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -407,6 +437,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       cloth: { ...ROLE.cloth, lit: [1.05, 0.84, 0.82], shade: [0.46, 0.36, 0.62], back: "#d8501c", backDir: back.backDir },
       wood: { ...ROLE.wood, lit: [1.08, 0.86, 0.74], shade: [0.5, 0.36, 0.6] },
       set: { ...ROLE.set, lit: [0.9, 0.78, 0.78], shade: [0.42, 0.34, 0.6] },
+    });
+  }
+  if (soft) {
+    const back = { back: "#ffd98a", backDir: [-0.9, 0.55, -0.3] };
+    Object.assign(ROLE, {
+      skin: { ...ROLE.skin, lit: [1.1, 1.24, 0.9], shade: [0.98, 0.92, 0.66], grad: 0.28, occ: 0.2, spec: 0.07, specW: 0.12, ...back },
+      char: { ...ROLE.char, grad: 0.22, spec: 0.12 },
+      cloth: { ...ROLE.cloth, grad: 0.22, occ: 0.24, rimK: 0.1 },
     });
   }
   // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
@@ -453,11 +491,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         t = new THREE.MeshBasicMaterial({ color: RC[role] || "#ff0000", side: m.side }); t.userData.outlineParameters = noLine; cache.set(m, t); made.add(t); return t;
       }
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothR : charR, side: m.side, transparent: m.transparent, opacity: m.opacity, alphaTest: m.alphaTest || 0,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
@@ -495,6 +534,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
+  // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
+  const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean)), D.brush) : null;
+  if (lines) { fx.enabled = false; composer.addPass(lines); }
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
   // while the room behind and the floor in front soften
@@ -513,6 +555,19 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // old wide warm glow over everything, which veiled the faces
   if (golden && setSpec.bloom === "haze") composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.8, 0.95));
   else if (setSpec.bloom !== false) composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
+  // the drawn look's diffusion glow: a soft halo round everything light, the anime film's compositing filter
+  // it grows only from the set (the lines' ink flag masks the characters out of its source), so a window or the sky
+  // glows over a character's edge while the eye whites and faces stay clean
+  if (D && D.brush && D.brush.glow > 0) {
+    const glow = new UnrealBloomPass(new THREE.Vector2(W, H), D.brush.glow, 0.7, 0.62), hp = glow.materialHighPassFilter;
+    if (lines) {
+      hp.uniforms.tInk = { value: lines.nd.texture };
+      hp.fragmentShader = hp.fragmentShader.replace("uniform sampler2D tDiffuse;", "uniform sampler2D tDiffuse, tInk;")
+        .replace("gl_FragColor = mix( outputColor, texel, alpha );", "gl_FragColor = mix( outputColor, texel, alpha * (1.0 - step(0.9, texture2D( tInk, vUv ).a)) );");
+      if (!hp.fragmentShader.includes("tInk, vUv")) throw new Error("drawn glow: three's bloom high pass changed, the character mask no longer applies");
+    }
+    composer.addPass(glow);
+  }
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
@@ -523,7 +578,23 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.contrast.value = 1.05; grade.uniforms.saturation.value = 1.03; grade.uniforms.vignette.value = 0.08;
     grade.uniforms.shadowTint.value.set(0.02, 0.0, -0.01); grade.uniforms.highTint.value.set(0.035, 0.015, -0.025);
   }
+  if (setSpec?.grade === "warm") {
+    // the AI boards' grade: richer colour, a little more contrast, warm highlights, a soft dark edge
+    grade.uniforms.contrast.value = 1.1; grade.uniforms.saturation.value = 1.16; grade.uniforms.vignette.value = 0.26;
+    grade.uniforms.highTint.value.set(0.05, 0.02, -0.035); grade.uniforms.shadowTint.value.set(0.02, -0.005, -0.015);
+  }
   composer.addPass(grade);
+  if (D && D.paper) {
+    const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
+    paper.uniforms.res.value.set(W * pr, H * pr); paper.uniforms.grain.value = D.paper.grain; paper.uniforms.wash.value = D.paper.wash; paper.uniforms.pool.value = D.paper.pool;
+    composer.addPass(paper);
+  }
+  const speed = D && D.speed ? new ShaderPass(SpeedShader) : null;
+  if (speed) {
+    Object.assign(speed.uniforms, { inner: { value: D.speed.inner }, outer: { value: D.speed.outer } });
+    speed.uniforms.center.value.set(...D.speed.center); speed.uniforms.aspect.value = W / H; composer.addPass(speed);
+    if (lines) { speed.uniforms.tInk.value = lines.nd.texture; speed.uniforms.useInk.value = 1; }
+  }
 
   return {
     prepare(scene, t, focusPoint) {
@@ -538,6 +609,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
+      if (lines) lines.seed = drawingNo(D, t ?? 0) % 997;
+      if (speed) { const S = D.speed, u = t ?? 0, f = Math.min(1, Math.max(0, (u - S.from) / S.fade), Math.max(0, (S.until - u) / S.fade)); speed.uniforms.amount.value = S.amount * f; speed.enabled = f > 0; }
       if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set

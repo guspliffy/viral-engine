@@ -11,12 +11,14 @@ import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
+import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
+let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
 // a point in a character's own parent frame (a rig, or the world) in the world
@@ -52,6 +54,7 @@ function buildPoof(f, i) {
   const smokeTex = radialTexture([[0, "rgba(255,255,255,0.95)"], [0.5, "rgba(255,255,255,0.6)"], [1, "rgba(255,255,255,0)"]]);
   const puffs = Array.from({ length: f.puffs ?? 26 }, () => {
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, color: f.color || "#ffffff", transparent: true, depthWrite: false }));
+    s.userData.inkVeil = true;   // the drawn look's lines stop where the puff is thick (drawn.js)
     g.add(s);
     const a = rnd() * Math.PI * 2, el = (rnd() - 0.2) * 1.2;
     return { s, dir: new THREE.Vector3(Math.cos(a) * Math.cos(el), Math.abs(Math.sin(el)) * 0.8 + 0.2, Math.sin(a) * Math.cos(el) * 0.6), dist: 0.35 + rnd() * 0.55, size: 0.35 + rnd() * 0.45, delay: rnd() * 0.08 };
@@ -340,7 +343,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
     const img = new Image(); plateShots.set(s.plate, img);
@@ -393,7 +396,7 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -404,7 +407,10 @@ async function init(data) {
 }
 
 // places characters, effects and camera for time t without drawing anything
-function pose(t) {
+function pose(t0) {
+  // the drawn look on 2s (drawn.js): everything holds each drawing for 2 frames, the camera too unless the storyboard
+  // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
+  const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
@@ -528,14 +534,14 @@ function pose(t) {
     a.ch.root.updateMatrixWorld(true); q.root.updateMatrixWorld(true);
     p.aim(F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()), q.root.localToWorld(new THREE.Vector3(...(p.spec.at || [0, 0, 0]))));
   }
-  const L = lightsAt(sb, t);
+  const L = lightsAt(sb, tc);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
   if (bulb) bulb.o.material.color.copy(bulb.base).multiplyScalar(0.12 + 0.88 * Math.min(1, L.lamp));
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
-  const cam = cameraState(sb, t);
+  const cam = cameraState(sb, tc);
   // a shot with "rig" is fixed to that rig: its pos and look are in the rig's frame, and its up turns with it
-  const shot = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
+  const shot = (sb.shots || []).filter((q) => q.at <= tc).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
   const cp = new THREE.Vector3().fromArray(cam.pos), cl = new THREE.Vector3().fromArray(cam.look);
   if (V) { cp.applyMatrix4(V.g.matrixWorld); cl.applyMatrix4(V.g.matrixWorld); camera.up.set(0, 1, 0).transformDirection(V.g.matrixWorld); }
   else camera.up.set(0, 1, 0);
@@ -559,8 +565,12 @@ function pose(t) {
   for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
 }
 
+let drawnQ = null, smearRaw = false;   // smearRaw: pose() takes the time as given (the in-betweens of a smear drawing)   // the held drawing on the canvas (drawn look on 2s): a frame that shows the same drawing only redraws the captions
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
+  const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null;
+  if (q !== null && q === drawnQ) { composite(t); return true; }
+  drawnQ = null;
   pose(t);
   // impact frame: characters as solid black silhouettes on white, like a manga panel (drawn in 3D, so it works on any set)
   if ((sb.fx || []).some((f) => f.do === "impact" && fxActive(f, t))) {
@@ -582,6 +592,7 @@ function frame(t) {
     styler.render(scene, camera);
     if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
   }
+  drawnQ = q;
   composite(t);
   return true;
 }
@@ -682,6 +693,64 @@ function stateHash(t, samples = []) {
 }
 globalThis.__noGeomCache = new URLSearchParams(location.search).has("nocache");   // experiment: rebuild brows and glove skins every frame
 function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
+// the drawn look's smear (drawn.smear): a drawing whose characters or props travel more than S.min px since the
+// drawing before it gets a trail of fading in-betweens behind it, posed at the real times in between, so the trail
+// follows the move's own arc. The drawing itself stays solid on top (its silhouette is the mask); only while the
+// camera holds still (a moving camera would trail the whole set), never across a cut, impact frame or flash (S.walls,
+// story time). The next frame of the same drawing redraws and smears again, so the held drawing stays the same.
+function smear(t, S) {
+  if (!drawnD || drawnD.twos <= 1) return false;
+  const ones = drawnD.ones.some(([a, b]) => t >= a - 1e-6 && t < b), td = onTwos(drawnD, t), q = (ones ? 1 : drawnD.twos) / (sb.fps || 30);
+  const t0 = Math.max(0, td - q * S.span);
+  if (t0 >= td - 1e-6 || (S.walls || []).some((w) => w > t0 + 1e-6 && w <= td + 1e-6)) return false;
+  if ((sb.fx || []).some((f) => (f.do === "impact" || f.do === "photo") && fxActive(f, t))) return false;
+  smearRaw = true;
+  try {
+    pose(t0); camera.updateMatrixWorld(true); const cam0 = camera.matrixWorld.clone(), A = corners();
+    pose(td); camera.updateMatrixWorld(true); const B = corners();
+    let dc = 0; for (let i = 0; i < 16; i++) dc = Math.max(dc, Math.abs(camera.matrixWorld.elements[i] - cam0.elements[i]));
+    if (dc > 1e-3) return false;
+    let m = 0;
+    for (const [o, pb] of B) { const pa = A.get(o); if (pa) for (let i = 0; i < pb.length; i++) if (pa[i] && pb[i]) m = Math.max(m, Math.hypot(pa[i][0] - pb[i][0], pa[i][1] - pb[i][1])); }
+    if (m < S.min) return false;
+    const cur = ctx.getImageData(0, 0, W, H).data;
+    // the drawing's silhouette (characters and props, black on white), the same way an impact frame draws them
+    const bg = scene.background, fog = scene.fog, glows = inkGlows(), shown = setObjs.filter((o) => o.visible), puffs = poofs.filter((p) => p.g.visible);
+    for (const o of shown) o.visible = false;
+    for (const p of puffs) p.g.visible = false;
+    scene.background = new THREE.Color("#ffffff"); scene.fog = null; scene.overrideMaterial = inkMat;
+    R.render(scene, camera);
+    scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
+    for (const o of shown) o.visible = true;
+    for (const p of puffs) p.g.visible = true;
+    for (const o of glows) o.visible = true;
+    ctx.drawImage(R.domElement, 0, 0, W, H);
+    const mask = ctx.getImageData(0, 0, W, H).data;
+    // the in-betweens, oldest first, each a little stronger
+    const acc = new Float32Array(cur.length); let wsum = 1;
+    for (let i = 0; i < cur.length; i++) acc[i] = cur[i];
+    for (let k = 0; k < S.n; k++) {
+      const ts = t0 + ((td - t0) * k) / S.n, w = S.ghost * (k + 1) / S.n;
+      pose(ts);
+      const progs = R.info.programs.length;
+      styler.prepare(scene, ts); styler.render(scene, camera);
+      if (R.info.programs.length !== progs) { styler.prepare(scene, ts); styler.render(scene, camera); }
+      composite(t);
+      const g = ctx.getImageData(0, 0, W, H).data;
+      for (let i = 0; i < g.length; i++) acc[i] += g[i] * w;
+      wsum += w;
+    }
+    const img = ctx.createImageData(W, H), out = img.data;
+    for (let i = 0; i < out.length; i += 4) {
+      const a = 1 - mask[i] / 255;
+      for (let c = 0; c < 3; c++) out[i + c] = a * cur[i + c] + (1 - a) * acc[i + c] / wsum;
+      out[i + 3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    drawnQ = null;   // the canvas no longer holds this drawing: its next frame draws (and smears) it again
+    return true;
+  } finally { smearRaw = false; }
+}
 function blur(times, keep) {
   const n = times.length + (keep ? 1 : 0);
   let acc = null;
@@ -1355,7 +1424,7 @@ const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o ==
 window.ENGINE = {
   init, sync, capture, motion, movingBox,
   frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
-  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), trace: (t, thin) => trace(st(t), thin),
+  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
   stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
 };
 window.ENGINE_READY = true;
