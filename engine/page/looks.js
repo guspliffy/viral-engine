@@ -177,9 +177,28 @@ function stepRamp(at, v, soft) {
 // tint, shadows the same colour multiplied by a hue-shifted shade (warm for skin, cool for the set), so shadows stay
 // rich instead of grey. A gentle gradient inside the light, a crisp rim on the lit edge and optional glossy spec.
 let PAINT = null;   // the drawn look's painted shadow edges (drawn.js), set by the look for the materials it converts
+// wind (Phase 2, living world): a set material with userData.wind = { amp (m), h (m: full sway at this height above
+// the ground, 0 = everywhere: leaves), flutter (Hz-ish, leaves shiver faster than grass bends) } sways in the vertex
+// shader. Gusts roll across the ground; everything is a function of the frame time (deterministic)
+const WIND_T = { value: 0 };
+(globalThis.__setTicks ||= []).push((t) => { WIND_T.value = t; });
+function windVertex(sh, w) {
+  sh.uniforms.uWindT = WIND_T;
+  sh.vertexShader = sh.vertexShader.replace("void main() {", "uniform float uWindT;\nvoid main() {").replace("#include <begin_vertex>", `#include <begin_vertex>
+  {
+    vec3 wp = (modelMatrix * vec4(transformed, 1.0)).xyz;
+    float h = ${w.h ? `clamp(wp.y / ${(+w.h).toFixed(3)}, 0.0, 1.0)` : "1.0"}, ph = dot(wp.xz, vec2(0.71, 1.31));
+    float gust = 0.55 + 0.45 * sin(uWindT * 0.9 - wp.z * 0.35 + 0.6 * sin(wp.x * 0.4));
+    float f = ${(+(w.flutter ?? 1)).toFixed(3)};
+    vec2 sway = vec2(sin(uWindT * 1.7 * f + ph) + 0.45 * sin(uWindT * 4.1 * f + ph * 2.3), 0.6 * sin(uWindT * 1.3 * f + ph * 1.7));
+    transformed.x += sway.x * ${(+w.amp).toFixed(4)} * h * h * gust;
+    transformed.z += sway.y * ${(+w.amp).toFixed(4)} * h * h * gust;
+  }`);
+}
 function patchToon(m, o) {
   const paint = PAINT;
   m.onBeforeCompile = (sh) => {
+    if (o.wind) windVertex(sh, o.wind);
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec }; sh.uniforms.uSpecW = { value: o.specW ?? 0 };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
@@ -476,7 +495,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus

@@ -582,6 +582,17 @@ function ambience(type, seconds, r, fade = 0.3) {
   } else if (type === "apartment") { // a quiet flat in the afternoon: soft room tone, a faint far-off street now and then
     const lp = biquad("lp", 260, 0.6), lp2 = biquad("lp", 900, 0.7);
     for (let i = 0; i < n; i++) { const t = i / SR; x[i] = run(lp, r() * 2 - 1) * 0.14 + run(lp2, r() * 2 - 1) * 0.025 * (0.6 + 0.4 * Math.sin(TAU * 0.11 * t)); }
+  } else if (type === "trail") { // a sunny forest (Phase 2, living world): leaves rustling in gusts, songbirds, a far woodpecker
+    const hiss = biquad("bp", 3200, 0.5), body = biquad("bp", 900, 0.6), low = biquad("lp", 260, 0.7);
+    for (let i = 0; i < n; i++) { const t = i / SR, gust = 0.55 + 0.45 * Math.sin(0.9 * t + 1.2); x[i] = run(hiss, r() * 2 - 1) * 0.1 * gust * gust + run(body, r() * 2 - 1) * 0.05 * gust + run(low, r() * 2 - 1) * 0.1; }
+    // songbird phrases: three to six quick notes stepping round a pitch, with a trill on the last
+    for (let k = 0; k < Math.floor(seconds / 1.8) + 1; k++) {
+      let a = Math.round((0.3 + r() * (seconds - 1)) * SR); const f0 = 2600 + r() * 1600, notes = 3 + Math.floor(r() * 4), g = 0.06 + r() * 0.05;
+      for (let j = 0; j < notes; j++) { const f = f0 * (1 + 0.18 * Math.sin(j * 2.1 + k)), d = 0.05 + r() * 0.05, tr = j === notes - 1 ? 38 : 0;
+        for (let i = 0; i < d * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (f + 400 * Math.sin(TAU * tr * t) + 600 * t / d) * t) * env(t, 0.004, d * 0.4, d) * g; }
+        a += Math.round((d + 0.03 + r() * 0.04) * SR); }
+    }
+    const wp = 1 + r() * Math.max(0.5, seconds - 3); for (let j = 0; j < 9; j++) { const a = Math.round((wp + j * 0.055) * SR); for (let i = 0; i < 0.03 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += (Math.sin(TAU * 900 * t) * 0.5 + (r() * 2 - 1) * 0.5) * Math.exp(-t / 0.006) * 0.08 * (1 - j / 12); } }
   } else { // meadow and anything else: a breeze and a few birds
     const lp = biquad("lp", 500, 0.7);
     for (let i = 0; i < n; i++) x[i] = run(lp, r() * 2 - 1) * 0.15;

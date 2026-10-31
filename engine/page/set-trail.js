@@ -96,10 +96,24 @@ function leafyBushes(g, bushes, S, rnd) {
         ferns.push([card, new THREE.Matrix4().compose(new THREE.Vector3(p.x + Math.sin(a) * sc.x * 0.9, 0.08, p.z + Math.cos(a) * sc.z * 0.9), fq, new THREE.Vector3(L * 0.55, L, 1))]);
       }
     }
+    // overhang (Phase 2): leafy branch ends reaching over the trail edges at head height, so the rider's view passes
+    // under and beside near leaves (the closest layer of depth); a share of them goes into each colour's leaves
+    if (S.overhang && li < 3) for (let z = 12 - li * 1.2; z > TRAIL.edge + 1.5; z -= 3.6 + rnd() * 1.5) {
+      if (z < TRAIL.gully[0] + 0.3 && z > TRAIL.gully[1] - 0.3) continue;
+      const side = rnd() < 0.5 ? -1 : 1, base = new THREE.Vector3(trailX(z, S.bend) + side * (1.05 + rnd() * 0.35), 1.55 + rnd() * 0.45, z);
+      const twig = new THREE.Vector3(-side * (0.35 + rnd() * 0.25), -0.12 - rnd() * 0.12, (rnd() - 0.5) * 0.4);
+      for (let k = 0; k < 46; k++) {
+        const a = rnd(), at = base.clone().addScaledVector(twig, a).add(new THREE.Vector3((rnd() - 0.5) * 0.32, (rnd() - 0.5) * 0.22 - a * 0.08, (rnd() - 0.5) * 0.32));
+        n.set(rnd() - 0.5, 0.3 + rnd(), rnd() - 0.5).normalize(); q.setFromUnitVectors(up, n); e.set((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2, rnd() * 6.3);
+        const s = 0.12 + rnd() * 0.08; cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(new THREE.Quaternion().setFromEuler(e)), new THREE.Vector3(s, s, s))]);
+      }
+    }
     const coreParts = cards.filter(([geo]) => geo !== card), leafParts = cards.filter(([geo]) => geo === card);
     g.add(merged(coreParts, lam(core)));
-    g.add(merged(leafParts, lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide })));
-    if (ferns.length) g.add(merged(ferns, lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide }), false));
+    const lm = lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide }), fm = lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide });
+    if (S.wind) { lm.userData.wind = { amp: 0.018 * S.wind, h: 0, flutter: 1.8 }; fm.userData.wind = { amp: 0.05 * S.wind, h: 0.5, flutter: 1 }; }   // Phase 2: leaves shiver, fronds bend
+    g.add(merged(leafParts, lm));
+    if (ferns.length) g.add(merged(ferns, fm, false));
   });
 }
 
@@ -133,7 +147,9 @@ function groundDetail(g, S, rnd, free) {
     }
   }
   const grassCol = new THREE.Color(S.grass || (S.leaf ? S.leaf[1] : "#73c25a"));
-  g.add(merged(tufts, lam(grassCol, { map: grassT, alphaTest: 0.5, side: THREE.DoubleSide }), false));
+  const gm = lam(grassCol, { map: grassT, alphaTest: 0.5, side: THREE.DoubleSide });
+  if (S.wind) gm.userData.wind = { amp: 0.06 * S.wind, h: 0.3, flutter: 1.2 };   // Phase 2: grass bends with the gusts
+  g.add(merged(tufts, gm, false));
   if (pebbles.length) g.add(merged(pebbles, lam("#857a68")));
   if (twigs.length) g.add(merged(twigs, lam("#6a4a30"), false));
   // dappled light: soft shade patches on a plane just above the ground, darker in the middle, drifting nowhere
