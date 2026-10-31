@@ -131,6 +131,18 @@ export class DrawnLinesPass extends Pass {
     }
     return t;
   }
+  // a dust sprite as it goes into the normals target: keeps the normals (colour untouched), sets the ink flag (alpha)
+  // to 0 where the puff is dense
+  veilFor(m) {
+    let t = this.mats.get(m);
+    if (!t) {
+      t = new THREE.SpriteMaterial({ map: m.map, alphaTest: 0.12, depthTest: true, depthWrite: false, blending: THREE.CustomBlending,
+        blendSrc: THREE.ZeroFactor, blendDst: THREE.OneFactor, blendSrcAlpha: THREE.ZeroFactor, blendDstAlpha: THREE.ZeroFactor });
+      this.mats.set(m, t);
+    }
+    t.opacity = m.opacity;
+    return t;
+  }
   render(R, writeBuffer, readBuffer) {
     const swapped = [], hidden = [];
     this.scene.traverse((o) => {
@@ -147,6 +159,20 @@ export class DrawnLinesPass extends Pass {
     const bg = this.scene.background, auto = R.shadowMap.autoUpdate, cc = R.getClearColor(new THREE.Color()), ca = R.getClearAlpha();
     this.scene.background = null; R.shadowMap.autoUpdate = false;
     R.setRenderTarget(this.nd); R.setClearColor(0x8080ff, 0); R.clear(); R.render(this.scene, this.camera);
+    // thick dust (a poof's sprites, userData.inkVeil) in front of a character wipes its ink flag there, so the lines
+    // don't draw a ghost outline over the cloud; only where the puff is dense, and only in front (depth tested)
+    const veils = hidden.filter((o) => o.isSprite && o.userData.inkVeil && o.material.opacity > 0.05);
+    if (veils.length) {
+      const ac = R.autoClear; R.autoClear = false;
+      const vis = []; this.scene.traverse((o) => { if (o.visible && !o.isSprite && (o.isMesh || o.isPoints || o.isLine)) { vis.push(o); } });
+      for (const o of vis) o.visible = false;
+      const keep = veils.map((o) => [o, o.material]);
+      for (const o of veils) { o.visible = true; o.material = this.veilFor(o.material); }
+      R.render(this.scene, this.camera);
+      for (const [o, m] of keep) { o.material = m; o.visible = false; }
+      for (const o of vis) o.visible = true;
+      R.autoClear = ac;
+    }
     this.scene.background = bg; R.shadowMap.autoUpdate = auto; R.setClearColor(cc, ca);
     for (const [o, m] of swapped) o.material = m;
     for (const o of hidden) o.visible = true;

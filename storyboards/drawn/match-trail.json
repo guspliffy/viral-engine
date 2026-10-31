@@ -38,15 +38,17 @@
     ],
     "hide": "trail-valley",
     "swap": {
-     "at": 5,
+     "at": 4.42,
      "src": "assets/plates/valley-vista-sun.png",
      "fog": [
       "#9c9a74",
       14,
       70
      ],
-     "fade": 0.8
-    }
+     "fade": 0.22
+    },
+    "pan": 0.4,
+    "panRef": 180
    }
   },
   "trees": false,
@@ -261,6 +263,27 @@
        0.12
       ]
      ]
+    },
+    "yaw": {
+     "keys": [
+      [
+       4.14,
+       0
+      ],
+      [
+       4.3,
+       32
+      ],
+      [
+       4.38,
+       32
+      ],
+      [
+       4.62,
+       0
+      ]
+     ],
+     "pivot": 0.26
     }
    },
    "do": [
@@ -2058,6 +2081,16 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "rot": 212
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
@@ -2068,6 +2101,44 @@
      "dur": 0.067,
      "ease": "linear",
      "at": 0.143
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.7,
+     "reason": "the back wheel skids sideways through the bend and sprays dirt",
+     "at": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.5,
+      0,
+      -5.5
+     ],
+     "dur": 0.55,
+     "color": "#dcc6a0",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.75,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.58,
+      0,
+      -5.78
+     ],
+     "dur": 0.55,
+     "color": "#cfb68c",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.8,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.195
     },
     {
      "sfx": "tyres",
@@ -2090,6 +2161,22 @@
      "at": 0.21
     },
     {
+     "fx": "poof",
+     "pos": [
+      0.66,
+      0,
+      -6.06
+     ],
+     "dur": 0.55,
+     "color": "#dcc6a0",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.85,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.24
+    },
+    {
      "do": "prop",
      "id": "br",
      "set": {
@@ -2103,6 +2190,22 @@
      "at": 0.277
     },
     {
+     "fx": "poof",
+     "pos": [
+      -0.74,
+      0,
+      -6.34
+     ],
+     "dur": 0.55,
+     "color": "#cfb68c",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.9,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.285
+    },
+    {
      "who": "phx",
      "do": "fly",
      "to": {
@@ -2113,6 +2216,22 @@
      "dur": 0.15,
      "ease": "linear",
      "at": 0.3
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.82,
+      0,
+      -6.62
+     ],
+     "dur": 0.55,
+     "color": "#dcc6a0",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 0.95,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.33
     },
     {
      "do": "prop",
@@ -2128,6 +2247,32 @@
      "at": 0.343
     },
     {
+     "fx": "poof",
+     "pos": [
+      -0.9,
+      0,
+      -6.9
+     ],
+     "dur": 0.55,
+     "color": "#cfb68c",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 1.0,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.375
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.38
+    },
+    {
      "do": "prop",
      "id": "br",
      "set": {
@@ -2141,6 +2286,22 @@
      "at": 0.41
     },
     {
+     "fx": "poof",
+     "pos": [
+      0.98,
+      0,
+      -7.18
+     ],
+     "dur": 0.55,
+     "color": "#dcc6a0",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 1.05,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.42
+    },
+    {
      "who": "phx",
      "do": "fly",
      "to": {
@@ -2151,6 +2312,22 @@
      "dur": 0.14,
      "ease": "in",
      "at": 0.45
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.06,
+      0,
+      -7.46
+     ],
+     "dur": 0.55,
+     "color": "#cfb68c",
+     "puffs": 14,
+     "sparks": 0,
+     "size": 1.1,
+     "lift": 0.04,
+     "sound": false,
+     "at": 0.465
     },
     {
      "do": "prop",
@@ -2201,6 +2378,11 @@
      "gain": 0.55,
      "dur": 1.3,
      "reason": "the wind rising as the trail ends at the cliff",
+     "at": 0.62
+    },
+    {
+     "who": "rea",
+     "do": "hide",
      "at": 0.62
     },
     {

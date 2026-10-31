@@ -17,7 +17,8 @@ import { rad, loopNow } from "./util.js";
 //                 for; push grows it by that fraction a second, shift moves it in frame heights. No relief, no dust.
 //                 swap: { at, src, fog: [colour, near, far] | false, fade: 0.6 } changes the picture by a cut (a new
 //                 place) with its own fog, fading it in over the fade seconds before at; hide: "trail-valley" hides
-//                 the set's meshes whose name starts with it, for a picture that paints them) }
+//                 the set's meshes whose name starts with it, for a picture that paints them; pan: 0.4, panRef: 180
+//                 slides the picture when the lens swings off that heading, like a far background) }
 //   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
 //                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
 //                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
@@ -60,7 +61,7 @@ export function addPlate(scene, P, ctx = {}) {
 // (the set's own sky domes and painted rings, back-facing and unfogged, are hidden; fog: [colour, near, far] fades
 // the 3D ground into the picture)
 function followPlate(scene, mesh, mat, loads, P) {
-  const F = P.follow === true ? {} : P.follow, now = { t: 0 }, v = new THREE.Vector3();
+  const F = P.follow === true ? {} : P.follow, now = { t: 0 }, v = new THREE.Vector3(), dir = new THREE.Vector3();
   scene.traverse((o) => { if (o !== mesh && o.isMesh && o.material?.side === THREE.BackSide && o.material.fog === false) o.visible = false; });
   if (F.fog) scene.fog = new THREE.Fog(...F.fog);
   (globalThis.__setTicks ||= []).push((t) => { now.t = t; });
@@ -83,7 +84,17 @@ function followPlate(scene, mesh, mat, loads, P) {
   if (F.hide) scene.traverse((o) => { if (o.name?.startsWith(F.hide)) o.visible = false; });
   const place = (m, aspect, cam) => {
     const d = (cam.near + cam.far) / 2, viewH = 2 * d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
-    const k = Math.max(viewH, viewH * cam.aspect / aspect) * (F.cover ?? 1.04) * (1 + (F.push ?? 0) * now.t), [sx, sy] = F.shift || [0, 0];
+    const k = Math.max(viewH, viewH * cam.aspect / aspect) * (F.cover ?? 1.04) * (1 + (F.push ?? 0) * now.t);
+    let [sx, sy] = F.shift || [0, 0];
+    // pan: when the lens turns away from the heading the picture faces (panRef, degrees, atan2(x, z) of the view), the
+    // picture slides the other way by pan x the turn (1 = as far as a distant background would), up to 60° off
+    if (F.pan) {
+      cam.getWorldDirection(dir);
+      let dh = Math.atan2(dir.x, dir.z) - THREE.MathUtils.degToRad(F.panRef ?? 180);
+      dh = Math.atan2(Math.sin(dh), Math.cos(dh));
+      const hfov = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect);
+      if (Math.abs(dh) < Math.PI / 3) sx += F.pan * (dh / hfov) * cam.aspect;
+    }
     m.quaternion.copy(cam.quaternion);
     m.position.copy(cam.position).add(v.set(sx * viewH, sy * viewH, -d).applyQuaternion(cam.quaternion));
     m.scale.set(k * aspect, k, 1);

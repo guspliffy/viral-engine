@@ -54,6 +54,7 @@ function buildPoof(f, i) {
   const smokeTex = radialTexture([[0, "rgba(255,255,255,0.95)"], [0.5, "rgba(255,255,255,0.6)"], [1, "rgba(255,255,255,0)"]]);
   const puffs = Array.from({ length: f.puffs ?? 26 }, () => {
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, color: f.color || "#ffffff", transparent: true, depthWrite: false }));
+    s.userData.inkVeil = true;   // the drawn look's lines stop where the puff is thick (drawn.js)
     g.add(s);
     const a = rnd() * Math.PI * 2, el = (rnd() - 0.2) * 1.2;
     return { s, dir: new THREE.Vector3(Math.cos(a) * Math.cos(el), Math.abs(Math.sin(el)) * 0.8 + 0.2, Math.sin(a) * Math.cos(el) * 0.6), dist: 0.35 + rnd() * 0.55, size: 0.35 + rnd() * 0.45, delay: rnd() * 0.08 };
