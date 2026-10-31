@@ -47,7 +47,7 @@ import { clipResults, contactResults } from "../qa/check.mjs";
 import { renderTime } from "./shared/holds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg" };
+const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream" };
 const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical for short-form platforms
 // Motion blur: a frame where something moves fast is the average of several samples spread over a film shutter (half
 // the frame time, centred on the frame), so a swing or a snap reads as one smooth smear instead of a jump. The number

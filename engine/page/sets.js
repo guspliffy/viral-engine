@@ -28,6 +28,7 @@ import { buildFurnace } from "./set-furnace.js";
 import { buildEnergyRoom } from "./set-energy.js";
 import { buildLanding } from "./set-landing.js";
 import { buildTrail } from "./set-trail.js";
+import { addModels } from "./assets-gltf.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -61,6 +62,7 @@ export function buildSet(scene, spec = {}, palette = null, eye = null) {
   if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light });   // set-plate.js: a painted backdrop behind the 3D stage
   for (const p of spec.plates || []) addPlate(scene, { dust: 0, ...p, depth: false, motion: false }, { eye, light: spec.light });   // side walls
   if (spec.air) addAir(scene, spec.air, { eye });   // set-air.js: sunbeams and drifting motes (Phase 2, living world)
+  if (spec.models || spec.scatter) addModels(scene, spec);   // assets-gltf.js: real 3D models (CC0 kit, Blender), preloaded by stage.js
   return r;
 }
 function buildSetType(scene, spec, palette) {
