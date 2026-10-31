@@ -87,7 +87,7 @@ const staffFall = (t) => { const u = t - STAFF_FREE; return [0.9 * u, staff0[1] 
 
 // ---------------------------------------------------------------- the payoff (8.3-10): Reaper level beside them
 const PAY = 8.3, FIN_YAW = 115;
-const REA_SIDE = [-0.5, 1.1, -1.62];                        // his bike from Dragon's root: beside the Wizard, level with his head, above the wing tips
+const REA_SIDE = [-0.4, 1.1, -1.3];                        // his bike from Dragon's root: beside the Wizard, level with his head, above the wing tips
 const reaFly = (t) => draAt(t).map((v, i) => v + REA_SIDE[i]);
 
 // ---------------------------------------------------------------- cast and props
@@ -173,8 +173,8 @@ sfx(r3(PLANK_OFF + 0.08), "tyres", { gain: 0.45, dur: r3(LAUNCH - PLANK_OFF - 0.
 const camZ = (t) => camPos(t)[2];
 A(3.98, "phx", "show");
 A(3.98, "phx", "fly", { to: { x: -2.0, y: 1.1, z: r3(camZ(3.98) - 1.9) }, dur: 0.02 });
-A(4.0, "phx", "fly", { to: { x: -1.4, y: 1.05, z: r3(camZ(4.3) - 2.6) }, dur: 0.3, ease: "out" });
-A(4.3, "phx", "fly", { to: { x: -1.3, y: 1.15, z: r3(camZ(4.45) - 2.8) }, dur: 0.15, ease: "linear" });
+A(4.0, "phx", "fly", { to: { x: -1.0, y: 0.85, z: r3(camZ(4.3) - 3.0) }, dur: 0.3, ease: "out" });
+A(4.3, "phx", "fly", { to: { x: -1.1, y: 0.95, z: r3(camZ(4.45) - 3.1) }, dur: 0.15, ease: "linear" });
 A(4.45, "phx", "fly", { to: { x: -2.2, y: 3.0, z: r3(camZ(4.6) - 6.0) }, dur: 0.14, ease: "in" });
 A(3.98, "phx", "look", { to: [0.15, 0.05], dur: 0.01, blink: false });
 A(4.08, "phx", "arm", { side: "R", pose: "wave", dur: 0.18 });
@@ -197,7 +197,7 @@ c.prop(r3(LAUNCH - 0.14), "bw", { wheelie: 0.3 }, 0.14, "out");
 A(LAUNCH, "wiz", "ride", { prop: "wc", off: [0, 0, 0], yaw: 0, dur: 0.18 });
 path("wc", LAUNCH, CATCH, wizFall);
 A(r3(LAUNCH + 0.02), "wiz", "grip", { side: "both", shape: "open", dur: 0.12 });
-const FL = [{ o: [0.46, 1.0, 0.1] }, { o: [0.5, 0.74, 0.22] }];
+const FL = [{ o: [0.55, 1.0, 0.1] }, { o: [0.5, 0.74, 0.22] }];
 for (let k = 0, t = LAUNCH + 0.02; t < CATCH - 0.25; k++, t += 0.17) { c.arm(r3(t), "wiz", "R", FL[k % 2], 0.15, "inOut"); c.arm(r3(t + 0.06), "wiz", "L", FL[(k + 1) % 2], 0.15, "inOut"); }
 A(r3(LAUNCH + 0.05), "wiz", "look", { to: [0.2, -0.6], dur: 0.12, blink: false });
 A(r3(LAUNCH + 0.05), "wiz", "expr", { expr: "shocked", set: { open: 0.42, eye: 1.32, curve: -0.3 }, dur: 0.15 });
@@ -263,13 +263,19 @@ A(9.78, "rea", "look", { to: [0, 0], dur: 0.15, blink: false });
 // ---------------------------------------------------------------- shots
 // 1-5: one first-person take along the trail with a rider's vibration, the root hop and the plank in it
 const POV = { pos: camPos(0), look: camLook(0), fov: 75, to: { pos: camPos(5.0), look: camLook(5.0) }, dur: 5.0, ease: "linear",
-  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.7, lead: 1, dips: [[ROOT_HOP, -0.06, 0.34], [r3(ROOT_HOP + 0.34), 0.035, 0.15], [PLANK_ON, -0.05, 0.12], [3.3, 0.015, 0.08], [3.6, 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
+  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.4, lead: 1, dips: [[ROOT_HOP, -0.06, 0.34], [r3(ROOT_HOP + 0.34), 0.035, 0.15], [PLANK_ON, -0.05, 0.12], [3.3, 0.015, 0.08], [3.6, 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
 // 6-7: a side wide from beyond the edge, panning with the fall and the catch (the cliff wall recedes at the left)
-const WIDE = { pos: [6.3, 1.1, -8.05], look: [0, 0.25, -8.45], fov: 52, to: { pos: [6.3, -0.75, -11.3], look: [0, -2.15, -12.2] }, dur: 2.7, ease: "inOut" };
+// it pans at a steady speed onto Dragon's line, then rides along with him at his speed until the cut
+const WIDE_END = 7.2, OFF = [6.3, 1.4, 0.9], onDra = (t) => { const d = draAt(t); return [r3(d[0]), r3(d[1] + 1.2), r3(d[2])]; };
+const WIDE = { pos: [6.3, 1.1, -8.05], look: [0, 0.25, -7.95], fov: 52, to: { pos: onDra(WIDE_END).map((v, i) => r3(v + OFF[i])), look: onDra(WIDE_END) }, dur: r3(WIDE_END - 5.0), ease: "linear" };
 // 8: a tracking two-shot in the air, from the travel side looking out over the valley, with a slow push
 const mid = (t) => { const d = draAt(t); return [d[0] - 0.25, d[1] + 1.75, d[2] - 0.8]; };
 const F0 = mid(PAY), F1 = mid(END), CAMOFF = [5.5, 0.3, 1.2], PUSH = 0.9;
-const FINAL = { pos: F0.map((v, i) => r3(v + CAMOFF[i])), look: F0.map(r3), fov: 44, to: { pos: F1.map((v, i) => r3(v + CAMOFF[i] * PUSH)), look: F1.map(r3) }, dur: r3(END - PAY), ease: "linear" };
+const LIFT = [0, 0.3, 0];   // Dragon low in the frame, the Wizard and Reaper in the upper middle
+const FINAL = { pos: F0.map((v, i) => r3(v + CAMOFF[i])), look: F0.map((v, i) => r3(v + LIFT[i])), fov: 44, to: { pos: F1.map((v, i) => r3(v + CAMOFF[i] * PUSH)), look: F1.map((v, i) => r3(v + LIFT[i])) }, dur: r3(END - PAY), ease: "linear" };
+// 7b: the same pose, riding along with Dragon until the cut (no cut here)
+const CARRY_AT = WIDE_END;
+const CARRY = { pos: WIDE.to.pos, look: WIDE.to.look, fov: 52, to: { pos: onDra(PAY).map((v, i) => r3(v + OFF[i])), look: onDra(PAY) }, dur: r3(PAY - CARRY_AT), ease: "linear" };
 const beats = c.beats([
   ["full speed", 0, POV, "hook"],
   ["easy", 1.1, "keep"],
@@ -278,6 +284,7 @@ const beats = c.beats([
   ["show-off", 4.0, "keep"],
   ["cliff", 5.0, WIDE],
   ["catch", CATCH, "keep"],
+  ["carried", CARRY_AT, CARRY],
   ["still pedalling", PAY, FINAL, "payoff"],
 ], END);
 
