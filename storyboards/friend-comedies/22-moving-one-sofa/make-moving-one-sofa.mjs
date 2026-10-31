@@ -110,9 +110,13 @@ A(0, "wiz", "expr", { expr: "kind", set: { curve: -0.05 }, dur: 0 });
 A(0, "rea", "look", { to: [-0.6, -0.05], dur: 0, blink: false }); A(0, "rea", "face", { lid: 0.45, dur: 0 });
 A(0, "rea", "expr", { expr: "kind", set: { curve: 0, open: 0 }, dur: 0 });
 A(0.1, "rea", "still", { dur: 5.9, idle: 0.08 });
-// the friction starts here: the Wizard rolls his eyes at Phoenix's shoving
-A(0.78, "wiz", "look", { to: [-0.2, 0.6], dur: 0.15, blink: false }); A(0.78, "wiz", "expr", { expr: "smug", dur: 0.25 });
-A(1.08, "wiz", "look", { to: [-0.7, -0.05], dur: 0.15, blink: false });
+// the friction starts here: the Wizard shakes his head at Phoenix's shoving ("nah, that won't work like that", in
+// gibberish), then rolls his eyes
+A(0.62, "wiz", "expr", { expr: "smug", dur: 0.25 }); A(0.62, "wiz", "face", { lid: 0.38, dur: 0.25 });
+A(0.66, "wiz", "talk", { line: "nah-nah-nah. that won't work like that", tone: "calm", dur: 0.55, voice: false });
+for (const [t, y] of [[0.66, -25], [0.8, -46], [0.94, -25], [1.08, -44], [1.22, -35]]) A(t, "wiz", "turn", { to: y, dur: 0.14, ease: "inOut" });
+A(1.12, "wiz", "look", { to: [-0.2, 0.6], dur: 0.12, blink: false });
+A(1.4, "wiz", "look", { to: [-0.7, -0.05], dur: 0.15, blink: false });
 act.blinksAt(c, "rea", [2.9, 6.05]); act.blinksAt(c, "wiz", [2.55]); act.blinksAt(c, "phx", [3.05]);
 
 // ---------------------------------------------------------------- 2 CHARGE (1.2-2.2)
@@ -223,7 +227,7 @@ c.arm(5.98, "wiz", "R", { o: [0.2, 0.5, 0.3] }, 0.12, "out"); A(6.04, "wiz", "gr
 A(6.06, "wiz", "talk", { line: "YOU bounced off it!", tone: "excited", dur: 0.38, voice: false });
 c.arm(6.48, "phx", "L", "rest", 0.25, "inOut"); A(6.5, "phx", "grip", { side: "L", shape: "open", dur: 0.1 });
 // he snatches the hand back as Reaper walks right past it
-c.arm(6.2, "wiz", "R", "rest", 0.2, "inOut"); A(6.22, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
+c.arm(6.1, "wiz", "R", "rest", 0.2, "inOut"); A(6.12, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
 // Reaper has had enough of both of them
 A(5.86, "rea", "expr", { expr: "deadpan", dur: 0.25 }); A(5.86, "rea", "face", { lid: 0.62, dur: 0.25 });
 act.emote(c, 5.9, "rea", "sigh", { dur: 0.6, dx: -0.45 });

@@ -456,6 +456,37 @@
    },
    "do": [
     {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.38,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "nah-nah-nah. that won't work like that",
+     "tone": "calm",
+     "dur": 0.55,
+     "voice": false,
+     "at": 0.06
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
      "do": "prop",
      "id": "sofaL",
      "set": {
@@ -477,21 +508,11 @@
     },
     {
      "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.2,
-      0.6
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.18
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "smug",
-     "dur": 0.25,
-     "at": 0.18
+     "do": "turn",
+     "to": -46,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "who": "phx",
@@ -522,14 +543,30 @@
     },
     {
      "who": "wiz",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -44,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "wiz",
      "do": "look",
      "to": [
-      -0.7,
-      -0.05
+      -0.2,
+      0.6
      ],
-     "dur": 0.15,
+     "dur": 0.12,
      "blink": false,
-     "at": 0.48
+     "at": 0.52
     }
    ]
   },
@@ -584,6 +621,14 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
      "who": "phx",
      "do": "move",
      "to": [
@@ -624,6 +669,17 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
     },
     {
      "who": "phx",
@@ -2130,6 +2186,15 @@
      "at": 0.36
     },
     {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
      "who": "rea",
      "do": "move",
      "to": [
@@ -2143,20 +2208,11 @@
     },
     {
      "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "who": "wiz",
      "do": "grip",
      "side": "R",
      "shape": "open",
      "dur": 0.1,
-     "at": 0.52
+     "at": 0.42
     },
     {
      "who": "rea",
