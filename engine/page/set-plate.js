@@ -34,7 +34,7 @@ export function addPlate(scene, P, ctx = {}) {
   const tex = (src) => new THREE.TextureLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
   const loads = [tex(P.src), P.depth && tex(P.depth), P.motion && tex(P.motion)];
   P = { eye: ctx.eye, ...P };
-  if (P.follow) return followPlate(mesh, mat, loads, P);
+  if (P.follow) return followPlate(scene, mesh, mat, loads, P);
   const load = Promise.all(loads).then(([map, depth, motion]) => {
     map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 4;
     const w = h * map.image.width / map.image.height;
@@ -54,8 +54,12 @@ export function addPlate(scene, P, ctx = {}) {
 }
 
 // a painted backdrop pinned to the camera: drawn first and behind everything (no depth), sized to cover the view
-function followPlate(mesh, mat, loads, P) {
+// (the set's own sky domes and painted rings, back-facing and unfogged, are hidden; fog: [colour, near, far] fades
+// the 3D ground into the picture)
+function followPlate(scene, mesh, mat, loads, P) {
   const F = P.follow === true ? {} : P.follow, now = { t: 0 }, v = new THREE.Vector3();
+  scene.traverse((o) => { if (o !== mesh && o.isMesh && o.material?.side === THREE.BackSide && o.material.fog === false) o.visible = false; });
+  if (F.fog) scene.fog = new THREE.Fog(...F.fog);
   (globalThis.__setTicks ||= []).push((t) => { now.t = t; });
   Object.assign(mat, { depthTest: false, depthWrite: false });
   mesh.renderOrder = -1000; mesh.frustumCulled = false; mesh.receiveShadow = false;

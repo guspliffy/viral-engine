@@ -32,6 +32,8 @@ export function drawnSpec(d) {
     lines: pick(o.lines, { width: 4.2, boil: 1.4, pressure: 0.8, strength: 1, set: 0 }),
     paint: pick(o.paint, { edge: 0.22, scale: 9 }),
     paper: pick(o.paper, { grain: 0.09, wash: 0.07, pool: 0.12 }),
+    // speed: a painted zoom blur round the frame's edges while riding fast (off unless asked)
+    speed: o.speed ? { amount: 1, center: [0.5, 0.7], inner: 0.22, outer: 0.62, from: 0, until: 1e9, fade: 0.3, ...(o.speed === true ? {} : o.speed) } : null,
   };
 }
 
@@ -180,6 +182,23 @@ export const PaperShader = {
       float g = dFbm(px / 1.6) * 0.7 + dNoise(vec2(px.x / 9.0, px.y / 1.4) + 5.0) * 0.3;
       c = c * (1.0 - grain * (g - 0.35)) + grain * 0.12 * vec3(1.0, 0.95, 0.86) * (1.0 - g);
       gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+    }`,
+};
+
+// speed lines the painted way: everything away from the heading point smears toward it, more toward the frame's
+// edges (the middle, where the eye is, stays sharp). amount 1 smears an edge pixel by about 7 % of the frame height.
+export const SpeedShader = {
+  uniforms: { tDiffuse: { value: null }, tInk: { value: null }, useInk: { value: 0 }, amount: { value: 0 }, center: { value: new THREE.Vector2(0.5, 0.7) }, aspect: { value: 9 / 16 }, inner: { value: 0.22 }, outer: { value: 0.62 } },
+  vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: /* glsl */`
+    uniform sampler2D tDiffuse, tInk; uniform float amount, aspect, inner, outer, useInk; uniform vec2 center; varying vec2 vUv;
+    void main() {
+      vec2 d = vUv - center; float r = length(d * vec2(aspect, 1.0));
+      // the characters and props (the drawn lines' ink flag) stay sharp: the rider's own hands and bars move with the eye
+      float k = amount * 0.07 * smoothstep(inner, outer, r) * (1.0 - useInk * step(0.9, texture2D(tInk, vUv).a));
+      vec3 c = vec3(0.0); float wsum = 0.0;
+      for (int i = 0; i < 12; i++) { float f = float(i) / 11.0, w = 1.0 - 0.5 * f; c += texture2D(tDiffuse, vUv - d * k * f / max(r, 1e-3) * 0.6).rgb * w; wsum += w; }
+      gl_FragColor = vec4(c / wsum, 1.0);
     }`,
 };
 

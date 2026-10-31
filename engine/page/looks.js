@@ -9,7 +9,7 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
-import { drawnSpec, DrawnLinesPass, PaperShader, paintShadowEdges, drawingNo } from "./drawn.js";
+import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -556,6 +556,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     paper.uniforms.res.value.set(W * pr, H * pr); paper.uniforms.grain.value = D.paper.grain; paper.uniforms.wash.value = D.paper.wash; paper.uniforms.pool.value = D.paper.pool;
     composer.addPass(paper);
   }
+  const speed = D && D.speed ? new ShaderPass(SpeedShader) : null;
+  if (speed) {
+    Object.assign(speed.uniforms, { inner: { value: D.speed.inner }, outer: { value: D.speed.outer } });
+    speed.uniforms.center.value.set(...D.speed.center); speed.uniforms.aspect.value = W / H; composer.addPass(speed);
+    if (lines) { speed.uniforms.tInk.value = lines.nd.texture; speed.uniforms.useInk.value = 1; }
+  }
 
   return {
     prepare(scene, t, focusPoint) {
@@ -571,6 +577,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       });
       grounding.update();
       if (lines) lines.seed = drawingNo(D, t ?? 0) % 997;
+      if (speed) { const S = D.speed, u = t ?? 0, f = Math.min(1, Math.max(0, (u - S.from) / S.fade), Math.max(0, (S.until - u) / S.fade)); speed.uniforms.amount.value = S.amount * f; speed.enabled = f > 0; }
       if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set

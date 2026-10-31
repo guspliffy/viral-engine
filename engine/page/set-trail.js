@@ -7,7 +7,8 @@ import { rng } from "./util.js";
 // narrow plank, then the plateau ends at a cliff (z TRAIL.edge) over a forested valley far below, a lake and blue
 // mountains all round. The trail is lined with bushes close by (they rush past the rider's view), tall leafy trees and
 // firs further out. Everything the clip moves is a prop (props-trail.js); this is the still scenery.
-// spec: { type: "trail", seed }
+// spec: { type: "trail", seed, trees: false (no tall trees: a painted plate's forest instead), moss: tint of the ground,
+//         leaf: [three bush/crown colours] }
 export const TRAIL = {
   edge: -8,                       // the cliff's top edge (z); the plateau is z > edge
   root: 3.8,                      // the root across the trail (z of its middle)
@@ -134,7 +135,7 @@ export function buildTrail(scene, S = {}) {
   }, 1, 1);
   const ground = (z0, z1) => {
     const L = z0 - z1, zc = (z0 + z1) / 2, mt = mossTex.clone(); mt.needsUpdate = true; mt.repeat.set(40, L / 3);
-    const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(120, L), lam("#ffffff", { map: mt }))); m.rotation.x = -Math.PI / 2; m.position.set(0, 0, zc); g.add(m);
+    const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(120, L), lam(S.moss || "#ffffff", { map: mt })));   // moss: a tint (to sit in a painted plate's forest) m.rotation.x = -Math.PI / 2; m.position.set(0, 0, zc); g.add(m);
     const dt = dirtTex.clone(); dt.needsUpdate = true; dt.repeat.set(1, L / 2.2);
     const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.7, L), lam("#ffffff", { map: dt, transparent: true }))); d.rotation.x = -Math.PI / 2; d.position.set(0, 0.004, zc); d.renderOrder = 1; g.add(d);
   };
@@ -192,7 +193,7 @@ export function buildTrail(scene, S = {}) {
   // the trail close by so they rush past the rider's view; mossy rocks
   {
     const trunkTex = canvasTex(128, 256, (c, w, h) => { c.fillStyle = "#8a6242"; c.fillRect(0, 0, w, h); for (let i = 0; i < 26; i++) { c.fillStyle = `rgba(60,40,26,${0.3 + 0.3 * rnd()})`; c.fillRect(rnd() * w, 0, 2 + rnd() * 4, h); } }, 2, 2);
-    const trunkM = lam("#ffffff", { map: trunkTex }), leaf = [lam("#5fae4c"), lam("#73c25a"), lam("#4c9a48")], firM = lam("#3e8b55");
+    const trunkM = lam("#ffffff", { map: trunkTex }), leaf = (S.leaf || ["#5fae4c", "#73c25a", "#4c9a48"]).map((c) => lam(c)), firM = lam("#3e8b55");
     const trunks = [], crowns = [[], [], []], firs = [], bushes = [[], [], []], rocks = [];
     const free = (x, z, r) => Math.abs(x) > 1.05 + r && !(z < G0 + r + 0.2 && z > G1 - r - 0.2) && z > E + 0.6 + r;
     for (let i = 0; i < 150; i++) {
@@ -219,8 +220,8 @@ export function buildTrail(scene, S = {}) {
     }
     // a few bushes along the cliff's top edge, kept off the trail's end
     for (let x = -12; x < 12; x += 0.7 + rnd() * 0.6) { if (Math.abs(x) < 1.2) continue; const r = 0.25 + rnd() * 0.25; bushes[1].push([new THREE.IcosahedronGeometry(1, 1), M4(x, r * 0.6, E + 0.45 + rnd() * 0.4, r, r * 0.8, r)]); }
-    g.add(merged(trunks, trunkM)); g.add(merged(firs, firM));
-    crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
+    // trees: false leaves the tall forest to a painted plate (set.plate.follow) and keeps the bushes along the trail
+    if (S.trees !== false) { g.add(merged(trunks, trunkM)); g.add(merged(firs, firM)); crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i]))); }
     bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
     if (rocks.length) g.add(merged(rocks, lam("#a8a296")));
   }
