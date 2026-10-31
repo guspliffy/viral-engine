@@ -47,7 +47,7 @@ const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return 
 
 // the flame: a quad standing on the wick, turned to the camera in the vertex shader; a teardrop with three cel bands
 // (white core, yellow, orange edge) and a hint of blue at its root, flickering at its tip
-function flameMesh(parent, y) {
+export function flameMesh(parent, y) {
   const geo = new THREE.PlaneGeometry(1, 1); geo.translate(0, 0.5, 0);   // uv.x across, uv.y up from the root
   const m = new THREE.ShaderMaterial({
     uniforms: { uTime: { value: 0 }, uW: { value: 0.012 }, uH: { value: 0.03 }, uBend: { value: 0 }, uFire: { value: 0 }, uA: { value: 1 } },
@@ -84,7 +84,7 @@ function flameMesh(parent, y) {
   return o;
 }
 // a soft round glow round the flame (additive, faces the camera), for the bloom and the warm spill on the frosting
-function glowMesh(parent, y) {
+export function glowMesh(parent, y) {
   const geo = new THREE.PlaneGeometry(1, 1);
   const m = new THREE.ShaderMaterial({
     uniforms: { uR: { value: 0.05 }, uA: { value: 0 }, uLift: { value: 0 } },
