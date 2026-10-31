@@ -601,7 +601,8 @@ export function soundEvents(sb, chars) {
       // one impact sound per hit: a flash right after an impact frame stays silent
       if (f.do === "impact") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
       if (f.do === "flash" && !impacts.some((a) => Math.abs(a - f.at) < 0.25)) ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
-      if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
+      // sound: false keeps a poof silent (dust on a landing that has its own named sound; the poof has a chime)
+      if (f.do === "poof" && f.sound !== false) ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
   if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));

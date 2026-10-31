@@ -10,10 +10,10 @@ import { rng } from "./util.js";
 // spec: { type: "trail", seed }
 export const TRAIL = {
   edge: -8,                       // the cliff's top edge (z); the plateau is z > edge
-  root: 3.4,                      // the root across the trail (z of its middle)
-  gully: [-0.4, -2.8],            // the gully's two banks (z), its floor at gullyFloor
+  root: 3.8,                      // the root across the trail (z of its middle)
+  gully: [-1.0, -3.4],            // the gully's two banks (z), its floor at gullyFloor
   gullyFloor: -1.6,
-  plank: { z0: 0.1, z1: -3.3, w: 0.3, top: 0.06 },   // one narrow plank from bank to bank, its top surface at y top
+  plank: { z0: -0.5, z1: -3.9, w: 0.3, top: 0.06 },   // one narrow plank from bank to bank, its top surface at y top
   valley: -36,                    // the valley floor (y)
 };
 

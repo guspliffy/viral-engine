@@ -44,14 +44,16 @@ const bikeZ = (t) => BZ0 - V * t;
 const TURN = 1.257;                            // metres per wheel turn (props3d.js bike: radius 0.2)
 const RIDE = { off: [0, 0.36, -0.16], yaw: 0, sit: true };   // on the saddle (the bike clip's seat)
 const LAUNCH = 5.2;                            // the back wheel leaves the edge: from here the bike falls
-const HOP_LEN = 0.72, HOP_UP = 1.0, ROOT_HOP = r3((BZ0 - TRAIL.root) / V - HOP_LEN / 2), HOP_LAND = r3(ROOT_HOP + HOP_LEN), CAM_UP = 0.8, PLANK_ON = 3.03, PLANK_OFF = 3.97;
+const HOP_LEN = 1.08, HOP_UP = 1.25, ROOT_HOP = r3((BZ0 - TRAIL.root) / V - HOP_LEN / 2), HOP_LAND = r3(ROOT_HOP + HOP_LEN), CAM_UP = 1.15;
+// the front wheel reaches the plank, the back wheel leaves it
+const PLANK_ON = r3((BZ0 - TRAIL.plank.z0) / V - 0.095), PLANK_OFF = r3((BZ0 - TRAIL.plank.z1) / V);
 // the first-person camera rides in the Wizard's head (his body is not drawn: "pov"), a little behind his face so his
 // gloves on the bars sit low in the frame
 const EYE = 1.15, camPos = (t) => [0, EYE, r3(bikeZ(t) + 0.26)], camLook = (t) => [0, r3(EYE - 0.73), r3(bikeZ(t) - 2)];
 
 // ---------------------------------------------------------------- Reaper's ride ahead (his speed eases while he looks back)
 const RS = 0.75;                                // his tiny bike
-const reaV = (t) => (t < 1.0 ? 4.0 : t < 1.2 ? 4.0 - 8 * (t - 1.0) : t < 1.9 ? 2.4 : t < 2.2 ? 2.4 + (t - 1.9) * 7.33 : 4.6);
+const reaV = (t) => (t < 1.0 ? 4.0 : t < 1.2 ? 4.0 - 2 * (t - 1.0) : t < 1.9 ? 3.6 : t < 2.2 ? 3.6 + (t - 1.9) * 3.33 : 4.6);
 const reaZ = (() => { const s = [[0, 8.8]]; for (let t = 0.01; t <= 5.0 + 1e-9; t += 0.01) s.push([r3(t), s.at(-1)[1] - reaV(t - 0.005) * 0.01]); return (t) => s[Math.min(s.length - 1, Math.round(t * 100))][1]; })();
 const at = (fz, z) => { let t = 0; while (t < 5 && fz(t) > z) t += 0.01; return r3(t); };   // when a path passes z
 const REA_EDGE = at(reaZ, TRAIL.edge);
@@ -137,7 +139,8 @@ A(0, "rea", "face", { lid: 0.42, dur: 0.01 });
 cap(0, 2.5, "my friend said this trail was easy", 250, false, { kinetic: false });
 if (OPENER) act.opener(c, OPENER.who, OPENER.line, { at: 0.05, words: OPENER.words });
 sfx(0, "ridewind", { gain: 0.5, dur: 5.0, reason: "riding fast: the wind past the rider's ears (first-person)" });
-sfx(0, "tyres", { gain: 0.45, dur: PLANK_ON + 0.02, reason: "both bikes' tyres buzzing on the dirt trail" });
+sfx(0, "tyres", { gain: 0.45, dur: r3(ROOT_HOP + 0.02), reason: "both bikes' tyres buzzing on the dirt trail" });
+sfx(HOP_LAND, "tyres", { gain: 0.45, dur: r3(PLANK_ON - HOP_LAND + 0.02), reason: "tyres back on the dirt after the hop" });   // silent in the air
 
 // ---------------------------------------------------------------- 2 EASY (1.1-2.0): no hands, a deadpan look back
 A(1.1, "rea", "arm", { side: "both", pose: "rest", dur: 0.25, ease: "inOut" });
@@ -153,10 +156,10 @@ A(1.9, "rea", "grip", { side: "both", shape: "clasp", dur: 0.12 });
 act.blinksAt(c, "rea", [2.6]);
 // Reaper hops the root casually just after (his wheels lift a little)
 // Reaper sails over it mid-glance, still looking back at us, no hands: big air, one easy landing with a puff of dirt
-{ const t = r3(at(reaZ, TRAIL.root) - 0.3), land = r3(t + 0.6);
-  c.at(t, { do: "prop", id: "br", set: { y: 0 }, dur: 0.6, ease: "inOut", arc: 0.85 });
-  c.prop(r3(t - 0.02), "br", { tip: 14 }, 0.14, "out"); c.prop(r3(t + 0.14), "br", { tip: -4 }, 0.36, "inOut"); c.prop(r3(land - 0.06), "br", { tip: 0 }, 0.08, "in");
-  act.landDust(c, land, [0, r3(reaZ(land))], { color: "#c9a77c", puffs: 7 });
+{ const L = 0.8, t = r3(at(reaZ, TRAIL.root) - L / 2), land = r3(t + L);
+  path("br", t, land, (u) => [0, 0.95 * Math.sin(((u - t) / L) * Math.PI) ** 2, 0], () => ({}), 1 / 30, "y");
+  c.prop(r3(t - 0.02), "br", { tip: 14 }, 0.14, "out"); c.prop(r3(t + 0.14), "br", { tip: -4 }, r3(L - 0.24), "inOut"); c.prop(r3(land - 0.06), "br", { tip: 0 }, 0.08, "in");
+  c.at(land, { fx: "poof", pos: [0, 0.02, r3(reaZ(land) + 0.15)], dur: 0.45, color: "#c9a77c", puffs: 7, sparks: 0, size: 0.4, lift: 0.06, sound: false });
   sfx(land, "land", { gain: 0.35, reason: "Reaper's bike lands after his hop over the root" }); }
 
 // ---------------------------------------------------------------- 3 ROOT (2.0-3.0): the front wheel rises, one landing
@@ -164,7 +167,7 @@ act.blinksAt(c, "rea", [2.6]);
 // turns the bike inside it, so the bars would leave the gloves
 // a big bunny hop: nose up as he springs, level at the top, nose a touch down to land, one landing
 c.prop(r3(ROOT_HOP - 0.03), "bw", { tip: 20 }, 0.16, "out");
-c.prop(r3(ROOT_HOP + 0.16), "bw", { tip: -6 }, 0.44, "inOut");
+c.prop(r3(ROOT_HOP + 0.16), "bw", { tip: -6 }, r3(HOP_LEN - 0.28), "inOut");
 c.prop(r3(HOP_LAND - 0.08), "bw", { tip: 0 }, 0.08, "in");
 // the height follows the same bell as the camera's rise (hand dips are sin²), so the bars hold their place in the view
 path("bw", ROOT_HOP, HOP_LAND, (t) => [0, HOP_UP * Math.sin(((t - ROOT_HOP) / HOP_LEN) * Math.PI) ** 2, 0], () => ({}), 1 / 30, "y");
@@ -172,7 +175,7 @@ sfx(HOP_LAND, "thud", { gain: 0.75, reason: "the bike slams down after the big h
 // the landing: a jolt, dirt kicked up either side of the front wheel, and the bike slews left and right before he catches
 // it (back straight just before the plank)
 c.at(HOP_LAND, { fx: "shake", dur: 0.3, amp: 0.035 });
-for (const s of [-1, 1]) c.at(HOP_LAND, { fx: "poof", pos: [s * 0.45, 0.03, r3(bikeZ(HOP_LAND) - 1.3)], dur: 0.7, color: "#e2c9a2", puffs: 12, sparks: 8, spark: "#6b4426", sparkSize: 0.7, size: 0.7, lift: 0.1 });
+for (const s of [-1, 1]) c.at(HOP_LAND, { fx: "poof", pos: [s * 0.45, 0.03, r3(bikeZ(HOP_LAND) - 1.3)], dur: 0.7, color: "#e2c9a2", puffs: 12, sparks: 6, spark: "#6b4426", sparkSize: 0.45, size: 0.7, lift: 0.1, sound: false });
 [[9, -6], [-8, 5], [4, -2], [0, 0]].forEach(([yaw, roll], i) => c.prop(r3(HOP_LAND + i * 0.09), "bw", { rot: 180 + yaw, roll }, 0.09, "inOut"));
 
 // ---------------------------------------------------------------- 4 PLANK (3.0-4.0): on and off the plank
@@ -218,7 +221,7 @@ A(r3(LAUNCH + 0.1), "wiz", "hatwobble", { dur: 0.9 });
 A(r3(LAUNCH + 0.04), "wiz", "talk", { line: "waaah!", tone: "excited", dur: 0.85, voice: false });
 // the bike flies on and falls, nose down; the staff comes off his back and tumbles
 c.prop(LAUNCH, "bw", { wheelie: 0 }, 0.4, "inOut");
-act.landDust(c, r3(LAUNCH - 0.03), [0, TRAIL.edge], { puffs: 7 });   // a puff of trail dust off the lip as the back wheel leaves
+c.at(r3(LAUNCH - 0.03), { fx: "poof", pos: [0, 0.02, r3(TRAIL.edge + 0.15)], dur: 0.45, color: "#e9d8c0", puffs: 7, sparks: 0, size: 0.4, lift: 0.06, sound: false });   // a puff of trail dust off the lip as the back wheel leaves
 path("bw", LAUNCH, 8.0, bikeFall, (t) => ({ tip: r3(-55 * Math.min(1, (t - LAUNCH) / 1.6)), roll: r3(30 * Math.min(1, (t - LAUNCH) / 2)), spin: r3((V * LAUNCH) / TURN + (t - LAUNCH) * 2) }));
 c.at(STAFF_FREE, { do: "carry", prop: "staff" });
 path("staff", STAFF_FREE, 8.0, staffFall, (t) => ({ tip: r3(-22 - 320 * (t - STAFF_FREE)), tilt: r3(18 + 40 * (t - STAFF_FREE)) }));
@@ -250,7 +253,7 @@ A(r3(CATCH + 0.2), "dra", "look", { to: [0.1, 0.3], dur: 0.2, blink: false });
 A(7.35, "wiz", "face", { lid: 0.85, brow: 0.2, dur: 0.3 });
 A(7.35, "wiz", "expr", { expr: "kind", set: { curve: 0.25, open: 0.08 }, dur: 0.3 });
 A(7.4, "wiz", "squash", { amount: 0.05, dur: 0.5 });
-c.at(CATCH, { fx: "poof", pos: [W_CATCH[0], r3(W_CATCH[1] + 0.15), W_CATCH[2]], dur: 0.4, color: "#fff4dc", puffs: 6, sparks: 0, size: 0.35, lift: 0.05 });   // a soft cartoon puff on the catch
+c.at(CATCH, { fx: "poof", pos: [W_CATCH[0], r3(W_CATCH[1] + 0.15), W_CATCH[2]], dur: 0.4, color: "#fff4dc", puffs: 6, sparks: 0, size: 0.35, lift: 0.05, sound: false });   // a soft cartoon puff on the catch (its sound is the cushion poof)
 
 // ---------------------------------------------------------------- 8 STILL PEDALLING (8.3-10): the payoff
 A(PAY, "rea", "show"); c.prop(PAY - 1 / 30, "br", { scale: RS, rot: FIN_YAW }, r3(1 / 30), "linear");
@@ -276,7 +279,7 @@ A(9.78, "rea", "look", { to: [0, 0], dur: 0.15, blink: false });
 // ---------------------------------------------------------------- shots
 // 1-5: one first-person take along the trail with a rider's vibration, the root hop and the plank in it
 const POV = { pos: camPos(0), look: camLook(0), fov: 75, to: { pos: camPos(5.0), look: camLook(5.0) }, dur: 5.0, ease: "linear",
-  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.4, lead: 1, dips: [[ROOT_HOP, -CAM_UP, HOP_LEN], [HOP_LAND, 0.14, 0.2], [PLANK_ON, -0.05, 0.12], [3.3, 0.015, 0.08], [3.6, 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
+  hand: { rate: 6, bob: 0.009, sway: 0.006, roll: 0.4, lead: 1, dips: [[ROOT_HOP, -CAM_UP, HOP_LEN], [HOP_LAND, 0.14, 0.2], [PLANK_ON, -0.05, 0.12], [r3(PLANK_ON + 0.3), 0.015, 0.08], [r3(PLANK_ON + 0.6), 0.015, 0.08], [PLANK_OFF, 0.04, 0.12]] } };
 // 6-7: a side wide from beyond the edge, panning with the fall and the catch (the cliff wall recedes at the left)
 // it pans at a steady speed onto Dragon's line, then rides along with him at his speed until the cut
 const WIDE_END = 7.2, OFF = [6.3, 1.4, 0.9], onDra = (t) => { const d = draAt(t); return [r3(d[0]), r3(d[1] + 1.2), r3(d[2])]; };

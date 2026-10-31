@@ -194,32 +194,32 @@
      "lead": 1,
      "dips": [
       [
-       1.94,
-       -0.8,
-       0.72
+       1.66,
+       -1.15,
+       1.08
       ],
       [
-       2.66,
+       2.74,
        0.14,
        0.2
       ],
       [
-       3.03,
+       3.18,
        -0.05,
        0.12
       ],
       [
-       3.3,
+       3.48,
        0.015,
        0.08
       ],
       [
-       3.6,
+       3.78,
        0.015,
        0.08
       ],
       [
-       3.97,
+       4.125,
        0.04,
        0.12
       ]
@@ -494,7 +494,7 @@
     {
      "sfx": "tyres",
      "gain": 0.45,
-     "dur": 3.05,
+     "dur": 1.68,
      "reason": "both bikes' tyres buzzing on the dirt trail",
      "at": 0
     },
@@ -609,6 +609,26 @@
      "do": "prop",
      "id": "br",
      "set": {
+      "tip": 14
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.016
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.87
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
       "z": 4.8,
       "spin": 4.243
      },
@@ -620,12 +640,82 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 4.44,
-      "spin": 4.625
+      "y": 0.064
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.903
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.139
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.937
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.238
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 4.41,
+      "spin": 4.657
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.352
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 1.003
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "tip": -4
+     },
+     "dur": 0.56,
+     "ease": "inOut",
+     "at": 1.01
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.475
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 1.037
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.598
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 1.07
     }
    ],
    "kind": "hook"
@@ -640,8 +730,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 4.16,
-      "spin": 4.922
+      "z": 4.04,
+      "spin": 5.049
      },
      "dur": 0.1,
      "ease": "linear",
@@ -657,6 +747,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.713
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.003
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -666,6 +766,16 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.811
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.037
     },
     {
      "who": "rea",
@@ -687,8 +797,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.92,
-      "spin": 5.176
+      "y": 0.886
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 3.68,
+      "spin": 5.431
      },
      "dur": 0.1,
      "ease": "linear",
@@ -698,22 +818,21 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "tip": 14
+      "y": 0.934
      },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.1
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.103
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "y": 0
+      "y": 0.95
      },
-     "dur": 0.6,
-     "ease": "inOut",
-     "arc": 0.85,
-     "at": 0.12
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.137
     },
     {
      "who": "rea",
@@ -730,8 +849,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.68,
-      "spin": 5.431
+      "y": 0.934
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 3.32,
+      "spin": 5.813
      },
      "dur": 0.1,
      "ease": "linear",
@@ -741,22 +870,62 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "tip": -4
+      "y": 0.886
      },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 0.26
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.203
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.44,
-      "spin": 5.685
+      "y": 0.811
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.237
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.712
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 2.96,
+      "spin": 6.195
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.598
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.303
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.475
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.337
     },
     {
      "who": "rea",
@@ -769,8 +938,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.2,
-      "spin": 5.94
+      "y": 0.352
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 2.6,
+      "spin": 6.577
      },
      "dur": 0.1,
      "ease": "linear",
@@ -780,8 +959,38 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.96,
-      "spin": 6.195
+      "y": 0.237
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.403
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.139
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.437
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0.064
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 2.24,
+      "spin": 6.958
      },
      "dur": 0.1,
      "ease": "linear",
@@ -791,8 +1000,90 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.72,
-      "spin": 6.449
+      "y": 0.016
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.503
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": 20
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.53
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.537
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.012
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.56
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.02,
+      2.498
+     ],
+     "dur": 0.45,
+     "color": "#c9a77c",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "sound": false,
+     "at": 0.57
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "Reaper's bike lands after his hop over the root",
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.046
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.593
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 1.88,
+      "spin": 7.34
      },
      "dur": 0.1,
      "ease": "linear",
@@ -810,6 +1101,16 @@
      "at": 0.62
     },
     {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.103
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.627
+    },
+    {
      "who": "rea",
      "do": "turn",
      "to": 180,
@@ -819,20 +1120,30 @@
     },
     {
      "do": "prop",
-     "id": "br",
+     "id": "bw",
      "set": {
-      "tip": 0
+      "y": 0.179
      },
-     "dur": 0.08,
-     "ease": "in",
+     "dur": 0.033,
+     "ease": "linear",
      "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.271
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.693
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.48,
-      "spin": 6.704
+      "z": 1.52,
+      "spin": 7.722
      },
      "dur": 0.1,
      "ease": "linear",
@@ -895,32 +1206,51 @@
      "at": 0.72
     },
     {
-     "fx": "poof",
-     "pos": [
-      0,
-      0.02,
-      2.822
-     ],
-     "dur": 0.45,
-     "color": "#c9a77c",
-     "puffs": 7,
-     "sparks": 0,
-     "size": 0.4,
-     "lift": 0.06,
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": -6
+     },
+     "dur": 0.8,
+     "ease": "inOut",
      "at": 0.72
     },
     {
-     "sfx": "land",
-     "gain": 0.35,
-     "reason": "Reaper's bike lands after his hop over the root",
-     "at": 0.72
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.377
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.727
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.493
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.76
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.613
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.793
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.203,
-      "spin": 6.997
+      "z": 1.143,
+      "spin": 8.122
      },
      "dur": 0.1,
      "ease": "linear",
@@ -938,31 +1268,31 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": 20
+      "y": 0.734
      },
-     "dur": 0.16,
-     "ease": "out",
-     "at": 0.81
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.827
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.021
+      "y": 0.85
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.84
+     "at": 0.86
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.082
+      "y": 0.958
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.873
+     "at": 0.893
     }
    ]
   },
@@ -976,8 +1306,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 1.853,
-      "spin": 7.368
+      "z": 0.733,
+      "spin": 8.556
      },
      "dur": 0.1,
      "ease": "linear",
@@ -987,38 +1317,38 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.179
+      "y": 1.054
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.007
+     "at": 0.027
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.302
+      "y": 1.133
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.04
+     "at": 0.06
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.442
+      "y": 1.194
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.073
+     "at": 0.093
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 1.43,
-      "spin": 7.817
+      "z": 0.29,
+      "spin": 9.027
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1028,48 +1358,38 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": -6
+      "y": 1.233
      },
-     "dur": 0.44,
-     "ease": "inOut",
-     "at": 0.1
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.127
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.587
+      "y": 1.25
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.107
+     "at": 0.16
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.724
+      "y": 1.242
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.14
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.843
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.173
+     "at": 0.193
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 0.97,
-      "spin": 8.305
+      "z": -0.17,
+      "spin": 9.515
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1079,103 +1399,42 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.933
+      "y": 1.212
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.207
+     "at": 0.227
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.987
+      "y": 1.16
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.24
+     "at": 0.26
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.999
+      "y": 1.088
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.273
+     "at": 0.293
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 0.51,
-      "spin": 8.793
+      "z": -0.63,
+      "spin": 10.002
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.97
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.307
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.901
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.34
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.799
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.373
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": 0.05,
-      "spin": 9.281
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.671
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.407
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0.529
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 0.44
     },
     {
      "do": "prop",
@@ -1185,24 +1444,85 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.44
+     "at": 0.32
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.385
+      "y": 0.998
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.473
+     "at": 0.327
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.895
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.781
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.393
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -0.41,
-      "spin": 9.769
+      "z": -1.09,
+      "spin": 10.49
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.661
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.427
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.54
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.423
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.493
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": -1.55,
+      "spin": 10.978
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1212,48 +1532,38 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.25
+      "y": 0.313
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.507
+     "at": 0.527
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.136
+      "y": 0.214
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.54
+     "at": 0.56
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.053
+      "y": 0.131
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.573
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "tip": 0
-     },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.58
+     "at": 0.593
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -0.87,
-      "spin": 10.257
+      "z": -2.01,
+      "spin": 11.466
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1269,11 +1579,52 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.008
+      "y": 0.066
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.607
+     "at": 0.627
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.023
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.002
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.693
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": -2.47,
+      "spin": 11.954
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -1281,55 +1632,64 @@
      "set": {
       "y": 0
      },
-     "dur": 0.02,
+     "dur": 0.013,
      "ease": "linear",
-     "at": 0.64
+     "at": 0.727
+    },
+    {
+     "sfx": "tyres",
+     "gain": 0.45,
+     "dur": 0.46,
+     "reason": "tyres back on the dirt after the hop",
+     "at": 0.74
     },
     {
      "sfx": "thud",
      "gain": 0.75,
      "reason": "the bike slams down after the big hop over the root",
-     "at": 0.66
+     "at": 0.74
     },
     {
      "fx": "shake",
      "dur": 0.3,
      "amp": 0.035,
-     "at": 0.66
+     "at": 0.74
     },
     {
      "fx": "poof",
      "pos": [
       -0.45,
       0.03,
-      0.66
+      0.34
      ],
      "dur": 0.7,
      "color": "#e2c9a2",
      "puffs": 12,
-     "sparks": 8,
+     "sparks": 6,
      "spark": "#6b4426",
-     "sparkSize": 0.7,
+     "sparkSize": 0.45,
      "size": 0.7,
      "lift": 0.1,
-     "at": 0.66
+     "sound": false,
+     "at": 0.74
     },
     {
      "fx": "poof",
      "pos": [
       0.45,
       0.03,
-      0.66
+      0.34
      ],
      "dur": 0.7,
      "color": "#e2c9a2",
      "puffs": 12,
-     "sparks": 8,
+     "sparks": 6,
      "spark": "#6b4426",
-     "sparkSize": 0.7,
+     "sparkSize": 0.45,
      "size": 0.7,
      "lift": 0.1,
-     "at": 0.66
+     "sound": false,
+     "at": 0.74
     },
     {
      "do": "prop",
@@ -1340,18 +1700,18 @@
      },
      "dur": 0.09,
      "ease": "inOut",
-     "at": 0.66
+     "at": 0.74
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -1.33,
-      "spin": 10.745
+      "z": -2.93,
+      "spin": 12.442
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.7
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -1362,18 +1722,18 @@
      },
      "dur": 0.09,
      "ease": "inOut",
-     "at": 0.75
+     "at": 0.83
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -1.79,
-      "spin": 11.233
+      "z": -3.39,
+      "spin": 12.93
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -1384,29 +1744,7 @@
      },
      "dur": 0.09,
      "ease": "inOut",
-     "at": 0.84
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": -2.25,
-      "spin": 11.721
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "rot": 180,
-      "roll": 0
-     },
-     "dur": 0.09,
-     "ease": "inOut",
-     "at": 0.93
+     "at": 0.92
     }
    ]
   },
@@ -1420,8 +1758,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -2.71,
-      "spin": 12.209
+      "z": -3.85,
+      "spin": 13.418
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1431,25 +1769,19 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0.06
+      "rot": 180,
+      "roll": 0
      },
-     "dur": 0.1,
+     "dur": 0.09,
      "ease": "inOut",
-     "at": 0.03
-    },
-    {
-     "sfx": "plank-rattle",
-     "gain": 0.6,
-     "dur": 1.04,
-     "reason": "the wheels rattle over the plank",
-     "at": 0.03
+     "at": 0.01
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -3.17,
-      "spin": 12.697
+      "z": -4.31,
+      "spin": 13.906
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1459,8 +1791,35 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -3.63,
-      "spin": 13.185
+      "y": 0
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.06
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.6,
+     "dur": 1.045,
+     "reason": "the wheels rattle over the plank",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": -4.77,
+      "spin": 14.394
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1470,18 +1829,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "y": 0
-     },
-     "dur": 0.16,
-     "ease": "inOut",
-     "at": 0.29
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": -4.09,
-      "spin": 13.673
+      "z": -5.23,
+      "spin": 14.882
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1491,8 +1840,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -4.55,
-      "spin": 14.161
+      "z": -5.69,
+      "spin": 15.37
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1502,8 +1851,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -5.01,
-      "spin": 14.648
+      "z": -6.15,
+      "spin": 15.858
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1513,8 +1862,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -5.47,
-      "spin": 15.136
+      "z": -6.61,
+      "spin": 16.346
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1524,8 +1873,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -5.93,
-      "spin": 15.624
+      "z": -7.07,
+      "spin": 16.834
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1535,8 +1884,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -6.39,
-      "spin": 16.112
+      "z": -7.53,
+      "spin": 17.322
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1546,22 +1895,12 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -6.85,
-      "spin": 16.6
+      "z": -7.99,
+      "spin": 17.809
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "bw",
-     "set": {
-      "y": 0
-     },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 0.97
     },
     {
      "who": "phx",
@@ -1603,10 +1942,10 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -7.31,
-      "spin": 17.088
+      "z": -8.036,
+      "spin": 17.858
      },
-     "dur": 0.1,
+     "dur": 0.01,
      "ease": "linear",
      "at": 0
     },
@@ -1623,11 +1962,17 @@
      "at": 0
     },
     {
-     "sfx": "tyres",
-     "gain": 0.45,
-     "dur": 1.15,
-     "reason": "tyres on the dirt again up to the edge",
-     "at": 0.05
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -0.027,
+      "z": -8.358,
+      "spin": 18.2
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.01
     },
     {
      "sfx": "whoosh",
@@ -1636,23 +1981,25 @@
      "at": 0.05
     },
     {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -0.107,
+      "z": -8.634,
+      "spin": 18.493
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.077
+    },
+    {
      "who": "phx",
      "do": "arm",
      "side": "R",
      "pose": "wave",
      "dur": 0.18,
      "at": 0.08
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": -7.77,
-      "spin": 17.576
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
     },
     {
      "who": "phx",
@@ -1664,27 +2011,59 @@
     },
     {
      "do": "prop",
-     "id": "br",
+     "id": "bw",
      "set": {
-      "z": -8.046,
-      "spin": 17.869
+      "y": 0
      },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 0.2
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.125
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.027,
-      "z": -8.368,
-      "spin": 18.21
+      "y": -0.24,
+      "z": -8.956,
+      "spin": 18.834
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.26
+     "at": 0.143
+    },
+    {
+     "sfx": "tyres",
+     "gain": 0.45,
+     "dur": 0.995,
+     "reason": "tyres on the dirt again up to the edge",
+     "at": 0.205
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -0.427,
+      "z": -9.278,
+      "spin": 19.176
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.21
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -0.667,
+      "z": -9.554,
+      "spin": 19.468
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.277
     },
     {
      "who": "phx",
@@ -1703,26 +2082,26 @@
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.107,
-      "z": -8.644,
-      "spin": 18.503
+      "y": -0.96,
+      "z": -9.876,
+      "spin": 19.81
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.327
+     "at": 0.343
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.24,
-      "z": -8.966,
-      "spin": 18.845
+      "y": -1.307,
+      "z": -10.198,
+      "spin": 20.152
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.393
+     "at": 0.41
     },
     {
      "who": "phx",
@@ -1741,44 +2120,44 @@
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.427,
-      "z": -9.288,
-      "spin": 19.186
+      "y": -1.707,
+      "z": -10.474,
+      "spin": 20.444
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.46
+     "at": 0.477
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.667,
-      "z": -9.564,
-      "spin": 19.479
+      "y": -2.16,
+      "z": -10.796,
+      "spin": 20.786
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.527
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -0.96,
-      "z": -9.886,
-      "spin": 19.821
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.593
+     "at": 0.543
     },
     {
      "who": "phx",
      "do": "hide",
      "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -2.667,
+      "z": -11.118,
+      "spin": 21.127
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.61
     },
     {
      "sfx": "windswell",
@@ -1792,78 +2171,65 @@
      "id": "br",
      "set": {
       "x": 0,
-      "y": -1.307,
-      "z": -10.208,
-      "spin": 20.162
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.66
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -1.707,
-      "z": -10.484,
-      "spin": 20.455
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.727
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -2.16,
-      "z": -10.806,
-      "spin": 20.796
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.793
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -2.667,
-      "z": -11.128,
-      "spin": 21.138
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.86
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
       "y": -3.227,
-      "z": -11.404,
-      "spin": 21.431
+      "z": -11.394,
+      "spin": 21.42
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.927
+     "at": 0.677
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -3.286,
-      "z": -11.45,
-      "spin": 21.48
+      "y": -3.84,
+      "z": -11.716,
+      "spin": 21.762
      },
-     "dur": 0.007,
+     "dur": 0.067,
      "ease": "linear",
-     "at": 0.993
+     "at": 0.743
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -4.507,
+      "z": -12.038,
+      "spin": 22.103
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.81
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -5.227,
+      "z": -12.314,
+      "spin": 22.396
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.877
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -5.881,
+      "z": -12.59,
+      "spin": 22.689
+     },
+     "dur": 0.057,
+     "ease": "linear",
+     "at": 0.943
     }
    ]
   },
@@ -1974,6 +2340,7 @@
      "sparks": 0,
      "size": 0.4,
      "lift": 0.06,
+     "sound": false,
      "at": 0.17
     },
     {
@@ -3560,6 +3927,7 @@
      "sparks": 0,
      "size": 0.35,
      "lift": 0.05,
+     "sound": false,
      "at": 0
     },
     {
