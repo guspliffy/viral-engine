@@ -1,0 +1,91 @@
+{
+ "id": "lookdev/wizard-crisp-nostaff",
+ "name": "Wizard (crisp look-dev, staff put away)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Dusk) and game/portraits/wizard.jpg",
+ "rig": "potato",
+ "body": {
+  "color": "#f2b04e",
+  "height": 1.04,
+  "width": 0.76,
+  "depth": 0.7,
+  "lump": 0.035,
+  "seed": 4,
+  "taper": 0.16
+ },
+ "limbs": {
+  "color": "#262540",
+  "width": 0.05,
+  "shoulder": -0.42
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#5a3418",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "curve": 0.35,
+   "smirk": 0.12,
+   "lidL": 0.12,
+   "lidR": 0.18,
+   "browL": 0.12,
+   "tilt": 0.12
+  },
+  "eye": {
+   "corner": 1,
+   "flick": 0.6,
+   "depth": 0.27,
+   "iris": 0.62,
+   "glints": 1,
+   "oval": 1.32,
+   "lash": 0.85
+  },
+  "browShape": {
+   "arch": 0.06,
+   "thick": 0.9,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008,
+   "clear": 0.008
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "hat-brim"
+ },
+ "costume": {
+  "type": "wizard",
+  "hatShade": {
+   "depth": 0.15,
+   "k": 0.6
+  },
+  "accent": "#4b238c",
+  "band": "#1c1530",
+  "glow": "#f2c14e",
+  "staffWood": "#7a4e2a",
+  "propHand": "L",
+  "noProp": true,
+  "hatShape": "crisp"
+ },
+ "personality": "Occasional third character. Wants to be useful and respected; overcomplicates simple requests; patient and sincerely curious. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "voice": {
+  "pitch": 118,
+  "rate": 2.7,
+  "formant": 1.0,
+  "range": 3,
+  "breath": 0.14,
+  "vibrato": 0.025,
+  "seed": 4
+ },
+ "notes": "Copy of lookdev/wizard-crisp with the staff put away (costume.noProp), so both hands are free for a cup and a bottle (Friends Who Copy Everything, 30 Oct 2026: \"Wizard's staff is absent\"). Change nothing else here; edit wizard-crisp and copy again.",
+ "voiceNote": "gibberish, low and slow, a little breathy",
+ "hands": {
+  "type": "glove",
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ }
+}
