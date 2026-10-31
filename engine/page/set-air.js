@@ -25,7 +25,7 @@ export function addAir(scene, A, ctx = {}) {
     m.userData.noOutline = true;
     const w = 0.35 + r() * 0.6, L = 7 + r() * 4, q = new THREE.Mesh(new THREE.PlaneGeometry(w, L).translate(0, L / 2, 0), m);
     q.position.set(x0 + r() * (x1 - x0), -0.2, z0 + r() * (z1 - z0)); q.renderOrder = 3; q.frustumCulled = false; g.add(q);
-    beams.push({ q, m, k: 0.07 + r() * 0.08, ph: r() * 6.3, sp: 0.4 + r() * 0.5 });
+    beams.push({ q, m, k: (A.strength ?? 1) * (0.12 + r() * 0.12), ph: r() * 6.3, sp: 0.4 + r() * 0.5 });
   }
   // motes: tiny bright specks drifting slowly and twinkling where the light catches them
   const N = A.motes ?? 160, P = new Float32Array(N * 3), seeds = [];

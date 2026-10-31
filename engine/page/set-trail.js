@@ -100,14 +100,25 @@ function leafyBushes(g, bushes, S, rnd) {
     // under and beside near leaves (the closest layer of depth); a share of them goes into each colour's leaves
     if (S.overhang && li < 3) for (let z = 12 - li * 1.2; z > TRAIL.edge + 1.5; z -= 3.6 + rnd() * 1.5) {
       if (z < TRAIL.gully[0] + 0.3 && z > TRAIL.gully[1] - 0.3) continue;
-      const side = rnd() < 0.5 ? -1 : 1, base = new THREE.Vector3(trailX(z, S.bend) + side * (1.05 + rnd() * 0.35), 1.55 + rnd() * 0.45, z);
-      const twig = new THREE.Vector3(-side * (0.35 + rnd() * 0.25), -0.12 - rnd() * 0.12, (rnd() - 0.5) * 0.4);
-      for (let k = 0; k < 46; k++) {
+      const side = rnd() < 0.5 ? -1 : 1, base = new THREE.Vector3(trailX(z, S.bend) + side * (1.5 + rnd() * 0.4), 1.75 + rnd() * 0.45, z);
+      const twig = new THREE.Vector3(-side * (0.6 + rnd() * 0.3), -0.18 - rnd() * 0.12, (rnd() - 0.5) * 0.4);
+      // the branch grows out of a real tree beside the trail: a trunk from the ground up past the frame, a limb from
+      // the trunk out over the trail edge, and a thinner twig on to where the leaves hang
+      const limb = (a, b, r0, r1) => { const d = b.clone().sub(a); (leafyBushes.twigs ||= []).push([new THREE.CylinderGeometry(r1, r0, d.length(), 7), new THREE.Matrix4().compose(a.clone().add(b).multiplyScalar(0.5), new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()), new THREE.Vector3(1, 1, 1))]); };
+      const tx = trailX(z, S.bend) + side * (2.25 + rnd() * 0.35), ty = base.y + 0.35 + rnd() * 0.3;
+      limb(new THREE.Vector3(tx, -0.05, z), new THREE.Vector3(tx + side * 0.06, 7.5, z + 0.05), 0.27, 0.15);
+      limb(new THREE.Vector3(tx + side * 0.1, 0.0, z), new THREE.Vector3(tx + side * 0.45, -0.05, z + 0.25), 0.1, 0.03);   // a root flare
+      const elbow = base.clone().addScaledVector(twig, 0.15).add(new THREE.Vector3(0, 0.12, 0));
+      limb(new THREE.Vector3(tx - side * 0.12, ty, z), elbow, 0.075, 0.045);
+      limb(elbow, base.clone().addScaledVector(twig, 0.85), 0.045, 0.015);
+      limb(elbow, base.clone().addScaledVector(twig, 0.45).add(new THREE.Vector3(0, 0.2, (rnd() - 0.5) * 0.3)), 0.025, 0.01);
+      for (let k = 0; k < 80; k++) {
         const a = rnd(), at = base.clone().addScaledVector(twig, a).add(new THREE.Vector3((rnd() - 0.5) * 0.32, (rnd() - 0.5) * 0.22 - a * 0.08, (rnd() - 0.5) * 0.32));
         n.set(rnd() - 0.5, 0.3 + rnd(), rnd() - 0.5).normalize(); q.setFromUnitVectors(up, n); e.set((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2, rnd() * 6.3);
         const s = 0.12 + rnd() * 0.08; cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(new THREE.Quaternion().setFromEuler(e)), new THREE.Vector3(s, s, s))]);
       }
     }
+    if (li === 2 && leafyBushes.twigs) { g.add(merged(leafyBushes.twigs, lam("#57402f"), false)); leafyBushes.twigs = null; }
     const coreParts = cards.filter(([geo]) => geo !== card), leafParts = cards.filter(([geo]) => geo === card);
     g.add(merged(coreParts, lam(core)));
     const lm = lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide }), fm = lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide });

@@ -535,7 +535,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
   // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
-  const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean))) : null;
+  const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean)), D.brush) : null;
   if (lines) { fx.enabled = false; composer.addPass(lines); }
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
@@ -555,6 +555,19 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // old wide warm glow over everything, which veiled the faces
   if (golden && setSpec.bloom === "haze") composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.8, 0.95));
   else if (setSpec.bloom !== false) composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), 0.25, 0.4, 1.15));
+  // the drawn look's diffusion glow: a soft halo round everything light, the anime film's compositing filter
+  // it grows only from the set (the lines' ink flag masks the characters out of its source), so a window or the sky
+  // glows over a character's edge while the eye whites and faces stay clean
+  if (D && D.brush && D.brush.glow > 0) {
+    const glow = new UnrealBloomPass(new THREE.Vector2(W, H), D.brush.glow, 0.7, 0.62), hp = glow.materialHighPassFilter;
+    if (lines) {
+      hp.uniforms.tInk = { value: lines.nd.texture };
+      hp.fragmentShader = hp.fragmentShader.replace("uniform sampler2D tDiffuse;", "uniform sampler2D tDiffuse, tInk;")
+        .replace("gl_FragColor = mix( outputColor, texel, alpha );", "gl_FragColor = mix( outputColor, texel, alpha * (1.0 - step(0.9, texture2D( tInk, vUv ).a)) );");
+      if (!hp.fragmentShader.includes("tInk, vUv")) throw new Error("drawn glow: three's bloom high pass changed, the character mask no longer applies");
+    }
+    composer.addPass(glow);
+  }
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;

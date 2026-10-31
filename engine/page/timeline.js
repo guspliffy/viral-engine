@@ -157,6 +157,8 @@ function rideAt(sb, a, u) {
 // of up to 0.28 s at each end), footfalls paced by the distance covered so each standing foot stays put on the floor
 // (step length from the cruise speed at the walk's own cadence, a.steps cycles a second; a.stride fixes it instead),
 // and the gait the body shows on top (natApply).
+// a toe tap's slap: this far into each tap cycle (timeline "tap"; engine/audio.mjs puts the footstep there)
+export const TAP_AT = 0.6;
 function natMove(st, a, t, d, nat) {
   const dx = a.to[0] - st.x, dz = a.to[1] - st.z, dist = Math.hypot(dx, dz), p = prog(t, a.at, d);
   const r = Math.min(0.28, 0.3 * d), q = d > 0 ? r / d : 0, s = cruiseDist(p, q);
@@ -389,6 +391,19 @@ export function actorState(sb, actor, def, t, raw = false) {
       // a squat (to 0..1): the body drops and squashes a little while the feet stay planted on the floor, so the legs
       // bend; for a low reach (gripping a stool's rim) without kneeling
       case "crouch": st.crouch = lerp(st.crouch || 0, a.to ?? 1, e); break;
+      // an impatient toe tap: the heel stays down and the toe of one foot (side, default R) lifts and slaps down `count`
+      // times, one every `every` s (people tap 2 to 3 a second); each slap lands 60 % into its cycle (TAP_AT), where the
+      // foley puts a soft footstep, and the body gives a tiny bob on it
+      case "tap": {
+        const n = a.count ?? 3, ev = a.every ?? 0.3, u = (t - a.at) / ev;
+        if (u < n) {
+          const w = u % 1, s = a.side === "L" ? "L" : "R";
+          const up = w < 0.45 ? Math.sin((Math.PI / 2) * (w / 0.45)) : w < TAP_AT ? Math.cos((Math.PI / 2) * ((w - 0.45) / (TAP_AT - 0.45))) : 0;
+          st.tap = { ...st.tap, [s]: Math.max(st.tap?.[s] || 0, up * (a.lift ?? 1)) };
+          if (w >= TAP_AT) st.squash *= 1 - 0.008 * Math.sin(Math.PI * Math.min(1, (w - TAP_AT) / 0.3));
+        }
+        break;
+      }
       // flying (Phoenix's wings flap; anyone else just floats): fly to { x, y }, hover in place, drop like a stone
       case "fly": {
         // already hovering (a fly after a fly): start from where the bob had it and from the wing beat it had

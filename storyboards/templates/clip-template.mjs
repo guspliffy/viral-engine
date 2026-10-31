@@ -25,6 +25,9 @@ const MOTION = "natural";
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
+// SMALL GESTURES (Phase 3 study, 31 Oct 2026): act.breath, brushOff, rubHands, hipsSettle, tapFoot, thinkChin give a
+// beat the habit a person would do for themselves; act.ma(c, payoff, [who, ...]) holds everyone still for the half
+// second before the payoff (finish moves before it). docs/STORYBOARD.md, acting table.
 
 const c = clip({ faces: FACES }), { A, sfx, cap } = c;
 const END = 8.0;
