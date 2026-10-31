@@ -1,0 +1,828 @@
+{
+ "id": "gestures-new",
+ "title": "Small gestures (new)",
+ "idea": "Engine test: small gestures and the pause before the payoff, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "golden",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "livingroom",
+  "seed": 5,
+  "focus": false
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.3
+ },
+ "hook": {
+  "show": [
+   "phx"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0,
+    0
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.1,
+   "span": 0
+  }
+ ],
+ "props": [],
+ "beats": [
+  {
+   "name": "gestures",
+   "at": 0,
+   "len": 12,
+   "shot": {
+    "pos": [
+     0,
+     0.72,
+     3.4
+    ],
+    "look": [
+     0,
+     0.55,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.38,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.5,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.6,
+     "idle": 0.06,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.32,
+     "ease": "settle",
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.32,
+     "ease": "settle",
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.12
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "tap",
+     "side": "R",
+     "count": 4,
+     "every": 0.32,
+     "lift": 1,
+     "at": 0.72
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.35,
+     "at": 2.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.3
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 2.35
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0,
+     "dur": 0.3,
+     "at": 2.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.3
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.95
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "set": {
+      "raise": 0.05
+     },
+     "dur": 0.15,
+     "at": 3.2
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.2,
+     "at": 3.2
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.2,
+     "at": 3.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "set": {
+      "smirk": 0.35,
+      "curve": 0.3
+     },
+     "dur": 0.2,
+     "at": 3.3
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.12,
+     "dur": 0.3,
+     "at": 3.69
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.22,
+       0.44
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 3.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.22,
+       0.44
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.19,
+       0.415
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.25,
+       0.465
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.25,
+       0.465
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.19,
+       0.415
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.19,
+       0.415
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.25,
+       0.465
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.25,
+       0.465
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.55
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.19,
+       0.415
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 4.55
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.22,
+       0.44
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 4.7
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.22,
+       0.44
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 4.7
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 4.95
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.35,
+     "at": 4.95
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 5.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 5.2
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 5.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.25,
+      "curve": -0.05
+     },
+     "dur": 0.15,
+     "at": 5.8
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.15,
+     "at": 5.8
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.08,
+     "at": 5.8
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.35,
+     "at": 6.6
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 6.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 6.65
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.22,
+     "dur": 0.3,
+     "at": 6.69
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 1.1,
+     "at": 6.71
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -2.5,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 6.71
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 7.3
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 7.35
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 7.35
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.012,
+     "fade": 0.2,
+     "at": 7.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.12,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 7.8
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 4,
+     "dur": 0.3,
+     "at": 7.86
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 7.92
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.16,
+       0.12,
+       0.42
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 8.25
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.34,
+       0.44
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 8.43
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.16,
+       0.16,
+       0.42
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 8.55
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.32,
+     "at": 8.72
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 8.72
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 8.82
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 8.92
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.45,
+      0.4
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 9.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.36,
+       0.47
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 9.52
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -4,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 9.55
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 9.55
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "set": {
+      "curve": 0.05,
+      "smirk": 0.2
+     },
+     "dur": 0.3,
+     "at": 9.55
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.15,
+     "at": 9.9
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 11.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 11.18
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "at": 11.18
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 11.18
+    }
+   ]
+  }
+ ],
+ "duration": 12,
+ "notes": "Generated by storyboards/lookdev/make-natural-acting-tests.mjs (engine test).",
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.9,
+   "text": "NEW: waiting",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2.9,
+   "to": 5.7,
+   "text": "NEW: scheming",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.7,
+   "to": 9.3,
+   "text": "NEW: after a scare",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
+   "to": 12,
+   "text": "NEW: thinking",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ]
+}

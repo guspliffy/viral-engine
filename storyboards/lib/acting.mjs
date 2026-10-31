@@ -199,3 +199,124 @@ export function sheepish(c, t, who, { brow } = {}) {
 
 // how much longer a reaction holds with strong faces
 export const holdOf = (c, hold) => (strong(c) ? hold + 0.2 : hold);
+
+// ---------------------------------------------------------------- small gestures (Phase 3 study, 31 Oct 2026)
+// The little habits real people do for themselves (adaptors): a breath before acting, brushing off, rubbing hands,
+// a toe tap, hands to the hips, a hand to the chin. Each follows the natural-motion order from the movement study:
+// the eyes first, the body next, the hands about two frames later (on arcs with "motion": "natural"), a settle at the
+// end. Hands stay in front of the belly, off the eyes. `big` scales the size (0.6 a small one, 1 the default); `back`
+// is where the eyes go afterwards (face look space); each returns the time it ends. Study: the movement study doc,
+// "Phase 3 study" (https://claude.ai/artifact/Sd9NtkpDDtfJ5GTmiuYjZE).
+
+// a hand point in front of the belly (the mouth sits at about 0.45 of the height and the eyes above it, so a hand
+// that stays below 0.38 never covers them): x out from the middle on its own side, up (share of the body's height), fwd
+const front = (side, x, up, fwd) => ({ x: [side === "R" ? -x : x, up, fwd] });
+
+// a breath before acting (speaking up, an effort, after a shock): the eyes lift a little, the chest rises and the body
+// tips back a touch, a short hold, then it sinks a little lower than before
+export function breath(c, t, who, { big = 1, hold = 0.25, eyes, back = [0, 0] } = {}) {
+  const up = 0.45, down = 0.4, end = t + up + hold + down;
+  c.A(t, who, "look", { to: eyes ?? [back[0], back[1] + 0.2 * big], dur: 0.3, blink: false });
+  c.A(t + 0.04, who, "face", { brow: r3(0.22 * big), dur: 0.3 });
+  c.A(t + 0.06, who, "squash", { amount: r3(-0.035 * big), dur: r3(up + hold + down) });   // a stretch that rises and falls
+  c.A(t + 0.06, who, "pitch", { to: r3(-2.5 * big), dur: up, ease: "inOut" });
+  c.A(t + up + hold, who, "pitch", { to: 0, dur: down, ease: "settle" });
+  c.A(t + up + hold, who, "face", { brow: 0, dur: 0.3 });
+  c.A(t + up + hold - 0.05, who, "look", { to: back, dur: 0.3, blink: false });
+  c.A(t + up + hold, who, "still", { dur: 0.5, idle: 0.3, sink: r3(0.012 * big), fade: 0.2 });
+  return r3(end);
+}
+
+// brushing off (after a fall or an embarrassment, to look composed): eyes down first, a small lean in, the hand comes to
+// the belly on an arc, two downward strokes (each shorter), a nod, the eyes come back up last
+export function brushOff(c, t, who, { side = "R", strokes = 2, big = 1, back = [0, 0] } = {}) {
+  const sx = side === "R" ? -1 : 1;
+  c.A(t, who, "look", { to: [r3(0.12 * sx), -0.55], dur: 0.2, blink: false });
+  c.A(t + 0.06, who, "pitch", { to: r3(4 * big), dur: 0.3 });
+  c.arm(t + 0.12, who, side, front(side, 0.13, 0.36, 0.44), 0.3, "inOut");
+  let k = t + 0.45;
+  for (let i = 0; i < strokes; i++) {
+    const d = r3(0.18 - 0.03 * i), lo = r3(0.12 + 0.04 * i);
+    c.arm(k, who, side, front(side, 0.16, lo, 0.42), d, "inOut");
+    k += d;
+    if (i < strokes - 1) { c.arm(k, who, side, front(side, 0.13, 0.34, 0.44), 0.12, "inOut"); k += 0.12; }
+  }
+  c.arm(k + 0.02, who, side, "rest", 0.32);
+  c.A(k + 0.02, who, "pitch", { to: 0, dur: 0.3, ease: "settle" });
+  c.A(k + 0.12, who, "squash", { amount: r3(0.05 * big), dur: 0.22 });   // a small nod: done
+  c.A(k + 0.22, who, "look", { to: back, dur: 0.25, blink: false });
+  return r3(k + 0.47);
+}
+
+// rubbing hands (scheming, anticipation, cold): the eyes narrow and a sly smile starts, the body sinks a little, the
+// hands meet just in front of the belly and rub past each other `rubs` times, then go back down
+export function rubHands(c, t, who, { rubs = 3, every = 0.15, big = 1, hold = 0.15, sly = true, rest = true } = {}) {
+  if (sly) { c.A(t, who, "face", { lid: 0.32, dur: 0.25 }); c.A(t + 0.04, who, "expr", { set: { smirk: 0.35, curve: 0.32 }, dur: 0.25 }); }
+  c.A(t + 0.04, who, "crouch", { to: r3(0.12 * big), dur: 0.3 });
+  const meet = (s, u) => front(s, 0.07, r3(0.22 + 0.03 * u), r3(0.44 + 0.025 * u));
+  c.arm(t + 0.1, who, "R", meet("R", 0), 0.28, "inOut");
+  c.arm(t + 0.13, who, "L", meet("L", 0), 0.28, "inOut");   // the second hand two frames later (overlap)
+  let k = t + 0.45;
+  for (let i = 0; i < rubs; i++) {
+    const u = i % 2 ? 1 : -1;
+    c.arm(k, who, "R", meet("R", u), every, "inOut"); c.arm(k, who, "L", meet("L", -u), every, "inOut");
+    k += every;
+  }
+  c.arm(k, who, "R", meet("R", 0), 0.1, "inOut"); c.arm(k, who, "L", meet("L", 0), 0.1, "inOut");
+  k += 0.1 + hold;
+  if (rest) {
+    c.arm(k, who, "R", "rest", 0.35); c.arm(k + 0.05, who, "L", "rest", 0.35);
+    c.A(k, who, "crouch", { to: 0, dur: 0.35 });
+    if (sly) c.A(k + 0.1, who, "face", { lid: 0, dur: 0.3 });
+    k += 0.4;
+  }
+  return r3(k);
+}
+
+// hands on the hips ("well?", determined, impatient): the chest rises first, both hands land with a little overshoot,
+// the body tips back a touch and settles; `hold` s later they come down (hold: null keeps them there)
+export function hipsSettle(c, t, who, { big = 1, hold = 1.0 } = {}) {
+  c.A(t, who, "squash", { amount: r3(-0.03 * big), dur: 0.5 });
+  c.arm(t + 0.07, who, "R", "hips", 0.32, "settle");
+  c.arm(t + 0.1, who, "L", "hips", 0.32, "settle");
+  c.A(t + 0.1, who, "pitch", { to: r3(-4 * big), dur: 0.35, ease: "settle" });
+  if (hold == null) return r3(t + 0.45);
+  const k = t + 0.45 + hold;
+  c.A(k, who, "pitch", { to: 0, dur: 0.35 });
+  c.arm(k, who, "R", "rest", 0.35); c.arm(k + 0.05, who, "L", "rest", 0.35);
+  return r3(k + 0.4);
+}
+
+// a toe tap (impatience, waiting): the heel stays down, one toe lifts and slaps `count` times about three a second, with
+// a soft footstep on the set's floor on each slap (engine "tap"); the eyes go aside or up first if `eyes` is given
+export function tapFoot(c, t, who, { side = "R", count = 4, every = 0.32, eyes, big = 1 } = {}) {
+  if (eyes) c.A(t, who, "look", { to: eyes, dur: 0.25, blink: false });
+  c.A(t + 0.12, who, "tap", { side, count, every, lift: r3(big) });
+  return r3(t + 0.12 + count * every);
+}
+
+// thinking it over: the eyes go up and aside first, a hand comes to just under the mouth (never over the eyes), the
+// head tilts toward it and the body goes still for `hold`; then the hand goes back down
+export function thinkChin(c, t, who, { side = "R", hold = 0.9, big = 1, back = [0, 0] } = {}) {
+  const sx = side === "R" ? -1 : 1;
+  c.A(t, who, "look", { to: [r3(-0.45 * sx), 0.4], dur: 0.25, blink: false });
+  c.arm(t + 0.12, who, side, front(side, 0.1, 0.36, 0.47), 0.35, "inOut");
+  c.A(t + 0.15, who, "lean", { to: r3(4 * big * sx), dur: 0.35, ease: "settle" });
+  c.A(t + 0.15, who, "face", { brow: 0.15, dur: 0.3 });
+  c.A(t + 0.15, who, "expr", { set: { curve: 0.05, smirk: 0.2 }, dur: 0.3 });
+  c.A(t + 0.5, who, "still", { dur: hold, idle: 0.15 });
+  const k = t + 0.5 + hold;
+  c.A(k, who, "look", { to: back, dur: 0.25, blink: false });
+  c.arm(k + 0.08, who, side, "rest", 0.35);
+  c.A(k + 0.08, who, "lean", { to: 0, dur: 0.35 });
+  c.A(k + 0.08, who, "face", { brow: 0, dur: 0.3 });
+  return r3(k + 0.45);
+}
+
+// the pause before the payoff (ma): everyone named goes still for `len` s ending at the payoff, eyes held, no blinks,
+// the idle breathing almost stopped, so the punchline lands on a quiet frame. The music already dips 12 dB for the
+// 0.6 s before the payoff (engine/music.mjs), so picture and sound go quiet together. Leave the payoff's own
+// anticipation (a windUp) inside the pause; a character that must keep moving is simply left out of `whos`.
+export function ma(c, payoff, whos, { len = 0.5, idle = 0.04 } = {}) {
+  for (const who of [].concat(whos)) c.A(r3(payoff - len), who, "still", { dur: r3(len - 0.08), idle, fade: 0.1, sink: 0.004 });
+}
