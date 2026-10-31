@@ -11,12 +11,14 @@ import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
+import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
+let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
 // a point in a character's own parent frame (a rig, or the world) in the world
@@ -340,7 +342,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn); charMats = []; photos.clear(); plateShots.clear();
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
     const img = new Image(); plateShots.set(s.plate, img);
@@ -393,7 +395,7 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -405,6 +407,8 @@ async function init(data) {
 
 // places characters, effects and camera for time t without drawing anything
 function pose(t) {
+  // the drawn look on 2s (drawn.js): everything in the scene holds each drawing for 2 frames; the camera (tc) doesn't
+  const tc = t; t = onTwos(drawnD, t);
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
@@ -528,14 +532,14 @@ function pose(t) {
     a.ch.root.updateMatrixWorld(true); q.root.updateMatrixWorld(true);
     p.aim(F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()), q.root.localToWorld(new THREE.Vector3(...(p.spec.at || [0, 0, 0]))));
   }
-  const L = lightsAt(sb, t);
+  const L = lightsAt(sb, tc);
   for (const l of roomLights) l.o.intensity = l.base * L.room;
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
   if (bulb) bulb.o.material.color.copy(bulb.base).multiplyScalar(0.12 + 0.88 * Math.min(1, L.lamp));
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
-  const cam = cameraState(sb, t);
+  const cam = cameraState(sb, tc);
   // a shot with "rig" is fixed to that rig: its pos and look are in the rig's frame, and its up turns with it
-  const shot = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
+  const shot = (sb.shots || []).filter((q) => q.at <= tc).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
   const cp = new THREE.Vector3().fromArray(cam.pos), cl = new THREE.Vector3().fromArray(cam.look);
   if (V) { cp.applyMatrix4(V.g.matrixWorld); cl.applyMatrix4(V.g.matrixWorld); camera.up.set(0, 1, 0).transformDirection(V.g.matrixWorld); }
   else camera.up.set(0, 1, 0);

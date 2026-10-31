@@ -9,6 +9,7 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
+import { drawnSpec, DrawnLinesPass, PaperShader, paintShadowEdges, drawingNo } from "./drawn.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -175,7 +176,9 @@ function stepRamp(at, v, soft) {
 // point is (0 in shadow .. 1 lit, the cast shadow included); lit areas get the material colour with a warm light
 // tint, shadows the same colour multiplied by a hue-shifted shade (warm for skin, cool for the set), so shadows stay
 // rich instead of grey. A gentle gradient inside the light, a crisp rim on the lit edge and optional glossy spec.
+let PAINT = null;   // the drawn look's painted shadow edges (drawn.js), set by the look for the materials it converts
 function patchToon(m, o) {
+  const paint = PAINT;
   m.onBeforeCompile = (sh) => {
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
@@ -225,8 +228,9 @@ function patchToon(m, o) {
         }
         #endif
         #include <opaque_fragment>`);
+    if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -358,7 +362,9 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null }) {
+  const D = drawnSpec(drawn);
+  PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
   // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
@@ -493,6 +499,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
+  // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
+  const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean))) : null;
+  if (lines) { fx.enabled = false; composer.addPass(lines); }
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
   // while the room behind and the floor in front soften
@@ -522,6 +531,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.shadowTint.value.set(0.02, 0.0, -0.01); grade.uniforms.highTint.value.set(0.035, 0.015, -0.025);
   }
   composer.addPass(grade);
+  if (D && D.paper) {
+    const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
+    paper.uniforms.res.value.set(W * pr, H * pr); paper.uniforms.grain.value = D.paper.grain; paper.uniforms.wash.value = D.paper.wash; paper.uniforms.pool.value = D.paper.pool;
+    composer.addPass(paper);
+  }
 
   return {
     prepare(scene, t, focusPoint) {
@@ -536,6 +550,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
+      if (lines) lines.seed = drawingNo(D, t ?? 0) % 997;
       if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies
       for (const h of halos) {
         // costumes.js sets the halo every frame; scale it once per value it set
