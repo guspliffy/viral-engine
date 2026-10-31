@@ -24,11 +24,8 @@
   "focus": "acting"
  },
  "music": {
-  "styles": [
-   "funk",
-   "chip",
-   "bounce"
-  ]
+  "file": "ai/epic/epic-02.ogg",
+  "gain": 0.5
  },
  "sound": {
   "sfx": 0.7,

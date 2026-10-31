@@ -307,7 +307,7 @@ write(import.meta.url, {
   castLook: "golden",   // golden skin, bigger eyes (Jonny, 30 Oct; engine/load.mjs castLook)
   set: { type: "trail", seed: 7, light: "golden", windows: false, key: [6, 12, 6], shadowSize: 18, bloom: "emissive",
     aperture: FOCUS ? 0.03 : 0, ...(FOCUS && { focus: "acting" }) },
-  music: { styles: ["funk", "chip", "bounce"] },
+  music: { file: "ai/epic/epic-02.ogg", gain: 0.5 },   // Jonny 31 Oct: the epic orchestral bed (music option 3)
   sound: { sfx: 0.7, ambience: 0.25, room: "forest", signature: false },
   hook: { show: ["rea"], hint: 0, what: "a first-person ride racing down a forest trail behind Reaper on a tiny bike" },
   creative: { length: [10, 10] },
