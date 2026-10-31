@@ -11,7 +11,10 @@ import { rad, loopNow } from "./util.js";
 //                 motion: "<name>.motion.png" (red = leaves sway, green = sunlight shimmers),
 //                 dust: 40 (motes floating in the light; default 40 in golden light, else 0),
 //                 dustBox: [[x0, y0, z0], [x1, y1, z1]] (default: the upper middle, a little in front of the plate),
-//                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0" }
+//                 dustSize: 0.04 (m), dustOpacity: 0.85, dustColor: "#ffe0a0",
+//                 follow: { push: 0.04, shift: [0, 0], cover: 1.04 } (a backdrop that rides with the camera: it fills
+//                 the frame behind everything, always facing the lens, for a long ride the picture can't hold still
+//                 for; push grows it by that fraction a second, shift moves it in frame heights. No relief, no dust) }
 //   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
 //                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
 //                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
@@ -31,6 +34,7 @@ export function addPlate(scene, P, ctx = {}) {
   const tex = (src) => new THREE.TextureLoader().loadAsync(`/${src.replace(/^\/+/, "")}`);
   const loads = [tex(P.src), P.depth && tex(P.depth), P.motion && tex(P.motion)];
   P = { eye: ctx.eye, ...P };
+  if (P.follow) return followPlate(mesh, mat, loads, P);
   const load = Promise.all(loads).then(([map, depth, motion]) => {
     map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 4;
     const w = h * map.image.width / map.image.height;
@@ -46,6 +50,30 @@ export function addPlate(scene, P, ctx = {}) {
     const half = h * 0.4, box = [[x - half * 0.56, y, z + 0.5], [x + half * 0.56, y + half, z + 1.0]];
     dust(scene, { dustBox: box, ...P, dust: motes });
   }
+  return mesh;
+}
+
+// a painted backdrop pinned to the camera: drawn first and behind everything (no depth), sized to cover the view
+function followPlate(mesh, mat, loads, P) {
+  const F = P.follow === true ? {} : P.follow, now = { t: 0 }, v = new THREE.Vector3();
+  (globalThis.__setTicks ||= []).push((t) => { now.t = t; });
+  Object.assign(mat, { depthTest: false, depthWrite: false });
+  mesh.renderOrder = -1000; mesh.frustumCulled = false; mesh.receiveShadow = false;
+  let aspect = 9 / 16;
+  const load = Promise.all(loads).then(([map, , motion]) => {
+    map.colorSpace = THREE.SRGBColorSpace; mat.map = map; aspect = map.image.width / map.image.height;
+    if (motion) animate(mat, motion, map.image.width);
+    mat.needsUpdate = true;
+  });
+  (globalThis.__loads ||= []).push(load);
+  mesh.onBeforeRender = (r, s, cam) => {
+    const d = (cam.near + cam.far) / 2, viewH = 2 * d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
+    const k = Math.max(viewH, viewH * cam.aspect / aspect) * (F.cover ?? 1.04) * (1 + (F.push ?? 0) * now.t), [sx, sy] = F.shift || [0, 0];
+    mesh.quaternion.copy(cam.quaternion);
+    mesh.position.copy(cam.position).add(v.set(sx * viewH, sy * viewH, -d).applyQuaternion(cam.quaternion));
+    mesh.scale.set(k * aspect, k, 1);
+    mesh.updateMatrixWorld();
+  };
   return mesh;
 }
 

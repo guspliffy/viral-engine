@@ -374,6 +374,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   R.shadowMap.type = THREE.PCFShadowMap;
 
   const charRamp = golden ? stepRamp([0.3, 0.62], [0, 0.55, 1], 0.03) : smoothRamp(0, 1, 0.57, 0.05), setRamp = smoothRamp(0, 1, 0.5, golden ? 0.2 : 0.08), clothRamp = golden ? stepRamp([0.32, 0.6], [0, 0.5, 1], 0.04) : smoothRamp(0, 1, 0.55, 0.09);
+  // set.shade "soft" (look-match test, 31 Oct): rounded, film-like shading on the cast instead of the cel bands: a wide
+  // soft ramp, more gradient across the body, a soft gloss and a stronger warm back edge (Jonny's AI boards)
+  const soft = setSpec?.shade === "soft";
+  if (soft) { charRamp.dispose(); clothRamp.dispose(); }
+  const charR = soft ? smoothRamp(0.12, 1, 0.36, 0.3) : charRamp, clothR = soft ? smoothRamp(0.05, 1, 0.5, 0.3) : clothRamp;
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -411,6 +416,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       cloth: { ...ROLE.cloth, lit: [1.05, 0.84, 0.82], shade: [0.46, 0.36, 0.62], back: "#d8501c", backDir: back.backDir },
       wood: { ...ROLE.wood, lit: [1.08, 0.86, 0.74], shade: [0.5, 0.36, 0.6] },
       set: { ...ROLE.set, lit: [0.9, 0.78, 0.78], shade: [0.42, 0.34, 0.6] },
+    });
+  }
+  if (soft) {
+    const back = { back: "#ffd98a", backDir: [-0.9, 0.55, -0.3] };
+    Object.assign(ROLE, {
+      skin: { ...ROLE.skin, lit: [1.1, 1.24, 0.9], shade: [0.98, 0.92, 0.66], grad: 0.28, occ: 0.2, spec: 0.08, ...back },
+      char: { ...ROLE.char, grad: 0.22, spec: 0.12 },
+      cloth: { ...ROLE.cloth, grad: 0.22, occ: 0.24, rimK: 0.1 },
     });
   }
   // explicit roles a model can set on its material (userData.lookRole): the hood's inside, and glove hands, which keep
@@ -457,7 +470,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         t = new THREE.MeshBasicMaterial({ color: RC[role] || "#ff0000", side: m.side }); t.userData.outlineParameters = noLine; cache.set(m, t); made.add(t); return t;
       }
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothRamp : charRamp, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothR : charR, side: m.side, transparent: m.transparent, opacity: m.opacity,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
@@ -529,6 +542,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.para.value = setSpec.para ?? 0; grade.uniforms.paraPos.value.set(0.02, 0.95); grade.uniforms.paraColor.value.set(1.0, 0.72, 0.38);
     grade.uniforms.contrast.value = 1.05; grade.uniforms.saturation.value = 1.03; grade.uniforms.vignette.value = 0.08;
     grade.uniforms.shadowTint.value.set(0.02, 0.0, -0.01); grade.uniforms.highTint.value.set(0.035, 0.015, -0.025);
+  }
+  if (setSpec?.grade === "warm") {
+    // the AI boards' grade: richer colour, a little more contrast, warm highlights, a soft dark edge
+    grade.uniforms.contrast.value = 1.1; grade.uniforms.saturation.value = 1.16; grade.uniforms.vignette.value = 0.26;
+    grade.uniforms.highTint.value.set(0.05, 0.02, -0.035); grade.uniforms.shadowTint.value.set(0.02, -0.005, -0.015);
   }
   composer.addPass(grade);
   if (D && D.paper) {
