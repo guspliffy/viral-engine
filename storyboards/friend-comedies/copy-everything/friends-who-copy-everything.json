@@ -43,6 +43,14 @@
    {
     "at": 7.62,
     "part": "main"
+   },
+   {
+    "at": 8.6,
+    "part": "stop"
+   },
+   {
+    "at": 8.92,
+    "part": "main"
    }
   ]
  },
@@ -204,6 +212,68 @@
     0
    ],
    "width": 0.07
+  },
+  {
+   "id": "aim",
+   "kind": "soot",
+   "x": 1.43,
+   "y": 2,
+   "z": -1.9,
+   "rot": -90,
+   "scale": 0,
+   "size": 0.01
+  },
+  {
+   "id": "jet",
+   "kind": "breath",
+   "mouth": "dra",
+   "target": "aim",
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "width": 0.1
+  },
+  {
+   "id": "scorch1",
+   "kind": "soot",
+   "x": 1.435,
+   "y": 2,
+   "z": -1.9,
+   "rot": -90,
+   "scale": 0,
+   "size": 0.62
+  },
+  {
+   "id": "scorch2",
+   "kind": "soot",
+   "x": 1.435,
+   "y": 2.55,
+   "z": -1.5,
+   "rot": -90,
+   "scale": 0,
+   "size": 0.62
+  },
+  {
+   "id": "scorch3",
+   "kind": "soot",
+   "x": 1.435,
+   "y": 2.95,
+   "z": -1.05,
+   "rot": -90,
+   "scale": 0,
+   "size": 0.62
+  },
+  {
+   "id": "scorch4",
+   "kind": "soot",
+   "x": 1.435,
+   "y": 2.8,
+   "z": -0.7,
+   "rot": -90,
+   "scale": 0,
+   "size": 0.62
   }
  ],
  "captions": [
@@ -1846,7 +1916,7 @@
     },
     {
      "sfx": "flamejet",
-     "gain": 1,
+     "gain": 0.55,
      "reason": "the Wizard's oversized blast (5.9-6.45)",
      "at": 1.2
     },
@@ -1978,11 +2048,6 @@
      "at": 0.27
     },
     {
-     "sfx": "impact",
-     "gain": 0.9,
-     "at": 0.27
-    },
-    {
      "fx": "poof",
      "pos": [
       1.388,
@@ -1998,7 +2063,7 @@
     },
     {
      "sfx": "crumble",
-     "gain": 0.8,
+     "gain": 0.35,
      "at": 0.3
     },
     {
@@ -2162,7 +2227,7 @@
   {
    "name": "copy back",
    "at": 7.3,
-   "len": 1.7,
+   "len": 1.3,
    "shot": "keep",
    "do": [
     {
@@ -2383,41 +2448,45 @@
      "at": 0.9
     },
     {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.8,
-      0.02
-     ],
-     "dur": 0.1,
-     "blink": false,
-     "at": 0.93
+     "who": "dra",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.9
     },
     {
-     "who": "wiz",
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.15,
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "dra",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "focused",
      "set": {
-      "open": 0.55,
-      "eye": 1.482,
-      "curve": -0.075
+      "open": 0,
+      "pucker": 0.8,
+      "eye": 1.25,
+      "curve": -0.1
      },
-     "dur": 0.25,
-     "at": 0.98
+     "dur": 0.12,
+     "at": 0.9
     },
     {
-     "who": "wiz",
+     "who": "dra",
      "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.98
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.9
     },
     {
-     "who": "wiz",
-     "do": "still",
-     "dur": 0.8,
-     "idle": 0.08,
-     "at": 0.98
+     "sfx": "gasp",
+     "gain": 0.35,
+     "reason": "dra breathes in after the hot sauce",
+     "at": 0.9
     },
     {
      "sfx": "gulp",
@@ -2437,12 +2506,12 @@
       ],
       "palm": "wrap",
       "at": [
-       -0.24,
-       0.48,
-       0.54
+       -0.2,
+       0.58,
+       0.56
       ]
      },
-     "dur": 0.34,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 1.06
     },
@@ -2450,55 +2519,800 @@
      "do": "prop",
      "id": "bottle2",
      "set": {
-      "tip": -15
+      "tip": 0
      },
-     "dur": 0.34,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 1.06
     },
     {
      "who": "dra",
-     "do": "pitch",
-     "to": -8,
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 1.08
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bottle2",
+      "grip": [
+       -0.046,
+       0.045,
+       0.012
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.14,
+       0.42,
+       0.62
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.2
     },
     {
-     "who": "dra",
-     "do": "squash",
-     "amount": -0.15,
-     "dur": 0.4,
-     "at": 1.08
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.02
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.25
+    }
+   ]
+  },
+  {
+   "name": "chilli hits",
+   "at": 8.6,
+   "len": 0.32,
+   "shot": {
+    "pos": [
+     -0.36,
+     0.74,
+     3.845
+    ],
+    "look": [
+     -0.36,
+     0.74,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.482,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0
     },
     {
      "who": "dra",
      "do": "expr",
-     "expr": "focused",
+     "expr": "shocked",
      "set": {
+      "eye": 1.45,
       "open": 0,
-      "pucker": 0.8,
-      "eye": 1.25,
-      "curve": -0.1
+      "pucker": 0.9,
+      "curve": -0.2
      },
+     "dur": 0.1,
+     "at": 0.02
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.24,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0.6,
+      0.5
+     ],
      "dur": 0.12,
-     "at": 1.08
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.5,
+     "reason": "the chilli heating Dragon up from inside (eyes bulge, body swells)",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "bottle2",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.06
+    },
+    {
+     "sfx": "put-down-glass",
+     "gain": 0.5,
+     "at": 0.06
+    },
+    {
+     "who": "dra",
+     "do": "release",
+     "prop": "bottle2",
+     "dur": 0,
+     "at": 0.08
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "bottle2",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.11
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bottle2",
+      "grip": [
+       -0.046,
+       0.045,
+       0.012
+      ],
+      "palm": "wrap",
+      "off": [
+       0.059,
+       0.02,
+       -0.038
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.4
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.2,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.45,
+      "open": 0.55,
+      "curve": -0.7
+     },
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.78,
+       -0.12
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.78,
+       -0.12
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 68,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "to": 0.8,
+     "dur": 0.15,
+     "at": 0.22
+    }
+   ]
+  },
+  {
+   "name": "flames everything",
+   "at": 8.92,
+   "len": 1.38,
+   "shot": {
+    "pos": [
+     -1.006,
+     1.25,
+     7.509
+    ],
+    "look": [
+     0.3,
+     1.25,
+     0.1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 1.6,
+     "dur": 1.3,
+     "reason": "Dragon's chilli jet (8.97-10.15), the payoff",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 1,
+      "eye": 0.6,
+      "curve": 0
+     },
+     "dur": 0.06,
+     "at": 0.03
     },
     {
      "who": "dra",
      "do": "face",
-     "press": 1,
+     "press": 0,
+     "dur": 0.05,
+     "at": 0.03
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.4,
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "on": 1,
+      "fire": 1,
+      "len": 0.1
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 1.2,
+     "reason": "the jet bursts out of Dragon's mouth",
+     "at": 0.05
+    },
+    {
+     "fx": "shake",
+     "amp": 0.06,
+     "dur": 1.1,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "len": 1
+     },
      "dur": 0.12,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "candle",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "scorch1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.35,
+      1.9,
+      -1.9
+     ],
+     "color": "#5e5652",
+     "puffs": 6,
+     "sparks": 4,
+     "speed": 0.4,
+     "dur": 0.7,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "aim",
+     "set": {
+      "y": 2.55,
+      "z": -1.5
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "scorch2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.35,
+      2.45,
+      -1.5
+     ],
+     "color": "#5e5652",
+     "puffs": 6,
+     "sparks": 4,
+     "speed": 0.4,
+     "dur": 0.7,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "aim",
+     "set": {
+      "y": 2.95,
+      "z": -1.05
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 0.8,
+     "dur": 0.7,
+     "reason": "the jet keeps roaring up the wall",
+     "at": 0.63
+    },
+    {
+     "do": "prop",
+     "id": "scorch3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.35,
+      2.85,
+      -1.05
+     ],
+     "color": "#5e5652",
+     "puffs": 6,
+     "sparks": 4,
+     "speed": 0.4,
+     "dur": 0.7,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "aim",
+     "set": {
+      "y": 2.8,
+      "z": -0.7
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "scorch4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.06
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.35,
+      2.7,
+      -0.7
+     ],
+     "color": "#5e5652",
+     "puffs": 6,
+     "sparks": 4,
+     "speed": 0.4,
+     "dur": 0.7,
+     "at": 1.06
+    },
+    {
+     "do": "prop",
+     "id": "candle",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 1.08
     },
     {
-     "sfx": "gasp",
-     "gain": 0.35,
-     "reason": "dra breathes in after the hot sauce",
-     "at": 1.08
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "on": 0,
+      "fire": 0
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 18,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.23
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.23
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "to": 0.3,
+     "dur": 0.3,
+     "at": 1.23
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.23
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.23
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.3,
+      0.62,
+      0.5
+     ],
+     "color": "#8a827d",
+     "puffs": 3,
+     "sparks": 0,
+     "speed": 0.12,
+     "dur": 0.5,
+     "at": 1.28
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 1.28
     }
    ],
    "kind": "payoff"
+  },
+  {
+   "name": "aah",
+   "at": 10.3,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0,
+     0.86,
+     5.711
+    ],
+    "look": [
+     0,
+     0.86,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "len": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.7,
+      0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.35
+     },
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "dra",
+     "do": "talk",
+     "line": "aah!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.3
+     },
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.02
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "aah...",
+     "tone": "excited",
+     "dur": 0.35,
+     "voice": false,
+     "at": 0.8
+    }
+   ]
   }
  ],
  "hitStop": [

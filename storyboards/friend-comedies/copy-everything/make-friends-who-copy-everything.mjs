@@ -18,12 +18,17 @@
 //   05 3.6-4.5  SMALL FLAME: Dragon lights the table candle with one tiny flame; the Wizard gets an idea
 //   06 4.5-5.8  HOT SAUCE: the Wizard downs the first (open) bottle, puts the empty one back, inhales
 //   07 5.8-7.3  TOO MUCH: an absurd blast away from Dragon punches a hole in the empty wall; table, candle, bottle survive
-//   08 7.3-9.0  COPY BACK: Dragon stares 0.3 s, picks up the SECOND bottle, copies the gulp and the inhale; no second blast
+//   08 7.3-8.6  COPY BACK: Dragon stares 0.3 s, picks up the SECOND bottle, copies the gulp and the inhale
+//   09 8.6-10.3 FLAMES EVERYTHING (Jonny 31 Oct: "add some seconds with [him] flaming everything after drinking the
+//               chilli"; replaces the brief's "no second blast"): the chilli hits, Dragon rears up and sweeps a huge
+//               jet across the side wall over the ducking Wizard; scorch marks bloom where it passes
+//   10 10.3-11.6 AAH: smoke from his mouth, Dragon's satisfied "aah!" (the opener again); the Wizard comes up, hat
+//               smoking, and copies one last, very small "aah"
 //
 // Hands: Dragon's own RIGHT (screen left) holds his cup; his LEFT takes bottle 2. The Wizard's own LEFT (screen right)
 // holds his cup (the mirror of Dragon), his RIGHT takes bottle 1. Both are put back down before they let go.
 // State: two cups, one candle (unlit until 3.98, lit after), bottle 1 full until the Wizard's gulp then empty, bottle 2
-// full until Dragon's gulp. The wall hole opens at 6.07 and stays.
+// full until Dragon's gulp, then put back empty. The wall hole opens at 6.07 and stays; the scorch marks from 9.1 stay.
 import { clip, write, r3, frame } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import * as grips from "../../lib/grips.mjs";
@@ -36,7 +41,7 @@ const FOCUS = true;
 const FACES = "strong";
 
 const c = clip({ faces: FACES }), { A, sfx, cap } = c;
-const END = 9.0;
+const END = 11.6;
 
 // ---------------------------------------------------------------- places (x right, z toward the camera, y up)
 const DRA0 = [-0.58, 0], WIZ0 = [0.58, 0], STEP = 0.12;
@@ -50,6 +55,7 @@ const BOT1 = [0.14, TH, 0.62], BOT2 = [-0.14, TH, 0.62];               // bottle
 const CANDLE = [0, TH, 0.92];
 const SIDE_X = 1.45;                                                 // the café's right-hand wall (the sidewall prop, facing -x)
 const HOLE = [r3(SIDE_X - 0.012), 0.95, 0.45];                          // on that wall, right of the Wizard: the blast goes sideways
+const SWEEP = [[2.0, -1.9], [2.55, -1.5], [2.95, -1.05], [2.8, -0.7]];  // Dragon's jet up the side wall: [y, z] (09)
 
 // cups and bottles at the lips (the prop's bottom centre while it is tipped to the mouth; mouths: Dragon 0.56, the
 // Wizard 0.60 high, 0.35 in front of the body's middle)
@@ -79,6 +85,11 @@ const props = [
   { id: "sidewall", kind: "sidewall", x: SIDE_X, z: -0.1, rot: -90, w: 4.4, h: 3.6 },
   { id: "hole", kind: "wallhole", x: HOLE[0], y: HOLE[1], z: HOLE[2], rot: -90, r: 0.42, floor: HOLE[1], wall: "#f1dfc2", open: 0, burst: 0 },
   { id: "blast", kind: "breath", mouth: "wiz", target: "hole", at: [0, 0, 0], width: 0.07 },
+  // Dragon's jet (09): it runs to `aim`, an unseen point (a soot decal at scale 0) that sweeps up the side wall,
+  // high and behind the Wizard so it passes over his hat; a scorch mark blooms at each point it passes
+  { id: "aim", kind: "soot", x: SIDE_X - 0.02, y: SWEEP[0][0], z: SWEEP[0][1], rot: -90, scale: 0, size: 0.01 },
+  { id: "jet", kind: "breath", mouth: "dra", target: "aim", at: [0, 0, 0], width: 0.1 },
+  ...SWEEP.map(([y, z], i) => ({ id: `scorch${i + 1}`, kind: "soot", x: r3(SIDE_X - 0.015), y, z, rot: -90, scale: 0, size: 0.62 })),
 ];
 
 const dCup = grips.mug(c, "dra", MUG_D, { side: "R", height: 0.6 });
@@ -200,15 +211,14 @@ A(5.86, "wiz", "face", { press: 0, dur: 0.06 });
 A(5.86, "wiz", "squash", { amount: 0.1, dur: 0.5 });
 c.prop(5.9, "blast", { on: 1, fire: 1, len: 0.1 }, 0.03);
 c.prop(5.93, "blast", { len: 1 }, 0.14, "out");
-sfx(5.7, "flamejet", { gain: 1.0, reason: "the Wizard's oversized blast (5.9-6.45)" });
+sfx(5.7, "flamejet", { gain: 0.55, reason: "the Wizard's oversized blast (5.9-6.45)" });
 c.prop(6.07, "hole", { open: 1 }, 0.08, "out");
 c.prop(6.07, "hole", { burst: 3 }, 3, "linear");
 c.hitStop(6.07);
-c.at(6.07, { fx: "flash", peak: 0.35, dur: 0.2 });
+c.at(6.07, { fx: "flash", peak: 0.35, dur: 0.2 });   // brings its own impact sound; kept under Dragon's jet (the payoff is the loudest moment)
 c.at(6.07, { fx: "shake", amp: 0.07, dur: 0.5 });
 c.at(6.1, { fx: "poof", pos: [r3(HOLE[0] - 0.05), r3(HOLE[1] - 0.5), r3(HOLE[2] - 0.15)], color: "#f1dfc2", puffs: 14, sparks: 0, speed: 0.6, dur: 0.8 });   // at the wall, clear of the Wizard's face
-sfx(6.07, "impact", { gain: 0.9 });
-sfx(6.1, "crumble", { gain: 0.8 });
+sfx(6.1, "crumble", { gain: 0.35 });
 c.prop(6.4, "blast", { on: 0, fire: 0 }, 0.2, "inOut");
 c.prop(6.62, "blast", { len: 0 }, 0.01);
 A(6.45, "wiz", "pitch", { to: 0, dur: 0.3 });
@@ -232,10 +242,67 @@ tb = dBot.carry(tb, OVER_D, 0.1, "inOut");
 tb = dBot.carry(tb, GULP_D, 0.12, "inOut", { tip: -70 });
 gulp(r3(tb + 0.02), "dra", true);
 c.prop(tb, "bottle2", { fill: 0 }, 0.16, "inOut");
-dBot.carry(r3(tb + 0.18), [-0.24, 0.48, 0.54], 0.34, "inOut", { tip: -15 });   // the bottle lowering
-inhale(r3(tb + 0.2), "dra", 0.2);   // held from about 8.5 to the end
+tb = dBot.carry(r3(tb + 0.18), OVER_D, 0.14, "inOut", { tip: 0 });
+const putD = dBot.place(tb, BOT2, 0.16);   // the empty bottle back on the table before the jet (he turns away from it)
+sfx(putD, "put-down-glass", { gain: 0.5 });
+dBot.release(r3(putD + 0.02));
+inhale(8.2, "dra", 0.2);   // held until the chilli hits
 A(r3(tb + 0.05), "wiz", "look", { to: WIZ_AT_DRA, dur: 0.1, blink: false });
 act.shock(c, r3(tb + 0.1), "wiz", { open: 0.35, eye: 1.3, brow: 0.45, dur: 0.15, hold: 0.6 });
+
+// ---------------------------------------------------------------- 09 FLAMES EVERYTHING 8.6-10.3
+A(8.62, "dra", "expr", { expr: "shocked", set: { eye: 1.45, open: 0, pucker: 0.9, curve: -0.2 }, dur: 0.1 });   // the chilli hits
+A(8.62, "dra", "squash", { amount: -0.24, dur: 0.25 });
+A(8.62, "dra", "look", { to: [0.6, 0.5], dur: 0.12, blink: false });
+sfx(8.62, "sizzle", { gain: 0.5, reason: "the chilli heating Dragon up from inside (eyes bulge, body swells)" });
+A(8.78, "wiz", "look", { to: [-0.4, 0.4], dur: 0.1, blink: false });   // he sees it coming and ducks
+A(8.8, "wiz", "crouch", { to: 1, dur: 0.15 });
+A(8.8, "wiz", "squash", { amount: 0.2, dur: 0.15 });
+A(8.8, "wiz", "pitch", { to: -6, dur: 0.15, ease: "out" });   // cowering back, off the table
+A(8.8, "wiz", "expr", { expr: "shocked", set: { eye: 1.45, open: 0.55, curve: -0.7 }, dur: 0.1 });
+A(8.82, "dra", "turn", { to: 68, dur: 0.2, ease: "out" });
+A(8.82, "dra", "pitch", { to: -10, dur: 0.2, ease: "out" });
+A(8.82, "dra", "wings", { to: 0.8, dur: 0.15 });
+for (const s of ["R", "L"]) { c.arm(8.8, "dra", s, BRACE, 0.16, "out"); A(8.8, "dra", "grip", { side: s, shape: "fist", dur: 0.15 }); }
+A(8.95, "dra", "expr", { expr: "shocked", set: { open: 1, eye: 0.6, curve: 0 }, dur: 0.06 });
+A(8.95, "dra", "face", { press: 0, dur: 0.05 });
+A(8.95, "dra", "squash", { amount: 0.12, dur: 0.4 });
+c.prop(8.97, "jet", { on: 1, fire: 1, len: 0.1 }, 0.03);
+c.prop(9.0, "jet", { len: 1 }, 0.12, "out");
+sfx(8.92, "flamejet", { gain: 1.6, dur: 1.3, reason: "Dragon's chilli jet (8.97-10.15), the payoff" });
+sfx(8.97, "ai/flare", { gain: 1.2, reason: "the jet bursts out of Dragon's mouth" });
+sfx(9.55, "flamejet", { gain: 0.8, dur: 0.7, reason: "the jet keeps roaring up the wall" });
+c.at(8.97, { fx: "shake", amp: 0.06, dur: 1.1 });
+const PASS = [9.12, 9.42, 9.72, 9.98];   // when the jet's head reaches each sweep point
+SWEEP.forEach(([y, z], i) => {
+  if (i) c.prop(PASS[i - 1], "aim", { y, z }, r3(PASS[i] - PASS[i - 1]), "inOut");
+  c.prop(PASS[i], `scorch${i + 1}`, { scale: 1 }, 0.12, "out");
+  c.at(PASS[i], { fx: "poof", pos: [r3(SIDE_X - 0.1), r3(y - 0.1), z], color: "#5e5652", puffs: 6, sparks: 4, speed: 0.4, dur: 0.7 });
+});
+c.prop(9.0, "candle", { fire: 1 }, 0.15, "out");                        // the candle flares in the heat
+c.prop(10.0, "candle", { fire: 0 }, 0.3, "inOut");
+c.prop(10.1, "jet", { on: 0, fire: 0 }, 0.18, "inOut");
+c.prop(10.3, "jet", { len: 0 }, 0.01);
+
+// ---------------------------------------------------------------- 10 AAH 10.3-11.6
+A(10.15, "dra", "turn", { to: DRA_YAW, dur: 0.3, ease: "inOut" });
+A(10.15, "dra", "pitch", { to: 0, dur: 0.3, ease: "inOut" });
+A(10.15, "dra", "wings", { to: 0.3, dur: 0.3 });
+for (const s of ["R", "L"]) { c.arm(10.15, "dra", s, "rest", 0.3, "inOut"); A(10.3, "dra", "grip", { side: s, shape: "relaxed", dur: 0.2 }); }
+c.at(10.2, { fx: "poof", pos: [-0.3, 0.62, 0.5], color: "#8a827d", puffs: 3, sparks: 0, speed: 0.12, dur: 0.5 });   // a wisp of smoke from his mouth
+A(10.2, "dra", "squash", { amount: 0, dur: 0.3 });
+A(10.4, "dra", "look", { to: [0.2, 0.1], dur: 0.12, blink: false });
+A(10.42, "dra", "expr", { expr: "happy", set: { eye: 0.35 }, dur: 0.15 });
+A(10.42, "dra", "talk", { line: "aah!", tone: "excited", dur: 0.45, voice: false });   // the opener again: refreshed
+A(10.35, "wiz", "crouch", { to: 0, dur: 0.3 });
+A(10.35, "wiz", "squash", { amount: 0, dur: 0.3 });
+A(10.35, "wiz", "pitch", { to: 0, dur: 0.3, ease: "inOut" });
+A(10.4, "wiz", "look", { to: AT_HOLE, dur: 0.12, blink: false });
+A(10.45, "wiz", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.3 }, dur: 0.15 });
+A(10.95, "wiz", "look", { to: WIZ_AT_DRA, dur: 0.12, blink: false });
+act.sheepish(c, 11.0, "wiz");
+A(11.1, "wiz", "talk", { line: "aah...", tone: "excited", dur: 0.35, voice: false });   // one last copy, very small
+
 act.blinksAt(c, "dra", [2.85, 5.25]);
 act.blinksAt(c, "wiz", [3.17, 4.9]);   // he copies the blink too, a beat late
 
@@ -246,6 +313,8 @@ const CLOSE2 = frame([-0.16, 0.84, 0.3], { h: 2.6, fov: 30 });
 const WIDE = frame([0.56, 1.0, 0.2], { h: 4.2, fov: 34, az: -10 });
 const NEAR = frame([0.12, 0.8, 0.3], { h: 2.68, fov: 30 });   // closer for the candle and the bottles (review A)
 const PAY = frame([0, 0.86, 0.3], { h: 2.9, fov: 30 });
+const CLOSE_D = frame([-0.36, 0.74, 0.3], { h: 1.9, fov: 30 });   // Dragon's face as the chilli hits
+const BLAZE = frame([0.3, 1.25, 0.1], { h: 4.6, fov: 34, az: -10 });   // the whole side wall, the jet and the ducking Wizard
 const beats = c.beats([
   ["sip", 0, TWO, "hook"],
   ["tilt", 1.3, CLOSE2],
@@ -255,7 +324,10 @@ const beats = c.beats([
   ["hot sauce", 4.5, "keep", "escalation"],
   ["too much", 5.8, WIDE, "reveal"],
   ["shocked", 6.5, PAY],                          // review A: back to the two-shot for both shocked faces
-  ["copy back", 7.3, "keep", "payoff"],
+  ["copy back", 7.3, "keep"],
+  ["chilli hits", 8.6, CLOSE_D],
+  ["flames everything", 8.92, BLAZE, "payoff"],
+  ["aah", 10.3, PAY],
 ], END);
 
 write(import.meta.url, {
@@ -267,7 +339,7 @@ write(import.meta.url, {
   set: { type: "plain", color: "#efe2c8", floor: "#b98a5f", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/cafe-golden.png", z: -2.3, center: [0.3, 1.3], height: 5.6 },
     aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting", focusBand: 0.7 }) },   // both sit at one depth: a 0.7 m sharp band keeps both faces crisp (0.25 blurred them, Jonny 31 Oct)
-  music: { style: "bounce", gain: 0.22, parts: [{ at: 0, part: "main" }, { at: 7.25, part: "stop" }, { at: 7.62, part: "main" }] },
+  music: { style: "bounce", gain: 0.22, parts: [{ at: 0, part: "main" }, { at: 7.25, part: "stop" }, { at: 7.62, part: "main" }, { at: 8.6, part: "stop" }, { at: 8.92, part: "main" }] },
   direct: { master: TWO },
   sound: { sfx: 0.6, ambience: 0.3, surface: "wood" },
   hook: { show: ["dra", "wiz", "cupD", "cupW"], hint: 0.3, what: "the Wizard copies Dragon's sip a beat late" },
