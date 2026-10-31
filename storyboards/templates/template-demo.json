@@ -8,6 +8,7 @@
  "loop": true,
  "captionStyle": "kinetic",
  "castLook": "golden",
+ "motion": "natural",
  "loopIdle": true,
  "set": {
   "type": "plain",
@@ -271,7 +272,7 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      0.45,
+      0.5,
       0.32
      ],
      "dur": 0.45,

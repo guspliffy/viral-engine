@@ -19,6 +19,9 @@ const OPENER = { who: "phx", line: "ooh, nice!", words: false };   // a lead's s
                                     // gibberish, or words: true for a real voice with a subtitle; false: none
 const FOCUS = true;                 // depth of field (golden look): the room softens, focus follows who acts (set.focus)
 const FACES = "strong";             // stronger faces and longer holds in the acting loops ("normal": as before)
+// natural motion (Jonny 31 Oct 2026, "way better"): walks with planted feet, arcs, body-led reaches, eyes-first turns,
+// sit/stand weight (docs/STORYBOARD.md "motion"); { arcs: false } drops one part, false: today's motion
+const MOTION = "natural";
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -28,7 +31,7 @@ const END = 8.0;
 
 // ---------------------------------------------------------------- places (the golden living room plate; x right, z toward us)
 // keep characters a body-width apart (about 1.0 m centre to centre with the Wizard's hat brim)
-const PHX = [-0.5, 0.06], WIZ0 = [0.62, 0.3], WIZ_NEAR = [0.45, 0.32];
+const PHX = [-0.5, 0.06], WIZ0 = [0.62, 0.3], WIZ_NEAR = [0.5, 0.32];
 const AT_PHONE = [0.03, -1], WIZ_AT_PHX = [-0.8, 0.12];   // eye targets: + right on screen, + up
 
 const cast = [
@@ -93,6 +96,7 @@ write(import.meta.url, {
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   castLook: "golden",   // golden skin, bigger eyes (Jonny, 30 Oct; engine/load.mjs castLook)
+  ...(MOTION && { motion: MOTION }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
   // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
   loopIdle: true,

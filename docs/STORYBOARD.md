@@ -148,7 +148,7 @@ moving at once.
   `gait`: a `move` (default ease) speeds up over at most 0.28 s, cruises and slows down; each standing foot stays put
   on the floor (the steps are paced by the distance covered, `steps` is the cadence at cruise speed, `stride` fixes the
   step length instead); the body bobs about 2.4 cm (lowest just after each footfall), shifts its weight about 2 cm and
-  rolls about 3° over the standing foot, leans into the walk (more while it slows, so the stop carries forward) and arms at rest
+  rolls about 3° over the standing foot, leans into the walk (a little back as it sets off, forward as it slows, so the stop carries forward) and arms at rest
   swing against their own side's leg; footsteps sound on the real footfalls. `arcs`: a hand moving 12 cm or more bows
   forward on an arc (up to 8 cm) and comes in straight at the end, so grips land where they did. `lead`: on an arm move
   of 0.2 s or more the body leans toward it from 2 frames before the hand moves (`"lead": false` or a number on the

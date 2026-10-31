@@ -1,5 +1,5 @@
 import { EXPRESSIONS, blendExpr } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseAcc, cruiseDist, bump } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
@@ -163,10 +163,13 @@ function natMove(st, a, t, d, nat) {
   st.x += dx * s; st.z += dz * s;
   if (p >= 1 || dist < 1e-4 || d <= 0) return;
   const V = dist / (d * (1 - q)), sd = a.stride ?? clamp(V / (a.steps ?? 2.2) / 0.2, 0.5, 2.2), L = 0.2 * sd;
-  const vn = cruiseVel(p, q), v = V * vn, acc = (V * cruiseAcc(p, q)) / d, cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
+  const vn = cruiseVel(p, q), v = V * vn, cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
   // the walk's direction in the body's own frame (it may walk sideways or backwards: the feet step that way)
   const ux = dx / dist, uz = dz / dist, lx = ux * cy - uz * sy, lz = ux * sy + uz * cy;
-  nat.gait = { ph: (dist * s) / L, amt: clamp(vn * 1.6), sd, dir: [lx, lz], v, acc, bob: a.bob };
+  // the lean into the walk: with the speed, plus a little back while it sets off and forward while it slows (the stop
+  // carries forward); sin humps over the ramps, so even a short shuffle's lean never steps between frames
+  const ramp = (u) => Math.sin(Math.PI * clamp(u)), fwd = clamp(0.13 * v + 0.07 * V * (q > 0 ? ramp((p - (1 - q)) / q) - 0.5 * ramp(p / q) : 0), -0.08, 0.16);
+  nat.gait = { ph: (dist * s) / L, amt: clamp(vn * 1.6), sd, dir: [lx, lz], v, fwd, bob: a.bob };
   st.walk = nat.gait.ph; st.walkAmt = nat.gait.amt; st.stride = sd; st.gait = nat.gait;
 }
 // natLead: the body starts a reach. It leans toward the front and the arm's side from about 2 frames before the hand
@@ -192,8 +195,7 @@ function natApply(st, nat) {
     const sway = 0.018 * A * Math.cos(w * (g.ph - 0.29)), cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
     st.x -= sway * cy; st.z += sway * sy;   // the body's own -x is its right: over the right foot while it stands
     st.lean += 0.05 * A * Math.cos(w * (g.ph - 0.29));
-    const fwd = clamp(0.13 * g.v - 0.028 * g.acc, -0.08, 0.16);
-    st.pitch = (st.pitch || 0) + fwd * g.dir[1]; st.lean -= fwd * g.dir[0];
+    st.pitch = (st.pitch || 0) + g.fwd * g.dir[1]; st.lean -= g.fwd * g.dir[0];
   }
   st.pitch = (st.pitch || 0) + nat.pitch; st.lean += nat.lean; st.squash *= 1 + nat.squash;
   if (nat.look) st.look = [st.look[0] + nat.look, st.look[1]];

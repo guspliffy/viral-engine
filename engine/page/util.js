@@ -51,7 +51,6 @@ export function naturalOf(sb) {
 // at one speed, and slows over the last q. vel: speed as a share of the cruise speed (smoothstep ramps, so the
 // acceleration starts and ends at 0); dist: the share of the way covered at progress p (the integral of vel)
 export const cruiseVel = (p, q) => { if (q <= 0) return 1; const sm = (u) => u * u * (3 - 2 * u); return p < q ? sm(clamp(p / q)) : p > 1 - q ? sm(clamp((1 - p) / q)) : 1; };
-export const cruiseAcc = (p, q) => { if (q <= 0) return 0; const d = (u) => 6 * u * (1 - u) / q; return p < q ? d(clamp(p / q)) : p > 1 - q ? -d(clamp((1 - p) / q)) : 0; };   // d vel / d p
 export function cruiseDist(p, q) {
   if (q <= 0) return clamp(p);
   const ramp = (u) => q * (u * u * u - (u * u * u * u) / 2), tot = 1 - q;
