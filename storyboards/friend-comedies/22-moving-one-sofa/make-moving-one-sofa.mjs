@@ -89,6 +89,7 @@ const HIT = [r3(SEAM + Math.cos(cr) * CORNER[0] - Math.sin(cr) * CORNER[1]), r3(
 props.push({ id: "ceiling", kind: "ceilingbreak", x: HIT[0], y: LD.h, z: HIT[1], floor: LD.h, r: 0.38, seed: 5,
   lands: [[-0.9, 1.3], [-0.3, 1.45], [0.25, 1.25], [-1.4, 1.15], [-0.6, 1.75]] });
 
+const SUB = 470, SUBS = { size: 62, kinetic: false };   // the subtitles' line (y px, one line at 62 px, shown whole so it reads), under the hook caption, above the heads
 // ---------------------------------------------------------------- 1 JAMMED (0-1.2)
 c.cap(0, 2.4, "my friend group moving one sofa", 250, false, { kinetic: false });
 if (OPENER) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
@@ -113,7 +114,8 @@ A(0.1, "rea", "still", { dur: 5.9, idle: 0.08 });
 // the friction starts here: the Wizard shakes his head at Phoenix's shoving ("nah, that won't work like that", in
 // gibberish), then rolls his eyes
 A(0.62, "wiz", "expr", { expr: "smug", dur: 0.25 }); A(0.62, "wiz", "face", { lid: 0.38, dur: 0.25 });
-A(0.66, "wiz", "talk", { line: "nah-nah-nah. that won't work like that", tone: "calm", dur: 0.55, voice: false });
+A(0.66, "wiz", "talk", { line: "nah, that won't work like that", tone: "calm", dur: 0.55, voice: false });
+c.cap(0.66, 1.55, "nah, that won't work like that", SUB, false, SUBS);   // subtitles translate the gibberish (Jonny 31 Oct)
 for (const [t, y] of [[0.66, -25], [0.8, -46], [0.94, -25], [1.08, -44], [1.22, -35]]) A(t, "wiz", "turn", { to: y, dur: 0.14, ease: "inOut" });
 A(1.12, "wiz", "look", { to: [-0.2, 0.6], dur: 0.12, blink: false });
 A(1.4, "wiz", "look", { to: [-0.7, -0.05], dur: 0.15, blink: false });
@@ -163,7 +165,8 @@ act.mood(c, 3.0, "phx", "angry", { hold: 0.3 });
 A(3.2, "wiz", "look", { to: [-0.45, -0.1], dur: 0.12, blink: false });
 A(3.22, "wiz", "turn", { to: -55, dur: 0.25 });
 A(3.22, "wiz", "expr", { expr: "smug", dur: 0.25 }); A(3.22, "wiz", "face", { lid: 0.3, dur: 0.25 });
-A(3.24, "wiz", "talk", { line: "tsk. ama-teurs", tone: "calm", dur: 0.42, voice: false });
+A(3.24, "wiz", "talk", { line: "tsk. amateurs.", tone: "calm", dur: 0.42, voice: false });
+c.cap(3.24, 4.1, "tsk. amateurs.", SUB, false, SUBS);
 A(3.68, "wiz", "expr", { expr: "focused", dur: 0.25 }); A(3.68, "wiz", "face", { lid: 0.2, dur: 0.25 });
 A(3.25, "wiz", "grip", { side: "L", shape: "fist", dur: 0.12 });
 c.arm(3.3, "wiz", "L", { o: [0.4, 0.7, 0.32] }, 0.3, "out"); A(3.3, "wiz", "tilt", { to: [18, 8], dur: 0.3 });
@@ -220,14 +223,13 @@ A(LAND, "wiz", "move", { to: WIZ_FLINCH, dur: 0.2, ease: "out", steps: 1 });
 A(5.74, "phx", "look", { to: [0.9, 0.0], dur: 0.1, blink: false }); A(5.76, "phx", "turn", { to: 75, dur: 0.2 });
 act.mood(c, 5.8, "phx", "angry", { hold: 0.4 });
 c.arm(5.8, "phx", "L", { o: [0.42, 0.52, 0.3] }, 0.14, "out"); A(5.82, "phx", "grip", { side: "L", shape: "point", dur: 0.1 });
-A(5.84, "phx", "talk", { line: "you broke the CEIL-ing!", tone: "excited", dur: 0.4, voice: false });
+A(5.82, "phx", "talk", { line: "you broke the CEILING!", tone: "excited", dur: 0.32, voice: false });
+c.cap(5.8, 6.3, "you broke the CEILING!", SUB, false, SUBS);
 A(5.9, "wiz", "look", { to: [-0.95, 0.0], dur: 0.1, blink: false }); A(5.92, "wiz", "turn", { to: -78, dur: 0.2 });
-act.mood(c, 5.95, "wiz", "angry", { hold: 0.4 });
-c.arm(5.98, "wiz", "R", { o: [0.2, 0.5, 0.3] }, 0.12, "out"); A(6.04, "wiz", "grip", { side: "R", shape: "point", dur: 0.1 });
-A(6.06, "wiz", "talk", { line: "YOU bounced off it!", tone: "excited", dur: 0.38, voice: false });
+act.mood(c, 6.2, "wiz", "angry", { hold: 0.4 });
+A(6.28, "wiz", "talk", { line: "YOU bounced off it!", tone: "excited", dur: 0.32, voice: false });
+c.cap(6.3, 6.9, "YOU bounced off it!", SUB, false, SUBS);
 c.arm(6.48, "phx", "L", "rest", 0.25, "inOut"); A(6.5, "phx", "grip", { side: "L", shape: "open", dur: 0.1 });
-// he snatches the hand back as Reaper walks right past it
-c.arm(6.1, "wiz", "R", "rest", 0.2, "inOut"); A(6.12, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
 // Reaper has had enough of both of them
 A(5.86, "rea", "expr", { expr: "deadpan", dur: 0.25 }); A(5.86, "rea", "face", { lid: 0.62, dur: 0.25 });
 act.emote(c, 5.9, "rea", "sigh", { dur: 0.6, dx: -0.45 });

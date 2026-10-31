@@ -148,6 +148,42 @@
    "pos": 250,
    "pop": false,
    "kinetic": false
+  },
+  {
+   "from": 0.66,
+   "to": 1.55,
+   "text": "nah, that won't work like that",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.24,
+   "to": 4.1,
+   "text": "tsk. amateurs.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.8,
+   "to": 6.3,
+   "text": "you broke the CEILING!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.3,
+   "to": 6.9,
+   "text": "YOU bounced off it!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
   }
  ],
  "beats": [
@@ -472,7 +508,7 @@
     {
      "who": "wiz",
      "do": "talk",
-     "line": "nah-nah-nah. that won't work like that",
+     "line": "nah, that won't work like that",
      "tone": "calm",
      "dur": 0.55,
      "voice": false,
@@ -1158,7 +1194,7 @@
     {
      "who": "wiz",
      "do": "talk",
-     "line": "tsk. ama-teurs",
+     "line": "tsk. amateurs.",
      "tone": "calm",
      "dur": 0.42,
      "voice": false,
@@ -2036,11 +2072,11 @@
     {
      "who": "phx",
      "do": "talk",
-     "line": "you broke the CEIL-ing!",
+     "line": "you broke the CEILING!",
      "tone": "excited",
-     "dur": 0.4,
+     "dur": 0.32,
      "voice": false,
-     "at": 0.14
+     "at": 0.12
     },
     {
      "who": "phx",
@@ -2108,61 +2144,9 @@
      "at": 0.22
     },
     {
-     "who": "wiz",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.46,
-     "dur": 0.25,
-     "at": 0.25
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.2,
-       0.5,
-       0.3
-      ]
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.28
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "angry",
-     "dur": 0.25,
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.1,
-     "at": 0.34
-    },
-    {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.35
-    },
-    {
-     "who": "wiz",
-     "do": "still",
-     "dur": 0.6000000000000001,
-     "idle": 0.06,
      "at": 0.35
     },
     {
@@ -2175,24 +2159,6 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.35
-    },
-    {
-     "who": "wiz",
-     "do": "talk",
-     "line": "YOU bounced off it!",
-     "tone": "excited",
-     "dur": 0.38,
-     "voice": false,
-     "at": 0.36
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.4
     },
     {
      "who": "rea",
@@ -2208,11 +2174,41 @@
     },
     {
      "who": "wiz",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0.42
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "YOU bounced off it!",
+     "tone": "excited",
+     "dur": 0.32,
+     "voice": false,
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.06,
+     "at": 0.6
     },
     {
      "who": "rea",
