@@ -598,11 +598,13 @@ export function cameraState(sb, t) {
       look = [pos[0] + Math.sin(yaw) * Math.cos(pitch) * r, pos[1] + Math.sin(pitch) * r, pos[2] + Math.cos(yaw) * Math.cos(pitch) * r];
     }
   }
-  // yaw: [[t, degrees], ...] (clip time; eased inOut between keys, + turns left): the view swings round a point `pivot`
-  // metres ahead of the lens (a rider's bike turning under him: a skid round a bend) while the move goes on
+  // yaw: { keys: [[t, degrees, x], ...] (clip time; eased inOut between keys unless ease: "linear"; + turns left; x
+  // slides the lens sideways), pivot }: the view swings round a point `pivot` metres ahead of the lens (a rider's bike turning under him: a skid round a bend) while the move goes on
   if (s.yaw) {
-    const K = s.yaw.keys || s.yaw, i = K.findIndex((k) => k[0] > t);
-    const deg = i === 0 ? K[0][1] : i < 0 ? K.at(-1)[1] : lerp(K[i - 1][1], K[i][1], ease("inOut")(prog(t, K[i - 1][0], K[i][0] - K[i - 1][0])));
+    const K = s.yaw.keys || s.yaw, i = K.findIndex((k) => k[0] > t), E = ease(s.yaw.ease || "inOut");
+    const at = (j) => (i === 0 ? K[0][j] ?? 0 : i < 0 ? K.at(-1)[j] ?? 0 : lerp(K[i - 1][j] ?? 0, K[i][j] ?? 0, E(prog(t, K[i - 1][0], K[i][0] - K[i - 1][0]))));
+    const deg = at(1), dx = at(2);   // [t, degrees, x]: the third value slides the lens sideways (a rider following a bend)
+    if (dx) { pos = [pos[0] + dx, pos[1], pos[2]]; look = [look[0] + dx, look[1], look[2]]; }
     if (deg) {
       const a = (deg * Math.PI) / 180, c = Math.cos(a), sn = Math.sin(a), d = [look[0] - pos[0], look[2] - pos[2]], h = Math.hypot(d[0], d[1]) || 1;
       const pv = s.yaw.pivot ?? 0, P = [pos[0] + (d[0] / h) * pv, pos[2] + (d[1] / h) * pv];

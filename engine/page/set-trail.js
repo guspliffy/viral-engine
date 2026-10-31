@@ -18,6 +18,16 @@ export const TRAIL = {
   valley: -36,                    // the valley floor (y)
 };
 
+// bend: { z0, z1, x } (Jonny 31 Oct: "we need a turn in the path ... logic"): after the plank the trail swings out to x
+// round a big boulder that blocks the straight line and comes back to x 0 before the cliff edge. trailX(z) is the
+// trail's middle at z; the storyboard's riders follow the same curve
+export function trailX(z, B) {
+  if (!B || z > B.z0 || z < B.z1) return 0;
+  const u = (B.z0 - z) / (B.z0 - B.z1); return B.x * Math.sin(Math.PI * u) ** 2;
+}
+// the trail's heading at z: degrees, + to the left (the way a rider riding toward -z turns)
+export function trailYaw(z, B) { const d = 0.01; return (Math.atan((trailX(z + d, B) - trailX(z - d, B)) / (2 * d)) * 180) / Math.PI; }
+
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rx, ry); t.anisotropy = 8;
@@ -93,10 +103,13 @@ function leafyBushes(g, bushes, S, rnd) {
   });
 }
 
+// the bend's boulder: where it sits (on the straight line the trail no longer takes), and whether x, z is inside it
+const rockAt = (B) => B && { x: B.rockX ?? -B.x * 0.4, z: B.rockZ ?? (B.z0 + B.z1) / 2, r: B.rockR ?? 0.85 };
+const inRock = (x, z, B) => { const R = rockAt(B); return !!R && Math.hypot((x - R.x) / R.r, (z - R.z) / (R.r * 1.1)) < 1; };
 // with leafy: grass tufts and small ferns along the trail's edges, pebbles and twigs on the dirt, and dappled sunlight
 // (soft dark patches where the trees shade the trail) over the ground
 function groundDetail(g, S, rnd, free) {
-  const T = TRAIL, [G0, G1] = T.gully, E = T.edge;
+  const T = TRAIL, [G0, G1] = T.gully, E = T.edge, bx = (z) => trailX(z, S.bend);
   const grassT = leafTex((c, w, h) => {
     for (let i = 0; i < 26; i++) {
       const x0 = 30 + rnd() * 68, lean = (x0 - 64) * 0.9 + (rnd() - 0.5) * 30, top = 10 + rnd() * 60, wd = 3 + rnd() * 3;
@@ -108,13 +121,13 @@ function groundDetail(g, S, rnd, free) {
   const onTrail = (z) => !(z < G0 + 0.15 && z > G1 - 0.15) && z > E + 0.4;
   for (let z = E + 0.5; z < 40; z += 0.025) {
     for (const side of [-1, 1]) {
-      const x = side * (0.7 + Math.pow(rnd(), 1.8) * 3.4);
-      if (!onTrail(z)) continue;
+      const x = bx(z) + side * (0.7 + Math.pow(rnd(), 1.8) * 3.4);
+      if (!onTrail(z) || inRock(x, z, S.bend)) continue;
       const hgt = 0.12 + rnd() * 0.16, wd = hgt * (1.1 + rnd() * 0.6), a = rnd() * Math.PI;
       for (const k of [0, 1]) tufts.push([card, new THREE.Matrix4().compose(new THREE.Vector3(x, 0, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, a + k * Math.PI / 2, 0)), new THREE.Vector3(wd, hgt, 1))]);
     }
     if (rnd() < 0.5 && onTrail(z)) {   // pebbles and twigs on the dirt, mostly toward its edges
-      const x = (rnd() < 0.5 ? -1 : 1) * Math.pow(rnd(), 0.6) * 0.7, r = 0.012 + rnd() * 0.03;
+      const x = bx(z) + (rnd() < 0.5 ? -1 : 1) * Math.pow(rnd(), 0.6) * 0.7, r = 0.012 + rnd() * 0.03;
       if (rnd() < 0.8) pebbles.push([new THREE.DodecahedronGeometry(1, 0), M4(x, r * 0.35, z, r * 1.3, r * 0.6, r, rnd() * 6)]);
       else twigs.push([new THREE.CylinderGeometry(0.006, 0.004, 1, 5), M4(x, 0.008, z, 1, 0.1 + rnd() * 0.18, 1, 0, Math.PI / 2, rnd() * 6)]);
     }
@@ -230,7 +243,10 @@ export function buildTrail(scene, S = {}) {
     const L = z0 - z1, zc = (z0 + z1) / 2, mt = mossTex.clone(); mt.needsUpdate = true; mt.repeat.set(40, L / 3);
     const m = flat(new THREE.Mesh(new THREE.PlaneGeometry(120, L), lam(S.moss || "#ffffff", { map: mt })));   // moss: a tint (to sit in a painted plate's forest) m.rotation.x = -Math.PI / 2; m.position.set(0, 0, zc); g.add(m);
     const dt = dirtTex.clone(); dt.needsUpdate = true; dt.repeat.set(1, L / 2.2);
-    const d = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.7, L), lam("#ffffff", { map: dt, transparent: true }))); d.rotation.x = -Math.PI / 2; d.position.set(0, 0.004, zc); d.renderOrder = 1; g.add(d);
+    // the dirt strip: straight, or bent sideways along the trail's middle where it meets S.bend (a ribbon of rows)
+    const rows = S.bend ? Math.max(1, Math.round(L * 12)) : 1, dg = new THREE.PlaneGeometry(1.7, L, 1, rows);
+    if (S.bend) { const P = dg.attributes.position; for (let i = 0; i < P.count; i++) { const z = zc - P.getY(i); P.setX(i, P.getX(i) * Math.cos((trailYaw(z, S.bend) * Math.PI) / 180) + trailX(z, S.bend)); } }
+    const d = flat(new THREE.Mesh(dg, lam("#ffffff", { map: dt, transparent: true }))); d.rotation.x = -Math.PI / 2; d.position.set(0, 0.004, zc); d.renderOrder = 1; g.add(d);
   };
   ground(60, G0); ground(G1, E);
 
@@ -288,7 +304,8 @@ export function buildTrail(scene, S = {}) {
     const trunkTex = canvasTex(128, 256, (c, w, h) => { c.fillStyle = "#8a6242"; c.fillRect(0, 0, w, h); for (let i = 0; i < 26; i++) { c.fillStyle = `rgba(60,40,26,${0.3 + 0.3 * rnd()})`; c.fillRect(rnd() * w, 0, 2 + rnd() * 4, h); } }, 2, 2);
     const trunkM = lam("#ffffff", { map: trunkTex }), leaf = (S.leaf || ["#5fae4c", "#73c25a", "#4c9a48"]).map((c) => lam(c)), firM = lam("#3e8b55");
     const trunks = [], crowns = [[], [], []], firs = [], bushes = [[], [], []], rocks = [];
-    const free = (x, z, r) => Math.abs(x) > 1.05 + r && !(z < G0 + r + 0.2 && z > G1 - r - 0.2) && z > E + 0.6 + r;
+    const bx = (z) => trailX(z, S.bend);
+    const free = (x, z, r) => Math.abs(x - bx(z)) > 1.05 + r && !(z < G0 + r + 0.2 && z > G1 - r - 0.2) && z > E + 0.6 + r && !inRock(x, z, S.bend);
     for (let i = 0; i < 150; i++) {
       const side = i % 2 ? 1 : -1, near = i < 60, x = side * (near ? 1.6 + rnd() * 3 : 4 + rnd() * 18), z = E + 0.8 + rnd() * 52, s = 0.8 + rnd() * 0.6;
       if (!free(x, z, 0.5)) continue;
@@ -305,7 +322,7 @@ export function buildTrail(scene, S = {}) {
     // bushes and ferns right beside the trail (every half metre or so, with gaps), and a few rocks
     for (let z = E + 0.9; z < 40; z += 0.45 + rnd() * 0.5) for (const side of [-1, 1]) {
       if (rnd() < 0.25) continue;
-      const x = side * (1.0 + rnd() * 0.9), r = 0.22 + rnd() * 0.25;
+      const x = bx(z) + side * (1.0 + rnd() * 0.9), r = 0.22 + rnd() * 0.25;
       if (!free(x, z, 0.05)) continue;
       const li = Math.floor(rnd() * 3);
       for (let k = 0; k < 3; k++) bushes[li].push([new THREE.IcosahedronGeometry(1, 1), M4(x + (k - 1) * r * 0.7, r * 0.7, z + (rnd() - 0.5) * r, r, r * 0.8, r)]);
@@ -314,6 +331,22 @@ export function buildTrail(scene, S = {}) {
     // a few bushes along the cliff's top edge, kept off the trail's end
     for (let x = -12; x < 12; x += 0.7 + rnd() * 0.6) { if (Math.abs(x) < 1.2) continue; const r = 0.25 + rnd() * 0.25; bushes[1].push([new THREE.IcosahedronGeometry(1, 1), M4(x, r * 0.6, E + 0.45 + rnd() * 0.4, r, r * 0.8, r)]); }
     // trees: false leaves the tall forest to a painted plate (set.plate.follow) and keeps the bushes along the trail
+    // the bend's boulder: a big mossy rock on the straight line, so the trail has a reason to swing round it, with
+    // bushes and ferns round its foot; it hides the cliff edge until the rider is round it
+    const R = rockAt(S.bend);
+    if (R) {
+      const geo = new THREE.IcosahedronGeometry(1, 3), P = geo.attributes.position, v = new THREE.Vector3(), rr = rng(41);
+      const bumps = Array.from({ length: 11 }, () => [new THREE.Vector3(rr() - 0.5, rr() - 0.25, rr() - 0.5).normalize(), 0.18 + rr() * 0.22]);
+      for (let i = 0; i < P.count; i++) {
+        v.fromBufferAttribute(P, i); let k = 1; for (const [d, a] of bumps) k += a * Math.max(0, v.dot(d)) ** 3;
+        k += 0.035 * Math.sin(v.x * 9 + v.y * 5) * Math.sin(v.z * 8 - v.y * 6) + 0.1 * Math.sin(v.x * 2.3 + v.z * 3.1 + 1) * Math.cos(v.y * 2.7 - v.z * 1.9);
+        if (v.y > 0.45) v.y = 0.45 + (v.y - 0.45) * 0.45;   // a broad, flattish top, not a ball
+        v.multiplyScalar(k); if (v.y < -0.35) v.y = -0.35 + (v.y + 0.35) * 0.2; P.setXYZ(i, v.x, v.y, v.z);
+      }
+      geo.computeVertexNormals();
+      const rock = new THREE.Mesh(geo, lam("#ffffff", { map: rockTex(rnd, "#8e8574", 2, 2) })); rock.scale.set(R.r * 1.0, (S.bend.rockH ?? 1.1) * 0.8, R.r * 1.1); rock.position.set(R.x, 0.22, R.z); rock.rotation.y = 0.35; rock.castShadow = rock.receiveShadow = true; g.add(rock);
+      for (let k = 0; k < 9; k++) { const a = (k / 9) * Math.PI * 2 + 0.3, x = R.x + Math.cos(a) * R.r * 1.02, z = R.z + Math.sin(a) * R.r * 0.92, r = 0.2 + rnd() * 0.18; if (Math.abs(x - bx(z)) < 0.75) continue; const li = k % 3; for (let j = 0; j < 2; j++) bushes[li].push([new THREE.IcosahedronGeometry(1, 1), M4(x + (j - 0.5) * r * 0.6, r * 0.7, z, r, r * 0.8, r)]); }
+    }
     if (S.trees !== false) { g.add(merged(trunks, trunkM)); g.add(merged(firs, firM)); crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i]))); }
     if (S.leafy) { leafyBushes(g, bushes, S, rng((S.seed || 7) * 977)); groundDetail(g, S, rng((S.seed || 7) * 613), free); }   // leaves instead of smooth blobs (Jonny 31 Oct: "green clouds")
     else bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
