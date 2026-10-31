@@ -20,7 +20,7 @@ import { SR, TAU, biquad, run, env, buf, normalise } from "./sfx/dsp.mjs";
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
-import { actorState, cameraState } from "./page/timeline.js";
+import { actorState, cameraState, TAP_AT } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
 import { soundClock } from "./shared/holds.js";
 
@@ -678,6 +678,8 @@ function foley(sb, panOf) {
       if (naturalOf(sb)?.gait && (!a.ease || a.ease === "inOut")) { for (const f of natSteps(sb, a)) ev.push({ kind: step, at: f.at, pan, gain: light * (0.55 + 0.45 * f.amt) }); continue; }
       for (let t = per; t < d - 0.02; t += per) ev.push({ kind: step, at: a.at + t, pan, gain: light * (0.55 + 0.45 * Math.min(1, Math.min(t / d, 1 - t / d) * 8)) });
     }
+    // a toe tap: a soft footstep on each slap (timeline.js TAP_AT), on the set's floor
+    if (a.do === "tap" && !ownSteps) for (let i = 0; i < (a.count ?? 3); i++) ev.push({ kind: step, at: a.at + (i + TAP_AT) * (a.every ?? 0.3), pan, gain: 0.35 * (a.gain ?? 1) });
     if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
     if (a.do === "sit" && a.at > 0.05) ev.push({ kind: "sit", at: a.at + (a.dur ?? 0.35) * 0.75, pan, gain: 1 });
   }
