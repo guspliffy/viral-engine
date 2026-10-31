@@ -335,6 +335,11 @@ function scythe(C) {
 }
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
+  if (C.art && (C.hoodStyle === "hoodie" || C.hoodStyle === "cloth")) {   // costume.art round 2: hood + bell cloak like the Sorcerer
+    reaperArt(C, ch);
+    const { g, tip } = scythe(C);
+    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
+  }
   if (C.hoodStyle === "hoodie") {
     const { shell, hem, lining, wall, seams, strings, tips } = hoodieGeometry(ch, C);
     const inner = new THREE.MeshStandardMaterial({ color: C.lining || "#1a1720", roughness: 0.95, side: THREE.DoubleSide });
@@ -344,7 +349,6 @@ export function reaperCostume(C, ch) {
     cloth.userData.lookRole = "cloth"; inner.userData.lookRole = "lining"; cord.userData.lookRole = "cloth";
     const parts = [[shell, cloth], [hem, edge], [lining, inner], [wall, inner], ...seams.map((s) => [s, cloth]), ...strings.map((s) => [s, cord]), ...tips.map((s) => [s, aglet])];
     for (const [geo, m] of parts) { const g = new THREE.Mesh(geo, m); g.castShadow = g.receiveShadow = true; ch.bodyGroup.add(g); }
-    if (C.art) reaperArt(C, ch);   // costume.art: pocket, the hood lying on the back (costumes-art-cast.js)
     const { g, tip } = scythe(C);
     return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
   }

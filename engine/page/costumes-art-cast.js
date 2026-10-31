@@ -5,7 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
-import { band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, sstep } from "./costumes-art.js";
+import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
 // returns castCostume's { hat, sitDepth, prop, extra, apply, helmet }. Jonny's targets: references/
@@ -44,7 +44,7 @@ function viking(C, ch, out) {
   ];
   parts.add(mesh(flameLocks(ch, locks, { tint: ["#c4441c", C.hairTip || "#ffa54a", 1.6] }), hairM));
   // the tunic: red, from the chest down, the hem cut in points; the inside darker
-  parts.add(garmentMesh(ch, { top: -0.4, hem: -1.22, folds: 11, depth: 0.012, flare: 0.035, ragged: 0.07, points: 11, wave: 0 }, C.tunic || "#b4332b", "#5e1712"));
+  parts.add(garmentMesh(ch, { top: -0.4, hem: -1.22, folds: 11, depth: 0.012, flare: 0.035, ragged: 0.07, points: 11, wave: 0, trim: "#d8a640", trimR: 0.007 }, C.tunic || "#b4332b", "#5e1712"));
   // the fur mantle round the shoulders and back, open at the front, its lower edge in soft points
   const fur = clothMat(C.fur || "#eadcbf", { side: THREE.DoubleSide }); fur.roughness = 1;
   const { outer, inner, hem } = (garment(ch, { top: -0.12, hem: -0.42, from: 1.0, to: Math.PI * 2 - 1.0, folds: 22, depth: 0.012, flare: 0.07, lift: 0.02, ragged: 0.08, points: 18, wave: 0, thick: 0.03 }));
@@ -148,40 +148,55 @@ function dragon(C, ch, out) {
 
 // ---------- Norse god: long white hair in locks from a high hairline, braids with gold rings, full beard, cape -------
 function allfather(C, ch, out) {
-  const parts = ch.potatoParts, body = ch.bodyGroup, hairC = C.hair || "#ece9e2";
-  // hair keeps the character shading (the cloth role's cool shade turned white hair lilac)
-  const hairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.85 }), shadeM = new THREE.MeshStandardMaterial({ color: new THREE.Color(hairC).multiplyScalar(0.93), roughness: 0.9 });
-  // the scalp: all of the head but the face, down to the shoulders at the back
-  const faceOpen = (az, el) => (1 - sstep(0.92, 1.08, Math.abs(az))) * (1 - sstep(0.6, 0.7, el));
-  body.add(mesh(scalp(ch, (az, el) => sstep(-0.42, -0.3, el) * (1 - faceOpen(az, el)), 0.02, 0.003), shadeM));
-  // locks: swept back from the hairline over the crown, and falling down the sides and back to the shoulders
-  const R = rng(17), geos = [];
-  const add = (path, w, h) => { const { pts, ups } = onBody(ch, path); geos.push(lock(pts, ups, w, h, (t) => Math.min(1, 0.6 + t * 2.5) * (1 - t) ** 0.55 + 0.03, 34, 12)); };
-  for (let i = 0; i < 4; i++) {   // from the forehead up over the crown and down the back, parted in the middle
-    const a = (i / 3 - 0.5) * 1.4 + (i < 2 ? -0.1 : 0.1), s = Math.sign(a) || 1;
-    add([[a, 0.6, 0.01], [a * 0.9, 0.95, 0.045], [a * 0.7 + s * 0.25, 1.32, 0.055], [s * (1.9 + 0.5 * Math.abs(a)), 0.95, 0.06], [s * (2.0 + 0.5 * Math.abs(a)), 0.35, 0.06], [s * (2.05 + 0.5 * Math.abs(a)) + 0.05 * (R() - 0.5), -0.25, 0.07]], 0.17, 0.045);
+  const parts = ch.potatoParts, body = ch.bodyGroup, hairC = C.hairArt || "#f5eedf";   // warm white
+  // round 2 (Jonny 21:34: "except odin every character has improved"): one big swept-back mane instead of many thin
+  // locks. A voluminous shell from a high arched hairline over the crown and down to the shoulders, its lower edge cut
+  // into broad pointed clumps (anime hair), five wide locks sweeping back from the forehead on top of it, an anime
+  // shine band across the crown, and the warm "hair" shading role (looks.js) so the shade stays cream, not lilac.
+  const hairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.8, vertexColors: true }); hairM.userData.lookRole = "hair";
+  const saw = (x) => Math.abs((((x / Math.PI) % 2) + 2) % 2 - 1);   // 0..1 triangle wave
+  const faceOpen = (az, el) => (1 - sstep(0.95, 1.12, Math.abs(az))) * (1 - sstep(0.56, 0.68, el + 0.05 * Math.cos(az * 2)));
+  const low = (az) => -0.5 + 0.2 * saw(az * 4.5 + 0.6) - 0.08 * Math.cos(az);   // the clumped lower edge, longest at the back
+  const mane = scalp(ch, (az, el) => sstep(low(az), low(az) + 0.05, el) * (1 - faceOpen(az, el)), 0.06, 0.0);
+  // more volume over the crown and at the back of the head than at the sides of the face
+  { const P = mane.attributes.position, v = new THREE.Vector3();
+    for (let i = 0; i < P.count; i++) { v.fromBufferAttribute(P, i); const back = Math.max(0, -v.z / ch.rz), up = Math.max(0, (v.y - ch.cy) / ch.ry); const k = 1 + 0.07 * back * (0.4 + up) + 0.03 * up; P.setXYZ(i, v.x * k, ch.cy + (v.y - ch.cy) * (1 + 0.03 * up), v.z * k); }
+    mane.computeVertexNormals(); }
+  shineBand(mane, ch.cy + ch.ry * 0.78, 0.05, 0.18, [0.97, 0.95, 0.92]);
+  body.add(mesh(mane, hairM));
+  // five wide locks from the forehead straight back over the crown (each on its own great circle, so none cross), and
+  // seven broad clumps down the back that end in points below the mane, flicking out a little
+  const geos = [], az_el = (d) => [Math.atan2(d.x, d.z), Math.asin(Math.max(-1, Math.min(1, d.y)))];
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 4 - 0.5) * 1.5, d0 = dirOf(a, 0.58), d1 = dirOf(Math.PI - a * 0.55, 0.35), path = [];
+    for (let k = 0; k <= 6; k++) { const t = k / 6, d = d0.clone().lerp(d1, t).normalize(); const [az, el] = az_el(d); path.push([az, el, 0.035 + 0.07 * Math.sin(Math.PI * Math.min(1, t * 1.4)) + 0.03 * t]); }
+    const { pts, ups } = onBody(ch, path);
+    geos.push(lock(pts, ups, 0.16 - 0.02 * Math.abs(a), 0.05, (t) => Math.min(1, 0.12 + t * 4) * (1 - t) ** 0.5 + 0.02, 40, 12));
   }
-  for (let i = 0; i < 9; i++) {   // down the sides and back to the shoulders
-    const a = 1.0 + (i / 8) * (2 * Math.PI - 2.0), w = 0.14 + 0.02 * R();
-    add([[a, 1.2, 0.03], [a, 0.7, 0.055], [a + 0.04 * (R() - 0.5), 0.1, 0.065], [a + 0.1 * (R() - 0.5), -0.32 - 0.1 * R(), 0.085]], w, 0.04);
+  for (let i = 0; i < 7; i++) {
+    const a = Math.PI + (i / 6 - 0.5) * 3.4, end = -0.62 - 0.1 * Math.cos((i / 6 - 0.5) * Math.PI);
+    const { pts, ups } = onBody(ch, [[a, 0.75, 0.075], [a, 0.3, 0.09], [a + 0.03, -0.15, 0.1], [a + 0.06 * Math.sign(Math.sin(a)), end, 0.14]]);
+    geos.push(lock(pts, ups, 0.2, 0.05, (t) => Math.min(1, 0.6 + t * 3) * (1 - t) ** 0.7 + 0.015, 34, 12));
   }
-  body.add(mesh(mergeGeometries(geos), hairM));
+  const top = mergeGeometries(geos); shineBand(top, ch.cy + ch.ry * 0.86, 0.045, 0.2, [1, 1, 1]);
+  body.add(mesh(top, hairM));
+  const plainHairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.85 }); plainHairM.userData.lookRole = "hair";
   // braids in front of the shoulders, each with two gold rings and a tuft below
   for (const s of [-1, 1]) {
     const path = [[1.0, 0.2, 0.06], [1.08, -0.05, 0.08], [1.1, -0.3, 0.08], [1.08, -0.55, 0.07]].map(([th, ph, l]) => [s * th, ph, l]);
     const { pts } = onBody(ch, path), c = new THREE.CatmullRomCurve3(pts);
-    body.add(mesh(taperedTube(c, 0, 0, 60, 10, (t) => (0.034 - 0.01 * t) * (0.7 + 0.3 * Math.abs(Math.sin(t * Math.PI * 6)))), hairM));
+    body.add(mesh(taperedTube(c, 0, 0, 60, 10, (t) => (0.034 - 0.01 * t) * (0.7 + 0.3 * Math.abs(Math.sin(t * Math.PI * 6)))), plainHairM));
     for (const t of [0.35, 0.8]) { const p = c.getPointAt(t), T = c.getTangentAt(t), r = mesh(new THREE.TorusGeometry(0.03, 0.011, 10, 20), gold()); r.position.copy(p); r.quaternion.setFromUnitVectors(V(0, 0, 1), T); body.add(r); }
     const end = c.getPointAt(1), tuft = lock([end, end.clone().add(V(0, -0.05, 0.01)), end.clone().add(V(s * 0.01, -0.1, 0.015))], V(0, 0, 1), 0.03, 0.02, (t) => Math.sin(Math.PI * Math.min(1, 0.3 + t * 0.75)), 12, 8);
-    body.add(mesh(tuft, hairM));
+    body.add(mesh(tuft, plainHairM));
   }
   // the beard and moustache, matte hair, wavy locks at the bottom edge
-  const beard = mesh(beardGeometry(ch), hairM); parts.add(beard);
+  const beard = mesh(beardGeometry(ch), plainHairM); parts.add(beard);
   const nose = mesh(new THREE.SphereGeometry(0.05, 20, 14), ch.skin), np = ch.surf(0, 0.01);
   nose.scale.set(1.05, 0.8, 0.75); nose.position.copy(np.pos).addScaledVector(np.normal, 0.012); parts.add(nose);
   for (const s of [-1, 1]) {
     const { pts, ups } = onBody(ch, [[0.0, -0.095, 0.03], [s * 0.17, -0.095, 0.035], [s * 0.3, -0.15, 0.035], [s * 0.36, -0.28, 0.03]]);
-    parts.add(mesh(lock(pts, ups, 0.045, 0.03, (t) => 0.5 + 0.5 * Math.sin(Math.PI * Math.min(1, 0.1 + t * 0.9)), 20, 10), hairM));
+    parts.add(mesh(lock(pts, ups, 0.045, 0.03, (t) => 0.5 + 0.5 * Math.sin(Math.PI * Math.min(1, 0.1 + t * 0.9)), 20, 10), plainHairM));
   }
   // armour: dark leather-and-steel cuirass with a gold-studded edge and shoulder bosses, a wide belt, cloth cape
   const arm = garmentMesh(ch, { top: -0.36, hem: -1.2, folds: 6, depth: 0.004, flare: 0.02, lift: 0.02, wave: 0, thick: 0.016 }, C.armour || "#33353d", "#1a1b20");
@@ -221,19 +236,26 @@ function samurai(C, ch, out) {
 }
 
 // ---------- Sorcerer: a cloth hood (the approved hoodie construction, no strings) with a drooping point, a cloak ----
-function sorcerer(C, ch, out) {
-  const body = ch.bodyGroup, parts = ch.potatoParts, accent = C.accent || "#5a2f8f";
-  const { shell, hem, lining, wall, seams } = hoodieGeometry(ch, { hoodStrings: false, hoodTip: C.hoodTip ?? 0.5, hoodSide: 0.7, hoodStand: 0.09, hoodOpen: 0.9, hoodOpenH: 0.95, hoodRim: 0.026, hoodNeck: -0.4 });
-  // the robe under the cloak a shade darker than the hood: colour the shell by height
-  { const P = shell.attributes.position, cols = new Float32Array(P.count * 3), a = new THREE.Color("#ffffff"), b = new THREE.Color(0.42, 0.38, 0.5), c = new THREE.Color(), y0 = ch.cy + Math.sin(-0.42) * ch.ry;
-    for (let i = 0; i < P.count; i++) { c.copy(a).lerp(b, sstep(y0 + 0.03, y0 - 0.03, P.getY(i))); cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b; }
+// a cloth hood (the approved hoodie construction without strings, its point drooping back) over a robe, and a bell
+// cloak from under the hood, open at the front, closed at the chest by a cord and a clasp. Shared by the Sorcerer and
+// (round 2, Jonny 21:34: "make the reaper hoodie like the sorcerer one") the Reaper. P: { accent, robe (multiplier
+// for the robe under the cloak), lining, trim (border braid colour), clasp, cord, tip }
+export function hoodedCloak(ch, P) {
+  const body = ch.bodyGroup, parts = ch.potatoParts, accent = P.accent;
+  const { shell, hem, lining, wall, seams } = hoodieGeometry(ch, { hoodStrings: false, hoodTip: P.tip ?? 0.5, hoodSide: 0.7, hoodStand: 0.09, hoodOpen: 0.9, hoodOpenH: 0.95, hoodRim: 0.026, hoodNeck: -0.4 });
+  // the robe under the cloak darker than the hood: colour the shell by height, the hood a little lighter at its crown
+  { const Pp = shell.attributes.position, cols = new Float32Array(Pp.count * 3), a = new THREE.Color(1.05, 1.05, 1.05), b = new THREE.Color(...(P.robe || [0.42, 0.38, 0.5])), c = new THREE.Color(), y0 = ch.cy + Math.sin(-0.42) * ch.ry;
+    for (let i = 0; i < Pp.count; i++) { const y = Pp.getY(i); c.copy(a).multiplyScalar(0.92 + 0.1 * sstep(ch.cy, ch.cy + ch.ry, y)).lerp(b, sstep(y0 + 0.03, y0 - 0.03, y)); cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b; }
     shell.setAttribute("color", new THREE.BufferAttribute(cols, 3)); }
-  const cloth = clothMat(accent, { side: THREE.DoubleSide, vertexColors: true }), inner = clothMat("#24113d", { side: THREE.DoubleSide, role: "lining" }), edge = clothMat(new THREE.Color(accent).multiplyScalar(1.25));
+  const cloth = clothMat(accent, { side: THREE.DoubleSide, vertexColors: true }), inner = clothMat(P.lining, { side: THREE.DoubleSide, role: "lining" }), edge = clothMat(P.edge || new THREE.Color(accent).multiplyScalar(1.25));
   for (const [g, m] of [[shell, cloth], [hem, edge], [lining, inner], [wall, inner], [seams[0], cloth], [seams[1], cloth]]) body.add(mesh(g, m));
-  // the cloak from the shoulders, open at the front, its hem waving, closed at the chest by a cord and a gold clasp
-  parts.add(garmentMesh(ch, { top: -0.26, hem: -1.3, from: 0.62, to: Math.PI * 2 - 0.62, folds: 8, depth: 0.03, flare: 0.17, lift: 0.06, wave: 0.035, thick: 0.018 }, accent, "#24113d"));
-  parts.add(strap(ch, [-0.66, -0.42], [0.66, -0.42], 0.01, leatherMat("#c9a24a")));
+  parts.add(garmentMesh(ch, { top: -0.26, hem: -1.3, from: 0.62, to: Math.PI * 2 - 0.62, folds: 8, depth: 0.03, flare: 0.17, lift: 0.06, wave: 0.035, thick: 0.018, grad: 0.22, trim: P.trim, trimR: 0.01 }, accent, P.lining));
+  parts.add(strap(ch, [-0.66, -0.42], [0.66, -0.42], 0.01, leatherMat(P.cord || "#c9a24a")));
   parts.add(buckle(ch, 0, -0.42, 0.05, 0.08));
+  if (P.clasp) parts.children[parts.children.length - 1].traverse((o) => { if (o.isMesh) o.material = metalMat(P.clasp, 0.35); });
+}
+function sorcerer(C, ch, out) {
+  hoodedCloak(ch, { accent: C.accent || "#5a2f8f", lining: "#24113d", trim: "#d6a23c", tip: C.hoodTip ?? 0.5 });
   out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
   return out;
 }
@@ -245,7 +267,7 @@ export const ART_CAST = { viking, astronaut, dragon, allfather, samurai, sorcere
 export function cowboyArt(C, ch) {
   const parts = ch.potatoParts;
   const red = clothMat(C.bandana || "#c23a2e", { side: THREE.DoubleSide });
-  parts.add(garmentMesh(ch, { top: -0.4, hem: -1.12, from: 0.42, to: Math.PI * 2 - 0.42, folds: 8, depth: 0.01, flare: 0.03, lift: 0.025, wave: 0.01, thick: 0.016 }, C.vest || "#7b4a28", "#3d2412"));
+  parts.add(garmentMesh(ch, { top: -0.4, hem: -1.12, from: 0.42, to: Math.PI * 2 - 0.42, folds: 8, depth: 0.01, flare: 0.03, lift: 0.025, wave: 0.01, thick: 0.016, trim: "#b07a48", trimR: 0.006 }, C.vest || "#7b4a28", "#3d2412"));
   for (const s of [-1, 1]) parts.add(mesh(band(ch, { ph: -0.75, w: 0.33, t: 0.01, lift: 0.045, from: s > 0 ? 0.42 : -0.62, to: s > 0 ? 0.62 : -0.42, round: 0.2 }), clothMat("#6a3c1f")));   // lapel edges
   // the bandana: a band round the neck and a triangle hanging in front, knotted at the side
   parts.add(mesh(band(ch, { ph: -0.34, w: 0.04, t: 0.016, lift: 0.04, round: 0.6 }), red));
@@ -271,11 +293,7 @@ export function phoenixCrest(ch) {
   return mesh(flameLocks(ch, L, { tint: ["#e8402a", "#ffd23f", 1.2], thick: 0.04 }), m);
 }
 
-// Reaper (hoodie kept as approved): a kangaroo pocket, a hood that hangs over the back with soft folds, side seams
+// Reaper (round 2, Jonny 21:34): the Sorcerer's hood and bell cloak in his charcoal, a pewter clasp, a dark grey border
 export function reaperArt(C, ch) {
-  const parts = ch.potatoParts, body = ch.bodyGroup, cloth = clothMat(C.accent || "#34313a"), dark = clothMat(new THREE.Color(C.accent || "#34313a").multiplyScalar(0.7));
-  parts.add(mesh(band(ch, { ph: -0.86, w: 0.09, t: 0.012, lift: 0.06, from: -0.62, to: 0.62, round: 0.25 }), cloth));   // the pocket
-  for (const s of [-1, 1]) parts.add(mesh(band(ch, { ph: -0.86, w: 0.08, t: 0.004, lift: 0.071, from: s * 0.5, to: s * 0.53, round: 1 }), dark));   // its openings
-  // the hood's lower edge lying on the back
-  body.add(mesh(band(ch, { ph: -0.18, w: 0.03, t: 0.03, lift: 0.075, from: Math.PI - 1.3, to: Math.PI + 1.3, round: 1, tilt: -0.12, dip: Math.PI }), cloth));
+  hoodedCloak(ch, { accent: C.accent || "#34313a", robe: [0.6, 0.58, 0.64], lining: "#16141b", trim: "#55505c", cord: "#2a272f", clasp: "#9aa0a8", edge: "#46424d", tip: 0.55 });
 }

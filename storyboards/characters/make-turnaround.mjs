@@ -1,6 +1,6 @@
 // Character turnarounds (thread "Make the characters more detailed and beautiful", 31 Oct 2026): one 6 s clip per
 // fighter on a plain warm stage: front hold, a full turn in four quarter turns (side, back, side, front), then a push
-// in to a face close-up. Jonny judges character looks from short videos (turnaround + close-up), not stills.
+// in to a face close-up. castLook "art" also gets the full drawn style (tapered tinted ink, brush; look thread #71). Jonny judges character looks from short videos (turnaround + close-up), not stills.
 //   node storyboards/characters/make-turnaround.mjs [castLook] [suffix]   -> storyboards/characters/turn-<name><suffix>.json
 import fs from "node:fs";
 import path from "node:path";
@@ -23,7 +23,7 @@ export function turnaround(name, character, castLook) {
     id: `turn-${name}${suffix}`, title: `${NAMES[name] || name[0].toUpperCase() + name.slice(1)} turnaround`, fps: 30,
     look: "anime-pro", profile: "short", loop: false, castLook,
     set: { type: "plain", color: "#f3d9a4", floor: "#d9b27a", light: "golden", para: 0, aperture: 0, shade: "soft" },
-    drawn: true, music: false, sound: { sfx: 0, ambience: 0 },
+    drawn: castLook === "art" ? { lines: { width: 4.8, taper: 0.8, tint: 0.6 }, brush: true } : true, music: false, sound: { sfx: 0, ambience: 0 },
     creative: { length: [4, 20], notes: false },
     camera: [{ at: 0, ...full }, { at: 4.55, ...full }, { at: 5.25, ...close }, { at: 6.5, ...close }],
     cast: [{ id: "c", character, at: [0, 0], face: 0, expr: "kind", follow: 0.25, seed: 1.3 }],

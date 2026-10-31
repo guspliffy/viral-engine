@@ -15,7 +15,14 @@
   "aperture": 0,
   "shade": "soft"
  },
- "drawn": true,
+ "drawn": {
+  "lines": {
+   "width": 4.8,
+   "taper": 0.8,
+   "tint": 0.6
+  },
+  "brush": true
+ },
  "music": false,
  "sound": {
   "sfx": 0,

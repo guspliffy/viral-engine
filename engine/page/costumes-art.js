@@ -86,14 +86,32 @@ export function garment(ch, o) {
   for (let k = 0; k <= 2; k++) for (let i = 0; i <= NU; i++) { const th = from + (to - from) * (i / NU); edge.push(at(th, 1 + k * 0.0, thick * (1 - k / 2))); }
   const ge = gridMesh(edge, NU, 2);
   if (closed) { weldU(go, NU, NV); weldU(gi, NU, NV); }
-  return { outer: go, inner: gi, hem: ge };
+  // the edges as lines just outside the cloth: the hem, and for an open garment its two front edges (for trims)
+  const hemLine = [], left = [], right = [];
+  for (let i = 0; i <= NU; i++) hemLine.push(at(from + (to - from) * (i / NU), 1, thick * 0.5));
+  if (!closed) for (let j = 0; j <= NV; j++) { left.push(at(from, j / NV, thick * 0.5)); right.push(at(to, j / NV, thick * 0.5)); }
+  // painted shading (castLook "art"): each vertex's colour a little lighter at the top and darker toward the hem
+  if (o.grad) for (const g of [go, gi]) {
+    const n = g.attributes.position.count, cols = new Float32Array(n * 3);
+    for (let k = 0; k < n; k++) { const v = Math.floor(k / (NU + 1)) / NV, c = 1.06 - o.grad * Math.pow(v, 1.2); cols[k * 3] = cols[k * 3 + 1] = cols[k * 3 + 2] = c; }
+    g.setAttribute("color", new THREE.BufferAttribute(cols, 3));
+  }
+  return { outer: go, inner: gi, hem: ge, lines: { hem: hemLine, left, right } };
+}
+// a trim along a garment edge: a flat braid (an embroidered border) following the line
+export function trim(line, r, mat, flat = 0.45) {
+  const curve = new THREE.CatmullRomCurve3(line), g = new THREE.TubeGeometry(curve, Math.max(24, line.length * 2), r, 8, false);
+  const m = new THREE.Mesh(g, mat); m.scale.set(1, 1, 1); m.castShadow = true; m.userData.flat = flat; return m;
 }
 // garment() as meshes in a group: the outside in `color`, the inside darker
 export function garmentMesh(ch, o, color, lining) {
-  const { outer, inner, hem } = garment(ch, o), g = new THREE.Group(), out = clothMat(color, { side: THREE.DoubleSide });
+  const { outer, inner, hem, lines } = garment(ch, { grad: 0.16, ...o }), g = new THREE.Group(), out = clothMat(color, { side: THREE.DoubleSide, vertexColors: true });
+  g.userData.lines = lines;
   const m1 = new THREE.Mesh(outer, out); m1.castShadow = m1.receiveShadow = true; g.add(m1);
   const m2 = new THREE.Mesh(inner, liningMat(lining || new THREE.Color(color).multiplyScalar(0.55))); g.add(m2);
-  const m3 = new THREE.Mesh(hem, out); g.add(m3);
+  const m3 = new THREE.Mesh(hem, clothMat(color, { side: THREE.DoubleSide })); g.add(m3);
+  // o.trim: a border braid in this colour along the hem (and the front edges of an open garment)
+  if (o.trim) { const tm = clothMat(o.trim, { roughness: 0.7 }); for (const L of [lines.hem, lines.left, lines.right]) if (L.length > 2) g.add(trim(L, o.trimR ?? 0.009, tm)); }
   return g;
 }
 
@@ -149,6 +167,19 @@ export function tintAlong(geo, root, tip, power = 1.4) {
   for (let i = 0; i < n; i++) { const u = (i % row) / (row - 1); c.copy(a).lerp(b, Math.pow(u, power)); cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b; }
   geo.setAttribute("color", new THREE.BufferAttribute(cols, 3));
   return geo;
+}
+
+// an anime hair shine: brightens vertex colours (adds them if missing) in a band round height y0 (on the side facing
+// up and out), the lighter "angel ring" painted across a head of hair
+export function shineBand(geo, y0, w, amount = 0.22, base = [1, 1, 1]) {
+  const P = geo.attributes.position, n = P.count, N = (geo.attributes.normal || (geo.computeVertexNormals(), geo.attributes.normal));
+  let C = geo.attributes.color;
+  if (!C) { const c = new Float32Array(n * 3); for (let i = 0; i < n; i++) c.set(base, i * 3); C = new THREE.BufferAttribute(c, 3); geo.setAttribute("color", C); }
+  for (let i = 0; i < n; i++) {
+    const d = (P.getY(i) - y0) / w, k = Math.exp(-d * d * 2) * Math.max(0, N.getY(i) * 0.6 + 0.5) * (1 + 0.35 * Math.sin(P.getX(i) * 60 + P.getZ(i) * 40));
+    C.setXYZ(i, Math.min(1.3, C.getX(i) + amount * k), Math.min(1.3, C.getY(i) + amount * k), Math.min(1.3, C.getZ(i) + amount * k * 0.9));
+  }
+  C.needsUpdate = true; return geo;
 }
 
 export { sstep };
