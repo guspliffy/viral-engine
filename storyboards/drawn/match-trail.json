@@ -44,7 +44,8 @@
    "#5b7a2e",
    "#6f8a34",
    "#4a6a2a"
-  ]
+  ],
+  "leafy": true
  },
  "music": {
   "file": "ai/epic/epic-02.ogg",

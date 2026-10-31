@@ -43,8 +43,7 @@ export function castLook(def, look) {
   if (L.oval) F.eye = { ...F.eye, oval: L.oval };
   if (L.detail && def.costume) {
     def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)
-    // the Reaper's hood becomes a draped cloth hood over a cloak (the sheet), the Wizard's hat band turns gold
-    if (def.costume.type === "reaper" && def.costume.hoodStyle === "hoodie") Object.assign(def.costume, { hoodStyle: "cloth", hoodOpen: 0.96, hoodOpenH: 1.0, hoodDiag: 0.08, hoodTip: 0.15, hoodFold: 0.08, hoodOverhang: 0.16 });
+    // the Wizard's hat band turns gold (the Reaper keeps his approved hoodie: the cloth hood read worse, Jonny 31 Oct)
     if (def.costume.type === "wizard") def.costume.band = "#d6a23c";
   }
   if (L.browThick) F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * L.browThick).toFixed(3) };

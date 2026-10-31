@@ -44,6 +44,99 @@ function rockTex(rnd, base = "#9a8a78", rx = 1, ry = 1) {
   }, rx, ry);
 }
 
+// leafy: each bush blob becomes a darker core covered in leaf cards (a painted leaf with a midrib, cut out by its
+// alpha), turned outwards with some scatter, plus fern fronds arching out at the foot of the bush. Its own random
+// stream, so the layout of everything else stays as it was.
+function leafTex(draw) { const t = canvasTex(128, 128, draw); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; return t; }
+function leafyBushes(g, bushes, S, rnd) {
+  const cols = S.leaf || ["#5fae4c", "#73c25a", "#4c9a48"];
+  const leafT = leafTex((c, w, h) => {
+    for (const [cx, cy, a, k] of [[64, 66, -0.5, 1], [40, 44, 0.6, 0.8], [88, 40, -1.1, 0.75]]) {
+      c.save(); c.translate(cx, cy); c.rotate(a); c.scale(k, k);
+      const gr = c.createLinearGradient(-22, 0, 22, 0); gr.addColorStop(0, "#c8c8c8"); gr.addColorStop(0.5, "#ffffff"); gr.addColorStop(1, "#a8a8a8");
+      c.fillStyle = gr; c.beginPath(); c.moveTo(0, -46); c.quadraticCurveTo(30, -10, 0, 46); c.quadraticCurveTo(-30, -10, 0, -46); c.fill();
+      c.strokeStyle = "rgba(90,90,90,0.55)"; c.lineWidth = 2.5; c.beginPath(); c.moveTo(0, -40); c.lineTo(0, 44); c.stroke();
+      c.lineWidth = 1.2; for (let y = -26; y < 34; y += 11) { c.beginPath(); c.moveTo(0, y + 6); c.lineTo(13, y - 3); c.moveTo(0, y + 6); c.lineTo(-13, y - 3); c.stroke(); }
+      c.restore();
+    }
+  });
+  const fernT = leafTex((c, w, h) => {
+    c.strokeStyle = "#9a9a9a"; c.lineWidth = 3; c.beginPath(); c.moveTo(64, 128); c.lineTo(64, 4); c.stroke();
+    for (let y = 120; y > 8; y -= 7) { const L = 8 + 44 * Math.sin(Math.PI * (128 - y) / 128) * (y / 128 + 0.2); c.fillStyle = y % 14 < 7 ? "#ffffff" : "#e6e6e6";
+      for (const s of [-1, 1]) { c.beginPath(); c.moveTo(64, y); c.quadraticCurveTo(64 + s * L * 0.6, y - 9, 64 + s * L, y - 12); c.quadraticCurveTo(64 + s * L * 0.5, y - 2, 64, y + 3); c.fill(); } }
+  });
+  const card = new THREE.PlaneGeometry(1, 1), q = new THREE.Quaternion(), e = new THREE.Euler(), n = new THREE.Vector3(), up = new THREE.Vector3(0, 0, 1);
+  bushes.forEach((parts, li) => {
+    if (!parts.length) return;
+    const core = new THREE.Color(cols[li]).multiplyScalar(0.62), cards = [], ferns = [];
+    for (const [, M] of parts) {
+      const p = new THREE.Vector3(), sc = new THREE.Vector3(); M.decompose(p, q, sc);
+      cards.push([new THREE.IcosahedronGeometry(0.86, 1), M]);   // the shadowed inside, so no gaps show through
+      const nCards = Math.round(26 + 60 * sc.x);
+      for (let k = 0; k < nCards; k++) {
+        const th = rnd() * Math.PI * 2, ph = Math.asin(rnd() * 1.8 - 0.8);   // more on top than underneath
+        n.set(Math.cos(ph) * Math.sin(th), Math.sin(ph), Math.cos(ph) * Math.cos(th));
+        const at = new THREE.Vector3(n.x * sc.x, n.y * sc.y, n.z * sc.z).multiplyScalar(0.92).add(p);
+        q.setFromUnitVectors(up, n); e.set((rnd() - 0.5) * 1.1, (rnd() - 0.5) * 1.1, rnd() * 6.3); const tw = new THREE.Quaternion().setFromEuler(e);
+        const s = (0.13 + rnd() * 0.09) * Math.min(1.4, 0.6 + sc.x);
+        cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(tw), new THREE.Vector3(s, s, s))]);
+      }
+      if (rnd() < 0.55) for (let f = 0; f < 3; f++) {   // ferns at the foot, arching out and down
+        const a = rnd() * Math.PI * 2, L = 0.35 + rnd() * 0.25, fq = new THREE.Quaternion().setFromEuler(new THREE.Euler(-1.0 - rnd() * 0.4, a, 0, "YXZ"));
+        ferns.push([card, new THREE.Matrix4().compose(new THREE.Vector3(p.x + Math.sin(a) * sc.x * 0.9, 0.08, p.z + Math.cos(a) * sc.z * 0.9), fq, new THREE.Vector3(L * 0.55, L, 1))]);
+      }
+    }
+    const coreParts = cards.filter(([geo]) => geo !== card), leafParts = cards.filter(([geo]) => geo === card);
+    g.add(merged(coreParts, lam(core)));
+    g.add(merged(leafParts, lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide })));
+    if (ferns.length) g.add(merged(ferns, lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide }), false));
+  });
+}
+
+// with leafy: grass tufts and small ferns along the trail's edges, pebbles and twigs on the dirt, and dappled sunlight
+// (soft dark patches where the trees shade the trail) over the ground
+function groundDetail(g, S, rnd, free) {
+  const T = TRAIL, [G0, G1] = T.gully, E = T.edge;
+  const grassT = leafTex((c, w, h) => {
+    for (let i = 0; i < 26; i++) {
+      const x0 = 30 + rnd() * 68, lean = (x0 - 64) * 0.9 + (rnd() - 0.5) * 30, top = 10 + rnd() * 60, wd = 3 + rnd() * 3;
+      const sh = 170 + Math.round(rnd() * 85); c.fillStyle = `rgb(${sh},${sh},${sh})`;
+      c.beginPath(); c.moveTo(x0 - wd, 128); c.quadraticCurveTo(x0 + lean * 0.3, (128 + top) / 2, x0 + lean, top); c.quadraticCurveTo(x0 + lean * 0.3 + wd, (128 + top) / 2, x0 + wd, 128); c.fill();
+    }
+  });
+  const card = new THREE.PlaneGeometry(1, 1).translate(0, 0.5, 0), tufts = [], pebbles = [], twigs = [];
+  const onTrail = (z) => !(z < G0 + 0.15 && z > G1 - 0.15) && z > E + 0.4;
+  for (let z = E + 0.5; z < 40; z += 0.025) {
+    for (const side of [-1, 1]) {
+      const x = side * (0.7 + Math.pow(rnd(), 1.8) * 3.4);
+      if (!onTrail(z)) continue;
+      const hgt = 0.12 + rnd() * 0.16, wd = hgt * (1.1 + rnd() * 0.6), a = rnd() * Math.PI;
+      for (const k of [0, 1]) tufts.push([card, new THREE.Matrix4().compose(new THREE.Vector3(x, 0, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, a + k * Math.PI / 2, 0)), new THREE.Vector3(wd, hgt, 1))]);
+    }
+    if (rnd() < 0.5 && onTrail(z)) {   // pebbles and twigs on the dirt, mostly toward its edges
+      const x = (rnd() < 0.5 ? -1 : 1) * Math.pow(rnd(), 0.6) * 0.7, r = 0.012 + rnd() * 0.03;
+      if (rnd() < 0.8) pebbles.push([new THREE.DodecahedronGeometry(1, 0), M4(x, r * 0.35, z, r * 1.3, r * 0.6, r, rnd() * 6)]);
+      else twigs.push([new THREE.CylinderGeometry(0.006, 0.004, 1, 5), M4(x, 0.008, z, 1, 0.1 + rnd() * 0.18, 1, 0, Math.PI / 2, rnd() * 6)]);
+    }
+  }
+  const grassCol = new THREE.Color(S.grass || (S.leaf ? S.leaf[1] : "#73c25a"));
+  g.add(merged(tufts, lam(grassCol, { map: grassT, alphaTest: 0.5, side: THREE.DoubleSide }), false));
+  if (pebbles.length) g.add(merged(pebbles, lam("#857a68")));
+  if (twigs.length) g.add(merged(twigs, lam("#6a4a30"), false));
+  // dappled light: soft shade patches on a plane just above the ground, darker in the middle, drifting nowhere
+  const dap = canvasTex(512, 512, (c, w, h) => {
+    for (let i = 0; i < 70; i++) {
+      const x = rnd() * w, y = rnd() * h, r = 20 + rnd() * 70, gr = c.createRadialGradient(x, y, r * 0.2, x, y, r);
+      gr.addColorStop(0, "rgba(30,24,8,0.6)"); gr.addColorStop(0.6, "rgba(30,24,8,0.45)"); gr.addColorStop(1, "rgba(40,30,10,0)");
+      c.fillStyle = gr; c.beginPath(); c.ellipse(x, y, r * 1.4, r, rnd() * 3, 0, 7); c.fill();
+    }
+  }, 6, 30);
+  for (const [z0, z1] of [[50, G0], [G1, E]]) {
+    const L = z0 - z1, m = new THREE.Mesh(new THREE.PlaneGeometry(12, L), new THREE.MeshBasicMaterial({ map: dap, transparent: true, depthWrite: false, fog: true }));
+    dap.repeat.set(2.4, L / 2); m.rotation.x = -Math.PI / 2; m.position.set(0, 0.006, (z0 + z1) / 2); m.renderOrder = 2; m.material.userData.noOutline = true; g.add(m);
+  }
+}
+
 export function buildTrail(scene, S = {}) {
   const rnd = rng((S.seed || 7) * 431), g = new THREE.Group(); scene.add(g);
   const T = TRAIL, [G0, G1] = T.gully, E = T.edge;
@@ -222,7 +315,8 @@ export function buildTrail(scene, S = {}) {
     for (let x = -12; x < 12; x += 0.7 + rnd() * 0.6) { if (Math.abs(x) < 1.2) continue; const r = 0.25 + rnd() * 0.25; bushes[1].push([new THREE.IcosahedronGeometry(1, 1), M4(x, r * 0.6, E + 0.45 + rnd() * 0.4, r, r * 0.8, r)]); }
     // trees: false leaves the tall forest to a painted plate (set.plate.follow) and keeps the bushes along the trail
     if (S.trees !== false) { g.add(merged(trunks, trunkM)); g.add(merged(firs, firM)); crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i]))); }
-    bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
+    if (S.leafy) { leafyBushes(g, bushes, S, rng((S.seed || 7) * 977)); groundDetail(g, S, rng((S.seed || 7) * 613), free); }   // leaves instead of smooth blobs (Jonny 31 Oct: "green clouds")
+    else bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
     if (rocks.length) g.add(merged(rocks, lam("#a8a296")));
   }
   return g;

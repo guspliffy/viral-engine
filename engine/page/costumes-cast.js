@@ -41,6 +41,49 @@ export function cape(ch, color) {
   (ch.softParts ??= []).push((ft) => pivot.rotation.set(Math.max(-0.03, -0.9 * ft.f), 0, 0.6 * ft.s));
   return pivot;
 }
+// a cloth cape (costume.detail, Jonny 31 Oct: "it looks like a plate attached to the body rather than a real cape"):
+// cut from the character's own surface so it lies on the shoulders and back, then falls straight from the widest
+// point instead of following the body in, flares toward a wavy hem, with soft vertical folds that deepen toward the
+// hem. A darker lining on the inside. o: { half (radians either side of the back), top (elevation of its neckline),
+// hem (y), folds, depth (m), flare (m), lining, trim (a collar cord colour or null) }. Hung like cape() so it trails.
+export function clothCape(ch, color, o = {}) {
+  const half = o.half ?? 1.4, top = o.top ?? 0.62, hemY = o.hem ?? 0.12, N = o.folds ?? 7, amp = o.depth ?? 0.028, flare = o.flare ?? 0.07;
+  const nu = 72, nv = 40, pos = [], idx = [], v3 = new THREE.Vector3();
+  const topY = ch.surf(Math.PI, top).pos.y;
+  for (let j = 0; j <= nv; j++) {
+    const v = j / nv;
+    for (let i = 0; i <= nu; i++) {
+      const u = i / nu, th = Math.PI + (u * 2 - 1) * half;
+      const edge = Math.min(1, Math.min(u, 1 - u) * 8);   // the side edges curl in a little and keep no fold there
+      // walk down the body at this angle: the cape lies on the surface while the body widens, then hangs
+      let y = topY + (hemY - topY) * v, r = 0, ry = 0;
+      for (let k = 0; k <= j; k++) {
+        const yk = topY + (hemY - topY) * (k / nv), el = Math.asin(Math.max(-0.99, Math.min(0.99, (yk - ch.cy) / ch.ry)));
+        const p = ch.surf(th, el).pos; r = Math.max(r, Math.hypot(p.x, p.z)); ry = yk;
+      }
+      const fold = Math.sin(N * (th - Math.PI) * (Math.PI / (2 * half)) * 2 + 0.6) * amp * Math.pow(v, 1.1) * edge;
+      const R = r + 0.018 + flare * Math.pow(v, 1.6) + fold;
+      y += (0.02 * Math.cos(N * (th - Math.PI) * (Math.PI / (2 * half)) * 2 + 0.6)) * v * v;   // the hem waves with the folds
+      v3.set(Math.sin(th) * R, y, Math.cos(th) * R * (1 - 0.06 * (1 - edge)));
+      pos.push(v3.x, v3.y, v3.z);
+    }
+  }
+  for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) { const a = j * (nu + 1) + i, b = a + 1, c = a + nu + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const outer = std(color, { roughness: 0.85, side: THREE.FrontSide }), inner = std(o.lining || new THREE.Color(color).multiplyScalar(0.55), { roughness: 0.95, side: THREE.BackSide });
+  outer.userData.lookRole = "cloth"; inner.userData.lookRole = "lining";
+  const pivot = new THREE.Group(); pivot.position.y = topY;
+  for (const m of [outer, inner]) { const mesh = new THREE.Mesh(g, m); mesh.position.y = -topY; mesh.castShadow = mesh.receiveShadow = true; pivot.add(mesh); }
+  pivot.userData.mesh = pivot.children[0];
+  if (o.trim) {
+    const pts = []; for (let i = 0; i <= 40; i++) { const th = Math.PI + ((i / 40) * 2 - 1) * half, p = ch.surf(th, top); const R = Math.hypot(p.pos.x, p.pos.z) + 0.024; pts.push(new THREE.Vector3(Math.sin(th) * R, p.pos.y - topY, Math.cos(th) * R)); }
+    const cord = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.012, 8), std(o.trim, { roughness: 0.4, metalness: 0.4 })); cord.castShadow = true; pivot.add(cord);
+  }
+  // follow-through: the hem swings back and to the side, never forward into the legs
+  (ch.softParts ??= []).push((ft) => pivot.rotation.set(Math.max(-0.03, -0.7 * ft.f), 0, 0.45 * ft.s));
+  return pivot;
+}
+
 // a held prop: { group, charge } like the staff; `glow` adds the shared glowing tip
 function held(g) { return { group: g, charge() {} }; }
 

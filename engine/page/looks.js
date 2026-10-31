@@ -472,7 +472,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         t = new THREE.MeshBasicMaterial({ color: RC[role] || "#ff0000", side: m.side }); t.userData.outlineParameters = noLine; cache.set(m, t); made.add(t); return t;
       }
       t = new THREE.MeshToonMaterial({
-        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothR : charR, side: m.side, transparent: m.transparent, opacity: m.opacity,
+        color: m.color, map: m.map || null, vertexColors: !!m.vertexColors, gradientMap: isSet ? setRamp : role === "cloth" || role === "lining" ? clothR : charR, side: m.side, transparent: m.transparent, opacity: m.opacity, alphaTest: m.alphaTest || 0,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
