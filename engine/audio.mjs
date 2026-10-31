@@ -204,6 +204,54 @@ const SFX = {
     }
     return x;
   },
+  // The Easy Trail's ride (friend comedies 24): riding wind, tyres on a dirt trail, a bicycle's freewheel and a plank
+  // rattling under the wheels. Each lasts its dur.
+  // riding fast: air rushing past the ears, a dark gusty roar (gain on `swell` for the wind rising at a cliff)
+  ridewind(r, d = 2) {
+    const x = buf(d), lp = biquad("lp", 520, 0.7), bp = biquad("bp", 1100, 0.9);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, gust = 0.7 + 0.3 * Math.sin(TAU * 0.9 * t + 1.1) * Math.sin(TAU * 2.3 * t);
+      x[i] = (run(lp, r() * 2 - 1) * 1.6 + run(bp, r() * 2 - 1) * 0.35) * gust * Math.min(1, t / 0.15, (d - t) / 0.25);
+    }
+    return x;
+  },
+  // the wind rising as the ground drops away: the same dark roar, swelling from quiet to loud over its length
+  windswell(r, d = 1.2) {
+    const x = buf(d), lp = biquad("lp", 700, 0.7), bp = biquad("bp", 1500, 1.2);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / (d * 0.7)), sw = k * k * Math.min(1, (d - t) / 0.3);
+      x[i] = (run(lp, r() * 2 - 1) * 1.5 + run(bp, r() * 2 - 1) * 0.5 * k) * (0.15 + 0.85 * sw);
+    }
+    return x;
+  },
+  // knobbly tyres on a dirt trail: a low buzzing rumble with grit and small pebble ticks
+  tyres(r, d = 2) {
+    const x = buf(d), bp = biquad("bp", 240, 1.1), hp = biquad("hp", 2400, 0.8), ticks = Array.from({ length: Math.round(d * 14) }, () => 0.03 + r() * (d - 0.06));
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let c = 0; for (const h of ticks) c += env(t - h, 0.0003, 0.003, d);
+      x[i] = (run(bp, r() * 2 - 1) * 1.4 * (0.8 + 0.2 * Math.sin(TAU * 31 * t)) + run(hp, r() * 2 - 1) * c * 0.6) * Math.min(1, t / 0.08, (d - t) / 0.12);
+    }
+    return x;
+  },
+  // a bicycle's freewheel and chain while pedalling gently: soft, even metallic ticks, about 11 a second
+  freewheel(r, d = 1.5) {
+    const x = buf(d), bp = biquad("bp", 3600, 3), n = Math.floor(d * 11);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = (t * 11) % 1, k = Math.floor(t * 11);
+      x[i] = k < n ? (run(bp, r() * 2 - 1) * 0.8 + Math.sin(TAU * 2900 * u / 11) * 0.3) * env(u / 11, 0.0004, 0.006, 0.09) * Math.min(1, t / 0.1, (d - t) / 0.1) : 0;
+    }
+    return x;
+  },
+  // bicycle wheels rolling over a wooden plank: a hollow wooden rumble with quick uneven knocks, about 9 a second
+  "plank-rattle"(r, d = 0.7) {
+    const x = buf(d), lp = biquad("lp", 380, 0.9), knocks = []; for (let t = 0.02; t < d - 0.05; t += 0.08 + r() * 0.06) knocks.push([t, 180 + r() * 90]);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let v = run(lp, r() * 2 - 1) * 0.5;
+      for (const [h, f] of knocks) { const u = t - h; if (u > 0 && u < 0.08) v += Math.sin(TAU * f * u) * Math.exp(-u * 55) * 0.8; }
+      x[i] = v * Math.min(1, t / 0.02, (d - t) / 0.1);
+    }
+    return x;
+  },
   // a camera flash firing: the shutter's two clicks and a soft bright 'pff' of the flash between them
   flash(r) {
     const d = 0.35, x = buf(d), hp = biquad("hp", 1800, 0.8), bp = biquad("bp", 4200, 0.8);
@@ -576,7 +624,8 @@ export function soundEvents(sb, chars) {
       // one impact sound per hit: a flash right after an impact frame stays silent
       if (f.do === "impact") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
       if (f.do === "flash" && !impacts.some((a) => Math.abs(a - f.at) < 0.25)) ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
-      if (f.do === "poof") ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
+      // sound: false keeps a poof silent (dust on a landing that has its own named sound; the poof has a chime)
+      if (f.do === "poof" && f.sound !== false) ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
   if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));

@@ -253,8 +253,10 @@ function groundShadows(scene, actors, props, color, camera) {
     m.rotation.x = -Math.PI / 2; m.renderOrder = 1; m.material.userData.noOutline = true; m.userData.lookOnly = true; scene.add(m); blobs.push(m); return m;
   };
   // h: height above the ground (m), fall: the height where it is gone
-  const put = (m, x, z, sx, sz, h, fall, strength, y = 0.008) => {
-    const k = Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
+  // below the floor (a fall off a cliff, The Easy Trail) there is no floor under it to take a contact shadow (a kneel
+  // or a crouch lowers a root by 0.1 at most)
+  const put = (m, x, z, sx, sz, h, fall, strength, y = 0.008, below = false) => {
+    const k = below ? 0 : Math.max(0, 1 - h / fall), g = 1 + 1.5 * h;
     m.visible = k > 0.01; m.position.set(x, y, z); m.scale.set(sx * g, sz * g, 1); m.material.opacity = m.material.uniforms.uOpacity.value = strength * k * k;
   };
   const v = new THREE.Vector3();
@@ -278,7 +280,7 @@ function groundShadows(scene, actors, props, color, camera) {
         p.root.traverse((o) => { if (o.isMesh && shown(o) && !o.userData.lookOnly && !o.userData.steam) box.expandByObject(o, false); });
         if (box.isEmpty()) { m.visible = false; continue; }
         const sx = box.max.x - box.min.x, sz = box.max.z - box.min.z;
-        put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75);
+        put(m, (box.min.x + box.max.x) / 2 + 0.05 * sx, (box.min.z + box.max.z) / 2 - 0.05 * sz, sx * 1.9 + 0.06, sz * 2.0 + 0.08, Math.max(0, box.min.y), 0.35, 0.75, 0.008, box.max.y < -0.12);
       }
       for (const { a, body, feet, tips, hands } of parts) {
         const r = a.ch.root, vis = shown(r) && a.ch.potatoParts.visible, s = r.scale.x || 1, h = Math.max(0, r.position.y);
@@ -294,14 +296,14 @@ function groundShadows(scene, actors, props, color, camera) {
           put(m, hit.point.x + 0.015 * z, hit.point.z - 0.01 * z, 0.2 * z, 0.15 * z, Math.max(0, hit.distance - palm), 0.1, 0.7, hit.point.y + 0.003);
         }
         // the broad one sits a little toward the sunlight shadow (the key light is on the left)
-        put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, a.c?.shadowFall ?? 0.7, 0.4);   // cast shadowFall: a long hover keeps a soft shadow
+        put(body, r.position.x + 0.08 * s, r.position.z - 0.04 * s, a.ch.rx * 2.7 * s, a.ch.rz * 2.3 * s, h, a.c?.shadowFall ?? 0.7, 0.4, 0.008, r.position.y < -0.12);   // cast shadowFall: a long hover keeps a soft shadow
         for (const [f, m] of feet) {
           if (!f || !shown(f)) { m.visible = false; continue; }
-          f.getWorldPosition(v); put(m, v.x + 0.05 * s, v.z - 0.02 * s, 0.42 * s, 0.56 * s, Math.max(0, v.y - 0.04 * s), 0.25, 0.95);
+          f.getWorldPosition(v); put(m, v.x + 0.05 * s, v.z - 0.02 * s, 0.42 * s, 0.56 * s, Math.max(0, v.y - 0.04 * s), 0.25, 0.95, 0.008, v.y < -0.12);
         }
         for (const [o, m] of tips) {
           if (!shown(o)) { m.visible = false; continue; }
-          o.getWorldPosition(v); const w = (o.userData.groundTip || 0.05) * 4 * s; put(m, v.x + 0.03 * s, v.z - 0.01 * s, w, w * 0.8, Math.max(0, v.y), 0.3, 0.9);
+          o.getWorldPosition(v); const w = (o.userData.groundTip || 0.05) * 4 * s; put(m, v.x + 0.03 * s, v.z - 0.01 * s, w, w * 0.8, Math.max(0, v.y), 0.3, 0.9, 0.008, v.y < -0.12);
         }
       }
     },
@@ -404,7 +406,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       wood: { ...ROLE.wood, lit: [1.08, 1.0, 0.88], shade: [0.78, 0.58, 0.48], grad: 0.16 },
       set: { ...ROLE.set, lit: [1.08, 1.0, 0.86], shade: [0.82, 0.66, 0.58], grad: 0.12 },
     });
-    if (!setSpec.plate) sunPatches(scene, setSpec.wallZ ?? -2.0);   // the living room's back wall (a painted plate has its own light)
+    if (!setSpec.plate && setSpec.windows !== false) sunPatches(scene, setSpec.wallZ ?? -2.0);   // windows: false outdoors   // the living room's back wall (a painted plate has its own light)
   }
   if (setSpec?.light === "furnace") {
     // a furnace ahead (Real Footage of Hell): red-orange light on the lit side, indigo shadows, a hot orange edge from

@@ -558,6 +558,7 @@ export class Character {
     const R = this.root;
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
+    this.bodyGroup.visible = !st.pov;   // first person (timeline.js "pov"): only the limbs are drawn
     const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
     // planted feet (timeline.js st.plant): where the last step left them, in the world; drawn in the body's frame
     const pl = st.plant && st.plant.w < 1 ? st.plant : null;

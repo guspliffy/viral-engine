@@ -303,6 +303,9 @@ export function actorState(sb, actor, def, t, raw = false) {
       }
       case "grow": st.scale = lerp(st.scale, a.to ?? 1, e); break;
       case "hide": st.visible = false; break;
+      // first person (The Easy Trail): the camera rides inside this character's head, so the body, face and hat are not
+      // drawn; the arms, hands and legs still are (the rider's gloves on the handlebar). { do: "pov", on: false } ends it
+      case "pov": st.pov = a.on !== false; st.hatOn = !st.pov; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
       // Phoenix: 0 folded, 1 spread. side "R" | "L": only that wing, as an offset on top of both (-1 tucks it in, so one
