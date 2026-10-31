@@ -231,9 +231,9 @@ function sorcerer(C, ch, out) {
   const cloth = clothMat(accent, { side: THREE.DoubleSide, vertexColors: true }), inner = clothMat("#24113d", { side: THREE.DoubleSide, role: "lining" }), edge = clothMat(new THREE.Color(accent).multiplyScalar(1.25));
   for (const [g, m] of [[shell, cloth], [hem, edge], [lining, inner], [wall, inner], [seams[0], cloth], [seams[1], cloth]]) body.add(mesh(g, m));
   // the cloak from the shoulders, open at the front, its hem waving, closed at the chest by a cord and a gold clasp
-  parts.add(garmentMesh(ch, { top: -0.36, hem: -1.3, from: 0.62, to: Math.PI * 2 - 0.62, folds: 10, depth: 0.018, flare: 0.1, lift: 0.055, wave: 0.03, thick: 0.016 }, accent, "#24113d"));
+  parts.add(garmentMesh(ch, { top: -0.26, hem: -1.3, from: 0.62, to: Math.PI * 2 - 0.62, folds: 8, depth: 0.03, flare: 0.17, lift: 0.06, wave: 0.035, thick: 0.018 }, accent, "#24113d"));
   parts.add(strap(ch, [-0.66, -0.42], [0.66, -0.42], 0.01, leatherMat("#c9a24a")));
-  parts.add(buckle(ch, 0, -0.42, 0.05, 0.12));
+  parts.add(buckle(ch, 0, -0.42, 0.05, 0.08));
   out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
   return out;
 }
