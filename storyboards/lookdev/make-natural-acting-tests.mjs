@@ -76,7 +76,7 @@ for (const v of ["today", "new"]) {
   A(PAY + 0.55, "phx", "droop", { to: 0.6, dur: 0.4 });
   A(PAY + 0.6, "phx", "squash", { amount: 0.08, dur: 0.45 });
   A(PAY + 0.7, "phx", "still", { dur: 1.1, idle: 0.1 });
-  const SHOT = { pos: [0, 0.75, 4.4], look: [0, 0.55, 0], fov: 34 };
+  const SHOT = { pos: [0, 0.8, 5.8], look: [0, 0.55, 0], fov: 34 };
   const cast = [
     { id: "phx", character: "duo/phoenix", at: [-0.5, 0], face: "3q-right", expr: "kind", follow: 0.3, seed: 3.1, span: 0 },
     { id: "rea", character: "lookdev/reaper-crisp", at: [0.5, 0], face: "3q-left", expr: "deadpan", follow: 0.3, seed: 4.4 },
