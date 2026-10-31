@@ -170,7 +170,7 @@ export class Face {
     this.teethMat = new THREE.MeshStandardMaterial({ color: "#fbf7ee", emissive: "#5a5650", roughness: 0.35 });
     this.tongueMat = new THREE.MeshStandardMaterial({ color: "#e0606a", roughness: 0.55 });
     this._lastKey = "";
-    this.layout = { eyeU: 0.35, eyeV: 0.32, browV: 0.86, mouthV: -0.12, mouthW: 0.27, cheekU: 0.68, cheekV: -0.06 };
+    this.layout = { eyeU: 0.35, eyeV: 0.32, browV: 0.86, mouthV: -0.12, mouthW: 0.27, cheekU: 0.68, cheekV: -0.06, ...(arguments[0].layout || {}) };   // layout: a character file's face.layout overrides (castLook "board" sets the eyes wider apart)
   }
 
   // the wet band, its shine line and the tear bead for one eye (in the eye's lid group; x across, y up, z out)

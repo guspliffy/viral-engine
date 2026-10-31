@@ -7,7 +7,7 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
- "castLook": "golden",
+ "castLook": "board",
  "set": {
   "type": "trail",
   "seed": 7,
@@ -131,7 +131,8 @@
    "color": "#7b4fd0",
    "x": 0,
    "z": 12.6,
-   "rot": 180
+   "rot": 180,
+   "riser": true
   },
   {
    "id": "br",
@@ -140,7 +141,8 @@
    "x": 0,
    "z": 8.8,
    "rot": 180,
-   "scale": 0.75
+   "scale": 0.75,
+   "riser": true
   },
   {
    "id": "staff",

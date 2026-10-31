@@ -7,7 +7,7 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
- "castLook": "golden",
+ "castLook": "board",
  "set": {
   "type": "plain",
   "color": "#c79a6a",

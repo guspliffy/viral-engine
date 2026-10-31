@@ -181,7 +181,7 @@ function patchToon(m, o) {
   const paint = PAINT;
   m.onBeforeCompile = (sh) => {
     sh.uniforms.uLit = { value: new THREE.Color(...o.lit) }; sh.uniforms.uShade = { value: new THREE.Color(...o.shade) };
-    sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec };
+    sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec }; sh.uniforms.uSpecW = { value: o.specW ?? 0 };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
     sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
@@ -192,7 +192,7 @@ function patchToon(m, o) {
     sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -221,7 +221,7 @@ function patchToon(m, o) {
           // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
-          col += uSpec * smoothstep(0.97 - sw, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);
+          col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
           col += uBack * smoothstep(0.35, 0.9, fr) * clamp(dot(normal, uBackDir) * 1.3, 0.0, 1.0) * min(base * 2.0 + 0.15, vec3(1.0));
           outgoingLight = col + totalEmissiveRadiance;
@@ -423,7 +423,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   if (soft) {
     const back = { back: "#ffd98a", backDir: [-0.9, 0.55, -0.3] };
     Object.assign(ROLE, {
-      skin: { ...ROLE.skin, lit: [1.1, 1.24, 0.9], shade: [0.98, 0.92, 0.66], grad: 0.28, occ: 0.2, spec: 0.08, ...back },
+      skin: { ...ROLE.skin, lit: [1.1, 1.24, 0.9], shade: [0.98, 0.92, 0.66], grad: 0.28, occ: 0.2, spec: 0.07, specW: 0.12, ...back },
       char: { ...ROLE.char, grad: 0.22, spec: 0.12 },
       cloth: { ...ROLE.cloth, grad: 0.22, occ: 0.24, rimK: 0.1 },
     });

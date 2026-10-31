@@ -4,7 +4,7 @@ import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { cardWings } from "./costumes-card.js";
-import { castCostume, CAST_TYPES } from "./costumes-cast.js";
+import { castCostume, CAST_TYPES, cape } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
 function leafGeometry(w, len, thick) {
@@ -292,6 +292,10 @@ export function buildCostume(def, ch) {
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
+  if (C.type === "wizard" && C.detail) {
+    // costume.detail (Jonny's clean-anime sheet, 31 Oct): a purple cloak hanging behind, trailing a move
+    const cp = cape(ch, C.robe || "#4a2a86"); cp.userData.mesh.material.userData.lookRole = "cloth"; ch.bodyGroup.add(cp);
+  }
   const card = C.cardWings ? cardWings(C.cardWings, ch) : null;   // homemade cardboard wings and their straps (costumes-card.js)
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
   const sprt = sprout(sp.color || "#6cbf3a");

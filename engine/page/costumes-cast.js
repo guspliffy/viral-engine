@@ -11,13 +11,13 @@ import { rad } from "./util.js";
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.7, ...o });
 
 // a shell a little outside the body below elevation `from` (radians, 0 = middle, negative = lower): suits, armour
-function lowerShell(ch, from, scale = 1.045) {
+export function lowerShell(ch, from, scale = 1.045) {
   const t0 = Math.PI / 2 - from, g = new THREE.SphereGeometry(1, 96, 48, 0, Math.PI * 2, t0, Math.PI - t0), p = g.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) { const q = ch.bodyPoint(v.fromBufferAttribute(p, i).normalize()); p.setXYZ(i, q.x * scale, ch.cy + (q.y - ch.cy) * scale, q.z * scale); }
   g.computeVertexNormals(); return g;
 }
 // a ring that follows the body at elevation `ph`: belts, collars
-function ring(ch, ph, r, mat, lift = 0.012) {
+export function ring(ch, ph, r, mat, lift = 0.012) {
   const pts = [];
   for (let i = 0; i < 48; i++) { const s = ch.surf((i / 48) * Math.PI * 2, ph); pts.push(s.pos.clone().addScaledVector(s.normal, lift)); }
   const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 96, r, 8, true), mat); m.castShadow = true;
@@ -30,7 +30,7 @@ function strap(ch, a, b, r, mat) {
   return new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, r, 6), mat);
 }
 // a cape hanging behind the body, flaring at the bottom
-function cape(ch, color) {
+export function cape(ch, color) {
   const top = ch.cy + ch.ry * 0.35, bottom = 0.16, h = top - bottom;
   const g = new THREE.CylinderGeometry(ch.rx * 1.06, ch.rx * 1.35, h, 40, 6, true, Math.PI - 1.25, 2.5);
   g.translate(0, bottom + h / 2, 0); g.scale(1, 1, (ch.rz / ch.rx) * 1.08);
@@ -159,6 +159,25 @@ function batWing(color) {
   return new THREE.Mesh(g, std(color, { roughness: 0.6, side: THREE.DoubleSide }));
 }
 
+// the detailed dragon wing (costume.detail, Jonny's clean-anime sheet, 31 Oct): a big bat wing with an arm bone up to
+// a clawed wrist, three finger bones fanning out to the tips and a scalloped membrane between them. Local x runs out
+// from the root, y up; the membrane is a thin slab, the bones stand a little proud of it on both sides.
+function ribbedWing(color, bone) {
+  const g = new THREE.Group(), memM = std(color, { roughness: 0.55, side: THREE.DoubleSide }), boneM = std(bone, { roughness: 0.5 });
+  const R = [0, -0.05], E = [0.13, 0.17], W = [0.2, 0.4], T = [[0.5, 0.37], [0.6, 0.15], [0.5, -0.06]], B = [0.07, -0.1];
+  const sh = new THREE.Shape();
+  sh.moveTo(...R); sh.lineTo(...E); sh.lineTo(...W); sh.lineTo(...T[0]);
+  sh.quadraticCurveTo(0.47, 0.24, ...T[1]); sh.quadraticCurveTo(0.47, 0.06, ...T[2]); sh.quadraticCurveTo(0.27, -0.01, ...B); sh.closePath();
+  const mem = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 0.008, bevelEnabled: false, curveSegments: 10 }), memM); mem.position.z = -0.004; g.add(mem);
+  const v = ([x, y], z = 0) => new THREE.Vector3(x, y, z);
+  const tube = (pts, r0, r1) => { const m = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), r0, r1, 16, 8), boneM); g.add(m); return m; };
+  tube([v(R), v([0.07, 0.07]), v(E), v(W)], 0.024, 0.014);
+  for (const [i, t] of T.entries()) tube([v(W), v([W[0] + (t[0] - W[0]) * 0.5, W[1] + (t[1] - W[1]) * 0.5 + 0.02 * (1 - i)]), v(t)], 0.013, 0.004);
+  const claw = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.06, 6), boneM); claw.position.set(W[0] - 0.01, W[1] + 0.035, 0); claw.rotation.z = 0.35; g.add(claw);
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  return g;
+}
+
 // the Norse god's hair: swept back from a high forehead, over the top and the back, falling to the shoulders at the
 // sides. A shell slightly outside the body; in front of the face and low at the front it sinks under the skin.
 function allfatherHair(ch) {
@@ -249,7 +268,11 @@ export function castCostume(C, ch) {
     const wm = C.wing || "#c4772e";
     const wings = [-1, 1].map((s) => {
       const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.86, ch.cy - ch.ry * 0.18, -ch.rz * 0.3); ch.bodyGroup.add(pivot);   // at arm height, out to the sides like the portrait
-      const w = batWing(wm); w.scale.set(1.15 * s, 0.95, 1.15); w.castShadow = true; pivot.add(w);
+      if (C.detail) {
+        // detailed: higher on the back, spreading up and out behind the shoulders, swept back a little
+        pivot.position.set(s * ch.rx * 0.62, ch.cy + ch.ry * 0.05, -ch.rz * 0.62);
+        const w = ribbedWing(C.wingDetail || "#ee8a34", C.wingBone || "#b8442a"); w.scale.set(s, 1, 1); w.rotation.set(0, s * 0.45, s * 0.12); pivot.add(w);
+      } else { const w = batWing(wm); w.scale.set(1.15 * s, 0.95, 1.15); w.castShadow = true; pivot.add(w); }
       return { pivot, s };
     });
     const tail = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3([new THREE.Vector3(0, 0.3, -ch.rz * 0.8), new THREE.Vector3(0.05, 0.16, -ch.rz - 0.15), new THREE.Vector3(0.18, 0.12, -ch.rz - 0.3), new THREE.Vector3(0.3, 0.2, -ch.rz - 0.36)]), 0.06, 0.012, 24, 10), ch.skin);

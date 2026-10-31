@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { lowerShell, ring, cape } from "./costumes-cast.js";
 import { taperedTube, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
 
@@ -331,6 +332,15 @@ export function reaperCostume(C, ch) {
   }
   if (C.hoodStyle === "cloth") {
     const { shell, hem, lining } = hoodClothGeometry(ch, C);
+    if (C.detail) {
+      // costume.detail (Jonny's clean-anime sheet, 31 Oct): a cloak under the hood, a robe over the lower body with a
+      // darker hem and a cape hanging behind that trails a move
+      const robe = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide }); robe.userData.lookRole = "cloth";
+      const r = new THREE.Mesh(lowerShell(ch, -0.62, 1.05), robe); r.castShadow = r.receiveShadow = true; ch.bodyGroup.add(r);
+      const hemM = new THREE.MeshStandardMaterial({ color: new THREE.Color(C.accent || "#34313a").multiplyScalar(0.7), roughness: 0.9 }); hemM.userData.lookRole = "cloth";
+      ch.bodyGroup.add(ring(ch, -1.1, 0.02, hemM, 0.03));
+      const cp = cape(ch, C.accent || "#34313a"); cp.userData.mesh.material.userData.lookRole = "cloth"; ch.bodyGroup.add(cp);
+    }
     // explicit look roles (looks.js): outer cloth, the hem catching a little more light, the dark recessed lining
     const edge = new THREE.MeshStandardMaterial({ color: C.hoodRimColor || new THREE.Color(C.accent || "#34313a").multiplyScalar(1.3), roughness: 0.9 });
     const inner = new THREE.MeshStandardMaterial({ color: C.lining || "#1e1b25", roughness: 0.95, side: THREE.DoubleSide });

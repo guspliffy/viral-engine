@@ -1128,7 +1128,7 @@ const KINDS = {
   },
 
   // a bicycle, its front towards +z: wheels (radius 0.2) at z -0.36 and 0.36, the saddle at y 0.62, the handlebar at
-  // y 0.76. Ride it at off [0, 0.5, -0.16] (sit). spec.color paints the frame; spec.training adds training wheels;
+  // y 0.76. Ride it at off [0, 0.5, -0.16] (sit). spec.color paints the frame; spec.training adds training wheels; spec.riser a riser handlebar with long grips;
   // spec.uni builds only the back wheel, the seat post and the saddle (a unicycle). Params: spin (wheel turns: tween it
   // with the travel, distance / 1.257 per turn), wheelie 0..1 (front up, about the back wheel), broken 0..1 (the frame
   // and the front wheel fall away, the back wheel stays)
@@ -1160,9 +1160,18 @@ const KINDS = {
     } else {
       for (const [a, b] of [[BB, SEAT], [SEAT, HEAD], [BB, HEADB], [BB, [0, R, -0.36]], [SEAT, [0, R, -0.36]]]) tube(a, b, 0.017, frameM, rest);
       front = wheel(rest, 0.36);
-      tube(HEAD, [0, R, 0.36], 0.014, frameM, rest); tube(HEAD, [0, 0.76, 0.24], 0.014, steel, rest);
-      const bar = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.44, 8), steel, rest, 0, 0.76, 0.24); bar.rotation.z = Math.PI / 2;
-      for (const x of [-0.2, 0.2]) { const gr = mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.08, 8), black, rest, x, 0.76, 0.24); gr.rotation.z = Math.PI / 2; }
+      tube(HEAD, [0, R, 0.36], 0.014, frameM, rest); if (P.spec.riser) tube(HEAD, [0, 0.73, 0.245], 0.02, frameM, rest); else tube(HEAD, [0, 0.76, 0.24], 0.014, steel, rest);
+      if (P.spec.riser) {
+        // spec.riser: a mountain-bike riser bar (the look-match boards): it dips to a chunky stem clamp in the frame
+        // colour and rises to the same grip line as the straight bar, with long black grips showing past the gloves
+        const pts = [[-0.25, 0.76, 0.24], [-0.15, 0.76, 0.24], [-0.07, 0.735, 0.245], [0, 0.73, 0.245], [0.07, 0.735, 0.245], [0.15, 0.76, 0.24], [0.25, 0.76, 0.24]];
+        mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map((q) => new THREE.Vector3(...q))), 40, 0.013, 10), steel, rest);
+        mesh(new THREE.BoxGeometry(0.06, 0.045, 0.07), frameM, rest, 0, 0.73, 0.245);
+        for (const x of [-0.215, 0.215]) { const gr = mesh(new THREE.CylinderGeometry(0.021, 0.021, 0.12, 12), black, rest, x, 0.76, 0.24); gr.rotation.z = Math.PI / 2; }
+      } else {
+        const bar = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.44, 8), steel, rest, 0, 0.76, 0.24); bar.rotation.z = Math.PI / 2;
+        for (const x of [-0.2, 0.2]) { const gr = mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.08, 8), black, rest, x, 0.76, 0.24); gr.rotation.z = Math.PI / 2; }
+      }
       tube(SEAT, [0, 0.62, -0.17], 0.012, steel, rest); mesh(new THREE.BoxGeometry(0.09, 0.035, 0.17), black, rest, 0, 0.635, -0.18);
       crank = new THREE.Group(); crank.position.set(...BB); rest.add(crank);
       for (const s of [-1, 1]) { const arm = new THREE.Group(); arm.position.x = s * 0.06; arm.rotation.x = s > 0 ? 0 : Math.PI; crank.add(arm); mesh(new THREE.BoxGeometry(0.015, 0.12, 0.025), steel, arm, 0, -0.06, 0); mesh(new THREE.BoxGeometry(0.07, 0.015, 0.04), black, arm, s * 0.03, -0.12, 0); }
