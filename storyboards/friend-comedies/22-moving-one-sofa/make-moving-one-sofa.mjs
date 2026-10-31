@@ -279,17 +279,17 @@ A(B8, "phx", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.2, curve: -0.3
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 const beats = c.beats([
   ["1a jammed", 0, { pos: [-0.4, 1.5, 6.9], look: [-0.4, 0.85, 0.5], fov: 60, to: { pos: [-0.4, 1.45, 6.4] }, dur: 0.6, ease: "linear" }, "hook"],
-  ["1b watching", 0.6, { pos: [0.3, 1.1, 5.8], look: [1.15, 0.9, 1.3], fov: 48 }],
+  ["1b watching", 0.6, { pos: [0.3, 1.1, 5.8], look: [1.15, 0.9, 1.3], fov: 48, focus: [1.45, 0.9, 1.4] }],
   ["2 charge", 1.2, { pos: [-2.0, 0.95, 4.7], look: [-2.15, 0.72, 0.8], fov: 50 }],
   ["3 bounce", 2.2, "keep"],
-  ["4 magic", 3.2, { pos: [1.7, 1.05, 6.2], look: [0.5, 1.05, 0.9], fov: 54, to: { pos: [1.65, 1.05, 6.0] }, dur: 1.0, ease: "linear" }],
-  ["5 ceiling", 4.2, { pos: [1.1, 0.55, 5.9], look: [0.1, 1.45, 0.5], fov: 66 }],
-  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 64 }],
-  ["7 cut", 6.7, { pos: [-1.35, 1.05, 5.5], look: [-0.1, 0.8, 0.9], fov: 50 }, "payoff"],
-  ["7b stare", STARE, { pos: [0.3, 1.05, 6.8], look: [0.3, 0.85, 2.0], fov: 62 }],
-  ["8a solved", 7.97, { pos: [-0.5, 2.1, 5.2], look: [0.05, 0.5, -1.0], fov: 48 }],
-  ["8b solved", B8, { pos: [-0.1, 2.3, 5.0], look: [0.05, 0.55, -1.3], fov: 52 }],
-  ["8c sits", 9.3, { pos: [-0.1, 2.3, 5.0], look: [0.05, 0.55, -1.3], fov: 52, to: { pos: [-0.1, 1.9, 3.9] }, dur: 0.5, ease: "out" }, "reaction"],
+  ["4 magic", 3.2, { pos: [1.7, 1.05, 6.2], look: [0.5, 1.05, 0.9], fov: 54, focus: [1.0, 0.9, 1.3], to: { pos: [1.65, 1.05, 6.0] }, dur: 1.0, ease: "linear" }],
+  ["5 ceiling", 4.2, { pos: [1.1, 0.55, 5.9], look: [0.1, 1.45, 0.5], fov: 66, focus: [0.6, 1.2, 1.3] }],
+  ["6 still stuck", 5.7, { pos: [0.25, 1.2, 6.8], look: [0.25, 0.85, 0.9], fov: 64, focus: [0.2, 0.9, 1.5] }],
+  ["7 cut", 6.7, { pos: [-1.35, 1.05, 5.5], look: [-0.1, 0.8, 0.9], fov: 50, focus: [0, 0.8, 1.3] }, "payoff"],
+  ["7b stare", STARE, { pos: [0.3, 1.05, 6.8], look: [0.3, 0.85, 2.0], fov: 62, focus: [0.3, 0.9, 2.1] }],
+  ["8a solved", 7.97, { pos: [-0.5, 2.1, 5.2], look: [0.05, 0.5, -1.0], fov: 48, focus: [0.4, 0.7, 0.5] }],
+  ["8b solved", B8, { pos: [-0.1, 2.3, 5.0], look: [0.05, 0.55, -1.3], fov: 52, focus: [-0.25, 0.8, -1.2] }],
+  ["8c sits", 9.3, { pos: [-0.1, 2.3, 5.0], look: [0.05, 0.55, -1.3], fov: 52, focus: [-0.25, 0.8, -1.2], to: { pos: [-0.1, 1.9, 3.9] }, dur: 0.5, ease: "out" }, "reaction"],
 ], END);
 
 // contact a beat needs, with its reason; the checks read these windows on the video's clock (after the hit-stops)
@@ -311,7 +311,7 @@ write(import.meta.url, {
   idea: "Jonny's four friend comedies #22 (30 Oct 2026): one sofa jammed in a doorway; force, magic, then Reaper's scythe",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   castLook: "golden",
-  set: { type: "landing", light: "golden", wallZ: LD.roomBack, aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }) },
+  set: { type: "landing", light: "golden", wallZ: LD.roomBack, aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting", focusBand: 0.7 }) },
   music: { gain: 0.8 },
   sound: { sfx: 0.7, ambience: 0.25, signature: { payoff: false, entrances: false }, surface: "wood" },
   hook: { show: ["phx", "wiz", "rea", "sofaL", "sofaR"], hint: 0, what: "Phoenix shoves a sofa jammed across a narrow doorway; it doesn't budge" },
