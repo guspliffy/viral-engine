@@ -194,14 +194,14 @@
      "lead": 1,
      "dips": [
       [
-       2.24,
-       -0.32,
-       0.52
+       1.94,
+       -0.8,
+       0.72
       ],
       [
-       2.76,
-       0.07,
-       0.18
+       2.66,
+       0.14,
+       0.2
       ],
       [
        3.03,
@@ -620,8 +620,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 4.425,
-      "spin": 4.641
+      "z": 4.44,
+      "spin": 4.625
      },
      "dur": 0.1,
      "ease": "linear",
@@ -640,8 +640,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 4.1,
-      "spin": 4.985
+      "z": 4.16,
+      "spin": 4.922
      },
      "dur": 0.1,
      "ease": "linear",
@@ -687,12 +687,33 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.8,
-      "spin": 5.304
+      "z": 3.92,
+      "spin": 5.176
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "tip": 14
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "arc": 0.85,
+     "at": 0.12
     },
     {
      "who": "rea",
@@ -709,8 +730,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.5,
-      "spin": 5.622
+      "z": 3.68,
+      "spin": 5.431
      },
      "dur": 0.1,
      "ease": "linear",
@@ -720,8 +741,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 3.2,
-      "spin": 5.94
+      "tip": -4
+     },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 3.44,
+      "spin": 5.685
      },
      "dur": 0.1,
      "ease": "linear",
@@ -738,8 +769,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.9,
-      "spin": 6.258
+      "z": 3.2,
+      "spin": 5.94
      },
      "dur": 0.1,
      "ease": "linear",
@@ -749,19 +780,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "y": 0
-     },
-     "dur": 0.42,
-     "ease": "inOut",
-     "arc": 0.36,
-     "at": 0.47
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": 2.6,
-      "spin": 6.577
+      "z": 2.96,
+      "spin": 6.195
      },
      "dur": 0.1,
      "ease": "linear",
@@ -771,8 +791,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2.3,
-      "spin": 6.895
+      "z": 2.72,
+      "spin": 6.449
      },
      "dur": 0.1,
      "ease": "linear",
@@ -801,8 +821,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 2,
-      "spin": 7.213
+      "tip": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 2.48,
+      "spin": 6.704
      },
      "dur": 0.1,
      "ease": "linear",
@@ -865,11 +895,32 @@
      "at": 0.72
     },
     {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.02,
+      2.822
+     ],
+     "dur": 0.45,
+     "color": "#c9a77c",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 0.72
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "Reaper's bike lands after his hop over the root",
+     "at": 0.72
+    },
+    {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 1.673,
-      "spin": 7.559
+      "z": 2.203,
+      "spin": 6.997
      },
      "dur": 0.1,
      "ease": "linear",
@@ -882,6 +933,36 @@
      "shape": "clasp",
      "dur": 0.12,
      "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": 20
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.81
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.021
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.082
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.873
     }
    ]
   },
@@ -895,8 +976,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": 1.293,
-      "spin": 7.962
+      "z": 1.853,
+      "spin": 7.368
      },
      "dur": 0.1,
      "ease": "linear",
@@ -904,10 +985,40 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.179
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.007
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.302
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.442
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.073
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
-      "z": 0.86,
-      "spin": 8.422
+      "z": 1.43,
+      "spin": 7.817
      },
      "dur": 0.1,
      "ease": "linear",
@@ -915,10 +1026,50 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": -6
+     },
+     "dur": 0.44,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.587
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.107
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.724
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.14
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.843
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.173
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
-      "z": 0.4,
-      "spin": 8.91
+      "z": 0.97,
+      "spin": 8.305
      },
      "dur": 0.1,
      "ease": "linear",
@@ -928,33 +1079,103 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": 17
+      "y": 0.933
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.21
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.207
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "y": 0
+      "y": 0.987
      },
-     "dur": 0.52,
-     "ease": "inOut",
-     "arc": 0.45,
+     "dur": 0.033,
+     "ease": "linear",
      "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.999
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.273
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -0.06,
-      "spin": 9.398
+      "z": 0.51,
+      "spin": 8.793
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.97
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.307
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.901
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.799
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.373
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": 0.05,
+      "spin": 9.281
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.671
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.407
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.529
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.44
     },
     {
      "do": "prop",
@@ -964,35 +1185,24 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.31
+     "at": 0.44
     },
     {
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": -5
+      "y": 0.385
      },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.38
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": -0.52,
-      "spin": 9.886
-     },
-     "dur": 0.1,
+     "dur": 0.033,
      "ease": "linear",
-     "at": 0.4
+     "at": 0.473
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -0.98,
-      "spin": 10.374
+      "z": -0.41,
+      "spin": 9.769
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1000,10 +1210,50 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.25
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.507
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.136
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.54
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.053
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.573
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
-      "z": -1.44,
-      "spin": 10.862
+      "z": -0.87,
+      "spin": 10.257
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1017,10 +1267,87 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0.008
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.607
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.64
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.75,
+     "reason": "the bike slams down after the big hop over the root",
+     "at": 0.66
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.035,
+     "at": 0.66
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.45,
+      0.03,
+      0.66
+     ],
+     "dur": 0.7,
+     "color": "#e2c9a2",
+     "puffs": 12,
+     "sparks": 8,
+     "spark": "#6b4426",
+     "sparkSize": 0.7,
+     "size": 0.7,
+     "lift": 0.1,
+     "at": 0.66
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.45,
+      0.03,
+      0.66
+     ],
+     "dur": 0.7,
+     "color": "#e2c9a2",
+     "puffs": 12,
+     "sparks": 8,
+     "spark": "#6b4426",
+     "sparkSize": 0.7,
+     "size": 0.7,
+     "lift": 0.1,
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "rot": 189,
+      "roll": -6
+     },
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
-      "z": -1.9,
-      "spin": 11.35
+      "z": -1.33,
+      "spin": 10.745
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1030,24 +1357,19 @@
      "do": "prop",
      "id": "bw",
      "set": {
-      "tip": 0
+      "rot": 172,
+      "roll": 5
      },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.7
-    },
-    {
-     "sfx": "thud-soft",
-     "gain": 0.7,
-     "reason": "the bike lands after hopping the root (one bump)",
-     "at": 0.76
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.75
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -2.36,
-      "spin": 11.838
+      "z": -1.79,
+      "spin": 11.233
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1055,14 +1377,36 @@
     },
     {
      "do": "prop",
+     "id": "bw",
+     "set": {
+      "rot": 184,
+      "roll": -2
+     },
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
      "id": "br",
      "set": {
-      "z": -2.82,
-      "spin": 12.325
+      "z": -2.25,
+      "spin": 11.721
      },
      "dur": 0.1,
      "ease": "linear",
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "bw",
+     "set": {
+      "rot": 180,
+      "roll": 0
+     },
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 0.93
     }
    ]
   },
@@ -1076,8 +1420,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -3.28,
-      "spin": 12.813
+      "z": -2.71,
+      "spin": 12.209
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1104,8 +1448,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -3.74,
-      "spin": 13.301
+      "z": -3.17,
+      "spin": 12.697
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1115,18 +1459,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "y": 0
-     },
-     "dur": 0.16,
-     "ease": "inOut",
-     "at": 0.17
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "z": -4.2,
-      "spin": 13.789
+      "z": -3.63,
+      "spin": 13.185
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1136,8 +1470,18 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -4.66,
-      "spin": 14.277
+      "y": 0
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.29
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "z": -4.09,
+      "spin": 13.673
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1147,8 +1491,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -5.12,
-      "spin": 14.765
+      "z": -4.55,
+      "spin": 14.161
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1158,8 +1502,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -5.58,
-      "spin": 15.253
+      "z": -5.01,
+      "spin": 14.648
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1169,8 +1513,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -6.04,
-      "spin": 15.741
+      "z": -5.47,
+      "spin": 15.136
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1180,8 +1524,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -6.5,
-      "spin": 16.229
+      "z": -5.93,
+      "spin": 15.624
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1191,8 +1535,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -6.96,
-      "spin": 16.717
+      "z": -6.39,
+      "spin": 16.112
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1202,8 +1546,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -7.42,
-      "spin": 17.205
+      "z": -6.85,
+      "spin": 16.6
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1259,8 +1603,8 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -7.88,
-      "spin": 17.693
+      "z": -7.31,
+      "spin": 17.088
      },
      "dur": 0.1,
      "ease": "linear",
@@ -1303,10 +1647,10 @@
      "do": "prop",
      "id": "br",
      "set": {
-      "z": -8.018,
-      "spin": 17.839
+      "z": -7.77,
+      "spin": 17.576
      },
-     "dur": 0.03,
+     "dur": 0.1,
      "ease": "linear",
      "at": 0.1
     },
@@ -1322,40 +1666,25 @@
      "do": "prop",
      "id": "br",
      "set": {
+      "z": -8.046,
+      "spin": 17.869
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
       "x": 0,
       "y": -0.027,
-      "z": -8.34,
-      "spin": 18.181
+      "z": -8.368,
+      "spin": 18.21
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.13
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -0.107,
-      "z": -8.616,
-      "spin": 18.473
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.197
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -0.24,
-      "z": -8.938,
-      "spin": 18.815
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.263
+     "at": 0.26
     },
     {
      "who": "phx",
@@ -1374,26 +1703,26 @@
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.427,
-      "z": -9.26,
-      "spin": 19.157
+      "y": -0.107,
+      "z": -8.644,
+      "spin": 18.503
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.33
+     "at": 0.327
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -0.667,
-      "z": -9.536,
-      "spin": 19.449
+      "y": -0.24,
+      "z": -8.966,
+      "spin": 18.845
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.397
+     "at": 0.393
     },
     {
      "who": "phx",
@@ -1412,39 +1741,39 @@
      "id": "br",
      "set": {
       "x": 0,
+      "y": -0.427,
+      "z": -9.288,
+      "spin": 19.186
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -0.667,
+      "z": -9.564,
+      "spin": 19.479
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.527
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
       "y": -0.96,
-      "z": -9.858,
-      "spin": 19.791
+      "z": -9.886,
+      "spin": 19.821
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.463
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -1.307,
-      "z": -10.18,
-      "spin": 20.132
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.53
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -1.707,
-      "z": -10.456,
-      "spin": 20.425
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.597
+     "at": 0.593
     },
     {
      "who": "phx",
@@ -1463,13 +1792,39 @@
      "id": "br",
      "set": {
       "x": 0,
-      "y": -2.16,
-      "z": -10.778,
-      "spin": 20.767
+      "y": -1.307,
+      "z": -10.208,
+      "spin": 20.162
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.663
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -1.707,
+      "z": -10.484,
+      "spin": 20.455
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.727
+    },
+    {
+     "do": "prop",
+     "id": "br",
+     "set": {
+      "x": 0,
+      "y": -2.16,
+      "z": -10.806,
+      "spin": 20.796
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 0.793
     },
     {
      "do": "prop",
@@ -1477,12 +1832,12 @@
      "set": {
       "x": 0,
       "y": -2.667,
-      "z": -11.1,
-      "spin": 21.108
+      "z": -11.128,
+      "spin": 21.138
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.73
+     "at": 0.86
     },
     {
      "do": "prop",
@@ -1490,51 +1845,25 @@
      "set": {
       "x": 0,
       "y": -3.227,
-      "z": -11.376,
-      "spin": 21.401
+      "z": -11.404,
+      "spin": 21.431
      },
      "dur": 0.067,
      "ease": "linear",
-     "at": 0.797
+     "at": 0.927
     },
     {
      "do": "prop",
      "id": "br",
      "set": {
       "x": 0,
-      "y": -3.84,
-      "z": -11.698,
-      "spin": 21.743
+      "y": -3.286,
+      "z": -11.45,
+      "spin": 21.48
      },
-     "dur": 0.067,
+     "dur": 0.007,
      "ease": "linear",
-     "at": 0.863
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -4.507,
-      "z": -12.02,
-      "spin": 22.084
-     },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.93
-    },
-    {
-     "do": "prop",
-     "id": "br",
-     "set": {
-      "x": 0,
-      "y": -4.541,
-      "z": -12.02,
-      "spin": 22.084
-     },
-     "dur": 0.003,
-     "ease": "linear",
-     "at": 0.997
+     "at": 0.993
     }
    ]
   },
