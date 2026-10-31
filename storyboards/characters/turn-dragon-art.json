@@ -17,14 +17,23 @@
  },
  "drawn": {
   "lines": {
-   "width": 4.8,
-   "taper": 0.8,
-   "tint": 0.6
+   "width": 5.4,
+   "pressure": 1.2,
+   "taper": 0.85,
+   "tint": 0.4
   },
   "brush": {
    "glow": 0,
    "wrap": 0.12,
    "cool": 0.2
+  },
+  "paint": {
+   "edge": 0.35
+  },
+  "paper": {
+   "grain": 0.12,
+   "wash": 0.09,
+   "pool": 0.15
   }
  },
  "music": false,

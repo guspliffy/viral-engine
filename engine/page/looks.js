@@ -195,6 +195,10 @@ function windVertex(sh, w) {
     transformed.z += sway.y * ${(+w.amp).toFixed(4)} * h * h * gust;
   }`);
 }
+// hand-drawn hatching (castLook "art", character thread): coloured-pencil strokes laid over a character's shadow,
+// diagonal like a hand hatching on paper, anchored to the character on screen (it moves with them instead of
+// swimming), broken into strokes of uneven length; a second, crossing layer only in the deepest shadow
+const HATCH_RES = { value: new THREE.Vector2(1080, 1920) };
 function patchToon(m, o) {
   const paint = PAINT;
   m.onBeforeCompile = (sh) => {
@@ -207,11 +211,12 @@ function patchToon(m, o) {
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
+    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; }
     m.userData.shader = sh;
-    sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vWPos;\nvoid main() {")
-      .replace("#include <project_vertex>", "#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+    sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
+      .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap; uniform vec2 uHatchRes; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -243,13 +248,39 @@ function patchToon(m, o) {
           col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
           col += uBack * smoothstep(0.35, 0.9, fr) * clamp(dot(normal, uBackDir) * 1.3, 0.0, 1.0) * min(base * 2.0 + 0.15, vec3(1.0));
+          #ifdef HATCH
+          {
+            // pixels at 1080 wide, measured from the part's own origin on screen
+            vec2 o2 = (vHatchO.xy / vHatchO.w * 0.5 + 0.5) * uHatchRes;
+            vec2 sp = (gl_FragCoord.xy - o2) * (1080.0 / uHatchRes.x);
+            float sh = smoothstep(0.78, 0.45, litK), deep = smoothstep(0.42, 0.2, litK) * smoothstep(-0.1, -0.6, ndl);
+            float hs = 0.0;
+            for (int L = 0; L < 2; L++) {
+              float a = L == 0 ? 0.62 : -0.95, gap = uHatchGap * (L == 0 ? 1.0 : 1.25), w = L == 0 ? sh : deep;
+              if (w <= 0.001) continue;
+              vec2 dir = vec2(cos(a), sin(a));
+              float u = dot(sp, vec2(-dir.y, dir.x)) / gap, v = dot(sp, dir);
+              float row = floor(u), f = fract(u);
+              float h1 = fract(sin(row * 12.9898 + float(L) * 7.13) * 43758.5453);
+              // strokes of uneven length: a gap every so often along the row, placed per row
+              float seg = 26.0 + 22.0 * h1, sv = (v + h1 * 97.0) / seg, sf = fract(sv), sid = floor(sv);
+              float h2 = fract(sin((row * 3.7 + sid) * 78.233 + float(L)) * 24634.6345);
+              float on = step(0.22, h2) * smoothstep(0.0, 0.12, sf) * smoothstep(1.0, 0.82, sf);
+              // pressure: the stroke is thicker in the middle, thinner where it lifts off
+              float wid = (0.16 + 0.1 * sin(sf * 3.1416)) * (0.6 + 0.4 * w);
+              float d = abs(f - 0.5 - (h2 - 0.5) * 0.25), aa = fwidth(u) * 0.75;
+              hs = max(hs, w * on * smoothstep(wid + aa, wid - aa, d));
+            }
+            col = mix(col, col * uShade * 0.72, uHatch * hs);
+          }
+          #endif
           outgoingLight = col + totalEmissiveRadiance;
         }
         #endif
         #include <opaque_fragment>`);
     if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -405,6 +436,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // with a brushed (not hard) edge and a little gradient left inside each tone, like a hand-painted anime cel. Hair
   // gets its own warm role (the cool cloth shade turned white hair lilac). Character-only: the set keeps its ramp.
   const artCast = actors.some((a) => a.def?.costume?.art);
+  if (artCast) R.getDrawingBufferSize(HATCH_RES.value);
   if (artCast) { if (charR !== charRamp) charR.dispose(); if (clothR !== clothRamp) clothR.dispose(); charR = stepRamp([0.34, 0.7], [0.18, 0.62, 1], 0.06); clothR = stepRamp([0.3, 0.72], [0.12, 0.6, 1], 0.07); }
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
@@ -461,6 +493,13 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   if (artCast) {   // castLook "art": warm hair, cloth shadows a little warmer (painted, not grey)
     ROLE.hair = { ...ROLE.char, lit: [1.04, 1.02, 0.98], shade: [0.84, 0.72, 0.64], grad: 0.12, occ: 0.14, rimK: 0.12 };
     ROLE.cloth = { ...ROLE.cloth, shade: [0.66, 0.58, 0.74] };
+    // hand-drawn (Jonny 31 Oct 22:44 "a bit more handdrawn sophisticated style"): flat painted cels (no film gloss,
+    // little gradient, no glowing back edge) with coloured-pencil hatching in the shadows
+    const flat = { spec: 0, specW: 0, back: null, hatch: { k: 0.55, gap: 7 } };
+    for (const r of ["skin", "char", "cloth", "hair", "lining", "glove", "wood"]) ROLE[r] = { ...ROLE[r], ...flat, grad: Math.min(ROLE[r].grad ?? 0.08, 0.05) };
+    ROLE.skin.hatch = { k: 0.45, gap: 7 };
+    ROLE.hair.hatch = { k: 0.3, gap: 8 };   // white hair hatched as hard as the cloth looks dirty
+    ROLE.lining.hatch = ROLE.glove.hatch = null;
   }
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
@@ -505,7 +544,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
