@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { lowerShell, ring, cape } from "./costumes-cast.js";
 import { taperedTube, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
+import { phoenixCrest, reaperArt } from "./costumes-art-cast.js";
 
 // PotatoBrawl's Phoenix and Reaper in 3D, from the game's colours and drawings (game/core.js palettes,
 // game/ui/draw-fighters.js): the Phoenix's flame crest and flame wings, the Reaper's hood and farm scythe.
@@ -22,7 +23,7 @@ export function phoenixCostume(C, ch) {
   const accent = C.accent || "#ff6a2b", tip = C.tip || "#ffd23f";
   const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, emissive: new THREE.Color(accent).multiplyScalar(0.25) });
   // the crest: a fan of flame feathers on top, swept back
-  const D = !!C.detail;   // costume.detail (castLook "board", Jonny's sheet): a bigger crest and full layered feather wings
+  const D = !!C.detail || !!C.art;   // costume.detail (castLook "board", Jonny's sheet): a bigger crest and full layered feather wings
   const crest = new THREE.Group(); crest.scale.setScalar(C.crest ?? (D ? 0.95 : 0.6));   // smaller than the game's crest: the portraits show only the sprout
   const N = D ? 9 : 7;
   for (let i = 0; i < N; i++) {
@@ -32,6 +33,9 @@ export function phoenixCostume(C, ch) {
     m.rotation.set(-0.3 - Math.abs(k) * 0.25, 0, k * 1.9); m.position.set(k * 0.14, -0.04, -0.06);
     crest.add(m);
   }
+  // costume.art: the crest is flame locks growing from the crown (costumes-art-cast.js), part of the head, not a hat
+  let artCrest = null;
+  if (C.art) { artCrest = phoenixCrest(ch); ch.potatoParts.add(artCrest); crest.visible = false; }
   // the wings: two fans of long flame feathers on the back, folded down at rest, spread up and out by st.wings
   const wings = [-1, 1].map((s) => {
     const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.72, ch.cy + ch.ry * 0.12, -ch.rz * 0.55); ch.bodyGroup.add(pivot);
@@ -59,7 +63,7 @@ export function phoenixCostume(C, ch) {
   halo.position.set(0, ch.cy + 0.15, -0.5); halo.visible = false; halo.name = "glow"; ch.bodyGroup.add(halo);
   const blaze = new THREE.PointLight("#ffbf70", 0, 7, 1.4); blaze.position.set(0, ch.cy + 0.3, 0.25); ch.bodyGroup.add(blaze);
   return {
-    hat: { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
+    hat: artCrest ? null : { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
     apply(st, t) {
       const c = Math.max(0, st.charge || 0), fk = 1 + 0.06 * Math.sin(t * rad(11.3)) + 0.04 * Math.sin(t * rad(17.9));
       mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
@@ -331,6 +335,11 @@ function scythe(C) {
 }
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
+  if (C.art && (C.hoodStyle === "hoodie" || C.hoodStyle === "cloth")) {   // costume.art round 2: hood + bell cloak like the Sorcerer
+    reaperArt(C, ch);
+    const { g, tip } = scythe(C);
+    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
+  }
   if (C.hoodStyle === "hoodie") {
     const { shell, hem, lining, wall, seams, strings, tips } = hoodieGeometry(ch, C);
     const inner = new THREE.MeshStandardMaterial({ color: C.lining || "#1a1720", roughness: 0.95, side: THREE.DoubleSide });

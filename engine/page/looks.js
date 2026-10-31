@@ -399,7 +399,13 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // soft ramp, more gradient across the body, a soft gloss and a stronger warm back edge (Jonny's AI boards)
   const soft = setSpec?.shade === "soft";
   if (soft) { charRamp.dispose(); clothRamp.dispose(); }
-  const charR = soft ? smoothRamp(0.12, 1, 0.36, 0.3) : charRamp, clothR = soft ? smoothRamp(0.05, 1, 0.5, 0.3) : clothRamp;
+  let charR = soft ? smoothRamp(0.12, 1, 0.36, 0.3) : charRamp, clothR = soft ? smoothRamp(0.05, 1, 0.5, 0.3) : clothRamp;
+  // ---- castLook "art" (character thread, 31 Oct 2026; Jonny: "a bit more drawn ghibli anime style"): when the cast
+  // wears costume.art, the characters get painted cel shading instead of the soft film ramp: one clear shadow shape
+  // with a brushed (not hard) edge and a little gradient left inside each tone, like a hand-painted anime cel. Hair
+  // gets its own warm role (the cool cloth shade turned white hair lilac). Character-only: the set keeps its ramp.
+  const artCast = actors.some((a) => a.def?.costume?.art);
+  if (artCast) { if (charR !== charRamp) charR.dispose(); if (clothR !== clothRamp) clothR.dispose(); charR = stepRamp([0.34, 0.7], [0.18, 0.62, 1], 0.06); clothR = stepRamp([0.3, 0.72], [0.12, 0.6, 1], 0.07); }
   const ROLE = night
     ? { char: { lit: [1.0, 0.95, 0.9], shade: [0.62, 0.48, 0.62] }, set: { lit: [0.95, 0.92, 0.9], shade: [0.55, 0.58, 0.78] } }
     : { char: { lit: [1.04, 1.04, 0.98], shade: [0.8, 0.62, 0.56] }, set: { lit: [1.0, 1.0, 0.95], shade: [0.66, 0.74, 0.88] } };
@@ -452,6 +458,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   ROLE.lining = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 0.6), shade: ROLE.cloth.shade.map((v) => v * 0.55), grad: 0, occ: 0.3, back: null };
   ROLE.glove = { ...ROLE.cloth, lit: ROLE.cloth.lit.map((v) => v * 1.12), shade: ROLE.cloth.shade.map((v) => v * 0.85), grad: 0.06, occ: 0.12, back: null };
   ROLE.lid = { ...ROLE.skin, bodyN: true };
+  if (artCast) {   // castLook "art": warm hair, cloth shadows a little warmer (painted, not grey)
+    ROLE.hair = { ...ROLE.char, lit: [1.04, 1.02, 0.98], shade: [0.84, 0.72, 0.64], grad: 0.12, occ: 0.14, rimK: 0.12 };
+    ROLE.cloth = { ...ROLE.cloth, shade: [0.66, 0.58, 0.74] };
+  }
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
