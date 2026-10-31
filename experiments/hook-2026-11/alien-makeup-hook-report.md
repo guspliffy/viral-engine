@@ -85,3 +85,13 @@ Instagram at 2.8 h: 1,103 views, 588 accounts reached, 0.4 % from followers (onl
 Reading: the opening did not hold better than before, yet the clip was pushed further. What differs from the six earlier
 posts is more than the hook (10 s length, Halloween timing, a caption), so this one post can't say which helped. The
 0:01 -> 0:02 fall (82 -> 48) is still the biggest in the set: the twist hint by 2 s is the thing to test next.
+
+## Final read (from the analytics ledger, /mnt/project-files/ledger.csv)
+
+TikTok stopped at **750 views** after about 14 h (747 at 13.7 h, 750 at 25.7 h and 35.9 h). Held at 2 s stayed 48 %
+(curve 100, 81, 48, 34, 28, 24, 21, 19, 18, 17, 16), avg watch 4.35 s, 17.7 % finished, 4 likes, 73.8 % of viewers in
+Germany. Instagram stopped at about 2,008 views (1,177 reached) after ~24 h.
+
+Result: B's caption opening did **not** hold more viewers at 2 s than the six earlier posts (48 % vs 48-67 %). The post
+got one extra batch (~3x the usual 250), then stalled. The cold read's "understood at 0 s" did not predict keep-watching;
+HOOK.md now picks openings by keep-watching and asks for a twist hint by 2 s (PR #38).
