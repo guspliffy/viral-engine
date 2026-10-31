@@ -22,8 +22,9 @@ export function phoenixCostume(C, ch) {
   const accent = C.accent || "#ff6a2b", tip = C.tip || "#ffd23f";
   const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, emissive: new THREE.Color(accent).multiplyScalar(0.25) });
   // the crest: a fan of flame feathers on top, swept back
-  const crest = new THREE.Group(); crest.scale.setScalar(C.crest ?? 0.6);   // smaller than the game's crest: the portraits show only the sprout
-  const N = 7;
+  const D = !!C.detail;   // costume.detail (castLook "board", Jonny's sheet): a bigger crest and full layered feather wings
+  const crest = new THREE.Group(); crest.scale.setScalar(C.crest ?? (D ? 0.95 : 0.6));   // smaller than the game's crest: the portraits show only the sprout
+  const N = D ? 9 : 7;
   for (let i = 0; i < N; i++) {
     const k = i / (N - 1) - 0.5, len = 0.36 + 0.18 * Math.cos(k * Math.PI) + (i % 2) * 0.05;
     const m = new THREE.Mesh(feather(len, 0.06, accent, tip, 0.55), mat); m.castShadow = true;
@@ -35,12 +36,24 @@ export function phoenixCostume(C, ch) {
   const wings = [-1, 1].map((s) => {
     const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.72, ch.cy + ch.ry * 0.12, -ch.rz * 0.55); ch.bodyGroup.add(pivot);
     const fan = new THREE.Group(); pivot.add(fan);
-    for (let i = 0; i < 5; i++) {
+    if (D) {
+      // three layers like a bird's wing: long red-orange primaries, orange secondaries over them, short gold coverts
+      const layers = [[9, 0.62, 0.075, "#e8402a", "#ffb43a", 0.24, 0], [7, 0.42, 0.07, "#f26a2a", "#ffd23f", 0.22, 0.03], [5, 0.24, 0.065, "#ff9a30", "#ffe27a", 0.2, 0.06]];
+      for (const [n, L, w, c0, c1, step, dz] of layers) for (let i = 0; i < n; i++) {
+        const len = L * (1 - 0.35 * (i / (n - 1)) ** 1.3), m = new THREE.Mesh(feather(len, w, c0, c1, 0.22), mat); m.castShadow = true;
+        m.scale.set(1, 1, 0.3); m.rotation.set(0, 0, s * (-0.1 - i * step)); m.position.z = dz; fan.add(m);
+      }
+    } else for (let i = 0; i < 5; i++) {
       const len = 0.42 - i * 0.05, m = new THREE.Mesh(feather(len, 0.055, accent, tip, 0.15), mat); m.castShadow = true;
       m.scale.set(1, 1, 0.35); m.rotation.set(0, 0, s * (-0.25 - i * 0.32)); fan.add(m);
     }
     return { pivot, fan, s };
   });
+  // tail feathers behind, low: a small fan sweeping back and down
+  if (D) {
+    const tail = new THREE.Group(); tail.position.set(0, ch.cy - ch.ry * 0.62, -ch.rz * 0.85); ch.bodyGroup.add(tail);
+    for (let i = 0; i < 5; i++) { const k = i / 4 - 0.5, m = new THREE.Mesh(feather(0.3 - Math.abs(k) * 0.12, 0.05, "#e8402a", "#ffc43a", 0.4), mat); m.scale.set(1, 1, 0.35); m.rotation.set(-2.1, 0, k * 1.2); m.castShadow = true; tail.add(m); }
+  }
   // "charge" makes the Phoenix blaze: the feathers glow, a halo grows behind it and it lights the room round it
   const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,225,1)"], [0.3, "rgba(255,214,120,0.75)"], [0.65, "rgba(255,140,60,0.25)"], [1, "rgba(255,120,40,0)"]]), transparent: true, depthWrite: false }));
   halo.position.set(0, ch.cy + 0.15, -0.5); halo.visible = false; halo.name = "glow"; ch.bodyGroup.add(halo);
