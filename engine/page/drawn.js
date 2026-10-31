@@ -16,12 +16,31 @@ import { Pass, FullScreenQuad } from "three/addons/postprocessing/Pass.js";
 //                         "set": 0 },     and thins along a line (0 = even); set: line width on the set (0: no lines,
 //                                         like a painted background; 0.6: thinner lines that fade with distance).
 //                                         false keeps the old outline
+//              "lines": { "taper": 0.6,   lines thin out on the lit side of a shape and swell on its shadow side (0: even)
+//                         "tint": 0.5 },  line colour taken from the paint under it (0: dark brown ink, 1: a deep shade
+//                                         of the surface's own colour, like coloured-pencil "colour holds")
+//              "brush": { "lic": 5,       painted colour under the lines (opt-in): paint smeared along brush strokes that
+//                         "bleed": 2.5,   follow the shapes (lic: stroke length px), colour edges that wander a little
+//                         "stroke": 0.07, past each other (bleed px), visible stroke texture in shadow and dry-brush
+//                         "chars": 0.15,  flecks in light (stroke); chars scales all of it on characters and props, so
+//                         "cool": 0.5,    the cels stay crisp on a painted background; cool: shadows lean cool and keep
+//                         "wrap": 0.35,   their colour instead of just going darker; wrap: a bright background spills
+//                         "glow": 0.14 }, over the characters' edges; glow: the film's soft diffusion glow round light
+//                                         areas (anime compositing), 0 off
+//              "keys": "auto",            a fast move's end pose holds for keyHold frames (default 4) before the
+//              "keyHold": 4,              next drawing: the snap and hold of hand-drawn timing ([[t, frames]] by hand)
+//              "smear": { "min": 70,      a drawing whose characters travel more than min px since the drawing before
+//                         "n": 3,         gets n fading in-betweens trailing behind it along the move's own arc (span:
+//                         "span": 1,      how many drawings back the trail reaches; ghost: how strong the newest one is);
+//                         "ghost": 0.6 }, only while the camera holds still. Off unless asked (true: these defaults)
 //              "paint": { "edge": 0.22 }, shadow edges painted with a ragged brush instead of a clean computer edge
 //              "paper": { "grain": 0.09,  paper grain, a slightly uneven wash and watercolour edges on top of it all
 //                         "wash": 0.07, "pool": 0.12 } }
 // Everything is a function of the frame time (the boil changes with the drawing number), so renders and shards stay
 // repeatable.
-export function drawnSpec(d) {
+// actions: the flat storyboard's actions, for "keys": "auto"
+const KEY_MOVES = new Set(["arm", "hop", "point", "reach", "throw", "punch", "slash", "wave", "grab", "jump", "flare", "charge"]);
+export function drawnSpec(d, actions = []) {
   if (!d) return null;
   const o = d === true ? {} : d;
   const pick = (v, def) => (v === false ? null : { ...def, ...(typeof v === "object" ? v : {}) });
@@ -29,9 +48,16 @@ export function drawnSpec(d) {
     twos: o.twos === false ? 1 : o.twos ?? 2,
     camera: o.camera === 1 ? 1 : "drawn",
     ones: o.ones || [],
-    lines: pick(o.lines, { width: 4.2, boil: 1.4, pressure: 0.8, strength: 1, set: 0 }),
+    lines: pick(o.lines, { width: 4.2, boil: 1.4, pressure: 0.8, strength: 1, set: 0, taper: 0, tint: 0 }),
+    brush: o.brush ? { lic: 3, bleed: 1.5, stroke: 0.12, chars: 0, cool: 0.5, wrap: 0.35, glow: 0.14, ...(o.brush === true ? {} : o.brush) } : null,
     paint: pick(o.paint, { edge: 0.22, scale: 9 }),
     paper: pick(o.paper, { grain: 0.09, wash: 0.07, pool: 0.12 }),
+    // keys: a key pose that ends a fast move holds its drawing for a few frames (the snap and hold of limited
+    // animation): [[t, frames]], or "auto" (every arm, hop, point, reach, throw ... of 0.35 s or less, held keyHold frames)
+    keys: o.keys === "auto" ? actions.filter((a) => KEY_MOVES.has(a.do) && a.dur > 0 && a.dur <= 0.35).map((a) => [Math.round((a.at + a.dur) * 1e4) / 1e4, o.keyHold ?? 4])
+      : Array.isArray(o.keys) ? o.keys : [],
+    // smear: fast moves get a trail of fading in-betweens behind the drawing (stage.js smear; off unless asked)
+    smear: o.smear ? { min: 70, n: 3, span: 1, ghost: 0.6, ...(o.smear === true ? {} : o.smear) } : null,
     // speed: a painted zoom blur round the frame's edges while riding fast (off unless asked)
     speed: o.speed ? { amount: 1, center: [0.5, 0.7], inner: 0.22, outer: 0.62, from: 0, until: 1e9, fade: 0.3, ...(o.speed === true ? {} : o.speed) } : null,
   };
@@ -39,8 +65,9 @@ export function drawnSpec(d) {
 
 // the story time a drawing on 2s (or 3s) shows: the time of the frame its drawing started on
 export function onTwos(D, t, fps = 30) {
-  if (!D || D.twos <= 1) return t;
+  if (!D || (D.twos <= 1 && !(D.keys || []).length)) return t;
   if (D.ones.some(([a, b]) => t >= a - 1e-6 && t < b)) return t;
+  for (const [k, n] of D.keys || []) if (t >= k - 1e-6 && t < k + n / fps - 1e-6) return k;
   const q = D.twos / fps;
   return Math.floor(t / q + 1e-4) * q;
 }
@@ -65,13 +92,55 @@ const LineShader = {
     tDiffuse: { value: null }, tND: { value: null }, tDepth: { value: null }, res: { value: new THREE.Vector2(1080, 1920) },
     cNear: { value: 0.05 }, cFar: { value: 100 }, width: { value: 3.2 }, boil: { value: 1.2 }, pressure: { value: 0.7 },
     strength: { value: 1 }, seed: { value: 0 }, debug: { value: 0 }, setW: { value: 0 }, ink: { value: new THREE.Vector3(0.05, 0.03, 0.025) }, scale: { value: 1 },
+    taper: { value: 0 }, tint: { value: 0 }, lightV: { value: new THREE.Vector3(0, 1, 0) }, art: { value: 0 }, lic: { value: 5 }, bleed: { value: 2.5 }, stroke: { value: 0.07 }, chars: { value: 0.35 }, cool: { value: 0 }, wrap: { value: 0 },
   },
   vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: /* glsl */`
     #include <packing>
     uniform sampler2D tDiffuse, tND, tDepth; uniform vec2 res; uniform float cNear, cFar, width, boil, pressure, strength, seed, scale;
     uniform vec3 ink; uniform float debug, setW; varying vec2 vUv;
+    uniform float taper, tint, art, lic, bleed, stroke, chars, cool, wrap; uniform vec3 lightV;
     ${NOISE}
+    vec3 col(vec2 uv) { return texture2D(tDiffuse, uv).rgb; }
+    // the painted base under the lines (drawn.brush): smear along a stroke that follows the shapes, wandering colour
+    // edges, stroke texture in the shadows and dry-brush flecks in the light
+    vec3 brushed(vec2 uv, float onInk) {
+      vec2 px = uv * res; float k = mix(1.0, chars, onInk), sc = scale;
+      // colour bleed: where the paint is read from wanders by a slow noise, so neighbouring colours run a little into
+      // each other along their edges
+      vec2 wob = (vec2(dFbm(px / (22.0 * sc) + 3.1), dFbm(px / (22.0 * sc) + 47.9)) * 2.0 - 1.0) * bleed * sc * k;
+      vec2 u0 = (px + wob) / res;
+      // which way the shapes run here: the structure of the colour around (the stroke follows an edge, not across it)
+      vec2 e = vec2(2.0 * sc, 0.0) / res;
+      vec3 gx = col(u0 + e.xy) - col(u0 - e.xy), gy = col(u0 + e.yx) - col(u0 - e.yx);
+      float E = dot(gx, gx), F = dot(gx, gy), G = dot(gy, gy), tr = E + G;
+      float coh = tr > 1e-5 ? sqrt((E - G) * (E - G) + 4.0 * F * F) / tr : 0.0;
+      float ga = 0.5 * atan(2.0 * F, E - G);
+      // where the paint is flat the hand keeps its own slant, drifting slowly over the frame
+      float ha = 0.85 + (dFbm(px / (140.0 * sc) + 9.3) - 0.5) * 1.6;
+      vec2 dEdge = vec2(-sin(ga), cos(ga)), dHand = vec2(cos(ha), sin(ha));
+      if (dot(dEdge, dHand) < 0.0) dEdge = -dEdge;
+      vec2 dir = normalize(mix(dHand, dEdge, smoothstep(0.15, 0.6, coh) * step(1e-4, tr)));
+      vec2 nrm = vec2(-dir.y, dir.x);
+      // each stroke has its own length: noise in the stroke's own frame (long along it, narrow across)
+      vec2 sp = vec2(dot(px, dir) / (26.0 * sc), dot(px, nrm) / (5.0 * sc));
+      float L = lic * sc * k * (0.5 + dNoise(sp + 7.7));
+      vec3 c = vec3(0.0); float ws = 0.0;
+      for (int i = -3; i <= 3; i++) { float f = float(i) / 3.0, w = 1.0 - 0.6 * abs(f); c += col(u0 + dir * L * f / res) * w; ws += w; }
+      c /= ws;
+      // stroke texture: bristle streaks along the stroke, strongest in the shadows; flecks of lighter paint in the light
+      float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+      float bristle = dNoise(vec2(dot(px, dir) / (18.0 * sc), dot(px, nrm) / (1.3 * sc)) + 13.0) - 0.5;
+      float body = dNoise(sp * vec2(1.0, 0.6) + 31.0) - 0.5;
+      float shade = 1.0 - smoothstep(0.18, 0.55, l), light = smoothstep(0.55, 0.85, l);
+      c *= 1.0 + stroke * k * (bristle * (0.6 + 1.2 * shade) + body * 0.8 * shade);
+      c += stroke * k * light * smoothstep(0.25, 0.5, bristle + body * 0.5) * vec3(1.0, 0.94, 0.8) * 0.5;
+      // painted shadows are a colour, not just darker: they lean cool and keep their saturation (the light stays warm)
+      float sl = dot(c, vec3(0.2126, 0.7152, 0.0722));
+      vec3 cs = mix(vec3(sl), c, 1.25) * vec3(0.9, 0.95, 1.12);
+      c = mix(c, cs, cool * (1.0 - smoothstep(0.12, 0.5, sl)));
+      return c;
+    }
     float zAt(vec2 uv) { return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, cNear, cFar); }
     void main() {
       vec2 px = vUv * res, s1 = vec2(seed * 7.13, seed * 3.71);
@@ -79,14 +148,26 @@ const LineShader = {
       vec2 bo = (vec2(dNoise(px / (46.0 * scale) + s1), dNoise(px / (46.0 * scale) + s1 + 31.7)) * 2.0 - 1.0) * boil * scale;
       vec2 p = px + bo;
       vec4 c0 = texture2D(tND, p / res);
-      vec3 base = texture2D(tDiffuse, vUv).rgb;
+      vec3 base = art > 0.5 ? brushed(vUv, step(0.9, texture2D(tND, vUv).a)) : texture2D(tDiffuse, vUv).rgb;
       if (debug > 0.5) { gl_FragColor = vec4(c0.a > 0.9 ? vec3(1.0, 0.2, 0.2) : c0.a > 0.7 ? vec3(0.8, 0.6, 0.2) : c0.a > 0.25 ? vec3(0.3) : vec3(0.0, 0.0, 0.4), 1.0); return; }   // lines.debug: red inked, grey set, blue nothing
       if (c0.a < 0.7) { gl_FragColor = vec4(base, 1.0); return; }
+      // light wrap: a bright background spills a little over a character's edge, so the cel sits in the light of
+      // its scene instead of being pasted on top of it (the compositing pass of an anime film)
+      if (wrap > 0.0 && c0.a > 0.9) {
+        vec3 bg = vec3(0.0); float nb = 0.0;
+        for (int i = 0; i < 10; i++) {
+          float a = float(i) * 0.6283185 + 0.3; vec2 q = vUv + vec2(cos(a), sin(a)) * 9.0 * scale / res;
+          if (texture2D(tND, q).a < 0.9) { bg += texture2D(tDiffuse, q).rgb; nb += 1.0; }
+        }
+        if (nb > 0.0) { bg /= nb; float bl = dot(bg, vec3(0.2126, 0.7152, 0.0722)); base += wrap * (nb / 10.0) * smoothstep(0.35, 0.9, bl) * bg; }
+      }
       float z0 = zAt(p / res); vec3 n0 = c0.rgb * 2.0 - 1.0;
       // the set (alpha 0.8) is drawn with a thinner line that thins out further with distance
       float wk = c0.a > 0.9 ? 1.0 : setW * clamp(4.0 / z0, 0.3, 1.0);
       // pressure: the brush swells and thins along the line
       float w = wk * width * scale * (1.0 - 0.5 * pressure + pressure * dFbm(p / (64.0 * scale) + s1 * 0.37));
+      // taper: a lit edge is drawn with a lighter hand, the shadow side with more weight
+      if (taper > 0.0) w *= 1.0 + taper * (0.45 - clamp(dot(n0, lightV) * 0.5 + 0.5, 0.0, 1.0)) * 1.5;
       float sil = 0.0, crease = 0.0;
       for (int i = 0; i < 12; i++) {
         float a = float(i) * 0.5235988;
@@ -105,12 +186,13 @@ const LineShader = {
       // a brush leaves a little texture inside the stroke
       line *= 0.86 + 0.14 * dNoise(px / (2.2 * scale) + s1);
       vec3 lc = mix(ink, base * 0.26, 0.5);
+      if (tint > 0.0) { float bl = dot(base, vec3(0.333)); vec3 deep = max(mix(vec3(bl), base, 1.5), 0.0) * 0.32; lc = mix(lc, deep, tint); }
       gl_FragColor = vec4(mix(base, lc, clamp(line * strength, 0.0, 1.0)), 1.0);
     }`,
 };
 
 export class DrawnLinesPass extends Pass {
-  constructor(scene, camera, L, inkRoots) {
+  constructor(scene, camera, L, inkRoots, B = null) {
     super();
     this.scene = scene; this.camera = camera; this.L = L; this.inkRoots = new Set(inkRoots); this.inkRoots.delete(scene);   // inked: the characters and props (a prop with no body of its own can report the scene as its root)
     this.nd = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 0 });
@@ -118,6 +200,8 @@ export class DrawnLinesPass extends Pass {
     this.mats = new Map();
     this.quad = new FullScreenQuad(new THREE.ShaderMaterial({ ...LineShader, uniforms: THREE.UniformsUtils.clone(LineShader.uniforms) }));
     const u = this.quad.material.uniforms; u.width.value = L.width; u.boil.value = L.boil; u.pressure.value = L.pressure; u.strength.value = L.strength; u.debug.value = L.debug ? 1 : 0; u.setW.value = L.set || 0;
+    u.taper.value = L.taper || 0; u.tint.value = L.tint || 0;
+    if (B) { u.art.value = 1; u.lic.value = B.lic; u.bleed.value = B.bleed; u.stroke.value = B.stroke; u.chars.value = B.chars; u.cool.value = B.cool; u.wrap.value = B.wrap; }
   }
   set seed(v) { this.quad.material.uniforms.seed.value = v; }
   setSize(w, h) { this.nd.setSize(w, h); this.quad.material.uniforms.res.value.set(w, h); this.quad.material.uniforms.scale.value = w / 1080; }
@@ -179,6 +263,11 @@ export class DrawnLinesPass extends Pass {
     const u = this.quad.material.uniforms;
     u.tDiffuse.value = readBuffer.texture; u.tND.value = this.nd.texture; u.tDepth.value = this.nd.depthTexture;
     u.cNear.value = this.camera.near; u.cFar.value = this.camera.far;
+    if (u.taper.value > 0) {
+      // the strongest sun, as a direction in view space (the normals target is in view space)
+      let sun = null; this.scene.traverse((o) => { if (o.isDirectionalLight && o.visible && (!sun || o.intensity > sun.intensity)) sun = o; });
+      if (sun) { sun.updateMatrixWorld(); sun.target.updateMatrixWorld(); u.lightV.value.setFromMatrixPosition(sun.matrixWorld).sub(new THREE.Vector3().setFromMatrixPosition(sun.target.matrixWorld)).normalize().transformDirection(this.camera.matrixWorldInverse); }
+    }
     R.setRenderTarget(this.renderToScreen ? null : writeBuffer);
     this.quad.render(R);
   }

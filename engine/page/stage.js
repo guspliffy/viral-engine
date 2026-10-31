@@ -343,7 +343,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
     const img = new Image(); plateShots.set(s.plate, img);
@@ -410,7 +410,7 @@ async function init(data) {
 function pose(t0) {
   // the drawn look on 2s (drawn.js): everything holds each drawing for 2 frames, the camera too unless the storyboard
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
-  const t = onTwos(drawnD, t0), tc = drawnD && drawnD.camera === 1 ? t0 : t;
+  const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
@@ -565,7 +565,7 @@ function pose(t0) {
   for (const a of actors) if (a.hidByShot || shot?.hide?.includes(a.c.id)) { a.hidByShot = !!shot?.hide?.includes(a.c.id); a.ch.root.visible = !a.hidByShot; }
 }
 
-let drawnQ = null;   // the held drawing on the canvas (drawn look on 2s): a frame that shows the same drawing only redraws the captions
+let drawnQ = null, smearRaw = false;   // smearRaw: pose() takes the time as given (the in-betweens of a smear drawing)   // the held drawing on the canvas (drawn look on 2s): a frame that shows the same drawing only redraws the captions
 function frame(t) {
   (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
   const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null;
@@ -693,6 +693,64 @@ function stateHash(t, samples = []) {
 }
 globalThis.__noGeomCache = new URLSearchParams(location.search).has("nocache");   // experiment: rebuild brows and glove skins every frame
 function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
+// the drawn look's smear (drawn.smear): a drawing whose characters or props travel more than S.min px since the
+// drawing before it gets a trail of fading in-betweens behind it, posed at the real times in between, so the trail
+// follows the move's own arc. The drawing itself stays solid on top (its silhouette is the mask); only while the
+// camera holds still (a moving camera would trail the whole set), never across a cut, impact frame or flash (S.walls,
+// story time). The next frame of the same drawing redraws and smears again, so the held drawing stays the same.
+function smear(t, S) {
+  if (!drawnD || drawnD.twos <= 1) return false;
+  const ones = drawnD.ones.some(([a, b]) => t >= a - 1e-6 && t < b), td = onTwos(drawnD, t), q = (ones ? 1 : drawnD.twos) / (sb.fps || 30);
+  const t0 = Math.max(0, td - q * S.span);
+  if (t0 >= td - 1e-6 || (S.walls || []).some((w) => w > t0 + 1e-6 && w <= td + 1e-6)) return false;
+  if ((sb.fx || []).some((f) => (f.do === "impact" || f.do === "photo") && fxActive(f, t))) return false;
+  smearRaw = true;
+  try {
+    pose(t0); camera.updateMatrixWorld(true); const cam0 = camera.matrixWorld.clone(), A = corners();
+    pose(td); camera.updateMatrixWorld(true); const B = corners();
+    let dc = 0; for (let i = 0; i < 16; i++) dc = Math.max(dc, Math.abs(camera.matrixWorld.elements[i] - cam0.elements[i]));
+    if (dc > 1e-3) return false;
+    let m = 0;
+    for (const [o, pb] of B) { const pa = A.get(o); if (pa) for (let i = 0; i < pb.length; i++) if (pa[i] && pb[i]) m = Math.max(m, Math.hypot(pa[i][0] - pb[i][0], pa[i][1] - pb[i][1])); }
+    if (m < S.min) return false;
+    const cur = ctx.getImageData(0, 0, W, H).data;
+    // the drawing's silhouette (characters and props, black on white), the same way an impact frame draws them
+    const bg = scene.background, fog = scene.fog, glows = inkGlows(), shown = setObjs.filter((o) => o.visible), puffs = poofs.filter((p) => p.g.visible);
+    for (const o of shown) o.visible = false;
+    for (const p of puffs) p.g.visible = false;
+    scene.background = new THREE.Color("#ffffff"); scene.fog = null; scene.overrideMaterial = inkMat;
+    R.render(scene, camera);
+    scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
+    for (const o of shown) o.visible = true;
+    for (const p of puffs) p.g.visible = true;
+    for (const o of glows) o.visible = true;
+    ctx.drawImage(R.domElement, 0, 0, W, H);
+    const mask = ctx.getImageData(0, 0, W, H).data;
+    // the in-betweens, oldest first, each a little stronger
+    const acc = new Float32Array(cur.length); let wsum = 1;
+    for (let i = 0; i < cur.length; i++) acc[i] = cur[i];
+    for (let k = 0; k < S.n; k++) {
+      const ts = t0 + ((td - t0) * k) / S.n, w = S.ghost * (k + 1) / S.n;
+      pose(ts);
+      const progs = R.info.programs.length;
+      styler.prepare(scene, ts); styler.render(scene, camera);
+      if (R.info.programs.length !== progs) { styler.prepare(scene, ts); styler.render(scene, camera); }
+      composite(t);
+      const g = ctx.getImageData(0, 0, W, H).data;
+      for (let i = 0; i < g.length; i++) acc[i] += g[i] * w;
+      wsum += w;
+    }
+    const img = ctx.createImageData(W, H), out = img.data;
+    for (let i = 0; i < out.length; i += 4) {
+      const a = 1 - mask[i] / 255;
+      for (let c = 0; c < 3; c++) out[i + c] = a * cur[i + c] + (1 - a) * acc[i + c] / wsum;
+      out[i + 3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    drawnQ = null;   // the canvas no longer holds this drawing: its next frame draws (and smears) it again
+    return true;
+  } finally { smearRaw = false; }
+}
 function blur(times, keep) {
   const n = times.length + (keep ? 1 : 0);
   let acc = null;
@@ -1366,7 +1424,7 @@ const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o ==
 window.ENGINE = {
   init, sync, capture, motion, movingBox,
   frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
-  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), trace: (t, thin) => trace(st(t), thin),
+  prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
   stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
 };
 window.ENGINE_READY = true;
