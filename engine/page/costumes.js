@@ -3,6 +3,7 @@ import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
+import { cowboyArt } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
 import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
@@ -287,12 +288,19 @@ export function buildCostume(def, ch) {
   if (C.type === "cowboy") hat = cowboyHat(C);
   const pb = C.type === "phoenix" ? phoenixCostume(C, ch) : C.type === "reaper" ? reaperCostume(C, ch) : null;   // costumes-pb.js
   if (pb) { hat = pb.hat; prop = C.noProp ? null : pb.prop || null; }   // noProp: the scythe is left at home
-  const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols || (C.type === "cowboy" && C.detail) ? castCostume(C, ch) : null;   // costumes-cast.js
+  const art = C.type === "cowboy" && C.art;   // costume.art (castLook "art"): the Gunslinger's clothes (costumes-art-cast.js)
+  // art: the crown wide enough to take the head (the head no longer pokes out between brim and band), the brim a
+  // little wider, the whole hat set down on the head
+  if (art) { cowboyArt(C, ch); hat.group.scale.set(1.15, 1.1, 1.15); hat.group.children.slice(2).forEach((o) => o.scale.set(o.scale.x * 1.32, o.scale.y, o.scale.z * 1.32)); }
+  const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols || (C.type === "cowboy" && C.detail && !art) ? castCostume(C, ch) : null;   // costumes-cast.js
   if (isCast) { hat = cc.hat || hat; prop = C.noProp ? null : cc.prop; }   // noProp: the axe (katana, ...) is left at home
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
-  if (C.type === "wizard" && C.detail) {
+  if (C.type === "wizard" && C.art) {
+    // costume.art: a cloak hung lower on the back, darker lining, the gold cord sitting on the cloth (no shelf)
+    ch.bodyGroup.add(clothCape(ch, C.robe || "#4a2a86", { trim: C.band || "#d6a23c", top: 0.3, half: 1.5, folds: 8, lining: "#24123f", flare: 0.09 }));
+  } else if (C.type === "wizard" && C.detail) {
     // costume.detail (Jonny's clean-anime sheet, 31 Oct): a purple cloak hanging behind, trailing a move
     ch.bodyGroup.add(clothCape(ch, C.robe || "#4a2a86", { trim: C.band || "#d6a23c", top: 0.55, half: 1.45 }));
   }
@@ -310,7 +318,7 @@ export function buildCostume(def, ch) {
   if (pb) sprt.group.scale.setScalar(0.7);
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
   const propHand = C.propHand || "R";
-  const sitDepth = pb ? pb.sitDepth : isCast ? cc.sitDepth : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;
+  const sitDepth = pb ? pb.sitDepth : isCast ? cc.sitDepth : art ? 0.21 : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;   // art: the cowboy hat sits down on the head
 
   // the held prop's rotation for this frame (shared by apply and by the hand that wraps around it)
   const propRot = (st) => {

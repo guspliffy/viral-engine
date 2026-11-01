@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { taperedTube, radialTexture } from "./geo.js";
 import { hoodGeometry } from "./costumes-pb.js";
 import { rad } from "./util.js";
+import { ART_CAST } from "./costumes-art-cast.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
 // Norse god (Odin-like, with raven), Samurai and Sorcerer, plus the Gunslinger's two pistols (`pistols: true`).
@@ -24,16 +25,16 @@ export function ring(ch, ph, r, mat, lift = 0.012) {
   return m;
 }
 // a band that follows the body from (th0, ph0) to (th1, ph1): shoulder straps
-function strap(ch, a, b, r, mat) {
+export function strap(ch, a, b, r, mat) {
   const pts = [];
   for (let i = 0; i <= 20; i++) { const k = i / 20, s = ch.surf(a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k); pts.push(s.pos.clone().addScaledVector(s.normal, 0.014)); }
   return new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, r, 6), mat);
 }
 // costume.detail pieces (castLook "board", Jonny's clean-anime sheet, 31 Oct): a round piece lying on the surface
-function onSurface(ch, mesh, th, ph, lift) { const q = ch.surf(th, ph); mesh.position.copy(q.pos).addScaledVector(q.normal, lift); mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), q.normal); mesh.castShadow = true; return mesh; }
-const gold = () => std("#e2b23c", { roughness: 0.3, metalness: 0.8 });
+export function onSurface(ch, mesh, th, ph, lift) { const q = ch.surf(th, ph); mesh.position.copy(q.pos).addScaledVector(q.normal, lift); mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), q.normal); mesh.castShadow = true; return mesh; }
+export const gold = () => std("#e2b23c", { roughness: 0.3, metalness: 0.8 });
 // a big round buckle: a gold disc with a raised rim
-function buckle(ch, th, ph, r, lift) {
+export function buckle(ch, th, ph, r, lift) {
   const g = new THREE.Group(), m = gold();
   g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.016, 28), m));
   const rim = new THREE.Mesh(new THREE.TorusGeometry(r * 0.92, r * 0.16, 8, 28), m); rim.rotation.x = Math.PI / 2; rim.position.y = 0.008; g.add(rim);
@@ -41,7 +42,7 @@ function buckle(ch, th, ph, r, lift) {
   return onSurface(ch, g, th, ph, lift);
 }
 // a fur collar: soft lumps round the shoulders and back, open at the front so it never covers the face
-function furCollar(ch, o = {}) {
+export function furCollar(ch, o = {}) {
   const g = new THREE.Group(), r = rng(o.seed ?? 5), cols = [o.color || "#eadcbf", o.dark || "#b89a72"].map((c) => std(c, { roughness: 1 }));
   const open = o.open ?? 1.15, n = o.n ?? 320, ph0 = o.ph ?? -0.12;
   // one soft lumpy roll (a single surface, so the drawn lines only trace its outline): a tube along the shoulders and
@@ -59,7 +60,7 @@ function furCollar(ch, o = {}) {
   const fur = new THREE.Mesh(geo, cols[0]); fur.castShadow = true; g.add(fur);
   return g;
 }
-function rng(seed) { let x = seed * 9301 + 49297; return () => ((x = (x * 9301 + 49297) % 233280) / 233280); }
+export function rng(seed) { let x = seed * 9301 + 49297; return () => ((x = (x * 9301 + 49297) % 233280) / 233280); }
 
 // a cape hanging behind the body, flaring at the bottom
 export function cape(ch, color) {
@@ -119,7 +120,7 @@ export function clothCape(ch, color, o = {}) {
 // a held prop: { group, charge } like the staff; `glow` adds the shared glowing tip
 function held(g) { return { group: g, charge() {} }; }
 
-function glowOrb(C) {
+export function glowOrb(C) {
   const g = new THREE.Group(), col = new THREE.Color(C.glow || "#5dff6a");
   const orbM = new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 1.2, roughness: 0.1, transparent: true, opacity: 0.92 });
   const orb = new THREE.Mesh(new THREE.SphereGeometry(0.085, 28, 20), orbM); orb.position.set(0, 0.07, 0.03); g.add(orb);
@@ -137,7 +138,7 @@ function glowOrb(C) {
   };
 }
 
-function katana(C) {
+export function katana(C) {
   const g = new THREE.Group();
   const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.022, 0.2, 10), std("#1d1b22")); grip.position.y = 0.0; g.add(grip);
   for (let i = 0; i < 5; i++) { const w = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.005, 4, 10), std("#c9a24a")); w.rotation.x = Math.PI / 2; w.position.y = -0.08 + i * 0.04; g.add(w); }
@@ -166,7 +167,7 @@ function katana(C) {
 }
 
 // the portrait's double-bit axe: two flared crescent blades either side of the shaft and a spike on top
-function axe(C) {
+export function axe(C) {
   const g = new THREE.Group(), steel = std("#b9bec6", { metalness: 0.75, roughness: 0.3 }), dark = std("#80868f", { metalness: 0.7, roughness: 0.35 });
   const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.026, 0.95, 10), std(C.wood || "#6b4a2b", { roughness: 0.8 })); shaft.position.y = 0.2; shaft.castShadow = true; g.add(shaft);
   for (const y of [-0.12, 0.38]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.06, 10), std("#3b2a1c", { roughness: 0.9 })); w.position.y = y; g.add(w); }   // leather grip wraps
@@ -212,7 +213,7 @@ function vikingHair(C, ch) {
   return { group: g, height: 0.12, brimR: 0 };
 }
 
-function raven(ch) {
+export function raven(ch) {
   const g = new THREE.Group(), black = std("#16151b", { roughness: 0.5 }), beakM = std("#3b3a40", { roughness: 0.4 });
   const body = new THREE.Mesh(new THREE.SphereGeometry(0.075, 18, 12), black); body.scale.set(0.85, 1.05, 1.35); body.position.set(0, 0.06, 0); g.add(body);
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 12), black); head.position.set(0, 0.15, 0.06); g.add(head);
@@ -237,7 +238,7 @@ function batWing(color) {
 // the detailed dragon wing (costume.detail, Jonny's clean-anime sheet, 31 Oct): a big bat wing with an arm bone up to
 // a clawed wrist, three finger bones fanning out to the tips and a scalloped membrane between them. Local x runs out
 // from the root, y up; the membrane is a thin slab, the bones stand a little proud of it on both sides.
-function ribbedWing(color, bone) {
+export function ribbedWing(color, bone) {
   const g = new THREE.Group(), memM = std(color, { roughness: 0.55, side: THREE.DoubleSide }), boneM = std(bone, { roughness: 0.5 });
   const R = [0, -0.05], E = [0.13, 0.17], W = [0.2, 0.4], T = [[0.5, 0.37], [0.6, 0.15], [0.5, -0.06]], B = [0.07, -0.1];
   const sh = new THREE.Shape();
@@ -272,14 +273,14 @@ function allfatherHair(ch) {
   return g;
 }
 // a braid down each side of the face, in front of the shoulder: one tapered tube, pinched at every plait
-function braid(ch, s, mat) {
+export function braid(ch, s, mat) {
   const pts = [[1.0, 0.2, 0.05], [1.08, -0.05, 0.07], [1.1, -0.3, 0.07], [1.08, -0.52, 0.06]].map(([th, ph, l]) => { const q = ch.surf(s * th, ph); return q.pos.addScaledVector(q.normal, l); });
   const m = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 60, 10, (t) => (0.032 - 0.012 * t) * (0.72 + 0.28 * Math.abs(Math.sin(t * Math.PI * 7)))), mat);
   m.castShadow = true; return m;
 }
 // the big beard: from the cheeks under the nose down over the chest to a soft point, with a moustache across the top
 // and an opening for the mouth. Wavy strands run down it.
-function beardGeometry(ch) {
+export function beardGeometry(ch) {
   const g = new THREE.SphereGeometry(1, 64, 48), p = g.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) {
     v.fromBufferAttribute(p, i);
@@ -300,6 +301,8 @@ export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samura
 export function castCostume(C, ch) {
   const parts = ch.potatoParts, out = { hat: null, sitDepth: 0, prop: null, extra: [], apply() {} };
   const T = C.type;
+  // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
+  if (C.art && ART_CAST[T]) return ART_CAST[T](C, ch, out);
   if (T === "astronaut") {
     const suitM = std(C.suit || "#eef0f4", { roughness: 0.55 }), trimM = std(C.trim || "#9aa3b2", { roughness: 0.45, metalness: 0.3 });
     parts.add(new THREE.Mesh(lowerShell(ch, -0.42), suitM));
