@@ -166,6 +166,15 @@ to be ignored"). Even when a brief calls them "a staging reference":
    give it to creative review A, telling the review that the panels are the target.
 4. A departure, such as a vertical frame that can't hold a landscape composition, goes in PANELS.md and in the
    delivery, with its reason.
+5. Match the detail and the energy, not only the layout. v2 of Not Yet was still "a simple room" next to the panels.
+   Copy:
+   - a lived-in room: patterned walls, panels, pictures, a clock, clutter
+   - dust hanging in the air, and dust and debris bursts on every hit
+   - heavy spark bursts and light shafts
+   - torn materials shown as ragged holes with foam, never white blobs
+6. The last frame must read on its own. Held props stay in hand, at chest height, in a colour that contrasts with the
+   costume. A released prop goes back to its spec place unless `release` has `to:`. The eyeline target, or its glow, is
+   in frame.
 
 Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it, fill the four brief lines, keep
 the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in

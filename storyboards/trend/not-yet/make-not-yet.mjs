@@ -63,7 +63,7 @@ const DOOR = { x: -3.0, w: 0.95, h: 1.75 };
 const LAMP = [-2.05, r3(WZ + 0.2)], SHELF = [-2.05, 1.52];
 const CAL_WALL = [3.3, 0.7];                                   // the calendar on the wall right of the bookcase (x, bottom y)
 const TABLE = { x: 0.35, z: 0.2, w: 0.9, d: 0.38, h: 0.34 };
-const TV = [1.3, 1.5];                                         // opposite the sofa (panels 7-8: they face it, it faces them)
+const TV = [1.05, 1.15];                                         // opposite the sofa (panels 7-8: they face it, it faces them)
 const SHIELD = [-0.85, 0.66, -0.62];
 const FLOORLAMP = [-1.05, r3(WZ + 0.28)];                         // the lamp that stays lit (panels 5-8: warm light behind them)
 const REA_STRIKE = [-1.65, -0.45], WIZ_LAND = [1.95, -0.3];
@@ -78,15 +78,27 @@ const cast = [
   { id: "wiz2", character: "notyet/wizard-nostaff", at: OFF[0], face: -45, expr: "shocked", follow: 0.25, seed: 2.6, hidden: true },
   { id: "rea2", character: "notyet/reaper-noscythe", at: OFF[1], face: 100, expr: "kind", follow: 0.2, seed: 3.3, hidden: true },
 ];
-const PAD_K = { id: "padK", kind: "gamepad", color: "#2f3138", dark: "#15161a", ...grips.placeFor("gamepad", [-0.06, TABLE.h, 0.12], 100), scale: 1.2 };
-const PAD_W = { id: "padW", kind: "gamepad", color: "#f1f2f4", x: 0.62, y: TABLE.h, z: 0.18, rot: -12, scale: 1.2 };
+const PAD_K = { id: "padK", kind: "gamepad", style: "xbox", color: "#f2f3f5", ...grips.placeFor("gamepad", [-0.06, TABLE.h, 0.12], 100), scale: 1.2 };
+const PAD_W = { id: "padW", kind: "gamepad", style: "xbox", color: "#f2f3f5", x: 0.62, y: TABLE.h, z: 0.18, rot: -12, scale: 1.2 };
 const props = [
   { id: "sofaL", kind: "sofahalf", side: "L", x: L0[0], z: L0[1], scale: S, color: "#3d4f8e", color2: "#5167ab", color3: "#2c3a6b" },
   { id: "sofaR", kind: "sofahalf", side: "R", x: R0[0], z: R0[1], scale: S, color: "#3d4f8e", color2: "#5167ab", color3: "#2c3a6b" },
-  { id: "tufts", kind: "stuffing", x: SX, y: 0, z: SZ, at: [[-0.95, 0.88, 0.1], [0.42, 0.62, 0.36], [1.02, 1.08, -0.38], [-0.3, 1.12, -0.42], [-1.2, 0.7, 0.3], [0.05, 0.6, 0.42], [1.25, 0.82, 0.05], [-0.65, 1.15, -0.4], [0.7, 1.14, -0.42]] },
+  { id: "tufts", kind: "stuffing", x: SX, y: 0, z: SZ, at: [[-0.72, 0.38, 0.58], [0.05, 1.03, 0.0]] },
+  // the torn cover (panels 3-8): ragged holes with foam and stuffing; the first rips open at the cracking blow, the rest
+  // when the Wizard dives over the sofa
+  { id: "rips1", kind: "sofarips", x: SX, y: 0, z: SZ, cover: "#3d4f8e", at: [[-0.72, 0.36, 0.565, "front", 0.306, 0.2], [-0.99, 0.865, 0.1, "up", 0.252, 0.4], [-0.75, 1.0, 0.0, "front", 0.288, 0.3]] },
+  { id: "rips2", kind: "sofarips", x: SX, y: 0, z: SZ, cover: "#3d4f8e", at: [[0.5, 0.33, 0.565, "front", 0.27, -0.3], [0.99, 0.62, 0.58, "front", 0.234, 0.5], [0.99, 0.865, -0.15, "up", 0.216, -0.2], [0.78, 0.98, 0.0, "front", 0.27, -0.4], [0.05, 1.02, -0.02, "front", 0.252, 0.6], [-0.25, 0.555, 0.565, "front", 0.216, 0], [0.25, 0.65, 0.3, "up", 0.234, 0.7]] },
+  // the room lived in (panels: pictures, clutter, a console by the TV), dust in the air, daylight through the door
+  { id: "art1", kind: "wallart", x: -2.05, y: 2.15, z: r3(WZ + 0.02), w: 0.5, h: 0.36, scene: "sea" },
+  { id: "art2", kind: "wallart", x: 3.3, y: 1.75, z: r3(WZ + 0.02), w: 0.55, h: 0.4, scene: "hills", frame: "#8a6a42" },
+  { id: "art3", kind: "wallart", x: 2.75, y: 2.3, z: r3(WZ + 0.02), w: 0.3, h: 0.38, scene: "forest", frame: "#3c3a40" },
+  { id: "clock", kind: "wallclock", x: 0.05, y: 2.55, z: r3(WZ + 0.03), r: 0.15 },
+  { id: "clutter", kind: "clutter", x: 0, y: 0, z: 0, items: [[1.85, 1.05, "console", -10], [1.55, 1.25, "cable", 160], [-1.62, -1.55, "books", 20], [-2.6, 0.55, "basket", 0], [0.75, -0.35, "can", 40], [1.55, -0.75, "mug", 0], [2.6, 0.4, "box", -15], [2.55, 0.42, "books", 70, 0.26]] },
+  { id: "dust", kind: "dustmotes", x: -0.4, y: 0, z: -0.4, box: [6, 1.9, 3.4], n: 170, seed: 5 },
+  { id: "beam", kind: "lightbeam", x: DOOR.x, y: 1.55, z: r3(WZ + 0.05), rot: 180, tip: 32, len: 3.2, w: 1.7, w0: 0.8, glow: 1 },
   // the wreckage: the door's splinters from the first frame; stuffing on the floor once the sofa tears
   { id: "doorjunk", kind: "debris", x: 0, y: 0, z: 0, seed: 7, items: [[-2.75, -1.1, "plank", 30, 1.1], [-2.3, -0.6, "plank", -65, 0.8], [-1.95, -1.3, "chip", 0, 1.2], [-2.6, -0.3, "chip", 0, 1], [-2.15, 0.05, "plank", 12, 0.7], [-3.2, -0.7, "plaster", 0, 1.3], [-1.75, -0.2, "chip", 0, 0.8], [-2.9, -1.4, "plaster", 0, 1]] },
-  { id: "floorfluff", kind: "debris", x: 0, y: 0, z: 0, seed: 11, puff: 0, items: [[SX - 0.9, -0.4, "tuft", 0, 1.2], [SX + 0.5, -0.45, "tuft", 0, 0.9], [SX + 1.45, -0.3, "tuft", 0, 1.1], [SX - 0.1, 0.55, "tuft", 0, 0.8], [SX + 1.1, 0.75, "tuft", 0, 1]] },
+  { id: "floorfluff", kind: "debris", x: 0, y: 0, z: 0, seed: 11, puff: 0, items: [[SX - 0.9, -0.4, "tuft", 0, 0.6], [SX + 0.5, -0.45, "plaster", 0, 0.8], [SX + 1.45, -0.3, "tuft", 0, 0.5], [SX - 0.1, 0.55, "chip", 0, 0.9], [SX + 1.1, 0.75, "tuft", 0, 0.5], [LAMP[0] + 0.3, LAMP[1] + 0.5, "shard", 0, 1.3], [SHELF[0] + 0.4, r3(WZ + 0.6), "chip", 0, 1.4], [SHELF[0] - 0.2, r3(WZ + 0.7), "plaster", 0, 1.2]] },
   { id: "floorlamp", kind: "floorlamp", x: FLOORLAMP[0], z: FLOORLAMP[1] },
   { id: "table", kind: "coffeetable", x: TABLE.x, z: TABLE.z, w: TABLE.w, d: TABLE.d, h: TABLE.h, color: "#9a6a3e" },
   PAD_K, PAD_W,
@@ -95,7 +107,7 @@ const props = [
   { id: "lamp", kind: "sidelamp", x: LAMP[0], z: LAMP[1] },
   { id: "shelf", kind: "wallshelf", x: SHELF[0], y: SHELF[1], z: r3(WZ + 0.005) },
   { id: "cal", kind: "wallcalendar", x: CAL_WALL[0], y: CAL_WALL[1], z: r3(WZ + 0.01), rot: 180, scale: 1.25 },
-  { id: "tv", kind: "flattv", x: TV[0], z: TV[1], rot: 215, w: 0.8, glow: 1 },
+  { id: "tv", kind: "flattv", x: TV[0], z: TV[1], rot: 190, w: 0.62, glow: 1, halo: 1.5, haloUp: 0.05, haloK: 0.8 },
   { id: "shield", kind: "magicshield", x: SHIELD[0], y: SHIELD[1], z: SHIELD[2], rot: -60, r: 0.62 },
   // the bolts fly from the staff's gem (the Wizard at WIZ_LAND facing left) to the lamp and to the shelf
   { id: "bolt1", kind: "spellbolt", x: 0, y: 0, z: 0, from: [1.65, 1.0, -0.25], to: [LAMP[0], 0.85, LAMP[1]] },
@@ -115,7 +127,10 @@ c.cap(0, 2.5, CAP, 250, false, { kinetic: false });
 if (OPENER) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 // the door is already flying open in a burst of dust; Reaper comes through the air, scythe high
 c.prop(0, "door", { open: 1.12 }, 0.18, "out"); c.prop(0.18, "door", { open: 1.0 }, 0.25, "settle");
-c.at(0, { fx: "poof", pos: [DOOR.x + 0.2, 0.7, r3(WZ + 0.45)], dur: 0.9, color: "#eadcc6", puffs: 14, sparks: 10, spark: "#8a5a32", sparkSize: 0.8, size: 0.9, lift: 0.15 });
+c.at(0, { fx: "poof", pos: [DOOR.x + 0.2, 0.7, r3(WZ + 0.45)], dur: 1.2, color: "#eadcc6", puffs: 26, sparks: 34, spark: "#8a5a32", sparkSize: 1.4, size: 1.3, lift: 0.2 });
+c.at(0.06, { fx: "poof", pos: [DOOR.x + 0.6, 0.35, r3(WZ + 0.9)], dur: 1.4, color: "#d9c6a8", puffs: 14, sparks: 12, spark: "#c9a273", sparkSize: 1.0, size: 1.0, lift: 0.1 });
+c.prop(0, "dust", { burst: 1 }, 0.15, "out"); c.prop(0.5, "dust", { burst: 0.35 }, 2.2);
+c.prop(0, "beam", { glow: 1 }, 0); c.prop(0.6, "beam", { glow: 0.35 }, 2.0);
 sfx(0, "door-slam", { gain: 0.7, reason: "the front door bursts open and bangs against the wall" });
 sfx(0.02, "crumble", { gain: 0.45, reason: "wood and plaster dust burst from the door frame" });
 A(0, "rea", "ride", { prop: "rc", off: [0, 0, 0], yaw: 50, dur: 0 });
@@ -143,6 +158,7 @@ act.windUp(c, 0.7, "rea", { amount: 0.12 });
 const HIT1 = 1.0;
 c.arm(0.88, "rea", "R", SCY_DOWN, 0.12, "in"); A(0.88, "rea", "tilt", { to: [48, 0], dur: 0.12, ease: "in" });
 c.at(0.9, { fx: "slash", pos: [-1.35, 0.95, -0.25], rot: [0, -73, 0], r: 0.75, from: 120, arc: -110, dur: 0.12 });
+c.at(HIT1, { fx: "poof", pos: [SHIELD[0] - 0.12, 0.95, SHIELD[2] + 0.1], dur: 0.6, color: "#ffd9a0", puffs: 0, sparks: 56, spark: "#ffb347", sparkSize: 0.5, size: 0.45, lift: 0.1 });
 act.impact(c, HIT1, "wiz", { sound: "hit-metal", gain: 0.75, stars: false, recoil: -6, squash: 0.12, look: [-0.7, 0.05] });
 sfx(HIT1, "impact", { gain: 0.4, reason: "the scythe slams into the magic shield: a boom under the clang" });
 c.prop(HIT1, "shield", { burst: 1 }, 0.04, "out"); c.prop(r3(HIT1 + 0.15), "shield", { burst: 0 }, 0.35);
@@ -168,6 +184,8 @@ c.arm(r3(HIT2 - 0.1), "rea", "R", SCY_DOWN, 0.1, "in"); A(r3(HIT2 - 0.1), "rea",
 A(r3(HIT2 - 0.1), "rea", "pitch", { to: 10, dur: 0.1 });
 c.at(r3(HIT2 - 0.08), { fx: "slash", pos: [-1.33, 0.95, -0.23], rot: [0, -73, 0], r: 0.75, from: 120, arc: -110, dur: 0.1 });
 act.impact(c, HIT2, "wiz", { sound: "kenney/impact-glass-heavy", gain: 0.7, stop: 0, stars: false, recoil: -5, squash: 0.1, look: [-0.6, 0.15], take: false });
+c.at(HIT2, { fx: "poof", pos: [SHIELD[0] - 0.12, 0.98, SHIELD[2] + 0.1], dur: 0.6, color: "#ffd9a0", puffs: 0, sparks: 50, spark: "#ffb347", sparkSize: 0.5, size: 0.45, lift: 0.1 });
+c.prop(HIT2, "rips1", { puff: 1 }, 0.15, "out");
 c.prop(HIT2, "shield", { burst: 1, crack: 0.35 }, 0.04, "out"); c.prop(r3(HIT2 + 0.06), "shield", { crack: 1 }, 0.3, "out"); c.prop(r3(HIT2 + 0.12), "shield", { burst: 0 }, 0.3);
 c.at(HIT2, { fx: "poof", pos: [SHIELD[0] - 0.08, 0.95, SHIELD[2] + 0.05], dur: 0.45, color: "#bfe0ff", puffs: 0, sparks: 18, spark: "#e8f4ff", sparkSize: 0.7, size: 0.3, lift: 0.1 });
 sfx(r3(HIT2 + 0.08), "crinkle", { gain: 0.5, reason: "the crack runs across the shield" });
@@ -188,8 +206,8 @@ A(DIVE, "wiz", "pitch", { to: 35, dur: 0.12 }); A(r3(DIVE + 0.15), "wiz", "pitch
 A(DIVE, "wiz", "expr", { expr: "shocked", set: { open: 0.7, eye: 1.4, curve: -0.6 }, dur: 0.08 });
 A(r3(DIVE + 0.02), "wiz", "talk", { line: "waaah", tone: "excited", dur: 0.3, voice: false });
 sfx(DIVE, "whoosh", { gain: 0.4, reason: "the Wizard dives over the sofa" });
-c.prop(DIVE, "tufts", { puff: 1 }, 0.12, "out"); c.prop(r3(DIVE + 0.1), "floorfluff", { puff: 1 }, 0.25, "out");
-c.at(r3(DIVE + 0.04), { fx: "poof", pos: [SX + 0.3, 0.75, SZ + 0.2], dur: 0.5, color: "#f6f1e6", puffs: 6, sparks: 0, size: 0.25, lift: 0.08 });
+c.prop(DIVE, "tufts", { puff: 1 }, 0.12, "out"); c.prop(DIVE, "rips2", { puff: 1 }, 0.15, "out"); c.prop(r3(DIVE + 0.1), "floorfluff", { puff: 1 }, 0.25, "out");
+c.at(r3(DIVE + 0.04), { fx: "poof", pos: [SX + 0.3, 0.75, SZ + 0.2], dur: 0.7, color: "#f6f1e6", puffs: 12, sparks: 16, spark: "#efe1bc", sparkSize: 1.1, size: 0.45, lift: 0.12 });
 A(r3(LAND + 0.01), "wiz", "ride", {});
 A(LAND, "wiz", "squash", { amount: 0.18, dur: 0.2 });
 act.landDust(c, LAND, WIZ_LAND);
@@ -208,10 +226,16 @@ for (const [t, bolt] of [[FIRE1, "bolt1"], [FIRE2, "bolt2"]]) {
 const SMASH1 = r3(FIRE1 + FLY), SMASH2 = r3(FIRE2 + FLY);
 c.prop(SMASH1, "lamp", { smash: 1 }, 0.4, "linear");
 c.at(SMASH1, { fx: "poof", pos: [LAMP[0], 0.85, LAMP[1] + 0.15], dur: 0.5, color: "#ffd6f4", puffs: 6, sparks: 18, spark: "#ff9ae8", sparkSize: 0.8, size: 0.35, lift: 0.1 });
+c.at(SMASH1, { fx: "poof", pos: [LAMP[0], 0.7, LAMP[1] + 0.2], dur: 0.9, color: "#e8c9a0", puffs: 12, sparks: 28, spark: "#8a5a36", sparkSize: 1.5, size: 0.7, lift: 0.18 });
+c.at(SMASH1, { fx: "flash", peak: 0.3, dur: 0.2 }); c.at(SMASH1, { fx: "shake", amp: 0.025, dur: 0.3 });
+c.prop(SMASH1, "dust", { burst: 1 }, 0.1, "out"); c.prop(r3(SMASH1 + 0.5), "dust", { burst: 0.5 }, 1.5);
 sfx(SMASH1, "hit-glass", { gain: 0.6, reason: "the bolt smashes the table lamp" });
 sfx(r3(SMASH1 + 0.36), "kenney/impact-glass-medium", { gain: 0.4, reason: "the lamp hits the floor" });
 c.prop(SMASH2, "shelf", { smash: 1 }, 0.5, "linear");
 c.at(SMASH2, { fx: "poof", pos: [SHELF[0] + 0.15, SHELF[1], r3(WZ + 0.2)], dur: 0.5, color: "#ffd6f4", puffs: 6, sparks: 16, spark: "#ff9ae8", sparkSize: 0.8, size: 0.35, lift: 0.1 });
+c.at(SMASH2, { fx: "poof", pos: [SHELF[0] + 0.15, SHELF[1] - 0.2, r3(WZ + 0.25)], dur: 0.9, color: "#e8c9a0", puffs: 12, sparks: 30, spark: "#d97b5c", sparkSize: 1.5, size: 0.7, lift: 0.1 });
+c.at(SMASH2, { fx: "shake", amp: 0.025, dur: 0.3 });
+c.prop(r3(SMASH2 + 0.3), "floorfluff", { puff: 1 }, 0.3, "out");
 sfx(SMASH2, "plank-rattle", { gain: 0.55, reason: "the shelf bracket snaps and the plank swings down" });
 sfx(r3(SMASH2 + 0.42), "book-close", { gain: 0.5, reason: "the books land on the floor" });
 // Reaper turns and strides after him, unbothered, past the wreckage
@@ -291,7 +315,7 @@ A(CUT7, "rea2", "move", { to: [-0.58, 0.02], dur: 0, ease: "linear" }); A(CUT7, 
 A(CUT7, "wiz2", "release", { prop: "cal", to: [0.72, TABLE.h + 0.006, -0.05], dur: 0 });
 c.prop(CUT7, "cal", { rot: -15, tip: 90 }, 0);
 A(CUT7, "wiz2", "ride", { prop: "sofaR", off: SEAT(0.06), sit: true, yaw: 0, dur: 0 });
-const PADW_LAP = [r3(WIZ_SIT[0] - 0.02), 0.6, r3(WIZ_SIT[2] + 0.36)];
+const PADW_LAP = [r3(WIZ_SIT[0] - 0.02), 0.68, r3(WIZ_SIT[2] + 0.38)];   // held up at the chest, where it reads
 const PADW_SPEC = { ...PAD_W, ...grips.placeFor("gamepad", PADW_LAP, 0) };
 c.prop(CUT7, "padW", { x: PADW_LAP[0], y: PADW_LAP[1], z: PADW_LAP[2], rot: PADW_SPEC.rot }, 0);
 for (const [s, sx] of [["R", 1], ["L", -1]]) c.arm(CUT7, "wiz2", s, { prop: "padW", grip: [r3(sx * (PAD.w / 2 + 0.045 / 1.2)), r3(0.55 * PAD.h), 0], palm: true }, 0);
@@ -316,14 +340,15 @@ A(r3(t7 + 0.75), "rea2", "expr", { expr: "happy", set: { eye: 0.7, curve: 0.45 }
 A(r3(t7 + 0.75), "wiz2", "expr", { expr: "delighted", set: { eye: 0.7 }, dur: 0.25 });
 
 // ---------------------------------------------------------------- 8 WAITING (7.5-8.9): two friends facing the TV
-const B8 = 7.5, TVLOOK = [0.12, -0.2], TVLOOK_R = [0.35, -0.2];   // the TV stands in front of the sofa, a little right
-A(B8, "wiz2", "turn", { to: 3, dur: 0.3 });   // Reaper keeps the sofa's heading (his ride); his eyes find the TV
+const B8 = 7.5, TVLOOK = [0.25, -0.45], TVLOOK_R = [0.6, -0.45];   // the TV stands in front of the sofa, a little right
+// both keep the sofa's heading (their rides; a turn while riding is relative to it); the eyes and the body's follow
+// find the TV, low and to their right
 A(B8, "wiz2", "look", { to: TVLOOK, dur: 0.15, blink: false }); A(B8, "rea2", "look", { to: TVLOOK_R, dur: 0.15, blink: false });
 A(r3(B8 + 0.05), "wiz2", "expr", { expr: "happy", set: { eye: 0.85, curve: 0.45 }, dur: 0.3 });
 A(r3(B8 + 0.05), "rea2", "expr", { expr: "kind", set: { curve: 0.4, eye: 1.0 }, dur: 0.3 }); A(r3(B8 + 0.05), "rea2", "face", { lid: 0.3, dur: 0.3 });
 // the controller rests in his lap under his right hand; the left gives the Wizard's near knee one pat
 const PAT = 7.95, KNEE = [r3(WIZ_SIT[0] - 0.26), 0.56, r3(WIZ_SIT[2] + 0.33)];
-A(7.7, "rea2", "release", { prop: "padK", dur: 0 });
+A(7.7, "rea2", "release", { prop: "padK", to: PADK_LAP, dur: 0 }); c.prop(7.7, "padK", { rot: 180, tip: 0 }, 0);   // it stays in his lap
 c.arm(7.7, "rea2", "R", { world: [r3(PADK_LAP[0] - 0.02), r3(PADK_LAP[1] + PAD.h * 1.2 + 0.035), PADK_LAP[2]] }, 0.2, "inOut");
 A(7.7, "rea2", "grip", { side: "R", shape: "flat", dur: 0.15 });
 c.arm(7.72, "rea2", "L", { world: [KNEE[0], r3(KNEE[1] + 0.07), KNEE[2]] }, 0.22, "inOut");
@@ -331,17 +356,21 @@ A(7.72, "rea2", "grip", { side: "L", shape: "flat", dur: 0.15 });
 c.arm(PAT, "rea2", "L", { world: KNEE }, 0.08, "in");
 sfx(r3(PAT + 0.08), "thud-soft", { gain: 0.25, reason: "one soft pat on the Wizard's knee" });
 c.arm(r3(PAT + 0.12), "rea2", "L", { world: [KNEE[0], r3(KNEE[1] + 0.06), KNEE[2]] }, 0.14, "out");
-c.arm(r3(PAT + 0.4), "rea2", "L", "lap", 0.35, "inOut");
+// then both hands take the controller up again (Jonny: both hold their controllers at the end)
+for (const [sd, sx] of [["R", 1], ["L", -1]]) c.arm(r3(PAT + 0.38), "rea2", sd, { prop: "padK", grip: [r3(sx * (PAD.w / 2 + 0.045 / 1.2)), r3(0.55 * PAD.h), 0], palm: true }, 0.3, "inOut");
+A(r3(PAT + 0.6), "rea2", "grip", { side: "both", shape: "press", dur: 0.1 });
+A(r3(PAT + 0.7), "rea2", "grab", { prop: "padK", hand: "both", grip: [0, r3(0.55 * PAD.h), 0], dur: 0, pose: null });
+c.prop(B8, "dust", { burst: 0, puff: 1 }, 1.4);   // the dust settles
 A(r3(PAT + 0.1), "wiz2", "squash", { amount: 0.03, dur: 0.15 });
 A(r3(PAT + 0.15), "wiz2", "look", { to: [-0.35, -0.05], dur: 0.12, blink: false });
 A(r3(PAT + 0.2), "wiz2", "expr", { expr: "delighted", set: { eye: 0.4, curve: 0.6 }, dur: 0.25 });
 A(r3(PAT + 0.6), "wiz2", "look", { to: TVLOOK, dur: 0.15, blink: false });
-A(8.2, "rea2", "still", { dur: 0.65, idle: 0.08 }); A(8.65, "wiz2", "still", { dur: 0.2, idle: 0.1 });
+A(8.7, "rea2", "still", { dur: 0.15, idle: 0.08 }); A(8.65, "wiz2", "still", { dur: 0.2, idle: 0.1 });
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 const beats = c.beats([
   // each shot copies one of Jonny's panels (storyboards/trend/not-yet/PANELS.md): its camera side, shot size and who is where
-  ["1 he's here", 0, { pos: [-1.35, 1.2, 2.9], look: [-1.6, 0.8, -0.9], fov: 66, to: { pos: [-1.1, 1.15, 2.6], look: [-1.0, 0.78, -0.8], fov: 62 }, dur: 1.0, ease: "out" }, "hook"],
+  ["1 he's here", 0, { pos: [-1.35, 1.2, 2.9], look: [-2.0, 0.8, -0.9], fov: 70, to: { pos: [-1.1, 1.15, 2.6], look: [-1.0, 0.78, -0.8], fov: 62 }, dur: 1.0, ease: "out" }, "hook"],
   ["2 just in time", HIT1, { pos: [-0.3, 1.05, 2.1], look: [-1.05, 0.8, -0.6], fov: 56 }],
   ["3 crack", 2.0, { pos: [-0.75, 1.1, 2.1], look: [-0.75, 0.95, -0.65], fov: 54 }, "escalation"],
   ["4a dive", DIVE, { pos: [3.9, 1.25, 1.2], look: [-1.6, 0.8, -1.2], fov: 54 }],
@@ -350,7 +379,7 @@ const beats = c.beats([
   ["5 the calendar", CUT5, { pos: [2.5, 1.0, 1.0], look: [2.62, 0.86, -1.05], fov: 50, to: { pos: [2.5, 1.0, 0.85] }, dur: 1.5, ease: "inOut" }, "payoff"],
   ["6 understood", 5.5, { pos: [2.55, 1.1, 2.4], look: [2.7, 0.72, -1.0], fov: 52 }, "reaction"],
   ["7 second player", CUT7, { pos: [0.15, 1.1, 1.9], look: [0.15, 0.8, -1.0], fov: 62 }],
-  ["8 waiting", B8, { pos: [0.3, 1.08, 2.6], look: [0.3, 0.76, -1.0], fov: 64, to: { pos: [0.3, 1.07, 2.45] }, dur: 1.4, ease: "linear" }],
+  ["8 waiting", B8, { pos: [0.55, 1.08, 2.6], look: [0.35, 0.76, -1.0], fov: 64, to: { pos: [0.55, 1.07, 2.45] }, dur: 1.4, ease: "linear" }],
 ], END);
 
 // contact a beat needs, with its reason; the checks read these windows on the video's clock (after the hit-stop)
@@ -359,6 +388,12 @@ const rt = (t) => r3(t + HOLDS.filter((h) => t > h.at + 1e-9).reduce((a, h) => a
 const ALLOW = [
   { who: "rea", with: "wiz", from: 1.0, to: 2.1, reason: "the scythe's shaft sweeps past the Wizard's face in the strike and the press (it never touches him: the shield is between)" },
   { who: "wiz", with: "sofaL", from: 0, to: DIVE + 0.1, reason: "the Wizard sits on the sofa" },
+  { who: "wiz", with: "rips1", from: HIT2, to: DIVE + 0.3, reason: "the Wizard sits on the sofa where its cover has just torn" },
+  { who: "wiz", with: "rips2", from: DIVE, to: DIVE + 0.3, reason: "the cover tears under him as he dives off the sofa" },
+  { who: "wiz2", with: "rips2", from: CUT7, to: END, reason: "the Wizard sits on the torn sofa" },
+  { who: "wiz2", with: "rips1", from: CUT7, to: END, reason: "the Wizard sits on the torn sofa" },
+  { who: "rea2", with: "rips1", from: 6.3, to: END, reason: "Reaper sits on the torn sofa" },
+  { who: "rea2", with: "rips2", from: 6.3, to: END, reason: "Reaper sits on the torn sofa" },
   { who: "rea", with: "shield", from: 0.85, to: 2.8, reason: "the scythe strikes and presses on the magic shield (a glow, not a solid)" },
   { who: "wiz", with: "shield", from: 0, to: 2.95, reason: "the Wizard's staff casts the shield right in front of him" },
   { who: "wiz", with: "cal", from: 3.66, to: CUT5, reason: "the Wizard grabs the calendar and rips it off the wall" },

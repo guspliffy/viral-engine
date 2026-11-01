@@ -142,51 +142,241 @@
    "z": -1.187,
    "at": [
     [
-     -0.95,
-     0.88,
-     0.1
-    ],
-    [
-     0.42,
-     0.62,
-     0.36
-    ],
-    [
-     1.02,
-     1.08,
-     -0.38
-    ],
-    [
-     -0.3,
-     1.12,
-     -0.42
-    ],
-    [
-     -1.2,
-     0.7,
-     0.3
+     -0.72,
+     0.38,
+     0.58
     ],
     [
      0.05,
-     0.6,
-     0.42
+     1.03,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "rips1",
+   "kind": "sofarips",
+   "x": 0.3,
+   "y": 0,
+   "z": -1.187,
+   "cover": "#3d4f8e",
+   "at": [
+    [
+     -0.72,
+     0.36,
+     0.565,
+     "front",
+     0.306,
+     0.2
     ],
     [
-     1.25,
-     0.82,
-     0.05
+     -0.99,
+     0.865,
+     0.1,
+     "up",
+     0.252,
+     0.4
     ],
     [
-     -0.65,
-     1.15,
+     -0.75,
+     1,
+     0,
+     "front",
+     0.288,
+     0.3
+    ]
+   ]
+  },
+  {
+   "id": "rips2",
+   "kind": "sofarips",
+   "x": 0.3,
+   "y": 0,
+   "z": -1.187,
+   "cover": "#3d4f8e",
+   "at": [
+    [
+     0.5,
+     0.33,
+     0.565,
+     "front",
+     0.27,
+     -0.3
+    ],
+    [
+     0.99,
+     0.62,
+     0.58,
+     "front",
+     0.234,
+     0.5
+    ],
+    [
+     0.99,
+     0.865,
+     -0.15,
+     "up",
+     0.216,
+     -0.2
+    ],
+    [
+     0.78,
+     0.98,
+     0,
+     "front",
+     0.27,
      -0.4
     ],
     [
-     0.7,
-     1.14,
-     -0.42
+     0.05,
+     1.02,
+     -0.02,
+     "front",
+     0.252,
+     0.6
+    ],
+    [
+     -0.25,
+     0.555,
+     0.565,
+     "front",
+     0.216,
+     0
+    ],
+    [
+     0.25,
+     0.65,
+     0.3,
+     "up",
+     0.234,
+     0.7
     ]
    ]
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": -2.05,
+   "y": 2.15,
+   "z": -1.73,
+   "w": 0.5,
+   "h": 0.36,
+   "scene": "sea"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 3.3,
+   "y": 1.75,
+   "z": -1.73,
+   "w": 0.55,
+   "h": 0.4,
+   "scene": "hills",
+   "frame": "#8a6a42"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 2.75,
+   "y": 2.3,
+   "z": -1.73,
+   "w": 0.3,
+   "h": 0.38,
+   "scene": "forest",
+   "frame": "#3c3a40"
+  },
+  {
+   "id": "clock",
+   "kind": "wallclock",
+   "x": 0.05,
+   "y": 2.55,
+   "z": -1.72,
+   "r": 0.15
+  },
+  {
+   "id": "clutter",
+   "kind": "clutter",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "items": [
+    [
+     1.85,
+     1.05,
+     "console",
+     -10
+    ],
+    [
+     1.55,
+     1.25,
+     "cable",
+     160
+    ],
+    [
+     -1.62,
+     -1.55,
+     "books",
+     20
+    ],
+    [
+     -2.6,
+     0.55,
+     "basket",
+     0
+    ],
+    [
+     0.75,
+     -0.35,
+     "can",
+     40
+    ],
+    [
+     1.55,
+     -0.75,
+     "mug",
+     0
+    ],
+    [
+     2.6,
+     0.4,
+     "box",
+     -15
+    ],
+    [
+     2.55,
+     0.42,
+     "books",
+     70,
+     0.26
+    ]
+   ]
+  },
+  {
+   "id": "dust",
+   "kind": "dustmotes",
+   "x": -0.4,
+   "y": 0,
+   "z": -0.4,
+   "box": [
+    6,
+    1.9,
+    3.4
+   ],
+   "n": 170,
+   "seed": 5
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": -3,
+   "y": 1.55,
+   "z": -1.7,
+   "rot": 180,
+   "tip": 32,
+   "len": 3.2,
+   "w": 1.7,
+   "w0": 0.8,
+   "glow": 1
   },
   {
    "id": "doorjunk",
@@ -268,35 +458,56 @@
      -0.4,
      "tuft",
      0,
-     1.2
+     0.6
     ],
     [
      0.8,
      -0.45,
-     "tuft",
+     "plaster",
      0,
-     0.9
+     0.8
     ],
     [
      1.75,
      -0.3,
      "tuft",
      0,
-     1.1
+     0.5
     ],
     [
      0.19999999999999998,
      0.55,
-     "tuft",
+     "chip",
      0,
-     0.8
+     0.9
     ],
     [
      1.4000000000000001,
      0.75,
      "tuft",
      0,
-     1
+     0.5
+    ],
+    [
+     -1.7499999999999998,
+     -1.05,
+     "shard",
+     0,
+     1.3
+    ],
+    [
+     -1.65,
+     -1.15,
+     "chip",
+     0,
+     1.4
+    ],
+    [
+     -2.25,
+     -1.05,
+     "plaster",
+     0,
+     1.2
     ]
    ]
   },
@@ -319,8 +530,8 @@
   {
    "id": "padK",
    "kind": "gamepad",
-   "color": "#2f3138",
-   "dark": "#15161a",
+   "style": "xbox",
+   "color": "#f2f3f5",
    "x": -0.06,
    "y": 0.34,
    "z": 0.12,
@@ -330,7 +541,8 @@
   {
    "id": "padW",
    "kind": "gamepad",
-   "color": "#f1f2f4",
+   "style": "xbox",
+   "color": "#f2f3f5",
    "x": 0.62,
    "y": 0.34,
    "z": 0.18,
@@ -381,11 +593,14 @@
   {
    "id": "tv",
    "kind": "flattv",
-   "x": 1.3,
-   "z": 1.5,
-   "rot": 215,
-   "w": 0.8,
-   "glow": 1
+   "x": 1.05,
+   "z": 1.15,
+   "rot": 190,
+   "w": 0.62,
+   "glow": 1,
+   "halo": 1.5,
+   "haloUp": 0.05,
+   "haloK": 0.8
   },
   {
    "id": "shield",
@@ -485,11 +700,11 @@
      2.9
     ],
     "look": [
-     -1.6,
+     -2,
      0.8,
      -0.9
     ],
-    "fov": 66,
+    "fov": 70,
     "to": {
      "pos": [
       -1.1,
@@ -533,14 +748,34 @@
       0.7,
       -1.3
      ],
-     "dur": 0.9,
+     "dur": 1.2,
      "color": "#eadcc6",
-     "puffs": 14,
-     "sparks": 10,
+     "puffs": 26,
+     "sparks": 34,
      "spark": "#8a5a32",
-     "sparkSize": 0.8,
-     "size": 0.9,
-     "lift": 0.15,
+     "sparkSize": 1.4,
+     "size": 1.3,
+     "lift": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -751,6 +986,23 @@
      "at": 0.05
     },
     {
+     "fx": "poof",
+     "pos": [
+      -2.4,
+      0.35,
+      -0.85
+     ],
+     "dur": 1.4,
+     "color": "#d9c6a8",
+     "puffs": 14,
+     "sparks": 12,
+     "spark": "#c9a273",
+     "sparkSize": 1,
+     "size": 1,
+     "lift": 0.1,
+     "at": 0.06
+    },
+    {
      "sfx": "charge",
      "gain": 0.32,
      "dur": 0.9,
@@ -779,6 +1031,26 @@
      "dur": 0.25,
      "ease": "settle",
      "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0.35
+     },
+     "dur": 2.2,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "glow": 0.35
+     },
+     "dur": 2,
+     "ease": "inOut",
+     "at": 0.6
     },
     {
      "who": "rea",
@@ -864,6 +1136,23 @@
     "fov": 56
    },
    "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.95,
+      -0.52
+     ],
+     "dur": 0.6,
+     "color": "#ffd9a0",
+     "puffs": 0,
+     "sparks": 56,
+     "spark": "#ffb347",
+     "sparkSize": 0.5,
+     "size": 0.45,
+     "lift": 0.1,
+     "at": 0
+    },
     {
      "fx": "impact",
      "dur": 0.05,
@@ -1247,6 +1536,33 @@
      "at": 0.14
     },
     {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.98,
+      -0.52
+     ],
+     "dur": 0.6,
+     "color": "#ffd9a0",
+     "puffs": 0,
+     "sparks": 50,
+     "spark": "#ffb347",
+     "sparkSize": 0.5,
+     "size": 0.45,
+     "lift": 0.1,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "rips1",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
      "do": "prop",
      "id": "shield",
      "set": {
@@ -1520,6 +1836,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "rips2",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "wiz",
      "do": "talk",
      "line": "waaah",
@@ -1535,12 +1861,14 @@
       0.75,
       -0.9870000000000001
      ],
-     "dur": 0.5,
+     "dur": 0.7,
      "color": "#f6f1e6",
-     "puffs": 6,
-     "sparks": 0,
-     "size": 0.25,
-     "lift": 0.08,
+     "puffs": 12,
+     "sparks": 16,
+     "spark": "#efe1bc",
+     "sparkSize": 1.1,
+     "size": 0.45,
+     "lift": 0.12,
      "at": 0.04
     },
     {
@@ -1847,6 +2175,45 @@
      "at": 0.23
     },
     {
+     "fx": "poof",
+     "pos": [
+      -2.05,
+      0.7,
+      -1.35
+     ],
+     "dur": 0.9,
+     "color": "#e8c9a0",
+     "puffs": 12,
+     "sparks": 28,
+     "spark": "#8a5a36",
+     "sparkSize": 1.5,
+     "size": 0.7,
+     "lift": 0.18,
+     "at": 0.23
+    },
+    {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.2,
+     "at": 0.23
+    },
+    {
+     "fx": "shake",
+     "amp": 0.025,
+     "dur": 0.3,
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.23
+    },
+    {
      "sfx": "hit-glass",
      "gain": 0.6,
      "reason": "the bolt smashes the table lamp",
@@ -1899,6 +2266,29 @@
      "sparkSize": 0.8,
      "size": 0.35,
      "lift": 0.1,
+     "at": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.9,
+      1.32,
+      -1.5
+     ],
+     "dur": 0.9,
+     "color": "#e8c9a0",
+     "puffs": 12,
+     "sparks": 30,
+     "spark": "#d97b5c",
+     "sparkSize": 1.5,
+     "size": 0.7,
+     "lift": 0.1,
+     "at": 0.35
+    },
+    {
+     "fx": "shake",
+     "amp": 0.025,
+     "dur": 0.3,
      "at": 0.35
     },
     {
@@ -1990,6 +2380,26 @@
      "dur": 0.14,
      "ease": "out",
      "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "floorfluff",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0.5
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.3
     },
     {
      "who": "wiz",
@@ -2742,8 +3152,8 @@
      "id": "padW",
      "set": {
       "x": 0.904,
-      "y": 0.6,
-      "z": -0.541,
+      "y": 0.68,
+      "z": -0.521,
       "rot": 180
      },
      "dur": 0,
@@ -3155,19 +3565,19 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     0.3,
+     0.55,
      1.08,
      2.6
     ],
     "look": [
-     0.3,
+     0.35,
      0.76,
      -1
     ],
     "fov": 64,
     "to": {
      "pos": [
-      0.3,
+      0.55,
       1.07,
       2.45
      ]
@@ -3178,17 +3588,10 @@
    "do": [
     {
      "who": "wiz2",
-     "do": "turn",
-     "to": 3,
-     "dur": 0.3,
-     "at": 0
-    },
-    {
-     "who": "wiz2",
      "do": "look",
      "to": [
-      0.12,
-      -0.2
+      0.25,
+      -0.45
      ],
      "dur": 0.15,
      "blink": false,
@@ -3198,11 +3601,22 @@
      "who": "rea2",
      "do": "look",
      "to": [
-      0.35,
-      -0.2
+      0.6,
+      -0.45
      ],
      "dur": 0.15,
      "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0,
+      "puff": 1
+     },
+     "dur": 1.4,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -3238,7 +3652,23 @@
      "who": "rea2",
      "do": "release",
      "prop": "padK",
+     "to": [
+      -0.304,
+      0.64,
+      -0.461
+     ],
      "dur": 0,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "padK",
+     "set": {
+      "rot": 180,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
      "at": 0.2
     },
     {
@@ -3354,30 +3784,70 @@
     },
     {
      "who": "rea2",
-     "do": "still",
-     "dur": 0.65,
-     "idle": 0.08,
-     "at": 0.7
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.83
     },
     {
      "who": "rea2",
      "do": "arm",
      "side": "L",
-     "pose": "lap",
-     "dur": 0.35,
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.122,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 0.85
+     "at": 0.83
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "both",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 1.05
     },
     {
      "who": "wiz2",
      "do": "look",
      "to": [
-      0.12,
-      -0.2
+      0.25,
+      -0.45
      ],
      "dur": 0.15,
      "blink": false,
      "at": 1.05
+    },
+    {
+     "who": "rea2",
+     "do": "grab",
+     "prop": "padK",
+     "hand": "both",
+     "grip": [
+      0,
+      0.025,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.15
     },
     {
      "who": "wiz2",
@@ -3385,6 +3855,13 @@
      "dur": 0.2,
      "idle": 0.1,
      "at": 1.15
+    },
+    {
+     "who": "rea2",
+     "do": "still",
+     "dur": 0.15,
+     "idle": 0.08,
+     "at": 1.2
     }
    ]
   }
@@ -3409,6 +3886,48 @@
    "from": 0,
    "to": 3,
    "reason": "the Wizard sits on the sofa"
+  },
+  {
+   "who": "wiz",
+   "with": "rips1",
+   "from": 2.32,
+   "to": 3.2,
+   "reason": "the Wizard sits on the sofa where its cover has just torn"
+  },
+  {
+   "who": "wiz",
+   "with": "rips2",
+   "from": 2.9,
+   "to": 3.2,
+   "reason": "the cover tears under him as he dives off the sofa"
+  },
+  {
+   "who": "wiz2",
+   "with": "rips2",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits on the torn sofa"
+  },
+  {
+   "who": "wiz2",
+   "with": "rips1",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits on the torn sofa"
+  },
+  {
+   "who": "rea2",
+   "with": "rips1",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper sits on the torn sofa"
+  },
+  {
+   "who": "rea2",
+   "with": "rips2",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper sits on the torn sofa"
   },
   {
    "who": "rea",

@@ -116,6 +116,27 @@ export function buildApartment(scene, S = {}) {
   const trim = std(dusk ? "#c9bfae" : "#fbf6ec", { roughness: 0.6 });
   box(g, 12, 0.11, 0.03, trim, 0, 0.055, WZ + 0.015);
   box(g, 12, 0.04, 0.03, trim, 0, 2.85, WZ + 0.015);
+  if (dusk) {
+    // dusk: a patterned wallpaper (faint stripes and small diamonds) and a darker panelled wainscot with a chair rail
+    // under the windows, skipping the front door's opening (S.doorGap [x0, x1])
+    const paper = canvas(256, 256)[0], pg = paper.getContext("2d");
+    pg.fillStyle = "#62708f"; pg.fillRect(0, 0, 256, 256);
+    for (let i = 0; i < 8; i++) { pg.fillStyle = i % 2 ? "rgba(255,255,255,0.035)" : "rgba(20,30,60,0.05)"; pg.fillRect(i * 32, 0, 16, 256); }
+    pg.fillStyle = "rgba(230,215,180,0.12)";
+    for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) { const cx = x * 64 + (y % 2) * 32 + 16, cy = y * 64 + 32; pg.beginPath(); pg.moveTo(cx, cy - 9); pg.lineTo(cx + 6, cy); pg.lineTo(cx, cy + 9); pg.lineTo(cx - 6, cy); pg.fill(); }
+    const pt = tex(paper, 1 / 0.7, 1 / 0.7); wallM.map = pt; wallM.color.set("#ffffff"); wallM.needsUpdate = true;
+    const [g0, g1] = S.doorGap || [-3.5, -2.5], panelM = std("#4c5877"), railM = std("#c9bfae", { roughness: 0.6 }), H = 0.66;
+    for (const [x0, x1] of [[-4.2, g0], [g1, 4.2]]) {
+      const w = x1 - x0, cx = (x0 + x1) / 2; if (w <= 0.05) continue;
+      box(g, w, H - 0.11, 0.012, panelM, cx, 0.11 + (H - 0.11) / 2, WZ + 0.006);
+      box(g, w, 0.035, 0.035, railM, cx, H, WZ + 0.018);
+      const n = Math.max(1, Math.round(w / 0.62)), pw = w / n;
+      for (let i = 0; i < n; i++) {
+        const px = x0 + pw * (i + 0.5), fw = pw - 0.14, fh = H - 0.11 - 0.14, fy = 0.11 + 0.07 + fh / 2;
+        for (const [bw, bh, ox, oy] of [[fw, 0.018, 0, fh / 2], [fw, 0.018, 0, -fh / 2], [0.018, fh, fw / 2, 0], [0.018, fh, -fw / 2, 0]]) box(g, bw, bh, 0.014, railM, px + ox, fy + oy, WZ + 0.016);
+      }
+    }
+  }
   // side walls far out, so a wide shot never sees past the room
   for (const s of [-1, 1]) { const w = flat(new THREE.Mesh(new THREE.PlaneGeometry(12, wallH), std(dusk ? "#5a6787" : "#efdfc2"))); w.rotation.y = -s * Math.PI / 2; w.position.set(s * 4.2, wallH / 2, 4); g.add(w); }
 
