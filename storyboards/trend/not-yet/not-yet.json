@@ -1,0 +1,4018 @@
+{
+ "id": "not-yet",
+ "title": "Not Yet",
+ "idea": "Jonny's GTA VI countdown storyboard (1 Nov 2026): death comes for the Wizard; a circled calendar day buys time",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "art",
+ "motion": "natural",
+ "set": {
+  "type": "apartment",
+  "dusk": true,
+  "light": "golden",
+  "grade": "warm",
+  "aperture": 0
+ },
+ "music": {
+  "style": "chip",
+  "gain": 0.55,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 4,
+    "part": "stop"
+   }
+  ],
+  "then": {
+   "file": "ai/elevator-bossa/elevator-bossa-01.ogg",
+   "from": 4.45,
+   "gain": 0.3
+  }
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.2,
+  "signature": {
+   "payoff": false
+  },
+  "surface": "wood"
+ },
+ "hook": {
+  "show": [
+   "rea",
+   "wiz",
+   "shield",
+   "door"
+  ],
+  "hint": 0,
+  "what": "Death bursts through the door at the Wizard, who throws up a shield"
+ },
+ "creative": {
+  "length": [
+   9,
+   9
+  ]
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "sofa/wizard-staff",
+   "at": [
+    -0.246,
+    -0.901
+   ],
+   "face": -40,
+   "expr": "shocked",
+   "follow": 0.25,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "sofa/reaper-scythe",
+   "at": [
+    -2.55,
+    -1
+   ],
+   "face": 70,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "wiz2",
+   "character": "notyet/wizard-nostaff",
+   "at": [
+    -3.6,
+    3.6
+   ],
+   "face": -45,
+   "expr": "shocked",
+   "follow": 0.25,
+   "seed": 2.6,
+   "hidden": true
+  },
+  {
+   "id": "rea2",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    3.6,
+    3.6
+   ],
+   "face": 100,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3,
+   "hidden": true
+  }
+ ],
+ "props": [
+  {
+   "id": "sofaL",
+   "kind": "sofahalf",
+   "side": "L",
+   "x": -0.246,
+   "z": -1.187,
+   "scale": 1.3,
+   "color": "#3d4f8e",
+   "color2": "#5167ab",
+   "color3": "#2c3a6b"
+  },
+  {
+   "id": "sofaR",
+   "kind": "sofahalf",
+   "side": "R",
+   "x": 0.846,
+   "z": -1.187,
+   "scale": 1.3,
+   "color": "#3d4f8e",
+   "color2": "#5167ab",
+   "color3": "#2c3a6b"
+  },
+  {
+   "id": "tufts",
+   "kind": "stuffing",
+   "x": 0.3,
+   "y": 0,
+   "z": -1.187,
+   "at": [
+    [
+     -0.72,
+     0.38,
+     0.58
+    ],
+    [
+     0.05,
+     1.03,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "rips1",
+   "kind": "sofarips",
+   "x": 0.3,
+   "y": 0,
+   "z": -1.187,
+   "cover": "#3d4f8e",
+   "at": [
+    [
+     -0.72,
+     0.36,
+     0.565,
+     "front",
+     0.306,
+     0.2
+    ],
+    [
+     -0.99,
+     0.865,
+     0.1,
+     "up",
+     0.252,
+     0.4
+    ],
+    [
+     -0.75,
+     1,
+     0,
+     "front",
+     0.288,
+     0.3
+    ]
+   ]
+  },
+  {
+   "id": "rips2",
+   "kind": "sofarips",
+   "x": 0.3,
+   "y": 0,
+   "z": -1.187,
+   "cover": "#3d4f8e",
+   "at": [
+    [
+     0.5,
+     0.33,
+     0.565,
+     "front",
+     0.27,
+     -0.3
+    ],
+    [
+     0.99,
+     0.62,
+     0.58,
+     "front",
+     0.234,
+     0.5
+    ],
+    [
+     0.99,
+     0.865,
+     -0.15,
+     "up",
+     0.216,
+     -0.2
+    ],
+    [
+     0.78,
+     0.98,
+     0,
+     "front",
+     0.27,
+     -0.4
+    ],
+    [
+     0.05,
+     1.02,
+     -0.02,
+     "front",
+     0.252,
+     0.6
+    ],
+    [
+     -0.25,
+     0.555,
+     0.565,
+     "front",
+     0.216,
+     0
+    ],
+    [
+     0.25,
+     0.65,
+     0.3,
+     "up",
+     0.234,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": -2.05,
+   "y": 2.15,
+   "z": -1.73,
+   "w": 0.5,
+   "h": 0.36,
+   "scene": "sea"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 3.3,
+   "y": 1.75,
+   "z": -1.73,
+   "w": 0.55,
+   "h": 0.4,
+   "scene": "hills",
+   "frame": "#8a6a42"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 2.75,
+   "y": 2.3,
+   "z": -1.73,
+   "w": 0.3,
+   "h": 0.38,
+   "scene": "forest",
+   "frame": "#3c3a40"
+  },
+  {
+   "id": "clock",
+   "kind": "wallclock",
+   "x": 0.05,
+   "y": 2.55,
+   "z": -1.72,
+   "r": 0.15
+  },
+  {
+   "id": "clutter",
+   "kind": "clutter",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "items": [
+    [
+     1.85,
+     1.05,
+     "console",
+     -10
+    ],
+    [
+     1.55,
+     1.25,
+     "cable",
+     160
+    ],
+    [
+     -1.62,
+     -1.55,
+     "books",
+     20
+    ],
+    [
+     -2.6,
+     0.55,
+     "basket",
+     0
+    ],
+    [
+     0.75,
+     -0.35,
+     "can",
+     40
+    ],
+    [
+     1.55,
+     -0.75,
+     "mug",
+     0
+    ],
+    [
+     2.6,
+     0.4,
+     "box",
+     -15
+    ],
+    [
+     2.55,
+     0.42,
+     "books",
+     70,
+     0.26
+    ]
+   ]
+  },
+  {
+   "id": "dust",
+   "kind": "dustmotes",
+   "x": -0.4,
+   "y": 0,
+   "z": -0.4,
+   "box": [
+    6,
+    1.9,
+    3.4
+   ],
+   "n": 170,
+   "seed": 5
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": -3,
+   "y": 1.55,
+   "z": -1.7,
+   "rot": 180,
+   "tip": 32,
+   "len": 3.2,
+   "w": 1.7,
+   "w0": 0.8,
+   "glow": 1
+  },
+  {
+   "id": "doorjunk",
+   "kind": "debris",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "seed": 7,
+   "items": [
+    [
+     -2.75,
+     -1.1,
+     "plank",
+     30,
+     1.1
+    ],
+    [
+     -2.3,
+     -0.6,
+     "plank",
+     -65,
+     0.8
+    ],
+    [
+     -1.95,
+     -1.3,
+     "chip",
+     0,
+     1.2
+    ],
+    [
+     -2.6,
+     -0.3,
+     "chip",
+     0,
+     1
+    ],
+    [
+     -2.15,
+     0.05,
+     "plank",
+     12,
+     0.7
+    ],
+    [
+     -3.2,
+     -0.7,
+     "plaster",
+     0,
+     1.3
+    ],
+    [
+     -1.75,
+     -0.2,
+     "chip",
+     0,
+     0.8
+    ],
+    [
+     -2.9,
+     -1.4,
+     "plaster",
+     0,
+     1
+    ]
+   ]
+  },
+  {
+   "id": "floorfluff",
+   "kind": "debris",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "seed": 11,
+   "puff": 0,
+   "items": [
+    [
+     -0.6000000000000001,
+     -0.4,
+     "tuft",
+     0,
+     0.6
+    ],
+    [
+     0.8,
+     -0.45,
+     "plaster",
+     0,
+     0.8
+    ],
+    [
+     1.75,
+     -0.3,
+     "tuft",
+     0,
+     0.5
+    ],
+    [
+     0.19999999999999998,
+     0.55,
+     "chip",
+     0,
+     0.9
+    ],
+    [
+     1.4000000000000001,
+     0.75,
+     "tuft",
+     0,
+     0.5
+    ],
+    [
+     -1.7499999999999998,
+     -1.05,
+     "shard",
+     0,
+     1.3
+    ],
+    [
+     -1.65,
+     -1.15,
+     "chip",
+     0,
+     1.4
+    ],
+    [
+     -2.25,
+     -1.05,
+     "plaster",
+     0,
+     1.2
+    ]
+   ]
+  },
+  {
+   "id": "floorlamp",
+   "kind": "floorlamp",
+   "x": -1.05,
+   "z": -1.47
+  },
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0.35,
+   "z": 0.2,
+   "w": 0.9,
+   "d": 0.38,
+   "h": 0.34,
+   "color": "#9a6a3e"
+  },
+  {
+   "id": "padK",
+   "kind": "gamepad",
+   "style": "xbox",
+   "color": "#f2f3f5",
+   "x": -0.06,
+   "y": 0.34,
+   "z": 0.12,
+   "rot": 280,
+   "scale": 1.2
+  },
+  {
+   "id": "padW",
+   "kind": "gamepad",
+   "style": "xbox",
+   "color": "#f2f3f5",
+   "x": 0.62,
+   "y": 0.34,
+   "z": 0.18,
+   "rot": -12,
+   "scale": 1.2
+  },
+  {
+   "id": "doorway",
+   "kind": "doorway",
+   "x": -3,
+   "z": -1.745,
+   "w": 0.95,
+   "h": 1.75
+  },
+  {
+   "id": "door",
+   "kind": "frontdoor",
+   "x": -3.475,
+   "z": -1.72,
+   "w": 0.95,
+   "h": 1.75,
+   "swing": "out",
+   "angle": 100,
+   "open": 0.55
+  },
+  {
+   "id": "lamp",
+   "kind": "sidelamp",
+   "x": -2.05,
+   "z": -1.55
+  },
+  {
+   "id": "shelf",
+   "kind": "wallshelf",
+   "x": -2.05,
+   "y": 1.52,
+   "z": -1.745
+  },
+  {
+   "id": "cal",
+   "kind": "wallcalendar",
+   "x": 3.3,
+   "y": 0.7,
+   "z": -1.74,
+   "rot": 180,
+   "scale": 1.25
+  },
+  {
+   "id": "tv",
+   "kind": "flattv",
+   "x": 1.05,
+   "z": 1.15,
+   "rot": 190,
+   "w": 0.62,
+   "glow": 1,
+   "halo": 1.5,
+   "haloUp": 0.05,
+   "haloK": 0.8
+  },
+  {
+   "id": "shield",
+   "kind": "magicshield",
+   "x": -0.85,
+   "y": 0.66,
+   "z": -0.62,
+   "rot": -60,
+   "r": 0.62
+  },
+  {
+   "id": "bolt1",
+   "kind": "spellbolt",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "from": [
+    1.65,
+    1,
+    -0.25
+   ],
+   "to": [
+    -2.05,
+    0.85,
+    -1.55
+   ]
+  },
+  {
+   "id": "bolt2",
+   "kind": "spellbolt",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "from": [
+    1.65,
+    1,
+    -0.25
+   ],
+   "to": [
+    -1.9,
+    1.57,
+    -1.63
+   ]
+  },
+  {
+   "id": "rc",
+   "kind": "carrier",
+   "x": -2.55,
+   "y": 0.55,
+   "z": -1
+  },
+  {
+   "id": "wc",
+   "kind": "carrier",
+   "x": -0.246,
+   "y": 0.481,
+   "z": -0.901
+  },
+  {
+   "id": "staffP",
+   "kind": "parkedstaff",
+   "x": 2.72,
+   "y": -5,
+   "z": -1.59,
+   "tip": -9,
+   "rot": 20
+  },
+  {
+   "id": "scyP",
+   "kind": "parkedscythe",
+   "x": 1.7,
+   "y": -5,
+   "z": -1.22,
+   "tip": -6,
+   "rot": 200
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.5,
+   "text": "when death comes 18 days before GTA 6",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "1 he's here",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.35,
+     1.2,
+     2.9
+    ],
+    "look": [
+     -2,
+     0.8,
+     -0.9
+    ],
+    "fov": 70,
+    "to": {
+     "pos": [
+      -1.1,
+      1.15,
+      2.6
+     ],
+     "look": [
+      -1,
+      0.78,
+      -0.8
+     ],
+     "fov": 62
+    },
+    "dur": 1,
+    "ease": "out"
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "waah!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 1.12
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.8,
+      0.7,
+      -1.3
+     ],
+     "dur": 1.2,
+     "color": "#eadcc6",
+     "puffs": 26,
+     "sparks": 34,
+     "spark": "#8a5a32",
+     "sparkSize": 1.4,
+     "size": 1.3,
+     "lift": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "door-slam",
+     "gain": 0.7,
+     "reason": "the front door bursts open and bangs against the wall",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "rc",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 50,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rc",
+     "set": {
+      "x": -1.65,
+      "y": 0.32,
+      "z": -0.45
+     },
+     "dur": 0.92,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.98,
+       0.26
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      -28,
+      0
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "sofaL",
+     "off": [
+      0,
+      0.37,
+      0.22
+     ],
+     "sit": true,
+     "yaw": -40,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.35,
+      "curve": -0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "tilt",
+     "to": [
+      14,
+      -10
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "glow": 0.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.45,
+     "reason": "wood and plaster dust burst from the door frame",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.72,
+       0.36
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.4,
+      0.35,
+      -0.85
+     ],
+     "dur": 1.4,
+     "color": "#d9c6a8",
+     "puffs": 14,
+     "sparks": 12,
+     "spark": "#c9a273",
+     "sparkSize": 1,
+     "size": 1,
+     "lift": 0.1,
+     "at": 0.06
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.32,
+     "dur": 0.9,
+     "reason": "the shield spell powers up",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.45,
+     "reason": "Reaper flies across the room",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0.35
+     },
+     "dur": 2.2,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "glow": 0.35
+     },
+     "dur": 2,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.42,
+      "open": 0.72,
+      "curve": -0.75
+     },
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.32,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      48,
+      0
+     ],
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.88
+    },
+    {
+     "fx": "slash",
+     "pos": [
+      -1.35,
+      0.95,
+      -0.25
+     ],
+     "rot": [
+      0,
+      -73,
+      0
+     ],
+     "r": 0.75,
+     "from": 120,
+     "arc": -110,
+     "dur": 0.12,
+     "at": 0.9
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 just in time",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.05,
+     2.1
+    ],
+    "look": [
+     -1.05,
+     0.8,
+     -0.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.95,
+      -0.52
+     ],
+     "dur": 0.6,
+     "color": "#ffd9a0",
+     "puffs": 0,
+     "sparks": 56,
+     "spark": "#ffb347",
+     "sparkSize": 0.5,
+     "size": 0.45,
+     "lift": 0.1,
+     "at": 0
+    },
+    {
+     "fx": "impact",
+     "dur": 0.05,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.035,
+     "at": 0
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.75,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.9,
+     "idle": 0.5,
+     "fade": 0.05,
+     "at": 0
+    },
+    {
+     "sfx": "impact",
+     "gain": 0.4,
+     "reason": "the scythe slams into the magic shield: a boom under the clang",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.9299999999999999,
+      0.9,
+      -0.57
+     ],
+     "dur": 0.5,
+     "color": "#bfe0ff",
+     "puffs": 0,
+     "sparks": 24,
+     "spark": "#d6ecff",
+     "sparkSize": 0.7,
+     "size": 0.3,
+     "lift": 0.1,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rc",
+     "set": {
+      "x": -1.55,
+      "y": 0,
+      "z": -0.43
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.3,
+       0.46
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      30,
+      0
+     ],
+     "dur": 0.25,
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.72,
+       0.44
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.3,
+      "curve": -0.45,
+      "eye": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0.35
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.35,
+     "reason": "the blade grinds on the shield, crackling",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.16,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0.35
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.16,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0.35
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.16,
+     "at": 0.92
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.98,
+       0.26
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.98
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      -25,
+      0
+     ],
+     "dur": 0.14,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "3 crack",
+   "at": 2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.75,
+     1.1,
+     2.1
+    ],
+    "look": [
+     -0.75,
+     0.95,
+     -0.65
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -4,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.32,
+       0.5
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      48,
+      0
+     ],
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.1,
+     "at": 0.12
+    },
+    {
+     "fx": "slash",
+     "pos": [
+      -1.33,
+      0.95,
+      -0.23
+     ],
+     "rot": [
+      0,
+      -73,
+      0
+     ],
+     "r": 0.75,
+     "from": 120,
+     "arc": -110,
+     "dur": 0.1,
+     "at": 0.14
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.98,
+      -0.52
+     ],
+     "dur": 0.6,
+     "color": "#ffd9a0",
+     "puffs": 0,
+     "sparks": 50,
+     "spark": "#ffb347",
+     "sparkSize": 0.5,
+     "size": 0.45,
+     "lift": 0.1,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "rips1",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 1,
+      "crack": 0.35
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.9299999999999999,
+      0.95,
+      -0.57
+     ],
+     "dur": 0.45,
+     "color": "#bfe0ff",
+     "puffs": 0,
+     "sparks": 18,
+     "spark": "#e8f4ff",
+     "sparkSize": 0.7,
+     "size": 0.3,
+     "lift": 0.1,
+     "at": 0.22
+    },
+    {
+     "fx": "impact",
+     "dur": 0.05,
+     "at": 0.233
+    },
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.035,
+     "at": 0.233
+    },
+    {
+     "sfx": "kenney/impact-glass-heavy",
+     "gain": 0.7,
+     "at": 0.233
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "crack": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.5,
+     "reason": "the crack runs across the shield",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.36,
+       0.5
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      30,
+      0
+     ],
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.3,
+      "curve": -0.6
+     },
+     "dur": 0.15,
+     "at": 0.32
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.5,
+     "lid": 0,
+     "dur": 0.15,
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "uh-oh",
+     "tone": "calm",
+     "dur": 0.3,
+     "voice": false,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.15
+     },
+     "dur": 0.25,
+     "at": 0.45
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "4a dive",
+   "at": 2.8,
+   "len": 0.27,
+   "shot": {
+    "pos": [
+     3.9,
+     1.25,
+     1.2
+    ],
+    "look": [
+     -1.6,
+     0.8,
+     -1.2
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "wc",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": -80,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wc",
+     "set": {
+      "x": 1.95,
+      "y": 0,
+      "z": -0.3
+     },
+     "dur": 0.32,
+     "ease": "linear",
+     "arc": 0.95,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 35,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.4,
+      "curve": -0.6
+     },
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.4,
+     "reason": "the Wizard dives over the sofa",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tufts",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rips2",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "waaah",
+     "tone": "excited",
+     "dur": 0.3,
+     "voice": false,
+     "at": 0.02
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.6,
+      0.75,
+      -0.9870000000000001
+     ],
+     "dur": 0.7,
+     "color": "#f6f1e6",
+     "puffs": 12,
+     "sparks": 16,
+     "spark": "#efe1bc",
+     "sparkSize": 1.1,
+     "size": 0.45,
+     "lift": 0.12,
+     "at": 0.04
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      5,
+      0
+     ],
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "floorfluff",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": 0
+     },
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.55,
+      0.72
+     ],
+     "dur": 0.45,
+     "steps": 2.4,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "4a bolts",
+   "at": 3.07,
+   "len": 0.43,
+   "shot": {
+    "pos": [
+     -0.85,
+     1.85,
+     3.2
+    ],
+    "look": [
+     -1.9,
+     0.95,
+     -1.5
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.9,
+       0.42
+      ]
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.95,
+      0.02,
+      -0.15
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 0.05
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "reason": "the Wizard lands behind the sofa",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "at": 0.06
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.12,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "bolt1",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 0.07
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.85,
+     "reason": "a wild bolt fires from the staff",
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.1
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.09
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": -0.5
+     },
+     "dur": 0.1,
+     "at": 0.11
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0.3,
+     "dur": 0.1,
+     "at": 0.13
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.9,
+       0.42
+      ]
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.13
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.05,
+     "at": 0.13
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.74,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.12,
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "bolt2",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 0.19
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.85,
+     "reason": "a wild bolt fires from the staff",
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "smash": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.23
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.05,
+      0.85,
+      -1.4000000000000001
+     ],
+     "dur": 0.5,
+     "color": "#ffd6f4",
+     "puffs": 6,
+     "sparks": 18,
+     "spark": "#ff9ae8",
+     "sparkSize": 0.8,
+     "size": 0.35,
+     "lift": 0.1,
+     "at": 0.23
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.05,
+      0.7,
+      -1.35
+     ],
+     "dur": 0.9,
+     "color": "#e8c9a0",
+     "puffs": 12,
+     "sparks": 28,
+     "spark": "#8a5a36",
+     "sparkSize": 1.5,
+     "size": 0.7,
+     "lift": 0.18,
+     "at": 0.23
+    },
+    {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.2,
+     "at": 0.23
+    },
+    {
+     "fx": "shake",
+     "amp": 0.025,
+     "dur": 0.3,
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.23
+    },
+    {
+     "sfx": "hit-glass",
+     "gain": 0.6,
+     "reason": "the bolt smashes the table lamp",
+     "at": 0.23
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0.3,
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.74,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "shelf",
+     "set": {
+      "smash": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.9,
+      1.52,
+      -1.55
+     ],
+     "dur": 0.5,
+     "color": "#ffd6f4",
+     "puffs": 6,
+     "sparks": 16,
+     "spark": "#ff9ae8",
+     "sparkSize": 0.8,
+     "size": 0.35,
+     "lift": 0.1,
+     "at": 0.35
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.9,
+      1.32,
+      -1.5
+     ],
+     "dur": 0.9,
+     "color": "#e8c9a0",
+     "puffs": 12,
+     "sparks": 30,
+     "spark": "#d97b5c",
+     "sparkSize": 1.5,
+     "size": 0.7,
+     "lift": 0.1,
+     "at": 0.35
+    },
+    {
+     "fx": "shake",
+     "amp": 0.025,
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.55,
+     "reason": "the shelf bracket snaps and the plank swings down",
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1,
+      0.68
+     ],
+     "dur": 0.5,
+     "steps": 2.4,
+     "at": 0.38
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.15,
+     "at": 0.38
+    }
+   ]
+  },
+  {
+   "name": "4b corner",
+   "at": 3.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     2.3,
+     1.2,
+     3
+    ],
+    "look": [
+     2.55,
+     0.78,
+     -1
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      3.05,
+      -1.2
+     ],
+     "dur": 0.28,
+     "steps": 3,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "kenney/impact-glass-medium",
+     "gain": 0.4,
+     "reason": "the lamp hits the floor",
+     "at": 0.16
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cal",
+      "grip": [
+       0.12,
+       0.08,
+       0.02
+      ],
+      "palm": true
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "floorfluff",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0.5
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.05,
+     "at": 0.3
+    },
+    {
+     "sfx": "book-close",
+     "gain": 0.5,
+     "reason": "the books land on the floor",
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "cal",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
+     "sfx": "papercut",
+     "gain": 0.55,
+     "reason": "the calendar rips off its nail",
+     "at": 0.36
+    }
+   ]
+  },
+  {
+   "name": "5 the calendar",
+   "at": 4,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     2.5,
+     1,
+     1
+    ],
+    "look": [
+     2.62,
+     0.86,
+     -1.05
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      2.5,
+      1,
+      0.85
+     ]
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "cal",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "move",
+     "to": [
+      3.25,
+      -1.2
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -3.6,
+      3.6
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -45,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "staffP",
+     "set": {
+      "y": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cal",
+     "set": {
+      "rot": 135,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cal",
+      "grip": [
+       0.158,
+       0.17,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       2.9,
+       0.42,
+       -0.85
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "grab",
+     "prop": "cal",
+     "hand": "R",
+     "grip": [
+      0.158,
+      0.17,
+      -0.008
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.25,
+      "curve": -0.2
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      2.15,
+      -0.95
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 60,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.98,
+       0.26
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": [
+      -28,
+      0
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.25
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.45,
+     "idle": 0.04,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cal",
+      "grip": [
+       0.158,
+       0.17,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       2.9,
+       0.48,
+       -0.81
+      ]
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "wiz2",
+     "do": "talk",
+     "line": "not yet!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0.12
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.3,
+     "reason": "the calendar page rustles as he holds it up",
+     "at": 0.12
+    },
+    {
+     "who": "wiz2",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.35,
+      "eye": 1.1,
+      "open": 0.15
+     },
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.2,
+      "curve": 0,
+      "open": 0.05
+     },
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.35,
+     "lid": 0.1,
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "fx": "pop",
+     "text": "?",
+     "who": "rea",
+     "dur": 0.7,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.55,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.3,
+      "curve": 0.2,
+      "open": 0.25
+     },
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.48
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "6 understood",
+   "at": 5.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     2.55,
+     1.1,
+     2.4
+    ],
+    "look": [
+     2.7,
+     0.72,
+     -1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.68,
+       0.86,
+       -0.8
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "tilt",
+     "to": null,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.35,
+     "brow": 0.1,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz2",
+     "do": "talk",
+     "line": "phewww",
+     "tone": "calm",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.35,
+      "curve": 0.5
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz2",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.35,
+     "at": 0.05
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "reason": "Reaper's robe settles as he relaxes",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.28
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0.28
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      3.6,
+      3.6
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "show",
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "move",
+     "to": [
+      2.15,
+      -0.95
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "turn",
+     "to": 60,
+     "dur": 0,
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 1
+     },
+     "dur": 0,
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "face",
+     "lid": 0.35,
+     "brow": 0.1,
+     "dur": 0,
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.68,
+       0.86,
+       -0.8
+      ]
+     },
+     "dur": 0,
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "scyP",
+     "set": {
+      "y": 0.55
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.45,
+     "reason": "the scythe's shaft taps the bookcase as he leans it there",
+     "at": 0.28
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.33
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "7 second player",
+   "at": 6,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.15,
+     1.1,
+     1.9
+    ],
+    "look": [
+     0.15,
+     0.8,
+     -1
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "who": "rea2",
+     "do": "move",
+     "to": [
+      -0.58,
+      0.02
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "turn",
+     "to": 105,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "release",
+     "prop": "cal",
+     "to": [
+      0.72,
+      0.34600000000000003,
+      -0.05
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cal",
+     "set": {
+      "rot": -15,
+      "tip": 90
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "ride",
+     "prop": "sofaR",
+     "off": [
+      0.06,
+      0.37,
+      0.22
+     ],
+     "sit": true,
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "padW",
+     "set": {
+      "x": 0.904,
+      "y": 0.68,
+      "z": -0.521,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padW",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padW",
+      "grip": [
+       -0.122,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "grip",
+     "side": "both",
+     "shape": "press",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "grab",
+     "prop": "padW",
+     "hand": "both",
+     "grip": [
+      0,
+      0.025,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.6,
+      "curve": 0.55
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.016,
+       0.02,
+       0.084
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.043,
+       0.02,
+       -0.074
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.16,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.123,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.16,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.456
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.456
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.35,
+     "at": 0.57
+    },
+    {
+     "who": "rea2",
+     "do": "grab",
+     "prop": "padK",
+     "hand": "both",
+     "grip": [
+      0,
+      0.025,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.58
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.5,
+       0.66,
+       0.52
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.5,
+       0.66,
+       0.52
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "padK",
+     "set": {
+      "rot": 200
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "who": "rea2",
+     "do": "ride",
+     "prop": "sofaL",
+     "off": [
+      -0.06,
+      0.37,
+      0.22
+     ],
+     "sit": true,
+     "yaw": 0,
+     "dur": 0.4,
+     "at": 0.82
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.304,
+       0.64,
+       -0.461
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.84
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.123,
+       0.025,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.304,
+       0.64,
+       -0.461
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "padK",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.84
+    },
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.92
+    },
+    {
+     "sfx": "sit",
+     "gain": 0.5,
+     "reason": "the sofa creaks as Reaper sits down",
+     "at": 1.17
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.32
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.7,
+      "curve": 0.45
+     },
+     "dur": 0.25,
+     "at": 1.37
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 0.7
+     },
+     "dur": 0.25,
+     "at": 1.37
+    }
+   ]
+  },
+  {
+   "name": "8 waiting",
+   "at": 7.5,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.55,
+     1.08,
+     2.6
+    ],
+    "look": [
+     0.35,
+     0.76,
+     -1
+    ],
+    "fov": 64,
+    "to": {
+     "pos": [
+      0.55,
+      1.07,
+      2.45
+     ]
+    },
+    "dur": 1.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dust",
+     "set": {
+      "burst": 0,
+      "puff": 1
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.85,
+      "curve": 0.45
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea2",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea2",
+     "do": "release",
+     "prop": "padK",
+     "to": [
+      -0.304,
+      0.64,
+      -0.461
+     ],
+     "dur": 0,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "padK",
+     "set": {
+      "rot": 180,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.324,
+       0.729,
+       -0.461
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.664,
+       0.63,
+       -0.571
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.22
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.664,
+       0.56,
+       -0.571
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.45
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.25,
+     "reason": "one soft pat on the Wizard's knee",
+     "at": 0.53
+    },
+    {
+     "who": "wiz2",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.664,
+       0.62,
+       -0.571
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.57
+    },
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "wiz2",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 0.4,
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 0.65
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       0.123,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "who": "rea2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "padK",
+      "grip": [
+       -0.122,
+       0.025,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "who": "rea2",
+     "do": "grip",
+     "side": "both",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 1.05
+    },
+    {
+     "who": "wiz2",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "rea2",
+     "do": "grab",
+     "prop": "padK",
+     "hand": "both",
+     "grip": [
+      0,
+      0.025,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.15
+    },
+    {
+     "who": "wiz2",
+     "do": "still",
+     "dur": 0.2,
+     "idle": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "rea2",
+     "do": "still",
+     "dur": 0.15,
+     "idle": 0.08,
+     "at": 1.2
+    }
+   ]
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 1.067,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "wiz",
+   "from": 1,
+   "to": 2.2,
+   "reason": "the scythe's shaft sweeps past the Wizard's face in the strike and the press (it never touches him: the shield is between)"
+  },
+  {
+   "who": "wiz",
+   "with": "sofaL",
+   "from": 0,
+   "to": 3,
+   "reason": "the Wizard sits on the sofa"
+  },
+  {
+   "who": "wiz",
+   "with": "rips1",
+   "from": 2.32,
+   "to": 3.2,
+   "reason": "the Wizard sits on the sofa where its cover has just torn"
+  },
+  {
+   "who": "wiz",
+   "with": "rips2",
+   "from": 2.9,
+   "to": 3.2,
+   "reason": "the cover tears under him as he dives off the sofa"
+  },
+  {
+   "who": "wiz2",
+   "with": "rips2",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits on the torn sofa"
+  },
+  {
+   "who": "wiz2",
+   "with": "rips1",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits on the torn sofa"
+  },
+  {
+   "who": "rea2",
+   "with": "rips1",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper sits on the torn sofa"
+  },
+  {
+   "who": "rea2",
+   "with": "rips2",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper sits on the torn sofa"
+  },
+  {
+   "who": "rea",
+   "with": "shield",
+   "from": 0.85,
+   "to": 2.9,
+   "reason": "the scythe strikes and presses on the magic shield (a glow, not a solid)"
+  },
+  {
+   "who": "wiz",
+   "with": "shield",
+   "from": 0,
+   "to": 3.05,
+   "reason": "the Wizard's staff casts the shield right in front of him"
+  },
+  {
+   "who": "wiz",
+   "with": "cal",
+   "from": 3.76,
+   "to": 4.1,
+   "reason": "the Wizard grabs the calendar and rips it off the wall"
+  },
+  {
+   "who": "wiz2",
+   "with": "cal",
+   "from": 4.1,
+   "to": 6.1,
+   "reason": "the Wizard holds the calendar up"
+  },
+  {
+   "who": "wiz2",
+   "with": "sofaR",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits on the sofa"
+  },
+  {
+   "who": "wiz2",
+   "with": "padW",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard holds his controller in both hands"
+  },
+  {
+   "who": "rea2",
+   "with": "table",
+   "from": 6.45,
+   "to": 6.95,
+   "reason": "his fingers slide under the controller's grips on the table top"
+  },
+  {
+   "who": "rea2",
+   "with": "padK",
+   "from": 6.18,
+   "to": 9,
+   "reason": "Reaper takes the controller, then rests it in his lap under his hand"
+  },
+  {
+   "who": "rea2",
+   "with": "sofaL",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper sits on the sofa"
+  },
+  {
+   "who": "rea2",
+   "with": "tufts",
+   "from": 6.4,
+   "to": 9,
+   "reason": "Reaper leans back into the torn cushion, the stuffing poking out round him"
+  },
+  {
+   "who": "wiz2",
+   "with": "tufts",
+   "from": 6.1,
+   "to": 9,
+   "reason": "the Wizard sits against the torn cushion, the stuffing poking out round him"
+  },
+  {
+   "who": "rea2",
+   "with": "wiz2",
+   "from": 7.85,
+   "to": 8.6,
+   "reason": "Reaper pats the Wizard's knee once"
+  }
+ ],
+ "notes": "Generated by storyboards/trend/not-yet/make-not-yet.mjs. The caption's day count comes from DAYS (default 18 for 1 Nov 2026)."
+}

@@ -202,7 +202,7 @@ function glowTip(g, C, at, gemGeo, size = 1) {
   };
 }
 
-function staff(C) {
+export function staff(C) {
   const g = new THREE.Group();
   const wood = new THREE.MeshStandardMaterial({ color: C.staffWood || "#7a4e2a", roughness: 0.7 });
   // the fist holds the shaft at about 40 % of its height, as in the reference art (G: grip height above the foot)

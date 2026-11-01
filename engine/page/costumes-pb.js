@@ -316,7 +316,7 @@ export function hoodieGeometry(ch, C = {}) {
   return { shell: g, hem, lining, wall, seams, strings, tips };
 }
 
-function scythe(C) {
+export function scythe(C) {
   const g = new THREE.Group();
   const wood = new THREE.MeshStandardMaterial({ color: C.wood || "#6b4a2b", roughness: 0.75 });
   const steel = new THREE.MeshStandardMaterial({ color: C.blade || "#c9ced6", roughness: 0.28, metalness: 0.75, side: THREE.DoubleSide });
