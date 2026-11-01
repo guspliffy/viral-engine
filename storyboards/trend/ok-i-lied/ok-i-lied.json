@@ -373,40 +373,20 @@
    "id": "soot-phx-0",
    "kind": "soot",
    "wear": "phx",
-   "x": -0.18,
-   "y": 0.78,
-   "z": 0.33,
-   "size": 0.16,
+   "x": -0.2,
+   "y": 0.74,
+   "z": 0.32,
+   "size": 0.24,
    "scale": 0
   },
   {
    "id": "soot-phx-1",
    "kind": "soot",
    "wear": "phx",
-   "x": 0.26,
-   "y": 0.55,
+   "x": 0.24,
+   "y": 0.52,
    "z": 0.31,
-   "size": 0.13,
-   "scale": 0
-  },
-  {
-   "id": "soot-phx-2",
-   "kind": "soot",
-   "wear": "phx",
-   "x": 0.08,
-   "y": 1,
-   "z": 0.24,
-   "size": 0.11,
-   "scale": 0
-  },
-  {
-   "id": "soot-phx-3",
-   "kind": "soot",
-   "wear": "phx",
-   "x": 0.3,
-   "y": 0.86,
-   "z": 0.26,
-   "size": 0.1,
+   "size": 0.22,
    "scale": 0
   },
   {
@@ -414,29 +394,39 @@
    "kind": "soot",
    "wear": "rea",
    "x": 0.18,
-   "y": 0.86,
+   "y": 0.84,
    "z": 0.3,
-   "size": 0.19,
+   "size": 0.26,
    "scale": 0
   },
   {
    "id": "soot-rea-1",
    "kind": "soot",
    "wear": "rea",
-   "x": -0.22,
-   "y": 0.5,
-   "z": 0.31,
-   "size": 0.16,
+   "x": -0.26,
+   "y": 0.92,
+   "z": 0.24,
+   "size": 0.22,
    "scale": 0
   },
   {
-   "id": "soot-rea-2",
+   "id": "soot-rea2-0",
    "kind": "soot",
-   "wear": "rea",
-   "x": -0.15,
-   "y": 0.95,
-   "z": 0.27,
-   "size": 0.12,
+   "wear": "rea2",
+   "x": 0.18,
+   "y": 0.84,
+   "z": 0.3,
+   "size": 0.26,
+   "scale": 0
+  },
+  {
+   "id": "soot-rea2-1",
+   "kind": "soot",
+   "wear": "rea2",
+   "x": -0.26,
+   "y": 0.92,
+   "z": 0.24,
+   "size": 0.22,
    "scale": 0
   },
   {
@@ -444,9 +434,9 @@
    "kind": "soot",
    "wear": "wiz",
    "x": 0.22,
-   "y": 0.48,
+   "y": 0.46,
    "z": 0.3,
-   "size": 0.16,
+   "size": 0.24,
    "scale": 0
   },
   {
@@ -454,29 +444,9 @@
    "kind": "soot",
    "wear": "wiz",
    "x": -0.25,
-   "y": 0.78,
+   "y": 0.76,
    "z": 0.3,
-   "size": 0.14,
-   "scale": 0
-  },
-  {
-   "id": "soot-wiz-2",
-   "kind": "soot",
-   "wear": "wiz",
-   "x": 0.05,
-   "y": 0.36,
-   "z": 0.34,
-   "size": 0.11,
-   "scale": 0
-  },
-  {
-   "id": "soot-wiz-3",
-   "kind": "soot",
-   "wear": "wiz",
-   "x": 0.27,
-   "y": 0.82,
-   "z": 0.28,
-   "size": 0.1,
+   "size": 0.22,
    "scale": 0
   },
   {
@@ -487,8 +457,8 @@
    "x": 0.02,
    "y": 1.62,
    "z": -0.05,
-   "h": 0.6,
-   "size": 0.12,
+   "h": 0.9,
+   "size": 0.2,
    "on": 0
   },
   {
@@ -526,8 +496,8 @@
   {
    "id": "plume",
    "kind": "fireplume",
-   "x": -0.15,
-   "y": 1.9,
+   "x": 0.1,
+   "y": 2.1,
    "z": -1.6,
    "rot": 70,
    "tip": -48,
@@ -910,8 +880,8 @@
      "do": "expr",
      "expr": "angry",
      "set": {
-      "eye": 0.75,
-      "curve": -0.4
+      "eye": 0.7,
+      "curve": -0.6
      },
      "dur": 0,
      "at": 0
@@ -919,7 +889,7 @@
     {
      "who": "rea",
      "do": "face",
-     "lid": 0.42,
+     "lid": 0.48,
      "brow": 0,
      "dur": 0,
      "at": 0
@@ -1166,26 +1136,6 @@
     },
     {
      "do": "prop",
-     "id": "soot-phx-2",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "soot-phx-3",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
      "id": "soot-rea-0",
      "set": {
       "scale": 1
@@ -1206,16 +1156,6 @@
     },
     {
      "do": "prop",
-     "id": "soot-rea-2",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
      "id": "soot-wiz-0",
      "set": {
       "scale": 1
@@ -1227,26 +1167,6 @@
     {
      "do": "prop",
      "id": "soot-wiz-1",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "soot-wiz-2",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "soot-wiz-3",
      "set": {
       "scale": 1
      },
@@ -1321,16 +1241,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "dc",
-     "set": {
-      "y": 0.5
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 0
-    },
-    {
      "who": "dra",
      "do": "expr",
      "expr": "kind",
@@ -1358,6 +1268,16 @@
      "gain": 0.8,
      "reason": "dö-döm: the huge Dragon head rises into the photo",
      "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "dc",
+     "set": {
+      "y": 0.38
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.15
     }
    ],
    "kind": "reveal"
@@ -1406,6 +1326,46 @@
      "id": "scyP",
      "set": {
       "y": -5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea-0",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea-1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea2-0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea2-1",
+     "set": {
+      "scale": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1821,7 +1781,7 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -0.82,
+      -0.9,
       1.2
      ],
      "dur": 1.4,
@@ -1840,7 +1800,7 @@
      "who": "rea2",
      "do": "move",
      "to": [
-      0.12,
+      0.2,
       0.45
      ],
      "dur": 1.36,
@@ -1859,6 +1819,16 @@
      "stride": 2.1,
      "bob": 0.05,
      "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "fade": 0.6
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.6
     }
    ],
    "kind": "payoff"
@@ -1875,7 +1845,7 @@
     ],
     "look": [
      -0.04,
-     1.15,
+     1.32,
      1
     ],
     "fov": 60,
@@ -1900,16 +1870,6 @@
      "gain": 0.9,
      "reason": "they race past the lens",
      "at": 0.05
-    },
-    {
-     "do": "prop",
-     "id": "plume",
-     "set": {
-      "fade": 0.6
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.3
     }
    ]
   }
