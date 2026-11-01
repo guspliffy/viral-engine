@@ -186,6 +186,14 @@ export function addMusic(sb, audio) {
   }
   const env = duckEnvelope(sb, music, audio, log, { L: M.L.map((v) => v * g), R: M.R.map((v) => v * g) });
   for (let i = 0; i < audio.L.length; i++) { const k = g * env[i]; audio.L[i] += M.L[i] * k; audio.R[i] += M.R[i] * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+  // "then": a second, recorded bed after the first one stops (Not Yet, 1 Nov 2026: the frantic beat cuts dead at the
+  // reveal, then quiet menu music plays from the TV): { file, from, gain, skip }, not locked to the story's grid
+  if (music.then?.file) {
+    const T = { gain: 0.3, ...music.then }, B = fileMusic(T, dur, audio.sr);
+    const e2 = duckEnvelope(sb, { ...T, dip: false }, audio, [], { L: B.L.map((v) => v * T.gain), R: B.R.map((v) => v * T.gain) });
+    for (let i = 0; i < audio.L.length; i++) { const k = T.gain * e2[i]; audio.L[i] += B.L[i] * k; audio.R[i] += B.R[i] * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
+    log.push(`then: ${T.file} from ${T.from ?? 0}s`);
+  }
   if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
   return log;
 }
