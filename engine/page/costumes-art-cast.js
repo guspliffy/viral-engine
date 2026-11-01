@@ -5,7 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
-import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep } from "./costumes-art.js";
+import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
 // returns castCostume's { hat, sitDepth, prop, extra, apply, helmet }. Jonny's targets: references/
@@ -28,7 +28,8 @@ function flameLocks(ch, L, o = {}) {
     if (o.tint) tintAlong(g, o.tint[0], o.tint[1], o.tint[2] ?? 1.3);
     geos.push(g);
   }
-  return mergeGeometries(geos);
+  const m = mergeGeometries(geos); m.userData.ink = lockInk(geos, { width: 0.0028, to: 0.62, ...(o.ink || {}) });
+  return m;
 }
 
 // ---------- Viking: flame-orange crest on the crown, fur mantle, red tunic with a cut hem, leather belt -----------
@@ -42,7 +43,8 @@ function viking(C, ch, out) {
     [0.15, 1.18, 0.42, 0.11, 0.35, 0.3], [-0.6, 1.16, 0.32, 0.09, -0.15, 0.15], [0.9, 1.16, 0.3, 0.085, 0.6, 0.1],
     [-1.5, 1.2, 0.22, 0.07, -0.4, 0.0], [1.7, 1.2, 0.22, 0.07, 0.5, 0.0], [2.8, 1.3, 0.18, 0.065, 0.2, 0.0],
   ];
-  parts.add(mesh(flameLocks(ch, locks, { tint: ["#c4441c", C.hairTip || "#ffa54a", 1.6] }), hairM));
+  const fl = flameLocks(ch, locks, { tint: ["#c4441c", C.hairTip || "#ffa54a", 1.6] });
+  parts.add(mesh(fl, hairM)); if (fl.userData.ink) parts.add(inkMesh(fl.userData.ink, "#c4441c", 0.55));
   // the tunic: red, from the chest down, the hem cut in points; the inside darker
   parts.add(garmentMesh(ch, { top: -0.4, hem: -1.22, folds: 11, depth: 0.012, flare: 0.035, ragged: 0.07, points: 11, wave: 0, trim: "#d8a640", trimR: 0.007 }, C.tunic || "#b4332b", "#5e1712"));
   // the fur mantle round the shoulders and back, open at the front, its lower edge in soft points
@@ -180,6 +182,8 @@ function allfather(C, ch, out) {
   }
   const top = mergeGeometries(geos); shineBand(top, ch.cy + ch.ry * 0.86, 0.045, 0.2, [1, 1, 1]);
   body.add(mesh(top, hairM));
+  // drawn strands: a warm grey stroke or two along each lock (white hair is drawn with a light line, never black)
+  const hi = lockInk(geos, { width: 0.0022, to: 0.78, off: 0.3 }); if (hi) body.add(inkMesh(hi, "#c2ae92", 0.8));
   const plainHairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.85 }); plainHairM.userData.lookRole = "hair";
   // braids in front of the shoulders, each with two gold rings and a tuft below
   for (const s of [-1, 1]) {
@@ -290,7 +294,9 @@ export function phoenixCrest(ch) {
   const m = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.55, emissive: new THREE.Color("#ff6a2b"), emissiveIntensity: 0.18 });
   m.userData.lookRole = "cloth";
   const L = [[0, 1.2, 0.42, 0.075, 0, 0.35], [-0.4, 1.12, 0.34, 0.065, -0.35, 0.2], [0.42, 1.12, 0.34, 0.065, 0.38, 0.22], [-0.95, 1.1, 0.26, 0.055, -0.7, 0.05], [0.95, 1.1, 0.27, 0.055, 0.7, 0.06], [0.2, 1.33, 0.32, 0.06, 0.15, 0.4], [-0.2, 1.33, 0.3, 0.06, -0.15, 0.38], [3.14, 1.25, 0.22, 0.05, 0, 0.1]];
-  return mesh(flameLocks(ch, L, { tint: ["#e8402a", "#ffd23f", 1.2], thick: 0.04 }), m);
+  const fl = flameLocks(ch, L, { tint: ["#e8402a", "#ffd23f", 1.2], thick: 0.04 }), g = mesh(fl, m);
+  if (fl.userData.ink) g.add(inkMesh(fl.userData.ink, "#e8402a", 0.55));
+  return g;
 }
 
 // Reaper (round 2, Jonny 21:34): the Sorcerer's hood and bell cloak in his charcoal, a pewter clasp, a dark grey border

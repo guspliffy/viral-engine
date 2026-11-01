@@ -96,7 +96,7 @@ export function garment(ch, o) {
     for (let k = 0; k < n; k++) { const v = Math.floor(k / (NU + 1)) / NV, c = 1.06 - o.grad * Math.pow(v, 1.2); cols[k * 3] = cols[k * 3 + 1] = cols[k * 3 + 2] = c; }
     g.setAttribute("color", new THREE.BufferAttribute(cols, 3));
   }
-  return { outer: go, inner: gi, hem: ge, lines: { hem: hemLine, left, right } };
+  return { outer: go, inner: gi, hem: ge, lines: { hem: hemLine, left, right }, at, fold: { folds, phase, from, to, closed, thick } };
 }
 // a trim along a garment edge: a flat braid (an embroidered border) following the line
 export function trim(line, r, mat, flat = 0.45) {
@@ -105,13 +105,14 @@ export function trim(line, r, mat, flat = 0.45) {
 }
 // garment() as meshes in a group: the outside in `color`, the inside darker
 export function garmentMesh(ch, o, color, lining) {
-  const { outer, inner, hem, lines } = garment(ch, { grad: 0.16, ...o }), g = new THREE.Group(), out = clothMat(color, { side: THREE.DoubleSide, vertexColors: true });
+  const G = garment(ch, { grad: 0.16, ...o }), { outer, inner, hem, lines } = G, g = new THREE.Group(), out = clothMat(color, { side: THREE.DoubleSide, vertexColors: true });
   g.userData.lines = lines;
   const m1 = new THREE.Mesh(outer, out); m1.castShadow = m1.receiveShadow = true; g.add(m1);
   const m2 = new THREE.Mesh(inner, liningMat(lining || new THREE.Color(color).multiplyScalar(0.55))); g.add(m2);
   const m3 = new THREE.Mesh(hem, clothMat(color, { side: THREE.DoubleSide })); g.add(m3);
   // o.trim: a border braid in this colour along the hem (and the front edges of an open garment)
   if (o.trim) { const tm = clothMat(o.trim, { roughness: 0.7 }); for (const L of [lines.hem, lines.left, lines.right]) if (L.length > 2) g.add(trim(L, o.trimR ?? 0.009, tm)); }
+  if (o.ink !== false) { const ig = foldInk(G, o.ink || {}); if (ig) g.add(inkMesh(ig, color)); }
   return g;
 }
 
@@ -121,7 +122,7 @@ export function garmentMesh(ch, o, color, lining) {
 export function lock(pts, ups, w, h, profile = (t) => Math.sin(Math.PI * Math.min(1, 0.12 + t * 0.92)) ** 0.8, segs = 28, radial = 10) {
   const curve = new THREE.CatmullRomCurve3(pts, false, "centripetal"), upC = Array.isArray(ups) ? new THREE.CatmullRomCurve3(ups) : null;
   if (upC) upC.arcLengthDivisions = 20;
-  const P = [], T = new THREE.Vector3(), N = new THREE.Vector3(), B = new THREE.Vector3();
+  const P = [], T = new THREE.Vector3(), N = new THREE.Vector3(), B = new THREE.Vector3(), frames = [];
   for (let j = 0; j <= segs; j++) {
     const t = j / segs, c = curve.getPointAt(t); curve.getTangentAt(t, T);
     // ups "side": the lock's flat face looks sideways-out of the plane it bends in (a flame or a crest seen from the
@@ -130,11 +131,12 @@ export function lock(pts, ups, w, h, profile = (t) => Math.sin(Math.PI * Math.mi
     if (N.lengthSq() < 1e-6) N.set(0, 0, 1);
     N.normalize(); B.crossVectors(T, N); if (B.lengthSq() < 1e-8) B.set(1, 0, 0); B.normalize(); N.crossVectors(B, T).normalize();
     const k = profile(t);
+    frames.push({ c: c.clone(), N: N.clone(), B: B.clone(), w: w * k, h: h * k, t });
     for (let i = 0; i <= radial; i++) { const a = (i / radial) * Math.PI * 2; P.push(c.clone().addScaledVector(B, Math.cos(a) * w * k).addScaledVector(N, Math.sin(a) * h * k)); }
   }
   // gridMesh wants u along the ring: transpose
   const pts2 = []; for (let i = 0; i <= radial; i++) for (let j = 0; j <= segs; j++) pts2.push(P[j * (radial + 1) + i]);
-  const g = gridMesh(pts2, segs, radial); g.userData.row = segs + 1;
+  const g = gridMesh(pts2, segs, radial); g.userData.row = segs + 1; g.userData.frames = frames;
   return g;
 }
 // a path of (az, el, lift) on the body to points just off its surface, and the outward normals there
@@ -183,3 +185,68 @@ export function shineBand(geo, y0, w, amount = 0.22, base = [1, 1, 1]) {
 }
 
 export { sstep };
+
+// ---------- drawn detail lines (Jonny 1 Nov: "a bit more handdrawn sophisticated style") ---------------------------
+// A hand-drawn costume has a few ink strokes inside its shapes: a line down each deep fold, a stroke or two along a
+// lock of hair. They are thin ribbons lying just on the surface, tapered at both ends like a brush stroke, uneven in
+// length (copy nature: never every fold the same), in a deep shade of the cloth's own colour (coloured ink, not black).
+const hash1 = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+export function inkMat(color, k = 0.4) {
+  const c = new THREE.Color(color), h = {}; c.getHSL(h);
+  const m = new THREE.MeshBasicMaterial({ color: new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.15 + 0.08), Math.max(0.05, h.l * k)), side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  m.userData.ink = true; return m;
+}
+export function inkMesh(geo, color, k = 0.32) { const m = new THREE.Mesh(geo, inkMat(color, k)); m.userData.inkStroke = true; return m; }
+// a strip from centre points, a side vector per point and a width per point
+function strip(cs, sides, ws) {
+  const pos = [], idx = [];
+  cs.forEach((c, i) => { pos.push(...c.clone().addScaledVector(sides[i], -ws[i]).toArray(), ...c.clone().addScaledVector(sides[i], ws[i]).toArray()); });
+  for (let i = 0; i < cs.length - 1; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+const brushW = (u, W, heavy = 0.5) => W * (1 - heavy + heavy * u) * Math.pow(Math.sin(Math.PI * Math.min(1, Math.max(0, u))), 0.55);
+// ink down the deep folds of a garment(): from part way down to just above the hem, a shorter second stroke beside
+// some of them; o: { width (m), every (1: every fold), from (v where the longest start) }
+export function foldInk(G, o = {}) {
+  const { at, fold } = G, W = o.width ?? 0.0045, out = [];
+  if (!at) return null;
+  for (let k = -2; k < fold.folds + 2; k++) {
+    const th0 = (1.5 * Math.PI + 2 * Math.PI * k - fold.phase) / fold.folds;
+    if (fold.closed ? (k < 0 || k >= fold.folds) : (th0 < fold.from + 0.05 || th0 > fold.to - 0.05)) continue;
+    const r = hash1(k * 3.1 + fold.folds), r2 = hash1(k * 7.7 + 1.3);
+    if (r < 0.18) continue;   // a fold left without a line
+    for (const [dt, v0, v1, ww] of [[0, 0.22 + 0.3 * r, 0.9 + 0.06 * r2, 1], ...(r2 > 0.55 ? [[0.09 * (r > 0.5 ? 1 : -1), 0.6 + 0.15 * r2, 0.93, 0.7]] : [])]) {
+      const cs = [], sides = [], ws = [], n = 16;
+      for (let j = 0; j <= n; j++) {
+        const u = j / n, v = v0 + (v1 - v0) * u, th = th0 + dt + 0.025 * Math.sin(u * 4 + k);
+        const c = at(th, v, fold.thick + 0.0012), sd = at(th + 0.01, v, fold.thick).sub(at(th - 0.01, v, fold.thick)).normalize();
+        cs.push(c); sides.push(sd); ws.push(brushW(u, W * ww, 0.6));
+      }
+      out.push(strip(cs, sides, ws));
+    }
+  }
+  return out.length ? mergeGeos(out) : null;
+}
+// ink along locks made by lock(): a stroke on each flat face, a little off centre, root to about two thirds
+export function lockInk(geos, o = {}) {
+  const out = [], W = o.width ?? 0.003;
+  for (const g of [].concat(geos)) {
+    const F = g.userData.frames; if (!F) continue;
+    for (const s of [1, -1]) {
+      const off = (o.off ?? 0.25) * s, cs = [], sides = [], ws = [];
+      const sel = F.filter((f) => f.t >= (o.from ?? 0.06) && f.t <= (o.to ?? 0.7));
+      sel.forEach((f, i) => {
+        const u = i / Math.max(1, sel.length - 1), hN = f.h * Math.sqrt(Math.max(0, 1 - off * off)) + 0.0009;
+        cs.push(f.c.clone().addScaledVector(f.N, hN * s).addScaledVector(f.B, f.w * off)); sides.push(f.B.clone()); ws.push(brushW(u, W, -0.3));
+      });
+      if (cs.length > 2) out.push(strip(cs, sides, ws));
+    }
+  }
+  return out.length ? mergeGeos(out) : null;
+}
+function mergeGeos(gs) {
+  let n = 0; for (const g of gs) n += g.attributes.position.count;
+  const pos = new Float32Array(n * 3), idx = []; let o = 0;
+  for (const g of gs) { pos.set(g.attributes.position.array, o * 3); for (const i of g.index.array) idx.push(i + o); o += g.attributes.position.count; }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
