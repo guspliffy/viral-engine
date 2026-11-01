@@ -211,12 +211,12 @@ function patchToon(m, o) {
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
-    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; }
+    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; }
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap; uniform vec2 uHatchRes; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil; uniform vec2 uHatchRes; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -259,7 +259,9 @@ function patchToon(m, o) {
               float a = L == 0 ? 0.62 : -0.95, gap = uHatchGap * (L == 0 ? 1.0 : 1.25), w = L == 0 ? sh : deep;
               if (w <= 0.001) continue;
               vec2 dir = vec2(cos(a), sin(a));
-              float u = dot(sp, vec2(-dir.y, dir.x)) / gap, v = dot(sp, dir);
+              // boil: the hatching is drawn again for every drawing (15 a second), so the strokes shift a little
+              float dn = floor(uHatchT * 15.0 + 0.01) + float(L) * 17.0;
+              float u = dot(sp, vec2(-dir.y, dir.x)) / gap + uHatchBoil * fract(sin(dn * 12.9898) * 43758.5453), v = dot(sp, dir) + uHatchBoil * 40.0 * fract(sin(dn * 78.233) * 24634.6345);
               float row = floor(u), f = fract(u);
               float h1 = fract(sin(row * 12.9898 + float(L) * 7.13) * 43758.5453);
               // strokes of uneven length: a gap every so often along the row, placed per row
@@ -495,10 +497,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     ROLE.cloth = { ...ROLE.cloth, shade: [0.66, 0.58, 0.74] };
     // hand-drawn (Jonny 31 Oct 22:44 "a bit more handdrawn sophisticated style"): flat painted cels (no film gloss,
     // little gradient, no glowing back edge) with coloured-pencil hatching in the shadows
-    const flat = { spec: 0, specW: 0, back: null, hatch: { k: 0.55, gap: 7 } };
+    const flat = { spec: 0, specW: 0, back: null, hatch: { k: 0.55, gap: 7, boil: 0.5 } };
     for (const r of ["skin", "char", "cloth", "hair", "lining", "glove", "wood"]) ROLE[r] = { ...ROLE[r], ...flat, grad: Math.min(ROLE[r].grad ?? 0.08, 0.05) };
-    ROLE.skin.hatch = { k: 0.45, gap: 7 };
-    ROLE.hair.hatch = { k: 0.3, gap: 8 };   // white hair hatched as hard as the cloth looks dirty
+    ROLE.skin.hatch = { k: 0.45, gap: 7, boil: 0.5 };
+    ROLE.hair.hatch = { k: 0.3, gap: 8, boil: 0.5 };   // white hair hatched as hard as the cloth looks dirty
     ROLE.lining.hatch = ROLE.glove.hatch = null;
   }
   const cloth = new Set(), wood = new Set();
