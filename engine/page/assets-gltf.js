@@ -59,16 +59,38 @@ function srcsOf(set) {
   for (const s of set?.scatter || []) for (const k of Array.isArray(s.kinds) ? s.kinds : Object.keys(s.kinds || {})) for (const src of kitSrc(k)) out.add(src);
   return [...out];
 }
-// loads every model the set names before the set is built (stage.js init), so buildSet stays synchronous and the
-// look converts the models' materials with the rest of the set
-export async function preloadModels(sb) {
+// models a character's costume names: any "...Model" key in its definition (costume.cloakModel:
+// "characters/reaper-cloak.glb", made by tools/blender/reaper-cloak.py)
+function charSrcs(chars) {
+  const out = new Set(), walk = (o) => { if (!o || typeof o !== "object") return; for (const [k, v] of Object.entries(o)) { if (/Model$/.test(k) && typeof v === "string") out.add(v); else walk(v); } };
+  for (const def of Object.values(chars || {})) walk(def);
+  return [...out];
+}
+// loads every model the set and the cast name before anything is built (stage.js init), so buildSet and the costumes
+// stay synchronous and the look converts the models' materials with everything else
+export async function preloadModels(sb, chars = null) {
   const loader = new GLTFLoader();
-  await Promise.all(srcsOf(sb.set).filter((s) => !CACHE.has(s)).map(async (src) => {
+  await Promise.all([...new Set([...srcsOf(sb.set), ...charSrcs(chars)])].filter((s) => !CACHE.has(s)).map(async (src) => {
     const url = `/assets/models/${src}${/\.(glb|gltf)$/.test(src) ? "" : ".gltf"}`;
     const gl = await loader.loadAsync(url);
     const scene = gl.scene; scene.updateMatrixWorld(true);
     CACHE.set(src, { scene, box: new THREE.Box3().setFromObject(scene) });
   }));
+}
+
+// a costume model as it was made (already in the character's bodyGroup space: metres, y = 0 the ground, front +z):
+// a fresh copy with its own materials; material names say how the look shades them ("cloak" -> cloth, "lining")
+const ROLES = { cloak: "cloth", cloth: "cloth", lining: "lining", leather: "wood", metal: "char" };
+export function modelClone(src) {
+  const c = CACHE.get(src); if (!c) throw new Error(`model not preloaded: ${src} (name it in a "...Model" costume key)`);
+  const g = c.scene.clone(true); g.name = `model-${src.split("/").pop()}`;
+  g.traverse((m) => {
+    if (!m.isMesh) return;
+    m.castShadow = m.receiveShadow = true;
+    m.material = m.material.clone(); m.material.side = THREE.DoubleSide;
+    const role = ROLES[(m.material.name || "").toLowerCase()]; if (role) m.material.userData.lookRole = role;
+  });
+  return g;
 }
 
 // one placed copy: scaled to height h, its base on the ground (minus the buried share), turned and tipped
