@@ -1,0 +1,1934 @@
+{
+ "id": "ok-i-lied",
+ "title": "Ok I Lied",
+ "idea": "Jonny's holiday-photo storyboard (1 Nov 2026): one group photo, three lies, one Dragon in a tiny sun hat",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "art",
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "floor": "shadow",
+  "shadow": 0.3,
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/okilied-beach.png",
+   "z": -3.4,
+   "center": [
+    0,
+    1.6
+   ],
+   "height": 9.4,
+   "depth": false,
+   "motion": false,
+   "dust": 0,
+   "swaps": [
+    {
+     "at": 3.6,
+     "src": "assets/plates/okilied-carpark.png"
+    },
+    {
+     "at": 5.2,
+     "src": "assets/plates/okilied-hotel.png"
+    }
+   ]
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "gain": 0.38,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 2,
+    "part": "intro"
+   },
+   {
+    "at": 3.6,
+    "part": "stop"
+   }
+  ],
+  "then": {
+   "file": "ai/sad/sad-02.ogg",
+   "from": 3.6,
+   "gain": 0.3
+  }
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.15,
+  "signature": {
+   "payoff": false
+  },
+  "surface": "concrete"
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea",
+   "wiz"
+  ],
+  "hint": 0,
+  "what": "a perfect holiday group photo, captioned 'our holiday was perfect'"
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -1.04,
+    0.15
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -0.04,
+    -0.52
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "wiz",
+   "character": "sofa/wizard-staff",
+   "at": [
+    0.64,
+    0.15
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rea2",
+   "character": "sofa/reaper-scythe",
+   "at": [
+    3.8,
+    3.8
+   ],
+   "face": 0,
+   "expr": "shocked",
+   "follow": 0.2,
+   "seed": 3.3,
+   "hidden": true,
+   "signature": false
+  },
+  {
+   "id": "dra",
+   "character": "lookdev/dragon-crisp",
+   "at": [
+    0.05,
+    -2.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.1,
+   "scale": 3,
+   "signature": false
+  }
+ ],
+ "props": [
+  {
+   "id": "pc",
+   "kind": "carrier",
+   "x": -1.04,
+   "y": 0.34,
+   "z": 0.15
+  },
+  {
+   "id": "dc",
+   "kind": "carrier",
+   "x": 0.05,
+   "y": -2.9,
+   "z": -2.7
+  },
+  {
+   "id": "scyP",
+   "kind": "parkedscythe",
+   "x": -0.5,
+   "y": 0.62,
+   "z": -0.5,
+   "tip": 0,
+   "rot": 180
+  },
+  {
+   "id": "wet",
+   "kind": "drips",
+   "wear": "phx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "beads": [
+    [
+     -0.2,
+     0.95,
+     0.27
+    ],
+    [
+     0.24,
+     0.82,
+     0.3
+    ],
+    [
+     -0.31,
+     0.62,
+     0.24
+    ],
+    [
+     0.1,
+     1.02,
+     0.25
+    ],
+    [
+     0.33,
+     0.5,
+     0.2
+    ],
+    [
+     -0.06,
+     0.4,
+     0.34
+    ],
+    [
+     0.18,
+     0.66,
+     0.33
+    ],
+    [
+     0.18,
+     0.85,
+     0.27
+    ],
+    [
+     -0.216,
+     0.72,
+     0.3
+    ],
+    [
+     0.279,
+     0.52,
+     0.24
+    ],
+    [
+     -0.09,
+     0.92,
+     0.25
+    ],
+    [
+     -0.297,
+     0.4,
+     0.2
+    ],
+    [
+     0.054,
+     0.3,
+     0.34
+    ],
+    [
+     -0.162,
+     0.56,
+     0.33
+    ]
+   ],
+   "bead": 0.022,
+   "at": [
+    [
+     -0.45,
+     0.42,
+     0.05
+    ],
+    [
+     0.47,
+     0.4,
+     0.05
+    ],
+    [
+     0,
+     0.28,
+     0.3
+    ],
+    [
+     -0.25,
+     0.3,
+     0.22
+    ],
+    [
+     0.28,
+     0.32,
+     0.2
+    ],
+    [
+     -0.62,
+     0.7,
+     -0.05
+    ],
+    [
+     0.64,
+     0.72,
+     -0.05
+    ]
+   ],
+   "drop": 0.018,
+   "floor": 0.4,
+   "on": 0
+  },
+  {
+   "id": "burnL",
+   "kind": "blotch",
+   "wear": "wiz",
+   "x": -0.2,
+   "y": 0.6,
+   "z": 0.31,
+   "rot": -20,
+   "size": 0.18,
+   "color": "#ff2a1e",
+   "alpha": 0.85,
+   "scale": 0
+  },
+  {
+   "id": "burnR",
+   "kind": "blotch",
+   "wear": "wiz",
+   "x": 0.2,
+   "y": 0.6,
+   "z": 0.31,
+   "rot": 20,
+   "size": 0.18,
+   "color": "#ff2a1e",
+   "alpha": 0.85,
+   "scale": 0
+  },
+  {
+   "id": "burnN",
+   "kind": "blotch",
+   "wear": "wiz",
+   "x": 0,
+   "y": 0.66,
+   "z": 0.36,
+   "size": 0.1,
+   "color": "#ff2a1e",
+   "alpha": 0.75,
+   "scale": 0
+  },
+  {
+   "id": "sand",
+   "kind": "sandpit",
+   "x": 0,
+   "y": 0,
+   "z": -0.05,
+   "w": 2.9,
+   "d": 1.15,
+   "h": 0.07,
+   "color": "#c8a66c",
+   "color2": "#b8955c",
+   "scale": 0
+  },
+  {
+   "id": "rain",
+   "kind": "rainfall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -2.6,
+     0,
+     -2
+    ],
+    [
+     2.6,
+     3.4,
+     2.2
+    ]
+   ],
+   "n": 500,
+   "on": 0
+  },
+  {
+   "id": "soot-phx-0",
+   "kind": "soot",
+   "wear": "phx",
+   "x": -0.18,
+   "y": 0.78,
+   "z": 0.33,
+   "size": 0.16,
+   "scale": 0
+  },
+  {
+   "id": "soot-phx-1",
+   "kind": "soot",
+   "wear": "phx",
+   "x": 0.26,
+   "y": 0.55,
+   "z": 0.31,
+   "size": 0.13,
+   "scale": 0
+  },
+  {
+   "id": "soot-phx-2",
+   "kind": "soot",
+   "wear": "phx",
+   "x": 0.08,
+   "y": 1,
+   "z": 0.24,
+   "size": 0.11,
+   "scale": 0
+  },
+  {
+   "id": "soot-phx-3",
+   "kind": "soot",
+   "wear": "phx",
+   "x": 0.3,
+   "y": 0.86,
+   "z": 0.26,
+   "size": 0.1,
+   "scale": 0
+  },
+  {
+   "id": "soot-rea-0",
+   "kind": "soot",
+   "wear": "rea",
+   "x": 0.18,
+   "y": 0.86,
+   "z": 0.3,
+   "size": 0.19,
+   "scale": 0
+  },
+  {
+   "id": "soot-rea-1",
+   "kind": "soot",
+   "wear": "rea",
+   "x": -0.22,
+   "y": 0.5,
+   "z": 0.31,
+   "size": 0.16,
+   "scale": 0
+  },
+  {
+   "id": "soot-rea-2",
+   "kind": "soot",
+   "wear": "rea",
+   "x": -0.15,
+   "y": 0.95,
+   "z": 0.27,
+   "size": 0.12,
+   "scale": 0
+  },
+  {
+   "id": "soot-wiz-0",
+   "kind": "soot",
+   "wear": "wiz",
+   "x": 0.22,
+   "y": 0.48,
+   "z": 0.3,
+   "size": 0.16,
+   "scale": 0
+  },
+  {
+   "id": "soot-wiz-1",
+   "kind": "soot",
+   "wear": "wiz",
+   "x": -0.25,
+   "y": 0.78,
+   "z": 0.3,
+   "size": 0.14,
+   "scale": 0
+  },
+  {
+   "id": "soot-wiz-2",
+   "kind": "soot",
+   "wear": "wiz",
+   "x": 0.05,
+   "y": 0.36,
+   "z": 0.34,
+   "size": 0.11,
+   "scale": 0
+  },
+  {
+   "id": "soot-wiz-3",
+   "kind": "soot",
+   "wear": "wiz",
+   "x": 0.27,
+   "y": 0.82,
+   "z": 0.28,
+   "size": 0.1,
+   "scale": 0
+  },
+  {
+   "id": "hatsmoke",
+   "kind": "smokewisp",
+   "wear": "wiz",
+   "wearTurn": false,
+   "x": 0.02,
+   "y": 1.62,
+   "z": -0.05,
+   "h": 0.6,
+   "size": 0.12,
+   "on": 0
+  },
+  {
+   "id": "embers",
+   "kind": "embers",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -2.4,
+     0.2,
+     -2.6
+    ],
+    [
+     2.4,
+     3.2,
+     1
+    ]
+   ],
+   "n": 60,
+   "on": 0
+  },
+  {
+   "id": "hat",
+   "kind": "sunhat",
+   "wear": "dra",
+   "x": 0.04,
+   "y": 1.27,
+   "z": 0.04,
+   "tilt": -8,
+   "tip": 14,
+   "r": 0.3
+  },
+  {
+   "id": "plume",
+   "kind": "fireplume",
+   "x": -0.15,
+   "y": 1.9,
+   "z": -1.6,
+   "rot": 70,
+   "tip": -48,
+   "length": 3.6,
+   "width": 0.75,
+   "balls": 34
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2,
+   "text": "our holiday was perfect",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3.6,
+   "text": "ok i lied\nwe weren't smiling",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3.6,
+   "to": 5.2,
+   "text": "ok i lied\nwe weren't at the beach",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.2,
+   "to": 7,
+   "text": "ok i lied\nthat's not our hotel",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 10,
+   "text": "i'm so sorry",
+   "pos": 250,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "1 perfect",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.14,
+     1,
+     5.2
+    ],
+    "look": [
+     -0.14,
+     1.28,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.14,
+      1,
+      5.08
+     ],
+     "look": [
+      -0.14,
+      1.28,
+      0
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 7.6,
+     "idle": 0,
+     "sink": 0,
+     "fade": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 7.6,
+     "idle": 0,
+     "sink": 0,
+     "fade": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 7.6,
+     "idle": 0,
+     "sink": 0,
+     "fade": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "ride",
+     "prop": "dc",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "ride",
+     "prop": "pc",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.17,
+       0.36,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.11,
+       0.25,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.11,
+       0.21,
+       0.37
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.7,
+      "eye": 1.12,
+      "curve": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "dur": 7.6,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.45,
+      "curve": 1,
+      "eye": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "dur": 7.6,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.5,
+      "curve": 1,
+      "eye": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "dur": 7.6,
+     "at": 0
+    },
+    {
+     "fx": "flash",
+     "dur": 0.25,
+     "peak": 0.55,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.5,
+     "reason": "the camera fires on the group photo (frame 0)",
+     "at": 0
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 not smiling",
+   "at": 2,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.14,
+     1,
+     5.2
+    ],
+    "look": [
+     -0.14,
+     1.28,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.11,
+      1,
+      5.08
+     ],
+     "look": [
+      -0.11,
+      1.28,
+      0
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "fx": "flash",
+     "dur": 0.22,
+     "peak": 0.5,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.7,
+     "reason": "the next photo: the camera fires on the cut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.85,
+      "curve": -0.45,
+      "open": 0.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.75,
+      "curve": -0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.8,
+      "curve": -0.45,
+      "open": 0.03
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.42,
+     "brow": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wet",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "burnL",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "burnR",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "burnN",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "3 not the beach",
+   "at": 3.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.14,
+     1,
+     5.2
+    ],
+    "look": [
+     -0.14,
+     1.28,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.17,
+      1,
+      5.08
+     ],
+     "look": [
+      -0.17,
+      1.28,
+      0
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "fx": "flash",
+     "dur": 0.22,
+     "peak": 0.5,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.7,
+     "reason": "the next photo: the camera fires on the cut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sand",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "fx": "lights",
+     "to": 0.72,
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "4 not our hotel",
+   "at": 5.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -0.14,
+     1,
+     5.2
+    ],
+    "look": [
+     -0.14,
+     1.28,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.11,
+      1,
+      5.08
+     ],
+     "look": [
+      -0.11,
+      1.28,
+      0
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "fx": "flash",
+     "dur": 0.22,
+     "peak": 0.5,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.7,
+     "reason": "the next photo: the camera fires on the cut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sand",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatsmoke",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-phx-0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-phx-1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-phx-2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-phx-3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea-0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea-1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-rea-2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-wiz-0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-wiz-1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-wiz-2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "soot-wiz-3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "fx": "lights",
+     "to": 0.9,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 0.25,
+     "reason": "the hotel's fire roars behind them",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "5 sorry",
+   "at": 7,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.14,
+     1,
+     5.2
+    ],
+    "look": [
+     -0.14,
+     1.28,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.1,
+      1.05,
+      5.1
+     ],
+     "look": [
+      -0.1,
+      1.45,
+      0
+     ]
+    },
+    "dur": 0.6,
+    "ease": "out"
+   },
+   "do": [
+    {
+     "fx": "flash",
+     "dur": 0.22,
+     "peak": 0.5,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.7,
+     "reason": "the next photo: the camera fires on the cut",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dc",
+     "set": {
+      "y": 0.5
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.25,
+      "curve": 0.2,
+      "open": 0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      -0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/dundun",
+     "gain": 0.8,
+     "reason": "dö-döm: the huge Dragon head rises into the photo",
+     "at": 0.08
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "6 look behind",
+   "at": 7.6,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.05,
+     5.1
+    ],
+    "look": [
+     -0.1,
+     1.45,
+     -0.5
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "move",
+     "to": [
+      -0.04,
+      -0.52
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "scyP",
+     "set": {
+      "y": -5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pc",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.75,
+      "curve": -0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea2",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "eye": 0.1,
+      "open": 0.6,
+      "curve": -0.4,
+      "pucker": 0
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "lid": 0.3,
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": -12,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.15,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.6,
+      0.9
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.3,
+     "at": 0.16
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.9
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "sfx": "land",
+     "gain": 0.4,
+     "reason": "Phoenix's feet hit the wet street",
+     "at": 0.18
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.3,
+      "curve": -0.5
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.9
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.6,
+     "reason": "ah... (Dragon's sneeze builds, eyes squeezed)",
+     "at": 0.2
+    },
+    {
+     "who": "rea2",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.3,
+     "at": 0.22
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.3,
+      "curve": -0.5
+     },
+     "dur": 0.25,
+     "at": 0.26
+    },
+    {
+     "who": "rea2",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.26
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.3,
+     "at": 0.26
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.3,
+      "curve": -0.5
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "sfx": "blow",
+     "gain": 0.6,
+     "dur": 0.3,
+     "reason": "CHOO: Dragon's sneeze",
+     "at": 0.68
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "7 sneeze",
+   "at": 8.3,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -0.08,
+     0.85,
+     5
+    ],
+    "look": [
+     -0.08,
+     1.35,
+     0
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      0,
+      0.82,
+      4.6
+     ]
+    },
+    "dur": 0.7,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "eye": 0.1,
+      "open": 0.7,
+      "pucker": 0
+     },
+     "dur": 0.06,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.55,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 1.4,
+     "reason": "fwoosh: the fireball rolls over their heads across the background",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amount": 0.5,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "rea2",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.2,
+     "at": 0.09
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.75,
+      "eye": 1.35,
+      "curve": -0.6
+     },
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "rea2",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "rea2",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "at": 0.16
+    },
+    {
+     "who": "rea2",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.75,
+      "eye": 1.35,
+      "curve": -0.6
+     },
+     "dur": 0.15,
+     "at": 0.16
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "at": 0.19
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.75,
+      "eye": 1.35,
+      "curve": -0.6
+     },
+     "dur": 0.15,
+     "at": 0.19
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.82,
+      1.2
+     ],
+     "dur": 1.4,
+     "stride": 2.1,
+     "bob": 0.05,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "rea2",
+     "do": "move",
+     "to": [
+      0.12,
+      0.45
+     ],
+     "dur": 1.36,
+     "stride": 2.1,
+     "bob": 0.05,
+     "at": 0.29
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0.7,
+      1.2
+     ],
+     "dur": 1.33,
+     "stride": 2.1,
+     "bob": 0.05,
+     "at": 0.32
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "8 run",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.04,
+     0.8,
+     4
+    ],
+    "look": [
+     -0.04,
+     1.15,
+     1
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      -0.04,
+      0.8,
+      4.35
+     ]
+    },
+    "dur": 1,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "fx": "speedlines",
+     "dur": 1,
+     "at": 0
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.9,
+     "reason": "they race past the lens",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "fade": 0.6
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "scyP",
+   "from": 0,
+   "to": 7.6,
+   "reason": "Reaper's scythe stands planted beside him in the photo"
+  },
+  {
+   "who": "phx",
+   "with": "wet",
+   "from": 0,
+   "to": 10,
+   "reason": "water beads on Phoenix's skin"
+  }
+ ],
+ "notes": "Generated by storyboards/trend/ok-i-lied/make-ok-i-lied.mjs."
+}
