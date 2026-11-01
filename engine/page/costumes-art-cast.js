@@ -5,6 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
+import { modelClone } from "./assets-gltf.js";
 import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
@@ -301,5 +302,29 @@ export function phoenixCrest(ch) {
 
 // Reaper (round 2, Jonny 21:34): the Sorcerer's hood and bell cloak in his charcoal, a pewter clasp, a dark grey border
 export function reaperArt(C, ch) {
-  hoodedCloak(ch, { accent: C.accent || "#34313a", robe: [0.6, 0.58, 0.64], lining: "#16141b", trim: "#55505c", cord: "#2a272f", clasp: "#9aa0a8", edge: "#46424d", tip: 0.55 });
+  const P = { accent: C.accent || "#34313a", robe: [0.6, 0.58, 0.64], lining: "#16141b", trim: "#55505c", cord: "#2a272f", clasp: "#9aa0a8", edge: "#46424d", tip: 0.55 };
+  if (C.cloakModel) return modelCloak(ch, C.cloakModel, P);
+  hoodedCloak(ch, P);
+}
+// costume.cloakModel (1 Nov, asset pipeline thread): the hood and cloak as one cloth draped over the body in Blender
+// (tools/blender/reaper-cloak.py), in the body's own space so it squashes with it. The model has no cord or clasp:
+// they go on here, laid on the cloth's outside (found by casting from the body outwards onto the model), so the cord
+// sits on the cloak instead of sinking under it.
+function modelCloak(ch, src, P) {
+  const model = modelClone(src, { colors: { cloak: P.accent, lining: P.lining, trim: P.trim } });
+  model.updateMatrixWorld(true);
+  ch.bodyGroup.add(model);
+  const meshes = []; model.traverse((o) => { if (o.isMesh) meshes.push(o); });
+  const ray = new THREE.Raycaster(), onCloth = (th, ph, gap) => {
+    const s = ch.surf(th, ph); ray.set(s.pos, s.normal); ray.far = 0.4;
+    const hits = ray.intersectObjects(meshes, false), d = hits.length ? hits[hits.length - 1].distance : 0.014;
+    return { pos: s.pos.clone().addScaledVector(s.normal, d + gap), normal: s.normal };
+  };
+  const pts = []; for (let i = 0; i <= 24; i++) pts.push(onCloth(-0.62 + 1.24 * (i / 24), -0.42, 0.008).pos);
+  ch.potatoParts.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.01, 6), leatherMat(P.cord)));
+  const c = onCloth(0, -0.42, 0.012), clasp = new THREE.Group(), m = metalMat(P.clasp, 0.35);
+  clasp.add(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.016, 28), m));
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.046, 0.008, 8, 28), m); rim.rotation.x = Math.PI / 2; rim.position.y = 0.008; clasp.add(rim);
+  clasp.position.copy(c.pos); clasp.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), c.normal);
+  ch.potatoParts.add(clasp);
 }
