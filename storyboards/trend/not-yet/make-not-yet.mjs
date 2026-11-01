@@ -24,7 +24,10 @@
 //   8 7.5-9.0 WAITING: both face the plain glowing TV; Reaper's controller rests in his lap, he pats the Wizard's knee
 //             once
 //
-// Departures (each with its reason; the brief wins everywhere else):
+// v2 (Jonny 1 Nov: "match the style and love to the detail and the epic scene of the 8 panels"): every shot copies a
+// panel (PANELS.md, check with qa/panels.mjs): the evening room (set.dusk, grade warm, lamp glows), wreckage that stays,
+// a bigger shield with a crack network, the TV opposite the sofa so the ending faces it, closer framing.
+// Departures (each with its reason; the brief wins everywhere else; panel departures in PANELS.md):
 // - The Wizard's staff rests against the wall beside the corner, not against the sofa: in this room the corner with
 //   the calendar is across the room from the sofa, and he needs his hand free right there.
 // - The calendar is ripped off the wall at the end of beat 4 (on screen) and held up from the cut to beat 5.
@@ -60,8 +63,9 @@ const DOOR = { x: -3.0, w: 0.95, h: 1.75 };
 const LAMP = [-2.05, r3(WZ + 0.2)], SHELF = [-2.05, 1.52];
 const CAL_WALL = [3.3, 0.7];                                   // the calendar on the wall right of the bookcase (x, bottom y)
 const TABLE = { x: 0.35, z: 0.2, w: 0.9, d: 0.38, h: 0.34 };
-const TV = [1.55, 1.9];
-const SHIELD = [-0.85, 0.62, -0.62];
+const TV = [1.3, 1.5];                                         // opposite the sofa (panels 7-8: they face it, it faces them)
+const SHIELD = [-0.85, 0.66, -0.62];
+const FLOORLAMP = [-1.05, r3(WZ + 0.28)];                         // the lamp that stays lit (panels 5-8: warm light behind them)
 const REA_STRIKE = [-1.65, -0.45], WIZ_LAND = [1.95, -0.3];
 const WIZ_CORNER = [3.25, -1.2], REA_CORNER = [2.15, -0.95];
 const OFF = [[-3.6, 3.6], [3.6, 3.6]];                          // where a hidden twin waits (out of every shot, apart)
@@ -79,7 +83,11 @@ const PAD_W = { id: "padW", kind: "gamepad", color: "#f1f2f4", x: 0.62, y: TABLE
 const props = [
   { id: "sofaL", kind: "sofahalf", side: "L", x: L0[0], z: L0[1], scale: S, color: "#3d4f8e", color2: "#5167ab", color3: "#2c3a6b" },
   { id: "sofaR", kind: "sofahalf", side: "R", x: R0[0], z: R0[1], scale: S, color: "#3d4f8e", color2: "#5167ab", color3: "#2c3a6b" },
-  { id: "tufts", kind: "stuffing", x: SX, y: 0, z: SZ, at: [[-0.95, 0.88, 0.1], [0.42, 0.62, 0.36], [1.02, 1.08, -0.38], [-0.3, 1.12, -0.42]] },
+  { id: "tufts", kind: "stuffing", x: SX, y: 0, z: SZ, at: [[-0.95, 0.88, 0.1], [0.42, 0.62, 0.36], [1.02, 1.08, -0.38], [-0.3, 1.12, -0.42], [-1.2, 0.7, 0.3], [0.05, 0.6, 0.42], [1.25, 0.82, 0.05], [-0.65, 1.15, -0.4], [0.7, 1.14, -0.42]] },
+  // the wreckage: the door's splinters from the first frame; stuffing on the floor once the sofa tears
+  { id: "doorjunk", kind: "debris", x: 0, y: 0, z: 0, seed: 7, items: [[-2.75, -1.1, "plank", 30, 1.1], [-2.3, -0.6, "plank", -65, 0.8], [-1.95, -1.3, "chip", 0, 1.2], [-2.6, -0.3, "chip", 0, 1], [-2.15, 0.05, "plank", 12, 0.7], [-3.2, -0.7, "plaster", 0, 1.3], [-1.75, -0.2, "chip", 0, 0.8], [-2.9, -1.4, "plaster", 0, 1]] },
+  { id: "floorfluff", kind: "debris", x: 0, y: 0, z: 0, seed: 11, puff: 0, items: [[SX - 0.9, -0.4, "tuft", 0, 1.2], [SX + 0.5, -0.45, "tuft", 0, 0.9], [SX + 1.45, -0.3, "tuft", 0, 1.1], [SX - 0.1, 0.55, "tuft", 0, 0.8], [SX + 1.1, 0.75, "tuft", 0, 1]] },
+  { id: "floorlamp", kind: "floorlamp", x: FLOORLAMP[0], z: FLOORLAMP[1] },
   { id: "table", kind: "coffeetable", x: TABLE.x, z: TABLE.z, w: TABLE.w, d: TABLE.d, h: TABLE.h, color: "#9a6a3e" },
   PAD_K, PAD_W,
   { id: "doorway", kind: "doorway", x: DOOR.x, z: r3(WZ + 0.005), w: DOOR.w, h: DOOR.h },
@@ -87,8 +95,8 @@ const props = [
   { id: "lamp", kind: "sidelamp", x: LAMP[0], z: LAMP[1] },
   { id: "shelf", kind: "wallshelf", x: SHELF[0], y: SHELF[1], z: r3(WZ + 0.005) },
   { id: "cal", kind: "wallcalendar", x: CAL_WALL[0], y: CAL_WALL[1], z: r3(WZ + 0.01), rot: 180, scale: 1.25 },
-  { id: "tv", kind: "flattv", x: TV[0], z: TV[1], rot: -70, w: 0.75, glow: 1 },
-  { id: "shield", kind: "magicshield", x: SHIELD[0], y: SHIELD[1], z: SHIELD[2], rot: -73, r: 0.48 },
+  { id: "tv", kind: "flattv", x: TV[0], z: TV[1], rot: 215, w: 0.8, glow: 1 },
+  { id: "shield", kind: "magicshield", x: SHIELD[0], y: SHIELD[1], z: SHIELD[2], rot: -60, r: 0.62 },
   // the bolts fly from the staff's gem (the Wizard at WIZ_LAND facing left) to the lamp and to the shelf
   { id: "bolt1", kind: "spellbolt", x: 0, y: 0, z: 0, from: [1.65, 1.0, -0.25], to: [LAMP[0], 0.85, LAMP[1]] },
   { id: "bolt2", kind: "spellbolt", x: 0, y: 0, z: 0, from: [1.65, 1.0, -0.25], to: [SHELF[0] + 0.15, SHELF[1] + 0.05, r3(WZ + 0.12)] },
@@ -180,7 +188,7 @@ A(DIVE, "wiz", "pitch", { to: 35, dur: 0.12 }); A(r3(DIVE + 0.15), "wiz", "pitch
 A(DIVE, "wiz", "expr", { expr: "shocked", set: { open: 0.7, eye: 1.4, curve: -0.6 }, dur: 0.08 });
 A(r3(DIVE + 0.02), "wiz", "talk", { line: "waaah", tone: "excited", dur: 0.3, voice: false });
 sfx(DIVE, "whoosh", { gain: 0.4, reason: "the Wizard dives over the sofa" });
-c.prop(DIVE, "tufts", { puff: 1 }, 0.12, "out");
+c.prop(DIVE, "tufts", { puff: 1 }, 0.12, "out"); c.prop(r3(DIVE + 0.1), "floorfluff", { puff: 1 }, 0.25, "out");
 c.at(r3(DIVE + 0.04), { fx: "poof", pos: [SX + 0.3, 0.75, SZ + 0.2], dur: 0.5, color: "#f6f1e6", puffs: 6, sparks: 0, size: 0.25, lift: 0.08 });
 A(r3(LAND + 0.01), "wiz", "ride", {});
 A(LAND, "wiz", "squash", { amount: 0.18, dur: 0.2 });
@@ -299,7 +307,6 @@ let t7 = padK.take(6.08, { reach: 0.28, settle: 0.16 });
 sfx(r3(t7 - 0.05), "grab", { gain: 0.35 });
 const PADK_LAP = [r3(REA_SIT[0] + 0.02), 0.64, r3(REA_SIT[2] + 0.44)];
 padK.carry(r3(t7 + 0.02), [-0.5, 0.66, 0.52], 0.2, "inOut", { rot: 200 });
-A(r3(t7 + 0.1), "rea2", "turn", { to: 0, dur: 0.25 });
 A(r3(t7 + 0.2), "rea2", "ride", { prop: "sofaL", off: SEAT(-0.06), sit: true, yaw: 0, dur: 0.4 });
 padK.carry(r3(t7 + 0.22), PADK_LAP, 0.42, "inOut", { rot: 180 });
 sfx(r3(t7 + 0.55), "sit", { gain: 0.5, reason: "the sofa creaks as Reaper sits down" });
@@ -309,9 +316,9 @@ A(r3(t7 + 0.75), "rea2", "expr", { expr: "happy", set: { eye: 0.7, curve: 0.45 }
 A(r3(t7 + 0.75), "wiz2", "expr", { expr: "delighted", set: { eye: 0.7 }, dur: 0.25 });
 
 // ---------------------------------------------------------------- 8 WAITING (7.5-8.9): two friends facing the TV
-const B8 = 7.5, TVLOOK = [1.0, -0.3];
-A(B8, "wiz2", "turn", { to: 18, dur: 0.3 }); A(r3(B8 + 0.05), "rea2", "turn", { to: 15, dur: 0.3 });
-A(B8, "wiz2", "look", { to: TVLOOK, dur: 0.15, blink: false }); A(B8, "rea2", "look", { to: TVLOOK, dur: 0.15, blink: false });
+const B8 = 7.5, TVLOOK = [0.12, -0.2], TVLOOK_R = [0.35, -0.2];   // the TV stands in front of the sofa, a little right
+A(B8, "wiz2", "turn", { to: 3, dur: 0.3 });   // Reaper keeps the sofa's heading (his ride); his eyes find the TV
+A(B8, "wiz2", "look", { to: TVLOOK, dur: 0.15, blink: false }); A(B8, "rea2", "look", { to: TVLOOK_R, dur: 0.15, blink: false });
 A(r3(B8 + 0.05), "wiz2", "expr", { expr: "happy", set: { eye: 0.85, curve: 0.45 }, dur: 0.3 });
 A(r3(B8 + 0.05), "rea2", "expr", { expr: "kind", set: { curve: 0.4, eye: 1.0 }, dur: 0.3 }); A(r3(B8 + 0.05), "rea2", "face", { lid: 0.3, dur: 0.3 });
 // the controller rests in his lap under his right hand; the left gives the Wizard's near knee one pat
@@ -333,15 +340,17 @@ A(8.2, "rea2", "still", { dur: 0.65, idle: 0.08 }); A(8.65, "wiz2", "still", { d
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?]
 const beats = c.beats([
-  ["1 he's here", 0, { pos: [-1.6, 1.15, 3.4], look: [-2.0, 0.75, -1.0], fov: 66, to: { pos: [-1.35, 1.13, 3.1], look: [-1.3, 0.72, -0.9], fov: 60 }, dur: 1.0, ease: "out" }, "hook"],
-  ["2 just in time", HIT1, { pos: [0.9, 0.95, 0.3], look: [-1.7, 0.85, -0.6], fov: 50 }],
-  ["3 crack", 2.0, { pos: [0.55, 1.1, 2.35], look: [-0.9, 0.78, -0.7], fov: 46 }, "escalation"],
-  ["4a dive", DIVE, { pos: [0.0, 1.7, 4.6], look: [0.0, 0.6, -0.9], fov: 74 }],
+  // each shot copies one of Jonny's panels (storyboards/trend/not-yet/PANELS.md): its camera side, shot size and who is where
+  ["1 he's here", 0, { pos: [-1.35, 1.2, 2.9], look: [-1.6, 0.8, -0.9], fov: 66, to: { pos: [-1.1, 1.15, 2.6], look: [-1.0, 0.78, -0.8], fov: 62 }, dur: 1.0, ease: "out" }, "hook"],
+  ["2 just in time", HIT1, { pos: [-0.3, 1.05, 2.1], look: [-1.05, 0.8, -0.6], fov: 56 }],
+  ["3 crack", 2.0, { pos: [-0.75, 1.1, 2.1], look: [-0.75, 0.95, -0.65], fov: 54 }, "escalation"],
+  ["4a dive", DIVE, { pos: [3.9, 1.25, 1.2], look: [-1.6, 0.8, -1.2], fov: 54 }],
+  ["4a bolts", 3.07, { pos: [-0.85, 1.85, 3.2], look: [-1.9, 0.95, -1.5], fov: 52 }],
   ["4b corner", 3.5, { pos: [2.3, 1.2, 3.0], look: [2.55, 0.78, -1.0], fov: 58 }],
-  ["5 the calendar", CUT5, { pos: [2.62, 1.05, 1.75], look: [2.72, 0.86, -1.0], fov: 54, to: { pos: [2.62, 1.03, 1.55] }, dur: 1.5, ease: "inOut" }, "payoff"],
+  ["5 the calendar", CUT5, { pos: [2.5, 1.0, 1.0], look: [2.62, 0.86, -1.05], fov: 50, to: { pos: [2.5, 1.0, 0.85] }, dur: 1.5, ease: "inOut" }, "payoff"],
   ["6 understood", 5.5, { pos: [2.55, 1.1, 2.4], look: [2.7, 0.72, -1.0], fov: 52 }, "reaction"],
-  ["7 second player", CUT7, { pos: [0.95, 1.3, 3.4], look: [0.2, 0.62, -0.6], fov: 54 }],
-  ["8 waiting", B8, { pos: [0.8, 1.15, 3.9], look: [1.25, 0.65, -0.8], fov: 64, to: { pos: [0.8, 1.13, 3.75] }, dur: 1.4, ease: "linear" }],
+  ["7 second player", CUT7, { pos: [0.15, 1.1, 1.9], look: [0.15, 0.8, -1.0], fov: 62 }],
+  ["8 waiting", B8, { pos: [0.3, 1.08, 2.6], look: [0.3, 0.76, -1.0], fov: 64, to: { pos: [0.3, 1.07, 2.45] }, dur: 1.4, ease: "linear" }],
 ], END);
 
 // contact a beat needs, with its reason; the checks read these windows on the video's clock (after the hit-stop)
@@ -359,6 +368,8 @@ const ALLOW = [
   { who: "rea2", with: "table", from: 6.35, to: 6.85, reason: "his fingers slide under the controller's grips on the table top" },
   { who: "rea2", with: "padK", from: 6.08, to: END, reason: "Reaper takes the controller, then rests it in his lap under his hand" },
   { who: "rea2", with: "sofaL", from: 6.3, to: END, reason: "Reaper sits on the sofa" },
+  { who: "rea2", with: "tufts", from: 6.3, to: END, reason: "Reaper leans back into the torn cushion, the stuffing poking out round him" },
+  { who: "wiz2", with: "tufts", from: CUT7, to: END, reason: "the Wizard sits against the torn cushion, the stuffing poking out round him" },
   { who: "rea2", with: "wiz2", from: 7.75, to: 8.5, reason: "Reaper pats the Wizard's knee once" },
 ].map((w) => ({ ...w, from: rt(w.from), to: rt(w.to) }));
 
@@ -369,7 +380,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   castLook: "art",
   ...{ motion: "natural" },
-  set: { type: "apartment", light: "golden", aperture: FOCUS ? 0.045 : 0 },
+  set: { type: "apartment", dusk: true, light: "golden", grade: "warm", aperture: FOCUS ? 0.045 : 0 },   // panels: evening, warm lamps
   music: { style: "chip", gain: 0.55, parts: [{ at: 0, part: "main" }, { at: CUT5, part: "stop" }],
     then: { file: "ai/elevator-bossa/elevator-bossa-01.ogg", from: 4.45, gain: 0.3 } },
   sound: { sfx: 0.7, ambience: 0.2, signature: { payoff: false }, surface: "wood" },

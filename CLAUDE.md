@@ -153,6 +153,20 @@ When Jonny wrote a brief (his story library's ENGINE-PROMPT.md), follow its shot
 rules literally; a theft reads only if the thing starts where the brief puts it (Charger). Departures go in the
 delivery with a reason.
 
+**When Jonny sends storyboard panels or images, they are the target, not just the beats** (Not Yet, 1 Nov 2026: the
+panels were read only for their beats, and the ending looked the wrong way; "I create these images with purpose, not
+to be ignored"). Even when a brief calls them "a staging reference":
+1. Before the layout, write `PANELS.md` next to the generator. It has one row per panel: the camera side and shot size,
+   who is where and what they face, the light and colours, and the details (wreckage, props, glow). Build the set so
+   that every panel's camera works.
+2. Copy the look as well as the staging: the room's colours and time of day, the lighting, and the amount of detail and
+   wreckage.
+3. Before any full render, check the draft against the panels:
+   `node qa/panels.mjs out/<id>-draft.mp4 --panels <board.png> --grid 2x4 --at <one time per panel>`. Look at it, and
+   give it to creative review A, telling the review that the panels are the target.
+4. A departure, such as a vertical frame that can't hold a landscape composition, goes in PANELS.md and in the
+   delivery, with its reason.
+
 Start every new clip from **`storyboards/templates/clip-template.mjs`** (copy it, fill the four brief lines, keep
 the order of work). It uses the shared builder `storyboards/lib/clip.mjs` and the acting loops in
 `storyboards/lib/acting.mjs`; don't copy helpers or performances out of older generators. When the same group of

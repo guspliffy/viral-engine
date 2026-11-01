@@ -26,6 +26,10 @@ import { staff } from "./costumes.js";
 //                (offsets from the prop's position). rise 0..1 is the flight (tween it linearly); hidden at 0 and 1.
 //   flattv       a low TV bench with a flat screen showing only a plain blue-white glow (no picture). glow 0..1.
 //   stuffing     a few white tufts of sofa stuffing poking out (spec.at: [[x, y, z], ...] offsets). puff 0..1 grows them.
+//   floorlamp    a tall standing lamp, lit: a warm shade and a soft painted glow round it (the toon look ignores point
+//                lights, so the warm pool is a sprite). spec.glow 0..1 (default 1).
+//   debris       wreckage lying on the floor (spec.items: [[x, z, type, rotDeg, size]], type plank | chip | tuft |
+//                plaster | shard); puff 0..1 shows it (default spec.puff ?? 1), so it can appear on the frame it lands.
 //   parkedscythe Reaper's costume scythe as a loose prop (his own is left home: noProp). Origin: where his fist holds it.
 //   parkedstaff  the Wizard's costume staff as a loose prop. Origin: where his fist holds it.
 export const CALENDAR = { w: 0.26, h: 0.34, t: 0.008 };
@@ -35,6 +39,12 @@ const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness
 const glowM = (o) => { const m = new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, ...o }); m.userData.noOutline = true; m.userData.outlineParameters = { visible: false }; return m; };
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 function canvasTex(w, h, draw) { const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }
+// a soft painted glow (additive sprite): lamps and screens read as lit in the toon look, which ignores point lights
+function halo(parent, color, size, opacity, x = 0, y = 0, z = 0) {
+  const c = new THREE.Color(color), rgb = `${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)}`;
+  const m = glowM({ map: radialTexture([[0, `rgba(${rgb},1)`], [0.35, `rgba(${rgb},0.45)`], [1, `rgba(${rgb},0)`]]), opacity });
+  const sp = new THREE.Sprite(m); sp.scale.setScalar(size); sp.position.set(x, y, z); sp.renderOrder = 4; parent.add(sp); return sp;
+}
 const smooth = (x) => { const k = clamp(x); return k * k * (3 - 2 * k); };
 
 export const NOTYET_KINDS = {
@@ -53,11 +63,17 @@ export const NOTYET_KINDS = {
       }
     });
     const crackT = canvasTex(256, 256, (g, w, h) => {
-      // one jagged crack from the upper left across to the lower right, with two short branches
-      const pts = [[70, 52]]; for (let i = 1; i <= 8; i++) pts.push([70 + i * 16 + (rnd() - 0.5) * 18, 52 + i * 19 + (rnd() - 0.5) * 14]);
-      for (const [lw, col] of [[9, "rgba(150,210,255,0.5)"], [3.5, "rgba(255,255,255,1)"]]) {
-        g.strokeStyle = col; g.lineWidth = lw; g.lineJoin = "miter"; g.beginPath(); pts.forEach(([x, y], i) => g[i ? "lineTo" : "moveTo"](x, y)); g.stroke();
-        for (const [k, dx, dy] of [[3, 34, -10], [6, -30, 18]]) { g.beginPath(); g.moveTo(...pts[k]); g.lineTo(pts[k][0] + dx * 0.6, pts[k][1] + dy * 0.6 + 6); g.lineTo(pts[k][0] + dx, pts[k][1] + dy); g.stroke(); }
+      // a crack network from the hit point (upper left): a main crack to the lower right, branches off it and a small
+      // web round the hit, drawn as a soft blue glow under a white core (spec.web false: just the main crack)
+      const walk = (x, y, ang, n, step) => { const p = [[x, y]]; for (let i = 0; i < n; i++) { ang += (rnd() - 0.5) * 0.7; x += Math.cos(ang) * step; y += Math.sin(ang) * step; p.push([x, y]); } return p; };
+      const main = walk(70, 52, 0.85, 9, 21), lines = [main];
+      if (P.spec.web !== false) {
+        for (const k of [2, 4, 6, 7]) lines.push(walk(...main[k], 0.85 + (rnd() < 0.5 ? -1 : 1) * (0.7 + rnd() * 0.5), 3 + Math.floor(rnd() * 3), 16));
+        for (let i = 0; i < 6; i++) lines.push(walk(70, 52, (i / 6) * Math.PI * 2 + rnd() * 0.5, 2, 14));
+      }
+      for (const [lw, col] of [[10, "rgba(150,210,255,0.55)"], [3.5, "rgba(255,255,255,1)"]]) {
+        g.strokeStyle = col; g.lineJoin = "miter";
+        lines.forEach((p, j) => { g.lineWidth = j ? lw * 0.7 : lw; g.beginPath(); p.forEach(([x, y], i) => g[i ? "lineTo" : "moveTo"](x, y)); g.stroke(); });
       }
     });
     const geo = new THREE.CircleGeometry(R, 48); geo.scale(0.72, 1, 1);
@@ -132,6 +148,7 @@ export const NOTYET_KINDS = {
     const shadeM = mat("#fff0cf", { side: THREE.DoubleSide, emissive: new THREE.Color("#ffb85a"), emissiveIntensity: 0.6 });
     const shade = mesh(new THREE.CylinderGeometry(0.1, 0.16, 0.18, 24, 1, true), shadeM, P.whole, 0, 0, 0);
     const light = new THREE.PointLight("#ffc77a", 0, 3.5, 1.6); P.whole.add(light);
+    const glow = halo(P.whole, "#ffb860", 1.3, 0.55, 0, CH + 0.4, 0.05);
     const rnd = rng(17), shards = Array.from({ length: 6 }, () => { const m = mesh(new THREE.TetrahedronGeometry(0.018 + rnd() * 0.015, 0), mat("#5f8fa8", { roughness: 0.35 }), P.whole); return { m, x: -0.15 - rnd() * 0.45, z: (rnd() - 0.4) * 0.5, r: rnd() * 6 }; });
     return {
       grip: CH,
@@ -141,6 +158,7 @@ export const NOTYET_KINDS = {
         lamp.position.set(-0.22 * k - 0.1 * fall, CH * (1 - fall) + 0.07 * fall, 0.04 * k); lamp.rotation.z = k * 1.45;
         shade.position.set(-0.55 * k, CH + 0.37 - (CH + 0.27) * fall + 0.2 * Math.sin(Math.PI * k), 0.15 * k); shade.rotation.set(0.6 * k, 0, 2.2 * k);
         const on = s < 0.04; shadeM.emissiveIntensity = on ? 0.6 : 0.05; light.intensity = on ? 1.2 : 0; light.position.set(0, CH + 0.35, 0.1);
+        glow.visible = on || s < 0.1; glow.material.opacity = 0.55 * Math.max(0, 1 - s * 10);
         for (const q of shards) { q.m.visible = s > 0.5; q.m.position.set(q.x * k, 0.012, q.z * k + 0.1); q.m.rotation.set(q.r, q.r * 0.5, 0); }
       },
     };
@@ -217,13 +235,43 @@ export const NOTYET_KINDS = {
     const sm = new THREE.MeshBasicMaterial({ map: glowT, color: "#ffffff" }); sm.userData.noOutline = true;
     const screen = mesh(new THREE.PlaneGeometry(W, H), sm, P.whole, 0, 0.46 + H / 2, 0.001); screen.castShadow = false;
     const light = new THREE.PointLight("#b9dcff", 0, 4, 1.4); light.position.set(0, 0.46 + H / 2, 0.5); P.whole.add(light);
-    return { grip: 0.32, apply(ps) { const g = clamp(ps.glow ?? 1); sm.color.setScalar(0.18 + 0.82 * g); light.intensity = 3.2 * g; } };
+    const glow = halo(P.whole, "#9ccaff", W * 2.1, 0.5, 0, 0.46 + H / 2, 0.06);
+    return { grip: 0.32, apply(ps) { const g = clamp(ps.glow ?? 1); sm.color.setScalar(0.18 + 0.82 * g); light.intensity = 3.2 * g; glow.material.opacity = 0.5 * g; } };
   },
 
   stuffing(P) {
     const rnd = rng(41), white = mat("#f6f1e6", { roughness: 1 });
     const tufts = (P.spec.at || [[0, 0, 0]]).map(([x, y, z]) => { const g = new THREE.Group(); g.position.set(x, y, z); P.whole.add(g); for (let i = 0; i < 4; i++) mesh(new THREE.IcosahedronGeometry(0.028 + rnd() * 0.02, 1), white, g, (rnd() - 0.5) * 0.06, rnd() * 0.03, (rnd() - 0.5) * 0.04); return g; });
     return { grip: 0, apply(ps) { const k = clamp(ps.puff ?? 0); for (const t of tufts) { t.visible = k > 0.01; t.scale.setScalar(Math.max(0.01, k)); } } };
+  },
+
+  floorlamp(P) {
+    const brass = mat("#b8893a", { roughness: 0.35, metalness: 0.5 }), Hh = P.spec.h ?? 1.45;
+    mesh(new THREE.CylinderGeometry(0.13, 0.15, 0.03, 24), brass, P.whole, 0, 0.015, 0);
+    mesh(new THREE.CylinderGeometry(0.014, 0.014, Hh, 10), brass, P.whole, 0, Hh / 2, 0);
+    const shadeM = mat("#fff0cf", { side: THREE.DoubleSide, emissive: new THREE.Color("#ffb85a"), emissiveIntensity: 0.7 });
+    mesh(new THREE.CylinderGeometry(0.13, 0.21, 0.26, 24, 1, true), shadeM, P.whole, 0, Hh + 0.05, 0);
+    const pool = halo(P.whole, "#ffae55", 2.2, 0.42, 0, Hh, -0.05), core = halo(P.whole, "#ffe2a8", 0.6, 0.7, 0, Hh + 0.05, 0.02);
+    return { grip: 0, apply(ps) { const g = clamp(ps.glow ?? P.spec.glow ?? 1); shadeM.emissiveIntensity = 0.1 + 0.6 * g; pool.material.opacity = 0.42 * g; core.material.opacity = 0.7 * g; } };
+  },
+
+  debris(P) {
+    const rnd = rng(P.spec.seed ?? 53), wood = mat("#8a5a36", { roughness: 0.7 }), pale = mat("#e6d8c2", { roughness: 0.9 }), raw = mat("#d9b07a", { roughness: 0.8 });
+    const white = mat("#f6f1e6", { roughness: 1 }), glass = mat("#7fa4b8", { roughness: 0.3 });
+    const items = (P.spec.items || []).map(([x, z, type, rot = 0, size = 1]) => {
+      const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = (rot * Math.PI) / 180; P.whole.add(g);
+      if (type === "plank") {
+        const L = 0.42 * size; mesh(new THREE.BoxGeometry(L, 0.028, 0.09), wood, g, 0, 0.014, 0);
+        for (let i = 0; i < 3; i++) { const sp = mesh(new THREE.BoxGeometry(0.06 + rnd() * 0.05, 0.022, 0.018), raw, g, L / 2 + 0.02, 0.013, -0.03 + i * 0.03); sp.rotation.y = (rnd() - 0.5) * 0.8; }
+      } else if (type === "chip" || type === "plaster" || type === "shard") {
+        const m = type === "chip" ? raw : type === "plaster" ? pale : glass;
+        for (let i = 0; i < 5; i++) { const q = mesh(type === "shard" ? new THREE.TetrahedronGeometry(0.02 * size + rnd() * 0.015, 0) : new THREE.BoxGeometry((0.03 + rnd() * 0.04) * size, 0.015 + rnd() * 0.01, (0.02 + rnd() * 0.03) * size), m, g, (rnd() - 0.5) * 0.3 * size, 0.01, (rnd() - 0.5) * 0.22 * size); q.rotation.y = rnd() * 6; }
+      } else {
+        for (let i = 0; i < 5; i++) mesh(new THREE.IcosahedronGeometry((0.03 + rnd() * 0.03) * size, 1), white, g, (rnd() - 0.5) * 0.14 * size, 0.025, (rnd() - 0.5) * 0.1 * size);
+      }
+      return g;
+    });
+    return { grip: 0, apply(ps) { const k = clamp(ps.puff ?? P.spec.puff ?? 1); for (const g of items) { g.visible = k > 0.01; g.scale.setScalar(Math.max(0.01, k)); } } };
   },
 
   parkedscythe(P) {
