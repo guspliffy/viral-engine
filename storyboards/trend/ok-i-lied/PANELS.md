@@ -28,3 +28,7 @@ the Wizard right (purple hat, staff upright at his outer side). Bright saturated
   scythe goes into Phoenix.
 - The rain has no sound (no rain sound in the whitelist); the music turns sad from the car park on instead.
 - The flash at the edges in panel 8 is speed lines only: a flash over the whole frame washed the faces out.
+- Posted at 1.25x speed (Jonny, 1 Nov: "speed it up about 1.25x", the first lie came at 2 s where most viewers are
+  lost): 8.0 s, the first "ok i lied" at 1.6 s. Made from the 10 s render with
+  `ffmpeg -i out/ok-i-lied-anime-pro.mp4 -filter_complex "[0:v]setpts=PTS/1.25,fps=30[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 17 -pix_fmt yuv420p -c:a aac -b:a 192k ok-i-lied.mp4`
+  (-14.8 LUFS). A cast-iron 8 s storyboard would need every time scaled; not worth a render for the same picture.
