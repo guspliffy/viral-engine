@@ -120,7 +120,7 @@ for v in bm.verts:
         # the cloak: from the shoulder line out to a wide uneven ring above the ground (spare cloth for the folds)
         u = (NECK - ph) / (NECK - HEMPH)
         noise = 0.035 * math.sin(th * 2.3 + 0.7) + 0.025 * math.sin(th * 5.3 + 2.1) + 0.012 * math.sin(th * 11.7)
-        r = 0.47 + noise + 0.05 * (1 - math.cos(th)) / 2
+        r = 0.56 + noise + 0.06 * (1 - math.cos(th)) / 2
         hem = Vector((math.sin(th) * r, -math.cos(th) * r * 0.95, HEM + 0.1))
         p = body(dir_of(th, NECK), 0.035).lerp(hem, u ** 0.9)
     v.co = p
@@ -132,7 +132,7 @@ vg = cowl.vertex_groups.new(name="pin")
 for i, w in enumerate(pin):
     if w > 0:
         vg.add([i], w, "REPLACE")
-cloth_settings(cowl, "pin", mass=0.3, bend=4.0)
+cloth_settings(cowl, "pin", mass=0.3, bend=9.0)
 
 # ---- simulate: step the frames in order so the caches fill, then freeze the last frame
 for f in range(1, 91):
@@ -150,11 +150,11 @@ def freeze(obj):
 freeze(cowl)
 
 
-def face_rim(obj, r=0.014):
+def edge_tube(obj, keep, r=0.014, name="rim"):
     """a rolled edge round the face opening (the hood's hem is folded back and sewn, so it stands as a soft bead):
     a tube along the opening's boundary loop (the edges whose both ends sit above the cloak's hem)"""
     bm = bmesh.new(); bm.from_mesh(obj.data)
-    edges = [e for e in bm.edges if e.is_boundary and all(v.co.z > 0.35 for v in e.verts)]
+    edges = [e for e in bm.edges if e.is_boundary and all(keep(v.co) for v in e.verts)]
     nxt = {}
     for e in edges:
         a, b = e.verts; nxt.setdefault(a.index, []).append(b.index); nxt.setdefault(b.index, []).append(a.index)
@@ -166,12 +166,12 @@ def face_rim(obj, r=0.014):
         prev, cur = cur, cand[0]; loop.append(cur)
     bm.verts.ensure_lookup_table()
     pts = [bm.verts[i].co.copy() for i in loop]; bm.free()
-    cu = bpy.data.curves.new("rim", "CURVE"); cu.dimensions = "3D"; cu.bevel_depth = r; cu.bevel_resolution = 3
+    cu = bpy.data.curves.new(name, "CURVE"); cu.dimensions = "3D"; cu.bevel_depth = r; cu.bevel_resolution = 3
     sp = cu.splines.new("POLY"); sp.points.add(len(pts) - 1)
     for p, c in zip(sp.points, pts):
         p.co = (c.x, c.y, c.z, 1)
     sp.use_cyclic_u = True
-    ob = bpy.data.objects.new("rim", cu); scn.collection.objects.link(ob)
+    ob = bpy.data.objects.new(name, cu); scn.collection.objects.link(ob)
     bpy.context.view_layer.objects.active = ob
     for o in bpy.context.selected_objects:
         o.select_set(False)
@@ -179,7 +179,9 @@ def face_rim(obj, r=0.014):
     return bpy.context.view_layer.objects.active
 
 
-rim = face_rim(cowl)
+rim = edge_tube(cowl, lambda c: c.z > 0.35)
+# the hem's border: a thinner sewn band along the bottom edge, so the hem reads as cloth with an edge, not a cut sheet
+hem_rim = edge_tube(cowl, lambda c: c.z < 0.35, r=0.01, name="hem")
 bpy.data.objects.remove(col, do_unlink=True)
 
 
@@ -196,9 +198,10 @@ def srgb(h):
 
 
 cl, ln = mat("cloak", srgb("#34313a")), mat("lining", srgb("#16141b"))
-rim.data.materials.append(mat("trim", srgb("#46424d")))
-for p in rim.data.polygons:
-    p.use_smooth = True
+for o in (rim, hem_rim):
+    o.data.materials.append(mat("trim", srgb("#46424d")))
+    for p in o.data.polygons:
+        p.use_smooth = True
 for o in (cowl,):
     o.data.materials.append(cl); o.data.materials.append(ln)
     # the simulated mesh is fine enough on its own (no subdivision: a quarter of the size on the page)
