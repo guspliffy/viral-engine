@@ -7,7 +7,6 @@ shadow edges, wind), so a model only needs good shapes and a base colour texture
 | Folder | What | Source | Licence |
 | --- | --- | --- | --- |
 | `nature/` | 59 trees, pines, bushes, ferns, plants, grass, flowers, clover, mushrooms, rocks, pebbles, path stones | Quaternius, Stylized Nature MegaKit (free Standard version), imported with `tools/assets/import-megakit.py` (normal maps dropped, textures shrunk to 1024 px, the bush's red autumn leaves swapped for green) | CC0 1.0 (`nature/LICENSE-Quaternius-CC0.txt`) |
-
 | `characters/reaper-cloak.glb` | Reaper's one-piece hooded cloak, draped by Blender's cloth simulation over his body (character bodyGroup space; costume key `cloakModel`, hooked in by the character code) | `tools/blender/reaper-cloak.py` | own work |
 | `props/bike-handlebar.glb` | Riser handlebar: ribbed lock-on grips, stem with faceplate bolts and spacers, brake levers and cables (bike frame space; bike prop `"model"`) | `tools/blender/bike-handlebar.py` | own work |
 
