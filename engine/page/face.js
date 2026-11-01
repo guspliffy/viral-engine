@@ -92,6 +92,8 @@ export class Face {
     }
     const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.4 });
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
+    // the drawn look's pencil hatching stays off the eyes and the ink (looks.js, castLook "art")
+    for (const m of [white, irisM, pupilM, this.inkMat, this.browMat, this.mouthMat]) m.userData.noHatch = true;
     // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
     // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
     if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
@@ -169,6 +171,7 @@ export class Face {
     this.brows = [null, null]; this.mouthLine = null; this.mouthFill = null; this.mouthInner = [];
     this.teethMat = new THREE.MeshStandardMaterial({ color: "#fbf7ee", emissive: "#5a5650", roughness: 0.35 });
     this.tongueMat = new THREE.MeshStandardMaterial({ color: "#e0606a", roughness: 0.55 });
+    this.teethMat.userData.noHatch = this.tongueMat.userData.noHatch = true;
     this._lastKey = "";
     this.layout = { eyeU: 0.35, eyeV: 0.32, browV: 0.86, mouthV: -0.12, mouthW: 0.27, cheekU: 0.68, cheekV: -0.06, ...(arguments[0].layout || {}) };   // layout: a character file's face.layout overrides (castLook "board" sets the eyes wider apart)
   }

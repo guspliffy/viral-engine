@@ -63,3 +63,35 @@ Change made: the opening shot (A/B shot 01, C's first shot) is now a close two-s
 
 **Reading:** on mute, the caption is what makes this setup read; without it the green paint looks like the Astronaut's real face (which the twist needs later, but it hides the "makeup" want at the start). Starting on the result (C) removes the one clue (the brush). Recommendation: **B**.
 Open point from two readers: the hand mirror reads as a magnifying glass at phone size.
+
+## First numbers (TikTok, read 28 Oct ~20:35 Berlin, 1.5 h after posting at 19:06)
+
+160 views, avg watch 3.8 s, 15 % finished, 95.6 % For You, no likes yet. Retention per second 0-10 s:
+100, 79, 45, 30, 24, 20, 18, 16, 16, 14, 13 %. Held at 2 s: **45 %**, the lowest of the seven posts (others 48-67 %),
+with the biggest one-second fall in the set (79 -> 45 between 0:01 and 0:02; others 15-24 points).
+
+Reading (early, 160 views, about +-4 points of noise): the caption sets up "bad makeup by a friend", and 1-2 s shows
+exactly that (proud Wizard, green visor from the front), so nothing promises a twist; the wrong-surface joke only reads
+when the visor lifts at 3.3-5.5 s. The cold read rated B best of the three openings, but it only measured whether the
+premise was understood, not whether viewers wanted to see what happens next. Re-read at 72 h before concluding.
+
+## Second read (29 Oct ~08:45 Berlin)
+
+TikTok at 13.7 h: **747 views**, the first post past the ~250-view first batch. Avg watch 4.4 s, 17.6 % finished,
+97.4 % For You, 4 likes. Retention 0-10 s: 100, 82, 48, 34, 28, 24, 21, 19, 18, 17, 16 %. Held at 2 s: 48 %, the
+bottom of the range of the earlier posts (48-67 %), so the 45 % at 1.5 h was mostly small-sample noise.
+Instagram at 2.8 h: 1,103 views, 588 accounts reached, 0.4 % from followers (only in-app numbers for retention).
+
+Reading: the opening did not hold better than before, yet the clip was pushed further. What differs from the six earlier
+posts is more than the hook (10 s length, Halloween timing, a caption), so this one post can't say which helped. The
+0:01 -> 0:02 fall (82 -> 48) is still the biggest in the set: the twist hint by 2 s is the thing to test next.
+
+## Final read (from the analytics ledger, /mnt/project-files/ledger.csv)
+
+TikTok stopped at **750 views** after about 14 h (747 at 13.7 h, 750 at 25.7 h and 35.9 h). Held at 2 s stayed 48 %
+(curve 100, 81, 48, 34, 28, 24, 21, 19, 18, 17, 16), avg watch 4.35 s, 17.7 % finished, 4 likes, 73.8 % of viewers in
+Germany. Instagram stopped at about 2,008 views (1,177 reached) after ~24 h.
+
+Result: B's caption opening did **not** hold more viewers at 2 s than the six earlier posts (48 % vs 48-67 %). The post
+got one extra batch (~3x the usual 250), then stalled. The cold read's "understood at 0 s" did not predict keep-watching;
+HOOK.md now picks openings by keep-watching and asks for a twist hint by 2 s (PR #38).
