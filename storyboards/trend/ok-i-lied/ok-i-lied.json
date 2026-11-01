@@ -496,14 +496,14 @@
   {
    "id": "plume",
    "kind": "fireplume",
-   "x": 0.1,
-   "y": 2.1,
+   "x": 0.05,
+   "y": 2.2,
    "z": -1.6,
-   "rot": 70,
-   "tip": -48,
-   "length": 3.6,
-   "width": 0.75,
-   "balls": 34
+   "rot": 0,
+   "tip": 2,
+   "length": 2.6,
+   "width": 0.7,
+   "balls": 40
   }
  ],
  "captions": [
@@ -1650,8 +1650,8 @@
      "set": {
       "len": 1
      },
-     "dur": 0.55,
-     "ease": "out",
+     "dur": 1.55,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1710,10 +1710,18 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.6
+      "open": 1.55,
+      "eye": 1.4,
+      "curve": -0.35
      },
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.5,
      "dur": 0.15,
      "at": 0.12
     },
@@ -1751,10 +1759,18 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.6
+      "open": 1.55,
+      "eye": 1.4,
+      "curve": -0.35
      },
+     "dur": 0.15,
+     "at": 0.16
+    },
+    {
+     "who": "rea2",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.5,
      "dur": 0.15,
      "at": 0.16
     },
@@ -1770,12 +1786,29 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.6
+      "open": 1.55,
+      "eye": 1.4,
+      "curve": -0.35
      },
      "dur": 0.15,
      "at": 0.19
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.5,
+     "dur": 0.15,
+     "at": 0.19
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
     },
     {
      "who": "phx",
@@ -1819,16 +1852,6 @@
      "stride": 2.1,
      "bob": 0.05,
      "at": 0.32
-    },
-    {
-     "do": "prop",
-     "id": "plume",
-     "set": {
-      "fade": 0.6
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.6
     }
    ],
    "kind": "payoff"

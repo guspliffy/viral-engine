@@ -69,7 +69,7 @@ const props = [
   { id: "embers", kind: "embers", x: 0, y: 0, z: 0, box: [[-2.4, 0.2, -2.6], [2.4, 3.2, 1.0]], n: 60, on: 0 },
   // Dragon's tiny sun hat and the one sneeze of fire (across the background, up and to the right, behind the trio)
   { id: "hat", kind: "sunhat", wear: "dra", x: 0.04, y: 1.27, z: 0.04, tilt: -8, tip: 14, r: 0.3 },
-  { id: "plume", kind: "fireplume", x: 0.1, y: 2.1, z: r3(DRA[1] + 1.1), rot: 70, tip: -48, length: 3.6, width: 0.75, balls: 34 },
+  { id: "plume", kind: "fireplume", x: 0.05, y: 2.2, z: r3(DRA[1] + 1.1), rot: 0, tip: 2, length: 2.6, width: 0.7, balls: 40 },
 ];
 
 // ---------------------------------------------------------------- captions (the brief's, each on its own photo)
@@ -153,8 +153,9 @@ sfx(r3(ALIVE + 0.2), "gasp", { gain: 0.6, reason: "ah... (Dragon's sneeze builds
 A(r3(SNEEZE - 0.05), "dra", "pitch", { to: 12, dur: 0.1, ease: "out" });
 A(r3(SNEEZE - 0.05), "dra", "squash", { amount: 0.1, dur: 0.15 });
 A(SNEEZE, "dra", "expr", { expr: "focused", set: { eye: 0.1, open: 0.7, pucker: 0 }, dur: 0.06 });
-c.prop(SNEEZE, "plume", { on: 1 }, 0.04, "out"); c.prop(SNEEZE, "plume", { len: 1 }, 0.55, "out");
-c.prop(r3(SNEEZE + 0.6), "plume", { fade: 0.6 }, 0.6, "inOut");
+// Jonny 1 Nov: the fire comes at them and chases them down the street, just over and behind their heads (it never
+// hits them): its front stays a step behind the runners all the way to the end
+c.prop(SNEEZE, "plume", { on: 1 }, 0.04, "out"); c.prop(SNEEZE, "plume", { len: 1 }, r3(END - SNEEZE - 0.15), "linear");
 sfx(r3(SNEEZE - 0.02), "blow", { gain: 0.6, dur: 0.3, reason: "CHOO: Dragon's sneeze" });
 sfx(SNEEZE, "flamejet", { gain: 1.4, reason: "fwoosh: the fireball rolls over their heads across the background" });
 c.at(SNEEZE, { fx: "shake", dur: 0.3, amount: 0.5 });
@@ -165,10 +166,12 @@ for (const who of ["phx", "rea2", "wiz"]) {
   A(r3(SNEEZE + 0.02 + d), who, "squash", { amount: -0.06, dur: 0.2 });
   A(r3(SNEEZE + 0.08 + d), who, "look", { to: [0, 0], dur: 0.1, blink: false });
   A(r3(SNEEZE + 0.12 + d), who, "turn", { to: 0, dur: 0.18 });
-  A(r3(SNEEZE + 0.12 + d), who, "expr", { expr: "shocked", set: { open: 0.75, eye: 1.35, curve: -0.6 }, dur: 0.15 });
+  A(r3(SNEEZE + 0.12 + d), who, "expr", { expr: "shocked", set: { open: 1.55, eye: 1.4, curve: -0.35 }, dur: 0.15 });
+  A(r3(SNEEZE + 0.12 + d), who, "face", { lid: 0, brow: 0.5, dur: 0.15 });
   A(r3(SNEEZE + 0.25 + d), who, "move", { to: RUN_TO[who], dur: r3(END - SNEEZE - 0.3 - d), stride: 2.1, bob: 0.05 });
 }
 A(r3(SNEEZE + 0.25), "phx", "wings", { to: 0, dur: 0.2 });
+c.arm(r3(SNEEZE + 0.2), "phx", "both", "up", 0.2, "out");   // arms up in panic as he runs
 
 // ---------------------------------------------------------------- 8 RUN (9-10): faces fill the frame, flash at the edges
 c.at(RUN, { fx: "speedlines", dur: 1.0 });
