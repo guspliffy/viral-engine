@@ -354,7 +354,8 @@
    "x": 0,
    "z": 12.6,
    "rot": 180,
-   "riser": true
+   "riser": true,
+   "model": "props/bike-handlebar.glb"
   },
   {
    "id": "br",
@@ -364,7 +365,8 @@
    "z": 8.8,
    "rot": 180,
    "scale": 0.75,
-   "riser": true
+   "riser": true,
+   "model": "props/bike-handlebar.glb"
   },
   {
    "id": "staff",

@@ -70,7 +70,8 @@ function charSrcs(chars) {
 // stay synchronous and the look converts the models' materials with everything else
 export async function preloadModels(sb, chars = null) {
   const loader = new GLTFLoader();
-  await Promise.all([...new Set([...srcsOf(sb.set), ...charSrcs(chars)])].filter((s) => !CACHE.has(s)).map(async (src) => {
+  const propSrcs = (sb.props || []).map((p) => p.model).filter(Boolean);   // props drawn from a model (props3d.js bike spec.model)
+  await Promise.all([...new Set([...srcsOf(sb.set), ...charSrcs(chars), ...propSrcs])].filter((s) => !CACHE.has(s)).map(async (src) => {
     const url = `/assets/models/${src}${/\.(glb|gltf)$/.test(src) ? "" : ".gltf"}`;
     const gl = await loader.loadAsync(url);
     const scene = gl.scene; scene.updateMatrixWorld(true);
@@ -80,15 +81,17 @@ export async function preloadModels(sb, chars = null) {
 
 // a costume model as it was made (already in the character's bodyGroup space: metres, y = 0 the ground, front +z):
 // a fresh copy with its own materials; material names say how the look shades them ("cloak" -> cloth, "lining")
-const ROLES = { cloak: "cloth", cloth: "cloth", lining: "lining", leather: "wood", metal: "char" };
-export function modelClone(src) {
+const ROLES = { cloak: "cloth", cloth: "cloth", trim: "cloth", lining: "lining", leather: "wood", metal: "char", rubber: "char", cable: "char", frame: "char" };
+// o.colors: { materialName: "#hex" } recolours a part (a bike's "frame" in the bike's own colour)
+export function modelClone(src, o = {}) {
   const c = CACHE.get(src); if (!c) throw new Error(`model not preloaded: ${src} (name it in a "...Model" costume key)`);
   const g = c.scene.clone(true); g.name = `model-${src.split("/").pop()}`;
   g.traverse((m) => {
     if (!m.isMesh) return;
     m.castShadow = m.receiveShadow = true;
     m.material = m.material.clone(); m.material.side = THREE.DoubleSide;
-    const role = ROLES[(m.material.name || "").toLowerCase()]; if (role) m.material.userData.lookRole = role;
+    const name = (m.material.name || "").toLowerCase(), role = ROLES[name]; if (role) m.material.userData.lookRole = role;
+    if (o.colors && o.colors[name]) m.material.color.set(o.colors[name]);
   });
   return g;
 }

@@ -78,7 +78,7 @@ def cloth_settings(obj, pin, mass=0.25, bend=0.6, shrink=0.0):
 # ---- one cowl: hood and cloak in one piece of cloth (a hooded cloak is cut that way), open at the face and in a
 # narrow slit down the front, its hem near the ground. Starts as a loose bag round the head that flares into a wide
 # cone below the shoulders; pinned round the face and along the shoulder line, everything else falls and drapes
-SLIT, HEMPH = 0.3, -1.3                              # the front slit's half-width (theta) below the face; the hem (phi)
+SLIT, HEMPH = 0.0, -1.3                              # the front slit's half-width below the face (0: closed, Jonny's sheet), the hem (phi)
 NU, HEM = 128, 0.05
 
 
@@ -88,7 +88,7 @@ def face_e(th, ph):
 
 
 def cut(th, ph):
-    return ph < HEMPH or face_e(th, ph) < 1 or (abs(th) < SLIT and ph < FACE_BOT + 0.05)
+    return ph < HEMPH or face_e(th, ph) < 1 or (SLIT > 0 and abs(th) < SLIT and ph < FACE_BOT + 0.05)
 
 
 bpy.ops.mesh.primitive_uv_sphere_add(segments=NU, ring_count=88, radius=1)
@@ -103,7 +103,7 @@ for v in bm.verts:
     th, ph = angles(v.co.normalized())
     if ph < HEMPH + 0.06:
         ph = HEMPH
-    elif ph < FACE_BOT and abs(th) < SLIT + 0.12:
+    elif SLIT > 0 and ph < FACE_BOT and abs(th) < SLIT + 0.12:
         th = math.copysign(SLIT, th)
     else:
         e = math.sqrt(max(1e-9, face_e(th, ph))); th, ph = th / e, mid + (ph - mid) / e
@@ -148,6 +148,38 @@ def freeze(obj):
 
 
 freeze(cowl)
+
+
+def face_rim(obj, r=0.014):
+    """a rolled edge round the face opening (the hood's hem is folded back and sewn, so it stands as a soft bead):
+    a tube along the opening's boundary loop (the edges whose both ends sit above the cloak's hem)"""
+    bm = bmesh.new(); bm.from_mesh(obj.data)
+    edges = [e for e in bm.edges if e.is_boundary and all(v.co.z > 0.35 for v in e.verts)]
+    nxt = {}
+    for e in edges:
+        a, b = e.verts; nxt.setdefault(a.index, []).append(b.index); nxt.setdefault(b.index, []).append(a.index)
+    start = edges[0].verts[0].index; loop = [start]; prev = None; cur = start
+    while True:
+        cand = [x for x in nxt[cur] if x != prev]
+        if not cand or cand[0] == start:
+            break
+        prev, cur = cur, cand[0]; loop.append(cur)
+    bm.verts.ensure_lookup_table()
+    pts = [bm.verts[i].co.copy() for i in loop]; bm.free()
+    cu = bpy.data.curves.new("rim", "CURVE"); cu.dimensions = "3D"; cu.bevel_depth = r; cu.bevel_resolution = 3
+    sp = cu.splines.new("POLY"); sp.points.add(len(pts) - 1)
+    for p, c in zip(sp.points, pts):
+        p.co = (c.x, c.y, c.z, 1)
+    sp.use_cyclic_u = True
+    ob = bpy.data.objects.new("rim", cu); scn.collection.objects.link(ob)
+    bpy.context.view_layer.objects.active = ob
+    for o in bpy.context.selected_objects:
+        o.select_set(False)
+    ob.select_set(True); bpy.ops.object.convert(target="MESH")
+    return bpy.context.view_layer.objects.active
+
+
+rim = face_rim(cowl)
 bpy.data.objects.remove(col, do_unlink=True)
 
 
@@ -164,6 +196,9 @@ def srgb(h):
 
 
 cl, ln = mat("cloak", srgb("#34313a")), mat("lining", srgb("#16141b"))
+rim.data.materials.append(mat("trim", srgb("#46424d")))
+for p in rim.data.polygons:
+    p.use_smooth = True
 for o in (cowl,):
     o.data.materials.append(cl); o.data.materials.append(ln)
     # the simulated mesh is fine enough on its own (no subdivision: a quarter of the size on the page)

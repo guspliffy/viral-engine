@@ -1,3 +1,4 @@
+import { modelClone } from "./assets-gltf.js";
 import * as THREE from "three";
 import { clamp, lerp, ease, prog, rng as rngOf, rad } from "./util.js";
 import { TREND_KINDS, TREND_GRIPS } from "./props-trend.js";
@@ -1161,7 +1162,8 @@ const KINDS = {
       for (const [a, b] of [[BB, SEAT], [SEAT, HEAD], [BB, HEADB], [BB, [0, R, -0.36]], [SEAT, [0, R, -0.36]]]) tube(a, b, 0.017, frameM, rest);
       front = wheel(rest, 0.36);
       tube(HEAD, [0, R, 0.36], 0.014, frameM, rest); if (P.spec.riser) tube(HEAD, [0, 0.73, 0.245], 0.02, frameM, rest); else tube(HEAD, [0, 0.76, 0.24], 0.014, steel, rest);
-      if (P.spec.riser) {
+      if (P.spec.model) rest.add(modelClone(P.spec.model, { colors: { frame: P.spec.color || "#2f8fe0" } }));   // spec.model: a modelled bar (tools/blender/bike-handlebar.py)
+      else if (P.spec.riser) {
         // spec.riser: a mountain-bike riser bar (the look-match boards): it dips to a chunky stem clamp in the frame
         // colour and rises to the same grip line as the straight bar, with long black grips showing past the gloves
         const pts = [[-0.25, 0.76, 0.24], [-0.15, 0.76, 0.24], [-0.07, 0.735, 0.245], [0, 0.73, 0.245], [0.07, 0.735, 0.245], [0.15, 0.76, 0.24], [0.25, 0.76, 0.24]];
