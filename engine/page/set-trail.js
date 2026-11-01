@@ -96,29 +96,21 @@ function leafyBushes(g, bushes, S, rnd) {
         ferns.push([card, new THREE.Matrix4().compose(new THREE.Vector3(p.x + Math.sin(a) * sc.x * 0.9, 0.08, p.z + Math.cos(a) * sc.z * 0.9), fq, new THREE.Vector3(L * 0.55, L, 1))]);
       }
     }
-    // overhang (Phase 2): leafy branch ends reaching over the trail edges at head height, so the rider's view passes
-    // under and beside near leaves (the closest layer of depth); a share of them goes into each colour's leaves
-    if (S.overhang && li < 3) for (let z = 12 - li * 1.2; z > TRAIL.edge + 1.5; z -= 3.6 + rnd() * 1.5) {
-      if (z < TRAIL.gully[0] + 0.3 && z > TRAIL.gully[1] - 0.3) continue;
-      const side = rnd() < 0.5 ? -1 : 1, base = new THREE.Vector3(trailX(z, S.bend) + side * (1.5 + rnd() * 0.4), 1.75 + rnd() * 0.45, z);
-      const twig = new THREE.Vector3(-side * (0.6 + rnd() * 0.3), -0.18 - rnd() * 0.12, (rnd() - 0.5) * 0.4);
-      // the branch grows out of a real tree beside the trail: a trunk from the ground up past the frame, a limb from
-      // the trunk out over the trail edge, and a thinner twig on to where the leaves hang
-      const limb = (a, b, r0, r1) => { const d = b.clone().sub(a); (leafyBushes.twigs ||= []).push([new THREE.CylinderGeometry(r1, r0, d.length(), 7), new THREE.Matrix4().compose(a.clone().add(b).multiplyScalar(0.5), new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()), new THREE.Vector3(1, 1, 1))]); };
-      const tx = trailX(z, S.bend) + side * (2.25 + rnd() * 0.35), ty = base.y + 0.35 + rnd() * 0.3;
-      limb(new THREE.Vector3(tx, -0.05, z), new THREE.Vector3(tx + side * 0.06, 7.5, z + 0.05), 0.27, 0.15);
-      limb(new THREE.Vector3(tx + side * 0.1, 0.0, z), new THREE.Vector3(tx + side * 0.45, -0.05, z + 0.25), 0.1, 0.03);   // a root flare
-      const elbow = base.clone().addScaledVector(twig, 0.15).add(new THREE.Vector3(0, 0.12, 0));
-      limb(new THREE.Vector3(tx - side * 0.12, ty, z), elbow, 0.075, 0.045);
-      limb(elbow, base.clone().addScaledVector(twig, 0.85), 0.045, 0.015);
-      limb(elbow, base.clone().addScaledVector(twig, 0.45).add(new THREE.Vector3(0, 0.2, (rnd() - 0.5) * 0.3)), 0.025, 0.01);
-      for (let k = 0; k < 80; k++) {
-        const a = rnd(), at = base.clone().addScaledVector(twig, a).add(new THREE.Vector3((rnd() - 0.5) * 0.32, (rnd() - 0.5) * 0.22 - a * 0.08, (rnd() - 0.5) * 0.32));
-        n.set(rnd() - 0.5, 0.3 + rnd(), rnd() - 0.5).normalize(); q.setFromUnitVectors(up, n); e.set((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2, rnd() * 6.3);
-        const s = 0.12 + rnd() * 0.08; cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(new THREE.Quaternion().setFromEuler(e)), new THREE.Vector3(s, s, s))]);
+    // overhang (Phase 2): trees beside the trail, and the branches some of them reach over it, laid out the way a
+    // forest grows (forestTrees); the leaves at the branch tips go into the colour this tree was given
+    if (S.overhang) {
+      const T = (leafyBushes.trees ||= forestTrees(S, rnd));
+      if (li === 0) for (const [k, parts] of T.wood.entries()) if (parts.length) g.add(merged(parts, lam(["#57402f", "#6b5240", "#4a382c"][k]), false));
+      for (const c of T.clusters.filter((c) => c.li === li)) for (let k = 0; k < c.n; k++) {
+        // a clump of a few sub-blobs, more leaves on the outside and top (where the light is)
+        const b = c.blobs[k % c.blobs.length];
+        n.set(rnd() - 0.5, rnd() - 0.35, rnd() - 0.5).normalize();
+        const at = b.p.clone().addScaledVector(n, b.r * (0.55 + rnd() * 0.5));
+        q.setFromUnitVectors(up, n.clone().add(new THREE.Vector3(0, 0.6, 0)).normalize()); e.set((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2, rnd() * 6.3);
+        const s = 0.1 + rnd() * 0.09; cards.push([card, new THREE.Matrix4().compose(at, q.clone().multiply(new THREE.Quaternion().setFromEuler(e)), new THREE.Vector3(s, s, s))]);
       }
+      if (li === 2) leafyBushes.trees = null;
     }
-    if (li === 2 && leafyBushes.twigs) { g.add(merged(leafyBushes.twigs, lam("#57402f"), false)); leafyBushes.twigs = null; }
     const coreParts = cards.filter(([geo]) => geo !== card), leafParts = cards.filter(([geo]) => geo === card);
     g.add(merged(coreParts, lam(core)));
     const lm = lam(cols[li], { map: leafT, alphaTest: 0.5, side: THREE.DoubleSide }), fm = lam(new THREE.Color(cols[li]).multiplyScalar(0.9), { map: fernT, alphaTest: 0.5, side: THREE.DoubleSide });
@@ -126,6 +118,85 @@ function leafyBushes(g, bushes, S, rnd) {
     g.add(merged(leafParts, lm));
     if (ferns.length) g.add(merged(ferns, fm, false));
   });
+}
+
+// The trees along the trail, the way a forest stands (31 Oct 2026, Jonny: "look how trees are in nature"):
+// - spacing is uneven: trees come in loose groups with gaps between, each side on its own (no rhythm, no alternating)
+// - most trunks are young and thin, a few are old and thick; they stand at different depths from the trail, curve
+//   a little and lean toward the light of the trail's opening
+// - lower branches of forest trees die and drop off (short dead stubs on the trunk); the live branches that reach over
+//   the trail are those of trees near its edge, at different heights, rising from the trunk, then arcing out and
+//   drooping at the tip under their leaves, with a few side forks
+// - leaves clump at the branch ends, in irregular sub-clumps of different sizes
+// Returns wood parts per bark tone and leaf clusters (blobs, card count, colour layer). Branches keep a rider's head
+// clear: nothing below 1.75 m within a metre of the trail's middle.
+function forestTrees(S, rnd) {
+  const wood = [[], [], []], clusters = [], Y = new THREE.Vector3(0, 1, 0);
+  const seg = (tone, a, b, r0, r1) => {
+    const d = b.clone().sub(a), L = d.length();
+    wood[tone].push([new THREE.CylinderGeometry(r1, r0, L, 8), new THREE.Matrix4().compose(a.clone().add(b).multiplyScalar(0.5), new THREE.Quaternion().setFromUnitVectors(Y, d.normalize()), new THREE.Vector3(1, 1, 1))]);
+    wood[tone].push([new THREE.SphereGeometry(r1, 8, 6), new THREE.Matrix4().makeTranslation(b.x, b.y, b.z)]);   // a smooth joint
+  };
+  const curve = (tone, pts, r0, r1) => { for (let i = 1; i < pts.length; i++) seg(tone, pts[i - 1], pts[i], r0 + (r1 - r0) * (i - 1) / (pts.length - 1), r0 + (r1 - r0) * i / (pts.length - 1)); };
+  const bez = (p0, p1, p2, n) => Array.from({ length: n + 1 }, (_, i) => { const t = i / n; return p0.clone().multiplyScalar((1 - t) ** 2).addScaledVector(p1, 2 * t * (1 - t)).addScaledVector(p2, t * t); });
+  // over the root the rider hops a metre up: there nothing reaches within 1.9 m of the trail's middle (the camera
+  // would fly through the leaves); elsewhere a branch end over the trail stays above head height
+  const hopZone = (z) => z < TRAIL.root + 1.5 && z > TRAIL.root - 4.5;
+  const keepOut = (p, from) => {
+    const c = trailX(p.z, S.bend), off = Math.abs(p.x - c), sd = Math.sign(from.x - c) || 1;
+    if (hopZone(p.z) && off < 1.9) p.x = c + sd * 1.9;
+    else if (off < 1.0) p.y = Math.max(p.y, 1.85 + rnd() * 0.2);
+    else p.y = Math.max(p.y, 1.45);
+  };
+  const leaves = (p, size, li) => {
+    const blobs = Array.from({ length: 2 + Math.floor(rnd() * 3) }, () => ({ p: p.clone().add(new THREE.Vector3((rnd() - 0.5) * size, (rnd() - 0.4) * size * 0.6, (rnd() - 0.5) * size)), r: size * (0.35 + rnd() * 0.4) }));
+    clusters.push({ li, blobs, n: Math.round(30 + 110 * size) });
+  };
+  for (const side of [-1, 1]) {
+    let z = 13 - rnd() * 2;
+    while (z > TRAIL.edge + 1.2) {
+      const zz = z;
+      // the next tree: mostly 1.5-4 m on, now and then a close neighbour or a wide gap
+      const u = rnd(); z -= u < 0.2 ? 0.5 + rnd() * 0.6 : u > 0.85 ? 4.5 + rnd() * 3 : 1.4 + rnd() * 2.6;
+      if (zz < TRAIL.gully[0] + 0.4 && zz > TRAIL.gully[1] - 0.4) continue;
+      const d = 1.7 + rnd() ** 1.4 * 3.2, x = trailX(zz, S.bend) + side * d;
+      if (inRock(x, zz, S.bend) || inRock(x - side * 0.6, zz, S.bend)) continue;
+      const r = 0.07 + 0.3 * rnd() ** 2.2, tone = Math.floor(rnd() * 3), li = Math.floor(rnd() * 3);
+      // the trunk: a gentle curve leaning toward the opening, up out of the frame
+      const lean = -side * (0.03 + rnd() * 0.1), wob = (rnd() - 0.5) * 0.25;
+      const trunkAt = (h) => new THREE.Vector3(x + lean * h + wob * Math.sin(h * 0.6), h, zz + (rnd() - 0.5) * 0.0 + wob * 0.3 * Math.sin(h * 0.4));
+      curve(tone, [0, 1.6, 3.4, 5.6, 8.5].map((h) => trunkAt(h)), r * 1.25, r * 0.55);
+      for (let f = 0; f < 3; f++) {   // the root flare
+        const a = rnd() * Math.PI * 2, L = r * (1.6 + rnd());
+        seg(tone, trunkAt(0.25 + rnd() * 0.15), new THREE.Vector3(x + Math.cos(a) * L, -0.04, zz + Math.sin(a) * L), r * 0.42, r * 0.12);
+      }
+      for (let k = Math.floor(rnd() * 3); k > 0; k--) {   // dead stubs where the lower branches broke off
+        const h = 1.2 + rnd() * 3.5, a = rnd() * Math.PI * 2, p0 = trunkAt(h);
+        seg(tone, p0, p0.clone().add(new THREE.Vector3(Math.cos(a) * (r + 0.12 + rnd() * 0.2), (rnd() - 0.3) * 0.2, Math.sin(a) * (r + 0.12 + rnd() * 0.2))), 0.035 + r * 0.08, 0.012);
+      }
+      // live branches over the trail: likelier from trees close to it, at their own heights
+      const nb = d < 2.7 ? (rnd() < 0.75 ? 1 + (rnd() < 0.3 ? 1 : 0) : 0) : rnd() < 0.3 ? 1 : 0;
+      for (let k = 0; k < nb; k++) {
+        const h = 2.0 + rnd() * 1.6 + r * 2, p0 = trunkAt(h), yaw = (rnd() - 0.5) * 1.1;
+        const dir = new THREE.Vector3(-side * Math.cos(yaw), 0, Math.sin(yaw));
+        const reach = Math.max(0.9, d - 0.35 - rnd() * 0.9 - r);   // how far toward the middle it gets
+        const tip = p0.clone().addScaledVector(dir, reach + r); tip.y = h - 0.15 - rnd() * 0.5;
+        keepOut(tip, p0);
+        const mid = p0.clone().addScaledVector(dir, (reach + r) * 0.45); mid.y = Math.max(h, tip.y) + 0.25 + rnd() * 0.35;
+        const pts = bez(p0, mid, tip, 4), rb = Math.min(r * 0.45, 0.07);
+        curve(tone, pts, rb, 0.012);
+        leaves(tip, 0.32 + rnd() * 0.25, li);
+        for (let f = 1 + Math.floor(rnd() * 2); f > 0; f--) {   // side forks, out and up a little, each with its own clump
+          const at = pts[1 + Math.floor(rnd() * 3)], fd = dir.clone().applyAxisAngle(Y, (rnd() < 0.5 ? -1 : 1) * (0.5 + rnd() * 0.6));
+          const fl = 0.35 + rnd() * 0.45, fe = at.clone().addScaledVector(fd, fl); fe.y += (rnd() - 0.3) * 0.3;
+          keepOut(fe, p0);
+          curve(tone, bez(at, at.clone().addScaledVector(fd, fl * 0.5).add(new THREE.Vector3(0, 0.12, 0)), fe, 2), rb * 0.5, 0.008);
+          leaves(fe, 0.18 + rnd() * 0.18, li);
+        }
+      }
+    }
+  }
+  return { wood, clusters };
 }
 
 // the bend's boulder: where it sits (on the straight line the trail no longer takes), and whether x, z is inside it
