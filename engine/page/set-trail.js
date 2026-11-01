@@ -202,6 +202,12 @@ function forestTrees(S, rnd) {
 // the bend's boulder: where it sits (on the straight line the trail no longer takes), and whether x, z is inside it
 const rockAt = (B) => B && { x: B.rockX ?? -B.x * 0.4, z: B.rockZ ?? (B.z0 + B.z1) / 2, r: B.rockR ?? 0.85 };
 const inRock = (x, z, B) => { const R = rockAt(B); return !!R && Math.hypot((x - R.x) / R.r, (z - R.z) / (R.r * 1.1)) < 1; };
+// where scenery may stand (assets-gltf.js scatter): off the trail (pad m beyond its dirt edge), out of the gully,
+// behind the cliff edge and off the bend's boulder
+export function trailFree(S = {}, pad = 0.15) {
+  const [G0, G1] = TRAIL.gully, E = TRAIL.edge;
+  return (x, z, r) => Math.abs(x - trailX(z, S.bend)) > 0.85 + pad + r && !(z < G0 + r && z > G1 - r) && z > E + 0.3 + r && !inRock(x, z, S.bend);
+}
 // with leafy: grass tufts and small ferns along the trail's edges, pebbles and twigs on the dirt, and dappled sunlight
 // (soft dark patches where the trees shade the trail) over the ground
 function groundDetail(g, S, rnd, free) {
@@ -446,7 +452,9 @@ export function buildTrail(scene, S = {}) {
       for (let k = 0; k < 9; k++) { const a = (k / 9) * Math.PI * 2 + 0.3, x = R.x + Math.cos(a) * R.r * 1.02, z = R.z + Math.sin(a) * R.r * 0.92, r = 0.2 + rnd() * 0.18; if (Math.abs(x - bx(z)) < 0.75) continue; const li = k % 3; for (let j = 0; j < 2; j++) bushes[li].push([new THREE.IcosahedronGeometry(1, 1), M4(x + (j - 0.5) * r * 0.6, r * 0.7, z, r, r * 0.8, r)]); }
     }
     if (S.trees !== false) { g.add(merged(trunks, trunkM)); g.add(merged(firs, firM)); crowns.forEach((c, i) => c.length && g.add(merged(c, leaf[i]))); }
-    if (S.leafy) { leafyBushes(g, bushes, S, rng((S.seed || 7) * 977)); groundDetail(g, S, rng((S.seed || 7) * 613), free); }   // leaves instead of smooth blobs (Jonny 31 Oct: "green clouds")
+    // bushes: false leaves the trail's edges to real models (set.scatter, assets-gltf.js); the random draws above stay
+    if (S.bushes === false) { if (S.leafy) groundDetail(g, S, rng((S.seed || 7) * 613), free); }
+    else if (S.leafy) { leafyBushes(g, bushes, S, rng((S.seed || 7) * 977)); groundDetail(g, S, rng((S.seed || 7) * 613), free); }   // leaves instead of smooth blobs (Jonny 31 Oct: "green clouds")
     else bushes.forEach((c, i) => c.length && g.add(merged(c, leaf[i])));
     if (rocks.length) g.add(merged(rocks, lam("#a8a296")));
   }
