@@ -230,9 +230,9 @@ export const GUARD_KINDS = {
   wetpuddle(P) {
     const S = P.spec, rx = S.rx ?? 0.45, rz = S.rz ?? 0.3;
     const tex = canvasTex(256, 256, (g, w, h) => {
-      const gr = g.createRadialGradient(128, 128, 30, 128, 128, 128); gr.addColorStop(0, "rgba(196,204,212,0.92)"); gr.addColorStop(0.75, "rgba(170,178,188,0.85)"); gr.addColorStop(1, "rgba(150,156,164,0)");
+      const gr = g.createRadialGradient(128, 128, 30, 128, 128, 128); gr.addColorStop(0, "rgba(118,130,146,0.8)"); gr.addColorStop(0.7, "rgba(92,102,116,0.72)"); gr.addColorStop(1, "rgba(80,88,100,0)");   // dark water on wet stone, lighter than the stone only in its sky streak
       g.fillStyle = gr; g.beginPath(); for (let i = 0; i <= 48; i++) { const a = (i / 48) * Math.PI * 2, r = 118 * (0.86 + 0.14 * Math.sin(a * 3 + 1) * Math.sin(a * 5)); i ? g.lineTo(128 + Math.cos(a) * r, 128 + Math.sin(a) * r) : g.moveTo(128 + Math.cos(a) * r, 128 + Math.sin(a) * r); } g.fill();
-      g.strokeStyle = "rgba(255,255,255,0.55)"; g.lineWidth = 3; g.beginPath(); g.ellipse(100, 108, 50, 14, -0.2, 0, Math.PI * 0.9); g.stroke();
+      g.strokeStyle = "rgba(226,234,242,0.6)"; g.lineWidth = 4; g.beginPath(); g.ellipse(100, 108, 50, 14, -0.2, 0, Math.PI * 0.9); g.stroke();
     });
     const wm = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 }); wm.userData.noOutline = true;
     const pool = steamy(new THREE.Mesh(new THREE.PlaneGeometry(rx * 2, rz * 2), wm), 2); pool.rotation.x = -Math.PI / 2; pool.position.y = 0.004; P.whole.add(pool);

@@ -28,15 +28,15 @@ const BOX = [-0.62, -1.27], REA_BOX = [-0.62, -1.3];
 const PHX = [0.3, 0.0];                       // in front of the box, a body-width right of Reaper
 const PHX_TICKLE = [0.3, -0.47];              // close in, right of the box opening (panel 3)
 const PHX_SLIP = [-0.36, 0.48], PHX_DOWN = [-0.5, 0.86];
-const WIZ = [1.3, -1.4];                     // back right, filming
+const WIZ = [1.28, -1.4];                     // back right, filming
 const WALL = [0.9, -2.7], PIER = [1.72, -2.35];
-const REA_NOOK = [0.72, -2.07];                // in front of the wall, just left of the pier
-const PHX_PEEK = [1.48, -1.4];                 // in front of the pier, leaning in round its corner
+const REA_NOOK = [0.62, -2.07];                // in front of the wall, just left of the pier
+const PHX_PEEK = [1.8, -1.8];                 // in front of the pier, leaning in round its corner
 const PUDDLE = [-0.3, 0.88];
 
 const cast = [
   { id: "rea", character: "london/reaper-guard", at: REA_BOX, face: "camera", expr: "deadpan", follow: 0.2, seed: 2.2, sway: 0.4 },
-  { id: "phx", character: "duo/phoenix", at: PHX, face: "camera", expr: "eager", follow: 0.3, seed: 1.7, span: 0 },
+  { id: "phx", character: "duo/phoenix", at: PHX, face: "camera", expr: "eager", follow: 0.3, seed: 1.7, span: 1 },   // wings out, as on the board
   { id: "wiz", character: "lookdev/wizard-crisp-nostaff", at: WIZ, face: -35, expr: "happy", follow: 0.3, seed: 2.6 },
 ];
 const PHONE = { id: "phone", kind: "phone", style: "iphone", scale: 1.6, ...grips.placeFor("phone", [WIZ[0] - 0.2, 0.86, WIZ[1] + 0.3], -35) };
@@ -48,27 +48,31 @@ const props = [
   { id: "pier", kind: "stoneblock", x: PIER[0], z: PIER[1], w: 0.72, h: 2.6, d: 0.76, cap: 0.05, seed: 7 },
   { id: "puddle", kind: "wetpuddle", x: PUDDLE[0], z: PUDDLE[1], rx: 0.5, rz: 0.34 },
   PHONE, FEATHER,
-  ...[0, 1, 2].map((i) => ({ id: `fb${i}`, kind: "fireball", x: PHX[0], y: 0.8, z: PHX[1] + 0.35, r: 0.07, seed: i })),
+  ...[0, 1, 2].map((i) => ({ id: `fb${i}`, kind: "fireball", x: PHX[0], y: 0.8, z: PHX[1] + 0.35, r: 0.12, seed: i })),
   { id: "pigeon", kind: "pigeon", wear: "rea", x: 2.1, y: 2.9, z: 0.6, rot: -60, scale: 1.25, flap: 1 },
-  { id: "tongue", kind: "tongue", wear: "phx", x: 0.0, y: 0.6, z: 0.36, tip: 20 },
+  { id: "tongue", kind: "tongue", wear: "phx", x: 0.0, y: 0.6, z: 0.36, tip: 30, scale: 1.6 },
   { id: "steam", kind: "smokewisp", x: PHX_DOWN[0] + 0.05, y: 0.2, z: PHX_DOWN[1] - 0.45, h: 0.5, size: 0.08 },
   { id: "tearL", kind: "tear", wear: "rea", stream: true, x: 0.23, y: 0.6, z: 0.3, tilt: 15 },
   { id: "tearR", kind: "tear", wear: "rea", stream: true, x: -0.23, y: 0.6, z: 0.3, tilt: -15 },
-  { id: "tear", kind: "tear", wear: "rea", x: 0.16, y: 0.585, z: 0.345, length: 0.05, scale: 1.5 },
+  { id: "tear", kind: "tear", wear: "rea", x: 0.16, y: 0.585, z: 0.345, length: 0.05, scale: 2.5 },
 ];
 
 // ---------------------------------------------------------------- 01 HOOK 0-1.0: the silly face (wide)
 // Reaper: a stone guard all clip long until the corner (no blinks, no idle sway), eyes straight ahead
 A(0, "rea", "look", { to: [0, 0], dur: 0.01, blink: false });
+const STARE = 0.45;   // half-lidded but open: the iris shows (review A: a closed-lid deadpan read as asleep)
+A(0, "rea", "face", { lidL: STARE, lidR: STARE, dur: 0.01 });
+// the scythe carried like a guard's rifle: fist at the belt, a little in front of the body, shaft upright
+c.arm(0, "rea", "R", { o: [-0.03, 0.25, 0.42] }, 0.01);
 c.still(0, "rea", 5.75, 0);
 act.blinksAt(c, "rea", []);
 // Phoenix mid-face at frame 0: gloves pulling his cheeks, tongue out, eyes rolled in, wings flared, head waggling
 c.arm(0, "phx", "R", "cheeks", 0.01); c.arm(0, "phx", "L", "cheeks", 0.01);
 A(0, "phx", "wings", { to: 1, dur: 0.01 });
-A(0, "phx", "expr", { expr: "dizzy", set: { open: 0.55, curve: 0.3, eye: 1.2, pupil: 0.55 }, dur: 0.01 });
+A(0, "phx", "expr", { expr: "dizzy", set: { open: 0.8, curve: 0.3, eye: 1.2, pupil: 0.35 }, dur: 0.01 });
 c.prop(0, "tongue", { on: 1 }, 0.01);
 A(0, "phx", "look", { to: [-0.05, -0.15], dur: 0.01, blink: false });
-for (const [t, l] of [[0.0, -7], [0.22, 7], [0.44, -7], [0.66, 6], [0.86, 0]]) A(t, "phx", "lean", { to: l, dur: 0.2, ease: "inOut" });
+for (const [t, l] of [[0.0, -12], [0.2, 12], [0.4, -12], [0.6, 11], [0.8, -6], [0.92, 0]]) A(t, "phx", "lean", { to: l, dur: 0.2, ease: "inOut" });
 act.opener(c, "phx", "blblblbl!", { at: 0.02, dur: 0.5 });
 // the Wizard films it, grinning
 const ph = grips.phone(c, "wiz", PHONE, { side: "R", height: 0.45 });
@@ -81,7 +85,7 @@ see(0, 1.0, ["phx.face", "rea.face", "box"], "frame 0: Phoenix's silly face righ
 c.prop(0.95, "tongue", { on: 0 }, 0.15);
 A(0.95, "phx", "expr", { expr: "delighted", dur: 0.2 });
 A(0.95, "phx", "lean", { to: 0, dur: 0.1 });
-c.arm(1.0, "phx", "R", "up", 0.25, "out"); c.arm(1.0, "phx", "L", { o: [0.3, 0.55, 0.2] }, 0.25, "out");
+c.arm(1.0, "phx", "R", { o: [0.3, 0.12, 0.15] }, 0.25, "out");   // the near arm flung out low, clear of the guard's face c.arm(1.0, "phx", "L", { o: [0.3, 0.55, 0.2] }, 0.25, "out");
 for (const [t, h, l] of [[1.1, 0.16, -9], [1.48, 0.2, 9], [1.86, 0.16, -8]]) {
   A(t, "phx", "hop", { height: h, dur: 0.34 }); A(t, "phx", "lean", { to: l, dur: 0.3, ease: "inOut" });
 }
@@ -93,25 +97,26 @@ A(2.22, "phx", "lean", { to: 0, dur: 0.18 });
 see(1.0, 2.4, ["phx", "rea.face"], "the dance gets nothing");
 
 // ---------------------------------------------------------------- 03 THE FEATHER 2.4-3.6 (close two-shot)
-A(2.25, "phx", "wings", { to: 0.2, dur: 0.3 });
+A(2.25, "phx", "wings", { to: 0.2, dur: 0.3 }); A(2.05, "phx", "span", { to: 0.35, dur: 0.25 });   // wings in, clear of the box
 A(2.3, "phx", "move", { to: PHX_TICKLE, dur: 0.35, steps: 1.4 });
 c.arm(2.3, "phx", "L", "rest", 0.3); c.arm(2.3, "phx", "R", "rest", 0.3);
 A(2.4, "phx", "turn", { to: -40, dur: 0.25 });
 A(2.4, "phx", "expr", { expr: "eager", set: { curve: 0.8, smirk: 0.4 }, dur: 0.2 });
 A(2.4, "phx", "look", { to: [-0.8, 0.25], dur: 0.15 });
 // the feather comes out of his own wing (his left hand behind, then up to Reaper's chin)
-const fh = grips.thin(c, "phx", FEATHER, { side: "R", from: 0.2, roll: -20, readyRoll: -20 });
-c.prop(2.42, "feather", { scale: 1.6 }, 0.08);
+const fh = grips.thin(c, "phx", FEATHER, { side: "R", from: 0.25, roll: 70, readyRoll: 70 });
+c.prop(2.42, "feather", { scale: 2.0 }, 0.08);
 fh.take(2.45);
-const CHIN = [-0.05, 0.53, -0.6];
-fh.carry(2.8, CHIN, 0.3, "inOut");
+const CHIN = [-0.05, 0.4, -0.6];
+fh.carry(2.6, [CHIN[0] + 0.08, CHIN[1] - 0.12, CHIN[2] + 0.04], 0.2, "inOut");   // low first, under his face, then up to the chin
+fh.carry(2.8, CHIN, 0.25, "inOut");
 c.prop(2.8, "feather", { tilt: -75, tip: -30 }, 0.3);
 for (let i = 0; i < 3; i++) { const t = 3.12 + i * 0.16; fh.carry(t, [CHIN[0] + 0.03, CHIN[1] + 0.035, CHIN[2]], 0.08, "inOut"); fh.carry(t + 0.08, CHIN, 0.08, "inOut"); }
 sfx(3.12, "kenney/cloth", { gain: 0.05, reason: "the feather brushing his chin (three strokes)" });
 A(3.1, "phx", "talk", { line: "tickle tickle!", tone: "excited", dur: 0.5, voice: false });
 // Reaper: stone still, but one mouth corner trembles and an eyelid twitches
 for (const [t, k] of [[3.15, 0.35], [3.22, 0.05], [3.3, 0.4], [3.38, 0.0]]) A(t, "rea", "face", { cornerL: k, dur: 0.06 });
-A(3.24, "rea", "face", { lidL: 0.85, dur: 0.05 }); A(3.31, "rea", "face", { lidL: 0.6, dur: 0.06 });
+A(3.24, "rea", "face", { lidL: 0.8, dur: 0.05 }); A(3.31, "rea", "face", { lidL: STARE, dur: 0.06 });
 c.textPop(3.18, "rea", "*twitch*", { dur: 0.45, size: 64, dx: -0.75, dy: -0.15 });
 see(2.6, 3.55, ["rea.face", "phx.face", "feather"], "the feather under his chin, the mouth corner trembling");
 
@@ -119,7 +124,7 @@ see(2.6, 3.55, ["rea.face", "phx.face", "feather"], "the feather under his chin,
 A(3.42, "phx", "release", { prop: "feather", hand: "R", to: [0.05, 0.01, -0.4], dur: 0.4, arc: 0.15 });
 c.prop(3.42, "feather", { tilt: 90 }, 0.4); A(3.42, "phx", "grip", { side: "R", shape: "open", dur: 0.1 });
 A(3.48, "phx", "move", { to: PHX, dur: 0.22, steps: 0.8 });
-A(3.48, "phx", "turn", { to: 0, dur: 0.2 });
+A(3.48, "phx", "turn", { to: 0, dur: 0.2 }); A(3.5, "phx", "span", { to: 0.35, dur: 0.25 });   // half open: the full spread would hide the laughing Wizard
 A(3.6, "phx", "expr", { expr: "delighted", dur: 0.15 });
 A(3.6, "phx", "look", { to: [0, 0.55], dur: 0.12 });
 const HR = [PHX[0] - 0.3, 0.72, PHX[1] + 0.34], HL = [PHX[0] + 0.3, 0.72, PHX[1] + 0.34];
@@ -179,36 +184,40 @@ see(5.25, 5.75, ["phx", "rea.face", "puddle"], "Phoenix flat in the puddle; Reap
 A(6.62, "phx", "lean", { to: -10, dur: 0.35, ease: "inOut" }); A(6.62, "phx", "pitch", { to: 8, dur: 0.35, ease: "inOut" });
 A(6.62, "phx", "drop", { to: -0.13, dur: 0.35 });
 c.arm(6.62, "phx", "R", "rest", 0.35); c.arm(6.62, "phx", "L", "rest", 0.35);   // arms slump into his lap
-A(5.8, "phx", "expr", { expr: "sad", dur: 0.3 }); A(5.65, "phx", "wings", { to: 0, dur: 0.4 });
+A(5.8, "phx", "expr", { expr: "sad", dur: 0.3 }); A(5.65, "phx", "wings", { to: 0, dur: 0.4 }); A(5.65, "phx", "span", { to: 0.2, dur: 0.4 });   // wings droop shut
 A(5.8, "phx", "look", { to: [0, -0.5], dur: 0.3 });
 // Reaper marches out: step out of the box, a smart turn to his left, high steps to the corner
 A(5.8, "rea", "move", { to: [REA_BOX[0], REA_BOX[1] + 1.1], dur: 0.4, steps: 1.3 });
+c.arm(5.8, "rea", "R", "rest", 0.3, "inOut");   // the scythe to his side for the march (kept clear of his face as he turns)
 A(6.2, "rea", "turn", { to: 80, dur: 0.16, ease: "out" });
-A(6.36, "rea", "move", { to: [0.25, -0.42], dur: 0.36, steps: 3.0, ease: "in" }); A(6.72, "rea", "move", { to: [0.72, -0.82], dur: 0.28, steps: 3.0, ease: "linear" });
+A(6.36, "rea", "move", { to: [0.25, -0.42], dur: 0.36, steps: 3.0, ease: "in" }); A(6.72, "rea", "move", { to: [0.62, -0.76], dur: 0.28, steps: 3.0, ease: "linear" });
 // the Wizard lowers his phone
-ph.carry(5.95, [WIZ[0] - 0.22, 0.6, WIZ[1] + 0.3], 0.4);
+ph.carry(5.95, [WIZ[0] - 0.22, 0.35, WIZ[1] + 0.3], 0.4);
 A(6.0, "wiz", "expr", { expr: "sad", set: { curve: 0.1 }, dur: 0.3 });
 see(5.9, 6.95, ["rea", "phx", "pigeon"], "the guard marches off with the pigeon on his hat, Phoenix sits defeated");
 
 // ---------------------------------------------------------------- 07 AROUND THE CORNER 7.0-8.5 (medium)
 // a cut skips the rest of the march: he is already in the nook, doubled over, silent laughter, tears streaming
-A(7.0, "rea", "move", { to: REA_NOOK, dur: 0.01 }); A(7.0, "rea", "turn", { to: 0, dur: 0.01 });
-A(7.0, "phx", "hide"); A(7.0, "wiz", "hide"); c.prop(7.0, "phone", { scale: 0.001 }, 0.01);
+// (the jump happens between the last wide frame, 6.967, and the first nook frame, 7.0)
+A(6.975, "rea", "move", { to: REA_NOOK, dur: 0.01 }); A(6.975, "rea", "turn", { to: 0, dur: 0.01 });
+A(6.975, "phx", "hide"); A(6.975, "wiz", "hide"); c.prop(6.975, "phone", { scale: 0.001 }, 0.01);
 A(7.0, "rea", "pitch", { to: 22, dur: 0.12, ease: "out" });
-A(7.0, "rea", "crouch", { to: 0.5, dur: 0.12 });
+A(7.0, "rea", "crouch", { to: 0.6, dur: 0.12 });
 A(7.0, "rea", "expr", { expr: "delighted", set: { eye: 0.05, curve: 1, open: 0.85, tilt: 0.5 }, dur: 0.08 });
-A(7.0, "rea", "hat", { spin: [0, 0, -14], off: [0.03, -0.01, 0], dur: 0.15 });
+A(7.0, "rea", "hat", { spin: [0, 0, -26], off: [0.06, -0.02, 0], dur: 0.15 });
 A(7.0, "rea", "tilt", { to: [-28, 0], dur: 0.2 });     // the scythe leans on the wall
-for (let i = 0; i < 5; i++) A(7.05 + i * 0.25, "rea", "squash", { amount: 0.06, dur: 0.2 });
-c.arm(7.0, "rea", "L", { o: [-0.04, 0.08, 0.34] }, 0.1);
+for (let i = 0; i < 5; i++) { A(7.05 + i * 0.25, "rea", "squash", { amount: 0.12, dur: 0.2 }); A(7.05 + i * 0.25, "rea", "lean", { to: i % 2 ? -5 : 5, dur: 0.22, ease: "inOut" }); }
+A(8.3, "rea", "lean", { to: 0, dur: 0.2, ease: "inOut" });
+c.arm(6.975, "rea", "L", { o: [-0.04, 0.08, 0.34] }, 0.01);   // already on his knee at the cut
 for (let i = 0; i < 3; i++) { const t = 7.15 + i * 0.36; c.arm(t, "rea", "L", { o: [-0.05, 0.28, 0.36] }, 0.14, "out"); c.arm(t + 0.15, "rea", "L", { o: [-0.04, 0.06, 0.34] }, 0.1, "in"); }
 for (const id of ["tearL", "tearR"]) c.prop(7.0, id, { on: 1 }, 0.12);
 A(7.02, "rea", "talk", { line: "pfff-hhhh!", tone: "excited", dur: 1.1, voice: false });
-c.textPop(7.15, "rea", "PFFF", { dur: 0.9, size: 96, dx: 0.65, dy: -0.55 });
+c.textPop(7.15, "rea", "PFFF", { dur: 0.6, size: 96, dx: 0.65, dy: -0.55 });
+c.textPop(7.75, "rea", "HA HA", { dur: 0.65, size: 90, dx: 0.6, dy: -0.35 });
 // the pigeon flaps off the tilted hat
-c.prop(7.05, "pigeon", { flap: 1, happy: 0 }, 0.08);
-c.prop(7.1, "pigeon", { x: -0.9, y: 2.6, z: 0.5, rot: 40 }, 0.6, "in");
-sfx(7.08, "wing-flap", { gain: 0.25, reason: "the pigeon flaps off the tipped bearskin" });
+c.prop(7.0, "pigeon", { flap: 1, happy: 0, y: 1.86 }, 0.1, "out");   // a startled hop up off the tipping hat
+c.prop(7.1, "pigeon", { x: -0.9, y: 2.6, z: 0.5, rot: 40 }, 0.9, "linear");
+sfx(7.02, "wing-flap", { gain: 0.25, reason: "the pigeon flaps off the tipped bearskin" });
 see(7.05, 8.4, ["rea.face"], "the guard doubled over laughing round the corner");
 
 // ---------------------------------------------------------------- 08 SNAP BACK 8.5-10.0 (same medium)
@@ -216,28 +225,30 @@ A(8.5, "rea", "pitch", { to: 0, dur: 0.1, ease: "out" });
 A(8.5, "rea", "crouch", { to: 0, dur: 0.1 });
 A(8.5, "rea", "hat", { spin: [0, 0, 0], off: [0, 0, 0], dur: 0.1 });
 A(8.5, "rea", "tilt", { to: null, dur: 0.12 });
-c.arm(8.5, "rea", "L", "rest", 0.12);
-A(8.5, "rea", "expr", { expr: "deadpan", dur: 0.08 });
+c.arm(8.5, "rea", "L", "rest", 0.12); c.arm(8.5, "rea", "R", { o: [-0.03, 0.25, 0.42] }, 0.12);   // back to the rifle carry
+A(8.5, "rea", "expr", { expr: "deadpan", dur: 0.08 }); A(8.5, "rea", "face", { lidL: STARE, lidR: STARE, dur: 0.08 });
 A(8.5, "rea", "look", { to: [0, 0], dur: 0.05, blink: false });
 for (const id of ["tearL", "tearR"]) c.prop(8.5, id, { on: 0 }, 0.06);
-c.prop(8.5, "tear", { on: 1, fill: 0.3 }, 0.08); c.prop(8.6, "tear", { y: 0.49, z: 0.335, fill: 1 }, 1.35, "inOut");
+c.prop(8.5, "tear", { on: 1, fill: 0.3 }, 0.08); c.prop(8.6, "tear", { y: 0.47, z: 0.33, fill: 1 }, 1.2, "inOut");
 sfx(8.5, "whoosh", { gain: 0.25, reason: "he snaps back upright" });
 c.still(8.62, "rea", 1.36, 0);
 // Phoenix peeks round the corner, sees the tear, points at it, grins
-A(8.5, "phx", "show"); A(8.5, "phx", "move", { to: PHX_PEEK, dur: 0.01 }); A(8.5, "phx", "pitch", { to: 0, dur: 0.01 }); A(8.5, "phx", "drop", { to: 0, dur: 0.01 });
-A(8.5, "phx", "turn", { to: -30, dur: 0.01 }); A(8.5, "phx", "wings", { to: 0.3, dur: 0.01 });
-A(8.5, "phx", "lean", { to: 0, dur: 0.01 }); c.arm(8.5, "phx", "R", "rest", 0.01); c.arm(8.5, "phx", "L", "rest", 0.01); A(8.5, "phx", "expr", { expr: "eager", dur: 0.01 }); A(8.62, "phx", "lean", { to: -28, dur: 0.22, ease: "out" });
-A(8.62, "phx", "look", { to: [-0.8, 0.15], dur: 0.1 });
+// set up off screen right (hidden), then he slides in round the pier
+A(8.4, "phx", "move", { to: [PHX_PEEK[0] + 0.7, PHX_PEEK[1]], dur: 0.01 }); A(8.4, "phx", "pitch", { to: 0, dur: 0.01 }); A(8.4, "phx", "drop", { to: 0, dur: 0.01 });
+A(8.4, "phx", "turn", { to: -30, dur: 0.01 }); A(8.4, "phx", "span", { to: 0.6, dur: 0.01 }); A(8.4, "phx", "wings", { to: 0.3, dur: 0.01 });
+A(8.4, "phx", "lean", { to: 0, dur: 0.01 }); c.arm(8.4, "phx", "R", "rest", 0.01); c.arm(8.4, "phx", "L", "rest", 0.01); A(8.4, "phx", "expr", { expr: "eager", dur: 0.01 });
+A(8.45, "phx", "show"); A(8.48, "phx", "move", { to: PHX_PEEK, dur: 0.2, ease: "out" }); A(8.62, "phx", "lean", { to: 14, dur: 0.22, ease: "out" });
+A(8.62, "phx", "look", { to: [-0.7, 0.05], dur: 0.1 });
 A(8.75, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.7, eye: 1.1 }, dur: 0.15 });
-c.arm(8.85, "phx", "R", { x: [-0.42, 0.55, 0.3] }, 0.18, "out"); A(8.85, "phx", "grip", { side: "R", shape: "point", dur: 0.12 });
+c.arm(8.85, "phx", "R", { x: [-0.3, 0.55, 0.3] }, 0.18, "out"); A(8.85, "phx", "grip", { side: "R", shape: "point", dur: 0.12 });
 A(8.95, "phx", "talk", { line: "AHA!", tone: "excited", dur: 0.4, voice: false });
 c.textPop(8.95, "phx", "!", { dur: 0.6, size: 110, dx: 0.4, dy: -0.6 });
 see(8.9, 9.95, ["rea.face", "phx.face", "tear"], "the stone face with the one tear, and Phoenix pointing at it");
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind]
 const WIDE = { pos: [0.05, 1.4, 4.4], look: [0.05, 1.02, -0.6], fov: 46 };
-const CLOSE = { pos: [-0.12, 1.05, 2.3], look: [-0.22, 0.98, -0.95], fov: 36 };
-const NOOK = { pos: [0.9, 0.95, 1.25], look: [1.2, 0.9, -2.15], fov: 46 };
+const CLOSE = { pos: [-0.2, 1.05, 2.7], look: [-0.2, 0.98, -0.95], fov: 40 };
+const NOOK = { pos: [0.74, 0.95, 1.25], look: [0.92, 0.86, -2.15], fov: 52 };
 const beats = c.beats([
   ["01 silly face", 0, WIDE, "hook"],
   ["02 dance", 1.0, "keep"],
@@ -258,7 +269,7 @@ write(import.meta.url, {
   motion: MOTION,
   set: { type: "env", env: "london-palace-forecourt-rain", aperture: 0, focus: false },
   music: { style: "march", bpm: 112, gain: 0.3, payoff: 7.0, parts: [{ at: 0, part: "main" }, { at: 6.4, part: "stop" }, { at: 7.0, part: "drop" }] },
-  sound: { sfx: 0.7, ambience: 0.3, surface: "stone" },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "concrete" },
   hook: { show: ["phx", "rea", "box"], hint: 0, what: "Phoenix pulls a silly face an inch from the guard, who doesn't move" },
   creative: { length: [9, 12] },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
