@@ -44,6 +44,8 @@ import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { lockMusic, addMusic } from "./music.mjs";
 import { clipResults, contactResults } from "../qa/check.mjs";
+import { visibility } from "../qa/framing.mjs";
+import { cameraLint } from "../qa/camera.mjs";
 import { renderTime } from "./shared/holds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -317,6 +319,12 @@ async function main() {
       const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "staging"].includes(r.check));
       for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
+      // what each beat must show (qa/framing.mjs "visible") and the camera lint (qa/camera.mjs): notes, never a gate
+      try {
+        const ch = loadCharacters(sb), notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass");
+        for (const r of notes) console.log(`  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`);
+        if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
+      } catch (e) { console.log(`  note visible: not checked (${e.message})`); }
       return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden"].includes(r.check));
     };
     // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the

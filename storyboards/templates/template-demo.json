@@ -616,6 +616,43 @@
    ]
   }
  ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "phone"
+   ],
+   "why": "the problem at frame 0: Phoenix on the phone, the Wizard watching"
+  },
+  {
+   "from": 2.6,
+   "to": 3.6,
+   "see": [
+    "wiz.face"
+   ],
+   "why": "the Wizard waits to be seen"
+  },
+  {
+   "from": 4.1,
+   "to": 4.8,
+   "see": [
+    "phx.face",
+    "phone"
+   ],
+   "why": "Phoenix's grin is at the phone"
+  },
+  {
+   "from": 5.8,
+   "to": 7,
+   "see": [
+    "wiz.face"
+   ],
+   "why": "the Wizard's defeated look"
+  }
+ ],
  "allowClip": [
   {
    "who": "phx",
