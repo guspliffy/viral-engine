@@ -35,7 +35,7 @@ import * as grips from "../../lib/grips.mjs";
 const OPENER = false;                 // the trend is silent tragedy: no line in the opening (brief: no speech)
 const FOCUS = false;                  // Jonny 31 Oct: the whole frame sharp
 const FACES = "strong";
-const LOOK = process.env.LOOK || "sheet-hatch";   // castLook: the sheet faces + costumes with hatching (Jonny's pick, 4 Nov), or "golden"
+const LOOK = process.env.LOOK || "sheet";   // castLook: the sheet faces + costumes (hatching by default since PR #84, Jonny's pick 4 Nov), or "golden"
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const END = 10.0;
@@ -303,9 +303,7 @@ write(import.meta.url, {
   idea: "Jonny's zombie trend storyboard (1 Nov 2026): Death can't end his zombie friend, hugs him, gets nibbled and accepts it",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   castLook: LOOK,
-  // the sheet look needs the drawn pass or Phoenix's sheet wings and crest render grey (copied from storyboards/characters/turn-phoenix-sheet.json)
-  drawn: { lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
-  motion: "natural",
+motion: "natural",
   letterbox: { top: BAR, bottom: BAR },
   set: { type: "plain", color: "#4a5268", floor: "#2c3240", light: "dusk-rain", night: true, aperture: FOCUS ? 0.045 : 0,
     plate: { src: "assets/plates/zombie-street-back.png", z: -8.5, center: [0, 1.6], height: 12.5, depth: false, motion: false, dust: 0 },
