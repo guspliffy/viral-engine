@@ -16,7 +16,13 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   more, and no hat, wing, prop or other character hides a third of the eyes of whoever is acting (a line, or a new
   expression) for 0.3 s (`face-hidden`; standing behind someone only warns). These fail the check, and `render.mjs`
   refuses to start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip`
-  window with a `reason`; a window without one is ignored. An arm up inside a helmet glass fails too. Warnings to look at:
+  window with a `reason`; a window without one is ignored. A window lets bodies touch and press, not merge: two bodies
+  more than 18 % into each other still fail inside it (`RULES.allowBody`; a window's `"max"` raises it, with the
+  reason saying why). The first Zombie Too hug (4 Nov) had them 86 % in and passed. Arms count too: an arm tube or
+  glove more than 4 cm into another character's body or face fails, inside a window as well (`RULES.allowReach`), and
+  a hand reaching more than 45 cm across its own body for 0.3 s fails (35 cm warns): the shoulder hides and the arm
+  reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
+  body on its own side. An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
@@ -31,6 +37,14 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   arm coming out on a side the camera sees fails on a thin prop (a straw through the glove) and warns from 3 cm on any
   other. A thin held prop must show past the fist at both ends on screen for any 0.5 s it is held (thin-prop-hidden).
   render.mjs refuses to render on all of these.
+- **The drawn rig moves without pops** (`qa/rig.mjs`, from the layout's final world positions of hands, arm middles,
+  feet and held props every frame; `qa/motion.mjs` only follows the storyboard's hand targets): a hand, elbow, foot
+  or body jumping far more in one frame than either side warns (`rig-jump`), and fails over 12 cm when the frames
+  around it are still (nothing hides it); a foot on the floor sliding without a step warns (`foot-slide`); a held prop
+  jumping or slipping in the hand warns (`prop-pop`). After changing the rig, a grip or a contact check, run
+  `node qa/regress.mjs` (about 1.5 minutes, also on every pull request): the fixtures in `storyboards/regress/`
+  (walk and stop, turn, blink, pick up and put down, two-hand carry, hug, plus a merging hug, an arm out of the
+  chest and an arm pop that must fail) have to be judged as their `expect` block says.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
@@ -270,8 +284,8 @@ are his call. Skip the reviews only for pure engine tests, and say so.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
 - Renders draw on the CPU with Mesa llvmpipe (`--gl llvmpipe`, the default since 30 Oct 2026; it needs Xvfb), about
-  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears really fast moves (Jonny, 30 Oct: 48 px
-  of smear before a frame blurs, `engine/render.mjs` BLUR); it used to take 62-73 % of a clip's render time
+  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears the very fastest moves (Jonny, 4 Nov: 144 px
+  of smear before a frame blurs, `engine/render.mjs` BLUR; 48 px drew 39 % slower); it used to take 62-73 % of a clip's render time
   (`/mnt/project-files/engine/render-measure-01/report.md`). Run full renders in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
   machine with a graphics card, try `--gl gpu` on a 1 s range (`--from 4 --to 5`) and compare the timing line; the
   "stage ready" line names the renderer actually used.

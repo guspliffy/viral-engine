@@ -10,7 +10,7 @@ import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
-import { cone, meshShape, inkMaterial } from "./handmesh.js";
+import { cone, meshShape, geometryOf, shapeKey, inkMaterial } from "./handmesh.js";
 
 const LEG_H = 0.14;
 
@@ -537,8 +537,13 @@ export class Character {
     a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
     a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
     if (key === a.skinKey && !globalThis.__noGeomCache) return;
+    // meshing ahead on workers (mesh-pool.js): the collecting pose only lists the shape; the real pose takes the
+    // finished mesh made for exactly this shape, or meshes it here
+    const pre = globalThis.__skinPre, h = hs.cell ?? 0.004;
+    if (pre?.collect) { pre.jobs.push({ key: shapeKey(shape, h), shape, h }); return; }
+    const made = pre?.ready?.get(shapeKey(shape, h));
     a.skinKey = key; a.skin.geometry.dispose();
-    a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
+    a.skin.geometry = a.ink.geometry = made ? geometryOf(made) : meshShape(shape, h);
   }
 
   _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
@@ -762,6 +767,19 @@ export class Character {
   // they intersect): staff: the gap between the held prop's shaft and the holding arm outside the fist (arm) and the
   // body (body), how far the grip sits off the shaft (gripOff) and how nearly the forearm runs along it (par, 0..1;
   // near 1 the fist has nothing to turn around); brim: how deep each arm reaches into the hat brim (0 = clear)
+  // the final drawn positions of the limbs, in the root's space (stage.js turns them into world space for the rig
+  // motion check, qa/rig.mjs): each hand, the arm's middle (where an elbow pops), each foot. Shown: the limb is drawn
+  rig() {
+    const out = {};
+    for (const s of ["R", "L"]) {
+      const a = this.arms[s];
+      if (a.hand && a.hand.visible !== false) out[`h${s}`] = a.hand.position.clone();
+      if (a.elbow && a.shoulder && a.hand) out[`e${s}`] = Character.armCurve(a.shoulder, a.elbow, a.hand.position, a.joint).getPoint(0.5);
+      const f = this.legs[s]?.foot; if (f && f.visible) out[`f${s}`] = f.position.clone();
+    }
+    return out;
+  }
+
   contact() {
     const S = this.bodyGroup.scale, out = { staff: null, brim: { R: 0, L: 0 } };
     const shoulder = (s) => { const p = this.surf((s === "R" ? -1 : 1) * 1.38, this.def.limbs.shoulder ?? 0.02).pos; return p.set(p.x * S.x, p.y * S.y, p.z * S.z); };
@@ -818,6 +836,9 @@ export class Character {
       }
     }
     for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
+    // how far each hand reaches across the body's middle to the other side, in metres (0 or less: on its own side). Far
+    // across, the shoulder hides behind the body and the arm reads as coming out of the chest (Zombie Too hug, 4 Nov)
+    out.cross = { R: this.arms.R.hand.position.x, L: -this.arms.L.hand.position.x };
     return out;
   }
   // the drawn arm s as balls along its centre line, in the world (stage.js inProps: an arm through a prop), from where

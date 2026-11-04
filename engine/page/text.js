@@ -10,6 +10,8 @@
 // output pixels), holds, and puffs out: { "fx": "pop", "text": "GULP", "who": "rea", "dur": 0.8, "color": "#ffd60a",
 // "angle": -8, "size": 120, "burst": "#ffffff", "dx": 0.55, "dy": -0.3 }. It is kept inside the safe zone.
 // "color": "speaker" uses the character's caption colour (an emotion word over a head, acting.mjs emote).
+// "shape": "heart" draws a cartoon heart instead of a word (same pop in, hold and puff out, a soft beat while it holds;
+// "color" its fill, default pink): a love heart over a hug.
 //
 // Slam words (fx "slam", at the end of this file): one or two huge words over the action in place of a hook caption.
 import { clamp, ease, lerp } from "./util.js";
@@ -125,9 +127,13 @@ const popIn = 0.12, popOut = 0.16;
 export function popBox(f, anchor) {
   if (!anchor) return null;
   const size = f.size ?? POP_SIZE;
-  ctx.save(); ctx.font = `900 ${size}px "CapBlack"`; ctx.letterSpacing = "1px";
-  const w = (ctx.measureText(f.text).width + size * 0.2) * POP_GROW, h = size * 1.15 * POP_GROW;
-  ctx.restore();
+  let w, h;
+  if (f.shape === "heart") { w = size * 1.25 * POP_GROW * 1.1; h = size * 1.2 * POP_GROW * 1.1; }   // (1.1: the beat)
+  else {
+    ctx.save(); ctx.font = `900 ${size}px "CapBlack"`; ctx.letterSpacing = "1px";
+    w = (ctx.measureText(f.text).width + size * 0.2) * POP_GROW; h = size * 1.15 * POP_GROW;
+    ctx.restore();
+  }
   const x = clamp(anchor.x - w / 2, SAFE.x0 + 8, SAFE.x1 - 8 - w), y = clamp(anchor.y - h / 2, SAFE.y0 + 8, SAFE.y1 - 8 - h);
   return [Math.round(x), Math.round(y), Math.round(w), Math.round(h)];
 }
@@ -146,6 +152,7 @@ export function drawPop(f, t, anchor) {
   ctx.save();
   ctx.globalAlpha = 1 - ease("in")(kout);
   ctx.translate(cx, cy - 12 * (k / d)); ctx.rotate(ang); ctx.scale(sc, sc);
+  if (f.shape === "heart") { drawHeart(f, size, k); ctx.restore(); return; }
   ctx.font = `900 ${size}px "CapBlack"`; ctx.letterSpacing = "1px"; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
   const tw = ctx.measureText(f.text).width;
   if (f.burst) { burst(tw * 0.68, size * 0.95, 11); ctx.fillStyle = f.burst; ctx.fill(); ctx.lineWidth = 9; ctx.strokeStyle = INK; ctx.stroke(); }
@@ -158,6 +165,25 @@ export function drawPop(f, t, anchor) {
     else { ctx.strokeStyle = INK; ctx.fillStyle = INK; ctx.strokeText(ch, xs[i] + off, y + off); if (off) ctx.fillText(ch, xs[i] + off, y + off); }
   });
   ctx.restore();
+}
+
+// a cartoon heart about `size` px tall, centred on the origin: hard shadow, thick ink outline, the fill, a white shine;
+// it beats softly (about twice a second) while it holds
+function drawHeart(f, size, k) {
+  const b = 1 + 0.07 * Math.max(0, Math.sin(k * Math.PI * 4.2)) ** 2;
+  ctx.scale(b, b);
+  const s = size / 2, path = (dx, dy) => {
+    ctx.beginPath(); ctx.moveTo(dx, dy + s * 0.95);
+    ctx.bezierCurveTo(dx - s * 0.2, dy + s * 0.72, dx - s * 1.15, dy + s * 0.25, dx - s * 1.08, dy - s * 0.3);
+    ctx.bezierCurveTo(dx - s * 1.0, dy - s * 0.95, dx - s * 0.2, dy - s * 1.0, dx, dy - s * 0.48);
+    ctx.bezierCurveTo(dx + s * 0.2, dy - s * 1.0, dx + s * 1.0, dy - s * 0.95, dx + s * 1.08, dy - s * 0.3);
+    ctx.bezierCurveTo(dx + s * 1.15, dy + s * 0.25, dx + s * 0.2, dy + s * 0.72, dx, dy + s * 0.95);
+    ctx.closePath();
+  };
+  ctx.lineJoin = "round";
+  path(size * 0.07, size * 0.07); ctx.fillStyle = INK; ctx.fill();   // the hard shadow, like the words
+  path(0, 0); ctx.lineWidth = size * 0.12; ctx.strokeStyle = INK; ctx.stroke(); ctx.fillStyle = f.color || "#ff4f8b"; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(-s * 0.55, -s * 0.42, s * 0.2, s * 0.12, -0.6, 0, Math.PI * 2); ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.fill();
 }
 
 // --- slam words (fx "slam"): one or two huge words that slam in over the action on the first frame, in place of a

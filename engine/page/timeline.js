@@ -212,7 +212,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || def?.arms?.R || "rest", pose: c.arms?.R || def?.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || def?.arms?.L || "rest", pose: c.arms?.L || def?.arms?.L || "rest", p: 1 } },
-    walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0,
+    walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0, skin: 0, skinColor: null,
     hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
     face: Object.fromEntries(FACE_KEYS.map((k) => [k, def.face?.neutral?.[k] ?? 0])),
     grip: { R: { ...(GRIPS[c.grip?.R || def.hands?.grip?.R] || GRIPS.open) }, L: { ...(GRIPS[c.grip?.L || def.hands?.grip?.L] || GRIPS.open) } },
@@ -329,6 +329,9 @@ export function actorState(sb, actor, def, t, raw = false) {
         break;
       }
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
+      // { do: "skin", color: "#8fa07a", to: 1, dur } fades the potato skin (body and eyelids) toward color: the zombie
+      // turn in Then I'm a Zombie Too (stage.js skinTint); to: 0 fades it back
+      case "skin": st.skinColor = a.color ?? st.skinColor; st.skin = lerp(st.skin, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
       // { do: "hat", off, spin } tips or lifts the hat; on: false hides it (a costume pulled over it, the sheet ghost)
