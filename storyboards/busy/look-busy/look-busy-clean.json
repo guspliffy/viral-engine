@@ -1,0 +1,3028 @@
+{
+ "id": "look-busy-clean",
+ "title": "When the boss walks past and you have to look busy",
+ "idea": "Story 18 redo (4 Nov 2026): the spell stamps the bare desk beside the blank report; the boss promotes him",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "motion": "natural",
+ "set": {
+  "type": "office",
+  "seed": 3,
+  "aperture": 0
+ },
+ "music": {
+  "style": "funk",
+  "bpm": 100,
+  "offset": 1.2,
+  "gain": 0.3,
+  "payoff": 8.4,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 7.8,
+    "part": "stop"
+   },
+   {
+    "at": 8.4,
+    "part": "drop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.2,
+  "surface": "carpet",
+  "room": "office"
+ },
+ "hook": {
+  "show": [
+   "wrk",
+   "sor",
+   "report"
+  ],
+  "hint": 0,
+  "what": "the worker's eyes snap to the door, the report on his desk is blank"
+ },
+ "creative": {
+  "length": [
+   10,
+   13
+  ]
+ },
+ "cast": [
+  {
+   "id": "wrk",
+   "character": "busy/samurai-worker",
+   "at": [
+    0.15,
+    0
+   ],
+   "face": 6,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 2.2
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    0.95,
+    -0.95
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 5.7,
+   "arms": {
+    "L": {
+     "o": [
+      0.16,
+      0.46,
+      0.1
+     ]
+    }
+   }
+  },
+  {
+   "id": "bos",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -3.7,
+    -0.3
+   ],
+   "face": 90,
+   "expr": "stern",
+   "follow": 0.4,
+   "seed": 3.3
+  }
+ ],
+ "props": [
+  {
+   "id": "desk",
+   "kind": "officedesk",
+   "x": 0.12,
+   "y": 0,
+   "z": 0.6,
+   "w": 1.6,
+   "d": 0.5
+  },
+  {
+   "id": "report",
+   "kind": "blankreport",
+   "x": -0.04,
+   "y": 0.42,
+   "z": 0.6,
+   "rot": 5,
+   "w": 0.3,
+   "d": 0.4
+  },
+  {
+   "id": "marks",
+   "kind": "stampmarks",
+   "x": 0.48,
+   "y": 0.421,
+   "z": 0.6,
+   "size": [
+    0.13,
+    0.083
+   ],
+   "at": [
+    [
+     -0.12,
+     -0.08,
+     -6
+    ],
+    [
+     0.02,
+     0.02,
+     9
+    ],
+    [
+     -0.15,
+     0.08,
+     -14
+    ],
+    [
+     0.12,
+     -0.1,
+     4
+    ],
+    [
+     -0.04,
+     0.1,
+     18
+    ],
+    [
+     0.1,
+     0.12,
+     -3
+    ],
+    [
+     -0.08,
+     -0.16,
+     -20
+    ],
+    [
+     0.14,
+     0.02,
+     12
+    ],
+    [
+     -0.02,
+     -0.04,
+     2
+    ],
+    [
+     0.05,
+     -0.13,
+     -9
+    ],
+    [
+     -0.12,
+     0,
+     22
+    ],
+    [
+     0.12,
+     -0.02,
+     -16
+    ],
+    [
+     -0.06,
+     0.04,
+     7
+    ],
+    [
+     0.04,
+     0.12,
+     -2
+    ]
+   ]
+  },
+  {
+   "id": "stamp",
+   "kind": "rubberstamp",
+   "x": 0.6,
+   "y": 0.42,
+   "z": 0.42,
+   "rot": 186,
+   "scale": 1.3
+  },
+  {
+   "id": "plate",
+   "kind": "deskplate",
+   "x": -3.22,
+   "y": 0.32,
+   "z": -0.3,
+   "rot": 270,
+   "w": 0.32
+  },
+  {
+   "id": "tie",
+   "kind": "necktie",
+   "wear": "bos",
+   "x": 0,
+   "y": 0.5,
+   "z": 0.4,
+   "len": 0.3
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.3,
+   "to": 2.5,
+   "text": "make me look busy!",
+   "pos": 1270,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "hook",
+   "at": 0,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.4,
+     1.1,
+     4.8
+    ],
+    "look": [
+     0.4,
+     0.44,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.45,
+      "curve": -0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "talk",
+     "line": "boss is coming!",
+     "tone": "excited",
+     "dur": 0.75,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -1,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.04
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.03,
+       0.02,
+       0.08
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.03,
+       0.02,
+       -0.08
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.15,
+     "at": 0.06
+    },
+    {
+     "who": "wrk",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -1,
+      0.1
+     ],
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.39
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.39
+    },
+    {
+     "who": "wrk",
+     "do": "noblink",
+     "dur": 0.9,
+     "at": 0.5
+    },
+    {
+     "who": "bos",
+     "do": "grab",
+     "prop": "plate",
+     "hand": "both",
+     "grip": [
+      0,
+      0.09,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.51
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "ask",
+   "at": 1.2,
+   "len": 1,
+   "do": [
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0.85,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.3,
+     "at": 0.06
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 1.15
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.47,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "wrk",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wrk",
+     "do": "talk",
+     "line": "make me look busy!",
+     "tone": "excited",
+     "dur": 0.85,
+     "voice": false,
+     "at": 0.12
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "set": {
+      "raise": 0.05,
+      "smirk": 0.5,
+      "curve": 0.3
+     },
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "spell",
+   "at": 2.2,
+   "len": 0.6,
+   "do": [
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": "cast",
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.7,
+      0.6,
+      -0.6
+     ],
+     "color": "#9dffb0",
+     "spark": "#7dff9a",
+     "puffs": 1,
+     "sparks": 8,
+     "dur": 0.35,
+     "size": 0.35,
+     "sound": false,
+     "at": 0.16
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.9,
+     "reason": "the Sorcerer's spell: one small green pulse into the worker's arm",
+     "at": 0.16
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.6,
+      0.45,
+      0.42
+     ],
+     "color": "#9dffb0",
+     "spark": "#7dff9a",
+     "puffs": 1,
+     "sparks": 12,
+     "dur": 0.45,
+     "size": 0.4,
+     "sound": false,
+     "at": 0.25
+    },
+    {
+     "who": "wrk",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "off": [
+       0.063,
+       0.02,
+       -0.031
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wrk",
+     "do": "turn",
+     "to": 6,
+     "dur": 0.2,
+     "at": 0.32
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.55
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.32
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.3,
+      "curve": -0.3
+     },
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.16,
+       0.46,
+       0.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.12,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.6,
+       0.57,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "wrk",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.572
+    }
+   ]
+  },
+  {
+   "name": "stamping",
+   "at": 2.8,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.38,
+     1.75,
+     3.9
+    ],
+    "look": [
+     0.38,
+     0.45,
+     0.35
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      0.38,
+      1.72,
+      3.7
+     ]
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.36,
+       0.42,
+       0.52
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.07
+    },
+    {
+     "who": "wrk",
+     "do": "grab",
+     "prop": "stamp",
+     "hand": "L",
+     "grip": [
+      -0.053,
+      0.081,
+      0.019
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.2
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.2
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.23
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.26
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.43,
+       0.57,
+       0.57
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.31
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.5,
+       0.42,
+       0.62
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.8
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.8
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.86
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.415,
+       0.57,
+       0.65
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.87
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.91
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.33,
+       0.42,
+       0.68
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 1.27
+    },
+    {
+     "who": "bos",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.15,
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 1.4
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 1.4
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 1.46
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.465,
+       0.57,
+       0.59
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.47
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "bos",
+     "do": "move",
+     "to": [
+      -1,
+      -0.3
+     ],
+     "dur": 1.9,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.52,
+       0.32,
+       -0.3
+      ]
+     },
+     "dur": 1.9,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.52,
+       0.32,
+       -0.3
+      ]
+     },
+     "dur": 1.9,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.51
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.6,
+       0.42,
+       0.5
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 1.87
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 2
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 2
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.2,
+     "at": 2
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 2.03
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 2.06
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.52,
+       0.57,
+       0.6
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.07
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 2.11
+    },
+    {
+     "sfx": "door-open",
+     "gain": 0.35,
+     "reason": "the office door off screen left: the boss is coming in",
+     "at": 2.2
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.44,
+       0.42,
+       0.7
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 2.47
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.15
+     ],
+     "dur": 0.15,
+     "at": 2.5
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "boss",
+   "at": 5.4,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     -0.15,
+     1.2,
+     5.5
+    ],
+    "look": [
+     -0.15,
+     0.44,
+     0
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.45,
+      1.5,
+      4.8
+     ],
+     "look": [
+      -0.5,
+      0.44,
+      0.1
+     ]
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.03
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.15
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.2
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.06
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.51,
+       0.57,
+       0.71
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.07
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.11
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.58,
+       0.42,
+       0.72
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.6
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.6
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.63
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.66
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.49,
+       0.57,
+       0.58
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.67
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.71
+    },
+    {
+     "who": "bos",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.4,
+     "at": 0.75
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.876,
+       0.32,
+       0.164
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.876,
+       0.32,
+       0.164
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "rot": 195
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "bos",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "bos",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "raise": 0.04
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.4,
+       0.42,
+       0.44
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 1.07
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 1.2
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 1.2
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 1.23
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 1.26
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.51,
+       0.57,
+       0.53
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.27
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.31
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.15
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "bos",
+     "do": "look",
+     "to": [
+      0.75,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.35,
+      "open": 0.08,
+      "eye": 1.05
+     },
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.62,
+       0.42,
+       0.62
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 1.67
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 1.8
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 1.8
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 1.83
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 1.86
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.54,
+       0.57,
+       0.59
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.87
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.91
+    },
+    {
+     "who": "bos",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.45
+     },
+     "dur": 0.3,
+     "at": 2.05
+    }
+   ]
+  },
+  {
+   "name": "promoted",
+   "at": 7.5,
+   "len": 1.5,
+   "do": [
+    {
+     "who": "bos",
+     "macro": "nod",
+     "times": 1,
+     "at": 0.05
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.46,
+       0.42,
+       0.56
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.3
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.3
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.33
+    },
+    {
+     "who": "bos",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.495,
+       0.57,
+       0.515
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.37
+    },
+    {
+     "who": "bos",
+     "do": "move",
+     "to": [
+      -1.06,
+      0
+     ],
+     "dur": 0.32,
+     "ease": "inOut",
+     "steps": 1,
+     "at": 0.4
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.44,
+       0.48,
+       0.47
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.44,
+       0.48,
+       0.47
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "rot": 210
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.41
+    },
+    {
+     "who": "bos",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.32,
+     "at": 0.42
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.62,
+       0.52,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.44,
+       0.42,
+       0.47
+      ]
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.44,
+       0.42,
+       0.47
+      ]
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "who": "sor",
+     "do": "noblink",
+     "dur": 1,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.8,
+     "reason": "the MANAGER sign set down on the desk",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.9
+    },
+    {
+     "who": "bos",
+     "do": "release",
+     "prop": "plate",
+     "dur": 0,
+     "at": 0.92
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.92
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.92
+    },
+    {
+     "who": "bos",
+     "macro": "say",
+     "line": "Promoted.",
+     "tone": "calm",
+     "pos": 300,
+     "at": 0.95
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.03,
+       0.02,
+       0.08
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.96
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.225,
+       0.09,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.03,
+       0.02,
+       -0.08
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.96
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.2
+     },
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.26
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.26
+    },
+    {
+     "who": "bos",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.26
+    },
+    {
+     "who": "bos",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.26
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "insert",
+   "at": 9,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.05,
+     2.75,
+     1.95
+    ],
+    "look": [
+     -0.05,
+     0.42,
+     0.62
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.05,
+      2.65,
+      1.9
+     ]
+    },
+    "dur": 1.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.53,
+       0.42,
+       0.47
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 10
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.3
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.3
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.445,
+       0.57,
+       0.535
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.37
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.41
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.36,
+       0.42,
+       0.6
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 11
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.9
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.9
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.08,
+     "at": 0.93
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.96
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.48,
+       0.57,
+       0.59
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.97
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.01
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "shrug",
+   "at": 10.2,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0,
+     1.3,
+     4.9
+    ],
+    "look": [
+     0,
+     0.44,
+     0.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "wrk",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.6,
+       0.42,
+       0.58
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.17
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "bos",
+     "do": "look",
+     "to": [
+      0.75,
+      0.05
+     ],
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.3
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.3
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.08,
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.51,
+       0.51,
+       0.61
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.37
+    },
+    {
+     "who": "wrk",
+     "do": "expr",
+     "set": {
+      "curve": 0.15,
+      "smirk": 0.3,
+      "tilt": 0.45
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.41
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.42,
+       0.42,
+       0.64
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.77
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 13
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.8,
+     "reason": "the stamp hits the desk",
+     "at": 0.9
+    },
+    {
+     "sfx": "book-close",
+     "gain": 1.1,
+     "reason": "the stamp's papery slap, so it carries on a phone speaker",
+     "at": 0.9
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.08,
+     "at": 0.93
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.96
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.053,
+       0.081,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.47,
+       0.51,
+       0.68
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.97
+    },
+    {
+     "who": "wrk",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wrk",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.01
+    },
+    {
+     "who": "wrk",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.1
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.2,
+   "see": [
+    "wrk.face",
+    "sor.face",
+    "report"
+   ],
+   "why": "the worker's alarm, the Sorcerer, the blank report on the desk"
+  },
+  {
+   "from": 1.3,
+   "to": 2.2,
+   "see": [
+    "wrk.face",
+    "sor.face"
+   ],
+   "why": "the ask and the Sorcerer's one raised brow"
+  },
+  {
+   "from": 2.2,
+   "to": 2.8,
+   "see": [
+    "sor.face",
+    "wrk"
+   ],
+   "why": "cause before effect: the flick, the pulse reaching his arm"
+  },
+  {
+   "from": 2.9,
+   "to": 5.4,
+   "see": [
+    "wrk.face",
+    "stamp",
+    "report",
+    "marks"
+   ],
+   "why": "he stamps the bare desk beside the untouched report"
+  },
+  {
+   "from": 6.2,
+   "to": 7.5,
+   "see": [
+    "bos.face",
+    "wrk.face",
+    "stamp"
+   ],
+   "why": "the boss judges the frantic arm, then the face"
+  },
+  {
+   "from": 7.5,
+   "to": 9,
+   "see": [
+    "bos.face",
+    "plate",
+    "wrk.face"
+   ],
+   "why": "approval, the sign lands, Promoted."
+  },
+  {
+   "from": 9.05,
+   "to": 10.1,
+   "see": [
+    "plate",
+    "report",
+    "marks"
+   ],
+   "why": "MANAGER next to the untouched report and a desk full of APPROVED"
+  },
+  {
+   "from": 10.4,
+   "to": 11.8,
+   "see": [
+    "wrk.face",
+    "plate",
+    "report"
+   ],
+   "why": "the guilty shrug to us, the sign and the blank report in frame"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wrk",
+   "with": "desk",
+   "from": 0,
+   "to": 11.8,
+   "reason": "he stands at his desk (the front panel hides his legs)"
+  },
+  {
+   "who": "bos",
+   "with": "bos",
+   "from": 7.85,
+   "to": 8.35,
+   "reason": "a potato's face sits at desk height: his far glove crosses it for 0.4 s as he leans to set the sign down, before he speaks"
+  }
+ ],
+ "notes": "Generated by storyboards/busy/look-busy/make-look-busy.mjs."
+}
