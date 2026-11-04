@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { lowerShell, ring, cape } from "./costumes-cast.js";
 import { taperedTube, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
-import { phoenixCrest, reaperArt } from "./costumes-art-cast.js";
+import { phoenixCrest, reaperArt, phoenixSheetCrest, phoenixSheetWing, phoenixSheetTail } from "./costumes-art-cast.js";
 
 // PotatoBrawl's Phoenix and Reaper in 3D, from the game's colours and drawings (game/core.js palettes,
 // game/ui/draw-fighters.js): the Phoenix's flame crest and flame wings, the Reaper's hood and farm scythe.
@@ -35,12 +35,14 @@ export function phoenixCostume(C, ch) {
   }
   // costume.art: the crest is flame locks growing from the crown (costumes-art-cast.js), part of the head, not a hat
   let artCrest = null;
-  if (C.art) { artCrest = phoenixCrest(ch); ch.potatoParts.add(artCrest); crest.visible = false; }
+  if (C.art) { artCrest = C.sheet ? phoenixSheetCrest(ch) : phoenixCrest(ch); ch.potatoParts.add(artCrest); crest.visible = false; }
   // the wings: two fans of long flame feathers on the back, folded down at rest, spread up and out by st.wings
   const wings = [-1, 1].map((s) => {
     const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.72, ch.cy + ch.ry * 0.12, -ch.rz * 0.55); ch.bodyGroup.add(pivot);
+    if (C.sheet) pivot.position.set(s * ch.rx * 0.55, ch.cy + ch.ry * 0.18, -ch.rz * 0.72);   // costume.sheet: rooted on the upper back, behind the arms
     const fan = new THREE.Group(); pivot.add(fan);
-    if (D) {
+    if (C.sheet) phoenixSheetWing(fan, s, mat, ch);   // costume.sheet: thick layered feathers from the design sheet (costumes-art-cast.js)
+    else if (D) {
       // three layers like a bird's wing: long red-orange primaries, orange secondaries over them, short gold coverts
       const layers = [[9, 0.62, 0.075, "#e8402a", "#ffb43a", 0.24, 0], [7, 0.42, 0.07, "#f26a2a", "#ffd23f", 0.22, 0.03], [5, 0.24, 0.065, "#ff9a30", "#ffe27a", 0.2, 0.06]];
       for (const [n, L, w, c0, c1, step, dz] of layers) for (let i = 0; i < n; i++) {
@@ -54,7 +56,8 @@ export function phoenixCostume(C, ch) {
     return { pivot, fan, s };
   });
   // tail feathers behind, low: a small fan sweeping back and down
-  if (D) {
+  if (C.sheet) ch.bodyGroup.add(phoenixSheetTail(ch, mat));
+  else if (D) {
     const tail = new THREE.Group(); tail.position.set(0, ch.cy - ch.ry * 0.62, -ch.rz * 0.85); ch.bodyGroup.add(tail);
     for (let i = 0; i < 5; i++) { const k = i / 4 - 0.5, m = new THREE.Mesh(feather(0.3 - Math.abs(k) * 0.12, 0.05, "#e8402a", "#ffc43a", 0.4), mat); m.scale.set(1, 1, 0.35); m.rotation.set(-2.1, 0, k * 1.2); m.castShadow = true; tail.add(m); }
   }

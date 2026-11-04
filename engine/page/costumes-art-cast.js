@@ -259,6 +259,7 @@ export function hoodedCloak(ch, P) {
   if (P.clasp) parts.children[parts.children.length - 1].traverse((o) => { if (o.isMesh) o.material = metalMat(P.clasp, 0.35); });
 }
 function sorcerer(C, ch, out) {
+  if (C.sheet) return sorcererSheet(C, ch, out);
   hoodedCloak(ch, { accent: C.accent || "#5a2f8f", lining: "#24113d", trim: "#d6a23c", tip: C.hoodTip ?? 0.5 });
   out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
   return out;
@@ -386,4 +387,214 @@ function reaperSheet(C, ch) {
   // sleeves in the cloak's cloth, a thin rolled cuff in the lining colour where the glove comes out
   const sl = sleeves(ch, clothMat(outer, { side: THREE.DoubleSide }), { from: 0.3, r0: 0.07, r1: 0.1, to: 0.8 });
   return { apply(st, t) { sl(); } };
+}
+
+// ---------- Phoenix (sheet): "Rising silhouette, Eager expression, Layered wings, Warm feather edges, Signature crest" --
+// Thick rounded feathers instead of thin flame spikes: each a leaf with a soft bevel (an ellipse section, thickest down
+// the middle), cream-gold at the root and red-orange only at the very tip. The crest is three big swept locks, the front
+// one ending in a single curl; the wings grow from a rounded root of short cream coverts on the upper back, three
+// overlapping rows (coverts, secondaries, long primaries sweeping out and up), one offset gold feather in each; a short
+// layered tail at the lower back repeats the crest's curl. Colours from the sheet (plan Appendix C).
+const PHX = { inner: "#fdd379", main: "#faa53b", tip: "#eb5e1f", gold: "#ffc84a" };
+// one thick feather along +y in its own frame, its tip bending toward +x by `bend` (of its length) and back by `back`
+function sheetFeather(len, w, root, tip, o = {}) {
+  const b = o.bend ?? 0.12, bk = o.back ?? 0.1, pts = [];
+  for (let k = 0; k <= 5; k++) { const t = k / 5; pts.push(V(b * len * t * t, len * t, -bk * len * t * t)); }
+  if (o.curl) { const e = pts[5]; pts.push(e.clone().add(V(o.curl * len * 0.12, len * 0.05, -len * 0.04)), e.clone().add(V(o.curl * len * 0.16, -len * 0.04, -len * 0.06))); }
+  // a leaf: widest a third of the way up, a rounded root, a soft point
+  const prof = (t) => Math.max(0.04, Math.pow(Math.sin(Math.PI * Math.min(1, 0.1 + t * 0.95)), 0.7) * (1 - 0.35 * t * t));
+  const g = lock(pts, V(0, 0, 1), w, o.thick ?? w * 0.24, prof, 26, 12);
+  tintAlong(g, root, tip, o.power ?? 2.2);
+  return g;
+}
+// the feathers of one wing, added to `fan` (costumes-pb.js keeps the pivot and the wing motion); s: -1 right, 1 left
+export function phoenixSheetWing(fan, s, mat, ch) {
+  const geos = [];
+  const add = (g, rz, x, y, z) => { g.rotateZ(rz); g.translate(x, y, z); geos.push(g); };
+  // primaries: long, from upward to outward, tips sweeping up; the 4th is the offset gold feather
+  const P = [[0.6, 0.02], [0.64, 0.24], [0.6, 0.46], [0.56, 0.66], [0.5, 0.86], [0.42, 1.06], [0.34, 1.26]];
+  P.forEach(([L, a], i) => {
+    const gold = i === 3, g = sheetFeather(L * (gold ? 1.06 : 1), 0.078, gold ? PHX.inner : PHX.main, gold ? PHX.gold : PHX.tip, { bend: -0.14 * s, back: 0.12, thick: 0.017 });
+    add(g, s * -a, s * 0.012 * i, 0, -0.01 * i);
+  });
+  // secondaries: a row over them, shorter, set out along the wing's arm
+  [[0.38, 0.2], [0.4, 0.42], [0.37, 0.64], [0.33, 0.86], [0.28, 1.08], [0.24, 1.28]].forEach(([L, a], i) => add(sheetFeather(L, 0.078, PHX.inner, PHX.main, { bend: -0.1 * s, back: 0.08, thick: 0.017, power: 1.4 }), s * -a, s * (0.02 + 0.01 * i), 0.02, 0.028));
+  // coverts: short cream-gold feathers over the root
+  [[0.21, 0.3], [0.22, 0.6], [0.2, 0.9], [0.17, 1.2]].forEach(([L, a], i) => add(sheetFeather(L, 0.072, "#fff0c2", PHX.inner, { bend: -0.06 * s, back: 0.05, thick: 0.018, power: 1 }), s * -a, s * 0.02 * i, 0.03, 0.055));
+  const m = mergeGeometries(geos); m.scale(0.82, 0.82, 0.82); const w = mesh(m, mat); fan.add(w);
+  const ink = lockInk(geos, { width: 0.0026, off: 0.05, from: 0.1, to: 0.75 }); if (ink) { ink.scale(0.82, 0.82, 0.82); fan.add(inkMesh(ink, PHX.tip, 0.5)); }
+  // the root: a rounded clump of the cream coverts where the wing grows out of the back, under the feathers
+  const root = mesh(new THREE.SphereGeometry(0.075, 20, 14), mat.clone()); root.material.vertexColors = false; root.material.color = new THREE.Color("#ffe3a0");
+  root.scale.set(1.15, 1, 0.75); root.position.set(s * 0.01, 0.03, 0.03); fan.add(root);
+  void ch;
+}
+// the crest: three big locks swept up and back from the crown, the front one ending in one curl; two small ones behind
+export function phoenixSheetCrest(ch) {
+  const m = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.6, emissive: new THREE.Color("#ff6a1f"), emissiveIntensity: 0.3 });
+  const geos = [], back = V(0, 0, -1), up = V(0, 1, 0);
+  const L = [   // az, el, len, width, side, rise, curl: three big locks, smaller ones packed between and behind them
+    [0.15, 1.24, 0.5, 0.15, 0.04, 0.3, 1], [-0.6, 1.2, 0.4, 0.13, -0.3, 0.16, 0], [0.75, 1.2, 0.38, 0.13, 0.32, 0.14, 0],
+    [-0.2, 1.36, 0.36, 0.1, -0.12, 0.24, 0], [0.4, 1.36, 0.34, 0.1, 0.14, 0.22, 0],
+    [-1.25, 1.16, 0.26, 0.08, -0.45, 0.06, 0], [1.3, 1.16, 0.25, 0.08, 0.45, 0.06, 0], [3.0, 1.34, 0.24, 0.08, 0.05, 0.06, 0],
+  ];
+  for (const [az, el, len, w, side, rise, curl] of L) {
+    const s = ch.surf(az, el), n = s.normal, sd = V(1, 0, 0);
+    const p0 = s.pos.clone().addScaledVector(n, -0.025);
+    const p1 = s.pos.clone().addScaledVector(n, len * 0.2).addScaledVector(back, len * 0.1);
+    const p2 = p1.clone().addScaledVector(up, len * (0.12 + rise * 0.5)).addScaledVector(back, len * 0.3).addScaledVector(sd, side * len * 0.25);
+    const p3 = p2.clone().addScaledVector(back, len * 0.32).addScaledVector(up, len * rise * 0.3).addScaledVector(sd, side * len * 0.2);
+    const pts = [p0, p1, p2, p3];
+    // the signature: the front lock's tip rolls over forward into one curl
+    if (curl) { pts.push(p3.clone().addScaledVector(back, len * 0.1).addScaledVector(up, len * 0.14), p3.clone().addScaledVector(back, -len * 0.02).addScaledVector(up, len * 0.24), p3.clone().addScaledVector(back, -len * 0.08).addScaledVector(up, len * 0.16)); }
+    const g = lock(pts, "side", w, 0.06, (t) => Math.min(1, 0.55 + t * 3) * (1 - t) ** 0.65 + 0.02, 40, 12);
+    tintAlong(g, "#f07a2a", PHX.main, 0.8);
+    // the warm edge at the tip only: back to red-orange over the last part
+    { const C = g.attributes.color, row = g.userData.row, c = new THREE.Color(), a = new THREE.Color(PHX.main), b = new THREE.Color(PHX.tip); for (let i = 0; i < C.count; i++) { const u = (i % row) / (row - 1); c.setRGB(C.getX(i), C.getY(i), C.getZ(i)).lerp(b, sstep(0.75, 1, u) * 0.7); C.setXYZ(i, c.r, c.g, c.b); } void a; }
+    geos.push(g);
+  }
+  const fl = mergeGeometries(geos), g = mesh(fl, m);
+  const ink = lockInk(geos, { width: 0.003, to: 0.65 }); if (ink) g.add(inkMesh(ink, PHX.tip, 0.5));
+  return g;
+}
+// the tail: a short layered fan at the lower back, sweeping back and down, the middle feather ending in the crest's curl
+export function phoenixSheetTail(ch, mat) {
+  const tail = new THREE.Group(), geos = [];
+  [[-0.5, 0.36, 0.07, 0], [-0.22, 0.44, 0.075, 0], [0, 0.5, 0.08, 1], [0.24, 0.42, 0.075, 0], [0.5, 0.34, 0.07, 0]].forEach(([k, L, w, curl], i) => {
+    const g = sheetFeather(L, w, PHX.main, PHX.tip, { bend: 0.06 * Math.sign(k), back: -0.25, thick: 0.016, curl: curl ? 1 : 0, power: 1.6 });
+    g.rotateZ(k * 0.9); g.translate(0, 0, (i % 2) * 0.012); geos.push(g);
+  });
+  [[-0.3, 0.2], [0.3, 0.2], [0, 0.24]].forEach(([k, L]) => { const g = sheetFeather(L, 0.07, PHX.inner, PHX.main, { back: -0.2, thick: 0.016, power: 1 }); g.rotateZ(k); g.translate(0, 0, 0.03); geos.push(g); });
+  // the fan stands upright (spread up and down, like the sheet's side view), not flat like a dustpan
+  const fanG = new THREE.Group(); fanG.rotation.y = Math.PI / 2; tail.add(fanG);
+  const m = mergeGeometries(geos); fanG.add(mesh(m, mat));
+  const ink = lockInk(geos, { width: 0.0024, off: 0.05, to: 0.7 }); if (ink) fanG.add(inkMesh(ink, PHX.tip, 0.5));
+  // pointing down and back from the lower back
+  // pointing back and down from the lower back, swept a little to one side (the sheet's rear view)
+  tail.rotation.set(-1.75, 0.5, 0); tail.position.set(0, ch.cy - ch.ry * 0.55, -ch.rz * 0.88);
+  return tail;
+}
+
+// ---------- Sorcerer (sheet): "Sharp silhouette, Confident expression, Structured cloak, Cloth + magic, Emerald clasp" --
+// Clearly not the Reaper: narrower and upright, a hood that rises to a soft point with an angular opening edged in gold,
+// a crisp V-front mantle over the shoulders, a long cloak whose side panels flare and taper with gold piping, deep
+// violet cloth lined in muted plum, wide sleeves with gold cuffs, and the signature: a gold clasp with one green stone
+// that matches the orb.
+function sorcererSheet(C, ch, out) {
+  const body = ch.bodyGroup, parts = ch.potatoParts;
+  const violet = C.sheetCloth || "#4a2b6c", plum = "#5a3c5e", goldC = "#d9a640", robe = "#22152f";
+  const { shell, hem, lining: inG, wall } = hoodieGeometry(ch, { hoodStrings: false, hoodTip: 0.95, hoodSide: 0.3, hoodStand: 0.1, hoodOpen: 0.84, hoodOpenH: 0.98, hoodRim: 0.022, hoodNeck: -0.4, hoodFlare: 0.04 });
+  { const P = shell.attributes.position, cols = new Float32Array(P.count * 3), dk = new THREE.Color(robe), oc = new THREE.Color(violet), b = new THREE.Color(dk.r / oc.r, dk.g / oc.g, dk.b / oc.b), c = new THREE.Color(), y0 = ch.cy + Math.sin(-0.4) * ch.ry;
+    for (let i = 0; i < P.count; i++) { const y = P.getY(i); c.setScalar(0.95 + 0.1 * sstep(ch.cy, ch.cy + ch.ry, y)).lerp(b, sstep(y0 + 0.03, y0 - 0.03, y)); cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b; }
+    shell.setAttribute("color", new THREE.BufferAttribute(cols, 3)); }
+  const goldCloth = clothMat(goldC, { roughness: 0.55 });
+  const innerM = clothMat(plum, { side: THREE.DoubleSide, role: "lining" });
+  for (const [g, m] of [[shell, clothMat(violet, { side: THREE.DoubleSide, vertexColors: true })], [hem, goldCloth], [inG, innerM], [wall, innerM]]) body.add(mesh(g, m));
+  const neck = (low, high) => (th) => low + (high - low) * sstep(0.25, 1.4, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))));
+  // the long cloak: side panels flaring more than the back, open at the front, gold piping on the hem and front edges
+  parts.add(drapeMesh(ch, {
+    top: 0.05, topFn: neck(-0.44, 0.05), lift0: -0.005, hem: -1.36, from: 0.32, to: Math.PI * 2 - 0.32, spread: 0.22, flare: 0.08, lift: 0.03, thick: 0.024, facing: 0.07,
+    flareFn: (th) => 0.6 + 0.7 * Math.abs(Math.sin(th)),
+    folds: [[0.75, 0.03, 0.2], [1.5, 0.045, 0.3], [2.25, -0.03, 0.2], [3.14, 0.035, 0.38], [4.0, -0.03, 0.2], [4.75, 0.045, 0.3], [5.5, 0.028, 0.2]],
+    sag: 1.0, drift: [0.02, 1.9, 1.1], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: goldC, ink: { width: 0.005 }, sheen: 1.35,
+  }, violet, plum));
+  // the V-front mantle over the shoulders: crisp, few folds, a gold-piped edge that runs down into a V at the clasp
+  parts.add(drapeMesh(ch, {
+    top: 0.25, topFn: neck(-0.44, 0.25), hem: -0.55, from: 0.12, to: Math.PI * 2 - 0.12, spread: 0.55, flare: 0.0, lift: 0.085, lift0: -0.004, liftRamp: 1.1, thick: 0.024, facing: 0,
+    hemFn: (th) => -0.5 - 0.12 * ((1 - Math.cos(th)) / 2) + 0.015 * Math.sin(th * 2.3 + 0.5),
+    folds: [[1.3, 0.02, 0.3], [2.4, -0.016, 0.2], [3.2, 0.024, 0.35], [4.0, -0.016, 0.2], [5.0, 0.02, 0.3]],
+    grad: 0.1, valleyShade: 2, rollR: 0.012, rollColor: goldC, ink: { width: 0.0045 }, sheen: 1.3,
+  }, violet, plum));
+  parts.add(mesh(band(ch, { ph: -0.43, w: 0.016, t: 0.01, lift: 0.06, round: 0.7 }), clothMat("#2a1a38")));
+  parts.add(roundClasp(ch, 0, -0.43, 0.06, 0.078, goldC, "#39d26a"));
+  const sl = sleeves(ch, clothMat(violet, { side: THREE.DoubleSide }), { from: 0.3, r0: 0.065, r1: 0.1, to: 0.8, cuff: goldC, cuffR: 0.011 });
+  out.prop = glowOrb(C); out.prop.axis = false; out.sitDepth = -0.035;
+  out.apply = () => sl();
+  return out;
+}
+
+// topstitching: short dashes along a line just off the surface (the sheets' "substantial stitched edges")
+function topstitch(line, color, o = {}) {
+  const geos = [], step = o.step ?? 0.026, len = o.len ?? 0.014, r = o.r ?? 0.0028, curve = new THREE.CatmullRomCurve3(line), L = curve.getLength(), n = Math.floor(L / step);
+  for (let i = 1; i < n; i++) {
+    const t = i / n, p = curve.getPointAt(t), T = curve.getTangentAt(t), g = new THREE.CapsuleGeometry(r, len, 2, 6);
+    g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), T)); g.translate(p.x, p.y, p.z); geos.push(g);
+  }
+  const m = new THREE.MeshStandardMaterial({ color, roughness: 0.7 }); m.userData.lookRole = "cloth";
+  return mesh(mergeGeometries(geos), m, false);
+}
+// a line on the body at (th, ph) points lifted off the surface
+const lineOn = (ch, pts, lift) => pts.map(([th, ph]) => { const s = ch.surf(th, ph); return s.pos.clone().addScaledVector(s.normal, lift); });
+
+// ---------- Gunslinger (sheet): "Relaxed stance, Knowing smile, Curved hat + layers, Felt + leather, Repaired hatband" --
+// An open brown vest with real lapels and stitched edges (instead of braces), a red neckerchief that hangs in a big
+// triangle and is knotted at the side, a gun belt through loops with a round brass buckle and bullets, a holster on each
+// hip fastened to it. The hat (costumes.js) gets a deeper curved brim with a rolled edge, a pinched crown and a narrow
+// band with the repaired stitch (cowboySheetHat).
+export function cowboySheet(C, ch) {
+  const parts = ch.potatoParts, vestC = C.vest || "#7a4a2a", vestIn = "#a8754a", stitchC = "#d9b98a";
+  const neck = (low, high) => (th) => low + (high - low) * sstep(0.3, 1.5, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))));
+  // the vest: fitted (no free hang), open at the front, the lapels turned back at the top of each front edge
+  const vest = drapeMesh(ch, {
+    top: -0.2, topFn: neck(-0.5, -0.2), hem: -1.08, from: 0.5, to: Math.PI * 2 - 0.5, spread: 0.12, free: false, flare: 0.015, lift: 0.028, lift0: 0.006, thick: 0.02, facing: 0,
+    folds: [[1.3, 0.012, 0.3], [2.6, -0.01, 0.25], [3.4, 0.012, 0.35], [4.8, 0.012, 0.3]], sag: 0.6, drift: [0.012, 2, 0.3], grad: 0.14, rollR: 0.011, rollColor: "#5e381e", ink: { width: 0.004 },
+  }, vestC, vestIn);
+  parts.add(vest);
+  const D = vest.userData.drape;
+  // lapels: a triangle of the vest folded back on each side of the neck opening, its point down the front edge
+  const lapM = clothMat(new THREE.Color(vestC).multiplyScalar(1.12), { side: THREE.DoubleSide });
+  for (const sd of [1, -1]) {
+    const P = [], N = 14, M = 8;
+    for (let j = 0; j <= N; j++) for (let i = 0; i <= M; i++) { const v = (j / N) * 0.45, e = sd > 0 ? D.f0(v) : D.t0(v), w = 0.2 * (1 - j / N) ** 0.9 * (i / M); P.push(D.at(e + sd * w, v, D.thick + 0.006 + 0.008 * (1 - i / M))); }
+    const g = new THREE.BufferGeometry(), pos = new Float32Array(P.length * 3), idx = [];
+    P.forEach((p, k) => p.toArray(pos, k * 3));
+    for (let j = 0; j < N; j++) for (let i = 0; i < M; i++) { const a = j * (M + 1) + i, b = a + 1, c = a + M + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); parts.add(mesh(g, lapM));
+    // the lapel's outer edge, topstitched
+    const edge = []; for (let j = 0; j <= N; j++) { const v = (j / N) * 0.45, e = sd > 0 ? D.f0(v) : D.t0(v); edge.push(D.at(e + sd * 0.2 * (1 - j / N) ** 0.9 - sd * 0.018, v, D.thick + 0.016)); }
+    parts.add(topstitch(edge, stitchC));
+  }
+  // topstitching along the vest's hem and front edges
+  const inset = (L, k) => L.map((p, i) => p.clone().lerp(L[Math.min(L.length - 1, i + 1)], 0).add(V(0, k, 0)));
+  parts.add(topstitch(inset(D.lines.hem, 0.022), stitchC));
+  for (const L of [D.lines.left, D.lines.right]) parts.add(topstitch(L.slice(Math.floor(L.length * 0.45)), stitchC));
+  // the neckerchief: a band round the neck, a big triangle in front, the knot on his left with two ends
+  const red = C.bandana || "#c8392b", redM = clothMat(red, { side: THREE.DoubleSide });
+  parts.add(mesh(band(ch, { ph: -0.36, w: 0.04, t: 0.018, lift: 0.04, round: 0.6 }), redM));
+  parts.add(garmentMesh(ch, { top: -0.36, hem: -0.36, from: -0.9, to: 0.7, folds: 4, depth: 0.012, flare: 0.04, lift: 0.055, wave: 0, thick: 0.01,
+    hemFn: (th) => -0.38 - 0.4 * Math.max(0, 1 - Math.abs(th + 0.05) / 0.75) ** 1.3 }, red, "#8a2219"));
+  const kn = ch.surf(1.05, -0.38), knotP = kn.pos.clone().addScaledVector(kn.normal, 0.065);
+  const knot = mesh(new THREE.SphereGeometry(0.036, 16, 12), redM); knot.scale.set(1, 0.85, 0.75); knot.position.copy(knotP); parts.add(knot);
+  const ends = [];
+  for (const [dx, dy, dz] of [[0.12, -0.05, -0.02], [0.08, -0.13, 0.0]]) {
+    const pts = [knotP, knotP.clone().add(V(dx * 0.5, dy * 0.4, dz + 0.01)), knotP.clone().add(V(dx, dy, dz))];
+    const e = mesh(lock(pts, V(0, 0, 1), 0.035, 0.008, (t) => 0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, 0.2 + t * 0.7)), 14, 8), redM); parts.add(e); ends.push(e);
+  }
+  // the gun belt: through loops, a round brass buckle, a row of bullets on his left hip, a holster on each hip
+  const belt = leatherMat("#3e2716");
+  parts.add(mesh(band(ch, { ph: -0.86, w: 0.05, t: 0.02, lift: 0.055, tilt: -0.06, dip: Math.PI }), belt));
+  for (const th of [-2.2, -1.25, -0.55, 0.55, 1.25, 2.2, Math.PI]) parts.add(onSurface(ch, mesh(new RoundedBoxGeometry(0.03, 0.012, 0.14, 2, 0.005), leatherMat("#5a3820")), th, -0.86, 0.06));
+  parts.add(roundClasp(ch, 0, -0.86, 0.07, 0.085, "#d6aa45"));
+  for (let i = 0; i < 4; i++) parts.add(onSurface(ch, mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.05, 10), metalMat("#d8b04a", 0.3)), 0.62 + i * 0.1, -0.86, 0.085));
+  for (const sd of [-1, 1]) {
+    const hp = ch.surf(sd * 1.5, -1.0), hol = new THREE.Group();
+    hol.add(mesh(new RoundedBoxGeometry(0.08, 0.2, 0.12, 3, 0.03), leatherMat("#5d3a20")));
+    const flap = mesh(new RoundedBoxGeometry(0.09, 0.05, 0.13, 2, 0.015), leatherMat("#4a2d18")); flap.position.y = 0.09; hol.add(flap);
+    hol.position.copy(hp.pos).addScaledVector(hp.normal, 0.075); hol.rotation.set(0, sd * 0.2, sd * 0.12); parts.add(hol);
+  }
+  return { ends };
+}
+// the sheet's hat on the existing cowboy hat (costumes.js cowboyHat): front of the brim dipped, a rolled brim edge, the
+// crown pinched at the front, a narrow band with the repaired stitch, tilted a little
+export function cowboySheetHat(hat, C) {
+  const [brim, under, crown, crease, band] = hat.group.children;
+  for (const b of [brim, under]) { const P = b.geometry.attributes.position; for (let i = 0; i < P.count; i++) { const x = P.getX(i), z = P.getZ(i), r = Math.hypot(x, z / 0.88), k = sstep(0.24, 0.5, r), front = Math.max(0, z / (r * 0.88 || 1)); P.setY(i, P.getY(i) - 0.07 * k * front ** 2 + 0.02 * k * (1 - front)); } b.geometry.computeVertexNormals(); }
+  // the brim's rolled edge
+  const ring = []; for (let j = 0; j < 96; j++) { const a = (j / 96) * Math.PI * 2, side = Math.pow(Math.abs(Math.cos(a)), 1.6), fb = Math.pow(Math.abs(Math.sin(a)), 2), front = Math.max(0, Math.sin(a)); ring.push(V(Math.cos(a) * 0.5, 0.27 * side - 0.03 * fb - 0.07 * front ** 2 + 0.02 * (1 - front) - 0.008, Math.sin(a) * 0.5 * 0.88)); }
+  hat.group.add(roll(ring, 0.014, brim.material, true));
+  { const P = crown.geometry.attributes.position; for (let i = 0; i < P.count; i++) { const y = P.getY(i), z = P.getZ(i), k = sstep(0.12, 0.3, y) * sstep(0.0, 0.18, z); P.setX(i, P.getX(i) * (1 - 0.3 * k)); P.setY(i, y - 0.025 * k); } crown.geometry.computeVertexNormals(); }
+  band.scale.y = 0.6; band.material = leatherMat(C.band || "#4a2c16"); band.position.y = 0.03;
+  // the repair: three stitches on the band, front left
+  const a = 0.95, p = V(Math.cos(a) * 0.209 * 1.32, 0.032, Math.sin(a) * 0.209 * 0.8 * 1.32), n = V(Math.cos(a), 0, Math.sin(a) * 0.8).normalize();
+  hat.group.add(stitches(p.addScaledVector(n, 0.004), n, V(0, 1, 0), 2, 0.026, "#d9b98a"));
+  void crease;
 }
