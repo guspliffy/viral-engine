@@ -102,7 +102,33 @@ Goal: find out which characters (and which traits) perform, then design new ones
 - **Platform rules:** label AI content; no re-uploads of other creators' footage; volume without originality gets
   throttled; running many accounts to spam posts is inauthentic behaviour.
 
-## Render speed (measured 2026-10-24, Claude's workspace, 2 cores, software WebGL)
+## Render speed
+
+Measured 2026-11-04 (render-speed-02) on Claude's 4-core cloud container (Xeon 2.1 GHz, Mesa llvmpipe, the default),
+full render of `storyboards/trend/not-yet/not-yet.json` (270 frames, 72 of them motion-blurred, four characters with
+seamless gloves):
+
+| | main 136173f | render-speed-02 |
+|---|---|---|
+| whole command | 19.4 min | 13.4 min |
+| drawing the frames | 1026 s (3.8 s/frame) | 701 s (2.6 s/frame) |
+| posing per frame (render.mjs log) | 1141 ms | 274 ms |
+| video stream | | byte-identical (same file md5) |
+
+- Where a frame's time went on main (Chrome CPU profile, 30 frames without blur): meshing the seamless glove skins
+  (`handmesh.js`, about 115 ms per open hand and up to 350 ms per fist, 8 hands for a cast of four) 47 %, the
+  renderer drawing (seen as the wait in `sync()`'s one-pixel read) 38 %, the JPEG and its copy to Node about 3 %.
+  The page can't time the ink-line pass, bloom, grade and shadows one by one: `gl.finish()` returns before Chrome's
+  CPU renderer has drawn, so all of them show up together in that wait.
+- The fix: the skins are meshed on one Web Worker per core (`mesh-pool.js`, `mesh-worker.js`, same code as the page,
+  `handmesh-core.js`), biggest shape first, and the next frame's skins start meshing as soon as this frame's drawing
+  is queued, so they overlap with the renderer. Anything the workers didn't make is meshed on the page as before.
+- What is left: drawing (llvmpipe) is now about 85 % of a frame and motion-blur samples are half of that on a busy
+  clip. Any further cut there changes pixels (fewer blur samples, cheaper shadows, no MSAA) and needs Jonny's eye.
+- To profile again: render a short range with `--from/--to --skip-gate --silent` and record a Chrome CPU profile
+  around the frame loop (CDP `Profiler.start`/`Profiler.stop` on the page); 1 s of a clip is enough.
+
+Earlier (2026-10-24, 2 cores, SwiftShader):
 
 - Full quality: ~1.8 s per frame (9 s clip ≈ 8 min). Draft: ~0.55 s per frame (≈ 2.5 min).
 - Where the time went: unlit drawing of a frame takes ~0.23 s; lighting is the cost. Image-based lighting on the

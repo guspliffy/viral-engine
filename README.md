@@ -46,9 +46,10 @@ gives the same video, however fast or slow the machine is.
 Long renders can run on GitHub's free runners: `.github/workflows/render.yml` splits the clip over up to 20 machines
 and joins it (`gh workflow run render.yml -f storyboard=storyboards/x.json`; the MP4 is the run's artifact for 3 days).
 
-Speed on a 2-core machine without a GPU (software WebGL): about 1.8 s per frame at full quality (a 9 s clip in
-about 8 minutes) and 0.55 s per frame with `--draft`. Most of the time is lighting the pixels; a machine with a real
-GPU should be much faster (not measured yet).
+Speed on a 4-core cloud machine without a GPU (Mesa llvmpipe, 4 Nov 2026): Not Yet (9 s, four characters with
+seamless gloves) takes about 13 minutes in one piece, 2.6 s per frame. Drawing is most of it; the glove skins are
+meshed on one worker per core while the frame before is drawn (`engine/page/mesh-pool.js`). Details and how to
+profile: `docs/PLAN.md` → Render speed.
 
 ## Quality checks
 

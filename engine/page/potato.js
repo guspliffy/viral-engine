@@ -10,7 +10,7 @@ import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
-import { cone, meshShape, inkMaterial } from "./handmesh.js";
+import { cone, meshShape, geometryOf, shapeKey, inkMaterial } from "./handmesh.js";
 
 const LEG_H = 0.14;
 
@@ -537,8 +537,13 @@ export class Character {
     a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
     a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
     if (key === a.skinKey && !globalThis.__noGeomCache) return;
+    // meshing ahead on workers (mesh-pool.js): the collecting pose only lists the shape; the real pose takes the
+    // finished mesh made for exactly this shape, or meshes it here
+    const pre = globalThis.__skinPre, h = hs.cell ?? 0.004;
+    if (pre?.collect) { pre.jobs.push({ key: shapeKey(shape, h), shape, h }); return; }
+    const made = pre?.ready?.get(shapeKey(shape, h));
     a.skinKey = key; a.skin.geometry.dispose();
-    a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
+    a.skin.geometry = a.ink.geometry = made ? geometryOf(made) : meshShape(shape, h);
   }
 
   _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {

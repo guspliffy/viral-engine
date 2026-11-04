@@ -14,6 +14,7 @@ import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
+import { meshAll } from "./mesh-pool.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -599,6 +600,37 @@ function frame(t) {
   return true;
 }
 
+// Glove skins meshed ahead on workers (mesh-pool.js, render-speed-02). A pose that only collects the shapes that need a
+// new mesh (potato.js _skin, collect mode) runs first, the workers mesh them in parallel, and the real pose takes each
+// finished mesh made for exactly its shape (anything else is meshed on the page as before, so the picture never
+// depends on the workers). A video frame also starts the next frame's meshes as soon as its own drawing is queued, so
+// the workers mesh while the CPU renderer draws; the scene is then posed back at t (its skins are already meshed, so
+// that pose is quick) before anything else reads it. A frame that only redraws the captions (a held drawing) poses
+// nothing, so nothing is collected for it.
+const held = (t) => { const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null; return q !== null && q === drawnQ; };
+function collect(t) {
+  const pre = { collect: true, jobs: [] };
+  globalThis.__skinPre = pre;
+  try { pose(t); } finally { globalThis.__skinPre = null; }
+  return pre.jobs;
+}
+let ahead = null;   // { t, done }: the meshes started for the next frame
+async function premesh(t, always = false) {
+  if (!always && held(t)) return;
+  const early = ahead && ahead.t === t ? await ahead.done : new Map(); ahead = null;
+  const jobs = collect(t), ready = await meshAll(jobs.filter((j) => !early.has(j.key)));
+  for (const [k, m] of early) ready.set(k, m);
+  globalThis.__skinPre = { ready };
+}
+const meshed = async (t, always, then) => { await premesh(t, always); try { return then(); } finally { globalThis.__skinPre = null; } };
+// ENGINE.frame: tv is the video time (the next frame's story time can jump at a hit-stop)
+async function videoFrame(tv) {
+  const t = st(tv), posed = !held(t), r = await meshed(t, false, () => frame(t));
+  const tn = st(tv + 1 / (sb.fps || 30));
+  if (posed && !held(tn)) { ahead = { t: tn, done: meshAll(collect(tn)) }; pose(t); }
+  return r;
+}
+
 // waits until the frame is really drawn: the 3D renderer only queues GPU work, so reading one pixel back is
 // what makes the software GPU finish it (render.mjs uses this to time drawing and encoding separately)
 function sync() { ctx.getImageData(0, 0, 1, 1); return true; }
@@ -636,7 +668,7 @@ let recent = [];
 const lean = (on) => { globalThis.__noSkin = on; };
 // (posed with the glove skins, as a drawn frame is: without them a shard's first two frames measured slower motion,
 // got a longer shutter and a visibly longer smear than the same frames in a whole render)
-function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
+async function prime(times) { recent = []; for (const t of times) await meshed(t, true, () => { pose(t); recent.push(corners()); }); return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
@@ -1425,7 +1457,7 @@ function ids(t) {
 const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o === "object" && "t" in o ? { ...o, t } : o);
 window.ENGINE = {
   init, sync, capture, motion, movingBox,
-  frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
+  frame: videoFrame, layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
   prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
   stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
 };
