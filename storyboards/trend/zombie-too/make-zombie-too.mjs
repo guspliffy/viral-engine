@@ -62,7 +62,7 @@ const cast = [
 const TEARS = [[-0.17, 0.62, 0.31], [-0.18, 0.55, 0.31], [-0.17, 0.48, 0.31], [0.17, 0.62, 0.31], [0.18, 0.55, 0.31], [0.17, 0.48, 0.31]];
 const TEAR_DROPS = [[-0.17, 0.42, 0.3], [0.17, 0.42, 0.3], [0.0, 0.35, 0.32]];
 const RAIN_BEADS = [[-0.3, 0.95, 0.2], [0.25, 1.02, 0.18], [0.36, 0.78, 0.22], [-0.38, 0.7, 0.2], [0.05, 1.08, 0.12], [-0.12, 1.0, 0.25], [0.3, 0.55, 0.28], [-0.33, 0.45, 0.27]];
-const FRY = { id: "fry", kind: "soggyfry", x: PHX0[0], y: 0.4, z: PHX0[1], rot: 90, tip: 0, limp: 0.85 };
+const FRY = { id: "fry", kind: "soggyfry", x: PHX0[0], y: 0.4, z: PHX0[1], rot: 90, tip: 0, limp: 0.85, scale: 1.6 };   // a chunky fry that reads at phone size (review B)
 
 const props = [
   FRY,
@@ -76,7 +76,7 @@ const props = [
   { id: "wetP", kind: "drips", wear: "phx", x: 0, y: 0, z: 0, beads: RAIN_BEADS, bead: 0.014, at: [[0.0, 0.3, 0.3]], drop: 0.012, floor: 0.3, on: 1 },
   // the street: wet asphalt with puddles mirroring the glow, rubble in groups (many small, few big), rain, rings, fog
   { id: "street", kind: "wetstreet", x: 0, y: 0, z: -1, w: 14, d: 14, glow: "#ff9a6a", sky: "#6f7fa3",
-    puddles: [[-1.2, 1.6, 0.9, 0.4], [0.4, 0.9, 1.1, 0.35], [1.9, -0.6, 0.8, 0.5], [-0.6, -2.2, 1.4, 0.35], [0.7, -3.6, 1.6, 0.3], [-2.4, -0.4, 0.7, 0.5], [2.6, 1.8, 0.9, 0.4]] },
+    puddles: [[-1.2, 1.6, 0.9, 0.4], [0.4, 0.9, 1.1, 0.35], [-0.5, 0.55, 0.75, 0.45], [1.9, -0.6, 0.8, 0.5], [-0.6, -2.2, 1.4, 0.35], [0.7, -3.6, 1.6, 0.3], [-2.4, -0.4, 0.7, 0.5], [2.6, 1.8, 0.9, 0.4]] },
   { id: "rings", kind: "ripples", x: 0, y: 0, z: 0, box: [[-2.6, -3.5], [3.2, 2.4]], n: 90 },
   { id: "rubble", kind: "rubble", x: 0, y: 0, z: 0, seed: 7, items: [
     [-1.9, -0.9, 2.2, "chunk"], [-2.3, -0.5, 1.2, "slab", 30], [-1.55, -1.3, 0.8, "rebar", 60], [-2.6, -1.6, 1.6, "chunk"], [-1.25, 0.95, 0.6, "chunk"],
@@ -162,10 +162,10 @@ A(STOP, "rea", "expr", { expr: "sad", set: { open: 0.2, curve: -0.8, eye: 1.0 },
 A(3.45, "phx", "turn", { to: -70, dur: 0.3 });
 A(3.6, "phx", "look", { to: [-0.3, 0.12], dur: 0.2, blink: false });
 c.arm(2.85, "phx", "R", "rest", 0.45);   // the zombie arm drops before he reaches Reaper
-c.arm(4.25, "phx", "L", { x: [0.3, 0.3, 0.34] }, 0.7, "inOut");
+c.arm(3.9, "phx", "L", { x: [0.42, 0.5, 0.24] }, 0.5, "inOut");   // the fry held out between the two faces (panel 4)
 A(4.4, "phx", "expr", { expr: "kind", set: { curve: 0.45, eye: 0.85, open: 0.1 }, dur: 0.3 });
 A(4.5, "phx", "talk", { line: "hrr?", tone: "calm", dur: 0.35, voice: false });
-A(4.75, "rea", "look", { to: [0.55, -0.15], dur: 0.2, blink: false });   // his eyes drop to the fry
+A(4.25, "rea", "look", { to: [0.5, -0.05], dur: 0.2, blink: false });   // his eyes go to the fry as soon as it arrives
 A(4.8, "rea", "expr", { expr: "sad", set: { open: 0.3, curve: -0.85, eye: 1.12 }, dur: 0.3 });
 see(STOP, 5.45, ["rea.face", "phx.face", "fry"], "the blade stopped above Phoenix's head, the fry held out, both faces");
 
@@ -213,6 +213,8 @@ A(r3(HUG + 0.4), "phx", "expr", { expr: "serene", set: { curve: 0.55 }, dur: 0.3
 sfx(r3(HUG + 0.3), "cloth", { gain: 0.45, reason: "the hug: robe against Phoenix" });
 see(HUG + 0.5, 7.45, ["rea2", "phx", "fry"], "the full hug, the fry up outside it");
 // a heart pops up between their heads and beats until the cut (Jonny, 4 Nov: "pop up a heart where i marked it")
+c.textPop(7.6, "phx", "nom", { dur: 0.5, size: 110, angle: 8 });   // marks the nibble for viewers with the sound off
+A(7.72, "rea2", "squash", { amount: 0.05, dur: 0.12 });   // the nibble lands (BITE)
 c.textPop(6.55, "phx", "♥", { shape: "heart", xy: [570, 620], dur: 0.95, angle: -6, size: 130 });
 
 // ---------------------------------------------------------------- 7 CHOMP (7.5-8.5): close, Phoenix behind and above Reaper
@@ -268,9 +270,9 @@ A(WALK, "rea2", "move", { to: [-0.27, -1.35], dur: 1.35, steps: 1.3, stride: 0.6
 A(WALK, "phx", "move", { to: [0.6, -1.18], dur: 1.35, steps: 1.3, stride: 0.55 });
 // the fry held up between them, both leaning in to it
 c.arm(CUT8, "phx", "R", "rest", 0); c.arm(CUT8, "phx", "L", { x: [0.26, 0.6, 0.32] }, 0);
-c.arm(9.15, "phx", "L", { x: [0.24, 0.7, 0.4] }, 0.4, "inOut");
+c.arm(9.15, "phx", "L", { x: [0.2, 0.64, 0.44] }, 0.4, "inOut");
 A(9.05, "rea2", "lean", { to: -8, dur: 0.6 }); A(9.05, "phx", "lean", { to: 8, dur: 0.6 });
-A(9.1, "rea2", "turn", { to: 140, dur: 0.55 }); A(9.1, "phx", "turn", { to: 220, dur: 0.55 });
+A(9.1, "rea2", "turn", { to: 125, dur: 0.55 }); A(9.1, "phx", "turn", { to: 235, dur: 0.55 });   // each shows a cheek and an eye
 A(9.2, "rea2", "look", { to: [0.9, 0.0], dur: 0.2, blink: false }); A(9.2, "phx", "look", { to: [-0.9, 0.0], dur: 0.2, blink: false });   // faces to each other over the fry
 A(9.4, "rea2", "expr", { expr: "happy", set: { eye: 0.5, curve: 0.6, open: 0.25 }, dur: 0.3 });
 A(9.4, "phx", "expr", { expr: "happy", set: { eye: 0.4, curve: 0.6, open: 0.25 }, dur: 0.3 });
@@ -281,14 +283,14 @@ see(9.1, 9.95, ["rea2", "phx", "fry", "scyP"], "the two shuffle into the fog sid
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?] (each copies a panel)
 const beats = c.beats([
-  ["1 me", 0, fb([-0.4, 1.1, 0], { az: 26, el: -8, h: 1.72, push: 0.08, dur: 2.0 }), "hook"],
+  ["1 me", 0, fb([-0.4, 1.12, 0], { az: 26, el: -8, h: 1.86, push: 0.08, dur: 2.0 }), "hook"],
   ["2 the zombie", 2.0, fb([1.4, 0.62, -0.15], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
   ["3 wind-up", 2.8, fb([-0.5, 1.1, 0], { az: 6, el: -10, h: 1.65 })],
-  ["4 the fry", SWING, fb([0.12, 1.0, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
-  ["5 he can't", CUT5, fb([-0.12, 0.62, 0.1], { az: 8, el: 4, h: 1.75 })],
+  ["4 the fry", SWING, fb([0.12, 1.02, -0.05], { az: 0, el: 2, h: 2.05, push: 0.08, dur: 2.0 }), "payoff"],
+  ["5 he can't", CUT5, fb([-0.3, 0.6, 0.2], { az: 10, el: 10, h: 2.3 })],
   ["6 hug", HUG, fb([0.16, 0.66, 0.1], { az: -12, el: 2, h: 1.62, push: 0.05, dur: 1.3 })],
   ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: 40, el: -3, h: 1.3 }), "reaction"],
-  ["8 too", CUT8, fb([0.08, 0.72, -0.6], { az: -18, el: 8, h: 2.3, push: 0.06, dur: 1.5 })],
+  ["8 too", CUT8, fb([0.1, 0.7, -0.75], { az: -14, el: 22, h: 2.5, push: 0.06, dur: 1.5 })],
 ], END);
 
 const ALLOW = [
