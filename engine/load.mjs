@@ -9,6 +9,8 @@ import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
 import { focusTrack } from "./focus.mjs";
+import { cameraState } from "./page/timeline.js";
+import { envCoverage } from "./shared/env-coverage.js";
 
 export function loadCharacters(sb) {
   const chars = {};
@@ -114,11 +116,39 @@ function hslHex(h, s, l) {
   return "#" + [r, g, b].map((v) => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("");
 }
 
-export function loadStoryboard(file) {
+export function loadStoryboard(file, opts = {}) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
   if (sb.set?.plate) plateFiles(sb.set.plate);
+  if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
-  return withHolds(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  const out = withHolds(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
+  return out;
+}
+
+// A layered painted environment (set "type": "env", "env": "<name>"; engine/page/set-env.js) reads
+// assets/environments/<name>/env.json (made by engine/plates/env.py) into set.envData, and takes its light from it:
+// golden light from where the painting's sun is (set.key), so the cast and the painting agree, and the footsteps' floor
+// (env.json surface). The storyboard's own set.key / set.light / sound.surface win.
+function envFiles(set, sb) {
+  const dir = `assets/environments/${set.env}`, f = path.join(ROOT, dir, "env.json");
+  if (!fs.existsSync(f)) throw new Error(`set env "${set.env}": ${dir}/env.json not found (make it with engine/plates/env.py)`);
+  const E = { ...JSON.parse(fs.readFileSync(f, "utf8")), dir };
+  set.envData = E;
+  set.light ??= "golden";
+  set.key ??= E.light?.key;
+  set.windows ??= false;
+  set.shadowSize ??= 6;
+  if (E.surface && !sb.sound?.surface) sb.sound = { ...sb.sound, surface: E.surface };   // footsteps on the painted ground
+}
+
+// the camera must stay where the layers cover the frame (engine/shared/env-coverage.js): a storyboard whose camera
+// shows a layer's edge is refused before any render, like a contact glitch. qa/env.mjs prints the details and the
+// safe range; set.envCheck false turns the gate off (a test of the check itself).
+function envGate(sb) {
+  const r = envCoverage(sb.set.envData, (t) => cameraState(sb, t), sb.duration ?? 1, sb.fps ?? 30);
+  if (r.fails.length) throw new Error(`set env "${sb.set.env}": the camera shows the edge of the painting:\n` +
+    r.fails.map((e) => `  ${e.from.toFixed(2)}-${e.to.toFixed(2)} s ${e.rule}: ${e.msg} (${e.at})`).join("\n") + `\n  run node qa/env.mjs ${sb.id ?? "<storyboard>"} for the safe camera range`);
 }
 
 // hit-stops (engine/shared/holds.js): every time in the storyboard stays story time; "duration" becomes the video's

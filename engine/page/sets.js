@@ -13,6 +13,7 @@ import { buildClassroom } from "./set-classroom.js";
 import { buildBathroom } from "./set-bathroom.js";
 import { buildLivingroom } from "./set-livingroom.js";
 import { addPlate } from "./set-plate.js";
+import { buildEnv } from "./set-env.js";
 import { addAir } from "./set-air.js";
 import { buildGym } from "./set-gym.js";
 import { buildPark } from "./set-park.js";
@@ -97,6 +98,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
   if (type === "plain") return plain(scene, spec);
+  if (type === "env") return buildEnv(scene, spec);   // set-env.js: a layered painted environment (assets/environments)
   return meadow(scene, spec, palette);
 }
 

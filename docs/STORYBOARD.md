@@ -264,6 +264,12 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   as a setup cut: never at frame 0 (frame 0 is action) and never from the payoff on. It needs a painted plate of the
   place (new art: Jonny's call).
 - Dutch and over-the-shoulder shots warn in `sb.directed` when the picture shows past the set's plate.
+- **Layered painted environments** (`"set": { "type": "env", "env": "meadow-path" }`, assets/environments/README.md): one
+  painting cut into sky, hills, trees and banks at their own distances over a real floor carrying the painted ground, so
+  the camera gets true parallax and feet and shadows sit on the painted path. Its light, floor sound and shadow
+  strength come from its `env.json`. The camera must stay inside the painting: `engine/load.mjs` refuses a storyboard
+  that shows a layer's edge, `node qa/env.mjs <sb>` lists the frames and `node qa/env.mjs --range <env>` the safe moves.
+  Place the cast on the floor's painted ground (brown in the env's `review.png`), not behind a bank.
 - After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
   from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the

@@ -14,6 +14,7 @@ import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
+import { meshAll } from "./mesh-pool.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -333,11 +334,26 @@ function establishing(t) {
   return true;
 }
 
+// "skin" action (timeline.js): the skin's materials (the body and the eyelids, after the look converted them, so found by
+// their colour on the first use) take a mix of the base colour and st.skinColor. A function of the state only.
+function skinTint(a, st) {
+  if (!st.skinColor && !a._skinTint) return;
+  if (!a._skinTint) a._skinTint = { base: new THREE.Color(a.ch.skin?.color?.getHex()), mats: new Set() };
+  const T = a._skinTint, c = T.base.clone().lerp(new THREE.Color(st.skinColor || T.base), clamp(st.skin || 0));
+  // the look swaps materials for its own copies (looks.js), so pick up every skin-coloured one each frame
+  a.ch.root.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) if (m?.color && !T.mats.has(m) && m.color.equals(T.base)) T.mats.add(m); });
+  if (a.ch.skin) T.mats.add(a.ch.skin);
+  for (const m of T.mats) m.color.copy(c);
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
+  // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
+  // Zombie Too: the trend's widescreen shot with its text on the upper bar)
+  if (sb.letterbox) { ctx.fillStyle = sb.letterbox.color || "#000"; ctx.fillRect(0, 0, W, sb.letterbox.top ?? 0); ctx.fillRect(0, H - (sb.letterbox.bottom ?? 0), W, sb.letterbox.bottom ?? 0); }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
   for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
@@ -423,7 +439,7 @@ function pose(t0) {
     if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
   }
   const states = {};
-  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
+  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
@@ -599,6 +615,37 @@ function frame(t) {
   return true;
 }
 
+// Glove skins meshed ahead on workers (mesh-pool.js, render-speed-02). A pose that only collects the shapes that need a
+// new mesh (potato.js _skin, collect mode) runs first, the workers mesh them in parallel, and the real pose takes each
+// finished mesh made for exactly its shape (anything else is meshed on the page as before, so the picture never
+// depends on the workers). A video frame also starts the next frame's meshes as soon as its own drawing is queued, so
+// the workers mesh while the CPU renderer draws; the scene is then posed back at t (its skins are already meshed, so
+// that pose is quick) before anything else reads it. A frame that only redraws the captions (a held drawing) poses
+// nothing, so nothing is collected for it.
+const held = (t) => { const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null; return q !== null && q === drawnQ; };
+function collect(t) {
+  const pre = { collect: true, jobs: [] };
+  globalThis.__skinPre = pre;
+  try { pose(t); } finally { globalThis.__skinPre = null; }
+  return pre.jobs;
+}
+let ahead = null;   // { t, done }: the meshes started for the next frame
+async function premesh(t, always = false) {
+  if (!always && held(t)) return;
+  const early = ahead && ahead.t === t ? await ahead.done : new Map(); ahead = null;
+  const jobs = collect(t), ready = await meshAll(jobs.filter((j) => !early.has(j.key)));
+  for (const [k, m] of early) ready.set(k, m);
+  globalThis.__skinPre = { ready };
+}
+const meshed = async (t, always, then) => { await premesh(t, always); try { return then(); } finally { globalThis.__skinPre = null; } };
+// ENGINE.frame: tv is the video time (the next frame's story time can jump at a hit-stop)
+async function videoFrame(tv) {
+  const t = st(tv), posed = !held(t), r = await meshed(t, false, () => frame(t));
+  const tn = st(tv + 1 / (sb.fps || 30));
+  if (posed && !held(tn)) { ahead = { t: tn, done: meshAll(collect(tn)) }; pose(t); }
+  return r;
+}
+
 // waits until the frame is really drawn: the 3D renderer only queues GPU work, so reading one pixel back is
 // what makes the software GPU finish it (render.mjs uses this to time drawing and encoding separately)
 function sync() { ctx.getImageData(0, 0, 1, 1); return true; }
@@ -636,7 +683,7 @@ let recent = [];
 const lean = (on) => { globalThis.__noSkin = on; };
 // (posed with the glove skins, as a drawn frame is: without them a shard's first two frames measured slower motion,
 // got a longer shutter and a visibly longer smear than the same frames in a whole render)
-function prime(times) { recent = []; for (const t of times) { pose(t); recent.push(corners()); } return true; }
+async function prime(times) { recent = []; for (const t of times) await meshed(t, true, () => { pose(t); recent.push(corners()); }); return true; }
 // how fast the picture moves at the frame just drawn (call it right after frame(t)), in px per frame: for each point
 // its larger last step when the two last steps are alike (a blade speeding up), else the smaller one, so a jump that
 // happens in one step (a teleport, a part appearing) counts as nothing; the fastest point on screen wins
@@ -958,29 +1005,37 @@ function clipping() {
   return out;
 }
 
-let silRT, silMat;
+let silRT, silMat, silBlack;
+// the characters as white on black, at quarter size, for the caption cover measure. Opaque props, the set and cars
+// are drawn first in black: they never count as covering a caption themselves, but they hide whatever stands behind
+// them (Look Busy, 4 Nov: the boss behind the desk "covered" 39 % of a caption drawn on the desk's front, though the
+// desk hid him). Effects, glows and see-through parts are left out entirely
 function silhouette() {
   const w = W / 4, h = H / 4;
-  if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); }
-  const bg = scene.background, fog = scene.fog;
-  for (const o of setObjs) o.visible = false;
-  // props marked scenery (a door, a gate) count as set, not as a character covering the caption
-  const sceneryProps = props.filter((p) => p.spec.scenery && p.root.visible); for (const p of sceneryProps) p.root.visible = false;
+  if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); silBlack = new THREE.MeshBasicMaterial({ color: "#000000" }); }
+  const bg = scene.background, fog = scene.fog, auto = R.autoClear;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
-  const cars = [...rigs.values()].filter((V) => V.car && V.car.root.visible); for (const V of cars) V.car.root.visible = false;
-  // props are scenery (a tree's leaves behind the title are fine); only the characters count
-  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
   // glows and other see-through parts are effects, not the character's body; so is added light (golden light's sun
   // patches on the wall, opaque but additive)
   const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && (m.transparent && m.opacity < 0.95 || m.blending === THREE.AdditiveBlending) || o.isSprite || o.isPoints) glass.push(o); });
   for (const o of glass) o.visible = false;
-  scene.background = new THREE.Color("#000000"); scene.fog = null; scene.overrideMaterial = silMat;
+  scene.background = new THREE.Color("#000000"); scene.fog = null;
+  // pass 1: everything but the characters, in black, writing depth
+  const av = actors.map((a) => a.ch.root.visible); for (const a of actors) a.ch.root.visible = false;
+  scene.overrideMaterial = silBlack;
   R.setRenderTarget(silRT); R.render(scene, camera);
+  actors.forEach((a, i) => (a.ch.root.visible = av[i]));
+  // pass 2: only the characters, in white, depth-tested against pass 1
+  const setV = setObjs.map((o) => o.visible); for (const o of setObjs) o.visible = false;
+  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
+  const cars = [...rigs.values()].filter((V) => V.car && V.car.root.visible); for (const V of cars) V.car.root.visible = false;
+  scene.overrideMaterial = silMat; scene.background = null; R.autoClear = false;
+  R.render(scene, camera);
+  R.autoClear = auto;
   const px = new Uint8Array(w * h * 4); R.readRenderTargetPixels(silRT, 0, 0, w, h, px);
   R.setRenderTarget(null);
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
-  for (const o of setObjs) o.visible = true;
-  for (const p of sceneryProps) p.root.visible = true;
+  setObjs.forEach((o, i) => (o.visible = setV[i]));
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
   for (const V of cars) V.car.root.visible = true;
   props.forEach((p, i) => (p.root.visible = prv[i]));
@@ -996,8 +1051,39 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) } };
-  }), ...reach() };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
+  }), ...reach(), held: heldNow() };
+}
+
+// the final world positions the rig drew (potato.js rig()): hands, arm middles, feet, in millimetres, for the rig
+// motion check (qa/rig.mjs). qa/motion.mjs guesses hands from the storyboard alone; this is what is on screen
+const mm = (v) => [Math.round(v.x * 1000), Math.round(v.y * 1000), Math.round(v.z * 1000)];
+function rigOf(a) {
+  if (!a.ch.rig) return {};
+  a.ch.root.updateMatrixWorld(true);
+  const w = {}, k = a.ch.rig(), body = a.ch.body;
+  for (const [n, v] of Object.entries(k)) w[n] = mm(v.clone().applyMatrix4(a.ch.root.matrixWorld));
+  let on = 0;
+  if (body) {
+    const c = body.getWorldPosition(new THREE.Vector3()); w.b = mm(c);
+    const p = c.project(camera); on = Math.abs(p.x) < 1.15 && Math.abs(p.y) < 1.1 && p.z < 1 ? 1 : 0;   // the body's middle in frame
+  }
+  return { w, on };
+}
+// held props: where each one is in the world and in its holder's hand space (a prop slipping or popping in the hand)
+function heldNow() {
+  const out = [];
+  for (const p of props) {
+    if (!p.held || !p.root.visible) continue;
+    const A = actors.find((a) => a.c.id === p.holder); if (!A) continue;
+    p.root.updateMatrixWorld(true);
+    const pos = p.root.getWorldPosition(new THREE.Vector3()), hs = p.holdHand === "both" ? ["R", "L"] : ["R", "L"].includes(p.holdHand) ? [p.holdHand] : [];
+    const hand = hs.length ? hs.reduce((s, h) => s.add(A.ch.arms[h].hand.getWorldPosition(new THREE.Vector3())), new THREE.Vector3()).multiplyScalar(1 / hs.length) : null;
+    // off: from the hand in the world (an upright hold keeps it); loc: in the hand's own turn (a pinch keeps it)
+    const off = hand && pos.clone().sub(hand), loc = off && hs.length === 1 ? off.clone().applyQuaternion(A.ch.arms[hs[0]].hand.getWorldQuaternion(new THREE.Quaternion()).invert()) : null;
+    out.push({ prop: p.spec.id || p.spec.kind, who: p.holder, hand: p.holdHand, pos: mm(pos), ...(off ? { off: mm(off) } : {}), ...(loc ? { loc: mm(loc) } : {}) });
+  }
+  return out;
 }
 
 // hands and held props against characters (the look busy remake: a hand in another's hood, a sword in a helmet, a fist
@@ -1024,6 +1110,13 @@ function reach() {
     if (L) for (let i = 0; i <= 12; i++) {
       const q = L.a.clone().lerp(L.b, i / 12); if (q.distanceTo(L.grip) < 0.12) continue;
       pts.push({ part: "prop", p: q.applyMatrix4(a.ch.root.matrixWorld), r: L.r * a.ch.root.getWorldScale(sc).x });
+    }
+    // the arm tubes between shoulder and wrist (the fixed Zombie Too hug, 4 Nov: Reaper's arm ran straight through
+    // Phoenix's belly with the glove hidden inside, and only the glove was measured). Into other characters only
+    for (const s of ["R", "L"]) {
+      const A = a.ch.arms[s]; if (!A.elbow || !A.shoulder || !A.mesh?.visible || !shownIn(A.hand, a.ch.root)) continue;
+      const curve = a.ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), rr = a.ch.limbW * a.ch.root.getWorldScale(sc).x;
+      for (const u of [0.3, 0.42, 0.54, 0.66, 0.78]) pts.push({ part: `arm${s}`, p: curve.getPoint(u).applyMatrix4(a.ch.root.matrixWorld), r: rr, arm: true });
     }
     return { a, pts };
   });
@@ -1058,11 +1151,17 @@ function reach() {
     for (const b of live) {
       if (b === a) {
         // own body: only a hand sunk in past its centre (3 cm, as the box ellipsoid is a little fuller than the potato)
-        for (const q of pts) if (q.part !== "prop") { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        for (const q of pts) if (q.part.startsWith("hand")) { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        // an arm through its own body: past the shoulder the tube's centre stays outside (Zombie Too, Jonny 4 Nov: Reaper's
+        // arm came out of his chest, not his shoulder, to reach round Phoenix). Deepest point, per arm
+        const own = new Map();
+        for (const q of pts) if (q.arm) { const d = dist(a.ch.body, q.p); if (d < -0.05 && -d > (own.get(q.part) ?? 0)) own.set(q.part, -d); }
+        for (const [part, d] of own) out.reach.push({ who: a.c.id, by: part, with: a.c.id, part: "own body", depth: rd(d) });
         continue;
       }
       const best = new Map();
       for (const { o, name } of parts(b)) for (const q of pts) {
+        if (q.arm && name !== "body" && name !== "face") continue;   // a hood or hat is measured as its box: too coarse for an arm passing by
         const d = q.r - dist(o, q.p), k = `${q.part}|${name}`;
         if (d > -0.01 && d > (best.get(k)?.depth ?? -1)) best.set(k, { who: a.c.id, by: q.part, with: b.c.id, part: name, depth: rd(d) });
       }
@@ -1100,6 +1199,7 @@ function reach() {
     for (const { a, pts } of reachers) {
       let worst = null;
       for (const q of pts) {
+        if (q.arm) continue;
         const dq = q.p.distanceTo(camera.position); if (dq > dm - 0.05) continue;   // behind the face, or level with it
         const s = px(q.p.clone().project(camera)), rr = q.r * H / (2 * dq * Math.tan((camera.fov * Math.PI) / 360));
         const cover = (rr + faceR - s.distanceTo(mp)) / (2 * faceR);   // 1: the eyes fully behind it
@@ -1484,7 +1584,7 @@ function ids(t) {
 const st = (t) => storyTime(sb && sb.holds, t), rt = (o, t) => (o && typeof o === "object" && "t" in o ? { ...o, t } : o);
 window.ENGINE = {
   init, sync, capture, motion, movingBox,
-  frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
+  frame: videoFrame, layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
   prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
   stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
   reset,
