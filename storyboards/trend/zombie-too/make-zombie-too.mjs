@@ -175,7 +175,7 @@ A(CUT5, "rea", "hide"); A(CUT5, "rea2", "show");
 A(CUT5, "rea", "move", { to: OFF, dur: 0, ease: "linear" });
 A(CUT5, "rea2", "move", { to: REA, dur: 0, ease: "linear" }); A(CUT5, "rea2", "turn", { to: 30, dur: 0 });
 c.arm(CUT5, "rea2", "R", { x: [-0.3, 0.3, 0.35] }, 0); c.arm(CUT5, "rea2", "L", { x: [0.3, 0.3, 0.35] }, 0);
-c.arm(r3(CUT5 + 0.05), "rea2", "R", { x: [-0.52, 0.66, 0.2] }, 0.3, "out"); c.arm(r3(CUT5 + 0.05), "rea2", "L", { x: [0.52, 0.66, 0.2] }, 0.3, "out");
+c.arm(r3(CUT5 + 0.05), "rea2", "R", { x: [-0.52, 0.66, 0.2] }, 0.3, "out"); c.arm(r3(CUT5 + 0.05), "rea2", "L", { x: [0.42, 0.7, 0.1] }, 0.3, "out");   // the near arm opens up and back, clear of Phoenix's face
 A(CUT5, "rea2", "grip", { side: "both", shape: "open", dur: 0.15 });
 A(CUT5, "rea2", "expr", { expr: "sad", set: { open: 0.6, curve: -0.85, eye: 0.95 }, dur: 0 });
 A(CUT5, "rea2", "face", { tear: 1, brow: 0.45, dur: 0 });
@@ -196,17 +196,18 @@ see(CUT5 + 0.15, 6.15, ["rea2.face", "phx", "scyP", "fry"], "the scythe on the g
 const HUG = 6.2;
 A(r3(HUG - 0.12), "rea2", "look", { to: [0.5, 0.0], dur: 0.1, blink: false });
 A(HUG, "rea2", "move", { to: HUG_REA, dur: 0.45, steps: 2 });
-A(HUG, "phx", "move", { to: HUG_PHX, dur: 0.45, steps: 2 });
+A(r3(HUG - 0.05), "phx", "move", { to: HUG_PHX, dur: 0.4, steps: 2 });   // he steps forward a beat before Reaper arrives, so Reaper's hood never sweeps his shoulder
 A(HUG, "phx", "span", { to: 0.0, dur: 0.3 });   // the wings fold aside
 A(HUG, "rea2", "turn", { to: 18, dur: 0.25 });
 A(HUG, "phx", "turn", { to: -30, dur: 0.25 });
 // Reaper's gloves round the outside of Phoenix's back (the near one in view); Phoenix's fry hand up outside the hug
 c.arm(r3(HUG + 0.02), "rea2", "R", { x: [-0.48, 0.2, 0.3] }, 0.15, "inOut");   // down by his side first, so the arm never crosses his face
-c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.06), 0.3, r3(HUG_PHX[1] + 0.39)] }, 0.3, "inOut");   // glove on Phoenix's lower belly: the arm stays under Reaper's chin (Jonny 4 Nov)
+c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.12), 0.3, r3(HUG_PHX[1] + 0.52)] }, 0.16, "in");   // round the front of his belly first...
+c.arm(r3(HUG + 0.33), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.06), 0.3, r3(HUG_PHX[1] + 0.39)] }, 0.16, "out");   // glove on Phoenix's lower belly: the arm stays under Reaper's chin (Jonny 4 Nov)
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.2), 0.62, r3(HUG_PHX[1] - 0.42)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
 c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.34, 0.62, 0.24] }, 0.35, "inOut");
-c.arm(r3(HUG + 0.2), "phx", "R", { x: [-0.4, 0.22, 0.12] }, 0.35, "inOut");   // his near arm low at his side: nothing between the two faces
+c.arm(r3(HUG - 0.1), "phx", "R", { x: [-0.32, 0.12, -0.04] }, 0.25, "inOut");   // his near arm low at his side: nothing between the two faces
 A(r3(HUG + 0.35), "rea2", "expr", { expr: "sad", set: { open: 0.15, curve: 0.2, eye: 0.06 }, dur: 0.3 });   // eyes squeezed, a wobbly smile
 A(r3(HUG + 0.4), "phx", "expr", { expr: "serene", set: { curve: 0.55 }, dur: 0.3 });
 sfx(r3(HUG + 0.3), "cloth", { gain: 0.45, reason: "the hug: robe against Phoenix" });
@@ -225,7 +226,7 @@ A(CUT7, "phx", "ride", { prop: "pc", off: [0, 0, 0], yaw: 15, dur: 0 });
 c.prop(CUT7, "pc", { x: CH_PHX[0], y: 0.5, z: CH_PHX[1] }, 0);
 A(CUT7, "phx", "pitch", { to: 10, dur: 0 });
 A(r3(CUT7 + 0.02), "phx", "pitch", { to: 30, dur: 0.18 });
-c.arm(CUT7, "phx", "L", { x: [0.48, 0.66, 0.2] }, 0); c.arm(CUT7, "phx", "R", { x: [-0.3, 0.45, 0.3] }, 0);
+c.arm(CUT7, "phx", "L", { x: [0.48, 0.66, 0.2] }, 0); c.arm(CUT7, "phx", "R", { x: [-0.36, 0.34, -0.22] }, 0);   // the near glove tucked back by his own side, off the hood
 A(r3(CUT7 + 0.05), "phx", "talk", { line: "nom", tone: "calm", dur: 0.25, voice: false });
 A(r3(BITE - 0.14), "phx", "expr", { expr: "serene", set: { curve: 0.2, open: 0.35 }, dur: 0.06 });   // "nom": open...
 A(BITE, "phx", "expr", { expr: "serene", set: { curve: 0.3, open: 0.0 }, dur: 0.06 });   // ...and closed on the hood
@@ -263,11 +264,11 @@ c.arm(r3(CUT8 + 0.36), "rea2", "L", { x: [0.34, 0.22, -0.08] }, 0.3, "inOut");
 c.prop(r3(CUT8 + 0.36), "scyP", { rot: 175, tip: 82 }, 0.45, "inOut");   // the blade swings round to trail behind him
 const WALK = 8.95;
 A(r3(WALK - 0.15), "rea2", "look", { to: [0.4, 0.0], dur: 0.12, blink: false }); A(r3(WALK - 0.15), "phx", "look", { to: [-0.4, 0.0], dur: 0.12, blink: false });
-A(WALK, "rea2", "move", { to: [-0.05, -1.35], dur: 1.35, steps: 1.3, stride: 0.6 });
+A(WALK, "rea2", "move", { to: [-0.27, -1.35], dur: 1.35, steps: 1.3, stride: 0.6 });
 A(WALK, "phx", "move", { to: [0.6, -1.18], dur: 1.35, steps: 1.3, stride: 0.55 });
 // the fry held up between them, both leaning in to it
 c.arm(CUT8, "phx", "R", "rest", 0); c.arm(CUT8, "phx", "L", { x: [0.26, 0.6, 0.32] }, 0);
-c.arm(9.15, "phx", "L", { x: [0.36, 0.78, 0.3] }, 0.4, "inOut");
+c.arm(9.15, "phx", "L", { x: [0.24, 0.7, 0.4] }, 0.4, "inOut");
 A(9.05, "rea2", "lean", { to: -8, dur: 0.6 }); A(9.05, "phx", "lean", { to: 8, dur: 0.6 });
 A(9.1, "rea2", "turn", { to: 140, dur: 0.55 }); A(9.1, "phx", "turn", { to: 220, dur: 0.55 });
 A(9.2, "rea2", "look", { to: [0.9, 0.0], dur: 0.2, blink: false }); A(9.2, "phx", "look", { to: [-0.9, 0.0], dur: 0.2, blink: false });   // faces to each other over the fry
