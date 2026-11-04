@@ -679,3 +679,35 @@ function astronautSheet(C, ch, out) {
   out.apply = (st, t, ...r) => { base && base(st, t, ...r); sl(); };
   return out;
 }
+
+// ---------- Wizard (sheet): "Drooping silhouette, Curious expression, Soft hat + cape, Felt + cloth, Patched hat" -------
+// Plum felt (so he separates from the Sorcerer's violet), a wider brim, a satin gold band, the patch with a few stitches
+// on the crown's side (the hat itself stays costumes.js's crisp hat with its sway), and a short cape from a neck fastening
+// that falls over the shoulders, opens to show the whole potato and hangs to just above the boots at the back, its warm
+// plum lining showing at the turned edges.
+export function wizardSheet(C, ch, hat) {
+  const plum = C.sheetFelt || "#4a1d4e", cape = C.sheetCape || "#4d2577", lining = "#7a3470";
+  if (hat) {
+    hat.group.traverse((o) => { if (o.isMesh && o.material?.color && o.material.roughness > 0.7) { o.material = o.material.clone(); o.material.color.set(plum); } });
+    const [brim] = hat.group.children; brim.scale.set(1.1, 1, 1.1);
+    // the patch: a darker square of felt on the crown's right side, three stitches over its edge
+    const p = new THREE.Group(), pm = clothMat("#6b3a63"); pm.side = THREE.DoubleSide;
+    const sq = mesh(new RoundedBoxGeometry(0.09, 0.008, 0.08, 2, 0.003), pm); sq.rotation.z = 0.2; p.add(sq);
+    p.add(stitches(V(0.04, 0.005, 0), V(0, 1, 0), V(0, 0, 1), 3, 0.026, "#d9b98a"));
+    p.position.set(-0.2, 0.17, 0.08); p.quaternion.setFromUnitVectors(V(0, 1, 0), V(-0.9, 0.25, 0.35).normalize()); hat.group.add(p);
+  }
+  const parts = ch.potatoParts;
+  const D = drapeMesh(ch, {
+    top: 0.55, topFn: (th) => 0.55 - 0.8 * (1 - sstep(0.9, 2.1, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))))), lift0: 0.006, hem: -1.36, topRoll: 0.018,
+    hemFn: (th) => -1.36 + 0.55 * (1 - sstep(1.0, 2.2, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))))) + 0.025 * Math.sin(th * 1.7 + 0.3),
+    from: 1.0, to: Math.PI * 2 - 1.0, spread: 0.12, flare: 0.08, lift: 0.04, thick: 0.024, facing: 0.09,
+    folds: [[1.45, 0.03, 0.2], [2.05, -0.025, 0.2], [2.7, 0.04, 0.32], [3.4, -0.028, 0.2], [3.95, 0.035, 0.3], [4.6, -0.024, 0.2], [5.1, 0.028, 0.2]],
+    sag: 1.0, drift: [0.02, 1.4, 0.9], grad: 0.18, valleyShade: 3, rollR: 0.016, ink: { width: 0.005 }, sheen: 1.35,
+  }, cape, lining);
+  parts.add(D);
+  // the fastening: a round gold clasp at the top of the cape's front edge on his right (the sheet's hero view)
+  { const Dd = D.userData.drape, v = 0.03, th = Dd.t0(v), p = Dd.at(th, v, Dd.thick + 0.012), n = Dd.at(th, v, 1).sub(Dd.at(th, v, 0)).normalize();
+    const c = new THREE.Group(), m = metalMat("#d6a23c", 0.3); c.add(mesh(new THREE.CylinderGeometry(0.045, 0.043, 0.02, 28), m));
+    const rim = mesh(new THREE.TorusGeometry(0.039, 0.006, 8, 28), m); rim.rotation.x = Math.PI / 2; rim.position.y = 0.011; c.add(rim);
+    c.position.copy(p); c.quaternion.setFromUnitVectors(V(0, 1, 0), n); parts.add(c); }
+}

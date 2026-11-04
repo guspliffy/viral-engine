@@ -3,7 +3,7 @@ import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
-import { cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
+import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
 import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
@@ -297,7 +297,8 @@ export function buildCostume(def, ch) {
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
-  if (C.type === "wizard" && C.art) {
+  if (C.type === "wizard" && C.art && C.sheet) wizardSheet(C, ch, hat);   // costume.sheet: the design-sheet rebuild (costumes-art-cast.js)
+  else if (C.type === "wizard" && C.art) {
     // costume.art: a cloak hung lower on the back, darker lining, the gold cord sitting on the cloth (no shelf)
     ch.bodyGroup.add(clothCape(ch, C.robe || "#4a2a86", { trim: C.band || "#d6a23c", top: 0.3, half: 1.5, folds: 8, lining: "#24123f", flare: 0.09 }));
   } else if (C.type === "wizard" && C.detail) {

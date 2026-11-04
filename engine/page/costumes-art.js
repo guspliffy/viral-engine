@@ -367,6 +367,8 @@ export function drapeMesh(ch, o, color, lining) {
   for (const f of D.facings) g.add(new THREE.Mesh(f, face));
   const rm = clothMat(o.rollColor || new THREE.Color(color).lerp(new THREE.Color(lining), 0.45), { side: THREE.FrontSide });
   const R = o.rollR ?? D.thick * 0.75;
+  // o.topRoll: a rolled collar along the top edge (a cape fastened at the neck), its radius
+  if (o.topRoll) { const L = []; for (let i = 0; i <= 120; i++) L.push(D.at(D.th(i * (o.segs ?? 200) / 120, 0), 0, D.thick * 0.5)); g.add(roll(L, o.topRoll, rm, D.closed)); }
   if (R > 0) { g.add(roll(D.lines.hem, R, rm, D.closed)); if (!D.closed && o.edgeRoll !== false) for (const L of [D.lines.left, D.lines.right]) g.add(roll(L, R * 0.9, rm)); }
   if (o.ink !== false) { const ig = drapeInk(D, o.ink || {}); if (ig) g.add(inkMesh(ig, color, o.inkK ?? 0.32)); }
   // o.sheen: dark cloth shows its folds by the light on the ridges, not by ink: a soft lighter stroke down each ridge
