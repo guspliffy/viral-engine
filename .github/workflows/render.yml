@@ -87,6 +87,7 @@ jobs:
           name: part-${{ matrix.shard }}
           path: |
             out/*.part-*.video.mp4
+            out/*.part-*.json
             out/*-cover.png
             out/timing-*.json
           retention-days: 1
@@ -111,6 +112,15 @@ jobs:
           merge-multiple: true
       - name: Join
         run: node engine/render.mjs "$SB" --stitch ${{ needs.plan.outputs.n }} $FLAGS
+      # the clip is published only after its check passed; a clip that fails goes to clip-failed (with the check
+      # output) for diagnosis, so a "clip" artifact always means checked
+      - name: qa/check
+        shell: bash
+        run: |
+          clip=$(ls out/*.mp4 | grep -v '\.video\.mp4$' | head -1)
+          layout=$(ls out/*.layout.json | head -1)
+          node qa/check.mjs "$clip" --sb "$SB" --layout "$layout" | tee out/check.txt
+          { echo '```'; cat out/check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: clip
@@ -118,12 +128,17 @@ jobs:
             out/*.mp4
             !out/*.video.mp4
             out/*-cover.png
+            out/check.txt
           retention-days: 3
           if-no-files-found: error
-      - name: qa/check
-        shell: bash
-        run: |
-          clip=$(ls out/*.mp4 | grep -v '\.video\.mp4$' | head -1)
-          layout=$(ls out/*.layout.json | head -1)
-          node qa/check.mjs "$clip" --sb "$SB" --layout "$layout" | tee check.txt
-          { echo '```'; cat check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clip-failed
+          path: |
+            out/*.mp4
+            out/*-cover.png
+            out/*.part-*.json
+            out/check.txt
+          retention-days: 3
+          if-no-files-found: ignore

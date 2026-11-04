@@ -10,7 +10,7 @@ import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
-import { cone, meshShape, inkMaterial } from "./handmesh.js";
+import { cone, meshShape, geometryOf, shapeKey, inkMaterial } from "./handmesh.js";
 
 const LEG_H = 0.14;
 
@@ -496,7 +496,8 @@ export class Character {
   // the palm two fat round cones (a flat mitten block that runs up into the finger roots), the fingers and thumb, and
   // the last stretch of the arm's own curve a hair inside the arm tube, so the arm runs into the hand through a soft
   // wrist instead of meeting a separate blob. Blends from the research (wrist ~0.8, finger root ~0.5, knuckle ~0.15
-  // finger radius). A pose that hasn't changed since the last frame (to a tenth of a millimetre) keeps its mesh.
+  // finger radius). A pose exactly the same as the last frame's keeps its mesh (exactly: a rounded key kept a mesh built for a slightly
+  // different pose, so a frame depended on the frame drawn before it and a shard or a cached frame came out different).
   _skin(s, show) {
     const a = this.arms[s], hand = a.hand, U = hand.userData, hs = this.def.hands;
     a.skin.visible = a.ink.visible = show && !globalThis.__noSkin;
@@ -533,12 +534,17 @@ export class Character {
     if (hs.cuff) { const c = hs.cuff, ta = 1 - (c.at ?? 0.1) / L, tb = 1 - ((c.at ?? 0.1) - (c.len ?? 0.025)) / L; cuff.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta) * (c.r ?? 1.25), R(tb) * (c.r ?? 1.25))); }
     const fr = 0.0185 * k, b = hs.blend || {};
     const shape = { arm, palm, digits, cuff, sep: (b.sep ?? 0.12) * fr, wrist: (b.wrist ?? 0.8) * fr, root: (b.root ?? 0.5) * fr, joint: (b.joint ?? 0.15) * fr, palmK: (b.palm ?? 0.7) * fr };
-    const key = [...arm, ...palm, ...digits.flat(), ...cuff].map((c) => [...c.a, ...c.ba, c.r1, c.r2].map((x) => Math.round(x * 1e4)).join(",")).join(";");
+    const key = [...arm, ...palm, ...digits.flat(), ...cuff].map((c) => [...c.a, ...c.ba, c.r1, c.r2].join(",")).join(";");
     a.skin.matrix.identity(); a.ink.matrix.identity(); a.skin.matrixWorldNeedsUpdate = a.ink.matrixWorldNeedsUpdate = true;
     a.skinH = new THREE.Matrix4().multiplyMatrices(inv, hand.matrixWorld);
     if (key === a.skinKey && !globalThis.__noGeomCache) return;
+    // meshing ahead on workers (mesh-pool.js): the collecting pose only lists the shape; the real pose takes the
+    // finished mesh made for exactly this shape, or meshes it here
+    const pre = globalThis.__skinPre, h = hs.cell ?? 0.004;
+    if (pre?.collect) { pre.jobs.push({ key: shapeKey(shape, h), shape, h }); return; }
+    const made = pre?.ready?.get(shapeKey(shape, h));
     a.skinKey = key; a.skin.geometry.dispose();
-    a.skin.geometry = a.ink.geometry = meshShape(shape, hs.cell ?? 0.004);
+    a.skin.geometry = a.ink.geometry = made ? geometryOf(made) : meshShape(shape, h);
   }
 
   _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
@@ -737,7 +743,7 @@ export class Character {
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
       const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
-      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].map((x) => x.toFixed(4)).join(",");
+      const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
