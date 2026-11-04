@@ -129,7 +129,7 @@ function wizardHat(C) {
   const q = new THREE.Quaternion(), eu = new THREE.Euler(), v = new THREE.Vector3();
   let last = "0|0|0";
   const sway = (tip = [0, 0], tilt = 0) => {
-    const key = `${tip[0].toFixed(4)}|${tip[1].toFixed(4)}|${tilt.toFixed(4)}`;
+    const key = `${tip[0]}|${tip[1]}|${tilt}`;   // exact: a mesh rebuilt only for the same inputs, so a frame never depends on the one before
     if (key === last) return; last = key;
     const cp = coneG.attributes.position;
     for (let i = 0; i <= segs; i++) {

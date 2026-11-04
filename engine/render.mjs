@@ -49,7 +49,8 @@ import { clipResults, contactResults } from "../qa/check.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
 import { renderTime } from "./shared/holds.js";
-import { renderFingerprint, writePartMeta, checkParts } from "./cache.mjs";
+import os from "node:os";
+import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream" };
@@ -100,6 +101,8 @@ function args() {
     else if (a[i] === "--timing-json") o.timingJson = path.resolve(a[++i]);
     else if (a[i] === "--cover") o.cover = path.resolve(a[++i]);    // dead-code study: run every code path a clip uses, write V8 coverage
     else if (a[i] === "--hashes") o.hashes = path.resolve(a[++i]);
+    else if (a[i] === "--no-cache") o.cache = false;                 // draw every frame (the frame cache neither reads nor writes)
+    else if (a[i] === "--cache-verify") o.cacheVerify = true;        // draw every frame and compare each one the cache holds (tests)
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
@@ -110,11 +113,14 @@ function args() {
   return o;
 }
 
+// every file the page asked for (the frame cache keys frames on their content)
+const served = new Set();
 function serve() {
   const srv = http.createServer((req, res) => {
     const p = path.normalize(decodeURIComponent(req.url.split("?")[0])).replace(/^([/\\])+/, "");
     const f = path.join(ROOT, p);
     if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); res.end(); return; }
+    served.add(f);
     res.writeHead(200, { "content-type": MIME[path.extname(f)] || "application/octet-stream" });
     fs.createReadStream(f).pipe(res);
   });
@@ -277,7 +283,10 @@ async function main() {
 
   const srv = await serve();
   const xvfb = o.gl === "llvmpipe" ? await startXvfb() : null;
-  const browser = await chromium.launch({ executablePath: findChrome(), args: glArgs(o.gl), ...(xvfb ? { env: { ...process.env, DISPLAY: xvfb.display, LIBGL_ALWAYS_SOFTWARE: "1" } } : {}) });
+  // the 2D layer (captions, speed lines, flashes, the composed frame) is drawn on the CPU: Chrome's GPU canvas changes how
+  // it draws paths as its caches fill, so after a few minutes of frames the same speed lines came out up to 22 levels
+  // different from the same frame drawn early in a page (a farm shard's start, a cached frame)
+  const browser = await chromium.launch({ executablePath: findChrome(), args: [...glArgs(o.gl), "--disable-accelerated-2d-canvas"], ...(xvfb ? { env: { ...process.env, DISPLAY: xvfb.display, LIBGL_ALWAYS_SOFTWARE: "1" } } : {}) });
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     const errors = [];
@@ -436,21 +445,82 @@ async function main() {
       if (errors.length) throw new Error(errors.join("\n"));
       blurred.frames++; blurred.samples += s.times.length + (s.keep ? 1 : 0); blurred.ms += Date.now() - tb;
     }) : smearAfter;
-    for (let i = a; i < b; i++) {
+    // the frame cache (engine/cache.mjs): a key per frame first (posing only, no drawing), then the frames the cache
+    // holds are reused and only the rest are drawn. A few reused frames (where a drawn stretch meets a reused one, the
+    // first, the middle and the last) are drawn again and must match (frameDiff: at most a few levels at a few pixels), else
+    // nothing is reused.
+    const ext = o.png ? "png" : "jpg", fc = o.cache !== false && !o.shard && !o.framesDir ? new FrameCache(process.env.RENDER_CACHE_DIR ? path.resolve(process.env.RENDER_CACHE_DIR) : path.join(ROOT, "out", "frame-cache"), Number(process.env.RENDER_CACHE_GB || 3)) : null;
+    let keys = null, states = null, reuse = null, servedAtKeys = 0;
+    const spotBytes = new Map(), cache = { reused: 0, drawn: 0, spot: 0, spotBad: [], keyS: 0, worst: 0 };
+    let inStep = !fc;   // the page drew the frame before this one (else: forget the held drawing, prime the blur's motion)
+    const draw = async (i) => {
+      if (!inStep) { await page.evaluate(() => window.ENGINE.reset()); if (bl) await page.evaluate((ts) => window.ENGINE.prime(ts), [i - 2, i - 1].filter((k) => k >= 0).map((k) => k / fps)); inStep = true; }
       const tf = Date.now(); perFrame.push({ i });
       const img = await shot(i / fps, o.png ? "png" : "jpeg", blurAfter);
       perFrame.at(-1).ms = Date.now() - tf;
+      return img;
+    };
+    if (fc) {
+      const tk = Date.now();
+      // the drawn look's smear reaches back to the drawing before: then the timeline is part of every key
+      const timeline = sm ? [] : TIMELINE_KEYS, rest = Object.fromEntries(Object.entries(sb).filter(([k]) => !timeline.includes(k)));
+      // a frame's state, and with motion blur the states at its shutter's ends and of the two frames before it (they
+      // set how fast it moves, so how many samples it gets)
+      const sh = bl ? bl.shutter / 2 / fps : 0, st = new Map();
+      for (let i = bl ? Math.max(0, a - 2) : a; i < b; i++) { const t = i / fps; st.set(i, await page.evaluate(([tt, ss]) => window.ENGINE.stateHash(tt, ss), [t, bl ? [Math.max(0, t - sh), Math.min(dur, t + sh)] : []])); }
+      states = Array.from({ length: b - a }, (_, k) => [st.get(a + k), bl ? [st.get(a + k - 1)?.scene ?? null, st.get(a + k - 2)?.scene ?? null] : null]);
+      if (errors.length) throw new Error(errors.join("\n"));
+      servedAtKeys = served.size;
+      const flags = Object.fromEntries(PIXEL_FLAGS.map((k) => [k, o[k] ?? null]));
+      const kb = sha(JSON.stringify({ files: filesHash(served), render: sha(fs.readFileSync(fileURLToPath(import.meta.url))), chrome: browser.version(), renderer: info.renderer || null, cpu: os.cpus()[0]?.model || null, flags, ext, fps, chars, rest }));
+      keys = states.map(([st, s], k) => frameKey(kb, a + k, st, s));
+      reuse = keys.map((k) => fc.has(k, ext));
+      cache.keyS = (Date.now() - tk) / 1000;
+      const idx = reuse.flatMap((r, k) => (r ? [k] : []));
+      if (idx.length) {
+        let spot = o.cacheVerify ? idx : [...new Set([idx[0], idx[Math.floor(idx.length / 2)], idx.at(-1), ...idx.filter((k) => reuse[k - 1] === false || reuse[k + 1] === false)])].sort((x, y) => x - y);
+        if (!o.cacheVerify && spot.length > 8) spot = Array.from({ length: 8 }, (_, j) => spot[Math.round((j * (spot.length - 1)) / 7)]);
+        for (const k of spot) {
+          inStep = false;
+          const img = await draw(a + k); spotBytes.set(a + k, img); cache.spot++;
+          const d = frameDiff(img, fc.get(keys[k], ext));
+          cache.worst = Math.max(cache.worst, d.max);
+          if (d.max > SAME_FRAME.max || d.share > SAME_FRAME.share) { cache.spotBad.push(a + k); console.log(`  frame ${a + k}: ${d.n} px differ, up to ${d.max} levels`); }
+        }
+        inStep = false;
+        if (cache.spotBad.length) {
+          console.log(`frame cache: ${cache.spotBad.length} of ${spot.length} frames drawn again differ from the cache (frames ${cache.spotBad.join(", ")}): the key missed something, so every frame is drawn this time`);
+          reuse = reuse.map(() => false);
+        }
+      }
+      console.log(`frame cache: ${idx.length} of ${b - a} frames already drawn${idx.length ? `, ${cache.spot} drawn again to check: ${cache.spotBad.length ? "MISMATCH" : cache.worst ? `match (up to ${cache.worst} levels apart)` : "identical"}` : ""} (keys in ${cache.keyS.toFixed(1)}s, ${fc.dir})`);
+    }
+    for (let i = a; i < b; i++) {
+      const k = i - a;
+      let img = spotBytes.get(i) || (reuse && reuse[k] ? fc.get(keys[k], ext) : null);
+      if (img) { if (spotBytes.has(i)) cache.drawn++; else cache.reused++; inStep = false; }
+      else {
+        img = await draw(i); cache.drawn++;
+        if (fc) fc.put(keys[k], ext, img);
+      }
+      if (fc && cache.spotBad.includes(i)) fc.put(keys[k], ext, img);   // the frame as drawn now replaces the stale one
       if (o.framesDir) fs.writeFileSync(path.join(o.framesDir, `f${String(i).padStart(4, "0")}.png`), img);
       if (!ff.stdin.write(img)) await new Promise((ok) => ff.stdin.once("drain", ok));
       if ((i - a) % 30 === 0) process.stdout.write(`frame ${i - a}/${b - a} (${((Date.now() - tr) / Math.max(1, i - a)).toFixed(0)} ms/frame)\n`);
+    }
+    if (fc) {
+      // a file the page loaded only while drawing is not in the keys: keep nothing from this render
+      if (served.size !== servedAtKeys) console.log(`frame cache: the page loaded ${served.size - servedAtKeys} more file(s) while drawing; ${fc.forgetStored()} new frames not kept`);
+      const pr = fc.prune();
+      console.log(`frame cache: ${cache.reused} frames reused, ${cache.drawn} drawn; cache ${(pr.total / 1e9).toFixed(2)} GB in ${pr.files} frames${pr.gone ? `, ${pr.gone} oldest removed` : ""}`);
     }
     ff.stdin.end(); await done;
     if (sm) console.log(`smear: ${smeared.frames} of ${b - a} frames drew a trail behind a fast move`);
     if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
     if (o.timingJson) fs.writeFileSync(o.timingJson, JSON.stringify({ a, b, totalS: (Date.now() - tr) / 1000, pose: timing.pose, draw: timing.draw, grab: timing.grab, blurred, frames: perFrame }));
     if (o.shard) writePartMeta(videoFile, { fingerprint, shard: `${o.shard.i}/${o.shard.n}`, a, b, renderer: info.renderer || null, chrome: browser.version() });
-    console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
-    if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
+    console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per drawn frame: ${(timing.pose / Math.max(1, timing.n)).toFixed(0)} ms posing, ${(timing.draw / Math.max(1, timing.n)).toFixed(0)} ms drawing, ${(timing.grab / Math.max(1, timing.n)).toFixed(0)} ms encoding)`);
+    if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { await page.evaluate(() => window.ENGINE.reset()); const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
     await browser.close(); srv.close(); if (xvfb) xvfb.proc.kill();
   }

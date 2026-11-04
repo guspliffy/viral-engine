@@ -660,39 +660,98 @@ function motion() {
 // keep, the frame on the canvas now (the one at the frame's own time) is one of the samples
 // cost trace (render.mjs --cost): pose frame t as a render would (full skins unless lean) and return motion(), without
 // drawing, so a render's blur samples per frame are known before any shard starts
-// Frame cache sketch (render-measure-01, used only by render.mjs --hashes): a digest of everything the picture at t depends on that the
-// timeline can change. Geometry that existed after init is identified by its place in the scene graph; geometry built
-// later (glove skins, brows, mouths) is hashed by content. The 2D layer is keyed by the effects and captions
-// active at t plus t itself. What init builds (cast, props, set, look) goes into the key outside, as a whole.
-let initGeoms = null;
+// Frame cache key (render.mjs, engine/cache.mjs): a digest of everything the picture at t depends on that the timeline
+// (actions, say lines, captions, effects) can change. render.mjs adds the frame's own time and everything else the
+// storyboard holds (cast, set, camera, shots, look, focus track...) as a whole, so this only has to tell whether an edit
+// to the timeline reached this frame. It covers: the camera; every visible object's matrix, visibility, shadow and
+// draw order; morphs; lights; every geometry's attributes by content (memoised per attribute version, so a set built
+// once is read once); instance matrices; materials (colours, opacity, flags, numeric uniforms) and their textures by
+// content (canvases by their pixels, images by URL, data textures by their data, memoised per texture version, plus
+// the uv transform); the background, fog and exposure; the drawn look's timing; and the 2D layer: captions on screen,
+// flash level and every effect within a generous window of t. render.mjs spot-checks reused frames by drawing some again.
 function fnv(h, x) { h ^= x; return Math.imul(h, 16777619) >>> 0; }
 function hashFloats(h, arr, q = 1e5) { for (let i = 0; i < arr.length; i++) h = fnv(h, Math.round(arr[i] * q) | 0); return h; }
+function hashStr(h, s) { for (let i = 0; i < s.length; i++) h = fnv(h, s.charCodeAt(i)); return h; }
+const contentMemo = new WeakMap();
+// a typed array's digest, recomputed only when its owner's version moved
+function memo(owner, ver, f) { const m = contentMemo.get(owner); if (m && m.v === ver) return m.h; const h = f(); contentMemo.set(owner, { v: ver, h }); return h; }
+function hashArray(h, a) { if (!a) return fnv(h, 0); if (a instanceof Float32Array || a instanceof Float64Array) return hashFloats(h, a, 1e4); for (let i = 0; i < a.length; i++) h = fnv(h, a[i] | 0); return h; }
+function attrHash(at) { return at ? memo(at, at.version, () => hashArray(fnv(2166136261, at.itemSize), at.array)) : 0; }
+function geomHash(g) {
+  let h = fnv(2166136261, g.index ? attrHash(g.index) : 1);
+  for (const k of Object.keys(g.attributes).sort()) { h = hashStr(h, k); h = fnv(h, attrHash(g.attributes[k])); }
+  for (const k of Object.keys(g.morphAttributes || {}).sort()) for (const at of g.morphAttributes[k]) h = fnv(h, attrHash(at));
+  return hashFloats(h, [g.drawRange.start, Math.min(g.drawRange.count, 1e9)], 1);
+}
+function texHash(tex) {
+  if (!tex || !tex.isTexture) return 0;
+  let h = hashFloats(2166136261, [tex.offset.x, tex.offset.y, tex.repeat.x, tex.repeat.y, tex.rotation, tex.center.x, tex.center.y, tex.flipY ? 1 : 0]);
+  if (tex.isRenderTargetTexture || tex.isFramebufferTexture) return fnv(h, 7);   // drawn from the scene, which is hashed
+  const img = tex.image;
+  return fnv(h, memo(tex, tex.version, () => {
+    let c = fnv(2166136261, img?.width | 0); c = fnv(c, img?.height | 0);
+    if (!img) return c;
+    if (img.data) return hashArray(c, img.data);   // data texture
+    if (typeof HTMLImageElement !== "undefined" && img instanceof HTMLImageElement) return hashStr(c, (img.currentSrc || img.src || "").replace(/^https?:\/\/[^/]+/, ""));   // without the server's port
+    if (img.getContext) { const g = img.getContext("2d"); if (g && img.width && img.height) return hashArray(c, new Uint32Array(g.getImageData(0, 0, img.width, img.height).data.buffer)); }
+    if (Array.isArray(img)) { for (const x of img) c = x?.src ? hashStr(c, x.src) : fnv(c, x?.width | 0); return c; }   // cube faces
+    return fnv(c, tex.version);   // an image the page cannot read back: keyed by how often it changed
+  }));
+}
+function matHash(h, m) {
+  h = hashFloats(h, [m.opacity, m.visible ? 1 : 0, m.transparent ? 1 : 0, m.side, m.blending, m.depthTest ? 1 : 0, m.depthWrite ? 1 : 0, m.colorWrite ? 1 : 0, m.alphaTest ?? 0, m.wireframe ? 1 : 0,
+    m.color ? m.color.r : 0, m.color ? m.color.g : 0, m.color ? m.color.b : 0, m.emissive ? m.emissive.r + m.emissive.g + m.emissive.b : 0, m.emissiveIntensity ?? 0, m.roughness ?? 0, m.metalness ?? 0]);
+  for (const k in m) { const v = m[k]; if (v && v.isTexture) { h = hashStr(h, k); h = fnv(h, texHash(v)); } }
+  if (m.uniforms) for (const k of Object.keys(m.uniforms).sort()) {
+    const v = m.uniforms[k].value;
+    if (typeof v === "number" || typeof v === "boolean") h = hashFloats(h, [+v]);
+    else if (v && v.isColor) h = hashFloats(h, [v.r, v.g, v.b]);
+    else if (v && (v.isVector2 || v.isVector3 || v.isVector4 || v.isMatrix3 || v.isMatrix4 || v.isQuaternion)) h = hashFloats(h, v.toArray());
+    else if (v && v.isTexture) h = fnv(h, texHash(v));
+    else if (Array.isArray(v)) for (const x of v) h = typeof x === "number" ? hashFloats(h, [x]) : x?.toArray ? hashFloats(h, x.toArray()) : h;
+  }
+  return h;
+}
 function stateHash(t, samples = []) {
-  if (!initGeoms) { initGeoms = new WeakSet(); scene.traverse((o) => { if (o.geometry) initGeoms.add(o.geometry); }); }
+  // posed lean (no glove skins: they are meshed from the hand parts, which are hashed (seamless glove parts stay
+  // visible on a layer the camera skips), and meshing them is 97 % of a pose), so a key costs ~20 ms where a drawn pose
+  // costs ~800. Hidden parts count only as hidden.
   const one = (tt) => {
-    pose(tt); scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
+    lean(true); pose(tt); lean(false); scene.updateMatrixWorld(true); camera.updateMatrixWorld(true);
     let h = 2166136261, n = 0;
     h = hashFloats(h, camera.matrixWorld.elements); h = hashFloats(h, camera.projectionMatrix.elements, 1e4);
-    scene.traverseVisible((o) => {
-      h = fnv(h, n++); h = hashFloats(h, o.matrixWorld.elements);
-      if (o.isLight) { h = hashFloats(h, [o.intensity, o.color.r, o.color.g, o.color.b]); }
-      if (o.morphTargetInfluences) h = hashFloats(h, o.morphTargetInfluences);
-      if (o.geometry && !initGeoms.has(o.geometry)) { const p = o.geometry.attributes.position; if (p) h = hashFloats(h, p.array, 1e4); h = fnv(h, o.geometry.index ? o.geometry.index.count : -1); }
-      for (const m of o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []) {
-        h = hashFloats(h, [m.opacity, m.visible ? 1 : 0, m.color ? m.color.r : 0, m.color ? m.color.g : 0, m.color ? m.color.b : 0, m.emissive ? m.emissive.r + m.emissive.g + m.emissive.b : 0, m.emissiveIntensity ?? 0]);
-        if (m.uniforms) for (const k of Object.keys(m.uniforms).sort()) { const v = m.uniforms[k].value; if (typeof v === "number") h = hashFloats(h, [v]); else if (v && v.isColor) h = hashFloats(h, [v.r, v.g, v.b]); else if (v && (v.isVector2 || v.isVector3 || v.isVector4)) h = hashFloats(h, v.toArray()); }
+    h = hashFloats(h, [R.toneMappingExposure]);
+    const bg = scene.background; h = bg && bg.isColor ? hashFloats(h, [bg.r, bg.g, bg.b]) : fnv(h, texHash(bg));
+    const fog = scene.fog; if (fog) h = hashFloats(h, [fog.color.r, fog.color.g, fog.color.b, fog.near ?? 0, fog.far ?? 0, fog.density ?? 0]);
+    const walk = (o) => {
+      h = fnv(h, n++); h = fnv(h, o.visible ? 1 : 0);
+      if (!o.visible) return;   // a hidden part keeps whatever transform it last had: it draws nothing
+      h = hashFloats(h, o.matrixWorld.elements);
+      {
+        h = fnv(h, (o.castShadow ? 1 : 0) + (o.receiveShadow ? 2 : 0) + ((o.renderOrder | 0) << 2));
+        if (o.isLight) { h = hashFloats(h, [o.intensity, o.color.r, o.color.g, o.color.b, o.distance ?? 0, o.angle ?? 0, o.penumbra ?? 0, o.castShadow ? 1 : 0]); if (o.groundColor) h = hashFloats(h, [o.groundColor.r, o.groundColor.g, o.groundColor.b]); }
+        if (o.morphTargetInfluences) h = hashFloats(h, o.morphTargetInfluences);
+        if (o.geometry) h = fnv(h, memo(o.geometry, Object.values(o.geometry.attributes).reduce((v, a) => v + "," + a.version, String(o.geometry.index?.version ?? -1)), () => geomHash(o.geometry)));
+        if (o.isInstancedMesh) { h = fnv(h, o.count); h = fnv(h, attrHash(o.instanceMatrix)); if (o.instanceColor) h = fnv(h, attrHash(o.instanceColor)); }
+        for (const m of o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []) h = matHash(h, m);
       }
-    });
+      for (const c of o.children) walk(c);
+    };
+    walk(scene);
     return h.toString(16).padStart(8, "0");
   };
-  const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => t >= (f.at ?? 0) - 0.05 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 0.5);
-  const caps = captionsAt(sb, t);
-  const two = JSON.stringify([fxOn, caps, flashAt(sb, t), showSafe, fxOn.length || caps.length ? t : null]);
-  let h2 = 2166136261; for (let i = 0; i < two.length; i++) h2 = fnv(h2, two.charCodeAt(i));
+  // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
+  // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
+  const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
+  const two = JSON.stringify([fxOn, captionsAt(sb, t), flashAt(sb, t), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
+  const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
   return { scene: one(t), samples: samples.map(one), overlay: h2.toString(16).padStart(8, "0"), photos: shots };
 }
+// a render that skips frames it already has (render.mjs frame cache) starts each stretch it draws like a shard: the
+// drawn look's held drawing is forgotten, so the first frame draws its own
+function reset() { drawnQ = null; return true; }
 globalThis.__noGeomCache = new URLSearchParams(location.search).has("nocache");   // experiment: rebuild brows and glove skins every frame
 function trace(t, thin) { if (thin) lean(true); pose(t); if (thin) lean(false); return motion(); }
 // the drawn look's smear (drawn.smear): a drawing whose characters or props travel more than S.min px since the
@@ -1428,5 +1487,6 @@ window.ENGINE = {
   frame: (t) => frame(st(t)), layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
   prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
   stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+  reset,
 };
 window.ENGINE_READY = true;
