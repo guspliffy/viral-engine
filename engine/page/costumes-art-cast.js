@@ -117,6 +117,7 @@ function astronaut(C, ch, out) {
 
 // ---------- Dragon: big ribbed wings that grow from the shoulder blades, a thick tail with back plates and a spade ---
 function dragon(C, ch, out) {
+  if (C.sheet) return dragonSheet(C, ch, out);
   const wingC = C.wingDetail || "#ee8a34", boneC = C.wingBone || "#b8442a", body = ch.bodyGroup;
   const wings = [-1, 1].map((s) => {
     const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.5, ch.cy + ch.ry * 0.1, -ch.rz * 0.72); body.add(pivot);
@@ -178,10 +179,12 @@ function allfather(C, ch, out) {
     const { pts, ups } = onBody(ch, path);
     geos.push(lock(pts, ups, 0.16 - 0.02 * Math.abs(a), 0.05, (t) => Math.min(1, 0.12 + t * 4) * (1 - t) ** 0.5 + 0.02, 40, 12));
   }
-  for (let i = 0; i < 7; i++) {
-    const a = Math.PI + (i / 6 - 0.5) * 3.4, end = -0.62 - 0.1 * Math.cos((i / 6 - 0.5) * Math.PI);
+  // costume.sheet: "a few large masses" resting over the cape: four broad clumps instead of seven
+  const NB = C.sheet ? 4 : 7;
+  for (let i = 0; i < NB; i++) {
+    const a = Math.PI + (i / (NB - 1) - 0.5) * (C.sheet ? 2.6 : 3.4), end = -0.62 - 0.1 * Math.cos((i / (NB - 1) - 0.5) * Math.PI) - (C.sheet ? 0.04 * hash(i) : 0);
     const { pts, ups } = onBody(ch, [[a, 0.75, 0.075], [a, 0.3, 0.09], [a + 0.03, -0.15, 0.1], [a + 0.06 * Math.sign(Math.sin(a)), end, 0.14]]);
-    geos.push(lock(pts, ups, 0.2, 0.05, (t) => Math.min(1, 0.6 + t * 3) * (1 - t) ** 0.7 + 0.015, 34, 12));
+    geos.push(lock(pts, ups, C.sheet ? 0.34 + 0.05 * hash(i + 3) : 0.2, C.sheet ? 0.065 : 0.05, (t) => Math.min(1, 0.6 + t * 3) * (1 - t) ** 0.7 + 0.015, 34, 12));
   }
   const top = mergeGeometries(geos); shineBand(top, ch.cy + ch.ry * 0.86, 0.045, 0.2, [1, 1, 1]);
   body.add(mesh(top, hairM));
@@ -212,8 +215,20 @@ function allfather(C, ch, out) {
   parts.add(mesh(band(ch, { ph: -0.74, w: 0.05, t: 0.018, lift: 0.045 }), leatherMat(C.belt || "#6e2020")));
   parts.add(buckle(ch, 0, -0.74, 0.058, 0.07));
   for (let i = 0; i < 16; i++) { const th = (i / 16) * Math.PI * 2; if (Math.abs(Math.atan2(Math.sin(th), Math.cos(th))) < 0.75) continue; parts.add(onSurface(ch, mesh(new THREE.SphereGeometry(0.016, 10, 8), gold()), th, -0.52, 0.045)); }
-  for (const sd of [-1, 1]) parts.add(buckle(ch, sd * 1.45, -0.42, 0.075, 0.06));
-  const cape = clothCape(ch, C.cape || "#a02a2a", { trim: "#d6a23c", top: -0.1, half: 1.5, folds: 8, lining: "#5e1414" }); parts.add(cape);
+  if (C.sheet) {
+    // the sheet: broad dark metal shoulder pieces, a heavy red cape in four broad folds hung from two gold clasps
+    for (const sd of [-1, 1]) { const sp = mesh(new THREE.SphereGeometry(0.13, 24, 14, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: "#3a3d46", roughness: 0.4, metalness: 0.55 })); sp.scale.set(1, 0.42, 0.9); parts.add(onSurface(ch, sp, sd * 1.4, -0.36, 0.02)); }
+    const cp = drapeMesh(ch, { top: -0.3, hem: -1.38, from: 1.25, to: Math.PI * 2 - 1.25, flare: 0.1, lift: 0.07, lift0: 0.05, thick: 0.03, facing: 0.06,
+      flareFn: (th) => 0.7 + 0.5 * (1 - Math.cos(th)) / 2, folds: [[1.75, 0.04, 0.25], [2.45, -0.035, 0.22], [3.1, 0.055, 0.35], [3.8, -0.035, 0.22], [4.5, 0.04, 0.28]],
+      sag: 1.2, drift: [0.025, 1.5, 0.7], grad: 0.18, valleyShade: 3, rollR: 0.018, rollColor: "#7c1d1d", ink: { width: 0.0055 } }, C.cape || "#a3262a", "#c8483c");
+    parts.add(cp);
+    for (const sd of [-1, 1]) { parts.add(roundClasp(ch, sd * 1.25, -0.3, 0.05, 0.11, "#d6a23c")); const r = mesh(new THREE.TorusGeometry(0.026, 0.006, 6, 20), metalMat("#a87a22", 0.35)); parts.add(onSurface(ch, r, sd * 1.25, -0.3, 0.135)); }
+    // the beard ends in three soft locks
+    for (const [th, len] of [[-0.2, 0.16], [0.02, 0.2], [0.22, 0.15]]) { const { pts, ups } = onBody(ch, [[th, -0.5, 0.06], [th * 1.05, -0.6, 0.07], [th * 0.9, -0.6 - len / ch.ry, 0.075]]); parts.add(mesh(lock(pts, ups, 0.06, 0.035, (t) => Math.pow(Math.sin(Math.PI * Math.min(1, 0.15 + t * 0.85)), 0.6) * (1 - 0.3 * t), 16, 10), plainHairM)); }
+  } else {
+    for (const sd of [-1, 1]) parts.add(buckle(ch, sd * 1.45, -0.42, 0.075, 0.06));
+    const cape = clothCape(ch, C.cape || "#a02a2a", { trim: "#d6a23c", top: -0.1, half: 1.5, folds: 8, lining: "#5e1414" }); parts.add(cape);
+  }
   out.sitDepth = -0.035;
   if (C.raven !== false) {
     const bird = raven(ch), perch = ch.surf(1.2, 0.05); bird.scale.setScalar(1.35); bird.position.copy(perch.pos).add(V(0.08, 0.08, 0.0)); bird.rotation.y = -0.45; parts.add(bird);
@@ -224,6 +239,7 @@ function allfather(C, ch, out) {
 
 // ---------- Samurai: pleated hakama, a wide flat obi with a tied bow, the empty scabbard at the hip ------------------
 function samurai(C, ch, out) {
+  if (C.sheet) return samuraiSheet(C, ch, out);
   const parts = ch.potatoParts, sashC = C.sashDetail || "#2f4f96";
   parts.add(garmentMesh(ch, { top: -0.6, hem: -1.3, folds: 16, depth: 0.012, flare: 0.05, lift: 0.02, wave: 0.006, thick: 0.014, phase: 0 }, C.hakama || "#25294a", "#121427"));
   const sash = clothMat(sashC);
@@ -710,4 +726,95 @@ export function wizardSheet(C, ch, hat) {
     const c = new THREE.Group(), m = metalMat("#d6a23c", 0.3); c.add(mesh(new THREE.CylinderGeometry(0.045, 0.043, 0.02, 28), m));
     const rim = mesh(new THREE.TorusGeometry(0.039, 0.006, 8, 28), m); rim.rotation.x = Math.PI / 2; rim.position.y = 0.011; c.add(rim);
     c.position.copy(p); c.quaternion.setFromUnitVectors(V(0, 1, 0), n); parts.add(c); }
+}
+
+// ---------- Samurai (sheet): "Upright silhouette, Focused expression, Structured folds, Cloth + jade, Signature knot" ----
+// A navy hakama hanging in a few deep, crisp pleats; a thick royal-blue sash in two folded layers with an asymmetric knot
+// on his left and two weighted ends; a dark scabbard pushed through the sash on the hip opposite the sword hand, bound
+// with the same blue cord as the knot (the signature echoed once).
+function samuraiSheet(C, ch, out) {
+  const parts = ch.potatoParts, navy = C.hakama || "#1b2244", sashC = C.sheetSash || "#2f56b5", sashDk = "#22408c";
+  // pleats: pairs of sharp ridges and deep valleys at the front and back, plain sides (a hakama's real pleat layout)
+  const pl = [];
+  for (const c of [0, Math.PI]) for (const k of [-2, -1, 0, 1, 2]) pl.push([c + k * 0.2, 0.022, 0.06], [c + k * 0.2 + 0.1, -0.026, 0.05]);
+  parts.add(drapeMesh(ch, {
+    top: -0.6, hem: -1.32, flare: 0.07, lift: 0.024, lift0: 0.016, thick: 0.02, folds: [...pl, [1.6, 0.02, 0.3], [4.7, 0.02, 0.3]],
+    sag: 0.5, drift: [0.012, 2.2, 0.4], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: "#2b3460", ink: { width: 0.0038 }, sheen: 1.6,
+  }, navy, "#10142c"));
+  // the sash: a wide band and a narrower folded layer over it, a little tilted
+  parts.add(mesh(band(ch, { ph: -0.6, w: 0.085, t: 0.022, lift: 0.03, round: 0.45 }), clothMat(sashC)));
+  parts.add(mesh(band(ch, { ph: -0.57, w: 0.035, t: 0.014, lift: 0.055, round: 0.6, tilt: 0.05, dip: 0.5 }), clothMat(sashDk)));
+  // the knot on his left front: a knot, two short loops, two weighted ends hanging
+  const sash = clothMat(sashC, { side: THREE.DoubleSide }), k = ch.surf(0.62, -0.62), n = k.normal, knotP = k.pos.clone().addScaledVector(n, 0.08);
+  const knot = mesh(new THREE.SphereGeometry(0.045, 18, 12), sash); knot.scale.set(1.15, 0.9, 0.7); knot.position.copy(knotP); parts.add(knot);
+  for (const s of [-1, 1]) parts.add(mesh(lock([knotP, knotP.clone().add(V(s * 0.08, 0.035, 0.02)), knotP.clone().add(V(s * 0.12, -0.01, 0.01)), knotP.clone().add(V(s * 0.05, -0.035, 0.01)), knotP], V(0, 0, 1), 0.04, 0.012, (t) => 0.5 + 0.5 * Math.sin(Math.PI * t), 24, 8), sash));
+  const ends = [];
+  for (const [dx, L] of [[0.03, 0.26], [0.075, 0.2]]) {
+    const pts = [knotP, knotP.clone().add(V(dx * 0.6, -L * 0.45, 0.02)), knotP.clone().add(V(dx, -L, 0.012))];
+    const e = mesh(lock(pts, V(0, 0, 1), 0.038, 0.011, (t) => 0.75 + 0.35 * t * t, 16, 8), sash); parts.add(e); ends.push(e);   // wider and heavier at the end
+  }
+  // the scabbard: through the sash on the hip away from the sword hand, the mouth forward and up, the end back and down
+  const sd = (C.propHand || "R") === "R" ? 1 : -1, a = ch.surf(sd * 0.95, -0.6), b = ch.surf(sd * 2.1, -0.9);
+  const p0 = a.pos.clone().addScaledVector(a.normal, 0.09).add(V(0, 0.1, 0.2)), p1 = b.pos.clone().addScaledVector(b.normal, 0.08).add(V(0, -0.12, -0.3));
+  const sc = new THREE.Group(), lac = new THREE.MeshStandardMaterial({ color: "#1d1b26", roughness: 0.35, metalness: 0.2 });
+  const len = p0.distanceTo(p1), body = mesh(new THREE.CapsuleGeometry(0.026, len, 4, 12), lac); body.scale.z = 0.7; sc.add(body);
+  for (const y of [len * 0.32, len * 0.2]) { const w = mesh(new THREE.TorusGeometry(0.029, 0.007, 6, 16), clothMat(sashC)); w.rotation.x = Math.PI / 2; w.position.y = y; sc.add(w); }
+  const cap = mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.02, 14), metalMat("#c9a24a", 0.35)); cap.position.y = len / 2 + 0.02; sc.add(cap);
+  sc.position.copy(p0).lerp(p1, 0.5); sc.quaternion.setFromUnitVectors(V(0, 1, 0), p0.clone().sub(p1).normalize()); parts.add(sc);
+  out.prop = katana(C);
+  return out;
+}
+
+// ---------- Dragon (sheet): "Rounded balance, Playful expression, Jointed wings, Soft membranes, Curled tail" -----------
+// Still a bare potato (no snout, horns or scales). Wings grow from rounded roots on the upper back: a thick wing arm with
+// an elbow and a wrist hinge (a small claw), three curved finger spars, and a taut light-orange membrane whose edge is cut
+// in soft scallops between the tips. The tail is the potato's own skin, heavier, joining the lower back and curling
+// smoothly, ending in the raised red-orange tip (the signature).
+function sheetDragonWing(memC, armC) {
+  const g = new THREE.Group(), memM = new THREE.MeshStandardMaterial({ color: memC, roughness: 0.6, side: THREE.DoubleSide, emissive: new THREE.Color(memC), emissiveIntensity: 0.12 });
+  memM.userData.lookRole = "cloth";
+  const armM = new THREE.MeshStandardMaterial({ color: armC, roughness: 0.5 });
+  const R = [0, -0.02], E = [0.15, 0.15], W = [0.25, 0.37], T = [[0.6, 0.47], [0.68, 0.22], [0.54, -0.02]], B = [0.06, -0.14];
+  // the membrane: up the arm to the wrist, out to each finger tip, the edge between tips a soft scallop pulled toward the wrist
+  const sh = new THREE.Shape(), toward = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+  sh.moveTo(...R); sh.lineTo(...E); sh.lineTo(...W); sh.lineTo(...T[0]);
+  for (let i = 1; i < T.length; i++) { const m = toward([(T[i - 1][0] + T[i][0]) / 2, (T[i - 1][1] + T[i][1]) / 2], W, 0.3); sh.quadraticCurveTo(...m, ...T[i]); }
+  { const m = toward([(T[2][0] + B[0]) / 2, (T[2][1] + B[1]) / 2], W, 0.28); sh.quadraticCurveTo(...m, ...B); }
+  sh.closePath();
+  const memG = new THREE.ExtrudeGeometry(sh, { depth: 0.006, bevelEnabled: true, bevelSize: 0.004, bevelThickness: 0.003, bevelSegments: 2, curveSegments: 16 });
+  // the membrane cups back like a sail between the spars
+  { const P = memG.attributes.position; for (let i = 0; i < P.count; i++) { const x = P.getX(i), y = P.getY(i); P.setZ(i, P.getZ(i) - 0.1 * Math.max(0, x - 0.12) ** 1.6 * 3 - 0.02 * Math.sin(Math.max(0, x - 0.25) * 9) * Math.max(0, y)); } memG.computeVertexNormals(); }
+  const mem = mesh(memG, memM); mem.position.z = -0.003; g.add(mem);
+  const v = ([x, y], z = 0.004) => V(x, y, z - 0.1 * Math.max(0, x - 0.12) ** 1.6 * 3);
+  const tube = (pts, r0, r1) => g.add(mesh(taperedTube(new THREE.CatmullRomCurve3(pts), r0, r1, 18, 10), armM));
+  tube([v(R), v([0.07, 0.08]), v(E)], 0.034, 0.026);
+  tube([v(E), v([0.2, 0.26]), v(W)], 0.026, 0.02);
+  for (const p of [E, W]) { const j = mesh(new THREE.SphereGeometry(p === W ? 0.024 : 0.028, 14, 10), armM); j.position.copy(v(p)); g.add(j); }
+  for (const t of T) tube([v(W), v([W[0] + (t[0] - W[0]) * 0.55, W[1] + (t[1] - W[1]) * 0.55 + 0.03]), v(t)], 0.016, 0.005);
+  const claw = mesh(new THREE.ConeGeometry(0.016, 0.05, 8), armM); claw.position.copy(v([W[0] - 0.012, W[1] + 0.035])); claw.rotation.z = 0.4; g.add(claw);
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  return g;
+}
+function dragonSheet(C, ch, out) {
+  const body = ch.bodyGroup, memC = C.sheetMembrane || "#f9a644", armC = C.sheetWingArm || "#d25e27";
+  const wings = [-1, 1].map((s) => {
+    const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.48, ch.cy + ch.ry * 0.12, -ch.rz * 0.74); body.add(pivot);
+    const w = sheetDragonWing(memC, armC); w.scale.set(s * 1.3, 1.3, 1.3); w.rotation.set(0, s * 0.55, s * 0.1); pivot.add(w);
+    // the root: a rounded swell of skin where the wing arm leaves the back
+    const root = mesh(new THREE.SphereGeometry(0.07, 20, 14), ch.skin); root.scale.set(1.3, 1.05, 0.8); root.position.set(s * 0.015, -0.03, 0.03); pivot.add(root);
+    return { pivot, s };
+  });
+  // the tail: the potato's skin, thick at the root on the lower back, curling out to one side and up, a raised tip
+  const pts = [V(0, 0.3, -ch.rz * 0.7), V(0.03, 0.17, -ch.rz - 0.12), V(0.2, 0.1, -ch.rz - 0.32), V(0.42, 0.14, -ch.rz - 0.34), V(0.55, 0.28, -ch.rz - 0.22), V(0.52, 0.4, -ch.rz - 0.12)];
+  const curve = new THREE.CatmullRomCurve3(pts, false, "centripetal");
+  const tailG = new THREE.Group(); body.add(tailG);
+  tailG.add(mesh(taperedTube(curve, 0, 0, 60, 16, (t) => 0.11 * (1 - t) ** 0.8 + 0.022), ch.skin));
+  const tipM = new THREE.MeshStandardMaterial({ color: "#e2582a", roughness: 0.55 }), end = curve.getPointAt(1), T = curve.getTangentAt(1);
+  const tip = mesh(new THREE.SphereGeometry(0.05, 18, 12), tipM); tip.scale.set(0.8, 1.5, 0.8); tip.position.copy(end).addScaledVector(T, 0.03); tip.quaternion.setFromUnitVectors(V(0, 1, 0), T); tailG.add(tip);
+  out.apply = (st, t) => {
+    const w = st.wings || 0, fl = st.flap || 0, flap = Math.sin(t * (rad(6) + 16 * fl)) * (0.12 + 0.5 * fl);
+    for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.12 - 0.1 * w), W.s * (-0.12 + 0.6 * w + flap));
+    tailG.rotation.y = 0.15 * Math.sin(t * rad(2.2)) - 0.9 * (st.ft?.s || 0);
+  };
+  return out;
 }
