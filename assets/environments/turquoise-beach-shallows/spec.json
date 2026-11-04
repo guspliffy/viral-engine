@@ -1,0 +1,35 @@
+{
+ "name": "turquoise-beach-shallows",
+ "prompt": "anime film background painting, gouache, eye level view standing in calm shallow turquoise sea, flat water surface fills the bottom half, horizon line across the middle, pale sand beach and rocks on the right side, far headland with pine trees, blue summer sky with soft cumulus clouds",
+ "no": "people, boat, ship, tower, umbrella, animal, fish, potato, building, cliff top view, aerial view, high angle, grass in foreground, waves breaking",
+ "seeds": [
+  8,
+  21,
+  44,
+  63
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 2.4,
+  "vfov": 46,
+  "pos": [
+   0,
+   2.4,
+   9.0
+  ]
+ },
+ "light": {
+  "from": "high, from the upper right: midday sun",
+  "key": [
+   3.0,
+   6.0,
+   1.0
+  ],
+  "shadow": 0.35
+ },
+ "swayMax": 20,
+ "surface": "water"
+}
