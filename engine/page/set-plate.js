@@ -148,7 +148,8 @@ function relief(img, w, h, x, y, z, P) {
 
 // leaves sway and sunlight shimmers, read from the motion mask, in the plate's own shader. With loop-safe idle
 // (util.js loopNow) every rhythm, the shimmer's drift included, turns a whole number of times over the clip.
-function animate(mat, motion, width) {
+// o.amp: how far a leaf sways, in texels (default 3); o.key: a shader cache name per user (set-env.js layers).
+export function animate(mat, motion, width, o = {}) {
   const time = { value: 0 };
   (globalThis.__setTicks ||= []).push((t) => { time.value = t; });
   mat.onBeforeCompile = (sh) => {
@@ -164,13 +165,13 @@ function animate(mat, motion, width) {
       vec4 mo = texture2D(uMotion, vMapUv);
       float ph = vMapUv.x * 23.0 + vMapUv.y * 11.0;   // nearby leaves move together, far ones out of step
       vec2 sway = vec2(sin(uTime * ${loopNow() ? f(1.3) : "1.3"} + ph) * 0.7 + sin(uTime * ${loopNow() ? f(3.7) : "3.7"} + ph * 2.1) * 0.3,
-                       sin(uTime * ${loopNow() ? f(1.9) : "1.9"} + ph * 1.3) * 0.35) * uPx * 3.0;
+                       sin(uTime * ${loopNow() ? f(1.9) : "1.9"} + ph * 1.3) * 0.35) * uPx * ${(o.amp ?? 3).toFixed(2)};
       vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * mo.r);${shimmer}
       sampledDiffuseColor.rgb *= 1.0 + mo.g * n * 0.07;   // leaf shadows passing over the sun patches
       diffuseColor *= sampledDiffuseColor;`);
     sh.fragmentShader = "uniform float uTime; uniform sampler2D uMotion; uniform float uPx;\n" + sh.fragmentShader;
   };
-  mat.customProgramCacheKey = () => (loopNow() ? `set-plate-motion-loop-${loopNow()}` : "set-plate-motion");
+  mat.customProgramCacheKey = () => (loopNow() ? `set-plate-motion-loop-${loopNow()}` : "set-plate-motion") + (o.key ? `-${o.key}-${o.amp}` : "");
 }
 
 // warm dust motes drifting in the sunlight: fixed starting points from a seeded hash, moved by the frame time

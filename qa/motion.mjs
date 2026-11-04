@@ -6,6 +6,10 @@
 //   node qa/motion.mjs storyboards/x.json          -> list of jumps, blinks on key lines, long hop crouches, eyes that
 //                                                     don't lead a move, reactions too short to read (exit 0; all warnings)
 //
+// It follows the storyboard's hand TARGETS (a straight blend between the two poses), not the drawn arm: the rig adds an
+// arc, the walk's arm swing, pinch offsets, the body's turn and lean. qa/rig.mjs checks the final drawn positions
+// from the layout (render.mjs --layout); this one stays because it needs no browser and runs in under a second.
+//
 // Covered on purpose: frames under a flash of 0.5 or more, actors hidden or off camera, limbs in the fries form,
 // whole turns.
 //
@@ -23,6 +27,14 @@ const LIMIT = { x: 0.03, y: 0.03, z: 0.03, yaw: 0.12, lean: 0.1, pitch: 0.1, squ
 const RATIO = 4;
 const SLIDE = 0.003;   // metres a planted foot may drift in one frame (9 cm a second) outside a step
 const STEPS = new Set(["move", "run", "turn", "hop", "fly", "hover", "drop", "sit", "stand", "kneel", "grow"]);   // grow: the feet spread as it grows
+
+// is this actor in a deliberate step at t (a planted foot may move then)? Shared with the rig check (qa/rig.mjs)
+export function steppingAt(sb, id, t, fps, isDance) {
+  return (sb.actions || []).some((a) => {
+    const dance = isDance(a.do) && a.do !== "shake";
+    return a.who === id && (STEPS.has(a.do) || dance) && t >= a.at - 1e-6 && t <= a.at + (a.dur ?? (dance ? 1 : 0.3)) + (dance ? a.release ?? 0.18 : 0) + 1.5 / fps;
+  });
+}
 
 // the values the checks follow for one actor at one moment: body position and pose, and both hands
 function values(st, def, t, handTarget) {
@@ -59,10 +71,7 @@ export async function motionJumps(sb, fps = 30) {
       const P = st.plant, sc = st.scale ?? 1;
       const feet = P && P.w === 0 ? [-1, 1].map((sx) => [P.x + sc * (sx * 0.13 * Math.cos(P.yaw) + 0.04 * Math.sin(P.yaw)), P.z + sc * (-sx * 0.13 * Math.sin(P.yaw) + 0.04 * Math.cos(P.yaw))]) : null;
       // a dance step eases out over its release (dance.js) after its duration
-      const stepping = (sb.actions || []).some((a) => {
-        const dance = isDance(a.do) && a.do !== "shake";
-        return a.who === c.id && (STEPS.has(a.do) || dance) && t >= a.at - 1e-6 && t <= a.at + (a.dur ?? (dance ? 1 : 0.3)) + (dance ? a.release ?? 0.18 : 0) + 1.5 / fps;
-      });
+      const stepping = steppingAt(sb, c.id, t, fps, isDance);
       rows.push({ t, v, feet, stepping, skip: st.visible === false || flashAt(sb, t) >= 0.5 || offScreen(st, t), fries: st.form === "fries" });
     }
     for (let i = 1; i < rows.length; i++) {

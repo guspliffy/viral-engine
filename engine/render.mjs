@@ -316,7 +316,7 @@ async function main() {
     };
     // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
     const contactGate = (lay) => {
-      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "staging"].includes(r.check));
+      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "staging", "rig-jump", "foot-slide", "prop-pop"].includes(r.check));
       for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
       // what each beat must show (qa/framing.mjs "visible") and the camera lint (qa/camera.mjs): notes, never a gate
@@ -325,7 +325,7 @@ async function main() {
         for (const r of notes) console.log(`  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`);
         if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
       } catch (e) { console.log(`  note visible: not checked (${e.message})`); }
-      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden"].includes(r.check));
+      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump"].includes(r.check));
     };
     // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
     // bulk of a render's time) are known per frame before any shard starts

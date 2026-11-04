@@ -1,0 +1,35 @@
+{
+ "name": "meadow-path",
+ "prompt": "anime film background painting, gouache and watercolor, soft brush strokes, low ground level view standing on a wide flat sandy country road through a summer meadow, the empty road fills the bottom of the picture, wildflowers and grass at the road sides, big old trees, rolling green hills, blue mountains, huge cumulus clouds, warm sunlight from the left",
+ "no": "road, car, fence in foreground, house in foreground, people, potato",
+ "seeds": [
+  58,
+  11,
+  7,
+  33
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 0.95,
+  "vfov": 46,
+  "pos": [
+   0,
+   0.95,
+   4.4
+  ]
+ },
+ "light": {
+  "from": "upper left, a little behind: warm afternoon sun",
+  "key": [
+   -4.0,
+   5.0,
+   -1.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass"
+}
