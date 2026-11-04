@@ -174,6 +174,16 @@ export function duckEnvelope(sb, music, audio, log = [], bed = null) {
 }
 
 // background music into the mix: on by default, a different variation per clip (seeded by puppet/beat.mjs seedOf);
+// a 4th-order Butterworth high-pass (two RBJ biquads, Q 0.541 and 1.307), in place
+function highPass(x, f, sr) {
+  for (const Q of [0.5412, 1.3066]) {
+    const w = (2 * Math.PI * f) / sr, al = Math.sin(w) / (2 * Q), c = Math.cos(w), a0 = 1 + al;
+    const b0 = (1 + c) / 2 / a0, b1 = -(1 + c) / a0, b2 = b0, a1 = (-2 * c) / a0, a2 = (1 - al) / a0;
+    let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+    for (let i = 0; i < x.length; i++) { const v = x[i], y = b0 * v + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; x[i] = y; }
+  }
+}
+
 // "music": false turns it off, a music block pins tempo, style, key and parts. sb.music is the locked block.
 export function addMusic(sb, audio) {
   sb = soundClock(sb);
@@ -189,6 +199,9 @@ export function addMusic(sb, audio) {
     const m = music.lock.miss, key = m.find((x) => x.what === "payoff" || x.what === "music stops");
     log.push(`music locked to the story: grid from ${music.lock.offset.toFixed(3)}s${music.skip != null ? ` (${music.skip}s into the file)` : ""}${music.parts ? `, parts ${music.parts.map((p) => `${p.part}@${p.at}`).join(" ")}` : ""}; ${key ? `${key.what} at ${key.t}s ${key.ms} ms off beat 1, ` : ""}${m.filter((x) => x.ms <= 33).length}/${m.length} story moments within a frame of a beat`);
   }
+  // "lowCut": Hz (opt-in, Still Scrolling redo 4 Nov 2026): a steep high-pass on the bed, so its weight moves into the
+  // band a phone speaker plays (qa/sound.mjs phone-band; the generated beds carry most of their energy under 120 Hz)
+  if (music.lowCut) { for (const ch of [M.L, M.R]) highPass(ch, music.lowCut, audio.sr); log.push(`music low cut at ${music.lowCut} Hz`); }
   const env = duckEnvelope(sb, music, audio, log, { L: M.L.map((v) => v * g), R: M.R.map((v) => v * g) });
   for (let i = 0; i < audio.L.length; i++) { const k = g * env[i]; audio.L[i] += M.L[i] * k; audio.R[i] += M.R[i] * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
   // "then": a second, recorded bed after the first one stops (Not Yet, 1 Nov 2026: the frantic beat cuts dead at the
