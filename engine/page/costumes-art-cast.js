@@ -37,7 +37,7 @@ function flameLocks(ch, L, o = {}) {
 function viking(C, ch, out) {
   if (C.sheet) return vikingSheet(C, ch, out);
   const parts = ch.potatoParts, hairC = C.hairDetail || "#e8642c";
-  const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.75 });
+  const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.75 }); if (C.sheet) hairM.userData.noOutline = true;   // vertex-painted thin locks: the even outline's shell would cover them grey (no "drawn" block)
   // a small scalp patch on the crown so the locks grow out of hair, not out of bare skin
   const cap = mesh(scalp(ch, (az, el) => sstep(1.0, 1.1, el + 0.04 * Math.sin(az * 7)), 0.016), new THREE.MeshStandardMaterial({ color: "#c84f20", roughness: 0.8 }));
   parts.add(cap);
@@ -159,7 +159,7 @@ function allfather(C, ch, out) {
   // locks. A voluminous shell from a high arched hairline over the crown and down to the shoulders, its lower edge cut
   // into broad pointed clumps (anime hair), five wide locks sweeping back from the forehead on top of it, an anime
   // shine band across the crown, and the warm "hair" shading role (looks.js) so the shade stays cream, not lilac.
-  const hairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.8, vertexColors: true }); hairM.userData.lookRole = "hair";
+  const hairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.8, vertexColors: true }); hairM.userData.lookRole = "hair"; if (C.sheet) hairM.userData.noOutline = true;   // vertex-painted thin locks: the even outline's shell would cover them grey (no "drawn" block)
   const saw = (x) => Math.abs((((x / Math.PI) % 2) + 2) % 2 - 1);   // 0..1 triangle wave
   const faceOpen = (az, el) => (1 - sstep(0.95, 1.12, Math.abs(az))) * (1 - sstep(0.56, 0.68, el + 0.05 * Math.cos(az * 2)));
   const low = (az) => -0.5 + 0.2 * saw(az * 4.5 + 0.6) - 0.08 * Math.cos(az);   // the clumped lower edge, longest at the back
@@ -454,7 +454,7 @@ export function phoenixSheetWing(fan, s, mat, ch, o = {}) {
 }
 // the crest: three big locks swept up and back from the crown, the front one ending in one curl; two small ones behind
 export function phoenixSheetCrest(ch) {
-  const m = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.6, emissive: new THREE.Color("#ff6a1f"), emissiveIntensity: 0.3 });
+  const m = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.6, emissive: new THREE.Color("#ff6a1f"), emissiveIntensity: 0.3 }); m.userData.noOutline = true;   // vertex-painted thin locks: the even outline's shell would cover them grey (no "drawn" block)
   const geos = [], back = V(0, 0, -1), up = V(0, 1, 0);
   const L = [   // az, el, len, width, side, rise, curl: three big locks, smaller ones packed between and behind them
     [0.15, 1.24, 0.5, 0.15, 0.04, 0.3, 1], [-0.6, 1.2, 0.4, 0.13, -0.3, 0.16, 0], [0.75, 1.2, 0.38, 0.13, 0.32, 0.14, 0],
@@ -634,7 +634,7 @@ function vikingSheet(C, ch, out) {
   const parts = ch.potatoParts;
   const cap = mesh(scalp(ch, (az, el) => sstep(0.98, 1.08, el + 0.04 * Math.sin(az * 5)), 0.018), new THREE.MeshStandardMaterial({ color: "#b4481e", roughness: 0.85 }));
   parts.add(cap);
-  const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.8 }); hairM.userData.lookRole = "hair";
+  const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.8 }); hairM.userData.lookRole = "hair"; hairM.userData.noOutline = true;   // vertex-painted thin locks: the even outline's shell would cover them grey (no "drawn" block)
   const locks = [[0.1, 1.15, 0.42, 0.17, 0.1, 0.12], [-0.6, 1.12, 0.34, 0.15, -0.25, 0.05], [0.7, 1.12, 0.34, 0.15, 0.3, 0.05], [-1.35, 1.14, 0.22, 0.1, -0.4, 0], [1.4, 1.14, 0.22, 0.1, 0.4, 0], [2.9, 1.24, 0.2, 0.1, 0.1, 0]];
   const fl = flameLocks(ch, locks, { tint: ["#a83f1a", "#e0702c", 1.1], thick: 0.075, ink: { width: 0.0032 } });
   parts.add(mesh(fl, hairM)); if (fl.userData.ink) parts.add(inkMesh(fl.userData.ink, "#8a3010", 0.6));
@@ -656,7 +656,7 @@ function vikingSheet(C, ch, out) {
   parts.add(roundClasp(ch, 0, -0.66, 0.08, 0.085, "#e0b040"));
   parts.add(strap(ch, [-1.05, -0.12], [-0.12, -0.6], 0.024, leatherMat("#6b4325")));
   // the fur mantle: broad clumps round the shoulders and back in two overlapping rows, open at the chest
-  const furM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 1, side: THREE.DoubleSide }); furM.userData.lookRole = "hair";
+  const furM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 1, side: THREE.DoubleSide }); furM.userData.lookRole = "hair"; furM.userData.noOutline = true;   // vertex-painted thin locks: the even outline's shell would cover them grey (no "drawn" block)
   const clumps = [];
   // broad rounded clumps, few and fat (the sheet's "few broad overlapping clumps"), sizes uneven, never in a rhythm
   const rows = [[-0.1, 0.17, 0.17, 0.09, 9, 0], [-0.27, 0.2, 0.18, 0.095, 8, 0.5]];

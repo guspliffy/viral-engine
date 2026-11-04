@@ -23,6 +23,9 @@ export function phoenixCostume(C, ch) {
   const accent = C.accent || "#ff6a2b", tip = C.tip || "#ffd23f";
   const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, emissive: new THREE.Color(accent).multiplyScalar(0.25) });
   // the crest: a fan of flame feathers on top, swept back
+  // sheet feathers are thin vertex-painted sheets with their own ink: the even outline (a clip without a "drawn" block)
+  // drew its shell over them in grey. Sheet look only, so the art-look clips stay as posted.
+  if (C.sheet) mat.userData.noOutline = true;
   const D = !!C.detail || !!C.art;   // costume.detail (castLook "board", Jonny's sheet): a bigger crest and full layered feather wings
   const crest = new THREE.Group(); crest.scale.setScalar(C.crest ?? (D ? 0.95 : 0.6));   // smaller than the game's crest: the portraits show only the sprout
   const N = D ? 9 : 7;

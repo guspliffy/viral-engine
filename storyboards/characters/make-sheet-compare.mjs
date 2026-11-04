@@ -3,14 +3,14 @@
 // close-up, so Jonny's design sheet (references/cast-sheets-v1) can sit next to the old look and the new one.
 // The face rests (expr "kind", as the clip template casts it), glances aside, blinks and comes back.
 //   node storyboards/characters/make-sheet-compare.mjs [castLook ...]   -> storyboards/characters/sheet-compare/<name>-<look>-<shot>.json
-//   (default looks: art sheet sheet-hatch)
+//   (default looks: art sheet sheet-clean)
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CAST } from "./make-turnaround.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url)), out = path.join(here, "sheet-compare");
-const looks = process.argv.slice(2).length ? process.argv.slice(2) : ["art", "sheet", "sheet-hatch"];
+const looks = process.argv.slice(2).length ? process.argv.slice(2) : ["art", "sheet", "sheet-clean"];
 // the sheets' hero view: the body turned a little to the viewer's left, the eyes on the viewer
 const SHOTS = {
   body: { pos: [0, 0.8, 4.0], look: [0, 0.62, 0], fov: 30 },

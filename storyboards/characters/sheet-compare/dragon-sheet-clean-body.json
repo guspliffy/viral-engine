@@ -1,11 +1,11 @@
 {
- "id": "sheetcmp-reaper-sheet-hatch-body",
- "title": "reaper sheet-hatch body",
+ "id": "sheetcmp-dragon-sheet-clean-body",
+ "title": "dragon sheet-clean body",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
  "loop": false,
- "castLook": "sheet-hatch",
+ "castLook": "sheet-clean",
  "duration": 2.6,
  "set": {
   "type": "plain",
@@ -82,7 +82,7 @@
  "cast": [
   {
    "id": "c",
-   "character": "lookdev/reaper-crisp",
+   "character": "lookdev/dragon-crisp",
    "at": [
     0,
     0
