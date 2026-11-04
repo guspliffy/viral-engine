@@ -505,8 +505,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   }
   // ---- castLook "sheet" (quality plan, 4 Nov 2026: Jonny's design sheets): "clean anime character-design painting,
   // elegant large cel-shaded forms": the skin brighter golden with a warm orange shadow side (never grey or brown,
-  // Appendix C: lit #f9b04a-#fbb64f, shadow #d79b55-#e18d2c), two clean tones with a soft edge, no pencil hatching
-  // ("sheet-hatch" keeps round 3's hatching, so Jonny can pick)
+  // Appendix C: lit #f9b04a-#fbb64f, shadow #d79b55-#e18d2c), two tones with a soft edge and round 3's pencil hatching
+  // in the shadows (Jonny picked hatching over clean cel, 4 Nov 2026; "sheet-clean" drops the hatching)
   const sheetCast = actors.some((a) => a.def?.sheet), sheetHatch = actors.some((a) => a.def?.sheetHatch);
   if (sheetCast) {
     if (charR !== charRamp) charR.dispose();

@@ -6,7 +6,7 @@ as a face close-up, from the clips storyboards/characters/make-sheet-compare.mjs
 segment per fighter, joined into one vertical 1080x1920 MP4.
 
   python3 tools/sheet-compare/compose.py --looks art,sheet --labels "old,new" --out out/sheet-faces-compare.mp4
-  python3 tools/sheet-compare/compose.py --looks sheet,sheet-hatch --labels "clean cel,hatching" --out out/x.mp4
+  python3 tools/sheet-compare/compose.py --looks sheet-clean,sheet --labels "clean cel,hatching" --out out/x.mp4
   (--sheets: the folder of the design sheets, default /mnt/project-files/references/cast-sheets-v1)
 """
 import argparse, json, os, subprocess, tempfile
