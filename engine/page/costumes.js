@@ -3,7 +3,7 @@ import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
-import { cowboyArt } from "./costumes-art-cast.js";
+import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
 import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
@@ -291,13 +291,14 @@ export function buildCostume(def, ch) {
   const art = C.type === "cowboy" && C.art;   // costume.art (castLook "art"): the Gunslinger's clothes (costumes-art-cast.js)
   // art: the crown wide enough to take the head (the head no longer pokes out between brim and band), the brim a
   // little wider, the whole hat set down on the head
-  if (art) { cowboyArt(C, ch); hat.group.scale.set(1.15, 1.1, 1.15); hat.group.children.slice(2).forEach((o) => o.scale.set(o.scale.x * 1.32, o.scale.y, o.scale.z * 1.32)); }
+  if (art) { if (C.sheet) cowboySheet(C, ch); else cowboyArt(C, ch); hat.group.scale.set(1.15, 1.1, 1.15); hat.group.children.slice(2).forEach((o) => o.scale.set(o.scale.x * 1.32, o.scale.y, o.scale.z * 1.32)); if (C.sheet) cowboySheetHat(hat, C); }   // costume.sheet: the design-sheet rebuild (costumes-art-cast.js)
   const isCast = CAST_TYPES.includes(C.type), cc = isCast || C.pistols || (C.type === "cowboy" && C.detail && !art) ? castCostume(C, ch) : null;   // costumes-cast.js
   if (isCast) { hat = cc.hat || hat; prop = C.noProp ? null : cc.prop; }   // noProp: the axe (katana, ...) is left at home
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
   if (C.tie) tie(C, ch);
-  if (C.type === "wizard" && C.art) {
+  if (C.type === "wizard" && C.art && C.sheet) wizardSheet(C, ch, hat);   // costume.sheet: the design-sheet rebuild (costumes-art-cast.js)
+  else if (C.type === "wizard" && C.art) {
     // costume.art: a cloak hung lower on the back, darker lining, the gold cord sitting on the cloth (no shelf)
     ch.bodyGroup.add(clothCape(ch, C.robe || "#4a2a86", { trim: C.band || "#d6a23c", top: 0.3, half: 1.5, folds: 8, lining: "#24123f", flare: 0.09 }));
   } else if (C.type === "wizard" && C.detail) {

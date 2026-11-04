@@ -23,7 +23,7 @@ export function turnaround(name, character, castLook) {
     id: `turn-${name}${suffix}`, title: `${NAMES[name] || name[0].toUpperCase() + name.slice(1)} turnaround`, fps: 30,
     look: "anime-pro", profile: "short", loop: false, castLook,
     set: { type: "plain", color: "#f3d9a4", floor: "#d9b27a", light: "golden", para: 0, aperture: 0, shade: "soft" },
-    drawn: castLook === "art" ? { lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } } : true, music: false, sound: { sfx: 0, ambience: 0 },
+    drawn: castLook === "art" || castLook === "sheet" ? { lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } } : true, music: false, sound: { sfx: 0, ambience: 0 },
     creative: { length: [4, 20], notes: false },
     camera: [{ at: 0, ...full }, { at: 4.55, ...full }, { at: 5.25, ...close }, { at: 6.5, ...close }],
     cast: [{ id: "c", character, at: [0, 0], face: 0, expr: "kind", follow: 0.25, seed: 1.3 }],
