@@ -75,6 +75,9 @@ export class Face {
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
     this.inkMat = new THREE.MeshStandardMaterial({ color: ink, roughness: 0.55 });
     this.browMat = brow ? new THREE.MeshStandardMaterial({ color: brow, roughness: 0.9 }) : this.inkMat;   // white brows for the Norse god
+    // browShape.cap (castLook "sheet"): the brow tube's open ends are drawn from inside too, so a brow seen end-on in a
+    // three-quarter view no longer shows a skin-coloured notch at its inner tip
+    if (this.browStyle.cap) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.side = THREE.DoubleSide; }
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
        roughness: 0.6, side: THREE.DoubleSide });
     // a warm off-white, matte enough that the one painted catch light is the only highlight

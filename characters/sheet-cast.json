@@ -14,13 +14,15 @@
    "irisShade": true
   },
   "browShape": {
-   "thick": 1.05,
-   "taper": 0.8,
+   "thick": 1.15,
+   "taper": 1.1,
    "tip": 0.0035,
    "arch": 0.065,
    "clear": 0.01,
    "inner": 0.17,
-   "outer": 0.62
+   "outer": 0.62,
+   "lift": 0.012,
+   "cap": true
   },
   "freckles": 5,
   "blush": 1.6

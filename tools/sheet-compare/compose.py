@@ -16,7 +16,7 @@ FONT = os.path.join(ROOT, "assets/fonts/Inter-ExtraBold.otf")
 ORDER = ["reaper", "phoenix", "wizard", "astronaut", "viking", "gunslinger", "dragon", "allfather", "samurai", "sorcerer"]
 NAMES = {"allfather": "Norse god"}
 # where the character sits in the two compare shots (1080x1920 frames)
-BODY_CROP, FACE_CROP = (40, 240, 1000, 1280), (40, 680, 960, 1000)   # x, y, w, h
+BODY_CROP, FACE_CROP = (40, 240, 1000, 1280), (0, 640, 1080, 1120)   # x, y, w, h
 
 
 def esc(t):
