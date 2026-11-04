@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { lowerShell, ring, cape } from "./costumes-cast.js";
 import { taperedTube, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
+import { guardLayer } from "./costumes-guard.js";
 import { phoenixCrest, reaperArt, phoenixSheetCrest, phoenixSheetWing, phoenixSheetTail } from "./costumes-art-cast.js";
 
 // PotatoBrawl's Phoenix and Reaper in 3D, from the game's colours and drawings (game/core.js palettes,
@@ -333,10 +334,11 @@ export function scythe(C) {
   s.moveTo(0, 0); s.quadraticCurveTo(0.28, 0.16, 0.56, -0.08); s.quadraticCurveTo(0.3, 0.04, 0.02, -0.07); s.closePath();
   const blade = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: 0.012, bevelEnabled: true, bevelSize: 0.006, bevelThickness: 0.004, bevelSegments: 2, curveSegments: 24 }), steel);
   blade.position.set(0.02, 0.88, -0.006); blade.castShadow = true; g.add(blade);
+  if (C.bladeIn) { blade.scale.x = -1; blade.position.x = -0.02; }   // costume.bladeIn: the blade sweeps the other way (the King's Guard carries it pointing in over his bearskin)
   const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.06, 12), new THREE.MeshStandardMaterial({ color: "#3a3440", roughness: 0.5 }));
   collar.position.set(0.03, 0.87, 0); g.add(collar);
   // the blade's point: a prop grabbed with hand "tip" hangs here
-  const tip = new THREE.Object3D(); tip.position.set(0.56, 0.8, 0); g.add(tip);
+  const tip = new THREE.Object3D(); tip.position.set(C.bladeIn ? -0.56 : 0.56, 0.8, 0); g.add(tip);
   return { g, tip };
 }
 export function reaperCostume(C, ch) {
@@ -344,7 +346,8 @@ export function reaperCostume(C, ch) {
   if (C.art && (C.hoodStyle === "hoodie" || C.hoodStyle === "cloth")) {   // costume.art round 2: hood + bell cloak like the Sorcerer
     const art = reaperArt(C, ch);   // costume.sheet: the design-sheet rebuild, with its own apply (sleeves, cloth motion)
     const { g, tip } = scythe(C);
-    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply: art?.apply || (() => {}) };
+    const guard = C.guard && C.sheet ? guardLayer(C, ch) : null;   // costume.guard: the King's Guard tunic, belt and bearskin (costumes-guard.js)
+    return { hat: guard?.hat || null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply: art?.apply || (() => {}) };
   }
   if (C.hoodStyle === "hoodie") {
     const { shell, hem, lining, wall, seams, strings, tips } = hoodieGeometry(ch, C);

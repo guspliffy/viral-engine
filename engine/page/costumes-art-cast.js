@@ -372,7 +372,7 @@ function roundClasp(ch, th, ph, r, lift, color, stone) {
 // silver clasp on a dark band at the neck; one tidy repaired stitch near the hem.
 function reaperSheet(C, ch) {
   const body = ch.bodyGroup, parts = ch.potatoParts;
-  const outer = C.sheetCloak || "#332d39", lining = C.sheetLining || "#5d5262", robe = "#1d1a22";
+  const outer = C.sheetCloak || "#332d39", lining = C.sheetLining || "#5d5262", robe = C.sheetRobe || "#1d1a22";   // sheetRobe: the King's Guard red tunic (costumes-guard.js)
   const { shell, hem, lining: inG, wall } = hoodieGeometry(ch, { hoodStrings: false, hoodTip: C.sheetHoodTip ?? 0.6, hoodSide: 0.8, hoodStand: 0.13, hoodOpen: 0.9, hoodOpenH: 0.96, hoodRim: 0.042, hoodNeck: -0.4, hoodFlare: 0.06 });
   // the robe under the cloak is darker than the hood: colour the shell by height
   { const P = shell.attributes.position, cols = new Float32Array(P.count * 3), dk = new THREE.Color(robe), oc = new THREE.Color(outer), b = new THREE.Color(dk.r / oc.r, dk.g / oc.g, dk.b / oc.b), c = new THREE.Color(), y0 = ch.cy + Math.sin(-0.4) * ch.ry;
@@ -385,7 +385,7 @@ function reaperSheet(C, ch) {
   // the cloak: from the shoulders to just above the boots, flaring into a bell (most at the back), four broad folds at
   // the back and sides, the front open from the clasp and parting toward the hem
   const cloak = drapeMesh(ch, {
-    top: 0.05, topFn: (th) => -0.44 + 0.49 * sstep(0.25, 1.4, Math.abs(Math.atan2(Math.sin(th), Math.cos(th)))), lift0: -0.005, hem: -1.36, from: 0.3, to: Math.PI * 2 - 0.3, spread: 0.16, flare: 0.07, lift: 0.04, thick: 0.03, facing: 0.08, sheen: 1.45,
+    top: 0.05, topFn: (th) => -0.44 + 0.49 * sstep(0.25, 1.4, Math.abs(Math.atan2(Math.sin(th), Math.cos(th)))), lift0: -0.005, hem: -1.36, from: C.sheetOpen ?? 0.3, to: Math.PI * 2 - (C.sheetOpen ?? 0.3), spread: C.sheetSpread ?? 0.16, flare: 0.07, lift: 0.04, thick: 0.03, facing: 0.08, sheen: 1.45,
     flareFn: (th) => 0.7 + 0.5 * (1 - Math.cos(th)) / 2,
     folds: [[0.62, 0.028, 0.18], [1.2, -0.03, 0.22], [1.85, 0.05, 0.36], [2.55, -0.04, 0.22], [3.25, 0.06, 0.42], [3.95, -0.035, 0.2], [4.55, 0.045, 0.3], [5.15, -0.03, 0.22], [5.68, 0.03, 0.2]],
     sag: 1.2, drift: [0.03, 1.3, 2.2], grad: 0.2, valleyShade: 3.5, rollR: 0.02, ink: { width: 0.006 }, follow: 0.5,
