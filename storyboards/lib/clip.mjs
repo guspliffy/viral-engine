@@ -19,11 +19,15 @@ import { writeFileSync } from "node:fs";
 export const r3 = (x) => Math.round(x * 1000) / 1000;
 
 export function clip({ faces = "normal", fps = 30 } = {}) {
-  const items = [], captions = [], hitStops = [];
+  const items = [], captions = [], hitStops = [], visible = [];
   const at = (t, it) => items.push({ ...it, at: r3(t) });
   const A = (t, who, what, o = {}) => at(t, { who, do: what, ...o });
   return {
-    items, captions, hitStops, at, A, faces, fps,
+    items, captions, hitStops, visible, at, A, faces, fps,
+    // what the viewer must see from t0 to t1 (qa/framing.mjs, checked from the layout before any render):
+    // ["rea.face", "scythe", "wiz"] = Reaper's face clear, the scythe, the Wizard's body; goes in the storyboard as
+    // "visible": c.visible
+    see: (t0, t1, what, why, through) => visible.push({ from: r3(t0), to: r3(t1), see: [].concat(what), ...(why && { why }), ...(through && { through: [].concat(through) }) }),
     // a hit-stop: the whole picture holds for `frames` frames from t (snapped to a frame), then the clip carries on;
     // the video gets that much longer and every sound after it moves with its picture
     hitStop: (t, frames = 3) => hitStops.push({ at: r3(Math.round(t * fps) / fps), frames }),

@@ -19,6 +19,9 @@ import { rad, loopNow } from "./util.js";
 //                 place) with its own fog, fading it in over the fade seconds before at; hide: "trail-valley" hides
 //                 the set's meshes whose name starts with it, for a picture that paints them; pan: 0.4, panRef: 180
 //                 slides the picture when the lens swings off that heading, like a far background) }
+//                 swaps: [{ at, src }] (a still plate only) changes the picture on a hard cut at each at (seconds): the
+//                 same place seen at another moment (Ok I Lied's beach, car park and burning hotel behind one locked
+//                 group photo); every picture is the first one's size.
 //   spec.plates: [{ src, center: [x, y], z, height, turn: -90 }]: more walls, for shots that look past the back plate's
 //                 edge (a camera from the side). turn (degrees round y) swings the picture round its middle: -90 faces
 //                 -x (a right-hand wall), 90 faces +x. Flat (no relief or motion) and no dust unless asked.
@@ -48,6 +51,20 @@ export function addPlate(scene, P, ctx = {}) {
     if (motion) animate(mat, motion, map.image.width);
     mat.needsUpdate = true;
   });
+  if (P.swaps?.length) {
+    const maps = [];
+    (globalThis.__loads ||= []).push(Promise.all(P.swaps.map((w) => tex(w.src))).then((ms) => ms.forEach((m, i) => { m.colorSpace = THREE.SRGBColorSpace; m.anisotropy = 4; maps[i] = m; })));
+    let first = null;
+    (globalThis.__setTicks ||= []).push((t) => {
+      first ||= mat.map;
+      let m = first;
+      P.swaps.forEach((w, i) => { if (t >= w.at - 1e-4 && maps[i]) m = maps[i]; });   // a function of time only
+      if (m && mat.map !== m) { mat.map = m; mat.needsUpdate = true; }
+    });
+  }
+  // under a see-through floor (sets.js plain, floor "shadow") the picture's painted ground shows below the feet: draw
+  // it first and keep it out of the depth buffer, so the floor's depth mask (drawn next) hides what sinks below y 0
+  if (ctx.under) { mesh.renderOrder = -1000; mat.depthWrite = false; }
   (globalThis.__loads ||= []).push(load);
   const motes = P.dust ?? (ctx.light === "golden" ? 40 : 0);
   if (motes) {

@@ -61,6 +61,22 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   (longer with an escalation beat). A deliberate pause or reaction hold is fine when the story needs it.
 - Never show or mention the game in the first 3 s, and never use an outro card.
 - The eyes lead every walk, turn and reach by about 4 frames (`act.eyesLead`), and a reaction holds 0.3 s or more.
+- **Every beat names what the viewer must see** (`c.see(from, to, ["rea.face", "scythe"], "why")` in the generator,
+  the storyboard's `"visible"` list): a face in frame, turned to us and with nothing in front, a body or a prop in
+  view. `render.mjs --layout` and `qa/check.mjs` note each miss with its reason (out of frame, turned away, behind
+  the Wizard, under the caption); `node qa/framing.mjs <sb> <layout>` lists them all. Fix a miss in the layout, not
+  after the render.
+- **No frozen time**: `qa/pace.py` counts the frames where nothing moves more than an idle breath. The clips that held
+  best on TikTok sit at 3-17 % frozen with no still over 0.6 s; a note comes over 25 % or at a still of 1 s or more.
+- **Camera lint** (`node qa/camera.mjs <sb>`, also in `qa/check.mjs` and `render.mjs --layout`): never push in and
+  then ease back out without a cut, no jump cut (two framings under 15 % apart in size and 20 degrees in angle), no
+  crossing the line between two characters on a cut, no shot under 0.4 s, and still shots between moves. The directed
+  camera follows this itself (a size step out instead of a pull-back; an ease back to the opening shot when a cut
+  would jump).
+- **Story checks** (review A and the self-review, `qa/REVIEW.md`): the stranger test (the cold-read stills say who
+  wants what and what went wrong), the mute test (it reads with the sound off), a contrast hook (the opening sets an
+  expectation the clip turns over) and a callback ending (the end answers the opening, same characters, opposite
+  result). Craft checks, not forecasts.
 - Don't call these "algorithm rules" in reports: the checker measures pixels and event starts, not whether the
   premise is clear or the joke lands. That is what the reviews and the experiments are for.
 
@@ -86,6 +102,11 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   first second quieter than -20 dBFS, bring a note. On the 10 posted clips more early cuts went with fewer viewers at
   0:02 (r -0.71) and a quiet start with fewer too, so a cut-heavy opening is an A/B question, not a default. Tune with
   `"creative": { "openingCuts": 3, "quietStart": -24 }`.
+- **Mixed for a phone speaker** (`qa/sound.mjs` "phone-band", warn only): a phone plays about 200 Hz-6 kHz, so 40 %
+  or more of the mix's energy belongs in that band, and every hit stands 3 dB or more (3-6 dB and up) over the bed
+  inside it. A hit that is loud only below 200 Hz (a thud) gets a click or slap layered on. Check a sound change
+  without a render: `node qa/sound.mjs <sb> --phone` (seconds). Measured 4 Nov: Never Prank has 11 % of its energy in
+  the band (71 % without its music: the "sneaky" bed's bass under 120 Hz takes the rest), Not Yet 25 %.
 - **Hits land by their loudest moment** (`engine/sfx/library.mjs` `isHit`: footsteps, knocks, slams, put-downs, grabs,
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
@@ -236,7 +257,7 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
 6. **Deliver** the MP4, its cover, a one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
-   viewer read ("would you finish, where would you stop") from review B, and the ten self-review answers
+   viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers
    (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
 
 Fable is the creative director, Jonny is the producer: premise, characters, look, and anything that needs new art

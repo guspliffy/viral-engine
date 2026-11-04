@@ -71,8 +71,11 @@ export function garment(ch, o) {
   const folds = o.folds ?? 9, depth = o.depth ?? 0.014, flare = o.flare ?? 0.03, lift = o.lift ?? 0.008, wave = o.wave ?? 0.02, ragged = o.ragged ?? 0;
   const thick = o.thick ?? 0.012, phase = o.phase ?? 0.4;
   const hemAt = o.hemFn || ((th) => hemEl + wave * Math.sin(th * folds + phase) - ragged * Math.abs(((((th * (o.points ?? 9)) / Math.PI) % 2) + 2) % 2 - 1));
+  // o.topFn: the top edge's elevation round the body (a neckline: low at the clasp, high at the back); o.lift0: the
+  // lift at the top edge (tuck it under a hood or collar), growing to `lift` a quarter of the way down
+  const topAt = o.topFn || (() => top), lift0 = o.lift0 ?? lift;
   const at = (th, v, off) => {
-    const ph = top + (hemAt(th) - top) * v, s = ch.surf(th, ph);
+    const tp = topAt(th), ph = tp + (hemAt(th) - tp) * v, s = ch.surf(th, ph), lift = lift0 + ((o.lift ?? 0.01) - lift0) * sstep(0, o.liftRamp ?? 0.25, v);
     // folds: a smooth wave plus a sharper crease, both growing toward the hem
     const fw = Math.sin(th * folds + phase), fold = depth * Math.pow(v, 1.3) * (0.7 * fw + 0.3 * Math.sign(fw) * Math.abs(fw) ** 0.4);
     const n = s.normal.clone(); n.y *= 0.4; n.normalize();   // hang: lift sideways, not up
@@ -249,4 +252,190 @@ function mergeGeos(gs) {
   const pos = new Float32Array(n * 3), idx = []; let o = 0;
   for (const g of gs) { pos.set(g.attributes.position.array, o * 3); for (const i of g.index.array) idx.push(i + o); o += g.attributes.position.count; }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+
+// ---------- sheet cloth kit (castLook "sheet", quality plan item 5, 4 Nov 2026) ---------------------------------------
+// Jonny's ten design sheets (references/cast-sheets-v1) are now the cast's look. What their cloth does that ours didn't:
+//   - "just three or four purposeful broad folds": garment() lays 8-22 even sine folds round the body. drape() takes a
+//     short hand-placed list of broad folds, each with its own width and depth, ridges and valleys, never in a rhythm
+//     (copy nature: real cloth hangs in a few big tubes from where it is held, with flat stretches between)
+//   - "weighted slightly uneven hem": the hem hangs lower under a ridge and rides up over a valley, plus a slow drift,
+//     so no two stretches of hem sit at the same height
+//   - "tangible seams and fabric thickness": a rolled edge, a soft tube as thick as the cloth, along the hem and the
+//     front edges (the sheets' "thick rolled rims"); the cloth itself is thicker (2-3 cm instead of 1-2)
+//   - "subtly lighter inner lining": the inside is a shade lighter or warmer than the outside, and an open garment's
+//     front edges turn back (a facing), so the lining shows from the front as the sheets draw it
+// Folds are [th, depth, width]: th the angle round the body (0 front), depth in metres (+ a ridge standing out, - a
+// valley), width in radians. Built from the body's own surface like garment(), so it fits any potato.
+const angDiff = (a, b) => { let d = (a - b) % (Math.PI * 2); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; return d; };
+export function drape(ch, o) {
+  const NU = o.segs ?? 200, NV = o.rows ?? 40, top = o.top, from = o.from ?? 0, to = o.to ?? Math.PI * 2, closed = o.to == null;
+  const F = o.folds || [], flare = o.flare ?? 0.06, lift = o.lift ?? 0.01, thick = o.thick ?? 0.024, hang = o.hang ?? 0.4;
+  const sag = o.sag ?? 1.6, [dA, dF, dP] = o.drift || [0.025, 1.7, 0.6];
+  const foldAt = (th) => { let f = 0; for (const [c, d, w] of F) { const x = angDiff(th, c) / w; f += d * Math.exp(-x * x); } return f; };
+  const flareAt = o.flareFn || (() => 1);
+  // weighted hem: lower under a ridge (sag x its depth, in elevation per metre of depth), and a slow drift round the body
+  const hemAt = o.hemFn || ((th) => o.hem - sag * foldAt(th) + dA * Math.sin(th * dF + dP));
+  // o.free (default on): below the body's widest point the cloth stops following the potato inward and hangs from the
+  // widest point it passed (copy nature: a cloak falls straight from the shoulders, it doesn't tuck under the belly)
+  const free = o.free ?? true, reach = new Map();
+  const widest = (th, ph) => {   // the furthest out the body reaches at angle th between the top and elevation ph
+    const key = Math.round(th * 400);
+    let prof = reach.get(key);
+    if (!prof) { prof = []; for (let k = 0; k <= 24; k++) { const t0 = topAt(th), e = t0 + (o.hem - 0.15 - t0) * (k / 24), p = ch.surf(th, e).pos; prof.push([e, Math.hypot(p.x, p.z)]); } reach.set(key, prof); }
+    let r = 0; for (const [e, rr] of prof) { if (e < ph) break; r = Math.max(r, rr); }
+    return r;
+  };
+  // o.topFn: the top edge's elevation round the body (a neckline: low at the clasp, high at the back); o.lift0: the
+  // lift at the top edge (tuck it under a hood or collar), growing to `lift` a quarter of the way down
+  const topAt = o.topFn || (() => top), lift0 = o.lift0 ?? lift;
+  const at = (th, v, off) => {
+    const tp = topAt(th), ph = tp + (hemAt(th) - tp) * v, s = ch.surf(th, ph), lift = lift0 + ((o.lift ?? 0.01) - lift0) * sstep(0, o.liftRamp ?? 0.25, v);
+    // the folds hang from where the cloth is held: already there below the top, growing toward the hem
+    const fold = foldAt(th) * (0.3 + 0.7 * Math.pow(v, 1.1));
+    const n = s.normal.clone(); n.y *= hang; n.normalize();
+    const p = s.pos.clone();
+    if (free) { const r = Math.hypot(p.x, p.z), w = widest(th, ph); if (w > r && r > 1e-4) { p.x *= w / r; p.z *= w / r; n.set(p.x, 0, p.z).normalize().lerp(s.normal, 0.15 * (1 - v)).normalize(); } }
+    return p.addScaledVector(n, lift + flare * flareAt(th) * Math.pow(v, 1.6) + fold + off);
+  };
+  // o.spread: an open garment's front edges part further toward the hem (radians at the hem), like a cloak hanging
+  // open from a clasp at the neck
+  const sp = o.spread ?? 0, f0 = (v) => from + sp * v, t0 = (v) => to - sp * v;
+  const th = (i, v = 1) => f0(v) + (t0(v) - f0(v)) * (i / NU);
+  const outer = [], inner = [];
+  for (let j = 0; j <= NV; j++) for (let i = 0; i <= NU; i++) { outer.push(at(th(i, j / NV), j / NV, thick)); inner.push(at(th(i, j / NV), j / NV, 0)); }
+  const go = gridMesh(outer, NU, NV), gi = gridMesh(inner, NU, NV);
+  if (closed) { weldU(go, NU, NV); weldU(gi, NU, NV); }
+  // painted shading: a little lighter where the cloth is held, darker toward the hem, darker still in each valley
+  if (o.grad ?? 0.16) for (const g of [go, gi]) {
+    const n = g.attributes.position.count, cols = new Float32Array(n * 3), G = o.grad ?? 0.16;
+    for (let k = 0; k < n; k++) { const i = k % (NU + 1), v = Math.floor(k / (NU + 1)) / NV, f = foldAt(th(i, v)), c = 1.06 - G * Math.pow(v, 1.2) + (o.valleyShade ?? 2.2) * Math.min(0, f) * v; cols[k * 3] = cols[k * 3 + 1] = cols[k * 3 + 2] = Math.max(0.55, c); }
+    g.setAttribute("color", new THREE.BufferAttribute(cols, 3));
+  }
+  // the edges, just outside the cloth's middle: the hem, and for an open garment its two front edges
+  const hemLine = [], left = [], right = [];
+  for (let i = 0; i <= NU; i++) hemLine.push(at(th(i), 1, thick * 0.5));
+  if (!closed) for (let j = 0; j <= NV; j++) { left.push(at(f0(j / NV), j / NV, thick * 0.5)); right.push(at(t0(j / NV), j / NV, thick * 0.5)); }
+  // facings: the lining turned back along each front edge, a strip lying on the outside (o.facing: its width, radians)
+  const facings = [];
+  if (!closed && o.facing) for (const sd of [1, -1]) {
+    const P = [], n2 = 12;
+    for (let j = 0; j <= NV; j++) for (let i = 0; i <= n2; i++) { const v = j / NV, e = sd > 0 ? f0(v) : t0(v), u = i / n2, t = e + sd * o.facing * u; P.push(at(t, v, thick + 0.003 + 0.004 * (1 - u))); }
+    facings.push(gridMesh(P, n2, NV));
+  }
+  return { outer: go, inner: gi, facings, lines: { hem: hemLine, left, right }, at, th, f0, t0, foldAt, hemAt, F, from, to, closed, thick };
+}
+// a rolled edge: a soft round tube along an edge line, a little flattened against the cloth (userData.flat for drawn.js)
+export function roll(line, r, mat, closed = false) {
+  const curve = new THREE.CatmullRomCurve3(line, closed, "centripetal");
+  const m = new THREE.Mesh(new THREE.TubeGeometry(curve, Math.max(40, line.length * 2), r, 10, closed), mat);
+  m.castShadow = true; m.userData.flat = 0.3; return m;
+}
+// ink down the valleys of a drape(): one tapered stroke per valley from part way down to near the hem, a short second
+// one beside the deepest, and a short stroke rising from the hem under each ridge (where the cloth turns)
+export function drapeInk(D, o = {}) {
+  const W = o.width ?? 0.005, out = [];
+  D.F.forEach(([c, d, w], k) => {
+    if (o.only === "ridge" && d < 0) return;
+    if (o.only === "ridge") { const r = hash1(k * 9.1 + 0.7); strokesFor(c, k, [[0.08 * w, 0.18 + 0.2 * r, 0.9, 1.3]]); return; }
+    const r = hash1(k * 5.3 + 2.1), strokes = d < 0 ? [[0, 0.12 + 0.25 * r, 0.94, 1]] : [[0.35 * w * (r > 0.5 ? 1 : -1), 0.62 + 0.12 * r, 0.96, 0.75]];
+    if (d < -0.03) strokes.push([0.28 * w * (r > 0.5 ? -1 : 1), 0.55 + 0.1 * r, 0.9, 0.6]);
+    strokesFor(c, k, strokes);
+  });
+  function strokesFor(c, k, strokes) {
+    for (const [dt, v0, v1, ww] of strokes) {
+      const cs = [], sides = [], ws = [], n = 18;
+      if (!D.closed && (c + dt < D.f0(v1) + 0.08 || c + dt > D.t0(v1) - 0.08)) continue;
+      for (let j = 0; j <= n; j++) {
+        const u = j / n, v = v0 + (v1 - v0) * u, t = c + dt + 0.02 * Math.sin(u * 3 + k);
+        cs.push(D.at(t, v, D.thick + 0.0015)); sides.push(D.at(t + 0.01, v, D.thick).sub(D.at(t - 0.01, v, D.thick)).normalize()); ws.push(brushW(u, W * ww, 0.6));
+      }
+      out.push(strip(cs, sides, ws));
+    }
+  }
+  return out.length ? mergeGeos(out) : null;
+}
+// drape() as meshes: the outside in `color`, the inside and the facings in the lighter `lining`, rolled hem and front
+// edges (o.rollR, in `o.rollColor`, default a mix of outside and lining), valley ink. Returns the group; .userData.drape
+// keeps the drape for later pieces (stitches, motion).
+export function drapeMesh(ch, o, color, lining) {
+  const D = drape(ch, o), g = new THREE.Group(), out = clothMat(color, { side: THREE.DoubleSide, vertexColors: true });
+  const m1 = new THREE.Mesh(D.outer, out); m1.castShadow = m1.receiveShadow = true; g.add(m1);
+  const inM = clothMat(lining, { side: THREE.BackSide, vertexColors: true, role: o.liningRole || "cloth" });
+  g.add(new THREE.Mesh(D.inner, inM));
+  const face = clothMat(lining, { side: THREE.DoubleSide }); face.polygonOffset = true; face.polygonOffsetFactor = -1; face.polygonOffsetUnits = -1;
+  for (const f of D.facings) g.add(new THREE.Mesh(f, face));
+  const rm = clothMat(o.rollColor || new THREE.Color(color).lerp(new THREE.Color(lining), 0.45), { side: THREE.FrontSide });
+  const R = o.rollR ?? D.thick * 0.75;
+  // o.topRoll: a rolled collar along the top edge (a cape fastened at the neck), its radius
+  if (o.topRoll) { const L = []; for (let i = 0; i <= 120; i++) L.push(D.at(D.th(i * (o.segs ?? 200) / 120, 0), 0, D.thick * 0.5)); g.add(roll(L, o.topRoll, rm, D.closed)); }
+  if (R > 0) { g.add(roll(D.lines.hem, R, rm, D.closed)); if (!D.closed && o.edgeRoll !== false) for (const L of [D.lines.left, D.lines.right]) g.add(roll(L, R * 0.9, rm)); }
+  if (o.ink !== false) { const ig = drapeInk(D, o.ink || {}); if (ig) g.add(inkMesh(ig, color, o.inkK ?? 0.32)); }
+  // o.sheen: dark cloth shows its folds by the light on the ridges, not by ink: a soft lighter stroke down each ridge
+  if (o.sheen) { const ig = drapeInk(D, { width: (o.ink?.width ?? 0.005) * 2.2, only: "ridge" }); if (ig) g.add(inkMesh(ig, color, o.sheen)); }
+  g.userData.drape = D;
+  if (o.follow !== 0) softFollow(ch, g, o.follow ?? 0.6);
+  return g;
+}
+
+// ---------- secondary motion (quality plan item 10) ----------------------------------------------------------------
+// What real hanging cloth does, written down before building it (our movement rule; references: cloth reference
+// footage of capes and robes walking, turning and stopping, and the follow-through in Ghibli walk cycles):
+//   - it is held at the top and free at the bottom: the top moves with the body, the hem trails behind it, the lag
+//     growing with the distance from where it is held (a cape's hem lags most, the shoulders hardly at all)
+//   - it lags the body's own motion, overshoots once when the body stops, then settles (a damped spring, heavier cloth
+//     swinging less far)
+//   - on a turn the hem lags the turn and swings out to the side it is turning away from
+//   - it never swings through the body: the part of the swing that points into the body slides along it instead
+// The engine already runs that spring for every actor (timeline.js st.ft: the lag of the top of the head, in the body's
+// own frame, settled within half a second, deterministic per frame). softFollow bends a costume group with it: each
+// vertex moves by the lag times its distance below the group's top, to the power 1.5 (held at the top, free at the
+// hem), times `amount` (heavy wool ~0.5, a light cape ~0.8, a sash end ~1). Registered on ch.softParts, which costumes.js
+// calls every frame.
+export function softFollow(ch, group, amount = 0.6, o = {}) {
+  const geos = [];
+  group.traverse((m) => { if (m.isMesh && m.geometry?.attributes?.position) geos.push(m.geometry); });
+  if (!geos.length) return;
+  let yTop = -Infinity, yBot = Infinity;
+  for (const g of geos) { const P = g.attributes.position; for (let i = 0; i < P.count; i++) { const y = P.getY(i); if (y > yTop) yTop = y; if (y < yBot) yBot = y; } }
+  if (o.top != null) yTop = o.top;
+  if (o.bottom != null) yBot = o.bottom;
+  const up = o.dir === "up";   // a crest or a tuft held at its root below: the lag grows with the height above it
+  const L = Math.max(0.05, yTop - yBot), rest = geos.map((g) => g.attributes.position.array.slice());
+  let last = "";
+  (ch.softParts ??= []).push((ft) => {
+    const f = (ft?.f || 0) * amount, sd = (ft?.s || 0) * amount, u = (ft?.u || 0) * amount;
+    const key = `${f.toFixed(4)}|${sd.toFixed(4)}|${u.toFixed(4)}`;
+    if (key === last) return; last = key;
+    geos.forEach((g, gi) => {
+      const P = g.attributes.position, R = rest[gi];
+      for (let i = 0; i < P.count; i++) {
+        const x = R[i * 3], y = R[i * 3 + 1], z = R[i * 3 + 2], d = Math.max(0, Math.min(1, (yTop - y) / L)), w = d ** 1.5 * L;
+        let dx = sd * w, dz = f * w;
+        // the part of the swing that points into the body slides along it instead (most of it removed)
+        const r = Math.hypot(x, z) || 1, nx = x / r, nz = z / r, into = dx * nx + dz * nz;
+        if (into < 0) { dx -= nx * into * 0.85; dz -= nz * into * 0.85; }
+        // the swung cloth rises a little, as a pendulum does
+        const dy = (up ? -1 : 1) * 0.35 * (Math.hypot(dx, dz) ** 2) / Math.max(0.05, w) - u * w * 0.3;
+        P.setXYZ(i, x + dx, y + dy, z + dz);
+      }
+      P.needsUpdate = true;
+      g.computeBoundingSphere();
+    });
+  });
+}
+// a repair: a few short stitches across a seam line (the sheets' "one tidy repaired stitch"), lying on a surface.
+// p the middle, n the surface normal there, along the seam's direction; n stitches, each `len` long
+export function stitches(p, n, along, count = 3, len = 0.03, color = "#b8a890") {
+  const g = new THREE.Group(), m = new THREE.MeshStandardMaterial({ color, roughness: 0.8 }); m.userData.lookRole = "cloth";
+  const a = along.clone().normalize(), side = new THREE.Vector3().crossVectors(n, a).normalize(), gap = len * 0.55;
+  // the seam itself, then the cross stitches over it
+  const seam = new THREE.Mesh(new THREE.CapsuleGeometry(len * 0.07, gap * (count + 0.6), 3, 6), m);
+  seam.position.copy(p).addScaledVector(n, 0.002); seam.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), a); g.add(seam);
+  for (let i = 0; i < count; i++) {
+    const s = new THREE.Mesh(new THREE.CapsuleGeometry(len * 0.1, len, 3, 6), m);
+    s.position.copy(p).addScaledVector(a, (i - (count - 1) / 2) * gap).addScaledVector(n, 0.004);
+    s.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), side.clone().addScaledVector(a, 0.15 * (i % 2 ? 1 : -1)).normalize()); g.add(s);
+  }
+  return g;
 }

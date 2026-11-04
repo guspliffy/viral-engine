@@ -59,16 +59,23 @@ Give at most 6 notes, most valuable first. For each:
 2. what a first-time viewer on a phone sees or feels there,
 3. one concrete change in storyboard terms (seconds, shot, action, expression, eye target, caption, effect, detail).
 
-Cover: the first second (does it hook?), cut points and shot variety, whether each beat reads at phone size, the
-payoff, background and set detail that would make frames richer without clutter, and the ending (does it invite a
+Cover: the first second (does it hook?), cut points and shot variety, whether each beat reads at phone size (what
+the beat needs the viewer to see: a face, a prop; the storyboard's "visible" list names it), the payoff, background and set detail that would make frames richer without clutter, and the ending (does it invite a
 rewatch?). Also flag contact that would read as a glitch: a hand beside or through what it holds
 (it should grab from behind and wrap the front), a staff behind the arm, an arm through a hat brim, characters
 closer than a body-width. Before suggesting a bigger move, check it can be done without parts passing through each
 other; if not, suggest a different move. Keep the premise, cast and art style. Don't judge sound (you can't hear it) or predict views.
-Then answer five pass/fail questions, one line each (they are logged per clip and later compared with retention):
+Then answer eight pass/fail questions, one line each (they are logged per clip and later compared with retention):
 P1 premise readable by 3 s? P2 punchline lands? P3 loop seamless (last frame flows into the first)?
-P4 anything graphic or off-model? P5 from the stills alone, without the premise line, could a first-time viewer say
-what the character wants and what went wrong? (Answer that one in their words.)
+P4 anything graphic or off-model? P5 stranger test: from the stills alone, without the premise line, could a
+first-time viewer say what the character wants and what went wrong? (Answer that one in their words.)
+P6 mute test: with the sound off and the captions covered, does the story still read from faces, poses and props
+alone? (Most people meet the clip muted; the voices and sound words only add to it.) Name the beat that needs sound.
+P7 contrast hook: does the opening (the hook caption, or the first line) set two things against each other that the
+clip then pays off, an expectation and what really happens ("When you say you'll just watch" / he can't keep out of
+it), rather than describe the picture? If not, write a better caption of six words or fewer.
+P8 callback ending: does the end answer the opening, with the same characters and the opposite result (the one who
+wanted to be seen is still unseen; the quiet friend ends the prank)? If not, say what the last beat could flip.
 Then the viewer read, instead of a score: you are a first-time viewer scrolling your feed. Would you watch to the end?
 If not, at which second would you swipe away, and what made you go? (One or two lines, in a viewer's words. No 1-10
 scores: a number says nothing about where the clip loses people; a second and a reason do.)
@@ -86,9 +93,11 @@ Every delivery carries two short things for Jonny, because Claude can't hear and
    those moments only, which takes a minute, and says which sound wrong.
 2. **The viewer read** from review B ("would you finish, where would you stop"), in one line, next to the clip's real
    retention curve once it is posted (qa/retention.mjs). When the read and the curve disagree, trust the curve.
-3. **The self-review**: ten questions, answered in one line each in the delivery notes before anything is sent. A
-   "no" means fix it first, or say plainly why it stays. They come from Jonny's notes on the clips of 28-29 Oct,
-   which all passed every check and still had a glitch or a wrong sound he caught.
+3. **The self-review**: twelve questions, answered in one line each in the delivery notes before anything is sent. A
+   "no" means fix it first, or say plainly why it stays. The first ten come from Jonny's notes on the clips of 28-29
+   Oct, which all passed every check and still had a glitch or a wrong sound he caught; 11 and 12 are the story checks
+   from the quality plan (4 Nov 2026). They are craft checks, not a forecast: on 30 Oct neither reviewer rankings nor
+   the hook rules predicted which posted clips held viewers.
 
    1. **Scroll test**: with the sound off, does the frame at 0.0 s show both faces and the thing the joke is about?
    2. **Curiosity**: at 2.0 s, would a stranger want to know what happens next, not only what is happening?
@@ -104,6 +113,14 @@ Every delivery carries two short things for Jonny, because Claude can't hear and
    9. **Brief match**: does every shot, placement and timing match the brief, with each departure listed and why?
    10. **Ending**: if the brief wants a loop, does the last frame flow into the first; if not, does the last shot hold
        long enough for the payoff to land?
+   11. **Stranger and mute test**: shown only the 6-frame cold-read sheet, with no premise and no sound, could a
+       stranger say who wants what and what went wrong? Does the opening set an expectation against what happens
+       (contrast hook), not only describe the picture?
+   12. **Callback ending**: does the end answer the opening, with the same characters and the opposite result?
+
+   And three numbers from the checks, pasted as they are: the must-see misses (`qa/framing.mjs` "visible", or none),
+   the phone-speaker line (`qa/sound.mjs` "phone-band": the share of the mix a phone plays and the hits it loses),
+   and frozen % with the longest still (`qa/pace.py`).
 
 Before the full render, and whenever a clip feels slow, compare its pace with a clip that holds viewers:
 `python qa/pace.py out/<id>.mp4 --ref <good clip>.mp4 --png out/<id>.pace.png` (cuts, motion and loudness per

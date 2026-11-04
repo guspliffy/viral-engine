@@ -11,7 +11,9 @@ slower, quieter or busier than what works", second by second, not whether the jo
 
 Per second: hard cuts, motion (mean |dY| between frames on a 270x270 grey copy, 0..255), held (share of frames that
 barely change), loudness (dBFS over 100 ms windows: median and 90th percentile), onsets (sudden rises in energy) and
-brightness (spectral centroid, Hz). Hard cuts: a frame that changes more than max(8, 4x the median of the +-12 frames
+brightness (spectral centroid, Hz). Frozen: a frame that changes less than an idle breath (mean |dY| under 0.8) from
+both the frame before and the one two back (so a pose held on twos isn't counted); per second as frozen %, and for the
+clip the frozen share and the longest still run. Hard cuts: a frame that changes more than max(8, 4x the median of the +-12 frames
 around it), outside runs that step on 2s (a pose held two frames) or flicker A/B.
 
 Ported from cth9191/animate, plugins/animate/skills/animate/tools/measure/shotlog.py (MIT, Copyright (c) 2026
@@ -25,6 +27,10 @@ import sys
 import numpy as np
 
 S = 270
+FROZEN = 0.8       # mean |dY| (0..255 on the 270 px grey copy) under which a frame reads as not moving: an idle breath
+STILL_NOTE = 1.0   # seconds: a still this long is listed (and qa/check.mjs notes it). The clips that held best on TikTok
+                   # (Never Prank 13 % frozen, longest 0.3 s; Too Much Energy 17 %, 0.57 s; Not Yet 3 %) stay well under it
+FROZEN_NOTE = 25   # % of the clip frozen above which qa/check.mjs notes it
 
 
 def frames(v):
@@ -81,6 +87,15 @@ def measure(v, fps=None):
         if d[f] > 8 and d2[f] < 0.35 * d[f]:
             flick[f] = True
     real = [c for c in cuts if not step[c] and not flick[c]]
+    # frozen: nothing moves more than an idle breath against the frame before AND the one two back (on twos a pose
+    # holds for one frame and isn't a still). The longest run of them is the longest still the viewer sits through
+    d2b = np.zeros(n)
+    for f in range(2, n):
+        d2b[f] = np.abs(F[f] - F[f - 2]).mean()
+    frozen = np.zeros(n, bool)
+    frozen[2:] = (d[2:] < FROZEN) & (d2b[2:] < FROZEN)
+    still = runs(frozen, 1)
+    longest = max(still, key=lambda r: r[1] - r[0], default=None)
     # audio per 100 ms
     x, sr = audio(v)
     win = sr // 10
@@ -101,7 +116,8 @@ def measure(v, fps=None):
             fr = np.fft.rfftfreq(len(seg), 1 / sr)
             cen = float((spec * fr).sum() / (spec.sum() + 1e-9))
         row = {'sec': s, 'cuts': sum(1 for k in real if f0 <= k < f1), 'motion': float(d[max(1, f0):f1].mean()) if f1 > max(1, f0) else 0.0,
-               'held': float((d[max(1, f0):f1] < 0.8).mean() * 100) if f1 > max(1, f0) else 100.0}
+               'held': float((d[max(1, f0):f1] < 0.8).mean() * 100) if f1 > max(1, f0) else 100.0,
+               'frozen': float(frozen[f0:f1].mean() * 100) if f1 > f0 else 0.0}
         if w1 > w0:
             row.update(db_med=float(np.median(db[w0:w1])), db_p90=float(np.percentile(db[w0:w1], 90)), onsets=int(onset[w0:w1].sum()), bright=cen)
         rows.append(row)
@@ -111,6 +127,9 @@ def measure(v, fps=None):
         'stepped': [(a / fps, (b + 1) / fps) for a, b in runs(step, 12)], 'flicker': [(a / fps, (b + 1) / fps) for a, b in runs(flick, 4)],
         'rows': rows, 'motion': float(d[1:].mean()) if n > 1 else 0.0, 'motion_2s': float(d[1:2 * fps].mean()) if n > 2 else 0.0,
         'held': float((d[1:] < 0.8).mean() * 100) if n > 1 else 100.0,
+        'frozen': float(frozen.mean() * 100) if n else 0.0,
+        'longest_still': ((longest[1] - longest[0] + 1) / fps, longest[0] / fps) if longest else (0.0, None),
+        'stills': [(a / fps, (b + 1) / fps) for a, b in still if (b - a + 1) / fps >= STILL_NOTE],
         'db_med': float(np.median(db)) if nw else None, 'db_range': float(np.percentile(db, 90) - np.percentile(db, 10)) if nw else None,
         'onsets_per_s': float(onset.sum() / max(1e-9, nw / 10)) if nw else None,
         'loudest': (float(db.max()), float(db.argmax() / 10)) if nw else None,
@@ -124,9 +143,12 @@ def print_table(m):
     print('hard cuts outside stepped/flicker runs: ' + (', '.join(f'{c:.2f}s' for c in m['cuts']) or 'none'))
     print('stepped on 2s: ' + (', '.join(f'{a:.2f}-{b:.2f}s' for a, b in m['stepped']) or 'none'))
     print('flicker A/B: ' + (', '.join(f'{a:.2f}-{b:.2f}s' for a, b in m['flicker']) or 'none'))
-    print(' sec  cuts  motion  held%   dB med  dB p90  onsets  bright Hz')
+    ls = m['longest_still']
+    print(f"frozen: {m['frozen']:.0f}% of frames, longest still {ls[0]:.2f}s" + (f" from {ls[1]:.2f}s" if ls[1] is not None else '')
+          + (f"; stills of {STILL_NOTE:.0f} s or more: " + ', '.join(f'{a:.2f}-{b:.2f}s' for a, b in m['stills']) if m['stills'] else ''))
+    print(' sec  cuts  motion  held%  frozen%   dB med  dB p90  onsets  bright Hz')
     for r in m['rows']:
-        base = f"{r['sec']:4d}  {r['cuts']:4d}  {r['motion']:6.1f}  {r['held']:5.0f}"
+        base = f"{r['sec']:4d}  {r['cuts']:4d}  {r['motion']:6.1f}  {r['held']:5.0f}  {r['frozen']:7.0f}"
         print(base + (f"  {r['db_med']:7.1f}  {r['db_p90']:6.1f}  {r['onsets']:6d}  {r['bright']:8.0f}" if 'db_med' in r else '  (no audio)'))
     if m['loudest']:
         q = m['quietest_sec']
@@ -147,6 +169,8 @@ def summary(ms):
         ('motion (mean)', lambda m: f"{m['motion']:.1f}"),
         ('motion 0-2 s', lambda m: f"{m['motion_2s']:.1f}"),
         ('held frames', lambda m: f"{m['held']:.0f}%"),
+        ('frozen', lambda m: f"{m['frozen']:.0f}%"),
+        ('longest still', lambda m: f"{m['longest_still'][0]:.2f} s"),
         ('loudness median', lambda m: f"{m['db_med']:.1f} dB" if m['db_med'] is not None else '-'),
         ('loudness range', lambda m: f"{m['db_range']:.1f} dB" if m['db_range'] is not None else '-'),
         ('onsets', lambda m: f"{m['onsets_per_s']:.1f}/s" if m['onsets_per_s'] is not None else '-'),
