@@ -26,13 +26,13 @@ const rad = (d) => (d * Math.PI) / 180;
 const LOG = { x: -0.3, z: 0.95, rot: 30 };                     // Phoenix sits on it facing a little to screen right
 const LOG_GONE = { x: -0.95, z: 1.3 };                           // rolled left against the boulder
 const FIRE = [0.72, 1.45];
-const ROCK = { x: -1.45, z: -0.8, w: 1.3, h: 0.46, d: 0.8 };  // the hiding rock, behind Phoenix to screen left (P2, P6-P8)
+const ROCK = { x: -1.2, z: -0.8, w: 1.3, h: 0.46, d: 0.8 };  // the hiding rock, behind Phoenix to screen left (P2, P6-P8)
 const PERCH = { x: -1.9, z: -3.15, w: 0.95, h: 0.9, d: 0.75 };   // a flat rock behind it: Reaper stands on it (the totem's top)
 const BOULDER = { x: -1.55, z: 1.15, w: 0.8, h: 0.6, d: 0.7 };   // where the log stops
 const PHX = [LOG.x, LOG.z];
 const WIZ0 = [0.75, 0.2], VIK0 = [1.4, 0.85];
 const REA0 = [PERCH.x, PERCH.z];
-const WIZ_HIDE = [-1.95, -2.25], VIK_HIDE = [-0.85, -1.6];
+const WIZ_HIDE = [-1.65, -2.25], VIK_HIDE = [-0.6, -1.6];
 const WIZ_TOTEM = [-1.85, -2.42], VIK_TOTEM = [-1.8, -1.6];
 const REX0 = { x: 2.55, z: -3.6, rot: -50 };                     // the T-rex, half in the ferns at frame 0
 const REX = { x: 2.2, z: -3.15, rot: -48 };                    // one stomp further in
@@ -93,6 +93,7 @@ function rex(t, base, target, o = {}, dur = 0.4, ease = "inOut") {
   const set = { x: base.x, z: base.z, rot: base.rot, lean: a.lean, neckY: a.neckY, neckP: a.neckP, headP: a.headP, headY: o.headY ?? 0, headR: o.headR ?? 0, ...(o.set || {}) };
   prop(t, "rex", set, dur, ease);
   Object.assign(rexState, set);
+  if (process.env.DEBUG) { const P = trexPoints({ ...rexState }); console.log(`  rex ${t}:`, JSON.stringify({ snout: P.snout.map(r3), eyeL: P.eyeL.map(r3), eyeR: P.eyeR.map(r3), head: P.head.map(r3) })); }
   return a;
 }
 
@@ -106,7 +107,7 @@ A(0, "phx", "sit", { seat: "log", dur: 0, hands: "keep", feet: [0.36, 0.08] });
 A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
 A(0, "phx", "look", { to: AT_PHONE, dur: 0, blink: false });
 A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 });
-A(0, "phx", "face", { lid: 0.45, dur: 0.01 });
+A(0, "phx", "face", { lid: 0.55, dur: 0 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
 prop(0, "phone", { glow: 0.6 }, 0.01);
@@ -160,15 +161,15 @@ const runCurve = (who, t0, dur, p0, ctl, p1, n = 16) => {
   }
   A(t0, who, "run", { pts, dur, rate: [[0, 2.5], [dur * 0.3, 4.2], [dur, 2.5]], stride: 1.7 });
 };
-runCurve("wiz", 1.32, 1.23, WIZ0, [-0.2, -1.4], WIZ_HIDE);
+runCurve("wiz", 1.32, 1.23, WIZ0, [0.2, -1.55], WIZ_HIDE);
 A(1.28, "wiz", "turn", { to: -149, dur: 0.25 }); A(1.95, "wiz", "turn", { to: -116, dur: 0.35 }); A(2.45, "wiz", "turn", { to: -20, dur: 0.4 });
-runCurve("vik", 1.52, 1.13, VIK0, [0.3, -0.9], VIK_HIDE);
+runCurve("vik", 1.52, 1.13, VIK0, [0.45, -1.3], VIK_HIDE);
 A(1.48, "vik", "turn", { to: -148, dur: 0.25 }); A(2.1, "vik", "turn", { to: -122, dur: 0.3 }); A(2.55, "vik", "turn", { to: -5, dur: 0.4 });
 A(1.17, "wiz", "look", { to: [-0.7, -0.2], dur: 0.12, blink: false });             // eyes first: where to run
 A(1.34, "vik", "look", { to: [-0.8, -0.2], dur: 0.12, blink: false });
 A(1.96, "wiz", "look", { to: [-0.6, -0.1], dur: 0.12, blink: false });
 A(2.0, "vik", "look", { to: [-0.6, -0.1], dur: 0.12, blink: false });
-A(6.2, "vik", "look", { to: [-0.3, 0.1], dur: 0.12, blink: false });
+A(6.14, "vik", "look", { to: [-0.3, 0.1], dur: 0.12, blink: false });
 c.arm(1.35, "wiz", "L", "rest", 0.25);
 // behind the rock: Viking took the front spot; the Wizard glares at him, then waves at Phoenix
 A(2.3, "wiz", "look", { to: [0.8, -0.1], dur: 0.12, blink: false });
@@ -189,7 +190,9 @@ prop(3.18, "rex", { step: 1, x: REX_NEAR.x, z: REX_NEAR.z, rot: REX_NEAR.rot }, 
 prop(3.3, "rex", { step: 0 }, 0.08, "in"); sfx(3.38, "dinostomp", { gain: 0.4 });
 // the ping: Phoenix's tiny smile at the phone
 sfx(2.7, "notify", { gain: 0.32 });
-act.grin(c, 2.75, "phx", { back: 0.9 });
+A(2.75, "phx", "expr", { expr: "happy", set: { curve: 0.45 }, dur: 0.2 });   // the tiny smile (half lids, not a grin)
+A(2.75, "phx", "face", { lid: 0.6, dur: 0.2 });
+A(3.1, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.25 }); A(3.1, "phx", "face", { lid: 0.55, dur: 0.25 });
 see(1.6, 3.1, ["phx.face", "wiz.face", "rea.face"], "P2: the friends hiding behind the rock, Phoenix smiling at his phone");
 
 // ---------------------------------------------------------------- 3 SNIFF 3.2-5.0 (P3)
@@ -222,14 +225,16 @@ sfx(5.4, "dinoroar", { gain: 1.0 });
 prop(5.3, "roar", { puff: 1 }, 0.1); prop(6.35, "roar", { puff: 0 }, 0.25);
 prop(5.4, "fire", { wobble: -1 }, 0.15, "out"); prop(6.4, "fire", { wobble: 0 }, 0.5);
 // the bag blows up off the ground and tumbles left
-prop(5.45, "bag", { x: 0.15, y: 1.1, z: 1.75, spin: 2, tilt: 0 }, 0.6, "out");
-prop(6.05, "bag", { x: -0.85, y: 0.0, z: 1.95, spin: 3 }, 0.45, "in");
+prop(5.45, "bag", { x: 0.05, y: 1.4, z: 2.0, spin: 2, tilt: 0 }, 0.6, "out");
+prop(6.05, "bag", { x: -1.0, y: 0.0, z: 2.05, spin: 3 }, 0.45, "in");
 prop(5.45, "mallows", { x: 0.05, y: 0.0, z: 1.8, spin: 3.5 }, 0.8, "inOut");
 // the blast rolls the log out from under him: the wings flick open and he hovers in the same pose
-const T_LOG = 6.15;
-A(T_LOG - 0.12, "phx", "span", { to: 0.6, dur: 0.15, ease: "out" });
-A(T_LOG - 0.1, "phx", "fly", { to: { y: SEAT + LIFT }, dur: 0.3, ease: "out" });
-sfx(T_LOG - 0.12, "wings", { gain: 0.45, dur: END - (T_LOG - 0.12) - 0.05 });
+const T_LOG = 6.0;   // the log goes first; he drops a hair, then the wings flick open and catch him
+c.at(T_LOG, { fx: "shake", amp: 0.02, dur: 0.25 });
+A(T_LOG + 0.06, "phx", "drop", { to: SEAT - 0.04, dur: 0.06 });
+A(T_LOG + 0.1, "phx", "span", { to: 0.6, dur: 0.12, ease: "out" });
+A(T_LOG + 0.12, "phx", "fly", { to: { y: SEAT + LIFT }, dur: 0.3, ease: "out" });
+sfx(T_LOG + 0.1, "wings", { gain: 0.45, dur: END - (T_LOG + 0.1) - 0.05 });
 prop(T_LOG, "log", { x: LOG_GONE.x, z: LOG_GONE.z, spin: -1.2 }, 0.55, "out");
 sfx(T_LOG + 0.05, "scrape", { gain: 0.5, dur: 0.4, reason: "the log rolls away over the dirt" });
 sfx(T_LOG + 0.55, "thud-soft", { gain: 0.5, reason: "the log hits the boulder" });
@@ -245,9 +250,9 @@ see(6.3, 6.95, ["phx.face", "log"], "P5: the log rolled away, Phoenix hovering o
 // ---------------------------------------------------------------- 5 HOVER 6.3-7.0 (P5) and 6 PEAK 7.0-8.0 (P6)
 prop(6.3, "rex", { jaw: 0.1, arms: 0, breath: 0, squint: 0, brow: 0.6, lookX: -0.5, lookY: -0.4 }, 0.35);
 // the totem: Viking crouched at the bottom, the Wizard above, Reaper on top
-A(6.3, "wiz", "crouch", { to: 0, dur: 0.3 }); A(6.38, "vik", "crouch", { to: 0, dur: 0.45 });
+A(6.3, "wiz", "crouch", { to: 0, dur: 0.3 }); A(6.28, "vik", "crouch", { to: 0, dur: 0.45 });
 A(6.22, "wiz", "look", { to: [0.2, 0.3], dur: 0.12, blink: false });
-A(6.3, "wiz", "move", { to: WIZ_TOTEM, dur: 0.35 }); A(6.38, "vik", "move", { to: VIK_TOTEM, dur: 0.58 });
+A(6.3, "wiz", "move", { to: WIZ_TOTEM, dur: 0.35 }); A(6.28, "vik", "move", { to: VIK_TOTEM, dur: 0.72 });
 A(6.4, "rea", "crouch", { to: 0, dur: 0.3 });
 for (const w of ["wiz", "vik", "rea"]) A(6.5, w, "look", { to: [-0.85, -0.05], dur: 0.15, blink: false });
 // the peak: snout 20 cm from the phone, one eye on him
@@ -262,13 +267,13 @@ A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -8, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 1180);
+c.cap(8.5, 9.0, "huh.", 600);   // in the sky over his head: the lower third is all T-rex snout and Phoenix in this framing
 prop(8.0, "rex", { lookX: -0.8, lookY: -0.1 }, 0.2);
 see(8.1, 8.95, ["phx.face", "rex"], "P7: Phoenix looks up into the T-rex's eye: huh.");
 
 // ---------------------------------------------------------------- 8 BACK DOWN 9.0-10.0 (P8)
 A(9.0, "phx", "look", { to: AT_PHONE, dur: 0.12, blink: false });
-A(9.0, "phx", "face", { lid: 0.45, dur: 0.15 });
+A(9.0, "phx", "face", { lid: 0.55, dur: 0.15 });
 A(9.0, "phx", "pitch", { to: 0, dur: 0.15 });
 sfx(9.15, "notify", { gain: 0.36 });
 A(9.2, "phx", "expr", { expr: "happy", set: { curve: 0.55 }, dur: 0.25 });                    // the tiny smile, held to the cut
@@ -290,12 +295,12 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
   return { pos, look: [r3(pos[0] + Math.sin(yaw) * Math.cos(pit) * k), r3(pos[1] + Math.sin(pit) * k), r3(pos[2] - Math.cos(yaw) * Math.cos(pit) * k)], fov };
 };
 const WIDE = shot([0.1, 1.5, 7.8], { fov: 46 });                    // the painting's own camera
-const MED_SNIFF = shot([-0.3, 1.35, 4.9], { tilt: -7, fov: 32 });
+const MED_SNIFF = shot([-0.05, 1.55, 5.4], { pan: 2, tilt: -3, fov: 42 });   // the head over him from the upper right
 const ROARW = shot([0.1, 1.45, 6.2], { tilt: -4, fov: 40 });
 const HOVER = shot([-0.3, 1.5, 7.8], { fov: 50 });
-const PEAK = shot([-0.35, 2.0, 5.8], { tilt: -8, fov: 44 });          // higher: the friends' totem shows over the rock
-const LOOKUP = shot([-0.15, 1.85, 4.9], { tilt: -8, fov: 34 });
-const BACKDOWN = shot([-0.25, 2.05, 6.2], { tilt: -8, fov: 48 });
+const PEAK = shot([-0.25, 2.0, 5.8], { pan: 1, tilt: -8, fov: 44 });          // higher: the friends' totem shows over the rock
+const LOOKUP = shot([0.05, 1.8, 5.2], { pan: 2, tilt: -7, fov: 40 });     // Phoenix left, the T-rex eye right (P7)
+const BACKDOWN = shot([-0.15, 2.05, 6.2], { pan: 1, tilt: -8, fov: 48 });
 const beats = c.beats([
   ["P1 stomp", 0, WIDE, "hook"],
   ["P2 panic", 1.5, "keep"],
