@@ -48,7 +48,7 @@ const fb = (target, o) => frame(target, { fov: 40, ...o, h: r3((o.h ?? 1) * 1920
 const REA = [-0.5, 0], PHX_END = [0.48, 0.04];
 const PHX0 = [3.1, -0.45], PHX_MID = [1.75, -0.2];
 const OFF = [-4.5, 4.5];
-const HUG_REA = [-0.36, -0.04], HUG_PHX = [0.55, 0.12];   // a body-width apart: cheeks close, heads never inside each other (Jonny 4 Nov)
+const HUG_REA = [-0.15, -0.2], HUG_PHX = [0.56, 0.32];   // close on screen, Phoenix a half step in front: the bodies touch but never go into each other (Jonny 4 Nov)
 const SCY_GROUND = [-0.7, 0.03, 0.5];   // where the dropped scythe lies (its grip point), lower left of the side shots
 const SHAFT_END = [-0.45, 0.03, -0.15];   // shot 8: the shaft's bottom end just in front of Reaper's left foot, the blade away to the left
 
@@ -198,14 +198,15 @@ A(r3(HUG - 0.12), "rea2", "look", { to: [0.5, 0.0], dur: 0.1, blink: false });
 A(HUG, "rea2", "move", { to: HUG_REA, dur: 0.45, steps: 2 });
 A(HUG, "phx", "move", { to: HUG_PHX, dur: 0.45, steps: 2 });
 A(HUG, "phx", "span", { to: 0.0, dur: 0.3 });   // the wings fold aside
-A(HUG, "rea2", "turn", { to: 26, dur: 0.25 });
-A(HUG, "phx", "turn", { to: -26, dur: 0.25 });
+A(HUG, "rea2", "turn", { to: 18, dur: 0.25 });
+A(HUG, "phx", "turn", { to: -30, dur: 0.25 });
 // Reaper's gloves round the outside of Phoenix's back (the near one in view); Phoenix's fry hand up outside the hug
-c.arm(r3(HUG + 0.15), "rea2", "R", { world: [r3(HUG_PHX[0] + 0.42), 0.46, r3(HUG_PHX[1] + 0.22)] }, 0.35, "inOut");
+c.arm(r3(HUG + 0.02), "rea2", "R", { x: [-0.48, 0.2, 0.3] }, 0.15, "inOut");   // down by his side first, so the arm never crosses his face
+c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.05), 0.22, r3(HUG_PHX[1] + 0.4)] }, 0.3, "inOut");
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.2), 0.62, r3(HUG_PHX[1] - 0.42)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
-c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.42, 0.66, 0.04] }, 0.35, "inOut");
-c.arm(r3(HUG + 0.2), "phx", "R", { world: [r3(HUG_REA[0] - 0.15), 0.6, r3(HUG_REA[1] - 0.48)] }, 0.35, "inOut");
+c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.34, 0.62, 0.24] }, 0.35, "inOut");
+c.arm(r3(HUG + 0.2), "phx", "R", { x: [-0.4, 0.22, 0.12] }, 0.35, "inOut");   // his near arm low at his side: nothing between the two faces
 A(r3(HUG + 0.35), "rea2", "expr", { expr: "sad", set: { open: 0.15, curve: 0.2, eye: 0.06 }, dur: 0.3 });   // eyes squeezed, a wobbly smile
 A(r3(HUG + 0.4), "phx", "expr", { expr: "serene", set: { curve: 0.55 }, dur: 0.3 });
 sfx(r3(HUG + 0.3), "cloth", { gain: 0.45, reason: "the hug: robe against Phoenix" });
@@ -282,7 +283,7 @@ const beats = c.beats([
   ["3 wind-up", 2.8, fb([-0.5, 1.1, 0], { az: 6, el: -10, h: 1.65 })],
   ["4 the fry", SWING, fb([0.12, 1.0, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
   ["5 he can't", CUT5, fb([-0.12, 0.62, 0.1], { az: 8, el: 4, h: 1.75 })],
-  ["6 hug", HUG, fb([0.1, 0.68, 0.05], { az: -14, el: 2, h: 1.62, push: 0.05, dur: 1.3 })],
+  ["6 hug", HUG, fb([0.16, 0.66, 0.1], { az: -12, el: 2, h: 1.62, push: 0.05, dur: 1.3 })],
   ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: 40, el: -3, h: 1.3 }), "reaction"],
   ["8 too", CUT8, fb([0.08, 0.72, -0.6], { az: -18, el: 8, h: 2.3, push: 0.06, dur: 1.5 })],
 ], END);
