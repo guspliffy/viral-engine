@@ -1,7 +1,7 @@
 # Ok I Lied: Jonny's eight panels, point by point
 
 Source: `storyboard-eight-panels.png` in /mnt/project-files/story-27-ok-i-lied.zip. Written before the first render
-(CLAUDE.md "Writing clips"). Check: `node qa/panels.mjs out/ok-i-lied-draft.mp4 --panels <board> --grid 2x4 --at 1,2.8,4.4,6.1,7.4,8.0,8.8,9.6`.
+(CLAUDE.md "Writing clips"). Check: `node qa/panels.mjs out/ok-i-lied-draft.mp4 --panels <board> --grid 2x4 --at 0.3,1.0,1.8,2.6,3.4,4.0,4.6,5.5`.
 
 Whole board: one group photo, straight on at eye level, the trio filling the width; Phoenix left mid-jump (arms high,
 flame wings spread, feet off the ground), Reaper centre (hood, arms folded, scythe planted upright on his right),
@@ -28,7 +28,6 @@ the Wizard right (purple hat, staff upright at his outer side). Bright saturated
   scythe goes into Phoenix.
 - The rain has no sound (no rain sound in the whitelist); the music turns sad from the car park on instead.
 - The flash at the edges in panel 8 is speed lines only: a flash over the whole frame washed the faces out.
-- Posted at 1.25x speed (Jonny, 1 Nov: "speed it up about 1.25x", the first lie came at 2 s where most viewers are
-  lost): 8.0 s, the first "ok i lied" at 1.6 s. Made from the 10 s render with
-  `ffmpeg -i out/ok-i-lied-anime-pro.mp4 -filter_complex "[0:v]setpts=PTS/1.25,fps=30[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 17 -pix_fmt yuv420p -c:a aac -b:a 192k ok-i-lied.mp4`
-  (-14.8 LUFS). A cast-iron 8 s storyboard would need every time scaled; not worth a render for the same picture.
+- Shortened to 6 s (Jonny, 4 Nov: "by second 1.5 should be the we weren't at the beach scene"; before that a 1.25x
+  ffmpeg speed-up of the 10 s cut, 1 Nov). Photos 1-4 now last 0.7-0.8 s each (the car park at 1.4 s); the Dragon,
+  the sneeze and the run keep their real-time pace (0.6 + 0.7 + 0.7 + 1.0 s). The table's times are the old 10 s cut.

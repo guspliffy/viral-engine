@@ -30,11 +30,11 @@
    "dust": 0,
    "swaps": [
     {
-     "at": 3.6,
+     "at": 1.4,
      "src": "assets/plates/okilied-carpark.png"
     },
     {
-     "at": 5.2,
+     "at": 2.2,
      "src": "assets/plates/okilied-hotel.png"
     }
    ]
@@ -49,17 +49,17 @@
     "part": "main"
    },
    {
-    "at": 2,
+    "at": 0.7,
     "part": "intro"
    },
    {
-    "at": 3.6,
+    "at": 1.4,
     "part": "stop"
    }
   ],
   "then": {
    "file": "ai/sad/sad-02.ogg",
-   "from": 3.6,
+   "from": 1.4,
    "gain": 0.3
   }
  },
@@ -82,8 +82,8 @@
  },
  "creative": {
   "length": [
-   10,
-   10
+   6,
+   6
   ]
  },
  "cast": [
@@ -509,39 +509,39 @@
  "captions": [
   {
    "from": 0,
-   "to": 2,
+   "to": 0.7,
    "text": "our holiday was perfect",
    "pos": 250,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 2,
-   "to": 3.6,
+   "from": 0.7,
+   "to": 1.4,
    "text": "ok i lied\nwe weren't smiling",
    "pos": 250,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 3.6,
-   "to": 5.2,
+   "from": 1.4,
+   "to": 2.2,
    "text": "ok i lied\nwe weren't at the beach",
    "pos": 250,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 5.2,
-   "to": 7,
+   "from": 2.2,
+   "to": 3,
    "text": "ok i lied\nthat's not our hotel",
    "pos": 250,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 7,
-   "to": 10,
+   "from": 3,
+   "to": 6,
    "text": "i'm so sorry",
    "pos": 250,
    "pop": false,
@@ -552,7 +552,7 @@
   {
    "name": "1 perfect",
    "at": 0,
-   "len": 2,
+   "len": 0.7,
    "shot": {
     "pos": [
      -0.14,
@@ -577,14 +577,14 @@
       0
      ]
     },
-    "dur": 1.6,
+    "dur": 0.8,
     "ease": "linear"
    },
    "do": [
     {
      "who": "phx",
      "do": "still",
-     "dur": 7.6,
+     "dur": 3.6,
      "idle": 0,
      "sink": 0,
      "fade": 0.01,
@@ -593,7 +593,7 @@
     {
      "who": "rea",
      "do": "still",
-     "dur": 7.6,
+     "dur": 3.6,
      "idle": 0,
      "sink": 0,
      "fade": 0.01,
@@ -602,7 +602,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 7.6,
+     "dur": 3.6,
      "idle": 0,
      "sink": 0,
      "fade": 0.01,
@@ -733,7 +733,7 @@
     {
      "who": "phx",
      "do": "noblink",
-     "dur": 7.6,
+     "dur": 3.6,
      "at": 0
     },
     {
@@ -762,7 +762,7 @@
     {
      "who": "rea",
      "do": "noblink",
-     "dur": 7.6,
+     "dur": 3.6,
      "at": 0
     },
     {
@@ -791,7 +791,7 @@
     {
      "who": "wiz",
      "do": "noblink",
-     "dur": 7.6,
+     "dur": 3.6,
      "at": 0
     },
     {
@@ -812,8 +812,8 @@
   },
   {
    "name": "2 not smiling",
-   "at": 2,
-   "len": 1.6,
+   "at": 0.7,
+   "len": 0.7,
    "shot": {
     "pos": [
      -0.14,
@@ -838,7 +838,7 @@
       0
      ]
     },
-    "dur": 1.6,
+    "dur": 0.8,
     "ease": "linear"
    },
    "do": [
@@ -851,7 +851,7 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.7,
+     "gain": 0.45,
      "reason": "the next photo: the camera fires on the cut",
      "at": 0
     },
@@ -958,8 +958,8 @@
   },
   {
    "name": "3 not the beach",
-   "at": 3.6,
-   "len": 1.6,
+   "at": 1.4,
+   "len": 0.8,
    "shot": {
     "pos": [
      -0.14,
@@ -984,7 +984,7 @@
       0
      ]
     },
-    "dur": 1.6,
+    "dur": 0.8,
     "ease": "linear"
    },
    "do": [
@@ -997,7 +997,7 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.7,
+     "gain": 0.45,
      "reason": "the next photo: the camera fires on the cut",
      "at": 0
     },
@@ -1031,8 +1031,8 @@
   },
   {
    "name": "4 not our hotel",
-   "at": 5.2,
-   "len": 1.8,
+   "at": 2.2,
+   "len": 0.8,
    "shot": {
     "pos": [
      -0.14,
@@ -1057,7 +1057,7 @@
       0
      ]
     },
-    "dur": 1.6,
+    "dur": 0.8,
     "ease": "linear"
    },
    "do": [
@@ -1070,7 +1070,7 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.7,
+     "gain": 0.45,
      "reason": "the next photo: the camera fires on the cut",
      "at": 0
     },
@@ -1190,7 +1190,7 @@
   },
   {
    "name": "5 sorry",
-   "at": 7,
+   "at": 3,
    "len": 0.6,
    "shot": {
     "pos": [
@@ -1229,7 +1229,7 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.7,
+     "gain": 0.45,
      "reason": "the next photo: the camera fires on the cut",
      "at": 0
     },
@@ -1284,7 +1284,7 @@
   },
   {
    "name": "6 look behind",
-   "at": 7.6,
+   "at": 3.6,
    "len": 0.7,
    "shot": {
     "pos": [
@@ -1458,7 +1458,7 @@
     {
      "who": "phx",
      "do": "turn",
-     "to": 60,
+     "to": 45,
      "dur": 0.3,
      "at": 0.16
     },
@@ -1597,7 +1597,7 @@
   },
   {
    "name": "7 sneeze",
-   "at": 8.3,
+   "at": 4.3,
    "len": 0.7,
    "shot": {
     "pos": [
@@ -1858,7 +1858,7 @@
   },
   {
    "name": "8 run",
-   "at": 9,
+   "at": 5,
    "len": 1,
    "shot": {
     "pos": [
@@ -1902,14 +1902,14 @@
    "who": "rea",
    "with": "scyP",
    "from": 0,
-   "to": 7.6,
+   "to": 3.6,
    "reason": "Reaper's scythe stands planted beside him in the photo"
   },
   {
    "who": "phx",
    "with": "wet",
    "from": 0,
-   "to": 10,
+   "to": 6,
    "reason": "water beads on Phoenix's skin"
   }
  ],

@@ -19,8 +19,8 @@ const FOCUS = false;                   // Jonny 31 Oct: the whole frame sharp
 const FACES = "strong";
 
 const c = clip({ faces: FACES }), { A, sfx } = c;
-const END = 10.0;
-const P2 = 2.0, P3 = 3.6, P4 = 5.2, P5 = 7.0, ALIVE = 7.6, SNEEZE = 8.3, RUN = 9.0;
+const END = 6.0;
+const P2 = 0.7, P3 = 1.4, P4 = 2.2, P5 = 3.0, ALIVE = 3.6, SNEEZE = 4.3, RUN = 5.0;   // Jonny 4 Nov: the car park by 1.5 s
 
 // ---------------------------------------------------------------- places (x right, z toward the camera)
 // the trio a body-width apart; Reaper a little back so Phoenix's wing and the Wizard's brim clear him
@@ -32,7 +32,7 @@ const OFF = [3.8, 3.8];                                   // where the hidden Re
 
 // PHOTO: the locked group-photo camera (photos 1-5); a slow drift is added per photo like a print being looked at
 const PHOTO = { pos: [-0.14, 1.0, 5.2], look: [-0.14, 1.28, 0], fov: 52 };
-const drift = (k) => ({ ...PHOTO, to: { pos: [r3(0.03 * k - 0.14), 1.0, 5.08], look: [r3(0.03 * k - 0.14), 1.28, 0] }, dur: 1.6, ease: "linear" });
+const drift = (k) => ({ ...PHOTO, to: { pos: [r3(0.03 * k - 0.14), 1.0, 5.08], look: [r3(0.03 * k - 0.14), 1.28, 0] }, dur: 0.8, ease: "linear" });
 
 const cast = [
   { id: "phx", character: "duo/phoenix", at: PHX, face: 0, expr: "delighted", follow: 0.2, seed: 1.7 },
@@ -97,27 +97,27 @@ for (const [who, [e, set]] of Object.entries(GRIN)) { A(0, who, "expr", { expr: 
 c.at(0, { fx: "flash", dur: 0.25, peak: 0.55, sound: false });
 sfx(0, "flash", { gain: 0.5, reason: "the camera fires on the group photo (frame 0)" });
 
-// ---------------------------------------------------------------- 2 NOT SMILING (2-3.6): scowls, soaked, sunburnt
+// ---------------------------------------------------------------- 2 NOT SMILING (0.7-1.4): scowls, soaked, sunburnt
 const SCOWL = { phx: { expr: "angry", set: { eye: 0.85, curve: -0.45, open: 0.05 } }, rea: { expr: "angry", set: { eye: 0.7, curve: -0.6 } }, wiz: { expr: "angry", set: { eye: 0.8, curve: -0.45, open: 0.03 } } };
-const snap = (t) => { c.at(t, { fx: "flash", dur: 0.22, peak: 0.5, sound: false }); sfx(t, "flash", { gain: 0.7, reason: "the next photo: the camera fires on the cut" }); };
+const snap = (t) => { c.at(t, { fx: "flash", dur: 0.22, peak: 0.5, sound: false }); sfx(t, "flash", { gain: 0.45, reason: "the next photo: the camera fires on the cut" }); };
 snap(P2);
 for (const [who, s] of Object.entries(SCOWL)) { A(P2, who, "expr", { ...s, dur: 0 }); A(P2, who, "face", { lid: who === "rea" ? 0.48 : 0.42, brow: 0, dur: 0 }); }
 c.prop(P2, "wet", { on: 1 }, 0);
 for (const id of ["burnL", "burnR", "burnN"]) c.prop(P2, id, { scale: 1 }, 0);
 
-// ---------------------------------------------------------------- 3 NOT THE BEACH (3.6-5.2): the rainy car park
+// ---------------------------------------------------------------- 3 NOT THE BEACH (1.4-2.2): the rainy car park
 snap(P3);
 c.prop(P3, "sand", { scale: 1 }, 0); c.prop(P3, "rain", { on: 1 }, 0);
 c.at(P3, { fx: "lights", to: 0.72, dur: 0.01 });
 
-// ---------------------------------------------------------------- 4 NOT OUR HOTEL (5.2-7): the hotel on fire
+// ---------------------------------------------------------------- 4 NOT OUR HOTEL (2.2-3): the hotel on fire
 snap(P4);
 c.prop(P4, "rain", { on: 0 }, 0); c.prop(P4, "sand", { scale: 0 }, 0); c.prop(P4, "embers", { on: 1 }, 0); c.prop(P4, "hatsmoke", { on: 1 }, 0);
 for (const p of props.filter((q) => q.kind === "soot" && q.wear !== "rea2")) c.prop(P4, p.id, { scale: 1 }, 0);
 c.at(P4, { fx: "lights", to: 0.9, dur: 0.01 });
 sfx(P4, "flamejet", { gain: 0.25, reason: "the hotel's fire roars behind them" });
 
-// ---------------------------------------------------------------- 5 SORRY (7-7.6): a huge Dragon rises behind them
+// ---------------------------------------------------------------- 5 SORRY (3-3.6): a huge Dragon rises behind them
 snap(P5);
 A(P5, "dra", "wings", { to: 1, dur: 0.3 });
 c.prop(r3(P5 + 0.15), "dc", { y: DRA_UP }, 0.45, "out");
@@ -125,7 +125,7 @@ A(P5, "dra", "expr", { expr: "kind", set: { eye: 1.25, curve: 0.2, open: 0.1 }, 
 A(P5, "dra", "look", { to: [0, -0.2], dur: 0, blink: false });
 sfx(r3(P5 + 0.08), "ai/dundun", { gain: 0.8, reason: "dö-döm: the huge Dragon head rises into the photo" });
 
-// ---------------------------------------------------------------- 6 LOOK BEHIND (7.6-8.3): the photo comes alive
+// ---------------------------------------------------------------- 6 LOOK BEHIND (3.6-4.3): the photo comes alive
 // Phoenix lands from the jump; all three turn heads and shoulders up toward Dragon; Reaper now holds his scythe
 A(ALIVE, "rea", "hide"); A(ALIVE, "rea2", "move", { to: REA, dur: 0, ease: "linear" }); A(ALIVE, "rea2", "show");
 c.prop(ALIVE, "scyP", { y: -5 }, 0);
@@ -135,7 +135,7 @@ sfx(r3(ALIVE + 0.18), "land", { gain: 0.4, reason: "Phoenix's feet hit the wet s
 A(r3(ALIVE + 0.05), "phx", "wings", { to: 0.15, dur: 0.3 });
 c.arm(ALIVE, "phx", "both", "rest", 0.3, "inOut");
 for (const who of ["rea2"]) { A(ALIVE, who, "expr", { expr: "angry", set: { eye: 0.75, curve: -0.4 }, dur: 0 }); A(ALIVE, who, "face", { lid: 0.42, dur: 0 }); }
-const LOOKUP = { phx: [0.6, 0.9], rea2: [-0.6, 0.9], wiz: [-0.6, 0.9] }, TURN = { phx: 60, rea2: -40, wiz: -50 };
+const LOOKUP = { phx: [0.6, 0.9], rea2: [-0.6, 0.9], wiz: [-0.6, 0.9] }, TURN = { phx: 45, rea2: -40, wiz: -50 };
 for (const [who, to] of Object.entries(LOOKUP)) {
   const d = who === "rea2" ? 0.06 : who === "wiz" ? 0.1 : 0;
   A(r3(ALIVE + 0.1 + d), who, "look", { to, dur: 0.15, blink: false });
@@ -149,7 +149,7 @@ A(ALIVE, "dra", "face", { lid: 0.3, brow: 0, dur: 0.3 });
 A(ALIVE, "dra", "pitch", { to: -12, dur: 0.6, ease: "inOut" });
 sfx(r3(ALIVE + 0.2), "gasp", { gain: 0.6, reason: "ah... (Dragon's sneeze builds, eyes squeezed)" });
 
-// ---------------------------------------------------------------- 7 SNEEZE (8.3-9): one fireball over them; they run
+// ---------------------------------------------------------------- 7 SNEEZE (4.3-5): one fireball over them; they run
 A(r3(SNEEZE - 0.05), "dra", "pitch", { to: 12, dur: 0.1, ease: "out" });
 A(r3(SNEEZE - 0.05), "dra", "squash", { amount: 0.1, dur: 0.15 });
 A(SNEEZE, "dra", "expr", { expr: "focused", set: { eye: 0.1, open: 0.7, pucker: 0 }, dur: 0.06 });
@@ -173,9 +173,9 @@ for (const who of ["phx", "rea2", "wiz"]) {
 A(r3(SNEEZE + 0.25), "phx", "wings", { to: 0, dur: 0.2 });
 c.arm(r3(SNEEZE + 0.2), "phx", "both", "up", 0.2, "out");   // arms up in panic as he runs
 
-// ---------------------------------------------------------------- 8 RUN (9-10): faces fill the frame, flash at the edges
-c.at(RUN, { fx: "speedlines", dur: 1.0 });
-sfx(9.05, "whoosh", { gain: 0.9, reason: "they race past the lens" });
+// ---------------------------------------------------------------- 8 RUN (5-6): faces fill the frame, flash at the edges
+c.at(RUN, { fx: "speedlines", dur: r3(END - RUN) });
+sfx(r3(RUN + 0.05), "whoosh", { gain: 0.9, reason: "they race past the lens" });
 
 // ---------------------------------------------------------------- shots
 const beats = c.beats([
@@ -204,7 +204,7 @@ write(import.meta.url, {
     then: { file: "ai/sad/sad-02.ogg", from: P3, gain: 0.3 } },
   sound: { sfx: 0.7, ambience: 0.15, signature: { payoff: false }, surface: "concrete" },
   hook: { show: ["phx", "rea", "wiz"], hint: 0, what: "a perfect holiday group photo, captioned 'our holiday was perfect'" },
-  creative: { length: [10, 10] },
+  creative: { length: [END, END] },
   cast, props, captions: c.captions, beats, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "rea", with: "scyP", from: 0, to: ALIVE, reason: "Reaper's scythe stands planted beside him in the photo" },
