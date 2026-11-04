@@ -288,6 +288,31 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, f = 210 * Math.pow(150 / 210, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) * 0.8 + run(bp, r() * 2 - 1) * 2.2) * env(t, 0.001, 0.035, d) + run(hp, r() * 2 - 1) * env(t, 0.0005, 0.004, d) * 0.6; }
     return x;
   },
+  // a flat hand slapping a banknote down on a wooden counter ($20 Potato): a sharp bright crack of skin on paper, a
+  // short woody knock under it and a papery flap after; no boom (the hit stays in the phone band)
+  slap(r) {
+    const d = 0.32, x = buf(d), hp = biquad("bp", 2200, 0.6), bp = biquad("bp", 600, 1.0), pap = biquad("bp", 2600, 1.5); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 230 * Math.pow(150 / 230, Math.min(1, t / 0.08)); p += TAU * f / SR;
+      x[i] = run(hp, r() * 2 - 1) * env(t, 0.0004, 0.022, d) * 2.4 + run(bp, r() * 2 - 1) * env(t, 0.001, 0.03, d) * 1.4
+        + Math.sin(p) * env(t, 0.002, 0.045, d) * 0.35 + run(pap, r() * 2 - 1) * env(t - 0.03, 0.004, 0.06, d) * 0.9;
+    }
+    return x;
+  },
+  // a DJ's record scratch stopping the music dead ($20 Potato): a vinyl rub of band-passed noise and a buzzy tone
+  // sliding down fast then up and down again (a hand dragging the record back and forth), 0.45 s
+  recordscratch(r) {
+    const d = 0.45, x = buf(d), bp = biquad("bp", 1200, 2.5); let p = 0;
+    const speed = (t) => (t < 0.14 ? 1 - t / 0.14 * 1.6 : t < 0.26 ? -0.6 + (t - 0.14) / 0.12 * 1.5 : 0.9 - (t - 0.26) / 0.19 * 1.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, s = speed(t), f = 180 + 520 * Math.abs(s);
+      if (i % 32 === 0) Object.assign(bp, { ...biquad("bp", 500 + 2200 * Math.abs(s), 2.5), x1: bp.x1, x2: bp.x2, y1: bp.y1, y2: bp.y2 });
+      p += TAU * f / SR;
+      const saw = 2 * ((p / TAU) % 1) - 1;
+      x[i] = (run(bp, r() * 2 - 1) * 0.9 + saw * 0.35 * Math.abs(s)) * Math.min(1, t / 0.006, (d - t) / 0.03) * (0.5 + 0.5 * Math.abs(s));
+    }
+    return x;
+  },
   // a front door slammed shut: a deep thump, the frame rattling and a latch click
   slam(r) {
     const d = 0.7, x = buf(d), lp = biquad("lp", 700, 0.7), rat = biquad("bp", 1400, 3); let p = 0;
