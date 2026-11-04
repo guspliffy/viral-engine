@@ -73,6 +73,7 @@ function furNoise(g, amt) {
 
 // ---------- Astronaut: padded white suit, a metal neck ring the helmet locks onto, a real backpack, helmet glint ------
 function astronaut(C, ch, out) {
+  if (C.sheet && !out.sheetBase) { out.sheetBase = true; return astronautSheet(C, ch, astronaut(C, ch, out)); }
   const parts = ch.potatoParts, suit = C.suit || "#eef0f4";
   parts.add(garmentMesh(ch, { top: -0.36, hem: -1.38, folds: 7, depth: 0.008, flare: 0.03, lift: 0.03, wave: 0.0, thick: 0.02 }, suit, "#b9bfca"));
   const trim = metalMat("#a7afbd", 0.35);
@@ -646,5 +647,35 @@ function vikingSheet(C, ch, out) {
   const fur = mergeGeometries(clumps); parts.add(mesh(fur, furM));
   const fi = lockInk(clumps, { width: 0.0024, off: 0.25, to: 0.45 }); if (fi) parts.add(inkMesh(fi, "#c9b28a", 0.85));
   out.prop = axe(C); out.sitDepth = 0.04;
+  return out;
+}
+
+// ---------- Astronaut (sheet): "Compact silhouette, Curious expression, Sealed construction, Glass + fabric, Sprout patch" -
+// On top of the art suit: the dome's seal ring made thick with small bolts, padded panel seams down the suit, padded
+// sleeves with ribbed dark wrist seals, a ribbed hose from the backpack to the collar, and the signature sprout patch on
+// the suit's side.
+function astronautSheet(C, ch, out) {
+  const parts = ch.potatoParts, seamM = clothMat("#c3c9d3");
+  // the seal: a second thick ring over the art ring, and six bolt heads round it
+  parts.add(mesh(band(ch, { ph: -0.36, w: 0.05, t: 0.05, lift: 0.032, round: 0.75 }), metalMat("#8c94a2", 0.38)));
+  for (let i = 0; i < 6; i++) { const th = (i / 6) * Math.PI * 2 + 0.52; parts.add(onSurface(ch, mesh(new THREE.CylinderGeometry(0.016, 0.018, 0.016, 14), metalMat("#5f6774", 0.35)), th, -0.36, 0.088)); }
+  // padded panel seams: a few soft grooves down the suit, unevenly spaced (none crossing the chest panel)
+  for (const th of [0.62, 1.55, 2.5, -2.35, -1.5, -0.66]) parts.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(lineOn(ch, Array.from({ length: 12 }, (_, k) => [th + 0.04 * Math.sin(k * 0.5), -0.45 - (k / 11) * 0.85]), 0.052)), 40, 0.006, 6), seamM, false));
+  // the sprout patch on the left side of the chest: a cream disc with a green rim and a two-leaf sprout
+  { const p = new THREE.Group();
+    p.add(mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.012, 28), clothMat("#efe9d6")));
+    const rim = mesh(new THREE.TorusGeometry(0.058, 0.006, 6, 28), clothMat("#7bb661")); rim.rotation.x = Math.PI / 2; rim.position.y = 0.007; p.add(rim);
+    const leafM = clothMat("#58b34a");
+    const stem = mesh(new THREE.BoxGeometry(0.006, 0.004, 0.04), leafM); stem.position.set(0, 0.009, -0.012); p.add(stem);
+    for (const sd of [-1, 1]) { const l = mesh(new THREE.SphereGeometry(0.018, 12, 8), leafM); l.scale.set(1.2, 0.25, 0.6); l.position.set(sd * 0.017, 0.009, 0.012); l.rotation.y = sd * 0.5; p.add(l); }
+    parts.add(onSurface(ch, p, 0.78, -0.66, 0.06)); }
+  // the hose: ribbed, from the top of the backpack round to the back of the collar ring
+  { const a = V(ch.rx * 0.38, ch.cy + ch.ry * 0.28, -ch.rz - 0.08), s = ch.surf(2.2, -0.34), b = s.pos.clone().addScaledVector(s.normal, 0.07);
+    const c = new THREE.CatmullRomCurve3([a, a.clone().add(V(0.08, 0.06, 0.02)), b.clone().add(V(0.06, 0.05, -0.05)), b]);
+    parts.add(mesh(taperedTube(c, 0, 0, 60, 12, (t) => 0.024 * (1 + 0.16 * Math.max(0, Math.sin(t * Math.PI * 22)))), metalMat("#4a515d", 0.55))); }
+  // padded sleeves with a ribbed dark seal at the wrist
+  const sl = sleeves(ch, clothMat(C.suit || "#eef0f4"), { from: 0.25, r0: 0.07, r1: 0.082, to: 0.78, cuff: "#4e5663", cuffR: 0.018 });
+  const base = out.apply;
+  out.apply = (st, t, ...r) => { base && base(st, t, ...r); sl(); };
   return out;
 }
