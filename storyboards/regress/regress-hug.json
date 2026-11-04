@@ -30,7 +30,7 @@
    "id": "rea",
    "character": "notyet/reaper-noscythe",
    "at": [
-    -0.7,
+    -0.9,
     0
    ],
    "face": 60,
@@ -70,12 +70,12 @@
    "len": 2,
    "shot": {
     "pos": [
-     -0.531,
+     -0.581,
      0.771,
      2.581
     ],
     "look": [
-     0.1,
+     0.05,
      0.68,
      0.05
     ],
@@ -96,8 +96,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -0.36,
-      -0.04
+      -0.45,
+      0
      ],
      "dur": 0.45,
      "steps": 2,
@@ -107,8 +107,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      0.55,
-      0.12
+      0.45,
+      0
      ],
      "dur": 0.45,
      "steps": 2,
@@ -117,14 +117,14 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": 26,
+     "to": 90,
      "dur": 0.25,
      "at": 0.3
     },
     {
      "who": "phx",
      "do": "turn",
-     "to": -26,
+     "to": -90,
      "dur": 0.25,
      "at": 0.3
     },
@@ -134,9 +134,9 @@
      "side": "R",
      "pose": {
       "world": [
-       0.97,
-       0.46,
-       0.34
+       0.23,
+       0.45,
+       0.46
       ]
      },
      "dur": 0.35,
@@ -149,29 +149,14 @@
      "side": "L",
      "pose": {
       "world": [
-       0.75,
-       0.62,
-       -0.3
+       0.23,
+       0.45,
+       -0.46
       ]
      },
      "dur": 0.35,
      "ease": "inOut",
      "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -0.51,
-       0.6,
-       -0.52
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.5
     },
     {
      "who": "rea",
@@ -187,6 +172,7 @@
  "expect": {
   "clean": [
    "character-overlap",
+   "limb-through-costume",
    "rig-jump"
   ]
  },
@@ -196,7 +182,7 @@
    "with": "phx",
    "from": 0.4,
    "to": 2,
-   "reason": "the hug: gloves round the back, cheeks close"
+   "reason": "the hug: gloves round the sides, cheeks close"
   },
   {
    "who": "phx",

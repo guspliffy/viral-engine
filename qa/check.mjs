@@ -52,6 +52,14 @@ export const RULES = {
   // reason. Hands in a window are not capped: reach() measures characters as box ellipsoids, which can't tell a glove
   // resting on a hood from one inside it (the fixed hug's glove on Reaper's back reads 42 cm "in")
   allowBody: 0.18,
+  // a hand or arm inside a window may press into another character's body or face (potato-shaped, so measured well)
+  // up to allowReach metres; a hood, hat or helmet is measured as its box and is not capped (a glove resting on
+  // Reaper's hood reads 42 cm "in"). The fixed Zombie Too hug: Reaper's arm 29 cm into Phoenix's belly, glove hidden
+  allowReach: 0.04,
+  // a hand reaching across its own body (metres past the middle, potato.js contact().cross): from crossWarn the shoulder
+  // starts to hide; from crossFail, held crossHold s, the arm reads as growing out of the chest (Zombie Too fixed hug:
+  // Reaper's right hand 1 m across to Phoenix's far side; a staff held across the body is 0.2-0.3)
+  crossWarn: 0.35, crossFail: 0.45, crossHold: 0.3,
   // contact (layout "contacts", every frame): an arm through the held staff or a hat brim, the staff through the body,
   // a hand that turns further in one frame than a hand can (metres, degrees, frames)
   armThroughStaff: 0, staffInBody: -0.03, brimDepth: 0.01, contactHold: 2, handTurnWarn: 60,
@@ -224,6 +232,11 @@ export function contactResults(layout, sb = null) {
     for (const sp of spans(st.map((a) => !!(a && a.staff && a.staff.par > RULES.armAlongShaft))).filter(([x, y]) => (y - x + 1) / fps >= RULES.armAlongHold)) out.push({ level: "warn", check: "grip", msg: `${id}: the forearm runs along the staff at ${when(sp)}: the fist has nothing to turn round and can flip; hold the staff out from the side, forearm square to it` });
     for (const sp of staffSpans("body", RULES.staffInBody)) { found++; out.push({ level: "fail", check: "grip", msg: `${id}: the staff goes into the body at ${when(sp)}: hold it further out from the side` }); }
     for (const s of ["R", "L"]) {
+      const far = spans(st.map((a) => !!(a && a.cross && a.cross[s] > RULES.crossWarn))).filter(([x, y]) => (y - x + 1) / fps >= RULES.crossHold);
+      for (const sp of far) {
+        const m = Math.max(...st.slice(sp[0], sp[1] + 1).map((a) => a?.cross?.[s] ?? 0)), deep = m > RULES.crossFail; if (deep) found++;
+        out.push({ level: deep ? "fail" : "warn", check: "limb-through-costume", msg: `${id}: hand ${s} reaches ${Math.round(m * 100)} cm across its own body at ${when(sp)}: the shoulder hides and the arm reads as coming out of the chest; reach with the hand on that side, or turn the body to face the reach` });
+      }
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
       for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
       for (let i = 1; i < st.length; i++) {
@@ -299,17 +312,19 @@ function reachResults(layout, sb) {
   const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
   const windows = (sb?.allowClip || []).filter((w) => w.reason);
   const allowed = (a, b, i) => windows.some((w) => [a, b].includes(w.who) && (!w.with || [a, b].includes(w.with)) && i / fps >= w.from && i / fps <= w.to);
+  // inside a window: contact, not sinking into the body or face (a window's maxReach raises the limit)
+  const allowedReach = (x, i) => windows.some((w) => [x.who, x.with].includes(w.who) && (!w.with || [x.who, x.with].includes(w.with)) && i / fps >= w.from && i / fps <= w.to && (!["body", "face"].includes(x.part) || (x.depth ?? 0) <= (w.maxReach ?? RULES.allowReach)));
   // per key, the frames where it holds, then runs of at least min frames
   const track = (key, pick) => { const m = new Map(); rows.forEach((r, i) => { for (const x of pick(r)) { const k = key(x); if (!m.has(k)) m.set(k, { x, f: new Array(n).fill(false), d: new Array(n).fill(-1) }); const e = m.get(k); e.f[i] = true; e.d[i] = Math.max(e.d[i], x.depth ?? x.cover ?? 1); } }); return m; };
   const runs = (flags, min) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= min); };
   const frames = (sec) => Math.max(RULES.contactHold, Math.round(sec * fps));
   let found = 0;
   const list = (sps) => sps.map(when).join(", ");
-  const reach = track((x) => `${x.who}|${x.by}|${x.with}|${x.part}`, (r) => (r.reach || []).filter((x) => !allowed(x.who, x.with, rows.indexOf(r))));
+  const reach = track((x) => `${x.who}|${x.by}|${x.with}|${x.part}`, (r) => (r.reach || []).filter((x) => !allowedReach(x, rows.indexOf(r))));
   // one line per hand or prop and character it reaches: the parts it goes into, all the times, the deepest
   const into = new Map(), touch = new Map();
   for (const { x, f, d } of reach.values()) {
-    const by = x.by === "prop" ? "held prop" : `hand ${x.by.slice(4)}`, k = `${x.who}|${by}|${x.with}`;
+    const by = x.by === "prop" ? "held prop" : x.by.startsWith("arm") ? `arm ${x.by.slice(3)}` : `hand ${x.by.slice(4)}`, k = `${x.who}|${by}|${x.with}`;
     const sps = x.part === "own body" ? runs(f, RULES.contactHold) : runs(d.map((v) => v > RULES.reachIn), RULES.contactHold);
     if (sps.length) {
       const e = into.get(k) || { x, by, parts: new Set(), f: new Array(n).fill(false), max: 0 };
@@ -325,8 +340,11 @@ function reachResults(layout, sb) {
   }
   for (const e of into.values()) {
     found++;
-    if (e.x.with === e.x.who) out.push({ level: "fail", check: "limb-through-costume", msg: `${e.x.who}: ${e.by} sinks into its own body at ${list(runs(e.f, 1))}: keep the fist outside the body` });
-    else out.push({ level: "fail", check: "character-overlap", msg: `${e.x.who}'s ${e.by} goes into ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm: keep it clear, or add an allowClip window with a reason` });
+    if (e.x.with === e.x.who) out.push({ level: "fail", check: "limb-through-costume", msg: e.by.startsWith("arm") ? `${e.x.who}: ${e.by} passes through its own body at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm in (it comes out of the chest, not the shoulder): bring the hand round on its own side, or turn the body so the shoulder faces the reach` : `${e.x.who}: ${e.by} sinks into its own body at ${list(runs(e.f, 1))}: keep the fist outside the body` });
+    else {
+      const inWin = runs(e.f, 1).some(([p]) => allowed(e.x.who, e.x.with, p));
+      out.push({ level: "fail", check: "character-overlap", msg: `${e.x.who}'s ${e.by} goes into ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm: ${inWin ? `past the ${Math.round(RULES.allowReach * 100)} cm a contact window allows; ${e.by.startsWith("arm") ? "wrap the arm round the outside of the body (elbow out, the glove on the far side)" : "rest the glove on the surface"}` : "keep it clear, or add an allowClip window with a reason"}` });
+    }
   }
   for (const [k, e] of touch) if (!into.has(k)) out.push({ level: "warn", check: "character-overlap", msg: `${e.x.who}'s ${e.by} touches ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}: fine if the beat needs contact (allowClip with a reason), otherwise leave a gap` });
   const covers = track((x) => `${x.by}|${x.part}|${x.face}`, (r) => (r.covers || []).filter((x) => x.face && !allowed(x.by, x.face, rows.indexOf(r))));

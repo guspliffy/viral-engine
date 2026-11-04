@@ -30,7 +30,7 @@
    "id": "rea",
    "character": "notyet/reaper-noscythe",
    "at": [
-    -0.7,
+    -0.9,
     0
    ],
    "face": 60,
@@ -70,12 +70,12 @@
    "len": 2,
    "shot": {
     "pos": [
-     -0.531,
+     -0.581,
      0.771,
      2.581
     ],
     "look": [
-     0.1,
+     0.05,
      0.68,
      0.05
     ],
@@ -159,21 +159,6 @@
      "at": 0.45
     },
     {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -0.27,
-       0.6,
-       -0.52
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
      "who": "rea",
      "do": "grip",
      "side": "both",
@@ -186,7 +171,8 @@
  ],
  "expect": {
   "fail": [
-   "character-overlap"
+   "character-overlap",
+   "limb-through-costume"
   ]
  },
  "allowClip": [
@@ -195,7 +181,7 @@
    "with": "phx",
    "from": 0.4,
    "to": 2,
-   "reason": "the hug: gloves round the back, cheeks close"
+   "reason": "the hug: gloves round the sides, cheeks close"
   },
   {
    "who": "phx",

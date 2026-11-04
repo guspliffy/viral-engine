@@ -80,28 +80,37 @@ for (const [id, title, kind, spot, held, hold] of [
     { pos: [-0.75, 1.05, 2.3], look: [-0.05, 0.55, 0.3], fov: 30 }, end, { clean: CLEAN });
 }
 
-// HUG: good (a body-width apart, cheeks close, gloves round the outside of the back: the fixed Zombie Too hug) and
-// bad (the first Zombie Too hug: the bodies walk into each other). Both inside an allowClip window with a reason
-for (const [id, title, R, P, expect] of [
-  ["hug", "hug", [-0.36, -0.04], [0.55, 0.12], { clean: ["character-overlap", "rig-jump"] }],
-  ["hug-merge", "hug that merges (must fail)", [-0.12, -0.04], [0.44, 0.12], { fail: ["character-overlap"] }],
+// HUG: good (facing each other a body-width apart, each of Reaper's arms round Phoenix's side on its own side),
+// merging (the first Zombie Too hug: the bodies walk into each other) and crossing (the fixed Zombie Too hug, Jonny
+// 4 Nov: Reaper's right arm comes out of his chest and runs through Phoenix's belly to his far side). All inside an
+// allowClip window with a reason: a window allows contact, not these
+const ZOMBIE_ARMS = (c, R, P, H) => {
+  c.arm(r3(H + 0.15), "rea", "R", { world: [r3(P[0] + 0.42), 0.46, r3(P[1] + 0.22)] }, 0.35, "inOut");
+  c.arm(r3(H + 0.15), "rea", "L", { world: [r3(P[0] + 0.2), 0.62, r3(P[1] - 0.42)] }, 0.35, "inOut");
+};
+for (const [id, title, R, P, yaw, arms, expect] of [
+  ["hug", "hug", [-0.45, 0], [0.45, 0], 90, (c, R, P, H) => {
+    // facing +x, Reaper's right is toward the camera (+z): each glove on Phoenix's side on its own side
+    c.arm(r3(H + 0.15), "rea", "R", { world: [r3(P[0] - 0.22), 0.45, 0.46] }, 0.35, "inOut");
+    c.arm(r3(H + 0.15), "rea", "L", { world: [r3(P[0] - 0.22), 0.45, -0.46] }, 0.35, "inOut");
+  }, { clean: ["character-overlap", "limb-through-costume", "rig-jump"] }],
+  ["hug-merge", "hug that merges (must fail)", [-0.12, -0.04], [0.44, 0.12], 26, ZOMBIE_ARMS, { fail: ["character-overlap", "limb-through-costume"] }],
+  ["hug-cross", "arm out of the chest (must fail)", [-0.36, -0.04], [0.55, 0.12], 26, ZOMBIE_ARMS, { fail: ["limb-through-costume", "character-overlap"] }],
 ]) {
   const c = clip(), { A } = c, HUG = 0.3;
   A(0, "rea", "noblink"); A(0, "phx", "noblink");
   A(HUG, "rea", "move", { to: R, dur: 0.45, steps: 2 });
   A(HUG, "phx", "move", { to: P, dur: 0.45, steps: 2 });
-  A(HUG, "rea", "turn", { to: 26, dur: 0.25 });
-  A(HUG, "phx", "turn", { to: -26, dur: 0.25 });
-  c.arm(r3(HUG + 0.15), "rea", "R", { world: [r3(P[0] + 0.42), 0.46, r3(P[1] + 0.22)] }, 0.35, "inOut");
-  c.arm(r3(HUG + 0.15), "rea", "L", { world: [r3(P[0] + 0.2), 0.62, r3(P[1] - 0.42)] }, 0.35, "inOut");
-  c.arm(r3(HUG + 0.2), "phx", "R", { world: [r3(R[0] - 0.15), 0.6, r3(R[1] - 0.48)] }, 0.35, "inOut");
+  A(HUG, "rea", "turn", { to: yaw, dur: 0.25 });
+  A(HUG, "phx", "turn", { to: -yaw, dur: 0.25 });
+  arms(c, R, P, HUG);
   A(r3(HUG + 0.4), "rea", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
   base(id, title, [
-    { id: "rea", character: "notyet/reaper-noscythe", at: [-0.7, 0], face: 60, expr: "sad", follow: 0.2, seed: 3.3 },
+    { id: "rea", character: "notyet/reaper-noscythe", at: [-0.9, 0], face: 60, expr: "sad", follow: 0.2, seed: 3.3 },
     { id: "phx", character: "duo/phoenix", at: [0.95, 0.1], face: -60, expr: "kind", follow: 0.25, seed: 1.7, span: 0 },
-  ], [], c, frame([0.1, 0.68, 0.05], { az: -14, el: 2, h: 1.9, fov: 40 }), 2.0, expect, {
+  ], [], c, frame([0.05, 0.68, 0.05], { az: -14, el: 2, h: 1.9, fov: 40 }), 2.0, expect, {
     allowClip: [
-      { who: "rea", with: "phx", from: HUG + 0.1, to: 2.0, reason: "the hug: gloves round the back, cheeks close" },
+      { who: "rea", with: "phx", from: HUG + 0.1, to: 2.0, reason: "the hug: gloves round the sides, cheeks close" },
       { who: "phx", with: "rea", from: HUG + 0.1, to: 2.0, reason: "the hug" },
     ],
   });

@@ -937,7 +937,7 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...rigOf(a) };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
   }), ...reach(), held: heldNow() };
 }
 
@@ -997,6 +997,13 @@ function reach() {
       const q = L.a.clone().lerp(L.b, i / 12); if (q.distanceTo(L.grip) < 0.12) continue;
       pts.push({ part: "prop", p: q.applyMatrix4(a.ch.root.matrixWorld), r: L.r * a.ch.root.getWorldScale(sc).x });
     }
+    // the arm tubes between shoulder and wrist (the fixed Zombie Too hug, 4 Nov: Reaper's arm ran straight through
+    // Phoenix's belly with the glove hidden inside, and only the glove was measured). Into other characters only
+    for (const s of ["R", "L"]) {
+      const A = a.ch.arms[s]; if (!A.elbow || !A.shoulder || !A.mesh?.visible || !shownIn(A.hand, a.ch.root)) continue;
+      const curve = a.ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), rr = a.ch.limbW * a.ch.root.getWorldScale(sc).x;
+      for (const u of [0.3, 0.42, 0.54, 0.66, 0.78]) pts.push({ part: `arm${s}`, p: curve.getPoint(u).applyMatrix4(a.ch.root.matrixWorld), r: rr, arm: true });
+    }
     return { a, pts };
   });
   // what can be reached: another character's body and the larger parts on it (hood, hat, helmet, eyes), each as the
@@ -1030,11 +1037,17 @@ function reach() {
     for (const b of live) {
       if (b === a) {
         // own body: only a hand sunk in past its centre (3 cm, as the box ellipsoid is a little fuller than the potato)
-        for (const q of pts) if (q.part !== "prop") { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        for (const q of pts) if (q.part.startsWith("hand")) { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        // an arm through its own body: past the shoulder the tube's centre stays outside (Zombie Too, Jonny 4 Nov: Reaper's
+        // arm came out of his chest, not his shoulder, to reach round Phoenix). Deepest point, per arm
+        const own = new Map();
+        for (const q of pts) if (q.arm) { const d = dist(a.ch.body, q.p); if (d < -0.05 && -d > (own.get(q.part) ?? 0)) own.set(q.part, -d); }
+        for (const [part, d] of own) out.reach.push({ who: a.c.id, by: part, with: a.c.id, part: "own body", depth: rd(d) });
         continue;
       }
       const best = new Map();
       for (const { o, name } of parts(b)) for (const q of pts) {
+        if (q.arm && name !== "body" && name !== "face") continue;   // a hood or hat is measured as its box: too coarse for an arm passing by
         const d = q.r - dist(o, q.p), k = `${q.part}|${name}`;
         if (d > -0.01 && d > (best.get(k)?.depth ?? -1)) best.set(k, { who: a.c.id, by: q.part, with: b.c.id, part: name, depth: rd(d) });
       }
@@ -1072,6 +1085,7 @@ function reach() {
     for (const { a, pts } of reachers) {
       let worst = null;
       for (const q of pts) {
+        if (q.arm) continue;
         const dq = q.p.distanceTo(camera.position); if (dq > dm - 0.05) continue;   // behind the face, or level with it
         const s = px(q.p.clone().project(camera)), rr = q.r * H / (2 * dq * Math.tan((camera.fov * Math.PI) / 360));
         const cover = (rr + faceR - s.distanceTo(mp)) / (2 * faceR);   // 1: the eyes fully behind it

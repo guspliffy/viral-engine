@@ -18,7 +18,11 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   refuses to start a render on them (`--force` overrides). Contact a beat needs (a hug, a hide) goes in an `allowClip`
   window with a `reason`; a window without one is ignored. A window lets bodies touch and press, not merge: two bodies
   more than 18 % into each other still fail inside it (`RULES.allowBody`; a window's `"max"` raises it, with the
-  reason saying why). The first Zombie Too hug (4 Nov) had them 86 % in and passed. An arm up inside a helmet glass fails too. Warnings to look at:
+  reason saying why). The first Zombie Too hug (4 Nov) had them 86 % in and passed. Arms count too: an arm tube or
+  glove more than 4 cm into another character's body or face fails, inside a window as well (`RULES.allowReach`), and
+  a hand reaching more than 45 cm across its own body for 0.3 s fails (35 cm warns): the shoulder hides and the arm
+  reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
+  body on its own side. An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
@@ -39,8 +43,8 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   around it are still (nothing hides it); a foot on the floor sliding without a step warns (`foot-slide`); a held prop
   jumping or slipping in the hand warns (`prop-pop`). After changing the rig, a grip or a contact check, run
   `node qa/regress.mjs` (about 1.5 minutes, also on every pull request): the fixtures in `storyboards/regress/`
-  (walk and stop, turn, blink, pick up and put down, two-hand carry, hug, plus a merging hug and an arm pop that
-  must fail) have to be judged as their `expect` block says.
+  (walk and stop, turn, blink, pick up and put down, two-hand carry, hug, plus a merging hug, an arm out of the
+  chest and an arm pop that must fail) have to be judged as their `expect` block says.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
