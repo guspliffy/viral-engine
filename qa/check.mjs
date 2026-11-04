@@ -28,7 +28,9 @@ import { motionJumps, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
 import { visibility } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
+import { rigResults, cutIn } from "./rig.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
+import { storyTime } from "../engine/shared/holds.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
 
@@ -44,6 +46,12 @@ export const RULES = {
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
   bodyClip: 0.1, // two characters this far into each other (0..1) fail outright, unless an allowClip window with a reason covers it
+  // inside an allowClip window (a hug, a hide) contact is fine but merging is not (Zombie Too, 4 Nov: the hug window let
+  // the bodies sink 86 % into each other and every check passed; the fixed hug presses 14 %): bodies may press up to
+  // allowBody (0..1 of the way to the centre). A window raises its own limit with "max" (0..1) and says why in its
+  // reason. Hands in a window are not capped: reach() measures characters as box ellipsoids, which can't tell a glove
+  // resting on a hood from one inside it (the fixed hug's glove on Reaper's back reads 42 cm "in")
+  allowBody: 0.18,
   // contact (layout "contacts", every frame): an arm through the held staff or a hat brim, the staff through the body,
   // a hand that turns further in one frame than a hand can (metres, degrees, frames)
   armThroughStaff: 0, staffInBody: -0.03, brimDepth: 0.01, contactHold: 2, handTurnWarn: 60,
@@ -167,12 +175,14 @@ export function clipResults(sb, layout) {
   const step = samples.length > 1 ? samples[1].t - samples[0].t : 0.1;
   const windows = sb?.allowClip || [];
   for (const w of windows) if (!w.reason) out.push({ level: "warn", check: "clipping", msg: `allowClip ${w.who}${w.with ? " / " + w.with : ""} ${w.from}-${w.to}s has no reason, so it is ignored` });
-  const allowed = (c, t) => windows.some((w) => w.reason && [c.who, c.with].includes(w.who) && (!w.with || [c.who, c.with].includes(w.with)) && t >= w.from && t <= w.to);
+  const win = (c, t) => windows.find((w) => w.reason && [c.who, c.with].includes(w.who) && (!w.with || [c.who, c.with].includes(w.with)) && t >= w.from && t <= w.to);
   const actors = new Set((sb?.cast || []).map((c) => c.id));
   const runs = new Map();
   for (const x of samples) for (const c of x.clips || []) {
-    if (allowed(c, x.t)) continue;
-    const body = actors.has(c.with), k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}`, r = runs.get(k) || { body, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
+    const w = win(c, x.t), body = actors.has(c.with);
+    // a window allows contact with a prop, and bodies pressing together; bodies merging still fail
+    if (w && (!body || c.depth <= (w.max ?? RULES.allowBody))) continue;
+    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
     if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
     r.to = x.t;
     if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
@@ -180,6 +190,10 @@ export function clipResults(sb, layout) {
   }
   for (const [k, r] of runs) {
     const pct = Math.round(r.max * 100);
+    if (r.body && r.win) {
+      out.push({ level: "fail", check: "character-overlap", msg: `${k}: ${r.part ? "a hat or helmet and a body" : "bodies"} merge, up to ${pct}% into each other at ${r.at.toFixed(1)}s (${r.from.toFixed(1)}-${r.to.toFixed(1)}s), past the ${Math.round((r.win.max ?? RULES.allowBody) * 100)}% a contact window allows: they may touch and press, not sink into each other. Move them apart (cheek to cheek, gloves outside the body)` });
+      continue;
+    }
     if (r.body) {
       const lvl = r.max > RULES.bodyClip ? "fail" : "warn", what = r.part ? `${r.part.split(" / ")[0]}'s hat or helmet against ${r.part.split(" / ")[1]}` : "bodies";
       out.push({ level: lvl, check: "character-overlap", msg: `${k}: ${what} ${lvl === "warn" ? "touching" : "up to " + pct + "% into each other at " + r.at.toFixed(1) + "s"} (${r.from.toFixed(1)}-${r.to.toFixed(1)}s)${lvl !== "pass" ? ": keep them a body-width apart, or add an allowClip window with a reason" : ""}` });
@@ -213,14 +227,14 @@ export function contactResults(layout, sb = null) {
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
       for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
       for (let i = 1; i < st.length; i++) {
-        const a = st[i - 1], b = st[i]; if (!a || !b || (sb && cutBetween(sb, (i - 1) / fps, i / fps))) continue;
+        const a = st[i - 1], b = st[i]; if (!a || !b || (sb && cutIn(sb, storyTime(sb.holds, (i - 1) / fps), storyTime(sb.holds, i / fps)))) continue;   // cuts are on the storyboard's clock
         const d = turn(a.q[s], b.q[s]);
         if (d > RULES.handTurnWarn) { out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns ${Math.round(d)}° in one frame at ${(i / fps).toFixed(2)}s: look at it at full speed (fine if hidden)` }); }
       }
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
-  out.push(...reachResults(layout, sb), ...propResults(layout, sb));
+  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb));
   return out;
 }
 

@@ -937,8 +937,39 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) } };
-  }), ...reach() };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...rigOf(a) };
+  }), ...reach(), held: heldNow() };
+}
+
+// the final world positions the rig drew (potato.js rig()): hands, arm middles, feet, in millimetres, for the rig
+// motion check (qa/rig.mjs). qa/motion.mjs guesses hands from the storyboard alone; this is what is on screen
+const mm = (v) => [Math.round(v.x * 1000), Math.round(v.y * 1000), Math.round(v.z * 1000)];
+function rigOf(a) {
+  if (!a.ch.rig) return {};
+  a.ch.root.updateMatrixWorld(true);
+  const w = {}, k = a.ch.rig(), body = a.ch.body;
+  for (const [n, v] of Object.entries(k)) w[n] = mm(v.clone().applyMatrix4(a.ch.root.matrixWorld));
+  let on = 0;
+  if (body) {
+    const c = body.getWorldPosition(new THREE.Vector3()); w.b = mm(c);
+    const p = c.project(camera); on = Math.abs(p.x) < 1.15 && Math.abs(p.y) < 1.1 && p.z < 1 ? 1 : 0;   // the body's middle in frame
+  }
+  return { w, on };
+}
+// held props: where each one is in the world and in its holder's hand space (a prop slipping or popping in the hand)
+function heldNow() {
+  const out = [];
+  for (const p of props) {
+    if (!p.held || !p.root.visible) continue;
+    const A = actors.find((a) => a.c.id === p.holder); if (!A) continue;
+    p.root.updateMatrixWorld(true);
+    const pos = p.root.getWorldPosition(new THREE.Vector3()), hs = p.holdHand === "both" ? ["R", "L"] : ["R", "L"].includes(p.holdHand) ? [p.holdHand] : [];
+    const hand = hs.length ? hs.reduce((s, h) => s.add(A.ch.arms[h].hand.getWorldPosition(new THREE.Vector3())), new THREE.Vector3()).multiplyScalar(1 / hs.length) : null;
+    // off: from the hand in the world (an upright hold keeps it); loc: in the hand's own turn (a pinch keeps it)
+    const off = hand && pos.clone().sub(hand), loc = off && hs.length === 1 ? off.clone().applyQuaternion(A.ch.arms[hs[0]].hand.getWorldQuaternion(new THREE.Quaternion()).invert()) : null;
+    out.push({ prop: p.spec.id || p.spec.kind, who: p.holder, hand: p.holdHand, pos: mm(pos), ...(off ? { off: mm(off) } : {}), ...(loc ? { loc: mm(loc) } : {}) });
+  }
+  return out;
 }
 
 // hands and held props against characters (the look busy remake: a hand in another's hood, a sword in a helmet, a fist

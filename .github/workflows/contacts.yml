@@ -1,0 +1,37 @@
+# Contact and motion regression fixtures (qa/regress.mjs) on every pull request that touches the engine, the checks,
+# the grips or the fixtures: each fixture in storyboards/regress/ is laid out (no frames drawn, about 2 minutes in
+# all) and its contact and rig results must match its "expect" block. A staged glitch that stops failing (the Zombie
+# Too hug, a one-frame arm pop) means a check went blind; a good move that starts failing means the rig or a check
+# changed under it.
+name: Contact regressions
+on:
+  pull_request:
+    paths:
+      - "engine/**"
+      - "characters/**"
+      - "qa/check.mjs"
+      - "qa/rig.mjs"
+      - "qa/motion.mjs"
+      - "qa/regress.mjs"
+      - "storyboards/lib/**"
+      - "storyboards/regress/**"
+      - ".github/workflows/contacts.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Lay out the fixtures and judge them
+        shell: bash
+        run: |
+          node storyboards/regress/make-regress.mjs > /dev/null
+          git diff --exit-code storyboards/regress || { echo "storyboards/regress/*.json are stale: run node storyboards/regress/make-regress.mjs and commit"; exit 1; }
+          node qa/regress.mjs | tee regress.txt
+          status=${PIPESTATUS[0]}
+          { echo '```'; cat regress.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
