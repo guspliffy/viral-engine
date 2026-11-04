@@ -31,9 +31,10 @@ const CAST_LOOKS = {
   art: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true },
   // "sheet" (quality plan, 4 Nov 2026: Jonny's 10 design sheets, references/cast-sheets-v1): the art look plus
   // costume.sheet (costume thread: costumes rebuilt from the sheets) and def.sheet (this thread: per-character resting
-  // faces, brighter golden skin with a warm orange shadow, freckles, clean cel). A proposal until Jonny approves it.
+  // faces, brighter golden skin with a warm orange shadow, freckles, pencil hatching in the shadows). Approved 4 Nov (PR #83).
   sheet: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true },
-  "sheet-hatch": { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true, hatch: true },
+  "sheet-clean": { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true, clean: true },
+  "sheet-hatch": { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true },
   board: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true },
 };
 export function castLook(def, look) {
@@ -63,7 +64,9 @@ export function castLook(def, look) {
     if (def.costume.type === "allfather") { F.brow = def.costume.hair || "#ece9e2"; F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * 1.6).toFixed(3) }; }
   }
   if (L.sheet) { def.sheet = true; if (def.costume) def.costume.sheet = true; }   // castLook "sheet": costumes and faces read these flags
-  if (L.hatch) def.sheetHatch = true;   // "sheet-hatch": the sheet look with round 3's pencil hatching kept in the shadows
+  // the sheet look keeps round 3's pencil hatching in the shadows (Jonny's pick, 4 Nov 2026 14:11); "sheet-clean" is the
+  // sheets' own clean two-tone cel ("sheet-hatch" is kept as a name for the default)
+  if (L.sheet && !L.clean) def.sheetHatch = true;
   if (L.browThick) F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * L.browThick).toFixed(3) };
   if (L.blush) F.blush = +((F.blush ?? 1) * L.blush).toFixed(3);
   if (L.glints) F.eye = { ...F.eye, glints: L.glints };

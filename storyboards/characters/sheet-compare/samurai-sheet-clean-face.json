@@ -1,11 +1,11 @@
 {
- "id": "sheetcmp-sorcerer-sheet-hatch-face",
- "title": "sorcerer sheet-hatch face",
+ "id": "sheetcmp-samurai-sheet-clean-face",
+ "title": "samurai sheet-clean face",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
  "loop": false,
- "castLook": "sheet-hatch",
+ "castLook": "sheet-clean",
  "duration": 2.6,
  "set": {
   "type": "plain",
@@ -82,7 +82,7 @@
  "cast": [
   {
    "id": "c",
-   "character": "potatobrawl/sorcerer",
+   "character": "potatobrawl/samurai",
    "at": [
     0,
     0

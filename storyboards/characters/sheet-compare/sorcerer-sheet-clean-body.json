@@ -1,11 +1,11 @@
 {
- "id": "sheetcmp-dragon-sheet-hatch-face",
- "title": "dragon sheet-hatch face",
+ "id": "sheetcmp-sorcerer-sheet-clean-body",
+ "title": "sorcerer sheet-clean body",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
  "loop": false,
- "castLook": "sheet-hatch",
+ "castLook": "sheet-clean",
  "duration": 2.6,
  "set": {
   "type": "plain",
@@ -54,12 +54,12 @@
    "at": 0,
    "pos": [
     0,
-    0.9,
-    2.15
+    0.8,
+    4
    ],
    "look": [
     0,
-    0.84,
+    0.62,
     0
    ],
    "fov": 30
@@ -68,12 +68,12 @@
    "at": 2.6,
    "pos": [
     0,
-    0.9,
-    2.15
+    0.8,
+    4
    ],
    "look": [
     0,
-    0.84,
+    0.62,
     0
    ],
    "fov": 30
@@ -82,7 +82,7 @@
  "cast": [
   {
    "id": "c",
-   "character": "lookdev/dragon-crisp",
+   "character": "potatobrawl/sorcerer",
    "at": [
     0,
     0
