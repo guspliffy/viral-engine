@@ -515,6 +515,18 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     ROLE.hair.hatch = { k: 0.3, gap: 8, boil: 0.5 };   // white hair hatched as hard as the cloth looks dirty
     ROLE.lining.hatch = ROLE.glove.hatch = null;
   }
+  // ---- castLook "sheet" (quality plan, 4 Nov 2026: Jonny's design sheets): "clean anime character-design painting,
+  // elegant large cel-shaded forms": the skin brighter golden with a warm orange shadow side (never grey or brown,
+  // Appendix C: lit #f9b04a-#fbb64f, shadow #d79b55-#e18d2c), two clean tones with a soft edge, no pencil hatching
+  // ("sheet-hatch" keeps round 3's hatching, so Jonny can pick)
+  const sheetCast = actors.some((a) => a.def?.sheet), sheetHatch = actors.some((a) => a.def?.sheetHatch);
+  if (sheetCast) {
+    if (charR !== charRamp) charR.dispose();
+    charR = stepRamp([0.4, 0.86], [0.08, 0.86, 1], 0.045);
+    ROLE.skin = { ...ROLE.skin, lit: [1.02, 1.03, 1.04], shade: [0.84, 0.71, 0.51], grad: 0.03, occ: 0.08, rimK: 0, spec: 0, specW: 0, back: null };
+    ROLE.lid = { ...ROLE.skin, bodyN: true, hatch: null };
+    if (!sheetHatch) for (const r of ["skin", "char", "cloth", "hair", "lining", "glove", "wood", "lid"]) if (ROLE[r]) ROLE[r] = { ...ROLE[r], hatch: null };
+  }
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });

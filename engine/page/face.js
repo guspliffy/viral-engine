@@ -64,7 +64,8 @@ export class Face {
   // eye: the character's eye design (character file face.eye): depth (how far the eye stands out of the face),
   // iris (radius as a share of the eye), lash (lid line thickness), flick (outer-corner flick, 0 none), tilt (lid angle:
   // + lifts the outer corner, - drops it), glints (1 or 2 catch lights), oval (height to width, 1.24 default: a tall oval),
-  // corner (a lower-lash tick at the outer corner, 0 none .. 1)
+  // corner (a lower-lash tick at the outer corner, 0 none .. 1), glintSize (the catch light's size, 1 default)
+  // freckles ({ n, color, seed }, castLook "sheet"): a few quiet freckles over the cheeks, a darker warm shade of the skin
   constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
     this.place = place; this.size = size;
     this.group = new THREE.Group();
@@ -74,6 +75,9 @@ export class Face {
     this.browStyle = { arch: 0.05, inner: 0.19, outer: 0.55, thick: 0.85, ...(arguments[0].browShape || {}) };
     this.inkMat = new THREE.MeshStandardMaterial({ color: ink, roughness: 0.55 });
     this.browMat = brow ? new THREE.MeshStandardMaterial({ color: brow, roughness: 0.9 }) : this.inkMat;   // white brows for the Norse god
+    // browShape.cap (castLook "sheet"): the brow tube's open ends are drawn from inside too, so a brow seen end-on in a
+    // three-quarter view no longer shows a skin-coloured notch at its inner tip
+    if (this.browStyle.cap) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.side = THREE.DoubleSide; }
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
        roughness: 0.6, side: THREE.DoubleSide });
     // a warm off-white, matte enough that the one painted catch light is the only highlight
@@ -106,7 +110,7 @@ export class Face {
       const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
       const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
       // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
-      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14, 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
+      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
       const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
       if (E.glints > 1) { const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.07, 10, 6), glint); g2.scale.set(1, 1, 0.5); g2.position.set(-r * ri * 0.3, -r * ri * 0.36, r * (D + 0.02)); look.add(g2); glints.push(g2); }
       // the lid line, tapered at both ends, thickest over the pupil, with the character's outer-corner flick
@@ -168,6 +172,7 @@ export class Face {
       this.group.add(m); return { side, m };
     });
     this.juiceColor = arguments[0].juice ?? "#8a33b8";
+    this.freckleSpec = arguments[0].freckles || null;
     this.brows = [null, null]; this.mouthLine = null; this.mouthFill = null; this.mouthInner = [];
     this.teethMat = new THREE.MeshStandardMaterial({ color: "#fbf7ee", emissive: "#5a5650", roughness: 0.35 });
     this.tongueMat = new THREE.MeshStandardMaterial({ color: "#e0606a", roughness: 0.55 });
@@ -216,6 +221,34 @@ export class Face {
     const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx);
     ch.m.geometry.dispose(); ch.m.geometry = g; ch.m.position.set(0, 0, 0); ch.m.rotation.set(0, 0, 0);
     ch.m.material.side = THREE.DoubleSide; ch.curved = true;
+  }
+
+  // freckles (castLook "sheet", the design sheets: "a few quiet freckles"): n small soft dots of uneven size, scattered
+  // without a pattern over the upper cheeks and the bridge between the eyes, never on the eyes or the blush's middle.
+  // One decal per cheek; the dots come from the character's seed, so they are the same in every clip.
+  _freckles(L, s) {
+    const { n, color, seed } = this.freckleSpec;
+    let st = (seed * 2654435761) >>> 0; const rnd = () => ((st = (st * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const col = new THREE.Color(color), hsl = {}; col.getHSL(hsl, THREE.SRGBColorSpace);
+    const ink = new THREE.Color().setHSL(hsl.h - 0.015, Math.min(1, hsl.s * 1.05), hsl.l * 0.5, THREE.SRGBColorSpace);
+    const hx = ink.getHexString(THREE.SRGBColorSpace), rgb = [0, 2, 4].map((i) => parseInt(hx.slice(i, i + 2), 16)).join(",");
+    this.freckles = [-1, 1].map((side, i) => {
+      const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+      const k = side < 0 ? Math.floor(n / 2) : Math.ceil(n / 2), pts = [];
+      for (let j = 0; j < k * 20 && pts.length < k; j++) {
+        const x = 18 + rnd() * 92, y = 30 + rnd() * 64;
+        if (pts.every((p) => Math.hypot(p[0] - x, p[1] - y) > 22)) pts.push([x, y, 4.2 + rnd() * 2.6]);
+      }
+      for (const [x, y, r] of pts) {
+        const gr = g.createRadialGradient(x, y, 0, x, y, r);
+        gr.addColorStop(0, `rgba(${rgb},0.8)`); gr.addColorStop(0.55, `rgba(${rgb},0.6)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+        g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+      }
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+      const m = this._decal(side * (L.cheekU - 0.12), L.cheekV + 0.09, 0.17 * s, 0.11 * s, new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide }), 0.0042);
+      m.userData.noOutline = true; m.renderOrder = 2;
+      return m;
+    });
   }
 
   // a decal laid on the face's surface round (u0, v0), w x h in metres (a juice splat), in the host's space
@@ -317,6 +350,7 @@ export class Face {
     // blush follows the curve of the face: a flat card on a round body dips under the skin at its edges and shows
     // a hard cut. Built once, in the host's space, from the same surface mapping as the rest of the face.
     for (const ch of this.cheeks) if (!ch.curved) this._curveCheek(ch, L, s);
+    if (this.freckleSpec && !this.freckles) this._freckles(L, s);
     // juice splats on the cheeks (juiceR is the character's right cheek, at -u): built the first time one shows
     if ((c.juiceL || c.juiceR) && !this.juices) {
       const tex = juiceTexture(this.juiceColor);
