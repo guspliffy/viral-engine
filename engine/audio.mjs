@@ -375,6 +375,46 @@ const SFX = {
   },
   // a breath blown through pursed lips at a candle: an airy "fff" (noise around 1.4 kHz with a little flutter) that
   // starts fast, holds and dies away; d is how long the breath is (Dragon vs. the Candle)
+  // Bonfire Night (4 Nov 2026): a firework rocket going up, its burst, and a small weak one far off.
+  // a rocket climbing: a whistle gliding up from about 900 Hz to 2.6 kHz with a fizzing spray of sparks under it,
+  // swelling as it climbs; it stops dead at the top (the burst covers the cut); d is the climb's length
+  rocket(r, d = 1.0) {
+    const x = buf(d), hp = biquad("hp", 2800, 0.7), bp = biquad("bp", 1600, 0.6), sp = Array.from({ length: Math.round(d * 40) }, () => r() * d);
+    let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = t / d, f = 900 + 1700 * k * k + 25 * Math.sin(TAU * 7 * t);
+      p += (TAU * f) / SR;
+      let c = 0; for (const h of sp) c += env(t - h, 0.0003, 0.003, d);
+      const a = Math.min(1, t / 0.06) * (0.35 + 0.65 * k) * Math.min(1, (d - t) / 0.03);
+      x[i] = (Math.sin(p) * 0.38 + run(bp, r() * 2 - 1) * 0.45 + run(hp, r() * 2 - 1) * (0.25 + c * 0.9)) * a;
+    }
+    return x;
+  },
+  // a firework shell bursting: a sharp crack, a deep boom with a punchy mid-range thump (so a phone speaker plays it),
+  // then a long crackling shimmer of falling stars thinning out over a second and a half
+  firework(r, d = 1.9) {
+    const x = buf(d), hp = biquad("hp", 2200, 0.7), lp = biquad("lp", 180, 0.8), mid = biquad("bp", 420, 0.8), tk = biquad("hp", 3500, 0.8);
+    const ticks = Array.from({ length: 70 }, (_, j) => 0.18 + Math.pow(j / 70, 1.6) * (d - 0.3) + r() * 0.03);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1;
+      let v = run(hp, n) * env(t, 0.0004, 0.014, d) * 3.2                       // the crack
+        + Math.sin(TAU * (68 - 22 * Math.min(1, t / 0.4)) * t) * env(t, 0.002, 0.4, d) * 0.6   // the boom, sinking
+        + run(lp, n) * env(t, 0.002, 0.28, d) * 1.0
+        + run(mid, n) * env(t, 0.001, 0.12, d) * 3.0;                          // the thump in the phone band
+      let c = 0; for (const [j, h] of ticks.entries()) c += env(t - h, 0.0003, 0.004, d) * (1 - j / 90);
+      x[i] = v + run(tk, r() * 2 - 1) * c * 0.55 + run(tk, r() * 2 - 1) * 0.06 * Math.max(0, 1 - t / d) * Math.min(1, t / 0.2);
+    }
+    return x;
+  },
+  // a small weak firework far away: a dull little "pff" and a thin sputter that dies at once
+  fizzle(r, d = 0.6) {
+    const x = buf(d), bp = biquad("bp", 900, 0.9), hp = biquad("hp", 4000, 0.8), ticks = Array.from({ length: 7 }, () => 0.06 + r() * 0.35);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let c = 0; for (const h of ticks) c += env(t - h, 0.0003, 0.003, d);
+      x[i] = run(bp, r() * 2 - 1) * env(t, 0.002, 0.06, d) * 2.6 + run(hp, r() * 2 - 1) * (0.15 * Math.max(0, 1 - t / 0.45) + c * 0.3);
+    }
+    return x;
+  },
   blow(r, d = 0.7) {
     const x = buf(d), bp = biquad("bp", 1400, 0.7), hp = biquad("hp", 350, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / d, a = Math.min(1, t / 0.05) * (k < 0.55 ? 1 : Math.cos((k - 0.55) / 0.45 * Math.PI / 2) ** 2); x[i] = run(hp, run(bp, r() * 2 - 1)) * a * (0.85 + 0.15 * Math.sin(TAU * 11 * t)) * 1.6; }
