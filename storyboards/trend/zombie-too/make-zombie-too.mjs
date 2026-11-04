@@ -35,7 +35,7 @@ import * as grips from "../../lib/grips.mjs";
 const OPENER = false;                 // the trend is silent tragedy: no line in the opening (brief: no speech)
 const FOCUS = false;                  // Jonny 31 Oct: the whole frame sharp
 const FACES = "strong";
-const LOOK = process.env.LOOK || "sheet";   // castLook: "sheet" (PR #82 costumes) or the template's "golden"
+const LOOK = process.env.LOOK || "sheet-hatch";   // castLook: the sheet faces + costumes with hatching (Jonny's pick, 4 Nov), or "golden"
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const END = 10.0;
@@ -45,7 +45,7 @@ const BAR = 420;                      // letterbox bars, px top and bottom (the 
 const fb = (target, o) => frame(target, { fov: 40, ...o, h: r3((o.h ?? 1) * 1920 / (1920 - 2 * BAR)) });
 
 // ---------------------------------------------------------------- places (x right, z toward the side camera)
-const REA = [-0.5, 0], PHX_END = [0.62, 0.04];
+const REA = [-0.5, 0], PHX_END = [0.48, 0.04];
 const PHX0 = [3.1, -0.45], PHX_MID = [1.75, -0.2];
 const OFF = [-4.5, 4.5];
 const HUG_REA = [-0.12, -0.04], HUG_PHX = [0.44, 0.12];
@@ -94,8 +94,8 @@ const props = [
 ];
 
 // ---------------------------------------------------------------- captions (the trend's text, white on the upper bar)
-c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 288, false, { kinetic: false, size: 52 });
-c.cap(1.0, 2.0, "me:", 388, false, { kinetic: false, size: 52 });
+c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 244, false, { kinetic: false, size: 52 });
+c.cap(1.0, 2.0, "me:", 384, false, { kinetic: false, size: 52 });
 
 // rain, rings on the puddles and fog all on from frame 0
 for (const id of ["rain", "rings", "fogR", "fogB", "fogL"]) c.prop(0, id, { on: 1 }, 0);
@@ -123,7 +123,7 @@ A(0, "rea", "face", { tear: 1, brow: 0.35, dur: 0.01 });
 A(0, "rea", "look", { to: [0.18, 0.04], dur: 0.01, blink: false });
 A(0, "rea", "noblink", { dur: 2.0 });
 for (let i = 0, t = 0.05; t < 2.48; i++, t = r3(t + 0.11)) {
-  const d = 0.012 * (i % 2 ? 1 : -1);
+  const d = 0.024 * (i % 2 ? 1 : -1);
   c.arm(t, "rea", "L", { x: [r3(HOLD.L[0] + d), r3(HOLD.L[1] - d * 0.6), HOLD.L[2]] }, 0.1, "inOut");
   c.arm(t, "rea", "R", { x: [r3(HOLD.R[0] + d), r3(HOLD.R[1] - d * 0.6), HOLD.R[2]] }, 0.1, "inOut");
   A(t, "rea", "expr", { expr: "sad", set: { open: i % 2 ? 0.68 : 0.54, curve: -0.75, eye: 1.08 }, dur: 0.1 });   // the trembling chin
@@ -139,7 +139,7 @@ c.arm(2.82, "rea", "L", { x: [0.3, 0.72, 0.22] }, 0.5, "inOut"); c.arm(2.82, "re
 A(2.82, "rea", "tilt", { to: [-40, 0], dur: 0.5 });
 A(2.82, "rea", "pitch", { to: -6, dur: 0.5 });
 A(2.8, "rea", "turn", { to: 22, dur: 0.3 });   // square to us for the lift (panel 3)
-A(2.8, "rea", "expr", { expr: "angry", set: { open: 0.12, curve: -0.7, eye: 0.7 }, dur: 0.25 });   // teeth gritted
+A(2.8, "rea", "expr", { expr: "sad", set: { open: 0.22, curve: -0.85, eye: 0.85 }, dur: 0.25 });   // grief, forcing himself (the sheet faces read "angry" as smug)
 A(2.8, "rea", "face", { tear: 1, brow: 0.2, dur: 0.25 });
 sfx(2.9, "cloth", { gain: 0.35, reason: "Reaper's robe as he lifts the scythe" });
 see(2.85, 3.45, ["rea.face", "rea"], "the scythe goes up; Reaper grits his teeth through the tears");
@@ -148,12 +148,12 @@ see(2.85, 3.45, ["rea.face", "rea"], "the scythe goes up; Reaper grits his teeth
 const SWING = 3.5, STOP = 4.05, SW = r3(STOP - SWING);
 A(SWING, "rea", "turn", { to: 22, dur: 0.3 });
 A(SWING, "rea", "look", { to: [0.7, 0.15], dur: 0.15, blink: false });
-c.arm(SWING, "rea", "L", { x: [0.32, 0.68, 0.32] }, SW, "in"); c.arm(SWING, "rea", "R", { x: [0.2, 0.26, 0.5] }, SW, "in");   // the lower glove under his chin, never across the face
+c.arm(SWING, "rea", "L", { x: [0.32, 0.58, 0.34] }, SW, "in"); c.arm(SWING, "rea", "R", { x: [0.2, 0.26, 0.5] }, SW, "in");   // the lower glove under his chin, never across the face
 A(SWING, "rea", "tilt", { to: [4, 12], dur: SW, ease: "in" });
 A(SWING, "rea", "pitch", { to: 4, dur: SW, ease: "in" });
 sfx(SWING + 0.05, "whoosh", { gain: 0.35, reason: "the scythe sweeps down, slow" });
 // the stop: a shudder through the arms, rain drops burst off the blade, a thin ring
-c.arm(STOP, "rea", "L", { x: [0.32, 0.71, 0.32] }, 0.06, "out"); c.arm(r3(STOP + 0.06), "rea", "L", { x: [0.32, 0.69, 0.32] }, 0.12, "settle");
+c.arm(STOP, "rea", "L", { x: [0.32, 0.61, 0.34] }, 0.06, "out"); c.arm(r3(STOP + 0.06), "rea", "L", { x: [0.32, 0.59, 0.34] }, 0.12, "settle");
 A(STOP, "rea", "squash", { amount: 0.05, dur: 0.15 });
 c.at(STOP, { fx: "poof", sound: false, pos: [0.45, 1.42, -0.1], dur: 0.7, color: "#d8e6f6", puffs: 0, sparks: 34, spark: "#cfe3ff", sparkSize: 0.55, size: 0.35, lift: 0.05 });
 sfx(STOP, "shing", { gain: 0.3, reason: "the blade stops dead in the air above Phoenix: a thin metal ring" });
@@ -161,7 +161,7 @@ A(STOP, "rea", "expr", { expr: "sad", set: { open: 0.2, curve: -0.8, eye: 1.0 },
 // Phoenix stops right under it, oblivious, and holds out the fry
 A(3.45, "phx", "turn", { to: -70, dur: 0.3 });
 A(3.6, "phx", "look", { to: [-0.3, 0.12], dur: 0.2, blink: false });
-c.arm(3.5, "phx", "R", "rest", 0.4);
+c.arm(2.85, "phx", "R", "rest", 0.45);   // the zombie arm drops before he reaches Reaper
 c.arm(4.25, "phx", "L", { x: [0.3, 0.3, 0.34] }, 0.7, "inOut");
 A(4.4, "phx", "expr", { expr: "kind", set: { curve: 0.45, eye: 0.85, open: 0.1 }, dur: 0.3 });
 A(4.5, "phx", "talk", { line: "hrr?", tone: "calm", dur: 0.35, voice: false });
@@ -201,7 +201,7 @@ A(HUG, "phx", "span", { to: 0.0, dur: 0.3 });   // the wings fold aside
 A(HUG, "rea2", "turn", { to: 26, dur: 0.25 });
 A(HUG, "phx", "turn", { to: -26, dur: 0.25 });
 // Reaper's gloves round the outside of Phoenix's back (the near one in view); Phoenix's fry hand up outside the hug
-c.arm(r3(HUG + 0.15), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.02), 0.5, r3(HUG_PHX[1] + 0.3)] }, 0.35, "inOut");
+c.arm(r3(HUG + 0.15), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.02), 0.36, r3(HUG_PHX[1] + 0.3)] }, 0.35, "inOut");
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.22), 0.62, r3(HUG_PHX[1] - 0.24)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
 c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.42, 0.66, 0.04] }, 0.35, "inOut");
@@ -214,18 +214,19 @@ see(HUG + 0.5, 7.45, ["rea2", "phx", "fry"], "the full hug, the fry up outside i
 
 // ---------------------------------------------------------------- 7 CHOMP (7.5-8.5): close, Phoenix behind and above Reaper
 const CUT7 = 7.5, BITE = 7.72;
-const CH_REA = [-0.12, 0.16], CH_PHX = [0.4, -0.16];
-A(CUT7, "rea2", "move", { to: CH_REA, dur: 0, ease: "linear" }); A(CUT7, "rea2", "turn", { to: 30, dur: 0 });
+const CH_REA = [-0.12, 0.16], CH_PHX = [0.3, -0.16];
+A(CUT7, "rea2", "move", { to: CH_REA, dur: 0, ease: "linear" }); A(CUT7, "rea2", "turn", { to: 42, dur: 0 });
 A(CUT7, "rea2", "pitch", { to: 0, dur: 0 }); A(CUT7, "rea2", "crouch", { to: 0.25, dur: 0 });
 c.arm(CUT7, "rea2", "R", { x: [-0.3, 0.45, 0.25] }, 0); c.arm(CUT7, "rea2", "L", { x: [0.36, 0.35, 0.3] }, 0);
 A(CUT7, "rea2", "expr", { expr: "sad", set: { open: 0.1, curve: 0.25, eye: 0.06 }, dur: 0 });
-A(CUT7, "phx", "ride", { prop: "pc", off: [0, 0, 0], yaw: 0, dur: 0 });
+A(CUT7, "phx", "ride", { prop: "pc", off: [0, 0, 0], yaw: 15, dur: 0 });
 c.prop(CUT7, "pc", { x: CH_PHX[0], y: 0.5, z: CH_PHX[1] }, 0);
 A(CUT7, "phx", "pitch", { to: 10, dur: 0 });
-A(r3(CUT7 + 0.02), "phx", "pitch", { to: 20, dur: 0.18 });
+A(r3(CUT7 + 0.02), "phx", "pitch", { to: 30, dur: 0.18 });
 c.arm(CUT7, "phx", "L", { x: [0.48, 0.66, 0.2] }, 0); c.arm(CUT7, "phx", "R", { x: [-0.3, 0.45, 0.3] }, 0);
 A(r3(CUT7 + 0.05), "phx", "talk", { line: "nom", tone: "calm", dur: 0.25, voice: false });
-A(BITE, "phx", "expr", { expr: "serene", set: { curve: 0.3, open: 0.0 }, dur: 0.06 });
+A(r3(BITE - 0.14), "phx", "expr", { expr: "serene", set: { curve: 0.2, open: 0.35 }, dur: 0.06 });   // "nom": open...
+A(BITE, "phx", "expr", { expr: "serene", set: { curve: 0.3, open: 0.0 }, dur: 0.06 });   // ...and closed on the hood
 A(BITE, "phx", "squash", { amount: 0.04, dur: 0.12 });
 sfx(BITE, "gulp", { gain: 0.5, reason: "a soft cartoon nibble on the hood ('glk')" });
 A(r3(BITE + 0.1), "rea2", "expr", { expr: "shocked", set: { open: 0.55, eye: 1.3, curve: -0.2 }, dur: 0.12 });
@@ -267,6 +268,7 @@ c.arm(CUT8, "phx", "R", "rest", 0); c.arm(CUT8, "phx", "L", { x: [0.26, 0.6, 0.3
 c.arm(9.15, "phx", "L", { x: [0.36, 0.78, 0.3] }, 0.4, "inOut");
 A(9.05, "rea2", "lean", { to: -8, dur: 0.6 }); A(9.05, "phx", "lean", { to: 8, dur: 0.6 });
 A(9.1, "rea2", "turn", { to: 140, dur: 0.55 }); A(9.1, "phx", "turn", { to: 220, dur: 0.55 });
+A(9.2, "rea2", "look", { to: [0.9, 0.0], dur: 0.2, blink: false }); A(9.2, "phx", "look", { to: [-0.9, 0.0], dur: 0.2, blink: false });   // faces to each other over the fry
 A(9.4, "rea2", "expr", { expr: "happy", set: { eye: 0.5, curve: 0.6, open: 0.25 }, dur: 0.3 });
 A(9.4, "phx", "expr", { expr: "happy", set: { eye: 0.4, curve: 0.6, open: 0.25 }, dur: 0.3 });
 sfx(8.62, "plunk", { gain: 0.5, reason: "a tiny goofy pluck as the zombie ending starts (the music stopped on the bite)" });
@@ -276,14 +278,14 @@ see(9.1, 9.95, ["rea2", "phx", "fry", "scyP"], "the two shuffle into the fog sid
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?] (each copies a panel)
 const beats = c.beats([
-  ["1 me", 0, fb([-0.4, 1.22, 0], { az: 26, el: -8, h: 1.8, push: 0.08, dur: 2.0 }), "hook"],
+  ["1 me", 0, fb([-0.4, 1.1, 0], { az: 26, el: -8, h: 1.72, push: 0.08, dur: 2.0 }), "hook"],
   ["2 the zombie", 2.0, fb([1.4, 0.62, -0.15], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
   ["3 wind-up", 2.8, fb([-0.5, 1.1, 0], { az: 6, el: -10, h: 1.65 })],
-  ["4 the fry", SWING, fb([0.05, 1.05, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
+  ["4 the fry", SWING, fb([0.12, 1.0, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
   ["5 he can't", CUT5, fb([-0.12, 0.62, 0.1], { az: 8, el: 4, h: 1.75 })],
-  ["6 hug", HUG, fb([0.18, 0.7, 0.05], { az: 0, el: 2, h: 1.42, push: 0.05, dur: 1.3 })],
-  ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: 24, el: -3, h: 1.3 }), "reaction"],
-  ["8 too", CUT8, fb([0.05, 0.75, -0.6], { az: -24, el: 8, h: 2.6, push: 0.06, dur: 1.5 })],
+  ["6 hug", HUG, fb([0.18, 0.7, 0.05], { az: 14, el: 2, h: 1.42, push: 0.05, dur: 1.3 })],
+  ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: 40, el: -3, h: 1.3 }), "reaction"],
+  ["8 too", CUT8, fb([0.08, 0.72, -0.6], { az: -18, el: 8, h: 2.3, push: 0.06, dur: 1.5 })],
 ], END);
 
 const ALLOW = [
@@ -301,6 +303,8 @@ write(import.meta.url, {
   idea: "Jonny's zombie trend storyboard (1 Nov 2026): Death can't end his zombie friend, hugs him, gets nibbled and accepts it",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   castLook: LOOK,
+  // the sheet look needs the drawn pass or Phoenix's sheet wings and crest render grey (copied from storyboards/characters/turn-phoenix-sheet.json)
+  drawn: { lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
   motion: "natural",
   letterbox: { top: BAR, bottom: BAR },
   set: { type: "plain", color: "#4a5268", floor: "#2c3240", light: "dusk-rain", night: true, aperture: FOCUS ? 0.045 : 0,
