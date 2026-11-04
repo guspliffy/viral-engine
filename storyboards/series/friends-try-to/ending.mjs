@@ -42,7 +42,7 @@ function yawTo(a, b, share = 0.55) {
   return r3(deg * share);
 }
 
-export function ending(c, { T0, at, undo, sting = 0.15, arms = {}, cheerHop = ["vik", "phx"], rub = "R", glareOrder = ["wiz", "phx", "rea"], ids = { wiz: "wiz", vik: "vik", phx: "phx", rea: "rea" }, glareSub = null }) {
+export function ending(c, { T0, at, undo, sting = 0.15, arms = {}, cheerHop = ["vik", "phx"], rub = "R", glareOrder = ["wiz", "phx", "rea"], glareShare = 0.55, ids = { wiz: "wiz", vik: "vik", phx: "phx", rea: "rea" }, glareSub = null }) {
   const { A, sfx, see } = c;
   const all = ["wiz", "vik", "phx", "rea"];
   // ---------------------------------------------------------------- WE DID IT
@@ -71,7 +71,7 @@ export function ending(c, { T0, at, undo, sting = 0.15, arms = {}, cheerHop = ["
   glareOrder.forEach((k, i) => {
     const id = ids[k], t = r3(G + i * 0.16);
     A(t, id, "look", { to: lookAt(at[k], at.vik), dur: 0.12, blink: false });
-    A(t + 0.04, id, "turn", { to: yawTo(at[k], at.vik), dur: 0.3, ease: "inOut" });
+    A(t + 0.04, id, "turn", { to: yawTo(at[k], at.vik, glareShare), dur: 0.3, ease: "inOut" });
     act.mood(c, t + 0.08, id, "annoyed", { hold: 0.6 });
   });
   // Viking: frozen mid-gesture, then the sheepish grin and a hand to the back of his head
