@@ -5,7 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
-import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh, drapeMesh, roll, stitches } from "./costumes-art.js";
+import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh, drapeMesh, roll, stitches, softFollow } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
 // returns castCostume's { hat, sitDepth, prop, extra, apply, helmet }. Jonny's targets: references/
@@ -220,7 +220,7 @@ function allfather(C, ch, out) {
     for (const sd of [-1, 1]) { const sp = mesh(new THREE.SphereGeometry(0.13, 24, 14, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: "#3a3d46", roughness: 0.4, metalness: 0.55 })); sp.scale.set(1, 0.42, 0.9); parts.add(onSurface(ch, sp, sd * 1.4, -0.36, 0.02)); }
     const cp = drapeMesh(ch, { top: -0.3, hem: -1.38, from: 1.25, to: Math.PI * 2 - 1.25, flare: 0.1, lift: 0.07, lift0: 0.05, thick: 0.03, facing: 0.06,
       flareFn: (th) => 0.7 + 0.5 * (1 - Math.cos(th)) / 2, folds: [[1.75, 0.04, 0.25], [2.45, -0.035, 0.22], [3.1, 0.055, 0.35], [3.8, -0.035, 0.22], [4.5, 0.04, 0.28]],
-      sag: 1.2, drift: [0.025, 1.5, 0.7], grad: 0.18, valleyShade: 3, rollR: 0.018, rollColor: "#7c1d1d", ink: { width: 0.0055 } }, C.cape || "#a3262a", "#c8483c");
+      sag: 1.2, drift: [0.025, 1.5, 0.7], grad: 0.18, valleyShade: 3, rollR: 0.018, rollColor: "#7c1d1d", ink: { width: 0.0055 }, follow: 0.65 }, C.cape || "#a3262a", "#c8483c");
     parts.add(cp);
     for (const sd of [-1, 1]) { parts.add(roundClasp(ch, sd * 1.25, -0.3, 0.05, 0.11, "#d6a23c")); const r = mesh(new THREE.TorusGeometry(0.026, 0.006, 6, 20), metalMat("#a87a22", 0.35)); parts.add(onSurface(ch, r, sd * 1.25, -0.3, 0.135)); }
     // the beard ends in three soft locks
@@ -388,14 +388,14 @@ function reaperSheet(C, ch) {
     top: 0.05, topFn: (th) => -0.44 + 0.49 * sstep(0.25, 1.4, Math.abs(Math.atan2(Math.sin(th), Math.cos(th)))), lift0: -0.005, hem: -1.36, from: 0.3, to: Math.PI * 2 - 0.3, spread: 0.16, flare: 0.07, lift: 0.04, thick: 0.03, facing: 0.08, sheen: 1.45,
     flareFn: (th) => 0.7 + 0.5 * (1 - Math.cos(th)) / 2,
     folds: [[0.62, 0.028, 0.18], [1.2, -0.03, 0.22], [1.85, 0.05, 0.36], [2.55, -0.04, 0.22], [3.25, 0.06, 0.42], [3.95, -0.035, 0.2], [4.55, 0.045, 0.3], [5.15, -0.03, 0.22], [5.68, 0.03, 0.2]],
-    sag: 1.2, drift: [0.03, 1.3, 2.2], grad: 0.2, valleyShade: 3.5, rollR: 0.02, ink: { width: 0.006 },
+    sag: 1.2, drift: [0.03, 1.3, 2.2], grad: 0.2, valleyShade: 3.5, rollR: 0.02, ink: { width: 0.006 }, follow: 0.5,
   }, outer, lining);
   parts.add(cloak);
   // the hood's lower skirt: it rests on the shoulders over the cloak's top, open under the chin, a rolled edge
   parts.add(drapeMesh(ch, {
     top: 0.2, hem: -0.5, from: 0.95, to: Math.PI * 2 - 0.95, spread: 0.0, flare: 0.0, lift: 0.09, lift0: -0.004, liftRamp: 1.1, thick: 0.028, facing: 0, sheen: 1.35, edgeRoll: false,
     hemFn: (th) => -0.4 - 0.3 * ((1 - Math.cos(th)) / 2) ** 1.5 + 0.025 * Math.sin(th * 2.1 + 0.4),
-    folds: [[1.4, 0.022, 0.25], [2.3, -0.018, 0.2], [3.0, 0.03, 0.35], [3.8, -0.02, 0.2], [4.7, 0.025, 0.3]], grad: 0.1, valleyShade: 2.5, rollR: 0.022, rollColor: new THREE.Color(outer).lerp(new THREE.Color(lining), 0.3), ink: { width: 0.005 },
+    folds: [[1.4, 0.022, 0.25], [2.3, -0.018, 0.2], [3.0, 0.03, 0.35], [3.8, -0.02, 0.2], [4.7, 0.025, 0.3]], grad: 0.1, valleyShade: 2.5, rollR: 0.022, rollColor: new THREE.Color(outer).lerp(new THREE.Color(lining), 0.3), ink: { width: 0.005 }, follow: 0.3,
   }, outer, lining));
   // the clasp on a dark band round the neck
   parts.add(mesh(band(ch, { ph: -0.42, w: 0.018, t: 0.012, lift: 0.05, round: 0.7 }), clothMat("#1a1820")));
@@ -471,8 +471,9 @@ export function phoenixSheetCrest(ch) {
     { const C = g.attributes.color, row = g.userData.row, c = new THREE.Color(), a = new THREE.Color(PHX.main), b = new THREE.Color(PHX.tip); for (let i = 0; i < C.count; i++) { const u = (i % row) / (row - 1); c.setRGB(C.getX(i), C.getY(i), C.getZ(i)).lerp(b, sstep(0.75, 1, u) * 0.7); C.setXYZ(i, c.r, c.g, c.b); } void a; }
     geos.push(g);
   }
-  const fl = mergeGeometries(geos), g = mesh(fl, m);
+  const fl = mergeGeometries(geos), g = new THREE.Group(); g.add(mesh(fl, m));
   const ink = lockInk(geos, { width: 0.003, to: 0.65 }); if (ink) g.add(inkMesh(ink, PHX.tip, 0.5));
+  softFollow(ch, g, 0.9, { dir: "up", bottom: ch.cy + ch.ry * 0.85 });   // the crest trails the head and overshoots when it stops
   return g;
 }
 // the tail: a short layered fan at the lower back, sweeping back and down, the middle feather ending in the crest's curl
@@ -490,6 +491,7 @@ export function phoenixSheetTail(ch, mat) {
   // pointing down and back from the lower back
   // pointing back and down from the lower back, swept a little to one side (the sheet's rear view)
   tail.rotation.set(-1.75, 0.5, 0); tail.position.set(0, ch.cy - ch.ry * 0.55, -ch.rz * 0.88);
+  (ch.softParts ??= []).push((ft) => tail.rotation.set(-1.75 - 0.8 * Math.min(0, ft.f) + 0.3 * Math.max(0, ft.f), 0.5 - 0.9 * ft.s, 0));   // the tail trails a move
   return tail;
 }
 
@@ -514,14 +516,14 @@ function sorcererSheet(C, ch, out) {
     top: 0.05, topFn: neck(-0.44, 0.05), lift0: -0.005, hem: -1.36, from: 0.32, to: Math.PI * 2 - 0.32, spread: 0.22, flare: 0.08, lift: 0.03, thick: 0.024, facing: 0.07,
     flareFn: (th) => 0.6 + 0.7 * Math.abs(Math.sin(th)),
     folds: [[0.75, 0.03, 0.2], [1.5, 0.045, 0.3], [2.25, -0.03, 0.2], [3.14, 0.035, 0.38], [4.0, -0.03, 0.2], [4.75, 0.045, 0.3], [5.5, 0.028, 0.2]],
-    sag: 1.0, drift: [0.02, 1.9, 1.1], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: goldC, ink: { width: 0.005 }, sheen: 1.35,
+    sag: 1.0, drift: [0.02, 1.9, 1.1], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: goldC, ink: { width: 0.005 }, sheen: 1.35, follow: 0.6,
   }, violet, plum));
   // the V-front mantle over the shoulders: crisp, few folds, a gold-piped edge that runs down into a V at the clasp
   parts.add(drapeMesh(ch, {
     top: 0.25, topFn: neck(-0.44, 0.25), hem: -0.55, from: 0.12, to: Math.PI * 2 - 0.12, spread: 0.55, flare: 0.0, lift: 0.085, lift0: -0.004, liftRamp: 1.1, thick: 0.024, facing: 0,
     hemFn: (th) => -0.5 - 0.12 * ((1 - Math.cos(th)) / 2) + 0.015 * Math.sin(th * 2.3 + 0.5),
     folds: [[1.3, 0.02, 0.3], [2.4, -0.016, 0.2], [3.2, 0.024, 0.35], [4.0, -0.016, 0.2], [5.0, 0.02, 0.3]],
-    grad: 0.1, valleyShade: 2, rollR: 0.012, rollColor: goldC, ink: { width: 0.0045 }, sheen: 1.3,
+    grad: 0.1, valleyShade: 2, rollR: 0.012, rollColor: goldC, ink: { width: 0.0045 }, sheen: 1.3, follow: 0.3,
   }, violet, plum));
   parts.add(mesh(band(ch, { ph: -0.43, w: 0.016, t: 0.01, lift: 0.06, round: 0.7 }), clothMat("#2a1a38")));
   parts.add(roundClasp(ch, 0, -0.43, 0.06, 0.078, goldC, "#39d26a"));
@@ -555,7 +557,7 @@ export function cowboySheet(C, ch) {
   // the vest: fitted (no free hang), open at the front, the lapels turned back at the top of each front edge
   const vest = drapeMesh(ch, {
     top: -0.2, topFn: neck(-0.5, -0.2), hem: -1.08, from: 0.5, to: Math.PI * 2 - 0.5, spread: 0.12, free: false, flare: 0.015, lift: 0.028, lift0: 0.006, thick: 0.02, facing: 0,
-    folds: [[1.3, 0.012, 0.3], [2.6, -0.01, 0.25], [3.4, 0.012, 0.35], [4.8, 0.012, 0.3]], sag: 0.6, drift: [0.012, 2, 0.3], grad: 0.14, rollR: 0.011, rollColor: "#5e381e", ink: { width: 0.004 },
+    folds: [[1.3, 0.012, 0.3], [2.6, -0.01, 0.25], [3.4, 0.012, 0.35], [4.8, 0.012, 0.3]], sag: 0.6, drift: [0.012, 2, 0.3], grad: 0.14, rollR: 0.011, rollColor: "#5e381e", ink: { width: 0.004 }, follow: 0,
   }, vestC, vestIn);
   parts.add(vest);
   const D = vest.userData.drape;
@@ -583,11 +585,12 @@ export function cowboySheet(C, ch) {
     hemFn: (th) => -0.38 - 0.4 * Math.max(0, 1 - Math.abs(th + 0.05) / 0.75) ** 1.3 }, red, "#8a2219"));
   const kn = ch.surf(1.05, -0.38), knotP = kn.pos.clone().addScaledVector(kn.normal, 0.065);
   const knot = mesh(new THREE.SphereGeometry(0.036, 16, 12), redM); knot.scale.set(1, 0.85, 0.75); knot.position.copy(knotP); parts.add(knot);
-  const ends = [];
+  const ends = new THREE.Group(); parts.add(ends);
   for (const [dx, dy, dz] of [[0.12, -0.05, -0.02], [0.08, -0.13, 0.0]]) {
     const pts = [knotP, knotP.clone().add(V(dx * 0.5, dy * 0.4, dz + 0.01)), knotP.clone().add(V(dx, dy, dz))];
-    const e = mesh(lock(pts, V(0, 0, 1), 0.035, 0.008, (t) => 0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, 0.2 + t * 0.7)), 14, 8), redM); parts.add(e); ends.push(e);
+    ends.add(mesh(lock(pts, V(0, 0, 1), 0.035, 0.008, (t) => 0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, 0.2 + t * 0.7)), 14, 8), redM));
   }
+  softFollow(ch, ends, 1.3, { top: knotP.y });   // the knot's ends flutter after a move
   // the gun belt: through loops, a round brass buckle, a row of bullets on his left hip, a holster on each hip
   const belt = leatherMat("#3e2716");
   parts.add(mesh(band(ch, { ph: -0.86, w: 0.05, t: 0.02, lift: 0.055, tilt: -0.06, dip: Math.PI }), belt));
@@ -633,11 +636,11 @@ function vikingSheet(C, ch, out) {
   // the tunic: wrapped round, hanging free in a few broad folds; the overlap's edge down the front left, topstitched
   const tunicC = C.tunic || "#b83228";
   // above the belt the tunic is fitted; below it the skirt hangs free in a few broad folds
-  parts.add(drapeMesh(ch, { top: -0.4, hem: -0.68, free: false, flare: 0, lift: 0.022, lift0: 0.016, thick: 0.02, folds: [[1.6, 0.008, 0.3], [4.6, 0.008, 0.3]], sag: 0, drift: [0, 1, 0], grad: 0.06, rollR: 0, ink: false }, tunicC, "#7e1d16"));
+  parts.add(drapeMesh(ch, { top: -0.4, hem: -0.68, free: false, flare: 0, lift: 0.022, lift0: 0.016, thick: 0.02, folds: [[1.6, 0.008, 0.3], [4.6, 0.008, 0.3]], sag: 0, drift: [0, 1, 0], grad: 0.06, rollR: 0, ink: false, follow: 0 }, tunicC, "#7e1d16"));
   const tunic = drapeMesh(ch, {
     top: -0.64, hem: -1.24, flare: 0.045, lift: 0.028, lift0: 0.02, liftRamp: 0.4, thick: 0.022,
     folds: [[0.35, 0.02, 0.12], [1.0, 0.022, 0.3], [1.9, -0.018, 0.22], [2.7, 0.026, 0.35], [3.6, -0.02, 0.22], [4.5, 0.024, 0.3], [5.4, -0.016, 0.2]],
-    sag: 0.8, drift: [0.02, 1.6, 0.4], grad: 0.16, rollR: 0.014, rollColor: "#7e1d16", ink: { width: 0.0045 },
+    sag: 0.8, drift: [0.02, 1.6, 0.4], grad: 0.16, rollR: 0.014, rollColor: "#7e1d16", ink: { width: 0.0045 }, follow: 0.45,
   }, tunicC, "#7e1d16");
   parts.add(tunic);
   { const D = tunic.userData.drape, edge = []; for (let j = 0; j <= 20; j++) { const v = 0.05 + 0.95 * (j / 20); edge.push(D.at(0.36 + 0.06 * (j / 20), v, D.thick + 0.004)); }
@@ -660,8 +663,10 @@ function vikingSheet(C, ch, out) {
     const g = lock(pts, ups, w * (0.85 + 0.35 * r), h, (t) => Math.pow(Math.sin(Math.PI * Math.min(1, 0.04 + t * 0.96)), 0.5) * (1 - 0.25 * t), 22, 12);
     tintAlong(g, "#d9c7a2", "#fbf4e4", 0.8); clumps.push(g);
   }
-  const fur = mergeGeometries(clumps); parts.add(mesh(fur, furM));
-  const fi = lockInk(clumps, { width: 0.0024, off: 0.25, to: 0.45 }); if (fi) parts.add(inkMesh(fi, "#c9b28a", 0.85));
+  const furG = new THREE.Group(); parts.add(furG);
+  const fur = mergeGeometries(clumps); furG.add(mesh(fur, furM));
+  const fi = lockInk(clumps, { width: 0.0024, off: 0.25, to: 0.45 }); if (fi) furG.add(inkMesh(fi, "#c9b28a", 0.85));
+  softFollow(ch, furG, 0.35);   // the clumps' tips bounce a little on steps and stops
   out.prop = axe(C); out.sitDepth = 0.04;
   return out;
 }
@@ -718,7 +723,7 @@ export function wizardSheet(C, ch, hat) {
     hemFn: (th) => -1.36 + 0.55 * (1 - sstep(1.0, 2.2, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))))) + 0.025 * Math.sin(th * 1.7 + 0.3),
     from: 1.0, to: Math.PI * 2 - 1.0, spread: 0.12, flare: 0.08, lift: 0.04, thick: 0.024, facing: 0.09,
     folds: [[1.45, 0.03, 0.2], [2.05, -0.025, 0.2], [2.7, 0.04, 0.32], [3.4, -0.028, 0.2], [3.95, 0.035, 0.3], [4.6, -0.024, 0.2], [5.1, 0.028, 0.2]],
-    sag: 1.0, drift: [0.02, 1.4, 0.9], grad: 0.18, valleyShade: 3, rollR: 0.016, ink: { width: 0.005 }, sheen: 1.35,
+    sag: 1.0, drift: [0.02, 1.4, 0.9], grad: 0.18, valleyShade: 3, rollR: 0.016, ink: { width: 0.005 }, sheen: 1.35, follow: 0.8,
   }, cape, lining);
   parts.add(D);
   // the fastening: a round gold clasp at the top of the cape's front edge on his right (the sheet's hero view)
@@ -739,7 +744,7 @@ function samuraiSheet(C, ch, out) {
   for (const c of [0, Math.PI]) for (const k of [-2, -1, 0, 1, 2]) pl.push([c + k * 0.2, 0.022, 0.06], [c + k * 0.2 + 0.1, -0.026, 0.05]);
   parts.add(drapeMesh(ch, {
     top: -0.6, hem: -1.32, flare: 0.07, lift: 0.024, lift0: 0.016, thick: 0.02, folds: [...pl, [1.6, 0.02, 0.3], [4.7, 0.02, 0.3]],
-    sag: 0.5, drift: [0.012, 2.2, 0.4], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: "#2b3460", ink: { width: 0.0038 }, sheen: 1.6,
+    sag: 0.5, drift: [0.012, 2.2, 0.4], grad: 0.18, valleyShade: 3, rollR: 0.012, rollColor: "#2b3460", ink: { width: 0.0038 }, sheen: 1.6, follow: 0.4,
   }, navy, "#10142c"));
   // the sash: a wide band and a narrower folded layer over it, a little tilted
   parts.add(mesh(band(ch, { ph: -0.6, w: 0.085, t: 0.022, lift: 0.03, round: 0.45 }), clothMat(sashC)));
@@ -748,11 +753,12 @@ function samuraiSheet(C, ch, out) {
   const sash = clothMat(sashC, { side: THREE.DoubleSide }), k = ch.surf(0.62, -0.62), n = k.normal, knotP = k.pos.clone().addScaledVector(n, 0.08);
   const knot = mesh(new THREE.SphereGeometry(0.045, 18, 12), sash); knot.scale.set(1.15, 0.9, 0.7); knot.position.copy(knotP); parts.add(knot);
   for (const s of [-1, 1]) parts.add(mesh(lock([knotP, knotP.clone().add(V(s * 0.08, 0.035, 0.02)), knotP.clone().add(V(s * 0.12, -0.01, 0.01)), knotP.clone().add(V(s * 0.05, -0.035, 0.01)), knotP], V(0, 0, 1), 0.04, 0.012, (t) => 0.5 + 0.5 * Math.sin(Math.PI * t), 24, 8), sash));
-  const ends = [];
+  const ends = new THREE.Group(); parts.add(ends);
   for (const [dx, L] of [[0.03, 0.26], [0.075, 0.2]]) {
     const pts = [knotP, knotP.clone().add(V(dx * 0.6, -L * 0.45, 0.02)), knotP.clone().add(V(dx, -L, 0.012))];
-    const e = mesh(lock(pts, V(0, 0, 1), 0.038, 0.011, (t) => 0.75 + 0.35 * t * t, 16, 8), sash); parts.add(e); ends.push(e);   // wider and heavier at the end
+    ends.add(mesh(lock(pts, V(0, 0, 1), 0.038, 0.011, (t) => 0.75 + 0.35 * t * t, 16, 8), sash));   // wider and heavier at the end
   }
+  softFollow(ch, ends, 1.0, { top: knotP.y });   // weighted ends: they swing, a little behind the body
   // the scabbard: through the sash on the hip away from the sword hand, the mouth forward and up, the end back and down
   const sd = (C.propHand || "R") === "R" ? 1 : -1, a = ch.surf(sd * 0.95, -0.6), b = ch.surf(sd * 2.1, -0.9);
   const p0 = a.pos.clone().addScaledVector(a.normal, 0.09).add(V(0, 0.1, 0.2)), p1 = b.pos.clone().addScaledVector(b.normal, 0.08).add(V(0, -0.12, -0.3));

@@ -374,7 +374,55 @@ export function drapeMesh(ch, o, color, lining) {
   // o.sheen: dark cloth shows its folds by the light on the ridges, not by ink: a soft lighter stroke down each ridge
   if (o.sheen) { const ig = drapeInk(D, { width: (o.ink?.width ?? 0.005) * 2.2, only: "ridge" }); if (ig) g.add(inkMesh(ig, color, o.sheen)); }
   g.userData.drape = D;
+  if (o.follow !== 0) softFollow(ch, g, o.follow ?? 0.6);
   return g;
+}
+
+// ---------- secondary motion (quality plan item 10) ----------------------------------------------------------------
+// What real hanging cloth does, written down before building it (our movement rule; references: cloth reference
+// footage of capes and robes walking, turning and stopping, and the follow-through in Ghibli walk cycles):
+//   - it is held at the top and free at the bottom: the top moves with the body, the hem trails behind it, the lag
+//     growing with the distance from where it is held (a cape's hem lags most, the shoulders hardly at all)
+//   - it lags the body's own motion, overshoots once when the body stops, then settles (a damped spring, heavier cloth
+//     swinging less far)
+//   - on a turn the hem lags the turn and swings out to the side it is turning away from
+//   - it never swings through the body: the part of the swing that points into the body slides along it instead
+// The engine already runs that spring for every actor (timeline.js st.ft: the lag of the top of the head, in the body's
+// own frame, settled within half a second, deterministic per frame). softFollow bends a costume group with it: each
+// vertex moves by the lag times its distance below the group's top, to the power 1.5 (held at the top, free at the
+// hem), times `amount` (heavy wool ~0.5, a light cape ~0.8, a sash end ~1). Registered on ch.softParts, which costumes.js
+// calls every frame.
+export function softFollow(ch, group, amount = 0.6, o = {}) {
+  const geos = [];
+  group.traverse((m) => { if (m.isMesh && m.geometry?.attributes?.position) geos.push(m.geometry); });
+  if (!geos.length) return;
+  let yTop = -Infinity, yBot = Infinity;
+  for (const g of geos) { const P = g.attributes.position; for (let i = 0; i < P.count; i++) { const y = P.getY(i); if (y > yTop) yTop = y; if (y < yBot) yBot = y; } }
+  if (o.top != null) yTop = o.top;
+  if (o.bottom != null) yBot = o.bottom;
+  const up = o.dir === "up";   // a crest or a tuft held at its root below: the lag grows with the height above it
+  const L = Math.max(0.05, yTop - yBot), rest = geos.map((g) => g.attributes.position.array.slice());
+  let last = "";
+  (ch.softParts ??= []).push((ft) => {
+    const f = (ft?.f || 0) * amount, sd = (ft?.s || 0) * amount, u = (ft?.u || 0) * amount;
+    const key = `${f.toFixed(4)}|${sd.toFixed(4)}|${u.toFixed(4)}`;
+    if (key === last) return; last = key;
+    geos.forEach((g, gi) => {
+      const P = g.attributes.position, R = rest[gi];
+      for (let i = 0; i < P.count; i++) {
+        const x = R[i * 3], y = R[i * 3 + 1], z = R[i * 3 + 2], d = Math.max(0, Math.min(1, (yTop - y) / L)), w = d ** 1.5 * L;
+        let dx = sd * w, dz = f * w;
+        // the part of the swing that points into the body slides along it instead (most of it removed)
+        const r = Math.hypot(x, z) || 1, nx = x / r, nz = z / r, into = dx * nx + dz * nz;
+        if (into < 0) { dx -= nx * into * 0.85; dz -= nz * into * 0.85; }
+        // the swung cloth rises a little, as a pendulum does
+        const dy = (up ? -1 : 1) * 0.35 * (Math.hypot(dx, dz) ** 2) / Math.max(0.05, w) - u * w * 0.3;
+        P.setXYZ(i, x + dx, y + dy, z + dz);
+      }
+      P.needsUpdate = true;
+      g.computeBoundingSphere();
+    });
+  });
 }
 // a repair: a few short stitches across a seam line (the sheets' "one tidy repaired stitch"), lying on a surface.
 // p the middle, n the surface normal there, along the seam's direction; n stitches, each `len` long
