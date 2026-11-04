@@ -22,7 +22,9 @@
 // Sharding: every frame is drawn at its own time t (no state carries from one frame to the next), so a clip can be
 // cut into ranges, drawn on several machines at once (.github/workflows/render.yml: free GitHub runners) and joined
 // without a seam. Give the shards and the stitch the same flags (--draft, --look, --from/--to, --out) so they agree on
-// the file names. Shard 1 also draws the cover.
+// the file names. Shard 1 also draws the cover. Each shard writes a receipt beside its video (<part>.json: the
+// render's fingerprint, its frame range, the file's checksum; engine/cache.mjs) and --stitch refuses shards from
+// another render, a gap or overlap between ranges, or a file that changed since (--force joins them anyway).
 //
 // Contact gate: before drawing any frame, the layout pass (seconds) checks for characters overlapping, an arm through
 // a held staff or a hat brim, and a staff in the body (qa/check.mjs clipResults, contactResults). A failure stops the
@@ -47,6 +49,7 @@ import { clipResults, contactResults } from "../qa/check.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
 import { renderTime } from "./shared/holds.js";
+import { renderFingerprint, writePartMeta, checkParts } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream" };
@@ -246,15 +249,24 @@ async function main() {
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);
   }
   const frameA = Math.round((o.from ?? 0) * fps), frameB = Math.round((o.to ?? dur) * fps);
+  // what this render's frames depend on (engine/cache.mjs): a shard carries it in its receipt, the stitch checks it
+  const fingerprint = o.shard || o.stitch ? renderFingerprint(sb, o) : null;
+  const countFrames = (f) => Number(spawnSync("ffprobe", ["-v", "error", "-count_packets", "-select_streams", "v:0", "-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", f], { encoding: "utf8" }).stdout.trim());
   // the stitch: the shards joined as they are (no re-encode; each starts on a keyframe), then the sound as usual
   if (o.stitch) {
     const parts = Array.from({ length: o.stitch }, (_, k) => partFile(k + 1, o.stitch)), missing = parts.filter((f) => !fs.existsSync(f));
     if (missing.length) throw new Error(`--stitch ${o.stitch}: missing shard${missing.length > 1 ? "s" : ""}:\n${missing.join("\n")}`);
+    // a shard from another render (older code, an edited storyboard, other flags), a gap, an overlap or a damaged
+    // file stops the join: the frame count alone cannot see a stale shard of the right length
+    const bad = checkParts(parts, { fingerprint, frameA, frameB, countFrames });
+    if (bad.length) {
+      console.log(`shard check: ${bad.length} problem${bad.length > 1 ? "s" : ""}\n  ${bad.join("\n  ")}`);
+      if (!o.force) throw new Error(`--stitch ${o.stitch}: the shards don't belong together (see above; --force joins them anyway)`);
+    } else console.log(`shard check: ${o.stitch} shards of render ${fingerprint}, frames ${frameA}-${frameB - 1} without a gap, checksums match`);
     const list = path.join(o.out, `${base}.parts.txt`);
     fs.writeFileSync(list, parts.map((f) => `file '${f.replace(/\\/g, "/").replace(/'/g, "'\\''")}'`).join("\n") + "\n");
     await ffmpeg(["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", videoFile]);
-    const probe = spawnSync("ffprobe", ["-v", "error", "-count_packets", "-select_streams", "v:0", "-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", videoFile], { encoding: "utf8" });
-    const got = Number(probe.stdout.trim());
+    const got = countFrames(videoFile);
     if (got !== frameB - frameA) throw new Error(`stitched ${got} frames, expected ${frameB - frameA}: a shard is short or rendered with other flags`);
     fs.rmSync(list);
     console.log(`stitched ${o.stitch} shards (${got} frames) -> ${videoFile}`);
@@ -438,6 +450,7 @@ async function main() {
     if (sm) console.log(`smear: ${smeared.frames} of ${b - a} frames drew a trail behind a fast move`);
     if (bl) console.log(`motion blur: ${blurred.frames} of ${b - a} frames blurred (${blurred.frames ? (blurred.samples / blurred.frames).toFixed(1) : 0} samples each on average, ${(blurred.ms / 1000).toFixed(1)}s)`);
     if (o.timingJson) fs.writeFileSync(o.timingJson, JSON.stringify({ a, b, totalS: (Date.now() - tr) / 1000, pose: timing.pose, draw: timing.draw, grab: timing.grab, blurred, frames: perFrame }));
+    if (o.shard) writePartMeta(videoFile, { fingerprint, shard: `${o.shard.i}/${o.shard.n}`, a, b, renderer: info.renderer || null, chrome: browser.version() });
     console.log(`video: ${b - a} frames in ${((Date.now() - tr) / 1000).toFixed(1)}s (per frame: ${(timing.pose / timing.n).toFixed(0)} ms posing, ${(timing.draw / timing.n).toFixed(0)} ms drawing, ${(timing.grab / timing.n).toFixed(0)} ms encoding)`);
     if (sb.cover != null && !range && (!o.shard || o.shard.i === 1)) { const f = path.join(o.out, `${base}-cover.png`); fs.writeFileSync(f, await shot(sb.cover)); console.log("wrote", f); }
   } finally {
