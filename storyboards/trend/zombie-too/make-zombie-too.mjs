@@ -202,7 +202,7 @@ A(HUG, "rea2", "turn", { to: 18, dur: 0.25 });
 A(HUG, "phx", "turn", { to: -30, dur: 0.25 });
 // Reaper's gloves round the outside of Phoenix's back (the near one in view); Phoenix's fry hand up outside the hug
 c.arm(r3(HUG + 0.02), "rea2", "R", { x: [-0.48, 0.2, 0.3] }, 0.15, "inOut");   // down by his side first, so the arm never crosses his face
-c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.05), 0.22, r3(HUG_PHX[1] + 0.4)] }, 0.3, "inOut");
+c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.06), 0.3, r3(HUG_PHX[1] + 0.39)] }, 0.3, "inOut");   // glove on Phoenix's lower belly: the arm stays under Reaper's chin (Jonny 4 Nov)
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.2), 0.62, r3(HUG_PHX[1] - 0.42)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
 c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.34, 0.62, 0.24] }, 0.35, "inOut");
@@ -211,6 +211,8 @@ A(r3(HUG + 0.35), "rea2", "expr", { expr: "sad", set: { open: 0.15, curve: 0.2, 
 A(r3(HUG + 0.4), "phx", "expr", { expr: "serene", set: { curve: 0.55 }, dur: 0.3 });
 sfx(r3(HUG + 0.3), "cloth", { gain: 0.45, reason: "the hug: robe against Phoenix" });
 see(HUG + 0.5, 7.45, ["rea2", "phx", "fry"], "the full hug, the fry up outside it");
+// a heart pops up between their heads and beats until the cut (Jonny, 4 Nov: "pop up a heart where i marked it")
+c.textPop(6.55, "phx", "♥", { shape: "heart", xy: [570, 620], dur: 0.95, angle: -6, size: 130 });
 
 // ---------------------------------------------------------------- 7 CHOMP (7.5-8.5): close, Phoenix behind and above Reaper
 const CUT7 = 7.5, BITE = 7.72;
