@@ -11,7 +11,7 @@ import { clamp } from "./util.js";
 //              from spec.at points ([[x, y, z], ...]) to spec.floor (metres below each point), looped from the clip
 //              time. `on` 0..1 shows it (worn: points are in the body's frame).
 //   rainfall   rain streaks falling through a box (spec.box [[x0, y0, z0], [x1, y1, z1]]), spec.n streaks, looped from
-//              the clip time. `on` 0..1 its strength.
+//              the clip time. `on` 0..1 its strength, spec.alpha the streaks' opacity (default 0.32).
 //   smokewisp  a thin grey smoke trail rising from the origin (spec.h metres high), looped. `on` 0..1.
 //   embers     glowing orange sparks drifting up through a box (spec.box), looped. `on` 0..1.
 //   blotch     a soft round colour patch (spec.color, spec.size m, spec.alpha) on a flat decal facing +z: sunburn on a
@@ -88,7 +88,7 @@ export const OKILIED_KINDS = {
 
   rainfall(P) {
     const S = P.spec, [[x0, y0, z0], [x1, y1, z1]] = S.box || [[-2, 0, -1], [2, 3, 1]], n = S.n ?? 160;
-    const m = seeThrough(null, { color: S.color || "#d4dde8", opacity: 0.32 });
+    const m = seeThrough(null, { color: S.color || "#d4dde8", opacity: S.alpha ?? 0.32 });
     const geo = new THREE.PlaneGeometry(S.width ?? 0.006, S.len ?? 0.22);
     const streaks = Array.from({ length: n }, (_, i) => {
       const o = steamy(new THREE.Mesh(geo, m), 4); o.rotation.z = S.slant ?? 0.12; P.whole.add(o);
@@ -96,7 +96,7 @@ export const OKILIED_KINDS = {
     });
     const H = y1 - y0, sp = S.speed ?? 7;
     return { grip: 0, apply(ps, t) {
-      const on = clamp(ps.on ?? 1); m.opacity = 0.32 * on;
+      const on = clamp(ps.on ?? 1); m.opacity = (S.alpha ?? 0.32) * on;
       for (const s of streaks) { const k = ((t * sp) / H + s.ph) % 1; s.o.visible = on > 0.02; s.o.position.set(s.x - k * H * 0.12, y1 - k * H, s.z); }
     } };
   },

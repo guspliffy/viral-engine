@@ -405,7 +405,7 @@ export function softFollow(ch, group, amount = 0.6, o = {}) {
   let last = "";
   (ch.softParts ??= []).push((ft) => {
     const f = (ft?.f || 0) * amount, sd = (ft?.s || 0) * amount, u = (ft?.u || 0) * amount;
-    const key = `${f.toFixed(4)}|${sd.toFixed(4)}|${u.toFixed(4)}`;
+    const key = `${f}|${sd}|${u}`;   // exact: a frame never depends on the one before
     if (key === last) return; last = key;
     geos.forEach((g, gi) => {
       const P = g.attributes.position, R = rest[gi];

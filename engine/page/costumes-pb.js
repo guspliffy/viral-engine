@@ -45,7 +45,7 @@ export function phoenixCostume(C, ch) {
     const pivot = new THREE.Group(); pivot.position.set(s * ch.rx * 0.72, ch.cy + ch.ry * 0.12, -ch.rz * 0.55); ch.bodyGroup.add(pivot);
     if (C.sheet) pivot.position.set(s * ch.rx * 0.55, ch.cy + ch.ry * 0.18, -ch.rz * 0.72);   // costume.sheet: rooted on the upper back, behind the arms
     const fan = new THREE.Group(); pivot.add(fan);
-    if (C.sheet) phoenixSheetWing(fan, s, mat, ch);   // costume.sheet: thick layered feathers from the design sheet (costumes-art-cast.js)
+    if (C.sheet) phoenixSheetWing(fan, s, mat, ch, { ragged: !!C.zombie });   // costume.sheet: thick layered feathers from the design sheet (costumes-art-cast.js)
     else if (D) {
       // three layers like a bird's wing: long red-orange primaries, orange secondaries over them, short gold coverts
       const layers = [[9, 0.62, 0.075, "#e8402a", "#ffb43a", 0.24, 0], [7, 0.42, 0.07, "#f26a2a", "#ffd23f", 0.22, 0.03], [5, 0.24, 0.065, "#ff9a30", "#ffe27a", 0.2, 0.06]];
@@ -60,10 +60,31 @@ export function phoenixCostume(C, ch) {
     return { pivot, fan, s };
   });
   // tail feathers behind, low: a small fan sweeping back and down
-  if (C.sheet) ch.bodyGroup.add(phoenixSheetTail(ch, mat));
+  let sheetTail = null;
+  if (C.sheet) { sheetTail = phoenixSheetTail(ch, mat); ch.bodyGroup.add(sheetTail); }
   else if (D) {
     const tail = new THREE.Group(); tail.position.set(0, ch.cy - ch.ry * 0.62, -ch.rz * 0.85); ch.bodyGroup.add(tail);
     for (let i = 0; i < 5; i++) { const k = i / 4 - 0.5, m = new THREE.Mesh(feather(0.3 - Math.abs(k) * 0.12, 0.05, "#e8402a", "#ffc43a", 0.4), mat); m.scale.set(1, 1, 0.35); m.rotation.set(-2.1, 0, k * 1.2); m.castShadow = true; tail.add(m); }
+  }
+  // costume.zombie (Then I'm a Zombie Too, 1 Nov 2026): burnt-out feathers, the flame colours dulled toward ash grey,
+  // the hot tips charred, a soft patchy mottle so it reads as burnt rather than painted grey; no glow
+  if (C.zombie) {
+    const ash = new THREE.Color(C.ash || "#857a72"), char = new THREE.Color("#3b3331"), c = new THREE.Color();
+    const burn = (g) => g && g.traverse((o) => {
+      const A = o.isMesh && o.geometry.attributes.color; if (!A || A.userData?.burnt) return;
+      for (const m of [].concat(o.material)) if (m?.emissive && !m.userData.zombieDim) { m.emissive.multiplyScalar(0.4); m.userData.zombieDim = true; }
+      const P = o.geometry.attributes.position;
+      for (let i = 0; i < A.count; i++) {
+        c.setRGB(A.getX(i), A.getY(i), A.getZ(i));
+        const red = Math.max(0, Math.min(1, (c.r - c.g) * 2.2)), n = 0.5 + 0.5 * Math.sin(P.getX(i) * 61 + P.getY(i) * 47 + P.getZ(i) * 29);
+        c.lerp(ash, 0.06 + 0.4 * n * n).lerp(char, red * 0.25);   // patchy: some feathers still burnt orange, some ash
+        A.setXYZ(i, c.r, c.g, c.b);
+      }
+      A.needsUpdate = true; A.userData = { burnt: true };
+    });
+    for (const W of wings) burn(W.fan);
+    burn(sheetTail);   // the crest keeps its flame orange (Jonny's panels): only wings and tail are burnt out
+    if (!mat.userData.zombieDim) { mat.emissive?.multiplyScalar(0.4); mat.userData.zombieDim = true; } mat.roughness = 0.85;   // the flame glow dimmed, not gone
   }
   // "charge" makes the Phoenix blaze: the feathers glow, a halo grows behind it and it lights the room round it
   const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,225,1)"], [0.3, "rgba(255,214,120,0.75)"], [0.65, "rgba(255,140,60,0.25)"], [1, "rgba(255,120,40,0)"]]), transparent: true, depthWrite: false }));
