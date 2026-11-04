@@ -336,9 +336,9 @@ export function scythe(C) {
 export function reaperCostume(C, ch) {
   const cloth = new THREE.MeshStandardMaterial({ color: C.accent || "#34313a", roughness: 0.9, side: THREE.DoubleSide });
   if (C.art && (C.hoodStyle === "hoodie" || C.hoodStyle === "cloth")) {   // costume.art round 2: hood + bell cloak like the Sorcerer
-    reaperArt(C, ch);
+    const art = reaperArt(C, ch);   // costume.sheet: the design-sheet rebuild, with its own apply (sleeves, cloth motion)
     const { g, tip } = scythe(C);
-    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply() {} };
+    return { hat: null, sitDepth: -0.035, prop: { group: g, tip, charge() {} }, apply: art?.apply || (() => {}) };
   }
   if (C.hoodStyle === "hoodie") {
     const { shell, hem, lining, wall, seams, strings, tips } = hoodieGeometry(ch, C);

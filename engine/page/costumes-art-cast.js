@@ -5,7 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
-import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh } from "./costumes-art.js";
+import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh, drapeMesh, roll, stitches } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
 // returns castCostume's { hat, sitDepth, prop, extra, apply, helmet }. Jonny's targets: references/
@@ -301,5 +301,89 @@ export function phoenixCrest(ch) {
 
 // Reaper (round 2, Jonny 21:34): the Sorcerer's hood and bell cloak in his charcoal, a pewter clasp, a dark grey border
 export function reaperArt(C, ch) {
+  if (C.sheet) return reaperSheet(C, ch);
   hoodedCloak(ch, { accent: C.accent || "#34313a", robe: [0.6, 0.58, 0.64], lining: "#16141b", trim: "#55505c", cord: "#2a272f", clasp: "#9aa0a8", edge: "#46424d", tip: 0.55 });
+}
+
+// ======================================================================================================================
+// castLook "sheet" (quality plan items 6, 8, 9, 4 Nov 2026): the costumes rebuilt from Jonny's design sheets
+// (references/cast-sheets-v1/*-reference-v1.png and PROMPTS*.md). Each builder copies its sheet's construction: what
+// hangs from where, how many folds, which edge is thick, which material is matte and which shines, and the one small
+// personal signature. Colours are the sheets' (plan Appendix C). Gated on costume.sheet; costume.art stays as it was.
+
+// a sleeve on each arm (the sheets' "small sleeves where hands emerge"): a soft bell of cloth over the arm's first part,
+// rebuilt every frame along the arm's own curve so it bends with it. Returns update(st) for the costume's apply.
+function sleeves(ch, mat, o = {}) {
+  const ms = {}, from = o.from ?? 0.0, to = o.to ?? 0.62, r0 = o.r0 ?? 0.075, r1 = o.r1 ?? 0.095;
+  for (const s of ["L", "R"]) { ms[s] = new THREE.Mesh(new THREE.BufferGeometry(), mat); ms[s].castShadow = true; ms[s].frustumCulled = false; ch.root.add(ms[s]); }
+  const cuffM = o.cuff ? clothMat(o.cuff) : null, cuffs = {};   // a rolled cuff round the sleeve's mouth
+  if (cuffM) for (const s of ["L", "R"]) { cuffs[s] = new THREE.Mesh(new THREE.BufferGeometry(), cuffM); ch.root.add(cuffs[s]); }
+  return () => {
+    for (const s of ["L", "R"]) {
+      const A = ch.arms?.[s]; if (!A?.shoulder || !A.elbow || !A.hand) { ms[s].visible = false; if (cuffs[s]) cuffs[s].visible = false; continue; }
+      ms[s].visible = true;
+      const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), L = curve.getLength();
+      // only the part of the arm out of the body: the shoulder end stays sunk in the cloak
+      const pts = []; for (let i = 0; i <= 12; i++) pts.push(curve.getPointAt(from + (to - from) * (i / 12)));
+      const c2 = new THREE.CatmullRomCurve3(pts), bell = (t) => r0 + (r1 - r0) * t ** 1.6;
+      ms[s].geometry.dispose(); ms[s].geometry = taperedTube(c2, 0, 0, 16, 14, bell);
+      if (cuffs[s]) {
+        const e = curve.getPointAt(to), T = curve.getTangentAt(to), ring = new THREE.TorusGeometry(r1 * 0.98, o.cuffR ?? 0.012, 8, 24);
+        cuffs[s].geometry.dispose(); cuffs[s].geometry = ring; cuffs[s].position.copy(e); cuffs[s].quaternion.setFromUnitVectors(V(0, 0, 1), T); cuffs[s].visible = true;
+      }
+      void L;
+    }
+  };
+}
+// a round clasp: a disc with a raised rim and a boss, lying on the surface (the Reaper's silver, the Sorcerer's gold)
+function roundClasp(ch, th, ph, r, lift, color, stone) {
+  const g = new THREE.Group(), m = metalMat(color, 0.3);
+  g.add(mesh(new THREE.CylinderGeometry(r, r * 0.96, 0.022, 36), m));
+  const rim = mesh(new THREE.TorusGeometry(r * 0.86, r * 0.12, 10, 36), m); rim.rotation.x = Math.PI / 2; rim.position.y = 0.012; g.add(rim);
+  const boss = mesh(new THREE.SphereGeometry(r * (stone ? 0.36 : 0.42), 18, 12), stone ? new THREE.MeshStandardMaterial({ color: stone, roughness: 0.15, metalness: 0.1, emissive: new THREE.Color(stone), emissiveIntensity: 0.25 }) : m);
+  boss.scale.y = stone ? 0.55 : 0.32; boss.position.y = 0.012; g.add(boss);
+  return onSurface(ch, g, th, ph, lift);
+}
+
+// ---------- Reaper (sheet): "Heavy silhouette, Calm expression, Weighted cloth, Matte + metal, Repaired hem" ----------
+// A compact broad low bell. A big soft hood with a thick rolled opening that droops a little to one side; under it the
+// dark robe; over it a cloak hanging from the shoulders in three or four broad folds, wider at the hem than the body,
+// open at the front where its lighter blue-grey lining turns back; small sleeves the gloves come out of; a simple round
+// silver clasp on a dark band at the neck; one tidy repaired stitch near the hem.
+function reaperSheet(C, ch) {
+  const body = ch.bodyGroup, parts = ch.potatoParts;
+  const outer = C.sheetCloak || "#332d39", lining = C.sheetLining || "#5d5262", robe = "#1d1a22";
+  const { shell, hem, lining: inG, wall } = hoodieGeometry(ch, { hoodStrings: false, hoodTip: C.sheetHoodTip ?? 0.6, hoodSide: 0.8, hoodStand: 0.13, hoodOpen: 0.9, hoodOpenH: 0.96, hoodRim: 0.042, hoodNeck: -0.4, hoodFlare: 0.06 });
+  // the robe under the cloak is darker than the hood: colour the shell by height
+  { const P = shell.attributes.position, cols = new Float32Array(P.count * 3), dk = new THREE.Color(robe), oc = new THREE.Color(outer), b = new THREE.Color(dk.r / oc.r, dk.g / oc.g, dk.b / oc.b), c = new THREE.Color(), y0 = ch.cy + Math.sin(-0.4) * ch.ry;
+    for (let i = 0; i < P.count; i++) { const y = P.getY(i); c.setScalar(0.94 + 0.1 * sstep(ch.cy, ch.cy + ch.ry, y)).lerp(b, sstep(y0 + 0.03, y0 - 0.03, y)); cols[i * 3] = c.r; cols[i * 3 + 1] = c.g; cols[i * 3 + 2] = c.b; }
+    shell.setAttribute("color", new THREE.BufferAttribute(cols, 3)); }
+  const cloth = clothMat(outer, { side: THREE.DoubleSide, vertexColors: true });
+  const rimM = clothMat(new THREE.Color(outer).lerp(new THREE.Color(lining), 0.3));
+  const innerM = clothMat(lining, { side: THREE.DoubleSide, role: "lining" });
+  for (const [g, m] of [[shell, cloth], [hem, rimM], [inG, innerM], [wall, innerM]]) body.add(mesh(g, m));
+  // the cloak: from the shoulders to just above the boots, flaring into a bell (most at the back), four broad folds at
+  // the back and sides, the front open from the clasp and parting toward the hem
+  const cloak = drapeMesh(ch, {
+    top: 0.05, topFn: (th) => -0.44 + 0.49 * sstep(0.25, 1.4, Math.abs(Math.atan2(Math.sin(th), Math.cos(th)))), lift0: -0.005, hem: -1.36, from: 0.3, to: Math.PI * 2 - 0.3, spread: 0.16, flare: 0.07, lift: 0.04, thick: 0.03, facing: 0.08, sheen: 1.45,
+    flareFn: (th) => 0.7 + 0.5 * (1 - Math.cos(th)) / 2,
+    folds: [[0.62, 0.028, 0.18], [1.2, -0.03, 0.22], [1.85, 0.05, 0.36], [2.55, -0.04, 0.22], [3.25, 0.06, 0.42], [3.95, -0.035, 0.2], [4.55, 0.045, 0.3], [5.15, -0.03, 0.22], [5.68, 0.03, 0.2]],
+    sag: 1.2, drift: [0.03, 1.3, 2.2], grad: 0.2, valleyShade: 3.5, rollR: 0.02, ink: { width: 0.006 },
+  }, outer, lining);
+  parts.add(cloak);
+  // the hood's lower skirt: it rests on the shoulders over the cloak's top, open under the chin, a rolled edge
+  parts.add(drapeMesh(ch, {
+    top: 0.2, hem: -0.5, from: 0.95, to: Math.PI * 2 - 0.95, spread: 0.0, flare: 0.0, lift: 0.09, lift0: -0.004, liftRamp: 1.1, thick: 0.028, facing: 0, sheen: 1.35, edgeRoll: false,
+    hemFn: (th) => -0.4 - 0.3 * ((1 - Math.cos(th)) / 2) ** 1.5 + 0.025 * Math.sin(th * 2.1 + 0.4),
+    folds: [[1.4, 0.022, 0.25], [2.3, -0.018, 0.2], [3.0, 0.03, 0.35], [3.8, -0.02, 0.2], [4.7, 0.025, 0.3]], grad: 0.1, valleyShade: 2.5, rollR: 0.022, rollColor: new THREE.Color(outer).lerp(new THREE.Color(lining), 0.3), ink: { width: 0.005 },
+  }, outer, lining));
+  // the clasp on a dark band round the neck
+  parts.add(mesh(band(ch, { ph: -0.42, w: 0.018, t: 0.012, lift: 0.05, round: 0.7 }), clothMat("#1a1820")));
+  parts.add(roundClasp(ch, 0, -0.42, 0.06, 0.075, "#b4b9c2"));
+  // the repair: three stitches on the left front facing, near the hem
+  { const D = cloak.userData.drape, v = 0.84, t = D.f0(v) + 0.07, p = D.at(t, v, D.thick + 0.008), n = D.at(t, v, 1).sub(D.at(t, v, 0)).normalize(), up = D.at(t, v - 0.05, 0).sub(D.at(t, v + 0.05, 0));
+    parts.add(stitches(p, n, up, 3, 0.03, "#c2b49a")); }
+  // sleeves in the cloak's cloth, a thin rolled cuff in the lining colour where the glove comes out
+  const sl = sleeves(ch, clothMat(outer, { side: THREE.DoubleSide }), { from: 0.3, r0: 0.07, r1: 0.1, to: 0.8 });
+  return { apply(st, t) { sl(); } };
 }
