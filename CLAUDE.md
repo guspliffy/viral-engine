@@ -284,8 +284,8 @@ are his call. Skip the reviews only for pure engine tests, and say so.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - Render the second style (`--style anime`) only when it's asked for or being A/B-tested.
 - Renders draw on the CPU with Mesa llvmpipe (`--gl llvmpipe`, the default since 30 Oct 2026; it needs Xvfb), about
-  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears really fast moves (Jonny, 30 Oct: 48 px
-  of smear before a frame blurs, `engine/render.mjs` BLUR); it used to take 62-73 % of a clip's render time
+  3x faster than the old SwiftShader (`--gl soft`). Motion blur only smears the very fastest moves (Jonny, 4 Nov: 144 px
+  of smear before a frame blurs, `engine/render.mjs` BLUR; 48 px drew 39 % slower); it used to take 62-73 % of a clip's render time
   (`/mnt/project-files/engine/render-measure-01/report.md`). Run full renders in the background and keep working. Two renders at once on one machine gain only ~10 %. On a
   machine with a graphics card, try `--gl gpu` on a 1 s range (`--from 4 --to 5`) and compare the timing line; the
   "stage ready" line names the renderer actually used.

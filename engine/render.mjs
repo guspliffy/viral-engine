@@ -59,11 +59,13 @@ const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical 
 // its smear is at most (max - 1) x gap px: wider than that, the samples would show as separate stripes. The estimate only sets the cost: the samples are real frames at
 // their own times, so a part that has stopped just draws the same picture again. Samples never cross a cut, an impact
 // frame or the start of a flash. Only really fast moves are blurred (Jonny, 30 Oct 2026: "cut the blur except for
-// really fast movements"): 48 px of smear before a frame blurs at all, a sample per 10 px, at most 7. Until then it
-// was 12 px, 5 px and 13, which blurred two thirds of a busy clip and took 62-73 % of its render time
-// (render-measure-01). A storyboard tunes it with "motionBlur": { ... } or turns it off with "motionBlur": false;
+// really fast movements"): 144 px of smear before a frame blurs at all, a sample per 10 px, at most 7. Before 30 Oct
+// it was 12 px, 5 px and 13, which blurred two thirds of a busy clip and took 62-73 % of its render time
+// (render-measure-01). From 30 Oct to 4 Nov it was 48 px: Not Yet then blurred 72 of 270 frames, 64 % of its render
+// time; at 144 px only the very fastest moves blur (20 frames, the scythe swings and the portal) and the frames
+// draw 39 % faster (701 -> 425 s, render-speed-02; Jonny picked it from the side by side, 4 Nov). A storyboard tunes it with "motionBlur": { ... } or turns it off with "motionBlur": false;
 // --no-blur turns it off, and drafts skip it unless --blur.
-const BLUR = { shutter: 0.5, gap: 10, min: 48, max: 7 };
+const BLUR = { shutter: 0.5, gap: 10, min: 144, max: 7 };
 // The picture is stored as BT.709 (the HD standard phones and the apps assume) and tagged so: left alone, ffmpeg
 // stores a browser frame as BT.601, which a player reading it as HD shows more saturated (orange 242,107,29 -> 254,114,21).
 const COLOR = ["-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"];
