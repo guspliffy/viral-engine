@@ -479,6 +479,18 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       set: { ...ROLE.set, lit: [0.9, 0.78, 0.78], shade: [0.42, 0.34, 0.6] },
     });
   }
+  if (setSpec?.light === "dusk-rain") {
+    // a rainy street at dusk (Then I'm a Zombie Too): cold blue-grey light, deep slate-indigo shadows, and a warm
+    // orange-pink edge from the sunset low behind the set (-z); the potato skin keeps its gold so the faces stay warm
+    const back = { back: "#ff9a5c", backDir: [0.15, 0.25, -1] };
+    Object.assign(ROLE, {
+      char: { ...ROLE.char, lit: [0.86, 0.9, 1.0], shade: [0.42, 0.44, 0.62] },
+      skin: { ...ROLE.skin, lit: [1.0, 1.02, 1.04], shade: [0.62, 0.52, 0.62], ...back },
+      cloth: { ...ROLE.cloth, lit: [0.92, 0.96, 1.08], shade: [0.46, 0.46, 0.66], back: "#d87a4a", backDir: back.backDir },
+      wood: { ...ROLE.wood, lit: [0.92, 0.92, 0.98], shade: [0.5, 0.46, 0.6] },
+      set: { ...ROLE.set, lit: [0.78, 0.84, 0.96], shade: [0.4, 0.44, 0.6] },
+    });
+  }
   if (soft) {
     const back = { back: "#ffd98a", backDir: [-0.9, 0.55, -0.3] };
     Object.assign(ROLE, {

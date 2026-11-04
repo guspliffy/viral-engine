@@ -427,13 +427,18 @@ function sheetFeather(len, w, root, tip, o = {}) {
   return g;
 }
 // the feathers of one wing, added to `fan` (costumes-pb.js keeps the pivot and the wing motion); s: -1 right, 1 left
-export function phoenixSheetWing(fan, s, mat, ch) {
+export function phoenixSheetWing(fan, s, mat, ch, o = {}) {
   const geos = [];
   const add = (g, rz, x, y, z) => { g.rotateZ(rz); g.translate(x, y, z); geos.push(g); };
   // primaries: long, from upward to outward, tips sweeping up; the 4th is the offset gold feather
   const P = [[0.6, 0.02], [0.64, 0.24], [0.6, 0.46], [0.56, 0.66], [0.5, 0.86], [0.42, 1.06], [0.34, 1.26]];
+  // o.ragged (zombie Phoenix, Then I'm a Zombie Too): burnt-out wings, two primaries gone and the rest broken off at
+  // uneven lengths, the tips drooping
+  const RAG = [0.78, 0, 0.62, 0.9, 0, 0.7, 0.55];
   P.forEach(([L, a], i) => {
-    const gold = i === 3, g = sheetFeather(L * (gold ? 1.06 : 1), 0.078, gold ? PHX.inner : PHX.main, gold ? PHX.gold : PHX.tip, { bend: -0.14 * s, back: 0.12, thick: 0.017 });
+    if (o.ragged && !RAG[(i + (s > 0 ? 0 : 2)) % 7]) return;
+    const cut = o.ragged ? RAG[(i + (s > 0 ? 0 : 2)) % 7] : 1;
+    const gold = i === 3, g = sheetFeather(L * (gold ? 1.06 : 1) * cut, 0.078, gold ? PHX.inner : PHX.main, gold ? PHX.gold : PHX.tip, { bend: (o.ragged ? 0.1 : -0.14) * s, back: 0.12, thick: 0.017 });
     add(g, s * -a, s * 0.012 * i, 0, -0.01 * i);
   });
   // secondaries: a row over them, shorter, set out along the wing's arm
