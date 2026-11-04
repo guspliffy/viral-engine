@@ -74,10 +74,10 @@ const props = [
   { id: "trail", kind: "sparktrail", x: 0, y: 0, z: 0, len: 0, turns: 2.5, radius: 0.25, tail: 0.6, n: 240, size: 0.45,
     path: [[PHX[0], TOP + 0.5, PHX[1]], [PHX[0] + 0.1, 1.8, PHX[1] - 1.2], [0.4, 3.2, -3.6], SKY] },
   { id: "burst", kind: "firework", x: BURST[0], y: BURST[1], z: BURST[2], shape: "feather", size: 5.4, seed: 3, colors: ["#fff1b0", "#ff9a3a", "#ff4d2a"] },
-  { id: "ember", kind: "ember", x: BURST[0], y: 5.5, z: -9, glow: 0 },
-  { id: "small1", kind: "firework", x: -1.0, y: 3.8, z: BARGE[2] - 0.5, shape: "peony", size: 1.5, n: 60, star: 0.24, seed: 7, colors: ["#fff4d6", "#ff7ad0", "#c9a8ff"] },
-  { id: "small2", kind: "firework", x: 1.1, y: 3.5, z: BARGE[2] - 0.5, shape: "peony", size: 1.3, n: 60, star: 0.22, seed: 8, colors: ["#fff4d6", "#9be7ff", "#ffffff"] },
-  { id: "small3", kind: "firework", x: -0.35, y: 4.1, z: BARGE[2] - 0.5, shape: "peony", size: 1.1, n: 60, star: 0.2, seed: 9, colors: ["#fff4d6", "#ffd45a", "#ff8a3a"] },
+  { id: "ember", kind: "ember", x: BURST[0], y: 5.5, z: -9, glow: 0, size: 0.75 },
+  { id: "small1", kind: "firework", x: -1.0, y: 4.8, z: -10, shape: "peony", size: 2.6, n: 60, star: 0.32, seed: 7, colors: ["#fff4d6", "#ff7ad0", "#c9a8ff"] },
+  { id: "small2", kind: "firework", x: 1.1, y: 4.5, z: -10, shape: "peony", size: 2.4, n: 60, star: 0.3, seed: 8, colors: ["#fff4d6", "#9be7ff", "#ffffff"] },
+  { id: "small3", kind: "firework", x: -0.35, y: 5.0, z: -10, shape: "peony", size: 2.2, n: 60, star: 0.3, seed: 9, colors: ["#fff4d6", "#ffd45a", "#ff8a3a"] },
 ];
 
 const mug = grips.mug(c, "rea", MUG, { side: "R", height: 0.85 });
@@ -113,7 +113,7 @@ A(1.15, "phx", "talk", { line: "when when when", dur: 0.8, tone: "excited" });
 A(1.15, "phx", "charge", { to: 0.35, dur: 0.3 });
 for (const t of [1.2, 1.42, 1.64, 1.86]) A(t, "phx", "squash", { amount: 0.06, dur: 0.12 });   // vibrating with it
 // Reaper sips, then points one finger past Phoenix at the dark barge: wait
-c.arm(1.72, "rea", "L", { o: [0.12, 0.66, 0.3] }, 0.25, "out");
+c.arm(1.72, "rea", "L", { o: [0.2, 0.95, 0.35] }, 0.25, "out");
 A(1.7, "rea", "look", { to: [0.45, 0.35], dur: 0.15, blink: false });
 A(1.8, "rea", "talk", { line: "wait", dur: 0.35, tone: "calm" });
 c.arm(2.3, "rea", "L", "rest", 0.3);
@@ -162,8 +162,9 @@ see(3.7, 4.45, ["rea.face", "wiz.face"], "P4: the friends' faces following him u
 
 // ---------------------------------------------------------------- 5 PAYOFF 4.6-5.8 (P5): the best firework of the night
 const T_BURST = 4.6;
-A(T_BURST - 0.1, "phx", "hide");
-c.prop(T_BURST - 0.1, "trail", { fade: 1 }, 0.4, "out");
+A(T_TOP, "phx", "fly", { to: { x: SKY[0] + 0.1, y: SKY[1] + 2.4, z: SKY[2] - 1 }, dur: T_BURST - T_TOP - 0.01, ease: "in" });   // still climbing out of frame at the cut
+A(T_BURST - 0.01, "phx", "hide");
+c.prop(T_BURST, "trail", { fade: 1 }, 0.4, "out");
 c.prop(T_BURST, "burst", { burst: 1 }, 2.2, "linear");
 sfx(T_BURST, "firework", { gain: 1.0 });
 c.prop(T_BURST + 0.12, "crowd", { rise: 1 }, 0.3, "out"); c.prop(T_BURST + 1.4, "crowd", { rise: 0.15 }, 0.6, "inOut");
@@ -215,11 +216,13 @@ c.prop(5.7, "ember", { glow: 1 }, 0.2);
 c.prop(5.7, "ember", { x: IN_BK[0] + 0.3, y: 3.2, z: IN_BK[2] - 3.0 }, 0.01);
 c.prop(5.72, "ember", { x: IN_BK[0], y: IN_BK[1], z: IN_BK[2] }, T_LAND - 5.72, "inOut");
 c.prop(T_LAND, "ember", { glow: 0 }, 0.08);
+for (let tt = 5.85; tt < T_LAND - 0.1; tt += 0.2) { const u = (tt - 5.72) / (T_LAND - 5.72), e = u < 0.5 ? 2 * u * u : 1 - 2 * (1 - u) * (1 - u);
+  c.at(r3(tt), { fx: "poof", pos: [r3(IN_BK[0] + 0.3 * (1 - e)), r3(3.2 + (IN_BK[1] - 3.2) * e), r3(IN_BK[2] - 3.0 * (1 - e))], color: "#ffb347", puffs: 1, sparks: 6, size: 0.04, dur: 0.3, sound: false }); }   // sparks trailing the ember
 c.prop(T_LAND, "bucket", { glow: 1 }, 0.1);
 c.at(T_LAND, { fx: "poof", pos: [IN_BK[0], IN_BK[1] + 0.02, IN_BK[2]], color: "#8f8b93", puffs: 8, sparks: 0, size: 0.18, dur: 0.5, sound: false });
 sfx(T_LAND, "sizzle", { gain: 0.35 });
-A(6.0, "rea", "look", { to: [0.1, 0.9], dur: 0.2, blink: false });
-A(6.45, "rea", "look", { to: [0.05, -0.6], dur: 0.15, blink: false });
+A(5.75, "rea", "look", { to: [0.1, 0.9], dur: 0.15, blink: false });
+A(6.05, "rea", "look", { to: [0.05, -0.6], dur: 0.55, ease: "inOut", blink: false });   // follows it all the way down
 A(6.0, "rea", "expr", { expr: "deadpan", dur: 0.25 });
 A(6.05, "rea", "face", { lidL: 0.3, lidR: 0.3, dur: 0.2 });              // heavy-lidded, the pupils still showing
 A(6.05, "wiz", "look", { to: [0.1, 0.9], dur: 0.2, blink: false });
@@ -231,7 +234,7 @@ c.prop(6.72, "bucket", { rise: 1 }, 0.3, "out");
 c.prop(7.25, "bucket", { open: 1 }, 0.08);
 c.prop(7.5, "bucket", { open: 0.3 }, 0.06); c.prop(7.58, "bucket", { open: 1 }, 0.06);   // a blink
 c.prop(7.62, "bucket", { over: 1 }, 0.2, "back");
-c.prop(7.0, "bucket", { glow: 0.2 }, 0.6);
+c.prop(7.0, "bucket", { glow: 0.6 }, 0.6);
 sfx(7.25, "pop", { gain: 0.25, reason: "the eyes pop open in the ash" });
 sfx(7.64, "tink", { gain: 0.25, reason: "the tiny thumb up" });
 A(6.95, "wiz", "move", { to: WIZ_IN, dur: 0.4, steps: 1 });
@@ -242,7 +245,7 @@ A(7.05, "rea", "face", { lidL: 0.3, lidR: 0.3, dur: 0.2 });
 see(7.1, 8.4, ["bucket", "rea.face", "wiz.face"], "P7: the ash pile with Phoenix's eyes and thumb up");
 
 // ---------------------------------------------------------------- 8 THE REAL SHOW 8.5-10 (P8): tiny, weak; the ash glows
-for (const [id, tt] of [["small1", 8.55], ["small2", 8.95], ["small3", 9.3]]) { c.prop(tt, id, { burst: 1 }, 1.1, "linear"); sfx(tt, "fizzle", { gain: 0.5 }); }
+for (const [id, tt] of [["small1", 8.55], ["small2", 8.95], ["small3", 9.35]]) { c.prop(tt, id, { burst: 1 }, 0.8, "linear"); sfx(tt, "fizzle", { gain: 0.5 }); }
 A(8.05, "wiz", "pitch", { to: 0, dur: 0.3 });
 A(8.5, "wiz", "move", { to: [0.82, 0.3], dur: 0.35, steps: 1 });                  // steps back out of Reaper's space
 A(8.5, "wiz", "turn", { to: -25, dur: 0.35 });
@@ -258,12 +261,12 @@ see(8.6, 9.9, ["rea.face", "wiz.face", "bucket"], "P8: unimpressed by the real s
 
 // ---------------------------------------------------------------- shots: Jonny's panels (camera always toward the river)
 const P1 = { pos: [-0.2, 0.85, 4.3], look: [-0.18, 1.3, -1], fov: 56 };
-const P2 = { pos: [-0.25, 0.85, 3.0], look: [-0.2, 1.2, -1], fov: 52 };
+const P2 = { pos: [-0.1, 0.85, 3.1], look: [-0.06, 1.2, -1], fov: 58 };
 const P3 = { pos: [-0.2, 0.85, 4.3], look: [-0.18, 1.3, -1], fov: 56 };
 const P4 = { pos: [-0.05, 0.3, 3.0], look: [0.0, 3.2, -3], fov: 58 };
 const P5 = { pos: [0.27, 1.25, 3.2], look: [0.27, 4.8, -8], fov: 54 };
 const P6 = { pos: [0.05, 0.85, 3.0], look: [0.0, 1.05, -1], fov: 48 };
-const P7 = { pos: [-0.02, 1.4, 1.95], look: [0.1, 0.48, 0.3], fov: 46 };
+const P7 = { pos: [0.0, 1.3, 1.7], look: [0.08, 0.52, 0.3], fov: 46 };
 const P8 = { pos: [0.0, 0.85, 3.9], look: [0.0, 1.3, -1], fov: 54 };
 const beats = c.beats([
   ["P1 hook: now now now", 0, P1, "hook"],
@@ -293,6 +296,7 @@ write(import.meta.url, {
   allowClip: [
     { who: "rea", with: "chair", from: 0, to: 5.0, reason: "Reaper sits in the deck chair, gets up and his sleeve brushes its rail as he steps away" },
     { who: "rea", with: "blanket", from: 0, to: 5.0, reason: "the blanket lies over Reaper's lap while he sits and slides off as he stands" },
+    { who: "rea", with: "ember", from: 6.0, to: 6.7, reason: "the ember is a speck of light (no body) dropping past his face into the bucket he holds out" },
     { who: "phx", with: "parapet", from: 0, to: 3.8, reason: "Phoenix stands on the parapet's coping (feet and tail rest on it)" },
   ],
   notes: "Generated by storyboards/london/make-bonfire-night.mjs. Panels: PANELS.md.",

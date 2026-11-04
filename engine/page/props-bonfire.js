@@ -260,11 +260,11 @@ export const BONFIRE_KINDS = {
       grip: h,
       apply(ps, t) {
         const g = clamp(ps.glow), rise = clamp(ps.rise), o = clamp(ps.open), up = clamp(ps.over);
-        glow.visible = g > 0.01; glow.material.opacity = 0.9 * g * (0.8 + 0.2 * Math.sin((t ?? 0) * 13) * Math.sin((t ?? 0) * 5.1)); glow.scale.setScalar(0.22 + 0.2 * g);
+        glow.visible = g > 0.01; glow.material.opacity = 0.9 * g * (0.8 + 0.2 * Math.sin((t ?? 0) * 13) * Math.sin((t ?? 0) * 5.1)); glow.scale.setScalar(0.22 + 0.38 * g);
         core.visible = g > 0.05 && rise < 0.5; core.scale.setScalar(0.5 + 0.6 * g);
         pileG.visible = rise > 0.01; pileG.scale.setScalar(Math.max(0.01, rise)); wiresG.visible = rise < 0.3;   // the ember burnt the old sparklers away
         eyes.visible = o > 0.02; em.map = o > 0.5 ? eyesOpen : eyesShut; eyes.scale.y = 0.3 + 0.7 * Math.max(o, 0.4);
-        thumbG.visible = up > 0.02; thumbG.scale.setScalar(Math.max(0.01, up)); thumbG.rotation.z = -0.6 * (1 - up);
+        thumbG.visible = up > 0.02; thumbG.scale.setScalar(Math.max(0.01, up * 1.6)); thumbG.position.y = 0.03 + 0.05 * up; thumbG.rotation.z = -0.6 * (1 - up);   // big enough to read on a phone, standing up out of the pile
       },
     };
   },
@@ -375,7 +375,7 @@ export const BONFIRE_KINDS = {
   },
 
   ember(P) {
-    const halo = spark(P.whole, "#ff9a3a", 0.16), core = glowy(mesh(new THREE.SphereGeometry(0.012, 8, 6), new THREE.MeshBasicMaterial({ color: "#ffe2a0" }), P.whole), 4);
+    const halo = spark(P.whole, "#ff9a3a", P.spec.size ?? 0.16), core = glowy(mesh(new THREE.SphereGeometry((P.spec.size ?? 0.16) * 0.075, 8, 6), new THREE.MeshBasicMaterial({ color: "#ffe2a0" }), P.whole), 4);
     core.material.userData.noOutline = true;
     return { grip: 0, apply(ps, t) { const g = clamp(ps.glow); halo.visible = core.visible = g > 0.01; halo.material.opacity = 0.9 * g * (0.8 + 0.2 * Math.sin((t ?? 0) * 19)); core.scale.setScalar(0.4 + 0.6 * g); } };
   },

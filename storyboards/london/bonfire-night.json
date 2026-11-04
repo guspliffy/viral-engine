@@ -314,18 +314,19 @@
    "x": 0.3,
    "y": 5.5,
    "z": -9,
-   "glow": 0
+   "glow": 0,
+   "size": 0.75
   },
   {
    "id": "small1",
    "kind": "firework",
    "x": -1,
-   "y": 3.8,
-   "z": -12.5,
+   "y": 4.8,
+   "z": -10,
    "shape": "peony",
-   "size": 1.5,
+   "size": 2.6,
    "n": 60,
-   "star": 0.24,
+   "star": 0.32,
    "seed": 7,
    "colors": [
     "#fff4d6",
@@ -337,12 +338,12 @@
    "id": "small2",
    "kind": "firework",
    "x": 1.1,
-   "y": 3.5,
-   "z": -12.5,
+   "y": 4.5,
+   "z": -10,
    "shape": "peony",
-   "size": 1.3,
+   "size": 2.4,
    "n": 60,
-   "star": 0.22,
+   "star": 0.3,
    "seed": 8,
    "colors": [
     "#fff4d6",
@@ -354,12 +355,12 @@
    "id": "small3",
    "kind": "firework",
    "x": -0.35,
-   "y": 4.1,
-   "z": -12.5,
+   "y": 5,
+   "z": -10,
    "shape": "peony",
-   "size": 1.1,
+   "size": 2.2,
    "n": 60,
-   "star": 0.2,
+   "star": 0.3,
    "seed": 9,
    "colors": [
     "#fff4d6",
@@ -656,16 +657,16 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     -0.25,
+     -0.1,
      0.85,
-     3
+     3.1
     ],
     "look": [
-     -0.2,
+     -0.06,
      1.2,
      -1
     ],
-    "fov": 52
+    "fov": 58
    },
    "do": [
     {
@@ -831,9 +832,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.12,
-       0.66,
-       0.3
+       0.2,
+       0.95,
+       0.35
       ]
      },
      "dur": 0.25,
@@ -1364,18 +1365,15 @@
     },
     {
      "who": "phx",
-     "do": "hide",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "trail",
-     "set": {
-      "fade": 1
+     "do": "fly",
+     "to": {
+      "x": 0.65,
+      "y": 7,
+      "z": -7.5
      },
-     "dur": 0.4,
-     "ease": "out",
-     "at": 0.9
+     "dur": 0.13999999999999946,
+     "ease": "in",
+     "at": 0.85
     },
     {
      "who": "wiz",
@@ -1427,6 +1425,11 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.92
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.99
     }
    ]
   },
@@ -1448,6 +1451,16 @@
     "fov": 54
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "trail",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "burst",
@@ -1969,6 +1982,17 @@
      "dur": 0.8799999999999999,
      "ease": "inOut",
      "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      0.9
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.15
     }
    ],
    "kind": "payoff"
@@ -2054,6 +2078,21 @@
      "at": 0.01
     },
     {
+     "fx": "poof",
+     "pos": [
+      0.141,
+      3.084,
+      -2.474
+     ],
+     "color": "#ffb347",
+     "puffs": 1,
+     "sparks": 6,
+     "size": 0.04,
+     "dur": 0.3,
+     "sound": false,
+     "at": 0.05
+    },
+    {
      "who": "wiz",
      "do": "turn",
      "to": -35,
@@ -2072,21 +2111,37 @@
     },
     {
      "who": "rea",
-     "do": "look",
-     "to": [
-      0.1,
-      0.9
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0.2
-    },
-    {
-     "who": "rea",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.25,
      "at": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.07,
+      2.452,
+      -1.761
+     ],
+     "color": "#ffb347",
+     "puffs": 1,
+     "sparks": 6,
+     "size": 0.04,
+     "dur": 0.3,
+     "sound": false,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.6
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "blink": false,
+     "at": 0.25
     },
     {
      "who": "rea",
@@ -2108,14 +2163,33 @@
      "at": 0.25
     },
     {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0.05,
-      -0.6
+     "fx": "poof",
+     "pos": [
+      -0.051,
+      1.382,
+      -0.554
      ],
-     "dur": 0.15,
-     "blink": false,
+     "color": "#ffb347",
+     "puffs": 1,
+     "sparks": 6,
+     "size": 0.04,
+     "dur": 0.3,
+     "sound": false,
+     "at": 0.45
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.129,
+      0.695,
+      0.221
+     ],
+     "color": "#ffb347",
+     "puffs": 1,
+     "sparks": 6,
+     "size": 0.04,
+     "dur": 0.3,
+     "sound": false,
      "at": 0.65
     },
     {
@@ -2205,13 +2279,13 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     -0.02,
-     1.4,
-     1.95
+     0,
+     1.3,
+     1.7
     ],
     "look": [
-     0.1,
-     0.48,
+     0.08,
+     0.52,
      0.3
     ],
     "fov": 46
@@ -2221,7 +2295,7 @@
      "do": "prop",
      "id": "bucket",
      "set": {
-      "glow": 0.2
+      "glow": 0.6
      },
      "dur": 0.6,
      "ease": "inOut",
@@ -2357,7 +2431,7 @@
      "set": {
       "burst": 1
      },
-     "dur": 1.1,
+     "dur": 0.8,
      "ease": "linear",
      "at": 0.05
     },
@@ -2401,7 +2475,7 @@
      "set": {
       "burst": 1
      },
-     "dur": 1.1,
+     "dur": 0.8,
      "ease": "linear",
      "at": 0.45
     },
@@ -2438,14 +2512,14 @@
      "set": {
       "burst": 1
      },
-     "dur": 1.1,
+     "dur": 0.8,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.85
     },
     {
      "sfx": "fizzle",
      "gain": 0.5,
-     "at": 0.8
+     "at": 0.85
     },
     {
      "do": "prop",
@@ -2576,6 +2650,13 @@
    "from": 0,
    "to": 5,
    "reason": "the blanket lies over Reaper's lap while he sits and slides off as he stands"
+  },
+  {
+   "who": "rea",
+   "with": "ember",
+   "from": 6,
+   "to": 6.7,
+   "reason": "the ember is a speck of light (no body) dropping past his face into the bucket he holds out"
   },
   {
    "who": "phx",
