@@ -93,6 +93,9 @@ c.arm(0, "phx", "R", { o: [0.25, 1.25, 0.05] }, 0.01); c.arm(0, "phx", "L", { o:
 A(0.05, "phx", "hop", { count: 3, height: 0.07, dur: 0.92 });
 A(0, "phx", "look", { to: [0.3, 0.9], dur: 0.01, blink: false });
 act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
+// captions for the gibberish (Jonny, 4 Nov): up in the empty sky, clear of every face; kinetic words pop as spoken
+const CAP_Y = 330, CAP_Y2 = 470;
+c.cap(0, 1.0, OPENER.line, CAP_Y);
 // Reaper in his deck chair with his tea; the Wizard with a toffee apple; both watching Phoenix
 A(0, "rea", "sit", { seat: "chair", dur: 0.01, hands: "keep" });
 mug.secure(0, 0.01);
@@ -110,12 +113,14 @@ A(1.0, "phx", "turn", { to: -40, dur: 0.25 });
 c.arm(1.0, "phx", "R", { o: [0.2, 0.62, 0.22] }, 0.22, "out"); c.arm(1.0, "phx", "L", { o: [0.2, 0.62, 0.22] }, 0.22, "out");
 act.mood(c, 1.12, "phx", "angry", { hold: 1.0 });
 A(1.15, "phx", "talk", { line: "when when when", dur: 0.8, tone: "excited" });
+c.cap(1.1, 1.95, "when when when?!", CAP_Y);
 A(1.15, "phx", "charge", { to: 0.35, dur: 0.3 });
 for (const t of [1.2, 1.42, 1.64, 1.86]) A(t, "phx", "squash", { amount: 0.06, dur: 0.12 });   // vibrating with it
 // Reaper sips, then points one finger past Phoenix at the dark barge: wait
 c.arm(1.72, "rea", "L", { o: [0.2, 0.95, 0.35] }, 0.25, "out");
 A(1.7, "rea", "look", { to: [0.45, 0.35], dur: 0.15, blink: false });
 A(1.8, "rea", "talk", { line: "wait", dur: 0.35, tone: "calm" });
+c.cap(1.78, 2.4, "wait.", CAP_Y2);
 c.arm(2.3, "rea", "L", "rest", 0.3);
 // the Wizard bites his toffee apple and rolls his eyes at Phoenix
 apple.carry(1.18, APPLE_BITE, 0.28);
@@ -140,6 +145,7 @@ sfx(2.55, "sizzle", { gain: 0.5 });
 c.arm(2.55, "rea", "L", { o: [0.16, 0.66, 0.34] }, 0.2, "out");
 act.shock(c, 2.55, "rea", { open: 0.2, hold: 1.0 });
 A(2.7, "rea", "talk", { line: "no no no", dur: 0.6, tone: "calm" });
+c.cap(2.65, 3.55, "no no no", CAP_Y);
 apple.carry(2.6, APPLE_BITE, 0.22);                            // he freezes mid-bite
 act.shock(c, 2.65, "wiz", { open: 0.3, hold: 0.9 });
 see(2.5, 3.5, ["phx.face", "rea.face", "wiz.face"], "P3: Phoenix crouched like a rocket, the friends frozen");

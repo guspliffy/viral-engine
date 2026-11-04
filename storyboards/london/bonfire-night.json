@@ -369,7 +369,36 @@
    ]
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "now now now!",
+   "pos": 330,
+   "pop": false
+  },
+  {
+   "from": 1.1,
+   "to": 1.95,
+   "text": "when when when?!",
+   "pos": 330,
+   "pop": false
+  },
+  {
+   "from": 1.78,
+   "to": 2.4,
+   "text": "wait.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 2.65,
+   "to": 3.55,
+   "text": "no no no",
+   "pos": 330,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "P1 hook: now now now",
