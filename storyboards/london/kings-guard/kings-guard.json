@@ -204,7 +204,7 @@
    "y": 2.9,
    "z": 0.6,
    "rot": -60,
-   "scale": 1.25,
+   "scale": 1.7,
    "flap": 1
   },
   {
@@ -213,9 +213,9 @@
    "wear": "phx",
    "x": 0,
    "y": 0.6,
-   "z": 0.36,
+   "z": 0.385,
    "tip": 30,
-   "scale": 1.6
+   "scale": 2
   },
   {
    "id": "steam",
@@ -359,11 +359,18 @@
      "do": "expr",
      "expr": "dizzy",
      "set": {
-      "open": 0.8,
+      "open": 1,
       "curve": 0.3,
       "eye": 1.2,
       "pupil": 0.35
      },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lidR": 0.6,
      "dur": 0.01,
      "at": 0
     },
@@ -496,6 +503,13 @@
      "at": 0.92
     },
     {
+     "who": "phx",
+     "do": "face",
+     "lidR": 0.08,
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
      "do": "prop",
      "id": "tongue",
      "set": {
@@ -545,6 +559,21 @@
     },
     {
      "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
      "do": "hop",
      "height": 0.16,
      "dur": 0.34,
@@ -577,7 +606,7 @@
     {
      "who": "phx",
      "do": "lean",
-     "to": 9,
+     "to": -3,
      "dur": 0.3,
      "ease": "inOut",
      "at": 0.48
@@ -595,16 +624,17 @@
      "who": "phx",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.55,
-       0.2
-      ]
-     },
+     "pose": "up",
      "dur": 0.25,
      "ease": "inOut",
      "at": 0.48
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.35,
+     "dur": 0.25,
+     "at": 0.85
     },
     {
      "who": "phx",
@@ -625,7 +655,13 @@
      "who": "phx",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.3,
+       0.12,
+       0.15
+      ]
+     },
      "dur": 0.25,
      "ease": "inOut",
      "at": 0.86
@@ -647,10 +683,10 @@
     },
     {
      "who": "phx",
-     "do": "span",
-     "to": 0.35,
-     "dur": 0.25,
-     "at": 1.05
+     "do": "wings",
+     "to": 0.2,
+     "dur": 0.3,
+     "at": 1
     },
     {
      "who": "phx",
@@ -658,13 +694,6 @@
      "to": 0,
      "dur": 0.18,
      "at": 1.22
-    },
-    {
-     "who": "phx",
-     "do": "wings",
-     "to": 0.2,
-     "dur": 0.3,
-     "at": 1.25
     },
     {
      "who": "phx",
@@ -701,12 +730,12 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     -0.2,
+     -0.12,
      1.05,
      2.7
     ],
     "look": [
-     -0.2,
+     -0.12,
      0.98,
      -0.95
     ],
@@ -937,7 +966,7 @@
      "fx": "pop",
      "text": "*twitch*",
      "who": "rea",
-     "dur": 0.45,
+     "dur": 0.36,
      "size": 64,
      "dx": -0.75,
      "dy": -0.15,
@@ -1405,16 +1434,6 @@
      "at": 0.3
     },
     {
-     "do": "prop",
-     "id": "pigeon",
-     "set": {
-      "flap": 0
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
      "who": "wiz",
      "do": "talk",
      "line": "hehehe!",
@@ -1444,6 +1463,16 @@
      "dur": 0.1,
      "ease": "inOut",
      "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "pigeon",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -1890,7 +1919,13 @@
      "who": "rea",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       -0.03,
+       0.4,
+       0.42
+      ]
+     },
      "dur": 0.3,
      "ease": "inOut",
      "at": 0
@@ -2026,6 +2061,14 @@
      "at": 1.175
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.175
+    },
+    {
      "who": "phx",
      "do": "hide",
      "at": 1.175
@@ -2082,7 +2125,7 @@
     {
      "who": "rea",
      "do": "pitch",
-     "to": 22,
+     "to": 10,
      "dur": 0.12,
      "ease": "out",
      "at": 0
@@ -2113,10 +2156,10 @@
      "spin": [
       0,
       0,
-      -26
+      -36
      ],
      "off": [
-      0.06,
+      0.08,
       -0.02,
       0
      ],
@@ -2785,6 +2828,13 @@
   }
  ],
  "allowClip": [
+  {
+   "who": "rea",
+   "with": "rea",
+   "from": 6.25,
+   "to": 6.7,
+   "reason": "he turns and marches off in profile, the scythe carried upright in front of him like a rifle: his face isn't the beat here, the march is"
+  },
   {
    "who": "rea",
    "with": "box",

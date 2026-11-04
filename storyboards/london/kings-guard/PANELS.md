@@ -32,3 +32,7 @@ toward the palace (the painting's own direction), so every panel's background is
   scythe that is let go and picked up again in the 0.1 s snap would pop.
 - **Crossed eyes**: the face rig has one gaze for both eyes, so the silly face uses tiny pupils, a wide open mouth and
   the tongue prop.
+- **Panel 7's "doubled over"** is a shallow bend (pitch 10) with a deep crouch, side sway and a crooked bearskin: a
+  deeper bend tips the bearskin over his face (review A and B).
+- **Panel 5-6**: Phoenix stays flat in the puddle until the guard is past him, then sits up. Sitting up straight away,
+  he hid the whole march at phone size.
