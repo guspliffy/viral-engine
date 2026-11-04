@@ -49,7 +49,7 @@ const REA = [-0.5, 0], PHX_END = [0.62, 0.04];
 const PHX0 = [3.1, -0.45], PHX_MID = [1.75, -0.2];
 const OFF = [-4.5, 4.5];
 const HUG_REA = [-0.12, -0.04], HUG_PHX = [0.44, 0.12];
-const SCY_GROUND = [-0.85, 0.03, 0.55];   // where the dropped scythe lies (its grip point), lower left of the side shots
+const SCY_GROUND = [-0.7, 0.03, 0.5];   // where the dropped scythe lies (its grip point), lower left of the side shots
 const SHAFT_END = [-0.45, 0.03, -0.15];   // shot 8: the shaft's bottom end just in front of Reaper's left foot, the blade away to the left
 
 const cast = [
@@ -94,8 +94,8 @@ const props = [
 ];
 
 // ---------------------------------------------------------------- captions (the trend's text, white on the upper bar)
-c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 214, false, { kinetic: false, size: 52 });
-c.cap(1.0, 2.0, "me:", 348, false, { kinetic: false, size: 52 });
+c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 288, false, { kinetic: false, size: 52 });
+c.cap(1.0, 2.0, "me:", 388, false, { kinetic: false, size: 52 });
 
 // rain, rings on the puddles and fog all on from frame 0
 for (const id of ["rain", "rings", "fogR", "fogB", "fogL"]) c.prop(0, id, { on: 1 }, 0);
@@ -106,7 +106,7 @@ const fry = grips.thin(c, "phx", FRY, { side: "L", from: 0.3 });
 fry.secure(0, 0.01);
 c.arm(0.02, "phx", "L", { x: [0.32, 0.12, 0.32] }, 0.01);   // both zombie arms out in front, the fry dangling from one
 c.arm(0.02, "phx", "R", { x: [-0.32, 0.16, 0.34] }, 0.01);
-A(0, "phx", "span", { to: 0.65, dur: 0.01 });   // the ragged wings half open
+A(0, "phx", "span", { to: 0.95, dur: 0.01 });   // the ragged wings open, like panel 2
 A(3.0, "phx", "span", { to: 0.35, dur: 0.5 });
 A(0, "phx", "face", { lid: 0.52, dur: 0.01 });
 A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.85, open: 0.12 }, dur: 0.01 });
@@ -135,9 +135,10 @@ A(1.9, "phx", "look", { to: [0.1, 0.05], dur: 0.2, blink: false });
 see(2.05, 2.8, ["phx.face", "fry"], "zombie Phoenix comes out of the fog holding one limp fry");
 
 // ---------------------------------------------------------------- 3 WIND-UP (2.8-3.5): the reluctant lift
-c.arm(2.82, "rea", "L", { x: [0.3, 0.72, 0.22] }, 0.5, "inOut"); c.arm(2.82, "rea", "R", { x: [0.22, 0.48, 0.32] }, 0.5, "inOut");
+c.arm(2.82, "rea", "L", { x: [0.3, 0.72, 0.22] }, 0.5, "inOut"); c.arm(2.82, "rea", "R", { x: [0.26, 0.3, 0.38] }, 0.5, "inOut");
 A(2.82, "rea", "tilt", { to: [-40, 0], dur: 0.5 });
 A(2.82, "rea", "pitch", { to: -6, dur: 0.5 });
+A(2.8, "rea", "turn", { to: 22, dur: 0.3 });   // square to us for the lift (panel 3)
 A(2.8, "rea", "expr", { expr: "angry", set: { open: 0.12, curve: -0.7, eye: 0.7 }, dur: 0.25 });   // teeth gritted
 A(2.8, "rea", "face", { tear: 1, brow: 0.2, dur: 0.25 });
 sfx(2.9, "cloth", { gain: 0.35, reason: "Reaper's robe as he lifts the scythe" });
@@ -203,7 +204,7 @@ A(HUG, "phx", "turn", { to: -26, dur: 0.25 });
 c.arm(r3(HUG + 0.15), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.02), 0.5, r3(HUG_PHX[1] + 0.3)] }, 0.35, "inOut");
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.22), 0.62, r3(HUG_PHX[1] - 0.24)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
-c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.44, 0.82, -0.02] }, 0.35, "inOut");
+c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.42, 0.66, 0.04] }, 0.35, "inOut");
 c.arm(r3(HUG + 0.2), "phx", "R", { world: [r3(HUG_REA[0] - 0.2), 0.58, r3(HUG_REA[1] - 0.22)] }, 0.35, "inOut");
 A(r3(HUG + 0.35), "rea2", "expr", { expr: "sad", set: { open: 0.15, curve: 0.2, eye: 0.06 }, dur: 0.3 });   // eyes squeezed, a wobbly smile
 A(r3(HUG + 0.3), "phx", "lean", { to: 7, dur: 0.35 });   // heads together
@@ -214,11 +215,11 @@ see(HUG + 0.5, 7.45, ["rea2", "phx", "fry"], "the full hug, the fry up outside i
 // ---------------------------------------------------------------- 7 CHOMP (7.5-8.5): close, Phoenix behind and above Reaper
 const CUT7 = 7.5, BITE = 7.72;
 const CH_REA = [-0.12, 0.16], CH_PHX = [0.4, -0.16];
-A(CUT7, "rea2", "move", { to: CH_REA, dur: 0, ease: "linear" }); A(CUT7, "rea2", "turn", { to: 12, dur: 0 });
+A(CUT7, "rea2", "move", { to: CH_REA, dur: 0, ease: "linear" }); A(CUT7, "rea2", "turn", { to: 30, dur: 0 });
 A(CUT7, "rea2", "pitch", { to: 0, dur: 0 }); A(CUT7, "rea2", "crouch", { to: 0.25, dur: 0 });
 c.arm(CUT7, "rea2", "R", { x: [-0.3, 0.45, 0.25] }, 0); c.arm(CUT7, "rea2", "L", { x: [0.36, 0.35, 0.3] }, 0);
 A(CUT7, "rea2", "expr", { expr: "sad", set: { open: 0.1, curve: 0.25, eye: 0.06 }, dur: 0 });
-A(CUT7, "phx", "ride", { prop: "pc", off: [0, 0, 0], yaw: -35, dur: 0 });
+A(CUT7, "phx", "ride", { prop: "pc", off: [0, 0, 0], yaw: 0, dur: 0 });
 c.prop(CUT7, "pc", { x: CH_PHX[0], y: 0.5, z: CH_PHX[1] }, 0);
 A(CUT7, "phx", "pitch", { to: 10, dur: 0 });
 A(r3(CUT7 + 0.02), "phx", "pitch", { to: 20, dur: 0.18 });
@@ -260,12 +261,12 @@ c.prop(r3(CUT8 + 0.36), "scyP", { rot: 175, tip: 82 }, 0.45, "inOut");   // the 
 const WALK = 8.95;
 A(r3(WALK - 0.15), "rea2", "look", { to: [0.4, 0.0], dur: 0.12, blink: false }); A(r3(WALK - 0.15), "phx", "look", { to: [-0.4, 0.0], dur: 0.12, blink: false });
 A(WALK, "rea2", "move", { to: [-0.05, -1.35], dur: 1.35, steps: 1.3, stride: 0.6 });
-A(WALK, "phx", "move", { to: [0.6, -1.33], dur: 1.35, steps: 1.3, stride: 0.55 });
+A(WALK, "phx", "move", { to: [0.6, -1.18], dur: 1.35, steps: 1.3, stride: 0.55 });
 // the fry held up between them, both leaning in to it
 c.arm(CUT8, "phx", "R", "rest", 0); c.arm(CUT8, "phx", "L", { x: [0.26, 0.6, 0.32] }, 0);
 c.arm(9.15, "phx", "L", { x: [0.36, 0.78, 0.3] }, 0.4, "inOut");
 A(9.05, "rea2", "lean", { to: -8, dur: 0.6 }); A(9.05, "phx", "lean", { to: 8, dur: 0.6 });
-A(9.1, "rea2", "turn", { to: 150, dur: 0.55 }); A(9.1, "phx", "turn", { to: 212, dur: 0.55 });
+A(9.1, "rea2", "turn", { to: 140, dur: 0.55 }); A(9.1, "phx", "turn", { to: 220, dur: 0.55 });
 A(9.4, "rea2", "expr", { expr: "happy", set: { eye: 0.5, curve: 0.6, open: 0.25 }, dur: 0.3 });
 A(9.4, "phx", "expr", { expr: "happy", set: { eye: 0.4, curve: 0.6, open: 0.25 }, dur: 0.3 });
 sfx(8.62, "plunk", { gain: 0.5, reason: "a tiny goofy pluck as the zombie ending starts (the music stopped on the bite)" });
@@ -279,10 +280,10 @@ const beats = c.beats([
   ["2 the zombie", 2.0, fb([1.4, 0.62, -0.15], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
   ["3 wind-up", 2.8, fb([-0.5, 1.1, 0], { az: 6, el: -10, h: 1.65 })],
   ["4 the fry", SWING, fb([0.05, 1.05, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
-  ["5 he can't", CUT5, fb([-0.3, 0.75, 0.1], { az: 8, el: 4, h: 2.9 })],
-  ["6 hug", HUG, fb([0.15, 0.62, 0.05], { az: 0, el: 2, h: 1.7, push: 0.05, dur: 1.3 })],
-  ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: -14, el: -3, h: 1.3 }), "reaction"],
-  ["8 too", CUT8, fb([0.0, 0.8, -0.6], { az: -22, el: 8, h: 3.4, push: 0.06, dur: 1.5 })],
+  ["5 he can't", CUT5, fb([-0.12, 0.62, 0.1], { az: 8, el: 4, h: 1.75 })],
+  ["6 hug", HUG, fb([0.18, 0.7, 0.05], { az: 0, el: 2, h: 1.42, push: 0.05, dur: 1.3 })],
+  ["7 chomp", CUT7, fb([0.1, 0.98, 0.0], { az: 24, el: -3, h: 1.3 }), "reaction"],
+  ["8 too", CUT8, fb([0.05, 0.75, -0.6], { az: -24, el: 8, h: 2.6, push: 0.06, dur: 1.5 })],
 ], END);
 
 const ALLOW = [

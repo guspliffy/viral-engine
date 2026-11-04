@@ -337,12 +337,11 @@ function establishing(t) {
 // their colour on the first use) take a mix of the base colour and st.skinColor. A function of the state only.
 function skinTint(a, st) {
   if (!st.skinColor && !a._skinTint) return;
-  if (!a._skinTint) {
-    const base = a.ch.skin?.color?.getHex(), mats = new Set();
-    a.ch.root.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) if (m?.color && m.color.getHex() === base) mats.add(m); });
-    a._skinTint = { base: new THREE.Color(base), mats: [...mats] };
-  }
+  if (!a._skinTint) a._skinTint = { base: new THREE.Color(a.ch.skin?.color?.getHex()), mats: new Set() };
   const T = a._skinTint, c = T.base.clone().lerp(new THREE.Color(st.skinColor || T.base), clamp(st.skin || 0));
+  // the look swaps materials for its own copies (looks.js), so pick up every skin-coloured one each frame
+  a.ch.root.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) if (m?.color && !T.mats.has(m) && m.color.equals(T.base)) T.mats.add(m); });
+  if (a.ch.skin) T.mats.add(a.ch.skin);
   for (const m of T.mats) m.color.copy(c);
 }
 

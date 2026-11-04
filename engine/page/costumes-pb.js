@@ -68,19 +68,19 @@ export function phoenixCostume(C, ch) {
     const ash = new THREE.Color(C.ash || "#857a72"), char = new THREE.Color("#3b3331"), c = new THREE.Color();
     const burn = (g) => g && g.traverse((o) => {
       const A = o.isMesh && o.geometry.attributes.color; if (!A || A.userData?.burnt) return;
-      for (const m of [].concat(o.material)) if (m?.emissive) m.emissive.setRGB(0, 0, 0);
+      for (const m of [].concat(o.material)) if (m?.emissive && !m.userData.zombieDim) { m.emissive.multiplyScalar(0.4); m.userData.zombieDim = true; }
       const P = o.geometry.attributes.position;
       for (let i = 0; i < A.count; i++) {
         c.setRGB(A.getX(i), A.getY(i), A.getZ(i));
         const red = Math.max(0, Math.min(1, (c.r - c.g) * 2.2)), n = 0.5 + 0.5 * Math.sin(P.getX(i) * 61 + P.getY(i) * 47 + P.getZ(i) * 29);
-        c.lerp(ash, 0.12 + 0.5 * n * n).lerp(char, red * 0.3);   // patchy: some feathers still burnt orange, some ash
+        c.lerp(ash, 0.06 + 0.4 * n * n).lerp(char, red * 0.25);   // patchy: some feathers still burnt orange, some ash
         A.setXYZ(i, c.r, c.g, c.b);
       }
       A.needsUpdate = true; A.userData = { burnt: true };
     });
     for (const W of wings) burn(W.fan);
     burn(sheetTail);   // the crest keeps its flame orange (Jonny's panels): only wings and tail are burnt out
-    mat.emissive = new THREE.Color("#000000"); mat.roughness = 0.85;
+    if (!mat.userData.zombieDim) { mat.emissive?.multiplyScalar(0.4); mat.userData.zombieDim = true; } mat.roughness = 0.85;   // the flame glow dimmed, not gone
   }
   // "charge" makes the Phoenix blaze: the feathers glow, a halo grows behind it and it lights the room round it
   const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,225,1)"], [0.3, "rgba(255,214,120,0.75)"], [0.65, "rgba(255,140,60,0.25)"], [1, "rgba(255,120,40,0)"]]), transparent: true, depthWrite: false }));
