@@ -1401,7 +1401,7 @@ function iphone(P) {
     chrome(); tex.needsUpdate = true;
   };
   return { grip: 0.05, apply(ps) {
-    const f = Math.max(0, Math.floor(ps.feed + 1e-6)), n = Math.floor(ps.nextFeed + 1e-6), sc = clamp(ps.scroll), key = `${f}|${n}|${sc.toFixed(4)}|${!!pics.atlas}`;
+    const f = Math.max(0, Math.floor(ps.feed + 1e-6)), n = Math.floor(ps.nextFeed + 1e-6), sc = clamp(ps.scroll), key = `${f}|${n}|${sc}|${!!pics.atlas}`;
     if (key !== drawn) { drawn = key; draw(f, n, sc); }
   } };
 }
