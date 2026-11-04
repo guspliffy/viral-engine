@@ -1,0 +1,215 @@
+{
+ "about": "castLook \"sheet\" faces and skin (thread \"Bring the sheet faces and skin to the cast\", 4 Nov 2026), copied from Jonny's design sheets in /mnt/project-files/references/cast-sheets-v1 and the quality plan's Appendices B and C. engine/load.mjs applies them by costume type. rest: the character's resting face in face.js expression numbers (it replaces the generic \"kind\" face and colours calm expressions; full reactions stay as they are). lids: the resting upper lids [left, right]. Everything else merges into the character file's face.",
+ "all": {
+  "skin": "#f9b75c",
+  "iris": "#5a1e10",
+  "eye": {
+   "iris": 0.74,
+   "oval": 1.42,
+   "lash": 1.55,
+   "flick": 0.7,
+   "corner": 0,
+   "glintSize": 1.3,
+   "glints": 1,
+   "irisShade": true
+  },
+  "browShape": {
+   "thick": 1.3,
+   "taper": 0.8,
+   "tip": 0.0035,
+   "arch": 0.06,
+   "clear": 0.01,
+   "inner": 0.17,
+   "outer": 0.62
+  },
+  "freckles": 5,
+  "blush": 1.6
+ },
+ "types": {
+  "reaper": {
+   "rest": {
+    "tilt": 0.02,
+    "browY": -0.004,
+    "curve": 0.42,
+    "open": 0,
+    "eye": 0.95,
+    "pupil": 1,
+    "smirk": 0.42,
+    "raise": 0
+   },
+   "lids": [
+    0.6,
+    0.6
+   ],
+   "eye": {
+    "flick": 0.45
+   },
+   "browShape": {
+    "arch": 0.03
+   },
+   "blush": 1.3
+  },
+  "phoenix": {
+   "rest": {
+    "tilt": 0.26,
+    "browY": 0.03,
+    "curve": 0.9,
+    "open": 0.3,
+    "eye": 1.1,
+    "pupil": 1.05,
+    "smirk": 0.1,
+    "raise": 0.02
+   },
+   "lids": [
+    0.08,
+    0.08
+   ],
+   "blush": 1.9
+  },
+  "astronaut": {
+   "rest": {
+    "tilt": 0.3,
+    "browY": 0.03,
+    "curve": 0.48,
+    "open": 0,
+    "eye": 1.1,
+    "pupil": 1.05,
+    "smirk": 0.32,
+    "raise": 0.015
+   },
+   "lids": [
+    0.12,
+    0.12
+   ]
+  },
+  "viking": {
+   "rest": {
+    "tilt": -0.2,
+    "browY": -0.012,
+    "curve": 0.95,
+    "open": 0.45,
+    "eye": 0.88,
+    "pupil": 1,
+    "smirk": 0.3,
+    "raise": 0
+   },
+   "lids": [
+    0.42,
+    0.42
+   ],
+   "iris": "#3f8a3a",
+   "browShape": {
+    "thick": 1.6,
+    "arch": 0.025
+   }
+  },
+  "cowboy": {
+   "rest": {
+    "tilt": -0.18,
+    "browY": 0,
+    "curve": 0.45,
+    "open": 0,
+    "eye": 0.92,
+    "pupil": 1,
+    "smirk": 0.8,
+    "raise": 0.045
+   },
+   "lids": [
+    0.45,
+    0.55
+   ]
+  },
+  "dragon": {
+   "rest": {
+    "tilt": 0.4,
+    "browY": 0.01,
+    "curve": 0.62,
+    "open": 0,
+    "eye": 1.02,
+    "pupil": 1.05,
+    "smirk": -0.32,
+    "raise": 0.04
+   },
+   "lids": [
+    0.18,
+    0.18
+   ]
+  },
+  "allfather": {
+   "rest": {
+    "tilt": 0.1,
+    "browY": 0,
+    "curve": 0.5,
+    "open": 0,
+    "eye": 0.95,
+    "pupil": 1,
+    "smirk": 0,
+    "raise": 0
+   },
+   "lids": [
+    0.4,
+    0.4
+   ],
+   "iris": "#2f62c4"
+  },
+  "samurai": {
+   "rest": {
+    "tilt": -0.32,
+    "browY": -0.012,
+    "curve": 0.2,
+    "open": 0,
+    "eye": 0.86,
+    "pupil": 1,
+    "smirk": 0.12,
+    "raise": 0
+   },
+   "lids": [
+    0.45,
+    0.45
+   ],
+   "browShape": {
+    "arch": 0.015,
+    "thick": 1.45
+   }
+  },
+  "wizard": {
+   "rest": {
+    "tilt": 0.42,
+    "browY": 0.02,
+    "curve": 0.5,
+    "open": 0,
+    "eye": 1.04,
+    "pupil": 1.05,
+    "smirk": 0.12,
+    "raise": 0.06
+   },
+   "lids": [
+    0.12,
+    0.22
+   ]
+  },
+  "sorcerer": {
+   "rest": {
+    "tilt": -0.14,
+    "browY": 0.01,
+    "curve": 0.55,
+    "open": 0,
+    "eye": 0.85,
+    "pupil": 1,
+    "smirk": 0.35,
+    "raise": 0.015
+   },
+   "lids": [
+    0.4,
+    0.4
+   ],
+   "iris": "#5a2f9a",
+   "eye": {
+    "tilt": 0.3
+   },
+   "browShape": {
+    "arch": 0.08
+   }
+  }
+ }
+}
