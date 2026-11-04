@@ -124,11 +124,11 @@
    "target": "phone",
    "at": [
     0,
-    0.4,
+    0.6,
     0
    ],
    "len": 0.5,
-   "maxPitch": 0.55
+   "maxPitch": 0.75
   }
  ],
  "captions": [],
@@ -436,7 +436,7 @@
   {
    "name": "the yank",
    "at": 1.5,
-   "len": 0.9,
+   "len": 1.5,
    "do": [
     {
      "do": "prop",
@@ -570,8 +570,8 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      0.72,
-      0.5
+      0.78,
+      0.62
      ],
      "dur": 0.4,
      "ease": "inOut",
@@ -585,20 +585,33 @@
      "shape": "hold",
      "dur": 0.12,
      "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
     }
    ]
   },
   {
    "name": "double take",
-   "at": 2.4,
-   "len": 2.9,
+   "at": 3,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.1,
+     0.96,
+     5.3
+    ],
+    "look": [
+     0.1,
+     0.82,
+     0
+    ],
+    "fov": 36
+   },
    "do": [
-    {
-     "who": "phx",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.3
-    },
     {
      "who": "wiz",
      "do": "look",
@@ -608,7 +621,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.65
+     "at": 0.05
     },
     {
      "who": "phx",
@@ -616,24 +629,32 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.8
+     "at": 0.2
     },
     {
      "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.9
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.22
     },
     {
      "who": "wiz",
      "do": "look",
      "to": [
-      -0.2,
-      -0.5
+      -0.7,
+      -0.15
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.9
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
     },
     {
      "who": "phx",
@@ -641,7 +662,15 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.96
+     "at": 0.36
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.5
     },
     {
      "who": "wiz",
@@ -652,7 +681,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.1
+     "at": 0.5
     },
     {
      "who": "wiz",
@@ -664,21 +693,21 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 1.1
+     "at": 0.5
     },
     {
      "who": "wiz",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 1.1
+     "at": 0.5
     },
     {
      "who": "wiz",
      "do": "still",
      "dur": 0.55,
      "idle": 0.08,
-     "at": 1.1
+     "at": 0.5
     },
     {
      "who": "phx",
@@ -686,7 +715,7 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 1.6
+     "at": 1
     },
     {
      "who": "wiz",
@@ -694,28 +723,28 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 1.6
+     "at": 1
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 1.65
+     "at": 1.05
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 1.65
+     "at": 1.05
     },
     {
      "who": "wiz",
      "do": "still",
      "dur": 0.8,
      "idle": 0.06,
-     "at": 1.7
+     "at": 1.1
     },
     {
      "who": "phx",
@@ -723,19 +752,19 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 1.76
+     "at": 1.16
     },
     {
      "sfx": "notify",
      "gain": 0.32,
-     "at": 2.1
+     "at": 1.5
     },
     {
      "fx": "pop",
      "text": "ping!",
      "who": "phx",
      "dur": 0.45,
-     "at": 2.1
+     "at": 1.5
     },
     {
      "who": "phx",
@@ -745,21 +774,21 @@
       "curve": 0.72
      },
      "dur": 0.25,
-     "at": 2.2
+     "at": 1.6
     },
     {
      "who": "phx",
      "do": "face",
      "lid": 0.9,
      "dur": 0.2,
-     "at": 2.2
+     "at": 1.6
     },
     {
      "who": "phx",
      "do": "squash",
      "amount": 0.025,
      "dur": 0.25,
-     "at": 2.28
+     "at": 1.68
     },
     {
      "who": "phx",
@@ -767,13 +796,13 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 2.6
+     "at": 2
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 2.75
+     "at": 2.15
     },
     {
      "who": "phx",
@@ -781,7 +810,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 2.76
+     "at": 2.16
     }
    ]
   },
@@ -789,19 +818,6 @@
    "name": "the horn",
    "at": 5.3,
    "len": 1.4,
-   "shot": {
-    "pos": [
-     0.16,
-     0.96,
-     5.3
-    ],
-    "look": [
-     0.16,
-     0.82,
-     0
-    ],
-    "fov": 36
-   },
    "do": [
     {
      "who": "phx",
@@ -1135,24 +1151,24 @@
    "len": 1.25,
    "shot": {
     "pos": [
-     0.16,
+     0.1,
      0.96,
      5.3
     ],
     "look": [
-     0.16,
+     0.1,
      0.82,
      0
     ],
     "fov": 36,
     "to": {
      "pos": [
-      0.1,
+      -0.02,
       0.97,
-      5.05
+      5.1
      ],
      "look": [
-      0.1,
+      -0.02,
       0.86,
       0
      ],

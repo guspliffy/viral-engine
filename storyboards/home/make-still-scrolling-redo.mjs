@@ -31,7 +31,7 @@ const STOOL0 = [-0.5, 0.06], STOOL1 = [0.1, 0.02];                // the yank pu
 const WIZ0 = [0.66, 0.36];                                         // frame 0: half a step out, already coming in
 const WIZ_GRIP = [0.55, 0.28];                                     // crouched at the stool's right side
 const WIZ_END = [WIZ_GRIP[0] + STOOL1[0] - STOOL0[0], WIZ_GRIP[1] + STOOL1[1] - STOOL0[1]];   // pulled back with it
-const WIZ_STAND = [0.72, 0.5];                                     // up, off the stool, facing the hover
+const WIZ_STAND = [0.78, 0.62];                                   // up, off the stool, facing the hover
 const WIZ_HORN = [Number(process.env.HX ?? 0.56), Number(process.env.HZ ?? 0.86)];   // in at Phoenix's side for the horn
 const SEAT = 0.42 - 0.12, LIFT = Number(process.env.LIFT ?? 0.18);  // Phoenix's seated root height, and the hover's rise
 const DRIFT = 0.07;                                                // how far the big toot pushes him (m)
@@ -55,7 +55,7 @@ const props = [
   { id: "stool", kind: "stool", x: STOOL0[0], z: STOOL0[1] },
   { id: "phone", kind: "phone", x: STOOL0[0], y: 0.9, z: 0.45, rot: 180, tip: -28, scale: 1.9, case: "#7cc4bd" },
   // the escalation's one extra prop: a paper party horn in the Wizard's lips, pointed at Phoenix's phone hand
-  { id: "horn", kind: "partyhorn", mouth: "wiz", target: "phone", at: [0, Number(process.env.HY ?? 0.4), 0], len: 0.5, maxPitch: 0.55 },
+  { id: "horn", kind: "partyhorn", mouth: "wiz", target: "phone", at: [0, Number(process.env.HY ?? 0.6), 0], len: 0.5, maxPitch: 0.75 },
 ];
 
 // ---------------------------------------------------------------- 1 THE GRAB 0-1.5: frame 0 is already the prank
@@ -112,7 +112,9 @@ A(2.35, "wiz", "move", { to: WIZ_STAND, dur: 0.4, ease: "inOut", steps: 1 });
 A(2.15, "wiz", "look", { to: WIZ_AT_STOOL_R, dur: 0.2, blink: false });            // at the empty stool by his feet
 A(2.15, "wiz", "expr", { expr: "kind", set: { curve: 0.3 }, dur: 0.2 });
 A(3.05, "wiz", "look", { to: WIZ_AT_PHX_UP, dur: 0.12, blink: false });           // up at Phoenix...
-A(3.3, "wiz", "look", { to: WIZ_AT_STOOL_R, dur: 0.12, blink: false });          // ...the stool...
+A(3.25, "wiz", "look", { to: [-0.7, -0.15], dur: 0.12, blink: false });            // ...he ducks and peeks under him (nothing there)...
+A(3.22, "wiz", "crouch", { to: 0.5, dur: 0.18, ease: "out" });
+A(3.5, "wiz", "crouch", { to: 0, dur: 0.2, ease: "inOut" });
 A(3.5, "wiz", "look", { to: WIZ_AT_PHX_UP, dur: 0.12, blink: false });            // ...Phoenix: the double take
 act.shock(c, 3.5, "wiz", { hold: 0.35 });
 act.mood(c, 4.0, "wiz", "annoyed", { hold: 0.6 });                                 // the squint
@@ -164,13 +166,13 @@ see(8.6, 9.0, ["wiz.face", "phx.face", "horn", "phone"], "the end: the Wizard's 
 
 // ---------------------------------------------------------------- shots (one static master, then the escalation closer)
 const MED = { pos: [0.22, 1.02, 6.7], look: [0.22, 0.8, 0], fov: 36 };              // both, the stool and the floor
-const TWO = { pos: [0.16, 0.96, 5.3], look: [0.16, 0.82, 0], fov: 36 };           // the horn two-shot
-const PUSH = { pos: [0.1, 0.97, 5.05], look: [0.1, 0.86, 0], fov: 36 };
+const TWO = { pos: [0.1, 0.96, 5.3], look: [0.1, 0.82, 0], fov: 36 };             // the horn two-shot
+const PUSH = { pos: [-0.02, 0.97, 5.1], look: [-0.02, 0.86, 0], fov: 36 };
 const beats = c.beats([
   ["the grab", 0, MED, "hook"],
   ["the yank", YANK, null],
-  ["double take", 2.4, null],
-  ["the horn", 5.3, TWO, "escalation"],
+  ["double take", 3.0, TWO],
+  ["the horn", 5.3, null, "escalation"],
   ["the big toot", 6.7, null, "payoff"],
   ["the look", 7.75, { ...TWO, to: PUSH, dur: 1.25, ease: "inOut" }, "reaction"],
 ], END);
