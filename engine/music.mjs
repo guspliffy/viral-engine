@@ -21,6 +21,7 @@ import { musicFlavour, seedOf, renderBeat } from "../puppet/beat.mjs";
 import { isHit, hitTime } from "./sfx/library.mjs";
 import { isDance } from "./page/dance.js";
 import { soundClock } from "./shared/holds.js";
+import { biquad, run } from "./sfx/dsp.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MANIFEST = path.join(ROOT, "assets/music/ai/manifest.json");
@@ -179,7 +180,11 @@ export function addMusic(sb, audio) {
   if (sb.music === false) return [];
   const music = { gain: 0.45, ...(sb.music || {}) }, dur = sb.duration, log = [];
   const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain; let pk = 0;
-  log.push(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
+  // "phone": true (or "lowcut": Hz) cuts the bed's sub-bass, which a phone speaker can't play and which hid every hit
+  // in the phone band (qa/sound.mjs, 4 Nov 2026: Never Prank 11 % in band); two 2-pole high-passes, 24 dB/octave
+  const cut = music.lowcut ?? (music.phone ? 150 : 0);
+  if (cut > 0) for (const ch of [M.L, M.R]) { const a = biquad("hp", cut, 0.707), b = biquad("hp", cut, 0.707); for (let i = 0; i < ch.length; i++) ch[i] = run(b, run(a, ch[i])); }
+  log.push(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}${cut > 0 ? `, cut under ${cut} Hz for phones` : ""}`);
   if (music.lock?.miss) {
     const m = music.lock.miss, key = m.find((x) => x.what === "payoff" || x.what === "music stops");
     log.push(`music locked to the story: grid from ${music.lock.offset.toFixed(3)}s${music.skip != null ? ` (${music.skip}s into the file)` : ""}${music.parts ? `, parts ${music.parts.map((p) => `${p.part}@${p.at}`).join(" ")}` : ""}; ${key ? `${key.what} at ${key.t}s ${key.ms} ms off beat 1, ` : ""}${m.filter((x) => x.ms <= 33).length}/${m.length} story moments within a frame of a beat`);
