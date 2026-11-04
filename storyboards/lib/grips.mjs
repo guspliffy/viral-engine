@@ -44,6 +44,10 @@ const SIZE = {
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
+  teamug: { r: 0.045, h: 0.085 },                  // props-bonfire.js: campmug's size and handle, white china with steam
+  toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
+  // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
+  sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
@@ -51,7 +55,7 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
-const TURN = { campmug: -125 };
+const TURN = { campmug: -125, teamug: -125 };
 // the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
 const HAND = 1.7;
 
