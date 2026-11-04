@@ -28,8 +28,9 @@ export function compare(name, character, castLook, shot) {
     camera: [{ at: 0, ...SHOTS[shot] }, { at: 2.6, ...SHOTS[shot] }],
     cast: [{ id: "c", character, at: [0, 0], face: -18, expr: "kind", follow: 0.25, seed: 1.3 }],
     actions: [
+      { who: "c", at: 0.0, do: "noblink" },   // one blink only (2.15 s), so the faces can be compared
       { who: "c", at: 0.0, do: "look", to: [0.12, 0.05], dur: 0.01, blink: false },
-      { who: "c", at: 0.9, do: "look", to: [-0.55, 0.0], dur: 0.25 },
+      { who: "c", at: 0.9, do: "look", to: [-0.55, 0.0], dur: 0.25, blink: false },
       { who: "c", at: 1.7, do: "look", to: [0.12, 0.05], dur: 0.25, blink: false },
       { who: "c", at: 2.15, do: "blink" },
     ],
