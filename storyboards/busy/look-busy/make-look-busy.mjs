@@ -163,7 +163,10 @@ A(7.92, "bos", "turn", { to: BOSS_YAW + 35, dur: 0.32 });
 PH.carry(7.9, [PLATE_SPOT[0], DESK_Y + 0.06, PLATE_SPOT[2]], 0.32, "inOut", { rot: BOSS_YAW + 195 });
 PH.place(8.22, PLATE_SPOT, 0.13);
 sfx(8.35, "put-down", { gain: 0.8, reason: "the MANAGER sign set down on the desk" });
-PH.release(8.42, { rest: { o: [0.3, 0.3, 0.12] }, back: 0.3 });
+// let go and bring each hand back on its own side (the hold's "away" offsets were set for the walk-in heading and
+// would swing the far arm across his chest after the turn)
+A(8.42, "bos", "release", { prop: "plate", dur: 0 });
+for (const side of ["L", "R"]) { A(8.42, "bos", "grip", { side, shape: "open", dur: 0.15 }); c.arm(8.46, "bos", side, { o: [0.3, 0.3, 0.12] }, 0.45, "out"); A(8.75, "bos", "grip", { side, shape: "relaxed", dur: 0.3 }); }
 // the arm holds still in the air through "Promoted." (keep strokes off the line), then goes on
 H.carry(8.0, [0.62, DESK_Y + 0.1, 0.5], 0.3, "out");
 c.macro(8.45, "bos", "say", { line: "Promoted.", tone: "calm", pos: 300 });

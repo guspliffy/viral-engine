@@ -2234,7 +2234,7 @@
     {
      "who": "bos",
      "do": "grip",
-     "side": "R",
+     "side": "L",
      "shape": "open",
      "dur": 0.15,
      "at": 0.92
@@ -2242,7 +2242,7 @@
     {
      "who": "bos",
      "do": "grip",
-     "side": "L",
+     "side": "R",
      "shape": "open",
      "dur": 0.15,
      "at": 0.92
@@ -2258,44 +2258,30 @@
     {
      "who": "bos",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
-      "prop": "plate",
-      "grip": [
-       0.225,
-       0.09,
-       0
-      ],
-      "palm": true,
-      "off": [
-       -0.03,
-       0.02,
-       0.08
+      "o": [
+       0.3,
+       0.3,
+       0.12
       ]
      },
-     "dur": 0.3,
+     "dur": 0.45,
      "ease": "out",
      "at": 0.96
     },
     {
      "who": "bos",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
-      "prop": "plate",
-      "grip": [
-       -0.225,
-       0.09,
-       0
-      ],
-      "palm": true,
-      "off": [
-       -0.03,
-       0.02,
-       -0.08
+      "o": [
+       0.3,
+       0.3,
+       0.12
       ]
      },
-     "dur": 0.3,
+     "dur": 0.45,
      "ease": "out",
      "at": 0.96
     },
@@ -2311,18 +2297,11 @@
     },
     {
      "who": "bos",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.3,
-       0.12
-      ]
-     },
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.26
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.25
     },
     {
      "who": "bos",
@@ -2330,30 +2309,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.3,
-     "at": 1.26
-    },
-    {
-     "who": "bos",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.3,
-       0.3,
-       0.12
-      ]
-     },
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.26
-    },
-    {
-     "who": "bos",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.26
+     "at": 1.25
     }
    ],
    "kind": "payoff"
