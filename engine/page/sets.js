@@ -59,7 +59,7 @@ function groundTexture(inner, outer) {
 // and in the caption-coverage silhouette). The stage is around x -1..1, z 0; cameras look from +z.
 export function buildSet(scene, spec = {}, palette = null, eye = null) {
   const r = buildSetType(scene, spec, palette);
-  if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light });   // set-plate.js: a painted backdrop behind the 3D stage
+  if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light, under: spec.floor === "shadow" });   // set-plate.js: a painted backdrop behind the 3D stage
   for (const p of spec.plates || []) addPlate(scene, { dust: 0, ...p, depth: false, motion: false }, { eye, light: spec.light });   // side walls
   if (spec.air) addAir(scene, spec.air, { eye });   // set-air.js: sunbeams and drifting motes (Phase 2, living world)
   if (spec.models || spec.scatter) addModels(scene, spec);   // assets-gltf.js: real 3D models (CC0 kit, Blender), preloaded by stage.js
@@ -105,6 +105,16 @@ function buildSetType(scene, spec, palette) {
 function plain(scene, spec) {
   const S = { color: "#efe4d2", floor: "#e6d8c2", ...spec };
   scene.background = new THREE.Color(S.color);
+  // floor "shadow": a see-through floor that only darkens where shadows fall, so a plate's painted ground shows under
+  // the feet (a photo composite), with an invisible depth mask that hides anything sinking below y 0 (a giant rising
+  // from behind the group); spec.shadow is the shadows' strength
+  if (S.floor === "shadow") {
+    const mask = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshBasicMaterial({ colorWrite: false }));
+    mask.rotation.x = -Math.PI / 2; mask.renderOrder = -999; mask.name = "set-floor-mask"; mask.material.userData.noOutline = true; scene.add(mask);
+    const sh = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.ShadowMaterial({ opacity: S.shadow ?? 0.32 }));
+    sh.rotation.x = -Math.PI / 2; sh.position.y = 0.001; sh.receiveShadow = true; sh.material.userData.noOutline = true; scene.add(sh);
+    return;   // no sky dome: it would paint over the plate, which keeps out of the depth buffer
+  }
   scene.add(skyDome(S.color, S.color, S.floor));
   const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ color: S.floor }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; ground.material.userData.noOutline = true; scene.add(ground);
