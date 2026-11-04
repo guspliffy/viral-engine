@@ -13,6 +13,7 @@ import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, met
 
 const mesh = (g, m, shadow = true) => { const o = new THREE.Mesh(g, m); o.castShadow = o.receiveShadow = shadow; return o; };
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const hash = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 
 // hair (and flame) locks rising from the crown and sweeping back like a flame: L = [az, el, len, width, side, lean]
 function flameLocks(ch, L, o = {}) {
@@ -34,6 +35,7 @@ function flameLocks(ch, L, o = {}) {
 
 // ---------- Viking: flame-orange crest on the crown, fur mantle, red tunic with a cut hem, leather belt -----------
 function viking(C, ch, out) {
+  if (C.sheet) return vikingSheet(C, ch, out);
   const parts = ch.potatoParts, hairC = C.hairDetail || "#e8642c";
   const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.75 });
   // a small scalp patch on the crown so the locks grow out of hair, not out of bare skin
@@ -597,4 +599,52 @@ export function cowboySheetHat(hat, C) {
   const a = 0.95, p = V(Math.cos(a) * 0.209 * 1.32, 0.032, Math.sin(a) * 0.209 * 0.8 * 1.32), n = V(Math.cos(a), 0, Math.sin(a) * 0.8).normalize();
   hat.group.add(stitches(p.addScaledVector(n, 0.004), n, V(0, 1, 0), 2, 0.026, "#d9b98a"));
   void crease;
+}
+
+// ---------- Viking (sheet): "Broad stance, Bold expression, Layered fur, Leather + steel, Chipped axe" ------------------
+// Copper hair in three chunky sculpted locks swept back (not the Phoenix's flames), a cream fur mantle of broad
+// overlapping clumps round the shoulders, a red tunic with a visible overlap seam, a wide belt with a round gold buckle,
+// and a leather strap from the right shoulder that meets the buckle.
+function vikingSheet(C, ch, out) {
+  const parts = ch.potatoParts;
+  const cap = mesh(scalp(ch, (az, el) => sstep(0.98, 1.08, el + 0.04 * Math.sin(az * 5)), 0.018), new THREE.MeshStandardMaterial({ color: "#b4481e", roughness: 0.85 }));
+  parts.add(cap);
+  const hairM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 0.8 }); hairM.userData.lookRole = "hair";
+  const locks = [[0.1, 1.15, 0.42, 0.17, 0.1, 0.12], [-0.6, 1.12, 0.34, 0.15, -0.25, 0.05], [0.7, 1.12, 0.34, 0.15, 0.3, 0.05], [-1.35, 1.14, 0.22, 0.1, -0.4, 0], [1.4, 1.14, 0.22, 0.1, 0.4, 0], [2.9, 1.24, 0.2, 0.1, 0.1, 0]];
+  const fl = flameLocks(ch, locks, { tint: ["#a83f1a", "#e0702c", 1.1], thick: 0.075, ink: { width: 0.0032 } });
+  parts.add(mesh(fl, hairM)); if (fl.userData.ink) parts.add(inkMesh(fl.userData.ink, "#8a3010", 0.6));
+  // the tunic: wrapped round, hanging free in a few broad folds; the overlap's edge down the front left, topstitched
+  const tunicC = C.tunic || "#b83228";
+  // above the belt the tunic is fitted; below it the skirt hangs free in a few broad folds
+  parts.add(drapeMesh(ch, { top: -0.4, hem: -0.68, free: false, flare: 0, lift: 0.022, lift0: 0.016, thick: 0.02, folds: [[1.6, 0.008, 0.3], [4.6, 0.008, 0.3]], sag: 0, drift: [0, 1, 0], grad: 0.06, rollR: 0, ink: false }, tunicC, "#7e1d16"));
+  const tunic = drapeMesh(ch, {
+    top: -0.64, hem: -1.24, flare: 0.045, lift: 0.028, lift0: 0.02, liftRamp: 0.4, thick: 0.022,
+    folds: [[0.35, 0.02, 0.12], [1.0, 0.022, 0.3], [1.9, -0.018, 0.22], [2.7, 0.026, 0.35], [3.6, -0.02, 0.22], [4.5, 0.024, 0.3], [5.4, -0.016, 0.2]],
+    sag: 0.8, drift: [0.02, 1.6, 0.4], grad: 0.16, rollR: 0.014, rollColor: "#7e1d16", ink: { width: 0.0045 },
+  }, tunicC, "#7e1d16");
+  parts.add(tunic);
+  { const D = tunic.userData.drape, edge = []; for (let j = 0; j <= 20; j++) { const v = 0.05 + 0.95 * (j / 20); edge.push(D.at(0.36 + 0.06 * (j / 20), v, D.thick + 0.004)); }
+    parts.add(roll(edge, 0.01, clothMat(new THREE.Color(tunicC).multiplyScalar(0.8))));
+    parts.add(topstitch(edge.map((p) => p.clone().add(V(-0.025, 0, 0.004))), "#e7c9a0", { step: 0.03 })); }
+  // the belt and buckle, the strap from the right shoulder down to the buckle
+  parts.add(mesh(band(ch, { ph: -0.66, w: 0.062, t: 0.024, lift: 0.05 }), leatherMat("#5a3820")));
+  parts.add(roundClasp(ch, 0, -0.66, 0.08, 0.085, "#e0b040"));
+  parts.add(strap(ch, [-1.05, -0.12], [-0.12, -0.6], 0.024, leatherMat("#6b4325")));
+  // the fur mantle: broad clumps round the shoulders and back in two overlapping rows, open at the chest
+  const furM = new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 1, side: THREE.DoubleSide }); furM.userData.lookRole = "hair";
+  const clumps = [];
+  // broad rounded clumps, few and fat (the sheet's "few broad overlapping clumps"), sizes uneven, never in a rhythm
+  const rows = [[-0.1, 0.17, 0.17, 0.09, 9, 0], [-0.27, 0.2, 0.18, 0.095, 8, 0.5]];
+  for (const [el, len, w, h, n, off] of rows) for (let i = 0; i < n; i++) {
+    const r = hash(i * 3.7 + el * 11), az = 0.82 + (Math.PI * 2 - 1.64) * ((i + off + 0.25 * (r - 0.5)) / (n - 1 + off));
+    if (az > Math.PI * 2 - 0.8 || az < 0.8) continue;
+    const L = len * (0.8 + 0.4 * r), elx = el + 0.04 * (r - 0.5);
+    const { pts, ups } = onBody(ch, [[az, elx + 0.1, -0.02], [az + 0.01, elx + 0.02, 0.06 + 0.02 * r], [az + 0.02, elx - 0.08, 0.095 + 0.02 * r], [az + 0.05 * (r - 0.5), elx - L / ch.ry * 0.85, 0.11 + 0.03 * r]]);
+    const g = lock(pts, ups, w * (0.85 + 0.35 * r), h, (t) => Math.pow(Math.sin(Math.PI * Math.min(1, 0.04 + t * 0.96)), 0.5) * (1 - 0.25 * t), 22, 12);
+    tintAlong(g, "#d9c7a2", "#fbf4e4", 0.8); clumps.push(g);
+  }
+  const fur = mergeGeometries(clumps); parts.add(mesh(fur, furM));
+  const fi = lockInk(clumps, { width: 0.0024, off: 0.25, to: 0.45 }); if (fi) parts.add(inkMesh(fi, "#c9b28a", 0.85));
+  out.prop = axe(C); out.sitDepth = 0.04;
+  return out;
 }
