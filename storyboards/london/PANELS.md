@@ -30,3 +30,19 @@ env-specs/london-rooftop-night.spec.json (paint 4 seeds, pick the one closest to
 3D floor; parapet, string lights, deck chairs, bucket, mug and toffee apple are 3D props on it. Risk: panel 4's low angle
 looking up may tilt past the env's safe range (meadow-path allowed about ±8°); check with `node qa/env.mjs --range`,
 and if it fails, frame panel 4 as a slight up-angle with Phoenix high in the painted sky rather than a steep tilt.
+
+## As built (4 Nov 2026) and departures, with reasons
+
+- **Set**: not the env system. The env painting's eye-level promenade didn't fit a rooftop, so the skyline is a painted
+  plate (`assets/plates/thames-night.png`, z -14) behind a 3D rooftop (`engine/page/props-bonfire.js`). The plate
+  has **no London Eye** (none of the paintings had a usable one; adding it means new art).
+- **Mug**: the panels park it on the parapet. Here Reaper stands up with it in P5 and sets it on a crate by the wall
+  (the parapet is out of his reach from where he takes the bucket); it keeps steaming there.
+- **Bucket**: starts on a crate by the wall (not the floor), so Reaper can take it at standing height. In P8 he keeps
+  holding it (the panel has it on the floor): a put-down in the last 1.5 s would steal the reaction, and the last frame
+  keeps the glowing ash at chest height.
+- **P5**: Reaper is standing (he got up at 3.85 s to watch), not in the chair; the Wizard's apple drops on the burst
+  (4.88 s), as the brief says.
+- **P2**: framed wider than the panel's medium so the Wizard's bite and eye-roll stay on screen (review A).
+- **Vertical frame**: the panels' compositions fit; Reaper's chair sits nearer the centre than in panel 1 so all three
+  faces are inside the safe zone from frame 0.

@@ -7,7 +7,7 @@ import { steamWisps } from "./steam.js";
 //   parapet      a low brick parapet with a stone coping (origin: its bottom middle; spec.w along x, spec.h, spec.d).
 //                Its top is at spec.h + COPING.h: Phoenix stands on it.
 //   stringlights warm festoon bulbs on a sagging wire through spec.points ([[x, y, z], ...] from the prop's origin);
-//                lit 0..1 (default 1), wobble 0..1 swings the wire (the launch's gust).
+//                lit 0..1 (set lit: 1 in the spec: the shared prop state starts at 0), wobble 0..1 swings the wire (the launch's gust).
 //   deckchair    a striped canvas deck chair on a wooden frame, facing +z (spec.color, spec.stripe). "sit" works on it.
 //   blanket      a tartan blanket over a seated lap (origin: the chair's origin; spec.color, spec.check). fall 0..1:
 //                left behind on the chair when the sitter stands (it slumps onto the sling).
@@ -92,8 +92,9 @@ export const BONFIRE_KINDS = {
       const bulbs = [];
       for (let k = 0; k < per; k++) {
         const u = (k + 0.5) / per, p = curve.getPoint(u);
-        const bulb = glowy(mesh(new THREE.SphereGeometry(0.022, 10, 8), bulbM, g, p.x, p.y - 0.03, p.z), 3); bulb.scale.y = 1.25;
-        const halo = spark(g, S.color ?? "#ffb54a", 0.2); halo.position.set(p.x, p.y - 0.03, p.z); halo.material.opacity = 0.45;
+        const br = S.bulb ?? 0.03;
+        const bulb = glowy(mesh(new THREE.SphereGeometry(br, 10, 8), bulbM, g, p.x, p.y - 0.03, p.z), 3); bulb.scale.y = 1.25;
+        const halo = spark(g, S.color ?? "#ffb54a", br * 12); halo.position.set(p.x, p.y - 0.03, p.z); halo.material.opacity = 0.7;
         bulbs.push({ bulb, halo, u, phase: rnd(i * 31 + k) * 6.28 });
       }
       // a span swings about the line between its two ends
@@ -112,7 +113,7 @@ export const BONFIRE_KINDS = {
           g.position.set(0, 0, 0); g.quaternion.setFromAxisAngle(g.userData.axis, ang);
           // keep the ends on their hooks: turn about the line through the span's ends
           const off = a.clone().sub(a.clone().applyQuaternion(g.quaternion)); g.position.copy(off);
-          for (const b of bulbs) { const f = 0.88 + 0.12 * Math.sin((t ?? 0) * 2.1 + b.phase); b.bulb.visible = true; b.bulb.material.color.set(lit > 0.5 ? (S.color ?? "#ffd27a") : "#6b5a3a"); b.halo.visible = lit > 0.01; b.halo.material.opacity = 0.45 * lit * f; }
+          for (const b of bulbs) { const f = 0.88 + 0.12 * Math.sin((t ?? 0) * 2.1 + b.phase); b.bulb.visible = true; b.bulb.material.color.set(lit > 0.5 ? (S.color ?? "#ffd27a") : "#6b5a3a"); b.halo.visible = lit > 0.01; b.halo.material.opacity = 0.7 * lit * f; }
         });
       },
     };
@@ -190,6 +191,26 @@ export const BONFIRE_KINDS = {
     const drip = mesh(new THREE.TorusGeometry(0.04, 0.012, 8, 20), mat("#8f0d16", { roughness: 0.1 }), P.whole, 0, 0.198, 0); drip.rotation.x = Math.PI / 2;
     const bite = mesh(new THREE.SphereGeometry(0.022, 10, 8), mat("#f3e2b6", { roughness: 0.6 }), P.whole, 0.04, 0.25, 0.018); bite.scale.set(0.35, 1, 1); bite.visible = !!P.spec.bitten;
     return { grip: 0.1 };
+  },
+
+  // the roof terrace's paving: square concrete slabs in a staggered bond, each a slightly different grey, with dark
+  // joints and a few stains (spec.w x spec.d, spec.tile: slab size in m); laid flat just above the set's floor
+  paving(P) {
+    const S = P.spec, w = S.w ?? 6, d = S.d ?? 4, tile = S.tile ?? 0.45;
+    const nx = Math.round(w / tile), nz = Math.round(d / tile), px = 64;
+    const tex = canvasTex(nx * px, nz * px, (g) => {
+      g.fillStyle = "#1d1b26"; g.fillRect(0, 0, nx * px, nz * px);
+      for (let j = 0; j < nz; j++) for (let i = -1; i <= nx; i++) {
+        const off = j % 2 ? px / 2 : 0, v = rnd(i * 7 + j * 131) * 0.18 - 0.09;
+        const base = [92, 88, 112].map((c) => Math.round(c * (1 + v)));
+        g.fillStyle = `rgb(${base})`; g.fillRect(i * px + off + 2, j * px + 2, px - 4, px - 4);
+        if (rnd(i * 13 + j * 17) > 0.8) { g.fillStyle = "rgba(20,18,30,0.18)"; g.beginPath(); g.ellipse(i * px + off + px * 0.5, j * px + px * 0.5, px * 0.3, px * 0.18, rnd(i + j) * 3, 0, 6.28); g.fill(); }
+      }
+    });
+    const m = mat("#ffffff", { roughness: 0.95 }); m.map = tex;
+    const floor = mesh(new THREE.PlaneGeometry(w, d), m, P.whole, 0, 0.002, 0); floor.rotation.x = -Math.PI / 2; floor.castShadow = false;
+    floor.userData.steam = true;   // the floor itself: never something a hand or foot goes "into"
+    return { grip: 0, apply() {} };
   },
 
   sandbucket(P) {
@@ -303,9 +324,9 @@ export const BONFIRE_KINDS = {
       const n = S.n ?? 90;
       for (let i = 0; i < n; i++) {
         const u = rnd(seed * 11 + i) * 2 - 1, a = rnd(seed * 13 + i) * 6.28, q = Math.sqrt(1 - u * u);
-        add([Math.cos(a) * q, u, Math.sin(a) * q * 0.4], i % 4 ? cMid : cTip, 0.06 * size, 0, 1);
+        add([Math.cos(a) * q, u, Math.sin(a) * q * 0.4], i % 4 ? cMid : cTip, S.star ?? 0.06 * size, 0, 1);   // spec.star: the star's size (m), so a far, small shell still shows
       }
-      for (let i = 0; i < 6; i++) add([0, 0, 0], cCore, 0.12 * size, 0, 0);
+      for (let i = 0; i < 6; i++) add([0, 0, 0], cCore, (S.star ?? 0.06 * size) * 2, 0, 0);
     }
     const flash = spark(P.whole, cCore, size * 1.2);
     return {
