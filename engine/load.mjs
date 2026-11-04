@@ -33,6 +33,7 @@ const CAST_LOOKS = {
   // costume.sheet (costume thread: costumes rebuilt from the sheets) and def.sheet (this thread: per-character resting
   // faces, brighter golden skin with a warm orange shadow, freckles, clean cel). A proposal until Jonny approves it.
   sheet: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true },
+  "sheet-hatch": { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true, art: true, sheet: true, hatch: true },
   board: { skinGold: 1, eyeSize: 1.1, oval: 1.5, eyeU: 0.39, eyeV: 0.27, corner: 0, lash: 1.4, browClear: 0.012, browThick: 0.75, iris: 0.7, irisShade: true, irisColor: "#5e2c12", blush: 1.7, glints: 1, mouthW: 0.2, detail: true },
 };
 export function castLook(def, look) {
@@ -62,6 +63,7 @@ export function castLook(def, look) {
     if (def.costume.type === "allfather") { F.brow = def.costume.hair || "#ece9e2"; F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * 1.6).toFixed(3) }; }
   }
   if (L.sheet) { def.sheet = true; if (def.costume) def.costume.sheet = true; }   // castLook "sheet": costumes and faces read these flags
+  if (L.hatch) def.sheetHatch = true;   // "sheet-hatch": the sheet look with round 3's pencil hatching kept in the shadows
   if (L.browThick) F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * L.browThick).toFixed(3) };
   if (L.blush) F.blush = +((F.blush ?? 1) * L.blush).toFixed(3);
   if (L.glints) F.eye = { ...F.eye, glints: L.glints };
@@ -70,7 +72,32 @@ export function castLook(def, look) {
   if (L.irisShade) F.eye = { ...F.eye, irisShade: true };
   const ih = hexHsl(F.iris || "#4a2a14");
   if (L.irisColor && ih[0] <= 40 && ih[2] < 0.35) F.iris = L.irisColor;   // brown eyes only (blue, green, purple keep theirs)
+  if (L.sheet) sheetFace(def);
   return def;
+}
+
+// castLook "sheet": each fighter's face and skin from Jonny's design sheets (characters/sheet-cast.json, by costume
+// type): the shared eye style (a bigger gradient iris, a heavier lid line, one bigger catch light), brighter golden
+// skin, a few freckles, and the character's own resting face (face.rest, drawn by potato.js), which replaces the
+// generic "kind" face and the old default + neutral numbers. Unknown types (kids, onions) only get the shared parts.
+let SHEET;
+function sheetFace(def) {
+  SHEET ||= JSON.parse(fs.readFileSync(path.join(ROOT, "characters", "sheet-cast.json"), "utf8"));
+  const A = SHEET.all, T = SHEET.types[def.costume?.type] || {}, F = def.face;
+  const sk = def.body?.color && hexHsl(def.body.color);
+  if (sk && sk[0] >= 20 && sk[0] <= 55 && sk[1] > 0.3 && sk[2] < 0.85) def.body.color = T.skin || A.skin;   // potato skins only
+  F.eye = { ...F.eye, ...A.eye, ...T.eye };
+  F.browShape = { ...F.browShape, ...A.browShape, ...T.browShape };
+  if (def.costume?.type === "allfather") F.browShape.thick = +(F.browShape.thick * 1.45).toFixed(3);   // his white brows stay bushy
+  const ih = hexHsl(F.iris || "#4a2a14");
+  F.iris = T.iris || (ih[0] <= 40 && ih[2] < 0.35 ? A.iris : F.iris);
+  F.freckles = T.freckles ?? A.freckles;
+  F.blush = T.blush ?? A.blush;
+  if (T.rest) {
+    F.rest = T.rest; F.default = "kind";
+    // the old neutral expression numbers are replaced by the rest face; the lids stay a per-eye control
+    F.neutral = { ...Object.fromEntries(Object.entries(F.neutral || {}).filter(([k]) => !(k in T.rest))), lidL: T.lids[0], lidR: T.lids[1] };
+  }
 }
 function hexHsl(hex) {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255), mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;

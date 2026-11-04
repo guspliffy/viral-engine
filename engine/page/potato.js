@@ -128,7 +128,11 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: B.color, seed: B.seed || 1 } : null, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    // face.rest (castLook "sheet", characters/sheet-cast.json): the character's own resting face. It is stored as the
+    // difference from the generic "kind" face and added to whatever the face is doing, fully on calm faces and fading
+    // out toward full reactions (shock, anger, a wide grin), so the personality shows without blunting the acting
+    if (F.rest) this.restBias = Object.fromEntries(Object.keys(EXPRESSIONS.kind).map((k) => [k, (F.rest[k] ?? EXPRESSIONS.kind[k]) - EXPRESSIONS.kind[k]]));
     this.potatoParts.add(this.face.group);
 
     // limbs
@@ -603,6 +607,11 @@ export class Character {
 
     // only speech rounds the lips through `round` (an expression's own "round" was never drawn; use "pucker")
     const e = { ...st.expr }; delete e.round;
+    if (this.restBias) {
+      const K = EXPRESSIONS.kind, far = Math.abs(e.open - K.open) * 1.6 + Math.abs(e.eye - K.eye) * 2.2 + Math.abs(e.curve - K.curve) * 0.9 + Math.abs(e.tilt - K.tilt) * 1.4 + Math.abs((e.pupil ?? 1) - 1) * 2;
+      const w = Math.max(0, Math.min(1, 1 - (far - 0.12) / 0.7));
+      for (const k in this.restBias) e[k] = (e[k] ?? 0) + this.restBias[k] * w;
+    }
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink, st.face);
 

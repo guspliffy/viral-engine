@@ -1,0 +1,153 @@
+{
+ "about": "Where the hero view and the hero's face sit on each design sheet (references/cast-sheets-v1/<sheet>-reference-v1.png, 1536x1024), as [x0, y0, x1, y1] in sheet pixels. Used by compose.py.",
+ "reaper": {
+  "sheet": "reaper",
+  "hero": [
+   418,
+   51,
+   1024,
+   768
+  ],
+  "face": [
+   461,
+   230,
+   819,
+   550
+  ]
+ },
+ "phoenix": {
+  "sheet": "phoenix",
+  "hero": [
+   333,
+   51,
+   1024,
+   768
+  ],
+  "face": [
+   640,
+   230,
+   998,
+   563
+  ]
+ },
+ "astronaut": {
+  "sheet": "astronaut",
+  "hero": [
+   384,
+   77,
+   1050,
+   755
+  ],
+  "face": [
+   550,
+   237,
+   909,
+   531
+  ]
+ },
+ "viking": {
+  "sheet": "viking",
+  "hero": [
+   418,
+   51,
+   1050,
+   768
+  ],
+  "face": [
+   422,
+   230,
+   794,
+   550
+  ]
+ },
+ "gunslinger": {
+  "sheet": "gunslinger",
+  "hero": [
+   418,
+   51,
+   998,
+   768
+  ],
+  "face": [
+   525,
+   184,
+   883,
+   516
+  ]
+ },
+ "dragon": {
+  "sheet": "dragon",
+  "hero": [
+   358,
+   77,
+   1024,
+   717
+  ],
+  "face": [
+   512,
+   205,
+   870,
+   563
+  ]
+ },
+ "allfather": {
+  "sheet": "norse-god",
+  "hero": [
+   444,
+   51,
+   998,
+   768
+  ],
+  "face": [
+   512,
+   154,
+   870,
+   486
+  ]
+ },
+ "samurai": {
+  "sheet": "samurai",
+  "hero": [
+   444,
+   51,
+   998,
+   768
+  ],
+  "face": [
+   499,
+   218,
+   858,
+   538
+  ]
+ },
+ "wizard": {
+  "sheet": "wizard",
+  "hero": [
+   444,
+   51,
+   1024,
+   768
+  ],
+  "face": [
+   474,
+   256,
+   832,
+   589
+  ]
+ },
+ "sorcerer": {
+  "sheet": "sorcerer",
+  "hero": [
+   444,
+   51,
+   1024,
+   768
+  ],
+  "face": [
+   474,
+   243,
+   819,
+   550
+  ]
+ }
+}
