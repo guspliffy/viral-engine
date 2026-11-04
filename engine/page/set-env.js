@@ -51,8 +51,20 @@ export function buildEnv(scene, spec) {
     const mesh = new THREE.Mesh(g, mat);
     mesh.name = `set-env-${c.name}`; mesh.renderOrder = -500 + Math.round(-c.z); mesh.frustumCulled = false;
     scene.add(mesh);
+    // a see-through card writes no depth, so whatever stands behind it would still draw its ink lines and outline over
+    // it (Reaper's cloak line through the bank grass, Jonny 4 Nov). A depth-only twin, cut where the layer is solid,
+    // goes in right after the card: it hides the outline hulls (OutlineEffect) and, flagged inkOccluder, tells the
+    // drawn lines (drawn.js) that the painting covers the character there.
+    let twin = null;
+    if (!c.sky) {
+      twin = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ transparent: true, colorWrite: false, depthWrite: true, alphaTest: 0.5, side: THREE.DoubleSide }));
+      twin.material.userData.noOutline = true;
+      twin.name = `set-env-${c.name}-depth`; twin.renderOrder = mesh.renderOrder + 0.5; twin.frustumCulled = false; twin.userData.inkOccluder = true;
+      scene.add(twin);
+    }
     Promise.all([tex(c.src), c.motion && sway > 0 && raw(c.motion)]).then(([map, motion]) => {
       mat.map = map;
+      if (twin) { twin.material.map = map; twin.material.needsUpdate = true; }
       if (motion) animate(mat, motion, x1 - x0, { amp: 3 * sway, key: `env-${c.name}` });
       mat.needsUpdate = true;
     });
