@@ -215,6 +215,20 @@ export class DrawnLinesPass extends Pass {
     }
     return t;
   }
+  // a see-through painted layer as it goes into the normals target: solid where its picture is (alpha test), facing
+  // the camera, flagged "nothing to ink" (alpha 0.5, below the set's 0.8)
+  occluderFor(m) {
+    let t = this.mats.get(m.map);
+    if (!t) {
+      t = new THREE.ShaderMaterial({
+        uniforms: { map: { value: m.map }, cut: { value: m.alphaTest || 0.5 } }, side: m.side, blending: THREE.NoBlending,
+        vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+        fragmentShader: "uniform sampler2D map; uniform float cut; varying vec2 vUv; void main() { if (texture2D(map, vUv).a < cut) discard; gl_FragColor = vec4(0.5, 0.5, 1.0, 0.5); }",
+      });
+      this.mats.set(m.map, t);
+    }
+    return t;
+  }
   // a dust sprite as it goes into the normals target: keeps the normals (colour untouched), sets the ink flag (alpha)
   // to 0 where the puff is dense
   veilFor(m) {
@@ -233,6 +247,9 @@ export class DrawnLinesPass extends Pass {
       if (!o.visible) return;
       if (o.isSprite || o.isPoints || o.isLine) { hidden.push(o); return; }
       if (!o.isMesh || !o.material) return;
+      // a painted layer in front (set-env.js depth twin): where it is solid it is the set, not the character behind it,
+      // so no line and no character brush there
+      if (o.userData.inkOccluder) { if (o.material.map) { swapped.push([o, o.material]); o.material = this.occluderFor(o.material); } else hidden.push(o); return; }
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
       if (m.transparent || m.depthWrite === false || o.userData.lookOnly || m.colorWrite === false) { hidden.push(o); return; }
       let ink = false;
