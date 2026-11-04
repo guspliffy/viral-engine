@@ -32,6 +32,7 @@ const SIZE = {
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
   pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
+  soggyfry: { len: 0.16, r: 0.011 },               // props-zombie.js soggyfry: the bottom end at the origin, the top flops over
   orangefeather: { len: 0.34, r: 0.0065 },            // props-prank.js FEATHER: the quill at the bottom, the vane up to the tip
   foamcan: { r: 0.034, h: 0.15 },                  // props-prank.js FOAMCAN: held round its body like a mug
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug

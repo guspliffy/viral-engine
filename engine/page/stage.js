@@ -333,11 +333,27 @@ function establishing(t) {
   return true;
 }
 
+// "skin" action (timeline.js): the skin's materials (the body and the eyelids, after the look converted them, so found by
+// their colour on the first use) take a mix of the base colour and st.skinColor. A function of the state only.
+function skinTint(a, st) {
+  if (!st.skinColor && !a._skinTint) return;
+  if (!a._skinTint) {
+    const base = a.ch.skin?.color?.getHex(), mats = new Set();
+    a.ch.root.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) if (m?.color && m.color.getHex() === base) mats.add(m); });
+    a._skinTint = { base: new THREE.Color(base), mats: [...mats] };
+  }
+  const T = a._skinTint, c = T.base.clone().lerp(new THREE.Color(st.skinColor || T.base), clamp(st.skin || 0));
+  for (const m of T.mats) m.color.copy(c);
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
+  // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
+  // Zombie Too: the trend's widescreen shot with its text on the upper bar)
+  if (sb.letterbox) { ctx.fillStyle = sb.letterbox.color || "#000"; ctx.fillRect(0, 0, W, sb.letterbox.top ?? 0); ctx.fillRect(0, H - (sb.letterbox.bottom ?? 0), W, sb.letterbox.bottom ?? 0); }
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
   for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
@@ -423,7 +439,7 @@ function pose(t0) {
     if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
   }
   const states = {};
-  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); states[a.c.id] = { st, a }; }
+  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
