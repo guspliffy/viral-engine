@@ -105,6 +105,9 @@ export class FrameCache {
   }
 }
 
+// the page's own code (engine/page, engine/shared): part of every key whether or not the page has asked for a file
+// yet (the glove-mesh workers, mesh-pool.js, load their scripts only when the first frame is drawn)
+export const pageCode = () => ["engine/page", "engine/shared"].flatMap((d) => walk(path.join(ROOT, d), []));
 // the page's files by content: the render's HTTP server records every file the page asked for
 const fileMemo = new Map();
 export function filesHash(files) {

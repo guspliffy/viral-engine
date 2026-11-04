@@ -50,7 +50,7 @@ import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
 import { renderTime } from "./shared/holds.js";
 import os from "node:os";
-import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME } from "./cache.mjs";
+import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream" };
@@ -472,6 +472,7 @@ async function main() {
       for (let i = bl ? Math.max(0, a - 2) : a; i < b; i++) { const t = i / fps; st.set(i, await page.evaluate(([tt, ss]) => window.ENGINE.stateHash(tt, ss), [t, bl ? [Math.max(0, t - sh), Math.min(dur, t + sh)] : []])); }
       states = Array.from({ length: b - a }, (_, k) => [st.get(a + k), bl ? [st.get(a + k - 1)?.scene ?? null, st.get(a + k - 2)?.scene ?? null] : null]);
       if (errors.length) throw new Error(errors.join("\n"));
+      for (const f of pageCode()) served.add(f);
       servedAtKeys = served.size;
       const flags = Object.fromEntries(PIXEL_FLAGS.map((k) => [k, o[k] ?? null]));
       const kb = sha(JSON.stringify({ files: filesHash(served), render: sha(fs.readFileSync(fileURLToPath(import.meta.url))), chrome: browser.version(), renderer: info.renderer || null, cpu: os.cpus()[0]?.model || null, flags, ext, fps, chars, rest }));
