@@ -899,29 +899,37 @@ function clipping() {
   return out;
 }
 
-let silRT, silMat;
+let silRT, silMat, silBlack;
+// the characters as white on black, at quarter size, for the caption cover measure. Opaque props, the set and cars
+// are drawn first in black: they never count as covering a caption themselves, but they hide whatever stands behind
+// them (Look Busy, 4 Nov: the boss behind the desk "covered" 39 % of a caption drawn on the desk's front, though the
+// desk hid him). Effects, glows and see-through parts are left out entirely
 function silhouette() {
   const w = W / 4, h = H / 4;
-  if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); }
-  const bg = scene.background, fog = scene.fog;
-  for (const o of setObjs) o.visible = false;
-  // props marked scenery (a door, a gate) count as set, not as a character covering the caption
-  const sceneryProps = props.filter((p) => p.spec.scenery && p.root.visible); for (const p of sceneryProps) p.root.visible = false;
+  if (!silRT) { silRT = new THREE.WebGLRenderTarget(w, h); silMat = new THREE.MeshBasicMaterial({ color: "#ffffff" }); silBlack = new THREE.MeshBasicMaterial({ color: "#000000" }); }
+  const bg = scene.background, fog = scene.fog, auto = R.autoClear;
   const pv = poofs.map((p) => p.g.visible); for (const p of poofs) p.g.visible = false;
-  const cars = [...rigs.values()].filter((V) => V.car && V.car.root.visible); for (const V of cars) V.car.root.visible = false;
-  // props are scenery (a tree's leaves behind the title are fine); only the characters count
-  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
   // glows and other see-through parts are effects, not the character's body; so is added light (golden light's sun
   // patches on the wall, opaque but additive)
   const glass = []; scene.traverseVisible((o) => { const m = o.material; if (m && !Array.isArray(m) && (m.transparent && m.opacity < 0.95 || m.blending === THREE.AdditiveBlending) || o.isSprite || o.isPoints) glass.push(o); });
   for (const o of glass) o.visible = false;
-  scene.background = new THREE.Color("#000000"); scene.fog = null; scene.overrideMaterial = silMat;
+  scene.background = new THREE.Color("#000000"); scene.fog = null;
+  // pass 1: everything but the characters, in black, writing depth
+  const av = actors.map((a) => a.ch.root.visible); for (const a of actors) a.ch.root.visible = false;
+  scene.overrideMaterial = silBlack;
   R.setRenderTarget(silRT); R.render(scene, camera);
+  actors.forEach((a, i) => (a.ch.root.visible = av[i]));
+  // pass 2: only the characters, in white, depth-tested against pass 1
+  const setV = setObjs.map((o) => o.visible); for (const o of setObjs) o.visible = false;
+  const prv = props.map((p) => p.root.visible); for (const p of props) p.root.visible = false;
+  const cars = [...rigs.values()].filter((V) => V.car && V.car.root.visible); for (const V of cars) V.car.root.visible = false;
+  scene.overrideMaterial = silMat; scene.background = null; R.autoClear = false;
+  R.render(scene, camera);
+  R.autoClear = auto;
   const px = new Uint8Array(w * h * 4); R.readRenderTargetPixels(silRT, 0, 0, w, h, px);
   R.setRenderTarget(null);
   scene.overrideMaterial = null; scene.background = bg; scene.fog = fog;
-  for (const o of setObjs) o.visible = true;
-  for (const p of sceneryProps) p.root.visible = true;
+  setObjs.forEach((o, i) => (o.visible = setV[i]));
   poofs.forEach((p, i) => (p.g.visible = pv[i]));
   for (const V of cars) V.car.root.visible = true;
   props.forEach((p, i) => (p.root.visible = prv[i]));
