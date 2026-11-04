@@ -61,6 +61,13 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`"hook": { "show": ["wiz", "dra", "bowl"], "hint": 1.2, "what": "Dragon eyes the biscuits" }`** names who and
   what must be in frame 0 (cast ids and prop ids) and when trouble first shows; `qa/hook.mjs` checks both
   (two-shot-0, hint-by). Without `show` it takes whoever acts in the hook and payoff beats.
+- **`"visible": [{ "from": 0.4, "to": 1.2, "see": ["rea.face", "scythe"], "why": "Reaper's face, nothing in front" }]`**
+  (`c.see(0.4, 1.2, [...], "why")` in a generator; `"at"` alone means a 0.5 s window) names what each beat needs the
+  viewer to see. `"<id>.face"`: the eyes in frame, turned to the camera, nothing hiding them (another character, a hat
+  brim, wings, a prop, a hand) and no caption over them; `"<id>"`: the character's body or the prop in view.
+  `qa/framing.mjs` checks it from the layout (`render.mjs --layout` prints the misses), a note, never a failure.
+  Without a list it checks hook.show at 0-0.2 s and the faces of whoever acts in the payoff's first 0.6 s. `"through":
+  ["glass"]` on an entry ignores a see-through occluder (a window pane counts as solid to the raycast).
 - **`kind: "escalation"`** marks the second turn of the joke; `qa/check.mjs` notes clips over the 20 s house target
   without one.
 - **Voices**: characters with a speaking voice (`"tts"` in their file: Phoenix, Reaper, Wizard, Allfather/Odin) say

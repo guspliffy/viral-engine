@@ -400,6 +400,13 @@ export function direct(sb, chars) {
     const t0 = w.s.at, t1 = w.s.end, note = (o) => directed.push({ at: r3(o.at ?? t0), beat: i, kind: w.kind, size: w.size, ...o, at: r3(o.at ?? t0) });
     if (w.loopTail && out.length) {
       const first = out[0], lo = lastCut + MIN_SHOT, hi = t1 - 0.3, b = toBeat(onAction(sb, all, t0, lo, hi, fps), t0, grid, fps, lo, hi, snapBeats), cut = b.c;
+      // the camera already near the opening framing: a cut back would be a jump cut (qa/camera.mjs), so ease over to it
+      const here = camAt(out, cut), Vh = heightOf(here), Vo = heightOf(first);
+      if (Math.max(Vh, Vo) / Math.min(Vh, Vo) < 1.15 && Math.hypot(here.look[0] - first.look[0], here.look[1] - first.look[1]) < 0.25 * Math.min(Vh, Vo) && !here.roll && Math.hypot(...here.pos.map((v, q) => v - first.pos[q])) > 1e-3) {
+        const d = r3(Math.min(1.0, t1 - cut - 0.1));
+        out.push({ at: r3(cut), pos: here.pos.map(r3), look: here.look.map(r3), fov: r3(here.fov), to: { pos: first.pos, look: first.look, fov: first.fov }, dur: d, ease: "inOut" });
+        note({ at: cut, size: "opening", why: `loop: eased back to the opening shot over ${d} s (a cut would be a jump cut)` }); lastCut = cut; return;
+      }
       out.push({ at: r3(cut), pos: first.pos, look: first.look, fov: first.fov });
       note({ at: cut, size: "opening", why: "loop: back to the opening shot", onBeat: b.onBeat, ...beatMs(grid, cut) }); lastCut = cut; return;
     }
@@ -456,8 +463,18 @@ export function direct(sb, chars) {
       const Vp = heightOf(prev), Vf = heightOf(fr);
       if (Math.max(Vp, Vf) / Math.min(Vp, Vf) < 1.08 && Math.hypot(prev.look[0] - fr.look[0], prev.look[1] - fr.look[1]) < 0.04 * Vp) { note({ why: "kept the shot (a cut would be a jump cut)" }); return; }
       const go = onAction(sb, movers, t0, t0 - 0.35, t1 - 0.6, fps)?.c ?? t0, from = camAt(out, go), d = r3(Math.min(1.2, t1 - go - 0.2));
-      out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), ...(from.roll && { roll: r3(from.roll) }), to: { ...cam(fr), ...((from.roll || fr.roll) && { roll: fr.roll ?? 0 }) }, dur: d, ease: "inOut" });
-      note({ at: go, who: w.who, why: `reframed with the action over ${d} s (a cut would be a jump cut)` }); return;
+      // never push in and then ease back out (qa/camera.mjs push-back: it reads as the camera changing its mind):
+      // after a push (a snap-in, a reaction's slow push) that ended under 2.5 s ago, a wider framing is a cut a full
+      // size step out instead of a pull-back
+      const last = out.findLast((q) => q.at <= go + 1e-6), pushed = last?.to && heightOf({ ...last, ...last.to, fov: last.to.fov ?? last.fov }) < heightOf(last) * 0.97 && go - (last.at + (last.dur ?? 1)) < 2.5;
+      if (pushed && heightOf(fr) > heightOf(from) * 1.05) {
+        const k = (JUMP * heightOf(from)) / heightOf(fr), L = fr.look;
+        fr = { ...fr, pos: fr.pos.map((v, q) => r3(L[q] + (v - L[q]) * k)), ...(fr.V && { V: fr.V * k }) };
+        note({ at: go, why: "a size step out instead of easing back out after a push" });
+      } else {
+        out.push({ at: r3(go), pos: from.pos.map(r3), look: from.look.map(r3), fov: r3(from.fov), ...(from.roll && { roll: r3(from.roll) }), to: { ...cam(fr), ...((from.roll || fr.roll) && { roll: fr.roll ?? 0 }) }, dur: d, ease: "inOut" });
+        note({ at: go, who: w.who, why: `reframed with the action over ${d} s (a cut would be a jump cut)` }); return;
+      }
     }
     const lo = lastCut + MIN_SHOT, hi = t1 - MIN_SHOT, move = out.length ? onAction(sb, movers, t0, lo, hi, fps) : null;
     const b = out.length ? toBeat(move, t0, grid, fps, lo, hi, snapBeats) : { c: 0, onBeat: false };

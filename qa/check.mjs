@@ -26,6 +26,8 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { motionJumps, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
+import { visibility } from "./framing.mjs";
+import { cameraLint } from "./camera.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
@@ -77,6 +79,8 @@ export const CREATIVE = {
   wordsPerSec: 3.5, // caption reading speed
   openingCuts: 2, // hard cuts in the first 2 s that bring a note (posted clips: more early cuts, fewer viewers at 0:02)
   quietStart: -20, // dBFS: the first second's loud moments (90th percentile of 100 ms windows) under this bring a note
+  frozenShare: 25, // % of frames that move less than an idle breath (qa/pace.py "frozen") above which a note comes
+  longestStill: 1.0, // seconds: a frozen run this long brings a note (the best-holding posted clips stay under 0.6 s)
 };
 
 // Publishing profiles: what the target platforms publish as requirements, and when that was last checked. Length is
@@ -97,7 +101,8 @@ export const PROFILES = {
 // which group each check belongs to (anything not listed is technical)
 const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "cartoon-only": "publishing",
   opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
-  "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative", pace: "creative" };
+  "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative", pace: "creative",
+  frozen: "creative", visible: "creative", camera: "creative" };
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
@@ -411,6 +416,14 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     add(many || quiet ? "note" : "pass", "pace", `${early.length} hard cut${early.length === 1 ? "" : "s"} in the first 2 s${early.length ? ` (${early.map((t) => t.toFixed(2)).join(", ")} s)` : ""}, first second ${loud != null ? `${loud.toFixed(1)} dBFS loud` : "without sound"}, ${pace.rows.slice(0, 2).map((r) => r.held.toFixed(0)).join("/")} % of frames held in seconds 0/1${many ? `; posted clips with ${C.openingCuts}+ early cuts held fewer viewers at 0:02 (keep the opening on one moving shot, A/B before cutting more)` : ""}${quiet ? `; the first second is quieter than ${C.quietStart} dBFS (start on full sound: a hit, a voice or the music)` : ""}`);
   }
 
+  // --- frozen time (qa/pace.py): frames where nothing moves more than an idle breath, and the longest run of them.
+  // The clips that held best on TikTok (4 Nov) sit at 3-17 % frozen with no still over 0.6 s. A deliberate hold (the
+  // half second before a payoff, a hit-stop) is fine; the note says where to look.
+  if (pace && pace.frozen != null) {
+    const [ls, lat] = pace.longest_still || [0, null], long = ls >= C.longestStill, much = pace.frozen > C.frozenShare;
+    add(long || much ? "note" : "pass", "frozen", `${pace.frozen.toFixed(0)} % of frames frozen, longest still ${ls.toFixed(2)} s${lat != null ? ` from ${lat.toFixed(2)} s` : ""}${long ? `; a still of ${C.longestStill} s or more reads as a paused video in the feed (keep an idle, a blink or a camera drift going, unless the pause is the joke)` : ""}${much ? `; over ${C.frozenShare} % of the clip doesn't move` : ""}`);
+  }
+
   // --- clean picture: one-frame pops away from cuts and effects, strobing
   if (frames.length > 2) {
     const cuts = (sb?.shots || []).map((x) => x.at);
@@ -549,6 +562,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
     for (const r of await storyNotes(sb, sb.fps ?? 30)) { const group = groupOf(r.check); res.push({ group, ...r, ...(group === "creative" && { level: "note" }) }); }
     if (sb.loop) res.push(seamResult(await loopSeam(sb, sb.fps ?? 30)));
+    // what must be seen in each beat (qa/framing.mjs, from the layout) and the camera's moves (qa/camera.mjs)
+    if (layout) res.push(...visibility(sb, layout, loadCharacters(sb)).results);
+    res.push(...cameraLint(sb));
     // the sound (qa/sound.mjs): repeats, sounds with nothing on screen, the floor, the music lock, then on the file
     // its sync to the picture and how each effect stands over the bed
     res.push(...soundNotes(sb), ...(fs.existsSync(o.clip) ? soundMeasure(o.clip, sb, loadCharacters(sb)) : []));

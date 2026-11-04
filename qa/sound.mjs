@@ -25,6 +25,16 @@
 //                  (MIT), which wants 0.5-4 s of silence before the payoff; ours is relative because a bed or a voice
 //                  rarely drops to digital silence. The payoff: "music": { "payoff": t }, else the beat marked
 //                  "kind": "payoff", else one named payoff / reveal / punchline, else the last escalation (said so).
+//   phone-band     (quality plan item 4, 4 Nov 2026) most viewers hear us on a phone speaker, which plays almost
+//                  nothing under ~200 Hz or over ~6 kHz. The mix is filtered to that band (two 12 dB/oct high-passes at
+//                  200 Hz, two low-passes at 6 kHz) and measured again: the share of the mix's energy a phone plays
+//                  (under 40 %: the bass carries the mix and a phone loses it; one article mix had 80 % outside; pink
+//                  noise has about half), and
+//                  every hit's loudest 50 ms in the band against the band's median level in the second before (the music,
+//                  voices and room a phone plays under it). Under 3 dB a hit is lost on a phone; 3-6 dB and up reads. A hit
+//                  that stands 4 dB or more lower in the band than in the full mix, and so only 3-6 dB over the bed on a
+//                  phone, has its punch under 200 Hz (a thud: layer a click or a slap on it). Warn only. Also runs on a fresh render with no clip (seconds):
+//                  node qa/sound.mjs <sb> --phone, so a sound fix is checked without a re-render.
 // soundEars(clip, sb, chars), with --ears (earshot: github.com/Leonxlnx/earshot, run through qa/ears.py, ~1 min):
 //   ears-sync      earshot listens to the file and finds the onset that answers each hit's picture moment (knocks,
 //                  slams, put-downs; not footsteps): the share within a frame, against what chance would score
@@ -138,6 +148,58 @@ export function effectLevels(mix, events, offset = 0) {
   return out;
 }
 
+// RBJ biquad, run in place over x (mono, SR): "hp" or "lp" at f Hz, Q 0.707
+function biquad(x, type, f, sr = SR) {
+  const w = (2 * Math.PI * f) / sr, c = Math.cos(w), al = Math.sin(w) / (2 * Math.SQRT1_2);
+  const [b0, b1, b2] = type === "hp" ? [(1 + c) / 2, -(1 + c), (1 + c) / 2] : [(1 - c) / 2, 1 - c, (1 - c) / 2], a0 = 1 + al, a1 = -2 * c, a2 = 1 - al;
+  let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+  for (let i = 0; i < x.length; i++) { const v = x[i], y = (b0 * v + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2) / a0; x2 = x1; x1 = v; y2 = y1; y1 = y; x[i] = y; }
+  return x;
+}
+export const PHONE = { lo: 200, hi: 6000, share: 0.4, over: 3, good: 6, thud: 4 };
+// what a phone speaker plays of a mix: 200 Hz to 6 kHz, 24 dB/oct either side
+export function phoneFilter(x) {
+  const y = Float32Array.from(x);
+  biquad(y, "hp", PHONE.lo); biquad(y, "hp", PHONE.lo); biquad(y, "lp", PHONE.hi); biquad(y, "lp", PHONE.hi);
+  return y;
+}
+// the phone-band results for a mix (the file, or a fresh render) and its sound events
+export function phoneBand(mix, events, offset = 0) {
+  const out = [], add = (level, msg) => out.push({ group: "technical", level, check: "phone-band", msg });
+  const band = phoneFilter(mix);
+  let eAll = 0, eBand = 0; for (let i = 0; i < mix.length; i++) { eAll += mix[i] * mix[i]; eBand += band[i] * band[i]; }
+  const share = eAll ? eBand / eAll : 0;
+  // hits only: footsteps, grabs, sits and automatic wing flaps are handling sounds the bed may cover (the ducking
+  // skips them too)
+  // (isHit: knocks, slams, impacts, put-downs...; a whoosh, a flap or a bed of bubbling is not a hit), one per moment
+  const hits = [];
+  for (const e of events.filter((x) => x.hit != null && isHit(x.kind) && !/(^|\/)(step|grab|sit|cloth|footstep|wing-flap)/.test(x.kind)).sort((x, y) => x.hit - y.hit)) if (!hits.length || e.hit - hits[hits.length - 1].hit > 0.05) hits.push(e);
+  const full = new Map(effectLevels(mix, hits, offset).map((x) => [x.e, x.d])), inBand = effectLevels(band, hits, offset);
+  const lost = [], thud = [], ds = [];
+  for (const x of inBand) {
+    ds.push(x.d);
+    const name = `${x.e.kind}@${(+x.e.at).toFixed(2)}`;
+    if (x.d < PHONE.over) lost.push(`${name} ${x.d >= 0 ? "+" : ""}${x.d.toFixed(1)} dB${full.has(x.e) ? ` (${full.get(x.e) >= 0 ? "+" : ""}${full.get(x.e).toFixed(1)} full)` : ""}`);
+    const f = full.get(x.e); if (f != null && f - x.d >= PHONE.thud && x.d >= PHONE.over && x.d < PHONE.good) thud.push(`${name} (${f.toFixed(0)} dB full, ${x.d.toFixed(0)} dB on a phone)`);
+  }
+  ds.sort((a, b) => a - b);
+  const pct = Math.round(share * 100);
+  add(share < PHONE.share ? "warn" : "pass", `${pct} % of the mix's energy is in the band a phone speaker plays (${PHONE.lo} Hz-${PHONE.hi / 1000} kHz)${share < PHONE.share ? ": the low end carries the mix and a phone drops it (thin the bass of the music bed, or lift the mids)" : ""}`);
+  if (!ds.length) return out;
+  if (lost.length) add("warn", `${lost.length} of ${ds.length} hits stand under ${PHONE.over} dB over the bed on a phone speaker (${lost.slice(0, 5).join(", ")}${lost.length > 5 ? ", ..." : ""}): lift them, duck the bed more, or pick a take with more mids`);
+  if (thud.length) add("warn", `${thud.length} hit${thud.length > 1 ? "s lose their" : " loses its"} punch on a phone, most of it is under ${PHONE.lo} Hz (${thud.slice(0, 4).join(", ")}): layer a click, slap or crack on it`);
+  if (!lost.length && !thud.length) add("pass", `${ds.length > 1 ? `all ${ds.length} hits stand ${ds[0].toFixed(0)} to ${ds[ds.length - 1].toFixed(0)} dB` : `the hit stands ${ds[0].toFixed(0)} dB`} over the bed on a phone speaker (median ${ds[Math.floor(ds.length / 2)].toFixed(0)} dB; ${PHONE.over}-${PHONE.good} dB and up reads)`);
+  return out;
+}
+// the storyboard's sound as the render would mix it now (effects, voices, room, music), mono, with its events
+export function freshMix(sb, chars) {
+  sb = soundClock(sb);
+  const a = renderAudio(sb, chars);
+  addMusic({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, a);
+  const m = new Float32Array(a.L.length); for (let i = 0; i < m.length; i++) m[i] = (a.L[i] + a.R[i]) / 2;
+  return { mix: m, events: a.events };
+}
+
 // on the rendered file: is its sound the one this storyboard makes now, in sync with the picture, and does each
 // effect stand out from what plays under it
 export function soundMeasure(clip, sb, chars) {
@@ -172,6 +234,7 @@ export function soundMeasure(clip, sb, chars) {
   if (loud.length) add("warn", "sound-level", `${loud.length} effects jump far out of the mix (${loud.slice(0, 5).join(", ")})`);
   if (!buried.length && !loud.length && over.length) add("pass", "sound-level", `${over.length} effects stand ${over[0].toFixed(0)} to ${over[over.length - 1].toFixed(0)} dB over what plays under them (median ${med.toFixed(0)} dB)`);
   out.push(...payoffSound(sb, envelope(mix, 441)));
+  out.push(...phoneBand(mix, a.events, offset));
   return out;
 }
 
@@ -253,11 +316,13 @@ export function soundEars(clip, sb, chars) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const argv = process.argv.slice(2), ears = argv.includes("--ears"), [file, clip] = argv.filter((x) => x !== "--ears");
-  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4] [--ears]"); process.exit(2); }
+  const argv = process.argv.slice(2), ears = argv.includes("--ears"), phone = argv.includes("--phone"), [file, clip] = argv.filter((x) => x !== "--ears" && x !== "--phone");
+  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4] [--ears] [--phone]"); process.exit(2); }
   const sb = loadStoryboard(file);
   const chars = loadCharacters(sb);
   const res = [...soundNotes(sb), ...(!clip ? soundTiming(sb, renderAudio(sb, chars).events) : fs.existsSync(clip) ? soundMeasure(clip, sb, chars) : [{ level: "fail", check: "file", msg: `${clip} not found` }])];
+  // --phone with no clip: the phone-band check on the mix the render would make now (seconds, no render)
+  if (phone && !clip) { const f = freshMix(sb, chars); res.push(...phoneBand(f.mix, f.events)); }
   if (ears && clip && fs.existsSync(clip)) res.push(...soundEars(clip, sb, chars));
   for (const r of res) console.log(`  ${{ pass: "ok  ", warn: "WARN", fail: "FAIL", note: "note" }[r.level]}  ${r.check}: ${r.msg}`);
   process.exit(res.some((r) => r.level === "fail") ? 1 : 0);
