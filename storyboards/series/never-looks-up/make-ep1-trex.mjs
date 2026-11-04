@@ -225,11 +225,11 @@ sfx(5.4, "dinoroar", { gain: 1.0 });
 prop(5.3, "roar", { puff: 1 }, 0.1); prop(6.35, "roar", { puff: 0 }, 0.25);
 prop(5.4, "fire", { wobble: -1 }, 0.15, "out"); prop(6.4, "fire", { wobble: 0 }, 0.5);
 // the bag blows up off the ground and tumbles left
-prop(5.45, "bag", { x: 0.05, y: 1.4, z: 2.0, spin: 2, tilt: 0 }, 0.6, "out");
-prop(6.05, "bag", { x: -1.0, y: 0.0, z: 2.05, spin: 3 }, 0.45, "in");
+prop(5.45, "bag", { x: -1.2, y: 2.3, z: 1.9, spin: 2, tilt: 0 }, 0.45, "out");          // up and away to the left, out of frame (Fable B)
+prop(5.9, "bag", { x: -1.7, y: 0.0, z: 2.05, spin: 3 }, 0.45, "in");
 prop(5.45, "mallows", { x: 0.05, y: 0.0, z: 1.8, spin: 3.5 }, 0.8, "inOut");
 // the blast rolls the log out from under him: the wings flick open and he hovers in the same pose
-const T_LOG = 6.0;   // the log goes first; he drops a hair, then the wings flick open and catch him
+const T_LOG = 6.3;   // the brief's time; the cut to the wide comes first at 6.0 so the whole wing save plays in one frame (Fable B)   // the log goes first; he drops a hair, then the wings flick open and catch him
 c.at(T_LOG, { fx: "shake", amp: 0.02, dur: 0.25 });
 A(T_LOG + 0.06, "phx", "drop", { to: SEAT - 0.04, dur: 0.06 });
 A(T_LOG + 0.1, "phx", "span", { to: 0.6, dur: 0.12, ease: "out" });
@@ -238,14 +238,14 @@ sfx(T_LOG + 0.1, "wings", { gain: 0.45, dur: END - (T_LOG + 0.1) - 0.05 });
 prop(T_LOG, "log", { x: LOG_GONE.x, z: LOG_GONE.z, spin: -1.2 }, 0.55, "out");
 sfx(T_LOG + 0.05, "scrape", { gain: 0.5, dur: 0.4, reason: "the log rolls away over the dirt" });
 sfx(T_LOG + 0.55, "thud-soft", { gain: 0.5, reason: "the log hits the boulder" });
-A(6.55, "phx", "span", { to: 1, dur: 0.3 });
-A(6.95, "phx", "span", { to: 0.55, dur: 0.4 });                     // half folded: he hovers on small beats
+A(T_LOG + 0.45, "phx", "span", { to: 1, dur: 0.25 });
+A(T_LOG + 0.75, "phx", "span", { to: 0.4, dur: 0.3 });                     // half folded: he hovers on small beats
 // friends cower
 A(5.35, "wiz", "crouch", { to: 0.4, dur: 0.15 }); A(5.35, "vik", "crouch", { to: 0.4, dur: 0.15 });
 c.arm(5.3, "wiz", "R", "rest", 0.2); c.arm(5.3, "wiz", "L", "rest", 0.2);
 act.shock(c, 5.35, "wiz", { open: 0.4, hold: 1.0 });
 see(5.3, 6.2, ["rex", "phx.face"], "P4: the roar in his face, the crest blown back, he keeps scrolling");
-see(6.3, 6.95, ["phx.face", "log"], "P5: the log rolled away, Phoenix hovering on his wings");
+see(6.4, 6.95, ["phx.face", "log"], "P5: the log rolled away, Phoenix hovering on his wings");
 
 // ---------------------------------------------------------------- 5 HOVER 6.3-7.0 (P5) and 6 PEAK 7.0-8.0 (P6)
 prop(6.3, "rex", { jaw: 0.1, arms: 0, breath: 0, squint: 0, brow: 0.6, lookX: -0.5, lookY: -0.4 }, 0.35);
@@ -281,7 +281,7 @@ A(9.28, "phx", "squash", { amount: 0.02, dur: 0.25 });
 act.scrollPhone(c, "phx", [9.35]);
 // the T-rex gives up and lowers its head beside him to watch the screen too
 const WATCH_AT = [PHONE_W[0] + 0.52, PHONE_W[1] + LIFT + 0.08, PHONE_W[2] + 0.42];
-rex(9.2, REX_NEAR, WATCH_AT, { pitch: [5, 10, 15, 20], headR: 6, set: { lookX: -0.6, lookY: -0.6, squint: 0.55, brow: 0.9, wag: 1 } }, 0.6);
+rex(9.1, REX_NEAR, WATCH_AT, { pitch: [5, 10, 15, 20], headR: 6, set: { lookX: -0.5, lookY: -0.9, squint: 0.8, brow: 0.4, wag: 1 } }, 0.6);   // squinting at the screen (panel 08)
 for (const [w, l] of [["wiz", [0.6, 0.0]], ["vik", [0.0, 0.6]], ["rea", [-0.5, -0.3]]]) A(9.4, w, "look", { to: l, dur: 0.15, blink: false });
 act.mood(c, 9.45, "wiz", "annoyed", { hold: 0.5 }); act.mood(c, 9.45, "rea", "annoyed", { hold: 0.5 }); act.mood(c, 9.45, "vik", "annoyed", { hold: 0.5 });
 see(9.4, 9.95, ["phx.face", "rex", "phone"], "P8: the T-rex watching the phone with him");
@@ -296,9 +296,9 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
 };
 const WIDE = shot([0.1, 1.5, 7.8], { fov: 46 });                    // the painting's own camera
 const MED_SNIFF = shot([-0.05, 1.55, 5.4], { pan: 2, tilt: -3, fov: 42 });   // the head over him from the upper right
-const ROARW = shot([0.1, 1.45, 6.2], { tilt: -4, fov: 40 });
+const ROARW = shot([0.1, 1.45, 7.2], { tilt: -4, fov: 46 });   // a clear size step out from the sniff (Fable B)
 const HOVER = shot([-0.3, 1.5, 7.8], { fov: 50 });
-const PEAK = shot([-0.25, 2.0, 5.8], { pan: 1, tilt: -8, fov: 44 });          // higher: the friends' totem shows over the rock
+const PEAK = shot([-0.45, 2.0, 5.8], { pan: 1, tilt: -8, fov: 50 });   // wider: the whole totem shows, and a size step from the look-up          // higher: the friends' totem shows over the rock
 const LOOKUP = shot([0.05, 1.8, 5.2], { pan: 2, tilt: -7, fov: 40 });     // Phoenix left, the T-rex eye right (P7)
 const BACKDOWN = shot([-0.15, 2.05, 6.2], { pan: 1, tilt: -8, fov: 48 });
 const beats = c.beats([
@@ -306,7 +306,7 @@ const beats = c.beats([
   ["P2 panic", 1.5, "keep"],
   ["P3 sniff", 3.2, MED_SNIFF],
   ["P4 roar", 5.0, ROARW],
-  ["P5 hover", 6.3, HOVER],
+  ["P5 hover", 6.0, HOVER],
   ["P6 peak", 7.0, PEAK],
   ["P7 look-up", 8.0, LOOKUP, "payoff"],
   ["P8 back down", 9.0, BACKDOWN, "reaction"],
