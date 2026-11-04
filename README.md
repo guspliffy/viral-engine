@@ -47,7 +47,8 @@ Long renders can run on GitHub's free runners: `.github/workflows/render.yml` sp
 and joins it (`gh workflow run render.yml -f storyboard=storyboards/x.json`; the MP4 is the run's artifact for 3 days).
 
 Speed on a 4-core cloud machine without a GPU (Mesa llvmpipe, 4 Nov 2026): Not Yet (9 s, four characters with
-seamless gloves) takes about 13 minutes in one piece, 2.6 s per frame. Drawing is most of it; the glove skins are
+seamless gloves) draws its frames in about 7 minutes in one piece, 1.6 s per frame (plus about 1.5 minutes of
+checks before the first frame). Drawing is most of it; the glove skins are
 meshed on one worker per core while the frame before is drawn (`engine/page/mesh-pool.js`). Details and how to
 profile: `docs/PLAN.md` → Render speed.
 

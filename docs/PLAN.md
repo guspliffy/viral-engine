@@ -123,8 +123,10 @@ seamless gloves):
 - The fix: the skins are meshed on one Web Worker per core (`mesh-pool.js`, `mesh-worker.js`, same code as the page,
   `handmesh-core.js`), biggest shape first, and the next frame's skins start meshing as soon as this frame's drawing
   is queued, so they overlap with the renderer. Anything the workers didn't make is meshed on the page as before.
-- What is left: drawing (llvmpipe) is now about 85 % of a frame and motion-blur samples are half of that on a busy
-  clip. Any further cut there changes pixels (fewer blur samples, cheaper shadows, no MSAA) and needs Jonny's eye.
+- Blur from 144 px (Jonny's pick, 4 Nov, from a side by side): Not Yet's frames 701 -> 425 s (-39 %), only 20 frames
+  still blur. No blur at all was 333 s (-53 %). Rejected: MSAA off + SMAA (-23 %, thin ink lines break into dashes),
+  bloom off (-7 %), a 1024 shadow map (no gain). On llvmpipe MSAA 2x draws the same pixels as 4x, and three r186
+  silently draws PCFSoftShadowMap as PCF.
 - To profile again: render a short range with `--from/--to --skip-gate --silent` and record a Chrome CPU profile
   around the frame loop (CDP `Profiler.start`/`Profiler.stop` on the page); 1 s of a clip is enough.
 
