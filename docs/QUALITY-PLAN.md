@@ -16,9 +16,10 @@ sinking into props, 23 grip warnings, 20 feet sliding without a step (up to 34 c
 acting, 14 limb jumps, 13 sound-level problems (two effects 20 dB over the mix). Warnings don't block, so a busy thread
 ships them, and Jonny finds them by eye: the floating phone, the waiter's eyes, the bystander in front in the tent.
 
-**A glitch the checks only hint at.** 7 of the 10 storyboards set their opening poses with 0.01 s moves at t = 0. The
-engine shows the start of those moves on frame 0 and their end on frame 1, so the first frame is a different picture:
-hands jump 17–60 cm, Reaper sits down, the phone's glow switches on. Only a few hand-pop warnings at 0.03 s hint at
+**A glitch the checks only hint at.** All 10 storyboards set some of their opening state with 0.01 s moves at t = 0
+(arm poses or a sit in 7 of them). The engine shows the start of those moves on frame 0 and their end on frame 1, so
+the first frame can be a different picture: in 3 of the 5 clips measured, hands jump 17–60 cm, Reaper sits down, the
+phone's glow switches on. Only a few hand-pop warnings at 0.03 s hint at
 it. Frame 0 is the first thing a viewer sees and the frame a loop returns to. It is a one-line fix (item 1, with a
 before/after demo clip).
 
@@ -44,7 +45,7 @@ reference-driven moves. Everything stays deterministic and opt-in per storyboard
 
 | # | Item | Size | What it removes |
 |---|---|---|---|
-| 1 | Frame 0 starts in its pose | S | the first-frame jump in 7 of 10 clips |
+| 1 | Frame 0 starts in its pose | S | the first-frame jump (3 of 5 clips measured; all 10 have the pattern) |
 | 2 | Hand orientation that can't flip | M | the 144 hand pops; the bans on point, shrug and outward arcs |
 | 3 | Visible glitches block the render, one preflight command | S | the 35 warnings a clip ships with |
 | 4 | Eyes that stay readable (gaze and lids work together) | S | the waiter's eyes; frees deadpan and side-eye looks |
@@ -104,7 +105,7 @@ jump with them.
 
 | Class | Root cause in the engine | Evidence |
 |---|---|---|
-| First-frame jump | Generators set opening poses with a 0.01 s move at t = 0 (`c.arm(0, "wiz", "R", ARMREST, 0.01)`, `prop(0, "phone", { glow: 1 }, 0.01)`); progress is 0 at t = 0 and 1 a frame later. `qa/rig.mjs` needs both neighbours of a frame, so it starts at frame 2; only the hand's turn is checked from frame 1. | 7 of 10 storyboards; measured jumps 17–60 cm (section 4.3); hand-pop warns at 0.03 s in IKEA and split the bill |
+| First-frame jump | Generators set opening poses with a 0.01 s move at t = 0 (`c.arm(0, "wiz", "R", ARMREST, 0.01)`, `prop(0, "phone", { glow: 1 }, 0.01)`); progress is 0 at t = 0 and 1 a frame later. `qa/rig.mjs` needs both neighbours of a frame, so it starts at frame 2; only the hand's turn is checked from frame 1. | all 10 storyboards (arms or a sit in 7); measured jumps 17–60 cm in 3 of 5 (section 4.3); hand-pop warns at 0.03 s in IKEA and split the bill |
 | Hand pops, fist flips | `potato.js` `_pose` builds the hand frame each frame from scratch: a look-at from the forearm with a fixed reference, then up to five weighted turns (fist on a handle, palm on a held object, a locked hold frame, cupped up, paw down). The forearm vector collapses when the elbow guide nears the hand; the palm turn's weight, side and target switch between the two ends of a move at its half-way frame (`_palm`), and a guard snaps the palm turn off when the target swings; the look-at spins near two forearm directions. No memory between frames and no wrist limit, so nothing smooths or refuses a flip. | 144 warns; section 4 (30 pops explained); three patches in `_pose`; "point" pops 120–140° on main (31 Oct); bans on point/shrug (25 Oct) and outward arcs (31 Oct) |
 | Floating or slipping props | A held prop follows the hand by position only (`stage.js` pose: "position only, so a held prop stays upright"); its rotation is its own tween. Some holds move the prop in the world and the hand follows it; others the reverse. A release leaves the prop where it is unless `to:` is given. No check that a loose prop is supported. | the plane's floating phone; prop-pop 6 (up to 11.6 cm); "a regrabbed prop riding in the glove" (Pareto); "a world pose sinks 5 cm" into a table (split the bill) |
 | Limbs and hands in bodies and props | The rubber-hose arm only pushes its curve's control point out of its own body. Nothing keeps a hand, arm or held prop out of other bodies or props; the contact checks (good ones, #88/#94) report it after the fact. | hand-in-prop 34, clipping 12, arm-in-prop 9, character-overlap 8; 27 fails on split the bill's first layout |
@@ -138,7 +139,8 @@ Rules every item follows (they keep today's guarantees):
 #### 1. Frame 0 starts in its pose — S, `engine/load.mjs` (with a check in `qa/rig.mjs`)
 
 - **Problem.** The first frame shows the default pose and the second the opening pose (section 4.3): hands jump up to
-  60 cm, a character sits down, a glow switches on, between frame 0 and frame 1 of 7 of the 10 recent clips.
+  60 cm, a character sits down, a glow switches on, between frame 0 and frame 1 (3 of the 5 recent clips measured; all
+  10 have the pattern).
 - **Approach.** When a storyboard loads, an action that starts at t = 0 and lasts less than a frame becomes instant
   (it is there from frame 0). The rig check also compares frame 0 with frame 1 (today it starts at frame 2), so a
   first-frame jump fails like any other one-frame jump in a still moment. The generators can keep writing 0.01.
@@ -462,8 +464,8 @@ go, and measures every step with these tools, before any side by side goes to Jo
 
 ### 4.3 The first frame
 
-7 of the 10 storyboards start some poses with a move of 0.01 s at t = 0, the generators' way of saying "start like
-this" (`c.arm(0, "wiz", "R", ARMREST, 0.01)`, `prop(0, "phone", { glow: 1 }, 0.01)`). The engine draws the start of those
+All 10 storyboards start some of their opening state with a move of 0.01 s at t = 0 (arm poses or a sit in 7 of them,
+faces and the phone's glow in the other 3), the generators' way of saying "start like this" (`c.arm(0, "wiz", "R", ARMREST, 0.01)`, `prop(0, "phone", { glow: 1 }, 0.01)`). The engine draws the start of those
 moves on frame 0 and their end on frame 1. Measured between frame 0 and frame 1, while the same parts move under 0.5 cm
 from frame 1 to frame 2:
 
@@ -473,7 +475,8 @@ from frame 1 to frame 2:
 | Never Looks Up 2 (plane) | the Samurai's hands 54 and 40 cm, Reaper's 33 cm, the Wizard's 17 cm; the phone's glow and Phoenix's lids change too |
 | Friends Try To 4 (split the bill) | the Samurai's hand 42 cm, Phoenix's 39 cm |
 
-Measured on the five clips whose layouts finished; zombies and the tent have no such move on screen. Some of the
+Measured on the five clips whose layouts finished. In zombies and the tent the t = 0 moves shift no hand or foot by
+more than a centimetre (their face and glow changes weren't measured). Some of the
 jumping hands are behind a seat or another character, but in IKEA the whole opening changes between the two frames.
 
 ### 4.4 Demo
@@ -490,7 +493,7 @@ editing.
 | Measure | Now | Target |
 |---|---|---|
 | Visible-glitch warnings in a delivered clip | about 35 warnings, many visible | 0 visible; the rest listed with a reason |
-| Jumps between frame 0 and frame 1 | 7 of 10 clips | none |
+| Jumps between frame 0 and frame 1 | 3 of the 5 clips measured | none |
 | Fails on a clip's first layout | up to 27 | 3 or fewer |
 | Fix rounds before the first clean layout | several | 1 or fewer |
 | Jonny's notes per clip on hands, contacts, eyes and sound spikes | 36 % of all notes | none over the next 10 clips (continue the notes CSV) |
