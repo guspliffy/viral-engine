@@ -251,7 +251,7 @@ const SPELL = { ...A_HALL, to: { pos: [0.15, 1.65, 5.0], look: [-0.4, 0.5, 0.8],
 const LIFT = { pos: [-0.2, 1.5, 5.0], look: [0.4, 0.95, -0.9], fov: 50 };
 const FIX = { pos: [0.4, 2.0, 4.1], look: [-0.1, 0.25, 0.7], fov: 54 };   // high, so the rug rolls down the frame
 const CHEER_S = { pos: [1.05, 1.9, 7.4], look: [-0.35, 0.55, 2.7], fov: 62 };
-const B_HALL = { pos: [0.1, 2.8, 6.0], look: [-0.2, 0.45, -1.5], fov: 50 };   // high, so Viking shows over the three heads  // 07-08: turned down the hall to Mom's door
+const B_HALL = { pos: [0.1, 2.45, 6.4], look: [-0.2, 0.45, -1.5], fov: 50 };   // under the ceiling (2.6 m): above it the camera sees only the ceiling's top   // high, so Viking shows over the three heads  // 07-08: turned down the hall to Mom's door
 const beats = c.beats([
   ["01 already going wrong", 0, A_HALL, "hook"],
   ["02 wizard's spell", 1.5, SPELL],
