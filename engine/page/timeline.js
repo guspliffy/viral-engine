@@ -358,10 +358,10 @@ function gaitPlan(sb, actor, def) {
     // a walk: the other foot lifts just after this one lands (both stand for a moment); a run: just before (both in the air)
     nextLift = run ? tt + (ST - 0.5) / cad : Math.max(tt, tt + (ST - 0.5) / cad);
   }
-  // TRIAL (move library, quality plan item 16; not for merge, timeline.js belongs to the motion thread): a { do: "feet",
-  // ev: { R: [{ t0, t1, p1: [x, z], h }], L } } action (storyboards/lib/moves) scripts the steps from motion capture.
-  // Between its first lift and last touch down the planner's own steps give way; each scripted step starts where the
-  // foot stood.
+  // scripted steps (the move library, quality plan item 16; Jonny approved the sneak trial 5 Nov): a { do: "feet",
+  // ev: { R: [{ t0, t1, p1: [x, z], h, a1 }], L } } action (storyboards/lib/moves play()) gives the steps recorded in
+  // motion capture. Between its first lift and last touch down the planner's own steps give way; each scripted step
+  // starts where the foot stood. Storyboards without one plan exactly as before.
   const FA = (sb.actions || []).find((q) => q.who === actor.id && q.do === "feet");
   if (FA) {
     for (const s of ["R", "L"]) {
