@@ -1,0 +1,2800 @@
+{
+ "id": "never-looks-up-trex",
+ "title": "The friend who never looks up from his phone… even when a T-rex shows up",
+ "idea": "Never Looks Up ep 1: a T-rex sniffs, roars and blows the log away; Phoenix never looks up until the series' 'huh.', and the T-rex ends up watching his phone",
+ "format": "series: The friend who never looks up (fixed 8-10 s ending)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "motion": "natural",
+ "cover": 8.5,
+ "set": {
+  "type": "env",
+  "env": "fern-valley-campfire",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false
+ },
+ "drawn": {
+  "twos": false,
+  "lines": {
+   "width": 5.4,
+   "pressure": 1.2,
+   "taper": 0.85,
+   "tint": 0.4
+  },
+  "brush": {
+   "glow": 0,
+   "wrap": 0.12,
+   "cool": 0.2
+  },
+  "paint": {
+   "edge": 0.35
+  },
+  "paper": {
+   "grain": 0.12,
+   "wash": 0.09,
+   "pool": 0.15
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "key": 9,
+  "lowCut": 150,
+  "gain": 0.32
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.35,
+  "surface": "dirt",
+  "room": "open",
+  "flaps": false,
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "wiz",
+   "vik",
+   "rea",
+   "rex",
+   "phone"
+  ],
+  "hint": 0,
+  "what": "a T-rex pushes out of the ferns behind Phoenix, who only sees his phone"
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.3,
+    0.95
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.7,
+   "span": 0,
+   "shadowFall": 2,
+   "arms": {
+    "R": {
+     "x": [
+      -0.11,
+      0.2,
+      0.42
+     ],
+     "palm": [
+      0,
+      0.2,
+      0.42
+     ]
+    },
+    "L": {
+     "x": [
+      0.11,
+      0.2,
+      0.42
+     ],
+     "palm": [
+      0,
+      0.2,
+      0.42
+     ]
+    }
+   },
+   "grip": {
+    "R": "hold",
+    "L": "hold"
+   }
+  },
+  {
+   "id": "wiz",
+   "character": "notyet/wizard-nostaff",
+   "at": [
+    0.75,
+    0.2
+   ],
+   "face": 20,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 2.6
+  },
+  {
+   "id": "vik",
+   "character": "duo/viking",
+   "at": [
+    1.4,
+    0.85
+   ],
+   "face": -35,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 3.3
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -1.9,
+    -3.15
+   ],
+   "y": 0.9,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "log",
+   "kind": "firelog",
+   "x": -0.3,
+   "z": 0.95,
+   "rot": 30,
+   "len": 1.1
+  },
+  {
+   "id": "fire",
+   "kind": "campfire",
+   "x": 0.72,
+   "z": 1.45,
+   "lit": 1,
+   "r": 0.27
+  },
+  {
+   "id": "rock",
+   "kind": "boulder",
+   "x": -1.2,
+   "z": -0.8,
+   "w": 1.3,
+   "h": 0.46,
+   "d": 0.8,
+   "seed": 3
+  },
+  {
+   "id": "perch",
+   "kind": "boulder",
+   "x": -1.9,
+   "z": -3.15,
+   "w": 0.95,
+   "h": 0.9,
+   "d": 0.75,
+   "seed": 7
+  },
+  {
+   "id": "boulder",
+   "kind": "boulder",
+   "x": -1.55,
+   "z": 1.15,
+   "w": 0.8,
+   "h": 0.6,
+   "d": 0.7,
+   "seed": 11
+  },
+  {
+   "id": "rex",
+   "kind": "trex",
+   "x": 2.55,
+   "z": -3.6,
+   "rot": -50,
+   "neckP": -5,
+   "headP": 25,
+   "neckY": -10,
+   "jaw": 0.35,
+   "lookX": 0,
+   "lookY": -0.4,
+   "brow": 0.2
+  },
+  {
+   "id": "ferns1",
+   "kind": "ferns",
+   "x": 1.6,
+   "z": -2.45,
+   "n": 11,
+   "len": 1.9,
+   "seed": 3,
+   "from": [
+    1,
+    -1
+   ]
+  },
+  {
+   "id": "ferns2",
+   "kind": "ferns",
+   "x": 2.55,
+   "z": -2.1,
+   "n": 9,
+   "len": 1.7,
+   "seed": 8
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": -0.3,
+   "y": 0.9,
+   "z": 1.4,
+   "rot": 180,
+   "tip": -28,
+   "scale": 1.9,
+   "case": "#2a2d36"
+  },
+  {
+   "id": "stick",
+   "kind": "mallowstick",
+   "len": 0.75,
+   "x": 1.09,
+   "y": 0.32,
+   "z": 1.03,
+   "rot": 145
+  },
+  {
+   "id": "bag",
+   "kind": "mallowbag",
+   "x": 1.72,
+   "y": 0.36,
+   "z": 0.95,
+   "rot": -40
+  },
+  {
+   "id": "mallows",
+   "kind": "mallows",
+   "x": 1.09,
+   "y": 0.9,
+   "z": 1.03,
+   "scale": 0
+  },
+  {
+   "id": "roar",
+   "kind": "roarlines",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.2,
+   "text": "T-REX!!",
+   "pos": 640,
+   "pop": false
+  },
+  {
+   "from": 2.65,
+   "to": 3.2,
+   "text": "psst! LOOK UP!",
+   "pos": 640,
+   "pop": false
+  },
+  {
+   "from": 8.5,
+   "to": 9,
+   "text": "huh.",
+   "pos": 600,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1 stomp",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.1,
+     1.5,
+     7.8
+    ],
+    "look": [
+     0.1,
+     3.091,
+     -2.073
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "sit",
+     "seat": "log",
+     "dur": 0,
+     "hands": "keep",
+     "feet": [
+      0.36,
+      0.08
+     ],
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "both",
+     "grip": [
+      0,
+      0.035,
+      0
+     ],
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.03,
+      -1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.25,
+      "eye": 0.95
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ferns1",
+     "set": {
+      "part": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2.55,
+      "z": -3.6,
+      "rot": -50,
+      "lean": 5,
+      "neckY": 5,
+      "neckP": 5,
+      "headP": 18,
+      "headY": 0,
+      "headR": 0,
+      "jaw": 0.45,
+      "lookX": -0.2,
+      "lookY": -0.5,
+      "brow": -0.6,
+      "squint": 0.25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.7,
+      0.75
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.85,
+       0.2
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.162,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.006
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.5,
+      0.8
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "bag",
+     "hand": "L",
+     "grip": [
+      0,
+      0.15,
+      0.06
+     ],
+     "pose": {
+      "o": [
+       0.22,
+       0.45,
+       0.24
+      ]
+     },
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 0,
+      "x": 2.2,
+      "z": -3.15
+     },
+     "dur": 0.09,
+     "ease": "in",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2.2,
+      "z": -3.15,
+      "rot": -48,
+      "lean": 10,
+      "neckY": 8,
+      "neckP": 8,
+      "headP": 22,
+      "headY": 0,
+      "headR": 0,
+      "jaw": 0.55
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.08,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "tee rex!",
+     "dur": 0.55,
+     "tone": "excited",
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "stick",
+     "hand": "R",
+     "grip": [
+      0,
+      0.162,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.06
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.9,
+     "at": 0.1
+    },
+    {
+     "fx": "shake",
+     "amp": 0.03,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "mallows",
+     "set": {
+      "scale": 1,
+      "x": 1.1400000000000001,
+      "y": 0.95,
+      "z": 1.1300000000000001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "mallows",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": 1.15,
+      "burst": 1,
+      "spin": 1.5
+     },
+     "dur": 0.55,
+     "ease": "in",
+     "arc": 0.25,
+     "at": 0.11
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.08,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.368,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 2.2,
+     "idle": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.17
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.26
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -149,
+     "dur": 0.25,
+     "at": 1.28
+    },
+    {
+     "who": "wiz",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.75,
+       0.2
+      ],
+      [
+       0.077,
+       0.737,
+       0.161
+      ],
+      [
+       0.154,
+       0.7,
+       0.052
+      ],
+      [
+       0.231,
+       0.637,
+       -0.114
+      ],
+      [
+       0.308,
+       0.546,
+       -0.321
+      ],
+      [
+       0.384,
+       0.425,
+       -0.555
+      ],
+      [
+       0.461,
+       0.272,
+       -0.802
+      ],
+      [
+       0.538,
+       0.088,
+       -1.05
+      ],
+      [
+       0.615,
+       -0.125,
+       -1.287
+      ],
+      [
+       0.692,
+       -0.36,
+       -1.507
+      ],
+      [
+       0.769,
+       -0.609,
+       -1.702
+      ],
+      [
+       0.846,
+       -0.862,
+       -1.869
+      ],
+      [
+       0.923,
+       -1.104,
+       -2.006
+      ],
+      [
+       0.999,
+       -1.32,
+       -2.112
+      ],
+      [
+       1.076,
+       -1.493,
+       -2.188
+      ],
+      [
+       1.153,
+       -1.609,
+       -2.234
+      ],
+      [
+       1.23,
+       -1.65,
+       -2.25
+      ]
+     ],
+     "dur": 1.23,
+     "rate": [
+      [
+       0,
+       2.5
+      ],
+      [
+       0.369,
+       4.2
+      ],
+      [
+       1.23,
+       2.5
+      ]
+     ],
+     "stride": 1.7,
+     "at": 1.32
+    },
+    {
+     "who": "vik",
+     "do": "release",
+     "prop": "stick",
+     "dur": 0,
+     "at": 1.33
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.006,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 1.33
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "y": 0,
+      "tilt": 80,
+      "x": 0.8400000000000001,
+      "z": 1.38
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.33
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.34
+    },
+    {
+     "who": "vik",
+     "do": "release",
+     "prop": "bag",
+     "to": [
+      0.85,
+      0,
+      0.95
+     ],
+     "dur": 0.3,
+     "arc": 0.05,
+     "at": 1.35
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "at": 1.35
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.162,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.034,
+       0.07,
+       -0.073
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.37
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -148,
+     "dur": 0.25,
+     "at": 1.48
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P2 panic",
+   "at": 1.5,
+   "len": 1.7,
+   "shot": "keep",
+   "do": [
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2.2,
+      "z": -3.15,
+      "rot": -48,
+      "lean": 2,
+      "neckY": 10,
+      "neckP": -8,
+      "headP": 30,
+      "headY": 0,
+      "headR": -6,
+      "jaw": 0.15,
+      "lookX": -0.5,
+      "lookY": -0.6,
+      "brow": -0.3,
+      "squint": 0.15
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.4,
+       0.85
+      ],
+      [
+       0.071,
+       1.379,
+       0.802
+      ],
+      [
+       0.141,
+       1.318,
+       0.669
+      ],
+      [
+       0.212,
+       1.224,
+       0.469
+      ],
+      [
+       0.283,
+       1.101,
+       0.223
+      ],
+      [
+       0.353,
+       0.954,
+       -0.048
+      ],
+      [
+       0.424,
+       0.789,
+       -0.325
+      ],
+      [
+       0.494,
+       0.611,
+       -0.593
+      ],
+      [
+       0.565,
+       0.425,
+       -0.837
+      ],
+      [
+       0.636,
+       0.238,
+       -1.05
+      ],
+      [
+       0.706,
+       0.054,
+       -1.225
+      ],
+      [
+       0.777,
+       -0.118,
+       -1.361
+      ],
+      [
+       0.847,
+       -0.274,
+       -1.461
+      ],
+      [
+       0.918,
+       -0.407,
+       -1.529
+      ],
+      [
+       0.989,
+       -0.51,
+       -1.571
+      ],
+      [
+       1.059,
+       -0.576,
+       -1.593
+      ],
+      [
+       1.13,
+       -0.6,
+       -1.6
+      ]
+     ],
+     "dur": 1.13,
+     "rate": [
+      [
+       0,
+       2.5
+      ],
+      [
+       0.33899999999999997,
+       4.2
+      ],
+      [
+       1.13,
+       2.5
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.38,
+       0.18
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.38,
+       0.18
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "rot": -70,
+      "tilt": 75
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0.25,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -116,
+     "dur": 0.35,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.46
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -122,
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.66
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.4,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -5,
+     "dur": 0.4,
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.4,
+      0.75
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.12
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.85,
+       0.25
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "psst psst!",
+     "dur": 0.5,
+     "tone": "excited",
+     "voice": false,
+     "at": 1.15
+    },
+    {
+     "sfx": "notify",
+     "gain": 0.32,
+     "at": 1.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.45
+     },
+     "dur": 0.2,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.2,
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.68,
+       0.25
+      ]
+     },
+     "dur": 0.12,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.85,
+       0.25
+      ]
+     },
+     "dur": 0.12,
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 1,
+      "x": 2.1,
+      "z": -2.325,
+      "rot": -46
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2,
+      "z": -1.5,
+      "rot": -43,
+      "lean": 0,
+      "neckY": 7.5,
+      "neckP": 57.5,
+      "headP": -17.5,
+      "headY": 0,
+      "headR": -8,
+      "jaw": 0,
+      "lookX": -0.3,
+      "lookY": -0.8,
+      "brow": 0.6
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.25,
+      "eye": 0.95
+     },
+     "dur": 0.25,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.25,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.66
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.45,
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 1,
+      "x": 2,
+      "z": -1.5,
+      "rot": -43
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.68
+    }
+   ]
+  },
+  {
+   "name": "P3 sniff",
+   "at": 3.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -0.05,
+     1.55,
+     5.4
+    ],
+    "look": [
+     0.297,
+     2.622,
+     -4.536
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.4,
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.62,
+       0.42
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.62,
+       0.42
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.7,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.7,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "phone",
+     "hand": "R",
+     "dur": 0,
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.35
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.7,
+     "at": 1.35
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.1,
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.47
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.55
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.1,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.11,
+       0.2,
+       0.42
+      ],
+      "palm": [
+       0,
+       0.2,
+       0.42
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.71
+    }
+   ]
+  },
+  {
+   "name": "P4 roar",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     1.45,
+     7.2
+    ],
+    "look": [
+     0.1,
+     2.349,
+     -2.76
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2,
+      "z": -1.5,
+      "rot": -43,
+      "lean": -5,
+      "neckY": 0,
+      "neckP": 47.5,
+      "headP": -2.5,
+      "headY": 0,
+      "headR": 0,
+      "jaw": 0.25,
+      "brow": -1,
+      "lookX": -0.4,
+      "lookY": -0.3,
+      "squint": 0.3
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "roar",
+     "set": {
+      "x": 0.019,
+      "y": 1.519,
+      "z": 0.625,
+      "rot": -43,
+      "tip": 40
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "both",
+     "grip": [
+      0,
+      0.035,
+      0
+     ],
+     "pose": null,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 1,
+      "arms": 1,
+      "breath": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "roar",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0.4,
+     "dur": 0.15,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "crouch",
+     "to": 0.4,
+     "dur": 0.15,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.08,
+     "at": 0.35
+    },
+    {
+     "fx": "shake",
+     "amp": 0.045,
+     "dur": 0.6,
+     "at": 0.4
+    },
+    {
+     "sfx": "dinoroar",
+     "gain": 1,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "wobble": -1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": -1.2,
+      "y": 2.3,
+      "z": 1.9,
+      "spin": 2,
+      "tilt": 0
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "mallows",
+     "set": {
+      "x": 0.05,
+      "y": 0,
+      "z": 1.8,
+      "spin": 3.5
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.76
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": -1.7,
+      "y": 0,
+      "z": 2.05,
+      "spin": 3
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "P5 hover",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.5,
+     7.8
+    ],
+    "look": [
+     -0.3,
+     3.091,
+     -2.073
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.14
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.2,
+      0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.22
+    },
+    {
+     "who": "vik",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0.28
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -1.8,
+      -1.6
+     ],
+     "dur": 0.72,
+     "at": 0.28
+    },
+    {
+     "fx": "shake",
+     "amp": 0.02,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "log",
+     "set": {
+      "x": -0.95,
+      "z": 1.3,
+      "spin": -1.2
+     },
+     "dur": 0.55,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.1,
+      "arms": 0,
+      "breath": 0,
+      "squint": 0,
+      "brow": 0.6,
+      "lookX": -0.5,
+      "lookY": -0.4
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -1.85,
+      -2.42
+     ],
+     "dur": 0.35,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "roar",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.5,
+     "dur": 0.4,
+     "reason": "the log rolls away over the dirt",
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "drop",
+     "to": 0.26,
+     "dur": 0.06,
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.6,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.45,
+     "dur": 3.5500000000000007,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "y": 0.52
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.66
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "reason": "the log hits the boulder",
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2,
+      "z": -1.5,
+      "rot": -43,
+      "lean": 30,
+      "neckY": 22.5,
+      "neckP": 67.5,
+      "headP": -87.5,
+      "headY": 0,
+      "headR": 12,
+      "jaw": 0,
+      "lookX": -0.7,
+      "lookY": -0.2,
+      "brow": 0.8
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "P6 peak",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.45,
+     2,
+     5.8
+    ],
+    "look": [
+     -0.276,
+     2.202,
+     -4.196
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 2.8000000000000003,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 2.8000000000000003,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 2.8000000000000003,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.4,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.46
+    }
+   ]
+  },
+  {
+   "name": "P7 look-up",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.8,
+     5.2
+    ],
+    "look": [
+     0.399,
+     2.176,
+     -4.787
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "lookX": -0.8,
+      "lookY": -0.1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.75,
+      0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.15,
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "huh.",
+     "dur": 0.35,
+     "tone": "calm",
+     "at": 0.5
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P8 back down",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.15,
+     2.05,
+     6.2
+    ],
+    "look": [
+     0.024,
+     2.252,
+     -3.796
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.03,
+      -1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 2,
+      "z": -1.5,
+      "rot": -43,
+      "lean": 30,
+      "neckY": 25,
+      "neckP": 50,
+      "headP": -60,
+      "headY": 0,
+      "headR": 6,
+      "lookX": -0.5,
+      "lookY": -0.9,
+      "squint": 0.8,
+      "brow": 0.4,
+      "wag": 1
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "sfx": "notify",
+     "gain": 0.36,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.55
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.25,
+     "at": 0.28
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.51
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 0.55
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "vik.face",
+    "rea.face",
+    "rex",
+    "phone"
+   ],
+   "why": "P1: the T-rex out of the ferns, everyone sees it but Phoenix"
+  },
+  {
+   "from": 1.6,
+   "to": 3.1,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "rea.face"
+   ],
+   "why": "P2: the friends hiding behind the rock, Phoenix smiling at his phone"
+  },
+  {
+   "from": 3.6,
+   "to": 4.9,
+   "see": [
+    "phx.face",
+    "rex"
+   ],
+   "why": "P3: the T-rex sniffing at Phoenix's crest, Phoenix patting it down"
+  },
+  {
+   "from": 5.3,
+   "to": 6.2,
+   "see": [
+    "rex",
+    "phx.face"
+   ],
+   "why": "P4: the roar in his face, the crest blown back, he keeps scrolling"
+  },
+  {
+   "from": 6.4,
+   "to": 6.95,
+   "see": [
+    "phx.face",
+    "log"
+   ],
+   "why": "P5: the log rolled away, Phoenix hovering on his wings"
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "see": [
+    "phx.face",
+    "rex",
+    "wiz.face",
+    "vik.face",
+    "rea.face"
+   ],
+   "why": "P6: the T-rex's eye right by the phone, the friends' totem frozen"
+  },
+  {
+   "from": 8.1,
+   "to": 8.95,
+   "see": [
+    "phx.face",
+    "rex"
+   ],
+   "why": "P7: Phoenix looks up into the T-rex's eye: huh."
+  },
+  {
+   "from": 9.4,
+   "to": 9.95,
+   "see": [
+    "phx.face",
+    "rex",
+    "phone"
+   ],
+   "why": "P8: the T-rex watching the phone with him"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 0.1,
+   "frames": 3
+  },
+  {
+   "at": 5.4,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "phx",
+   "with": "log",
+   "from": 0,
+   "to": 6.3999999999999995,
+   "reason": "Phoenix sits on the log (his legs rest over it) until it rolls away"
+  },
+  {
+   "who": "phx",
+   "with": "rex",
+   "from": 6.85,
+   "to": 10,
+   "reason": "the T-rex's snout rests right beside the phone (the peak); its head passes beside Phoenix, never through him (draft strip checked)"
+  },
+  {
+   "who": "rea",
+   "with": "perch",
+   "from": 0,
+   "to": 10,
+   "reason": "Reaper stands on the flat rock behind the hiding rock"
+  }
+ ],
+ "notes": "Generated by storyboards/series/never-looks-up/make-ep1-trex.mjs. Panels: PANELS.md. Title added in TikTok's text tool."
+}
