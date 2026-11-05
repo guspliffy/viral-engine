@@ -125,3 +125,73 @@ for (const [id, title, R, P, yaw, arms, expect] of [
   base("arm-pop", "arm pop (must fail)", [{ id: "wiz", character: "lookdev/wizard-crisp", at: [0, 0], face: "camera", expr: "kind", follow: 0.2, seed: 2.6 }], [], c,
     frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.0, { fail: ["rig-jump"] });
 }
+
+// ---- Quality plan item 3 and 13 (5 Nov 2026): the render gate's new checks, each staged once bad (must fail) and once
+// good (clean), all at "gate": 2, where the new fails count. Thread C of wave 1.
+const WIZ1 = [{ id: "wiz", character: "lookdev/wizard-crisp", at: [0, 0], face: "camera", expr: "kind", follow: 0.2, seed: 2.6 }];
+
+// FRAME 0: the opening arm pose set by a move that lasts a frame (the generators' 0.01 s "start like this"; one frame
+// here, so the loader's frame-0 fix, plan item 1, doesn't make it instant) jumps between frame 0 and 1; "dur": 0 doesn't
+for (const [id, title, dur, expect] of [
+  ["frame0", "opening pose jumps on frame 1 (must fail)", 0.034, { fail: ["frame0-jump"] }],
+  ["frame0-fixed", "opening pose from frame 0", 0, { clean: ["frame0-jump", "rig-jump"] }],
+]) {
+  const c = clip(), { A } = c;
+  A(0, "wiz", "noblink");
+  c.arm(0, "wiz", "R", { o: [0.3, 0.55, 0.22] }, dur);
+  base(id, title, WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 1.2, expect, { gate: 2 });
+}
+
+// HIT-STOP BEFORE A WINDOW: a facepalm (the hand over its own eyes for a second) inside an allowClip window written on
+// the story's clock, after a 12-frame hit-stop. Read on the video's clock the window ended 0.4 s early and the end of the
+// facepalm failed face-covered (8 of 10 clips of 4-5 Nov had a window after a hit-stop); read on the story's, it's clean
+{
+  const c = clip(), { A } = c;
+  A(0, "wiz", "noblink");
+  c.hitStop(0.3, 12);
+  c.arm(0.8, "wiz", "R", { o: [0.06, 0.62, 0.3] }, 0.25);
+  c.arm(1.8, "wiz", "R", "rest", 0.3);
+  base("window-hitstop", "facepalm window after a hit-stop", WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.5, { clean: ["face-covered"] }, {
+    gate: 2, allowClip: [{ who: "wiz", from: 0.7, to: 2.15, checks: ["face"], reason: "the facepalm: the glove over his own eyes on purpose" }],
+  });
+}
+
+// GLOW AND GLASS: solid is a property, not an opacity. A phone held in both gloves with its screen's glow at full
+// strength (haloK 0.55; two clips turned it under 0.5 to pass, 71f192b, ffdce32) is clean: a glow can't be touched.
+// A glove pushed into the water glass (opacity 0.3, which used to count as air) fails: glass is solid for hands
+const PHX1 = [{ id: "phx", character: "duo/phoenix", at: [0, 0], face: "camera", expr: "kind", follow: 0.25, seed: 1.7, span: 0 }];
+{
+  const c = clip(), { A } = c, Y = 0.2, Z = 0.42;
+  A(0, "phx", "noblink");
+  A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
+  c.arm(0, "phx", "R", { x: [-0.11, Y, Z], palm: [0, Y, Z] }, 0);
+  c.arm(0, "phx", "L", { x: [0.11, Y, Z], palm: [0, Y, Z] }, 0);
+  A(0, "phx", "look", { to: [0.03, -1], dur: 0, blink: false });
+  base("glow", "phone held in its glow", PHX1, [{ id: "phone", kind: "phone", x: 0, y: 0.62, z: 0.42, rot: 180, tip: -28, scale: 1.9, bright: 2.2, halo: 0.26, haloK: 0.55, glow: 1 }], c,
+    frame([0, 0.6, 0.2], { h: 1.2, fov: 30 }), 1.2, { clean: ["hand-in-prop"] }, { gate: 2 });
+}
+{
+  const c = clip(), { A } = c, G = [0.18, 0.36, 0.45];
+  A(0, "wiz", "noblink");
+  c.arm(0.3, "wiz", "R", { world: [G[0], G[1] + 0.07, G[2]] }, 0.4);
+  base("glass", "glove through the water glass (must fail)", [{ ...WIZ1[0], at: [0, -0.1] }],
+    [{ id: "table", kind: "coffeetable", x: 0, z: 0.5, h: 0.36, w: 1.3, d: 0.5 }, { id: "glass", kind: "waterglass", x: G[0], y: G[1], z: G[2], rot: 0 }], c,
+    { pos: [-0.2, 1.05, 2.4], look: [0.1, 0.45, 0.4], fov: 30 }, 1.4, { fail: ["hand-in-prop"] }, { gate: 2 });
+}
+
+// THE SUBJECT OWNS THE FRONT (plan item 13; Jonny on the tent's first cut, 5 Nov: Phoenix on his phone in front
+// covered the main action). Reaper says the line; Phoenix stands nearer the camera, in front of him (must fail), or
+// aside, a step behind (clean)
+for (const [id, title, phxAt, expect] of [
+  ["front", "bystander in front of the subject (must fail)", [0.12, 1.0], { fail: ["front", "must-see"] }],
+  ["front-fixed", "bystander aside", [0.95, -0.3], { clean: ["front"] }],
+]) {
+  const c = clip(), { A } = c;
+  A(0, "rea", "noblink"); A(0, "phx", "noblink");
+  c.say(0.3, "rea", "Hold the pole.", 1.2);
+  A(0.3, "rea", "expr", { expr: "annoyed", dur: 0.2 });
+  base(id, title, [
+    { id: "rea", character: "notyet/reaper-noscythe", at: [0, 0], face: "camera", expr: "kind", follow: 0.2, seed: 3.3 },
+    { id: "phx", character: "duo/phoenix", at: phxAt, face: 20, expr: "kind", follow: 0.25, seed: 1.7, span: 0 },
+  ], [], c, { pos: [0, 0.9, 5.2], look: [0, 0.6, 0], fov: 36 }, 2.0, expect, { gate: 2, visible: [{ from: 0.3, to: 1.5, see: ["rea.face"], why: "Reaper's line", required: true }] });
+}

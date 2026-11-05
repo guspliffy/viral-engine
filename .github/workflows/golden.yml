@@ -30,11 +30,16 @@ jobs:
         run: echo "sha=$(git rev-parse "origin/${BASE}^{commit}")" >> "$GITHUB_OUTPUT"
         env:
           BASE: ${{ github.base_ref || 'main' }}
-      # the base branch's stills, drawn once per base commit
+      # what draws the pixels besides the code: the runner image and the Mesa rasteriser (render.mjs --gl llvmpipe). Base
+      # stills kept from an older runner would show a runner update as a pixel change (quality plan item 19)
+      - id: drawer
+        shell: bash
+        run: echo "mesa=$(dpkg-query -W -f='${Version}' libgl1-mesa-dri 2>/dev/null || echo none)" >> "$GITHUB_OUTPUT"
+      # the base branch's stills, drawn once per base commit, runner image and Mesa version
       - uses: actions/cache@v4
         with:
           path: out/golden/base-*
-          key: golden-base-${{ steps.base.outputs.sha }}-${{ hashFiles('qa/golden/golden.json') }}
+          key: golden-base-${{ steps.base.outputs.sha }}-${{ env.ImageOS }}-${{ env.ImageVersion }}-mesa-${{ steps.drawer.outputs.mesa }}-${{ hashFiles('qa/golden/golden.json') }}
       - name: Compare with the base branch
         shell: bash
         env:
