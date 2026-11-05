@@ -5,6 +5,7 @@
 //   node qa/check.mjs out/test-01-golden.mp4                       -> finds out/test-01-golden.layout.json if present
 //   node qa/check.mjs clip.mp4 --sb storyboards/x.json --layout x.layout.json --json
 //   node qa/check.mjs clip.mp4 --sb x.json --profile rewards           -> publishing profile (default: the storyboard's, else "short")
+//   node qa/check.mjs clip.mp4 --no-flow                               -> skip the optical-flow pass (qa/glitches.mjs, ~12 s)
 //   node qa/check.mjs clip.mp4 --sb x.json --ears                      -> earshot listens too (sync, floors; ~1 min, qa/sound.mjs)
 //
 // Results come in three groups, kept apart so a report never passes off a creative guess as a platform fact:
@@ -32,6 +33,7 @@ import { rigResults, cutIn, proj } from "./rig.mjs";
 import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mjs";
 export { GATE, gateOf, gateLevel, rootFixed, windowFor, waives, storyAt, actingAt } from "./gate.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
+import { pixelGlitches, describe as describePixel } from "./glitches.mjs";
 import { storyTime } from "../engine/shared/holds.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
@@ -124,13 +126,14 @@ const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing",
 export const groupOf = (check) => GROUP[check] ?? "technical";
 
 function args() {
-  const a = process.argv.slice(2), o = { clip: null, sb: null, layout: null, json: false, profile: null, ears: false };
+  const a = process.argv.slice(2), o = { clip: null, sb: null, layout: null, json: false, profile: null, ears: false, flow: true };
   for (let i = 0; i < a.length; i++) {
     if (a[i] === "--sb") o.sb = a[++i];
     else if (a[i] === "--profile") o.profile = a[++i];
     else if (a[i] === "--layout") o.layout = a[++i];
     else if (a[i] === "--json") o.json = true;
     else if (a[i] === "--ears") o.ears = true;
+    else if (a[i] === "--no-flow") o.flow = false;
     else o.clip = a[i];
   }
   if (!o.clip) { console.error("usage: node qa/check.mjs <clip.mp4> [--sb storyboard.json] [--layout layout.json] [--profile short|rewards] [--json] [--ears]"); process.exit(2); }
@@ -420,7 +423,7 @@ function paceOf(clip) {
   return null;
 }
 
-export function checkClip(clip, { sb = null, layout = null, profile = null } = {}) {
+export function checkClip(clip, { sb = null, layout = null, profile = null, flow = true } = {}) {
   const pname = profile || sb?.profile || "short", P = PROFILES[pname];
   if (!P) throw new Error(`unknown profile "${pname}" (known: ${Object.keys(PROFILES).join(", ")})`);
   const C = { ...CREATIVE, ...(P.creative || {}), ...(sb?.creative || {}) };
@@ -498,6 +501,14 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
     let worstJ = 0, atJ = 0; for (const t of jumps) { const n = jumps.filter((u) => u >= t && u < t + 1).length; if (n > worstJ) { worstJ = n; atJ = t; } }
     add(worstJ > RULES.strobeMax ? "fail" : "pass", "strobe", worstJ > RULES.strobeMax ? `${worstJ} big brightness jumps within 1 s from ${atJ.toFixed(2)} s: strobing reads as a glitch` : `at most ${worstJ} big brightness jumps per second`);
+    // optical flow (qa/flow.py via qa/glitches.mjs, item 15): a part that pops out and back, snaps while all around it is
+    // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
+    // A warning to look at the frame, never a fail (about 12 s; --no-flow skips it)
+    if (flow) {
+      const px = pixelGlitches(clip, { sb, layout }), w = px.findings.filter((f) => f.level === "warn");
+      if (px.error) add("pass", "pixels", `optical flow not measured (${px.error})`);
+      else add(w.length ? "warn" : "pass", "pixels", w.length ? w.slice(0, 5).map(describePixel).join("; ") + (w.length > 5 ? ` (+${w.length - 5} more: node qa/glitches.mjs)` : "") : `optical flow: nothing pops, snaps or flickers (${px.findings.length} small notes: node qa/glitches.mjs --all)`);
+    }
     if (sb?.shots && sb?.fx) for (const f of sb.fx.filter((x) => x.do === "flash"))
       for (const c of cuts) if (f.at - c > 0.001 && f.at - c <= 0.1) add("warn", "cut-flash", `flash at ${f.at}s starts just after the cut at ${c}s: the new shot shows a frame before the flash`);
   }
@@ -627,7 +638,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const layout = layoutFile ? JSON.parse(fs.readFileSync(layoutFile, "utf8")) : null;
   let sb = o.sb ? loadStoryboard(o.sb) : null;
   if (!sb && layout?.duration != null) sb = { duration: layout.duration };
-  const res = checkClip(o.clip, { sb, layout, profile: o.profile });
+  const res = checkClip(o.clip, { sb, layout, profile: o.profile, flow: o.flow });
   const profile = o.profile || sb?.profile || "short";
   // the storyboard's own motion, frame by frame (qa/motion.mjs): values that jump in one frame
   if (sb?.cast && sb?.actions) {

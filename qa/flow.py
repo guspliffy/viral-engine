@@ -18,7 +18,7 @@ Farneback flow between every pair of frames at 270x480, averaged in 30x30 px cel
            reads as a jump on a phone even when the move is smooth (IKEA's boards at 2.03 s)
 
 Frames next to a cut, the frames of a hit-stop and the frames of a flash, shake or speed lines are skipped, and the
-boxes of captions are masked (the caller passes them from the storyboard and layout: qa/pixels.mjs, as --skip in
+boxes of captions are masked (the caller passes them from the storyboard and layout: qa/glitches.mjs, as --skip in
 seconds or a --plan JSON file {"skip": [[a, b]], "soft": [[a, b]], "masks": [{"from", "to", "box": [x, y, w, h]}]} in
 1080x1920 pixels; "soft" windows, like particles and confetti, keep only findings over large areas). Every finding has
 a level: "warn" (large or out-and-back: worth a look at the frame) or "note" (one cell, small: a fast hand, a particle).
