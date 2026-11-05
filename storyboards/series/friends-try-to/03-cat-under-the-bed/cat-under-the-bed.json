@@ -1,0 +1,3900 @@
+{
+ "id": "cat-under-the-bed",
+ "title": "My friend group trying to get one cat out from under the bed",
+ "idea": "Friends try to, episode 3: the lure spell summons every sock, Viking lifts the bed and the cat walks along under it, the torch gets a hiss; Reaper sits beside an empty box and the cat walks in. Then Viking sneezes.",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "motion": "natural",
+ "cover": 9.6,
+ "set": {
+  "type": "plain",
+  "color": "#d9cdea",
+  "floor": "#a77b58",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/cat-bedroom.png",
+   "z": -2.6,
+   "center": [
+    0.1,
+    2.02
+   ],
+   "height": 8.4,
+   "depth": false,
+   "motion": false,
+   "dust": 18
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "lowCut": 150,
+  "gain": 0.3,
+  "until": 8.8
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "room": "room",
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   9.8,
+   9.8
+  ]
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "phx",
+   "vik",
+   "rea",
+   "cat"
+  ],
+  "hint": 0.1,
+  "what": "a paw swipes the treat, two eyes glow under the bed"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "sofa/wizard-staff",
+   "at": [
+    0.3,
+    0.5
+   ],
+   "face": -60,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.6
+  },
+  {
+   "id": "vik",
+   "character": "duo/viking",
+   "at": [
+    0.75,
+    -1.35
+   ],
+   "face": -25,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 4.1
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    1.2,
+    1.25
+   ],
+   "face": -25,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.7,
+   "span": 0.15
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    1.45,
+    -2
+   ],
+   "face": -25,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 3.3
+  }
+ ],
+ "props": [
+  {
+   "id": "bed",
+   "kind": "plaidbed",
+   "x": -0.95,
+   "z": -0.58,
+   "len": 1.6,
+   "wid": 0.95,
+   "gap": 0.33
+  },
+  {
+   "id": "cat",
+   "kind": "cat",
+   "x": -0.7,
+   "z": -0.17,
+   "rot": 90,
+   "lid": 0.35,
+   "char": 1,
+   "glow": 1,
+   "drop": 0.55
+  },
+  {
+   "id": "treat",
+   "kind": "treat",
+   "x": -0.38,
+   "y": 0.05,
+   "z": 0.1,
+   "rot": 90
+  },
+  {
+   "id": "beam",
+   "kind": "torchbeam",
+   "x": 0.92,
+   "y": 0.34,
+   "z": 1.43,
+   "rot": -131,
+   "tip": 3,
+   "len": 2,
+   "r": 0.5
+  },
+  {
+   "id": "carrier",
+   "kind": "petcarrier",
+   "x": 2.1,
+   "z": -1.9,
+   "rot": -40,
+   "open": 75
+  },
+  {
+   "id": "cattree",
+   "kind": "cattree",
+   "x": -2.35,
+   "z": -2.2,
+   "scale": 0.9
+  },
+  {
+   "id": "mouse",
+   "kind": "toymouse",
+   "x": -0.45,
+   "z": 1.15,
+   "rot": 30
+  },
+  {
+   "id": "box",
+   "kind": "cardbox",
+   "x": -1.05,
+   "z": 0.62,
+   "w": 0.6,
+   "d": 0.62,
+   "h": 0.22,
+   "rot": 8,
+   "empty": true,
+   "seed": 5
+  },
+  {
+   "id": "floorseat",
+   "kind": "shadowpool",
+   "x": -0.05,
+   "y": -0.09,
+   "z": 1,
+   "w": 2.4,
+   "d": 2,
+   "scale": 0.286
+  },
+  {
+   "id": "sock0",
+   "kind": "sock",
+   "x": 0.55,
+   "y": 0,
+   "z": 0.95,
+   "scale": 1.3,
+   "rot": 0,
+   "tip": 0,
+   "color": "#e85d75",
+   "stripe": "#ffffff"
+  },
+  {
+   "id": "sock1",
+   "kind": "sock",
+   "x": -0.35,
+   "y": 0,
+   "z": 1,
+   "scale": 1.3,
+   "rot": 47,
+   "tip": 0,
+   "color": "#5aa9e6",
+   "stripe": "#ffe066"
+  },
+  {
+   "id": "sock2",
+   "kind": "sock",
+   "x": 1.75,
+   "y": 0,
+   "z": 0.2,
+   "scale": 1.3,
+   "rot": 94,
+   "tip": 0,
+   "color": "#9b5de5",
+   "stripe": "#f1f1f1"
+  },
+  {
+   "id": "sock3",
+   "kind": "sock",
+   "x": -1.5,
+   "y": 0,
+   "z": 0.85,
+   "scale": 1.3,
+   "rot": 141,
+   "tip": 0,
+   "color": "#f4a261",
+   "stripe": "#2a9d8f"
+  },
+  {
+   "id": "sock4",
+   "kind": "sock",
+   "x": -1.2,
+   "y": 0.64,
+   "z": -0.75,
+   "scale": 1.3,
+   "rot": 8,
+   "tip": 0,
+   "color": "#ffffff",
+   "stripe": "#e63946"
+  },
+  {
+   "id": "sock5",
+   "kind": "sock",
+   "x": -0.5,
+   "y": 0.64,
+   "z": -0.4,
+   "scale": 1.3,
+   "rot": 55,
+   "tip": 0,
+   "color": "#43aa8b",
+   "stripe": "#f9c74f"
+  },
+  {
+   "id": "sock6",
+   "kind": "sock",
+   "x": 1.9,
+   "y": 0,
+   "z": -0.6,
+   "scale": 1.3,
+   "rot": 102,
+   "tip": 0,
+   "color": "#f15bb5",
+   "stripe": "#fee440"
+  },
+  {
+   "id": "sock7",
+   "kind": "sock",
+   "x": 0.95,
+   "y": 0,
+   "z": 1.1,
+   "scale": 1.3,
+   "rot": 149,
+   "tip": 0,
+   "color": "#adb5bd",
+   "stripe": "#495057"
+  },
+  {
+   "id": "hatsock",
+   "kind": "sock",
+   "wear": "wiz",
+   "x": 0.05,
+   "y": 1.38,
+   "z": 0.08,
+   "rot": 20,
+   "tilt": -60,
+   "scale": 0.001,
+   "color": "#ffffff",
+   "stripe": "#e63946"
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 0.96,
+   "y": 0.42,
+   "z": 1.53,
+   "rot": 155,
+   "tip": -20,
+   "scale": 1.6,
+   "case": "#e07a5f"
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.9,
+   "to": 2.8,
+   "text": "Cats love me.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 5.48,
+   "text": "You scared it!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.5,
+   "to": 5.98,
+   "text": "YOUR socks!",
+   "pos": 380,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.82,
+   "to": 8.1,
+   "text": "Aww…",
+   "pos": 380,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.1,
+   "to": 8.55,
+   "text": "Ah-CHOO!",
+   "pos": 380,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1-P2 going wrong, the spell",
+   "at": 0,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     1.3,
+     3,
+     5
+    ],
+    "look": [
+     0.18,
+     0.35,
+     -0.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "yip!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 20,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "treat",
+      "grip": [
+       0,
+       0.03,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -0.58
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 14,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "on": 0.55
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.35
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.44,
+       0.27
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.25
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.48,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
+     "do": "prop",
+     "id": "treat",
+     "set": {
+      "x": -0.65,
+      "z": -0.17,
+      "y": 0.02
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.3
+     },
+     "dur": 0.08,
+     "at": 0.06
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.15,
+     "at": 0.06
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "R",
+     "grip": [
+      0.061,
+      0.065,
+      -0.006
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -0.7
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "treat",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 0.11
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.009999999999999998,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "sfx": "kenney/metal-click",
+     "gain": 0.5,
+     "reason": "Viking's knuckles cracking",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.009999999999999998,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.009999999999999998,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "sfx": "kenney/metal-click",
+     "gain": 0.5,
+     "reason": "Viking's knuckles cracking",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.009999999999999998,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.48,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.55
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "pspsps, cats love me",
+     "tone": "calm",
+     "dur": 0.7,
+     "voice": false,
+     "at": 1.6
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.25,
+     "at": 1.6
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.25,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.7
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 1.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.95,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "tilt",
+     "to": [
+      14,
+      6
+     ],
+     "dur": 0.3,
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.3,
+     "at": 2
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.3,
+     "dur": 0.9,
+     "reason": "the Wizard's lure spell",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "sock0",
+     "set": {
+      "x": 0.42,
+      "y": 1.5,
+      "z": 0.5,
+      "rot": 200,
+      "tip": -40
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "sock1",
+     "set": {
+      "x": 0.385,
+      "y": 1.55,
+      "z": 0.585,
+      "rot": 240,
+      "tip": -27
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.19
+    },
+    {
+     "do": "prop",
+     "id": "sock2",
+     "set": {
+      "x": 0.3,
+      "y": 1.6,
+      "z": 0.62,
+      "rot": 280,
+      "tip": -14
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.23
+    },
+    {
+     "do": "prop",
+     "id": "sock3",
+     "set": {
+      "x": 0.215,
+      "y": 1.5,
+      "z": 0.585,
+      "rot": 320,
+      "tip": -1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.27
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "sock4",
+     "set": {
+      "x": 0.18,
+      "y": 1.55,
+      "z": 0.5,
+      "rot": 360,
+      "tip": 12
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.31
+    },
+    {
+     "do": "prop",
+     "id": "sock5",
+     "set": {
+      "x": 0.215,
+      "y": 1.6,
+      "z": 0.415,
+      "rot": 400,
+      "tip": 25
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.35
+    },
+    {
+     "do": "prop",
+     "id": "sock6",
+     "set": {
+      "x": 0.3,
+      "y": 1.5,
+      "z": 0.38,
+      "rot": 440,
+      "tip": 38
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.39
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "sock7",
+     "set": {
+      "x": 0.385,
+      "y": 1.55,
+      "z": 0.415,
+      "rot": 480,
+      "tip": 51
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.43
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.35,
+     "reason": "soft sock flops landing on his hat",
+     "at": 2.45
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 2.5
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.35,
+     "reason": "soft sock flops landing on his hat",
+     "at": 2.55
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "pfft",
+     "tone": "excited",
+     "dur": 0.25,
+     "voice": false,
+     "at": 2.6
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "hatsock",
+     "set": {
+      "scale": 1.5
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 2.62
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.35,
+     "reason": "soft sock flops landing on his hat",
+     "at": 2.66
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.12,
+     "at": 2.7
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.7
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.8
+    },
+    {
+     "who": "wiz",
+     "do": "tilt",
+     "to": null,
+     "dur": 0.35,
+     "at": 2.8
+    },
+    {
+     "fx": "pop",
+     "text": "sigh",
+     "who": "rea",
+     "dur": 0.6,
+     "size": 88,
+     "dx": -0.45,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 2.9
+    },
+    {
+     "do": "prop",
+     "id": "sock0",
+     "set": {
+      "x": -0.1,
+      "y": 0.003,
+      "z": 0.85,
+      "tip": 0,
+      "rot": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "sock1",
+     "set": {
+      "x": 0.7,
+      "y": 0.003,
+      "z": 0.75,
+      "tip": 0,
+      "rot": 61
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.03
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.05
+    },
+    {
+     "do": "prop",
+     "id": "sock2",
+     "set": {
+      "x": 0.55,
+      "y": 0.003,
+      "z": 0.15,
+      "tip": 0,
+      "rot": 122
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.06
+    },
+    {
+     "do": "prop",
+     "id": "sock3",
+     "set": {
+      "x": -0.25,
+      "y": 0.003,
+      "z": 1.1,
+      "tip": 0,
+      "rot": 183
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.09
+    },
+    {
+     "do": "prop",
+     "id": "sock4",
+     "set": {
+      "x": 0.15,
+      "y": 0.003,
+      "z": 1.05,
+      "tip": 0,
+      "rot": 244
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.12
+    },
+    {
+     "do": "prop",
+     "id": "sock5",
+     "set": {
+      "x": 0.85,
+      "y": 0.003,
+      "z": 0.35,
+      "tip": 0,
+      "rot": 305
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.15
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "reason": "the heap of socks slides off onto the floor",
+     "at": 3.15
+    },
+    {
+     "do": "prop",
+     "id": "sock6",
+     "set": {
+      "x": 0.45,
+      "y": 0.003,
+      "z": 1.15,
+      "tip": 0,
+      "rot": 366
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.18
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.2
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.2
+    },
+    {
+     "do": "prop",
+     "id": "sock7",
+     "set": {
+      "x": -0.4,
+      "y": 0.003,
+      "z": 0.75,
+      "tip": 0,
+      "rot": 427
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 3.21
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P3-P4 lift, torch, hiss",
+   "at": 3.3,
+   "len": 2.2,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0.27,
+      -0.73
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      1,
+      0.35
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "steps": 3,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       -0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.08,
+     "at": 0.34
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.1,
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.35,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "hnnngh",
+     "tone": "excited",
+     "dur": 0.3,
+     "voice": false,
+     "at": 0.44
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "tilt": -26,
+      "x": -1.031,
+      "y": 0.351
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
+     "sfx": "door-creak",
+     "gain": 0.5,
+     "reason": "the bed frame creaks as Viking heaves the foot end up",
+     "at": 0.48
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       -0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "char": 0.1,
+      "glow": 0.2,
+      "drop": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "flap": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -1.15,
+      "rot": -90
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "sfx": "kenney/footstep-carpet",
+     "gain": 0.12,
+     "reason": "the cat's paw pads (a soft carpet step, quiet)",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "tilt": 0,
+      "x": -0.95,
+      "y": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       -0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bed",
+      "grip": [
+       0.82,
+       0.35,
+       0.22
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "kenney/footstep-carpet",
+     "gain": 0.12,
+     "reason": "the cat's paw pads (a soft carpet step, quiet)",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "char": 1,
+      "glow": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.4,
+     "reason": "the bed's feet back on the floor",
+     "at": 1.2
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.3,
+     "reason": "the wooden bed frame knocks on the floor (the click on top of the thud, for phone speakers)",
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "on": 1,
+      "rot": -121,
+      "len": 2.6
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "sfx": "kenney/metal-click",
+     "gain": 0.35,
+     "reason": "the phone torch clicks to full",
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "flap": 0,
+      "drop": 0.55
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "puff": 1,
+      "lid": 0,
+      "char": 0.15
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.6,
+     "reason": "the cat's hiss in the torch beam: a short bright hiss of air (no cat voice in the whitelist)",
+     "at": 1.4
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.539,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.42
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.42
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.42
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.539,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.42
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.42
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.42
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.42
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.95,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.42
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.539,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.44
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.44
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.44
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.1,
+     "at": 1.45
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -170,
+     "dur": 0.15,
+     "at": 1.45
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1.45
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "vik",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.27,
+       -0.73
+      ],
+      [
+       0.24,
+       0.3,
+       -1.505
+      ],
+      [
+       0.5,
+       -0.9,
+       -1.575
+      ],
+      [
+       0.72,
+       -1.55,
+       -1.555
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       6
+      ],
+      [
+       0.5,
+       6
+      ],
+      [
+       0.72,
+       3
+      ]
+     ],
+     "stride": 2,
+     "at": 1.48
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.58
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -150,
+     "dur": 0.15,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -165,
+     "dur": 0.15,
+     "at": 1.62
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       0.86,
+       0.48,
+       1.12
+      ]
+     },
+     "dur": 0.075,
+     "ease": "linear",
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 85,
+      "tip": -10
+     },
+     "dur": 0.075,
+     "ease": "linear",
+     "at": 1.62
+    },
+    {
+     "who": "wiz",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1,
+       0.35
+      ],
+      [
+       0.26,
+       0.55,
+       -0.3
+      ],
+      [
+       0.44,
+       0.3,
+       -1.505
+      ],
+      [
+       0.8,
+       -0.55,
+       -1.555
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       6
+      ],
+      [
+       0.6,
+       6
+      ],
+      [
+       0.8,
+       3
+      ]
+     ],
+     "stride": 2,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 5,
+     "dur": 0.2,
+     "at": 1.65
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       1.21,
+       0.48,
+       0.81
+      ]
+     },
+     "dur": 0.075,
+     "ease": "out",
+     "at": 1.695
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 15,
+      "tip": -10
+     },
+     "dur": 0.075,
+     "ease": "out",
+     "at": 1.695
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "puff": 0,
+      "lid": 0.35,
+      "char": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.12,
+     "at": 1.7
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1.75,
+      0.45
+     ],
+     "dur": 0.5,
+     "ease": "in",
+     "steps": 4,
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.2,
+       1.25
+      ],
+      [
+       0.5,
+       0.9,
+       -0.5
+      ],
+      [
+       0.88,
+       0.5,
+       -1.555
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       6
+      ],
+      [
+       0.6,
+       6
+      ],
+      [
+       0.88,
+       3
+      ]
+     ],
+     "stride": 2,
+     "at": 1.72
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.3,
+     "reason": "the scramble round the bed on the wooden floor",
+     "at": 1.72
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       0.91,
+       0.5,
+       -0.94
+      ]
+     },
+     "dur": 0.45,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 15,
+      "tip": -10
+     },
+     "dur": 0.45,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "you scared it!",
+     "tone": "excited",
+     "dur": 0.4,
+     "voice": false,
+     "at": 1.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.07
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.12,
+     "at": 2.1
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.25,
+     "at": 2.15
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -85,
+     "dur": 0.15,
+     "at": 2.15
+    }
+   ]
+  },
+  {
+   "name": "P5 the calm fix",
+   "at": 5.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.5,
+     2.5,
+     3.9
+    ],
+    "look": [
+     -0.5,
+     0.4,
+     -0.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.7,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       0.51,
+       0.5,
+       -1.995
+      ]
+     },
+     "dur": 0.38,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 15,
+      "tip": -10
+     },
+     "dur": 0.38,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "YOUR socks!",
+     "tone": "excited",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.7,
+       0.45
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.15,
+      1
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "steps": 5,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.06,
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.27
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.27
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.25,
+     "at": 0.28
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       0.15,
+       0.48,
+       -1.675
+      ]
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 90,
+      "tip": -10
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "char": 0,
+      "glow": 0,
+      "drop": 0,
+      "rot": 20
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       0.34,
+       0.48,
+       -1.225
+      ]
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 170,
+      "tip": -10
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "flap": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -1,
+      "z": 0.28
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "floorseat",
+     "dur": 0.3,
+     "at": 0.56
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "sfx": "kenney/footstep-carpet",
+     "gain": 0.12,
+     "reason": "the cat's paw pads on the rug (a soft carpet step, quiet)",
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "sfx": "kenney/footstep-carpet",
+     "gain": 0.12,
+     "reason": "the cat's paw pads on the rug (a soft carpet step, quiet)",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.82
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.2,
+     "at": 0.82
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.44,
+       0.27
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "sfx": "kenney/footstep-carpet",
+     "gain": 0.12,
+     "reason": "the cat's paw pads on the rug (a soft carpet step, quiet)",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -1.05,
+      "z": 0.55,
+      "y": 0.16,
+      "rot": 0
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "y": 0.012,
+      "over": 1,
+      "drop": 1
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.08
+    },
+    {
+     "sfx": "cardboard",
+     "gain": 0.5,
+     "reason": "the cat settles into the cardboard box",
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.482,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.14
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.14
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.14
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.482,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.165
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.165
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.165
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "happy": 1,
+      "lid": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.482,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.19
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.19
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.19
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "P6-P8 cheer, undo, glare",
+   "at": 7,
+   "len": 1.22,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.25,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.25,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.25,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.25,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.24,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.24,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.03
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.03
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.68
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 9,
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "aww",
+     "tone": "calm",
+     "dur": 0.3,
+     "voice": false,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.42,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.42,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2,
+      "eye": 0.6
+     },
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.12,
+     "at": 1.1
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "ah-CHOO",
+     "tone": "excited",
+     "dur": 0.3,
+     "voice": false,
+     "at": 1.1
+    },
+    {
+     "sfx": "dö-döm",
+     "gain": 0.9,
+     "reason": "the series sting on the tiny undo (the same in every episode)",
+     "at": 1.16
+    }
+   ]
+  },
+  {
+   "name": "P7 the undo",
+   "at": 8.22,
+   "len": 1.58,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 11,
+     "dur": 0.14,
+     "at": 0
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.7,
+     "reason": "the burst of Viking's sneeze into his mittens (a short hiss of air under his gibberish ah-CHOO)",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.012,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "happy": 0,
+      "over": 0,
+      "drop": 0,
+      "jet": 1,
+      "lid": 0,
+      "y": 0.15,
+      "rot": 160
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.4,
+     "reason": "the cat shoots out of the box and back under the bed",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "x": -0.6,
+      "z": -0.17,
+      "y": 0,
+      "rot": -90
+     },
+     "dur": 0.22,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.65,
+     "idle": 0.08,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.65,
+     "idle": 0.08,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.32,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.65,
+     "idle": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "jet": 0,
+      "char": 1,
+      "glow": 1,
+      "drop": 0.55,
+      "lid": 0.55,
+      "rot": 90
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.66
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.71
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.71
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 0.76
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.76
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.76
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.76
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.95,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.83
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -22.5,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.87
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.98,
+       -0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.91
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.93
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.96
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.96
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.95,
+      0.457
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -22.438,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 1.16
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.98,
+       -0.12
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.21
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.21
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.23
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 1.26
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.98,
+       -0.12
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 1.36
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "wiz.face",
+    "phx.face",
+    "vik.face",
+    "rea.face",
+    "cat",
+    "carrier"
+   ],
+   "why": "P1: the paw takes the treat, two eyes under the bed, everyone round the foot"
+  },
+  {
+   "from": 2.3,
+   "to": 3.2,
+   "see": [
+    "wiz.face",
+    "sock0",
+    "cat"
+   ],
+   "why": "P2: every sock in the room lands on the Wizard; the cat hasn't moved"
+  },
+  {
+   "from": 3.9,
+   "to": 4.45,
+   "see": [
+    "bed",
+    "cat",
+    "vik.face"
+   ],
+   "why": "P3: Viking lifts the bed, the cat strolls along under it to stay in its shade"
+  },
+  {
+   "from": 4.6,
+   "to": 4.95,
+   "see": [
+    "cat",
+    "phx.face"
+   ],
+   "why": "P4: the torch finds two big eyes and a hiss"
+  },
+  {
+   "from": 5.55,
+   "to": 5.95,
+   "see": [
+    "vik.face",
+    "wiz.face"
+   ],
+   "why": "P4: Viking blames the Wizard's socks from behind the bed"
+  },
+  {
+   "from": 6.1,
+   "to": 6.6,
+   "see": [
+    "cat",
+    "box",
+    "rea.face"
+   ],
+   "why": "P5: the cat walks out past Reaper and into the box"
+  },
+  {
+   "from": 6.7,
+   "to": 6.98,
+   "see": [
+    "cat",
+    "wiz.face",
+    "vik.face",
+    "phx.face"
+   ],
+   "why": "P5: jaws drop"
+  },
+  {
+   "from": 7.1,
+   "to": 7.75,
+   "see": [
+    "wiz.face",
+    "vik.face",
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "WE DID IT: all four cheering at the result"
+  },
+  {
+   "from": 9.3,
+   "to": 9.75,
+   "see": [
+    "wiz.face",
+    "vik.face",
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "THE GLARE: three annoyed faces turned to Viking, his sheepish grin"
+  },
+  {
+   "from": 9.1,
+   "to": 9.7,
+   "see": [
+    "cat",
+    "box",
+    "hatsock"
+   ],
+   "why": "P8: the empty box, two yellow eyes under the bed, the sock still on his hat"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 4.7,
+   "frames": 3
+  },
+  {
+   "at": 6.6,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wiz",
+   "with": "hatsock",
+   "from": 2.6,
+   "to": 10,
+   "reason": "the last sock sits on his hat brim (it rests on it, a few mm in)"
+  },
+  {
+   "who": "wiz",
+   "with": "sock0",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock1",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock2",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock3",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock4",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock5",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock6",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "sock7",
+   "from": 2.1,
+   "to": 3.4,
+   "reason": "the socks heap on his hat and slide off it"
+  },
+  {
+   "who": "wiz",
+   "with": "phx",
+   "from": 3.4,
+   "to": 5.05,
+   "reason": "P3-P4 belong to Viking's lift and the cat's hiss: the Wizard stands back behind Phoenix, his hat and staff still show; his face reads again in the scramble"
+  },
+  {
+   "who": "rea",
+   "with": "floorseat",
+   "from": 5.9,
+   "to": 10,
+   "reason": "Reaper sits on the floor (the seat is a soft shadow on it)"
+  },
+  {
+   "who": "vik",
+   "with": "bed",
+   "from": 3.6,
+   "to": 4.6,
+   "reason": "Viking's palms under the bed's foot end as he lifts it"
+  }
+ ],
+ "notes": "Generated by storyboards/series/friends-try-to/03-cat-under-the-bed/make-cat-under-the-bed.mjs. Panels: PANELS.md."
+}
