@@ -93,11 +93,36 @@ export async function motionJumps(sb, fps = 30) {
       for (let i = 2; i < rows.length - 1; i++) {
         if (rows[i].skip || rows[i - 1].skip || cutBetween(sb, rows[i - 1].t, rows[i].t) || (k.startsWith("hand") && (rows[i].fries || rows[i - 1].fries))) continue;
         const d = step(i, k), around = Math.max(step(i - 1, k), step(i + 1, k));
-        if (d > lim && d > RATIO * around) out.push({ who: c.id, what: k, t: Math.round(rows[i].t * 1000) / 1000, from: rows[i - 1].v[k], to: rows[i].v[k], size: d });
+        // still: the frames either side barely move, so nothing on screen hides the jump (quality plan item 3)
+        if (d > lim && d > RATIO * around) out.push({ who: c.id, what: k, t: Math.round(rows[i].t * 1000) / 1000, from: rows[i - 1].v[k], to: rows[i].v[k], size: d, still: around < lim / 4 });
+      }
+      // frame 0 to frame 1: only the step after it to compare with (an opening pose set by a 0.01 s move at t = 0)
+      if (rows.length > 2 && !rows[1].skip && !rows[0].skip && !cutBetween(sb, rows[0].t, rows[1].t) && !(k.startsWith("hand") && rows[1].fries)) {
+        const d = step(1, k), next = step(2, k);
+        if (d > lim && d > RATIO * next) out.push({ who: c.id, what: k, t: Math.round(rows[1].t * 1000) / 1000, from: rows[0].v[k], to: rows[1].v[k], size: d, frame0: true });
       }
     }
   }
   return out.sort((a, b) => a.t - b.t);
+}
+
+// the jumps as check results (qa/check.mjs, qa/preflight.mjs): "motion" warns as before; a body lean or pitch jump in
+// a still moment is a "lean-jump", and a pose jump between frame 0 and frame 1 a "frame0-jump" (fail at "gate": 2,
+// quality plan item 3; an allowClip window naming the check waives it)
+export async function motionResults(sb, fps = 30) {
+  const { GATE, gateLevel, windowAtStory: windowFor } = await import("./gate.mjs");
+  const { cutBetween } = await import("../engine/page/timeline.js");
+  const j = (await motionJumps(sb, fps)).filter((x) => !x.note), out = [];
+  // the first frames after a cut hide a small tip (the eye is still finding the new shot)
+  const lean = j.filter((x) => ["lean", "pitch"].includes(x.what) && x.still && !x.frame0 && !cutBetween(sb, x.t - 3 / fps, x.t) && !windowFor(sb, "lean-jump", x.who, x.t));
+  // the hands, the body's place and the feet between frames 0 and 1 are measured on the drawn rig (qa/rig.mjs)
+  const f0 = j.filter((x) => x.frame0 && !["x", "y", "z", "handR", "handL"].includes(x.what) && !windowFor(sb, "frame0-jump", x.who, x.t));
+  const rest = j.filter((x) => !lean.includes(x) && !x.frame0);
+  const say = (x) => `${x.who} ${x.what} ${typeof x.size === "number" ? `${x.size.toFixed(2)} ` : ""}at ${x.t.toFixed(2)}s`;
+  if (lean.length) out.push({ group: "technical", level: gateLevel(sb), check: "lean-jump", msg: `the body tips in one frame while everything round it is still: ${lean.slice(0, 6).map(say).join(", ")}${lean.length > 6 ? ", ..." : ""} (radians): ease the lean over 0.2 s or more${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });
+  if (f0.length) out.push({ group: "technical", level: gateLevel(sb), check: "frame0-jump", msg: `the opening pose jumps between frame 0 and frame 1: ${f0.slice(0, 6).map(say).join(", ")}${f0.length > 6 ? ", ..." : ""}: start it instantly ("dur": 0 at t = 0, not 0.01 s)${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });
+  out.push({ group: "technical", level: rest.length ? "warn" : "pass", check: "motion", msg: rest.length ? `jumps in one frame: ${rest.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${rest.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
+  return out;
 }
 
 // Loop seam (a storyboard with "loop": true): the replay starts where the clip ends, so the last frame should flow into

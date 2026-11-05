@@ -1,0 +1,53 @@
+# Every episode storyboard a pull request changes is laid out (render.mjs --layout, no frames drawn, 3-7 minutes each)
+# and judged by qa/preflight.mjs --quick: the contact gate, the drawn rig, the must-see list and the front of the
+# frame, the motion checks. A storyboard the render would refuse turns the pull request red here, before anyone renders
+# it (quality plan item 19). The regress fixtures have their own workflow (contacts.yml).
+name: Episode preflight
+on:
+  pull_request:
+    paths:
+      - "storyboards/**.json"
+      - "qa/preflight.mjs"
+      - ".github/workflows/episodes.yml"
+  workflow_dispatch:
+    inputs:
+      storyboards:
+        description: "Storyboards to check, space-separated (default: the ones the pull request changes)"
+        required: false
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: list
+        shell: bash
+        env:
+          BASE: ${{ github.base_ref || 'main' }}
+          GIVEN: ${{ inputs.storyboards }}
+        run: |
+          if [ -n "$GIVEN" ]; then files="$GIVEN"
+          else files=$(git diff --name-only --diff-filter=AM "origin/$BASE...HEAD" -- 'storyboards/*.json' | grep -v -E '^storyboards/(regress|templates)/' || true)
+          fi
+          # episodes only: a storyboard with a cast (not a set, a grip table or a sound list)
+          keep=""; for f in $files; do [ -f "$f" ] && node -e "const j=require('./'+process.argv[1]); process.exit(Array.isArray(j.cast)&&j.cast.length?0:1)" "$f" && keep="$keep $f"; done
+          echo "files=$keep" >> "$GITHUB_OUTPUT"
+          echo "episode storyboards: ${keep:-none}"
+      - if: steps.list.outputs.files != ''
+        uses: ./.github/actions/setup
+      - if: steps.list.outputs.files != ''
+        name: Lay out and judge each storyboard
+        shell: bash
+        run: |
+          status=0
+          for f in ${{ steps.list.outputs.files }}; do
+            echo "::group::$f"
+            node qa/preflight.mjs "$f" --quick --fresh | tee -a preflight.txt || status=1
+            echo "::endgroup::"
+          done
+          { echo '```'; cat preflight.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status

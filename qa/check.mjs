@@ -24,11 +24,13 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
-import { motionJumps, storyNotes, loopSeam } from "./motion.mjs";
+import { motionResults, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
-import { visibility } from "./framing.mjs";
+import { visibility, frontResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
-import { rigResults, cutIn } from "./rig.mjs";
+import { rigResults, cutIn, proj } from "./rig.mjs";
+import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mjs";
+export { GATE, gateOf, gateLevel, rootFixed, windowFor, waives, storyAt, actingAt } from "./gate.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { seedOf } from "../puppet/beat.mjs";
@@ -183,8 +185,8 @@ export function clipResults(sb, layout) {
   const step = samples.length > 1 ? samples[1].t - samples[0].t : 0.1;
   const windows = sb?.allowClip || [];
   for (const w of windows) if (!w.reason) out.push({ level: "warn", check: "clipping", msg: `allowClip ${w.who}${w.with ? " / " + w.with : ""} ${w.from}-${w.to}s has no reason, so it is ignored` });
-  const win = (c, t) => windows.find((w) => w.reason && [c.who, c.with].includes(w.who) && (!w.with || [c.who, c.with].includes(w.with)) && t >= w.from && t <= w.to);
   const actors = new Set((sb?.cast || []).map((c) => c.id));
+  const win = (c, t) => windowFor(sb, actors.has(c.with) ? "character-overlap" : "clipping", c.who, t, c.with);
   const runs = new Map();
   for (const x of samples) for (const c of x.clips || []) {
     const w = win(c, x.t), body = actors.has(c.with);
@@ -220,7 +222,7 @@ export function clipResults(sb, layout) {
 export function contactResults(layout, sb = null) {
   const out = [], rows = layout?.contacts || [];
   if (!rows.length) return out;
-  const fps = layout.fps || 30, ids = [...new Set(rows.flatMap((r) => r.actors.map((a) => a.id)))];
+  const fps = layout.fps || 30, ids = [...new Set(rows.flatMap((r) => r.actors.map((a) => a.id)))], T = (i) => rows[i]?.t ?? i / fps;
   const spans = (flags) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= RULES.contactHold); };
   const when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
   const turn = (p, q) => 2 * Math.acos(Math.min(1, Math.abs(p[0] * q[0] + p[1] * q[1] + p[2] * q[2] + p[3] * q[3]))) * 180 / Math.PI;
@@ -239,10 +241,25 @@ export function contactResults(layout, sb = null) {
       }
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
       for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
+      const flips = [], pops = [];
       for (let i = 1; i < st.length; i++) {
         const a = st[i - 1], b = st[i]; if (!a || !b || (sb && cutIn(sb, storyTime(sb.holds, (i - 1) / fps), storyTime(sb.holds, i / fps)))) continue;   // cuts are on the storyboard's clock
         const d = turn(a.q[s], b.q[s]);
-        if (d > RULES.handTurnWarn) { out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns ${Math.round(d)}° in one frame at ${(i / fps).toFixed(2)}s: look at it at full speed (fine if hidden)` }); }
+        if (d > RULES.handTurnWarn) pops.push({ t: i / fps, d });
+        // a flip anyone sees at full speed (quality plan item 3): over GATE.handTurn, the hand on screen and moving
+        // slower than the motion blur's threshold (a smeared hand hides its turn), not waived by a named window
+        if (d > GATE.handTurn && sb && a.w?.[`h${s}`] && b.w?.[`h${s}`] && b.on !== 0) {
+          const P = proj(sb), p0 = P(T(i - 1), a.w[`h${s}`]), p1 = P(T(i), b.w[`h${s}`]);
+          const shown = p1 && p1[0] >= 0 && p1[0] <= 1080 && p1[1] >= 0 && p1[1] <= 1920, px = p0 && p1 ? Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) : 0;
+          if (shown && px < GATE.blurPx && !windowFor(sb, "hand-turn", id, T(i))) flips.push({ t: T(i), d });
+        }
+      }
+      // one line per hand: every turn over handTurnWarn (the ones hand-turn doesn't report are hidden, smeared or off screen)
+      const shown = pops.filter((p) => !flips.some((f) => Math.abs(f.t - p.t) < 1e-3));
+      if (shown.length) out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns over ${RULES.handTurnWarn}° in one frame at ${shown.slice(0, 6).map((p) => `${p.t.toFixed(2)}s (${Math.round(p.d)}°)`).join(", ")}${shown.length > 6 ? ` … (${shown.length} frames)` : ""}: look at it at full speed (fine if hidden)` });
+      if (flips.length) {
+        const lvl = gateLevel(sb, "hands"); if (lvl === "fail") found++;
+        out.push({ level: lvl, check: "hand-turn", msg: `${id}: hand ${s} flips over ${GATE.handTurn}° in one frame on screen at ${flips.slice(0, 6).map((f) => `${f.t.toFixed(2)}s (${Math.round(f.d)}°)`).join(", ")}${flips.length > 6 ? ` … (${flips.length} frames)` : ""}: anyone sees it at full speed; change the move (a lower or forward path, the same palm side through it)${lvl === "warn" ? `, ${gateOf(sb) >= 2 ? "fails once the hand fix is on (\"rig\": { \"hand\": 2 }, plan item 2)" : "fails at \"gate\": 2"}` : ""}, or name it in an allowClip window ("checks": ["hand-turn"]) with a reason` });
       }
     }
   }
@@ -259,15 +276,17 @@ function propResults(layout, sb) {
   if (!rows.some((r) => r.inProps || r.thin)) return out;
   const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
   const windows = (sb?.allowClip || []).filter((w) => w.reason);
-  const allowed = (who, prop, i) => windows.some((w) => w.who === who && (!w.with || w.with === prop) && i / fps >= w.from && i / fps <= w.to);
+  const T = (i) => rows[i]?.t ?? i / fps;
+  const allowed = (who, prop, i, check) => !!windowFor(sb, check, who, T(i), prop);
   const runs = (flags) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= RULES.contactHold); };
   // per part and prop, per frame: [the measure, its fail limit, its warn limit] (see RULES.handInProp)
   const m = new Map();
   rows.forEach((r, i) => {
     const thin = new Set((r.thin || []).map((t) => t.prop));
     for (const x of r.inProps || []) {
-      if (allowed(x.who, x.prop, i)) continue;
-      const part = x.part || "hand", held = !!x.held, k = `${x.who}|${part}|${x.hand || x.what}|${x.pad ? "pad" : ""}|${x.prop}`;
+      const part = x.part || "hand";
+      if (allowed(x.who, x.prop, i, { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop" }[part])) continue;
+      const held = !!x.held, k = `${x.who}|${part}|${x.hand || x.what}|${x.pad ? "pad" : ""}|${x.prop}`;
       const seen = x.seenDepth ?? x.depth;
       const v = part === "costume" ? (held ? [x.core, Infinity, RULES.costumeInProp] : [x.core, RULES.costumeInProp, RULES.handTouchProp])
         : !held ? (part === "arm" ? [x.depth, RULES.armInProp, RULES.handInProp] : [x.depth, RULES.handInProp, RULES.handTouchProp])
@@ -294,7 +313,7 @@ function propResults(layout, sb) {
   }
   // thin held props: both ends show past the fist
   const t = new Map();
-  rows.forEach((r, i) => { for (const x of r.thin || []) { if (allowed(x.who, x.prop, i)) continue; const k = `${x.who}|${x.prop}`; if (!t.has(k)) t.set(k, { x, s: new Array(n).fill(Infinity) }); t.get(k).s[i] = x.show; } });
+  rows.forEach((r, i) => { for (const x of r.thin || []) { if (allowed(x.who, x.prop, i, "thin-prop-hidden")) continue; const k = `${x.who}|${x.prop}`; if (!t.has(k)) t.set(k, { x, s: new Array(n).fill(Infinity) }); t.get(k).s[i] = x.show; } });
   for (const { x, s } of t.values()) {
     const hid = runs(s.map((v) => v < RULES.thinShow)).filter(([a, b]) => (b - a + 1) / fps >= RULES.thinHold);
     if (hid.length) out.push({ level: "fail", check: "thin-prop-hidden", msg: `${x.who}: one end of ${x.prop} doesn't show past the fist at ${hid.map(when).join(", ")}: grip it higher, so both ends show past the glove, the prop a little in front of the palm (fingers over it on the camera side)` });
@@ -310,10 +329,11 @@ function reachResults(layout, sb) {
   const out = [], rows = layout?.contacts || [];
   if (!rows.some((r) => r.reach)) return out;
   const fps = layout.fps || 30, n = rows.length, when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
-  const windows = (sb?.allowClip || []).filter((w) => w.reason);
-  const allowed = (a, b, i) => windows.some((w) => [a, b].includes(w.who) && (!w.with || [a, b].includes(w.with)) && i / fps >= w.from && i / fps <= w.to);
+  // windows on the story's clock, each waiving only its kinds (windowFor)
+  const T = (i) => rows[i]?.t ?? i / fps;
+  const allowed = (a, b, i, check) => !!windowFor(sb, check, a, T(i), b);
   // inside a window: contact, not sinking into the body or face (a window's maxReach raises the limit)
-  const allowedReach = (x, i) => windows.some((w) => [x.who, x.with].includes(w.who) && (!w.with || [x.who, x.with].includes(w.with)) && i / fps >= w.from && i / fps <= w.to && (!["body", "face"].includes(x.part) || (x.depth ?? 0) <= (w.maxReach ?? RULES.allowReach)));
+  const allowedReach = (x, i) => { const w = windowFor(sb, "reach", x.who, T(i), x.with); return !!w && (!["body", "face"].includes(x.part) || (x.depth ?? 0) <= (w.maxReach ?? RULES.allowReach)); };
   // per key, the frames where it holds, then runs of at least min frames
   const track = (key, pick) => { const m = new Map(); rows.forEach((r, i) => { for (const x of pick(r)) { const k = key(x); if (!m.has(k)) m.set(k, { x, f: new Array(n).fill(false), d: new Array(n).fill(-1) }); const e = m.get(k); e.f[i] = true; e.d[i] = Math.max(e.d[i], x.depth ?? x.cover ?? 1); } }); return m; };
   const runs = (flags, min) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= min); };
@@ -342,27 +362,40 @@ function reachResults(layout, sb) {
     found++;
     if (e.x.with === e.x.who) out.push({ level: "fail", check: "limb-through-costume", msg: e.by.startsWith("arm") ? `${e.x.who}: ${e.by} passes through its own body at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm in (it comes out of the chest, not the shoulder): bring the hand round on its own side, or turn the body so the shoulder faces the reach` : `${e.x.who}: ${e.by} sinks into its own body at ${list(runs(e.f, 1))}: keep the fist outside the body` });
     else {
-      const inWin = runs(e.f, 1).some(([p]) => allowed(e.x.who, e.x.with, p));
+      const inWin = runs(e.f, 1).some(([p]) => allowed(e.x.who, e.x.with, p, "reach"));
       out.push({ level: "fail", check: "character-overlap", msg: `${e.x.who}'s ${e.by} goes into ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}, up to ${Math.round(e.max * 100)} cm: ${inWin ? `past the ${Math.round(RULES.allowReach * 100)} cm a contact window allows; ${e.by.startsWith("arm") ? "wrap the arm round the outside of the body (elbow out, the glove on the far side)" : "rest the glove on the surface"}` : "keep it clear, or add an allowClip window with a reason"}` });
     }
   }
   for (const [k, e] of touch) if (!into.has(k)) out.push({ level: "warn", check: "character-overlap", msg: `${e.x.who}'s ${e.by} touches ${e.x.with} (${[...e.parts].join(", ")}) at ${list(runs(e.f, 1))}: fine if the beat needs contact (allowClip with a reason), otherwise leave a gap` });
-  const covers = track((x) => `${x.by}|${x.part}|${x.face}`, (r) => (r.covers || []).filter((x) => x.face && !allowed(x.by, x.face, rows.indexOf(r))));
+  const covers = track((x) => `${x.by}|${x.part}|${x.face}`, (r) => (r.covers || []).filter((x) => x.face && !allowed(x.by, x.face, rows.indexOf(r), "face-covered")));
   for (const { x, f } of covers.values()) {
     const who = x.by === x.face ? "its own" : `${x.face}'s`, by = x.part === "prop" ? "held prop" : `hand ${x.part.slice(4)}`, sps = runs(f, frames(RULES.faceCoverWarn));
     if (!sps.length) continue;
     const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
     out.push({ level: lvl, check: "face-covered", msg: `${x.by}'s ${by} is in front of ${who} eyes at ${list(sps)}: move it off the face or change the camera, or add an allowClip window with a reason` });
   }
+  // from "gate": 2 rays to the eyes ("hand") and to the middle, nose, mouth and cheeks ("low", 2 of 7 points) count another
+  // character's arm or glove in front of a face too (stage.js hiddenFaces): the glove balls above miss an arm raised
+  // across it (split the bill's first cut: Viking's pointing arm over the waiter's face)
+  if (gateOf(sb) >= 2) {
+    const arms = track((x) => `${x.hby}|${x.face}`, (r) => (r.faces || []).filter((x) => (x.hand >= RULES.faceHide || x.low >= 0.28) && x.hby && x.hby !== x.face && !allowed(x.hby, x.face, rows.indexOf(r), "face-covered")));
+    for (const { x, f } of arms.values()) {
+      const sps = runs(f, frames(RULES.faceCoverWarn)); if (!sps.length) continue;
+      const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
+      out.push({ level: lvl, check: "face-covered", msg: `${x.hby}'s arm or glove is in front of ${x.face}'s face at ${list(sps)}: move it off the face or change the camera, or add an allowClip window with a reason` });
+    }
+  }
   const heads = track((x) => `${x.by}|${x.head}`, (r) => (r.covers || []).filter((x) => x.head));
   for (const { x, f } of heads.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.by}'s fist (holding the prop) sits over ${x.by === x.head ? "its own" : x.head + "'s"} head on screen at ${list(sps)}: it reads as stuck on the head; hold it out to the side` }); }
   // a face hidden by another character, a hat brim, wings or a prop (stage.js hiddenFaces) while that character acts: a
   // line, or the first second of a new expression. Hidden by RULES.faceHide or more for faceCoverFail s fails
   const acts = sb?.actions || [];
-  const acting = (id, t) => acts.some((a) => a.who === id && (((a.do === "talk" || a.do === "say") && t >= a.at - 0.1 && t <= a.at + (a.dur ?? 1)) || (a.do === "expr" && t >= a.at && t <= a.at + 1)));
-  const hid = track((x) => `${x.face}|${x.by}`, (r) => (r.faces || []).filter((x) => x.hidden >= RULES.faceHide && !allowed(x.by, x.face, rows.indexOf(r))));
+  const acting = (id, t) => actingAt(sb, id, storyAt(sb, t));
+  // from "gate": 2 scenery and the set hide a face too (quality plan item 13 (b); stage.js hiddenFaces "scen")
+  const g2 = gateOf(sb) >= 2, faceOf = (x) => (g2 && x.scen ? { ...x, hidden: x.hidden + x.scen, by: x.scen > x.hidden ? x.sby : x.by } : x);
+  const hid = track((x) => `${x.face}|${x.by}`, (r) => (r.faces || []).map(faceOf).filter((x) => x.hidden >= RULES.faceHide && !allowed(x.by, x.face, rows.indexOf(r), "face-hidden")));
   for (const { x, f } of hid.values()) {
-    const sps = runs(f.map((v, i) => v && acting(x.face, i / fps)), frames(RULES.faceCoverWarn));
+    const sps = runs(f.map((v, i) => v && acting(x.face, T(i))), frames(RULES.faceCoverWarn));
     if (!sps.length) continue;
     const by = x.by === x.face ? "its own hat or costume" : x.by;
     // standing behind someone (most of the body hidden too) is staging: the reaction just won't be seen
@@ -571,6 +604,15 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
   return res;
 }
 
+// everything the render gate judges from a layout (engine/render.mjs contactGate): contacts, grips, the drawn rig, the
+// front of the frame and the required must-see items. A result whose check is in GATE.fails and level "fail" stops
+// the render
+export function gateResults(sb, lay, chars = null) {
+  let seen = [];
+  try { seen = visibility(sb, lay, chars || loadCharacters(sb)).results.filter((r) => r.check === "must-see"); } catch { /* no characters: nothing must be seen */ }
+  return [...clipResults(sb, lay), ...contactResults(lay, sb), ...frontResults(sb, lay), ...seen];
+}
+
 // the storyboard's loop seam (qa/motion.mjs loopSeam) as one creative result
 export function seamResult(seam) {
   const say = (x) => x.kind === "show" ? `${x.who} ${x.what} at the seam`
@@ -590,8 +632,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   // the storyboard's own motion, frame by frame (qa/motion.mjs): values that jump in one frame
   if (sb?.cast && sb?.actions) {
     if (!sb.music?.lock) sb.music = lockMusic(sb);   // the grid the render used (dance moves follow it)
-    const j = (await motionJumps(sb, sb.fps ?? 30)).filter((x) => !x.note);
-    res.push({ group: "technical", level: j.length ? "warn" : "pass", check: "motion", msg: j.length ? `jumps in one frame: ${j.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${j.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
+    res.push(...(await motionResults(sb, sb.fps ?? 30)));
     for (const r of await storyNotes(sb, sb.fps ?? 30)) { const group = groupOf(r.check); res.push({ group, ...r, ...(group === "creative" && { level: "note" }) }); }
     if (sb.loop) res.push(seamResult(await loopSeam(sb, sb.fps ?? 30)));
     // what must be seen in each beat (qa/framing.mjs, from the layout) and the camera's moves (qa/camera.mjs)
