@@ -12,6 +12,9 @@
  "motion": {
   "feet": 2
  },
+ "rig": {
+  "hand": 2
+ },
  "loopIdle": true,
  "set": {
   "type": "plain",

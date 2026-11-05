@@ -37,6 +37,9 @@ const FACES = "strong";             // stronger faces and longer holds in the ac
 // { feet: 2 } also turns on every natural part ("feetTune": { lean, tip, body } scales the body if a tight dash fails
 // a contact check)
 const MOTION = { feet: 2 };
+// hand rig 2 (Jonny, 5 Nov, PR #119): a forearm that never collapses, no palm switch inside a move, wrist limits, so
+// hands don't pop; null: the old rig
+const RIG = { hand: 2 };
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -124,6 +127,7 @@ write(import.meta.url, {
   // the clip opens in its pose: the 0.01 s "start like this" moves at t = 0 are instant (engine/load.mjs cleanStart)
   cleanStart: true,
   ...(MOTION && { motion: MOTION }),
+  ...(RIG && { rig: RIG }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
   // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
   loopIdle: true,
