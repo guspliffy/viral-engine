@@ -7,7 +7,7 @@ import { canvas, tex, glow } from "./set-porch.js";
 // wooden floor with a big red patterned rug, a snowy window at the back left with red curtains, the tree's spot in the
 // middle (the tree, its stand, the star and the lights are props: they move), a stone fireplace at the back right with a
 // fire, a mantel with candles, a garland and three stockings, a bookcase beside it (the cat sits on top), a wall shelf
-// of books above the mantel, a wall socket low on the back wall left of the fireplace, presents under the tree and in
+// of books above the mantel, a wall socket low on the back wall right of the bookcase, presents under the tree and in
 // the front left corner, and the cat's basket on the hearth rug. Warm light from the fire (the golden look's key from
 // the right), cool blue from the window.
 // spec: { type: "xmasroom", light: "golden", windows: false, seed }. XMASROOM has the layout for the storyboard.
@@ -17,8 +17,8 @@ export const XMASROOM = {
   win: { x: -1.4, y0: 0.82, y1: 2.2, w: 1.1 },
   fire: { x: 1.05, w: 0.96, h: 1.02, d: 0.34 },
   shelf: { x: 1.83, w: 0.5, h: 1.62, d: 0.34 },   // the bookcase: the cat sits on its top
-  socket: [0.47, 0.26],                          // on the back wall: x, y
-  basket: [1.2, 0.35],                         // the cat's basket (floor x, z)
+  socket: [2.25, 0.26],                          // on the back wall right of the bookcase (x, y): the lead runs across the open rug
+  basket: [1.7, 0.5],                          // the cat's basket (floor x, z)
 };
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.8, ...o });
@@ -232,7 +232,7 @@ export function buildXmasroom(scene, S = {}) {
     for (const y of shelves) box(set, B.w, 0.035, B.d, wood, B.x, y, bz, true);
     for (let i = 0; i < 4; i++) books(set, rnd, B.x - B.w / 2 + 0.04, B.x + B.w / 2 - 0.04, shelves[i] + 0.018, bz, B.d * 0.85, shelves[i + 1] - shelves[i] - 0.06);
   }
-  // ---- the wall socket, low on the back wall left of the fireplace
+  // ---- the wall socket, low on the back wall right of the bookcase
   { const [x, y] = P.socket;
     box(set, 0.11, 0.11, 0.015, std("#f2ede2", { roughness: 0.4 }), x, y, BZ + 0.008);
     for (const dx of [-0.018, 0.018]) { const h = new THREE.Mesh(new THREE.CircleGeometry(0.007, 10), flat("#2a2420")); h.position.set(x + dx, y, BZ + 0.017); set.add(h); }

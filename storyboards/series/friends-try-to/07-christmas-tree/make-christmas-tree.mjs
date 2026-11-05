@@ -34,12 +34,13 @@ const S0 = [0.4, 0.025, TREE[1] + 0.36];               // the lights' plug end: 
 const SOCK = [X.socket[0], X.socket[1], X.back + 0.02];
 const P0 = { wiz: [-0.72, -0.5], rea: [1.1, -0.7], phx: [-0.95, 1.0], vik: [0.2, 0.9] };   // two rows: the back faces show over the front heads from the high camera
 const VIK_IN = [-0.05, 0.35];                           // Viking's one step in to grab the string (3.3)
-const VIK_BACK = [0.25, 1.25];                         // his proud step back (the undo)
-const REA_END = [0.95, 0.3], REA_STAND = [1.0, -0.72];  // Reaper takes the loose end, then sets the tree turning from its right (a push on the branch tips)
+const VIK_SIDE = [0.68, 1.1];                         // after the pull he steps back-right: the stand shows past him
+const VIK_BACK = [0.98, 1.22];                         // his proud step back-right (the undo)
+const REA_END = [1.2, 0.3], REA_STAND = [1.25, -0.72];  // Reaper takes the loose end, then sets the tree turning from its right (a push on the branch tips)
 const BOX = [0.15, -0.3];                             // the empty ornament carton on the floor between the stand and Viking
-const STAR_LAND = [0.72, 0.02, 1.78];                  // the star on the rug in front of Viking (the camera is high: behind him it would hide)
-const HEAP = [0.0, 1.88];                              // the heap of lights at his boot, on our side of him                  // the star on the rug by Viking's boot
-const CAT_SHELF = [X.shelf.x - 0.05, X.shelf.h, X.back + 0.18], CAT_FLOOR = [1.55, 0, -1.55], CAT_SIT = [0.98, 0, 1.62];
+const STAR_LAND = [0.12, 0.02, 0.72];                  // the star on the rug beside Viking, on the tree side (clear of TikTok's buttons)
+const HEAP = [0.55, 0.88];                             // the heap of lights beside his boot, on the tree side
+const CAT_SHELF = [X.shelf.x - 0.05, X.shelf.h, X.back + 0.18], CAT_FLOOR = [1.55, 0, -1.55], CAT_SIT = [0.1, 0, 0.42];
 
 const WIZ = "sofa/wizard-staff";
 const cast = [
@@ -84,8 +85,8 @@ const an = (t, who, what, dflt) => { if (!AN) return dflt; const s = AN.samples.
 // ---------------------------------------------------------------- the lead: socket -> floor -> round Viking's right boot -> the plug end
 function leadKey(t, plug = S0) {
   const f = an(t, "vik", "footR", [P0.vik[0] + 0.15, 0.05, P0.vik[1]]);
-  const loop = ring(f[0], 0.07, f[2], 0.11, 1.15, Math.PI * 0.75, 0.0, 12);
-  const pts = [SOCK, [SOCK[0], 0.03, SOCK[2] + 0.04], [SOCK[0] + 0.15, 0.015, SOCK[2] + 0.5], [f[0] + 0.25, 0.015, f[2] - 0.6], [f[0] + 0.12, 0.02, f[2] - 0.15], ...loop, [f[0] - 0.1, 0.015, f[2] - 0.3], [plug[0] + 0.05, 0.015, plug[2] + 0.5], plug];
+  const loop = ring(f[0], 0.07, f[2] + 0.04, 0.12, 1.15, Math.PI * 0.6, 0.0, 12);
+  const pts = [SOCK, [SOCK[0], 0.03, SOCK[2] + 0.04], [SOCK[0] - 0.1, 0.015, SOCK[2] + 0.6], [f[0] + 0.55, 0.015, f[2] + 0.05], [f[0] + 0.2, 0.02, f[2] + 0.2], ...loop, [f[0] - 0.1, 0.015, f[2] - 0.3], [plug[0] + 0.05, 0.015, plug[2] + 0.5], plug];
   return flatKey(resample(pts, 40));
 }
 
@@ -125,7 +126,8 @@ c.arm(2.1, "wiz", "R", { o: [0.25, 0.62, 0.3] }, 0.25, "out");   // the free han
 A(2.1, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });
 sfx(2.15, "charge", { gain: 0.45, reason: "the Wizard's spell lifting the knot" });
 sfx(2.45, "whoosh", { gain: 0.35, reason: "the knot spinning round the staff" });
-for (const [t, p] of [[2.2, [-0.2, 0.9, -0.1]], [2.45, [0.0, 1.25, -0.25]], [2.7, [0.0, 1.1, -0.25]]]) c.at(t, { fx: "poof", pos: p, dur: 0.35, color: "#ffd36a", puffs: 0, sparks: 12, size: 0.25, lift: 0.1 });
+for (const [t, p] of [[2.2, [-0.2, 0.9, -0.1]], [2.45, [0.0, 1.25, -0.25]], [2.7, [0.0, 1.1, -0.25]]]) c.at(t, { fx: "poof", pos: p, dur: 0.4, color: "#ffd36a", puffs: 0, sparks: 30, size: 0.5, lift: 0.15 });
+c.at(2.15, { fx: "flash", dur: 0.12, peak: 0.3, color: "#ffe6a0", sound: false });
 A(2.6, "wiz", "look", { to: [0.4, 0.55], dur: 0.12 });
 act.shock(c, 2.85, "wiz", { open: 0.2, hold: 0.4 });
 // Viking and Phoenix exchange a look
@@ -143,9 +145,10 @@ act.mood(c, 3.3, "vik", "angry", { hold: 0.9 });
 // he steps back hard, pulling the two strands apart: taut across the room
 A(3.48, "vik", "move", { to: P0.vik, dur: 0.22, steps: 1, ease: "in" });
 A(3.48, "vik", "turn", { to: -8, dur: 0.2 });
-c.arm(3.5, "vik", "L", { o: [0.42, 0.45, 0.25] }, 0.18, "out"); c.arm(3.5, "vik", "R", { o: [-0.1, 0.45, 0.4] }, 0.18, "out");
+c.arm(3.5, "vik", "L", { o: [0.6, 0.48, 0.3] }, 0.18, "out"); c.arm(3.5, "vik", "R", { o: [-0.55, 0.48, 0.35] }, 0.18, "out");   // fists wide: the string between them
 sfx(3.7, "plunk", { gain: 0.6, reason: "the string of lights snapping taut across the room" });
 c.hitStop(3.7, 3);
+c.at(3.66, { fx: "speedlines", dur: 0.25 });
 c.prop(3.7, "box", { over: 1 }, 0.25, "out");
 sfx(3.78, "ai-package/cardboard-rustle", { gain: 0.4, reason: "the empty ornament carton tipping over" });
 act.shock(c, 3.75, "wiz", { open: 0.3, hold: 0.5 }); act.shock(c, 3.8, "phx", { open: 0.3, hold: 0.4 });
@@ -158,7 +161,8 @@ sfx(4.35, "coins", { gain: 0.4, reason: "the string springing back and landing o
 A(4.4, "vik", "squash", { amount: 0.05, dur: 0.15 }); A(4.42, "wiz", "squash", { amount: 0.05, dur: 0.15 });
 // Wizard and Viking glare at each other; Phoenix points at his tutorial; Reaper sighs
 A(4.55, "wiz", "look", { to: [0.8, 0.0], dur: 0.12 }); A(4.55, "wiz", "turn", { to: 30, dur: 0.25 }); act.mood(c, 4.6, "wiz", "angry", { hold: 0.6 });
-A(4.55, "vik", "look", { to: [-0.8, 0.1], dur: 0.12 }); A(4.55, "vik", "turn", { to: -25, dur: 0.25 }); act.mood(c, 4.6, "vik", "angry", { hold: 0.6 });
+A(4.45, "vik", "move", { to: VIK_SIDE, dur: 0.3, steps: 1, ease: "inOut" });
+A(4.55, "vik", "look", { to: [-0.8, 0.1], dur: 0.12 }); A(4.6, "vik", "turn", { to: -25, dur: 0.25 }); act.mood(c, 4.6, "vik", "angry", { hold: 0.6 });
 A(4.6, "wiz", "talk", { line: "bah-gah!", tone: "angry", dur: 0.4 }); A(4.7, "vik", "talk", { line: "ner-nuh!", tone: "angry", dur: 0.4 });
 c.arm(4.5, "phx", "L", { o: [0.05, 0.6, 0.5] }, 0.2, "out"); A(4.5, "phx", "grip", { side: "L", shape: "point", dur: 0.12 });
 A(4.5, "phx", "look", { to: [0.3, -0.1], dur: 0.12 }); A(4.55, "phx", "expr", { expr: "eager", set: { curve: 0.4, eye: 1.1 }, dur: 0.15 });
@@ -172,7 +176,7 @@ A(5.2, "rea", "look", { to: [-0.4, -0.35], dur: 0.12 });
 A(5.25, "rea", "move", { to: REA_END, dur: 0.4, steps: 2, ease: "inOut" }); A(5.25, "rea", "turn", { to: -30, dur: 0.3 });
 c.arm(5.55, "rea", "L", { o: [0.05, 0.3, 0.45] }, 0.2, "out"); A(5.68, "rea", "grip", { side: "L", shape: "fist", dur: 0.08 });   // the loose end
 c.arm(5.75, "rea", "L", { o: [0.1, 0.62, 0.4] }, 0.25, "inOut");   // lifts it clear of them
-A(5.9, "rea", "move", { to: REA_STAND, dur: 0.35, steps: 2, ease: "inOut" }); A(5.9, "rea", "turn", { to: -60, dur: 0.3 });
+A(5.9, "rea", "move", { to: REA_STAND, dur: 0.35, steps: 2, ease: "inOut" }); A(5.9, "rea", "turn", { to: -30, dur: 0.3 });
 c.arm(6.05, "rea", "R", { o: [-0.05, 0.3, 0.5] }, 0.15, "out");   // a mitten on the lowest branch tips
 A(6.15, "rea", "grip", { side: "R", shape: "open", dur: 0.08 });
 c.arm(6.22, "rea", "R", { o: [0.25, 0.32, 0.3] }, 0.12, "out");   // one push: the tree spins on its stand
@@ -192,33 +196,38 @@ see(5.6, 6.7, ["rea.face", "tree", "lights"], "Reaper holds the end and turns th
 // the cat hops down from the bookcase and pads to its basket
 c.prop(5.95, "cat", { x: CAT_FLOOR[0], y: 0, z: CAT_FLOOR[2], [CAT.sit]: 0 }, 0.35, "inOut", { arc: 0.25 });
 c.prop(6.3, "cat", { [CAT.walk]: 1 }, 0.05);
-c.prop(6.3, "cat", { x: X.basket[0], z: X.basket[1] - 0.02, rot: -150 }, 0.45, "inOut");
+c.prop(6.3, "cat", { x: 1.95, z: -0.4, rot: -170 }, 0.2, "inOut");   // round behind Reaper's right, clear of his robe
+c.prop(6.5, "cat", { x: X.basket[0], z: X.basket[1] - 0.02, rot: -150 }, 0.25, "inOut");
 c.prop(6.75, "cat", { [CAT.walk]: 0, [CAT.sit]: 1, [CAT.tuck]: 1, rot: 160 }, 0.2);
 
 // ---------------------------------------------------------------- 06-08 THE ENDING (shared): cheer, tiny undo, glare
 A(r3(T0 - 0.2), "rea", "turn", { to: -15, dur: 0.2 });   // back round to the group for the cheer
-const AT = { wiz: P0.wiz, phx: P0.phx, rea: REA_STAND, vik: P0.vik };
+const AT = { wiz: P0.wiz, phx: P0.phx, rea: REA_STAND, vik: VIK_SIDE };
 let E = null;
+const HOLD = 0.3, SNAG = 0.42;   // "Perfect." held 0.3 s, then the step; the boot snags the lead 0.12 s into it
 E = ending(c, {
-  T0, at: AT, glareShare: 0.35,
+  T0, at: AT, glareShare: 0.35, sting: SNAG,   // the sting on the snag
   arms: { phx: ["L"], wiz: ["R"], vik: ["L"] },   // Viking's right fist would cross the Wizard's face
   undo: (t) => {
     // "Perfect." Viking steps back proudly, brushing his hands; his boot snags the lead
     A(t + 0.02, "vik", "talk", { line: "per-feh.", tone: "calm", dur: 0.4, voice: false, soft: true });
-    cap(r3(t + 0.05), r3(t + 0.8), "Perfect.", 470);
+    cap(r3(t + 0.05), r3(t + SNAG + 0.08), "Perfect.", 330);   // held 0.3 s before the step, gone on the snag
     A(t, "vik", "expr", { expr: "smug", set: { curve: 0.7 }, dur: 0.15 });
     c.arm(t, "vik", "R", { o: [-0.25, 0.32, 0.4] }, 0.12, "inOut"); c.arm(t, "vik", "L", { o: [-0.25, 0.3, 0.42] }, 0.12, "inOut");
     c.arm(t + 0.14, "vik", "R", { o: [-0.15, 0.3, 0.42] }, 0.1, "inOut"); c.arm(t + 0.24, "vik", "R", { o: [-0.28, 0.33, 0.4] }, 0.1, "inOut");
     sfx(t + 0.14, "cloth", { gain: 0.3, reason: "Viking brushing off his hands" });
-    A(t + 0.05, "vik", "move", { to: VIK_BACK, dur: 0.3, steps: 1, ease: "inOut" });
-    sfx(t + 0.17, "grab", { gain: 0.45, reason: "the lead snagging on Viking's boot" });
-    sfx(t + 0.25, "freewheel", { gain: 0.5, dur: 0.45, reason: "the spiral unwinding fast toward his boot" });
+    A(r3(t + HOLD), "vik", "move", { to: VIK_BACK, dur: 0.3, steps: 1, ease: "inOut" });
+    sfx(r3(t + SNAG), "grab", { gain: 0.45, reason: "the lead snagging on Viking's boot" });
+    sfx(r3(t + SNAG + 0.08), "freewheel", { gain: 0.5, dur: 0.45, reason: "the spiral unwinding fast toward his boot" });
     // the star tips off the top (the string's top end pulls it) and drops onto the rug
-    c.prop(t + 0.2, "star", { tip: 60, z: TREE[1] + 0.15 }, 0.15, "in");
-    c.prop(t + 0.35, "star", { x: STAR_LAND[0], y: STAR_LAND[1], z: STAR_LAND[2], tip: 90, rot: 20 }, 0.4, "in", { arc: 0.2 });
-    sfx(t + 0.75, "thud-soft", { gain: 0.35, reason: "the star landing softly on the rug" });
+    c.prop(r3(t + SNAG + 0.03), "star", { tip: 60, z: TREE[1] + 0.15 }, 0.15, "in");
+    c.prop(r3(t + SNAG + 0.18), "star", { x: STAR_LAND[0], y: STAR_LAND[1], z: STAR_LAND[2], tip: 90, rot: 20 }, 0.4, "in", { arc: 0.2 });
+    sfx(r3(t + SNAG + 0.58), "thud-soft", { gain: 0.35, reason: "the star landing softly on the rug" });
   },
 });
+// Viking's sheepish face: lids half down, brows up, eyes to the side
+A(r3(E.glare + 0.32), "vik", "face", { lid: 0.35, brow: 0.35, dur: 0.25 });
+A(r3(E.glare + 0.32), "vik", "look", { to: [-0.45, -0.1], dur: 0.15, blink: false });
 // the cat: curled in its basket through the cheer, then pads over to the star and sits beside it
 c.prop(r3(T0 + 1.5), "cat", { [CAT.tuck]: 0, [CAT.sit]: 0, [CAT.walk]: 1 }, 0.15);
 c.prop(r3(T0 + 1.55), "cat", { x: CAT_SIT[0], z: CAT_SIT[2], rot: -10 }, 0.75, "inOut");
@@ -242,7 +251,7 @@ const floorTo = (a, b, n = 4) => sagLine([a[0], 0.02, a[2]], [b[0], 0.02, b[2]],
 function knotShape(t, hatLift) {
   const h = hat(t), k = wR(t), kc = add(k, [0, 0.02, 0.06]);
   const loop = ring(h[0], h[1] + 0.13 + hatLift, h[2], 0.17 + hatLift * 0.4, 1, 0.5, 0.02, 10);
-  return [S0, ...floorTo(S0, [k[0] + 0.1, 0, k[2] + 0.1]).slice(1), [k[0] + 0.05, 0.25, k[2] + 0.08], ...knot(kc, 0.17, 18, 1), [k[0], k[1] + 0.25, k[2]], ...loop, [k[0] - 0.05, k[1] + 0.2, k[2] + 0.02], ...knot(kc, 0.16, 16, 2), [k[0] - 0.12, 0.25, k[2] + 0.12], [k[0] - 0.2, 0.03, k[2] + 0.25]];
+  return [S0, ...floorTo(S0, [k[0] + 0.1, 0, k[2] + 0.1]).slice(1), [k[0] + 0.05, 0.25, k[2] + 0.08], ...knot(kc, 0.24, 24, 1), [k[0], k[1] + 0.25, k[2]], ...loop, [k[0] - 0.05, k[1] + 0.2, k[2] + 0.02], ...knot(kc, 0.22, 22, 2), [k[0] - 0.12, 0.25, k[2] + 0.12], [k[0] - 0.2, 0.03, k[2] + 0.25]];
 }
 K(0, knotShape(0, 0.32)); K(0.15, knotShape(0.15, 0)); K(1.95, knotShape(1.95, 0));
 // 2.2-2.7: the knot floats up off his hand, spins, and winds round the staff
@@ -288,7 +297,7 @@ for (let i = 1; i <= WN; i++) {
 // held until the undo; 7.95-8.45: it peels off from the top down, racing to his boot, into a heap
 const SP = (() => { const w = []; for (let j = 0; j <= 60; j++) w.push(spiralAt(j / 60, SPINS)); return w; })();
 const U = E.undo;
-K(r3(U + 0.12), [S0, [spiralAt(0, SPINS)[0], 0.15, spiralAt(0, SPINS)[2]], ...SP]);
+K(r3(U + HOLD + 0.07), [S0, [spiralAt(0, SPINS)[0], 0.15, spiralAt(0, SPINS)[2]], ...SP]);
 const boot = (t) => an(t, "vik", "footR", [VIK_BACK[0] + 0.15, 0.05, VIK_BACK[1]]);
 function heapPts(t) {
   const b = boot(t), o = []; let s = 7;
@@ -296,9 +305,9 @@ function heapPts(t) {
   for (let i = 0; i < 44; i++) { const a = i * 1.7 + rnd(), r = 0.1 + 0.18 * rnd(); o.push([HEAP[0] + Math.sin(a) * r * 1.2, 0.03 + 0.1 * rnd(), HEAP[1] + Math.cos(a) * r * 0.8]); }
   return o;
 }
-const PEEL = [0.2, 0.32, 0.44, 0.56, 0.7];
+const PEEL = [0.2, 0.32, 0.44, 0.56, 0.7].map((d) => r3(d + HOLD));
 for (const dt of PEEL) {
-  const t = r3(U + dt), pk = (dt - 0.12) / 0.58, heap = heapPts(t), base = [S0, [spiralAt(0, SPINS)[0], 0.15, spiralAt(0, SPINS)[2]], ...SP];
+  const t = r3(U + dt), pk = (dt - HOLD - 0.12) / 0.58, heap = heapPts(t), base = [S0, [spiralAt(0, SPINS)[0], 0.15, spiralAt(0, SPINS)[2]], ...SP];
   const src = resample(base), dst = resample(heap);
   const pts = src.map((p, k) => { const m = k / (src.length - 1), start = (1 - m) * 0.55, e = Math.min(1, Math.max(0, (pk - start) / 0.45)); const q = lerp3(p, dst[k], e * e * (3 - 2 * e)); if (e > 0 && e < 1) q[1] += 0.25 * Math.sin(e * Math.PI) * m; return q; });
   K(t, pts);
@@ -306,8 +315,8 @@ for (const dt of PEEL) {
 // the lead: round his boot all clip long; it follows the boot's two steps and drags the plug end to the heap at the undo
 const LK = [];
 const LS = (t, plug) => { lead.push(leadKey(t, plug)); LK.push([t, lead.length - 1]); };
-LS(0, S0); LS(3.25, S0); LS(3.47, S0); LS(3.7, S0); LS(r3(U + 0.05), S0);
-LS(r3(U + 0.35), lerp3(S0, [boot(U + 0.35)[0] - 0.1, 0.03, boot(U + 0.35)[2] - 0.3], 0.6)); LS(r3(U + 0.7), [HEAP[0] + 0.15, 0.03, HEAP[1] - 0.22]);
+LS(0, S0); LS(3.25, S0); LS(3.47, S0); LS(3.7, S0); LS(r3(U + HOLD), S0);
+LS(r3(U + HOLD + 0.3), lerp3(S0, [boot(U + HOLD + 0.3)[0] - 0.1, 0.03, boot(U + HOLD + 0.3)[2] - 0.3], 0.6)); LS(r3(U + HOLD + 0.65), [HEAP[0] + 0.15, 0.03, HEAP[1] - 0.22]);
 
 // tweens: the lights and the lead go key to key (linear between keys)
 for (let i = 1; i < steps.length; i++) c.prop(steps[i - 1][0], "lights", { steps: steps[i][1] }, r3(steps[i][0] - steps[i - 1][0]), "linear");
@@ -317,23 +326,27 @@ const props = [
   { id: "tree", kind: "xtree", x: TREE[0], z: TREE[1], h: 2.3 },
   { id: "star", kind: "xstar", x: TREE[0], y: TOPY, z: TREE[1] },
   { id: "lights", kind: "fairylights", keys, bulbs: 70, steps: 0, color: "#1f3a24" },
-  { id: "lead", kind: "fairylights", keys: lead, bulbs: 0, steps: 0, color: "#e9e2d2", r: 0.009, plug: true },
+  { id: "lead", kind: "fairylights", keys: lead, bulbs: 0, steps: 0, color: "#f6f3ec", r: 0.014, plug: true },
   { id: "box", kind: "ornabox", x: BOX[0], z: BOX[1], rot: 30, w: 0.36, d: 0.26 },
   { id: "cat", kind: "cat", x: CAT_SHELF[0], y: CAT_SHELF[1], z: CAT_SHELF[2], rot: -15, scale: 0.85, lid: 0.35, [CAT.sit]: 1 },
   PHONE,
 ];
 
 // ---------------------------------------------------------------- shots: one front view (no reverse angles)
-const FRONT = { pos: [0.15, 3.4, 5.0], look: [0.2, 0.75, -0.8], fov: 52 };   // high: the back row's faces over the front row's heads
+const FRONT = { pos: [0.05, 4.1, 6.4], look: [0.05, 0.75, -0.8], fov: 52 };   // high: the back row's faces over the front row's heads
+// two closer inserts, like the panels' closer views: the spin (Reaper and the tree) and the undo (Viking, the tree, his boot)
+const SPIN = { pos: [1.3, 2.8, 3.4], look: [0.45, 0.95, -1.1], fov: 50 };   // from the right and above Viking: Reaper and the tree
+const UNDO = { pos: [-0.5, 3.0, 4.3], look: [0.45, 0.7, -0.2], fov: 50 };   // from the left and above: Reaper over Viking's shoulder
 const beats = c.beats([
   ["01 already going wrong", 0, FRONT, "hook"],
   ["02 wizard's spell", 1.5, null],
   ["03 viking pulls", 3.3, null, "escalation"],
   ["04 draped", 4.4, null],
   ["05 the calm fix", 5.4, null, "payoff"],
-  ["06 we did it", T0, null],
-  ["07 the tiny undo", r3(T0 + 0.8), null, "reveal"],
-  ["08 the glare", r3(T0 + 1.8), null],
+  ["05b the spin", 5.9, SPIN],
+  ["06 we did it", T0, FRONT],
+  ["07 the tiny undo", r3(T0 + 0.8), UNDO, "reveal"],
+  ["08 the glare", r3(T0 + 1.8), FRONT],
 ], END);
 
 write(import.meta.url, {
