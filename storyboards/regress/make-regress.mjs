@@ -35,6 +35,19 @@ const CLEAN = ["rig-jump", "foot-slide", "prop-pop"];
     { pos: [0, 0.75, 6.6], look: [0, 0.5, 0], fov: 40 }, 3.0, { clean: CLEAN });
 }
 
+// WALK + STOP, PLANTED (thread F's gait, "motion": { "feet": 2 }) at "gate": 2: qa/rig.mjs reads timeline.js footPhase,
+// so a standing foot that moves at all would fail here; the planted gait keeps it still
+{
+  const c = clip(), { A } = c;
+  A(0, "phx", "noblink");
+  A(0.1, "phx", "look", { to: [0.8, 0], dur: 0.15, blink: false });
+  A(0.2, "phx", "turn", { to: "right", dur: 0.35 });
+  A(0.6, "phx", "move", { to: [0.6, 0.1], dur: 1.5, steps: 2 });
+  A(2.2, "phx", "turn", { to: "camera", dur: 0.35 });
+  base("walk-planted", "walk and stop, planted feet", [{ id: "phx", character: "duo/phoenix", at: [-0.6, 0.1], face: "camera", expr: "kind", follow: 0.3, seed: 1.7, span: 0 }], [], c,
+    { pos: [0, 0.75, 6.6], look: [0, 0.5, 0], fov: 40 }, 3.0, { clean: [...CLEAN, "stance-slide", "frame0-jump", "lean-jump"] }, { gate: 2, motion: { feet: 2 } });
+}
+
 // TURN: a full turn on the spot and back (the body turns, the feet step round, the hands follow the body)
 {
   const c = clip(), { A } = c;
