@@ -42,7 +42,7 @@ const PHX = at(BENCH, -0.38);
 const ZV_SEAT = 0.42;                                         // where zombie Viking sits (along the bench)
 // behind the hedge (the far side): crouched so only the eyes and hat clear it; their gloves rest on the hedge top
 const WIZ_HIDE = [1.1, -0.55], REA_HIDE = [2.15, -1.15];       // a crouch spreads the gloves 0.45 m: Reaper half a step further back
-const WIZ0 = [1.65, -1.65], REA0 = [2.65, -2.05];           // frame 0: already sprinting right, behind the hedge line, right of the horde's lane
+const WIZ0 = [1.65, -1.65], REA0 = [2.45, -2.25];           // frame 0: already sprinting right, behind the hedge line, right of the horde's lane
 // the horde at frame 0: strung out down the lane, Viking in front, each 0.9 m+ from the next
 const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [0.95, -5.6], dra: [-1.4, -3.3] };   // Viking clear of the Wizard on screen at frame 0
 // where they end up (5.0-7.0), round the bench, bowed over cupped mittens: Viking sits beside him, Dragon and
@@ -68,8 +68,8 @@ const ARMS_NARROW = { o: [-0.1, 0.42, 0.42] };               // hands closer tog
 const Z = ["vik", "sam", "gun", "dra", "sor"];
 const cast = [
   { id: "phx", character: "duo/phoenix", at: W(PHX), face: BENCH.rot, expr: "kind", follow: 0.3, seed: 1.7, span: 0, arms: { R: PHONE_R, L: PHONE_L }, grip: { R: "hold", L: "hold" } },
-  { id: "wiz", character: "notyet/wizard-nostaff", at: W(WIZ0), face: -150, expr: "kind", follow: 0.4, seed: 2.6 },
-  { id: "rea", character: "notyet/reaper-noscythe", at: W(REA0), face: -155, expr: "kind", follow: 0.3, seed: 3.1 },
+  { id: "wiz", character: "notyet/wizard-nostaff", at: W(WIZ0), face: -25, expr: "kind", follow: 0.4, seed: 2.6 },
+  { id: "rea", character: "notyet/reaper-noscythe", at: W(REA0), face: -30, expr: "kind", follow: 0.3, seed: 3.1 },
   { id: "vik", character: "zombie/viking-zombie", at: W(H0.vik), face: 0, expr: "deadpan", follow: 0.2, seed: 5.1 },
   { id: "sam", character: "zombie/samurai-zombie", at: W(H0.sam), face: 8, expr: "deadpan", follow: 0.2, seed: 5.7 },
   { id: "gun", character: "zombie/gunslinger-zombie", at: W(H0.gun), face: -10, expr: "deadpan", follow: 0.2, seed: 6.3 },
@@ -83,7 +83,7 @@ const props = [
   { id: "bin", kind: "recyclebin", x: BIN.x, z: BIN.z + DZ, rot: -15 },
   { id: "lamp", kind: "streetlamp", x: LAMP.x, z: LAMP.z + DZ, h: 3.0, flicker: true },
   { id: "fog", kind: "fogveil", x: 0, y: 0, z: 0, box: [[-2.5, 0, -8 + DZ], [2.5, 0.7, DZ]], n: 26, size: 1.6, color: "#a99bc4", on: 0.8, drift: [0.06, 0.02] },
-  { id: "phone", kind: "phone", x: PHX[0], y: 0.9, z: PHX[1] + 0.45 + DZ, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 2.2, halo: 0.26, haloK: 0.45 },   // under 0.5: the contact checks skip it as glow   // a bright screen that lights his face (Jonny 5 Nov)
+  { id: "phone", kind: "phone", x: PHX[0], y: 0.9, z: PHX[1] + 0.45 + DZ, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 2.2, halo: 0.32, haloK: 0.45 },   // under 0.5: the contact checks skip it as glow   // a bright screen that lights his face (Jonny 5 Nov)
 ];
 
 // ---------------------------------------------------------------- Phoenix: on the bench, bowed over the phone, from frame 0
@@ -140,19 +140,19 @@ A(0.82, "wiz", "crouch", { to: 0.55, dur: 0.08 }); A(0.86, "rea", "crouch", { to
 // gloves tucked in front, toward the hedge's back (a crouch alone spreads the arms into each other)
 const TUCK_R = { o: [0.04, 0.22, 0.26] }, TUCK_L = { o: [0.04, 0.22, 0.26] };
 for (const w of ["wiz", "rea"]) { c.arm(0.84, w, "R", TUCK_R, 0.15); c.arm(0.84, w, "L", TUCK_L, 0.15); }
-A(1.42, "wiz", "crouch", { to: 0.3, dur: 0.2 }); A(1.5, "rea", "crouch", { to: 0.3, dur: 0.2 });   // up to peek over the top
+A(1.12, "wiz", "crouch", { to: 0.3, dur: 0.2 }); A(1.5, "rea", "crouch", { to: 0.3, dur: 0.2 });   // up to peek over the top
 c.hitStop(0.9, 3);
 sfx(0.9, "leafrustle", { gain: 0.6, reason: "they dive into the hedge's back" });
 prop(0.88, "hedge", { wobble: 1 }, 0.4, "out"); prop(1.3, "hedge", { wobble: 0 }, 0.3);
 see(0, 1.5, ["phx.face", "wiz.face", "vik", "phone", "hedge"], "P1: the horde coming down the street, the friends diving for the hedge, Phoenix on his phone");
 
 // ---------------------------------------------------------------- 2 HIDE 1.5-3.2 (P2)
-A(1.5, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
-c.arm(1.6, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.15, "out");           // waving him over, the arm up over the hedge
-c.arm(1.78, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(1.92, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.12);
-c.arm(2.06, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(2.3, "wiz", "R", TUCK_R, 0.2);
-A(1.62, "wiz", "talk", { line: "psst! psst!", dur: 0.55, tone: "excited", voice: false });
-c.cap(1.62, 2.3, "psst! OVER HERE!", CAP_Y);
+A(1.2, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
+c.arm(1.3, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.15, "out");           // waving him over, the arm up over the hedge
+c.arm(1.48, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(1.62, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.12);
+c.arm(1.76, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(2.0, "wiz", "R", TUCK_R, 0.2);
+A(1.32, "wiz", "talk", { line: "psst! psst!", dur: 0.55, tone: "excited", voice: false });
+c.cap(1.32, 2.05, "psst! OVER HERE!", CAP_Y);
 // Reaper glares at him and shushes (before zombie Viking shuffles past in front of the camera, 2.5-3.0)
 A(1.5, "rea", "look", { to: [-0.8, 0.1], dur: 0.12, blink: false });
 A(1.55, "rea", "turn", { to: -40, dur: 0.25 }); A(2.75, "rea", "turn", { to: -10, dur: 0.3 });   // round to glare at him
@@ -162,29 +162,30 @@ A(1.9, "rea", "talk", { line: "shhhh", dur: 0.45, tone: "calm", voice: false });
 c.cap(1.9, 2.55, "SHHH!", CAP_Y - 130);                                   // above the Wizard's "psst", both at once
 c.arm(2.45, "rea", "R", TUCK_R, 0.25);
 A(2.35, "wiz", "look", { to: [0.8, 0.1], dur: 0.12, blink: false });
-act.sheepish(c, 2.5, "wiz");
+// (his sheepish face was hidden behind zombie Viking, 2.5-3.1: dropped)
 // the ping: Phoenix's tiny smile
 sfx(2.7, "notify", { gain: 0.3 });
 A(2.75, "phx", "expr", { expr: "happy", set: { curve: 0.45 }, dur: 0.2 });
 A(3.1, "phx", "expr", { expr: "kind", set: { curve: 0.15, eye: 0.95 }, dur: 0.25 });
-see(1.6, 3.1, ["phx.face", "wiz.face", "rea.face", "vik"], "P2: behind the hedge, the Wizard waves, Reaper shushes him; the horde closes in");
+see(1.3, 1.95, ["wiz.face"], "P2: the Wizard waves him over, before zombie Viking passes");
+see(1.6, 2.55, ["phx.face", "rea.face", "vik"], "P2: behind the hedge, the Wizard waves, Reaper shushes him; the horde closes in");
 
 // ---------------------------------------------------------------- 3 ONE OF US 3.2-5.0 (P3)
 A(3.15, "vik", "look", { to: [-0.2, -0.45], dur: 0.15, blink: false });
 c.arm(3.2, "vik", "R", "rest", 0.4); c.arm(3.2, "vik", "L", "rest", 0.4);
 for (const t of [3.35, 3.55]) A(t, "vik", "squash", { amount: -0.03, dur: 0.12 });   // sniff, sniff
 sfx(3.35, "snort", { gain: 0.4, reason: "zombie Viking sniffs at Phoenix" });
-A(3.6, "vik", "lean", { to: -18, dur: 0.3 });                                       // the head tilt, held
+A(3.6, "vik", "lean", { to: -10, dur: 0.3 });                                       // the head tilt, held
 A(3.8, "phx", "talk", { line: "uhhhhh", dur: 0.6, tone: "calm" });
-A(3.8, "phx", "pitch", { to: 14, dur: 0.3 }); A(4.25, "phx", "pitch", { to: 6, dur: 0.3 });   // the groan droops his head further
-A(3.8, "phx", "expr", { expr: "kind", set: { curve: -0.1, eye: 0.85, open: 0.25 }, dur: 0.2 });
+A(3.8, "phx", "pitch", { to: 14, dur: 0.4 }); A(4.25, "phx", "pitch", { to: 6, dur: 0.3 });   // the groan droops his head further
+A(3.8, "phx", "expr", { expr: "kind", set: { curve: -0.1, eye: 0.85, open: 0.5 }, dur: 0.2 });
 A(4.45, "phx", "expr", { expr: "kind", set: { curve: 0.15, eye: 0.95 }, dur: 0.25 });
 A(4.5, "vik", "lean", { to: 0, dur: 0.25 });
 sfx(4.5, "groan", { gain: 0.6, dur: 0.6, reason: "zombie Viking groans back the same sound" });
-A(4.5, "vik", "expr", { expr: "kind", set: { open: 0.3, curve: 0.1 }, dur: 0.15 });
+A(4.5, "vik", "expr", { expr: "kind", set: { open: 0.5, curve: 0.1 }, dur: 0.15 });
 A(4.3, "vik", "look", { to: [-0.4, -0.9], dur: 0.15, blink: false });   // from his face to the phone
 A(4.5, "vik", "face", { lid: 0.6, dur: 0.2 });
-for (const [t, p] of [[4.5, 6], [4.7, 20], [4.87, 6], [5.0, 20], [5.17, 6]]) A(t, "vik", "pitch", { to: p, dur: 0.15 });   // bowed like him, then a slow double nod: one of us
+for (const [t, p] of [[4.5, 22], [4.85, 6]]) A(t, "vik", "pitch", { to: p, dur: 0.3 });   // bowed like him, then one slow nod: one of us
 see(3.3, 4.95, ["phx.face", "vik.face"], "P3: zombie Viking sniffs at him; Phoenix's bored groan; Viking groans back and nods");
 
 // ---------------------------------------------------------------- 4 CLUB 5.0-7.0 (P4, P5)
@@ -237,9 +238,9 @@ A(9.35, "phx", "squash", { amount: 0.03, dur: 0.12 });
 for (const [z, t] of [["vik", 9.45], ["gun", 9.55], ["sam", 9.63], ["dra", 9.72], ["sor", 9.8]]) {   // a ripple, eyes first
   A(t, z, "look", { to: [0.9, 0.05], dur: 0.15, blink: false });
   A(r3(t + 0.13), z, "pitch", { to: 0, dur: 0.25 });
-  if (z !== "vik") A(r3(t + 0.13), z, "turn", { to: BENCH.rot + 30, dur: 0.25 });
+  A(r3(t + 0.13), z, "turn", { to: BENCH.rot + (z === "vik" ? 35 : 30), dur: z === "vik" ? 0.3 : 0.25 });
 }
-c.textPop(9.85, "wiz", "!", { xy: [860, 820], dur: 0.35, color: "#ffe14a", size: 120, angle: 8 });   // the friends are spotted
+c.textPop(9.9, "wiz", "!", { xy: [860, 820], dur: 0.35, color: "#ffe14a", size: 120, angle: 8 });   // the friends are spotted
 for (const w of ["wiz", "rea"]) act.shock(c, 9.7, w, { open: 0.5, hold: 0.5 });
 see(9.5, 9.95, ["phx.face", "vik.face", "wiz.face", "hedge"], "P8: the horde turns to the hedge where the hat tip sticks out");
 
@@ -254,7 +255,7 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
 // face the beat needs sits inside the frame; see PANELS-zombies.md)
 const SHOTS = JSON.parse(process.env.SHOTS ?? "null") ?? {
   WIDE: [[-0.3, 1.9, 9.0], [0.2, 0.9, -1], 44],        // P1-2: Phoenix left, the horde down the middle, the friends at the hedge
-  ONE: [[-0.22, 1.05, 7.3], [-0.22, 0.95, 2.9], 40],    // P3: Phoenix and zombie Viking
+  ONE: [[-0.22, 1.4, 7.3], [-0.22, 0.8, 2.9], 40],    // P3: Phoenix and zombie Viking
   CLUB: [[0.0, 1.8, 8.9], [0.15, 0.95, 0], 48],        // P4-5: the club round the bench, the friends over the hedge
   PEAK: [[-0.5, 1.15, 6.6], [-0.5, 1.0, 2.7], 38],      // P6: cheek to cheek over the phone
   LOOKUP: [[-0.55, 1.12, 6.2], [-0.55, 1.02, 2.7], 34], // P7: the look-up, both faces
