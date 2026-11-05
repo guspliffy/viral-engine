@@ -285,7 +285,7 @@ A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -8, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 1250, false, { x: 780 });   // beside his face: lower in the frame it would sit on him
+c.cap(8.5, 9.0, "huh.", 1260, false, { x: 842 });   // beside his face: lower in the frame it would sit on him
 prop(8.0, "alien", { happy: 1, jaw: 0.7, lookX: -0.6, lookY: -0.1 }, 0.15);
 see(8.1, 8.95, ["phx.face", "alien"], "P7: Phoenix looks up at the alien and its gift: huh.");
 
