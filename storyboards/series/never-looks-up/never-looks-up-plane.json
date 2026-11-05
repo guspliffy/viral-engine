@@ -268,12 +268,12 @@
    "sign": 0.5,
    "lit": 1,
    "open": 0,
-   "lid": 0,
+   "lid": 0.25,
    "lidOrder": [
     3,
-    2,
+    1,
     0,
-    1
+    2
    ]
   },
   {
@@ -414,9 +414,10 @@
   {
    "id": "duf",
    "kind": "duffel",
-   "x": 0.375,
-   "y": 2.66,
-   "z": 0.05,
+   "x": 0.42,
+   "y": 1.7,
+   "z": 0.85,
+   "tilt": -60,
    "color": "#3a8f6a"
   },
   {
@@ -917,6 +918,29 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "duf",
+     "set": {
+      "x": 0.5,
+      "z": 1.25,
+      "rot": 25
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "duf",
+     "set": {
+      "y": 0.13,
+      "tilt": -180
+     },
+     "dur": 0.28,
+     "ease": "in",
+     "at": 0
+    },
+    {
      "who": "rea",
      "do": "expr",
      "expr": "shocked",
@@ -1023,7 +1047,7 @@
     },
     {
      "fx": "shake",
-     "amp": 0.03,
+     "amp": 0.05,
      "dur": 0.3,
      "at": 0.06
     },
@@ -1062,16 +1086,6 @@
      "at": 0.06
     },
     {
-     "do": "prop",
-     "id": "bins",
-     "set": {
-      "lid": 0.06
-     },
-     "dur": 0.06,
-     "ease": "out",
-     "at": 0.06
-    },
-    {
      "fx": "flash",
      "peak": 0.18,
      "dur": 0.08,
@@ -1086,12 +1100,6 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.08
-    },
-    {
-     "sfx": "kenney/impact-plank-medium",
-     "gain": 0.35,
-     "reason": "the bin lid over the Wizard rattles on the bump",
      "at": 0.08
     },
     {
@@ -1154,16 +1162,6 @@
     },
     {
      "do": "prop",
-     "id": "bins",
-     "set": {
-      "lid": 0
-     },
-     "dur": 0.12,
-     "ease": "in",
-     "at": 0.14
-    },
-    {
-     "do": "prop",
      "id": "wall",
      "set": {
       "glow": 0.3
@@ -1197,6 +1195,22 @@
      "dur": 0.04,
      "ease": "inOut",
      "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "duf",
+     "set": {
+      "y": 0.19
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.6,
+     "reason": "the holdall hits the floor",
+     "at": 0.28
     },
     {
      "who": "sam",
@@ -1234,6 +1248,16 @@
      "dur": 0.2,
      "ease": "in",
      "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "duf",
+     "set": {
+      "y": 0.13
+     },
+     "dur": 0.09,
+     "ease": "in",
+     "at": 0.35
     },
     {
      "who": "phx",
@@ -1337,7 +1361,7 @@
      "do": "prop",
      "id": "bins",
      "set": {
-      "lid": 0.25
+      "lid": 0.5
      },
      "dur": 0.12,
      "ease": "out",
@@ -1398,13 +1422,12 @@
     },
     {
      "do": "prop",
-     "id": "duf",
+     "id": "pack",
      "set": {
-      "z": 0.5,
-      "y": 2.64,
-      "tilt": -15
+      "z": 0.45,
+      "y": 2.62
      },
-     "dur": 0.15,
+     "dur": 0.1,
      "ease": "in",
      "at": 0.1
     },
@@ -1443,34 +1466,34 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "pack",
+     "set": {
+      "x": -0.4,
+      "z": 1.25,
+      "rot": -40
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "pack",
+     "set": {
+      "y": 0.19,
+      "tip": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
      "who": "wiz",
      "do": "grip",
      "side": "R",
      "shape": "hold",
      "dur": 0.08,
-     "at": 0.25
-    },
-    {
-     "do": "prop",
-     "id": "duf",
-     "set": {
-      "x": 0.5,
-      "z": 1.25,
-      "rot": 25
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.25
-    },
-    {
-     "do": "prop",
-     "id": "duf",
-     "set": {
-      "y": 0.13,
-      "tilt": -180
-     },
-     "dur": 0.3,
-     "ease": "in",
      "at": 0.25
     },
     {
@@ -1525,6 +1548,22 @@
      "at": 0.48
     },
     {
+     "do": "prop",
+     "id": "pack",
+     "set": {
+      "y": 0.24
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.6,
+     "reason": "flop: the backpack lands on the floor",
+     "at": 0.5
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -1534,19 +1573,13 @@
     },
     {
      "do": "prop",
-     "id": "duf",
+     "id": "pack",
      "set": {
       "y": 0.19
      },
-     "dur": 0.07,
-     "ease": "out",
-     "at": 0.55
-    },
-    {
-     "sfx": "thud",
-     "gain": 0.6,
-     "reason": "the holdall hits the floor",
-     "at": 0.55
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.56
     },
     {
      "who": "wiz",
@@ -1562,16 +1595,6 @@
      "dur": 0.15,
      "ease": "inOut",
      "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "duf",
-     "set": {
-      "y": 0.13
-     },
-     "dur": 0.09,
-     "ease": "in",
-     "at": 0.62
     },
     {
      "do": "prop",
@@ -1660,7 +1683,7 @@
      "do": "prop",
      "id": "bins",
      "set": {
-      "lid": 0.5
+      "lid": 0.75
      },
      "dur": 0.12,
      "ease": "out",
@@ -1934,15 +1957,15 @@
    "shot": {
     "pos": [
      -0.15,
-     1.4,
-     4.6
+     1.45,
+     5.35
     ],
     "look": [
-     -0.02,
+     0.22,
      1.3,
      0
     ],
-    "fov": 56,
+    "fov": 58,
     "hand": {
      "rate": 0,
      "bob": 0,
@@ -1980,7 +2003,21 @@
        0.45
       ]
      ]
-    }
+    },
+    "to": {
+     "pos": [
+      -0.15,
+      1.4,
+      4.6
+     ],
+     "look": [
+      -0.02,
+      1.3,
+      0
+     ],
+     "fov": 56
+    },
+    "dur": 1.2
    },
    "do": [
     {
@@ -2100,6 +2137,59 @@
      "at": 0.1
     },
     {
+     "do": "prop",
+     "id": "tea",
+     "set": {
+      "fill": 0.8,
+      "y": 0.96
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "sam",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "hatwobble",
+     "amount": 10,
+     "freq": 3,
+     "dur": 0.7,
+     "at": 0.1
+    },
+    {
      "who": "wiz",
      "do": "expr",
      "expr": "shocked",
@@ -2201,17 +2291,6 @@
     },
     {
      "do": "prop",
-     "id": "pack",
-     "set": {
-      "z": 0.45,
-      "y": 2.62
-     },
-     "dur": 0.1,
-     "ease": "in",
-     "at": 0.22
-    },
-    {
-     "do": "prop",
      "id": "wall",
      "set": {
       "glow": 0
@@ -2245,35 +2324,22 @@
     },
     {
      "do": "prop",
-     "id": "pack",
-     "set": {
-      "x": -0.4,
-      "z": 1.25,
-      "rot": -40
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.32
-    },
-    {
-     "do": "prop",
-     "id": "pack",
-     "set": {
-      "y": 0.19,
-      "tip": 0
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0.32
-    },
-    {
-     "do": "prop",
      "id": "maskP",
      "set": {
       "y": 1.32
      },
      "dur": 0.3,
      "ease": "settle",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "tea",
+     "set": {
+      "y": 0.73
+     },
+     "dur": 0.2,
+     "ease": "in",
      "at": 0.32
     },
     {
@@ -2285,6 +2351,13 @@
      ],
      "dur": 0.12,
      "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
      "at": 0.35
     },
     {
@@ -2385,6 +2458,22 @@
      "at": 0.5
     },
     {
+     "do": "prop",
+     "id": "tea",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.4,
+     "reason": "plop: the tea lands back in the mug",
+     "at": 0.54
+    },
+    {
      "who": "wiz",
      "do": "grab",
      "prop": "maskW",
@@ -2397,22 +2486,6 @@
      "dur": 0,
      "pose": null,
      "at": 0.58
-    },
-    {
-     "do": "prop",
-     "id": "pack",
-     "set": {
-      "y": 0.24
-     },
-     "dur": 0.06,
-     "ease": "out",
-     "at": 0.62
-    },
-    {
-     "sfx": "kenney/drop-leather",
-     "gain": 0.6,
-     "reason": "flop: the backpack lands on the floor",
-     "at": 0.62
     },
     {
      "who": "wiz",
@@ -2465,16 +2538,6 @@
      "dur": 0.2,
      "ease": "out",
      "at": 0.66
-    },
-    {
-     "do": "prop",
-     "id": "pack",
-     "set": {
-      "y": 0.19
-     },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.68
     },
     {
      "who": "phx",
@@ -2684,14 +2747,14 @@
     "pos": [
      -0.1,
      2,
-     5.9
+     6.2
     ],
     "look": [
-     0.3,
+     0.05,
      1.35,
      0
     ],
-    "fov": 58,
+    "fov": 62,
     "hand": {
      "rate": 0,
      "bob": 0,
@@ -2832,7 +2895,7 @@
      "do": "prop",
      "id": "reaC",
      "set": {
-      "y": 0.05
+      "y": 0.15
      },
      "dur": 0.5,
      "ease": "out",
@@ -2842,7 +2905,7 @@
      "do": "prop",
      "id": "phxC",
      "set": {
-      "y": 0.05
+      "y": 0.1
      },
      "dur": 0.5,
      "ease": "out",
@@ -2862,7 +2925,7 @@
      "do": "prop",
      "id": "maskR",
      "set": {
-      "y": 0.88
+      "y": 0.98
      },
      "dur": 0.5,
      "ease": "out",
@@ -3212,7 +3275,7 @@
      "id": "tea",
      "set": {
       "fill": 1,
-      "y": 0.93
+      "y": 1.08
      },
      "dur": 0.7,
      "ease": "out",
@@ -3259,8 +3322,8 @@
      "id": "wizC",
      "set": {
       "x": -0.35,
-      "y": 0.8,
-      "z": 0.8
+      "y": 0.88,
+      "z": 0.85
      },
      "dur": 1.4,
      "ease": "inOut",
@@ -3313,7 +3376,7 @@
       "palm": "wrap",
       "at": [
        0.92,
-       0.76,
+       0.86,
        0.52
       ]
      },
@@ -3802,8 +3865,8 @@
      "who": "phx",
      "do": "look",
      "to": [
-      0.45,
-      0.6
+      0.4,
+      0.68
      ],
      "dur": 0.12,
      "blink": false,

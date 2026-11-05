@@ -74,7 +74,7 @@ const props = [
   { id: "beltP", kind: "seatbelt", x: PX, z: 0, r: 0.42 },
   { id: "beltW", kind: "seatbelt", x: WX, z: 0, r: 0.42 },
   { id: "beltR", kind: "seatbelt", x: RX, z: 0, r: 0.42 },
-  { id: "bins", kind: "overhead", x: -0.05, y: OH_Y, z: 0, w: 3.4, color: "#a89f93", panel: "#9d958a", doors: [PX - 0.3 + 0.11, WX + 0.11, RX + 0.11].map(r3), sign: 0.5, lit: 1, open: 0, lid: 0, lidOrder: [3, 2, 0, 1] },   // lid 0.25: the bin over the Wizard's right bursts open, 0.5: Reaper's, 1: all
+  { id: "bins", kind: "overhead", x: -0.05, y: OH_Y, z: 0, w: 3.4, color: "#a89f93", panel: "#9d958a", doors: [PX - 0.3 + 0.11, WX + 0.11, RX + 0.11].map(r3), sign: 0.5, lit: 1, open: 0, lid: 0.25, lidOrder: [3, 1, 0, 2] },   // lid 0.25: the bin over the Wizard's right bursts open, 0.5: Reaper's, 1: all
   { id: "maskP", kind: "oxymask", ...MASK_UP(PX - 0.3), anchor: anchor(PX, -0.3) },   // on the window side: it dangles beside his face, clear of the Wizard's float
   { id: "maskW", kind: "oxymask", ...MASK_UP(WX), anchor: anchor(WX) },
   { id: "maskR", kind: "oxymask", ...MASK_UP(RX), anchor: anchor(RX) },
@@ -89,7 +89,7 @@ const props = [
   { id: "pillow", kind: "pillow", x: 0.75, y: 0.8, z: 1.1, rot: 20, scale: 0.0001 },
   { id: "mag", kind: "magazine", x: 0.55, y: 0.03, z: 1.15, rot: 30, tilt: 0 },
   // the baggage: in the bins until they burst open (a bin is 0.42 high, its front at z 0.3; the lids open up and out)
-  { id: "duf", kind: "duffel", x: 0.375, y: 2.66, z: 0.05, color: "#3a8f6a" },
+  { id: "duf", kind: "duffel", x: 0.42, y: 1.7, z: 0.85, tilt: -60, color: "#3a8f6a" },   // frame 0: already falling out of its burst bin
   { id: "case", kind: "suitcase", x: 1.225, y: 2.6, z: 0.0, tip: 90, color: "#d2433a" },
   { id: "pack", kind: "backpack", x: -0.475, y: 2.66, z: 0.05, tip: 90, color: "#e6b43a" },
   { id: "case2", kind: "suitcase", x: -1.325, y: 2.6, z: 0.0, tip: 90, color: "#d9579b", rib: "#a83f76" },   // in the bin over Phoenix
@@ -111,7 +111,7 @@ for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.18, dur: 0.08, sound: fa
 for (const t of FLASHES) { prop(t, "wall", { glow: 1 }, 0.04, "out"); prop(t + 0.1, "wall", { glow: 0.3 }, 0.06); prop(t + 0.18, "wall", { glow: 0.9 }, 0.04); prop(t + 0.24, "wall", { glow: 0 }, 0.3, "in"); }
 for (const t of FLASHES) sfx(t + 0.05, "rumble", { gain: 0.5, dur: 1.2, reason: "thunder after the lightning in the window" });
 sfx(0, "rumble", { gain: 0.32, dur: END - 0.05, reason: "the cabin's engine rumble bed" });
-for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.03 : r3(a * 0.25), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
+for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.05 : r3(a * 0.25), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
 // every sitter jolts with each bump (they sit on the plane, so they move with it a beat late)
 for (const [t] of BUMPS.slice(0, 4).filter(([t]) => t !== 2.45)) for (const w of ["phx", "wiz", "rea"]) A(t + 0.03, w, "squash", { amount: w === "wiz" ? 0.09 : 0.04, dur: 0.2 });
 
@@ -158,8 +158,9 @@ A(0, "sam", "grip", { side: "R", shape: "hold", dur: 0.01 }); A(0, "sam", "grip"
 A(0, "sam", "look", { to: [-0.3, -0.2], dur: 0, blink: false });
 A(0, "sam", "noblink", { dur: 4.0 }); A(4.0, "sam", "blink", { dur: 0.22 });
 // everyone else panics from the first bump: the bins rattle, Reaper's tea jumps, the Samurai staggers with his tray
-prop(0.06, "bins", { lid: 0.06 }, 0.06, "out"); prop(0.14, "bins", { lid: 0 }, 0.12, "in");
-sfx(0.08, "kenney/impact-plank-medium", { gain: 0.35, reason: "the bin lid over the Wizard rattles on the bump" });
+prop(0, "duf", { x: 0.5, z: 1.25, rot: 25 }, 0.28, "out"); prop(0, "duf", { y: 0.13, tilt: -180 }, 0.28, "in");
+prop(0.28, "duf", { y: 0.19 }, 0.07, "out"); prop(0.35, "duf", { y: 0.13 }, 0.09, "in");
+sfx(0.28, "thud", { gain: 0.6, reason: "the holdall hits the floor" });
 act.shock(c, 0, "rea", { open: 0.3, hold: 0.9, dur: 0.01 });   // frame 0: already scared
 prop(0.12, "tea", { fill: 0.8, y: r3(MUG.y + 0.3) }, 0.22, "out");
 prop(0.34, "tea", { y: r3(MUG.y + 0.07) }, 0.2, "in"); prop(0.54, "tea", { fill: 0 }, 0.04);
@@ -180,14 +181,14 @@ prop(2.55, "phxC", { y: 0, x: PX }, 0.12, "inOut");   // Phoenix (and his phone)
 A(1.7, "wiz", "talk", { line: "wawawa-wa!", dur: 0.7, tone: "excited" });
 c.cap(1.7, 2.5, "wawawa-WA!!", 560, true, { x: 430 });
 // the bin over the Wizard's right bursts open on the bump and a holdall drops out past him onto the floor
-prop(1.55, "bins", { lid: 0.25 }, 0.12, "out");
+prop(1.55, "bins", { lid: 0.5 }, 0.12, "out");
 sfx(1.56, "kenney/impact-plank-medium", { gain: 0.5, reason: "the bin lid bangs open" });
-prop(1.6, "duf", { z: 0.5, y: 2.64, tilt: -15 }, 0.15, "in");
-prop(1.75, "duf", { x: 0.5, z: 1.25, rot: 25 }, 0.3, "out"); prop(1.75, "duf", { y: 0.13, tilt: -180 }, 0.3, "in");
-prop(2.05, "duf", { y: 0.19 }, 0.07, "out"); prop(2.12, "duf", { y: 0.13 }, 0.09, "in");
-sfx(2.05, "thud", { gain: 0.6, reason: "the holdall hits the floor" });
+prop(1.6, "pack", { z: 0.45, y: 2.62 }, 0.1, "in");   // a backpack tumbles out of it
+prop(1.7, "pack", { x: -0.4, z: 1.25, rot: -40 }, 0.3, "out"); prop(1.7, "pack", { y: 0.19, tip: 0 }, 0.3, "in");
+prop(2.0, "pack", { y: 0.24 }, 0.06, "out"); prop(2.06, "pack", { y: 0.19 }, 0.08, "in");
+sfx(2.0, "kenney/drop-leather", { gain: 0.6, reason: "flop: the backpack lands on the floor" });
 // the next bin bursts too: the suitcase slides out and slams down in front of Reaper; the Wizard lets go of Phoenix
-prop(2.45, "bins", { lid: 0.5 }, 0.12, "out");
+prop(2.45, "bins", { lid: 0.75 }, 0.12, "out");
 sfx(2.46, "kenney/impact-plank-medium", { gain: 0.5, reason: "the second bin lid bangs open" });
 prop(2.5, "case", { z: 0.45, y: 2.58 }, 0.12, "in");
 prop(2.62, "case", { x: 1.5, z: 1.2, rot: 30, tilt: 10 }, 0.3, "out"); prop(2.62, "case", { y: 0.13 }, 0.3, "in");
@@ -218,17 +219,12 @@ see(1.6, 3.15, ["phx.face", "wiz.face", "rea.face", "phone"], "P2: the Wizard sh
 
 // ---------------------------------------------------------------- 3 MASKS 3.2-5.0 (P3)
 prop(3.27, "bins", { open: 1 }, 0.1, "out");
-prop(3.27, "bins", { lid: 1 }, 0.25, "out");   // the last two bins burst open with the masks
-// a backpack tumbles out of the bin over Phoenix and drops in front of the row
-prop(3.42, "pack", { z: 0.45, y: 2.62 }, 0.1, "in");
-prop(3.52, "pack", { x: -0.4, z: 1.25, rot: -40 }, 0.3, "out"); prop(3.52, "pack", { y: 0.19, tip: 0 }, 0.3, "in");
-prop(3.82, "pack", { y: 0.24 }, 0.06, "out"); prop(3.88, "pack", { y: 0.19 }, 0.08, "in");
+prop(3.27, "bins", { lid: 1 }, 0.25, "out");   // the last bin bursts open with the masks
 prop(3.5, "case2", { z: 0.45, y: 2.58 }, 0.1, "in");
 prop(3.6, "case2", { x: -0.95, z: 1.3, rot: -25, tilt: -8 }, 0.3, "out"); prop(3.6, "case2", { y: 0.13 }, 0.3, "in");   // it whizzes down past Phoenix's face: he doesn't blink
 prop(3.9, "case2", { y: 0.2, tilt: -3 }, 0.07, "out"); prop(3.97, "case2", { y: 0.13, tilt: 0 }, 0.1, "in");
 sfx(3.9, "kenney/impact-plank-medium", { gain: 0.5, reason: "the pink case's shell clacks on the floor" });
 sfx(3.9, "kenney/impact-punch-heavy", { gain: 0.85, reason: "wham: the pink suitcase slams down in front of Phoenix" });
-sfx(3.82, "kenney/drop-leather", { gain: 0.6, reason: "flop: the backpack lands on the floor" });
 sfx(3.27, "kenney/switch", { gain: 0.6, reason: "the mask doors pop open" });
 c.hitStop(3.3, 3);
 const MASK_HANG = (x) => ({ x: r3(x + 0.02), y: 1.32, z: 0.85 });
@@ -257,6 +253,12 @@ c.arm(4.3, "wiz", "L", { x: [0.3, 0.45, 0.3] }, 0.3, "inOut");
 const REA_MOUTH = { x: r3(RX), y: 0.83, z: r3(SZ + 0.5) };
 A(3.55, "rea", "look", { to: [0.0, 0.3], dur: 0.12, blink: false });
 act.shock(c, 3.32, "rea", { open: 0.45, hold: 1.0 });
+prop(3.3, "tea", { fill: 0.8, y: r3(MUG.y + 0.3) }, 0.22, "out");
+prop(3.52, "tea", { y: r3(MUG.y + 0.07) }, 0.2, "in"); prop(3.72, "tea", { fill: 0 }, 0.04);
+sfx(3.74, "ai/drip", { gain: 0.4, reason: "plop: the tea lands back in the mug" });
+A(3.3, "sam", "lean", { to: -12, dur: 0.15, ease: "out" }); A(3.55, "sam", "lean", { to: 0, dur: 0.4 });
+act.shock(c, 3.3, "sam", { open: 0.45, hold: 0.9 });
+A(3.3, "wiz", "hatwobble", { amount: 10, freq: 3, dur: 0.7 });
 c.arm(3.7, "rea", "L", { prop: "maskR", grip: [0, -0.03, -0.03] }, 0.35, "inOut");
 A(4.02, "rea", "grab", { prop: "maskR", hand: "L", grip: [0, -0.03, -0.03], dur: 0, pose: null });
 c.arm(4.1, "rea", "L", { world: [REA_MOUTH.x + 0.05, REA_MOUTH.y - 0.03, REA_MOUTH.z - 0.03] }, 0.4, "inOut");
@@ -271,7 +273,7 @@ see(3.35, 4.95, ["phx.face", "wiz.face", "rea.face", "maskW", "maskR", "phone"],
 // ---------------------------------------------------------------- 4 ZERO-G 5.0-7.0 (P4)
 // the big drop: everything lifts. The Wizard, unbuckled, floats up and slowly tumbles upside down over Phoenix's phone
 // (a pitch turns him about his middle; the yaw turns his face back to us once he is over)
-const WIZ_PEAK = { x: -0.35, y: 0.8, z: 0.8 };            // the carrier: his middle 0.8 m above it
+const WIZ_PEAK = { x: -0.35, y: 0.88, z: 0.85 };            // the carrier: his middle 0.8 m above it
 prop(5.05, "wizC", { y: 0.4, z: r3(SZ + 0.4) }, 0.35, "out");   // he pops off the seat
 prop(5.4, "wizC", WIZ_PEAK, 1.4, "inOut");
 A(5.05, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: false, dur: 0.3, ease: "out" });
@@ -283,7 +285,7 @@ c.cap(5.05, 6.0, "WHOA-WHOA!!", 520, true, { x: 470 });
 c.arm(5.1, "wiz", "L", { o: [0.32, 0.72, 0.12] }, 0.35, "out");
 c.arm(6.2, "wiz", "L", { o: [0.1, -0.22, 0.2] }, 0.6, "inOut");   // once he is upside down his free arm points up the screen, clear of Phoenix
 // Reaper and Phoenix are belted: they rise only a little against the belts; Reaper's tea lifts out as a blob
-prop(5.05, "reaC", { y: 0.05 }, 0.5, "out"); prop(5.05, "phxC", { y: 0.05 }, 0.5, "out");
+prop(5.05, "reaC", { y: 0.15 }, 0.5, "out"); prop(5.05, "phxC", { y: 0.1 }, 0.5, "out");   // up against their belts
 prop(5.05, "maskP", { y: r3(MASK_P.y + 0.1) }, 0.5, "out");
 // Reaper screams, his free arm flailing over his head
 act.shock(c, 5.06, "rea", { open: 0.65, eye: 1.35, hold: 1.6 });
@@ -291,10 +293,10 @@ A(5.15, "rea", "talk", { line: "AAAAH!", dur: 0.7, tone: "excited" });
 c.cap(5.15, 6.0, "AAAAH!", 640, true, { x: 745 });
 c.arm(5.1, "rea", "L", { o: [0.34, 0.7, 0.14] }, 0.25, "out");
 for (const [i, t] of [5.4, 5.7, 6.0, 6.3].entries()) c.arm(t, "rea", "L", { o: [i % 2 ? 0.34 : 0.44, i % 2 ? 0.7 : 0.6, 0.14] }, 0.3, "inOut");
-prop(5.05, "maskR", { y: r3(REA_MOUTH.y + 0.05) }, 0.5, "out");
+prop(5.05, "maskR", { y: r3(REA_MOUTH.y + 0.15) }, 0.5, "out");
 A(5.1, "rea", "look", { to: [-0.2, -0.1], dur: 0.15, blink: false });
-prop(5.25, "tea", { fill: 1, y: r3(MUG.y + 0.05 + 0.22) }, 0.7, "out");
-mug.carry(5.4, [MUG.x, r3(MUG.y + 0.1), MUG.z], 0.6);    // he holds the cup under it, calm
+prop(5.25, "tea", { fill: 1, y: r3(MUG.y + 0.42) }, 0.7, "out");
+mug.carry(5.4, [MUG.x, r3(MUG.y + 0.2), MUG.z], 0.6);    // he holds the cup under it, calm
 sfx(5.25, "gulp", { gain: 0.35, reason: "glk: the tea lifts out of the mug as a blob" });
 prop(5.25, "tea", { wobble: 1 }, 0.3);
 // the Samurai floats up and lies flat along the aisle, tray level, and offers it to the row
@@ -345,7 +347,7 @@ for (const w of ["wiz", "rea", "sam"]) A(7.8, w, "noblink", { dur: 1.4 });
 see(7.05, 7.95, ["phx.face", "wiz.face", "phone"], "P5: the upside-down Wizard's face right over the phone");
 
 // ---------------------------------------------------------------- 6 LOOK-UP 8.0-9.0 (P6-P7, the series ending)
-A(8.05, "phx", "look", { to: [0.45, 0.6], dur: 0.12, blink: false });
+A(8.05, "phx", "look", { to: [0.4, 0.68], dur: 0.12, blink: false });
 A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -6, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
@@ -411,8 +413,8 @@ see(T_LAND + 0.05, 9.98, ["phx.face", "wiz.face", "rea.face", "sam", "tray", "ph
 const shot = (pos, look, fov = 50, o = {}) => ({ pos, look, fov, ...o });
 const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: BUMPS.map(([t, a, d]) => [t, a, d]) };
 const WIDE = shot([-0.15, 1.45, 5.35], [0.22, 1.3, 0], 58, { hand: HAND });
-const MASKS = shot([-0.15, 1.4, 4.6], [-0.02, 1.3, 0], 56, { hand: HAND });
-const ZEROG = shot([-0.1, 2.0, 5.9], [0.3, 1.35, 0], 58, { hand: HAND });
+const MASKS = { ...WIDE, to: { pos: [-0.15, 1.4, 4.6], look: [-0.02, 1.3, 0], fov: 56 }, dur: 1.2 };   // the wide pushes in on the bump
+const ZEROG = shot([-0.1, 2.0, 6.2], [0.05, 1.35, 0], 62, { hand: HAND });
 const PEAK = { ...shot([-1.42, 1.28, 4.75], [-0.66, 1.2, 0.4], 44, { hand: HAND }), to: { pos: [-1.36, 1.26, 4.45] }, dur: 2.0 };   // a slow push into the series' LOOK-UP framing
 const BACKDOWN = shot([-0.2, 1.47, 5.45], [0.22, 1.28, 0], 58, { hand: HAND });
 const beats = c.beats([
