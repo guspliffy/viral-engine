@@ -327,7 +327,7 @@ export function makeAttach(env) {
     if (!p._posTw) p._posTw = (sb.actions || []).filter((a) => a.do === "prop" && a.id === p.spec.id && a.set && ["x", "y", "z"].some((k) => k in a.set)).sort((a, b) => a.at - b.at);
     return p._posTw;
   }
-  const tweening = (p, t) => posTweens(p).some((a) => t >= a.at && t < a.at + (a.dur ?? 0.3));
+  function tweening(p, t) { return posTweens(p).some((a) => t >= a.at && t < a.at + (a.dur ?? 0.3)); }
   // a held prop that a "prop" tween also moves (two writers: the hand and the tween)
   function twoWriters(p, t) { return tweening(p, t); }
 }
