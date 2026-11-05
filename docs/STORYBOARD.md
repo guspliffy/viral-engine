@@ -419,3 +419,26 @@ Each hold has `approach`, `secure`, `take`, `carry`, `regrip`, `place`, `release
 gap, height) are in the file. `node storyboards/lookdev/make-grip-tests.mjs` writes a close-up test bench per hold
 (`storyboards/lookdev/grip-<hold>.json`). A new hold is added there and approved by Jonny from its close-up video
 before a clip uses it.
+
+## Light from the painting (opt-in, quality plan item 18; Jonny's call before it becomes a default)
+
+`"set": { "lighting": 2 }` (`engine/page/light.js`, read by `looks.js`) lights the cast from the set's own painting so
+they sit in it instead of on it. It measures the painting once before frame 0 (an env's `paint.png`, a plate's
+`src`), then: the cast and props (props at half) take its light colour on the lit side and its shadow colour in the
+shade (cool shades lean blue-violet, never green or cyan, so the golden skin never turns olive), dimmed a little in a
+dark painting (0.85 at most at night); a crisp edge light on the side the key comes from (`set.key`, an env's
+`light.key`), in the colour of the painting's brightest lights; soft contact shading from every body, foot, hand and
+small prop onto the floor, furniture and props near it (on a painted env, onto the painting itself); the contact
+ovals in the painting's shadow hue. Overrides: `"lighting": { "v": 2, "key": [x, y, z], "light": "#hex", "shadow":
+"#hex", "rim": "#hex", "exposure": 0.9, "grade": 1, "rimK": 0.5, "ao": 0.8, "shadeK": 0, "measure": false }`. `shadeK` scales how much of the painting's shadow colour the shade
+side takes: 0.4 by default (Jonny 5 Nov picked "halfway": the warm light of light 2 with most of today's shade, so the
+pencil strokes still read), 0 keeps today's shade, 1 the full colour. Pencil strokes always darken by the role's own untinted shade, never the painting's. About 2-4 % more
+render time per frame. Trial: `node storyboards/lookdev/light/make-light-trial.mjs`, A/B sheets with
+`tools/light/ab.py`.
+
+`"set": { "hatch": { "scale": 1.4, "boil": 0.25, "rate": 7.5, "k": 1 } }` tunes the pencil hatching: spacing factor,
+how far the strokes shift per drawing, drawings a second (15) and strength. `node tools/light/detail-test.mjs`
+renders variants of a storyboard, puts each through the same rough TikTok re-encode as `tools/encode-test` and scores
+how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
+is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
+0.967. Line width and hatch spacing barely mattered.

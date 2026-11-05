@@ -359,6 +359,30 @@ function gaitPlan(sb, actor, def) {
     // a walk: the other foot lifts just after this one lands (both stand for a moment); a run: just before (both in the air)
     nextLift = run ? tt + (ST - 0.5) / cad : Math.max(tt, tt + (ST - 0.5) / cad);
   }
+  // scripted steps (the move library, quality plan item 16; Jonny approved the sneak trial 5 Nov): a { do: "feet",
+  // ev: { R: [{ t0, t1, p1: [x, z], h, a1 }], L } } action (storyboards/lib/moves play()) gives the steps recorded in
+  // motion capture. Between its first lift and last touch down the planner's own steps give way; each scripted step
+  // starts where the foot stood. Storyboards without one plan exactly as before.
+  const FA = (sb.actions || []).find((q) => q.who === actor.id && q.do === "feet");
+  if (FA) {
+    for (const s of ["R", "L"]) {
+      const S = FA.ev[s] || [];
+      if (!S.length) continue;
+      const a0 = S[0].t0, a1 = Math.max(...["R", "L"].map((q) => (FA.ev[q] || []).at(-1)?.t1 ?? 0));
+      const keep = ev[s].filter((e) => e.t1 <= a0 + 1e-9 || e.t0 >= a1 - 1e-9);
+      let prev = keep.filter((e) => e.t1 <= a0 + 1e-9).pop();
+      let p = prev ? prev.p1 : homeAt(s, -PRE), y = prev ? prev.y1 : K.y[0], ya = prev ? prev.a1 : K.yaw[0];
+      const mine = S.map((q) => {
+        const p1 = q.p1, e = { t0: q.t0, t1: q.t1, p0: p, p1, y0: y, y1: at(K.y, q.t1), a0: ya, a1: q.a1 ?? yawAt(q.t1), h: q.h, run: false, cad: 0.5 / Math.max(0.1, q.t1 - q.t0), ST: 0.58, len: Math.hypot(p1[0] - p[0], p1[1] - p[1]) };
+        e.sd = e.len / (0.2 * at(K.sc, q.t1));
+        p = p1; y = e.y1; ya = e.a1;
+        return e;
+      });
+      const after = keep.filter((e) => e.t0 >= a1 - 1e-9);
+      if (after[0]) after[0] = { ...after[0], p0: p, y0: y, a0: ya };
+      ev[s] = [...keep.filter((e) => e.t1 <= a0 + 1e-9), ...mine, ...after];
+    }
+  }
   // the gait phase: each touch down gets the next half cycle, R on a whole number and L on a half
   const steps = [...ev.R.map((e) => ({ ...e, s: "R" })), ...ev.L.map((e) => ({ ...e, s: "L" }))].filter((e) => !e.off).sort((a, b) => a.t1 - b.t1);
   let q = -0.5;

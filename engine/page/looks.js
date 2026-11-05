@@ -10,6 +10,7 @@ import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
+import { makeLightRig, AO_GLSL } from "./light.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -207,16 +208,20 @@ function patchToon(m, o) {
     sh.uniforms.uRim = { value: new THREE.Color(o.rim) }; sh.uniforms.uRimK = { value: o.rimK }; sh.uniforms.uSpec = { value: o.spec }; sh.uniforms.uSpecW = { value: o.specW ?? 0 };
     sh.uniforms.uGrad = { value: o.grad ?? 0.08 }; sh.uniforms.uOcc = { value: o.occ ?? 0.14 };
     sh.uniforms.uBack = { value: new THREE.Color(o.back || "#000000") }; sh.uniforms.uBackDir = { value: new THREE.Vector3(...(o.backDir || [1, 0.5, -0.4])).normalize() };
+    // set "lighting": 2 (light.js): the edge light follows the key light (a shared uniform, turned into view space each
+    // frame), and set and prop surfaces take the contact occlusion of the bodies, feet, hands and small props near them
+    if (o.krim) { sh.uniforms.uKRim = o.krim; sh.uniforms.uKRimK = { value: o.krimK ?? 1 }; sh.uniforms.uKeyDir = o.keyDirU; }
+    if (o.ao) { sh.uniforms.uAO = o.ao.ao; sh.uniforms.uAON = o.ao.aoN; sh.uniforms.uAOK = o.ao.aoK; sh.uniforms.uAOCol = o.ao.aoCol; }
     // the shadow a hat brim throws on the head just under it: a band below the brim plane, inside the brim
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
-    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; }
+    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil; uniform vec2 uHatchRes; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -236,6 +241,9 @@ function patchToon(m, o) {
           vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
+          #ifdef LIGHT_AO
+            col *= mix(vec3(1.0), uAOCol, sphereAO(vWPos, normalize((vec4(nS, 0.0) * viewMatrix).xyz), uAO, uAON) * uAOK);
+          #endif
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
             float hk = uHatK * smoothstep(-uHatD, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
@@ -244,6 +252,12 @@ function patchToon(m, o) {
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
           // the rim is a lighter version of the surface colour (on dark cloth a white rim reads as a grey halo)
           col += uRim * uRimK * smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.0, 0.3, ndl) * litK * min(base * 1.6, vec3(1.0));
+          #ifdef LIGHT_RIM
+            // set "lighting": 2: a crisp edge of the painting's light on the side its key comes from (lightening only:
+            // the surface's own colour lifted toward the light's, so dark cloth gets a coloured edge, not a grey halo)
+            { float rr = smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.05, 0.35, dot(normal, uKeyDir)) * uKRimK;
+              col = mix(col, max(col, uKRim * mix(min(base * 1.8 + 0.2, vec3(1.0)), vec3(1.0), 0.35) * 1.6), rr); }
+          #endif
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
           col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
@@ -260,7 +274,7 @@ function patchToon(m, o) {
               if (w <= 0.001) continue;
               vec2 dir = vec2(cos(a), sin(a));
               // boil: the hatching is drawn again for every drawing (15 a second), so the strokes shift a little
-              float dn = floor(uHatchT * 15.0 + 0.01) + float(L) * 17.0;
+              float dn = floor(uHatchT * uHatchRate + 0.01) + float(L) * 17.0;
               float u = dot(sp, vec2(-dir.y, dir.x)) / gap + uHatchBoil * fract(sin(dn * 12.9898) * 43758.5453), v = dot(sp, dir) + uHatchBoil * 40.0 * fract(sin(dn * 78.233) * 24634.6345);
               float row = floor(u), f = fract(u);
               float h1 = fract(sin(row * 12.9898 + float(L) * 7.13) * 43758.5453);
@@ -273,7 +287,7 @@ function patchToon(m, o) {
               float d = abs(f - 0.5 - (h2 - 0.5) * 0.25), aa = fwidth(u) * 0.75;
               hs = max(hs, w * on * smoothstep(wid + aa, wid - aa, d));
             }
-            col = mix(col, col * uShade * 0.72, uHatch * hs);
+            col = mix(col, col * uHatchC * 0.72, uHatch * hs);
           }
           #endif
           outgoingLight = col + totalEmissiveRadiance;
@@ -282,7 +296,7 @@ function patchToon(m, o) {
         #include <opaque_fragment>`);
     if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -324,6 +338,8 @@ function groundShadows(scene, actors, props, color, camera) {
   props.forEach((p, i) => p.root.traverse((o) => { if (o.isMesh && !o.userData.lookOnly) { solid.push(o); owner.set(o, i); } }));
   const propBlobs = props.map((p) => [p, blob(), new THREE.Box3()]);
   return {
+    // set "lighting": 2 (light.js): the ovals take the painting's own shadow colour
+    setColor(c) { for (const m of blobs) m.material.uniforms.uColor.value.copy(c); },
     update() {
       scene.updateMatrixWorld();
       for (const [p, m, box] of propBlobs) {
@@ -527,6 +543,11 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     ROLE.lid = { ...ROLE.skin, bodyN: true, hatch: null };
     if (!sheetHatch) for (const r of ["skin", "char", "cloth", "hair", "lining", "glove", "wood", "lid"]) if (ROLE[r]) ROLE[r] = { ...ROLE[r], hatch: null };
   }
+  // set "hatch": { "scale": 1.3, "boil": 0.25, "rate": 8, "k": 1 } (quality plan item 18, opt-in, Jonny's call): the
+  // pencil hatching tuned to what survives TikTok's re-encode: scale multiplies the stroke spacing (7 px at 1080 wide),
+  // boil is how far the strokes shift per drawing, rate how many drawings a second (15), k a factor on its strength
+  const HO = setSpec?.hatch;
+  if (HO) for (const r of Object.keys(ROLE)) if (ROLE[r]?.hatch) { const h = ROLE[r].hatch; ROLE[r] = { ...ROLE[r], hatch: { ...h, gap: (h.gap ?? 7) * (HO.scale ?? 1), boil: HO.boil ?? h.boil, rate: HO.rate ?? h.rate, k: h.k * (HO.k ?? 1) } }; }
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
@@ -538,6 +559,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // blush is painted softer in the drawn look
   for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
+  // set "lighting": 2 (light.js, opt-in): the cast lit by the painting's own light; null when off
+  const LR = makeLightRig({ scene, setSpec: setSpec || {}, actors, props });
+  const propMats = new Set(); if (LR) for (const p of props) p.root?.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) propMats.add(m); });
   // bare: copies without line art, for parts drawn on top of the body (the eyelids share the skin material, and with
   // lines a closed lid shows as a ring around the eye)
   const toon = new Map(), bare = new Map(), made = new Set(), noLine = { visible: false };
@@ -552,6 +576,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     }
     if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial) {
       if (m && !m.userData.outlineParameters) m.userData.outlineParameters = noLine;
+      if (LR && m && m.isMeshBasicMaterial && setMats.has(m)) LR.patchPainted(m);   // set "lighting": 2 on a painted env
       return m;
     }
     const cache = noLines ? bare : toon;
@@ -570,7 +595,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...ROLE[role], ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
@@ -673,6 +698,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
 
   return {
     prepare(scene, t, focusPoint) {
+      if (LR) { LR.roles(ROLE, grounding); LR.update(camera); }
       for (const [m, t] of [...toon, ...bare]) {
         if (t.userData.glassOf) { t.uniforms.uOpacity.value = t.opacity = m.userData.liquid ? m.opacity * 0.32 / 0.35 : m.opacity; continue; }
         if (m.emissiveIntensity !== undefined) t.emissiveIntensity = Math.min(m.emissiveIntensity, 2.4); t.opacity = m.opacity;
