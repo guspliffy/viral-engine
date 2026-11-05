@@ -8,8 +8,29 @@ const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 
 const rd = (v, n) => Math.round(v * 10 ** n) / 10 ** n;
 // Rig options for the clip being drawn (stage.js calls setRig(sb) when it loads a storyboard). "rig": { "hand": 2 }
 // turns on the hand that can't flip (quality plan item 2, 5 Nov 2026); without it every clip draws as before.
-let HAND = null, SMOOTH = true;
-export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; };
+let HAND = null, SMOOTH = true, ARM = null;
+export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; ARM = sb?.rig?.arm ?? null; };
+// Arm rig 2 ("rig": { "arm": 2 }, plan item 11): the rubber-hose arm drawn through an elbow from a two-bone solve.
+// Each arm is two equal bones whose total is its rest arm's length (today's curve at rest), so the forearm never gets
+// shorter than half of that and can't collapse onto the hand. Soft IK with stretch (Andy Nicholas, 2009): over the last
+// ARM_SOFT of the reach the elbow straightens on an exponential, so an arm never snaps straight, and past it the bones
+// stretch to keep the hand on its target: the cast's arms are rubber hoses (a raised hand reaches 2.5 times the rest
+// arm's length), so a stretch is the look, not a fault. The layout records it per hand and frame (dbg "reach": the
+// shoulder-hand distance over the rest arm's length).
+// The elbow bends towards the arm's old guide point (today's rules: out from the body, below a fist on a staff, behind a
+// pinch, out beside a phone), with poleField's direction as a floor, so the bend never flips when the guide crosses
+// the shoulder-hand line. The curve's pull point then sits where the curve passes through the elbow.
+const ARM_SOFT = 0.15, ARM_BOW = 0.06;
+// a continuous pole for a reach in direction u (unit, the root's space; sx -1 right arm, +1 left): down when the hand
+// reaches out and forward, back (a little out) when it hangs, out when it is raised. The out-and-forward frame swung
+// onto u the shortest way: one singular direction, in and back through the body, where an arm never reaches
+const _pr = new THREE.Quaternion(), _pv = new THREE.Vector3();
+function poleField(u, sx, out) {
+  const r0 = _pv.set(sx, 0, 1).normalize();
+  _pr.setFromUnitVectors(r0, u);
+  out.set(sx * 0.5, -Math.SQRT1_2, -0.5).applyQuaternion(_pr);
+  return out.addScaledVector(u, -out.dot(u)).normalize();
+}
 // Hand rig 2: the hand's turn is built from a base frame plus turns away from it that a wrist can do.
 // The base frame: the hand's frame when the forearm points out, forward and up (HAND_Y0, 45 degrees up from out and
 // forward, square to today's look-at reference: a hanging hand, and every forearm square to that reference, keeps
@@ -862,8 +883,54 @@ export class Character {
       this._outside(mid, S, joint ? 1 : 1.3);
       return mid;
     };
-    const mid = elbowFor(h);
-    return { sx, a, from, to, h, sh, shN, gr, ax, dn, fr, mid };
+    let mid = elbowFor(h), arm = null;
+    if (ARM === 2) ({ mid, arm } = this._solveArm(s, sx, sh.clone().addScaledVector(shN, -0.035), h, mid, S, dn));
+    return { sx, a, from, to, h, sh, shN, gr, ax, dn, fr, mid, arm };
+  }
+  // the arm's length (rest pose, today's curve), per side, computed once
+  _armLength(s) {
+    this._armL ??= {};
+    if (this._armL[s] != null) return this._armL[s];
+    const sx = s === "R" ? -1 : 1, S = new THREE.Vector3(1, 1, 1), shp = this.surf(sx * 1.38, this.def.limbs.shoulder ?? 0.02);
+    const sh = shp.pos.clone().addScaledVector(shp.normal, -0.035), h = new THREE.Vector3().fromArray(handTarget("rest", sx, this.rx, this.H, 0));
+    const mid = shp.pos.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * elbowOut("rest"), -0.06, 0.02));
+    this._outside(mid, S, 1.3);
+    return (this._armL[s] = new THREE.QuadraticBezierCurve3(sh, mid, h).getLength());
+  }
+  // arm rig 2: the elbow for shoulder sh0 and hand h (guide: the old pull point), and the pull point that draws the
+  // curve through it. dn: a paw resting on a table keeps its authored joint (the jointed arm passes through it)
+  _solveArm(s, sx, sh0, h, guide, S, dn) {
+    const L = this._armLength(s) * (Math.sqrt(S.x * S.y) || 1), D = h.clone().sub(sh0), d = D.length();
+    if (d < 1e-5 || dn >= 1) return { mid: guide, arm: null };
+    const u = D.divideScalar(d), c = sh0.clone().lerp(h, 0.5);
+    // soft IK: the solve's reach ds eases towards L over its last ARM_SOFT; the bones stretch by d / ds to keep the hand
+    const w = ARM_SOFT * L, da = L - w, ds = d <= da ? d : da + w * (1 - Math.exp(-(d - da) / w)), f = d / ds;
+    // and a rubber-hose arm never goes ruler straight: a long reach keeps a gentle bow (ARM_BOW of its length)
+    const r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), ARM_BOW * d);
+    // the bend's direction: the guide's bulge square to the shoulder-hand line, over the pole field (2.5 cm of it)
+    const g = guide.clone().sub(c); g.addScaledVector(u, -g.dot(u));
+    const n = g.addScaledVector(poleField(u, sx, new THREE.Vector3()), 0.025).normalize();
+    // the arm's curve (where the contact checks sample it, u 0.3 to 0.78) clears the body by an arm's width: turn the
+    // bend out round the shoulder-hand line towards the outside of the body (never shortening it) until it does; a
+    // reach that still runs through the body then bows further out, and the layout records how far ("bow", metres)
+    const cy = this.cy * S.y, rx = this.rx * S.x, ry = this.ry * S.y, rz = this.rz * S.z, m = 1 + this.limbW / Math.min(rx, rz);
+    const inside = (p) => Math.hypot(p.x / rx, (p.y - cy) / ry, p.z / rz) < m, B = new THREE.Vector3();
+    const hits = (nn, e = 0) => { const P = c.clone().addScaledVector(nn, 2 * r + e); for (const t of [0.3, 0.42, 0.54, 0.66, 0.78]) { B.copy(sh0).multiplyScalar((1 - t) ** 2).addScaledVector(P, 2 * t * (1 - t)).addScaledVector(h, t * t); if (inside(B)) return true; } return false; };
+    let nn = n, turn = 0, bow = 0;
+    if (hits(n)) {
+      const o = new THREE.Vector3(c.x, 0, c.z); o.addScaledVector(u, -o.dot(u));
+      if (o.lengthSq() > 1e-8) {
+        o.normalize();
+        const mix = (k) => n.clone().lerp(o, k).normalize();
+        let lo = 0, hi = 1;
+        if (!hits(mix(1))) { for (let i = 0; i < 12; i++) { const k = (lo + hi) / 2; if (hits(mix(k))) lo = k; else hi = k; } }
+        turn = hi; nn = mix(hi);
+      }
+      if (hits(nn)) { let lo = 0, hi = 0.5 * L; for (let i = 0; i < 12; i++) { const k = (lo + hi) / 2; if (hits(nn, k)) lo = k; else hi = k; } bow = hi; }
+    }
+    const P = c.clone().addScaledVector(nn, 2 * r + bow);
+    const mid = dn > 0 ? P.lerp(guide, dn) : P;
+    return { mid, arm: { reach: rd(d / L, 3), r: rd(r, 3), ...(turn > 0 ? { out: rd(turn, 2) } : {}), ...(bow > 0 ? { bow: rd(bow, 3) } : {}) } };
   }
   apply(st, t) {
     const R = this.root;
@@ -913,6 +980,7 @@ export class Character {
       hands[s] = h;
       const hand = this.arms[s].hand, U = hand.userData, pose = (h, mid) => { hand.position.copy(h); if (U.fingers) this._pose(hand, mid, h, sx, gr, ax, HAND === 2 ? null : this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr, HAND === 2 ? this._palms(a, S, from, to) : null); };
       pose(h, mid);
+      if (ai.arm && U.dbg) Object.assign(U.dbg, ai.arm);
       // an arm pose aimed with point "pinch" (a straw, a pencil): the fingertip pinch lands on the target, not the hand's
       // centre, so the prop runs between the pads. The hand is posed for the target first; then hand and elbow shift
       // together by the pinch's offset, so the hand keeps its turn and the forearm still runs straight into the wrist
