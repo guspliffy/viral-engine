@@ -449,7 +449,8 @@ export class Character {
   _pose2(hand, elbow, at, sx, gr, axis, palms, sh, frame) {
     const U = hand.userData;
     U.dbg = {};
-    hand.quaternion.copy(this._orient2(U, elbow, at, sx, gr, axis, palms, sh, frame, U.dbg));
+    const q = this._orient2(U, elbow, at, sx, gr, axis, palms, sh, frame, U.dbg);
+    hand.quaternion.copy(q); U.hold = q.hold;
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
     this._digits(hand, sx, gr, axis, pw);
   }
@@ -469,13 +470,13 @@ export class Character {
     B.premultiply(new THREE.Quaternion().setFromUnitVectors(y0, y));
     dbg.cond = rd(1 + y.dot(y0), 3); dbg.y = y.toArray().map((v) => rd(v, 2));
     const Bi = B.clone().invert(), T = new THREE.Quaternion(), p = [0, 0, 0];
-    let lim = 0;
+    let lim = 0, hold = 0;
     const toward = (r, u) => { for (let i = 0; i < 3; i++) p[i] += u * (r[i] - p[i]); };
     const turn = (q, w, key) => {
       if (!(w > 0)) return;
       const r = wristTurn(T.copy(Bi).multiply(q)), u = w * r[3];
       lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
-      dbg[key] = rd(u, 2); toward(wristAim(r, u), u);
+      dbg[key] = rd(u, 2); toward(wristAim(r, u), u); hold = Math.max(hold, sstep((u - 0.6) / 0.4));
     };
     // the fist turns onto the handle as the hand closes (as in _pose)
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
@@ -517,7 +518,7 @@ export class Character {
         for (let i = 0; i < 3; i++) acc[i] += u * ra[i];
         wu += u;
       }
-      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); }
+      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); hold = Math.max(hold, sstep((wu - 0.6) / 0.4)); }
     }
     if (frame && frame.w > 0) turn(frame.q, frame.w, "fr");
     const up = Math.min(1, Math.max(0, gr.up || 0));
@@ -534,30 +535,35 @@ export class Character {
       turn(_fist, dn, "dn");
     }
     if (lim > 1) dbg.lim = rd(lim, 2);   // past the wrist's knee (1)
-    return B.multiply(wristQuat(p, T));
+    const out = B.multiply(wristQuat(p, T));
+    out.hold = hold;   // how fully the hand is on a hold (fist, palm, locked frame, cupped, paw): the smoothing leans on it
+    return out;
   }
-  // rig 2's smoothing (plan item 2's fallback): the hand's turn averaged over the frames around it, 0.1 s either side
-  // (weights 1 2 3 4 3 2 1), each from the actor's state at that time, so a turn that comes in one frame (a hold that
-  // switches on or off, an arm curve that folds, a quick move) spreads over four frames instead of popping. A step the
-  // actor takes between two of them (a teleport at a cut, a new place) ends the window there. Every frame is worked
-  // out from the story alone, never from the frame drawn before it (frame cache, farm shards)
+  // rig 2's smoothing (plan item 2's fallback): the hand's turn averaged over the frames around it, 4 frames either side
+  // (weights cos^2, 0.13 s each way), each worked out from the actor's state at that time, so a turn that comes in one
+  // frame (a hold that switches on or off, an arm curve that folds, a quick move) spreads over several. A frame where
+  // the hand is on a hold counts 7 times as much, so a hand arriving at a grip is on it (within about 13 degrees,
+  // then exactly) instead of still turning into it, and turns onto it a little early, as a hand shapes itself before
+  // it touches. A step the actor takes between two frames (a teleport at a cut, a new place) ends the window there.
+  // Every frame is worked out from the story alone, never from the frame drawn before it (frame cache, farm shards)
   _smoothHand(s, t, q0) {
     // the states are shared by both hands of the frame (keyed on the exact time, kept for one frame)
     if (this._stT !== t) { this._stT = t; this._stM = new Map(); }
     const stAt = (tt) => { if (!this._stM.has(tt)) this._stM.set(tt, this.stateAt(tt)); return this._stM.get(tt); };
     const U = this.arms[s].hand.userData, fistPar = U.fistPar, st0 = stAt(t);
     if (!st0) return q0;
-    const acc = [q0.x * 4, q0.y * 4, q0.z * 4, q0.w * 4], q = new THREE.Quaternion();
+    const K = 4, ker = (k) => Math.cos((Math.PI * k) / (2 * K + 2)) ** 2, HOLD = 6;
+    const w0 = 1 + HOLD * (U.hold || 0), acc = [q0.x * w0, q0.y * w0, q0.z * w0, q0.w * w0], q = new THREE.Quaternion();
     for (const dir of [-1, 1]) {
       let prev = st0;
-      for (let k = 1; k <= 3; k++) {
+      for (let k = 1; k <= K; k++) {
         const tk = Math.round((t + (dir * k) / 30) * 1e6) / 1e6, st = stAt(tk);
         if (!st || !st.arms || Math.hypot(st.x - prev.x, st.z - prev.z) > 0.25 || Math.abs(st.y - prev.y) > 0.25 || Math.abs(Math.atan2(Math.sin(st.yaw - prev.yaw), Math.cos(st.yaw - prev.yaw))) > 1) break;
         prev = st;
         const sq = st.squash ?? 1, S = new THREE.Vector3(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)), ai = this._armIn(st, tk, s, S);
-        q.copy(this._orient2(U, ai.mid, ai.h, ai.sx, ai.gr, ai.ax, this._palms(ai.a, S, ai.from, ai.to), ai.sh, ai.fr));
-        const w = (4 - k) * (q.dot(q0) < 0 ? -1 : 1);
-        acc[0] += q.x * w; acc[1] += q.y * w; acc[2] += q.z * w; acc[3] += q.w * w;
+        const qk = this._orient2(U, ai.mid, ai.h, ai.sx, ai.gr, ai.ax, this._palms(ai.a, S, ai.from, ai.to), ai.sh, ai.fr);
+        const w = ker(k) * (1 + HOLD * qk.hold) * (qk.dot(q0) < 0 ? -1 : 1);
+        acc[0] += qk.x * w; acc[1] += qk.y * w; acc[2] += qk.z * w; acc[3] += qk.w * w;
       }
     }
     U.fistPar = fistPar;
