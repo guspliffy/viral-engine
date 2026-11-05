@@ -30,3 +30,8 @@ Departures, with reasons:
 - No cat voice is in the sound whitelist: the hiss is a short air hiss, the "mrrp" is left out, the sneeze is Viking's
   gibberish "ah-CHOO" with an air hiss under it.
 - No burned-in title (Jonny types it in-app), so the top of frame 0 stays clear.
+- Panels 5-8 (LOW) sit higher than the panels' floor-level camera (2.5 m up, looking down onto the bed) and Reaper sits
+  close to the lens, low in frame: from floor level his hood rose over the back row's eyes.
+- Reaper keeps a deadpan nod in the cheer (panel 6) instead of a raised fist: his fist would cover the back row.
+- The four stand at least 1 m apart (their arms and costumes are wider than the bodies), so the back row spreads
+  a little wider than in the panels.
