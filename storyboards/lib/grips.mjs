@@ -55,6 +55,8 @@ const SIZE = {
   sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
   manual: { w: 0.34, h: 0.24, t: 0.004 },          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)
   allenkey: { len: 0.2, r: 0.011 },                // props-ikea.js Allen key: the thin pinch on its long arm, the short arm at the top
+  waterglass: { r: 0.038, h: 0.1 },               // props-bistro.js tumbler of water: the mug hold round its middle
+  cardreader: { w: 0.078, h: 0.155, t: 0.03 },     // props-bistro.js card machine: held with the phone hold, its screen to the holder
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

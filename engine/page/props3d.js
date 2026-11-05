@@ -45,6 +45,7 @@ import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, e
 import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
+import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4: the bistro table, the bill, the long bill
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1327,6 +1328,7 @@ Object.assign(KINDS, UFO_KINDS, PLANE_KINDS);   // never looks up: flyingsaucer,
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
 Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
+Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
