@@ -196,26 +196,31 @@ moving at once.
   `"overlap": true` (item 8): every hand follows its pose with a little drag in the body's own frame (a damped spring,
   3.5 Hz, zeta 0.65: a hand arrives about two frames after its arm stops, overshoots a centimetre or two and settles)
   and the body's turn trails its target a beat (4 Hz, zeta 0.6, a small wind-up); a hand on a prop, on a point in the
-  world, resting (table, lap, hips, cheeks, a paw), holding a prop (grab to release), dancing or climbing has no lag,
-  so contacts stay exact; a held prop gets a small pendulum swing as the hand starts and stops (6 Hz, zeta 0.5, at
+  world, resting (table, lap, hips, cheeks, a paw), holding a prop (grab to release), closed on something (a `grip`
+  of hold, pinch, scroll, rim, paw, cup or teacup until the hand opens), dancing or climbing has no lag, so contacts
+  stay exact; the hand with the costume's own weapon (staff, wand, scythe, axe, katana, orb) never lags and its
+  carrier's turn has no follow, because the solver doesn't see props yet and the prop would sweep into its
+  neighbours; a held prop gets a small pendulum swing as the hand starts and stops (6 Hz, zeta 0.5, at
   most 8 degrees; st.propSway, which the holds apply about the grip). `"timing": true` (item 12): `eases` (an arm reaching for a prop or a point goes out fast and
   arrives slowly, "reach"; a gesture (point, wave, shrug, up, a fist, cast) and a turn wind up and settle,
-  "anticSettle"; only when the action names no ease), `breaking` (the elbow keeps its place while the hand trails:
+  "anticSettle", except a weapon carrier's turn, which uses "reach"; only when the action names no ease), `breaking` (the elbow keeps its place while the hand trails:
   the elbow leads, needs overlap), `holds` (in a hold the weight shifts from foot to foot every 2-3 s and the body
-  settles a touch; fades out round anything the body does and in a `still`), `offsets` (characters starting a look,
+  settles a touch; fades out round anything the body does, in a `still` and while a hand holds something fixed;
+  a weapon carrier shifts at the hips without the lean), `offsets` (characters starting a look,
   face, gesture, turn or lean on the same moment start 0, 1 or 2 frames apart, seeded from their names, and a
   both-hands gesture starts one hand two frames after the other; `sync: true` on an action keeps it on the beat, and
   an actor with a contact, a move, a talk or a hop at that moment is never shifted), `splines` (back-to-back moves of
   one actor with no ease of their own run on one smooth path through their ends, stopping only at the last).
   `"solve": true` (item 9): a hand or an arm found inside another character's body (the ellipsoid the contact checks
-  measure) is pushed out to 1 cm clear, and a hand never past the surface of its own body; the pushes are smoothed
+  measure) is pushed out to 1 cm clear, and a hand never past the surface of its own body (nor out of it into
+  another one); the pushes are smoothed
   with a 0.15 s look ahead so they never pop, bodies never move, an `allowClip` window between the two leaves the
   contact alone, and a push over 6 cm is not made (the pose is wrong: the checks still fail it, and solve.js
   `solveWarnings` lists it). Costume parts (wings, hoods, hats) and props are not solved yet. An object turns parts
   off: `"overlap": { "body": false }`, `"timing": { "offsets": false }`. Bench:
   `storyboards/lookdev/make-motion-layer-tests.mjs`; quick numbers without a browser:
   `node tools/motion/probe.mjs <sb> [--overlap] [--timing] [--solve]` (largest hand lag, synchrony, frozen share,
-  pushes the solver refuses).
+  pushes the solver refuses). Regress fixtures: `storyboards/regress/make-motion-layer.mjs`.
 - **A toe tap** (`"do": "tap"`, `side` R/L, `count` 3, `every` 0.3 s, `lift` 1): the heel stays on the floor and the
   toe lifts and slaps down; each slap lands 60 % into its cycle with a soft footstep on the set's floor (no step if the
   storyboard places its own). `act.tapFoot` wraps it. The small gestures and `act.ma` are in the table below; bench:
