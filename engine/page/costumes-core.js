@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { ring, onSurface } from "./costumes-cast.js";
+import { drapeMesh, clothMat, metalMat, roll, sstep } from "./costumes-art.js";
 
 // The Core Five redesign (Jonny's design handoff, 5 Nov 2026; characters/core-five-2026/*.json, def.build "core"): the
 // clothes and gear of the humanoid cast. potato.js builds the torso (def.body), the separate head with its face
@@ -138,4 +139,216 @@ const CORE = {
       }
     }];
   },
+  // REAPER: a short warm-faced night humanoid. A deep, softly asymmetric charcoal hood round the separate head (it
+  // turns with the head; its skirt over the shoulders follows only part of the way, so the neck stays covered), a short
+  // weighted cloak from the shoulders to the shins in broad folds, open at the front below one concentric silver clasp
+  // on the upper chest, dark sleeves and gloves, trousers and substantial boots. The cloth drapes over the arms: an arm
+  // under the cloak lifts it, an arm out through it opens it round the sleeve (armPush, every frame from the arm's pose).
+  reaper(C, ch, out) {
+    const P = ch.potatoParts, H = ch.head;
+    const clothC = C.cloth || "#302B37", liningC = C.lining || "#514354";
+    const top = ch.cy + ch.ry, legH = ch.legH, lw = ch.def.legs?.width ?? ch.limbW * 1.1;
+    // --- the cloak: a bell from the neck over the shoulders to just above the boots (drape() on a bell surface)
+    const yN = top + 0.012, yH = legH * (C.hemAt ?? 0.5), shS = C.shoulderS ?? 0.17;
+    const NR = [0.118, 0.112], SR = [ch.rx + 0.06, ch.rz + 0.05], HR = [ch.rx + (C.flare ?? 0.13), ch.rz + (C.flare ?? 0.13) - 0.02];
+    const bellPt = (th, ph) => {
+      const s = (Math.PI / 2 - ph) / Math.PI, y = yN + (yH - yN) * s, k = Math.min(1, Math.max(0, s / shS)), sh = Math.sin((k * Math.PI) / 2) ** 0.75, fl = Math.max(0, s - shS) / (1 - shS);
+      const rx = NR[0] + (SR[0] - NR[0]) * sh + (HR[0] - SR[0]) * fl, rz = NR[1] + (SR[1] - NR[1]) * sh + (HR[1] - SR[1]) * fl;
+      return new THREE.Vector3(Math.sin(th) * rx, y, Math.cos(th) * rz - 0.01);
+    };
+    const bell = { surf(th, ph) {
+      const p = bellPt(th, ph), e = 1e-3, a = bellPt(th + e, ph).sub(bellPt(th - e, ph)), b = bellPt(th, ph + e).sub(bellPt(th, ph - e)), n = a.cross(b).normalize();
+      if (n.x * p.x + n.z * (p.z + 0.01) < 0) n.negate();
+      return { pos: p, normal: n };
+    } };
+    const open = C.open ?? 0.1;
+    const cloak = drapeMesh(bell, {
+      top: Math.PI / 2, hem: -Math.PI / 2, from: open, to: Math.PI * 2 - open, spread: C.spread ?? 0.42, flare: 0.03, lift: 0.0, lift0: 0, thick: 0.026, facing: 0.07,
+      segs: 120, rows: 36, free: false, sheen: 1.4, rollR: 0.016, ink: { width: 0.006 }, follow: 0, grad: 0.18, valleyShade: 3,
+      // broad folds: a few deep ones at the back and sides, shallower at the front panels (never in a rhythm)
+      folds: [[0.55, 0.02, 0.2], [1.1, -0.025, 0.2], [1.62, 0.04, 0.3], [2.2, -0.03, 0.22], [2.75, 0.045, 0.33], [3.3, -0.035, 0.24], [3.85, 0.05, 0.36], [4.5, -0.03, 0.2], [5.0, 0.035, 0.28], [5.6, -0.02, 0.18]],
+      sag: 1.1, drift: [0.03, 1.3, 2.2],
+    }, clothC, liningC);
+    P.add(cloak);
+    // the clasp: a concentric silver disc on the upper chest where the two front edges meet
+    const metal = metalMat(C.metal || "#A6A2A0", 0.34), clasp = new THREE.Group();
+    clasp.add(mesh(new THREE.CylinderGeometry(0.046, 0.044, 0.016, 40), metal));
+    for (const [r, t] of [[0.04, 0.006], [0.024, 0.005]]) { const q = mesh(new THREE.TorusGeometry(r, t, 10, 40), metal, false); q.rotation.x = Math.PI / 2; q.position.y = 0.009; clasp.add(q); }
+    const boss = mesh(new THREE.SphereGeometry(0.012, 16, 10), metal, false); boss.scale.y = 0.6; boss.position.y = 0.01; clasp.add(boss);
+    const cy0 = C.claspY ?? 0.09, cS = cy0 / (yN - yH), cPh = Math.PI / 2 - cS * Math.PI, cA = bell.surf(0, cPh);
+    const claspAt = cA.pos.clone().addScaledVector(cA.normal, 0.034);
+    clasp.position.copy(claspAt); clasp.quaternion.setFromUnitVectors(_y, cA.normal); clasp.scale.setScalar(C.claspR ?? 1); P.add(clasp);
+    // --- the hood round the head, in the head's own frame (origin at its centre, +z forward)
+    const hood = hoodMesh(H, C, clothC);
+    hood.group.position.copy(H.group.position); P.add(hood.group);
+    out.hood = hood.group;
+    // --- sleeves: the cloak's cloth over the arm from under the cloak to a soft bell cuff short of the glove
+    const sleeveM = clothMat(clothC), cuffM = clothMat(new THREE.Color(clothC).lerp(new THREE.Color(liningC), 0.5));
+    const sl = {}; for (const s of ["R", "L"]) { sl[s] = { tube: mesh(new THREE.BufferGeometry(), sleeveM), cuff: mesh(new THREE.TorusGeometry(1, 0.16, 8, 28), cuffM) }; sl[s].tube.frustumCulled = false; ch.root.add(sl[s].tube); ch.root.add(sl[s].cuff); }
+    boots(ch, std(C.boot || "#3a302a", { roughness: 0.6 }), std(C.sole || "#1d1917", { roughness: 0.7 }), { size: C.bootSize || [0.08, 0.062, 0.112] });
+    const bandG = new THREE.TorusGeometry(1, 0.3, 10, 28); bandG.rotateX(Math.PI / 2);
+    const shaft = { R: mesh(bandG, std(C.boot || "#3a302a", { roughness: 0.6 })), L: mesh(bandG, std(C.boot || "#3a302a", { roughness: 0.6 })) };
+    for (const s of ["R", "L"]) ch.root.add(shaft[s]);
+    // the per-frame cloth: rest positions of every cloak piece, bent by the body's follow-through and pushed off the arms
+    const pieces = []; cloak.traverse((m) => { if (m.isMesh) pieces.push({ g: m.geometry, rest: m.geometry.attributes.position.array.slice(), shell: m.geometry.index && m.geometry.attributes.position.count > 2000 }); });
+    const yTop = yN, L = yN - yH, tmp = new THREE.Vector3();
+    return [(st, t, hands, fries) => {
+      const S = ch.bodyGroup.scale, segs = armSegs(ch, S, fries), ft = st.ft || { f: 0, s: 0, u: 0 }, f = ft.f * 0.5, sd = ft.s * 0.5;
+      const bend = (x, y, z, o) => {
+        const d = Math.max(0, Math.min(1, (yTop - y) / L)), w = d ** 1.5 * L; let dx = sd * w, dz = f * w;
+        const r = Math.hypot(x, z) || 1, nx = x / r, nz = z / r, into = dx * nx + dz * nz;
+        if (into < 0) { dx -= nx * into * 0.85; dz -= nz * into * 0.85; }
+        o.set(x + dx, y + 0.35 * (dx * dx + dz * dz) / Math.max(0.05, w), z + dz);
+        return pushOut(o, segs);
+      };
+      for (const pc of pieces) {
+        const Pa = pc.g.attributes.position, R = pc.rest;
+        for (let i = 0; i < Pa.count; i++) { bend(R[i * 3], R[i * 3 + 1], R[i * 3 + 2], tmp); Pa.setXYZ(i, tmp.x, tmp.y, tmp.z); }
+        Pa.needsUpdate = true; pc.g.computeBoundingSphere();
+        if (pc.shell) pc.g.computeVertexNormals();
+      }
+      bend(claspAt.x, claspAt.y, claspAt.z, clasp.position);
+      hood.update(H.group.rotation, segs);
+      for (const s of ["R", "L"]) {
+        const A = ch.arms[s], on = !fries && !!A.elbow;
+        sl[s].tube.visible = sl[s].cuff.visible = shaft[s].visible = on;
+        if (!on) continue;
+        const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), Lc = curve.getLength(), u1 = Math.max(0.45, 1 - (C.cuff ?? 0.085) / Lc);
+        const pts = []; for (let i = 0; i <= 14; i++) pts.push(curve.getPointAt(0.08 + (u1 - 0.08) * (i / 14)));
+        const c2 = new THREE.CatmullRomCurve3(pts), rad = (u) => ch.limbW * (1.28 + 0.32 * sstep(0.6, 1, u));
+        sl[s].tube.geometry.dispose(); sl[s].tube.geometry = taperTube(c2, 18, 14, rad);
+        bandAt(sl[s].cuff, curve.getPointAt(u1), curve.getPointAt(Math.min(1, u1 + 0.04)), ch.limbW * 1.6);
+        const fp = ch.legs[s].foot.position, k = new THREE.Vector3(fp.x, fp.y + 0.075, fp.z);
+        bandAt(shaft[s], k, k.clone().add(new THREE.Vector3(0, 1, 0)), lw * 1.18);
+      }
+    }];
+  },
 };
+
+// a tube along a curve whose radius changes along it (r(u), u 0..1), open ends (a sleeve)
+function taperTube(curve, nu, nr, r) {
+  const fr = curve.computeFrenetFrames(nu, false), pos = [], idx = [];
+  for (let i = 0; i <= nu; i++) {
+    const u = i / nu, c = curve.getPointAt(u), N = fr.normals[i], B = fr.binormals[i], R = r(u);
+    for (let j = 0; j <= nr; j++) { const a = (j / nr) * Math.PI * 2; pos.push(c.x + R * (Math.cos(a) * N.x + Math.sin(a) * B.x), c.y + R * (Math.cos(a) * N.y + Math.sin(a) * B.y), c.z + R * (Math.cos(a) * N.z + Math.sin(a) * B.z)); }
+  }
+  for (let i = 0; i < nu; i++) for (let j = 0; j < nr; j++) { const a = i * (nr + 1) + j, b = a + nr + 1; idx.push(a, b, a + 1, a + 1, b, b + 1); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+
+// the arms this frame as capsules (bodyGroup space): from just out of the shoulder to the glove, radius of the sleeve
+// plus a little cloth. Cloth near one is pushed out to its surface (a soft max, so a fold slides over the arm)
+function armSegs(ch, S, fries) {
+  const out = [];
+  if (fries) return out;
+  for (const s of ["R", "L"]) {
+    const A = ch.arms[s]; if (!A.elbow) continue;
+    const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint);
+    let prev = null;
+    for (let i = 0; i <= 8; i++) {
+      const p = curve.getPointAt(0.1 + 0.9 * (i / 8)); p.set(p.x / S.x, p.y / S.y, p.z / S.z);
+      if (prev) out.push([prev, p, i === 8 ? 0.085 : ch.limbW * 1.62]);
+      prev = p;
+    }
+  }
+  return out;
+}
+const _q = new THREE.Vector3(), _ab = new THREE.Vector3();
+function pushOut(p, segs, k = 0.012) {
+  for (const [a, b, r] of segs) {
+    _ab.subVectors(b, a); const l2 = _ab.lengthSq(), t = l2 ? Math.max(0, Math.min(1, _q.subVectors(p, a).dot(_ab) / l2)) : 0;
+    _q.copy(a).addScaledVector(_ab, t);
+    const dx = p.x - _q.x, dy = p.y - _q.y, dz = p.z - _q.z, d = Math.hypot(dx, dy, dz);
+    if (d > r + 6 * k || d < 1e-6) continue;
+    const nd = d + k * Math.log1p(Math.exp((r - d) / k));
+    p.x = _q.x + (dx / d) * nd; p.y = _q.y + (dy / d) * nd; p.z = _q.z + (dz / d) * nd;
+  }
+  return p;
+}
+
+// the Reaper's hood: a shell round the head (an ellipsoid a few centimetres off it) with a rounded-triangular opening
+// for the face, a soft peak leaning back and to the character's right, and a skirt that flares onto the shoulders, open
+// at the front down to the clasp. Rows run from the skirt's hem (el -pi/2) to the peak (el pi/2); each row turns with
+// the head by its own weight (the crown fully, the skirt about a third), so the neck stays covered and the hood
+// follows the head with restraint. Outside in the cloth, inside a dark lining, a thick rolled edge round the face.
+function hoodMesh(H, C, clothC) {
+  const NR = 84, NC = 72, g0 = C.hoodGap ?? 0.05, Rx = H.rx + g0, Ry = H.ry + g0, Rz = H.rz + g0;
+  const elc = C.hoodOpenC ?? -0.12, ehT = C.hoodOpenT ?? 0.78, ehB = C.hoodOpenB ?? 1.5, W = C.hoodOpenW ?? 1.0;
+  const hemY = -(H.ry + (C.hoodDrop ?? 0.1)), HX = C.hoodHem?.[0] ?? 0.32, HZ = C.hoodHem?.[1] ?? 0.29;
+  const tip = new THREE.Vector3(...(C.hoodTip || [-0.05, 0.1, -0.11]));
+  const wOf = (el) => { const x = (el - elc) / (el > elc ? ehT : ehB); return Math.abs(x) < 1 ? W * Math.sqrt(1 - x * x) : 0; };
+  // a point on the hood (head frame) at angle psi round from the front and elevation el, `inset` metres in
+  const pt = (psi, el, inset, o) => {
+    // cE: below the head's widest line the cloth falls nearly straight to the shoulders (no waist round the neck)
+    const s = sstep(-0.55, -Math.PI / 2, el), cE = el < 0 ? 1 - (C.hoodWaist ?? 0.13) * sstep(0, -0.55, el) : Math.cos(el), sE = Math.sin(el), front = ((1 + Math.cos(psi)) / 2) ** 2;
+    const yh = hemY + 0.05 * front;
+    let x = Math.sin(psi) * ((Rx - inset) * cE * (1 - s) + (HX - inset) * s), z = Math.cos(psi) * ((Rz - inset) * cE * (1 - s) + (HZ - inset) * s) - 0.012, y = (Ry - inset) * sE * (1 - s) + yh * s;
+    // the deep front: near the face opening the cloth stands forward (a thick hood brim), most over the forehead
+    const pa = Math.abs(Math.atan2(Math.sin(psi), Math.cos(psi))), xe = (el - elc) / (el > elc ? ehT : ehB), q = Math.hypot(pa / W, xe), lip = Math.exp(-(((q - 1) / 0.3) ** 2)) * (1 - s) * sstep(-0.9, -0.2, el);   // the brim over the brow and beside the cheeks, not the flaps under the chin
+    z += lip * (C.hoodLip ?? 0.05) * (1 + 0.6 * Math.max(0, xe)); y += lip * 0.012 * Math.max(0, xe);
+    // the peak: the crown drawn up and back into a soft point leaning to one side
+    const pk = sstep(0.3, Math.PI / 2, el) ** 2;
+    return o.set(x + tip.x * pk, y + tip.y * pk, z + tip.z * pk);
+  };
+  const W8 = (el) => 0.32 + 0.68 * sstep(-Math.PI / 2, -0.5, el);   // how far each row turns with the head
+  const build = (inset) => {
+    const pos = new Float32Array((NR + 1) * (NC + 1) * 3), idx = [], v = new THREE.Vector3();
+    for (let j = 0; j <= NR; j++) {
+      const el = -Math.PI / 2 + (Math.PI * j) / NR, w = wOf(el);
+      for (let i = 0; i <= NC; i++) { pt(w + (Math.PI * 2 - 2 * w) * (i / NC), el, inset, v); pos.set([v.x, v.y, v.z], (j * (NC + 1) + i) * 3); }
+    }
+    for (let j = 0; j < NR; j++) for (let i = 0; i < NC; i++) { const a = j * (NC + 1) + i, b = a + 1, c = a + NC + 1, d = c + 1; idx.push(a, b, c, b, d, c); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    return g;
+  };
+  const outerG = build(0), innerG = build(0.014);
+  const group = new THREE.Group();
+  const outM = clothMat(clothC), inM = clothMat(C.hoodInside || "#231f29", { side: THREE.BackSide, role: "lining" });
+  const outer = mesh(outerG, outM), inner = mesh(innerG, inM); group.add(outer, inner);
+  // the hood casts no shadow on the face (the handoff: large shadows explain form, but nothing hides the face); it still
+  // takes shadow and the inside stays dark by its own colour
+  outer.castShadow = inner.castShadow = false;
+  // the rolled edge round the face, from the skirt's hem on one side, over the brow, down to the hem on the other
+  const aMax = Math.acos(Math.max(-1, (-Math.PI / 2 - elc) / ehB)), rimPts = [];
+  for (let k = 0; k <= 90; k++) {
+    const a = -aMax + (2 * aMax * k) / 90, el = elc + (Math.cos(a) > 0 ? ehT : ehB) * Math.cos(a), psi = W * Math.sin(a);
+    rimPts.push(pt(psi < 0 ? Math.PI * 2 + psi : psi, el, 0.007, new THREE.Vector3()));
+  }
+  const rimM = clothMat(new THREE.Color(clothC).lerp(new THREE.Color(C.lining || "#514354"), 0.25));
+  const rimG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPts, false, "centripetal"), 120, C.hoodRim ?? 0.02, 10, false);
+  const hemPts = []; { const w = wOf(-Math.PI / 2); for (let k = 0; k <= 60; k++) hemPts.push(pt(w + (Math.PI * 2 - 2 * w) * (k / 60), -Math.PI / 2, 0.007, new THREE.Vector3())); }
+  const hemG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hemPts, false, "centripetal"), 80, 0.014, 8, false);
+  const rim = mesh(rimG, rimM), hem = mesh(hemG, rimM); rim.castShadow = false; group.add(rim, hem);
+  // every piece's rest positions with each vertex's row weight (from its elevation, read back from its height)
+  const pieces = [outerG, innerG, rimG, hemG].map((g) => {
+    const R = g.attributes.position.array.slice(), n = R.length / 3, wt = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const y = R[i * 3 + 1], el = y >= 0 ? Math.asin(Math.min(1, y / Ry)) : y > -Ry * 0.52 ? Math.asin(y / Ry) : -0.55 - (Math.PI / 2 - 0.55) * Math.min(1, (-Ry * 0.52 - y) / (-Ry * 0.52 - hemY)); wt[i] = W8(el); }
+    return { g, R, wt, normals: g === outerG || g === innerG };
+  });
+  const e = new THREE.Euler(0, 0, 0, "YXZ"), q = new THREE.Quaternion(), v = new THREE.Vector3(), base = group.position;
+  let key = "";
+  return {
+    group,
+    update(rot, segs) {
+      const k = `${rot.x}|${rot.y}|${segs.map((s) => `${s[0].x},${s[0].y},${s[0].z},${s[1].x},${s[1].y},${s[1].z}`).join(";")}`;   // exact inputs
+      if (k === key) return; key = k;
+      for (const pc of pieces) {
+        const Pa = pc.g.attributes.position, R = pc.R;
+        for (let i = 0; i < Pa.count; i++) {
+          e.set(rot.x * pc.wt[i], rot.y * pc.wt[i], 0); q.setFromEuler(e);
+          v.set(R[i * 3], R[i * 3 + 1], R[i * 3 + 2]).applyQuaternion(q).add(base);
+          pushOut(v, segs); Pa.setXYZ(i, v.x - base.x, v.y - base.y, v.z - base.z);
+        }
+        Pa.needsUpdate = true; pc.g.computeBoundingSphere();
+        if (pc.normals) { pc.g.computeVertexNormals(); weldRows(pc.g, NR, NC); }
+      }
+    },
+  };
+}
+// the hood's closed rows (above and below the face opening) join their first and last column: one normal for both
+function weldRows(g, nr, nc) {
+  const N = g.attributes.normal;
+  for (let j = 0; j <= nr; j++) { const a = j * (nc + 1), b = a + nc, x = N.getX(a) + N.getX(b), y = N.getY(a) + N.getY(b), z = N.getZ(a) + N.getZ(b), l = Math.hypot(x, y, z) || 1; N.setXYZ(a, x / l, y / l, z / l); N.setXYZ(b, x / l, y / l, z / l); }
+  N.needsUpdate = true;
+}
