@@ -1474,6 +1474,8 @@ export function buildProp(spec) {
 }
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
+// kinds that stand on nothing: effects, light, weather and air (holds 2's support record treats them as staged)
+export const FX_KINDS = /^(roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
 export function propState(sb, spec, t) {
   const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, hold: null, left: null, carry: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
@@ -1489,21 +1491,25 @@ export function propState(sb, spec, t) {
     else if (a.do === "grab") {
       // a new grip by the hand that already holds it: the prop slides in the hand from the old grip point to the new
       // one over dur (from the side of a jar to under it, say), so nothing jumps
-      const h = ps.hold;
-      if (h && a.grip && h.grip && h.who === a.who && h.hand === (a.hand || "R") && !h.keep && (a.dur ?? 0) > 0) {
+      const h = ps.hold, h2 = Number(sb.rig?.hold) >= 2;
+      if (!h2 && h && a.grip && h.grip && h.who === a.who && h.hand === (a.hand || "R") && !h.keep && (a.dur ?? 0) > 0) {
         const g0 = gripPoint(spec, h.grip), g1 = gripPoint(spec, a.grip), e1 = ease(a.ease || "inOut")(prog(t, a.at, a.dur));
         ps.hold = { ...h, grip: g0.map((v, i) => v + (g1[i] - v) * e1) };
         continue;
       }
       const k = a.keep || a.grip ? 1 : ease("out")(prog(t, a.at, a.dur ?? 0.25));
-      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}), ...(ps.left && { prev: ps.left }) };
+      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}), ...(ps.left && { prev: ps.left }),
+        // holds 2 (attach.js, "rig": { "hold": 2 }): the prop's own turn at the grab, the hold it was taken from (a
+        // regrip or a pass blends from it), the grab's length and an upright or rigid hold
+        ...(h2 && { fromRot: [ps.rot, ps.tip, ps.tilt, ps.roll], dur: a.dur ?? 0.25, ...(h && { was: h }), ...(a.upright != null && { upright: !!a.upright }) }) };
       // (taken again after a let-go without a place: `prev` is that hold, so stage.js starts from where it was left)
       ps.left = null;
     }
     else if (a.do === "release") {
       if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1, arc: a.to && a.arc ? 4 * a.arc * e * (1 - e) : 0 };
       // without "to" it stays where the hand let go (stage.js works out where that was)
-      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, grabAt: ps.hold.at, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
+      // (holds 2: a let-go prop falls onto what is under it, attach.js, unless keep: "air" with a reason stages it there)
+      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, grabAt: ps.hold.at, at: a.at + (a.dur ?? 0.3), ...(a.keep === "air" && { air: a.reason || "" }) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }
     // carried by another prop (a raven's beak): { do: "carry", prop, by, off: [x, y, z] (in the carrier's own turned,
     // scaled frame), at } and from then on it rides along; { do: "carry", prop, at } with no `by` lets go of it there
