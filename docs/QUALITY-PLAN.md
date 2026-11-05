@@ -1,7 +1,10 @@
 # Quality and motion plan (5 Nov 2026)
 
-Status: **proposal**. Nothing in the engine has changed. Jonny picks what gets built; each item then gets its own
-thread and pull request. The brief this plan answers is in appendix B.
+Status: **proposal, v2**. Nothing in the engine has changed. Jonny picks what gets built; each item then gets its own
+thread and pull request. The brief this plan answers is in appendix B. v2 (5 Nov, afternoon) folds in a second review
+Jonny got from ChatGPT, after checking each of its code claims (section 6): it corrected one of ours (the plane's
+phone), found checks that pass for the wrong reason, and pointed at walking feet, which turned out to be the biggest
+measured motion fault (section 4.5).
 
 Goals, in Jonny's order: (1) clips that pass first time with nothing glitchy visible, (2) movement that is realistic and
 fluid, (3) better pictures overall (light, faces, the painterly look, camera). Limits: no GPU, nothing paid, everything
@@ -23,7 +26,7 @@ phone's glow switches on. Only a few hand-pop warnings at 0.03 s hint at
 it. Frame 0 is the first thing a viewer sees and the frame a loop returns to. It is a one-line fix (item 1, with a
 before/after demo clip).
 
-**Why the rest happens.** Most glitch classes come from four places in the engine, not from the storyboards:
+**Why the rest happens.** Most glitch classes come from five places in the engine, not from the storyboards:
 
 1. The hand's orientation is rebuilt from scratch every frame from the forearm direction and up to five weighted
    turns, with no memory and no limits (`engine/page/potato.js` `_pose`). Measured on 30 pops: the forearm vector
@@ -36,6 +39,11 @@ before/after demo clip).
    each fix round is a person re-posing a hand (the split-the-bill layout started with 27 fails).
 4. Every move is one ease from one state to another, with the body, head, arms and props starting and stopping on the
    same frame. Only the body has a follow-through spring. That is the "stiff" look.
+5. Feet glide when a character walks or runs. Only moves with the default ease get the natural gait's planted feet;
+   runs and moves eased `in` or `out` (7 of the 10 storyboards) fall back to the old walk cycle, whose feet swing with
+   the body, and fast moves outrun the longest stride. The foot check is skipped while a step is taken, so none of it
+   is reported: the standing foot slides a median 8 cm per stance in IKEA, 16 cm in the tent and 64 cm in zombies
+   (section 4.5).
 
 **The idea.** Make the rig unable to produce a glitch (solve, don't check), then block what is left before the render,
 then catch the rest in the pixels. For movement, add a secondary-motion layer (drag, overlap, settle) and
@@ -46,15 +54,20 @@ reference-driven moves. Everything stays deterministic and opt-in per storyboard
 | # | Item | Size | What it removes |
 |---|---|---|---|
 | 1 | Frame 0 starts in its pose | S | the first-frame jump (3 of 5 clips measured; all 10 have the pattern) |
+| 13 | Must-see and staging gate (moved up in v2) | S–M | a bystander in front of the action, a finger over a face; today a must-see miss is only a note |
 | 2 | Hand orientation that can't flip | M | the 144 hand pops; the bans on point, shrug and outward arcs |
-| 3 | Visible glitches block the render, one preflight command | S | the 35 warnings a clip ships with |
+| 10 | Feet that plant on every walk and run (moved up in v2) | M | standing feet that slide 8–64 cm per stance |
+| 3 | Visible glitches block the render, one preflight command, checks on the right clock | S | the 35 warnings a clip ships with; contact windows read 0.1–0.2 s early after a hit-stop (8 of 10 clips); glows that pass by being faint |
 | 4 | Eyes that stay readable (gaze and lids work together) | S | the waiter's eyes; frees deadpan and side-eye looks |
 | 5 | Template defaults that match Jonny's decisions | S | blur from depth of field, missing music |
 | 6 | Sound spike guard | S | effects 20 dB over the mix |
+| 19 | Render integrity (new in v2) | S | model files the farm's fingerprint skips, stale golden baselines, episode edits no CI job checks |
 
-Then the medium items that change how it moves: holds that can't float (7), the secondary-motion layer (8), the contact
-solver (9), feet that never skate (10). Big bets: an act-it-out move library from phone video (MediaPipe on CPU) and
-free mocap, deterministic physics for loose props, and light that ties the characters into the painted sets.
+Items keep their v1 numbers; the table is the order to build. Then the medium items that change how it moves: holds
+that can't float or slip (7), the secondary-motion layer (8), the contact solver (9), a steady elbow (11) and timing
+(12). Big bets: an act-it-out move library (phone video through MediaPipe on CPU, free mocap, or authored poses),
+physics for props that collide (simple falls are analytic, in item 7), and light that ties the characters into the
+painted sets.
 
 ## 1. Evidence
 
@@ -75,7 +88,10 @@ Every note costs about one full render. The three clips that went to Jonny as a 
 
 Since then (4–5 Nov), Jonny's catches after delivery were: the phone floating away from Phoenix (plane), the waiter's
 eyes (split the bill: `look [-0.5, -0.4]` with lid 0.55 hid one pupil under the lid), Phoenix covering the action
-(tent), and "more drama" (plane, zombies). The first three are engine classes; the last is story.
+(tent), and "more drama" (plane, zombies). The phone was staged that way: it hung on the oxygen mask's elastic and read
+as floating above his gloves (`PANELS-ep2-plane.md`; e636432 keeps it in both gloves; the second review found this, v1
+called it a rig fault). So it is a readability call. The eyes and the bystander are classes the engine and the checks
+can prevent; "more drama" is story.
 
 ### 1.2 What ships with warnings
 
@@ -107,12 +123,14 @@ jump with them.
 |---|---|---|
 | First-frame jump | Generators set opening poses with a 0.01 s move at t = 0 (`c.arm(0, "wiz", "R", ARMREST, 0.01)`, `prop(0, "phone", { glow: 1 }, 0.01)`); progress is 0 at t = 0 and 1 a frame later. `qa/rig.mjs` needs both neighbours of a frame, so it starts at frame 2; only the hand's turn is checked from frame 1. | all 10 storyboards (arms or a sit in 7); measured jumps 17–60 cm in 3 of 5 (section 4.3); hand-pop warns at 0.03 s in IKEA and split the bill |
 | Hand pops, fist flips | `potato.js` `_pose` builds the hand frame each frame from scratch: a look-at from the forearm with a fixed reference, then up to five weighted turns (fist on a handle, palm on a held object, a locked hold frame, cupped up, paw down). The forearm vector collapses when the elbow guide nears the hand; the palm turn's weight, side and target switch between the two ends of a move at its half-way frame (`_palm`), and a guard snaps the palm turn off when the target swings; the look-at spins near two forearm directions. No memory between frames and no wrist limit, so nothing smooths or refuses a flip. | 144 warns; section 4 (30 pops explained); three patches in `_pose`; "point" pops 120–140° on main (31 Oct); bans on point/shrug (25 Oct) and outward arcs (31 Oct) |
-| Floating or slipping props | A held prop follows the hand by position only (`stage.js` pose: "position only, so a held prop stays upright"); its rotation is its own tween. Some holds move the prop in the world and the hand follows it; others the reverse. A release leaves the prop where it is unless `to:` is given. No check that a loose prop is supported. | the plane's floating phone; prop-pop 6 (up to 11.6 cm); "a regrabbed prop riding in the glove" (Pareto); "a world pose sinks 5 cm" into a table (split the bill) |
+| Floating or slipping props | A held prop follows the hand by position only (`stage.js` pose: "position only, so a held prop stays upright"); its rotation is its own tween. A two-hand hold sits at the average of the two hands. Some holds move the prop in the world and the hand follows it; others the reverse. A release leaves the prop where it is unless `to:` is given. No check that a loose prop is supported, and `qa/rig.mjs` only measures a held prop's offset changing from one frame to the next, so a steady gap or a slow drift passes. | prop-pop 6 (up to 11.6 cm); "a regrabbed prop riding in the glove" (Pareto); "a world pose sinks 5 cm" into a table (split the bill) |
 | Limbs and hands in bodies and props | The rubber-hose arm only pushes its curve's control point out of its own body. Nothing keeps a hand, arm or held prop out of other bodies or props; the contact checks (good ones, #88/#94) report it after the fact. | hand-in-prop 34, clipping 12, arm-in-prop 9, character-overlap 8; 27 fails on split the bill's first layout |
 | Glitchy eyes | `face.js` sets the pupil offset (`look`) and the lid closure independently. Nothing keeps the pupil inside the opening the lids leave, and the upper lid doesn't follow a downward look the way real lids do. Gaze changes use the action's ease instead of a quick saccade. | the waiter; the workaround rule "look within ±0.3, lid ≤ 0.4"; blink-on-line 9 |
 | Robotic motion | Tweens use one ease shape (cubic in-out by default, `util.js` EASE) from one state to the next; body, head, arms and held props start and stop together; holds are dead apart from breathing; the only follow-through spring is the body's (`timeline.js` FT, 2.2 Hz). | the movement study (31 Oct): "body, arms and face start and stop together"; pace.py frozen % |
-| Feet skating | A body moved or turned without a walk (a shuffle, a stumble, a turn on the spot, a `dur: 0` reposition) drags its planted feet. | foot-slide 20, up to 33.6 cm in a frame; motion warns on lean and pitch |
-| Bystanders covering the action | No check measures whether the clip's subject owns the front of the frame. | the tent (Jonny, 5 Nov); face-hidden 18; staging 4 |
+| Feet skating | A body moved or turned without a walk (a shuffle, a stumble, a turn on the spot, a `dur: 0` reposition) drags its planted feet. While it walks: only moves with the default ease use the natural gait (`timeline.js` `move`); runs and moves eased `in` or `out` use the old walk cycle, whose feet swing with the body, and the gait's longest stride can't keep up with a fast move. `qa/rig.mjs` skips foot-slide while a step is taken. | foot-slide 20 outside steps, up to 33.6 cm in a frame; during steps the standing foot slides a median 8 cm (IKEA), 16 cm (tent), 64 cm (zombies) per stance (section 4.5) |
+| Bystanders covering the action | No check measures whether the clip's subject owns the front of the frame. A must-see miss is a note, never a gate (`render.mjs` contact gate, `qa/framing.mjs`); a face hidden while the body is half hidden only warns; scenery and the set never count as hiding a face (`stage.js` hiddenFaces). | the tent (Jonny, 5 Nov); the bill's finger over the waiter; face-hidden 18; staging 4 |
+| Checks that pass for the wrong reason | Whether a prop part is solid for the contact checks depends on its opacity (`stage.js` inProps skips transparent parts under 0.5, the face check under 0.6), so two threads made the phone glow fainter to pass (71f192b, ffdce32). `allowClip` windows and "acting" are read on the video's clock (`qa/check.mjs` `i / fps`) while they are written on the story's, which a hit-stop holds back; a window also waives the face checks between its two characters. | 8 of 10 clips have a window after a hit-stop, read 0.1–0.2 s early (found by the second review, counted here) |
+| Render integrity | The farm's shard fingerprint skips every folder named `models` (`engine/cache.mjs`), so the 119 files in `assets/models` (glTF props and sets) don't count; golden base stills are cached by commit only, not by runner image (`golden.yml`); CI lays out the regress fixtures but never an episode a pull request changes. | code reading (second review); no wrong delivery seen |
 | Sound spikes | Effect gains are set per event by hand; `qa/sound.mjs` finds an effect 20 dB over the mix but only warns. | sound-level 13, phone-band 9 |
 | Blur | The clip template still defaults to depth of field (`FOCUS = true`), the golden cast look and no music; all ten recent clips override all three by hand. Frames go through two lossy steps (MJPEG q95, then x264 `veryfast` CRF 18) before the platform re-encodes them a third time. | `storyboards/templates/clip-template.mjs` lines 22, 110, 119; `engine/render.mjs` encode line |
 | Process | Warnings don't block; "look at it in a 15 fps strip" is asked of a thread that has 35 of them. Each note costs a full render. | section 1.2; the Pareto |
@@ -120,7 +138,8 @@ jump with them.
 ## 2. The plan
 
 Ranking: gain on Jonny's top note classes per day of work, root-cause fixes before new checks, checks before polish.
-Sizes: **S** under a day, **M** 2–5 days, **L** 1–3 weeks. The number is the overall rank.
+Sizes: **S** under a day, **M** 2–5 days, **L** 1–3 weeks. The number is the v1 rank; the order to build in v2 is
+the table on the first page (items 10 and 13 moved up, item 19 is new).
 
 Rules every item follows (they keep today's guarantees):
 
@@ -189,6 +208,16 @@ Rules every item follows (they keep today's guarantees):
   3 cm in the hand; an effect over 12 dB above the mix around it (an event marked `loud` excepted); a body lean or pitch
   jump in a still moment; a jump between frame 0 and frame 1. A delivery may carry no visible-glitch warning; any other
   warning gets a one-line reason in the delivery.
+- **Added in v2** (from the second review, each checked in the code): (a) contact windows and "acting" are read on the
+  story's clock, as `qa/rig.mjs` already does (`storyTime`); today 8 of the 10 clips have a window after a hit-stop that
+  is read 0.1–0.2 s early, so its last frames aren't covered and as many frames before it are waived. (b) A window
+  names the checks it waives (`"checks": ["body", "reach"]`), so a hug's window no longer waives a hand over the other's
+  eyes. (c) Solid is a property, not an opacity: glows, halos, light and shadows are marked `solid: false` where they
+  are made, glass stays solid for hands and see-through for faces (the `through` list), and no prop's look decides
+  whether it can be touched. (d) A held prop's gap to the glove: over 1 cm on a held frame warns now and fails once item
+  7 lands (today only a change from one frame to the next is measured). (e) A standing foot that slides over 2 cm during
+  a step warns now and fails once item 10 lands. (f) Later: sub-frame samples where a hand moves fast past a thin prop,
+  so a crossing between two frames is caught.
 - **Gain.** Glitches stop reaching Jonny. **Risk.** More fail rounds until items 2, 7, 9 and 10 remove the causes, so
   each warning becomes a fail when its root fix merges (hand pops after item 2, slips after 7, foot slides after 10).
 - **Proof.** Run on the ten clips: what would have failed, each checked against a 15 fps strip (true and false alarms).
@@ -202,6 +231,8 @@ Rules every item follows (they keep today's guarantees):
   little on an upward look, as real lids do, so a look down reads as a look down and not as a closing eye. (c) Gaze
   shifts are saccades: 2–3 frames with a small settle, then a hold, instead of a slide on the action's ease. (d) A layout
   measure: the share of each pupil that shows, for every face on screen for 0.3 s or more (warn under 60 %).
+  (e) The limits are measured per face on the face sheet and leave squints and blinks alone: the aim is a readable
+  look, not a full iris every time (the second review); the sheet is checked at front, three-quarter and profile.
   The no-blink-on-a-line default goes into `clip.mjs` (item 5's owner): a `say` line sets `blink: false` unless asked.
 - **Risk.** Expressions with heavy lids change a little: behind `"rig": { "eyes": 2 }`, face sheet A/B.
 - **Proof.** A face sheet (9 looks × 4 lid closures) before/after; the split-the-bill waiter close-up before/after.
@@ -224,24 +255,46 @@ Rules every item follows (they keep today's guarantees):
 - **Risk.** A deliberate loud gag flattened: `loud: true` per event. **Proof.** The warned clips re-mixed with
   `--audio-only` (seconds) and their momentary-loudness curves before/after; Jonny listens to the five risky timestamps.
 
+#### 19. Render integrity — S, `engine/cache.mjs`, `engine/render.mjs`, `.github/workflows/` (new in v2)
+
+- **Problem.** From the second review, checked in the code: the farm's shard fingerprint skips every folder named
+  `models`, so a change to the 119 files in `assets/models` (12 MB of glTF props and sets) leaves it unchanged (the frame
+  cache keys the files the page loads, so it is not affected); the golden base stills are cached by commit, not by
+  runner image, so a runner update can show up as a pixel change; the contact CI runs the regress fixtures but never an
+  episode a pull request changes; the loudness loop in `mux()` gives up after six rounds without saying so
+  (`qa/check.mjs` still fails a file out of range).
+- **Approach.** Stop skipping `models` (the only such folder in the hashed paths is `assets/models`); add the runner
+  image and the Mesa version to the golden cache key; a CI job that lays out and contact-checks each episode storyboard
+  a pull request changes (3–7 minutes each on a free runner); `mux()` throws when its numbers are missing or still out
+  of range.
+- **Proof.** An edit to a model changes the fingerprint; a storyboard-only pull request with a known contact fail goes
+  red.
+
 ### Medium items (2–5 days each)
 
 #### 7. Holds that can't float or slip — M, `engine/page/stage.js`, `engine/page/props3d.js`, `storyboards/lib/grips.mjs`
 
-- **Problem.** The floating phone (plane), slips in the hand (prop-pop up to 11.6 cm), a regrabbed prop riding in the
-  glove, hands on a table that sink 5 cm, a phone hand that stays put while the body turns (all worked round by hand).
+- **Problem.** Slips in the hand (prop-pop up to 11.6 cm), a regrabbed prop riding in the glove, hands on a table that
+  sink 5 cm, a phone hand that stays put while the body turns (all worked round by hand). Two attachment systems live
+  side by side: hand targets framed on a prop (`timeline.js` resolveArms) and the position-only anchor (`stage.js`),
+  where a two-hand hold sits at the average of the two hands. (The plane's "floating" phone was staged: it hung on the
+  mask's elastic.)
 - **Approach.** (a) One attachment model: a held prop is a child of the hand's grip frame, with its offset (position and
   rotation) captured at the grab; `upright: true` keeps only its heading, so a cup stays level (grip rule 2). A prop
-  that moves in the world moves the hand, never the other way. (b) A regrip is an explicit blend between two grip
-  frames over at least 0.15 s. (c) A release drops the prop onto the surface under it (a short fall and settle, or item
-  17's physics) unless `to:` is given, or `keep: "air"` with a reason. (d) A support check that fails: every frame,
+  that moves in the world moves the hand, never the other way. Each hold has one owner (the second review):
+  hand-driven (one hand owns the prop, the other follows a second socket on it), prop-driven (both hands follow the
+  prop), free (falling or thrown) or staged (hung, stuck or floating, with a reason); two writers at once are refused.
+  (b) A regrip is an explicit blend between two grip frames over at least 0.15 s. (c) A release drops the prop onto the
+  surface under it (an analytic fall from the hand's last speed, a bounce and a settle; item 17 only where props
+  collide) unless `to:` is given, or `keep: "air"` with a reason. (d) A support check that fails: every frame,
   every prop is held, resting on a surface (within 1 cm), riding something, or in flight after a release or throw.
   (e) Hand pins: a hand on a table, door or shoulder stays put in the world while the body moves; the arm reaches it,
   the body leans in when it can't, and the pin lets go with a warning when it is out of reach.
-- **Gain.** Jonny's first-named problem (floating, detaching) goes by construction. **Risk.** Storyboards that tween a
+- **Gain.** Detaching and slipping holds go by construction, and a prop left in the air fails unless it is staged with
+  a reason. **Risk.** Storyboards that tween a
   held prop's own rotation need the flag (`"rig": { "holds": 2 }`); the grip library's benches are re-run.
 - **Proof.** Regress fixtures: pick up and put down, pass a prop between two characters, drop a phone, a release in mid
-  air (must fail), the plane's first cut with the floating phone (must fail); prop-pop warns on the ten clips to zero.
+  air (must fail), a steady 3 cm gap between glove and phone (must fail); prop-pop warns on the ten clips to zero.
 
 #### 8. A secondary-motion layer: drag, overlap, settle — M, `engine/page/timeline.js`, `engine/page/util.js`
 
@@ -269,21 +322,35 @@ Rules every item follows (they keep today's guarantees):
   smoothed with a critically damped spring stepped from t = 0, so it never pops. Bodies are never moved. Contact a beat
   needs keeps its `allowClip` limits. A push over 6 cm still fails: the pose is wrong and gets re-written, the solver
   only cleans up the near misses. Walk paths bend round other bodies (personal space).
+  The order each frame (from the second review; it fits this plan): the root, body, face and authored paths at story
+  time; the feet's anchors (item 10); each prop's owner (item 7); the arms, solved to reachable targets with steady
+  poles (item 11); the secondary motion, which leaves held and planted parts alone (a shoulder that moved re-solves its
+  arm); then the gaps, depths and slides, recorded from exactly what is drawn.
 - **Gain.** Most first-layout fails and contact warnings go without re-posing. **Risk.** The solver can hide a pose
   that reads wrong (the 6 cm cap, the strips); two characters pushing each other in a hug (hands only, bodies fixed).
 - **Proof.** The ten clips: contact fails and warns before/after; the regress must-fail fixtures still fail; the
   number of fix rounds on the next three clips.
 
-#### 10. Feet that never skate — M, `engine/page/timeline.js` (gait), `engine/page/potato.js` (feet, after item 2)
+#### 10. Feet that plant on every walk and run — M, `engine/page/timeline.js` (gait); the foot hook in `potato.js` through its owner (moved up in v2)
 
-- **Problem.** 20 foot-slide warnings (up to 34 cm in one frame) and lean/pitch jumps when a body is moved or turned
-  without a walk.
-- **Approach.** Automatic steps: when a planted foot would slide more than 3 cm (a turn on the spot, a small move, a
+- **Problem.** While a character walks or runs, its standing foot slides with the body: a median 8 cm per stance in
+  IKEA, 16 cm in the tent and 64 cm in zombies, where the running Viking's feet glide with his body (section 4.5). Only
+  moves with the default ease use the natural gait; runs and moves eased `in` or `out` (7 of the 10 storyboards) use the
+  old walk cycle, and fast moves outrun the gait's longest stride. None of it is reported: the foot check is skipped
+  during steps. Outside steps: 20 foot-slide warnings (up to 34 cm in one frame) and lean and pitch jumps when a body is
+  moved or turned without a walk.
+- **Approach.** (a) One gait for every move and run: the ease shapes the speed, the footfalls follow the distance, so a
+  standing foot stays still whatever the ease; a run gets its moment in the air. (b) Steps sized to the travel: a move
+  faster than the longest stride allows gets a quicker cadence (or takes longer, with a warning) instead of skating
+  feet. (c) Each standing foot is pinned to its touchdown point in the world and handed to `potato.js` as the foot's
+  target (the second review: today the foot is placed from the moving body, exact only at a steady speed). (d)
+  Automatic steps: when a planted foot would slide more than 3 cm (a turn on the spot, a small move, a
   lean), the gait puts in a step instead (lift, swing, plant, heel to toe). A turn on the spot takes two or three small
   steps, the way people turn. Starts get a weight shift first, stops an overshoot and settle. Stride and cadence from
   real walking (about 1.8–2 steps a second walking, 2.6–3 running with a moment in the air), scaled to potato legs;
   footstep sounds stay on the contact frames.
-- **Proof.** Foot-slide counts on the ten clips; a turn, shuffle and stumble bench side by side.
+- **Proof.** The stance slide of section 4.5 under 1 cm on the five layouts; foot-slide counts on the ten clips; a walk,
+  run, stop, turn, shuffle and stumble bench side by side at normal and half speed.
 
 #### 11. A steady elbow and a wrist with limits — M, `engine/page/potato.js` (after item 2)
 
@@ -293,7 +360,9 @@ Rules every item follows (they keep today's guarantees):
   character (from today's rest pose), soft IK (Andy Nicholas: the last part of the reach eases in, so an arm never snaps
   straight), one continuous pole direction per arm (down, out and back, blended by hand height and reach direction,
   never switching), then the hose curve through the solved elbow. The forearm then keeps its length, so it can't
-  collapse. Wrist limits from item 2 warn when a pose asks for more than a wrist can do.
+  collapse. Wrist limits from item 2 warn when a pose asks for more than a wrist can do. A target the arm can't reach
+  is reported (the pose asks for more arm than there is) instead of being stretched or let go silently, and the
+  clearance check covers the whole arm, not only its control point (the second review).
 - **Risk.** Arms that stretch today won't (the body leans in instead: the natural-motion `lead` part); the look of arms
   changes slightly: flag and Jonny's look check. **Proof.** Rig-jump counts; an arm bench (rest, up, out, reach across,
   point, shrug, both hands to the face) side by side.
@@ -311,14 +380,18 @@ Rules every item follows (they keep today's guarantees):
 - **Risk.** Hits must stay on their contact frames: offsets never move a contact. **Proof.** Frozen % and the
   synchrony number on the ten clips; the bench side by side.
 
-#### 13. Staging check: the subject owns the front — S–M, `qa/framing.mjs`, `qa/readability.mjs`
+#### 13. Must-see and staging gate: the subject owns the front — S–M, `qa/framing.mjs`, `qa/readability.mjs` (moved up in v2)
 
-- **Problem.** Jonny's tent note (a bystander on the phone covered the main action); face-hidden 18.
-- **Approach.** Per beat, the subject is who acts (a line, a reaction, the beat's `visible` list). From the layout's
+- **Problem.** Jonny's tent note (a bystander on the phone covered the main action); the bill's finger over the waiter;
+  face-hidden 18. The must-see list exists (`visible`, `c.see`), but a miss is only a note, a face hidden while the body
+  is half hidden only warns, and scenery never counts as hiding anything.
+- **Approach.** (a) A `visible` item can be `required`: a required miss fails the gate like a contact fail (an
+  `allowHide` window with a reason for a deliberate hide); the rest stay notes. (b) Scenery and the set count as
+  occluders for faces and must-see items. (c) Per beat, the subject is who acts (a line, a reaction, the beat's `visible` list). From the layout's
   screen silhouettes: fail when a nearer actor or prop covers over 15 % of the subject's silhouette or action box for
   0.3 s or more; warn when a bystander is nearer and bigger than the subject. The message says what to do (swap depth,
   move the camera side, move the bystander). An authoring helper in `clip.mjs` places bystanders behind or aside.
-- **Proof.** The tent's first cut must fail, its second must pass.
+- **Proof.** The tent's first cut and the bill's finger over the waiter must fail; their fixes must pass.
 
 #### 14. Sharper frames out of the encoder — S–M, `engine/render.mjs`
 
@@ -354,6 +427,8 @@ Rules every item follows (they keep today's guarantees):
   authors ask for credit; use the original data, as some conversions carry non-commercial licences). Not usable here:
   LaFAN1 and the Bandai Namco set (non-commercial licences), AMASS (non-commercial), Mixamo (files can't be put in a
   public repo). Check the MediaPipe pose model's own licence before the first use.
+- **The other route** (the second review): poses authored in Blender (free) and sampled by the runtime. Either way, one
+  demanding move goes first, and the library is built only if that move is clearly better and cheaper to reuse.
 - **First moves:** double take, flinch, shrug, sneak, run, trip, flail, celebrate.
 - **Risk.** Human proportions on a potato: retarget by intent, never by joint angles; noisy depth: front-facing takes and
   filtering. Each move goes to Jonny as a side by side (reference | potato) before it becomes a default.
@@ -361,7 +436,8 @@ Rules every item follows (they keep today's guarantees):
 #### 17. Deterministic physics for loose props — L, new `engine/page/physics.js` (hooks in `props3d.js`)
 
 - **Problem.** Flying baggage, dropped phones and knocked-over things are tweened by hand: no tumble, bounce or settle.
-- **Approach.** Bake rigid bodies in the layout pass with Rapier's deterministic build (`@dimforge/rapier3d-deterministic`,
+- **Approach.** Simple drops and throws get item 7's analytic fall first; this item is for props that hit each other
+  (flying baggage, a pile), which the second review also advises. Bake rigid bodies in the layout pass with Rapier's deterministic build (`@dimforge/rapier3d-deterministic`,
   WASM, Apache-2.0; its docs promise identical results across browsers, systems and processors) or a small custom
   solver for boxes, cylinders and spheres; colliders from the set and kinematic capsules for the characters. The bake
   is stored per prop and read by the renderer, so a frame stays a lookup. Actions: `drop`, `throw`, `knock`, `float`
@@ -400,20 +476,21 @@ One owner per file. A thread hands a file over when its pull request merges. Sha
 
 | Thread | Owns | Items |
 |---|---|---|
-| A. Hands and arms | `engine/page/potato.js` | 2, then 11 |
+| A. Hands and arms | `engine/page/potato.js` (adds the foot-target hook thread F asks for) | 2, then 11 |
 | B. Eyes | `engine/page/face.js` | 4 |
-| C. Gates and checks | `qa/check.mjs`, `qa/motion.mjs`, `qa/rig.mjs`, `qa/framing.mjs`, `qa/readability.mjs`, new `qa/preflight.mjs` and `qa/flow.py`, `storyboards/regress/` | 3 (with item 1's frame-0 check), 13, 15 |
-| D. Sound and picture | `engine/render.mjs`, `engine/music.mjs`, `engine/sfx/`, `qa/sound.mjs` | 6, 14 |
+| C. Gates and checks | `qa/check.mjs`, `qa/motion.mjs`, `qa/rig.mjs`, `qa/framing.mjs`, `qa/readability.mjs`, new `qa/preflight.mjs` and `qa/flow.py`, `storyboards/regress/`, `.github/workflows/golden.yml` and `contacts.yml`; in wave 1 also the solidity filters in `engine/page/stage.js` and the `solid: false` marks where glows are made | 3 (with item 1's frame-0 check), 13, 15, item 19's CI parts |
+| D. Sound and picture | `engine/render.mjs`, `engine/cache.mjs`, `.github/workflows/render.yml`, `engine/music.mjs`, `engine/sfx/`, `qa/sound.mjs` | 6, 14, item 19's fingerprint and loudness parts |
 | E. Template and authoring | `engine/load.mjs`, `storyboards/templates/clip-template.mjs`, `storyboards/lib/clip.mjs`, `storyboards/lib/acting.mjs` | 1, 5 (and the `blink: false` default of 4) |
+| F. Feet | `engine/page/timeline.js` (the gait, `move` and `run`) | 10 |
 
 **Wave 2, as wave 1 merges:**
 
 | Thread | Owns | Items |
 |---|---|---|
-| F. Holds | `engine/page/stage.js`, `engine/page/props3d.js`, `storyboards/lib/grips.mjs` | 7, later 17 |
-| G. Motion layer | `engine/page/timeline.js`, `engine/page/util.js`, new `engine/page/solve.js`; `potato.js` once A hands it over | 8, 9, 10, 12 |
+| G. Holds | `engine/page/stage.js` (from C), `engine/page/props3d.js`, `storyboards/lib/grips.mjs` | 7, later 17 |
+| H. Motion layer | `engine/page/timeline.js` (from F), `engine/page/util.js`, new `engine/page/solve.js`; `potato.js` once A hands it over | 8, 9, 12 |
 
-**Wave 3, big bets after Jonny has seen wave 2:** 16 (new `tools/mocap/`, `storyboards/lib/moves/`), 17 (thread F),
+**Wave 3, big bets after Jonny has seen wave 2:** 16 (new `tools/mocap/`, `storyboards/lib/moves/`), 17 (thread G),
 18 (`engine/page/looks.js` and the sets).
 
 ## 4. What I measured (prototype, not for merging)
@@ -488,16 +565,78 @@ by side. Today, Phoenix's arm comes up, Reaper sits down on his box and the Wiza
 frames; fixed, the clip opens in its pose. Item 1 makes the loader do this for every clip, so no storyboard needs
 editing.
 
+### 4.5 Feet while walking (added in v2)
+
+The second review noted that `qa/rig.mjs` skips its foot-slide check whenever a step is taken, so nothing measures the
+standing foot during a walk. Measured on the five layouts: a foot at floor height for two or more frames while its body
+travels is a stance; its slide is the foot's path along the floor in that stance (a planted foot slides 0).
+
+| Clip | Stances while travelling | Slide per stance, median | Worst | Slide ÷ body travel, median |
+|---|---|---|---|---|
+| Friends Try To 1 (IKEA) | 34 | 8 cm | 77 cm (the Wizard's two `move`s eased `in`, then `out`) | 0.56 |
+| Friends Try To 2 (tent) | 25 | 16 cm | 90 cm (the Viking's 0.9 m `move` in 0.35 s, eased `out`) | 0.57 |
+| Never Looks Up 5 (zombies) | 64 | 64 cm | 1.0 m (the zombie Viking's `run`) | 1.11 |
+| Friends Try To 4 (split the bill) | 10 (seated, swaying) | 2 cm | 6 cm | 0.42 |
+| Never Looks Up 2 (plane) | none (seated) | | | |
+
+A ratio near 1 means the feet glide with the body. The cause is in `timeline.js`: the natural gait, with feet that stay
+put, runs only `if (!a.ease || a.ease === "inOut")` for a `move`; a move with its own ease and every `run` use the old
+walk cycle, whose feet swing to and fro under the body and are never planted. Moves with the default ease get planted
+feet, but the stride is capped, so a fast one still slides. 7 of the 10 storyboards have runs or eased moves. The
+script is `stance-slide.py` in the project files (`engine/quality-plan-01/`).
+
 ## 5. How we know it worked
 
 | Measure | Now | Target |
 |---|---|---|
 | Visible-glitch warnings in a delivered clip | about 35 warnings, many visible | 0 visible; the rest listed with a reason |
 | Jumps between frame 0 and frame 1 | 3 of the 5 clips measured | none |
+| Standing-foot slide per stance while walking (section 4.5) | median 8 cm (IKEA), 16 cm (tent), 64 cm (zombies) | under 1 cm |
+| Contact windows read on the wrong clock | 8 of 10 clips | none |
 | Fails on a clip's first layout | up to 27 | 3 or fewer |
 | Fix rounds before the first clean layout | several | 1 or fewer |
 | Jonny's notes per clip on hands, contacts, eyes and sound spikes | 36 % of all notes | none over the next 10 clips (continue the notes CSV) |
 | Motion | frozen 3–17 % on the best clips | same band, lower synchrony and jerk, Jonny's picks on the side by sides |
+
+Regress fixtures to add along the way (most from the second review's list): a phone hold, lean, turn, one-hand regrip
+and release; a mug lift and a scythe reach across the body (the impossible version must fail); a walk and a run, a stop,
+a diagonal retreat and a pivot; a deadpan look, a blink, fear and recovery at three angles; the tent and bill staging
+pair; a glass next to a glow; a fast arm past a thin prop; a prop drop with its sound.
+
+## 6. Second review (ChatGPT, 5 Nov), checked against the code
+
+Jonny got an independent review from ChatGPT with the same brief (appendix B). It read the code at `47bc45f` (main after
+#107) and ran nothing. Each of its code claims was checked here:
+
+| Its claim | Checked | What changes in this plan |
+|---|---|---|
+| The plane's "floating" phone was staged: it hung on the oxygen mask's elastic (e636432 keeps it in both gloves) | true (`PANELS-ep2-plane.md`, the generator's comment) | v1 called it a rig fault; corrected in 1.1, 1.3 and item 7 |
+| Two attachment systems: hand targets framed on a prop (`timeline.js` resolveArms) and the position-only anchor, a two-hand hold at the hands' average (`stage.js`) | true | item 7: one owner per hold |
+| `qa/rig.mjs` measures a held prop's offset change per frame and skips hand changes, so a steady gap or a slow drift passes | true | item 3 (d), item 7 |
+| The elbow is a curve's pull point placed by rules and pushed out of the body, not a two-bone solve | true (`potato.js` elbowFor) | item 11 already proposed the solve; adds unreachable-target reports and whole-arm clearance |
+| The waiter's eyes were a gaze and lid combination (61582d8) | true | item 4 (e): per-face limits that leave squints and blinks alone |
+| The foot check is skipped during steps; the standing foot is placed from the moving body, exact only at a steady speed | true, and measured: far bigger than a speed-ramp effect (section 4.5) | item 10 moved up and rewritten |
+| Must-see misses never block; a face behind a half-hidden body only warns; scenery never hides a face | true (`render.mjs` gate, `qa/framing.mjs`, `qa/check.mjs`, `stage.js` hiddenFaces) | item 13 moved up: required must-see items, scenery counts |
+| Solidity follows opacity (`stage.js` inProps), and glows were made fainter to pass | true (71f192b, ffdce32) | item 3 (c): solid is a property |
+| `allowClip` windows and "acting" are read on the video's clock, actions on the story's | true; 8 of 10 clips have a window after a hit-stop, read 0.1–0.2 s early | item 3 (a), (b) |
+| The shard fingerprint skips `models` folders, `assets/models` included | true (119 files) | item 19 |
+| Golden base stills are cached by commit, not by runner; CI never checks a changed episode | true | item 19 |
+| The loudness loop can end out of range without failing | partly: it gives up after six rounds quietly, but `qa/check.mjs` fails the file | item 19, small |
+
+**What it adds that holds:** the checks above that pass for the wrong reason, a must-see gate, walking feet, one owner per
+hold, an evaluation order for the rig (now in item 9), analytic falls before a physics engine (items 7 and 17), render
+integrity (item 19) and a fixture list (section 5).
+
+**What it misses:** it ran nothing, so it has no counts. It doesn't mention the first-frame jump (item 1) or the hand
+turns, the biggest warning class (144 in ten clips) and the measured causes behind item 2; it calls the sound spikes
+unproven, while the ten clips' checks name two effects 20 dB over the mix; and it doesn't see that the clip template
+contradicts Jonny's decisions on depth of field, look and music (item 5). Its "preserve the golden cast" is out of date:
+new clips use the sheet look.
+
+**Where it differs:** it would put the checks first and the solver work after them; this plan does both in wave 1,
+since checks alone would turn today's 35 warnings per clip into fails with nothing yet to fix them. It warns against
+starting with human motion capture (item 16 stays a big bet after wave 2, with a one-move trial first) and prefers four
+large owners; this plan keeps smaller threads so more can run at once.
 
 ## Appendix A: sources
 
