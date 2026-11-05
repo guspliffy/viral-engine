@@ -45,6 +45,12 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   `node qa/regress.mjs` (about 1.5 minutes, also on every pull request): the fixtures in `storyboards/regress/`
   (walk and stop, turn, blink, pick up and put down, two-hand carry, hug, plus a merging hug, an arm out of the
   chest and an arm pop that must fail) have to be judged as their `expect` block says.
+- **Glitches only the picture shows** (`node qa/glitches.mjs <clip> --sb <sb> --layout <layout>`, run by
+  `qa/check.mjs`, about 12 s, `--no-flow` skips it): optical flow on the final video finds a part popping out and back
+  in one frame, a part snapping while all around it is calm, a part moving against its neighbours, a one-frame flicker
+  and a jump out of frame 0; cuts, hit-stops, flashes, shakes and captions are left out. A warning: look at the frame.
+  `node qa/motioncard.mjs <layout> --sb <sb> --clip <clip>` gives the clip's jerk, smoothness (SPARC), synchrony and
+  frozen % to compare a flag on and off.
 - **One verdict before a render** (`node qa/preflight.mjs <sb>`, quality plan item 3, 5 Nov 2026): the layout, the
   contact gate, the drawn rig, the must-see list, the front of the frame, motion, camera, sound on a phone and
   readability. FAIL blocks the render; WARN means a visible glitch (a hand flip, a skating foot, a slipping prop, a
@@ -315,4 +321,6 @@ are his call. Skip the reviews only for pure engine tests, and say so.
   (also runs on every pull request). It draws 12 approved stills (`qa/golden/golden.json`) with your working tree and
   with `origin/main` on the same machine (2.5 minutes each; main's are kept per commit) and fails on any changed pixel,
   with a sheet of main | now | difference | zoom in `out/golden/`. A change you meant goes to Jonny with that sheet;
-  merging it makes it the golden look. Add a still to the list when Jonny approves a clip.
+  merging it makes it the golden look. Add a still to the list when Jonny approves a clip. The same run draws 12-frame
+  motion strips of five regress moves (walk, turn, pick-up, hug, blink) and compares them by SSIM, so a change in
+  timing or an arc shows too (`--no-motion` skips them).

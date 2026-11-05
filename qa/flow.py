@@ -9,8 +9,8 @@ Farneback flow between every pair of frames at 270x480, averaged in 30x30 px cel
            for one frame): the two steps are large and point opposite ways while the frames around them are calm
   jump     a cell whose one-frame motion is several times the motion either side of it, without coming back (a pose
            that snaps, a prop that teleports, a frame-0 jump)
-  flicker  a cell whose brightness changes and changes back in one frame with almost no motion (a light or a
-           material that flashes, see-through parts that swap)
+  flicker  a cell whose brightness changes and changes back in one frame while the frames either side match (a light
+           or a material that flashes, see-through parts that swap)
 
   against  a cell moving against all its neighbours for one frame while they move together (a part flipping the
            wrong way inside a moving body)
@@ -25,6 +25,7 @@ a level: "warn" (large or out-and-back: worth a look at the frame) or "note" (on
 Prints JSON: {"fps", "frames", "cuts", "findings": [...]}.
 
   python3 qa/flow.py <clip.mp4> [--plan plan.json] [--skip 1.23,4.5-4.8] [--from s] [--to s]
+  python3 qa/flow.py --selftest      synthetic clips that must be judged as named (CI)
 
 Needs opencv-python-headless and numpy (free; pip install opencv-python-headless).
 """
@@ -97,19 +98,25 @@ def where(gy, gx):
 
 def main():
     o = args()
+    if o["clip"] == "--selftest":
+        return selftest()
     cap = cv2.VideoCapture(o["clip"])
     fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
-    grey, lum = [], []
+    grey = []
     while True:
         ok, f = cap.read()
         if not ok:
             break
-        g = cv2.cvtColor(cv2.resize(f, (W, H), interpolation=cv2.INTER_AREA), cv2.COLOR_BGR2GRAY)
-        grey.append(g)
-        lum.append(cells(g.astype(np.float32)))
+        grey.append(cv2.cvtColor(cv2.resize(f, (W, H), interpolation=cv2.INTER_AREA), cv2.COLOR_BGR2GRAY))
+    print(json.dumps(analyse(grey, fps, o)))
+
+
+def analyse(grey, fps, o):
+    """grey: frames at W x H (uint8); o: skip, soft, masks, from, to as from args(); -> the result dict"""
     n = len(grey)
     if n < 4:
-        print(json.dumps({"fps": fps, "frames": n, "findings": []})); return
+        return {"fps": fps, "frames": n, "cuts": [], "findings": []}
+    lum = [cells(g.astype(np.float32)) for g in grey]
     # flow[i]: from frame i-1 to frame i (cells, px); mag[i] its length
     flow = [np.zeros((GY, GX, 2), np.float32)]
     for i in range(1, n):
@@ -160,7 +167,14 @@ def main():
         jump = (ma > JUMP) & (ma > RATIO * np.maximum(ref, 0.25)) & ~pop
         # flicker: brightness out and back with almost no motion
         dl, dn = L[i] - L[i - 1], L[i + 1] - L[i]
-        flick = (np.abs(dl) > FLICK) & (np.abs(dn) > FLICK) & (np.sign(dl) != np.sign(dn)) & (np.maximum(ma, mb) < CALM) & (np.abs(L[i + 1] - L[i - 1]) < 0.3 * np.abs(dl))
+        # flicker: brightness out and back, while the frames either side match (the flow from the frame before straight
+        # to the frame after is calm): the flow across a flash itself means nothing, Farneback reads its edges as motion
+        flick = (np.abs(dl) > FLICK) & (np.abs(dn) > FLICK) & (np.sign(dl) != np.sign(dn)) & (np.abs(L[i + 1] - L[i - 1]) < 0.3 * np.abs(dl))
+        if flick.any():
+            across = np.linalg.norm(cells(cv2.calcOpticalFlowFarneback(grey[i - 1], grey[i + 1], None, 0.5, 3, 15, 3, 5, 1.2, 0)), axis=2)
+            # a part that bobs out and back with the frames either side matching is a jitter, not a flash: the flow
+            # carries it there and back (a tiptoe walk bouncing every frame)
+            flick &= (across < CALM) & ~((ma > POP) & (mb > POP) & (back < 0.5 * np.minimum(ma, mb)))
         # against: the 8 neighbours move together (each over 2 px, within 45 degrees of their mean), the cell goes the
         # other way (over POP px, against their mean), and only for this one frame
         nb = cv2.blur(a, (3, 3), borderType=cv2.BORDER_REPLICATE) * 9 - a  # the neighbours' sum
@@ -196,7 +210,44 @@ def main():
                 warn = False
             found.append({"t": round(i / fps, 3), "frame": i, "kind": kind, "level": "warn" if warn else "note",
                           "score": round(sc, 2), "cells": nc, "where": where(gy, gx), "px": [gx * CELL * 4, gy * CELL * 4]})
-    print(json.dumps({"fps": fps, "frames": n, "cuts": [round(i / fps, 3) for i in np.nonzero(cut)[0]], "findings": found}))
+    return {"fps": fps, "frames": n, "cuts": [round(i / fps, 3) for i in np.nonzero(cut)[0]], "findings": found}
+
+
+def selftest():
+    """Synthetic clips that must be judged as named (python3 qa/flow.py --selftest; CI runs it): a textured card moving
+    smoothly (nothing), the card popping 40 px out and back for one frame (pop), a patch flashing for one frame
+    (flicker), a jump out of frame 0 (frame0-jump), and a caption-sized pop under a mask (nothing)."""
+    rng = np.random.default_rng(7)
+    bg = cv2.GaussianBlur(rng.integers(60, 200, (H, W), dtype=np.uint8), (0, 0), 3)
+    card = cv2.GaussianBlur(rng.integers(0, 255, (70, 60), dtype=np.uint8), (0, 0), 1.5)
+
+    def clip(xs, flash=None):
+        out = []
+        for i, x in enumerate(xs):
+            g = bg.copy(); g[200:270, int(x):int(x) + 60] = card
+            if flash == i:
+                g[60:150, 150:240] = np.clip(g[60:150, 150:240].astype(int) + 60, 0, 255).astype(np.uint8)
+            out.append(g)
+        return out
+
+    smooth = [60 + 2 * i for i in range(30)]
+    popped = list(smooth); popped[15] += 40
+    first = [20] + smooth[1:]
+    base = {"skip": [], "soft": [], "masks": [], "from": 0.0, "to": None}
+    cases = [
+        ("smooth move", clip(smooth), base, set()),
+        ("one-frame pop", clip(popped), base, {"pop"}),
+        ("one-frame flash", clip(smooth, flash=15), base, {"flicker"}),
+        ("frame-0 jump", clip(first), base, {"frame0-jump"}),
+        ("pop under a caption", clip(popped), {**base, "masks": [{"from": 0, "to": 1, "box": [0, 700, 1080, 500]}]}, set()),
+    ]
+    bad = 0
+    for name, frames, o, want in cases:
+        got = {f["kind"] for f in analyse(frames, 30.0, o)["findings"] if f["level"] == "warn"}
+        ok = got == want
+        bad += not ok
+        print(f"{'ok    ' if ok else 'BROKEN'} {name}: warns {sorted(got) or 'nothing'}{'' if ok else ', expected ' + (', '.join(sorted(want)) or 'nothing')}")
+    sys.exit(1 if bad else 0)
 
 
 if __name__ == "__main__":
