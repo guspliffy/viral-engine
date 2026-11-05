@@ -14,15 +14,18 @@ corner, a wall socket low on the back wall. Warm fire light from the right, cool
 | 02 | 1.5-3.3 | same | the knot floats up and winds round the Wizard's staff; Viking and Phoenix exchange a look | "Easy.", gold sparkles |
 | 03 | 3.3-4.5 | same | Viking steps in, grabs two strands, steps back: the string snaps taut in a zigzag, the carton tips over | hit-stop at 3.70 |
 | 04 | 4.5-5.5 | same | draped over the Wizard's hat and Viking's shoulders; they glare at each other; Phoenix points at his tutorial; Reaper sighs | |
-| 05 | 5.5-7.2 | same | Reaper takes the loose end, lifts it off them, sets the tree spinning: a perfect spiral to the star; the cat hops down and pads to its basket | hit-stop at 6.80 |
-| 06 | 7.2-8.0 | same | the cheer at the glowing tree; the cat curled in its basket; the lead still round Viking's boot | |
-| 07 | 8.0-9.0 | same | "Perfect.": Viking steps back, brushing his hands; the lead peels the spiral off from the top, the star drops | dö-döm |
-| 08 | 9.0-10.0 | same | the heap at Viking's boot, the bare tree, the star on the rug, the cat sits by it; three glares, his sheepish grin | cover at 9.6 s |
+| 05 | 5.5-7.2 | the wide, then from 5.9 a closer view from the right and above Viking (Reaper and the tree) | Reaper takes the loose end, lifts it off them, sets the tree spinning: a perfect spiral to the star; the cat hops down and pads to its basket | hit-stop at 6.80 |
+| 06 | 7.2-8.0 | the wide | the cheer at the glowing tree; the cat curled in its basket; the lead still round Viking's boot | |
+| 07 | 8.0-9.0 | a closer view from the left and above (Viking, the tree, Reaper over his shoulder) | "Perfect.": Viking steps back, brushing his hands; the lead peels the spiral off from the top, the star drops | dö-döm |
+| 08 | 9.0-10.0 | the wide | the heap at Viking's boot, the bare tree, the star on the rug, the cat sits by it; three glares, his sheepish grin | cover at 9.6 s |
 
 ## Departures (with reasons)
 
 - **A 3D room, not a layered painted environment** (the brief allows the fallback): the lights, the turning tree and
   the heap need real geometry, and every panel uses the same front camera.
+- **Wider than the panels**: the panels crop the group close; a vertical frame that holds all four faces and the
+  tree needs the wide, so only the spin and the undo get the panels' closer views (review A also asked for the wide to
+  keep the heap, the star and the cat above TikTok's buttons).
 - **The camera is higher than the panels'**: in a vertical frame the back row (Wizard, Reaper) hides behind the
   front row's heads at eye level; from above, all four faces show (the contact gate checks it).
 - **Reaper sets the tree spinning with a push on its lowest branch tips**, not a hand on the stand: the branches
