@@ -81,10 +81,10 @@
     "brow": "#234C55",
     "cheeks": "#e8806a",
     "blush": 0.9,
-    "freckles": 9,
-    "freckleColor": "#C97A50",
+    "freckles": 12,
+    "freckleColor": "#a65a38",
     "browShape": {
-      "thick": 1.1,
+      "thick": 1.7,
       "arch": 0.06,
       "inner": 0.16,
       "outer": 0.58,

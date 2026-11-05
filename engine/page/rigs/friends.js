@@ -27,6 +27,7 @@ import { Character, arcLerp } from "../potato.js";
 import { Face, EXPRESSIONS } from "../face.js";
 import { friendTarget, LEG_H } from "./friends-anatomy.js";
 import { buildDesign, mat } from "./friends-designs.js";
+import { stitches } from "../costumes-art.js";
 import { blobMesh, ellipsoid, union, rayHit, gradient, tubeMesh, capped, smoothPath, mixHex, sstep, smax, resample } from "./friends-geo.js";
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -114,6 +115,9 @@ export class FriendCharacter extends Character {
     if (def.patch) {
       const pm = new THREE.Mesh(new THREE.BoxGeometry(def.patch.w, def.patch.h, 0.006), mat(def.palette.patch, { role: "cloth", line: "#4a2420" }));
       const st = new THREE.Mesh(new THREE.BoxGeometry(def.patch.w + 0.008, def.patch.h + 0.008, 0.003), mat("#6a3430", { role: "char" })); st.position.z = -0.002; pm.add(st);
+      // the sheet's hand-sewn edge: the potato cloth kit's cross stitches (costumes-art.js stitches) along each side
+      const w = def.patch.w / 2, h = def.patch.h / 2, z = V(0, 0, 1);
+      for (const [p, a, n] of [[V(0, h - 0.004, 0.003), V(1, 0, 0), 3], [V(0, -h + 0.004, 0.003), V(1, 0, 0), 3], [V(-w + 0.004, 0, 0.003), V(0, 1, 0), 2], [V(w - 0.004, 0, 0.003), V(0, 1, 0), 2]]) { const g = stitches(p, z, a, n, 0.011, "#e3c9a0"); g.traverse((o) => { if (o.isMesh) o.material.userData.noOutline = true; }); pm.add(g); }
       pm.castShadow = true; pm.name = "sleeve-patch"; this.patch = pm; this.root.add(pm);
     }
     // Rusty's tail: one continuous tube from the sacrum, six broad dark bands painted by the distance along it
@@ -290,7 +294,9 @@ export class FriendCharacter extends Character {
       if (u > bare) k = Y.skinR;
       return k;
     };
-    const col = (u) => (u > bare ? Y.skin : u >= cuffAt && u <= cuffTo ? Y.cuff.color : mixHex(Y.color, Y.shade || Y.color, 0.3 * Math.abs(Math.sin(u * 9))));
+    // a knit cuff (Rusty, Moss: the sheets' ribbed cuffs) gets ribs round it; Pip's rolled jacket cuff stays plain
+    const rib = Y.cuff?.rib ? new THREE.Color(Y.cuff.rib) : null;
+    const col = (u, a) => (u > bare ? Y.skin : u >= cuffAt && u <= cuffTo ? (rib ? new THREE.Color(Y.cuff.color).lerp(rib, sstep(0.25, 0.6, Math.abs(Math.sin(a * 7)))) : Y.cuff.color) : mixHex(Y.color, Y.shade || Y.color, 0.3 * Math.abs(Math.sin(u * 9))));
     this.arms[s].mesh.geometry = tubeMesh(pts, { radial: 16, radius: capped(r, 0.04, 0.02), color: col, ref: V(sx, 0, 0), geo: this.arms[s].mesh.geometry });
     this.arms[s].upper = [sh.clone(), el.clone()];
   }
@@ -348,7 +354,12 @@ export class FriendCharacter extends Character {
       const c0 = uk + Y.cuff.at * (1 - uk), c1 = c0 + Y.cuff.len / tot;
       rad = (u) => (u < c0 ? r(u) * (1 + 0.25 * Math.sin(Math.PI * clamp(u / c0))) : u < c1 ? Y.cuff.r : Y.skinR);
       col = (u) => (u < c0 ? mixHex(Y.color, Y.shade, 0.3 * Math.abs(Math.sin(u * 13))) : u < c1 ? Y.cuff.color : Y.skin);
-    } else if (Y.top) col = (u) => mixHex(Y.top, Y.color, sstep(0.05, 0.4, u));
+    } else {   // fur legs: soft clumps round the leg (the sheet's fluffy thighs), grooves a shade darker
+      if (Y.top) col = (u) => mixHex(Y.top, Y.color, sstep(0.05, 0.4, u));
+      const c0 = col, r0 = rad, clump = (u, a) => { const f = (a * 7) / (2 * Math.PI) + u * 3, q = f - Math.floor(f); return Math.pow(Math.sin(Math.PI * q), 0.6); };
+      rad = (u, a) => r0(u) * (0.97 + 0.06 * clump(u, a));
+      col = (u, a) => new THREE.Color(c0(u)).multiplyScalar(0.9 + 0.1 * clump(u, a));
+    }
     this.legs[s].mesh.geometry = tubeMesh(pts, { radial: 16, radius: capped(rad, 0.05, 0.03), color: col, ref: V(0, 0, 1), geo: this.legs[s].mesh.geometry });
     this.legs[s].knee = knee;
   }
@@ -437,7 +448,12 @@ export class FriendCharacter extends Character {
       if (u < 0.06) c.lerp(new THREE.Color(T.base), 1 - u / 0.06);
       return c.lerp(new THREE.Color(T.tip), sstep(0.9, 0.97, u));
     };
-    this.tail.geometry = tubeMesh(pts, { radial: 20, radius: capped(rad, 0.03, 0.09), color: col, ref: V(0, 1, 0), geo: this.tail.geometry });
+    // fur: the radius ruffles round the tube in clumps that twist a little along it (the sheet's fluffy plume), the
+    // grooves between clumps a shade darker; fixed in u and angle, so the clumps stay put on the tail in every pose
+    const clump = (u, a) => { const f = (a * 9) / (2 * Math.PI) + u * 4.5, q = f - Math.floor(f); return Math.pow(Math.sin(Math.PI * q), 0.6); };
+    const fluffR = (u, a) => rad(u) * (0.93 + 0.13 * clump(u, a) * sstep(0.04, 0.12, u));
+    const fluffC = (u, a) => col(u).multiplyScalar(0.9 + 0.1 * clump(u, a));
+    this.tail.geometry = tubeMesh(pts, { radial: 36, radius: capped(fluffR, 0.03, 0.09), color: fluffC, ref: V(0, 1, 0), geo: this.tail.geometry });
     // the checks' balls: one per segment, at its middle, the tube's radius there
     this.tailBalls.forEach((b, i) => { const u = (i + 0.5) / (n - 1); b.position.copy(J[i]).lerp(J[i + 1], 0.5); b.scale.setScalar(rad(u)); });
   }

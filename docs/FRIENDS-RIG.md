@@ -102,6 +102,27 @@ node qa/motion.mjs storyboards/lookdev/friends/friends-acting.json
 python3 tools/friends/board.py board.png --crop 0.08,0.1,0.92,0.92 --cols 3 out/friends-turn-rusty-anime-pro-t*.png
 ```
 
+## The house look and the detail kit (Jonny, 5 Nov 2026)
+
+"Every new character we build should use the style we build for the potato characters, the handdrawn ghibli anime
+style, and they should be very detailed." So:
+
+- **The look**: a storyboard's `castLook` reaches the friends too (`engine/load.mjs` `friendsLook`). With `"sheet"` (the
+  template's) a friend gets the potatoes' painted cels and pencil hatching in the shade (`def.art`, read by looks.js
+  beside `costume.art`) and the sheets' shared eye and brow style under its own face numbers. The potato-only parts
+  (skin hue, resting faces, the shared face layout) stay off: a species face keeps its own. `"sheet-clean"` drops the
+  hatching, as for the potatoes.
+- **The detail kit** (`friends-designs.js`): `fringe` (a ring of small fur locks round a head's outline, jittered by a
+  fixed hash), `whiskers`, `ribbedRing` (knit bands with ribs), `seam` and `onFront` (sewn lines at true x and y), all
+  static meshes riding their part. Rusty: shaggy head outline (russet locks, cream on the cheek ruffs), shaggy back of
+  the head, cream fluff in the ears, whiskers, a fluffy tail (clumped radius and darker grooves, fixed on the tail), fur
+  clumps on the legs, a ribbed hem, collar and cuffs, raglan and hood seams, the kangaroo pocket's outline. Pip: 34 more
+  hair locks over the crown, sides and back (never the face), top-stitched front edges and hem, three buttons, shoulder
+  seams, a trouser waistband, darker freckles and heavier brows. Moss: a shaggy outline and back of the head, a spiky
+  crest, whisker pores, a ribbed hem, crewneck and cuffs, shoulder seams, running stitches round the pocket.
+- Cost: 40-90 more small meshes per friend and about 5-15 k triangles; still fewer triangles than a potato with its
+  costume.
+
 ## How the shapes are made
 
 Each head and torso is a closed implicit surface (a smooth union of ellipsoids and rounded boxes, some cut by smooth
@@ -118,7 +139,16 @@ above the long muzzle while the mouth stays low on its front.
 
 ## CPU cost
 
-Measured on this container's 4-core software renderer (llvmpipe), see the delivery for the numbers of this commit.
+Measured on this container's 4-core software renderer (llvmpipe), drafts at 1080×1920 (5 Nov 2026, with other jobs
+running, so treat them as upper bounds):
+
+| Fixture | Frames | Video pass | Per drawn frame (pose / draw / encode) | Whole run with the contact layout |
+|---|---|---|---|---|
+| friends-acting (trio, 10 s) | 300 | 113 s | 97 / 223 / 41 ms | 376 s |
+| friends-grips (trio + props, 7.5 s) | 225 | 91 s | 108 / 237 / 42 ms | 290 s |
+| friends-twins (two Rustys, 3 s) | 90 | 27 s | 91 / 153 / 33 ms | 62 s |
+
+Most of a whole run is the per-frame contact layout (proxies, reach, tail checks), not the drawing.
 Per character (node, building and posing only): building takes about a second (the implicit meshing), posing about
 60 ms a frame, mostly the seamless glove skin shared with the potato; about 75-90 meshes and 140-150 k triangles,
 which is fewer than a potato with a costume (Phoenix: 92 meshes, 202 k).
@@ -131,4 +161,7 @@ which is fewer than a potato with a costume (Phoenix: 92 meshes, 202 k).
 - Rusty's paint edges are soft-stepped where the head mesh is coarse (160 × 120); a texture mask would be crisper.
 - The grip library's approach offsets were tuned for potato gloves: the friends' longer, thicker sleeves leave brief
   `reach-limit` warnings on the way in and a sleeve cuff close to a mug.
+- Rusty's cream areas (muzzle, cheeks) are larger than on the sheet, and his tail sits lower and reads smaller than
+  the sheet's plume.
+- Rusty's brow patches are painted fur, so they barely change with expressions; the face.js brows carry the acting.
 - No hair or ear secondary motion beyond the ear channels; tail physics is authored attitudes plus lag, not a sim.

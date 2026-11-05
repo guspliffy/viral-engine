@@ -41,6 +41,10 @@ const CAST_LOOKS = {
 };
 export function castLook(def, look) {
   const L = typeof look === "string" ? CAST_LOOKS[look] : look;
+  // the friends rig (Little Chaos Club, rigs/friends.js; Jonny 5 Nov 2026: "this design should be default for all our
+  // characters"): the house painting of the "art"/"sheet" looks (flat painted cels, pencil hatching in the shade, the
+  // sheet's eye style with its big catch light) without the potato-only parts (skin hue, resting faces, layout)
+  if (L && def.rig === "friends-v1") return friendsLook(def, L);
   if (!L || def.rig !== "potato") return def;
   const hsl = def.body?.color && hexHsl(def.body.color);
   // potato skins only (yellow to orange): an egg-white, onion or tomato skin keeps its colour
@@ -78,6 +82,19 @@ export function castLook(def, look) {
   const ih = hexHsl(F.iris || "#4a2a14");
   if (L.irisColor && ih[0] <= 40 && ih[2] < 0.35) F.iris = L.irisColor;   // brown eyes only (blue, green, purple keep theirs)
   if (L.sheet) sheetFace(def);
+  return def;
+}
+
+function friendsLook(def, L) {
+  if (L.art) def.art = true;   // looks.js: painted cels and the pencil hatching (as costume.art does for a potato)
+  if (L.sheet) { def.sheet = true; if (!L.clean) def.sheetHatch = true; }
+  if (L.sheet) {
+    SHEET ||= JSON.parse(fs.readFileSync(path.join(ROOT, "characters", "sheet-cast.json"), "utf8"));
+    const F = (def.face ||= {}), A = SHEET.all;
+    // the shared eye and brow style underneath, the friend's own numbers on top (its species face wins)
+    F.eye = { ...A.eye, ...F.eye };
+    F.browShape = { ...A.browShape, ...F.browShape };
+  }
   return def;
 }
 

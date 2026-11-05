@@ -453,7 +453,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // wears costume.art, the characters get painted cel shading instead of the soft film ramp: one clear shadow shape
   // with a brushed (not hard) edge and a little gradient left inside each tone, like a hand-painted anime cel. Hair
   // gets its own warm role (the cool cloth shade turned white hair lilac). Character-only: the set keeps its ramp.
-  const artCast = actors.some((a) => a.def?.costume?.art);
+  const artCast = actors.some((a) => a.def?.costume?.art || a.def?.art);   // def.art: the friends rig (load.mjs friendsLook)
   if (artCast) R.getDrawingBufferSize(HATCH_RES.value);
   if (artCast) { if (charR !== charRamp) charR.dispose(); if (clothR !== clothRamp) clothR.dispose(); charR = stepRamp([0.34, 0.7], [0.18, 0.62, 1], 0.06); clothR = stepRamp([0.3, 0.72], [0.12, 0.6, 1], 0.07); }
   const ROLE = night

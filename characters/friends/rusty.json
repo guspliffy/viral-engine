@@ -73,7 +73,7 @@
     "size": 0.44,
     "iris": "#B66E23",
     "brow": "#F3DEB5",
-    "blush": 0,
+    "blush": 0.6, "cheeks": "#e9826a",
     "browShape": {
       "thick": 2.4,
       "arch": 0.05,
@@ -175,7 +175,8 @@
         "from": 0.045,
         "to": 0.0,
         "r": 0.054,
-        "color": "#56637a"
+        "color": "#56637a",
+        "rib": "#46516a"
       }
     },
     "leg": {
