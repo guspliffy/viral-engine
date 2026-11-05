@@ -57,3 +57,10 @@ words) and the mask doors. Light: warm dim cabin light, cool blue lightning flas
   the Wizard's hat and robe), and a caption over a character fails the check.
 - **The landing (08):** the Wizard flips back upright facing the row behind and spins round in his seat to glare:
   flipping the other way swings his hat through Phoenix.
+
+## v2 (Jonny 5 Nov: more drama, phone always in hand)
+
+- The phone stays in both of Phoenix's gloves for the whole clip (no hang on the mask's elastic); his mask drops on the
+  window side and dangles there, ignored.
+- More is going on than in the panels: the bins burst one by one and drop a holdall, a backpack and two suitcases. In the zero-g
+  they float with a trainer, magazines and pillows, and they crash back down on the landing. Reaper and the Samurai panic.
