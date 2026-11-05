@@ -17,7 +17,7 @@ for (let k = 2; k < process.argv.length; k += 2) {
       if (i === 1) why.push("first frame");
       if (Math.abs(eff(p) - eff(q)) > 0.3) why.push("palm turn switches");
       if (Math.abs((p.w || 0) - (q.w || 0)) > 0.3) why.push("fist turn switches");
-      if (Math.abs((p.w || 0) - (q.w || 0)) <= 0.3 && Math.max(p.lim || 0, q.lim || 0) > 0.9) why.push("at the wrist limit");
+      if (Math.abs((p.w || 0) - (q.w || 0)) <= 0.3 && Math.max(p.lim || 0, q.lim || 0) > 1) why.push("at the wrist limit");
       if (Math.abs((p.up || 0) - (q.up || 0)) > 0.3 || Math.abs((p.dn || 0) - (q.dn || 0)) > 0.3 || Math.abs((p.fr || 0) - (q.fr || 0)) > 0.3) why.push("cupped/paw/locked turn switches");
       if (dy > 25 && Math.min(p.yl, q.yl) < 0.14) why.push("forearm collapses");
       else if (dy > 25) why.push("forearm jumps");

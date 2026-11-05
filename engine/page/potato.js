@@ -19,16 +19,18 @@ export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; };
 // look-at, 70 swung from out and forward, 48 from this one (tools/hand-probe/base-eval.mjs)
 const _y0 = (sx) => new THREE.Vector3(0.35 * sx, 0, 1).normalize().multiplyScalar(Math.SQRT1_2).add(new THREE.Vector3(0, Math.SQRT1_2, 0)).normalize();
 const HAND_Y0 = { R: _y0(-1), L: _y0(1) };
-// the wrist's reach from the base frame: bend (the fingers' direction off the forearm) and twist (about the forearm),
-// radians. A turn asks for up to KNEE of the limit exactly; beyond it, it eases into the limit (no kink in the motion).
-// FADE: a target within this of half a bend or half a twist away fades out, so a target crossing half a turn (where
-// the shortest way round changes sides) can't flip the hand: it turns back to its base frame instead
-const WRIST = { bend: (75 * Math.PI) / 180, twist: (100 * Math.PI) / 180, knee: 0.7, fade: (45 * Math.PI) / 180 };
+// the wrist's reach from the base frame: bend (the fingers' direction off the forearm) and twist (about the forearm). A
+// turn up to the knee (radians) is used exactly; past it, the hand turns on a little further (bend about 77 degrees at
+// most, twist about 88) and then back towards the base frame as the target goes on to half a turn away. So the hand
+// never turns more than about 1.4 times as far as its target in a frame, and a target crossing half a turn (where the
+// shortest way round changes sides, the hand pops of 5 Nov) finds the hand at its base frame on both sides
+const WRIST = { bend: (65 * Math.PI) / 180, twist: (80 * Math.PI) / 180 };
 const sstep = (v) => { const w = Math.min(1, Math.max(0, v)); return w * w * (3 - 2 * w); };
 const _bq = new THREE.Quaternion(), _bv = new THREE.Vector3(), _bY = new THREE.Vector3(0, 1, 0);
-const sat = (m, L) => { const k = WRIST.knee * L; return m <= k ? m : k + (L - k) * Math.tanh((m - k) / (L - k)); };
-// a turn r (relative to the base frame) as [bend x, bend z, twist, how much of it to use]: the bend a rotation vector
-// square to the forearm, after the twist about it; both clamped to the wrist, the use fading near half a turn
+// u (0..pi) past the knee a: a smooth curve (cubic Hermite) from a, rising at the same slope, down to 0 at half a turn
+const fold = (u, a) => { if (u <= a) return u; const h = Math.PI - a, t = (u - a) / h; return (2 * t ** 3 - 3 * t ** 2 + 1) * a + (t ** 3 - 2 * t ** 2 + t) * h - (t ** 3 - t ** 2) * h; };
+// a turn r (relative to the base frame) as [bend x, bend z, twist, 1, bend, twist before the limits]: the bend a
+// rotation vector square to the forearm, after the twist about it, both within the wrist's reach
 function wristTurn(r) {
   if (r.w < 0) r.set(-r.x, -r.y, -r.z, -r.w);
   const y2 = _bv.copy(_bY).applyQuaternion(r), ang = Math.acos(Math.min(1, Math.max(-1, y2.y)));
@@ -36,9 +38,8 @@ function wristTurn(r) {
   if (al > 1e-9) _bq.setFromAxisAngle(_bv.set(ax / al, 0, az / al), ang); else _bq.identity();
   const t = _bq.invert().multiply(r);
   let tw = 2 * Math.atan2(t.y, t.w); if (tw > Math.PI) tw -= 2 * Math.PI; if (tw < -Math.PI) tw += 2 * Math.PI;
-  const use = sstep((Math.PI - ang) / WRIST.fade) * sstep((Math.PI - Math.abs(tw)) / WRIST.fade);
-  const b = al > 1e-9 ? sat(ang, WRIST.bend) / al : 0;
-  return [ax * b, az * b, Math.sign(tw) * sat(Math.abs(tw), WRIST.twist), use, ang, tw];
+  const b = al > 1e-9 ? fold(ang, WRIST.bend) / al : 0;
+  return [ax * b, az * b, Math.sign(tw) * fold(Math.abs(tw), WRIST.twist), 1, ang, tw];
 }
 // [bend x, bend z, twist] back to a rotation: the twist about the forearm, then the bend
 function wristQuat(p, out) {
@@ -520,7 +521,7 @@ export class Character {
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zd), f, zd));
       turn(_fist, dn, "dn");
     }
-    if (lim > WRIST.knee) dbg.lim = rd(lim, 2);
+    if (lim > 1) dbg.lim = rd(lim, 2);   // past the wrist's knee (1)
     hand.quaternion.copy(B).multiply(wristQuat(p, T));
     this._digits(hand, sx, gr, axis, pw);
   }
