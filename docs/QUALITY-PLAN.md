@@ -1,7 +1,8 @@
 # Quality and motion plan (5 Nov 2026)
 
-Status: **proposal, v2**. Nothing in the engine has changed. Jonny picks what gets built; each item then gets its own
-thread and pull request. The brief this plan answers is in appendix B. v2 (5 Nov, afternoon) folds in a second review
+Status: **v2, wave 1 picked** (Jonny, 5 Nov 14:01: the six threads of section 3; their briefs are in the project files,
+`engine/quality-plan-01/wave1-threads.md`). This document changes no engine code; each item gets its own thread and
+pull request. The brief this plan answers is in appendix B. v2 (5 Nov, afternoon) folds in a second review
 Jonny got from ChatGPT, after checking each of its code claims (section 6): it corrected one of ours (the plane's
 phone), found checks that pass for the wrong reason, and pointed at walking feet, which turned out to be the biggest
 measured motion fault (section 4.5).
