@@ -170,7 +170,7 @@ see(2.3, 3.2, ["wiz.face", "tent", "vik.face"], "P2: the spell puffs the tent in
 const YANK = 3.45;
 tentAt(3.38, { y: 0.95 }, 0.45, "out");
 A(3.38, "vik", "ride", { prop: "tent", off: VIK_OFF, dur: 0.1 });
-act.impact(c, YANK, "vik", { sound: "whoosh", gain: 0.5, stars: false, take: false });
+act.impact(c, YANK, "vik", { frames: 0, sound: "whoosh", gain: 0.5, stars: false, take: false });
 act.shock(c, r3(YANK + 0.02), "vik", { open: 0.6, eye: 1.35, hold: 0.5 });
 sfx(YANK, "door-creak", { gain: 0.45, reason: "the guy rope creaks tight as it yanks Viking off his feet" });
 A(r3(YANK + 0.05), "vik", "talk", { line: "waaah", tone: "excited", dur: 0.5, voice: false });
@@ -251,7 +251,7 @@ sfx(5.8, "cloth", { gain: 0.35, reason: "the cloth dragged across the grass" });
 c.prop(6.02, "scythe", { x: P[0], z: P[1], y: 0.75 }, 0.16, "out");
 const THUNK = 6.26;
 c.prop(6.18, "scythe", { y: 0.5 }, r3(THUNK - 6.18), "in");
-act.impact(c, THUNK, "rea", { sound: "hit-wood", gain: 0.8, recoil: 0, squash: 0.08, look: [-0.2, 0.2], stars: false, take: false });
+act.impact(c, THUNK, "rea", { frames: 0, sound: "hit-wood", gain: 0.8, recoil: 0, squash: 0.08, look: [-0.2, 0.2], stars: false, take: false });
 sfx(THUNK, "thud", { gain: 0.6, reason: "the scythe's shaft driven into the ground: the low half of the THUNK" });
 act.landDust(c, r3(THUNK + 0.02), [P[0], P[1]], { color: "#cdbb8a", puffs: 6 });
 c.arm(6.4, "rea", "R", "rest", 0.3, "inOut"); A(6.4, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.15 });
@@ -330,7 +330,7 @@ write(import.meta.url, {
   motion: MOTION,
   cover: 9.6,
   set: { type: "env", env: "lakeside-campsite", shade: "soft", aperture: 0, focus: false },
-  music: { style: "warm", key: "C", lowCut: 150, gain: 0.3, until: E.musicStop },
+  music: { style: "warm", key: 0, lowCut: 150, gain: 0.3, until: E.musicStop },
   sound: { sfx: 0.7, ambience: 0.35, surface: "grass", room: "open", signature: { entrances: false } },
   creative: { length: [END, END] },
   hook: { show: ["wiz", "vik", "phx", "rea", "tent"], hint: 0.1, what: "the tent flapping loose like a sail, the Wizard hanging on" },

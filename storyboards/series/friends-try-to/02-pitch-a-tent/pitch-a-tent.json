@@ -19,7 +19,7 @@
  },
  "music": {
   "style": "warm",
-  "key": "C",
+  "key": 0,
   "lowCut": 150,
   "gain": 0.3,
   "until": 8.92
@@ -1234,11 +1234,6 @@
      "at": 0.15
     },
     {
-     "fx": "impact",
-     "dur": 0.05,
-     "at": 0.167
-    },
-    {
      "fx": "shake",
      "dur": 0.25,
      "amp": 0.035,
@@ -2111,11 +2106,6 @@
      "gain": 0.6,
      "reason": "the scythe's shaft driven into the ground: the low half of the THUNK",
      "at": 0.76
-    },
-    {
-     "fx": "impact",
-     "dur": 0.05,
-     "at": 0.767
     },
     {
      "fx": "shake",
@@ -3306,11 +3296,11 @@
  ],
  "hitStop": [
   {
-   "at": 3.533,
+   "at": 3.467,
    "frames": 3
   },
   {
-   "at": 6.333,
+   "at": 6.267,
    "frames": 3
   }
  ],

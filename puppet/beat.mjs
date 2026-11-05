@@ -92,6 +92,7 @@ export function musicFlavour(music = {}, id = "") {
   const style = music.style || pool[Math.floor(r() * pool.length)], S = STYLE[style];
   if (!S) throw new Error(`music.style "${style}" unknown (known: ${STYLES.join(", ")})`);
   const key = music.key ?? Math.floor(r() * 12) - 5;    // semitones from C, -5..+6
+  if (!Number.isFinite(key)) throw new Error(`music.key must be semitones from C (a number, e.g. 0 for C, -3 for A), not ${JSON.stringify(music.key)}: a note name made every note NaN and the bed silent (pitch a tent, 5 Nov 2026)`);
   let prog = PROGRESSIONS[Math.floor(r() * PROGRESSIONS.length)];
   if (S.minor && prog[0] !== 5) prog = [5, 3, 4, 5];
   if (Array.isArray(music.progression)) prog = music.progression;   // scale degrees 0-6, one chord a bar
