@@ -88,7 +88,7 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
   const U = {
     backDir: { value: new THREE.Vector3(-0.9, 0.55, -0.3) },
     ao: { value: Array.from({ length: AO_MAX }, () => new THREE.Vector4(0, -100, 0, 0)) },
-    krim: { value: new THREE.Color(0, 0, 0) }, aoN: { value: 0 }, aoK: { value: spec.ao ?? 0.6 }, aoCol: { value: new THREE.Color(0.42, 0.38, 0.48) },
+    krim: { value: new THREE.Color(0, 0, 0) }, aoN: { value: 0 }, aoK: { value: spec.ao ?? 0.8 }, aoCol: { value: new THREE.Color(0.42, 0.38, 0.48) },
   };
   R.uniforms = U;
 
@@ -106,20 +106,20 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
     const keyC = spec.light ? hex(spec.light) : m ? (dark ? m.light : m.bright) : [1, 0.97, 0.92];
     const shadowC = spec.shadow ? hex(spec.shadow) : m ? m.shadow : [0.4, 0.4, 0.5];
     // exposure: a daylight painting leaves the cast as it is; a darker one dims it a little, never under 0.85, so the
-    // faces still read at phone size (0.88 at most at night)
-    const exp = spec.exposure ?? r3(Math.min(dark ? 0.88 : 1, Math.max(0.85, 0.8 + 0.4 * mean)));
+    // faces still read at phone size (0.85 at most at night; Jonny 5 Nov 18:18 "a bit stronger" than the first trial)
+    const exp = spec.exposure ?? r3(Math.min(dark ? 0.85 : 1, Math.max(0.82, 0.78 + 0.4 * mean)));
     const desat = (c, k) => c.map((v) => 1 + (v - 1) * k);
     // the shade as a painter mixes it: green never leads a shadow on the cast (the night garden's teal shade turned the
     // golden skin olive): green is held to the middle of red and blue, which moves teal toward blue and grass toward grey;
     // the same holds the key (a night key is the moonlit grass)
     const noGreen = (c) => { const g = Math.min(c[1], (c[0] + c[2]) / 2 + 0.04); return [Math.max(c[0], g), g, c[2]]; };   // and red never under green: a cool shade is blue-violet, not cyan
-    const lc = desat(chroma(noGreen(chroma(keyC, 1.5)), 1.5), 0.45), sc = desat(chroma(noGreen(chroma(shadowC, 1.8)), 1.8), 0.5);
+    const lc = desat(chroma(noGreen(chroma(keyC, 1.5)), 1.5), 0.55), sc = desat(chroma(noGreen(chroma(shadowC, 1.8)), 1.8), 0.6);
     const tint = (base, c, k) => base.map((v, i) => r3(v * (1 + (c[i] - 1) * k * g)));
     const scale = (v, k) => v.map((x) => r3(x * k));
     // how much of the painting's colour each role takes (lit, shade): skin less (the potatoes stay golden)
-    const K = { skin: [0.3, 0.6], lid: [0.3, 0.6], char: [0.45, 0.75], cloth: [0.45, 0.75], glove: [0.45, 0.75], lining: [0.45, 0.75], hair: [0.4, 0.7], wood: [0.5, 0.75] };
+    const K = { skin: [0.4, 0.75], lid: [0.4, 0.75], char: [0.55, 0.85], cloth: [0.55, 0.85], glove: [0.55, 0.85], lining: [0.55, 0.85], hair: [0.5, 0.8], wood: [0.6, 0.85] };
     const rimC = (spec.rim ? hex(spec.rim) : m ? m.bright : keyC).map((v) => Math.min(1, v));
-    const rimK = spec.rimK ?? (dark ? 0.6 : 0.4);
+    const rimK = spec.rimK ?? (dark ? 0.75 : 0.5);
     U.krim.value.setRGB(...rimC.map((v) => r3(v * rimK)));
     R.base = {};
     for (const [role, [kl, ks]] of Object.entries(K)) {
@@ -146,7 +146,7 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
   // ---- contact occlusion: receivers are set and prop materials (looks.js patchToon with o.ao) and, on a painted env,
   // the painting itself (its ground and the cards in front of it are unlit pictures: patchPainted below, as if every
   // painted pixel were floor facing up); occluders are the cast's bodies, feet and hands and small props
-  R.envFloor = setSpec.type === "env" && (spec.ao ?? 0.6) > 0;
+  R.envFloor = setSpec.type === "env" && (spec.ao ?? 0.8) > 0;
 
   const v = new THREE.Vector3(), box = new THREE.Box3(), sz = new THREE.Vector3(), shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
   R.update = (camera) => {
