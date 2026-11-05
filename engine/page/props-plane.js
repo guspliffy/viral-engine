@@ -5,14 +5,14 @@ import { clamp } from "./util.js";
 // /mnt/project-files/NEVER-LOOKS-UP-STORYBOARDS.zip 02-plane-turbulence): one row of a passenger cabin at night, a
 // neutral unnamed airline (no logos, names or words). Only existing propState keys are used (props3d.js propState).
 //
-//   planeseat   one economy seat facing +z: blue fabric cushion (top at SEAT_Y 0.42, so "sit" works on it), a tall
+//   planeseat   one economy seat facing +z (spec.w its width, default 0.7): blue fabric cushion (top at SEAT_Y 0.42, so "sit" works on it), a tall
 //               back with a white headrest cover, armrests on both sides (spec.arms: "both" | "L" | "R" | "none").
 //   seatbelt    a grey lap belt with a silver buckle across a sitter's belly (origin: the seat's origin; spec.r the
 //               belly's half width). open 0..1: the buckle parts and the two halves drop to hang beside the seat.
 //               Drawn over the body, so it is see-through for the contact checks (userData.steam).
 //   cabinwall   the left cabin wall (origin: its foot at the row, facing +x) with oval windows; glow 0..1 is a
 //               lightning flash: the storm outside lights the panes cool white-blue.
-//   overhead    the ceiling over the row: bins, the passenger panel with reading lights and the seatbelt sign (an
+//   overhead    the ceiling over the row (spec.color the bins, spec.panel the panel under them): bins, the passenger panel with reading lights and the seatbelt sign (an
 //               icon, no words; lit 0..1) and one mask door per seat (spec.doors: x offsets); open 0..1 drops them.
 //   oxymask     a yellow oxygen mask on a coiled hose: the prop's position is the mask cup, spec.anchor [x, y, z]
 //               the hose's top (world, at the panel). The hose sags between them every frame. The cup faces +z
@@ -40,7 +40,7 @@ const FABRIC = "#34518f", FABRIC_D = "#283f70", COVER = "#eef0f2", PLASTIC = "#d
 
 export const PLANE_KINDS = {
   planeseat(P) {
-    const S = P.spec, W = 0.7, fab = mat(S.color ?? FABRIC, { roughness: 0.9 }), dark = mat(FABRIC_D, { roughness: 0.9 }), pl = mat(PLASTIC, { roughness: 0.5 }), cov = mat(COVER, { roughness: 0.8 });
+    const S = P.spec, W = S.w ?? 0.7, fab = mat(S.color ?? FABRIC, { roughness: 0.9 }), dark = mat(FABRIC_D, { roughness: 0.9 }), pl = mat(PLASTIC, { roughness: 0.5 }), cov = mat(COVER, { roughness: 0.8 });
     // the cushion (top at 0.42), the back (tilted 8 degrees), the headrest cover, the base
     mesh(softBox(W - 0.04, 0.14, 0.56, 0.05), fab, P.whole, 0, 0.35, 0.02).rotation.x = -Math.PI / 2 + Math.PI / 2;
     const back = new THREE.Group(); back.position.set(0, 0.42, -0.27); back.rotation.x = rad(-8); P.whole.add(back);
@@ -108,7 +108,7 @@ export const PLANE_KINDS = {
   },
 
   overhead(P) {
-    const S = P.spec, w = S.w ?? 3.2, d = S.d ?? 0.7, bin = mat("#e9e6df", { roughness: 0.6 }), line = mat("#bdb7ab", { roughness: 0.6 }), pnl = mat("#d7d3ca", { roughness: 0.6 });
+    const S = P.spec, w = S.w ?? 3.2, d = S.d ?? 0.7, bin = mat(S.color ?? "#e9e6df", { roughness: 0.6 }), line = mat("#bdb7ab", { roughness: 0.6 }), pnl = mat(S.panel ?? "#d7d3ca", { roughness: 0.6 });
     // bins: a long box above the row with lid seams; the panel under them; the ceiling beyond
     mesh(new THREE.BoxGeometry(w, 0.42, d), bin, P.whole, 0, 0.21 + 0.12, -0.05);
     for (let i = 1; i < 4; i++) mesh(new THREE.BoxGeometry(0.012, 0.4, 0.01), line, P.whole, -w / 2 + (i * w) / 4, 0.33, d / 2 - 0.045);
