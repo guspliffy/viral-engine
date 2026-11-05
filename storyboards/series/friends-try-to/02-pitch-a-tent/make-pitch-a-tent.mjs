@@ -39,7 +39,7 @@ const ROPE_W = (root) => [r3(root[0] + ROPE_HAND[0]), ROPE_HAND[1], r3(root[1] +
 // P1 places (the panels: the Wizard left on the pole, Viking front kneeling at a peg, Phoenix front left on his
 // phone, Reaper standing right with his scythe). A body-width (1 m) apart and more
 // Phoenix stands close to the lens, front left, as in panels 2-5: low in the frame, so the Wizard behind shows over him
-const WIZ0 = Z([-1.25, -1.2]), VIK0 = Z([0.95, -0.25]), PHX0 = Z([-0.25, 2.1]), REA0 = Z([1.15, -1.75]);
+const WIZ0 = Z([-1.25, -1.2]), VIK0 = Z([0.95, -0.25]), PHX0 = Z([-0.25, 2.1]), REA0 = Z([1.35, -1.75]);   // review B: half a step right so his face shows past Viking at frame 0
 const WIZ_SLID = Z([-1.37, -1.15]);            // where the gust drags him (his feet slide)
 const VIK_ROPE = Z([0.38, -1.2]);           // where he grabs the rope: its end up at his left glove (he faces us)
 const VIK_OFF = [r3(VIK_ROPE[0] - R0[0]), 0, r3(VIK_ROPE[1] - R0[1])];   // his place in the tent's frame while he hangs
@@ -50,7 +50,7 @@ const WIZ_OUT = Z([-1.1, -0.8]), VIK_OUT = Z([0.85, -0.75]);   // crawled out at
 const REA_PLANT = [r3(P[0] + 0.49), r3(P[1] - 0.18)];   // beside P, facing 20: his scythe fist half a metre out on his right, right over it
 const REA_OUT = Z([0.8, -1.85]);               // a step back off the cloth before it snaps up
 // the shared ending's places: in front of and beside the dome; the Wizard close on its left (the heap lands on him)
-const AT = { wiz: Z([-1.4, -1.35]), vik: Z([-0.05, -0.62]), phx: PHX0, rea: Z([1.1, -1.2]) };
+const AT = { wiz: Z([-1.4, -1.35]), vik: Z([0.5, -1.0]), phx: PHX0, rea: Z([1.65, -1.3]) };   // Viking cheers right of the dome, not in front of it (review B: the dome hid behind him)
 const VIK_END = Z([0.25, -0.3]);   // Viking steps back off the falling cloth with the scythe
 // the scythe: Reaper's own (props-notyet parkedscythe: its origin is where his fist holds it, the shaft 0.55 below
 // and 0.9 above it, the blade sweeping to +x at the top). He holds it upright beside him (fist 0.55 up: its foot on
@@ -264,7 +264,7 @@ A(6.7, "rea", "turn", { to: -10, dur: 0.25 });
 A(6.65, "rea", "look", { to: [-0.3, 0.1], dur: 0.15, blink: false });
 A(6.7, "rea", "expr", { expr: "deadpan", dur: 0.2 }); A(6.7, "rea", "face", { lid: 0.5, dur: 0.2 });
 for (const who of ["wiz", "vik", "phx"]) A(5.95, who, "look", { to: [0.3, 0.2], dur: 0.15, blink: false });
-for (const [who, d] of [["wiz", 0], ["vik", 0.04], ["phx", 0.08]]) act.shock(c, r3(SNAP + 0.1 + d), who, { open: 0.55, eye: 1.3, hold: 0.25 });
+for (const [who, d] of [["wiz", 0], ["vik", 0.04], ["phx", 0.08]]) act.shock(c, r3(SNAP + 0.1 + d), who, { open: 0.55, eye: 1.3, hold: 0.45 });   // review B: hold the jaw drop
 // they step into the ending's places
 // after the jaw drop, so the snap plays with the dome in clear view (review A)
 A(6.3, "wiz", "move", { to: AT.wiz, dur: 0.4, ease: "inOut", steps: 2 });   // round the dome's left before it snaps up
@@ -291,11 +291,12 @@ const E = ending(c, {
     const PULL = r3(U + 0.42);
     c.prop(PULL, "scythe", { y: 0.95 }, 0.15, "out");
     sfx(PULL, "grab", { gain: 0.5, reason: "the shaft sliding out of the ground" });
-    tentAt(r3(PULL + 0.12), { [TENT.dome]: 0, [TENT.peak]: 0, [TENT.flat]: 1, [TENT.shift]: -0.75, [TENT.lumpC]: 1, [TENT.lumpD]: 1, [TENT.flutter]: 0.4 }, 0.35, "in");
+    tentAt(r3(PULL + 0.05), { [TENT.dome]: 0, [TENT.peak]: 0, [TENT.flat]: 1, [TENT.shift]: -0.75, [TENT.lumpC]: 1, [TENT.lumpD]: 1, [TENT.flutter]: 0.4 }, 0.5, "in");   // review B: a sag you see, not a swap
     sfx(r3(PULL + 0.4), "cloth", { gain: 0.6, reason: "the tent folding down over the Wizard" });
     sfx(r3(PULL + 0.45), "thud", { gain: 0.25, reason: "the soft collapse" });
     A(r3(PULL + 0.3), "wiz", "crouch", { to: 0.6, dur: 0.15 });
     A(r3(PULL + 0.55), "wiz", "talk", { line: "mmf", tone: "calm", dur: 0.3, voice: false });
+    act.emote(c, r3(PULL + 0.6), "wiz", "grr", { dur: 0.9 });   // review B: panel 8's anger mark over the heap
     // he turns back round with it to face us and Reaper
     A(r3(PULL + 0.15), "vik", "turn", { to: 35, dur: 0.3 });
     A(r3(PULL + 0.15), "vik", "move", { to: VIK_END, dur: 0.35, ease: "inOut", steps: 2 });
@@ -343,6 +344,7 @@ write(import.meta.url, {
     { who: "rea", with: "scythe", from: 0, to: 6.45, reason: "his fist round his own scythe's shaft" },
     { who: "vik", with: "scythe", from: 7.9, to: 10, reason: "his fist round the scythe's shaft as he pulls it out and holds it out" },
     { who: "vik", with: "rea", from: 6.65, to: 7.15, reason: "Viking crosses in front of Reaper on his way to the cheer; Reaper's deadpan is set before and holds after" },
+    { who: "vik", with: "tent", from: 6.75, to: 9.5, reason: "Viking cheers and then stands at the dome's right shoulder, reaches over it for the scythe (the glove presses the taut cloth up to 5 cm just before it sags), then steps back across its fallen hem; the cloth box of the clipping check covers the ground the hem lies on" },
     { who: "phx", with: "phxseat", from: 0, to: 10, reason: "Phoenix sits in the grass (the seat is a soft shadow on it)" },
     { who: "wiz", with: "tent", from: 8.3, to: 10, reason: "the tent folds down on top of him: he is the lump under the cloth, his hat tip poking out" },
   ],

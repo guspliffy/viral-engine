@@ -92,7 +92,7 @@
    "id": "rea",
    "character": "notyet/reaper-noscythe",
    "at": [
-    1.3,
+    1.5,
     -3.95
    ],
    "face": -30,
@@ -149,7 +149,7 @@
   {
    "id": "scythe",
    "kind": "parkedscythe",
-   "x": 0.78,
+   "x": 0.98,
    "y": 0.55,
    "z": -4.25,
    "rot": 0
@@ -2254,7 +2254,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.45,
+     "dur": 0.65,
      "idle": 0.08,
      "at": 1.2
     },
@@ -2280,7 +2280,7 @@
     {
      "who": "vik",
      "do": "still",
-     "dur": 0.45,
+     "dur": 0.65,
      "idle": 0.08,
      "at": 1.24
     },
@@ -2288,8 +2288,8 @@
      "who": "vik",
      "do": "move",
      "to": [
-      0.1,
-      -2.82
+      0.65,
+      -3.2
      ],
      "dur": 0.3,
      "ease": "inOut",
@@ -2307,8 +2307,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      1.25,
-      -3.4
+      1.8,
+      -3.5
      ],
      "dur": 0.25,
      "ease": "inOut",
@@ -2337,7 +2337,7 @@
     {
      "who": "phx",
      "do": "still",
-     "dur": 0.45,
+     "dur": 0.65,
      "idle": 0.08,
      "at": 1.28
     },
@@ -2746,6 +2746,22 @@
      "at": 1.22
     },
     {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "unfold": 0,
+      "knot": 0,
+      "drop": 1,
+      "port": -0.75,
+      "tiny": 1,
+      "stack": 1,
+      "wobble": 0.4
+     },
+     "dur": 0.5,
+     "ease": "in",
+     "at": 1.27
+    },
+    {
      "sfx": "dö-döm",
      "gain": 0.9,
      "reason": "the series sting on the tiny undo (the same in every episode)",
@@ -2759,22 +2775,6 @@
    "len": 1.46,
    "shot": "keep",
    "do": [
-    {
-     "do": "prop",
-     "id": "tent",
-     "set": {
-      "unfold": 0,
-      "knot": 0,
-      "drop": 1,
-      "port": -0.75,
-      "tiny": 1,
-      "stack": 1,
-      "wobble": 0.4
-     },
-     "dur": 0.35,
-     "ease": "in",
-     "at": 0
-    },
     {
      "who": "vik",
      "do": "turn",
@@ -2950,16 +2950,28 @@
      "do": "look",
      "to": [
       0.95,
-      0.062
+      0.108
      ],
      "dur": 0.12,
      "blink": false,
      "at": 0.46
     },
     {
+     "fx": "pop",
+     "text": "grr",
+     "who": "wiz",
+     "dur": 0.9,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.48
+    },
+    {
      "who": "wiz",
      "do": "turn",
-     "to": 30.799,
+     "to": 39.781,
      "dur": 0.3,
      "ease": "inOut",
      "at": 0.5
@@ -3029,8 +3041,8 @@
      "who": "phx",
      "do": "look",
      "to": [
-      0.15,
-      0.476
+      0.563,
+      0.5
      ],
      "dur": 0.12,
      "blink": false,
@@ -3101,7 +3113,7 @@
      "do": "look",
      "to": [
       -0.862,
-      0.08
+      0.114
      ],
      "dur": 0.12,
      "blink": false,
@@ -3110,7 +3122,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -12.647,
+     "to": -15.076,
      "dur": 0.3,
      "ease": "inOut",
      "at": 0.94
@@ -3353,6 +3365,13 @@
    "from": 6.65,
    "to": 7.15,
    "reason": "Viking crosses in front of Reaper on his way to the cheer; Reaper's deadpan is set before and holds after"
+  },
+  {
+   "who": "vik",
+   "with": "tent",
+   "from": 6.75,
+   "to": 9.5,
+   "reason": "Viking cheers and then stands at the dome's right shoulder, reaches over it for the scythe (the glove presses the taut cloth up to 5 cm just before it sags), then steps back across its fallen hem; the cloth box of the clipping check covers the ground the hem lies on"
   },
   {
    "who": "phx",

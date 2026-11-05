@@ -20,12 +20,16 @@ Departures, with reasons:
 - One front camera for the whole clip (the panels push in for 3, 6 and 8): the painted environment allows the camera to
   move in but only 0.3 m down and 8 degrees of tilt (qa/env.mjs --range), so the shot sits close in, a little above
   their heads, and the stage stands 2.2 m further from the painting's own eye.
-- Phoenix stands close to the lens in the front left from frame 0 (panels 2-5) and stays there with his phone: from
-  there his head sits below the Wizard's face on screen. In panel 1 he is behind Viking.
+- Phoenix sits in the grass front centre, close to the lens, from frame 0 with his phone (panels 2-5 have him standing
+  front left): standing front left, his crest hid the Wizard's face, and sitting keeps his crest under the back row's
+  faces. He covers the bottom of the tent at times; Viking cheers to the right of the dome so the dome shows in the cheer.
 - Viking hammers the peg with his fist, not a rock: a rock is a new hold, and new holds need your approval first.
 - A cheer instead of the group hug in panel 6: the hug would press four bodies and a phone together (the hug checks).
-- The dome is a two-potato tent (1.15 m) and the balloon a little smaller than drawn (1.6 m across), so it clears
-  the Wizard's hat and Reaper's hood as it puffs up.
+- The dome is a two-potato tent (1.4 m wide, 0.85 m high) and the balloon 1.6 m across, so it clears the Wizard's hat
+  and Reaper's hood as it puffs up. Fable asked for a 1.6 m dome; that would put Viking's grab hand inside the cloth.
+- Viking holds the scythe upright at his side by the shaft at the end (blade up), not held out by the handle (panel 8):
+  carrying it across his chest sent his arm through his body.
+- No impact frames on the hits: on the painted set the silhouette frame turned the whole floor black for a frame.
 - The environment's lake has no jetty and the birches stand further back; the painter kept adding boardwalks across
   the meadow, so the prompt leaves the jetty out.
 - Music: the brief asks for a folk tune; beat.mjs has no folk style, so the "warm" style.
