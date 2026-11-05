@@ -17,9 +17,11 @@ import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
+import { makeAttach } from "./attach.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
+let attach2 = null;   // holds 2 (attach.js): "rig": { "hold": 2 }
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
@@ -420,6 +422,8 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
+  // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
+  attach2 = Number(sb.rig?.hold) >= 2 ? makeAttach({ sb, scene, props, states: () => poseStates, setMeshes: setObjs }) : null;
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
@@ -510,9 +514,13 @@ function pose(t0) {
     }
     return p.kept.off;
   };
+  if (attach2) attach2.begin(t);
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
     p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null; p.holdHand = ps.hold ? ps.hold.hand : null;
+    p.ps = ps;
+    // holds 2: attach.js places a held or let-go prop after its own state is applied (its size, parts and own turn)
+    if (attach2 && (ps.hold || ps.left)) { p.apply(ps, t); if (attach2.place(p, ps)) continue; }
     // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
     if (ps.left) {
       const key = `${ps.left.who}@${ps.left.at}`;
@@ -914,7 +922,9 @@ function layout(t) {
   const propsOut = props.map((p) => {
     const w = new THREE.Vector3(); p.root.getWorldPosition(w);
     const v = w.clone().project(camera), px = v.z < 1 ? [Math.round((v.x + 1) / 2 * W), Math.round((1 - v.y) / 2 * H)] : null;
-    return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible };
+    // holds 2: is it held, riding, in flight, resting on something (within 1 cm), staged with a reason, or unsupported
+    const support = attach2 && p.ps ? attach2.support(p, p.ps) : null;
+    return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible, ...(support && { support }) };
   });
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
