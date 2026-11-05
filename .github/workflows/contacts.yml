@@ -16,6 +16,9 @@ on:
       - "qa/gate.mjs"
       - "qa/framing.mjs"
       - "qa/preflight.mjs"
+      - "qa/flow.py"
+      - "qa/glitches.mjs"
+      - "qa/motioncard.mjs"
       - "storyboards/lib/**"
       - "storyboards/regress/**"
       - ".github/workflows/contacts.yml"
@@ -38,3 +41,17 @@ jobs:
           status=${PIPESTATUS[0]}
           { echo '```'; cat regress.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
+  flow:
+    # the optical-flow glitch finder (qa/flow.py, item 15): synthetic clips (a smooth move, a one-frame pop, a flash, a
+    # frame-0 jump, a pop under a caption) must be judged as named; seconds, no browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Optical flow self-test
+        run: |
+          pip install --quiet opencv-python-headless numpy
+          python3 qa/flow.py --selftest
