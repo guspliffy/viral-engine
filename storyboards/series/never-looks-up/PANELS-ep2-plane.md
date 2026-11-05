@@ -49,3 +49,11 @@ words) and the mask doors. Light: warm dim cabin light, cool blue lightning flas
   0.05 s would pop.
 - **Gibberish gets captions** (Jonny, 4 Nov), placed clear of faces and below the top 20 % kept free for his in-app
   title.
+- **The window (01-02, 08):** a 9:16 frame can't hold the window, the three seats and the Samurai in the aisle at
+  once; the window stays just off the left edge and the lightning flashes the whole picture instead.
+- **The phone (all):** a bright cyan case and a lit screen whose glow washes Phoenix's face (Jonny, 5 Nov: the phone
+  must read). The same phone setting as episode 5.
+- **"huh." (07):** over Phoenix's head, not in the lower third: at the LOOK-UP the lower third is all bodies (Phoenix,
+  the Wizard's hat and robe), and a caption over a character fails the check.
+- **The landing (08):** the Wizard flips back upright facing the row behind and spins round in his seat to glare:
+  flipping the other way swings his hat through Phoenix.
