@@ -1,0 +1,74 @@
+{
+ "id": "winter/loaded-spud",
+ "name": "Loaded baked potato (the $20 potato in the takeaway box)",
+ "franchise": "PotatoBrawl",
+ "rig": "potato",
+ "body": {
+  "color": "#e0a34a",
+  "height": 1,
+  "width": 0.74,
+  "depth": 0.7,
+  "lump": 0.04,
+  "seed": 21,
+  "taper": 0.16,
+  "specks": 18,
+  "speckColor": "#9a6a2e",
+  "speckSize": 1.1,
+  "gloss": 0.35,
+  "drips": 5,
+  "shine": 1,
+  "dripColor": "#f5b622"
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.05,
+  "shoulder": -0.42
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#5a2a12",
+  "cheeks": "#ff7a6a",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.3,
+   "smirk": 0,
+   "eye": 1,
+   "browY": 0,
+   "lidL": 0.3,
+   "lidR": 0.3
+  },
+  "eye": {
+   "corner": 1,
+   "flick": 0,
+   "lash": 1.15,
+   "depth": 0.27,
+   "iris": 0.62,
+   "glints": 1,
+   "oval": 1.32
+  },
+  "browShape": {
+   "arch": 0.01,
+   "thick": 0.8,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
+  },
+  "blush": 0.5
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top"
+ },
+ "hands": {
+  "type": "glove",
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ },
+ "personality": "PROPOSAL ($20 Potato, 4 Nov 2026): a cheerful loaded baked potato, perfectly happy in his cheese hot tub; the cast's 'unbothered cooked potato' cameo (callback to the crispy spud in Real Footage of Hell). One-off, not canon until Jonny says so.",
+ "notes": "From hell/crispy-spud (same crisp eyes and small dark 3-finger gloves), a golden baked skin; the split top, sour cream dollop, cheese and chives are the worn prop loadedtop (props-winter.js). Jonny's brief 4 Nov: cheerful, warm, unharmed-looking, no wounds."
+}
