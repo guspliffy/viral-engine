@@ -165,7 +165,7 @@ export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", wor
 // t is the contact frame; the attacker's own anticipation is windUp(), the landing landDust().
 export function impact(c, t, who, { frames = 2, stop = 3, shake = 0.035, stars = true, squash = 0.26, recoil = -11, look = [0, 0.35], sound = "thud-soft", gain = 0.6, take = true } = {}) {
   const f = 1 / c.fps, at = Math.round(t * c.fps) / c.fps;
-  c.at(at, { fx: "impact", dur: r3((frames - 0.5) * f) });   // an effect shows through its end time: half a frame short draws exactly `frames`
+  if (frames > 0) c.at(at, { fx: "impact", dur: r3((frames - 0.5) * f) });   // frames 0: no impact frame (a black frame reads as a dropout on a phone). An effect shows through its end time: half a frame short draws exactly `frames`
   c.at(at, { fx: "shake", dur: 0.25, amp: shake });
   if (stars) c.at(at + 0.1, { fx: "sparkle", who, dur: 0.9, count: 5, color: "#fff2a8" });
   if (sound) c.sfx(at, sound, { gain });
