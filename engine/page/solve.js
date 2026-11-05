@@ -40,7 +40,7 @@ const onContact = (q) => {
   return REST_ON.has(q) ? 1 : 0;
 };
 const ramp = (u, a, b) => { const x = clamp((u - a) / (b - a)); return x * x * (3 - 2 * x); };
-const inSpan = (u, spans, pre = 0.1, post = 0.2) => { let w = 0; for (const [a, b] of spans) w = Math.max(w, ramp(u, a - pre, a) * (1 - ramp(u, b, b + post))); return w; };
+const inSpan = (u, spans, pre = 0.1, post = 0.2) => { let w = 0; for (const [a, b] of spans) w = Math.max(w, ramp(u, a - pre, a) * (b === Infinity ? 1 : 1 - ramp(u, b, b + post))); return w; };   // b Infinity: held to the end
 
 // the spans that pin a hand or the body, per storyboard and actor: a hand holding a prop (grab .. release), dances (on
 // the music's beat: no lag), climbs, rides
@@ -226,7 +226,8 @@ const toRoot = (b, w) => unrotYXZ([w[0] - b.pos[0], w[1] - b.pos[1], w[2] - b.po
 function signedOut(b, w) {
   const p = toRoot(b, w), v = [p[0] - b.c[0], p[1] - b.c[1], p[2] - b.c[2]];
   const e = Math.hypot(v[0] / b.r[0], v[1] / b.r[1], v[2] / b.r[2]);
-  const d = Math.hypot(...v) * b.sc * (1 - 1 / Math.max(e, 1e-6)) - SOLVE.pad;
+  // (a point near the centre counts as deep, never as infinitely deep)
+  const d = Math.hypot(...v) * b.sc * (1 - 1 / Math.max(e, 0.25)) - SOLVE.pad;
   let n = [v[0] / b.r[0] ** 2, v[1] / b.r[1] ** 2, v[2] / b.r[2] ** 2];
   const nl = Math.hypot(...n) || 1; n = rotYXZ(n.map((x) => x / nl), b.yaw, b.pitch, b.lean);
   return { d, n };
@@ -239,7 +240,8 @@ function pushOut(b, w, rad, clear) {
     if (need <= 1e-4) break;
     for (let j = 0; j < 3; j++) { p[j] += n[j] * need; tot[j] += n[j] * need; }
   }
-  return Math.hypot(...tot) > 1e-4 ? tot : null;
+  const m = Math.hypot(...tot);
+  return m > 1e-4 && Number.isFinite(m) ? tot : null;
 }
 // allowClip windows between two actors (by story time), with a 0.1 s ease at each end
 function allowedAt(sb, a, b, u) {
@@ -283,10 +285,10 @@ function solveStep(sb, actor, def, u, T, arms, body, H, opt) {
         const pw = pushOut(o.b, hw.map((v, j) => v + tot[j]), rad, SOLVE.clear); if (!pw) continue;
         const m = Math.hypot(...pw), w = (1 - allowedAt(sb, actor.id, o.id, u)) * (1 - ramp(m, SOLVE.cap, SOLVE.capTo));
         if (m > SOLVE.cap) warn(sb, u, actor.id, `hand${s}`, o.id, m);
-        for (let j = 0; j < 3; j++) tot[j] += pw[j] * w; any = any || w > 0;
+        if (w > 0) { for (let j = 0; j < 3; j++) tot[j] += pw[j] * w; any = true; }
       }
       const own = pushOut(me, hw.map((v, j) => v + tot[j]), 0, 0);
-      if (own) { const m = Math.hypot(...own), w = 1 - ramp(m, SOLVE.cap, SOLVE.capTo); if (m > SOLVE.cap) warn(sb, u, actor.id, `hand${s}`, actor.id, m); for (let j = 0; j < 3; j++) tot[j] += own[j] * w; any = any || w > 0; }
+      if (own) { const m = Math.hypot(...own), w = 1 - ramp(m, SOLVE.cap, SOLVE.capTo); if (m > SOLVE.cap) warn(sb, u, actor.id, `hand${s}`, actor.id, m); if (w > 0) { for (let j = 0; j < 3; j++) tot[j] += own[j] * w; any = true; } }
       if (any) out[`h${s}`] = back(tot);
     }
     // the arm: the tube from the shoulder through its pull point (the elbow guide, potato.js elbowFor) to the hand is a
@@ -309,7 +311,7 @@ function solveStep(sb, actor, def, u, T, arms, body, H, opt) {
         if (!best) continue;
         const w = (1 - allowedAt(sb, actor.id, o.id, u)) * (1 - ramp(best.m, SOLVE.cap, SOLVE.capTo));
         if (best.m > SOLVE.cap) warn(sb, u, actor.id, `arm${s}`, o.id, best.m);
-        for (let j = 0; j < 3; j++) tot[j] += best.c[j] * w; any = any || w > 0;
+        if (w > 0) { for (let j = 0; j < 3; j++) tot[j] += best.c[j] * w; any = true; }
       }
       if (any) out[`e${s}`] = back(tot);
     }

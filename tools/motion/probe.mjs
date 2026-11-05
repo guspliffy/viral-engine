@@ -28,6 +28,7 @@ for (const c of sb.cast || []) {
     // each hand in the world: its target in the body's frame (plus the layer's nudge), turned by the body's yaw only
     const loc = {}, hand = (s, sx) => { const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t), n = a.nudge || [0, 0, 0]; const l = f.map((v, j) => v + (g[j] - v) * a.p + n[j]); loc[s] = l; return [st.x + sc * (l[0] * cy + l[2] * sy), st.y + sc * l[1], st.z + sc * (-l[0] * sy + l[2] * cy)]; };
     const R = hand("R", -1), L = hand("L", 1);
+    for (const s of ["R", "L"]) for (const k of ["nudge", "elbowNudge"]) if (st.arms[s][k]?.some((v) => !Number.isFinite(v))) { console.error(`${c.id} ${s} ${k} is not a number at ${t.toFixed(3)} s`); process.exit(1); }
     for (const s of ["R", "L"]) { const n = st.arms[s].nudge; if (n) { const m = Math.hypot(...n); if (m > lagMax) { lagMax = m; lagAt = `${c.id} ${s} ${t.toFixed(2)} s`; } } }
     F.push({ t, b: [st.x, st.y, st.z], r: [st.yaw, st.pitch || 0, st.lean || 0], R, L, lR: loc.R, lL: loc.L });
     rows.push([c.id, t.toFixed(3), st.x.toFixed(4), st.z.toFixed(4), st.yaw.toFixed(4), (st.pitch || 0).toFixed(4), (st.lean || 0).toFixed(4), ...R.map((v) => v.toFixed(4)), ...L.map((v) => v.toFixed(4))].join(","));
