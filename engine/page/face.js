@@ -466,7 +466,7 @@ export class Face {
   _deepen(eye, blink) {
     const S = eye.space.scale, z0 = eye.space.userData.z0;
     S.z = z0; eye.crease.scale.z = 1; eye.look.visible = true;
-    if (!(blink > 0)) return;
+    if (!(blink > 0.02)) return;   // a held lid (and the last hundredths of a blink easing out) stays as it was
     // shut (the lids have met): nothing of the iris can show, so it is not drawn at all
     if (Math.min(eye.shut, eye.shutLow ?? eye.shut) >= SHUT) { eye.look.visible = false; return; }
     const P = [], L = eye.look.position;
