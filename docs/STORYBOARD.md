@@ -400,7 +400,9 @@ dark painting (0.85 at most at night); a crisp edge light on the side the key co
 `light.key`), in the colour of the painting's brightest lights; soft contact shading from every body, foot, hand and
 small prop onto the floor, furniture and props near it (on a painted env, onto the painting itself); the contact
 ovals in the painting's shadow hue. Overrides: `"lighting": { "v": 2, "key": [x, y, z], "light": "#hex", "shadow":
-"#hex", "rim": "#hex", "exposure": 0.9, "grade": 1, "rimK": 0.5, "ao": 0.8, "measure": false }`. About 2-4 % more
+"#hex", "rim": "#hex", "exposure": 0.9, "grade": 1, "rimK": 0.5, "ao": 0.8, "shadeK": 0, "measure": false }`. `shadeK` scales how much of the painting's shadow colour the shade
+side takes: 0.4 by default (Jonny 5 Nov picked "halfway": the warm light of light 2 with most of today's shade, so the
+pencil strokes still read), 0 keeps today's shade, 1 the full colour. Pencil strokes always darken by the role's own untinted shade, never the painting's. About 2-4 % more
 render time per frame. Trial: `node storyboards/lookdev/light/make-light-trial.mjs`, A/B sheets with
 `tools/light/ab.py`.
 
