@@ -109,7 +109,11 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
     // faces still read at phone size (0.88 at most at night)
     const exp = spec.exposure ?? r3(Math.min(dark ? 0.88 : 1, Math.max(0.85, 0.8 + 0.4 * mean)));
     const desat = (c, k) => c.map((v) => 1 + (v - 1) * k);
-    const lc = desat(chroma(keyC, 1.5), 0.45), sc = desat(chroma(shadowC, 1.8), 0.5);
+    // the shade as a painter mixes it: green never leads a shadow on the cast (the night garden's teal shade turned the
+    // golden skin olive): green is held to the middle of red and blue, which moves teal toward blue and grass toward grey;
+    // the same holds the key (a night key is the moonlit grass)
+    const noGreen = (c) => { const g = Math.min(c[1], (c[0] + c[2]) / 2 + 0.04); return [Math.max(c[0], g), g, c[2]]; };   // and red never under green: a cool shade is blue-violet, not cyan
+    const lc = desat(chroma(noGreen(chroma(keyC, 1.5)), 1.5), 0.45), sc = desat(chroma(noGreen(chroma(shadowC, 1.8)), 1.8), 0.5);
     const tint = (base, c, k) => base.map((v, i) => r3(v * (1 + (c[i] - 1) * k * g)));
     const scale = (v, k) => v.map((x) => r3(x * k));
     // how much of the painting's colour each role takes (lit, shade): skin less (the potatoes stay golden)
