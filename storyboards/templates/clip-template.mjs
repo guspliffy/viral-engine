@@ -38,8 +38,9 @@ const FACES = "strong";             // stronger faces and longer holds in the ac
 // a contact check)
 const MOTION = { feet: 2 };
 // hand rig 2 (Jonny, 5 Nov, PR #119): a forearm that never collapses, no palm switch inside a move, wrist limits, so
-// hands don't pop; null: the old rig
-const RIG = { hand: 2 };
+// hands don't pop; eyes 2 (Jonny, 5 Nov, PR #116): the iris stays inside the eye white and a look down reads as a look
+// down, not a closing eye; null: the old rig
+const RIG = { hand: 2, eyes: 2 };
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
