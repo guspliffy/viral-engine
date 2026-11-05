@@ -24,6 +24,8 @@ export const GATE = {
   frame0: 0.05,        // metres a hand, arm, foot, body or held prop moves between frame 0 and frame 1 (fails)
   front: 0.15,         // share of the acting subject's silhouette a nearer actor or prop covers, for frontHold s (fails)
   frontHold: 0.3,
+  nearer: 0.3,         // m: a bystander this much nearer the camera than every subject ...
+  bigger: 1.3,         // ... and this many times bigger on screen than the largest, over GATE.front of the action's box
 };
 export const gateOf = (sb) => Number(sb?.gate ?? 1);
 // is the root fix of a glitch class turned on in this storyboard (so its check may fail)?

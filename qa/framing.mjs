@@ -180,6 +180,31 @@ export function frontResults(sb, lay) {
     }
   });
   const need = Math.max(2, Math.round(GATE.frontHold * fps)), lvl = gateLevel(sb);
+  // a bystander in front of the action (Jonny 5 Nov, the tent's first cut: Phoenix on his phone sat front centre, big,
+  // and covered the whole situation without covering anyone's face): a character who isn't a subject, nearer the camera
+  // than every subject by GATE.nearer m, bigger on screen (GATE.bigger times the largest subject's box, both cut to the
+  // frame), covering over GATE.front of the subjects' own screen boxes for GATE.frontHold s. From the layout's samples
+  const S = lay.samples || [], dt = S.length > 1 ? S[1].t - S[0].t : 0.1, over = new Map();
+  for (const smp of S) {
+    const s = storyAt(sb, smp.t), subj = subjects(s), cam = cameraState(sb, s).pos, A0 = (smp.actors || []).filter((a) => a.box && a.eyes && a.box[2] > 0);
+    // boxes cut to the frame: what is on screen (the row of four at the bill's table has its ends half out of frame)
+    const W = lay.width || 1080, H = lay.height || 1920, clip = (b) => { const x = Math.max(0, b[0]), y = Math.max(0, b[1]); return [x, y, Math.max(0, Math.min(W, b[0] + b[2]) - x), Math.max(0, Math.min(H, b[1] + b[3]) - y)]; };
+    const A = A0.map((a) => ({ ...a, box: clip(a.box) })).filter((a) => a.box[2] > 0 && a.box[3] > 0);
+    const sub = A.filter((a) => subj.has(a.id)); if (!sub.length) continue;
+    const d = (a) => Math.hypot(a.eyes[0] - cam[0], a.eyes[1] - cam[1], a.eyes[2] - cam[2]), area = (b) => b[2] * b[3];
+    const near = Math.min(...sub.map(d)), big = Math.max(...sub.map((a) => area(a.box)));
+    for (const b of A) {
+      if (subj.has(b.id) || d(b) > near - GATE.nearer || area(b.box) < GATE.bigger * big || windowFor(sb, "front", b.id, smp.t)) continue;
+      // the share of the subjects' own boxes it covers (not the space between them: a row of four has its middle there)
+      const cut = (a) => Math.max(0, Math.min(a[0] + a[2], b.box[0] + b.box[2]) - Math.max(a[0], b.box[0])) * Math.max(0, Math.min(a[1] + a[3], b.box[1] + b.box[3]) - Math.max(a[1], b.box[1]));
+      const c = sub.reduce((t, a) => t + cut(a.box), 0) / Math.max(1, sub.reduce((t, a) => t + area(a.box), 0));
+      const e = over.get(b.id) || { run: 0, best: 0, from: null, spans: [], max: 0, who: new Set() };
+      if (c > GATE.front) { if (!e.run) e.from = smp.t; e.run += dt; e.max = Math.max(e.max, c); sub.forEach((a) => e.who.add(a.id)); if (e.run >= GATE.frontHold - 1e-6 && (!e.spans.length || e.spans[e.spans.length - 1][0] !== e.from)) e.spans.push([e.from, smp.t]); else if (e.spans.length && e.spans[e.spans.length - 1][0] === e.from) e.spans[e.spans.length - 1][1] = smp.t; }
+      else e.run = 0;
+      over.set(b.id, e);
+    }
+  }
+  for (const [id, e] of over) if (e.spans.length) out.push({ group: "technical", level: lvl, check: "front", msg: `${id} stands in front of the action (${[...e.who].join(", ")} acting), nearer the camera and bigger than them, over ${Math.round(e.max * 100)} % of their space at ${e.spans.map(([p, q]) => `${p.toFixed(1)}-${(q + dt).toFixed(1)}s`).join(", ")}: the subject owns the front of the frame. Move ${id} behind or aside, or swap the depths${lvl === "warn" ? '; fails at "gate": 2' : ""}` });
   for (const { id, by, f } of tracks.values()) {
     const sps = []; let a = -1;
     f.forEach((v, i) => { if (v && a < 0) a = i; if (!v && a >= 0) { sps.push([a, i - 1]); a = -1; } }); if (a >= 0) sps.push([a, f.length - 1]);
