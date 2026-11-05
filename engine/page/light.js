@@ -126,10 +126,16 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
       const r = ROLE[role];
       if (!r) continue;
       R.base[role] = r;
-      const lit = scale(tint(r.lit, lc, kl), exp), shade = scale(tint(r.shade, sc, ks), exp * (dark ? 0.93 : 0.98));
+      // the shade takes 0.4 of its K (shadeK; Jonny 5 Nov picked "halfway" between today's shade with its pencil
+      // strokes and the painting's full shadow colour)
+      const lit = scale(tint(r.lit, lc, kl), exp), shade = scale(tint(r.shade, sc, ks * (spec.shadeK ?? 0.4)), exp * (dark ? 0.93 : 0.98));
       // the edge light on everything but the eyelids and the hood's inside (a lid with its own lit edge bulges)
       const edge = role === "lid" || role === "lining" ? {} : { krim: U.krim, keyDirU: U.backDir, krimK: role === "skin" ? 1 : role === "glove" ? 0.35 : 0.45 };
-      ROLE[role] = { ...r, lit, shade, ...edge };
+      // the pencil strokes keep their own colour (Jonny 5 Nov: "the light in after, the shading in before with the
+      // pencil strokes"): a stroke darkens by the role's untinted shade, so a warm painting's orange shade doesn't
+      // turn the strokes orange on orange and lose them
+      const hatchShade = r.hatch ? r.shade.map(r3) : undefined;
+      ROLE[role] = { ...r, lit, shade, ...edge, ...(hatchShade && { hatchShade }) };
     }
     // props take half the grade (a red picnic blanket in teal moonlight went grey at the full grade)
     const mix = (a, b, k) => a.map((v, i) => r3(v + (b[i] - v) * k));

@@ -33,7 +33,8 @@
    ],
    "height": 6.4
   },
-  "aperture": 0
+  "aperture": 0,
+  "lighting": 2
  },
  "music": {
   "style": "warm",

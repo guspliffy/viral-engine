@@ -216,12 +216,12 @@ function patchToon(m, o) {
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
-    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; }
+    if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -287,7 +287,7 @@ function patchToon(m, o) {
               float d = abs(f - 0.5 - (h2 - 0.5) * 0.25), aa = fwidth(u) * 0.75;
               hs = max(hs, w * on * smoothstep(wid + aa, wid - aa, d));
             }
-            col = mix(col, col * uShade * 0.72, uHatch * hs);
+            col = mix(col, col * uHatchC * 0.72, uHatch * hs);
           }
           #endif
           outgoingLight = col + totalEmissiveRadiance;
