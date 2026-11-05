@@ -5,6 +5,44 @@ const _edgeThumb = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.46, -0.
 // the glove thumb's tip (the centre of its end) in its pivot's frame: the capsule at (0.024, 0.018) turned -0.75
 const THUMB_TIP = new THREE.Vector3(0.024 + 0.017 * Math.sin(0.75), 0.018 + 0.017 * Math.cos(0.75), 0);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
+const rd = (v, n) => Math.round(v * 10 ** n) / 10 ** n;
+// Rig options for the clip being drawn (stage.js calls setRig(sb) when it loads a storyboard). "rig": { "hand": 2 }
+// turns on the hand that can't flip (quality plan item 2, 5 Nov 2026); without it every clip draws as before.
+let HAND = null;
+export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; };
+// Hand rig 2: the hand's turn is built from a base frame plus turns away from it that a wrist can do.
+// The base frame: the hand's frame when the forearm points out and forward (HAND_Y0: the direction square to today's
+// look-at reference, so a hanging hand and every forearm square to that reference keep today's turn exactly), swung
+// onto the forearm the shortest way. A look-at spins near two forearm directions (across the chest and out to the back);
+// the swing has one, straight back and in behind the body (HAND_Y0 negated), where a forearm doesn't point.
+const HAND_Y0 = { R: new THREE.Vector3(-0.35, 0, 1).normalize(), L: new THREE.Vector3(0.35, 0, 1).normalize() };
+// the wrist's reach from the base frame: bend (the fingers' direction off the forearm) and twist (about the forearm),
+// radians. A turn asks for up to KNEE of the limit exactly; beyond it, it eases into the limit (no kink in the motion).
+// FADE: a target within this of half a bend or half a twist away fades out, so a target crossing half a turn (where
+// the shortest way round changes sides) can't flip the hand: it turns back to its base frame instead
+const WRIST = { bend: (75 * Math.PI) / 180, twist: (100 * Math.PI) / 180, knee: 0.7, fade: (45 * Math.PI) / 180 };
+const sstep = (v) => { const w = Math.min(1, Math.max(0, v)); return w * w * (3 - 2 * w); };
+const _bq = new THREE.Quaternion(), _bv = new THREE.Vector3(), _bY = new THREE.Vector3(0, 1, 0);
+const sat = (m, L) => { const k = WRIST.knee * L; return m <= k ? m : k + (L - k) * Math.tanh((m - k) / (L - k)); };
+// a turn r (relative to the base frame) as [bend x, bend z, twist, how much of it to use]: the bend a rotation vector
+// square to the forearm, after the twist about it; both clamped to the wrist, the use fading near half a turn
+function wristTurn(r) {
+  if (r.w < 0) r.set(-r.x, -r.y, -r.z, -r.w);
+  const y2 = _bv.copy(_bY).applyQuaternion(r), ang = Math.acos(Math.min(1, Math.max(-1, y2.y)));
+  const ax = y2.z, az = -y2.x, al = Math.hypot(ax, az);   // Y x y2: the bend's axis
+  if (al > 1e-9) _bq.setFromAxisAngle(_bv.set(ax / al, 0, az / al), ang); else _bq.identity();
+  const t = _bq.invert().multiply(r);
+  let tw = 2 * Math.atan2(t.y, t.w); if (tw > Math.PI) tw -= 2 * Math.PI; if (tw < -Math.PI) tw += 2 * Math.PI;
+  const use = sstep((Math.PI - ang) / WRIST.fade) * sstep((Math.PI - Math.abs(tw)) / WRIST.fade);
+  const b = al > 1e-9 ? sat(ang, WRIST.bend) / al : 0;
+  return [ax * b, az * b, Math.sign(tw) * sat(Math.abs(tw), WRIST.twist), use, ang, tw];
+}
+// [bend x, bend z, twist] back to a rotation: the twist about the forearm, then the bend
+function wristQuat(p, out) {
+  const tw = new THREE.Quaternion().setFromAxisAngle(_bY, p[2]), a = Math.hypot(p[0], p[1]);
+  if (a > 1e-9) out.setFromAxisAngle(_bv.set(p[0] / a, 0, p[1] / a), a); else out.identity();
+  return out.multiply(tw);
+}
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
@@ -259,15 +297,18 @@ export class Character {
   // axis: the held handle's direction (a staff, a scythe). A closed hand then turns its fist around it: the handle runs
   // through the curled fingers from the little finger to the thumb, thumb on top, knuckles out, fingers pointing forward.
   // sh, mv: the shoulder, and how far the arm is into a move (0 at either end, 1 half way)
-  _pose(hand, elbow, at, sx, gr, axis = null, palm = null, sh = null, mv = 0, frame = null) {
+  _pose(hand, elbow, at, sx, gr, axis = null, palm = null, sh = null, mv = 0, frame = null, palms = null) {
+    if (HAND === 2) return this._pose2(hand, elbow, at, sx, gr, axis, palms, sh, frame);
     const U = hand.userData, y = at.clone().sub(elbow);
     // the hand aims along elbow -> hand. When a moving hand sweeps past the elbow point (an arm swinging out from the
     // side to reach), that line shrinks to nothing and turns round in a frame or two, which spun the hand; below 14 cm
     // the shoulder -> hand line takes over smoothly, as the arm's own curve does near its end. Only during a move, so a
     // pose at rest keeps its own hand; for now only on a reach to or from a held object (palm), the one place it is tested
     if (sh && mv > 0 && palm) { const k = Math.min(1, Math.max(0, (0.14 - y.length()) / 0.1)) * mv; if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k * k * (3 - 2 * k)); }
+    const dbg = (U.dbg = { yl: rd(y.length(), 3) });
     if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
     const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
+    dbg.cond = rd(z.clone().addScaledVector(y, -z.dot(y)).length(), 3); dbg.y = y.toArray().map((v) => rd(v, 2));
     z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
     hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y, z), y, z));
     // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops. The
@@ -276,6 +317,7 @@ export class Character {
     // a fingertip pinch (grip pinch, glove hands) turns the hand onto the axis too, without closing the fist on it
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
     const w = axis ? Math.max(fistWeight(gr.curl), pw) : 0;
+    if (w > 0) dbg.w = rd(w, 2);
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
       // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
@@ -320,12 +362,14 @@ export class Character {
           const k = Math.min(1, Math.abs(hand.quaternion.dot(_fist)) / 0.35), f = k * k * (3 - 2 * k);
           const g = Math.min(1, Math.max(0, (palm.w - 0.85) / 0.15)), on = g * g * (3 - 2 * g);
           hand.quaternion.slerp(_fist, palm.w * f + (1 - f) * on);
+          dbg.pal = rd(palm.w * f + (1 - f) * on, 2);
         }
       }
     }
     // a hand locked to what it holds (arm pose frame, timeline.js): its rotation is the hold's, whatever the forearm does
-    if (frame && frame.w > 0) hand.quaternion.slerp(frame.q, frame.w);
+    if (frame && frame.w > 0) { hand.quaternion.slerp(frame.q, frame.w); dbg.fr = rd(frame.w, 2); }
     const up = Math.min(1, Math.max(0, gr.up || 0));
+    if (up > 0) dbg.up = rd(up, 2);
     if (up > 0) {
       const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zu), f, zu));
@@ -334,12 +378,18 @@ export class Character {
     // a paw resting on a surface (grip down > 0): the palm turns to face the floor and the fingers point ahead (grip
     // ahead: 0 along the forearm .. 1 straight forward), so the curled fingers show their knuckles to the camera
     const dn = Math.min(1, Math.max(0, gr.down || 0));
+    if (dn > 0) dbg.dn = rd(dn, 2);
     if (dn > 0) {
       const zd = new THREE.Vector3(0, -1, 0), f = y.clone(); f.y = 0; if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
       f.lerp(new THREE.Vector3(0, 0, 1), gr.ahead ?? 0.7); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zd), f, zd));
       hand.quaternion.slerp(_fist, dn);
     }
+    this._digits(hand, sx, gr, axis, pw);
+  }
+  // the fingers and thumb curled to the grip, and the hand's mirror and size (both hand rigs)
+  _digits(hand, sx, gr, axis, pw) {
+    const U = hand.userData;
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
     if (U.glove) {   // the knuckle takes half the bend, the middle joint the rest (the last finger is the index)
@@ -385,6 +435,104 @@ export class Character {
         else U.thumb.position.lerp(tc.sub(TT.clone().applyQuaternion(qa)), tk);
       }
     }
+  }
+  // Hand rig 2 ("rig": { "hand": 2 }): the same turns as _pose (fist on a handle, palm on a hold, locked frame, cupped,
+  // paw), each taken as a turn away from the base frame (HAND_Y0), clamped to the wrist (WRIST) and blended as bend and
+  // twist, so no blend can take the long way round and nothing switches inside a move. palms: _palms' ends of the move
+  _pose2(hand, elbow, at, sx, gr, axis, palms, sh, frame) {
+    const U = hand.userData, y = at.clone().sub(elbow), yl = y.length();
+    // the forearm never collapses: when the arm curve's pull point comes within 14 cm of the hand, the elbow -> hand line
+    // turns round in a frame or two; the shoulder -> hand line takes over, smoothly, on every frame
+    if (sh) { const k = sstep((0.14 - yl) / 0.1); if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k); }
+    const dbg = (U.dbg = { yl: rd(yl, 3) });
+    if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
+    const y0 = HAND_Y0[sx < 0 ? "R" : "L"], z0 = new THREE.Vector3(-sx, 0, 0.35).normalize();
+    const B = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y0, z0), y0, z0));
+    B.premultiply(new THREE.Quaternion().setFromUnitVectors(y0, y));
+    dbg.cond = rd(1 + y.dot(y0), 3); dbg.y = y.toArray().map((v) => rd(v, 2));
+    const Bi = B.clone().invert(), T = new THREE.Quaternion(), p = [0, 0, 0];
+    let lim = 0;
+    const toward = (r, u) => { for (let i = 0; i < 3; i++) p[i] += u * (r[i] - p[i]); };
+    const turn = (q, w, key) => {
+      if (!(w > 0)) return;
+      const r = wristTurn(T.copy(Bi).multiply(q)), u = w * r[3];
+      lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
+      dbg[key] = rd(u, 2); toward(r, u);
+    };
+    // the fist turns onto the handle as the hand closes (as in _pose)
+    const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
+    const w = axis ? Math.max(fistWeight(gr.curl), pw) : 0;
+    if (w > 0) {
+      const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);
+      const o = new THREE.Vector3(at.x, 0, 0).normalize().add(new THREE.Vector3(0, 0, 1));
+      if (at.x === 0) o.set(-sx, 0, 1);
+      const f = y.clone().addScaledVector(x, -y.dot(x)).addScaledVector(o.addScaledVector(x, -o.dot(x)), 1.4 * (1 - pw));
+      if (f.lengthSq() < 1e-6) f.set(-sx, 0, 0); f.normalize();
+      if (gr.roll) f.applyAxisAngle(x, (gr.roll * Math.PI) / 180);
+      if (gr.lean) { const l = (gr.lean * Math.PI) / 180, x0 = x.clone(); x.multiplyScalar(Math.cos(l)).addScaledVector(f, Math.sin(l)); f.multiplyScalar(Math.cos(l)).addScaledVector(x0, -Math.sin(l)); }
+      U.fistPar = Math.abs(y.dot(x));
+      if (gr.fwd) { f.lerp(new THREE.Vector3(0, 0, 1), gr.fwd).addScaledVector(x, -f.dot(x)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize(); }
+      _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, f, new THREE.Vector3().crossVectors(x, f)));
+      turn(_fist, w, "w");
+    }
+    // the palm on a hold: one point for the whole move (the ends' points blended by their weight), each end's wrap side
+    // kept to its own end and the two ends' turns blended, never switched half way
+    if (palms) {
+      const P = new THREE.Vector3(); let W = 0;
+      for (const e of palms) { P.addScaledVector(e.at, e.w); W += e.w; }
+      P.multiplyScalar(1 / W);
+      const acc = [0, 0, 0]; let wu = 0;
+      for (const e of palms) {
+        const zp = P.clone().sub(at), fy = y.clone();
+        if (e.wrap) zp.y = 0;
+        if (zp.lengthSq() < 1e-6) continue;
+        zp.normalize();
+        if (e.wrap) { fy.crossVectors(_bY, zp); if ((e.side ?? fy.x * at.x + fy.z * at.z) < 0) fy.negate(); }
+        fy.addScaledVector(zp, -fy.dot(zp)); const fl = fy.length();
+        if (fl < 1e-6) continue;
+        fy.multiplyScalar(1 / fl);
+        _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(fy, zp), fy, zp));
+        // a forearm pointing straight at the hold leaves the palm's roll open: the turn fades there instead of spinning
+        const r = wristTurn(T.copy(Bi).multiply(_fist)), u = e.w * r[3] * sstep(fl / 0.3);
+        lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
+        for (let i = 0; i < 3; i++) acc[i] += u * r[i];
+        wu += u;
+      }
+      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); }
+    }
+    if (frame && frame.w > 0) turn(frame.q, frame.w, "fr");
+    const up = Math.min(1, Math.max(0, gr.up || 0));
+    if (up > 0) {
+      const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
+      _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zu), f, zu));
+      turn(_fist, up, "up");
+    }
+    const dn = Math.min(1, Math.max(0, gr.down || 0));
+    if (dn > 0) {
+      const zd = new THREE.Vector3(0, -1, 0), f = y.clone(); f.y = 0; if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
+      f.lerp(new THREE.Vector3(0, 0, 1), gr.ahead ?? 0.7); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
+      _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zd), f, zd));
+      turn(_fist, dn, "dn");
+    }
+    if (lim > WRIST.knee) dbg.lim = rd(lim, 2);
+    hand.quaternion.copy(B).multiply(wristQuat(p, T));
+    this._digits(hand, sx, gr, axis, pw);
+  }
+  // the palm holds of an arm's move for _pose2: each end's point (nested blends opened up), weight, wrap and wrap side
+  // (the side test of _palm, at that end's hand)
+  _palms(a, S, from, to) {
+    const ends = [];
+    const add = (q, w, eh) => {
+      if (!q || !(w > 0)) return;
+      if (q.mix) { add(q.mix.from, w * (1 - q.mix.p), eh); add(q.mix.pose, w * q.mix.p, eh); return; }
+      if (!q.palm) return;
+      const e = new THREE.Vector3(q.palm[0], LEG_H + this.H * q.palm[1], q.palm[2]);
+      const side = eh ? Math.sign((e.z - eh[2]) * eh[0] - (e.x - eh[0]) * eh[2]) || 1 : null;
+      e.y = LEG_H + (e.y - LEG_H) * S.y;
+      ends.push({ at: e, w, wrap: !!q.wrap, side });
+    };
+    add(a.from, 1 - a.p, from); add(a.pose, a.p, to);
+    return ends.length ? ends : null;
   }
   // the rotation of a hand locked to a hold (arm poses with frame, resolved by timeline.js), blended with the arm's move:
   // from one hold to another the hand turns the short way between the two; onto or off a hold, it turns onto it as it
@@ -698,7 +846,7 @@ export class Character {
         return mid;
       };
       let mid = elbowFor(h);
-      const hand = this.arms[s].hand, U = hand.userData, pose = (h, mid) => { hand.position.copy(h); if (U.fingers) this._pose(hand, mid, h, sx, gr, ax, this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr); };
+      const hand = this.arms[s].hand, U = hand.userData, pose = (h, mid) => { hand.position.copy(h); if (U.fingers) this._pose(hand, mid, h, sx, gr, ax, HAND === 2 ? null : this._palm(a, h, S, from, to), sh, Math.min(1, Math.max(0, 4 * a.p * (1 - a.p))), fr, HAND === 2 ? this._palms(a, S, from, to) : null); };
       pose(h, mid);
       // an arm pose aimed with point "pinch" (a straw, a pencil): the fingertip pinch lands on the target, not the hand's
       // centre, so the prop runs between the pads. The hand is posed for the target first; then hand and elbow shift
@@ -738,6 +886,16 @@ export class Character {
         foot.lerp(planted, 1 - pl.w);
         this.legs[s].foot.quaternion.identity().slerp(this._footQ, 1 - pl.w);
       } else this.legs[s].foot.quaternion.identity();
+      // a foot target (st.feet, the gait's hook: { R: { at: [x, y, z], w, yaw } }): where the foot stands, in the same space
+      // as st.x, st.y, st.z (the stage, or the rig the actor rides): the floor under the foot's centre, plus any lift.
+      // w blends it in (0 off, 1 the foot is exactly there); yaw (radians, optional) turns the foot to face that way
+      const ft = st.feet?.[s], fw = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0;
+      if (fw > 0) {
+        R.updateMatrix();
+        const inv = (this._rootInv ||= new THREE.Matrix4()).copy(R.matrix).invert();
+        foot.lerp(new THREE.Vector3(ft.at[0], ft.at[1], ft.at[2]).applyMatrix4(inv).add(new THREE.Vector3(0, 0.035, 0)), fw);
+        if (ft.yaw != null) this.legs[s].foot.quaternion.slerp(R.quaternion.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), ft.yaw)), fw);
+      }
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
@@ -836,7 +994,7 @@ export class Character {
         }
       }
     }
-    for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
+    for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); out[`dbg${s}`] = this.arms[s].hand.userData.dbg || null; }
     // how far each hand reaches across the body's middle to the other side, in metres (0 or less: on its own side). Far
     // across, the shoulder hides behind the body and the arm reads as coming out of the chest (Zombie Too hug, 4 Nov)
     out.cross = { R: this.arms.R.hand.position.x, L: -this.arms.L.hand.position.x };
