@@ -24,6 +24,8 @@ export const GATE = {
   frame0: 0.05,        // metres a hand, arm, foot, body or held prop moves between frame 0 and frame 1 (fails)
   front: 0.15,         // share of the acting subject's silhouette a nearer actor or prop covers, for frontHold s (fails)
   frontHold: 0.3,
+  frontFail: 0.4,      // ... and over this share of its outline for frontHold s it fails (15-40 % is a note: the tent's
+                       // approved Phoenix behind Reaper's hood, 32 %; the plan's 15 % flagged staging Jonny approved)
   nearer: 1.5,         // m: a bystander this much nearer the camera than every subject ...
   bigger: 2,                       // ... and this many times bigger on screen than the largest, over GATE.front of their boxes
   lead: 0.75,                      // a cast member on this share of the must-see entries leads the clip: never a bystander
@@ -57,7 +59,10 @@ export function waives(w, check) {
 // A window is read on the story clock from "gate": 2 (a hit-stop before it no longer shifts it); older storyboards keep
 // the video clock their windows were written against (the tent's leaf window, 8.4-8.7 s, sits after two hit-stops)
 export function windowFor(sb, check, who, t, withId = null) {
-  const s = gateOf(sb) >= 2 ? storyAt(sb, t) : t;
+  return windowAtStory(sb, check, who, gateOf(sb) >= 2 ? storyAt(sb, t) : t, withId);
+}
+// the same for a time already on the story clock (qa/motion.mjs works on story time)
+export function windowAtStory(sb, check, who, s, withId = null) {
   return (sb?.allowClip || []).find((w) => waives(w, check) && (w.who === who || (withId != null && w.who === withId)) && (!w.with || w.with === withId || w.with === who) && s >= w.from - 1e-6 && s <= w.to + 1e-6);
 }
 

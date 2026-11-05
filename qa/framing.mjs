@@ -211,9 +211,12 @@ export function frontResults(sb, lay) {
   for (const { id, by, f } of tracks.values()) {
     const sps = []; let a = -1;
     f.forEach((v, i) => { if (v && a < 0) a = i; if (!v && a >= 0) { sps.push([a, i - 1]); a = -1; } }); if (a >= 0) sps.push([a, f.length - 1]);
+    // over GATE.frontFail of the outline for the hold it fails; a smaller cover (the side of a body, a seated friend's
+    // phone behind a neighbour's hood: the tent's approved Phoenix at 32 %) is a note
     const long = sps.filter(([p, q]) => q - p + 1 >= need); if (!long.length) continue;
-    const max = Math.round(Math.max(...f) * 100), when = long.map(([p, q]) => `${(rows[p].t ?? p / fps).toFixed(2)}-${(rows[q].t ?? q / fps).toFixed(2)}s`).join(", ");
-    out.push({ group: "technical", level: lvl, check: "front", msg: `${by} stands in front of ${id} while ${id} is the subject (acting, or on the beat's must-see list) at ${when}, covering up to ${max} % of ${id}: the subject owns the front of the frame. Swap their depths, move the camera to the other side, or move ${by} behind or aside${lvl === "warn" ? '; fails at "gate": 2' : ""}` });
+    const big = long.filter(([p, q]) => { let r = 0; for (let i = p; i <= q; i++) { r = f[i] > GATE.frontFail ? r + 1 : 0; if (r >= need) return true; } return false; });
+    const max = Math.round(Math.max(...f) * 100), when = (big.length ? big : long).map(([p, q]) => `${(rows[p].t ?? p / fps).toFixed(2)}-${(rows[q].t ?? q / fps).toFixed(2)}s`).join(", ");
+    out.push({ group: "technical", level: big.length ? lvl : "note", check: "front", msg: `${by} stands in front of ${id} while ${id} is the subject (acting, or on the beat's must-see list) at ${when}, covering up to ${max} % of ${id}: the subject owns the front of the frame. Swap their depths, move the camera to the other side, or move ${by} behind or aside${lvl === "warn" ? '; fails at "gate": 2' : ""}` });
   }
   if (!out.length) out.push({ group: "technical", level: "pass", check: "front", msg: "no bystander covers whoever the beat is about" });
   return out;

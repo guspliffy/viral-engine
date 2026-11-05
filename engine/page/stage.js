@@ -1564,7 +1564,7 @@ function hiddenFaces(live, shownIn) {
       for (const [dx, dy] of [[0, 0], ...Array.from({ length: 8 }, (_, k) => [Math.cos(k * Math.PI / 4), Math.sin(k * Math.PI / 4)])]) {
         const p = c.clone().addScaledVector(right, dx * r).addScaledVector(up, dy * r), dir = p.clone().sub(camera.position), d = dir.length();
         ray.set(camera.position, dir.normalize()); ray.far = d - 0.02; n++;
-        const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object));
+        const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object) && opaqueAt(h));
         if (hit) { const c = owner.get(hit.object), M = c.scenery ? sby : by; if (c.scenery) scen++; else hidden++; M.set(c.who, (M.get(c.who) || 0) + 1); }
       }
     }
@@ -1592,6 +1592,27 @@ function hiddenFaces(live, shownIn) {
 // wall, a tree, a counter). Cut-outs (alpha-tested painted layers, leaves) are left out, as a ray can't see their holes;
 // so are the floor, rugs and anything lower than 15 cm. Cached per set object (the set doesn't change shape)
 const OCC = new WeakMap();
+// is a ray hit on something the eye can't see through? A painted card (the env layers: a quad whose texture's alpha
+// cuts the rock or the tree out) hides only where its paint is: the alpha is read from the texture at the hit (a copy of
+// the image at up to 256 px, kept per image)
+const ALPHA = new WeakMap();
+function opaqueAt(h) {
+  const m = Array.isArray(h.object.material) ? h.object.material[0] : h.object.material, tex = m?.alphaMap || m?.map;
+  if (!m || !(m.transparent || m.alphaTest > 0) || !tex?.image || !h.uv) return true;
+  let a = ALPHA.get(tex.image);
+  if (a === undefined) {
+    try {
+      const im = tex.image, iw = im.width || im.videoWidth, ih = im.height || im.videoHeight, k = Math.min(1, 256 / Math.max(iw, ih)), w = Math.max(1, Math.round(iw * k)), hh = Math.max(1, Math.round(ih * k));
+      const cv = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, hh) : Object.assign(document.createElement("canvas"), { width: w, height: hh });
+      const cx = cv.getContext("2d", { willReadFrequently: true }); cx.drawImage(im, 0, 0, w, hh);
+      a = { w, h: hh, d: cx.getImageData(0, 0, w, hh).data, ch: m.alphaMap ? 1 : 3 };   // an alpha map keeps it in green
+    } catch { a = null; }
+    ALPHA.set(tex.image, a);
+  }
+  if (!a) return true;
+  const uv = tex.transformUv(h.uv.clone()), x = Math.min(a.w - 1, Math.max(0, Math.floor(uv.x * a.w))), y = Math.min(a.h - 1, Math.max(0, Math.floor(uv.y * a.h)));
+  return a.d[(y * a.w + x) * 4 + a.ch] / 255 >= Math.max(0.5, m.alphaTest || 0);
+}
 function setOccluders() {
   const out = [], bb = new THREE.Box3();
   for (const top of setObjs) {
@@ -1641,7 +1662,7 @@ function fronts() {
       n++; if (k < 7) nc++;
       const dir = p.clone().sub(camera.position), d = dir.length();
       ray.set(camera.position, dir.normalize()); ray.far = d - 0.03;
-      const hit = ray.intersectObjects(cands, false).find((h) => { const w = mine.get(h.object); return w !== a.c.id && !String(w).endsWith(`@${a.c.id}`); });
+      const hit = ray.intersectObjects(cands, false).find((h) => { const w = mine.get(h.object); return w !== a.c.id && !String(w).endsWith(`@${a.c.id}`) && opaqueAt(h); });
       if (!hit) continue;
       hid++;
       // a character, or a prop someone holds (counted as its holder): a bystander. Furniture, scenery and the set in

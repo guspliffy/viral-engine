@@ -110,9 +110,11 @@ export async function motionJumps(sb, fps = 30) {
 // a still moment is a "lean-jump", and a pose jump between frame 0 and frame 1 a "frame0-jump" (fail at "gate": 2,
 // quality plan item 3; an allowClip window naming the check waives it)
 export async function motionResults(sb, fps = 30) {
-  const { GATE, gateLevel, windowFor } = await import("./gate.mjs");
+  const { GATE, gateLevel, windowAtStory: windowFor } = await import("./gate.mjs");
+  const { cutBetween } = await import("../engine/page/timeline.js");
   const j = (await motionJumps(sb, fps)).filter((x) => !x.note), out = [];
-  const lean = j.filter((x) => ["lean", "pitch"].includes(x.what) && x.still && !x.frame0 && !windowFor(sb, "lean-jump", x.who, x.t));
+  // the first frames after a cut hide a small tip (the eye is still finding the new shot)
+  const lean = j.filter((x) => ["lean", "pitch"].includes(x.what) && x.still && !x.frame0 && !cutBetween(sb, x.t - 3 / fps, x.t) && !windowFor(sb, "lean-jump", x.who, x.t));
   // the hands, the body's place and the feet between frames 0 and 1 are measured on the drawn rig (qa/rig.mjs)
   const f0 = j.filter((x) => x.frame0 && !["x", "y", "z", "handR", "handL"].includes(x.what) && !windowFor(sb, "frame0-jump", x.who, x.t));
   const rest = j.filter((x) => !lean.includes(x) && !x.frame0);
