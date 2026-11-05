@@ -83,7 +83,7 @@ const props = [
   { id: "bin", kind: "recyclebin", x: BIN.x, z: BIN.z + DZ, rot: -15 },
   { id: "lamp", kind: "streetlamp", x: LAMP.x, z: LAMP.z + DZ, h: 3.0, flicker: true },
   { id: "fog", kind: "fogveil", x: 0, y: 0, z: 0, box: [[-2.5, 0, -8 + DZ], [2.5, 0.7, DZ]], n: 26, size: 1.6, color: "#a99bc4", on: 0.8, drift: [0.06, 0.02] },
-  { id: "phone", kind: "phone", x: PHX[0], y: 0.9, z: PHX[1] + 0.45 + DZ, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36" },
+  { id: "phone", kind: "phone", x: PHX[0], y: 0.9, z: PHX[1] + 0.45 + DZ, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 2.2, halo: 0.26, haloK: 0.5 },   // a bright screen that lights his face (Jonny 5 Nov)
 ];
 
 // ---------------------------------------------------------------- Phoenix: on the bench, bowed over the phone, from frame 0
@@ -95,7 +95,7 @@ A(0, "phx", "face", { lid: 0.6, dur: 0 });
 A(0, "phx", "pitch", { to: 6, dur: 0 });                         // the bowed head that makes him one of them
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
-prop(0, "phone", { glow: 0.85 }, 0.01);
+prop(0, "phone", { glow: 1 }, 0.01);
 
 // ---------------------------------------------------------------- the horde: tired zombies, arms forward, a slow shuffle
 for (const z of Z) {
