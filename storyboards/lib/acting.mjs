@@ -153,10 +153,13 @@ const FACE_MIN = 0.25;
 
 // the opener: a lead says a short line in the first half second, so the clip opens on a voice with the music. Gibberish
 // by default (no subtitle: there are no words to read); words: true speaks it for real (the character's voice) and
-// subtitles it at `pos`. A clip opts out by not calling it (the template's OPENER = false).
-export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", words = false, pos = 1180 } = {}) {
+// subtitles it at `pos`. A clip opts out by not calling it (the template's OPENER = false). In a clip built with
+// clip({ lines }) (the template) the opener is a c.say line like any other: gibberish gets its subtitle too (Jonny,
+// 4 Nov 2026: every gibberish line is captioned) and no blink lands on it.
+export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", words = false, pos } = {}) {
+  if (c.lines) return c.say(at, who, line, dur, tone, { ...(pos != null && { pos }), ...(!words && { voice: false }) });
   c.A(at, who, "talk", { line, tone, dur, ...(!words && { voice: false }) });
-  if (words) c.cap(at, at + Math.max(1.0, dur + 0.6), line, pos);
+  if (words) c.cap(at, at + Math.max(1.0, dur + 0.6), line, pos ?? 1180);
 }
 
 // comic force on a hit (the lab's d-comic-force): the victim's eyes go wide as it lands (eased in from just before),

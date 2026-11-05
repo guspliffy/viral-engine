@@ -10,6 +10,8 @@
 //   node engine/render.mjs <storyboard> --draft                         -> fast preview: half-res 3D, no anti-aliasing
 //   node engine/render.mjs <storyboard> --style anime                   -> render in another style (default: the storyboard's)
 //   node engine/render.mjs <storyboard> --audio-only                    -> redo only the sound on an existing render
+//   node engine/render.mjs <storyboard> --guard                         -> the spike guard on (engine/sfx/guard.mjs)
+//   node engine/render.mjs <storyboard> --encode hq                     -> sharper encode: lossless frames, x264 slow CRF 15 (ENCODES)
 //   node engine/render.mjs <storyboard> --silent                        -> no sound (a silent track)
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
 //   node engine/render.mjs <storyboard> --no-blur                       -> no motion blur (--blur turns it on in a draft)
@@ -41,10 +43,11 @@ import path from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
-import { renderAudio, writeWav } from "./audio.mjs";
+import { writeWav } from "./audio.mjs";
+import { mixClip } from "./sfx/guard.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
-import { lockMusic, addMusic } from "./music.mjs";
+import { lockMusic } from "./music.mjs";
 import { gateResults } from "../qa/check.mjs";
 import { GATE } from "../qa/gate.mjs";
 import { visibility } from "../qa/framing.mjs";
@@ -73,6 +76,12 @@ const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical 
 const BLUR = { shutter: 0.5, gap: 10, min: 144, max: 7 };
 // The picture is stored as BT.709 (the HD standard phones and the apps assume) and tagged so: left alone, ffmpeg
 // stores a browser frame as BT.601, which a player reading it as HD shows more saturated (orange 242,107,29 -> 254,114,21).
+// The encoder settings. "std" (the default): JPEG frames (q 0.95, stage.js capture) into x264 veryfast CRF 18. "hq"
+// (quality plan item 14, opt-in until Jonny approves: --encode hq or "encode": "hq" in the storyboard): lossless PNG
+// frames into x264 slow CRF 15 with the animation tuning (stronger deblocking off, more reference frames: flat colour
+// and fine hatching keep their edges), so the platform's own re-encode starts from a cleaner picture. The frame cache
+// keys PNG and JPEG frames apart, and the shards carry the setting in their fingerprint (renderFingerprint).
+const ENCODES = { std: ["-preset", "veryfast", "-crf", "18"], hq: ["-preset", "slow", "-crf", "15", "-tune", "animation"] };
 const COLOR = ["-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"];
 
 function args() {
@@ -87,6 +96,8 @@ function args() {
     else if (a[i] === "--draft") o.draft = true;
     else if (a[i] === "--silent") o.silent = true;
     else if (a[i] === "--audio-only") o.audioOnly = true;
+    else if (a[i] === "--guard") o.guard = true;                    // the spike guard for this render (engine/sfx/guard.mjs; "sound": { "guard": true } in a storyboard)
+    else if (a[i] === "--encode") o.encode = a[++i];               // "hq": lossless frames, x264 slow CRF 15 tune animation (ENCODES)
     else if (a[i] === "--style") o.style = a[++i];
     else if (a[i] === "--look") o.look = a[++i];
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
@@ -176,10 +187,12 @@ function ffmpeg(argv) {
 // two-pass loudness normalisation: measure, then one fixed gain for the whole clip (no pumping) and a limiter for
 // the rare peak the gain pushes too high. (loudnorm's own second pass falls back to its dynamic mode when the
 // loudness range is wide, as with sparse sound effects and no music, and then lands up to 2 LU off target.)
+const MUX_RANGE = { lufs: [-15.5, -12.5], tp: -1.0 };
 async function mux(video, wav, outFile, from, len) {
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
+  if (!Number.isFinite(Number(j.input_i))) throw new Error(`mux: the mix in ${wav} has no measurable loudness (${j.input_i} LUFS): is it silent? (--silent makes a clip without sound)`);
   let gain = LOUDNESS.I - Number(j.input_i);
   // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
   // otherwise comes out of the AAC encoder above the true-peak limit). It starts 0.6 dB below the target, since AAC
@@ -200,6 +213,10 @@ async function mux(video, wav, outFile, from, len) {
     if (lufs < LOUDNESS.I - 0.5 && gain < gain0 + 6) { gain = Math.min(gain0 + 6, gain + LOUDNESS.I - lufs); continue; }
     break;
   }
+  // the loop can run out of rounds: a file it couldn't measure, or one still out of the delivery range (qa/check.mjs
+  // RULES: -15.5 to -12.5 LUFS, true peak at most -1 dBTP), stops here instead of shipping (quality plan item 19)
+  if (!Number.isFinite(tp) || !Number.isFinite(lufs)) throw new Error(`mux: couldn't measure the encoded sound of ${outFile} (true peak ${tp}, loudness ${lufs})`);
+  if (lufs < MUX_RANGE.lufs[0] || lufs > MUX_RANGE.lufs[1] || tp > MUX_RANGE.tp) throw new Error(`mux: ${outFile} is ${lufs.toFixed(1)} LUFS, true peak ${tp.toFixed(1)} dBTP after 6 rounds (needs ${MUX_RANGE.lufs.join(" to ")} LUFS, at most ${MUX_RANGE.tp} dBTP): a very sparse or very peaky mix; try "sound": { "guard": true }`);
   return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp), truePeak: tp, lufs };
 }
 
@@ -235,6 +252,9 @@ async function main() {
   // the music's tempo and grid, locked to the story (engine/music.mjs) and pinned, so dance moves on the page follow
   // the same beat as the music
   sb.music = lockMusic(sb);
+  o.encode = o.encode || sb.encode || null;
+  if (o.encode && !ENCODES[o.encode]) throw new Error(`--encode ${o.encode}: use ${Object.keys(ENCODES).join(" or ")}`);
+  if (o.encode === "hq") o.png = true;   // lossless frames into the encoder
   const fps = sb.fps ?? 30, dur = sb.duration;
   const chars = loadCharacters(sb);
   fs.mkdirSync(o.out, { recursive: true });
@@ -248,9 +268,13 @@ async function main() {
   let audio = null;
   if (!o.stills && !o.silent && !o.layoutOnly && !o.shard) {
     const ta = Date.now();
-    audio = renderAudio(sb, chars);
-    // background music (puppet/beat.mjs, or a recorded bed): on by default, a different variation per clip
-    for (const line of addMusic(sb, audio)) console.log(line);
+    // effects, voices, room and background music (puppet/beat.mjs, or a recorded bed; on by default, a different
+    // variation per clip). With "sound": { "guard": true } (or --guard) no effect jumps far out of the mix and a gentle
+    // limiter replaces the whole-mix peak scaling (engine/sfx/guard.mjs)
+    const mixLog = [];
+    // (--guard only touches the sound's copy: the picture's fingerprint stays the same, so shards still join)
+    audio = mixClip(o.guard && !sb.sound?.guard ? { ...sb, sound: { ...(sb.sound || {}), guard: true } } : sb, chars, mixLog);
+    for (const line of mixLog) console.log(line);
     writeWav(wavFile, audio.L, audio.R, audio.sr);
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);
@@ -429,7 +453,7 @@ async function main() {
     if (o.framesDir) { fs.mkdirSync(o.framesDir, { recursive: true }); o.png = true; }
     const perFrame = [];
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-c:v", o.png ? "png" : "mjpeg", "-framerate", String(fps), "-i", "-",
-      ...COLOR, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
+      ...COLOR, "-c:v", "libx264", ...ENCODES[o.encode || "std"], "-pix_fmt", "yuv420p", "-profile:v", "high", "-r", String(fps), "-an", videoFile], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((ok, bad) => ff.on("close", (c) => (c === 0 ? ok() : bad(new Error("ffmpeg exited " + c)))));
     const tr = Date.now();
     const bl = blurPlan(sb, o, fps), blurred = { frames: 0, samples: 0, ms: 0 };
