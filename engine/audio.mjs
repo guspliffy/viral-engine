@@ -20,7 +20,7 @@ import { SR, TAU, biquad, run, env, buf, normalise, retune } from "./sfx/dsp.mjs
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
-import { actorState, cameraState, TAP_AT } from "./page/timeline.js";
+import { actorState, cameraState, TAP_AT, feetOn, footfalls } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
 import { soundClock } from "./shared/holds.js";
 
@@ -850,7 +850,7 @@ export function soundEvents(sb, chars) {
     const impacts = (sb.fx || []).filter((f) => f.do === "impact").map((f) => f.at);
     for (const f of sb.fx || []) {
       // one impact sound per hit: a flash right after an impact frame stays silent
-      if (f.do === "impact") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
+      if (f.do === "impact") ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55, ...(f.loud ? { loud: true } : {}) });
       // sound: false keeps a flash silent too (a camera flash with its own "flash" click, Ok I Lied)
       if (f.do === "flash" && f.sound !== false && !impacts.some((a) => Math.abs(a - f.at) < 0.25)) ev.push({ kind: "impact", at: f.at, pan: 0, gain: 0.55 });
       // sound: false keeps a poof silent (dust on a landing that has its own named sound; the poof has a chime)
@@ -868,7 +868,7 @@ export function soundEvents(sb, chars) {
   // a library sound already has its loudness from the catalog, so its gain is a multiplier (1 = as catalogued)
   // the code "wings" bed (beats not tied to the picture) gives way to the auto flaps where they play
   const flaps = ev.filter((e) => e.kind === "wing-flap").map((e) => e.at);
-  for (const s of sb.sfx || []) if (!(s.sound === "wings" && flaps.some((t) => t >= s.at && t <= s.at + (s.dur ?? 2)))) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isSignature(s.sound) ? signatureGain(s.sound) : isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}) });
+  for (const s of sb.sfx || []) if (!(s.sound === "wings" && flaps.some((t) => t >= s.at && t <= s.at + (s.dur ?? 2)))) ev.push({ kind: s.sound, at: s.at, dur: s.dur, pan: s.pan ?? 0, gain: s.gain ?? (isSignature(s.sound) ? signatureGain(s.sound) : isLibrarySound(s.sound) && !SFX[s.sound] ? 1 : 0.4), ...(s.speech ? { speech: s.speech } : {}), ...(s.loud ? { loud: true } : {}) });
   return ev.sort((p, q) => p.at - q.at);
 }
 
@@ -895,11 +895,18 @@ function natSteps(sb, a) {
 function foley(sb, panOf) {
   const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
   const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
+  // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short
+  // shuffle step and lighter in a run (its own steps replace the per-move ones below)
+  const planted = feetOn(sb) && !ownSteps;
+  if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c)) {
+    if (f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
+    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, f.len / 0.15)) });
+  }
   for (const a of acts) {
     const pan = panOf(a.who), d = a.dur ?? 0.3;
     if (a.do === "fly" || a.do === "hover") air[a.who] = true;
     if (a.do === "drop") air[a.who] = false;
-    if (a.do === "move" && !ownSteps && !air[a.who] && (a.steps ?? 2.2) > 0) {
+    if (a.do === "move" && !ownSteps && !planted && !air[a.who] && (a.steps ?? 2.2) > 0) {
       // the walk phase advances `steps` cycles a second and a foot lands every half cycle; quick little steps (a run)
       // are lighter, or a dash off screen turns into a drum roll
       const rate = a.steps ?? 2.2, per = 0.5 / rate, light = Math.min(1, Math.sqrt(2.5 / rate));
@@ -964,14 +971,19 @@ function wingFlaps(sb, defs, panOf) {
   return ev;
 }
 
-export function renderAudio(sb, chars) {
+// opts (engine/sfx/guard.mjs, the spike guard; leave them out for the mix as it always was):
+//   fxGain: [k per event]  each effect's gain times k (its index in `events`; the guard's cap)
+//   norm: false            no peak scaling at the end (the guard levels and limits the whole mix itself)
+//   stems: true            also return { stems: { voice, fx, bed } } (each { L, R }, the room's reverb included)
+export function renderAudio(sb, chars, opts = {}) {
   sb = soundClock(sb);
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
   const events = soundEvents(sb, chars);
-  for (const e of events) {
+  for (const [ei, e] of events.entries()) {
+    if (opts.fxGain && opts.fxGain[ei] != null && opts.fxGain[ei] !== 1) e.gain *= opts.fxGain[ei];
     // a talk action's gain scales its line (a shout, a mumble across the room); 1 = as the voice is set
     if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice * (e.action.gain ?? 1), e.pan); // real speech (engine/voice/)
     else if (e.kind === "voice") {
@@ -1005,8 +1017,13 @@ export function renderAudio(sb, chars) {
     L[i] = voices.L[i] + fx.L[i] + bed.L[i] + wv.L[i] + wf.L[i]; R[i] = voices.R[i] + fx.R[i] + bed.R[i] + wv.R[i] + wf.R[i];
     peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i]));
   }
-  if (peak > 0.89) { const g = 0.89 / peak; for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; } }
-  return { L, R, sr: SR, events, peak, room: room.name };
+  if (peak > 0.89 && opts.norm !== false) { const g = 0.89 / peak; for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; } }
+  const out = { L, R, sr: SR, events, peak, room: room.name };
+  if (opts.stems) {
+    const sum = (a, b) => { const o = new Float32Array(a.length); for (let i = 0; i < o.length; i++) o[i] = a[i] + b[i]; return o; };
+    out.stems = { voice: { L: sum(voices.L, wv.L), R: sum(voices.R, wv.R) }, fx: { L: sum(fx.L, wf.L), R: sum(fx.R, wf.R) }, bed: { L: bed.L, R: bed.R } };
+  }
+  return out;
 }
 
 export function writeWav(file, L, R, sr = SR) {
