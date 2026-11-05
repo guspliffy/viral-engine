@@ -45,15 +45,21 @@ const inSpan = (u, spans, pre = 0.1, post = 0.2) => { let w = 0; for (const [a, 
 // the spans that pin a hand or the body, per storyboard and actor: a hand holding a prop (grab .. release), dances (on
 // the music's beat: no lag), climbs, rides
 const SPANS = new WeakMap();
+const HOLD_SHAPES = new Set(["hold", "pinch", "scroll", "rim", "paw", "cup", "teacup"]);   // timeline.js GRIPS that close on something
 function spansOf(sb, id, acts) {
   let per = SPANS.get(sb); if (!per) { per = new Map(); SPANS.set(sb, per); }
   let S = per.get(id); if (S) return S;
-  S = { R: [], L: [], dance: [], climb: [], ride: [] };
+  S = { R: [], L: [], grip: { R: [], L: [] }, dance: [], climb: [], ride: [] };
   const all = [...acts].sort((a, b) => a.at - b.at);
   for (const a of all) {
     if (a.who !== id) continue;
     const end = a.at + (a.dur ?? 0.3);
-    if (a.do === "grab" && (a.hand == null || a.hand === "R" || a.hand === "L" || a.hand === "both")) {
+    if (a.do === "grip" && HOLD_SHAPES.has(a.shape || "hold")) {
+      // a hand closed on something (an armrest, a rail, a cup): held until the same hand opens to another shape
+      const off = all.find((b) => b.at > a.at && b.who === id && b.do === "grip" && !HOLD_SHAPES.has(b.shape || "hold") && (b.side === "both" || (b.side || "R") === (a.side || "R") || a.side === "both"));
+      for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) S.grip[s].push([a.at, off ? off.at : Infinity]);
+    }
+    else if (a.do === "grab" && (a.hand == null || a.hand === "R" || a.hand === "L" || a.hand === "both")) {
       const rel = all.find((b) => b.at > a.at && b.prop === a.prop && (b.do === "release" || (b.do === "grab" && b.who !== id)));
       for (const s of a.hand === "both" ? ["R", "L"] : [a.hand || "R"]) S[s].push([a.at, rel ? rel.at + (rel.dur ?? 0.3) : Infinity]);
     }
@@ -64,6 +70,12 @@ function spansOf(sb, id, acts) {
   per.set(id, S);
   return S;
 }
+
+// the hand that holds the costume's own weapon (costumes.js buildCostume: staff, wand, scythe, axe, katana, orb): it
+// carries a prop all clip long, so it gets no drag and no elbow lag (the staff would swing into a neighbour, the arm
+// would cross the shaft); noProp leaves it at home
+const WEAPON = new Set(["wizard", "magician", "reaper", "viking", "samurai", "sorcerer"]);
+export const weaponHand = (def) => { const C = def?.costume; return C && WEAPON.has(C.type) && !C.noProp ? (C.propHand || "R") : null; };
 
 // one step's targets: the body's turn, tip and lean, each hand's target in the body's own frame, and how free each is
 function targets(sb, actor, def, u, H, S) {
@@ -76,7 +88,7 @@ function targets(sb, actor, def, u, H, S) {
   const rx = def.body.width / 2, Hh = def.body.height, hands = {};
   for (const [s, sx] of [["R", -1], ["L", 1]]) {
     const a = st.arms[s], f = handTarget(a.from, sx, rx, Hh, u), g = handTarget(a.pose, sx, rx, Hh, u);
-    const free = (1 - contact[s]) * (1 - inSpan(u, S[s], 0.08, 0.15)) * (1 - clamp(st.grip?.[s]?.down || 0)) * (1 - dance) * (1 - climb) * (st.visible === false ? 0 : 1);
+    const free = (s === weaponHand(def) ? 0 : 1) * (1 - contact[s]) * (1 - inSpan(u, S[s], 0.08, 0.15)) * (1 - inSpan(u, S.grip[s], 0.06, 0.12)) * (1 - clamp(st.grip?.[s]?.down || 0)) * (1 - dance) * (1 - climb) * (st.visible === false ? 0 : 1);
     hands[s] = { x: f.map((v, i) => v + (g[i] - v) * a.p), free };
   }
   return { body: [st.yaw, st.pitch || 0, st.lean || 0], bodyFree, hands, st };
@@ -130,7 +142,7 @@ export function overlapAt(sb, actor, def, t, H) {
         }
         const d = [Q.y[0] - x[0], Q.y[1] - x[1], Q.y[2] - x[2]], m = Math.hypot(...d), sc = m > 1e-9 ? softMax(m, O.handMax) / m : 0;
         const nudge = d.map((v) => v * sc);
-        arms[s] = { nudge, ...(breaking && { elbowNudge: nudge.map((v) => -0.5 * v) }) };
+        arms[s] = { nudge, ...(breaking && s !== weaponHand(def) && { elbowNudge: nudge.map((v) => -0.5 * v) }) };
         // a held prop's swing (stage.js holds: a turn about the grip): a pendulum on the hand's path, so a mug tips a few
         // degrees as the hand starts and stops and settles; only while the hand holds something
         const held = inSpan(u, C.S[s], 0.08, 0.15);
@@ -287,7 +299,15 @@ function solveStep(sb, actor, def, u, T, arms, body, H, opt) {
         if (m > SOLVE.cap) warn(sb, u, actor.id, `hand${s}`, o.id, m);
         if (w > 0) { for (let j = 0; j < 3; j++) tot[j] += pw[j] * w; any = true; }
       }
-      const own = pushOut(me, hw.map((v, j) => v + tot[j]), 0, 0);
+      // out of its own body, but never into another one (a hug: the glove between two bodies stays where it was
+      // rather than be pushed into the partner)
+      const into = (p) => { let d = 0; for (const o of others) { const q = pushOut(o.b, p, rad, 0); if (q) d += Math.hypot(...q); } return d; };
+      let own = pushOut(me, hw.map((v, j) => v + tot[j]), 0, 0);
+      if (own && others.length) {
+        const p0 = hw.map((v, j) => v + tot[j]), d0 = into(p0);
+        const f = [1, 0.75, 0.5, 0.25, 0].find((f) => into(p0.map((v, j) => v + own[j] * f)) <= d0 + 0.005);
+        own = f > 0 ? own.map((v) => v * f) : null;
+      }
       if (own) { const m = Math.hypot(...own), w = 1 - ramp(m, SOLVE.cap, SOLVE.capTo); if (m > SOLVE.cap) warn(sb, u, actor.id, `hand${s}`, actor.id, m); if (w > 0) { for (let j = 0; j < 3; j++) tot[j] += own[j] * w; any = true; } }
       if (any) out[`h${s}`] = back(tot);
     }
