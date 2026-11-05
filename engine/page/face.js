@@ -4,6 +4,10 @@ import { taperedTube } from "./geo.js";
 const SEAM = 0.05;   // where the shut lids meet: this far (radians) below the front of the eye
 const _gz = new THREE.Vector3(1, 1.1, 0.5), _q = new THREE.Quaternion(), _d = new THREE.Vector3(), _m = new THREE.Matrix4(), _t = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
+const _mu = new THREE.Matrix4(), _ml = new THREE.Matrix4(), _v = new THREE.Vector3(), _w = new THREE.Vector3();
+// a blink over a big iris (face._deepen): the share of the eye's outline whose iris must stay under the lids, and the
+// closure past which a blinking eye draws no iris at all
+const EDGE = 0.85, SHUT = 0.93;
 
 // Eyes that stay readable (quality plan item 4; storyboard "rig": { "eyes": 2 }, off by default so old clips and the
 // golden stills render as before). Gaze and lids work together:
@@ -150,7 +154,7 @@ export class Face {
         // real upper lids (`lids`: the skin material): a skin shell over a stable eye that rolls down from the top, the
         // lid line riding its edge. Squints, blinks and the gaze move the lid; the eye itself never changes shape.
         // just deep enough to cover the iris and the catch light, so a closed eye stays a shallow lid, not a capsule
-        const space = new THREE.Group(); space.scale.set(0.9, 0.9 * E.oval, (D + 0.14) / 1.05); lid.add(space);
+        const space = new THREE.Group(); space.scale.set(0.9, 0.9 * E.oval, (D + 0.14) / 1.05); space.userData.z0 = space.scale.z; lid.add(space);
         lidPivot = new THREE.Group(); lidPivot.rotation.order = "ZYX"; space.add(lidPivot);
         const shell = new THREE.Mesh(new THREE.SphereGeometry(r * 1.05, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), lids); lidPivot.add(shell);
         // the edge of the shell is the circle y = 0; its front half (z > 0) is the lid line
@@ -194,7 +198,7 @@ export class Face {
       const tear = this._tear(side, r, D, E.oval);
       lid.add(tear.group);
       this.group.add(root);
-      return { side, root, lid, look, pupil: pu, lash, lidPivot, lowPivot, crease, glints, r, tear };
+      return { side, root, lid, look, iris: ir, pupil: pu, lash, lidPivot, lowPivot, space: lids ? lidPivot.parent : null, crease, glints, r, tear };
     });
     const bt = blushTexture(cheeks, arguments[0].blush ?? 1);   // blush: how strong the cheeks are (less for the Reaper and Samurai)
     this.cheeks = [-1, 1].map((side) => {
@@ -453,6 +457,45 @@ export class Face {
     return F;
   }
 
+  // The iris, pupil and catch light stand in front of the eye white, further than the lid shells reach with the sheet
+  // cast's big iris (0.74 of the eye), so a blink's lids closed behind the front of the iris: the lower lid rose
+  // behind it and the iris showed over the skin as a dark blob with a jagged edge where it cut the shell (Never Looks
+  // Up shark, Phoenix 8.60 s and 8.73 s, a blink on a look down and to the side). During a blink the lid shells are
+  // made just deep enough (front to back) that whatever of the iris lies inside the eye's outline stays under them;
+  // with no blink nothing changes. The shut crease moves out with them so it stays on the lid.
+  _deepen(eye, blink) {
+    const S = eye.space.scale, z0 = eye.space.userData.z0;
+    S.z = z0; eye.crease.scale.z = 1; eye.look.visible = true;
+    if (!(blink > 0)) return;
+    // shut (the lids have met): nothing of the iris can show, so it is not drawn at all
+    if (Math.min(eye.shut, eye.shutLow ?? eye.shut) >= SHUT) { eye.look.visible = false; return; }
+    const P = [], L = eye.look.position;
+    for (const m of [eye.iris, eye.pupil, ...eye.glints]) {
+      if (!m.visible || m.scale.x < 1e-3) continue;
+      const R = m.geometry.parameters.radius, sc = m.scale, o = m.position;
+      P.push([L.x + o.x, L.y + o.y, L.z + o.z + R * sc.z]);
+      for (const th of [0.35, 0.7, 1.05, 1.35]) for (let j = 0; j < 16; j++) {
+        const ph = (j / 16) * Math.PI * 2;
+        P.push([L.x + o.x + R * sc.x * Math.sin(th) * Math.cos(ph), L.y + o.y + R * sc.y * Math.sin(th) * Math.sin(ph), L.z + o.z + R * sc.z * Math.cos(th)]);
+      }
+    }
+    eye.lidPivot.updateMatrix(); eye.lowPivot.updateMatrix();
+    _mu.copy(eye.lidPivot.matrix).invert(); _ml.copy(eye.lowPivot.matrix).invert();
+    const RU = eye.r * 1.05 * 0.985, RL = eye.r * 0.985;
+    // a point shows in front of a lid: it lies on the lid's side of the shell's rim and outside the shell. Only points
+    // inside the eye's outline count: the rim of a big iris out past the side of the eye sits down at the face skin.
+    const Q = P.filter((p) => (p[0] / S.x) ** 2 + (p[1] / S.y) ** 2 < (EDGE * RL) ** 2);
+    const pokes = (f) => Q.some((p) => {
+      _v.set(p[0] / S.x, p[1] / S.y, p[2] / (z0 * f));
+      _w.copy(_v).applyMatrix4(_mu); if (_w.y > 0 && _w.lengthSq() > RU * RU) return true;
+      _w.copy(_v).applyMatrix4(_ml); return _w.y < 0 && _w.lengthSq() > RL * RL;
+    });
+    if (!pokes(1)) return;
+    let a = 1, b = 2;   // at a something shows, at b nothing does
+    for (let n = 0; n < 14; n++) { const m = (a + b) / 2; if (pokes(m)) a = m; else b = m; }
+    S.z = z0 * b; eye.crease.scale.z = b;
+  }
+
   // e: expression params, look: [x,y] in -1..1, blink: 0 open .. 1 closed, c: fine controls (timeline.js FACE_KEYS)
   set(e, look = [0, 0], blink = 0, c = NO_CTL) {
     const L = this.layout, s = this.size;
@@ -513,6 +556,7 @@ export class Face {
           for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
         }
       }
+      if (eye.space) this._deepen(eye, blink);
       // tears: 0..0.5 the band fades in, 0.5..1 the bead swells (the character's right eye is at -u)
       const tk = Math.max(0, Math.min(1, (eye.side < 0 ? c.tearR : c.tearL) || 0)), T = eye.tear;
       const gather = Math.max(0, (tk - 0.5) / 0.5);
