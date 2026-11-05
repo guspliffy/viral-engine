@@ -90,9 +90,9 @@ const props = [
   { id: "mag", kind: "magazine", x: 0.55, y: 0.03, z: 1.15, rot: 30, tilt: 0 },
   // the baggage: in the bins until they burst open (a bin is 0.42 high, its front at z 0.3; the lids open up and out)
   { id: "duf", kind: "duffel", x: 0.42, y: 1.7, z: 0.85, tilt: -60, color: "#3a8f6a" },   // frame 0: already falling out of its burst bin
-  { id: "case", kind: "suitcase", x: 1.225, y: 2.6, z: 0.0, tip: 90, color: "#d2433a" },
-  { id: "pack", kind: "backpack", x: -0.475, y: 2.66, z: 0.05, tip: 90, color: "#e6b43a" },
-  { id: "case2", kind: "suitcase", x: -1.325, y: 2.6, z: 0.0, tip: 90, color: "#d9579b", rib: "#a83f76" },   // in the bin over Phoenix
+  { id: "case", kind: "suitcase", x: 1.225, y: 2.6, z: -0.08, tip: 90, color: "#d2433a" },
+  { id: "pack", kind: "backpack", x: -0.475, y: 2.68, z: -0.1, tip: 90, color: "#e6b43a" },
+  { id: "case2", kind: "suitcase", x: -1.325, y: 2.6, z: -0.08, tip: 90, color: "#d9579b", rib: "#a83f76" },   // in the bin over Phoenix
   { id: "mag2", kind: "magazine", x: -0.95, y: 0.03, z: 1.7, rot: -20, tilt: 0 },   // on the floor under the row in front, out of sight until it floats
   { id: "pillow2", kind: "pillow", x: -0.35, y: 0.1, z: 1.75, rot: -30 },
   { id: "shoe", kind: "sneaker", x: 0.4, y: 0.06, z: 1.05, rot: -30, color: "#3d6fd8" },
@@ -138,7 +138,7 @@ act.shock(c, 0.02, "wiz", { open: 0.5, hold: 1.2 });
 A(0.02, "wiz", "look", { to: [-0.3, 0.6], dur: 0.1, blink: false });
 c.cap(0.05, 1.2, "EEP!", 560, true, { x: 560 });
 prop(0.1, "juice", { fill: 1, y: r3(CUP.y + 0.44) }, 0.24, "out");
-A(0.09, "wiz", "hatwobble", { amount: 9, freq: 3, dur: 0.7 });
+A(0.09, "wiz", "hatwobble", { amount: 9, freq: 3, dur: 1.3 });
 prop(0.34, "juice", { y: r3(CUP.y + 0.085) }, 0.22, "in");
 prop(0.56, "juice", { fill: 0 }, 0.04);
 sfx(0.58, "ai/drip", { gain: 0.5, reason: "plop: the juice lands back in the cup" });
@@ -320,7 +320,7 @@ prop(5.05, "duf", { x: 0.3, y: 0.9, z: 1.15, tilt: -120, rot: 80 }, 1.4, "out");
 prop(6.45, "duf", { x: 0.25, y: 1.05, z: 1.1, tilt: -100, rot: 110 }, 2.75, "linear");
 prop(5.05, "case", { x: 0.6, y: 0.4, z: 1.35, tip: 120, rot: 10 }, 0.6, "out");   // low across the floor first (clear of Reaper's and the Samurai's faces), then up
 prop(5.65, "case", { x: 0.55, y: 1.75, z: 0.85, tip: 150, rot: -40 }, 1.2, "inOut");
-prop(6.85, "case", { x: 0.6, y: 1.9, z: 0.8, tip: 170, rot: -60 }, 2.35, "linear");
+prop(6.85, "case", { x: 0.4, y: 1.9, z: 0.95, tip: 170, rot: -60 }, 2.35, "linear");
 prop(5.05, "pack", { x: 0.05, y: 0.45, z: 1.45, tip: 70, rot: 30 }, 1.6, "out");
 prop(6.65, "pack", { x: 0.1, y: 0.55, z: 1.45, tip: 110, rot: 60 }, 2.55, "linear");
 prop(5.05, "shoe", { x: 0.25, y: 1.35, z: 1.3, rot: 330, tip: 60 }, 1.5, "out");
@@ -329,7 +329,7 @@ prop(5.24, "juice", { x: r3(CUP.x + 0.06), y: 0.5, z: r3(CUP.z - 0.06) }, 0.01);
 prop(5.25, "juice", { fill: 1, y: 0.85, x: 0.25, z: 0.6, wobble: 1 }, 1.0, "out");
 prop(5.05, "case2", { x: -1.45, y: 1.3, z: 1.2, tip: 60, rot: -10 }, 1.0, "out");   // up the window side, clear of his phone, then over his head
 prop(6.05, "case2", { x: -1.25, y: 2.15, z: 1.0, tip: 20, rot: 20 }, 1.0, "inOut");
-prop(7.05, "case2", { x: -1.15, y: 2.3, z: 0.95, tip: -10, rot: 40 }, 2.15, "linear");
+prop(7.05, "case2", { x: -1.3, y: 2.45, z: 0.95, tip: -10, rot: 40 }, 2.15, "linear");   // up into the corner, clear of the captions
 prop(5.05, "mag2", { x: -1.0, y: 1.6, z: 1.9, rot: 60, tilt: 40 }, 1.8, "out");    // close to the camera, above the heads
 prop(6.85, "mag2", { x: -0.85, y: 2.05, z: 2.0, rot: 140, tilt: -30 }, 2.35, "linear");
 prop(5.05, "pillow2", { x: -0.4, y: 0.4, z: 1.8, rot: 40 }, 1.6, "out");
@@ -352,7 +352,7 @@ A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -6, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 500, false, { x: 170 });   // over his head: the lower third is full of bodies here
+c.cap(8.5, 9.0, "huh.", 500, false, { x: 230 });   // over his head: the lower third is full of bodies here
 see(8.1, 8.95, ["phx.face", "wiz.face"], "P7: Phoenix looks up at the upside-down Wizard: huh.");
 
 // ---------------------------------------------------------------- 7 BACK DOWN 9.0-10.0 (P8)
@@ -411,10 +411,10 @@ see(T_LAND + 0.05, 9.98, ["phx.face", "wiz.face", "rea.face", "sam", "tray", "ph
 
 // ---------------------------------------------------------------- shots (from the row in front, front-left)
 const shot = (pos, look, fov = 50, o = {}) => ({ pos, look, fov, ...o });
-const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: BUMPS.map(([t, a, d]) => [t, a, d]) };
+const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: [...BUMPS.map(([t, a, d]) => [t, a, d]), [1.0, 0.03, 0.3]].sort((a, b) => a[0] - b[0]) };   // the cabin keeps shivering before the second bump
 const WIDE = shot([-0.15, 1.45, 5.35], [0.22, 1.3, 0], 58, { hand: HAND });
-const MASKS = { ...WIDE, to: { pos: [-0.15, 1.4, 4.6], look: [-0.02, 1.3, 0], fov: 56 }, dur: 1.2 };   // the wide pushes in on the bump
-const ZEROG = shot([-0.1, 2.0, 6.2], [0.05, 1.35, 0], 62, { hand: HAND });
+const MASKS = { ...WIDE, to: { pos: [-0.15, 1.4, 4.9], look: [-0.02, 1.3, 0], fov: 56 }, dur: 1.2 };   // the wide pushes in on the bump
+const ZEROG = shot([0.25, 1.85, 5.6], [0.42, 1.4, 0], 58, { hand: HAND });   // review B: the climax a size step out, not the widest shot
 const PEAK = { ...shot([-1.42, 1.28, 4.75], [-0.66, 1.2, 0.4], 44, { hand: HAND }), to: { pos: [-1.36, 1.26, 4.45] }, dur: 2.0 };   // a slow push into the series' LOOK-UP framing
 const BACKDOWN = shot([-0.2, 1.47, 5.45], [0.22, 1.28, 0], 58, { hand: HAND });
 const beats = c.beats([
