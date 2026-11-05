@@ -18,6 +18,18 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter and the grin; Reaper's tiny nod; the energy friend finally gets a present that answers the whole series.
 - **Plain search words:** "Christmas morning".
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/06-christmas-morning/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **Place and camera:** a cosy wooden cabin living room: the tree on the left, the wall clock at five above it, the staircase centre-back where Reaper comes down, the sofa on the right with Wizard asleep, his staff leaning on it. Snow in the windows. Phoenix front-centre among the presents.
+- **Tags:** the gift tags show the friends' faces as little drawings (Reaper's on the slippers' bag, Phoenix's on the big box); keep that, no words.
+- **03:** the wand's sparkles land on Wizard on the sofa; he wakes up wide-eyed.
+- **04:** the ribbon from the big box is tied to the end of the light string; the string whips off the tree and the star flies off the top.
+- **05–06:** Phoenix wrapped in lights with the star on his head, wearing the slippers; the wand on the rug.
+- **07:** Reaper holds the decaf bag up out of the big box (the Phoenix tag on the box); Phoenix is in the left foreground with his back half to us. Turn him three-quarters so his face reads.
+- **08:** the hug: Reaper's arm wraps round Phoenix's side, both eyes closed; Wizard laughs behind them; Reaper's mug on the floor. Contact: close, never intersecting.
+
 ## Cast
 
 Phoenix and two sleepy friends.

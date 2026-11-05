@@ -18,6 +18,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter (here it's literally fed, one espresso per size) and the grin.
 - **Plain search word:** "brunch".
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/07-brunch/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **Place and camera:** a sunny terrace above a hillside town with red roofs, flowers and a café sign with a cup icon. One round wooden table with the parasol pole through its middle. Phoenix front-left, the waiter front-right, Reaper, Wizard and Viking behind the table.
+- **Sunglasses:** in the panels only Viking wears them, and only in 01. Follow the text: all three tired friends wear sunglasses all the way through, so the "slide down the nose" glare at 03 and the vampire hiss read.
+- **01:** the waiter brings the espresso on a tray; four cups stacked in the middle of the table; Reaper holds a big mug.
+- **03:** Phoenix drinks from Reaper's big mug, flames flaring off his wings (cosmetic, never touching the table or anyone).
+- **04:** Phoenix bursts up through the parasol, light pouring through the hole.
+- **05–06:** he flies up and hovers over the torn parasol: the grin at hover height, exactly as the text's grin note says.
+- **07–08:** the three friends hide under the table, only their eyes showing between the legs. **The sun beam through the hole lands on Phoenix, who is already back on his chair at 07**, while the waiter stands by. Follow the panels: the friends hiss and duck at 8.50–8.90, Phoenix floats down into the beam by 9.00, and "…Breakfast?" comes at 9.50.
+- Counts: **five espresso cups in the tower plus Reaper's one big mug** (the drawing's count is loose).
+
 ## Cast
 
 Phoenix, three wrecked friends and a waiter.

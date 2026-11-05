@@ -16,6 +16,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter and the grin; Reaper's tiny nod (his "pleased" tell); the same campsite as Pitch a Tent, so the two series share a world.
 - **Plain search words:** "camping" and "6 am".
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/03-camping-6am/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **The tent is a ridge (A-frame) tent, not the dome tent from Pitch a Tent.** It's a new, simpler prop: two end poles, a ridge, guy ropes and pegs. The rest of the place matches the `lakeside-campsite` env (lake, forested hills, grass), so reuse the env and swap the tent.
+- **01:** the tent's open door faces us with both friends in their bags inside; the clock on a little stool on the left reads 05:59; the lantern hangs from the ridge.
+- **02:** the zip runs up the door's middle seam (arrows up and down); Reaper in front, Wizard behind, both glaring.
+- **03:** Phoenix stands in the door with his wings spread like a sunrise, golden light on everything; the pillow flies at him.
+- **04:** he drags both bags out by their feet across the grass; the rope is tied round Wizard's bag; the tent is still standing.
+- **05:** the tent lies flat behind them with the lantern on the grass, the pegs out.
+- **07:** the sun rises over the lake behind them, centre-right; the clock on the stool now reads 06:00 in the foreground.
+- **08:** "Again tomorrow?": both friends are back asleep in their bags with "zzz" (the text has their heads dropping; it's the same beat, use the panel's sleeping faces).
+
 ## Cast
 
 Phoenix and two tired friends.

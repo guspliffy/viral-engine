@@ -16,6 +16,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter and the grin; the Norse god appears as his own statue (a cast in-joke that can return).
 - **Plain search word:** "museum".
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/04-museum/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **Place and camera:** a grand hall with a glass dome, columns and red banners; the Norse god statue stands **centre-back, its right arm raised (on the frame's left)**, the raven on its right shoulder, no helmet (bare head and braids). Brass posts and red rope run along the front of the plinth.
+- **The guard stands with the group, not in the doorway:** the Samurai in a dark uniform with a blue sash, beside Wizard and Reaper. He blows his whistle at 02 and points at Phoenix at 08.
+- **01:** Phoenix front-left in his "It's ME!" pose; Reaper, Wizard (with headphones and an audio-guide player) and the guard behind him.
+- **02:** Phoenix slides on his back under the rope; Wizard grabs at him.
+- **03:** high five, drawn from the side; the three others watch at the bottom of the frame, low, so they never cover his hand.
+- **04–05:** Phoenix hugs the broken marble arm, a stump on the statue's shoulder.
+- **07:** the arm is back on, its finger pointing down at Phoenix; everyone looks at it.
+- **08:** Phoenix points at Reaper, who stands big in the right foreground with a flat stare. That's a closer framing; cut to it from the same side, 0.4 s or more.
+
 ## Cast
 
 Phoenix, two calm friends and a guard.

@@ -16,6 +16,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter and the grin; Viking the strong one never gets to do anything (he's the one who breaks things in Friends Try To, so here the roles flip).
 - **Plain search words:** "gym" in the title and caption. Repost in the first week of January with the same title (New Year's resolutions).
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/05-gym/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **The sheet is landscape (square panels), so its staging must be re-blocked for 9:16**, as the pack's review notes say. Keep the order of things from left to right: treadmill left, Phoenix, the dumbbell rack centre-right, Viking's purple mat right. In a 9:16 frame stack them in depth instead: the treadmill left-mid, the rack right-mid, Viking's mat right-front, Phoenix centre-front.
+- **Place:** a warm, sunny hall with arched windows, wooden floor and hanging plants (warmer and more old-fashioned than the text's warehouse gym). Use that look.
+- **Leave out the "POTATO BRAWL GYM" banner** on the back wall: the house rules never show the game in the first 3 s, and a game name in the room reads as an ad. Use a plain red banner with a dumbbell icon.
+- **01–02:** Phoenix in a red-and-white sweatband; Viking stretches with one arm over his head; Phoenix curls Viking's dumbbell while Viking reaches for it.
+- **03:** Reaper runs on the treadmill with his towel flying. The panel gives him a sweaty, panicked face; keep the text's deadpan face, which is the joke.
+- **04–05:** the belt tears off the back and the rack tips; the dumbbells roll across the floor.
+- **07:** the dumbbells lie in one neat row at Viking's feet. **Exactly six dumbbells** (the drawing's count is loose).
+- **08:** Reaper presses the big STOP button; Viking lies flat on his mat.
+
 ## Cast
 
 Phoenix, two calm friends.

@@ -38,6 +38,15 @@ Every episode brief in this folder follows this page. When an episode brief and 
 - Exactly 3 hashtags: #funnyanimation #animation + one situation tag. Never #viral or #fyp.
 - **Cover frame: always THE GRIN at 8.2 s.** The same face, the same framing and the same pose with a different wreck behind it, so the profile grid reads as one series.
 
+## Jonny's storyboards (5 Nov)
+
+Jonny made eight-panel storyboards for all seven episodes: `storyboards/<episode>/storyboard-eight-panels.png` in the project folder copy (video-scripts/2026-11-05-too-much-energy/storyboards/, START-HERE.html is the gallery, REVIEW-NOTES.md the generator's own notes). Each episode brief has a "Jonny's storyboard" section with the per-panel notes; the panels win over the text. What they settle for the whole series:
+
+- **Panel 06 is always THE GRIN:** a big close-up, one glove thumb up, the other hand behind his head, a big toothy grin and a sparkle, the wreck behind him. The sheets draw the eyes three ways (open with a sparkle in four sheets, a wink in two, shut in one). Use **open eyes with the sparkle on the eye** in every episode, so the covers match on the grid.
+- The wing flames are lit in every panel and glow brighter in the big moments, which is the energy meter.
+- Several panels are closer or from another side than the one wide in the text. Keep the env's safe camera range: a closer framing is a cut from the same side (0.4 s or more), never a reverse angle.
+- Counts come from the text, not the drawings (six dumbbells, five espresso cups plus one big mug).
+
 ## What changes every episode
 
 The place, the tired friends and guest, the two energy moves, what breaks, the aftermath, and the music (a different style, key and tempo every time, per Jonny's music-variety rule).

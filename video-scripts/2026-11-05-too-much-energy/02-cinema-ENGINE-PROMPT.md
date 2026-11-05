@@ -16,6 +16,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the meter and the grin, and the "AGAIN!" from the pilot's repost ending.
 - **Plain search words:** "movies" in the title and caption line 1 (what US viewers search; the caption matches the title), "#cinema" as the tag (Europe).
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/02-cinema/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **Place and camera:** exactly the text's camera: from the screen, looking back at the tiers, the projector beam glowing at the top centre, warm wall lamps. Phoenix front centre, Reaper front-left, Wizard front-right with his hat on his lap, the Astronaut and the Dragon one row up behind.
+- **02:** the popcorn fountain goes up between Phoenix and the Dragon; the Astronaut throws his hands up.
+- **03:** Phoenix stands on the seat with his wings flared; the seat is folded up under his feet with its hinge in view.
+- **04:** the catapult is shown up close: the seat slamming and the bucket flying off to the top right. If it's a cut, keep it 0.4 s or more and from the same side.
+- **05–06:** the bucket lands on the Astronaut's helmet; the Dragon is buried in popcorn.
+- **07:** Reaper eats one piece of popcorn; Wizard has his face in his glove; the Astronaut lifts the bucket off.
+- **08:** "AGAIN!" with both arms up and wings spread; all four others drop their heads.
+- The Dragon keeps its approved design without horns (the text mentions horns; the panels and the sheet win), so the popcorn lands on its head and wings.
+
 ## Cast
 
 Phoenix, two tired friends and two strangers.

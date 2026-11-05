@@ -16,6 +16,19 @@ Create an **exactly 10-second, 9:16 Potato Brawl animated comedy**, 1080 × 1920
 - **Running joke:** the energy meter and the grin; the snuffed flame can come back in later episodes as the only thing that stops him.
 - **Plain search word:** "library".
 
+## Jonny's storyboard (wins over this brief)
+
+Jonny's eight panels (5 Nov): `storyboards/01-library/storyboard-eight-panels.png` in the project folder copy of this series (video-scripts/2026-11-05-too-much-energy/; the image prompts sit next to it). **The panels set the place, the camera side, who stands where, the eyelines, the light and the detail level; match them frame by frame and run `qa/panels.mjs` before any full render.** The text below still sets the mechanics the drawings simplify (prop counts, grips, contact, timing), as the pack's own review notes say. Where the panels differ from the text, use these notes:
+
+- **Place and camera:** a front view down a grand reading hall: arched windows and a purple banner with a book icon at the back, the issue desk centre-back with the Sorcerer behind it, tall shelves along the back and sides, the rolling ladder on its brass rail at the back right. Phoenix owns the front-left.
+- **01:** Phoenix front-left holding the dragon book open to us; Reaper and Wizard read at the table behind him on the right.
+- **02:** the book lies open on the table showing two dragons; Phoenix mid-somersault; Wizard's blue calming spark from his staff.
+- **03:** Phoenix rides the ladder along the shelves, wings out; Reaper, Wizard and the Sorcerer watch from the front, the Sorcerer shushing. Keep them low at the bottom edge so they never cover his ride (staging rule).
+- **04–05:** the end stop sparks; the shelves fall **backwards and diagonally into the hall, leaning on each other** (not sideways across the frame as the text says). Use the panels' fall, and keep the dust and books spread wide so it reads.
+- **06:** the grin: one thumb up, the other hand behind his head, a sparkle. This sheet draws a wink; the series uses one version of the eyes for every episode (see 00-SERIES-FORMAT.md).
+- **07:** drawn from behind Phoenix toward the three shushers. Our env can't turn round, so keep the front view: the three in a row behind him, the shush gust as white swoosh lines blowing over him, his crest flame bending back.
+- **08:** the crest is out (it turns into a brown tuft), a smoke curl rises from it, a sweat drop and a sheepish half-grin. The wing flames stay lit in the panel; follow the text and put them out too.
+
 ## Cast
 
 Phoenix, two tired friends and one guest.
