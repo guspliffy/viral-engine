@@ -45,6 +45,8 @@ const SIZE = {
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
+  clambox: { w: 0.26, h: 0.12, d: 0.2 },            // props-winter.js takeaway clamshell (closed: tray + lid): both palms on its two ends (box hold)
+  cocoacup: { r: 0.045, h: 0.115 },                // props-winter.js hot chocolate to go: the mug hold round the sleeve
   teamug: { r: 0.045, h: 0.085 },                  // props-bonfire.js: campmug's size and handle, white china with steam
   toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
   mallowstick: { len: 0.9, r: 0.01 },              // props-dino.js: a long green toasting stick, marshmallows at the tip; the thin pinch near its butt
