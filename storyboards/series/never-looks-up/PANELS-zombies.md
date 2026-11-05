@@ -29,3 +29,26 @@ on Phoenix.
   below the top 20 % kept for his title. Phoenix's "uhhhhh" and the groans have none (sounds, as the brief says).
 - **"huh." sits over Phoenix's head** instead of the lower third: in this framing the lower third is the cast, and a
   caption over a character fails the check (the same move as episode 1).
+- **The stage stands 3 m further down the street** (`DZ` in the generator): the painting's floor starts about 7 m in
+  front of its camera, so a camera at eye level near the bench would see past it. The street is the painting's own
+  (tall stone houses, lamps, a spire), not the panels' terraced houses with a wide pavement; a re-painted plate would
+  be new art.
+- **The hedge is low (0.55 m)** so the friends' faces show over it in every shot, as in the panels; they are never
+  fully hidden (the Wizard's hat and both faces stay above it, which the panels show too).
+- **The Gunslinger walks on past the hedge to the bin** and is out of the club shot: standing at the bench's right
+  end (panel 04) puts his hat right in front of the friends' faces from every camera that holds Phoenix too. Four of
+  the five zombies are in the club; all five turn to the hedge at the end.
+- **The bus shelter stands back at the left edge**, mostly out of frame (moving it behind the bench put it in the
+  zombies' paths).
+- **"huh." is a pop word under the faces** (lower centre, panel 07), not a caption, and a yellow "!" pops over the hat
+  tip as the heads turn (9.85 s).
+- **10.2 s instead of 10 s**: the two 3-frame hit-stops add 0.2 s, as in episodes 1 and 4.
+
+## Jonny's change (5 Nov, 09:04-09:14): the friends flee for good
+
+- Reaper and the Wizard no longer hide behind the hedge. From frame 0 they flee toward the camera in terror (shocked
+  faces, arms flailing) and run out of the picture past its right side, and they never come back ("Gone for good" on
+  the decision card). Panels 02, 05 and 08's friends at the hedge, the "psst" wave and the shush are cut.
+- The hedge is gone (it stood in their way) and the recycling bin moved out of their lane, off the right edge.
+- The ending no longer turns to the hedge: after the pat, the horde bows back over its "phones" round Phoenix, who is
+  now one of them.
