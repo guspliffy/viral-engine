@@ -156,7 +156,7 @@
    "id": "sam",
    "character": "zombie/samurai-zombie",
    "at": [
-    0.85,
+    0.95,
     -8.6
    ],
    "face": 8,
@@ -300,10 +300,10 @@
    "pop": false
   },
   {
-   "from": 2.3,
-   "to": 3,
+   "from": 1.9,
+   "to": 2.55,
    "text": "SHHH!",
-   "pos": 640,
+   "pos": 510,
    "pop": false
   }
  ],
@@ -792,21 +792,21 @@
      "pts": [
       [
        0,
-       0.85,
+       0.95,
        -8.6
       ],
       [
-       3.176,
-       0.3,
+       3.162,
+       0.4,
        -4.5
       ],
       [
-       4.015,
+       4.021,
        0,
        -3.45
       ],
       [
-       4.836,
+       4.838,
        0.2,
        -2.4
       ],
@@ -1316,6 +1316,24 @@
      "at": 0
     },
     {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
      "who": "wiz",
      "do": "arm",
      "side": "R",
@@ -1331,6 +1349,14 @@
      "at": 0.1
     },
     {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
      "who": "wiz",
      "do": "talk",
      "line": "psst! psst!",
@@ -1338,6 +1364,27 @@
      "tone": "excited",
      "voice": false,
      "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.06,
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -1354,6 +1401,21 @@
      "at": 0.28
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.02,
+       0.52,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
@@ -1361,13 +1423,11 @@
     },
     {
      "who": "rea",
-     "do": "look",
-     "to": [
-      -0.8,
-      0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
+     "do": "talk",
+     "line": "shhhh",
+     "dur": 0.45,
+     "tone": "calm",
+     "voice": false,
      "at": 0.4
     },
     {
@@ -1385,41 +1445,12 @@
      "at": 0.42
     },
     {
-     "who": "rea",
-     "do": "turn",
-     "to": -40,
-     "dur": 0.25,
-     "at": 0.45
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
      "at": 0.5
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.46,
-     "dur": 0.25,
-     "at": 0.5
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "angry",
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "rea",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.55
     },
     {
      "who": "wiz",
@@ -1436,34 +1467,12 @@
      "at": 0.56
     },
     {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.7,
-     "idle": 0.06,
-     "at": 0.6
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
      "at": 0.66
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.02,
-       0.52,
-       0.36
-      ]
-     },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.75
     },
     {
      "who": "wiz",
@@ -1480,15 +1489,6 @@
      "at": 0.8
     },
     {
-     "who": "rea",
-     "do": "talk",
-     "line": "shhhh",
-     "dur": 0.5,
-     "tone": "calm",
-     "voice": false,
-     "at": 0.8
-    },
-    {
      "who": "wiz",
      "do": "look",
      "to": [
@@ -1498,6 +1498,20 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.22,
+       0.26
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.95
     },
     {
      "who": "wiz",
@@ -1539,6 +1553,13 @@
      "at": 1.25
     },
     {
+     "who": "rea",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.3,
+     "at": 1.25
+    },
+    {
      "who": "phx",
      "do": "expr",
      "expr": "happy",
@@ -1549,32 +1570,11 @@
      "at": 1.25
     },
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.04,
-       0.22,
-       0.26
-      ]
-     },
-     "dur": 0.25,
-     "at": 1.45
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 1.5
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -10,
-     "dur": 0.3,
      "at": 1.5
     },
     {

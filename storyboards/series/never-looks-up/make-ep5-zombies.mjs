@@ -44,7 +44,7 @@ const ZV_SEAT = 0.42;                                         // where zombie Vi
 const WIZ_HIDE = [1.1, -0.55], REA_HIDE = [2.15, -1.15];       // a crouch spreads the gloves 0.45 m: Reaper half a step further back
 const WIZ0 = [1.65, -1.65], REA0 = [2.65, -2.05];           // frame 0: already sprinting right, behind the hedge line, right of the horde's lane
 // the horde at frame 0: strung out down the lane, Viking in front, each 0.9 m+ from the next
-const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [0.85, -5.6], dra: [-1.4, -3.3] };   // Viking clear of the Wizard on screen at frame 0
+const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [0.95, -5.6], dra: [-1.4, -3.3] };   // Viking clear of the Wizard on screen at frame 0
 // where they end up (5.0-7.0), round the bench, bowed over cupped mittens: Viking sits beside him, Dragon and
 // Sorcerer stand behind the bench's back, Gunslinger at its right end, Samurai behind him to the right
 // (no zombie stands between the camera and the hedge in the club shot, so the friends' faces show over it: the
@@ -53,7 +53,7 @@ const H1 = { dra: at(BENCH, -0.2, -0.95), sam: at(BENCH, 1.3, -0.95), gun: [2.35
 const PATH = {
   gun: [H0.gun, [-0.05, 0.2], [0.35, 1.02], [1.4, 1.15], [1.8, 2.0], H1.gun],   // down the middle, then right along the front of the hedge
   sor: [H0.sor, [-0.1, -3.0], [-0.35, -2.2], H1.sor],                   // left of the lane, second row behind the bench
-  sam: [H0.sam, [0.3, -1.5], [0.0, -0.45], [0.2, 0.6], H1.sam],                    // right of the lane, past the hedge's end, to behind the Viking
+  sam: [H0.sam, [0.4, -1.5], [0.0, -0.45], [0.2, 0.6], H1.sam],                    // right of the lane, past the hedge's end, to behind the Viking
   dra: [H0.dra, [-1.05, 0.45], H1.dra],
 };
 const VIK_FRONT = at(BENCH, 0.55, 0.92);                       // he stops at the bench's free end, over Phoenix (3.2-5.0)
@@ -153,14 +153,14 @@ c.arm(1.78, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(1.92, "wiz", "R",
 c.arm(2.06, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(2.3, "wiz", "R", TUCK_R, 0.2);
 A(1.62, "wiz", "talk", { line: "psst! psst!", dur: 0.55, tone: "excited", voice: false });
 c.cap(1.62, 2.3, "psst! OVER HERE!", CAP_Y);
-// Reaper glares at him and shushes
-A(1.9, "rea", "look", { to: [-0.8, 0.1], dur: 0.12, blink: false });
-A(1.95, "rea", "turn", { to: -40, dur: 0.25 }); A(3.0, "rea", "turn", { to: -10, dur: 0.3 });   // round to glare at him
-act.mood(c, 2.0, "rea", "angry", { hold: 0.5 });
-c.arm(2.25, "rea", "R", { x: [-0.02, 0.52, 0.36] }, 0.15, "out");         // a mitten up at his own mouth: shhh
-A(2.3, "rea", "talk", { line: "shhhh", dur: 0.5, tone: "calm", voice: false });
-c.cap(2.3, 3.0, "SHHH!", CAP_Y);
-c.arm(2.95, "rea", "R", TUCK_R, 0.25);
+// Reaper glares at him and shushes (before zombie Viking shuffles past in front of the camera, 2.5-3.0)
+A(1.5, "rea", "look", { to: [-0.8, 0.1], dur: 0.12, blink: false });
+A(1.55, "rea", "turn", { to: -40, dur: 0.25 }); A(2.75, "rea", "turn", { to: -10, dur: 0.3 });   // round to glare at him
+act.mood(c, 1.6, "rea", "angry", { hold: 0.4 });
+c.arm(1.85, "rea", "R", { x: [-0.02, 0.52, 0.36] }, 0.15, "out");         // a mitten up at his own mouth: shhh
+A(1.9, "rea", "talk", { line: "shhhh", dur: 0.45, tone: "calm", voice: false });
+c.cap(1.9, 2.55, "SHHH!", CAP_Y - 130);                                   // above the Wizard's "psst", both at once
+c.arm(2.45, "rea", "R", TUCK_R, 0.25);
 A(2.35, "wiz", "look", { to: [0.8, 0.1], dur: 0.12, blink: false });
 act.sheepish(c, 2.5, "wiz");
 // the ping: Phoenix's tiny smile
