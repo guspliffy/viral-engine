@@ -38,4 +38,4 @@ on the floor, Mom's door at the far end, on the right of the end wall (face-on, 
 - **The rusty hinges are big but not in close view**: the brief wants them close from 0.00, the panels put the open
   leaf at the left edge; a camera beside the jamb would need a restage of 01-06. The hinges were made larger instead.
 - **Reaper is behind Phoenix at frame 0** (panel 1 shows his eyes): every spot in the 2.8 m hall where his face shows
-  puts him in the lift's path or under Phoenix's crest. He shows from 0.3 s.
+  puts him in the lift's path or under Phoenix's crest; he reads from the run round the group (4.5 s) on.
