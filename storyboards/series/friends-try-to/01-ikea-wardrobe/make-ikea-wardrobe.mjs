@@ -173,6 +173,7 @@ A(3.2, "vik", "look", { to: [0.85, 0.05], dur: 0.12, blink: false });
 act.mood(c, 3.2, "vik", "angry", { hold: 0.2 });
 A(2.4, "phx", "look", { to: [0.35, 0.45], dur: 0.15, blink: false });
 A(3.15, "phx", "expr", { expr: "smug", dur: 0.2 });
+c.textPop(2.75, "vik", "upside down?!", { dur: 0.5, xy: [490, 560], size: 80 });   // review B note 1: the spell's failure named
 A(3.18, "phx", "talk", { line: "pff-heh-heh", tone: "excited", dur: 0.36, voice: false });
 A(2.4, "rea", "look", { to: [-0.45, 0.4], dur: 0.2, blink: false });
 act.emote(c, 2.85, "rea", "sigh", { dur: 0.42, dx: -0.45, dy: -0.6 });   // ends before the cut
@@ -222,24 +223,24 @@ c.arm(4.52, "wiz", "R", { o: [0.15, 0.6, 0.5] }, 0.14, "out");   // across, at f
 A(4.56, "wiz", "talk", { line: "YOUR hands!", tone: "excited", dur: 0.4, voice: false });
 c.cap(4.55, 5.05, "YOUR hands!", SUB, false, SUBS);
 act.mood(c, 4.85, "vik", "angry", { hold: 0.5 });
-c.arm(4.9, "vik", "R", { o: [0.15, 0.6, 0.5] }, 0.14, "out");   // across, at face height, at the Wizard A(4.92, "vik", "grip", { side: "R", shape: "point", dur: 0.1 });
+c.arm(4.9, "vik", "R", { o: [0.3, 0.5, 0.45] }, 0.14, "out");   // out toward the Wizard, clear of his own face (review B note 4)   // across, at face height, at the Wizard A(4.92, "vik", "grip", { side: "R", shape: "point", dur: 0.1 });
 c.arm(4.9, "vik", "L", "rest", 0.25);
 A(4.95, "vik", "talk", { line: "YOUR spell!", tone: "excited", dur: 0.4, voice: false });
 c.cap(5.05, 5.5, "YOUR spell!", SUB, false, SUBS);
 // Phoenix steps up and holds the tutorial out between them; both push it away at once
 A(4.45, "phx", "look", { to: [0.5, 0.2], dur: 0.12, blink: false });
-A(4.4, "phx", "move", { to: PHX_MID, dur: 0.45, ease: "inOut", steps: 3 });
-A(4.4, "phx", "turn", { to: 0, dur: 0.2 });   // faces us as he side-steps, so the phone stays in front
-ph.carry(4.26, [r3(PHX0[0] + 0.05), 0.5, r3(PHX0[1] + 0.45)], 0.12, "out", { rot: 190 });   // out in front first
-ph.carry(4.38, [r3(PHX_MID[0] - 0.1), 0.48, r3(PHX_MID[1] + 0.45)], 0.45, "inOut", { rot: 180 });
-A(4.85, "phx", "look", { to: [0, 0.2], dur: 0.1, blink: false });
-ph.carry(4.95, [r3(PHX_MID[0] - 0.12), 0.56, r3(PHX_MID[1] + 0.44)], 0.2, "out", { rot: 180, tip: 0 });
-A(4.95, "phx", "expr", { expr: "eager", dur: 0.2 });
-A(5.0, "phx", "look", { to: [0.2, 0.4], dur: 0.15, blink: false });
-c.arm(5.2, "wiz", "R", { o: [0.1, 0.72, 0.35] }, 0.12, "out"); A(5.2, "wiz", "grip", { side: "R", shape: "flat", dur: 0.08 });
-c.arm(5.22, "vik", "R", { o: [0.3, 0.75, 0.42] }, 0.12, "out"); A(5.22, "vik", "grip", { side: "R", shape: "flat", dur: 0.08 });
-ph.carry(5.3, [r3(PHX_MID[0] - 0.1), 0.46, r3(PHX_MID[1] + 0.38)], 0.18, "out", { rot: 180, tip: -10 });
-A(5.32, "phx", "expr", { expr: "shocked", set: { open: 0.12 }, dur: 0.15 });
+A(4.95, "phx", "move", { to: PHX_MID, dur: 0.35, ease: "inOut", steps: 3 });   // after both points land (review B note 4)
+A(4.95, "phx", "turn", { to: 0, dur: 0.2 });   // faces us as he side-steps, so the phone stays in front
+ph.carry(4.81, [r3(PHX0[0] + 0.05), 0.5, r3(PHX0[1] + 0.45)], 0.12, "out", { rot: 190 });   // out in front first
+ph.carry(4.93, [r3(PHX_MID[0] - 0.1), 0.48, r3(PHX_MID[1] + 0.45)], 0.35, "inOut", { rot: 180 });
+A(5.1, "phx", "look", { to: [0, 0.2], dur: 0.1, blink: false });
+ph.carry(5.28, [r3(PHX_MID[0] - 0.12), 0.56, r3(PHX_MID[1] + 0.44)], 0.2, "out", { rot: 180, tip: 0 });
+A(5.15, "phx", "expr", { expr: "eager", dur: 0.2 });
+A(5.15, "phx", "look", { to: [0.2, 0.4], dur: 0.15, blink: false });
+c.arm(5.3, "wiz", "R", { o: [0.1, 0.72, 0.35] }, 0.12, "out"); A(5.3, "wiz", "grip", { side: "R", shape: "flat", dur: 0.08 });
+c.arm(5.32, "vik", "R", { o: [0.3, 0.75, 0.42] }, 0.12, "out"); A(5.32, "vik", "grip", { side: "R", shape: "flat", dur: 0.08 });
+ph.carry(5.4, [r3(PHX_MID[0] - 0.1), 0.46, r3(PHX_MID[1] + 0.38)], 0.18, "out", { rot: 180, tip: -10 });
+A(5.42, "phx", "expr", { expr: "shocked", set: { open: 0.12 }, dur: 0.15 });
 c.arm(5.45, "wiz", "R", "rest", 0.3); c.arm(5.45, "vik", "R", "rest", 0.3);
 A(5.45, "wiz", "grip", { side: "R", shape: "relaxed", dur: 0.2 }); A(5.45, "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 see(4.55, 5.45, ["wiz.face", "vik.face", "phone"], "P4: the blame, the tutorial pushed away by both");
@@ -265,7 +266,7 @@ A(5.6, "vik", "move", { to: VIK_LEAN, dur: 0.3, ease: "inOut", steps: 2 }); A(5.
 // door; one quarter turn and the whole thing squares up, the loose door swinging back onto its hinge
 const BOLT = [r3(WX + WW / 2 - 0.03), 0.62, r3(WZ + WDp / 2 + 0.02)];
 A(6.06, "rea", "look", { to: [0.3, -0.2], dur: 0.12, blink: false });
-key.carry(6.2, [BOLT[0], r3(BOLT[1] - 0.2), r3(BOLT[2] + 0.075)], 0.2, "out", { rot: 90 });
+key.carry(6.1, [BOLT[0], r3(BOLT[1] - 0.2), r3(BOLT[2] + 0.075)], 0.18, "out", { rot: 90 });   // in the bolt before the insert cuts in
 const CLICK = 6.5;
 c.prop(6.4, "key", { tilt: -55 }, 0.1, "inOut");   // the quarter turn: the long arm swings round the bolt
 sfx(CLICK, "kenney/metal-click", { gain: 0.6, reason: "the Allen key's quarter turn: the bolt clicks tight" });
@@ -284,7 +285,7 @@ key.carry(6.84, [r3(REA_END[0] - 0.28), 0.44, r3(REA_END[1] + 0.26)], 0.45, "inO
 A(6.66, "rea", "look", { to: [0, 0.05], dur: 0.15, blink: false });
 A(6.7, "rea", "expr", { expr: "deadpan", dur: 0.2 });
 for (const [who, d] of [["phx", 0.08]]) act.shock(c, r3(CLICK + 0.15 + d), who, { open: 0.5, eye: 1.3, hold: 0.4 });   // (the Wizard is behind Reaper in this shot)
-see(6.3, 6.5, ["key"], "P5: the key in the bolt, the quarter turn (the insert)");
+see(6.32, 6.5, ["key"], "P5: the key in the bolt, the quarter turn (the insert)");
 see(6.58, 6.72, ["wardrobe"], "P5: the wardrobe squares up, the doors swing shut");
 see(6.75, 6.98, ["rea.face"], "P5: Reaper turns back to us, deadpan");
 
@@ -312,8 +313,8 @@ const E = ending(c, {
     c.prop(r3(U + 0.5), "wardrobe", { fall: 1 }, 0.4, "in");
     const FLAT = r3(U + 0.9);
     sfx(FLAT, "kenney/impact-wood-heavy", { gain: 0.9, reason: "the wardrobe folds flat on the floor: whump" });
-    c.at(FLAT, { fx: "poof", pos: [WX, 0.08, WZ - 0.7], dur: 0.7, color: "#efe3cf", puffs: 14, sparks: 0, size: 0.6, lift: 0.06 });
-    c.at(FLAT, { fx: "shake", dur: 0.25, amp: 0.025 });
+    for (const dx of [-0.35, 0.35]) c.at(FLAT, { fx: "poof", pos: [r3(WX + dx), 0.08, WZ - 0.7], dur: 1.1, color: "#efe3cf", puffs: 22, sparks: 0, size: 1.0, lift: 0.08 });   // review B note 6
+    c.at(FLAT, { fx: "shake", dur: 0.3, amp: 0.035 });
     // his elbow stays in the air where the wardrobe was; he stands back up
     c.arm(r3(U + 0.55), "vik", "L", { o: [0.42, 0.7, 0.06] }, 0.2, "out");
     A(r3(U + 0.55), "vik", "lean", { to: 4, dur: 0.25 });
@@ -328,17 +329,19 @@ A(E.glare, "vik", "turn", { to: 25, dur: 0.3, ease: "inOut" });   // 3/4 to us f
 // ---------------------------------------------------------------- shots: Jonny's panels (one front view, eye level)
 // the wide looks down on the room so the back row's faces clear the front row's heads
 const WIDE = { pos: [0.0, 2.8, 6.0], look: [0.0, 0.45, -0.5], fov: 52 };
+// review B note 1: the opening creeps in on the spell (slow first, so the hook holds), the flip then cuts away
+const OPEN = { ...WIDE, to: { pos: [0.0, 2.4, 4.6], look: [0.05, 1.0, -1.0] }, dur: 2.5, ease: "in" };
 const FLIP = { pos: [-0.2, 2.1, 3.5], look: [-0.15, 0.85, -1.0], fov: 52 };
 const BLAME = { pos: [-0.1, 2.6, 5.2], look: [0.0, 0.6, -0.7], fov: 50 };   // a size step out from the flip (no jump cut)
 const FIX = { pos: [-0.1, 2.0, 3.6], look: [0.35, 0.7, -1.0], fov: 46 };   // front, like the panel: the whole wardrobe, Reaper at its right corner, the key in the bolt   // from the right, so his right mitten and the key show past him
-const KEYIN = { pos: [-0.25, 1.05, 0.8], look: [0.38, 0.62, -0.98], fov: 38 };   // the brief's insert: mitten, key, bolt, the quarter turn
+const KEYIN = { pos: [-0.25, 1.05, 0.8], look: [0.38, 0.62, -0.98], fov: 38 };   // the brief's insert: mitten, key, bolt, the quarter turn (review B's wider angle round to the left put the Wizard's face in it: kept this one)
 const beats = c.beats([
-  ["P1-P2 going wrong, the spell", 0, WIDE, "hook"],
+  ["P1-P2 going wrong, the spell", 0, OPEN, "hook"],
   ["P3 the flip", 3.3, FLIP],
   ["P4 blame", 4.5, BLAME, "reaction"],
-  ["P5 the calm fix", 5.5, FIX],
-  ["P5 the key insert", 6.15, KEYIN],
-  ["P5 it squares up", 6.55, FIX],
+  ["P5 the calm fix", 5.5, "keep"],
+  ["P5 the key insert", 6.3, KEYIN],
+  ["P5 it squares up", 6.55, BLAME],
   ["P6-P8 cheer, undo, glare", T0, WIDE],
   ["P7 the undo", E.payoff, "keep", "payoff"],
 ], END);

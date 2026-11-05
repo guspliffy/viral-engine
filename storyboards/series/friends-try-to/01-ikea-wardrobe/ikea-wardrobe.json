@@ -330,7 +330,21 @@
      0.45,
      -0.5
     ],
-    "fov": 52
+    "fov": 52,
+    "to": {
+     "pos": [
+      0,
+      2.4,
+      4.6
+     ],
+     "look": [
+      0.05,
+      1,
+      -1
+     ]
+    },
+    "dur": 2.5,
+    "ease": "in"
    },
    "do": [
     {
@@ -1087,6 +1101,18 @@
     },
     {
      "fx": "pop",
+     "text": "upside down?!",
+     "who": "vik",
+     "dur": 0.5,
+     "xy": [
+      490,
+      560
+     ],
+     "size": 80,
+     "at": 2.75
+    },
+    {
+     "fx": "pop",
      "text": "sigh",
      "who": "rea",
      "dur": 0.42,
@@ -1561,38 +1587,6 @@
      "at": 0.85
     },
     {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "phone",
-      "grip": [
-       0.061,
-       0.065,
-       -0.006
-      ],
-      "palm": true,
-      "at": [
-       -1.1,
-       0.5,
-       0.85
-      ]
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.96
-    },
-    {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "rot": 190
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.96
-    },
-    {
      "fx": "impact",
      "dur": 0.05,
      "at": 1
@@ -1643,38 +1637,6 @@
      "at": 1.07
     },
     {
-     "who": "phx",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "phone",
-      "grip": [
-       0.061,
-       0.065,
-       -0.006
-      ],
-      "palm": true,
-      "at": [
-       -0.15,
-       0.48,
-       1.25
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 1.08
-    },
-    {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "rot": 180
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 1.08
-    },
-    {
      "fx": "sparkle",
      "who": "wiz",
      "dur": 0.9,
@@ -1690,25 +1652,6 @@
      },
      "dur": 0.6,
      "ease": "inOut",
-     "at": 1.1
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      -0.05,
-      0.8
-     ],
-     "dur": 0.45,
-     "ease": "inOut",
-     "steps": 3,
-     "at": 1.1
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.2,
      "at": 1.1
     },
     {
@@ -1840,22 +1783,43 @@
      "at": 0.15
     },
     {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       -1.1,
+       0.5,
+       0.85
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.31
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 190
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.31
+    },
+    {
      "who": "vik",
      "do": "face",
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.35
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      0.2
-     ],
-     "dur": 0.1,
-     "blink": false,
      "at": 0.35
     },
     {
@@ -1878,9 +1842,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.15,
-       0.6,
-       0.5
+       0.3,
+       0.5,
+       0.45
       ]
      },
      "dur": 0.14,
@@ -1894,6 +1858,38 @@
      "pose": "rest",
      "dur": 0.25,
      "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true,
+      "at": [
+       -0.15,
+       0.48,
+       1.25
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.43
     },
     {
      "who": "vik",
@@ -1910,6 +1906,65 @@
      "dur": 0.4,
      "voice": false,
      "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.05,
+      0.8
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "steps": 3,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.2,
+      0.4
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.7
     },
     {
      "who": "phx",
@@ -1931,7 +1986,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.45
+     "at": 0.78
     },
     {
      "do": "prop",
@@ -1942,25 +1997,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "eager",
-     "dur": 0.2,
-     "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0.2,
-      0.4
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.5
+     "at": 0.78
     },
     {
      "who": "wiz",
@@ -1975,7 +2012,7 @@
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 0.7
+     "at": 0.8
     },
     {
      "who": "wiz",
@@ -1983,18 +2020,13 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.08,
-     "at": 0.7
+     "at": 0.8
     },
     {
      "who": "rea",
-     "do": "look",
-     "to": [
-      -0.3,
-      0.3
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.7
+     "do": "stand",
+     "dur": 0.3,
+     "at": 0.8
     },
     {
      "who": "vik",
@@ -2009,7 +2041,7 @@
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 0.72
+     "at": 0.82
     },
     {
      "who": "vik",
@@ -2017,7 +2049,7 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.08,
-     "at": 0.72
+     "at": 0.82
     },
     {
      "who": "phx",
@@ -2039,7 +2071,7 @@
      },
      "dur": 0.18,
      "ease": "out",
-     "at": 0.8
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -2050,13 +2082,7 @@
      },
      "dur": 0.18,
      "ease": "out",
-     "at": 0.8
-    },
-    {
-     "who": "rea",
-     "do": "stand",
-     "dur": 0.3,
-     "at": 0.8
+     "at": 0.9
     },
     {
      "who": "phx",
@@ -2066,7 +2092,7 @@
       "open": 0.12
      },
      "dur": 0.15,
-     "at": 0.82
+     "at": 0.92
     },
     {
      "who": "wiz",
@@ -2140,20 +2166,8 @@
   {
    "name": "P5 the calm fix",
    "at": 5.5,
-   "len": 0.65,
-   "shot": {
-    "pos": [
-     -0.1,
-     2,
-     3.6
-    ],
-    "look": [
-     0.35,
-     0.7,
-     -1
-    ],
-    "fov": 46
-   },
+   "len": 0.8,
+   "shot": "keep",
    "do": [
     {
      "who": "phx",
@@ -2292,27 +2306,7 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.56
-    }
-   ]
-  },
-  {
-   "name": "P5 the key insert",
-   "at": 6.15,
-   "len": 0.4,
-   "shot": {
-    "pos": [
-     -0.25,
-     1.05,
-     0.8
-    ],
-    "look": [
-     0.38,
-     0.62,
-     -0.98
-    ],
-    "fov": 38
-   },
-   "do": [
+    },
     {
      "who": "rea",
      "do": "arm",
@@ -2331,9 +2325,9 @@
        -0.907
       ]
      },
-     "dur": 0.2,
+     "dur": 0.18,
      "ease": "out",
-     "at": 0.05
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -2341,10 +2335,30 @@
      "set": {
       "rot": 90
      },
-     "dur": 0.2,
+     "dur": 0.18,
      "ease": "out",
-     "at": 0.05
-    },
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "P5 the key insert",
+   "at": 6.3,
+   "len": 0.25,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.05,
+     0.8
+    ],
+    "look": [
+     0.38,
+     0.62,
+     -0.98
+    ],
+    "fov": 38
+   },
+   "do": [
     {
      "do": "prop",
      "id": "key",
@@ -2353,13 +2367,13 @@
      },
      "dur": 0.1,
      "ease": "inOut",
-     "at": 0.25
+     "at": 0.1
     },
     {
      "sfx": "kenney/metal-click",
      "gain": 0.6,
      "reason": "the Allen key's quarter turn: the bolt clicks tight",
-     "at": 0.35
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -2372,7 +2386,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.37
+     "at": 0.22
     },
     {
      "fx": "poof",
@@ -2387,7 +2401,7 @@
      "sparks": 8,
      "size": 0.18,
      "lift": 0.05,
-     "at": 0.37
+     "at": 0.22
     }
    ]
   },
@@ -2398,15 +2412,15 @@
    "shot": {
     "pos": [
      -0.1,
-     2,
-     3.6
+     2.6,
+     5.2
     ],
     "look": [
-     0.35,
-     0.7,
-     -1
+     0,
+     0.6,
+     -0.7
     ],
-    "fov": 46
+    "fov": 50
    },
    "do": [
     {
@@ -3143,22 +3157,37 @@
     {
      "fx": "poof",
      "pos": [
-      0.05,
+      -0.3,
       0.08,
       -1.9
      ],
-     "dur": 0.7,
+     "dur": 1.1,
      "color": "#efe3cf",
-     "puffs": 14,
+     "puffs": 22,
      "sparks": 0,
-     "size": 0.6,
-     "lift": 0.06,
+     "size": 1,
+     "lift": 0.08,
+     "at": 0.6
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.4,
+      0.08,
+      -1.9
+     ],
+     "dur": 1.1,
+     "color": "#efe3cf",
+     "puffs": 22,
+     "sparks": 0,
+     "size": 1,
+     "lift": 0.08,
      "at": 0.6
     },
     {
      "fx": "shake",
-     "dur": 0.25,
-     "amp": 0.025,
+     "dur": 0.3,
+     "amp": 0.035,
      "at": 0.6
     },
     {
@@ -3446,7 +3475,7 @@
    "why": "P4: the blame, the tutorial pushed away by both"
   },
   {
-   "from": 6.3,
+   "from": 6.32,
    "to": 6.5,
    "see": [
     "key"
