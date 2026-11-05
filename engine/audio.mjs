@@ -16,7 +16,7 @@ import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
-import { SR, TAU, biquad, run, env, buf, normalise } from "./sfx/dsp.mjs";
+import { SR, TAU, biquad, run, env, buf, normalise, retune } from "./sfx/dsp.mjs";
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
@@ -190,6 +190,158 @@ const SFX = {
     for (let i = 0; i < x.length; i++) {
       const t = i / SR, e = Math.min(1, t / 0.015) * Math.min(1, (d - t) / (d * 0.55));
       x[i] = (run(hp, r() * 2 - 1) * 0.8 + run(bp, r() * 2 - 1) * 0.6) * e * (0.9 + 0.1 * Math.sin(TAU * 23 * t));
+    }
+    return x;
+  },
+  // Never Looks Up ep 1 (the T-rex). A giant's footfall: a deep thump that drops in pitch (60->38 Hz), a dull mid
+  // knock on top so a phone speaker hears it, and a little grit trickling after
+  dinostomp(r, d = 0.9) {
+    const x = buf(d), lp = biquad("lp", 900, 0.8), hp = biquad("hp", 2500, 0.8), grit = Array.from({ length: 14 }, () => 0.06 + r() * (d - 0.2));
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 38 + 22 * Math.exp(-t * 9); ph += TAU * f / SR;
+      let g = 0; for (const h of grit) g += env(t - h, 0.0003, 0.005, d);
+      x[i] = Math.sin(ph) * 0.55 * Math.exp(-t * 4.5) * Math.min(1, t / 0.004)
+        + run(lp, r() * 2 - 1) * 4.5 * Math.exp(-t * 14) + Math.sin(TAU * 190 * t) * 0.6 * Math.exp(-t * 20) + Math.sin(TAU * 420 * t) * 0.35 * Math.exp(-t * 28)
+        + run(hp, r() * 2 - 1) * g * 0.25 * Math.min(1, (d - t) / 0.2);
+    }
+    return x;
+  },
+  // a big animal sniffing: a sharp nasal intake, noise through a nose-like band that rises 600->1400 Hz, 0.35 s
+  snort(r, d = 0.35) {
+    const x = buf(d), bp = biquad("bp", 900, 2.2), bp2 = biquad("bp", 2200, 1.5);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d, e = Math.sin(Math.PI * Math.min(1, u * 1.25)) ** 1.5 * Math.min(1, (d - t) / 0.04);
+      if (i % 64 === 0) retune(bp, "bp", 600 + 800 * u, 2.2);
+      x[i] = (run(bp, r() * 2 - 1) * (0.9 - 0.4 * u) + run(bp2, r() * 2 - 1) * (0.25 + 0.5 * u)) * e * 1.4 * (0.85 + 0.15 * Math.sin(TAU * 31 * t));
+    }
+    return x;
+  },
+  // a cartoon dinosaur roar, more trumpet than horror: a brassy buzzing bray (a sawtooth round 215 Hz with its
+  // harmonics up to about 3 kHz, nothing under 300 Hz so a phone hears all of it) that swells, wobbles and sags in pitch, with breathy noise under it; 1.2 s
+  dinoroar(r, d = 1.2) {
+    const x = buf(d), lp = biquad("lp", 3200, 0.7), bp = biquad("bp", 900, 0.9), lp2 = biquad("lp", 3400, 0.7), hp = biquad("hp", 300, 0.7);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d, f = 215 * (1 + 0.12 * Math.sin(Math.PI * u)) * (1 - 0.18 * u * u) * (1 + 0.025 * Math.sin(TAU * 7 * t));
+      ph += f / SR; const saw = 2 * (ph % 1) - 1;
+      const e = Math.min(1, t / 0.06) * Math.min(1, (d - t) / 0.35) * (0.8 + 0.2 * Math.sin(TAU * 3 * t));
+      x[i] = run(hp, (run(lp, saw) * 1.1 + run(bp, r() * 2 - 1) * 0.7 + run(lp2, Math.sign(Math.sin(TAU * f * 2 * t)) * 0.3)) * e);
+    }
+    return x;
+  },
+  // small waves lapping on a shallow beach: soft surges of washy noise (a swell every ~2.6 s) with a fizz as each one
+  // breaks, kept above 200 Hz so a phone hears it; a bed, any length
+  waves(r, d = 10) {
+    const x = buf(d), bp = biquad("bp", 700, 0.6), hp = biquad("hp", 2800, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, sw = 0.5 + 0.5 * Math.sin(TAU * t / 2.6 - 1.2), br = Math.max(0, Math.sin(TAU * t / 2.6 - 0.2)) ** 6;
+      x[i] = (run(bp, r() * 2 - 1) * (0.35 + 0.65 * sw) + run(hp, r() * 2 - 1) * 0.6 * br) * Math.min(1, t / 0.5, (d - t) / 0.5);
+    }
+    return x;
+  },
+  // a lifeguard's pea whistle: a bright tone round 2.9 kHz with the pea's fast trill (about 38 Hz) and breath noise,
+  // two short blasts then a long one
+  whistle(r, d = 0.9) {
+    const x = buf(d), hp = biquad("hp", 2200, 0.8), blasts = [[0, 0.16], [0.22, 0.38], [0.45, d - 0.02]];
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, on = blasts.reduce((a, [s0, s1]) => a + (t >= s0 && t < s1 ? Math.min(1, (t - s0) / 0.012, (s1 - t) / 0.03) : 0), 0);
+      const f = 2900 * (1 + 0.035 * Math.sin(TAU * 38 * t)); ph += TAU * f / SR;
+      x[i] = (Math.sin(ph) * 0.8 + run(hp, r() * 2 - 1) * 0.25) * on * (0.75 + 0.25 * Math.abs(Math.sin(TAU * 38 * t)));
+    }
+    return x;
+  },
+  // a megaphone's feedback: a piercing squeal that swells and slides up from about 1.9 to 3.1 kHz, with a buzzy edge
+  feedback(r, d = 0.7) {
+    const x = buf(d);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d, f = 1900 + 1200 * u * u; ph += TAU * f / SR;
+      const e = Math.min(1, (t / d) * 3) * Math.min(1, (d - t) / 0.08);
+      x[i] = (Math.sin(ph) * 0.7 + 0.25 * Math.sign(Math.sin(ph)) + (r() * 2 - 1) * 0.04) * e * 0.8;
+    }
+    return x;
+  },
+  // an inflatable ring bursting: a sharp bang of bright noise (a balloon pop, loudest in the first 10 ms) and a thin
+  // rubber slap, 0.3 s
+  ringpop(r, d = 0.3) {
+    const x = buf(d), bp = biquad("bp", 1800, 0.7), hp = biquad("hp", 400, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR;
+      x[i] = run(hp, run(bp, r() * 2 - 1) * 3 * Math.exp(-t * 45) + Math.sin(TAU * 520 * t) * 0.5 * Math.exp(-t * 30));
+    }
+    return x;
+  },
+  // the air rushing out of a popped ring: a long flapping "pfffrrt" of hissy noise that sags in pitch and flutters as
+  // the valve flaps, 1.4 s
+  deflate(r, d = 1.4) {
+    const x = buf(d), bp = biquad("bp", 1600, 1.4);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d;
+      if (i % 64 === 0) retune(bp, "bp", 1600 - 900 * u, 1.4);
+      const fl = 0.6 + 0.4 * Math.sin(TAU * (34 - 18 * u) * t);
+      x[i] = run(bp, r() * 2 - 1) * fl * Math.min(1, t / 0.02) * (1 - u) ** 0.7 * 1.6;
+    }
+    return x;
+  },
+  // a plush shark's hopeful little hum, closed mouth: two soft "mm-mm?" notes, the second gliding up like a question
+  // (about 300 -> 450 Hz, warm with a few harmonics and a nasal buzz), 0.7 s
+  sharkhum(r, d = 0.7) {
+    const x = buf(d), bp = biquad("bp", 900, 0.9);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, two = t > d * 0.42, u = two ? (t - d * 0.42) / (d * 0.58) : t / (d * 0.38);
+      const f = two ? 310 + 140 * u * u : 330 - 20 * u; ph += TAU * f / SR;
+      const e = two ? Math.min(1, u / 0.12) * Math.min(1, (1 - u) / 0.2) : (t < d * 0.38 ? Math.min(1, u / 0.15) * Math.min(1, (1 - u) / 0.25) : 0);
+      const v = Math.sin(ph) + 0.45 * Math.sin(2 * ph) + 0.25 * Math.sin(3 * ph) + 0.12 * Math.sin(4 * ph);
+      x[i] = (v * 0.55 + run(bp, v) * 0.5) * Math.max(0, e) * (1 + 0.04 * Math.sin(TAU * 5.5 * t));
+    }
+    return x;
+  },
+  // a tired cartoon zombie's groan: a low, nasal "uhhhh" (a buzzy voice round 150 Hz with strong harmonics, a vowel
+  // band near 700 Hz) that sags in pitch and wobbles; several overlap for a horde when d is long, never scary
+  groan(r, d = 1.2) {
+    const x = buf(d), n = d > 1.5 ? 3 : 1;
+    for (let v = 0; v < n; v++) {
+      const f0 = 150 * (1 + 0.18 * v) * (0.94 + 0.12 * r()), off = v * 0.37 * d / n, len = n > 1 ? Math.min(d - off, 1.3 + 0.4 * r()) : d;
+      const bp = biquad("bp", 700 + 120 * v, 1.2);
+      let ph = 0;
+      for (let i = Math.floor(off * SR); i < Math.min(x.length, Math.floor((off + len) * SR)); i++) {
+        const t = i / SR - off, u = t / len;
+        ph += TAU * f0 * (1 - 0.1 * u) * (1 + 0.02 * Math.sin(TAU * 4.5 * t + v)) / SR;
+        const saw = 2 * ((ph / TAU) % 1) - 1, e = Math.min(1, t / 0.12) * Math.min(1, (len - t) / 0.25);
+        x[i] += (run(bp, saw) * 1.4 + saw * 0.15) * e * (0.55 / Math.sqrt(n));
+      }
+    }
+    return x;
+  },
+  // leaves rustling as someone dives into a hedge: a dense crackle of small dry clicks in airy noise (2-6 kHz) that
+  // swells and settles, 0.6 s
+  leafrustle(r, d = 0.6) {
+    const x = buf(d), hp = biquad("hp", 1800, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, e = Math.min(1, t / 0.04) * Math.exp(-t * 4.5), click = r() < 0.004 ? (r() * 2 - 1) * 3 : 0;
+      x[i] = run(hp, (r() * 2 - 1) * 0.5 + click) * e;
+    }
+    return x;
+  },
+  // a soft friendly pat on a shoulder: a muffled cloth slap (a short thump round 300 Hz with a little noise up to
+  // 2 kHz), 0.12 s
+  pat(r, d = 0.12) {
+    const x = buf(d), bp = biquad("bp", 900, 0.8);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = (Math.sin(TAU * 300 * t) * Math.exp(-t * 60) * 0.7 + run(bp, r() * 2 - 1) * Math.exp(-t * 90)) * 1.1; }
+    return x;
+  },
+  // an old street lamp buzzing: a mains hum (120 Hz with bright odd harmonics up to about 1.5 kHz, so a phone hears it)
+  // that stutters as the lamp flickers; a bed, any length
+  lampbuzz(r, d = 4) {
+    const x = buf(d);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let v = 0;
+      for (const [h, a] of [[1, 0.5], [3, 0.5], [5, 0.4], [7, 0.3], [9, 0.25], [11, 0.15]]) v += a * Math.sin(TAU * 120 * h * t);
+      const fl = Math.sin(t * 37.8) > 0.93 ? 0.3 : 1;
+      x[i] = v * 0.35 * fl * Math.min(1, t / 0.2, (d - t) / 0.2);
     }
     return x;
   },
