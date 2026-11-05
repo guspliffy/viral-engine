@@ -1343,6 +1343,7 @@ function inProps(live, shownIn) {
       if (!o.isMesh || !o.geometry || o.isSprite || !o.geometry.attributes.position) return;
       const mt = Array.isArray(o.material) ? o.material[0] : o.material;
       if (mt && mt.transparent && mt.opacity < 0.5) return;   // glass, glows, shadows
+      if (o.userData.steam) return;                            // steam, flames, sparks, speed lines: nothing to touch
       const S = solidOf(o.geometry), wb = S.bb.clone().applyMatrix4(o.matrixWorld);
       solids.push({ p, id: p.spec.id, o, S, inv: o.matrixWorld.clone().invert(), k: scaleK(o), wb });
     });
