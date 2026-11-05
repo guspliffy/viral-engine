@@ -39,8 +39,11 @@ function wristTurn(r) {
   const t = _bq.invert().multiply(r);
   let tw = 2 * Math.atan2(t.y, t.w); if (tw > Math.PI) tw -= 2 * Math.PI; if (tw < -Math.PI) tw += 2 * Math.PI;
   const b = al > 1e-9 ? fold(ang, WRIST.bend) / al : 0;
-  return [ax * b, az * b, Math.sign(tw) * fold(Math.abs(tw), WRIST.twist), 1, ang, tw];
+  return [ax * b, az * b, Math.sign(tw) * fold(Math.abs(tw), WRIST.twist), 1, ang, tw, ax * (al > 1e-9 ? ang / al : 0), az * (al > 1e-9 ? ang / al : 0)];
 }
+// the turn to blend towards at weight w: within the wrist's reach while the hand is on its way (w under 0.6), the whole
+// turn once it is on its hold (w 1: a fist round a staff, a hand locked to a phone must match the hold exactly)
+const wristAim = (r, w) => { const k = sstep((w - 0.6) / 0.4); return [r[0] + (r[6] - r[0]) * k, r[1] + (r[7] - r[1]) * k, r[2] + (r[5] - r[2]) * k]; };
 // [bend x, bend z, twist] back to a rotation: the twist about the forearm, then the bend
 function wristQuat(p, out) {
   const tw = new THREE.Quaternion().setFromAxisAngle(_bY, p[2]), a = Math.hypot(p[0], p[1]);
@@ -464,7 +467,7 @@ export class Character {
       if (!(w > 0)) return;
       const r = wristTurn(T.copy(Bi).multiply(q)), u = w * r[3];
       lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
-      dbg[key] = rd(u, 2); toward(r, u);
+      dbg[key] = rd(u, 2); toward(wristAim(r, u), u);
     };
     // the fist turns onto the handle as the hand closes (as in _pose)
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
@@ -502,7 +505,8 @@ export class Character {
         // a forearm pointing straight at the hold leaves the palm's roll open: the turn fades there instead of spinning
         const r = wristTurn(T.copy(Bi).multiply(_fist)), u = e.w * r[3] * sstep(fl / 0.3);
         lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
-        for (let i = 0; i < 3; i++) acc[i] += u * r[i];
+        const ra = wristAim(r, e.w);
+        for (let i = 0; i < 3; i++) acc[i] += u * ra[i];
         wu += u;
       }
       if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); }
