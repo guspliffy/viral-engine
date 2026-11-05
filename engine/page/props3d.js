@@ -41,6 +41,7 @@ import { SHARK_KINDS } from "./props-shark.js";
 import { BUSSTOP_KINDS } from "./props-busstop.js";
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
+import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
 import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
@@ -76,6 +77,7 @@ export function gripPoint(spec, grip) {
 // a point (dir: a direction) on a moving part of a prop (a foldphone's half) -> the prop's own frame, for the part's
 // state at that moment (ps: propState). Hands that hold a part follow it through gripWorld from there.
 const PARTS = { ...DUO_PARTS };
+Object.assign(PARTS, TENT_PARTS);   // friends try to, episode 2: the tent's guy rope and pole (props-tent.js)
 export function partPoint(spec, ps, part, p, dir = false) {
   const f = PARTS[spec.kind];
   if (!f) throw new Error(`prop ${spec.id} (${spec.kind}) has no parts to hold`);
@@ -1325,6 +1327,7 @@ Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS);   // friends try to: wardrobe, 
 Object.assign(KINDS, UFO_KINDS, PLANE_KINDS);   // never looks up: flyingsaucer, beanalien, lawnchair, telescope, popcornbowl, popcorn, picnicblanket (props-ufo.js); planeseat, seatbelt, cabinwall, overhead, oxymask, drinktray, blob, pillow, magazine, rowback (props-plane.js)
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
+Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
