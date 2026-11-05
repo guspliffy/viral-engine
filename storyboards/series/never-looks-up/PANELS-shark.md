@@ -34,3 +34,13 @@ crisp short shadows, the phone glow faint on Phoenix's face.
   clear of faces and below the top 20 % kept for his title.
 - **The ladder climb** uses the engine's hand-over-hand `climb` (four pulls, head leading, body rising on each pull),
   not a new move.
+- **"hiii?", "huh." and the megaphone's "SKREEE!" are pop words beside the faces** (`textPop`), not lower-third
+  captions: as captions they sat over the shark's face or Phoenix's head (Fable review B: the yell needed a visible
+  squeal, panel 03's lightning bolt).
+- **The peak (panel 06) holds the same framing as panel 05** (`keep`): a new shot there was a jump cut under the
+  camera lint's 15 % size step.
+- **The umbrella stays at the tower's top corner** instead of being knocked into the title band: moving it risked the
+  Wizard's hat brim on the climb.
+- **The flat ring floats a little forward of the tower** after the pop so it stays in the last shots (panel 08 lower
+  left); it reads small at phone size.
+- **10.2 s instead of 10 s**: the two 3-frame hit-stops add 0.2 s, as in episode 1.
