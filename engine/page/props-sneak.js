@@ -228,7 +228,7 @@ export const SNEAK_KINDS = {
       const lever = mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.13, 10), brass, leaf, w - 0.15, 0.98, s * (t / 2 + 0.045)); lever.rotation.z = Math.PI / 2;
       mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.04, 10), brass, leaf, w - 0.1, 0.98, s * (t / 2 + 0.025)).rotation.x = Math.PI / 2;
     }
-    const tk = ticks(P.whole, 3, 0.22, true); tk.grp.position.set(0.05, h - 0.25, 0.3);
+    const tk = ticks(P.whole, S.ticks ?? 3, S.tickSize ?? 0.22, true); tk.grp.position.set(0.05, h - 0.25, 0.3);
     const A = ((S.angle ?? 140) * Math.PI) / 180;
     return {
       grip: 0.98,
@@ -275,7 +275,8 @@ export const SNEAK_KINDS = {
       grip: 0,
       apply(ps) {
         const on = clamp(ps.on), sh = clamp(ps.shadow ?? ps.on);
-        strip.material.opacity = on; edge.material.opacity = 0.8 * on; fan.material.opacity = 0.75 * on; halo.material.opacity = 0.35 * on;
+        const b = S.boost ?? 1;   // spec.boost: a brighter light (review B: at phone size the snap has to read)
+        strip.material.opacity = on; edge.material.opacity = Math.min(1, 0.8 * b) * on; fan.material.opacity = Math.min(1, 0.75 * b) * on; halo.material.opacity = Math.min(0.9, 0.35 * b) * on;
         shM.opacity = 0.78 * sh * on;
       },
     };

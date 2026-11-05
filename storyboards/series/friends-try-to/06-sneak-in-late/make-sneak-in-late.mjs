@@ -21,7 +21,7 @@ import * as act from "../../../lib/acting.mjs";
 import { NIGHTHALL } from "../../../../engine/page/set-nighthall.js";
 
 const c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
-const END = 10.0;
+const END = 9.8;   // + two 3-frame hit-stops = 10.0 s of video (series format: a hard cut at 10.0)
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const HW = NIGHTHALL.w / 2, DOOR = NIGHTHALL.door, MOMZ = NIGHTHALL.mom.z;
 const HINGE = [-HW - 0.05, DOOR.z1];   // the front door's hinge: the near jamb
@@ -56,13 +56,13 @@ const cast = [
   { id: "rea", character: "notyet/reaper-noscythe", at: P0.rea, face: 25, expr: "deadpan", follow: 0.3, seed: 4.1 },
 ];
 const props = [
-  { id: "door", kind: "nightdoor", x: HINGE[0], z: HINGE[1], rot: -89 },
+  { id: "door", kind: "nightdoor", x: HINGE[0], z: HINGE[1], rot: -89, ticks: 5, tickSize: 0.42 },
   { id: "board", kind: "looseboard", x: BOARD[0], z: BOARD[1], l: 1.1 },
   { id: "stand", kind: "coatstand", x: STAND[0], z: STAND[1], rot: 107 },   // it tips toward us, away from the Wizard
   { id: "rack", kind: "shoerack", x: RACK[0], z: RACK[1], rot: 90 },
   ...SLIP.map(([x, z, color, check], i) => ({ id: `slip${i}`, kind: "slippers", x, z, rot: 90, color, ...(check && { check }) })),
   { id: "rug", kind: "runner", x: RUG0[0], z: RUG0[1], l: RUG_L, w: 0.9 },
-  { id: "mom", kind: "momdoor", x: NIGHTHALL.mom.x, z: NIGHTHALL.far + 0.01, rot: 0, w: 0.85, reach: 7 },   // face-on at the far end (review A: edge-on it never read)
+  { id: "mom", kind: "momdoor", x: NIGHTHALL.mom.x, z: NIGHTHALL.far + 0.01, rot: 0, w: 0.85, reach: 7, boost: 1.9 },   // face-on at the far end (review A: edge-on it never read)
   { id: "torch", kind: "torchphone", x: P0.phx[0] + 0.2, y: 0.62, z: P0.phx[1] + 0.3, rot: 180, tilt: 38, scale: 1.5, r: 0.5 },
   { id: "dust", kind: "dustmotes", x: -0.4, y: 1.3, z: -0.6, n: 50, box: [2.4, 1.6, 3.0], color: "#b9c8ff" },
   { id: "moonbeam", kind: "lightbeam", x: -HW - 0.4, y: 2.0, z: (DOOR.z0 + DOOR.z1) / 2, rot: -90, tip: -28, len: 2.6, w: 1.3, color: "#8fa8ff", glow: 0.5 },
@@ -78,6 +78,7 @@ A(0, "phx", "grab", { prop: "torch", hand: "R", grip: [0.032, 0.03, 0], pose: nu
 c.prop(0, "torch", { on: 1 }, 0.01);
 c.prop(0, "door", { open: 0 }, 0.01);
 for (const id of ["wiz", "phx", "vik", "rea"]) A(0, id, "look", { to: [0.1, -0.35], dur: 0.01, blink: false });
+for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", set: { curve: -0.1, open: 0 }, dur: 0.01 }); A(0, id, "face", { lid: 0.35, dur: 0.01 }); }   // sneaky, not a greeting (review B)
 // the Wizard's foot lands on the loose board: it flexes, CREAK (hit-stop), everyone freezes
 act.opener(c, "wiz", "eep!", { at: 0.05, dur: 0.35, tone: "excited" });
 c.prop(0.08, "board", { flex: 1, tick: 1 }, 0.08, "out");
@@ -188,7 +189,8 @@ A(6.5, "phx", "move", { to: [0.95, 0.65], dur: 0.6, steps: 3, ease: "inOut" });
 A(6.55, "vik", "move", { to: [-0.15, -1.2], dur: 0.6, steps: 3, ease: "inOut" });
 c.arm(6.9, "rea", "R", "rest", 0.2, "inOut");
 for (const [id, p] of Object.entries(CHEER)) A(7.18, id, "move", { to: p, dur: 0.01 });
-for (const id of ["vik", "phx", "rea"]) A(7.18, id, "turn", { to: 15, dur: 0.01 });   // to the camera at the right
+for (const id of ["vik", "rea"]) A(7.18, id, "turn", { to: 15, dur: 0.01 });
+A(7.18, "phx", "turn", { to: 5, dur: 0.01 });   // his face clear of the Wizard's hat (review B)   // to the camera at the right
 A(7.18, "wiz", "turn", { to: -15, dur: 0.01 });   // the staff in front of him, clear of Reaper's face
 
 // ---------------------------------------------------------------- 06 WE DID IT 7.2-8.0 (silent cheer)
@@ -219,6 +221,7 @@ A(8.0, "vik", "talk", { line: "kwai-it-li...", tone: "calm", dur: 0.6, voice: fa
 cap(8.05, 8.75, "Quietly…", 600);
 c.prop(8.1, "door", { rot: 90 }, 0.55, "inOut");
 c.prop(8.15, "door", { squeal: 1 }, 0.05); c.prop(8.7, "door", { squeal: 0 }, 0.1);
+c.textPop(8.15, "vik", "SQUEEEAK", { dur: 0.55 });   // the drawn squeal (review B: the door is edge-on at phone size)
 sfx(8.15, "creak", { gain: 0.85, dur: 0.6, reason: "the rusty hinge's long SQUEAL as Viking eases the door shut" });
 sfx(8.15, "ai/dundun", { gain: 0.6, reason: "the dö-döm of the tiny undo (series ending)" });
 sfx(8.68, "latch-click", { gain: 0.3, reason: "the latch clicking home" });
@@ -233,17 +236,17 @@ see(8.1, 8.7, ["vik.face", "door"], "Viking eases the front door shut by its han
 see(8.8, 9.0, ["mom"], "the light under Mom's door snaps on, her shadow falls along the hall");
 
 // ---------------------------------------------------------------- 08 THE GLARE 9.0-10.0
-A(9.0, "vik", "look", { to: [0.5, -0.1], dur: 0.15 });
-act.sheepish(c, 9.1, "vik");
-c.arm(9.1, "vik", "L", { o: [0.12, 1.02, -0.12] }, 0.25, "inOut");   // the free hand to the back of his head
+A(8.9, "vik", "look", { to: [0.5, -0.1], dur: 0.15 });
+act.sheepish(c, 9.0, "vik");
+c.arm(9.0, "vik", "L", { o: [0.12, 1.02, -0.12] }, 0.25, "inOut");   // the free hand to the back of his head
 for (const [i, id] of ["wiz", "rea", "phx"].entries()) {
-  const t = 9.05 + i * 0.15;
+  const t = r3(8.95 + i * 0.1);   // all three glaring by 9.6 s of video (the cover)
   // Viking is behind them, up and to the left on screen: the eyes slide over, the face stays to us
   A(t, id, "look", { to: [-0.7, 0.3], dur: 0.25, ease: "inOut", blink: false });
-  A(t, id, "turn", { to: id === "wiz" ? -5 : id === "rea" ? -6 : -18, dur: 0.3, ease: "inOut" });   // Reaper only a little: his right hand would swing into Phoenix
+  A(t, id, "turn", { to: id === "wiz" ? -5 : id === "rea" ? 0 : -18, dur: 0.3, ease: "inOut" });   // Reaper only a little: his right hand would swing into Phoenix
   act.mood(c, t + 0.05, id, "angry", { hold: 0.7 });
 }
-see(9.4, 9.95, ["wiz.face", "phx.face", "rea.face", "vik.face", "mom"], "three glares at Viking under Mom's light and shadow");
+see(9.3, 9.75, ["wiz.face", "phx.face", "rea.face", "vik.face", "mom"], "three glares at Viking under Mom's light and shadow");
 
 // ---------------------------------------------------------------- shots
 const A_HALL = { pos: [0.25, 1.75, 5.6], look: [-0.15, 0.6, -0.6], fov: 50 };   // 01-06: down the entry, the door at the left
@@ -260,7 +263,7 @@ const beats = c.beats([
   ["05 the calm fix", 5.5, FIX, "payoff"],
   ["06 we did it", 7.2, CHEER_S],
   ["07 the tiny undo", 8.0, B_HALL, "reveal"],
-  ["08 the glare", 9.0, null],
+  ["08 the glare", 8.9, null],
 ], END);
 
 write(import.meta.url, {
