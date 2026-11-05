@@ -36,7 +36,7 @@ const NOODLE = { x: -1.75, z: 1.05, rot: 60 };
 
 const PH_Y = 0.2, PH_Z = 0.42;
 const PHONE_R = { x: [-0.11, PH_Y, PH_Z], palm: [0, PH_Y, PH_Z] }, PHONE_L = { x: [0.11, PH_Y, PH_Z], palm: [0, PH_Y, PH_Z] };
-const SEAT = -0.25 + 0.42 - 0.12, LIFT = 0.38;
+const SEAT = -0.25 + 0.42 - 0.12, LIFT = 0.55;   // open water under his feet once the ring is gone
 const AT_PHONE = [0.03, -1];
 const fwd = (at, yaw, d, side = 0) => [r3(at[0] + Math.sin(rad(yaw)) * d - Math.cos(rad(yaw)) * side), r3(at[1] + Math.cos(rad(yaw)) * d + Math.sin(rad(yaw)) * side)];
 const PHONE_W = (() => { const [x, z] = fwd(PHX, RING.rot, 0.44); return [x, SEAT + 0.57, z]; })();
@@ -47,20 +47,20 @@ const cast = [
   { id: "wiz", character: "notyet/wizard-nostaff", at: WIZ0, y: WADE, face: 30, expr: "kind", follow: 0.4, seed: 2.6 },
   { id: "rea", character: "notyet/reaper-noscythe", at: REA_TOP, y: TOP, face: -30, expr: "kind", follow: 0.25, seed: 3.1 },
 ];
-const SHARK_S = 1.1, FIN_Y = -0.55;                           // only the fin shows at FIN_Y
+const SHARK_S = 1.1, FIN_Y = -0.48;                              // only the fin shows at FIN_Y
 const MEGA0 = { x: TOWER.x - 0.85, y: TOP + 0.38, z: FRONT - 0.02, rot: -150 };   // lying on the left front rail
 const props = [
   { id: "ring", kind: "donutring", x: RING.x, y: -0.25, z: RING.z, rot: RING.rot },
   { id: "tower", kind: "guardtower", x: TOWER.x, z: TOWER.z, h: TOWER.h, w: TOWER.w, d: TOWER.d, gap: TOWER.gap, umbrellaX: 0, pole: 1.75 },
   { id: "shark", kind: "shark", x: PHX[0] + 0.9, y: FIN_Y, z: PHX[1], rot: 180, scale: SHARK_S, wag: 0.4 },
-  { id: "wake", kind: "wakefoam", x: PHX[0] + 0.9, z: PHX[1], r: 0.22 },
+  { id: "wake", kind: "wakefoam", x: PHX[0] + 0.9, z: PHX[1], r: 0.38 },
   { id: "ringfoam", kind: "wakefoam", x: PHX[0], z: PHX[1], r: 0.62, on: 0.6 },
   { id: "wizfoam", kind: "wakefoam", x: WIZ0[0], z: WIZ0[1], r: 0.3, on: 0.8 },
   { id: "noodle", kind: "noodle", x: WIZ0[0] - 0.5, y: 0.5 + WADE, z: WIZ0[1] + 0.1, rot: 60, tilt: 0 },   // tucked by his right side
   { id: "mega", kind: "megaphone", ...MEGA0, scale: 1.5 },
   { id: "whistle", kind: "whistle", x: REA_TOP[0] + 0.15, y: TOP + 0.42, z: REA_TOP[1] + 0.3 },
   { id: "phone", kind: "phone", x: PHX[0], y: 0.6, z: PHX[1] + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36" },
-  { id: "pop", kind: "splash", x: PHX[0] + 0.5, y: 0, z: PHX[1] + 0.35, n: 18, size: 0.6 },
+  { id: "pop", kind: "splash", x: PHX[0] + 0.5, y: 0, z: PHX[1] + 0.35, n: 30, size: 1.0 },
   { id: "rise", kind: "splash", x: 0.32, y: 0, z: 3.0, n: 30, size: 1.0 },
   { id: "bubbles", kind: "bubbles", x: 0.32, y: 0, z: 3.0 },
 ];
@@ -73,7 +73,7 @@ A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 }
 A(0, "phx", "face", { lid: 0.55, dur: 0 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
-prop(0, "phone", { glow: 0.5 }, 0.01);
+prop(0, "phone", { glow: 0.85 }, 0.01);
 
 // ---------------------------------------------------------------- the fin: clockwise circles round the ring (seen from above)
 // angle th: x = cx + r cos th, z = cz + r sin th; th grows from +x toward +z (toward us), which is clockwise from above
@@ -90,13 +90,13 @@ const finPath = (t0, t1, th0, th1, r0, r1, step = 0.1) => {
 const TH0 = 2.0, TH1 = TH0 + Math.PI * 2 * 0.95;   // it starts front left of him, so it is round the far side before the Wizard wades past
 { const f = finAt(TH0, 0.95); prop(0, "shark", { x: f.x, z: f.z, rot: unwrap(f.rot), y: FIN_Y }, 0.01); prop(0, "wake", { x: f.x, z: f.z, on: 1 }, 0.01); }
 finPath(0.01, 2.3, TH0, TH1, 0.95, 0.9);      // nearly a full lap
-finPath(2.3, 4.2, TH1, Math.PI * 4 + 1.35, 0.9, 0.8);   // round again, closing in
+finPath(2.3, 4.2, TH1, Math.PI * 4 + 1.35, 0.95, 0.86);   // round again, closing in
 // 4.2-4.6: it passes right under his dangling feet (in front of the ring) as he lifts them
-finPath(4.2, 4.7, Math.PI * 4 + 1.35, Math.PI * 4 + 2.2, 0.8, 0.66);
+finPath(4.2, 4.7, Math.PI * 4 + 1.35, Math.PI * 4 + 2.2, 0.86, 0.66);
 // 4.7-5.3: it rubs along the ring's side, then the pop
 finPath(4.7, 5.3, Math.PI * 4 + 2.2, Math.PI * 4 + 3.2, 0.66, 0.62);
 sfx(0.1, "ai/dundun", { gain: 0.8, reason: "dö-döm: the fin cutting round him" });
-sfx(4.85, "creak", { gain: 0.5, dur: 0.4, reason: "the fin rubs along the ring's rubber" });
+sfx(4.85, "creak", { gain: 0.85, dur: 0.4, reason: "the fin rubs along the ring's rubber" });
 
 // ---------------------------------------------------------------- 1 FIN 0-1.5 (P1)
 const CAP_Y = 640;   // gibberish captions: in the sky, below the title's top 20 %
@@ -107,7 +107,7 @@ c.arm(0, "wiz", "L", { o: [0.25, 0.55, 0.3] }, 0);                    // pointin
 A(0.05, "wiz", "talk", { line: "sha-ark!", dur: 0.55, tone: "excited", voice: false });
 c.cap(0.05, 1.2, "SHARK!!", CAP_Y);
 prop(0.1, "noodle", { y: 0.03, x: NOODLE.x, z: NOODLE.z, rot: NOODLE.rot }, 0.35, "in");     // he drops the noodle
-sfx(0.42, "splash", { gain: 0.35 });
+sfx(0.42, "splash", { gain: 0.55 });
 // Reaper sits up on the tower, eyes on the fin
 A(0, "rea", "look", { to: [-0.6, -0.5], dur: 0, blink: false });
 act.shock(c, 0.25, "rea", { open: 0.05, eye: 1.2, hold: 1.4 });
@@ -131,7 +131,7 @@ A(1.05, "wiz", "turn", { to: 95, dur: 0.25 });
 const WIZ_CTL = [-0.45, 0.55];
 const wizPts = runCurve("wiz", 1.1, 1.0, WIZ0, WIZ_CTL, LADDER_FOOT);
 for (const [t, x, z] of wizPts.filter((_, i) => i % 2 === 0)) prop(1.1 + t, "wizfoam", { x, z }, 0.125, "linear");
-for (const t of [1.25, 1.55, 1.85]) sfx(t, "splash", { gain: 0.28, reason: "the Wizard splashing through the shallows" });
+for (const t of [1.25, 1.55, 1.85]) sfx(t, "splash", { gain: 0.5, reason: "the Wizard splashing through the shallows" });
 A(1.75, "wiz", "turn", { to: 160, dur: 0.3 });                      // turns his back to us, to the ladder
 // the climb: hand over hand, each glove reaching wide of the hat brim to the next rung, the body rising on each pull
 // (the engine's "climb" raises the arms straight up through the brim, so the arms are keyed here)
@@ -144,7 +144,7 @@ c.arm(2.96, "wiz", "R", "rest", 0.3); c.arm(2.96, "wiz", "L", "rest", 0.3);
 prop(2.1, "wizfoam", { on: 0 }, 0.3);
 // over the top: the hat knocks Reaper's umbrella crooked
 prop(2.85, "tower", { tilt: 18 }, 0.15, "out"); prop(3.0, "tower", { tilt: 12 }, 0.25);
-sfx(2.85, "thud-soft", { gain: 0.3, reason: "the hat bumps the umbrella pole" });
+sfx(2.85, "thud-soft", { gain: 0.65, reason: "the hat bumps the umbrella pole" });
 A(2.87, "wiz", "look", { to: [-0.7, 0.0], dur: 0.12, blink: false });
 A(3.0, "wiz", "move", { to: WIZ_TOP, dur: 0.6 });
 A(3.05, "wiz", "turn", { to: 10, dur: 0.35 });
@@ -172,12 +172,12 @@ A(3.42, "wiz", "grab", { prop: "mega", hand: "R", grip: [0, 0, 0], pose: { o: [0
 A(3.5, "rea", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
 act.mood(c, 3.55, "rea", "annoyed", { hold: 0.35 });
 A(3.7, "wiz", "look", { to: [-0.6, -0.6], dur: 0.12, blink: false });
-A(3.72, "wiz", "talk", { line: "loook uuup!", dur: 0.25, tone: "excited", voice: false });
-c.cap(3.72, 4.3, "LOOK UP!!", 330);   // above the tower: the faces sit where the other captions go
+A(3.55, "wiz", "talk", { line: "loook uuup!", dur: 0.35, tone: "excited", voice: false });
+c.cap(3.55, 4.3, "LOOK UP!!", 330);   // above the tower: the faces sit where the other captions go
 sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals" });
 c.hitStop(3.9, 3);
 act.shock(c, 3.92, "wiz", { open: 0.45, hold: 0.5 }); act.shock(c, 3.92, "rea", { open: 0.2, hold: 0.5 });
-A(3.92, "wiz", "squash", { amount: 0.08, dur: 0.15 }); A(3.92, "rea", "squash", { amount: 0.08, dur: 0.15 });
+A(3.92, "wiz", "squash", { amount: 0.16, dur: 0.15 }); A(3.92, "rea", "squash", { amount: 0.1, dur: 0.15 });
 // Phoenix lifts his dangling feet onto the ring just as the fin passes under them, without looking
 A(4.3, "phx", "squash", { amount: 0.02, dur: 0.15 });                       // a little wriggle as the fin passes under him
 see(3.3, 4.9, ["wiz.face", "rea.face", "mega", "phx.face"], "P3: the megaphone, the squeal, Phoenix below still scrolling");
@@ -204,7 +204,7 @@ prop(5.4, "wake", { on: 0 }, 0.3);
 const SH = { x: 0.32, z: 3.0, rot: -22 };
 prop(5.75, "shark", { x: SH.x, z: SH.z, rot: unwrap(SH.rot), tip: -10 }, 0.4);
 const T_RISE = 6.4;
-prop(T_RISE, "shark", { y: 0.3, tip: -15, hope: 1, mouth: 0.8, lookX: -1, lookY: 1, wag: 1 }, 0.3, "out");
+prop(T_RISE, "shark", { y: 0.28, tip: -18, hope: 1, mouth: 0.8, lookX: -1, lookY: 1, wag: 1 }, 0.3, "out");
 prop(T_RISE, "rise", { puff: 1 }, 0.7, "linear");
 sfx(T_RISE + 0.05, "splash", { gain: 0.8, reason: "the shark surges up out of the water" });
 c.at(T_RISE + 0.05, { fx: "shake", amp: 0.015, dur: 0.2 });
@@ -217,7 +217,10 @@ see(6.45, 6.95, ["phx.face", "shark"], "P5: the shark surges up right under him"
 // ---------------------------------------------------------------- 6 PEAK 7.0-8.0 (P6)
 c.arm(6.6, "wiz", "R", { x: [-0.06, 0.26, 0.32] }, 0.3);                // hugging the megaphone to his chest
 c.arm(6.6, "wiz", "L", { x: [0.12, 0.24, 0.3] }, 0.3);
-for (const w of ["wiz", "rea"]) act.shock(c, 7.0, w, { open: 0.35, hold: 2.4 });
+for (const w of ["wiz", "rea"]) A(T_RISE + 0.05, w, "squash", { amount: 0.1, dur: 0.15 });   // both flinch at the splash
+act.shock(c, 7.0, "wiz", { open: 0.35, hold: 2.2 });
+// the quiet lifeguard judges the loud one instead of the shark
+A(7.2, "rea", "look", { to: [-0.8, 0.0], dur: 0.15, blink: false }); act.mood(c, 7.25, "rea", "annoyed", { hold: 1.8, lid: 0.55 });
 sfx(7.15, "sharkhum", { gain: 0.6, reason: "the shark's hopeful hum under the phone" });
 c.textPop(7.15, "phx", "hiii?", { xy: [800, 1290], dur: 0.75, color: "#bfe3ff", angle: -6, size: 110 });   // the shark's word, beside its mouth
 prop(7.15, "shark", { mouth: 0.2 }, 0.1); prop(7.55, "shark", { mouth: 0.8 }, 0.15);
@@ -228,7 +231,7 @@ A(8.05, "phx", "look", { to: [0.75, -0.45], dur: 0.12, blink: false });   // eye
 A(8.05, "phx", "face", { lid: 0.2, dur: 0.12 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 330);        // the sky: the lower third is Phoenix and the shark (as in episode 1)
+c.textPop(8.5, "phx", "huh.", { xy: [190, 880], dur: 0.55, color: "#ffffff", size: 110, angle: -4 });   // beside his head: every band of this frame holds a face
 prop(8.05, "shark", { wag: 1.4, hope: 1, lookY: 0.6, lookX: -0.8 }, 0.15);
 see(8.1, 8.95, ["phx.face", "shark"], "P7: Phoenix looks at the shark: huh.");
 
@@ -241,11 +244,13 @@ A(9.28, "phx", "squash", { amount: 0.02, dur: 0.25 });
 act.scrollPhone(c, "phx", [9.35]);
 // the shark's face falls; it sinks slowly with sad bubbles, its fin wilting as it goes under
 prop(9.2, "shark", { hope: 0, sad: 1, mouth: 0, wag: 0, lookY: -0.4, lookX: -0.3 }, 0.3);
-prop(9.45, "shark", { y: -0.24, tip: 0, wilt: 1 }, 0.5, "inOut");   // down to its sad eyes at the waterline (panel 08)
+prop(9.45, "shark", { y: -0.1, tip: 0, wilt: 1 }, 0.5, "inOut");    // down until only its sad eyes clear the water: the last image (panel 08)
 prop(9.45, "bubbles", { on: 1 }, 0.2);
 sfx(9.45, "bubbling", { gain: 0.35, dur: 0.55, reason: "sad bubbles as the shark sinks" });
 prop(9.0, "ring", { x: -0.75, z: 3.3, rot: -10 }, 1.0, "linear");          // the flat ring drifts past
-for (const w of ["wiz", "rea"]) act.shock(c, 9.3, w, { open: 0.5, hold: 0.7 });
+// the friends give up (panel 08): the Wizard droops, Reaper's eyes slide to him, deadpan
+act.mood(c, 9.3, "wiz", "sad", { hold: 0.7 }); A(9.3, "wiz", "pitch", { to: 8, dur: 0.3 });
+A(9.3, "rea", "look", { to: [-0.8, 0.0], dur: 0.15, blink: false }); act.mood(c, 9.35, "rea", "annoyed", { hold: 0.6, lid: 0.6 });
 see(9.4, 9.95, ["phx.face", "shark", "phone"], "P8: Phoenix back on his phone, the crushed shark sinking");
 
 // ---------------------------------------------------------------- shots (Jonny's panels; the camera looks out to sea, the beach on the right)
@@ -254,11 +259,11 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
   const yaw = rad(pan), pit = rad(-EYE_PITCH + tilt), k = 10;
   return { pos, look: [r3(pos[0] + Math.sin(yaw) * Math.cos(pit) * k), r3(pos[1] + Math.sin(pit) * k), r3(pos[2] - Math.cos(yaw) * Math.cos(pit) * k)], fov };
 };
-const WIDE = shot([0.1, 1.7, 7.8], { fov: 46 });                       // near the painting's own camera (eye 2.4 m up at z 9)
-const MEGA = shot([0.0, 1.9, 8.4], { pan: 3, tilt: 7, fov: 26 });                // the tower top, Phoenix small lower left
+const WIDE = shot([-0.1, 1.7, 7.8], { fov: 46 });                       // near the painting's own camera (eye 2.4 m up at z 9)
+const MEGA = shot([0.0, 1.9, 8.4], { pan: 1.5, tilt: 7, fov: 30 });                // the tower top, Phoenix small lower left
 const POP = shot([0.0, 1.6, 8.2], { pan: 1, tilt: 5, fov: 38 });
 // PEAK (unused: the pop shot holds through the peak) = shot([0.05, 1.45, 7.0], { pan: 0, tilt: 4, fov: 40 });
-const LOOKUP = shot([0.08, 1.3, 6.4], { pan: 0, tilt: 3, fov: 34 });
+const LOOKUP = shot([0.08, 1.35, 6.4], { pan: 0, tilt: 4.5, fov: 34 });
 const BACKDOWN = shot([0.05, 1.6, 7.6], { pan: 1, tilt: 4, fov: 42 });
 const beats = c.beats([
   ["P1 fin", 0, WIDE, "hook"],
