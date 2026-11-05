@@ -33,7 +33,7 @@ A(8.6, "phx", "expr", { to: "annoyed", dur: 0.25 });
 // 6. WALK OFF with an eased start and a sudden stop (ease "in": today's old cycle)
 A(9.3, "phx", "move", { to: [0.45, 0.0], dur: 1.4, ease: "in" });
 A(11.2, "phx", "turn", { to: "camera", dur: 0.35 });
-const SHOT = { pos: [-0.25, 0.7, 7.4], look: [-0.25, 0.4, 0], fov: 30 };
+const SHOT = { pos: [-0.22, 0.7, 8.4], look: [-0.22, 0.4, 0], fov: 30 };
 const cast = [{ id: "phx", character: "duo/phoenix", at: [-0.9, 0], face: "camera", expr: "kind", follow: 0.3, seed: 1.7, span: 0 }];
 const base = {
   id: "feet-bench", title: "Planted gait bench", idea: "Engine test: planted feet, not a clip",
