@@ -16,7 +16,7 @@ import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
-import { SR, TAU, biquad, run, env, buf, normalise } from "./sfx/dsp.mjs";
+import { SR, TAU, biquad, run, env, buf, normalise, retune } from "./sfx/dsp.mjs";
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
@@ -190,6 +190,43 @@ const SFX = {
     for (let i = 0; i < x.length; i++) {
       const t = i / SR, e = Math.min(1, t / 0.015) * Math.min(1, (d - t) / (d * 0.55));
       x[i] = (run(hp, r() * 2 - 1) * 0.8 + run(bp, r() * 2 - 1) * 0.6) * e * (0.9 + 0.1 * Math.sin(TAU * 23 * t));
+    }
+    return x;
+  },
+  // Never Looks Up ep 1 (the T-rex). A giant's footfall: a deep thump that drops in pitch (60->38 Hz), a dull mid
+  // knock on top so a phone speaker hears it, and a little grit trickling after
+  dinostomp(r, d = 0.9) {
+    const x = buf(d), lp = biquad("lp", 900, 0.8), hp = biquad("hp", 2500, 0.8), grit = Array.from({ length: 14 }, () => 0.06 + r() * (d - 0.2));
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 38 + 22 * Math.exp(-t * 9); ph += TAU * f / SR;
+      let g = 0; for (const h of grit) g += env(t - h, 0.0003, 0.005, d);
+      x[i] = Math.sin(ph) * 0.55 * Math.exp(-t * 4.5) * Math.min(1, t / 0.004)
+        + run(lp, r() * 2 - 1) * 4.5 * Math.exp(-t * 14) + Math.sin(TAU * 190 * t) * 0.6 * Math.exp(-t * 20) + Math.sin(TAU * 420 * t) * 0.35 * Math.exp(-t * 28)
+        + run(hp, r() * 2 - 1) * g * 0.25 * Math.min(1, (d - t) / 0.2);
+    }
+    return x;
+  },
+  // a big animal sniffing: a sharp nasal intake, noise through a nose-like band that rises 600->1400 Hz, 0.35 s
+  snort(r, d = 0.35) {
+    const x = buf(d), bp = biquad("bp", 900, 2.2), bp2 = biquad("bp", 2200, 1.5);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d, e = Math.sin(Math.PI * Math.min(1, u * 1.25)) ** 1.5 * Math.min(1, (d - t) / 0.04);
+      if (i % 64 === 0) retune(bp, "bp", 600 + 800 * u, 2.2);
+      x[i] = (run(bp, r() * 2 - 1) * (0.9 - 0.4 * u) + run(bp2, r() * 2 - 1) * (0.25 + 0.5 * u)) * e * 1.4 * (0.85 + 0.15 * Math.sin(TAU * 31 * t));
+    }
+    return x;
+  },
+  // a cartoon dinosaur roar, more trumpet than horror: a brassy buzzing bray (a sawtooth round 215 Hz with its
+  // harmonics up to about 3 kHz, nothing under 300 Hz so a phone hears all of it) that swells, wobbles and sags in pitch, with breathy noise under it; 1.2 s
+  dinoroar(r, d = 1.2) {
+    const x = buf(d), lp = biquad("lp", 3200, 0.7), bp = biquad("bp", 900, 0.9), lp2 = biquad("lp", 3400, 0.7), hp = biquad("hp", 300, 0.7);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = t / d, f = 215 * (1 + 0.12 * Math.sin(Math.PI * u)) * (1 - 0.18 * u * u) * (1 + 0.025 * Math.sin(TAU * 7 * t));
+      ph += f / SR; const saw = 2 * (ph % 1) - 1;
+      const e = Math.min(1, t / 0.06) * Math.min(1, (d - t) / 0.35) * (0.8 + 0.2 * Math.sin(TAU * 3 * t));
+      x[i] = run(hp, (run(lp, saw) * 1.1 + run(bp, r() * 2 - 1) * 0.7 + run(lp2, Math.sign(Math.sin(TAU * f * 2 * t)) * 0.3)) * e);
     }
     return x;
   },
