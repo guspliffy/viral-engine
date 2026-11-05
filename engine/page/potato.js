@@ -545,9 +545,8 @@ export class Character {
   // rig 2's smoothing (plan item 2's fallback): the hand's turn averaged over the frames around it, 4 frames either side
   // (weights cos^2, 0.13 s each way), each worked out from the actor's state at that time, so a turn that comes in one
   // frame (a hold that switches on or off, an arm curve that folds, a quick move) spreads over several. A frame where
-  // the hand is on a hold counts 7 times as much, so a hand arriving at a grip is on it (within about 13 degrees,
-  // then exactly) instead of still turning into it, and turns onto it a little early, as a hand shapes itself before
-  // it touches. A step the actor takes between two frames (a teleport at a cut, a new place) ends the window there.
+  // the hand is on a hold counts 7 times as much, so a hand turns onto a grip a little early, as a hand shapes itself
+  // before it touches, and a hand fully on its hold keeps the hold's exact turn. A step the actor takes between two frames (a teleport at a cut, a new place) ends the window there.
   // Every frame is worked out from the story alone, never from the frame drawn before it (frame cache, farm shards)
   _smoothHand(s, t, q0) {
     // the states are shared by both hands of the frame (keyed on the exact time, kept for one frame)
@@ -570,7 +569,8 @@ export class Character {
       }
     }
     U.fistPar = fistPar;
-    return q.set(acc[0], acc[1], acc[2], acc[3]).normalize();
+    // a hand fully on its hold keeps the hold's own turn: the window's average is only the way onto it and off it
+    return q.set(acc[0], acc[1], acc[2], acc[3]).normalize().slerp(q0, U.hold || 0);
   }
   // the palm holds of an arm's move for _pose2: each end's point (nested blends opened up), weight, wrap and wrap side
   // (the side test of _palm, at that end's hand)
