@@ -78,7 +78,7 @@ def main():
         os.makedirs(opt["--frames"], exist_ok=True)
         for j, k in enumerate(range(round(t0 * fps), min(d["n"], round(t1 * fps)))):
             img = Image.new("RGB", (W, H), (22, 22, 26))
-            draw(img, d, ix, k, yaw, H * 0.55, W / 2, H * 0.86)
+            draw(img, d, ix, k, yaw, H * 0.42, W / 2, H * 0.84)
             img.save(os.path.join(opt["--frames"], f"{j:05d}.png"))
 
 

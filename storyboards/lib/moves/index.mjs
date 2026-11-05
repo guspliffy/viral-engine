@@ -12,7 +12,8 @@
 //          body tipped 45° reads as falling over); crouch from how far the pelvis sinks (`crouch` gain)
 //   arms   each hand from its own shoulder in arm lengths, times a potato's reach, kept outside the round body
 //   eyes   the head's turn and nod against the torso become a look (40° = the edge of the eye)
-//   feet   the recorded steps (lift, touch down, where) scaled the same way; lift height `lift` (0.5 of a person's)
+//   feet   the recorded steps (lift, touch down, where) scaled the same way; lift height `lift` (0.7 of a person's:
+//          a potato's legs are short, and a sneak reads by its high, careful steps)
 // Time: `dur` stretches the whole move to that many seconds, `warp: [[move s, clip s], ...]` (from the move's start,
 // piecewise linear) puts its beats where the story wants them (motion warping). `range: [a, b]` plays part of it.
 import fs from "node:fs";
@@ -44,7 +45,10 @@ const sample = (arr, fps, u) => {
 // the potato's hand target (its own space: faces +z, right hand at -x) for a hand vector in arm lengths
 function handO(v, side, D, reach) {
   const sx = side === "R" ? -1 : 1, cy = LEG_H + D.H / 2;
-  let x = sx * (D.rx * 0.92 + v[0] * reach), y = LEG_H + D.H * 0.56 + v[1] * reach, z = v[2] * reach;
+  // height by intent: a person's arm hanging straight down is a potato's resting hand (its "rest" pose), level with the
+  // shoulder is level with the potato's shoulder, above it the potato's reach
+  const shY = LEG_H + D.H * 0.56, restY = LEG_H + D.H * 0.27;
+  let x = sx * (D.rx * 0.92 + v[0] * reach), y = v[1] < 0 ? restY + (v[1] + 1) * (shY - restY) : shY + v[1] * reach, z = v[2] * reach;
   // keep the glove outside the body (a hand hanging by a person's hip would be inside a potato): push it out
   // round the body at its height
   const m = 0.075, a = D.rx + m, b = D.H / 2 + m, c = D.rz + m, k = (x / a) ** 2 + (z / c) ** 2, room = 1 - ((y - cy) / b) ** 2;
@@ -54,7 +58,7 @@ function handO(v, side, D, reach) {
 
 export function play(c, t, who, name, o = {}) {
   const mv = typeof name === "string" ? load(name) : name;
-  const { from = [0, 0], heading = 0, scale = 0.27, lift = 0.5, pitch: pg = 0.6, pitchMax = 26, lean: lg = 1, crouch: cg = 5,
+  const { from = [0, 0], heading = 0, scale = 0.27, lift = 0.7, pitch: pg = 0.6, pitchMax = 26, lean: lg = 1, crouch: cg = 5,
     reach = 0.46, look = 40, key = 1 / 15, char, range = [0, mv.len], hands = true, eyes = true, feet = true } = o;
   const D = dims(char), H0 = (typeof heading === "string" ? YAW[heading] : heading) * (Math.PI / 180);
   const T = [Math.sin(H0), Math.cos(H0)], L = [Math.cos(H0), -Math.sin(H0)];   // travel and its left, world x/z
