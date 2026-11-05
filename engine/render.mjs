@@ -45,7 +45,8 @@ import { renderAudio, writeWav } from "./audio.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { lockMusic, addMusic } from "./music.mjs";
-import { clipResults, contactResults } from "../qa/check.mjs";
+import { gateResults } from "../qa/check.mjs";
+import { GATE } from "../qa/gate.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
 import { renderTime } from "./shared/holds.js";
@@ -339,16 +340,18 @@ async function main() {
     };
     // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
     const contactGate = (lay) => {
-      const res = [...clipResults(sb, lay), ...contactResults(lay, sb)].filter((r) => r.level !== "pass" && ["character-overlap", "clipping", "grip", "limb-through-costume", "hand-pop", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "staging", "rig-jump", "foot-slide", "prop-pop"].includes(r.check));
+      // everything the gate judges (qa/check.mjs gateResults: contacts, grips, the drawn rig, the front of the frame and
+      // the required must-see items); the lists of what prints and what stops a render live in qa/gate.mjs GATE
+      const res = gateResults(sb, lay).filter((r) => r.level !== "pass" && [...GATE.fails, ...GATE.visible, "hand-pop", "clipping", "staging", "stance-slide", "grip-gap"].includes(r.check));
       for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
       // what each beat must show (qa/framing.mjs "visible") and the camera lint (qa/camera.mjs): notes, never a gate
       try {
-        const ch = loadCharacters(sb), notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass");
+        const ch = loadCharacters(sb), notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass" && !res.some((x) => x.check === r.check && x.msg === r.msg));
         for (const r of notes) console.log(`  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`);
         if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
       } catch (e) { console.log(`  note visible: not checked (${e.message})`); }
-      return res.filter((r) => r.level === "fail" && ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump"].includes(r.check));
+      return res.filter((r) => r.level === "fail" && GATE.fails.includes(r.check));
     };
     // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
     // bulk of a render's time) are known per frame before any shard starts
