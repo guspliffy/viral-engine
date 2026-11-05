@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { Character, setRig } from "./potato.js";
+import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
@@ -363,6 +364,7 @@ function composite(t) {
 async function init(data) {
   sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
+  setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
     const img = new Image(); plateShots.set(s.plate, img);
@@ -905,7 +907,7 @@ function layout(t) {
     const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
     // the middle of the mouth on the face's surface (aiming a spoon or anything that leaves the mouth)
     const F = a.ch.face, mouth = F && F.place ? F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()).toArray().map(r3) : undefined;
-    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, ...(Object.keys(pinch).length && { pinch }), prop, eyes, eyesPx, mouth, top: r3(box.max.y) };
+    return { id: a.c.id, box: [Math.round(x0), Math.round(y0), Math.round(x1 - x0), Math.round(y1 - y0)], hat, hands, ...(Object.keys(pinch).length && { pinch }), prop, eyes, eyesPx, mouth, ...(F?.shown && { pupils: F.shown }), top: r3(box.max.y) };
   });
   // where each prop stands in the world (metres), for aiming throws and checking what is in frame
   // and where it lands on screen (px; null when behind the camera), so qa/hook.mjs can see whether the joke's prop is in frame 0
@@ -1053,10 +1055,13 @@ let contactT = 0;   // the time contact() measures (inProps: a grab a moment awa
 function contact(t) {
   contactT = t; lean(true); pose(t); lean(false);
   const r = (x) => Math.round(x * 10000) / 10000;
-  return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
+  const out = actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
     return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...(k.dbgR || k.dbgL ? { dbg: { R: k.dbgR, L: k.dbgL } } : {}), cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
-  }), ...reach(), held: heldNow() };
+  });
+  const { gaps, ...near } = reach(), held = heldNow();
+  for (const h of held) { const g = (gaps || []).find((x) => x.who === h.who && x.prop === h.prop); if (g) h.gap = g.gap; }
+  return { t, actors: out, ...near, held, front: fronts() };
 }
 
 // the final world positions the rig drew (potato.js rig()): hands, arm middles, feet, in millimetres, for the rig
@@ -1335,6 +1340,19 @@ function pastSurface(m, w, r, lp) {
   const seen = !m.S.closed || OUT.dot(camera.position.clone().sub(NC)) > 0;
   return { depth: inside ? r + d : r - d, core: inside ? d : m.S.closed ? -d : r / 2 - d, seen };
 }
+// Solid is a property, not a look (quality plan item 3 (c), 5 Nov 2026). Whether a part could be touched followed its
+// opacity, so two clips made the phone's glow fainter to pass (71f192b, ffdce32). A part now says it: userData.solid
+// true or false (on the mesh or its material); a glow (userData.glow), steam, flames and sparks (userData.steam),
+// sprites, points, lines and added light (additive blending) are never solid. Returns true, false, or null for a part
+// that says nothing, which keeps the old rule (see-through under half opacity is glass, a glow or a shadow) until its
+// prop marks it. Glass (material userData.glass, set where it is made for the looks) is solid for hands.
+function solidMark(o) {
+  const m = Array.isArray(o.material) ? o.material[0] : o.material, v = o.userData.solid ?? m?.userData?.solid;
+  if (v != null) return !!v;
+  if (m?.userData?.glass) return true;   // glass (the jar, the water glass): see-through, but a hand can't pass through it
+  if (o.isSprite || o.isPoints || o.isLine || o.userData.glow || o.userData.steam || m?.userData?.glow || m?.blending === THREE.AdditiveBlending) return false;
+  return null;
+}
 function inProps(live, shownIn) {
   const out = [], thin = [], sc = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), q = new THREE.Vector3(), lp = new THREE.Vector3(), w = new THREE.Vector3();
   const solids = [];
@@ -1344,14 +1362,14 @@ function inProps(live, shownIn) {
     p.root.updateMatrixWorld(true);
     p.root.traverseVisible((o) => {
       if (!o.isMesh || !o.geometry || o.isSprite || !o.geometry.attributes.position) return;
-      const mt = Array.isArray(o.material) ? o.material[0] : o.material;
-      if (mt && mt.transparent && mt.opacity < 0.5) return;   // glass, glows, shadows
-      if (o.userData.steam) return;                            // steam, flames, sparks, speed lines: nothing to touch
+      const mt = Array.isArray(o.material) ? o.material[0] : o.material, k = solidMark(o);
+      if (k === false) return;                                              // glows, steam, flames, sparks, light: nothing to touch
+      if (k == null && mt && mt.transparent && mt.opacity < 0.5) return;   // unmarked see-through: glass, glows, shadows (the old rule)
       const S = solidOf(o.geometry), wb = S.bb.clone().applyMatrix4(o.matrixWorld);
       solids.push({ p, id: p.spec.id, o, S, inv: o.matrixWorld.clone().invert(), k: scaleK(o), wb });
     });
   }
-  if (!solids.length) return { inProps: out, thin };
+  if (!solids.length) return { inProps: out, thin, gaps: [] };
   const frustum = new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
   // a hand part's axis in its own frame (a capsule's two cap centres, a ball's centre) and its radius, unscaled
   const shape = (o) => {
@@ -1444,6 +1462,29 @@ function inProps(live, shownIn) {
     }
     out.push(...best.values());
   }
+  // a held prop's gap to the glove (quality plan item 3 (d)): the nearest any part of the holding hand(s) comes to the
+  // prop's surface, in metres (negative: sunk in). A held prop is rigid in the hand with no gap (CLAUDE.md grip rule 2);
+  // qa/rig.mjs warns over 1 cm held 0.2 s
+  const gaps = [];
+  for (const p of props) {
+    if (!p.held || !["R", "L", "both"].includes(p.holdHand) || !p.root.visible) continue;
+    const a = live.find((x) => x.c.id === p.holder); if (!a) continue;
+    const mine = solids.filter((m) => m.p === p); if (!mine.length) continue;
+    let gap = Infinity;
+    for (const side of p.holdHand === "both" ? ["R", "L"] : [p.holdHand]) {
+      const h = a.ch.arms[side].hand; if (!shownIn(h, a.ch.root)) continue;
+      h.updateMatrixWorld(true);
+      for (const b of handBalls(h)) for (const m of mine) {
+        lp.copy(b.c).applyMatrix4(m.inv);
+        const bb = m.S.bb, dx = Math.max(bb.min.x - lp.x, lp.x - bb.max.x), dy = Math.max(bb.min.y - lp.y, lp.y - bb.max.y), dz = Math.max(bb.min.z - lp.z, lp.z - bb.max.z);
+        const box = Math.hypot(Math.max(dx, 0), Math.max(dy, 0), Math.max(dz, 0)) * m.k;
+        if (box - b.r >= gap) continue;   // no nearer than the best so far
+        const d = nearest(m, lp, NC), inside = m.S.closed && dx < 0 && dy < 0 && dz < 0 && insideOf(m.S, lp.x, lp.y, lp.z);
+        gap = Math.min(gap, inside ? -d - b.r : d - b.r);
+      }
+    }
+    if (gap < Infinity) gaps.push({ who: a.c.id, prop: p.spec.id || p.spec.kind, gap: rd(gap) });
+  }
   // thin held props (a straw, a pencil): the prop's long axis (its corners' main direction) and the stretch of it the
   // holding fist covers (the hand parts near that axis). show: how far the prop is seen past the fist at its shorter
   // end, on screen: its corners beyond the fist that no hand part covers from the camera (a straw end held low in the
@@ -1485,7 +1526,7 @@ function inProps(live, shownIn) {
     });
     thin.push({ who: a.c.id, hand: p.holdHand, prop: p.spec.id, show: rd(Math.min(s0, s1)), out: rd(Math.min(f0 - lo, hi - f1)), len: rd(hi - lo) });
   }
-  return { inProps: out, thin };
+  return { inProps: out, thin, gaps };
 }
 
 // faces: how much of each face's eyes is hidden from the camera by anything other than hands and held props (they have
@@ -1498,14 +1539,22 @@ function hiddenFaces(live, shownIn) {
   const out = [], limbs = new Set();
   scene.updateMatrixWorld(true);   // props and doors move in pose() after the last render: raycast where they are now
   for (const a of live) {
-    for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.legs[s].mesh, a.ch.legs[s].foot]) if (o) o.traverse((q) => limbs.add(q));
+    for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.arms[s].skin, a.ch.arms[s].ink, a.ch.arms[s].tubeInk, a.ch.legs[s].mesh, a.ch.legs[s].foot]) if (o) o.traverse((q) => limbs.add(q));
     if (a.ch.costume?.prop) a.ch.costume.prop.traverse((q) => limbs.add(q));
   }
-  // what may hide a face: each character's visible solid meshes, and the props that are not scenery
-  const solid = (o) => o.isMesh && !limbs.has(o) && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6);
+  // another character's arm, hand or glove in front of the eyes, ray by ray (the covers check samples glove balls and
+  // misses an arm raised across a face: split the bill's first cut, Viking's pointing arm over the waiter's face). "hand" in the
+  // output; qa/check.mjs reads it from "gate": 2
+  const handObjs = [], handOf = new Map();
+  for (const a of live) for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.arms[s].skin, a.ch.arms[s].tubeInk]) if (o?.visible !== false) o?.traverse((q) => { if (q.isMesh) { handObjs.push(q); handOf.set(q, a.c.id); } });
+  // what may hide a face: each character's visible solid meshes, every prop, and the set (quality plan item 13 (b), 5 Nov
+  // 2026: scenery never counted, so a face behind a tree or a wall passed). Glows never hide; see-through parts (glass,
+  // under 0.6 opacity) don't either, whatever their solid mark (a hand can't pass through glass, the eye can)
+  const solid = (o) => o.isMesh && !limbs.has(o) && solidMark(o) !== false && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6);
   const cands = [];
   for (const a of live) a.ch.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: a.c.id, a }); });
-  for (const p of props) if (p.root.visible && !p.spec.scenery) p.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: p.spec.id }); });
+  for (const p of props) if (p.root.visible) p.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: p.spec.id, scenery: !!p.spec.scenery }); });
+  for (const o of setOccluders()) cands.push({ o, who: "the set", scenery: true });
   const objs = cands.map((c) => c.o), owner = new Map(cands.map((c) => [c.o, c]));
   for (const b of live) {
     const eyes = b.ch.face?.eyes; if (!eyes || eyes.length < 2 || !shownIn(b.ch.face.group, b.ch.root)) continue;
@@ -1516,18 +1565,37 @@ function hiddenFaces(live, shownIn) {
     const bc = b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
     if (em.clone().sub(bc).normalize().dot(camera.position.clone().sub(em).normalize()) < 0.2) continue;
     const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body);
-    let hidden = 0, n = 0; const by = new Map();
+    let hidden = 0, scen = 0, n = 0, hand = 0; const by = new Map(), sby = new Map(), hby = new Map();
     for (const e of eyes) {
       const c = e.root.getWorldPosition(new THREE.Vector3()), r = e.r * e.root.getWorldScale(new THREE.Vector3()).x * 0.7;
       const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
       for (const [dx, dy] of [[0, 0], ...Array.from({ length: 8 }, (_, k) => [Math.cos(k * Math.PI / 4), Math.sin(k * Math.PI / 4)])]) {
         const p = c.clone().addScaledVector(right, dx * r).addScaledVector(up, dy * r), dir = p.clone().sub(camera.position), d = dir.length();
         ray.set(camera.position, dir.normalize()); ray.far = d - 0.02; n++;
-        const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object));
-        if (hit) { hidden++; const w = owner.get(hit.object).who; by.set(w, (by.get(w) || 0) + 1); }
+        const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object) && opaqueAt(h));
+        if (hit) { const c = owner.get(hit.object), M = c.scenery ? sby : by; if (c.scenery) scen++; else hidden++; M.set(c.who, (M.get(c.who) || 0) + 1); }
+        // only where nothing else hides the point: an arm in front of a body that hides the face is that body's staging
+        const hh = !hit && ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
+        if (hh) { hand++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
       }
     }
-    if (hidden / n < 0.3) continue;
+    // hidden: by characters and props, as before; scen: by scenery and the set too (counted from "gate": 2, qa/check.mjs)
+    // the rest of the face (between the eyes, the nose, the mouth and the cheeks: 7 points): another character's arm or
+    // glove across it (an arm raised through the middle of a face misses the eye points)
+    let low = 0;
+    {
+      const e0 = eyes[0].root.getWorldPosition(new THREE.Vector3()), e1 = eyes[1].root.getWorldPosition(new THREE.Vector3()), ed = e0.distanceTo(e1), mid = e0.clone().add(e1).multiplyScalar(0.5);
+      const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+      for (const [dx, dy] of [[0, 0], [0, -0.35], [0, -0.75], [-0.45, -0.65], [0.45, -0.65], [-0.6, -0.25], [0.6, -0.25]]) {
+        const p = mid.clone().addScaledVector(right, dx * ed).addScaledVector(up, dy * ed), dir = p.clone().sub(camera.position), d = dir.length();
+        ray.set(camera.position, dir.normalize()); ray.far = d - 0.02;
+        const hh = !ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && opaqueAt(h)) && ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
+        if (hh) { low++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
+      }
+      low = Math.round((low / 7) * 100) / 100;
+    }
+    const hd = hand || low ? { hand: Math.round((hand / n) * 100) / 100, ...(low ? { low } : {}), hby: [...hby.entries()].sort((x, y) => y[1] - x[1])[0][0] } : {};
+    if ((hidden + scen) / n < 0.3) { if (hand / n >= 0.2 || low >= 0.28) out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, ...hd }); continue; }
     // and how much of the body is hidden too (or out of frame): a face behind someone else's body is staging (the
     // character stands behind them), a face hidden on a body in plain view is a hat brim, a wing or a prop across it
     const g = b.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c0 = bb.getCenter(new THREE.Vector3()).applyMatrix4(b.ch.body.matrixWorld);
@@ -1538,9 +1606,99 @@ function hiddenFaces(live, shownIn) {
       const q = p.clone().project(camera); bn++;
       if (Math.abs(q.x) > 1 || Math.abs(q.y) > 1) { bh++; continue; }   // out of frame counts as unseen
       ray.set(camera.position, dir.normalize()); ray.far = d;
-      if (ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && owner.get(h.object).a !== b)) bh++;
+      if (ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && owner.get(h.object).a !== b && !owner.get(h.object).scenery)) bh++;
     }
-    out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, body: Math.round((bh / bn) * 100) / 100, by: [...by.entries()].sort((x, y) => y[1] - x[1])[0][0] });
+    const top = (M) => (M.size ? [...M.entries()].sort((x, y) => y[1] - x[1])[0][0] : undefined);
+    out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, body: Math.round((bh / bn) * 100) / 100, by: top(by) ?? top(sby), ...(scen ? { scen: Math.round((scen / n) * 100) / 100, sby: top(sby) } : {}), ...hd });
+  }
+  return out;
+}
+
+// the set's parts that can stand between the camera and a character: opaque meshes that rise above the floor (a
+// wall, a tree, a counter). Cut-outs (alpha-tested painted layers, leaves) are left out, as a ray can't see their holes;
+// so are the floor, rugs and anything lower than 15 cm. Cached per set object (the set doesn't change shape)
+const OCC = new WeakMap();
+// is a ray hit on something the eye can't see through? A painted card (the env layers: a quad whose texture's alpha
+// cuts the rock or the tree out) hides only where its paint is: the alpha is read from the texture at the hit (a copy of
+// the image at up to 256 px, kept per image)
+const ALPHA = new WeakMap();
+function opaqueAt(h) {
+  const m = Array.isArray(h.object.material) ? h.object.material[0] : h.object.material, tex = m?.alphaMap || m?.map;
+  if (!m || !(m.transparent || m.alphaTest > 0) || !tex?.image || !h.uv) return true;
+  let a = ALPHA.get(tex.image);
+  if (a === undefined) {
+    try {
+      const im = tex.image, iw = im.width || im.videoWidth, ih = im.height || im.videoHeight, k = Math.min(1, 256 / Math.max(iw, ih)), w = Math.max(1, Math.round(iw * k)), hh = Math.max(1, Math.round(ih * k));
+      const cv = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, hh) : Object.assign(document.createElement("canvas"), { width: w, height: hh });
+      const cx = cv.getContext("2d", { willReadFrequently: true }); cx.drawImage(im, 0, 0, w, hh);
+      a = { w, h: hh, d: cx.getImageData(0, 0, w, hh).data, ch: m.alphaMap ? 1 : 3 };   // an alpha map keeps it in green
+    } catch { a = null; }
+    ALPHA.set(tex.image, a);
+  }
+  if (!a) return true;
+  const uv = tex.transformUv(h.uv.clone()), x = Math.min(a.w - 1, Math.max(0, Math.floor(uv.x * a.w))), y = Math.min(a.h - 1, Math.max(0, Math.floor(uv.y * a.h)));
+  return a.d[(y * a.w + x) * 4 + a.ch] / 255 >= Math.max(0.5, m.alphaTest || 0);
+}
+function setOccluders() {
+  const out = [], bb = new THREE.Box3();
+  for (const top of setObjs) {
+    if (!top.visible) continue;
+    top.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry || o.isSprite || o.isInstancedMesh) return;
+      let k = OCC.get(o);
+      if (k === undefined) {
+        const m = Array.isArray(o.material) ? o.material[0] : o.material;
+        k = !!m && !(m.transparent && m.opacity < 0.95) && !(m.alphaTest > 0) && m.visible !== false && m.colorWrite !== false && solidMark(o) !== false;
+        if (k) { o.updateMatrixWorld(true); if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); bb.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); k = bb.max.y > 0.15 && bb.max.y - bb.min.y > 0.02; }
+        OCC.set(o, k);
+      }
+      if (k) out.push(o);
+    });
+  }
+  return out;
+}
+
+// who owns the front of the frame (quality plan item 13 (c), 5 Nov 2026: in the tent's first cut Phoenix on the phone
+// stood in front of the main action). For each character in frame, the share of its body's outline that something
+// nearer the camera covers: another character (arms and held props included), any prop, the set. Rays from the camera
+// to 19 points spread over the camera side of the body's ellipsoid (the middle and an inner ring of 7, an outer ring
+// of 12); points out of frame don't count. byActor: the share a character (or a prop it holds) covers; core: the same
+// for the inner 7 (the face and the middle of the body: a neighbour overlapping the edge in a group shot doesn't reach
+// it). qa/framing.mjs decides who the subject is (who acts) and when it fails. Listed when over 5 % is covered.
+const FRONT = []; for (let i = 0; i < 19; i++) { const r = i === 0 ? 0 : i < 7 ? 0.5 : 0.85, a = i === 0 ? 0 : i < 7 ? ((i - 1) / 6) * Math.PI * 2 : ((i - 7) / 12) * Math.PI * 2 + 0.26; FRONT.push([Math.cos(a) * r, Math.sin(a) * r]); }
+function fronts() {
+  const live = actors.filter((a) => a.ch.root.visible && a.ch.body && a.ch.potatoParts?.visible !== false);
+  if (!live.length) return [];
+  scene.updateMatrixWorld(true);
+  const mine = new Map(), cands = [];
+  for (const a of live) a.ch.root.traverseVisible((o) => { if (o.isMesh && solidMark(o) !== false && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6)) { cands.push(o); mine.set(o, a.c.id); } });
+  for (const p of props) if (p.root.visible) p.root.traverseVisible((o) => { if (o.isMesh && solidMark(o) !== false && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6)) { cands.push(o); mine.set(o, p.held ? `${p.spec.id}@${p.holder}` : p.spec.id); } });
+  for (const o of setOccluders()) { cands.push(o); mine.set(o, "the set"); }
+  const out = [], right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+  for (const a of live) {
+    const g = a.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c = bb.getCenter(new THREE.Vector3()).applyMatrix4(a.ch.body.matrixWorld);
+    const hs = bb.getSize(new THREE.Vector3()).multiply(a.ch.body.getWorldScale(new THREE.Vector3())).multiplyScalar(0.5);
+    const m = c.clone().project(camera); if (Math.abs(m.x) > 1.1 || Math.abs(m.y) > 1.1 || m.z > 1) continue;
+    const toCam = camera.position.clone().sub(c).normalize();
+    let n = 0, hid = 0, hidA = 0, nc = 0, core = 0; const by = new Map();
+    for (const [k, [u, v]] of FRONT.entries()) {
+      // a point on the camera side of the ellipsoid, seen at (u, v) of its outline
+      const p = c.clone().addScaledVector(right, u * hs.x).addScaledVector(up, v * hs.y).addScaledVector(toCam, Math.sqrt(Math.max(0, 1 - u * u - v * v)) * hs.z * 0.9);
+      const q = p.clone().project(camera); if (Math.abs(q.x) > 1 || Math.abs(q.y) > 1 || q.z > 1) continue;
+      n++; if (k < 7) nc++;
+      const dir = p.clone().sub(camera.position), d = dir.length();
+      ray.set(camera.position, dir.normalize()); ray.far = d - 0.03;
+      const hit = ray.intersectObjects(cands, false).find((h) => { const w = mine.get(h.object); return w !== a.c.id && !String(w).endsWith(`@${a.c.id}`) && opaqueAt(h); });
+      if (!hit) continue;
+      hid++;
+      // a character, or a prop someone holds (counted as its holder): a bystander. Furniture, scenery and the set in
+      // front are staging (a table before a seated character), counted in cover only
+      const w = String(mine.get(hit.object)), who = w.includes("@") ? w.split("@")[1] : w, actor = live.some((x) => x.c.id === who);
+      if (actor) { hidA++; if (k < 7) core++; by.set(who, (by.get(who) || 0) + 1); }
+    }
+    if (n < 4 || hid / n <= 0.05) continue;
+    const r2 = (x) => Math.round(x * 100) / 100;
+    out.push({ id: a.c.id, cover: r2(hid / n), ...(hidA ? { byActor: r2(hidA / n), core: nc ? r2(core / nc) : 0, by: [...by.entries()].sort((x, y) => y[1] - x[1])[0][0] } : {}), dist: r2(c.distanceTo(camera.position)) });
   }
   return out;
 }
