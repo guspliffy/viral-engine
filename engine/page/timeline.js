@@ -163,6 +163,7 @@ function natMove(st, a, t, d, nat) {
   const dx = a.to[0] - st.x, dz = a.to[1] - st.z, dist = Math.hypot(dx, dz), p = prog(t, a.at, d);
   const r = Math.min(0.28, 0.3 * d), q = d > 0 ? r / d : 0, s = cruiseDist(p, q);
   st.x += dx * s; st.z += dz * s;
+  if (a.y != null) st.y += (a.y - st.y) * s;   // a move up or down a slope: `y` the height it ends at
   if (p >= 1 || dist < 1e-4 || d <= 0) return;
   const V = dist / (d * (1 - q)), sd = a.stride ?? clamp(V / (a.steps ?? 2.2) / 0.2, 0.5, 2.2), L = 0.2 * sd;
   const vn = cruiseVel(p, q), v = V * vn, cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
@@ -229,7 +230,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     switch (a.do) {
       case "move": {
         if (N?.gait && (!a.ease || a.ease === "inOut")) { natMove(st, a, t, d, nat); break; }
-        st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e);
+        st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e); if (a.y != null) st.y = lerp(st.y, a.y, e);   // y: the height it ends at (a sloping street)
         // stride: how long and high the steps are (1 a walk; about 2 a run), bob: metres the body rises between footfalls
         if (p < 1) { st.walkAmt = Math.min(1, Math.min(p, 1 - p) * 8); st.walk = (t - a.at) * (a.steps ?? 2.2); st.stride = a.stride ?? 1; if (a.bob) st.y += a.bob * st.walkAmt * Math.abs(Math.sin(st.walk * Math.PI * 2)); }
         break;

@@ -14,6 +14,7 @@ import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
+import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 
 const W = 1080, H = 1920;
@@ -393,7 +394,7 @@ async function init(data) {
   // vehicle rigs (vehicle.js): characters and props with "rig" ride in them
   rigs = new Map((sb.rigs || []).map((r) => {
     const g = new THREE.Group(); g.name = `rig-${r.id}`; g.rotation.order = "YXZ"; scene.add(g);
-    const car = r.kind === "roadster" ? buildRoadster(r) : null; if (car) g.add(car.root);
+    const car = r.kind === "roadster" ? buildRoadster(r) : r.kind === "hatchback" ? buildHatchback(r) : null; if (car) g.add(car.root);
     return [r.id, { r, g, car }];
   }));
   const parentOf = (o) => (o.rig ? rigs.get(o.rig)?.g || (() => { throw new Error(`unknown rig: ${o.rig}`); })() : scene);
