@@ -76,7 +76,7 @@ const props = [
   { id: "maskP", kind: "oxymask", ...MASK_UP(PX + 0.36), anchor: anchor(PX, 0.36) },   // its hose comes down beside his face, not across it
   { id: "maskW", kind: "oxymask", ...MASK_UP(WX), anchor: anchor(WX) },
   { id: "maskR", kind: "oxymask", ...MASK_UP(RX), anchor: anchor(RX) },
-  { id: "phone", kind: "phone", x: PX, y: 0.9, z: 0.5, rot: 180, tip: -28, scale: 1.9, case: "#29c3d8", bright: 2.2, halo: 0.26, haloK: 0.5 },   // the screen shines in his face (Jonny 5 Nov; the same setting as ep 5)   // a bright cyan case: it reads against the dark gloves and the orange body
+  { id: "phone", kind: "phone", x: PX, y: 0.9, z: 0.5, rot: 180, tip: -28, scale: 1.9, case: "#29c3d8", bright: 2.2, halo: 0.26, haloK: 0.49 },   // the screen shines in his face (Jonny 5 Nov; ep 5's setting, haloK under 0.5 so the contact check treats the glow as light, not a solid)   // a bright cyan case: it reads against the dark gloves and the orange body
   { id: "cup", kind: "papercup", ...grips.placeFor("papercup", [CUP.x, CUP.y, CUP.z], 0), straws: 0, stripe: "#e0802a" },
   { id: "juice", kind: "blob", x: CUP.x, y: r3(CUP.y + 0.085), z: CUP.z, color: "#f59a1f", r: 0.034, fill: 0 },
   { id: "mug", kind: "teamug", steam: 0.6, ...grips.placeFor("teamug", [MUG.x, MUG.y, MUG.z], 0) },
