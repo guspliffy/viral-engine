@@ -11,11 +11,14 @@ const rd = (v, n) => Math.round(v * 10 ** n) / 10 ** n;
 let HAND = null;
 export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; };
 // Hand rig 2: the hand's turn is built from a base frame plus turns away from it that a wrist can do.
-// The base frame: the hand's frame when the forearm points out and forward (HAND_Y0: the direction square to today's
-// look-at reference, so a hanging hand and every forearm square to that reference keep today's turn exactly), swung
-// onto the forearm the shortest way. A look-at spins near two forearm directions (across the chest and out to the back);
-// the swing has one, straight back and in behind the body (HAND_Y0 negated), where a forearm doesn't point.
-const HAND_Y0 = { R: new THREE.Vector3(-0.35, 0, 1).normalize(), L: new THREE.Vector3(0.35, 0, 1).normalize() };
+// The base frame: the hand's frame when the forearm points out, forward and up (HAND_Y0, 45 degrees up from out and
+// forward, square to today's look-at reference: a hanging hand, and every forearm square to that reference, keeps
+// today's turn exactly), swung onto the forearm the shortest way. A look-at spins near two forearm directions (across
+// the chest, and out to the back); the swing has one, in, back and down behind the hip (HAND_Y0 negated), where a forearm
+// doesn't point. On the ten clips of 4-5 Nov the hand's base frame turned over 60 degrees in a frame 121 times with the
+// look-at, 70 swung from out and forward, 48 from this one (tools/hand-probe/base-eval.mjs)
+const _y0 = (sx) => new THREE.Vector3(0.35 * sx, 0, 1).normalize().multiplyScalar(Math.SQRT1_2).add(new THREE.Vector3(0, Math.SQRT1_2, 0)).normalize();
+const HAND_Y0 = { R: _y0(-1), L: _y0(1) };
 // the wrist's reach from the base frame: bend (the fingers' direction off the forearm) and twist (about the forearm),
 // radians. A turn asks for up to KNEE of the limit exactly; beyond it, it eases into the limit (no kink in the motion).
 // FADE: a target within this of half a bend or half a twist away fades out, so a target crossing half a turn (where
@@ -441,12 +444,11 @@ export class Character {
   // twist, so no blend can take the long way round and nothing switches inside a move. palms: _palms' ends of the move
   _pose2(hand, elbow, at, sx, gr, axis, palms, sh, frame) {
     const U = hand.userData, y = at.clone().sub(elbow), yl = y.length();
-    // the forearm never collapses: the hand aims along the drawn arm's last 40 % (the chord from 0.6 of the way along
-    // its curve, shoulder -> pull point -> hand, to the hand): (hand - pull point) + (hand - shoulder) / 3. When the pull
-    // point comes close to the hand, elbow -> hand alone shrinks to nothing and turns round in a frame or two (half of
-    // the hand pops, 5 Nov); the shoulder's share, always the same, then carries it. A jointed arm (a paw on a table)
-    // has a real elbow at the pull point, so its forearm is elbow -> hand
-    if (sh && !(gr.down > 0.5)) y.addScaledVector(at.clone().sub(sh), 1 / 3);
+    // the hand aims along the drawn arm's end (hand - pull point: the arm curve's own tangent there). Letting the
+    // shoulder -> hand line take over when that line is short (plan item 2 a) made the forearm turn more, not less, on
+    // the ten clips of 4-5 Nov: over 40 degrees in a frame 92 times today, 235 with the take-over, 125-198 with any fixed
+    // share of the shoulder line (tools/hand-probe/forearm-eval.mjs). The arm's own curve folds there, and the hand has
+    // to stay on it; a steady elbow (plan item 11) is what removes the fold
     const dbg = (U.dbg = { yl: rd(yl, 3) });
     if (globalThis.__DIAG?.forearm) { dbg.a = at.clone().sub(elbow).toArray().map((v) => rd(v, 4)); if (sh) dbg.s = at.clone().sub(sh).toArray().map((v) => rd(v, 4)); }
     if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
