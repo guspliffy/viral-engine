@@ -38,9 +38,9 @@ const VIK_SIDE = [0.68, 1.1];                         // after the pull he steps
 const VIK_BACK = [0.98, 1.22];                         // his proud step back-right (the undo)
 const REA_END = [1.2, 0.3], REA_STAND = [1.25, -0.72];  // Reaper takes the loose end, then sets the tree turning from its right (a push on the branch tips)
 const BOX = [0.15, -0.3];                             // the empty ornament carton on the floor between the stand and Viking
-const STAR_LAND = [0.12, 0.02, 0.72];                  // the star on the rug beside Viking, on the tree side (clear of TikTok's buttons)
+const STAR_LAND = [-0.05, 0.02, 0.66];                  // the star on the rug beside Viking, on the tree side (clear of TikTok's buttons)
 const HEAP = [0.55, 0.88];                             // the heap of lights beside his boot, on the tree side
-const CAT_SHELF = [X.shelf.x - 0.05, X.shelf.h, X.back + 0.18], CAT_FLOOR = [1.55, 0, -1.55], CAT_SIT = [0.1, 0, 0.42];
+const CAT_SHELF = [X.shelf.x - 0.05, X.shelf.h, X.back + 0.18], CAT_FLOOR = [1.55, 0, -1.55], CAT_SIT = [-0.22, 0, 0.42];
 
 const WIZ = "sofa/wizard-staff";
 const cast = [
@@ -206,12 +206,12 @@ const AT = { wiz: P0.wiz, phx: P0.phx, rea: REA_STAND, vik: VIK_SIDE };
 let E = null;
 const HOLD = 0.3, SNAG = 0.42;   // "Perfect." held 0.3 s, then the step; the boot snags the lead 0.12 s into it
 E = ending(c, {
-  T0, at: AT, glareShare: 0.35, sting: SNAG,   // the sting on the snag
+  T0, at: AT, glareShare: 0.35, sting: SNAG, glareOrder: ["phx", "wiz", "rea"], glareGap: 0.2,   // the sting on the snag
   arms: { phx: ["L"], wiz: ["R"], vik: ["L"] },   // Viking's right fist would cross the Wizard's face
   undo: (t) => {
     // "Perfect." Viking steps back proudly, brushing his hands; his boot snags the lead
     A(t + 0.02, "vik", "talk", { line: "per-feh.", tone: "calm", dur: 0.4, voice: false, soft: true });
-    cap(r3(t + 0.05), r3(t + SNAG + 0.08), "Perfect.", 330);   // held 0.3 s before the step, gone on the snag
+    cap(r3(t + 0.05), r3(t + SNAG + 0.08), "Perfect.", 1200);   // held 0.3 s before the step, gone on the snag
     A(t, "vik", "expr", { expr: "smug", set: { curve: 0.7 }, dur: 0.15 });
     c.arm(t, "vik", "R", { o: [-0.25, 0.32, 0.4] }, 0.12, "inOut"); c.arm(t, "vik", "L", { o: [-0.25, 0.3, 0.42] }, 0.12, "inOut");
     c.arm(t + 0.14, "vik", "R", { o: [-0.15, 0.3, 0.42] }, 0.1, "inOut"); c.arm(t + 0.24, "vik", "R", { o: [-0.28, 0.33, 0.4] }, 0.1, "inOut");
@@ -302,7 +302,7 @@ const boot = (t) => an(t, "vik", "footR", [VIK_BACK[0] + 0.15, 0.05, VIK_BACK[1]
 function heapPts(t) {
   const b = boot(t), o = []; let s = 7;
   const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-  for (let i = 0; i < 44; i++) { const a = i * 1.7 + rnd(), r = 0.1 + 0.18 * rnd(); o.push([HEAP[0] + Math.sin(a) * r * 1.2, 0.03 + 0.1 * rnd(), HEAP[1] + Math.cos(a) * r * 0.8]); }
+  for (let i = 0; i < 44; i++) { const a = i * 1.7 + rnd(), r = 0.2 + 0.22 * rnd(); o.push([HEAP[0] + Math.sin(a) * r, 0.03 + 0.27 * rnd() * (1 - r / 0.5), HEAP[1] + Math.cos(a) * r * 0.75]); }   // a mound (review B: four bulbs read as a dropped bauble)
   return o;
 }
 const PEEL = [0.2, 0.32, 0.44, 0.56, 0.7].map((d) => r3(d + HOLD));
@@ -335,11 +335,12 @@ const props = [
 // ---------------------------------------------------------------- shots: one front view (no reverse angles)
 const FRONT = { pos: [0.05, 4.1, 6.4], look: [0.05, 0.75, -0.8], fov: 52 };   // high: the back row's faces over the front row's heads
 // two closer inserts, like the panels' closer views: the spin (Reaper and the tree) and the undo (Viking, the tree, his boot)
+const PUSH = { ...FRONT, to: { pos: FRONT.pos, look: [0.05, 0.62, -0.8], fov: 45 }, dur: 3.9, ease: "inOut" };   // one slow push 1.5-5.4 (review B)
 const SPIN = { pos: [1.3, 2.8, 3.4], look: [0.45, 0.95, -1.1], fov: 50 };   // from the right and above Viking: Reaper and the tree
-const UNDO = { pos: [-0.5, 3.0, 4.3], look: [0.45, 0.7, -0.2], fov: 50 };   // from the left and above: Reaper over Viking's shoulder
+const UNDO = { pos: [-0.5, 3.0, 4.3], look: [0.3, 0.4, -0.2], fov: 58 };   // from the left and above: Reaper over Viking's shoulder
 const beats = c.beats([
   ["01 already going wrong", 0, FRONT, "hook"],
-  ["02 wizard's spell", 1.5, null],
+  ["02 wizard's spell", 1.5, PUSH],
   ["03 viking pulls", 3.3, null, "escalation"],
   ["04 draped", 4.4, null],
   ["05 the calm fix", 5.4, null, "payoff"],
