@@ -18,7 +18,9 @@ import * as peb from "./pebble-acting.mjs";
 // the clip template's house picks (storyboards/templates/clip-template.mjs, Jonny's decisions to 5 Nov): the sheet look,
 // planted feet, hand rig 2 + eyes 2, light from the painting (halfway shade), half boil and no paper grain, music on
 const LOOK = "sheet", MOTION = { feet: 2 }, RIG = { hand: 2, eyes: 2 }, LIGHTING = 2, HATCH = { boil: 0.25 };
-const LINES = { sub: true, blink: false };
+// his subtitles sit in the sky above the cap: in these one-character shots he fills the lower frame, where the house
+// position (1180 px) covered his vest (check: caption-overlap); every line shot keeps the fern under 380 px
+const LINES = { sub: true, blink: false, pos: 230 };
 const W = "peb", CH = "pebble/pebble";
 const base = (o) => ({
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", castLook: LOOK, cleanStart: true,
@@ -54,7 +56,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   peb.line(c, 7.0, W, "No rush. The path will wait.", 2.2);
   see(7.0, 9.2, [`${W}.face`], "his line");
   peb.amusedGlance(c, 9.0, W, [0.45, 0.05], { hold: 0.4 });
-  const MED = { pos: [0, 0.95, 3.6], look: [0, 0.52, 0], fov: 36 }, MCU = { pos: [0.05, 0.98, 2.6], look: [0.02, 0.74, 0.05], fov: 33 };
+  const MED = { pos: [0, 0.95, 3.6], look: [0, 0.52, 0], fov: 36 }, MCU = { pos: [0.05, 1.1, 2.6], look: [0.02, 0.86, 0.05], fov: 33 };
   const beats = c.beats([["walk", 0, MED, "hook"], ["smile", 1.9, "keep"], ["look down the path", 3.6, "keep"], ["line", 6.9, MCU, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-standing", title: "Pebble test 1: standing", idea: "Pebble character test: walk, smile, turn, one line (not a posted clip)", ...base({ what: "Pebble walks up", surface: "dirt" }),
@@ -98,7 +100,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   act.eyesLead(c, 7.47, W, [0.05, -0.35]);
   mug.carry(7.6, SIP, 0.6, "inOut", { tip: -18 });
   peb.contentBlink(c, 7.9, W, { hold: 1.0 });
-  const MED = { pos: [0.1, 0.95, 3.4], look: [0.05, 0.5, 0], fov: 36 }, CLOSE = { pos: [0.1, 0.98, 2.4], look: [0.05, 0.72, 0.1], fov: 33 };
+  const MED = { pos: [0.1, 1.05, 3.4], look: [0.05, 0.6, 0], fov: 36 }, CLOSE = { pos: [0.1, 1.1, 2.4], look: [0.05, 0.84, 0.1], fov: 33 };
   const beats = c.beats([["sip", 0, MED, "hook"], ["the view", 2.6, "keep"], ["line", 5.1, "keep"], ["second sip", 7.5, CLOSE, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-tea", title: "Pebble test 2: sitting with tea", idea: "Pebble character test: sitting on a rock with tea (not a posted clip)", ...base({ what: "Pebble sips tea", surface: "dirt" }),
@@ -149,7 +151,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   peb.line(c, 7.3, W, "Hm. Tomorrow's problem.", 1.8);
   see(7.3, 9.2, [`${W}.face`], "his line");
   peb.calmSmile(c, 9.3, W);
-  const WIDE = { pos: [0.15, 1.0, 4.6], look: [0.15, 0.85, 0], fov: 34 }, MCU = { pos: [-0.2, 0.92, 2.8], look: [-0.15, 0.82, 0.1], fov: 31 };
+  const WIDE = { pos: [0.15, 1.0, 4.6], look: [0.15, 0.85, 0], fov: 34 }, MCU = { pos: [-0.2, 1.04, 2.8], look: [-0.15, 0.94, 0.1], fov: 31 };
   const beats = c.beats([["oh", 0, WIDE, "hook"], ["up and up", 1.4, "keep"], ["glance", 4.6, MCU], ["line", 7.2, "keep", "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-chaos", title: "Pebble test 3: reacting to chaos", idea: "Pebble character test: calm in chaos (not a posted clip)", ...base({ what: "the booklet climbs, Pebble stays calm", surface: "wood" }),

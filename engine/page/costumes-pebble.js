@@ -22,6 +22,7 @@ export function pebbleCostume(def, ch) {
   const cap = buildCap(ch, C); out.hat = cap.group; out.hatBrim = { group: cap.group, r: cap.brimR };
   belly(ch, C);
   vest(ch, C);
+  spots(ch, C);
   const shell = buildShell(ch, C);
   live.push(shell.update);
   feet(ch, C);
@@ -120,6 +121,32 @@ function surfLine(ch, pts, lift, r, mat, closed = false) {
   return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(p, closed), Math.max(8, pts.length * 2), r, 6, closed), mat, false);
 }
 
+// a running stitch along (th, ph) torso points: short dashes with gaps, one merged mesh
+function dashes(ch, pts, lift, len, mat) {
+  const p = pts.map(([th, ph]) => { const s = ch.surf(th, ph); return s.pos.addScaledVector(s.normal, lift); });
+  const curve = new THREE.CatmullRomCurve3(p), L = curve.getLength(), n = Math.max(2, Math.floor(L / (len * 1.9))), geos = [], yUp = new THREE.Vector3(0, 1, 0);
+  for (let i = 0; i < n; i++) {
+    const u = (i + 0.5) / n, c = curve.getPointAt(u), t = curve.getTangentAt(u), g = new THREE.CapsuleGeometry(len * 0.13, len * 0.75, 2, 5);
+    g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yUp, t)); g.translate(c.x, c.y, c.z); g.deleteAttribute("uv"); geos.push(g);
+  }
+  return mesh(mergeGeometries(geos), mat, false);
+}
+
+// the sheet's soft darker spots on the skin: a few round patches over the temples, the back of the head and the sides
+// of the neck (head group, they turn with it), drawn as thin flattened discs just over the skin
+function spots(ch, C) {
+  const K = C.spots || {}; if (K === false || !ch.head) return;
+  const m = std(K.color || "#DE9845", { roughness: 0.8 }); m.userData.noOutline = true;
+  const geos = [], R = rng(K.seed ?? 11), yUp = new THREE.Vector3(0, 1, 0);
+  const at = K.at || [[1.25, 0.12, 0.034], [1.42, -0.02, 0.022], [1.18, -0.16, 0.026], [1.6, 0.2, 0.018], [-1.3, 0.08, 0.03], [-1.45, -0.12, 0.024], [-1.2, 0.24, 0.018], [-1.62, -0.02, 0.02], [2.6, 0.05, 0.03], [-2.7, -0.08, 0.026], [3.1, 0.18, 0.022]];
+  for (const [th, ph, r] of at) {
+    const s = ch.headSurf(th, ph), g = new THREE.SphereGeometry(1, 14, 8);
+    g.scale(r * (K.size ?? 0.6) * (0.9 + 0.3 * R()), 0.0035, r * (K.size ?? 0.6) * (0.8 + 0.3 * R())); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yUp, s.normal));
+    const p = s.pos.clone().addScaledVector(s.normal, 0.001); g.translate(p.x, p.y, p.z); g.deleteAttribute("uv"); geos.push(g);
+  }
+  ch.head.group.add(mesh(mergeGeometries(geos), m, false));
+}
+
 // ---------------------------------------------------------------- the pale belly plate (plastron) with soft seams
 function belly(ch, C) {
   const P = ch.potatoParts, B = C.belly || {};
@@ -140,6 +167,7 @@ function vest(ch, C) {
   const P = ch.potatoParts, V = C.vest || {};
   const m = std(V.color || "#777344", { roughness: 0.92 }); m.userData.lookRole = "cloth"; m.side = THREE.DoubleSide;
   const trimM = std(V.trim || "#C9A46A", { roughness: 0.85 }); trimM.userData.lookRole = "cloth";
+  const threadM = std(V.thread || "#D9C08C", { roughness: 0.8 }); threadM.userData.lookRole = "cloth"; threadM.userData.noOutline = true;
   const ph0 = V.hem ?? -0.5, ph1 = V.top ?? 1.05, shPh = ch.def.limbs.shoulder ?? 0.5;
   const edge = (ph) => (V.edge ?? 0.5) + (V.flare ?? 0.16) * sstep(0.4, ph0, ph);   // the front edge's angle off centre
   const back = V.back ?? 2.5, ah = V.armhole ?? 0.42;
@@ -152,6 +180,19 @@ function vest(ch, C) {
     P.add(surfLine(ch, fe, (V.lift ?? 0.014) + 0.004, V.trimR ?? 0.009, trimM));
     const ring = []; for (let k = 0; k < 24; k++) { const a = (k / 24) * Math.PI * 2; ring.push([sd * 1.38 + Math.cos(a) * ah, shPh + (Math.sin(a) * ah) / 1.15]); }
     P.add(surfLine(ch, ring, (V.lift ?? 0.014) + 0.004, (V.trimR ?? 0.009) * 0.85, trimM, true));
+    // a running stitch just inside the trim, down the front edge and along the hem (the sheet's sewn vest)
+    const st = []; for (let k = 0; k <= 40; k++) { const ph = ph1 - 0.06 - (ph1 - 0.06 - ph0 - 0.05) * (k / 40); st.push([sd * (edge(ph) + 0.075), ph]); }
+    for (let k = 1; k <= 30; k++) st.push([sd * (edge(ph0) + 0.075 + (back - 0.2 - edge(ph0)) * (k / 30)), ph0 + 0.05]);
+    P.add(dashes(ch, st, (V.lift ?? 0.014) + 0.003, V.stitchLen ?? 0.014, threadM));
+  }
+  // a patch pocket low on his RIGHT front (-x): a flap of the vest's cloth with a trim edge and its stitching
+  if (V.pocket !== false) {
+    const [pt, pp] = V.pocket || [-(edge(-0.2) + 0.32), -0.22], pw = 0.17, phh = 0.16;
+    P.add(surfSheet(ch, () => pt - pw, () => pt + pw, pp - phh, pp + phh, (V.lift ?? 0.014) + 0.006, m, { nu: 10, nv: 10 }));
+    P.add(surfLine(ch, [[pt - pw, pp + phh], [pt, pp + phh + 0.01], [pt + pw, pp + phh]], (V.lift ?? 0.014) + 0.009, (V.trimR ?? 0.009) * 0.75, trimM));
+    const ps = [[pt - pw + 0.03, pp + phh - 0.04], [pt - pw + 0.03, pp - phh + 0.03], [pt + pw - 0.03, pp - phh + 0.03], [pt + pw - 0.03, pp + phh - 0.04]], pl = [];
+    for (let i = 0; i < 3; i++) for (let k = 0; k < 10; k++) { const a = ps[i], b = ps[i + 1]; pl.push([a[0] + (b[0] - a[0]) * (k / 10), a[1] + (b[1] - a[1]) * (k / 10)]); }
+    P.add(dashes(ch, pl, (V.lift ?? 0.014) + 0.009, 0.011, threadM));
   }
   // the button: LEFT side (+x), on the vest just inside its front edge, low
   const bph = V.buttonAt ?? -0.28, s = ch.surf(edge(bph) + 0.1, bph);
@@ -187,21 +228,33 @@ function buildShell(ch, C) {
   const nm = S.marginals ?? 24;
   for (let i = 0; i < nm; i++) { const ph = ((i + 0.5) / nm) * Math.PI * 2 + (R() - 0.5) * 0.1; seeds.push({ d: dirAt(alphaOf(ph) - 0.12, ph), m: 1 }); }
   const base = col(S.color || "#74503A"), groove = col(S.groove || "#9C7352"), marg = col(S.rim || "#B9875A"), margG = col(S.rimGroove || "#D2A574");
+  // the sheet's plates (rich look, Jonny 5 Nov "very detailed"): each plate a rounded stone, lighter on its crown, a
+  // pale band just inside its edge, two faint growth rings, and a dark seam where it meets the next
+  const seamC = col(S.seam || "#3E2A1E"), lightC = col(S.light || "#8E6646"), edgeC = col(S.edge || "#A07A55");
   const tone = seeds.map((s) => (s.m ? 1 + (R() - 0.5) * 0.08 : 1 + (R() - 0.5) * 0.16));
   const cell = (u) => {
     let d1 = 9, d2 = 9, i1 = 0;
     for (let i = 0; i < seeds.length; i++) { const a = Math.acos(Math.max(-1, Math.min(1, u.dot(seeds[i].d)))); if (a < d1) { d2 = d1; d1 = a; i1 = i; } else if (a < d2) d2 = a; }
     return { i: i1, b: d2 - d1 };
   };
-  const NT = S.nt ?? 70, NP = S.np ?? 110, pos = [], colr = [], idx = [], u = new THREE.Vector3();
+  const NT = S.nt ?? 150, NP = S.np ?? 240, pos = [], colr = [], idx = [], u = new THREE.Vector3();
   const pt = (u, r) => new THREE.Vector3(c.x + u.x * Rx * r, c.y + u.y * Ry * r, c.z + u.z * Rz * r);
-  const bulge = S.bulge ?? 0.035, gw = S.grooveW ?? 0.045;
+  const bulge = S.bulge ?? 0.035, gw = S.grooveW ?? 0.045, ring = (x, at, w) => Math.exp(-(((x - at) / w) ** 2));
   for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
     { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); }
     const q = cell(u), sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b);
-    const r = 1 + bulge * (sd.m ? 0.6 : 1) * k * (0.75 + 0.25 * k) - 0.008 * (1 - k);
+    const r = 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - 0.012 * (1 - k);
     const p = pt(u, r); pos.push(p.x, p.y, p.z);
-    const cc = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]).lerp(sd.m ? margG : groove, 1 - sstep(0, gw, q.b));
+    let cc;
+    if (S.plates === false) cc = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]).lerp(sd.m ? margG : groove, 1 - sstep(0, gw, q.b));
+    else {
+      // q.b: how far inside its plate the point lies (0 on the seam). Crown light, pale edge band, growth rings, seam
+      const own = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]);
+      cc = own.clone().lerp(sd.m ? margG : lightC, 0.3 * sstep(gw * 2, gw * 5, q.b));
+      cc.lerp(sd.m ? margG : edgeC, 0.5 * ring(q.b, gw * 0.62, gw * 0.22));
+      if (!sd.m) cc.lerp(seamC, 0.32 * ring(q.b, gw * 1.45, gw * 0.12) + 0.22 * ring(q.b, gw * 2.3, gw * 0.12));
+      cc.lerp(seamC, 0.85 * (1 - sstep(0, gw * 0.32, q.b)));
+    }
     colr.push(cc.r, cc.g, cc.b);
   }
   for (let i = 0; i < NT; i++) for (let j = 0; j < NP; j++) { const a = i * (NP + 1) + j, b = a + 1, e = a + NP + 1, f = e + 1; idx.push(a, b, e, b, f, e); }
@@ -245,16 +298,18 @@ function buildShell(ch, C) {
 function moss(group, onShell, dirAt, alphaOf, S, R) {
   const M = S.moss || {}, geos = [], cs = [col(M.color || "#8E9B36"), col(M.light || "#A9B548"), col(M.dark || "#6F7D2A")];
   const wave = (w) => 0.12 * Math.sin(w.x * 9.0 + 1.3) + 0.1 * Math.sin(w.z * 7.0 - 0.6) + 0.08 * Math.sin((w.x + w.z) * 13.0);
-  const n = M.count ?? 260, w = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), q = new THREE.Quaternion();
-  for (let i = 0; i < n; i++) {
+  const n = M.count ?? 260, fine = M.fine ?? 0, w = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), q = new THREE.Quaternion();
+  for (let i = 0; i < n + fine; i++) {
+    const tiny = i >= n;   // the fine layer: small fluffy bits over the cushions and their ragged edges
     const ph = R() * Math.PI * 2; dirAt(Math.acos(1 - R() * (1 - Math.cos(Math.min(Math.PI * 0.97, alphaOf(ph) * 0.97)))), ph, w);
     const { p, n: nn } = onShell(w);
     const cover = nn.y + wave(w) + (Math.abs(nn.x) > 0.55 ? 0.12 : 0);   // a little more over the sides (the tufts)
-    if (cover < (M.from ?? 0.52)) continue;
-    const r = (M.size ?? 0.034) * (0.6 + 0.8 * R()) * (0.6 + 0.6 * sstep(M.from ?? 0.52, 0.95, cover));
-    const s = new THREE.SphereGeometry(1, 10, 7);
-    s.scale(r * 1.15, r * 0.55, r * 1.15);
-    q.setFromUnitVectors(up, nn); s.applyQuaternion(q); s.translate(p.x + nn.x * r * 0.15, p.y + nn.y * r * 0.15, p.z + nn.z * r * 0.15);
+    if (cover < (M.from ?? 0.52) + (tiny ? 0.04 : 0)) continue;
+    const r = (tiny ? (M.fineSize ?? 0.012) : (M.size ?? 0.034)) * (0.6 + 0.8 * R()) * (0.6 + 0.6 * sstep(M.from ?? 0.52, 0.95, cover));
+    const s = new THREE.SphereGeometry(1, tiny ? 6 : 10, tiny ? 5 : 7);
+    s.scale(r * 1.15, r * (tiny ? 0.5 : 0.55), r * 1.15);
+    const out_ = tiny ? (M.size ?? 0.034) * 0.3 : r * 0.15;   // the fine bits sit on top of the cushions
+    q.setFromUnitVectors(up, nn); s.applyQuaternion(q); s.translate(p.x + nn.x * out_, p.y + nn.y * out_, p.z + nn.z * out_);
     const k = R(), cc = (k < 0.5 ? cs[0] : k < 0.8 ? cs[1] : cs[2]).clone().multiplyScalar(0.94 + 0.12 * R()), a = new Float32Array(s.attributes.position.count * 3);
     for (let j = 0; j < a.length; j += 3) { a[j] = cc.r / cs[0].r; a[j + 1] = cc.g / cs[0].g; a[j + 2] = cc.b / cs[0].b; }   // a ratio of the base (see the shell)
     s.setAttribute("color", new THREE.Float32BufferAttribute(a, 3)); s.deleteAttribute("uv");

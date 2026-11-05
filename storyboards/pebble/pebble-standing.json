@@ -71,7 +71,7 @@
    "from": 7,
    "to": 9.6,
    "text": "No rush. The path will wait.",
-   "pos": 1180,
+   "pos": 230,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -182,7 +182,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0,
+     "lid": 0.68,
      "brow": 0,
      "dur": 0.4,
      "at": 0
@@ -270,12 +270,12 @@
    "shot": {
     "pos": [
      0.05,
-     0.98,
+     1.1,
      2.6
     ],
     "look": [
      0.02,
-     0.74,
+     0.86,
      0.05
     ],
     "fov": 33
@@ -284,7 +284,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0.15,
+     "lid": 0.68,
      "dur": 0.3,
      "at": 0
     },
@@ -323,7 +323,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0,
+     "lid": 0.68,
      "dur": 0.4,
      "at": 2.4
     },

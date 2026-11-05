@@ -69,8 +69,7 @@
    "iris": "#3B2416",
    "brow": "#8E5A2C",
    "eye": {
-    "irisShade": false,
-    "oval": 1.08,
+    "oval": 1.2,
     "iris": 0.74
    },
    "layout": {
@@ -87,13 +86,13 @@
    "rest": {
     "smirk": 0,
     "curve": 0.6,
-    "eye": 0.7
+    "eye": 0.92
    },
    "neutral": {
-    "lidL": 0.42,
-    "lidR": 0.42
+    "lidL": 0.68,
+    "lidR": 0.68
    },
-   "blush": 0.35,
+   "blush": 0.9,
    "freckles": 6
   }
  },
@@ -107,8 +106,8 @@
    "band": 0.36
   },
   "belly": {
-   "color": "#F4D49A",
-   "seam": "#D3AE72"
+   "color": "#F2DFB2",
+   "seam": "#CDA874"
   },
   "vest": {
    "color": "#777344",
@@ -128,9 +127,11 @@
    "dz": 0.2,
    "rimR": 0.028,
    "moss": {
-    "count": 1500,
-    "size": 0.038,
-    "from": 0.45
+    "count": 1100,
+    "size": 0.032,
+    "from": 0.45,
+    "fine": 2600,
+    "fineSize": 0.011
    },
    "fern": {
     "leaf": 0.12,
@@ -206,7 +207,8 @@
      0.1
     ]
    ],
-   "marginals": 30
+   "marginals": 30,
+   "bulge": 0.045
   },
   "feet": {
    "toe": "#F2DDB0"

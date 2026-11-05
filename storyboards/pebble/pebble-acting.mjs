@@ -17,10 +17,13 @@
 import * as act from "../lib/acting.mjs";
 
 export const SLOW = 0.4;   // his shortest face change
+// his resting upper lids (the sheet's half-lidded eyes): a "face" lid sets the lid outright, so every calm beat comes back
+// to this, never to 0 (0 opens the eyes wide; with his big round eyes a lid starts to show from about 0.6)
+export const LID = 0.68;
 
 export function calmSmile(c, t, who, { dur = SLOW } = {}) {
   c.A(t, who, "expr", { expr: "kind", dur });
-  c.A(t, who, "face", { lid: 0, brow: 0, dur });
+  c.A(t, who, "face", { lid: LID, brow: 0, dur });
 }
 
 export function contentBlink(c, t, who, { hold = 0.55, dur = 0.3 } = {}) {
@@ -38,10 +41,10 @@ export function amusedGlance(c, t, who, to = [0.6, 0], { hold = 0.8 } = {}) {
 
 export function surprisedOh(c, t, who, { hold = 0.7, look = [0, 0.15] } = {}) {
   c.A(t, who, "expr", { expr: "shocked", set: { open: 0.38, eye: 1.15, curve: 0.0 }, dur: 0.18 });
-  c.A(t, who, "face", { brow: 0.3, dur: 0.2 });
+  c.A(t, who, "face", { lid: 0.35, brow: 0.3, dur: 0.2 });
   c.A(t, who, "look", { to: look, dur: 0.18, blink: false });
   c.A(t, who, "squash", { amount: -0.02, dur: 0.25 });
-  c.A(t + 0.2 + hold, who, "face", { brow: 0, dur: SLOW });
+  c.A(t + 0.2 + hold, who, "face", { lid: LID, brow: 0, dur: SLOW });
 }
 
 export function gentleConcern(c, t, who, { dur = SLOW } = {}) {
@@ -60,8 +63,8 @@ export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { f
 
 // one line in his calm voice (subtitled by the clip's lines setting), the half lids held while he talks: the mouth's
 // open shape would otherwise fade his resting face (face.final.rest) out the way a big reaction does
-export function line(c, t, who, text, dur, { lid = 0.15, ...o } = {}) {
+export function line(c, t, who, text, dur, { lid = LID, ...o } = {}) {
   c.A(t - 0.1, who, "face", { lid, dur: 0.3 });
   c.say(t, who, text, dur, "calm", o);
-  c.A(t + dur + 0.1, who, "face", { lid: 0, dur: 0.4 });
+  c.A(t + dur + 0.1, who, "face", { lid: LID, dur: 0.4 });
 }

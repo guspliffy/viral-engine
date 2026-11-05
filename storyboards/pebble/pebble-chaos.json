@@ -115,7 +115,7 @@
    "from": 7.3,
    "to": 9.5,
    "text": "Hm. Tomorrow's problem.",
-   "pos": 1180,
+   "pos": 230,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -261,6 +261,7 @@
     {
      "who": "peb",
      "do": "face",
+     "lid": 0.35,
      "brow": 0.3,
      "dur": 0.2,
      "at": 0.45
@@ -330,6 +331,7 @@
     {
      "who": "peb",
      "do": "face",
+     "lid": 0.68,
      "brow": 0,
      "dur": 0.4,
      "at": 1.25
@@ -404,12 +406,12 @@
    "shot": {
     "pos": [
      -0.2,
-     0.92,
+     1.04,
      2.8
     ],
     "look": [
      -0.15,
-     0.82,
+     0.94,
      0.1
     ],
     "fov": 31
@@ -544,7 +546,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0.15,
+     "lid": 0.68,
      "dur": 0.3,
      "at": 0
     },
@@ -560,7 +562,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0,
+     "lid": 0.68,
      "dur": 0.4,
      "at": 2
     },
@@ -574,7 +576,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0,
+     "lid": 0.68,
      "brow": 0,
      "dur": 0.4,
      "at": 2.1
