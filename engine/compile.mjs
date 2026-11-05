@@ -160,8 +160,9 @@ function compileBeats(sb) {
       if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top" }); continue; }
       if (rest.fx) { const { fx, ...f } = rest; out.fx.push({ do: fx, at: abs, ...f }); continue; }
       if (rest.sfx) { const { sfx, ...f } = rest; out.sfx.push({ sound: sfx, at: abs, ...f }); continue; }
-      // a prop tween ({ do: "prop", id, set }) and a prop carrying another ({ do: "carry", prop, by }) belong to no one
-      if (!rest.do || (!rest.who && rest.do !== "prop" && rest.do !== "carry")) throw new Error(`beat "${b.name ?? bi}": item needs who + do, do: "prop", fx, sfx, caption or macro: ${JSON.stringify(g)}`);
+      // a prop tween ({ do: "prop", id, set }), a prop carrying another ({ do: "carry", prop, by }) and prop physics
+      // ({ do: "physics", prop, mode }: engine/page/physics.js) belong to no one
+      if (!rest.do || (!rest.who && rest.do !== "prop" && rest.do !== "carry" && rest.do !== "physics")) throw new Error(`beat "${b.name ?? bi}": item needs who + do, do: "prop", fx, sfx, caption or macro: ${JSON.stringify(g)}`);
       out.actions.push({ ...rest, at: abs });
     }
     if (b.caption != null) {
