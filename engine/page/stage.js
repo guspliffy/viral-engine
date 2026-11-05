@@ -181,9 +181,9 @@ function headFx(f, t, i) {
       const pop = Math.min(1, k * 6), sc = pop < 1 ? pop * 1.25 : 1 + 0.25 * Math.max(0, 1 - (k * 6 - 1) * 2), x = c.x + 0.28 * c.m, y = c.y - 0.42 * c.m;
       ctx.globalAlpha = Math.min(1, (1 - k) * 6); ctx.font = `900 ${Math.round(0.34 * c.m * sc)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
       ctx.lineWidth = 10; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#e8402f"; ctx.strokeText(f.text || "!", x, y); ctx.fillText(f.text || "!", x, y);
-    } else if (f.do === "zzz") {
-      const x = c.x + (0.25 + lk * 0.35) * c.m + Math.sin(lk * 5 + j) * 0.03 * c.m, y = c.y - (0.15 + lk * 0.5) * c.m;
-      ctx.globalAlpha = fade; ctx.font = `900 ${Math.round((0.1 + 0.08 * lk) * c.m)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    } else if (f.do === "zzz") {   // scale: bigger z's (z's over a far door stay readable)
+      const zm = c.m * (f.scale ?? 1), x = c.x + (0.25 + lk * 0.35) * zm + Math.sin(lk * 5 + j) * 0.03 * zm, y = c.y - (0.15 + lk * 0.5) * zm;
+      ctx.globalAlpha = fade; ctx.font = `900 ${Math.round((0.1 + 0.08 * lk) * zm)}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
       ctx.lineWidth = 6; ctx.strokeStyle = "#ffffff"; ctx.fillStyle = f.color || "#2b2934";
       ctx.strokeText("z", x, y); ctx.fillText("z", x, y);
     } else {
