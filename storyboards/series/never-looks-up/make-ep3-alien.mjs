@@ -139,7 +139,7 @@ for (const [t, s] of [[1.65, 1], [1.95, -1], [2.25, 1], [2.55, -1], [2.85, 1]]) 
   c.arm(t, "ast", "R", { o: [0.3 + 0.08 * s, 0.85, 0.12] }, 0.28); c.arm(t, "ast", "L", { o: [0.3 - 0.08 * s, 0.85, 0.12] }, 0.28);
 }
 A(1.75, "ast", "talk", { line: "take me take me!", dur: 1.0, tone: "excited", voice: false });
-c.cap(1.75, 3.0, "TAKE ME TOO!!", 640, false, { x: 340 });   // each line by its speaker (review A)
+c.cap(1.75, 3.0, "TAKE ME TOO!!", 640, false, { x: 410 });   // each line by its speaker (review A)
 // the Wizard drops the popcorn, gets up and grabs Phoenix's dangling foot
 bowl.release(1.55, { rest: false });
 prop(1.6, "bowl", { y: 0 }, 0.15, "in");   // it drops off his lap onto the blanket
@@ -285,7 +285,7 @@ A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -8, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 1300, false, { x: 820 });   // beside his face: lower in the frame it would sit on him
+c.cap(8.5, 9.0, "huh.", 1250, false, { x: 780 });   // beside his face: lower in the frame it would sit on him
 prop(8.0, "alien", { happy: 1, jaw: 0.7, lookX: -0.6, lookY: -0.1 }, 0.15);
 see(8.1, 8.95, ["phx.face", "alien"], "P7: Phoenix looks up at the alien and its gift: huh.");
 
@@ -305,6 +305,7 @@ prop(9.2, "alien", { drop: 0 }, 0.08, "in");
 prop(9.26, "ufo", { open: 0 }, 0.04, "in");
 c.hitStop(9.3, 3);
 sfx(9.3, "slam", { gain: 0.6, reason: "the hatch slams shut" });
+sfx(9.3, "kenney/switch", { gain: 0.5, reason: "the hatch's latch clicks shut (a click on the slam for phone speakers)" });
 prop(9.34, "ufo", { glow: 0 }, 0.04);
 sfx(9.34, "kenney/phaser-down", { gain: 0.4, reason: "the beam switches off" });
 // the chair drops away beneath him onto the pile; his wings flick open and he hovers in the same seated pose
@@ -343,7 +344,7 @@ const HATCH = shot([0.1, 1.35, 5.4], { tilt: -5.7, fov: 50 });   // the three fl
 const PX = CHAIR_END.x, PZ = CHAIR_END.z, BODY_Y = CHAIR_TOP + SEAT;      // Phoenix at the top
 const GREET = shot([r3(H_END.x - 0.15), 2.75, 2.8], { pan: 3.2, tilt: -7, fov: 26 });   // a tight insert on the alien riding down (review A)
 const LOOKUP = shot([r3(PX + 0.15), r3(BODY_Y + 0.62), r3(PZ + 3.95)], { tilt: -8, fov: 34 });   // the series' LOOK-UP: his eye level, the saucer and alien above
-const BACKDOWN = shot([0.15, 1.6, 6.9], { tilt: -3, fov: 46 });
+const BACKDOWN = shot([0.0, 1.6, 6.9], { tilt: -3, fov: 48 });
 const beats = c.beats([
   ["P1 beam", 0, WIDE, "hook"],
   ["P2 lift", 1.5, "keep"],
