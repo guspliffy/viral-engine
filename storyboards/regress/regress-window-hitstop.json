@@ -42,7 +42,7 @@
  "captions": [
   {
    "from": 0,
-   "to": 2.5,
+   "to": 2.8,
    "text": "facepalm window after a hit-stop",
    "pos": 1500,
    "pop": false,
@@ -53,7 +53,7 @@
   {
    "name": "window-hitstop",
    "at": 0,
-   "len": 2.5,
+   "len": 2.8,
    "shot": {
     "pos": [
      0,
@@ -78,10 +78,10 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       0.06,
-       0.62,
-       0.3
+      "world": [
+       0.02,
+       0.72,
+       0.5
       ]
      },
      "dur": 0.25,
@@ -93,7 +93,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.3,
-     "at": 1.8
+     "at": 2.1
     }
    ]
   }
@@ -104,11 +104,17 @@
   ]
  },
  "gate": 2,
+ "hitStop": [
+  {
+   "at": 0.3,
+   "frames": 18
+  }
+ ],
  "allowClip": [
   {
    "who": "wiz",
    "from": 0.7,
-   "to": 2.15,
+   "to": 2.45,
    "checks": [
     "face"
    ],

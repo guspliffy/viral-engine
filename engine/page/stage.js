@@ -1614,8 +1614,10 @@ function setOccluders() {
 // who owns the front of the frame (quality plan item 13 (c), 5 Nov 2026: in the tent's first cut Phoenix on the phone
 // stood in front of the main action). For each character in frame, the share of its body's outline that something
 // nearer the camera covers: another character (arms and held props included), any prop, the set. Rays from the camera
-// to 19 points spread over the camera side of the body's ellipsoid; points out of frame don't count. qa/framing.mjs
-// decides who the subject is (who acts) and fails when its share stays over 15 % for 0.3 s. Listed when over 5 %.
+// to 19 points spread over the camera side of the body's ellipsoid (the middle and an inner ring of 7, an outer ring
+// of 12); points out of frame don't count. byActor: the share a character (or a prop it holds) covers; core: the same
+// for the inner 7 (the face and the middle of the body: a neighbour overlapping the edge in a group shot doesn't reach
+// it). qa/framing.mjs decides who the subject is (who acts) and when it fails. Listed when over 5 % is covered.
 const FRONT = []; for (let i = 0; i < 19; i++) { const r = i === 0 ? 0 : i < 7 ? 0.5 : 0.85, a = i === 0 ? 0 : i < 7 ? ((i - 1) / 6) * Math.PI * 2 : ((i - 7) / 12) * Math.PI * 2 + 0.26; FRONT.push([Math.cos(a) * r, Math.sin(a) * r]); }
 function fronts() {
   const live = actors.filter((a) => a.ch.root.visible && a.ch.body && a.ch.potatoParts?.visible !== false);
@@ -1631,12 +1633,12 @@ function fronts() {
     const hs = bb.getSize(new THREE.Vector3()).multiply(a.ch.body.getWorldScale(new THREE.Vector3())).multiplyScalar(0.5);
     const m = c.clone().project(camera); if (Math.abs(m.x) > 1.1 || Math.abs(m.y) > 1.1 || m.z > 1) continue;
     const toCam = camera.position.clone().sub(c).normalize();
-    let n = 0, hid = 0, hidA = 0; const by = new Map();
-    for (const [u, v] of FRONT) {
+    let n = 0, hid = 0, hidA = 0, nc = 0, core = 0; const by = new Map();
+    for (const [k, [u, v]] of FRONT.entries()) {
       // a point on the camera side of the ellipsoid, seen at (u, v) of its outline
       const p = c.clone().addScaledVector(right, u * hs.x).addScaledVector(up, v * hs.y).addScaledVector(toCam, Math.sqrt(Math.max(0, 1 - u * u - v * v)) * hs.z * 0.9);
       const q = p.clone().project(camera); if (Math.abs(q.x) > 1 || Math.abs(q.y) > 1 || q.z > 1) continue;
-      n++;
+      n++; if (k < 7) nc++;
       const dir = p.clone().sub(camera.position), d = dir.length();
       ray.set(camera.position, dir.normalize()); ray.far = d - 0.03;
       const hit = ray.intersectObjects(cands, false).find((h) => { const w = mine.get(h.object); return w !== a.c.id && !String(w).endsWith(`@${a.c.id}`); });
@@ -1645,11 +1647,11 @@ function fronts() {
       // a character, or a prop someone holds (counted as its holder): a bystander. Furniture, scenery and the set in
       // front are staging (a table before a seated character), counted in cover only
       const w = String(mine.get(hit.object)), who = w.includes("@") ? w.split("@")[1] : w, actor = live.some((x) => x.c.id === who);
-      if (actor) { hidA++; by.set(who, (by.get(who) || 0) + 1); }
+      if (actor) { hidA++; if (k < 7) core++; by.set(who, (by.get(who) || 0) + 1); }
     }
     if (n < 4 || hid / n <= 0.05) continue;
     const r2 = (x) => Math.round(x * 100) / 100;
-    out.push({ id: a.c.id, cover: r2(hid / n), ...(hidA ? { byActor: r2(hidA / n), by: [...by.entries()].sort((x, y) => y[1] - x[1])[0][0] } : {}), dist: r2(c.distanceTo(camera.position)) });
+    out.push({ id: a.c.id, cover: r2(hid / n), ...(hidA ? { byActor: r2(hidA / n), core: nc ? r2(core / nc) : 0, by: [...by.entries()].sort((x, y) => y[1] - x[1])[0][0] } : {}), dist: r2(c.distanceTo(camera.position)) });
   }
   return out;
 }

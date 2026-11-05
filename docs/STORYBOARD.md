@@ -67,7 +67,21 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   brim, wings, a prop, a hand) and no caption over them; `"<id>"`: the character's body or the prop in view.
   `qa/framing.mjs` checks it from the layout (`render.mjs --layout` prints the misses), a note, never a failure.
   Without a list it checks hook.show at 0-0.2 s and the faces of whoever acts in the payoff's first 0.6 s. `"through":
-  ["glass"]` on an entry ignores a see-through occluder (a window pane counts as solid to the raycast).
+  ["glass"]` on an entry ignores a see-through occluder (a window pane counts as solid to the raycast). An entry with
+  `"required": true` is a must: its miss is a `must-see` fail that blocks the render, unless an `"allowHide"` window
+  (`[{ "see": "rea.face", "from", "to", "reason" }]` on the storyboard or the entry) says why the hide is deliberate.
+- **`"gate": 2`** (quality plan item 3, opt-in until Jonny approves it for the template) turns on the new render-gate
+  fails: a hand flipping over 90° in a frame on screen (`hand-turn`), a jump between frame 0 and frame 1
+  (`frame0-jump`), a foot skating over 5 cm in a frame (`foot-slide`), a held prop slipping over 3 cm (`prop-pop`), a
+  body lean or pitch jump in a still moment (`lean-jump`), a bystander over the acting subject's middle (`front`), and
+  faces hidden by scenery and the set. A fail whose root fix isn't in the storyboard yet stays a warning (hands until
+  `"rig": { "hand": 2 }`, feet until `"motion": { "feet": 2 }`, holds until `"rig": { "hold": 2 }`). `node
+  qa/preflight.mjs <sb>` runs the layout and every check and gives one verdict (`--gate 2` previews it, `--all-fails`
+  shows what fails once every fix is in).
+- **`"allowClip"` windows** are read on the story's clock (a hit-stop no longer shifts them) and may name what they
+  waive: `"checks": ["face"]` (kinds: `body`, `reach`, `prop`, `face`, or any check's name such as `hand-turn`). Without
+  a list a window waives the contact kinds as before; the visible-glitch checks above are waived only by name, always
+  with a `"reason"`.
 - **`kind: "escalation"`** marks the second turn of the joke; `qa/check.mjs` notes clips over the 20 s house target
   without one.
 - **Voices**: characters with a speaking voice (`"tts"` in their file: Phoenix, Reaper, Wizard, Allfather/Odin) say

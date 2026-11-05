@@ -143,16 +143,16 @@ for (const [id, title, dur, expect] of [
 }
 
 // HIT-STOP BEFORE A WINDOW: a facepalm (the hand over its own eyes for a second) inside an allowClip window written on
-// the story's clock, after a 12-frame hit-stop. Read on the video's clock the window ended 0.4 s early and the end of the
+// the story's clock, after an 18-frame hit-stop. Read on the video's clock the window ended 0.6 s early and the end of the
 // facepalm failed face-covered (8 of 10 clips of 4-5 Nov had a window after a hit-stop); read on the story's, it's clean
 {
   const c = clip(), { A } = c;
   A(0, "wiz", "noblink");
-  c.hitStop(0.3, 12);
-  c.arm(0.8, "wiz", "R", { o: [0.06, 0.62, 0.3] }, 0.25);
-  c.arm(1.8, "wiz", "R", "rest", 0.3);
-  base("window-hitstop", "facepalm window after a hit-stop", WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.5, { clean: ["face-covered"] }, {
-    gate: 2, allowClip: [{ who: "wiz", from: 0.7, to: 2.15, checks: ["face"], reason: "the facepalm: the glove over his own eyes on purpose" }],
+  c.hitStop(0.3, 18);
+  c.arm(0.8, "wiz", "R", { world: [0.02, 0.72, 0.5] }, 0.25);
+  c.arm(2.1, "wiz", "R", "rest", 0.3);
+  base("window-hitstop", "facepalm window after a hit-stop", WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.8, { clean: ["face-covered"] }, {
+    gate: 2, hitStop: c.hitStops, allowClip: [{ who: "wiz", from: 0.7, to: 2.45, checks: ["face"], reason: "the facepalm: the glove over his own eyes on purpose" }],
   });
 }
 
@@ -168,7 +168,7 @@ const PHX1 = [{ id: "phx", character: "duo/phoenix", at: [0, 0], face: "camera",
   c.arm(0, "phx", "L", { x: [0.11, Y, Z], palm: [0, Y, Z] }, 0);
   A(0, "phx", "look", { to: [0.03, -1], dur: 0, blink: false });
   base("glow", "phone held in its glow", PHX1, [{ id: "phone", kind: "phone", x: 0, y: 0.62, z: 0.42, rot: 180, tip: -28, scale: 1.9, bright: 2.2, halo: 0.26, haloK: 0.55, glow: 1 }], c,
-    frame([0, 0.6, 0.2], { h: 1.2, fov: 30 }), 1.2, { clean: ["hand-in-prop"] }, { gate: 2 });
+    frame([0, 0.6, 0.2], { h: 1.2, fov: 30 }), 1.2, { clean: ["hand-in-prop", "arm-in-prop"] }, { gate: 2 });
 }
 {
   const c = clip(), { A } = c, G = [0.18, 0.36, 0.45];

@@ -156,7 +156,8 @@
  ],
  "expect": {
   "clean": [
-   "hand-in-prop"
+   "hand-in-prop",
+   "arm-in-prop"
   ]
  },
  "gate": 2,

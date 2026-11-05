@@ -35,9 +35,9 @@
 //
 // The subject owns the front (item 13 (c), Jonny 5 Nov on the tent: a bystander on the phone covered the main action):
 // in each moment the subject is whoever acts (a line or a new expression) and the characters the beat's "visible" list
-// names. From the layout's "front" measure (stage.js fronts()), another character or a prop someone holds covering
-// over 15 % of the subject's outline for 0.3 s is a "front" fail at "gate": 2 (a warning before). Furniture and the set in
-// front of a character are staging, not a bystander.
+// names (an entry naming two at most). From the layout's "front" measure (stage.js fronts()), another character or a
+// prop someone holds covering over 15 % of the subject's outline and of its middle (face and body, not just an edge)
+// for 0.3 s is a "front" fail at "gate": 2 (a warning before). Furniture and the set in front are staging.
 import fs from "node:fs";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState, cameraState } from "../engine/page/timeline.js";
@@ -165,12 +165,16 @@ export function frontResults(sb, lay) {
   const rows = lay?.contacts || [], fps = lay?.fps || 30, out = [];
   if (!rows.some((r) => r.front)) return out;
   const cast = new Set((sb.cast || []).map((c) => c.id)), list = (sb.visible || []).map((v) => ({ from: v.from ?? v.at ?? 0, to: v.to ?? (v.from ?? v.at ?? 0) + VISIBLE.window, see: [].concat(v.see || []) }));
-  const subjects = (s) => new Set([...[...cast].filter((id) => actingAt(sb, id, s)), ...list.filter((v) => s >= v.from && s <= v.to).flatMap((v) => v.see.map((x) => x.split(".")[0]).filter((id) => cast.has(id)))]);
+  // the subject: who acts, and the characters a focused must-see entry names (two at most: a list of every face in a
+  // group shot names no subject)
+  const named = (v) => [...new Set(v.see.map((x) => x.split(".")[0]).filter((id) => cast.has(id)))];
+  const subjects = (s) => new Set([...[...cast].filter((id) => actingAt(sb, id, s)), ...list.filter((v) => s >= v.from && s <= v.to && named(v).length <= 2).flatMap(named)]);
   const tracks = new Map();
   rows.forEach((r, i) => {
     const t = r.t ?? i / fps, s = storyAt(sb, t), subj = subjects(s);
     for (const f of r.front || []) {
-      if (!subj.has(f.id) || !f.byActor || f.byActor <= GATE.front || f.by === f.id || windowFor(sb, "front", f.id, t, f.by)) continue;
+      // a bystander over the subject's middle (its face and body), not a neighbour's edge over its side
+      if (!subj.has(f.id) || !f.byActor || f.byActor <= GATE.front || (f.core ?? 1) <= GATE.front || f.by === f.id || windowFor(sb, "front", f.id, t, f.by)) continue;
       const k = `${f.id}|${f.by}`; if (!tracks.has(k)) tracks.set(k, { id: f.id, by: f.by, f: new Array(rows.length).fill(0) });
       tracks.get(k).f[i] = f.byActor;
     }
@@ -187,20 +191,26 @@ export function frontResults(sb, lay) {
   return out;
 }
 
-// Eyes that read (quality plan item 4, the eyes thread): with "rig": { "eyes": 2 } the layout records how much of each
-// pupil the lids leave showing (stage.js layout, actors[].pupils, from face.js; a number or one per eye, 0..1). A face in
-// frame showing under 60 % of a pupil for 0.3 s or more warns (the split-the-bill waiter: a pupil under the lid read
+// Eyes that read (quality plan item 4, the eyes thread): once face.js measures it, the layout records how much of each
+// pupil the lids leave showing (stage.js layout, actors[].pupils, from face.js: [right, left], 0..1, blinks included).
+// A face in frame showing under 60 % of a pupil for 0.3 s or more warns (an eye closed on purpose is left alone) (the split-the-bill waiter: a pupil under the lid read
 // as a glitch). Nothing is reported for a layout without the measure.
 export const EYES = { shown: 0.6, hold: 0.3 };
 export function eyesResults(sb, lay) {
   const S = lay?.samples || [], W = lay?.width || 1080, H = lay?.height || 1920, out = [];
   const val = (p) => { const v = typeof p === "number" ? [p] : Array.isArray(p) ? p : p && typeof p === "object" ? Object.values(p) : []; const n = v.filter((x) => typeof x === "number"); return n.length ? Math.min(...n) : null; };
   if (!S.some((s) => (s.actors || []).some((a) => a.pupils != null))) return out;
+  // an eye closed on purpose (a lid of 0.7 or more, a wink, a serene, sleepy or squinting expression) is left alone
+  const closed = (id, s) => {
+    const mine = (sb?.actions || []).filter((a) => a.who === id && a.at <= s + 1e-6 && (a.do === "face" || a.do === "expr"));
+    const f = mine.filter((a) => a.do === "face" && (a.lid != null || a.lidR != null || a.lidL != null)).pop(), e = mine.filter((a) => a.do === "expr").pop();
+    return (f && (f.lid >= 0.7 || f.lidR >= 0.9 || f.lidL >= 0.9)) || (e && /serene|sleep|wink|squint|smug|dream/i.test(e.expr || ""));
+  };
   const step = S.length > 1 ? S[1].t - S[0].t : 0.1, ids = [...new Set(S.flatMap((s) => (s.actors || []).map((a) => a.id)))];
   for (const id of ids) {
     const spans = []; let a = null, low = 1;
     S.forEach((s, i) => {
-      const x = (s.actors || []).find((q) => q.id === id), v = x && x.eyesPx && x.eyesPx[0] >= 0 && x.eyesPx[0] <= W && x.eyesPx[1] >= 0 && x.eyesPx[1] <= H ? val(x.pupils) : null;
+      const x = (s.actors || []).find((q) => q.id === id), v = x && !closed(id, storyAt(sb, s.t)) && x.eyesPx && x.eyesPx[0] >= 0 && x.eyesPx[0] <= W && x.eyesPx[1] >= 0 && x.eyesPx[1] <= H ? val(x.pupils) : null;
       if (v != null && v < EYES.shown) { if (a == null) { a = s.t; low = v; } low = Math.min(low, v); }
       if ((v == null || v >= EYES.shown || i === S.length - 1) && a != null) { const b = v != null && v < EYES.shown ? s.t + step : s.t; if (b - a >= EYES.hold - 1e-6) spans.push([a, b, low]); a = null; }
     });
