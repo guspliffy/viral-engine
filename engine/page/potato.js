@@ -20,7 +20,7 @@ export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.
 // The elbow bends towards the arm's old guide point (today's rules: out from the body, below a fist on a staff, behind a
 // pinch, out beside a phone), with poleField's direction as a floor, so the bend never flips when the guide crosses
 // the shoulder-hand line. The curve's pull point then sits where the curve passes through the elbow.
-const ARM_SOFT = 0.15, ARM_BOW = 0.06;
+const ARM_SOFT = 0.15;
 // a continuous pole for a reach in direction u (unit, the root's space; sx -1 right arm, +1 left): down when the hand
 // reaches out and forward, back (a little out) when it hangs, out when it is raised. The out-and-forward frame swung
 // onto u the shortest way: one singular direction, in and back through the body, where an arm never reaches
@@ -905,11 +905,13 @@ export class Character {
     const u = D.divideScalar(d), c = sh0.clone().lerp(h, 0.5);
     // soft IK: the solve's reach ds eases towards L over its last ARM_SOFT; the bones stretch by d / ds to keep the hand
     const w = ARM_SOFT * L, da = L - w, ds = d <= da ? d : da + w * (1 - Math.exp(-(d - da) / w)), f = d / ds;
-    // and a rubber-hose arm never goes ruler straight: a long reach keeps a gentle bow (ARM_BOW of its length)
-    const r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), ARM_BOW * d);
     // the bend's direction: the guide's bulge square to the shoulder-hand line, over the pole field (2.5 cm of it)
     const g = guide.clone().sub(c); g.addScaledVector(u, -g.dot(u));
-    const n = g.addScaledVector(poleField(u, sx, new THREE.Vector3()), 0.025).normalize();
+    const gb = g.length(), n = g.addScaledVector(poleField(u, sx, new THREE.Vector3()), 0.025).normalize();
+    // how far the elbow stands off the line: the solve's, and never less than the old curve's bow (half its pull
+    // point's), so a long rubber-hose reach keeps today's curve and the clearance its rules gave it (a raised arm round
+    // a helmet, a staff arm round the body)
+    const r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), gb / 2);
     // the arm's curve (where the contact checks sample it, u 0.3 to 0.78) clears the body by an arm's width: turn the
     // bend out round the shoulder-hand line towards the outside of the body (never shortening it) until it does; a
     // reach that still runs through the body then bows further out, and the layout records how far ("bow", metres)
