@@ -15,7 +15,7 @@ const rel = (beats) => beats.map((b) => ({ ...b, do: b.do.map((x) => ({ ...x, at
 
 export function coreTest(name, character) {
   const W = "c", full = { pos: [0, 0.78, 4.7], look: [0, 0.7, 0], fov: 30 };
-  const close = { pos: [0.3, 1.02, 2.5], look: [0.3, 0.92, 0.25], fov: 30 };
+  const close = { pos: [0.3, 1.0, 2.85], look: [0.3, 0.9, 0.25], fov: 30 };
   const a = (at, o) => ({ who: W, at, ...o });
   const turns = [90, 180, 270, 360].map((to, i) => a(3.5 + i * 0.9, { do: "turn", to, dur: 0.75 }));
   return {

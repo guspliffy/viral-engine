@@ -59,7 +59,14 @@ const CORE = {
       const rim = mesh(new THREE.TorusGeometry(rimR, 0.012, 10, 48), std("#d8dde2", { roughness: 0.3, metalness: 0.3 })); rim.rotation.x = Math.PI / 2; rim.position.set(0, collarY + 0.02, H.group.position.z); P.add(rim);
       const hl = new THREE.Mesh(new THREE.TorusGeometry(R * 0.985, 0.006, 6, 40, 0.75), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, depthWrite: false }));
       hl.userData.noOutline = true; hl.position.copy(glass.position); hl.rotation.set(0.25, -0.55, 0.95); P.add(hl);
-      out.helmet = { mesh: glass, r: R };   // potato.js contact(): a raised arm must not run up inside the glass
+      out.helmet = { mesh: glass, r: R };
+      // the comm pucks on the dome's sides, low (the sheet), graphite with a lighter cap
+      for (const sd of [-1, 1]) {
+        const ear = new THREE.Group(), y = -0.06, x = Math.sqrt(Math.max(0, R * R - y * y)) - 0.012;
+        const d = mesh(new THREE.CylinderGeometry(0.05, 0.056, 0.04, 28), hw); ear.add(d);
+        const cap = mesh(new THREE.CylinderGeometry(0.03, 0.034, 0.02, 20), std("#7b7f86", { roughness: 0.4, metalness: 0.4 })); cap.position.y = 0.026; ear.add(cap);
+        ear.rotation.z = -sd * Math.PI / 2; ear.position.set(sd * x, H.cy + y, H.group.position.z); P.add(ear);
+      }   // potato.js contact(): a raised arm must not run up inside the glass
     }
     // backpack: a compact rounded box on the back with two side vents, and a RIGHT side port
     const pack = mesh(new RoundedBoxGeometry(ch.rx * 1.4, ch.ry * 1.55, 0.17, 3, 0.04), std(C.pack || "#ddd6c6", { roughness: 0.65 }));
@@ -74,7 +81,7 @@ const CORE = {
     P.add(mesh(new THREE.TubeGeometry(hose, 40, 0.017, 10), hw));
     for (let i = 1; i < 12; i++) { const c = mesh(new THREE.TorusGeometry(0.019, 0.004, 6, 14), hw, false); const p = hose.getPointAt(i / 12), d = hose.getTangentAt(i / 12); c.position.copy(p); c.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), d); P.add(c); }
     // suit seams: a padded band round the middle and a soft yoke under the collar
-    P.add(ring(ch, -0.15, 0.011, seam, 0.006));
+    P.add(ring(ch, -0.2, 0.02, std(C.belt || "#bdb4a2", { roughness: 0.75 }), 0.008));
     P.add(ring(ch, 0.55, 0.009, seam, 0.004));
     // the LEFT chest patch: a round green badge with an ivory edge and two leaves; the RIGHT chest blue button
     const patch = new THREE.Group();
@@ -95,14 +102,32 @@ const CORE = {
     const wr = { R: mesh(bandG, hw), L: mesh(bandG, hw) }, an = { R: mesh(bandG, hw), L: mesh(bandG, hw) };
     for (const s of ["R", "L"]) { ch.root.add(wr[s]); ch.root.add(an[s]); }
     const lw = ch.def.legs?.width ?? ch.limbW * 1.1;
+    // the padded suit's quilting: soft rings round the arms and legs between the puffs (the sheet's michelin limbs), a
+    // Placed along each limb's own curve every frame, sized to the tube there
+    const quilt = std(C.quilt || "#d9d1bf", { roughness: 0.85 }); quilt.userData.noOutline = true;   // an ink hull on a thin ring reads as a black stripe
+    const ringG = new THREE.TorusGeometry(1, 0.13, 8, 28); ringG.rotateX(Math.PI / 2);
+    const AR = C.armRings || [0.3, 0.4, 0.66, 0.76], LR = C.legRings || [0.3, 0.52, 0.7];
+    const rings = Object.fromEntries(["R", "L"].map((s) => [s, { arm: AR.map(() => mesh(ringG, quilt, false)), leg: LR.map(() => mesh(ringG, quilt, false)) }]));
+    for (const s of ["R", "L"]) for (const m of [...rings[s].arm, ...rings[s].leg]) ch.root.add(m);
+    const along = (m, curve, u, r) => { const a = curve.getPoint(u), b = curve.getPoint(Math.min(1, u + 0.02)), c = curve.getPoint(Math.max(0, u - 0.02)); bandAt(m, a, b.sub(c).add(a), r); };
     return [(st, t, hands, fries) => {
+      for (const s of ["R", "L"]) {
+        const A = ch.arms[s], Lg = ch.legs[s], RG = rings[s], on = !fries && !!A.elbow;
+        for (const m of [...RG.arm, ...RG.leg]) m.visible = on && !!Lg.knee;
+        if (!on || !Lg.knee) continue;
+        const ac = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint);
+        AR.forEach((u, i) => along(RG.arm[i], ac, u, ch.constructor.armRadius(u, ch.limbW) * 1.0));
+        const lc = ch.constructor.armCurve(Lg.hip, Lg.knee, Lg.foot.position, false);
+        LR.forEach((u, i) => along(RG.leg[i], lc, u, lw * 1.0));
+      }
+    }, (st, t, hands, fries) => {
       for (const s of ["R", "L"]) {
         const A = ch.arms[s];
         wr[s].visible = an[s].visible = !fries && !!A.elbow;
         if (!A.elbow) continue;
         const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), L = curve.getLength();
-        // on the cuff: where a seamless glove's skin starts (hands.stub metres before the hand), else 9 cm back
-        const u = Math.max(0.5, 1 - (ch.seamless ? (ch.def.hands.stub ?? 0.15) : 0.09) / L), a = curve.getPointAt(u), b = curve.getPointAt(Math.min(1, u + 0.05));
+        // on the glove's cuff, C.cuff metres back from the hand's centre
+        const u = Math.max(0.5, 1 - (C.cuff ?? 0.075) / L), a = curve.getPointAt(u), b = curve.getPointAt(Math.min(1, u + 0.05));
         bandAt(wr[s], a, b, ch.limbW * 1.18);
         const f = ch.legs[s].foot.position, k = new THREE.Vector3(f.x, f.y + 0.085, f.z);
         bandAt(an[s], k, k.clone().add(new THREE.Vector3(0, 1, 0)), lw * 1.08);

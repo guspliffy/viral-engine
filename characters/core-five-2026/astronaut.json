@@ -7,45 +7,87 @@
   "build": "core",
   "body": {
     "color": "#E7E1D3",
-    "height": 0.44,
-    "width": 0.5,
-    "depth": 0.42,
+    "height": 0.42,
+    "width": 0.46,
+    "depth": 0.38,
     "lump": 0,
     "seed": 21,
-    "taper": 0.08,
-    "square": 2.6,
+    "taper": -0.05,
+    "square": 3.2,
     "specks": 0,
     "gloss": 0
   },
   "head": {
-    "color": "#DCAF61",
-    "width": 0.5,
-    "height": 0.46,
-    "depth": 0.44,
-    "square": 2.5,
-    "taper": -0.05,
-    "neck": 0.03,
-    "faceUp": 0.07,
-    "nose": { "w": 0.028, "h": 0.022, "d": 0.022, "v": -0.1 },
-    "ears": { "w": 0.026, "h": 0.045, "d": 0.016, "v": 0.0 }
+    "color": "#E8A64A",
+    "width": 0.52,
+    "height": 0.49,
+    "depth": 0.46,
+    "square": 2.4,
+    "taper": 0.06,
+    "neck": 0.025,
+    "faceUp": 0.06,
+    "nose": {
+      "w": 0.03,
+      "h": 0.024,
+      "d": 0.024,
+      "v": -0.04
+    },
+    "ears": {
+      "w": 0.03,
+      "h": 0.05,
+      "d": 0.018,
+      "v": 0.02
+    },
+    "faceWide": 1.3
   },
-  "legs": { "height": 0.3, "width": 0.062, "hipX": 0.115 },
+  "legs": {
+    "height": 0.3,
+    "width": 0.078,
+    "hipX": 0.11
+  },
   "limbs": {
     "color": "#E7E1D3",
-    "width": 0.06,
-    "shoulder": 0.62
+    "width": 0.068,
+    "shoulder": 0.6
   },
   "face": {
-    "size": 0.76,
+    "size": 0.72,
     "default": "kind",
-    "iris": "#62412A",
+    "iris": "#9a6234",
     "cheeks": "#ff7a5e",
-    "neutral": { "curve": 0.35, "open": 0, "eye": 1.0 },
-    "eye": { "flick": 0.4 },
-    "browShape": { "arch": 0.05, "thick": 0.7 },
-    "blush": 1.0
+    "neutral": {
+      "curve": 0.35,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.4
+    },
+    "browShape": {
+      "arch": 0.05,
+      "thick": 0.7
+    },
+    "blush": 1.0,
+    "final": {
+      "iris": "#6e4527",
+      "brow": "#3a2216",
+      "eye": {
+        "irisShade": false
+      },
+      "layout": {
+        "mouthV": -0.34,
+        "cheekV": -0.16
+      },
+      "browShape": {
+        "lift": 0.03,
+        "clear": 0.022,
+        "thick": 1.0
+      }
+    }
   },
-  "sprout": { "placement": "none" },
+  "sprout": {
+    "placement": "none"
+  },
   "costume": {
     "type": "astronaut",
     "hardware": "#51545A",
@@ -53,6 +95,16 @@
     "button": "#4277A0"
   },
   "personality": "Capable, but new here (design bible, proposal): knows the job, still rehearses how to say hello.",
-  "voice": { "pitch": 190, "rate": 3.8, "formant": 1.15, "range": 6, "breath": 0.06, "vibrato": 0.02, "seed": 31 },
-  "hands": { "type": "mitten" }
+  "voice": {
+    "pitch": 190,
+    "rate": 3.8,
+    "formant": 1.15,
+    "range": 6,
+    "breath": 0.06,
+    "vibrato": 0.02,
+    "seed": 31
+  },
+  "hands": {
+    "type": "mitten"
+  }
 }

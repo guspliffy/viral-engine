@@ -179,7 +179,7 @@ export class Character {
     // face
     const F = def.face || {};
     if (HD) this._headInit(HD);
-    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: B.color, seed: B.seed || 1 } : null, place: HD ? (u, vv) => this.headSurf(u * 0.74, vv * 0.55 - 0.05 + (HD.faceUp ?? 0)) : (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: B.color, seed: B.seed || 1 } : null, place: HD ? (u, vv) => this.headSurf(u * 0.74 * (HD.faceWide ?? 1), vv * 0.55 * (HD.faceTall ?? 1) - 0.05 + (HD.faceUp ?? 0)) : (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     // face.rest (castLook "sheet", characters/sheet-cast.json): the character's own resting face. It is stored as the
     // difference from the generic "kind" face and added to whatever the face is doing, fully on calm faces and fading
     // out toward full reactions (shock, anger, a wide grin), so the personality shows without blunting the acting
@@ -1003,7 +1003,9 @@ export class Character {
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0))), foot, this.def.legs?.width ?? this.limbW * 1.1);
+        const knee = hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0)));
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1);
+        this.legs[s].hip = hip; this.legs[s].knee = knee;   // the leg's curve, for costume parts that follow it (costumes-core.js)
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
       // round the arm just above the wrist, rebuilt with the arm

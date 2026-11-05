@@ -78,12 +78,14 @@ const WEIGHT = { talk: 4, expr: 3, move: 2, crouch: 2, grab: 2, fly: 2, sit: 2, 
 // one character's anchors at time t (world metres): eyes, top (hat or body), feet, half width, facing
 function anchors(sb, c, def, t) {
   const st = actorState(sb, c, def, t), s = st.scale ?? 1, H = def.body.height, q = st.squash ?? 1;
-  const eyeY = st.y + s * (LEG_H + EYE_K * H * q), bodyTop = st.y + s * (LEG_H + H * q);
+  // the core build (Core Five redesign, potato.js def.build "core"): the eyes and the top are on a separate head above the torso
+  const HD = def.build === "core" ? def.head : null, headC = HD && (def.legs?.height ?? LEG_H) + H * q + (HD.neck ?? 0.02) + HD.height / 2;
+  const eyeY = st.y + s * (HD ? headC + 0.08 * HD.height : LEG_H + EYE_K * H * q), bodyTop = st.y + s * (HD ? headC + HD.height / 2 : LEG_H + H * q);
   const fwd = 0.33 * s, yaw = st.yaw ?? 0;
   return {
     x: st.x + Math.sin(yaw) * fwd * 0.3, z: st.z + Math.cos(yaw) * fwd, eye: eyeY, body: bodyTop,
-    hat: st.hatOn === false ? bodyTop : bodyTop + s * (ABOVE[def.costume?.type] ?? 0.1), feet: st.y,
-    half: s * (def.body.width / 2 + (def.costume?.type === "phoenix" ? 0.08 + 0.3 * (st.span ?? 1) * Math.min(1, st.wings ?? 0) : 0.05)),
+    hat: st.hatOn === false ? bodyTop : bodyTop + s * (HD ? HD.above ?? 0.12 : ABOVE[def.costume?.type] ?? 0.1), feet: st.y,
+    half: s * (Math.max(def.body.width, HD?.width ?? 0) / 2 + (def.costume?.type === "phoenix" ? 0.08 + 0.3 * (st.span ?? 1) * Math.min(1, st.wings ?? 0) : 0.05)),
     yaw, visible: st.visible !== false,
   };
 }
@@ -137,9 +139,10 @@ function frame(sb, ctx, { who, size, eyeOf, t0, t1, caps }) {
 // where a hand is at t (world metres): the hand target potato.js draws, through the body's turn, pitch, lean and scale
 function handWorld(sb, c, def, t, side) {
   const st = actorState(sb, c, def, t), a = st.arms[side], sx = side === "R" ? -1 : 1, rx = def.body.width / 2, H = def.body.height;
-  const f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t), s = st.scale ?? 1;
+  const LH = def.legs?.height ?? LEG_H;   // the core build's own leg height
+  const f = handTarget(a.from, sx, rx, H, t, LH), g = handTarget(a.pose, sx, rx, H, t, LH), s = st.scale ?? 1;
   let [x, y, z] = f.map((v, i) => v + (g[i] - v) * a.p);
-  y = LEG_H + (y - LEG_H) * (st.squash ?? 1); [x, y, z] = [x * s, y * s, z * s];
+  y = LH + (y - LH) * (st.squash ?? 1); [x, y, z] = [x * s, y * s, z * s];
   const yaw = st.yaw ?? 0, pitch = st.pitch || 0, lean = st.lean || 0;
   [x, y] = [x * Math.cos(lean) - y * Math.sin(lean), x * Math.sin(lean) + y * Math.cos(lean)];
   [y, z] = [y * Math.cos(pitch) - z * Math.sin(pitch), y * Math.sin(pitch) + z * Math.cos(pitch)];
