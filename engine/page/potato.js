@@ -912,18 +912,24 @@ export class Character {
     // point's), so a long rubber-hose reach keeps today's curve and the clearance its rules gave it (a raised arm round
     // a helmet, a staff arm round the body)
     const r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), gb / 2);
-    // the arm's curve (where the contact checks sample it, u 0.3 to 0.78) clears the body by an arm's width: turn the
-    // bend out round the shoulder-hand line towards the outside of the body (never shortening it) until it does; a
-    // reach that still runs through the body then bows further out, and the layout records how far ("bow", metres)
-    const cy = this.cy * S.y, rx = this.rx * S.x, ry = this.ry * S.y, rz = this.rz * S.z, m = 1 + this.limbW / Math.min(rx, rz);
-    const inside = (p) => Math.hypot(p.x / rx, (p.y - cy) / ry, p.z / rz) < m, B = new THREE.Vector3();
-    const hits = (nn, e = 0) => { const P = c.clone().addScaledVector(nn, 2 * r + e); for (const t of [0.3, 0.42, 0.54, 0.66, 0.78]) { B.copy(sh0).multiplyScalar((1 - t) ** 2).addScaledVector(P, 2 * t * (1 - t)).addScaledVector(h, t * t); if (inside(B)) return true; } return false; };
+    // the arm's curve (where the contact checks sample it, u 0.3 to 0.78) stays out of the body (its centre at most 3 cm
+    // in, under the check's 5): turn the bend round the shoulder-hand line towards the body's outward normal at the
+    // deepest point (never shortening it) until it does; a reach that still runs through the body then bows further
+    // out, and the layout records how far ("bow", metres). Nothing changes while the curve is clear
+    const cy = this.cy * S.y, rx = this.rx * S.x, ry = this.ry * S.y, rz = this.rz * S.z, B = new THREE.Vector3();
+    const depth = (p) => { const e = Math.hypot(p.x / rx, (p.y - cy) / ry, p.z / rz); return Math.hypot(p.x, p.y - cy, p.z) * (1 - 1 / Math.max(e, 1e-6)); };
+    const hits = (nn, e = 0) => {
+      const P = c.clone().addScaledVector(nn, 2 * r + e); let worst = null, dw = -0.03;
+      for (const t of [0.3, 0.42, 0.54, 0.66, 0.78]) { B.copy(sh0).multiplyScalar((1 - t) ** 2).addScaledVector(P, 2 * t * (1 - t)).addScaledVector(h, t * t); const dd = depth(B); if (dd < dw) { dw = dd; worst = B.clone(); } }
+      return worst;
+    };
     let nn = n, turn = 0, bow = 0;
-    if (hits(n)) {
-      const o = new THREE.Vector3(c.x, 0, c.z); o.addScaledVector(u, -o.dot(u));
-      if (o.lengthSq() > 1e-8) {
-        o.normalize();
-        const mix = (k) => n.clone().lerp(o, k).normalize();
+    const w0 = hits(n);
+    if (w0) {
+      const N = new THREE.Vector3(w0.x / (rx * rx), (w0.y - cy) / (ry * ry), w0.z / (rz * rz)).normalize(); N.addScaledVector(u, -N.dot(u));
+      if (N.length() > 0.3) {
+        N.normalize();
+        const mix = (k) => n.clone().lerp(N, k).normalize();
         let lo = 0, hi = 1;
         if (!hits(mix(1))) { for (let i = 0; i < 12; i++) { const k = (lo + hi) / 2; if (hits(mix(k))) lo = k; else hi = k; } }
         turn = hi; nn = mix(hi);
