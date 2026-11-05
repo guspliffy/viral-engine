@@ -1,4 +1,4 @@
-import { EXPRESSIONS, blendExpr } from "./face.js";
+import { EXPRESSIONS, blendExpr, lookProgress } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump } from "./util.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
@@ -540,7 +540,8 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "look": {
         // a big change of attention starts with a blink (a.blink: false turns it off)
         if (a.blink !== false && Math.hypot(a.to[0] - st.look[0], a.to[1] - st.look[1]) > 0.6) st.blink = Math.max(st.blink, blinkAt(t - a.at));
-        st.look = [lerp(st.look[0], a.to[0], e), lerp(st.look[1], a.to[1], e)]; break;
+        const g = lookProgress(sb, a, t, e, st.look);   // a saccade with "rig": { "eyes": 2 } (face.js)
+        st.look = [lerp(st.look[0], a.to[0], g), lerp(st.look[1], a.to[1], g)]; break;
       }
       case "talk": {
         // mouth follows the real speech's phonemes (engine/shared/visemes.js), or the same syllables the gibberish
@@ -817,6 +818,8 @@ function blinkFree(sb, id, tb) {
     if (a.do === "still" && a.blink !== true && tb + 0.13 > a.at && tb < a.at + (a.dur ?? 1) + (a.fade ?? 0.15)) return false;
     if (a.do === "expr" && tb > a.at - 0.3 && tb < a.at + 0.25) return false;
     if (a.do === "look" && tb > a.at - 0.15 && tb < a.at + (a.dur ?? 0.3)) return false;
+    // a line marked blink: false (clip.mjs, thread E): no automatic blink starts in it or runs into it
+    if (a.do === "talk" && a.blink === false && tb + 0.13 > a.at && tb < a.at + (a.dur ?? 0.3)) return false;
   }
   return true;
 }
