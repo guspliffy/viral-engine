@@ -17,9 +17,19 @@ import * as act from "../lib/acting.mjs";
 
 // ---------------------------------------------------------------- the lab picks (Jonny, 30 Oct 2026): on for new clips
 // Each is opt-in per storyboard (clips made before them don't change); set one to false to leave it out of a clip.
-const OPENER = { who: "phx", line: "ooh, nice!", words: false };   // a lead's short line in the first 0.5 s (act.opener):
-                                    // gibberish, or words: true for a real voice with a subtitle; false: none
-const FOCUS = true;                 // depth of field (golden look): the room softens, focus follows who acts (set.focus)
+const OPENER = { who: "phx", line: "ooh, nice!", words: false };   // a lead's short line in the first 0.5 s (act.opener),
+                                    // subtitled (LINES): gibberish, or words: true for a real voice; false: none
+// Jonny's decisions (quality plan item 5, 5 Nov 2026): the whole frame sharp, the "sheet" cast look, music on every
+// clip, every line subtitled (gibberish too) and no blink on a line, the clip opening in its pose
+const FOCUS = false;                // depth of field: off, the whole frame sharp (Jonny, 4 Nov); true: the room softens and
+                                    // focus follows who acts (set.focus)
+const LOOK = "sheet";               // the cast from Jonny's design sheets with pencil hatching (4 Nov; engine/load.mjs castLook)
+const MUSIC = { style: "warm", lowCut: 150, gain: 0.3 };   // a bed from 0:00 (Jonny, 29 Oct: music on every video); pick
+                                    // the style per clip (bounce, sneaky, warm, disco: engine/music.mjs); lowCut keeps it
+                                    // off the phone speaker's mud; false: none
+// lines (clip.mjs clip({ lines })): c.say and the opener subtitle every line, gibberish included, low at SUB_POS (y px,
+// clear of the title Jonny adds at the top in the app), and no automatic blink lands on a line
+const LINES = { sub: true, blink: false };
 const FACES = "strong";             // stronger faces and longer holds in the acting loops ("normal": as before)
 // natural motion (Jonny 31 Oct 2026, "way better"): walks with planted feet, arcs, body-led reaches, eyes-first turns,
 // sit/stand weight (docs/STORYBOARD.md "motion"); { arcs: false } drops one part, false: today's motion
@@ -31,7 +41,7 @@ const MOTION = "natural";
 // beat the habit a person would do for themselves; act.ma(c, payoff, [who, ...]) holds everyone still for the half
 // second before the payoff (finish moves before it). docs/STORYBOARD.md, acting table.
 
-const c = clip({ faces: FACES }), { A, sfx, cap, see } = c;
+const c = clip({ faces: FACES, lines: LINES }), { A, sfx, cap, see } = c;
 const END = 8.0;
 
 // ---------------------------------------------------------------- places (the golden living room plate; x right, z toward us)
@@ -107,16 +117,18 @@ write(import.meta.url, {
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
-  castLook: "golden",   // golden skin, bigger eyes (Jonny, 30 Oct; engine/load.mjs castLook)
+  castLook: LOOK,
+  // the clip opens in its pose: the 0.01 s "start like this" moves at t = 0 are instant (engine/load.mjs cleanStart)
+  cleanStart: true,
   ...(MOTION && { motion: MOTION }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
   // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
   loopIdle: true,
-  // the warm living room the recent clips use (look C crisp, golden plate); FOCUS adds the look's depth of field
+  // the warm living room (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
     aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }) },
-  music: false,
+  music: MUSIC,
   direct: { master: MED },
   sound: { sfx: 0.6, ambience: 0.34 },
   // frame 0 shows every face the joke needs and the thing it's about, and trouble shows by 2 s (qa/hook.mjs)
