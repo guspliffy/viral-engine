@@ -8,13 +8,19 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
- "exposure": 0.58,
+ "exposure": 0.5,
  "cleanStart": true,
  "set": {
   "type": "energyroom",
   "night": true,
   "seed": 6,
-  "aperture": 0
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "scale": 1.3,
+   "boil": 0.25,
+   "k": 0.6
+  }
  },
  "music": {
   "style": "warm",
@@ -49,13 +55,13 @@
   {
    "id": "frame",
    "kind": "bedframe",
-   "x": -0.75,
+   "x": -0.87,
    "z": -1.5
   },
   {
    "id": "mat",
    "kind": "tipmattress",
-   "x": -1.3,
+   "x": -1.42,
    "y": 0.28,
    "z": -1.5,
    "cover": 0,
@@ -80,8 +86,8 @@
    "case": "#5a6fb0",
    "glow": 1,
    "bright": 1.4,
-   "faceLight": 3,
-   "faceReach": 2.2,
+   "faceLight": 4,
+   "faceReach": 2.6,
    "faceColor": "#cfe6ff",
    "halo": 0.5,
    "haloK": 0.6
@@ -99,8 +105,8 @@
   {
    "id": "note",
    "kind": "stickynote",
-   "x": 0.12,
-   "y": 1,
+   "x": -0.1,
+   "y": 0.98,
    "z": -2.213,
    "text": "NO\nPHONE!",
    "size": 0.15,
@@ -109,11 +115,11 @@
   {
    "id": "mott",
    "kind": "mott",
-   "x": -0.45,
+   "x": -0.57,
    "y": 0.61,
    "z": -1.35,
    "r": 0.2,
-   "rot": 0,
+   "rot": 18,
    "open": 0.15,
    "lookX": 0.6,
    "lookY": -0.2,
@@ -125,9 +131,17 @@
  "captions": [
   {
    "from": 0,
-   "to": 2,
+   "to": 1.4,
    "text": "Me: I'll sleep early tonight.",
-   "pos": 250,
+   "pos": 1170,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1.45,
+   "to": 2,
+   "text": "3 AM.",
+   "pos": 1170,
    "pop": false,
    "kinetic": false
   },
@@ -135,7 +149,7 @@
    "from": 6,
    "to": 7.6,
    "text": "4 AM.",
-   "pos": 250,
+   "pos": 1170,
    "pop": false,
    "kinetic": false
   }
@@ -147,14 +161,14 @@
    "len": 2,
    "shot": {
     "pos": [
-     1.402,
-     1.539,
-     0.86
+     0.281,
+     1.55,
+     2.001
     ],
     "look": [
-     -0.4,
-     0.66,
-     -1.62
+     -0.38,
+     0.6,
+     -1.75
     ],
     "fov": 34
    },
@@ -171,7 +185,7 @@
     },
     {
      "sfx": "notify",
-     "gain": 0.24,
+     "gain": 0.12,
      "reason": "the phone lights up at 3 AM",
      "at": 0
     },
@@ -308,7 +322,7 @@
     },
     {
      "sfx": "notify",
-     "gain": 0.22,
+     "gain": 0.11,
      "reason": "it pings again",
      "at": 1.15
     },
@@ -393,27 +407,27 @@
   {
    "name": "lock-on",
    "at": 2,
-   "len": 1,
+   "len": 1.2,
    "shot": {
     "pos": [
-     0.195,
+     0.075,
      0.945,
      0.054
     ],
     "look": [
-     -0.49,
+     -0.61,
      0.67,
      -1.35
     ],
     "fov": 30,
     "to": {
      "pos": [
-      0.113,
+      -0.007,
       0.912,
       -0.115
      ]
     },
-    "dur": 1
+    "dur": 1.2
    },
    "do": [
     {
@@ -431,7 +445,7 @@
     },
     {
      "sfx": "sharkhum",
-     "gain": 0.28,
+     "gain": 0.07,
      "reason": "Mott's hypnotised little hum as the light fills his eyes",
      "at": 0.05
     }
@@ -439,18 +453,18 @@
   },
   {
    "name": "drift",
-   "at": 3,
-   "len": 1.6,
+   "at": 3.2,
+   "len": 1.4,
    "shot": {
     "pos": [
-     1.12,
-     1.453,
-     0.455
+     1.097,
+     1.562,
+     0.918
     ],
     "look": [
-     -0.3,
-     0.82,
-     -1.65
+     -0.5,
+     0.85,
+     -1.45
     ],
     "fov": 34,
     "to": {
@@ -465,10 +479,27 @@
       -1.8
      ]
     },
-    "dur": 1.5,
+    "dur": 1.25,
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "mott",
+     "set": {
+      "y": 0.73
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "wings",
+     "gain": 1.2,
+     "dur": 1.4,
+     "reason": "his wing beats as he floats to the light",
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "mott",
@@ -479,14 +510,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0
-    },
-    {
-     "sfx": "wings",
-     "gain": 1.2,
-     "dur": 1.6,
-     "reason": "his wing beats as he floats to the light",
-     "at": 0
+     "at": 0.05
     },
     {
      "do": "prop",
@@ -497,7 +521,7 @@
       "z": -1.3,
       "rot": 30
      },
-     "dur": 0.7,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.1
     },
@@ -505,15 +529,15 @@
      "do": "prop",
      "id": "mott",
      "set": {
-      "x": -0.08,
-      "y": 0.9,
+      "x": 0.02,
+      "y": 0.92,
       "z": -1.5,
       "rot": 60,
       "lean": 10
      },
-     "dur": 0.5,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 0.8
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -524,11 +548,14 @@
       "z": -1.867,
       "rot": 192,
       "lean": 0,
-      "open": 0.8
+      "open": 0.25,
+      "lookX": 0,
+      "lookY": -1,
+      "hope": 0
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 1.3
+     "at": 1.1
     }
    ]
   },
@@ -540,7 +567,7 @@
    "do": [
     {
      "sfx": "tink",
-     "gain": 1,
+     "gain": 1.6,
      "loud": true,
      "reason": "Mott's face hits the phone's glass",
      "at": 0
@@ -558,11 +585,20 @@
       "puff": 1,
       "flap": 0,
       "bob": 0,
-      "open": 0.35,
       "mouth": 0
      },
      "dur": 0.7,
      "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mott",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.18,
+     "ease": "out",
      "at": 0
     },
     {
@@ -607,8 +643,8 @@
      "text": "tink!",
      "who": null,
      "xy": [
-      700,
-      640
+      640,
+      520
      ],
      "dur": 0.8,
      "color": "#ffd6e0",
@@ -618,48 +654,29 @@
     },
     {
      "do": "prop",
-     "id": "mott",
-     "set": {
-      "x": 0.091,
-      "y": 0.846,
-      "z": -1.681,
-      "rot": 22,
-      "bank": -18
-     },
-     "dur": 0.32,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
      "id": "note",
      "set": {
       "wag": 1
      },
      "dur": 0.1,
      "ease": "inOut",
-     "at": 0.12
+     "at": 0.05
     },
     {
      "do": "prop",
-     "id": "note",
+     "id": "mott",
      "set": {
-      "x": 0.266,
-      "y": 0.892,
-      "z": -1.913,
-      "rot": 25,
-      "tip": -55,
-      "tilt": 8
+      "x": 0.091,
+      "y": 0.846,
+      "z": -1.681,
+      "rot": 22,
+      "bank": -18,
+      "hope": 1,
+      "lookY": 0.3
      },
-     "dur": 1,
-     "ease": "inOut",
-     "at": 0.12
-    },
-    {
-     "sfx": "flutter",
-     "gain": 0.35,
-     "reason": "the sticky note flutters down",
-     "at": 0.15
+     "dur": 0.32,
+     "ease": "out",
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -670,6 +687,27 @@
      "dur": 0.35,
      "ease": "out",
      "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "x": 0.25,
+      "y": 0.95,
+      "z": -1.72,
+      "rot": 12,
+      "tip": -30,
+      "tilt": -10
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.35,
+     "reason": "the sticky note flutters down",
+     "at": 0.4
     }
    ],
    "kind": "payoff"
@@ -680,14 +718,14 @@
    "len": 0.95,
    "shot": {
     "pos": [
-     1.366,
-     1.385,
-     -0.066
+     1.337,
+     1.384,
+     -0.038
     ],
     "look": [
-     0.156,
-     0.816,
-     -2.003
+     0.171,
+     0.836,
+     -1.903
     ],
     "fov": 32
    },
@@ -696,15 +734,30 @@
      "do": "prop",
      "id": "mott",
      "set": {
-      "x": 0.256,
+      "x": 0.311,
       "y": 0.696,
-      "z": -2.003,
-      "rot": -8,
+      "z": -1.903,
+      "rot": -14,
       "bank": 12
      },
      "dur": 0.45,
      "ease": "inOut",
      "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "x": 0.321,
+      "y": 0.892,
+      "z": -1.813,
+      "rot": 25,
+      "tip": -55,
+      "tilt": 8
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -727,9 +780,9 @@
      "set": {
       "wag": 0
      },
-     "dur": 0.15,
+     "dur": 0.1,
      "ease": "inOut",
-     "at": 0.67
+     "at": 0.85
     }
    ]
   },
@@ -739,21 +792,21 @@
    "len": 4,
    "shot": {
     "pos": [
-     0.501,
-     1.043,
-     -0.286
+     0.683,
+     1.115,
+     0.176
     ],
     "look": [
-     0.136,
-     0.796,
-     -2.003
+     0.241,
+     0.816,
+     -1.903
     ],
     "fov": 30,
     "to": {
      "pos": [
-      0.457,
-      1.013,
-      -0.492
+      0.63,
+      1.079,
+      -0.074
      ]
     },
     "dur": 4
@@ -791,28 +844,48 @@
      "text": "z",
      "who": null,
      "xy": [
-      700,
-      560
+      840,
+      800
      ],
      "dur": 0.9,
      "color": "#dfe8ff",
      "angle": 8,
      "size": 80,
-     "at": 0.5
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.12
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "mott",
+     "set": {
+      "wilt": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
     },
     {
      "fx": "pop",
      "text": "zZ",
      "who": null,
      "xy": [
-      740,
-      500
+      880,
+      740
      ],
      "dur": 0.9,
      "color": "#dfe8ff",
      "angle": 10,
      "size": 92,
-     "at": 1.3
+     "at": 1.5
     },
     {
      "do": "prop",
@@ -826,8 +899,18 @@
     },
     {
      "sfx": "notify",
-     "gain": 0.26,
-     "reason": "the phone pings at 4 AM",
+     "gain": 0.14,
+     "reason": "the phone pings at 4 AM and lights up",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
      "at": 2.2
     },
     {
@@ -846,7 +929,7 @@
      "set": {
       "wilt": 0,
       "hope": 1,
-      "lookX": -1.2,
+      "lookX": -0.7,
       "lookY": 0.6,
       "breath": 0
      },
@@ -905,7 +988,17 @@
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 3.2
+     "at": 2.9
+    },
+    {
+     "do": "prop",
+     "id": "mott",
+     "set": {
+      "lean": 8
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 3.3
     }
    ],
    "kind": "reaction"
@@ -923,14 +1016,22 @@
   },
   {
    "from": 2,
-   "to": 3,
+   "to": 3.2,
    "see": [
     "mott"
    ],
    "why": "the lock-on: the light in his eyes"
   },
   {
-   "from": 3,
+   "from": 3.2,
+   "to": 4.6,
+   "see": [
+    "mott"
+   ],
+   "why": "he floats up off the bed"
+  },
+  {
+   "from": 3.8,
    "to": 4.6,
    "see": [
     "mott",
@@ -943,10 +1044,18 @@
    "to": 6,
    "see": [
     "mott",
-    "phone",
+    "phone"
+   ],
+   "why": "tink: face first into the screen"
+  },
+  {
+   "from": 5.3,
+   "to": 6,
+   "see": [
+    "mott",
     "note"
    ],
-   "why": "tink: face first into the screen, then the note lands on his head"
+   "why": "the note lands on his head"
   },
   {
    "from": 6,

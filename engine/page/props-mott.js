@@ -28,6 +28,8 @@ import { clamp } from "./util.js";
 // The wing dust and the print are see-through for the checks; the moth and the note are solid.
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.75, ...o });
+// drawn like the sheet cast: flat cels and pencil hatching in the shade (looks.js role "drawn")
+const drawn = (m) => { m.userData.lookRole = "drawn"; return m; };
 const basic = (o) => { const m = new THREE.MeshBasicMaterial(o); m.userData.noOutline = true; return m; };
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 const glowy = (o, order = 3) => { o.frustumCulled = false; o.renderOrder = order; o.castShadow = false; o.receiveShadow = false; o.userData.steam = true; return o; };
@@ -52,7 +54,7 @@ export const MOTT_KINDS = {
     const S = P.spec, R = S.r ?? 0.2, HZ = S.hz ?? 4;
     const root = new THREE.Group(); P.whole.add(root);      // bob, bank and lean
     const body = new THREE.Group(); root.add(body);
-    const fluff = mat(YEL, { roughness: 0.95 }), rose = mat(ROSE, { roughness: 0.7 });
+    const fluff = drawn(mat(YEL, { roughness: 0.95 })), rose = drawn(mat(ROSE, { roughness: 0.7 }));
     // the fluffy ball: a core and tufts spread evenly over it (a Fibonacci sphere), so its outline is scalloped from
     // every side, like the sheet
     mesh(ell(R, R * 0.96, R * 0.92, 48), fluff, body);
@@ -62,7 +64,7 @@ export const MOTT_KINDS = {
     for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2 + 0.1; tuft(Math.cos(a) * R * 0.86, Math.sin(a) * R * 0.83, -R * 0.12, 0.25 + 0.04 * rnd(i)); }
     for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2 + 0.3; if (Math.sin(a) > 0.55) continue; tuft(0, Math.cos(a) * R * 0.83, Math.sin(a) * R * 0.8, 0.24 + 0.04 * rnd(i + 30)); }
     // a soft fluffy collar under the chin, a shade deeper
-    const collar = mesh(new THREE.TorusGeometry(R * 0.62, R * 0.14, 8, 20), mat("#efcf74", { roughness: 0.95 }), body, 0, -R * 0.6, R * 0.12); collar.rotation.x = Math.PI / 2 - 0.35;
+    const collar = mesh(new THREE.TorusGeometry(R * 0.62, R * 0.14, 8, 20), drawn(mat("#efcf74", { roughness: 0.95 })), body, 0, -R * 0.6, R * 0.12); collar.rotation.x = Math.PI / 2 - 0.35;
     // four short rose legs under him
     for (const s of [-1, 1]) for (const k of [0, 1]) { const l = mesh(new THREE.CapsuleGeometry(R * 0.07, R * 0.28, 4, 8), rose, body, s * R * (0.22 + 0.24 * k), -R * 0.98, R * (0.25 - 0.3 * k)); l.rotation.z = s * 0.25; }
 
@@ -70,7 +72,7 @@ export const MOTT_KINDS = {
     const face = new THREE.Group(); face.position.set(0, R * 0.08, R * 0.8); body.add(face);
     const eyeM = mat("#17131a", { roughness: 0.18, metalness: 0.1 });
     const shine = basic({ color: "#ffffff" }), warm = basic({ color: "#fff3b8" });
-    const lidM = mat(YEL, { roughness: 0.95 }), lineM = mat(INK, { roughness: 0.6 });
+    const lidM = drawn(mat(YEL, { roughness: 0.95 })), lineM = mat(INK, { roughness: 0.6 }); lidM.userData.noHatch = true;   // the lid as the fluff, clean
     const ER = [R * 0.3, R * 0.36, R * 0.16];
     const eyes = [-1, 1].map((s) => {
       const e = new THREE.Group(); e.position.set(s * R * 0.36, 0, 0.0); e.rotation.y = s * 0.32; face.add(e);
@@ -97,7 +99,7 @@ export const MOTT_KINDS = {
       const g = new THREE.Group(); g.position.set(s * R * 0.32, R * 0.78, R * 0.25); body.add(g);
       const pts = [[0, 0, 0], [s * R * 0.12, R * 0.6, R * 0.05], [s * R * 0.5, R * 1.35, R * 0.02]];
       const curve = new THREE.CatmullRomCurve3(pts.map((p) => new THREE.Vector3(...p)));
-      mesh(new THREE.TubeGeometry(curve, 18, R * 0.028, 6, false), rose, g);
+      mesh(new THREE.TubeGeometry(curve, 18, R * 0.028, 6, false), rose, g).userData.limb = "antenna";   // checked against every surface (stage.js limbsIn)
       for (let i = 2; i <= 13; i++) {
         const t = i / 14, p = curve.getPoint(t), d = curve.getTangent(t), len = R * (0.12 + 0.2 * Math.sin(Math.PI * Math.min(1, t * 1.1)));
         for (const side of [-1, 1]) {
@@ -123,15 +125,16 @@ export const MOTT_KINDS = {
       for (let i = 0; i < 5; i++) { x.beginPath(); x.moveTo(0, H * 0.4); x.quadraticCurveTo(W * 0.5, H * (0.3 + i * 0.12), W, H * (0.5 + i * 0.12)); x.stroke(); }
     });
     const hindTex = canvasTex(128, 128, (x, W, H) => { x.fillStyle = PINK; x.fillRect(0, 0, W, H); x.fillStyle = "rgba(246,220,138,0.85)"; x.beginPath(); x.ellipse(W * 0.2, H * 0.7, W * 0.35, H * 0.3, 0, 0, Math.PI * 2); x.fill(); });
-    const wingM = mat("#ffffff", { map: wingTex, side: THREE.DoubleSide, roughness: 0.8 });
-    const hindM = mat("#ffffff", { map: hindTex, side: THREE.DoubleSide, roughness: 0.8 });
+    const wingM = drawn(mat("#ffffff", { map: wingTex, side: THREE.DoubleSide, roughness: 0.8 }));
+    const hindM = drawn(mat("#ffffff", { map: hindTex, side: THREE.DoubleSide, roughness: 0.8 }));
+    wingM.userData.noHatch = hindM.userData.noHatch = true;   // thin wings stay clean: hatched, their shaded back read as a dirty brown card
     const fore = wingGeo([[0, 0], [R * 1.2, R * 2.0], [R * 3.0, R * 1.55], [R * 3.25, R * 0.4], [R * 2.4, -R * 0.35], [R * 1.2, -R * 0.55], [0, -R * 0.2]]);
     const hind = wingGeo([[0, -R * 0.1], [R * 1.4, -R * 0.15], [R * 1.75, -R * 0.9], [R * 1.3, -R * 1.55], [R * 0.4, -R * 0.95], [R * 0.1, -R * 0.6], [0, -R * 0.1]]);
     const wings = [-1, 1].map((s) => {
       const hinge = new THREE.Group(); hinge.position.set(s * R * 0.5, R * 0.12, -R * 0.35); body.add(hinge);
-      const f = mesh(fore, wingM, hinge); f.scale.x = s; f.castShadow = false;
-      const h = mesh(hind, hindM, hinge, 0, -R * 0.05, -0.004); h.scale.x = s; h.castShadow = false;
-      return { s, hinge };
+      const f = mesh(fore, wingM, hinge); f.scale.x = s; f.castShadow = false; f.userData.limb = `${s < 0 ? "left" : "right"} forewing`;
+      const h = mesh(hind, hindM, hinge, 0, -R * 0.05, -0.004); h.scale.x = s; h.castShadow = false; h.userData.limb = `${s < 0 ? "left" : "right"} hind wing`;
+      return { s, hinge, h };
     });
 
     // the wing dust: pink flecks thrown out round him (the bonk)
@@ -142,6 +145,7 @@ export const MOTT_KINDS = {
       return { o, d: new THREE.Vector3(Math.cos(a) * Math.cos(e), Math.sin(e) + 0.3, Math.sin(a) * Math.cos(e) * 0.6), sp: 0.6 + rnd(i + 2) * 0.8 };
     });
 
+    const RS = S.rest ?? [0.75, 1.1, 1.1];   // the closed wings' sweep back, raise and hind-wing tuck (radians), spec.rest
     return { grip: 0, apply(ps, t) {
       const tt = t ?? 0, open = clamp(ps.open ?? 0), flap = clamp(ps.flap ?? 0), bob = clamp(ps.bob ?? 0);
       // hover bob in time with the beat, a little roll and pitch
@@ -150,9 +154,12 @@ export const MOTT_KINDS = {
       const br = 1 + 0.035 * (ps.breath ?? 0) * Math.sin(tt * Math.PI * 2 * 0.45), cu = clamp(ps.curl ?? 0);
       body.scale.set(br * (1 + 0.16 * cu), br * (1 + 0.1 * cu), br * (1 - 0.32 * cu)); body.position.z = R * 0.25 * cu;
       root.rotation.z = THREE.MathUtils.degToRad(ps.bank ?? 0); root.rotation.x = THREE.MathUtils.degToRad(ps.lean ?? 0);
-      // wings: folded back (1.35 rad) at rest, flat at open 1; the beat sweeps them back and forth
-      const beat = flap * 0.45 * Math.sin(tt * HZ * Math.PI * 2);
-      for (const w of wings) { const fold = 1.35 - 1.2 * open + beat; w.hinge.rotation.y = w.s * fold; w.hinge.rotation.z = w.s * (0.08 + 0.12 * (1 - open)); }
+      // wings: at rest they close up over his back like a butterfly's (raised about 80 degrees, swept back about 40) with
+      // the hind wings tucked in behind the forewings, as a moth's are, so nothing hangs below him or reaches back into
+      // the pillow or the wall he sits by (Jonny 5 Nov: the old fold, swept straight back with the hind wings hanging, cut
+      // into the bed, the nightstand and the wall); flat at open 1; the beat sweeps them back and forth
+      const beat = flap * 0.45 * Math.sin(tt * HZ * Math.PI * 2), shut = 1 - open;
+      for (const w of wings) { w.hinge.rotation.y = w.s * (0.15 + RS[0] * shut + beat); w.hinge.rotation.z = w.s * (0.08 + RS[1] * shut); w.h.rotation.z = w.s * RS[2] * shut; }
       // eyes
       const lk = clamp((ps.lid ?? 0) + (ps.blink ?? 0)), sq = clamp(ps.squint ?? 0), gl = clamp(ps.glow ?? 0);
       const lx = ps.lookX ?? 0, ly = ps.lookY ?? 0;
