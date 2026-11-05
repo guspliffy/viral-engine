@@ -5,7 +5,7 @@ A narrow hall at 3 a.m. (set `nighthall`, engine/page/set-nighthall.js): blue da
 family pictures, a clock, a coat hook with a bag, the open front door with big rusty strap hinges on the left wall
 (moon, trees and a fence outside, a moonbeam across the floor), the shoe rack with four pairs of slippers (blue, pink,
 cream, green check) bottom-left, the wooden coat stand with coats and a plaid scarf centre-right, a red runner rolled
-on the floor, Mom's door at the far end on the right. Cool blue moonlight, dust in the air.
+on the floor, Mom's door at the far end, on the right of the end wall (face-on, so its light reads). Cool blue moonlight, dust in the air.
 
 | Panel | Time | Camera | Who / where | Light, details |
 |---|---|---|---|---|
@@ -32,3 +32,10 @@ on the floor, Mom's door at the far end on the right. Cool blue moonlight, dust 
 - **The ending glarers stand in the near foreground at the far end of the hall from Viking**, with the camera high, so
   Viking's face shows above their heads (panel 8 has them closer and bigger; the vertical frame can't hold that and
   Viking too).
+- **Mom's door is face-on at the end of the hall, right of centre** (the brief has it on the right wall): edge-on
+  from the near end its light never read at phone size. Its warm wedge of light and her shadow now run the length of
+  the hall to the glarers' feet.
+- **The rusty hinges are big but not in close view**: the brief wants them close from 0.00, the panels put the open
+  leaf at the left edge; a camera beside the jamb would need a restage of 01-06. The hinges were made larger instead.
+- **Reaper is behind Phoenix at frame 0** (panel 1 shows his eyes): every spot in the 2.8 m hall where his face shows
+  puts him in the lift's path or under Phoenix's crest. He shows from 0.3 s.
