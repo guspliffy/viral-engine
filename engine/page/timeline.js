@@ -824,7 +824,9 @@ export function actorState(sb, actor, def, t, raw = false) {
     if (O?.body) { st.yaw += O.body[0]; st.pitch = (st.pitch || 0) + O.body[1]; st.lean += O.body[2]; }
     resolveArms(sb, st, def, t);
     // the hands' drag and settle and the solver's push (potato.js a.nudge), the elbow leading the hand (a.elbowNudge)
-    if (O) for (const s of ["R", "L"]) if (st.arms[s] && O.arms[s]) Object.assign(st.arms[s], O.arms[s]);
+    if (O) for (const s of ["R", "L"]) if (st.arms[s] && O.arms[s]) { const { nudge, elbowNudge } = O.arms[s]; Object.assign(st.arms[s], { nudge, ...(elbowNudge && { elbowNudge }) }); }
+    // a held prop's swing, [forward, sideways] radians in the body's frame per hand (the holds turn the prop by it)
+    if (O?.propSway) st.propSway = O.propSway;
   }
   return st;
 }

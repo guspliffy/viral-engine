@@ -94,13 +94,13 @@ export function wobble(t, seed, freq = 1, D = 0) {
 }
 
 // ---------- motion layer (quality plan items 8, 9 and 12; storyboard "motion": { "overlap", "timing", "solve" }) ----
-// Opt-in, off by default so old clips render the same. "overlap": true (item 8) gives every hand drag and settle and
-// the body's turns, tips and leans a beat of overlap; "timing": true (item 12) gives moves ease families, the elbow
+// Opt-in, off by default so old clips render the same. "overlap": true (item 8) gives every hand drag and settle,
+// the body's turns a beat of overlap and a held prop a small swing (st.propSway, applied by the holds); "timing": true (item 12) gives moves ease families, the elbow
 // leading the hand, weight shifts in holds, a frame or two between characters who start together, and one smooth path
 // through a chain of moves; "solve": true (item 9) pushes hands and elbows out of bodies (solve.js). An object turns
 // parts off: { "overlap": { "body": false } }.
 const LAYER = new WeakMap();
-const LAYER_PARTS = { overlap: ["hands", "body", "soft"], timing: ["eases", "breaking", "holds", "offsets", "splines"], solve: ["hands", "elbows"] };
+const LAYER_PARTS = { overlap: ["hands", "body", "props"], timing: ["eases", "breaking", "holds", "offsets", "splines"], solve: ["hands", "elbows"] };
 export function layerOf(sb) {
   const m = sb && sb.motion;
   if (!m || typeof m !== "object") return null;

@@ -49,15 +49,15 @@ function write(sb, labels) {
   // 3.7 .. 6.0: a hold (moving holds: the weight shifts)
   A(6.0, "phx", "arm", { side: "both", pose: "up", dur: 0.45 });
   A(6.7, "phx", "arm", { side: "both", pose: "rest", dur: 0.45 });
-  A(7.3, "phx", "move", { to: [-0.85, 0.35], dur: 0.6 });
-  A(7.9, "phx", "move", { to: [-0.45, 0.7], dur: 0.6 });
-  A(8.5, "phx", "move", { to: [-0.05, 0.45], dur: 0.6 });
+  A(7.3, "phx", "move", { to: [-0.95, 0.3], dur: 0.6 });
+  A(7.9, "phx", "move", { to: [-0.7, 0.65], dur: 0.6 });
+  A(8.5, "phx", "move", { to: [-0.4, 0.4], dur: 0.6 });
   A(7.4, "rea", "lean", { to: 8, dur: 0.3 });
   A(8.1, "rea", "lean", { to: 0, dur: 0.3 });
-  const SHOT = { pos: [0, 0.8, 6.4], look: [0, 0.5, 0.3], fov: 34 };
+  const SHOT = { pos: [0.1, 0.85, 7.4], look: [0.1, 0.5, 0.3], fov: 34 };
   const cast = [
-    { id: "phx", character: "duo/phoenix", at: [-0.45, 0.1], face: "camera", expr: "kind", follow: 0.3, seed: 1.7, span: 0 },
-    { id: "rea", character: "notyet/reaper-noscythe", at: [0.5, 0.1], face: "camera", expr: "kind", follow: 0.3, seed: 2.9 },
+    { id: "phx", character: "duo/phoenix", at: [-0.55, 0.1], face: "camera", expr: "kind", follow: 0.3, seed: 1.7, span: 0 },
+    { id: "rea", character: "notyet/reaper-noscythe", at: [0.75, 0.1], face: "camera", expr: "kind", follow: 0.3, seed: 2.9 },
   ];
   write(base("gestures", "Motion layer: gestures, turns, hold, chained walk", cast, [], c.beats([["gestures", 0, SHOT]], END), END),
     [[0, 0.95, "TURN TOGETHER"], [0.95, 2.45, "WAVE + SHRUG"], [2.45, 3.7, "POINT TOGETHER"], [3.7, 5.95, "HOLD"], [5.95, 7.25, "STRETCH"], [7.25, END, "3-KEY WALK + LEAN"]]);

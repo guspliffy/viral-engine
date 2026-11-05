@@ -6,7 +6,8 @@
 // Hands are measured in the body's own frame for the synchrony and frozen numbers.
 //   node tools/motion/probe.mjs <storyboard.json> [--overlap] [--timing] [--solve] [--fps 30] [--csv out.csv]
 import fs from "node:fs";
-import { actorState } from "../../engine/page/timeline.js";
+import { actorState, registerCast } from "../../engine/page/timeline.js";
+import { solveWarnings } from "../../engine/page/solve.js";
 import { handTarget } from "../../engine/page/potato.js";
 import { loadStoryboard, loadCharacters } from "../../engine/load.mjs";
 
@@ -15,6 +16,7 @@ const sb = loadStoryboard(file), defs = loadCharacters(sb);
 const add = {};
 for (const k of ["overlap", "timing", "solve"]) if (args.includes(`--${k}`)) add[k] = true;
 if (Object.keys(add).length) sb.motion = { ...(typeof sb.motion === "object" ? sb.motion : sb.motion ? {} : { gait: false, arcs: false, lead: false, turn: false, sit: false, jiggle: false }), ...add };
+registerCast(sb, (sb.cast || []).map((c) => ({ c, def: defs[c.character] })));   // as stage.js does: the solver sees every body
 const fps = Number(args[args.indexOf("--fps") + 1]) || sb.fps || 30, N = Math.round((sb.storyDuration ?? sb.duration ?? 10) * fps);
 const rows = [];
 let lagMax = 0, lagAt = "", sync = 0, events = 0, frozen = 0, frames = 0;
@@ -43,6 +45,8 @@ for (const c of sb.cast || []) {
   }
   for (let i = 1; i < F.length; i++) { frames++; if (parts.b[i] < 0.002 && parts.R[i] < 0.002 && parts.L[i] < 0.002 && Math.abs(F[i].r[0] - F[i - 1].r[0]) < 0.005) frozen++; }
 }
+const sw = solveWarnings(sb);
+for (const w of sw) console.log(`  solver: ${w.who} ${w.part} into ${w.with} at ${w.t.toFixed(2)}-${w.t1.toFixed(2)} s needs ${(w.need * 100).toFixed(0)} cm: not pushed (re-pose it)`);
 console.log(`${sb.id}: hand lag max ${(lagMax * 100).toFixed(1)} cm (${lagAt}); synchrony ${events ? ((100 * sync) / events).toFixed(0) : 0} % of ${events} starts and stops; frozen ${frames ? ((100 * frozen) / frames).toFixed(1) : 0} %`);
 const ci = args.indexOf("--csv");
 if (ci >= 0) fs.writeFileSync(args[ci + 1], "id,t,x,z,yaw,pitch,lean,rx,ry,rz,lx,ly,lz\n" + rows.join("\n") + "\n");
