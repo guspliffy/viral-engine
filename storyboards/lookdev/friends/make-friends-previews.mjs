@@ -49,7 +49,7 @@ const who = (id, character, at, o = {}) => ({ id, character: `friends/${characte
   A(8.2, "rusty", "turn", { to: "camera", dur: 0.4 });
   expr(8.5, "rusty", "delighted", 0.25); face(8.5, "rusty", { tailWag: 1, ear: 0.5 }, 0.3);
   expr(8.6, "pip", "delighted"); expr(8.7, "moss", "pleased", 0.4);
-  const SHOT = { pos: [0, 0.9, 6.2], look: [0.02, 0.7, 0], fov: 32 };
+  const SHOT = { pos: [0, 0.95, 7.4], look: [0.02, 0.7, 0], fov: 32 };
   const beats = c.beats([["trio", 0, SHOT], ["walk", 7.0, null]], END);
   write(new URL("./", import.meta.url), base("friends-acting", "Friends: faces, ears, tail, walk", { cast, props: [], beats }));
 }
@@ -70,7 +70,7 @@ const who = (id, character, at, o = {}) => ({ id, character: `friends/${characte
   t = b.take(1.4); t = b.carry(t + 0.15, [0.8, LOW + 0.06, 0.38], 0.7); A(t, "moss", "expr", { expr: "pleased", dur: 0.4 }); t = b.put(t + 1.2, [0.8, LOW, 0.37]);
   const p = grips.phone(c, "pip", PHONE, { side: "R" });
   t = p.take(2.2); t = p.carry(t + 0.1, [-0.74, HIGH + 0.16, 0.26], 0.5); A(t, "pip", "expr", { expr: "curious", dur: 0.3 });
-  const SHOT = { pos: [0.35, 1.25, 4.3], look: [0, 0.62, 0.25], fov: 34 };
+  const SHOT = { pos: [0.25, 1.35, 6.6], look: [0.02, 0.62, 0.25], fov: 31 };
   const beats = c.beats([["grips", 0, SHOT]], END);
   write(new URL("./", import.meta.url), base("friends-grips", "Friends: mug, box, phone", { cast, props, beats }));
 }

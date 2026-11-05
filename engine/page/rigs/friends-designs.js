@@ -70,10 +70,10 @@ function rusty(def) {
     // cheek masks: broad cream patches from under the eyes out over the lower cheek ruffs (red panda), leaving the
     // russet "tear" streak from each eye's inner corner down to the mouth corner
     const ax = Math.abs(p.x), ck = Math.hypot((ax - 0.15) / 0.12, (p.y - 0.095) / 0.075);
-    const tear = Math.abs((ax - 0.055) - (0.16 - p.y) * 0.55) < 0.022 && p.y > 0.07 && p.y < 0.17 && p.z > 0.08;
+    const tear = (1 - sstep(0.016, 0.028, Math.abs((ax - 0.055) - (0.16 - p.y) * 0.55))) * sstep(0.06, 0.08, p.y) * (1 - sstep(0.16, 0.18, p.y)) * sstep(0.07, 0.09, p.z);
     const front = sstep(-0.55, -0.15, n.z);
     let cr = Math.max(1 - sstep(0.85, 1.05, mz), front * (1 - sstep(0.8, 1.05, ck)), p.y < 0.035 && p.z > 0.02 ? 1 : 0);
-    if (tear) cr *= 0.15;
+    cr *= 1 - 0.85 * tear;
     c = c.lerp(new THREE.Color(cream), cr);
     // a darker russet band behind the cheek ruffs and under the chin, where the head meets the body
     if (p.y < 0.02 && !(p.z > 0.05)) c.lerp(new THREE.Color(dark), 0.5);
@@ -321,11 +321,11 @@ function moss(def) {
   const parts = [];
   // the broad dark nose: a soft pad over the muzzle's front top, with two nostril commas
   const nose = mesh(new THREE.SphereGeometry(1, 28, 18), mat(P.nose, { role: "skin", line: "#2a1810" }), "nose");
-  const nf = rayHit(field, V(0, 0.18, 0.05), V(0, 0.15, 1).normalize(), 1);
-  nose.scale.set(0.105, 0.06, 0.05); nose.position.copy(nf ? nf.pos : V(0, 0.2, 0.29)).add(V(0, 0, -0.022)); nose.rotation.x = -0.35; parts.push(nose);
+  const nf = rayHit(field, V(0, 0.12, 0.1), V(0, 0.38, 1).normalize(), 1);   // the muzzle's front-top corner
+  nose.scale.set(0.088, 0.05, 0.045); nose.position.copy(nf ? nf.pos : V(0, 0.2, 0.32)).add(V(0, -0.004, -0.02)); nose.rotation.x = -0.55; parts.push(nose);
   for (const s of [-1, 1]) {
     const nn = mesh(new THREE.SphereGeometry(1, 12, 8), mat("#2e1c14", { role: "char" }), "nostril"); nn.scale.set(0.022, 0.009, 0.01);
-    nn.position.copy(nose.position).add(V(s * 0.045, 0.004, 0.044)); nn.rotation.set(-0.35, 0, s * -0.5); parts.push(nn);
+    nn.position.copy(nose.position).add(V(s * 0.038, -0.006, 0.04)); nn.rotation.set(-0.55, 0, s * -0.5); nn.scale.set(0.019, 0.008, 0.009); parts.push(nn);
   }
   // a few sculpted fur tufts on the crown (the sheet's spiky top)
   for (const [x, z, dx, len] of [[0, -0.1, 0, 0.05], [-0.06, -0.08, -0.3, 0.045], [0.06, -0.08, 0.3, 0.045], [0, -0.17, 0, 0.04]]) {
