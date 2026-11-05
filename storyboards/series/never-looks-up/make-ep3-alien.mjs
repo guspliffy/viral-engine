@@ -267,7 +267,9 @@ see(5.2, 6.25, ["phx.face", "ufo", "wiz", "rea", "ast"], "P4: the friends in a p
 // ---------------------------------------------------------------- 5 GREETING 6.3-7.0 (P5) and 6 PEAK 7.0-8.0 (P6)
 // the alien rides down beside him and holds out a glowing gift, right by the phone
 const PHONE_TOP = CHAIR_TOP + 0.87, DROP_PEAK = r3(H_END.y - (PHONE_TOP + 0.05));   // its face above his eye line: he looks up at it (panels 06-07)
-prop(6.7, "alien", { drop: DROP_PEAK, arms: 0, wobble: 0, gap: 1, glow: 1, lean: 5, jaw: 0.3, lookX: -0.8, lookY: -0.4 }, 0.45, "inOut");
+prop(6.7, "alien", { drop: DROP_PEAK, lean: 5, jaw: 0.3, lookX: -0.8, lookY: -0.4 }, 0.45, "inOut");
+// the gift arrives: the waving mittens come down and bring it up from the rim over 0.6 s (review B: it popped in)
+prop(6.45, "alien", { arms: 0, wobble: 0, gap: 1, glow: 1 }, 0.6, "inOut");
 sfx(6.9, "kenney/glass", { gain: 0.3, reason: "the gift's glow sparkles on" });
 // the peak stays alive: it nudges the gift closer and the glow pulses, with a second little "hello?"
 prop(7.3, "alien", { glow: 1.4 }, 0.2, "out"); prop(7.5, "alien", { glow: 1 }, 0.3, "inOut");
@@ -311,15 +313,16 @@ sfx(9.34, "kenney/phaser-down", { gain: 0.4, reason: "the beam switches off" });
 // the chair drops away beneath him onto the pile; his wings flick open and he hovers in the same seated pose
 const T_OFF = 9.36, LAND = { x: -0.35, z: 0.3, y: 0.3 };   // on the lawn where it stood, clear of everyone
 A(T_OFF, "phx", "ride", {});
-A(T_OFF + 0.01, "phx", "span", { to: 0.7, dur: 0.12, ease: "out" });
-A(T_OFF, "phx", "fly", { to: { y: r3(CHAIR_TOP + SEAT + 0.04) }, dur: 0.3, ease: "out" });
-sfx(T_OFF, "wings", { gain: 0.45, dur: END - T_OFF - 0.05 });
+// the wings flick open a beat into the wide, so the save reads on screen (review B)
+A(T_OFF + 0.13, "phx", "span", { to: 0.7, dur: 0.14, ease: "out" });
+A(T_OFF + 0.1, "phx", "fly", { to: { y: r3(CHAIR_TOP + SEAT + 0.04) }, dur: 0.3, ease: "out" });
+sfx(T_OFF + 0.12, "wings", { gain: 0.45, dur: END - T_OFF - 0.17 });
 prop(T_OFF, "chair", { y: LAND.y, tilt: 25, tip: -15 }, 0.3, "in");
 prop(T_OFF, "chair", { x: LAND.x, z: LAND.z }, 0.3, "linear");
 sfx(T_OFF + 0.3, "pan-bonk", { gain: 0.6, reason: "bonk: the lawn chair lands back on the lawn" });
 for (const [w, d] of [["wiz", 0], ["rea", 0.02]]) A(T_OFF + 0.3 + d, w, "squash", { amount: 0.06, dur: 0.2 });
 // the saucer zooms off into the stars, up and to the right
-prop(9.5, "ufo", { x: 4.5, y: 7.0, z: -7, wobble: 0 }, 0.42, "in");
+prop(9.5, "ufo", { x: 8, y: 10, z: -9, wobble: 0 }, 0.4, "in");   // off into the stars, gone before the last frame (review B)
 sfx(9.5, "whoosh", { gain: 0.55, reason: "the saucer zooms away" });
 // the Astronaut reaches after it from where he sits, heartbroken; the others glare up at Phoenix
 c.arm(9.5, "ast", "R", { o: [0.25, 0.9, 0.35] }, 0.25, "out");
@@ -349,11 +352,11 @@ const beats = c.beats([
   ["P1 beam", 0, WIDE, "hook"],
   ["P2 lift", 1.5, "keep"],
   ["P3 tug of war", 3.2, "keep"],
-  ["P4 hatch", 5.0, HATCH],
+  ["P4 hatch", 5.3, HATCH],   // the wide holds through the slip and the sit-down (review B)
   ["P5 greeting", 6.3, GREET],
   ["P6 peak", 7.0, LOOKUP],
   ["P7 look-up", 8.0, "keep", "payoff"],
-  ["P8 back down", 9.42, BACKDOWN, "reaction"],
+  ["P8 back down", 9.32, BACKDOWN, "reaction"],   // cut on the beam going off, so the chair drop and the wing save play in the wide (review B)
 ], END);
 
 write(import.meta.url, {

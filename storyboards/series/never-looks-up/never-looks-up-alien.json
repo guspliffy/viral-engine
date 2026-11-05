@@ -1642,7 +1642,7 @@
   {
    "name": "P3 tug of war",
    "at": 3.2,
-   "len": 1.8,
+   "len": 2.1,
    "shot": "keep",
    "do": [
     {
@@ -2123,13 +2123,255 @@
      "shape": "scroll",
      "dur": 0.1,
      "at": 1.65
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.81
+    },
+    {
+     "do": "prop",
+     "id": "ufo",
+     "set": {
+      "x": 0.56,
+      "z": -0.33
+     },
+     "dur": 1.7000000000000002,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "alien",
+     "set": {
+      "x": 1.107,
+      "z": -0.039
+     },
+     "dur": 1.7000000000000002,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 1.7000000000000002,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "x": 0.472,
+      "z": -0.377
+     },
+     "dur": 1.7000000000000002,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.6,
+     "reason": "the grip slips and they fall back",
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.15
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.75,
+       0.15
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "astC",
+     "set": {
+      "x": -1.3,
+      "z": -1.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": 0.601,
+      "z": -0.523
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.93
+    },
+    {
+     "do": "prop",
+     "id": "reaC",
+     "set": {
+      "x": 1.565,
+      "z": -1.025
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "ride",
+     "prop": "astC",
+     "off": [
+      0,
+      -0.02,
+      0
+     ],
+     "yaw": 40,
+     "sit": true,
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.95
+    },
+    {
+     "who": "ast",
+     "do": "pitch",
+     "to": -20,
+     "dur": 0.27,
+     "at": 1.95
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "wizC",
+     "off": [
+      0,
+      -0.02,
+      0
+     ],
+     "yaw": -47.311,
+     "sit": true,
+     "dur": 0.32,
+     "ease": "in",
+     "at": 1.98
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -18,
+     "dur": 0.28800000000000003,
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "tilt": 2
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "reaC",
+     "off": [
+      0,
+      -0.02,
+      0
+     ],
+     "yaw": -50,
+     "sit": true,
+     "dur": 0.34,
+     "ease": "in",
+     "at": 2
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -24,
+     "dur": 0.30600000000000005,
+     "at": 2
     }
    ]
   },
   {
    "name": "P4 hatch",
-   "at": 5,
-   "len": 1.3,
+   "at": 5.3,
+   "len": 1,
    "shot": {
     "pos": [
      0.1,
@@ -2145,248 +2387,6 @@
    },
    "do": [
     {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.01
-    },
-    {
-     "do": "prop",
-     "id": "ufo",
-     "set": {
-      "x": 0.56,
-      "z": -0.33
-     },
-     "dur": 1.7000000000000002,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "alien",
-     "set": {
-      "x": 1.107,
-      "z": -0.039
-     },
-     "dur": 1.7000000000000002,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "chair",
-     "set": {
-      "y": 1.5
-     },
-     "dur": 1.7000000000000002,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "chair",
-     "set": {
-      "x": 0.472,
-      "z": -0.377
-     },
-     "dur": 1.7000000000000002,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "sfx": "whoosh",
-     "gain": 0.6,
-     "reason": "the grip slips and they fall back",
-     "at": 0.1
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.8,
-       0.15
-      ]
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.3,
-       0.75,
-       0.15
-      ]
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "both",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0.1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.7,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.3,
-       0.7,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "both",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "astC",
-     "set": {
-      "x": -1.3,
-      "z": -1.12
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "wizC",
-     "set": {
-      "x": 0.601,
-      "z": -0.523
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.13
-    },
-    {
-     "do": "prop",
-     "id": "reaC",
-     "set": {
-      "x": 1.565,
-      "z": -1.025
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.15
-    },
-    {
-     "who": "ast",
-     "do": "ride",
-     "prop": "astC",
-     "off": [
-      0,
-      -0.02,
-      0
-     ],
-     "yaw": 40,
-     "sit": true,
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0.15
-    },
-    {
-     "who": "ast",
-     "do": "pitch",
-     "to": -20,
-     "dur": 0.27,
-     "at": 0.15
-    },
-    {
-     "who": "wiz",
-     "do": "ride",
-     "prop": "wizC",
-     "off": [
-      0,
-      -0.02,
-      0
-     ],
-     "yaw": -47.311,
-     "sit": true,
-     "dur": 0.32,
-     "ease": "in",
-     "at": 0.18
-    },
-    {
-     "who": "wiz",
-     "do": "pitch",
-     "to": -18,
-     "dur": 0.28800000000000003,
-     "at": 0.18
-    },
-    {
-     "do": "prop",
-     "id": "chair",
-     "set": {
-      "tilt": 2
-     },
-     "dur": 1.4,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "who": "rea",
-     "do": "ride",
-     "prop": "reaC",
-     "off": [
-      0,
-      -0.02,
-      0
-     ],
-     "yaw": -50,
-     "sit": true,
-     "dur": 0.34,
-     "ease": "in",
-     "at": 0.2
-    },
-    {
-     "who": "rea",
-     "do": "pitch",
-     "to": -24,
-     "dur": 0.30600000000000005,
-     "at": 0.2
-    },
-    {
      "who": "ast",
      "do": "arm",
      "side": "R",
@@ -2398,7 +2398,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.45
+     "at": 0.15
     },
     {
      "who": "ast",
@@ -2412,7 +2412,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.45
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -2422,39 +2422,39 @@
      },
      "dur": 0.35,
      "ease": "out",
-     "at": 0.45
+     "at": 0.15
     },
     {
      "sfx": "doorslide",
      "gain": 0.5,
      "reason": "the hatch irises open",
-     "at": 0.45
+     "at": 0.15
     },
     {
      "sfx": "thud-soft",
      "gain": 0.7,
      "reason": "the Astronaut lands on his bottom",
-     "at": 0.46
+     "at": 0.16
     },
     {
      "who": "ast",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 0.46
+     "at": 0.16
     },
     {
      "sfx": "thud",
      "gain": 0.5,
      "reason": "Wizard and Reaper land on their bottoms",
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -2462,7 +2462,7 @@
      "amount": 8,
      "freq": 3,
      "dur": 0.8,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -2476,7 +2476,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "wiz",
@@ -2490,7 +2490,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "rea",
@@ -2504,7 +2504,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "rea",
@@ -2518,14 +2518,14 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.5
+     "at": 0.2
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 0.54
+     "at": 0.24
     },
     {
      "who": "wiz",
@@ -2537,21 +2537,21 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "wiz",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "wiz",
      "do": "still",
      "dur": 1.4,
      "idle": 0.08,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "rea",
@@ -2563,21 +2563,21 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "rea",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "rea",
      "do": "still",
      "dur": 1.4,
      "idle": 0.08,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "ast",
@@ -2589,21 +2589,21 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "ast",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "ast",
      "do": "still",
      "dur": 1.4,
      "idle": 0.08,
-     "at": 0.6
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -2613,7 +2613,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 0.6
+     "at": 0.3
     },
     {
      "who": "wiz",
@@ -2624,7 +2624,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.65
+     "at": 0.35
     },
     {
      "who": "rea",
@@ -2635,7 +2635,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.65
+     "at": 0.35
     },
     {
      "who": "ast",
@@ -2646,14 +2646,14 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.65
+     "at": 0.35
     },
     {
      "who": "ast",
      "do": "pitch",
      "to": -8,
      "dur": 0.4,
-     "at": 0.7
+     "at": 0.4
     },
     {
      "who": "phx",
@@ -2661,14 +2661,14 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.75
+     "at": 0.45
     },
     {
      "who": "wiz",
      "do": "pitch",
      "to": -8,
      "dur": 0.4,
-     "at": 0.75
+     "at": 0.45
     },
     {
      "do": "prop",
@@ -2681,14 +2681,14 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.75
+     "at": 0.45
     },
     {
      "who": "rea",
      "do": "pitch",
      "to": -8,
      "dur": 0.4,
-     "at": 0.79
+     "at": 0.49
     },
     {
      "who": "phx",
@@ -2696,13 +2696,13 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.91
+     "at": 0.61
     },
     {
      "sfx": "kenney/three-tone",
      "gain": 0.35,
      "reason": "the alien's cheerful high greeting (its gibberish)",
-     "at": 0.95
+     "at": 0.65
     }
    ]
   },
@@ -2724,6 +2724,19 @@
     "fov": 26
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "alien",
+     "set": {
+      "arms": 0,
+      "wobble": 0,
+      "gap": 1,
+      "glow": 1
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.15
+    },
     {
      "who": "phx",
      "do": "blink",
@@ -2753,10 +2766,6 @@
      "id": "alien",
      "set": {
       "drop": 0.79,
-      "arms": 0,
-      "wobble": 0,
-      "gap": 1,
-      "glow": 1,
       "lean": 5,
       "jaw": 0.3,
       "lookX": -0.8,
@@ -2893,7 +2902,7 @@
   {
    "name": "P7 look-up",
    "at": 8,
-   "len": 1.42,
+   "len": 1.32,
    "shot": "keep",
    "do": [
     {
@@ -3046,90 +3055,14 @@
      "gain": 0.5,
      "reason": "the hatch's latch clicks shut (a click on the slam for phone speakers)",
      "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "ufo",
-     "set": {
-      "glow": 0
-     },
-     "dur": 0.04,
-     "ease": "inOut",
-     "at": 1.34
-    },
-    {
-     "sfx": "kenney/phaser-down",
-     "gain": 0.4,
-     "reason": "the beam switches off",
-     "at": 1.34
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 1.35
-    },
-    {
-     "who": "phx",
-     "do": "ride",
-     "at": 1.36
-    },
-    {
-     "who": "phx",
-     "do": "fly",
-     "to": {
-      "y": 1.84
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 1.36
-    },
-    {
-     "sfx": "wings",
-     "gain": 0.45,
-     "dur": 0.5900000000000005,
-     "at": 1.36
-    },
-    {
-     "do": "prop",
-     "id": "chair",
-     "set": {
-      "y": 0.3,
-      "tilt": 25,
-      "tip": -15
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 1.36
-    },
-    {
-     "do": "prop",
-     "id": "chair",
-     "set": {
-      "x": -0.35,
-      "z": 0.3
-     },
-     "dur": 0.3,
-     "ease": "linear",
-     "at": 1.36
-    },
-    {
-     "who": "phx",
-     "do": "span",
-     "to": 0.7,
-     "dur": 0.12,
-     "ease": "out",
-     "at": 1.37
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "P8 back down",
-   "at": 9.42,
-   "len": 0.58,
+   "at": 9.32,
+   "len": 0.68,
    "shot": {
     "pos": [
      0,
@@ -3145,6 +3078,58 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "ufo",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "sfx": "kenney/phaser-down",
+     "gain": 0.4,
+     "reason": "the beam switches off",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.03
+    },
+    {
+     "who": "phx",
+     "do": "ride",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "y": 0.3,
+      "tilt": 25,
+      "tip": -15
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "x": -0.35,
+      "z": 0.3
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.04
+    },
+    {
      "who": "ast",
      "do": "expr",
      "expr": "sad",
@@ -3153,26 +3138,50 @@
       "eye": 1.1
      },
      "dur": 0.25,
-     "at": 0.03
+     "at": 0.13
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "y": 1.84
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.14
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.45,
+     "dur": 0.47000000000000053,
+     "at": 0.16
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.7,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.17
     },
     {
      "do": "prop",
      "id": "ufo",
      "set": {
-      "x": 4.5,
-      "y": 7,
-      "z": -7,
+      "x": 8,
+      "y": 10,
+      "z": -9,
       "wobble": 0
      },
-     "dur": 0.42,
+     "dur": 0.4,
      "ease": "in",
-     "at": 0.08
+     "at": 0.18
     },
     {
      "sfx": "whoosh",
      "gain": 0.55,
      "reason": "the saucer zooms away",
-     "at": 0.08
+     "at": 0.18
     },
     {
      "who": "ast",
@@ -3187,7 +3196,7 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 0.08
+     "at": 0.18
     },
     {
      "who": "ast",
@@ -3198,7 +3207,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.08
+     "at": 0.18
     },
     {
      "who": "phx",
@@ -3206,7 +3215,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.09
+     "at": 0.19
     },
     {
      "who": "ast",
@@ -3215,27 +3224,27 @@
      "dur": 0.4,
      "tone": "sad",
      "voice": false,
-     "at": 0.13
+     "at": 0.23
     },
     {
      "sfx": "pan-bonk",
      "gain": 0.6,
      "reason": "bonk: the lawn chair lands back on the lawn",
-     "at": 0.24
+     "at": 0.34
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.2,
-     "at": 0.24
+     "at": 0.34
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.2,
-     "at": 0.26
+     "at": 0.36
     },
     {
      "who": "wiz",
@@ -3246,7 +3255,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.28
+     "at": 0.38
     },
     {
      "who": "wiz",
@@ -3254,7 +3263,7 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.28
+     "at": 0.38
     },
     {
      "who": "rea",
@@ -3265,7 +3274,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.28
+     "at": 0.38
     },
     {
      "who": "rea",
@@ -3273,7 +3282,7 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.28
+     "at": 0.38
     },
     {
      "who": "phx",
@@ -3281,49 +3290,49 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.33
+     "at": 0.43
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 0.33
+     "at": 0.43
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 0.33
+     "at": 0.43
     },
     {
      "who": "rea",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 0.33
+     "at": 0.43
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 0.33
+     "at": 0.43
     },
     {
      "who": "wiz",
      "do": "still",
      "dur": 0.45,
      "idle": 0.06,
-     "at": 0.38
+     "at": 0.48
     },
     {
      "who": "rea",
      "do": "still",
      "dur": 0.45,
      "idle": 0.06,
-     "at": 0.38
+     "at": 0.48
     },
     {
      "who": "phx",
@@ -3331,7 +3340,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.49
+     "at": 0.59
     }
    ],
    "kind": "reaction"
