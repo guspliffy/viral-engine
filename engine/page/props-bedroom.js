@@ -55,6 +55,8 @@ export const BEDROOM_KINDS = {
     const pupilM = new THREE.MeshBasicMaterial({ color: "#121212" }), lidM = mat(FUR, { roughness: 0.9 });
     const furMats = [fur, furPlain, white, lidM];
     const base = furMats.map((m) => m.color.clone());
+    // a little self-light so the grey fur still reads in the shade (inside a box, against the window light)
+    for (const m of furMats) { if (!m.emissive) continue; if (m === fur) { m.emissive = new THREE.Color("#ffffff"); m.emissiveMap = tex; } else m.emissive = m.color.clone(); m.emissiveIntensity = 0.35; }
     const body = new THREE.Group(); P.whole.add(body);
     // the round body (a little pear: wide hips), a white bib, four short legs with white paws
     const torso = mesh(new THREE.SphereGeometry(0.15, 24, 18), fur, body, 0, 0.17, 0); torso.scale.set(1.0, 0.92, 1.45);
@@ -149,7 +151,7 @@ export const BEDROOM_KINDS = {
         });
         tail.visible = tuck < 0.95 || sit < 0.5;
         // dark under the bed: the fur goes almost black (lerp each material's colour)
-        furMats.forEach((m, i) => { m.color.copy(base[i]).lerp(new THREE.Color("#15161b"), 0.92 * dk); });
+        furMats.forEach((m, i) => { m.color.copy(base[i]).lerp(new THREE.Color("#15161b"), 0.92 * dk); if (m.emissive) m.emissiveIntensity = 0.35 * (1 - dk); });
         for (const l of lines) { l.material.opacity = 0.75 * streak; l.visible = streak > 0.02; }
       },
     };

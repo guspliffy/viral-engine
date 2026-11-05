@@ -18,7 +18,8 @@ import { mat, mesh, canvasTex, smooth } from "./props-trend.js";
 //   hardboard  the thin brown back panel, leaning against a wall (spec.w, spec.h, spec.lean degrees)
 //   allenkey   an L-shaped hex key (cartoon size, so it shows past a fist at both ends); origin: the long arm's end,
 //              the long arm up +y, the short arm toward +x at the top
-//   cardbox    an opened cardboard box with its flaps up and some packing in it (spec.w, spec.d, spec.h); spec.closed:
+//   cardbox    an opened cardboard box with its flaps up and some packing in it (spec.w, spec.d, spec.h; spec.empty: no
+//              packing, the cat's box); spec.closed:
 //              taped shut, a seat (spec.h 0.42 and scale = the seat height / 0.42: timeline.js sits on SEAT_Y x scale)
 //   screwbag   a small clear bag of screws and dowels (spec.size)
 //   bubblewrap a crumpled sheet of bubble wrap on the floor (spec.w, spec.d)
@@ -162,7 +163,7 @@ export const IKEA_KINDS = {
     mesh(new THREE.BoxGeometry(w * 0.92, 0.04, 0.002), tape, P.whole, 0, h - 0.03, d / 2 + 0.002);
     // crumpled packing paper peeking out
     const pap = mat("#f3efe4", { roughness: 0.95 }), r = rng(S.seed ?? 3);
-    for (let i = 0; i < 5; i++) { const c = mesh(new THREE.IcosahedronGeometry(0.06 + r() * 0.04, 0), pap, P.whole, (r() - 0.5) * (w - 0.18), h - 0.02, (r() - 0.5) * (d - 0.14)); c.rotation.set(r() * 3, r() * 3, r() * 3); }
+    if (!S.empty) for (let i = 0; i < 5; i++) { const c = mesh(new THREE.IcosahedronGeometry(0.06 + r() * 0.04, 0), pap, P.whole, (r() - 0.5) * (w - 0.18), h - 0.02, (r() - 0.5) * (d - 0.14)); c.rotation.set(r() * 3, r() * 3, r() * 3); }
     return { grip: h };
   },
 
