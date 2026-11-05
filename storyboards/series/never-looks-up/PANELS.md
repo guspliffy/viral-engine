@@ -28,3 +28,11 @@ sky, warm campfire light from below on every face, the cool phone glow on Phoeni
   short flinch and peeks between his fingers.
 - **Gibberish gets captions** (Jonny, Bonfire Night, 4 Nov), placed in the sky clear of faces and below the top 20 % kept
   free for his in-app title.
+- **The hiding rock sits behind Phoenix to the left**, not at the right: the 9:16 frame of the painting's camera is
+  only about 27 degrees wide, and at the right the T-rex's body would hide the friends.
+- **"huh." sits in the sky over Phoenix's head** instead of the lower third: in the look-up framing the lower third
+  is Phoenix and the T-rex's snout, and a caption over a character fails the caption check.
+- **No shove for the front spot behind the rock** (Fable's review A note): the Wizard glares at Viking instead; a
+  shove between two crouched characters kept failing the contact checks.
+- **The look-up and the ending are framed wider than a true close-up** so Phoenix and the T-rex's eye share the frame
+  (the head is about a metre wide).
