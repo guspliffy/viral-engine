@@ -2,7 +2,7 @@
 // fails when one of them is lost:
 //   node storyboards/templates/check-template.mjs
 // It checks the built storyboard (whole frame sharp, the "sheet" cast look, music on, the spike guard, natural motion
-// with planted feet, hand rig 2, the clean start), every line (a subtitle while it is spoken, gibberish included, and no blink on it), the clean start in the loader
+// with planted feet, hand rig 2, eyes 2, the clean start), every line (a subtitle while it is spoken, gibberish included, and no blink on it), the clean start in the loader
 // (engine/load.mjs cleanStart) on the template and on a small made-up storyboard, and that clip.mjs without the new
 // options writes what it wrote before (old generators keep producing the same storyboards).
 import assert from "node:assert/strict";
@@ -29,6 +29,7 @@ check("the whole frame is sharp (no depth of field)", () => {
 check('the cast has the "sheet" look', () => assert.equal(sb.castLook, "sheet"));
 check("music plays", () => assert.ok(sb.music && sb.music.style, "music is off"));
 check("hand rig 2 (no hand pops)", () => assert.equal(sb.rig?.hand, 2));
+check("eyes 2 (readable eyes)", () => assert.equal(sb.rig?.eyes, 2));
 check("natural motion with planted feet", () => {
   assert.equal(sb.motion?.feet, 2);
   assert.ok(Object.values(sb.motion).every((v) => v !== false), "a natural motion part is off");
