@@ -9,7 +9,9 @@
  "captionStyle": "kinetic",
  "castLook": "sheet",
  "cleanStart": true,
- "motion": "natural",
+ "motion": {
+  "feet": 2
+ },
  "loopIdle": true,
  "set": {
   "type": "plain",

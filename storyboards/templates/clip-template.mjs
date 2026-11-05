@@ -33,7 +33,10 @@ const LINES = { sub: true, blink: false };
 const FACES = "strong";             // stronger faces and longer holds in the acting loops ("normal": as before)
 // natural motion (Jonny 31 Oct 2026, "way better"): walks with planted feet, arcs, body-led reaches, eyes-first turns,
 // sit/stand weight (docs/STORYBOARD.md "motion"); { arcs: false } drops one part, false: today's motion
-const MOTION = "natural";
+// planted feet (Jonny, 5 Nov, PR #117): every walk and run on one gait, a standing foot stays where it landed;
+// { feet: 2 } also turns on every natural part ("feetTune": { lean, tip, body } scales the body if a tight dash fails
+// a contact check)
+const MOTION = { feet: 2 };
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.

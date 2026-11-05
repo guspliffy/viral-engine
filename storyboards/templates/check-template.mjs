@@ -1,7 +1,7 @@
 // The clip template's defaults are Jonny's decisions (quality plan item 5, 5 Nov 2026). This builds the template and
 // fails when one of them is lost:
 //   node storyboards/templates/check-template.mjs
-// It checks the built storyboard (whole frame sharp, the "sheet" cast look, music on, the spike guard, natural motion,
+// It checks the built storyboard (whole frame sharp, the "sheet" cast look, music on, the spike guard, natural motion with planted feet,
 // the clean start), every line (a subtitle while it is spoken, gibberish included, and no blink on it), the clean start in the loader
 // (engine/load.mjs cleanStart) on the template and on a small made-up storyboard, and that clip.mjs without the new
 // options writes what it wrote before (old generators keep producing the same storyboards).
@@ -28,7 +28,10 @@ check("the whole frame is sharp (no depth of field)", () => {
 });
 check('the cast has the "sheet" look', () => assert.equal(sb.castLook, "sheet"));
 check("music plays", () => assert.ok(sb.music && sb.music.style, "music is off"));
-check("natural motion", () => assert.equal(sb.motion, "natural"));
+check("natural motion with planted feet", () => {
+  assert.equal(sb.motion?.feet, 2);
+  assert.ok(Object.values(sb.motion).every((v) => v !== false), "a natural motion part is off");
+});
 check("the spike guard is on (no effect jumps out of the mix)", () => assert.equal(sb.sound?.guard, true));
 check("the clip opens in its pose (cleanStart)", () => assert.equal(sb.cleanStart, true));
 
