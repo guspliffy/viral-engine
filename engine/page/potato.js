@@ -546,7 +546,8 @@ export class Character {
   // (weights cos^2, 0.13 s each way), each worked out from the actor's state at that time, so a turn that comes in one
   // frame (a hold that switches on or off, an arm curve that folds, a quick move) spreads over several. A frame where
   // the hand is on a hold counts 7 times as much, so a hand turns onto a grip a little early, as a hand shapes itself
-  // before it touches, and a hand fully on its hold keeps the hold's exact turn. A step the actor takes between two frames (a teleport at a cut, a new place) ends the window there.
+  // before it touches, and a hand fully on its hold keeps the hold's exact turn. A step the actor takes between two
+  // frames (a teleport at a cut, a new place) ends the window there.
   // Every frame is worked out from the story alone, never from the frame drawn before it (frame cache, farm shards)
   _smoothHand(s, t, q0) {
     // the states are shared by both hands of the frame (keyed on the exact time, kept for one frame)
