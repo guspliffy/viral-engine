@@ -20,9 +20,9 @@ Departures, with reasons:
 - One front camera for the whole clip (the panels push in for 3, 6 and 8): the painted environment allows the camera to
   move in but only 0.3 m down and 8 degrees of tilt (qa/env.mjs --range), so the shot sits close in, a little above
   their heads, and the stage stands 2.2 m further from the painting's own eye.
-- Phoenix sits in the grass front centre, close to the lens, from frame 0 with his phone (panels 2-5 have him standing
-  front left): standing front left, his crest hid the Wizard's face, and sitting keeps his crest under the back row's
-  faces. He covers the bottom of the tent at times; Viking cheers to the right of the dome so the dome shows in the cheer.
+- Phoenix sits up on a rock behind the others with his phone the whole clip, as in panel 1 (panels 2-5 have him big
+  in the front left). In front he covered the whole situation (Jonny, 5 Nov); on the rock his face sits above the tent
+  and the dome, and he never looks up from the phone, not even as Viking floats past him.
 - Viking hammers the peg with his fist, not a rock: a rock is a new hold, and new holds need your approval first.
 - A cheer instead of the group hug in panel 6: the hug would press four bodies and a phone together (the hug checks).
 - The dome is a two-potato tent (1.4 m wide, 0.85 m high) and the balloon 1.6 m across, so it clears the Wizard's hat
