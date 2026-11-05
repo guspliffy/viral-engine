@@ -211,12 +211,12 @@ export const SNEAK_KINDS = {
     // two big rusty barrel hinges on the hinge edge, seen from inside: knuckles and long straps
     const rust = mat("#8a4a26", { roughness: 0.85, metalness: 0.3 }), rustDark = mat("#4a2414", { roughness: 0.9 });
     for (const y of [0.32, h - 0.38]) {
-      const k = mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.24, 12), rust, hinge, -0.01, y, 0.04);
-      mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.02, 12), rustDark, hinge, -0.01, y + 0.12, 0.04); mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.02, 12), rustDark, hinge, -0.01, y - 0.12, 0.04);
+      const k = mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.3, 12), rust, hinge, -0.01, y, 0.04);
+      mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.025, 12), rustDark, hinge, -0.01, y + 0.15, 0.04); mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.025, 12), rustDark, hinge, -0.01, y - 0.15, 0.04);
       let strap;
       for (const f of [1, -1]) {
-        strap = mesh(new THREE.BoxGeometry(0.42, 0.11, 0.012), rust, leaf, 0.22, y, f * (t / 2 + 0.012));
-        for (const x of [0.08, 0.22, 0.36]) mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.01, 8), rustDark, leaf, x, y, f * (t / 2 + 0.02)).rotation.x = Math.PI / 2;
+        strap = mesh(new THREE.BoxGeometry(0.6, 0.15, 0.012), rust, leaf, 0.31, y, f * (t / 2 + 0.012));
+        for (const x of [0.08, 0.3, 0.52]) mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.01, 8), rustDark, leaf, x, y, f * (t / 2 + 0.02)).rotation.x = Math.PI / 2;
         for (let i = 0; i < 5; i++) mesh(new THREE.SphereGeometry(0.012 + (i % 3) * 0.004, 6, 4), rustDark, leaf, 0.05 + i * 0.08, y + ((i * 37) % 7 - 3) * 0.01, f * (t / 2 + 0.018));
       }
       k.castShadow = strap.castShadow = false;

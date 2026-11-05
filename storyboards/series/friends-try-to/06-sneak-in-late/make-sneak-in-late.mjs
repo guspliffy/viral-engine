@@ -46,13 +46,13 @@ const WIZ_WAY0 = [0.5, 1.3];   // the Wizard goes round Reaper (still by the rug
 const WIZ_WAY = [-0.2, 2.45];   // the Wizard keeps clear of the slippers until he is past them
 // 8.0 on (the hall view): Viking back at the front door, the handle in his hand; the three in the near foreground
 const VIK_DOOR = [-0.45, -1.8], VIK_SHUT = [-0.92, -1.92];
-const END3 = { phx: [-0.9, 3.55], rea: [0.0, 3.4], wiz: [0.85, 3.0] };   // low in the frame, Viking's face above their heads   // low in the frame, Viking's face above their heads
+const END3 = { phx: [-0.5, 3.15], rea: [0.25, 2.3], wiz: [0.95, 1.25] };   // clear of the slipper rack   // low in the frame, Viking's face above their heads   // low in the frame, Viking's face above their heads
 
 const WIZ = "sofa/wizard-staff";
 const cast = [
-  { id: "wiz", character: WIZ, at: P0.wiz, face: 15, expr: "eager", follow: 0.3, seed: 2.6 },
-  { id: "phx", character: "duo/phoenix", at: P0.phx, face: 20, expr: "eager", follow: 0.3, seed: 1.7, span: 0.15 },
-  { id: "vik", character: "elevator/viking", at: P0.vik, face: 10, expr: "eager", follow: 0.35, seed: 3.3 },
+  { id: "wiz", character: WIZ, at: P0.wiz, face: 15, expr: "worried", follow: 0.3, seed: 2.6 },
+  { id: "phx", character: "duo/phoenix", at: P0.phx, face: 20, expr: "worried", follow: 0.3, seed: 1.7, span: 0.15 },
+  { id: "vik", character: "elevator/viking", at: P0.vik, face: 10, expr: "worried", follow: 0.35, seed: 3.3 },
   { id: "rea", character: "notyet/reaper-noscythe", at: P0.rea, face: 25, expr: "deadpan", follow: 0.3, seed: 4.1 },
 ];
 const props = [
@@ -62,7 +62,7 @@ const props = [
   { id: "rack", kind: "shoerack", x: RACK[0], z: RACK[1], rot: 90 },
   ...SLIP.map(([x, z, color, check], i) => ({ id: `slip${i}`, kind: "slippers", x, z, rot: 90, color, ...(check && { check }) })),
   { id: "rug", kind: "runner", x: RUG0[0], z: RUG0[1], l: RUG_L, w: 0.9 },
-  { id: "mom", kind: "momdoor", x: HW - 0.01, z: MOMZ, rot: -90, reach: 2.7 },
+  { id: "mom", kind: "momdoor", x: NIGHTHALL.mom.x, z: NIGHTHALL.far + 0.01, rot: 0, w: 0.85, reach: 7 },   // face-on at the far end (review A: edge-on it never read)
   { id: "torch", kind: "torchphone", x: P0.phx[0] + 0.2, y: 0.62, z: P0.phx[1] + 0.3, rot: 180, tilt: 38, scale: 1.5, r: 0.5 },
   { id: "dust", kind: "dustmotes", x: -0.4, y: 1.3, z: -0.6, n: 50, box: [2.4, 1.6, 3.0], color: "#b9c8ff" },
   { id: "moonbeam", kind: "lightbeam", x: -HW - 0.4, y: 2.0, z: (DOOR.z0 + DOOR.z1) / 2, rot: -90, tip: -28, len: 2.6, w: 1.3, color: "#8fa8ff", glow: 0.5 },
@@ -85,13 +85,13 @@ sfx(0.15, "door-creak", { gain: 0.8, reason: "the loose floorboard's long creak 
 c.hitStop(0.15, 3);
 c.prop(0.9, "board", { tick: 0 }, 0.2);
 for (const [i, id] of ["wiz", "vik", "phx", "rea"].entries()) {
-  A(0.2 + i * 0.04, id, "expr", { expr: "shocked", set: { eye: 1.3, open: 0.35, curve: -0.3 }, dur: 0.1 });
+  A(0.2 + i * 0.04, id, "expr", { expr: "shocked", set: { eye: 1.3, open: 0.35, curve: -0.45 }, dur: 0.1 });
   A(0.25 + i * 0.04, id, "look", { to: [0.75, 0.1], dur: 0.15, blink: false });   // all eyes down the hall to Mom's door
-  A(0.3, id, "still", { dur: 0.75, idle: 0.1 });
+  A(0.3, id, "still", { dur: 1.05, idle: 0.1 });
 }
-A(1.1, "wiz", "expr", { expr: "eager", set: { curve: 0.3 }, dur: 0.25 }); A(1.15, "wiz", "look", { to: [0, 0.05], dur: 0.15 });
-A(1.1, "rea", "expr", { expr: "annoyed", dur: 0.3 }); A(1.15, "rea", "look", { to: [0.6, -0.05], dur: 0.15 });
-A(1.1, "vik", "expr", { expr: "worried", dur: 0.3 });
+A(1.42, "wiz", "expr", { expr: "eager", set: { curve: 0.3 }, dur: 0.25 }); A(1.45, "wiz", "look", { to: [0, 0.05], dur: 0.15 });
+A(1.38, "rea", "expr", { expr: "annoyed", dur: 0.3 }); A(1.4, "rea", "look", { to: [0.6, -0.05], dur: 0.15 });
+A(1.4, "vik", "expr", { expr: "worried", dur: 0.3 });
 see(0, 0.3, ["wiz.face", "vik.face", "phx.face", "rea.face", "board"], "frame 0: the four tiptoe in, the Wizard on the creaky board");
 
 // ---------------------------------------------------------------- 02 WIZARD'S SPELL 1.5-3.3
@@ -102,6 +102,10 @@ A(1.75, "wiz", "talk", { line: "ive gott dis.", tone: "calm", dur: 0.55, voice: 
 cap(1.9, 2.75, "I've got this.", 1200);
 c.arm(2.05, "wiz", "R", { o: [0.3, 0.42, 0.42] }, 0.2, "out");   // the staff hand points down at the floor by the slippers
 sfx(2.2, "charge", { gain: 0.4, reason: "the silence spell charging in the staff" });
+// the spell leaves his pointing hand and streaks down to the rack (review A: cause and effect)
+c.at(2.2, { fx: "poof", pos: [-0.1, 0.55, 0.25], dur: 0.3, color: "#c58bff", puffs: 1, sparks: 10, size: 0.2, lift: 0.05 });
+c.at(2.26, { fx: "poof", pos: [-0.33, 0.42, 0.7], dur: 0.25, color: "#d9b0ff", puffs: 0, sparks: 8, size: 0.15, lift: 0 });
+c.at(2.31, { fx: "poof", pos: [-0.55, 0.28, 1.15], dur: 0.25, color: "#d9b0ff", puffs: 0, sparks: 8, size: 0.15, lift: 0 });
 c.at(2.35, { fx: "poof", pos: [-0.75, 0.15, 1.55], dur: 0.5, color: "#c58bff", puffs: 4, sparks: 16, size: 0.6, lift: 0.3 });
 for (let i = 0; i < 4; i++) {
   const t = 2.45 + i * 0.12;
@@ -179,9 +183,9 @@ A(6.4, "rea", "expr", { expr: "deadpan", set: { curve: 0.15 }, dur: 0.2 });
 see(5.6, 6.3, ["rea.face", "rug"], "Reaper kneels and unrolls the rug over the creaky boards");
 // one by one across the rug, silently, to the near end
 // they start onto the rug in their own lanes (no crossing), then the cut at 7.2 finds them at its far end
-A(6.5, "wiz", "move", { to: [0.45, -0.45], dur: 0.35, steps: 2, ease: "inOut" });
-A(6.6, "phx", "move", { to: [0.95, 0.65], dur: 0.35, steps: 2, ease: "inOut" });
-A(6.7, "vik", "move", { to: [-0.15, -1.2], dur: 0.35, steps: 2, ease: "inOut" });
+A(6.45, "wiz", "move", { to: [0.45, -0.45], dur: 0.6, steps: 3, ease: "inOut" });
+A(6.5, "phx", "move", { to: [0.95, 0.65], dur: 0.6, steps: 3, ease: "inOut" });
+A(6.55, "vik", "move", { to: [-0.15, -1.2], dur: 0.6, steps: 3, ease: "inOut" });
 c.arm(6.9, "rea", "R", "rest", 0.2, "inOut");
 for (const [id, p] of Object.entries(CHEER)) A(7.18, id, "move", { to: p, dur: 0.01 });
 for (const id of ["vik", "phx", "rea"]) A(7.18, id, "turn", { to: 15, dur: 0.01 });   // to the camera at the right
@@ -212,17 +216,18 @@ c.prop(7.97, "door", { rot: 60 }, 0.02);
 A(7.98, "vik", "grab", { prop: "door", hand: "R", grip: "handle", pose: null, keep: true });
 A(7.98, "vik", "expr", { expr: "kind", set: { curve: 0.6, eye: 0.6 }, dur: 0.02 });
 A(8.0, "vik", "talk", { line: "kwai-it-li...", tone: "calm", dur: 0.6, voice: false, soft: true });
-cap(8.05, 8.75, "Quietly…", 1200);
+cap(8.05, 8.75, "Quietly…", 600);
 c.prop(8.1, "door", { rot: 90 }, 0.55, "inOut");
 c.prop(8.15, "door", { squeal: 1 }, 0.05); c.prop(8.7, "door", { squeal: 0 }, 0.1);
 sfx(8.15, "creak", { gain: 0.85, dur: 0.6, reason: "the rusty hinge's long SQUEAL as Viking eases the door shut" });
 sfx(8.15, "ai/dundun", { gain: 0.6, reason: "the dö-döm of the tiny undo (series ending)" });
 sfx(8.68, "latch-click", { gain: 0.3, reason: "the latch clicking home" });
-for (const [i, id] of ["wiz", "phx", "rea"].entries()) act.shock(c, 8.2 + i * 0.05, id, { hold: 0.6 });
+for (const [i, id] of ["wiz", "phx", "rea"].entries()) { A(8.15, id, "squash", { amount: 0.06, dur: 0.07 }); act.shock(c, 8.2 + i * 0.05, id, { hold: 0.6, curve: -0.3, brow: 0.6 }); }
 A(8.25, "vik", "expr", { expr: "shocked", set: { eye: 1.2, open: 0.2 }, dur: 0.1 });
 // Mom's light snaps on, her shadow falls along the hall
 sfx(8.75, "click", { gain: 0.45, reason: "Mom's light switching on behind her door" });
 c.prop(8.75, "mom", { on: 1, shadow: 0 }, 0.04); c.prop(8.9, "mom", { shadow: 1 }, 0.3, "out");
+for (const id of ["wiz", "phx", "rea"]) A(8.15, id, "look", { to: [-0.5, 0.3], dur: 0.1, blink: false });   // eyes snap to Viking on the squeal
 for (const id of ["wiz", "phx", "rea", "vik"]) A(8.8, id, "look", { to: [0.4, 0.05], dur: 0.12, blink: false });
 see(8.1, 8.7, ["vik.face", "door"], "Viking eases the front door shut by its handle: the hinge squeals");
 see(8.8, 9.0, ["mom"], "the light under Mom's door snaps on, her shadow falls along the hall");
@@ -235,7 +240,7 @@ for (const [i, id] of ["wiz", "rea", "phx"].entries()) {
   const t = 9.05 + i * 0.15;
   // Viking is behind them, up and to the left on screen: the eyes slide over, the face stays to us
   A(t, id, "look", { to: [-0.7, 0.3], dur: 0.25, ease: "inOut", blink: false });
-  A(t, id, "turn", { to: id === "wiz" ? -5 : -18, dur: 0.3, ease: "inOut" });
+  A(t, id, "turn", { to: id === "wiz" ? -5 : id === "rea" ? -6 : -18, dur: 0.3, ease: "inOut" });   // Reaper only a little: his right hand would swing into Phoenix
   act.mood(c, t + 0.05, id, "angry", { hold: 0.7 });
 }
 see(9.4, 9.95, ["wiz.face", "phx.face", "rea.face", "vik.face", "mom"], "three glares at Viking under Mom's light and shadow");
@@ -245,8 +250,8 @@ const A_HALL = { pos: [0.25, 1.75, 5.6], look: [-0.15, 0.6, -0.6], fov: 50 };   
 const SPELL = { ...A_HALL, to: { pos: [0.15, 1.65, 5.0], look: [-0.4, 0.5, 0.8], fov: 50 }, dur: 1.4, ease: "inOut" };   // a push in on the Wizard and the slippers
 const LIFT = { pos: [-0.2, 1.5, 5.0], look: [0.4, 0.95, -0.9], fov: 50 };
 const FIX = { pos: [0.4, 2.0, 4.1], look: [-0.1, 0.25, 0.7], fov: 54 };   // high, so the rug rolls down the frame
-const CHEER_S = { pos: [1.0, 1.8, 7.3], look: [-0.15, 0.6, 2.6], fov: 58 };
-const B_HALL = { pos: [0.05, 2.35, 7.2], look: [-0.15, 0.5, -2.5], fov: 60 };   // high, so Viking shows over the three heads  // 07-08: turned down the hall to Mom's door
+const CHEER_S = { pos: [1.05, 1.9, 7.4], look: [-0.35, 0.55, 2.7], fov: 62 };
+const B_HALL = { pos: [0.1, 2.8, 6.0], look: [-0.2, 0.45, -1.5], fov: 50 };   // high, so Viking shows over the three heads  // 07-08: turned down the hall to Mom's door
 const beats = c.beats([
   ["01 already going wrong", 0, A_HALL, "hook"],
   ["02 wizard's spell", 1.5, SPELL],

@@ -11,7 +11,7 @@ import { canvas, tex, glow } from "./set-porch.js";
 // the front door leaf, the coat stand, the shoe rack, the slippers and the runner rug are props too (they move).
 // Cool moonlight comes in through the door from the left (the night look's key light is on the left).
 // spec: { type: "nighthall", night: true, seed }. NIGHTHALL has the layout for the storyboard.
-export const NIGHTHALL = { w: 2.8, h: 2.6, near: 7.6, far: -7.2, door: { z0: -1.9, z1: -0.7, h: 2.05 }, mom: { z: -5.6 }, wainH: 0.86 };
+export const NIGHTHALL = { w: 2.8, h: 2.6, near: 7.6, far: -7.2, door: { z0: -1.9, z1: -0.7, h: 2.05 }, mom: { z: -5.6, x: 0.82 }, wainH: 0.86 };
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.8, ...o });
 const flat = (color, o = {}) => { const m = std(color, o); m.userData.noOutline = true; return m; };
@@ -156,12 +156,12 @@ export function buildNighthall(scene, S = {}) {
     box(set, P.w, 0.05, 0.05, rail, 0, W, z + f * 0.025);
   }
   const wood = std("#6e4a32", { roughness: 0.5 });
-  box(set, 0.9, 0.04, 0.3, wood, 0, 0.74, P.far + 0.17, true);
-  for (const dx of [-0.4, 0.4]) box(set, 0.04, 0.72, 0.26, wood, dx, 0.36, P.far + 0.17, true);
-  picture(set, rnd, 1, 0.7, 0.5, 0, 1.55, P.far + 0.01, 0);
+  box(set, 0.9, 0.04, 0.3, wood, -0.6, 0.74, P.far + 0.17, true);
+  for (const dx of [-0.4, 0.4]) box(set, 0.04, 0.72, 0.26, wood, -0.6 + dx, 0.36, P.far + 0.17, true);
+  picture(set, rnd, 1, 0.6, 0.45, -0.6, 1.55, P.far + 0.01, 0);
   // a little lamp on the console, off (a dark shade)
-  { const base = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.2, 14), std("#8f8a7a", { roughness: 0.4 })); base.position.set(-0.25, 0.86, P.far + 0.17); set.add(base);
-    const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.14, 0.16, 18, 1, true), std("#c9bfa8", { roughness: 0.8, side: THREE.DoubleSide })); shade.position.set(-0.25, 1.03, P.far + 0.17); set.add(shade); }
+  { const base = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.2, 14), std("#8f8a7a", { roughness: 0.4 })); base.position.set(-0.85, 0.86, P.far + 0.17); set.add(base);
+    const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.14, 0.16, 18, 1, true), std("#c9bfa8", { roughness: 0.8, side: THREE.DoubleSide })); shade.position.set(-0.85, 1.03, P.far + 0.17); set.add(shade); }
   // framed family pictures, in clumps, at different heights and sizes (right wall mostly; the left wall past the door)
   const pics = [[1, -0.2, 1.62, 0.42, 0.52, 0], [1, -0.75, 1.75, 0.3, 0.36, 2], [1, -0.9, 1.3, 0.3, 0.26, 1], [1, -2.2, 1.6, 0.56, 0.42, 3],
     [1, -3.3, 1.7, 0.36, 0.46, 4], [1, -3.75, 1.42, 0.3, 0.3, 5], [-1, -3.1, 1.6, 0.48, 0.38, 6], [-1, -4.6, 1.7, 0.34, 0.44, 7], [-1, 0.6, 1.62, 0.5, 0.4, 8], [1, 1.2, 1.55, 0.44, 0.56, 9]];
