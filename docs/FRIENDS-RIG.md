@@ -18,7 +18,7 @@ against the sheets; see "Known gaps" at the end.
 | `engine/page/rigs/friends-designs.js` | Each species' geometry and painted markings (Rusty, Pip, Moss), built once from numbers |
 | `engine/page/rigs/friends-geo.js` | Geometry helpers: implicit blobs (smooth unions of ellipsoids and rounded boxes) meshed by radial projection with vertex colours, tubes with rotation-minimising frames |
 | `engine/page/rigs/friends-anatomy.js` | The anatomy in numbers without THREE, shared by the page and the node tools (hand pose table, eye height, stance) |
-| `storyboards/lookdev/friends/` | Fixtures: `make-friends-tests.mjs` (turnarounds), `make-friends-previews.mjs` (acting, grips, two Rustys, a must-fail) |
+| `storyboards/lookdev/friends/` | Fixtures: `make-friends-tests.mjs` (turnarounds), `make-friends-previews.mjs` (acting, grips, two Rustys; the must-fail fixture goes to `storyboards/regress/regress-friends-fail.json`) |
 | `tools/friends/board.py` | Tiles stills (and a reference sheet) into a comparison board |
 
 ### Why extend the potato's `Character`
@@ -96,7 +96,7 @@ node storyboards/lookdev/friends/make-friends-tests.mjs       # turnarounds (pla
 node storyboards/lookdev/friends/make-friends-previews.mjs    # acting, grips, twins, must-fail
 node engine/render.mjs storyboards/lookdev/friends/friends-turn-rusty.json --stills 0.5,1.5,2.5,3.5,4.5,5.5
 node engine/render.mjs storyboards/lookdev/friends/friends-acting.json --layout   # contact gate
-node engine/render.mjs storyboards/lookdev/friends/friends-fail.json --layout     # must print character-overlap and tail fails
+node qa/regress.mjs friends-fail                              # must fail character-overlap and tail (storyboards/regress/)
 node engine/render.mjs storyboards/lookdev/friends/friends-acting.json --draft
 node qa/motion.mjs storyboards/lookdev/friends/friends-acting.json
 python3 tools/friends/board.py board.png --crop 0.08,0.1,0.92,0.92 --cols 3 out/friends-turn-rusty-anime-pro-t*.png

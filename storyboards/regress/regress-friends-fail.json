@@ -1,5 +1,5 @@
 {
- "id": "friends-fail",
+ "id": "regress-friends-fail",
  "title": "Friends: must fail",
  "idea": "Friends rig preview fixture, not a clip",
  "fps": 30,
@@ -108,5 +108,11 @@
    ]
   }
  ],
- "expect": "fail: character-overlap (rusty / moss merge) and tail (the pin slips)"
+ "expect": {
+  "fail": [
+   "character-overlap",
+   "tail"
+  ]
+ },
+ "reason": "rusty / moss merge, and the tail pin slips"
 }

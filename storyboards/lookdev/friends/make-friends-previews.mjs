@@ -11,7 +11,7 @@
 //   friends-grips    Rusty takes a mug, lifts it and puts it back (grips.mug); Moss lifts a gift box in both hands
 //                    (grips.box); Pip picks a phone up off the table (grips.phone, flat)
 //   friends-twins    two Rustys side by side, wagging out of step (two copies of one design)
-//   friends-fail     must FAIL the contact gate: Rusty and Moss stand inside each other, Rusty's tail is pinned under a
+//   regress-friends-fail (storyboards/regress/) must FAIL the contact gate: Rusty and Moss stand inside each other, Rusty's tail is pinned under a
 //                    paw that is nowhere near it
 import { clip, write } from "../../lib/clip.mjs";
 import * as grips from "../../lib/grips.mjs";
@@ -93,8 +93,9 @@ const who = (id, character, at, o = {}) => ({ id, character: `friends/${characte
   A(0, "rusty", "arm", { side: "R", pose: "up", dur: 0.01 });
   A(0.2, "rusty", "face", { tailPin: 1, dur: 0.2 });   // the right paw is up in the air, far from the tail: the pin can't hold
   const beats = c.beats([["merge", 0, { pos: [0.1, 0.85, 4.2], look: [0.1, 0.68, 0], fov: 32 }]], END);
-  write(new URL("./", import.meta.url), base("friends-fail", "Friends: must fail", { cast, props: [], beats,
-    expect: "fail: character-overlap (rusty / moss merge) and tail (the pin slips)" }));
+  // a regress fixture (qa/regress.mjs judges its expect block on every pull request), so episode preflight skips it
+  write(new URL("../../regress/", import.meta.url), base("regress-friends-fail", "Friends: must fail", { cast, props: [], beats,
+    expect: { fail: ["character-overlap", "tail"] }, reason: "rusty / moss merge, and the tail pin slips" }));
 }
 
 // ---------------------------------------------------------------------------------------------------- faces
