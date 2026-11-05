@@ -648,8 +648,8 @@
      "who": "sam",
      "do": "look",
      "to": [
-      -0.5,
-      -0.4
+      -0.22,
+      -0.18
      ],
      "dur": 0,
      "blink": false,
@@ -658,7 +658,7 @@
     {
      "who": "sam",
      "do": "face",
-     "lid": 0.55,
+     "lid": 0.4,
      "dur": 0,
      "at": 0
     },
@@ -1663,7 +1663,7 @@
     {
      "who": "sam",
      "do": "face",
-     "lid": 0.55,
+     "lid": 0.4,
      "dur": 0.08,
      "at": 3.06
     },
@@ -3640,8 +3640,8 @@
      "who": "sam",
      "do": "look",
      "to": [
-      -0.55,
-      0
+      -0.28,
+      -0.05
      ],
      "dur": 0.12,
      "blink": false,
@@ -3806,6 +3806,23 @@
      "dur": 0.35,
      "ease": "out",
      "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.6
     },
     {
      "sfx": "thud-soft",

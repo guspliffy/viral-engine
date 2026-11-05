@@ -103,7 +103,9 @@ A(0, "sam", "grab", { prop: "longbill", hand: "R", keep: true, dur: 0, pose: nul
 const rd = grips.phone(c, "sam", READER, { side: "L" });
 rd.secure(0, 0.01);
 c.arm(0, "wiz", "L", REST_W, 0); c.arm(0, "rea", "R", REST_R, 0);
-A(0, "sam", "look", { to: [-0.5, -0.4], dur: 0, blink: false }); A(0, "sam", "face", { lid: 0.55, dur: 0 });
+// a deadpan look at the table, not into the eye corner: at [-0.5, -0.4] with lid 0.55 his left pupil slid under the lid
+// and that eye read as a flat line next to a squeezed right eye (Jonny 5 Nov: "the eyes of the waiter are glitchy")
+A(0, "sam", "look", { to: [-0.22, -0.18], dur: 0, blink: false }); A(0, "sam", "face", { lid: 0.4, dur: 0 });
 act.blinksAt(c, "sam", [1.2, 4.6, 6.5]);
 const W_END = [0, 0.003, -0.115], V_END = [0, 0.003, 0.115];   // the bill's two ends (its own frame)
 // the hands are already on their way at frame 0
@@ -175,7 +177,7 @@ A(r3(BOOM + 0.02), "wiz", "charge", { to: 0, dur: 0.25 });
 c.arm(3.05, "wiz", "R", "rest", 0.4, "inOut"); A(3.05, "wiz", "tilt", { to: null, dur: 0.4 });
 for (const [w, d] of [["wiz", 0], ["vik", 0.03], ["phx", 0.05]]) act.shock(c, r3(BOOM + 0.02 + d), w, { open: 0.45, eye: 1.3, hold: 0.25 });
 A(r3(BOOM + 0.05), "rea", "face", { lid: 0.3, dur: 0.1 });
-A(r3(BOOM + 0.05), "sam", "face", { lid: 1, dur: 0.06 }); A(r3(BOOM + 0.16), "sam", "face", { lid: 0.55, dur: 0.08 });   // the waiter blinks once
+A(r3(BOOM + 0.05), "sam", "face", { lid: 1, dur: 0.06 }); A(r3(BOOM + 0.16), "sam", "face", { lid: 0.4, dur: 0.08 });   // the waiter blinks once
 // confetti lands: in the water, on the Wizard's hat, one on Viking's nose; Viking glares at the Wizard
 c.prop(3.3, "glass", { count: 1 }, 0.5);
 c.prop(3.45, "hatfleck", { scale: 1 }, 0.05); c.prop(3.4, "nosefleck", { scale: 1 }, 0.05);
@@ -313,6 +315,8 @@ const E = ending(c, {
     A(U, "vik", "expr", { expr: "delighted", set: { open: 0.25 }, dur: 0.2 });
     A(r3(U + 0.1), "vik", "talk", { line: "dessert?", tone: "calm", dur: 0.4, voice: false });
     c.cap(r3(U + 0.1), r3(U + 0.7), "…dessert?", SUB, false, SUBS);
+    // the finger comes down after the line: held up, it covered the waiter's face through the glare and the cover
+    c.arm(r3(U + 0.85), "vik", "L", "rest", 0.35, "inOut"); A(r3(U + 0.9), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
     // the waiter: the roll is in his apron pocket; up it comes and down on the table it goes
     A(r3(U - 0.25), "sam", "look", { to: [-0.3, -0.1], dur: 0.12, blink: false });
     c.arm(r3(U + 0.0), "sam", "R", { o: [0.15, 0.62, 0.45] }, 0.22, "out");   // a wind-up, then he lobs it over Phoenix's head
@@ -327,7 +331,7 @@ const E = ending(c, {
     c.prop(r3(DROP + 0.26), "longbill", { unroll: 1 }, 0.7, "out");
     sfx(r3(DROP + 0.22), "flutter", { gain: 0.4, reason: "the long bill unrolling across the table and down to the floor" });
     sfx(r3(DROP + 0.62), "thud-soft", { gain: 0.25, reason: "the roll dropping off the table's edge onto the floor" });
-    A(r3(DROP + 0.05), "sam", "look", { to: [-0.55, 0.0], dur: 0.12, blink: false });
+    A(r3(DROP + 0.05), "sam", "look", { to: [-0.28, -0.05], dur: 0.12, blink: false });
   },
   sting: 0.3,
   glareGap: 0.15,
