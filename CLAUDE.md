@@ -45,6 +45,14 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   `node qa/regress.mjs` (about 1.5 minutes, also on every pull request): the fixtures in `storyboards/regress/`
   (walk and stop, turn, blink, pick up and put down, two-hand carry, hug, plus a merging hug, an arm out of the
   chest and an arm pop that must fail) have to be judged as their `expect` block says.
+- **One verdict before a render** (`node qa/preflight.mjs <sb>`, quality plan item 3, 5 Nov 2026): the layout, the
+  contact gate, the drawn rig, the must-see list, the front of the frame, motion, camera, sound on a phone and
+  readability. FAIL blocks the render; WARN means a visible glitch (a hand flip, a skating foot, a slipping prop, a
+  jump, an eye under its lid) is left, and a delivery may carry none of those as a warning: fix it, or name it in an
+  `allowClip` window (`"checks": [...]`) with a reason. Any other warning gets a one-line reason in the delivery. New
+  fails are opt-in with `"gate": 2` (docs/STORYBOARD.md). The subject owns the front: whoever acts is never behind a
+  bystander (Jonny 5 Nov, the tent). Solid is a property, not an opacity: glows are never touchable, glass always is,
+  so never fade a glow to pass a check.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
