@@ -152,6 +152,7 @@ moving at once.
 - **Natural motion is opt-in** (`"motion": "natural"`, movement study 31 Oct 2026, util.js `naturalOf`): what the
   study of Ghibli, sports and everyday movement asks of our round bodies. `"motion": { "arcs": false }` keeps every
   part except the ones set false. Off by default, so old clips render the same. Parts:
+  A `move` takes an optional `y`: the height it ends at, for a walk up or down a sloping floor (friends try to 05).
   `gait`: a `move` (default ease) speeds up over at most 0.28 s, cruises and slows down; each standing foot stays put
   on the floor (the steps are paced by the distance covered, `steps` is the cadence at cruise speed, `stride` fixes the
   step length instead); the body bobs about 2.4 cm (lowest just after each footfall), shifts its weight about 2 cm and

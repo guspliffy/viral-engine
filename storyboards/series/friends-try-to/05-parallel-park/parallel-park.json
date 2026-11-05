@@ -1,0 +1,3858 @@
+{
+ "id": "parallel-park",
+ "title": "My friend group trying to parallel park one car",
+ "idea": "Friends try to, episode 5 (4 Nov 2026): four backseat drivers, a bin, a spell; Reaper parks it in one move; Viking's proud pat rolls it back out",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#f3c99a",
+  "floor": "#6f6669",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "plate": {
+   "src": "assets/plates/street-terrace-evening.png",
+   "z": -4.5,
+   "center": [
+    0.3,
+    7.55
+   ],
+   "height": 15,
+   "relief": 0.3,
+   "dust": 30
+  }
+ },
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#ffcc2e",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0.403,
+      0.415,
+      0.203
+     ],
+     "yaw": -42,
+     "roll": -3.716,
+     "pitch": -3.346,
+     "steer": -20
+    },
+    {
+     "at": 0.12,
+     "pos": [
+      0.523,
+      0.464,
+      0.07
+     ],
+     "yaw": -42,
+     "roll": -6.316,
+     "pitch": -1.146,
+     "steer": -20
+    },
+    {
+     "at": 0.3,
+     "pos": [
+      0.55,
+      0.412,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -4.316,
+     "pitch": -2.946,
+     "steer": -20
+    },
+    {
+     "at": 0.42,
+     "pos": [
+      0.55,
+      0.402,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -3.716,
+     "pitch": -3.346,
+     "steer": -10
+    },
+    {
+     "at": 1.2,
+     "pos": [
+      -0.35,
+      0.481,
+      0.87
+     ],
+     "yaw": -68,
+     "roll": -1.873,
+     "pitch": -4.636,
+     "steer": 15
+    },
+    {
+     "at": 1.55,
+     "pos": [
+      -0.35,
+      0.481,
+      0.87
+     ],
+     "yaw": -68,
+     "roll": -1.873,
+     "pitch": -4.636,
+     "steer": 0
+    },
+    {
+     "at": 2.85,
+     "pos": [
+      0.32,
+      0.422,
+      0.08
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -4.891,
+     "steer": -12
+    },
+    {
+     "at": 2.95,
+     "pos": [
+      0.291,
+      0.425,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -5.691,
+     "steer": 0
+    },
+    {
+     "at": 3.4,
+     "pos": [
+      0.291,
+      0.425,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -4.891,
+     "steer": 0
+    },
+    {
+     "at": 3.62,
+     "pos": [
+      0.291,
+      0.545,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": 0.96,
+     "pitch": -4.891,
+     "steer": 0
+    },
+    {
+     "at": 3.95,
+     "pos": [
+      0.2,
+      1.483,
+      0.52
+     ],
+     "yaw": -55,
+     "roll": 3.132,
+     "pitch": -8.096,
+     "steer": 0
+    },
+    {
+     "at": 4.3,
+     "pos": [
+      0.2,
+      1.383,
+      0.67
+     ],
+     "yaw": -25,
+     "roll": -9.532,
+     "pitch": 2.887,
+     "steer": 0
+    },
+    {
+     "at": 4.6,
+     "pos": [
+      0.15,
+      0.437,
+      0.64
+     ],
+     "yaw": -14,
+     "roll": -3.351,
+     "pitch": -3.71,
+     "steer": 0
+    },
+    {
+     "at": 4.75,
+     "pos": [
+      0.15,
+      0.437,
+      0.64
+     ],
+     "yaw": -14,
+     "roll": -5.651,
+     "pitch": 0.19,
+     "steer": 0
+    },
+    {
+     "at": 4.92,
+     "pos": [
+      0.15,
+      0.437,
+      0.64
+     ],
+     "yaw": -14,
+     "roll": -4.851,
+     "pitch": -1.71,
+     "steer": 0
+    },
+    {
+     "at": 5.06,
+     "pos": [
+      0.15,
+      0.437,
+      0.64
+     ],
+     "yaw": -14,
+     "roll": -4.851,
+     "pitch": -1.21,
+     "steer": 0
+    },
+    {
+     "at": 5.9,
+     "pos": [
+      0.15,
+      0.437,
+      0.64
+     ],
+     "yaw": -14,
+     "roll": -4.851,
+     "pitch": -1.21,
+     "steer": 0
+    },
+    {
+     "at": 6.12,
+     "pos": [
+      -0.55,
+      0.498,
+      1.87
+     ],
+     "yaw": -62,
+     "roll": -2.347,
+     "pitch": -4.415,
+     "steer": 25
+    },
+    {
+     "at": 6.32,
+     "pos": [
+      -1.45,
+      0.577,
+      2.28
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 6.42,
+     "pos": [
+      -1.45,
+      0.577,
+      2.28
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": -28
+    },
+    {
+     "at": 6.62,
+     "pos": [
+      -0.55,
+      0.498,
+      1.17
+     ],
+     "yaw": -64,
+     "roll": -2.192,
+     "pitch": -4.494,
+     "steer": -28
+    },
+    {
+     "at": 6.78,
+     "pos": [
+      -0.06,
+      0.455,
+      0
+     ],
+     "yaw": -86,
+     "roll": -0.349,
+     "pitch": -4.988,
+     "steer": 18
+    },
+    {
+     "at": 6.85,
+     "pos": [
+      0,
+      0.45,
+      -0.08
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 8.32,
+     "pos": [
+      0,
+      0.45,
+      -0.08
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 8.75,
+     "pos": [
+      0.28,
+      0.426,
+      -0.02
+     ],
+     "yaw": -70,
+     "roll": -1.71,
+     "pitch": -4.698,
+     "steer": -20
+    },
+    {
+     "at": 9.1,
+     "pos": [
+      0.537,
+      0.443,
+      0.055
+     ],
+     "yaw": -42,
+     "roll": -5.316,
+     "pitch": -2.146,
+     "steer": -20
+    },
+    {
+     "at": 9.22,
+     "pos": [
+      0.55,
+      0.452,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -5.716,
+     "pitch": -1.746,
+     "steer": -20
+    },
+    {
+     "at": 9.4,
+     "pos": [
+      0.55,
+      0.452,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -5.716,
+     "pitch": -1.746,
+     "steer": -20
+    }
+   ]
+  },
+  {
+   "id": "red",
+   "kind": "hatchback",
+   "color": "#d4473d",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      -4.3,
+      0.826,
+      -0.08000000000000007
+     ],
+     "yaw": -90,
+     "pitch": -5
+    }
+   ]
+  },
+  {
+   "id": "blue",
+   "kind": "hatchback",
+   "color": "#4a7ac4",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      4.3,
+      0.074,
+      -0.08000000000000007
+     ],
+     "yaw": -90,
+     "pitch": -5
+    }
+   ]
+  }
+ ],
+ "music": {
+  "style": "disco",
+  "bpm": 124,
+  "key": -2,
+  "gain": 0.28,
+  "lowCut": 150,
+  "payoff": 7.2,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 8.3,
+    "part": "stop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "concrete",
+  "engine": {
+   "keys": [
+    [
+     0,
+     1400,
+     0.6,
+     0
+    ],
+    [
+     0.4,
+     900,
+     0.2,
+     0
+    ],
+    [
+     1,
+     1500,
+     0.5,
+     0
+    ],
+    [
+     1.6,
+     1100,
+     0.3,
+     0
+    ],
+    [
+     2.9,
+     1200,
+     0.4,
+     0
+    ],
+    [
+     3,
+     800,
+     0.1,
+     0
+    ],
+    [
+     3.3,
+     0,
+     0,
+     0
+    ],
+    [
+     5.85,
+     0,
+     0,
+     0
+    ],
+    [
+     5.9,
+     1300,
+     0.5,
+     0
+    ],
+    [
+     6.85,
+     800,
+     0.1,
+     0
+    ],
+    [
+     7.15,
+     0,
+     0,
+     0
+    ]
+   ],
+   "gain": 0.25
+  }
+ },
+ "hook": {
+  "show": [
+   "wizC",
+   "phxC",
+   "vikC"
+  ],
+  "hint": 0,
+  "what": "the car half in the gap at a bad angle, its tyre bumping the kerb, four friends shouting inside"
+ },
+ "creative": {
+  "length": [
+   9,
+   12
+  ]
+ },
+ "cast": [
+  {
+   "id": "wizC",
+   "character": "lookdev/wizard-crisp-nostaff",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.6
+  },
+  {
+   "id": "wizS",
+   "character": "sofa/wizard-staff",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.6
+  },
+  {
+   "id": "wizB",
+   "character": "lookdev/wizard-crisp-nostaff",
+   "rig": "car",
+   "at": [
+    0.45,
+    -0.95
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.6
+  },
+  {
+   "id": "phxC",
+   "character": "duo/phoenix",
+   "rig": "car",
+   "at": [
+    -0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 1.7,
+   "span": 0
+  },
+  {
+   "id": "vikC",
+   "character": "elevator/viking",
+   "rig": "car",
+   "at": [
+    0.45,
+    -0.95
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 3.3
+  },
+  {
+   "id": "reaC",
+   "character": "notyet/reaper-noscythe",
+   "rig": "car",
+   "at": [
+    -0.45,
+    -0.95
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 4.1
+  },
+  {
+   "id": "reaD",
+   "character": "notyet/reaper-noscythe",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 4.1
+  },
+  {
+   "id": "vik",
+   "character": "elevator/viking",
+   "at": [
+    3.4,
+    2.17
+   ],
+   "y": 0.153,
+   "face": -60,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "vikW",
+   "character": "elevator/viking",
+   "at": [
+    2.1,
+    3.62
+   ],
+   "y": 0.266,
+   "face": 155,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "vikD",
+   "character": "elevator/viking",
+   "at": [
+    2.95,
+    1.17
+   ],
+   "y": 0.192,
+   "face": -15,
+   "expr": "delighted",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp-nostaff",
+   "at": [
+    -0.95,
+    2.92
+   ],
+   "y": 0.533,
+   "face": 12,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 2.6
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0.5,
+    2.4699999999999998
+   ],
+   "y": 0.406,
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 1.7,
+   "span": 0.4
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    1.5,
+    2.92
+   ],
+   "y": 0.319,
+   "face": -12,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "seat-drv",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-pas",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rl",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rr",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.88,
+   "z": 0.63,
+   "tip": 34
+  },
+  {
+   "id": "street",
+   "kind": "street",
+   "x": 0,
+   "z": 4.7,
+   "w": 20,
+   "d": 12,
+   "slope": 5,
+   "lift": 0.45,
+   "seed": 4
+  },
+  {
+   "id": "kerb",
+   "kind": "kerb",
+   "x": 0,
+   "x0": -9,
+   "x1": 9,
+   "z": -1.3,
+   "seed": 5,
+   "slope": 5,
+   "lift": 0.45
+  },
+  {
+   "id": "flagway",
+   "kind": "flagway",
+   "x": 0,
+   "z": -1.55,
+   "w": 20,
+   "d": 3.2,
+   "slope": 5,
+   "lift": 0.45,
+   "seed": 6
+  },
+  {
+   "id": "bin",
+   "kind": "wheeliebin",
+   "x": 1.95,
+   "y": 0.399,
+   "z": -1.72,
+   "rot": -90
+  },
+  {
+   "id": "aura",
+   "kind": "spellaura",
+   "rig": "car",
+   "x": 0,
+   "y": 0.3,
+   "z": 0,
+   "w": 4.2,
+   "d": 2.6,
+   "color": "#b46bff"
+  },
+  {
+   "id": "phoneC",
+   "kind": "phone",
+   "style": "iphone",
+   "rig": "car",
+   "x": -0.86,
+   "y": 1.12,
+   "z": 0.42,
+   "rot": -100,
+   "tip": -10,
+   "scale": 1.6
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.75,
+   "to": 2.4,
+   "text": "Loads of room!",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 3.45,
+   "to": 4.15,
+   "text": "Abra-ca-PARK!",
+   "pos": 330,
+   "pop": false
+  },
+  {
+   "from": 4.75,
+   "to": 5.45,
+   "text": "You said left!",
+   "pos": 330,
+   "pop": false
+  },
+  {
+   "from": 4.98,
+   "to": 5.5,
+   "text": "MY left!",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 8.05,
+   "to": 8.75,
+   "text": "Good car.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 already going wrong",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.3,
+     3.524,
+     8.52
+    ],
+    "look": [
+     0.2,
+     1.633,
+     -0.23
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "who": "wizS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "reaD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vikW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "sit",
+     "seat": "seat-pas",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "vikC",
+     "do": "sit",
+     "seat": "seat-rl",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "sit",
+     "seat": "seat-rr",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "look",
+     "to": [
+      0.35,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "grab",
+     "prop": "phoneC",
+     "hand": "R",
+     "grip": [
+      0.032,
+      0.03,
+      0
+     ],
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.32,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vikC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.25,
+       0.98,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vikC",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vikC",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.12,
+       0.34,
+       0.37
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.12,
+       0.3,
+       0.37
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "face",
+     "lidL": 0.45,
+     "lidR": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "talk",
+     "line": "waah!",
+     "tone": "excited",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.35,
+     "reason": "the back tyre squeaking up the kerb stone",
+     "at": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.774,
+      0.402,
+      -1.031
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.1
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.45,
+     "reason": "the tyre dropping off the kerb",
+     "at": 0.32
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.82,
+      0.398,
+      -1.061
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.32
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper",
+     "at": 0.4
+    },
+    {
+     "who": "vikC",
+     "do": "talk",
+     "line": "go go!",
+     "tone": "excited",
+     "dur": 0.33,
+     "voice": false,
+     "at": 0.45
+    },
+    {
+     "who": "wizC",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "wizC",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.15
+     ],
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "who": "wizC",
+     "do": "talk",
+     "line": "hmpf. again.",
+     "tone": "calm",
+     "dur": 0.5,
+     "voice": false,
+     "at": 0.75
+    },
+    {
+     "who": "vikC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.27,
+       1.04,
+       0.42
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "vikC",
+     "do": "talk",
+     "line": "back! back!",
+     "tone": "excited",
+     "dur": 0.55,
+     "voice": false,
+     "at": 0.8
+    },
+    {
+     "who": "reaC",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.3,
+     "at": 0.9
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 viking guides",
+   "at": 1.5,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     3.15,
+     1.533,
+     6.77
+    ],
+    "look": [
+     3.05,
+     1.183,
+     1.57
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "vikC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.4
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "look",
+     "to": [
+      0.4,
+      0.4
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "komm, komm, komm, loads of room!",
+     "tone": "excited",
+     "dur": 1.1,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.338
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.532
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.682
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.788
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.22,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.868
+    }
+   ]
+  },
+  {
+   "name": "02b mirror",
+   "at": 2.4,
+   "len": 0.42,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.75,
+     1.6,
+     2.7
+    ],
+    "look": [
+     0.52,
+     1.22,
+     0.2
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "wizC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25,
+      "open": 0.15,
+      "curve": -0.4
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "look",
+     "to": [
+      0.1,
+      0.8
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "fx": "pop",
+     "text": "?!",
+     "who": "wizC",
+     "dur": 0.45,
+     "size": 80,
+     "dx": 0.45,
+     "dy": -0.75,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.36
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "02c the bin",
+   "at": 2.82,
+   "len": 0.48,
+   "shot": {
+    "pos": [
+     2.9,
+     1.596,
+     6.52
+    ],
+    "look": [
+     2.1,
+     1.066,
+     -1.28
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "wobble": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "sfx": "pan-bonk",
+     "gain": 0.65,
+     "reason": "the bumper bonks the plastic wheelie bin (Jonny's bonk)",
+     "at": 0.08
+    },
+    {
+     "fx": "pop",
+     "text": "BONK!",
+     "who": "vik",
+     "dur": 0.45,
+     "size": 84,
+     "dx": -1.15,
+     "dy": -0.35,
+     "angle": -8,
+     "at": 0.08
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.95,
+      1.179,
+      -1.72
+     ],
+     "dur": 0.5,
+     "color": "#fff2a8",
+     "puffs": 0,
+     "sparks": 12,
+     "size": 0.4,
+     "lift": 0.3,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "tip": 1
+     },
+     "dur": 0.38,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "komm komm!",
+     "tone": "excited",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.13
+    },
+    {
+     "who": "phxC",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.3
+     ],
+     "dur": 0.15,
+     "at": 0.18
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
+     "who": "reaC",
+     "do": "talk",
+     "line": "*sigh*",
+     "tone": "calm",
+     "dur": 0.4,
+     "voice": false,
+     "at": 0.23
+    },
+    {
+     "who": "reaC",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.35,
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      2.8,
+      2.32
+     ],
+     "y": 0.205,
+     "dur": 0.35,
+     "steps": 2,
+     "ease": "inOut",
+     "at": 0.28
+    }
+   ]
+  },
+  {
+   "name": "03 the spell",
+   "at": 3.3,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     3.45,
+     1.103,
+     5.12
+    ],
+    "look": [
+     1.1,
+     1.854,
+     0.42
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.4,
+     "reason": "the bin lands on its side on the pavement",
+     "at": 0
+    },
+    {
+     "who": "wizC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wizS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wizS",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wizS",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      2.45,
+      0.05,
+      -1.72
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.35,
+     "lift": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "wizS",
+     "do": "lean",
+     "to": -16,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wizS",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.55,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wizS",
+     "do": "talk",
+     "line": "ab-ra-ca-park!",
+     "tone": "excited",
+     "dur": 0.6,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "who": "wizS",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "aura",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.55,
+     "reason": "the spell swirls up round the car",
+     "at": 0.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.281,
+      1.353,
+      0.168
+     ],
+     "dur": 0.5,
+     "color": "#c58bff",
+     "puffs": 6,
+     "sparks": 14,
+     "size": 0.7,
+     "lift": 0.7,
+     "at": 0.3
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.3,
+     "dur": 0.8,
+     "reason": "the car lifting off its springs",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.3,
+      "open": 0.8
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "reaC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.15
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.246,
+      2.288,
+      0.416
+     ],
+     "dur": 0.5,
+     "color": "#c58bff",
+     "puffs": 6,
+     "sparks": 14,
+     "size": 0.7,
+     "lift": 0.7,
+     "at": 0.5
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.245,
+      2.761,
+      0.601
+     ],
+     "dur": 0.5,
+     "color": "#c58bff",
+     "puffs": 6,
+     "sparks": 14,
+     "size": 0.7,
+     "lift": 0.7,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "aura",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "wizS",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "wizS",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15,
+     "at": 1.2
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "04 dropped across",
+   "at": 4.55,
+   "len": 0.95,
+   "shot": {
+    "pos": [
+     0.16,
+     1.94,
+     5.63
+    ],
+    "look": [
+     0.16,
+     1.59,
+     0.83
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.035,
+     "at": 0.05
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "at": 0.05
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.15,
+      0.04,
+      0.94
+     ],
+     "dur": 0.6,
+     "color": "#d8cdbd",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.08,
+     "at": 0.05
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.3,
+     "dur": 0.45,
+     "reason": "the car bouncing on its springs after the drop",
+     "at": 0.07
+    },
+    {
+     "who": "phxC",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "reaC",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "wizS",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "wizS",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "phxC",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "reaC",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.3
+     },
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "wizS",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 1.1
+     },
+     "dur": 0.2,
+     "at": 0.27
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.27
+    },
+    {
+     "who": "wizS",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.32,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "wizS",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "phxC",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.32,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "phxC",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "reaC",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "wizS",
+     "do": "talk",
+     "line": "you said left!",
+     "tone": "excited",
+     "dur": 0.55,
+     "voice": false,
+     "at": 0.35
+    },
+    {
+     "who": "phxC",
+     "do": "talk",
+     "line": "MY left!",
+     "tone": "excited",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0.45
+    },
+    {
+     "who": "reaD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.32,
+       0.86,
+       0.48
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.92
+    },
+    {
+     "who": "reaD",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 0.92
+    },
+    {
+     "who": "reaD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 0.92
+    },
+    {
+     "who": "reaD",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0.92
+    }
+   ]
+  },
+  {
+   "name": "05 reaper sets the mirror",
+   "at": 5.5,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     0.499,
+     2.311,
+     4.224
+    ],
+    "look": [
+     0.649,
+     1.511,
+     0.824
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "wizS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "reaC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "reaD",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "reaD",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "sit",
+     "seat": "seat-rl",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.1
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.2
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "reaD",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vikW",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 0.2,
+     "reason": "the mirror clicking into place",
+     "at": 0.1
+    },
+    {
+     "who": "reaD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.84,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "reaD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "reaD",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "05b one smooth reverse",
+   "at": 5.9,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0,
+     3.05,
+     11.42
+    ],
+    "look": [
+     0,
+     1.55,
+     -0.08000000000000007
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "who": "reaD",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "reaD",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.18,
+     "reason": "the reverse beeper",
+     "at": 0.42
+    },
+    {
+     "who": "reaD",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.15,
+     "at": 0.48
+    },
+    {
+     "who": "reaD",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.25,
+     "reason": "the tyre kissing the kerb, softly",
+     "at": 0.95
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.973,
+      0.385,
+      -0.58
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.95
+    },
+    {
+     "who": "vikW",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.85
+     },
+     "dur": 0.12,
+     "at": 1
+    },
+    {
+     "who": "phxC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.85
+     },
+     "dur": 0.12,
+     "at": 1.02
+    },
+    {
+     "who": "wizB",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.85
+     },
+     "dur": 0.12,
+     "at": 1.02
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "06 we did it",
+   "at": 7.2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     1.15,
+     1.899,
+     10.82
+    ],
+    "look": [
+     1.15,
+     1.349,
+     2.22
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "reaD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wizB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phxC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "vikW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phoneC",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 0.15
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 0.15
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 0.15
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.8
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.25,
+     "reason": "the big major chord as they cheer",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vikD",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "YEAHH!",
+     "tone": "excited",
+     "dur": 0.5,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "vikD",
+     "do": "talk",
+     "line": "WOOO!",
+     "tone": "excited",
+     "dur": 0.5,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "who": "vikD",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
+     "who": "vikD",
+     "do": "move",
+     "to": [
+      2.2,
+      0.7699999999999999
+     ],
+     "y": 0.258,
+     "dur": 0.42,
+     "steps": 2,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "vikD",
+     "do": "turn",
+     "to": -84,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "07 the tiny undo",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.25,
+     5.141,
+     11.72
+    ],
+    "look": [
+     1.1,
+     1.104,
+     0.72
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      1.4,
+      3.928,
+      10.32
+     ],
+     "look": [
+      1.2,
+      1.095,
+      0.62
+     ],
+     "fov": 58
+    },
+    "dur": 2,
+    "ease": "in"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.7,
+      "eye": 0.55
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vikD",
+     "do": "talk",
+     "line": "gud car.",
+     "tone": "calm",
+     "dur": 0.45,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.4
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "dö-döm",
+     "gain": 0.6,
+     "reason": "the series sound logo on the undo",
+     "at": 0.15
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.45
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.64,
+       0.42
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "sfx": "knock-tap",
+     "gain": 0.35,
+     "reason": "the pat on the car's door",
+     "at": 0.27
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the car creaks as it starts to roll",
+     "at": 0.36
+    },
+    {
+     "who": "vikD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.66,
+       0.24
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "vikD",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0.12,
+     "at": 0.38
+    },
+    {
+     "sfx": "tyres",
+     "gain": 0.2,
+     "dur": 0.75,
+     "reason": "tyres slowly rolling back over the cobbles",
+     "at": 0.4
+    },
+    {
+     "who": "vikD",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "vikD",
+     "do": "move",
+     "to": [
+      2.85,
+      1.22
+     ],
+     "y": 0.201,
+     "dur": 0.35,
+     "steps": 2,
+     "ease": "out",
+     "at": 0.5
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "08 the glare",
+   "at": 9,
+   "len": 1,
+   "do": [
+    {
+     "who": "vikD",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.803,
+      0.4,
+      -1.054
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.1
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "reason": "the back tyre bumping up onto the kerb",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8999999999999999,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "vikD",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "vikD",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "vikD",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.05
+     ],
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.8999999999999999,
+     "idle": 0.06,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.8999999999999999,
+     "idle": 0.06,
+     "at": 0.25
+    },
+    {
+     "who": "vikD",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.2,
+     "at": 0.3
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "wizC.face",
+    "phxC.face",
+    "vikC.face"
+   ],
+   "why": "frame 0: the car half in the gap at a bad angle, the four inside"
+  },
+  {
+   "from": 1.6,
+   "to": 2.4,
+   "see": [
+    "vik.face"
+   ],
+   "why": "Viking waving the car back: come, come"
+  },
+  {
+   "from": 2.5,
+   "to": 2.8,
+   "see": [
+    "wizC.face"
+   ],
+   "why": "the mirror: Wizard's worried eyes"
+  },
+  {
+   "from": 2.85,
+   "to": 3.3,
+   "see": [
+    "bin"
+   ],
+   "why": "the bumper nudges the bin over, Viking keeps waving"
+  },
+  {
+   "from": 3.6,
+   "to": 4.4,
+   "see": [
+    "wizS.face",
+    "vik"
+   ],
+   "why": "the car lifting in the purple swirl, Wizard's staff out of the window"
+  },
+  {
+   "from": 4.75,
+   "to": 5.45,
+   "see": [
+    "wizS.face",
+    "phxC.face"
+   ],
+   "why": "dropped across the gap, Wizard and Phoenix point at each other"
+  },
+  {
+   "from": 5.5,
+   "to": 5.85,
+   "see": [
+    "reaD.face"
+   ],
+   "why": "Reaper calmly sets the mirror"
+  },
+  {
+   "from": 6.3,
+   "to": 6.85,
+   "see": [
+    "reaD",
+    "wizB"
+   ],
+   "why": "one smooth reverse into the gap"
+  },
+  {
+   "from": 6.9,
+   "to": 7.15,
+   "see": [
+    "phxC.face",
+    "wizB.face"
+   ],
+   "why": "jaws drop"
+  },
+  {
+   "from": 7.25,
+   "to": 7.95,
+   "see": [
+    "wiz.face",
+    "phx.face",
+    "rea.face",
+    "vikD.face"
+   ],
+   "why": "all four cheer in front of the perfectly parked car"
+  },
+  {
+   "from": 8.05,
+   "to": 8.4,
+   "see": [
+    "vikD.face"
+   ],
+   "why": "Viking's proud pat on the car"
+  },
+  {
+   "from": 8.4,
+   "to": 9,
+   "see": [
+    "vikD"
+   ],
+   "why": "the car rolls back out of the gap"
+  },
+  {
+   "from": 9.4,
+   "to": 9.95,
+   "see": [
+    "wiz.face",
+    "phx.face",
+    "rea.face",
+    "vikD.face"
+   ],
+   "why": "three glares at Viking, the car back at its frame-0 angle"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 4.6,
+   "frames": 3
+  },
+  {
+   "at": 6.867,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wizS",
+   "with": "phxC",
+   "from": 3.55,
+   "to": 3.95,
+   "reason": "the Wizard's staff arm sweeps out of the window past Phoenix as he casts; the beat is the spell, Phoenix is a passenger in it"
+  },
+  {
+   "who": "phxC",
+   "with": "reaC",
+   "from": 4.9,
+   "to": 5.6,
+   "reason": "Phoenix leans in pointing at the Wizard; the blame is theirs, Reaper's sigh in the back reads at 5.5"
+  },
+  {
+   "who": "wizS",
+   "with": "reaC",
+   "from": 4,
+   "to": 4.6,
+   "reason": "Reaper's shock in the back seat sits behind the Wizard leaning out with the staff: the spell is the moment, Reaper's face is back at 4.8"
+  },
+  {
+   "who": "wizS",
+   "with": "aura",
+   "from": 3.3,
+   "to": 4.7,
+   "reason": "the spell's rings swirl round the car they sit in (light, not a solid)"
+  },
+  {
+   "who": "phxC",
+   "with": "aura",
+   "from": 3.3,
+   "to": 4.7,
+   "reason": "the spell's rings swirl round the car they sit in (light, not a solid)"
+  },
+  {
+   "who": "reaC",
+   "with": "aura",
+   "from": 3.3,
+   "to": 4.7,
+   "reason": "the spell's rings swirl round the car they sit in (light, not a solid)"
+  },
+  {
+   "who": "wizC",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "wizS",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "reaD",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "phxC",
+   "with": "seat-pas",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "vikC",
+   "with": "seat-rl",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "wizB",
+   "with": "seat-rl",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "reaC",
+   "with": "seat-rr",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "reaC",
+   "with": "seat-pas",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  },
+  {
+   "who": "vikC",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 7.45,
+   "reason": "sitting in the car: the hat or hood brushes the headrest, the knees touch the seat in front (a small car with four in it)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/friends-try-to/05-parallel-park/make-parallel-park.mjs."
+}

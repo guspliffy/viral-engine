@@ -1,0 +1,32 @@
+{
+ "name": "backyard-stargazing",
+ "prompt": "anime film background painting, gouache, night, low ground level view, wide empty flat green lawn fills the bottom half, low wooden garden fence across the middle, small apple tree and small shed at the sides, tiny distant rooftops, vast deep blue starry sky with milky way fills the top half",
+ "no": "moon, house close up, porch, door, path, road, stones, pavement, lamp post, people, animal, potato, chair, table, ufo, spaceship",
+ "seeds": [
+  19
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.5,
+   9.2
+  ]
+ },
+ "light": {
+  "from": "left, high: cool moonlight",
+  "key": [
+   -4.0,
+   5.0,
+   1.0
+  ],
+  "shadow": 0.35
+ },
+ "swayMax": 20,
+ "surface": "grass"
+}

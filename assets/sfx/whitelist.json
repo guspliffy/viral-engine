@@ -97,6 +97,8 @@
 
   "puncture": { "family": "food", "says": "a tiny dry card pop with a soft thock (a fang or straw through a carton), from its code" },
   "squirt": { "family": "wet", "says": "a wet, hissy jet whose pitch drops as the pressure goes, with bubbly flutter (a squeezed carton), from its code", "words": ["spritz"] },
+  "slap": { "family": "hit", "says": "a sharp mid-bright crack (centroid about 2.9 kHz) with a short woody knock under it, 0.24 s, little bass (a flat hand slapping a banknote down on a wooden counter; code-made)", "words": ["slap", "klatsch", "smack"] },
+  "recordscratch": { "family": "music", "says": "a vinyl record scratch: a buzzy rubbing tone dragged back and forth, four quick rubs gliding about 510-840 Hz, 0.45 s (the music stopping dead; code-made)", "words": ["record scratch"] },
   "splort": { "family": "wet", "says": "a soft wet slap, a squelch sinking in pitch, then a few drips (juice landing on a face), from its code", "words": ["splat", "squelch", "splurt", "goo"] },
 
   "sig-phoenix": { "family": "signature", "says": "Phoenix's flame whoosh: air rushing in, a low 'fwoomp' and roar, embers crackling, a short bird cry, 1.3 s" },
