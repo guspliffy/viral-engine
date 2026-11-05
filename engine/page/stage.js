@@ -1541,7 +1541,63 @@ function inProps(live, shownIn) {
     });
     thin.push({ who: a.c.id, hand: p.holdHand, prop: p.spec.id, show: rd(Math.min(s0, s1)), out: rd(Math.min(f0 - lo, hi - f1)), len: rd(hi - lo) });
   }
+  limbsIn(out, solids, keep);
   return { inProps: out, thin, gaps };
+}
+
+// A prop's own limbs (a moth's wings and antennae: userData.limb on the mesh, its name) against every other prop and
+// the set's own solids (walls, a window frame, furniture built into the set). A wing never cuts into a surface (Mott,
+// Jonny 5 Nov 2026: the folded wings went into the pillow, the wall and the nightstand, and no check saw it). Each limb
+// is sampled over its whole face (a post through the middle of a wing misses every corner), about every 2 cm. Rows go
+// into inProps as part "limb" (qa/check.mjs limb-in-surface): who is the prop, prop what it went into.
+const LIMB = new WeakMap();
+function limbPoints(g) {
+  if (LIMB.has(g)) return LIMB.get(g);
+  const T = solidOf(g).tri, pts = [];
+  for (let i = 0; i < T.length; i += 9) {
+    const a = [T[i], T[i + 1], T[i + 2]], b = [T[i + 3], T[i + 4], T[i + 5]], c = [T[i + 6], T[i + 7], T[i + 8]];
+    const e = Math.max(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]), Math.hypot(b[0] - c[0], b[1] - c[1], b[2] - c[2]), Math.hypot(a[0] - c[0], a[1] - c[1], a[2] - c[2]));
+    const n = Math.min(40, Math.max(1, Math.ceil(e / 0.02)));
+    for (let u = 0; u <= n; u++) for (let v = 0; u + v <= n; v++) { const w = n - u - v; for (let k = 0; k < 3; k++) pts.push((a[k] * u + b[k] * v + c[k] * w) / n); }
+  }
+  const out = new Float32Array(pts); LIMB.set(g, out); return out;
+}
+function limbsIn(out, solids, keep) {
+  const rd = (x) => Math.round(x * 1000) / 1000;
+  const limbs = [];
+  for (const p of props) { if (p.root.visible) p.root.traverseVisible((o) => { if (o.isMesh && o.userData.limb) limbs.push({ p, o }); }); }
+  if (!limbs.length) return;
+  const others = solids.slice(), sc = new THREE.Vector3();
+  for (const top of setObjs) {
+    if (!top.visible) continue;
+    top.updateMatrixWorld(true);
+    top.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry?.attributes?.position || o.isSprite || o.isInstancedMesh) return;
+      const mt = Array.isArray(o.material) ? o.material[0] : o.material, k = solidMark(o);
+      if (k === false || (k == null && mt && mt.transparent && mt.opacity < 0.5)) return;
+      // a room seen from inside (its walls drawn on the back side) is a skin to stay off, not a solid to be outside of
+      let S = solidOf(o.geometry); if (mt?.side === THREE.BackSide && S.closed) S = { ...S, closed: false };
+      o.getWorldScale(sc);
+      others.push({ p: null, id: `set:${o.name || o.geometry.type}`, o, S, inv: o.matrixWorld.clone().invert(), k: Math.cbrt(Math.abs(sc.x * sc.y * sc.z)), wb: S.bb.clone().applyMatrix4(o.matrixWorld) });
+    });
+  }
+  const w = new THREE.Vector3(), lp = new THREE.Vector3(), best = new Map();
+  for (const { p, o } of limbs) {
+    o.updateMatrixWorld(true);
+    const P = limbPoints(o.geometry), box = new THREE.Box3().setFromBufferAttribute(o.geometry.attributes.position).applyMatrix4(o.matrixWorld).expandByScalar(0.01);
+    for (const m of others) {
+      if (m.p === p || !box.intersectsBox(m.wb)) continue;
+      const mb = m.wb.clone().expandByScalar(0.01);
+      for (let i = 0; i < P.length; i += 3) {
+        w.set(P[i], P[i + 1], P[i + 2]).applyMatrix4(o.matrixWorld);
+        if (!mb.containsPoint(w)) continue;
+        const key = `${p.spec.id}|${o.userData.limb}|${m.id}`, x = pastSurface(m, w, 0.002, lp), was = best.get(key)?.depth ?? 0;
+        keep(best, key, x, { who: p.spec.id, part: "limb", what: o.userData.limb, prop: m.id });
+        if (x && x.depth > was && best.has(key)) best.get(key).at = [rd(w.x), rd(w.y), rd(w.z)];   // the deepest point, world
+      }
+    }
+  }
+  for (const b of best.values()) out.push(b);
 }
 
 // faces: how much of each face's eyes is hidden from the camera by anything other than hands and held props (they have
