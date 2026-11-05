@@ -31,24 +31,24 @@ const deg = (r) => (r * 180) / Math.PI;
 const BENCH = { x: -0.55, z: 2.4, rot: 15, scale: 1.3 };       // 1.56 m long (along -0.78..0.78), back at fwd -0.31
 const HEDGE = { x: 1.4, z: 0.35, w: 1.3, h: 0.82, d: 0.55 };   // x 0.75..2.05, z 0.08..0.63
 const BIN = { x: 2.3, z: 1.0 };
-const LAMP = { x: -1.9, z: -1.2 };
+const LAMP = { x: -2.2, z: -1.5 };
 const SH = { x: -2.7, z: 0.5, rot: 20 };                        // the shelter, back at the left edge (its right posts x < -1.2)
 const at = (b, along, fwd = 0) => { const y = rad(b.rot); return [r3(b.x + Math.cos(y) * along + Math.sin(y) * fwd), r3(b.z - Math.sin(y) * along + Math.cos(y) * fwd)]; };
 const PHX = at(BENCH, -0.38);
 const ZV_SEAT = 0.42;                                         // where zombie Viking sits (along the bench)
 // behind the hedge (the far side): crouched so only the eyes and hat clear it; their gloves rest on the hedge top
-const WIZ_HIDE = [1.1, -0.45], REA_HIDE = [1.95, -0.95];       // a crouch spreads the gloves 0.45 m: Reaper half a step further back
-const WIZ0 = [0.25, -0.45], REA0 = [1.05, -0.8];            // already right of the horde's lane          // frame 0: already sprinting right, behind the hedge line
+const WIZ_HIDE = [1.1, -0.55], REA_HIDE = [2.05, -1.1];       // a crouch spreads the gloves 0.45 m: Reaper half a step further back
+const WIZ0 = [0.25, -0.55], REA0 = [1.05, -0.85];           // frame 0: already sprinting right, behind the hedge line, right of the horde's lane
 // the horde at frame 0: strung out down the lane, Viking in front, each 0.9 m+ from the next
-const H0 = { vik: [-0.7, -2.2], gun: [0.0, -3.0], sor: [0.05, -4.4], sam: [-0.45, -5.3], dra: [-0.95, -3.4] };   // Viking clear of the Wizard on screen at frame 0
+const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [-0.25, -5.3], dra: [-1.15, -3.4] };   // Viking clear of the Wizard on screen at frame 0
 // where they end up (5.0-7.0), round the bench, bowed over cupped mittens: Viking sits beside him, Dragon and
 // Sorcerer stand behind the bench's back, Gunslinger at its right end, Samurai behind him to the right
-const H1 = { dra: at(BENCH, 0.02, -0.95), sam: at(BENCH, 1.15, -0.95), gun: at(BENCH, 1.6, 0.25), sor: [1.3, 1.05] };
+const H1 = { dra: at(BENCH, -0.2, -0.95), sam: at(BENCH, 1.15, -0.95), gun: at(BENCH, 1.6, 0.25), sor: [1.4, 1.15] };
 const PATH = {
   gun: [H0.gun, [-0.05, 0.7], [0.75, 1.6], H1.gun],
-  sor: [H0.sor, [0.0, 0.2], [0.35, 0.97], H1.sor],          // first down the middle lane, then right in front of the hedge
-  sam: [H0.sam, [0.0, 0.0], H1.sam],                      // 1.2 m behind Sorcerer on the same lane, to the spot it passed
-  dra: [H0.dra, [-0.85, 0.3], H1.dra],
+  sor: [H0.sor, [0.0, 0.2], [0.35, 1.02], H1.sor],          // first down the middle lane, then right in front of the hedge
+  sam: [H0.sam, [0.1, 0.0], H1.sam],                      // 1.2 m behind Sorcerer on the same lane, to the spot it passed
+  dra: [H0.dra, [-1.05, 0.3], H1.dra],
 };
 const VIK_FRONT = at(BENCH, 0.55, 0.92);                       // he stops at the bench's free end, over Phoenix (3.2-5.0)
 
@@ -63,11 +63,11 @@ const cast = [
   { id: "phx", character: "duo/phoenix", at: PHX, face: BENCH.rot, expr: "kind", follow: 0.3, seed: 1.7, span: 0, arms: { R: PHONE_R, L: PHONE_L }, grip: { R: "hold", L: "hold" } },
   { id: "wiz", character: "notyet/wizard-nostaff", at: WIZ0, face: 85, expr: "kind", follow: 0.4, seed: 2.6 },
   { id: "rea", character: "notyet/reaper-noscythe", at: REA0, face: 88, expr: "kind", follow: 0.3, seed: 3.1 },
-  { id: "vik", character: "zombie/viking-zombie", at: H0.vik, face: 0, expr: "kind", follow: 0.2, seed: 5.1 },
-  { id: "sam", character: "zombie/samurai-zombie", at: H0.sam, face: 8, expr: "kind", follow: 0.2, seed: 5.7 },
-  { id: "gun", character: "zombie/gunslinger-zombie", at: H0.gun, face: -10, expr: "kind", follow: 0.2, seed: 6.3 },
-  { id: "dra", character: "zombie/dragon-zombie", at: H0.dra, face: 4, expr: "kind", follow: 0.2, seed: 6.9 },
-  { id: "sor", character: "zombie/sorcerer-zombie", at: H0.sor, face: -6, expr: "kind", follow: 0.2, seed: 7.4 },
+  { id: "vik", character: "zombie/viking-zombie", at: H0.vik, face: 0, expr: "deadpan", follow: 0.2, seed: 5.1 },
+  { id: "sam", character: "zombie/samurai-zombie", at: H0.sam, face: 8, expr: "deadpan", follow: 0.2, seed: 5.7 },
+  { id: "gun", character: "zombie/gunslinger-zombie", at: H0.gun, face: -10, expr: "deadpan", follow: 0.2, seed: 6.3 },
+  { id: "dra", character: "zombie/dragon-zombie", at: H0.dra, face: 4, expr: "deadpan", follow: 0.2, seed: 6.9 },
+  { id: "sor", character: "zombie/sorcerer-zombie", at: H0.sor, face: -6, expr: "deadpan", follow: 0.2, seed: 7.4 },
 ];
 const props = [
   { id: "shelter", kind: "busshelter", x: SH.x, z: SH.z, rot: SH.rot, w: 1.8, d: 0.85, h: 2.1, flicker: true },
@@ -93,7 +93,6 @@ prop(0, "phone", { glow: 0.85 }, 0.01);
 // ---------------------------------------------------------------- the horde: tired zombies, arms forward, a slow shuffle
 for (const z of Z) {
   A(0, z, "face", { lid: 0.55, dur: 0 });
-  A(0, z, "expr", { expr: "kind", set: { curve: 0, eye: 0.9, open: 0.12 }, dur: 0.01 });
   c.arm(0, z, "R", ARMS_OUT, 0); c.arm(0, z, "L", ARMS_OUT, 0);
   A(0, z, "look", { to: [0, -0.1], dur: 0, blink: false });
 }
@@ -122,8 +121,8 @@ const runTo = (who, t0, dur, p0, ctl, p1) => {
   for (let i = 0; i <= n; i++) { const u = i / n, a = (1 - u) ** 2, b = 2 * u * (1 - u), d = u * u; pts.push([r3(u * dur), r3(a * p0[0] + b * ctl[0] + d * p1[0]), r3(a * p0[1] + b * ctl[1] + d * p1[1])]); }
   A(t0, who, "run", { pts, dur, rate: [[0, 4.0], [dur * 0.7, 4.0], [dur, 2.6]], stride: 1.6 });
 };
-runTo("wiz", 0, 0.82, WIZ0, [0.62, -0.45], WIZ_HIDE);      // along behind the hedge
-runTo("rea", 0, 0.86, REA0, [1.4, -0.88], REA_HIDE);         // ahead of him, to the far spot
+runTo("wiz", 0, 0.82, WIZ0, [0.62, -0.6], WIZ_HIDE);      // along behind the hedge
+runTo("rea", 0, 0.86, REA0, [1.5, -0.98], REA_HIDE);         // ahead of him, to the far spot
 A(0, "wiz", "look", { to: [-0.2, 0.3], dur: 0, blink: false });
 act.shock(c, 0.02, "wiz", { open: 0.45, hold: 0.8 });
 A(0.05, "wiz", "talk", { line: "zom-bies!", dur: 0.5, tone: "excited", voice: false });
@@ -141,9 +140,9 @@ see(0, 1.5, ["phx.face", "wiz.face", "vik", "phone", "hedge"], "P1: the horde co
 
 // ---------------------------------------------------------------- 2 HIDE 1.5-3.2 (P2)
 A(1.5, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
-c.arm(1.6, "wiz", "R", { o: [0.15, 0.85, 0.2] }, 0.15, "out");           // waving him over, the arm up over the hedge
-c.arm(1.78, "wiz", "R", { o: [0.3, 0.7, 0.25] }, 0.12); c.arm(1.92, "wiz", "R", { o: [0.15, 0.85, 0.2] }, 0.12);
-c.arm(2.06, "wiz", "R", { o: [0.3, 0.7, 0.25] }, 0.12); c.arm(2.3, "wiz", "R", TUCK_R, 0.2);
+c.arm(1.6, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.15, "out");           // waving him over, the arm up over the hedge
+c.arm(1.78, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(1.92, "wiz", "R", { o: [0.05, 0.85, 0.2] }, 0.12);
+c.arm(2.06, "wiz", "R", { o: [0.15, 0.7, 0.25] }, 0.12); c.arm(2.3, "wiz", "R", TUCK_R, 0.2);
 A(1.62, "wiz", "talk", { line: "psst! psst!", dur: 0.55, tone: "excited", voice: false });
 c.cap(1.62, 2.3, "psst! OVER HERE!", CAP_Y);
 // Reaper glares at him and shushes
@@ -241,7 +240,7 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
 const SHOTS = JSON.parse(process.env.SHOTS ?? "null") ?? {
   WIDE: [[0.15, 1.7, 7.8], { tilt: -5, fov: 46 }],
   ONE: [[-0.5, 1.35, 6.8], { tilt: -4, fov: 38 }],
-  CLUB: [[-0.2, 1.6, 7.4], { tilt: -5, fov: 44 }],
+  CLUB: [[-0.1, 1.6, 7.4], { tilt: -5, fov: 48 }],
   PEAK: [[-0.45, 1.3, 5.8], { tilt: -5, fov: 34 }],
   LOOKUP: [[-0.5, 1.25, 5.2], { tilt: -5, fov: 30 }],
   BACK: [[-0.1, 1.6, 7.2], { tilt: -5, fov: 46 }],

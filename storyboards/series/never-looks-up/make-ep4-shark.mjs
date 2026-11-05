@@ -172,10 +172,12 @@ A(3.42, "wiz", "grab", { prop: "mega", hand: "R", grip: [0, 0, 0], pose: { o: [0
 A(3.5, "rea", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
 act.mood(c, 3.55, "rea", "annoyed", { hold: 0.35 });
 A(3.7, "wiz", "look", { to: [-0.6, -0.6], dur: 0.12, blink: false });
+A(3.5, "wiz", "expr", { expr: "angry", set: { open: 0.9 }, dur: 0.08 }); A(3.5, "wiz", "face", { lid: 0.45, brow: 0.5, dur: 0.08 });   // a real yell, eyes squeezed
 A(3.55, "wiz", "talk", { line: "loook uuup!", dur: 0.35, tone: "excited", voice: false });
 c.cap(3.55, 4.3, "LOOK UP!!", 330);   // above the tower: the faces sit where the other captions go
 sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals" });
 c.hitStop(3.9, 3);
+c.textPop(3.9, "wiz", "SKREEE!", { xy: [300, 1010], dur: 0.5, color: "#ff5a3c", angle: -10, size: 100 });   // the squeal, under the bell, clear of the faces (reads on mute)
 act.shock(c, 3.92, "wiz", { open: 0.45, hold: 0.5 }); act.shock(c, 3.92, "rea", { open: 0.2, hold: 0.5 });
 A(3.92, "wiz", "squash", { amount: 0.16, dur: 0.15 }); A(3.92, "rea", "squash", { amount: 0.1, dur: 0.15 });
 // Phoenix lifts his dangling feet onto the ring just as the fin passes under them, without looking
@@ -190,7 +192,7 @@ sfx(T_POP + 0.08, "deflate", { gain: 0.6 });
 prop(T_POP, "ring", { pop: 1 }, 0.45, "out");
 prop(T_POP, "pop", { puff: 1 }, 0.5, "linear");
 prop(T_POP, "ringfoam", { on: 0 }, 0.4);
-prop(T_POP + 0.4, "ring", { x: -1.1, z: 2.85, rot: -40, bob: 0.3 }, 1.0, "out");      // skitters away on its last air
+prop(T_POP + 0.4, "ring", { x: -0.45, z: 3.45, rot: -40, bob: 0.3 }, 1.0, "out");     // skitters toward us on its last air: the flat ring stays in shot
 c.at(T_POP, { fx: "shake", amp: 0.02, dur: 0.25 });
 A(T_POP + 0.06, "phx", "drop", { to: SEAT - 0.04, dur: 0.06 });
 A(T_POP + 0.1, "phx", "span", { to: 0.6, dur: 0.12, ease: "out" });
@@ -227,11 +229,11 @@ prop(7.15, "shark", { mouth: 0.2 }, 0.1); prop(7.55, "shark", { mouth: 0.8 }, 0.
 see(7.05, 8.0, ["phx.face", "shark", "phone", "wiz.face", "rea.face"], "P6: the hopeful shark under the phone, the friends frozen on the tower");
 
 // ---------------------------------------------------------------- 7 LOOK-UP 8.0-9.0 (P7, the series ending)
-A(8.05, "phx", "look", { to: [0.75, -0.45], dur: 0.12, blink: false });   // eyes over to the shark
+A(8.05, "phx", "look", { to: [0.6, -0.8], dur: 0.12, blink: false });     // eyes down-right, onto the shark's face
 A(8.05, "phx", "face", { lid: 0.2, dur: 0.12 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.textPop(8.5, "phx", "huh.", { xy: [190, 880], dur: 0.55, color: "#ffffff", size: 110, angle: -4 });   // beside his head: every band of this frame holds a face
+c.textPop(8.5, "phx", "huh.", { xy: [190, 880], dur: 0.45, color: "#ffffff", size: 110, angle: -4 });   // beside his head: every band of this frame holds a face
 prop(8.05, "shark", { wag: 1.4, hope: 1, lookY: 0.6, lookX: -0.8 }, 0.15);
 see(8.1, 8.95, ["phx.face", "shark"], "P7: Phoenix looks at the shark: huh.");
 
@@ -247,7 +249,7 @@ prop(9.2, "shark", { hope: 0, sad: 1, mouth: 0, wag: 0, lookY: -0.4, lookX: -0.3
 prop(9.45, "shark", { y: -0.1, tip: 0, wilt: 1 }, 0.5, "inOut");    // down until only its sad eyes clear the water: the last image (panel 08)
 prop(9.45, "bubbles", { on: 1 }, 0.2);
 sfx(9.45, "bubbling", { gain: 0.35, dur: 0.55, reason: "sad bubbles as the shark sinks" });
-prop(9.0, "ring", { x: -0.75, z: 3.3, rot: -10 }, 1.0, "linear");          // the flat ring drifts past
+prop(9.0, "ring", { x: -0.6, z: 3.55, rot: -10 }, 1.0, "linear");          // the flat ring drifts past
 // the friends give up (panel 08): the Wizard droops, Reaper's eyes slide to him, deadpan
 act.mood(c, 9.3, "wiz", "sad", { hold: 0.7 }); A(9.3, "wiz", "pitch", { to: 8, dur: 0.3 });
 A(9.3, "rea", "look", { to: [-0.8, 0.0], dur: 0.15, blink: false }); act.mood(c, 9.35, "rea", "annoyed", { hold: 0.6, lid: 0.6 });
@@ -264,7 +266,7 @@ const MEGA = shot([0.0, 1.9, 8.4], { pan: 1.5, tilt: 7, fov: 30 });             
 const POP = shot([0.0, 1.6, 8.2], { pan: 1, tilt: 5, fov: 38 });
 // PEAK (unused: the pop shot holds through the peak) = shot([0.05, 1.45, 7.0], { pan: 0, tilt: 4, fov: 40 });
 const LOOKUP = shot([0.08, 1.35, 6.4], { pan: 0, tilt: 4.5, fov: 34 });
-const BACKDOWN = shot([0.05, 1.6, 7.6], { pan: 1, tilt: 4, fov: 42 });
+const BACKDOWN = shot([0.05, 1.35, 7.6], { pan: 1, tilt: 1.5, fov: 42 });   // low enough that the sunk shark's eyes stay above the app's bars
 const beats = c.beats([
   ["P1 fin", 0, WIDE, "hook"],
   ["P2 run", 1.5, "keep"],
