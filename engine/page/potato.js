@@ -5,6 +5,15 @@ const _edgeThumb = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.46, -0.
 // the glove thumb's tip (the centre of its end) in its pivot's frame: the capsule at (0.024, 0.018) turned -0.75
 const THUMB_TIP = new THREE.Vector3(0.024 + 0.017 * Math.sin(0.75), 0.018 + 0.017 * Math.cos(0.75), 0);
 const fistWeight = (curl) => { const w = Math.min(1, Math.max(0, (curl - 0.6) / 0.3)); return w * w * (3 - 2 * w); };
+// Hand frame, PROTOTYPE (quality plan, 5 Nov 2026; storyboard "rig": { "hand": "swing" }, off by default so every
+// clip renders as before): the base frame of a hand is the frame it has with the forearm pointing out and forward,
+// swung the shortest way onto the forearm, instead of a look-at from a fixed reference. A look-at has two singular
+// directions (plus and minus its reference: across the chest, and out to the side a little back), and near them the
+// palm spins round the forearm within a frame (the hand-pop warnings); the swing has one, straight back and in, behind
+// the body, where a forearm never points. At out-and-forward, straight ahead and straight out the two agree.
+let HAND_FRAME = null;
+export const setRig = (sb) => { HAND_FRAME = sb?.rig?.hand ?? null; };
+const _swing = new THREE.Quaternion();
 import { Face, EXPRESSIONS } from "./face.js";
 import { buildCostume } from "./costumes.js";
 import { buildFries } from "./props.js";
@@ -265,10 +274,21 @@ export class Character {
     // side to reach), that line shrinks to nothing and turns round in a frame or two, which spun the hand; below 14 cm
     // the shoulder -> hand line takes over smoothly, as the arm's own curve does near its end. Only during a move, so a
     // pose at rest keeps its own hand; for now only on a reach to or from a held object (palm), the one place it is tested
-    if (sh && mv > 0 && palm) { const k = Math.min(1, Math.max(0, (0.14 - y.length()) / 0.1)) * mv; if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k * k * (3 - 2 * k)); }
+    // prototype "swing2": the same take-over on every frame, so a forearm that shrinks never spins the hand
+    const steady = HAND_FRAME === "swing2";
+    if (sh && ((mv > 0 && palm) || steady)) { const k = Math.min(1, Math.max(0, (0.14 - y.length()) / 0.1)) * (steady ? 1 : mv); if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k * k * (3 - 2 * k)); }
+    const _dbg = (U.dbg = { yl: Math.round(y.length() * 1000) / 1000 });
     if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
-    const z = new THREE.Vector3(-sx, 0, 0.35).normalize();
-    z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
+    { const z0 = new THREE.Vector3(-sx, 0, 0.35).normalize(); _dbg.cond = Math.round(z0.addScaledVector(y, -z0.dot(y)).length() * 1000) / 1000; _dbg.y = y.toArray().map((v) => Math.round(v * 100) / 100); }
+    let z;
+    if (HAND_FRAME === "swing" || HAND_FRAME === "swing2") {
+      const y0 = new THREE.Vector3(0.53 * sx, 0, 0.85).normalize();
+      z = new THREE.Vector3(-sx, 0, 0.35).normalize(); z.addScaledVector(y0, -z.dot(y0)).normalize();
+      z.applyQuaternion(_swing.setFromUnitVectors(y0, y));
+    } else {
+      z = new THREE.Vector3(-sx, 0, 0.35).normalize();
+      z.addScaledVector(y, -z.dot(y)); if (z.lengthSq() < 1e-6) z.set(0, 0, 1); z.normalize();
+    }
     hand.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y, z), y, z));
     // the fist turns onto the handle as the hand closes (curl 0.6 -> 0.9), so opening or closing it never pops. The
     // forearm direction, taken square to the handle, is the hand's own axis: the wrist enters the fist from the side and
@@ -276,6 +296,7 @@ export class Character {
     // a fingertip pinch (grip pinch, glove hands) turns the hand onto the axis too, without closing the fist on it
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
     const w = axis ? Math.max(fistWeight(gr.curl), pw) : 0;
+    _dbg.w = Math.round(w * 100) / 100;
     if (w > 0) {
       const x = axis.clone().normalize().multiplyScalar(sx > 0 ? -1 : 1);   // the mirrored left hand's thumb is at -x
       // the knuckles face the forearm direction square to the handle, pulled towards out-and-forward from the body: when the
@@ -320,16 +341,19 @@ export class Character {
           const k = Math.min(1, Math.abs(hand.quaternion.dot(_fist)) / 0.35), f = k * k * (3 - 2 * k);
           const g = Math.min(1, Math.max(0, (palm.w - 0.85) / 0.15)), on = g * g * (3 - 2 * g);
           hand.quaternion.slerp(_fist, palm.w * f + (1 - f) * on);
+          _dbg.pal = [Math.round(palm.w * 100) / 100, Math.round(f * 100) / 100, Math.round((palm.w * f + (1 - f) * on) * 100) / 100];
         }
       }
     }
     // a hand locked to what it holds (arm pose frame, timeline.js): its rotation is the hold's, whatever the forearm does
     if (frame && frame.w > 0) hand.quaternion.slerp(frame.q, frame.w);
+    if (frame && frame.w > 0) _dbg.fr = Math.round(frame.w * 100) / 100;
     const up = Math.min(1, Math.max(0, gr.up || 0));
     if (up > 0) {
       const zu = new THREE.Vector3(0, 1, 0), f = y.clone().addScaledVector(zu, -y.dot(zu)); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zu), f, zu));
       hand.quaternion.slerp(_fist, up);
+      _dbg.up = Math.round(up * 100) / 100;
     }
     // a paw resting on a surface (grip down > 0): the palm turns to face the floor and the fingers point ahead (grip
     // ahead: 0 along the forearm .. 1 straight forward), so the curled fingers show their knuckles to the camera
@@ -339,6 +363,7 @@ export class Character {
       f.lerp(new THREE.Vector3(0, 0, 1), gr.ahead ?? 0.7); if (f.lengthSq() < 1e-6) f.set(0, 0, 1); f.normalize();
       _fist.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(f, zd), f, zd));
       hand.quaternion.slerp(_fist, dn);
+      _dbg.dn = Math.round(dn * 100) / 100;
     }
     // y x z points forward for the right hand; the left hand is its mirror image, so the thumb is in front on both
     const k = U.size || 1; hand.scale.set(sx > 0 ? -k : k, k, k);
@@ -836,7 +861,7 @@ export class Character {
         }
       }
     }
-    for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); }
+    for (const s of ["R", "L"]) { this.arms[s].hand.updateMatrixWorld(true); out[`q${s}`] = this.arms[s].hand.getWorldQuaternion(new THREE.Quaternion()).toArray(); out[`dbg${s}`] = this.arms[s].hand.userData.dbg || null; }
     // how far each hand reaches across the body's middle to the other side, in metres (0 or less: on its own side). Far
     // across, the shoulder hides behind the body and the arm reads as coming out of the chest (Zombie Too hug, 4 Nov)
     out.cross = { R: this.arms.R.hand.position.x, L: -this.arms.L.hand.position.x };

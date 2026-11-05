@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { Character } from "./potato.js";
+import { Character, setRig } from "./potato.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
@@ -362,6 +362,7 @@ function composite(t) {
 
 async function init(data) {
   sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
+  setRig(sb);    // the rig options (potato.js; prototype: "rig": { "hand": "swing" })
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
     const img = new Image(); plateShots.set(s.plate, img);
@@ -1052,7 +1053,7 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   return { t, actors: actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, dbg: { R: k.dbgR, L: k.dbgL }, cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
   }), ...reach(), held: heldNow() };
 }
 
