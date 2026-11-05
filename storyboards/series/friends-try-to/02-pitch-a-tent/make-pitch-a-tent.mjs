@@ -39,7 +39,7 @@ const ROPE_W = (root) => [r3(root[0] + ROPE_HAND[0]), ROPE_HAND[1], r3(root[1] +
 // P1 places (the panels: the Wizard left on the pole, Viking front kneeling at a peg, Phoenix front left on his
 // phone, Reaper standing right with his scythe). A body-width (1 m) apart and more
 // Phoenix stands close to the lens, front left, as in panels 2-5: low in the frame, so the Wizard behind shows over him
-const WIZ0 = Z([-1.25, -1.2]), VIK0 = Z([0.95, -0.25]), PHX0 = Z([-0.6, 2.5]), REA0 = Z([1.15, -1.75]);
+const WIZ0 = Z([-1.25, -1.2]), VIK0 = Z([0.95, -0.25]), PHX0 = Z([-0.25, 2.1]), REA0 = Z([1.15, -1.75]);
 const WIZ_SLID = Z([-1.37, -1.15]);            // where the gust drags him (his feet slide)
 const VIK_ROPE = Z([0.38, -1.2]);           // where he grabs the rope: its end up at his left glove (he faces us)
 const VIK_OFF = [r3(VIK_ROPE[0] - R0[0]), 0, r3(VIK_ROPE[1] - R0[1])];   // his place in the tent's frame while he hangs
@@ -63,7 +63,7 @@ const cast = [
   { id: "phx", character: "duo/phoenix", at: PHX0, face: 20, expr: "kind", follow: 0.3, seed: 1.7, span: 0.15 },
   { id: "rea", character: "notyet/reaper-noscythe", at: REA0, face: -30, expr: "deadpan", follow: 0.25, seed: 3.3 },
 ];
-const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX0[0] + 0.37, 0.24, PHX0[1] + 0.13], 20), tip: -10, scale: 1.6, case: "#3d3d46" };
+const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX0[0] + 0.37, 0.3, PHX0[1] + 0.13], 20), tip: -10, scale: 1.6, case: "#3d3d46" };
 const W = TENT_SIZE;
 const props = [
   // the tent: half pitched and flapping at frame 0. lumps (its own frame): A the Wizard and B Viking under the
@@ -83,6 +83,7 @@ const props = [
   { id: "fire", kind: "firering", x: r3(1.05 + DX), z: r3(0.55 + DZ), r: 0.3 },
   { id: "leaves", kind: "windleaves", x: 0, y: 0, z: r3(-0.5 + DZ), w: 7, h: 2.0, d: 4, n: 40 },
   PHONE,
+  { id: "phxseat", kind: "shadowpool", x: PHX0[0], y: -0.09, z: PHX0[1], w: 2.4, d: 2.0, scale: 0.286 },   // a soft shadow on the grass he sits on
 ];
 
 const SUB = 470, SUBS = { size: 62, kinetic: false };
@@ -93,7 +94,7 @@ act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 // the gust has the tent: the Wizard clings to the sail's pole, leaning back, his feet sliding
 c.arm(0, "wiz", "R", { prop: "tent", part: "pole", grip: [-0.05, 0, 0.02], palm: true }, 0);
 A(0, "wiz", "grip", { side: "R", shape: "fist", dur: 0 });
-A(0, "wiz", "lean", { to: -22, dur: 0 });   // leaning back hard against the pull
+A(0, "wiz", "lean", { to: -14, dur: 0 });   // leaning back hard against the pull
 A(0.1, "wiz", "move", { to: WIZ_SLID, dur: 1.1, ease: "inOut", steps: 0 });
 A(0, "wiz", "look", { to: [0.6, 0.2], dur: 0, blink: false });
 tentAt(0.1, { x: r3(R0[0] - 0.12) }, 1.1);   // the sail drags him along
@@ -115,7 +116,7 @@ A(0.1, "vik", "expr", { expr: "focused", dur: 0.2 });
 const ph = grips.phone(c, "phx", PHONE, { side: "L" });   // low at his side (toward the middle of the frame), clear of his face
 ph.secure(0, 0.01);
 A(0, "phx", "look", { to: [0.1, -0.45], dur: 0, blink: false });
-A(0, "phx", "crouch", { to: 1, dur: 0 });   // hunkered down over his phone: his crest stays under the back row's faces
+A(0, "phx", "sit", { seat: "phxseat", dur: 0 });   // sitting in the grass with his phone: his crest stays under the back row's faces
 // Reaper stands to the side with his scythe upright in his right fist, cloak flapping; he doesn't move
 c.arm(0, "rea", "R", { prop: "scythe", grip: [0, 0, 0], palm: "wrap" }, 0);
 A(0, "rea", "grip", { side: "R", shape: "fist", dur: 0 });
@@ -160,7 +161,7 @@ sfx(2.62, "grab", { gain: 0.45, reason: "Viking's glove closing on the rope" });
 A(2.6, "vik", "expr", { expr: "cocky", dur: 0.2 });
 // Reaper looks at the Wizard; the Wizard's nervous grin
 A(2.25, "rea", "look", { to: [-0.95, 0.1], dur: 0.15, blink: false });
-act.mood(c, 2.3, "rea", "annoyed", { strength: 0.6, hold: 1.2 });   // the quiet one is not impressed
+act.mood(c, 2.55, "rea", "annoyed", { strength: 0.6, hold: 1.2 });   // the quiet one is not impressed
 A(2.9, "wiz", "look", { to: [0.5, 0.45], dur: 0.12, blink: false });
 act.grin(c, 2.95, "wiz");
 see(2.3, 3.2, ["wiz.face", "tent", "vik.face"], "P2: the spell puffs the tent into a balloon; Viking grabs its rope");
@@ -220,7 +221,7 @@ c.arm(5.1, "vik", "L", { o: [0.25, 0.5, 0.4] }, 0.12, "out"); A(5.12, "vik", "gr
 A(5.1, "vik", "talk", { line: "YOU floated it!", tone: "excited", dur: 0.45, voice: false });
 c.cap(5.25, 5.7, "YOU floated it!", SUB, false, SUBS);
 // Phoenix holds his phone up where he stands (the instructions!): they wave it off from behind him
-ph.carry(5.1, [r3(PHX0[0] + 0.42), 0.36, r3(PHX0[1] + 0.25)], 0.15, "out", { rot: 200, tip: -10 });
+ph.carry(5.1, [r3(PHX0[0] + 0.42), 0.42, r3(PHX0[1] + 0.25)], 0.15, "out", { rot: 200, tip: -10 });
 A(5.15, "phx", "expr", { expr: "eager", dur: 0.15 });
 // both swat it away at once
 c.arm(5.35, "wiz", "R", { o: [0.05, 0.45, 0.42] }, 0.1, "out"); c.arm(5.47, "wiz", "R", "rest", 0.3, "inOut");
@@ -229,7 +230,7 @@ A(5.47, "wiz", "grip", { side: "R", shape: "relaxed", dur: 0.2 }); A(5.47, "vik"
 sfx(5.4, "whoosh", { gain: 0.3, reason: "two gloves swatting the phone away" });
 A(5.42, "phx", "lean", { to: -5, dur: 0.12 }); A(5.6, "phx", "lean", { to: 0, dur: 0.25 });
 A(5.42, "phx", "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0.1 });
-ph.carry(5.5, [r3(PHX0[0] + 0.37), 0.24, r3(PHX0[1] + 0.13)], 0.25, "inOut", { rot: 200, tip: -10 });
+ph.carry(5.5, [r3(PHX0[0] + 0.37), 0.3, r3(PHX0[1] + 0.13)], 0.25, "inOut", { rot: 200, tip: -10 });
 see(4.9, 5.5, ["wiz.face", "vik.face", "tent"], "P4: the two crawl out of the flat tent's ends and blame each other");
 
 // ---------------------------------------------------------------- 5 THE CALM FIX 5.5-7.0 (P5)
@@ -266,9 +267,9 @@ for (const who of ["wiz", "vik", "phx"]) A(5.95, who, "look", { to: [0.3, 0.2], 
 for (const [who, d] of [["wiz", 0], ["vik", 0.04], ["phx", 0.08]]) act.shock(c, r3(SNAP + 0.1 + d), who, { open: 0.55, eye: 1.3, hold: 0.25 });
 // they step into the ending's places
 // after the jaw drop, so the snap plays with the dome in clear view (review A)
-A(6.75, "wiz", "move", { to: AT.wiz, dur: 0.3, ease: "inOut", steps: 2 });
+A(6.3, "wiz", "move", { to: AT.wiz, dur: 0.4, ease: "inOut", steps: 2 });   // round the dome's left before it snaps up
 A(6.75, "vik", "move", { to: AT.vik, dur: 0.3, ease: "inOut", steps: 2 });
-A(6.75, "vik", "turn", { to: 0, dur: 0.25 }); A(6.75, "wiz", "turn", { to: -50, dur: 0.25 });
+A(6.75, "vik", "turn", { to: 0, dur: 0.25 }); A(6.35, "wiz", "turn", { to: -50, dur: 0.3 });
 
 A(6.75, "rea", "move", { to: AT.rea, dur: 0.25, ease: "inOut", steps: 2 });
 see(6.0, 6.5, ["rea.face", "scythe", "tent"], "P5: Reaper plants his scythe through the cloth's middle");
@@ -341,6 +342,8 @@ write(import.meta.url, {
     { who: "rea", with: "tent", from: 5.7, to: 6.75, reason: "he stands on the flat cloth to plant the scythe through its middle, and steps off before it snaps up" },
     { who: "rea", with: "scythe", from: 0, to: 6.45, reason: "his fist round his own scythe's shaft" },
     { who: "vik", with: "scythe", from: 7.9, to: 10, reason: "his fist round the scythe's shaft as he pulls it out and holds it out" },
+    { who: "vik", with: "rea", from: 6.65, to: 7.15, reason: "Viking crosses in front of Reaper on his way to the cheer; Reaper's deadpan is set before and holds after" },
+    { who: "phx", with: "phxseat", from: 0, to: 10, reason: "Phoenix sits in the grass (the seat is a soft shadow on it)" },
     { who: "wiz", with: "tent", from: 8.3, to: 10, reason: "the tent folds down on top of him: he is the lump under the cloth, his hat tip poking out" },
   ],
   notes: "Generated by storyboards/series/friends-try-to/02-pitch-a-tent/make-pitch-a-tent.mjs. Panels: PANELS.md.",

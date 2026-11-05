@@ -79,8 +79,8 @@
    "id": "phx",
    "character": "duo/phoenix",
    "at": [
-    -0.45,
-    0.3
+    -0.1,
+    -0.1
    ],
    "face": 20,
    "expr": "kind",
@@ -199,13 +199,23 @@
   {
    "id": "phone",
    "kind": "phone",
-   "x": -0.08,
-   "y": 0.24,
-   "z": 0.43,
+   "x": 0.27,
+   "y": 0.3,
+   "z": 0.03,
    "rot": 200,
    "tip": -10,
    "scale": 1.6,
    "case": "#3d3d46"
+  },
+  {
+   "id": "phxseat",
+   "kind": "shadowpool",
+   "x": -0.1,
+   "y": -0.09,
+   "z": -0.1,
+   "w": 2.4,
+   "d": 2,
+   "scale": 0.286
   }
  ],
  "captions": [
@@ -302,7 +312,7 @@
     {
      "who": "wiz",
      "do": "lean",
-     "to": -22,
+     "to": -14,
      "dur": 0,
      "at": 0
     },
@@ -401,8 +411,8 @@
     },
     {
      "who": "phx",
-     "do": "crouch",
-     "to": 1,
+     "do": "sit",
+     "seat": "phxseat",
      "dur": 0,
      "at": 0
     },
@@ -1012,14 +1022,6 @@
      "at": 2.25
     },
     {
-     "who": "rea",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.276,
-     "dur": 0.25,
-     "at": 2.3
-    },
-    {
      "do": "prop",
      "id": "aura",
      "set": {
@@ -1029,37 +1031,6 @@
      "dur": 0.8,
      "ease": "inOut",
      "at": 2.35
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "set": {
-      "tilt": -0.078,
-      "browY": -0.018,
-      "curve": 0.12,
-      "open": 0,
-      "eye": 0.844,
-      "pupil": 1,
-      "smirk": 0.108,
-      "raise": 0.018
-     },
-     "at": 2.35
-    },
-    {
-     "who": "rea",
-     "do": "squash",
-     "amount": 0.012,
-     "dur": 0.2,
-     "at": 2.35
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 1.4,
-     "idle": 0.06,
-     "at": 2.4
     },
     {
      "do": "prop",
@@ -1107,6 +1078,14 @@
      "at": 2.55
     },
     {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.276,
+     "dur": 0.25,
+     "at": 2.55
+    },
+    {
      "who": "vik",
      "do": "grip",
      "side": "L",
@@ -1122,10 +1101,41 @@
      "at": 2.6
     },
     {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "set": {
+      "tilt": -0.078,
+      "browY": -0.018,
+      "curve": 0.12,
+      "open": 0,
+      "eye": 0.844,
+      "pupil": 1,
+      "smirk": 0.108,
+      "raise": 0.018
+     },
+     "at": 2.6
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.2,
+     "at": 2.6
+    },
+    {
      "sfx": "grab",
      "gain": 0.45,
      "reason": "Viking's glove closing on the rope",
      "at": 2.62
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.06,
+     "at": 2.65
     },
     {
      "who": "wiz",
@@ -1742,9 +1752,9 @@
       ],
       "palm": true,
       "at": [
-       -0.03,
-       0.36,
-       0.55
+       0.32,
+       0.42,
+       0.15
       ]
      },
      "dur": 0.15,
@@ -1953,9 +1963,9 @@
       ],
       "palm": true,
       "at": [
-       -0.08,
-       0.24,
-       0.43
+       0.27,
+       0.3,
+       0.03
       ]
      },
      "dur": 0.25,
@@ -2134,6 +2144,25 @@
      "at": 0.78
     },
     {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -1.25,
+      -3.55
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -2266,18 +2295,6 @@
      "at": 1.24
     },
     {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -1.25,
-      -3.55
-     ],
-     "dur": 0.3,
-     "ease": "inOut",
-     "steps": 2,
-     "at": 1.25
-    },
-    {
      "who": "vik",
      "do": "move",
      "to": [
@@ -2293,13 +2310,6 @@
      "who": "vik",
      "do": "turn",
      "to": 0,
-     "dur": 0.25,
-     "at": 1.25
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": -50,
      "dur": 0.25,
      "at": 1.25
     },
@@ -3029,8 +3039,8 @@
      "who": "phx",
      "do": "look",
      "to": [
-      0.413,
-      0.5
+      0.15,
+      0.476
      ],
      "dur": 0.12,
      "blink": false,
@@ -3346,6 +3356,20 @@
    "from": 7.9,
    "to": 10,
    "reason": "his fist round the scythe's shaft as he pulls it out and holds it out"
+  },
+  {
+   "who": "vik",
+   "with": "rea",
+   "from": 6.65,
+   "to": 7.15,
+   "reason": "Viking crosses in front of Reaper on his way to the cheer; Reaper's deadpan is set before and holds after"
+  },
+  {
+   "who": "phx",
+   "with": "phxseat",
+   "from": 0,
+   "to": 10,
+   "reason": "Phoenix sits in the grass (the seat is a soft shadow on it)"
   },
   {
    "who": "wiz",
