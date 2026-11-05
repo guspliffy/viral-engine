@@ -572,6 +572,8 @@ function blinkFree(sb, id, tb) {
     if (a.do === "still" && a.blink !== true && tb + 0.13 > a.at && tb < a.at + (a.dur ?? 1) + (a.fade ?? 0.15)) return false;
     if (a.do === "expr" && tb > a.at - 0.3 && tb < a.at + 0.25) return false;
     if (a.do === "look" && tb > a.at - 0.15 && tb < a.at + (a.dur ?? 0.3)) return false;
+    // a line marked blink: false (clip.mjs, thread E): no automatic blink starts in it or runs into it
+    if (a.do === "talk" && a.blink === false && tb + 0.13 > a.at && tb < a.at + (a.dur ?? 0.3)) return false;
   }
   return true;
 }
