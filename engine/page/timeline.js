@@ -223,7 +223,7 @@ export const GAIT = {
   trig: 0.03, yawTrig: 0.35, settle: 0.012,   // a step when a foot would be 3 cm or 20° off; at home within 1.2 cm
   walkST: 0.58, runST: 0.36, cad: 2.2, runCad: 3, minCad: 1.8, maxCad: 7,   // stance share, cycles a second
   Lmin: 0.08, Lmax: 0.44, runLmax: 0.8, vRun: 1.5, ahead: 0.15, soft: 0.2, reach: 0.3,   // cycle length (metres), the speed a walk becomes a run
-  tipHz: 2.4, tipZ: 0.4, tipGain: 4, tipMax: 0.1,
+  tipHz: 2.4, tipZ: 0.4, tipGain: 3, tipMax: 0.06, leanMax: 0.12,
 };
 const GPLANS = new WeakMap();
 let PLANNING = false;
@@ -293,6 +293,8 @@ function gaitPlan(sb, actor, def) {
   const PRE = GAIT.pre, at = (arr, u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return arr[i] + (arr[i + 1] - arr[i]) * r; };
   const yawAt = (u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return K.yaw[i] + angD(K.yaw[i + 1], K.yaw[i]) * r; };
   const homeAt = (s, u) => footHome(s, at(K.x, u), at(K.z, u), yawAt(u), at(K.sc, u));
+  // the last time from u up to v the body is still on its feet (a look ahead never steps toward a ride or a jump)
+  const onUntil = (u, v) => { let j = Math.round((u + PRE) / dt); const J = Math.min(n - 1, Math.round((v + PRE) / dt)); while (j < J && !K.off[j + 1]) j++; return Math.max(u, j * dt - PRE); };
   const ev = { R: [], L: [] }, foot = {}, warn = [];
   for (const s of ["R", "L"]) foot[s] = { p: homeAt(s, -PRE), y: K.y[0], a: K.yaw[0], t1: -PRE - 1 };
   let next = null, nextLift = 0, bout = false, off = false;
@@ -326,7 +328,7 @@ function gaitPlan(sb, actor, def) {
     }
     else if (!swinging("R") && !swinging("L")) {
       // still: a foot steps when staying would leave it over 3 cm or 20° from its home a moment from now
-      const look = u + 0.5 * Tsw + 0.12;
+      const look = onUntil(u, u + 0.5 * Tsw + 0.12);
       let best = 1;
       for (const s of ["R", "L"]) {
         const h = homeAt(s, look), e = Math.hypot(h[0] - foot[s].p[0], h[1] - foot[s].p[1]), ya = Math.abs(angD(yawAt(look), foot[s].a));
@@ -335,10 +337,10 @@ function gaitPlan(sb, actor, def) {
       }
     }
     if (!c) continue;
-    const o = c === "R" ? "L" : "R", tt = u + Tsw, tm = tt + 0.5 * Tst;
+    const o = c === "R" ? "L" : "R", tt = u + Tsw, tm = onUntil(u, tt + 0.5 * Tst);
     // the touch down: where the foot is needed half way through its stance, but never further ahead of where the body
     // will be when it lands than a potato leg reaches (a dash's first step would otherwise land in the splits)
-    const p1 = homeAt(c, tm), hl = homeAt(c, tt), ahead = Math.hypot(p1[0] - hl[0], p1[1] - hl[1]), cap = G.ahead * sc;
+    const p1 = homeAt(c, tm), hl = homeAt(c, Math.min(tt, tm)), ahead = Math.hypot(p1[0] - hl[0], p1[1] - hl[1]), cap = G.ahead * sc;
     if (ahead > cap) { p1[0] = hl[0] + ((p1[0] - hl[0]) * cap) / ahead; p1[1] = hl[1] + ((p1[1] - hl[1]) * cap) / ahead; }
     const a1 = yawAt(tm), e = Math.hypot(p1[0] - foot[c].p[0], p1[1] - foot[c].p[1]), ya = Math.abs(angD(a1, foot[c].a));
     if (bout && e < G.settle * sc && ya < 0.06) {
@@ -348,7 +350,7 @@ function gaitPlan(sb, actor, def) {
       continue;
     }
     // the lift: a walking step about 6.5 cm at a normal stride, a shuffle barely clears the floor, a run lifts high
-    const sd = L / (0.2 * sc), h = run ? 0.085 * sc : Math.min(0.065 * sc * Math.min(1.4, Math.max(0.6, sd)), 0.012 * sc + 0.45 * e);
+    const sd = L / (0.2 * sc), h = run ? 0.085 * sc : Math.min(0.065 * sc * Math.min(1.4, Math.max(0.6, sd)), 0.02 * sc + 0.45 * e);
     const y1 = at(K.y, tt);
     ev[c].push({ t0: u, t1: tt, p0: foot[c].p, p1, y0: foot[c].y, y1, a0: foot[c].a, a1, h, run, cad, ST, len: e, sd });
     foot[c] = { p: p1, y: y1, a: a1, t1: tt };
@@ -391,7 +393,7 @@ function planGait(P, t, yaw) {
   const sd = Math.max(0.3, len / (0.2 * (at(K.sc, t) || 1)));
   amt *= clamp(sd / 0.8, 0.25, 1);
   const v = at(K.v, t);
-  return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, 0.16), run: !!cur?.run, tip };
+  return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, GAIT.leanMax), run: !!cur?.run, tip };
 }
 // where each foot is at time t (potato.js st.feet): standing where it touched down, or on its way along a low arc that
 // leaves and lands softly; with the body while it is off its feet. w fades it out in the air, sitting or kneeling.
@@ -418,6 +420,20 @@ function planFeet(P, t, st, plant) {
 // the touch downs of the planted gait (engine/audio.mjs puts a footstep on each): time, foot, step length, run
 export function footfalls(sb, actor, def = {}) {
   return gaitPlan(sb, actor, def).steps.filter((e) => e.t1 >= 0).map((e) => ({ at: e.t1, foot: e.s, len: e.len, run: e.run }));
+}
+// what each foot is doing at story time t under the planted gait: "stand" (still on the floor), "step" (on its way
+// to a new spot, however low it lifts) or "free" (going with the body: in the air, sitting, riding, a glide); null
+// when the storyboard doesn't use it. For the checks (qa/rig.mjs foot-slide: a "step" is not a slide)
+export function footPhase(sb, actor, t, def = {}) {
+  if (!feetOn(sb)) return null;
+  const P = gaitPlan(sb, actor, def), out = {};
+  for (const s of ["R", "L"]) {
+    const E = P.ev[s];
+    let k = -1; for (let i = 0; i < E.length && E[i].t0 <= t; i++) k = i;
+    const e = E[k];
+    out[s] = !e || t >= e.t1 ? (e?.off && t < e.t1 + 1e-9 ? "free" : "stand") : e.off ? "free" : "step";
+  }
+  return out;
 }
 // a standing foot left more than 30 cm from its body (a move faster than the longest stride): [{ t, foot, m }]
 export function gaitWarnings(sb, actor, def = {}) { return gaitPlan(sb, actor, def).warn; }
