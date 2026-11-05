@@ -448,6 +448,7 @@ export class Character {
     // has a real elbow at the pull point, so its forearm is elbow -> hand
     if (sh && !(gr.down > 0.5)) y.addScaledVector(at.clone().sub(sh), 1 / 3);
     const dbg = (U.dbg = { yl: rd(yl, 3) });
+    if (globalThis.__DIAG?.forearm) { dbg.a = at.clone().sub(elbow).toArray().map((v) => rd(v, 4)); if (sh) dbg.s = at.clone().sub(sh).toArray().map((v) => rd(v, 4)); }
     if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
     const y0 = HAND_Y0[sx < 0 ? "R" : "L"], z0 = new THREE.Vector3(-sx, 0, 0.35).normalize();
     const B = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3().crossVectors(y0, z0), y0, z0));
