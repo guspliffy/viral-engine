@@ -75,5 +75,73 @@
       "look": "anime-pro",
       "why": "teacup held rigid and level, kitchen set"
     }
+  ],
+  "about_motion": "Motion goldens (quality plan item 15 (b)): 12 frames in a row of a regress fixture's key move, cropped to box (1080x1920 px), drawn with main and now and compared frame by frame by SSIM. A change in timing, an arc or a pop shows even when every single still looks fine.",
+  "motion": [
+    {
+      "name": "motion-walk-planted",
+      "sb": "storyboards/regress/regress-walk-planted.json",
+      "from": 1.2,
+      "frames": 12,
+      "box": [
+        270,
+        526,
+        654,
+        714
+      ],
+      "why": "Phoenix mid-walk on the planted gait: feet stay put, body and arms swing"
+    },
+    {
+      "name": "motion-turn",
+      "sb": "storyboards/regress/regress-turn.json",
+      "from": 0.3,
+      "frames": 12,
+      "box": [
+        140,
+        422,
+        810,
+        900
+      ],
+      "why": "Reaper turning on the spot: body, feet and hands follow the turn"
+    },
+    {
+      "name": "motion-pickup",
+      "sb": "storyboards/regress/regress-pickup.json",
+      "from": 0.3,
+      "frames": 12,
+      "box": [
+        0,
+        240,
+        1080,
+        1440
+      ],
+      "why": "the Wizard picks up the mug: reach, grab, lift (grip library mug hold)"
+    },
+    {
+      "name": "motion-hug",
+      "sb": "storyboards/regress/regress-hug.json",
+      "from": 0.35,
+      "frames": 12,
+      "box": [
+        0,
+        240,
+        1080,
+        1440
+      ],
+      "why": "Reaper and Phoenix walk into the hug: arms round each side, no merging"
+    },
+    {
+      "name": "motion-blink",
+      "sb": "storyboards/regress/regress-blink.json",
+      "from": 1.45,
+      "frames": 12,
+      "box": [
+        253,
+        474,
+        600,
+        600
+      ],
+      "why": "a placed blink after a line: lids close and open with no broken eye"
+    }
   ]
 }
