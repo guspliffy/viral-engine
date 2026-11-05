@@ -11,7 +11,8 @@ import { storyTime } from "../engine/shared/holds.js";
 export const GATE = {
   // the checks render.mjs refuses to render on (engine/render.mjs contactGate), and qa/preflight.mjs's verdict
   fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
-    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front"],
+    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front",
+    "tail", "reach-limit"],   // the friends rig (rigs/friends.js): Rusty's tail through the floor, his body or off its pin; a limb stretched short of its target
   // visible at full speed: a delivery may carry none of these as a warning (each needs a fix or a named window)
   visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion"],
   handTurn: 90,        // degrees in one frame, on screen and not smeared by motion blur (fails)

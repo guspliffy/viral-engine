@@ -1,0 +1,289 @@
+{
+  "format": "character-design-reference",
+  "version": 1,
+  "status": "proposed-design-not-runtime-storyboard-or-character-schema",
+  "date": "2026-11-05",
+  "repoRevision": "b6f0e59a22ab36076e47e2bd4ebd815bca091ca5",
+  "series": {
+    "workingTitle": "The Little Chaos Club",
+    "main": "rusty",
+    "friends": [
+      "pip",
+      "moss"
+    ],
+    "namesAreWorkingNames": true,
+    "tone": "Everyday friendship comedy; all three may win, fail, surprise and show affection."
+  },
+  "authority": {
+    "order": [
+      "Later explicit user corrections",
+      "CHARACTER-BIBLE.md hard identity rules",
+      "This specification for implementation starting dimensions",
+      "Individual reference sheets for shape and expression",
+      "Group lineup for relationships and palette",
+      "Original exploration for historical context only"
+    ],
+    "notes": [
+      "Images are illustration references, not mathematically consistent orthographic blueprints.",
+      "Dimensions and palettes are proposed calibrated starting values, not measurements extracted from images.",
+      "Do not import this JSON as an existing viral-engine character definition."
+    ]
+  },
+  "coordinates": {
+    "unit": "metre-like engine world unit; proposed scale",
+    "up": "+Y",
+    "front": "+Z",
+    "anatomicalRight": "-X",
+    "anatomicalLeft": "+X",
+    "origin": "Ground between soles at neutral standing pose",
+    "pose": "Relaxed A-pose; hands four digits total, three fingers plus thumb",
+    "sideConvention": "All left/right statements refer to character anatomy, never image position."
+  },
+  "shared": {
+    "handDigitsTotal": 4,
+    "headSeparateFromTorso": true,
+    "defaultFootContact": "sole; independent support anchor per foot",
+    "materials": "Matte broad color blocks; painted/vertex fur markings; sparse fixed tufts; no simulated hair",
+    "determinism": "Absolute story time with fixed-step reconstructed or baked secondary motion",
+    "runtime": "Existing CPU software-rendered Three.js path; no paid services or GPU dependency"
+  },
+  "characters": [
+    {
+      "id": "friends/rusty",
+      "name": "Rusty",
+      "species": "anthropomorphic red panda",
+      "role": "lead",
+      "heightRatio": 1,
+      "dimensions": {
+        "standingHeight": 1.2,
+        "headChinY": 0.73,
+        "headCrownY": 1.12,
+        "earTopY": 1.2,
+        "headWidthIncludingCheeks": 0.54,
+        "torsoWidth": 0.46,
+        "torsoDepth": 0.32,
+        "shoulderY": 0.76,
+        "hipY": 0.31,
+        "footLength": 0.21,
+        "palmLength": 0.095,
+        "tailRoot": [
+          0,
+          0.29,
+          -0.15
+        ],
+        "tailLength": 0.8,
+        "tailMaxRadius": 0.15
+      },
+      "palette": {
+        "fur": "#BE4B21",
+        "furLight": "#DD7735",
+        "cream": "#F3DEB5",
+        "paws": "#4B2C21",
+        "nose": "#35231E",
+        "hoodie": "#66758D",
+        "zipperPull": "#E78C58",
+        "iris": "#B66E23"
+      },
+      "identity": [
+        "Cream cheek masks and brow patches",
+        "Small dark blunt nose, short separate muzzle",
+        "Rounded cream-lined ears",
+        "Six broad dark tail bands; lighter tip; same UV pattern at every pose",
+        "Slate-blue closed zip hoodie, hood down, no drawstrings",
+        "Fur-covered lower body, bare dark hind paws"
+      ],
+      "behavior": {
+        "want": "To appear cool, capable and independent",
+        "flaw": "Conceals how much he wants approval and companionship",
+        "warmth": "Generous and deeply pleased when friends choose him",
+        "tell": "Tail or ears reveal emotion occasionally, not on every beat"
+      },
+      "motion": {
+        "gait": "Soft planted steps, modest hip sway, clear weight transfer",
+        "reaction": "Eyes notice, mouth tries to stay composed, ears/tail reveal feeling",
+        "tail": "Five to seven joints; broad smooth bends; fixed pattern; floor/body/friend clearance; explicit hold/contact for pinning",
+        "facePoses": [
+          "neutral",
+          "confident",
+          "caught",
+          "soft",
+          "worried",
+          "delighted"
+        ]
+      },
+      "references": [
+        "images/00-trio-lineup.png",
+        "images/01-rusty-reference.png"
+      ]
+    },
+    {
+      "id": "friends/pip",
+      "name": "Pip",
+      "species": "woodland imp humanoid",
+      "role": "impulsive friend",
+      "heightRatio": 1.12,
+      "dimensions": {
+        "standingHeight": 1.344,
+        "headChinY": 0.91,
+        "headCrownY": 1.22,
+        "hairTopY": 1.344,
+        "headWidth": 0.36,
+        "earSpan": 0.78,
+        "torsoWidth": 0.32,
+        "torsoDepth": 0.23,
+        "shoulderY": 0.89,
+        "hipY": 0.48,
+        "footLength": 0.19,
+        "palmLength": 0.09
+      },
+      "palette": {
+        "skin": "#DFA06C",
+        "skinLight": "#EDBE90",
+        "skinShadow": "#B86A4B",
+        "hair": "#234C55",
+        "hairAccent": "#49717A",
+        "jacket": "#BF7F24",
+        "shirt": "#EFDFC5",
+        "trousers": "#774145",
+        "boots": "#49352D",
+        "patch": "#96504A",
+        "iris": "#9D6D30"
+      },
+      "identity": [
+        "Separate head, neck, torso, upper/lower arms and legs",
+        "Large sideways leaf ears; one V notch on anatomical LEFT ear outer upper edge",
+        "Dark petrol-teal swept hair with dominant tuft toward anatomical RIGHT",
+        "Freckles at nose/upper cheeks; small canine accent only in open smiles",
+        "Ochre cropped jacket, cream shirt, plum cuffed trousers, brown boots",
+        "One russet repair patch on anatomical RIGHT upper outer sleeve; accept individual sheet's upper-arm position, not earlier prompt's elbow wording"
+      ],
+      "behavior": {
+        "want": "To be useful, interesting and part of the adventure",
+        "flaw": "Commits before checking the practical details",
+        "warmth": "First to help or cheer; sincere when an idea fails",
+        "tell": "One ear rises before an idea, both soften on embarrassment"
+      },
+      "motion": {
+        "gait": "Quicker cadence than Rusty, narrower stance, purposeful forward lean",
+        "reaction": "Attention shift then ear/brow idea, body commits; avoid continuous fidgeting",
+        "ears": "One root pivot each plus optional gentle tip bend; notch never changes sides",
+        "hair": "Fixed sculpted locks, at most two restrained secondary joints",
+        "facePoses": [
+          "curious",
+          "idea",
+          "oops",
+          "sincere",
+          "skeptical",
+          "delighted"
+        ]
+      },
+      "references": [
+        "images/00-trio-lineup.png",
+        "images/02-pip-reference.png"
+      ]
+    },
+    {
+      "id": "friends/moss",
+      "name": "Moss",
+      "species": "anthropomorphic capybara",
+      "role": "calm occasional third friend",
+      "heightRatio": 0.92,
+      "dimensions": {
+        "standingHeight": 1.104,
+        "headChinY": 0.65,
+        "headCrownY": 1.03,
+        "earTopY": 1.104,
+        "headWidth": 0.49,
+        "headDepthIncludingMuzzle": 0.46,
+        "torsoWidth": 0.55,
+        "torsoDepth": 0.42,
+        "shoulderY": 0.69,
+        "hipY": 0.25,
+        "footLength": 0.23,
+        "palmLength": 0.1
+      },
+      "palette": {
+        "fur": "#B7824D",
+        "furLight": "#C9975B",
+        "muzzle": "#D2AC78",
+        "paws": "#6A4A33",
+        "nose": "#6B4633",
+        "sweatshirt": "#7C8654",
+        "pocket": "#DAC59E",
+        "iris": "#7B522A"
+      },
+      "identity": [
+        "Broad blunt elongated capybara muzzle; gently sloped forehead",
+        "Small high rounded ears, dark broad nose, small low mouth",
+        "Wide barrel torso, short stocky limbs, planted bare feet",
+        "No visible tail, no giant incisors or whisker wires",
+        "Sage crewneck sweatshirt, oatmeal pocket on anatomical LEFT chest",
+        "Fur-covered lower body; no trousers or shoes"
+      ],
+      "behavior": {
+        "want": "Comfort, peace and a fair share of snacks",
+        "flaw": "Can be stubborn or too comfortable to intervene quickly",
+        "warmth": "Quiet practical kindness",
+        "tell": "Small eye shift, one brow, deliberate hand action"
+      },
+      "motion": {
+        "gait": "Broad support, slower deliberate cadence; weight moves before a step",
+        "reaction": "Read thought through eyes and small mouth changes; stillness is purposeful",
+        "ears": "Small restrained pivots only",
+        "facePoses": [
+          "calm",
+          "really",
+          "pleased",
+          "surprised",
+          "concerned",
+          "determined"
+        ]
+      },
+      "references": [
+        "images/00-trio-lineup.png",
+        "images/03-moss-reference.png"
+      ]
+    }
+  ],
+  "proposedChannelsNotExistingAPI": {
+    "face": [
+      "gazeTarget",
+      "lidL",
+      "lidR",
+      "browL",
+      "browR",
+      "mouthOpen",
+      "mouthCurve",
+      "mouthCornerL",
+      "mouthCornerR"
+    ],
+    "ears": [
+      "earPitchL",
+      "earPitchR",
+      "earSplayL",
+      "earSplayR"
+    ],
+    "rustyOnly": [
+      "tailPose",
+      "tailEmotion",
+      "tailContact"
+    ],
+    "contacts": [
+      "hand.R.grip",
+      "hand.L.grip",
+      "hand.R.pinch",
+      "hand.L.pinch",
+      "foot.R.sole",
+      "foot.L.sole"
+    ],
+    "notes": "Adapt to supported existing fields where semantics match. Implement/validate any new channels explicitly; never silently ignore them."
+  },
+  "acceptance": {
+    "identity": "No potato shell, sprout or gold-skin remapping; side views match species; IDs never overwrite legacy cast",
+    "visual": "Matched neutral front/three-quarter/profile/back plus four approved expressions per character",
+    "motion": "Walk-stop-turn, sit/stand, two-hand hold, one-hand release, reaction, secondary motion and random-seek checks",
+    "regressions": "Existing potato tests/golden frames retain baseline; new fixtures include known failures",
+    "cpu": "Profile on same four-core software renderer; record actual geometry/material/draw-call counts and wall time, not promised fps"
+  }
+}
+

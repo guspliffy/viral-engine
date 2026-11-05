@@ -5,6 +5,7 @@ import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y, propState, gripWorld, partPoint } from "./props3d.js";
 import { CARD_REST } from "./costumes-card.js";
+import { stanceX } from "./rigs/friends-anatomy.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -28,8 +29,14 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // per-side mouth corners, pressed lips and tears (0 dry .. 0.5 wet lower lid .. 1 a tear gathered on it). All 0 by
 // default; "face" actions blend them.
 const neutralExpr = (def) => { const n = def.face?.neutral || {}, o = {}; for (const k in EXPRESSIONS.kind) if (n[k] != null) o[k] = n[k]; return o; };
-export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR", "fangs", "juiceL", "juiceR", "stainL", "stainR"];
-const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"], tear: ["tearL", "tearR"] };
+// The friends rig (rigs/friends.js) also reads ear and tail channels from here: earL/earR lift (-1 down .. 1 up) and
+// splayL/splayR (out from the head), Rusty's tailWag, tailWrap, tailLift, tailAlarm and tailPin (0 .. 1). The potato
+// ignores them.
+export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR", "fangs", "juiceL", "juiceR", "stainL", "stainR",
+  "earL", "earR", "splayL", "splayR", "tailWag", "tailWrap", "tailLift", "tailAlarm", "tailPin"];
+const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"], tear: ["tearL", "tearR"], ear: ["earL", "earR"], splay: ["splayL", "splayR"] };
+// a named expression: the character's own preset first (def.face.presets: each friend's face sheet), else face.js's
+const exprOf = (def, name) => def?.face?.presets?.[name] || EXPRESSIONS[name];
 // mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
 export const GRIPS = {
   open:  { curl: 0.15, index: 0.12, thumb: 0.1 },
@@ -229,8 +236,9 @@ const GPLANS = new WeakMap();
 let PLANNING = false;
 const angD = (a, b) => { let d = a - b; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; return d; };
 const smooth = (u) => { u = clamp(u); return u * u * (3 - 2 * u); };
-function footHome(s, x, z, yaw, sc) {
-  const hx = (s === "R" ? -1 : 1) * GAIT.hx * sc, hz = GAIT.hz * sc, c = Math.cos(yaw), si = Math.sin(yaw);
+// hx0: half the feet's spacing (a friend's own stance, rigs/friends-anatomy.js; the potato's GAIT.hx otherwise)
+function footHome(s, x, z, yaw, sc, hx0 = GAIT.hx) {
+  const hx = (s === "R" ? -1 : 1) * hx0 * sc, hz = GAIT.hz * sc, c = Math.cos(yaw), si = Math.sin(yaw);
   return [x + hx * c + hz * si, z - hx * si + hz * c];
 }
 // the body's path, sampled at GAIT.dt: where the feet stand from (st.plant), whether it is off its feet (in the air,
@@ -292,7 +300,8 @@ function gaitPlan(sb, actor, def) {
   const K = gaitTrack(sb, actor, def), n = K.n, dt = GAIT.dt, G = GAIT;
   const PRE = GAIT.pre, at = (arr, u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return arr[i] + (arr[i + 1] - arr[i]) * r; };
   const yawAt = (u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return K.yaw[i] + angD(K.yaw[i + 1], K.yaw[i]) * r; };
-  const homeAt = (s, u) => footHome(s, at(K.x, u), at(K.z, u), yawAt(u), at(K.sc, u));
+  const hx0 = stanceX(def) ?? GAIT.hx;
+  const homeAt = (s, u) => footHome(s, at(K.x, u), at(K.z, u), yawAt(u), at(K.sc, u), hx0);
   // the last time from u up to v the body is still on its feet (a look ahead never steps toward a ride or a jump)
   const onUntil = (u, v) => { let j = Math.round((u + PRE) / dt); const J = Math.min(n - 1, Math.round((v + PRE) / dt)); while (j < J && !K.off[j + 1]) j++; return Math.max(u, j * dt - PRE); };
   const ev = { R: [], L: [] }, foot = {}, warn = [];
@@ -389,7 +398,7 @@ function gaitPlan(sb, actor, def) {
   // bouts: runs of steps less than 0.4 s apart (the bob, sway and arm swing ease in before and out after each)
   const bouts = [];
   for (const e of steps) { const b = bouts[bouts.length - 1]; if (b && e.t0 - b.t1 < 0.4) { b.t1 = Math.max(b.t1, e.t1); b.n++; } else bouts.push({ t0: e.t0, t1: e.t1, n: 1 }); e.b = bouts.length - 1; }
-  P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {} };
+  P = { K, ev, steps, bouts, warn, at, yawAt, hx0, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {} };
   per.set(actor.id, P);
   return P;
 }
@@ -431,8 +440,8 @@ function planFeet(P, t, st, plant) {
     while (lo <= hi) { const m = (lo + hi) >> 1; if (E[m].t0 <= t) { k = m; lo = m + 1; } else hi = m - 1; }
     let x, y, z, yaw, lift = 0;
     const e = E[k];
-    if (!e) { const h = footHome(s, P.K.x[0], P.K.z[0], P.K.yaw[0], P.K.sc[0]); [x, z] = h; y = P.K.y[0]; yaw = P.K.yaw[0]; }
-    else if (e.off && t < e.t1) { [x, z] = footHome(s, plant.x, plant.z, plant.yaw, sc); y = plant.y; yaw = plant.yaw; }
+    if (!e) { const h = footHome(s, P.K.x[0], P.K.z[0], P.K.yaw[0], P.K.sc[0], P.hx0); [x, z] = h; y = P.K.y[0]; yaw = P.K.yaw[0]; }
+    else if (e.off && t < e.t1) { [x, z] = footHome(s, plant.x, plant.z, plant.yaw, sc, P.hx0); y = plant.y; yaw = plant.yaw; }
     else if (!e.off && t < e.t1) {
       const k1 = (t - e.t0) / (e.t1 - e.t0), m = k1 - Math.sin(2 * Math.PI * k1) / (2 * Math.PI);
       x = lerp(e.p0[0], e.p1[0], m); z = lerp(e.p0[1], e.p1[1], m); y = lerp(e.y0, e.y1, m); yaw = e.a0 + angD(e.a1, e.a0) * m;
@@ -469,7 +478,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1, span: c.span ?? 1,
     // the character's designed neutral face (face.neutral in its file) sits on top of its default expression; an
     // explicit c.expr or an "expr" action is acting and replaces it
-    expr: { ...(EXPRESSIONS[c.expr || (def.face && def.face.default) || "kind"] || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
+    expr: { ...(exprOf(def, c.expr || (def.face && def.face.default) || "kind") || EXPRESSIONS.kind), ...(c.expr ? {} : neutralExpr(def)) },
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || def?.arms?.R || "rest", pose: c.arms?.R || def?.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || def?.arms?.L || "rest", pose: c.arms?.L || def?.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0, skin: 0, skinColor: null,
@@ -560,7 +569,7 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "pitch": st.flip = lerp(st.flip, ((a.to ?? 0) * Math.PI) / 180, e); break;
       // set: change only some of the face's numbers (face.js), e.g. one brow up ({ raise }) or the mouth tightening
       // ({ curve, smirk }), on top of the named expression or of the face as it is
-      case "expr": st.expr = blendExpr(st.expr, a.set ? { ...(EXPRESSIONS[a.expr] || st.expr), ...a.set } : EXPRESSIONS[a.expr] || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
+      case "expr": st.expr = blendExpr(st.expr, a.set ? { ...(exprOf(def, a.expr) || st.expr), ...a.set } : exprOf(def, a.expr) || st.expr, ease("out")(prog(t, a.at, a.dur ?? 0.15))); break;
       case "look": {
         // a big change of attention starts with a blink (a.blink: false turns it off)
         if (a.blink !== false && Math.hypot(a.to[0] - st.look[0], a.to[1] - st.look[1]) > 0.6) st.blink = Math.max(st.blink, blinkAt(t - a.at));

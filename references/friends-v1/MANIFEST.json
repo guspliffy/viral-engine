@@ -1,0 +1,75 @@
+{
+  "format": "friend-trio-reference-pack",
+  "version": 1,
+  "date": "2026-11-05",
+  "repoRevision": "b6f0e59a22ab36076e47e2bd4ebd815bca091ca5",
+  "generationMethod": "Built-in image-generation tool with image references",
+  "status": "Reference illustrations and integration instructions; no engine implementation or clip render",
+  "files": [
+    {
+      "path": "CHARACTER-BIBLE.md",
+      "bytes": 13303,
+      "sha256": "c7efcc65e82fbb04e412c074df38a09ff02558c8f832323083d4ba756851518d"
+    },
+    {
+      "path": "CHARACTER-SPEC.json",
+      "bytes": 10064,
+      "sha256": "20c6f4f703ec1339f21287afa4359d895d89e049969c73f59943ce4155358aad"
+    },
+    {
+      "path": "CLAUDE-START.md",
+      "bytes": 3496,
+      "sha256": "d5c7a4c5619686a748381d23e5227e58c88fce4bd2eded421460747e512eae66"
+    },
+    {
+      "path": "ENGINE-INTEGRATION.md",
+      "bytes": 22155,
+      "sha256": "6b352b13259cff968eb1e46f904264116ff41ef3cd12f919f96e868aa77600d9"
+    },
+    {
+      "path": "IMAGE-PROMPTS.md",
+      "bytes": 12389,
+      "sha256": "228f9b7178e617d558d51e6cfa7643863f5e6311ef6b854dfed4d4524bdbd09c"
+    },
+    {
+      "path": "images/00-trio-lineup.png",
+      "bytes": 2184733,
+      "sha256": "234c0e4cf284d3c0bf08712310015cc159da0c7c4de635af2ef4210fd1b4e38e",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "path": "images/01-rusty-reference.png",
+      "bytes": 2215308,
+      "sha256": "5d1aea2f84ddc52e3ad8419d77cc580b8cd2174ade33482b5bae6d47d8e05be7",
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "path": "images/02-pip-reference.png",
+      "bytes": 2188971,
+      "sha256": "b4e90dc7cc222f4f095a781282515ebd3c6ae05de4af86d2c4a09e70953fb538",
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "path": "images/03-moss-reference.png",
+      "bytes": 2281859,
+      "sha256": "0456989303f230e72053de3f4836d791c67389daf346910c786c3d0343b8ec2a",
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "path": "images/04-original-exploration.png",
+      "bytes": 2225243,
+      "sha256": "30748d4e4549f74cf1497768c105a0a9f31c5efe0bc77c3d1b232f6bee267d79",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "path": "README.md",
+      "bytes": 2553,
+      "sha256": "ed2bde14df85f7c255ff1cd4ed750015e9b83fbb9d6cdc8eb6473f3fa8a5bfdd"
+    }
+  ]
+}

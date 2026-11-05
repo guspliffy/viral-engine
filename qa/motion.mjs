@@ -19,6 +19,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
+import { handTargetFor, stanceX } from "../engine/page/rigs/friends-anatomy.js";
+import { arcLerp as ARC } from "../engine/page/potato.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // how far a value may move between two frames before it counts as a jump (metres, radians, or 0..1 levels),
@@ -37,8 +39,8 @@ export function steppingAt(sb, id, t, fps, isDance) {
 }
 
 // the values the checks follow for one actor at one moment: body position and pose, and both hands
-function values(st, def, t, handTarget) {
-  const rx = def.body.width / 2, H = def.body.height, v = {};
+function values(st, def, t, handTarget0) {
+  const rx = def.body.width / 2, H = def.body.height, v = {}, handTarget = handTargetFor(def, handTarget0, ARC);
   for (const k of ["x", "y", "z", "yaw", "lean", "pitch", "squash", "wings", "flap", "tuck"]) v[k] = st[k] ?? 0;
   for (const [s, sx] of [["R", -1], ["L", 1]]) {
     const a = st.arms[s], f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t);
@@ -69,7 +71,7 @@ export async function motionJumps(sb, fps = 30) {
       const t = i / fps, st = actorState(sb, c, def, t), v = values(st, def, t, handTarget);
       // the feet where the plant puts them (in the air or sitting they go with the body: not checked)
       const P = st.plant, sc = st.scale ?? 1;
-      const feet = P && P.w === 0 ? [-1, 1].map((sx) => [P.x + sc * (sx * 0.13 * Math.cos(P.yaw) + 0.04 * Math.sin(P.yaw)), P.z + sc * (-sx * 0.13 * Math.sin(P.yaw) + 0.04 * Math.cos(P.yaw))]) : null;
+      const hx = stanceX(def) ?? 0.13, feet = P && P.w === 0 ? [-1, 1].map((sx) => [P.x + sc * (sx * hx * Math.cos(P.yaw) + 0.04 * Math.sin(P.yaw)), P.z + sc * (-sx * hx * Math.sin(P.yaw) + 0.04 * Math.cos(P.yaw))]) : null;
       // a dance step eases out over its release (dance.js) after its duration
       const stepping = steppingAt(sb, c.id, t, fps, isDance);
       rows.push({ t, v, feet, stepping, skip: st.visible === false || flashAt(sb, t) >= 0.5 || offScreen(st, t), fries: st.form === "fries" });
