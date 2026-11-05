@@ -164,7 +164,7 @@ c.arm(2.45, "rea", "R", TUCK_R, 0.25);
 A(2.35, "wiz", "look", { to: [0.8, 0.1], dur: 0.12, blink: false });
 // (his sheepish face was hidden behind zombie Viking, 2.5-3.1: dropped)
 // the ping: Phoenix's tiny smile
-sfx(2.7, "notify", { gain: 0.3 });
+sfx(2.7, "notify", { gain: 0.42 });
 A(2.75, "phx", "expr", { expr: "happy", set: { curve: 0.45 }, dur: 0.2 });
 A(3.1, "phx", "expr", { expr: "kind", set: { curve: 0.15, eye: 0.95 }, dur: 0.25 });
 see(1.3, 1.95, ["wiz.face"], "P2: the Wizard waves him over, before zombie Viking passes");
@@ -240,7 +240,7 @@ for (const [z, t] of [["vik", 9.45], ["gun", 9.55], ["sam", 9.63], ["dra", 9.72]
   A(r3(t + 0.13), z, "pitch", { to: 0, dur: 0.25 });
   A(r3(t + 0.13), z, "turn", { to: BENCH.rot + (z === "vik" ? 35 : 30), dur: z === "vik" ? 0.3 : 0.25 });
 }
-c.textPop(9.9, "wiz", "!", { xy: [860, 820], dur: 0.35, color: "#ffe14a", size: 120, angle: 8 });   // the friends are spotted
+c.textPop(9.72, "wiz", "!", { xy: [860, 820], dur: 0.5, color: "#ffe14a", size: 120, angle: 8 });   // the friends are spotted
 for (const w of ["wiz", "rea"]) act.shock(c, 9.7, w, { open: 0.5, hold: 0.5 });
 see(9.5, 9.95, ["phx.face", "vik.face", "wiz.face", "hedge"], "P8: the horde turns to the hedge where the hat tip sticks out");
 
