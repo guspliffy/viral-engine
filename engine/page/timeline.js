@@ -365,7 +365,7 @@ function gaitPlan(sb, actor, def) {
   // bouts: runs of steps less than 0.4 s apart (the bob, sway and arm swing ease in before and out after each)
   const bouts = [];
   for (const e of steps) { const b = bouts[bouts.length - 1]; if (b && e.t0 - b.t1 < 0.4) { b.t1 = Math.max(b.t1, e.t1); b.n++; } else bouts.push({ t0: e.t0, t1: e.t1, n: 1 }); e.b = bouts.length - 1; }
-  P = { K, ev, steps, bouts, warn, at, yawAt };
+  P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {} };
   per.set(actor.id, P);
   return P;
 }
@@ -391,9 +391,10 @@ function planGait(P, t, yaw) {
     else { cur = a; ph = a.q + (t - a.t1) * a.cad; len = a.len; }
   }
   const sd = Math.max(0.3, len / (0.2 * (at(K.sc, t) || 1)));
-  amt *= clamp(sd / 0.8, 0.25, 1);
-  const v = at(K.v, t);
-  return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, GAIT.leanMax), run: !!cur?.run, tip };
+  amt *= clamp(sd / 0.8, 0.25, 1) * (P.tune.body ?? 1);
+  const v = at(K.v, t), T = P.tune;
+  tip[0] *= T.tip ?? 1; tip[1] *= T.tip ?? 1;
+  return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, GAIT.leanMax) * (T.lean ?? 1), run: !!cur?.run, tip };
 }
 // where each foot is at time t (potato.js st.feet): standing where it touched down, or on its way along a low arc that
 // leaves and lands softly; with the body while it is off its feet. w fades it out in the air, sitting or kneeling.

@@ -24,14 +24,14 @@ A(3.85, "phx", "move", { to: [0.4, 0], dur: 0.45, ease: "out", steps: 2.6 });
 A(4.55, "phx", "move", { to: [0.55, 0.05], dur: 0.4, ease: "in", steps: 2.6 });
 // 4. RUN AND STOP (a "run": today the old cycle, feet sliding with the body)
 A(5.2, "phx", "turn", { to: "left", dur: 0.25 });
-A(5.35, "phx", "run", { pts: [[0, 0.55, 0.05], [0.15, 0.45, 0.05], [0.3, 0.2, 0.05], [0.9, -0.85, 0.05], [1.05, -1.0, 0.05], [1.2, -1.05, 0.05]], stride: 2, rate: [[0, 3.2]] });
+A(5.35, "phx", "run", { pts: [[0, 0.55, 0.05], [0.15, 0.47, 0.05], [0.3, 0.28, 0.05], [0.75, -0.38, 0.05], [0.9, -0.52, 0.05], [1.05, -0.57, 0.05]], stride: 2, rate: [[0, 3.2]] });
 // 5. SHOVED BACK: a jolt that starts fast and slows (ease out), the feet scramble to catch it
 A(7.2, "phx", "turn", { to: "right", dur: 0.3 });
 A(7.9, "phx", "expr", { to: "shocked", dur: 0.15 });
-A(7.9, "phx", "move", { to: [-1.4, 0.05], dur: 0.45, ease: "out" });
+A(7.9, "phx", "move", { to: [-1.0, 0.05], dur: 0.4, ease: "out" });
 A(8.6, "phx", "expr", { to: "annoyed", dur: 0.25 });
 // 6. WALK OFF with an eased start and a sudden stop (ease "in": today's old cycle)
-A(9.3, "phx", "move", { to: [0.5, 0.0], dur: 1.6, ease: "in" });
+A(9.3, "phx", "move", { to: [0.45, 0.0], dur: 1.4, ease: "in" });
 A(11.2, "phx", "turn", { to: "camera", dur: 0.35 });
 const SHOT = { pos: [-0.25, 0.7, 7.4], look: [-0.25, 0.4, 0], fov: 30 };
 const cast = [{ id: "phx", character: "duo/phoenix", at: [-0.9, 0], face: "camera", expr: "kind", follow: 0.3, seed: 1.7, span: 0 }];
