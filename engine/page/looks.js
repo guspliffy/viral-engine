@@ -543,6 +543,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     ROLE.lid = { ...ROLE.skin, bodyN: true, hatch: null };
     if (!sheetHatch) for (const r of ["skin", "char", "cloth", "hair", "lining", "glove", "wood", "lid"]) if (ROLE[r]) ROLE[r] = { ...ROLE[r], hatch: null };
   }
+  // lookRole "drawn" (Mott the moth, 5 Nov 2026): a prop drawn like the "sheet" cast whatever cast the clip has, flat
+  // cels with a soft edge, no film gloss, and the sheet's pencil hatching in its shade. Only a material that asks for it
+  // (userData.lookRole = "drawn") takes it
+  ROLE.drawn = { ...ROLE.char, grad: 0.03, occ: 0.08, rimK: 0, spec: 0, specW: 0, back: null, hatch: { k: 0.45, gap: 7, boil: 0.5 } };
   // set "hatch": { "scale": 1.3, "boil": 0.25, "rate": 8, "k": 1 } (quality plan item 18, opt-in, Jonny's call): the
   // pencil hatching tuned to what survives TikTok's re-encode: scale multiplies the stroke spacing (7 px at 1080 wide),
   // boil is how far the strokes shift per drawing, rate how many drawings a second (15), k a factor on its strength

@@ -45,6 +45,10 @@ const RIG = { hand: 2, eyes: 2 };
 // shadow colours, a key-side edge light and soft contact shading (engine/page/light.js, docs/STORYBOARD.md); a
 // { v: 2, ... } block overrides key, colours, exposure, rimK or ao; false: as before
 const LIGHTING = 2;
+// pencil hatching that survives TikTok (Jonny, 5 Nov, "no grain + half boil"): the strokes redraw with half today's
+// wiggle (face detail after a TikTok re-encode 0.917 -> 0.962 SSIM with the grain off). A clip that adds a "drawn"
+// block keeps "paper": { "grain": 0 }: the grain turns to mush after TikTok's re-encode. null: as before
+const HATCH = { boil: 0.25 };
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -139,7 +143,7 @@ write(import.meta.url, {
   // the warm living room (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
-    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }) },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }) },
   music: MUSIC,
   direct: { master: MED },
   // the spike guard (Jonny, 5 Nov, PR #112): no effect jumps far out of the mix, a gentle limiter instead of

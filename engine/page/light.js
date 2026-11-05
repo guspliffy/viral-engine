@@ -117,7 +117,7 @@ export function makeLightRig({ scene, setSpec, actors, props }) {
     const tint = (base, c, k) => base.map((v, i) => r3(v * (1 + (c[i] - 1) * k * g)));
     const scale = (v, k) => v.map((x) => r3(x * k));
     // how much of the painting's colour each role takes (lit, shade): skin less (the potatoes stay golden)
-    const K = { skin: [0.4, 0.75], lid: [0.4, 0.75], char: [0.55, 0.85], cloth: [0.55, 0.85], glove: [0.55, 0.85], lining: [0.55, 0.85], hair: [0.5, 0.8], wood: [0.6, 0.85] };
+    const K = { skin: [0.4, 0.75], lid: [0.4, 0.75], char: [0.55, 0.85], cloth: [0.55, 0.85], glove: [0.55, 0.85], lining: [0.55, 0.85], hair: [0.5, 0.8], wood: [0.6, 0.85], drawn: [0.4, 0.75] };
     const rimC = (spec.rim ? hex(spec.rim) : m ? m.bright : keyC).map((v) => Math.min(1, v));
     const rimK = spec.rimK ?? (dark ? 0.75 : 0.5);
     U.krim.value.setRGB(...rimC.map((v) => r3(v * rimK)));

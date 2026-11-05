@@ -30,6 +30,7 @@ import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
 import { visibility, frontResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
 import { rigResults, cutIn, proj } from "./rig.mjs";
+import { supportResults } from "./support.mjs";   // holds 2: every prop held, riding, in flight, resting or staged
 import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mjs";
 export { GATE, gateOf, gateLevel, rootFixed, windowFor, waives, storyAt, actingAt } from "./gate.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
@@ -81,7 +82,7 @@ export const RULES = {
   // sunk into a phone). A hand on a prop it doesn't work with fails only from handPopHold s (shorter: fingers brushing
   // a lid or a chair as a hand grabs or lets go, a warning to look at). A thin held prop must show past the fist at both ends, on screen, by thinShow (for
   // thinHold s or more: a straw picked up off the table hides an end for a moment)
-  handInProp: 0.02, handTouchProp: 0.012, armInProp: 0.03, costumeInProp: 0.02, heldInProp: 0.01, heldWarn: 0.03, thinShow: 0.01, thinHold: 0.5, handPopHold: 0.15,
+  handInProp: 0.02, handTouchProp: 0.012, limbInProp: 0.01, limbTouch: 0.003, armInProp: 0.03, costumeInProp: 0.02, heldInProp: 0.01, heldWarn: 0.03, thinShow: 0.01, thinHold: 0.5, handPopHold: 0.15,
   faceHide: 0.35,   // share of the eye points hidden (stage.js hiddenFaces) that counts as a hidden face: about a third
   oddFrame: 8, oddFrameFail: 30, // a frame that differs from both neighbours while they agree (a one-frame pop), 0..255
   spinStep: 90, // degrees a character may turn between two frames before the turn strobes (front, back, front)
@@ -267,7 +268,7 @@ export function contactResults(layout, sb = null) {
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
-  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb));
+  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb), ...supportResults(layout, sb));
   return out;
 }
 
@@ -288,10 +289,12 @@ function propResults(layout, sb) {
     const thin = new Set((r.thin || []).map((t) => t.prop));
     for (const x of r.inProps || []) {
       const part = x.part || "hand";
-      if (allowed(x.who, x.prop, i, { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop" }[part])) continue;
+      if (allowed(x.who, x.prop, i, { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop", limb: "limb-in-surface" }[part])) continue;
       const held = !!x.held, k = `${x.who}|${part}|${x.hand || x.what}|${x.pad ? "pad" : ""}|${x.prop}`;
       const seen = x.seenDepth ?? x.depth;
-      const v = part === "costume" ? (held ? [x.core, Infinity, RULES.costumeInProp] : [x.core, RULES.costumeInProp, RULES.handTouchProp])
+      // a prop's own limb (a moth's wing) in another prop or the set: past limbInProp fails, past limbTouch warns
+      const v = part === "limb" ? [x.depth, RULES.limbInProp, RULES.limbTouch]
+        : part === "costume" ? (held ? [x.core, Infinity, RULES.costumeInProp] : [x.core, RULES.costumeInProp, RULES.handTouchProp])
         : !held ? (part === "arm" ? [x.depth, RULES.armInProp, RULES.handInProp] : [x.depth, RULES.handInProp, RULES.handTouchProp])
         : x.pad ? [x.core ?? x.depth, Infinity, Infinity]
         : [seen, thin.has(x.prop) ? RULES.heldInProp : Infinity, RULES.heldWarn];
@@ -299,8 +302,8 @@ function propResults(layout, sb) {
       m.get(k).f[i] = { v: v[0], fail: v[1], warn: v[2], held };
     }
   });
-  const check = { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop" };
-  const name = (x) => (x.part === "costume" ? x.what : x.part === "hand" ? `hand ${x.hand}${x.pad ? " (fingers)" : " (palm)"}` : `arm ${x.hand}`);
+  const check = { hand: "hand-in-prop", arm: "arm-in-prop", costume: "costume-in-prop", limb: "limb-in-surface" };
+  const name = (x) => (x.part === "costume" || x.part === "limb" ? x.what : x.part === "hand" ? `hand ${x.hand}${x.pad ? " (fingers)" : " (palm)"}` : `arm ${x.hand}`);
   for (const { x, f } of m.values()) {
     const at = (k) => runs(Array.from({ length: n }, (_, i) => !!f[i] && f[i].v > f[i][k]));
     // a hand going into a prop it doesn't work with for under handPopHold s only warns (Jonny, 29 Oct)
@@ -309,7 +312,8 @@ function propResults(layout, sb) {
     const spans = deep.length ? deep : touch, max = Math.round(Math.max(...f.filter(Boolean).map((e) => e.v)) * 100);
     const held = spans.some(([a, b]) => f.slice(a, b + 1).some((e) => e && e.held));   // what the failing frames measured
     const fix = x.part === "hand" ? (held ? "hold it with the finger and thumb pads, the palm and wrist beside or behind it" : "keep the glove outside it (hold it from outside, lift it clear)")
-      : x.part === "arm" ? "move the prop or the elbow so the arm passes beside it" : "keep the costume clear of it (move the prop, turn or lean)";
+      : x.part === "arm" ? "move the prop or the elbow so the arm passes beside it"
+      : x.part === "limb" ? "fold or lift the limb clear of it, or move the prop away from the surface" : "keep the costume clear of it (move the prop, turn or lean)";
     const what = held ? `${x.prop}, which it works with,` : x.prop;
     if (deep.length) out.push({ level: "fail", check: check[x.part], msg: `${x.who}: ${name(x)} goes into ${what} at ${deep.map(when).join(", ")}, up to ${max} cm${held ? " on the side the camera sees" : ""}: ${fix}, or add an allowClip window with a reason` });
     else if (touch.length) out.push({ level: "warn", check: check[x.part], msg: `${x.who}: ${name(x)} ${held ? "sinks" : "dips"} ${max} cm into ${what} at ${touch.map(when).join(", ")}${held ? " on the side the camera sees" : ""}: look at it in a 15 fps strip` });
