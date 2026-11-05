@@ -27,7 +27,7 @@ export const OVERLAP = {
   dt: 1 / 120,
   hand: [3.5, 0.65, 1], body: [4, 0.6, -0.3], prop: [6, 0.5, 1],   // f (Hz), zeta, r
   propArm: 0.15, propMax: 0.14,   // a held prop swings like a pendulum this long (m) from the grip, at most 8 degrees
-  handMax: 0.09, yawMax: 0.3, weaponYaw: 0.35,   // the largest lag: metres for a hand, radians for the body's turn
+  handMax: 0.09, yawMax: 0.3, weaponYaw: 0,   // the largest lag: metres for a hand, radians for the body's turn
   snapHand: 0.12, snapYaw: 0.4,   // a target moving further than this in one step was re-placed: the spring starts again there
 };
 const REST_ON = new Set(["table", "lap", "hips", "cheeks"]);   // poses where the hand rests on something
@@ -125,7 +125,8 @@ export function overlapAt(sb, actor, def, t, H) {
         const w = T.bodyFree;
         C.B.y[0] = x[0] + w * (C.B.y[0] - x[0]); C.B.v[0] = xd[0] + w * (C.B.v[0] - xd[0]);
       }
-      // a long costume prop (staff, scythe, axe) sweeps with the body's turn: its follow is a third as big
+      // a long costume prop (staff, scythe, axe) sweeps with the body's turn into whatever stands beside it (the solver
+      // doesn't see props yet: the cat's staff into Phoenix, the tent's arm into the tent): no follow for its carrier
       body = [softMax((C.B.y[0] - x[0]) * (weaponHand(def) ? O.weaponYaw : 1), O.yawMax), 0, 0];
     }
     // the hands: each follows its target in the body's own frame; a hand on a contact is held on its target
