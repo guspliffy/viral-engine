@@ -1571,7 +1571,8 @@ function hiddenFaces(live, shownIn) {
         ray.set(camera.position, dir.normalize()); ray.far = d - 0.02; n++;
         const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object) && opaqueAt(h));
         if (hit) { const c = owner.get(hit.object), M = c.scenery ? sby : by; if (c.scenery) scen++; else hidden++; M.set(c.who, (M.get(c.who) || 0) + 1); }
-        const hh = ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id && (!hit || h.distance < hit.distance));
+        // only where nothing else hides the point: an arm in front of a body that hides the face is that body's staging
+        const hh = !hit && ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
         if (hh) { hand++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
       }
     }
@@ -1585,7 +1586,7 @@ function hiddenFaces(live, shownIn) {
       for (const [dx, dy] of [[0, 0], [0, -0.35], [0, -0.75], [-0.45, -0.65], [0.45, -0.65], [-0.6, -0.25], [0.6, -0.25]]) {
         const p = mid.clone().addScaledVector(right, dx * ed).addScaledVector(up, dy * ed), dir = p.clone().sub(camera.position), d = dir.length();
         ray.set(camera.position, dir.normalize()); ray.far = d - 0.02;
-        const hh = ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
+        const hh = !ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && opaqueAt(h)) && ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
         if (hh) { low++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
       }
       low = Math.round((low / 7) * 100) / 100;
