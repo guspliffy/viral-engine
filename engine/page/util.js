@@ -92,3 +92,69 @@ export function wobble(t, seed, freq = 1, D = 0) {
   if (D) { const T = 2 * Math.PI; return Math.sin(t * loopRad(freq * T, D) + s) * 0.6 + Math.sin(t * loopRad(freq * 2.71 * T, D) + s * 1.7) * 0.3 + Math.sin(t * loopRad(freq * 5.13 * T, D) + s * 2.3) * 0.1; }
   return (Math.sin(t * freq * 6.283 + s) * 0.6 + Math.sin(t * freq * 2.71 * 6.283 + s * 1.7) * 0.3 + Math.sin(t * freq * 5.13 * 6.283 + s * 2.3) * 0.1);
 }
+
+// ---------- motion layer (quality plan items 8, 9 and 12; storyboard "motion": { "overlap", "timing", "solve" }) ----
+// Opt-in, off by default so old clips render the same. "overlap": true (item 8) gives every hand drag and settle and
+// the body's turns, tips and leans a beat of overlap; "timing": true (item 12) gives moves ease families, the elbow
+// leading the hand, weight shifts in holds, a frame or two between characters who start together, and one smooth path
+// through a chain of moves; "solve": true (item 9) pushes hands and elbows out of bodies (solve.js). An object turns
+// parts off: { "overlap": { "body": false } }.
+const LAYER = new WeakMap();
+const LAYER_PARTS = { overlap: ["hands", "body", "soft"], timing: ["eases", "breaking", "holds", "offsets", "splines"], solve: ["hands", "elbows"] };
+export function layerOf(sb) {
+  const m = sb && sb.motion;
+  if (!m || typeof m !== "object") return null;
+  if (LAYER.has(sb)) return LAYER.get(sb);
+  let L = {};
+  for (const [k, parts] of Object.entries(LAYER_PARTS)) {
+    const v = m[k];
+    if (!v) continue;
+    L[k] = Object.fromEntries(parts.map((p) => [p, !(typeof v === "object" && v[p] === false)]));
+    if (typeof v === "object") L[k].tune = v;
+  }
+  if (!Object.keys(L).length) L = null;
+  LAYER.set(sb, L);
+  return L;
+}
+
+// Second-order dynamics (item 8): a value y that follows a target x like a mass on a damped spring, in the f, zeta, r
+// form (t3ssel8r, "Giving personality to procedural animations"): f the natural frequency in Hz (how fast it answers),
+// zeta the damping (under 1 it overshoots and settles, 1 just arrives), r the start (1 moves at once, over 1 overshoots
+// at the start, under 0 winds up the other way first: anticipation). Stepped at a fixed step from t = 0 and cached by
+// the caller, so a frame never depends on the frame drawn before it. sodK turns (f, zeta, r) into the step constants;
+// sodStep moves state S ({ y: [...], v: [...] }) one step T toward x (xd: the target's own speed). The step is the
+// semi-implicit Euler with k2 raised where the step is too long for the spring (stable at any f).
+export function sodK(f, z, r) {
+  const w = 2 * Math.PI * f;
+  return { k1: z / (Math.PI * f), k2: 1 / (w * w), k3: (r * z) / w };
+}
+export function sodStep(S, K, x, xd, T) {
+  const k2 = Math.max(K.k2, (T * T) / 2 + (T * K.k1) / 2, T * K.k1);
+  for (let i = 0; i < x.length; i++) {
+    S.y[i] += T * S.v[i];
+    S.v[i] += (T * (x[i] + K.k3 * xd[i] - S.y[i] - K.k1 * S.v[i])) / k2;
+  }
+}
+// a soft limit: the same as x while small, never past m (tanh), for a lag that must stay a few centimetres
+export const softMax = (x, m) => (m > 0 ? m * Math.tanh(x / m) : 0);
+
+// Timing eases (item 12 a): a reach goes out fast and arrives slowly, landing exactly (no overshoot: it lands on a
+// grip); a gesture winds up a little and settles past its end (anticSettle). reach: the inOut ease on a clock that runs
+// fast first (its peak speed about a third of the way, zero speed at both ends)
+EASE.reach = (x) => EASE.inOut(1 - Math.pow(1 - clamp(x), 1.35));
+// cubic Hermite in time through keys [[t, ...values], ...] with Catmull-Rom tangents (tension k: 1 the full tangent),
+// at rest on the first and last key: one smooth path through a chain of moves instead of a stop at every key (item 12 e)
+export function hermiteKeys(K, t, k = 1) {
+  const n = K.length, m = K[0].length;
+  if (t <= K[0][0]) return K[0].slice(1);
+  if (t >= K[n - 1][0]) return K[n - 1].slice(1);
+  let i = 0; while (K[i + 1][0] < t) i++;
+  const a = K[i], b = K[i + 1], h = b[0] - a[0], u = (t - a[0]) / h;
+  const tan = (j, c) => (j === 0 || j === n - 1 ? 0 : (k * (K[j + 1][c] - K[j - 1][c])) / (K[j + 1][0] - K[j - 1][0]));
+  const h00 = 2 * u ** 3 - 3 * u ** 2 + 1, h10 = u ** 3 - 2 * u ** 2 + u, h01 = -2 * u ** 3 + 3 * u ** 2, h11 = u ** 3 - u ** 2;
+  const out = [];
+  for (let c = 1; c < m; c++) out.push(h00 * a[c] + h10 * h * tan(i, c) + h01 * b[c] + h11 * h * tan(i + 1, c));
+  return out;
+}
+// a stable hash of a string (seeded offsets and weight shifts per actor)
+export function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619); return h >>> 0; }
