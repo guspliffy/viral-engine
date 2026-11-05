@@ -74,16 +74,18 @@ P(0.55, { squint: 1, sad: 1, glow: 0 }, 0.15);                                  
 P(0.6, { rot: -40, bank: 8 }, 0.35, "out");                                      // turns his back on it...
 c.textPop(0.75, null, "nope.", { xy: [330, 860], dur: 0.8, color: "#ffffff", angle: -6, size: 96 });
 P(1.0, { lookX: 1.4 }, 0.2);                                                       // ...but the antennae keep pointing at it
-buzz(1.15, 5); sfx(1.15, "notify", { gain: 0.11, reason: "it pings again" });
+buzz(1.05, 5); sfx(1.05, "notify", { gain: 0.11, reason: "it pings again" });
 P(1.45, { squint: 0.55 }, 0.2);                                                   // one peek
 P(1.75, { squint: 0, sad: 0, rot: 18, bank: 0, lookX: 1, glow: 0.7 }, 0.25, "out");   // he turns back to it
 // captions low (CAP_Y, under Mott in the wide), clear of the title Jonny adds at the top in the app; "3 AM." on the second ping sets up "4 AM."
-cap(0, 1.4, "Me: I'll sleep early tonight.", CAP_Y, false, { kinetic: false });
-cap(1.45, 2.0, "3 AM.", CAP_Y, false, { kinetic: false });
+cap(0, 1.0, "Me: I'll sleep early tonight.", CAP_Y, false, { kinetic: false });
+cap(1.05, 2.0, "3 AM."   /* on the second ping (review B) */, CAP_Y, false, { kinetic: false });
 see(0, 2.0, ["mott", "phone"], "3 AM: the phone glowing beside Mott in bed");
 
 // ---------------------------------------------------------------- 2 LOCK-ON 2.0-3.0 (close)
-P(2.0, { glow: 1, mouth: 0.6, hope: 1, lid: 0 }, 0.2, "out");
+P(2.0, { lid: 0.5, glow: 0.3, lookX: 0.4, hope: 0.6 }, 0);   // the close-up opens on heavy lids... (review B)
+P(2.12, { glow: 1, mouth: 0.6, lid: 0 }, 0.1, "out");          // ...that snap open as the light fills his eyes
+P(2.2, { lookX: 1.4, hope: 1 }, 0.6);                          // the antennae swing to the phone across the shot
 sfx(2.05, "sharkhum", { gain: 0.07, reason: "Mott's hypnotised little hum as the light fills his eyes" });
 see(2.0, 3.2, ["mott"], "the lock-on: the light in his eyes");
 
@@ -107,11 +109,12 @@ sfx(T_HIT + 0.02, "poof", { gain: 0.45, reason: "a puff of wing dust" });
 c.at(T_HIT, { fx: "shake", dur: 0.15, amp: 0.02 });
 c.hitStop(T_HIT, 3);
 P(T_HIT, { puff: 1, flap: 0, bob: 0, mouth: 0 }, 0.7, "linear");
-P(T_HIT, { open: 0 }, 0.18, "out");   // the bump snaps his wings shut over his back (open, they cut into the wall and the bed)
+P(T_HIT, { open: 0.9 }, 0.04, "out");   // splat: wings flung flat against the glass for the hit-stop (review B)...
+P(T_HIT + 0.12, { open: 0 }, 0.24, "out");   // ...then they snap shut over his back as he peels off
 P(T_HIT, { squint: 1, glow: 0 }, 0.08, "out");
 P(T_HIT, { curl: 1 }, 0.05, "out"); P(T_HIT + 0.25, { curl: 0 }, 0.35, "out");   // squashed flat on the glass, then back
 c.prop(T_HIT, "print", { on: 1 }, 0.1);
-c.textPop(T_HIT + 0.02, null, "tink!", { xy: [640, 520], dur: 0.8, color: "#ffd6e0", angle: 8, size: 120 });
+c.textPop(T_HIT + 0.02, null, "tink!", { xy: [820, 560], dur: 0.5, color: "#ffd6e0", angle: 8, size: 120 });
 // he slides down the glass, turns round dazed and leans back against it, blissed out in the glow
 // he bounces back off the glass toward us, squashed and dizzy, then drops onto the nightstand beside it
 const BOUNCE = onScreen(0.6, 0.6, R * 0.95 + 0.2);
@@ -120,8 +123,10 @@ P(5.1, { x: SLUMP[0], y: SLUMP[1], z: SLUMP[2], rot: r3(PH.rot - 26), bank: 12 }
 P(5.55, { squint: 0, lid: 0.55, happy: 1, hope: 0.2, wilt: 0.4, lean: -8 }, 0.3);
 // the shake shakes the note loose: it hangs by its top edge, lets go, flutters down in front of him and lands on his head
 c.prop(4.65, "note", { wag: 1 }, 0.1);
-c.prop(5.0, "note", { x: 0.25, y: 0.95, z: -1.72, rot: 12, tip: -30, tilt: -10 }, 0.45, "inOut");
-c.prop(5.45, "note", { x: NOTE_HEAD[0], y: NOTE_HEAD[1], z: NOTE_HEAD[2], rot: 25, tip: -55, tilt: 8 }, 0.45, "inOut");
+// it peels up and out, then tumbles down in an arc onto his head (review B: a fall the eye can follow)
+c.prop(5.0, "note", { x: -0.02, y: 1.06, z: -2.08, tip: -70 }, 0.15, "out");
+c.prop(5.15, "note", { x: 0.25, y: 0.93, z: -1.72, rot: 60, tip: -30, tilt: 20 }, 0.3, "in");
+c.prop(5.45, "note", { x: NOTE_HEAD[0], y: NOTE_HEAD[1], z: NOTE_HEAD[2], rot: 25, tip: -55, tilt: 8 }, 0.25, "out");
 c.prop(5.9, "note", { wag: 0 }, 0.1);
 sfx(5.0, "flutter", { gain: 0.35, reason: "the sticky note flutters down" });
 see(T_HIT, 6.0, ["mott", "phone"], "tink: face first into the screen");
@@ -132,18 +137,18 @@ const T4 = 6.0;
 P(T4, { lid: 1, happy: 0.6, wilt: 0.8, hope: 0, lookX: 0, lookY: 0, bank: 14, lean: -6 }, 0);
 P(T4, { breath: 1 }, 0);
 c.textPop(6.4, null, "z", { xy: [840, 800], dur: 0.9, color: "#dfe8ff", angle: 8, size: 80 });
-c.textPop(7.5, null, "zZ", { xy: [880, 740], dur: 0.9, color: "#dfe8ff", angle: 10, size: 92 });
-cap(T4, 7.6, "4 AM.", CAP_Y, false, { kinetic: false });
+c.textPop(6.95, null, "zZ", { xy: [880, 740], dur: 0.9, color: "#dfe8ff", angle: 10, size: 92 });
+cap(T4, 7.6, "4 AM.", 470, false, { kinetic: false });   // above his head in the close-up (low, it sat on his face), under the in-app title
 // the phone locks itself: the room goes dark round him and he sinks deeper, safe at last
-c.prop(6.9, "phone", { glow: 0.12 }, 0.4);
-P(6.9, { wilt: 1 }, 0.5);   // (no lean back: it tipped his closed wings into the wall)
-const T_PING = 8.2;
+c.prop(T4, "phone", { glow: 0.12 }, 0);   // the cut to 4 AM finds it already locked: the dark room is the time jump (review B)
+P(6.3, { wilt: 1 }, 0.5);   // (no lean back: it tipped his closed wings into the wall)
+const T_PING = 7.4;
 // ...and the ping lights it again: the light sweeping his face is what wakes the antennae
 buzz(T_PING, 5); sfx(T_PING, "notify", { gain: 0.14, reason: "the phone pings at 4 AM and lights up" });
 c.prop(T_PING, "phone", { glow: 1 }, 0.06, "out");
 P(T_PING + 0.08, { wilt: 0, hope: 1, lookX: -0.7, lookY: 0.6, breath: 0 }, 0.22, "out");   // the antennae swivel back to it, asleep
-P(8.9, { lid: 0, glow: 1, happy: 0, mouth: 0.5 }, 0.12, "out");                  // eyes snap open, the light in them
-P(9.3, { lean: 8 }, 0.35, "out");                                                 // and he leans in: frame 0's snap to the light, again
+P(8.1, { lid: 0, glow: 1, happy: 0, mouth: 0.5 }, 0.12, "out");                  // eyes snap open, the light in them
+P(8.5, { lean: 8 }, 0.35, "out");                                                 // and he leans in: frame 0's snap to the light, again
 see(T4, END, ["mott", "phone", "note"], "4 AM: asleep against the phone, the note on his head");
 
 // ---------------------------------------------------------------- shots
@@ -153,7 +158,7 @@ const LOCK = frame([IN_BED[0] - 0.04, IN_BED[1] + 0.06, IN_BED[2]], { az: 26, el
 const DRIFT_A = frame([-0.5, 0.85, -1.45], { az: 34, el: 14, h: 1.8, fov: 34 }), DRIFT_B = frame([-0.06, 0.78, -1.8], { az: 34, el: 14, h: 1.6, fov: 34 });
 const DRIFT = { ...DRIFT_A, to: { pos: DRIFT_B.pos, look: DRIFT_B.look }, dur: 1.25, ease: "inOut" };
 const DAZED = frame([SLUMP[0] - 0.14, SLUMP[1] + 0.14, SLUMP[2]], { az: 32, el: 14, h: 1.3, fov: 32 });
-const FOUR = frame([SLUMP[0] - 0.07, SLUMP[1] + 0.12, SLUMP[2]], { az: 12, el: 8, h: 1.15, fov: 30, push: 0.12, dur: 4.0 });
+const FOUR = frame([SLUMP[0] - 0.05, SLUMP[1] + 0.12, SLUMP[2]], { az: 12, el: 8, h: 1.15, fov: 30, push: 0.12, dur: 4.0 });
 const beats = c.beats([
   ["3 am", 0, WIDE, "hook"],
   ["lock-on", 2.0, LOCK],
