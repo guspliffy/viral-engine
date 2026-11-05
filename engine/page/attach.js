@@ -180,7 +180,8 @@ export function makeAttach(env) {
   const pose = (p, h, time) => {
     const A = attached(p, h, time); if (!A) return null;
     if (h.keep) return A;
-    const d = h.was ? Math.max(h.dur ?? 0.25, HOLD2.blend) : h.grip ? 0 : h.dur ?? 0.25;
+    // (two grabs at the same moment, one per hand: the later one owns it from the start, nothing to blend)
+    const d = h.was && h.was.at < h.at - 1e-9 ? Math.max(h.dur ?? 0.25, HOLD2.blend) : h.was ? 0 : h.grip ? 0 : h.dur ?? 0.25;
     if (d > 0 && time < h.at + d) return blend(before(p, h, h.was ? time : h.at), A, h.was ? smooth((time - h.at) / d) : easeOut((time - h.at) / d));
     return A;
   };
@@ -308,8 +309,8 @@ export function makeAttach(env) {
       if (ps.hold) return { state: "held", ...(twoWriters(p, T) && { writers: 2 }) };
       if (p.spec.wear || ps.carry || (p.root.parent && p.root.parent !== env.scene)) return { state: "riding" };
       if (p.attach?.state === "flight") return { state: "flight" };
-      // moved by its own tween right now (tossed, slid, swung by the story): in flight
-      if (tweening(p, T)) return { state: "flight" };
+      // moved or reshaped by its own tween right now (tossed, slid, knocked over, collapsing): in flight
+      if (animating(p, T)) return { state: "flight" };
       // not a thing that stands on anything (roar lines, bursts, glows: props3d.js FX_KINDS) or hung by its spec
       if (FX_KINDS.test(p.spec.kind)) return { state: "staged", reason: "an effect or a set piece" };
       if (p.attach?.state === "staged") return { state: "staged", reason: p.attach.reason };
@@ -336,6 +337,10 @@ export function makeAttach(env) {
     return p._posTw;
   }
   function tweening(p, t) { return posTweens(p).some((a) => t >= a.at && t < a.at + (a.dur ?? 0.3)); }
+  function animating(p, t) {
+    if (!p._anyTw) p._anyTw = (sb.actions || []).filter((a) => a.do === "prop" && a.id === p.spec.id && a.set && Object.keys(a.set).some((k) => k !== "glow" && k !== "squash"));
+    return p._anyTw.some((a) => t >= a.at && t < a.at + (a.dur ?? 0.3));
+  }
   // a held prop that a "prop" tween also moves (two writers: the hand and the tween)
   function twoWriters(p, t) { return tweening(p, t); }
 }

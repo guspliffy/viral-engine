@@ -260,4 +260,15 @@ export function staff(c, who, { side = "L", rest = [0.24, 0.36, 0.08] } = {}) {
   };
 }
 
-export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, staff };
+// REST (a hand pin, quality plan item 7 (e)): a palm flat on a surface (a table top, a counter, a door), pinned there in
+// the world while the body leans, turns or breathes: the arm pose aims at a point on the prop, so it stays put when the
+// body moves. The glove's middle sits a palm's half-thickness over the surface (the split the bill hands sank 5 cm
+// into the table with the grip on its top): lift is that, in metres of the world, for the crisp/sheet gloves.
+//   grips.rest(c, "rea", "R", TABLE, [0.45, 0.3], 1.0)     // x and z on the prop (its own frame), the top from SIZE or h
+export function rest(c, who, side, spec, [x, z], t, { dur = 0.35, ease = "settle", top = spec.h ?? SIZE[spec.kind]?.h ?? 0, lift = 0.055, palm = true } = {}) {
+  const k = spec.scale ?? 1, y = r3(top + lift / k);
+  c.arm(t, who, side, { prop: spec.id, grip: [x, y, z], ...(palm && { palm: [x, r3(top - 1), z] }) }, dur, ease);
+  return r3(t + dur);
+}
+
+export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, staff, rest };

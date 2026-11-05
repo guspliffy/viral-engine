@@ -3,6 +3,7 @@
 //   pickup  pick up a mug, carry it at the chest in a pose of the body's own (the hand carries it), turn and step
 //           with it, put it down (the mug turns with the holder, stays level, never slips)
 //   pass    the Wizard hands a phone to Phoenix: it blends from one hand to the other, the giver opens and backs off
+//   pin     a palm flat on the table stays put while the body leans and turns (no sinking, no sliding)
 //   drop    a phone let go at the chest falls to the floor, bounces and comes to rest flat
 //   node storyboards/regress/make-holds.mjs && node qa/regress.mjs hold-pickup hold-pass hold-drop
 //   air     (must fail) a release left in mid-air without a reason: prop-support
@@ -70,6 +71,22 @@ const PHX = (at) => ({ id: "phx", character: "duo/phoenix", at, face: 0, expr: "
   t = r.carry(t, [-0.35, 0.36, 0.2], 0.45);
   base("hold-pass", "holds 2: pass a phone", [WIZ([0.58, -0.2]), PHX([-0.6, -0.2])], [spec], c,
     { pos: [0, 0.9, 3.4], look: [0, 0.4, 0.1], fov: 36 }, Math.ceil((t + 0.4) * 10) / 10, { clean: ["prop-pop", "rig-jump", "hand-in-prop"] });
+}
+
+// PIN: a palm flat on the table stays put while the body leans in, turns and straightens (a hand pin): no sinking
+// into the table (the split the bill hands sank 5 cm), no sliding on it
+{
+  const c = clip(), { A } = c;
+  A(0, "wiz", "noblink");
+  A(0, "wiz", "look", { to: [0.2, -0.7], dur: 0, blink: false });
+  let t = grips.rest(c, "wiz", "R", TABLE, [-0.22, -0.14], 0.3);
+  A(t + 0.1, "wiz", "lean", { to: 5, dur: 0.4 });
+  A(t + 0.6, "wiz", "turn", { to: -25, dur: 0.5 });
+  A(t + 1.2, "wiz", "turn", { to: 0, dur: 0.5 });
+  A(t + 1.2, "wiz", "lean", { to: 0, dur: 0.5 });
+  c.arm(t + 1.9, "wiz", "R", "rest", 0.4, "inOut");
+  base("hold-pin", "holds 2: a hand pinned on the table", [WIZ([0, -0.2])], [TABLE], c,
+    { pos: [-0.3, 1.0, 2.6], look: [-0.1, 0.45, 0.25], fov: 32 }, r3(t + 2.5), { clean: ["hand-in-prop", "arm-in-prop", "rig-jump"] });
 }
 
 // DROP: a phone held at the chest is let go: it falls from the hand's last speed, lands flat on the floor, bounces
