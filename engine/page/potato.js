@@ -738,6 +738,16 @@ export class Character {
         foot.lerp(planted, 1 - pl.w);
         this.legs[s].foot.quaternion.identity().slerp(this._footQ, 1 - pl.w);
       } else this.legs[s].foot.quaternion.identity();
+      // a foot target (st.feet, the gait's hook: { R: { at: [x, y, z], w, yaw } }): where the foot stands, in the same space
+      // as st.x, st.y, st.z (the stage, or the rig the actor rides): the floor under the foot's centre, plus any lift.
+      // w blends it in (0 off, 1 the foot is exactly there); yaw (radians, optional) turns the foot to face that way
+      const ft = st.feet?.[s], fw = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0;
+      if (fw > 0) {
+        R.updateMatrix();
+        const inv = (this._rootInv ||= new THREE.Matrix4()).copy(R.matrix).invert();
+        foot.lerp(new THREE.Vector3(ft.at[0], ft.at[1], ft.at[2]).applyMatrix4(inv).add(new THREE.Vector3(0, 0.035, 0)), fw);
+        if (ft.yaw != null) this.legs[s].foot.quaternion.slerp(R.quaternion.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), ft.yaw)), fw);
+      }
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
