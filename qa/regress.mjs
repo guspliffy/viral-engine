@@ -13,14 +13,18 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
 import { clipResults, contactResults } from "./check.mjs";
+import { GATE as RENDER_GATE } from "./gate.mjs";
+import { visibility, frontResults } from "./framing.mjs";
+import { motionResults } from "./motion.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIR = path.join(ROOT, "storyboards/regress");
-// the checks a fixture may not fail unless its expect block names them (render.mjs gate list)
-const GATE = ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump"];
+// the checks a fixture may not fail unless its expect block names them (the render gate, qa/gate.mjs)
+const GATE = RENDER_GATE.fails;
 
-export function judge(sb, layout) {
-  const res = [...clipResults(sb, layout), ...contactResults(layout, sb)], ex = sb.expect || {}, bad = [];
+// the contact, rig, framing (must-see, the front) and motion results, as qa/preflight.mjs judges them
+export async function judge(sb, layout) {
+  const res = [...clipResults(sb, layout), ...contactResults(layout, sb), ...frontResults(sb, layout), ...visibility(sb, layout).results, ...(await motionResults(sb, sb.fps ?? 30))], ex = sb.expect || {}, bad = [];
   const lvl = (check) => (res.some((r) => r.check === check && r.level === "fail") ? "fail" : res.some((r) => r.check === check && r.level === "warn") ? "warn" : "pass");
   for (const c of ex.fail || []) if (lvl(c) !== "fail") bad.push(`${c} should fail, got ${lvl(c)}`);
   for (const c of ex.warn || []) if (lvl(c) === "pass") bad.push(`${c} should warn, got pass`);
@@ -41,7 +45,7 @@ for (const f of files) {
     if (!wrote) { broken++; console.log(`BROKEN ${sb.id}: no layout\n${r.stdout}${r.stderr}`); continue; }
     if (wrote !== lay) fs.copyFileSync(wrote, lay);
   }
-  const { bad } = judge(sb, JSON.parse(fs.readFileSync(lay, "utf8")));
+  const { bad } = await judge(sb, JSON.parse(fs.readFileSync(lay, "utf8")));
   if (bad.length) broken++;
   console.log(`${bad.length ? "BROKEN" : "ok    "} ${sb.id.padEnd(24)} ${((Date.now() - t0) / 1000).toFixed(0)}s${bad.map((b) => "\n         " + b).join("")}`);
 }

@@ -13,7 +13,8 @@
   "feet": 2
  },
  "rig": {
-  "hand": 2
+  "hand": 2,
+  "eyes": 2
  },
  "loopIdle": true,
  "set": {
