@@ -36,6 +36,7 @@ import { HORN_KINDS } from "./props-horn.js";
 import { BONFIRE_KINDS } from "./props-bonfire.js";
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
+import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -67,6 +68,7 @@ export function gripPoint(spec, grip) {
 // a point (dir: a direction) on a moving part of a prop (a foldphone's half) -> the prop's own frame, for the part's
 // state at that moment (ps: propState). Hands that hold a part follow it through gripWorld from there.
 const PARTS = { ...DUO_PARTS };
+Object.assign(PARTS, TENT_PARTS);   // friends try to, episode 2: the tent's guy rope and pole (props-tent.js)
 export function partPoint(spec, ps, part, p, dir = false) {
   const f = PARTS[spec.kind];
   if (!f) throw new Error(`prop ${spec.id} (${spec.kind}) has no parts to hold`);
@@ -1312,7 +1314,7 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
 Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS, CANDY_KINDS, HELL_KINDS, COPYCAT_KINDS, ENERGY_KINDS, SOFA_KINDS, TRAIL_KINDS, NOTYET_KINDS, OKILIED_KINDS, BUSY_KINDS, ZOMBIE_KINDS, HORN_KINDS, BONFIRE_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js), toyspider, jambwall (props-candy.js), fryoil, burnerflames, fryerbasket, steamjet, steamhaze, bobspud, fryfloat, spudshadows (props-hell.js), cafetable, hotsauce, pillarcandle, wallhole (props-copycat.js), bedframe, tipmattress, winglass, firecurtain, digiclock, broom, dustpan, ashpile, ashfall, outglow (props-energy.js), sofahalf, ceilingbreak, spellaura (props-sofa.js), carrier, trailstaff (props-trail.js), soggyfry, rubble, ruinwall, wetstreet, ripples, fogveil (props-zombie.js), parapet, stringlights, deckchair, blanket, teamug, toffeeapple, paving, sandbucket, firework, sparktrail, ember, barge, crowd (props-bonfire.js)
-Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS);   // friends try to: wardrobe, plank, hardboard, allenkey, cardbox, screwbag, bubblewrap, manual (props-ikea.js); cat, plaidbed, petcarrier, sock, torchbeam, toymouse, treat, cattree, shadowpool (props-bedroom.js)
+Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS, TENT_KINDS);   // friends try to: wardrobe, plank, hardboard, allenkey, cardbox, screwbag, bubblewrap, manual (props-ikea.js); cat, plaidbed, petcarrier, sock, torchbeam, toymouse, treat, cattree, shadowpool (props-bedroom.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
