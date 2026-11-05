@@ -12,6 +12,9 @@
 //   drums: false for no drums
 //   part: "intro" (hats, soft kick, chords) | "main" (everything) | "build" (snare roll and riser, no kick)
 //         | "drop" (main with a crash on its first beat) | "stop" (silence: the record-scratch beat)
+//         | "hush" (silence the music comes back from) | "musicbox" (the lead motif alone, slowly, on a soft music box:
+//         the tender bit before the music snaps back; $20 Potato, 4 Nov 2026)
+//   sleigh: true adds jingle bells (a sleigh-bell shake on the off-beats) in the full parts: a holiday flavour
 const SR = 44100, TAU = Math.PI * 2;
 
 function mulberry(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -51,6 +54,18 @@ const INST = {
         : Math.sin(TAU * p * (1 + 0.006 * Math.sin(TAU * 6 * t))) * Math.min(1, t / 0.02) * Math.exp(-t / 0.12);
       x[i] = y * Math.min(1, t / 0.002) * 0.5;
     }
+    return x;
+  },
+  // a music box: a plucked steel tine, a pure tone with a faint bright overtone and a long soft ring
+  musicbox(r, note) {
+    const d = 0.9, x = new Float32Array(d * SR), f = midi(note); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR; p += f / SR; x[i] = (Math.sin(TAU * p) + 0.22 * Math.sin(TAU * p * 3.01) * Math.exp(-t / 0.08) + 0.1 * Math.sin(TAU * p * 5.2) * Math.exp(-t / 0.04)) * Math.min(1, t / 0.0015) * Math.exp(-t / 0.35) * 0.5; }
+    return x;
+  },
+  // sleigh bells: a cluster of small detuned bells shaken once (a quick burst of bright partials and a little noise)
+  sleigh(r) {
+    const d = 0.18, x = new Float32Array(d * SR), parts = Array.from({ length: 7 }, () => [2600 + r() * 4200, r() * 0.012, 0.5 + r() * 0.5]), lp = onePole(9000);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; for (const [f, o, a] of parts) { const u = t - o; if (u > 0) y += Math.sin(TAU * f * u) * a * Math.exp(-u / 0.045); } const n = r() * 2 - 1; x[i] = (y * 0.25 + (n - lp(n)) * 0.3 * Math.exp(-t / 0.02)) * Math.min(1, t / 0.001); }
     return x;
   },
   crash(r) { const d = 1.6, x = new Float32Array(d * SR), lp = onePole(3500); for (let i = 0; i < x.length; i++) { const t = i / SR, n = r() * 2 - 1; x[i] = (n - lp(n)) * Math.exp(-t / 0.5) * (t < 0.002 ? t / 0.002 : 1); } return x; },
@@ -113,7 +128,7 @@ export function renderBeat(music, duration, id = "") {
   const partAt = (t) => { let p = null; for (const q of parts) if (q.at <= t + 1e-6) p = q; return p; };
   const chordAt = (bar) => { const c = TRIAD(F.prog[((bar % 4) + 4) % 4]); return { root: c.root + F.key, notes: c.notes.map((x) => x + F.key) }; };
   // the building blocks are cached: each hit of the same drum is the same sound
-  const K = INST.kick(r), C = INST.clap(r), H = INST.hat(r, false), HO = INST.hat(r, true), S = INST.snare(r);
+  const K = INST.kick(r), C = INST.clap(r), H = INST.hat(r, false), HO = INST.hat(r, true), S = INST.snare(r), SL = music.sleigh ? INST.sleigh(mulberry(F.seed ^ 0x51e16)) : null;
   const chord = (notes) => INST[F.S.chordInst](r, notes);
   for (let b = Math.floor(-off / spb); off + b * spb < duration; b++) {
     for (let e = 0; e < 4; e++) {   // sixteenth notes; odd ones are pushed late by the swing
@@ -131,6 +146,12 @@ export function renderBeat(music, duration, id = "") {
         if (Math.abs(t - P.at) < 1e-6) add(t, INST.riser(r, len), 0.35);
         continue;
       }
+      if (part === "musicbox") {
+        // the motif at half speed on the music box, an octave up, every bar, and a soft low note on each bar's start
+        if (e === 0) { const m = F.motif[(bar * 4 + beatInBar) % 8] ?? F.motif[(bar * 4 + beatInBar + 1) % 8]; if (m) add(t, INST.musicbox(r, m + 12 + F.key), 0.3, 0.1); }
+        if (e === 0 && beatInBar === 0) add(t, INST.musicbox(r, ch.root + 24), 0.16, -0.1);
+        continue;
+      }
       const full = part === "main" || part === "drop", step = beatInBar * 4 + e, Y = F.S, soft = Y.soft ? 0.6 : 1;
       if (part === "drop" && e === 0 && Math.abs(t - P.at) < 0.02) add(t, INST.crash(r), 0.35, -0.1);
       if (F.drums) {
@@ -141,6 +162,7 @@ export function renderBeat(music, duration, id = "") {
         const hat = Y.hat === "all" || (Y.hat === "odd" && e % 2 === 1) || (Y.hat === "even" && e % 2 === 0);
         if (hat && !Y.hatOpen.includes(step)) add(t, H, (full ? 0.14 : 0.09) * soft, 0.3);
       }
+      if (music.sleigh && full && e % 2 === 1) add(t, SL, (e === 3 ? 0.16 : 0.11) * soft, -0.3);
       if (Y.bass.includes(step)) {
         const i = Y.bass.indexOf(step);
         const up = Y.octaves === "alt" ? (i % 2 ? 12 : 0) : Y.octaves === "funk" ? (i % 3 === 1 ? 12 : 0) : Y.fifths ? (i % 2 ? 7 : 0) : Y.walk ? [0, 3, 5, 7][i % 4] : beatInBar === 3 ? 12 : 0;
