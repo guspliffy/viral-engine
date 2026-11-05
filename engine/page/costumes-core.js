@@ -49,6 +49,10 @@ const CORE = {
     const collarY = top - 0.012, cr = Math.max(H.rx, H.rz) * 0.86;
     const collar = mesh(new THREE.TorusGeometry(cr, 0.024, 14, 48), hw); collar.rotation.x = Math.PI / 2; collar.position.y = collarY; P.add(collar);
     const lip = mesh(new THREE.CylinderGeometry(cr * 1.02, cr * 1.1, 0.045, 48, 1, true), hw); lip.position.y = collarY - 0.02; P.add(lip);
+    // the suit's soft neck liner inside the seal, hugging the neck: it closes the gap between the neck and the ring
+    const nr = H.neck ? H.neck.geometry.parameters.radiusTop : 0.1;
+    const liner = mesh(new THREE.TorusGeometry((nr + cr) / 2, (cr - nr) / 2 + 0.006, 12, 40), std(C.liner || "#e9e3d4", { roughness: 0.9 }));
+    liner.rotation.x = Math.PI / 2; liner.scale.z = 0.55; liner.position.y = collarY + 0.006; P.add(liner);
     // the dome: a clear glass sphere round the head, cut where it meets the collar (it doesn't turn with the head)
     const R = Math.max(H.rx, H.ry, H.rz) * 1.12 + (C.domeGap ?? 0.05), yc = collarY - H.cy, cut = Math.acos(Math.max(-0.99, Math.min(0.99, yc / R)));
     if (C.helmet !== false) {

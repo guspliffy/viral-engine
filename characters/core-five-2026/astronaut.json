@@ -24,7 +24,7 @@
     "depth": 0.46,
     "square": 2.4,
     "taper": 0.06,
-    "neck": 0.025,
+    "neck": -0.015,
     "faceUp": 0.06,
     "nose": {
       "w": 0.03,

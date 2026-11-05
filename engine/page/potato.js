@@ -668,6 +668,14 @@ export class Character {
     hr.mesh = new THREE.Mesh(g, this.skin); hr.mesh.castShadow = true; hr.mesh.receiveShadow = true;
     hr.cy = this.cy + this.ry + (HD.neck ?? 0.02) + hr.ry; hr.group.position.set(0, hr.cy, HD.forward ?? 0); hr.group.rotation.order = "YXZ";
     hr.group.add(hr.mesh); this.potatoParts.add(hr.group);
+    // the neck: a short skin column from inside the torso's top up into the head (its top stays inside the head as it
+    // turns), so the head sits on the body instead of floating over it. head.neckR: its radius (0 = none)
+    const nr = HD.neckR ?? Math.min(hr.rx, hr.rz) * 0.42;
+    if (nr > 0) {
+      const y0 = this.cy + this.ry * 0.8, y1 = hr.cy - hr.ry * 0.35;
+      hr.neck = new THREE.Mesh(new THREE.CylinderGeometry(nr, nr * 1.08, y1 - y0, 32, 1, true), this.skin);
+      hr.neck.position.set(0, (y0 + y1) / 2, (HD.forward ?? 0) * 0.5); hr.neck.castShadow = true; this.potatoParts.add(hr.neck);
+    }
     if (HD.nose) { const n = this.headSurf(0, HD.nose.v ?? -0.08), m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.skin); m.scale.set(HD.nose.w ?? 0.03, HD.nose.h ?? 0.026, HD.nose.d ?? 0.022); m.position.copy(n.pos).addScaledVector(n.normal, -0.006); m.lookAt(n.pos.clone().add(n.normal)); hr.group.add(m); hr.nose = m; }
     if (HD.ears) for (const sd of [-1, 1]) { const e = this.headSurf(sd * 1.5, HD.ears.v ?? 0), m = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), this.skin); m.scale.set(HD.ears.w ?? 0.03, HD.ears.h ?? 0.05, HD.ears.d ?? 0.018); m.position.copy(e.pos).addScaledVector(e.normal, 0.004); m.lookAt(e.pos.clone().add(e.normal)); m.castShadow = true; hr.group.add(m); }
   }
