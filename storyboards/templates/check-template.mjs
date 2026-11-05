@@ -9,7 +9,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { loadStoryboard, cleanStart, SETTLED } from "../../engine/load.mjs";
+import { loadStoryboard, cleanStart } from "../../engine/load.mjs";
 import { compile } from "../../engine/compile.mjs";
 import { clip } from "../lib/clip.mjs";
 import * as act from "../lib/acting.mjs";
@@ -47,10 +47,10 @@ const loaded = loadStoryboard(SB);
 check("after loading, nothing at t = 0 moves for less than a frame", () => {
   const bad = loaded.actions.filter((a) => Math.abs(a.at) < 1e-6 && a.dur > 0 && a.dur < 1 / fps);
   assert.deepEqual(bad.map((a) => `${a.who ?? a.id} ${a.do}`), []);
-  assert.ok(loaded.actions.some((a) => a.at === SETTLED && a.dur === 0), "no opening action was settled");
+  assert.ok(loaded.actions.some((a) => a.at === 0 && a.dur === 0 && a.do === "sit"), "the opening sit is not instant");
 });
 
-check("cleanStart: settles only sub-frame state actions at t = 0, in order, ahead of t = 0", () => {
+check("cleanStart: only sub-frame state actions at t = 0 become instant", () => {
   const base = { fps: 30, actions: [
     { who: "a", do: "hop", at: 0, dur: 0.01 },
     { who: "a", do: "arm", side: "R", pose: "wave", at: 0, dur: 0.01 },
@@ -63,8 +63,8 @@ check("cleanStart: settles only sub-frame state actions at t = 0, in order, ahea
   assert.equal(cleanStart(base), base, "without the flag the storyboard is untouched");
   const out = cleanStart({ ...base, cleanStart: true }).actions;
   assert.deepEqual(out.map((a) => [a.do, a.pose ?? a.id ?? "", a.at, a.dur ?? null]), [
-    ["arm", "wave", SETTLED, 0], ["arm", "rest", SETTLED, 0], ["prop", "phone", SETTLED, 0],
-    ["hop", "", 0, 0.01], ["look", "", 0, 0.3], ["expr", "", 0, null], ["arm", "wave", 0.5, 0.01],
+    ["hop", "", 0, 0.01], ["arm", "wave", 0, 0], ["arm", "rest", 0, 0], ["look", "", 0, 0.3], ["expr", "", 0, null],
+    ["prop", "phone", 0, 0], ["arm", "wave", 0.5, 0.01],
   ]);
 });
 

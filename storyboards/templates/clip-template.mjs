@@ -118,7 +118,7 @@ write(import.meta.url, {
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   castLook: LOOK,
-  // the clip opens in its pose: the 0.01 s "start like this" moves at t = 0 are done before frame 0 (engine/load.mjs)
+  // the clip opens in its pose: the 0.01 s "start like this" moves at t = 0 are instant (engine/load.mjs cleanStart)
   cleanStart: true,
   ...(MOTION && { motion: MOTION }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over

@@ -131,20 +131,17 @@ export function loadStoryboard(file, opts = {}) {
 // c.prop(0, "phone", { glow: 1 }, 0.01)), and the engine drew the start of that move on frame 0 and its end on frame 1:
 // between the first two frames hands jumped up to 60 cm, Reaper sat down on his box and the phone's glow switched on
 // (IKEA, the plane, split the bill). With the flag, an action that sets a state (a pose, a look, a face, a seat, a
-// prop's place) at t = 0 in less than a frame is done before the clip starts: it moves to SETTLED (1 s before t = 0)
-// with dur 0, so frame 0 shows it settled, without the half-way frame and without the landing bounce of a sit or the
-// eyes-first lead of a turn that a start at t = 0 still drew on the first frames. A hop, a talk, a blink, a walk and
-// anything longer than a frame keep their times (and start from that pose). Generators can keep writing 0.01. It runs
-// after the camera is directed, so the shots don't change; old clips without the flag load exactly as before.
+// prop's place) at t = 0 in less than a frame is instant (dur 0: it is there from frame 0), so generators can keep
+// writing 0.01. A hop, a talk, a blink, a walk and anything a frame or longer keep their times. Times stay at 0 or
+// later (page code reads the pose at an action's own time, e.g. a grab's held offset). It runs after the camera is
+// directed, so the shots don't change; old clips without the flag load exactly as before.
 const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "tilt", "hat", "span", "skin", "wings"]);
-export const SETTLED = -1;
 export function cleanStart(sb) {
   if (!sb.cleanStart || !sb.actions) return sb;
   const frame = 1 / (sb.fps ?? 30);
-  const opening = (a) => Math.abs(a.at ?? 0) < 1e-6 && (a.dur ?? 1) < frame && SETS_STATE.has(a.do);
+  const opening = (a) => Math.abs(a.at ?? 0) < 1e-6 && a.dur > 0 && a.dur < frame && SETS_STATE.has(a.do);
   if (!sb.actions.some(opening)) return sb;
-  // the opening actions keep their order among themselves, ahead of everything that starts at t = 0
-  return { ...sb, actions: sb.actions.map((a) => (opening(a) ? { ...a, at: SETTLED, dur: 0 } : a)).sort((a, b) => a.at - b.at) };
+  return { ...sb, actions: sb.actions.map((a) => (opening(a) ? { ...a, dur: 0 } : a)) };
 }
 
 // A layered painted environment (set "type": "env", "env": "<name>"; engine/page/set-env.js) reads
