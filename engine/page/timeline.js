@@ -193,16 +193,251 @@ function natApply(st, nat) {
   const g = nat.gait;
   if (g) {
     const A = g.amt, w = 2 * Math.PI, B = (g.bob ?? 0.024 * clamp(g.sd, 0.6, 1.6)) * A;
-    const low = 0.5 + 0.5 * Math.cos(2 * w * (g.ph - 0.08));
+    // a walk is lowest just after each footfall; a run lowest at mid-stance and highest in the air between steps
+    const low = 0.5 + 0.5 * Math.cos(2 * w * (g.ph - (g.run ? 0.18 : 0.08)));
     st.y -= B * low; st.squash *= 1 - 0.025 * A * low;
     const sway = 0.018 * A * Math.cos(w * (g.ph - 0.29)), cy = Math.cos(st.yaw), sy = Math.sin(st.yaw);
     st.x -= sway * cy; st.z += sway * sy;   // the body's own -x is its right: over the right foot while it stands
     st.lean += 0.05 * A * Math.cos(w * (g.ph - 0.29));
     st.pitch = (st.pitch || 0) + g.fwd * g.dir[1]; st.lean -= g.fwd * g.dir[0];
+    if (g.tip) { st.pitch += g.tip[1]; st.lean -= g.tip[0]; }   // planted gait: the body tips on with a stop, swings back, settles
   }
   st.pitch = (st.pitch || 0) + nat.pitch; st.lean += nat.lean; st.squash *= 1 + nat.squash;
   if (nat.look) st.look = [st.look[0] + nat.look, st.look[1]];
 }
+
+// Planted gait (quality plan item 10; storyboard "motion": { "feet": 2 }, opt-in until Jonny approves it). One gait for
+// every move and run, whatever its ease: the body goes where the storyboard says, and the feet step after it. A
+// standing foot stays exactly where it touched down; it lifts when the walk's rhythm says so, or, when the body only
+// shuffles, turns or leans, as soon as staying would leave it more than 3 cm (or 20°) from where it belongs. Each step
+// lands where the foot will be needed half way through its next stance (looked up in the body's own future, so a stop
+// brings both feet together under it), steps are as long as the speed needs up to the longest stride (then the
+// cadence rises), and a run (a "run", a long stride or a fast move) stands on each foot for only 36 % of the cycle, so
+// it spends a moment in the air between steps. The rhythm of the steps also drives the bob, the weight shift over the
+// standing foot and the arm swing (natApply, potato.js), and a damped spring tips the body on when it stops and back
+// when it sets off. Beats from the walk study (docs/feet-study.md). Like the follow-through spring the plan is made
+// once per storyboard and actor, stepped at a fixed rate from t = 0, so a frame never depends on the frame before.
+export const feetOn = (sb) => !!(sb && sb.motion && typeof sb.motion === "object" && (sb.motion.feet ?? 0) >= 2);
+export const GAIT = {
+  dt: 1 / 120, pre: 0.6, hx: 0.13, hz: 0.04,   // the foot's home under the body (potato.js: x ±0.13, z 0.04)
+  trig: 0.03, yawTrig: 0.35, settle: 0.012,   // a step when a foot would be 3 cm or 20° off; at home within 1.2 cm
+  walkST: 0.58, runST: 0.36, cad: 2.2, runCad: 3, minCad: 1.8, maxCad: 7,   // stance share, cycles a second
+  Lmin: 0.08, Lmax: 0.44, runLmax: 0.8, vRun: 1.5, ahead: 0.15, soft: 0.2, reach: 0.3,   // cycle length (metres), the speed a walk becomes a run
+  tipHz: 2.4, tipZ: 0.4, tipGain: 3, tipMax: 0.06, leanMax: 0.12,
+};
+const GPLANS = new WeakMap();
+let PLANNING = false;
+const angD = (a, b) => { let d = a - b; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; return d; };
+const smooth = (u) => { u = clamp(u); return u * u * (3 - 2 * u); };
+function footHome(s, x, z, yaw, sc) {
+  const hx = (s === "R" ? -1 : 1) * GAIT.hx * sc, hz = GAIT.hz * sc, c = Math.cos(yaw), si = Math.sin(yaw);
+  return [x + hx * c + hz * si, z - hx * si + hz * c];
+}
+// the body's path, sampled at GAIT.dt: where the feet stand from (st.plant), whether it is off its feet (in the air,
+// sitting, riding, kneeling, a glide), its speed, turn rate and the stop/start spring
+function gaitTrack(sb, actor, def) {
+  // from PRE seconds before the clip: a body already on its way at t = 0 is extrapolated back, so frame 0 catches it
+  // mid-stride instead of with both feet still at the start
+  const dt = GAIT.dt, PRE = GAIT.pre, i0 = Math.round(PRE / dt), end = (sb.duration ?? 30) + 0.6, n = Math.ceil((end + PRE) / dt) + 2;
+  const K = { n, x: new Float64Array(n), z: new Float64Array(n), y: new Float64Array(n), yaw: new Float64Array(n), sc: new Float64Array(n),
+    off: new Uint8Array(n), run: new Uint8Array(n), steps: new Float64Array(n), v: new Float64Array(n), yr: new Float64Array(n),
+    dx: new Float64Array(n), dz: new Float64Array(n), tx: new Float64Array(n), tz: new Float64Array(n) };
+  PLANNING = true;
+  try {
+    const s0 = actorState(sb, actor, def, 0, true), s1 = actorState(sb, actor, def, 0.05, true);
+    let v0 = [(s1.plant.x - s0.plant.x) / 0.05, (s1.plant.z - s0.plant.z) / 0.05];
+    if (Math.hypot(v0[0], v0[1]) > 8 || s0.plant.w > 0.02) v0 = [0, 0];
+    for (let i = 0; i < n; i++) {
+      const u = (i - i0) * dt, st = actorState(sb, actor, def, Math.max(0, u), true), p = { ...st.plant }, h = st.gaitHint || {};
+      if (u < 0) { p.x += v0[0] * u; p.z += v0[1] * u; }
+      K.x[i] = p.x; K.z[i] = p.z; K.y[i] = p.y; K.yaw[i] = p.yaw; K.sc[i] = st.scale ?? 1;
+      K.off[i] = p.w > 0.5 || (st.tuck || 0) > 0.35 || st.riding || (st.kneel || 0) > 0.5 || h.glide || st.visible === false ? 1 : 0;
+      K.run[i] = h.run ? 1 : 0; K.steps[i] = h.steps || 0;
+    }
+  } finally { PLANNING = false; }
+  // per-tick velocity (a jump of over 15 cm in one tick is a re-placement, not a walk), then a ±0.04 s average
+  const vx = new Float64Array(n), vz = new Float64Array(n), vy = new Float64Array(n);
+  for (let i = 1; i < n; i++) {
+    const ddx = K.x[i] - K.x[i - 1], ddz = K.z[i] - K.z[i - 1];
+    if (Math.hypot(ddx, ddz) > 0.15) continue;
+    vx[i] = ddx / dt; vz[i] = ddz / dt; vy[i] = angD(K.yaw[i], K.yaw[i - 1]) / dt;
+  }
+  const W = 5;
+  let lx = 0, lz = 1;
+  for (let i = 0; i < n; i++) {
+    let ax = 0, az = 0, ay = 0, m = 0;
+    for (let j = Math.max(0, i - W); j <= Math.min(n - 1, i + W); j++) { ax += vx[j]; az += vz[j]; ay += vy[j]; m++; }
+    ax /= m; az /= m; ay /= m;
+    const v = Math.hypot(ax, az);
+    K.v[i] = Math.min(8, v); K.yr[i] = ay;
+    if (v > 0.02) { lx = ax / v; lz = az / v; }
+    K.dx[i] = lx; K.dz[i] = lz;
+  }
+  // the tip: a damped spring pushed by the body's acceleration (on with a stop, back with a start), in the world
+  const w = 2 * Math.PI * GAIT.tipHz, Z = GAIT.tipZ, X = [0, 0], V = [0, 0];
+  for (let i = 0; i < n; i++) {
+    const i0 = Math.max(0, i - 1), i1 = Math.min(n - 1, i + 1), dd = (i1 - i0) * dt;
+    const A = [(K.v[i1] * K.dx[i1] - K.v[i0] * K.dx[i0]) / dd, (K.v[i1] * K.dz[i1] - K.v[i0] * K.dz[i0]) / dd];
+    if (K.off[i]) { X[0] = X[1] = V[0] = V[1] = 0; }
+    for (let k = 0; k < 2; k++) { V[k] += (-w * w * X[k] - 2 * Z * w * V[k] - A[k]) * dt; X[k] += V[k] * dt; }
+    K.tx[i] = X[0]; K.tz[i] = X[1];
+  }
+  return K;
+}
+// the step plan: per foot a list of steps { t0, t1 (lift, touch down), p0, p1 ([x, z]), y0, y1 (floor), a0, a1 (yaw),
+// h (lift), q (the gait phase at touch down: R whole, L half) } and "off" spans where the feet go with the body
+function gaitPlan(sb, actor, def) {
+  let per = GPLANS.get(sb); if (!per) { per = new Map(); GPLANS.set(sb, per); }
+  let P = per.get(actor.id); if (P) return P;
+  const K = gaitTrack(sb, actor, def), n = K.n, dt = GAIT.dt, G = GAIT;
+  const PRE = GAIT.pre, at = (arr, u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return arr[i] + (arr[i + 1] - arr[i]) * r; };
+  const yawAt = (u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return K.yaw[i] + angD(K.yaw[i + 1], K.yaw[i]) * r; };
+  const homeAt = (s, u) => footHome(s, at(K.x, u), at(K.z, u), yawAt(u), at(K.sc, u));
+  // the last time from u up to v the body is still on its feet (a look ahead never steps toward a ride or a jump)
+  const onUntil = (u, v) => { let j = Math.round((u + PRE) / dt); const J = Math.min(n - 1, Math.round((v + PRE) / dt)); while (j < J && !K.off[j + 1]) j++; return Math.max(u, j * dt - PRE); };
+  const ev = { R: [], L: [] }, foot = {}, warn = [];
+  for (const s of ["R", "L"]) foot[s] = { p: homeAt(s, -PRE), y: K.y[0], a: K.yaw[0], t1: -PRE - 1 };
+  let next = null, nextLift = 0, bout = false, off = false;
+  for (let i = 0; i < n; i++) {
+    const u = i * dt - PRE, jump = i > 0 && Math.hypot(K.x[i] - K.x[i - 1], K.z[i] - K.z[i - 1]) > 0.15;
+    if (K.off[i] || jump) {
+      // off its feet (or re-placed): the feet go with the body until it stands again
+      for (const s of ["R", "L"]) {
+        if (!off) ev[s].push({ off: true, t0: u, t1: u });
+        const e = ev[s][ev[s].length - 1]; e.t1 = u + dt; e.p1 = homeAt(s, u + dt); e.y1 = at(K.y, u + dt); e.a1 = yawAt(u + dt);
+        foot[s] = { p: e.p1, y: e.y1, a: e.a1, t1: u + dt };
+      }
+      off = true; bout = false; next = null; continue;
+    }
+    off = false;
+    // the pace: the fastest the body goes over the next quarter second (a dash gets quick steps from its first one)
+    let ve = 0, rn = K.run[i];
+    for (let j = i; j < Math.min(n, i + 30); j++) { ve = Math.max(ve, K.v[j] + G.hx * K.sc[j] * Math.abs(K.yr[j])); if (j < i + 12) rn = rn || K.run[j]; }
+    const sc = K.sc[i], run = rn || ve > G.vRun * sc;
+    const ST = run ? G.runST : G.walkST, c0 = K.steps[i] || (run ? G.runCad : G.cad);
+    const L = clamp(ve / c0, G.Lmin * sc, (run ? G.runLmax : G.Lmax) * sc), cad = clamp(ve / L, G.minCad, G.maxCad);
+    const Tsw = (1 - ST) / cad, Tst = ST / cad;
+    // a standing foot left far behind (a move faster than the feet can follow): note it for the checks
+    for (const s of ["R", "L"]) if (foot[s].t1 <= u) { const h = homeAt(s, u), e = Math.hypot(h[0] - foot[s].p[0], h[1] - foot[s].p[1]); if (e > G.reach * sc && (!warn.length || u - warn[warn.length - 1].t > 0.3)) warn.push({ t: u, foot: s, m: e }); }
+    const swinging = (s) => foot[s].t1 > u + 1e-9;
+    let c = null;
+    if (bout) {
+      if (u >= nextLift - 1e-9 && !swinging(next)) c = next;
+      // a standing foot left over 20 cm behind (a dash outrunning the rhythm) scrambles after the body at once
+      else for (const s of ["R", "L"]) if (!swinging(s)) { const h = homeAt(s, u); if (Math.hypot(h[0] - foot[s].p[0], h[1] - foot[s].p[1]) > G.soft * sc) c = s; }
+    }
+    else if (!swinging("R") && !swinging("L")) {
+      // still: a foot steps when staying would leave it over 3 cm or 20° from its home a moment from now
+      const look = onUntil(u, u + 0.5 * Tsw + 0.12);
+      let best = 1;
+      for (const s of ["R", "L"]) {
+        const h = homeAt(s, look), e = Math.hypot(h[0] - foot[s].p[0], h[1] - foot[s].p[1]), ya = Math.abs(angD(yawAt(look), foot[s].a));
+        const score = Math.max(e / (G.trig * sc), ya / G.yawTrig);
+        if (score > best) { best = score; c = s; }
+      }
+    }
+    if (!c) continue;
+    const o = c === "R" ? "L" : "R", tt = u + Tsw, tm = onUntil(u, tt + 0.5 * Tst);
+    // the touch down: where the foot is needed half way through its stance, but never further ahead of where the body
+    // will be when it lands than a potato leg reaches (a dash's first step would otherwise land in the splits)
+    const p1 = homeAt(c, tm), hl = homeAt(c, Math.min(tt, tm)), ahead = Math.hypot(p1[0] - hl[0], p1[1] - hl[1]), cap = G.ahead * sc;
+    if (ahead > cap) { p1[0] = hl[0] + ((p1[0] - hl[0]) * cap) / ahead; p1[1] = hl[1] + ((p1[1] - hl[1]) * cap) / ahead; }
+    const a1 = yawAt(tm), e = Math.hypot(p1[0] - foot[c].p[0], p1[1] - foot[c].p[1]), ya = Math.abs(angD(a1, foot[c].a));
+    if (bout && e < G.settle * sc && ya < 0.06) {
+      // this foot is already where it belongs: one more step for the other one, or the walk is over
+      const po = homeAt(o, tm), eo = Math.hypot(po[0] - foot[o].p[0], po[1] - foot[o].p[1]), yo = Math.abs(angD(a1, foot[o].a));
+      if (!swinging(o) && (eo > G.settle * sc || yo > 0.06)) { next = o; nextLift = u; } else if (!swinging(o)) bout = false;
+      continue;
+    }
+    // the lift: a walking step about 6.5 cm at a normal stride, a shuffle barely clears the floor, a run lifts high
+    const sd = L / (0.2 * sc), h = run ? 0.085 * sc : Math.min(0.065 * sc * Math.min(1.4, Math.max(0.6, sd)), 0.02 * sc + 0.45 * e);
+    const y1 = at(K.y, tt);
+    ev[c].push({ t0: u, t1: tt, p0: foot[c].p, p1, y0: foot[c].y, y1, a0: foot[c].a, a1, h, run, cad, ST, len: e, sd });
+    foot[c] = { p: p1, y: y1, a: a1, t1: tt };
+    bout = true; next = o;
+    // a walk: the other foot lifts just after this one lands (both stand for a moment); a run: just before (both in the air)
+    nextLift = run ? tt + (ST - 0.5) / cad : Math.max(tt, tt + (ST - 0.5) / cad);
+  }
+  // the gait phase: each touch down gets the next half cycle, R on a whole number and L on a half
+  const steps = [...ev.R.map((e) => ({ ...e, s: "R" })), ...ev.L.map((e) => ({ ...e, s: "L" }))].filter((e) => !e.off).sort((a, b) => a.t1 - b.t1);
+  let q = -0.5;
+  for (const e of steps) { q += 0.5; if ((Math.round(q * 2) % 2 === 0) !== (e.s === "R")) q += 0.5; e.q = q; const src = ev[e.s].find((x) => x.t0 === e.t0 && !x.off); src.q = q; }
+  // bouts: runs of steps less than 0.4 s apart (the bob, sway and arm swing ease in before and out after each)
+  const bouts = [];
+  for (const e of steps) { const b = bouts[bouts.length - 1]; if (b && e.t0 - b.t1 < 0.4) { b.t1 = Math.max(b.t1, e.t1); b.n++; } else bouts.push({ t0: e.t0, t1: e.t1, n: 1 }); e.b = bouts.length - 1; }
+  P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {} };
+  per.set(actor.id, P);
+  return P;
+}
+// the gait that natApply and the arm swing read at time t: its phase from the touch downs, how much of it shows (eased
+// in and out with each bout of steps, less for a shuffle), the stride, the direction in the body's frame, the lean
+function planGait(P, t, yaw) {
+  const { K, steps, bouts, at } = P;
+  let amt = 0;
+  for (const b of bouts) { if (t < b.t0 - 0.12 || t > b.t1 + 0.22) continue; amt = Math.max(amt, Math.min(smooth((t - (b.t0 - 0.12)) / 0.24), 1 - smooth((t - (b.t1 - 0.02)) / 0.24))); }
+  const ux = at(K.dx, t), uz = at(K.dz, t), cy = Math.cos(yaw), sy = Math.sin(yaw);
+  const tx = at(K.tx, t), tz = at(K.tz, t), tip = [GAIT.tipMax * Math.tanh((GAIT.tipGain * (tx * cy - tz * sy)) / GAIT.tipMax), GAIT.tipMax * Math.tanh((GAIT.tipGain * (tx * sy + tz * cy)) / GAIT.tipMax)];
+  if (amt <= 0 && Math.abs(tip[0]) + Math.abs(tip[1]) < 1e-4) return null;
+  // the phase: linear between touch downs, carried on at the nearest step's cadence before the first and after the last
+  // the phase and the step size: linear between touch downs within a bout; before a bout's first and after its last
+  // they carry on at that step's cadence (the switch between bouts falls where nothing shows: amt is 0 there)
+  let ph = 0, len = 0.2, cur = steps[0];
+  if (steps.length) {
+    let k = 0; while (k < steps.length - 1 && steps[k + 1].t1 <= t) k++;
+    const a = steps[k], b = steps[k + 1];
+    if (t < a.t1) { cur = a; ph = a.q - (a.t1 - t) * a.cad; len = a.len; }
+    else if (b && b.b === a.b) { const r = (t - a.t1) / (b.t1 - a.t1); cur = r < 0.5 ? a : b; ph = a.q + r * (b.q - a.q); len = lerp(a.len, b.len, r); }
+    else if (b && t > 0.5 * (a.t1 + 0.22 + b.t0 - 0.12)) { cur = b; ph = b.q - (b.t1 - t) * b.cad; len = b.len; }
+    else { cur = a; ph = a.q + (t - a.t1) * a.cad; len = a.len; }
+  }
+  const sd = Math.max(0.3, len / (0.2 * (at(K.sc, t) || 1)));
+  amt *= clamp(sd / 0.8, 0.25, 1) * (P.tune.body ?? 1);
+  const v = at(K.v, t), T = P.tune;
+  tip[0] *= T.tip ?? 1; tip[1] *= T.tip ?? 1;
+  return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, GAIT.leanMax) * (T.lean ?? 1), run: !!cur?.run, tip };
+}
+// where each foot is at time t (potato.js st.feet): standing where it touched down, or on its way along a low arc that
+// leaves and lands softly; with the body while it is off its feet. w fades it out in the air, sitting or kneeling.
+function planFeet(P, t, st, plant) {
+  // the feet tuck up in the air (a hop, a fly, a hover: st.tuck) and go with the body while it sits or kneels
+  const sc = st.scale ?? 1, out = {}, w = clamp(1 - (plant.w || 0)) * (1 - clamp(st.kneel || 0)) * (1 - clamp((st.tuck || 0) / 0.5)) * (st.riding ? 0 : 1);
+  for (const s of ["R", "L"]) {
+    const E = P.ev[s];
+    let lo = 0, hi = E.length - 1, k = -1;
+    while (lo <= hi) { const m = (lo + hi) >> 1; if (E[m].t0 <= t) { k = m; lo = m + 1; } else hi = m - 1; }
+    let x, y, z, yaw, lift = 0;
+    const e = E[k];
+    if (!e) { const h = footHome(s, P.K.x[0], P.K.z[0], P.K.yaw[0], P.K.sc[0]); [x, z] = h; y = P.K.y[0]; yaw = P.K.yaw[0]; }
+    else if (e.off && t < e.t1) { [x, z] = footHome(s, plant.x, plant.z, plant.yaw, sc); y = plant.y; yaw = plant.yaw; }
+    else if (!e.off && t < e.t1) {
+      const k1 = (t - e.t0) / (e.t1 - e.t0), m = k1 - Math.sin(2 * Math.PI * k1) / (2 * Math.PI);
+      x = lerp(e.p0[0], e.p1[0], m); z = lerp(e.p0[1], e.p1[1], m); y = lerp(e.y0, e.y1, m); yaw = e.a0 + angD(e.a1, e.a0) * m;
+      lift = e.h * Math.sin(Math.PI * k1);
+    } else { [x, z] = e.p1; y = e.y1; yaw = e.a1; }
+    out[s] = { x, y: y + 0.035 * sc + lift, z, yaw, w };
+  }
+  return out;
+}
+// the touch downs of the planted gait (engine/audio.mjs puts a footstep on each): time, foot, step length, run
+export function footfalls(sb, actor, def = {}) {
+  return gaitPlan(sb, actor, def).steps.filter((e) => e.t1 >= 0).map((e) => ({ at: e.t1, foot: e.s, len: e.len, run: e.run }));
+}
+// what each foot is doing at story time t under the planted gait: "stand" (still on the floor), "step" (on its way
+// to a new spot, however low it lifts) or "free" (going with the body: in the air, sitting, riding, a glide); null
+// when the storyboard doesn't use it. For the checks (qa/rig.mjs foot-slide: a "step" is not a slide)
+export function footPhase(sb, actor, t, def = {}) {
+  if (!feetOn(sb)) return null;
+  const P = gaitPlan(sb, actor, def), out = {};
+  for (const s of ["R", "L"]) {
+    const E = P.ev[s];
+    let k = -1; for (let i = 0; i < E.length && E[i].t0 <= t; i++) k = i;
+    const e = E[k];
+    out[s] = !e || t >= e.t1 ? (e?.off && t < e.t1 + 1e-9 ? "free" : "stand") : e.off ? "free" : "step";
+  }
+  return out;
+}
+// a standing foot left more than 30 cm from its body (a move faster than the longest stride): [{ t, foot, m }]
+export function gaitWarnings(sb, actor, def = {}) { return gaitPlan(sb, actor, def).warn; }
 
 export function actorState(sb, actor, def, t, raw = false) {
   const c = actor, LD = loopLen(sb);   // LD: the loop length when loop-safe idle is on, else 0 (util.js)
@@ -229,6 +464,8 @@ export function actorState(sb, actor, def, t, raw = false) {
     const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || "inOut")(p);
     switch (a.do) {
       case "move": {
+        // the planted gait reads the step rate, the stride and whether it's a glide (steps: 0) from the action
+        if (p < 1) st.gaitHint = { steps: a.steps, run: (a.stride ?? 1) >= 1.7, glide: a.steps === 0 };
         if (N?.gait && (!a.ease || a.ease === "inOut")) { natMove(st, a, t, d, nat); break; }
         st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e); if (a.y != null) st.y = lerp(st.y, a.y, e);   // y: the height it ends at (a sloping street)
         // stride: how long and high the steps are (1 a walk; about 2 a run), bob: metres the body rises between footfalls
@@ -254,6 +491,9 @@ export function actorState(sb, actor, def, t, raw = false) {
             ph += u * R[i][1] + (last ? 0 : ((R[i + 1][1] - R[i][1]) * u * u) / (2 * (t1 - t0)));
           }
           st.walk = ph; st.walkAmt = clamp(Math.min(T, end - T) / 0.15); st.stride = a.stride ?? 2;
+          let j = 0; while (j < R.length - 1 && R[j + 1][0] <= T) j++;
+          const rt = j < R.length - 1 ? lerp(R[j][1], R[j + 1][1], clamp((T - R[j][0]) / (R[j + 1][0] - R[j][0]))) : R[j][1];
+          st.gaitHint = { steps: rt, run: (a.stride ?? 2) >= 1.7 };
           if (a.bob) st.y += a.bob * st.walkAmt * Math.abs(Math.sin(ph * Math.PI * 2));
         }
         break;
@@ -523,7 +763,11 @@ export function actorState(sb, actor, def, t, raw = false) {
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
   const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
   if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
-  if (N) natApply(st, nat);   // after the plant too: the walk's bob and weight shift move the body, not the feet
+  st.riding = !!riding;
+  // the planted gait (motion.feet 2): the footfalls, bob, sway and lean come from the step plan, for every move and run
+  const F2 = feetOn(sb) && !PLANNING ? gaitPlan(sb, c, def) : null;
+  if (F2) { nat.gait = planGait(F2, t, st.yaw); st.gait = nat.gait; if (nat.gait) { st.walk = nat.gait.ph; st.walkAmt = nat.gait.amt; st.stride = nat.gait.sd; } }
+  if (N || F2) natApply(st, nat);   // after the plant too: the walk's bob and weight shift move the body, not the feet
   if (N?.arcs) st.arcs = true;   // potato.js arcLerp
   // still in the air after a fly: hover with a gentle bob that fades in, wings beating slower
   if (airSince != null && st.y > 0.01) {
@@ -547,6 +791,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   // in the air, sitting, or tipped far over (a flip) the feet go with the body instead, blended so nothing pops
   plant.w = Math.max(clamp(plant.y / 0.03), st.sit || 0, clamp((Math.abs(st.flip) - 0.5) / 0.3));
   st.plant = plant;
+  if (F2) st.feet = planFeet(F2, t, st, plant);
   // idle life: breathing, a little sway, automatic blinks. With loop-safe idle each rhythm turns a whole number of
   // times over the clip (breathing about 0.8 Hz, the blink period about 2.6-3.8 s), so the loop closes exactly.
   const seed = c.seed ?? c.id.length * 3.1;

@@ -164,6 +164,17 @@ moving at once.
   past the end. `sit`: the body tips forward while sitting down and bounces once on the seat; standing up swings
   forward first and rises after. `jiggle`: the body squashes a little with the follow-through spring when it stops or
   lands. Bench: `storyboards/lookdev/make-natural-motion-tests.mjs` (walk, reach and drink, everyday).
+- **Planted feet** (`"motion": { "feet": 2 }`, quality plan item 10, 5 Nov 2026; opt-in until Jonny approves it; it
+  turns on every natural part too): one gait for every `move` (any ease) and `run`, planned from the body's own path
+  (timeline.js `gaitPlan`, docs/feet-study.md). A standing foot stays exactly where it landed; steps follow the
+  distance, sized to the speed up to the longest stride and then quicker; a run (a `run`, `stride` 1.7 or more, or over
+  1.5 m/s) has a moment in the air; turns on the spot, shuffles and shoves get their own small steps when a foot would
+  be 3 cm or 20° off. The bob, weight shift, arm swing and footstep sounds follow the real steps, and the body tips on
+  with a stop and back with a start. `steps: 0` on a `move` is a deliberate glide (feet go with the body: someone
+  dragged). `"feetTune": { "lean": 0.5, "tip": 0, "body": 1 }` in the motion object scales the walk's lean, the
+  stop/start tip and the bob, sway and arm swing (a tight staging that the extra body motion pushes into a contact).
+  Bench: `storyboards/lookdev/make-feet-tests.mjs`; quick check without a browser:
+  `node tools/feet/probe.mjs <sb> [--feet]` (how far each standing foot slides, how far a foot gets from the body).
 - **A toe tap** (`"do": "tap"`, `side` R/L, `count` 3, `every` 0.3 s, `lift` 1): the heel stays on the floor and the
   toe lifts and slaps down; each slap lands 60 % into its cycle with a soft footstep on the set's floor (no step if the
   storyboard places its own). `act.tapFoot` wraps it. The small gestures and `act.ma` are in the table below; bench:
