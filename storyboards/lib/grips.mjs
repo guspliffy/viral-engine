@@ -87,21 +87,32 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
   const h = {
     sides, hand,
     // 01 approach: the hand opens on the way and stops a few centimetres off its grip, on the side it closes from
-    approach(t, dur = 0.3) {
-      each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: Math.min(0.2, dur) }); c.arm(t, who, s, pose(s, { off: hands[s].away }), dur, "inOut"); });
+    // (at: where the prop's bottom centre is now, when someone else holds it there: a pass)
+    approach(t, dur = 0.3, at = null) {
+      const w = at ? { at: at.map(r3) } : {};
+      each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: Math.min(0.2, dur) }); c.arm(t, who, s, pose(s, { off: hands[s].away, ...w }), dur, "inOut"); });
       return r3(t + dur);
     },
     // 02 secure: onto the grip (contact), then the fingers close; the grab comes once they have, so the prop never
     // moves before the hand is on it. A pinch lands without the settle's overshoot, which pushes the pads through a
     // thin shaft
-    secure(t, dur = 0.2) {
-      each((s) => { c.arm(t, who, s, pose(s), dur, point ? "out" : "settle"); c.A(t + dur * 0.6, who, "grip", { side: s, ...shp(shape), dur: 0.12 }); });
+    secure(t, dur = 0.2, at = null) {
+      const w = at ? { at: at.map(r3) } : {};
+      each((s) => { c.arm(t, who, s, pose(s, w), dur, point ? "out" : "settle"); c.A(t + dur * 0.6, who, "grip", { side: s, ...shp(shape), dur: 0.12 }); });
       // a hand locked to the prop (frame) holds it exactly where it touched it (keep), not at the middle of the hand; a
       // pinch holds it at the pinch (point)
       c.A(t + dur + 0.06, who, "grab", { prop: id, hand, grip: grab, dur: 0, pose: null, ...(point ? { point } : sides.some((s) => hands[s].frame) && { keep: true }) });
       return r3(t + dur + 0.1);
     },
     take(t, { reach = 0.3, settle = 0.2 } = {}) { const e = h.secure(h.approach(t, reach), settle); return take ? take(h, e) : e; },
+    // take it from someone else's hand where they hold it out (at: its bottom centre there). With "rig": { "hold": 2 }
+    // the prop blends from the giver's hand to this one over at least 0.15 s; the giver then lets go with handOff()
+    takeFrom(t, at, { reach = 0.35, settle = 0.2 } = {}) { return h.secure(h.approach(t, reach, at), settle, at); },
+    // let go after a pass: the fingers open and the hand backs off, without a release (the prop is the taker's now)
+    handOff(t, { rest = "rest", back = 0.2 } = {}) {
+      each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: 0.15 }); c.arm(t + 0.04, who, s, rest, back + 0.3, "inOut"); });
+      return r3(t + 0.34 + back);
+    },
     // 03 lift / 04 hold / carry: the prop's bottom centre to `at` (world), the hands staying on their grips. rot turns
     // the prop on the way (the hands turn with it); keep turns slow and small, a held prop is rigid in the hand.
     carry(t, at, dur, ease = "inOut", { rot, tip } = {}) {
