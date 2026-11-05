@@ -1,0 +1,38 @@
+{
+ "name": "london-palace-forecourt-rain",
+ "prompt": "anime film background painting, gouache, low ground level view across a wide empty forecourt of damp grey stone paving with a few puddles filling the bottom half, a grand pale stone palace facade with rows of tall windows behind, a small red double decker bus and red phone box far right, overcast soft daylight from the left",
+ "no": "people, potato, guard, sentry box, text, lamp post, street lamp, pole, tree, car in foreground",
+ "seeds": [
+  41,
+  3,
+  17,
+  29
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 0.95,
+  "vfov": 46,
+  "pos": [
+   0,
+   0.95,
+   4.4
+  ]
+ },
+ "motion": {
+  "shimmer": []
+ },
+ "light": {
+  "from": "upper left, overcast",
+  "key": [
+   -3.0,
+   6.0,
+   1.0
+  ],
+  "shadow": 0.15
+ },
+ "swayMax": 0,
+ "surface": "stone"
+}

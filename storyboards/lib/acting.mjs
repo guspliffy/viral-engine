@@ -153,10 +153,13 @@ const FACE_MIN = 0.25;
 
 // the opener: a lead says a short line in the first half second, so the clip opens on a voice with the music. Gibberish
 // by default (no subtitle: there are no words to read); words: true speaks it for real (the character's voice) and
-// subtitles it at `pos`. A clip opts out by not calling it (the template's OPENER = false).
-export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", words = false, pos = 1180 } = {}) {
+// subtitles it at `pos`. A clip opts out by not calling it (the template's OPENER = false). In a clip built with
+// clip({ lines }) (the template) the opener is a c.say line like any other: gibberish gets its subtitle too (Jonny,
+// 4 Nov 2026: every gibberish line is captioned) and no blink lands on it.
+export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", words = false, pos } = {}) {
+  if (c.lines) return c.say(at, who, line, dur, tone, { ...(pos != null && { pos }), ...(!words && { voice: false }) });
   c.A(at, who, "talk", { line, tone, dur, ...(!words && { voice: false }) });
-  if (words) c.cap(at, at + Math.max(1.0, dur + 0.6), line, pos);
+  if (words) c.cap(at, at + Math.max(1.0, dur + 0.6), line, pos ?? 1180);
 }
 
 // comic force on a hit (the lab's d-comic-force): the victim's eyes go wide as it lands (eased in from just before),
@@ -165,7 +168,7 @@ export function opener(c, who, line, { at = 0, dur = 0.45, tone = "excited", wor
 // t is the contact frame; the attacker's own anticipation is windUp(), the landing landDust().
 export function impact(c, t, who, { frames = 2, stop = 3, shake = 0.035, stars = true, squash = 0.26, recoil = -11, look = [0, 0.35], sound = "thud-soft", gain = 0.6, take = true } = {}) {
   const f = 1 / c.fps, at = Math.round(t * c.fps) / c.fps;
-  c.at(at, { fx: "impact", dur: r3((frames - 0.5) * f) });   // an effect shows through its end time: half a frame short draws exactly `frames`
+  if (frames > 0) c.at(at, { fx: "impact", dur: r3((frames - 0.5) * f) });   // frames 0: no impact frame (a black frame reads as a dropout on a phone). An effect shows through its end time: half a frame short draws exactly `frames`
   c.at(at, { fx: "shake", dur: 0.25, amp: shake });
   if (stars) c.at(at + 0.1, { fx: "sparkle", who, dur: 0.9, count: 5, color: "#fff2a8" });
   if (sound) c.sfx(at, sound, { gain });

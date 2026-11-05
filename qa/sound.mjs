@@ -18,7 +18,11 @@
 //                  a frame: a muxing or encoder offset)
 //   sound-level    how far each effect stands over what plays under it: its loudest 50 ms against the median level
 //                  of the second before (music, voices, room). Under ~1 dB it is buried (footsteps: under -3 dB);
-//                  over 20 dB above a real bed it jumps out. Hypotheses from earshot's launch mixes (3-10 dB), warn only.
+//                  over the mix, see sound-spike. Hypotheses from earshot's launch mixes (3-10 dB), warn only.
+//   sound-spike    an effect's momentary loudness (400 ms) over the voices, room and music around it: over 9 dB warns,
+//                  over 12 fails (12 / 15 marked "loud"); the spike guard (engine/sfx/guard.mjs) caps it at 9 / 12.
+//                  loudest (note): the three loudest moments of the file, for Jonny's ears first.
+//                  node qa/sound.mjs <sb> --spikes [--guard] checks a fresh mix (seconds, no render).
 //   payoff-sound   (creative, a note) the payoff is the loudest moment of the clip and has a quiet dip before it: the
 //                  loudest 100 ms window of the file falls in the payoff beat (within 1 dB), and the quietest 0.5 s of the
 //                  4 s before it sits 12 dB or more under the payoff's peak. Idea from cth9191/animate tools/review.mjs
@@ -51,7 +55,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { renderAudio, soundEvents, writeWav } from "../engine/audio.mjs";
 import { isHit, floorOf, SURFACES } from "../engine/sfx/library.mjs";
-import { lockMusic, addMusic } from "../engine/music.mjs";
+import { lockMusic } from "../engine/music.mjs";
+import { mixClip, effectLevelsOverMix, loudestMoments } from "../engine/sfx/guard.mjs";
 import { soundClock } from "../engine/shared/holds.js";
 
 const SR = 44100, FRAME = 1 / 30;
@@ -194,10 +199,9 @@ export function phoneBand(mix, events, offset = 0) {
 // the storyboard's sound as the render would mix it now (effects, voices, room, music), mono, with its events
 export function freshMix(sb, chars) {
   sb = soundClock(sb);
-  const a = renderAudio(sb, chars);
-  addMusic({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, a);
+  const a = mixClip({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, chars);   // the spike guard too, when the storyboard has it
   const m = new Float32Array(a.L.length); for (let i = 0; i < m.length; i++) m[i] = (a.L[i] + a.R[i]) / 2;
-  return { mix: m, events: a.events };
+  return { mix: m, events: a.events, a };
 }
 
 // on the rendered file: is its sound the one this storyboard makes now, in sync with the picture, and does each
@@ -205,9 +209,8 @@ export function freshMix(sb, chars) {
 export function soundMeasure(clip, sb, chars) {
   sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
-  const a = renderAudio(sb, chars);
+  const a = mixClip({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, chars);
   out.push(...soundTiming(sb, a.events));
-  addMusic({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, a);
   const fresh = new Float32Array(a.L.length); for (let i = 0; i < fresh.length; i++) fresh[i] = (a.L[i] + a.R[i]) / 2;
   const mix = decodeMono(clip), H = 88, eF = envelope(fresh, H).map(Math.sqrt), eM = envelope(mix, H).map(Math.sqrt);   // 2 ms steps
   // the lag (+-150 ms) where the file's loudness curve and a fresh render's agree best
@@ -222,20 +225,48 @@ export function soundMeasure(clip, sb, chars) {
   if (best < 0.8) add("warn", "sound-file", `the file's sound matches a fresh render only ${(best * 100).toFixed(0)}%: it was made by an older storyboard or engine (redo it with render.mjs --audio-only)`);
   else add(Math.abs(offset) > FRAME ? "fail" : "pass", "sound-file", `the file's sound is this storyboard's (${(best * 100).toFixed(0)}% match), ${Math.abs(offset) > FRAME ? `but ${ms} ms out of sync with the picture` : `in sync with the picture (${ms} ms)`}`);
   // 3. level over what plays under it, in the file (music included), 50 ms windows
-  const buried = [], loud = [], over = [];
+  const buried = [], over = [];
   for (const x of effectLevels(mix, a.events, offset)) {
     over.push(x.d);
     if (x.buried) buried.push(`${x.e.kind}@${x.e.at} ${x.d.toFixed(1)} dB`);
-    else if (x.loud) loud.push(`${x.e.kind}@${x.e.at} +${x.d.toFixed(0)} dB`);
   }
   over.sort((x, y) => x - y);
   const med = over.length ? over[Math.floor(over.length / 2)] : 0;
   if (buried.length) add("warn", "sound-level", `${buried.length} of ${over.length} effects buried under the music, voices or room (${buried.slice(0, 5).join(", ")}${buried.length > 5 ? ", ..." : ""}): raise them or duck the bed`);
-  if (loud.length) add("warn", "sound-level", `${loud.length} effects jump far out of the mix (${loud.slice(0, 5).join(", ")})`);
-  if (!buried.length && !loud.length && over.length) add("pass", "sound-level", `${over.length} effects stand ${over[0].toFixed(0)} to ${over[over.length - 1].toFixed(0)} dB over what plays under them (median ${med.toFixed(0)} dB)`);
+  const sp = spikes(sb, chars, a);
+  out.push(...sp);
+  if (!buried.length && !sp.some((r) => r.level === "fail") && over.length) add("pass", "sound-level", `${over.length} effects stand ${over[0].toFixed(0)} to ${over[over.length - 1].toFixed(0)} dB over what plays under them (median ${med.toFixed(0)} dB)`);
+  out.push(loudest([mix], a.events, offset));
   out.push(...payoffSound(sb, envelope(mix, 441)));
   out.push(...phoneBand(mix, a.events, offset));
   return out;
+}
+
+// sound-spike (quality plan item 6, 5 Nov 2026): each effect (effects within 0.2 s of each other together) measured
+// alone, as the mixer makes it, against the voices, room and music around it (engine/sfx/guard.mjs
+// effectLevelsOverMix: BS.1770 momentary loudness, 400 ms, against the energy mean of the 3 s around). Over 9 dB a
+// warning (the spike guard turns it down to 9), over 12 dB a fail (marked "loud": true: 12 and 15). Measured on the
+// mix the render makes now, as sound-sync is; sound-file says whether the file is that mix.
+// Ten clips of 4-5 Nov, unguarded: the bill's charge + impact @1.95 +12.3 dB, the T-rex's grab + roar @5.42 +13.2,
+// the shark's feedback @3.90 +13.9 fail; the tent's cloth + thud the old check called +20 dB stand 17-21 dB UNDER the
+// mix around them: the old 50 ms check heard the payoff after the music's deliberate dip.
+export const SPIKE = { warn: 9, fail: 12, loudWarn: 12, loudFail: 15 };
+export function spikes(sb, chars, a = null) {
+  const out = [], add = (level, msg) => out.push({ group: "technical", level, check: "sound-spike", msg });
+  sb = soundClock(sb);
+  const lv = a?.levels ? a.levels.map((x) => ({ ...x, over: x.after ?? x.over })) : effectLevelsOverMix({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, chars);
+  const lim = (x, k) => (x.loud ? SPIKE["loud" + k[0].toUpperCase() + k.slice(1)] : SPIKE[k]);
+  const say = (xs) => xs.sort((p, q) => q.over - p.over).slice(0, 5).map((x) => `${x.name} ${x.over >= 0 ? "+" : ""}${x.over.toFixed(1)} dB${x.loud ? " (loud)" : ""}`).join(", ");
+  const bad = lv.filter((x) => x.over > lim(x, "fail") + 0.05), hot = lv.filter((x) => x.over > lim(x, "warn") + 0.05 && x.over <= lim(x, "fail") + 0.05);
+  if (bad.length) add("fail", `${bad.length} effect${bad.length > 1 ? "s jump" : " jumps"} far out of the mix (${say(bad)}; momentary loudness over the voices, room and music around, fail over ${SPIKE.fail} dB, ${SPIKE.loudFail} marked "loud"): turn ${bad.length > 1 ? "them" : "it"} down, mark a deliberate gag "loud": true, or turn on the spike guard ("sound": { "guard": true })`);
+  if (hot.length) add("warn", `${hot.length} effect${hot.length > 1 ? "s stand" : " stands"} out of the mix (${say(hot)}; over ${SPIKE.warn} dB): the spike guard would turn ${hot.length > 1 ? "them" : "it"} down to ${SPIKE.warn}`);
+  if (!bad.length && !hot.length && lv.length) { const top = lv.reduce((m, x) => (x.over > m.over ? x : m)); add("pass", `no effect jumps out of the mix (the most: ${top.name} ${top.over >= 0 ? "+" : ""}${top.over.toFixed(1)} dB over the voices, room and music around it)${a?.guard ? `; spike guard on, ${a.guard.capped.length} turned down` : ""}`); }
+  return out;
+}
+// the delivery line: the three loudest moments, for Jonny to listen to first
+export function loudest(chs, events, offset = 0) {
+  const L = loudestMoments(chs, SR, events, 3, offset);
+  return { group: "technical", level: "note", check: "loudest", msg: `the three loudest moments (listen to these first): ${L.map((x) => `${x.t.toFixed(2)}s ${x.over >= 0 ? "+" : ""}${x.over.toFixed(1)} dB over the clip's loudness${x.what.length ? ` (${x.what.slice(0, 3).join(" + ")})` : ""}`).join("; ")}` };
 }
 
 // the payoff beat: { name, from, to, how }. "how" says when it is the music lock's fallback (the last escalation),
@@ -316,13 +347,19 @@ export function soundEars(clip, sb, chars) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const argv = process.argv.slice(2), ears = argv.includes("--ears"), phone = argv.includes("--phone"), [file, clip] = argv.filter((x) => x !== "--ears" && x !== "--phone");
-  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4] [--ears] [--phone]"); process.exit(2); }
-  const sb = loadStoryboard(file);
+  const flags = ["--ears", "--phone", "--spikes", "--guard"], argv = process.argv.slice(2), ears = argv.includes("--ears"), phone = argv.includes("--phone"), spk = argv.includes("--spikes"), [file, clip] = argv.filter((x) => !flags.includes(x));
+  if (!file) { console.error("usage: node qa/sound.mjs <storyboard.json> [clip.mp4] [--ears] [--phone] [--spikes] [--guard]"); process.exit(2); }
+  let sb = loadStoryboard(file);
+  if (argv.includes("--guard")) sb = { ...sb, sound: { ...(sb.sound || {}), guard: true } };   // as render.mjs --guard
   const chars = loadCharacters(sb);
   const res = [...soundNotes(sb), ...(!clip ? soundTiming(sb, renderAudio(sb, chars).events) : fs.existsSync(clip) ? soundMeasure(clip, sb, chars) : [{ level: "fail", check: "file", msg: `${clip} not found` }])];
   // --phone with no clip: the phone-band check on the mix the render would make now (seconds, no render)
-  if (phone && !clip) { const f = freshMix(sb, chars); res.push(...phoneBand(f.mix, f.events)); }
+  if ((phone || spk) && !clip) {
+    const f = freshMix(sb, chars);
+    if (phone) res.push(...phoneBand(f.mix, f.events));
+    // --spikes with no clip: the spike check and the three loudest moments on the mix the render would make now
+    if (spk) res.push(...spikes(sb, chars, f.a), loudest([f.mix], f.events));
+  }
   if (ears && clip && fs.existsSync(clip)) res.push(...soundEars(clip, sb, chars));
   for (const r of res) console.log(`  ${{ pass: "ok  ", warn: "WARN", fail: "FAIL", note: "note" }[r.level]}  ${r.check}: ${r.msg}`);
   process.exit(res.some((r) => r.level === "fail") ? 1 : 0);

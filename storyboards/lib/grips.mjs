@@ -28,6 +28,7 @@ const SIZE = {
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
   // a bowl's outside, [height, radius] from the foot up to the rim
   snackbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] },   // props-charger.js
+  popcornbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] }, // props-ufo.js: the snack bowl's shape
   soupbowl: { rim: 0.1, wall: [[0, 0.07], [0.02, 0.1], [0.05, 0.142], [0.084, 0.162], [0.1, 0.165]] },           // props-chef.js
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
@@ -45,12 +46,18 @@ const SIZE = {
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
+  clambox: { w: 0.26, h: 0.12, d: 0.2 },            // props-winter.js takeaway clamshell (closed: tray + lid): both palms on its two ends (box hold)
+  cocoacup: { r: 0.045, h: 0.115 },                // props-winter.js hot chocolate to go: the mug hold round the sleeve
   teamug: { r: 0.045, h: 0.085 },                  // props-bonfire.js: campmug's size and handle, white china with steam
+  papercup: { r: 0.039, h: 0.1 },                  // props-juice.js CUP (0.032 at the foot, 0.042 at the rim): held round its body like a mug
   toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
+  mallowstick: { len: 0.9, r: 0.01 },              // props-dino.js: a long green toasting stick, marshmallows at the tip; the thin pinch near its butt
   // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
   sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
   manual: { w: 0.34, h: 0.24, t: 0.004 },          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)
   allenkey: { len: 0.2, r: 0.011 },                // props-ikea.js Allen key: the thin pinch on its long arm, the short arm at the top
+  waterglass: { r: 0.038, h: 0.1 },               // props-bistro.js tumbler of water: the mug hold round its middle
+  cardreader: { w: 0.078, h: 0.155, t: 0.03 },     // props-bistro.js card machine: held with the phone hold, its screen to the holder
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
