@@ -1,0 +1,35 @@
+{
+ "name": "dusk-bus-stop",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view down a quiet empty english street at dusk, wide grey paving stone pavement fills the bottom half, the street curves away into the distance, row of terraced brick houses with a few warm lit windows, a church spire, a red postbox, parked cars far away, low ground mist, misty purple and orange dusk sky",
+ "no": "people, potato, zombie, bus, bus shelter, bench, hedge in foreground, car in foreground, rain, puddles, wet street, text, sign",
+ "seeds": [
+  5,
+  12,
+  33,
+  71
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 2.0,
+  "vfov": 46,
+  "pos": [
+   0,
+   2.0,
+   11.0
+  ]
+ },
+ "light": {
+  "from": "low from the left: cool dusk sky, warm street lamp",
+  "key": [
+   -3.0,
+   4.0,
+   2.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 15,
+ "surface": "street"
+}
