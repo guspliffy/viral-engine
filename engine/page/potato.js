@@ -39,11 +39,11 @@ function wristTurn(r) {
   const t = _bq.invert().multiply(r);
   let tw = 2 * Math.atan2(t.y, t.w); if (tw > Math.PI) tw -= 2 * Math.PI; if (tw < -Math.PI) tw += 2 * Math.PI;
   const b = al > 1e-9 ? fold(ang, WRIST.bend) / al : 0;
-  return [ax * b, az * b, Math.sign(tw) * fold(Math.abs(tw), WRIST.twist), 1, ang, tw, ax * (al > 1e-9 ? ang / al : 0), az * (al > 1e-9 ? ang / al : 0)];
+  return [ax * b, az * b, Math.sign(tw) * fold(Math.abs(tw), WRIST.twist), 1, ang, tw];
 }
-// the turn to blend towards at weight w: within the wrist's reach while the hand is on its way (w under 0.6), the whole
-// turn once it is on its hold (w 1: a fist round a staff, a hand locked to a phone must match the hold exactly)
-const wristAim = (r, w) => { const k = sstep((w - 0.6) / 0.4); return [r[0] + (r[6] - r[0]) * k, r[1] + (r[7] - r[1]) * k, r[2] + (r[5] - r[2]) * k]; };
+// how exactly a turn at weight w is matched: within the wrist's reach while the hand is on its way (w under 0.6), the
+// whole turn once it is on its hold (w 1: a fist round a staff, a hand locked to a phone must match the hold exactly)
+const exactW = (w) => sstep((w - 0.6) / 0.4);
 // [bend x, bend z, twist] back to a rotation: the twist about the forearm, then the bend
 function wristQuat(p, out) {
   const tw = new THREE.Quaternion().setFromAxisAngle(_bY, p[2]), a = Math.hypot(p[0], p[1]);
@@ -471,12 +471,14 @@ export class Character {
     dbg.cond = rd(1 + y.dot(y0), 3); dbg.y = y.toArray().map((v) => rd(v, 2));
     const Bi = B.clone().invert(), T = new THREE.Quaternion(), p = [0, 0, 0];
     let lim = 0, hold = 0;
+    const exact = [];   // the holds to match exactly at the end, in order: [turn, how exactly]
     const toward = (r, u) => { for (let i = 0; i < 3; i++) p[i] += u * (r[i] - p[i]); };
     const turn = (q, w, key) => {
       if (!(w > 0)) return;
       const r = wristTurn(T.copy(Bi).multiply(q)), u = w * r[3];
       lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
-      dbg[key] = rd(u, 2); toward(wristAim(r, u), u); hold = Math.max(hold, sstep((u - 0.6) / 0.4));
+      dbg[key] = rd(u, 2); toward(r, u);
+      const e = exactW(u); hold = Math.max(hold, e); if (e > 0) exact.push([q.clone(), e]);
     };
     // the fist turns onto the handle as the hand closes (as in _pose)
     const pw = U.glove ? Math.min(1, Math.max(0, gr.pinch || 0)) : 0;
@@ -514,11 +516,11 @@ export class Character {
         // a forearm pointing straight at the hold leaves the palm's roll open: the turn fades there instead of spinning
         const r = wristTurn(T.copy(Bi).multiply(_fist)), u = e.w * r[3] * sstep(fl / 0.3);
         lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
-        const ra = wristAim(r, e.w);
-        for (let i = 0; i < 3; i++) acc[i] += u * ra[i];
+        for (let i = 0; i < 3; i++) acc[i] += u * r[i];
+        const ex = exactW(e.w * sstep(fl / 0.3)); if (ex > 0) exact.push([_fist.clone(), ex]);
         wu += u;
       }
-      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); hold = Math.max(hold, sstep((wu - 0.6) / 0.4)); }
+      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); hold = Math.max(hold, exactW(wu)); }
     }
     if (frame && frame.w > 0) turn(frame.q, frame.w, "fr");
     const up = Math.min(1, Math.max(0, gr.up || 0));
@@ -536,6 +538,7 @@ export class Character {
     }
     if (lim > 1) dbg.lim = rd(lim, 2);   // past the wrist's knee (1)
     const out = B.multiply(wristQuat(p, T));
+    for (const [q, e] of exact) out.slerp(q, e);
     out.hold = hold;   // how fully the hand is on a hold (fist, palm, locked frame, cupped, paw): the smoothing leans on it
     return out;
   }
