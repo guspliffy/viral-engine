@@ -570,10 +570,11 @@ export class Character {
   // before it touches, and a hand fully on its hold keeps the hold's exact turn. A step the actor takes between two
   // frames (a teleport at a cut, a new place) ends the window there.
   // Every frame is worked out from the story alone, never from the frame drawn before it (frame cache, farm shards)
+  // the actor's state at story time tt, shared by both arms of the frame being drawn (keyed on the exact time; apply()
+  // empties it each frame)
+  _stAt(tt) { if (!this._stM.has(tt)) this._stM.set(tt, this.stateAt(tt)); return this._stM.get(tt); }
   _smoothHand(s, t, q0) {
-    // the states are shared by both hands of the frame (keyed on the exact time, kept for one frame)
-    if (this._stT !== t) { this._stT = t; this._stM = new Map(); }
-    const stAt = (tt) => { if (!this._stM.has(tt)) this._stM.set(tt, this.stateAt(tt)); return this._stM.get(tt); };
+    const stAt = (tt) => this._stAt(tt);
     const U = this.arms[s].hand.userData, fistPar = U.fistPar, st0 = stAt(t);
     if (!st0) return q0;
     const K = 4, ker = (k) => Math.cos((Math.PI * k) / (2 * K + 2)) ** 2, HOLD = 6;
@@ -809,7 +810,7 @@ export class Character {
   // st: the state the timeline computed for this frame
   // an arm's inputs at st, t: where the hand goes, the shoulder, the grip, the held handle's axis, a locked hold's
   // turn and the arm curve's pull point (S: the body's squash scale)
-  _armIn(st, t, s, S) {
+  _armIn(st, t, s, S, raw = false) {
     const sx = s === "R" ? -1 : 1, a = st.arms[s];
     const from = handTarget(a.from, sx, this.rx, this.H, t), to = handTarget(a.pose, sx, this.rx, this.H, t);
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
@@ -883,9 +884,38 @@ export class Character {
       this._outside(mid, S, joint ? 1 : 1.3);
       return mid;
     };
-    let mid = elbowFor(h), arm = null;
-    if (ARM === 2) ({ mid, arm } = this._solveArm(s, sx, sh.clone().addScaledVector(shN, -0.035), h, mid, S, dn));
-    return { sx, a, from, to, h, sh, shN, gr, ax, dn, fr, mid, arm };
+    let mid = elbowFor(h), arm = null, bend = null;
+    if (ARM === 2) {
+      const over = !raw && SMOOTH && this.stateAt && this._stM ? this._smoothBend(s, t) : null;
+      ({ mid, arm, bend } = this._solveArm(s, sx, sh.clone().addScaledVector(shN, -0.035), h, mid, S, dn, over));
+    }
+    return { sx, a, from, to, h, sh, shN, gr, ax, dn, fr, mid, arm, bend };
+  }
+  // arm rig 2: the elbow has weight, so it can't swing round in a frame when the hand passes close to the shoulder (where
+  // the shoulder-hand line turns fastest): its bend (the pull point's offset from the line's middle, in the body's own
+  // frame) is averaged over +-3 frames (cos^2 weights), each frame's from the story alone (ch.stateAt, as the hand's
+  // turn); a step between two frames (a teleport at a cut) ends the window. Returns { n, ext }: the direction and how
+  // far the pull point stands off the line
+  _smoothBend(s, t) {
+    const at = (tt) => {
+      const k = s + tt; if (this._bendM.has(k)) return this._bendM.get(k);
+      const st = this._stAt(tt); let b = null;
+      if (st && st.arms) { const sq = st.squash ?? 1, ai = this._armIn(st, tt, s, new THREE.Vector3(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)), true); if (ai.bend) b = { v: ai.bend, st }; }
+      this._bendM.set(k, b); return b;
+    };
+    const b0 = at(t); if (!b0) return null;
+    const K = 3, ker = (k) => Math.cos((Math.PI * k) / (2 * K + 2)) ** 2, acc = b0.v.clone();
+    let ext = b0.v.length(), W = 1;
+    for (const dir of [-1, 1]) {
+      let prev = b0.st;
+      for (let k = 1; k <= K; k++) {
+        const tk = Math.round((t + (dir * k) / 30) * 1e6) / 1e6, b = at(tk);
+        if (!b || Math.hypot(b.st.x - prev.x, b.st.z - prev.z) > 0.25 || Math.abs(b.st.y - prev.y) > 0.25 || Math.abs(Math.atan2(Math.sin(b.st.yaw - prev.yaw), Math.cos(b.st.yaw - prev.yaw))) > 1) break;
+        prev = b.st;
+        const w = ker(k); acc.addScaledVector(b.v, w); ext += w * b.v.length(); W += w;
+      }
+    }
+    return { n: acc, ext: ext / W };
   }
   // the arm's length (rest pose, today's curve), per side, computed once
   _armLength(s) {
@@ -899,7 +929,7 @@ export class Character {
   }
   // arm rig 2: the elbow for shoulder sh0 and hand h (guide: the old pull point), and the pull point that draws the
   // curve through it. dn: a paw resting on a table keeps its authored joint (the jointed arm passes through it)
-  _solveArm(s, sx, sh0, h, guide, S, dn) {
+  _solveArm(s, sx, sh0, h, guide, S, dn, over = null) {
     const L = this._armLength(s) * (Math.sqrt(S.x * S.y) || 1), D = h.clone().sub(sh0), d = D.length();
     if (d < 1e-5 || dn >= 1) return { mid: guide, arm: null };
     const u = D.divideScalar(d), c = sh0.clone().lerp(h, 0.5);
@@ -911,7 +941,9 @@ export class Character {
     // how far the elbow stands off the line: the solve's, and never less than the old curve's bow (half its pull
     // point's), so a long rubber-hose reach keeps today's curve and the clearance its rules gave it (a raised arm round
     // a helmet, a staff arm round the body)
-    const r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), gb / 2);
+    let r = Math.hypot(f * 0.5 * Math.sqrt(Math.max(0, L * L - ds * ds)), gb / 2);
+    // smoothed in time (_smoothBend): its direction square to this frame's line, and its averaged reach
+    if (over) { const v = over.n.clone().addScaledVector(u, -over.n.dot(u)); if (v.length() > 1e-4) { n.copy(v.normalize()); r = over.ext / 2; } }
     // the arm's curve (where the contact checks sample it, u 0.3 to 0.78) stays out of the body (its centre at most 3 cm
     // in, under the check's 5): turn the bend round the shoulder-hand line towards the body's outward normal at the
     // deepest point (never shortening it) until it does; a reach that still runs through the body then bows further
@@ -936,9 +968,9 @@ export class Character {
       }
       if (hits(nn)) { let lo = 0, hi = 0.5 * L; for (let i = 0; i < 12; i++) { const k = (lo + hi) / 2; if (hits(nn, k)) lo = k; else hi = k; } bow = hi; }
     }
-    const P = c.clone().addScaledVector(nn, 2 * r + bow);
+    const P = c.clone().addScaledVector(nn, 2 * r + bow), bend = P.clone().sub(c);
     const mid = dn > 0 ? P.lerp(guide, dn) : P;
-    return { mid, arm: { reach: rd(d / L, 3), r: rd(r, 3), ...(turn > 0 ? { out: rd(turn, 2) } : {}), ...(bow > 0 ? { bow: rd(bow, 3) } : {}) } };
+    return { mid, bend, arm: { reach: rd(d / L, 3), r: rd(r, 3), ...(turn > 0 ? { out: rd(turn, 2) } : {}), ...(bow > 0 ? { bow: rd(bow, 3) } : {}) } };
   }
   apply(st, t) {
     const R = this.root;
@@ -982,6 +1014,8 @@ export class Character {
     const showLimbs = !fries;
     const S = this.bodyGroup.scale;
     const hands = {};
+    // the story's states and the arm solves around this frame, shared by both arms (hand rig 2, arm rig 2 smoothing)
+    if (this._stT !== t) { this._stT = t; this._stM = new Map(); this._bendM = new Map(); }
     for (const s of ["R", "L"]) {
       const ai = this._armIn(st, t, s, S), { sx, a, from, to, h, sh, shN, gr, ax, dn, fr } = ai;
       let mid = ai.mid;
