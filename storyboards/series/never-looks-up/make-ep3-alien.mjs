@@ -28,10 +28,10 @@ const rad = (d) => (d * Math.PI) / 180;
 const CHAIR0 = { x: -0.45, z: 0.0, rot: 22 };             // the lawn chair, centre-left, Phoenix turned a little to screen right
 const SEAT = 0.42 - 0.12;                                  // his body's y above the chair's
 const BLANKET = { x: 0.85, z: 0.35, w: 1.6, d: 2.0 };
-const TELE = { x: -1.95, z: -1.55 };
+const TELE = { x: -1.85, z: -1.55 };
 // a body-width and more apart (sitting bodies read about 0.4 m round), the Astronaut back right where nobody hides him
 // the Astronaut and his telescope back left, past Phoenix: in a tall frame the back right sits behind the friends
-const WIZ0 = [0.25, 1.15], REA0 = [1.1, 0.95], AST0 = [-1.62, -1.25];
+const WIZ0 = [0.25, 1.15], REA0 = [1.1, 0.95], AST0 = [-1.5, -1.25];
 // the saucer: low over the lawn at frame 0; once the friends let go it glides over the blanket and stops there
 const UFO0 = { x: CHAIR0.x, y: 3.05, z: CHAIR0.z, rot: 62 };   // rot 62: the hatch (its +z side) is at Phoenix's front-right
 const UFO_END = { x: 0.56, y: 3.42, z: -0.33 };
@@ -41,7 +41,7 @@ const T_BREAK = 5.1, T_TOP = 6.8;
 const CHAIR_TOP = r3(UFO_END.y - 1.92);                     // the chair's height under the saucer at the top (crest clear of the hull)
 const lerp = (a, b, k) => a + (b - a) * k;
 // the chair's height while it rises (one tween per stretch: ease in, the tug's stall, ease out to the top)
-const LIFT = [[1.5, 0], [3.2, 0.42], [T_BREAK, 0.7], [T_TOP, CHAIR_TOP]];
+const LIFT = [[1.5, 0], [3.2, 0.6], [T_BREAK, 0.95], [T_TOP, CHAIR_TOP]];   // a body above the Wizard by 3.2 (review A, panel 02)
 const UFO_Y = [[1.5, UFO0.y], [T_TOP, UFO_END.y]];          // the saucer rises a little as it reels him in
 
 // Phoenix holds the phone in both gloves in front of his chest (Still Scrolling, ep 1)
@@ -117,7 +117,7 @@ const bowl = grips.bowl(c, "wiz", props.find((p) => p.id === "bowl"), { height: 
 bowl.secure(0, 0);
 prop(0.1, "bowl", { puff: 1 }, 0.25, "out"); prop(0.35, "bowl", { puff: 0, fill: 0.85 }, 0.3, "in");
 prop(0.1, "pop1", { burst: 1 }, 0.55, "linear");
-sfx(0.12, "pop", { gain: 0.35, reason: "popcorn jumps out of the bowl" });
+sfx(0.12, "pop", { gain: 0.6, reason: "popcorn jumps out of the bowl" });
 A(0, "wiz", "look", { to: [-0.55, 0.85], dur: 0, blink: false });
 act.shock(c, 0.12, "wiz", { open: 0.4, hold: 1.0 });
 // Reaper on the blanket: calm, eyes up at it
@@ -139,7 +139,7 @@ for (const [t, s] of [[1.65, 1], [1.95, -1], [2.25, 1], [2.55, -1], [2.85, 1]]) 
   c.arm(t, "ast", "R", { o: [0.3 + 0.08 * s, 0.85, 0.12] }, 0.28); c.arm(t, "ast", "L", { o: [0.3 - 0.08 * s, 0.85, 0.12] }, 0.28);
 }
 A(1.75, "ast", "talk", { line: "take me take me!", dur: 1.0, tone: "excited", voice: false });
-c.cap(1.75, 3.0, "TAKE ME TOO!!", CAP_Y);
+c.cap(1.75, 3.0, "TAKE ME TOO!!", 640, false, { x: 340 });   // each line by its speaker (review A)
 // the Wizard drops the popcorn, gets up and grabs Phoenix's dangling foot
 bowl.release(1.55, { rest: false });
 prop(1.6, "bowl", { y: 0 }, 0.15, "in");   // it drops off his lap onto the blanket
@@ -166,7 +166,7 @@ A(1.85, "wiz", "turn", { to: WIZ_YAW, dur: 0.3 });
 A(1.75, "wiz", "look", { to: [-0.4, 0.5], dur: 0.12, blink: false });
 act.mood(c, 1.8, "wiz", "shock", { hold: 0.6 });
 A(1.85, "wiz", "talk", { line: "nonono no!", dur: 0.7, tone: "excited", voice: false });
-c.cap(1.85, 2.55, "NO NO NO!", CAP_Y + 130);
+c.cap(1.85, 2.75, "NO NO NO!", 900, false, { x: 700 });
 // both gloves on the foot (one each side of it), following it up; at 2.95 his left glove goes back to Reaper
 const T_GRAB = 2.4, T_BACK = 2.95;
 // the gloves close round his ankle from the Wizard's side of it, above the chair's front bar
@@ -207,29 +207,30 @@ for (const t of [3.5, 4.0, 4.5]) { A(t, "wiz", "squash", { amount: 0.04, dur: 0.
 act.mood(c, 3.2, "wiz", "angry", { hold: 1.6 });
 act.mood(c, 3.25, "rea", "annoyed", { hold: 1.6 });
 A(3.3, "wiz", "talk", { line: "hnnnngh!", dur: 0.6, tone: "excited", voice: false });
-c.cap(3.3, 3.85, "HNNNGH!", CAP_Y);
+c.cap(3.3, 3.85, "HNNNGH!", 900, false, { x: 700 });
 A(3.3, "wiz", "look", { to: [-0.3, 0.8], dur: 0.12, blink: false });
 // the Astronaut runs to the edge of the beam and jumps up and down in it, begging; Reaper shoots him a look
 const AST_IN = [-1.3, -0.9];   // the beam's edge (beamR 0.6): any closer and the beam's glow washes over him
 A(3.07, "ast", "look", { to: [0.5, 0.6], dur: 0.12, blink: false });
 A(3.15, "ast", "move", { to: AST_IN, dur: 0.4 });
 A(3.15, "ast", "turn", { to: 40, dur: 0.3 });
+c.arm(3.12, "ast", "R", { o: [0.5, 0.82, 0.15] }, 0.25); c.arm(3.12, "ast", "L", { o: [0.5, 0.82, 0.15] }, 0.25);   // arms out wide as he runs, clear of the helmet
 for (const [t, s] of [[3.5, 1], [3.8, -1], [4.1, 1], [4.4, -1], [4.7, 1]]) {
   c.arm(t, "ast", "R", { o: [0.45 + 0.05 * s, 0.9, 0.15] }, 0.28); c.arm(t, "ast", "L", { o: [0.45 - 0.05 * s, 0.9, 0.15] }, 0.28);
 }
 for (const t of [3.35, 3.95, 4.55]) A(t, "ast", "squash", { amount: -0.05, dur: 0.28 });
 A(3.9, "ast", "talk", { line: "me me me!", dur: 0.6, tone: "excited", voice: false });
-c.cap(3.9, 4.6, "ME! PICK ME!", CAP_Y);
+c.cap(3.9, 4.6, "ME! PICK ME!", 640, false, { x: 340 });
 A(3.95, "rea", "look", { to: [-0.8, 0.1], dur: 0.12, blink: false });
 A(4.4, "rea", "look", { to: [-0.3, 0.7], dur: 0.12, blink: false });
 A(4.25, "wiz", "talk", { line: "pull pull!", dur: 0.5, tone: "excited", voice: false });
-c.cap(4.25, 5.0, "PULL!!", CAP_Y + 130);
+c.cap(4.25, 5.0, "PULL!!", 900, false, { x: 700 });
 see(3.3, 4.9, ["phx.face", "wiz.face", "rea.face", "ast.face"], "P3: the tug of war under the chair, the Astronaut begging to go");
 
 // ---------------------------------------------------------------- 4 HATCH 5.0-6.3 (P4)
 // the Wizard's grip slips: he and Reaper sit down hard on the lawn; the Astronaut, mid-jump, lands on his bottom too
 c.hitStop(T_BREAK, 3);
-sfx(T_BREAK, "whoosh", { gain: 0.4, reason: "the grip slips and they fall back" });
+sfx(T_BREAK, "whoosh", { gain: 0.6, reason: "the grip slips and they fall back" });
 c.arm(T_BREAK, "wiz", "R", { o: [0.3, 0.8, 0.15] }, 0.18, "out"); c.arm(T_BREAK, "wiz", "L", { o: [0.3, 0.75, 0.15] }, 0.18, "out");
 A(T_BREAK, "wiz", "grip", { side: "both", shape: "open", dur: 0.1 });
 c.arm(T_BREAK, "rea", "R", { o: [0.3, 0.7, 0.1] }, 0.2, "out"); c.arm(T_BREAK, "rea", "L", { o: [0.3, 0.7, 0.1] }, 0.2, "out");
@@ -246,7 +247,7 @@ sitDown("wiz", "wizC", FALL.wiz, T_BREAK + 0.08, 0.32, WIZ_YAW, -18);
 sitDown("rea", "reaC", FALL.rea, T_BREAK + 0.1, 0.34, REA_YAW, -24);
 sitDown("ast", "astC", FALL.ast, T_BREAK + 0.05, 0.3, 40, -20);
 sfx(T_BREAK + 0.4, "thud", { gain: 0.5, reason: "Wizard and Reaper land on their bottoms" });
-sfx(T_BREAK + 0.36, "thud-soft", { gain: 0.4, reason: "the Astronaut lands on his bottom" });
+sfx(T_BREAK + 0.36, "thud-soft", { gain: 0.7, reason: "the Astronaut lands on his bottom" });
 A(T_BREAK + 0.4, "wiz", "squash", { amount: 0.08, dur: 0.25 }); A(T_BREAK + 0.44, "rea", "squash", { amount: 0.08, dur: 0.25 }); A(T_BREAK + 0.36, "ast", "squash", { amount: 0.08, dur: 0.25 });
 A(T_BREAK + 0.4, "wiz", "hatwobble", { amount: 8, freq: 3, dur: 0.8 });
 c.arm(T_BREAK + 0.4, "wiz", "R", { o: [0.3, 0.45, 0.2] }, 0.3); c.arm(T_BREAK + 0.4, "wiz", "L", { o: [0.3, 0.45, 0.2] }, 0.3);
@@ -260,26 +261,31 @@ sfx(5.45, "doorslide", { gain: 0.5, reason: "the hatch irises open" });
 prop(5.6, "alien", { drop: 0.55 }, 0.45, "out");
 prop(5.75, "alien", { arms: 1, wobble: 1, happy: 1, jaw: 0.6 }, 0.3, "out");
 sfx(5.95, "kenney/three-tone", { gain: 0.35, reason: "the alien's cheerful high greeting (its gibberish)" });
-c.cap(5.95, 6.9, "welcome welcome!!", CAP_Y);
+c.cap(5.95, 6.9, "welcome welcome!!", 450);
 see(5.2, 6.25, ["phx.face", "ufo", "wiz", "rea", "ast"], "P4: the friends in a pile, Phoenix still rising, the hatch opens");
 
 // ---------------------------------------------------------------- 5 GREETING 6.3-7.0 (P5) and 6 PEAK 7.0-8.0 (P6)
 // the alien rides down beside him and holds out a glowing gift, right by the phone
-const PHONE_TOP = CHAIR_TOP + 0.87, DROP_PEAK = r3(H_END.y - (PHONE_TOP - 0.25));
+const PHONE_TOP = CHAIR_TOP + 0.87, DROP_PEAK = r3(H_END.y - (PHONE_TOP + 0.05));   // its face above his eye line: he looks up at it (panels 06-07)
 prop(6.7, "alien", { drop: DROP_PEAK, arms: 0, wobble: 0, gap: 1, glow: 1, lean: 5, jaw: 0.3, lookX: -0.8, lookY: -0.4 }, 0.45, "inOut");
 sfx(6.9, "kenney/glass", { gain: 0.3, reason: "the gift's glow sparkles on" });
+// the peak stays alive: it nudges the gift closer and the glow pulses, with a second little "hello?"
+prop(7.3, "alien", { glow: 1.4 }, 0.2, "out"); prop(7.5, "alien", { glow: 1 }, 0.3, "inOut");
+prop(7.4, "alien", { lean: 9, jaw: 0.4 }, 0.3, "inOut"); prop(7.75, "alien", { lean: 6, jaw: 0.3 }, 0.25, "inOut");
+sfx(7.5, "kenney/three-tone", { gain: 0.2, reason: "the alien's second, smaller 'hello?' (its gibberish)" });
+c.cap(7.45, 7.95, "hello?", 430);
 A(7.0, "phx", "noblink", { dur: 1.0 });
 for (const w of ["wiz", "rea", "ast"]) A(7.8, w, "noblink", { dur: 1.75 });
 see(6.35, 6.95, ["phx.face", "alien"], "P5: the alien on its lift, waving, Phoenix on his phone right below");
 see(7.1, 7.95, ["phx.face", "alien", "phone"], "P6: the gift held out right by his phone");
 
 // ---------------------------------------------------------------- 7 LOOK-UP 8.0-9.0 (P7, the series ending)
-A(8.05, "phx", "look", { to: [0.8, 0.12], dur: 0.12, blink: false });
+A(8.05, "phx", "look", { to: [0.75, 0.35], dur: 0.12, blink: false });
 A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -8, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 1180);
+c.cap(8.5, 9.0, "huh.", 1300, false, { x: 820 });   // beside his face: lower in the frame it would sit on him
 prop(8.0, "alien", { happy: 1, jaw: 0.7, lookX: -0.6, lookY: -0.1 }, 0.15);
 see(8.1, 8.95, ["phx.face", "alien"], "P7: Phoenix looks up at the alien and its gift: huh.");
 
@@ -287,14 +293,14 @@ see(8.1, 8.95, ["phx.face", "alien"], "P7: Phoenix looks up at the alien and its
 A(9.0, "phx", "look", { to: AT_PHONE, dur: 0.12, blink: false });
 A(9.0, "phx", "face", { lid: 0.45, dur: 0.15 });
 A(9.0, "phx", "pitch", { to: 0, dur: 0.15 });
-sfx(9.15, "notify", { gain: 0.36 });
+sfx(9.15, "notify", { gain: 0.2 });
 A(9.2, "phx", "expr", { expr: "happy", set: { curve: 0.55 }, dur: 0.25 });
 act.scrollPhone(c, "phx", [9.35, 9.75]);
 // the alien is offended: hmph, the gift goes back, it zips up, the hatch slams, the beam goes off
 prop(9.1, "alien", { happy: -1, jaw: 0, lean: -6, gap: 0, lookX: 0.3, lookY: 0.5 }, 0.15, "out");
 A(9.1, "phx", "noblink", { dur: 0.85 });
-sfx(9.1, "kenney/low-down", { gain: 0.3, reason: "the alien's offended 'hmph' (its gibberish)" });
-c.cap(9.1, 9.42, "hmph!", CAP_Y);
+sfx(9.1, "kenney/low-down", { gain: 0.12, reason: "the alien's offended 'hmph' (its gibberish)" });
+c.cap(9.05, 9.3, "hmph!", 430);
 prop(9.2, "alien", { drop: 0 }, 0.08, "in");
 prop(9.26, "ufo", { open: 0 }, 0.04, "in");
 c.hitStop(9.3, 3);
@@ -330,22 +336,22 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 46 } = {}) => {
   const yaw = rad(pan), pit = rad(-EYE_PITCH + tilt), k = 10;
   return { pos, look: [r3(pos[0] + Math.sin(yaw) * Math.cos(pit) * k), r3(pos[1] + Math.sin(pit) * k), r3(pos[2] - Math.cos(yaw) * Math.cos(pit) * k)], fov };
 };
-const WIDE = shot([-0.1, 1.55, 6.9], { tilt: -4, fov: 48 });
-const TUG = shot([0.0, 1.5, 6.0], { tilt: -5, fov: 46 });
-const HATCH = shot([0.15, 1.5, 6.9], { tilt: -2, fov: 46 });
+const WIDE0 = shot([-0.1, 1.55, 6.9], { tilt: -4, fov: 48 });
+// a slow push-in across P1-P3 that rises a little with the chair (review A); no ease back, the 5.0 cut steps in
+const WIDE = { ...WIDE0, to: { pos: [-0.1, 1.6, 5.9], look: [WIDE0.look[0], r3(WIDE0.look[1] + 0.3), WIDE0.look[2]] }, dur: 5.0 };
+const HATCH = shot([0.1, 1.35, 5.4], { tilt: -5.7, fov: 50 });   // the three flat on the lawn in the bottom third (review A)
 const PX = CHAIR_END.x, PZ = CHAIR_END.z, BODY_Y = CHAIR_TOP + SEAT;      // Phoenix at the top
-const GREET = shot([r3(PX + 0.2), r3(BODY_Y + 0.35), r3(PZ + 4.2)], { tilt: 0, fov: 38 });
-const PEAK = shot([r3(PX + 0.25), r3(BODY_Y + 0.45), r3(PZ + 3.2)], { tilt: -2, fov: 34 });
-const LOOKUP = shot([r3(PX + 0.15), r3(BODY_Y + 1.33), r3(PZ + 3.95)], { tilt: -9.8, fov: 34 });   // ep 1's LOOK-UP framing
+const GREET = shot([r3(H_END.x - 0.15), 2.75, 2.8], { pan: 3.2, tilt: -7, fov: 26 });   // a tight insert on the alien riding down (review A)
+const LOOKUP = shot([r3(PX + 0.15), r3(BODY_Y + 0.62), r3(PZ + 3.95)], { tilt: -8, fov: 34 });   // the series' LOOK-UP: his eye level, the saucer and alien above
 const BACKDOWN = shot([0.15, 1.6, 6.9], { tilt: -3, fov: 46 });
 const beats = c.beats([
   ["P1 beam", 0, WIDE, "hook"],
   ["P2 lift", 1.5, "keep"],
-  ["P3 tug of war", 3.2, TUG],
+  ["P3 tug of war", 3.2, "keep"],
   ["P4 hatch", 5.0, HATCH],
   ["P5 greeting", 6.3, GREET],
-  ["P6 peak", 7.0, PEAK],
-  ["P7 look-up", 8.0, LOOKUP, "payoff"],
+  ["P6 peak", 7.0, LOOKUP],
+  ["P7 look-up", 8.0, "keep", "payoff"],
   ["P8 back down", 9.42, BACKDOWN, "reaction"],
 ], END);
 
