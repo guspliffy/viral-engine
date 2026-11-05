@@ -18,9 +18,11 @@ import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeCharacter, setFriendsRig } from "./rigs/factory.js";
+import { makeAttach } from "./attach.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
+let attach2 = null;   // holds 2 (attach.js): "rig": { "hold": 2 }
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
@@ -422,6 +424,8 @@ async function init(data) {
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
+  // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
+  attach2 = Number(sb.rig?.hold) >= 2 ? makeAttach({ sb, scene, props, states: () => poseStates, setMeshes: setObjs }) : null;
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
@@ -512,9 +516,13 @@ function pose(t0) {
     }
     return p.kept.off;
   };
+  if (attach2) attach2.begin(t);
   for (const p of props) {
     const ps = propState(sb, p.spec, t);
     p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null; p.holdHand = ps.hold ? ps.hold.hand : null;
+    p.ps = ps;
+    // holds 2: attach.js places a held or let-go prop after its own state is applied (its size, parts and own turn)
+    if (attach2 && (ps.hold || ps.left)) { p.apply(ps, t); if (attach2.place(p, ps)) continue; }
     // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
     if (ps.left) {
       const key = `${ps.left.who}@${ps.left.at}`;
@@ -916,7 +924,9 @@ function layout(t) {
   const propsOut = props.map((p) => {
     const w = new THREE.Vector3(); p.root.getWorldPosition(w);
     const v = w.clone().project(camera), px = v.z < 1 ? [Math.round((v.x + 1) / 2 * W), Math.round((1 - v.y) / 2 * H)] : null;
-    return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible };
+    // holds 2: is it held, riding, in flight, resting on something (within 1 cm), staged with a reason, or unsupported
+    const support = attach2 && p.ps ? attach2.support(p, p.ps) : null;
+    return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible, ...(support && { support }) };
   });
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
@@ -1536,7 +1546,63 @@ function inProps(live, shownIn) {
     });
     thin.push({ who: a.c.id, hand: p.holdHand, prop: p.spec.id, show: rd(Math.min(s0, s1)), out: rd(Math.min(f0 - lo, hi - f1)), len: rd(hi - lo) });
   }
+  limbsIn(out, solids, keep);
   return { inProps: out, thin, gaps };
+}
+
+// A prop's own limbs (a moth's wings and antennae: userData.limb on the mesh, its name) against every other prop and
+// the set's own solids (walls, a window frame, furniture built into the set). A wing never cuts into a surface (Mott,
+// Jonny 5 Nov 2026: the folded wings went into the pillow, the wall and the nightstand, and no check saw it). Each limb
+// is sampled over its whole face (a post through the middle of a wing misses every corner), about every 2 cm. Rows go
+// into inProps as part "limb" (qa/check.mjs limb-in-surface): who is the prop, prop what it went into.
+const LIMB = new WeakMap();
+function limbPoints(g) {
+  if (LIMB.has(g)) return LIMB.get(g);
+  const T = solidOf(g).tri, pts = [];
+  for (let i = 0; i < T.length; i += 9) {
+    const a = [T[i], T[i + 1], T[i + 2]], b = [T[i + 3], T[i + 4], T[i + 5]], c = [T[i + 6], T[i + 7], T[i + 8]];
+    const e = Math.max(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]), Math.hypot(b[0] - c[0], b[1] - c[1], b[2] - c[2]), Math.hypot(a[0] - c[0], a[1] - c[1], a[2] - c[2]));
+    const n = Math.min(40, Math.max(1, Math.ceil(e / 0.02)));
+    for (let u = 0; u <= n; u++) for (let v = 0; u + v <= n; v++) { const w = n - u - v; for (let k = 0; k < 3; k++) pts.push((a[k] * u + b[k] * v + c[k] * w) / n); }
+  }
+  const out = new Float32Array(pts); LIMB.set(g, out); return out;
+}
+function limbsIn(out, solids, keep) {
+  const rd = (x) => Math.round(x * 1000) / 1000;
+  const limbs = [];
+  for (const p of props) { if (p.root.visible) p.root.traverseVisible((o) => { if (o.isMesh && o.userData.limb) limbs.push({ p, o }); }); }
+  if (!limbs.length) return;
+  const others = solids.slice(), sc = new THREE.Vector3();
+  for (const top of setObjs) {
+    if (!top.visible) continue;
+    top.updateMatrixWorld(true);
+    top.traverseVisible((o) => {
+      if (!o.isMesh || !o.geometry?.attributes?.position || o.isSprite || o.isInstancedMesh) return;
+      const mt = Array.isArray(o.material) ? o.material[0] : o.material, k = solidMark(o);
+      if (k === false || (k == null && mt && mt.transparent && mt.opacity < 0.5)) return;
+      // a room seen from inside (its walls drawn on the back side) is a skin to stay off, not a solid to be outside of
+      let S = solidOf(o.geometry); if (mt?.side === THREE.BackSide && S.closed) S = { ...S, closed: false };
+      o.getWorldScale(sc);
+      others.push({ p: null, id: `set:${o.name || o.geometry.type}`, o, S, inv: o.matrixWorld.clone().invert(), k: Math.cbrt(Math.abs(sc.x * sc.y * sc.z)), wb: S.bb.clone().applyMatrix4(o.matrixWorld) });
+    });
+  }
+  const w = new THREE.Vector3(), lp = new THREE.Vector3(), best = new Map();
+  for (const { p, o } of limbs) {
+    o.updateMatrixWorld(true);
+    const P = limbPoints(o.geometry), box = new THREE.Box3().setFromBufferAttribute(o.geometry.attributes.position).applyMatrix4(o.matrixWorld).expandByScalar(0.01);
+    for (const m of others) {
+      if (m.p === p || !box.intersectsBox(m.wb)) continue;
+      const mb = m.wb.clone().expandByScalar(0.01);
+      for (let i = 0; i < P.length; i += 3) {
+        w.set(P[i], P[i + 1], P[i + 2]).applyMatrix4(o.matrixWorld);
+        if (!mb.containsPoint(w)) continue;
+        const key = `${p.spec.id}|${o.userData.limb}|${m.id}`, x = pastSurface(m, w, 0.002, lp), was = best.get(key)?.depth ?? 0;
+        keep(best, key, x, { who: p.spec.id, part: "limb", what: o.userData.limb, prop: m.id });
+        if (x && x.depth > was && best.has(key)) best.get(key).at = [rd(w.x), rd(w.y), rd(w.z)];   // the deepest point, world
+      }
+    }
+  }
+  for (const b of best.values()) out.push(b);
 }
 
 // faces: how much of each face's eyes is hidden from the camera by anything other than hands and held props (they have

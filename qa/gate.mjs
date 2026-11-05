@@ -10,11 +10,11 @@ import { storyTime } from "../engine/shared/holds.js";
 // that needs it by an allowClip window that names it ("checks": ["hand-turn"]) and says why ("reason").
 export const GATE = {
   // the checks render.mjs refuses to render on (engine/render.mjs contactGate), and qa/preflight.mjs's verdict
-  fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
-    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front",
+  fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "limb-in-surface", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
+    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner",
     "tail", "reach-limit"],   // the friends rig (rigs/friends.js): Rusty's tail through the floor, his body or off its pin; a limb stretched short of its target
   // visible at full speed: a delivery may carry none of these as a warning (each needs a fix or a named window)
-  visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion"],
+  visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support"],
   handTurn: 90,        // degrees in one frame, on screen and not smeared by motion blur (fails)
   blurPx: 144,         // px a frame: from here a move is smeared (engine/render.mjs BLUR, Jonny 4 Nov), which hides a turn
   footSlide: 0.05,     // metres in one frame, a foot on the floor without a step (fails)
@@ -50,7 +50,7 @@ export const storyAt = (sb, t) => storyTime(sb?.holds, t);
 // which checks a window waives: the ones its "checks" list names (a check's name or its kind), else the contact kinds a
 // window always waived (body, reach, prop, face). The visible-glitch checks of GATE are waived only by name, so an old
 // hug window doesn't hide a hand that flips inside it.
-const KIND = { "character-overlap": "body", clipping: "prop", reach: "reach", "limb-through-costume": "reach", "hand-in-prop": "prop", "arm-in-prop": "prop", "costume-in-prop": "prop", "thin-prop-hidden": "prop", "face-covered": "face", "face-hidden": "face" };
+const KIND = { "character-overlap": "body", clipping: "prop", reach: "reach", "limb-through-costume": "reach", "hand-in-prop": "prop", "arm-in-prop": "prop", "costume-in-prop": "prop", "limb-in-surface": "prop", "thin-prop-hidden": "prop", "face-covered": "face", "face-hidden": "face" };
 export const OLD_KINDS = ["body", "reach", "prop", "face"];
 export function waives(w, check) {
   if (!w?.reason) return false;
