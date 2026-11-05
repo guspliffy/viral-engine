@@ -1,0 +1,37 @@
+{
+ "name": "lakeside-campsite",
+ "prompt": "anime film background painting, gouache and watercolor, low ground level view across a wide flat green meadow, short grass and a few wildflowers fill the whole bottom half, a calm blue lake behind it on the left, white birch trees on the right, low blue hills, big cumulus clouds, warm late afternoon sun from the left",
+ "no": "tent, road, path, boardwalk, pier, dock, jetty, planks, wood, bridge, car, fence, house, people, potato, boat, water in foreground, river",
+ "seeds": [
+  12,
+  77,
+  103,
+  31,
+  44,
+  67
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 0.95,
+  "vfov": 46,
+  "pos": [
+   0,
+   0.95,
+   4.4
+  ]
+ },
+ "light": {
+  "from": "upper left, a little behind: warm late afternoon sun",
+  "key": [
+   -4.0,
+   5.0,
+   -1.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass"
+}

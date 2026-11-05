@@ -26,8 +26,8 @@ import { mat, mesh, canvasTex, smooth } from "./props-trend.js";
 //   windleaves leaves blowing through the frame from +x to -x on the clip clock (spec.w, spec.h, spec.d, spec.n)
 export const TENT_GRIPS = {};
 export const TENT = { dome: "unfold", peak: "knot", sail: "flap", ball: "balloon", rise: "rise", flat: "drop", lumpA: "bump", lumpB: "big", lumpC: "tiny", lumpD: "stack", shift: "port", flutter: "wobble", glow: "magic", rope: "tug" };
-export const TENT_SIZE = { w: 1.0, d: 0.75, h: 0.7, flat: 1.5 };   // a two-potato dome; flat: how much wider the cloth lies than the dome
-export const ROPE_GROUND = [0.85, 0.02, 0.12], ROPE_HAND = [0.72, 0.5, 0.2];
+export const TENT_SIZE = { w: 1.4, d: 1.0, h: 0.85, flat: 1.45 };   // a two-potato dome; flat: how much wider the cloth lies than the dome
+export const ROPE_GROUND = [1.03, 0.02, 0.15], ROPE_HAND = [0.88, 0.6, 0.24];
 const LUMPS = ["bump", "big", "tiny", "stack"];   // the lumps' heights ride on these names (TENT.lumpA..D)
 const CREAM = "#eadcb8", RED = "#b8402c", POLE = "#5d6168", ROPE = "#d9c9a0";
 
@@ -51,7 +51,7 @@ function clothAt(u, a, ps, spec, t) {
     x += ws * sx; z += ws * sz; y += ws * sy;
   }
   if (wb > 0) {   // the spell: a round parachute canopy, its hem gathered a little, rise above the ground
-    const R = 0.82, H = 0.6, tb = u * Math.PI * 0.5 * 0.97, g = 1 - 0.1 * u * u * u;
+    const R = 0.8, H = 0.66, tb = u * Math.PI * 0.5 * 0.97, g = 1 - 0.1 * u * u * u;
     x += wb * Math.sin(tb) * ca * R * g; z += wb * Math.sin(tb) * sa * R * g; y += wb * (Math.cos(tb) * H + 0.05 + (ps.rise || 0));
   }
   if (wf > 0) {   // lying on the ground in soft folds, lumps where somebody is under it
