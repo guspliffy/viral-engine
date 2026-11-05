@@ -184,7 +184,8 @@ function highPass(x, f, sr) {
 }
 
 // "music": false turns it off, a music block pins tempo, style, key and parts. sb.music is the locked block.
-export function addMusic(sb, audio) {
+// opts.norm false: no peak scaling at the end (engine/sfx/guard.mjs levels and limits the whole mix after the ducking)
+export function addMusic(sb, audio, opts = {}) {
   sb = soundClock(sb);
   if (sb.music === false) return [];
   const music = { gain: 0.45, ...(sb.music || {}) }, dur = sb.duration, log = [];
@@ -207,6 +208,6 @@ export function addMusic(sb, audio) {
     for (let i = 0; i < audio.L.length; i++) { const k = T.gain * e2[i]; audio.L[i] += B.L[i] * k; audio.R[i] += B.R[i] * k; pk = Math.max(pk, Math.abs(audio.L[i]), Math.abs(audio.R[i])); }
     log.push(`then: ${T.file} from ${T.from ?? 0}s`);
   }
-  if (pk > 0.89) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
+  if (pk > 0.89 && opts.norm !== false) for (let i = 0; i < audio.L.length; i++) { audio.L[i] *= 0.89 / pk; audio.R[i] *= 0.89 / pk; }
   return log;
 }
