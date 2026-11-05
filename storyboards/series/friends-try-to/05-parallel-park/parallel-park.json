@@ -1102,15 +1102,6 @@
      "at": 0
     },
     {
-     "who": "vikC",
-     "do": "talk",
-     "line": "go go go!",
-     "tone": "excited",
-     "dur": 0.7,
-     "voice": false,
-     "at": 0
-    },
-    {
      "who": "reaC",
      "do": "arm",
      "side": "R",
@@ -1219,6 +1210,15 @@
      "gain": 0.2,
      "reason": "the reverse beeper",
      "at": 0.4
+    },
+    {
+     "who": "vikC",
+     "do": "talk",
+     "line": "go go!",
+     "tone": "excited",
+     "dur": 0.33,
+     "voice": false,
+     "at": 0.45
     },
     {
      "who": "wizC",

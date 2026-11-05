@@ -140,7 +140,7 @@ A(0, "phxC", "look", { to: [-0.6, 0.0], dur: 0.01, blink: false });
 A(0, "phxC", "expr", { expr: "delighted", dur: 0.01 });
 c.arm(0, "vikC", "R", { x: [-0.25, 0.98, 0.42] }, 0.01); A(0, "vikC", "grip", { side: "R", shape: "point", dur: 0.01 });
 A(0, "vikC", "pitch", { to: 10, dur: 0.01 });
-A(0, "vikC", "talk", { line: "go go go!", tone: "excited", dur: 0.7, voice: false });
+A(0.45, "vikC", "talk", { line: "go go!", tone: "excited", dur: 0.33, voice: false });   // after the bump: before it the Wizard hides his face (face-hidden)
 c.arm(0, "reaC", "R", { x: [0.12, 0.34, 0.37] }, 0.01); c.arm(0, "reaC", "L", { x: [-0.12, 0.3, 0.37] }, 0.01);   // arms folded
 A(0, "reaC", "look", { to: [0.2, -0.1], dur: 0.01, blink: false });
 A(0, "reaC", "face", { lidL: 0.45, lidR: 0.45, dur: 0.01 });
