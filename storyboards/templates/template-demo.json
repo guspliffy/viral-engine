@@ -7,7 +7,8 @@
  "profile": "short",
  "loop": true,
  "captionStyle": "kinetic",
- "castLook": "golden",
+ "castLook": "sheet",
+ "cleanStart": true,
  "motion": "natural",
  "loopIdle": true,
  "set": {
@@ -26,10 +27,13 @@
    ],
    "height": 6.4
   },
-  "aperture": 0.045,
-  "focus": "acting"
+  "aperture": 0
  },
- "music": false,
+ "music": {
+  "style": "warm",
+  "lowCut": 150,
+  "gain": 0.3
+ },
  "direct": {
   "master": {
    "pos": [
@@ -141,6 +145,15 @@
    "text": "When your friend gets a new phone.",
    "pos": 250,
    "pop": false
+  },
+  {
+   "from": 0,
+   "to": 0.85,
+   "text": "Ooh, nice!",
+   "pos": 1180,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
   }
  ],
  "beats": [
@@ -219,6 +232,7 @@
      "line": "ooh, nice!",
      "tone": "excited",
      "dur": 0.45,
+     "blink": false,
      "voice": false,
      "at": 0
     },
