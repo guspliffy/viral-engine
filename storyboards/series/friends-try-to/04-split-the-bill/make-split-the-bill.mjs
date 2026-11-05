@@ -70,8 +70,8 @@ const props = [
   { id: "pouch", kind: "pouch", x: POUCH[0], y: TH, z: POUCH[1], rot: -20 },
   { id: "spill", kind: "spillpile", x: SPILL[0], y: TH, z: SPILL[1], from: [r3(POUCH[0] + 0.12 - SPILL[0]), 0.09, r3(POUCH[1] - SPILL[1])], seed: 21 },
   { id: "fish", kind: "fishbone", x: r3(POUCH[0] + 0.12), y: r3(TH + 0.08), z: POUCH[1], rot: 20, scale: 0.001 },
-  { id: "sum", kind: "sum", x: -0.1, y: 1.38, z: 0.6, from: [-0.55, -0.62, 0.4], scale: 1.6 },   // big, centred over the table (P2)
-  { id: "confetti", kind: "confetti", x: 0.0, y: 1.42, z: 0.3, count: 160, spread: 0.45, up: 0.25, floor: r3(1.42 - TH), depth: 0.42, seed: 7 },
+  { id: "sum", kind: "sum", x: -0.1, y: 1.5, z: 0.6, from: [-0.55, -0.74, 0.4], scale: 2.0 },   // big, centred over the table (P2)
+  { id: "confetti", kind: "confetti", x: -0.1, y: 1.5, z: 0.6, count: 220, spread: 0.45, up: 0.25, floor: r3(1.5 - TH), depth: 0.42, seed: 7 },
   ...[0, 1, 2, 3].map((i) => ({ id: `strip${i}`, kind: "billstrip", i, x: 0, y: 0.8, z: 0.7, scale: 0.001 })),
   { id: "longbill", kind: "longbill", x: ROLL0[0], y: ROLL0[1], z: ROLL0[2], path: LB_PATH, scale: 1 },
   READER,
@@ -121,8 +121,10 @@ const TUG0 = [-0.6, r3(TH + 0.32), 0.25];   // high: the pouch lies under it   /
 c.prop(0.15, "bill", { x: TUG0[0], y: TUG0[1], z: TUG0[2], bend: 0.5 }, 0.12, "out");
 for (const [t, dx] of TUG) { c.prop(t, "bill", { x: r3(TUG0[0] - dx * AX[0]), z: r3(TUG0[2] - dx * AX[1]), bend: dx < 0 ? 0.2 : 0.65 }, 0.14, "inOut"); A(t, dx < 0 ? "wiz" : "vik", "lean", { to: dx < 0 ? 2 : 4, dur: 0.14 }); A(t, dx < 0 ? "vik" : "wiz", "lean", { to: 12, dur: 0.14 }); }
 for (const t of [0.42, 0.86]) sfx(t, "papercut", { gain: 0.18, reason: "the paper snapping taut in the tug of war (a dry papery hiss, quiet)" });
-A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false });
-A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false });
+A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false, gain: 0.55 });   // under the payoff: the clip's loudest moment was here
+A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false, gain: 0.55 });
+// every gibberish line gets a subtitle (the opener's yelp excepted); low, clear of the in-app title at the top
+c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS); c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, SUBS);
 // Phoenix already has his phone out, Reaper doesn't move
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
 ph.secure(0, 0.01);
@@ -163,11 +165,11 @@ A(2.3, "phx", "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0.12 });
 see(2.25, 2.85, ["wiz.face", "sum"], "P2: the glowing sum spins over the table, faster and faster");
 const BOOM = 2.9;
 c.prop(BOOM, "sum", { burst: 1 }, 0.15, "out");
-c.at(BOOM, { fx: "flash", dur: 0.12, peak: 0.5 });
+c.at(BOOM, { fx: "flash", dur: 0.12, peak: 0.65 });
 c.prop(BOOM, "confetti", { burst: 1 }, 1.5, "linear");
 sfx(BOOM, "pop", { gain: 0.7, reason: "the sum explodes into confetti" });
 sfx(r3(BOOM + 0.05), "flutter", { gain: 0.35, reason: "the confetti fluttering down over the table" });
-c.at(BOOM, { fx: "shake", dur: 0.2, amp: 0.012 });
+c.at(BOOM, { fx: "shake", dur: 0.2, amp: 0.02 });
 c.hitStop(BOOM, 3);
 A(r3(BOOM + 0.02), "wiz", "charge", { to: 0, dur: 0.25 });
 c.arm(3.05, "wiz", "R", "rest", 0.4, "inOut"); A(3.05, "wiz", "tilt", { to: null, dur: 0.4 });
@@ -261,16 +263,17 @@ const CUT = 6.2;
 sfx(r3(CUT - 0.03), "blade-cut", { gain: 0.5, reason: "one scythe swish through the paper" });
 sfx(r3(CUT + 0.01), "papercut", { gain: 0.45, reason: "the crisp paper snip as the strips part" });
 c.arm(r3(CUT - 0.07), "rea", "L", SCY_CUT, 0.09, "in"); A(r3(CUT - 0.07), "rea", "tilt", { to: [25, -20], dur: 0.09, ease: "in" });
-c.at(r3(CUT - 0.02), { fx: "slash", pos: [UP[0], r3(UP[1] - 0.08), r3(UP[2] + 0.05)], r: 0.5, from: 150, arc: -150, rot: [-70, 0, 0], color: "#c08bff", width: 0.12, dur: 0.16 });
+c.at(r3(CUT - 0.02), { fx: "slash", pos: [UP[0], r3(UP[1] - 0.08), r3(UP[2] + 0.05)], r: 0.5, from: 150, arc: -150, rot: [-70, 0, 0], color: "#e2b8ff", width: 0.22, dur: 0.28 });
+c.at(r3(CUT - 0.02), { fx: "flash", dur: 0.1, peak: 0.3 });   // Fable B: the flick has to read at phone size
 c.hitStop(CUT, 3);
 // the bill becomes four strips: the bill vanishes on the cut frame and the strips hang where it hung, then flutter down
 c.prop(CUT, "bill", { scale: 0.001 }, 0.02);
 const SPOT = [[PL_WIZ[0], r3(TH + 0.016), PL_WIZ[1]], [STACK[0], r3(TH + 5 * 0.022 + 0.014), STACK[1]], [PL_PHX[0], r3(TH + 0.016), PL_PHX[1]], [PL_REA[0], r3(TH + 0.016), PL_REA[1]]];
 for (let i = 0; i < 4; i++) {
   const y0 = r3(UP[1] + 0.0975 - i * 0.065);
-  c.prop(r3(CUT - 0.01), `strip${i}`, { x: UP[0], y: y0, z: UP[2], rot: -40, tip: 90, scale: 1 }, 0.01);
+  c.prop(r3(CUT - 0.01), `strip${i}`, { x: UP[0], y: y0, z: UP[2], rot: -40, tip: 90, scale: 1.5 }, 0.01);   // bigger than the bill's quarters so they read on a phone (Fable B)
   const t = r3(CUT + 0.08 + i * 0.05), [x, y, z] = SPOT[i];
-  c.prop(t, `strip${i}`, { x, y, z, tip: 0, rot: r3(-20 + i * 15), spin: r3(180 + i * 90) }, r3(0.45 + i * 0.05), "inOut");
+  c.prop(t, `strip${i}`, { x, y, z, tip: 0, rot: r3(-20 + i * 15), spin: r3(180 + i * 90) }, r3(0.3 + i * 0.05), "inOut");   // all down by 6.85, before the cheer
 }
 sfx(r3(CUT + 0.1), "flutter", { gain: 0.3, reason: "four paper strips fluttering down onto the plates" });
 // his hand opens: the strips are cut free
@@ -332,7 +335,7 @@ const E = ending(c, {
   rub: "R",
 });
 // Phoenix's phone comes down out of his face before he turns to glare (the hand would stay put as the head turns)
-ph.carry(r3(E.glare - 0.35), [r3(PHX[0] - 0.18), 0.42, r3(PHX[1] + 0.32)], 0.3, "inOut");   // under his chin, his annoyed mouth clear
+ph.carry(r3(E.glare - 0.35), [r3(PHX[0] - 0.24), 0.38, r3(PHX[1] + 0.32)], 0.3, "inOut");   // under his chin, his annoyed mouth clear
 // the waiter holds out the card machine (P8)
 rd.carry(r3(E.glare - 0.2), [r3(SAM[0] + 0.5 * SAM_F[0] + 0.12 * SAM_L[0]), 1.12, r3(SAM[1] + 0.5 * SAM_F[1] + 0.12 * SAM_L[1])], 0.35, "out");
 see(r3(E.glare + 0.4), 9.7, ["longbill", "reader", "sam.face"], "P8: the long bill on the floor, the card machine held out");
