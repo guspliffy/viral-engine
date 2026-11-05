@@ -156,6 +156,13 @@ export function makeAttach(env) {
       const carried = Rh.multiply(s.Qp).multiply(s.ownInv.clone().multiply(own));
       q = w > 0 ? carried.slerp(own, w) : carried;
     }
+    // a held prop's swing (the motion layer, "motion": { "overlap": true }: st.propSway[hand] = [fwd, side] radians, the
+    // top lagging toward the body's front / its +x): a small turn about the hand, for a one-hand rigid hold
+    const A = st()[h.who], sw = A && !s.up && (h.hand === "R" || h.hand === "L") && Math.abs(time - T) < 1e-9 ? A.st?.propSway?.[h.hand] : null;
+    if (sw && (sw[0] || sw[1])) {
+      const rq = A.a.ch.root.getWorldQuaternion(Q()), loc = Q().setFromEuler(new THREE.Euler(sw[0], 0, -sw[1], "XYZ"));
+      q = rq.clone().multiply(loc).multiply(rq.clone().invert()).multiply(q);
+    }
     return { P: F.pos.clone().sub(s.gl.clone().applyQuaternion(q)), Q: q };
   };
   // where the prop was just before this hold took it, at `time`: in the hand it came from, where it fell, or its own spot
@@ -189,7 +196,8 @@ export function makeAttach(env) {
       const ps = propState(sb, q.spec, time); if (ps.hold || ps.left || ps.carry || ps.scale <= 0.002) continue;
       const r = q.root, keep = [r.position.clone(), r.quaternion.clone(), r.scale.clone()];
       r.position.set(ps.x, ps.y, ps.z); r.quaternion.copy(ownQ(ps)); r.scale.setScalar(ps.scale); r.updateMatrixWorld(true);
-      for (const hit of ray.intersectObject(r, true)) { if (hit.object.visible && hit.point.y <= yFrom) { y = Math.max(y, hit.point.y); break; } }
+      const ms = []; r.traverseVisible((m) => { if (m.isMesh && !m.isSprite && m.geometry) ms.push(m); });   // (sprites need a camera)
+      for (const hit of ray.intersectObjects(ms, false)) { if (hit.point.y <= yFrom) { y = Math.max(y, hit.point.y); break; } }
       r.position.copy(keep[0]); r.quaternion.copy(keep[1]); r.scale.copy(keep[2]); r.updateMatrixWorld(true);
     }
     return y === -Infinity ? 0 : y;

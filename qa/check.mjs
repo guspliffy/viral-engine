@@ -29,6 +29,7 @@ import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
 import { visibility, frontResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
 import { rigResults, cutIn, proj } from "./rig.mjs";
+import { supportResults } from "./support.mjs";   // holds 2: every prop held, riding, in flight, resting or staged
 import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mjs";
 export { GATE, gateOf, gateLevel, rootFixed, windowFor, waives, storyAt, actingAt } from "./gate.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
@@ -264,7 +265,7 @@ export function contactResults(layout, sb = null) {
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
-  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb));
+  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb), ...supportResults(layout, sb));
   return out;
 }
 

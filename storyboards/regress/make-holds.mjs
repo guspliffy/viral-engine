@@ -5,18 +5,18 @@
 //   pass    the Wizard hands a phone to Phoenix: it blends from one hand to the other, the giver opens and backs off
 //   drop    a phone let go at the chest falls to the floor, bounces and comes to rest flat
 //   node storyboards/regress/make-holds.mjs && node qa/regress.mjs hold-pickup hold-pass hold-drop
-// Two more wait for the gate's checks to be on main (qa/support.mjs in contactResults, grip-gap): a release left in mid
-// air must fail prop-support, a steady 3 cm gap between glove and phone must fail grip-gap (MUST_FAIL below).
+//   air     (must fail) a release left in mid-air without a reason: prop-support
+//   gap     (must fail) a steady 3 cm gap between glove and phone: grip-gap
+// All run at "gate": 2, where the holds checks fail (qa/gate.mjs, qa/support.mjs).
 import { clip, write, r3 } from "../lib/clip.mjs";
 import * as grips from "../lib/grips.mjs";
 
-const MUST_FAIL = process.argv.includes("--must-fail");
 const base = (id, title, cast, props, c, shot, end, expect) => {
   c.cap(0, end, title, 1500, false, { kinetic: false });
   write(import.meta.url, {
     id: `regress-${id}`, title: `Regression: ${title}`, idea: "Holds 2 regression fixture (qa/regress.mjs), not a clip",
     fps: 30, look: "anime-pro", castLook: "golden", profile: "short", loop: false, motion: "natural",
-    rig: { hold: 2 },
+    rig: { hold: 2 }, gate: 2,
     set: { type: "livingroom", seed: 5, focus: false }, music: false, sound: { auto: false },
     hook: { show: cast.map((x) => x.id), hint: 0, what: "engine test" },
     cast, props, captions: c.captions, beats: c.beats([[id, 0, shot]], end), expect,
@@ -49,36 +49,38 @@ const PHX = (at) => ({ id: "phx", character: "duo/phoenix", at, face: 0, expr: "
     { pos: [-0.2, 1.1, 2.6], look: [-0.05, 0.55, 0.2], fov: 32 }, Math.ceil((t + 0.2) * 10) / 10, { clean: [...CLEAN, "prop-support"] });
 }
 
-// PASS: the Wizard picks the phone up off the table by its edge, holds it out between them; Phoenix takes it in his
-// left hand, the Wizard opens his and backs off, Phoenix brings it to his chest
+// PASS: the Wizard holds a phone out between them; Phoenix takes it in his left hand by its near edge, the Wizard
+// opens his hand and backs off, Phoenix brings it to his chest. The phone blends from one hand to the other.
 {
-  const c = clip(), { A } = c, spot = [-0.3, TABLE_H, 0.45], mid = [0.02, 0.56, 0.28];
-  const spec = { id: "phone", kind: "phone", scale: 1.6, tip: -90, ...grips.placeFor("phone", spot, 0) };
-  const g = grips.phone(c, "wiz", spec, { side: "R" });
+  const c = clip(), { A } = c, start = [0.3, 0.32, 0.25], mid = [0, 0.45, 0.15];
+  const spec = { id: "phone", kind: "phone", scale: 1.6, tip: -12, ...grips.placeFor("phone", start, 0) };
+  // the Wizard (on the right) closes on the edge toward Phoenix's side of the hold frame, Phoenix on the other
+  const g = grips.phone(c, "wiz", spec, { side: "R", edge: "L" });
+  const r = grips.phone(c, "phx", spec, { side: "L", edge: "R" });
   A(0, "wiz", "noblink"); A(0, "phx", "noblink");
-  A(0, "wiz", "look", { to: [0.1, -0.7], dur: 0, blink: false });
-  A(0, "phx", "look", { to: [-0.5, -0.5], dur: 0, blink: false });
-  let t = g.take(0.3);
-  t = g.carry(t + 0.05, mid, 0.5);
-  // Phoenix's hold is the phone hold from the other side (the phone stands as the Wizard's regrip left it)
-  const r = grips.phone(c, "phx", { ...spec, tip: -12 }, { side: "L" });
+  A(0, "wiz", "look", { to: [-0.3, -0.5], dur: 0, blink: false });
+  A(0, "phx", "look", { to: [0.5, -0.5], dur: 0, blink: false });
+  const gp = g.hands.R;
+  c.arm(0, "wiz", "R", { prop: "phone", grip: gp.grip, palm: true }, 0);
+  A(0, "wiz", "grip", { side: "R", shape: "hold", dur: 0 });
+  A(0, "wiz", "grab", { prop: "phone", hand: "R", grip: gp.grip, dur: 0, pose: null });
+  let t = g.carry(0.3, mid, 0.5);
   t = r.takeFrom(t + 0.05, mid);
   t = g.handOff(t + 0.05);
-  t = r.carry(t, [0.25, 0.6, 0.15], 0.45);
-  base("hold-pass", "holds 2: pass a phone", [WIZ([-0.38, -0.2]), PHX([0.42, -0.2])], [TABLE, spec], c,
-    { pos: [0, 1.0, 2.9], look: [0, 0.55, 0.2], fov: 34 }, Math.ceil((t + 0.4) * 10) / 10, { clean: CLEAN });
+  t = r.carry(t, [-0.35, 0.36, 0.2], 0.45);
+  base("hold-pass", "holds 2: pass a phone", [WIZ([0.58, -0.2]), PHX([-0.6, -0.2])], [spec], c,
+    { pos: [0, 0.9, 3.4], look: [0, 0.4, 0.1], fov: 36 }, Math.ceil((t + 0.4) * 10) / 10, { clean: ["prop-pop", "rig-jump", "hand-in-prop"] });
 }
 
 // DROP: a phone held at the chest is let go: it falls from the hand's last speed, lands flat on the floor, bounces
-// once and settles. MUST_FAIL adds the mid-air release left hanging without a reason, and the 3 cm gap.
+// once and settles. The must-fail pair: the same release kept in the air without a reason, and a 3 cm gap.
 for (const [id, title, rel, expect] of [
   ["hold-drop", "holds 2: drop a phone", {}, { clean: [...CLEAN, "prop-support"] }],
-  ...(MUST_FAIL ? [
-    ["hold-air", "holds 2: let go in mid-air (must fail)", { keep: "air" }, { fail: ["prop-support"] }],
-    ["hold-gap", "holds 2: a 3 cm gap in the hand (must fail)", { gap: 0.03 }, { fail: ["grip-gap"] }],
-  ] : []),
+  ["hold-air", "holds 2: let go in mid-air (must fail)", { keep: "air" }, { fail: ["prop-support"] }],
+  // (the fingers wrap 3 cm into the phone in the good hold: 6.5 cm off the hand leaves the glove about 3 cm off it)
+  ["hold-gap", "holds 2: a 3 cm gap in the hand (must fail)", { gap: 0.065 }, { fail: ["grip-gap"] }],
 ]) {
-  const c = clip(), { A } = c, at = [0.18, 0.6, 0.3];
+  const c = clip(), { A } = c, at = [-0.2, 0.28, 0.3];
   const spec = { id: "phone", kind: "phone", scale: 1.6, tip: -12, ...grips.placeFor("phone", at, 0) };
   const sx = 1, grip = [r3(sx * (0.078 / 2 + 0.035 / 1.6)), r3(0.42 * 0.155), -0.006];
   A(0, "wiz", "noblink");
@@ -86,11 +88,11 @@ for (const [id, title, rel, expect] of [
   c.arm(0, "wiz", "R", { prop: "phone", grip, palm: true }, 0);
   A(0, "wiz", "grip", { side: "R", shape: "hold", dur: 0 });
   A(0, "wiz", "grab", { prop: "phone", hand: "R", grip, dur: 0, pose: null, ...(rel.gap && { off: [rel.gap, 0, 0] }) });
-  c.arm(0.4, "wiz", "R", { prop: "phone", grip, palm: true, at: [0.18, 0.68, 0.32] }, 0.35, "inOut");
+  c.arm(0.4, "wiz", "R", { prop: "phone", grip, palm: true, at: [-0.2, 0.32, 0.32] }, 0.35, "inOut");
   if (!rel.gap) {
     A(1.0, "wiz", "release", { prop: "phone", dur: 0, ...(rel.keep && { keep: rel.keep }) });
     A(1.0, "wiz", "grip", { side: "R", shape: "open", dur: 0.12 });
     c.arm(1.08, "wiz", "R", "rest", 0.45, "inOut");
   }
-  base(id, title, [WIZ([0, -0.2])], [spec], c, { pos: [0.1, 0.8, 2.6], look: [0.1, 0.4, 0.1], fov: 34 }, 2.4, expect);
+  base(id, title, [WIZ([0, -0.2])], [spec], c, { pos: [-0.1, 0.8, 2.6], look: [-0.1, 0.35, 0.1], fov: 34 }, 2.4, expect);
 }

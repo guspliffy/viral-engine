@@ -85,7 +85,7 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
   const shp = (x) => (typeof x === "string" ? { shape: x } : x);
   const each = (f) => sides.forEach(f);
   const h = {
-    sides, hand,
+    sides, hand, hands,
     // 01 approach: the hand opens on the way and stops a few centimetres off its grip, on the side it closes from
     // (at: where the prop's bottom centre is now, when someone else holds it there: a pass)
     approach(t, dur = 0.3, at = null) {
@@ -211,8 +211,10 @@ export function thin(c, who, spec, { side = "R", from = 0.6, roll = 20, lean = 3
 // thumb free over the screen (the Charger's scrolling hand). flat: it starts lying on its back on a table (spec tip
 // -90, its top away from the holder): the hand takes its right edge from above, lifts it a little as it tips up, and
 // it rolls into the palm (the hand goes round the edge, the phone stays where it is). Put it back down with put().
-export function phone(c, who, spec, { side = "R", gap = 0.035, height = 0.42, flat = (spec.tip ?? 0) <= -60 } = {}) {
-  const { w, h, t: th } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
+// edge: which edge the hand closes on, in the hold frame ("R": +x; default the hand's own side). A pass takes the
+// edge nearest the taker, which for a taker on the giver's right is the hold frame's other edge (make-holds.mjs pass)
+export function phone(c, who, spec, { side = "R", edge: closeOn = side, gap = 0.035, height = 0.42, flat = (spec.tip ?? 0) <= -60 } = {}) {
+  const { w, h, t: th } = size(spec), k = spec.scale ?? 1, sx = closeOn === "R" ? 1 : -1;
   const hold = toProp(spec, [sx * (w / 2 * k + gap), height * h * k, -0.01]);
   const away = toWorld(spec, [sx * 0.06, 0.02, 0.04]);
   if (!flat) return holder(c, who, spec, { hands: { [side]: { grip: hold, palm: true, away } }, shape: "hold", grab: hold });
