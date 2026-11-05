@@ -6,12 +6,15 @@
 //   { "do": "physics", "prop": "case", "mode": "throw", "at": 2.6, "v": [x, y, z], "spin": [x, y, z] }
 //       the prop leaves its own tween at `at` and becomes a rigid body: v (m/s) and spin (rad/s, about the world axes)
 //       default to the speed its tween had there, so "throw" without v just lets go of a sliding or flying prop
+//       "to": [x, y, z] with "in": seconds instead of v aims it: the speed that gets it there in that time under the
+//       gravity and drag of the moment (what it hits on the way still counts)
 //   mode "drop"   the same, from rest (v and spin default to 0)
 //   mode "knock"  sets a body's speed at `at` (a kick in zero-g, a bump from the plane), or starts it like "throw"
 //   mode "settle" freezes the body where it is (it stays put from then on)
 //   { "do": "physics", "mode": "float", "at": 5, "g": 0, "dur": 0.3 }
 //       the world's gravity (m/s², up is +) eases to g over dur: 0 is zero-g, -9.81 normal (the default), a bigger
-//       pull a plane dropping out from under everyone
+//       pull a plane dropping out from under everyone; "damp" (per second) is the air's drag from then on, so things
+//       drifting in zero-g slow down (0 again with the next float that leaves it out)
 // A prop's own spec can tune its body: "body": { "density": 300, "bounce": 0.3, "friction": 0.6, "shape": "hull" | "box" },
 // and "settle": true makes it a body from a second before the clip, so a pile or a shelf of things has come to rest by
 // frame 0 (no prop sunk into the table it stands on, nothing hovering).
@@ -24,6 +27,7 @@
 import * as THREE from "three";
 import { propState } from "./props3d.js";
 import { actorState } from "./timeline.js";
+import { handTarget } from "./potato.js";
 
 export const PHYS = { dt: 1 / 120, sample: 1 / 60, g: -9.81, density: 300, bounce: 0.3, friction: 0.6, hullPts: 1500, rest: 0.05, preroll: 1, prerollDamp: 8 };
 
@@ -116,7 +120,14 @@ export async function makePhysics(env) {
   function castAt0(x, t) {
     const st = actorState(sb, x.a.c, x.a.def, Math.max(0, t)), M = x.par.clone().multiply(rootM(st)).multiply(x.rel);
     const P = x.c.clone().applyMatrix4(M), R = Q(); M.decompose(V(), R, V());
-    return { P, R, hidden: st.visible === false };
+    const rx = (x.a.def.body?.width ?? 0.6) / 2, H = x.a.def.body?.height ?? 0.7, RM = x.par.clone().multiply(rootM(st)), limbs = [];
+    for (const [s, sx] of [["R", -1], ["L", 1]]) {
+      const arm = st.arms?.[s]; let hp = null;
+      try { const f = handTarget(arm.from, sx, rx, H, t), g = handTarget(arm.pose, sx, rx, H, t); if (f?.length === 3 && g?.length === 3) hp = f.map((q, j) => q + (g[j] - q) * (arm.p ?? 1)); } catch { hp = null; }
+      const sh = [sx * rx * 0.9, 0.14 + H * 0.55, 0];   // the shoulder (potato.js LEG_H + 55 % of the body)
+      limbs.push(hp && hp.every(Number.isFinite) ? { R: V().fromArray(hp).applyMatrix4(RM), M: V().fromArray(sh).lerp(V().fromArray(hp), 0.5).applyMatrix4(RM) } : null);
+    }
+    return { P, R, hidden: st.visible === false, limbs };
   }
   const cast = [], rootM = (st) => new THREE.Matrix4().compose(V().set(st.x, st.y - 0.1 * (st.kneel || 0), st.z), Q().setFromEuler(new THREE.Euler(st.pitch || 0, st.yaw, st.lean, "YXZ")), V().setScalar(st.scale ?? 1));
   for (const a of env.actors) {
@@ -128,7 +139,23 @@ export async function makePhysics(env) {
     const rel = rootM(st).invert().multiply(par.clone().invert()).multiply(b.matrixWorld);
     const body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased());
     world.createCollider(RAPIER.ColliderDesc.capsule(Math.max(0.01, h.y - r), r).setFriction(PHYS.friction), body);
-    cast.push({ a, body, c, rel, par });
+    // the hat rides on the body (a hull of it in the body's frame, as it sits at the start): a floating Wizard's brim
+    // knocks bags aside instead of passing through them
+    const hat = a.ch.costume?.hat;
+    if (hat) {
+      const Rb = Q(); b.matrixWorld.decompose(V(), Rb, V());
+      const inv = new THREE.Matrix4().compose(c.clone().applyMatrix4(b.matrixWorld), Rb, V().set(1, 1, 1)).invert(), pts = [];
+      for (const m of solidMeshes(hat)) pts.push(...trisOf(m, inv).verts);
+      if (pts.length >= 12) { const k = Math.max(1, Math.floor(pts.length / 3 / PHYS.hullPts)), sub = []; for (let i = 0; i < pts.length; i += 3 * k) sub.push(pts[i], pts[i + 1], pts[i + 2]); const d = RAPIER.ColliderDesc.convexHull(new Float32Array(sub)); if (d) world.createCollider(d.setFriction(PHYS.friction), body); }
+    }
+    // the arms: a ball at each hand and one halfway from the shoulder, from the storyboard's hand targets in the
+    // character's own frame (as qa/motion.mjs follows them; no posing), so a bag drifting into a waving arm bumps it
+    const limbs = ["R", "L"].flatMap((side) => [0.5, 1].map((k) => {
+      const lb = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased());
+      world.createCollider(RAPIER.ColliderDesc.ball(k === 1 ? 0.07 : 0.055).setFriction(PHYS.friction), lb);
+      return { side, k, body: lb };
+    }));
+    cast.push({ a, body, c, rel, par, limbs });
     // (it starts where the character is: a capsule moved in from the origin on the first step would sweep through
     // everything in between and fling it)
     { const x = cast.at(-1), s0 = castAt0(x, tStart); body.setTranslation(s0.P, true); body.setRotation(s0.R, true); }
@@ -165,6 +192,14 @@ export async function makePhysics(env) {
     for (const a of acts) { if (a.mode !== "float" || a.at > t) continue; const to = a.g ?? 0, d = a.dur ?? 0.3; g += (to - g) * (d > 0 ? smooth((t - a.at) / d) : 1); }
     return g;
   };
+  const dampAt = (t) => { let d = 0; for (const a of acts) if (a.mode === "float" && a.at <= t) d = a.damp ?? 0; return d; };
+  // the speed that takes a body from p to `to` in `in` seconds, under the gravity and air drag of that moment (an aimed
+  // throw: the bag lands where the story needs it, on the beat its sound is on; what it hits on the way still counts)
+  const aim = (p, a) => {
+    const T = Math.max(0.05, a.in ?? 0.5), g = gAt(a.at + T / 2), d = dampAt(a.at + T / 2), k = d > 1e-6 ? (1 - Math.exp(-d * T)) / d : T;
+    const free = (dx, gg) => (d > 1e-6 ? (dx - (gg / d) * (T - k)) / k : (dx - 0.5 * gg * T * T) / T);
+    return { x: free(a.to[0] - p.x, 0), y: free(a.to[1] - p.y, g), z: free(a.to[2] - p.z, 0) };
+  };
   const vec = (x) => ({ x: x[0], y: x[1], z: x[2] });
   const at = (i) => tStart + i * PHYS.dt;
 
@@ -173,7 +208,7 @@ export async function makePhysics(env) {
   const sampleEvery = Math.max(1, Math.round(PHYS.sample / PHYS.dt));
   let castS = null, castN = null, kinS = null, kinN = null;
   const pending = acts.filter((a) => a.prop && (a.mode === "knock" || a.mode === "settle" || starts.get(a.prop) !== a));
-  let pi = 0, lastG = PHYS.g;
+  let pi = 0, lastG = PHYS.g, lastD = 0;
   for (let i = 0; i < nSteps; i++) {
     const t = at(i);
     if (i % sampleEvery === 0) {
@@ -181,14 +216,24 @@ export async function makePhysics(env) {
       kinS = kinN || kin.map((x) => propPose(x.p, Math.max(0, t))); kinN = kin.map((x) => propPose(x.p, Math.max(0, Math.min(end, t + sampleEvery * PHYS.dt))));
     }
     const u = (i % sampleEvery + 1) / sampleEvery;
-    cast.forEach((x, j) => { const P = castS[j].P.clone().lerp(castN[j].P, u), R = castS[j].R.clone().slerp(castN[j].R, u); x.body.setNextKinematicTranslation(P); x.body.setNextKinematicRotation(R); x.body.collider(0).setEnabled(!castN[j].hidden); });
+    cast.forEach((x, j) => {
+      const P = castS[j].P.clone().lerp(castN[j].P, u), R = castS[j].R.clone().slerp(castN[j].R, u); x.body.setNextKinematicTranslation(P); x.body.setNextKinematicRotation(R);
+      for (let c = 0; c < x.body.numColliders(); c++) x.body.collider(c).setEnabled(!castN[j].hidden);
+      for (const L of x.limbs) {
+        const i = L.side === "R" ? 0 : 1, a = castS[j].limbs[i], b = castN[j].limbs[i], on = !!(a && b) && !castN[j].hidden;
+        L.body.collider(0).setEnabled(on);
+        // (switched on again: put it there, never sweep it in from where it was)
+        if (on) { const k = L.k === 1 ? "R" : "M", q = a[k].clone().lerp(b[k], u); if (!L.on) L.body.setTranslation(q, true); else L.body.setNextKinematicTranslation(q); }
+        L.on = on;
+      }
+    });
     kin.forEach((x, j) => { const P = kinS[j].P.clone().lerp(kinN[j].P, u), R = kinS[j].R.clone().slerp(kinN[j].R, u); x.body.setNextKinematicTranslation(P); x.body.setNextKinematicRotation(R); });
     // bodies start: their tween's own speed, or the action's
     for (const b of bodies) {
       if (b.live) continue;
       if (t + 1e-9 >= b.start.at) {
         const A = b.start, now = propPose(b.p, Math.max(0, A.at)), was = propPose(b.p, Math.max(0, A.at - PHYS.dt));
-        const v = A.v ? vec(A.v) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : vec(now.P.clone().sub(was.P).divideScalar(PHYS.dt).toArray());
+        const v = A.to ? aim(now.P.clone().add(V().set(0, b.lift, 0)), A) : A.v ? vec(A.v) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : vec(now.P.clone().sub(was.P).divideScalar(PHYS.dt).toArray());
         let w = { x: 0, y: 0, z: 0 };
         if (A.spin) w = vec(A.spin);
         else if (A.mode !== "drop") { const d = was.R.clone().invert().premultiply(now.R), ang = 2 * Math.acos(Math.min(1, Math.abs(d.w))), s = Math.sqrt(Math.max(1e-12, 1 - d.w * d.w)) * Math.sign(d.w || 1); w = ang > 1e-6 ? { x: (d.x / s) * ang / PHYS.dt, y: (d.y / s) * ang / PHYS.dt, z: (d.z / s) * ang / PHYS.dt } : w; }
@@ -197,6 +242,7 @@ export async function makePhysics(env) {
         // a pile settling before the clip moves through thick air: overlaps in the start poses ease apart instead of
         // flinging things off the table (back to free air at frame 0)
         if (A.at < 0) { b.body.setLinearDamping(PHYS.prerollDamp); b.body.setAngularDamping(PHYS.prerollDamp); }
+        else if (lastD) { b.body.setLinearDamping(lastD); b.body.setAngularDamping(lastD * 0.5); }
         b.live = true;
       } else { const k = propPose(b.p, t); b.body.setNextKinematicTranslation(k.P); b.body.setNextKinematicRotation(k.R); }
     }
@@ -204,9 +250,11 @@ export async function makePhysics(env) {
     while (pi < pending.length && pending[pi].at <= t + 1e-9) {
       const a = pending[pi++], b = bodies.find((x) => x.id === a.prop); if (!b || !b.live) continue;
       if (a.mode === "settle") { b.body.setBodyType(RAPIER.RigidBodyType.Fixed, true); b.frozen = true; }
-      else { if (a.v) b.body.setLinvel(vec(a.v), true); if (a.spin) b.body.setAngvel(vec(a.spin), true); }
+      else { if (a.to) b.body.setLinvel(aim(V().copy(b.body.translation()), a), true); else if (a.v) b.body.setLinvel(vec(a.v), true); if (a.spin) b.body.setAngvel(vec(a.spin), true); }
     }
     // (a change of gravity wakes every body: one asleep on the floor floats up in zero-g)
+    // air drag (a float's "damp", per second): things drifting in zero-g slow down instead of sailing off forever
+    const dr = dampAt(t); if (dr !== lastD) { for (const b of bodies) if (b.live && !b.frozen && !(b.start.at < 0 && t < 0)) { b.body.setLinearDamping(dr); b.body.setAngularDamping(dr * 0.5); } lastD = dr; }
     const g = gAt(t); if (g !== lastG) { world.gravity = { x: 0, y: g, z: 0 }; for (const b of bodies) if (b.live && !b.frozen) b.body.wakeUp(); lastG = g; }
     // record this step's pose (the step's start), then step
     for (const b of bodies) { const p = b.body.translation(), q = b.body.rotation(); b.track.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], i * 7); }
