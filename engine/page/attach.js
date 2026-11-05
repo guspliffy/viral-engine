@@ -124,7 +124,8 @@ export function makeAttach(env) {
       const sides = a.do === "arm" ? (a.side === "both" ? ["R", "L"] : [a.side || "R"]) : a.do === "grab" ? [a.hand] : ["R", "L"];
       if (!sides.includes(side)) continue;
       const on = (a.do === "arm" || a.do === "grab") && aims(a.pose, id) ? 1 : 0, stay = on && !end(a.pose).at && !carried(id) ? 1 : 0;
-      const d = a.do === "grab" ? a.dur ?? 0.25 : a.dur ?? 0.3, k = d > 0 ? smooth((time - a.at) / d) : 1;
+      // (an aim set at the first frame counts as done there: the frame-0 rule, the prop never starts from a stray spot)
+      const d = a.do === "grab" ? a.dur ?? 0.25 : a.dur ?? 0.3, k = d > 0 && a.at > 1e-6 ? smooth((time - a.at) / d) : 1;
       w += (on - w) * k; ws += (stay - ws) * k;
     }
     return [w, ws];
