@@ -27,7 +27,7 @@ const c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
 const STOPS = [0.2, 3.45, 9.75];                                  // the hit-stops, on this clock
 const v = (tv) => r3(tv - 0.1 * STOPS.filter((s) => s + 0.1 * STOPS.indexOf(s) < tv - 1e-6).length);
 const END = 10.7;                                                 // 11.0 s of video
-const CAP_Y = 1270;  // the subtitles: lower third, on the counter by its front edge (the brief), inside the safe zone
+const CAP_Y = 1270;  // the subtitles: lower third, on the counter (the brief wants its front; 1300 and lower leave the safe zone)
 
 // ---------------------------------------------------------------- places
 const CTOP = 0.3;                                                 // the counter top: at the cast's belts, as in the panels
@@ -44,7 +44,7 @@ const BOX_AT = [-0.85, 0.62], BOX_SERVED = [0.15, 0.64], BOX2_SERVED = [-0.7, 0.
 const BOX1 = { id: "box1", kind: "clambox", x: BOX_AT[0], y: CTOP, z: BOX_AT[1], rot: 180, hinge: "left", steam: 1 };
 const BOX2 = { id: "box2", kind: "clambox", x: BOX_AT[0], y: CTOP, z: BOX_AT[1], rot: 180, hinge: "left", steam: 1, scale: 0.001 };
 // the hugged box: the same box worn on Viking's chest from the last cut on (a box held in one arm, the other free)
-const BOXW = { id: "box1w", kind: "clambox", wear: "vik", x: 0.0, y: 0.36, z: 0.46, rot: 180, hinge: "left", steam: 0.3, tip: -22, scale: 0.001 };
+const BOXW = { id: "box1w", kind: "clambox", wear: "vik", x: 0.0, y: 0.33, z: 0.44, rot: 180, hinge: "left", steam: 0.3, tip: -22, scale: 0.001 };
 const BILL1 = { id: "bill1", kind: "bill20", x: -0.1, y: CTOP + 0.2, z: 0.66, rot: 8 };
 const BILL2 = { id: "bill2", kind: "bill20", x: -0.3, y: CTOP + 0.24, z: 0.68, rot: -6, scale: 0.001 };
 const PHONE = { id: "phone", kind: "phone", style: "iphone", scale: 1.5, ...grips.placeFor("phone", [PHX[0] - 0.3, 0.72, PHX[1] + 0.22], PHX_YAW) };
@@ -86,6 +86,7 @@ A(0.35, "vik", "look", { to: [-0.55, -0.05], dur: 0.18, blink: false });       /
 A(0.05, "vik", "talk", { line: "wun-pleeez!", tone: "excited", dur: 0.85, voice: false });
 cap(0.05, v(1.3), "One, please!", CAP_Y);
 c.arm(0.75, "vik", "R", "rest", 0.4, "settle");
+for (const t of [0.85, 1.2]) A(t, "vik", "squash", { amount: 0.06, dur: 0.18 });   // he can't stand still: little bounces while he waits
 // the vendor: deadpan, eyes half shut, he doesn't even look up from the counter until the order
 A(0, "sam", "look", { to: [0.4, -0.45], dur: 0.01, blink: false });
 A(0, "sam", "face", { lid: 0.55, dur: 0.01 });
@@ -115,9 +116,10 @@ see(0, 1.4, ["vik.face", "sam.face", "bill1", "stall"], "frame 0: the $20 slappe
 // Samurai slides one closed, steaming box across with one flat glove, lets go, and it glides on to Viking
 const S1 = v(1.5);
 const PALM_PUSH = { y: [-1, 0, 0], z: [0, -1, 0] };               // box frame (rot 180): fingers toward Viking (+x world)
-c.arm(S1 - 0.1, "sam", "L", { prop: "box1", grip: [0.0, 0.15, 0.0], frame: PALM_PUSH, off: [0, 0.06, 0] }, 0.25, "inOut");
+c.arm(S1 - 0.45, "sam", "L", { prop: "box1", grip: [0.0, 0.15, 0.0], frame: PALM_PUSH, off: [0, 0.06, 0] }, 0.4, "inOut");   // he is already reaching as the shot changes
 c.arm(S1 + 0.15, "sam", "L", { prop: "box1", grip: [0.0, 0.15, 0.0], frame: PALM_PUSH }, 0.12, "out");
-A(S1 - 0.25, "sam", "look", { to: [-0.1, -0.6], dur: 0.15 });   // eyes first, down to the box
+A(S1 - 0.6, "sam", "look", { to: [-0.1, -0.6], dur: 0.15 });
+A(S1, "sam", "look", { to: [0.0, -0.62], dur: 0.1 });              // and along the counter as he pushes   // eyes first, down to the box
 c.prop(S1 + 0.3, "box1", { x: -0.68 }, 0.3, "in");                   // a shove inside his stall, then it glides on its own
 sfx(S1 + 0.3, "ai-package/cardboard-rustle", { gain: 0.08, reason: "the takeaway box slides along the wooden counter" });
 c.arm(S1 + 0.6, "sam", "L", "rest", 0.4, "settle");
@@ -154,7 +156,7 @@ c.arm(S3 + 0.32, "vik", "R", { prop: "box1", grip: lidEdge(12), frame: LID_HAND 
 c.prop(STOPS[1], "box1", { open: 1, steam: 1 }, 0.14, "out");
 c.hitStop(STOPS[1]);
 sfx(STOPS[1], "pop", { gain: 0.55 });
-c.at(STOPS[1], { fx: "poof", pos: [BOX_SERVED[0], CTOP + 0.14, BOX_SERVED[1]], dur: 0.5, color: "#ffffff", puffs: 7, sparks: 0, size: 0.18, lift: 0.08 });
+c.at(STOPS[1], { fx: "poof", pos: [BOX_SERVED[0], CTOP + 0.14, BOX_SERVED[1]], dur: 0.5, color: "#ffffff", puffs: 7, sparks: 0, size: 0.12, lift: 0.02 });   // small and low: it must not cross his eyes
 c.at(STOPS[1], { fx: "shake", dur: 0.15, amp: 0.012 });
 c.arm(STOPS[1] + 0.02, "vik", "R", { o: [-0.4, 0.24, 0.36] }, 0.18, "out");
 A(STOPS[1], "spud", "show");
@@ -216,16 +218,17 @@ A(S5 + 0.05, "rea", "look", { to: [-0.7, -0.35], dur: 0.12, blink: false });
 sfx(S5 + 0.1, "gasp", { gain: 0.6, reason: "the friends gasp at the potato in the box" });
 ph.carry(S5 + 0.3, [r3(PHONE.x - 0.04), 0.62, r3(PHONE.z + 0.06)], 1.3);   // stops filming, still over Viking's head
 A(S5 + 0.4, "phx", "lean", { to: 6, dur: 0.6, ease: "inOut" });
-c.prop(S5 + 0.4, "cup", { tip: 62 }, 0.5, "inOut");
-c.prop(S5 + 0.7, "spill", { pour: 1 }, 0.25, "linear");
-c.prop(S5 + 0.85, "spill", { pool: 1 }, 1.0, "out");
-for (const [t, g] of [[S5 + 0.95, 0.12], [S5 + 1.25, 0.1], [S5 + 1.6, 0.1]]) sfx(t, "ai/drip", { gain: g, reason: "hot chocolate dribbling from the Wizard's tipped cup onto the snow" });
+c.prop(S5 + 0.1, "cup", { tip: 62 }, 0.5, "inOut");
+c.prop(S5 + 0.4, "spill", { pour: 1 }, 0.25, "linear");
+c.prop(S5 + 0.55, "spill", { pool: 1 }, 1.0, "out");
+act.emote(c, S5 + 0.3, "wiz", "?!", { dur: 1.2 });
+for (const [t, g] of [[S5 + 0.65, 0.12], [S5 + 0.95, 0.1], [S5 + 1.3, 0.1]]) sfx(t, "ai/drip", { gain: g, reason: "hot chocolate dribbling from the Wizard's tipped cup onto the snow" });
 // the vendor: nothing at all
 A(S5, "sam", "look", { to: [0.4, -0.45], dur: 0.01 });
 // Viking: his eyes well up, the open box on the counter in front of him
 A(S5, "vik", "look", { to: AT_BOX, dur: 0.01, blink: false });
 A(S5 + 0.2, "vik", "expr", { expr: "sad", set: { curve: 0.15, eye: 1.15, pupil: 1.25, tilt: 0.55, open: 0.1 }, dur: 0.4 });
-A(S5 + 0.3, "vik", "face", { tearL: 0.55, tearR: 0.55, dur: 0.9 });
+A(S5 + 0.3, "vik", "face", { tearL: 1, tearR: 1, dur: 0.9 });
 see(S5 + 0.2, v(8.0) - 0.1, ["phx.face", "wiz.face", "rea.face", "spud.face", "vik.face", "stall"], "the whole line frozen in horror, the happy potato in the open box");
 
 // ================================================================ 6 HE'S MINE NOW 8.0-9.8 (medium on Viking)
@@ -234,8 +237,8 @@ const S6 = v(8.0);
 const LID_CLOSE = { y: [0, 0, -1], z: [0, -1, 0] };
 A(S6 - 0.2, "vik", "look", { to: [0.05, -0.75], dur: 0.12, blink: false });   // eyes to the lid first
 c.arm(S6, "vik", "R", "rest", 0.3, "settle");
-c.arm(S6 - 0.05, "vik", "L", { prop: "box1", grip: lidEdge(112, 0, 0.55), frame: LID_CLOSE, off: [0, 0.04, 0] }, 0.2, "inOut");
-for (const [k, a, u] of [[0, 112, 0.55], [1, 70, 0.7], [2, 30, 0.9], [3, 0, 1]]) c.arm(S6 + 0.15 + k * 0.15, "vik", "L", { prop: "box1", grip: lidEdge(a, 0, u), frame: LID_CLOSE }, 0.15, "inOut");   // halfway up the lid, sliding out to its edge as it comes down
+c.arm(S6 - 0.05, "vik", "L", { prop: "box1", grip: lidEdge(112, 0, 0.4), frame: LID_CLOSE, off: [0, 0.04, 0] }, 0.2, "inOut");
+for (const [k, a, u] of [[0, 112, 0.4], [1, 70, 0.5], [2, 30, 0.7], [3, 0, 1]]) c.arm(S6 + 0.15 + k * 0.15, "vik", "L", { prop: "box1", grip: lidEdge(a, 0, u), frame: LID_CLOSE }, 0.15, "inOut");   // halfway up the lid, sliding out to its edge as it comes down
 c.prop(S6 + 0.15, "box1", { open: 0, steam: 0.5 }, 0.45, "inOut");
 c.arm(S6 - 0.1, "spud", "R", "rest", 0.25, "inOut");             // he settles back down as the lid comes over
 A(S6 + 0.55, "spud", "hide");
@@ -262,7 +265,7 @@ const S7 = v(9.8);
 // the cut: the hugged box is now worn on his chest under his left arm; his right glove is up with the second $20
 box.release(S7 - 0.04, { rest: false, back: 0.01 });
 c.prop(S7 - 0.02, "box1", { scale: 0.001 }, 0.01); c.prop(S7 - 0.02, "box1w", { scale: 1 }, 0.01);
-c.arm(S7, "vik", "L", { prop: "box1w", grip: [-0.19, 0.11, 0.0], palm: true }   /* worn rot 180: -x is his left */, 0);
+c.arm(S7, "vik", "L", { prop: "box1w", grip: [-0.19, 0.13, 0.0], palm: true }   /* worn rot 180: -x is his left */, 0);
 c.prop(S7 - 0.02, "bill2", { scale: 1 }, 0.01);
 c.arm(S7, "vik", "R", onBill("bill2"), 0);
 c.prop(S7, "bill2", { y: CTOP }, STOPS[2] - S7, "in");
@@ -299,7 +302,7 @@ const WIDE = { pos: [0.05, 2.3, 5.3], look: [0.05, 0.95, 0.0], fov: 48 };   // h
 const WIDE_PUSH = { ...WIDE, to: { pos: [0.05, 2.2, 4.9], look: [0.05, 0.95, 0.0] }, dur: 1.5, ease: "inOut" };
 const LIDCAM = { pos: [0.15, 1.25, 2.9], look: [0.15, 0.5, 0.2], fov: 42 };
 const POV = { pos: [0.15, 0.92, 0.05], look: [0.15, 0.33, 0.64], fov: 40 };   // from his eyes: his arms come in from the bottom corners
-const MED = { pos: [0.15, 1.1, 2.7], look: [0.15, 0.5, 0.1], fov: 40 };
+const MED = { pos: [0.15, 1.3, 2.7], look: [0.15, 0.5, 0.1], fov: 40 };   // from a little higher: the cradled box sits under his mouth (review B)
 const beats = c.beats([
   ["1 one please", 0, WIDE, "hook"],
   ["2 the box", S1, WIDE_PUSH],

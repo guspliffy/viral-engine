@@ -197,8 +197,8 @@
    "kind": "clambox",
    "wear": "vik",
    "x": 0,
-   "y": 0.36,
-   "z": 0.46,
+   "y": 0.33,
+   "z": 0.44,
    "rot": 180,
    "hinge": "left",
    "steam": 0.3,
@@ -666,6 +666,23 @@
     },
     {
      "who": "sam",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.6
+     ],
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 0.85
+    },
+    {
+     "who": "sam",
      "do": "blink",
      "dur": 0.22,
      "at": 0.9
@@ -679,6 +696,39 @@
      ],
      "dur": 0.12,
      "at": 0.9
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "box1",
+      "grip": [
+       0,
+       0.15,
+       0
+      ],
+      "frame": {
+       "y": [
+        -1,
+        0,
+        0
+       ],
+       "z": [
+        0,
+        -1,
+        0
+       ]
+      },
+      "off": [
+       0,
+       0.06,
+       0
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.95
     },
     {
      "who": "wiz",
@@ -720,52 +770,16 @@
      "at": 1.05
     },
     {
-     "who": "sam",
-     "do": "look",
-     "to": [
-      -0.1,
-      -0.6
-     ],
-     "dur": 0.15,
-     "at": 1.15
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 1.2
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.3
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "box1",
-      "grip": [
-       0,
-       0.15,
-       0
-      ],
-      "frame": {
-       "y": [
-        -1,
-        0,
-        0
-       ],
-       "z": [
-        0,
-        -1,
-        0
-       ]
-      },
-      "off": [
-       0,
-       0.06,
-       0
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
      "at": 1.3
     }
    ],
@@ -803,6 +817,16 @@
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      -0.62
+     ],
+     "dur": 0.1,
+     "at": 0
+    },
     {
      "who": "phx",
      "do": "look",
@@ -1192,8 +1216,8 @@
      "color": "#ffffff",
      "puffs": 7,
      "sparks": 0,
-     "size": 0.18,
-     "lift": 0.08,
+     "size": 0.12,
+     "lift": 0.02,
      "at": 0.55
     },
     {
@@ -1695,6 +1719,16 @@
      "at": 0.1
     },
     {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "tip": 62
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
      "who": "rea",
      "do": "expr",
      "expr": "shocked",
@@ -1757,10 +1791,22 @@
      "at": 0.3
     },
     {
+     "fx": "pop",
+     "text": "?!",
+     "who": "wiz",
+     "dur": 1.2,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.3
+    },
+    {
      "who": "vik",
      "do": "face",
-     "tearL": 0.55,
-     "tearR": 0.55,
+     "tearL": 1,
+     "tearR": 1,
      "dur": 0.9,
      "at": 0.3
     },
@@ -1774,23 +1820,13 @@
     },
     {
      "do": "prop",
-     "id": "cup",
-     "set": {
-      "tip": 62
-     },
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
      "id": "spill",
      "set": {
       "pour": 1
      },
      "dur": 0.25,
      "ease": "linear",
-     "at": 0.7
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -1800,11 +1836,17 @@
      },
      "dur": 1,
      "ease": "out",
-     "at": 0.85
+     "at": 0.55
     },
     {
      "sfx": "ai/drip",
      "gain": 0.12,
+     "reason": "hot chocolate dribbling from the Wizard's tipped cup onto the snow",
+     "at": 0.65
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.1,
      "reason": "hot chocolate dribbling from the Wizard's tipped cup onto the snow",
      "at": 0.95
     },
@@ -1812,13 +1854,7 @@
      "sfx": "ai/drip",
      "gain": 0.1,
      "reason": "hot chocolate dribbling from the Wizard's tipped cup onto the snow",
-     "at": 1.25
-    },
-    {
-     "sfx": "ai/drip",
-     "gain": 0.1,
-     "reason": "hot chocolate dribbling from the Wizard's tipped cup onto the snow",
-     "at": 1.6
+     "at": 1.3
     },
     {
      "who": "sam",
@@ -1853,8 +1889,8 @@
      "pose": {
       "prop": "box1",
       "grip": [
-       -0.189,
-       0.253,
+       -0.173,
+       0.213,
        0
       ],
       "frame": {
@@ -1889,7 +1925,7 @@
    "shot": {
     "pos": [
      0.15,
-     1.1,
+     1.3,
      2.7
     ],
     "look": [
@@ -1926,8 +1962,8 @@
      "pose": {
       "prop": "box1",
       "grip": [
-       -0.189,
-       0.253,
+       -0.173,
+       0.213,
        0
       ],
       "frame": {
@@ -1965,8 +2001,8 @@
      "pose": {
       "prop": "box1",
       "grip": [
-       -0.062,
-       0.295,
+       -0.081,
+       0.241,
        0
       ],
       "frame": {
@@ -2001,8 +2037,8 @@
      "pose": {
       "prop": "box1",
       "grip": [
-       0.091,
-       0.236,
+       0.042,
+       0.207,
        0
       ],
       "frame": {
@@ -2441,7 +2477,7 @@
       "prop": "box1w",
       "grip": [
        -0.19,
-       0.11,
+       0.13,
        0
       ],
       "palm": true

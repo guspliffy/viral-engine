@@ -40,8 +40,8 @@ $20 biggest. A warm wooden counter across the bottom of the frame. Warm light on
 - **Reaper peeks over Viking's left shoulder from the very back**, not at the right edge (panels 1, 6, 8). In a 9:16
   frame the Wizard's hat covered him on the right in every placement that stayed in frame; at the back left his face
   reads in every wide. He is still last in the line.
-- **In Viking's own view his gloves stay off the box** (panels 4 and 5 show them on its near corners). From the eye
-  camera the short potato arms reach the box from the sides and read as dark shapes over the frame's corners, so he
-  lets go after the lid pops and just stares into the box. He takes it in both gloves again only to cradle it (panel 7).
+- **In shot 3 one glove lifts the lid and the other steadies the box** (panel 3 has both on the lid): with both gloves
+  up front his face was hidden in the closer medium. In his own view (panels 4 and 5) both mittens lie flat on the
+  counter at the box's near corners, as drawn.
 - **The potato's topping is a little bigger than his fifth size** (0.3) so the sour cream hat and the cheese read in
   Viking's view.
