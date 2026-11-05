@@ -34,6 +34,7 @@ import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mj
 export { GATE, gateOf, gateLevel, rootFixed, windowFor, waives, storyAt, actingAt } from "./gate.mjs";
 import { cutBetween } from "../engine/page/timeline.js";
 import { pixelGlitches, describe as describePixel } from "./glitches.mjs";
+import { popCauses, popList, popFixes } from "./handcause.mjs";
 import { storyTime } from "../engine/shared/holds.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
@@ -222,9 +223,13 @@ export function clipResults(sb, layout) {
 // grips and limbs, from the layout's per-frame "contacts" (potato.js contact()): the arm holding a staff passing through
 // it, the staff going into the body, an arm through a hat brim or up inside a helmet's glass, and a hand that turns further in one frame than a hand
 // can (a pop; it may be hidden behind what the hand holds, so it warns)
-export function contactResults(layout, sb = null) {
+export function contactResults(layout, sb = null, chars = null) {
   const out = [], rows = layout?.contacts || [];
   if (!rows.length) return out;
+  // why a hand pops (qa/handcause.mjs): a whole-body turn, a hand jump or a wrist past its limit, each with its fix
+  let ch = chars;
+  if (sb && !ch) try { ch = loadCharacters(sb); } catch { ch = null; }
+  const causeOf = popCauses(sb, rows, ch, layout.fps || 30);
   const fps = layout.fps || 30, ids = [...new Set(rows.flatMap((r) => r.actors.map((a) => a.id)))], T = (i) => rows[i]?.t ?? i / fps;
   const spans = (flags) => { const s = []; let a = -1; flags.forEach((f, i) => { if (f && a < 0) a = i; if (!f && a >= 0) { s.push([a, i - 1]); a = -1; } }); if (a >= 0) s.push([a, flags.length - 1]); return s.filter(([x, y]) => y - x + 1 >= RULES.contactHold); };
   const when = ([x, y]) => `${(x / fps).toFixed(2)}-${(y / fps).toFixed(2)}s`;
@@ -248,21 +253,22 @@ export function contactResults(layout, sb = null) {
       for (let i = 1; i < st.length; i++) {
         const a = st[i - 1], b = st[i]; if (!a || !b || (sb && cutIn(sb, storyTime(sb.holds, (i - 1) / fps), storyTime(sb.holds, i / fps)))) continue;   // cuts are on the storyboard's clock
         const d = turn(a.q[s], b.q[s]);
-        if (d > RULES.handTurnWarn) pops.push({ t: i / fps, d });
+        if (d > RULES.handTurnWarn) pops.push({ t: i / fps, d, cause: causeOf(id, s, i) });
         // a flip anyone sees at full speed (quality plan item 3): over GATE.handTurn, the hand on screen and moving
         // slower than the motion blur's threshold (a smeared hand hides its turn), not waived by a named window
         if (d > GATE.handTurn && sb && a.w?.[`h${s}`] && b.w?.[`h${s}`] && b.on !== 0) {
           const P = proj(sb), p0 = P(T(i - 1), a.w[`h${s}`]), p1 = P(T(i), b.w[`h${s}`]);
           const shown = p1 && p1[0] >= 0 && p1[0] <= 1080 && p1[1] >= 0 && p1[1] <= 1920, px = p0 && p1 ? Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) : 0;
-          if (shown && px < GATE.blurPx && !windowFor(sb, "hand-turn", id, T(i))) flips.push({ t: T(i), d });
+          if (shown && px < GATE.blurPx && !windowFor(sb, "hand-turn", id, T(i))) flips.push({ t: T(i), d, cause: causeOf(id, s, i) });
         }
       }
       // one line per hand: every turn over handTurnWarn (the ones hand-turn doesn't report are hidden, smeared or off screen)
       const shown = pops.filter((p) => !flips.some((f) => Math.abs(f.t - p.t) < 1e-3));
-      if (shown.length) out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns over ${RULES.handTurnWarn}° in one frame at ${shown.slice(0, 6).map((p) => `${p.t.toFixed(2)}s (${Math.round(p.d)}°)`).join(", ")}${shown.length > 6 ? ` … (${shown.length} frames)` : ""}: look at it at full speed (fine if hidden)` });
+      if (shown.length) { const fx = popFixes(shown); out.push({ level: "warn", check: "hand-pop", msg: `${id}: hand ${s} turns over ${RULES.handTurnWarn}° in one frame at ${popList(shown)}: look at it at full speed (fine if hidden)${fx ? `; ${fx}` : ""}` }); }
       if (flips.length) {
         const lvl = gateLevel(sb, "hands"); if (lvl === "fail") found++;
-        out.push({ level: lvl, check: "hand-turn", msg: `${id}: hand ${s} flips over ${GATE.handTurn}° in one frame on screen at ${flips.slice(0, 6).map((f) => `${f.t.toFixed(2)}s (${Math.round(f.d)}°)`).join(", ")}${flips.length > 6 ? ` … (${flips.length} frames)` : ""}: anyone sees it at full speed; change the move (a lower or forward path, the same palm side through it)${lvl === "warn" ? `, ${gateOf(sb) >= 2 ? "fails once the hand fix is on (\"rig\": { \"hand\": 2 }, plan item 2)" : "fails at \"gate\": 2"}` : ""}, or name it in an allowClip window ("checks": ["hand-turn"]) with a reason` });
+        const fx = popFixes(flips);
+        out.push({ level: lvl, check: "hand-turn", msg: `${id}: hand ${s} flips over ${GATE.handTurn}° in one frame on screen at ${popList(flips)}: anyone sees it at full speed; ${fx || "change the move (a lower or forward path, the same palm side through it)"}${lvl === "warn" ? `, ${gateOf(sb) >= 2 ? "fails once the hand fix is on (\"rig\": { \"hand\": 2 }, plan item 2)" : "fails at \"gate\": 2"}` : ""}, or name it in an allowClip window ("checks": ["hand-turn"]) with a reason` });
       }
     }
   }
@@ -621,7 +627,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
 export function gateResults(sb, lay, chars = null) {
   let seen = [];
   try { seen = visibility(sb, lay, chars || loadCharacters(sb)).results.filter((r) => r.check === "must-see"); } catch { /* no characters: nothing must be seen */ }
-  return [...clipResults(sb, lay), ...contactResults(lay, sb), ...frontResults(sb, lay), ...seen];
+  return [...clipResults(sb, lay), ...contactResults(lay, sb, chars), ...frontResults(sb, lay), ...seen];
 }
 
 // the storyboard's loop seam (qa/motion.mjs loopSeam) as one creative result

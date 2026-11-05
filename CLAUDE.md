@@ -24,7 +24,9 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
   body on its own side. An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
-  held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
+  held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame (the line names
+  the cause and its fix: a whole-body turn, a hand jump over 10 cm a frame, a wrist past its limit, or frame 0;
+  `qa/handcause.mjs`), an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
   hand or prop touching another character, a fist holding a prop over a head on screen (it reads as stuck on the
   head), and a prop whose fist is hidden behind another character (it reads as growing out of them).
