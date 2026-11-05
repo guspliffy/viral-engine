@@ -24,8 +24,9 @@ export const GATE = {
   frame0: 0.05,        // metres a hand, arm, foot, body or held prop moves between frame 0 and frame 1 (fails)
   front: 0.15,         // share of the acting subject's silhouette a nearer actor or prop covers, for frontHold s (fails)
   frontHold: 0.3,
-  nearer: 0.3,         // m: a bystander this much nearer the camera than every subject ...
-  bigger: 1.3,         // ... and this many times bigger on screen than the largest, over GATE.front of the action's box
+  nearer: 1.5,         // m: a bystander this much nearer the camera than every subject ...
+  bigger: 2,                       // ... and this many times bigger on screen than the largest, over GATE.front of their boxes
+  lead: 0.75,                      // a cast member on this share of the must-see entries leads the clip: never a bystander
 };
 export const gateOf = (sb) => Number(sb?.gate ?? 1);
 // is the root fix of a glitch class turned on in this storyboard (so its check may fail)?
@@ -53,8 +54,10 @@ export function waives(w, check) {
   return Array.isArray(w.checks) ? w.checks.some((c) => c === check || c === k) : OLD_KINDS.includes(k);
 }
 // the allowClip window that waives `check` for who (and, when given, with) at video time t, or undefined
+// A window is read on the story clock from "gate": 2 (a hit-stop before it no longer shifts it); older storyboards keep
+// the video clock their windows were written against (the tent's leaf window, 8.4-8.7 s, sits after two hit-stops)
 export function windowFor(sb, check, who, t, withId = null) {
-  const s = storyAt(sb, t);
+  const s = gateOf(sb) >= 2 ? storyAt(sb, t) : t;
   return (sb?.allowClip || []).find((w) => waives(w, check) && (w.who === who || (withId != null && w.who === withId)) && (!w.with || w.with === withId || w.with === who) && s >= w.from - 1e-6 && s <= w.to + 1e-6);
 }
 

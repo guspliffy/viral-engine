@@ -25,6 +25,7 @@ import { steppingAt } from "./motion.mjs";
 import { storyTime } from "../engine/shared/holds.js";
 import * as THREE from "three";
 import { cameraState } from "../engine/page/timeline.js";
+import * as TL from "../engine/page/timeline.js";
 import { GATE, gateOf, gateLevel, windowFor } from "./gate.mjs";
 
 // world (mm) to screen pixels at video time t, through the storyboard's camera (null behind it); one per storyboard
@@ -95,8 +96,23 @@ export function rigFindings(layout, sb) {
     for (const k of keys) pops(st.map((w) => rel(w, k)), LIM(k), id, NAME[k] || k, "rig-jump");
     for (const k of keys) first(id, NAME[k] || k, st[0]?.[k], st[1]?.[k], st[2]?.[k]);
     const R = rides(id), jumped = (i) => st[i]?.b && st[i - 1]?.b && dist(st[i].b, st[i - 1].b) > RIG.teleport * sc;
+    // the planted gait (thread F, "motion": { "feet": 2 }) says per frame what each foot does: "stand" must not move,
+    // "step" is a step however low (2-6 cm lifts sit under RIG.floor), "free" goes with the body. When the engine has
+    // it (timeline.js footPhase, null when the flag is off), both slide checks read it instead of guessing
+    const cast = (sb?.cast || []).find((c) => c.id === id), ph = (i, k) => { try { return TL.footPhase?.(sb, cast, S(i))?.[k[1]] ?? null; } catch { return null; } };
+    const phased = !!(sb && cast && TL.footPhase && ph(0, "fR") != null);
+    for (const k of phased ? keys.filter((q) => q[0] === "f") : []) {
+      let run = null;   // a stance: consecutive "stand" frames; its slide is the foot's path along the floor
+      const end = (i) => { if (run && run.slide > GATE.stanceSlide * 1000 && !waived("stance-slide", id, run.i)) out.push({ level: gateLevel(sb, "feet"), check: run.max > GATE.footSlide * 1000 * sc ? "foot-slide" : "stance-slide", who: id, what: NAME[k], t: Math.round(T(run.i) * 1000) / 1000, size: Math.round(run.max > GATE.footSlide * 1000 * sc ? run.max : run.slide), frames: i - run.i }); run = null; };
+      for (let i = 1; i < n; i++) {
+        const a = st[i - 1]?.[k], b = st[i]?.[k];
+        if (!a || !b || cut(i) || jumped(i) || ph(i - 1, k) !== "stand" || ph(i, k) !== "stand") { end(i); continue; }
+        const d = Math.hypot(b[0] - a[0], b[2] - a[2]); run ||= { i: i - 1, slide: 0, max: 0 }; run.slide += d; run.max = Math.max(run.max, d);
+      }
+      end(n);
+    }
     // feet on the floor that slide while no step is taken
-    for (const k of keys.filter((q) => q[0] === "f")) {
+    for (const k of phased ? [] : keys.filter((q) => q[0] === "f")) {
       const floor = Math.min(...st.filter((w) => w?.[k]).map((w) => w[k][1]));
       for (let i = 1; i < n; i++) {
         const a = st[i - 1]?.[k], b = st[i]?.[k]; if (!a || !b || cut(i)) continue;

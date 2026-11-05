@@ -168,13 +168,16 @@ export function frontResults(sb, lay) {
   // the subject: who acts, and the characters a focused must-see entry names (two at most: a list of every face in a
   // group shot names no subject)
   const named = (v) => [...new Set(v.see.map((x) => x.split(".")[0]).filter((id) => cast.has(id)))];
+  // the clip's leads are never bystanders: the storyboard's "subject" (an id or a list), else whoever the must-see list
+  // names in GATE.lead of its entries (Never Looks Up: Phoenix in front on his phone is the joke, not in its way)
+  const lead = new Set(sb.subject != null ? [].concat(sb.subject) : list.length >= 4 ? [...cast].filter((id) => list.filter((v) => named(v).includes(id)).length >= GATE.lead * list.length) : []);
   const subjects = (s) => new Set([...[...cast].filter((id) => actingAt(sb, id, s)), ...list.filter((v) => s >= v.from && s <= v.to && named(v).length <= 2).flatMap(named)]);
   const tracks = new Map();
   rows.forEach((r, i) => {
     const t = r.t ?? i / fps, s = storyAt(sb, t), subj = subjects(s);
     for (const f of r.front || []) {
       // a bystander over the subject's middle (its face and body), not a neighbour's edge over its side
-      if (!subj.has(f.id) || !f.byActor || f.byActor <= GATE.front || (f.core ?? 1) <= GATE.front || f.by === f.id || windowFor(sb, "front", f.id, t, f.by)) continue;
+      if (!subj.has(f.id) || !f.byActor || f.byActor <= GATE.front || (f.core ?? 1) <= GATE.front || f.by === f.id || lead.has(f.by) || windowFor(sb, "front", f.id, t, f.by)) continue;
       const k = `${f.id}|${f.by}`; if (!tracks.has(k)) tracks.set(k, { id: f.id, by: f.by, f: new Array(rows.length).fill(0) });
       tracks.get(k).f[i] = f.byActor;
     }
@@ -194,7 +197,7 @@ export function frontResults(sb, lay) {
     const d = (a) => Math.hypot(a.eyes[0] - cam[0], a.eyes[1] - cam[1], a.eyes[2] - cam[2]), area = (b) => b[2] * b[3];
     const near = Math.min(...sub.map(d)), big = Math.max(...sub.map((a) => area(a.box)));
     for (const b of A) {
-      if (subj.has(b.id) || d(b) > near - GATE.nearer || area(b.box) < GATE.bigger * big || windowFor(sb, "front", b.id, smp.t)) continue;
+      if (subj.has(b.id) || lead.has(b.id) || d(b) > near - GATE.nearer || area(b.box) < GATE.bigger * big || windowFor(sb, "front", b.id, smp.t)) continue;
       // the share of the subjects' own boxes it covers (not the space between them: a row of four has its middle there)
       const cut = (a) => Math.max(0, Math.min(a[0] + a[2], b.box[0] + b.box[2]) - Math.max(a[0], b.box[0])) * Math.max(0, Math.min(a[1] + a[3], b.box[1] + b.box[3]) - Math.max(a[1], b.box[1]));
       const c = sub.reduce((t, a) => t + cut(a.box), 0) / Math.max(1, sub.reduce((t, a) => t + area(a.box), 0));

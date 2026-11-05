@@ -73,12 +73,14 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`"gate": 2`** (quality plan item 3, opt-in until Jonny approves it for the template) turns on the new render-gate
   fails: a hand flipping over 90° in a frame on screen (`hand-turn`), a jump between frame 0 and frame 1
   (`frame0-jump`), a foot skating over 5 cm in a frame (`foot-slide`), a held prop slipping over 3 cm (`prop-pop`), a
-  body lean or pitch jump in a still moment (`lean-jump`), a bystander over the acting subject's middle (`front`), and
-  faces hidden by scenery and the set. A fail whose root fix isn't in the storyboard yet stays a warning (hands until
+  body lean or pitch jump in a still moment (`lean-jump`), a bystander over the acting subject's middle, or nearer and
+  much bigger than the action (`front`; the clip's leads never count as bystanders: `"subject": "phx"`, else whoever
+  is on three quarters of the must-see entries), and faces hidden by scenery and the set. A fail whose root fix isn't in the storyboard yet stays a warning (hands until
   `"rig": { "hand": 2 }`, feet until `"motion": { "feet": 2 }`, holds until `"rig": { "hold": 2 }`). `node
   qa/preflight.mjs <sb>` runs the layout and every check and gives one verdict (`--gate 2` previews it, `--all-fails`
   shows what fails once every fix is in).
-- **`"allowClip"` windows** are read on the story's clock (a hit-stop no longer shifts them) and may name what they
+- **`"allowClip"` windows** are read on the story's clock from `"gate": 2` (a hit-stop no longer shifts them; before
+  that, on the video clock they were written against, so re-time old windows when you turn the gate on) and may name what they
   waive: `"checks": ["face"]` (kinds: `body`, `reach`, `prop`, `face`, or any check's name such as `hand-turn`). Without
   a list a window waives the contact kinds as before; the visible-glitch checks above are waived only by name, always
   with a `"reason"`.
