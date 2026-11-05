@@ -407,6 +407,8 @@ async function init(data) {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
     const ch = new Character(def, c.id); parentOf(c).add(ch.root);
+    // the actor's state at any time in the story (potato.js rig 2 smooths a hand's turn over the frames around it)
+    ch.stateAt = (tt) => (tt < 0 || tt > (sb.storyDuration ?? sb.duration) ? null : actorState(sb, c, def, tt));
     if (c.belt) seatBelt(ch, c.belt);
     ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; charMats.push(m); } });
     return { c, def, ch };
