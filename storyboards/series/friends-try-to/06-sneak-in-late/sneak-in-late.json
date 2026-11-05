@@ -237,6 +237,13 @@
  ],
  "captions": [
   {
+   "from": 0,
+   "to": 1.45,
+   "text": "Shh… Mom's asleep.",
+   "pos": 470,
+   "pop": false
+  },
+  {
    "from": 1.9,
    "to": 2.75,
    "text": "I've got this.",
@@ -247,6 +254,13 @@
    "from": 8.05,
    "to": 8.75,
    "text": "Quietly…",
+   "pos": 600,
+   "pop": false
+  },
+  {
+   "from": 8.85,
+   "to": 9.8,
+   "text": "BOYS?!",
    "pos": 600,
    "pop": false
   }
@@ -500,6 +514,18 @@
      "at": 0
     },
     {
+     "fx": "zzz",
+     "pos": [
+      0.019999999999999907,
+      0.9,
+      -7.05
+     ],
+     "dur": 1.2,
+     "count": 4,
+     "scale": 2.5,
+     "at": 0
+    },
+    {
      "who": "wiz",
      "do": "talk",
      "line": "eep!",
@@ -644,6 +670,18 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.37
+    },
+    {
+     "fx": "zzz",
+     "pos": [
+      0.019999999999999907,
+      0.9,
+      -7.05
+     ],
+     "dur": 1.2,
+     "count": 4,
+     "scale": 2.5,
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -2073,6 +2111,18 @@
      "at": 0.02
     },
     {
+     "fx": "zzz",
+     "pos": [
+      0.019999999999999907,
+      0.9,
+      -7.05
+     ],
+     "dur": 1.2,
+     "count": 4,
+     "scale": 2.5,
+     "at": 0.4
+    },
+    {
      "who": "wiz",
      "do": "arm",
      "side": "R",
@@ -2265,6 +2315,18 @@
      "voice": false,
      "soft": true,
      "at": 0
+    },
+    {
+     "fx": "zzz",
+     "pos": [
+      0.019999999999999907,
+      0.9,
+      -7.05
+     ],
+     "dur": 1.2,
+     "count": 4,
+     "scale": 2.5,
+     "at": 0.1
     },
     {
      "who": "vik",
@@ -2546,16 +2608,6 @@
    "at": 8.9,
    "len": 0.9,
    "do": [
-    {
-     "do": "prop",
-     "id": "mom",
-     "set": {
-      "shadow": 1
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0
-    },
     {
      "who": "vik",
      "do": "look",

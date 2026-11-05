@@ -79,6 +79,10 @@ c.prop(0, "torch", { on: 1 }, 0.01);
 c.prop(0, "door", { open: 0 }, 0.01);
 for (const id of ["wiz", "phx", "vik", "rea"]) A(0, id, "look", { to: [0.1, -0.35], dur: 0.01, blink: false });
 for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", set: { curve: -0.1, open: 0 }, dur: 0.01 }); A(0, id, "face", { lid: 0.35, dur: 0.01 }); }   // sneaky, not a greeting (review B)
+// the situation, spelled out (Jonny 5 Nov: "one doesn't understand the situation"): Mom asleep behind her door, z's
+// floating from it at the start and just before her light snaps on (the hall shots that show her door clear); her "BOYS?!" when it does
+cap(0, 1.45, "Shh… Mom's asleep.", 470);
+for (const t of [0, 0.6, 7.6, 8.1]) c.at(t, { fx: "zzz", pos: [NIGHTHALL.mom.x - 0.8, 0.9, NIGHTHALL.far + 0.15], dur: 1.2, count: 4, scale: 2.5 });
 // the Wizard's foot lands on the loose board: it flexes, CREAK (hit-stop), everyone freezes
 act.opener(c, "wiz", "eep!", { at: 0.05, dur: 0.35, tone: "excited" });
 c.prop(0.08, "board", { flex: 1, tick: 1 }, 0.08, "out");
@@ -229,7 +233,8 @@ for (const [i, id] of ["wiz", "phx", "rea"].entries()) { A(8.15, id, "squash", {
 A(8.25, "vik", "expr", { expr: "shocked", set: { eye: 1.2, open: 0.2 }, dur: 0.1 });
 // Mom's light snaps on, her shadow falls along the hall
 sfx(8.75, "click", { gain: 0.45, reason: "Mom's light switching on behind her door" });
-c.prop(8.75, "mom", { on: 1, shadow: 0 }, 0.04); c.prop(8.9, "mom", { shadow: 1 }, 0.3, "out");
+c.prop(8.75, "mom", { on: 1, shadow: 0 }, 0.04);
+cap(8.85, 9.8, "BOYS?!", 600);   // Mom, behind her door c.prop(8.9, "mom", { shadow: 1 }, 0.3, "out");
 for (const id of ["wiz", "phx", "rea"]) A(8.15, id, "look", { to: [-0.5, 0.3], dur: 0.1, blink: false });   // eyes snap to Viking on the squeal
 for (const id of ["wiz", "phx", "rea", "vik"]) A(8.8, id, "look", { to: [0.4, 0.05], dur: 0.12, blink: false });
 see(8.1, 8.7, ["vik.face", "door"], "Viking eases the front door shut by its handle: the hinge squeals");
