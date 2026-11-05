@@ -441,9 +441,12 @@ export class Character {
   // twist, so no blend can take the long way round and nothing switches inside a move. palms: _palms' ends of the move
   _pose2(hand, elbow, at, sx, gr, axis, palms, sh, frame) {
     const U = hand.userData, y = at.clone().sub(elbow), yl = y.length();
-    // the forearm never collapses: when the arm curve's pull point comes within 14 cm of the hand, the elbow -> hand line
-    // turns round in a frame or two; the shoulder -> hand line takes over, smoothly, on every frame
-    if (sh) { const k = sstep((0.14 - yl) / 0.1); if (k > 0) y.addScaledVector(at.clone().sub(sh).normalize(), 0.15 * k); }
+    // the forearm never collapses: the hand aims along the drawn arm's last 40 % (the chord from 0.6 of the way along
+    // its curve, shoulder -> pull point -> hand, to the hand): (hand - pull point) + (hand - shoulder) / 3. When the pull
+    // point comes close to the hand, elbow -> hand alone shrinks to nothing and turns round in a frame or two (half of
+    // the hand pops, 5 Nov); the shoulder's share, always the same, then carries it. A jointed arm (a paw on a table)
+    // has a real elbow at the pull point, so its forearm is elbow -> hand
+    if (sh && !(gr.down > 0.5)) y.addScaledVector(at.clone().sub(sh), 1 / 3);
     const dbg = (U.dbg = { yl: rd(yl, 3) });
     if (y.lengthSq() < 1e-8) y.set(0, -1, 0); y.normalize();
     const y0 = HAND_Y0[sx < 0 ? "R" : "L"], z0 = new THREE.Vector3(-sx, 0, 0.35).normalize();
