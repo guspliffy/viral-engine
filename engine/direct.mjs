@@ -36,7 +36,8 @@
 import fs from "node:fs";
 import { actorState } from "./page/timeline.js";
 import { propState, gripWorld } from "./page/props3d.js";
-import { handTarget } from "./page/potato.js";
+import { handTarget, arcLerp } from "./page/potato.js";
+import { handTargetFor, eyeK } from "./page/rigs/friends-anatomy.js";
 import { ease } from "./page/util.js";
 import { lockMusic, payoffOf } from "./music.mjs";
 
@@ -78,7 +79,7 @@ const WEIGHT = { talk: 4, expr: 3, move: 2, crouch: 2, grab: 2, fly: 2, sit: 2, 
 // one character's anchors at time t (world metres): eyes, top (hat or body), feet, half width, facing
 function anchors(sb, c, def, t) {
   const st = actorState(sb, c, def, t), s = st.scale ?? 1, H = def.body.height, q = st.squash ?? 1;
-  const eyeY = st.y + s * (LEG_H + EYE_K * H * q), bodyTop = st.y + s * (LEG_H + H * q);
+  const eyeY = st.y + s * (LEG_H + (eyeK(def) ?? EYE_K) * H * q), bodyTop = st.y + s * (LEG_H + H * q);
   const fwd = 0.33 * s, yaw = st.yaw ?? 0;
   return {
     x: st.x + Math.sin(yaw) * fwd * 0.3, z: st.z + Math.cos(yaw) * fwd, eye: eyeY, body: bodyTop,
@@ -137,7 +138,7 @@ function frame(sb, ctx, { who, size, eyeOf, t0, t1, caps }) {
 // where a hand is at t (world metres): the hand target potato.js draws, through the body's turn, pitch, lean and scale
 function handWorld(sb, c, def, t, side) {
   const st = actorState(sb, c, def, t), a = st.arms[side], sx = side === "R" ? -1 : 1, rx = def.body.width / 2, H = def.body.height;
-  const f = handTarget(a.from, sx, rx, H, t), g = handTarget(a.pose, sx, rx, H, t), s = st.scale ?? 1;
+  const ht = handTargetFor(def, handTarget, arcLerp), f = ht(a.from, sx, rx, H, t), g = ht(a.pose, sx, rx, H, t), s = st.scale ?? 1;
   let [x, y, z] = f.map((v, i) => v + (g[i] - v) * a.p);
   y = LEG_H + (y - LEG_H) * (st.squash ?? 1); [x, y, z] = [x * s, y * s, z * s];
   const yaw = st.yaw ?? 0, pitch = st.pitch || 0, lean = st.lean || 0;

@@ -1,0 +1,216 @@
+{
+  "id": "friends/pip",
+  "name": "Pip",
+  "rig": "friends-v1",
+  "species": "imp",
+  "series": "The Little Chaos Club (working title; proposed cast, not a PotatoBrawl replacement)",
+  "source": "references/friends-v1 (reference pack 2026-11-05): 02-pip-reference.png, CHARACTER-BIBLE.md, CHARACTER-SPEC.json",
+  "personality": "Curious, eager to help, quick to commit; an idea feels excellent a moment before its practicality is checked. Sincere when it fails.",
+  "sheet": true,
+  "sheetHatch": true,
+  "body": {
+    "height": 1.204,
+    "width": 0.44,
+    "depth": 0.26,
+    "seed": 47,
+    "color": "#DFA06C",
+    "lump": 0,
+    "specks": 0,
+    "note": "pose frame for the shared timeline (rigs/friends-anatomy.js), not anatomy"
+  },
+  "anatomy": {
+    "height": 1.344,
+    "hip": [0.085, 0.48],
+    "leg": [0.215, 0.205],
+    "stance": 0.095,
+    "footLen": 0.19,
+    "shoulder": [0.15, 0.865, -0.005],
+    "arm": [0.205, 0.185],
+    "neckY": 0.92,
+    "neckZ": 0.0,
+    "eyeY": 1.075,
+    "crown": 1.22,
+    "top": 1.344,
+    "headW": 0.36,
+    "faceZ": 0.16,
+    "torso": {
+      "w": 0.32,
+      "d": 0.23
+    }
+  },
+  "palette": {
+    "skin": "#DFA06C",
+    "skinLight": "#EDBE90",
+    "skinShadow": "#B86A4B",
+    "hair": "#234C55",
+    "hairAccent": "#49717A",
+    "jacket": "#BF7F24",
+    "shirt": "#EFDFC5",
+    "trousers": "#774145",
+    "boots": "#49352D",
+    "patch": "#96504A",
+    "iris": "#9D6D30"
+  },
+  "limbs": {
+    "color": "#DFA06C",
+    "width": 0.026
+  },
+  "hands": {
+    "type": "glove",
+    "fingers": 3,
+    "seamless": true,
+    "size": 0.82,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    },
+    "stub": 0.05
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "earMode": "side",
+  "patch": {
+    "w": 0.05,
+    "h": 0.045
+  },
+  "face": {
+    "default": "kind",
+    "size": 0.44,
+    "iris": "#9D6D30",
+    "brow": "#234C55",
+    "cheeks": "#e8806a",
+    "blush": 0.9,
+    "freckles": 12,
+    "freckleColor": "#a65a38",
+    "browShape": {
+      "thick": 1.7,
+      "arch": 0.06,
+      "inner": 0.16,
+      "outer": 0.58,
+      "clear": 0.01,
+      "cap": true
+    },
+    "eye": {
+      "lash": 1.4,
+      "oval": 1.4,
+      "iris": 0.7,
+      "irisShade": true,
+      "glints": 1,
+      "flick": 0.8,
+      "corner": 0,
+      "depth": 0.33
+    },
+    "layout": {
+      "eyeU": 0.4,
+      "eyeV": 0.22,
+      "browV": 0.62,
+      "mouthV": -0.5,
+      "mouthW": 0.2,
+      "cheekU": 0.62,
+      "cheekV": -0.18
+    },
+    "presets": {
+      "curious": {
+        "tilt": 0.2,
+        "browY": 0.02,
+        "curve": 0.2,
+        "open": 0.2,
+        "eye": 1.08,
+        "pupil": 1.05,
+        "smirk": 0.0,
+        "raise": 0.035
+      },
+      "idea": {
+        "tilt": -0.1,
+        "browY": 0.02,
+        "curve": 1.0,
+        "open": 0.55,
+        "eye": 0.9,
+        "pupil": 1.05,
+        "smirk": 0.3,
+        "raise": 0.03
+      },
+      "oops": {
+        "tilt": 0.5,
+        "browY": 0.0,
+        "curve": -0.45,
+        "open": 0.12,
+        "eye": 0.9,
+        "pupil": 1.0,
+        "smirk": 0.2,
+        "raise": 0.0
+      },
+      "sincere": {
+        "tilt": 0.24,
+        "browY": 0.0,
+        "curve": 0.55,
+        "open": 0.0,
+        "eye": 0.92,
+        "pupil": 1.05,
+        "smirk": 0.15,
+        "raise": 0.0
+      },
+      "skeptical": {
+        "tilt": -0.15,
+        "browY": 0.0,
+        "curve": -0.1,
+        "open": 0.0,
+        "eye": 0.78,
+        "pupil": 1.0,
+        "smirk": 0.35,
+        "raise": 0.03
+      },
+      "delighted": {
+        "tilt": 0.3,
+        "browY": 0.035,
+        "curve": 1.0,
+        "open": 0.65,
+        "eye": 1.05,
+        "pupil": 1.1,
+        "smirk": 0.0,
+        "raise": 0.0
+      }
+    }
+  },
+  "limbStyle": {
+    "arm": {
+      "role": "cloth",
+      "line": "#5a3a10",
+      "color": "#BF7F24",
+      "shade": "#a86d1c",
+      "r": [0.046, 0.042, 0.04],
+      "cuff": {
+        "from": 0.13,
+        "to": 0.09,
+        "r": 0.049,
+        "color": "#a96f1d"
+      },
+      "bare": 0.09,
+      "skin": "#DFA06C",
+      "skinR": 0.027
+    },
+    "leg": {
+      "role": "cloth",
+      "line": "#3a1a1e",
+      "color": "#774145",
+      "shade": "#5e3236",
+      "r": [0.075, 0.06, 0.05],
+      "cuff": {
+        "at": 0.3,
+        "len": 0.045,
+        "r": 0.058,
+        "color": "#9a5d66"
+      },
+      "skin": "#DFA06C",
+      "skinR": 0.031
+    }
+  },
+  "foot": {
+    "type": "boot",
+    "width": 0.095,
+    "height": 0.075,
+    "color": "#49352D",
+    "ankle": 0.05
+  }
+}

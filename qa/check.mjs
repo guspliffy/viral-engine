@@ -68,6 +68,10 @@ export const RULES = {
   // contact (layout "contacts", every frame): an arm through the held staff or a hat brim, the staff through the body,
   // a hand that turns further in one frame than a hand can (metres, degrees, frames)
   armThroughStaff: 0, staffInBody: -0.03, brimDepth: 0.01, contactHold: 2, handTurnWarn: 60,
+  // the friends rig (rigs/friends.js contact()): a hand or foot short of its target by this much (metres) means the limb
+  // is stretched straight and the pose asks for more than the arm or leg has; Rusty's tail into the floor or his body
+  // (metres, negative inside) and off the paw that pins it
+  reachShort: 0.04, tailFloor: -0.01, tailBody: -0.01, tailPin: 0.03,
   armAlongShaft: 0.85, armAlongHold: 0.4, // forearm nearly along the held shaft (|forearm·shaft|) for this long: the setup for a fist flip
   // hands and held props against characters (the look busy remake): a hand or blade this far into another character
   // (metres, hand radius included) fails; within a centimetre for touchHold warns; a hand on screen over a face's
@@ -196,7 +200,7 @@ export function clipResults(sb, layout) {
     const w = win(c, x.t), body = actors.has(c.with);
     // a window allows contact with a prop, and bodies pressing together; bodies merging still fail
     if (w && (!body || c.depth <= (w.max ?? RULES.allowBody))) continue;
-    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
+    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${c.bodyPart ? " [" + c.bodyPart + "]" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
     if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
     r.to = x.t;
     if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
@@ -243,6 +247,11 @@ export function contactResults(layout, sb = null) {
         const m = Math.max(...st.slice(sp[0], sp[1] + 1).map((a) => a?.cross?.[s] ?? 0)), deep = m > RULES.crossFail; if (deep) found++;
         out.push({ level: deep ? "fail" : "warn", check: "limb-through-costume", msg: `${id}: hand ${s} reaches ${Math.round(m * 100)} cm across its own body at ${when(sp)}: the shoulder hides and the arm reads as coming out of the chest; reach with the hand on that side, or turn the body to face the reach` });
       }
+      // a friend's limb stretched past its length (the pose's target out of reach: the hand stops short)
+      for (const k of [s, `f${s}`]) for (const sp of spans(st.map((a) => !!(a && a.short && a.short[k] > RULES.reachShort)))) {
+        const m = Math.max(...st.slice(sp[0], sp[1] + 1).map((a) => a?.short?.[k] ?? 0));
+        out.push({ level: "warn", check: "reach-limit", msg: `${id}: ${k.startsWith("f") ? "foot" : "hand"} ${s} stops ${Math.round(m * 100)} cm short of its target at ${when(sp)}: the ${k.startsWith("f") ? "leg" : "arm"} is fully stretched; bring the target closer or step toward it` });
+      }
       for (const sp of spans(st.map((a) => !!(a && a.brim[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} goes through the hat brim at ${when(sp)}: raise it wider than the brim` }); }
       for (const sp of spans(st.map((a) => !!(a && a.helmet && a.helmet[s] > RULES.brimDepth)))) { found++; out.push({ level: "fail", check: "limb-through-costume", msg: `${id}: arm ${s} runs up inside the helmet glass at ${when(sp)}: raise it wider than the helmet` }); }
       const flips = [], pops = [];
@@ -266,6 +275,11 @@ export function contactResults(layout, sb = null) {
         out.push({ level: lvl, check: "hand-turn", msg: `${id}: hand ${s} flips over ${GATE.handTurn}° in one frame on screen at ${flips.slice(0, 6).map((f) => `${f.t.toFixed(2)}s (${Math.round(f.d)}°)`).join(", ")}${flips.length > 6 ? ` … (${flips.length} frames)` : ""}: anyone sees it at full speed; change the move (a lower or forward path, the same palm side through it)${lvl === "warn" ? `, ${gateOf(sb) >= 2 ? "fails once the hand fix is on (\"rig\": { \"hand\": 2 }, plan item 2)" : "fails at \"gate\": 2"}` : ""}, or name it in an allowClip window ("checks": ["hand-turn"]) with a reason` });
       }
     }
+    // Rusty's tail (rigs/friends.js): never through the floor or his own body, and held where a paw pins it
+    const tailSp = (f) => spans(st.map((a) => !!(a && a.tail && f(a.tail))));
+    for (const sp of tailSp((x) => x.floor < RULES.tailFloor)) { found++; out.push({ level: "fail", check: "tail", msg: `${id}: the tail goes into the floor at ${when(sp)}: lift it (tailLift) or move the body up` }); }
+    for (const sp of tailSp((x) => x.body < RULES.tailBody)) { found++; out.push({ level: "fail", check: "tail", msg: `${id}: the tail goes into the body at ${when(sp)}` }); }
+    for (const sp of tailSp((x) => x.pin > RULES.tailPin)) { found++; out.push({ level: "fail", check: "tail", msg: `${id}: the tail slips out from under the paw that pins it at ${when(sp)} (tailPin): bring the paw lower and closer to the tail` }); }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
   out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb), ...supportResults(layout, sb));

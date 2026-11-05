@@ -1,0 +1,235 @@
+{
+  "id": "friends/rusty",
+  "name": "Rusty",
+  "rig": "friends-v1",
+  "species": "red-panda",
+  "series": "The Little Chaos Club (working title; proposed cast, not a PotatoBrawl replacement)",
+  "source": "references/friends-v1 (reference pack 2026-11-05): 01-rusty-reference.png, CHARACTER-BIBLE.md, CHARACTER-SPEC.json",
+  "personality": "Wants to seem composed, capable and independent; cares deeply about being liked. Confidence outside, feelings leaking through; tail and ears are occasional tells.",
+  "sheet": true,
+  "sheetHatch": true,
+  "body": {
+    "height": 1.06,
+    "width": 0.54,
+    "depth": 0.34,
+    "seed": 31,
+    "color": "#BE4B21",
+    "lump": 0,
+    "specks": 0,
+    "note": "pose frame for the shared timeline (rigs/friends-anatomy.js), not anatomy"
+  },
+  "anatomy": {
+    "height": 1.2,
+    "hip": [0.105, 0.31],
+    "leg": [0.135, 0.13],
+    "stance": 0.115,
+    "footLen": 0.21,
+    "shoulder": [0.2, 0.735, -0.01],
+    "arm": [0.18, 0.17],
+    "neckY": 0.76,
+    "neckZ": 0.0,
+    "eyeY": 0.955,
+    "crown": 1.12,
+    "top": 1.2,
+    "headW": 0.54,
+    "faceZ": 0.21,
+    "torso": {
+      "w": 0.46,
+      "d": 0.33
+    }
+  },
+  "palette": {
+    "fur": "#BE4B21",
+    "furLight": "#DD7735",
+    "cream": "#F3DEB5",
+    "paws": "#4B2C21",
+    "legs": "#4E2619",
+    "nose": "#35231E",
+    "hoodie": "#66758D",
+    "zipperPull": "#E78C58",
+    "iris": "#B66E23"
+  },
+  "limbs": {
+    "color": "#4B2C21",
+    "width": 0.03
+  },
+  "hands": {
+    "type": "glove",
+    "fingers": 3,
+    "seamless": true,
+    "size": 0.95,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    },
+    "stub": 0.03
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "earMode": "top",
+  "face": {
+    "default": "kind",
+    "size": 0.44,
+    "iris": "#B66E23",
+    "brow": "#F3DEB5",
+    "blush": 0.6, "cheeks": "#e9826a",
+    "browShape": {
+      "thick": 2.4,
+      "arch": 0.05,
+      "inner": 0.2,
+      "outer": 0.62,
+      "clear": 0.012,
+      "cap": true
+    },
+    "eye": {
+      "lash": 1.4,
+      "oval": 1.3,
+      "iris": 0.68,
+      "irisShade": true,
+      "glints": 1,
+      "flick": 0.7,
+      "corner": 0,
+      "depth": 0.33
+    },
+    "layout": {
+      "eyeU": 0.36,
+      "eyeV": 0.2,
+      "browV": 0.58,
+      "mouthV": -0.62,
+      "mouthW": 0.15,
+      "cheekU": 0.6,
+      "cheekV": -0.3
+    },
+    "presets": {
+      "neutral": {
+        "tilt": 0.14,
+        "browY": 0.0,
+        "curve": 0.45,
+        "open": 0.0,
+        "eye": 1.0,
+        "pupil": 1.0,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "confident": {
+        "tilt": -0.12,
+        "browY": 0.0,
+        "curve": 0.55,
+        "open": 0.25,
+        "eye": 0.82,
+        "pupil": 1.0,
+        "smirk": 0.55,
+        "raise": 0.035
+      },
+      "caught": {
+        "tilt": 0.36,
+        "browY": 0.05,
+        "curve": -0.15,
+        "open": 0.5,
+        "eye": 1.12,
+        "pupil": 0.85,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "soft": {
+        "tilt": 0.3,
+        "browY": 0.01,
+        "curve": 0.55,
+        "open": 0.0,
+        "eye": 0.88,
+        "pupil": 1.05,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "worried": {
+        "tilt": 0.45,
+        "browY": 0.0,
+        "curve": -0.25,
+        "open": 0.0,
+        "eye": 0.95,
+        "pupil": 1.0,
+        "smirk": 0.15,
+        "raise": 0.0
+      },
+      "delighted": {
+        "tilt": 0.3,
+        "browY": 0.035,
+        "curve": 1.0,
+        "open": 0.6,
+        "eye": 1.05,
+        "pupil": 1.1,
+        "smirk": 0.0,
+        "raise": 0.0
+      }
+    }
+  },
+  "limbStyle": {
+    "arm": {
+      "role": "cloth",
+      "line": "#2f3646",
+      "color": "#66758D",
+      "shade": "#5d6b82",
+      "r": [0.056, 0.051, 0.048],
+      "cuff": {
+        "from": 0.045,
+        "to": 0.0,
+        "r": 0.054,
+        "color": "#56637a",
+        "rib": "#46516a"
+      }
+    },
+    "leg": {
+      "role": "skin",
+      "line": "#1e120c",
+      "color": "#4E2619",
+      "top": "#8a3418",
+      "r": [0.088, 0.07, 0.052]
+    }
+  },
+  "foot": {
+    "type": "paw",
+    "width": 0.115,
+    "height": 0.07,
+    "color": "#4B2C21",
+    "ankle": 0.035
+  },
+  "tail": {
+    "root": [0, 0.29, -0.15],
+    "length": 0.8,
+    "radius": 0.15,
+    "light": "#DD7735",
+    "dark": "#9A3816",
+    "base": "#BE4B21",
+    "tip": "#EDA766",
+    "bands": {
+      "start": 0.15,
+      "step": 0.13,
+      "width": 0.068
+    },
+    "calm": [
+      [-0.02, -0.03, -0.12],
+      [-0.05, 0.08, -0.13],
+      [-0.06, 0.15, -0.06],
+      [-0.05, 0.17, 0.0],
+      [-0.03, 0.16, 0.04],
+      [0.0, 0.12, 0.09]
+    ],
+    "lift": [
+      [0.0, 0.02, -0.12],
+      [-0.02, 0.13, -0.1],
+      [-0.03, 0.18, -0.03],
+      [-0.02, 0.18, 0.01],
+      [-0.01, 0.16, 0.04],
+      [0.0, 0.12, 0.08]
+    ],
+    "wrap": [
+      [-0.05, -0.08, -0.1],
+      [-0.14, -0.04, -0.06],
+      [-0.14, -0.02, 0.06],
+      [-0.04, 0.0, 0.15],
+      [0.06, 0.02, 0.14],
+      [0.12, 0.04, 0.08]
+    ]
+  }
+}

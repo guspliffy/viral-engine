@@ -1,0 +1,200 @@
+{
+  "id": "friends/moss",
+  "name": "Moss",
+  "rig": "friends-v1",
+  "species": "capybara",
+  "series": "The Little Chaos Club (working title; proposed cast, not a PotatoBrawl replacement)",
+  "source": "references/friends-v1 (reference pack 2026-11-05): 03-moss-reference.png, CHARACTER-BIBLE.md, CHARACTER-SPEC.json",
+  "personality": "Likes comfort, peace and snacks; observes before acting; quiet practical kindness; can be stubborn or too comfortable to intervene.",
+  "sheet": true,
+  "sheetHatch": true,
+  "body": {
+    "height": 0.964,
+    "width": 0.56,
+    "depth": 0.46,
+    "seed": 59,
+    "color": "#B7824D",
+    "lump": 0,
+    "specks": 0,
+    "note": "pose frame for the shared timeline (rigs/friends-anatomy.js), not anatomy"
+  },
+  "anatomy": {
+    "height": 1.104,
+    "hip": [0.13, 0.25],
+    "leg": [0.105, 0.1],
+    "stance": 0.15,
+    "footLen": 0.23,
+    "shoulder": [0.24, 0.65, -0.005],
+    "arm": [0.17, 0.155],
+    "neckY": 0.68,
+    "neckZ": 0.0,
+    "eyeY": 0.94,
+    "crown": 1.03,
+    "top": 1.104,
+    "headW": 0.49,
+    "faceZ": 0.34,
+    "torso": {
+      "w": 0.55,
+      "d": 0.42
+    }
+  },
+  "palette": {
+    "fur": "#B7824D",
+    "furLight": "#C9975B",
+    "muzzle": "#D2AC78",
+    "paws": "#6A4A33",
+    "nose": "#6B4633",
+    "sweatshirt": "#7C8654",
+    "pocket": "#DAC59E",
+    "iris": "#7B522A"
+  },
+  "limbs": {
+    "color": "#6A4A33",
+    "width": 0.034
+  },
+  "hands": {
+    "type": "glove",
+    "fingers": 3,
+    "seamless": true,
+    "size": 1.02,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    },
+    "stub": 0.03
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "earMode": "top",
+  "face": {
+    "default": "kind",
+    "size": 0.36,
+    "iris": "#7B522A",
+    "brow": "#5a3a22",
+    "blush": 0.6, "cheeks": "#e9826a",
+    "browShape": {
+      "thick": 1.6,
+      "arch": 0.04,
+      "inner": 0.18,
+      "outer": 0.6,
+      "clear": 0.008,
+      "cap": true
+    },
+    "eye": {
+      "lash": 1.5,
+      "oval": 1.15,
+      "iris": 0.72,
+      "irisShade": true,
+      "glints": 1,
+      "flick": 0.4,
+      "corner": 0,
+      "depth": 0.33
+    },
+    "layout": {
+      "eyeU": 0.42,
+      "eyeV": 0.3,
+      "browV": 0.62,
+      "mouthV": -0.38,
+      "mouthW": 0.14,
+      "cheekU": 0.6,
+      "cheekV": -0.3
+    },
+    "rest": {
+      "tilt": 0.12,
+      "curve": 0.45,
+      "eye": 0.8
+    },
+    "presets": {
+      "calm": {
+        "tilt": 0.12,
+        "browY": 0.0,
+        "curve": 0.5,
+        "open": 0.0,
+        "eye": 0.78,
+        "pupil": 1.0,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "really": {
+        "tilt": -0.05,
+        "browY": 0.0,
+        "curve": 0.05,
+        "open": 0.0,
+        "eye": 0.72,
+        "pupil": 1.0,
+        "smirk": 0.25,
+        "raise": 0.035
+      },
+      "pleased": {
+        "tilt": 0.22,
+        "browY": 0.01,
+        "curve": 0.9,
+        "open": 0.0,
+        "eye": 0.7,
+        "pupil": 1.05,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "surprised": {
+        "tilt": 0.35,
+        "browY": 0.045,
+        "curve": -0.05,
+        "open": 0.22,
+        "eye": 1.12,
+        "pupil": 0.9,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "concerned": {
+        "tilt": 0.42,
+        "browY": 0.0,
+        "curve": -0.2,
+        "open": 0.0,
+        "eye": 0.85,
+        "pupil": 1.0,
+        "smirk": 0.0,
+        "raise": 0.0
+      },
+      "determined": {
+        "tilt": -0.3,
+        "browY": -0.01,
+        "curve": 0.1,
+        "open": 0.0,
+        "eye": 0.75,
+        "pupil": 1.0,
+        "smirk": 0.0,
+        "raise": 0.0
+      }
+    }
+  },
+  "limbStyle": {
+    "arm": {
+      "role": "cloth",
+      "line": "#3a4224",
+      "color": "#7C8654",
+      "shade": "#6c7548",
+      "r": [0.072, 0.066, 0.061],
+      "cuff": {
+        "from": 0.055,
+        "to": 0.0,
+        "r": 0.069,
+        "color": "#717b4b",
+        "rib": "#5d663c"
+      }
+    },
+    "leg": {
+      "role": "skin",
+      "line": "#4a2e16",
+      "color": "#B7824D",
+      "r": [0.098, 0.082, 0.062]
+    }
+  },
+  "foot": {
+    "type": "paw",
+    "width": 0.125,
+    "height": 0.07,
+    "color": "#6A4A33",
+    "ankle": 0.035
+  }
+}

@@ -17,6 +17,7 @@ import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
+import { makeCharacter, setFriendsRig } from "./rigs/factory.js";
 import { makeAttach } from "./attach.js";
 
 const W = 1080, H = 1920;
@@ -366,6 +367,7 @@ function composite(t) {
 async function init(data) {
   sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
+  setFriendsRig(sb);   // the same options for the friends rig (rigs/friends.js)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
   for (const s of sb.shots || []) if (s.plate && !plateShots.has(s.plate)) {
@@ -410,7 +412,7 @@ async function init(data) {
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
-    const ch = new Character(def, c.id); parentOf(c).add(ch.root);
+    const ch = makeCharacter(def, c.id); parentOf(c).add(ch.root);   // rigs/factory.js: the potato, or the rig its file names
     // the actor's state at any time in the story (potato.js rig 2 smooths a hand's turn over the frames around it)
     ch.stateAt = (tt) => (tt < 0 || tt > (sb.storyDuration ?? sb.duration) ? null : actorState(sb, c, def, tt));
     if (c.belt) seatBelt(ch, c.belt);
@@ -950,7 +952,10 @@ function layout(t) {
 // 1 = reaching the centre. Only visible meshes; a held prop is skipped for its holder only.
 function clipping() {
   const out = [], inv = new THREE.Matrix4(), m = new THREE.Matrix4();
-  const bodies = actors.map((a) => ({ id: a.c.id, a, mesh: a.ch.body })).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
+  // a character's solids: the potato's body, or a friend's torso, head, ears and tail (rigs/friends.js proxies), each
+  // as the ellipsoid of its own box. bp names the part when it isn't the main body
+  const bodies = actors.flatMap((a) => (a.ch.proxies || [{ mesh: a.ch.body }]).map((q) => ({ id: a.c.id, a, mesh: q.mesh, bp: q.part && q.part !== "torso" ? q.part : null }))).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
+  const partOf = (...bs) => { const n = bs.map((b) => b.bp && `${b.id} ${b.bp}`).filter(Boolean); return n.length ? { bodyPart: n.join(" / ") } : {}; };
   const depthIn = (body, mesh) => {
     if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
     if (!body.mesh.geometry.boundingBox) body.mesh.geometry.computeBoundingBox();
@@ -1002,12 +1007,12 @@ function clipping() {
       let worst = 0;
       p.root.updateMatrixWorld(true);
       p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) worst = Math.max(worst, depthIn(b, o)); });
-      if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
+      if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, ...partOf(b) });
     }
     // touch: within about 10% of the body's size of each other (a warning; going in is a failure)
     for (const o of bodies) if (o !== b && o.id > b.id) {
       const d = Math.max(bodyIn(b, o), bodyIn(o, b)), touch = d > 0 || bodyIn(b, o, 1.1) > 0 || bodyIn(o, b, 1.1) > 0;
-      if (touch) out.push({ who: b.id, with: o.id, depth: Math.round(d * 100) / 100, touch: true });
+      if (touch) out.push({ who: b.id, with: o.id, depth: Math.round(d * 100) / 100, touch: true, ...partOf(b, o) });
     }
     // another character's hat or helmet against this body (a helmet glass is see-through, but touching still reads)
     for (const o of bodies) {
@@ -1067,7 +1072,7 @@ function contact(t) {
   const r = (x) => Math.round(x * 10000) / 10000;
   const out = actors.filter((a) => a.ch.contact && a.ch.root.visible).map((a) => {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
-    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...(k.dbgR || k.dbgL ? { dbg: { R: k.dbgR, L: k.dbgL } } : {}), cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
+    return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...(k.dbgR || k.dbgL ? { dbg: { R: k.dbgR, L: k.dbgL } } : {}), cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...(k.reach ? { short: k.reach } : {}), ...(k.tail ? { tail: k.tail } : {}), ...rigOf(a) };
   });
   const { gaps, ...near } = reach(), held = heldNow();
   for (const h of held) { const g = (gaps || []).find((x) => x.who === h.who && x.prop === h.prop); if (g) h.gap = g.gap; }
@@ -1151,10 +1156,13 @@ function reach() {
       const size = o.geometry.boundingBox.getSize(new THREE.Vector3()).multiply(o.getWorldScale(sc));
       if (Math.max(size.x, size.y, size.z) < 0.08) return;   // speckles, glints, small trims
       let name = o === a.ch.body ? "body" : "costume";
+      // a friend's head counts as body (arms are measured against it too); its ears as ears
+      const bp = o.userData.bodyPart; if (bp === "head" || bp === "torso") name = "body"; else if (bp === "ear") name = "ear";
       for (let q = o; q; q = q.parent) { if (q === hat) name = "hat"; if (q === helm) name = "helmet"; }
       if (a.ch.face && a.ch.face.group && name === "costume") for (let q = o; q; q = q.parent) if (q === a.ch.face.group) name = "face";
       list.push({ o, name });
     });
+    for (const b of a.ch.tailBalls || []) list.push({ o: b, name: "tail" });   // Rusty's tail: a ball per segment
     return list;
   };
   const dist = (o, p) => {
@@ -1171,6 +1179,8 @@ function reach() {
       if (b === a) {
         // own body: only a hand sunk in past its centre (3 cm, as the box ellipsoid is a little fuller than the potato)
         for (const q of pts) if (q.part.startsWith("hand")) { const d = dist(a.ch.body, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own body", depth: rd(-d) }); }
+        // a friend's own head (a hand on its cheek touches it; past 3 cm in, it is inside)
+        if (a.ch.headMesh) for (const q of pts) if (q.part.startsWith("hand")) { const d = dist(a.ch.headMesh, q.p); if (d < -0.03) out.reach.push({ who: a.c.id, by: q.part, with: a.c.id, part: "own head", depth: rd(-d) }); }
         // an arm through its own body: past the shoulder the tube's centre stays outside (Zombie Too, Jonny 4 Nov: Reaper's
         // arm came out of his chest, not his shoulder, to reach round Phoenix). Deepest point, per arm
         const own = new Map();
@@ -1180,7 +1190,7 @@ function reach() {
       }
       const best = new Map();
       for (const { o, name } of parts(b)) for (const q of pts) {
-        if (q.arm && name !== "body" && name !== "face") continue;   // a hood or hat is measured as its box: too coarse for an arm passing by
+        if (q.arm && name !== "body" && name !== "face" && name !== "ear" && name !== "tail") continue;   // a hood or hat is measured as its box: too coarse for an arm passing by
         const d = q.r - dist(o, q.p), k = `${q.part}|${name}`;
         if (d > -0.01 && d > (best.get(k)?.depth ?? -1)) best.set(k, { who: a.c.id, by: q.part, with: b.c.id, part: name, depth: rd(d) });
       }
@@ -1628,9 +1638,12 @@ function hiddenFaces(live, shownIn) {
     if (Math.abs(mid.x) > 1 || Math.abs(mid.y) > 1 || mid.z > 1) continue;
     // a face turned away from the camera (a character seen from behind) can't be seen anyway
     const em = eyes[0].root.getWorldPosition(new THREE.Vector3()).add(eyes[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5);
-    const bc = b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
+    const bc = b.ch.headCenter ? b.ch.headCenter() : b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
     if (em.clone().sub(bc).normalize().dot(camera.position.clone().sub(em).normalize()) < 0.2) continue;
     const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body);
+    // a friend's own head, muzzle, nose and ears (rigs/friends.js): its far eye behind its own muzzle is anatomy. Its
+    // hair still counts, like a hat brim
+    if (b.ch.headGroup) b.ch.headGroup.traverse((q) => { if (!String(q.name).startsWith("hair")) own.add(q); });
     let hidden = 0, scen = 0, n = 0, hand = 0; const by = new Map(), sby = new Map(), hby = new Map();
     for (const e of eyes) {
       const c = e.root.getWorldPosition(new THREE.Vector3()), r = e.r * e.root.getWorldScale(new THREE.Vector3()).x * 0.7;
