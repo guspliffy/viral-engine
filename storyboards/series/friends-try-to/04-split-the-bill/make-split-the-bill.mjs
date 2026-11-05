@@ -26,53 +26,63 @@ const T0 = 7.0, END = 9.8;   // + two 3-frame hit-stops (the confetti burst, the
 
 // ---------------------------------------------------------------- places (x right, z toward the camera)
 // One long low table across the frame; Viking and Phoenix sit behind it, the Wizard and Reaper at its two ends (a
-// little nearer the camera, as in the panels), the waiter stands back right behind Reaper.
-const TH = 0.38, TABLE = [0, 0.47], TW = 1.2, TD = 0.7;
-const WIZ = [-1.05, 0.55], VIK = [-0.5, -0.3], PHX = [0.5, -0.3], REA = [1.05, 0.55], SAM = [1.32, -1.0];
-const WIZ_YAW = 40, VIK_YAW = 8, PHX_YAW = -8, REA_YAW = -40, SAM_YAW = -35;
+// little nearer the camera, as in the panels), the waiter stands back centre, a head taller, between Viking and Phoenix (in 9:16 Reaper fills the right edge).
+const TH = 0.38, TABLE = [0, 0.62], TW = 0.86, TD = 1.0;
+const WIZ = [-0.86, 0.6], VIK = [-0.48, -0.35], PHX = [0.48, -0.35], REA = [0.86, 0.6], SAM = [0.04, -1.3];
+const WIZ_YAW = 40, VIK_YAW = 8, PHX_YAW = -8, REA_YAW = -40, SAM_YAW = -6;
 // on the table (y TH): each friend's plate, Viking's stack, Phoenix's water, the pouch, the tray with the bill
-const PL_WIZ = [-0.34, 0.64], STACK = [-0.4, 0.3], PL_PHX = [0.07, 0.36], PL_REA = [0.47, 0.68], GLASS = [0.41, 0.27];
-const TRAY = [-0.12, 0.56], POUCH = [-0.13, 0.27], SPILL = [0.08, 0.58], FISH1 = [0.02, 0.72];
-const LANE = 0.25;   // the long bill's path across the table, clear of the plates
+const PL_WIZ = [-0.2, 0.72], STACK = [-0.05, 0.27], PL_PHX = [0.27, 0.4], PL_REA = [0.25, 0.7], GLASS = [0.37, 0.2];
+const TRAY = [-0.3, 0.45], POUCH = [-0.3, 0.21], SPILL = [0.05, 0.6], FISH1 = [0.05, 0.74];
+const LANE = 0.05;   // the long bill's line across the table (it floats over the plates' rims)
+// hands resting on the table top at its two ends (the Wizard's left, Reaper's right): their arms' rest pose would
+// hang into the table beside them
+const REST_W = { world: [-0.42, r3(TH + 0.035), 0.56] }, REST_R = { world: [0.4, r3(TH + 0.035), 0.5] };
 
 const cast = [
   { id: "wiz", character: "bistro/wizard-staff-r", at: WIZ, face: WIZ_YAW, expr: "focused", follow: 0.3, seed: 2.6 },
   { id: "vik", character: "duo/viking", at: VIK, face: VIK_YAW, expr: "focused", follow: 0.3, seed: 4.1 },
   { id: "phx", character: "duo/phoenix", at: PHX, face: PHX_YAW, expr: "kind", follow: 0.3, seed: 1.7, span: 0.15 },
   { id: "rea", character: "bistro/reaper-scythe-l", at: REA, face: REA_YAW, expr: "kind", follow: 0.25, seed: 3.3 },
-  { id: "sam", character: "bistro/samurai-waiter", at: SAM, face: SAM_YAW, expr: "deadpan", follow: 0.2, seed: 2.2, sway: 0.4 },
+  { id: "sam", character: "bistro/samurai-waiter", at: SAM, face: SAM_YAW, expr: "deadpan", follow: 0.2, seed: 2.2, sway: 0.4, scale: 1.2 },   // he stands, they sit: a head taller
 ];
-const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX[0] - 0.2, 0.5, PHX[1] + 0.36], PHX_YAW), tip: -15, scale: 1.6, case: "#e07a5f" };
+const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX[0] - 0.3, 0.36, PHX[1] + 0.36], PHX_YAW), tip: -25, scale: 1.3, case: "#e07a5f" };
 const GLASS_SPEC = { id: "glass", kind: "waterglass", x: GLASS[0], y: TH, z: GLASS[1], rot: 0 };
-const READER = { id: "reader", kind: "cardreader", ...grips.placeFor("cardreader", [r3(SAM[0] + 0.3), 0.36, r3(SAM[1] + 0.24)], SAM_YAW + 30), scale: 1.2 };
-const BILL0 = [-0.12, r3(TH + 0.012), 0.56];   // on the tray, its long side along x (rot 90: its top end to the left)
+// the waiter waits with the next bill (a fat roll) in his right hand and the card machine in his left, from frame 0
+const SAM_F = [Math.sin((SAM_YAW * Math.PI) / 180), Math.cos((SAM_YAW * Math.PI) / 180)], SAM_L = [SAM_F[1], -SAM_F[0]];
+const READER = { id: "reader", kind: "cardreader", ...grips.placeFor("cardreader", [r3(SAM[0] + 0.36 * SAM_F[0] + 0.2 * SAM_L[0]), 0.34, r3(SAM[1] + 0.36 * SAM_F[1] + 0.2 * SAM_L[1])], SAM_YAW), scale: 1.2 };
+const ROLL0 = [r3(SAM[0] + 0.42 * SAM_F[0] - 0.16 * SAM_L[0]), 0.4, r3(SAM[1] + 0.42 * SAM_F[1] - 0.16 * SAM_L[1])];
+// the bill on the tray, its top end toward the Wizard and its foot toward Viking (they tug it across the corner)
+const BILL_ROT = 158, BILL0 = [TRAY[0], r3(TH + 0.012), TRAY[1]], AX = [0.37, -0.93];
 // the long bill's path in its own frame (origin where the roll lands, behind the plates on the lane)
-const LB = [LANE, TH, 0.18];
-const LB_PATH = [[0, 0, 0], [0, 0, r3(TABLE[1] + TD / 2 + 0.02 - LB[2])], [0, -0.06, r3(TABLE[1] + TD / 2 + 0.05 - LB[2])], [0, -TH, r3(TABLE[1] + TD / 2 + 0.1 - LB[2])], [-0.05, -TH, 1.75]];
+const LB = [LANE, TH, 0.45];
+const LB_PATH = [[0, 0.025, 0], [0, 0.025, r3(TABLE[1] + TD / 2 + 0.02 - LB[2])], [0, -0.06, r3(TABLE[1] + TD / 2 + 0.05 - LB[2])], [0, -TH, r3(TABLE[1] + TD / 2 + 0.1 - LB[2])], [-0.05, -TH, 1.75]];
 const CONF = ["#e0475b", "#ffd23f", "#3d8fb0", "#6cbf3a", "#f07fa6"];
 const props = [
   { id: "table", kind: "bistrotable", x: TABLE[0], z: TABLE[1], w: TW, d: TD, h: TH, drape: 0.14 },
   { id: "tray", kind: "billtray", x: TRAY[0], y: TH, z: TRAY[1] },
-  { id: "bill", kind: "receipt", x: BILL0[0], y: BILL0[1], z: BILL0[2], rot: 90 },
+  { id: "bill", kind: "receipt", x: BILL0[0], y: BILL0[1], z: BILL0[2], rot: BILL_ROT },
   { id: "stack", kind: "platestack", x: STACK[0], y: TH, z: STACK[1], n: 5 },
-  { id: "plwiz", kind: "dinnerplate", x: PL_WIZ[0], y: TH, z: PL_WIZ[1], r: 0.13, crumbs: 9, seed: 4 },
-  { id: "plphx", kind: "dinnerplate", x: PL_PHX[0], y: TH, z: PL_PHX[1], r: 0.095, crumbs: 6, seed: 8 },   // a bread plate: he "only had water"
-  { id: "plrea", kind: "dinnerplate", x: PL_REA[0], y: TH, z: PL_REA[1], r: 0.12, crumbs: 3, seed: 5 },
+  { id: "plwiz", kind: "dinnerplate", x: PL_WIZ[0], y: TH, z: PL_WIZ[1], r: 0.1, crumbs: 9, seed: 4 },
+  { id: "plphx", kind: "dinnerplate", x: PL_PHX[0], y: TH, z: PL_PHX[1], r: 0.085, crumbs: 6, seed: 8 },   // a bread plate: he "only had water"
+  { id: "plrea", kind: "dinnerplate", x: PL_REA[0], y: TH, z: PL_REA[1], r: 0.1, crumbs: 3, seed: 5 },
   GLASS_SPEC,
-  { id: "pouch", kind: "pouch", x: POUCH[0], y: TH, z: POUCH[1], rot: -10 },
+  { id: "pouch", kind: "pouch", x: POUCH[0], y: TH, z: POUCH[1], rot: -20 },
   { id: "spill", kind: "spillpile", x: SPILL[0], y: TH, z: SPILL[1], from: [r3(POUCH[0] + 0.12 - SPILL[0]), 0.09, r3(POUCH[1] - SPILL[1])], seed: 21 },
   { id: "fish", kind: "fishbone", x: r3(POUCH[0] + 0.12), y: r3(TH + 0.08), z: POUCH[1], rot: 20, scale: 0.001 },
-  { id: "sum", kind: "sum", x: -0.42, y: 1.42, z: 0.4, from: [-0.3, -0.72, 0.38] },
-  { id: "confetti", kind: "confetti", x: -0.12, y: 1.42, z: 0.32, count: 80, spread: 0.42, up: 0.25, floor: r3(1.42 - TH), depth: 0.42, seed: 7 },
+  { id: "sum", kind: "sum", x: -0.4, y: 1.45, z: 0.3, from: [-0.22, -0.79, 0.55] },
+  { id: "confetti", kind: "confetti", x: 0.0, y: 1.42, z: 0.3, count: 80, spread: 0.32, up: 0.25, floor: r3(1.42 - TH), depth: 0.42, seed: 7 },
   ...[0, 1, 2, 3].map((i) => ({ id: `strip${i}`, kind: "billstrip", i, x: 0, y: 0.8, z: 0.7, scale: 0.001 })),
-  { id: "longbill", kind: "longbill", x: r3(SAM[0] - 0.12), y: 0.52, z: r3(SAM[1] + 0.3), path: LB_PATH, scale: 1 },
+  { id: "longbill", kind: "longbill", x: ROLL0[0], y: ROLL0[1], z: ROLL0[2], path: LB_PATH, scale: 1 },
   READER,
   { id: "napkin", kind: "napkin", wear: "vik", x: 0, y: 0.6, z: 0.3, w: 0.3, h: 0.26 },
   { id: "apron", kind: "waiterapron", wear: "sam", x: 0, y: 0, z: 0, y0: 0.4, y1: 0.07, rx: 0.44, rz: 0.39, arc: 130 },
   { id: "nosefleck", kind: "fleck", wear: "vik", x: 0.0, y: 0.55, z: 0.37, color: "#e0475b", scale: 0.001 },
   { id: "hatfleck", kind: "fleck", wear: "wiz", x: 0.06, y: 1.05, z: 0.2, color: "#3d8fb0", scale: 0.001 },
-  { id: "candle", kind: "bottlecandle", x: -0.52, y: TH, z: 0.76, lit: 1 },
-  { id: "plant", kind: "bistroplant", x: 1.0, z: 1.45, scale: 1.7, seed: 12 },
+  // foreground dressing as in the panels: a corner of the next table with the bottle candle bottom left, the plant
+  // bottom right; both stay below the main table's front edge on screen and clear of the long bill's lane
+  { id: "fgtable", kind: "bistrotable", x: -0.72, z: 2.3, w: 0.7, d: 0.55, h: 0.62, drape: 0.14 },
+  { id: "candle", kind: "bottlecandle", x: -0.5, y: 0.62, z: 2.2, lit: 1 },
+  { id: "plant", kind: "bistroplant", x: 0.62, z: 2.35, scale: 1.3, seed: 12 },
   PHONE,
 ];
 
@@ -84,12 +94,19 @@ const SUB = 470, SUBS = { size: 62, kinetic: false };   // under the faces, over
 act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 sfx(0, "put-down", { gain: 0.6, reason: "the bill tray clinks down on the table" });
 sfx(0.02, "kenney/impact-plate-light", { gain: 0.35, reason: "the plates and cutlery rattle as everyone lunges" });
-c.arm(0, "sam", "R", { o: [0.2, 0.42, 0.42] }, 0); c.arm(0.05, "sam", "R", "rest", 0.45, "inOut");
+// the tray has just been slid down the table (it skids in from the right and stops)
+c.prop(0, "tray", { x: r3(TRAY[0] + 0.1) }, 0); c.prop(0, "tray", { x: TRAY[0] }, 0.1, "out");
+c.prop(0, "bill", { x: r3(BILL0[0] + 0.1) }, 0); c.prop(0, "bill", { x: BILL0[0] }, 0.1, "out");
+c.arm(0, "sam", "R", { prop: "longbill", grip: [0, 0.075, 0], palm: true }, 0); A(0, "sam", "grip", { side: "R", shape: "hold", dur: 0 });
+A(0, "sam", "grab", { prop: "longbill", hand: "R", keep: true, dur: 0, pose: null });
+const rd = grips.phone(c, "sam", READER, { side: "L" });
+rd.secure(0, 0.01);
+c.arm(0, "wiz", "L", REST_W, 0); c.arm(0, "rea", "R", REST_R, 0);
 A(0, "sam", "look", { to: [-0.5, -0.4], dur: 0, blink: false }); A(0, "sam", "face", { lid: 0.55, dur: 0 });
 act.blinksAt(c, "sam", [1.2, 4.6, 6.5]);
 const W_END = [0, 0.003, -0.115], V_END = [0, 0.003, 0.115];   // the bill's two ends (its own frame)
 // the hands are already on their way at frame 0
-c.arm(0, "wiz", "L", { o: [0.3, 0.42, 0.42] }, 0); c.arm(0, "vik", "L", { o: [0.2, 0.42, 0.38] }, 0);
+c.arm(0, "wiz", "L", { o: [0.3, 0.5, 0.42] }, 0); c.arm(0, "vik", "L", { o: [0.15, 0.5, 0.42] }, 0);
 c.arm(0.0, "wiz", "L", { prop: "bill", grip: W_END, point: "pinch" }, 0.14, "out");
 c.arm(0.0, "vik", "L", { prop: "bill", grip: V_END, point: "pinch" }, 0.14, "out");
 A(0, "wiz", "grip", { side: "L", shape: "open", dur: 0 }); A(0, "vik", "grip", { side: "L", shape: "open", dur: 0 });
@@ -99,8 +116,9 @@ A(0, "wiz", "look", { to: [0.35, -0.45], dur: 0, blink: false }); A(0, "vik", "l
 A(0.06, "wiz", "expr", { expr: "angry", set: { open: 0.35 }, dur: 0.1 }); A(0.06, "vik", "expr", { expr: "angry", set: { open: 0.3, curve: -0.3 }, dur: 0.1 });
 // the tug of war: the bill lifts between them and jerks left and right, bowing up as they pull
 const TUG = [[0.18, -0.03], [0.42, 0.04], [0.64, -0.05], [0.86, 0.05], [1.08, -0.04], [1.26, 0.03]];
-c.prop(0.15, "bill", { y: r3(TH + 0.13), bend: 0.5 }, 0.12, "out");
-for (const [t, dx] of TUG) { c.prop(t, "bill", { x: r3(BILL0[0] + dx), bend: dx < 0 ? 0.2 : 0.65 }, 0.14, "inOut"); A(t, dx < 0 ? "wiz" : "vik", "lean", { to: dx < 0 ? 2 : 4, dur: 0.14 }); A(t, dx < 0 ? "vik" : "wiz", "lean", { to: 12, dur: 0.14 }); }
+const TUG0 = [-0.48, r3(TH + 0.24), 0.22];   // lifted off the tray into the air over the table's corner, between them
+c.prop(0.15, "bill", { x: TUG0[0], y: TUG0[1], z: TUG0[2], bend: 0.5 }, 0.12, "out");
+for (const [t, dx] of TUG) { c.prop(t, "bill", { x: r3(TUG0[0] - dx * AX[0]), z: r3(TUG0[2] - dx * AX[1]), bend: dx < 0 ? 0.2 : 0.65 }, 0.14, "inOut"); A(t, dx < 0 ? "wiz" : "vik", "lean", { to: dx < 0 ? 2 : 4, dur: 0.14 }); A(t, dx < 0 ? "vik" : "wiz", "lean", { to: 12, dur: 0.14 }); }
 for (const t of [0.42, 0.86]) sfx(t, "papercut", { gain: 0.18, reason: "the paper snapping taut in the tug of war (a dry papery hiss, quiet)" });
 A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false });
 A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false });
@@ -116,8 +134,8 @@ act.blinksAt(c, "rea", [2.3, 4.9]); act.blinksAt(c, "phx", [1.6, 5.2]); act.blin
 
 // ---------------------------------------------------------------- 2 THE SPELL 1.5-3.3 (P2)
 // the Wizard yanks it free, holds it up and points his staff: the numbers float up into a spinning sum and explode
-const YANK = 1.36, HELD = [-0.74, 0.66, 0.83];
-c.prop(YANK, "bill", { x: HELD[0], y: HELD[1], z: HELD[2], bend: 0, rot: 120 }, 0.2, "out");
+const YANK = 1.36, HELD = [-0.62, 0.66, 0.85];
+c.prop(YANK, "bill", { x: HELD[0], y: HELD[1], z: HELD[2], bend: 0, rot: 160 }, 0.2, "out");
 A(YANK, "wiz", "lean", { to: -6, dur: 0.18 });
 A(r3(YANK + 0.02), "vik", "grip", { side: "L", shape: "open", dur: 0.05 });
 c.arm(r3(YANK + 0.04), "vik", "L", { o: [0.18, 0.5, 0.3] }, 0.2, "out");
@@ -163,7 +181,7 @@ see(3.4, 3.75, ["vik.face", "nosefleck", "wiz.face"], "P2: confetti everywhere, 
 
 // ---------------------------------------------------------------- 3 COINS AND MATHS 3.3-5.5 (P3-P4)
 // Phoenix holds up his glass of water: "I only had water!"
-const gl = grips.mug(c, "phx", GLASS_SPEC, { side: "L" });
+const gl = grips.mug(c, "phx", GLASS_SPEC, { side: "L", height: 0.85 });
 let tg = gl.take(3.15, { reach: 0.25, settle: 0.15 });
 gl.carry(tg, [r3(PHX[0] + 0.2), 0.86, r3(PHX[1] + 0.42)], 0.25, "out");
 A(3.6, "phx", "look", { to: [-0.5, 0.1], dur: 0.12, blink: false });
@@ -173,7 +191,7 @@ c.cap(3.65, 4.35, "I only had water!", SUB, false, SUBS);
 sfx(3.68, "put-down-glass", { gain: 0.2, reason: "the water sloshing against the glass as he lifts it (a light glass clink)" });
 // Viking empties his pouch: coins, buttons, a marble and a fish bone (splort)
 const POUR = 3.75, PM = [r3(POUCH[0] + 0.02), r3(TH + 0.05), POUCH[1]];
-c.arm(3.55, "vik", "L", { prop: "pouch", grip: [-0.06, 0.15, 0], palm: true }, 0.2, "out");
+c.arm(3.55, "vik", "L", { prop: "pouch", grip: [-0.04, 0.165, 0], palm: true }, 0.2, "out");
 A(3.7, "vik", "grip", { side: "L", shape: "hold", dur: 0.08 });
 c.prop(POUR, "pouch", { y: r3(TH + 0.08), tilt: -55, open: 1 }, 0.25, "out");
 c.prop(POUR, "spill", { spill: 1 }, 0.7, "linear");
@@ -194,8 +212,8 @@ gl.put(4.35, [GLASS[0], TH, GLASS[1]]);
 A(4.5, "wiz", "look", { to: [0.55, 0.0], dur: 0.12, blink: false }); A(4.5, "vik", "look", { to: [-0.6, 0.0], dur: 0.12, blink: false });
 act.mood(c, 4.55, "wiz", "angry", { hold: 0.5 }); act.mood(c, 4.58, "vik", "angry", { hold: 0.5 });
 // the Wizard drops the bill to point: it skids across the cloth and stops in front of Reaper
-const SLAP = 4.55, BILL_REA = [0.62, r3(TH + 0.003), 0.5];
-c.prop(SLAP, "bill", { x: -0.45, y: r3(TH + 0.003), z: 0.64, rot: 95 }, 0.12, "in");
+const SLAP = 4.55, BILL_REA = [0.28, r3(TH + 0.025), 0.52];   // it stops against Reaper's resting glove
+c.prop(SLAP, "bill", { x: -0.25, y: r3(TH + 0.025), z: 0.55, rot: 95 }, 0.12, "in");
 c.prop(r3(SLAP + 0.12), "bill", { x: BILL_REA[0], z: BILL_REA[2], rot: 75 }, 0.5, "out");
 sfx(r3(SLAP + 0.12), "book-close", { gain: 0.35, reason: "the bill slapped down on the tablecloth" });
 sfx(r3(SLAP + 0.18), "scrape", { gain: 0.15, dur: 0.35, reason: "the bill skidding along the cloth toward Reaper (soft)" });
@@ -215,21 +233,23 @@ c.arm(5.2, "vik", "R", { o: [0.3, 0.45, 0.42] }, 0.15, "out"); A(5.2, "vik", "gr
 ph.carry(5.3, [r3(PHX[0] - 0.22), 0.52, r3(PHX[1] + 0.38)], 0.25, "inOut", { rot: PHONE.rot });
 A(5.3, "phx", "expr", { expr: "sad", dur: 0.2 });
 c.arm(5.5, "vik", "R", "rest", 0.3, "inOut"); A(5.55, "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
-c.arm(5.45, "wiz", "L", "rest", 0.3, "inOut"); A(5.5, "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+c.arm(5.45, "wiz", "L", REST_W, 0.3, "inOut"); A(5.5, "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 see(4.65, 5.4, ["wiz.face", "vik.face", "phone"], "P4: the blame: both point and shout at once, Phoenix shoves his calculator at them");
 
 // ---------------------------------------------------------------- 4 THE CALM FIX 5.5-7.0 (P5): one flick of the scythe
 // Reaper picks up the bill that skidded to him, holds it up by its top end, and one flick cuts it into four strips
-const TAKE = 5.5, UP = [0.78, 0.86, 0.86];   // where the bill hangs from his fingers, in front of him, clear of everyone
+const TAKE = 5.5, UP = [0.5, 0.8, 0.95];   // where the bill hangs from his fingers, in front of him, clear of everyone
 A(5.4, "rea", "look", { to: [-0.35, -0.5], dur: 0.12, blink: false });
-c.arm(TAKE, "rea", "R", { prop: "bill", grip: [0, 0.003, -0.115], point: "pinch" }, 0.22, "out");
-A(5.6, "rea", "grip", { side: "R", shape: "pinch", dur: 0.06 });
+c.arm(TAKE, "rea", "R", { prop: "bill", grip: [0, 0.003, -0.115], point: "pinch", off: [0, 0.04, 0] }, 0.2, "out");
+c.prop(5.7, "bill", { y: r3(TH + 0.05), tip: 25 }, 0.06, "out");   // its end flips up into his fingers
+c.arm(5.7, "rea", "R", { prop: "bill", grip: [0, 0.003, -0.115], point: "pinch" }, 0.06, "out");
+A(5.72, "rea", "grip", { side: "R", shape: "pinch", dur: 0.06 });
 c.prop(5.75, "bill", { x: UP[0], y: UP[1], z: UP[2], rot: -40, tip: 90 }, 0.3, "inOut");
 sfx(5.78, "book-flip", { gain: 0.2, reason: "the bill lifted off the cloth with a papery flap" });
 A(5.8, "rea", "look", { to: [-0.15, 0.2], dur: 0.15, blink: false });
 A(5.85, "rea", "expr", { expr: "focused", set: { curve: 0 }, dur: 0.25 }); A(5.85, "rea", "face", { lid: 0.35, dur: 0.25 });
 // the scythe: up on his outer side, then one flat flick across the paper (the blade below the hand, over the table)
-const SCY_UP = { o: [0.3, 0.92, 0.2] }, SCY_CUT = { o: [-0.05, 0.62, 0.52] };
+const SCY_UP = { o: [0.3, 0.92, 0.2] }, SCY_CUT = { o: [0.0, 0.76, 0.5] };
 c.arm(5.85, "rea", "L", SCY_UP, 0.25, "out"); A(5.9, "rea", "tilt", { to: [-20, 0], dur: 0.25 });
 act.windUp(c, 6.05, "rea", { amount: 0.1, dur: 0.12 });
 const CUT = 6.2;
@@ -250,7 +270,7 @@ for (let i = 0; i < 4; i++) {
 sfx(r3(CUT + 0.1), "flutter", { gain: 0.3, reason: "four paper strips fluttering down onto the plates" });
 // his hand opens: the strips are cut free
 A(r3(CUT + 0.04), "rea", "grip", { side: "R", shape: "open", dur: 0.08 });
-c.arm(r3(CUT + 0.25), "rea", "R", "rest", 0.35, "inOut"); A(r3(CUT + 0.4), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+c.arm(r3(CUT + 0.25), "rea", "R", REST_R, 0.35, "inOut"); A(r3(CUT + 0.4), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 c.arm(r3(CUT + 0.2), "rea", "L", "rest", 0.4, "inOut"); A(r3(CUT + 0.2), "rea", "tilt", { to: null, dur: 0.4 });
 A(r3(CUT + 0.3), "rea", "expr", { expr: "deadpan", dur: 0.25 }); A(r3(CUT + 0.3), "rea", "face", { lid: 0.5, dur: 0.25 });
 // jaws drop; the waiter, very slightly, nods
@@ -262,39 +282,39 @@ see(6.3, 6.95, ["strip0", "strip1", "strip2", "strip3", "wiz.face", "vik.face", 
 // ---------------------------------------------------------------- 5-7 THE SHARED ENDING (P6-P8)
 // the cheer is a high-five across the table between the Wizard and Viking (P6); then Viking raises one finger to the
 // waiter: "…dessert?" and the waiter drops a brand-new, much longer bill that rolls across the table onto the floor
-const HF = [-0.8, 1.12, 0.18];   // where the Wizard's and Viking's palms meet
+const HF = [-0.6, 1.22, 0.05];   // where the Wizard's and Viking's palms meet
 c.arm(r3(T0 + 0.02), "wiz", "L", { world: [r3(HF[0] - 0.02), HF[1], HF[2]] }, 0.16, "out");
 c.arm(r3(T0 + 0.02), "vik", "R", { world: [r3(HF[0] + 0.03), HF[1], HF[2]] }, 0.16, "out");
 A(r3(T0 + 0.02), "wiz", "grip", { side: "L", shape: "flat", dur: 0.08 }); A(r3(T0 + 0.02), "vik", "grip", { side: "R", shape: "flat", dur: 0.08 });
 sfx(r3(T0 + 0.18), "punch", { gain: 0.3, reason: "the high-five's slap (a short meaty clap)" });
-c.arm(r3(T0 + 0.6), "wiz", "L", "rest", 0.3, "inOut"); A(r3(T0 + 0.65), "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+c.arm(r3(T0 + 0.5), "wiz", "L", { o: [0.4, 0.75, 0.25] }, 0.15, "inOut"); c.arm(r3(T0 + 0.66), "wiz", "L", REST_W, 0.3, "inOut"); A(r3(T0 + 0.65), "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 c.arm(r3(T0 + 0.6), "vik", "R", "rest", 0.3, "inOut"); A(r3(T0 + 0.65), "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 const LB_LAND = [LB[0], LB[1], LB[2]];
 const AT = { wiz: WIZ, vik: VIK, phx: PHX, rea: REA };
 const E = ending(c, {
   T0, at: AT,
-  arms: { wiz: [], vik: ["L"], phx: ["L"], rea: ["R"] },   // the staff, the phone and the scythe hands stay down; Wizard and Viking high-five
+  arms: { wiz: [], vik: ["L"], phx: ["L"], rea: [] },   // the staff, the phone and the scythe hands stay down; Wizard and Viking high-five
   cheerHop: [],
   undo(U) {
     // Viking, still beaming, raises one finger to the waiter
-    A(r3(U - 0.1), "vik", "look", { to: [0.85, 0.25], dur: 0.12, blink: false });
-    A(U, "vik", "turn", { to: -20, dur: 0.25 });
+    A(r3(U - 0.1), "vik", "look", { to: [0.45, 0.6], dur: 0.12, blink: false });   // up to the waiter behind him
+    A(U, "vik", "turn", { to: -14, dur: 0.25 });
     c.arm(r3(U + 0.02), "vik", "L", { o: [0.22, 1.0, 0.18] }, 0.2, "out"); A(r3(U + 0.04), "vik", "grip", { side: "L", shape: "point", dur: 0.1 });
     A(U, "vik", "expr", { expr: "delighted", set: { open: 0.25 }, dur: 0.2 });
     A(r3(U + 0.1), "vik", "talk", { line: "dessert?", tone: "calm", dur: 0.4, voice: false });
     c.cap(r3(U + 0.1), r3(U + 0.7), "…dessert?", SUB, false, SUBS);
     // the waiter: the roll is in his apron pocket; up it comes and down on the table it goes
     A(r3(U - 0.25), "sam", "look", { to: [-0.3, -0.1], dur: 0.12, blink: false });
-    c.arm(r3(U - 0.2), "sam", "R", { prop: "longbill", grip: [0, 0.07, 0], palm: true }, 0.2, "out");
-    A(r3(U - 0.02), "sam", "grip", { side: "R", shape: "hold", dur: 0.08 });
-    A(r3(U + 0.04), "sam", "grab", { prop: "longbill", hand: "R", keep: true, dur: 0, pose: null });
-    c.arm(r3(U + 0.06), "sam", "R", { o: [0.3, 0.7, 0.5] }, 0.2, "out");
+    c.arm(r3(U + 0.0), "sam", "R", { o: [0.15, 0.62, 0.45] }, 0.22, "out");   // a wind-up, then he lobs it over Phoenix's head
     const DROP = r3(U + 0.3);   // the "döm"... the sting starts here
     A(DROP, "sam", "grip", { side: "R", shape: "open", dur: 0.06 });
-    A(DROP, "sam", "release", { prop: "longbill", to: LB_LAND, dur: 0.18, arc: 0.06 });
+    A(DROP, "sam", "release", { prop: "longbill", to: LB_LAND, dur: 0.24, arc: 0.85 });
+    c.arm(r3(DROP - 0.04), "sam", "R", { o: [0.1, 0.85, 0.55] }, 0.08, "out");
+    // Phoenix ducks as it sails over him
+    A(r3(DROP + 0.02), "phx", "crouch", { to: 0.35, dur: 0.1 }); A(r3(DROP + 0.25), "phx", "crouch", { to: 0, dur: 0.25 });
     c.arm(r3(DROP + 0.1), "sam", "R", "rest", 0.4, "inOut");
-    sfx(r3(DROP + 0.18), "thud-soft", { gain: 0.5, reason: "the fat paper roll landing on the table" });
-    c.prop(r3(DROP + 0.2), "longbill", { unroll: 1 }, 0.75, "out");
+    sfx(r3(DROP + 0.24), "thud-soft", { gain: 0.5, reason: "the fat paper roll landing on the table" });
+    c.prop(r3(DROP + 0.26), "longbill", { unroll: 1 }, 0.7, "out");
     sfx(r3(DROP + 0.22), "flutter", { gain: 0.4, reason: "the long bill unrolling across the table and down to the floor" });
     sfx(r3(DROP + 0.62), "thud-soft", { gain: 0.25, reason: "the roll dropping off the table's edge onto the floor" });
     A(r3(DROP + 0.05), "sam", "look", { to: [-0.55, 0.0], dur: 0.12, blink: false });
@@ -305,21 +325,17 @@ const E = ending(c, {
   rub: "R",
 });
 // the waiter holds out the card machine (P8)
-const rd = grips.phone(c, "sam", READER, { side: "L" });
-let tr = rd.take(r3(E.glare - 0.35), { reach: 0.2, settle: 0.12 });
-rd.carry(tr, [r3(SAM[0] - 0.05), 0.72, r3(SAM[1] + 0.5)], 0.3, "out", { rot: r3(SAM_YAW + 180 - 15) });
+rd.carry(r3(E.glare - 0.1), [r3(SAM[0] + 0.5 * SAM_F[0] + 0.12 * SAM_L[0]), 1.12, r3(SAM[1] + 0.5 * SAM_F[1] + 0.12 * SAM_L[1])], 0.35, "out");
 see(r3(E.glare + 0.4), 9.7, ["longbill", "reader", "sam.face"], "P8: the long bill on the floor, the card machine held out");
 
 // ---------------------------------------------------------------- shots: Jonny's panels (one front view)
-const WIDE = { pos: [0.18, 1.55, 6.3], look: [0.12, 0.7, 0.2], fov: 42 };
-// P7-P8: a touch lower and wider so the long bill's run onto the floor shows
-const LOW = { pos: [0.22, 1.25, 6.5], look: [0.18, 0.55, 0.3], fov: 46 };
+const WIDE = { pos: [0.0, 1.85, 4.3], look: [0.05, 0.5, 0.3], fov: 50 };
 const beats = c.beats([
   ["P1-P2 going wrong, the spell", 0, WIDE, "hook"],
   ["P3-P4 coins, water, blame", 3.3, "keep"],
   ["P5 the calm fix", 5.5, "keep", "reaction"],
   ["P6 cheer", T0, "keep"],
-  ["P7-P8 the undo, the glare", E.payoff, LOW, "payoff"],
+  ["P7-P8 the undo, the glare", E.payoff, "keep", "payoff"],
 ], END);
 
 write(import.meta.url, {

@@ -73,8 +73,8 @@
    "id": "wiz",
    "character": "bistro/wizard-staff-r",
    "at": [
-    -1.05,
-    0.55
+    -0.86,
+    0.6
    ],
    "face": 40,
    "expr": "focused",
@@ -85,8 +85,8 @@
    "id": "vik",
    "character": "duo/viking",
    "at": [
-    -0.5,
-    -0.3
+    -0.48,
+    -0.35
    ],
    "face": 8,
    "expr": "focused",
@@ -97,8 +97,8 @@
    "id": "phx",
    "character": "duo/phoenix",
    "at": [
-    0.5,
-    -0.3
+    0.48,
+    -0.35
    ],
    "face": -8,
    "expr": "kind",
@@ -110,8 +110,8 @@
    "id": "rea",
    "character": "bistro/reaper-scythe-l",
    "at": [
-    1.05,
-    0.55
+    0.86,
+    0.6
    ],
    "face": -40,
    "expr": "kind",
@@ -122,14 +122,15 @@
    "id": "sam",
    "character": "bistro/samurai-waiter",
    "at": [
-    1.32,
-    -1
+    0.04,
+    -1.3
    ],
-   "face": -35,
+   "face": -6,
    "expr": "deadpan",
    "follow": 0.2,
    "seed": 2.2,
-   "sway": 0.4
+   "sway": 0.4,
+   "scale": 1.2
   }
  ],
  "props": [
@@ -137,123 +138,123 @@
    "id": "table",
    "kind": "bistrotable",
    "x": 0,
-   "z": 0.47,
-   "w": 1.2,
-   "d": 0.7,
+   "z": 0.62,
+   "w": 0.86,
+   "d": 1,
    "h": 0.38,
    "drape": 0.14
   },
   {
    "id": "tray",
    "kind": "billtray",
-   "x": -0.12,
+   "x": -0.3,
    "y": 0.38,
-   "z": 0.56
+   "z": 0.45
   },
   {
    "id": "bill",
    "kind": "receipt",
-   "x": -0.12,
+   "x": -0.3,
    "y": 0.392,
-   "z": 0.56,
-   "rot": 90
+   "z": 0.45,
+   "rot": 158
   },
   {
    "id": "stack",
    "kind": "platestack",
-   "x": -0.4,
+   "x": -0.05,
    "y": 0.38,
-   "z": 0.3,
+   "z": 0.27,
    "n": 5
   },
   {
    "id": "plwiz",
    "kind": "dinnerplate",
-   "x": -0.34,
+   "x": -0.2,
    "y": 0.38,
-   "z": 0.64,
-   "r": 0.13,
+   "z": 0.72,
+   "r": 0.1,
    "crumbs": 9,
    "seed": 4
   },
   {
    "id": "plphx",
    "kind": "dinnerplate",
-   "x": 0.07,
+   "x": 0.27,
    "y": 0.38,
-   "z": 0.36,
-   "r": 0.095,
+   "z": 0.4,
+   "r": 0.085,
    "crumbs": 6,
    "seed": 8
   },
   {
    "id": "plrea",
    "kind": "dinnerplate",
-   "x": 0.47,
+   "x": 0.25,
    "y": 0.38,
-   "z": 0.68,
-   "r": 0.12,
+   "z": 0.7,
+   "r": 0.1,
    "crumbs": 3,
    "seed": 5
   },
   {
    "id": "glass",
    "kind": "waterglass",
-   "x": 0.41,
+   "x": 0.37,
    "y": 0.38,
-   "z": 0.27,
+   "z": 0.2,
    "rot": 0
   },
   {
    "id": "pouch",
    "kind": "pouch",
-   "x": -0.13,
+   "x": -0.3,
    "y": 0.38,
-   "z": 0.27,
-   "rot": -10
+   "z": 0.21,
+   "rot": -20
   },
   {
    "id": "spill",
    "kind": "spillpile",
-   "x": 0.08,
+   "x": 0.05,
    "y": 0.38,
-   "z": 0.58,
+   "z": 0.6,
    "from": [
-    -0.09,
+    -0.23,
     0.09,
-    -0.31
+    -0.39
    ],
    "seed": 21
   },
   {
    "id": "fish",
    "kind": "fishbone",
-   "x": -0.01,
+   "x": -0.18,
    "y": 0.46,
-   "z": 0.27,
+   "z": 0.21,
    "rot": 20,
    "scale": 0.001
   },
   {
    "id": "sum",
    "kind": "sum",
-   "x": -0.42,
-   "y": 1.42,
-   "z": 0.4,
+   "x": -0.4,
+   "y": 1.45,
+   "z": 0.3,
    "from": [
-    -0.3,
-    -0.72,
-    0.38
+    -0.22,
+    -0.79,
+    0.55
    ]
   },
   {
    "id": "confetti",
    "kind": "confetti",
-   "x": -0.12,
+   "x": 0,
    "y": 1.42,
-   "z": 0.32,
+   "z": 0.3,
    "count": 80,
-   "spread": 0.42,
+   "spread": 0.32,
    "up": 0.25,
    "floor": 1.04,
    "depth": 0.42,
@@ -298,29 +299,29 @@
   {
    "id": "longbill",
    "kind": "longbill",
-   "x": 1.2,
-   "y": 0.52,
-   "z": -0.7,
+   "x": -0.163,
+   "y": 0.4,
+   "z": -0.899,
    "path": [
     [
      0,
-     0,
+     0.025,
      0
     ],
     [
      0,
-     0,
-     0.66
-    ],
-    [
-     0,
-     -0.06,
+     0.025,
      0.69
     ],
     [
      0,
+     -0.06,
+     0.72
+    ],
+    [
+     0,
      -0.38,
-     0.74
+     0.77
     ],
     [
      -0.05,
@@ -333,10 +334,10 @@
   {
    "id": "reader",
    "kind": "cardreader",
-   "x": 1.62,
-   "y": 0.36,
-   "z": -0.76,
-   "rot": 175,
+   "x": 0.201,
+   "y": 0.34,
+   "z": -0.921,
+   "rot": 174,
    "scale": 1.2
   },
   {
@@ -383,30 +384,40 @@
    "scale": 0.001
   },
   {
+   "id": "fgtable",
+   "kind": "bistrotable",
+   "x": -0.72,
+   "z": 2.3,
+   "w": 0.7,
+   "d": 0.55,
+   "h": 0.62,
+   "drape": 0.14
+  },
+  {
    "id": "candle",
    "kind": "bottlecandle",
-   "x": -0.52,
-   "y": 0.38,
-   "z": 0.76,
+   "x": -0.5,
+   "y": 0.62,
+   "z": 2.2,
    "lit": 1
   },
   {
    "id": "plant",
    "kind": "bistroplant",
-   "x": 1,
-   "z": 1.45,
-   "scale": 1.7,
+   "x": 0.62,
+   "z": 2.35,
+   "scale": 1.3,
    "seed": 12
   },
   {
    "id": "phone",
    "kind": "phone",
-   "x": 0.3,
-   "y": 0.5,
-   "z": 0.06,
+   "x": 0.18,
+   "y": 0.36,
+   "z": 0.01,
    "rot": 172,
-   "tip": -15,
-   "scale": 1.6,
+   "tip": -25,
+   "scale": 1.3,
    "case": "#e07a5f"
   }
  ],
@@ -464,16 +475,16 @@
    "len": 3.3,
    "shot": {
     "pos": [
-     0.18,
-     1.55,
-     6.3
+     0,
+     1.85,
+     4.3
     ],
     "look": [
-     0.12,
-     0.7,
-     0.2
+     0.05,
+     0.5,
+     0.3
     ],
-    "fov": 42
+    "fov": 50
    },
    "do": [
     {
@@ -492,14 +503,119 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "x": -0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "x": -0.3
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bill",
+     "set": {
+      "x": -0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bill",
+     "set": {
+      "x": -0.3
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "sam",
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       0.2,
-       0.42,
-       0.42
+      "prop": "longbill",
+      "grip": [
+       0,
+       0.075,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "longbill",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "reader",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.42,
+       0.415,
+       0.56
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.4,
+       0.415,
+       0.5
       ]
      },
      "dur": 0,
@@ -535,7 +651,7 @@
      "pose": {
       "o": [
        0.3,
-       0.42,
+       0.5,
        0.42
       ]
      },
@@ -548,9 +664,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.2,
-       0.42,
-       0.38
+       0.15,
+       0.5,
+       0.42
       ]
      },
      "dur": 0,
@@ -649,9 +765,9 @@
      "pose": {
       "prop": "phone",
       "grip": [
-       0.061,
+       0.066,
        0.065,
-       -0.006
+       -0.008
       ],
       "palm": true
      },
@@ -716,6 +832,14 @@
      "at": 0
     },
     {
+     "who": "sam",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -728,15 +852,6 @@
      "gain": 0.35,
      "reason": "the plates and cutlery rattle as everyone lunges",
      "at": 0.02
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.05
     },
     {
      "who": "wiz",
@@ -760,14 +875,28 @@
      "at": 0.06
     },
     {
+     "who": "sam",
+     "do": "grab",
+     "prop": "reader",
+     "hand": "L",
+     "grip": [
+      -0.068,
+      0.065,
+      -0.008
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
      "who": "phx",
      "do": "grab",
      "prop": "phone",
      "hand": "R",
      "grip": [
-      0.061,
+      0.066,
       0.065,
-      -0.006
+      -0.008
      ],
      "dur": 0,
      "pose": null,
@@ -800,7 +929,9 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "y": 0.51,
+      "x": -0.48,
+      "y": 0.62,
+      "z": 0.22,
       "bend": 0.5
      },
      "dur": 0.12,
@@ -811,7 +942,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.15,
+      "x": -0.469,
+      "z": 0.192,
       "bend": 0.2
      },
      "dur": 0.14,
@@ -845,7 +977,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.08,
+      "x": -0.495,
+      "z": 0.257,
       "bend": 0.65
      },
      "dur": 0.14,
@@ -876,7 +1009,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.17,
+      "x": -0.461,
+      "z": 0.174,
       "bend": 0.2
      },
      "dur": 0.14,
@@ -910,7 +1044,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.07,
+      "x": -0.498,
+      "z": 0.267,
       "bend": 0.65
      },
      "dur": 0.14,
@@ -941,7 +1076,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.16,
+      "x": -0.465,
+      "z": 0.183,
       "bend": 0.2
      },
      "dur": 0.14,
@@ -972,7 +1108,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.09,
+      "x": -0.491,
+      "z": 0.248,
       "bend": 0.65
      },
      "dur": 0.14,
@@ -997,11 +1134,11 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.74,
+      "x": -0.62,
       "y": 0.66,
-      "z": 0.83,
+      "z": 0.85,
       "bend": 0,
-      "rot": 120
+      "rot": 160
      },
      "dur": 0.2,
      "ease": "out",
@@ -1500,7 +1637,7 @@
       "prop": "glass",
       "grip": [
        -0.085,
-       0.066,
+       0.085,
        0.023
       ],
       "palm": "wrap",
@@ -1590,7 +1727,7 @@
       "prop": "glass",
       "grip": [
        -0.085,
-       0.066,
+       0.085,
        0.023
       ],
       "palm": "wrap"
@@ -1631,8 +1768,8 @@
      "pose": {
       "prop": "pouch",
       "grip": [
-       -0.06,
-       0.15,
+       -0.04,
+       0.165,
        0
       ],
       "palm": true
@@ -1670,7 +1807,7 @@
      "hand": "L",
      "grip": [
       -0.085,
-      0.066,
+      0.085,
       0.023
      ],
      "dur": 0,
@@ -1695,14 +1832,14 @@
       "prop": "glass",
       "grip": [
        -0.085,
-       0.066,
+       0.085,
        0.023
       ],
       "palm": "wrap",
       "at": [
-       0.7,
+       0.68,
        0.86,
-       0.12
+       0.07
       ]
      },
      "dur": 0.25,
@@ -1787,9 +1924,9 @@
      "do": "prop",
      "id": "fish",
      "set": {
-      "x": 0.02,
+      "x": 0.05,
       "y": 0.382,
-      "z": 0.72,
+      "z": 0.74,
       "rot": -10
      },
      "dur": 0.12,
@@ -1876,14 +2013,14 @@
       "prop": "glass",
       "grip": [
        -0.085,
-       0.066,
+       0.085,
        0.023
       ],
       "palm": "wrap",
       "at": [
-       0.41,
+       0.37,
        0.38,
-       0.27
+       0.2
       ]
      },
      "dur": 0.35,
@@ -1941,9 +2078,9 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": -0.45,
-      "y": 0.383,
-      "z": 0.64,
+      "x": -0.25,
+      "y": 0.405,
+      "z": 0.55,
       "rot": 95
      },
      "dur": 0.12,
@@ -2087,8 +2224,8 @@
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": 0.62,
-      "z": 0.5,
+      "x": 0.28,
+      "z": 0.52,
       "rot": 75
      },
      "dur": 0.5,
@@ -2159,15 +2296,15 @@
      "pose": {
       "prop": "phone",
       "grip": [
-       0.061,
+       0.066,
        0.065,
-       -0.006
+       -0.008
       ],
       "palm": true,
       "at": [
-       0.12,
+       0.1,
        0.62,
-       0.2
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2225,7 +2362,7 @@
       "prop": "glass",
       "grip": [
        -0.085,
-       0.066,
+       0.085,
        0.023
       ],
       "palm": "wrap",
@@ -2298,15 +2435,15 @@
      "pose": {
       "prop": "phone",
       "grip": [
-       0.061,
+       0.066,
        0.065,
-       -0.006
+       -0.008
       ],
       "palm": true,
       "at": [
-       0.28,
+       0.26,
        0.52,
-       0.08
+       0.03
       ]
      },
      "dur": 0.25,
@@ -2345,7 +2482,13 @@
      "who": "wiz",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "world": [
+       -0.42,
+       0.415,
+       0.56
+      ]
+     },
      "dur": 0.3,
      "ease": "inOut",
      "at": 2.15
@@ -2386,9 +2529,14 @@
        0.003,
        -0.115
       ],
-      "point": "pinch"
+      "point": "pinch",
+      "off": [
+       0,
+       0.04,
+       0
+      ]
      },
-     "dur": 0.22,
+     "dur": 0.2,
      "ease": "out",
      "at": 0
     },
@@ -2401,20 +2549,48 @@
      "at": 0.05
     },
     {
+     "do": "prop",
+     "id": "bill",
+     "set": {
+      "y": 0.43,
+      "tip": 25
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bill",
+      "grip": [
+       0,
+       0.003,
+       -0.115
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
      "who": "rea",
      "do": "grip",
      "side": "R",
      "shape": "pinch",
      "dur": 0.06,
-     "at": 0.1
+     "at": 0.22
     },
     {
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": 0.78,
-      "y": 0.86,
-      "z": 0.86,
+      "x": 0.5,
+      "y": 0.8,
+      "z": 0.95,
       "rot": -40,
       "tip": 90
      },
@@ -2539,9 +2715,9 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.05,
-       0.62,
-       0.52
+       0,
+       0.76,
+       0.5
       ]
      },
      "dur": 0.09,
@@ -2568,9 +2744,9 @@
     {
      "fx": "slash",
      "pos": [
-      0.78,
+      0.5,
       0.72,
-      0.91
+      1
      ],
      "r": 0.42,
      "from": 150,
@@ -2589,9 +2765,9 @@
      "do": "prop",
      "id": "strip0",
      "set": {
-      "x": 0.78,
-      "y": 0.958,
-      "z": 0.86,
+      "x": 0.5,
+      "y": 0.898,
+      "z": 0.95,
       "rot": -40,
       "tip": 90,
       "scale": 1
@@ -2604,9 +2780,9 @@
      "do": "prop",
      "id": "strip1",
      "set": {
-      "x": 0.78,
-      "y": 0.893,
-      "z": 0.86,
+      "x": 0.5,
+      "y": 0.833,
+      "z": 0.95,
       "rot": -40,
       "tip": 90,
       "scale": 1
@@ -2619,9 +2795,9 @@
      "do": "prop",
      "id": "strip2",
      "set": {
-      "x": 0.78,
-      "y": 0.828,
-      "z": 0.86,
+      "x": 0.5,
+      "y": 0.768,
+      "z": 0.95,
       "rot": -40,
       "tip": 90,
       "scale": 1
@@ -2634,9 +2810,9 @@
      "do": "prop",
      "id": "strip3",
      "set": {
-      "x": 0.78,
-      "y": 0.763,
-      "z": 0.86,
+      "x": 0.5,
+      "y": 0.703,
+      "z": 0.95,
       "rot": -40,
       "tip": 90,
       "scale": 1
@@ -2699,9 +2875,9 @@
      "do": "prop",
      "id": "strip0",
      "set": {
-      "x": -0.34,
+      "x": -0.2,
       "y": 0.396,
-      "z": 0.64,
+      "z": 0.72,
       "tip": 0,
       "rot": -20,
       "spin": 180
@@ -2772,9 +2948,9 @@
      "do": "prop",
      "id": "strip1",
      "set": {
-      "x": -0.4,
+      "x": -0.05,
       "y": 0.504,
-      "z": 0.3,
+      "z": 0.27,
       "tip": 0,
       "rot": -5,
       "spin": 270
@@ -2787,9 +2963,9 @@
      "do": "prop",
      "id": "strip2",
      "set": {
-      "x": 0.07,
+      "x": 0.27,
       "y": 0.396,
-      "z": 0.36,
+      "z": 0.4,
       "tip": 0,
       "rot": 10,
       "spin": 360
@@ -2818,9 +2994,9 @@
      "do": "prop",
      "id": "strip3",
      "set": {
-      "x": 0.47,
+      "x": 0.25,
       "y": 0.396,
-      "z": 0.68,
+      "z": 0.7,
       "tip": 0,
       "rot": 25,
       "spin": 450
@@ -2833,7 +3009,13 @@
      "who": "rea",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
+     "pose": {
+      "world": [
+       0.4,
+       0.415,
+       0.5
+      ]
+     },
      "dur": 0.35,
      "ease": "inOut",
      "at": 0.95
@@ -2955,9 +3137,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.82,
-       1.12,
-       0.18
+       -0.62,
+       1.22,
+       0.05
       ]
      },
      "dur": 0.16,
@@ -2970,9 +3152,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.77,
-       1.12,
-       0.18
+       -0.57,
+       1.22,
+       0.05
       ]
      },
      "dur": 0.16,
@@ -3081,29 +3263,6 @@
      "who": "phx",
      "do": "grip",
      "side": "L",
-     "shape": "fist",
-     "dur": 0.1,
-     "at": 0.03
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.24,
-       1,
-       0.1
-      ]
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.03
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
      "shape": "fist",
      "dur": 0.1,
      "at": 0.03
@@ -3143,6 +3302,21 @@
      "at": 0.3
     },
     {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.4,
+       0.75,
+       0.25
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
      "who": "sam",
      "do": "look",
      "to": [
@@ -3154,15 +3328,6 @@
      "at": 0.55
     },
     {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
      "who": "vik",
      "do": "arm",
      "side": "R",
@@ -3172,61 +3337,51 @@
      "at": 0.6
     },
     {
-     "who": "sam",
-     "do": "arm",
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "grip",
      "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
      "pose": {
-      "prop": "longbill",
-      "grip": [
-       0,
-       0.07,
-       0
-      ],
-      "palm": true
+      "world": [
+       -0.42,
+       0.415,
+       0.56
+      ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.65
-    },
-    {
-     "who": "vik",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.65
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.66
     },
     {
      "who": "vik",
      "do": "look",
      "to": [
-      0.85,
-      0.25
+      0.45,
+      0.6
      ],
      "dur": 0.12,
      "blink": false,
      "at": 0.7
     },
     {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.08,
-     "at": 0.78
-    },
-    {
      "who": "vik",
      "do": "turn",
-     "to": -20,
+     "to": -14,
      "dur": 0.25,
      "at": 0.8
     },
@@ -3238,6 +3393,21 @@
       "open": 0.25
      },
      "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.62,
+       0.45
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
      "at": 0.8
     },
     {
@@ -3264,16 +3434,6 @@
      "at": 0.84
     },
     {
-     "who": "sam",
-     "do": "grab",
-     "prop": "longbill",
-     "hand": "R",
-     "keep": true,
-     "dur": 0,
-     "pose": null,
-     "at": 0.84
-    },
-    {
      "who": "phx",
      "do": "arm",
      "side": "L",
@@ -3283,41 +3443,9 @@
      "at": 0.85
     },
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.85
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.7,
-       0.5
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.86
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.9
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
      "shape": "relaxed",
      "dur": 0.2,
      "at": 0.9
@@ -3336,6 +3464,21 @@
      "gain": 0.9,
      "reason": "the series sting on the tiny undo (the same in every episode)",
      "at": 1.04
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.85,
+       0.55
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.06
     }
    ]
   },
@@ -3343,19 +3486,7 @@
    "name": "P7-P8 the undo, the glare",
    "at": 8.1,
    "len": 1.7,
-   "shot": {
-    "pos": [
-     0.22,
-     1.25,
-     6.5
-    ],
-    "look": [
-     0.18,
-     0.55,
-     0.3
-    ],
-    "fov": 46
-   },
+   "shot": "keep",
    "do": [
     {
      "who": "sam",
@@ -3370,13 +3501,20 @@
      "do": "release",
      "prop": "longbill",
      "to": [
-      0.25,
+      0.05,
       0.38,
-      0.18
+      0.45
      ],
-     "dur": 0.18,
-     "arc": 0.06,
+     "dur": 0.24,
+     "arc": 0.85,
      "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.1,
+     "at": 0.02
     },
     {
      "who": "sam",
@@ -3451,22 +3589,6 @@
      "at": 0.12
     },
     {
-     "sfx": "thud-soft",
-     "gain": 0.5,
-     "reason": "the fat paper roll landing on the table",
-     "at": 0.18
-    },
-    {
-     "do": "prop",
-     "id": "longbill",
-     "set": {
-      "unroll": 1
-     },
-     "dur": 0.75,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
      "who": "rea",
      "do": "expr",
      "expr": "shocked",
@@ -3499,98 +3621,27 @@
      "at": 0.22
     },
     {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.2,
-     "at": 0.35
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "reader",
-      "grip": [
-       -0.068,
-       0.065,
-       -0.008
-      ],
-      "palm": true,
-      "off": [
-       0.063,
-       0.02,
-       -0.035
-      ]
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.35
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "reader",
-      "grip": [
-       -0.068,
-       0.065,
-       -0.008
-      ],
-      "palm": true
-     },
-     "dur": 0.12,
-     "ease": "settle",
-     "at": 0.55
-    },
-    {
      "sfx": "thud-soft",
-     "gain": 0.25,
-     "reason": "the roll dropping off the table's edge onto the floor",
-     "at": 0.62
+     "gain": 0.5,
+     "reason": "the fat paper roll landing on the table",
+     "at": 0.24
     },
     {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.622
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.25,
+     "at": 0.25
     },
     {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0.413,
-      0.252
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.7
-    },
-    {
-     "who": "sam",
-     "do": "grab",
-     "prop": "reader",
-     "hand": "L",
-     "grip": [
-      -0.068,
-      0.065,
-      -0.008
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.73
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 44.128,
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.74
+     "do": "prop",
+     "id": "longbill",
+     "set": {
+      "unroll": 1
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.26
     },
     {
      "who": "sam",
@@ -3605,24 +3656,39 @@
       ],
       "palm": true,
       "at": [
-       1.27,
-       0.72,
-       -0.5
+       0.107,
+       1.12,
+       -0.79
       ]
      },
-     "dur": 0.3,
+     "dur": 0.35,
      "ease": "out",
-     "at": 0.77
+     "at": 0.6
     },
     {
-     "do": "prop",
-     "id": "reader",
-     "set": {
-      "rot": 130
-     },
+     "sfx": "thud-soft",
+     "gain": 0.25,
+     "reason": "the roll dropping off the table's edge onto the floor",
+     "at": 0.62
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.285,
+      0.264
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 47.46,
      "dur": 0.3,
-     "ease": "out",
-     "at": 0.77
+     "ease": "inOut",
+     "at": 0.74
     },
     {
      "who": "wiz",
@@ -3650,7 +3716,7 @@
      "who": "phx",
      "do": "look",
      "to": [
-      -0.75,
+      -0.72,
       0.15
      ],
      "dur": 0.12,
@@ -3731,7 +3797,7 @@
      "do": "look",
      "to": [
       -0.95,
-      0.252
+      0.264
      ],
      "dur": 0.12,
      "blink": false,
@@ -3762,7 +3828,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -29.685,
+     "to": -31.334,
      "dur": 0.3,
      "ease": "inOut",
      "at": 1.04
