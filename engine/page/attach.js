@@ -10,9 +10,10 @@
 //   - "hat" / "tip": the costume part's frame, rigid.
 // The prop's own turn tweened while it is held ("prop" set rot / tip / tilt) turns it about the hand, on top.
 //
-// Each hold has one owner. A regrip (the same hand, another grip point) or a pass (another hand, or another character
-// taking it) blends from the old hold to the new one over at least 0.15 s; a grab of a loose prop glides it in over the
-// grab's dur (0: at once, as today), and `keep` holds it exactly where it is (nothing to blend).
+// Each hold has one owner. The holder's other hand closing on it too takes it where it is. A regrip (the same hand,
+// another grip point) or a pass (another character taking it) blends from the old hold to the new one over at least
+// 0.15 s; a grab of a loose prop glides it in over the grab's dur (0: at once, as today), and `keep` holds it exactly
+// where it is (nothing to blend).
 //
 // A release without `to` drops the prop: it leaves the hand with the hand's last speed, falls (9.81 m/s²) onto the
 // surface under it, bounces (a quarter of the speed, twice at most), slides to a stop and settles on its most stable
@@ -105,19 +106,27 @@ export function makeAttach(env) {
     if (!ARMS.has(who)) ARMS.set(who, (sb.actions || []).filter((a) => a.who === who && (a.do === "arm" || a.do === "climb" || a.do === "stand" || (a.do === "sit" && a.hands !== "keep") || (a.do === "grab" && a.pose !== null && (a.hand === "R" || a.hand === "L")))).sort((a, b) => a.at - b.at));
     return ARMS.get(who);
   };
-  const aims = (q, id) => !!q && typeof q === "object" && (q.prop === id || (q.mix && (aims(q.mix.pose, id))));
+  // Two weights: turn, the hand aiming at the prop at all (its own turn rules); stay, aiming at it where it stands (no
+  // `at`: a steering wheel on its column, a phone the hand reaches for), so the prop keeps its own place too and the
+  // hand follows it; a pose with `at` carries it there (the grip library's carry), its place the hand's.
+  const end = (q) => (q && q.mix ? end(q.mix.pose) : q);
+  const aims = (q, id) => { const e = end(q); return !!e && typeof e === "object" && e.prop === id; };
   const followW = (who, side, id, time) => {
-    let w = 0;
+    let w = 0, ws = 0;
     for (const a of armActs(who)) {
       if (a.at > time) break;
       const sides = a.do === "arm" ? (a.side === "both" ? ["R", "L"] : [a.side || "R"]) : a.do === "grab" ? [a.hand] : ["R", "L"];
       if (!sides.includes(side)) continue;
-      const on = (a.do === "arm" || a.do === "grab") && aims(a.pose, id) ? 1 : 0, d = a.do === "grab" ? a.dur ?? 0.25 : a.dur ?? 0.3;
-      w += (on - w) * (d > 0 ? smooth((time - a.at) / d) : 1);
+      const on = (a.do === "arm" || a.do === "grab") && aims(a.pose, id) ? 1 : 0, stay = on && !end(a.pose).at ? 1 : 0;
+      const d = a.do === "grab" ? a.dur ?? 0.25 : a.dur ?? 0.3, k = d > 0 ? smooth((time - a.at) / d) : 1;
+      w += (on - w) * k; ws += (stay - ws) * k;
     }
-    return w;
+    return [w, ws];
   };
-  const follow = (p, h, time) => (h.hand === "both" ? (followW(h.who, "R", p.spec.id, time) + followW(h.who, "L", p.spec.id, time)) / 2 : h.hand === "R" || h.hand === "L" ? followW(h.who, h.hand, p.spec.id, time) : 0);
+  const follow = (p, h, time) => {
+    if (h.hand === "both") { const R = followW(h.who, "R", p.spec.id, time), L = followW(h.who, "L", p.spec.id, time); return [(R[0] + L[0]) / 2, (R[1] + L[1]) / 2]; }
+    return h.hand === "R" || h.hand === "L" ? followW(h.who, h.hand, p.spec.id, time) : [0, 0];
+  };
 
   // the seat: the prop's pose in the hold's frame, measured once when the hold takes it
   const seats = new Map();
@@ -130,7 +139,7 @@ export function makeAttach(env) {
     const F = frameAt(h, ts);
     if (F) {
       let P, Qp;
-      if (h.keep) ({ P, Q: Qp } = before(p, h, h.at));
+      if (h.keep || joins(h)) ({ P, Q: Qp } = before(p, h, h.at));
       else {
         // as today's anchor: the grip point (or the prop's own grip height) in the hand, plus off; the prop's own turn
         const ps = stateAt(p, ts), g = h.grip ? gripWorld(p.spec, h.grip, [0, 0, 0], ps.rot, ps.scale, ps.tilt, ps.tip) : [0, p.grip * ps.scale, 0], o = h.off || [0, 0, 0];
@@ -149,7 +158,7 @@ export function makeAttach(env) {
   // either way (its position is always the hand's).
   const attached = (p, h, time) => {
     const s = seat(p, h), F = s && frameAt(h, time); if (!F) return null;
-    const own = ownQ(stateAt(p, time)), w = follow(p, h, time);
+    const ps = stateAt(p, time), own = ownQ(ps), [w, ws] = follow(p, h, time);
     let q = own;
     if (w < 1) {
       const R = F.q.clone().multiply(s.qsInv), Rh = s.up ? twistY(R) : R;
@@ -163,8 +172,17 @@ export function makeAttach(env) {
       const rq = A.a.ch.root.getWorldQuaternion(Q()), loc = Q().setFromEuler(new THREE.Euler(sw[0], 0, -sw[1], "XYZ"));
       q = rq.clone().multiply(loc).multiply(rq.clone().invert()).multiply(q);
     }
-    return { P: F.pos.clone().sub(s.gl.clone().applyQuaternion(q)), Q: q };
+    const P = F.pos.clone().sub(s.gl.clone().applyQuaternion(q));
+    // followed where it stands: its own place (in its rig's frame, if it rides in one)
+    if (ws > 0) {
+      const o = V().set(ps.x, ps.y, ps.z), par = p.root.parent;
+      if (par && par !== env.scene) { par.updateMatrixWorld(true); o.applyMatrix4(par.matrixWorld); }
+      P.lerp(o, ws);
+    }
+    return { P, Q: q };
   };
+  // the holder's other hand closing on it too (the second hand on a steering wheel): it takes the prop where it is
+  const joins = (h) => !!h.was && h.was.who === h.who && h.was.hand !== h.hand && h.hand !== "both" && h.was.hand !== "both";
   // where the prop was just before this hold took it, at `time`: in the hand it came from, where it fell, or its own spot
   const before = (p, h, time) => {
     if (h.was) return pose(p, h.was, time) ?? loose(p, h, time);
@@ -179,7 +197,7 @@ export function makeAttach(env) {
   // the pose a hold gives at `time`, with its grab's blend in
   const pose = (p, h, time) => {
     const A = attached(p, h, time); if (!A) return null;
-    if (h.keep) return A;
+    if (h.keep || joins(h)) return A;
     // (two grabs at the same moment, one per hand: the later one owns it from the start, nothing to blend)
     const d = h.was && h.was.at < h.at - 1e-9 ? Math.max(h.dur ?? 0.25, HOLD2.blend) : h.was ? 0 : h.grip ? 0 : h.dur ?? 0.25;
     if (d > 0 && time < h.at + d) return blend(before(p, h, h.was ? time : h.at), A, h.was ? smooth((time - h.at) / d) : easeOut((time - h.at) / d));
