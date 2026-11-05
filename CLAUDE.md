@@ -247,6 +247,9 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
 - **New clips move naturally**: `"motion": "natural"` is on in the clip template (walks with planted feet and weight
   shift, hands on arcs, the body leading reaches, eyes-first turns, weight when sitting and stopping; docs/STORYBOARD.md
   "motion"). Old clips keep today's motion.
+- **Real physics whenever physics is in action** (Jonny, 5 Nov 2026): new clips have `"physics": true` (the template). A
+  let-go tumbles and lands, and falls, throws, knocks and zero-g use `c.drop` / `c.throw` / `c.knock` / `c.float`, never
+  a hand-tweened path. Aim a throw (`to` + `in`) so it lands where and when the story needs it (docs/STORYBOARD.md).
 - **Study the natural way before building any new movement.** Before a new action or move goes into the engine or
   acting.mjs (lying down, a throw, a climb, a heavy lift), find how real people, athletes and top animation (Studio
   Ghibli first) do it: which body part leads and which trails, the timing, where the weight goes, the arcs, the pauses.

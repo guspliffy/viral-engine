@@ -1475,6 +1475,16 @@ export function buildProp(spec) {
   };
 }
 
+// prop physics (physics.js): while the bake owns a prop (from a let-go or a physics action to the next grab) its place
+// and turn come from the bake, so a hand reaching for it reaches where it landed and a grab takes it from there
+let PHYS_POSE = null;
+export function setPhysicsPose(fn) { PHYS_POSE = fn || null; }
+function physInto(ps, id, t) {
+  const o = PHYS_POSE && PHYS_POSE(id, t); if (!o) return false;
+  ps.x = o.x; ps.y = o.y; ps.z = o.z; ps.rot = o.rot; ps.tip = o.tip; ps.tilt = o.tilt; ps.roll = 0;
+  return true;
+}
+
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 // kinds that stand on nothing: effects, light, weather and air (holds 2's support record treats them as staged)
 export const FX_KINDS = /^(roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
@@ -1491,6 +1501,8 @@ export function propState(sb, spec, t) {
     // grip: the hand holds it at that grip point; keep: it stays exactly where it is and from then on moves with the
     // holder (stage.js measures the offset at the grab), so nothing jumps on the handoff
     else if (a.do === "grab") {
+      // (a prop the physics bake owns until this grab is taken from where the bake has it)
+      if (PHYS_POSE && !ps.hold) physInto(ps, spec.id, a.at - 1e-6);
       // a new grip by the hand that already holds it: the prop slides in the hand from the old grip point to the new
       // one over dur (from the side of a jar to under it, say), so nothing jumps
       const h = ps.hold, h2 = Number(sb.rig?.hold) >= 2;
@@ -1522,6 +1534,7 @@ export function propState(sb, spec, t) {
     }
   }
   if (ps.carry) [ps.x, ps.y, ps.z] = carriedAt(sb, ps.carry, t);
+  if (PHYS_POSE && !ps.hold && !ps.carry) physInto(ps, spec.id, t);
   return ps;
 }
 function carriedAt(sb, c, t) {

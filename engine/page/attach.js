@@ -289,6 +289,11 @@ export function makeAttach(env) {
   // place every prop for time t (stage.js calls begin, then place per prop after its p.apply)
   return {
     begin(t) { T = t; cur = new Map(); },
+    // the prop in the hand that lets it go at `tr`, at `time` (physics.js starts a let-go's body here)
+    releasePose(p, time, tr = time) {
+      const L = propState(sb, p.spec, tr + 1e-6).left; if (!L) return null;
+      return pose(p, { ...L, at: L.grabAt ?? L.at }, time);
+    },
     // ps: the prop's state at t; p.apply(ps, t) has run (its size, parts and own turn). Returns true when it placed it.
     place(p, ps) {
       cur.set(p, ps);

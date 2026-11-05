@@ -6,7 +6,7 @@ import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
-import { buildProp, propState, gripWorld } from "./props3d.js";
+import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
@@ -424,9 +424,17 @@ async function init(data) {
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
+  setPhysicsPose(null);
   attach2 = Number(sb.rig?.hold) >= 2 ? makeAttach({ sb, scene, props, states: () => poseStates, setMeshes: setObjs }) : null;
   // prop physics (quality plan item 17): "physics" actions bake rigid bodies for the whole clip, once, here
-  phys = (sb.actions || []).some((a) => a.do === "physics") || (sb.props || []).some((s) => s.body?.settle) ? await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs }) : null;
+  // "physics": true (the template) also bakes every let-go (holds 2 gives the hand's pose and speed); the bake runs
+  // with the cast posed at 0 (holders are posed at other moments the way holds 2 does it)
+  if (sb.physics || (sb.actions || []).some((a) => a.do === "physics") || (sb.props || []).some((s) => s.body?.settle)) {
+    poseStates = Object.fromEntries(actors.map((a) => { const st = actorState(sb, a.c, a.def, 0); a.ch.apply(st, 0); return [a.c.id, { st, a }]; }));
+    if (attach2) attach2.begin(0);
+    phys = await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs, attach: attach2, releasePose: (p, time, tr) => attach2?.releasePose(p, time, tr), setPose: setPhysicsPose });
+    if (!phys) setPhysicsPose(null);
+  } else phys = null;
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);

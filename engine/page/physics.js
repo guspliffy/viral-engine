@@ -29,7 +29,7 @@ import { propState } from "./props3d.js";
 import { actorState } from "./timeline.js";
 import { handTarget } from "./potato.js";
 
-export const PHYS = { dt: 1 / 120, sample: 1 / 60, g: -9.81, density: 300, bounce: 0.3, friction: 0.6, hullPts: 1500, rest: 0.05, preroll: 1, prerollDamp: 8 };
+export const PHYS = { dt: 1 / 120, sample: 1 / 60, g: -9.81, density: 300, bounce: 0.3, friction: 0.6, hullPts: 1500, rest: 0.05, preroll: 1, prerollDamp: 8, maxV: 5 };
 
 const V = () => new THREE.Vector3(), Q = () => new THREE.Quaternion();
 // kinds that are light, air or weather (never solid); the set pieces holds 2 calls staged (cabin walls, bins) are solid here
@@ -68,20 +68,32 @@ function trisOf(m, toLocal = null, maxInst = 64) {
 export async function makePhysics(env) {
   const { sb } = env;
   const acts = (sb.actions || []).filter((a) => a.do === "physics").sort((a, b) => a.at - b.at);
-  if (!acts.length && !env.props.some((p) => p.spec.body?.settle)) return null;
+  if (!acts.length && !sb.physics && !env.props.some((p) => p.spec.body?.settle)) return null;
   const { default: RAPIER } = await import("/node_modules/@dimforge/rapier3d-deterministic-compat/dist/rapier.mjs");
   await RAPIER.init();
   const t0w = performance.now(), diag = [];
   const end = sb.storyDuration ?? sb.duration;
   const byId = new Map(env.props.map((p) => [p.spec.id, p]));
-  // the props that become bodies, from their first action
-  const starts = new Map();
-  // "body": { "settle": true } in a prop's spec: it is a body from a second before the clip, so it has come to rest on
-  // whatever is under it (a pile, a shelf) by frame 0, and its first action only sets its speed
-  for (const p of env.props) if (p.spec.body?.settle) starts.set(p.spec.id, { do: "physics", prop: p.spec.id, mode: "drop", at: -PHYS.preroll });
-  for (const a of acts) if (a.prop && a.mode !== "settle" && !starts.has(a.prop)) { if (!byId.has(a.prop)) throw new Error(`physics: unknown prop ${a.prop}`); starts.set(a.prop, a); }
-  if (!starts.size) return null;
-  const tStart = Math.min(...[...starts.values()].map((a) => a.at));
+  // the props that become bodies, and when the bake owns each: segments from a start (a physics action, a let-go of a
+  // clip with "physics" on, a settling pile's pre-roll) to the next grab of it (a hand takes it back)
+  const auto = !!sb.physics && !!env.attach;
+  const lets = auto ? (sb.actions || []).filter((a) => a.do === "release" && a.prop && byId.has(a.prop) && a.keep !== "air" && !(a.to && (a.dur ?? 0) < 0.1) && !AIR.test(byId.get(a.prop).spec.kind) && !byId.get(a.prop).spec.wear) : [];
+  const ev = [
+    ...env.props.filter((p) => p.spec.body?.settle).map((p) => ({ prop: p.spec.id, at: -PHYS.preroll, start: { do: "physics", prop: p.spec.id, mode: "drop", at: -PHYS.preroll } })),
+    ...acts.filter((a) => a.prop && a.mode !== "settle").map((a) => { if (!byId.has(a.prop)) throw new Error(`physics: unknown prop ${a.prop}`); return { prop: a.prop, at: a.at, start: a }; }),
+    ...lets.map((a) => ({ prop: a.prop, at: a.at, start: { mode: "release", prop: a.prop, at: a.at, rel: a } })),
+    ...(sb.actions || []).filter((a) => a.do === "grab" && a.prop && byId.has(a.prop)).map((a) => ({ prop: a.prop, at: a.at, grab: true })),
+  ].sort((a, b) => a.at - b.at || (a.grab ? -1 : 0) - (b.grab ? -1 : 0));
+  const segs = new Map(), opener = new Set();
+  for (const e of ev) {
+    const L = segs.get(e.prop) || [], open = L.length && L.at(-1).end === Infinity;
+    if (e.grab) { if (open) L.at(-1).end = e.at; }
+    else if (!open) { L.push({ start: e.start, end: Infinity }); opener.add(e.start); }
+    segs.set(e.prop, L);
+  }
+  for (const [id, L] of segs) if (!L.length) segs.delete(id);
+  if (!segs.size) return null;
+  const tStart = Math.min(...[...segs.values()].map((L) => L[0].start.at));
   const nSteps = Math.max(1, Math.ceil((end - tStart) / PHYS.dt) + 1);
 
   // a prop's world pose from its own state at t (its tween), unscaled
@@ -105,7 +117,7 @@ export async function makePhysics(env) {
   // (a hand would have to carry the body), effects or wearables
   const kin = [];
   for (const p of env.props) {
-    if (starts.has(p.spec.id) || AIR.test(p.spec.kind) || p.spec.wear || heldEver(p.spec)) continue;
+    if (segs.has(p.spec.id) || AIR.test(p.spec.kind) || p.spec.wear || heldEver(p.spec)) continue;
     const { P, R } = propPose(p, Math.max(0, tStart)), inv = new THREE.Matrix4().compose(P, R, V().set(1, 1, 1)).invert();
     const bodyDesc = moving(p.spec) ? RAPIER.RigidBodyDesc.kinematicPositionBased() : RAPIER.RigidBodyDesc.fixed();
     const body = world.createRigidBody(bodyDesc.setTranslation(P.x, P.y, P.z).setRotation({ x: R.x, y: R.y, z: R.z, w: R.w }));
@@ -165,8 +177,8 @@ export async function makePhysics(env) {
 
   // the bodies: a convex hull of the prop's own solid mesh (or its box), kinematic on its tween until its start
   const bodies = [];
-  for (const [id, a] of starts) {
-    const p = byId.get(id), B = p.spec.body || {};
+  for (const [id, L] of segs) {
+    const a = L[0].start, p = byId.get(id), B = p.spec.body || {};
     const { P, R } = propPose(p, Math.max(0, a.at)), inv = new THREE.Matrix4().compose(P, R, V().set(1, 1, 1)).invert();
     const pts = []; for (const m of solidMeshes(p.root)) pts.push(...trisOf(m, inv).verts);
     const body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(P.x, P.y, P.z).setRotation({ x: R.x, y: R.y, z: R.z, w: R.w }).setCcdEnabled(true));
@@ -183,7 +195,7 @@ export async function makePhysics(env) {
     // y is its bottom, but a turned one can reach below it), so the pre-roll never starts sunk into a table
     let lift = 0;
     if (a.at < 0) { let lo = Infinity; const w = V(); for (let i = 0; i < pts.length; i += 3) lo = Math.min(lo, w.set(pts[i], pts[i + 1], pts[i + 2]).applyQuaternion(R).y + P.y); if (lo < Infinity) lift = Math.max(0, (p.spec.y ?? 0) + 0.003 - lo); }
-    bodies.push({ id, p, body, start: a, lift, live: false, frozen: false, track: new Float32Array(nSteps * 7) });
+    bodies.push({ id, p, body, pts, segs: L, seg: -1, start: a, lift, live: false, frozen: false, track: new Float32Array(nSteps * 7) });
   }
 
   // gravity over time (float actions), eased
@@ -202,12 +214,62 @@ export async function makePhysics(env) {
   };
   const vec = (x) => ({ x: x[0], y: x[1], z: x[2] });
   const at = (i) => tStart + i * PHYS.dt;
+  // a quaternion step as an angular speed (rad/s about the world axes)
+  const spinOf = (R0, R1, dt) => { const d = R0.clone().invert().premultiply(R1), ang = 2 * Math.acos(Math.min(1, Math.abs(d.w))), s = Math.sqrt(Math.max(1e-12, 1 - d.w * d.w)) * Math.sign(d.w || 1); return ang > 1e-6 ? { x: (d.x / s) * ang / dt, y: (d.y / s) * ang / dt, z: (d.z / s) * ang / dt } : { x: 0, y: 0, z: 0 }; };
+  // where a body starts and how fast: a let-go from the hand's pose and speed (holds 2 places it in the hand; aimed at
+  // the release's `to` when it has one), a physics action from the prop's own tween (or its v / to), a pre-roll lifted
+  // onto its spec height; never starting sunk into what is under it
+  const startOf = (b, A) => {
+    let P, R, v, w;
+    if (A.mode === "release") {
+      const tr = A.at, dt = 1 / (sb.fps ?? 30), X0 = env.releasePose(b.p, tr, tr), X1 = env.releasePose(b.p, tr - dt, tr) || X0;
+      if (X0) { P = X0.P; R = X0.Q; } else { const k = propPose(b.p, tr); P = k.P; R = k.R; }
+      if (A.rel.to) v = aim(P, { to: A.rel.to, in: A.rel.dur, at: tr });
+      else { const u = X1 ? P.clone().sub(X1.P).divideScalar(dt) : V(); if (u.length() > PHYS.maxV) u.setLength(PHYS.maxV); v = vec(u.toArray()); }
+      w = X1 ? spinOf(X1.Q, R, dt) : { x: 0, y: 0, z: 0 };
+    } else {
+      const now = propPose(b.p, Math.max(0, A.at)), was = propPose(b.p, Math.max(0, A.at - PHYS.dt));
+      P = now.P.clone().add(V().set(0, b.lift, 0)); R = now.R;
+      v = A.to ? aim(P, A) : A.v ? vec(A.v) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : vec(now.P.clone().sub(was.P).divideScalar(PHYS.dt).toArray());
+      w = A.spin ? vec(A.spin) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : spinOf(was.R, now.R, PHYS.dt);
+    }
+    if (A.spin) w = vec(A.spin);
+    return { P: unsink(b, P, R), R, v, w };
+  };
+  // lifted out of what is under it (a mug let go on the table it was put down on, its foot 1 cm into the top): a ray
+  // down from above its lowest point, at most 5 cm
+  const unsink = (b, P, R) => {
+    let lo = Infinity, at = null; const w = V();
+    for (let i = 0; i < b.pts.length; i += 3) { w.set(b.pts[i], b.pts[i + 1], b.pts[i + 2]).applyQuaternion(R).add(P); if (w.y < lo) { lo = w.y; at = w.clone(); } }
+    if (!at) return P;
+    const hit = world.castRay(new RAPIER.Ray({ x: at.x, y: lo + 0.06, z: at.z }, { x: 0, y: -1, z: 0 }), 0.06, true, undefined, undefined, undefined, b.body);
+    if (!hit) return P;
+    const y = lo + 0.06 - hit.timeOfImpact, lift = y - lo;
+    return lift > 0 && lift <= 0.05 ? P.clone().add(V().set(0, lift + 0.002, 0)) : P;
+  };
 
+  const owned = new Map(bodies.map((b) => [b.p, b]));
+  const poseAt = (b, t) => {
+    const f = Math.max(0, Math.min(nSteps - 1, done, (t - tStart) / PHYS.dt)), i = Math.min(nSteps - 2, Math.floor(f)), u = nSteps < 2 ? 0 : f - i, T = b.track;
+    if (nSteps < 2) return { P: V().set(T[0], T[1], T[2]), R: Q().set(T[3], T[4], T[5], T[6]) };
+    const a = i * 7, c = a + 7;
+    return { P: V().set(T[a], T[a + 1], T[a + 2]).lerp(V().set(T[c], T[c + 1], T[c + 2]), u), R: Q().set(T[a + 3], T[a + 4], T[a + 5], T[a + 6]).slerp(Q().set(T[c + 3], T[c + 4], T[c + 5], T[c + 6]), u) };
+  };
+  // the bake's pose of a prop at t, as propState numbers (props3d.js setPhysicsPose): a hand reaching for a prop the bake
+  // dropped reaches where it landed, and a grab takes it from there. Only steps already baked (a let-go later in the
+  // bake starts from a hold that was measured on the bake so far)
+  const asState = (id, t) => {
+    const b = byId.has(id) && owned.get(byId.get(id)); if (!b || !b.segs.some((g) => t + 1e-9 >= g.start.at && t + 1e-9 < g.end) || (t - tStart) / PHYS.dt > done + 1e-6) return null;
+    const { P, R } = poseAt(b, t), e = new THREE.Euler().setFromQuaternion(R, "YXZ"), D = 180 / Math.PI;
+    return { x: P.x, y: P.y, z: P.z, tip: e.x * D, rot: e.y * D, tilt: -e.z * D };
+  };
+  env.setPose?.(asState);
+  let done = -1;
   // the bake. Kinematic targets (the cast, moving props, bodies before their start) are sampled at 60 Hz and eased
   // in between, so posing a character costs once per sample, not per step.
   const sampleEvery = Math.max(1, Math.round(PHYS.sample / PHYS.dt));
   let castS = null, castN = null, kinS = null, kinN = null;
-  const pending = acts.filter((a) => a.prop && (a.mode === "knock" || a.mode === "settle" || starts.get(a.prop) !== a));
+  const pending = acts.filter((a) => a.prop && !opener.has(a));
   let pi = 0, lastG = PHYS.g, lastD = 0;
   for (let i = 0; i < nSteps; i++) {
     const t = at(i);
@@ -228,23 +290,20 @@ export async function makePhysics(env) {
       }
     });
     kin.forEach((x, j) => { const P = kinS[j].P.clone().lerp(kinN[j].P, u), R = kinS[j].R.clone().slerp(kinN[j].R, u); x.body.setNextKinematicTranslation(P); x.body.setNextKinematicRotation(R); });
-    // bodies start: their tween's own speed, or the action's
+    // bodies start (their tween's own speed, the action's, or the hand's at a let-go) and stop (a hand takes them)
     for (const b of bodies) {
-      if (b.live) continue;
-      if (t + 1e-9 >= b.start.at) {
-        const A = b.start, now = propPose(b.p, Math.max(0, A.at)), was = propPose(b.p, Math.max(0, A.at - PHYS.dt));
-        const v = A.to ? aim(now.P.clone().add(V().set(0, b.lift, 0)), A) : A.v ? vec(A.v) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : vec(now.P.clone().sub(was.P).divideScalar(PHYS.dt).toArray());
-        let w = { x: 0, y: 0, z: 0 };
-        if (A.spin) w = vec(A.spin);
-        else if (A.mode !== "drop") { const d = was.R.clone().invert().premultiply(now.R), ang = 2 * Math.acos(Math.min(1, Math.abs(d.w))), s = Math.sqrt(Math.max(1e-12, 1 - d.w * d.w)) * Math.sign(d.w || 1); w = ang > 1e-6 ? { x: (d.x / s) * ang / PHYS.dt, y: (d.y / s) * ang / PHYS.dt, z: (d.z / s) * ang / PHYS.dt } : w; }
-        b.body.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
-        b.body.setTranslation(now.P.clone().add(V().set(0, b.lift, 0)), true); b.body.setRotation(now.R, true); b.body.setLinvel(v, true); b.body.setAngvel(w, true);
-        // a pile settling before the clip moves through thick air: overlaps in the start poses ease apart instead of
-        // flinging things off the table (back to free air at frame 0)
-        if (A.at < 0) { b.body.setLinearDamping(PHYS.prerollDamp); b.body.setAngularDamping(PHYS.prerollDamp); }
-        else if (lastD) { b.body.setLinearDamping(lastD); b.body.setAngularDamping(lastD * 0.5); }
-        b.live = true;
-      } else { const k = propPose(b.p, t); b.body.setNextKinematicTranslation(k.P); b.body.setNextKinematicRotation(k.R); }
+      const k = b.segs.findIndex((g) => t + 1e-9 >= g.start.at && t + 1e-9 < g.end);
+      if (k === b.seg) continue;
+      if (k < 0) { b.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, false); b.body.collider(0).setEnabled(false); b.live = false; b.seg = -1; continue; }
+      b.seg = k; b.start = b.segs[k].start; b.body.collider(0).setEnabled(true); b.frozen = false;
+      const A = b.start, X = startOf(b, A), v = X.v, w = X.w;
+      b.body.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
+      b.body.setTranslation(X.P, true); b.body.setRotation(X.R, true); b.body.setLinvel(v, true); b.body.setAngvel(w, true);
+      // a pile settling before the clip moves through thick air: overlaps in the start poses ease apart instead of
+      // flinging things off the table (back to free air at frame 0)
+      if (A.at < 0) { b.body.setLinearDamping(PHYS.prerollDamp); b.body.setAngularDamping(PHYS.prerollDamp); }
+      else { b.body.setLinearDamping(lastD); b.body.setAngularDamping(lastD * 0.5); }
+      b.live = true;
     }
     if (t >= 0 && t - PHYS.dt < 0) for (const b of bodies) if (b.live && b.start.at < 0) { b.body.setLinearDamping(0); b.body.setAngularDamping(0); }
     while (pi < pending.length && pending[pi].at <= t + 1e-9) {
@@ -258,6 +317,7 @@ export async function makePhysics(env) {
     const g = gAt(t); if (g !== lastG) { world.gravity = { x: 0, y: g, z: 0 }; for (const b of bodies) if (b.live && !b.frozen) b.body.wakeUp(); lastG = g; }
     // record this step's pose (the step's start), then step
     for (const b of bodies) { const p = b.body.translation(), q = b.body.rotation(); b.track.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], i * 7); }
+    done = i;
     world.step();
     if (globalThis.__DIAG?.physics && i % 12 === 0 && t < 0.1) diag.push(`t ${t.toFixed(2)} ` + bodies.map((b) => `${b.id} ${Object.values(b.body.translation()).map((x) => x.toFixed(2))}`).join("  "));
   }
@@ -268,17 +328,10 @@ export async function makePhysics(env) {
   console.log(`physics: baked ${bodies.length} bodies, ${nSteps} steps over ${tris} solid triangles in ${info.ms} ms, hash ${info.hash}`);
   world.free();
 
-  const owned = new Map(bodies.map((b) => [b.p, b]));
-  const poseAt = (b, t) => {
-    const f = Math.max(0, Math.min(nSteps - 1, (t - tStart) / PHYS.dt)), i = Math.min(nSteps - 2, Math.floor(f)), u = nSteps < 2 ? 0 : f - i, T = b.track;
-    if (nSteps < 2) return { P: V().set(T[0], T[1], T[2]), R: Q().set(T[3], T[4], T[5], T[6]) };
-    const a = i * 7, c = a + 7;
-    return { P: V().set(T[a], T[a + 1], T[a + 2]).lerp(V().set(T[c], T[c + 1], T[c + 2]), u), R: Q().set(T[a + 3], T[a + 4], T[a + 5], T[a + 6]).slerp(Q().set(T[c + 3], T[c + 4], T[c + 5], T[c + 6]), u) };
-  };
   return {
     info,
     // does the bake place this prop at t (from its start on)
-    owns(p, t) { const b = owned.get(p); return !!b && t + 1e-9 >= b.start.at; },
+    owns(p, t) { const b = owned.get(p); return !!b && b.segs.some((g) => t + 1e-9 >= g.start.at && t + 1e-9 < g.end); },
     // the prop's pose at t (after p.apply(ps, t) gave it its size and parts); the world pose into its parent's frame
     place(p, t) {
       const b = owned.get(p); if (!b) return false;
@@ -289,7 +342,7 @@ export async function makePhysics(env) {
     },
     // the layout's support record: in flight while it moves, else resting (it lies on whatever the bake put it on)
     support(p, t) {
-      const b = owned.get(p); if (!b || t + 1e-9 < b.start.at) return null;
+      const b = owned.get(p); if (!b || !this.owns(p, t)) return null;
       const A = poseAt(b, t - 1 / 30), B = poseAt(b, t), sp = A.P.distanceTo(B.P) * 30;
       return { state: sp > PHYS.rest ? "flight" : "resting", physics: true };
     },

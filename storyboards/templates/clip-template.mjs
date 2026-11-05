@@ -40,7 +40,12 @@ const MOTION = { feet: 2 };
 // hand rig 2 (Jonny, 5 Nov, PR #119): a forearm that never collapses, no palm switch inside a move, wrist limits, so
 // hands don't pop; eyes 2 (Jonny, 5 Nov, PR #116): the iris stays inside the eye white and a look down reads as a look
 // down, not a closing eye; null: the old rig
-const RIG = { hand: 2, eyes: 2 };
+const RIG = { hand: 2, eyes: 2, hold: 2 };
+// real physics (Jonny, 5 Nov 22:00: "physics should apply to every video, whenever physics are in action"): every
+// let-go tumbles and lands (engine/page/physics.js), and falls, throws, knocks and zero-g go through c.drop, c.throw,
+// c.knock and c.float, never a hand-tweened path (qa/support.mjs flags one). Holds 2 (RIG hold: 2, PR #132) gives the
+// let-go its hand's pose and speed. false: tweens and holds 2's simple drop only
+const PHYSICS = true;
 // light from the painting (Jonny, 5 Nov, PR #126 "light 2 on"): the cast and props take the set painting's light and
 // shadow colours, a key-side edge light and soft contact shading (engine/page/light.js, docs/STORYBOARD.md); a
 // { v: 2, ... } block overrides key, colours, exposure, rimK or ao; false: as before
@@ -137,6 +142,7 @@ write(import.meta.url, {
   cleanStart: true,
   ...(MOTION && { motion: MOTION }),
   ...(RIG && { rig: RIG }),
+  ...(PHYSICS && { physics: true }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
   // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
   loopIdle: true,
