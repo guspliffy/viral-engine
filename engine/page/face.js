@@ -342,16 +342,33 @@ export class Face {
     const lo = clamp01((kL - 0.5) / 0.37), sb = Math.sin(Math.PI / 2 - lo * lo * (3 - 2 * lo) * (Math.PI / 2 - SEAM));
     const ex = [], ey = [];   // the upper lid's edge: the shell's rim (t across its front half), turned and scaled as drawn
     for (let i = 0; i <= 32; i++) { const t = (Math.PI * i) / 32, c = Math.cos(t), sn = Math.sin(t); ex.push(A * (c * ct + sn * sa * st)); ey.push(B * (c * st - sn * sa * ct)); }
-    const top = [], bot = [];
-    for (let j = 0, i = 0; j <= 48; j++) {
+    const top = [], bot = [], up = [];
+    for (let j = 0; j <= 48; j++) {
       const x = -W + (2 * W * j) / 48, w = Math.sqrt(Math.max(0, 1 - (x / W) ** 2));
       // ex runs from +A to -A: find the segment that holds x (from the far end, as x grows)
       let m = 31; while (m > 0 && ex[m] < x) m--;
       const q = ex[m] === ex[m + 1] ? 0 : Math.max(0, Math.min(1, (x - ex[m]) / (ex[m + 1] - ex[m]))), edge = ey[m] + (ey[m + 1] - ey[m]) * q;
       const lash = H * E.lash * (0.031 + 0.07 * Math.max(0, Math.cos((Math.PI * x) / (2 * A))) ** 0.75);
-      top.push(Math.min(edge - lash, H * w)); bot.push(-H * sb * w);
+      top.push(Math.min(edge - lash, H * w)); bot.push(-H * sb * w); up.push(edge - lash);
     }
-    return { top, bot, W };
+    return { top, bot, up, W, H, A, B, sb };
+  }
+
+  // how far (metres) the iris (radius R, 1.12 tall, round px, py) shows outside the eye white where no lid covers it:
+  // with a big iris (the sheet cast's 0.74) a strong side look pushed it past the corner of the eye, drawn over the skin
+  // (the split-the-bill waiter's "glitchy" eye). 0 when it stays in.
+  _irisOut(O, px, py, R) {
+    let out = 0;
+    for (let i = 0; i < 24; i++) {
+      const a = (Math.PI * 2 * i) / 24, x = px + R * Math.cos(a), y = py + 1.12 * R * Math.sin(a);
+      const inWhite = (x / O.W) ** 2 + (y / O.H) ** 2 <= 1;
+      if (inWhite) continue;
+      const f = Math.max(0, Math.min(48, ((x + O.W) / (2 * O.W)) * 48)), j = Math.min(47, Math.floor(f)), q = f - j, u = O.up[j] + (O.up[j + 1] - O.up[j]) * q;
+      // under the upper lid's shell, or under the lower one (its outline is the white's)
+      if (y >= u && (x / O.A) ** 2 + (y / O.B) ** 2 <= 1) continue;
+      out = Math.max(out, Math.sqrt((x / O.W) ** 2 + (y / O.H) ** 2) - 1);
+    }
+    return out * O.W;
   }
 
   // the share of the pupil (an ellipse rx by ry round px, py) that shows in the opening O, in 12 columns
@@ -398,30 +415,41 @@ export class Face {
       // old rule a heavy upper lid also brought the lower one up, and the eye became a slit too narrow for the pupil
       const kL = Math.min(1, sq + (1 - sq) * clamp01((own - 0.86) / 0.14));
       const rx = r * E.iris * 0.55 * e.pupil, ry = rx * 1.08;
-      return { eye, r, k, kL, O: this._opening(eye, k, kL), pxq, pyq, rx, ry };
+      return { eye, r, k, kL, O: this._opening(eye, k, kL), pxq, pyq, rx, ry, R: r * E.iris };
     });
+    // up and down at a given place across: moved from the asked height toward where the pupil shows most until READ of
+    // it shows (in a slit, 98 % of the most it can)
+    const toward = (f, px, from, best, need) => {
+      if (this._shown(f.O, px, from, f.rx, f.ry) >= need) return from;
+      let a = best, b = from;   // a shows enough, b not
+      for (let n = 0; n < 16; n++) { const m = (a + b) / 2; if (this._shown(f.O, px, m, f.rx, f.ry) >= need) a = m; else b = m; }
+      return a;
+    };
+    const fits = (f, px, needX) => {
+      const b = this._best(f.O, px, f.rx, f.ry, f.r);
+      if (b.m < needX) return false;
+      return this._irisOut(f.O, px, toward(f, px, f.pyq, b.py, Math.min(READ, 0.98 * b.m)), f.R) < 0.002 * f.r;
+    };
     // across: held back (the same share for both eyes) until the pupil can show READ of itself somewhere on its column,
     // or 90 % of what the middle of the eye allows when the lids are narrower than that
+    // and the iris stays inside the eye white wherever no lid covers it
     let fx = 1;
     for (const f of F) {
       if (Math.abs(f.pxq) < 1e-7) continue;
-      const need = Math.min(READ, 0.9 * this._best(f.O, 0, f.rx, f.ry, f.r).m);
-      if (this._best(f.O, f.pxq, f.rx, f.ry, f.r).m >= need) continue;
+      const needX = Math.min(READ, 0.9 * this._best(f.O, 0, f.rx, f.ry, f.r).m);
+      if (fits(f, f.pxq, needX)) continue;
       let a = 0, b = 1;
-      for (let n = 0; n < 14; n++) { const m = (a + b) / 2; if (this._best(f.O, m * f.pxq, f.rx, f.ry, f.r).m >= need) a = m; else b = m; }
+      for (let n = 0; n < 14; n++) { const m = (a + b) / 2; if (fits(f, m * f.pxq, needX)) a = m; else b = m; }
       fx = Math.min(fx, a);
     }
-    // up and down: each eye's pupil moved from the asked place toward where it shows most until READ of it shows (in a
-    // slit, 98 % of the most it can); both eyes then take the larger move each way, and each is checked in its own lids
-    const toward = (f, from) => {
-      if (this._shown(f.O, f.px, from, f.rx, f.ry) >= f.need) return from;
-      let a = f.best, b = from;   // a shows enough, b not
-      for (let n = 0; n < 16; n++) { const m = (a + b) / 2; if (this._shown(f.O, f.px, m, f.rx, f.ry) >= f.need) a = m; else b = m; }
-      return a;
-    };
-    for (const f of F) { f.px = fx * f.pxq; const b = this._best(f.O, f.px, f.rx, f.ry, f.r); f.best = b.py; f.need = Math.min(READ, 0.98 * b.m); f.dy = toward(f, f.pyq) - f.pyq; }
+    // up and down: each eye's own move (toward), then both eyes take the larger move each way, and each is checked in
+    // its own lids again (and held in from the corner if the shared move took its iris out)
+    for (const f of F) { f.px = fx * f.pxq; const b = this._best(f.O, f.px, f.rx, f.ry, f.r); f.best = b.py; f.need = Math.min(READ, 0.98 * b.m); f.dy = toward(f, f.px, f.pyq, f.best, f.need) - f.pyq; }
     const up = Math.max(0, ...F.map((f) => f.dy)), down = Math.min(0, ...F.map((f) => f.dy));
-    for (const f of F) f.py = toward(f, f.pyq + up + down);
+    for (const f of F) {
+      f.py = toward(f, f.px, f.pyq + up + down, f.best, f.need);
+      if (this._irisOut(f.O, f.px, f.py, f.R) >= 0.002 * f.r) { let a = 0, b = 1; for (let n = 0; n < 14; n++) { const m = (a + b) / 2; if (this._irisOut(f.O, m * f.px, f.py, f.R) < 0.002 * f.r) a = m; else b = m; } f.px *= a; }
+    }
     return F;
   }
 
@@ -459,7 +487,9 @@ export class Face {
         const gs = 1 - Math.max(0, Math.min(1, (k - 0.55) / 0.3));
         for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
         // as it shuts the whole eye settles into the face: a closed eye stands out about a third as far as an open one
-        const cl = Math.max(0, Math.min(1, (k - 0.3) / 0.7));
+        // (with the eyes rig, by how shut the eye really is: a held heavy upper lid over an open lower one is a half-open
+        // eye, and sinking it sank the eye white under the skin and left the iris poking out of the lid)
+        const cl = Math.max(0, Math.min(1, ((kL == null ? k : Math.min(k, kL)) - 0.3) / 0.7));
         eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1 - 0.7 * cl * cl * (3 - 2 * cl));
       } else {
         const open = Math.max(0.06, e.eye * (1 - blink));
@@ -470,7 +500,19 @@ export class Face {
       eye.pupil.scale.set(e.pupil, e.pupil * 1.08, 0.3);
       // (d) how much of the pupil shows, seen square on, with the blink (face.shown [right eye, left eye], the layout's
       // measure; eyes without lids count as shown)
-      if (eye.lidPivot) { const rx = eye.r * this.eyeStyle.iris * 0.55 * e.pupil; this.shown[ei] = Math.round(this._shown(this._opening(eye, eye.shut, eye.shutLow), eye.look.position.x, eye.look.position.y, rx, rx * 1.08) * 1000) / 1000; }
+      if (eye.lidPivot) {
+        const E = this.eyeStyle, rx = eye.r * E.iris * 0.55 * e.pupil, O = this._opening(eye, eye.shut, eye.shutLow), P = eye.look.position;
+        this.shown[ei] = Math.round(this._shown(O, P.x, P.y, rx, rx * 1.08) * 1000) / 1000;
+        // with the eyes rig the catch light goes under the lid where the lid really reaches it (the old rule tucked it
+        // away from closure 0.55 on, wherever the pupil was, so a heavy lid over a lowered pupil lost its sparkle)
+        if (fit) {
+          const gr = eye.r * 0.14 * (E.glintSize ?? 1) * 1.1, x = P.x + eye.r * E.iris * 0.36, y = P.y + eye.r * E.iris * 0.5;
+          const f = Math.max(0, Math.min(48, ((x + O.W) / (2 * O.W)) * 48)), j = Math.min(47, Math.floor(f)), q = f - j;
+          const room = Math.min(O.top[j] + (O.top[j + 1] - O.top[j]) * q - y, y - (O.bot[j] + (O.bot[j + 1] - O.bot[j]) * q));
+          const gs = clamp01(room / (2 * gr) + 0.5);
+          for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
+        }
+      }
       // tears: 0..0.5 the band fades in, 0.5..1 the bead swells (the character's right eye is at -u)
       const tk = Math.max(0, Math.min(1, (eye.side < 0 ? c.tearR : c.tearL) || 0)), T = eye.tear;
       const gather = Math.max(0, (tk - 0.5) / 0.5);
