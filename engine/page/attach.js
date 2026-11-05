@@ -107,17 +107,23 @@ export function makeAttach(env) {
     return ARMS.get(who);
   };
   // Two weights: turn, the hand aiming at the prop at all (its own turn rules); stay, aiming at it where it stands (no
-  // `at`: a steering wheel on its column, a phone the hand reaches for), so the prop keeps its own place too and the
-  // hand follows it; a pose with `at` carries it there (the grip library's carry), its place the hand's.
+  // `at`) when nothing ever carries it elsewhere (a steering wheel on its column), so the prop keeps its own place and
+  // the hands follow it; anything carried somewhere (`at`: the grip library's carry) has the hand's place.
   const end = (q) => (q && q.mix ? end(q.mix.pose) : q);
   const aims = (q, id) => { const e = end(q); return !!e && typeof e === "object" && e.prop === id; };
+  // a prop some arm pose carries somewhere (`at`) never stays at its own place: its place is wherever the hand took it
+  const CARRIED = new Map();
+  const carried = (id) => {
+    if (!CARRIED.has(id)) CARRIED.set(id, (sb.actions || []).some((a) => (a.do === "arm" || a.do === "grab") && aims(a.pose, id) && end(a.pose).at));
+    return CARRIED.get(id);
+  };
   const followW = (who, side, id, time) => {
     let w = 0, ws = 0;
     for (const a of armActs(who)) {
       if (a.at > time) break;
       const sides = a.do === "arm" ? (a.side === "both" ? ["R", "L"] : [a.side || "R"]) : a.do === "grab" ? [a.hand] : ["R", "L"];
       if (!sides.includes(side)) continue;
-      const on = (a.do === "arm" || a.do === "grab") && aims(a.pose, id) ? 1 : 0, stay = on && !end(a.pose).at ? 1 : 0;
+      const on = (a.do === "arm" || a.do === "grab") && aims(a.pose, id) ? 1 : 0, stay = on && !end(a.pose).at && !carried(id) ? 1 : 0;
       const d = a.do === "grab" ? a.dur ?? 0.25 : a.dur ?? 0.3, k = d > 0 ? smooth((time - a.at) / d) : 1;
       w += (on - w) * k; ws += (stay - ws) * k;
     }
