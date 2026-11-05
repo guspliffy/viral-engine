@@ -1,12 +1,15 @@
 // The spike guard (quality plan item 6, 5 Nov 2026): no effect jumps far out of the mix.
 //
-// Effect gains are set per event by hand, and the ten clips of 4-5 Nov shipped effects 20-37 dB over what played
-// under them (the tent's cloth + thud, the bill's blade-cut + impact + papercut, the T-rex's grab + stomp, the alien's
-// low-down + notify). With "sound": { "guard": true } the mixer does three things the ear expects:
+// Effect gains are set per event by hand. Measured as below on the ten clips of 4-5 Nov, the T-rex's grab + roar
+// (+13.2 dB), the shark's feedback (+13.9) and splash (+11.3) and the bill's charge + impact (+12.3) and blade-cut
+// (+10.3) stood far over the mix around them. (The old 50 ms check's "+20 to +37 dB" on the tent's cloth + thud and the
+// alien's notify was the payoff after the music's deliberate dip: alone those sit under the mix.) With
+// "sound": { "guard": true } the mixer does three things the ear expects:
 //
 //   1. caps each effect: its momentary loudness (BS.1770, 400 ms) may stand at most 9 dB over the voices, room and
 //      music around it (the energy mean of their momentary loudness over the 3 s around the effect's loudest moment;
-//      never less than the clip's own loudness minus 6 dB, so an effect over a near-silent stretch isn't crushed).
+//      never less than the whole mix's loudness minus 6 dB, so an effect over a near-silent stretch isn't crushed and
+//      a clip carried by its effects keeps its roar 3 dB over its own loudness).
 //      Effects whose loudest moments fall within 0.2 s of each other are measured and turned down together, as the
 //      ear hears them. A hit marked "loud": true (on its sfx entry or its impact fx) may stand 12 dB over. The cap
 //      is a fixed gain per effect, as if it had been set lower by hand: nothing pumps.
@@ -57,12 +60,16 @@ function around(m, a, b, xa = Infinity, xb = -Infinity) {
 // every effect group's momentary loudness against the voices, room and music around it, as the mix would be made with
 // these effect gains (fxGain: a factor per event, as renderAudio takes it). Returns the groups and the unnormalised
 // effects-voices-room mix (without music) it measured. [{ name, i: [event indices], t, LM, ref, over (dB), loud }]
-export function effectLevelsOverMix(sb, chars, fxGain = null, G = guardOf(sb)) {
+export function effectLevelsOverMix(sb, chars, fxGain = null, G = guardOf(sb), fixedFloor = null) {
   const sfxK = sb.sound?.sfx ?? 1, a0 = renderAudio(sb, chars, { norm: false, stems: true, fxGain }), sr = a0.sr, n = a0.L.length;
   const mus = { L: new Float32Array(n), R: new Float32Array(n), sr, events: a0.events };
   addMusic(sb, mus, { norm: false });
   const restM = momentary(kPower(add2(a0.stems.voice, a0.stems.bed, mus), sr, 0.1), 4);
-  const floor = integrated(add2(a0, mus), sr) + G.floor, groups = [];
+  // the floor: the whole mix's loudness minus 6 dB, so an effect may always reach 3 dB over the clip's own loudness
+  // (in a clip carried by its effects, a roar or a stomp over a quiet bed is the joke). The guard measures it once,
+  // on the mix as written, and keeps it while it turns effects down (else a loud effect would pull its own floor down)
+  const floor = fixedFloor ?? integrated(add2(a0, mus), sr) + G.floor, groups = [];
+  groups.floor = floor;
   for (const g of effectGroups(a0.events, G.join)) {
     const pad = 0.4, s0 = Math.min(...g.map((x) => x.e.start)) - pad, s1 = Math.max(...g.map((x) => x.e.start + x.e.samples.length / sr)) + pad;
     const a = Math.round(s0 * sr), buf = new Float32Array(Math.max(1, Math.round((s1 - s0) * sr)));
@@ -78,15 +85,25 @@ export function effectLevelsOverMix(sb, chars, fxGain = null, G = guardOf(sb)) {
 export function mixClip(sb, chars, log = []) {
   if (!guardOn(sb)) { const a = renderAudio(sb, chars); log.push(...addMusic(sb, a)); return a; }
   const G = guardOf(sb);
-  // 1. measure: every effect against the voices, room and music around it; over the cap, a fixed gain down
-  const levels = effectLevelsOverMix(sb, chars, null, G), fxGain = [], capped = [];
-  for (const L of levels) {
-    const cap = L.loud ? G.loud : G.over, cut = Math.max(0, L.over - cap);
-    L.after = L.over - cut;
-    if (!cut) continue;
-    for (const i of L.i) fxGain[i] = Math.pow(10, -cut / 20);
-    capped.push({ ...L, cut });
+  // 1. measure: every effect against the voices, room and music around it; over the cap, a fixed gain down. Measured
+  // again with the new gains (the music's ducking follows them) and turned down further where it is still over: two
+  // passes settle within 0.05 dB
+  const fxGain = [], first = new Map();
+  let levels = [];
+  for (let pass = 0; pass < 4; pass++) {
+    levels = effectLevelsOverMix(sb, chars, fxGain, G, pass ? levels.floor : null);
+    let more = false;
+    for (const L of levels) {
+      if (!first.has(L.name)) first.set(L.name, L.over);
+      const cut = L.over - (L.loud ? G.loud : G.over);
+      L.after = cut > 0.05 ? L.over - cut : L.over;
+      if (cut <= 0.05) continue;
+      for (const i of L.i) fxGain[i] = (fxGain[i] ?? 1) * Math.pow(10, -cut / 20);
+      more = true;
+    }
+    if (!more) break;
   }
+  const capped = levels.filter((L) => fxGain[L.i[0]] != null && fxGain[L.i[0]] < 1).map((L) => ({ ...L, over: first.get(L.name) ?? L.over, cut: -20 * Math.log10(fxGain[L.i[0]]) }));
   // 2. the mix again with the capped gains (the music's ducking follows the new gains)
   const a1 = renderAudio(sb, chars, { norm: false, fxGain, stems: true }), sr = a1.sr, n = a1.L.length;
   const mus = { L: new Float32Array(n), R: new Float32Array(n), sr, events: a1.events };

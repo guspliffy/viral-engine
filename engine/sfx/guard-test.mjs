@@ -2,7 +2,7 @@
 // Self-test for the spike guard and render integrity (quality plan items 6 and 19). About 30 s, no render:
 //   node engine/sfx/guard-test.mjs
 // 1. without the guard the mix is exactly renderAudio + addMusic, as before (same samples)
-// 2. an effect made 20 dB too loud fails the spike check unguarded, and the guard brings it to 9 dB over the mix
+// 2. an effect made 40 dB louder fails the spike check unguarded, and the guard brings it to 9 dB over the mix
 // 3. "loud": true lets it stand at 12 dB
 // 4. the guarded mix is deterministic, lands at -14 LUFS and stays under its true-peak ceiling
 // 5. an edit to a file in assets/models changes the shards' engine fingerprint
@@ -29,18 +29,19 @@ const make = (sound = {}, sfx = (s) => s) => { const sb = { ...base, sound: { ..
 // 1
 { const sb = make(), a = renderAudio(sb, chars); addMusic(sb, a); ok(hash(mixClip(sb, chars)) === hash(a), "unguarded mix is renderAudio + addMusic, sample for sample"); }
 
-// 2, 3: the papercut 20 dB up (it plays alone at 6.41 s)
+// 2, 3: the quiet papercut at 0.42 s (16 dB under the mix) 40 dB up
 const target = base.sfx.find((s) => s.sound === "papercut") ?? base.sfx[0];
-const hot = (loud) => (s) => (s === target ? { ...s, gain: (s.gain ?? 1) * 10, ...(loud ? { loud: true } : {}) } : s);
+const hot = (loud) => (s) => (s === target ? { ...s, gain: (s.gain ?? 1) * 100, ...(loud ? { loud: true } : {}) } : s);
 const named = (lv) => lv.find((x) => x.name.includes(target.sound) && Math.abs(x.t - target.at) < 0.6);
 {
   const sb = make({}, hot(false)), x = named(effectLevelsOverMix(sb, chars));
-  ok(x && x.over > 12, `${target.sound} @${target.at} made 20 dB louder stands ${x?.over.toFixed(1)} dB over the mix unguarded`);
+  ok(x && x.over > 12, `${target.sound} @${target.at} made 40 dB louder stands ${x?.over.toFixed(1)} dB over the mix unguarded`);
   ok(spikes(sb, chars).some((r) => r.level === "fail"), "and fails the spike check");
   const g = make({ guard: true }, hot(false)), a = mixClip(g, chars), y = named(a.levels);
   ok(y && Math.abs(y.after - GUARD.over) < 0.05, `guarded: it is turned down to ${y?.after.toFixed(2)} dB over the mix (cap ${GUARD.over})`);
   ok(!spikes(g, chars, a).some((r) => r.level !== "pass"), "and the spike check passes");
-  ok(Math.abs(effectLevelsOverMix(g, chars, a.levels.reduce((m, L) => { for (const i of L.i) m[i] = Math.pow(10, -(L.over - L.after) / 20); return m; }, [])).find((L) => L.name === y.name).over - GUARD.over) < 0.3, "measured again with the capped gains it stands at the cap");
+  const again = effectLevelsOverMix(g, chars, a.guard.capped.reduce((m, c) => { for (const i of c.i) m[i] = Math.pow(10, -c.cut / 20); return m; }, []), GUARD, a.levels.floor).find((L) => L.name === y.name);
+  ok(again && Math.abs(again.over - GUARD.over) < 0.1, `measured again with the guard's gains (and its floor) it stands at ${again?.over.toFixed(2)} dB (the cap)`);
   const l = make({ guard: true }, hot(true)), z = named(mixClip(l, chars).levels);
   ok(z && Math.abs(z.after - GUARD.loud) < 0.05, `marked "loud": turned down to ${z?.after.toFixed(2)} dB (cap ${GUARD.loud})`);
 }

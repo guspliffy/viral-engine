@@ -14,7 +14,8 @@
 // Deliveries: "std" (the file render.mjs makes today: JPEG q 0.95 frames, x264 veryfast CRF 18, given with --std),
 // "hq-crf14/15/16" (lossless frames, x264 slow, CRF 14-16, tune animation: render.mjs --encode hq uses 15).
 // Platforms (rough, not their real encoders, which aren't public and change): "tiktok" x264 medium CRF 23 capped at
-// 2.5 Mb/s, "reels" x264 medium CRF 23 capped at 3.5 Mb/s, both 1080x1920 yuv420p. What counts is the ranking of the
+// 2.5 Mb/s, "reels" x264 medium CRF 23 capped at 3.5 Mb/s, "hd" (an app's high-quality upload setting) CRF 20 capped
+// at 6 Mb/s, all 1080x1920 yuv420p. What counts is the ranking of the
 // deliveries after the same re-encode, not the absolute numbers. Writes report.json, report.md and a 200 % crop sheet
 // per crop (lossless | std after TikTok | hq after TikTok).
 import fs from "node:fs";
@@ -43,7 +44,7 @@ for (const crf of [14, 15, 16]) {
   deliveries[`hq-crf${crf}`] = f; console.log(`hq-crf${crf}: ${kbps(f, n)} kb/s, encoded in ${((Date.now() - t) / 1000).toFixed(1)} s`);
 }
 // 2. the platforms' re-encode
-const PLATFORMS = { tiktok: ["-preset", "medium", "-crf", "23", "-maxrate", "2500k", "-bufsize", "5000k"], reels: ["-preset", "medium", "-crf", "23", "-maxrate", "3500k", "-bufsize", "7000k"] };
+const PLATFORMS = { tiktok: ["-preset", "medium", "-crf", "23", "-maxrate", "2500k", "-bufsize", "5000k"], reels: ["-preset", "medium", "-crf", "23", "-maxrate", "3500k", "-bufsize", "7000k"], hd: ["-preset", "medium", "-crf", "20", "-maxrate", "6000k", "-bufsize", "12000k"] };
 const sims = {};
 for (const [d, f] of Object.entries(deliveries)) for (const [p, opt] of Object.entries(PLATFORMS)) {
   const g = path.join(out, `${d}.${p}.mp4`);
