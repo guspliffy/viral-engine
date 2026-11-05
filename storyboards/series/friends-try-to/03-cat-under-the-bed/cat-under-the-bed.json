@@ -152,7 +152,7 @@
    "rot": -131,
    "tip": 3,
    "len": 2,
-   "r": 0.5
+   "r": 0.7
   },
   {
    "id": "carrier",
@@ -488,7 +488,7 @@
      "do": "prop",
      "id": "beam",
      "set": {
-      "on": 0.55
+      "on": 1
      },
      "dur": 0.01,
      "ease": "inOut",
@@ -1757,7 +1757,8 @@
      "set": {
       "on": 1,
       "rot": -121,
-      "len": 2.6
+      "len": 2.6,
+      "r": 0.75
      },
      "dur": 0.08,
      "ease": "inOut",
@@ -1814,6 +1815,25 @@
      "sfx": "hiss",
      "gain": 0.6,
      "reason": "the cat's hiss in the torch beam: a short bright hiss of air (no cat voice in the whitelist)",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "fx": "pop",
+     "text": "HSSS!",
+     "who": "vik",
+     "dur": 0.5,
+     "dx": -1.6,
+     "dy": 0.2,
      "at": 1.4
     },
     {
@@ -2545,6 +2565,19 @@
      "at": 0.4
     },
     {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "char": 0,
+      "glow": 0.6,
+      "drop": 0,
+      "rot": 20
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
      "who": "vik",
      "do": "arm",
      "side": "L",
@@ -2562,24 +2595,32 @@
      "at": 0.45
     },
     {
-     "who": "rea",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.2,
-     "at": 0.48
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "flap": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.45
     },
     {
      "do": "prop",
      "id": "cat",
      "set": {
-      "char": 0,
-      "glow": 0,
-      "drop": 0,
-      "rot": 20
+      "x": -1,
+      "z": 0.28
      },
-     "dur": 0.2,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 0.5
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.48
     },
     {
      "who": "phx",
@@ -2620,27 +2661,6 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.55
-    },
-    {
-     "do": "prop",
-     "id": "cat",
-     "set": {
-      "flap": 1
-     },
-     "dur": 0.05,
-     "ease": "inOut",
-     "at": 0.55
-    },
-    {
-     "do": "prop",
-     "id": "cat",
-     "set": {
-      "x": -1,
-      "z": 0.28
-     },
-     "dur": 0.4,
      "ease": "inOut",
      "at": 0.55
     },
@@ -2796,9 +2816,10 @@
      "do": "prop",
      "id": "cat",
      "set": {
-      "y": 0.012,
+      "y": 0.05,
       "over": 1,
-      "drop": 1
+      "drop": 0.6,
+      "glow": 0
      },
      "dur": 0.12,
      "ease": "in",
@@ -2815,7 +2836,7 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.7,
+      "open": 0.8,
       "eye": 1.482,
       "curve": -0.075
      },
@@ -2825,7 +2846,7 @@
     {
      "who": "wiz",
      "do": "face",
-     "brow": 0.45,
+     "brow": 0.4,
      "dur": 0.25,
      "at": 1.14
     },
@@ -2841,7 +2862,7 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.7,
+      "open": 0.8,
       "eye": 1.482,
       "curve": -0.075
      },
@@ -2851,7 +2872,7 @@
     {
      "who": "vik",
      "do": "face",
-     "brow": 0.45,
+     "brow": 0.4,
      "dur": 0.25,
      "at": 1.165
     },
@@ -2878,7 +2899,7 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.7,
+      "open": 0.8,
       "eye": 1.482,
       "curve": -0.075
      },
@@ -2888,7 +2909,7 @@
     {
      "who": "phx",
      "do": "face",
-     "brow": 0.45,
+     "brow": 0.4,
      "dur": 0.25,
      "at": 1.19
     },
@@ -3330,8 +3351,8 @@
      "do": "prop",
      "id": "cat",
      "set": {
-      "x": -0.6,
-      "z": -0.17,
+      "x": -0.8,
+      "z": -0.09,
       "y": 0,
       "rot": -90
      },
@@ -3450,7 +3471,7 @@
       "char": 1,
       "glow": 1,
       "drop": 0.55,
-      "lid": 0.55,
+      "lid": 0.6,
       "rot": 90
      },
      "dur": 0.15,
@@ -3489,6 +3510,17 @@
      "amount": 0.02,
      "dur": 0.2,
      "at": 0.71
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.95,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.73
     },
     {
      "who": "wiz",
@@ -3531,22 +3563,44 @@
     },
     {
      "who": "phx",
-     "do": "look",
-     "to": [
-      -0.95,
-      0.15
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.83
-    },
-    {
-     "who": "phx",
      "do": "turn",
      "to": -22.5,
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.87
+     "at": 0.77
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.81
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.86
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.86
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.95,
+      0.457
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.88
     },
     {
      "who": "vik",
@@ -3565,11 +3619,18 @@
     },
     {
      "who": "phx",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.46,
-     "dur": 0.25,
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
      "at": 0.91
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -22.438,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.92
     },
     {
      "who": "vik",
@@ -3580,52 +3641,33 @@
      "at": 0.93
     },
     {
-     "who": "phx",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "at": 0.96
-    },
-    {
-     "who": "phx",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.96
-    },
-    {
-     "who": "phx",
-     "do": "still",
-     "dur": 0.8,
-     "idle": 0.06,
-     "at": 1.01
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      -0.95,
-      0.457
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 1.08
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -22.438,
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.12
-    },
-    {
      "who": "rea",
      "do": "face",
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 1.16
+     "at": 0.96
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 1.06
     },
     {
      "who": "vik",
@@ -3643,31 +3685,10 @@
      "at": 1.2
     },
     {
-     "who": "rea",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "at": 1.21
-    },
-    {
-     "who": "rea",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 1.21
-    },
-    {
      "who": "wiz",
      "do": "blink",
      "dur": 0.22,
      "at": 1.23
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.8,
-     "idle": 0.06,
-     "at": 1.26
     },
     {
      "who": "vik",

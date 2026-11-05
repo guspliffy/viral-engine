@@ -61,7 +61,7 @@ const props = [
   { id: "bed", kind: "plaidbed", x: BX, z: BZ, len: BL, wid: BW, gap: GAP },
   { id: "cat", kind: "cat", x: CAT0[0], z: CAT0[1], rot: 90, lid: 0.35, char: 1, glow: 1, drop: 0.55 },
   { id: "treat", kind: "treat", x: -0.38, y: 0.05, z: 0.1, rot: 90 },
-  { id: "beam", kind: "torchbeam", x: r3(PHX0[0] - 0.28), y: 0.34, z: r3(PHX0[1] + 0.18), rot: -131, tip: 3, len: 2.0, r: 0.5 },   // a wide, readable cone
+  { id: "beam", kind: "torchbeam", x: r3(PHX0[0] - 0.28), y: 0.34, z: r3(PHX0[1] + 0.18), rot: -131, tip: 3, len: 2.0, r: 0.7 },   // a wide, readable cone
   { id: "carrier", kind: "petcarrier", x: 2.1, z: -1.9, rot: -40, open: 75 },
   { id: "cattree", kind: "cattree", x: -2.35, z: -2.2, scale: 0.9 },
   { id: "mouse", kind: "toymouse", x: -0.45, z: 1.15, rot: 30 },
@@ -103,7 +103,7 @@ A(0.7, "wiz", "expr", { expr: "focused", dur: 0.25 });
 A(0, "phx", "crouch", { to: 1, dur: 0 }); A(0, "phx", "lean", { to: 14, dur: 0 });
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
 ph.secure(0, 0.01);
-c.prop(0, "beam", { on: 0.55 }, 0.01);
+c.prop(0, "beam", { on: 1 }, 0.01);   // review B note 1: a cone of light on the gap and the eyes
 A(0, "phx", "look", { to: [-0.7, -0.35], dur: 0, blink: false });
 A(0.1, "phx", "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0.1 });
 A(0.6, "phx", "expr", { expr: "eager", dur: 0.25 });
@@ -197,12 +197,14 @@ see(3.9, 4.45, ["bed", "cat", "vik.face"], "P3: Viking lifts the bed, the cat st
 
 // ---------------------------------------------------------------- 4 TORCH AND HISS 4.5-5.5 (P4)
 // Phoenix clicks the torch up full into the gap: two big eyes and a hiss (hit-stop), everyone scrambles back
-c.prop(4.5, "beam", { on: 1, rot: -121, len: 2.6 }, 0.08);
+c.prop(4.5, "beam", { on: 1, rot: -121, len: 2.6, r: 0.75 }, 0.08);
 sfx(4.5, "kenney/metal-click", { gain: 0.35, reason: "the phone torch clicks to full" });
 const HISS = 4.7;
 c.prop(HISS, "cat", { [CAT.hiss]: 1, [CAT.lid]: 0, [CAT.dark]: 0.15 }, 0.06, "out");   // lit full in the torch beam
 sfx(HISS, "hiss", { gain: 0.6, reason: "the cat's hiss in the torch beam: a short bright hiss of air (no cat voice in the whitelist)" });
 c.hitStop(HISS, 3);
+c.prop(HISS, "cat", { [CAT.glow]: 1 }, 0.05);
+c.textPop(HISS, "vik", "HSSS!", { dur: 0.5, dx: -1.6, dy: 0.2 });   // review B note 2: the hiss for the mute viewer (beside the gap)
 c.prop(5.0, "cat", { [CAT.hiss]: 0, [CAT.lid]: 0.35, [CAT.dark]: 1 }, 0.3);
 c.prop(4.78, "beam", { on: 0 }, 0.15);
 for (const who of ["wiz", "phx", "vik"]) act.shock(c, r3(HISS + (who === "vik" ? 0.04 : 0.02)), who, { open: 0.45, eye: 1.35, hold: 0.3 });
@@ -265,18 +267,18 @@ c.arm(6.38, "rea", "R", { o: [-0.12, 0.44, 0.27] }, 0.25, "inOut"); c.arm(6.38, 
 A(6.3, "rea", "look", { to: [0, 0.05], dur: 0.15, blink: false });
 A(6.32, "rea", "expr", { expr: "deadpan", dur: 0.2 }); A(6.32, "rea", "face", { lid: 0.5, dur: 0.2 });
 // the cat walks out, looks round, steps into the box (hit-stop) and settles: "mrrp"
-c.prop(6.0, "cat", { [CAT.dark]: 0, [CAT.glow]: 0, [CAT.tuck]: 0, rot: 20 }, 0.2);
-c.prop(6.05, "cat", { [CAT.walk]: 1 }, 0.05);
-c.prop(6.05, "cat", { x: r3(BOX[0] + 0.05), z: r3(BOX[1] - 0.34) }, 0.4, "inOut");
+c.prop(5.9, "cat", { [CAT.dark]: 0, [CAT.glow]: 0.6, [CAT.tuck]: 0, rot: 20 }, 0.15);   // review B note 3: lit as it walks out
+c.prop(5.95, "cat", { [CAT.walk]: 1 }, 0.05);
+c.prop(5.95, "cat", { x: r3(BOX[0] + 0.05), z: r3(BOX[1] - 0.34) }, 0.5, "inOut");
 for (const t of [6.15, 6.3, 6.45]) sfx(t, "kenney/footstep-carpet", { gain: 0.12, reason: "the cat's paw pads on the rug (a soft carpet step, quiet)" });
 const INBOX = 6.6;
 c.prop(6.45, "cat", { x: BOX[0], z: r3(BOX[1] - 0.07), y: 0.16, rot: 0 }, 0.15, "out");
 c.prop(6.47, "cat", { [CAT.walk]: 0 }, 0.05);
-c.prop(r3(INBOX - 0.02), "cat", { y: 0.012, [CAT.sit]: 1, [CAT.tuck]: 1 }, 0.12, "in");
+c.prop(r3(INBOX - 0.02), "cat", { y: 0.05, [CAT.sit]: 1, [CAT.tuck]: 0.6, [CAT.glow]: 0 }, 0.12, "in");   // its happy face stays over the rim (review B note 3)
 sfx(INBOX, "cardboard", { gain: 0.5, reason: "the cat settles into the cardboard box" });
 c.hitStop(INBOX, 3);
 c.prop(r3(INBOX + 0.08), "cat", { [CAT.happy]: 1, [CAT.lid]: 0 }, 0.15);
-for (const [who, d] of [["wiz", 0], ["vik", 0.05], ["phx", 0.1]]) act.shock(c, r3(INBOX + 0.04 + d * 0.5), who, { open: 0.5, eye: 1.3, hold: 0.3 });
+for (const [who, d] of [["wiz", 0], ["vik", 0.05], ["phx", 0.1]]) act.shock(c, r3(INBOX + 0.04 + d * 0.5), who, { open: 0.6, eye: 1.3, brow: 0.4, hold: 0.3 });
 for (const who of ["wiz", "vik", "phx"]) A(6.1, who, "look", { to: [-0.2, -0.45], dur: 0.15, blink: false });
 see(6.1, 6.6, ["cat", "box", "rea.face"], "P5: the cat walks out past Reaper and into the box");
 see(6.7, 6.98, ["cat", "wiz.face", "vik.face", "phx.face"], "P5: jaws drop");
@@ -305,14 +307,14 @@ const E = ending(c, {
     c.at(r3(SNEEZE + 0.12), { fx: "shake", dur: 0.15, amp: 0.012 });   // the sneeze has a kick
     // the cat shoots out of the box and back under the bed: eyes glowing again
     c.prop(r3(SNEEZE + 0.12), "cat", { [CAT.happy]: 0, [CAT.sit]: 0, [CAT.tuck]: 0, [CAT.streak]: 1, [CAT.lid]: 0, y: 0.15, rot: 160 }, 0.08, "out");
-    c.prop(r3(SNEEZE + 0.2), "cat", { x: -0.6, z: CATZ, y: 0, rot: -90 }, 0.22, "in");
+    c.prop(r3(SNEEZE + 0.2), "cat", { x: -0.8, z: r3(CATZ + 0.08), y: 0, rot: -90 }, 0.22, "in");   // at the gap's front edge, its eyes between the box and the bed frame (review B note 4)
     sfx(r3(SNEEZE + 0.18), "whoosh", { gain: 0.4, reason: "the cat shoots out of the box and back under the bed" });
-    c.prop(r3(SNEEZE + 0.42), "cat", { [CAT.streak]: 0, [CAT.dark]: 1, [CAT.glow]: 1, [CAT.tuck]: 0.55, [CAT.lid]: 0.55, rot: 90 }, 0.15);
+    c.prop(r3(SNEEZE + 0.42), "cat", { [CAT.streak]: 0, [CAT.dark]: 1, [CAT.glow]: 1, [CAT.tuck]: 0.55, [CAT.lid]: 0.6, rot: 90 }, 0.15);
     c.arm(r3(SNEEZE + 0.35), "vik", "R", "rest", 0.3, "inOut"); c.arm(r3(SNEEZE + 0.35), "vik", "L", "rest", 0.3, "inOut");
     A(r3(SNEEZE + 0.35), "vik", "lean", { to: 0, dur: 0.3 });
   },
   sting: 0.42,
-  glareGap: 0.25,   // one head after the other, not one move
+  glareGap: 0.15,   // all three set before the cover frame at 9.6 (review B note 4)   // one head after the other, not one move
   glareShare: { wiz: false, phx: 0.25, rea: 0.15 },   // Reaper sits in front: he glares with his eyes, his face stays to us
   rub: "R",
 });
@@ -320,7 +322,7 @@ see(r3(E.glare + 0.3), 9.7, ["cat", "box", "hatsock"], "P8: the empty box, two y
 
 // ---------------------------------------------------------------- shots: Jonny's panels
 // P1-P4: from the front right, high enough that the back row's faces clear the front row's heads
-const ROOM = { pos: [1.3, 3.0, 5.0], look: [0.18, 0.35, -0.6], fov: 56 };   // the bed gap well inside the frame, the plate still filling the top left   // front right, the bed running in from the left (the panels)
+const ROOM = { pos: [1.3, 3.0, 5.0], look: [0.18, 0.35, -0.6], fov: 56 };   // (review B asked to pan to the bed's foot: it put Reaper and the carrier out of frame and the cat behind the Wizard, so it stays)
 // P5-P8: lower and closer, the bed across the frame, the three peeking over it, Reaper and the box in front
 const LOW = { pos: [-0.5, 2.5, 3.9], look: [-0.5, 0.4, -0.6], fov: 56 };   // high enough that seated Reaper sits below the back row's faces
 const beats = c.beats([
