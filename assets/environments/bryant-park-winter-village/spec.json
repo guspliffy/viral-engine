@@ -1,0 +1,39 @@
+{
+ "name": "bryant-park-winter-village",
+ "prompt": "anime film background painting, gouache, eye level view from the ground, a wide empty snowy stone plaza fills the bottom half, behind it an empty ice rink with a low rail, a tall lit christmas tree, bare trees with fairy lights, tall new york skyscrapers with lit windows, deep blue dusk sky",
+ "no": "people, crowd, skaters, person, figures, potato, text, sign, logo, aerial view, high angle, bird's eye view, castle, church, spire, village, houses in foreground, falling snow, snowflakes",
+ "seeds": [
+  21,
+  5,
+  13,
+  34,
+  8,
+  40
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 0.95,
+  "vfov": 46,
+  "pos": [
+   0,
+   0.95,
+   6.6
+  ]
+ },
+ "light": {
+  "from": "upper left: the stall's warm string lights at blue-hour dusk",
+  "key": [
+   -3.0,
+   4.0,
+   2.0
+  ],
+  "shadow": 0.2
+ },
+ "swayMax": 0,
+ "surface": "stone",
+ "pad": 0.3,
+ "padY": 0.3
+}
