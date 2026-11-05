@@ -1489,21 +1489,25 @@ export function propState(sb, spec, t) {
     else if (a.do === "grab") {
       // a new grip by the hand that already holds it: the prop slides in the hand from the old grip point to the new
       // one over dur (from the side of a jar to under it, say), so nothing jumps
-      const h = ps.hold;
-      if (h && a.grip && h.grip && h.who === a.who && h.hand === (a.hand || "R") && !h.keep && (a.dur ?? 0) > 0) {
+      const h = ps.hold, h2 = Number(sb.rig?.hold) >= 2;
+      if (!h2 && h && a.grip && h.grip && h.who === a.who && h.hand === (a.hand || "R") && !h.keep && (a.dur ?? 0) > 0) {
         const g0 = gripPoint(spec, h.grip), g1 = gripPoint(spec, a.grip), e1 = ease(a.ease || "inOut")(prog(t, a.at, a.dur));
         ps.hold = { ...h, grip: g0.map((v, i) => v + (g1[i] - v) * e1) };
         continue;
       }
       const k = a.keep || a.grip ? 1 : ease("out")(prog(t, a.at, a.dur ?? 0.25));
-      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}), ...(ps.left && { prev: ps.left }) };
+      ps.hold = { who: a.who, hand: a.hand || "R", off: a.off || [0, 0, 0], k, at: a.at, grip: a.grip ?? null, keep: !!a.keep, ...(a.point && { point: a.point }), from: [ps.x, ps.y, ps.z], ...(k < 1 ? { to: [ps.x, ps.y, ps.z] } : {}), ...(ps.left && { prev: ps.left }),
+        // holds 2 (attach.js, "rig": { "hold": 2 }): the prop's own turn at the grab, the hold it was taken from (a
+        // regrip or a pass blends from it), the grab's length and an upright or rigid hold
+        ...(h2 && { fromRot: [ps.rot, ps.tip, ps.tilt, ps.roll], dur: a.dur ?? 0.25, ...(h && { was: h }), ...(a.upright != null && { upright: !!a.upright }) }) };
       // (taken again after a let-go without a place: `prev` is that hold, so stage.js starts from where it was left)
       ps.left = null;
     }
     else if (a.do === "release") {
       if (p < 1 && ps.hold) ps.hold = { ...ps.hold, to: a.to, k: a.to ? 1 - e : 1, arc: a.to && a.arc ? 4 * a.arc * e * (1 - e) : 0 };
       // without "to" it stays where the hand let go (stage.js works out where that was)
-      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, grabAt: ps.hold.at, at: a.at + (a.dur ?? 0.3) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
+      // (holds 2: a let-go prop falls onto what is under it, attach.js, unless keep: "air" with a reason stages it there)
+      else { if (!a.to && ps.hold) ps.left = { ...ps.hold, grabAt: ps.hold.at, at: a.at + (a.dur ?? 0.3), ...(a.keep === "air" && { air: a.reason || "" }) }; ps.hold = null; if (a.to) [ps.x, ps.y, ps.z] = a.to; }
     }
     // carried by another prop (a raven's beak): { do: "carry", prop, by, off: [x, y, z] (in the carrier's own turned,
     // scaled frame), at } and from then on it rides along; { do: "carry", prop, at } with no `by` lets go of it there
