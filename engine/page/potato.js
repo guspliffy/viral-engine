@@ -502,7 +502,7 @@ export class Character {
       const P = new THREE.Vector3(); let W = 0;
       for (const e of palms) { P.addScaledVector(e.at, e.w); W += e.w; }
       P.multiplyScalar(1 / W);
-      const acc = [0, 0, 0]; let wu = 0;
+      const acc = [0, 0, 0]; let wu = 0, qp = null;   // qp: the ends' holds blended, to match exactly on the hold
       for (const e of palms) {
         const zp = P.clone().sub(at), fy = y.clone();
         if (e.wrap) zp.y = 0;
@@ -517,10 +517,10 @@ export class Character {
         const r = wristTurn(T.copy(Bi).multiply(_fist)), u = e.w * r[3] * sstep(fl / 0.3);
         lim = Math.max(lim, r[4] / WRIST.bend, Math.abs(r[5]) / WRIST.twist);
         for (let i = 0; i < 3; i++) acc[i] += u * r[i];
-        const ex = exactW(e.w * sstep(fl / 0.3)); if (ex > 0) exact.push([_fist.clone(), ex]);
+        if (u > 0) { if (!qp) qp = _fist.clone(); else qp.slerp(_fist, u / (wu + u)); }
         wu += u;
       }
-      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); hold = Math.max(hold, exactW(wu)); }
+      if (wu > 0) { toward(acc.map((v) => v / wu), wu); dbg.pal = rd(wu, 2); const e = exactW(wu); hold = Math.max(hold, e); if (e > 0) exact.push([qp, e]); }
     }
     if (frame && frame.w > 0) turn(frame.q, frame.w, "fr");
     const up = Math.min(1, Math.max(0, gr.up || 0));
