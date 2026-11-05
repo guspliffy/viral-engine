@@ -43,3 +43,12 @@ on Phoenix.
 - **"huh." is a pop word under the faces** (lower centre, panel 07), not a caption, and a yellow "!" pops over the hat
   tip as the heads turn (9.85 s).
 - **10.2 s instead of 10 s**: the two 3-frame hit-stops add 0.2 s, as in episodes 1 and 4.
+
+## Jonny's change (5 Nov, 09:04-09:14): the friends flee for good
+
+- Reaper and the Wizard no longer hide behind the hedge. From frame 0 they flee toward the camera in terror (shocked
+  faces, arms flailing) and run out of the picture past its right side, and they never come back ("Gone for good" on
+  the decision card). Panels 02, 05 and 08's friends at the hedge, the "psst" wave and the shush are cut.
+- The hedge is gone (it stood in their way) and the recycling bin moved out of their lane, off the right edge.
+- The ending no longer turns to the hedge: after the pat, the horde bows back over its "phones" round Phoenix, who is
+  now one of them.

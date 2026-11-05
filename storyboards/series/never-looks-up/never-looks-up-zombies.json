@@ -1,7 +1,7 @@
 {
  "id": "never-looks-up-zombies",
  "title": "The friend who never looks up from his phone… even in a zombie apocalypse",
- "idea": "Never Looks Up ep 5: a zombie horde takes Phoenix, bowed over his glowing phone, for one of its own; the lead zombie sits and watches his screen with him, the series' 'huh.', a friendly pat, and every zombie head turns to the hedge where the Wizard's hat sticks out",
+ "idea": "Never Looks Up ep 5: a zombie horde takes Phoenix, bowed over his glowing phone, for one of its own; the lead zombie sits and watches his screen with him, the series' 'huh.', a friendly pat, and the horde settles round him as his new friends",
  "format": "series: The friend who never looks up (fixed 8-10 s ending)",
  "fps": 30,
  "look": "anime-pro",
@@ -120,11 +120,11 @@
    "id": "wiz",
    "character": "notyet/wizard-nostaff",
    "at": [
-    1.65,
-    -4.65
+    1.45,
+    -4.7
    ],
-   "face": -25,
-   "expr": "kind",
+   "face": 5,
+   "expr": "shocked",
    "follow": 0.4,
    "seed": 2.6
   },
@@ -132,11 +132,11 @@
    "id": "rea",
    "character": "notyet/reaper-noscythe",
    "at": [
-    2.45,
-    -5.25
+    0.45,
+    -3.5
    ],
-   "face": -30,
-   "expr": "kind",
+   "face": 0,
+   "expr": "shocked",
    "follow": 0.3,
    "seed": 3.1
   },
@@ -222,19 +222,10 @@
    "scale": 1.3
   },
   {
-   "id": "hedge",
-   "kind": "hedge",
-   "x": 1.4,
-   "z": -2.65,
-   "w": 1.3,
-   "h": 0.55,
-   "d": 0.55
-  },
-  {
    "id": "bin",
    "kind": "recyclebin",
-   "x": 2.3,
-   "z": -2,
+   "x": 3,
+   "z": -2.6,
    "rot": -15
   },
   {
@@ -293,20 +284,6 @@
    "to": 1.1,
    "text": "ZOMBIES!!",
    "pos": 640,
-   "pop": false
-  },
-  {
-   "from": 1.32,
-   "to": 2.05,
-   "text": "psst! OVER HERE!",
-   "pos": 640,
-   "pop": false
-  },
-  {
-   "from": 1.9,
-   "to": 2.55,
-   "text": "SHHH!",
-   "pos": 510,
    "pop": false
   }
  ],
@@ -921,190 +898,81 @@
      "at": 0
     },
     {
-     "who": "wiz",
-     "do": "run",
-     "pts": [
-      [
-       0,
-       1.65,
-       -4.65
-      ],
-      [
-       0.068,
-       1.585,
-       -4.574
-      ],
-      [
-       0.137,
-       1.524,
-       -4.494
-      ],
-      [
-       0.205,
-       1.466,
-       -4.412
-      ],
-      [
-       0.273,
-       1.411,
-       -4.328
-      ],
-      [
-       0.342,
-       1.36,
-       -4.24
-      ],
-      [
-       0.41,
-       1.313,
-       -4.15
-      ],
-      [
-       0.478,
-       1.268,
-       -4.057
-      ],
-      [
-       0.547,
-       1.228,
-       -3.961
-      ],
-      [
-       0.615,
-       1.191,
-       -3.862
-      ],
-      [
-       0.683,
-       1.157,
-       -3.761
-      ],
-      [
-       0.752,
-       1.127,
-       -3.657
-      ],
-      [
-       0.82,
-       1.1,
-       -3.55
-      ]
-     ],
-     "dur": 0.82,
-     "rate": [
-      [
-       0,
-       4
-      ],
-      [
-       0.574,
-       4
-      ],
-      [
-       0.82,
-       2.6
-      ]
-     ],
-     "stride": 1.6,
-     "at": 0
-    },
-    {
      "who": "rea",
      "do": "run",
      "pts": [
       [
        0,
-       2.45,
-       -5.25
+       0.45,
+       -3.5
       ],
       [
-       0.072,
-       2.433,
-       -5.143
+       0.554,
+       0.9,
+       -1.7
       ],
       [
-       0.143,
-       2.414,
-       -5.039
+       1.083,
+       1.4,
+       0
       ],
       [
-       0.215,
-       2.394,
-       -4.937
-      ],
-      [
-       0.287,
-       2.372,
-       -4.839
-      ],
-      [
-       0.358,
-       2.349,
-       -4.743
-      ],
-      [
-       0.43,
-       2.325,
-       -4.65
-      ],
-      [
-       0.502,
-       2.299,
-       -4.56
-      ],
-      [
-       0.573,
-       2.272,
-       -4.472
-      ],
-      [
-       0.645,
-       2.244,
-       -4.387
-      ],
-      [
-       0.717,
-       2.214,
-       -4.306
-      ],
-      [
-       0.788,
-       2.183,
-       -4.226
-      ],
-      [
-       0.86,
-       2.15,
-       -4.15
+       1.35,
+       1.8,
+       0.8
       ]
      ],
-     "dur": 0.86,
+     "dur": 1.35,
      "rate": [
       [
        0,
-       4
+       4.2
       ],
       [
-       0.602,
+       1.35,
        4
-      ],
-      [
-       0.86,
-       2.6
       ]
      ],
-     "stride": 1.6,
+     "stride": 1.7,
      "at": 0
     },
     {
      "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.2,
-      0.3
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.45,
+       -4.7
+      ],
+      [
+       0.703,
+       1.85,
+       -2.2
+      ],
+      [
+       1.147,
+       2.4,
+       -0.7
+      ],
+      [
+       1.5,
+       3.3,
+       0.2
+      ]
      ],
-     "dur": 0,
-     "blink": false,
+     "dur": 1.5,
+     "rate": [
+      [
+       0,
+       4.2
+      ],
+      [
+       1.5,
+       4
+      ]
+     ],
+     "stride": 1.7,
      "at": 0
     },
     {
@@ -1112,35 +980,167 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.65,
+      "open": 0.75,
       "eye": 1.425,
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.02
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.02
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "still",
-     "dur": 1,
+     "dur": 1.5999999999999999,
      "idle": 0.08,
-     "at": 0.02
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.4,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.15,
+      0.25
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      0.25
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "talk",
      "line": "zom-bies!",
-     "dur": 0.5,
+     "dur": 0.6,
      "tone": "excited",
      "voice": false,
      "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.17
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.17
     },
     {
      "who": "phx",
@@ -1151,6 +1151,62 @@
      "at": 0.2
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.24
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.34
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.34
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -1159,25 +1215,116 @@
      "at": 0.36
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.41
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.51
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.51
+    },
+    {
      "who": "wiz",
      "do": "turn",
-     "to": 10,
+     "to": 25,
      "dur": 0.3,
      "at": 0.55
     },
     {
      "who": "rea",
-     "do": "turn",
-     "to": -10,
-     "dur": 0.3,
-     "at": 0.6
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.58
     },
     {
      "who": "wiz",
-     "do": "crouch",
-     "to": 0.55,
-     "dur": 0.08,
-     "at": 0.82
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.68
     },
     {
      "who": "wiz",
@@ -1186,26 +1333,12 @@
      "pose": {
       "o": [
        0.04,
-       0.22,
-       0.26
+       0.4,
+       0.34
       ]
      },
      "dur": 0.15,
-     "at": 0.84
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.04,
-       0.22,
-       0.26
-      ]
-     },
-     "dur": 0.15,
-     "at": 0.84
+     "at": 0.68
     },
     {
      "who": "rea",
@@ -1213,13 +1346,13 @@
      "side": "R",
      "pose": {
       "o": [
-       0.04,
-       0.22,
-       0.26
+       0.3,
+       0.8,
+       0.12
       ]
      },
      "dur": 0.15,
-     "at": 0.84
+     "at": 0.75
     },
     {
      "who": "rea",
@@ -1228,35 +1361,124 @@
      "pose": {
       "o": [
        0.04,
-       0.22,
-       0.26
+       0.4,
+       0.34
       ]
      },
      "dur": 0.15,
-     "at": 0.84
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.85
     },
     {
      "who": "rea",
-     "do": "crouch",
-     "to": 0.6,
-     "dur": 0.08,
-     "at": 0.86
-    },
-    {
-     "do": "prop",
-     "id": "hedge",
-     "set": {
-      "wobble": 1
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.34,
+       0.55,
+       0.16
+      ]
      },
-     "dur": 0.4,
-     "ease": "out",
-     "at": 0.88
+     "dur": 0.15,
+     "at": 0.92
     },
     {
-     "sfx": "leafrustle",
-     "gain": 0.6,
-     "reason": "they dive into the hedge's back",
-     "at": 0.9
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 0.92
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.09
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.09
     },
     {
      "who": "phx",
@@ -1267,24 +1489,6 @@
      "at": 1.1
     },
     {
-     "who": "wiz",
-     "do": "crouch",
-     "to": 0.3,
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.8,
-      0
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 1.2
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -1293,52 +1497,36 @@
      "at": 1.26
     },
     {
-     "do": "prop",
-     "id": "hedge",
-     "set": {
-      "wobble": 0
-     },
-     "dur": 0.3,
-     "ease": "inOut",
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
      "at": 1.3
     },
     {
      "who": "wiz",
      "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.05,
-       0.85,
-       0.2
-      ]
-     },
-     "dur": 0.15,
-     "ease": "out",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
      "at": 1.3
     },
     {
-     "who": "wiz",
-     "do": "talk",
-     "line": "psst! psst!",
-     "dur": 0.55,
-     "tone": "excited",
-     "voice": false,
-     "at": 1.32
-    },
-    {
-     "who": "wiz",
+     "who": "rea",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "o": [
-       0.15,
-       0.7,
-       0.25
-      ]
-     },
-     "dur": 0.12,
-     "at": 1.48
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 1.3
     }
    ],
    "kind": "hook"
@@ -1350,115 +1538,9 @@
    "shot": "keep",
    "do": [
     {
-     "who": "rea",
-     "do": "crouch",
-     "to": 0.3,
-     "dur": 0.2,
-     "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      -0.8,
-      0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -40,
-     "dur": 0.25,
-     "at": 0.05
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.46,
-     "dur": 0.25,
-     "at": 0.1
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.05,
-       0.85,
-       0.2
-      ]
-     },
-     "dur": 0.12,
-     "at": 0.12
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "angry",
-     "dur": 0.25,
-     "at": 0.15
-    },
-    {
-     "who": "rea",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 0.15
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.6000000000000001,
-     "idle": 0.06,
-     "at": 0.2
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.15,
-       0.7,
-       0.25
-      ]
-     },
-     "dur": 0.12,
-     "at": 0.26
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.02,
-       0.52,
-       0.36
-      ]
-     },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.35
-    },
-    {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.4
-    },
-    {
-     "who": "rea",
-     "do": "talk",
-     "line": "shhhh",
-     "dur": 0.45,
-     "tone": "calm",
-     "voice": false,
      "at": 0.4
     },
     {
@@ -1470,51 +1552,12 @@
      "at": 0.5
     },
     {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.04,
-       0.22,
-       0.26
-      ]
-     },
-     "dur": 0.2,
-     "at": 0.5
-    },
-    {
      "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
      "at": 0.66
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0.8,
-      0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.85
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.04,
-       0.22,
-       0.26
-      ]
-     },
-     "dur": 0.25,
-     "at": 0.95
     },
     {
      "who": "wiz",
@@ -1532,13 +1575,6 @@
      "do": "turn",
      "to": -50,
      "dur": 0.45,
-     "at": 1.25
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -10,
-     "dur": 0.3,
      "at": 1.25
     },
     {
@@ -1939,24 +1975,6 @@
      "at": 0.3
     },
     {
-     "who": "wiz",
-     "do": "crouch",
-     "to": 0.3,
-     "dur": 0.3,
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.8,
-      -0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.3
-    },
-    {
      "who": "sor",
      "do": "look",
      "to": [
@@ -1980,24 +1998,6 @@
      "to": 15,
      "dur": 0.4,
      "at": 0.35
-    },
-    {
-     "who": "rea",
-     "do": "crouch",
-     "to": 0.35,
-     "dur": 0.3,
-     "at": 0.4
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      -0.85,
-      -0.1
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.4
     },
     {
      "who": "vik",
@@ -2060,58 +2060,6 @@
      "to": 15,
      "dur": 0.4,
      "at": 0.5
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.65,
-      "eye": 1.425,
-      "curve": -0.075
-     },
-     "dur": 0.25,
-     "at": 0.5
-    },
-    {
-     "who": "wiz",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.5
-    },
-    {
-     "who": "wiz",
-     "do": "still",
-     "dur": 1.4,
-     "idle": 0.08,
-     "at": 0.5
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.4,
-      "eye": 1.425,
-      "curve": -0.075
-     },
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 1.4,
-     "idle": 0.08,
-     "at": 0.55
     },
     {
      "who": "phx",
@@ -2582,19 +2530,19 @@
      "who": "vik",
      "do": "look",
      "to": [
-      0.9,
-      0.05
+      0.03,
+      -1
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.45
+     "at": 0.5
     },
     {
      "who": "gun",
      "do": "look",
      "to": [
-      0.9,
-      0.05
+      0.03,
+      -1
      ],
      "dur": 0.15,
      "blink": false,
@@ -2611,171 +2559,125 @@
     {
      "who": "vik",
      "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "at": 0.58
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.6
     },
     {
      "who": "vik",
-     "do": "turn",
-     "to": 50,
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 0.8
+     },
      "dur": 0.3,
-     "at": 0.58
+     "at": 0.6
     },
     {
      "who": "sam",
      "do": "look",
      "to": [
-      0.9,
-      0.05
+      0.03,
+      -1
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.63
+     "at": 0.62
     },
     {
      "who": "gun",
      "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "at": 0.68
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.65
     },
     {
      "who": "gun",
-     "do": "turn",
-     "to": 45,
-     "dur": 0.25,
-     "at": 0.68
-    },
-    {
-     "who": "wiz",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "kind",
      "set": {
-      "open": 0.7,
-      "eye": 1.425,
-      "curve": -0.075
+      "curve": 0.35,
+      "eye": 0.8
      },
-     "dur": 0.25,
-     "at": 0.7
-    },
-    {
-     "who": "wiz",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.7
-    },
-    {
-     "who": "wiz",
-     "do": "still",
-     "dur": 0.7,
-     "idle": 0.08,
-     "at": 0.7
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.7,
-      "eye": 1.425,
-      "curve": -0.075
-     },
-     "dur": 0.25,
-     "at": 0.7
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.7
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.7,
-     "idle": 0.08,
-     "at": 0.7
+     "dur": 0.3,
+     "at": 0.65
     },
     {
      "who": "dra",
      "do": "look",
      "to": [
-      0.9,
-      0.05
+      0.03,
+      -1
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.72
-    },
-    {
-     "fx": "pop",
-     "text": "!",
-     "who": "wiz",
-     "xy": [
-      860,
-      820
-     ],
-     "dur": 0.5,
-     "color": "#ffe14a",
-     "size": 120,
-     "angle": 8,
-     "at": 0.72
+     "at": 0.7
     },
     {
      "who": "sam",
      "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "at": 0.76
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.72
     },
     {
      "who": "sam",
-     "do": "turn",
-     "to": 45,
-     "dur": 0.25,
-     "at": 0.76
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 0.8
+     },
+     "dur": 0.3,
+     "at": 0.72
     },
     {
      "who": "sor",
      "do": "look",
      "to": [
-      0.9,
-      0.05
+      0.03,
+      -1
      ],
      "dur": 0.15,
      "blink": false,
+     "at": 0.76
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.3,
      "at": 0.8
     },
     {
      "who": "dra",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "at": 0.85
-    },
-    {
-     "who": "dra",
-     "do": "turn",
-     "to": 45,
-     "dur": 0.25,
-     "at": 0.85
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 0.8
+     },
+     "dur": 0.3,
+     "at": 0.8
     },
     {
      "who": "sor",
      "do": "pitch",
-     "to": 0,
-     "dur": 0.25,
-     "at": 0.93
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.86
     },
     {
      "who": "sor",
-     "do": "turn",
-     "to": 45,
-     "dur": 0.25,
-     "at": 0.93
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35,
+      "eye": 0.8
+     },
+     "dur": 0.3,
+     "at": 0.86
     }
    ],
    "kind": "reaction"
@@ -2784,33 +2686,24 @@
  "visible": [
   {
    "from": 0,
-   "to": 1.5,
+   "to": 0.6,
    "see": [
     "phx.face",
     "wiz.face",
+    "rea.face",
     "vik",
-    "phone",
-    "hedge"
+    "phone"
    ],
-   "why": "P1: the horde coming down the street, the friends diving for the hedge, Phoenix on his phone"
-  },
-  {
-   "from": 1.3,
-   "to": 1.95,
-   "see": [
-    "wiz.face"
-   ],
-   "why": "P2: the Wizard waves him over, before zombie Viking passes"
+   "why": "P1: the friends flee toward us from the horde, Phoenix on his phone"
   },
   {
    "from": 1.6,
-   "to": 2.55,
+   "to": 3.1,
    "see": [
     "phx.face",
-    "rea.face",
     "vik"
    ],
-   "why": "P2: behind the hedge, the Wizard waves, Reaper shushes him; the horde closes in"
+   "why": "P2: the horde closes in on Phoenix, alone on the bench"
   },
   {
    "from": 3.3,
@@ -2826,12 +2719,9 @@
    "to": 6.9,
    "see": [
     "phx.face",
-    "vik.face",
-    "sam.face",
-    "wiz.face",
-    "rea.face"
+    "vik.face"
    ],
-   "why": "P4-5: the horde copying his pose round the bench; the friends horrified over the hedge"
+   "why": "P4-5: the horde copying his pose round the bench"
   },
   {
    "from": 7.1,
@@ -2858,17 +2748,12 @@
    "see": [
     "phx.face",
     "vik.face",
-    "wiz.face",
-    "hedge"
+    "phone"
    ],
-   "why": "P8: the horde turns to the hedge where the hat tip sticks out"
+   "why": "P8: the horde bowed round Phoenix like a phone club; he's one of them"
   }
  ],
  "hitStop": [
-  {
-   "at": 0.9,
-   "frames": 3
-  },
   {
    "at": 9.367,
    "frames": 3
@@ -2888,20 +2773,6 @@
    "from": 5.4,
    "to": 10,
    "reason": "zombie Viking sits on the bench beside him"
-  },
-  {
-   "who": "wiz",
-   "with": "hedge",
-   "from": 0.8,
-   "to": 10,
-   "reason": "the Wizard crouches against the hedge's back"
-  },
-  {
-   "who": "rea",
-   "with": "hedge",
-   "from": 0.8,
-   "to": 10,
-   "reason": "Reaper crouches against the hedge's back"
   }
  ],
  "notes": "Generated by storyboards/series/never-looks-up/make-ep5-zombies.mjs. Panels: PANELS-zombies.md. Title added in TikTok's text tool."
