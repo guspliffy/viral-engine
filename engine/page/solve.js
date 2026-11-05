@@ -27,7 +27,7 @@ export const OVERLAP = {
   dt: 1 / 120,
   hand: [3.5, 0.65, 1], body: [4, 0.6, -0.3], prop: [6, 0.5, 1],   // f (Hz), zeta, r
   propArm: 0.15, propMax: 0.14,   // a held prop swings like a pendulum this long (m) from the grip, at most 8 degrees
-  handMax: 0.09, yawMax: 0.3,   // the largest lag: metres for a hand, radians for the body's turn
+  handMax: 0.09, yawMax: 0.3, weaponYaw: 0.35,   // the largest lag: metres for a hand, radians for the body's turn
   snapHand: 0.12, snapYaw: 0.4,   // a target moving further than this in one step was re-placed: the spring starts again there
 };
 const REST_ON = new Set(["table", "lap", "hips", "cheeks"]);   // poses where the hand rests on something
@@ -125,7 +125,8 @@ export function overlapAt(sb, actor, def, t, H) {
         const w = T.bodyFree;
         C.B.y[0] = x[0] + w * (C.B.y[0] - x[0]); C.B.v[0] = xd[0] + w * (C.B.v[0] - xd[0]);
       }
-      body = [softMax(C.B.y[0] - x[0], O.yawMax), 0, 0];
+      // a long costume prop (staff, scythe, axe) sweeps with the body's turn: its follow is a third as big
+      body = [softMax((C.B.y[0] - x[0]) * (weaponHand(def) ? O.weaponYaw : 1), O.yawMax), 0, 0];
     }
     // the hands: each follows its target in the body's own frame; a hand on a contact is held on its target
     const arms = {};
@@ -183,17 +184,25 @@ export function overlapAt(sb, actor, def, t, H) {
 // few seconds (a slow lean over the standing leg, the hip sliding a centimetre toward it), and a body that has held a
 // while sinks a touch into a more relaxed pose. Seeded per actor; fades out around anything the body does (busy spans)
 // and with a "still" (idle). Loop-safe: with loop-safe idle (LD) the shifts turn a whole number of times over the clip.
-export function holdShift(sb, c, st, t, idle, busy, LD) {
+export function holdShift(sb, c, st, t, idle, busy, LD, def, acts) {
   let near = Infinity;
   for (const [a, b] of busy) near = Math.min(near, t < a ? a - t : t > b ? t - b : 0);
-  const w = ramp(near, 0.15, 0.7) * idle;
+  // a hand closed on something fixed (an armrest, a rail: a hold grip, or an arm aimed at a world point) holds the
+  // body where it is: a shift would pull the arm into what it holds
+  const S = acts ? spansOf(sb, c.id, acts) : null;
+  let fixed = 0;
+  for (const s of ["R", "L"]) {
+    const q = st.arms?.[s]?.pose, world = q && typeof q === "object" && q.world ? 1 : 0;
+    fixed = Math.max(fixed, S ? inSpan(t, S.grip[s], 0.06, 0.12) : 0, world);
+  }
+  const w = ramp(near, 0.15, 0.7) * idle * (1 - fixed);
   if (w <= 0) return;
   // a shift every 2.6 s or so (seeded per actor), a smooth swing from side to side: about 0.5 s moving, the rest held
   const h = hashStr(c.id), per = 2.3 + ((h % 1000) / 1000) * 0.7, ph0 = ((h >>> 10) % 1000) / 1000;
   const wv = loopRad(Math.PI / per, LD), x = Math.sin(wv * t + ph0 * 2 * Math.PI), side = Math.tanh(2.5 * x) / Math.tanh(2.5);
   const cy = Math.cos(st.yaw), sy = Math.sin(st.yaw), sway = 0.007 * side * w;
   st.x -= sway * cy; st.z += sway * sy;   // the body's own -x is its right: over the right foot
-  st.lean += 0.022 * side * w;
+  if (!weaponHand(def)) st.lean += 0.022 * side * w;   // a staff or a scythe would sweep 3 cm at its tip: the hips shift, not the lean
   st.squash *= 1 - 0.006 * w;   // settled a touch lower in the hold
 }
 

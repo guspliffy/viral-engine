@@ -1,6 +1,6 @@
 import { EXPRESSIONS, blendExpr, lookProgress } from "./face.js";
 import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump, layerOf, hermiteKeys, hashStr } from "./util.js";
-import { overlapAt, holdShift } from "./solve.js";
+import { overlapAt, holdShift, weaponHand } from "./solve.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
@@ -465,7 +465,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   const ML = layerOf(sb), TA = timedActions(sb), chainAt = {};
   const acts = TA.actions.filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
-    const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || (ML?.timing?.eases && defaultEase(a, st)) || "inOut")(p);
+    const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || (ML?.timing?.eases && defaultEase(a, st, def)) || "inOut")(p);
     switch (a.do) {
       case "move": {
         // the planted gait reads the step rate, the stride and whether it's a glide (steps: 0) from the action
@@ -564,7 +564,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         const own = (s) => (a.pose === "rest" ? c.arms?.[s] || def?.arms?.[s] || "rest" : a.pose);
         // both hands on a gesture (timing.offsets): one leads, the other follows two frames later (seeded side)
         const lag = a.side === "both" && ML?.timing?.offsets && typeof a.pose === "string" && d >= 0.2 && !a.sync ? (hashStr(`${c.id}|${a.at}`) & 1 ? "R" : "L") : null;
-        const eOf = (s) => (s === lag ? ease(a.ease || (ML?.timing?.eases && defaultEase(a, st)) || "inOut")(prog(t, a.at + 2 / (sb.fps ?? 30), d)) : e);
+        const eOf = (s) => (s === lag ? ease(a.ease || (ML?.timing?.eases && defaultEase(a, st, def)) || "inOut")(prog(t, a.at + 2 / (sb.fps ?? 30), d)) : e);
         for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: own(s), p: eOf(s) };
         if (N?.lead && a.lead !== false && d >= 0.2) natLead(a, t, d, nat);
         break;
@@ -813,7 +813,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   }
   // moving holds (timing.holds): in a hold the weight shifts from foot to foot every 2-3 s and the body settles a
   // little, so nobody is ever perfectly still (after the plant: the feet stay)
-  if (ML?.timing?.holds) holdShift(sb, c, st, t, idle, busyOf(sb, c.id), LD);
+  if (ML?.timing?.holds) holdShift(sb, c, st, t, idle, busyOf(sb, c.id), LD, def, TA.actions);
   if (!raw) {
     Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t);
     // natural jiggle: when the body stops or lands, the follow-through spring overshoots and the body squashes with it
@@ -836,14 +836,16 @@ export function actorState(sb, actor, def, t, raw = false) {
 // the world goes out fast and arrives slowly, landing exactly; a gesture (point, wave, shrug, a fist, hands up) winds
 // up a little and settles past its end; a turn does the same; an arm coming home keeps the plain inOut
 const GESTURES = new Set(["point", "shrug", "wave", "up", "fist", "cast", "cheeks", "hat", "thumb"]);
-function defaultEase(a, st) {
+function defaultEase(a, st, def) {
   if (a.do === "arm") {
     const q = a.pose;
     if (q && typeof q === "object" && (q.prop || q.world)) return "reach";
     if (typeof q === "string" && GESTURES.has(q) && (a.dur ?? 0.3) >= 0.15) return "anticSettle";
     return null;
   }
-  if (a.do === "turn" && (a.dur ?? 0.3) >= 0.2) return "anticSettle";
+  // a turn winds up and settles; one carrying a long costume prop (staff, scythe, axe) doesn't: its tip would sweep
+  // back and past by several centimetres (the cat clip: the staff into the bed)
+  if (a.do === "turn" && (a.dur ?? 0.3) >= 0.2) return weaponHand(def) ? "reach" : "anticSettle";
   return null;
 }
 // a chained move's place at t (timing.splines): the chain starts where the body is when its first move begins and runs
