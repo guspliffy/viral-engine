@@ -1,0 +1,32 @@
+{
+ "name": "storm-cabin",
+ "prompt": "anime film background painting, gouache, interior of an airplane passenger cabin at night, view down the central aisle toward the back, rows of empty blue seats fading into the distance, overhead bins on both sides, warm dim ceiling lights, oval windows on the left wall with dark blue storm clouds and lightning",
+ "no": "people, passengers, person, animal, potato, text, logo, sign, letters, cockpit, wing, exterior, fire, smoke, damage, broken",
+ "seeds": [
+  7
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.2,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.2,
+   6
+  ]
+ },
+ "light": {
+  "from": "above: warm cabin lights",
+  "key": [
+   0,
+   5,
+   1
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 0,
+ "surface": "carpet"
+}

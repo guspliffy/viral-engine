@@ -5,14 +5,14 @@ import { clamp } from "./util.js";
 // /mnt/project-files/NEVER-LOOKS-UP-STORYBOARDS.zip 02-plane-turbulence): one row of a passenger cabin at night, a
 // neutral unnamed airline (no logos, names or words). Only existing propState keys are used (props3d.js propState).
 //
-//   planeseat   one economy seat facing +z: blue fabric cushion (top at SEAT_Y 0.42, so "sit" works on it), a tall
+//   planeseat   one economy seat facing +z (spec.w its width, default 0.7): blue fabric cushion (top at SEAT_Y 0.42, so "sit" works on it), a tall
 //               back with a white headrest cover, armrests on both sides (spec.arms: "both" | "L" | "R" | "none").
 //   seatbelt    a grey lap belt with a silver buckle across a sitter's belly (origin: the seat's origin; spec.r the
 //               belly's half width). open 0..1: the buckle parts and the two halves drop to hang beside the seat.
 //               Drawn over the body, so it is see-through for the contact checks (userData.steam).
 //   cabinwall   the left cabin wall (origin: its foot at the row, facing +x) with oval windows; glow 0..1 is a
 //               lightning flash: the storm outside lights the panes cool white-blue.
-//   overhead    the ceiling over the row: bins, the passenger panel with reading lights and the seatbelt sign (an
+//   overhead    the ceiling over the row (spec.color the bins, spec.panel the panel under them): bins, the passenger panel with reading lights and the seatbelt sign (an
 //               icon, no words; lit 0..1) and one mask door per seat (spec.doors: x offsets); open 0..1 drops them.
 //   oxymask     a yellow oxygen mask on a coiled hose: the prop's position is the mask cup, spec.anchor [x, y, z]
 //               the hose's top (world, at the panel). The hose sags between them every frame. The cup faces +z
@@ -22,6 +22,13 @@ import { clamp } from "./util.js";
 //   blob        a floating blob of liquid (spec.color): fill 0..1 its size, wobble 0..1 how much it jiggles.
 //   pillow      a small white cabin pillow; magazine an open in-flight magazine with a plain blue-sky cover.
 //   rowback     the row in front, where the camera sits (its headrests low in frame): spec.n seats, spec.gap apart.
+//   suitcase    a hard-shell cabin case (origin: its middle; 0.36 wide, 0.48 tall, 0.22 deep): ribbed shell (spec.color),
+//               a pull handle on top, two wheels at the bottom, a tag.
+//   duffel      a soft holdall (origin: its middle; 0.5 long along x, 0.26 round): spec.color, two handles, a zip line.
+//   backpack    a small rucksack (origin: its middle; 0.3 wide, 0.38 tall, 0.18 deep): spec.color, a front pocket, straps.
+//   sneaker     one trainer (origin: its middle; 0.26 long along z): white with a coloured stripe (spec.color).
+//   overhead lid 0..1 opens the bin lids one after another (spec.lidOrder: the order each lid opens, default 0,1,2,3):
+//               a lid opens over its own quarter of lid, swinging up on its top hinge to show the dark bin inside.
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.7, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
@@ -40,12 +47,12 @@ const FABRIC = "#34518f", FABRIC_D = "#283f70", COVER = "#eef0f2", PLASTIC = "#d
 
 export const PLANE_KINDS = {
   planeseat(P) {
-    const S = P.spec, W = 0.7, fab = mat(S.color ?? FABRIC, { roughness: 0.9 }), dark = mat(FABRIC_D, { roughness: 0.9 }), pl = mat(PLASTIC, { roughness: 0.5 }), cov = mat(COVER, { roughness: 0.8 });
+    const S = P.spec, W = S.w ?? 0.7, fab = mat(S.color ?? FABRIC, { roughness: 0.9 }), dark = mat(FABRIC_D, { roughness: 0.9 }), pl = mat(PLASTIC, { roughness: 0.5 }), cov = mat(COVER, { roughness: 0.8 });
     // the cushion (top at 0.42), the back (tilted 8 degrees), the headrest cover, the base
     mesh(softBox(W - 0.04, 0.14, 0.56, 0.05), fab, P.whole, 0, 0.35, 0.02).rotation.x = -Math.PI / 2 + Math.PI / 2;
     const back = new THREE.Group(); back.position.set(0, 0.42, -0.27); back.rotation.x = rad(-8); P.whole.add(back);
     mesh(softBox(W - 0.04, 0.95, 0.15, 0.06), fab, back, 0, 0.47, -0.02);
-    mesh(softBox(W - 0.14, 0.24, 0.02, 0.01), cov, back, 0, 0.8, 0.065);
+    mesh(softBox(W - 0.1, S.cover ?? 0.24, 0.02, 0.01), cov, back, 0, 0.8, 0.065);   // spec.cover: the cover's height (a taller one frames a head)
     mesh(new THREE.BoxGeometry(W - 0.12, 0.28, 0.4), dark, P.whole, 0, 0.14, -0.02);
     for (const sx of [-1, 1]) mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.3, 8), mat("#55595f", { roughness: 0.4, metalness: 0.4 }), P.whole, sx * (W / 2 - 0.12), 0.1, 0.05);
     const arms = S.arms ?? "both";
@@ -108,7 +115,7 @@ export const PLANE_KINDS = {
   },
 
   overhead(P) {
-    const S = P.spec, w = S.w ?? 3.2, d = S.d ?? 0.7, bin = mat("#e9e6df", { roughness: 0.6 }), line = mat("#bdb7ab", { roughness: 0.6 }), pnl = mat("#d7d3ca", { roughness: 0.6 });
+    const S = P.spec, w = S.w ?? 3.2, d = S.d ?? 0.7, bin = mat(S.color ?? "#e9e6df", { roughness: 0.6 }), line = mat("#bdb7ab", { roughness: 0.6 }), pnl = mat(S.panel ?? "#d7d3ca", { roughness: 0.6 });
     // bins: a long box above the row with lid seams; the panel under them; the ceiling beyond
     mesh(new THREE.BoxGeometry(w, 0.42, d), bin, P.whole, 0, 0.21 + 0.12, -0.05);
     for (let i = 1; i < 4; i++) mesh(new THREE.BoxGeometry(0.012, 0.4, 0.01), line, P.whole, -w / 2 + (i * w) / 4, 0.33, d / 2 - 0.045);
@@ -123,6 +130,17 @@ export const PLANE_KINDS = {
     const iconM = new THREE.MeshBasicMaterial({ color: "#2a1d08" }); iconM.userData.noOutline = true;
     for (const sx of [-1, 1]) { const s = mesh(new THREE.PlaneGeometry(0.09, 0.025), iconM, icon, sx * 0.065, 0, 0.001); s.castShadow = false; }
     const buckle = mesh(new THREE.RingGeometry(0.014, 0.024, 4, 1), iconM, icon, 0, 0, 0.002); buckle.rotation.z = Math.PI / 4; buckle.castShadow = false;
+    // the bin lids: one per bin, hinged along the top of the bin's front; the dark inside shows behind an open one
+    const nL = 4, lw = w / nL - 0.03, order = S.lidOrder ?? [0, 1, 2, 3];
+    const dark = mat("#1d1a26", { roughness: 1 }), latch = mat("#8e877c", { roughness: 0.5 });
+    const lids = Array.from({ length: nL }, (_, i) => {
+      const cx = -w / 2 + (i + 0.5) * (w / nL);
+      mesh(new THREE.PlaneGeometry(lw - 0.02, 0.36), dark, P.whole, cx, 0.33, d / 2 - 0.05 + 0.002).castShadow = false;
+      const h = new THREE.Group(); h.position.set(cx, 0.54, d / 2 - 0.05 + 0.004); P.whole.add(h);
+      mesh(new THREE.BoxGeometry(lw, 0.4, 0.03), bin, h, 0, -0.2, 0.015);
+      mesh(new THREE.BoxGeometry(0.12, 0.03, 0.012), latch, h, 0, -0.36, 0.034);
+      return h;
+    });
     // the mask doors: a hinged flap each, swinging down
     const doors = (S.doors ?? [-0.85, 0, 0.85]).map((x) => {
       const h = new THREE.Group(); h.position.set(x - 0.06, 0, 0.12); P.whole.add(h);
@@ -135,6 +153,8 @@ export const PLANE_KINDS = {
         const lit = clamp(ps.lit ?? 1), o = clamp(ps.open);
         signM.color.set(lit > 0.5 ? "#ffb43a" : "#3b2a10");
         for (const h of doors) h.rotation.x = -o * 1.9;
+        const L = clamp(ps.lid ?? 0) * nL;
+        lids.forEach((h, i) => { const k = clamp(L - order[i]); h.rotation.x = -k * k * (3 - 2 * k) * 1.75; });
       },
     };
   },
@@ -224,6 +244,45 @@ export const PLANE_KINDS = {
       mesh(softBox(0.6, 0.62, 0.03, 0.03), shell, g, 0, 0.82, -0.105);       // the back's shell (it faces the row behind)
       mesh(softBox(0.42, 0.3, 0.02, 0.02), tray, g, 0, 0.74, -0.125);        // the tray table, folded up
     }
+    return { grip: 0 };
+  },
+
+  suitcase(P) {
+    const S = P.spec, shell = mat(S.color ?? "#d2433a", { roughness: 0.45 }), rib = mat(S.rib ?? "#a8322b", { roughness: 0.5 }), black = mat("#26242b", { roughness: 0.6 }), metal = mat("#b9bcc4", { roughness: 0.3, metalness: 0.5 }), tag = mat("#f2e6c8", { roughness: 0.8 });
+    mesh(softBox(0.36, 0.48, 0.22, 0.05), shell, P.whole);
+    for (const x of [-0.09, 0, 0.09]) mesh(new THREE.BoxGeometry(0.025, 0.42, 0.012), rib, P.whole, x, 0, 0.112);
+    mesh(new THREE.BoxGeometry(0.37, 0.02, 0.225), black, P.whole, 0, 0, 0);          // the zip round its middle
+    for (const x of [-0.08, 0.08]) mesh(new THREE.BoxGeometry(0.018, 0.07, 0.018), metal, P.whole, x, 0.27, 0);
+    mesh(new THREE.BoxGeometry(0.2, 0.022, 0.03), black, P.whole, 0, 0.31, 0);
+    for (const x of [-0.13, 0.13]) { const wh = mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.03, 12), black, P.whole, x, -0.255, -0.07); wh.rotation.z = Math.PI / 2; }
+    const t = mesh(new THREE.BoxGeometry(0.06, 0.09, 0.006), tag, P.whole, 0.12, 0.2, 0.125); t.rotation.z = 0.3;
+    return { grip: 0 };
+  },
+
+  duffel(P) {
+    const S = P.spec, cloth = mat(S.color ?? "#3a8f6a", { roughness: 0.9 }), dk = mat(S.trim ?? "#24392f", { roughness: 0.8 });
+    const body = mesh(new THREE.CapsuleGeometry(0.13, 0.26, 6, 14), cloth, P.whole); body.rotation.z = Math.PI / 2; body.scale.set(1, 1, 0.92);
+    for (const x of [-0.19, 0.19]) mesh(new THREE.TorusGeometry(0.128, 0.014, 6, 20), dk, P.whole, x, 0, 0).rotation.y = Math.PI / 2;
+    mesh(new THREE.BoxGeometry(0.3, 0.012, 0.012), dk, P.whole, 0, 0.13, 0);           // the zip along the top
+    for (const z of [-0.05, 0.05]) { const hd = mesh(new THREE.TorusGeometry(0.07, 0.012, 6, 16, Math.PI), dk, P.whole, 0, 0.12, z); hd.rotation.y = 0; }
+    return { grip: 0 };
+  },
+
+  backpack(P) {
+    const S = P.spec, cloth = mat(S.color ?? "#e6b43a", { roughness: 0.85 }), dk = mat(S.trim ?? "#7a5a1c", { roughness: 0.8 });
+    mesh(softBox(0.3, 0.38, 0.18, 0.08), cloth, P.whole);
+    mesh(softBox(0.22, 0.17, 0.07, 0.04), cloth, P.whole, 0, -0.07, 0.1);              // the front pocket
+    mesh(new THREE.BoxGeometry(0.2, 0.012, 0.012), dk, P.whole, 0, 0.015, 0.135);
+    const top = mesh(new THREE.TorusGeometry(0.04, 0.01, 6, 12, Math.PI), dk, P.whole, 0, 0.19, -0.02);
+    for (const x of [-0.08, 0.08]) mesh(new THREE.BoxGeometry(0.04, 0.32, 0.02), dk, P.whole, x, 0, -0.1);   // straps on its back
+    return { grip: 0 };
+  },
+
+  sneaker(P) {
+    const S = P.spec, upper = mat("#f4f2ee", { roughness: 0.7 }), sole = mat("#d9d4c8", { roughness: 0.8 }), stripe = mat(S.color ?? "#3d6fd8", { roughness: 0.6 });
+    const u = mesh(new THREE.SphereGeometry(0.1, 16, 10), upper, P.whole, 0, 0.02, 0); u.scale.set(0.5, 0.45, 1.25);
+    mesh(new THREE.BoxGeometry(0.1, 0.025, 0.26), sole, P.whole, 0, -0.035, 0);
+    const st = mesh(new THREE.TorusGeometry(0.06, 0.01, 6, 14, Math.PI * 0.8), stripe, P.whole, 0.045, 0.01, 0); st.rotation.y = Math.PI / 2;
     return { grip: 0 };
   },
 };
