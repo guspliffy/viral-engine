@@ -51,7 +51,8 @@
  },
  "sound": {
   "sfx": 0.6,
-  "ambience": 0.34
+  "ambience": 0.34,
+  "guard": true
  },
  "hook": {
   "show": [

@@ -130,7 +130,9 @@ write(import.meta.url, {
     aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }) },
   music: MUSIC,
   direct: { master: MED },
-  sound: { sfx: 0.6, ambience: 0.34 },
+  // the spike guard (Jonny, 5 Nov, PR #112): no effect jumps far out of the mix, a gentle limiter instead of
+  // scaling the whole mix down by its loudest sample (engine/sfx/guard.mjs); a hit marked loud: true may stand out more
+  sound: { sfx: 0.6, ambience: 0.34, guard: true },
   // frame 0 shows every face the joke needs and the thing it's about, and trouble shows by 2 s (qa/hook.mjs)
   hook: { show: ["phx", "wiz", "phone"], hint: 0, what: "the Wizard stares at Phoenix, who only sees his phone" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
