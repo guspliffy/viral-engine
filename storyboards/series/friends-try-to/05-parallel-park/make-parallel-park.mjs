@@ -164,7 +164,7 @@ for (let k = 0; k < 6; k++) {   // "come, come, come": both gloves beckoning tow
 A(1.5, "vik", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.4 }, dur: 0.15 });
 A(1.5, "vik", "look", { to: [-0.7, 0.05], dur: 0.12 });
 A(1.6, "vik", "talk", { line: "komm, komm, komm, loads of room!", tone: "excited", dur: 1.1, voice: false });
-cap(1.75, 2.6, "Loads of room!", 470);
+cap(1.75, 2.4, "Loads of room!", 470);
 for (let k = 0; k < 7; k++) sfx(1.6 + k * (0.26 - k * 0.022), "timer-beep", { gain: 0.22, reason: "the reverse beeper, speeding up" });
 A(1.5, "wizC", "look", { to: [0.4, 0.4], dur: 0.15 });
 // the mirror insert: Wizard's worried eyes up at the rear-view mirror
@@ -195,7 +195,7 @@ A(3.3, "wizS", "expr", { expr: "annoyed", set: { curve: -0.2 }, dur: 0.01 });
 A(3.35, "wizS", "lean", { to: -16, dur: 0.25, ease: "out" });
 c.arm(3.35, "wizS", "L", { o: [0.55, 0.5, 0.3] }, 0.25, "out");
 A(3.4, "wizS", "talk", { line: "ab-ra-ca-park!", tone: "excited", dur: 0.6, voice: false });
-cap(3.45, 4.15, "Abra-ca-PARK!", 470);
+cap(3.45, 4.15, "Abra-ca-PARK!", 330);
 A(3.55, "wizS", "expr", { expr: "eager", set: { curve: 0.6 }, dur: 0.15 });
 c.prop(3.55, "aura", { glow: 1 }, 0.15);
 for (const [k, t] of [3.6, 3.8, 4.0].entries()) { const p = W(t + 0.1, [0, 0.6 + 0.3 * k, 0]); c.at(t, { fx: "poof", pos: p, dur: 0.5, color: "#c58bff", puffs: 6, sparks: 14, size: 0.7, lift: 0.7 }); } c.prop(4.5, "aura", { glow: 0 }, 0.25);
@@ -210,7 +210,7 @@ see(3.6, 4.4, ["wizS.face", "vik"], "the car lifting in the purple swirl, Wizard
 // ---------------------------------------------------------------- 04 DROPPED ACROSS THE GAP 4.6-5.5 (front, panel 4)
 A(4.5, "wizS", "lean", { to: 0, dur: 0.15 });
 c.arm(4.5, "wizS", "L", "rest", 0.15);
-act.impact(c, 4.6, "wizS", { sound: "thud", gain: 0.45, stars: false, recoil: -6, squash: 0.16, take: false });
+act.impact(c, 4.6, "wizS", { frames: 0, sound: "thud", gain: 0.45, stars: false, recoil: -6, squash: 0.16, take: false });
 c.at(4.6, { fx: "poof", pos: [ACROSS.x, 0.04, ACROSS.z + 0.3], dur: 0.6, color: "#d8cdbd", puffs: 12, sparks: 0, size: 0.6, lift: 0.08 });
 sfx(4.62, "plank-rattle", { gain: 0.3, dur: 0.45, reason: "the car bouncing on its springs after the drop" });
 A(4.62, "phxC", "squash", { amount: 0.12, dur: 0.2 }); A(4.62, "reaC", "squash", { amount: 0.05, dur: 0.2 }); A(4.62, "wizS", "squash", { amount: 0.12, dur: 0.2 });
@@ -303,11 +303,10 @@ A(9.3, "vikD", "still", { dur: 0.7, idle: 0.2 });
 act.sheepish(c, 9.2, "vikD");
 A(9.2, "vikD", "look", { to: [-0.3, 0.05], dur: 0.2 });
 for (const [i, id] of ["wiz", "rea", "phx"].entries()) {
-  const t = 9.05 + i * 0.15;
+  const t = 9.0 + i * 0.05;   // review B: all three turned by 9.1, so the cover shows three clear glares
   A(t, id, "look", { to: [0.9, 0.0], dur: 0.25, ease: "inOut" });
   A(t, id, "turn", { to: 45, dur: 0.3, ease: "inOut" });
-  A(t + 0.05, id, "expr", { expr: "annoyed", set: { curve: -0.5 }, dur: 0.25 });
-  A(t + 0.05, id, "face", { lid: 0.42, dur: 0.25 });
+  act.mood(c, t + 0.05, id, "angry", { hold: 0.7 });
 }
 see(9.4, 9.95, ["wiz.face", "phx.face", "rea.face", "vikD.face"], "three glares at Viking, the car back at its frame-0 angle");
 
@@ -317,7 +316,7 @@ const head = (t, s) => W(t, [SEATS[s][0], 1.12 + SEATS[s][2], SEATS[s][1] + 0.05
 const shot = (look, back, o = {}) => { const L = o.abs ? look : [look[0], look[1] + hY(look[0]), look[2]]; return { pos: [r3(L[0] + (o.dx ?? 0)), r3(L[1] + (o.up ?? 0.3)), r3(L[2] + back)], look: L.map(r3), fov: o.fov ?? 46 }; };
 const mid = (...ps) => [0, 1, 2].map((i) => ps.reduce((a, p) => a + p[i], 0) / ps.length);
 const CAR0 = W(0.3, [0, 1.0, 0]);
-const WIDE0 = { pos: [1.1, r3(hY(1.1) + 3.0), r3(PZ + 7.6)], look: [0.9, r3(hY(0.9) + 1.3), r3(PZ - 0.15)], fov: 54 };   // the blue car and the bin at the right edge
+const WIDE0 = { pos: [0.3, r3(hY(0.3) + 3.1), r3(PZ + 8.6)], look: [0.2, r3(hY(0.2) + 1.2), r3(PZ - 0.15)], fov: 58 };   // review B: the red car's tail and the blue car's nose frame the gap   // the blue car and the bin at the right edge
 const VIK = shot([VIK_GUIDE[0] - 0.35, 1.0, VIK_GUIDE[1] - 0.6], 5.2, { dx: 0.1, up: 0.35, fov: 44 });
 // the mirror insert: close on the driver's face from outside his window, a little ahead of him (his eyes up at the mirror)
 // (fixed to the car, so it rides along as the car creeps back)
@@ -329,8 +328,8 @@ const REA = (() => { const h = head(5.6, "drv"); return { pos: [r3(h[0] - 0.3), 
 const SIDE = { pos: [0, r3(hY(0) + 2.6), r3(PZ + 11.5)], look: [0, r3(hY(0) + 1.1), PZ], fov: 60 };   // both neighbours at the frame edges: the gap reads
 const HUG = shot([1.15, 1.0, PZ + 2.3], 8.6, { up: 0.55, fov: 56 });
 // high, so the car's angle to the kerb reads over the group's heads (the callback to frame 0)
-const UNDO = { pos: [0.95, r3(hY(0.95) + 4.8), r3(PZ + 11.8)], look: [0.8, r3(hY(0.8) + 0.75), r3(PZ + 0.8)], fov: 50 };
-const GLARE = { pos: [1.3, r3(hY(1.3) + 3.3), r3(PZ + 9.6)], look: [1.15, r3(hY(1.15) + 0.75), r3(PZ + 1.4)], fov: 56 };
+const UNDO = { pos: [1.25, r3(hY(1.25) + 4.8), r3(PZ + 11.8)], look: [1.1, r3(hY(1.1) + 0.75), r3(PZ + 0.8)], fov: 50 };
+const GLARE = { pos: [1.4, r3(hY(1.4) + 3.6), r3(PZ + 10.4)], look: [1.2, r3(hY(1.2) + 0.75), r3(PZ + 0.7)], fov: 58 };   // review B: the whole car, the gap edge and the bin over the heads
 const beats = c.beats([
   ["01 already going wrong", 0, WIDE0, "hook"],
   ["02 viking guides", 1.5, VIK],

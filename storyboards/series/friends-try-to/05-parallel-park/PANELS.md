@@ -1,8 +1,9 @@
 # Parallel park one car: Jonny's eight panels (4 Nov 2026)
 
 Board: /mnt/project-files/video-scripts/2026-11-04-friends-try-to/storyboards/05-parallel-park/storyboard-eight-panels.png
-The camera looks across a sloping cobbled street at the far kerb (env `sloping-terrace-street`): pastel terraced houses,
-a striped bakery awning, a lamp post and a tree, golden evening light from the right. Red car left of the gap, blue
+The camera looks across a sloping cobbled street at the far kerb: a painted plate of a terraced street
+(assets/plates/street-terrace-evening.png, frontal facade) behind a 3D sloping street of setts, a kerb and a flagway,
+evening light from the right. Red car left of the gap, blue
 car right, our yellow hatchback in between. Shots stay on this side of the street (no reverse angles: the painting has
 one direction).
 
@@ -25,7 +26,14 @@ one direction).
   the reverse park played backwards. That keeps the callback exact and the cause visible (the slope, no handbrake).
 - **Viking guides from in front of the car (panel 02 shows his back).** The camera can't stand behind the car (the
   painting has one direction), so he waves it back toward himself from the street, face 3/4 to us.
-- **The pat is on the driver's door, not the roof.** The car's roof is above Viking's reach at potato scale.
+- **The pat is on the car's rear corner, not the roof.** The roof is above Viking's reach at potato scale.
 - **Panel 04: Viking stands beside the car**, not above its roof, for the same reason.
 - **The seat swap happens on a cut** (5.5): Reaper is already driving, setting the mirror, the Wizard sulking in the
   back. The brief's door business would take a second the 10 s don't have.
+- **The backdrop is a painted plate, not a layered environment.** The environment painter only gave street-perspective
+  paintings, not the frontal facade the panels show; a frontal plate behind a real 3D street matched the panels better.
+  It has no striped awning or lamp post (a plate repaint would add them).
+- **The car reads mustard on its shaded sides** under the cast's toon shading; the panels' car is a brighter yellow.
+  An unlit body was tried and looked worse, so it stays for this cut.
+- **The ending is a line-up in front of the car, not a tight hug.** Phoenix's wings and the car's nose leave no room for a
+  4-way hug that keeps every face to camera without the bodies merging.
