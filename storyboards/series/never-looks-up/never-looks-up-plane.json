@@ -314,7 +314,10 @@
    "rot": 180,
    "tip": -28,
    "scale": 1.9,
-   "case": "#2a2d36"
+   "case": "#29c3d8",
+   "bright": 2.2,
+   "halo": 0.26,
+   "haloK": 0.5
   },
   {
    "id": "cup",
@@ -670,7 +673,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 1
      },
      "dur": 0.01,
      "ease": "inOut",

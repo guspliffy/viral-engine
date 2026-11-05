@@ -302,7 +302,25 @@ const KINDS = {
     // the camera bump on the back
     mesh(new THREE.BoxGeometry(0.03, 0.03, 0.006), mat("#3a3c46", { roughness: 0.3 }), P.whole, -0.016, 0.13, -0.008);
     mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.004, 16), mat("#0b0b10", { roughness: 0.1, metalness: 0.6 }), P.whole, -0.016, 0.13, -0.012).rotation.x = Math.PI / 2;
-    return { grip: 0.05, apply(ps) { const bu = clamp(ps.burn ?? 0); screenM.emissiveIntensity = (0.25 + 1.2 * clamp(ps.glow)) * (1 - bu); body.color.set(BODY).lerp(new THREE.Color("#0c0a09"), bu); screenM.color.set("#1c3a52").lerp(new THREE.Color("#050505"), bu); } };
+    // spec.bright scales the lit screen; spec.faceLight (opt-in) adds a cool light in front of the screen that lights
+    // the holder's face as the glow comes up (Never Looks Up: "turn the screen bright so it shines in his face")
+    const bright = P.spec.bright ?? 1, faceK = P.spec.faceLight ?? 0;
+    const faceL = faceK > 0 ? new THREE.PointLight(P.spec.faceColor ?? "#a9dcff", 0, P.spec.faceReach ?? 1.4, 1.6) : null;
+    if (faceL) { faceL.position.set(0, 0.0775, 0.16); faceL.castShadow = false; P.whole.add(faceL); }
+    // spec.halo (opt-in, metres across): the screen's light spilling round the phone's edges, a soft glow just in
+    // front of the screen, so a phone seen from the back still reads as lit
+    let halo = null;
+    if (P.spec.halo) {
+      const cv = document.createElement("canvas"); cv.width = cv.height = 128; const cx = cv.getContext("2d");
+      const gr = cx.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, "rgba(220,240,255,1)"); gr.addColorStop(0.35, "rgba(150,210,255,0.55)"); gr.addColorStop(1, "rgba(120,190,255,0)");
+      cx.fillStyle = gr; cx.fillRect(0, 0, 128, 128);
+      // a flat glow on the screen side, reaching up toward the holder's face (the drawn look ignores point lights,
+      // so the light on the face is painted as this additive wash)
+      const hm = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, opacity: 0 });
+      halo = new THREE.Mesh(new THREE.PlaneGeometry(P.spec.halo, P.spec.halo * 1.25), hm); halo.position.set(0, 0.0775 + P.spec.halo * 0.15, 0.035);
+      halo.userData.glow = true; halo.castShadow = false; halo.receiveShadow = false; P.whole.add(halo);
+    }
+    return { grip: 0.05, apply(ps) { const bu = clamp(ps.burn ?? 0); screenM.emissiveIntensity = (0.25 + 1.2 * clamp(ps.glow)) * bright * (1 - bu); if (faceL) faceL.intensity = faceK * clamp(ps.glow) * (1 - bu); if (halo) halo.material.opacity = (P.spec.haloK ?? 0.55) * clamp(ps.glow) * (1 - bu); body.color.set(BODY).lerp(new THREE.Color("#0c0a09"), bu); screenM.color.set("#1c3a52").lerp(new THREE.Color("#050505"), bu); } };
   },
   // a round cake with icing, drips, berries and candles; `lit` 0..1 lights the candles (their flames light the
   // faces round it: in a dark room they are the only light). It splits into two halves (a cut)

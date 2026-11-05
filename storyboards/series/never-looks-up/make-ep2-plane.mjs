@@ -76,7 +76,7 @@ const props = [
   { id: "maskP", kind: "oxymask", ...MASK_UP(PX + 0.36), anchor: anchor(PX, 0.36) },   // its hose comes down beside his face, not across it
   { id: "maskW", kind: "oxymask", ...MASK_UP(WX), anchor: anchor(WX) },
   { id: "maskR", kind: "oxymask", ...MASK_UP(RX), anchor: anchor(RX) },
-  { id: "phone", kind: "phone", x: PX, y: 0.9, z: 0.5, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36" },
+  { id: "phone", kind: "phone", x: PX, y: 0.9, z: 0.5, rot: 180, tip: -28, scale: 1.9, case: "#29c3d8", bright: 2.2, halo: 0.26, haloK: 0.5 },   // the screen shines in his face (Jonny 5 Nov; the same setting as ep 5)   // a bright cyan case: it reads against the dark gloves and the orange body
   { id: "cup", kind: "papercup", ...grips.placeFor("papercup", [CUP.x, CUP.y, CUP.z], 0), straws: 0, stripe: "#e0802a" },
   { id: "juice", kind: "blob", x: CUP.x, y: r3(CUP.y + 0.085), z: CUP.z, color: "#f59a1f", r: 0.034, fill: 0 },
   { id: "mug", kind: "teamug", steam: 0.6, ...grips.placeFor("teamug", [MUG.x, MUG.y, MUG.z], 0) },
@@ -116,7 +116,7 @@ A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 }
 A(0, "phx", "face", { lid: 0.45, dur: 0.01 });
 act.blinksAt(c, "phx", [1.9, 4.7, 6.5]);
 act.scrollPhone(c, "phx", [0.25, 1.15, 2.05, 3.0]);
-prop(0, "phone", { glow: 0.6 }, 0.01);
+prop(0, "phone", { glow: 1 }, 0.01);
 
 // ---------------------------------------------------------------- 1 BUMP 0-1.5 (P1)
 c.hitStop(0.1, 3);
