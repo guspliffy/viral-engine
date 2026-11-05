@@ -1,0 +1,574 @@
+{
+ "id": "pebble-tea",
+ "title": "Pebble test 2: sitting with tea",
+ "idea": "Pebble character test: sitting on a rock with tea (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "guard": true,
+  "surface": "dirt"
+ },
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "Pebble sips tea"
+ },
+ "set": {
+  "type": "env",
+  "env": "lakeside-campsite",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "warm",
+  "lowCut": 150,
+  "gain": 0.26
+ },
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    0,
+    0
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "rock",
+   "kind": "boulder",
+   "x": 0,
+   "z": 0,
+   "w": 0.3,
+   "h": 0.19,
+   "d": 0.24,
+   "seed": 3
+  },
+  {
+   "id": "mug",
+   "kind": "teamug",
+   "steam": 1,
+   "color": "#efe4cc",
+   "scale": 1.6,
+   "x": 0.12,
+   "y": 0.45,
+   "z": 0.36,
+   "rot": 55
+  }
+ ],
+ "captions": [
+  {
+   "from": 5.2,
+   "to": 7.6,
+   "text": "Some days are just for tea.",
+   "pos": 1180,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "sip",
+   "at": 0,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.1,
+     0.95,
+     3.4
+    ],
+    "look": [
+     0.05,
+     0.5,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "sit",
+     "seat": "rock",
+     "height": 0.2,
+     "dur": 0.01,
+     "hands": "keep",
+     "feet": [
+      0.3,
+      0.05
+     ],
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.026,
+       0.051,
+       -0.072
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.2,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.026,
+       0.051,
+       -0.072
+      ],
+      "palm": "wrap",
+      "at": [
+       0,
+       0.5,
+       0.44
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "tip": -18
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "grab",
+     "prop": "mug",
+     "hand": "R",
+     "grip": [
+      -0.026,
+      0.051,
+      -0.072
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 0.44
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.44
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 1.6
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.026,
+       0.051,
+       -0.072
+      ],
+      "palm": "wrap",
+      "at": [
+       0.12,
+       0.45,
+       0.36
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0.16000000000000003
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0.176,
+     "dur": 0.3,
+     "at": 2.14
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": -0.028,
+     "dur": 1.1,
+     "at": 2.16
+    },
+    {
+     "who": "peb",
+     "do": "pitch",
+     "to": -2,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.16
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.47
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the view",
+   "at": 2.6,
+   "len": 2.5,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "peb",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.01,
+     "fade": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.5,
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.1
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "at": 2
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 2.2
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 2.2
+    }
+   ]
+  },
+  {
+   "name": "line",
+   "at": 5.1,
+   "len": 2.4,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.15,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "talk",
+     "line": "Some days are just for tea.",
+     "tone": "calm",
+     "dur": 2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.4,
+     "at": 2.2
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.24
+    }
+   ]
+  },
+  {
+   "name": "second sip",
+   "at": 7.5,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.98,
+     2.4
+    ],
+    "look": [
+     0.05,
+     0.72,
+     0.1
+    ],
+    "fov": 33
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.026,
+       0.051,
+       -0.072
+      ],
+      "palm": "wrap",
+      "at": [
+       0,
+       0.5,
+       0.44
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "tip": -18
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 0.44
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 1.7
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.4,
+   "see": [
+    "peb.face",
+    "mug"
+   ],
+   "why": "Pebble sipping his tea"
+  },
+  {
+   "from": 5.2,
+   "to": 7.4,
+   "see": [
+    "peb.face"
+   ],
+   "why": "his line"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "peb",
+   "with": "rock",
+   "from": 0,
+   "to": 9.6,
+   "reason": "Pebble sits on the rock (his legs rest over its front)"
+  }
+ ],
+ "notes": "Generated by storyboards/pebble/make-pebble-tests.mjs (character test, no reviews)."
+}

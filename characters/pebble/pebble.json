@@ -1,0 +1,229 @@
+{
+ "id": "pebble/pebble",
+ "name": "Pebble",
+ "source": "Jonny's final Pebble sheet, 5 Nov 2026 (Option B: brown newsboy cap, open olive vest; characters/pebble/pebble-reference-v1.png in the project files) and his master character brief. Built on the Core Five humanoid core build (separate head, neck); the cap, belly plate, vest, shell, moss, fern and feet are engine/page/costumes-pebble.js.",
+ "rig": "potato",
+ "build": "core",
+ "body": {
+  "color": "#DDA04F",
+  "height": 0.44,
+  "width": 0.46,
+  "depth": 0.4,
+  "lump": 0,
+  "seed": 31,
+  "taper": 0.04,
+  "square": 2.2,
+  "specks": 0,
+  "gloss": 0
+ },
+ "head": {
+  "color": "#DDA04F",
+  "width": 0.56,
+  "height": 0.47,
+  "depth": 0.48,
+  "square": 2.15,
+  "taper": 0.06,
+  "neck": -0.04,
+  "neckR": 0.1,
+  "forward": 0.05,
+  "faceUp": 0.0,
+  "faceWide": 1.2,
+  "muzzle": {
+   "a": 0.2,
+   "v": -0.3,
+   "w": 0.5,
+   "h": 0.32
+  },
+  "above": 0.12
+ },
+ "legs": {
+  "height": 0.24,
+  "width": 0.088,
+  "hipX": 0.13
+ },
+ "limbs": {
+  "color": "#DDA04F",
+  "width": 0.07,
+  "shoulder": 0.38
+ },
+ "face": {
+  "size": 0.72,
+  "default": "kind",
+  "iris": "#3B2416",
+  "cheeks": "#d4874a",
+  "neutral": {
+   "curve": 0.3,
+   "open": 0,
+   "eye": 0.9
+  },
+  "eye": {
+   "flick": 0.2
+  },
+  "browShape": {
+   "arch": 0.1,
+   "thick": 0.6
+  },
+  "blush": 0.35,
+  "freckles": 6,
+  "final": {
+   "iris": "#3B2416",
+   "brow": "#8E5A2C",
+   "eye": {
+    "irisShade": false,
+    "oval": 1.08,
+    "iris": 0.74
+   },
+   "layout": {
+    "mouthV": -0.42,
+    "cheekV": -0.2,
+    "browV": 0.55
+   },
+   "browShape": {
+    "arch": 0.12,
+    "lift": 0.006,
+    "clear": 0.014,
+    "thick": 0.6
+   },
+   "rest": {
+    "smirk": 0,
+    "curve": 0.6,
+    "eye": 0.7
+   },
+   "neutral": {
+    "lidL": 0.42,
+    "lidR": 0.42
+   },
+   "blush": 0.35,
+   "freckles": 6
+  }
+ },
+ "sprout": {
+  "placement": "none"
+ },
+ "costume": {
+  "type": "pebble",
+  "cap": {
+   "color": "#9B613C",
+   "band": 0.36
+  },
+  "belly": {
+   "color": "#F4D49A",
+   "seam": "#D3AE72"
+  },
+  "vest": {
+   "color": "#777344",
+   "trim": "#C9A46A",
+   "button": "#8A5530"
+  },
+  "shell": {
+   "color": "#74503A",
+   "groove": "#9C7352",
+   "rim": "#B9875A",
+   "inside": "#5A3E2C",
+   "r": [
+    0.4,
+    0.44,
+    0.34
+   ],
+   "dz": 0.2,
+   "rimR": 0.028,
+   "moss": {
+    "count": 1500,
+    "size": 0.038,
+    "from": 0.45
+   },
+   "fern": {
+    "leaf": 0.12,
+    "pairs": 13,
+    "fronds": [
+     [
+      0,
+      0.34,
+      0.08
+     ],
+     [
+      1.05,
+      0.31,
+      0.34
+     ],
+     [
+      2.1,
+      0.28,
+      0.42
+     ],
+     [
+      3.15,
+      0.3,
+      0.36
+     ],
+     [
+      4.2,
+      0.28,
+      0.42
+     ],
+     [
+      5.25,
+      0.32,
+      0.34
+     ],
+     [
+      0.5,
+      0.22,
+      0.6
+     ],
+     [
+      3.7,
+      0.21,
+      0.62
+     ]
+    ],
+    "at": [
+     -0.08,
+     0.95,
+     -0.3
+    ]
+   },
+   "dy": 0.08,
+   "open": [
+    140,
+    80,
+    90
+   ],
+   "rings": [
+    [
+     0.3,
+     6,
+     0
+    ],
+    [
+     0.58,
+     10,
+     0.3
+    ],
+    [
+     0.84,
+     15,
+     0.1
+    ]
+   ],
+   "marginals": 30
+  },
+  "feet": {
+   "toe": "#F2DDB0"
+  }
+ },
+ "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
+ "tts": "pebble",
+ "voice": {
+  "pitch": 110,
+  "rate": 3.0,
+  "formant": 0.95,
+  "range": 3,
+  "breath": 0.06,
+  "vibrato": 0.0,
+  "seed": 31
+ },
+ "hands": {
+  "type": "mitten"
+ }
+}

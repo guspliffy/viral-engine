@@ -683,6 +683,11 @@ export class Character {
     const H = this.head, D = H.def, q = D.square ?? 2;
     let r = 1 / Math.pow(Math.abs(d.x) ** q + Math.abs(d.y) ** q + Math.abs(d.z) ** q, 1 / q);
     const taper = 1 - (D.taper ?? 0) * d.y;   // > 0: fuller cheeks, a narrower crown
+    // head.muzzle { a, v, w, h } (Pebble the tortoise, costumes-pebble.js): a soft snout swelling out of the lower face,
+    // a bump of a (share of the radius) centred at elevation v, w wide and h tall (in direction units). The face is
+    // placed on this surface (headSurf), so the mouth sits on the snout
+    const M = D.muzzle;
+    if (M && d.z > 0) { const dy = d.y - Math.sin(M.v ?? -0.25); r *= 1 + (M.a ?? 0.1) * Math.exp(-((d.x / (M.w ?? 0.45)) ** 2) - (dy / (M.h ?? 0.3)) ** 2) * Math.min(1, d.z * 2.5); }
     return new THREE.Vector3(d.x * H.rx * taper * r, d.y * H.ry * r, d.z * H.rz * taper * r);
   }
   headSurf(th, ph) {
