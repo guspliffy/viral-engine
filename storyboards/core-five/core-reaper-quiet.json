@@ -241,22 +241,6 @@
      },
      "dur": 0.3,
      "at": 1.35
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 1.9
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "at": 1.9
     }
    ]
   },

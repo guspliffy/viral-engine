@@ -42,7 +42,7 @@ see(1.6, 2.7, [`${W}.face`], "eyes on the thing it noticed");
 
 // ---------------------------------------------------------------- 3 LOOK ROUND 3.6-7.4: hood and cloak from every side
 [90, 180, 270, 360].forEach((to, i) => { const t = 3.6 + i * 0.95; A(t, W, "turn", { to, dur: 0.8 }); });
-for (const s of ["R", "L"]) A(3.4, W, "arm", { side: s, pose: "rest", dur: 0.4 });
+// the hands stay folded through the turn (the Reaper's tell; a hand hanging at the side lifts the cloak into a lump)
 
 // ---------------------------------------------------------------- 4 STEPS 7.4-9.4: a few planted steps
 A(7.4, W, "look", { to: [-0.8, 0], dur: 0.15, blink: false });

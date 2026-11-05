@@ -18,7 +18,7 @@
     "gloss": 0
   },
   "head": {
-    "color": "#D5B08A",
+    "color": "#DCAA74",
     "width": 0.5,
     "height": 0.46,
     "depth": 0.44,
@@ -67,9 +67,8 @@
       "iris": "#63412E",
       "brow": "#2e2420",
       "eye": {
-        "irisShade": false,
-        "oval": 1.16,
-        "iris": 0.68
+        "oval": 1.3,
+        "iris": 0.72
       },
       "layout": {
         "mouthV": -0.34,
@@ -87,11 +86,10 @@
         "curve": 0.22
       },
       "neutral": {
-        "lidL": 0.5,
-        "lidR": 0.5
+        "lidL": 0.58,
+        "lidR": 0.58
       },
-      "blush": 0.9,
-      "freckles": 0
+      "blush": 1.3
     }
   },
   "sprout": {
@@ -108,10 +106,10 @@
     "hoodLip": 0.07,
     "hoodTip": [
       -0.14,
-      0.01,
-      -0.1
+      0.06,
+      -0.11
     ],
-    "hemAt": 0.3,
+    "hemAt": 0.44,
     "bootSize": [
       0.096,
       0.07,
@@ -121,7 +119,8 @@
     "hoodHem": [
       0.33,
       0.3
-    ]
+    ],
+    "robeHem": 0.42
   },
   "personality": "The quiet friend who notices (design bible, proposal): little energy, still shows up for their people; spots the small practical need first.",
   "voice": {

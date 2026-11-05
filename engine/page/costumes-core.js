@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { ring, onSurface } from "./costumes-cast.js";
-import { drapeMesh, clothMat, metalMat, roll, sstep } from "./costumes-art.js";
+import { drapeMesh, drapeInk, inkMesh, clothMat, metalMat, roll, sstep, stitches } from "./costumes-art.js";
 
 // The Core Five redesign (Jonny's design handoff, 5 Nov 2026; characters/core-five-2026/*.json, def.build "core"): the
 // clothes and gear of the humanoid cast. potato.js builds the torso (def.body), the separate head with its face
@@ -151,25 +151,27 @@ const CORE = {
     // --- the cloak: a bell from the neck over the shoulders to just above the boots (drape() on a bell surface)
     const yN = top + 0.012, yH = legH * (C.hemAt ?? 0.5), shS = C.shoulderS ?? 0.17;
     const NR = [0.118, 0.112], SR = [ch.rx + 0.06, ch.rz + 0.05], HR = [ch.rx + (C.flare ?? 0.13), ch.rz + (C.flare ?? 0.13) - 0.02];
-    const bellPt = (th, ph) => {
-      const s = (Math.PI / 2 - ph) / Math.PI, y = yN + (yH - yN) * s, k = Math.min(1, Math.max(0, s / shS)), sh = Math.sin((k * Math.PI) / 2) ** 0.75, fl = Math.max(0, s - shS) / (1 - shS);
-      const rx = NR[0] + (SR[0] - NR[0]) * sh + (HR[0] - SR[0]) * fl, rz = NR[1] + (SR[1] - NR[1]) * sh + (HR[1] - SR[1]) * fl;
-      return new THREE.Vector3(Math.sin(th) * rx, y, Math.cos(th) * rz - 0.01);
-    };
-    const bell = { surf(th, ph) {
-      const p = bellPt(th, ph), e = 1e-3, a = bellPt(th + e, ph).sub(bellPt(th - e, ph)), b = bellPt(th, ph + e).sub(bellPt(th, ph - e)), n = a.cross(b).normalize();
-      if (n.x * p.x + n.z * (p.z + 0.01) < 0) n.negate();
-      return { pos: p, normal: n };
-    } };
+    const bell = bellSurface({ y0: yN, y1: yH, neck: NR, shoulder: SR, hem: HR, shS });
     const open = C.open ?? 0.1;
     const cloak = drapeMesh(bell, {
       top: Math.PI / 2, hem: -Math.PI / 2, from: open, to: Math.PI * 2 - open, spread: C.spread ?? 0.42, flare: 0.03, lift: 0.0, lift0: 0, thick: 0.026, facing: 0.07,
       segs: 120, rows: 36, free: false, sheen: 1.4, rollR: 0.016, ink: { width: 0.006 }, follow: 0, grad: 0.18, valleyShade: 3,
       // broad folds: a few deep ones at the back and sides, shallower at the front panels (never in a rhythm)
-      folds: [[0.55, 0.02, 0.2], [1.1, -0.025, 0.2], [1.62, 0.04, 0.3], [2.2, -0.03, 0.22], [2.75, 0.045, 0.33], [3.3, -0.035, 0.24], [3.85, 0.05, 0.36], [4.5, -0.03, 0.2], [5.0, 0.035, 0.28], [5.6, -0.02, 0.18]],
+      folds: C.cloakFolds || [[0.55, 0.02, 0.2], [1.1, -0.025, 0.2], [1.62, 0.04, 0.3], [2.15, -0.03, 0.2], [2.62, 0.036, 0.24], [3.0, -0.04, 0.15], [3.36, 0.05, 0.22], [3.86, -0.032, 0.19], [4.4, 0.042, 0.3], [5.0, -0.026, 0.2], [5.6, 0.02, 0.18]],
       sag: 1.1, drift: [0.03, 1.3, 2.2],
     }, clothC, liningC);
     P.add(cloak);
+    // the robe under the cloak (the sheet: dark robe folds down to the boots, showing in the cloak's opening), closed,
+    // from the waist to the boot tops, its own vertical folds
+    const yW = ch.cy - ch.ry * 0.1, robe = drapeMesh(bellSurface({ y0: yW, y1: legH * (C.robeHem ?? 0.24), neck: [ch.rx + 0.012, ch.rz + 0.012], shoulder: [ch.rx + 0.018, ch.rz + 0.018], hem: [ch.rx + 0.05, ch.rz + 0.06], shS: 0.1 }), {
+      top: Math.PI / 2, hem: -Math.PI / 2, flare: 0.015, lift: 0, lift0: 0, thick: 0.02, segs: 96, rows: 24, free: false, sheen: 1.3, rollR: 0.012, ink: { width: 0.005 }, follow: 0, grad: 0.22, valleyShade: 3,
+      folds: [[0.25, 0.012, 0.16], [0.7, -0.014, 0.14], [1.3, 0.016, 0.2], [2.0, -0.012, 0.16], [2.8, 0.018, 0.24], [3.6, -0.014, 0.18], [4.3, 0.014, 0.2], [5.0, -0.012, 0.15], [5.75, 0.012, 0.18]],
+      sag: 0.8, drift: [0.012, 2.1, 0.7],
+    }, C.robe || "#2a2630", C.robeLining || "#1f1c24");
+    P.add(robe);
+    // the repair: three tidy stitches on the left front facing near the hem (the sheet's "repaired hem"), in a pale thread
+    { const D = cloak.userData.drape, v = 0.82, t = D.f0(v) + 0.045, p = D.at(t, v, D.thick + 0.006), n = D.at(t, v, 1).sub(D.at(t, v, 0)).normalize(), up = D.at(t, v - 0.05, 0).sub(D.at(t, v + 0.05, 0));
+      cloak.add(stitches(p, n, up, 3, 0.026, C.thread || "#b9ab94")); }
     // the clasp: a concentric silver disc on the upper chest where the two front edges meet
     const metal = metalMat(C.metal || "#A6A2A0", 0.34), clasp = new THREE.Group();
     clasp.add(mesh(new THREE.CylinderGeometry(0.046, 0.044, 0.016, 40), metal));
@@ -187,10 +189,15 @@ const CORE = {
     const sl = {}; for (const s of ["R", "L"]) { sl[s] = { tube: mesh(new THREE.BufferGeometry(), sleeveM), cuff: mesh(new THREE.TorusGeometry(1, 0.16, 8, 28), cuffM) }; sl[s].tube.frustumCulled = false; ch.root.add(sl[s].tube); ch.root.add(sl[s].cuff); }
     boots(ch, std(C.boot || "#3a302a", { roughness: 0.6 }), std(C.sole || "#1d1917", { roughness: 0.7 }), { size: C.bootSize || [0.08, 0.062, 0.112] });
     const bandG = new THREE.TorusGeometry(1, 0.3, 10, 28); bandG.rotateX(Math.PI / 2);
-    const shaft = { R: mesh(bandG, std(C.boot || "#3a302a", { roughness: 0.6 })), L: mesh(bandG, std(C.boot || "#3a302a", { roughness: 0.6 })) };
+    // boot tops: a folded leather cuff a shade lighter than the boot, with a darker welt line round the sole
+    const cuffL = std(C.bootCuff || "#54443a", { roughness: 0.62 });
+    const shaft = { R: mesh(bandG, cuffL), L: mesh(bandG, cuffL) };
     for (const s of ["R", "L"]) ch.root.add(shaft[s]);
+    // glove cuffs: a short flared leather gauntlet over the wrist, out of the sleeve
+    const gloveM = std(C.gloveCuff || "#1f1c23", { roughness: 0.55 }), gc = {};
+    for (const s of ["R", "L"]) { gc[s] = mesh(new THREE.BufferGeometry(), gloveM); gc[s].frustumCulled = false; ch.root.add(gc[s]); }
     // the per-frame cloth: rest positions of every cloak piece, bent by the body's follow-through and pushed off the arms
-    const pieces = []; cloak.traverse((m) => { if (m.isMesh) pieces.push({ g: m.geometry, rest: m.geometry.attributes.position.array.slice(), shell: m.geometry.index && m.geometry.attributes.position.count > 2000 }); });
+    const pieces = []; for (const G of [cloak, robe]) G.traverse((m) => { if (m.isMesh) pieces.push({ g: m.geometry, rest: m.geometry.attributes.position.array.slice(), shell: m.geometry.index && m.geometry.attributes.position.count > 2000 }); });
     const yTop = yN, L = yN - yH, tmp = new THREE.Vector3();
     return [(st, t, hands, fries) => {
       const S = ch.bodyGroup.scale, segs = armSegs(ch, S, fries), ft = st.ft || { f: 0, s: 0, u: 0 }, f = ft.f * 0.5, sd = ft.s * 0.5;
@@ -211,19 +218,38 @@ const CORE = {
       hood.update(H.group.rotation, segs);
       for (const s of ["R", "L"]) {
         const A = ch.arms[s], on = !fries && !!A.elbow;
-        sl[s].tube.visible = sl[s].cuff.visible = shaft[s].visible = on;
+        sl[s].tube.visible = sl[s].cuff.visible = shaft[s].visible = gc[s].visible = on;
         if (!on) continue;
         const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), Lc = curve.getLength(), u1 = Math.max(0.45, 1 - (C.cuff ?? 0.085) / Lc);
         const pts = []; for (let i = 0; i <= 14; i++) pts.push(curve.getPointAt(0.08 + (u1 - 0.08) * (i / 14)));
         const c2 = new THREE.CatmullRomCurve3(pts), rad = (u) => ch.limbW * (1.28 + 0.32 * sstep(0.6, 1, u));
         sl[s].tube.geometry.dispose(); sl[s].tube.geometry = taperTube(c2, 18, 14, rad);
         bandAt(sl[s].cuff, curve.getPointAt(u1), curve.getPointAt(Math.min(1, u1 + 0.04)), ch.limbW * 1.6);
+        { const a = Math.max(0.5, u1 - 0.02), b = Math.min(0.97, 1 - 0.045 / Lc), gp = []; for (let i = 0; i <= 6; i++) gp.push(curve.getPointAt(a + (b - a) * (i / 6)));
+          gc[s].geometry.dispose(); gc[s].geometry = taperTube(new THREE.CatmullRomCurve3(gp), 6, 16, (u) => ch.limbW * (1.12 + 0.3 * u)); }
         const fp = ch.legs[s].foot.position, k = new THREE.Vector3(fp.x, fp.y + 0.075, fp.z);
         bandAt(shaft[s], k, k.clone().add(new THREE.Vector3(0, 1, 0)), lw * 1.18);
       }
     }];
   },
 };
+
+// a bell-shaped body for drape() (which only needs surf(th, ph)): th round the body (0 front), ph from +pi/2 at the top
+// (a neck, a waist) to -pi/2 at the hem, in bodyGroup space. Radii [x, z] at the top, at the shoulder line (shS of the
+// way down, reached on a quarter sine) and at the hem (straight from the shoulders). For capes, cloaks, robes, skirts
+// of every core character: the potato cast's cloth kit (costumes-art.js) on a body that isn't a potato
+export function bellSurface({ y0, y1, neck, shoulder, hem, shS = 0.17, z = -0.01 }) {
+  const pt = (th, ph) => {
+    const s = (Math.PI / 2 - ph) / Math.PI, y = y0 + (y1 - y0) * s, k = Math.min(1, Math.max(0, s / shS)), sh = Math.sin((k * Math.PI) / 2) ** 0.75, fl = Math.max(0, s - shS) / (1 - shS);
+    const rx = neck[0] + (shoulder[0] - neck[0]) * sh + (hem[0] - shoulder[0]) * fl, rz = neck[1] + (shoulder[1] - neck[1]) * sh + (hem[1] - shoulder[1]) * fl;
+    return new THREE.Vector3(Math.sin(th) * rx, y, Math.cos(th) * rz + z);
+  };
+  return { surf(th, ph) {
+    const p = pt(th, ph), e = 1e-3, a = pt(th + e, ph).sub(pt(th - e, ph)), b = pt(th, ph + e).sub(pt(th, ph - e)), n = a.cross(b).normalize();
+    if (n.x * p.x + n.z * (p.z - z) < 0) n.negate();
+    return { pos: p, normal: n };
+  } };
+}
 
 // a tube along a curve whose radius changes along it (r(u), u 0..1), open ends (a sleeve)
 function taperTube(curve, nu, nr, r) {
@@ -278,6 +304,10 @@ function hoodMesh(H, C, clothC) {
   const hemY = -(H.ry + (C.hoodDrop ?? 0.1)), HX = C.hoodHem?.[0] ?? 0.32, HZ = C.hoodHem?.[1] ?? 0.29;
   const tip = new THREE.Vector3(...(C.hoodTip || [-0.05, 0.1, -0.11]));
   const wOf = (el) => { const x = (el - elc) / (el > elc ? ehT : ehB); return Math.abs(x) < 1 ? W * Math.sqrt(1 - x * x) : 0; };
+  // the hood's folds, [psi, depth m (+ ridge, - valley), width rad], hand-placed at the back and sides, never in a rhythm
+  const FOLDS = C.hoodFolds || [[1.22, 0.009, 0.17], [1.72, -0.012, 0.15], [2.3, 0.015, 0.24], [2.82, -0.013, 0.17], [3.38, 0.017, 0.27], [3.92, -0.011, 0.16], [4.48, 0.013, 0.23], [5.02, -0.01, 0.15]];
+  const foldAt = (psi) => { let f = 0; for (const [c, d, w] of FOLDS) { let a = (psi - c) % (Math.PI * 2); if (a > Math.PI) a -= Math.PI * 2; if (a < -Math.PI) a += Math.PI * 2; f += d * Math.exp(-((a / w) ** 2)); } return f; };
+  const INFO = { fold: 0, lip: 0, s: 0, el: 0 };
   // a point on the hood (head frame) at angle psi round from the front and elevation el, `inset` metres in
   const pt = (psi, el, inset, o) => {
     // cE: below the head's widest line the cloth falls nearly straight to the shoulders (no waist round the neck)
@@ -287,24 +317,34 @@ function hoodMesh(H, C, clothC) {
     // the deep front: near the face opening the cloth stands forward (a thick hood brim), most over the forehead
     const pa = Math.abs(Math.atan2(Math.sin(psi), Math.cos(psi))), xe = (el - elc) / (el > elc ? ehT : ehB), q = Math.hypot(pa / W, xe), lip = Math.exp(-(((q - 1) / 0.3) ** 2)) * (1 - s) * sstep(-0.9, -0.2, el);   // the brim over the brow and beside the cheeks, not the flaps under the chin
     z += lip * (C.hoodLip ?? 0.05) * (1 + 0.6 * Math.max(0, xe)); y += lip * 0.012 * Math.max(0, xe);
+    // soft folds round the back and sides, hanging from the crown and deepening toward the shoulders, none at the face
+    const fold = foldAt(psi) * (0.25 + 0.75 * sstep(0.6, -1.2, el)) * (1 - lip), r = Math.hypot(x, z + 0.012) || 1;
+    x += (x / r) * fold; z += ((z + 0.012) / r) * fold;
+    INFO.fold = fold; INFO.lip = lip; INFO.s = s; INFO.el = el;
     // the peak: the crown drawn up and back into a soft point leaning to one side
     const pk = sstep(0.3, Math.PI / 2, el) ** 2;
     return o.set(x + tip.x * pk, y + tip.y * pk, z + tip.z * pk);
   };
   const W8 = (el) => 0.32 + 0.68 * sstep(-Math.PI / 2, -0.5, el);   // how far each row turns with the head
   const build = (inset) => {
-    const pos = new Float32Array((NR + 1) * (NC + 1) * 3), idx = [], v = new THREE.Vector3();
+    const pos = new Float32Array((NR + 1) * (NC + 1) * 3), col = new Float32Array(pos.length), idx = [], v = new THREE.Vector3();
     for (let j = 0; j <= NR; j++) {
       const el = -Math.PI / 2 + (Math.PI * j) / NR, w = wOf(el);
-      for (let i = 0; i <= NC; i++) { pt(w + (Math.PI * 2 - 2 * w) * (i / NC), el, inset, v); pos.set([v.x, v.y, v.z], (j * (NC + 1) + i) * 3); }
+      for (let i = 0; i <= NC; i++) {
+        pt(w + (Math.PI * 2 - 2 * w) * (i / NC), el, inset, v); const k = j * (NC + 1) + i; pos.set([v.x, v.y, v.z], k * 3);
+        // painted shading: outside a little lighter on the crown, darker toward the shoulders and in each valley; inside
+        // dark in the depth of the hood, lighter only where it turns out at the rim
+        const c = inset ? 0.5 + 0.55 * INFO.lip : Math.max(0.6, 1.08 - 0.06 * INFO.el * -1 - 0.16 * INFO.s + 3.2 * Math.min(0, INFO.fold) + 1.2 * Math.max(0, INFO.fold));
+        col[k * 3] = col[k * 3 + 1] = col[k * 3 + 2] = c;
+      }
     }
     for (let j = 0; j < NR; j++) for (let i = 0; i < NC; i++) { const a = j * (NC + 1) + i, b = a + 1, c = a + NC + 1, d = c + 1; idx.push(a, b, c, b, d, c); }
-    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("color", new THREE.BufferAttribute(col, 3)); g.setIndex(idx); g.computeVertexNormals();
     return g;
   };
   const outerG = build(0), innerG = build(0.014);
   const group = new THREE.Group();
-  const outM = clothMat(clothC), inM = clothMat(C.hoodInside || "#231f29", { side: THREE.BackSide, role: "lining" });
+  const outM = clothMat(clothC, { vertexColors: true }), inM = clothMat(C.hoodInside || "#2a2530", { side: THREE.BackSide, role: "lining", vertexColors: true });
   const outer = mesh(outerG, outM), inner = mesh(innerG, inM); group.add(outer, inner);
   // the hood casts no shadow on the face (the handoff: large shadows explain form, but nothing hides the face); it still
   // takes shadow and the inside stays dark by its own colour
@@ -315,13 +355,23 @@ function hoodMesh(H, C, clothC) {
     const a = -aMax + (2 * aMax * k) / 90, el = elc + (Math.cos(a) > 0 ? ehT : ehB) * Math.cos(a), psi = W * Math.sin(a);
     rimPts.push(pt(psi < 0 ? Math.PI * 2 + psi : psi, el, 0.007, new THREE.Vector3()));
   }
-  const rimM = clothMat(new THREE.Color(clothC).lerp(new THREE.Color(C.lining || "#514354"), 0.25));
-  const rimG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPts, false, "centripetal"), 120, C.hoodRim ?? 0.02, 10, false);
+  const rimM = clothMat(new THREE.Color(clothC).lerp(new THREE.Color(C.lining || "#514354"), 0.42));
+  const rimG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rimPts, false, "centripetal"), 120, C.hoodRim ?? 0.027, 12, false);
   const hemPts = []; { const w = wOf(-Math.PI / 2); for (let k = 0; k <= 60; k++) hemPts.push(pt(w + (Math.PI * 2 - 2 * w) * (k / 60), -Math.PI / 2, 0.007, new THREE.Vector3())); }
   const hemG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hemPts, false, "centripetal"), 80, 0.014, 8, false);
   const rim = mesh(rimG, rimM), hem = mesh(hemG, rimM); rim.castShadow = false; group.add(rim, hem);
+  // ink down the valleys and a light stroke down each ridge (the potato cast's drapeInk, on the hood's own surface:
+  // v 0 high on the crown to 1 at the skirt's hem)
+  const elOf = (vv) => 0.75 - vv * (0.75 + Math.PI / 2 - 0.02);
+  const inkGs = [];
+  const D = { F: FOLDS, closed: true, thick: 0, f0: () => 0, t0: () => Math.PI * 2, at: (t, vv, off) => pt(t, elOf(vv), -off, new THREE.Vector3()) };
+  // the centre back seam, from the peak down to the skirt's hem: a slight ridge line in a darker thread
+  { const sp = []; for (let k = 0; k <= 40; k++) sp.push(pt(Math.PI, 1.45 - (k / 40) * (1.45 + Math.PI / 2 - 0.02), -0.002, new THREE.Vector3()));
+    const seamG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(sp), 60, 0.0045, 6, false), sm = mesh(seamG, clothMat(new THREE.Color(clothC).multiplyScalar(0.7)), false); group.add(sm); inkGs.push(seamG); }
+  const ig = drapeInk(D, { width: 0.0055 }); if (ig) { const m = inkMesh(ig, clothC, 0.32); m.castShadow = false; group.add(m); inkGs.push(ig); }
+  const sg = drapeInk(D, { width: 0.012, only: "ridge" }); if (sg) { const m = inkMesh(sg, clothC, 1.4); m.castShadow = false; group.add(m); inkGs.push(sg); }
   // every piece's rest positions with each vertex's row weight (from its elevation, read back from its height)
-  const pieces = [outerG, innerG, rimG, hemG].map((g) => {
+  const pieces = [outerG, innerG, rimG, hemG, ...inkGs].map((g) => {
     const R = g.attributes.position.array.slice(), n = R.length / 3, wt = new Float32Array(n);
     for (let i = 0; i < n; i++) { const y = R[i * 3 + 1], el = y >= 0 ? Math.asin(Math.min(1, y / Ry)) : y > -Ry * 0.52 ? Math.asin(y / Ry) : -0.55 - (Math.PI / 2 - 0.55) * Math.min(1, (-Ry * 0.52 - y) / (-Ry * 0.52 - hemY)); wt[i] = W8(el); }
     return { g, R, wt, normals: g === outerG || g === innerG };
