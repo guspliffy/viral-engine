@@ -26,7 +26,7 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { motionResults, storyNotes, loopSeam } from "./motion.mjs";
 import { soundNotes, soundMeasure, soundEars } from "./sound.mjs";
-import { visibility } from "./framing.mjs";
+import { visibility, frontResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
 import { rigResults, cutIn, proj } from "./rig.mjs";
 import { GATE, gateOf, gateLevel, windowFor, storyAt, actingAt } from "./gate.mjs";
@@ -591,6 +591,15 @@ export function checkClip(clip, { sb = null, layout = null, profile = null } = {
     if (!worst.size) add("pass", "captions", "no captions");
   } else add("warn", "captions", "no layout file, caption placement not checked");
   return res;
+}
+
+// everything the render gate judges from a layout (engine/render.mjs contactGate): contacts, grips, the drawn rig, the
+// front of the frame and the required must-see items. A result whose check is in GATE.fails and level "fail" stops
+// the render
+export function gateResults(sb, lay, chars = null) {
+  let seen = [];
+  try { seen = visibility(sb, lay, chars || loadCharacters(sb)).results.filter((r) => r.check === "must-see"); } catch { /* no characters: nothing must be seen */ }
+  return [...clipResults(sb, lay), ...contactResults(lay, sb), ...frontResults(sb, lay), ...seen];
 }
 
 // the storyboard's loop seam (qa/motion.mjs loopSeam) as one creative result
