@@ -45,7 +45,7 @@ export const PLANE_KINDS = {
     mesh(softBox(W - 0.04, 0.14, 0.56, 0.05), fab, P.whole, 0, 0.35, 0.02).rotation.x = -Math.PI / 2 + Math.PI / 2;
     const back = new THREE.Group(); back.position.set(0, 0.42, -0.27); back.rotation.x = rad(-8); P.whole.add(back);
     mesh(softBox(W - 0.04, 0.95, 0.15, 0.06), fab, back, 0, 0.47, -0.02);
-    mesh(softBox(W - 0.14, 0.24, 0.02, 0.01), cov, back, 0, 0.8, 0.065);
+    mesh(softBox(W - 0.1, S.cover ?? 0.24, 0.02, 0.01), cov, back, 0, 0.8, 0.065);   // spec.cover: the cover's height (a taller one frames a head)
     mesh(new THREE.BoxGeometry(W - 0.12, 0.28, 0.4), dark, P.whole, 0, 0.14, -0.02);
     for (const sx of [-1, 1]) mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.3, 8), mat("#55595f", { roughness: 0.4, metalness: 0.4 }), P.whole, sx * (W / 2 - 0.12), 0.1, 0.05);
     const arms = S.arms ?? "both";

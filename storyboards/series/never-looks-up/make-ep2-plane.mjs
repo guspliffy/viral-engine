@@ -30,6 +30,7 @@ const PX = -1.06, WX = 0, RX = 1.06, SZ = 0.08, SEAT_W = 0.96;
 const SEAT = 0.3;                                          // a sitter's body y (the cushion's top 0.42 less 0.12)
 const OH_Y = 2.35;                                         // the passenger panel's underside
 const WALL_X = -1.62;
+const SEAT_C = "#5a6a9a";                                  // a lighter, warmer seat fabric so the hood and the lower bodies read
 const PLATE = process.env.PLATE ?? "assets/plates/storm-cabin.png";
 
 // Phoenix holds the phone in both gloves in front of his chest (Still Scrolling, ep 1 and 3)
@@ -65,9 +66,9 @@ const MUG = { x: r3(RX - 0.14), y: 0.66, z: 0.52 };         // Reaper's tea, in 
 const S0 = samFrame(SAM_FEET0);
 const props = [
   { id: "wall", kind: "cabinwall", x: WALL_X, y: 0, z: 0, len: 9, windows: 9, gap: 0.85, first: 0.45, back: 5, boltAt: 5, glow: 0 },
-  { id: "seatP", kind: "planeseat", x: PX, z: 0, w: SEAT_W, arms: "both" },
-  { id: "seatW", kind: "planeseat", x: WX, z: 0, w: SEAT_W, arms: "L" },
-  { id: "seatR", kind: "planeseat", x: RX, z: 0, w: SEAT_W, arms: "L" },
+  { id: "seatP", kind: "planeseat", x: PX, z: 0, w: SEAT_W, arms: "both", color: SEAT_C, cover: 0.34 },
+  { id: "seatW", kind: "planeseat", x: WX, z: 0, w: SEAT_W, arms: "L", color: SEAT_C, cover: 0.34 },
+  { id: "seatR", kind: "planeseat", x: RX, z: 0, w: SEAT_W, arms: "L", color: SEAT_C, cover: 0.34 },
   { id: "beltP", kind: "seatbelt", x: PX, z: 0, r: 0.42 },
   { id: "beltW", kind: "seatbelt", x: WX, z: 0, r: 0.42 },
   { id: "beltR", kind: "seatbelt", x: RX, z: 0, r: 0.42 },
@@ -81,9 +82,9 @@ const props = [
   { id: "mug", kind: "teamug", steam: 0.6, ...grips.placeFor("teamug", [MUG.x, MUG.y, MUG.z], 0) },
   { id: "tea", kind: "blob", x: MUG.x, y: r3(MUG.y + 0.07), z: MUG.z, color: "#7a4316", r: 0.04, fill: 0 },
   { id: "tray", kind: "drinktray", ...S0.tray, rot: SAM.yaw },
-  { id: "front", kind: "rowback", x: 0, y: -0.85, z: 2.3, n: 3, gap: 1.06, scale: 1 },
-  { id: "front2", kind: "rowback", x: 0, y: -0.9, z: 3.4, n: 3, gap: 1.06, scale: 1 },
-  { id: "pillow", kind: "pillow", x: 0.6, y: 2.0, z: -1.6, rot: 20, scale: 0.0001 },
+  { id: "front", kind: "rowback", x: 0, y: -1.0, z: 2.3, n: 3, gap: 1.06, scale: 1 },
+  { id: "front2", kind: "rowback", x: 0, y: -0.95, z: 3.4, n: 3, gap: 1.06, scale: 1 },
+  { id: "pillow", kind: "pillow", x: 0.6, y: 1.9, z: 0.9, rot: 20, scale: 0.0001 },
   { id: "mag", kind: "magazine", x: 0.55, y: 0.03, z: 1.15, rot: 30, tilt: 0 },
   // invisible carriers: the bodies float on these (a float is a path, not a walk)
   { id: "phxC", kind: "carrier", x: PX, y: 0, z: SZ },
@@ -95,11 +96,12 @@ const P = Object.fromEntries(props.map((p) => [p.id, p]));
 
 // ---------------------------------------------------------------- the plane: bumps, lightning, the rumble
 const BUMPS = [[0.06, 0.06, 0.4], [1.55, 0.045, 0.35], [3.27, 0.05, 0.35], [5.0, 0.09, 0.6], [9.2, 0.07, 0.45]];
-const FLASHES = [0.08, 3.3, 5.05, 7.6];
+const FLASHES = [0, 3.2, 5.0, 7.6];   // each lightning lands on its cut (a flash just after a cut shows the new shot a frame early)
+for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.3, dur: 0.14, sound: false });   // the lightning lights the whole cabin
 for (const t of FLASHES) { prop(t, "wall", { glow: 1 }, 0.04, "out"); prop(t + 0.1, "wall", { glow: 0.3 }, 0.06); prop(t + 0.18, "wall", { glow: 0.9 }, 0.04); prop(t + 0.24, "wall", { glow: 0 }, 0.3, "in"); }
 for (const t of FLASHES) sfx(t + 0.05, "rumble", { gain: 0.5, dur: 1.2, reason: "thunder after the lightning in the window" });
 sfx(0, "rumble", { gain: 0.32, dur: END - 0.05, reason: "the cabin's engine rumble bed" });
-for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: r3(a * 0.25), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
+for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.03 : r3(a * 0.25), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
 // every sitter jolts with each bump (they sit on the plane, so they move with it a beat late)
 for (const [t] of BUMPS.slice(0, 3)) for (const w of ["phx", "wiz", "rea"]) A(t + 0.03, w, "squash", { amount: w === "wiz" ? 0.09 : 0.04, dur: 0.2 });
 
@@ -125,10 +127,11 @@ A(0.02, "wiz", "talk", { line: "EEP!", dur: 0.35, tone: "excited" });
 act.shock(c, 0.02, "wiz", { open: 0.5, hold: 1.2 });
 A(0.02, "wiz", "look", { to: [-0.3, 0.6], dur: 0.1, blink: false });
 c.cap(0.05, 1.2, "EEP!", 560, true, { x: 560 });
-prop(0.1, "juice", { fill: 1, y: r3(CUP.y + 0.3) }, 0.22, "out");
-prop(0.32, "juice", { y: r3(CUP.y + 0.085) }, 0.22, "in");
-prop(0.54, "juice", { fill: 0 }, 0.04);
-sfx(0.56, "ai/drip", { gain: 0.5, reason: "plop: the juice lands back in the cup" });
+prop(0.1, "juice", { fill: 1, y: r3(CUP.y + 0.44) }, 0.24, "out");
+A(0.09, "wiz", "hatwobble", { amount: 9, freq: 3, dur: 0.7 });
+prop(0.34, "juice", { y: r3(CUP.y + 0.085) }, 0.22, "in");
+prop(0.56, "juice", { fill: 0 }, 0.04);
+sfx(0.58, "ai/drip", { gain: 0.5, reason: "plop: the juice lands back in the cup" });
 const ARMREST = { world: [r3(PX + SEAT_W / 2 + 0.04), 0.86, 0.1] };   // the armrest between Phoenix and the Wizard
 c.arm(0, "wiz", "R", ARMREST, 0.01);
 A(0.2, "wiz", "grip", { side: "R", shape: "hold", dur: 0.1 });
@@ -153,10 +156,11 @@ see(0, 1.45, ["phx.face", "wiz.face", "rea.face", "sam.face", "phone", "cup"], "
 // another bump: the Wizard grabs Phoenix's arm and shakes it, gibbering
 const PHX_ARM = (dy = 0) => ({ world: [r3(PX + 0.34), r3(0.75 + dy), r3(SZ + 0.4)] });
 A(1.42, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
-prop(1.55, "wizC", { rot: -18 }, 0.25);   // a rider turns with its carrier
+prop(1.55, "wizC", { rot: -28 }, 0.25);   // a rider turns with its carrier
 c.arm(1.6, "wiz", "R", PHX_ARM(), 0.2, "out");
 A(1.75, "wiz", "grip", { side: "R", shape: "hold", dur: 0.08 });
-for (const [i, t] of [1.95, 2.1, 2.25, 2.4].entries()) c.arm(t, "wiz", "R", PHX_ARM(i % 2 ? -0.03 : 0.03), 0.15, "inOut");
+for (const [i, t] of [1.95, 2.1, 2.25, 2.4].entries()) { c.arm(t, "wiz", "R", PHX_ARM(i % 2 ? -0.02 : 0.07), 0.15, "inOut"); prop(t + 0.03, "phxC", { y: i % 2 ? 0 : 0.035, x: r3(PX + (i % 2 ? -0.015 : 0.015)) }, 0.15, "inOut"); }
+prop(2.55, "phxC", { y: 0, x: PX }, 0.12, "inOut");   // Phoenix (and his phone) get shaken; his thumb keeps scrolling
 A(1.7, "wiz", "talk", { line: "wawawa-wa!", dur: 0.7, tone: "excited" });
 c.cap(1.7, 2.5, "wawawa-WA!!", 560, true, { x: 560 });
 // Phoenix, without looking, lifts the Wizard's glove off his arm with his free glove and sets it on the armrest
@@ -167,7 +171,7 @@ c.arm(2.62, "wiz", "R", ARMREST, 0.3, "inOut");
 c.arm(2.62, "phx", "L", { world: [r3(ARMREST.world[0] - 0.02), 0.8, r3(ARMREST.world[2] + 0.12)] }, 0.3, "inOut");
 c.arm(2.95, "phx", "L", PHONE_L, 0.25, "inOut");
 sfx(2.7, "notify", { gain: 0.2 });
-A(2.72, "phx", "expr", { expr: "happy", set: { curve: 0.5 }, dur: 0.2 });
+A(2.72, "phx", "expr", { expr: "kind", set: { curve: 0.32, eye: 0.95 }, dur: 0.2 });   // a tiny smile, eyes still on the screen
 A(3.1, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.25 });
 // Reaper side-eyes the Wizard
 A(2.0, "rea", "look", { to: [-0.8, 0.0], dur: 0.15, blink: false });
@@ -213,15 +217,15 @@ prop(4.55, "maskR", REA_MOUTH, 0.06);
 c.arm(4.6, "rea", "L", REA_LAP, 0.35, "inOut");
 A(4.6, "rea", "look", { to: [-0.8, 0.3], dur: 0.35, blink: false });
 // Phoenix loops his mask's elastic round the phone and lets it hang at his chest; he scrolls on with one finger
-const PH_HANG = { x: r3(PX + 0.04), y: 0.66, z: 0.62 }, CUP_P = { x: r3(PX + 0.27), y: 0.72, z: 0.64 };
+const PH_HANG = { x: r3(PX + 0.04), y: 0.72, z: 0.7 }, CUP_P = { x: r3(PX + 0.27), y: 0.78, z: 0.7 };
 c.arm(3.55, "phx", "R", { world: [PH_HANG.x - 0.07, PH_HANG.y, PH_HANG.z - 0.04] }, 0.35, "inOut");
 c.arm(3.55, "phx", "L", { world: [PH_HANG.x + 0.07, PH_HANG.y, PH_HANG.z - 0.04] }, 0.35, "inOut");
 prop(3.55, "maskP", CUP_P, 0.35, "inOut");
 A(3.95, "phx", "release", { prop: "phone", dur: 0 });
-prop(3.95, "phone", { ...PH_HANG, tip: -32 }, 0.12, "out");
+prop(3.95, "phone", { ...PH_HANG, tip: -32 }, 0.22, "out");
 const PHX_LAP = { x: [0.24, 0.3, 0.3] }, PHX_LAP_R = { x: [-0.24, 0.3, 0.3] };
 c.arm(4.02, "phx", "L", PHX_LAP, 0.35, "inOut");
-const POKE = (d = 0) => ({ world: [r3(PH_HANG.x - 0.06), r3(PH_HANG.y + 0.02 + d), r3(PH_HANG.z - 0.18)] });
+const POKE = (d = 0) => ({ world: [r3(PH_HANG.x - 0.05), r3(PH_HANG.y - 0.17 + d), r3(PH_HANG.z - 0.08)] });   // scrolling from below the phone, clear of his face
 c.arm(4.02, "phx", "R", POKE(), 0.25, "inOut");
 A(4.02, "phx", "grip", { side: "R", shape: "point", dur: 0.15 });
 const scrollFinger = (times) => { for (const t of times) { c.arm(t, "phx", "R", POKE(0.03), 0.1, "out"); c.arm(t + 0.12, "phx", "R", POKE(), 0.12, "inOut"); } };
@@ -232,7 +236,7 @@ see(3.35, 4.95, ["phx.face", "wiz.face", "rea.face", "maskP", "maskW", "phone"],
 // ---------------------------------------------------------------- 4 ZERO-G 5.0-7.0 (P4)
 // the big drop: everything lifts. The Wizard, unbuckled, floats up and slowly tumbles upside down over Phoenix's phone
 // (a pitch turns him about his middle; the yaw turns his face back to us once he is over)
-const WIZ_PEAK = { x: -0.42, y: 0.8, z: 0.78 };            // the carrier: his middle 0.8 m above it
+const WIZ_PEAK = { x: -0.35, y: 0.8, z: 0.8 };            // the carrier: his middle 0.8 m above it
 prop(5.05, "wizC", { y: 0.4, z: r3(SZ + 0.4) }, 0.75, "out");
 prop(5.8, "wizC", WIZ_PEAK, 1.4, "inOut");
 A(5.05, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: false, dur: 0.5, ease: "out" });
@@ -253,7 +257,7 @@ mug.carry(5.4, [MUG.x, r3(MUG.y + 0.1), MUG.z], 0.6);    // he holds the cup und
 sfx(5.25, "gulp", { gain: 0.35, reason: "glk: the tea lifts out of the mug as a blob" });
 prop(5.25, "tea", { wobble: 1 }, 0.3);
 // the Samurai floats up and lies flat along the aisle, tray level, and offers it to the row
-const SAM_UP = [1.98, 0.55, -0.7], S_UP = samFrame(SAM_UP, 0);
+const SAM_UP = [1.98, 1.0, -0.7], S_UP = samFrame(SAM_UP, 0);
 prop(5.05, "samC", { x: SAM_UP[0], y: SAM_UP[1], z: SAM_UP[2] }, 1.2, "inOut");
 A(5.1, "sam", "lean", { to: -8, dur: 1.2, ease: "inOut" });
 trayAt(5.05, S_UP, 1.2);
@@ -262,7 +266,7 @@ A(6.2, "sam", "talk", { line: "drinks?", dur: 0.5, tone: "calm" });
 c.cap(6.2, 6.95, "drinks?", 470, true, { x: 760 });
 // the pillow and the magazine float past
 prop(5.1, "pillow", { scale: 1 }, 0.01);
-prop(5.1, "pillow", { x: 0.9, y: 1.95, z: -0.4, rot: 120 }, 4.1, "linear");
+prop(5.1, "pillow", { x: 1.0, y: 2.05, z: 0.6, rot: 120 }, 4.1, "linear");
 prop(5.1, "mag", { y: 1.05, x: 0.5, z: 1.35, rot: 160, tilt: 30 }, 4.1, "out");
 sfx(5.3, "flutter", { gain: 0.35, reason: "the magazine's pages flap as it floats up" });
 see(5.1, 6.95, ["phx.face", "wiz", "rea.face", "sam.face", "tea", "phone"], "P4: zero-g: the Wizard floats and turns over, the tea blob, the Samurai flat with his tray");
@@ -270,8 +274,9 @@ see(5.1, 6.95, ["phx.face", "wiz", "rea.face", "sam.face", "tea", "phone"], "P4:
 // ---------------------------------------------------------------- 5 PEAK 7.0-8.0 (P5)
 A(7.0, "wiz", "look", { to: [0.4, -0.4], dur: 0.2, blink: false });
 A(7.0, "phx", "noblink", { dur: 1.0 });
+c.arm(7.1, "wiz", "L", { x: [0.36, 0.52, 0.26] }, 0.25, "inOut");   // his free glove cupped beside his mouth, off his eyes
 A(7.3, "wiz", "talk", { line: "psst! psst!", dur: 0.5, tone: "excited" });
-c.cap(7.3, 7.95, "psst! PSST!", 470, true, { x: 640 });
+c.cap(7.3, 7.95, "psst! PSST!", 420, true, { x: 300 });   // in the ceiling above Phoenix, under the title band
 for (const w of ["wiz", "rea", "sam"]) A(7.8, w, "noblink", { dur: 1.4 });
 see(7.05, 7.95, ["phx.face", "wiz.face", "phone"], "P5: the upside-down Wizard's face right over the phone");
 
@@ -283,7 +288,7 @@ A(8.05, "phx", "face", { lid: 0.15, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -6, dur: 0.15 });
 A(8.35, "phx", "blink", { dur: 0.22 });
 A(8.5, "phx", "talk", { line: "huh.", dur: 0.35, tone: "calm" });
-c.cap(8.5, 9.0, "huh.", 1250, false, { x: 300 });
+c.cap(8.5, 9.0, "huh.", 500, false, { x: 170 });   // over his head: the lower third is full of bodies here
 see(8.1, 8.95, ["phx.face", "wiz.face"], "P7: Phoenix looks up at the upside-down Wizard: huh.");
 
 // ---------------------------------------------------------------- 7 BACK DOWN 9.0-10.0 (P8)
@@ -298,8 +303,8 @@ scrollFinger([9.65]);
 // the plane levels out: everyone drops back into place at once
 const T_LAND = 9.42, DROP = T_LAND - 9.2;
 A(9.2, "wiz", "pitch", { to: 0, dur: DROP, ease: "in" });
-prop(9.2, "wizC", { rot: 0 }, DROP, "in");
-prop(9.2, "wizC", { x: WX, y: 0, z: SZ }, DROP, "in");
+// he flips back upright facing the row behind (the hat swings out over the aisle, clear of everyone), then spins round in his seat
+prop(9.2, "wizC", { x: WX, z: SZ }, DROP, "out"); prop(9.2, "wizC", { y: 0 }, DROP, "in");   // over to his seat first, then down (clear of Phoenix's mask)
 A(9.2, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: true, dur: DROP, ease: "in" });
 prop(9.2, "samC", { x: SAM.x, y: 0, z: SAM.z }, DROP, "in");
 A(9.2, "sam", "lean", { to: 0, dur: DROP, ease: "in" });
@@ -322,6 +327,7 @@ const WIZ_MOUTH = { x: [-0.14, 0.4, 0.42] };
 c.arm(T_LAND + 0.02, "wiz", "R", WIZ_MOUTH, 0.18, "out");
 c.arm(T_LAND, "wiz", "L", { x: [0.22, 0.3, 0.3] }, 0.2, "out");
 A(T_LAND + 0.1, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
+prop(T_LAND + 0.04, "wizC", { rot: -22 }, 0.26, "out");   // he spins round to glare at Phoenix
 act.mood(c, T_LAND + 0.15, "wiz", "angry", { hold: 0.4 });
 A(T_LAND + 0.05, "rea", "look", { to: [0.1, -0.5], dur: 0.12, blink: false });
 prop(T_LAND + 0.05, "maskR", { y: 0.62, z: r3(REA_MOUTH.z + 0.06) }, 0.15, "out");   // it drops to his chest
@@ -333,11 +339,11 @@ see(T_LAND + 0.05, 9.98, ["phx.face", "wiz.face", "rea.face", "sam", "tray", "ph
 // ---------------------------------------------------------------- shots (from the row in front, front-left)
 const shot = (pos, look, fov = 50, o = {}) => ({ pos, look, fov, ...o });
 const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: BUMPS.map(([t, a, d]) => [t, a, d]) };
-const WIDE = shot([-0.15, 1.42, 5.7], [0.25, 1.22, 0], 55, { hand: HAND });
+const WIDE = shot([-0.1, 1.38, 5.65], [0.28, 1.12, 0], 55, { hand: HAND });
 const MASKS = shot([-0.2, 1.36, 4.7], [-0.12, 1.16, 0], 56, { hand: HAND });
-const ZEROG = shot([0.1, 1.45, 5.9], [0.42, 1.4, 0], 56, { hand: HAND });
-const PEAK = { ...shot([-1.6, 1.28, 4.7], [-0.74, 1.2, 0.4], 44, { hand: HAND }), to: { pos: [-1.52, 1.26, 4.4] }, dur: 2.0 };   // a slow push into the series' LOOK-UP framing
-const BACKDOWN = shot([-0.2, 1.42, 5.8], [0.25, 1.2, 0], 55, { hand: HAND });
+const ZEROG = shot([-0.1, 2.0, 5.9], [0.3, 1.35, 0], 58, { hand: HAND });
+const PEAK = { ...shot([-1.42, 1.28, 4.75], [-0.66, 1.2, 0.4], 44, { hand: HAND }), to: { pos: [-1.36, 1.26, 4.45] }, dur: 2.0 };   // a slow push into the series' LOOK-UP framing
+const BACKDOWN = shot([-0.15, 1.4, 5.75], [0.28, 1.1, 0], 55, { hand: HAND });
 const beats = c.beats([
   ["P1 bump", 0, WIDE, "hook"],
   ["P2 grab", 1.5, "keep"],

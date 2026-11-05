@@ -206,7 +206,9 @@
    "x": -1.06,
    "z": 0,
    "w": 0.96,
-   "arms": "both"
+   "arms": "both",
+   "color": "#5a6a9a",
+   "cover": 0.34
   },
   {
    "id": "seatW",
@@ -214,7 +216,9 @@
    "x": 0,
    "z": 0,
    "w": 0.96,
-   "arms": "L"
+   "arms": "L",
+   "color": "#5a6a9a",
+   "cover": 0.34
   },
   {
    "id": "seatR",
@@ -222,7 +226,9 @@
    "x": 1.06,
    "z": 0,
    "w": 0.96,
-   "arms": "L"
+   "arms": "L",
+   "color": "#5a6a9a",
+   "cover": 0.34
   },
   {
    "id": "beltP",
@@ -361,7 +367,7 @@
    "id": "front",
    "kind": "rowback",
    "x": 0,
-   "y": -0.85,
+   "y": -1,
    "z": 2.3,
    "n": 3,
    "gap": 1.06,
@@ -371,7 +377,7 @@
    "id": "front2",
    "kind": "rowback",
    "x": 0,
-   "y": -0.9,
+   "y": -0.95,
    "z": 3.4,
    "n": 3,
    "gap": 1.06,
@@ -381,8 +387,8 @@
    "id": "pillow",
    "kind": "pillow",
    "x": 0.6,
-   "y": 2,
-   "z": -1.6,
+   "y": 1.9,
+   "z": 0.9,
    "rot": 20,
    "scale": 0.0001
   },
@@ -469,17 +475,17 @@
    "from": 7.3,
    "to": 7.95,
    "text": "psst! PSST!",
-   "pos": 470,
+   "pos": 420,
    "pop": true,
-   "x": 640
+   "x": 300
   },
   {
    "from": 8.5,
    "to": 9,
    "text": "huh.",
-   "pos": 1250,
+   "pos": 500,
    "pop": false,
-   "x": 300
+   "x": 170
   }
  ],
  "beats": [
@@ -489,13 +495,13 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     -0.15,
-     1.42,
-     5.7
+     -0.1,
+     1.38,
+     5.65
     ],
     "look": [
-     0.25,
-     1.22,
+     0.28,
+     1.12,
      0
     ],
     "fov": 55,
@@ -534,6 +540,23 @@
     }
    },
    "do": [
+    {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.14,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
     {
      "sfx": "rumble",
      "gain": 0.32,
@@ -891,8 +914,15 @@
      "at": 0.02
     },
     {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "dur": 1.2,
+     "reason": "thunder after the lightning in the window",
+     "at": 0.05
+    },
+    {
      "fx": "shake",
-     "amp": 0.015,
+     "amp": 0.03,
      "dur": 0.3,
      "at": 0.06
     },
@@ -931,16 +961,6 @@
      "at": 0.06
     },
     {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 1
-     },
-     "dur": 0.04,
-     "ease": "out",
-     "at": 0.08
-    },
-    {
      "who": "phx",
      "do": "squash",
      "amount": 0.04,
@@ -962,22 +982,12 @@
      "at": 0.09
     },
     {
-     "do": "prop",
-     "id": "juice",
-     "set": {
-      "fill": 1,
-      "y": 0.96
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "sfx": "rumble",
-     "gain": 0.5,
-     "dur": 1.2,
-     "reason": "thunder after the lightning in the window",
-     "at": 0.13
+     "who": "wiz",
+     "do": "hatwobble",
+     "amount": 9,
+     "freq": 3,
+     "dur": 0.7,
+     "at": 0.09
     },
     {
      "do": "prop",
@@ -986,6 +996,27 @@
       "glow": 0.3
      },
      "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "fill": 1,
+      "y": 1.1
+     },
+     "dur": 0.24,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0.9
+     },
+     "dur": 0.04,
      "ease": "inOut",
      "at": 0.18
     },
@@ -998,6 +1029,16 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.24
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -1007,33 +1048,13 @@
     },
     {
      "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0.9
-     },
-     "dur": 0.04,
-     "ease": "inOut",
-     "at": 0.26
-    },
-    {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0.32
-    },
-    {
-     "do": "prop",
      "id": "juice",
      "set": {
       "y": 0.745
      },
      "dur": 0.22,
      "ease": "in",
-     "at": 0.32
+     "at": 0.34
     },
     {
      "who": "phx",
@@ -1051,13 +1072,13 @@
      },
      "dur": 0.04,
      "ease": "inOut",
-     "at": 0.54
+     "at": 0.56
     },
     {
      "sfx": "ai/drip",
      "gain": 0.5,
      "reason": "plop: the juice lands back in the cup",
-     "at": 0.56
+     "at": 0.58
     },
     {
      "who": "phx",
@@ -1111,7 +1132,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "rot": -18
+      "rot": -28
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -1182,13 +1203,24 @@
      "pose": {
       "world": [
        -0.72,
-       0.78,
+       0.82,
        0.48
       ]
      },
      "dur": 0.15,
      "ease": "inOut",
      "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "phxC",
+     "set": {
+      "y": 0.035,
+      "x": -1.045
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.48
     },
     {
      "who": "rea",
@@ -1248,7 +1280,7 @@
      "pose": {
       "world": [
        -0.72,
-       0.72,
+       0.73,
        0.48
       ]
      },
@@ -1262,6 +1294,17 @@
      "dur": 0.8,
      "idle": 0.06,
      "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "phxC",
+     "set": {
+      "y": 0,
+      "x": -1.075
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.63
     },
     {
      "who": "phx",
@@ -1278,7 +1321,7 @@
      "pose": {
       "world": [
        -0.72,
-       0.78,
+       0.82,
        0.48
       ]
      },
@@ -1287,19 +1330,41 @@
      "at": 0.75
     },
     {
+     "do": "prop",
+     "id": "phxC",
+     "set": {
+      "y": 0.035,
+      "x": -1.045
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
      "who": "wiz",
      "do": "arm",
      "side": "R",
      "pose": {
       "world": [
        -0.72,
-       0.72,
+       0.73,
        0.48
       ]
      },
      "dur": 0.15,
      "ease": "inOut",
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "phxC",
+     "set": {
+      "y": 0,
+      "x": -1.075
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.93
     },
     {
      "who": "phx",
@@ -1315,6 +1380,17 @@
      "dur": 0.15,
      "ease": "out",
      "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "phxC",
+     "set": {
+      "y": 0,
+      "x": -1.06
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.05
     },
     {
      "who": "wiz",
@@ -1362,9 +1438,10 @@
     {
      "who": "phx",
      "do": "expr",
-     "expr": "happy",
+     "expr": "kind",
      "set": {
-      "curve": 0.5
+      "curve": 0.32,
+      "eye": 0.95
      },
      "dur": 0.2,
      "at": 1.22
@@ -1491,6 +1568,30 @@
    },
    "do": [
     {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.14,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "dur": 1.2,
+     "reason": "thunder after the lightning in the window",
+     "at": 0.05
+    },
+    {
      "fx": "shake",
      "amp": 0.013,
      "dur": 0.3,
@@ -1522,10 +1623,10 @@
      "do": "prop",
      "id": "wall",
      "set": {
-      "glow": 1
+      "glow": 0.3
      },
-     "dur": 0.04,
-     "ease": "out",
+     "dur": 0.06,
+     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -1611,13 +1712,6 @@
      "at": 0.14
     },
     {
-     "sfx": "rumble",
-     "gain": 0.5,
-     "dur": 1.2,
-     "reason": "thunder after the lightning in the window",
-     "at": 0.15
-    },
-    {
      "do": "prop",
      "id": "maskR",
      "set": {
@@ -1633,11 +1727,11 @@
      "do": "prop",
      "id": "wall",
      "set": {
-      "glow": 0.3
+      "glow": 0.9
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "inOut",
-     "at": 0.2
+     "at": 0.18
     },
     {
      "sfx": "kenney/drop-leather",
@@ -1654,6 +1748,16 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.24
+    },
+    {
      "sfx": "kenney/drop-leather",
      "gain": 0.45,
      "reason": "a mask drops on its hose",
@@ -1667,16 +1771,6 @@
     },
     {
      "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0.9
-     },
-     "dur": 0.04,
-     "ease": "inOut",
-     "at": 0.28
-    },
-    {
-     "do": "prop",
      "id": "maskP",
      "set": {
       "y": 1.32
@@ -1684,16 +1778,6 @@
      "dur": 0.3,
      "ease": "settle",
      "at": 0.32
-    },
-    {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0.34
     },
     {
      "who": "rea",
@@ -1713,8 +1797,8 @@
      "pose": {
       "world": [
        -1.09,
-       0.66,
-       0.58
+       0.72,
+       0.6599999999999999
       ]
      },
      "dur": 0.35,
@@ -1728,8 +1812,8 @@
      "pose": {
       "world": [
        -0.95,
-       0.66,
-       0.58
+       0.72,
+       0.6599999999999999
       ]
      },
      "dur": 0.35,
@@ -1741,8 +1825,8 @@
      "id": "maskP",
      "set": {
       "x": -0.79,
-      "y": 0.72,
-      "z": 0.64
+      "y": 0.78,
+      "z": 0.7
      },
      "dur": 0.35,
      "ease": "inOut",
@@ -1926,11 +2010,11 @@
      "id": "phone",
      "set": {
       "x": -1.02,
-      "y": 0.66,
-      "z": 0.62,
+      "y": 0.72,
+      "z": 0.7,
       "tip": -32
      },
-     "dur": 0.12,
+     "dur": 0.22,
      "ease": "out",
      "at": 0.75
     },
@@ -1975,9 +2059,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.25,
@@ -2044,9 +2128,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.71,
-       0.44
+       -1.07,
+       0.58,
+       0.62
       ]
      },
      "dur": 0.1,
@@ -2104,9 +2188,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.12,
@@ -2127,16 +2211,16 @@
    "len": 2,
    "shot": {
     "pos": [
-     0.1,
-     1.45,
+     -0.1,
+     2,
      5.9
     ],
     "look": [
-     0.42,
-     1.4,
+     0.3,
+     1.35,
      0
     ],
-    "fov": 56,
+    "fov": 58,
     "hand": {
      "rate": 0,
      "bob": 0,
@@ -2173,6 +2257,23 @@
    },
    "do": [
     {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.14,
+     "sound": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "fx": "shake",
      "amp": 0.023,
      "dur": 0.3,
@@ -2185,13 +2286,10 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 1
-     },
-     "dur": 0.04,
-     "ease": "out",
+     "sfx": "rumble",
+     "gain": 0.5,
+     "dur": 1.2,
+     "reason": "thunder after the lightning in the window",
      "at": 0.05
     },
     {
@@ -2278,7 +2376,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "y": 0.72
+      "y": 0.78
      },
      "dur": 0.5,
      "ease": "out",
@@ -2288,7 +2386,7 @@
      "do": "prop",
      "id": "maskP",
      "set": {
-      "y": 0.78
+      "y": 0.84
      },
      "dur": 0.5,
      "ease": "out",
@@ -2309,7 +2407,7 @@
      "id": "samC",
      "set": {
       "x": 1.98,
-      "y": 0.55,
+      "y": 1,
       "z": -0.7
      },
      "dur": 1.2,
@@ -2321,7 +2419,7 @@
      "id": "tray",
      "set": {
       "x": 1.911,
-      "y": 1.03,
+      "y": 1.48,
       "z": -0.306
      },
      "dur": 1.2,
@@ -2335,7 +2433,7 @@
      "pose": {
       "world": [
        1.743,
-       1.018,
+       1.468,
        -0.336
       ]
      },
@@ -2350,7 +2448,7 @@
      "pose": {
       "world": [
        2.078,
-       1.018,
+       1.468,
        -0.277
       ]
      },
@@ -2359,10 +2457,13 @@
      "at": 0.05
     },
     {
-     "sfx": "rumble",
-     "gain": 0.5,
-     "dur": 1.2,
-     "reason": "thunder after the lightning in the window",
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0.3
+     },
+     "dur": 0.06,
+     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -2413,9 +2514,9 @@
      "do": "prop",
      "id": "pillow",
      "set": {
-      "x": 0.9,
-      "y": 1.95,
-      "z": -0.4,
+      "x": 1,
+      "y": 2.05,
+      "z": 0.6,
       "rot": 120
      },
      "dur": 4.1,
@@ -2440,21 +2541,21 @@
      "do": "prop",
      "id": "wall",
      "set": {
-      "glow": 0.3
+      "glow": 0.9
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "inOut",
-     "at": 0.15
+     "at": 0.18
     },
     {
      "do": "prop",
      "id": "wall",
      "set": {
-      "glow": 0.9
+      "glow": 0
      },
-     "dur": 0.04,
-     "ease": "inOut",
-     "at": 0.23
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.24
     },
     {
      "do": "prop",
@@ -2484,16 +2585,6 @@
      "at": 0.25
     },
     {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0.29
-    },
-    {
      "sfx": "flutter",
      "gain": 0.35,
      "reason": "the magazine's pages flap as it floats up",
@@ -2505,9 +2596,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.71,
-       0.44
+       -1.07,
+       0.58,
+       0.62
       ]
      },
      "dur": 0.1,
@@ -2542,9 +2633,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.12,
@@ -2555,9 +2646,9 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": -0.42,
+      "x": -0.35,
       "y": 0.8,
-      "z": 0.78
+      "z": 0.8
      },
      "dur": 1.4,
      "ease": "inOut",
@@ -2621,9 +2712,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.71,
-       0.44
+       -1.07,
+       0.58,
+       0.62
       ]
      },
      "dur": 0.1,
@@ -2636,9 +2727,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.12,
@@ -2659,12 +2750,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -1.6,
+     -1.42,
      1.28,
-     4.7
+     4.75
     ],
     "look": [
-     -0.74,
+     -0.66,
      1.2,
      0.4
     ],
@@ -2704,9 +2795,9 @@
     },
     "to": {
      "pos": [
-      -1.52,
+      -1.36,
       1.26,
-      4.4
+      4.45
      ]
     },
     "dur": 2
@@ -2735,13 +2826,28 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.71,
-       0.44
+       -1.07,
+       0.58,
+       0.62
       ]
      },
      "dur": 0.1,
      "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.52,
+       0.26
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -2750,9 +2856,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.12,
@@ -2766,6 +2872,13 @@
      "dur": 0.5,
      "tone": "excited",
      "at": 0.3
+    },
+    {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.14,
+     "sound": false,
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -2941,13 +3054,13 @@
    "len": 0.8,
    "shot": {
     "pos": [
-     -0.2,
-     1.42,
-     5.8
+     -0.15,
+     1.4,
+     5.75
     ],
     "look": [
-     0.25,
-     1.2,
+     0.28,
+     1.1,
      0
     ],
     "fov": 55,
@@ -3020,19 +3133,18 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "rot": 0
+      "x": 0,
+      "z": 0.08
      },
      "dur": 0.22000000000000064,
-     "ease": "in",
+     "ease": "out",
      "at": 0
     },
     {
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": 0,
-      "y": 0,
-      "z": 0.08
+      "y": 0
      },
      "dur": 0.22000000000000064,
      "ease": "in",
@@ -3139,7 +3251,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "y": 0.66
+      "y": 0.72
      },
      "dur": 0.22000000000000064,
      "ease": "in",
@@ -3149,7 +3261,7 @@
      "do": "prop",
      "id": "maskP",
      "set": {
-      "y": 0.72
+      "y": 0.78
      },
      "dur": 0.22000000000000064,
      "ease": "in",
@@ -3227,9 +3339,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.2,
@@ -3332,6 +3444,16 @@
      "at": 0.25
     },
     {
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "rot": -22
+     },
+     "dur": 0.26,
+     "ease": "out",
+     "at": 0.26
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -3425,9 +3547,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.71,
-       0.44
+       -1.07,
+       0.58,
+       0.62
       ]
      },
      "dur": 0.1,
@@ -3454,9 +3576,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -1.08,
-       0.68,
-       0.44
+       -1.07,
+       0.55,
+       0.62
       ]
      },
      "dur": 0.12,
