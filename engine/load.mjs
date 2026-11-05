@@ -94,6 +94,10 @@ function sheetFace(def) {
   const A = SHEET.all, T = SHEET.types[def.costume?.type] || {}, F = def.face;
   const sk = def.body?.color && hexHsl(def.body.color);
   if (sk && sk[0] >= 20 && sk[0] <= 55 && sk[1] > 0.3 && sk[2] < 0.85) def.body.color = T.skin || A.skin;   // potato skins only
+  // the core build's heads (every new character, Jonny 5 Nov: "the style we build for the potato characters") take the
+  // same golden sheet skin as the potato cast; head.keepSkin keeps a head's own colour (a non-skin creature)
+  const hk = def.head?.color && hexHsl(def.head.color);
+  if (hk && !def.head.keepSkin && hk[0] >= 20 && hk[0] <= 55 && hk[1] > 0.3 && hk[2] < 0.85) def.head.color = T.skin || A.skin;
   F.eye = { ...F.eye, ...A.eye, ...T.eye };
   F.browShape = { ...F.browShape, ...A.browShape, ...T.browShape };
   if (def.costume?.type === "allfather") F.browShape.thick = +(F.browShape.thick * 1.45).toFixed(3);   // his white brows stay bushy
