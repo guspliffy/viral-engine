@@ -24,8 +24,9 @@
 // own tweens at the release time, never from the frame drawn before. support() reports, for the layout, whether each
 // prop is held, riding, in flight, resting (within 1 cm of a surface), staged with a reason, or unsupported.
 import * as THREE from "three";
-import { propState, gripWorld } from "./props3d.js";
+import { propState, gripWorld, FX_KINDS } from "./props3d.js";
 import { actorState } from "./timeline.js";
+import { ease, prog } from "./util.js";
 
 // kinds held level by default (they hold a liquid or something loose on top)
 export const UPRIGHT = /mug|cup|glass|bowl|jar|plate|tray|saucer|bottle|candle|juice|coffee|tea|soda|drink|wine|beer|cake|pizza|^pot$/i;
@@ -264,11 +265,26 @@ export function makeAttach(env) {
         const h = ps.hold;
         X = pose(p, h, T);
         // a release with `to`: the hand's pose glides to that spot and the prop's own turn
-        if (X && h.to && h.k != null && h.k < 1) X = blend({ P: V().fromArray(h.to).add(V().set(0, h.arc || 0, 0)), Q: ownQ(ps) }, X, h.k);
-        state = "held";
+        // (it has left the hand: not held, so the slip checks don't read the toss as a slip)
+        if (X && h.to && h.k != null && h.k < 1) { X = blend({ P: V().fromArray(h.to).add(V().set(0, h.arc || 0, 0)), Q: ownQ(ps) }, X, h.k); p.held = false; state = "flight"; }
+        else state = "held";
       } else if (ps.left && !inRig) {
         if (ps.left.air != null) { X = pose(p, { ...ps.left, at: ps.left.grabAt ?? ps.left.at }, ps.left.at); state = ps.left.air ? "staged" : "unsupported"; }
-        else { X = dropped(p, ps.left, T); state = X?.phase === "flight" || X?.phase === "slide" ? "flight" : "dropped"; }
+        else {
+          X = dropped(p, ps.left, T); state = X?.phase === "flight" || X?.phase === "slide" ? "flight" : "dropped";
+          // a "prop" tween that moves it after the let-go places it (the stick laid on the ground): from where the drop
+          // has it when the tween starts to the tween's spot, turning to the prop's own turn
+          const tw = posTweens(p).filter((a) => a.at >= ps.left.at - 1e-6 && a.at <= T).at(-1);
+          if (tw) {
+            const X0 = dropped(p, ps.left, tw.at), e = ease(tw.ease || "inOut")(prog(T, tw.at, tw.dur ?? 0.3));
+            if (X0) {
+              const to = V().set("x" in tw.set ? tw.set.x : X0.P.x, "y" in tw.set ? tw.set.y : X0.P.y, "z" in tw.set ? tw.set.z : X0.P.z);
+              X = { P: X0.P.clone().lerp(to, e), Q: X0.Q.clone().slerp(ownQ(ps), e) };
+              if (tw.arc && e < 1) X.P.y += 4 * tw.arc * e * (1 - e);
+              state = e < 1 ? "flight" : "placed";
+            }
+          }
+        }
       }
       if (!X) return false;
       if (inRig) { par.updateMatrixWorld(true); const m = new THREE.Matrix4().compose(X.P, X.Q, V().set(1, 1, 1)).premultiply(par.matrixWorld.clone().invert()); m.decompose(p.root.position, p.root.quaternion, V()); }
@@ -280,25 +296,38 @@ export function makeAttach(env) {
     // what is under it), staged (with a reason) or unsupported, with the gap in mm
     support(p, ps) {
       if (!p.root.visible) return null;
+      if (ps.hold && p.attach?.state === "flight") return { state: "flight" };
       if (ps.hold) return { state: "held", ...(twoWriters(p, T) && { writers: 2 }) };
       if (p.spec.wear || ps.carry || (p.root.parent && p.root.parent !== env.scene)) return { state: "riding" };
       if (p.attach?.state === "flight") return { state: "flight" };
+      // moved by its own tween right now (tossed, slid, swung by the story): in flight
+      if (tweening(p, T)) return { state: "flight" };
+      // not a thing that stands on anything (roar lines, bursts, glows: props3d.js FX_KINDS) or hung by its spec
+      if (FX_KINDS.test(p.spec.kind)) return { state: "staged", reason: "an effect or a set piece" };
       if (p.attach?.state === "staged") return { state: "staged", reason: p.attach.reason };
       if (p.spec.staged) return { state: "staged", reason: String(p.spec.staged) };
       p.root.updateMatrixWorld(true);
       const b = new THREE.Box3().setFromObject(p.root, true); if (b.isEmpty()) return null;
       const c = b.getCenter(V());
       ray.set(V().set(c.x, b.min.y + 0.05, c.z), V().set(0, -1, 0)); ray.far = 60;
-      const skip = new Set(); p.root.traverse((o) => skip.add(o));
-      for (const a of Object.values(st())) a.a.ch.root.traverse((o) => skip.add(o));
+      // what it could stand on: the set as it is now and every other prop (meshes only: sprites need a camera)
+      const under = [];
+      const solid = (m) => !(m.material && !Array.isArray(m.material) && m.material.transparent && m.material.opacity < 0.6);
+      const take = (o) => o.traverseVisible((m) => { if (m.isMesh && !m.isSprite && m.geometry && solid(m)) under.push(m); });
+      for (const o of env.setMeshes || []) take(o);
+      for (const q of env.props) if (q !== p && q.root.visible) take(q.root);
       let y = null;
-      for (const hit of ray.intersectObject(env.scene, true)) { if (!skip.has(hit.object) && hit.object.visible && hit.object.isMesh) { y = hit.point.y; break; } }
+      for (const hit of ray.intersectObjects(under, false)) { y = hit.point.y; break; }
       const gap = b.min.y - (y ?? 0);
       return { state: gap <= HOLD2.rest ? "resting" : "unsupported", gap: Math.round(gap * 1000) };
     },
   };
-  // a held prop that a "prop" tween also moves (two writers: the hand and the tween)
-  function twoWriters(p, t) {
-    return (sb.actions || []).some((a) => a.do === "prop" && a.id === p.spec.id && a.set && ["x", "y", "z"].some((k) => k in a.set) && t >= a.at && t < a.at + (a.dur ?? 0.3));
+  // the "prop" tweens that move a prop (x, y or z)
+  function posTweens(p) {
+    if (!p._posTw) p._posTw = (sb.actions || []).filter((a) => a.do === "prop" && a.id === p.spec.id && a.set && ["x", "y", "z"].some((k) => k in a.set)).sort((a, b) => a.at - b.at);
+    return p._posTw;
   }
+  const tweening = (p, t) => posTweens(p).some((a) => t >= a.at && t < a.at + (a.dur ?? 0.3));
+  // a held prop that a "prop" tween also moves (two writers: the hand and the tween)
+  function twoWriters(p, t) { return tweening(p, t); }
 }
