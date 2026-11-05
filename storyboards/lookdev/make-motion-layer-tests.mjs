@@ -88,6 +88,7 @@ function write(sb, labels) {
   const SHOT = { pos: [-0.75, 1.05, 2.3], look: [-0.05, 0.55, 0.3], fov: 32 };
   const cast = [{ id: "wiz", character: "notyet/wizard-nostaff", at: [0, -0.25], face: 0, expr: "kind", follow: 0.2, seed: 2.6 }];
   const props = [{ id: "table", kind: "coffeetable", x: 0, z: 0.5, h: 0.36, w: 1.3, d: 0.5 }, MUG];
-  write(base("reach", "Motion layer: reach, pick up, drink", cast, props, c.beats([["reach", 0, SHOT]], END), END), [[0, END, "REACH, SIP, PUT BACK"]]);
+  const allowClip = [{ who: "wiz", with: "wiz", from: 1.85, to: 2.6, reason: "the sip: the mug and glove pass in front of the face" }];
+  write({ ...base("reach", "Motion layer: reach, pick up, drink", cast, props, c.beats([["reach", 0, SHOT]], END), END), allowClip }, [[0, END, "REACH, SIP, PUT BACK"]]);
 }
 console.log(`wrote 4 storyboards to ${OUT}`);
