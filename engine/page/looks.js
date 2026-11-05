@@ -555,7 +555,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     a.ch.root.traverse((o) => { if (o.userData.groundTip !== undefined && o.parent) o.parent.traverse((x) => { if (x.isMesh) for (const m of [].concat(x.material)) if (!(m.emissiveIntensity > 0) && !m.transparent) wood.add(m); }); });
   }
   const skins = new Set(actors.map((a) => a.ch.skin));
-  for (const a of actors) if (a.ch.skin) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
+  for (const a of actors) if (a.ch.skin && !a.ch.head) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;   // the core build's heads: smooth skin, no potato marks (design handoff)
   // blush is painted softer in the drawn look
   for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });

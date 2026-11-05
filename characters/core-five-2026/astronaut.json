@@ -1,0 +1,58 @@
+{
+  "id": "core-five-2026/astronaut",
+  "name": "Astronaut (Core Five)",
+  "franchise": "PotatoBrawl",
+  "source": "Jonny's Core Five redesign handoff, 5 Nov 2026 (DESIGN-CONTRACT.json astronaut; ensemble sheet). Prototype 1 of the humanoid core build.",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#E7E1D3",
+    "height": 0.44,
+    "width": 0.5,
+    "depth": 0.42,
+    "lump": 0,
+    "seed": 21,
+    "taper": 0.08,
+    "square": 2.6,
+    "specks": 0,
+    "gloss": 0
+  },
+  "head": {
+    "color": "#DCAF61",
+    "width": 0.5,
+    "height": 0.46,
+    "depth": 0.44,
+    "square": 2.5,
+    "taper": -0.05,
+    "neck": 0.03,
+    "faceUp": 0.07,
+    "nose": { "w": 0.028, "h": 0.022, "d": 0.022, "v": -0.1 },
+    "ears": { "w": 0.026, "h": 0.045, "d": 0.016, "v": 0.0 }
+  },
+  "legs": { "height": 0.3, "width": 0.062, "hipX": 0.115 },
+  "limbs": {
+    "color": "#E7E1D3",
+    "width": 0.06,
+    "shoulder": 0.62
+  },
+  "face": {
+    "size": 0.76,
+    "default": "kind",
+    "iris": "#62412A",
+    "cheeks": "#ff7a5e",
+    "neutral": { "curve": 0.35, "open": 0, "eye": 1.0 },
+    "eye": { "flick": 0.4 },
+    "browShape": { "arch": 0.05, "thick": 0.7 },
+    "blush": 1.0
+  },
+  "sprout": { "placement": "none" },
+  "costume": {
+    "type": "astronaut",
+    "hardware": "#51545A",
+    "patch": "#6D9144",
+    "button": "#4277A0"
+  },
+  "personality": "Capable, but new here (design bible, proposal): knows the job, still rehearses how to say hello.",
+  "voice": { "pitch": 190, "rate": 3.8, "formant": 1.15, "range": 6, "breath": 0.06, "vibrato": 0.02, "seed": 31 },
+  "hands": { "type": "mitten" }
+}

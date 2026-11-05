@@ -1,0 +1,444 @@
+{
+ "id": "core-astronaut-test",
+ "title": "Astronaut (Core Five) engine test",
+ "idea": "Engine test of the Core Five humanoid build, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet-clean",
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "set": {
+  "type": "plain",
+  "color": "#f1dcb0",
+  "floor": "#d6b27c",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "shade": "soft"
+ },
+ "music": false,
+ "sound": {
+  "guard": true,
+  "surface": "wood"
+ },
+ "hook": {
+  "show": [
+   "c"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "camera": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    0.78,
+    4.7
+   ],
+   "look": [
+    0,
+    0.7,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 9.75,
+   "pos": [
+    0,
+    0.78,
+    4.7
+   ],
+   "look": [
+    0,
+    0.7,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 10.45,
+   "pos": [
+    0.3,
+    1.02,
+    2.5
+   ],
+   "look": [
+    0.3,
+    0.92,
+    0.25
+   ],
+   "fov": 30
+  },
+  {
+   "at": 11.6,
+   "pos": [
+    0.3,
+    1.02,
+    2.5
+   ],
+   "look": [
+    0.3,
+    0.92,
+    0.25
+   ],
+   "fov": 30
+  }
+ ],
+ "cast": [
+  {
+   "id": "c",
+   "character": "core-five-2026/astronaut",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "eager",
+   "follow": 0,
+   "seed": 1.3
+  }
+ ],
+ "beats": [
+  {
+   "name": "new here",
+   "at": 0,
+   "len": 3.4,
+   "do": [
+    {
+     "who": "c",
+     "at": 0,
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false
+    },
+    {
+     "who": "c",
+     "at": 0,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.2
+      ]
+     },
+     "dur": 0.4
+    },
+    {
+     "who": "c",
+     "at": 0,
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "tilt": 0.36,
+      "curve": 0.45
+     },
+     "dur": 0.3
+    },
+    {
+     "who": "c",
+     "at": 0.7,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.25
+    },
+    {
+     "who": "c",
+     "at": 0.95,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.24,
+       0.14
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 1.15,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 1.35,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.24,
+       0.14
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 1.55,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 0.8,
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.3
+    },
+    {
+     "who": "c",
+     "at": 1.75,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.45
+    },
+    {
+     "who": "c",
+     "at": 1.7,
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.45
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 2.05,
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.34,
+      "curve": 0.75,
+      "eye": 0.9
+     },
+     "dur": 0.35
+    },
+    {
+     "who": "c",
+     "at": 2.75,
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "at": 2.85,
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45
+    },
+    {
+     "who": "c",
+     "at": 2.9,
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "turn",
+   "at": 3.4,
+   "len": 3.8,
+   "do": [
+    {
+     "who": "c",
+     "at": 0.1,
+     "do": "turn",
+     "to": 90,
+     "dur": 0.75
+    },
+    {
+     "who": "c",
+     "at": 1,
+     "do": "turn",
+     "to": 180,
+     "dur": 0.75
+    },
+    {
+     "who": "c",
+     "at": 1.9,
+     "do": "turn",
+     "to": 270,
+     "dur": 0.75
+    },
+    {
+     "who": "c",
+     "at": 2.8,
+     "do": "turn",
+     "to": 360,
+     "dur": 0.75
+    }
+   ]
+  },
+  {
+   "name": "walk",
+   "at": 7.2,
+   "len": 2,
+   "do": [
+    {
+     "who": "c",
+     "at": 0,
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false
+    },
+    {
+     "who": "c",
+     "at": 0.05,
+     "do": "turn",
+     "to": "right",
+     "dur": 0.5
+    },
+    {
+     "who": "c",
+     "at": 0.55,
+     "do": "move",
+     "to": [
+      0.32,
+      0.25
+     ],
+     "dur": 1,
+     "steps": 2
+    },
+    {
+     "who": "c",
+     "at": 1.6,
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.5
+    },
+    {
+     "who": "c",
+     "at": 1.7,
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15
+    }
+   ]
+  },
+  {
+   "name": "my specialty",
+   "at": 9.2,
+   "len": 2.4,
+   "do": [
+    {
+     "who": "c",
+     "at": 0.1,
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "tilt": -0.12,
+      "curve": 0.55,
+      "eye": 1
+     },
+     "dur": 0.3
+    },
+    {
+     "who": "c",
+     "at": 0.15,
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35
+    },
+    {
+     "who": "c",
+     "at": 0.2,
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "c",
+     "at": 1.2,
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15
+    },
+    {
+     "who": "c",
+     "at": 1.25,
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4
+    },
+    {
+     "who": "c",
+     "at": 1.3,
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.3
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/core-five/make-core-tests.mjs (engine test, no reviews)."
+}

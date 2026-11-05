@@ -80,10 +80,10 @@ export function arcLerp(a, b, p, sx) {
   const k = (Math.min(0.08, 0.2 * d) * 6.75 * p * (1 - p) * (1 - p)) / ol;
   return [out[0] + k * ox, out[1] + k * oy, out[2] + k * oz];
 }
-export function handTarget(pose, sx, rx, H, t) {
-  const top = LEG_H + H;
+export function handTarget(pose, sx, rx, H, t, LH = LEG_H) {
+  const LEG_H = LH, top = LEG_H + H;
   // an arm still moving when a new move starts (util.js armNow): the blend it was in
-  if (pose && pose.mix) { const m = pose.mix, a = handTarget(m.from, sx, rx, H, t), b = handTarget(m.pose, sx, rx, H, t); return arcLerp(a, b, m.p, sx); }
+  if (pose && pose.mix) { const m = pose.mix, a = handTarget(m.from, sx, rx, H, t, LH), b = handTarget(m.pose, sx, rx, H, t, LH); return arcLerp(a, b, m.p, sx); }
   // dance.js: { o: [out, up, fwd] } mirrored per side, { x: [x, up, fwd] } an absolute x
   if (pose && typeof pose === "object") return pose.x ? [pose.x[0], LEG_H + H * pose.x[1], pose.x[2]] : [sx * (rx + pose.o[0]), LEG_H + H * pose.o[1], pose.o[2]];
   switch (pose) {
@@ -109,7 +109,9 @@ export class Character {
   constructor(def, key) {
     this.def = def; this.key = key;
     const B = def.body, rnd = rng((B.seed || 1) * 7919);
-    this.H = B.height; this.rx = B.width / 2; this.ry = B.height / 2; this.rz = B.depth / 2; this.cy = LEG_H + this.ry;
+    this.H = B.height; this.rx = B.width / 2; this.ry = B.height / 2; this.rz = B.depth / 2;
+    // legs.height (the core build, costumes-core.js): where the body starts above the floor; the potatoes keep LEG_H
+    this.legH = def.legs?.height ?? LEG_H; this.cy = this.legH + this.ry;
     this.lumps = Array.from({ length: 9 }, () => {
       const d = new THREE.Vector3(rnd() * 2 - 1, rnd() * 2 - 1, rnd() * 2 - 1).normalize();
       return { d, a: (rnd() * 2 - 1) * B.lump, k: 3 + rnd() * 5 };
@@ -126,8 +128,11 @@ export class Character {
     g.computeVertexNormals();
     // gloss: 0 matte .. 1 shiny (a tomato); the default keeps the potato skin
     const gl = B.gloss ?? 0.3;
-    this.skin = new THREE.MeshPhysicalMaterial({ color: B.color, roughness: 0.5 - 0.3 * Math.max(0, gl - 0.3), clearcoat: gl, clearcoatRoughness: 0.35 - 0.25 * Math.max(0, gl - 0.3) });
-    this.body = new THREE.Mesh(g, this.skin); this.body.castShadow = true; this.body.receiveShadow = true;
+    // the core build (def.build "core", Core Five redesign 5 Nov 2026, costumes-core.js): the body is a torso in its suit
+    // or clothes, and a separate head (def.head) carries the skin and the face. The skin material is the head's
+    const HD = def.build === "core" ? def.head : null;
+    this.skin = new THREE.MeshPhysicalMaterial({ color: HD ? HD.color : B.color, roughness: 0.5 - 0.3 * Math.max(0, gl - 0.3), clearcoat: gl, clearcoatRoughness: 0.35 - 0.25 * Math.max(0, gl - 0.3) });
+    this.body = new THREE.Mesh(g, HD ? new THREE.MeshStandardMaterial({ color: B.color, roughness: 0.8 }) : this.skin); this.body.castShadow = true; this.body.receiveShadow = true;
     this.potatoParts.add(this.body);
 
     // specks
@@ -173,12 +178,13 @@ export class Character {
 
     // face
     const F = def.face || {};
-    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: B.color, seed: B.seed || 1 } : null, place: (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    if (HD) this._headInit(HD);
+    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: B.color, seed: B.seed || 1 } : null, place: HD ? (u, vv) => this.headSurf(u * 0.74, vv * 0.55 - 0.05 + (HD.faceUp ?? 0)) : (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     // face.rest (castLook "sheet", characters/sheet-cast.json): the character's own resting face. It is stored as the
     // difference from the generic "kind" face and added to whatever the face is doing, fully on calm faces and fading
     // out toward full reactions (shock, anger, a wide grin), so the personality shows without blunting the acting
     if (F.rest) this.restBias = Object.fromEntries(Object.keys(EXPRESSIONS.kind).map((k) => [k, (F.rest[k] ?? EXPRESSIONS.kind[k]) - EXPRESSIONS.kind[k]]));
-    this.potatoParts.add(this.face.group);
+    (HD ? this.head.group : this.potatoParts).add(this.face.group);
 
     // limbs
     this.limbMat = new THREE.MeshStandardMaterial({ color: def.limbs.color, roughness: 0.5 });
@@ -581,9 +587,9 @@ export class Character {
       if (!q || !(w > 0)) return;
       if (q.mix) { add(q.mix.from, w * (1 - q.mix.p), eh); add(q.mix.pose, w * q.mix.p, eh); return; }
       if (!q.palm) return;
-      const e = new THREE.Vector3(q.palm[0], LEG_H + this.H * q.palm[1], q.palm[2]);
+      const e = new THREE.Vector3(q.palm[0], this.legH + this.H * q.palm[1], q.palm[2]);
       const side = eh ? Math.sign((e.z - eh[2]) * eh[0] - (e.x - eh[0]) * eh[2]) || 1 : null;
-      e.y = LEG_H + (e.y - LEG_H) * S.y;
+      e.y = this.legH + (e.y - this.legH) * S.y;
       ends.push({ at: e, w, wrap: !!q.wrap, side });
     };
     add(a.from, 1 - a.p, from); add(a.pose, a.p, to);
@@ -617,12 +623,12 @@ export class Character {
     const wt = (q) => (q && q.mix ? wt(q.mix.from) + (wt(q.mix.pose) - wt(q.mix.from)) * q.mix.p : q && q.palm ? 1 : 0);
     const p0 = pt(a.from), p1 = pt(a.pose), w = wt(a.from) * (1 - a.p) + wt(a.pose) * a.p;
     if (!(p0 || p1) || w <= 0) return null;
-    const pv = (p) => new THREE.Vector3(p[0], LEG_H + this.H * p[1], p[2]), q0 = p0 && pv(p0.palm), q1 = p1 && pv(p1.palm);
+    const pv = (p) => new THREE.Vector3(p[0], this.legH + this.H * p[1], p[2]), q0 = p0 && pv(p0.palm), q1 = p1 && pv(p1.palm);
     const end = a.p < 0.5 ? (p0 ? 0 : 1) : (p1 ? 1 : 0), e = end ? q1 : q0, eh = end ? to : from;
     // the side test of _pose, cross(up, palm - hand) . hand, at that end of the move
     const side = e && eh ? Math.sign((e.z - eh[2]) * eh[0] - (e.x - eh[0]) * eh[2]) || 1 : null;
     const at = q0 && q1 ? q0.clone().lerp(q1, a.p) : (q1 || q0).clone();
-    at.y = LEG_H + (at.y - LEG_H) * S.y;
+    at.y = this.legH + (at.y - this.legH) * S.y;
     return { at, w, wrap: !!(end ? p1 : p0).wrap, side };
   }
   // where a prop held in hand s sits, in the root's space (the hand centre for ball hands)
@@ -647,7 +653,35 @@ export class Character {
     let r = 1;
     for (const L of this.lumps) r += L.a * Math.exp(-L.k * (1 - d.dot(L.d)));
     const taper = 1 - (this.def.body.taper ?? 0.07) * d.y;   // body.taper: how much narrower the top is (an egg: ~0.16)
+    // body.square (core build): a rounded box instead of an egg (a superellipsoid, 2 = round)
+    const q = this.def.body.square; if (q) r /= Math.pow(Math.abs(d.x) ** q + Math.abs(d.y) ** q + Math.abs(d.z) ** q, 1 / q);
     return new THREE.Vector3(d.x * this.rx * taper * r, this.cy + d.y * this.ry * r, d.z * this.rz * taper * r);
+  }
+  // the core build's head (def.head: width, height, depth, square, taper, neck, size): its own group on top of the torso,
+  // turned by the gaze (apply), with the skin, the face, a small nose and ears. headSurf is surf() on the head, in the
+  // head group's space (origin at the head's centre)
+  _headInit(HD) {
+    const g = new THREE.SphereGeometry(1, 96, 72), p = g.attributes.position, v = new THREE.Vector3();
+    const hr = (this.head = { rx: HD.width / 2, ry: HD.height / 2, rz: HD.depth / 2, def: HD, group: new THREE.Group() });
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).normalize(); const q = this.headPoint(v); p.setXYZ(i, q.x, q.y, q.z); }
+    g.computeVertexNormals();
+    hr.mesh = new THREE.Mesh(g, this.skin); hr.mesh.castShadow = true; hr.mesh.receiveShadow = true;
+    hr.cy = this.cy + this.ry + (HD.neck ?? 0.02) + hr.ry; hr.group.position.set(0, hr.cy, HD.forward ?? 0); hr.group.rotation.order = "YXZ";
+    hr.group.add(hr.mesh); this.potatoParts.add(hr.group);
+    if (HD.nose) { const n = this.headSurf(0, HD.nose.v ?? -0.08), m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.skin); m.scale.set(HD.nose.w ?? 0.03, HD.nose.h ?? 0.026, HD.nose.d ?? 0.022); m.position.copy(n.pos).addScaledVector(n.normal, -0.006); m.lookAt(n.pos.clone().add(n.normal)); hr.group.add(m); hr.nose = m; }
+    if (HD.ears) for (const sd of [-1, 1]) { const e = this.headSurf(sd * 1.5, HD.ears.v ?? 0), m = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), this.skin); m.scale.set(HD.ears.w ?? 0.03, HD.ears.h ?? 0.05, HD.ears.d ?? 0.018); m.position.copy(e.pos).addScaledVector(e.normal, 0.004); m.lookAt(e.pos.clone().add(e.normal)); m.castShadow = true; hr.group.add(m); }
+  }
+  headPoint(d) {
+    const H = this.head, D = H.def, q = D.square ?? 2;
+    let r = 1 / Math.pow(Math.abs(d.x) ** q + Math.abs(d.y) ** q + Math.abs(d.z) ** q, 1 / q);
+    const taper = 1 - (D.taper ?? 0) * d.y;   // > 0: fuller cheeks, a narrower crown
+    return new THREE.Vector3(d.x * H.rx * taper * r, d.y * H.ry * r, d.z * H.rz * taper * r);
+  }
+  headSurf(th, ph) {
+    const at = (a, b) => this.headPoint(new THREE.Vector3(Math.sin(a) * Math.cos(b), Math.sin(b), Math.cos(a) * Math.cos(b)));
+    const e = 0.002, pos = at(th, ph);
+    const dt = at(th + e, ph).sub(at(th - e, ph)), dp = at(th, ph + e).sub(at(th, ph - e));
+    return { pos, normal: dt.cross(dp).normalize() };
   }
   // surface point + outward normal by angle around (theta, 0 = front) and elevation (phi)
   surf(th, ph) {
@@ -656,7 +690,7 @@ export class Character {
     const dt = at(th + e, ph).sub(at(th - e, ph)), dp = at(th, ph + e).sub(at(th, ph - e));
     return { pos, normal: dt.cross(dp).normalize() };
   }
-  topY() { return this.cy + this.ry * (1 + this.lumpAt(new THREE.Vector3(0, 1, 0))); }
+  topY() { return this.head ? this.head.cy + this.head.ry : this.cy + this.ry * (1 + this.lumpAt(new THREE.Vector3(0, 1, 0))); }
   lumpAt(d) { let r = 0; for (const L of this.lumps) r += L.a * Math.exp(-L.k * (1 - d.dot(L.d))); return r; }
 
   // an arm's centre line from shoulder a through elbow guide c to hand b. joint: c is an elbow the arm passes through
@@ -759,7 +793,7 @@ export class Character {
     const L = stub ? curve.getLength() : 1, ts = 1 - (stub * 0.5) / L, tc = (w * 0.9) / L;
     const cap = (t) => (!stub || t <= ts ? 1 : Math.sqrt(Math.max(0, 1 - ((t - ts) / tc) ** 2)));
     const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
-      : new THREE.TubeGeometry(curve, 14, w, 8, false);
+      : new THREE.TubeGeometry(curve, 14, w, this.head ? 18 : 8, false);   // the core build's thick suit legs: rounder
     if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
     const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
     return m;
@@ -790,7 +824,7 @@ export class Character {
   // turn and the arm curve's pull point (S: the body's squash scale)
   _armIn(st, t, s, S) {
     const sx = s === "R" ? -1 : 1, a = st.arms[s];
-    const from = handTarget(a.from, sx, this.rx, this.H, t), to = handTarget(a.pose, sx, this.rx, this.H, t);
+    const from = handTarget(a.from, sx, this.rx, this.H, t, this.legH), to = handTarget(a.pose, sx, this.rx, this.H, t, this.legH);
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
     // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
     const g = st.gait, rw = g ? (a.pose === "rest" ? a.p : 0) + (a.from === "rest" ? 1 - a.p : 0) : 0;
@@ -798,7 +832,7 @@ export class Character {
       const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
       h.x += sw * g.dir[0]; h.z += sw * g.dir[1];
     }
-    h.y = LEG_H + (h.y - LEG_H) * S.y;
+    h.y = this.legH + (h.y - this.legH) * S.y;
     // limbs.shoulder: where on the body's side the arm comes out (surf height; lower for short arms over a table)
     const shp = this.surf(sx * 1.38, this.def.limbs.shoulder ?? 0.02), sh = shp.pos, shN = shp.normal; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
     const gr = { ...(st.grip?.[s] || { curl: 0.15, index: 0.12, thumb: 0.1 }) }, ax = this.arms[s].hand.userData.fingers ? this.costume.propAxis?.(st, s) || (gr.axis ? new THREE.Vector3(...gr.axis) : null) : null;
@@ -898,6 +932,8 @@ export class Character {
     }
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink, st.face);
+    // the core build's head follows the gaze part of the way (the eyes lead, the head turns about a third as far)
+    if (this.head) { const lk = st.look || [0, 0], HD = this.head.def; this.head.group.rotation.set(-(HD.nod ?? 0.12) * lk[1], (HD.turn ?? 0.32) * lk[0], 0); }
 
     // limbs (hidden in fries form)
     const showLimbs = !fries;
@@ -961,13 +997,13 @@ export class Character {
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
-      const hip = new THREE.Vector3(sx * 0.12, LEG_H * S.y + 0.06, 0.0);
+      const hip = new THREE.Vector3(sx * (this.def.legs?.hipX ?? 0.12), this.legH * S.y + 0.06, 0.0);
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02)), foot, this.limbW * 1.1);
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0))), foot, this.def.legs?.width ?? this.limbW * 1.1);
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
       // round the arm just above the wrist, rebuilt with the arm
