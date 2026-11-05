@@ -24,8 +24,9 @@ export const GATE = {
   frame0: 0.05,        // metres a hand, arm, foot, body or held prop moves between frame 0 and frame 1 (fails)
   front: 0.15,         // share of the acting subject's silhouette a nearer actor or prop covers, for frontHold s (fails)
   frontHold: 0.3,
-  frontFail: 0.4,      // ... and over this share of its outline for frontHold s it fails (15-40 % is a note: the tent's
-                       // approved Phoenix behind Reaper's hood, 32 %; the plan's 15 % flagged staging Jonny approved)
+  frontFail: 0.6,      // ... and it fails over this share of its outline, or with its eyes hidden by it (frontEyes of the
+  frontEyes: 0.35,     // eye points), for frontHold s. Under that it is a note: the plan's 15 % flagged staging Jonny
+                       // approved (the tent's Phoenix behind Reaper's hood 32 %, the bill's waiter behind the row 53 %)
   nearer: 1.5,         // m: a bystander this much nearer the camera than every subject ...
   bigger: 2,                       // ... and this many times bigger on screen than the largest, over GATE.front of their boxes
   lead: 0.75,                      // a cast member on this share of the must-see entries leads the clip: never a bystander

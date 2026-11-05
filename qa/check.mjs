@@ -374,6 +374,17 @@ function reachResults(layout, sb) {
     const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
     out.push({ level: lvl, check: "face-covered", msg: `${x.by}'s ${by} is in front of ${who} eyes at ${list(sps)}: move it off the face or change the camera, or add an allowClip window with a reason` });
   }
+  // from "gate": 2 rays to the eyes ("hand") and to the middle, nose, mouth and cheeks ("low", 2 of 7 points) count another
+  // character's arm or glove in front of a face too (stage.js hiddenFaces): the glove balls above miss an arm raised
+  // across it (split the bill's first cut: Viking's pointing arm over the waiter's face)
+  if (gateOf(sb) >= 2) {
+    const arms = track((x) => `${x.hby}|${x.face}`, (r) => (r.faces || []).filter((x) => (x.hand >= RULES.faceHide || x.low >= 0.28) && x.hby && x.hby !== x.face && !allowed(x.hby, x.face, rows.indexOf(r), "face-covered")));
+    for (const { x, f } of arms.values()) {
+      const sps = runs(f, frames(RULES.faceCoverWarn)); if (!sps.length) continue;
+      const long = sps.filter(([p, q]) => (q - p + 1) / fps >= RULES.faceCoverFail), lvl = long.length ? "fail" : "warn"; if (long.length) found++;
+      out.push({ level: lvl, check: "face-covered", msg: `${x.hby}'s arm or glove is in front of ${x.face}'s face at ${list(sps)}: move it off the face or change the camera, or add an allowClip window with a reason` });
+    }
+  }
   const heads = track((x) => `${x.by}|${x.head}`, (r) => (r.covers || []).filter((x) => x.head));
   for (const { x, f } of heads.values()) { const sps = runs(f, frames(RULES.readHold)); if (sps.length) out.push({ level: "warn", check: "staging", msg: `${x.by}'s fist (holding the prop) sits over ${x.by === x.head ? "its own" : x.head + "'s"} head on screen at ${list(sps)}: it reads as stuck on the head; hold it out to the side` }); }
   // a face hidden by another character, a hat brim, wings or a prop (stage.js hiddenFaces) while that character acts: a

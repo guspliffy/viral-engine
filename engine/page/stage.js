@@ -1536,9 +1536,14 @@ function hiddenFaces(live, shownIn) {
   const out = [], limbs = new Set();
   scene.updateMatrixWorld(true);   // props and doors move in pose() after the last render: raycast where they are now
   for (const a of live) {
-    for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.legs[s].mesh, a.ch.legs[s].foot]) if (o) o.traverse((q) => limbs.add(q));
+    for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.arms[s].skin, a.ch.arms[s].ink, a.ch.arms[s].tubeInk, a.ch.legs[s].mesh, a.ch.legs[s].foot]) if (o) o.traverse((q) => limbs.add(q));
     if (a.ch.costume?.prop) a.ch.costume.prop.traverse((q) => limbs.add(q));
   }
+  // another character's arm, hand or glove in front of the eyes, ray by ray (the covers check samples glove balls and
+  // misses an arm raised across a face: split the bill's first cut, Viking's pointing arm over the waiter's face). "hand" in the
+  // output; qa/check.mjs reads it from "gate": 2
+  const handObjs = [], handOf = new Map();
+  for (const a of live) for (const s of ["R", "L"]) for (const o of [a.ch.arms[s].mesh, a.ch.arms[s].hand, a.ch.arms[s].skin, a.ch.arms[s].tubeInk]) if (o?.visible !== false) o?.traverse((q) => { if (q.isMesh) { handObjs.push(q); handOf.set(q, a.c.id); } });
   // what may hide a face: each character's visible solid meshes, every prop, and the set (quality plan item 13 (b), 5 Nov
   // 2026: scenery never counted, so a face behind a tree or a wall passed). Glows never hide; see-through parts (glass,
   // under 0.6 opacity) don't either, whatever their solid mark (a hand can't pass through glass, the eye can)
@@ -1557,7 +1562,7 @@ function hiddenFaces(live, shownIn) {
     const bc = b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
     if (em.clone().sub(bc).normalize().dot(camera.position.clone().sub(em).normalize()) < 0.2) continue;
     const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body);
-    let hidden = 0, scen = 0, n = 0; const by = new Map(), sby = new Map();
+    let hidden = 0, scen = 0, n = 0, hand = 0; const by = new Map(), sby = new Map(), hby = new Map();
     for (const e of eyes) {
       const c = e.root.getWorldPosition(new THREE.Vector3()), r = e.r * e.root.getWorldScale(new THREE.Vector3()).x * 0.7;
       const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
@@ -1566,10 +1571,27 @@ function hiddenFaces(live, shownIn) {
         ray.set(camera.position, dir.normalize()); ray.far = d - 0.02; n++;
         const hit = ray.intersectObjects(objs, false).find((h) => !own.has(h.object) && opaqueAt(h));
         if (hit) { const c = owner.get(hit.object), M = c.scenery ? sby : by; if (c.scenery) scen++; else hidden++; M.set(c.who, (M.get(c.who) || 0) + 1); }
+        const hh = ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id && (!hit || h.distance < hit.distance));
+        if (hh) { hand++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
       }
     }
     // hidden: by characters and props, as before; scen: by scenery and the set too (counted from "gate": 2, qa/check.mjs)
-    if ((hidden + scen) / n < 0.3) continue;
+    // the rest of the face (between the eyes, the nose, the mouth and the cheeks: 7 points): another character's arm or
+    // glove across it (an arm raised through the middle of a face misses the eye points)
+    let low = 0;
+    {
+      const e0 = eyes[0].root.getWorldPosition(new THREE.Vector3()), e1 = eyes[1].root.getWorldPosition(new THREE.Vector3()), ed = e0.distanceTo(e1), mid = e0.clone().add(e1).multiplyScalar(0.5);
+      const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+      for (const [dx, dy] of [[0, 0], [0, -0.35], [0, -0.75], [-0.45, -0.65], [0.45, -0.65], [-0.6, -0.25], [0.6, -0.25]]) {
+        const p = mid.clone().addScaledVector(right, dx * ed).addScaledVector(up, dy * ed), dir = p.clone().sub(camera.position), d = dir.length();
+        ray.set(camera.position, dir.normalize()); ray.far = d - 0.02;
+        const hh = ray.intersectObjects(handObjs, false).find((h) => handOf.get(h.object) !== b.c.id);
+        if (hh) { low++; const w = handOf.get(hh.object); hby.set(w, (hby.get(w) || 0) + 1); }
+      }
+      low = Math.round((low / 7) * 100) / 100;
+    }
+    const hd = hand || low ? { hand: Math.round((hand / n) * 100) / 100, ...(low ? { low } : {}), hby: [...hby.entries()].sort((x, y) => y[1] - x[1])[0][0] } : {};
+    if ((hidden + scen) / n < 0.3) { if (hand / n >= 0.2 || low >= 0.28) out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, ...hd }); continue; }
     // and how much of the body is hidden too (or out of frame): a face behind someone else's body is staging (the
     // character stands behind them), a face hidden on a body in plain view is a hat brim, a wing or a prop across it
     const g = b.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c0 = bb.getCenter(new THREE.Vector3()).applyMatrix4(b.ch.body.matrixWorld);
@@ -1583,7 +1605,7 @@ function hiddenFaces(live, shownIn) {
       if (ray.intersectObjects(objs, false).some((h) => !own.has(h.object) && owner.get(h.object).a !== b && !owner.get(h.object).scenery)) bh++;
     }
     const top = (M) => (M.size ? [...M.entries()].sort((x, y) => y[1] - x[1])[0][0] : undefined);
-    out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, body: Math.round((bh / bn) * 100) / 100, by: top(by) ?? top(sby), ...(scen ? { scen: Math.round((scen / n) * 100) / 100, sby: top(sby) } : {}) });
+    out.push({ face: b.c.id, hidden: Math.round((hidden / n) * 100) / 100, body: Math.round((bh / bn) * 100) / 100, by: top(by) ?? top(sby), ...(scen ? { scen: Math.round((scen / n) * 100) / 100, sby: top(sby) } : {}), ...hd });
   }
   return out;
 }

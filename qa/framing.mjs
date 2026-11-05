@@ -179,7 +179,9 @@ export function frontResults(sb, lay) {
       // a bystander over the subject's middle (its face and body), not a neighbour's edge over its side
       if (!subj.has(f.id) || !f.byActor || f.byActor <= GATE.front || (f.core ?? 1) <= GATE.front || f.by === f.id || lead.has(f.by) || windowFor(sb, "front", f.id, t, f.by)) continue;
       const k = `${f.id}|${f.by}`; if (!tracks.has(k)) tracks.set(k, { id: f.id, by: f.by, f: new Array(rows.length).fill(0) });
-      tracks.get(k).f[i] = f.byActor;
+      // its eyes hidden by that actor (stage.js hiddenFaces): the face is lost, whatever share of the body is covered
+      const eyes = (r.faces || []).find((x) => x.face === f.id && x.by === f.by && x.hidden >= GATE.frontEyes);
+      tracks.get(k).f[i] = f.byActor; tracks.get(k).e ??= new Array(rows.length).fill(false); tracks.get(k).e[i] = !!eyes;
     }
   });
   const need = Math.max(2, Math.round(GATE.frontHold * fps)), lvl = gateLevel(sb);
@@ -208,13 +210,14 @@ export function frontResults(sb, lay) {
     }
   }
   for (const [id, e] of over) if (e.spans.length) out.push({ group: "technical", level: lvl, check: "front", msg: `${id} stands in front of the action (${[...e.who].join(", ")} acting), nearer the camera and bigger than them, over ${Math.round(e.max * 100)} % of their space at ${e.spans.map(([p, q]) => `${p.toFixed(1)}-${(q + dt).toFixed(1)}s`).join(", ")}: the subject owns the front of the frame. Move ${id} behind or aside, or swap the depths${lvl === "warn" ? '; fails at "gate": 2' : ""}` });
-  for (const { id, by, f } of tracks.values()) {
+  for (const { id, by, f, e = [] } of tracks.values()) {
     const sps = []; let a = -1;
     f.forEach((v, i) => { if (v && a < 0) a = i; if (!v && a >= 0) { sps.push([a, i - 1]); a = -1; } }); if (a >= 0) sps.push([a, f.length - 1]);
-    // over GATE.frontFail of the outline for the hold it fails; a smaller cover (the side of a body, a seated friend's
-    // phone behind a neighbour's hood: the tent's approved Phoenix at 32 %) is a note
+    // its eyes hidden by it, or over GATE.frontFail of the outline, for the hold fails; a smaller cover with the eyes in
+    // view (the side of a body, a seated friend's phone behind a neighbour's hood: the tent's approved Phoenix at 32 %,
+    // the bill's waiter behind the table row at 53 %) is a note
     const long = sps.filter(([p, q]) => q - p + 1 >= need); if (!long.length) continue;
-    const big = long.filter(([p, q]) => { let r = 0; for (let i = p; i <= q; i++) { r = f[i] > GATE.frontFail ? r + 1 : 0; if (r >= need) return true; } return false; });
+    const big = long.filter(([p, q]) => { let r = 0; for (let i = p; i <= q; i++) { r = f[i] > GATE.frontFail || e[i] ? r + 1 : 0; if (r >= need) return true; } return false; });
     const max = Math.round(Math.max(...f) * 100), when = (big.length ? big : long).map(([p, q]) => `${(rows[p].t ?? p / fps).toFixed(2)}-${(rows[q].t ?? q / fps).toFixed(2)}s`).join(", ");
     out.push({ group: "technical", level: big.length ? lvl : "note", check: "front", msg: `${by} stands in front of ${id} while ${id} is the subject (acting, or on the beat's must-see list) at ${when}, covering up to ${max} % of ${id}: the subject owns the front of the frame. Swap their depths, move the camera to the other side, or move ${by} behind or aside${lvl === "warn" ? '; fails at "gate": 2' : ""}` });
   }
