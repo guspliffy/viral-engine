@@ -20,7 +20,7 @@ import { SR, TAU, biquad, run, env, buf, normalise, retune } from "./sfx/dsp.mjs
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
-import { actorState, cameraState, TAP_AT } from "./page/timeline.js";
+import { actorState, cameraState, TAP_AT, feetOn, footfalls } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
 import { soundClock } from "./shared/holds.js";
 
@@ -895,11 +895,18 @@ function natSteps(sb, a) {
 function foley(sb, panOf) {
   const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
   const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
+  // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short
+  // shuffle step and lighter in a run (its own steps replace the per-move ones below)
+  const planted = feetOn(sb) && !ownSteps;
+  if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c)) {
+    if (f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
+    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, f.len / 0.15)) });
+  }
   for (const a of acts) {
     const pan = panOf(a.who), d = a.dur ?? 0.3;
     if (a.do === "fly" || a.do === "hover") air[a.who] = true;
     if (a.do === "drop") air[a.who] = false;
-    if (a.do === "move" && !ownSteps && !air[a.who] && (a.steps ?? 2.2) > 0) {
+    if (a.do === "move" && !ownSteps && !planted && !air[a.who] && (a.steps ?? 2.2) > 0) {
       // the walk phase advances `steps` cycles a second and a foot lands every half cycle; quick little steps (a run)
       // are lighter, or a dash off screen turns into a drum roll
       const rate = a.steps ?? 2.2, per = 0.5 / rate, light = Math.min(1, Math.sqrt(2.5 / rate));
