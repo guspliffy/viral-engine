@@ -11463,6 +11463,13 @@
  ],
  "captions": [
   {
+   "from": 0,
+   "to": 1.45,
+   "text": "Last step: the lights.",
+   "pos": 470,
+   "pop": false
+  },
+  {
    "from": 1.9,
    "to": 2.8,
    "text": "Easy.",

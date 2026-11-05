@@ -120,6 +120,7 @@ const ST = grips.staff(c, "wiz");
 A(1.5, "wiz", "expr", { expr: "eager", set: { curve: 0.55, eye: 0.85 }, dur: 0.2 }); A(1.5, "wiz", "face", { lid: 0.3, brow: 0.1, dur: 0.2 });
 A(1.55, "wiz", "look", { to: [0.15, 0.1], dur: 0.15 });
 A(1.75, "wiz", "talk", { line: "eh-zee.", tone: "calm", dur: 0.45, voice: false, soft: true });
+cap(0, 1.45, "Last step: the lights.", 470);   // the situation, spelled out (Jonny 5 Nov on 06: "one doesn't understand the situation")
 cap(1.9, 2.8, "Easy.", 470);
 ST.ready(2.0); ST.lift(2.15, { dy: 0.12, dur: 0.3 });
 c.arm(2.1, "wiz", "R", { o: [0.25, 0.62, 0.3] }, 0.25, "out");   // the free hand flicks up: the knot rises off it
