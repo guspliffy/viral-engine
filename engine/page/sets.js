@@ -28,7 +28,9 @@ import { buildHallway } from "./set-hallway.js";
 import { buildFurnace } from "./set-furnace.js";
 import { buildEnergyRoom } from "./set-energy.js";
 import { buildLanding } from "./set-landing.js";
+import { buildNighthall } from "./set-nighthall.js";
 import { buildTrail } from "./set-trail.js";
+import { buildXmasroom } from "./set-xmasroom.js";
 import { addModels } from "./assets-gltf.js";
 
 function skyDome(top, horizon, bottom) {
@@ -93,6 +95,8 @@ function buildSetType(scene, spec, palette) {
   if (type === "furnace") return buildFurnace(scene, spec);   // set-furnace.js: the hell tunnel and the giant fryer
   if (type === "energyroom") return buildEnergyRoom(scene, spec);   // set-energy.js: Reaper's bedroom at 6 AM
   if (type === "landing") return buildLanding(scene, spec);   // set-landing.js: a stairwell landing, a narrow doorway (Moving One Sofa)
+  if (type === "nighthall") return buildNighthall(scene, spec);   // set-nighthall.js: a hall at 3 a.m. (friends try to 06)
+  if (type === "xmasroom") return buildXmasroom(scene, spec);   // set-xmasroom.js: a cosy living room in December (friends try to 07)
   if (type === "trail") return buildTrail(scene, spec);   // set-trail.js: The Easy Trail's forest trail, plank gully and cliff
   if (type === "party") return party(scene, { seed: 3, ...spec });
   if (type === "office") return office(scene, { seed: 3, ...spec });
