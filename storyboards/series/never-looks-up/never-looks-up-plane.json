@@ -389,9 +389,9 @@
   {
    "id": "pillow",
    "kind": "pillow",
-   "x": 0.6,
-   "y": 1.9,
-   "z": 0.9,
+   "x": 0.75,
+   "y": 0.8,
+   "z": 1.1,
    "rot": 20,
    "scale": 0.0001
   },
@@ -498,16 +498,16 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     -0.1,
-     1.38,
-     5.65
+     -0.15,
+     1.45,
+     5.35
     ],
     "look": [
-     0.28,
-     1.12,
+     0.22,
+     1.3,
      0
     ],
-    "fov": 55,
+    "fov": 58,
     "hand": {
      "rate": 0,
      "bob": 0,
@@ -543,23 +543,6 @@
     }
    },
    "do": [
-    {
-     "fx": "flash",
-     "peak": 0.3,
-     "dur": 0.14,
-     "sound": false,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 1
-     },
-     "dur": 0.04,
-     "ease": "out",
-     "at": 0
-    },
     {
      "sfx": "rumble",
      "gain": 0.32,
@@ -917,13 +900,6 @@
      "at": 0.02
     },
     {
-     "sfx": "rumble",
-     "gain": 0.5,
-     "dur": 1.2,
-     "reason": "thunder after the lightning in the window",
-     "at": 0.05
-    },
-    {
      "fx": "shake",
      "amp": 0.03,
      "dur": 0.3,
@@ -964,6 +940,23 @@
      "at": 0.06
     },
     {
+     "fx": "flash",
+     "peak": 0.18,
+     "dur": 0.08,
+     "sound": false,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
      "who": "phx",
      "do": "squash",
      "amount": 0.04,
@@ -994,16 +987,6 @@
     },
     {
      "do": "prop",
-     "id": "wall",
-     "set": {
-      "glow": 0.3
-     },
-     "dur": 0.06,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
      "id": "juice",
      "set": {
       "fill": 1,
@@ -1014,12 +997,19 @@
      "at": 0.1
     },
     {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "dur": 1.2,
+     "reason": "thunder after the lightning in the window",
+     "at": 0.13
+    },
+    {
      "do": "prop",
      "id": "wall",
      "set": {
-      "glow": 0.9
+      "glow": 0.3
      },
-     "dur": 0.04,
+     "dur": 0.06,
      "ease": "inOut",
      "at": 0.18
     },
@@ -1032,6 +1022,24 @@
      "at": 0.2
     },
     {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0.9
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.26
+    },
+    {
      "do": "prop",
      "id": "wall",
      "set": {
@@ -1039,15 +1047,7 @@
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 0.24
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 0.25
+     "at": 0.32
     },
     {
      "do": "prop",
@@ -1525,13 +1525,13 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     -0.2,
-     1.36,
-     4.7
+     -0.15,
+     1.4,
+     4.6
     ],
     "look": [
-     -0.12,
-     1.16,
+     -0.02,
+     1.3,
      0
     ],
     "fov": 56,
@@ -1572,8 +1572,8 @@
    "do": [
     {
      "fx": "flash",
-     "peak": 0.3,
-     "dur": 0.14,
+     "peak": 0.18,
+     "dur": 0.08,
      "sound": false,
      "at": 0
     },
@@ -2261,8 +2261,8 @@
    "do": [
     {
      "fx": "flash",
-     "peak": 0.3,
-     "dur": 0.14,
+     "peak": 0.18,
+     "dur": 0.08,
      "sound": false,
      "at": 0
     },
@@ -2302,7 +2302,7 @@
       "y": 0.4,
       "z": 0.48
      },
-     "dur": 0.75,
+     "dur": 0.35,
      "ease": "out",
      "at": 0.05
     },
@@ -2317,7 +2317,7 @@
      ],
      "yaw": 0,
      "sit": false,
-     "dur": 0.5,
+     "dur": 0.3,
      "ease": "out",
      "at": 0.05
     },
@@ -2461,6 +2461,43 @@
     },
     {
      "do": "prop",
+     "id": "pillow",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "pillow",
+     "set": {
+      "x": 0.95,
+      "y": 1.6,
+      "z": 1,
+      "rot": 60
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "mag",
+     "set": {
+      "y": 0.85,
+      "x": 0.52,
+      "z": 1.25,
+      "rot": 100,
+      "tilt": 20
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
      "id": "wall",
      "set": {
       "glow": 0.3
@@ -2501,43 +2538,6 @@
      "to": -8,
      "dur": 1.2,
      "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "pillow",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "pillow",
-     "set": {
-      "x": 1,
-      "y": 2.05,
-      "z": 0.6,
-      "rot": 120
-     },
-     "dur": 4.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "mag",
-     "set": {
-      "y": 1.05,
-      "x": 0.5,
-      "z": 1.35,
-      "rot": 160,
-      "tilt": 30
-     },
-     "dur": 4.1,
-     "ease": "out",
      "at": 0.1
     },
     {
@@ -2609,6 +2609,36 @@
      "at": 0.4
     },
     {
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": -0.35,
+      "y": 0.8,
+      "z": 0.8
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 180,
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "rot": 158
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -2647,33 +2677,30 @@
     },
     {
      "do": "prop",
-     "id": "wizC",
+     "id": "pillow",
      "set": {
-      "x": -0.35,
-      "y": 0.8,
-      "z": 0.8
+      "x": 1.2,
+      "y": 2,
+      "z": 0.7,
+      "rot": 120
      },
-     "dur": 1.4,
-     "ease": "inOut",
-     "at": 0.8
-    },
-    {
-     "who": "wiz",
-     "do": "pitch",
-     "to": 180,
-     "dur": 1.4,
-     "ease": "inOut",
-     "at": 0.8
+     "dur": 3.5,
+     "ease": "linear",
+     "at": 0.65
     },
     {
      "do": "prop",
-     "id": "wizC",
+     "id": "mag",
      "set": {
-      "rot": 158
+      "y": 1.05,
+      "x": 0.5,
+      "z": 1.35,
+      "rot": 160,
+      "tilt": 30
      },
-     "dur": 1.4,
-     "ease": "inOut",
-     "at": 0.8
+     "dur": 3.5,
+     "ease": "out",
+     "at": 0.65
     },
     {
      "who": "sam",
@@ -2878,8 +2905,8 @@
     },
     {
      "fx": "flash",
-     "peak": 0.3,
-     "dur": 0.14,
+     "peak": 0.18,
+     "dur": 0.08,
      "sound": false,
      "at": 0.6
     },
@@ -3057,16 +3084,16 @@
    "len": 0.8,
    "shot": {
     "pos": [
-     -0.15,
-     1.4,
-     5.75
+     -0.2,
+     1.47,
+     5.45
     ],
     "look": [
-     0.28,
-     1.1,
+     0.22,
+     1.28,
      0
     ],
-    "fov": 55,
+    "fov": 58,
     "hand": {
      "rate": 0,
      "bob": 0,
@@ -3399,7 +3426,7 @@
     {
      "who": "wiz",
      "do": "hatwobble",
-     "amount": 8,
+     "amount": 11,
      "freq": 3,
      "dur": 0.6,
      "at": 0.22
@@ -3562,7 +3589,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.6000000000000001,
+     "dur": 1.4,
      "idle": 0.06,
      "at": 0.47
     },

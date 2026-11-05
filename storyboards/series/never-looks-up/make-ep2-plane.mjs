@@ -84,7 +84,7 @@ const props = [
   { id: "tray", kind: "drinktray", ...S0.tray, rot: SAM.yaw },
   { id: "front", kind: "rowback", x: 0, y: -1.0, z: 2.3, n: 3, gap: 1.06, scale: 1 },
   { id: "front2", kind: "rowback", x: 0, y: -0.95, z: 3.4, n: 3, gap: 1.06, scale: 1 },
-  { id: "pillow", kind: "pillow", x: 0.6, y: 1.9, z: 0.9, rot: 20, scale: 0.0001 },
+  { id: "pillow", kind: "pillow", x: 0.75, y: 0.8, z: 1.1, rot: 20, scale: 0.0001 },
   { id: "mag", kind: "magazine", x: 0.55, y: 0.03, z: 1.15, rot: 30, tilt: 0 },
   // invisible carriers: the bodies float on these (a float is a path, not a walk)
   { id: "phxC", kind: "carrier", x: PX, y: 0, z: SZ },
@@ -96,8 +96,8 @@ const P = Object.fromEntries(props.map((p) => [p.id, p]));
 
 // ---------------------------------------------------------------- the plane: bumps, lightning, the rumble
 const BUMPS = [[0.06, 0.06, 0.4], [1.55, 0.045, 0.35], [3.27, 0.05, 0.35], [5.0, 0.09, 0.6], [9.2, 0.07, 0.45]];
-const FLASHES = [0, 3.2, 5.0, 7.6];   // each lightning lands on its cut (a flash just after a cut shows the new shot a frame early)
-for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.3, dur: 0.14, sound: false });   // the lightning lights the whole cabin
+const FLASHES = [0.08, 3.2, 5.0, 7.6];   // the lightning (frame 0 stays clean; the others land on their cuts)
+for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.18, dur: 0.08, sound: false });   // the lightning lights the whole cabin
 for (const t of FLASHES) { prop(t, "wall", { glow: 1 }, 0.04, "out"); prop(t + 0.1, "wall", { glow: 0.3 }, 0.06); prop(t + 0.18, "wall", { glow: 0.9 }, 0.04); prop(t + 0.24, "wall", { glow: 0 }, 0.3, "in"); }
 for (const t of FLASHES) sfx(t + 0.05, "rumble", { gain: 0.5, dur: 1.2, reason: "thunder after the lightning in the window" });
 sfx(0, "rumble", { gain: 0.32, dur: END - 0.05, reason: "the cabin's engine rumble bed" });
@@ -237,11 +237,11 @@ see(3.35, 4.95, ["phx.face", "wiz.face", "rea.face", "maskP", "maskW", "phone"],
 // the big drop: everything lifts. The Wizard, unbuckled, floats up and slowly tumbles upside down over Phoenix's phone
 // (a pitch turns him about his middle; the yaw turns his face back to us once he is over)
 const WIZ_PEAK = { x: -0.35, y: 0.8, z: 0.8 };            // the carrier: his middle 0.8 m above it
-prop(5.05, "wizC", { y: 0.4, z: r3(SZ + 0.4) }, 0.75, "out");
-prop(5.8, "wizC", WIZ_PEAK, 1.4, "inOut");
-A(5.05, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: false, dur: 0.5, ease: "out" });
-A(5.8, "wiz", "pitch", { to: 180, dur: 1.4, ease: "inOut" });
-prop(5.8, "wizC", { rot: 158 }, 1.4);   // the pitch turns his face away; half a turn brings it back to us
+prop(5.05, "wizC", { y: 0.4, z: r3(SZ + 0.4) }, 0.35, "out");   // he pops off the seat
+prop(5.4, "wizC", WIZ_PEAK, 1.4, "inOut");
+A(5.05, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: false, dur: 0.3, ease: "out" });
+A(5.4, "wiz", "pitch", { to: 180, dur: 1.4, ease: "inOut" });
+prop(5.4, "wizC", { rot: 158 }, 1.4);   // the pitch turns his face away; half a turn brings it back to us
 act.shock(c, 5.05, "wiz", { open: 0.6, eye: 1.35, hold: 3.0 });
 A(5.05, "wiz", "talk", { line: "wuh-whoa-whoa!", dur: 0.9, tone: "excited" });
 c.cap(5.05, 6.0, "WHOA-WHOA!!", 520, true, { x: 560 });
@@ -265,9 +265,11 @@ A(5.9, "sam", "look", { to: [-0.6, 0.0], dur: 0.2, blink: false });
 A(6.2, "sam", "talk", { line: "drinks?", dur: 0.5, tone: "calm" });
 c.cap(6.2, 6.95, "drinks?", 470, true, { x: 760 });
 // the pillow and the magazine float past
-prop(5.1, "pillow", { scale: 1 }, 0.01);
-prop(5.1, "pillow", { x: 1.0, y: 2.05, z: 0.6, rot: 120 }, 4.1, "linear");
-prop(5.1, "mag", { y: 1.05, x: 0.5, z: 1.35, rot: 160, tilt: 30 }, 4.1, "out");
+prop(5.05, "pillow", { scale: 1 }, 0.01);
+prop(5.05, "pillow", { x: 0.95, y: 1.6, z: 1.0, rot: 60 }, 0.6, "out");   // it shoots up with the drop, then drifts
+prop(5.65, "pillow", { x: 1.2, y: 2.0, z: 0.7, rot: 120 }, 3.5, "linear");
+prop(5.05, "mag", { y: 0.85, x: 0.52, z: 1.25, rot: 100, tilt: 20 }, 0.6, "out");
+prop(5.65, "mag", { y: 1.05, x: 0.5, z: 1.35, rot: 160, tilt: 30 }, 3.5, "out");
 sfx(5.3, "flutter", { gain: 0.35, reason: "the magazine's pages flap as it floats up" });
 see(5.1, 6.95, ["phx.face", "wiz", "rea.face", "sam.face", "tea", "phone"], "P4: zero-g: the Wizard floats and turns over, the tea blob, the Samurai flat with his tray");
 
@@ -320,7 +322,7 @@ sfx(T_LAND, "ai/cushion-poof", { gain: 0.7, reason: "everyone lands back in thei
 sfx(T_LAND + 0.02, "pan-bonk", { gain: 0.35, reason: "bonk: the Wizard's landing" });
 sfx(T_LAND + 0.03, "ai/drip", { gain: 0.45, reason: "plop: the tea blob drops back into the mug" });
 for (const w of ["wiz", "rea", "phx"]) A(T_LAND, w, "squash", { amount: w === "wiz" ? 0.12 : 0.05, dur: 0.22 });
-A(T_LAND, "wiz", "hatwobble", { amount: 8, freq: 3, dur: 0.6 });
+A(T_LAND, "wiz", "hatwobble", { amount: 11, freq: 3, dur: 0.6 });
 mug.carry(9.2, [MUG.x, MUG.y, MUG.z], DROP, "in");
 // the Wizard: the mask clamped over his mouth now, glaring at Phoenix; Reaper slips his mask down and sips
 const WIZ_MOUTH = { x: [-0.14, 0.4, 0.42] };
@@ -328,7 +330,7 @@ c.arm(T_LAND + 0.02, "wiz", "R", WIZ_MOUTH, 0.18, "out");
 c.arm(T_LAND, "wiz", "L", { x: [0.22, 0.3, 0.3] }, 0.2, "out");
 A(T_LAND + 0.1, "wiz", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
 prop(T_LAND + 0.04, "wizC", { rot: -22 }, 0.26, "out");   // he spins round to glare at Phoenix
-act.mood(c, T_LAND + 0.15, "wiz", "angry", { hold: 0.4 });
+act.mood(c, T_LAND + 0.15, "wiz", "angry", { hold: 1.2 });   // held to the last frame: the glare is the ending
 A(T_LAND + 0.05, "rea", "look", { to: [0.1, -0.5], dur: 0.12, blink: false });
 prop(T_LAND + 0.05, "maskR", { y: 0.62, z: r3(REA_MOUTH.z + 0.06) }, 0.15, "out");   // it drops to his chest
 mug.carry(T_LAND + 0.15, [r3(MUG.x + 0.04), 0.8, r3(MUG.z - 0.02)], 0.25);
@@ -339,11 +341,11 @@ see(T_LAND + 0.05, 9.98, ["phx.face", "wiz.face", "rea.face", "sam", "tray", "ph
 // ---------------------------------------------------------------- shots (from the row in front, front-left)
 const shot = (pos, look, fov = 50, o = {}) => ({ pos, look, fov, ...o });
 const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: BUMPS.map(([t, a, d]) => [t, a, d]) };
-const WIDE = shot([-0.1, 1.38, 5.65], [0.28, 1.12, 0], 55, { hand: HAND });
-const MASKS = shot([-0.2, 1.36, 4.7], [-0.12, 1.16, 0], 56, { hand: HAND });
+const WIDE = shot([-0.15, 1.45, 5.35], [0.22, 1.3, 0], 58, { hand: HAND });
+const MASKS = shot([-0.15, 1.4, 4.6], [-0.02, 1.3, 0], 56, { hand: HAND });
 const ZEROG = shot([-0.1, 2.0, 5.9], [0.3, 1.35, 0], 58, { hand: HAND });
 const PEAK = { ...shot([-1.42, 1.28, 4.75], [-0.66, 1.2, 0.4], 44, { hand: HAND }), to: { pos: [-1.36, 1.26, 4.45] }, dur: 2.0 };   // a slow push into the series' LOOK-UP framing
-const BACKDOWN = shot([-0.15, 1.4, 5.75], [0.28, 1.1, 0], 55, { hand: HAND });
+const BACKDOWN = shot([-0.2, 1.47, 5.45], [0.22, 1.28, 0], 58, { hand: HAND });
 const beats = c.beats([
   ["P1 bump", 0, WIDE, "hook"],
   ["P2 grab", 1.5, "keep"],
