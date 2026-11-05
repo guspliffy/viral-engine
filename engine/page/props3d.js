@@ -32,8 +32,20 @@ import { OKILIED_KINDS } from "./props-okilied.js";
 import { ZOMBIE_KINDS } from "./props-zombie.js";
 import { BUSY_KINDS } from "./props-busy.js";
 import { TRAIL_KINDS } from "./props-trail.js";
+import { WINTER_KINDS } from "./props-winter.js";
 import { HORN_KINDS } from "./props-horn.js";
+import { GUARD_KINDS } from "./props-guard.js";
 import { BONFIRE_KINDS } from "./props-bonfire.js";
+import { DINO_KINDS } from "./props-dino.js";
+import { SHARK_KINDS } from "./props-shark.js";
+import { BUSSTOP_KINDS } from "./props-busstop.js";
+import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
+import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
+import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
+import { UFO_KINDS } from "./props-ufo.js";
+import { PLANE_KINDS } from "./props-plane.js";
+import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
+import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4: the bistro table, the bill, the long bill
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
@@ -66,6 +78,7 @@ export function gripPoint(spec, grip) {
 // a point (dir: a direction) on a moving part of a prop (a foldphone's half) -> the prop's own frame, for the part's
 // state at that moment (ps: propState). Hands that hold a part follow it through gripWorld from there.
 const PARTS = { ...DUO_PARTS };
+Object.assign(PARTS, TENT_PARTS);   // friends try to, episode 2: the tent's guy rope and pole (props-tent.js)
 export function partPoint(spec, ps, part, p, dir = false) {
   const f = PARTS[spec.kind];
   if (!f) throw new Error(`prop ${spec.id} (${spec.kind}) has no parts to hold`);
@@ -293,7 +306,25 @@ const KINDS = {
     // the camera bump on the back
     mesh(new THREE.BoxGeometry(0.03, 0.03, 0.006), mat("#3a3c46", { roughness: 0.3 }), P.whole, -0.016, 0.13, -0.008);
     mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.004, 16), mat("#0b0b10", { roughness: 0.1, metalness: 0.6 }), P.whole, -0.016, 0.13, -0.012).rotation.x = Math.PI / 2;
-    return { grip: 0.05, apply(ps) { const bu = clamp(ps.burn ?? 0); screenM.emissiveIntensity = (0.25 + 1.2 * clamp(ps.glow)) * (1 - bu); body.color.set(BODY).lerp(new THREE.Color("#0c0a09"), bu); screenM.color.set("#1c3a52").lerp(new THREE.Color("#050505"), bu); } };
+    // spec.bright scales the lit screen; spec.faceLight (opt-in) adds a cool light in front of the screen that lights
+    // the holder's face as the glow comes up (Never Looks Up: "turn the screen bright so it shines in his face")
+    const bright = P.spec.bright ?? 1, faceK = P.spec.faceLight ?? 0;
+    const faceL = faceK > 0 ? new THREE.PointLight(P.spec.faceColor ?? "#a9dcff", 0, P.spec.faceReach ?? 1.4, 1.6) : null;
+    if (faceL) { faceL.position.set(0, 0.0775, 0.16); faceL.castShadow = false; P.whole.add(faceL); }
+    // spec.halo (opt-in, metres across): the screen's light spilling round the phone's edges, a soft glow just in
+    // front of the screen, so a phone seen from the back still reads as lit
+    let halo = null;
+    if (P.spec.halo) {
+      const cv = document.createElement("canvas"); cv.width = cv.height = 128; const cx = cv.getContext("2d");
+      const gr = cx.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, "rgba(220,240,255,1)"); gr.addColorStop(0.35, "rgba(150,210,255,0.55)"); gr.addColorStop(1, "rgba(120,190,255,0)");
+      cx.fillStyle = gr; cx.fillRect(0, 0, 128, 128);
+      // a flat glow on the screen side, reaching up toward the holder's face (the drawn look ignores point lights,
+      // so the light on the face is painted as this additive wash)
+      const hm = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, opacity: 0 });
+      halo = new THREE.Mesh(new THREE.PlaneGeometry(P.spec.halo, P.spec.halo * 1.25), hm); halo.position.set(0, 0.0775 + P.spec.halo * 0.15, 0.035);
+      halo.userData.glow = true; halo.castShadow = false; halo.receiveShadow = false; P.whole.add(halo);
+    }
+    return { grip: 0.05, apply(ps) { const bu = clamp(ps.burn ?? 0); screenM.emissiveIntensity = (0.25 + 1.2 * clamp(ps.glow)) * bright * (1 - bu); if (faceL) faceL.intensity = faceK * clamp(ps.glow) * (1 - bu); if (halo) halo.material.opacity = (P.spec.haloK ?? 0.55) * clamp(ps.glow) * (1 - bu); body.color.set(BODY).lerp(new THREE.Color("#0c0a09"), bu); screenM.color.set("#1c3a52").lerp(new THREE.Color("#050505"), bu); } };
   },
   // a round cake with icing, drips, berries and candles; `lit` 0..1 lights the candles (their flames light the
   // faces round it: in a dark room they are the only light). It splits into two halves (a cut)
@@ -1310,7 +1341,13 @@ export const TREE_APPLES = [[0.55, 1.88, 0.3], [-0.28, 1.84, 0.3], [-0.55, 1.8, 
   [-0.36, 1.8, 0.38], [0.05, 1.85, 0.4], [-0.5, 1.98, 0.22], [-0.3, 1.95, 0.36], [-0.42, 1.86, 0.3]];
 export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
-Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS, CANDY_KINDS, HELL_KINDS, COPYCAT_KINDS, ENERGY_KINDS, SOFA_KINDS, TRAIL_KINDS, NOTYET_KINDS, OKILIED_KINDS, BUSY_KINDS, ZOMBIE_KINDS, HORN_KINDS, BONFIRE_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js), toyspider, jambwall (props-candy.js), fryoil, burnerflames, fryerbasket, steamjet, steamhaze, bobspud, fryfloat, spudshadows (props-hell.js), cafetable, hotsauce, pillarcandle, wallhole (props-copycat.js), bedframe, tipmattress, winglass, firecurtain, digiclock, broom, dustpan, ashpile, ashfall, outglow (props-energy.js), sofahalf, ceilingbreak, spellaura (props-sofa.js), carrier, trailstaff (props-trail.js), soggyfry, rubble, ruinwall, wetstreet, ripples, fogveil (props-zombie.js), parapet, stringlights, deckchair, blanket, teamug, toffeeapple, paving, sandbucket, firework, sparktrail, ember, barge, crowd (props-bonfire.js)
+Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS, CANDY_KINDS, HELL_KINDS, COPYCAT_KINDS, ENERGY_KINDS, SOFA_KINDS, TRAIL_KINDS, NOTYET_KINDS, OKILIED_KINDS, BUSY_KINDS, ZOMBIE_KINDS, HORN_KINDS, BONFIRE_KINDS, GUARD_KINDS, DINO_KINDS, SHARK_KINDS, BUSSTOP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js), toyspider, jambwall (props-candy.js), fryoil, burnerflames, fryerbasket, steamjet, steamhaze, bobspud, fryfloat, spudshadows (props-hell.js), cafetable, hotsauce, pillarcandle, wallhole (props-copycat.js), bedframe, tipmattress, winglass, firecurtain, digiclock, broom, dustpan, ashpile, ashfall, outglow (props-energy.js), sofahalf, ceilingbreak, spellaura (props-sofa.js), carrier, trailstaff (props-trail.js), soggyfry, rubble, ruinwall, wetstreet, ripples, fogveil (props-zombie.js), parapet, stringlights, deckchair, blanket, teamug, toffeeapple, paving, sandbucket, firework, sparktrail, ember, barge, crowd (props-bonfire.js), sentrybox, railings, stoneblock, pigeon, fireball, tear, tongue, wetpuddle (props-guard.js), trex, firelog, campfire, mallowstick, mallows, mallowbag, boulder, ferns, roarlines (props-dino.js), donutring, shark, guardtower, megaphone, whistle, noodle, wakefoam, splash, bubbles (props-shark.js), busshelter, hedge, recyclebin, streetlamp (props-busstop.js)
+Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS);   // friends try to: wardrobe, plank, hardboard, allenkey, cardbox, screwbag, bubblewrap, manual (props-ikea.js); cat, plaidbed, petcarrier, sock, torchbeam, toymouse, treat, cattree, shadowpool (props-bedroom.js)
+Object.assign(KINDS, UFO_KINDS, PLANE_KINDS);   // never looks up: flyingsaucer, beanalien, lawnchair, telescope, popcornbowl, popcorn, picnicblanket (props-ufo.js); planeseat, seatbelt, cabinwall, overhead, oxymask, drinktray, blob, pillow, magazine, rowback (props-plane.js)
+Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
+Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
+Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
+Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
@@ -1436,7 +1473,7 @@ export function buildProp(spec) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, hold: null, left: null, carry: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, hold: null, left: null, carry: null };
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

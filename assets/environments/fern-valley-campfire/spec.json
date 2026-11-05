@@ -1,0 +1,35 @@
+{
+ "name": "fern-valley-campfire",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view across a wide flat open clearing of bare reddish earth filling the bottom half, huge prehistoric ferns and cycads around the clearing, mossy boulders, far away a volcano with a plume of smoke, pink and gold sunset sky",
+ "no": "dinosaur, animal, people, potato, campfire, fire, log, tent, house, road, path, palm tree",
+ "seeds": [
+  40,
+  14,
+  27,
+  3
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.5,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "right, low: warm sunset",
+  "key": [
+   4.0,
+   3.0,
+   -1.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "dirt"
+}

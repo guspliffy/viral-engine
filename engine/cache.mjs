@@ -13,7 +13,9 @@ import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SKIP = new Set(["node_modules", ".venv", "models", "__pycache__", ".git"]);
+// (until 5 Nov 2026 "models" was skipped too, which left assets/models, 119 glTF props and sets, out of the shard
+// fingerprint: a shard drawn before a model edit would still join one drawn after it. Quality plan item 19.)
+const SKIP = new Set(["node_modules", ".venv", "__pycache__", ".git"]);
 export const sha = (x) => crypto.createHash("sha256").update(x).digest("hex");
 
 function walk(dir, out) {
@@ -39,7 +41,8 @@ export function engineHash() {
 // the flags that change the picture (--out, --shard, --stitch, --timing-json and the like do not)
 export const PIXEL_FLAGS = ["draft", "look", "style", "safe", "png", "blur", "blurSet", "gl", "from", "to"];
 export function renderFingerprint(sb, o) {
-  const flags = Object.fromEntries(PIXEL_FLAGS.map((k) => [k, o[k] ?? null]));
+  // the encoder's settings (render.mjs ENCODES) aren't in a frame's pixels, but shards joined into one clip must share them
+  const flags = { ...Object.fromEntries(PIXEL_FLAGS.map((k) => [k, o[k] ?? null])), ...(o.encode ? { encode: o.encode } : {}) };
   return sha(JSON.stringify({ engine: engineHash(), sb, flags })).slice(0, 20);
 }
 
