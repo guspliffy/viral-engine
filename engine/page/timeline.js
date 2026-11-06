@@ -605,6 +605,7 @@ export function actorState(sb, actor, def, t, raw = false) {
         break;
       }
       case "charge": st.charge = lerp(st.charge, a.to ?? 1, e); break;
+      case "snuff": st.snuff = lerp(st.snuff || 0, a.to ?? 1, e); break;   // the Phoenix's flames go out (costumes-pb.js), 0 lights them again
       // { do: "skin", color: "#8fa07a", to: 1, dur } fades the potato skin (body and eyelids) toward color: the zombie
       // turn in Then I'm a Zombie Too (stage.js skinTint); to: 0 fades it back
       case "skin": st.skinColor = a.color ?? st.skinColor; st.skin = lerp(st.skin, a.to ?? 1, e); break;
