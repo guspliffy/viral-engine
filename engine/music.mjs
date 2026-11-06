@@ -68,10 +68,22 @@ function solve(anchors, bpms, offsets) {
   return best;
 }
 
+// "pool": a manifest entry with several takes in one style (Pebble's calm piano and strings, 6 Nov 2026: Jonny wants
+// many melodies so the videos don't all play the same one). The clip's seed picks the take, so a clip always gets the
+// same one and different clips mostly get different ones; "take": n pins one.
+export function poolFile(music, sb) {
+  if (!music.pool || music.file) return music;
+  const e = JSON.parse(fs.readFileSync(MANIFEST, "utf8")).sounds.find((x) => x.id === music.pool);
+  if (!e) throw new Error(`music: unknown pool "${music.pool}" (assets/music/ai/manifest.json)`);
+  let h = 2166136261; for (const c of String(music.seed ?? seedOf(sb))) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+  const files = e.files, i = music.take != null ? (music.take - 1) % files.length : h % files.length;
+  return { ...music, file: "ai/" + files[i] };
+}
+
 export function lockMusic(sb) {
   sb = soundClock(sb);   // hit-stops: the grid locks to the payoff as the video plays it (engine/shared/holds.js)
   if (sb.music === false) return false;
-  const music = { ...(sb.music || {}) };
+  const music = poolFile({ ...(sb.music || {}) }, sb);
   // dance moves that follow the beat (spin and shake keep their own time)
   const dance = (sb.actions || []).some((a) => isDance(a.do) && !["spin", "shake", "show"].includes(a.do));
   if (music.file) {
@@ -188,7 +200,7 @@ function highPass(x, f, sr) {
 export function addMusic(sb, audio, opts = {}) {
   sb = soundClock(sb);
   if (sb.music === false) return [];
-  const music = { gain: 0.45, ...(sb.music || {}) }, dur = sb.duration, log = [];
+  const music = poolFile({ gain: 0.45, ...(sb.music || {}) }, sb), dur = sb.duration, log = [];
   const M = music.file ? fileMusic(music, dur, audio.sr) : renderBeat(music, dur, seedOf(sb)), g = music.gain; let pk = 0;
   log.push(music.file ? `music: ${music.file}${music.until != null ? `, stops at ${music.until}s` : ""}` : `music: ${M.flavour.style}, ${M.flavour.bpm} bpm, key ${M.flavour.key >= 0 ? "+" : ""}${M.flavour.key}`);
   if (music.lock?.miss) {

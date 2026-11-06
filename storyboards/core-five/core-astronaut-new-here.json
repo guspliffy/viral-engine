@@ -1,0 +1,562 @@
+{
+ "id": "core-astronaut-new-here",
+ "title": "Astronaut (Core Five): new here",
+ "idea": "Character test of the redesigned Astronaut acting its sheet poses in a real room (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/entry-hall-golden.png",
+   "z": -2.3,
+   "center": [
+    -0.2,
+    1.2
+   ],
+   "height": 4.2
+  },
+  "lighting": 2
+ },
+ "music": {
+  "style": "warm",
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "guard": true,
+  "surface": "wood"
+ },
+ "hook": {
+  "show": [
+   "ast"
+  ],
+  "hint": 0,
+  "what": "the Astronaut's rehearsed hello"
+ },
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "cast": [
+  {
+   "id": "ast",
+   "character": "core-five-2026/astronaut",
+   "at": [
+    0,
+    0.1
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "follow": 0,
+   "seed": 1.3
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 0.95,
+   "text": "H-hi!",
+   "pos": 640,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 790
+  },
+  {
+   "from": 10.1,
+   "to": 11,
+   "text": "Mm-hm!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 240
+  }
+ ],
+ "beats": [
+  {
+   "name": "new here",
+   "at": 0,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     4.6
+    ],
+    "look": [
+     0,
+     0.78,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "tilt": 0.36,
+      "curve": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "talk",
+     "line": "h-hi!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "ast",
+     "do": "still",
+     "dur": 0.35,
+     "idle": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.28,
+     "at": 0.55
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.24,
+       0.14
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.85
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.24,
+       0.14
+      ]
+     },
+     "dur": 0.2,
+     "at": 1.25
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       1.3,
+       0.14
+      ]
+     },
+     "dur": 0.2,
+     "at": 1.45
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.62
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "at": 1.8
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.34,
+      "curve": 0.75,
+      "eye": 0.9
+     },
+     "dur": 0.35,
+     "at": 2.1
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "did that right",
+   "at": 2.4,
+   "len": 1.2,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.85
+     },
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "at": 0.65
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 1.1
+     },
+     "dur": 0.3,
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "new place",
+   "at": 3.6,
+   "len": 3.8,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.8,
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.8,
+     "at": 0.95
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.8,
+     "at": 1.9
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": 360,
+     "dur": 0.8,
+     "at": 2.85
+    }
+   ]
+  },
+  {
+   "name": "steps",
+   "at": 7.4,
+   "len": 2.37,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": "right",
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "ast",
+     "do": "move",
+     "to": [
+      0.36,
+      0.4
+     ],
+     "dur": 1,
+     "steps": 2,
+     "at": 0.55
+    },
+    {
+     "who": "ast",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 1.65
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.09
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "tilt": -0.12,
+      "curve": 0.55,
+      "eye": 1
+     },
+     "dur": 0.3,
+     "at": 2.2
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "at": 2.35
+    }
+   ]
+  },
+  {
+   "name": "my specialty",
+   "at": 9.77,
+   "len": 1.35,
+   "shot": {
+    "pos": [
+     0.2,
+     0.98,
+     3.2
+    ],
+    "look": [
+     0.2,
+     0.86,
+     0.3
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "ast",
+     "do": "talk",
+     "line": "mm-hm!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 0.33
+    },
+    {
+     "who": "ast",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "at": 1.23
+    },
+    {
+     "who": "ast",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "at": 1.28
+    },
+    {
+     "who": "ast",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.05,
+      "open": 0.5
+     },
+     "dur": 0.3,
+     "at": 1.33
+    }
+   ]
+  },
+  {
+   "name": "proud",
+   "at": 11.12,
+   "len": 1.28,
+   "shot": {
+    "pos": [
+     0.36,
+     1,
+     2.75
+    ],
+    "look": [
+     0.36,
+     0.95,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.4,
+   "see": [
+    "ast.face"
+   ],
+   "why": "the hopeful face and the wave"
+  },
+  {
+   "from": 2,
+   "to": 2.9,
+   "see": [
+    "ast.face"
+   ],
+   "why": "eyes on the glove"
+  },
+  {
+   "from": 9.8,
+   "to": 12.3,
+   "see": [
+    "ast.face"
+   ],
+   "why": "the proud face"
+  }
+ ],
+ "notes": "Generated by storyboards/core-five/make-astronaut-new-here.mjs (character test, no reviews)."
+}

@@ -1,0 +1,340 @@
+{
+ "id": "pebble/pebble",
+ "name": "Pebble",
+ "source": "Jonny's Garden Guardian pack, 6 Nov 2026 (primary reference 00-primary-reference.png = the target; turnaround and expression sheets as construction guides; /mnt/project-files/characters/pebble/garden-guardian/), after his Option B sheet of 5 Nov. Built on the Core Five humanoid core build (separate head, neck); the cap, belly plate, vest, shell, moss, fern, straw, spots and feet are engine/page/costumes-pebble.js. Colours sampled as midtones from the primary reference.",
+ "rig": "potato",
+ "build": "core",
+ "body": {
+  "color": "#EE9A42",
+  "height": 0.5,
+  "width": 0.6,
+  "depth": 0.5,
+  "lump": 0,
+  "seed": 31,
+  "taper": 0.1,
+  "square": 2.0,
+  "specks": 0,
+  "gloss": 0
+ },
+ "head": {
+  "color": "#EE9A42",
+  "width": 0.44,
+  "height": 0.42,
+  "depth": 0.42,
+  "square": 2.2,
+  "taper": 0.1,
+  "neck": -0.07,
+  "neckR": 0.13,
+  "forward": 0.12,
+  "faceUp": -0.1,
+  "faceWide": 1.0,
+  "above": 0.12,
+  "profile": {
+   "cheek": 0.12,
+   "cheekV": -0.3,
+   "cheekH": 0.5,
+   "snout": 0.45,
+   "v": -0.1,
+   "w": 0.46,
+   "h": 0.3,
+   "lift": 0.04,
+   "jaw": 0.05
+  },
+  "pitch": 0.12,
+  "faceTall": 1.5
+ },
+ "legs": {
+  "height": 0.17,
+  "width": 0.15,
+  "hipX": 0.16
+ },
+ "limbs": {
+  "color": "#EE9A42",
+  "width": 0.078,
+  "shoulder": 0.42
+ },
+ "face": {
+  "size": 0.56,
+  "default": "kind",
+  "iris": "#6B3E1E",
+  "cheeks": "#d4874a",
+  "neutral": {
+   "curve": 0.3,
+   "open": 0,
+   "eye": 0.9
+  },
+  "eye": {
+   "flick": 0.2
+  },
+  "browShape": {
+   "arch": 0.1,
+   "thick": 0.6
+  },
+  "blush": 0.35,
+  "freckles": 6,
+  "final": {
+   "iris": "#6B3A1C",
+   "brow": "#C9793A",
+   "eye": {
+    "oval": 0.62,
+    "iris": 0.52,
+    "glintSize": 0.6,
+    "irisShade": true,
+    "lash": 1.2,
+    "white": "#F2E4CC",
+    "tilt": -0.3,
+    "flick": 0,
+    "corner": 0.6
+   },
+   "layout": {
+    "mouthV": -0.3,
+    "cheekV": -0.2,
+    "browV": 0.5,
+    "eyeU": 0.41,
+    "eyeV": 0.12,
+    "mouthW": 0.42
+   },
+   "browShape": {
+    "arch": 0.12,
+    "lift": 0.012,
+    "clear": 0.014,
+    "thick": 0.22
+   },
+   "rest": {
+    "smirk": 0.18,
+    "curve": 0.9,
+    "eye": 0.62
+   },
+   "neutral": {
+    "lidL": 0.84,
+    "lidR": 0.84
+   },
+   "blush": 0.9,
+   "freckles": 6,
+   "mouth": {
+    "ink": "#7A3E1C",
+    "thick": 0.6
+   },
+   "size": 0.7
+  }
+ },
+ "sprout": {
+  "placement": "none"
+ },
+ "costume": {
+  "type": "pebble",
+  "cap": {
+   "color": "#A95C32",
+   "band": 0.56,
+   "crown": [
+    1.06,
+    1.02
+   ],
+   "front": 0.12,
+   "skew": -0.18,
+   "flat": 0.12,
+   "tilt": -0.1,
+   "pitch": 0.06,
+   "brim": 0.1
+  },
+  "belly": {
+   "color": "#F6CF85",
+   "seam": "#D9A55E"
+  },
+  "vest": {
+   "color": "#847140",
+   "trim": "#D6A35E",
+   "button": "#8A4E25",
+   "edge": 0.3,
+   "flare": 0.08,
+   "hem": -0.62,
+   "trimR": 0.02,
+   "pocket": false,
+   "slits": true,
+   "armhole": 0.32
+  },
+  "shell": {
+   "color": "#8E4F2A",
+   "groove": "#A35D31",
+   "rim": "#A9632F",
+   "r": [
+    0.41,
+    0.52,
+    0.46
+   ],
+   "dz": 0.14,
+   "rimR": 0.06,
+   "lip": 0.08,
+   "lipBack": 0.0,
+   "lipDark": "#3A2416",
+   "inside": "#B5702F",
+   "moss": {
+    "thick": 0.12,
+    "from": 0.35,
+    "strands": 300,
+    "strand": 0.026,
+    "color": "#A8901E",
+    "light": "#C9A62C",
+    "dark": "#7C6612",
+    "strandR": 0.0045
+   },
+   "fern": {
+    "leaf": 0.16,
+    "pairs": 18,
+    "fronds": [
+     [
+      3.14,
+      0.58,
+      0.35
+     ],
+     [
+      2.3,
+      0.54,
+      0.5
+     ],
+     [
+      4.0,
+      0.54,
+      0.5
+     ],
+     [
+      1.4,
+      0.48,
+      0.6
+     ],
+     [
+      4.9,
+      0.48,
+      0.6
+     ],
+     [
+      0.15,
+      0.5,
+      0.2
+     ]
+    ],
+    "leafW": 0.75,
+    "color": "#B08E14",
+    "light": "#CCA62C",
+    "stalk": "#7E6A12",
+    "arch": true,
+    "th": 0.85,
+    "ph": 1.571
+   },
+   "dy": 0.04,
+   "open": [
+    106,
+    50,
+    95
+   ],
+   "rings": [
+    [
+     0.4,
+     5,
+     0
+    ],
+    [
+     0.76,
+     9,
+     0.3
+    ]
+   ],
+   "marginals": 18,
+   "bulge": 0.1,
+   "grooveW": 0.05,
+   "growth": false,
+   "seamK": 0.75,
+   "seam": "#4A2A18",
+   "edge": "#B06A38",
+   "light": "#A35D31",
+   "grooveDepth": 0.02,
+   "rimEdge": "#B5733A",
+   "rimGroove": "#C07A40",
+   "rimPlates": 20
+  },
+  "feet": {
+   "toe": "#F8D693",
+   "size": [
+    0.15,
+    0.07,
+    0.17
+   ]
+  },
+  "spots": {
+   "size": 0.9,
+   "color": "#D27A30"
+  },
+  "straw": {
+   "side": 1,
+   "length": 0.22,
+   "r": 0.0032,
+   "color": "#D9AE5C",
+   "seed": "#C99A45",
+   "yaw": 8,
+   "dip": 18,
+   "grip": 0.1,
+   "hold": {
+    "m": [
+     -0.402598,
+     -0.694975,
+     -0.22219,
+     0,
+     0.008853,
+     0.249099,
+     -0.795183,
+     0,
+     -0.729576,
+     0.386527,
+     0.112961,
+     0,
+     0.040174,
+     0.067218,
+     0.029678,
+     1
+    ]
+   }
+  }
+ },
+ "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
+ "tts": "pebble",
+ "voice": {
+  "pitch": 110,
+  "rate": 3.0,
+  "formant": 0.95,
+  "range": 3,
+  "breath": 0.06,
+  "vibrato": 0.0,
+  "seed": 31
+ },
+ "hands": {
+  "type": "glove",
+  "size": 1.2,
+  "fingers": 3,
+  "spread": 1.3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  },
+  "note": "Pebble's own glove (correction brief 6 Nov): explicit, so castLook sheet's 1.7 mitten replacement doesn't apply; smaller, fingers spread so three fingers + thumb read"
+ },
+ "scale": 1.5,
+ "arms": {
+  "R": {
+   "o": [
+    0.0,
+    0.18,
+    0.1
+   ],
+   "swing": 1
+  },
+  "L": {
+   "o": [
+    0.0,
+    0.18,
+    0.1
+   ],
+   "swing": 1
+  }
+ }
+}

@@ -1,0 +1,637 @@
+{
+ "id": "pebble-chaos",
+ "title": "Pebble test 3: reacting to chaos",
+ "idea": "Pebble character test: calm in chaos (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet-clean",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "guard": true,
+  "surface": "wood"
+ },
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "the booklet climbs, Pebble stays calm"
+ },
+ "set": {
+  "type": "plain",
+  "color": "#e9dcc0",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/livingroom-golden.png",
+   "z": -2.3,
+   "center": [
+    0.3,
+    1.5
+   ],
+   "height": 5.4
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "pool": "calm-landscape",
+  "lowCut": 120,
+  "gain": 0.26
+ },
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    -0.4,
+    0.15
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "box",
+   "kind": "flatpack",
+   "x": 0.85,
+   "z": -0.2,
+   "pages": 22,
+   "unfold": 0
+  },
+  {
+   "id": "pages",
+   "kind": "letters",
+   "x": 0.95,
+   "y": 0.3,
+   "z": -0.15,
+   "burst": 0,
+   "floor": 0.3,
+   "count": 14,
+   "spread": 0.6,
+   "up": 1,
+   "seed": 4
+  },
+  {
+   "id": "mug",
+   "kind": "teamug",
+   "steam": 0.8,
+   "color": "#efe4cc",
+   "scale": 2.3,
+   "x": -0.2,
+   "y": 0.62,
+   "z": 0.64,
+   "rot": 55
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "oh",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.15,
+     1.2,
+     7
+    ],
+    "look": [
+     0.15,
+     1.05,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.023,
+       0.051,
+       -0.063
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.55,
+       0.3
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "straw",
+     "side": "L",
+     "hand": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "set": {
+      "unfold": 0.05
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "set": {
+      "unfold": 0.25
+     },
+     "dur": 1,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "grab",
+     "prop": "mug",
+     "hand": "R",
+     "grip": [
+      -0.023,
+      0.051,
+      -0.063
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.5,
+     "reason": "the booklet's pages flapping open",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "pages",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.6,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.5,
+     "reason": "the flat-pack bits and papers flying out",
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.38,
+      "eye": 1.15,
+      "curve": 0
+     },
+     "dur": 0.18,
+     "at": 0.45
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.35,
+     "brow": 0.3,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.023,
+       0.051,
+       -0.063
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.2,
+       0.65,
+       0.64
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.023,
+       0.051,
+       -0.063
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.2,
+       0.62,
+       0.64
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "box",
+     "set": {
+      "unfold": 1
+     },
+     "dur": 3.4,
+     "ease": "inOut",
+     "at": 1.3
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "up and up",
+   "at": 1.4,
+   "len": 3.2,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.55,
+      0.5
+     ],
+     "dur": 0.9,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3,
+      "eye": 1.05
+     },
+     "dur": 0.5,
+     "at": 0.2
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.45,
+      0.95
+     ],
+     "dur": 1.2,
+     "at": 1.2
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 3.05
+    }
+   ]
+  },
+  {
+   "name": "glance",
+   "at": 4.6,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.45,
+     4.4
+    ],
+    "look": [
+     -0.3,
+     1.22,
+     0.1
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "smirk": 0.45,
+      "curve": 0.55,
+      "eye": 0.82
+     },
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "at": 1
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 1.05
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.023,
+       0.051,
+       -0.063
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.2,
+       0.86,
+       0.9
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "tip": -18
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 1.49
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.04
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 2.2
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.023,
+       0.051,
+       -0.063
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.2,
+       0.62,
+       0.64
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 2.1,
+     "idle": 0.85,
+     "at": 2.55
+    }
+   ]
+  },
+  {
+   "name": "line",
+   "at": 7.2,
+   "len": 2.8,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "Hm. Tomorrow's problem.",
+     "tone": "calm",
+     "pos": 230,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.4,
+     "at": 2
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 2.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 2.1
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2,
+   "see": [
+    "peb.face",
+    "box",
+    "mug"
+   ],
+   "why": "the booklet climbing and Pebble's small oh"
+  },
+  {
+   "from": 1.4,
+   "to": 4.4,
+   "see": [
+    "peb.face",
+    "box"
+   ],
+   "why": "the endless instructions"
+  },
+  {
+   "from": 7.3,
+   "to": 9.2,
+   "see": [
+    "peb.face"
+   ],
+   "why": "his line"
+  }
+ ],
+ "notes": "Generated by storyboards/pebble/make-pebble-tests.mjs (character test, no reviews)."
+}
