@@ -55,6 +55,15 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
       if (sub) subs.push(captions[captions.push({ from: r3(t), to: r3(t + Math.max(0.8, dur + 0.4)), text: sub === true ? subText(line) : sub, pos, pop: false, ...style }) - 1]);
     },
     macro: (t, who, macro, o = {}) => at(t, { who, macro, ...o }),
+    // real physics (engine/page/physics.js, on with "physics": true): a prop leaves its own tween and becomes a rigid
+    // body that tumbles into the set, the cast and other props. o: { v: [x, y, z] m/s, spin: [x, y, z] rad/s, or
+    // to: [x, y, z] + in: seconds (aimed: it gets there in that time, so it lands on its sound) }. A let-go
+    // ("release") is a body on its own; these are for props no hand holds
+    drop: (t, id, o = {}) => at(t, { do: "physics", prop: id, mode: "drop", ...o }),
+    throw: (t, id, o = {}) => at(t, { do: "physics", prop: id, mode: "throw", ...o }),
+    knock: (t, id, o = {}) => at(t, { do: "physics", prop: id, mode: "knock", ...o }),
+    // the world's gravity eases to g (m/s², up +: 0 is zero-g, -9.81 normal) over dur; damp: air drag per second
+    float: (t, g = 0, o = {}) => at(t, { do: "physics", mode: "float", g, ...o }),
     cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: r3(from), to: r3(to), text, pos, pop, ...o }),
     // a text pop: one comic word beside a character's head (docs/STORYBOARD.md, "Text pops")
     textPop: (t, who, text, o = {}) => at(t, { fx: "pop", text, who, ...o }),

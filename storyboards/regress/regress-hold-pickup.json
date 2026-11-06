@@ -1,0 +1,360 @@
+{
+ "id": "regress-hold-pickup",
+ "title": "Regression: holds 2: pick up, carry and turn",
+ "idea": "Holds 2 regression fixture (qa/regress.mjs), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "golden",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "rig": {
+  "hold": 2
+ },
+ "gate": 2,
+ "set": {
+  "type": "livingroom",
+  "seed": 5,
+  "focus": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    0,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.5,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.5
+  },
+  {
+   "id": "it",
+   "kind": "campmug",
+   "scale": 1.9,
+   "x": -0.13,
+   "y": 0.36,
+   "z": 0.42,
+   "rot": 55
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 5.1,
+   "text": "holds 2: pick up, carry and turn",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "hold-pickup",
+   "at": 0,
+   "len": 5.1,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     2.6
+    ],
+    "look": [
+     -0.05,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "it",
+     "hand": "R",
+     "grip": [
+      -0.024,
+      0.056,
+      -0.067
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.86
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.1,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.5,
+       0.35
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.6,
+     "at": 1.85
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.6,
+     "at": 2.65
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.1,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 3.35
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.13,
+       0.36,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 3.8
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 4.15
+    },
+    {
+     "do": "prop",
+     "id": "it",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 4.2
+    },
+    {
+     "who": "wiz",
+     "do": "release",
+     "prop": "it",
+     "dur": 0,
+     "at": 4.25
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 4.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "it",
+      "grip": [
+       -0.024,
+       0.056,
+       -0.067
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 4.29
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 4.49
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 4.49
+    }
+   ]
+  }
+ ],
+ "expect": {
+  "clean": [
+   "prop-pop",
+   "hand-in-prop",
+   "rig-jump",
+   "prop-support"
+  ]
+ },
+ "notes": "Generated by storyboards/regress/make-holds.mjs (regression fixture, no reviews)."
+}

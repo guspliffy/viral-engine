@@ -29,6 +29,8 @@ export async function judge(sb, layout) {
   for (const c of ex.fail || []) if (lvl(c) !== "fail") bad.push(`${c} should fail, got ${lvl(c)}`);
   for (const c of ex.warn || []) if (lvl(c) === "pass") bad.push(`${c} should warn, got pass`);
   for (const c of ex.clean || []) if (lvl(c) !== "pass") bad.push(`${c} should be clean, got ${lvl(c)}: ${res.find((r) => r.check === c && r.level !== "pass").msg}`);
+  // a physics fixture's bake hash (engine/page/physics.js): the same on every machine, or the bake isn't deterministic
+  if (ex.physics) { const h = layout.samples?.[0]?.physics?.hash; if (h !== ex.physics) bad.push(`physics bake hash ${h ?? "missing"}, expected ${ex.physics}`); }
   for (const r of res) if (r.level === "fail" && GATE.includes(r.check) && !(ex.fail || []).includes(r.check)) bad.push(`unexpected fail ${r.check}: ${r.msg}`);
   return { bad, res };
 }

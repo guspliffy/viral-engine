@@ -14,8 +14,10 @@
  },
  "rig": {
   "hand": 2,
-  "eyes": 2
+  "eyes": 2,
+  "hold": 2
  },
+ "physics": true,
  "loopIdle": true,
  "set": {
   "type": "plain",
@@ -34,7 +36,10 @@
    "height": 6.4
   },
   "aperture": 0,
-  "lighting": 2
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
  },
  "music": {
   "style": "warm",
