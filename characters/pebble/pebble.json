@@ -169,8 +169,8 @@
    "lipDark": "#3A2416",
    "inside": "#B5702F",
    "moss": {
-    "thick": 0.1,
-    "from": 0.4,
+    "thick": 0.12,
+    "from": 0.35,
     "strands": 300,
     "strand": 0.026,
     "color": "#A9A631",
@@ -218,8 +218,8 @@
     "light": "#C4BE52",
     "stalk": "#7E7A2A",
     "arch": true,
-    "th": 0.6,
-    "ph": 1.75
+    "th": 0.85,
+    "ph": 1.571
    },
    "dy": 0.04,
    "open": [
