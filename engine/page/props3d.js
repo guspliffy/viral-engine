@@ -50,6 +50,7 @@ import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
 import { LIBRARY_KINDS, LIBRARY_GRIPS } from "./props-library.js";   // too much energy 01, the library: bookcases, ladder, books, desk, lamp, shush
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
+import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1351,6 +1352,7 @@ Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (p
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
 Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
+Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
