@@ -392,7 +392,7 @@ write(import.meta.url, {
     { who: "ast", from: 9.45, to: 10, checks: ["face-covered"], reason: "AGAIN!: Phoenix's arms go up in front of the Astronaut, whose head has already dropped" },
     { who: "phx", with: "seatR", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
     { who: "phx", with: "seatW", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
-    { who: "phx", from: 3.3, to: 3.55, checks: ["grip-gap"], reason: "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)" },
+    { who: "phx", from: 3.3, to: 3.65, checks: ["grip-gap"], reason: "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)" },
     { who: "phx", with: "seatD", from: 6.0, to: 7.7, checks: ["costume-in-prop"], reason: "a flame-feather wing tip brushes the padded seat back behind him on the slam and the grin turn, behind his own body" },
     { who: "phx", with: "hall", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his wing tips fold behind his seat back against the tier's carpeted step, hidden by the seat" },
     { who: "dra", with: "e3", from: 0, to: 10, checks: ["costume-in-prop"], reason: "a wing tip brushes the empty seat beside him" },

@@ -34,3 +34,8 @@ the seat backs and armrests cut by the bottom of the frame.
   the tiny kernel as its own prop made it slip and pop on the way down.
 - The back row's seats are a little wider (1.12 m against 0.92 m) so the Astronaut and the Dragon keep a body-width
   apart when they shield their eyes.
+- The 0-2 s subtitle sits just under Jonny's title zone (y 500): in the closer wide (review A) the chests fill the
+  lower third, so a lower-third caption sat behind them.
+- The catapult hit-stop is at 6.05 s, not 6.10 (on the slam's contact frame).
+- Review A asked for the bucket at chest height so the slam throws it; from the chest the physics throw went back
+  through his own head, so it stays overhead with a shake and a squash on the slam.

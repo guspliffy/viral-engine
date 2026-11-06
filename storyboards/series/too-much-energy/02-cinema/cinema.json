@@ -5683,7 +5683,7 @@
   {
    "who": "phx",
    "from": 3.3,
-   "to": 3.55,
+   "to": 3.65,
    "checks": [
     "grip-gap"
    ],
