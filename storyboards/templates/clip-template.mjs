@@ -36,7 +36,10 @@ const FACES = "strong";             // stronger faces and longer holds in the ac
 // planted feet (Jonny, 5 Nov, PR #117): every walk and run on one gait, a standing foot stays where it landed;
 // { feet: 2 } also turns on every natural part ("feetTune": { lean, tip, body } scales the body if a tight dash fails
 // a contact check)
-const MOTION = { feet: 2 };
+// motion layer (Jonny, 6 Nov, PR #133): follow-through (hands drag behind the body, held props swing), timing (eases,
+// weight shifts on holds, actors a frame or two apart) and the contact solver (hands pushed out of every body, up to
+// 6 cm); report /mnt/project-files/engine/motion-layer-01/ten-clips.md
+const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
 // hand rig 2 (Jonny, 5 Nov, PR #119): a forearm that never collapses, no palm switch inside a move, wrist limits, so
 // hands don't pop; eyes 2 (Jonny, 5 Nov, PR #116): the iris stays inside the eye white and a look down reads as a look
 // down, not a closing eye; null: the old rig
