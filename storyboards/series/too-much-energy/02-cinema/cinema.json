@@ -3389,13 +3389,13 @@
       "palm": true,
       "at": [
        0,
-       0.3,
+       0.5,
        0.56
       ]
      },
-     "dur": 0.25,
+     "dur": 0.22,
      "ease": "inOut",
-     "at": 0.03
+     "at": 0.01
     },
     {
      "who": "phx",
@@ -3411,13 +3411,13 @@
       "palm": true,
       "at": [
        0,
-       0.3,
+       0.5,
        0.56
       ]
      },
-     "dur": 0.25,
+     "dur": 0.22,
      "ease": "inOut",
-     "at": 0.03
+     "at": 0.01
     },
     {
      "do": "prop",
@@ -5661,6 +5661,15 @@
     "costume-in-prop"
    ],
    "reason": "his soft flame-feather wings press against the padded seat backs and armrests round him"
+  },
+  {
+   "who": "phx",
+   "from": 3.3,
+   "to": 3.45,
+   "checks": [
+    "grip-gap"
+   ],
+   "reason": "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)"
   },
   {
    "who": "phx",

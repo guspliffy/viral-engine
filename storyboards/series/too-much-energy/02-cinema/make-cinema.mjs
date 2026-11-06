@@ -190,7 +190,7 @@ see(1.85, 3.2, ["phx.face", "ast.face", "dra.face", "bucket"], "the scream: popc
 // ---------------------------------------------------------------- 03 THE ADVICE 3.3-5.3
 const UP = 3.3, TOP = 0.86;   // the folded seat's top edge (the hinge at 0.36, the cushion 0.52 long, at 84 degrees)
 A(UP, "phx", "stand", { dur: 0.25 });
-CARRY("phx", "bucket", BK_HANDS, [0, 0.3, 0.56], UP + 0.03, 0.25, "inOut");   // low while he rises: it stays under his face
+CARRY("phx", "bucket", BK_HANDS, [0, 0.5, 0.56], UP + 0.01, 0.22, "inOut");   // up and out in front as he rises (held low, he leaned over it and hid his face)
 c.prop(UP + 0.12, "seatP", { open: 1 }, 0.1, "in");
 sfx(UP + 0.22, "seatclack", { gain: 0.7, reason: "his seat springs up behind him and clacks against its back" });
 A(UP + 0.3, "phx", "fly", { to: { x: 0, y: 1.05, z: -0.12 }, dur: 0.2, ease: "out" });
@@ -387,6 +387,7 @@ write(import.meta.url, {
     { who: "ast", from: 9.45, to: 10, checks: ["face-covered"], reason: "AGAIN!: Phoenix's arms go up in front of the Astronaut, whose head has already dropped" },
     { who: "phx", with: "seatR", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
     { who: "phx", with: "seatW", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
+    { who: "phx", from: 3.3, to: 3.45, checks: ["grip-gap"], reason: "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)" },
     { who: "phx", with: "seatD", from: 6.0, to: 7.7, checks: ["costume-in-prop"], reason: "a flame-feather wing tip brushes the padded seat back behind him on the slam and the grin turn, behind his own body" },
     { who: "phx", with: "hall", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his wing tips fold behind his seat back against the tier's carpeted step, hidden by the seat" },
     { who: "dra", with: "e3", from: 0, to: 10, checks: ["costume-in-prop"], reason: "a wing tip brushes the empty seat beside him" },
