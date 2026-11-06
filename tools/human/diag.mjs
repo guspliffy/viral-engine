@@ -7,16 +7,22 @@
 import fs from "node:fs";
 import { Performance, prepClip } from "../../engine/page/rigs/human-perform.js";
 
-const [clip, from, to, view = "side", speed = "1", turn = "travel=90", idArg] = process.argv.slice(2);
+// A chain of takes blended into each other: <clip> = "c16_35:0:0.75+c16_08:0.55:1.5[@blend]" (from and to ignored)
+const [clipArg, from0, to0, view = "side", speed = "1", turn = "travel=90", idArg] = process.argv.slice(2);
 const LEG = 0.845;
-const C = prepClip(JSON.parse(fs.readFileSync(`assets/mocap/${clip}.json`, "utf8")));
-const clips = { [clip]: C };
+const parts = clipArg.includes(":") ? clipArg.split("@")[0].split("+").map((x) => { const [c, a, b] = x.split(":"); return { clip: c, from: +a, to: +b }; }) : [{ clip: clipArg, from: +from0, to: +to0 }];
+const blend = +(clipArg.split("@")[1] || 0.2);
+const clip = parts.map((p) => p.clip).join("+");
+const clips = Object.fromEntries(parts.map((p) => [p.clip, prepClip(JSON.parse(fs.readFileSync(`assets/mocap/${p.clip}.json`, "utf8")))]));
+const list = (heading, place) => { let at = 0; return parts.map((p, i) => { const s = { at, clip: p.clip, from: p.from, to: p.to, ...(i === 0 ? { place, heading } : { blend }) }; at += p.to - p.from - (i < parts.length - 1 ? blend : 0); return s; }); };
 const [tk, tv] = turn.split("=");
-const one = (heading, place) => new Performance([{ at: 0, clip, from: +from, to: +to, place, heading }], clips, [], LEG);
+const one = (heading, place) => new Performance(list(heading, place), clips, [], LEG);
+const totalDur = parts.reduce((a, p) => a + p.to - p.from, 0) - blend * (parts.length - 1), from = "0", to = String(totalDur);
 let heading = +tv;
-if (tk === "travel") { const P = one(0, [0, 0]), e = P.segRoot(P.L[0], +to); heading = +(+tv - Math.atan2(e.x, e.z) * 180 / Math.PI).toFixed(2); }
+const endOf = (P) => { const L = P.L[P.L.length - 1]; return P.at(L.at + L.dur).pos; };
+if (tk === "travel") { const P = one(0, [0, 0]), e = endOf(P), b = P.at(0).pos; heading = +(+tv - Math.atan2(e.x - b.x, e.z - b.z) * 180 / Math.PI).toFixed(2); }
 const P0 = one(heading, [0, 0]);
-const pts = []; for (let u = +from; u <= +to + 1e-6; u += 0.05) pts.push(P0.segRoot(P0.L[0], u));
+const pts = []; for (let u = 0; u <= totalDur + 1e-6; u += 0.05) pts.push(P0.at(u).pos);
 const xs = pts.map((p) => p.x), zs = pts.map((p) => p.z);
 const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cz = (Math.min(...zs) + Math.max(...zs)) / 2;
 const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...zs) - Math.min(...zs));
@@ -27,13 +33,13 @@ const d = Math.max(5.2, (span + 1.2) / (2 * Math.tan(hfov / 2)), 2.6 / (2 * Math
 const dir = { side: [0, 1], front: [1, 0], q34: [0.7071, 0.7071], back: [-1, 0] }[view] || [0, 1];
 const pos = [+(dir[0] * d).toFixed(3), 1.0, +(dir[1] * d).toFixed(3)], look = [0, 0.95, 0];
 const dur = +((+to - +from) / +speed).toFixed(3);
-const id = idArg || `diag-${clip}-${view}${+speed !== 1 ? `-x${speed}` : ""}`;
+const id = idArg || `diag-${clip.replace(/\+/g, "-")}-${view}${+speed !== 1 ? `-x${speed}` : ""}`;
 const sb = {
   id, title: `Diagnostic ${clip} ${view}`, fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet",
   rig: { hand: 2, eyes: 2, hold: 2 },
   set: { type: "plain", grid: 0.25, aperture: 0, focus: false, lighting: 2 },
   sound: { sfx: 0, ambience: 0 }, creative: { notes: false },
-  cast: [{ id: "h", character: "human/vrm-test-01", at: place, face: "camera", expr: "kind", seed: 1.3, perform: [{ at: 0, clip, from: +from, to: +to, place, heading, speed: +speed }] }],
+  cast: [{ id: "h", character: "human/vrm-test-01", at: place, face: "camera", expr: "kind", seed: 1.3, perform: list(heading, place).map((x) => ({ ...x, at: x.at / +speed, speed: +speed })) }],
   props: [], beats: [{ name: "a", at: 0, len: dur, shot: { pos, look, fov }, do: [] }], duration: dur,
 };
 fs.mkdirSync("storyboards/human/diag", { recursive: true });

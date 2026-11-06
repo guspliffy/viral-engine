@@ -25,7 +25,7 @@ export class Performance {
     this.fingers = fingers;
     this.L = (list || []).map((s) => ({ ...s }));
     let carry = null;
-    for (const s of this.L) {
+    for (const [i, s] of this.L.entries()) {
       const C = clips.get ? clips.get(s.clip) : clips[s.clip]; if (!C) throw new Error(`clip not loaded: ${s.clip}`);
       s.C = C; s.k = legLen && C.lens ? legLen / ((C.lens.lfemur + C.lens.ltibia + C.lens.rfemur + C.lens.rtibia) / 2) : 1; s.speed ??= 1; s.from ??= 0; s.to ??= C.len; s.blend ??= 0.25;
       s.dur = (s.to - s.from) / s.speed;
@@ -34,8 +34,10 @@ export class Performance {
       s.P = s.place ? [s.place[0], s.place[1]] : carry ? carry.P : [0, 0];
       const head = s.heading != null ? s.heading * D2R : carry ? carry.yaw : 0;
       s.rot = head - y0;
-      const e = this.segRoot(s, s.to);
-      carry = { P: [e.x, e.z], yaw: this.yaw(C, s.to) + s.rot };
+      // (a next take that blends in starts from where this one is when it begins, so the two overlap in place)
+      const nx = this.L[i + 1], uc = nx && nx.at != null && (nx.blend ?? 0.25) > 0 ? Math.min(s.to, s.from + Math.max(0, nx.at - (s.at || 0)) * s.speed) : s.to;
+      const e = this.segRoot(s, uc);
+      carry = { P: [e.x, e.z], yaw: this.yaw(C, uc) + s.rot };
     }
   }
   root(C, u) { const f = Math.min(C.n - 1, Math.max(0, u * C.fps)), i = Math.min(C.n - 2, Math.floor(f)), k = f - i, a = C.root[i], b = C.root[i + 1]; return new THREE.Vector3(a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k); }

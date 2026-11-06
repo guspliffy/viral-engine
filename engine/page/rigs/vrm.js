@@ -109,7 +109,9 @@ export class VrmCharacter extends Character {
     this.perf = new Performance(this.cast.perform || [], humanClips(), this.cast.fingers || [], this.legLen);
     this.R0 = new THREE.Quaternion();
     this._q = new THREE.Quaternion(); this._x = new THREE.Vector3(1, 0, 0); this._qi = new THREE.Quaternion(); this._e = new THREE.Euler(); this._ta = new THREE.Vector3();
+    this.armLen = wp("leftUpperArm").distanceTo(wp("leftLowerArm")) + wp("leftLowerArm").distanceTo(wp("leftHand")) + (H.getRawBoneNode("leftMiddleProximal") ? wp("leftHand").distanceTo(wp("leftMiddleProximal")) * 0.7 : 0);
     this.toeH = this.nb.leftToes ? (wp("leftToes").y + wp("rightToes").y) / 2 : this.footH;
+    if (this.def.ground !== false && this.perf.L.length) this._autoFloor();
     if (this.def.ground !== false && this.def.contacts !== false && this.cast.contacts !== false && this.perf.L.length) this.plan = this._planContacts();
   }
 
@@ -188,13 +190,20 @@ export class VrmCharacter extends Character {
     // [{ from, to, ramp, bones: {...} }] adds more for a while, eased in and out over ramp seconds (e.g. the boxing
     // guard held a little further from the bigger anime face)
     const add = (b, a, w) => { if (!nb[b] || !a) return; const v = Array.isArray(a) ? a : [a, 0, 0]; this._e.set(v[0] * w, v[1] * w, v[2] * w); nb[b].quaternion.multiply(this._q.setFromEuler(this._e)); };
-    for (const [b, a] of Object.entries(pos)) add(b, a, 1);
+    // (the lift is for an upright body: upside down in a handspring it threw the face onto the floor, 6 Nov, so it fades
+    // out as the chest tips past level; with the palms on the floor the head tucks toward the chest, eyes on the hands)
+    let up = 1;
+    if (nb.head && nb.hips) { nb.hips.parent.updateMatrixWorld(true); const d = nb.head.getWorldPosition(new THREE.Vector3()).sub(nb.hips.getWorldPosition(new THREE.Vector3())).normalize(); up = smooth((d.y - 0.2) / 0.5); }
+    for (const [b, a] of Object.entries(pos)) add(b, a, up);
+    if (this.plan && !this._lockOff) { const tk = this.def.contact?.tuck ?? -0.3, w = Math.max(this._contactAt(this.plan.left, t).wP, this._contactAt(this.plan.right, t).wP) * (1 - up); if (w > 0) { add("neck", tk, w); add("head", tk, w); } }
     for (const k of this.cast.poses || []) {
       const r = k.ramp ?? 0.2, w = Math.min(smooth((t - k.from) / r + 1), smooth((k.to - t) / r + 1));
       if (w > 0) for (const [b, a] of Object.entries(k.bones || {})) add(b, a, w);
     }
     // the hips: the performance's root, in the rig's space
-    hips.position.copy(rig.worldToLocal(P.pos.clone()));
+    // (palm support, see _planContacts: the body rides up on straight arms where the recorded hands would go under the floor)
+    const lift = this._liftAt(t);
+    hips.position.copy(rig.worldToLocal(lift ? P.pos.clone().setY(P.pos.y + lift) : P.pos.clone()));
     // fingers: a curl 0 (open) .. 1 (fist) for each hand, every joint of a finger sharing it, the thumb folding across
     const fc = this.perf.fingersAt(t);
     // a hand at rest is never flat: the fingers keep a relaxed curl ("restCurl") unless the performance closes them more
@@ -216,7 +225,7 @@ export class VrmCharacter extends Character {
       const A0 = this.def.thumbAxis || [0, -1, 0], ax = (side === "right" ? this._ta.set(A0[0], A0[1], A0[2]) : this._ta.set(A0[0], -A0[1], -A0[2])).normalize();   // (given for the right hand; the left is its mirror)
       th.forEach((bone, n) => { if (bone) bone.quaternion.setFromAxisAngle(ax, c * [0.5, 0.55, 0.5][n] * (this.def.thumbK ?? 1)); });
     }
-    if (this.def.ground !== false) this._ground(t);
+    if (this.def.ground !== false && !this._noGround) { this._ground(t); this._hands(t); }
     this.vrm.humanoid.update();
     return P;
   }
@@ -304,8 +313,70 @@ export class VrmCharacter extends Character {
     }
   }
 
+  // a two-bone chain (upper, lower, end) turned so the end's joint reaches T, the bend kept in its own plane and on its
+  // own side, the end's world turn kept
+  _twoBone(U, L, F, T) {
+    const V = THREE.Vector3, wq = (o) => o.getWorldQuaternion(new THREE.Quaternion()), setW = (o, q) => o.quaternion.copy(wq(o.parent).invert().multiply(q));
+    const h = U.getWorldPosition(new V()), k = L.getWorldPosition(new V()), a = F.getWorldPosition(new V());
+    const fq = wq(F), la = h.distanceTo(k), lb = k.distanceTo(a), ok = k.clone().sub(h).normalize();
+    let n = ok.clone().cross(a.clone().sub(k)); if (n.lengthSq() < 1e-8) n = ok.clone().cross(T.clone().sub(h)); if (n.lengthSq() < 1e-8) n.set(1, 0, 0); n.normalize();
+    const ht = T.clone().sub(h), raw = ht.length(), mx = la + lb, s0 = mx * 0.97;
+    const dist = raw < s0 ? raw : s0 + (mx * 0.999 - s0) * (1 - Math.exp(-(raw - s0) / (mx * 0.999 - s0))), dir = ht.normalize();
+    const A = Math.acos(Math.max(-1, Math.min(1, (la * la + dist * dist - lb * lb) / (2 * la * dist))));
+    const k1 = dir.clone().applyAxisAngle(n, A), k2 = dir.clone().applyAxisAngle(n, -A), kd = k1.dot(ok) >= k2.dot(ok) ? k1 : k2;
+    setW(U, new THREE.Quaternion().setFromUnitVectors(ok, kd).multiply(wq(U))); U.updateMatrixWorld(true);
+    const kk = L.getWorldPosition(new V()), aa = F.getWorldPosition(new V());
+    setW(L, new THREE.Quaternion().setFromUnitVectors(aa.sub(kk).normalize(), T.clone().sub(kk).normalize()).multiply(wq(L))); L.updateMatrixWorld(true);
+    setW(F, fq); F.updateMatrixWorld(true);
+  }
+
+  // palms held on the floor (handspring, push-ups, a hand on the ground): the arm reaches the held place, the wrist
+  // keeps its turn, the palm sits on the floor
+  _hands(t) {
+    const plan = this.plan; if (!plan || this._lockOff || t == null) return;
+    const V = THREE.Vector3, nb = this.nb;
+    for (const sd of ["left", "right"]) {
+      const c = this._contactAt(plan[sd], t); if (!c.P || c.wP <= 0) continue;
+      const U = nb[`${sd}UpperArm`], L = nb[`${sd}LowerArm`], F = nb[`${sd}Hand`]; if (!U || !L || !F) continue;
+      const pm = this._palm(sd), w = F.getWorldPosition(new V()), off = pm.clone().sub(w);
+      const goal = pm.clone().lerp(c.P, c.wP);
+      this._twoBone(U, L, F, goal.sub(off));
+    }
+  }
+
+  // the centre of a palm in the world (the normalized rig): 70 % of the way from the wrist to the middle knuckle
+  _palm(sd) {
+    const h = this.nb[`${sd}Hand`], m = this.nb[`${sd}MiddleProximal`], V = THREE.Vector3;
+    const a = h.getWorldPosition(new V()); return m ? a.lerp(m.getWorldPosition(new V()), 0.7) : a;
+  }
+  _liftAt(t) {
+    const L = this.lift; if (!L || this._lockOff) return 0;
+    const f = Math.min(L.v.length - 1, Math.max(0, t / L.dt)), i = Math.min(L.v.length - 2, Math.floor(f));
+    return L.v.length > 1 ? L.v[i] + (L.v[i + 1] - L.v[i]) * (f - i) : L.v[0] || 0;
+  }
+
+  // each take stands on the floor: the recorded floor isn't always at 0 (the handspring take stood 27 cm up, 6 Nov),
+  // so each take is moved up or down by its lowest ankle or ball of the foot under the rest heights over the take
+  _autoFloor() {
+    this._lockOff = true; this._noGround = true;
+    const V = THREE.Vector3;
+    for (const s of this.perf.L) {
+      let lo = Infinity;
+      for (let u = 0; u <= s.dur + 1e-6; u += 1 / 30) {
+        this._vrmPose(s.at + Math.min(u, s.dur - 1e-4)); this.nb.hips.parent.updateMatrixWorld(true);
+        for (const sd of ["left", "right"]) {
+          lo = Math.min(lo, this.nb[`${sd}Foot`].getWorldPosition(new V()).y - this.footH);
+          if (this.nb[`${sd}Toes`]) lo = Math.min(lo, this.nb[`${sd}Toes`].getWorldPosition(new V()).y - this.toeH);
+        }
+      }
+      if (Number.isFinite(lo) && Math.abs(lo) > 0.01) s.lift = (s.lift || 0) - lo;
+      if (this.cast.diagPalms || this.cast.diagFeet) console.log(`diag:floor ${s.clip} ${(-lo).toFixed(3)}`);
+    }
+    this._lockOff = false; this._noGround = false;
+  }
+
   // the support plan: the performance played once at 60 Hz (before any holding), and for each foot the spans where its
-  // heel (ankle) or its ball (toe joint) is down and still: under 5 cm over its rest height (a retargeted planted foot floats up to 5 cm) and moving under 0.35 m/s
+  // heel (ankle) or its ball (toe joint) is down and still: under 5 cm over its rest height (a retargeted planted foot floats up to 5 cm) and moving under 0.7 m/s (a running stance foot of this retarget creeps up to that before it is held)
   // across the floor. A span longer than 0.1 s becomes a contact held at the place it settled (its slowest frames
   // weigh most). Spans never cross a cut. Pure: the same list, the same plan
   _planContacts() {
@@ -316,9 +387,33 @@ export class VrmCharacter extends Character {
     for (let i = 0; i * dt <= end + 1e-6; i++) {
       const t = i * dt; this._vrmPose(t); this.nb.hips.parent.updateMatrixWorld(true);
       const hl = this.nb.leftUpperLeg.getWorldPosition(new V()), hr = this.nb.rightUpperLeg.getWorldPosition(new V()), mid = hl.clone().add(hr).multiplyScalar(0.5), lat = hl.sub(hr).setY(0).normalize();
-      for (const sd of ["left", "right"]) S[sd].push({ t, s: seg(t), mid, lat, a: this.nb[`${sd}Foot`].getWorldPosition(new V()), b: (this.nb[`${sd}Toes`] || this.nb[`${sd}Foot`]).getWorldPosition(new V()) });
+      for (const sd of ["left", "right"]) S[sd].push({ t, s: seg(t), mid, lat, a: this.nb[`${sd}Foot`].getWorldPosition(new V()), b: (this.nb[`${sd}Toes`] || this.nb[`${sd}Foot`]).getWorldPosition(new V()), h: this._palm(sd), sh: this.nb[`${sd}UpperArm`].getWorldPosition(new V()) });
     }
     this._lockOff = false;
+    // palm support (motion brief: a handspring changes support from feet to palms with straight arms): this body's arms
+    // are longer for its legs than the recorded actor's, so its hands reach the floor while the actor's are still
+    // above it (palms 13 cm under the floor in the handspring, 6 Nov). Wherever a palm would go under the floor the
+    // whole body is lifted by that much (widened 0.12 s each way and smoothed, so it never pops), not the arms bent
+    {
+      const n = S.left.length, need = new Float32Array(n), lift = new Float32Array(n), pf = this.def.contact?.palm ?? 0.025, W = Math.round(0.12 / dt);
+      // (and a palm on the floor takes the weight on a nearly straight arm: the body rises until the shoulder is an
+      // arm's length (def.contact.straight, 0.93 of it) over the palm; the recorded actor's elbows folded and this
+      // bigger head reached the floor, 6 Nov)
+      const ar = this.armLen * (this.def.contact?.straight ?? 0.93);
+      for (let i = 0; i < n; i++) {
+        need[i] = Math.max(0, pf - Math.min(S.left[i].h.y, S.right[i].h.y));
+        for (const sd of ["left", "right"]) {
+          const f = S[sd][i]; if (f.h.y > pf + 0.08) continue;
+          const hz = Math.hypot(f.sh.x - f.h.x, f.sh.z - f.h.z); if (hz >= ar) continue;
+          need[i] = Math.max(need[i], Math.sqrt(ar * ar - hz * hz) - (f.sh.y - Math.max(f.h.y, pf)) + Math.max(0, pf - f.h.y));
+        }
+      }
+      const dil = need.map((_, i) => { let m = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && S.left[j].s === S.left[i].s) m = Math.max(m, need[j]); return m; });
+      for (let i = 0; i < n; i++) { let a = 0, c = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && S.left[j].s === S.left[i].s) { a += dil[j]; c++; } lift[i] = a / c; }
+      this.lift = { dt, v: lift };
+      // (palms are held where the recorded hands meet the floor, so the lifted body straightens its arms down to them)
+      for (const sd of ["left", "right"]) S[sd].forEach((f, i) => { f.a.y += lift[i]; f.b.y += lift[i]; f.h0 = f.h.clone().setY(Math.max(f.h.y, pf)); f.h.y += lift[i]; });
+    }
     // stance width (motion brief: no narrow crossing gait): the recorded walkers put each ankle 0-5 cm off the line
     // under the pelvis (a catwalk on this wider-hipped body, 6 Nov front view); each foot is kept at least half the
     // gait "width" (default 16 cm between ankle centres, about the hip joints' spacing) out on its own side, the push smoothed over 0.4 s so the swing
@@ -333,12 +428,12 @@ export class VrmCharacter extends Character {
         F[i].a.addScaledVector(F[i].lat, sg * v); F[i].b.addScaledVector(F[i].lat, sg * v);
       }
     }
-    const C = this.def.contact || {}, up = C.height ?? 0.05, vmax = C.speed ?? 0.35, minLen = C.minLen ?? 0.1;
-    const spans = (F, key, base) => {
+    const C = { ...(this.def.contact || {}), ...(this.cast.contact || {}) }, up = C.height ?? 0.05, vmax = C.speed ?? 0.7, minLen = C.minLen ?? 0.1;
+    const spans = (F, key, base, up2 = up, v2 = vmax) => {
       const out = []; let cur = null;
       const sp = (i) => { const p = F[Math.max(0, i - 1)], q = F[Math.min(F.length - 1, i + 1)]; if (p.s !== q.s) return 0; return Math.hypot(q[key].x - p[key].x, q[key].z - p[key].z) / (q.t - p.t || dt); };
       F.forEach((f, i) => {
-        const v = sp(i), on = f[key].y < base + up && v < vmax;
+        const v = sp(i), on = f[key].y < base + up2 && v < v2;
         if (on && cur && cur.s === f.s) { cur.b = f.t; cur.pts.push([f[key], v]); }
         else { if (cur) out.push(cur); cur = on ? { a: f.t, b: f.t, s: f.s, pts: [[f[key], v]] } : null; }
       });
@@ -349,8 +444,8 @@ export class VrmCharacter extends Character {
       });
     };
     const plan = {};
-    for (const sd of ["left", "right"]) plan[sd] = { H: spans(S[sd], "a", this.footH), T: spans(S[sd], "b", this.toeH) };
-    if (this.cast.diagPalms || this.cast.diagFeet) for (const sd of ["left", "right"]) console.log(`diag:plan ${sd} widen max ${Math.max(...this.width[sd]).toFixed(3)} mean ${(this.width[sd].reduce((a, b) => a + b, 0) / n).toFixed(3)} side ${(S[sd].reduce((a, f) => a + (sd === "left" ? 1 : -1) * f.a.clone().sub(f.mid).dot(f.lat), 0) / n).toFixed(3)}`), console.log(`diag:plan ${sd} heel ${plan[sd].H.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")} ball ${plan[sd].T.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")}`);
+    for (const sd of ["left", "right"]) plan[sd] = { H: spans(S[sd], "a", this.footH), T: spans(S[sd], "b", this.toeH), P: spans(S[sd], "h0", this.def.contact?.palm ?? 0.025, 0.1, 1.0) };   // (a palm comes down fast and the arm reaches the last 10 cm)
+    if (this.cast.diagPalms || this.cast.diagFeet) for (const sd of ["left", "right"]) console.log(`diag:plan ${sd} widen max ${Math.max(...this.width[sd]).toFixed(3)} mean ${(this.width[sd].reduce((a, b) => a + b, 0) / n).toFixed(3)} side ${(S[sd].reduce((a, f) => a + (sd === "left" ? 1 : -1) * f.a.clone().sub(f.mid).dot(f.lat), 0) / n).toFixed(3)}`), console.log(`diag:plan ${sd} heel ${plan[sd].H.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")} ball ${plan[sd].T.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")} palm ${plan[sd].P.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")} lift max ${Math.max(...this.lift.v).toFixed(3)}`);
     return plan;
   }
 
@@ -373,8 +468,8 @@ export class VrmCharacter extends Character {
       for (const c of list) { if (c.s !== s) continue; const g = t < c.a ? c.a - t : t > c.b ? t - c.b : 0; if (g < bg) { bg = g; best = c; } }
       return best ? { p: best.p, k: (this.def.contact?.clear ?? 0.3) * (1 - smooth(bg / 0.3)) } : null;
     };
-    const [H, wH] = pick(P.H), [T, wT] = pick(P.T);
-    return { H: H?.p, wH, T: T?.p, wT, nH: near(P.H), nT: near(P.T) };
+    const [H, wH] = pick(P.H), [T, wT] = pick(P.T), [Pm, wP] = pick(P.P || []);
+    return { H: H?.p, wH, T: T?.p, wT, nH: near(P.H), nT: near(P.T), P: Pm?.p, wP };
   }
 
   apply(st, t) {
