@@ -309,6 +309,34 @@ function buildShell(ch, C) {
   for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); const p = pt(u, 0.955); ip.push(p.x, p.y, p.z); if (deep != null) { const k = deep + (1 - deep) * (i / NT) ** 3; ic.push(k, k, k); } }
   ig.setAttribute("position", new THREE.Float32BufferAttribute(ip, 3)); if (deep != null) ig.setAttribute("color", new THREE.Float32BufferAttribute(ic, 3)); ig.setIndex(idx); ig.computeVertexNormals();
   const inner = mesh(ig, std(S.inside || "#4A3426", { side: THREE.BackSide, roughness: 1, ...(deep != null ? { vertexColors: true } : {}) }), false); inner.userData.noOutline = true; group.add(inner);
+  // the lip (opt-in S.lip, 6 Nov 2026): the carapace margin turning in to meet the body, as on the pack's three-quarter
+  // view, where the rim plates sit tight round the body and only a dark crease shows between them. A skin from the rim
+  // to the body's surface (the body ellipsoid, S.lip deep inside it so no gap can open), sinking back a little in the
+  // middle and darkening to the crease colour, so the shell's inner wall no longer shows as a pale band beside the body
+  if (S.lip) {
+    const lp = [], lc = [], li = [], K = 10, NJ = 192, rimC = col(S.rimEdge || "#A9632F"), dark = col(S.lipDark || "#3A2416");
+    const bc = new THREE.Vector3(0, ch.cy + (S.lipDy ?? 0), 0), br = [ch.rx, ch.ry, ch.rz], d = new THREE.Vector3();
+    for (let k = 0; k <= K; k++) for (let j = 0; j <= NJ; j++) {
+      const s = k / K, ph = (j / NJ) * Math.PI * 2;
+      const a = pt(dirAt(alphaOf(ph), ph, u), 0.975);
+      d.copy(a).sub(bc); const m = Math.hypot(d.x / br[0], d.y / br[1], d.z / br[2]);
+      const b = bc.clone().addScaledVector(d, (1 - S.lip) / m);
+      const p = a.clone().lerp(b, s).addScaledVector(ax, (S.lipBack ?? 0.03) * Math.sin(s * Math.PI));
+      lp.push(p.x, p.y, p.z);
+      const cc = rimC.clone().lerp(dark, sstep(0, S.lipFade ?? 0.2, s) * (S.lipShade ?? 0.9)); lc.push(cc.r, cc.g, cc.b);
+    }
+    for (let k = 0; k < K; k++) for (let j = 0; j < NJ; j++) { const a = k * (NJ + 1) + j, b = a + 1, e = a + NJ + 1, f = e + 1; li.push(a, e, b, b, e, f); }
+    // one-sided, facing out of the opening (forward, -ax): test one quad and flip the winding if it faces in
+    { const v = (i) => new THREE.Vector3(lp[i * 3], lp[i * 3 + 1], lp[i * 3 + 2]), a = v(li[0]), b = v(li[1]), e = v(li[2]);
+      if (b.clone().sub(a).cross(e.clone().sub(a)).dot(ax) > 0) for (let i = 0; i < li.length; i += 3) { const x = li[i + 1]; li[i + 1] = li[i + 2]; li[i + 2] = x; } }
+    for (let i = 0; i < lc.length; i += 3) { lc[i] /= rimC.r; lc[i + 1] /= rimC.g; lc[i + 2] /= rimC.b; }
+    const lg = new THREE.BufferGeometry(); lg.setAttribute("position", new THREE.Float32BufferAttribute(lp, 3)); lg.setAttribute("color", new THREE.Float32BufferAttribute(lc, 3)); lg.setIndex(li);
+    // one even normal (out of the opening): a crease is a shadowed hollow, so it should not catch a highlight where the
+    // skin bends round the neck
+    { const nrm = []; for (let i = 0; i < lp.length; i += 3) nrm.push(-ax.x, -ax.y, -ax.z); lg.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3)); }
+    const lipM = mesh(lg, std(S.rimEdge || "#A9632F", { roughness: 0.95, vertexColors: true }), false);
+    lipM.userData.noOutline = true; lipM.name = "pebble-shell-lip"; group.add(lipM);
+  }
   // the rim: a rounded roll along the cut edge, joining outside and inside
   const rim = [];
   for (let j = 0; j < 96; j++) { const ph = (j / 96) * Math.PI * 2; dirAt(alphaOf(ph), ph, u); rim.push(pt(u, 0.978)); }

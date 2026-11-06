@@ -154,7 +154,6 @@
    "color": "#8E4F2A",
    "groove": "#A35D31",
    "rim": "#A9632F",
-   "inside": "#B5702F",
    "r": [
     0.41,
     0.52,
@@ -162,6 +161,10 @@
    ],
    "dz": 0.14,
    "rimR": 0.042,
+   "lip": 0.08,
+   "lipBack": 0.0,
+   "lipDark": "#3A2416",
+   "inside": "#B5702F",
    "moss": {
     "thick": 0.1,
     "from": 0.4,
