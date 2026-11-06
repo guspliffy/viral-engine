@@ -346,6 +346,152 @@
      "loudnessLUFS": -16.0
     }
    ]
+  },
+  {
+   "id": "calm-landscape",
+   "kind": "music",
+   "files": [
+    "calm-landscape/calm-landscape-01.ogg",
+    "calm-landscape/calm-landscape-02.ogg",
+    "calm-landscape/calm-landscape-03.ogg",
+    "calm-landscape/calm-landscape-04.ogg",
+    "calm-landscape/calm-landscape-05.ogg",
+    "calm-landscape/calm-landscape-06.ogg",
+    "calm-landscape/calm-landscape-07.ogg",
+    "calm-landscape/calm-landscape-08.ogg",
+    "calm-landscape/calm-landscape-09.ogg",
+    "calm-landscape/calm-landscape-10.ogg",
+    "calm-landscape/calm-landscape-11.ogg"
+   ],
+   "tags": [
+    "calm",
+    "orchestral",
+    "piano"
+   ],
+   "mood": "calm",
+   "bpm": null,
+   "bars": null,
+   "key": null,
+   "loopable": false,
+   "durationSec": 22.0,
+   "prompt": [
+    "calm film score, piano with warm viola and soft woodwinds, river flowing through a valley, slow and wise, 64 BPM, no drums",
+    "gentle pastoral orchestral piece, piano arpeggios with flute and soft strings, meadow in golden evening light, tender and calm, 68 BPM, no drums",
+    "hopeful gentle film music, piano melody with warm french horn and cellos, mountains and clouds, slow and peaceful, 70 BPM, no drums",
+    "peaceful orchestral film music, tender piano melody over soft warm strings and gentle horn, beautiful nature landscape scene, slow and calm, 66 BPM, no drums",
+    "quiet morning in a green valley, felt piano and warm cello, soft string pads, hopeful and gentle film score, 72 BPM, no drums",
+    "reflective cinematic piano with solo violin and soft string ensemble, rain on a quiet countryside, calm and thoughtful, 66 BPM, no drums",
+    "serene film score, slow piano chords with harp and warm violins, misty lake at dawn, peaceful and wise, 64 BPM, no drums",
+    "soft acoustic film score, piano and nylon guitar with light strings, sunny garden afternoon, calm and content, 76 BPM, no drums",
+    "warm cinematic piano theme with soft clarinet and string orchestra, walking through an autumn forest, calm and kind, 74 BPM, no drums"
+   ],
+   "seed": [
+    102,
+    103,
+    104,
+    105,
+    106,
+    108,
+    109,
+    110,
+    112,
+    33,
+    48
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "note": "Pebble's calm film score (Jonny 6 Nov 2026: piano and strings, a calm movie scene over a beautiful landscape; many melodies so the videos don't repeat). Use \"music\": { \"pool\": \"calm-landscape\" }: the clip's seed picks the take. Kept 11 of 14 takes; dropped the ones with a 19-30 dB level swing or long silences (measured, Claude can't hear).",
+   "takes": [
+    {
+     "file": "calm-landscape/calm-landscape-01.ogg",
+     "seed": 102,
+     "prompt": "peaceful orchestral film music, tender piano melody over soft warm strings and gentle horn, beautiful nature landscape scene, slow and calm, 66 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-02.ogg",
+     "seed": 103,
+     "prompt": "quiet morning in a green valley, felt piano and warm cello, soft string pads, hopeful and gentle film score, 72 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-03.ogg",
+     "seed": 104,
+     "prompt": "gentle pastoral orchestral piece, piano arpeggios with flute and soft strings, meadow in golden evening light, tender and calm, 68 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-04.ogg",
+     "seed": 105,
+     "prompt": "serene film score, slow piano chords with harp and warm violins, misty lake at dawn, peaceful and wise, 64 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-05.ogg",
+     "seed": 106,
+     "prompt": "warm cinematic piano theme with soft clarinet and string orchestra, walking through an autumn forest, calm and kind, 74 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-06.ogg",
+     "seed": 108,
+     "prompt": "hopeful gentle film music, piano melody with warm french horn and cellos, mountains and clouds, slow and peaceful, 70 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-07.ogg",
+     "seed": 109,
+     "prompt": "soft acoustic film score, piano and nylon guitar with light strings, sunny garden afternoon, calm and content, 76 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-08.ogg",
+     "seed": 110,
+     "prompt": "reflective cinematic piano with solo violin and soft string ensemble, rain on a quiet countryside, calm and thoughtful, 66 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-09.ogg",
+     "seed": 112,
+     "prompt": "calm film score, piano with warm viola and soft woodwinds, river flowing through a valley, slow and wise, 64 BPM, no drums",
+     "durationSec": 30.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-10.ogg",
+     "seed": 33,
+     "prompt": "peaceful orchestral film music, tender piano melody over soft warm strings and gentle horn, beautiful nature landscape scene, slow and calm, 66 BPM, no drums",
+     "durationSec": 22.0,
+     "bpm": null,
+     "bars": null
+    },
+    {
+     "file": "calm-landscape/calm-landscape-11.ogg",
+     "seed": 48,
+     "prompt": "peaceful orchestral film music, tender piano melody over soft warm strings and gentle horn, beautiful nature landscape scene, slow and calm, 66 BPM, no drums",
+     "durationSec": 22.0,
+     "bpm": null,
+     "bars": null
+    }
+   ]
   }
  ]
 }

@@ -58,8 +58,8 @@
   }
  },
  "music": {
-  "style": "warm",
-  "lowCut": 150,
+  "pool": "calm-landscape",
+  "lowCut": 120,
   "gain": 0.26
  },
  "cast": [
