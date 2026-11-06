@@ -135,12 +135,16 @@ A(0, "phx", "charge", { to: 0.15, dur: 0.01 });
 A(0, "phx", "look", { to: [0.1, 0.15], dur: 0.01, blink: false });
 A(0, "phx", "noblink");
 A(0, "phx", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.6, eye: 1.2 }, dur: 0.01 });
-for (const t of [0.04, 0.5, 0.96]) A(t, "phx", "hop", { height: 0.12, dur: 0.36 });   // the first crouch starts after frame 1 (frame-0 jump)
-for (const t of [0.0, 0.48, 0.96]) A(t, "phx", "wings", { to: 0.8, dur: 0.12, ease: "out" });
+for (const t of [0.04, 0.5, 0.96]) A(t, "phx", "hop", { height: 0.16, dur: 0.36 });   // the first crouch starts after frame 1 (frame-0 jump)
+for (const t of [0.0, 0.48, 0.96]) A(t, "phx", "wings", { to: 1, dur: 0.12, ease: "out" });
 for (const t of [0.2, 0.68, 1.16]) A(t, "phx", "wings", { to: 0.35, dur: 0.18 });
 for (const t of [0.12, 0.6, 1.08]) { c.prop(t, "bucket", { puff: 1 }, 0.14, "out"); c.prop(t + 0.14, "bucket", { puff: 0 }, 0.18, "in"); }
 act.opener(c, "phx", "ooh! OOH! OOOH!", { at: 0.05, dur: 1.2, pos: SUB });
-c.captions[c.captions.length - 1].text = "Ooh! OOH! OOOH!";
+{ // one word per bounce (review B): "Ooh!" 0.05-0.5, "OOH!" 0.5-0.96, "OOOH!" 0.96-1.65
+  const k = c.captions[c.captions.length - 1], to = k.to;
+  Object.assign(k, { text: "Ooh!", to: 0.5 });
+  c.captions.push({ ...k, from: 0.5, to: 0.96, text: "OOH!" }, { ...k, from: 0.96, to, text: "OOOH!" });
+}
 for (const t of [0.36, 0.84, 1.32]) sfx(t, "ai/crunch", { gain: 0.25, reason: "popcorn crunching as he bounces and munches" });
 // the four others perfectly still, wide-eyed at the screen
 for (const id of ["rea", "wiz", "ast", "dra"]) A(0, id, "look", { to: [0, 0.05], dur: 0.01, blink: false });
@@ -152,7 +156,7 @@ see(0, 1.4, ["phx.face", "bucket", "rea.face", "wiz.face", "ast.face", "dra.face
 
 // ---------------------------------------------------------------- 02 THE SCREAM 1.5-3.3
 const SCARE = 1.85;
-c.at(SCARE, { fx: "flash", peak: 0.7, dur: 0.3, sound: false });
+c.at(r3(SCARE - 0.12), { fx: "flash", peak: 0.6, dur: 0.22, sound: false });   // already clearing when the hit-stop holds his scream face (review B)
 sfx(SCARE, "scarestab", { gain: 0.7, reason: "the film's jump-scare hit (we only see its white flash)" });
 sfx(SCARE, "slap", { gain: 0.45, reason: "the stab's sharp crack" });
 for (const id of ["rea", "wiz", "ast", "dra"]) { A(SCARE + 0.03, id, "squash", { amount: 0.06, dur: 0.12 }); act.shock(c, SCARE + 0.03, id, { open: 0.3, hold: 0.4 }); }
@@ -162,6 +166,7 @@ A(1.87, "phx", "hop", { height: 0.32, dur: 0.42 });
 A(1.87, "phx", "expr", { expr: "shocked", set: { eye: 1.35, open: 1 }, dur: 0.06 });
 A(1.87, "phx", "wings", { to: 1, dur: 0.1, ease: "out" });
 c.say(1.88, "phx", "AAAAAAH!", 0.6, "scared", { pos: SUB_HI, sub: "AAAAH!" });
+c.captions[c.captions.length - 1].to = 2.55;   // gone before the SHH! (review B)
 c.prop(1.92, "bucket", { puff: 1, fill: 0.72 }, 0.12, "out"); c.prop(2.06, "bucket", { puff: 0 }, 0.2, "in");
 c.prop(1.92, "rain1", { burst: 1 }, 1.0, "linear");
 sfx(1.95, "whoosh", { gain: 0.3, reason: "the popcorn fountain going up" });
@@ -175,7 +180,7 @@ c.arm(1.95, "ast", "R", { o: [0.3, 0.55, 0.18] }, 0.15, "out"); c.arm(1.95, "ast
 c.arm(2.5, "ast", "R", "lap", 0.3, "inOut"); c.arm(2.5, "ast", "L", "lap", 0.3, "inOut");
 for (const id of ["ast", "dra"]) { A(2.45, id, "look", { to: [id === "ast" ? 0.45 : -0.45, -0.6], dur: 0.15, blink: false }); act.mood(c, 2.5, id, "annoyed", { hold: 0.9 }); }
 c.say(2.6, "ast", "Shh!", 0.35, "angry", { pos: SUB_HI, sub: false });   // the SHH! pop by his head says it (one text, review A)
-c.textPop(2.6, "ast", "SHH!", { dur: 0.6, size: 80, dx: -0.4, dy: -0.9, color: "speaker" });
+c.textPop(2.6, "ast", "SHH!", { dur: 0.6, size: 80, dx: -0.55, dy: -0.45, color: "speaker" });   // beside his helmet
 // Phoenix turns to them, beams and holds the bucket up to them
 A(2.55, "phx", "turn", { to: 30, dur: 0.25 });
 A(2.55, "phx", "look", { to: [-0.2, 0.7], dur: 0.15, blink: false });
@@ -290,7 +295,7 @@ const THUMB = { prop: "hall", grip: [-0.15, r3(SIT + 0.8), 1.05], frame: { y: [-
 A(7.62, "phx", "grip", { side: "R", shape: "thumb", dur: 0.15 });
 c.arm(7.66, "phx", "R", THUMB, 0.2, "settle");
 c.arm(7.66, "phx", "L", { o: [0, 0.95, 0.08] }, 0.25, "inOut");
-c.at(7.8, { fx: "sparkle", pos: [0.12, r3(SIT + 0.95), 0.3], dur: 0.6, count: 3, color: "#fff2a8" });
+c.at(7.8, { fx: "sparkle", pos: [-0.06, r3(SIT + 1.0), 0.45], dur: 0.6, count: 2, color: "#fff2a8" });   // on his eye (review B)
 sfx(7.8, "ting", { gain: 0.45, reason: "the series logo: one bright ting on the grin" });
 A(7.8, "phx", "charge", { to: 0.75, dur: 0.1 }); A(7.95, "phx", "charge", { to: 0.6, dur: 0.3 });
 A(7.9, "phx", "still", { dur: 0.55, idle: 0.04 });
@@ -345,7 +350,7 @@ see(9.45, 9.75, ["phx.face", "ast", "dra", "rea", "wiz"], "AGAIN!: he beams with
 
 // ---------------------------------------------------------------- shots
 const WIDE = { pos: [0, 0.8, 4.2], look: [0, 1.75, -1], fov: 53 };   // the panels: from just under the front row's eyes, looking up the tiers, seat backs (not floor) at the bottom
-const CATA = { pos: [0.9, 0.9, 3.0], look: [0, 1.35, -0.1], fov: 50 };   // low three-quarters: the seat, its hinge and his feet (review A)   // panel 04: closer, the same side
+const CATA = { pos: [0.9, 1.0, 3.3], look: [0, 1.65, -0.1], fov: 58 };   // low three-quarters: the seat, its hinge and his feet (review A)   // panel 04: closer, the same side
 const GRIN = { pos: [0.25, r3(SIT + 1.0), 3.3], look: [0, r3(SIT + 0.8), 0], fov: 46 };
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
@@ -387,7 +392,7 @@ write(import.meta.url, {
     { who: "ast", from: 9.45, to: 10, checks: ["face-covered"], reason: "AGAIN!: Phoenix's arms go up in front of the Astronaut, whose head has already dropped" },
     { who: "phx", with: "seatR", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
     { who: "phx", with: "seatW", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
-    { who: "phx", from: 3.3, to: 3.45, checks: ["grip-gap"], reason: "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)" },
+    { who: "phx", from: 3.3, to: 3.55, checks: ["grip-gap"], reason: "the frame he springs up off the seat the bucket trails his gloves by a few centimetres, inside the fast rise (15 fps strip looked at)" },
     { who: "phx", with: "seatD", from: 6.0, to: 7.7, checks: ["costume-in-prop"], reason: "a flame-feather wing tip brushes the padded seat back behind him on the slam and the grin turn, behind his own body" },
     { who: "phx", with: "hall", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his wing tips fold behind his seat back against the tier's carpeted step, hidden by the seat" },
     { who: "dra", with: "e3", from: 0, to: 10, checks: ["costume-in-prop"], reason: "a wing tip brushes the empty seat beside him" },
