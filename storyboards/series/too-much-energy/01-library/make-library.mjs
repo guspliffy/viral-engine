@@ -45,7 +45,7 @@ const RIDER0 = local(LAD0, RIDE_OFF[0], RIDE_OFF[2]);
 const RAIL_GRIP = [0.4, 0.82, -0.17];               // the front rail at his chest (the ladder leans back 14 degrees)
 
 // ---------------------------------------------------------------- people
-const PHX0 = [-0.85, 1.2], PHX_TABLE = [-0.2, 0.64], PHX_FLIP = [-0.85, 0.95], PHX_POSE = [-1.05, 1.25], PHX_LAND = [-0.4, 1.6];
+const PHX0 = [-0.85, 1.2], PHX_TABLE = [-0.2, 0.64], PHX_FLIP = [-0.85, 0.95], PHX_POSE = [-1.05, 1.25], PHX_LAND = [-0.5, 1.6];
 const REA = [-0.28, -0.92], WIZ = [0.9, -0.9], SOR = [0.38, -2.5];
 // the issue desk stands on a low dais (old libraries raise the librarian): his face shows between the two readers' heads
 const TABLE = [0.35, -0.1], DAIS = [0.38, -2.1], DAIS_H = 0.4, DESK = [0.38, -1.72], DESK_H = 0.55;
@@ -106,7 +106,7 @@ A(0, "phx", "charge", { to: 0.12, dur: 0.01 });
 A(0, "phx", "look", { to: [0.4, 0.05], dur: 0.01, blink: false });
 A(0, "phx", "noblink");
 A(0, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.7, eye: 1.15 }, dur: 0.01 });
-for (const t of [0.0, 0.45, 0.9]) A(t, "phx", "hop", { height: 0.16, dur: 0.38 });
+for (const t of [0.0, 0.45, 0.9]) A(t, "phx", "hop", { height: 0.22, dur: 0.38 });
 for (const t of [0.0, 0.45, 0.9]) A(t, "phx", "wings", { to: 1, dur: 0.12, ease: "out" });
 for (const t of [0.2, 0.65, 1.1]) A(t, "phx", "wings", { to: 0.4, dur: 0.18 });
 act.opener(c, "phx", "psst! PSST! dragons!", { at: 0.05, dur: 0.9, pos: SUB });
@@ -120,7 +120,8 @@ c.arm(0, "wiz", "R", WIZ_REST, 0.01);
 A(0, "wiz", "look", { to: [-0.05, -0.6], dur: 0.01, blink: false }); A(0, "wiz", "face", { lid: 0.5, dur: 0.01 });
 A(0, "sor", "look", { to: [-0.3, -0.5], dur: 0.01, blink: false }); A(0, "sor", "crouch", { to: 0.35, dur: 0.01 });
 A(0.6, "sor", "look", { to: [-0.45, -0.1], dur: 0.2, blink: false }); A(0.65, "sor", "expr", { expr: "annoyed", dur: 0.3 });
-act.blinksAt(c, "rea", [1.25, 4.75]); act.blinksAt(c, "wiz", [0.9, 3.6]); act.blinksAt(c, "sor", [2.2]);
+A(0.95, "rea", "look", { to: [-0.45, 0.1], dur: 0.12, blink: false }); A(1.3, "rea", "look", { to: [0, -0.15], dur: 0.15, blink: false });   // a glance over the book
+act.blinksAt(c, "rea", [1.6, 4.75]); act.blinksAt(c, "wiz", [0.9, 3.6]); act.blinksAt(c, "sor", [2.2]);
 see(0, 1.4, ["phx.face", "dbook", "rea", "wiz.face", "sor.face", "s0"], "frame 0: the loud friend with the dragon book in front of two silent readers, the shelves and ladder behind");
 
 // ---------------------------------------------------------------- 02 SOMERSAULT, THEN THE SPELL 1.5-3.3
@@ -136,27 +137,27 @@ CARRY("phx", "dbook", DB_HANDS, DBOOK_TABLE, 1.82, 0.16, "in");
 c.prop(1.8, "dbook", { stand: 0 }, 0.18, "inOut");   // laid down open, pages up (it turns about the line between his palms)
 A(2.0, "phx", "release", { prop: "dbook", dur: 0 });
 sfx(1.98, "kenney/book-place", { gain: 0.55, reason: "the dragon book slapped down open on the table" });
-c.arm(2.02, "phx", "R", { o: [0.25, 0.65, 0.2] }, 0.15, "out"); c.arm(2.02, "phx", "L", { o: [0.25, 0.65, 0.2] }, 0.15, "out");
+c.arm(2.02, "phx", "R", { o: [0.25, 0.65, 0.2] }, 0.13, "out"); c.arm(2.02, "phx", "L", { o: [0.25, 0.65, 0.2] }, 0.13, "out");
 // flip 1: up and over to the left; flip 2: back toward the middle, landing in a pose
 // (a hop carries the body up and down while the walk takes it across; the second flip turns back the other way, so
 // the pitch ends where it started)
-A(2.05, "phx", "move", { to: PHX_FLIP, dur: 0.28, ease: "inOut" });
-A(2.03, "phx", "turn", { to: 15, dur: 0.3, ease: "inOut" });   // back round to us inside the first somersault
-A(2.05, "phx", "hop", { height: 0.5, dur: 0.28 });
-A(2.05, "phx", "pitch", { to: -360, dur: 0.28, ease: "inOut" });
-A(2.33, "phx", "squash", { amount: 0.18, dur: 0.08 });
-sfx(2.33, "land", { gain: 0.45, reason: "his feet thumping onto the wooden floor after the first somersault" });
-A(2.27, "phx", "look", { to: [0.35, 0.0], dur: 0.08, blink: false });   // eyes first: back toward the table
-A(2.33, "phx", "move", { to: PHX_POSE, dur: 0.28, ease: "inOut" });
-A(2.33, "phx", "hop", { height: 0.5, dur: 0.28 });
-A(2.33, "phx", "pitch", { to: 0, dur: 0.28, ease: "inOut" });
-A(2.61, "phx", "squash", { amount: 0.2, dur: 0.12 });
-sfx(2.61, "land", { gain: 0.5, reason: "the second landing thump" });
-act.landDust(c, 2.61, PHX_POSE);
-A(2.2, "phx", "span", { to: 1, dur: 0.15 });
-c.arm(2.64, "phx", "R", { o: [0.3, 0.85, 0.15] }, 0.12, "out"); c.arm(2.64, "phx", "L", { o: [0.3, 0.85, 0.15] }, 0.12, "out");   // ta-da
-A(2.64, "phx", "turn", { to: 25, dur: 0.15 });   // toward the Wizard
-A(2.64, "phx", "look", { to: [0.3, 0.05], dur: 0.1, blink: false });
+A(2.15, "phx", "move", { to: PHX_FLIP, dur: 0.24, ease: "inOut" });
+A(2.1, "phx", "turn", { to: 15, dur: 0.3, ease: "inOut" });   // back round to us inside the first somersault
+A(2.15, "phx", "hop", { height: 0.5, dur: 0.24 });
+A(2.15, "phx", "pitch", { to: -360, dur: 0.24, ease: "inOut" });
+A(2.39, "phx", "squash", { amount: 0.18, dur: 0.08 });
+sfx(2.39, "land", { gain: 0.45, reason: "his feet thumping onto the wooden floor after the first somersault" });
+A(2.33, "phx", "look", { to: [0.35, 0.0], dur: 0.06, blink: false });   // eyes first: back toward the table
+A(2.39, "phx", "move", { to: PHX_POSE, dur: 0.24, ease: "inOut" });
+A(2.39, "phx", "hop", { height: 0.5, dur: 0.24 });
+A(2.39, "phx", "pitch", { to: 0, dur: 0.24, ease: "inOut" });
+A(2.63, "phx", "squash", { amount: 0.2, dur: 0.12 });
+sfx(2.63, "land", { gain: 0.5, reason: "the second landing thump" });
+act.landDust(c, 2.63, PHX_POSE);
+A(2.25, "phx", "span", { to: 1, dur: 0.15 });
+c.arm(2.66, "phx", "R", { o: [0.3, 0.85, 0.15] }, 0.12, "out"); c.arm(2.66, "phx", "L", { o: [0.3, 0.85, 0.15] }, 0.12, "out");   // ta-da
+A(2.66, "phx", "turn", { to: 25, dur: 0.15 });   // toward the Wizard
+A(2.66, "phx", "look", { to: [0.3, 0.05], dur: 0.1, blink: false });
 A(2.66, "phx", "charge", { to: 0.25, dur: 0.15 });
 sfx(2.66, "ai/flare", { gain: 0.4, reason: "the energy meter up one size: his crest flares" });
 // Reaper slowly lifts his book until it covers his face
@@ -171,6 +172,7 @@ A(2.5, "wiz", "turn", { to: -30, dur: 0.25, ease: "inOut" });
 // his free right hand points at Phoenix (the staff stays in his left, on the outer side)
 c.arm(2.55, "wiz", "R", { o: [0.0, 0.6, 0.42] }, 0.2, "out"); A(2.6, "wiz", "grip", { side: "R", shape: "point", dur: 0.1 });
 c.say(2.6, "wiz", "caaalm... dowwn...", 0.6, "calm", { pos: SUB_HI, sub: "Calm… down…" });
+c.captions[c.captions.length - 1].to = 3.3;   // off before the SHH!
 A(2.6, "wiz", "charge", { to: 1, dur: 0.2 });
 sfx(2.62, "charge", { gain: 0.32, dur: 0.5, reason: "the soft calm spell leaving the staff" });
 const SPELL = [0.2, 0.4, 0.6, 0.8].map((k) => [r3(WIZ[0] - 0.2 + (PHX_POSE[0] - WIZ[0] + 0.2) * k), r3(0.95 - 0.25 * k), r3(WIZ[1] + 0.35 + (PHX_POSE[1] - WIZ[1] - 0.35) * k)]);
@@ -195,7 +197,7 @@ A(3.35, "sor", "look", { to: [-0.3, -0.15], dur: 0.12, blink: false });
 act.mood(c, 3.4, "sor", "angry", { hold: 0.5 });
 c.arm(3.38, "sor", "R", { o: [0.3, 0.5, 0.4] }, 0.15, "out"); A(3.4, "sor", "grip", { side: "R", shape: "point", dur: 0.08 });
 c.say(3.5, "sor", "SHH!", 0.35, "angry", { sub: false });
-c.textPop(3.5, "sor", "SHH!", { dur: 0.75, size: 130, dx: 0.7, dy: -0.35, angle: -6, color: "speaker" });
+c.textPop(3.5, "sor", "SHH!", { dur: 0.62, size: 130, dx: 0.7, dy: -0.35, angle: -6, color: "speaker" });
 sfx(3.5, "hiss", { gain: 0.35, reason: "the librarian's sharp SHH" });
 A(3.95, "sor", "crouch", { to: 0, dur: 0.3 }); c.arm(3.95, "sor", "R", "rest", 0.3, "inOut"); A(4.0, "sor", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 // Phoenix takes it as a wave and waves back
@@ -325,22 +327,22 @@ A(9.3, "phx", "pitch", { to: -360, dur: 0.2 });
 
 // ---------------------------------------------------------------- 07 SMOKE 9.4-10.0
 c.at(9.25, { fx: "poof", pos: [PHX_LAND[0], 1.2, PHX_LAND[1]], dur: 0.55, color: "#c9c5bf", puffs: 3, sparks: 0, size: 0.18, lift: 0.4 });
-A(9.4, "phx", "expr", { expr: "kind", set: { tilt: 0.5, curve: 0.35, open: 0.08, eye: 1.0, smirk: 0.15 }, dur: 0.3 });   // sheepish: brows up and in, a small half grin
+A(9.4, "phx", "expr", { expr: "kind", set: { tilt: 0.5, curve: 0.55, open: 0.14, eye: 1.0, smirk: 0.3 }, dur: 0.3 });   // sheepish: brows up and in, a small half grin
 A(9.4, "phx", "face", { brow: 0.5, lid: 0.2, dur: 0.3 });
-c.at(9.45, { fx: "sweat", who: "phx", dur: 0.5, count: 1 });
-c.at(9.62, { fx: "poof", pos: [PHX_LAND[0], 1.2, PHX_LAND[1]], dur: 0.45, color: "#d6d2cc", puffs: 2, sparks: 0, size: 0.2, lift: 0.3 });   // the curl still rising in the last frame
-A(9.42, "phx", "look", { to: [0.05, 0.05], dur: 0.12, blink: false });
+c.at(9.45, { fx: "sweat", who: "phx", dur: 0.55, count: 2 });
+c.at(9.55, { fx: "poof", pos: [r3(PHX_LAND[0] + 0.08), 1.05, PHX_LAND[1]], dur: 0.45, color: "#dcd8d2", puffs: 2, sparks: 0, size: 0.22, lift: 0.1 });   // the curl still rising in the last frame
+A(9.42, "phx", "look", { to: [-0.45, 0.12], dur: 0.12, blink: false });   // a sideways glance
 A(9.55, "phx", "blink", { dur: 0.16 });
 A(9.75, "phx", "still", { dur: 0.1, idle: 0.02 });
 for (const id of ["wiz", "sor", "rea"]) c.arm(9.35, id, "R", id === "wiz" ? WIZ_REST : "rest", 0.3, "inOut");
 see(9.15, 9.75, ["phx.face", "wiz.face", "sor.face", "rea.face"], "his flame is out, a smoke curl, the three still glaring");
 
 // ---------------------------------------------------------------- shots
-const WIDE = { pos: [-0.25, 1.35, 4.8], look: [-0.5, 1.3, -1.5], fov: 60 };   // the ladder and the front bookcase behind him on the left
-const RIDE = { pos: [-0.9, 1.5, 3.3], look: [-1.75, 1.3, -1.9], fov: 50, to: { pos: [-0.7, 1.5, 3.3], look: [-1.2, 1.3, -1.6], fov: 50 }, dur: 1.65, ease: "inOut" };   // the rail, the shelf top and the end stop fill it
+const WIDE = { pos: [-0.25, 1.35, 4.8], look: [-0.5, 1.3, -1.5], fov: 60, to: { pos: [-0.25, 1.33, 4.6], look: [-0.5, 1.29, -1.5], fov: 60 }, dur: 1.5, ease: "inOut" };   // a slow push in on the hook   // the ladder and the front bookcase behind him on the left
+const RIDE = { pos: [-1.7, 1.4, 3.6], look: [-2.3, 0.95, -2.2], fov: 50, to: { pos: [-1.5, 1.4, 3.6], look: [-1.6, 0.95, -1.8], fov: 50 }, dur: 1.65, ease: "inOut" };   // the whole ladder, its wheels and the end stop   // the rail, the shelf top and the end stop fill it
 const BREAK = { pos: [0.2, 2.6, 4.6], look: [-0.4, 1.1, -3.8], fov: 54 };   // over their heads: the bookcases fall back and lean on each other   // low and a little from the right: the tops cross the windows as they go
 const GRIN = { pos: [r3(PHX_LAND[0] + 0.25), 1.0, r3(PHX_LAND[1] + 3.3)], look: [PHX_LAND[0], 0.68, PHX_LAND[1]], fov: 46 };
-const SHUSH = { pos: [-0.05, 2.5, 4.2], look: [0.0, 0.8, -1.0], fov: 50 };   // his head bottom left, the three faces over it
+const SHUSH = { pos: [0.35, 2.6, 5.0], look: [-0.3, 0.0, -1.0], fov: 50 };   // from the right: his crest clears Reaper, his face above the app caption bar   // his face above the app's caption bar, the three over his head   // his head bottom left, the three faces over it
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
   ["02 somersault, then the spell", 1.5, null],
