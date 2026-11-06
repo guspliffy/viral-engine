@@ -76,12 +76,15 @@
    "iris": "#6B3A1C",
    "brow": "#C9793A",
    "eye": {
-    "oval": 0.74,
-    "iris": 0.66,
-    "glintSize": 0.45,
+    "oval": 0.62,
+    "iris": 0.52,
+    "glintSize": 0.6,
     "irisShade": true,
-    "lash": 1.0,
-    "white": "#F2E4CC"
+    "lash": 1.2,
+    "white": "#F2E4CC",
+    "tilt": -0.3,
+    "flick": 0,
+    "corner": 0.6
    },
    "layout": {
     "mouthV": -0.3,
