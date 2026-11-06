@@ -6,7 +6,7 @@ import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
 import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
 import { radialTexture } from "./geo.js";
-import { buildProp, propState, gripWorld } from "./props3d.js";
+import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
@@ -21,7 +21,8 @@ import { makeAttach } from "./attach.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
-let attach2 = null;   // holds 2 (attach.js): "rig": { "hold": 2 }
+let attach2 = null;
+let phys = null;      // prop physics (physics.js, quality plan item 17): a storyboard with "physics" actions   // holds 2 (attach.js): "rig": { "hold": 2 }
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
@@ -423,7 +424,17 @@ async function init(data) {
   poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
+  setPhysicsPose(null);
   attach2 = Number(sb.rig?.hold) >= 2 ? makeAttach({ sb, scene, props, states: () => poseStates, setMeshes: setObjs }) : null;
+  // prop physics (quality plan item 17): "physics" actions bake rigid bodies for the whole clip, once, here
+  // "physics": true (the template) also bakes every let-go (holds 2 gives the hand's pose and speed); the bake runs
+  // with the cast posed at 0 (holders are posed at other moments the way holds 2 does it)
+  if (sb.physics || (sb.actions || []).some((a) => a.do === "physics") || (sb.props || []).some((s) => s.body?.settle)) {
+    poseStates = Object.fromEntries(actors.map((a) => { const st = actorState(sb, a.c, a.def, 0); a.ch.apply(st, 0); return [a.c.id, { st, a }]; }));
+    if (attach2) attach2.begin(0);
+    phys = await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs, attach: attach2, releasePose: (p, time, tr) => attach2?.releasePose(p, time, tr), setPose: setPhysicsPose });
+    if (!phys) setPhysicsPose(null);
+  } else phys = null;
   styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
@@ -519,6 +530,8 @@ function pose(t0) {
     const ps = propState(sb, p.spec, t);
     p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null; p.holdHand = ps.hold ? ps.hold.hand : null;
     p.ps = ps;
+    // a body of the physics bake (from its start on): its baked pose, after its own state gave it its size and parts
+    if (phys && phys.owns(p, t)) { p.held = false; p.apply(ps, t); phys.place(p, t); continue; }
     // holds 2: attach.js places a held or let-go prop after its own state is applied (its size, parts and own turn)
     if (attach2 && (ps.hold || ps.left)) { p.apply(ps, t); if (attach2.place(p, ps)) continue; }
     // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
@@ -923,7 +936,7 @@ function layout(t) {
     const w = new THREE.Vector3(); p.root.getWorldPosition(w);
     const v = w.clone().project(camera), px = v.z < 1 ? [Math.round((v.x + 1) / 2 * W), Math.round((1 - v.y) / 2 * H)] : null;
     // holds 2: is it held, riding, in flight, resting on something (within 1 cm), staged with a reason, or unsupported
-    const support = attach2 && p.ps ? attach2.support(p, p.ps) : null;
+    const support = (phys && phys.support(p, t)) || (attach2 && p.ps ? attach2.support(p, p.ps) : null);
     return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible, ...(support && { support }) };
   });
   const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
@@ -943,7 +956,7 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: [...caps, ...pops], actors: actorsOut, props: propsOut, clips: clipping() };
+  return { t, captions: [...caps, ...pops], actors: actorsOut, props: propsOut, clips: clipping(), ...(phys && { physics: phys.info }) };
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,

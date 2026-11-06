@@ -390,6 +390,40 @@ gap, height) are in the file. `node storyboards/lookdev/make-grip-tests.mjs` wri
 (`storyboards/lookdev/grip-<hold>.json`). A new hold is added there and approved by Jonny from its close-up video
 before a clip uses it.
 
+## Holds 2 and real physics (on in the template; Jonny, 5 Nov: "physics should apply to every video")
+
+`"rig": { "hold": 2 }` (engine/page/attach.js, PR #132) keeps a held prop rigid in the hand: it moves and turns with the
+grip from the grab on, passes and regrips blend over 0.15 s, and the layout records for every prop on every frame
+whether it is held, riding, in flight, resting or staged (`qa/support.mjs`: `prop-support`, `hold-owner`).
+
+`"physics": true` (engine/page/physics.js) bakes rigid bodies once, before the first frame, with Rapier's
+deterministic build at a fixed 1/120 s step: the set's meshes and the props are solid, each character is a capsule
+with its hat, and balls at its hands and forearms. Every frame is then a lookup, so a farm shard or a cached frame gives
+the same picture, and the layout carries the bake's hash.
+
+- **A let-go is a body.** A `release` without `to` leaves the hand with the hand's speed and turn, tumbles and lands on
+  whatever is under it (a put-down mug stays where it was put; a phone let go at the chest lands flat). A `release`
+  with `to` and a `dur` of 0.1 s or more is an aimed throw: it gets to `to` in `dur`. `keep: "air"` with a reason
+  stages it in the air instead.
+- **Falls, throws and knocks** go through the clip builder, never a hand-tweened path (`physics-tween` warns on a
+  `prop` tween that brings a loose prop down 15 cm or more):
+
+```js
+c.throw(2.62, "case", { to: [1.5, 0.13, 1.2], in: 0.3, spin: [3, 0.8, 1] });  // lands there at 2.92, on its "wham"
+c.drop(1.0, "vase");                                 // falls from where its tween has it, from rest
+c.knock(0.5, "duf", { v: [-1.2, 1.5, 0.9], spin: [-2, 1, 4] });   // a kick (m/s, rad/s about the world axes)
+c.float(5.0, 0, { dur: 0.15, damp: 0.5 });           // zero-g with air drag; c.float(9.2, -16) slams it all down
+```
+
+- **A pile at rest from frame 0**: `"body": { "settle": true }` in a prop's spec makes it a body a second before the
+  clip, so it lies on what is under it. Give piled props a few centimetres between them; start poses that overlap
+  push apart. `"body": { "density", "bounce", "friction", "shape": "box" }` tunes one prop.
+- A hand that reaches for a prop the bake moved reaches where it landed, and a grab takes it from there.
+- Aim throws at the spot and the frame the story needs (a slam on its sound). Things drifting in zero-g go where the
+  bake takes them: check `face-hidden` and the must-see list, and kick them (`c.knock` with `to`) clear of faces.
+- Benches: `storyboards/lookdev/make-physics-bench.mjs` (a slam, zero-g, a crash), and its regression copy checks
+  the bake's hash on every pull request.
+
 ## Light from the painting (opt-in, quality plan item 18; Jonny's call before it becomes a default)
 
 `"set": { "lighting": 2 }` (`engine/page/light.js`, read by `looks.js`) lights the cast from the set's own painting so
