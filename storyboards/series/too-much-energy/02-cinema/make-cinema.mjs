@@ -134,7 +134,7 @@ A(0, "phx", "charge", { to: 0.15, dur: 0.01 });
 A(0, "phx", "look", { to: [0.1, 0.15], dur: 0.01, blink: false });
 A(0, "phx", "noblink");
 A(0, "phx", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.6, eye: 1.2 }, dur: 0.01 });
-for (const t of [0.0, 0.48, 0.96]) A(t, "phx", "hop", { height: 0.12, dur: 0.36 });
+for (const t of [0.04, 0.5, 0.96]) A(t, "phx", "hop", { height: 0.12, dur: 0.36 });   // the first crouch starts after frame 1 (frame-0 jump)
 for (const t of [0.0, 0.48, 0.96]) A(t, "phx", "wings", { to: 0.8, dur: 0.12, ease: "out" });
 for (const t of [0.2, 0.68, 1.16]) A(t, "phx", "wings", { to: 0.35, dur: 0.18 });
 for (const t of [0.12, 0.6, 1.08]) { c.prop(t, "bucket", { puff: 1 }, 0.14, "out"); c.prop(t + 0.14, "bucket", { puff: 0 }, 0.18, "in"); }
@@ -282,7 +282,7 @@ A(7.45, "phx", "look", { to: [0.05, 0.05], dur: 0.15, blink: false });
 A(7.7, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.55, eye: 1.05 }, dur: 0.25 });
 A(7.7, "phx", "face", { brow: 0.15, dur: 0.25 });
 A(7.72, "phx", "squash", { amount: 0.025, dur: 0.25 });
-const THUMB = { prop: "hall", grip: [-0.36, r3(SIT + 0.8), 1.05], frame: { y: [-0.5, 0, 0.87], z: [0.87, 0, 0.5] } };
+const THUMB = { prop: "hall", grip: [-0.15, r3(SIT + 0.8), 1.05], frame: { y: [-0.5, 0, 0.87], z: [0.87, 0, 0.5] } };
 A(7.62, "phx", "grip", { side: "R", shape: "thumb", dur: 0.15 });
 c.arm(7.66, "phx", "R", THUMB, 0.2, "settle");
 c.arm(7.66, "phx", "L", { o: [0, 0.95, 0.08] }, 0.25, "inOut");
@@ -339,8 +339,8 @@ sfx(9.58, "thud-soft", { gain: 0.35, reason: "four heads dropping at once" });
 see(9.45, 9.75, ["phx.face", "ast", "dra", "rea", "wiz"], "AGAIN!: he beams with arms up, four heads drop");
 
 // ---------------------------------------------------------------- shots
-const WIDE = { pos: [0, 1.0, 4.8], look: [0, 1.75, -2], fov: 50 };
-const CATA = { pos: [0.25, 0.95, 2.7], look: [0, 1.15, -0.2], fov: 50 };   // panel 04: closer, the same side
+const WIDE = { pos: [0, 0.75, 4.6], look: [0, 2.0, -1], fov: 50 };   // the panels: from just under the front row's eyes, looking up the tiers, seat backs (not floor) at the bottom
+const CATA = { pos: [0.3, 1.25, 3.3], look: [0, 1.55, -0.2], fov: 52 };   // panel 04: closer, the same side
 const GRIN = { pos: [0.25, r3(SIT + 1.0), 3.3], look: [0, r3(SIT + 0.68), 0], fov: 46 };
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
