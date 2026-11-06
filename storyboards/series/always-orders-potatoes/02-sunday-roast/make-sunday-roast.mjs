@@ -323,8 +323,7 @@ see(V(7.15), r3(SPEAR + 0.15), ["vik.face", "rollie", "forkV"], "panel 7: the ro
 // he turns to the Wizard and holds it out on the fork: "Want some?"; the Wizard leans back, his glove up
 const OFFER = V(8.8);
 A(OFFER, "vik", "look", { to: [0.55, 0.05], dur: 0.12, blink: false });
-A(r3(OFFER + 0.05), "vik", "turn", { to: 50, dur: 0.3 });
-A(r3(OFFER + 0.1), "vik", "lean", { to: 12, dur: 0.3 });   // leaning in to the Wizard: the fork goes out to him, not just past his own chin   // turned to the Wizard, so the fork arm reaches out in front of his chest, not across his face
+A(r3(OFFER + 0.05), "vik", "turn", { to: 50, dur: 0.3 });   // turned to the Wizard, so the fork arm reaches out in front of his chest, not across his face
 A(r3(OFFER + 0.05), "vik", "expr", { expr: "happy", set: { curve: 0.8, open: 0.3 }, dur: 0.2 });
 // held out low toward the Wizard, the fist under his own chin line, the roast potato under the Wizard's nose
 tines(vf, r3(OFFER + 0.14), vAt([0.55, 0.5, -0.3], -150), 0.28, -150, "inOut");   // the body turns first, the arm follows over the heap's rim
