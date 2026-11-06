@@ -191,8 +191,10 @@ moving at once.
   stop/start tip and the bob, sway and arm swing (a tight staging that the extra body motion pushes into a contact).
   Bench: `storyboards/lookdev/make-feet-tests.mjs`; quick check without a browser:
   `node tools/feet/probe.mjs <sb> [--feet]` (how far each standing foot slides, how far a foot gets from the body).
-- **The motion layer** (quality plan items 8, 9 and 12, thread H, 5 Nov 2026; each part opt-in until Jonny approves it
-  from a side by side; util.js `layerOf`, engine/page/solve.js). In the motion object, next to `feet`:
+- **The motion layer** (quality plan items 8, 9 and 12, thread H, 5 Nov 2026; Jonny merged it 6 Nov and the clip
+  template turns all three parts on, old clips keep their motion; util.js `layerOf`, engine/page/solve.js). The
+  solver sees every character because stage.js (and `qa/motion.mjs`) register the cast (timeline.js `registerCast`)
+  before the first frame. In the motion object, next to `feet`:
   `"overlap": true` (item 8): every hand follows its pose with a little drag in the body's own frame (a damped spring,
   3.5 Hz, zeta 0.65: a hand arrives about two frames after its arm stops, overshoots a centimetre or two and settles)
   and the body's turn trails its target a beat (4 Hz, zeta 0.6, a small wind-up); a hand on a prop, on a point in the
