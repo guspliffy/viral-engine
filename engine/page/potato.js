@@ -1137,7 +1137,7 @@ export class Character {
     const skip = new Set([this.potatoParts, this.fries.group, ...["R", "L"].flatMap((s) => [this.arms[s].mesh, this.arms[s].hand, this.arms[s].skin, this.arms[s].ink, this.arms[s].tubeInk, this.legs[s].mesh, this.legs[s].foot]), ...Object.values(this._anc || {}).flat()].filter(Boolean));
     const C = this.costume, out = [], sc = new THREE.Vector3(), size = new THREE.Vector3();
     const walk = (o, name) => {
-      if (skip.has(o) || !o.visible) return;
+      if (skip.has(o) || !o.visible || o.userData.skin) return;   // userData.skin: painted on the skin (Pebble's limb spots)
       if (C.hat && o === C.hat) name = "hat"; else if (C.prop && o === C.prop) name = "prop"; else if (C.helmet && o === C.helmet.mesh) name = "helmet"; else if (o.name && !o.isMesh) name = o.name;
       if (o.isMesh && o.geometry?.attributes?.position && !o.isSprite) {
         const m = Array.isArray(o.material) ? o.material[0] : o.material;

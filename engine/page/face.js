@@ -628,6 +628,7 @@ export class Face {
       upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * 0.06 * Math.sin(t * Math.PI)]);
       lower.push([u, mv + bow + sm - open * 0.3 * Math.sin(t * Math.PI)]);
     }
+    this.corners = { R: upper[0], L: upper[n] };   // face coordinates of the mouth corners (a straw held in the lips follows them)
     // fangs (c.fangs 0..1, a vampire costume): two small white points hanging from the upper lip a third of the way in
     // from each corner, over the lower lip when the mouth is shut
     const fk = Math.max(0, Math.min(1, c.fangs || 0));

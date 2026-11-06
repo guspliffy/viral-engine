@@ -6,8 +6,10 @@ import { rng } from "./util.js";
 // costume.type "pebble"). potato.js builds the torso (def.body, golden ochre skin), the big separate head with its snout
 // (def.head.muzzle) and face, the short arms with three-finger gloves and the thick legs; this file adds what makes him
 // Pebble: the brown newsboy cap (turns with the head), the cream belly plate, the open olive vest with tan trim and one
-// button on his LEFT, the big domed shell of fitted stone scutes on his back with a tan rim, the moss cushion over its
-// top and ONE fern growing from the upper rear of the shell (it sways), and wide flat feet with three toes.
+// button on his RIGHT (Garden Guardian pack, 6 Nov 2026), the big domed shell of fitted stone scutes on his back with a
+// ring of rim plates, the moss cushion over its top and ONE fern growing from the upper rear of the shell (it sways),
+// wide flat feet with three toes, toasted spots on the face and limbs, and a short dry grass straw held in the LEFT
+// corner of his mouth (it follows the lip corner as the mouth moves).
 // Sides are anatomical: his RIGHT is -x, LEFT +x, forward +z. Returns the object costumes.js buildCostume returns.
 
 const std = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.75, ...o });
@@ -23,8 +25,11 @@ export function pebbleCostume(def, ch) {
   belly(ch, C);
   vest(ch, C);
   spots(ch, C);
+  const ls = limbSpots(ch, C); if (ls) live.push(ls);
   const shell = buildShell(ch, C);
   live.push(shell.update);
+  const straw = buildStraw(ch, C);
+  if (straw) { live.push(straw.update); out.straw = straw.group; }
   feet(ch, C);
   out.shell = shell.group;
   out.apply = (st, t, hands, fries) => { for (const f of live) f(st, t, hands, fries); };
@@ -145,6 +150,16 @@ function spots(ch, C) {
     const p = s.pos.clone().addScaledVector(s.normal, 0.001); g.translate(p.x, p.y, p.z); g.deleteAttribute("uv"); geos.push(g);
   }
   ch.head.group.add(mesh(mergeGeometries(geos), m, false));
+  // two tiny nostrils on the top of the muzzle (Garden Guardian pack), in face coordinates [u, v] (spots.nostrils)
+  if (K.nostrils !== false && ch.face) {
+    const nm = std(K.nostril || "#7A4420", { roughness: 0.8 }); nm.userData.noOutline = true; const ng = [];
+    for (const [u, v] of K.nostrils || [[-0.07, -0.08], [0.07, -0.08]]) {
+      const s = ch.face.place(u, v), g = new THREE.SphereGeometry(1, 10, 6);
+      g.scale(0.0075, 0.002, 0.0045); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yUp, s.normal));
+      const p = s.pos.clone().addScaledVector(s.normal, 0.001); g.translate(p.x, p.y, p.z); ng.push(g);
+    }
+    ch.head.group.add(mesh(mergeGeometries(ng), nm, false));
+  }
 }
 
 // ---------------------------------------------------------------- the pale belly plate (plastron) with soft seams
@@ -185,6 +200,12 @@ function vest(ch, C) {
     for (let k = 1; k <= 30; k++) st.push([sd * (edge(ph0) + 0.075 + (back - 0.2 - edge(ph0)) * (k / 30)), ph0 + 0.05]);
     P.add(dashes(ch, st, (V.lift ?? 0.014) + 0.003, V.stitchLen ?? 0.014, threadM));
   }
+  // pocket slits (Garden Guardian pack): a short welt line low on each front panel, in the trim colour
+  if (V.slits) for (const sd of [-1, 1]) {
+    const [st0, sp0] = V.slits === true ? [edge(-0.15) + 0.28, -0.15] : V.slits, sl = [];
+    for (let k = 0; k <= 6; k++) sl.push([sd * (st0 - 0.09 + 0.18 * (k / 6)), sp0 + 0.03 * (k / 6)]);
+    P.add(surfLine(ch, sl, (V.lift ?? 0.014) + 0.006, (V.trimR ?? 0.009) * 0.45, trimM));
+  }
   // a patch pocket low on his RIGHT front (-x): a flap of the vest's cloth with a trim edge and its stitching
   if (V.pocket !== false) {
     const [pt, pp] = V.pocket || [-(edge(-0.2) + 0.32), -0.22], pw = 0.17, phh = 0.16;
@@ -194,8 +215,9 @@ function vest(ch, C) {
     for (let i = 0; i < 3; i++) for (let k = 0; k < 10; k++) { const a = ps[i], b = ps[i + 1]; pl.push([a[0] + (b[0] - a[0]) * (k / 10), a[1] + (b[1] - a[1]) * (k / 10)]); }
     P.add(dashes(ch, pl, (V.lift ?? 0.014) + 0.009, 0.011, threadM));
   }
-  // the button: LEFT side (+x), on the vest just inside its front edge, low
-  const bph = V.buttonAt ?? -0.28, s = ch.surf(edge(bph) + 0.1, bph);
+  // the button: on his RIGHT (-x) by default (Garden Guardian pack: viewer-left in a front view; buttonSide 1 = LEFT),
+  // on the vest just inside its front edge, low
+  const bph = V.buttonAt ?? -0.28, s = ch.surf((V.buttonSide ?? -1) * (edge(bph) + 0.1), bph);
   const btn = mesh(new THREE.CylinderGeometry(0.021, 0.022, 0.012, 20), std(V.button || "#8A5530", { roughness: 0.5 }), false);
   btn.position.copy(s.pos).addScaledVector(s.normal, (V.lift ?? 0.014) + 0.008); btn.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.normal); P.add(btn);
 }
@@ -277,7 +299,20 @@ function buildShell(ch, C) {
   // the rim: a rounded roll along the cut edge, joining outside and inside
   const rim = [];
   for (let j = 0; j < 96; j++) { const ph = (j / 96) * Math.PI * 2; dirAt(alphaOf(ph), ph, u); rim.push(pt(u, 0.978)); }
-  group.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rim, true), 160, S.rimR ?? 0.022, 10, true), std(S.rimEdge || "#C49465", { roughness: 0.8 })));
+  const rimCurve = new THREE.CatmullRomCurve3(rim, true);
+  if (S.rimPlates) {
+    // the rim as a ring of rounded marginal plates (Garden Guardian pack: a thick ring of separate lighter-brown plates
+    // round the opening, each a fat capsule along a chord of the rim, small gaps between them)
+    const n = S.rimPlates, rr = S.rimR ?? 0.05, geos = [], yAx = new THREE.Vector3(0, 1, 0);
+    for (let i = 0; i < n; i++) {
+      const a = rimCurve.getPointAt(i / n), b = rimCurve.getPointAt((i + 1) / n), len = a.distanceTo(b);
+      const gC = new THREE.CapsuleGeometry(rr * (0.92 + 0.12 * R()), Math.max(0.001, len - rr * 2 - 0.006), 6, 12);
+      gC.scale(1, 1, 0.8);
+      const dir = b.clone().sub(a).normalize(), mid = a.clone().lerp(b, 0.5);
+      gC.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yAx, dir)); gC.translate(mid.x, mid.y, mid.z); gC.deleteAttribute("uv"); geos.push(gC);
+    }
+    group.add(mesh(mergeGeometries(geos), std(S.rimEdge || "#A9632F", { roughness: 0.85 })));
+  } else group.add(mesh(new THREE.TubeGeometry(rimCurve, 160, S.rimR ?? 0.022, 10, true), std(S.rimEdge || "#C49465", { roughness: 0.8 })));
   P.add(group);
   // a point on the outside of the shell along direction w (unit space) and its outward normal (world-ish, bodyGroup space)
   const onShell = (w) => {
@@ -307,9 +342,15 @@ function moss(group, onShell, dirAt, alphaOf, S, R) {
     if (cover < (M.from ?? 0.52) + (tiny ? 0.04 : 0)) continue;
     const r = (tiny ? (M.fineSize ?? 0.012) : (M.size ?? 0.034)) * (0.6 + 0.8 * R()) * (0.6 + 0.6 * sstep(M.from ?? 0.52, 0.95, cover));
     const s = new THREE.SphereGeometry(1, tiny ? 6 : 10, tiny ? 5 : 7);
-    s.scale(r * 1.15, r * (tiny ? 0.5 : (M.flat ?? 0.55)), r * 1.15);
+    // hang (Garden Guardian pack: a shaggy fringe): each tuft stretched down the slope it sits on, longer where it is steep
+    const hang = M.hang ? 1 + (M.hang - 1) * Math.min(1, Math.max(0, 1 - nn.y) * 1.6) : 1;
+    s.scale(r * 1.15, r * (tiny ? 0.5 : (M.flat ?? 0.55)), r * 1.15 * hang);
+    if (hang > 1) s.translate(0, 0, -r * 0.5 * (hang - 1));   // the tuft's root at its top, the rest hangs down
     const out_ = tiny ? (M.size ?? 0.034) * 0.3 : r * 0.15;   // the fine bits sit on top of the cushions
-    q.setFromUnitVectors(up, nn); s.applyQuaternion(q); s.translate(p.x + nn.x * out_, p.y + nn.y * out_, p.z + nn.z * out_);
+    // orient: the disc's normal along the surface normal, its long axis (z) pointing up the slope (so -z hangs down)
+    { const dn = new THREE.Vector3(0, 1, 0).addScaledVector(nn, -nn.y); if (dn.lengthSq() < 1e-4) dn.set(0, 0, 1); dn.normalize();
+      const xA = new THREE.Vector3().crossVectors(nn, dn).normalize(), M4 = new THREE.Matrix4().makeBasis(xA, nn, dn); s.applyMatrix4(M4); }
+    s.translate(p.x + nn.x * out_, p.y + nn.y * out_, p.z + nn.z * out_);
     const k = R(), cc = (k < 0.5 ? cs[0] : k < 0.8 ? cs[1] : cs[2]).clone().multiplyScalar(0.94 + 0.12 * R()), a = new Float32Array(s.attributes.position.count * 3);
     for (let j = 0; j < a.length; j += 3) { a[j] = cc.r / cs[0].r; a[j + 1] = cc.g / cs[0].g; a[j + 2] = cc.b / cs[0].b; }   // a ratio of the base (see the shell)
     s.setAttribute("color", new THREE.Float32BufferAttribute(a, 3)); s.deleteAttribute("uv");
@@ -334,7 +375,13 @@ function buildFern(group, onShell, S) {
     const piv = new THREE.Group(); root.add(piv);
     // the frond's plane: up and out along az; it rises then arches over
     const o = new THREE.Vector3(Math.sin(az), 0, Math.cos(az)), pts = [];
-    for (let k = 0; k <= 12; k++) { const s = k / 12, rise = Math.sin(s * Math.PI * 0.62) * len * (1 - out * 0.35), reach = s * len * (out + 0.18) + 0.25 * len * out * s * s; pts.push(o.clone().multiplyScalar(reach).add(new THREE.Vector3(0, rise - out * 0.18 * len * s * s, 0))); }
+    if (F.arch) {
+      // arch (Garden Guardian pack): the frond leaves the root steeply, then bends out along its length, so the tip
+      // hangs out over the side. out 0..1: how far it leans and bends (a0 from vertical at the root, a1 at the tip)
+      const a0 = (10 + 28 * out) * Math.PI / 180, a1 = a0 + (45 + 55 * out) * Math.PI / 180;
+      let x = 0, y = 0; pts.push(new THREE.Vector3());
+      for (let k = 1; k <= 12; k++) { const s = (k - 0.5) / 12, a = a0 + (a1 - a0) * s ** 1.4; x += Math.sin(a) * len / 12; y += Math.cos(a) * len / 12; pts.push(o.clone().multiplyScalar(x).add(new THREE.Vector3(0, y, 0))); }
+    } else for (let k = 0; k <= 12; k++) { const s = k / 12, rise = Math.sin(s * Math.PI * 0.62) * len * (1 - out * 0.35), reach = s * len * (out + 0.18) + 0.25 * len * out * s * s; pts.push(o.clone().multiplyScalar(reach).add(new THREE.Vector3(0, rise - out * 0.18 * len * s * s, 0))); }
     const curve = new THREE.CatmullRomCurve3(pts);
     piv.add(mesh(new THREE.TubeGeometry(curve, 20, F.stalkR ?? 0.0042, 5), stalkM, false));
     const geos = [];
@@ -360,6 +407,99 @@ function buildFern(group, onShell, S) {
     for (const fr of fronds) {
       const sw = (F.sway ?? 0.05) * Math.sin(2 * Math.PI * fr.f * t + fr.ph);
       fr.piv.rotation.set(-ft.f * lag + sw * Math.cos(fr.az) * 0.6, 0, ft.s * lag + sw * Math.sin(fr.az + 1));
+    }
+  };
+}
+
+// ---------------------------------------------------------------- the straw (Garden Guardian pack, 6 Nov 2026): a short
+// thin dry grass stem, gently bent, with a small seed head, held in the LEFT corner of his mouth (+u on the face: toward
+// the viewer's right in a front view). Its root sits a little inside the lips at the corner and follows the corner every
+// frame (face.js corners: the corner moves in when the mouth opens or puckers, up with a smile), the free end points out
+// and a little down and forward. It lives in the head group, so it turns with the head and never swaps sides with the
+// camera. costume.straw false: no straw (straw.side -1: the right corner).
+function buildStraw(ch, C) {
+  const K = C.straw; if (!K || !ch.head || !ch.face) return null;
+  const side = K.side ?? 1, len = K.length ?? 0.16, r = K.r ?? 0.0032;
+  const m = std(K.color || "#D9AE5C", { roughness: 0.9 }), seedM = std(K.seed || "#C99A45", { roughness: 0.9 });
+  const g = new THREE.Group(); g.name = "pebble-straw";
+  // the stem along +x (out of the corner), bowing up a little then drooping; a seed head of small grains on its last fifth
+  const pts = [];
+  for (let k = 0; k <= 10; k++) { const s = k / 10; pts.push(new THREE.Vector3(-0.012 + s * len, 0.018 * Math.sin(s * Math.PI * 0.8) - (K.droop ?? 0.03) * s * s, 0)); }
+  const curve = new THREE.CatmullRomCurve3(pts);
+  g.add(mesh(new THREE.TubeGeometry(curve, 24, r, 6), m, false));
+  const geos = [], grain = new THREE.SphereGeometry(1, 8, 6);
+  for (let k = 0; k < (K.grains ?? 9); k++) {
+    const s = 0.8 + 0.19 * (k / ((K.grains ?? 9) - 1)), p = curve.getPointAt(s), tg = curve.getTangentAt(s), sd = k % 2 ? 1 : -1;
+    const gg = grain.clone(); gg.scale(0.0085 * (1.15 - 0.4 * (s - 0.8) * 5), 0.0034, 0.0034);
+    const dir = tg.clone().applyAxisAngle(new THREE.Vector3(0, 0, 1), sd * 0.45).normalize();
+    gg.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(1, 0, 0), dir));
+    gg.translate(p.x + dir.x * 0.006, p.y + dir.y * 0.006, p.z); geos.push(gg);
+  }
+  const tipG = grain.clone(); tipG.scale(0.008, 0.003, 0.003); const pe = curve.getPointAt(1); tipG.translate(pe.x + 0.005, pe.y, pe.z); geos.push(tipG);
+  g.add(mesh(mergeGeometries(geos), seedM, false));
+  ch.root.add(g);
+  const yaw = (K.yaw ?? 35) * Math.PI / 180, dip = (K.dip ?? 12) * Math.PI / 180;
+  // its pose in the lips (head group space) and in a hand (the hand's space: the root at the index finger's pad, the
+  // stem out past the fingertips and a little toward the thumb), both turned into the character root's space every
+  // frame; the "straw" action (timeline.js) blends them, so a hand-off is a continuous move, never a pop
+  const inv = new THREE.Matrix4(), mM = new THREE.Matrix4(), hM = new THREE.Matrix4(), tmp = new THREE.Matrix4(), e = new THREE.Euler();
+  const pa = new THREE.Vector3(), pb = new THREE.Vector3(), qa = new THREE.Quaternion(), qb = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1), sc = new THREE.Vector3();
+  const handLocal = new THREE.Matrix4().compose(new THREE.Vector3(0.004, 0.01, 0.012), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, Math.PI / 2 - 0.35)), one);
+  const update = (st) => {
+    const S = st.straw || { hand: 0, away: 0, side: "R" };
+    g.visible = !S.away;
+    const cn = ch.face.corners?.[side > 0 ? "L" : "R"]; if (!cn || !g.visible) return;
+    ch.root.updateMatrixWorld(true); inv.copy(ch.root.matrixWorld).invert();
+    // in the lips: into the lips along the surface normal; the stem leaves sideways (+x on his left), turned forward by yaw
+    const p = ch.face.place(cn[0], cn[1]);
+    e.set(0, side > 0 ? -yaw : Math.PI + yaw, side > 0 ? -dip : dip, "YXZ");
+    tmp.compose(p.pos.clone().addScaledVector(p.normal, -(K.inset ?? 0.004)), qa.setFromEuler(e), one);
+    mM.multiplyMatrices(inv, ch.head.group.matrixWorld).multiply(tmp);
+    mM.decompose(pa, qa, sc);
+    const k = Math.max(0, Math.min(1, S.hand || 0));
+    if (k > 0) {
+      const hand = ch.arms[S.side || "R"].hand, pad = hand.userData.pad;
+      hM.multiplyMatrices(inv, (pad || hand).matrixWorld).multiply(handLocal); hM.decompose(pb, qb, sc);
+      // eased, with a small lift on the way so it travels in an arc, not through the chin
+      const u = k * k * (3 - 2 * k);
+      pa.lerp(pb, u).y += 0.03 * Math.sin(Math.PI * u); qa.slerp(qb, u);
+    }
+    g.position.copy(pa); g.quaternion.copy(qa);
+    // the root's scale (the character's own size) is in ch.root, so the straw keeps its size in the root's space
+  };
+  return { group: g, update };
+}
+
+// toasted spots on the arms and legs (Garden Guardian pack): soft-edged patches on the thighs and the upper arms, flat
+// discs that ride on the leg and arm tubes (re-placed every frame from the limb curves potato.js keeps). spots.legs /
+// .arms: [t along the limb (0 hip/shoulder .. 1 foot/hand), angle round it (0 front, + toward his outside), radius]
+function limbSpots(ch, C) {
+  const K = C.spots || {}; if (K === false || K.limbs === false) return null;
+  const m = std(K.color || "#D27A30", { roughness: 0.8 }); m.userData.noOutline = true;
+  const legs = K.legs || [[0.3, 0.7, 0.032], [0.48, 1.35, 0.024], [0.22, -0.2, 0.02], [0.62, 0.35, 0.02]];
+  const arms = K.arms || [[0.2, 0.9, 0.026], [0.32, 1.6, 0.019], [0.12, 0.2, 0.017], [0.45, 1.1, 0.015]];
+  const disc = new THREE.SphereGeometry(1, 14, 8);
+  const make = (list) => list.map(([t, a, r]) => { const x = mesh(disc, m, false); x.scale.set(r, 0.0035, r * 0.85); x.userData.spot = [t, a]; x.userData.skin = true; ch.root.add(x); return x; });
+  const set = { R: { leg: make(legs), arm: make(arms) }, L: { leg: make(legs), arm: make(arms) } };
+  const fwd = new THREE.Vector3(), side = new THREE.Vector3(), n = new THREE.Vector3(), yUp = new THREE.Vector3(0, 1, 0);
+  const place = (list, curve, w, sx, show, radius) => {
+    for (const x of list) {
+      x.visible = show; if (!show || !curve) continue;
+      const [t, a] = x.userData.spot, p = curve.getPointAt(t), tg = curve.getTangentAt(t);
+      fwd.set(0, 0, 1).addScaledVector(tg, -tg.z).normalize(); side.crossVectors(tg, fwd).normalize();
+      if (side.x * sx < 0) side.negate();
+      n.copy(fwd).multiplyScalar(Math.cos(a)).addScaledVector(side, Math.sin(a)).normalize();
+      x.position.copy(p).addScaledVector(n, radius(t, w) + 0.0015); x.quaternion.setFromUnitVectors(yUp, n);
+    }
+  };
+  return (st) => {
+    const show = ch.legs.R.mesh?.visible !== false;
+    for (const s of ["R", "L"]) {
+      const sx = s === "R" ? -1 : 1, L = ch.legs[s], A = ch.arms[s], Ch = ch.constructor;
+      const legC = L.hip && L.knee ? Ch.armCurve(L.hip, L.knee, L.foot.position) : null;
+      place(set[s].leg, legC, ch.def.legs?.width ?? ch.limbW * 1.1, sx, show && !!legC, (t, w) => w);
+      const armC = A.elbow ? Ch.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint) : null;
+      place(set[s].arm, armC, ch.limbW, sx, show && !!armC && A.mesh?.visible !== false, (t, w) => Ch.armRadius(t, w));
     }
   };
 }

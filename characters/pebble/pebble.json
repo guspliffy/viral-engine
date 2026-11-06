@@ -1,14 +1,14 @@
 {
  "id": "pebble/pebble",
  "name": "Pebble",
- "source": "Jonny's final Pebble sheet, 5 Nov 2026 (Option B: brown newsboy cap, open olive vest; characters/pebble/pebble-reference-v1.png in the project files) and his master character brief. Built on the Core Five humanoid core build (separate head, neck); the cap, belly plate, vest, shell, moss, fern and feet are engine/page/costumes-pebble.js.",
+ "source": "Jonny's Garden Guardian pack, 6 Nov 2026 (primary reference 00-primary-reference.png = the target; turnaround and expression sheets as construction guides; /mnt/project-files/characters/pebble/garden-guardian/), after his Option B sheet of 5 Nov. Built on the Core Five humanoid core build (separate head, neck); the cap, belly plate, vest, shell, moss, fern, straw, spots and feet are engine/page/costumes-pebble.js. Colours sampled as midtones from the primary reference.",
  "rig": "potato",
  "build": "core",
  "body": {
-  "color": "#DDA04F",
+  "color": "#EE9A42",
   "height": 0.5,
-  "width": 0.56,
-  "depth": 0.48,
+  "width": 0.6,
+  "depth": 0.5,
   "lump": 0,
   "seed": 31,
   "taper": -0.14,
@@ -17,37 +17,37 @@
   "gloss": 0
  },
  "head": {
-  "color": "#DDA04F",
+  "color": "#EE9A42",
   "width": 0.44,
-  "height": 0.34,
-  "depth": 0.48,
-  "square": 2.1,
-  "taper": 0.12,
-  "neck": -0.08,
-  "neckR": 0.11,
-  "forward": 0.16,
+  "height": 0.37,
+  "depth": 0.46,
+  "square": 1.8,
+  "taper": 0.26,
+  "neck": -0.02,
+  "neckR": 0.13,
+  "forward": 0.1,
   "faceUp": 0.0,
   "faceWide": 1.0,
   "muzzle": {
-   "a": 0.55,
-   "v": -0.22,
-   "w": 0.58,
-   "h": 0.36
+   "a": 0.5,
+   "v": -0.12,
+   "w": 0.5,
+   "h": 0.3
   },
   "above": 0.12
  },
  "legs": {
-  "height": 0.2,
-  "width": 0.12,
+  "height": 0.17,
+  "width": 0.15,
   "hipX": 0.16
  },
  "limbs": {
-  "color": "#DDA04F",
-  "width": 0.088,
+  "color": "#EE9A42",
+  "width": 0.078,
   "shoulder": 0.42
  },
  "face": {
-  "size": 0.5,
+  "size": 0.56,
   "default": "kind",
   "iris": "#6B3E1E",
   "cheeks": "#d4874a",
@@ -66,22 +66,22 @@
   "blush": 0.35,
   "freckles": 6,
   "final": {
-   "iris": "#6B3E1E",
+   "iris": "#6B3A1C",
    "brow": "#9A6434",
    "eye": {
-    "oval": 0.92,
-    "iris": 0.72,
+    "oval": 0.8,
+    "iris": 0.6,
     "glintSize": 0.55,
     "irisShade": true,
     "lash": 0.75
    },
    "layout": {
-    "mouthV": -0.38,
+    "mouthV": -0.34,
     "cheekV": -0.2,
     "browV": 0.5,
     "eyeU": 0.31,
     "eyeV": 0.3,
-    "mouthW": 0.15
+    "mouthW": 0.24
    },
    "browShape": {
     "arch": 0.12,
@@ -95,8 +95,8 @@
     "eye": 0.92
    },
    "neutral": {
-    "lidL": 0.58,
-    "lidR": 0.58
+    "lidL": 0.8,
+    "lidR": 0.8
    },
    "blush": 0.9,
    "freckles": 6
@@ -108,88 +108,86 @@
  "costume": {
   "type": "pebble",
   "cap": {
-   "color": "#9B613C",
-   "band": 0.5
+   "color": "#A95C32",
+   "band": 0.42,
+   "crown": [
+    1.2,
+    1.14
+   ]
   },
   "belly": {
-   "color": "#F3E3BE",
-   "seam": "#CDA874"
+   "color": "#F6CF85",
+   "seam": "#D9A55E"
   },
   "vest": {
-   "color": "#777344",
-   "trim": "#C9A46A",
-   "button": "#8A5530",
+   "color": "#847140",
+   "trim": "#D6A35E",
+   "button": "#8A4E25",
    "edge": 0.3,
    "flare": 0.08,
-   "hem": -0.62
+   "hem": -0.62,
+   "trimR": 0.02,
+   "pocket": false,
+   "slits": true
   },
   "shell": {
-   "color": "#74503A",
-   "groove": "#9C7352",
-   "rim": "#B9875A",
-   "inside": "#4A3426",
+   "color": "#8E4F2A",
+   "groove": "#A35D31",
+   "rim": "#A9632F",
+   "inside": "#B5702F",
    "r": [
-    0.42,
-    0.5,
-    0.44
+    0.41,
+    0.52,
+    0.46
    ],
-   "dz": 0.19,
-   "rimR": 0.045,
+   "dz": 0.14,
+   "rimR": 0.05,
    "moss": {
-    "count": 2600,
-    "size": 0.022,
-    "from": 0.45,
+    "count": 4200,
+    "size": 0.024,
+    "from": 0.4,
     "fine": 3000,
     "fineSize": 0.01,
-    "flat": 0.42,
+    "flat": 0.5,
     "ink": false,
-    "color": "#9AA238",
-    "light": "#B9B64C",
-    "dark": "#6E7A2A"
+    "color": "#B3A22C",
+    "light": "#D0BE4A",
+    "dark": "#857A1E",
+    "hang": 2.2
    },
    "fern": {
-    "leaf": 0.075,
-    "pairs": 18,
+    "leaf": 0.13,
+    "pairs": 16,
     "fronds": [
      [
-      0,
-      0.42,
-      0.05
+      3.14,
+      0.8,
+      0.35
      ],
      [
-      1.05,
-      0.38,
-      0.28
-     ],
-     [
-      2.1,
-      0.34,
-      0.36
-     ],
-     [
-      3.15,
-      0.36,
-      0.3
-     ],
-     [
-      4.2,
-      0.34,
-      0.36
-     ],
-     [
-      5.25,
-      0.4,
-      0.28
-     ],
-     [
-      0.5,
-      0.3,
+      2.3,
+      0.75,
       0.5
      ],
      [
-      3.7,
-      0.28,
-      0.52
+      4.0,
+      0.75,
+      0.5
+     ],
+     [
+      1.4,
+      0.66,
+      0.6
+     ],
+     [
+      4.9,
+      0.66,
+      0.6
+     ],
+     [
+      0.15,
+      0.7,
+      0.2
      ]
     ],
     "at": [
@@ -197,52 +195,68 @@
      0.95,
      -0.3
     ],
-    "leafW": 0.2
+    "leafW": 0.5,
+    "color": "#A8A535",
+    "light": "#C4BE52",
+    "stalk": "#7E7A2A",
+    "arch": true
    },
-   "dy": -0.04,
+   "dy": 0.04,
    "open": [
-    100,
+    112,
     50,
     90
    ],
    "rings": [
     [
      0.3,
-     6,
+     5,
      0
     ],
     [
-     0.58,
-     10,
+     0.62,
+     8,
      0.3
     ],
     [
-     0.84,
-     15,
+     0.86,
+     12,
      0.1
     ]
    ],
-   "marginals": 30,
+   "marginals": 24,
    "bulge": 0.1,
    "grooveW": 0.05,
    "growth": false,
    "seamK": 0.75,
-   "seam": "#A07650",
-   "edge": "#5E3F2A",
-   "light": "#8A6244",
+   "seam": "#4A2A18",
+   "edge": "#B06A38",
+   "light": "#A35D31",
    "grooveDepth": 0.02,
-   "rimEdge": "#C9A06C"
+   "rimEdge": "#A9632F",
+   "rimGroove": "#C07A40",
+   "rimPlates": 22
   },
   "feet": {
-   "toe": "#F2DDB0",
+   "toe": "#F8D693",
    "size": [
-    0.12,
-    0.06,
-    0.14
+    0.15,
+    0.07,
+    0.17
    ]
   },
   "spots": {
-   "size": 0.4
+   "size": 0.9,
+   "color": "#D27A30"
+  },
+  "straw": {
+   "side": 1,
+   "length": 0.17,
+   "r": 0.0032,
+   "color": "#D9AE5C",
+   "seed": "#C99A45",
+   "yaw": 8,
+   "dip": 18
   }
  },
  "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
@@ -263,16 +277,16 @@
  "arms": {
   "R": {
    "o": [
-    -0.02,
-    0.24,
+    0.0,
+    0.18,
     0.1
    ],
    "swing": 1
   },
   "L": {
    "o": [
-    -0.02,
-    0.24,
+    0.0,
+    0.18,
     0.1
    ],
    "swing": 1

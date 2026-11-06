@@ -614,6 +614,14 @@ export function actorState(sb, actor, def, t, raw = false) {
         for (const k in FACE_BOTH) if (a[k] != null) for (const kk of FACE_BOTH[k]) st.face[kk] = lerp(st.face[kk], a[k], e);
         break;
       }
+      // { do: "straw", hand: 0..1, side: "R" | "L", away: 0 | 1 } (Pebble's grass straw, costumes-pebble.js): hand 0 in the
+      // lips at the mouth corner, 1 pinched in that hand, eased between over dur (a continuous hand-off, never a pop);
+      // away 1 puts it out of sight (only while it is off screen or tucked away)
+      case "straw": {
+        const o = st.straw || { hand: 0, away: 0, side: "R" };
+        st.straw = { hand: a.hand != null ? lerp(o.hand, a.hand, e) : o.hand, away: a.away != null ? (e >= 1 ? a.away : o.away) : o.away, side: a.side || o.side };
+        break;
+      }
       // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
       case "grip": {
         for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], { ...(GRIPS[a.shape] || GRIPS.hold), ...(a.set || {}) }, e), since: a.at + (a.dur ?? 0.3) };

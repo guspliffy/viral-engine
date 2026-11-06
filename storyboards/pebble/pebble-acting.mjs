@@ -19,7 +19,7 @@ import * as act from "../lib/acting.mjs";
 export const SLOW = 0.4;   // his shortest face change
 // his resting upper lids (the sheet's half-lidded eyes): a "face" lid sets the lid outright, so every calm beat comes back
 // to this, never to 0 (0 opens the eyes wide; with his big round eyes a lid starts to show from about 0.6)
-export const LID = 0.58;
+export const LID = 0.8;
 
 export function calmSmile(c, t, who, { dur = SLOW } = {}) {
   c.A(t, who, "expr", { expr: "kind", dur });
@@ -58,7 +58,7 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
-export const REST = { R: { o: [-0.02, 0.24, 0.1], swing: 1 }, L: { o: [-0.02, 0.24, 0.1], swing: 1 } };
+export const REST = { R: { o: [0.0, 0.18, 0.1], swing: 1 }, L: { o: [0.0, 0.18, 0.1], swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
 // his walk (Jonny 6 Nov: "a fluent natural walk like the most recent potatoes"): the planted gait ("motion": { "feet": 2 })
