@@ -29,8 +29,8 @@ const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return
 
 // ---------------------------------------------------------------- the hall
 const SEAT_W = 0.92, SIT = 0.3;                        // a sitter's body y over its seat's y (timeline.js sit)
-const TIER = 0.65, BACK_Z = -1.15, ROW3_Z = -2.25, ROW4_Z = -3.35, ROW5_Z = -4.45;
-const X = { rea: -0.92, phx: 0, wiz: 0.92, ast: -0.46, dra: 0.46 };
+const TIER = 0.65, BACK_Z = -1.15, ROW3_Z = -2.55, ROW4_Z = -3.65, ROW5_Z = -4.75, BACK_W = 1.12;
+const X = { rea: -0.92, phx: 0, wiz: 0.92, ast: -0.56, dra: 0.56 };   // the back row's seats a little wider: the helmet and the wings need it
 const seatOf = { rea: "seatR", phx: "seatP", wiz: "seatW", ast: "seatA", dra: "seatD" };
 const Y = { rea: 0, phx: 0, wiz: 0, ast: TIER, dra: TIER };
 const Z = { rea: 0, phx: 0, wiz: 0, ast: BACK_Z, dra: BACK_Z };
@@ -47,7 +47,7 @@ const cast = [
 
 // the bucket on Phoenix's lap, between his knees; held by its two sides
 const BK = { h: 0.36, r: 0.2, rb: 0.14 };
-const BUCKET0 = [0, 0.36, 0.44];
+const BUCKET0 = [0, 0.22, 0.5];
 const SIDE = (s) => [r3(s * (BK.rb + (BK.r - BK.rb) * 0.55 + 0.03)), r3(BK.h * 0.55), 0];   // R hand s -1 (its -x), L hand s 1
 const BK_HANDS = [["R", SIDE(-1)], ["L", SIDE(1)]];
 const CARRY = (who, id, grips, at, t, dur, ease) => grips.forEach(([side, g]) => c.arm(t, who, side, { prop: id, grip: g, palm: true, ...(at && { at }) }, dur, ease));
@@ -64,7 +64,7 @@ for (let i = 0; i < 46; i++) {
   if (i % 6 === 0) { to = [HEAD.dra[0] + (a - 0.5) * 0.2, HEAD.dra[1], HEAD.dra[2] + (b - 0.5) * 0.15]; hide = 1; }
   else if (i % 6 === 1) { to = [HEAD.ast[0] + (a - 0.5) * 0.2, HEAD.ast[1], HEAD.ast[2] + (b - 0.5) * 0.15]; hide = 1; }
   else if (i % 6 === 2) to = [(a - 0.5) * 0.7, 1.13, -0.36];                                    // on the front seat backs' rolled tops
-  else if (i % 6 === 3) to = [[-0.92, 0, 0.92][i % 3] + (a - 0.5) * 0.05, TIER + 0.68, BACK_Z - 0.03 + (b - 0.5) * 0.4];   // the back row's armrests
+  else if (i % 6 === 3) to = [[-1.12, 0, 1.12][i % 3] + (a - 0.5) * 0.05, TIER + 0.68, BACK_Z - 0.03 + (b - 0.5) * 0.4];   // the back row's armrests
   else to = [(a - 0.5) * 2.4, TIER + 0.02, -0.75 + (b - 0.5) * 0.2];                            // the tier's floor in front of their feet
   rain1.push(kern(from, to, cc * 0.25, 0.42 + b * 0.18, 0.55 + a * 0.45, hide));
 }
@@ -79,7 +79,7 @@ for (let i = 0; i < 80; i++) {
   if (k === 0 || k === 1 || k === 2) { to = [HEAD.dra[0] + (a - 0.5) * 0.3, HEAD.dra[1], HEAD.dra[2] + (b - 0.5) * 0.2]; hide = 1; }   // the Dragon gets buried
   else if (k === 3) { to = [HEAD.phx[0] + (a - 0.5) * 0.15, HEAD.phx[1], HEAD.phx[2] + (b - 0.5) * 0.1]; hide = 1; }   // some fall back into his crest
   else if (k === 4) to = [(a - 0.5) * 2.0, TIER + 0.02, -0.72 + (b - 0.5) * 0.2];
-  else if (k === 5) to = [[-0.92, 0, 0.92][i % 3] + (a - 0.5) * 0.05, TIER + 0.68, BACK_Z - 0.03 + (b - 0.5) * 0.4];
+  else if (k === 5) to = [[-1.12, 0, 1.12][i % 3] + (a - 0.5) * 0.05, TIER + 0.68, BACK_Z - 0.03 + (b - 0.5) * 0.4];
   else if (k === 6) to = [(a - 0.5) * 1.8, 1.13, -0.36];
   else to = [(a - 0.5) * 2.6, 0.02, 0.75 + b * 0.5];                                            // the floor in front of the front row
   rain2.push(kern(from, to, 0.05 + u * 0.55, 0.35 + b * 0.25, 0.15 + a * 0.3, hide));
@@ -87,28 +87,27 @@ for (let i = 0; i < 80; i++) {
 
 const emptySeats = [];
 for (const x of [-1.84, 1.84]) emptySeats.push({ x, y: 0, z: 0 });
-for (const x of [-1.38, 1.38, -2.3, 2.3]) emptySeats.push({ x, y: TIER, z: BACK_Z });
+for (const x of [-1.68, 1.68, -2.8, 2.8]) emptySeats.push({ x, y: TIER, z: BACK_Z, w: BACK_W });
 for (const x of [-1.84, -0.92, 0, 0.92, 1.84]) emptySeats.push({ x, y: TIER * 2, z: ROW3_Z });
 for (const x of [-2.3, -1.38, -0.46, 0.46, 1.38, 2.3]) emptySeats.push({ x, y: TIER * 3, z: ROW4_Z });
 for (const x of [-1.84, -0.92, 0, 0.92, 1.84]) emptySeats.push({ x, y: TIER * 4, z: ROW5_Z });
 
 const props = [
-  { id: "hall", kind: "cinemarow", x: 0, z: 0, w: 7, rows: [[-0.6, TIER, 1.1], [-1.7, TIER * 2, 1.1], [-2.8, TIER * 3, 1.1], [-3.9, TIER * 4, 1.1], [-5.0, TIER * 5, 0.6]], floorZ: 1.5, floorD: 4 },
+  { id: "hall", kind: "cinemarow", x: 0, z: 0, w: 7, rows: [[-0.75, TIER, 1.25], [-2.0, TIER * 2, 1.1], [-3.1, TIER * 3, 1.1], [-4.2, TIER * 4, 1.1], [-5.3, TIER * 5, 0.6]], floorZ: 1.5, floorD: 4 },
   { id: "seatR", kind: "cinemaseat", x: X.rea, z: 0, w: SEAT_W, arms: "both" },
   { id: "seatP", kind: "cinemaseat", x: X.phx, z: 0, w: SEAT_W, arms: "L" },
   { id: "seatW", kind: "cinemaseat", x: X.wiz, z: 0, w: SEAT_W, arms: "L" },
-  { id: "seatA", kind: "cinemaseat", x: X.ast, y: TIER, z: BACK_Z, w: SEAT_W, arms: "both" },
-  { id: "seatD", kind: "cinemaseat", x: X.dra, y: TIER, z: BACK_Z, w: SEAT_W, arms: "L", cups: ["L"] },
-  ...emptySeats.map((s, i) => ({ id: `e${i}`, kind: "cinemaseat", ...s, w: SEAT_W, arms: "L" })),
+  { id: "seatA", kind: "cinemaseat", x: X.ast, y: TIER, z: BACK_Z, w: BACK_W, arms: "both" },
+  { id: "seatD", kind: "cinemaseat", x: X.dra, y: TIER, z: BACK_Z, w: BACK_W, arms: "L", cups: ["L"] },
+  ...emptySeats.map((s, i) => ({ id: `e${i}`, kind: "cinemaseat", w: SEAT_W, ...s, arms: "L" })),
   { id: "bucket", kind: "cinemabucket", x: BUCKET0[0], y: BUCKET0[1], z: BUCKET0[2], ...BK, body: { density: 60, bounce: 0.15 } },
-  { id: "soda", kind: "papercup", x: r3(X.dra + SEAT_W / 2), y: r3(TIER + 0.58), z: r3(BACK_Z + 0.3), scale: 1.7, straws: 1, stripe: "#2a7fd8" },
-  { id: "smallpop", kind: "popcornbowl", x: r3(X.ast - SEAT_W / 2), y: r3(TIER + 0.66), z: r3(BACK_Z + 0.3), scale: 0.6, fill: 1 },
+  { id: "soda", kind: "papercup", x: r3(X.dra + BACK_W / 2), y: r3(TIER + 0.58), z: r3(BACK_Z + 0.3), scale: 1.7, straws: 1, stripe: "#2a7fd8", staged: "the Dragon's giant soda stands in his armrest's cup holder" },
   { id: "rain1", kind: "popcornrain", x: 0, y: 0, z: 0, ks: rain1, len: 1.0, seed: 1 },
   { id: "rain2", kind: "popcornrain", x: 0, y: 0, z: 0, ks: rain2, len: 1.2, seed: 7 },
   { id: "pileA", kind: "popcornpile", x: HEAD.ast[0], y: HEAD.ast[1], z: HEAD.ast[2], r: 0.16, n: 22, h: 0.06, seed: 4, fill: 0 },
   { id: "pileD", kind: "popcornpile", x: HEAD.dra[0], y: r3(HEAD.dra[1] - 0.02), z: HEAD.dra[2], r: 0.27, n: 80, h: 0.17, curve: 0.12, seed: 9, fill: 0 },
-  { id: "pileP", kind: "popcornpile", x: HEAD.phx[0], y: r3(HEAD.phx[1] + 0.06), z: r3(HEAD.phx[2] + 0.06), r: 0.13, n: 12, h: 0.06, seed: 13, fill: 0 },
-  { id: "kern", kind: "kernel", x: r3(HEAD.rea[0] + 0.04), y: HEAD.rea[1], z: r3(HEAD.rea[2] + 0.06), fill: 0, seed: 5 },
+  { id: "pileP", kind: "popcornpile", staged: "nothing to see until popcorn lands in his crest (it rides on his head from 6.1 s)", x: HEAD.phx[0], y: r3(HEAD.phx[1] + 0.06), z: r3(HEAD.phx[2] + 0.06), r: 0.13, n: 12, h: 0.06, seed: 13, fill: 0 },
+  { id: "kern", kind: "kernel", size: 2.4, x: r3(HEAD.rea[0] + 0.04), y: HEAD.rea[1], z: r3(HEAD.rea[2] + 0.06), fill: 0, seed: 5 },
   { id: "glow", kind: "cinemaglow", x: 0, y: 0.75, z: 0.25, color: "#ff8a2a", size: 2.4, peak: 0.55, glow: 0.25 },
   { id: "dust", kind: "dustmotes", x: 0, y: 2.6, z: -2.0, n: 50, box: [3.5, 2.5, 4.5], color: "#dfe6ff" },
 ];
@@ -126,7 +125,7 @@ A(0.02, "ast", "grab", { prop: "pileA", hand: "hat", keep: true, dur: 0 });
 A(0.02, "dra", "grab", { prop: "pileD", hand: "hat", keep: true, dur: 0 });
 A(0.02, "rea", "grab", { prop: "kern", hand: "hat", keep: true, dur: 0 });
 // the Wizard's hat off and on his lap (so he blocks nobody)
-A(0, "wiz", "hat", { off: [0.12, -0.8, 0.36], spin: [0, 0, -90], dur: 0.01 });
+A(0, "wiz", "hat", { off: [0.2, -0.95, 0.45], spin: [80, 0, 0], dur: 0.01 });   // on the outer side of his lap
 
 // ---------------------------------------------------------------- 01 ALREADY TOO MUCH 0-1.5
 CARRY("phx", "bucket", BK_HANDS, null, 0, 0.01);
@@ -171,7 +170,7 @@ A(2.05, "phx", "charge", { to: 0.35, dur: 0.15 });
 sfx(2.05, "ai/flare", { gain: 0.35, reason: "the energy meter up one size: his crest flares" });
 A(2.1, "phx", "wings", { to: 0.5, dur: 0.3 });
 // the Astronaut throws his hands up, then both glare down at him
-c.arm(1.95, "ast", "R", { o: [0.42, 0.55, 0.12] }, 0.15, "out"); c.arm(1.95, "ast", "L", { o: [0.42, 0.55, 0.12] }, 0.15, "out");
+c.arm(1.95, "ast", "R", { o: [0.3, 0.55, 0.18] }, 0.15, "out"); c.arm(1.95, "ast", "L", { o: [0.22, 0.55, 0.18] }, 0.15, "out");
 c.arm(2.5, "ast", "R", "lap", 0.3, "inOut"); c.arm(2.5, "ast", "L", "lap", 0.3, "inOut");
 for (const id of ["ast", "dra"]) { A(2.45, id, "look", { to: [id === "ast" ? 0.45 : -0.45, -0.6], dur: 0.15, blink: false }); act.mood(c, 2.5, id, "annoyed", { hold: 0.9 }); }
 c.say(2.6, "ast", "Shh!", 0.35, "angry", { pos: SUB_HI, sub: "Shh!" });
@@ -180,8 +179,8 @@ c.textPop(2.6, "ast", "SHH!", { dur: 0.6, size: 80, dx: -0.4, dy: -0.9, color: "
 A(2.55, "phx", "turn", { to: 30, dur: 0.25 });
 A(2.55, "phx", "look", { to: [-0.2, 0.7], dur: 0.15, blink: false });
 A(2.6, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.5, eye: 1.1 }, dur: 0.2 });
-CARRY("phx", "bucket", BK_HANDS, [0.12, 0.92, 0.32], 2.62, 0.3, "inOut");
-CARRY("phx", "bucket", BK_HANDS, [0, 0.62, 0.42], 3.05, 0.25, "inOut");
+CARRY("phx", "bucket", BK_HANDS, [0.2, 0.5, 0.6], 2.62, 0.3, "inOut");
+CARRY("phx", "bucket", BK_HANDS, [0, 0.4, 0.52], 3.05, 0.25, "inOut");
 A(3.05, "phx", "turn", { to: 0, dur: 0.22 });
 A(3.05, "phx", "look", { to: [0, 0.2], dur: 0.12, blink: false });
 for (const id of ["ast", "dra"]) A(3.0, id, "look", { to: [0, 0.05], dur: 0.2, blink: false });
@@ -190,13 +189,13 @@ see(1.85, 3.2, ["phx.face", "ast.face", "dra.face", "bucket"], "the scream: popc
 // ---------------------------------------------------------------- 03 THE ADVICE 3.3-5.3
 const UP = 3.3, TOP = 0.86;   // the folded seat's top edge (the hinge at 0.36, the cushion 0.52 long, at 84 degrees)
 A(UP, "phx", "stand", { dur: 0.25 });
-CARRY("phx", "bucket", BK_HANDS, [0, 0.62, 0.5], UP + 0.01, 0.25, "inOut");
+CARRY("phx", "bucket", BK_HANDS, [0, 0.55, 0.64], UP + 0.01, 0.25, "inOut");
 c.prop(UP + 0.12, "seatP", { open: 1 }, 0.1, "in");
 sfx(UP + 0.22, "seatclack", { gain: 0.7, reason: "his seat springs up behind him and clacks against its back" });
 A(UP + 0.3, "phx", "fly", { to: { x: 0, y: 1.05, z: -0.12 }, dur: 0.2, ease: "out" });
 A(UP + 0.5, "phx", "land", { to: TOP, dur: 0.14, fold: 0.6 });
 sfx(UP + 0.64, "land", { gain: 0.35, reason: "his feet on the folded seat's edge" });
-CARRY("phx", "bucket", BK_HANDS, [0, r3(TOP - 0.02), 0.36], UP + 0.3, 0.3, "inOut");
+CARRY("phx", "bucket", BK_HANDS, [0, r3(TOP - 0.02), 0.6], UP + 0.25, 0.25, "out");
 c.prop(UP + 0.3, "glow", { y: 1.5, z: 0.05 }, 0.3, "inOut");
 c.say(3.6, "phx", "DON'T open the door!", 0.9, "excited", { pos: SUB_HI, sub: "DON'T open the door!" });
 A(3.62, "phx", "lean", { to: 12, dur: 0.2 });
@@ -210,7 +209,8 @@ sfx(3.75, "ai/flare", { gain: 0.45, reason: "the meter up again: his wings flare
 // the strangers shield their eyes; Reaper pulls his hood down
 for (const id of ["ast", "dra"]) {
   act.mood(c, 3.85, id, "annoyed", { hold: 1.2, lid: 0.7 });
-  c.arm(3.85, id, "R", { o: [0.1, 0.62, 0.42] }, 0.2, "out");
+  c.arm(3.85, id, id === "ast" ? "L" : "R", { o: [0.06, 0.62, 0.3] }, 0.2, "out");
+  c.arm(5.05, id, id === "ast" ? "L" : "R", "lap", 0.25, "inOut");
 }
 c.arm(3.95, "rea", "R", { o: [0.05, 0.98, 0.3] }, 0.3, "inOut");
 A(4.1, "rea", "face", { lid: 0.85, dur: 0.3 });
@@ -245,8 +245,9 @@ c.prop(SLAM, "glow", { y: 0.85, z: 0.25 }, 0.12, "in");
 sfx(SLAM + 0.08, "seatclack", { gain: 0.9, reason: "the seat slamming down under him: the catapult's clack" });
 c.hitStop(6.05);
 // the catapult flings it out of his raised hands: an aimed throw from the hands (physics), turning over on its way
-A(SLAM + 0.02, "phx", "release", { prop: "bucket", to: [HEAD.ast[0], r3(HEAD.ast[1] + 0.42), HEAD.ast[2]], dur: 0.7, spin: [-4.6, 0.4, 0.3] });
-c.arm(SLAM + 0.02, "phx", "R", { o: [0.3, 0.95, 0.2] }, 0.12, "out"); c.arm(SLAM + 0.02, "phx", "L", { o: [0.3, 0.95, 0.2] }, 0.12, "out");
+A(SLAM + 0.02, "phx", "release", { prop: "bucket", to: [HEAD.ast[0], r3(HEAD.ast[1] + 0.2), HEAD.ast[2]], dur: 0.7, spin: [-4.6, 0.4, 0.3] });
+c.arm(SLAM + 0.02, "phx", "R", { o: [0.06, 0.95, 0.28] }, 0.12, "out"); c.arm(SLAM + 0.02, "phx", "L", { o: [0.06, 0.95, 0.28] }, 0.12, "out");
+c.arm(SLAM + 0.3, "phx", "R", "lap", 0.3, "inOut"); c.arm(SLAM + 0.3, "phx", "L", "lap", 0.3, "inOut");
 A(SLAM + 0.05, "phx", "expr", { expr: "shocked", set: { eye: 1.3, open: 0.5 }, dur: 0.08 });
 c.prop(SLAM + 0.06, "bucket", { fill: 0 }, 0.5, "linear");
 c.prop(SLAM + 0.06, "rain2", { burst: 1 }, 1.2, "linear");
@@ -259,7 +260,8 @@ const LANDS = r3(SLAM + 0.02 + 0.7);
 A(LANDS, "ast", "grab", { prop: "bucket", hand: "hat", keep: true, dur: 0 });
 sfx(LANDS, "kenney/impact-generic-light", { gain: 0.5, reason: "the cardboard bucket landing on his glass helmet: a soft bonk" });
 A(LANDS + 0.02, "ast", "squash", { amount: 0.08, dur: 0.15 });
-c.arm(LANDS + 0.05, "ast", "R", { o: [0.42, 0.55, 0.12] }, 0.15, "out"); c.arm(LANDS + 0.05, "ast", "L", { o: [0.42, 0.55, 0.12] }, 0.15, "out");
+c.arm(LANDS + 0.05, "ast", "R", { o: [0.25, 0.55, 0.2] }, 0.15, "out"); c.arm(LANDS + 0.05, "ast", "L", { o: [0.12, 0.55, 0.2] }, 0.15, "out");
+c.arm(8.2, "ast", "R", "lap", 0.3, "inOut"); c.arm(8.2, "ast", "L", "lap", 0.3, "inOut");
 for (const id of ["dra", "ast", "wiz", "rea"]) act.shock(c, SLAM + 0.08, id, { open: 0.3, hold: 0.8 });
 A(6.4, "dra", "face", { lid: 1, dur: 0.15 });   // the Dragon screws his eyes shut under the popcorn
 A(6.4, "dra", "expr", { expr: "annoyed", set: { open: 0.15 }, dur: 0.2 });
@@ -269,7 +271,9 @@ c.prop(6.4, "kern", { fill: 1 }, 0.01);   // one piece lands on Reaper's hood
 see(6.0, 7.2, ["bucket", "ast", "dra", "phx.face"], "the seat catapults the bucket: it empties over the back row and lands on the Astronaut's helmet");
 
 // ---------------------------------------------------------------- 05 THE GRIN 7.3-8.5 (the series block)
-A(7.29, "phx", "turn", { to: 40, dur: 0.01 });
+A(7.29, "phx", "turn", { to: 25, dur: 0.01 });
+A(7.29, "phx", "wings", { to: 0, dur: 0.01 });
+c.arm(7.28, "dra", "R", { o: [0.12, 0.45, 0.3] }, 0.01); c.arm(8.52, "dra", "R", "lap", 0.25, "inOut");   // under the cut: his hand off his lap, clear of Phoenix's wing in the close
 A(7.3, "phx", "look", { to: [0.55, 0.2], dur: 0.01, blink: false });
 A(7.3, "phx", "expr", { expr: "worried", set: { curve: -0.1, open: 0.1 }, dur: 0.01 });
 c.arm(7.29, "phx", "R", "lap", 0.01); c.arm(7.29, "phx", "L", "lap", 0.01);
@@ -281,7 +285,7 @@ A(7.72, "phx", "squash", { amount: 0.025, dur: 0.25 });
 const THUMB = { prop: "hall", grip: [-0.36, r3(SIT + 0.8), 1.05], frame: { y: [-0.5, 0, 0.87], z: [0.87, 0, 0.5] } };
 A(7.62, "phx", "grip", { side: "R", shape: "thumb", dur: 0.15 });
 c.arm(7.66, "phx", "R", THUMB, 0.2, "settle");
-c.arm(7.66, "phx", "L", { o: [0.4, 0.95, -0.05] }, 0.25, "inOut");
+c.arm(7.66, "phx", "L", { o: [0, 0.95, 0.08] }, 0.25, "inOut");
 c.at(7.8, { fx: "sparkle", pos: [0.12, r3(SIT + 0.95), 0.3], dur: 0.6, count: 3, color: "#fff2a8" });
 sfx(7.8, "ting", { gain: 0.45, reason: "the series logo: one bright ting on the grin" });
 A(7.8, "phx", "charge", { to: 0.75, dur: 0.1 }); A(7.95, "phx", "charge", { to: 0.6, dur: 0.3 });
@@ -294,35 +298,38 @@ c.arm(8.49, "phx", "R", "lap", 0.01); c.arm(8.49, "phx", "L", "lap", 0.01); A(8.
 A(8.5, "phx", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.3, eye: 1.1 }, dur: 0.15 });
 A(8.5, "phx", "look", { to: [0, 0.15], dur: 0.1, blink: false });
 // the Astronaut lifts the bucket off his helmet with both hands
-A(8.15, "ast", "look", { to: [0, 0.9], dur: 0.12, blink: false });   // he looks up at what is on his head first
-const LIFT = 8.55, BK_ON = [HEAD.ast[0], r3(HEAD.ast[1] + 0.3), HEAD.ast[2]];
-const UPSIDE = SIDE;   // turned over about its own x: its sides stay where they were
-c.arm(LIFT - 0.25, "ast", "R", { prop: "bucket", grip: UPSIDE(-1), palm: true }, 0.25, "inOut"); c.arm(LIFT - 0.25, "ast", "L", { prop: "bucket", grip: UPSIDE(1), palm: true }, 0.25, "inOut");
-A(LIFT, "ast", "grab", { prop: "bucket", hand: "both", grip: [0, 0, 0], dur: 0, pose: null });
-CARRY("ast", "bucket", [["R", UPSIDE(-1)], ["L", UPSIDE(1)]], [BK_ON[0], r3(BK_ON[1] + 0.3), BK_ON[2]], LIFT + 0.02, 0.35, "inOut");
-A(LIFT + 0.3, "ast", "expr", { expr: "annoyed", set: { open: 0 }, dur: 0.2 });
-CARRY("ast", "bucket", [["R", UPSIDE(-1)], ["L", UPSIDE(1)]], [X.ast, r3(TIER + 0.62), r3(BACK_Z + 0.42)], 9.2, 0.3, "inOut");   // down onto his lap before the heads drop
-A(LIFT + 0.3, "ast", "look", { to: [0.45, -0.6], dur: 0.15, blink: false });
+// the Astronaut shakes his head and the bucket flies off behind him onto the empty seat there (his arms can't reach up
+// round the helmet without going inside its glass): an aimed throw from his head, turning over once more
+const SHAKE = 8.55;
+for (const [k, to] of [[0, -16], [1, 16], [2, -10], [3, 0]]) A(r3(SHAKE + k * 0.08), "ast", "turn", { to, dur: 0.08, ease: "inOut" });
+A(SHAKE, "ast", "expr", { expr: "annoyed", set: { open: 0 }, dur: 0.15 });
+A(r3(SHAKE + 0.12), "ast", "release", { prop: "bucket", to: [r3(X.ast - 0.25), r3(TIER * 2 + 0.45), r3(ROW3_Z + 0.12)], dur: 0.5, spin: [5.5, 0.5, -0.8] });
+sfx(r3(SHAKE + 0.62), "kenney/impact-generic-light", { gain: 0.35, reason: "the bucket landing on the seat behind him" });
+A(r3(SHAKE + 0.35), "ast", "look", { to: [0.45, -0.6], dur: 0.15, blink: false });
 // the Dragon glares down at him; the Wizard puts his face in his glove
 A(8.55, "dra", "face", { lid: 0.35, dur: 0.15 }); act.mood(c, 8.55, "dra", "angry", { hold: 0.9 }); A(8.55, "dra", "look", { to: [-0.45, -0.6], dur: 0.15, blink: false });
-c.arm(8.55, "wiz", "L", { o: [-0.12, 0.62, 0.42] }, 0.25, "inOut");
+c.arm(8.55, "wiz", "R", { o: [-0.12, 0.62, 0.42] }, 0.25, "inOut");
 A(8.6, "wiz", "face", { lid: 1, dur: 0.2 });
 // Reaper lifts the one piece off his hood and eats it, eyes on the screen
-c.arm(8.6, "rea", "R", { o: [0.02, 1.0, 0.18] }, 0.25, "inOut");
-A(8.85, "rea", "grab", { prop: "kern", hand: "R", grip: [0, 0, 0], dur: 0.1 });
-c.arm(8.95, "rea", "R", { o: [-0.12, 0.42, 0.42] }, 0.22, "inOut");
-c.prop(9.15, "kern", { fill: 0 }, 0.01);
+// (a held kernel slipped and popped on the way down: the tiny piece goes into his fist as it closes on the hood, and
+// the fist comes down in front of his face to his mouth on its own side)
+A(8.45, "rea", "look", { to: [0.1, 0.9], dur: 0.12, blink: false });
+c.arm(8.6, "rea", "R", { o: [0.05, 0.98, 0.3] }, 0.25, "inOut");
+A(8.78, "rea", "grip", { side: "R", shape: "fist", dur: 0.08 });
+c.prop(8.85, "kern", { fill: 0 }, 0.01);
+A(8.9, "rea", "look", { to: [0, 0.05], dur: 0.12, blink: false });
+c.arm(8.88, "rea", "R", { o: [0.08, 0.5, 0.34] }, 0.22, "inOut");   // out round the hood, then to his lips (ep 1's shush pose)   // up and out in front of the hood, then down to the mouth
 A(9.14, "rea", "talk", { line: "mm", tone: "calm", dur: 0.25, voice: false });
 sfx(9.15, "ai/crunch", { gain: 0.6, reason: "Reaper's one crunch" });
-c.arm(9.2, "rea", "R", "lap", 0.2, "inOut");
+c.arm(9.2, "rea", "R", "lap", 0.2, "inOut"); A(9.25, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.1 });
 // 9.2 the credits: the screen's light turns soft and warm, a soft piano chord
 c.at(9.2, { fx: "flash", peak: 0.08, dur: 0.5, color: "#ffe9c4", sound: false });
 sfx(9.2, "ai/warm-resolve", { gain: 0.3, reason: "the credits music starting" });
-see(8.6, 9.35, ["ast.face", "dra.face", "rea.face", "wiz", "bucket", "kern"], "the row: the Astronaut lifts the bucket off, the Dragon glares, Reaper eats one piece");
+see(8.6, 9.35, ["ast.face", "dra.face", "rea.face", "wiz", "bucket"], "the row: the Astronaut shakes the bucket off, the Dragon glares, Reaper eats the one piece off his hood");
 
 // ---------------------------------------------------------------- 07 AGAIN 9.4-10.0
-A(9.4, "phx", "hop", { height: 0.12, dur: 0.3 });
-c.arm(9.4, "phx", "R", { o: [0.35, 1.0, 0.15] }, 0.15, "out"); c.arm(9.4, "phx", "L", { o: [0.35, 1.0, 0.15] }, 0.15, "out");
+A(9.4, "phx", "squash", { amount: 0.06, dur: 0.18 });
+c.arm(9.4, "phx", "R", { o: [0.08, 1.0, 0.2] }, 0.15, "out"); c.arm(9.4, "phx", "L", { o: [0.12, 1.0, 0.2] }, 0.15, "out");
 A(9.4, "phx", "wings", { to: 1, dur: 0.12, ease: "out" });
 A(9.4, "phx", "charge", { to: 0.8, dur: 0.12 });
 A(9.4, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.9, eye: 1.2 }, dur: 0.12 });
@@ -354,7 +361,7 @@ write(import.meta.url, {
   motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: true,
   cover: 8.2,
   set: { type: "plain", color: "#3a1418", floor: "#4a1820", night: true, para: 0, bloom: "emissive", aperture: 0,
-    plate: { src: "assets/plates/cinema-hall.png", z: -5.6, center: [0, 4.2], height: 11, depth: false, motion: false },
+    plate: { src: "assets/plates/cinema-hall.png", z: -5.9, center: [0, 4.2], height: 11, depth: false, motion: false },
     lighting: 2, hatch: { boil: 0.25 } },
   music: { style: "sneaky", key: 4, lowCut: 150, gain: 0.26, payoff: 5.97, until: 6.05 },
   sound: { sfx: 0.7, ambience: 0.15, surface: "carpet", guard: true },
@@ -367,7 +374,17 @@ write(import.meta.url, {
     { who: "ast", with: "bucket", from: 6.7, to: 10, reason: "the bucket lands on his helmet and he lifts it off" },
     ...["phx", "rea", "wiz", "ast", "dra"].flatMap((who) => [{ who, with: "glow", from: 0, to: 10, reason: "Phoenix's glow is light" }, { who, with: "dust", from: 0, to: 10, reason: "dust in the beam" }]),
     ...["ast", "dra"].map((who) => ({ who, from: 3.85, to: 5.2, checks: ["face-covered"], reason: "the beat: they shield their eyes from his glowing wings" })),
-    { who: "wiz", from: 8.55, to: 9.8, checks: ["face-covered"], reason: "the beat: the Wizard's face in his glove" },
+    { who: "wiz", from: 8.55, to: 10, checks: ["face-covered"], reason: "the beat: the Wizard's face in his glove" },
+    ...["phx", "rea", "wiz", "ast", "dra"].flatMap((who) => [{ who, with: "rain1", from: 1.9, to: 3.0, reason: "loose popcorn raining down over and onto them" }, { who, with: "rain2", from: 6.0, to: 7.4, reason: "loose popcorn raining down over and onto them" }]),
+    ...["ast", "dra"].map((who) => ({ who, from: 3.8, to: 5.05, checks: ["face-hidden"], reason: "the beat: his blazing wings flare right in front of the strangers, who shield their eyes from the glare" })),
+    ...["ast", "dra"].map((who) => ({ who, from: 2.1, to: 2.3, checks: ["face-hidden"], reason: "his scream's jump: his crest and wings flick up in front of them for a moment" })),
+    { who: "ast", from: 6.2, to: 6.4, checks: ["face-covered"], reason: "the catapult: Phoenix's arms fling up past the Astronaut's face for a moment" },
+    { who: "ast", from: 9.45, to: 10, checks: ["face-covered"], reason: "AGAIN!: Phoenix's arms go up in front of the Astronaut, whose head has already dropped" },
+    { who: "phx", with: "seatR", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
+    { who: "phx", with: "seatW", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings press against the padded seat backs and armrests round him" },
+    { who: "phx", with: "hall", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his wing tips fold behind his seat back against the tier's carpeted step, hidden by the seat" },
+    { who: "dra", with: "e3", from: 0, to: 10, checks: ["costume-in-prop"], reason: "a wing tip brushes the empty seat beside him" },
+    ...["ast", "dra"].map((who) => ({ who, from: 9.5, to: 10, checks: ["face-hidden"], reason: "AGAIN!: his raised arms and wings in front of the dropped heads behind him" })),
     { who: "rea", from: 3.95, to: 4.9, checks: ["face-covered"], reason: "the beat: Reaper pulls his hood down over his eyes" },
   ],
   notes: "Generated by storyboards/series/too-much-energy/02-cinema/make-cinema.mjs.",

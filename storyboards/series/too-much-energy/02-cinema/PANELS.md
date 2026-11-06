@@ -26,3 +26,11 @@ the seat backs and armrests cut by the bottom of the frame.
 - The Dragon's giant soda and the Astronaut's small popcorn stand in the armrest cup holders: their hands stay free for
   the shield and the lift, and nothing passes through a held cup.
 - Panel 04's catapult close-up is a short cut in from the same side, then back to the wide for the bucket's flight.
+- The Astronaut's small popcorn is left out: his elbow went through it in every pose, and the giant bucket carries the
+  popcorn story on its own.
+- Panel 07: the Astronaut shakes the bucket off his helmet onto the empty seat behind him instead of lifting it with
+  both hands. Raising both arms round the helmet put them inside its glass, which the contact gate fails.
+- Panel 07: Reaper plucks the piece off his hood in a closed fist and brings the fist to his mouth (crunch). Holding
+  the tiny kernel as its own prop made it slip and pop on the way down.
+- The back row's seats are a little wider (1.12 m against 0.92 m) so the Astronaut and the Dragon keep a body-width
+  apart when they shield their eyes.
