@@ -81,7 +81,7 @@
  "cast": [
   {
    "id": "gsl",
-   "character": "never-has-money/gunslinger",
+   "character": "always-orders-potatoes/gunslinger",
    "at": [
     -1.12,
     -0.64
@@ -168,7 +168,7 @@
    "kind": "pubtable",
    "x": 0,
    "z": 0.9,
-   "w": 2.7,
+   "w": 3.6,
    "d": 2.4,
    "h": 0.34,
    "runner": 0.34
@@ -337,10 +337,11 @@
   {
    "id": "forkG",
    "kind": "fork",
-   "x": -0.87,
-   "y": 0.629,
-   "z": -0.313,
-   "tip": -160,
+   "x": -0.603,
+   "y": 0.616,
+   "z": -0.24,
+   "tip": -120,
+   "rot": 90,
    "food": 1,
    "foodSeed": 15,
    "staged": "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)"
@@ -495,7 +496,7 @@
       "prop": "forkG",
       "grip": [
        0,
-       0.138,
+       0.113,
        0
       ],
       "point": "pinch"
@@ -523,7 +524,7 @@
      "hand": "L",
      "grip": [
       0,
-      0.138,
+      0.113,
       0
      ],
      "dur": 0,
@@ -1571,14 +1572,14 @@
       "prop": "forkG",
       "grip": [
        0,
-       0.138,
+       0.113,
        0
       ],
       "point": "pinch",
       "at": [
-       -0.74,
-       0.789,
-       -0.233
+       -0.554,
+       0.718,
+       -0.2
       ]
      },
      "dur": 0.23,
@@ -1589,7 +1590,7 @@
      "do": "prop",
      "id": "forkG",
      "set": {
-      "tip": -160
+      "tip": -110
      },
      "dur": 0.23,
      "ease": "inOut",
@@ -1696,19 +1697,6 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "flyG",
-     "set": {
-      "x": -0.7,
-      "y": 0.701,
-      "z": -0.091,
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.01
-    },
-    {
      "who": "gsl",
      "do": "arm",
      "side": "L",
@@ -1716,17 +1704,17 @@
       "prop": "forkG",
       "grip": [
        0,
-       0.138,
+       0.113,
        0
       ],
       "point": "pinch",
       "at": [
-       -0.7,
-       0.747,
-       -0.091
+       -0.564,
+       0.817,
+       -0.16
       ]
      },
-     "dur": 0.07,
+     "dur": 0.12,
      "ease": "out",
      "at": 0.02
     },
@@ -1734,37 +1722,10 @@
      "do": "prop",
      "id": "forkG",
      "set": {
-      "tip": -110
+      "tip": -150
      },
-     "dur": 0.07,
+     "dur": 0.12,
      "ease": "out",
-     "at": 0.02
-    },
-    {
-     "do": "prop",
-     "id": "forkG",
-     "set": {
-      "food": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.02
-    },
-    {
-     "do": "physics",
-     "prop": "flyG",
-     "mode": "throw",
-     "to": [
-      -0.04,
-      0.49,
-      -0.02
-     ],
-     "in": 0.3,
-     "spin": [
-      5,
-      1,
-      2
-     ],
      "at": 0.02
     },
     {
@@ -1842,35 +1803,16 @@
      "at": 0.08
     },
     {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "forkG",
-      "grip": [
-       0,
-       0.138,
-       0
-      ],
-      "point": "pinch",
-      "at": [
-       -0.87,
-       0.629,
-       -0.313
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.12
-    },
-    {
      "do": "prop",
-     "id": "forkG",
+     "id": "flyG",
      "set": {
-      "tip": -160
+      "x": -0.564,
+      "y": 0.771,
+      "z": -0.16,
+      "scale": 1
      },
-     "dur": 0.35,
-     "ease": "inOut",
+     "dur": 0,
+     "ease": "linear",
      "at": 0.12
     },
     {
@@ -1886,6 +1828,65 @@
     },
     {
      "do": "prop",
+     "id": "forkG",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.13
+    },
+    {
+     "do": "physics",
+     "prop": "flyG",
+     "mode": "throw",
+     "to": [
+      -0.04,
+      0.49,
+      -0.02
+     ],
+     "in": 0.3,
+     "spin": [
+      5,
+      1,
+      2
+     ],
+     "at": 0.13
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.603,
+       0.616,
+       -0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -120
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
      "id": "flyR",
      "set": {
       "x": 0.3,
@@ -1896,12 +1897,6 @@
      "dur": 0,
      "ease": "linear",
      "at": 0.31
-    },
-    {
-     "sfx": "kenney/impact-generic-light",
-     "gain": 0.35,
-     "reason": "Gunslinger's roast potato lands on top of the heap",
-     "at": 0.32
     },
     {
      "who": "rea",
@@ -2009,6 +2004,12 @@
      "at": 0.42
     },
     {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.35,
+     "reason": "Gunslinger's roast potato lands on top of the heap",
+     "at": 0.43
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -2062,13 +2063,13 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     1.319,
-     3.049,
-     4.902
+     1.464,
+     3.359,
+     5.503
     ],
     "look": [
-     0.56,
      0.62,
+     0.66,
      -0.5
     ],
     "fov": 30
@@ -2119,9 +2120,9 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.12,
-       0.78,
-       0.32
+       0.1,
+       0.8,
+       0.4
       ]
      },
      "dur": 0.3,
@@ -2132,8 +2133,8 @@
      "who": "wiz",
      "do": "tilt",
      "to": [
-      12,
-      -8
+      14,
+      0
      ],
      "dur": 0.3,
      "at": 0.2
@@ -2621,6 +2622,17 @@
      "at": 0.85
     },
     {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.9
+    },
+    {
      "who": "sam",
      "do": "blink",
      "dur": 0.22,
@@ -2635,6 +2647,38 @@
      ],
      "dur": 0.12,
      "blink": false,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.823,
+       0.676,
+       -0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -120
+     },
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 1.02
     },
     {
@@ -3150,6 +3194,40 @@
     {
      "who": "vik",
      "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.45,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "arm",
      "side": "R",
      "pose": {
       "prop": "forkV",
@@ -3165,9 +3243,9 @@
        -0.191
       ]
      },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.08
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.14
     },
     {
      "do": "prop",
@@ -3175,20 +3253,9 @@
      "set": {
       "tip": -150
      },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.08
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      -0.6,
-      -0.15
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.12
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.14
     },
     {
      "who": "vik",
