@@ -52,11 +52,13 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   A(5.15, W, "turn", { to: -110, dur: 1.2 });
   A(7.0, W, "turn", { to: "camera", dur: 1.2 });
   A(7.9, W, "look", { to: [0, 0], dur: 0.3 });
+  // 7.3-8.6: he takes the straw out of his mouth with his left hand before he speaks (Garden Guardian pack)
+  peb.strawOut(c, 7.3, W);
   // 8.4-10.8: the line, then the amused glance and the smile
   peb.line(c, 8.4, W, "No rush. The path will wait.", 2.2);
   see(8.4, 10.6, [`${W}.face`], "his line");
   peb.amusedGlance(c, 10.4, W, [0.45, 0.05], { hold: 0.4 });
-  const MED = { pos: [0, 1.0, 3.6], look: [0, 0.8, -1.15], fov: 38 }, MCU = { pos: [0.05, 1.3, 2.75], look: [0.02, 1.12, -1.1], fov: 33 };
+  const MED = { pos: [0, 1.0, 3.6], look: [0, 0.8, -1.15], fov: 38 }, MCU = { pos: [0.05, 1.45, 3.4], look: [0.02, 1.2, -1.1], fov: 34 };
   const beats = c.beats([["walk", 0, MED, "hook"], ["smile", 3.3, "keep"], ["look down the path", 5.0, "keep"], ["line", 8.3, MCU, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-standing", title: "Pebble test 1: standing", idea: "Pebble character test: walk, smile, turn, one line (not a posted clip)", ...base({ what: "Pebble walks up", surface: "dirt" }),
@@ -81,7 +83,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   A(0, W, "noblink");                     // placed blinks only: none lands on his line
   act.blinksAt(c, W, [3.7]);
   mug.secure(0, 0.01);
-  A(0, W, "arm", { side: "L", pose: { o: [-0.02, 0.2, 0.22] }, dur: 0 });
+  peb.strawHeld(c, 0, W, { o: [-0.02, 0.2, 0.22] });   // the straw out of his mouth for tea, in his resting left hand
   A(0, W, "look", { to: [0, -0.1], dur: 0, blink: false });
   mug.carry(0.05, SIP, 0.6, "inOut", { tip: -18 });
   peb.contentBlink(c, 0.4, W, { hold: 0.9 });
@@ -101,7 +103,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   act.eyesLead(c, 7.47, W, [0.05, -0.35]);
   mug.carry(7.6, SIP, 0.6, "inOut", { tip: -18 });
   peb.contentBlink(c, 7.9, W, { hold: 1.0 });
-  const MED = { pos: [0.1, 0.95, 3.6], look: [-0.06, 0.52, 0], fov: 36 }, CLOSE = { pos: [-0.05, 1.0, 2.6], look: [-0.14, 0.76, 0.1], fov: 33 };
+  const MED = { pos: [0.05, 1.0, 4.95], look: [-0.04, 0.65, 0], fov: 36 }, CLOSE = { pos: [-0.05, 1.0, 2.6], look: [-0.14, 0.76, 0.1], fov: 33 };
   const beats = c.beats([["sip", 0, MED, "hook"], ["the view", 2.6, "keep"], ["line", 5.1, "keep"], ["second sip", 7.5, CLOSE, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-tea", title: "Pebble test 2: sitting with tea", idea: "Pebble character test: sitting on a rock with tea (not a posted clip)", ...base({ what: "Pebble sips tea", surface: "dirt" }),
@@ -123,7 +125,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   const cast = [{ id: W, character: CH, at: HOME, face: "camera", expr: "kind", follow: 0.4, seed: 3.1 }];
   // frame 0: holding his tea; the booklet already starts to climb out of the box
   mug.secure(0, 0.01);
-  A(0, W, "arm", { side: "L", pose: peb.REST.L, dur: 0.01 });
+  peb.strawHeld(c, 0, W);   // tea time: the straw already out of his mouth, in his left hand (Garden Guardian pack)
   A(0, W, "look", { to: [0, 0], dur: 0.01, blink: false });
   c.prop(0, "box", { unfold: 0.05 }, 0.01);
   c.prop(0.05, "box", { unfold: 0.25 }, 1.0, "out");

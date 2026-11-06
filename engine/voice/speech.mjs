@@ -41,7 +41,7 @@ function job(text, rec, { tone = "calm", soft = false }) {
   const [speed, mark] = TONES[tone] ?? TONES.calm;
   const t = text.trim(), spoken = /[.!?…]$/.test(t) ? t : t + mark;
   const j = { text: spoken, voice: rec.voice, speed: Math.round((rec.speed ?? 1) * speed * 1000) / 1000, lang: rec.lang ?? "en-us",
-    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper") };
+    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper"), pause: rec.pause, post: rec.post };   // pause/post: only when a recipe sets them (else left out of the hash)
   j.id = crypto.createHash("sha1").update(JSON.stringify([VERSION, j])).digest("hex").slice(0, 16);
   return j;
 }

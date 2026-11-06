@@ -89,7 +89,19 @@ def synth(k, job):
     style_all = sum(k.get_voice_style(v) * (w / sum(mix.values())) for v, w in mix.items())
     speed = job.get("speed", 1.0) * (SOFT["speed"] if job.get("soft") else 1.0)
     audio, phones, t = [], [], 0.0
-    for ph, sp, fx in segments(k, job["text"], job.get("lang", "en-us"), speed):
+    # pause (a storyteller's phrasing, 6 Nov 2026): seconds of silence after each sentence or clause mark inside the
+    # line, on top of the model's own short gap. Narrators pause about 0.5-0.8 s between phrases; Kokoro about 0.1 s
+    pause = float(job.get("pause") or 0)
+    parts = [p for p in re.split(r"(?<=[.!?;…])\s+", job["text"].strip()) if p] if pause else [job["text"]]
+    work = []
+    for i, part in enumerate(parts):
+        work += segments(k, part, job.get("lang", "en-us"), speed)
+        if i < len(parts) - 1: work.append(None)
+    for item in work:
+        if item is None:
+            audio.append(np.zeros(int(pause * SR_MODEL), np.float32)); phones.append([" ", round(t, 4), round(pause, 4)]); t += pause
+            continue
+        ph, sp, fx = item
         for chunk in k._split_phonemes(ph):
             toks = k.tokenizer.tokenize(chunk)[:MAX_PHONEME_LENGTH]
             style = style_all[len(toks)].reshape(1, 256).astype(np.float32)
@@ -116,6 +128,9 @@ def synth(k, job):
         af.append(f"rubberband=pitch={2 ** (job['pitch'] / 12):.5f}:formant={fm}:pitchq=quality:window=long:transients=smooth:phase=independent")
     if job.get("soft"):
         af.append(f"lowpass=f={SOFT['lowpass']}")
+    # post: the recipe's own ffmpeg filters after the voice (a warmer EQ, a softer top), before levelling
+    if job.get("post"):
+        af.append(job["post"])
     af.append("acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2")
     y = ffmpeg(x, SR_MODEL, ",".join(af), SR_OUT)
     # loudness: measured on a padded copy (the meter needs 0.4 s), then a lookahead limiter for the few peaks

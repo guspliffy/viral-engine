@@ -61,6 +61,30 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 export const REST = { R: { o: [0.0, 0.18, 0.1], swing: 1 }, L: { o: [0.0, 0.18, 0.1], swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
+// the grass straw (Garden Guardian pack, 6 Nov 2026): in his lips at the LEFT mouth corner by default. Before a sip or a
+// longer line his LEFT hand takes it out (up to the corner, a pinch, out and down: one continuous move, the "straw"
+// action blends lips -> hand), and puts it back the same way. strawHeld: already in the hand at t (frame 0 of a scene).
+export const STRAW_MOUTH = { x: [0.15, 1.22, 0.36] }, STRAW_LOW = { x: [0.3, 0.55, 0.3] };
+export function strawOut(c, t, who, { low = STRAW_LOW } = {}) {
+  c.A(t, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.6 });
+  c.A(t + 0.45, who, "grip", { side: "L", shape: "pinch", dur: 0.2 });
+  c.A(t + 0.65, who, "straw", { side: "L", hand: 1, dur: 0.35 });
+  c.A(t + 0.75, who, "arm", { side: "L", pose: low, dur: 0.6 });
+  return t + 1.35;
+}
+export function strawIn(c, t, who) {
+  c.A(t, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.6 });
+  c.A(t + 0.6, who, "straw", { side: "L", hand: 0, dur: 0.3 });
+  c.A(t + 0.9, who, "grip", { side: "L", shape: "open", dur: 0.2 });
+  c.A(t + 1.0, who, "arm", { side: "L", pose: REST.L, dur: 0.6 });
+  return t + 1.6;
+}
+export function strawHeld(c, t, who, pose = STRAW_LOW) {
+  c.A(t, who, "arm", { side: "L", pose, dur: 0 });
+  c.A(t, who, "grip", { side: "L", shape: "pinch", dur: 0 });
+  c.A(t, who, "straw", { side: "L", hand: 1, dur: 0 });
+}
+
 // his walk (Jonny 6 Nov: "a fluent natural walk like the most recent potatoes"): the planted gait ("motion": { "feet": 2 })
 // with his arms hanging close at his sides and swinging against the legs (an arm pose with `swing`, potato.js), short
 // unhurried steps, and the hands back to rest a moment after he stops. A tortoise pace: about 0.5 m/s.
