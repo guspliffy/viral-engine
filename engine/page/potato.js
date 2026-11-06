@@ -798,6 +798,8 @@ export class Character {
       const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
       h.x += sw * g.dir[0]; h.z += sw * g.dir[1];
     }
+    // timeline.js a.nudge ([x, y, z], this unscaled frame): the hand's drag and settle and the contact solver's push
+    if (a.nudge) { h.x += a.nudge[0]; h.y += a.nudge[1]; h.z += a.nudge[2]; }
     h.y = LEG_H + (h.y - LEG_H) * S.y;
     // limbs.shoulder: where on the body's side the arm comes out (surf height; lower for short arms over a table)
     const shp = this.surf(sx * 1.38, this.def.limbs.shoulder ?? 0.02), sh = shp.pos, shN = shp.normal; sh.set(sh.x * S.x, sh.y * S.y, sh.z * S.z);
@@ -854,6 +856,8 @@ export class Character {
         const elbow = new THREE.Vector3(sh.x + sx * 0.06, Math.min(sh.y, h.y) - 0.12, sh.z + (h.z - sh.z) * 0.35 + (h.z + 0.06 - sh.z - (h.z - sh.z) * 0.35) * across);
         mid.lerp(elbow, fr.e);
       }
+      // timeline.js a.elbowNudge ([x, y, z], unscaled): the elbow leading the hand, the solver's push; before the body push
+      if (a.elbowNudge) mid.add(new THREE.Vector3(a.elbowNudge[0], a.elbowNudge[1] * S.y, a.elbowNudge[2]));
       const joint = dn > 0.5;
       this._outside(mid, S, joint ? 1 : 1.3);
       return mid;
