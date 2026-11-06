@@ -23,13 +23,13 @@
   "surface": "dirt",
   "nature": [
    {
-    "id": "stream",
+    "id": "lake",
     "gain": 0.16,
     "pan": -0.35
    },
    {
     "id": "birds",
-    "gain": 0.1
+    "gain": 0.12
    }
   ]
  },

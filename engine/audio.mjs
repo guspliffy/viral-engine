@@ -13,6 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
@@ -770,11 +771,11 @@ export function soundSamples(id, seed = 1, dur) {
   return SFX[id] ? effect(id, r, dur) : librarySound(id, r, { dur, code: effect });
 }
 
-// a nature recording (assets/sfx/ai/nature/<id>-<take>.ogg, Stable Audio 3 Small sfx takes, -20 LUFS mono) looped to the
+// a nature bed (assets/sfx/nature/<id>-<take>.ogg: real CC0 recordings or noise synthesis, -20 LUFS mono; README there) looped to the
 // clip's length with a 1 s equal-power crossfade at each wrap, starting at a seeded point so two clips with the same bed
 // don't start on the same bird; "take" pins one, else the seed picks
-const NATURE = path.join(path.dirname(new URL(import.meta.url).pathname), "../assets/sfx/ai/nature");
-export const NATURE_BEDS = ["birds", "stream", "waterfall", "wind", "leaves"];
+const NATURE = fileURLToPath(new URL("../assets/sfx/nature", import.meta.url));
+export const NATURE_BEDS = ["birds", "stream", "lake", "waterfall", "wind", "leaves"];
 function natureBed(o, seconds, seed) {
   if (!NATURE_BEDS.includes(o.id)) throw new Error(`sound.nature: unknown bed "${o.id}" (${NATURE_BEDS.join(", ")})`);
   const takes = fs.readdirSync(NATURE).filter((f) => f.startsWith(o.id + "-")).sort(), h = hash(`${o.id}/${seed}`);
