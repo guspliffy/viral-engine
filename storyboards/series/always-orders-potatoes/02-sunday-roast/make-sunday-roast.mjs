@@ -361,7 +361,7 @@ const MORE = fw([0.05, 0.56, -0.5], { w: 2.2, el: 18, fov: 56 });
 // the roll (panel 7): closer, from the same side, higher, the table in front of him
 const ROLLSHOT = fw([-0.1, 0.42, 0.05], { w: 1.3, el: 30, fov: 30 });
 // want some? (panel 8): Viking and the Wizard
-const OFFERSHOT = fw([0.45, 0.56, -0.45], { w: 1.75, az: 18, el: 18, fov: 48 });
+const OFFERSHOT = fw([0.6, 0.56, -0.45], { w: 1.9, az: 18, el: 18, fov: 48 });
 const beats = c.beats([
   ["P1 the dish lands", 0, WIDE, "hook"],
   ["P2 first bite", 1.5, BITE],
