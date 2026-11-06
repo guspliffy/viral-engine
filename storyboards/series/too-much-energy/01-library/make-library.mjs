@@ -306,7 +306,7 @@ for (const id of ["wiz", "sor", "rea"]) {
   act.mood(c, 8.85, id, "angry", { hold: 0.8 });
   A(8.9, id, "squash", { amount: 0.1, dur: 0.15 });
 }
-c.say(8.9, "sor", "SHHHHHH!", 0.5, "angry", { pos: SUB_HI, sub: "SHHHHH!" });
+c.say(8.9, "sor", "SHHHHHH!", 0.5, "angry", { pos: 250, sub: "SHHHHH!" });   // above the Sorcerer's hood in this shot
 c.captions[c.captions.length - 1].to = 9.2;   // off before the flame goes out
 A(8.9, "wiz", "talk", { line: "SHHHHHH!", tone: "angry", dur: 0.5, voice: false });
 A(8.9, "rea", "talk", { line: "SHHHHHH!", tone: "angry", dur: 0.5, voice: false });
