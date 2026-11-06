@@ -374,7 +374,7 @@
    "from": 0.05,
    "to": 1.05,
    "text": "ROASTIES!",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -383,16 +383,16 @@
    "from": 2.22,
    "to": 2.8,
    "text": "Mmmmm!",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
    "from": 3.4,
-   "to": 4.55,
+   "to": 3.82,
    "text": "Listen to that crunch…",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -401,7 +401,7 @@
    "from": 4.7,
    "to": 5.7,
    "text": "Let me fix that.",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -410,7 +410,7 @@
    "from": 6.1,
    "to": 7,
    "text": "MORE?!",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -419,7 +419,7 @@
    "from": 8.75,
    "to": 9.7,
    "text": "Want some?",
-   "pos": 1330,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -934,7 +934,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.26,
      "ease": "inOut",
@@ -998,7 +998,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.06,
      "ease": "in",
@@ -1145,8 +1145,8 @@
       "point": "pinch",
       "at": [
        -0.3,
-       0.345,
-       -0.162
+       0.382,
+       -0.115
       ]
      },
      "dur": 0.5,
@@ -1157,7 +1157,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.5,
      "ease": "inOut",
@@ -1285,7 +1285,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.14,
      "ease": "inOut",
@@ -1317,7 +1317,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.05,
      "ease": "in",
@@ -1325,7 +1325,7 @@
     },
     {
      "sfx": "kenney/impact-generic-light",
-     "gain": 0.4,
+     "gain": 1,
      "reason": "his fork taps the crisp roast potato: a dry tok",
      "at": 0.18
     },
@@ -1355,7 +1355,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.06,
      "ease": "out",
@@ -1424,7 +1424,7 @@
      "do": "prop",
      "id": "forkV",
      "set": {
-      "tip": -25
+      "tip": -50
      },
      "dur": 0.05,
      "ease": "in",
@@ -1453,7 +1453,7 @@
     },
     {
      "sfx": "kenney/impact-generic-light",
-     "gain": 0.4,
+     "gain": 1,
      "reason": "his fork taps the crisp roast potato: a dry tok",
      "at": 0.32
     },
@@ -1683,12 +1683,12 @@
    "shot": {
     "pos": [
      0,
-     1.811,
-     3.424
+     1.568,
+     2.824
     ],
     "look": [
      0,
-     0.52,
+     0.6,
      -0.55
     ],
     "fov": 56
@@ -2061,12 +2061,12 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     1.464,
-     3.359,
-     5.503
+     1.418,
+     3.021,
+     4.752
     ],
     "look": [
-     0.62,
+     0.68,
      0.66,
      -0.5
     ],
@@ -2100,7 +2100,7 @@
     },
     {
      "sfx": "kenney/impact-generic-light",
-     "gain": 0.3,
+     "gain": 1,
      "reason": "Reaper's roast potato lands on the heap",
      "at": 0.15
     },
@@ -2202,12 +2202,12 @@
    "shot": {
     "pos": [
      0.05,
-     1.929,
-     3.427
+     1.696,
+     2.998
     ],
     "look": [
      0.05,
-     0.5,
+     0.56,
      -0.5
     ],
     "fov": 56
@@ -2978,8 +2978,14 @@
     },
     {
      "sfx": "kenney/impact-plate-light",
-     "gain": 0.55,
+     "gain": 0.95,
      "reason": "the fork's tines hit the oak table through the roast potato: tock",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.85,
+     "reason": "the payoff: the fork goes through the crisp roast potato, crunch",
      "at": 0.9
     },
     {
@@ -3148,12 +3154,12 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     1.547,
-     1.609,
-     2.62
+     1.477,
+     1.64,
+     2.71
     ],
     "look": [
-     0.55,
+     0.45,
      0.56,
      -0.45
     ],
@@ -3213,6 +3219,13 @@
      "at": 0.05
     },
     {
+     "who": "vik",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
      "who": "wiz",
      "do": "look",
      "to": [
@@ -3263,6 +3276,7 @@
      "dur": 0.55,
      "blink": false,
      "voice": false,
+     "soft": true,
      "at": 0.15
     },
     {
