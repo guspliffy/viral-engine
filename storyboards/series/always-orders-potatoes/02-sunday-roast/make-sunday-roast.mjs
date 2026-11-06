@@ -172,7 +172,7 @@ for (const t of [2.98, 3.12]) {
   if (t < 3.1) tines(vf, r3(t + 0.01), ABOVE2, 0.06, STAB_TIP, "out");
 }
 c.prop(3.11, "forkV", { food: 1 }, 0.03, "out");
-const EAR = [-0.48, 0.8, -0.5];   // beside his right ear (screen left)
+const EAR = [-0.48, 0.9, -0.5];   // beside his right ear (screen left)
 tv = tines(vf, 3.16, EAR, 0.24, -150, "inOut");
 A(3.22, "vik", "look", { to: [-0.55, 0.25], dur: 0.12, blink: false });
 A(3.25, "vik", "turn", { to: -12, dur: 0.25 });
@@ -227,7 +227,7 @@ sfx(r3(RREL + 0.3), "kenney/impact-generic-light", { gain: 1.0, reason: "Reaper'
 tines(rf, r3(RREL + 0.04), forkAt(RF0, -160), 0.4, -160, "inOut");
 A(r3(FLICK_R + 0.1), "rea", "look", { to: [-0.4, 0], dur: 0.15, blink: false });
 // Viking watches them land, beaming: more for him
-A(3.85, "vik", "expr", { expr: "eager", set: { open: 0.35 }, dur: 0.2 });
+A(3.85, "vik", "expr", { expr: "eager", set: { open: 0.35 }, dur: 0.2 }); A(3.85, "vik", "face", { lid: 0, dur: 0.2 });   // the cocky squint off: delighted
 A(4.12, "vik", "look", { to: [0.1, -0.5], dur: 0.12, blink: false });
 droop(4.2, 0.45);   // shock meter, step 1
 see(3.78, 4.38, ["gsl.face", "rea.face", "vik.face", "heap"], "panel 4: Gunslinger and Reaper flick their roast potatoes onto his heap; Viking beams");
@@ -250,7 +250,7 @@ c.prop(HS1, "rollie", { scale: 1 }, 0.1, "out");
 c.prop(r3(HS1 + 0.02), "aura", { glow: 0 }, 0.3, "in");
 sfx(HS1, "sig-wizard", { gain: 0.6, reason: "the Wizard's own trick: the spell puffs and the heap doubles" });
 c.at(HS1, { fx: "poof", pos: [HEAP[0], r3(TH + 0.2), HEAP[1]], dur: 0.35, color: "#fff2c0", puffs: 6, sparks: 16, size: 0.45, lift: 0.25 });
-c.at(HS1, { fx: "flash", dur: 0.12, peak: 0.35 });
+c.at(HS1, { fx: "flash", dur: 0.04, peak: 0.3 });   // one frame: three near-white ones hid the heap doubling (review B)
 c.hitStop(HS1, 3);
 A(r3(HS1 + 0.05), "wiz", "charge", { to: 0, dur: 0.3 });
 c.prop(r3(HS1 + 0.2), "heap", { steam: 0 }, 0.8, "inOut");
@@ -286,11 +286,13 @@ A(V(6.72), "vik", "look", { to: [0, -0.55], dur: 0.12, blink: false });
 for (const [t, r] of [[5.75, 8], [5.85, -6], [5.95, 4], [6.05, 0], [6.85, 7], [6.95, -5], [7.02, 9]]) c.prop(V(t), "rollie", { tilt: r }, 0.1, "inOut");
 const ROLL = V(7.05), EDGE = [-0.08, r3(TH), 0.18];   // a low tumble down the heap's front (in 0.55 lobbed it 25 cm up)
 c.throw(ROLL, "rollie", { to: EDGE, in: 0.35, spin: [7, 0, 0] });
-sfx(r3(ROLL + 0.35), "kenney/impact-generic-light", { gain: 0.3, reason: "the roast potato bumps down onto the oak table" });
+sfx(r3(ROLL + 0.42), "kenney/impact-generic-light", { gain: 0.8, reason: "the roast potato bumps down onto the oak table (its landing in the physics bake)" });
+// a small puff of crumbs where it lands, so the roll reads at phone size (review B: "nothing rolls")
+c.at(r3(ROLL + 0.42), { fx: "poof", pos: [-0.17, r3(TH + 0.02), 0.2], dur: 0.3, color: "#e8c27a", puffs: 3, sparks: 5, size: 0.12, lift: 0.06 });
 A(r3(ROLL + 0.08), "vik", "look", { to: [-0.15, -0.65], dur: 0.12, blink: false });
 A(r3(ROLL + 0.12), "vik", "expr", { expr: "focused", dur: 0.15 }); A(r3(ROLL + 0.12), "vik", "face", { lid: 0.3, dur: 0.15 });
 const SPEAR = HS2;   // 7.9 on the video's clock
-const REST = [-0.17, 0.29];   // where the roast potato comes to rest (read back from the layout's physics)
+const REST = [-0.2, 0.31];   // where the roast potato comes to rest (read back from the layout's physics)
 const SP = [REST[0], r3(TH + RR * 1.6), REST[1]];
 A(r3(SPEAR - 0.5), "vik", "look", { to: [-0.15, -0.7], dur: 0.12, blink: false });
 A(r3(SPEAR - 0.4), "vik", "lean", { to: 20, dur: 0.3 });
@@ -331,8 +333,8 @@ tines(vf, r3(OFFER + 0.14), vAt([0.55, 0.5, -0.3], -150), 0.28, -150, "inOut"); 
 c.arm(r3(OFFER + 0.05), "vik", "L", { o: [-0.05, 0.45, 0.32] }, 0.3, "inOut"); A(r3(OFFER + 0.05), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 c.say(V(8.95), "vik", "want some?", 0.55, "question", { voice: false, soft: true, sub: "Want some?", pos: SUB_MID });
 A(r3(OFFER + 0.12), "wiz", "look", { to: [-0.6, -0.15], dur: 0.12, blink: false });
-A(r3(OFFER + 0.25), "wiz", "lean", { to: -10, dur: 0.3, ease: "out" });
-A(r3(OFFER + 0.25), "wiz", "turn", { to: -4, dur: 0.3 });
+A(r3(OFFER + 0.25), "wiz", "lean", { to: -18, dur: 0.3, ease: "out" });
+A(r3(OFFER + 0.25), "wiz", "turn", { to: 4, dur: 0.3 });   // recoiling, turned a little away
 act.shock(c, r3(OFFER + 0.2), "wiz", { hold: 0.7, curve: -0.25 });
 c.arm(r3(OFFER + 0.28), "wiz", "R", { o: [-0.08, 0.6, 0.36] }, 0.22, "out"); A(r3(OFFER + 0.28), "wiz", "grip", { side: "R", shape: "flat", dur: 0.12 });
 A(r3(OFFER + 0.2), "gsl", "look", { to: [0.65, 0], dur: 0.15, blink: false });

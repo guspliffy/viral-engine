@@ -1471,7 +1471,7 @@
       "point": "pinch",
       "at": [
        -0.48,
-       0.8,
+       0.9,
        -0.5
       ]
      },
@@ -1765,6 +1765,13 @@
      "set": {
       "open": 0.35
      },
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
      "dur": 0.2,
      "at": 0.07
     },
@@ -2257,8 +2264,8 @@
     },
     {
      "fx": "flash",
-     "dur": 0.12,
-     "peak": 0.35,
+     "dur": 0.04,
+     "peak": 0.3,
      "at": 0
     },
     {
@@ -2834,12 +2841,6 @@
      "at": 0.17
     },
     {
-     "sfx": "kenney/impact-generic-light",
-     "gain": 0.3,
-     "reason": "the roast potato bumps down onto the oak table",
-     "at": 0.4
-    },
-    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -2855,6 +2856,27 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.4
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.8,
+     "reason": "the roast potato bumps down onto the oak table (its landing in the physics bake)",
+     "at": 0.47
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.17,
+      0.36,
+      0.2
+     ],
+     "dur": 0.3,
+     "color": "#e8c27a",
+     "puffs": 3,
+     "sparks": 5,
+     "size": 0.12,
+     "lift": 0.06,
+     "at": 0.47
     },
     {
      "who": "vik",
@@ -2899,9 +2921,9 @@
       ],
       "point": "pinch",
       "at": [
-       -0.17,
+       -0.2,
        0.474,
-       0.28
+       0.3
       ]
      },
      "dur": 0.27,
@@ -2937,9 +2959,9 @@
       ],
       "point": "pinch",
       "at": [
-       -0.17,
+       -0.2,
        0.394,
-       0.29
+       0.31
       ]
      },
      "dur": 0.08,
@@ -3039,7 +3061,7 @@
       ],
       "point": "pinch",
       "at": [
-       -0.17,
+       -0.2,
        0.551,
        0.493
       ]
@@ -3312,7 +3334,7 @@
     {
      "who": "wiz",
      "do": "lean",
-     "to": -10,
+     "to": -18,
      "dur": 0.3,
      "ease": "out",
      "at": 0.25
@@ -3320,7 +3342,7 @@
     {
      "who": "wiz",
      "do": "turn",
-     "to": -4,
+     "to": 4,
      "dur": 0.3,
      "at": 0.25
     },
