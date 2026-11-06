@@ -44,4 +44,15 @@ Reaper (black hood) back right. Phoenix is not in it.
   pull the crown through the head (CLAUDE.md contact rule 8).
 - **Music:** there is no 6/8 jig style in the music engine yet; the clip uses the "march" style (fifths, folky) at 116
   bpm in D major.
-- **Subtitles** sit inside TikTok's safe zone: low (y 1240) in the wide, high (y 520) in the closer shots.
+- **Subtitles** sit low on the table (y 1330, inside TikTok's safe zone) in every shot: higher up they sat on the back
+  row's faces (review A).
+- **A long table** runs on toward the camera, so the bottom of the 9:16 frame is oak and tartan with the plates and the
+  condiments in the corners (the panels are wider than 9:16; a short table left an empty floor there). The front row
+  stands a body-width apart, so in the wides Gunslinger and the Wizard are cut by the frame's edges, as in panels 1, 4
+  and 6.
+- **The Wizard's staff is in his left hand** (the costume's own side), so it never stands in front of Reaper's face.
+- **Gunslinger and Reaper already have a roast potato on their forks at frame 0** (they were about to eat it), so panel 4
+  is one flick each instead of a stab and a flick in 0.6 s.
+- **Panel 8:** Viking turns well round to the Wizard, so the fork arm reaches out in front of his chest; his fork is in
+  his right hand, and a reach straight across would have covered his own eyes.
+- **The napkin bib** is smaller on screen than drawn: the table and the heap cover the lower half of a potato's body.

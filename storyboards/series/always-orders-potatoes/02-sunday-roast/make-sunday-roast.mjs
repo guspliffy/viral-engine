@@ -26,16 +26,16 @@ const V = (tv) => r3(tv <= HS1 ? tv : tv <= HS2 + 0.1 ? tv - 0.1 : tv - 0.2);
 // Two rows in depth (Jonny's panels): the front row stands at the table, left to right Gunslinger, Viking, the Wizard;
 // behind them, on the pub's raised back floor, the Samurai (the waiter, left) and Reaper (right), their faces over the
 // front row's heads.
-const TH = 0.34, TD = 1.8, TZ = 0.6;           // the table's top (just under the front row's resting hands), depth and middle (z -0.3 .. 1.5: a long pub table running on toward us, so it fills the bottom of the 9:16 frame)
+const TH = 0.34, TD = 2.4, TZ = 0.9;           // the table's top (just under the front row's resting hands), depth and middle (z -0.3 .. 1.5: a long pub table running on toward us, so it fills the bottom of the 9:16 frame)
 const FZ = -0.68;                               // the front row, at the table's back edge
-const GSL = [-0.97, -0.64], VIK = [0, FZ], WIZ = [0.95, -0.64];
+const GSL = [-1.12, -0.64], VIK = [0, FZ], WIZ = [1.12, -0.64];   // a body-width apart (layout 4: 36 % overlap at ±0.97)
 const GSL_YAW = 16, WIZ_YAW = -16;
 const STEP = 0.5;                                // the back floor's height
 const SAM = [-0.5, -1.75], REA = [0.55, -1.75], SAM_YAW = 8, REA_YAW = -8;
-const HEAP = [0, -0.06], HK = 1.15;              // Viking's heap and its size
-const PL_G = [-0.62, 0.36], PL_W = [0.62, 0.36]; // the friends' plates, out in front of them (the panels' bottom corners)
+const HEAP = [0, 0.0], HK = 1.45;   // big, as in the panels (a third of the frame's width)              // Viking's heap and its size
+const PL_G = [-0.7, 0.62], PL_W = [0.7, 0.62];   // the panels' bottom corners // the friends' plates, out in front of them (the panels' bottom corners)
 const RR = 0.034;                                 // a roast potato's radius
-const FORK = 0.25, FROM = 0.66;                   // the fork and where the fist holds it (from the tine tips)
+const FORK = 0.25, FROM = 0.55;                   // the fork and where the fist holds it (from the tine tips)
 
 const cast = [
   { id: "gsl", character: "never-has-money/gunslinger", at: GSL, face: GSL_YAW, expr: "happy", follow: 0.3, seed: 1.3 },
@@ -44,14 +44,14 @@ const cast = [
   { id: "sam", character: "bistro/samurai-waiter", at: SAM, y: STEP, face: SAM_YAW, expr: "deadpan", follow: 0.2, seed: 2.2, sway: 0.4 },
   { id: "rea", character: "never-has-money/reaper", at: REA, y: STEP, face: REA_YAW, expr: "deadpan", follow: 0.25, seed: 3.3 },
 ];
-// the forks: each one's tine tips are its origin, the handle up its +y; tip -25 stabs (tines forward and down), -150
+// the forks: each one's tine tips are its origin, the handle up its +y; tip -25 stabs (tines forward and down), -160
 // stands it up in the fist (tines up), 60 brings the tines back to the mouth
 const forkAt = (fist, tip) => { const a = (tip * Math.PI) / 180, L = FORK * FROM; return [r3(fist[0]), r3(fist[1] - L * Math.cos(a)), r3(fist[2] - L * Math.sin(a))]; };
-const VF0 = [-0.3, 0.5, -0.3], GF0 = [-0.72, 0.5, -0.36], RF0 = [0.39, STEP + 0.36, -1.43];
+const VF0 = [-0.3, 0.5, -0.3], GF0 = [-0.87, 0.5, -0.36], RF0 = [0.39, STEP + 0.36, -1.43];
 const fork = (id, fist, tip, food = 0, staged) => { const [x, y, z] = forkAt(fist, tip); return { id, kind: "fork", x, y, z, tip, food, foodSeed: id.length * 3, ...(staged && { staged }) }; };
-const VFORK = fork("forkV", VF0, -150, 0, "in Viking's fist from the first frame");
-const GFORK = fork("forkG", GF0, -150, 1, "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)");
-const RFORK = fork("forkR", RF0, -150, 1, "in Reaper's fist from the first frame, a roast potato from his own plate on it (his plate is below the frame, behind the front row)");
+const VFORK = fork("forkV", VF0, -160, 0, "in Viking's fist from the first frame");
+const GFORK = fork("forkG", GF0, -160, 1, "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)");
+const RFORK = fork("forkR", RF0, -160, 1, "in Reaper's fist from the first frame, a roast potato from his own plate on it (his plate is below the frame, behind the front row)");
 // loose roast potatoes: the two on each friend's plate, the two that fly onto the heap, the one that rolls off it
 const roastie = (id, x, y, z, seed, o = {}) => ({ id, kind: "roastie", x: r3(x), y: r3(y), z: r3(z), seed, scale: 1, body: { friction: 1.6, bounce: 0.05 }, ...o });
 const WELL = 0.012;
@@ -71,10 +71,10 @@ const props = [
   roastie("flyG", -0.6, 0.6, -0.2, 15, { scale: 0.001, staged: "on Gunslinger's fork until he flicks it (the fork's own roast potato is shown till then)" }),
   roastie("flyR", 0.3, 0.9, -0.9, 16, { scale: 0.001, staged: "on Reaper's fork until he flicks it" }),
   roastie("rollie", HEAP[0] + 0.005, HEAP_TOP - RR, HEAP[1] + 0.012, 17, { scale: 0.001, staged: "the top of the doubled heap: it pops in with the spell" }),
-  { id: "gravy", kind: "gravyboat", x: 0.36, y: TH, z: 0.85, rot: 200 },
-  { id: "mills", kind: "mills", x: -0.36, y: TH, z: 0.85 },
+  { id: "gravy", kind: "gravyboat", x: 0.42, y: TH, z: 1.05, rot: 200 },
+  { id: "mills", kind: "mills", x: -0.42, y: TH, z: 1.05 },
   VFORK, GFORK, RFORK,
-  { id: "napkin", kind: "napkin", wear: "vik", x: 0, y: 0.52, z: 0.41, w: 0.36, h: 0.3, scale: 0.001 },
+  { id: "napkin", kind: "napkin", wear: "vik", x: 0, y: 0.6, z: 0.5, w: 0.46, h: 0.32, scale: 0.001 },
 ];
 const vf = grips.thin(c, "vik", VFORK, { side: "R", from: FROM, roll: 20 });
 const gf = grips.thin(c, "gsl", GFORK, { side: "L", from: FROM, roll: 20 });
@@ -82,7 +82,10 @@ const rf = grips.thin(c, "rea", RFORK, { side: "R", from: FROM, roll: 20 });
 // a fork's carry by where its tines go (the origin), with the fork's tip angle
 const tines = (H, t, at, dur, tip, ease = "inOut") => H.carry(t, at.map(r3), dur, ease, { tip });
 const vAt = (fistPos, tip) => forkAt(fistPos, tip);
-vf.secure(0, 0); gf.secure(0, 0); rf.secure(0, 0);   // in the fist from frame 0
+// in the fist from frame 0: the pose, the pinch and the grab all at t = 0 (secure's grab at 0.06 jumped the hand 16 cm)
+const PINCH = { shape: "tip", set: { roll: 20, lean: 30, thin: r3(0.006 / 1.7) } };
+const hold0 = (H, who, id) => { const s = H.sides[0], grip = H.hands[s].grip; c.arm(0, who, s, { prop: id, grip, point: "pinch" }, 0); A(0, who, "grip", { side: s, ...PINCH, dur: 0 }); A(0, who, "grab", { prop: id, hand: s, grip, dur: 0, pose: null, point: "pinch" }); };
+hold0(vf, "vik", "forkV"); hold0(gf, "gsl", "forkG"); hold0(rf, "rea", "forkR");
 
 const SUB_LOW = 1240, SUB_HIGH = 520, SUB_MID = 1160;
 const FRIENDS = ["gsl", "wiz", "rea"];
@@ -102,7 +105,7 @@ act.opener(c, "vik", "ROASTIES!", { at: 0.05, dur: 0.6, tone: "excited", pos: SU
 A(0, "vik", "look", { to: [0, -0.6], dur: 0, blink: false });
 A(0, "vik", "expr", { expr: "eager", set: { open: 0.55 }, dur: 0 });
 // both fists up at his chest (the fork in the right one), a bounce on the word
-c.arm(0, "vik", "L", { o: [0.2, 0.55, 0.3] }, 0); A(0, "vik", "grip", { side: "L", shape: "fist", dur: 0 });
+c.arm(0, "vik", "L", { o: [0.0, 0.55, 0.32] }, 0); A(0, "vik", "grip", { side: "L", shape: "fist", dur: 0 });
 for (const t of [0.1, 0.36]) A(t, "vik", "squash", { amount: 0.05, dur: 0.12 });
 A(0.75, "vik", "expr", { expr: "delighted", dur: 0.25 });
 // the friends turn to the heap: Gunslinger and the Wizard smile at it (their own plates are fine), Reaper deadpan
@@ -122,7 +125,8 @@ sfx(1.55, "cloth", { gain: 0.45, reason: "the napkin tucked into his collar with
 c.arm(1.68, "vik", "L", "rest", 0.3, "inOut");
 A(1.5, "vik", "look", { to: [0, -0.55], dur: 0.12, blink: false });
 A(1.55, "vik", "lean", { to: 10, dur: 0.25 });
-const STAB1 = [r3(HEAP[0] - 0.14), r3(TH + 0.1), r3(HEAP[1] - 0.06)];   // the heap's right flank: the fist stays beside his face, not over it
+const HS = HK / 1.15;   // the heap's points were set on a 1.15 heap
+const STAB1 = [r3(HEAP[0] - 0.14 * HS), r3(TH + 0.1 * HS), r3(HEAP[1] - 0.06 * HS)];   // the heap's right flank: the fist stays beside his face, not over it
 let tv = tines(vf, 1.6, [STAB1[0], STAB1[1] + 0.04, STAB1[2] - 0.02], 0.16, -25, "inOut");
 tv = tines(vf, tv, STAB1, 0.06, -25, "in");   // in
 c.prop(r3(tv - 0.01), "forkV", { food: 1 }, 0.03, "out");
@@ -151,7 +155,7 @@ see(2.45, 2.75, ["vik.sprout"], "the blossom");
 // he spears another, holds it up by his ear and taps it twice with a fingertip, listening: "Listen to that crunch…"
 A(2.8, "vik", "face", { lid: 0.25, dur: 0.12 }); A(2.8, "vik", "expr", { expr: "cocky", set: { curve: 0.5 }, dur: 0.2 });
 A(2.8, "vik", "look", { to: [0, -0.55], dur: 0.1, blink: false });
-const STAB2 = [r3(HEAP[0] - 0.08), r3(TH + 0.085), r3(HEAP[1] - 0.09)];
+const STAB2 = [r3(HEAP[0] - 0.08 * HS), r3(TH + 0.085 * HS), r3(HEAP[1] - 0.09 * HS)];
 const ABOVE2 = [STAB2[0], r3(STAB2[1] + 0.045), STAB2[2]];
 tv = tines(vf, 2.82, ABOVE2, 0.14, -25, "inOut");
 // two taps on a roast potato (tok, tok: listening to the crust), the second goes in
@@ -161,12 +165,12 @@ for (const t of [2.98, 3.12]) {
   if (t < 3.1) tines(vf, r3(t + 0.01), ABOVE2, 0.06, -25, "out");
 }
 c.prop(3.11, "forkV", { food: 1 }, 0.03, "out");
-const EAR = [-0.52, 0.8, -0.5];   // beside his right ear (screen left)
-tv = tines(vf, 3.16, EAR, 0.24, -140, "inOut");
+const EAR = [-0.48, 0.8, -0.5];   // beside his right ear (screen left)
+tv = tines(vf, 3.16, EAR, 0.24, -150, "inOut");
 A(3.22, "vik", "look", { to: [-0.55, 0.25], dur: 0.12, blink: false });
 A(3.25, "vik", "turn", { to: -12, dur: 0.25 });
 // his left hand cupped behind his left ear: listening
-c.arm(3.2, "vik", "L", { o: [0.38, 0.7, 0.0] }, 0.22, "inOut"); A(3.22, "vik", "grip", { side: "L", shape: "cup", dur: 0.15 });
+c.arm(3.2, "vik", "L", { o: [-0.02, 0.72, 0.02] }, 0.22, "inOut"); A(3.22, "vik", "grip", { side: "L", shape: "cup", dur: 0.15 });
 c.say(3.4, "vik", "listen to that crunch…", 0.75, "calm", { voice: false, sub: "Listen to that crunch…", pos: SUB_HIGH });
 // Gunslinger: shocked, a sweat drop of a face
 act.shock(c, 3.05, "gsl", { hold: 0.6 });
@@ -177,7 +181,7 @@ see(3.3, 3.75, ["vik.face", "forkV", "gsl.face"], "panel 3: the roast potato by 
 // ---------------------------------------------------------------- 4 THEY GIVE THEIRS UP 3.8-4.4 (panel 4)
 // Gunslinger spears one of his own and flicks it onto the heap; Reaper, from the back row, flicks his over too
 c.arm(3.62, "vik", "L", "rest", 0.45, "inOut"); A(3.66, "vik", "grip", { side: "L", shape: "relaxed", dur: 0.3 });
-tv = tines(vf, 3.72, vAt([-0.32, 0.56, -0.3], -140), 0.3, -140, "inOut");   // he lowers it, still on the fork
+tv = tines(vf, 3.72, vAt([-0.32, 0.56, -0.3], -150), 0.3, -150, "inOut");   // he lowers it, still on the fork
 A(3.72, "vik", "turn", { to: 0, dur: 0.3 });
 A(3.75, "vik", "look", { to: [-0.45, -0.25], dur: 0.12, blink: false });
 // Gunslinger: deadpan resignation, the stab, the flick
@@ -186,17 +190,17 @@ A(3.42, "gsl", "look", { to: [0.12, -0.6], dur: 0.12, blink: false });
 A(3.5, "gsl", "lean", { to: 6, dur: 0.2 });
 const tg = 3.55;
 A(3.66, "gsl", "lean", { to: 4, dur: 0.15 });
-const G_UP = [-0.6, 0.66, -0.28];
+const G_UP = [-0.74, 0.66, -0.28];
 const FLICK_G = 3.8;
-tines(gf, r3(tg + 0.02), forkAt(G_UP, -150), r3(FLICK_G - tg - 0.02), -150, "inOut");
-tines(gf, FLICK_G, forkAt([-0.56, 0.7, -0.22], -110), 0.07, -110, "out");
+tines(gf, r3(tg + 0.02), forkAt(G_UP, -160), r3(FLICK_G - tg - 0.02), -160, "inOut");
+tines(gf, FLICK_G, forkAt([-0.7, 0.7, -0.22], -110), 0.07, -110, "out");
 const ROFF = (fistPos, tip) => { const f = forkAt(fistPos, tip); return [f[0], r3(f[1] - 0.012 - RR), f[2]]; };
-const GL = ROFF([-0.56, 0.7, -0.22], -110);
+const GL = ROFF([-0.7, 0.7, -0.22], -110);
 c.prop(r3(FLICK_G - 0.01), "flyG", { x: GL[0], y: GL[1], z: GL[2], scale: 1 }, 0, "linear");
 c.prop(FLICK_G, "forkG", { food: 0 }, 0.01, "linear");
-c.throw(FLICK_G, "flyG", { to: [-0.04, r3(TH + 0.12), r3(HEAP[1] - 0.02)], in: 0.3, spin: [5, 1, 2] });
+c.throw(FLICK_G, "flyG", { to: [-0.04, r3(TH + 0.15), r3(HEAP[1] - 0.02)], in: 0.3, spin: [5, 1, 2] });
 sfx(r3(FLICK_G + 0.3), "kenney/impact-generic-light", { gain: 0.35, reason: "Gunslinger's roast potato lands on top of the heap" });
-tines(gf, r3(FLICK_G + 0.1), forkAt(GF0, -150), 0.35, -150, "inOut");
+tines(gf, r3(FLICK_G + 0.1), forkAt(GF0, -160), 0.35, -160, "inOut");
 A(r3(FLICK_G + 0.05), "gsl", "lean", { to: 0, dur: 0.3 });
 A(r3(FLICK_G + 0.05), "gsl", "expr", { expr: "annoyed", dur: 0.25 }); A(r3(FLICK_G + 0.05), "gsl", "face", { lid: 0.4, dur: 0.25 });
 A(r3(FLICK_G + 0.1), "gsl", "look", { to: [0.45, 0.1], dur: 0.12, blink: false });
@@ -204,14 +208,14 @@ A(r3(FLICK_G + 0.1), "gsl", "look", { to: [0.45, 0.1], dur: 0.12, blink: false }
 A(3.82, "rea", "look", { to: [-0.35, -0.55], dur: 0.12, blink: false });
 const R_UP = [0.33, r3(STEP + 0.6), -1.3];
 const FLICK_R = 4.1;
-tines(rf, 3.86, forkAt(R_UP, -150), 0.2, -150, "inOut");
+tines(rf, 3.86, forkAt(R_UP, -160), 0.2, -160, "inOut");
 tines(rf, FLICK_R, forkAt([0.3, r3(STEP + 0.62), -1.25], -105), 0.07, -105, "out");
 const RL = ROFF([0.3, r3(STEP + 0.62), -1.25], -105);
 c.prop(r3(FLICK_R - 0.01), "flyR", { x: RL[0], y: RL[1], z: RL[2], scale: 1 }, 0, "linear");
 c.prop(FLICK_R, "forkR", { food: 0 }, 0.01, "linear");
-c.throw(FLICK_R, "flyR", { to: [0.05, r3(TH + 0.13), r3(HEAP[1] - 0.04)], in: 0.3, spin: [-4, 2, 1] });
+c.throw(FLICK_R, "flyR", { to: [0.05, r3(TH + 0.16), r3(HEAP[1] - 0.04)], in: 0.3, spin: [-4, 2, 1] });
 sfx(r3(FLICK_R + 0.3), "kenney/impact-generic-light", { gain: 0.3, reason: "Reaper's roast potato lands on the heap" });
-tines(rf, r3(FLICK_R + 0.12), forkAt(RF0, -150), 0.4, -150, "inOut");
+tines(rf, r3(FLICK_R + 0.12), forkAt(RF0, -160), 0.4, -160, "inOut");
 A(r3(FLICK_R + 0.1), "rea", "look", { to: [-0.4, 0], dur: 0.15, blink: false });
 // Viking watches them land, beaming: more for him
 A(3.85, "vik", "expr", { expr: "eager", set: { open: 0.35 }, dur: 0.2 });
@@ -225,7 +229,7 @@ A(4.4, "wiz", "look", { to: [-0.5, -0.45], dur: 0.12, blink: false });
 A(4.45, "wiz", "expr", { expr: "cocky", dur: 0.25 }); A(4.45, "wiz", "face", { lid: 0.3, dur: 0.25 });
 c.say(4.7, "wiz", "let me fix that.", 0.6, "calm", { voice: false, sub: "Let me fix that.", pos: SUB_HIGH });
 A(4.55, "wiz", "grip", { side: "L", shape: "fist", dur: 0.12 });
-c.arm(4.6, "wiz", "L", { o: [0.3, 0.75, 0.25] }, 0.3, "out"); A(4.6, "wiz", "tilt", { to: [16, 0], dur: 0.3 });
+c.arm(4.6, "wiz", "L", { o: [-0.12, 0.78, 0.32] }, 0.3, "out"); A(4.6, "wiz", "tilt", { to: [12, -8], dur: 0.3 });   // raised in front of him, the crystal leaning over the heap (panel 5)
 A(4.75, "wiz", "charge", { to: 1, dur: 0.4 });
 sfx(4.75, "charge", { gain: 0.4, dur: 0.85, reason: "the Wizard's spell charging on the heap" });
 c.prop(4.85, "aura", { glow: 1 }, 0.4, "out");
@@ -250,7 +254,7 @@ c.arm(V(5.75), "wiz", "L", "rest", 0.35, "inOut"); A(V(5.75), "wiz", "tilt", { t
 A(V(5.75), "vik", "expr", { expr: "eager", set: { open: 0.65, eye: 1.2 }, dur: 0.12 });
 c.say(V(6.2), "vik", "MORE?!", 0.5, "excited", { voice: false, sub: "MORE?!", pos: SUB_HIGH });
 A(V(5.95), "vik", "look", { to: [0, 0.1], dur: 0.12, blink: false });
-c.arm(V(6.1), "vik", "L", { o: [0.26, 0.82, 0.22] }, 0.18, "out"); A(V(6.1), "vik", "grip", { side: "L", shape: "fist", dur: 0.1 });
+c.arm(V(6.1), "vik", "L", { o: [0.05, 0.82, 0.24] }, 0.18, "out"); A(V(6.1), "vik", "grip", { side: "L", shape: "fist", dur: 0.1 });
 tines(vf, V(6.1), vAt([-0.36, 0.82, -0.5], -165), 0.18, -165, "out");
 for (const t of [6.25, 6.45]) A(V(t), "vik", "squash", { amount: 0.05, dur: 0.12 });
 A(V(5.8), "gsl", "look", { to: [0.4, 0.05], dur: 0.12, blink: false });
@@ -267,24 +271,26 @@ see(V(5.7), V(6.95), ["vik.face", "heap", "gsl.face", "wiz.face"], "panel 6: the
 // the top roast potato rolls off down the heap toward the table's edge in front of him; he spears it there without
 // looking away from his heap (hit-stop on the spear)
 c.arm(V(6.85), "vik", "L", "rest", 0.3, "inOut"); A(V(6.9), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.15 });
-tines(vf, V(6.85), vAt([-0.32, 0.56, -0.3], -140), 0.3, -140, "inOut");
+tines(vf, V(6.85), vAt([-0.32, 0.56, -0.3], -150), 0.3, -150, "inOut");
 A(V(6.72), "vik", "look", { to: [0, -0.55], dur: 0.12, blink: false });
 // the top one teeters on the new peak (the cause of the roll)
 for (const [t, r] of [[5.75, 8], [5.85, -6], [5.95, 4], [6.05, 0], [6.85, 7], [6.95, -5], [7.02, 9]]) c.prop(V(t), "rollie", { tilt: r }, 0.1, "inOut");
-const ROLL = V(7.05), EDGE = [-0.05, r3(TH), 0.2];
-c.throw(ROLL, "rollie", { to: EDGE, in: 0.55, spin: [9, 0, 2] });
-sfx(r3(ROLL + 0.55), "kenney/impact-generic-light", { gain: 0.3, reason: "the roast potato bumps down onto the oak table" });
+const ROLL = V(7.05), EDGE = [-0.08, r3(TH), 0.18];   // a low tumble down the heap's front (in 0.55 lobbed it 25 cm up)
+c.throw(ROLL, "rollie", { to: EDGE, in: 0.35, spin: [7, 0, 0] });
+sfx(r3(ROLL + 0.35), "kenney/impact-generic-light", { gain: 0.3, reason: "the roast potato bumps down onto the oak table" });
 A(r3(ROLL + 0.08), "vik", "look", { to: [-0.15, -0.65], dur: 0.12, blink: false });
 A(r3(ROLL + 0.12), "vik", "expr", { expr: "focused", dur: 0.15 }); A(r3(ROLL + 0.12), "vik", "face", { lid: 0.3, dur: 0.15 });
 const SPEAR = HS2;   // 7.9 on the video's clock
-const SP = [EDGE[0], r3(TH + RR * 1.6), EDGE[2]];
+const REST = [-0.17, 0.29];   // where the roast potato comes to rest (read back from the layout's physics)
+const SP = [REST[0], r3(TH + RR * 1.6), REST[1]];
 A(r3(SPEAR - 0.5), "vik", "look", { to: [-0.15, -0.7], dur: 0.12, blink: false });
-A(r3(SPEAR - 0.4), "vik", "lean", { to: 28, dur: 0.3 });
+A(r3(SPEAR - 0.4), "vik", "lean", { to: 20, dur: 0.3 });
 // his free glove flat on the table, bracing the lean
-c.arm(r3(SPEAR - 0.38), "vik", "L", { world: [0.3, r3(TH + 0.03), -0.17] }, 0.28, "inOut"); A(r3(SPEAR - 0.35), "vik", "grip", { side: "L", shape: "flat", dur: 0.15 });
+c.arm(r3(SPEAR - 0.38), "vik", "L", { world: [0.4, r3(TH + 0.03), -0.1] }, 0.28, "inOut"); A(r3(SPEAR - 0.35), "vik", "grip", { side: "L", shape: "flat", dur: 0.15 });
 c.arm(r3(SPEAR + 0.3), "vik", "L", "rest", 0.35, "inOut"); A(r3(SPEAR + 0.3), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
-tines(vf, r3(SPEAR - 0.35), [SP[0], r3(SP[1] + 0.08), r3(SP[2] - 0.03)], 0.27, -25, "inOut");
-tines(vf, r3(SPEAR - 0.08), SP, 0.08, -25, "in");
+// the fist comes round beside his face (screen left of it) and down, nearly upright over the roast potato
+tines(vf, r3(SPEAR - 0.35), [SP[0], r3(SP[1] + 0.08), r3(SP[2] - 0.01)], 0.27, -10, "inOut");
+tines(vf, r3(SPEAR - 0.08), SP, 0.08, -10, "in");
 c.prop(SPEAR, "rollie", { scale: 0.001 }, 0.01, "linear");
 c.prop(SPEAR, "forkV", { food: 1 }, 0.01, "linear");
 sfx(SPEAR, "kenney/impact-plate-light", { gain: 0.55, reason: "the fork's tines hit the oak table through the roast potato: tock" });
@@ -292,7 +298,9 @@ c.hitStop(SPEAR, 3);
 A(r3(SPEAR + 0.05), "vik", "expr", { expr: "cocky", set: { curve: 0.6 }, dur: 0.15 });
 A(r3(SPEAR + 0.07), "vik", "look", { to: [-0.1, -0.45], dur: 0.12, blink: false });
 A(r3(SPEAR + 0.25), "vik", "lean", { to: 0, dur: 0.35 });
-tv = tines(vf, r3(SPEAR + 0.2), vAt([-0.3, 0.56, -0.3], -140), 0.35, -140, "inOut");
+// straight up off the table first (clear of the heap), then back beside him, the roast potato on the fork
+tv = tines(vf, r3(SPEAR + 0.12), vAt([SP[0], 0.62, SP[1] - 0.02], -60), 0.2, -60, "out");
+tv = tines(vf, tv, vAt([-0.3, 0.6, -0.1], -150), 0.3, -150, "inOut");
 droop(V(8.15), 1.35);   // step 3: limp
 A(V(8.1), "gsl", "expr", { expr: "sad", set: { open: 0.15 }, dur: 0.25 });
 A(V(8.1), "rea", "face", { lid: 0.6, dur: 0.3 });
@@ -302,12 +310,13 @@ see(V(7.15), r3(SPEAR + 0.15), ["vik.face", "rollie", "forkV"], "panel 7: the ro
 // he turns to the Wizard and holds it out on the fork: "Want some?"; the Wizard leans back, his glove up
 const OFFER = V(8.8);
 A(OFFER, "vik", "look", { to: [0.55, 0.05], dur: 0.12, blink: false });
-A(r3(OFFER + 0.05), "vik", "turn", { to: 30, dur: 0.3 });
+A(r3(OFFER + 0.05), "vik", "turn", { to: 50, dur: 0.3 });   // turned to the Wizard, so the fork arm reaches out in front of his chest, not across his face
 A(r3(OFFER + 0.05), "vik", "expr", { expr: "happy", set: { curve: 0.8, open: 0.3 }, dur: 0.2 });
-tines(vf, r3(OFFER + 0.08), [0.35, 0.7, -0.3], 0.3, -120, "out");
+// held out low toward the Wizard, the fist under his own chin line, the roast potato under the Wizard's nose
+tines(vf, r3(OFFER + 0.08), vAt([0.45, 0.58, -0.26], -150), 0.3, -150, "out");
 c.say(V(8.95), "vik", "want some?", 0.55, "question", { voice: false, sub: "Want some?", pos: SUB_MID });
 A(r3(OFFER + 0.12), "wiz", "look", { to: [-0.6, -0.15], dur: 0.12, blink: false });
-A(r3(OFFER + 0.25), "wiz", "lean", { to: -16, dur: 0.3, ease: "out" });
+A(r3(OFFER + 0.25), "wiz", "lean", { to: -10, dur: 0.3, ease: "out" });
 A(r3(OFFER + 0.25), "wiz", "turn", { to: -4, dur: 0.3 });
 act.shock(c, r3(OFFER + 0.2), "wiz", { hold: 0.7, curve: -0.25 });
 c.arm(r3(OFFER + 0.28), "wiz", "R", { o: [-0.08, 0.6, 0.36] }, 0.22, "out"); A(r3(OFFER + 0.28), "wiz", "grip", { side: "R", shape: "flat", dur: 0.12 });
@@ -321,21 +330,21 @@ act.blinksAt(c, "sam", [1.4, 3.6, V(6.6)]); act.blinksAt(c, "vik", [1.32, V(6.9)
 // ---------------------------------------------------------------- shots (Jonny's panels)
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
 // the wide (panel 1): from in front and a little above, both rows, the heap in the middle, the table's front edge low
-const WIDE = fw([0, 0.3, -0.6], { w: 2.4, el: 36, fov: 34 });
+const WIDE = fw([0, 0.52, -0.5], { w: 2.2, el: 16, fov: 56 });   // the panels: the side friends cut by the frame edges, faces in
 // the first bite (panel 2): straight on, pushing in on Viking, Gunslinger's hat and the Wizard at the edges
 const BITE = fw([0, 0.6, -0.55], { w: 1.3, el: 24, fov: 30, push: 0.18, dur: 1.2 });
 // the crunch test (panel 3): Viking and Gunslinger, from a little to the left
-const CRUNCH = fw([-0.35, 0.62, -0.55], { w: 1.6, az: -10, el: 24, fov: 30 });
+const CRUNCH = fw([-0.42, 0.62, -0.55], { w: 1.7, az: -10, el: 24, fov: 30 });
 // they give theirs up (panel 4): both rows, closer than the wide
-const GIVE = fw([0, 0.34, -0.6], { w: 2.2, el: 34, fov: 34 });
+const GIVE = fw([0, 0.52, -0.55], { w: 2.15, el: 18, fov: 56 });
 // the spell (panel 5): Viking, the heap and the Wizard with his staff
-const SPELL = fw([0.5, 0.62, -0.5], { w: 1.8, az: 8, el: 24, fov: 30 });
+const SPELL = fw([0.56, 0.62, -0.5], { w: 1.8, az: 8, el: 24, fov: 30 });
 // MORE?! (panel 6): back to both rows
-const MORE = fw([0.05, 0.42, -0.55], { w: 1.9, el: 30, fov: 34 });
+const MORE = fw([0.05, 0.5, -0.5], { w: 2.25, el: 20, fov: 56 });
 // the roll (panel 7): closer, from the same side, higher, the table in front of him
 const ROLLSHOT = fw([-0.1, 0.42, 0.05], { w: 1.3, el: 30, fov: 30 });
 // want some? (panel 8): Viking and the Wizard
-const OFFERSHOT = fw([0.45, 0.62, -0.5], { w: 1.4, az: 12, el: 22, fov: 30 });
+const OFFERSHOT = fw([0.55, 0.56, -0.45], { w: 1.7, az: 18, el: 18, fov: 48 });
 const beats = c.beats([
   ["P1 the dish lands", 0, WIDE, "hook"],
   ["P2 first bite", 1.5, BITE],
