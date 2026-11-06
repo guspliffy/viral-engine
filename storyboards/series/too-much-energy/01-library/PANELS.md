@@ -27,3 +27,7 @@ Panels: `/mnt/project-files/video-scripts/2026-11-05-too-much-energy/storyboards
   put the Sorcerer behind Phoenix.
 - **The ladder is on the left** (the front bookcase), not back right as in panel 01, so the ride runs left to right
   toward the end stop and the fall carries on to the right across the frame.
+- **The back bookcase stays standing** and stops the chain, so the four in front end leaning on each other at an angle
+  (panel 05) instead of lying flat behind the readers' heads, where a front camera would lose them (review A, 6 Nov).
+- **The break is filmed over the readers' heads** (camera 2.3 m up): the readers sit between the camera and the row, so
+  only a raised camera shows the tops crossing the windows as they go.

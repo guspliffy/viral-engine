@@ -19,7 +19,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 //   libdesk    the librarian's issue desk: a panelled wooden counter, its front to +z, a top with a little stack of
 //              books and a card box. spec.w (1.3), h (0.72), d (0.55).
 //   greenlamp  a reading lamp with a brass stem and a domed shade; lit, a warm glow under it. spec.color (shade, "#2f6b45").
-//   shush      white swoosh lines of a shushed gust, a sprite group blowing toward +x in the prop's own frame;
+//   shush      white swoosh lines of a shushed gust, a sprite group blowing toward +x in the prop's own frame (spec.size scales the lines);
 //              blow 0..1 sweeps them across spec.l (1.4 m) and fades them out at the end.
 export const LIBRARY_GRIPS = {
   libladder: { railL: [-0.23, 0.95, 0.05], railR: [0.23, 0.95, 0.05] },
@@ -148,9 +148,9 @@ export const LIBRARY_KINDS = {
     if (S.art === "dragon") {
       const [c, gg] = canvas(512, 352); gg.fillStyle = "#f3e9cf"; gg.fillRect(0, 0, 512, 352);
       gg.fillStyle = "#e8d9b4"; gg.fillRect(250, 0, 12, 352);
-      gg.fillStyle = "#a9c9e6"; gg.fillRect(24, 30, 210, 180); gg.fillStyle = "#c9e2f2"; gg.fillRect(278, 30, 210, 180);
-      drawDragon(gg, 125, 130, 1.6, "#c8432e", "#9a2c22"); drawDragon(gg, 385, 130, 1.5, "#4a63b8", "#33478a");
-      gg.fillStyle = "#8a7a5a"; for (let i = 0; i < 5; i++) { gg.fillRect(30, 232 + i * 20, 190 - (i % 2) * 40, 6); gg.fillRect(284, 232 + i * 20, 190 - ((i + 1) % 2) * 50, 6); }
+      // a full-page picture on each side (readable at phone size from across the room)
+      gg.fillStyle = "#a9c9e6"; gg.fillRect(18, 18, 222, 316); gg.fillStyle = "#c9e2f2"; gg.fillRect(272, 18, 222, 316);
+      drawDragon(gg, 124, 200, 2.2, "#c8432e", "#9a2c22"); drawDragon(gg, 380, 200, 2.1, "#4a63b8", "#33478a");
       spread = mesh(new THREE.PlaneGeometry(W * 2 - 0.01, H - 0.01), new THREE.MeshStandardMaterial({ map: tex(c), roughness: 0.9 }), g, 0, -0.0015, 0);
       spread.rotation.x = -Math.PI / 2; spread.castShadow = false; spread.visible = false;
     }
@@ -195,12 +195,12 @@ export const LIBRARY_KINDS = {
   },
 
   shush(P) {
-    const S = P.spec, L = S.l ?? 1.4;
+    const S = P.spec, L = S.l ?? 1.4, K = S.size ?? 1;   // size: the lines' scale
     const [c, g] = canvas(256, 64); g.strokeStyle = "rgba(255,255,255,0.95)"; g.lineCap = "round"; g.lineWidth = 9;
     g.beginPath(); g.moveTo(10, 40); g.bezierCurveTo(80, 10, 150, 60, 246, 26); g.stroke();
     g.strokeStyle = "rgba(170,200,230,0.9)"; g.lineWidth = 3; g.stroke();
     const m = new THREE.SpriteMaterial({ map: tex(c), transparent: true, depthWrite: false, opacity: 0 }); m.userData.noOutline = true;
-    const lines = [[0, 0.0, 0], [-0.1, 0.18, 0.05], [0.05, -0.16, -0.04], [-0.2, 0.34, 0.02]].map(([x, y, z], i) => { const s = new THREE.Sprite(m); s.position.set(x, y, z); s.scale.set(0.7 - i * 0.08, 0.17 - i * 0.02, 1); P.whole.add(s); return { s, x }; });
+    const lines = [[0, 0.0, 0], [-0.1, 0.18, 0.05], [0.05, -0.16, -0.04], [-0.2, 0.34, 0.02]].map(([x, y, z], i) => { const s = new THREE.Sprite(m); s.position.set(x, y * K, z); s.scale.set((0.7 - i * 0.08) * K, (0.17 - i * 0.02) * K, 1); P.whole.add(s); return { s, x }; });
     return {
       apply(ps) {
         const b = clamp(ps.blow);
