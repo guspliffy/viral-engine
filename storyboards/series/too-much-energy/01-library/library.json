@@ -1,0 +1,3637 @@
+{
+ "id": "library",
+ "title": "That one friend with too much energy at the library",
+ "idea": "Too Much Energy, episode 1: Phoenix can't be quiet in the library; the calm spell hypes him, the ladder ride topples the bookcases like dominoes, he grins, and three shushes blow his flame out",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 8.2,
+ "set": {
+  "type": "plain",
+  "color": "#6b4a32",
+  "floor": "#6e3a24",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/library-hall.png",
+   "z": -8.5,
+   "center": [
+    -0.3,
+    4.6
+   ],
+   "height": 16,
+   "depth": false,
+   "motion": false,
+   "dust": 30
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "sneaky",
+  "lowCut": 150,
+  "gain": 0.28,
+  "payoff": 5.9,
+  "until": 6.2
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.2,
+  "surface": "wood",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea",
+   "wiz",
+   "sor",
+   "dbook"
+  ],
+  "hint": 0.05,
+  "what": "Phoenix whisper-screams about his dragon book at two friends trying to read in a library"
+ },
+ "creative": {
+  "length": [
+   9,
+   12
+  ]
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.6,
+    1.2
+   ],
+   "face": 18,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 1.7,
+   "span": 0.45
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -0.05,
+    -0.86
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "wiz",
+   "character": "sofa/wizard-staff",
+   "at": [
+    0.8,
+    -0.84
+   ],
+   "face": -10,
+   "expr": "focused",
+   "follow": 0.25,
+   "seed": 2.6
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    0.38,
+    -2.15
+   ],
+   "y": 0.32,
+   "face": 5,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 5.7
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "libfloor",
+   "x": 0,
+   "z": -0.75,
+   "w": 14,
+   "d": 15.5,
+   "seed": 21
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": 0.35,
+   "z": -0.1,
+   "w": 1.4,
+   "d": 0.62,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "dais",
+   "kind": "libdais",
+   "x": 0.38,
+   "z": -1.9,
+   "w": 1.5,
+   "d": 1.2,
+   "h": 0.32
+  },
+  {
+   "id": "desk",
+   "kind": "libdesk",
+   "x": 0.38,
+   "y": 0.32,
+   "z": -1.58,
+   "w": 1.2
+  },
+  {
+   "id": "lamp",
+   "kind": "greenlamp",
+   "x": -0.07,
+   "y": 1.04,
+   "z": -1.53
+  },
+  {
+   "id": "tlamp",
+   "kind": "greenlamp",
+   "x": 1.05,
+   "y": 0.62,
+   "z": -0.22
+  },
+  {
+   "id": "s0",
+   "kind": "libstack",
+   "x": -1.9,
+   "z": -2.7,
+   "rot": -30,
+   "l": 2.2,
+   "h": 2.1,
+   "d": 0.44,
+   "shelves": 5,
+   "seed": 3,
+   "rail": true,
+   "railY": 1.55,
+   "stop": 1,
+   "body": {
+    "shape": "box",
+    "density": 260,
+    "friction": 0.7,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "s1",
+   "kind": "libstack",
+   "x": -0.96,
+   "z": -3.428,
+   "rot": -30,
+   "l": 1.6,
+   "h": 2.1,
+   "d": 0.44,
+   "shelves": 5,
+   "seed": 14,
+   "body": {
+    "shape": "box",
+    "density": 260,
+    "friction": 0.7,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "s2",
+   "kind": "libstack",
+   "x": -0.021,
+   "z": -4.155,
+   "rot": -30,
+   "l": 1.6,
+   "h": 2.1,
+   "d": 0.44,
+   "shelves": 5,
+   "seed": 25,
+   "body": {
+    "shape": "box",
+    "density": 260,
+    "friction": 0.7,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "s3",
+   "kind": "libstack",
+   "x": 0.919,
+   "z": -4.883,
+   "rot": -30,
+   "l": 1.6,
+   "h": 2.1,
+   "d": 0.44,
+   "shelves": 5,
+   "seed": 36,
+   "body": {
+    "shape": "box",
+    "density": 260,
+    "friction": 0.7,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "s4",
+   "kind": "libstack",
+   "x": 1.859,
+   "z": -5.611,
+   "rot": -30,
+   "l": 1.6,
+   "h": 2.1,
+   "d": 0.44,
+   "shelves": 5,
+   "seed": 47,
+   "body": {
+    "shape": "box",
+    "density": 260,
+    "friction": 0.7,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "ladder",
+   "kind": "libladder",
+   "x": -2.693,
+   "z": -2.326,
+   "rot": -30,
+   "h": 1.5,
+   "w": 0.8,
+   "lean": 14,
+   "body": {
+    "shape": "box",
+    "density": 200,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "dbook",
+   "kind": "libbook",
+   "art": "dragon",
+   "x": -0.5499999999999999,
+   "y": 0.4,
+   "z": 1.6199999999999999,
+   "rot": 0,
+   "w": 0.19,
+   "h": 0.26,
+   "t": 0.04,
+   "color": "#7a2e2a",
+   "open": 1,
+   "stand": 1,
+   "scale": 1.35
+  },
+  {
+   "id": "rbook",
+   "kind": "libbook",
+   "x": -0.05,
+   "y": 0.6,
+   "z": -0.49,
+   "rot": 180,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.05,
+   "color": "#2f4a3a",
+   "open": 1,
+   "stand": 1,
+   "seed": 8
+  },
+  {
+   "id": "wbook",
+   "kind": "libbook",
+   "x": 0.75,
+   "y": 0.64,
+   "z": -0.15,
+   "rot": 0,
+   "w": 0.16,
+   "h": 0.22,
+   "t": 0.04,
+   "color": "#4b2f45",
+   "open": 1,
+   "stand": 0,
+   "seed": 12
+  },
+  {
+   "id": "pile0",
+   "kind": "libbook",
+   "x": 0.7,
+   "y": 0.64,
+   "z": 0.02,
+   "rot": -6,
+   "w": 0.17,
+   "h": 0.23,
+   "t": 0.04,
+   "seed": 30
+  },
+  {
+   "id": "pile1",
+   "kind": "libbook",
+   "x": 0.71,
+   "y": 0.685,
+   "z": 0.02,
+   "rot": 3,
+   "w": 0.17,
+   "h": 0.23,
+   "t": 0.04,
+   "seed": 31
+  },
+  {
+   "id": "pile2",
+   "kind": "libbook",
+   "x": 0.72,
+   "y": 0.73,
+   "z": 0.02,
+   "rot": 12,
+   "w": 0.17,
+   "h": 0.23,
+   "t": 0.04,
+   "seed": 32
+  },
+  {
+   "id": "lb00",
+   "kind": "libbook",
+   "x": -2.308,
+   "y": 2.165,
+   "z": -2.993,
+   "rot": -55,
+   "w": 0.16,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 10,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb01",
+   "kind": "libbook",
+   "x": -1.973,
+   "y": 2.165,
+   "z": -2.673,
+   "rot": -18,
+   "w": 0.18,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 11,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb02",
+   "kind": "libbook",
+   "x": -1.529,
+   "y": 2.165,
+   "z": -2.543,
+   "rot": -31,
+   "w": 0.2,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 12,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb10",
+   "kind": "libbook",
+   "x": -1.061,
+   "y": 2.165,
+   "z": -3.544,
+   "rot": -32,
+   "w": 0.18,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 17,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb11",
+   "kind": "libbook",
+   "x": -0.726,
+   "y": 2.165,
+   "z": -3.224,
+   "rot": -45,
+   "w": 0.2,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 18,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb20",
+   "kind": "libbook",
+   "x": -0.234,
+   "y": 2.165,
+   "z": -4.336,
+   "rot": -9,
+   "w": 0.2,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 24,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb21",
+   "kind": "libbook",
+   "x": 0.101,
+   "y": 2.165,
+   "z": -4.016,
+   "rot": -22,
+   "w": 0.16,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 25,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb30",
+   "kind": "libbook",
+   "x": 0.818,
+   "y": 2.165,
+   "z": -4.999,
+   "rot": -36,
+   "w": 0.16,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 31,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb31",
+   "kind": "libbook",
+   "x": 1.153,
+   "y": 2.165,
+   "z": -4.679,
+   "rot": -49,
+   "w": 0.18,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 32,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb40",
+   "kind": "libbook",
+   "x": 1.646,
+   "y": 2.165,
+   "z": -5.792,
+   "rot": -13,
+   "w": 0.18,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 38,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "lb41",
+   "kind": "libbook",
+   "x": 1.981,
+   "y": 2.165,
+   "z": -5.472,
+   "rot": -26,
+   "w": 0.2,
+   "h": 0.23,
+   "t": 0.05,
+   "seed": 39,
+   "body": {
+    "settle": true,
+    "density": 500
+   }
+  },
+  {
+   "id": "dust",
+   "kind": "dustmotes",
+   "x": 0.2,
+   "y": 1.6,
+   "z": -1.8,
+   "n": 60,
+   "box": [
+    4.5,
+    2.6,
+    4
+   ],
+   "color": "#ffe0a0"
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": 0.4,
+   "y": 4.6,
+   "z": -5.5,
+   "rot": 0,
+   "tip": -55,
+   "len": 6,
+   "w": 1.6,
+   "color": "#ffd89a",
+   "glow": 0.35
+  },
+  {
+   "id": "shush",
+   "kind": "shush",
+   "x": 0.2,
+   "y": 0.95,
+   "z": 0.1,
+   "rot": -60,
+   "l": 1.4,
+   "blow": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.35,
+   "text": "Psst! PSST! dragons!",
+   "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.6,
+   "to": 3.5,
+   "text": "Calm… down…",
+   "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.5,
+   "to": 4.3,
+   "text": "SHH!",
+   "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 5.7,
+   "text": "Wheee!",
+   "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.9,
+   "to": 9.8,
+   "text": "SHHHHH!",
+   "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 already too much",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.35,
+     4.8
+    ],
+    "look": [
+     -0.1,
+     1.3,
+     -1.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "dbook",
+     "set": {
+      "stand": 1,
+      "open": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rbook",
+     "set": {
+      "stand": 1,
+      "open": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dbook",
+      "grip": [
+       -0.215,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dbook",
+      "grip": [
+       0.215,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "dbook",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.12,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 1.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.38,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "rbook",
+      "grip": [
+       0.20500000000000002,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rbook",
+      "grip": [
+       -0.20500000000000002,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "rbook",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "psst! PSST! dragons!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.2
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.35,
+     "reason": "the dragon book's pages flapping as he bounces with it",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.38,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.65
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.38,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.45
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 somersault, then the spell",
+   "at": 1.5,
+   "len": 2.75,
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.2,
+      0.62
+     ],
+     "dur": 0.38,
+     "steps": 3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dbook",
+     "set": {
+      "x": -0.05,
+      "y": 0.78,
+      "z": 0
+     },
+     "dur": 0.38,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dbook",
+     "set": {
+      "stand": 0,
+      "y": 0.651,
+      "z": -0.02
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.28
+    },
+    {
+     "sfx": "kenney/book-place",
+     "gain": 0.55,
+     "reason": "the dragon book slapped down open on the table",
+     "at": 0.48
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "dbook",
+     "dur": 0,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "rbook",
+     "set": {
+      "x": -0.05,
+      "y": 0.84,
+      "z": -0.49
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.65,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.65,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.95,
+      1.4
+     ],
+     "dur": 0.34,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.55,
+     "dur": 0.34,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -360,
+     "dur": 0.34,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "sor",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.35,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.82
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.1,
+     "at": 0.89
+    },
+    {
+     "sfx": "land",
+     "gain": 0.45,
+     "reason": "his feet thumping onto the wooden floor after the first somersault",
+     "at": 0.89
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.6,
+      1.25
+     ],
+     "dur": 0.34,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.55,
+     "dur": 0.34,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.34,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.62,
+       0.42
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "caaalm... dowwn...",
+     "tone": "calm",
+     "dur": 0.6,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.32,
+     "dur": 0.5,
+     "reason": "the soft calm spell leaving the staff",
+     "at": 1.12
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.36,
+      0.9,
+      -0.142
+     ],
+     "dur": 0.3,
+     "color": "#7fc8ff",
+     "puffs": 2,
+     "sparks": 10,
+     "size": 0.18,
+     "lift": 0.02,
+     "at": 1.22
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.2,
+     "dur": 0.12,
+     "at": 1.29
+    },
+    {
+     "sfx": "land",
+     "gain": 0.5,
+     "reason": "the second landing thump",
+     "at": 1.29
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.6,
+      0.02,
+      1.4
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 1.29
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.12,
+      0.85,
+      0.206
+     ],
+     "dur": 0.3,
+     "color": "#7fc8ff",
+     "puffs": 0,
+     "sparks": 10,
+     "size": 0.18,
+     "lift": 0.02,
+     "at": 1.31
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.32
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.32
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.15,
+     "at": 1.32
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.32
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.25,
+     "dur": 0.15,
+     "at": 1.34
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.4,
+     "reason": "the energy meter up one size: his crest flares",
+     "at": 1.34
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.12,
+      0.8,
+      0.554
+     ],
+     "dur": 0.3,
+     "color": "#7fc8ff",
+     "puffs": 0,
+     "sparks": 10,
+     "size": 0.18,
+     "lift": 0.02,
+     "at": 1.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.36,
+      0.75,
+      0.902
+     ],
+     "dur": 0.3,
+     "color": "#7fc8ff",
+     "puffs": 0,
+     "sparks": 10,
+     "size": 0.18,
+     "lift": 0.02,
+     "at": 1.49
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.5
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.6,
+      0.7,
+      1.35
+     ],
+     "dur": 0.45,
+     "color": "#9fd8ff",
+     "puffs": 3,
+     "sparks": 22,
+     "size": 0.45,
+     "lift": 0.1,
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.6,
+     "reason": "the spell hits: his flames flare up two sizes (fwoomp)",
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.55,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": -0.12,
+     "dur": 0.12,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.6,
+      "eye": 1.3
+     },
+     "dur": 0.1,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.1,
+     "at": 1.6
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.68
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.68
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.08,
+     "at": 1.68
+    },
+    {
+     "who": "sor",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.17,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.88
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 1.9
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.08,
+     "at": 1.9
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 1.95
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.95
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 2
+    },
+    {
+     "who": "sor",
+     "do": "talk",
+     "line": "SHH!",
+     "tone": "angry",
+     "dur": 0.35,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.35,
+     "reason": "the librarian's sharp SHH",
+     "at": 2
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.1,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.1
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 2.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       1,
+       0.12
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 2.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       1,
+       0.12
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.22
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       1,
+       0.12
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.34
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.45
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.48
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.5
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -2.657,
+      "y": 0.28,
+      "z": -2.028
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ladder",
+      "grip": [
+       0.4,
+       0.82,
+       -0.17
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.55
+    }
+   ]
+  },
+  {
+   "name": "03 the ladder",
+   "at": 4.25,
+   "len": 1.65,
+   "shot": {
+    "pos": [
+     -0.9,
+     1.45,
+     3.3
+    ],
+    "look": [
+     -1.8,
+     1,
+     -1.9
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.7,
+      1.45,
+      3.3
+     ],
+     "look": [
+      -1.3,
+      1,
+      -1.5
+     ],
+     "fov": 50
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "ride",
+     "prop": "ladder",
+     "off": [
+      0.18,
+      0.28,
+      0.24
+     ],
+     "yaw": 90,
+     "dur": 0.02,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "ladder",
+     "hand": "L",
+     "grip": [
+      0.4,
+      0.82,
+      -0.17
+     ],
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.45,
+       0.7,
+       -0.05
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.25,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.11,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.75,
+      "eye": 1.2
+     },
+     "dur": 0.12,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "wheeeee!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "ladder",
+     "set": {
+      "x": -1.688,
+      "z": -1.746
+     },
+     "dur": 1.5,
+     "ease": "in",
+     "at": 0.15
+    },
+    {
+     "sfx": "doorslide",
+     "gain": 0.5,
+     "dur": 1.5,
+     "reason": "the ladder's wheels rumbling along the brass rail",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.6,
+     "dur": 0.6,
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/wing-flap",
+     "gain": 0.3,
+     "reason": "his wings fanning for speed",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "rbook",
+     "set": {
+      "x": -0.05,
+      "y": 0.7,
+      "z": -0.49
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.25
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.15
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.5,
+     "dur": 0.11,
+     "at": 0.37
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -3.006,
+      0.05,
+      -2.392
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 3,
+     "sparks": 0,
+     "size": 0.25,
+     "lift": 0.05,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.6,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.11,
+     "at": 0.59
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.5,
+     "dur": 0.11,
+     "at": 0.81
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.795,
+      0.05,
+      -2.27
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 3,
+     "sparks": 0,
+     "size": 0.25,
+     "lift": 0.05,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.11,
+     "at": 1.03
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.5,
+     "dur": 0.11,
+     "at": 1.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -2.456,
+      0.05,
+      -2.074
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 3,
+     "sparks": 0,
+     "size": 0.25,
+     "lift": 0.05,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.11,
+     "at": 1.47
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "04 the break",
+   "at": 5.9,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.8,
+     5.4
+    ],
+    "look": [
+     0,
+     1.05,
+     -3
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "sfx": "bell-heavy",
+     "gain": 0.6,
+     "reason": "the ladder slams into the brass end stop: CLANG",
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.066,
+      1.55,
+      -1.884
+     ],
+     "dur": 0.35,
+     "color": "#ffd36a",
+     "puffs": 0,
+     "sparks": 24,
+     "size": 0.3,
+     "lift": 0,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.02,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "ride",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "ladder",
+     "dur": 0,
+     "keep": "air",
+     "reason": "his hand lets go of the ladder's rail; the ladder stays on its rail",
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "s1",
+     "mode": "drop",
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "s2",
+     "mode": "drop",
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "s3",
+     "mode": "drop",
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "s4",
+     "mode": "drop",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -1.154,
+      "y": 1.1,
+      "z": -0.264
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -360,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "s0",
+     "mode": "knock",
+     "v": [
+      0.954,
+      0.504,
+      -1.652
+     ],
+     "spin": [
+      -1.559,
+      0,
+      -0.9
+     ],
+     "at": 0.03
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "physics",
+     "prop": "s1",
+     "mode": "knock",
+     "v": [
+      0.795,
+      0.42,
+      -1.377
+     ],
+     "spin": [
+      -1.299,
+      0,
+      -0.75
+     ],
+     "at": 0.25
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.6,
+     "reason": "bookcase 1 crashing into the next one",
+     "at": 0.25
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -1.35,
+      0.9,
+      -3.653
+     ],
+     "dur": 0.7,
+     "color": "#d9c4a0",
+     "puffs": 6,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.3,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "rbook",
+     "set": {
+      "x": -0.05,
+      "y": 0.6,
+      "z": -0.49
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.4
+     },
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -0.45,
+      "y": 0,
+      "z": 1.5
+     },
+     "dur": 0.26,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "reason": "books spilling off the shelves",
+     "at": 0.33
+    },
+    {
+     "do": "physics",
+     "prop": "s2",
+     "mode": "knock",
+     "v": [
+      0.795,
+      0.42,
+      -1.377
+     ],
+     "spin": [
+      -1.299,
+      0,
+      -0.75
+     ],
+     "at": 0.43
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.5499999999999999,
+     "reason": "bookcase 2 crashing into the next one",
+     "at": 0.43
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.41,
+      0.9,
+      -4.381
+     ],
+     "dur": 0.7,
+     "color": "#d9c4a0",
+     "puffs": 6,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.3,
+     "at": 0.43
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "reason": "books spilling off the shelves",
+     "at": 0.51
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.12,
+     "at": 0.53
+    },
+    {
+     "sfx": "land",
+     "gain": 0.5,
+     "reason": "Phoenix landing at the front after the flip",
+     "at": 0.53
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.45,
+      0.02,
+      1.65
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 0.53
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.55,
+      0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "do": "physics",
+     "prop": "s3",
+     "mode": "knock",
+     "v": [
+      0.795,
+      0.42,
+      -1.377
+     ],
+     "spin": [
+      -1.299,
+      0,
+      -0.75
+     ],
+     "at": 0.61
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.5,
+     "reason": "bookcase 3 crashing into the next one",
+     "at": 0.61
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.529,
+      0.9,
+      -5.108
+     ],
+     "dur": 0.7,
+     "color": "#d9c4a0",
+     "puffs": 6,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.3,
+     "at": 0.61
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "reason": "books spilling off the shelves",
+     "at": 0.69
+    },
+    {
+     "do": "physics",
+     "prop": "s4",
+     "mode": "knock",
+     "v": [
+      0.795,
+      0.42,
+      -1.377
+     ],
+     "spin": [
+      -1.299,
+      0,
+      -0.75
+     ],
+     "at": 0.79
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.44999999999999996,
+     "reason": "bookcase 4 crashing into the next one",
+     "at": 0.79
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.469,
+      0.9,
+      -5.836
+     ],
+     "dur": 0.7,
+     "color": "#d9c4a0",
+     "puffs": 6,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.3,
+     "at": 0.79
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "reason": "books spilling off the shelves",
+     "at": 0.87
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.39999999999999997,
+     "reason": "bookcase 5 crashing into the next one",
+     "at": 0.97
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      2.409,
+      0.9,
+      -6.564
+     ],
+     "dur": 0.7,
+     "color": "#d9c4a0",
+     "puffs": 6,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.3,
+     "at": 0.97
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "reason": "books spilling off the shelves",
+     "at": 1.05
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.35,
+     "reason": "the last bookcase settling, books clattering down",
+     "at": 1.2
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -16.866,
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "sor",
+     "do": "turn",
+     "to": -7.687,
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -5.772,
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "rbook",
+     "dur": 0,
+     "keep": "air",
+     "reason": "Reaper's book goes back on the table off screen",
+     "at": 1.39
+    },
+    {
+     "do": "prop",
+     "id": "rbook",
+     "set": {
+      "x": 0.05,
+      "y": 0.645,
+      "z": -0.2,
+      "stand": 0,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.39
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.39
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.39
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.332,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.39
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.16000000000000003,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.39
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "05 the grin",
+   "at": 7.3,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.95,
+     1,
+     4.2
+    ],
+    "look": [
+     -0.45,
+     0.68,
+     1.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.55,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "curve": -0.1,
+      "open": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.15,
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "floor",
+      "grip": [
+       -0.85,
+       0.72,
+       2.61
+      ],
+      "frame": {
+       "y": [
+        -0.5,
+        0,
+        0.87
+       ],
+       "z": [
+        0.87,
+        0,
+        0.5
+       ]
+      }
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.98,
+       -0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.45,
+      "eye": 1
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 0.6,
+     "count": 4,
+     "color": "#fff2a8",
+     "at": 0.5
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.45,
+     "reason": "the series logo: one bright ting on the grin",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.75,
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.04,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.6,
+     "dur": 0.3,
+     "at": 0.65
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "06 the shush",
+   "at": 8.5,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0,
+     1.75,
+     4.6
+    ],
+    "look": [
+     0.05,
+     0.95,
+     -0.9
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.6,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.6,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.6,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.08,
+     "at": 0.24
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.08,
+     "at": 0.24
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.08,
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "sor",
+     "do": "talk",
+     "line": "SHHHHHH!",
+     "tone": "angry",
+     "dur": 0.5,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "SHHHHHH!",
+     "tone": "angry",
+     "dur": 0.5,
+     "voice": false,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "SHHHHHH!",
+     "tone": "angry",
+     "dur": 0.5,
+     "voice": false,
+     "at": 0.4
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.7,
+     "reason": "three voices: one giant SHHHHH",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "shush",
+     "set": {
+      "blow": 1
+     },
+     "dur": 0.55,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.45
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.45
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.45,
+     "reason": "the shush's gust blowing across the room",
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.15,
+     "dur": 0.15,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -368,
+     "dur": 0.15,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 0.85,
+      "open": 0.1
+     },
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "snuff",
+     "to": 1,
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/snuff",
+     "gain": 0.6,
+     "reason": "his crest flame going out: tss",
+     "at": 0.6
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.45,
+      1.2,
+      1.5
+     ],
+     "dur": 0.55,
+     "color": "#8a8a8a",
+     "puffs": 3,
+     "sparks": 0,
+     "size": 0.18,
+     "lift": 0.4,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -360,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.92
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.18,
+     "at": 1.1
+    }
+   ],
+   "kind": "reveal"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.4,
+   "see": [
+    "phx.face",
+    "dbook",
+    "rea",
+    "wiz.face",
+    "sor.face",
+    "s0",
+    "ladder"
+   ],
+   "why": "frame 0: the loud friend with the dragon book in front of two silent readers, the shelves and ladder behind"
+  },
+  {
+   "from": 2.6,
+   "to": 3.25,
+   "see": [
+    "wiz.face",
+    "phx.face"
+   ],
+   "why": "the Wizard's calming spell flies at Phoenix and only makes him flare up"
+  },
+  {
+   "from": 4.4,
+   "to": 5.8,
+   "see": [
+    "phx.face",
+    "ladder",
+    "s0"
+   ],
+   "why": "Phoenix rides the rolling ladder along the front bookcase, faster and faster"
+  },
+  {
+   "from": 6,
+   "to": 7.2,
+   "see": [
+    "s0",
+    "s1",
+    "s2",
+    "phx.face"
+   ],
+   "why": "the bookcases go down like dominoes, books and dust everywhere"
+  },
+  {
+   "from": 7.7,
+   "to": 8.45,
+   "see": [
+    "phx.face"
+   ],
+   "why": "THE GRIN: thumb up, hand behind his head, the wreck behind him"
+  },
+  {
+   "from": 9.15,
+   "to": 9.75,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "sor.face",
+    "rea.face"
+   ],
+   "why": "his flame is out, a smoke curl, the three still glaring"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 3.1,
+   "frames": 3
+  },
+  {
+   "at": 6.167,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "phx",
+   "with": "ladder",
+   "from": 4,
+   "to": 5.95,
+   "reason": "Phoenix stands on the ladder's bottom rung and holds its front rail while he rides it"
+  },
+  {
+   "who": "phx",
+   "with": "shush",
+   "from": 8.9,
+   "to": 9.6,
+   "reason": "the shush gust is air blowing over him"
+  },
+  {
+   "who": "wiz",
+   "with": "shush",
+   "from": 8.9,
+   "to": 9.6,
+   "reason": "the shush gust starts at their mouths"
+  },
+  {
+   "who": "sor",
+   "with": "shush",
+   "from": 8.9,
+   "to": 9.6,
+   "reason": "the shush gust starts at their mouths"
+  },
+  {
+   "who": "rea",
+   "with": "shush",
+   "from": 8.9,
+   "to": 9.6,
+   "reason": "the shush gust starts at their mouths"
+  },
+  {
+   "who": "phx",
+   "with": "beam",
+   "from": 0,
+   "to": 10,
+   "reason": "the sunbeam is light, nothing to bump into"
+  },
+  {
+   "who": "phx",
+   "with": "dust",
+   "from": 0,
+   "to": 10,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "wiz",
+   "with": "beam",
+   "from": 0,
+   "to": 10,
+   "reason": "the sunbeam is light, nothing to bump into"
+  },
+  {
+   "who": "wiz",
+   "with": "dust",
+   "from": 0,
+   "to": 10,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "sor",
+   "with": "beam",
+   "from": 0,
+   "to": 10,
+   "reason": "the sunbeam is light, nothing to bump into"
+  },
+  {
+   "who": "sor",
+   "with": "dust",
+   "from": 0,
+   "to": 10,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "rea",
+   "with": "beam",
+   "from": 0,
+   "to": 10,
+   "reason": "the sunbeam is light, nothing to bump into"
+  },
+  {
+   "who": "rea",
+   "with": "dust",
+   "from": 0,
+   "to": 10,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "rea",
+   "with": "rbook",
+   "from": 2,
+   "to": 4.5,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "the joke: Reaper lifts his book until it hides his face"
+  }
+ ],
+ "notes": "Generated by storyboards/series/too-much-energy/01-library/make-library.mjs."
+}
