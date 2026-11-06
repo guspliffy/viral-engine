@@ -6,50 +6,50 @@
  "build": "core",
  "body": {
   "color": "#DDA04F",
-  "height": 0.44,
-  "width": 0.46,
-  "depth": 0.4,
+  "height": 0.5,
+  "width": 0.56,
+  "depth": 0.48,
   "lump": 0,
   "seed": 31,
-  "taper": 0.04,
-  "square": 2.2,
+  "taper": -0.14,
+  "square": 2.0,
   "specks": 0,
   "gloss": 0
  },
  "head": {
   "color": "#DDA04F",
-  "width": 0.56,
-  "height": 0.47,
+  "width": 0.44,
+  "height": 0.34,
   "depth": 0.48,
-  "square": 2.15,
-  "taper": 0.06,
-  "neck": -0.04,
-  "neckR": 0.1,
-  "forward": 0.05,
+  "square": 2.1,
+  "taper": 0.12,
+  "neck": -0.08,
+  "neckR": 0.11,
+  "forward": 0.16,
   "faceUp": 0.0,
-  "faceWide": 1.2,
+  "faceWide": 1.0,
   "muzzle": {
-   "a": 0.2,
-   "v": -0.3,
-   "w": 0.5,
-   "h": 0.32
+   "a": 0.55,
+   "v": -0.22,
+   "w": 0.58,
+   "h": 0.36
   },
   "above": 0.12
  },
  "legs": {
-  "height": 0.24,
-  "width": 0.088,
-  "hipX": 0.13
+  "height": 0.2,
+  "width": 0.12,
+  "hipX": 0.16
  },
  "limbs": {
   "color": "#DDA04F",
-  "width": 0.07,
-  "shoulder": 0.38
+  "width": 0.088,
+  "shoulder": 0.42
  },
  "face": {
-  "size": 0.72,
+  "size": 0.5,
   "default": "kind",
-  "iris": "#3B2416",
+  "iris": "#6B3E1E",
   "cheeks": "#d4874a",
   "neutral": {
    "curve": 0.3,
@@ -66,31 +66,37 @@
   "blush": 0.35,
   "freckles": 6,
   "final": {
-   "iris": "#3B2416",
-   "brow": "#8E5A2C",
+   "iris": "#6B3E1E",
+   "brow": "#9A6434",
    "eye": {
-    "oval": 1.2,
-    "iris": 0.74
+    "oval": 0.92,
+    "iris": 0.72,
+    "glintSize": 0.55,
+    "irisShade": true,
+    "lash": 0.75
    },
    "layout": {
-    "mouthV": -0.42,
+    "mouthV": -0.38,
     "cheekV": -0.2,
-    "browV": 0.55
+    "browV": 0.5,
+    "eyeU": 0.31,
+    "eyeV": 0.3,
+    "mouthW": 0.15
    },
    "browShape": {
     "arch": 0.12,
-    "lift": 0.006,
+    "lift": 0.012,
     "clear": 0.014,
-    "thick": 0.6
+    "thick": 0.3
    },
    "rest": {
-    "smirk": 0,
+    "smirk": 0.18,
     "curve": 0.6,
     "eye": 0.92
    },
    "neutral": {
-    "lidL": 0.68,
-    "lidR": 0.68
+    "lidL": 0.58,
+    "lidR": 0.58
    },
    "blush": 0.9,
    "freckles": 6
@@ -103,91 +109,100 @@
   "type": "pebble",
   "cap": {
    "color": "#9B613C",
-   "band": 0.36
+   "band": 0.5
   },
   "belly": {
-   "color": "#F2DFB2",
+   "color": "#F3E3BE",
    "seam": "#CDA874"
   },
   "vest": {
    "color": "#777344",
    "trim": "#C9A46A",
-   "button": "#8A5530"
+   "button": "#8A5530",
+   "edge": 0.3,
+   "flare": 0.08,
+   "hem": -0.62
   },
   "shell": {
    "color": "#74503A",
    "groove": "#9C7352",
    "rim": "#B9875A",
-   "inside": "#5A3E2C",
+   "inside": "#4A3426",
    "r": [
-    0.4,
-    0.44,
-    0.34
+    0.42,
+    0.5,
+    0.44
    ],
-   "dz": 0.2,
-   "rimR": 0.028,
+   "dz": 0.19,
+   "rimR": 0.045,
    "moss": {
-    "count": 1100,
-    "size": 0.032,
+    "count": 2600,
+    "size": 0.022,
     "from": 0.45,
-    "fine": 2600,
-    "fineSize": 0.011
+    "fine": 3000,
+    "fineSize": 0.01,
+    "flat": 0.42,
+    "ink": false,
+    "color": "#9AA238",
+    "light": "#B9B64C",
+    "dark": "#6E7A2A"
    },
    "fern": {
-    "leaf": 0.12,
-    "pairs": 13,
+    "leaf": 0.075,
+    "pairs": 18,
     "fronds": [
      [
       0,
-      0.34,
-      0.08
+      0.42,
+      0.05
      ],
      [
       1.05,
-      0.31,
-      0.34
+      0.38,
+      0.28
      ],
      [
       2.1,
-      0.28,
-      0.42
-     ],
-     [
-      3.15,
-      0.3,
+      0.34,
       0.36
      ],
      [
+      3.15,
+      0.36,
+      0.3
+     ],
+     [
       4.2,
-      0.28,
-      0.42
+      0.34,
+      0.36
      ],
      [
       5.25,
-      0.32,
-      0.34
+      0.4,
+      0.28
      ],
      [
       0.5,
-      0.22,
-      0.6
+      0.3,
+      0.5
      ],
      [
       3.7,
-      0.21,
-      0.62
+      0.28,
+      0.52
      ]
     ],
     "at": [
      -0.08,
      0.95,
      -0.3
-    ]
+    ],
+    "leafW": 0.2
    },
-   "dy": 0.08,
+   "dy": -0.04,
    "open": [
-    140,
-    80,
+    100,
+    50,
     90
    ],
    "rings": [
@@ -208,10 +223,26 @@
     ]
    ],
    "marginals": 30,
-   "bulge": 0.045
+   "bulge": 0.1,
+   "grooveW": 0.05,
+   "growth": false,
+   "seamK": 0.75,
+   "seam": "#A07650",
+   "edge": "#5E3F2A",
+   "light": "#8A6244",
+   "grooveDepth": 0.02,
+   "rimEdge": "#C9A06C"
   },
   "feet": {
-   "toe": "#F2DDB0"
+   "toe": "#F2DDB0",
+   "size": [
+    0.12,
+    0.06,
+    0.14
+   ]
+  },
+  "spots": {
+   "size": 0.4
   }
  },
  "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
@@ -227,5 +258,24 @@
  },
  "hands": {
   "type": "mitten"
+ },
+ "scale": 1.5,
+ "arms": {
+  "R": {
+   "o": [
+    -0.02,
+    0.24,
+    0.1
+   ],
+   "swing": 1
+  },
+  "L": {
+   "o": [
+    -0.02,
+    0.24,
+    0.1
+   ],
+   "swing": 1
+  }
  }
 }

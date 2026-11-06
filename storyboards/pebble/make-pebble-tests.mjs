@@ -3,7 +3,7 @@
 // as it would look in a clip. Engine/character tests, not posted clips: no reviews, no hook rules.
 //   node storyboards/pebble/make-pebble-tests.mjs -> storyboards/pebble/pebble-{standing,tea,chaos}.json
 //
-//   1 STANDING  a slow walk up the meadow path, a calm smile, a content blink, a look down the path (the shell, moss and
+//   1 STANDING  an unhurried natural walk up the meadow path (arms swinging, planted feet), a calm smile, a content blink, a look down the path (the shell, moss and
 //               fern from the side and the back), one line: "No rush. The path will wait."
 //   2 TEA       sitting on a mossy rock by the lake with his tea: a sip with the eyes closed, a look at the view, one line:
 //               "Some days are just for tea."
@@ -17,7 +17,8 @@ import * as peb from "./pebble-acting.mjs";
 
 // the clip template's house picks (storyboards/templates/clip-template.mjs, Jonny's decisions to 5 Nov): the sheet look,
 // planted feet, hand rig 2 + eyes 2, light from the painting (halfway shade), half boil and no paper grain, music on
-const LOOK = "sheet", MOTION = { feet: 2 }, RIG = { hand: 2, eyes: 2 }, LIGHTING = 2, HATCH = { boil: 0.25 };
+// Pebble's look is the sheets' clean cel (Jonny's fidelity spec, 6 Nov: "no prominent crosshatching", a cleaner storybook look)
+const LOOK = "sheet-clean", MOTION = { feet: 2 }, RIG = { hand: 2, eyes: 2 }, LIGHTING = 2, HATCH = { boil: 0.25 };
 // his subtitles sit in the sky above the cap: in these one-character shots he fills the lower frame, where the house
 // position (1180 px) covered his vest (check: caption-overlap); every line shot keeps the fern under 380 px
 const LINES = { sub: true, blink: false, pos: 230 };
@@ -32,32 +33,31 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
 
 // ================================================================ 1 STANDING
 {
-  const c = clip({ faces: "strong", lines: LINES }), { A, see } = c, END = 10.0;
-  const START = [-0.4, -0.45], HOME = [0, 0.05];
-  const cast = [{ id: W, character: CH, at: START, face: 25, expr: "kind", follow: 0.4, seed: 1.3 }];
-  // 0-1.9: frame 0 is mid-walk, slow, up the path toward us
-  peb.restArms(c, 0, W, { dur: 0.01 });
-  A(0, W, "look", { to: [0.2, 0], dur: 0.01, blink: false });
-  A(0, W, "move", { to: HOME, dur: 1.8, steps: 4 });
-  A(1.5, W, "turn", { to: "camera", dur: 0.6 });
-  see(0, 1.9, [`${W}.face`], "Pebble walking up the path");
-  // 1.9-3.4: settles, a calm smile at us, a content blink
-  A(1.85, W, "look", { to: [0, 0], dur: 0.3 });
-  peb.calmSmile(c, 1.9, W);
-  peb.contentBlink(c, 2.6, W);
-  see(1.9, 3.4, [`${W}.face`], "the calm smile and the content blink");
-  // 3.6-6.6: a look down the path: the shell, the moss and the fern from the side and from behind, and back
-  act.eyesLead(c, 3.6, W, [-0.8, 0.05]);
-  A(3.75, W, "turn", { to: -90, dur: 0.8 });
-  A(4.7, W, "turn", { to: -175, dur: 0.9 });
-  A(5.9, W, "turn", { to: "camera", dur: 0.9 });
-  A(6.5, W, "look", { to: [0, 0], dur: 0.3 });
-  // 6.9-9.4: the line, then the amused glance and the smile
-  peb.line(c, 7.0, W, "No rush. The path will wait.", 2.2);
-  see(7.0, 9.2, [`${W}.face`], "his line");
-  peb.amusedGlance(c, 9.0, W, [0.45, 0.05], { hold: 0.4 });
-  const MED = { pos: [0, 0.95, 3.6], look: [0, 0.52, 0], fov: 36 }, MCU = { pos: [0.05, 1.1, 2.6], look: [0.02, 0.86, 0.05], fov: 33 };
-  const beats = c.beats([["walk", 0, MED, "hook"], ["smile", 1.9, "keep"], ["look down the path", 3.6, "keep"], ["line", 6.9, MCU, "payoff"]], END);
+  const c = clip({ faces: "strong", lines: LINES }), { A, see } = c, END = 11.4;
+  const START = [-0.55, -2.7], HOME = [0, -1.15];
+  const cast = [{ id: W, character: CH, at: START, face: 20, expr: "kind", follow: 0.4, seed: 1.3 }];
+  // 0-1.9: frame 0 is mid-walk, unhurried, up the path toward us (the walk started before the clip: the gait plans from
+  // -0.6 s), arms swinging easily at his sides
+  A(0, W, "look", { to: [0.2, 0], dur: 0, blink: false });
+  peb.walk(c, 0, W, HOME, 3.2, { steps: 2.2 });
+  A(2.5, W, "turn", { to: "camera", dur: 0.6 });
+  see(0, 3.3, [`${W}.face`], "Pebble walking up the path");
+  // 3.3-4.8: settles, a calm smile at us, a content blink
+  A(3.25, W, "look", { to: [0, 0], dur: 0.3 });
+  peb.calmSmile(c, 3.3, W);
+  peb.contentBlink(c, 4.0, W);
+  see(3.3, 4.8, [`${W}.face`], "the calm smile and the content blink");
+  // 5.0-8.0: a look down the path: the shell, the moss and the fern from the side and from behind, and back
+  act.eyesLead(c, 5.0, W, [-0.8, 0.05]);
+  A(5.15, W, "turn", { to: -110, dur: 1.2 });
+  A(7.0, W, "turn", { to: "camera", dur: 1.2 });
+  A(7.9, W, "look", { to: [0, 0], dur: 0.3 });
+  // 8.4-10.8: the line, then the amused glance and the smile
+  peb.line(c, 8.4, W, "No rush. The path will wait.", 2.2);
+  see(8.4, 10.6, [`${W}.face`], "his line");
+  peb.amusedGlance(c, 10.4, W, [0.45, 0.05], { hold: 0.4 });
+  const MED = { pos: [0, 1.0, 3.6], look: [0, 0.8, -1.15], fov: 38 }, MCU = { pos: [0.05, 1.3, 2.75], look: [0.02, 1.12, -1.1], fov: 33 };
+  const beats = c.beats([["walk", 0, MED, "hook"], ["smile", 3.3, "keep"], ["look down the path", 5.0, "keep"], ["line", 8.3, MCU, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-standing", title: "Pebble test 1: standing", idea: "Pebble character test: walk, smile, turn, one line (not a posted clip)", ...base({ what: "Pebble walks up", surface: "dirt" }),
     set: { type: "env", env: "meadow-path", shade: "soft", aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH },
@@ -69,19 +69,20 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
 // ================================================================ 2 TEA
 {
   const c = clip({ faces: "strong", lines: LINES }), { A, see } = c, END = 9.6;
-  const ROCK = { id: "rock", kind: "boulder", x: 0, z: 0, w: 0.3, h: 0.19, d: 0.24, seed: 3 };   // narrow enough to sit inside his shell's lower rim
-  const SEAT_H = 0.2;
-  const REST = [0.12, 0.45, 0.36], SIP = [0.0, 0.5, 0.44];
-  const MUG = { id: "mug", kind: "teamug", steam: 1, color: "#efe4cc", scale: 1.6, ...grips.placeFor("teamug", REST, 0) };
+  // he sits on the ground the way the sheet's SITTING (TEA) pose does: legs out in front, the shell resting behind him
+  // (a rock seat made him look as if he stood: Jonny's fidelity spec, 6 Nov)
+  const SEAT_H = 0.05;
+  const REST = [0.14, 0.5, 0.5], SIP = [0.0, 0.6, 0.74];
+  const MUG = { id: "mug", kind: "teamug", steam: 1, color: "#efe4cc", scale: 2.3, ...grips.placeFor("teamug", REST, 0) };
   const mug = grips.mug(c, W, MUG, { side: "R", height: 0.6 });
-  const cast = [{ id: W, character: CH, at: [0, 0], face: "camera", expr: "kind", follow: 0.3, seed: 2.2 }];
+  const cast = [{ id: W, character: CH, at: [0, 0], face: -12, expr: "kind", follow: 0.3, seed: 2.2 }];
   // frame 0: already sitting, the mug coming up for a sip
-  A(0, W, "sit", { seat: "rock", height: SEAT_H, dur: 0.01, hands: "keep", feet: [0.3, 0.05] });
+  A(0, W, "sit", { height: SEAT_H, rot: -12, dur: 0, hands: "keep", feet: [0.34, 0.06] });
   A(0, W, "noblink");                     // placed blinks only: none lands on his line
   act.blinksAt(c, W, [3.7]);
   mug.secure(0, 0.01);
-  A(0, W, "arm", { side: "L", pose: { o: [-0.02, 0.2, 0.22] }, dur: 0.01 });
-  A(0, W, "look", { to: [0, -0.1], dur: 0.01, blink: false });
+  A(0, W, "arm", { side: "L", pose: { o: [-0.02, 0.2, 0.22] }, dur: 0 });
+  A(0, W, "look", { to: [0, -0.1], dur: 0, blink: false });
   mug.carry(0.05, SIP, 0.6, "inOut", { tip: -18 });
   peb.contentBlink(c, 0.4, W, { hold: 0.9 });
   act.eyesLead(c, 1.57, W, [0.15, -0.4]);
@@ -100,13 +101,12 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   act.eyesLead(c, 7.47, W, [0.05, -0.35]);
   mug.carry(7.6, SIP, 0.6, "inOut", { tip: -18 });
   peb.contentBlink(c, 7.9, W, { hold: 1.0 });
-  const MED = { pos: [0.1, 1.05, 3.4], look: [0.05, 0.6, 0], fov: 36 }, CLOSE = { pos: [0.1, 1.1, 2.4], look: [0.05, 0.84, 0.1], fov: 33 };
+  const MED = { pos: [0.1, 0.95, 3.6], look: [-0.06, 0.52, 0], fov: 36 }, CLOSE = { pos: [-0.05, 1.0, 2.6], look: [-0.14, 0.76, 0.1], fov: 33 };
   const beats = c.beats([["sip", 0, MED, "hook"], ["the view", 2.6, "keep"], ["line", 5.1, "keep"], ["second sip", 7.5, CLOSE, "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-tea", title: "Pebble test 2: sitting with tea", idea: "Pebble character test: sitting on a rock with tea (not a posted clip)", ...base({ what: "Pebble sips tea", surface: "dirt" }),
     set: { type: "env", env: "lakeside-campsite", shade: "soft", aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH },
-    music: { style: "warm", lowCut: 150, gain: 0.26 }, cast, props: [ROCK, MUG], captions: c.captions, beats, visible: c.visible,
-    allowClip: [{ who: W, with: "rock", from: 0, to: END, reason: "Pebble sits on the rock (his legs rest over its front)" }],
+    music: { style: "warm", lowCut: 150, gain: 0.26 }, cast, props: [MUG], captions: c.captions, beats, visible: c.visible,
     notes: "Generated by storyboards/pebble/make-pebble-tests.mjs (character test, no reviews).",
   });
 }
@@ -114,12 +114,12 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
 // ================================================================ 3 CHAOS
 {
   const c = clip({ faces: "strong", lines: LINES }), { A, sfx, see } = c, END = 10.0;
-  const HOME = [-0.25, 0.15];
-  const REST = [-0.13, 0.45, 0.5], SIP = [-0.25, 0.52, 0.58];
-  const MUG = { id: "mug", kind: "teamug", steam: 0.8, color: "#efe4cc", scale: 1.6, ...grips.placeFor("teamug", REST, 0) };
+  const HOME = [-0.4, 0.15];
+  const REST = [-0.2, 0.62, 0.64], SIP = [-0.2, 0.86, 0.9];
+  const MUG = { id: "mug", kind: "teamug", steam: 0.8, color: "#efe4cc", scale: 2.3, ...grips.placeFor("teamug", REST, 0) };
   const mug = grips.mug(c, W, MUG, { side: "R", height: 0.6 });
-  const BOX = { id: "box", kind: "flatpack", x: 0.62, z: -0.25, pages: 22, unfold: 0 };
-  const PAGES = { id: "pages", kind: "letters", x: 0.75, y: 0.3, z: -0.2, burst: 0, floor: 0.3, count: 14, spread: 0.6, up: 1.0, seed: 4 };
+  const BOX = { id: "box", kind: "flatpack", x: 0.85, z: -0.2, pages: 22, unfold: 0 };
+  const PAGES = { id: "pages", kind: "letters", x: 0.95, y: 0.3, z: -0.15, burst: 0, floor: 0.3, count: 14, spread: 0.6, up: 1.0, seed: 4 };
   const cast = [{ id: W, character: CH, at: HOME, face: "camera", expr: "kind", follow: 0.4, seed: 3.1 }];
   // frame 0: holding his tea; the booklet already starts to climb out of the box
   mug.secure(0, 0.01);
@@ -151,7 +151,7 @@ const setOf = (plate, o = {}) => ({ type: "plain", color: o.color || "#e9dcc0", 
   peb.line(c, 7.3, W, "Hm. Tomorrow's problem.", 1.8);
   see(7.3, 9.2, [`${W}.face`], "his line");
   peb.calmSmile(c, 9.3, W);
-  const WIDE = { pos: [0.15, 1.0, 4.6], look: [0.15, 0.85, 0], fov: 34 }, MCU = { pos: [-0.2, 1.04, 2.8], look: [-0.15, 0.94, 0.1], fov: 31 };
+  const WIDE = { pos: [0.15, 1.2, 7.0], look: [0.15, 1.05, 0], fov: 34 }, MCU = { pos: [-0.3, 1.3, 3.5], look: [-0.3, 1.12, 0.1], fov: 31 };
   const beats = c.beats([["oh", 0, WIDE, "hook"], ["up and up", 1.4, "keep"], ["glance", 4.6, MCU], ["line", 7.2, "keep", "payoff"]], END);
   write(import.meta.url, {
     id: "pebble-chaos", title: "Pebble test 3: reacting to chaos", idea: "Pebble character test: calm in chaos (not a posted clip)", ...base({ what: "the booklet climbs, Pebble stays calm", surface: "wood" }),

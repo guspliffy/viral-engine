@@ -7,7 +7,7 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
- "castLook": "sheet",
+ "castLook": "sheet-clean",
  "cleanStart": true,
  "motion": {
   "feet": 2
@@ -56,58 +56,60 @@
    "id": "peb",
    "character": "pebble/pebble",
    "at": [
-    -0.4,
-    -0.45
+    -0.55,
+    -2.7
    ],
-   "face": 25,
+   "face": 20,
    "expr": "kind",
    "follow": 0.4,
    "seed": 1.3
   }
  ],
  "props": [],
- "captions": [
-  {
-   "from": 7,
-   "to": 9.6,
-   "text": "No rush. The path will wait.",
-   "pos": 230,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  }
- ],
+ "captions": [],
  "beats": [
   {
    "name": "walk",
    "at": 0,
-   "len": 1.9,
+   "len": 3.3,
    "shot": {
     "pos": [
      0,
-     0.95,
+     1,
      3.6
     ],
     "look": [
      0,
-     0.52,
-     0
+     0.8,
+     -1.15
     ],
-    "fov": 36
+    "fov": 38
    },
    "do": [
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.2,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
     {
      "who": "peb",
      "do": "arm",
      "side": "R",
      "pose": {
       "o": [
-       -0.03,
-       0.12,
-       0.15
-      ]
+       -0.01,
+       0.1,
+       0.05
+      ],
+      "swing": 1
      },
-     "dur": 0.01,
+     "dur": 0,
      "at": 0
     },
     {
@@ -116,23 +118,13 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.03,
-       0.12,
-       0.15
-      ]
+       -0.01,
+       0.1,
+       0.05
+      ],
+      "swing": 1
      },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "peb",
-     "do": "look",
-     "to": [
-      0.2,
-      0
-     ],
-     "dur": 0.01,
-     "blink": false,
+     "dur": 0,
      "at": 0
     },
     {
@@ -140,10 +132,10 @@
      "do": "move",
      "to": [
       0,
-      0.05
+      -1.15
      ],
-     "dur": 1.8,
-     "steps": 4,
+     "dur": 3.2,
+     "steps": 2.2,
      "at": 0
     },
     {
@@ -151,7 +143,7 @@
      "do": "turn",
      "to": "camera",
      "dur": 0.6,
-     "at": 1.5
+     "at": 2.5
     },
     {
      "who": "peb",
@@ -161,14 +153,14 @@
       0
      ],
      "dur": 0.3,
-     "at": 1.85
+     "at": 3.25
     }
    ],
    "kind": "hook"
   },
   {
    "name": "smile",
-   "at": 1.9,
+   "at": 3.3,
    "len": 1.7,
    "shot": "keep",
    "do": [
@@ -182,10 +174,40 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0.68,
+     "lid": 0.58,
      "brow": 0,
      "dur": 0.4,
      "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.24,
+       0.1
+      ],
+      "swing": 1
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.24,
+       0.1
+      ],
+      "swing": 1
+     },
+     "dur": 0.5,
+     "at": 0.05
     },
     {
      "who": "peb",
@@ -226,30 +248,23 @@
   },
   {
    "name": "look down the path",
-   "at": 3.6,
+   "at": 5,
    "len": 3.3,
    "shot": "keep",
    "do": [
     {
      "who": "peb",
      "do": "turn",
-     "to": -90,
-     "dur": 0.8,
+     "to": -110,
+     "dur": 1.2,
      "at": 0.15
     },
     {
      "who": "peb",
      "do": "turn",
-     "to": -175,
-     "dur": 0.9,
-     "at": 1.1
-    },
-    {
-     "who": "peb",
-     "do": "turn",
      "to": "camera",
-     "dur": 0.9,
-     "at": 2.3
+     "dur": 1.2,
+     "at": 2
     },
     {
      "who": "peb",
@@ -260,23 +275,30 @@
      ],
      "dur": 0.3,
      "at": 2.9
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 2.5,
+     "idle": 0.85,
+     "at": 3.25
     }
    ]
   },
   {
    "name": "line",
-   "at": 6.9,
+   "at": 8.3,
    "len": 3.1,
    "shot": {
     "pos": [
      0.05,
-     1.1,
-     2.6
+     1.3,
+     2.75
     ],
     "look": [
      0.02,
-     0.86,
-     0.05
+     1.12,
+     -1.1
     ],
     "fov": 33
    },
@@ -284,17 +306,16 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0.68,
+     "lid": 0.58,
      "dur": 0.3,
      "at": 0
     },
     {
      "who": "peb",
-     "do": "talk",
+     "macro": "say",
      "line": "No rush. The path will wait.",
      "tone": "calm",
-     "dur": 2.2,
-     "blink": false,
+     "pos": 230,
      "at": 0.1
     },
     {
@@ -323,7 +344,7 @@
     {
      "who": "peb",
      "do": "face",
-     "lid": 0.68,
+     "lid": 0.58,
      "dur": 0.4,
      "at": 2.4
     },
@@ -351,23 +372,23 @@
  "visible": [
   {
    "from": 0,
-   "to": 1.9,
+   "to": 3.3,
    "see": [
     "peb.face"
    ],
    "why": "Pebble walking up the path"
   },
   {
-   "from": 1.9,
-   "to": 3.4,
+   "from": 3.3,
+   "to": 4.8,
    "see": [
     "peb.face"
    ],
    "why": "the calm smile and the content blink"
   },
   {
-   "from": 7,
-   "to": 9.2,
+   "from": 8.4,
+   "to": 10.6,
    "see": [
     "peb.face"
    ],

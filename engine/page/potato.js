@@ -840,7 +840,9 @@ export class Character {
     const from = handTarget(a.from, sx, this.rx, this.H, t, this.legH), to = handTarget(a.pose, sx, this.rx, this.H, t, this.legH);
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
     // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
-    const g = st.gait, rw = g ? (a.pose === "rest" ? a.p : 0) + (a.from === "rest" ? 1 - a.p : 0) : 0;
+    // (a pose object with `swing` swings too: a character's own walking arms, e.g. Pebble's, instead of the generic rest)
+    const sw_ = (p) => (p === "rest" ? 1 : p && typeof p === "object" && p.swing ? +p.swing : 0);
+    const g = st.gait, rw = g ? sw_(a.pose) * a.p + sw_(a.from) * (1 - a.p) : 0;
     if (rw > 0) {
       const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
       h.x += sw * g.dir[0]; h.z += sw * g.dir[1];

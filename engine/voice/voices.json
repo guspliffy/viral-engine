@@ -9,5 +9,10 @@
   "storyteller-warm": { "voice": { "bm_george": 1 }, "speed": 0.95, "lang": "en-gb", "pitch": 0, "note": "Wizard B as a narrator" },
   "pebble": { "voice": { "bm_daniel": 0.6, "am_santa": 0.4 }, "speed": 0.86, "lang": "en-gb", "pitch": -1, "note": "Pebble the tortoise (5 Nov 2026): calm, older, slow and warm; awaiting Jonny's ear (options pebble-b, pebble-c)" },
   "pebble-b": { "voice": { "bm_george": 0.5, "am_santa": 0.5 }, "speed": 0.85, "lang": "en-gb", "pitch": -1, "note": "Pebble option B: a rounder, warmer grandfather" },
-  "pebble-c": { "voice": { "bm_fable": 1 }, "speed": 0.86, "lang": "en-gb", "pitch": -2, "note": "Pebble option C: a softer storyteller" }
+  "pebble-c": { "voice": { "bm_fable": 1 }, "speed": 0.86, "lang": "en-gb", "pitch": -2, "note": "Pebble option C: a softer storyteller" },
+  "age-none": { "age": {}, "note": "a recorded line cleaned and levelled, nothing else" },
+  "pebble-own-a": { "age": { "pitch": -2, "tempo": 0.92, "warm": 3, "vibrato": [5.2, 0.025], "lowpass": 7500 }, "phones": "pebble", "note": "Jonny's own take, older (6 Nov 2026 option A): 2 semitones down, a little slower, warmer, a faint tremor" },
+  "pebble-own-b": { "age": { "pitch": -3, "tempo": 0.88, "warm": 4, "vibrato": [5.5, 0.045], "tremolo": [5.5, 0.12], "lowpass": 6500 }, "phones": "pebble", "note": "option B: an old storyteller, 3 down, slower, a clear tremor" },
+  "pebble-own-c": { "age": { "pitch": -2.5, "formant": "shift", "tempo": 0.9, "warm": 2, "vibrato": [5, 0.03], "lowpass": 7000 }, "phones": "pebble", "note": "option C: a bigger, deeper chest (formants lowered with the pitch)" },
+  "pebble-d": { "voice": { "am_michael": 0.5, "am_santa": 0.5 }, "speed": 0.84, "lang": "en-us", "pitch": -1, "note": "Pebble option D: an American grandfather, slow and warm" }
 }

@@ -19,7 +19,7 @@ import * as act from "../lib/acting.mjs";
 export const SLOW = 0.4;   // his shortest face change
 // his resting upper lids (the sheet's half-lidded eyes): a "face" lid sets the lid outright, so every calm beat comes back
 // to this, never to 0 (0 opens the eyes wide; with his big round eyes a lid starts to show from about 0.6)
-export const LID = 0.68;
+export const LID = 0.58;
 
 export function calmSmile(c, t, who, { dur = SLOW } = {}) {
   c.A(t, who, "expr", { expr: "kind", dur });
@@ -58,13 +58,26 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
-export const REST = { R: { o: [-0.03, 0.12, 0.15] }, L: { o: [-0.03, 0.12, 0.15] } };
+export const REST = { R: { o: [-0.02, 0.24, 0.1], swing: 1 }, L: { o: [-0.02, 0.24, 0.1], swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
-// one line in his calm voice (subtitled by the clip's lines setting), the half lids held while he talks: the mouth's
-// open shape would otherwise fade his resting face (face.final.rest) out the way a big reaction does
-export function line(c, t, who, text, dur, { lid = LID, ...o } = {}) {
+// his walk (Jonny 6 Nov: "a fluent natural walk like the most recent potatoes"): the planted gait ("motion": { "feet": 2 })
+// with his arms hanging close at his sides and swinging against the legs (an arm pose with `swing`, potato.js), short
+// unhurried steps, and the hands back to rest a moment after he stops. A tortoise pace: about 0.5 m/s.
+export const WALK = { R: { o: [-0.01, 0.1, 0.05], swing: 1 }, L: { o: [-0.01, 0.1, 0.05], swing: 1 } };
+export function walk(c, t, who, to, dur, { steps = 2.2, rest = true, arms = 0.35 } = {}) {
+  for (const side of ["R", "L"]) c.A(Math.max(0, t - arms * 0.5), who, "arm", { side, pose: WALK[side], dur: t > 0 ? arms : 0 });
+  c.A(t, who, "move", { to, dur, steps });
+  if (rest) restArms(c, t + dur + 0.15, who, { dur: 0.5 });
+}
+
+// one line in his own calm voice (Kokoro, voices.json "pebble"; never gibberish, Jonny 6 Nov), with its caption in the
+// sky above his cap (pos), the half lids held while he talks: the mouth's open shape would otherwise fade his resting
+// face (face.final.rest) out the way a big reaction does. The say macro speaks real words for a character with "tts";
+// the clip builder's c.say is the gibberish-and-subtitle line of the potato clips, so it is not used here.
+export function line(c, t, who, text, dur, { lid = LID, pos = 230, voice, ...o } = {}) {
   c.A(t - 0.1, who, "face", { lid, dur: 0.3 });
-  c.say(t, who, text, dur, "calm", o);
+  c.macro(t, who, "say", { line: text, tone: "calm", pos, ...(voice && { voice }), ...o });
+  c.A(t - 0.15, who, "still", { dur: dur + 0.3, idle: 0.85 });   // no automatic blink on his line (a still hold skips them)
   c.A(t + dur + 0.1, who, "face", { lid: LID, dur: 0.4 });
 }

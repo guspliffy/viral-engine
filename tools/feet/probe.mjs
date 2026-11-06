@@ -20,7 +20,7 @@ for (const c of sb.cast || []) {
   let steps = 0, far = 0, farT = 0;
   for (const s of ["R", "L"]) {
     let i = 1;
-    const ok = (k) => F[k].f[s].w > 0.99 && F[k].f[s].y - F[k].b.y - 0.035 * (c.scale ?? 1) < 0.003;
+    const ok = (k) => F[k].f[s].w > 0.99 && F[k].f[s].y - F[k].b.y - 0.035 * (c.scale ?? defs[c.character]?.scale ?? 1) < 0.003;
     while (i <= N) {
       if (ok(i) && ok(i - 1)) {
         let j = i; while (j + 1 <= N && ok(j + 1)) j++;
@@ -33,8 +33,8 @@ for (const c of sb.cast || []) {
         i = j + 1;
       } else i++;
     }
-    for (let k = 0; k <= N; k++) { const fk = F[k].f[s]; if (fk.w > 0.99) { const b = F[k].b, sc = c.scale ?? 1, hx = (s === "R" ? -1 : 1) * 0.13 * sc, hz = 0.04 * sc, d = Math.hypot(fk.x - (b.x + hx * Math.cos(b.yaw) + hz * Math.sin(b.yaw)), fk.z - (b.z - hx * Math.sin(b.yaw) + hz * Math.cos(b.yaw))); if (d > far) { far = d; farT = k / fps; } } }
-    for (let k = 1; k <= N; k++) if (F[k].f[s].y - F[k].b.y > 0.04 && !(F[k - 1].f[s].y - F[k - 1].b.y > 0.04)) steps++;
+    for (let k = 0; k <= N; k++) { const fk = F[k].f[s]; if (fk.w > 0.99) { const b = F[k].b, sc = c.scale ?? defs[c.character]?.scale ?? 1, hx = (s === "R" ? -1 : 1) * 0.13 * sc, hz = 0.04 * sc, d = Math.hypot(fk.x - (b.x + hx * Math.cos(b.yaw) + hz * Math.sin(b.yaw)), fk.z - (b.z - hx * Math.sin(b.yaw) + hz * Math.cos(b.yaw))); if (d > far) { far = d; farT = k / fps; } } }
+    { const base = 0.035 * (c.scale ?? defs[c.character]?.scale ?? 1) - 0.035, up = (k) => F[k].f[s].y - F[k].b.y - base > 0.04; for (let k = 1; k <= N; k++) if (up(k) && !up(k - 1)) steps++; }
   }
   console.log(`${c.id}: ${steps} lifts, foot at most ${(far * 100).toFixed(0)} cm from its home under the body (${farT.toFixed(2)} s)`);
 }

@@ -243,7 +243,7 @@ function buildShell(ch, C) {
   for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
     { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); }
     const q = cell(u), sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b);
-    const r = 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - 0.012 * (1 - k);
+    const r = 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - (S.grooveDepth ?? 0.012) * (1 - k);
     const p = pt(u, r); pos.push(p.x, p.y, p.z);
     let cc;
     if (S.plates === false) cc = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]).lerp(sd.m ? margG : groove, 1 - sstep(0, gw, q.b));
@@ -252,8 +252,8 @@ function buildShell(ch, C) {
       const own = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]);
       cc = own.clone().lerp(sd.m ? margG : lightC, 0.3 * sstep(gw * 2, gw * 5, q.b));
       cc.lerp(sd.m ? margG : edgeC, 0.5 * ring(q.b, gw * 0.62, gw * 0.22));
-      if (!sd.m) cc.lerp(seamC, 0.32 * ring(q.b, gw * 1.45, gw * 0.12) + 0.22 * ring(q.b, gw * 2.3, gw * 0.12));
-      cc.lerp(seamC, 0.85 * (1 - sstep(0, gw * 0.32, q.b)));
+      if (!sd.m && S.growth !== false) cc.lerp(seamC, 0.32 * ring(q.b, gw * 1.45, gw * 0.12) + 0.22 * ring(q.b, gw * 2.3, gw * 0.12));
+      cc.lerp(seamC, (S.seamK ?? 0.85) * (1 - sstep(0, gw * 0.32, q.b)));
     }
     colr.push(cc.r, cc.g, cc.b);
   }
@@ -307,7 +307,7 @@ function moss(group, onShell, dirAt, alphaOf, S, R) {
     if (cover < (M.from ?? 0.52) + (tiny ? 0.04 : 0)) continue;
     const r = (tiny ? (M.fineSize ?? 0.012) : (M.size ?? 0.034)) * (0.6 + 0.8 * R()) * (0.6 + 0.6 * sstep(M.from ?? 0.52, 0.95, cover));
     const s = new THREE.SphereGeometry(1, tiny ? 6 : 10, tiny ? 5 : 7);
-    s.scale(r * 1.15, r * (tiny ? 0.5 : 0.55), r * 1.15);
+    s.scale(r * 1.15, r * (tiny ? 0.5 : (M.flat ?? 0.55)), r * 1.15);
     const out_ = tiny ? (M.size ?? 0.034) * 0.3 : r * 0.15;   // the fine bits sit on top of the cushions
     q.setFromUnitVectors(up, nn); s.applyQuaternion(q); s.translate(p.x + nn.x * out_, p.y + nn.y * out_, p.z + nn.z * out_);
     const k = R(), cc = (k < 0.5 ? cs[0] : k < 0.8 ? cs[1] : cs[2]).clone().multiplyScalar(0.94 + 0.12 * R()), a = new Float32Array(s.attributes.position.count * 3);
@@ -317,7 +317,7 @@ function moss(group, onShell, dirAt, alphaOf, S, R) {
   }
   if (!geos.length) return;
   const m = mesh(mergeGeometries(geos), new THREE.MeshStandardMaterial({ color: cs[0], vertexColors: true, roughness: 1 }));
-  m.name = "pebble-moss"; group.add(m);
+  m.name = "pebble-moss"; if (M.ink === false) m.material.userData.noOutline = true; group.add(m);
 }
 
 // the fern: one plant from the upper rear of the shell, fronds fanning up and out and arching over at their tips, each a
@@ -342,7 +342,7 @@ function buildFern(group, onShell, S) {
     for (let k = 0; k < np; k++) {
       const s = 0.14 + 0.84 * (k / (np - 1)), p = curve.getPointAt(s), tg = curve.getTangentAt(s), side = new THREE.Vector3().crossVectors(tg, new THREE.Vector3(0, 1, 0));
       if (side.lengthSq() < 1e-4) side.set(1, 0, 0); side.normalize();
-      const L = (F.leaf ?? 0.05) * (1.05 - 0.75 * s) * (0.85 + 0.3 * Math.sin(k * 2.1 + i)), W = L * 0.4;
+      const L = (F.leaf ?? 0.05) * (1.05 - 0.75 * s) * (0.85 + 0.3 * Math.sin(k * 2.1 + i)), W = L * (F.leafW ?? 0.4);
       for (const sd of [-1, 1]) {
         const dir = side.clone().multiplyScalar(sd).addScaledVector(tg, 0.55).normalize(), lg = leaf.clone();
         lg.scale(W, 0.0028, L / 2); lg.translate(0, 0, L / 2);
