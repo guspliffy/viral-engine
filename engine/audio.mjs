@@ -11,6 +11,8 @@
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
@@ -768,6 +770,27 @@ export function soundSamples(id, seed = 1, dur) {
   return SFX[id] ? effect(id, r, dur) : librarySound(id, r, { dur, code: effect });
 }
 
+// a nature recording (assets/sfx/ai/nature/<id>-<take>.ogg, Stable Audio 3 Small sfx takes, -20 LUFS mono) looped to the
+// clip's length with a 1 s equal-power crossfade at each wrap, starting at a seeded point so two clips with the same bed
+// don't start on the same bird; "take" pins one, else the seed picks
+const NATURE = path.join(path.dirname(new URL(import.meta.url).pathname), "../assets/sfx/ai/nature");
+export const NATURE_BEDS = ["birds", "stream", "waterfall", "wind", "leaves"];
+function natureBed(o, seconds, seed) {
+  if (!NATURE_BEDS.includes(o.id)) throw new Error(`sound.nature: unknown bed "${o.id}" (${NATURE_BEDS.join(", ")})`);
+  const takes = fs.readdirSync(NATURE).filter((f) => f.startsWith(o.id + "-")).sort(), h = hash(`${o.id}/${seed}`);
+  const file = o.take ? `${o.id}-${o.take}.ogg` : takes[h % takes.length];
+  const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(NATURE, file), "-ac", "1", "-ar", String(SR), "-f", "f32le", "-"], { maxBuffer: 1 << 28 });
+  if (r.status !== 0) throw new Error(`sound.nature: can't decode ${file}`);
+  const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length));
+  const n = Math.ceil(seconds * SR), out = new Float32Array(n), xf = SR, m = x.length - xf, s0 = (h >>> 8) % Math.max(1, m - SR * 4);
+  for (let i = 0; i < n; i++) {
+    const k = (s0 + i) % m, wrap = k < xf && s0 + i >= m;   // after a wrap the take's tail (k + m) fades out as its head fades in
+    out[i] = wrap ? x[k] * Math.sin((k / xf) * Math.PI / 2) + x[k + m] * Math.cos((k / xf) * Math.PI / 2) : x[k];
+  }
+  for (let i = 0; i < Math.min(n, 0.3 * SR); i++) out[i] *= i / (0.3 * SR);
+  return out;
+}
+
 // a quiet bed of room sound for the set, so the clips don't all sit in the same silence
 function ambience(type, seconds, r, fade = 0.3) {
   const x = buf(seconds), n = x.length;
@@ -1010,6 +1033,9 @@ export function renderAudio(sb, chars, opts = {}) {
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
   if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
+  // nature beds (Pebble's calm videos, Jonny 6 Nov 2026: birds, water, wind, leaves to match the scenery):
+  // "sound": { "nature": ["birds", { "id": "stream", "gain": 0.12, "take": 2, "pan": -0.3 }] }
+  for (const [k, n] of (cfg.nature || []).entries()) { const o = typeof n === "string" ? { id: n } : n; bed.add(0, natureBed(o, sb.duration, seed + k), o.gain ?? 0.14, o.pan ?? 0); }
   if (cfg.engine) bed.add(0, engineSound(cfg.engine, sb.duration, rng(seed ^ 0x27d4eb2d)), cfg.engine.gain ?? 0.3, cfg.engine.pan ?? 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   let peak = 0;

@@ -20,7 +20,15 @@
   "sfx": 0.6,
   "ambience": 0.34,
   "guard": true,
-  "surface": "dirt"
+  "surface": "dirt",
+  "nature": [
+   "birds",
+   {
+    "id": "leaves",
+    "gain": 0.1,
+    "pan": 0.3
+   }
+  ]
  },
  "creative": {
   "length": [
