@@ -599,7 +599,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters

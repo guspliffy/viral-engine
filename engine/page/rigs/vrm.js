@@ -109,6 +109,8 @@ export class VrmCharacter extends Character {
     this.perf = new Performance(this.cast.perform || [], humanClips(), this.cast.fingers || [], this.legLen);
     this.R0 = new THREE.Quaternion();
     this._q = new THREE.Quaternion(); this._x = new THREE.Vector3(1, 0, 0); this._qi = new THREE.Quaternion(); this._e = new THREE.Euler(); this._ta = new THREE.Vector3();
+    this.toeH = this.nb.leftToes ? (wp("leftToes").y + wp("rightToes").y) / 2 : this.footH;
+    if (this.def.ground !== false && this.def.contacts !== false && this.cast.contacts !== false && this.perf.L.length) this.plan = this._planContacts();
   }
 
   _material(m) {
@@ -144,6 +146,10 @@ export class VrmCharacter extends Character {
       out.userData.noShine = true;
       out.userData.lineColor = look.line || this.def.line || "#2e211c";
       out.userData.lineK = look.lineK || this.def.lineK || 1;
+      // the painting's key-light edge (set lighting 2) lifts dark cloth toward a light grey: in a deep bend the folded
+      // trouser faces turn edge-on and the whole fold went grey (6 Nov pick-up). Dark cloth gets a faint edge, no back glow
+      const kr = look.krimK ?? this.def.krimK?.[role];
+      if (kr != null) out.userData.krimK = kr;
       if (transparent) out.userData.noOutline = true;
     }
     out.name = name; out.userData.vrmName = name;
@@ -210,19 +216,23 @@ export class VrmCharacter extends Character {
       const A0 = this.def.thumbAxis || [0, -1, 0], ax = (side === "right" ? this._ta.set(A0[0], A0[1], A0[2]) : this._ta.set(A0[0], -A0[1], -A0[2])).normalize();   // (given for the right hand; the left is its mirror)
       th.forEach((bone, n) => { if (bone) bone.quaternion.setFromAxisAngle(ax, c * [0.5, 0.55, 0.5][n] * (this.def.thumbK ?? 1)); });
     }
-    if (this.def.ground !== false) this._ground();
+    if (this.def.ground !== false) this._ground(t);
     this.vrm.humanoid.update();
     return P;
   }
 
   // the feet on the floor: the recorded actor's legs are not this body's legs, so a planted foot came out floating
-  // a few cm or sunk into the ground (seated feet 6 cm under, 6 Nov). The hips come down when both feet hover a
-  // little (never in a jump: the drop fades out between 6 and 14 cm), then each leg is bent or stretched (two-bone
-  // turn, the knee kept on its own side, the foot's turn kept) so an ankle near the floor sits at its rest height and
-  // one under it is lifted out. Character "ground": false turns it off
-  _ground() {
+  // a few cm or sunk into the ground (seated feet 6 cm under, 6 Nov) and slid across it (the retarget scales the
+  // root's path by leg length, not the steps the legs take). The hips come down when both feet hover a little (never
+  // in a jump: the drop fades out between 6 and 14 cm), then each leg is bent or stretched (two-bone turn, the knee
+  // kept on its own side, the foot's turn kept) so an ankle near the floor sits at its rest height and one under it
+  // is lifted out. Contacts (motion brief 6 Nov): the support plan (_planContacts) says when the heel and when the ball
+  // of each foot is planted and where; a planted point is held where it landed (heel first, then the ball as the heel
+  // peels off: the foot rolls over its active contact), and the hips give way when a held foot is out of reach.
+  // Character "ground": false turns it all off, "contacts": false only the holding
+  _ground(t) {
     const nb = this.nb, fh = this.footH, V = THREE.Vector3; if (!fh || !nb.hips) return;
-    const legs = ["left", "right"].map((sd) => [nb[`${sd}UpperLeg`], nb[`${sd}LowerLeg`], nb[`${sd}Foot`]]).filter((l) => l.every(Boolean));
+    const legs = ["left", "right"].map((sd) => [nb[`${sd}UpperLeg`], nb[`${sd}LowerLeg`], nb[`${sd}Foot`], nb[`${sd}Toes`], sd]).filter((l) => l.slice(0, 3).every(Boolean));
     nb.hips.parent.updateMatrixWorld(true);
     const ay = () => Math.min(...legs.map((l) => l[2].getWorldPosition(new V()).y)) - fh;
     const d0 = ay();
@@ -232,22 +242,139 @@ export class VrmCharacter extends Character {
     }
     const wq = (o) => o.getWorldQuaternion(new THREE.Quaternion());
     const setW = (o, q) => o.quaternion.copy(wq(o.parent).invert().multiply(q));
-    for (const [U, L, F] of legs) {
-      const h = U.getWorldPosition(new V()), k = L.getWorldPosition(new V()), a = F.getWorldPosition(new V()), d = a.y - fh;
-      const dn = d < 0 ? 0 : d < 0.04 ? (d * d) / 0.08 : d - 0.02;
-      if (Math.abs(dn - d) < 5e-4) continue;
+    // each leg's target ankle: grounded height, then pulled onto its held contact
+    const plan = this._lockOff ? null : this.plan, tg = [];
+    // (the stance-width push, see _planContacts: along the line from the right hip to the left)
+    let lat = null;
+    if (this.width && !this._lockOff && t != null && nb.leftUpperLeg && nb.rightUpperLeg) lat = nb.leftUpperLeg.getWorldPosition(new V()).sub(nb.rightUpperLeg.getWorldPosition(new V())).setY(0).normalize();
+    for (const [U, L, F, Tz, sd] of legs) {
+      const a = F.getWorldPosition(new V()), d = a.y - fh;
+      let sv = null;
+      if (lat) { const W = this.width[sd], f = Math.min(W.length - 1, Math.max(0, t / this.width.dt)), i = Math.min(W.length - 2, Math.floor(f)), v = W.length > 1 ? W[i] + (W[i + 1] - W[i]) * (f - i) : W[0] || 0; if (v > 1e-5) { sv = lat.clone().multiplyScalar(sd === "left" ? v : -v); a.add(sv); } }
+      // (without a support plan an ankle near the floor is eased onto it; with one only a held heel is put down, so a
+      // swinging foot keeps its recorded clearance instead of being flattened onto the floor while it still travels)
+      const c = plan && t != null ? this._contactAt(plan[sd], t) : null;
+      let dn = d < 0 ? 0 : !this.plan ? (d < 0.04 ? (d * d) / 0.08 : d - 0.02) : c ? d * (1 - c.wH) : d;
+      if (c?.nH) dn = Math.max(dn, c.nH.k * Math.hypot(a.x - c.nH.p.x, a.z - c.nH.p.z));
       const T = a.clone(); T.y = fh + dn;
-      const fq = wq(F), la = h.distanceTo(k), lb = k.distanceTo(a);
-      const ok = k.clone().sub(h).normalize();
-      let n = ok.clone().cross(a.clone().sub(k)); if (n.lengthSq() < 1e-8) n = ok.clone().cross(T.clone().sub(h)); if (n.lengthSq() < 1e-8) n.set(1, 0, 0); n.normalize();
-      const ht = T.clone().sub(h), dist = Math.min(ht.length(), la + lb - 1e-4), dir = ht.normalize();
-      const A = Math.acos(Math.max(-1, Math.min(1, (la * la + dist * dist - lb * lb) / (2 * la * dist))));
-      const k1 = dir.clone().applyAxisAngle(n, A), k2 = dir.clone().applyAxisAngle(n, -A), kd = k1.dot(ok) >= k2.dot(ok) ? k1 : k2;
-      setW(U, new THREE.Quaternion().setFromUnitVectors(ok, kd).multiply(wq(U))); U.updateMatrixWorld(true);
-      const kk = L.getWorldPosition(new V()), aa = F.getWorldPosition(new V());
-      setW(L, new THREE.Quaternion().setFromUnitVectors(aa.sub(kk).normalize(), T.clone().sub(kk).normalize()).multiply(wq(L))); L.updateMatrixWorld(true);
-      setW(F, fq); F.updateMatrixWorld(true);
+      let wT = 0, toeY = 0;
+      if (c) {
+        if (c.wH > 0 || c.wT > 0) {
+          const toe = Tz ? Tz.getWorldPosition(new V()) : a.clone(); if (Tz && sv) toe.add(sv);
+          if (c.H) T.addScaledVector(new V(c.H.x - a.x, 0, c.H.z - a.z), c.wH);
+          if (c.T) { T.addScaledVector(new V(c.T.x - toe.x, 0, c.T.z - toe.z), (1 - c.wH) * c.wT); wT = c.wT; toeY = c.T.y; }
+        }
+      }
+      tg.push({ U, L, F, Tz, T, wT, toeY, nT: c?.nT });
     }
+    // reach: a held foot the leg can't reach pulls the hips toward it (down and over) instead of the foot letting go
+    const pull = new V();
+    for (const g of tg) {
+      const h = g.U.getWorldPosition(new V()), la = h.distanceTo(g.L.getWorldPosition(new V())), lb = g.L.getWorldPosition(new V()).distanceTo(g.F.getWorldPosition(new V()));
+      const ht = g.T.clone().sub(h), ex = ht.length() - (la + lb) * 0.985;
+      if (ex > 0) pull.addScaledVector(ht.normalize(), ex);
+    }
+    if (pull.lengthSq() > 1e-8) { const w = nb.hips.getWorldPosition(new V()).add(pull); nb.hips.position.copy(nb.hips.parent.worldToLocal(w)); nb.hips.parent.updateMatrixWorld(true); }
+    for (const { U, L, F, Tz, T, wT, toeY, nT } of tg) {
+      const h = U.getWorldPosition(new V()), k = L.getWorldPosition(new V()), a = F.getWorldPosition(new V());
+      if (a.distanceToSquared(T) > 2.5e-7) {
+        const fq = wq(F), la = h.distanceTo(k), lb = k.distanceTo(a);
+        const ok = k.clone().sub(h).normalize();
+        let n = ok.clone().cross(a.clone().sub(k)); if (n.lengthSq() < 1e-8) n = ok.clone().cross(T.clone().sub(h)); if (n.lengthSq() < 1e-8) n.set(1, 0, 0); n.normalize();
+        // soft reach: the last 1.5 % of the leg's length is eased, so a nearly straight knee never snaps
+        const ht = T.clone().sub(h), raw = ht.length(), mx = la + lb, s0 = mx * 0.97;
+        const dist = raw < s0 ? raw : s0 + (mx * 0.999 - s0) * (1 - Math.exp(-(raw - s0) / (mx * 0.999 - s0))), dir = ht.normalize();
+        const A = Math.acos(Math.max(-1, Math.min(1, (la * la + dist * dist - lb * lb) / (2 * la * dist))));
+        const k1 = dir.clone().applyAxisAngle(n, A), k2 = dir.clone().applyAxisAngle(n, -A), kd = k1.dot(ok) >= k2.dot(ok) ? k1 : k2;
+        setW(U, new THREE.Quaternion().setFromUnitVectors(ok, kd).multiply(wq(U))); U.updateMatrixWorld(true);
+        const kk = L.getWorldPosition(new V()), aa = F.getWorldPosition(new V());
+        setW(L, new THREE.Quaternion().setFromUnitVectors(aa.sub(kk).normalize(), T.clone().sub(kk).normalize()).multiply(wq(L))); L.updateMatrixWorld(true);
+        setW(F, fq); F.updateMatrixWorld(true);
+      }
+      // the ball of a held foot rests on the floor (pitched about the ankle), and no toe ever goes under it
+      if (Tz) {
+        const an = F.getWorldPosition(new V()), to = Tz.getWorldPosition(new V());
+        const floor = this.toeH + (nT ? nT.k * Math.hypot(to.x - nT.p.x, to.z - nT.p.z) : 0), want = wT > 0 ? Math.max(to.y, floor) + (toeY - Math.max(to.y, floor)) * wT : Math.max(to.y, floor);
+        if (Math.abs(want - to.y) > 5e-4) {
+          const v = to.clone().sub(an), r = Math.hypot(v.x, v.z), ny = Math.max(-0.999 * v.length(), Math.min(0.999 * v.length(), want - an.y));
+          const nr = Math.sqrt(Math.max(0, v.lengthSq() - ny * ny)), w2 = new V(r > 1e-6 ? (v.x / r) * nr : 0, ny, r > 1e-6 ? (v.z / r) * nr : 0);
+          setW(F, new THREE.Quaternion().setFromUnitVectors(v.normalize(), w2.normalize()).multiply(wq(F))); F.updateMatrixWorld(true);
+        }
+      }
+    }
+  }
+
+  // the support plan: the performance played once at 60 Hz (before any holding), and for each foot the spans where its
+  // heel (ankle) or its ball (toe joint) is down and still: under 5 cm over its rest height (a retargeted planted foot floats up to 5 cm) and moving under 0.35 m/s
+  // across the floor. A span longer than 0.1 s becomes a contact held at the place it settled (its slowest frames
+  // weigh most). Spans never cross a cut. Pure: the same list, the same plan
+  _planContacts() {
+    const L = this.perf.L, last = L[L.length - 1], end = last.at + last.dur, dt = 1 / 60, V = THREE.Vector3;
+    const seg = (t) => { let i = 0; while (i + 1 < L.length && L[i + 1].at <= t) i++; return L[i].blend === 0 ? i : -1; };
+    const S = { left: [], right: [] };
+    this._lockOff = true;
+    for (let i = 0; i * dt <= end + 1e-6; i++) {
+      const t = i * dt; this._vrmPose(t); this.nb.hips.parent.updateMatrixWorld(true);
+      const hl = this.nb.leftUpperLeg.getWorldPosition(new V()), hr = this.nb.rightUpperLeg.getWorldPosition(new V()), mid = hl.clone().add(hr).multiplyScalar(0.5), lat = hl.sub(hr).setY(0).normalize();
+      for (const sd of ["left", "right"]) S[sd].push({ t, s: seg(t), mid, lat, a: this.nb[`${sd}Foot`].getWorldPosition(new V()), b: (this.nb[`${sd}Toes`] || this.nb[`${sd}Foot`]).getWorldPosition(new V()) });
+    }
+    this._lockOff = false;
+    // stance width (motion brief: no narrow crossing gait): the recorded walkers put each ankle 0-5 cm off the line
+    // under the pelvis (a catwalk on this wider-hipped body, 6 Nov front view); each foot is kept at least half the
+    // gait "width" (default 16 cm between ankle centres, about the hip joints' spacing) out on its own side, the push smoothed over 0.4 s so the swing
+    // carries it too. The pushed feet are the ones the contacts hold
+    const half = (this.cast.gait?.width ?? this.def.gait?.width ?? 0.16) / 2, n = S.left.length;
+    this.width = { dt, left: new Float32Array(n), right: new Float32Array(n) };
+    for (const [sd, sg] of [["left", 1], ["right", -1]]) {
+      const F = S[sd], need = F.map((f) => Math.max(0, half - sg * f.a.clone().sub(f.mid).dot(f.lat))), W = Math.round(0.2 / dt);
+      for (let i = 0; i < n; i++) {
+        let sum = 0, cnt = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && F[j].s === F[i].s) { sum += need[j]; cnt++; }
+        const v = sum / cnt; this.width[sd][i] = v;
+        F[i].a.addScaledVector(F[i].lat, sg * v); F[i].b.addScaledVector(F[i].lat, sg * v);
+      }
+    }
+    const C = this.def.contact || {}, up = C.height ?? 0.05, vmax = C.speed ?? 0.35, minLen = C.minLen ?? 0.1;
+    const spans = (F, key, base) => {
+      const out = []; let cur = null;
+      const sp = (i) => { const p = F[Math.max(0, i - 1)], q = F[Math.min(F.length - 1, i + 1)]; if (p.s !== q.s) return 0; return Math.hypot(q[key].x - p[key].x, q[key].z - p[key].z) / (q.t - p.t || dt); };
+      F.forEach((f, i) => {
+        const v = sp(i), on = f[key].y < base + up && v < vmax;
+        if (on && cur && cur.s === f.s) { cur.b = f.t; cur.pts.push([f[key], v]); }
+        else { if (cur) out.push(cur); cur = on ? { a: f.t, b: f.t, s: f.s, pts: [[f[key], v]] } : null; }
+      });
+      if (cur) out.push(cur);
+      return out.filter((c) => c.b - c.a >= minLen).map((c) => {
+        let wx = 0, wz = 0, ws = 0; for (const [p, v] of c.pts) { const w = 1 / (v + 0.05); wx += p.x * w; wz += p.z * w; ws += w; }
+        return { a: c.a, b: c.b, s: c.s, p: new V(wx / ws, base, wz / ws) };
+      });
+    };
+    const plan = {};
+    for (const sd of ["left", "right"]) plan[sd] = { H: spans(S[sd], "a", this.footH), T: spans(S[sd], "b", this.toeH) };
+    if (this.cast.diagPalms || this.cast.diagFeet) for (const sd of ["left", "right"]) console.log(`diag:plan ${sd} widen max ${Math.max(...this.width[sd]).toFixed(3)} mean ${(this.width[sd].reduce((a, b) => a + b, 0) / n).toFixed(3)} side ${(S[sd].reduce((a, f) => a + (sd === "left" ? 1 : -1) * f.a.clone().sub(f.mid).dot(f.lat), 0) / n).toFixed(3)}`), console.log(`diag:plan ${sd} heel ${plan[sd].H.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")} ball ${plan[sd].T.map((c) => `${c.a.toFixed(2)}-${c.b.toFixed(2)}`).join(",")}`);
+    return plan;
+  }
+
+  // how much a foot's heel and ball are held at t, and where: full inside a span, eased in and out over 0.06 s at its
+  // ends (never into another shot)
+  _contactAt(P, t) {
+    const r = this.def.contact?.ramp ?? 0.06, L = this.perf.L;
+    let si = 0; while (si + 1 < L.length && L[si + 1].at <= t) si++;
+    const s = L[si].blend === 0 ? si : -1;
+    const pick = (list) => {
+      let best = null, bw = 0;
+      for (const c of list) { if (c.s !== s) continue; const w = Math.min(smooth((t - c.a) / r + 1), smooth((c.b - t) / r + 1)); if (w > bw) { bw = w; best = c; } }
+      return [best, bw];
+    };
+    // the nearest contact of each kind in this shot within 0.3 s (a foot about to land or just lifted): a point near
+    // the floor keeps a clearance over it of 30 % of its distance from that spot, so a heel comes down ON the place it
+    // will hold instead of touching early and sliding there, and a ball peels up off its spot instead of skidding away
+    const near = (list) => {
+      let best = null, bg = 0.3;
+      for (const c of list) { if (c.s !== s) continue; const g = t < c.a ? c.a - t : t > c.b ? t - c.b : 0; if (g < bg) { bg = g; best = c; } }
+      return best ? { p: best.p, k: (this.def.contact?.clear ?? 0.3) * (1 - smooth(bg / 0.3)) } : null;
+    };
+    const [H, wH] = pick(P.H), [T, wT] = pick(P.T);
+    return { H: H?.p, wH, T: T?.p, wT, nH: near(P.H), nT: near(P.T) };
   }
 
   apply(st, t) {
@@ -293,6 +420,8 @@ export class VrmCharacter extends Character {
       E.update();
     }
     this.vrm.scene.updateMatrixWorld(true);
+    // cast "diagFeet": every frame's ankle and ball of each foot, in the world (tools/human/skate.mjs measures sliding)
+    if (this.cast.diagFeet) { const H2 = this.vrm.humanoid, f = (n) => H2.getRawBoneNode(n).getWorldPosition(new THREE.Vector3()).toArray().map((v) => v.toFixed(4)).join(" "); console.log(`diag:feet t=${t.toFixed(4)} L ${f("leftFoot")} ${f("leftToes")} R ${f("rightFoot")} ${f("rightToes")}`); }
     // the potato's hands and feet ride on the person's (hidden): holds put a prop in her palm, contact shadows land
     // under her shoes
     const rootInv = new THREE.Matrix4().copy(this.root.matrixWorld).invert(), H = this.vrm.humanoid;
