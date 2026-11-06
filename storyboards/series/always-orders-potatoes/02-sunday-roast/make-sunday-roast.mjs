@@ -347,7 +347,7 @@ const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) })
 // the wide (panel 1): from in front and a little above, both rows, the heap in the middle, the table's front edge low
 const WIDE = fw([0, 0.52, -0.5], { w: 2.45, el: 16, fov: 56 });   // the panels: the side friends cut by the frame edges, faces in
 // the first bite (panel 2): straight on, pushing in on Viking, Gunslinger's hat and the Wizard at the edges
-const BITE = fw([0, 0.6, -0.55], { w: 1.3, el: 24, fov: 30, push: 0.18, dur: 1.2 });
+const BITE = fw([0, 0.44, -0.4], { w: 1.6, el: 26, fov: 30, push: 0.12, dur: 1.2 });   // the heap higher in frame, so "Mmmmm!" sits on the table under it
 // the crunch test (panel 3): Viking and Gunslinger, from a little to the left
 const CRUNCH = fw([-0.42, 0.62, -0.55], { w: 1.7, az: -10, el: 24, fov: 30 });
 // they give theirs up (panel 4): both rows, closer than the wide
