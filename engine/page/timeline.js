@@ -1,5 +1,6 @@
 import { EXPRESSIONS, blendExpr, lookProgress } from "./face.js";
-import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump } from "./util.js";
+import { clamp, lerp, lerp3, ease, prog, wobble, rng, armNow, hopCrouch, loopLen, loopRad, naturalOf, cruiseVel, cruiseDist, bump, layerOf, hermiteKeys, hashStr } from "./util.js";
+import { overlapAt, holdShift, weaponHand } from "./solve.js";
 import { planSyllables, mouthAt } from "../shared/syllables.js";
 import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
@@ -483,13 +484,19 @@ export function actorState(sb, actor, def, t, raw = false) {
   // natural motion (util.js naturalOf; null when the storyboard doesn't ask for it): what the walk, reaches, turns and
   // sitting add on top of the pose, applied below the loop (after the feet are planted, so they stay on the floor)
   const N = naturalOf(sb), nat = { gait: null, pitch: 0, lean: 0, squash: 0, look: 0 };
-  const acts = (sb.actions || []).filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
+  // the motion layer's timing (util.js layerOf, quality plan item 12): starts shifted a frame or two between characters,
+  // chains of moves on one path, eases per kind of move (timedActions below)
+  const ML = layerOf(sb), TA = timedActions(sb), chainAt = {};
+  const acts = TA.actions.filter((a) => a.who === c.id && a.at <= t).sort((a, b) => a.at - b.at);
   for (const a of acts) {
-    const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || "inOut")(p);
+    const d = a.dur ?? 0.3, p = prog(t, a.at, d), e = ease(a.ease || (ML?.timing?.eases && defaultEase(a, st, def)) || "inOut")(p);
     switch (a.do) {
       case "move": {
         // the planted gait reads the step rate, the stride and whether it's a glide (steps: 0) from the action
         if (p < 1) st.gaitHint = { steps: a.steps, run: (a.stride ?? 1) >= 1.7, glide: a.steps === 0 };
+        // a chain of moves (timing.splines): one smooth path through all of its keys, at rest only at its two ends
+        const ch = TA.chains.get(a);
+        if (ch) { chainMove(st, ch, a, t, chainAt); break; }
         if (N?.gait && (!a.ease || a.ease === "inOut")) { natMove(st, a, t, d, nat); break; }
         st.x = lerp(st.x, a.to[0], e); st.z = lerp(st.z, a.to[1], e); if (a.y != null) st.y = lerp(st.y, a.y, e);   // y: the height it ends at (a sloping street)
         // stride: how long and high the steps are (1 a walk; about 2 a run), bob: metres the body rises between footfalls
@@ -579,7 +586,10 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "arm": {
         // "rest" is the character's own resting pose when it has one (the Wizard's hand on his staff)
         const own = (s) => (a.pose === "rest" ? c.arms?.[s] || def?.arms?.[s] || "rest" : a.pose);
-        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: own(s), p: e };
+        // both hands on a gesture (timing.offsets): one leads, the other follows two frames later (seeded side)
+        const lag = a.side === "both" && ML?.timing?.offsets && typeof a.pose === "string" && d >= 0.2 && !a.sync ? (hashStr(`${c.id}|${a.at}`) & 1 ? "R" : "L") : null;
+        const eOf = (s) => (s === lag ? ease(a.ease || (ML?.timing?.eases && defaultEase(a, st, def)) || "inOut")(prog(t, a.at + 2 / (sb.fps ?? 30), d)) : e);
+        for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.arms[s] = { from: armNow(st.arms[s]), pose: own(s), p: eOf(s) };
         if (N?.lead && a.lead !== false && d >= 0.2) natLead(a, t, d, nat);
         break;
       }
@@ -826,14 +836,129 @@ export function actorState(sb, actor, def, t, raw = false) {
     const r = rng(Math.floor(seed * 1000)), p0 = 2.6 + r() * 1.2, period = LD ? LD / Math.max(1, Math.round(LD / p0)) : p0, off = r() * period, ph = (t + off) % period;
     if (blinkFree(sb, c.id, t - ph)) st.blink = blinkAt(ph);
   }
+  // moving holds (timing.holds): in a hold the weight shifts from foot to foot every 2-3 s and the body settles a
+  // little, so nobody is ever perfectly still (after the plant: the feet stay)
+  if (ML?.timing?.holds) holdShift(sb, c, st, t, idle, busyOf(sb, c.id), LD, def, TA.actions);
   if (!raw) {
     Object.assign(st, phases(sb, actor, def, t)); st.ft = followThrough(sb, actor, def, t);
     // natural jiggle: when the body stops or lands, the follow-through spring overshoots and the body squashes with it
     if (N?.jiggle) st.squash *= 1 - 0.16 * st.ft.u;
+    // overlap (item 8): the body's turn, tip and lean trail their targets a beat and settle; the arms are then
+    // resolved for the body as drawn, so a hand on a prop stays on it
+    const O = ML?.overlap || ML?.solve ? overlapAt(sb, actor, def, t, layerHooks) : null;
+    if (O?.body) { st.yaw += O.body[0]; st.pitch = (st.pitch || 0) + O.body[1]; st.lean += O.body[2]; }
     resolveArms(sb, st, def, t);
+    // the hands' drag and settle and the solver's push (potato.js a.nudge), the elbow leading the hand (a.elbowNudge)
+    if (O) for (const s of ["R", "L"]) if (st.arms[s] && O.arms[s]) { const { nudge, elbowNudge } = O.arms[s]; Object.assign(st.arms[s], { nudge, ...(elbowNudge && { elbowNudge }) }); }
+    // a held prop's swing, [forward, sideways] radians in the body's frame per hand (the holds turn the prop by it)
+    if (O?.propSway) st.propSway = O.propSway;
   }
   return st;
 }
+
+// ---------- motion layer: timing (quality plan item 12) ----------------------------------------------------------
+// the default ease of an action with none given, by the kind of move (timing.eases): a reach to a prop or a point in
+// the world goes out fast and arrives slowly, landing exactly; a gesture (point, wave, shrug, a fist, hands up) winds
+// up a little and settles past its end; a turn does the same; an arm coming home keeps the plain inOut
+const GESTURES = new Set(["point", "shrug", "wave", "up", "fist", "cast", "cheeks", "hat", "thumb"]);
+function defaultEase(a, st, def) {
+  if (a.do === "arm") {
+    const q = a.pose;
+    if (q && typeof q === "object" && (q.prop || q.world)) return "reach";
+    if (typeof q === "string" && GESTURES.has(q) && (a.dur ?? 0.3) >= 0.15) return "anticSettle";
+    return null;
+  }
+  // a turn winds up and settles; one carrying a long costume prop (staff, scythe, axe) doesn't: its tip would sweep
+  // back and past by several centimetres (the cat clip: the staff into the bed)
+  if (a.do === "turn" && (a.dur ?? 0.3) >= 0.2) return weaponHand(def) ? "reach" : "anticSettle";
+  return null;
+}
+// a chained move's place at t (timing.splines): the chain starts where the body is when its first move begins and runs
+// through every move's end on one cubic in time (util.js hermiteKeys), at rest at both ends; the walk cycle and the
+// planted gait follow the body as for one long move
+function chainMove(st, ch, a, t, at) {
+  if (ch.i === 0) at[ch.id] = [st.x, st.z, st.y];
+  const s0 = at[ch.id] || [st.x, st.z, st.y], K = [[ch.t0, ...s0]];
+  let y = s0[2];
+  for (const m of ch.moves) { y = m.y ?? y; K.push([m.at + (m.dur ?? 0.3), m.to[0], m.to[1], y]); }
+  const [x, z, yy] = hermiteKeys(K, t, ch.tension);
+  st.x = x; st.z = z; st.y = yy;
+  const pc = clamp((t - ch.t0) / (ch.t1 - ch.t0));
+  if (pc < 1) { st.walkAmt = Math.min(1, Math.min(pc, 1 - pc) * 8); st.walk = (t - ch.t0) * (a.steps ?? 2.2); st.stride = a.stride ?? 1; }
+}
+// the storyboard's actions as the timeline reads them (cached per storyboard): with timing.offsets, characters who
+// start a reaction on the same moment (a look, a face, an arm gesture, a turn or lean) start a frame or two apart,
+// in an order seeded from their names, unless the beat says sync: true; contacts never move (an actor with a grab,
+// release, sit, ride, move, hop, talk or an arm onto a prop at that moment keeps all its starts there). With
+// timing.splines, back-to-back moves of one actor with no ease of their own form chains (chainMove).
+const TIMED = new WeakMap();
+const SHIFTABLE = new Set(["look", "expr", "face", "arm", "turn", "lean", "pitch", "wings", "hatsway"]);
+function timedActions(sb) {
+  let T = TIMED.get(sb);
+  if (T) return T;
+  const ML = layerOf(sb), src = sb.actions || [];
+  T = { actions: src, chains: new Map() };
+  if (ML?.timing?.offsets) {
+    const fr = 1 / (sb.fps ?? 30), groups = new Map();
+    for (const a of src) { const k = Math.round(a.at * 1000); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(a); }
+    const shift = new Map();
+    for (const [k, list] of groups) {
+      if (k <= 0) continue;   // the opening pose stays where it is
+      const who = [...new Set(list.map((a) => a.who))];
+      const ok = who.filter((w) => {
+        const mine = list.filter((a) => a.who === w);
+        return mine.some((a) => SHIFTABLE.has(a.do)) && mine.every((a) => SHIFTABLE.has(a.do) && !a.sync && !(a.do === "arm" && a.pose && typeof a.pose === "object" && (a.pose.prop || a.pose.world)));
+      });
+      if (ok.length + (who.length - ok.length) < 2 || !ok.length) continue;
+      // the seeded order: each shifted actor gets 0, 1 or 2 frames; the first in order stays on the beat
+      const order = ok.map((w) => [hashStr(`${w}|${k}`), w]).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
+      order.forEach((w, i) => { const n = who.length === ok.length ? i : i + 1; if (n > 0) shift.set(`${w}|${k}`, Math.min(2, n) * fr); });
+    }
+    if (shift.size) T.actions = src.map((a) => { const d = shift.get(`${a.who}|${Math.round(a.at * 1000)}`); return d ? { ...a, at: a.at + d } : a; });
+  }
+  if (ML?.timing?.splines) {
+    const STOP = new Set(["run", "sit", "stand", "ride", "fly", "drop", "land", "climb", "hover"]);
+    const byWho = new Map();
+    for (const a of T.actions) { if (!byWho.has(a.who)) byWho.set(a.who, []); byWho.get(a.who).push(a); }
+    let id = 0;
+    for (const list of byWho.values()) {
+      list.sort((p, q) => p.at - q.at);
+      const moves = list.filter((a) => a.do === "move" && (!a.ease || a.ease === "inOut") && Array.isArray(a.to) && (a.dur ?? 0.3) > 0.05);
+      let run = [];
+      const flush = () => {
+        if (run.length >= 2) {
+          const ch = { id: id++, moves: run, t0: run[0].at, t1: run[run.length - 1].at + (run[run.length - 1].dur ?? 0.3), tension: ML.timing.tune?.tension ?? 0.8 };
+          run.forEach((m, i) => T.chains.set(m, { ...ch, i }));
+        }
+        run = [];
+      };
+      for (const m of moves) {
+        const prev = run[run.length - 1];
+        const joined = prev && Math.abs(m.at - (prev.at + (prev.dur ?? 0.3))) <= 0.04 && !list.some((b) => STOP.has(b.do) && b.at > prev.at && b.at < m.at + (m.dur ?? 0.3));
+        if (!joined) flush();
+        run.push(m);
+      }
+      flush();
+    }
+  }
+  TIMED.set(sb, T);
+  return T;
+}
+// when each actor's body is busy (a move, a turn, a hop, a dance, sitting down...): moving holds fade out around them
+const BUSY = new WeakMap();
+const BUSY_DO = new Set(["move", "run", "turn", "hop", "fly", "hover", "drop", "land", "climb", "sit", "stand", "ride", "lean", "pitch", "crouch", "tap", "squash"]);
+function busyOf(sb, id) {
+  let per = BUSY.get(sb); if (!per) { per = new Map(); BUSY.set(sb, per); }
+  let B = per.get(id);
+  if (!B) { B = timedActions(sb).actions.filter((a) => a.who === id && (BUSY_DO.has(a.do) || isDance(a.do))).map((a) => [a.at, a.at + (a.dur ?? (isDance(a.do) ? 1 : 0.3))]); per.set(id, B); }
+  return B;
+}
+// every actor's def for a storyboard (stage.js init calls it once the actors are built): the contact solver
+// (motion.solve) pushes a hand out of another character's body, so it needs them all before the first frame is posed
+const CASTS = new WeakMap();
+export function registerCast(sb, list) { CASTS.set(sb, list); }
+// what solve.js needs from this module (no import cycle: solve.js gets these handed in)
+const layerHooks = { actorState: (...a) => actorState(...a), resolve: (...a) => resolveArms(...a), cutBetween: (...a) => cutBetween(...a), timedActions: (sb) => timedActions(sb).actions, cast: (sb) => CASTS.get(sb) || null };
 
 // an automatic blink starting at tb is skipped, whole, when it would land on a key beat: inside a still hold
 // (unless it says blink: true), or on an expression change or a look (an eye-blink there kills the moment)
@@ -918,7 +1043,10 @@ function resolveArms(sb, st, def, t) {
   const res = (q, s) => (q && q.mix ? { mix: { ...q.mix, from: res(q.mix.from, s), pose: res(q.mix.pose, s) } } : q && (q.prop || q.world) ? aim(q, s) : q);
   // on: the props this hand is going from and to (stage.js handsInProps: a hand may hold what it is on)
   const on = (q) => (q && q.mix ? [...on(q.mix.from), ...on(q.mix.pose)] : q && q.prop ? [q.prop] : []);
-  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from, s), pose: res(a.pose, s), on: [...on(a.from), ...on(a.pose)] }; }
+  // onFrom, onPose: the props the blend's two ends aim at (null for a pose in the body's own frame), for the holds
+  // (attach.js: how much the hand follows its prop, weighted by p)
+  const one = (q) => { const l = on(q); return l.length ? (l.length === 1 ? l[0] : l) : null; };
+  for (const s of ["R", "L"]) { const a = st.arms[s]; if (a) st.arms[s] = { ...a, from: res(a.from, s), pose: res(a.pose, s), on: [...on(a.from), ...on(a.pose)], onFrom: one(a.from), onPose: one(a.pose) }; }
 }
 
 // a camera path: sb.camera = [{ at, pos, look, fov, stop? }, ...] keys the camera through one continuous move. Between

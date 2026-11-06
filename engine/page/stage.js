@@ -4,7 +4,7 @@ import { Character, setRig } from "./potato.js";
 import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
-import { actorState, cameraState, flashAt, captionsAt, lightsAt } from "./timeline.js";
+import { actorState, cameraState, flashAt, captionsAt, lightsAt, registerCast } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
@@ -418,6 +418,8 @@ async function init(data) {
     ch.root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const m of ms) if (m.isMeshStandardMaterial) { m.envMap = envTex; m.envMapIntensity = 0.35; charMats.push(m); } });
     return { c, def, ch };
   });
+  // the motion layer's contact solver ("motion": { "solve": true }, solve.js) keeps hands out of every other body too
+  registerCast(sb, actors.map(({ c, def }) => ({ c, def })));
   // set pieces and props that belong to one side of a wall (set-elevator.js: the car's front wall and the hallway show
   // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
