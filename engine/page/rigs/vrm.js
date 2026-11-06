@@ -181,7 +181,10 @@ export class VrmCharacter extends Character {
     }
     // wrists: the database's hand markers are noisy (palms flip up mid-walk), so the hand keeps only part of its
     // recorded turn against the forearm ("wristCalm" 0..1, how much is calmed)
-    const wc = this.def.wristCalm ?? 0.6;
+    // (cast "calm": [{ from, to, ramp, k }] calms the wrists more for a while: the sit take's left hand flips 70
+    // degrees in a frame as the actor feels for the chair, 6 Nov)
+    let wc = this.def.wristCalm ?? 0.6;
+    for (const g of this.cast.calm || []) { const r = g.ramp ?? 0.2, w = Math.min(smooth((t - g.from) / r + 1), smooth((g.to - t) / r + 1)); if (w > 0) wc += ((g.k ?? 0.95) - wc) * w; }
     if (wc) for (const b of ["leftHand", "rightHand"]) if (nb[b]) nb[b].quaternion.slerp(this._qi, wc);
     // posture: the recorded actors look at the floor and hunch; anime people stand tall and look ahead, so the neck,
     // head and chest get a small lift about their own side axis (character "posture", a cast entry can override it)
@@ -200,10 +203,22 @@ export class VrmCharacter extends Character {
       const r = k.ramp ?? 0.2, w = Math.min(smooth((t - k.from) / r + 1), smooth((k.to - t) / r + 1));
       if (w > 0) for (const [b, a] of Object.entries(k.bones || {})) add(b, a, w);
     }
+    // breathing: the chest rises and the shoulders lift a little on each breath (about 15 a minute, slower and deeper
+    // once settled), a reason for the still moments to stay alive. Character/cast "breath": { rate, k } (k 0 = off)
+    const br = { rate: 0.26, k: 1, ...(this.def.breath || {}), ...(this.cast.breath || {}) };
+    if (br.k) {
+      const ph = Math.sin(2 * Math.PI * br.rate * t + (this.def.seed || 0)), in_ = 0.5 + 0.5 * ph;
+      add(nb.upperChest ? "upperChest" : "chest", -0.018 * br.k * in_, 1);
+      add("leftShoulder", [0, 0, 0.02 * br.k * in_], 1); add("rightShoulder", [0, 0, -0.02 * br.k * in_], 1);
+    }
     // the hips: the performance's root, in the rig's space
     // (palm support, see _planContacts: the body rides up on straight arms where the recorded hands would go under the floor)
-    const lift = this._liftAt(t);
-    hips.position.copy(rig.worldToLocal(lift ? P.pos.clone().setY(P.pos.y + lift) : P.pos.clone()));
+    const lift = this._liftAt(t), hp = lift ? P.pos.clone().setY(P.pos.y + lift) : P.pos.clone();
+    // seat contact: cast "seat": [{ from, to, ramp, y }]: the hips joint is brought to y (the seat top plus the
+    // hips-to-sitting-bones depth), eased in over ramp seconds as the take sits, so the weight lands on the real seat
+    // (v3: the take's own floor put the seated body 6 cm over the chair); the held feet stay where they are
+    for (const g of this.cast.seat || []) { const r = g.ramp ?? 0.4, w = Math.min(smooth((t - g.from) / r), smooth((g.to - t) / r)); if (w > 0) hp.y += (g.y - hp.y) * w; }
+    hips.position.copy(rig.worldToLocal(hp));
     // fingers: a curl 0 (open) .. 1 (fist) for each hand, every joint of a finger sharing it, the thumb folding across
     const fc = this.perf.fingersAt(t);
     // a hand at rest is never flat: the fingers keep a relaxed curl ("restCurl") unless the performance closes them more
@@ -225,7 +240,8 @@ export class VrmCharacter extends Character {
       const A0 = this.def.thumbAxis || [0, -1, 0], ax = (side === "right" ? this._ta.set(A0[0], A0[1], A0[2]) : this._ta.set(A0[0], -A0[1], -A0[2])).normalize();   // (given for the right hand; the left is its mirror)
       th.forEach((bone, n) => { if (bone) bone.quaternion.setFromAxisAngle(ax, c * [0.5, 0.55, 0.5][n] * (this.def.thumbK ?? 1)); });
     }
-    if (this.def.ground !== false && !this._noGround) { this._ground(t); this._hands(t); }
+    if (this.def.ground !== false && !this._noGround) this._ground(t);
+    if (!this._noGround) this._hands(t);
     this.vrm.humanoid.update();
     return P;
   }
@@ -333,8 +349,25 @@ export class VrmCharacter extends Character {
   // palms held on the floor (handspring, push-ups, a hand on the ground): the arm reaches the held place, the wrist
   // keeps its turn, the palm sits on the floor
   _hands(t) {
-    const plan = this.plan; if (!plan || this._lockOff || t == null) return;
-    const V = THREE.Vector3, nb = this.nb;
+    if (this._lockOff || t == null) return;
+    const plan = this.plan, V = THREE.Vector3, nb = this.nb;
+    // cast "rest": [{ hand: "L"|"R", from, to, ramp, on: "thigh", u: 0.6, up: 0.07, out: 0.02 }]: a hand settles on
+    // its own thigh (u along it from the hip, a lift onto its top, a little out to the side), the palm turned down
+    // onto it: a seated person's hands rest on a real support instead of hovering (motion brief: sit)
+    for (const r of this.cast.rest || []) {
+      const ramp = r.ramp ?? 0.35, w = Math.min(smooth((t - r.from) / ramp), smooth((r.to - t) / ramp)); if (w <= 0) continue;
+      const sd = r.hand === "L" ? "left" : "right", U = nb[`${sd}UpperArm`], L = nb[`${sd}LowerArm`], F = nb[`${sd}Hand`];
+      const hip = nb[`${sd}UpperLeg`], knee = nb[`${sd}LowerLeg`]; if (!U || !L || !F || !hip || !knee) continue;
+      const hp = hip.getWorldPosition(new V()), kp = knee.getWorldPosition(new V()), goal = hp.clone().lerp(kp, r.u ?? 0.6);
+      const lat = nb.leftUpperLeg.getWorldPosition(new V()).sub(nb.rightUpperLeg.getWorldPosition(new V())).setY(0).normalize().multiplyScalar(sd === "left" ? 1 : -1);
+      goal.y += r.up ?? 0.07; goal.addScaledVector(lat, r.out ?? 0.02);
+      const wq = F.getWorldQuaternion(new THREE.Quaternion()), n = new V(0, -1, 0).applyQuaternion(wq);
+      const turn = new THREE.Quaternion().slerp(new THREE.Quaternion().setFromUnitVectors(n, new V(0, -1, 0)), w);
+      F.quaternion.copy(F.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(turn.multiply(wq))); F.updateMatrixWorld(true);
+      const pm = this._palm(sd), wr = F.getWorldPosition(new V()), off = pm.clone().sub(wr);
+      this._twoBone(U, L, F, pm.lerp(goal, w).sub(off));
+    }
+    if (!plan) return;
     for (const sd of ["left", "right"]) {
       const c = this._contactAt(plan[sd], t); if (!c.P || c.wP <= 0) continue;
       const U = nb[`${sd}UpperArm`], L = nb[`${sd}LowerArm`], F = nb[`${sd}Hand`]; if (!U || !L || !F) continue;
@@ -499,6 +532,16 @@ export class VrmCharacter extends Character {
         while (s + dt <= t + 1e-6) { s += dt; this._vrmPose(s); this.vrm.scene.updateMatrixWorld(true); sb.update(dt); }
       }
       this._vrmPose(t);
+      // gaze (motion brief: eyes find the goal first): cast "gaze": [{ from, to, ramp, at: [x, y, z] }] turns the eyes
+      // toward a place in the world (an apple before the hand goes, the camera once seated); otherwise straight ahead
+      const L = this.vrm.lookAt;
+      if (L) {
+        L.autoUpdate = false; let best = null, bw = 0;
+        for (const g of this.cast.gaze || []) { const r = g.ramp ?? 0.15, w = Math.min(smooth((t - g.from) / r + 1), smooth((g.to - t) / r + 1)); if (w > bw) { bw = w; best = g; } }
+        this.vrm.scene.updateMatrixWorld(true);
+        if (best) { L.lookAt(new THREE.Vector3(...best.at)); L.yaw *= bw; L.pitch *= bw; } else { L.yaw = 0; L.pitch = 0; }
+        L.update(0);
+      }
     }
     // the face: blinks (fast close, slow open, about every 3 s, never two alike) and the expression's shapes
     const E = this.vrm.expressionManager;
