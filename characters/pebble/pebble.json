@@ -163,7 +163,7 @@
     0.46
    ],
    "dz": 0.14,
-   "rimR": 0.042,
+   "rimR": 0.06,
    "lip": 0.08,
    "lipBack": 0.0,
    "lipDark": "#3A2416",
@@ -250,7 +250,7 @@
    "grooveDepth": 0.02,
    "rimEdge": "#B5733A",
    "rimGroove": "#C07A40",
-   "rimPlates": 0
+   "rimPlates": 20
   },
   "feet": {
    "toe": "#F8D693",
