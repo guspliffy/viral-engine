@@ -33,11 +33,11 @@ const CH = 0.38, CZ = 0;                     // the counter's top and its middle
 const FZ = -0.7;                            // the friends' line, a hand's width behind the counter
 const WIZ = [-1.22, FZ], GSL = [0, FZ], REA = [1.1, -0.73];
 const WIZ_YAW = 10, GSL_YAW = 0, REA_YAW = -10;
-const SAM0 = [1.5, 0.98], SAM1 = [0.95, 0.82], SAM2 = [1.95, 1.05], SAM3 = [1.9, 0.64];
+const SAM0 = [1.5, 0.98], SAM1 = [0.95, 0.68], SAM2 = [1.95, 1.05], SAM3 = [1.9, 0.64];
 const SAM0_YAW = -75, SAM1_YAW = -148, SAM3_YAW = -125;
 // the tray's spots: in front of Gunslinger, at the counter man (panel 4), in front of Reaper, at the counter's end
 const LANE = -0.15;
-const T_G = [0.05, LANE], T_S = [0.66, 0.13], T_R = [0.98, LANE], T_E = [1.38, 0.1];
+const T_G = [0.05, LANE], T_S = [0.88, LANE], T_R = [0.98, LANE], T_E = [1.38, 0.1];
 const TRAY_Y = CH, TOP = r3(CH + 0.009);     // the tray's floor (the bill and the button lie on it)
 // on the counter: the Wizard's salad, Gunslinger's empty plate and milkshake glass, Reaper's fry basket, the
 // condiments, the tip jar, the card terminal
@@ -57,12 +57,12 @@ const BUTTON = { id: "button", kind: "button", x: 0.08, y: 0.47, z: r3(FZ + 0.34
 const CARD = { id: "card", kind: "paycard", x: r3(REA[0] + 0.1), y: 0.62, z: r3(REA[1] + 0.5), rot: r3(REA_YAW), scale: 0.001, staged: "inside Reaper's robe until he draws it" };
 const props = [
   // copper dome pendant lamps over the counter (panels 1, 3, 5-8), out of the way of every hat
-  { id: "lamp1", kind: "pendant", x: -0.7, y: 1.88, z: -0.25, len: 1.2 },
-  { id: "lamp2", kind: "pendant", x: 0.5, y: 1.92, z: -0.2, len: 1.2 },
-  { id: "lamp3", kind: "pendant", x: 1.65, y: 1.88, z: -0.25, len: 1.2 },
+  { id: "lamp1", kind: "pendant", staged: "hangs from the ceiling on its cord", x: -0.7, y: 1.88, z: -0.25, len: 1.2 },
+  { id: "lamp2", kind: "pendant", staged: "hangs from the ceiling on its cord", x: 0.2, y: 1.92, z: -0.2, len: 1.2 },
+  { id: "lamp3", kind: "pendant", staged: "hangs from the ceiling on its cord", x: 1.65, y: 1.88, z: -0.25, len: 1.2 },
   { id: "floor", kind: "checkerfloor", x: 0.5, z: 1.5, w: 9, d: 8.2, tile: 0.32 },
   { id: "counter", kind: "dinercounter", x: 0, z: CZ, w: 3.2, d: 0.6, h: CH },
-  { id: "tray", kind: "billtray", x: 0.62, y: TRAY_Y, z: LANE, rot: 90 },
+  { id: "tray", kind: "billtray", x: 0.62, y: TRAY_Y, z: LANE, rot: 90, color: "#8a5a32" },
   { id: "bill", kind: "receipt", x: 0.62, y: r3(TOP + 0.002), z: LANE, rot: 90 },
   { id: "plate", kind: "dinnerplate", x: PLATE[0], y: CH, z: PLATE[1], r: 0.1, crumbs: 12, seed: 6 },
   { id: "pick", kind: "burgerpick", x: r3(PLATE[0] + 0.02), y: r3(CH + 0.016), z: PLATE[1], rot: 30, tip: -84 },
@@ -160,7 +160,7 @@ A(3.44, "gsl", "grip", { side: "L", shape: "point", set: { thumb: 0 }, dur: 0.06
 const slide = (t, to, dur, who = null) => {
   c.prop(t, "tray", { x: to[0], z: to[1] }, dur, "out"); c.prop(t, "bill", { x: to[0], z: to[1] }, dur, "out");
   c.prop(t, "button", { x: to[0], z: to[1] }, dur, "out");
-  sfx(r3(t + 0.02), "ai/bowl-scrape", { gain: 0.2, dur: r3(Math.max(0.2, dur * 0.8)), reason: "the tray sliding along the counter top" });
+  sfx(r3(t + 0.02), "ai/bowl-scrape", { gain: 0.3, dur: r3(Math.max(0.2, dur * 0.8)), reason: "the tray sliding along the counter top" });
 };
 slide(3.52, T_S, 0.2);
 c.arm(3.52, "gsl", "L", { world: [r3(T_G[0] + 0.12), r3(TOP + 0.1), r3(LANE + 0.04)] }, 0.1, "out");
@@ -170,7 +170,7 @@ A(3.54, "gsl", "nod", { times: 1 });
 A(3.45, "sam", "look", { to: [0.05, -0.55], dur: 0.12, blink: false });
 A(3.66, "sam", "look", { to: [-0.05, 0.0], dur: 0.12, blink: false });
 A(3.6, "sam", "expr", { expr: "deadpan", dur: 0.12 }); A(3.6, "sam", "face", { lid: 0.5, dur: 0.12 });   // flat brows (review A)
-c.arm(3.62, "sam", "L", { o: [-0.04, 0.5, 0.45] }, 0.16, "out"); A(3.62, "sam", "grip", { side: "L", shape: "flat", dur: 0.1 });
+c.arm(3.5, "sam", "L", { o: [-0.04, 0.72, 0.42] }, 0.16, "out");   // the palm up at face height, held to the cut (review B) A(3.62, "sam", "grip", { side: "L", shape: "flat", dur: 0.1 });
 c.hitStop(HS1, 3);
 sfx(HS1, "pat", { gain: 0.35, reason: "the counter man's flat palm comes up: a soft glove slap of air (the no)" });
 see(3.55, 3.8, ["sam.face", "button"], "panel 4: the counter man's deadpan face and flat palm; the button on the tray");
@@ -195,10 +195,10 @@ c.arm(4.02, "wiz", "R", { o: [-0.12, 0.62, 0.36] }, 0.15, "out");
 for (const [t, set] of [[4.1, { curl: 1.15, index: 0, thumb: 0.9 }], [4.3, { curl: 1.15, index: 0, thumb: 0 }], [4.5, { curl: 0, index: 0, thumb: 0 }]]) {
   A(t, "wiz", "grip", { side: "R", shape: "point", set, dur: 0.06 }); A(t, "wiz", "squash", { amount: 0.02, dur: 0.08 });
 }
-c.say(V(4.05), "wiz", "you had the TOWER burger!", 0.6, "excited", { voice: false, sub: "You had the TOWER burger!", pos: SUB_HIGH });
+c.say(V(4.05), "wiz", "you had the TOWER burger!", 0.6, "excited", { voice: false, sub: "You had the TOWER burger!", pos: 480 });
 A(4.2, "gsl", "look", { to: [-0.65, 0.05], dur: 0.1, blink: false });
 act.sheepish(c, V(4.55), "gsl");
-c.say(V(4.45), "gsl", "I'm a bit short…", 0.55, "calm", { voice: false, sub: "I'm a bit short…", pos: SUB_LOW });
+c.say(V(4.45), "gsl", "I'm a bit short…", 0.55, "calm", { voice: false, sub: "I'm a bit short…", pos: 660 });
 c.arm(4.5, "gsl", "R", { o: [-0.04, 0.78, 0.28] }, 0.2, "inOut"); A(4.55, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.15 });   // a hand to the back of his head... in front: a sheepish rub of the cheek
 c.arm(4.82, "gsl", "R", GR, 0.25, "inOut");
 c.arm(4.7, "wiz", "L", "rest", 0.3, "inOut"); c.arm(4.72, "wiz", "R", "rest", 0.3, "inOut");
@@ -323,7 +323,7 @@ act.blinksAt(c, "sam", [1.2, 3.1, 5.6]);
 // is about 1 m wide)
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
 // the wide (panel 1): from in front and a little above, all three faces over the counter, the counter man at the right edge
-const WIDE = { pos: [0.15, 2.1, 6.6], look: [0.2, 0.95, -0.4], fov: 46 };   // review A: the Samurai's 3/4 face in frame with the tray leaving his hand
+const WIDE = { pos: [0.15, 1.7, 5.2], look: [0.2, 0.8, -0.4], fov: 50 };   // review B: heads a third of the frame   // review A: the Samurai's 3/4 face in frame with the tray leaving his hand
 // the pocket pat (panel 2, the series framing): Gunslinger chest up with the whole hat, from his front three
 // quarters at eye level; the Wizard's waiting palm at the left edge
 const PATSHOT = fw([-0.16, 0.92, -0.62], { w: 1.55, az: -12, el: 4, fov: 30 });
@@ -336,14 +336,14 @@ const TWO = fw([-0.6, 0.9, -0.62], { w: 1.75, az: 0, el: 6, fov: 30 });   // tig
 // three-shot, lower, the tray big in front (panel 6)
 const THREE = { pos: [0.5, 1.3, 1.6], look: [0.5, 0.62, -0.5], fov: 64 };   // the tray big between Gunslinger and Reaper (panel 6)   // review A: the tray big in the lower third, the counter edge hides the floor
 // two-shot, Gunslinger and Reaper, the terminal front right (panel 7)
-const TWO_R = fw([0.6, 0.88, -0.55], { w: 1.75, az: 4, el: 6, fov: 30 });
+const TWO_R = fw([0.6, 0.88, -0.55], { w: 2.0, az: -14, el: 6, fov: 30 });
 // the wink (panel 8): close on Gunslinger, Reaper at the right edge, the tip jar in front
-const WINK = fw([0.62, 0.9, -0.35], { w: 2.05, az: 4, el: 5, fov: 30 });
+const WINK = { pos: [0.4, 1.3, 3.8], look: [0.3, 0.95, -0.5], fov: 30 };   // review B: the push-in panel 8 asks for
 const beats = c.beats([
   ["P1 pay up", 0, WIDE, "hook"],
   ["P2 the pocket pat", PAT.from, PATSHOT],
   ["P3 the button", 2.8, OTS],
-  ["P4 the flat palm", 3.3, REV],
+  ["P4 the flat palm", 3.48, REV],   // after the button is down (review B)
   ["P5 the count", 3.95, TWO],
   ["P6 the nudge", V(5.0), THREE, "escalation"],
   ["P7 the bill lands", STOP, TWO_R],
@@ -378,6 +378,7 @@ write(import.meta.url, {
     { who: "gsl", from: 2.38, to: 2.52, checks: ["prop-pop"], reason: "the revolver spin: the wallet turns once round his fingers on purpose, then flips open" },
     { who: "gsl", with: "button", from: 2.84, to: 3.4, reason: "he pulls the button out from under his bandana" },
     { who: "gsl", with: "fry", from: 7.4, to: 8.3, reason: "he eats the fry" },
+    { who: "rea", with: "gsl", from: 8.2, to: 8.5, reason: "Gunslinger leans across into Reaper's space to take his fry: his shoulder brushes Reaper's resting hand" },
     { who: "gsl", with: "basket", from: 7.85, to: 8.12, reason: "his fingertips dip into Reaper's basket to pinch out the last fry, as fingers do" },
     { who: "sam", from: 9.55, to: 9.72, checks: ["rig-jump"], reason: "the flick: his fingertip snaps across the tray in two frames, the button flies off it (a flick is that fast)" },
     { who: "sam", with: "apron", from: 0, to: 10, reason: "the counter man's apron (worn)" },

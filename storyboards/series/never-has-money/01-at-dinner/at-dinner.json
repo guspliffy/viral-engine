@@ -146,6 +146,7 @@
   {
    "id": "lamp1",
    "kind": "pendant",
+   "staged": "hangs from the ceiling on its cord",
    "x": -0.7,
    "y": 1.88,
    "z": -0.25,
@@ -154,7 +155,8 @@
   {
    "id": "lamp2",
    "kind": "pendant",
-   "x": 0.5,
+   "staged": "hangs from the ceiling on its cord",
+   "x": 0.2,
    "y": 1.92,
    "z": -0.2,
    "len": 1.2
@@ -162,6 +164,7 @@
   {
    "id": "lamp3",
    "kind": "pendant",
+   "staged": "hangs from the ceiling on its cord",
    "x": 1.65,
    "y": 1.88,
    "z": -0.25,
@@ -191,7 +194,8 @@
    "x": 0.62,
    "y": 0.38,
    "z": -0.15,
-   "rot": 90
+   "rot": 90,
+   "color": "#8a5a32"
   },
   {
    "id": "bill",
@@ -395,7 +399,7 @@
    "from": 3.95,
    "to": 4.9,
    "text": "You had the TOWER burger!",
-   "pos": 600,
+   "pos": 480,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -404,7 +408,7 @@
    "from": 4.35,
    "to": 4.9,
    "text": "I'm a bit short…",
-   "pos": 1240,
+   "pos": 660,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -427,15 +431,15 @@
    "shot": {
     "pos": [
      0.15,
-     2.1,
-     6.6
+     1.7,
+     5.2
     ],
     "look": [
      0.2,
-     0.95,
+     0.8,
      -0.4
     ],
-    "fov": 46
+    "fov": 50
    },
    "do": [
     {
@@ -936,7 +940,7 @@
      "do": "move",
      "to": [
       0.95,
-      0.82
+      0.68
      ],
      "dur": 0.8,
      "ease": "inOut",
@@ -1659,7 +1663,7 @@
   {
    "name": "P3 the button",
    "at": 2.8,
-   "len": 0.5,
+   "len": 0.68,
    "shot": {
     "pos": [
      0.5,
@@ -1930,27 +1934,7 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.3
-    }
-   ]
-  },
-  {
-   "name": "P4 the flat palm",
-   "at": 3.3,
-   "len": 0.65,
-   "shot": {
-    "pos": [
-     0.5,
-     2.6,
-     -1.8
-    ],
-    "look": [
-     0.8,
-     0.6,
-     0.5
-    ],
-    "fov": 44
-   },
-   "do": [
+    },
     {
      "who": "gsl",
      "do": "arm",
@@ -1971,7 +1955,7 @@
      },
      "dur": 0.1,
      "ease": "out",
-     "at": 0
+     "at": 0.5
     },
     {
      "who": "gsl",
@@ -1983,7 +1967,7 @@
       -0.07
      ],
      "dur": 0.06,
-     "at": 0.1
+     "at": 0.6
     },
     {
      "who": "gsl",
@@ -1991,13 +1975,13 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.06,
-     "at": 0.1
+     "at": 0.6
     },
     {
      "who": "wiz",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.1
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -2007,7 +1991,7 @@
      },
      "dur": 0.05,
      "ease": "in",
-     "at": 0.12
+     "at": 0.62
     },
     {
      "who": "gsl",
@@ -2022,7 +2006,7 @@
      },
      "dur": 0.07,
      "ease": "out",
-     "at": 0.14
+     "at": 0.64
     },
     {
      "who": "gsl",
@@ -2033,7 +2017,7 @@
       "thumb": 0
      },
      "dur": 0.06,
-     "at": 0.14
+     "at": 0.64
     },
     {
      "who": "sam",
@@ -2044,46 +2028,81 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.15
+     "at": 0.65
     },
     {
      "sfx": "tink",
      "gain": 0.45,
      "reason": "the button topples flat onto the tray: click",
-     "at": 0.17
+     "at": 0.67
+    }
+   ]
+  },
+  {
+   "name": "P4 the flat palm",
+   "at": 3.48,
+   "len": 0.47,
+   "shot": {
+    "pos": [
+     0.5,
+     2.6,
+     -1.8
+    ],
+    "look": [
+     0.8,
+     0.6,
+     0.5
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.04,
+       0.72,
+       0.42
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.02
     },
     {
      "do": "prop",
      "id": "tray",
      "set": {
-      "x": 0.66,
-      "z": 0.13
+      "x": 0.88,
+      "z": -0.15
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.22
+     "at": 0.04
     },
     {
      "do": "prop",
      "id": "bill",
      "set": {
-      "x": 0.66,
-      "z": 0.13
+      "x": 0.88,
+      "z": -0.15
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.22
+     "at": 0.04
     },
     {
      "do": "prop",
      "id": "button",
      "set": {
-      "x": 0.66,
-      "z": 0.13
+      "x": 0.88,
+      "z": -0.15
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.22
+     "at": 0.04
     },
     {
      "who": "gsl",
@@ -2098,57 +2117,34 @@
      },
      "dur": 0.1,
      "ease": "out",
-     "at": 0.22
+     "at": 0.04
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.2,
      "reason": "the tray sliding along the counter top",
-     "at": 0.24
+     "at": 0.06
     },
     {
      "who": "gsl",
      "do": "nod",
      "times": 1,
-     "at": 0.24
+     "at": 0.06
     },
     {
      "who": "sam",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.12,
-     "at": 0.3
+     "at": 0.12
     },
     {
      "who": "sam",
      "do": "face",
      "lid": 0.5,
      "dur": 0.12,
-     "at": 0.3
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.04,
-       0.5,
-       0.45
-      ]
-     },
-     "dur": 0.16,
-     "ease": "out",
-     "at": 0.32
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.1,
-     "at": 0.32
+     "at": 0.12
     },
     {
      "who": "gsl",
@@ -2157,7 +2153,7 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.34
+     "at": 0.16
     },
     {
      "who": "gsl",
@@ -2165,7 +2161,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 0.34
+     "at": 0.16
     },
     {
      "who": "sam",
@@ -2176,13 +2172,13 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.36
+     "at": 0.18
     },
     {
      "sfx": "pat",
      "gain": 0.35,
      "reason": "the counter man's flat palm comes up: a soft glove slap of air (the no)",
-     "at": 0.5
+     "at": 0.32
     },
     {
      "who": "sam",
@@ -2190,14 +2186,14 @@
      "side": "R",
      "pose": {
       "world": [
-       0.68,
+       0.9,
        0.489,
-       0.24
+       -0.04
       ]
      },
      "dur": 0.08,
      "ease": "out",
-     "at": 0.54
+     "at": 0.36
     },
     {
      "who": "sam",
@@ -2208,21 +2204,21 @@
       "thumb": 0
      },
      "dur": 0.06,
-     "at": 0.54
+     "at": 0.36
     },
     {
      "who": "gsl",
      "do": "turn",
      "to": -8,
      "dur": 0.3,
-     "at": 0.55
+     "at": 0.37
     },
     {
      "who": "gsl",
      "do": "face",
      "lid": 0.42,
      "dur": 0.3,
-     "at": 0.57
+     "at": 0.39
     },
     {
      "who": "gsl",
@@ -2233,7 +2229,7 @@
       "eye": 0.95
      },
      "dur": 0.35,
-     "at": 0.57
+     "at": 0.39
     },
     {
      "do": "prop",
@@ -2244,7 +2240,7 @@
      },
      "dur": 0.26,
      "ease": "out",
-     "at": 0.62
+     "at": 0.44
     },
     {
      "do": "prop",
@@ -2255,7 +2251,7 @@
      },
      "dur": 0.26,
      "ease": "out",
-     "at": 0.62
+     "at": 0.44
     },
     {
      "do": "prop",
@@ -2266,7 +2262,7 @@
      },
      "dur": 0.26,
      "ease": "out",
-     "at": 0.62
+     "at": 0.44
     },
     {
      "who": "sam",
@@ -2274,21 +2270,21 @@
      "side": "R",
      "pose": {
       "world": [
-       0.56,
+       0.78,
        0.489,
-       0.17
+       -0.11
       ]
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 0.62
+     "at": 0.44
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.208,
      "reason": "the tray sliding along the counter top",
-     "at": 0.64
+     "at": 0.46
     }
    ]
   },
@@ -2819,7 +2815,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.32,
      "reason": "the tray sliding along the counter top",
      "at": 0.02
@@ -2939,7 +2935,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.272,
      "reason": "the tray sliding along the counter top",
      "at": 0.42
@@ -3032,7 +3028,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.232,
      "reason": "the tray sliding along the counter top",
      "at": 0.76
@@ -3119,7 +3115,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.2,
      "reason": "the tray sliding along the counter top",
      "at": 1.05
@@ -3212,7 +3208,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.2,
      "reason": "the tray sliding along the counter top",
      "at": 1.3
@@ -3299,7 +3295,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.2,
      "reason": "the tray sliding along the counter top",
      "at": 1.52
@@ -3386,7 +3382,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.2,
      "reason": "the tray sliding along the counter top",
      "at": 1.72
@@ -3440,9 +3436,9 @@
    "len": 1.75,
    "shot": {
     "pos": [
-     1.003,
-     1.487,
-     5.209
+     -0.996,
+     1.574,
+     5.853
     ],
     "look": [
      0.6,
@@ -3869,7 +3865,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.2,
+     "gain": 0.3,
      "dur": 0.24,
      "reason": "the tray sliding along the counter top",
      "at": 0.81
@@ -4187,14 +4183,14 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     1.093,
-     1.493,
-     6.407
+     0.4,
+     1.3,
+     3.8
     ],
     "look": [
-     0.62,
-     0.9,
-     -0.35
+     0.3,
+     0.95,
+     -0.5
     ],
     "fov": 30
    },
@@ -4695,6 +4691,13 @@
    "from": 7.4,
    "to": 8.3,
    "reason": "he eats the fry"
+  },
+  {
+   "who": "rea",
+   "with": "gsl",
+   "from": 8.2,
+   "to": 8.5,
+   "reason": "Gunslinger leans across into Reaper's space to take his fry: his shoulder brushes Reaper's resting hand"
   },
   {
    "who": "gsl",
