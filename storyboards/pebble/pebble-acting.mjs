@@ -19,7 +19,7 @@ import * as act from "../lib/acting.mjs";
 export const SLOW = 0.4;   // his shortest face change
 // his resting upper lids (the sheet's half-lidded eyes): a "face" lid sets the lid outright, so every calm beat comes back
 // to this, never to 0 (0 opens the eyes wide; with his big round eyes a lid starts to show from about 0.6)
-export const LID = 0.8;
+export const LID = 0.84;
 
 export function calmSmile(c, t, who, { dur = SLOW } = {}) {
   c.A(t, who, "expr", { expr: "kind", dur });

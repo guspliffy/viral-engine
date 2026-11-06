@@ -353,11 +353,9 @@
    "files": [
     "calm-landscape/calm-landscape-01.ogg",
     "calm-landscape/calm-landscape-02.ogg",
-    "calm-landscape/calm-landscape-03.ogg",
     "calm-landscape/calm-landscape-04.ogg",
     "calm-landscape/calm-landscape-05.ogg",
     "calm-landscape/calm-landscape-06.ogg",
-    "calm-landscape/calm-landscape-07.ogg",
     "calm-landscape/calm-landscape-08.ogg",
     "calm-landscape/calm-landscape-09.ogg",
     "calm-landscape/calm-landscape-10.ogg",
@@ -388,11 +386,9 @@
    "seed": [
     102,
     103,
-    104,
     105,
     106,
     108,
-    109,
     110,
     112,
     33,
@@ -401,7 +397,7 @@
    "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
    "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
    "loudnessLUFS": -16.0,
-   "note": "Pebble's calm film score (Jonny 6 Nov 2026: piano and strings, a calm movie scene over a beautiful landscape; many melodies so the videos don't repeat). Use \"music\": { \"pool\": \"calm-landscape\" }: the clip's seed picks the take. Kept 11 of 14 takes; dropped the ones with a 19-30 dB level swing or long silences (measured, Claude can't hear).",
+   "note": "Pebble's calm film score (Jonny 6 Nov 2026: piano and strings, a calm movie scene over a beautiful landscape; many melodies so the videos don't repeat). Use \"music\": { \"pool\": \"calm-landscape\" }: the clip's seed picks the take. Kept 11 of 14 takes; dropped the ones with a 19-30 dB level swing or long silences (measured, Claude can't hear). Jonny 6 Nov 12:11 picked 9 of the 11 by ear (dropped sheet numbers 3 and 7).",
    "takes": [
     {
      "file": "calm-landscape/calm-landscape-01.ogg",
@@ -415,14 +411,6 @@
      "file": "calm-landscape/calm-landscape-02.ogg",
      "seed": 103,
      "prompt": "quiet morning in a green valley, felt piano and warm cello, soft string pads, hopeful and gentle film score, 72 BPM, no drums",
-     "durationSec": 30.0,
-     "bpm": null,
-     "bars": null
-    },
-    {
-     "file": "calm-landscape/calm-landscape-03.ogg",
-     "seed": 104,
-     "prompt": "gentle pastoral orchestral piece, piano arpeggios with flute and soft strings, meadow in golden evening light, tender and calm, 68 BPM, no drums",
      "durationSec": 30.0,
      "bpm": null,
      "bars": null
@@ -447,14 +435,6 @@
      "file": "calm-landscape/calm-landscape-06.ogg",
      "seed": 108,
      "prompt": "hopeful gentle film music, piano melody with warm french horn and cellos, mountains and clouds, slow and peaceful, 70 BPM, no drums",
-     "durationSec": 30.0,
-     "bpm": null,
-     "bars": null
-    },
-    {
-     "file": "calm-landscape/calm-landscape-07.ogg",
-     "seed": 109,
-     "prompt": "soft acoustic film score, piano and nylon guitar with light strings, sunny garden afternoon, calm and content, 76 BPM, no drums",
      "durationSec": 30.0,
      "bpm": null,
      "bars": null

@@ -305,10 +305,10 @@ function buildShell(ch, C) {
   const group = new THREE.Group(); group.name = "pebble-shell";
   const outer = mesh(g, shellM); group.add(outer);
   // the inside: the same cap a little smaller, dark, seen only through the front opening
-  const ig = new THREE.BufferGeometry(), ip = [];
-  for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); const p = pt(u, 0.955); ip.push(p.x, p.y, p.z); }
-  ig.setAttribute("position", new THREE.Float32BufferAttribute(ip, 3)); ig.setIndex(idx); ig.computeVertexNormals();
-  const inner = mesh(ig, std(S.inside || "#4A3426", { side: THREE.BackSide, roughness: 1 }), false); inner.userData.noOutline = true; group.add(inner);
+  const ig = new THREE.BufferGeometry(), ip = [], ic = [], deep = S.insideDeep;   // insideDeep (opt-in): brightness deep inside, 1 at the rim
+  for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); const p = pt(u, 0.955); ip.push(p.x, p.y, p.z); if (deep != null) { const k = deep + (1 - deep) * (i / NT) ** 3; ic.push(k, k, k); } }
+  ig.setAttribute("position", new THREE.Float32BufferAttribute(ip, 3)); if (deep != null) ig.setAttribute("color", new THREE.Float32BufferAttribute(ic, 3)); ig.setIndex(idx); ig.computeVertexNormals();
+  const inner = mesh(ig, std(S.inside || "#4A3426", { side: THREE.BackSide, roughness: 1, ...(deep != null ? { vertexColors: true } : {}) }), false); inner.userData.noOutline = true; group.add(inner);
   // the rim: a rounded roll along the cut edge, joining outside and inside
   const rim = [];
   for (let j = 0; j < 96; j++) { const ph = (j / 96) * Math.PI * 2; dirAt(alphaOf(ph), ph, u); rim.push(pt(u, 0.978)); }

@@ -110,13 +110,23 @@ def synth(k, job):
     work, acc = [], job.get("accent")
     lang = None
     if acc: accented("", acc); lang = ACCENTS[acc]["lang"]   # the accent picks its own espeak base read
+    # human (6 Nov 2026, Jonny: "it should really sound human"): people never phrase evenly. Each phrase gets its own
+    # pace (+-speedVar) and each pause its own length (+-pauseVar), and a soft inhale (breath, dBFS) ends a long pause.
+    # Seeded by the text, so the same line always comes out the same.
+    hu = job.get("human") or {}
+    rng = np.random.default_rng(int.from_bytes(__import__("hashlib").sha1(job["text"].encode()).digest()[:4], "little"))
     for i, part in enumerate(parts):
-        seg = segments(k, part, lang or job.get("lang", "en-us"), speed)
+        ps = speed * (1 + hu.get("speedVar", 0) * (2 * rng.random() - 1))
+        seg = segments(k, part, lang or job.get("lang", "en-us"), ps)
         work += [(accented(ph, acc), sp, fx) if acc and fx is None else (ph, sp, fx) for ph, sp, fx in seg]
         if i < len(parts) - 1: work.append(None)
     for item in work:
         if item is None:
-            audio.append(np.zeros(int(pause * SR_MODEL), np.float32)); phones.append([" ", round(t, 4), round(pause, 4)]); t += pause
+            pl = pause * (1 + hu.get("pauseVar", 0) * (2 * rng.random() - 1))
+            gap = np.zeros(int(pl * SR_MODEL), np.float32)
+            if hu.get("breath") is not None and pl > 0.45:
+                gap[-int(0.42 * SR_MODEL):] += inhale(rng, 0.42, hu["breath"])
+            audio.append(gap); phones.append([" ", round(t, 4), round(pl, 4)]); t += pl
             continue
         ph, sp, fx = item
         for chunk in k._split_phonemes(ph):
@@ -139,6 +149,17 @@ def synth(k, job):
             audio.append(body)
             t += len(body) / SR_MODEL
     return np.concatenate(audio).astype(np.float32), phones
+
+
+def inhale(rng, dur, db):
+    """A soft breath in through the nose and mouth: band-limited noise (300-2800 Hz, a little louder near 1.2 kHz)
+    that swells for 70 % of its length and stops just before the next word."""
+    n = int(dur * SR_MODEL)
+    f = np.fft.rfft(rng.standard_normal(n)); hz = np.fft.rfftfreq(n, 1 / SR_MODEL)
+    f *= ((hz > 300) & (hz < 2800)) * (1 + 0.8 * np.exp(-((hz - 1200) / 500) ** 2))
+    x = np.fft.irfft(f, n); x /= np.abs(x).max() + 1e-9
+    u = np.linspace(0, 1, n); env = np.where(u < 0.7, (u / 0.7) ** 1.5, np.clip((0.9 - u) / 0.2, 0, 1))
+    return (x * env * 10 ** (db / 20)).astype(np.float32)
 
 
 def finish(x, sr, phones, job):
