@@ -156,7 +156,9 @@
        0.3,
        0.55,
        0.3
-      ]
+      ],
+      "point": "pinch",
+      "pinchEase": true
      },
      "dur": 0,
      "at": 0
@@ -166,6 +168,11 @@
      "do": "grip",
      "side": "L",
      "shape": "pinch",
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
      "dur": 0,
      "at": 0
     },

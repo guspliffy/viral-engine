@@ -919,7 +919,10 @@ export class Character {
         mid.lerp(elbow, fr.e);
       }
       const joint = dn > 0.5;
-      this._outside(mid, S, joint ? 1 : (a.pose && typeof a.pose === "object" && a.pose.margin) || 1.3);   // pose.margin: a pose's own elbow clearance (Pebble's hanging arms on a wide body)
+      // pose.margin: a pose's own elbow clearance (Pebble's hanging arms on a wide body), blended like the pose so the
+      // elbow doesn't jump when a move between two poses starts
+      const mg = (q) => (q && q.mix ? mg(q.mix.from) * (1 - q.mix.p) + mg(q.mix.pose) * q.mix.p : (q && typeof q === "object" && q.margin) || 1.3);
+      this._outside(mid, S, joint ? 1 : mg(a.from) * (1 - a.p) + mg(a.pose) * a.p);
       return mid;
     };
     const mid = elbowFor(h);
@@ -982,7 +985,10 @@ export class Character {
       const pp = U.pinchPt ? this._pointW(a) : 0;
       if (pp > 0 && U.pinchW > 0) {
         hand.updateMatrix();
-        const off = U.pinchPt.position.clone().applyMatrix4(hand.matrix).sub(h).multiplyScalar(pp);
+        // pose.pinchEase (Pebble's straw, 6 Nov 2026; opt-in): the shift grows with the pinch itself (U.pinchW), so the
+        // hand doesn't jump the pinch's whole offset in the frame the pads start or stop closing
+        const ease = (q) => q && typeof q === "object" && (q.pinchEase || (q.mix && (ease(q.mix.pose) || ease(q.mix.from))));
+        const off = U.pinchPt.position.clone().applyMatrix4(hand.matrix).sub(h).multiplyScalar(pp * (ease(a.pose) || ease(a.from) ? Math.min(1, U.pinchW) : 1));
         h.sub(off); mid.sub(off); pose(h, mid);
       }
       if (HAND === 2 && SMOOTH && U.fingers && this.stateAt) hand.quaternion.copy(this._smoothHand(s, t, hand.quaternion));

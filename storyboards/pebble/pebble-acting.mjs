@@ -62,27 +62,37 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 export const REST = { R: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 }, L: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
-// the grass straw (Garden Guardian pack, 6 Nov 2026): in his lips at the LEFT mouth corner by default. Before a sip or a
-// longer line his LEFT hand takes it out (up to the corner, a pinch, out and down: one continuous move, the "straw"
-// action blends lips -> hand), and puts it back the same way. strawHeld: already in the hand at t (frame 0 of a scene).
-export const STRAW_MOUTH = { x: [0.15, 1.22, 0.36] }, STRAW_LOW = { x: [0.3, 0.55, 0.3] };
+// the grass straw (Garden Guardian pack, 6 Nov 2026; correction brief the same day): in his lips at the LEFT mouth
+// corner. His LEFT hand takes it out in the brief's order: MOUTH -> APPROACH (from below and the side, never across his
+// face) -> CONTACT/PINCH (index and thumb pads on the stem outside the lips: the arm aims its pinch point, point "pinch",
+// at the stem's grip point) -> hand-over while the hand holds still (both owners agree there: costume straw.hold is
+// calibrated at this pose by tools/pebble/straw-cal.mjs) -> EXTRACT (out along the stem) -> down. strawIn is the same
+// backwards: up to the extract point, seat the stem in the lips, hand-over, open the fingers, arm down.
+// STRAW_MOUTH and STRAW_OUT come from straw-cal.mjs (the grip point and 7 cm out along the stem, in arm-target space).
+export const STRAW_MOUTH = { x: [0.1701, 1.1446, 0.3657], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.236, 1.0906, 0.3774], point: "pinch", pinchEase: true };
+export const STRAW_LOW = { x: [0.3, 0.55, 0.3], point: "pinch", pinchEase: true };
+// the fingertip pinch on the thin stem (pinch 1: the pinch point between the index and thumb pads is live, so an arm
+// pose with point "pinch" puts the pads on the target)
+export const STRAW_GRIP = { pinch: 1, thin: 0.004, close: 1 };
 export function strawOut(c, t, who, { low = STRAW_LOW } = {}) {
-  c.A(t, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.6 });
-  c.A(t + 0.45, who, "grip", { side: "L", shape: "pinch", dur: 0.2 });
-  c.A(t + 0.65, who, "straw", { side: "L", hand: 1, dur: 0.35 });
-  c.A(t + 0.75, who, "arm", { side: "L", pose: low, dur: 0.6 });
-  return t + 1.35;
+  c.A(t, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.6 });               // approach (arrives t + 0.6)
+  c.A(t + 0.05, who, "grip", { side: "L", shape: "pinch", set: STRAW_GRIP, dur: 0.55 });  // the fingers shape the pinch on the way up
+  c.A(t + 0.65, who, "straw", { side: "L", hand: 1, dur: 0.15 });               // hand-over, hand still
+  c.A(t + 0.8, who, "arm", { side: "L", pose: STRAW_OUT, dur: 0.3 });           // extract along the stem
+  c.A(t + 1.1, who, "arm", { side: "L", pose: low, dur: 0.5 });                 // and down
+  return t + 1.6;
 }
 export function strawIn(c, t, who) {
-  c.A(t, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.6 });
-  c.A(t + 0.6, who, "straw", { side: "L", hand: 0, dur: 0.3 });
-  c.A(t + 0.9, who, "grip", { side: "L", shape: "open", dur: 0.2 });
-  c.A(t + 1.0, who, "arm", { side: "L", pose: REST.L, dur: 0.6 });
+  c.A(t, who, "arm", { side: "L", pose: STRAW_OUT, dur: 0.4 });                 // up beside the mouth, in line with the stem
+  c.A(t + 0.4, who, "arm", { side: "L", pose: STRAW_MOUTH, dur: 0.3 });         // seat it at the lip corner
+  c.A(t + 0.7, who, "straw", { side: "L", hand: 0, dur: 0.15 });                // hand-over, hand still
+  c.A(t + 0.85, who, "grip", { side: "L", shape: "open", dur: 0.3 });           // then let go as the hand drops away
+  c.A(t + 0.9, who, "arm", { side: "L", pose: REST.L, dur: 0.75 });
   return t + 1.6;
 }
 export function strawHeld(c, t, who, pose = STRAW_LOW) {
   c.A(t, who, "arm", { side: "L", pose, dur: 0 });
-  c.A(t, who, "grip", { side: "L", shape: "pinch", dur: 0 });
+  c.A(t, who, "grip", { side: "L", shape: "pinch", set: STRAW_GRIP, dur: 0 });
   c.A(t, who, "straw", { side: "L", hand: 1, dur: 0 });
 }
 

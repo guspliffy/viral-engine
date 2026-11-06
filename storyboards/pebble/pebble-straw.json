@@ -16,9 +16,8 @@
  },
  "set": {
   "type": "plain",
-  "color": "#f1e4c8",
-  "floor": "#d9bf94",
-  "light": "golden",
+  "color": "#efe6d6",
+  "floor": "#d8cbb4",
   "para": 0,
   "aperture": 0,
   "lighting": 2
@@ -47,13 +46,13 @@
   {
    "at": 0,
    "pos": [
-    0.35,
-    1.45,
-    3.4
+    -0.3,
+    1.12,
+    4.3
    ],
    "look": [
-    0.1,
-    1.05,
+    0.12,
+    0.98,
     0
    ],
    "fov": 30
@@ -102,10 +101,13 @@
      "side": "L",
      "pose": {
       "o": [
-       0,
-       0.18,
-       0.1
-      ]
+       0.1,
+       0.2,
+       0.09
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 1
      },
      "dur": 0
     },
@@ -116,10 +118,13 @@
      "side": "R",
      "pose": {
       "o": [
-       0,
-       0.18,
-       0.1
-      ]
+       0.1,
+       0.2,
+       0.09
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 1
      },
      "dur": 0
     },
@@ -130,20 +135,27 @@
      "side": "L",
      "pose": {
       "x": [
-       0.15,
-       1.22,
-       0.36
-      ]
+       0.1701,
+       1.1446,
+       0.3657
+      ],
+      "point": "pinch",
+      "pinchEase": true
      },
      "dur": 0.6
     },
     {
      "who": "peb",
-     "at": 1.05,
+     "at": 0.65,
      "do": "grip",
      "side": "L",
      "shape": "pinch",
-     "dur": 0.2
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
+     "dur": 0.55
     },
     {
      "who": "peb",
@@ -151,11 +163,27 @@
      "do": "straw",
      "side": "L",
      "hand": 1,
-     "dur": 0.35
+     "dur": 0.15
     },
     {
      "who": "peb",
-     "at": 1.35,
+     "at": 1.4,
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.236,
+       1.0906,
+       0.3774
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.3
+    },
+    {
+     "who": "peb",
+     "at": 1.7000000000000002,
      "do": "arm",
      "side": "L",
      "pose": {
@@ -163,53 +191,76 @@
        0.3,
        0.55,
        0.3
-      ]
+      ],
+      "point": "pinch",
+      "pinchEase": true
      },
-     "dur": 0.6
+     "dur": 0.5
     },
     {
      "who": "peb",
-     "at": 3.4,
+     "at": 3.6,
      "do": "arm",
      "side": "L",
      "pose": {
       "x": [
-       0.15,
-       1.22,
-       0.36
-      ]
+       0.236,
+       1.0906,
+       0.3774
+      ],
+      "point": "pinch",
+      "pinchEase": true
      },
-     "dur": 0.6
+     "dur": 0.4
     },
     {
      "who": "peb",
      "at": 4,
-     "do": "straw",
+     "do": "arm",
      "side": "L",
-     "hand": 0,
+     "pose": {
+      "x": [
+       0.1701,
+       1.1446,
+       0.3657
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
      "dur": 0.3
     },
     {
      "who": "peb",
      "at": 4.3,
-     "do": "grip",
+     "do": "straw",
      "side": "L",
-     "shape": "open",
-     "dur": 0.2
+     "hand": 0,
+     "dur": 0.15
     },
     {
      "who": "peb",
-     "at": 4.4,
+     "at": 4.45,
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.3
+    },
+    {
+     "who": "peb",
+     "at": 4.5,
      "do": "arm",
      "side": "L",
      "pose": {
       "o": [
-       0,
-       0.18,
-       0.1
-      ]
+       0.1,
+       0.2,
+       0.09
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 1
      },
-     "dur": 0.6
+     "dur": 0.75
     }
    ]
   }

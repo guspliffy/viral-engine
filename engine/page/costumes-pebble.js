@@ -29,7 +29,7 @@ export function pebbleCostume(def, ch) {
   const shell = buildShell(ch, C);
   live.push(shell.update);
   const straw = buildStraw(ch, C);
-  if (straw) { live.push(straw.update); out.straw = straw.group; }
+  if (straw) { live.push(straw.update); out.straw = straw.group; out.strawInfo = straw; }
   feet(ch, C);
   out.shell = shell.group;
   out.apply = (st, t, hands, fries) => { for (const f of live) f(st, t, hands, fries); };
@@ -480,7 +480,16 @@ function buildStraw(ch, C) {
   // frame; the "straw" action (timeline.js) blends them, so a hand-off is a continuous move, never a pop
   const inv = new THREE.Matrix4(), mM = new THREE.Matrix4(), hM = new THREE.Matrix4(), tmp = new THREE.Matrix4(), e = new THREE.Euler();
   const pa = new THREE.Vector3(), pb = new THREE.Vector3(), qa = new THREE.Quaternion(), qb = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1), sc = new THREE.Vector3();
-  const handLocal = new THREE.Matrix4().compose(new THREE.Vector3(0.004, 0.01, 0.012), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, Math.PI / 2 - 0.35)), one);
+  // in a hand (correction brief 6 Nov): held by the hand's pinch point (between the index and thumb pads) at the grip
+  // point, straw.grip metres along the stem (outside the lips, so the pads close on a visible piece of stem). straw.hold
+  // { p, q } is the straw's pose in the pinch point's space, calibrated once at the contact pose (tools/pebble/
+  // straw-cal.mjs: L = inverse(pinch at contact) x straw-in-lips at contact), so at the hand-over the two owners agree in
+  // position AND direction and the short blend between them moves nothing. Deterministic: a constant, no frame history
+  const H0 = K.hold, gripX = K.grip ?? 0.055;
+  // (a full matrix: the left glove is mirrored and sized, so its pinch point's space has a negative, non-unit scale that a
+  // position + quaternion can't hold)
+  const handLocal = H0 ? new THREE.Matrix4().fromArray(H0.m)
+    : new THREE.Matrix4().compose(new THREE.Vector3(-gripX, 0, 0), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, Math.PI / 2 - 0.35)), one);
   const update = (st) => {
     const S = st.straw || { hand: 0, away: 0, side: "R" };
     g.visible = !S.away;
@@ -494,16 +503,18 @@ function buildStraw(ch, C) {
     mM.decompose(pa, qa, sc);
     const k = Math.max(0, Math.min(1, S.hand || 0));
     if (k > 0) {
-      const hand = ch.arms[S.side || "R"].hand, pad = hand.userData.pad;
-      hM.multiplyMatrices(inv, (pad || hand).matrixWorld).multiply(handLocal); hM.decompose(pb, qb, sc);
-      // eased, with a small lift on the way so it travels in an arc, not through the chin
+      const hand = ch.arms[S.side || "R"].hand, own = hand.userData.pinchPt || hand.userData.pad || hand;
+      hand.updateMatrixWorld(true);
+      hM.multiplyMatrices(inv, own.matrixWorld).multiply(handLocal); hM.decompose(pb, qb, sc);
+      // the hand-over happens while the hand holds still at the lips (strawOut / strawIn), where both owners agree, so
+      // a plain eased blend (no arc: the arc lifted it off both) is all the move there is
       const u = k * k * (3 - 2 * k);
-      pa.lerp(pb, u).y += 0.03 * Math.sin(Math.PI * u); qa.slerp(qb, u);
+      pa.lerp(pb, u); qa.slerp(qb, u);
     }
     g.position.copy(pa); g.quaternion.copy(qa);
     // the root's scale (the character's own size) is in ch.root, so the straw keeps its size in the root's space
   };
-  return { group: g, update };
+  return { group: g, update, gripLocal: new THREE.Vector3(gripX, curve.getPointAt(Math.min(1, (gripX + 0.012) / len)).y, 0) };
 }
 
 // toasted spots on the arms and legs (Garden Guardian pack): soft-edged patches on the thighs and the upper arms, flat

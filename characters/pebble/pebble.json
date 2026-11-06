@@ -260,12 +260,33 @@
   },
   "straw": {
    "side": 1,
-   "length": 0.17,
+   "length": 0.22,
    "r": 0.0032,
    "color": "#D9AE5C",
    "seed": "#C99A45",
    "yaw": 8,
-   "dip": 18
+   "dip": 18,
+   "grip": 0.1,
+   "hold": {
+    "m": [
+     -0.402598,
+     -0.694975,
+     -0.22219,
+     0,
+     0.008853,
+     0.249099,
+     -0.795183,
+     0,
+     -0.729576,
+     0.386527,
+     0.112961,
+     0,
+     0.040174,
+     0.067218,
+     0.029678,
+     1
+    ]
+   }
   }
  },
  "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
@@ -281,7 +302,7 @@
  },
  "hands": {
   "type": "glove",
-  "size": 1.4,
+  "size": 1.2,
   "fingers": 3,
   "spread": 1.3,
   "seamless": true,

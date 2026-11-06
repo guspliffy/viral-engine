@@ -157,6 +157,11 @@
      "do": "grip",
      "side": "L",
      "shape": "pinch",
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
      "dur": 0,
      "at": 0
     },
