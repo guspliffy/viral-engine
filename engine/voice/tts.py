@@ -195,7 +195,8 @@ def vc_python():
 
 
 def convert(jobs, raw):
-    """convert (6 Nov 2026, Pebble): {"target": a synthetic clip in engine/voice/targets/, "calm": k, "tempo": t}. All
+    """convert (6 Nov 2026, Pebble): {"target": a synthetic clip in engine/voice/targets/, "calm": k, "tempo": t,
+    "age": {"formant", "pitch", "range"}}. All
     lines of the batch go through vc.py in one call (the model loads once, ~10 s; ~12 s per line on 4 CPU cores)."""
     if not jobs: return {}
     py = vc_python()
@@ -208,7 +209,7 @@ def convert(jobs, raw):
             a, b = os.path.join(d, j["id"] + ".in.wav"), os.path.join(d, j["id"] + ".out.wav")
             sf.write(a, raw[j["id"]][0], SR_MODEL, subtype="FLOAT")
             c = j["convert"]
-            req.append({"in": a, "out": b, "target": os.path.join(HERE, c["target"]), "calm": c.get("calm")})
+            req.append({"in": a, "out": b, "target": os.path.join(HERE, c["target"]), "calm": c.get("calm"), "age": c.get("age")})
         r = subprocess.run([py, os.path.join(HERE, "vc.py")], input=json.dumps({"jobs": req}), capture_output=True, text=True)
         if r.returncode != 0:
             raise RuntimeError("vc.py failed\n" + r.stderr[-3000:])
