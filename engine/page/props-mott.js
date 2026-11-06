@@ -52,9 +52,12 @@ function wingGeo(pts) {
 export const MOTT_KINDS = {
   mott(P) {
     const S = P.spec, R = S.r ?? 0.2, HZ = S.hz ?? 4;
+    // spec.palette (never has money's moth, 6 Nov 2026: a cream moth with tan tips): the same build in other colours;
+    // without it he is Mott, exactly as before
+    const C = { fluff: YEL, collar: "#efcf74", wing: PINK, band: "246,220,138", rose: ROSE, blush: BLUSH, dust: "#f7c6d2", ...S.palette };
     const root = new THREE.Group(); P.whole.add(root);      // bob, bank and lean
     const body = new THREE.Group(); root.add(body);
-    const fluff = drawn(mat(YEL, { roughness: 0.95 })), rose = drawn(mat(ROSE, { roughness: 0.7 }));
+    const fluff = drawn(mat(C.fluff, { roughness: 0.95 })), rose = drawn(mat(C.rose, { roughness: 0.7 }));
     // the fluffy ball: a core and tufts spread evenly over it (a Fibonacci sphere), so its outline is scalloped from
     // every side, like the sheet
     mesh(ell(R, R * 0.96, R * 0.92, 48), fluff, body);
@@ -64,7 +67,7 @@ export const MOTT_KINDS = {
     for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2 + 0.1; tuft(Math.cos(a) * R * 0.86, Math.sin(a) * R * 0.83, -R * 0.12, 0.25 + 0.04 * rnd(i)); }
     for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2 + 0.3; if (Math.sin(a) > 0.55) continue; tuft(0, Math.cos(a) * R * 0.83, Math.sin(a) * R * 0.8, 0.24 + 0.04 * rnd(i + 30)); }
     // a soft fluffy collar under the chin, a shade deeper
-    const collar = mesh(new THREE.TorusGeometry(R * 0.62, R * 0.14, 8, 20), drawn(mat("#efcf74", { roughness: 0.95 })), body, 0, -R * 0.6, R * 0.12); collar.rotation.x = Math.PI / 2 - 0.35;
+    const collar = mesh(new THREE.TorusGeometry(R * 0.62, R * 0.14, 8, 20), drawn(mat(C.collar, { roughness: 0.95 })), body, 0, -R * 0.6, R * 0.12); collar.rotation.x = Math.PI / 2 - 0.35;
     // four short rose legs under him
     for (const s of [-1, 1]) for (const k of [0, 1]) { const l = mesh(new THREE.CapsuleGeometry(R * 0.07, R * 0.28, 4, 8), rose, body, s * R * (0.22 + 0.24 * k), -R * 0.98, R * (0.25 - 0.3 * k)); l.rotation.z = s * 0.25; }
 
@@ -72,7 +75,7 @@ export const MOTT_KINDS = {
     const face = new THREE.Group(); face.position.set(0, R * 0.08, R * 0.8); body.add(face);
     const eyeM = mat("#17131a", { roughness: 0.18, metalness: 0.1 });
     const shine = basic({ color: "#ffffff" }), warm = basic({ color: "#fff3b8" });
-    const lidM = drawn(mat(YEL, { roughness: 0.95 })), lineM = mat(INK, { roughness: 0.6 }); lidM.userData.noHatch = true;   // the lid as the fluff, clean
+    const lidM = drawn(mat(C.fluff, { roughness: 0.95 })), lineM = mat(INK, { roughness: 0.6 }); lidM.userData.noHatch = true;   // the lid as the fluff, clean
     const ER = [R * 0.3, R * 0.36, R * 0.16];
     const eyes = [-1, 1].map((s) => {
       const e = new THREE.Group(); e.position.set(s * R * 0.36, 0, 0.0); e.rotation.y = s * 0.32; face.add(e);
@@ -89,7 +92,7 @@ export const MOTT_KINDS = {
       const shut = mesh(tube([[-ER[0] * 0.9, 0, 0], [0, -ER[1] * 0.35, 0], [ER[0] * 0.9, 0, 0]], R * 0.022, 12), lineM, e, 0, -R * 0.02, ER[2] * 1.05);
       return { s, e, c1, c2, d1, d2, ring, lid, shut };
     });
-    for (const s of [-1, 1]) { const b = mesh(ell(R * 0.13, R * 0.07, R * 0.03, 12), mat(BLUSH, { roughness: 0.9 }), face, s * R * 0.6, -R * 0.33, -R * 0.06); b.rotation.y = s * 0.5; }
+    for (const s of [-1, 1]) { const b = mesh(ell(R * 0.13, R * 0.07, R * 0.03, 12), mat(C.blush, { roughness: 0.9 }), face, s * R * 0.6, -R * 0.33, -R * 0.06); b.rotation.y = s * 0.5; }
     const smile = mesh(tube([[-R * 0.08, 0, 0], [0, -R * 0.06, 0.004], [R * 0.08, 0, 0]], R * 0.018, 10), lineM, face, 0, -R * 0.36, R * 0.07);
     const frown = mesh(tube([[-R * 0.08, -R * 0.04, 0], [0, R * 0.01, 0.004], [R * 0.08, -R * 0.04, 0]], R * 0.018, 10), lineM, face, 0, -R * 0.36, R * 0.07);
     const oMouth = mesh(ell(R * 0.06, R * 0.08, R * 0.03, 14), mat("#5a2a30", { roughness: 0.8 }), face, 0, -R * 0.4, R * 0.06);
@@ -117,14 +120,14 @@ export const MOTT_KINDS = {
     // the wings: big forewings and smaller hind wings, pink with a butter band and rose tips (the rosy maple moth),
     // hinged at his sides; they fold back behind him at rest
     const wingTex = canvasTex(256, 256, (x, W, H) => {
-      x.fillStyle = PINK; x.fillRect(0, 0, W, H);
-      const gr = x.createLinearGradient(0, H, W, 0); gr.addColorStop(0, "rgba(246,220,138,0)"); gr.addColorStop(0.3, "rgba(246,220,138,0.95)"); gr.addColorStop(0.62, "rgba(246,220,138,0.95)"); gr.addColorStop(0.78, "rgba(246,220,138,0)");
+      x.fillStyle = C.wing; x.fillRect(0, 0, W, H);
+      const gr = x.createLinearGradient(0, H, W, 0); gr.addColorStop(0, `rgba(${C.band},0)`); gr.addColorStop(0.3, `rgba(${C.band},0.95)`); gr.addColorStop(0.62, `rgba(${C.band},0.95)`); gr.addColorStop(0.78, `rgba(${C.band},0)`);
       x.fillStyle = gr; x.fillRect(0, 0, W, H);
-      x.fillStyle = ROSE; x.beginPath(); x.ellipse(W * 0.98, H * 0.95, W * 0.3, H * 0.24, 0, 0, Math.PI * 2); x.fill();
+      x.fillStyle = C.rose; x.beginPath(); x.ellipse(W * 0.98, H * 0.95, W * 0.3, H * 0.24, 0, 0, Math.PI * 2); x.fill();
       x.strokeStyle = "rgba(201,96,122,0.35)"; x.lineWidth = 3;
       for (let i = 0; i < 5; i++) { x.beginPath(); x.moveTo(0, H * 0.4); x.quadraticCurveTo(W * 0.5, H * (0.3 + i * 0.12), W, H * (0.5 + i * 0.12)); x.stroke(); }
     });
-    const hindTex = canvasTex(128, 128, (x, W, H) => { x.fillStyle = PINK; x.fillRect(0, 0, W, H); x.fillStyle = "rgba(246,220,138,0.85)"; x.beginPath(); x.ellipse(W * 0.2, H * 0.7, W * 0.35, H * 0.3, 0, 0, Math.PI * 2); x.fill(); });
+    const hindTex = canvasTex(128, 128, (x, W, H) => { x.fillStyle = C.wing; x.fillRect(0, 0, W, H); x.fillStyle = `rgba(${C.band},0.85)`; x.beginPath(); x.ellipse(W * 0.2, H * 0.7, W * 0.35, H * 0.3, 0, 0, Math.PI * 2); x.fill(); });
     const wingM = drawn(mat("#ffffff", { map: wingTex, side: THREE.DoubleSide, roughness: 0.8 }));
     const hindM = drawn(mat("#ffffff", { map: hindTex, side: THREE.DoubleSide, roughness: 0.8 }));
     wingM.userData.noHatch = hindM.userData.noHatch = true;   // thin wings stay clean: hatched, their shaded back read as a dirty brown card
@@ -138,7 +141,7 @@ export const MOTT_KINDS = {
     });
 
     // the wing dust: pink flecks thrown out round him (the bonk)
-    const dustM = basic({ color: "#f7c6d2", transparent: true, opacity: 0.85, depthWrite: false });
+    const dustM = basic({ color: C.dust, transparent: true, opacity: 0.85, depthWrite: false });
     const dust = Array.from({ length: 40 }, (_, i) => {
       const o = glowy(new THREE.Mesh(new THREE.SphereGeometry(R * (0.06 + 0.07 * rnd(i + 3)), 8, 6), dustM), 4); P.whole.add(o);
       const a = rnd(i) * Math.PI * 2, e = (rnd(i + 1) - 0.3) * 1.4;

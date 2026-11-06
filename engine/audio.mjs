@@ -700,6 +700,22 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, beat = Math.max(0, Math.sin(TAU * 3.1 * t)) ** 3, n = r() * 2 - 1, fade = Math.min(1, t / 0.15, (d - t) / 0.25); x[i] = (run(lp, n) * 0.9 + run(bp, n) * 0.18) * beat * fade; }
     return x;
   },
+  // a person whistling an innocent little tune through the lips (never has money 01, 6 Nov 2026: Gunslinger whistling
+  // while he nudges the bill away): a pure, breathy tone round 1.1-1.8 kHz, two jaunty bars of short notes with small
+  // slides between them and a light vibrato on the long ones, soft breath noise under it
+  whistletune(r, d = 1.8) {
+    const x = buf(d), hp = biquad("bp", 1500, 1.2);
+    // [start, length, Hz]: a sing-song "da-di-da, di-da-dee" in D major, a held note at the end of each bar
+    const N = [[0, 0.16, 1175], [0.18, 0.12, 1319], [0.32, 0.12, 1480], [0.46, 0.34, 1175], [0.88, 0.12, 1319], [1.02, 0.12, 1175], [1.16, 0.14, 988], [1.32, d - 1.4, 1109]];
+    let ph = 0, f0 = N[0][2];
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = N.find(([s, l]) => t >= s && t < s + l + 0.02), on = n ? Math.min(1, (t - n[0]) / 0.018, (n[0] + n[1] + 0.02 - t) / 0.035) : 0;
+      if (n) f0 += (n[2] - f0) * 0.004;   // a little slide into each note
+      const f = f0 * (1 + (n && n[1] > 0.3 ? 0.012 * Math.sin(TAU * 5.5 * (t - n[0])) * Math.min(1, (t - n[0]) / 0.15) : 0)); ph += TAU * f / SR;
+      x[i] = (Math.sin(ph) * 0.62 + Math.sin(2 * ph) * 0.03 + run(hp, r() * 2 - 1) * 0.08) * Math.max(0, on);
+    }
+    return x;
+  },
   notify(r) { // a soft phone notification: two quick rounded tones, up a fourth
     const d = 0.55, x = buf(d);
     for (const [t0, f] of [[0, 1175], [0.11, 1568]]) for (let i = Math.round(t0 * SR); i < x.length; i++) { const t = i / SR - t0; x[i] += (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2 * t) * 0.08) * env(t, 0.004, 0.12, d - t0); }

@@ -59,6 +59,10 @@ export async function motionJumps(sb, fps = 30) {
     const p = v3.set(st.x, st.y + 0.45 * (st.scale ?? 1), st.z).project(cam);
     return Math.abs(p.x) > 1.35 || Math.abs(p.y) > 1.2 || p.z > 1;
   };
+  // as stage.js does: the motion layer's contact solver sees every body, so the hands measured here are the drawn ones
+  const { registerCast } = await import("../engine/page/timeline.js");
+  const defOf = (c) => { const f = path.join(ROOT, "characters", `${c.character}.json`); return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null; };
+  registerCast(sb, (sb.cast || []).map((c) => ({ c, def: defOf(c) })).filter((o) => o.def));
   const n = Math.round(sb.duration * fps), out = [];
   for (const c of sb.cast || []) {
     const file = path.join(ROOT, "characters", `${c.character}.json`);

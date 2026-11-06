@@ -191,6 +191,38 @@ moving at once.
   stop/start tip and the bob, sway and arm swing (a tight staging that the extra body motion pushes into a contact).
   Bench: `storyboards/lookdev/make-feet-tests.mjs`; quick check without a browser:
   `node tools/feet/probe.mjs <sb> [--feet]` (how far each standing foot slides, how far a foot gets from the body).
+- **The motion layer** (quality plan items 8, 9 and 12, thread H, 5 Nov 2026; Jonny merged it 6 Nov and the clip
+  template turns all three parts on, old clips keep their motion; util.js `layerOf`, engine/page/solve.js). The
+  solver sees every character because stage.js (and `qa/motion.mjs`) register the cast (timeline.js `registerCast`)
+  before the first frame. In the motion object, next to `feet`:
+  `"overlap": true` (item 8): every hand follows its pose with a little drag in the body's own frame (a damped spring,
+  3.5 Hz, zeta 0.65: a hand arrives about two frames after its arm stops, overshoots a centimetre or two and settles)
+  and the body's turn trails its target a beat (4 Hz, zeta 0.6, a small wind-up); a hand on a prop, on a point in the
+  world, resting (table, lap, hips, cheeks, a paw), holding a prop (grab to release), closed on something (a `grip`
+  of hold, pinch, scroll, rim, paw, cup or teacup until the hand opens), dancing or climbing has no lag, so contacts
+  stay exact; the hand with the costume's own weapon (staff, wand, scythe, axe, katana, orb) never lags and its
+  carrier's turn has no follow, because the solver doesn't see props yet and the prop would sweep into its
+  neighbours; a held prop gets a small pendulum swing as the hand starts and stops (6 Hz, zeta 0.5, at
+  most 8 degrees; st.propSway, which the holds apply about the grip). `"timing": true` (item 12): `eases` (an arm reaching for a prop or a point goes out fast and
+  arrives slowly, "reach"; a gesture (point, wave, shrug, up, a fist, cast) and a turn wind up and settle,
+  "anticSettle", except a weapon carrier's turn, which uses "reach"; only when the action names no ease), `breaking` (the elbow keeps its place while the hand trails:
+  the elbow leads, needs overlap), `holds` (in a hold the weight shifts from foot to foot every 2-3 s and the body
+  settles a touch; fades out round anything the body does, in a `still` and while a hand holds something fixed;
+  a weapon carrier shifts at the hips without the lean), `offsets` (characters starting a look,
+  face, gesture, turn or lean on the same moment start 0, 1 or 2 frames apart, seeded from their names, and a
+  both-hands gesture starts one hand two frames after the other; `sync: true` on an action keeps it on the beat, and
+  an actor with a contact, a move, a talk or a hop at that moment is never shifted), `splines` (back-to-back moves of
+  one actor with no ease of their own run on one smooth path through their ends, stopping only at the last).
+  `"solve": true` (item 9): a hand or an arm found inside another character's body (the ellipsoid the contact checks
+  measure) is pushed out to 1 cm clear, and a hand never past the surface of its own body (nor out of it into
+  another one); the pushes are smoothed
+  with a 0.15 s look ahead so they never pop, bodies never move, an `allowClip` window between the two leaves the
+  contact alone, and a push over 6 cm is not made (the pose is wrong: the checks still fail it, and solve.js
+  `solveWarnings` lists it). Costume parts (wings, hoods, hats) and props are not solved yet. An object turns parts
+  off: `"overlap": { "body": false }`, `"timing": { "offsets": false }`. Bench:
+  `storyboards/lookdev/make-motion-layer-tests.mjs`; quick numbers without a browser:
+  `node tools/motion/probe.mjs <sb> [--overlap] [--timing] [--solve]` (largest hand lag, synchrony, frozen share,
+  pushes the solver refuses). Regress fixtures: `storyboards/regress/make-motion-layer.mjs`.
 - **A toe tap** (`"do": "tap"`, `side` R/L, `count` 3, `every` 0.3 s, `lift` 1): the heel stays on the floor and the
   toe lifts and slaps down; each slap lands 60 % into its cycle with a soft footstep on the set's floor (no step if the
   storyboard places its own). `act.tapFoot` wraps it. The small gestures and `act.ma` are in the table below; bench:
@@ -389,6 +421,40 @@ Each hold has `approach`, `secure`, `take`, `carry`, `regrip`, `place`, `release
 gap, height) are in the file. `node storyboards/lookdev/make-grip-tests.mjs` writes a close-up test bench per hold
 (`storyboards/lookdev/grip-<hold>.json`). A new hold is added there and approved by Jonny from its close-up video
 before a clip uses it.
+
+## Holds 2 and real physics (on in the template; Jonny, 5 Nov: "physics should apply to every video")
+
+`"rig": { "hold": 2 }` (engine/page/attach.js, PR #132) keeps a held prop rigid in the hand: it moves and turns with the
+grip from the grab on, passes and regrips blend over 0.15 s, and the layout records for every prop on every frame
+whether it is held, riding, in flight, resting or staged (`qa/support.mjs`: `prop-support`, `hold-owner`).
+
+`"physics": true` (engine/page/physics.js) bakes rigid bodies once, before the first frame, with Rapier's
+deterministic build at a fixed 1/120 s step: the set's meshes and the props are solid, each character is a capsule
+with its hat, and balls at its hands and forearms. Every frame is then a lookup, so a farm shard or a cached frame gives
+the same picture, and the layout carries the bake's hash.
+
+- **A let-go is a body.** A `release` without `to` leaves the hand with the hand's speed and turn, tumbles and lands on
+  whatever is under it (a put-down mug stays where it was put; a phone let go at the chest lands flat). A `release`
+  with `to` and a `dur` of 0.1 s or more is an aimed throw: it gets to `to` in `dur`. `keep: "air"` with a reason
+  stages it in the air instead.
+- **Falls, throws and knocks** go through the clip builder, never a hand-tweened path (`physics-tween` warns on a
+  `prop` tween that brings a loose prop down 15 cm or more):
+
+```js
+c.throw(2.62, "case", { to: [1.5, 0.13, 1.2], in: 0.3, spin: [3, 0.8, 1] });  // lands there at 2.92, on its "wham"
+c.drop(1.0, "vase");                                 // falls from where its tween has it, from rest
+c.knock(0.5, "duf", { v: [-1.2, 1.5, 0.9], spin: [-2, 1, 4] });   // a kick (m/s, rad/s about the world axes)
+c.float(5.0, 0, { dur: 0.15, damp: 0.5 });           // zero-g with air drag; c.float(9.2, -16) slams it all down
+```
+
+- **A pile at rest from frame 0**: `"body": { "settle": true }` in a prop's spec makes it a body a second before the
+  clip, so it lies on what is under it. Give piled props a few centimetres between them; start poses that overlap
+  push apart. `"body": { "density", "bounce", "friction", "shape": "box" }` tunes one prop.
+- A hand that reaches for a prop the bake moved reaches where it landed, and a grab takes it from there.
+- Aim throws at the spot and the frame the story needs (a slam on its sound). Things drifting in zero-g go where the
+  bake takes them: check `face-hidden` and the must-see list, and kick them (`c.knock` with `to`) clear of faces.
+- Benches: `storyboards/lookdev/make-physics-bench.mjs` (a slam, zero-g, a crash), and its regression copy checks
+  the bake's hash on every pull request.
 
 ## Light from the painting (opt-in, quality plan item 18; Jonny's call before it becomes a default)
 

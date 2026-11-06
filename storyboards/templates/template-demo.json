@@ -10,12 +10,17 @@
  "castLook": "sheet",
  "cleanStart": true,
  "motion": {
-  "feet": 2
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
  },
  "rig": {
   "hand": 2,
-  "eyes": 2
+  "eyes": 2,
+  "hold": 2
  },
+ "physics": true,
  "loopIdle": true,
  "set": {
   "type": "plain",

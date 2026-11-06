@@ -1,0 +1,397 @@
+{
+ "id": "physics-bench",
+ "title": "Physics bench: props that hit each other",
+ "idea": "Prop physics bench (quality plan item 17 trial), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "livingroom",
+  "seed": 5,
+  "focus": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "lookdev/wizard-crisp",
+   "at": [
+    0.8,
+    -0.25
+   ],
+   "face": -35,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "coffeetable",
+   "x": 0,
+   "z": 0.35,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.5
+  },
+  {
+   "id": "shoe",
+   "kind": "sneaker",
+   "x": -0.57,
+   "y": 0.36,
+   "z": 0.38,
+   "rot": 0,
+   "scale": 1.2,
+   "body": {
+    "settle": true
+   }
+  },
+  {
+   "id": "case",
+   "kind": "suitcase",
+   "x": -0.29,
+   "y": 0.36,
+   "z": 0.35,
+   "tip": 90,
+   "scale": 0.7,
+   "color": "#d2433a",
+   "body": {
+    "settle": true
+   }
+  },
+  {
+   "id": "pil",
+   "kind": "pillow",
+   "x": -0.29,
+   "y": 0.56,
+   "z": 0.35,
+   "rot": -10,
+   "scale": 0.6,
+   "body": {
+    "settle": true
+   }
+  },
+  {
+   "id": "box",
+   "kind": "parcel",
+   "x": -0.04,
+   "y": 0.36,
+   "z": 0.38,
+   "rot": 0,
+   "scale": 0.6,
+   "body": {
+    "settle": true
+   }
+  },
+  {
+   "id": "duf",
+   "kind": "duffel",
+   "x": 0.25,
+   "y": 0.36,
+   "z": 0.35,
+   "rot": 0,
+   "scale": 0.7,
+   "color": "#3a8f6a",
+   "body": {
+    "settle": true
+   }
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 6.5,
+   "text": "physics bench: knock, zero-g, fall",
+   "pos": 1280,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "bench",
+   "at": 0,
+   "len": 6.5,
+   "shot": {
+    "pos": [
+     0.1,
+     1.4,
+     4.4
+    ],
+    "look": [
+     0.05,
+     0.5,
+     0.35
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.58,
+       0.415,
+       -0.06
+      ],
+      "palm": [
+       0.58,
+       -0.64,
+       -0.06
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "do": "physics",
+     "prop": "duf",
+     "mode": "knock",
+     "v": [
+      -1.2,
+      1.5,
+      0.9
+     ],
+     "spin": [
+      -2,
+      1,
+      4
+     ],
+     "at": 0.5
+    },
+    {
+     "do": "physics",
+     "prop": "box",
+     "mode": "knock",
+     "v": [
+      -1,
+      1.8,
+      1
+     ],
+     "spin": [
+      3,
+      -2,
+      2
+     ],
+     "at": 0.51
+    },
+    {
+     "do": "physics",
+     "prop": "pil",
+     "mode": "knock",
+     "v": [
+      -1,
+      1.7,
+      0.7
+     ],
+     "spin": [
+      1.5,
+      0.5,
+      3
+     ],
+     "at": 0.52
+    },
+    {
+     "do": "physics",
+     "prop": "case",
+     "mode": "knock",
+     "v": [
+      -0.9,
+      1.4,
+      0.8
+     ],
+     "spin": [
+      0.5,
+      0,
+      3.5
+     ],
+     "at": 0.52
+    },
+    {
+     "do": "physics",
+     "prop": "shoe",
+     "mode": "knock",
+     "v": [
+      -0.4,
+      2,
+      0.9
+     ],
+     "spin": [
+      6,
+      3,
+      -4
+     ],
+     "at": 0.53
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "do": "physics",
+     "prop": null,
+     "mode": "float",
+     "g": 0,
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "do": "physics",
+     "prop": "pil",
+     "mode": "knock",
+     "v": [
+      -0.3,
+      0.55,
+      -0.1
+     ],
+     "spin": [
+      -1.2,
+      0.4,
+      -0.5
+     ],
+     "at": 2.32
+    },
+    {
+     "do": "physics",
+     "prop": "duf",
+     "mode": "knock",
+     "v": [
+      -0.15,
+      0.63,
+      0.1
+     ],
+     "spin": [
+      -0.6,
+      0.4,
+      -0.2
+     ],
+     "at": 2.37
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.2
+     ],
+     "dur": 0.4,
+     "at": 2.4
+    },
+    {
+     "do": "physics",
+     "prop": "box",
+     "mode": "knock",
+     "v": [
+      0,
+      0.7100000000000001,
+      -0.1
+     ],
+     "spin": [
+      0,
+      0.4,
+      0.09999999999999998
+     ],
+     "at": 2.42
+    },
+    {
+     "do": "physics",
+     "prop": "case",
+     "mode": "knock",
+     "v": [
+      0.15,
+      0.79,
+      0.1
+     ],
+     "spin": [
+      0.6,
+      0.4,
+      0.3999999999999999
+     ],
+     "at": 2.47
+    },
+    {
+     "do": "physics",
+     "prop": "shoe",
+     "mode": "knock",
+     "v": [
+      0.3,
+      0.8700000000000001,
+      -0.1
+     ],
+     "spin": [
+      1.2,
+      0.4,
+      0.7
+     ],
+     "at": 2.52
+    },
+    {
+     "do": "physics",
+     "prop": null,
+     "mode": "float",
+     "g": -14,
+     "dur": 0.15,
+     "at": 4
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.6
+     ],
+     "dur": 0.25,
+     "at": 4.2
+    },
+    {
+     "do": "physics",
+     "prop": null,
+     "mode": "float",
+     "g": -9.81,
+     "dur": 0.3,
+     "at": 4.6
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-physics-bench.mjs (engine bench, no reviews)."
+}

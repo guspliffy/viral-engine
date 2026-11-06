@@ -89,12 +89,22 @@ export function phoenixCostume(C, ch) {
   // "charge" makes the Phoenix blaze: the feathers glow, a halo grows behind it and it lights the room round it
   const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTexture([[0, "rgba(255,250,225,1)"], [0.3, "rgba(255,214,120,0.75)"], [0.65, "rgba(255,140,60,0.25)"], [1, "rgba(255,120,40,0)"]]), transparent: true, depthWrite: false }));
   halo.position.set(0, ch.cy + 0.15, -0.5); halo.visible = false; halo.name = "glow"; ch.bodyGroup.add(halo);
+  let snuffed = false; const SNUFF = new THREE.Color("#6b4a32");
   const blaze = new THREE.PointLight("#ffbf70", 0, 7, 1.4); blaze.position.set(0, ch.cy + 0.3, 0.25); ch.bodyGroup.add(blaze);
   return {
     hat: artCrest ? null : { group: crest, height: 0.25, brimR: 0 }, sitDepth: 0.06,
     apply(st, t) {
       const c = Math.max(0, st.charge || 0), fk = 1 + 0.06 * Math.sin(t * rad(11.3)) + 0.04 * Math.sin(t * rad(17.9));
       mat.emissiveIntensity = 1 + 7 * c * fk; blaze.intensity = 9 * c * fk;
+      // "snuff" (too much energy 01, 6 Nov 2026): the flames go out: the crest burns down to a short brown tuft, the
+      // feathers lose their glow and dull toward ember brown (0 = as before, so other clips don't change)
+      const sn = Math.min(1, Math.max(0, st.snuff || 0));
+      if (sn > 0 || snuffed) {
+        mat.emissiveIntensity *= 1 - 0.95 * sn;
+        mat.color.setRGB(1, 1, 1).lerp(SNUFF, 0.55 * sn);
+        if (artCrest) { artCrest.scale.set(1, 1 - 0.35 * sn, 1); artCrest.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) { if (!m.userData.snuff0) m.userData.snuff0 = { c: m.color?.clone(), e: m.emissiveIntensity ?? 0 }; if (m.color) m.color.copy(m.userData.snuff0.c).lerp(SNUFF, 0.7 * sn); if (m.emissive) m.emissiveIntensity = m.userData.snuff0.e * (1 - 0.95 * sn); } }); }
+        snuffed = sn > 0;
+      }
       halo.visible = c > 0.01; halo.scale.setScalar((0.5 + 2.1 * c) * fk); halo.material.opacity = Math.min(0.95, c * 1.2);
       // the beat's phase is integrated over time in timeline.js (t × speed would jump when the speed changes)
       const rest = C.restWings ?? 0.85, w = (rest + (1 - rest) * (st.wings || 0)) * (st.span ?? 1), fl = (st.flap || 0) * (0.5 + 0.5 * (st.span ?? 1)),   // the portraits show the wings half open at rest; span tucks them
