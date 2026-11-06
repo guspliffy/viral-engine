@@ -11,7 +11,7 @@
   "depth": 0.5,
   "lump": 0,
   "seed": 31,
-  "taper": -0.14,
+  "taper": 0.1,
   "square": 2.0,
   "specks": 0,
   "gloss": 0
@@ -19,22 +19,29 @@
  "head": {
   "color": "#EE9A42",
   "width": 0.44,
-  "height": 0.37,
-  "depth": 0.46,
-  "square": 1.8,
-  "taper": 0.26,
-  "neck": -0.02,
+  "height": 0.42,
+  "depth": 0.42,
+  "square": 2.2,
+  "taper": 0.1,
+  "neck": -0.07,
   "neckR": 0.13,
-  "forward": 0.1,
-  "faceUp": 0.0,
+  "forward": 0.12,
+  "faceUp": -0.1,
   "faceWide": 1.0,
-  "muzzle": {
-   "a": 0.5,
-   "v": -0.12,
-   "w": 0.5,
-   "h": 0.3
+  "above": 0.12,
+  "profile": {
+   "cheek": 0.12,
+   "cheekV": -0.3,
+   "cheekH": 0.5,
+   "snout": 0.45,
+   "v": -0.1,
+   "w": 0.46,
+   "h": 0.3,
+   "lift": 0.04,
+   "jaw": 0.05
   },
-  "above": 0.12
+  "pitch": 0.12,
+  "faceTall": 1.5
  },
  "legs": {
   "height": 0.17,
@@ -67,39 +74,45 @@
   "freckles": 6,
   "final": {
    "iris": "#6B3A1C",
-   "brow": "#9A6434",
+   "brow": "#C9793A",
    "eye": {
-    "oval": 0.8,
-    "iris": 0.6,
-    "glintSize": 0.55,
+    "oval": 0.74,
+    "iris": 0.56,
+    "glintSize": 0.45,
     "irisShade": true,
-    "lash": 0.75
+    "lash": 1.0,
+    "white": "#F2E4CC"
    },
    "layout": {
-    "mouthV": -0.34,
+    "mouthV": -0.3,
     "cheekV": -0.2,
     "browV": 0.5,
-    "eyeU": 0.31,
-    "eyeV": 0.3,
-    "mouthW": 0.24
+    "eyeU": 0.38,
+    "eyeV": 0.12,
+    "mouthW": 0.42
    },
    "browShape": {
     "arch": 0.12,
     "lift": 0.012,
     "clear": 0.014,
-    "thick": 0.3
+    "thick": 0.22
    },
    "rest": {
     "smirk": 0.18,
-    "curve": 0.6,
+    "curve": 0.9,
     "eye": 0.92
    },
    "neutral": {
-    "lidL": 0.8,
-    "lidR": 0.8
+    "lidL": 0.76,
+    "lidR": 0.76
    },
    "blush": 0.9,
-   "freckles": 6
+   "freckles": 6,
+   "mouth": {
+    "ink": "#7A3E1C",
+    "thick": 0.6
+   },
+   "size": 0.84
   }
  },
  "sprout": {
@@ -109,11 +122,17 @@
   "type": "pebble",
   "cap": {
    "color": "#A95C32",
-   "band": 0.42,
+   "band": 0.56,
    "crown": [
-    1.2,
-    1.14
-   ]
+    1.06,
+    1.02
+   ],
+   "front": 0.12,
+   "skew": -0.18,
+   "flat": 0.12,
+   "tilt": -0.1,
+   "pitch": 0.06,
+   "brim": 0.1
   },
   "belly": {
    "color": "#F6CF85",
@@ -128,7 +147,8 @@
    "hem": -0.62,
    "trimR": 0.02,
    "pocket": false,
-   "slits": true
+   "slits": true,
+   "armhole": 0.32
   },
   "shell": {
    "color": "#8E4F2A",
@@ -141,90 +161,79 @@
     0.46
    ],
    "dz": 0.14,
-   "rimR": 0.05,
+   "rimR": 0.042,
    "moss": {
-    "count": 4200,
-    "size": 0.024,
-    "from": 0.4,
-    "fine": 3000,
-    "fineSize": 0.01,
-    "flat": 0.5,
-    "ink": false,
+    "thick": 0.07,
+    "from": 0.42,
+    "strands": 420,
+    "strand": 0.055,
     "color": "#B3A22C",
     "light": "#D0BE4A",
     "dark": "#857A1E",
-    "hang": 2.2
+    "strandR": 0.0045
    },
    "fern": {
-    "leaf": 0.13,
-    "pairs": 16,
+    "leaf": 0.16,
+    "pairs": 22,
     "fronds": [
      [
       3.14,
-      0.58,
+      0.754,
       0.35
      ],
      [
       2.3,
-      0.54,
+      0.7020000000000001,
       0.5
      ],
      [
       4.0,
-      0.54,
+      0.7020000000000001,
       0.5
      ],
      [
       1.4,
-      0.48,
+      0.624,
       0.6
      ],
      [
       4.9,
-      0.48,
+      0.624,
       0.6
      ],
      [
       0.15,
-      0.5,
+      0.65,
       0.2
      ]
     ],
-    "at": [
-     -0.08,
-     0.95,
-     -0.3
-    ],
-    "leafW": 0.5,
+    "leafW": 0.75,
     "color": "#A8A535",
     "light": "#C4BE52",
     "stalk": "#7E7A2A",
-    "arch": true
+    "arch": true,
+    "th": 0.6,
+    "ph": 1.75
    },
    "dy": 0.04,
    "open": [
-    112,
+    106,
     50,
-    90
+    95
    ],
    "rings": [
     [
-     0.3,
+     0.4,
      5,
      0
     ],
     [
-     0.62,
-     8,
+     0.76,
+     9,
      0.3
-    ],
-    [
-     0.86,
-     12,
-     0.1
     ]
    ],
-   "marginals": 24,
+   "marginals": 18,
    "bulge": 0.1,
    "grooveW": 0.05,
    "growth": false,
@@ -233,9 +242,9 @@
    "edge": "#B06A38",
    "light": "#A35D31",
    "grooveDepth": 0.02,
-   "rimEdge": "#A9632F",
+   "rimEdge": "#B5733A",
    "rimGroove": "#C07A40",
-   "rimPlates": 22
+   "rimPlates": 0
   },
   "feet": {
    "toe": "#F8D693",
@@ -271,7 +280,16 @@
   "seed": 31
  },
  "hands": {
-  "type": "mitten"
+  "type": "glove",
+  "size": 1.4,
+  "fingers": 3,
+  "spread": 1.3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  },
+  "note": "Pebble's own glove (correction brief 6 Nov): explicit, so castLook sheet's 1.7 mitten replacement doesn't apply; smaller, fingers spread so three fingers + thumb read"
  },
  "scale": 1.5,
  "arms": {

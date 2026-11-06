@@ -58,7 +58,8 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
-export const REST = { R: { o: [0.0, 0.18, 0.1], swing: 1 }, L: { o: [0.0, 0.18, 0.1], swing: 1 } };
+// (correction brief 6 Nov: wrists beside the lower vest, a little forward, elbows close to the sides, not bowed out)
+export const REST = { R: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 }, L: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
 // the grass straw (Garden Guardian pack, 6 Nov 2026): in his lips at the LEFT mouth corner by default. Before a sip or a

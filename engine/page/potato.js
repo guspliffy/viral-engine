@@ -103,7 +103,7 @@ export function handTarget(pose, sx, rx, H, t, LH = LEG_H) {
   }
 }
 const ELBOW_OUT = { hips: 0.24, shrug: 0.06, up: 0.1, cast: 0.1 };
-const elbowOut = (q) => (q && q.mix ? elbowOut(q.mix.from) + (elbowOut(q.mix.pose) - elbowOut(q.mix.from)) * q.mix.p : typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : q ? 0.1 : 0.13);
+const elbowOut = (q) => (q && q.mix ? elbowOut(q.mix.from) + (elbowOut(q.mix.pose) - elbowOut(q.mix.from)) * q.mix.p : typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : q ? q.elbow ?? 0.1 : 0.13);   // an object pose may set its own elbow: (m out from the shoulder-hand line; Pebble's hanging arms)
 
 export class Character {
   constructor(def, key) {
@@ -179,7 +179,7 @@ export class Character {
     // face
     const F = def.face || {};
     if (HD) this._headInit(HD);
-    this.face = new Face({ size: F.size ?? 1, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: HD?.color ?? B.color, seed: B.seed || 1 } : null, place: HD ? (u, vv) => this.headSurf(u * 0.74 * (HD.faceWide ?? 1), vv * 0.55 * (HD.faceTall ?? 1) - 0.05 + (HD.faceUp ?? 0)) : (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
+    this.face = new Face({ size: F.size ?? 1, mouth: F.mouth, iris: F.iris, cheeks: F.cheeks, brow: F.brow, lids: F.lids === false ? null : this.skin, eye: F.eye, browShape: F.browShape, blush: F.blush, layout: F.layout, freckles: F.freckles ? { n: F.freckles, color: HD?.color ?? B.color, seed: B.seed || 1 } : null, place: HD ? (u, vv) => this.headSurf(u * 0.74 * (HD.faceWide ?? 1), vv * 0.55 * (HD.faceTall ?? 1) - 0.05 + (HD.faceUp ?? 0)) : (u, vv) => this.surf(u * 0.74, vv * 0.55 - 0.05) });
     // face.rest (castLook "sheet", characters/sheet-cast.json): the character's own resting face. It is stored as the
     // difference from the generic "kind" face and added to whatever the face is doing, fully on calm faces and fading
     // out toward full reactions (shock, anger, a wide grin), so the personality shows without blunting the acting
@@ -688,7 +688,22 @@ export class Character {
     // placed on this surface (headSurf), so the mouth sits on the snout
     const M = D.muzzle;
     if (M && d.z > 0) { const dy = d.y - Math.sin(M.v ?? -0.25); r *= 1 + (M.a ?? 0.1) * Math.exp(-((d.x / (M.w ?? 0.45)) ** 2) - (dy / (M.h ?? 0.3)) ** 2) * Math.min(1, d.z * 2.5); }
-    return new THREE.Vector3(d.x * H.rx * taper * r, d.y * H.ry * r, d.z * H.rz * taper * r);
+    const out = new THREE.Vector3(d.x * H.rx * taper * r, d.y * H.ry * r, d.z * H.rz * taper * r), P = D.profile;
+    // head.profile (Pebble's correction, 6 Nov 2026; opt-in): a tortoise head shaped by separate displacements instead
+    // of one radial bump. cheek: the sides widen round elevation cheekV (share of the width); snout: the lower front
+    // pushes FORWARD only (share of the depth), w wide and h tall round elevation v, lift raises its tip a little; jaw:
+    // the underside rounds off (share of the height) so no chin wedge forms. Normals come from this same surface
+    // (headSurf differentiates headPoint), so the face, cap and spots sit on what is drawn
+    if (P) {
+      const cheek = (P.cheek ?? 0) * Math.exp(-(((d.y - (P.cheekV ?? -0.2)) / (P.cheekH ?? 0.5)) ** 2));
+      out.x *= 1 + cheek;
+      if (P.snout) {
+        const fz = Math.max(0, Math.min(1, (d.z - 0.05) / 0.55)), f = Math.exp(-((d.x / (P.w ?? 0.45)) ** 2) - (((d.y - (P.v ?? -0.15)) / (P.h ?? 0.3)) ** 2)) * fz * fz * (3 - 2 * fz);
+        out.z += P.snout * H.rz * f; out.y += (P.lift ?? 0) * H.ry * f;
+      }
+      if (P.jaw && d.y < 0) out.y *= 1 - P.jaw * d.y * d.y;
+    }
+    return out;
   }
   headSurf(th, ph) {
     const at = (a, b) => this.headPoint(new THREE.Vector3(Math.sin(a) * Math.cos(b), Math.sin(b), Math.cos(a) * Math.cos(b)));
@@ -904,7 +919,7 @@ export class Character {
         mid.lerp(elbow, fr.e);
       }
       const joint = dn > 0.5;
-      this._outside(mid, S, joint ? 1 : 1.3);
+      this._outside(mid, S, joint ? 1 : (a.pose && typeof a.pose === "object" && a.pose.margin) || 1.3);   // pose.margin: a pose's own elbow clearance (Pebble's hanging arms on a wide body)
       return mid;
     };
     const mid = elbowFor(h);
@@ -948,7 +963,7 @@ export class Character {
     if (st.talk > 0) { e.open = Math.max(e.open, st.talk); e.round = st.round; }
     if (!fries) this.face.set(e, st.look, st.blink, st.face);
     // the core build's head follows the gaze part of the way (the eyes lead, the head turns about a third as far)
-    if (this.head) { const lk = st.look || [0, 0], HD = this.head.def; this.head.group.rotation.set(-(HD.nod ?? 0.12) * lk[1], (HD.turn ?? 0.32) * lk[0], 0); }
+    if (this.head) { const lk = st.look || [0, 0], HD = this.head.def; this.head.group.rotation.set(-(HD.nod ?? 0.12) * lk[1] - (HD.pitch ?? 0), (HD.turn ?? 0.32) * lk[0], 0); }   // head.pitch: a resting chin-up tilt (radians; Pebble)
 
     // limbs (hidden in fries form)
     const showLimbs = !fries;

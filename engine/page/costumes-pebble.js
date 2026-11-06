@@ -62,8 +62,11 @@ function buildCap(ch, C) {
   for (let i = 0; i < P.count; i++) {
     v.fromBufferAttribute(P, i);
     const up = (v.y - cy0) / (1 - cy0);                     // 0 at the band, 1 at the top
-    const puff = 1 + (cr[0] - 1) * Math.sin(Math.PI * Math.min(1, up * 1.25)) ** 0.8;   // widest a little above the band
-    const x = v.x * rx * puff, z = v.z * rz * puff * (cr[1] / cr[0]) + lean * ch_ * up, y = yb + up * ch_;
+    // a soft cloth crown (correction brief 6 Nov): fuller over the front and toward one side (cap.skew, + = his left),
+    // flattened a little on top, so it reads as fabric slumped over the head rather than a rigid dome
+    const az = Math.atan2(v.x, v.z), full = 1 + (K.front ?? 0) * Math.max(0, Math.cos(az)) ** 2 * Math.sin(Math.PI * Math.min(1, up * 1.4));
+    const puff = (1 + (cr[0] - 1) * Math.sin(Math.PI * Math.min(1, up * 1.25)) ** 0.8) * full;   // widest a little above the band
+    const x = v.x * rx * puff + (K.skew ?? 0) * ch_ * up * up, z = v.z * rz * puff * (cr[1] / cr[0]) + lean * ch_ * up, y = yb + up * ch_ * (1 - (K.flat ?? 0) * up * up);
     P.setXYZ(i, x, y, z);
   }
   cg.computeVertexNormals();
@@ -89,14 +92,17 @@ function buildCap(ch, C) {
     const a = (s / 6) * Math.PI * 2 + Math.PI / 6, pts = [];
     for (let k = 0; k <= 16; k++) {
       const pol = (k / 16) * Math.PI * 0.6, d = new THREE.Vector3(Math.sin(pol) * Math.sin(a), Math.cos(pol), Math.sin(pol) * Math.cos(a));
-      const up = (d.y - cy0) / (1 - cy0), puff = 1 + (cr[0] - 1) * Math.sin(Math.PI * Math.min(1, up * 1.25)) ** 0.8;
-      const p = new THREE.Vector3(d.x * rx * puff, yb + up * ch_, d.z * rz * puff * (cr[1] / cr[0]) + lean * ch_ * up);
+      const up = (d.y - cy0) / (1 - cy0), az = Math.atan2(d.x, d.z), full = 1 + (K.front ?? 0) * Math.max(0, Math.cos(az)) ** 2 * Math.sin(Math.PI * Math.min(1, up * 1.4));
+      const puff = (1 + (cr[0] - 1) * Math.sin(Math.PI * Math.min(1, up * 1.25)) ** 0.8) * full;
+      const p = new THREE.Vector3(d.x * rx * puff + (K.skew ?? 0) * ch_ * up * up, yb + up * ch_ * (1 - (K.flat ?? 0) * up * up), d.z * rz * puff * (cr[1] / cr[0]) + lean * ch_ * up);
       const n = p.clone().sub(new THREE.Vector3(0, yb, 0)).normalize(); p.addScaledVector(n, 0.003); pts.push(p);
       if (k === 0) top.copy(p);
     }
     g.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, 0.0028, 5), seamM, false));
   }
   const btn = mesh(new THREE.SphereGeometry(0.022, 16, 10), darkM, false); btn.scale.y = 0.5; btn.position.copy(top); g.add(btn);
+  // the whole cap sits a little askew (cap.tilt, radians round the head's front axis) and pulled forward (cap.pitch)
+  g.rotation.set(K.pitch ?? 0, 0, K.tilt ?? 0);
   H.group.add(g);
   return { group: g, brimR: Math.max(rx, rz) + bw };
 }
@@ -115,7 +121,7 @@ function surfSheet(ch, thA, thB, ph0, ph1, lift, mat, { nu = 40, nv = 32, hole =
   for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) {
     const a = j * (nu + 1) + i, b = a + 1, c = a + nu + 1, d = c + 1;
     if (hole) { const th = (uv[a * 2] + uv[d * 2]) / 2, ph = (uv[a * 2 + 1] + uv[d * 2 + 1]) / 2; if (hole(th, ph)) continue; }
-    idx.push(a, c, b, b, c, d);
+    idx.push(a, b, c, b, d, c);   // outward: ch.surf's normal is dTheta x dPhi (a +theta -> b, a +phi -> c)
   }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
   return mesh(g, mat);
@@ -187,8 +193,12 @@ function vest(ch, C) {
   const edge = (ph) => (V.edge ?? 0.5) + (V.flare ?? 0.16) * sstep(0.4, ph0, ph);   // the front edge's angle off centre
   const back = V.back ?? 2.5, ah = V.armhole ?? 0.42;
   for (const sd of [-1, 1]) {
-    const hole = (th, ph) => Math.hypot(th - sd * 1.38, (ph - shPh) * 1.15) < ah;
-    P.add(surfSheet(ch, sd > 0 ? edge : (ph) => -back, sd > 0 ? () => back : (ph) => -edge(ph), ph0, ph1, V.lift ?? 0.014, m, { nu: 48, nv: 36, hole }));
+    // the armhole as the panel's own boundary (no dropped cells, so no staircase edge): the panel is two sheets, in
+    // front of and behind the hole, whose inner edges follow the hole's ellipse exactly and meet above and below it
+    const hw = (ph) => Math.sqrt(Math.max(0, ah * ah - ((ph - shPh) * 1.15) ** 2)), hc = sd * 1.38;
+    const lo = sd > 0 ? edge : () => -back, hi = sd > 0 ? () => back : (ph) => -edge(ph);
+    P.add(surfSheet(ch, lo, (ph) => hc - hw(ph), ph0, ph1, V.lift ?? 0.014, m, { nu: 28, nv: 48 }));
+    P.add(surfSheet(ch, (ph) => hc + hw(ph), hi, ph0, ph1, V.lift ?? 0.014, m, { nu: 20, nv: 48 }));
     // trim: down the front edge and along the hem, and round the armhole
     const fe = []; for (let k = 0; k <= 20; k++) { const ph = ph1 - (ph1 - ph0) * (k / 20); fe.push([sd * edge(ph), ph]); }
     for (let k = 1; k <= 16; k++) fe.push([sd * (edge(ph0) + (back - edge(ph0)) * (k / 16)), ph0]);
@@ -262,10 +272,13 @@ function buildShell(ch, C) {
   const NT = S.nt ?? 150, NP = S.np ?? 240, pos = [], colr = [], idx = [], u = new THREE.Vector3();
   const pt = (u, r) => new THREE.Vector3(c.x + u.x * Rx * r, c.y + u.y * Ry * r, c.z + u.z * Rz * r);
   const bulge = S.bulge ?? 0.035, gw = S.grooveW ?? 0.045, ring = (x, at, w) => Math.exp(-(((x - at) / w) ** 2));
+  // the drawn surface's radius along unit direction u (scute swell, seam groove): the mesh, the moss and the fern's
+  // root all use this one function, so nothing is seated on a surface that isn't drawn
+  const rOf = (u, q = cell(u)) => { const sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b); return 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - (S.grooveDepth ?? 0.012) * (1 - k); };
   for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
     { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); }
     const q = cell(u), sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b);
-    const r = 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - (S.grooveDepth ?? 0.012) * (1 - k);
+    const r = rOf(u, q);
     const p = pt(u, r); pos.push(p.x, p.y, p.z);
     let cc;
     if (S.plates === false) cc = (sd.m ? marg : base).clone().multiplyScalar(tone[q.i]).lerp(sd.m ? margG : groove, 1 - sstep(0, gw, q.b));
@@ -316,61 +329,84 @@ function buildShell(ch, C) {
   P.add(group);
   // a point on the outside of the shell along direction w (unit space) and its outward normal (world-ish, bodyGroup space)
   const onShell = (w) => {
-    const q = cell(w), k = sstep(0, gw * 2.4, q.b), r = 1 + bulge * k;
-    const p = pt(w, r), nn = new THREE.Vector3(w.x / Rx, w.y / Ry, w.z / Rz).normalize();
+    const p = pt(w, rOf(w)), nn = new THREE.Vector3(w.x / Rx, w.y / Ry, w.z / Rz).normalize();
     return { p, n: nn };
   };
-  moss(group, onShell, dirAt, alphaOf, S, R);
-  const fern = buildFern(group, onShell, S);
+  // the fern's root (correction brief 6 Nov): a direction INSIDE the clipped dome (fern.th: polar angle from the shell's
+  // axis as a share of the opening there, fern.ph: azimuth, pi/2 = straight up), on the drawn surface. The old fern.at
+  // direction lay past the top opening, on the ellipsoid's extension, so the plant stood in the air above the rim
+  const F = S.fern || {}, fph = F.ph ?? Math.PI / 2, fw = dirAt(alphaOf(fph) * (F.th ?? 0.62), fph, new THREE.Vector3());
+  const cushion = moss(group, onShell, dirAt, alphaOf, S, R, fw);
+  const fern = buildFern(group, onShell, S, fw, cushion);
   // the shell as a solid for checks (bodyGroup space before the group's own transform): an arm or a prop inside the
   // wall between the inside (0.955) and the outside (1 + bulge) of the cap
   group.userData.shellSolid = { c, R: [Rx, Ry, Rz], ax, t1, t2, alphaOf, inner: 0.955, outer: 1 + bulge };
   return { group, update: (st, t, hands, fries) => fern(st, t) };
 }
 
-// moss: soft cushion lumps over the top of the shell (where its surface faces up), uneven edges from a few waves, a few
-// tufts over the sides that hang toward the shoulders; one merged mesh with per-lump colours
-function moss(group, onShell, dirAt, alphaOf, S, R) {
-  const M = S.moss || {}, geos = [], cs = [col(M.color || "#8E9B36"), col(M.light || "#A9B548"), col(M.dark || "#6F7D2A")];
-  const wave = (w) => 0.12 * Math.sin(w.x * 9.0 + 1.3) + 0.1 * Math.sin(w.z * 7.0 - 0.6) + 0.08 * Math.sin((w.x + w.z) * 13.0);
-  const n = M.count ?? 260, fine = M.fine ?? 0, w = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), q = new THREE.Quaternion();
-  for (let i = 0; i < n + fine; i++) {
-    const tiny = i >= n;   // the fine layer: small fluffy bits over the cushions and their ragged edges
-    const ph = R() * Math.PI * 2; dirAt(Math.acos(1 - R() * (1 - Math.cos(Math.min(Math.PI * 0.97, alphaOf(ph) * 0.97)))), ph, w);
-    const { p, n: nn } = onShell(w);
-    const cover = nn.y + wave(w) + (Math.abs(nn.x) > 0.55 ? 0.12 : 0);   // a little more over the sides (the tufts)
-    if (cover < (M.from ?? 0.52) + (tiny ? 0.04 : 0)) continue;
-    const r = (tiny ? (M.fineSize ?? 0.012) : (M.size ?? 0.034)) * (0.6 + 0.8 * R()) * (0.6 + 0.6 * sstep(M.from ?? 0.52, 0.95, cover));
-    const s = new THREE.SphereGeometry(1, tiny ? 6 : 10, tiny ? 5 : 7);
-    // hang (Garden Guardian pack: a shaggy fringe): each tuft stretched down the slope it sits on, longer where it is steep
-    const hang = M.hang ? 1 + (M.hang - 1) * Math.min(1, Math.max(0, 1 - nn.y) * 1.6) : 1;
-    s.scale(r * 1.15, r * (tiny ? 0.5 : (M.flat ?? 0.55)), r * 1.15 * hang);
-    if (hang > 1) s.translate(0, 0, -r * 0.5 * (hang - 1));   // the tuft's root at its top, the rest hangs down
-    const out_ = tiny ? (M.size ?? 0.034) * 0.3 : r * 0.15;   // the fine bits sit on top of the cushions
-    // orient: the disc's normal along the surface normal, its long axis (z) pointing up the slope (so -z hangs down)
-    { const dn = new THREE.Vector3(0, 1, 0).addScaledVector(nn, -nn.y); if (dn.lengthSq() < 1e-4) dn.set(0, 0, 1); dn.normalize();
-      const xA = new THREE.Vector3().crossVectors(nn, dn).normalize(), M4 = new THREE.Matrix4().makeBasis(xA, nn, dn); s.applyMatrix4(M4); }
-    s.translate(p.x + nn.x * out_, p.y + nn.y * out_, p.z + nn.z * out_);
-    const k = R(), cc = (k < 0.5 ? cs[0] : k < 0.8 ? cs[1] : cs[2]).clone().multiplyScalar(0.94 + 0.12 * R()), a = new Float32Array(s.attributes.position.count * 3);
-    for (let j = 0; j < a.length; j += 3) { a[j] = cc.r / cs[0].r; a[j + 1] = cc.g / cs[0].g; a[j + 2] = cc.b / cs[0].b; }   // a ratio of the base (see the shell)
-    s.setAttribute("color", new THREE.Float32BufferAttribute(a, 3)); s.deleteAttribute("uv");
-    geos.push(s);
+// moss (correction brief 6 Nov 2026): ONE continuous low cushion following the drawn shell over its top, a few broad
+// lobes, an irregular ragged edge, thickest round the fern's root; colour varies softly across it (vertex colours,
+// no inner ink). A fringe of short tapered strands hangs from its lower edge over the sides (no outline: the cushion
+// keeps the silhouette). Returns thick(w): the cushion's height over the shell along w (the fern root sits inside it)
+function moss(group, onShell, dirAt, alphaOf, S, R, fw) {
+  const M = S.moss || {}; if (M === false) return () => 0;
+  const cs = [col(M.color || "#8E9B36"), col(M.light || "#A9B548"), col(M.dark || "#6F7D2A")];
+  const wave = (w) => 0.12 * Math.sin(w.x * 9.0 + 1.3) + 0.1 * Math.sin(w.z * 7.0 - 0.6) + 0.08 * Math.sin((w.x + w.z) * 13.0) + 0.05 * Math.sin(w.x * 23 - w.z * 17 + 0.4);
+  const from = M.from ?? 0.45, Hm = M.thick ?? 0.05, root = (w) => Math.exp(-(w.distanceTo(fw) ** 2) / 0.06);
+  // how much a direction is "top": the surface faces up, the waves break the edge into lobes, and the fern's root pulls it in
+  const cover = (w, nn) => nn.y + wave(w) + 0.45 * root(w);
+  const thick = (w) => { const { n } = onShell(w), cv = cover(w, n); return Hm * Math.pow(sstep(from, from + 0.3, cv), 0.6) * (0.78 + 0.12 * Math.sin(w.x * 31 + w.z * 19) + 0.1 * Math.sin(w.x * 97 + w.y * 61) * Math.sin(w.z * 83 - w.y * 47)); };   // broad lobes + a fine lumpy fluff
+  const NT = M.nt ?? 70, NP = M.np ?? 200, pos = [], colr = [], idx = [], live = [], w = new THREE.Vector3();
+  for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
+    const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * 0.985 * i) / NT, ph, w);
+    const { p, n } = onShell(w), h = thick(w);
+    p.addScaledVector(n, 0.003 + h); pos.push(p.x, p.y, p.z); live.push(h > 1e-4);
+    const k = 0.5 + 0.5 * Math.sin(w.x * 41 + w.y * 13) * Math.sin(w.z * 37 - w.y * 11), c = cs[0].clone().lerp(k > 0.6 ? cs[1] : cs[2], Math.abs(k - 0.5) * 1.2).multiplyScalar(0.92 + 0.16 * (h / Hm));
+    colr.push(c.r / cs[0].r, c.g / cs[0].g, c.b / cs[0].b);
   }
-  if (!geos.length) return;
-  const m = mesh(mergeGeometries(geos), new THREE.MeshStandardMaterial({ color: cs[0], vertexColors: true, roughness: 1 }));
-  m.name = "pebble-moss"; if (M.ink === false) m.material.userData.noOutline = true; group.add(m);
+  const W = NP + 1;
+  for (let i = 0; i < NT; i++) for (let j = 0; j < NP; j++) { const a = i * W + j, b = a + 1, e = a + W, f = e + 1; if (live[a] || live[b] || live[e] || live[f]) idx.push(a, b, e, b, f, e); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("color", new THREE.Float32BufferAttribute(colr, 3)); g.setIndex(idx);
+  // winding out (as the shell): flip if a live triangle faces in
+  { const P = g.attributes.position, A = new THREE.Vector3(), B = new THREE.Vector3(), E = new THREE.Vector3(); for (let k = 0; k < idx.length; k += 3) { A.fromBufferAttribute(P, idx[k]); B.fromBufferAttribute(P, idx[k + 1]); E.fromBufferAttribute(P, idx[k + 2]); const nn = B.clone().sub(A).cross(E.clone().sub(A)); if (nn.lengthSq() < 1e-12) continue; if (nn.y < 0 && A.y > 0) { for (let q = 0; q < idx.length; q += 3) { const x = idx[q + 1]; idx[q + 1] = idx[q + 2]; idx[q + 2] = x; } g.setIndex(idx); } break; } }
+  g.computeVertexNormals();
+  const m = mesh(g, new THREE.MeshStandardMaterial({ color: cs[0], vertexColors: true, roughness: 1 })); m.name = "pebble-moss"; group.add(m);
+  // the fringe: short strands hanging from the cushion's lower edge (where it thins out over steep sides)
+  const geos = [], up = new THREE.Vector3(0, 1, 0), nF = M.strands ?? 160;
+  for (let i = 0, tries = 0; i < nF && tries < nF * 30; tries++) {
+    const ph = R() * Math.PI * 2; dirAt(alphaOf(ph) * 0.985 * R() ** 0.5, ph, w);
+    const h = thick(w); if (h < Hm * 0.15 || h > Hm * 0.6) continue;
+    const { p, n } = onShell(w); if (n.y > 0.75) continue;
+    const L = (M.strand ?? 0.07) * (0.4 + 0.9 * R()), cg = new THREE.ConeGeometry((M.strandR ?? 0.005) * (0.6 + 0.8 * R()), L, 4);
+    cg.translate(0, -L / 2, 0);   // root at the origin, tip hanging down
+    const down = new THREE.Vector3(0, -1, 0).addScaledVector(n, 0.35).normalize();
+    cg.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, -1, 0), down));
+    p.addScaledVector(n, h * 0.7); cg.translate(p.x, p.y, p.z); cg.deleteAttribute("uv"); cg.deleteAttribute("normal"); geos.push(cg); i++;
+  }
+  if (geos.length) { const fm = mesh(mergeGeometries(geos), std(cs[0].clone().lerp(cs[1], 0.3).getStyle(), { roughness: 1 }), false); fm.material.userData.noOutline = true; fm.geometry.computeVertexNormals(); group.add(fm); }
+  return thick;
 }
 
 // the fern: one plant from the upper rear of the shell, fronds fanning up and out and arching over at their tips, each a
 // thin stalk with paired leaflets that shrink toward the tip. Each frond sways on its own slow rhythm and the whole
 // plant lags behind the body's moves (follow-through st.ft)
-function buildFern(group, onShell, S) {
-  const F = S.fern || {}, w = new THREE.Vector3(...(F.at || [-0.12, 0.92, -0.38])).normalize(), base = onShell(w);
-  const root = new THREE.Group(); root.position.copy(base.p).addScaledVector(base.n, -0.01); group.add(root);
+function buildFern(group, onShell, S, w, cushion = () => 0) {
+  const F = S.fern || {}, base = onShell(w);
+  // the root sits half way into the moss cushion over the drawn shell (shell group space = body space: the group has
+  // no transform of its own), so every frond leaves the moss, never the air
+  const root = new THREE.Group(); root.position.copy(base.p).addScaledVector(base.n, cushion(w) * 0.45); root.name = "pebble-fern-root"; group.add(root);
   const stalkM = std(F.stalk || "#6E8A2E", { roughness: 0.8 }), leafM = std(F.color || "#86A23A", { roughness: 0.8, side: THREE.DoubleSide }), leafL = std(F.light || "#9DB84A", { roughness: 0.8, side: THREE.DoubleSide });
+  leafM.userData.noOutline = true; leafL.userData.noOutline = true;   // thin leaflets: an ink hull per leaflet drew them as thick bars
   const fronds = [];
   const list = F.fronds || [[0, 0.3, 0.06], [1.05, 0.27, 0.42], [2.1, 0.24, 0.5], [3.15, 0.26, 0.46], [4.2, 0.25, 0.5], [5.25, 0.28, 0.42], [0.5, 0.2, 0.75], [3.7, 0.19, 0.78]];
-  const leaf = new THREE.SphereGeometry(1, 8, 5);
+  // a leaflet (pinna): a thin lance shape, widest a third along, pointed tip, rounded base, its length along +z, curved
+  // gently down at the tip, with a fine midrib (two shades: the ink comes from the frond stalk, not each leaflet)
+  const leaf = (() => { const sh = new THREE.Shape(), N = 10; sh.moveTo(0, 0);
+    for (let k = 1; k <= N; k++) { const t = k / N; sh.lineTo(0.5 * Math.sin(Math.PI * Math.pow(t, 0.75)) * (1 - 0.15 * t), t); }
+    for (let k = N - 1; k >= 1; k--) { const t = k / N; sh.lineTo(-0.5 * Math.sin(Math.PI * Math.pow(t, 0.75)) * (1 - 0.15 * t), t); }
+    const g = new THREE.ShapeGeometry(sh, 2); g.rotateX(Math.PI / 2);   // shape y -> +z (length), flat in x-z
+    const P = g.attributes.position; for (let i = 0; i < P.count; i++) { const z = P.getZ(i); P.setY(i, -0.12 * z * z - 0.25 * Math.abs(P.getX(i)) * 0.3); }
+    g.deleteAttribute("uv"); return g; })();
   list.forEach(([az, len, out], i) => {
     const piv = new THREE.Group(); root.add(piv);
     // the frond's plane: up and out along az; it rises then arches over
@@ -392,13 +428,13 @@ function buildFern(group, onShell, S) {
       const L = (F.leaf ?? 0.05) * (1.05 - 0.75 * s) * (0.85 + 0.3 * Math.sin(k * 2.1 + i)), W = L * (F.leafW ?? 0.4);
       for (const sd of [-1, 1]) {
         const dir = side.clone().multiplyScalar(sd).addScaledVector(tg, 0.55).normalize(), lg = leaf.clone();
-        lg.scale(W, 0.0028, L / 2); lg.translate(0, 0, L / 2);
+        lg.scale(W * 2, L, L);
         const m4 = new THREE.Matrix4().lookAt(new THREE.Vector3(), dir, new THREE.Vector3(0, 1, 0)); lg.applyMatrix4(m4);
         // lookAt points -z at dir; flip so +z (the leaf's length) runs along dir
         lg.scale(-1, 1, -1); lg.translate(p.x, p.y, p.z); geos.push(lg);
       }
     }
-    piv.add(mesh(mergeGeometries(geos), i % 2 ? leafL : leafM, false));
+    const lm = mesh(mergeGeometries(geos), i % 2 ? leafL : leafM, false); lm.geometry.computeVertexNormals(); piv.add(lm);
     fronds.push({ piv, az, ph: i * 1.7, f: 0.34 + 0.07 * (i % 3) });
   });
   // the base: a small clump of fiddleheads and moss where it grows out
@@ -514,6 +550,16 @@ function feet(ch, C) {
     const P = g.attributes.position; for (let i = 0; i < P.count; i++) if (P.getY(i) < -0.03) P.setY(i, -0.03 + (P.getY(i) + 0.03) * 0.3);   // a flat sole
     g.computeVertexNormals();
     f.geometry.dispose(); f.geometry = g; f.scale.set(1, 1, 1);
-    for (const x of [-0.042, 0, 0.042]) { const t = mesh(new THREE.SphereGeometry(0.019, 14, 10), toeM, false); t.scale.set(1, 0.8, 0.9); t.position.set(x * (w / 0.088), -0.014, d * 0.86 + 0.012 - Math.abs(x) * 0.25); f.add(t); }
+    // three broad cream toe tips (correction brief 6 Nov: the old tiny beads read as pearls): flattened rounded nails
+    // growing out of the front of the foot along its front arc, half sunk into it, their undersides on the sole
+    let sole = 0; for (let i = 0; i < P.count; i++) sole = Math.min(sole, P.getY(i));
+    const tw = K.toeW ?? 0.3, geos = [];
+    for (const k of [-1, 0, 1]) {
+      const rx = w * tw * (k ? 0.9 : 1), ry = h * 0.62, rz = d * 0.3, x = k * w * 0.58, z = d * (0.86 - 0.25 * k * k) + 0.012;
+      const t = new THREE.SphereGeometry(1, 18, 12); t.scale(rx, ry, rz); t.rotateY(-k * 0.35); t.translate(x, sole + ry * 0.92, z);
+      const TP = t.attributes.position; for (let i = 0; i < TP.count; i++) if (TP.getY(i) < sole + 0.002) TP.setY(i, sole + 0.002);
+      t.deleteAttribute("uv"); geos.push(t);
+    }
+    const tg = mergeGeometries(geos); tg.computeVertexNormals(); f.add(mesh(tg, toeM, false));
   }
 }
