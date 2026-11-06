@@ -1,0 +1,80 @@
+{
+ "id": "human-test-c",
+ "title": "Human rig test A",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.4
+ },
+ "creative": {
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "h",
+   "character": "human/test-01",
+   "at": [
+    0,
+    -4.2
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.3,
+   "perform": [
+    {
+     "at": 0,
+     "clip": "sit",
+     "from": 0,
+     "to": 0.4,
+     "place": [
+      0,
+      -4.2
+     ],
+     "heading": -60
+    }
+   ]
+  }
+ ],
+ "props": [],
+ "beats": [
+  {
+   "name": "walk",
+   "at": 0,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.0,
+     1.45,
+     -3.3
+    ],
+    "look": [
+     0,
+     1.42,
+     -4.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "duration": 3
+}

@@ -1,0 +1,81 @@
+{
+ "id": "look-close",
+ "title": "VRM look",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "h",
+   "character": "human/vrm-test-01",
+   "at": [
+    0,
+    1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.3,
+   "scale": 1,
+   "perform": [
+    {
+     "at": 0,
+     "clip": "c07_01",
+     "from": 0.6,
+     "to": 0.62,
+     "place": [
+      0,
+      1
+     ],
+     "heading": 20
+    }
+   ]
+  }
+ ],
+ "props": [],
+ "beats": [
+  {
+   "name": "a",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.2
+    ],
+    "look": [
+     0,
+     1.305,
+     1
+    ],
+    "fov": 22
+   },
+   "do": []
+  }
+ ],
+ "duration": 1
+}
