@@ -49,6 +49,7 @@ import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
 import { LIBRARY_KINDS, LIBRARY_GRIPS } from "./props-library.js";   // too much energy 01, the library: bookcases, ladder, books, desk, lamp, shush
+import { CINEMA_KINDS, CINEMA_GRIPS } from "./props-cinema.js";   // too much energy 02, the cinema: seats, tiers, bucket, popcorn
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 
@@ -1355,6 +1356,7 @@ Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtra
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
+Object.assign(KINDS, CINEMA_KINDS); Object.assign(GRIPS, CINEMA_GRIPS);   // too much energy 02 (props-cinema.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
 

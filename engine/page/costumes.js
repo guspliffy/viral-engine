@@ -331,6 +331,7 @@ export function buildCostume(def, ch) {
     tip: prop && prop.tip ? prop.tip : null,
     prop: prop ? prop.group : null,   // the held prop (stage.js face check: hands and held props have their own check)
     hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
+    head: mount,   // the top of the body, hat or not: a grab with hand "hat" sticks to it when there is no hat (popcorn on a head)
     // the brim as a disc (potato.js contact(): arms reaching through it)
     hatBrim: hat && hat.brimR ? { group: hat.group, r: hat.brimR } : null,
     // a see-through helmet as a sphere (the Astronaut's bubble): arms reaching up inside it
