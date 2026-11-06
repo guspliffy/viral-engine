@@ -163,7 +163,7 @@ for (const view of ["side", "front", "q34"]) {
   pb.captions = [{ from: 0, to: END, text: `grid proof: ${view}`, pos: 1730, size: 46, pop: false, kinetic: false }];
   if (process.env.PROOF_FPS) pb.fps = +process.env.PROOF_FPS;
   for (const b of pb.beats) {
-    const sh = shot(b.name), k = S.filter((q) => q.t >= sh.t0 && q.t <= sh.t1);
+    const sh = shot(b.name), k = S.filter((q) => q.t >= sh.t0 && q.t < sh.t1 - 1e-6);   // (the sample at t1 is the next shot's)
     const xs = k.map((q) => q.pelvis.x), zs = k.map((q) => q.pelvis.z), cx = (Math.min(...xs) + Math.max(...xs)) / 2, cz = (Math.min(...zs) + Math.max(...zs)) / 2;
     const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...zs) - Math.min(...zs));
     // the shot's facing: its heading (degrees from +z) for moves on the spot, its net path for travelling ones
