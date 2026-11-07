@@ -42,7 +42,7 @@ const KET = [-0.27, 0.24], MAY = [0.33, 0.22], PK = 1.9;    // the dip pots, eit
 const SALAD = [-0.62, -0.02], SOUP = [0.62, -0.06], SK = 1.3, SHAKE = [-0.4, -0.12];
 const SOUP_TOP = r3(TH + 0.075 * 0.78 * SK);            // the soup's surface
 // the fries: three characters standing in the cone (scale = height in metres), their lower halves in the paper
-const FS = 0.4, FY = TT;
+const FS = 0.4, FY = r3(TT + 0.06);   // they stand on the fries below them, so their faces clear the cone's rim and their gloves rest inside it, below the rim (at mouth height the black gloves read as moustaches)
 const FRY = { a: [CONE[0], r3(CONE[1] - 0.04)], b: [r3(CONE[0] - 0.1), r3(CONE[1] + 0.03)], c: [r3(CONE[0] + 0.1), r3(CONE[1] + 0.03)] };
 
 const cast = [
@@ -89,7 +89,7 @@ const fryBase = { fa: FY, fb: FY, fc: FY };
 // a fry's gloves go with its body (o: [out past its side, up its height 0..1, forward], each side mirrored), so they
 // stay on it through a hop
 const fryArms = (t, who, o, shape = "relaxed", dur = 0.15, ease = "out") => { for (const s of ["L", "R"]) { c.arm(t, who, s, { o }, dur, ease); A(t, who, "grip", { side: s, shape, dur: Math.min(dur, 0.12) }); } };
-const IN_CONE = [-0.07, 0.5, 0.16], CHEER = [0.06, 1.0, 0.06], CHEER2 = [0.1, 0.92, 0.08], LOW = [-0.07, 0.6, 0.16], RIM = [0.16, 0.34, 0.12], SOUPRIM = [0.2, 0.3, 0.1], CROUCH = [0.06, 0.35, 0.14], TADA = [0.12, 1.08, 0.02];
+const IN_CONE = [-0.07, 0.28, 0.08], CHEER = [0.06, 1.0, 0.06], CHEER2 = [0.1, 0.92, 0.08], LOW = [-0.07, 0.3, 0.08], RIM = [0.16, 0.34, 0.12], SOUPRIM = [0.2, 0.3, 0.1], CROUCH = [0.06, 0.35, 0.14], TADA = [0.12, 1.08, 0.02];
 // a fry's hop from where it stands to (x, z) with its feet at y: the body's base moves there over dur, a hop arc on top
 const hopTo = (t, who, [x, z], y, dur, height, flip = 0) => {
   A(t, who, "move", { to: [x, z], y, dur, ease: "linear", steps: 0 });   // across at an even speed (a leap's path), the hop's arc on top
@@ -174,7 +174,7 @@ act.shock(c, r3(HI + 0.04), "vik", { hold: 0.2, open: 0.3, eye: 1.3, curve: 0.2 
 A(2.25, "vik", "lean", { to: 2, dur: 0.25, ease: "out" });
 // Viking melts: the softest smile, eyes shut, pink cheeks, the blossom pops open on his sprout, a blissful sway
 A(2.32, "vik", "expr", { expr: "delighted", set: { curve: 1, open: 0.15 }, dur: 0.2 }); A(2.32, "vik", "face", { lid: 0.85, dur: 0.2 });
-c.say(2.3, "vik", "awww!", 0.45, "happy", { voice: false, sub: "Awww!", pos: SUB_LOW });
+act.emote(c, 2.3, "vik", "Awww!", { dur: 0.55 });   // a word beside his head: a caption over the push-in sat on his face or on the fries for its whole length (review B check)
 A(2.4, "vik", "bloom", { to: 1, dur: 0.25, ease: "back" });
 sfx(2.4, "pop", { gain: 0.6, reason: "the series' sound logo: the potato blossom pops open on Viking's sprout" });
 for (const [t, r] of [[2.45, 5], [2.62, -5], [2.78, 0]]) A(t, "vik", "tilt", { to: [0, r], dur: 0.16 });
@@ -190,12 +190,12 @@ click(3.0, "a photo of the waving fry");
 droop(3.1, 0.45);   // shock meter, step 1
 A(2.8, "vik", "face", { lid: 0.1, dur: 0.15 }); A(2.85, "vik", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.25 }, dur: 0.15 });
 vikRest(2.85);
-c.arm(2.85, "fa", "L", { o: [0.0, 1.0, -0.06] }, 0.12, "inOut"); c.arm(2.97, "fa", "L", { o: [-0.1, 0.75, -0.02] }, 0.12, "inOut"); c.arm(3.09, "fa", "L", { o: [-0.1, 0.6, 0.02] }, 0.15, "inOut");
+c.arm(2.85, "fa", "L", { o: [0.0, 1.0, -0.06] }, 0.12, "inOut"); c.arm(2.97, "fa", "L", { o: [-0.1, 0.75, -0.02] }, 0.12, "inOut"); c.arm(3.09, "fa", "L", { o: [-0.08, 0.3, 0.02] }, 0.15, "inOut");
 // the waving glove comes in behind its head, then down inside and rests a little back (the fries stand shoulder to
 // shoulder and fry C is a step in front: down the front, or resting forward in LOW, the arm went through it)
 c.arm(2.85, "fa", "R", { o: LOW }, 0.2, "inOut");
 for (const s of ["L", "R"]) A(2.85, "fa", "grip", { side: s, shape: "relaxed", dur: 0.2 });
-c.arm(5.0, "fa", "L", { o: [0.02, 0.6, 0.08] }, 0.2, "inOut");   // fry C has gone into the mayo: the glove moves out to its side (tucked in, it sank into its own body)
+c.arm(5.0, "fa", "L", { o: [0.0, 0.3, 0.06] }, 0.2, "inOut");   // fry C has gone into the mayo: the glove moves out to its side (tucked in, it sank into its own body)
 // fry B: looks down at the ketchup, points, "Ooh!", hops in
 const OOH = 3.2;
 A(r3(OOH - 0.12), "fb", "look", { to: [-0.4, -0.6], dur: 0.12, blink: false });
@@ -285,7 +285,7 @@ c.hitStop(HS, 3);
 c.at(HS, { fx: "poof", pos: [SOUP[0], r3(SOUP_TOP + 0.03), SOUP[1]], dur: 0.35, color: "#ffd6c8", puffs: 4, sparks: 6, size: 0.14, lift: 0.06 });
 // "Ta-da!": both gloves up
 fryArms(V(7.82), "fa", TADA, "open", 0.12);
-c.say(V(7.85), "fa", "ta-da!", 0.4, "excited", { voice: false, sub: "Ta-da!", pos: SUB_LOW });
+c.textPop(V(7.85), "fa", "Ta-da!", { dur: 0.6, size: 88, xy: [600, 760], angle: -4, color: "speaker" });   // a word beside the fry (the clip's second): a low caption sat on the fry and the soup
 A(V(7.82), "fa", "expr", { expr: "delighted", set: { curve: 1, open: 0.5, eye: 1.1 }, dur: 0.12 });
 A(V(7.85), "fa", "look", { to: [0.3, 0.5], dur: 0.1, blink: false });   // up at Reaper
 // Reaper: looks down at it, then slowly up at Viking; the shock meter hits limp
@@ -362,7 +362,6 @@ for (const cp of c.captions) {
   if (cp.text === "Best fries in town!") cp.to = 0.95;
   if (cp.text === "Yaaay!") cp.to = GSLCU;
   if (cp.text === "Hi!") cp.to = 2.3;   // each short line ends with its beat: held on into the next one it sat over the cone and the fries for 0.9 s
-  if (cp.text === "Awww!") cp.to = 2.78;
   if (cp.text === "Ooh!") cp.to = 3.55;
   if (cp.text === "Ooh, soup!") cp.to = LAUNCH;
   if (cp.text === "Want some?") cp.to = END;
