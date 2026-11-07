@@ -15,7 +15,7 @@ export function lifeRng(seed) {
   return () => { s = (s + 0x6d2b79f5) >>> 0; let x = s; x = Math.imul(x ^ (x >>> 15), x | 1); x ^= x + Math.imul(x ^ (x >>> 7), x | 61); return ((x ^ (x >>> 14)) >>> 0) / 4294967296; };
 }
 
-export const GUST_MAX = 8;
+export const GUST_MAX = 12;
 export const LOOK = 0.25;   // the alert hold before a startled bird leaves (s)
 
 // set.life -> the full recipe with defaults, or null when the set has no life
@@ -23,7 +23,12 @@ export function lifeSpec(set, duration = 10) {
   const L = set?.life;
   if (!L) return null;
   const seed = L.seed ?? 11, r = lifeRng(seed);
-  const W = { speed: 3.2, every: [2.6, 5.0], strength: [0.7, 1.2], width: [2.2, 4.0], calm: 0.4, ...(L.wind || {}) };
+  // "storm": true (or an object of overrides): a grey, windy day. Gusts come every 1-2 s and much stronger, the air
+  // never settles, the trees bend from the trunk, the sky darkens and races, leaves and twigs fly, a light rain
+  // slants with the wind, and the birds keep quiet
+  const ST = L.storm ? { ...(L.storm === true ? {} : L.storm) } : null;
+  const W = { speed: 3.2, every: [2.6, 5.0], strength: [0.7, 1.2], width: [2.2, 4.0], calm: 0.4,
+    ...(ST ? { speed: 5.5, every: [0.9, 2.0], strength: [1.2, 2.0], width: [3, 6], calm: 1.0, first: -0.6 } : {}), ...(L.wind || {}) };
   // gusts: crossing x = 0 at tc; the first one already on its way at frame 0, so the field moves from the start
   const gusts = [];
   if (L.wind !== false) {
@@ -38,8 +43,16 @@ export function lifeSpec(set, duration = 10) {
   }
   // startles: a loud sound (or a fast rush) at a place and time. Every bird and insect that hears it reacts.
   const startle = (L.startle || []).map((s) => ({ t: s.t, at: s.at, loud: s.loud ?? 1 }));
-  return { seed, wind: { ...W, gusts }, clouds: L.clouds === false ? null : { drift: 0.0035, shadow: 0.3, speed: 7.5, scale: 46, near: 14, ...(L.clouds || {}) },
-    birds: L.birds || [], butterflies: L.butterflies || null, leaves: L.leaves || null, startle, song: L.song ?? 1, duration };
+  const clouds = L.clouds === false ? null : { drift: 0.0035, shadow: 0.3, speed: 7.5, scale: 46, near: 14,
+    ...(ST ? { drift: 0.011, shadow: 0.42, speed: 10, scale: 22, near: 9 } : {}), ...(L.clouds || {}) };
+  return { seed, wind: { ...W, gusts }, clouds,
+    // bend: how far the trees and tall grass lean from their foot in the wind (m at 6 m up, per unit of gust)
+    bend: L.bend ?? (ST ? 0.16 : 0.035),
+    // grade: the painting under a grey sky (multiply, saturation) and the cast's light with it
+    grade: L.grade ?? (ST ? { mul: [0.8, 0.84, 0.92], sat: 0.75, light: 0.75, tint: "#d2dae8", sky: 0.7 } : null),
+    rain: L.rain ?? (ST ? { n: 700, speed: 9, len: 0.32 } : null),
+    debris: L.debris ?? (ST ? { n: 26 } : null), storm: !!ST,
+    birds: L.birds || [], butterflies: L.butterflies || null, leaves: L.leaves || null, startle, song: L.song ?? (ST ? 0 : 1), duration };
 }
 
 // how strong the wind is at world (x, z) at time t: calm air plus every gust band passing. 0.4 calm .. ~1.6 in a gust

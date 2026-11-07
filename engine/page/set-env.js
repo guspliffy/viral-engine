@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { animate } from "./set-plate.js";
-import { lifeLayer, lifeSky } from "./set-life.js";
+import { lifeLayer, lifeSky, lifeTwin } from "./set-life.js";
 
 // A layered painted environment (set "type": "env", "env": "<name>"; built by engine/plates/env.py from one painting,
 // see assets/environments/README.md). The painting is cut into the layers an anime background artist paints on
@@ -65,9 +65,9 @@ export function buildEnv(scene, spec) {
     }
     Promise.all([tex(c.src), c.motion && sway > 0 && raw(c.motion)]).then(([map, motion]) => {
       mat.map = map;
-      if (twin) { twin.material.map = map; twin.material.needsUpdate = true; }
+      if (twin) { twin.material.map = map; twin.material.needsUpdate = true; if (motion) lifeTwin(twin.material); }
       // set "life" (set-life.js): the sway follows the travelling gusts, far layers take the cloud shadows
-      if (c.sky) lifeSky(map);
+      if (c.sky) { lifeSky(map); lifeLayer(mat, null, x1 - x0, { sky: true }); }
       else if (!lifeLayer(mat, motion || null, x1 - x0, { amp: 3 * sway }) && motion) animate(mat, motion, x1 - x0, { amp: 3 * sway, key: `env-${c.name}` });
       mat.needsUpdate = true;
     });

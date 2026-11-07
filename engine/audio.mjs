@@ -939,6 +939,19 @@ function lifeBed(L, sb, r, fade = 0.3) {
     for (const G of gusts) { const d = (t - G.t) / G.w; g += G.s * Math.exp(-d * d); }
     x[i] = run(low, r() * 2 - 1) * 0.1 + run(body, r() * 2 - 1) * 0.06 * g * g + run(hiss, r() * 2 - 1) * 0.07 * g * g;
   }
+  if (L.storm) {
+    // a storm: the wind's roar rides the gusts (a deeper body and a howl that rises with each one), and the rain's
+    // even hiss with soft drops on the leaves
+    const roar = biquad("lp", 260, 0.8), howl = biquad("bp", 520, 3), rain = biquad("hp", 2500, 0.7), lo = biquad("lp", 7000, 0.7);
+    for (let i = 0; i < n; i++) {
+      const t = i / SR; let g = L.wind.calm;
+      for (const G of gusts) { const d = (t - G.t) / G.w; g += G.s * Math.exp(-d * d); }
+      x[i] += run(roar, r() * 2 - 1) * 0.12 * g + run(howl, r() * 2 - 1) * 0.05 * g * g * 0.5;
+      if (L.rain) x[i] += run(lo, run(rain, r() * 2 - 1)) * 0.07;
+    }
+    if (L.rain) for (let k = 0; k < seconds * 40; k++) { const a = Math.round(r() * (n - 0.02 * SR)), f = 2500 + r() * 3000, gg = 0.02 + r() * 0.04;
+      for (let i = 0; i < 0.012 * SR; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * f * t) * Math.exp(-t / 0.002) * gg; } }
+  }
   const quiet = L.startle.length ? Math.min(...L.startle.map((s) => s.t)) : Infinity;
   const phrase = (t0, f0, g) => {
     let a = Math.round(t0 * SR); const notes = 3 + Math.floor(r() * 4);

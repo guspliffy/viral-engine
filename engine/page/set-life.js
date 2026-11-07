@@ -26,7 +26,8 @@ let S = null;
 
 // the shared uniforms of every painted layer
 const U = { uLifeT: { value: 0 }, uGust: { value: Array.from({ length: GUST_MAX }, () => new THREE.Vector4(0, 0, 1, 0)) }, uGustN: { value: 0 },
-  uWind: { value: new THREE.Vector2(3.2, 0.4) }, uCloud: { value: new THREE.Vector4(4, 16, 0.3, 14) } };
+  uWind: { value: new THREE.Vector2(3.2, 0.4) }, uCloud: { value: new THREE.Vector4(4, 16, 0.3, 14) },
+  uBend: { value: new THREE.Vector2(0, 6) }, uGrade: { value: new THREE.Vector4(1, 1, 1, 1) } };
 
 export function initLife(spec) {
   S = spec;
@@ -37,9 +38,19 @@ export function initLife(spec) {
   U.uWind.value.set(S.wind.speed, S.wind.calm);
   const C = S.clouds;
   U.uCloud.value.set(C?.speed ?? 0, C?.scale ?? 16, C ? C.shadow : 0, C?.near ?? 14);
+  U.uBend.value.set(S.bend || 0, 6);
+  if (S.grade) U.uGrade.value.set(...S.grade.mul, S.grade.sat ?? 1);
   (globalThis.__setTicks ||= []).push((t) => { now.t = t; U.uLifeT.value = t; });
 }
 
+const DECL = `uniform float uLifeT; uniform vec4 uGust[${GUST_MAX}]; uniform int uGustN; uniform vec2 uWind; uniform vec4 uCloud; uniform vec2 uBend; uniform vec4 uGrade;`;
+// the trees and tall grass bend from their foot: a lean that follows the gust plus the trunk's own slow rocking
+// (0.2-1.1 Hz, Jackson 2019), growing with the square of the height, so the ground and the feet never move
+const BEND = /* glsl */`
+  vec3 lw = (modelMatrix * vec4(transformed, 1.0)).xyz;
+  float bg = lifeGust(lw), hh = clamp(lw.y / uBend.y, 0.0, 1.6);
+  float rock = sin(uLifeT * 2.3 + lw.x * 0.6) * 0.6 + sin(uLifeT * 3.9 + lw.x * 1.4 + 1.3) * 0.25;
+  transformed.x += uBend.x * hh * hh * (max(0.0, bg - 0.3) * 0.8 + rock * bg * 0.45);`;
 const NOISE = /* glsl */`
   float lifeH(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
   float lifeVN(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
@@ -56,12 +67,13 @@ const NOISE = /* glsl */`
 // leaves downwind and lightens them a touch (the paler undersides), and far layers take the cloud shadows.
 export function lifeLayer(mat, motion, width, o = {}) {
   if (!S) return false;
-  const amp = (o.amp ?? 3).toFixed(2), shadows = !!S.clouds && !o.sky;
+  const amp = (o.amp ?? 3).toFixed(2), shadows = !!S.clouds && !o.sky, bend = !!motion && S.bend > 0, grade = !!S.grade;
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, U, { uMotion: { value: motion }, uPx: { value: 1 / width } });
-    sh.vertexShader = sh.vertexShader.replace("void main() {", "varying vec3 vLifeW;\nvoid main() {")
+    sh.vertexShader = `varying vec3 vLifeW; ${DECL}\n${NOISE}\n` + sh.vertexShader
+      .replace("#include <begin_vertex>", `#include <begin_vertex>${bend ? BEND : ""}`)
       .replace("#include <project_vertex>", "#include <project_vertex>\n  vLifeW = (modelMatrix * vec4(transformed, 1.0)).xyz;");
-    sh.fragmentShader = `varying vec3 vLifeW; uniform float uLifeT; uniform vec4 uGust[${GUST_MAX}]; uniform int uGustN; uniform vec2 uWind; uniform vec4 uCloud;
+    sh.fragmentShader = `varying vec3 vLifeW; ${DECL}
       uniform sampler2D uMotion; uniform float uPx;\n${NOISE}\n` + sh.fragmentShader.replace("#include <map_fragment>", /* glsl */`
       float g = lifeGust(vLifeW), gx = max(0.0, g - uWind.y);
       ${motion ? /* glsl */`
@@ -83,11 +95,30 @@ export function lifeLayer(mat, motion, width, o = {}) {
       vec2 cq = vec2(vLifeW.x, vLifeW.z - max(vLifeW.y, 0.0) * 2.5) / uCloud.y - vec2(uCloud.x * uLifeT / uCloud.y, 0.0);
       float cs = smoothstep(0.5, 0.62, lifeFbm(cq)) * uCloud.z * smoothstep(uCloud.w, uCloud.w * 1.8, -vLifeW.z);
       sampledDiffuseColor.rgb *= mix(vec3(1.0), vec3(0.6, 0.67, 0.86), cs);` : ""}
+      ${grade ? /* glsl */`
+      // a grey day: the painting dimmed and cooled, and its colour drained toward grey
+      float lum = dot(sampledDiffuseColor.rgb, vec3(0.3, 0.59, 0.11));
+      sampledDiffuseColor.rgb = mix(vec3(lum), sampledDiffuseColor.rgb, uGrade.w) * uGrade.rgb;${o.sky && S.grade?.sky ? /* glsl */`
+      // the sky itself: the white clouds turn to rain clouds (bright pixels pulled down to a blue-grey, the blue gaps
+      // greyed), with darker bellies where the painting is already shaded
+      float sk = ${(+S.grade.sky).toFixed(3)};
+      sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, vec3(lum) * vec3(0.66, 0.7, 0.78) + vec3(0.04, 0.05, 0.07), sk);` : ""}` : ""}
       diffuseColor *= sampledDiffuseColor;`);
   };
-  mat.customProgramCacheKey = () => `set-life-${motion ? 1 : 0}-${shadows ? 1 : 0}-${amp}`;
+  mat.customProgramCacheKey = () => `set-life-${motion ? 1 : 0}-${shadows ? 1 : 0}-${bend ? 1 : 0}-${grade ? 1 : 0}-${o.sky ? 1 : 0}-${amp}`;
   mat.needsUpdate = true;
   return true;
+}
+
+// the depth-only twin of a card (set-env.js) bends with it, so the painting still hides what stands behind it
+export function lifeTwin(mat) {
+  if (!S || !(S.bend > 0)) return;
+  mat.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, U);
+    sh.vertexShader = `${DECL}\n${NOISE}\n` + sh.vertexShader.replace("#include <begin_vertex>", `#include <begin_vertex>${BEND}`);
+  };
+  mat.customProgramCacheKey = () => "set-life-twin";
+  mat.needsUpdate = true;
 }
 
 // the sky drifts downwind with its clouds (a slow pan of the sky card's picture: it is padded past the frame)
@@ -290,6 +321,59 @@ export function addLife(scene, spec) {
         const sw = Math.sin(s * 3.1 + d.ph);   // the pendulum swing of a fluttering leaf, ~2 s a period
         m.position.set(d.at[0] + s * 1.1 + sw * d.sw, d.at[1] - d.fall * s + Math.abs(sw) * 0.05, d.at[2] + Math.cos(s * 2.3 + d.ph) * 0.15);
         m.rotation.set(sw * 0.9 + 0.6, s * 1.7 + d.ph, Math.cos(s * 3.1 + d.ph) * 0.8);
+      });
+    }
+  }
+
+  // ---- a grey day: the cast's lights dimmed and cooled with the painting (every light in the scene, from its own
+  // first values, so any frame drawn on its own gets the same)
+  if (S.grade) {
+    const G = S.grade, tint = new THREE.Color(G.tint || "#ffffff"), orig = new Map();
+    if (scene.background?.isColor) scene.background.multiply(new THREE.Color(...G.mul));
+    ticks.push(() => {
+      scene.traverse((o) => {
+        if (!o.isLight) return;
+        if (!orig.has(o)) orig.set(o, { i: o.intensity, c: o.color.clone(), g: o.groundColor?.clone() });
+        const O = orig.get(o); o.intensity = O.i * (G.light ?? 1); o.color.copy(O.c).multiply(tint);
+        if (o.groundColor && O.g) o.groundColor.copy(O.g).multiply(tint);
+      });
+    });
+  }
+
+  // ---- rain: thin streaks slanting with the wind, a fixed set falling through a box round the stage on a loop
+  // (each streak's height is the clock modulo the box, so any frame stands alone)
+  if (S.rain) {
+    const R = S.rain, N = R.n ?? 600, len = R.len ?? 0.3, v = R.speed ?? 9, box = R.box || [[-4, 3], [4, -12]], top = 4.5;
+    const seeds = Array.from({ length: N }, () => [box[0][0] + r() * (box[1][0] - box[0][0]), r() * top, box[0][1] + r() * (box[1][1] - box[0][1]), 0.8 + r() * 0.4]);
+    const pos = new Float32Array(N * 6), geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    const m = new THREE.LineBasicMaterial({ color: R.color || "#dfe8f2", transparent: true, opacity: R.opacity ?? 0.45, depthWrite: false, fog: false });
+    m.userData.noOutline = true; m.userData.outlineParameters = { visible: false };
+    const lines = new THREE.LineSegments(geo, m); lines.frustumCulled = false; lines.renderOrder = 4; lines.name = "set-life-rain"; grp.add(lines);
+    ticks.push((t) => {
+      for (let i = 0; i < N; i++) {
+        const [x, y0, z, k] = seeds[i], g = gustAt(S, x, z, t), slant = 0.12 * g;   // the wind blows the drops sideways
+        const y = top - ((((top - y0) + t * v * k) % top) + top) % top, x1 = x + (top - y) * slant;
+        pos.set([x1, y, z, x1 + len * slant * 2.5, y - len, z], i * 6);
+      }
+      geo.attributes.position.needsUpdate = true;
+    });
+  }
+
+  // ---- debris: leaves torn off upwind, tumbling across the frame with the wind (each starts its trip at its own
+  // time, spread over the clip, so there are always a few in the air and never a wave of them)
+  if (S.debris) {
+    const n = S.debris.n ?? 20, span = dur + 4, leafGeo = (() => { const sh = new THREE.Shape(); sh.moveTo(0, -0.03); sh.quadraticCurveTo(0.022, -0.005, 0, 0.03); sh.quadraticCurveTo(-0.022, -0.005, 0, -0.03); return new THREE.ShapeGeometry(sh, 6); })();
+    for (let i = 0; i < n; i++) {
+      const col = new THREE.Color(["#7fa040", "#9cae4a", "#b49a46", "#6f8a3a"][i % 4]).offsetHSL(0, 0, (r() - 0.5) * 0.1);
+      const m = new THREE.Mesh(leafGeo, std(col, { side: THREE.DoubleSide })); m.material.userData.lineK = 0.6; m.scale.setScalar(0.8 + r() * 0.6); grp.add(m);
+      const t0 = -3 + (i / n) * span + r() * (span / n), y0 = 0.4 + r() * 2.4, z = -9 + r() * 9.5, vx = 3 + r() * 2.5, ph = r() * 6.3, spin = 5 + r() * 6;
+      ticks.push((t) => {
+        const s2 = t - t0, x = -5 + vx * s2;
+        if (s2 < 0 || x > 6) { m.visible = false; return; }
+        m.visible = true;
+        const g = gustAt(S, x, z, t);
+        m.position.set(x + Math.sin(s2 * 2.1 + ph) * 0.2, Math.max(0.05, y0 - 0.25 * s2 + Math.sin(s2 * 3.3 + ph) * 0.25 * g), z + Math.cos(s2 * 1.7 + ph) * 0.3);
+        m.rotation.set(s2 * spin + ph, s2 * spin * 0.6, s2 * spin * 0.3);
       });
     }
   }
