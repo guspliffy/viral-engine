@@ -219,6 +219,138 @@ def convert(jobs, raw):
     return out
 
 
+def only_sounds(text):
+    """A line that is only non-words (hnnngh!, hmm...) keeps the SOUNDS version in the Kokoro voice: VoxCPM2 reads
+    letters it doesn't know as a word."""
+    words = re.findall(r"[A-Za-z][A-Za-z'-]*", text)
+    return bool(words) and all(sound(w) for w in words)
+
+
+def vox_python():
+    if os.environ.get("VOICE_VOX_PYTHON"): return os.environ["VOICE_VOX_PYTHON"]
+    p = os.path.join(HERE, ".venv-vox", "Scripts/python.exe" if os.name == "nt" else "bin/python")
+    return p if os.path.exists(p) else None
+
+
+def spans(x, sr, gap=0.16, db=-36, min_len=0.08):
+    """Spoken stretches [start, end] in seconds (as speech.mjs spans()): 20 ms windows over the threshold, gaps under
+    `gap` joined, blips dropped."""
+    w = int(sr * 0.02)
+    if len(x) < w: return []
+    m = np.abs(x[: len(x) // w * w]).reshape(-1, w).max(1)
+    on = m > (np.abs(x).max() * 10 ** (db / 20))
+    out = []
+    for k in np.flatnonzero(on):
+        t = k * 0.02
+        if out and t - out[-1][1] <= gap: out[-1][1] = t + 0.02
+        else: out.append([t, t + 0.02])
+    return [s for s in out if s[1] - s[0] >= min_len]
+
+
+def _merge_to(sp, n):
+    """Join the stretches across their shortest gaps until n are left."""
+    sp = [list(s) for s in sp]
+    while len(sp) > n:
+        i = min(range(len(sp) - 1), key=lambda k: sp[k + 1][0] - sp[k][1])
+        sp[i][1] = sp[i + 1][1]; del sp[i + 1]
+    return sp
+
+
+def kokoro_words(phones):
+    """The Kokoro read's words as [start, end, ends_with_punctuation] from its phoneme list (spaces split words)."""
+    out, cur = [], []
+    for c, t, d in phones + [[" ", 0, 0]]:
+        if c.strip():
+            cur.append((c, t, d)); continue
+        if cur:
+            sounds = [p for p in cur if p[0] not in ".,!?;:…—"] or cur
+            out.append([sounds[0][1], sounds[-1][1] + sounds[-1][2], cur[-1][0] in ".,!?;:…"])
+        cur = []
+    return out
+
+
+def align(y, sr, phones, heard=None):
+    """VoxCPM2 audio y (rate sr) keeps the lip sync and caption timing of the Kokoro read of the same text: the line is
+    trimmed to its speech (30 ms before, 80 ms after) and cut into spoken stretches. With the words Whisper heard
+    (heard: [[word, start, end]], same count as Kokoro's words) every word moves onto its heard place. Without them
+    (or a different count) Kokoro's words are cut into as many
+    groups (after punctuation first, then at its own longest pauses, like refGroups in speech.mjs), or the stretches are
+    joined across their shortest pauses when there are more stretches than words; every phoneme then moves with its
+    group (piecewise linear)."""
+    b = spans(y, sr)
+    words = kokoro_words(phones)
+    if not b or not words: return y, phones
+    s0, s1 = max(0, int((b[0][0] - 0.03) * sr)), min(len(y), int((b[-1][1] + 0.08) * sr))
+    y = y[s0:s1]; off = s0 / sr
+    b = [[p - off, q - off] for p, q in b]
+    if heard and len(heard) == len(words):
+        # Whisper heard the same number of words: each Kokoro word maps onto the word heard. Whisper starts the first
+        # word at 0 and lets a word run on into a pause, so a start snaps to a stretch's onset within 0.15 s and an
+        # end to a stretch's end within 0.15 s
+        on, off_ = [p for p, q in b], [q for p, q in b]
+        snap = lambda t, ts: min(ts, key=lambda u: abs(u - t)) if min(abs(u - t) for u in ts) <= 0.15 else t
+        a, b2, last = [], [], 0.0
+        for (ws, we, _), (_, hs, he) in zip(words, heard):
+            hs, he = max(last, snap(hs - off, on)), snap(he - off, off_)
+            if he <= hs + 0.02: he = hs + max(0.05, we - ws)
+            a.append([ws, we]); b2.append([hs, he]); last = he
+        b = b2
+    else:
+        b = _merge_to(b, len(words))
+        gaps = sorted(range(len(words) - 1), key=lambda i: -((words[i + 1][0] - words[i][1]) + (10 if words[i][2] else 0)))
+        cuts = sorted(gaps[: len(b) - 1])
+        a, k = [], 0
+        for c in cuts + [len(words) - 1]:
+            a.append([words[k][0], words[c][1]]); k = c + 1
+    knots = [(0.0, 0.0)] + [kk for p, q in zip(a, b) for kk in ((p[0], q[0]), (p[1], q[1]))]
+    xs, ys = np.array([kk[0] for kk in knots]), np.array([kk[1] for kk in knots])
+
+    def f(t):
+        if t >= xs[-1]: return float(ys[-1] + (t - xs[-1]))
+        return float(np.interp(t, xs, ys))
+    out, end = [], len(y) / sr
+    for c, t, d in phones:
+        u, v = min(f(t), end - 0.01), min(f(t + d), end)
+        out.append([c, round(max(0.0, u), 4), round(max(0.01, v - u), 4)])
+    return y, out
+
+
+def vox(jobs, raw):
+    """vox (7 Nov 2026): {"ref": "targets/<voice>.wav", "style": "excited"}: the line is read by VoxCPM2 (vox.py) in the
+    reference clip's voice; the Kokoro read of the same text (raw) only gives the phoneme timing (align). All lines of
+    the batch go through vox.py in one call, so the model loads once."""
+    if not jobs: return {}
+    py = vox_python()
+    if not py and os.environ.get("CI") == "true":   # a GitHub runner: install it for this render (~2 min + model download)
+        subprocess.run(["node", os.path.join(HERE, "setup.mjs"), "--vox"], check=True, stdout=sys.stderr)
+        py = vox_python()
+    if not py:
+        raise RuntimeError("voice recipe needs VoxCPM2: run node engine/voice/setup.mjs --vox (or set VOICE_VOX_PYTHON)")
+    import hashlib
+    out = {}
+    with tempfile.TemporaryDirectory() as d:
+        req = []
+        for j in jobs:
+            v = j["vox"]
+            seed = int.from_bytes(hashlib.sha1((j["text"] + "|" + v["ref"]).encode()).digest()[:4], "little") + int(v.get("take", 0))
+            req.append({"out": os.path.join(d, j["id"] + ".wav"), "text": j["text"], "style": v.get("style"),
+                        "ref": os.path.join(HERE, v["ref"]), "seed": seed})
+        r = subprocess.run([py, os.path.join(HERE, "vox.py")], input=json.dumps({"jobs": req}), capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError("vox.py failed\n" + r.stderr[-3000:])
+        for j, q in zip(jobs, req):
+            y, sr = sf.read(q["out"], dtype="float32")
+            heard = None
+            if os.path.exists(q["out"] + ".words.json"):
+                with open(q["out"] + ".words.json") as f: heard = json.load(f)
+                said = lambda t: re.sub(r"[^a-z0-9' ]", "", t.lower().replace("-", " ")).split()
+                if said(" ".join(w[0] for w in heard)) != said(j["text"]):
+                    print(f"vox: \"{j['text']}\" was heard as \"{' '.join(w[0] for w in heard)}\" (a misread? \"take\": 2 reads it again)", file=sys.stderr)
+            y, phones = align(y, sr, raw[j["id"]][1], heard)
+            out[j["id"]] = (y, sr, phones)
+    return out
+
+
 def main():
     req = json.load(sys.stdin)
     os.makedirs(req["cache"], exist_ok=True)
@@ -227,9 +359,14 @@ def main():
     done = []
     raw = {job["id"]: synth(k, job) for job in req["jobs"]}
     converted = convert([j for j in req["jobs"] if j.get("convert")], raw)
+    voxed = vox([j for j in req["jobs"] if j.get("vox") and not only_sounds(j["text"])], raw)
     for job in req["jobs"]:
         x, phones = raw[job["id"]]
-        y, phones = finish(*(converted[job["id"]] if job["id"] in converted else (x, SR_MODEL)), phones, job)
+        if job["id"] in voxed:
+            y, sr, phones = voxed[job["id"]]
+            y, phones = finish(y, sr, phones, job)
+        else:
+            y, phones = finish(*(converted[job["id"]] if job["id"] in converted else (x, SR_MODEL)), phones, job)
         base = os.path.join(req["cache"], job["id"])
         info = {"id": job["id"], "text": job["text"], "dur": round(len(y) / SR_OUT, 4), "phones": phones,
                 "peak": round(float(np.abs(y).max()), 3), "clipped": int((np.abs(y) >= 0.999).sum())}
