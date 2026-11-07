@@ -2144,7 +2144,7 @@
   {
    "name": "P3 masks",
    "at": 1,
-   "len": 2,
+   "len": 1.4,
    "shot": {
     "pos": [
      -0.15,
@@ -2979,19 +2979,62 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 1.3
-    },
+    }
+   ]
+  },
+  {
+   "name": "P3 Phoenix close",
+   "at": 2.4,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.74,
+     1,
+     2.3
+    ],
+    "look": [
+     -1.04,
+     0.9,
+     0.2
+    ],
+    "fov": 40,
+    "hand": {
+     "rate": 0,
+     "bob": 0,
+     "sway": 0,
+     "drift": 0,
+     "dips": [
+      [
+       1.27,
+       0.05,
+       0.35
+      ],
+      [
+       4.5,
+       0.09,
+       0.6
+      ],
+      [
+       8.4,
+       0.07,
+       0.45
+      ]
+     ]
+    }
+   },
+   "do": [
     {
      "who": "wiz",
      "do": "blink",
      "dur": 0.2,
-     "at": 1.45
+     "at": 0.05
     },
     {
      "who": "rea",
      "do": "release",
      "prop": "maskR",
      "dur": 0,
-     "at": 1.55
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -3003,7 +3046,7 @@
      },
      "dur": 0.06,
      "ease": "inOut",
-     "at": 1.55
+     "at": 0.15
     },
     {
      "who": "rea",
@@ -3018,7 +3061,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 0.2
     },
     {
      "who": "rea",
@@ -3029,19 +3072,19 @@
      ],
      "dur": 0.35,
      "blink": false,
-     "at": 1.6
+     "at": 0.2
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.7
+     "at": 0.3
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.2,
-     "at": 1.75
+     "at": 0.35
     },
     {
      "who": "phx",
@@ -3049,7 +3092,7 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 1.8
+     "at": 0.4
     },
     {
      "who": "phx",
@@ -3057,7 +3100,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 1.96
+     "at": 0.56
     }
    ]
   },
@@ -5308,7 +5351,7 @@
   },
   {
    "from": 1.35,
-   "to": 2.95,
+   "to": 2.38,
    "see": [
     "phx.face",
     "wiz.face",
@@ -5379,6 +5422,15 @@
     "jet"
    ],
    "why": "OUTSIDE: the plane lurches and rocks in the storm (why the bags fall)"
+  },
+  {
+   "from": 2.45,
+   "to": 2.95,
+   "see": [
+    "phx.face",
+    "phone"
+   ],
+   "why": "B: Phoenix still scrolling, calm, just before the plane drops"
   }
  ],
  "hitStop": [

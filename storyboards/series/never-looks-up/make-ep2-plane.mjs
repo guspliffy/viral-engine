@@ -44,9 +44,14 @@ const VARIANT = process.env.VARIANT === "B" ? "B" : "A";
 // squeezes it into the window [at, to] while the camera is outside (its sounds, lines, captions and effects dropped,
 // so only its end state shows when we come back in), "skip" jumps it on a cut. BUCK and FALL are the outside shots.
 const PIECES = VARIANT === "A"
-  ? [{ v: [0, 0.32], show: 0 }, { v: [0.32, 3.0], hide: [0.37, 1.27] }, { v: [3.0, 5.0], show: 1.32 }, { v: [5.0, 7.0], show: 4.82 }, { v: [7.0, 7.3], skip: 6.82 }, { v: [7.3, 10.0], show: 6.82 }]
+  // v6.1 (Jonny 14:02: "the third scene should be even shorter, the plane falling by second 3"): the masks scene keeps
+  // v2 3.0-4.2 (the bump, masks, "AH-AH-AH!", the pink case slam) and the rest (buckle, Reaper's mask) happens under the fall
+  ? [{ v: [0, 0.32], show: 0 }, { v: [0.32, 3.0], hide: [0.37, 1.27] }, { v: [3.0, 4.2], show: 1.32 }, { v: [4.2, 5.0], hide: [2.57, 3.97] }, { v: [5.0, 7.0], show: 4.02 }, { v: [7.0, 7.3], skip: 6.02 }, { v: [7.3, 10.0], show: 6.02 }]
   : [{ v: [0, 3.0], hide: [0.02, 0.95] }, { v: [3.0, 5.0], show: 1.0 }, { v: [5.0, 7.0], show: 4.5 }, { v: [7.0, 7.3], skip: 6.5 }, { v: [7.3, 10.0], show: 6.5 }];
-const BUCK_AT = VARIANT === "A" ? 0.32 : 0, INS_T = 1.0, FALL_AT = VARIANT === "A" ? 3.32 : 3.0, INS = 1.5;
+const BUCK_AT = VARIANT === "A" ? 0.32 : 0, INS_T = 1.0, FALL_AT = VARIANT === "A" ? 2.52 : 3.0, INS = 1.5;
+const TIP0 = VARIANT === "A" ? 0.25 : 0.5;   // A: the nose goes down sooner, so the fall reads by 3 s
+// B (Jonny 14:02): a close-up on Phoenix, still scrolling, just before the plane drops; the fall stays at 3.0
+const CLOSE_AT = 2.4;
 const pieceOf = (t) => PIECES.find((q, i) => t >= q.v[0] - 1e-6 && (t < q.v[1] - 1e-6 || i === PIECES.length - 1));
 const T = (t) => {   // a v2 cabin time -> its clip time
   const q = pieceOf(t), [a, b] = q.v;
@@ -529,7 +534,7 @@ props.push(...exProps);
 // falls away, faster and faster (a falling body gains speed: "in" eases the drop)
 // (review B: tip fast, fall slower, and fall away from the lens so it shrinks: growing reads as coming at us)
 prop(X0, "jet", { tip: 46, roll: 26 }, 0.5, "inOut");
-prop(X0 + 0.5, "jet", { tip: 56, roll: 31 }, INS - 0.5, "out");
+prop(X0 + TIP0, "jet", { tip: 56, roll: 31 }, INS - TIP0, "out");
 prop(X0, "jet", { y: r3(EX[1] - 20) }, INS - 0.02, "in");
 prop(X0, "jet", { x: r3(EX[0] + DIR[0] * 18 + 4), z: r3(EX[2] + DIR[2] * 18) }, INS - 0.02, "linear");
 prop(X0, "jet", { spin: 160 }, INS - 0.02, "linear");
@@ -599,9 +604,14 @@ const BACKDOWN = shot([-0.2, 1.47, 5.45], [0.22, 1.28, 0], 58, { hand: HAND });
 // outside: alongside, a little ahead of the right wing and above; the lens tilts down after the plane as it falls away
 const BUCK = { ...shot(CAM_X, LOOK_T, 30, { hand: { rate: 0, bob: 0, sway: 0, drift: 0, dips: [[J(0.02), 0.8, 0.3], [LT0, 1.1, 0.35]] } }), to: { look: LOOK_T2 }, dur: INS_T - 0.05 };
 const OUTSIDE = { ...shot(CAM_X, LOOK_X, 36, { hand: { rate: 0, bob: 0, sway: 0, drift: 0, dips: [[LT, 0.9, 0.35], [X0 + 0.5, 1.2, 0.6]] } }), to: { look: LOOK_X2 }, dur: INS - 0.1 };
+// B: in on Phoenix's face and phone, front-left like the peak, while the cabin shakes round him
+const CLOSE = shot([-0.74, 1.0, 2.3], [-1.04, 0.9, 0.2], 40, { hand: HAND });
+if (VARIANT === "B") for (const v of c.visible) if (v.from < CLOSE_AT && v.to > CLOSE_AT) v.to = r3(CLOSE_AT - 0.02);   // the wide's list ends at the cut
+if (VARIANT === "B") c.see(CLOSE_AT + 0.05, FALL_AT - 0.05, ["phx.face", "phone"], "B: Phoenix still scrolling, calm, just before the plane drops");
 const beats = c.beats([
   ...(VARIANT === "A" ? [["P1 bump", 0, WIDE, "hook"], ["OUTSIDE turbulence", XT0, BUCK]] : [["OUTSIDE turbulence", 0, BUCK, "hook"]]),
   ["P3 masks", XT1, MASKS],
+  ...(VARIANT === "B" ? [["P3 Phoenix close", CLOSE_AT, CLOSE]] : []),
   ["OUTSIDE free fall", X0, OUTSIDE],
   ["P4 zero-g", T(5.0), ZEROG],
   ["P5 peak", T(7.0), PEAK],
