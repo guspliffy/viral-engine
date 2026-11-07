@@ -1070,6 +1070,8 @@ function clipping() {
       // Into its own holder is measured apart ("self", look-2d-layer-01: the coffee cup in the eyes and under the hat
       // brim on a sip, 7 Nov 2026, was caught only by eye): how deep, and at which height of the body it goes in
       // (zone: the body's height from its feet, 0..1; a sip belongs at the mouth, about 0.3-0.5 of a potato)
+      // Only what a hand holds: a pile of popcorn on a head or a kernel on a hood is held by "hat" / "tip" on purpose
+      if (p.held && p.holder === b.id && p.root.visible && !(p.holdHand === "R" || p.holdHand === "L" || p.holdHand === "both")) continue;
       if (p.held && p.holder === b.id && p.root.visible) {
         let worst = 0, wo = null;
         p.root.updateMatrixWorld(true);

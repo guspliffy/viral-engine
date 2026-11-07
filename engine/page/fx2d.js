@@ -212,11 +212,17 @@ function smears(env, f, t, dn) {
     const vx = B.cx - P1.cx, vy = B.cy - P1.cy, v = Math.hypot(vx, vy);
     if (env.debug) { ctx.fillStyle = "#0ff"; ctx.font = "28px sans-serif"; ctx.fillText(`smear ${who} v${v.toFixed(0)}`, 20, 1500 + env.who().indexOf(who) * 30); }
     if (v < min) continue;
+    // a smear is drawn behind a whole body crossing the frame: not for a body the camera is close on (wider than half
+    // the frame) or one mostly out of frame (the cinema close-up drew black spikes off a cloak at its edge)
+    const W = ctx.canvas.width, H = ctx.canvas.height;
+    if (B.rx > W / 4 || B.cx - B.rx < -0.25 * B.rx || B.cx + B.rx > W + 0.25 * B.rx || B.cy - B.ry < -0.25 * B.ry || B.cy + B.ry > H + 0.25 * B.ry) continue;
     const nx = vx / v, ny = vy / v, px = -ny, py = nx;   // along the motion, and across it
     const er = 1 / Math.sqrt((nx / B.rx) ** 2 + (ny / B.ry) ** 2), wr = 1 / Math.sqrt((px / B.rx) ** 2 + (py / B.ry) ** 2);
     // at most 0.8 of the body along the motion ("cap", in half-bodies): a long fall drew fingers taller than a head
     const len = Math.min(v * (f.trail ?? 3.2), er * (f.cap ?? 1.6)), bx = P1.cx - P2.cx, by = P1.cy - P2.cy, bn = Math.hypot(bx, by) || 1;
-    const col = bodyColour(ctx, B) || B.color, S = rng(77 + env.who().indexOf(who) * 13), boil = rng(331 + dn);
+    const col = bodyColour(ctx, B) || B.color;
+    if (dark(col)) continue;   // a smear in near-black reads as spikes, not speed
+    const S = rng(77 + env.who().indexOf(who) * 13), boil = rng(331 + dn);
     const strength = clamp((v - min) / min + 0.6), lw = lineW(B.u, 0.85), n = 5;
     ctx.globalAlpha = strength;
     for (let j = 0; j < n; j++) {
@@ -239,6 +245,12 @@ function smears(env, f, t, dn) {
     }
   }
 }
+const dark = (c) => {
+  c = String(c || ""); let r, g, b;
+  if (c[0] === "#") { const n = parseInt(c.slice(1, 7), 16); r = (n >> 16) & 255; g = (n >> 8) & 255; b = n & 255; }
+  else { const m = c.match(/\d+/g); if (!m || m.length < 3) return false; [r, g, b] = m.map(Number); }
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b < 55;
+};
 // the body's colour as drawn in this frame: the median of a few pixels inside its outline (skips a prop held in front)
 function bodyColour(ctx, B) {
   try {
