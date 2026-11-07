@@ -51,7 +51,11 @@ export class Performance {
     const r = this.root(s.C, u), d = new THREE.Vector3(r.x - s.r0.x, 0, r.z - s.r0.z).multiplyScalar(s.k).applyAxisAngle(Y, s.rot);
     // jumpGain: the hips' rise above where the take starts is multiplied (an anime jump is higher than a person's)
     const y = s.jumpGain && r.y > s.r0.y ? s.r0.y + (r.y - s.r0.y) * s.jumpGain : r.y;
-    return new THREE.Vector3(s.P[0] + d.x, y * s.k + (s.lift || 0), s.P[1] + d.z);
+    // slide: [u0, u1, dx, dz] (clip seconds, world metres): the whole body is driven back along the ground by a hit it
+    // blocks, fast at first and slowing to a stop (an anime guard skids back on planted feet; the feet ride along)
+    let sx = 0, sz = 0;
+    if (s.slide) { const [u0, u1, dx, dz] = s.slide, w = Math.min(1, Math.max(0, (u - u0) / Math.max(1e-6, u1 - u0))), k = 1 - Math.pow(1 - w, 2.6); sx = dx * k; sz = dz * k; }
+    return new THREE.Vector3(s.P[0] + d.x + sx, y * s.k + (s.lift || 0), s.P[1] + d.z + sz);
   }
   segPose(s, t) {
     const u = Math.min(s.to, s.from + Math.max(0, t - s.at) * s.speed), out = { pos: this.segRoot(s, u), q: {} };

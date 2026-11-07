@@ -761,7 +761,14 @@ export class VrmCharacter extends Character {
         else if (u >= 3 && u < 8) blink = Math.max(blink, 1 - smooth((u - 3) / 5));
       }
       E.setValue("blink", blink);
-      const ex = this.cast.face || {};
+      let ex = this.cast.face || {};
+      // cast "faces": [[t, { angry: 0.85, aa: 0.5 }], ...]: the expression changes over the clip, each key eased in
+      // over 0.2 s from the one before (a shout on an attack, eyes wide on a shock); unset shapes are 0
+      if (this.cast.faces?.length) {
+        const K = this.cast.faces; let i = 0; while (i + 1 < K.length && K[i + 1][0] <= t) i++;
+        const a = i > 0 ? K[i - 1][1] : K[0][1], b = K[i][1], w = i > 0 ? smooth((t - K[i][0]) / 0.2) : 1;
+        ex = {}; for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) ex[k] = (a[k] ?? 0) + ((b[k] ?? 0) - (a[k] ?? 0)) * w;
+      }
       for (const [k, v] of Object.entries(ex)) E.setValue(k, v);
       E.update();
     }
