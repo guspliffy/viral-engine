@@ -170,7 +170,7 @@ export function buildHatchback(spec) {
   });
   const revs = []; root.traverse((o) => { if (o.name === "hatchback-reverse") revs.push(o); });
   return {
-    root, body,
+    root, body, wheels, R,
     apply(st, t) {
       const d = rolled(spec, t ?? 0), back = rolled(spec, Math.max(0, (t ?? 0) - 0.05)) - d > 0.003;
       for (const W of wheels) { W.pivot.rotation.y = W.front ? ((st.steer || 0) * Math.PI) / 180 : 0; W.w.rotation.x = d / R; }
