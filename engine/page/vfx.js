@@ -54,7 +54,14 @@ export async function makeVfx({ R, sb, target }) {
   for (const [f] of items) {
     const file = f.file || VFX[f.effect];
     if (!file) throw new Error(`vfx: unknown effect "${f.effect}" (effects: ${Object.keys(VFX).join(", ")})`);
-    if (!files.has(file)) files.set(file, await new Promise((res, rej) => { const e = ctx.loadEffect("/" + file, 1.0, () => res(e), (m, p) => rej(new Error(`vfx: ${file}: ${m} ${p}`))); }));
+    if (files.has(file)) continue;
+    // the effect files are not in the repo (tools/vfx/fetch-effects.sh): a missing one fails here with a clear message
+    // (Effekseer itself never calls back on a missing file, and the page would wait for ever)
+    if (!(await fetch("/" + file, { method: "HEAD" })).ok) throw new Error(`vfx: ${file} is missing: run tools/vfx/fetch-effects.sh`);
+    files.set(file, await new Promise((res, rej) => {
+      const timer = setTimeout(() => rej(new Error(`vfx: ${file} did not load in 30 s (a texture or model it names is missing?)`)), 30000);
+      const e = ctx.loadEffect("/" + file, 1.0, () => { clearTimeout(timer); res(e); }, (m, p) => { clearTimeout(timer); rej(new Error(`vfx: ${file}: ${m} ${p}`)); });
+    }));
   }
   const fps = sb.fps || 30;
   const list = items.map(([f, i]) => ({

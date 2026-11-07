@@ -442,7 +442,7 @@ async function init(data) {
     phys = await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs, attach: attach2, releasePose: (p, time, tr) => attach2?.releasePose(p, time, tr), setPose: setPhysicsPose });
     if (!phys) setPhysicsPose(null);
   } else phys = null;
-  vfx = await makeVfx({ R, sb, target: (id) => {
+  vfx = opts.vfx === false ? null : await makeVfx({ R, sb, target: (id) => {
     const a = actors.find((x) => x.c.id === id), p = !a && props.find((x) => x.spec.id === id), o = a ? a.ch.root : p ? p.root : rigs.get(id)?.g;   // a character, a prop or a vehicle rig
     return o ? o.getWorldPosition(new THREE.Vector3()) : null;
   } });

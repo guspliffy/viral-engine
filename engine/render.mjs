@@ -326,7 +326,7 @@ async function main() {
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
-    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look } });
+    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look, vfx: !o.layoutOnly } });   // vfx: a layout draws nothing, so it skips the particle runtime
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
     const soft = /swiftshader|llvmpipe|software/i.test(info.renderer || "");
