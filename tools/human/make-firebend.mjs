@@ -33,16 +33,16 @@ const SHOTS = [
   { name: "punch2", clip: "c135_09", from: 4.05, to: 4.75, heading: 75, mid: [-0.5, 0.1], cam: { az: -10, el: 3, fov: 38, fit: 1.0, nofire: true },
     fire: [{ limb: "L", from: 4.15, to: 4.75, kind: "jet", speed: 9, dur: 0.25, size: 0.17 }] },
   // 3. a roundhouse, wide: the fire laid along the swing of the foot, a crescent
-  { name: "round", clip: "c135_07", from: 0.5, to: 1.55, heading: 60, mid: [-0.25, 0], cam: { az: 8, el: 12, fov: 44 },
+  { name: "round", rate: 1.2, clip: "c135_07", from: 0.5, to: 1.8, heading: 60, mid: [-0.25, 0], cam: { az: 8, el: 12, fov: 44 },
     fire: [{ limb: "RF", from: 0.75, to: 1.15, kind: "arc", speed: 3, size: 0.2, rate: 300, life: 0.42, minY: 0.75 }] },
   // 4. and back the other way with the left foot
-  { name: "round2", clip: "c135_07", from: 3.2, to: 4.1, heading: 110, mid: [0.25, 0], cam: { az: -5, el: 4, fov: 44, push: 0.8 },
+  { name: "round2", rate: 1.2, clip: "c135_07", from: 3.2, to: 4.3, heading: 110, mid: [0.25, 0], cam: { az: -5, el: 4, fov: 44, push: 0.8 },
     fire: [{ limb: "LF", from: 3.45, to: 3.85, kind: "arc", speed: 3, size: 0.21, rate: 300, life: 0.42, minY: 0.75 }] },
   // 5. a side kick: a jet off the sole along the leg
-  { name: "side", clip: "c135_11", from: 1.25, to: 2.4, heading: -15, mid: [0.45, 0], cam: { az: 6, el: 3, fov: 48, nofire: true },
+  { name: "side", rate: 1.2, clip: "c135_11", from: 1.25, to: 2.6, heading: -15, mid: [0.45, 0], cam: { az: 6, el: 3, fov: 48, nofire: true },
     fire: [{ limb: "RF", from: 1.65, to: 2.2, kind: "jet", speed: 9, size: 0.22, dur: 0.25 }] },
   // 6. he steps in and kicks high: the jet goes up past his head
-  { name: "high", clip: "c135_11", from: 3.8, to: 4.55, heading: 70, mid: [-0.2, 0], cam: { az: -6, el: 6, fov: 46, push: 0.78 },
+  { name: "high", rate: 1.2, clip: "c135_11", from: 3.8, to: 4.55, heading: 70, mid: [-0.2, 0], cam: { az: -6, el: 6, fov: 46, push: 0.78 },
     fire: [{ limb: "RF", from: 3.85, to: 4.3, kind: "jet", speed: 7, size: 0.24, dur: 0.25 }] },
   // 7. the jump spin kick: a ring of fire off the foot as it swings round, cut on the landing
   { name: "spin", clip: "c88_06", from: 0.38, to: 1.2, heading: 20, mid: [0, -0.2], cam: { az: 0, el: 4, fov: 46 },
@@ -58,8 +58,10 @@ const SHOTS = [
       { limb: "L", at: 1.35, to: 1.95, kind: "hold", speed: 1, size: 0.045, rate: 70, life: 0.28, lift: 0.4 }, { limb: "R", at: 1.4, to: 1.95, kind: "hold", speed: 1, size: 0.045, rate: 70, life: 0.28, lift: 0.4 }] },
 ];
 
-const segsOf = (sh, heading, place) => [{ at: 0, clip: sh.clip, from: sh.from, to: sh.to, place, heading, blend: 0 }];
-const lenOf = (sh) => R(sh.to - sh.from);
+// rate: the take played faster than recorded (Jonny 7 Nov 15:36: "the round kicks and front kicks could be slightly
+// faster")
+const segsOf = (sh, heading, place) => [{ at: 0, clip: sh.clip, from: sh.from, to: sh.to, place, heading, blend: 0, speed: sh.rate ?? 1 }];
+const lenOf = (sh) => R((sh.to - sh.from) / (sh.rate ?? 1));
 const one = (sh, heading, place) => new Performance(segsOf(sh, heading, place), clips, [], LEG);
 const list = [];
 let t = 0;
@@ -73,7 +75,7 @@ for (const sh of SHOTS) {
 }
 const END = R(t);
 const perf = new Performance(list, clips, [], LEG);
-const T = (sh, u) => R(sh.t0 + (u - sh.from), 4);
+const T = (sh, u) => R(sh.t0 + (u - sh.from) / (sh.rate ?? 1), 4);
 
 // the fire's sources: the drawn body's fist or foot when measured, else the recording's, and the limb's line
 const MEAS = fs.existsSync("storyboards/human/fire/firebend-01.src.json") ? JSON.parse(fs.readFileSync("storyboards/human/fire/firebend-01.src.json", "utf8")) : null;
@@ -185,7 +187,7 @@ const put = (s, item) => { const b = shotAt(s); b.do.push({ ...(item.sfx ? { rea
 const hitStop = [];
 for (const B of blasts) {
   const b = shotAt(B.at);
-  if (B.kind === "hold") { if (b.name !== "punch1") put(B.at, { sfx: "ai/ignite", gain: 1.6 }); continue; }
+  if (B.kind === "hold") { if (b.name !== "punch1") put(B.at, { sfx: "ai/ignite", gain: 1.1 }); continue; }
   if (b.name === "round" || b.name === "round2") { put(B.at - 0.12, { sfx: "whoosh", dur: 0.4, gain: 0.45 }); put(B.at, { sfx: "ai/flare", gain: 0.8 }); continue; }
   const big = b.name === "final", LADDER = { punch1: 0.55, punch2: 0.6, side: 0.65, high: 0.7, spin: 0.7 };
   put(B.at - 0.02, { sfx: "flamejet", gain: big ? 1.0 : LADDER[b.name] ?? 0.7 });
