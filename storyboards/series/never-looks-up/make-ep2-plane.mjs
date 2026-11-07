@@ -121,12 +121,12 @@ const P = Object.fromEntries(props.map((p) => [p.id, p]));
 
 // ---------------------------------------------------------------- the plane: bumps, lightning, the rumble
 const BUMPS = [[0.06, 0.06, 0.4], [1.55, 0.045, 0.35], [2.45, 0.04, 0.3], [3.27, 0.05, 0.35], [5.0, 0.09, 0.6], [9.2, 0.07, 0.45]];
-const FLASHES = [0.08, 3.2, 5.0, 7.6];   // the lightning (frame 0 stays clean; the others land on their cuts)
+const FLASHES = [0.08, 2.45, 3.2, 5.0, 7.6];   // (2.45, review B v4: lightning in the cabin too, on the second bin)   // the lightning (frame 0 stays clean; the others land on their cuts)
 for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.18, dur: 0.08, sound: false });   // the lightning lights the whole cabin
 for (const t of FLASHES) { prop(t, "wall", { glow: 1 }, 0.04, "out"); prop(t + 0.1, "wall", { glow: 0.3 }, 0.06); prop(t + 0.18, "wall", { glow: 0.9 }, 0.04); prop(t + 0.24, "wall", { glow: 0 }, 0.3, "in"); }
 for (const t of FLASHES) sfx(t + 0.05, "rumble", { gain: 0.5, dur: 1.2, reason: "thunder after the lightning in the window" });
 sfx(0, "rumble", { gain: 0.32, dur: END - 0.05, reason: "the cabin's engine rumble bed" });
-for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.05 : r3(a * 0.25), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
+for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.05 : r3(a * 0.5), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
 // every sitter jolts with each bump (they sit on the plane, so they move with it a beat late)
 for (const [t] of BUMPS.slice(0, 4).filter(([t]) => t !== 2.45)) for (const w of ["phx", "wiz", "rea"]) A(t + 0.03, w, "squash", { amount: w === "wiz" ? 0.09 : 0.04, dur: 0.2 });
 
@@ -366,6 +366,7 @@ see(5.1, 6.95, ["phx.face", "wiz", "rea.face", "sam.face", "tea", "phone"], "P4:
 
 // ---------------------------------------------------------------- 5 PEAK 7.0-8.0 (P5)
 A(7.0, "wiz", "look", { to: [0.4, -0.4], dur: 0.2, blink: false });
+A(7.0, "wiz", "expr", { expr: "terrified", set: { open: 0.3, wide: 0.4 }, dur: 0.25 });   // review B v4: upside down, the big yell read as a brow; a smaller mouth for the whisper
 A(7.0, "phx", "noblink", { dur: 1.0 });
 c.arm(7.1, "wiz", "L", { x: [0.36, 0.52, 0.26] }, 0.25, "inOut");   // his free glove cupped beside his mouth, off his eyes
 A(7.3, "wiz", "talk", { line: "psst! psst!", dur: 0.5, tone: "excited" });
@@ -457,6 +458,8 @@ for (const [who, amp] of [["wiz", 1.5], ["rea", 1.5], ["sam", 1.3]]) A(0, who, "
 for (const [who, ts] of [["wiz", [2.05, 5.6, 9.0]], ["rea", [2.2, 5.3, 9.95]]]) { A(0, who, "noblink", { dur: LAND }); for (const t of ts) A(t, who, "blink", { dur: 0.2 }); }
 const OUT = [[CUTS[0][0], r3(CUTS[0][0] + INS_T)], [r3(CUTS[1][0] + INS_T), r3(CUTS[1][0] + INS_T + INS)]].map(([a, b]) => [a - 0.75, b]);
 for (const [who, t0] of [["rea", 1.5], ["sam", 2.0], ["wiz", 2.4]]) for (let t = t0; t < LAND - 0.8; t += 1.2) if (!OUT.some(([a, b]) => t > a && t < b)) c.at(r3(t), { fx: "sweat", who, dur: 0.7, count: 3 });
+// the cabin never sits still while the plane is in trouble (review B v4): a low tremor under the bumps, inside only
+for (const [a, b] of [[CUTS[0][0] + INS_T, CUTS[1][0] + INS_T], [CUTS[1][0] + INS_T + INS, LAND]]) c.at(r3(a + 0.02), { fx: "shake", amp: 0.006, dur: r3(b - a - 0.05) });
 // after the landing: Reaper sighs into his tea, the Samurai is left stunned (the Wizard's glare is the ending)
 A(r3(LAND + 0.3), "rea", "expr", { expr: "kind", set: { curve: 0.1, eye: 0.9 }, dur: 0.35 });
 A(r3(LAND + 0.3), "rea", "face", { brow: 0, corner: 0, dur: 0.35 });

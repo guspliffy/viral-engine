@@ -1830,6 +1830,12 @@
      "at": 0.02
     },
     {
+     "fx": "shake",
+     "amp": 0.006,
+     "dur": 4.63,
+     "at": 0.02
+    },
+    {
      "do": "prop",
      "id": "duf",
      "set": {
@@ -1985,7 +1991,7 @@
    "do": [
     {
      "fx": "shake",
-     "amp": 0.011,
+     "amp": 0.023,
      "dur": 0.3,
      "at": 0.05
     },
@@ -2329,8 +2335,25 @@
      "at": 0.93
     },
     {
+     "fx": "flash",
+     "peak": 0.18,
+     "dur": 0.08,
+     "sound": false,
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
      "fx": "shake",
-     "amp": 0.01,
+     "amp": 0.02,
      "dur": 0.3,
      "at": 0.95
     },
@@ -2368,6 +2391,13 @@
      "at": 0.98
     },
     {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "dur": 1.2,
+     "reason": "thunder after the lightning in the window",
+     "at": 1
+    },
+    {
      "do": "prop",
      "id": "case",
      "set": {
@@ -2377,6 +2407,16 @@
      "dur": 0.12,
      "ease": "in",
      "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0.3
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.05
     },
     {
      "do": "prop",
@@ -2452,6 +2492,26 @@
      "dur": 0.3,
      "ease": "in",
      "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0.9
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "do": "prop",
+     "id": "wall",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.19
     },
     {
      "sfx": "notify",
@@ -2723,7 +2783,7 @@
     },
     {
      "fx": "shake",
-     "amp": 0.013,
+     "amp": 0.025,
      "dur": 0.3,
      "at": 0.07
     },
@@ -3803,7 +3863,7 @@
     },
     {
      "fx": "shake",
-     "amp": 0.023,
+     "amp": 0.045,
      "dur": 0.3,
      "at": 0
     },
@@ -3819,6 +3879,12 @@
      "dur": 0.7,
      "count": 3,
      "at": 0
+    },
+    {
+     "fx": "shake",
+     "amp": 0.006,
+     "dur": 4.37,
+     "at": 0.02
     },
     {
      "sfx": "rumble",
@@ -4752,6 +4818,17 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3,
+      "wide": 0.4
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
      "who": "phx",
      "do": "noblink",
      "dur": 1,
@@ -5077,7 +5154,7 @@
    "do": [
     {
      "fx": "shake",
-     "amp": 0.018,
+     "amp": 0.035,
      "dur": 0.3,
      "at": 0
     },
