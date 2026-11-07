@@ -488,3 +488,27 @@ renders variants of a storyboard, puts each through the same rough TikTok re-enc
 how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
 is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
 0.967. Line width and hatch spacing barely mattered.
+
+## The drawn 2D layer (opt-in, look-2d-layer-01, 7 Nov 2026; Jonny's call before it goes in the template)
+
+Anime draws a feeling as a mark beside the head and a fast move as a smeared drawing; here they are drawn on the 2D
+layer over the 3D picture (`engine/page/fx2d.js`), so they boil with the drawn look and never touch the 3D contacts.
+`"anime2d": true` adds them from the storyboard itself (`engine/shared/anime2d.js`):
+
+- `vein` (throbbing red cross on the head's top side) on an annoyed, angry, stern or furious face and an angry line;
+  `drop` (big sweat drop sliding down the side) on worried, nervous, scared, terrified or dizzy; `shock` (three fat
+  dashes either side above the head) on shocked or surprised; `gloom` (purple wash and vertical lines over the top of
+  the body) on sad or defeated. A mark stays while the face does (0.6-1.8 s); a face held from frame 0 gets none; at
+  most three of the same mark at once.
+- `dust`: a drawn dust cloud with grit where a land or a high hop meets the floor (only on the ground).
+- `burst`: an inked impact star with action lines on the head of whoever an `act.impact` hit squashes.
+- `smear2d`: on any body moving more than 42 px a frame, tapered drawn smear fingers behind it in its own colour,
+  inked at the sides, for that frame only (never across a cut). `"anime2d": { "smear": { "trail": 3.2 } }` sets the
+  length in frames of motion.
+
+`"anime2d": { "vein": false, ... }` turns one off. Each mark is an ordinary `fx` item, so a beat can also write it by
+hand (`{ "fx": "drop", "who": "phx", "at": 0.2, "dur": 1 }`, `burst` takes `"where": "top" | "side"` and `"size"`),
+and a hand-written mark for the same character within 1.5 s wins over an automatic one. A mark is skipped while a
+nearer character covers the head it belongs to. `"debug2d": true` draws the body ellipses the marks are placed on.
+Test copy: `storyboards/series/too-much-energy/02-cinema/cinema-2d.json` (before/after in
+`/mnt/project-files/videos/engine-upgrades/look-2d-layer-01/`).

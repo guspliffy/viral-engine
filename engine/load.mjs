@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
 import { direct } from "./direct.mjs";
+import { anime2dFx } from "./shared/anime2d.js";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
@@ -129,7 +130,7 @@ export function loadStoryboard(file, opts = {}) {
   if (sb.set?.plate) plateFiles(sb.set.plate);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
-  const out = withHolds(cleanStart(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars)))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  const out = withAnime2d(withHolds(cleanStart(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
   return out;
 }
@@ -179,6 +180,14 @@ function envGate(sb) {
 
 // hit-stops (engine/shared/holds.js): every time in the storyboard stays story time; "duration" becomes the video's
 // length (the story plus the held frames), "storyDuration" keeps the story's own
+// "anime2d" (opt-in, look-2d-layer-01): the drawn 2D layer's marks (anger veins, sweat drops, shock and gloom lines,
+// dust on landings, the drawn smear) read from the clip's own expressions and landings (engine/shared/anime2d.js), added
+// as ordinary fx items so the renderer, the frame cache and qa/ all see the same list
+function withAnime2d(sb) {
+  const add = anime2dFx(sb);
+  return add.length ? { ...sb, fx: [...(sb.fx || []), ...add].sort((a, b) => (a.at ?? 0) - (b.at ?? 0)) } : sb;
+}
+
 function withHolds(sb) {
   const holds = holdsOf(sb);
   if (!holds.length) return sb;

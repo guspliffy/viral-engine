@@ -61,7 +61,13 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   so never fade a glow to pass a check.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
-- **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
+- **A held prop stays out of its holder's own face** (`prop-in-self`, warns, 7 Nov 2026): a cup, note or spoon more than
+  5 cm into its own holder's face at eye height for 0.2 s (the coffee run's Wizard cup over his eye at 9.3-10.6 s), or
+  25 cm into the body anywhere. Lips on a cup don't waive it: only a window naming `"prop-in-self"` does.
+- **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent. Every spoken line
+  stands 6 dB or more over the music and effects in the band a phone plays (`phone-line`, under 3 dB warns), and the
+  loop seam doesn't click (`loop-seam-sound`: render.mjs fades in 3 ms and out 20 ms since 7 Nov). `node qa/lines.mjs
+  <sb> [--clip <mp4> --hear]` in seconds; `--hear` runs Whisper on the phone-filtered file for real-speech lines.
   Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny.
 
 **Publishing: the platforms' published requirements, per profile** (`"profile"` in the storyboard or `--profile`;
@@ -272,6 +278,8 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    every grab, release, raise and contact. `node qa/readability.mjs <sb>` (about a minute) warns when a character
    melts into the set or into another character at a beat, and draws each beat as a frame with the lost outline in
    red above all characters as black silhouettes: a pose that doesn't read in black won't read in a feed.
+   `node qa/colour.mjs <sb>` (about 35 s) warns when a beat's light turns a character's own colours into others
+   (Delta E 2000 against the character file, per beat).
 2. **Creative director review A (storyboard)**: Fable reviews the storyboard, a contact sheet of the draft stills and
    the readability sheet.
    See `qa/REVIEW.md`. **Default for every new clip**, one round. Give it Jonny's brief: the brief wins, and
