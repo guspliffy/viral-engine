@@ -25,7 +25,7 @@ const c = clip({ faces: FACES, lines: LINES }), { A, see } = c;
 const W = "peb", END = 19.0;
 
 // ---------------------------------------------------------------- places (meadow-path env; x right, z toward us)
-const START = [-0.55, -3.3], STOP1 = [-0.1, -1.7], ACROSS = [-0.75, -1.5], NEAR = [-0.15, -0.35], AWAY = [-0.3, -1.8];
+const START = [-0.55, -3.3], STOP1 = [-0.1, -1.7], ACROSS = [-0.75, -1.5], NEAR = [-0.15, -0.35], AWAY = [-0.3, -1.3];
 const cast = [{ id: W, character: "pebble/pebble", at: START, face: 18, expr: "kind", follow: 0.4, seed: 1.3 }];
 
 // ---------------------------------------------------------------- 1 STROLL 0-3.5: frame 0 mid-walk, coming down the path
@@ -63,10 +63,12 @@ see(13.4, 15.3, [`${W}.face`], "his line");
 
 // ---------------------------------------------------------------- 6 ON HE GOES 15.4-17.0: he turns and strolls on, away
 peb.strawIn(c, 15.2, W);
-A(15.6, W, "turn", { to: 175, dur: 0.7 });
-act.eyesLead(c, 16.0, W, [0, 0.05], { lead: 0.15, dur: 0.3 });
-peb.walk(c, 16.0, W, AWAY, 3.0, { steps: 2.3, rest: false });
-see(15.6, 19.0, [W], "he strolls on up the path");
+// the turn waits for the straw hand to come down (an unhurried 1.1 s about-turn, no whip), then he strolls off
+act.eyesLead(c, 16.2, W, [-0.6, 0.05], { lead: 0.15, dur: 0.3 });
+A(16.2, W, "turn", { to: 175, dur: 1.0, ease: "inOut" });
+act.eyesLead(c, 17.15, W, [0.1, 0.1], { lead: 0.15, dur: 0.3 });   // a look up the path ahead before the first step
+peb.walk(c, 17.15, W, AWAY, 1.85, { steps: 2.3, rest: false });
+see(16.3, 19.0, [W], "he strolls on up the path");
 
 // ---------------------------------------------------------------- shots (meadow-path's camera range: qa/env.mjs --range)
 const WIDE = { pos: [0, 1.05, 4.2], look: [0, 0.95, -1.6], fov: 34 };
