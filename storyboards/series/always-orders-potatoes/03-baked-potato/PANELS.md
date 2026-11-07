@@ -72,3 +72,22 @@ high, behind a bar counter, phone up in both hands.
   steak; faster throws skidded every piece off the plate.
 - **Known glitch for the next cut:** the spoon slips in Viking's fist during the first bite (1.6-2.0 s, prop-pop) and his
   hand passes his eyes at 1.67-1.97 s; one held grip through the whole bite fixes both, and needs a new spoon hold.
+
+## v2: the alive potato (Jonny 7 Nov 13:21, "Alive potato remake")
+
+Jonny picked a remake where the baked potato is a character, as in the New York potato video. These departures from
+the panels are on purpose:
+- **The potato wakes at the first spoon** (1.92 s) and Viking never eats it: it waves "Hi!", loves the toppings, asks
+  for "More!", leans over to look at Gunslinger's steak and tips the tower onto it, and says the catchphrase "Want
+  some?" itself. Viking beams with pride; Phoenix lowers his phone. The panels' beats stay, the actor changes.
+- **New character `always-orders-potatoes/baked-spud`** (russet #84432a with dark specks: the sheet look turns any
+  skin with a hue of 20-55 golden, so a brown potato needs a hue under 20). Its personality is a PROPOSAL for Jonny.
+- **The napkin is gone** and the topping bowls moved to the potato's left: the napkin clipped the potato's back, and
+  bowls in front of it put Viking's arm through its body on every trip.
+- **New shots**: a 0.4 s close-up on the potato's face as it wakes (1.88-2.3 s, review A), a closer loading shot (4.3 s)
+  and the topple medium held to 9.3 s before the closing wide.
+- **The wide captions sit high** (y 480, on the shelf): with the bigger potato and lower wide, the lower third is all
+  faces. The close shots keep y 1262.
+- **The bacon shower is gone**: loose bits hanging in the air read as confetti at phone size (review A).
+- **The spoon still slips in Viking's fist** on each loading trip (named in an allowClip window): a steady single hold
+  made new palm-in-spoon and hidden-end fails, so the real fix is a new spoon hold in the grip library.

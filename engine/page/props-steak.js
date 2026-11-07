@@ -11,9 +11,12 @@ import { steamWisps } from "./steam.js";
 //   steaktable   a rustic wooden table along x (spec.w, spec.d, spec.h), a red cloth along its front edge (spec.cloth
 //                deep) hanging over it. Origin: the floor under its middle. Grip: its top (h).
 //   servingboard a wooden serving board (spec.w, spec.d), 3 cm thick, a handle at +x. Origin: its bottom.
-//   bakedpotato  a big baked potato in crinkled foil (L 0.52, W 0.33, H 0.24). `open` 0..1 folds the foil's top back
+//   bakedpotato  a big baked potato in crinkled foil (L 0.52, W 0.33, H 0.24). `empty`: the foil alone, for a potato
+//                character sitting in it. `open` 0..1 folds the foil's top back
 //                (0.25 tears a gap at the top, 1 a foil boat round it), the split top with its fluffy inside rising as it
 //                opens; `steam` 0..1. Origin: its bottom.
+//   spudsplit    the split top of a baked potato character (worn at the top of its head): fluffy potato in a slit and a
+//                small melting butter pat. `len` the split's length (0.16). Origin: the slit's middle.
 //   toppingbowl  a small white bowl (r 0.055) of one topping: spec.food "butter" | "cream" | "cheese" | "chives" | "bacon".
 //   butterpat    a pat of butter (5.6 x 2.4 x 4.2 cm), `melt` 0..1 softens and sags it. Origin: its bottom. A body.
 //   creamdollop  a swirled dollop of sour cream (r 0.045), chives on it when spec.chives. Origin: its bottom. A body.
@@ -128,7 +131,7 @@ export const STEAK_KINDS = {
     }
     pg.setAttribute("color", new THREE.Float32BufferAttribute(col, 3)); pg.computeVertexNormals();
     const skin = mat("#ffffff", { roughness: 0.75, vertexColors: true }); skin.userData.noHatch = true;
-    mesh(pg, skin, P.whole, 0, 0, 0);
+    const potatoMesh = mesh(pg, skin, P.whole, 0, 0, 0);
     // the split top: a fluffy white mound in the slit, rising as the foil opens (buttery yellow at its edges)
     const fluff = new THREE.Group(); fluff.position.set(0, cy + cH * 0.55, 0); P.whole.add(fluff);
     const fg = new THREE.SphereGeometry(1, 36, 18, 0, Math.PI * 2, 0, Math.PI / 2), fp = fg.attributes.position, fc = [];
@@ -184,11 +187,24 @@ export const STEAK_KINDS = {
       apply(ps, t) {
         const open = clamp(ps.open ?? 0);
         if (Math.abs(open - last) > 1e-6) { shape(open); last = open; }
-        fluff.scale.set(1, 0.15 + 0.85 * Math.min(1, open * 1.6), 1); fluff.visible = open > 0.01;
+        fluff.scale.set(1, 0.15 + 0.85 * Math.min(1, open * 1.6), 1); fluff.visible = !S.empty && open > 0.01;
+        potatoMesh.visible = !S.empty;   // empty: only the foil (a potato character sits in it)
         steam(ps.steam ?? 0, t);
         void foil;
       },
     };
+  },
+
+  // the split top of a baked potato character (worn, spec.wear, at the top of its head): fluffy potato bulging out of a
+  // slit, buttery at its edges, and a small butter pat melting in it. len: the split's length (m). Origin: the slit's middle.
+  spudsplit(P) {
+    const S = P.spec, L = S.len ?? 0.16, r = rng(S.seed ?? 4), g = new THREE.Group(); P.whole.add(g);
+    const fluffM = mat("#fbf0cf", { roughness: 0.9 }); fluffM.userData.noHatch = true;
+    const edgeM = mat("#f2d77e", { roughness: 0.7 }); edgeM.userData.noHatch = true;
+    for (let i = 0; i < 9; i++) { const u = i / 8 - 0.5, k = 0.8 + 0.4 * r(); const b = mesh(new THREE.SphereGeometry(L * 0.17 * k, 12, 10), i % 3 === 1 ? edgeM : fluffM, g, u * L * 0.75, L * (0.03 - 0.1 * u * u) + L * 0.02 * r(), (r() - 0.5) * L * 0.1); b.scale.set(1.2, 0.7, 0.95); b.castShadow = false; }
+    const butM = mat("#ffd64a", { roughness: 0.35, emissive: new THREE.Color("#7a5a00"), emissiveIntensity: 0.15 }); butM.userData.noHatch = true;
+    const pat = mesh(new THREE.BoxGeometry(L * 0.3, L * 0.1, L * 0.24), butM, g, L * 0.05, L * 0.1, 0); pat.rotation.y = 0.35; pat.castShadow = false;
+    return { grip: 0.02, apply() {} };
   },
 
   toppingbowl(P) {
