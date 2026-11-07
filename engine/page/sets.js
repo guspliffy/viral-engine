@@ -15,6 +15,8 @@ import { buildLivingroom } from "./set-livingroom.js";
 import { addPlate } from "./set-plate.js";
 import { buildEnv } from "./set-env.js";
 import { addAir } from "./set-air.js";
+import { initLife, addLife } from "./set-life.js";
+import { lifeSpec } from "../shared/life.js";
 import { buildGym } from "./set-gym.js";
 import { buildPark } from "./set-park.js";
 import { buildPorch } from "./set-porch.js";
@@ -60,11 +62,13 @@ function groundTexture(inner, outer) {
 
 // Every set object must be added here: stage.js treats whatever buildSet adds as scenery (hidden in impact frames
 // and in the caption-coverage silhouette). The stage is around x -1..1, z 0; cameras look from +z.
-export function buildSet(scene, spec = {}, palette = null, eye = null) {
+export function buildSet(scene, spec = {}, palette = null, eye = null, duration = 10) {
+  initLife(lifeSpec(spec, duration));   // set "life" (set-life.js): before the set, whose painted layers read the wind
   const r = buildSetType(scene, spec, palette);
   if (spec.plate) addPlate(scene, spec.plate, { eye, light: spec.light, under: spec.floor === "shadow" });   // set-plate.js: a painted backdrop behind the 3D stage
   for (const p of spec.plates || []) addPlate(scene, { dust: 0, ...p, depth: false, motion: false }, { eye, light: spec.light });   // side walls
   if (spec.air) addAir(scene, spec.air, { eye });   // set-air.js: sunbeams and drifting motes (Phase 2, living world)
+  if (spec.life) addLife(scene, spec);   // set-life.js: birds, butterflies, leaves shaken loose by the gusts
   if (spec.models || spec.scatter) addModels(scene, spec);   // assets-gltf.js: real 3D models (CC0 kit, Blender), preloaded by stage.js
   return r;
 }
