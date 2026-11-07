@@ -40,7 +40,7 @@ const cast = [
   { id: "rea", character: "notyet/reaper-noscythe", at: BAG.rea, face: 0, expr: "deadpan", follow: 0.15, seed: 4.1 },
   { id: "wiz", character: "notyet/wizard-nostaff", at: BAG.wiz, face: 0, expr: "kind", follow: 0.2, seed: 2.6 },
 ];
-const STOOL = [1.45, 0.6];   // right of the door (the panels have it left: mirrored so the grin and the sunrise keep it in view)
+const STOOL = [1.28, 0.8];   // right of the door (the panels have it left: mirrored so the grin and the sunrise keep it in view)
 const CORD_TIE = [0.33, 0.35, -0.15];   // the cord's tie on the Wizard's bag (its outer side, behind him), in the bag's frame
 const PEGS = [[-1.5, r3(DOOR + 0.02)], [1.5, r3(DOOR + 0.02)], [-1.9, r3(DOOR + 0.3)], [1.9, r3(DOOR + 0.3)], [-1.5, r3(TZ - TD / 2 - 0.02)], [1.5, r3(TZ - TD / 2 - 0.02)]];
 const LANTERN_UP = [0, 1.94, r3(DOOR - 0.55)], LANTERN_DOWN = [0.95, 0.09, r3(DOOR + 0.15)];
@@ -52,10 +52,11 @@ const props = [
     staged: "the lantern's cord runs from the roof loop down to the Wizard's bag, tied round it (the cause of the collapse)" },
   { id: "pillow", kind: "pillow", x: 0.95, y: 0.08, z: -1.3, rot: 10, body: { density: 40, bounce: 0.3 } },
   { id: "stool", kind: "stool", x: STOOL[0], z: STOOL[1], rot: -15 },
-  { id: "clock", kind: "campclock", x: STOOL[0], y: 0.42, z: STOOL[1], rot: -20, scale: 1.6 },
+  { id: "clock", kind: "campclock", x: STOOL[0], y: 0.42, z: STOOL[1], rot: -20, scale: 2.1 },
   ...PEGS.map(([x, z], i) => ({ id: `peg${i}`, kind: "tentpeg", x, y: 0, z, sink: 0.55, body: { density: 300, bounce: 0.2 } })),
+  { id: "lampglow", kind: "cinemaglow", x: 0, y: 1.4, z: -1.2, color: "#ffb860", size: 2, peak: 0.6, glow: 0.6 },   // the lantern's warm pool on the sleepers (panel 01)
   { id: "glow", kind: "cinemaglow", x: 0, y: 0.8, z: 1.9, color: "#ffa23a", size: 2.4, peak: 0.6, glow: 0.12 },
-  { id: "sunglow", kind: "cinemaglow", x: 3.2, y: 1.9, z: -6.9, color: "#ffc760", size: 3.4, peak: 0.8, glow: 0 },   // on the painted sun, all of it above the ground (the floor hides what dips under)
+  { id: "sunglow", kind: "cinemaglow", x: 3.2, y: 1.9, z: -6.9, color: "#ffc760", size: 2.4, peak: 0.6, glow: 0 },   // on the painted sun, all of it above the ground (the floor hides what dips under)
   { id: "sun", kind: "camplight", x: 3, y: 3.5, z: -6, color: "#ffc070", power: 0, dist: 40 },
   { id: "fill", kind: "camplight", x: 1.2, y: 2.2, z: 4.5, color: "#ffd59a", power: 0, dist: 14 },
 ];
@@ -73,7 +74,7 @@ A(0, "rea", "expr", { expr: "deadpan", set: { open: 0, curve: -0.05 }, dur: 0.01
 A(0, "wiz", "expr", { expr: "kind", set: { open: 0.05, curve: 0.1 }, dur: 0.01 });
 c.prop(0, "bagR", { cover: 0.12 }, 0.01); c.prop(0, "bagW", { cover: 0.05 }, 0.01);
 c.prop(0, "tent", { open: 0.6, fall: 0, lit: 1 }, 0.01);
-c.prop(0, "clock", { time: 0, lit: 0 }, 0.01);
+c.prop(0, "clock", { time: 0, lit: 0.5 }, 0.01);   // the display glows in the blue dawn (panel 01)
 c.prop(0, "cord", { fall: 0 }, 0.01);
 for (const t of [0, 0.75]) c.at(t, { fx: "zzz", who: "wiz", dur: 0.9, count: 3 });
 
@@ -101,7 +102,7 @@ A(1.12, "phx", "move", { to: ZIP_AT, dur: 0.38 });   // a dash to the door, unde
 A(1.3, "phx", "turn", { to: 35, dur: 0.2 });
 A(1.4, "phx", "look", { to: [0.5, 0.15], dur: 0.12, blink: false });
 c.arm(1.4, "phx", "R", { o: [0.22, 0.4, 0.12] }, 0.2, "inOut");
-const ZIPG = { prop: "tent", part: "zip", grip: [0, 0, 0.03], palm: true };
+const ZIPG = { prop: "tent", part: "zip", grip: [0, 0, 0.08], palm: true };   // on the outside of the flap
 c.arm(1.5, "phx", "L", ZIPG, 0.15, "out");
 // down and up, faster and faster: shut over their faces, open again (open 0.6 the slider at his shoulder, 0.2 low)
 const ZIPS = [[1.62, 0.2, 0.17], [1.8, 0.6, 0.17], [1.98, 0.2, 0.14], [2.13, 0.6, 0.14], [2.28, 0.2, 0.11], [2.4, 0.6, 0.11], [2.52, 0.2, 0.09], [2.62, 0.6, 0.09]];
@@ -130,7 +131,7 @@ A(3.32, "phx", "look", { to: [0, 0.15], dur: 0.12, blink: false });
 A(3.5, "phx", "wings", { to: 1, dur: 0.2, ease: "out" });
 A(3.5, "phx", "span", { to: 1, dur: 0.25, ease: "out" });
 A(3.5, "phx", "charge", { to: 0.6, dur: 0.2 });
-c.arm(3.5, "phx", "R", { o: [0.42, 0.85, 0.05] }, 0.22, "out"); c.arm(3.5, "phx", "L", { o: [0.42, 0.85, 0.05] }, 0.22, "out");
+c.arm(3.5, "phx", "R", { o: [0.3, 0.8, 0.28] }, 0.22, "out"); c.arm(3.5, "phx", "L", { o: [0.3, 0.8, 0.28] }, 0.22, "out");   // forward of the body: the glove clear of the Wizard's brim
 c.prop(1.12, "glow", { glow: 0 }, 0.2); c.prop(3.4, "glow", { x: DOOR_AT[0], y: 0.85, z: r3(DOOR_AT[1] - 0.2) }, 0.01);
 c.prop(3.5, "glow", { glow: 1 }, 0.25, "out");
 sfx(3.5, "ai/flare", { gain: 0.4, reason: "the meter up again: his wings blaze open like a sunrise" });
@@ -145,7 +146,7 @@ A(4.15, "wiz", "face", { lid: 0.35, dur: 0.1 });
 A(4.15, "wiz", "look", { to: [-0.5, 0.2], dur: 0.1, blink: false });
 const CREST = [DOOR_AT[0], 1.28, DOOR_AT[1]];
 // he flings it up off the floor in one swing of his arm (a grab and a wind-up made the pillow slip in the glove)
-c.throw(4.3, "pillow", { to: [CREST[0] + 0.02, CREST[1], CREST[2] - 0.02], in: 0.3, spin: [3, 1.5, 0.5] });
+c.throw(4.3, "pillow", { to: [CREST[0] + 0.02, CREST[1], r3(CREST[2] + 0.12)], in: 0.3, spin: [2, 1, 0.3] });   // the front of his crest: it bounces off toward us and stays in frame
 c.arm(4.28, "wiz", "L", { o: [-0.02, 0.85, 0.35] }, 0.12, "out");
 c.arm(4.75, "wiz", "L", { o: [-0.12, 0.32, 0.22] }, 0.3, "inOut");
 // the bonk on his crest (hit-stop), and he laughs: a game!
@@ -153,8 +154,11 @@ sfx(4.6, "ai/cushion-poof", { gain: 0.75, reason: "the pillow bonking off his cr
 sfx(4.6, "slap", { gain: 0.3, reason: "the flump's cloth smack, so it carries on a phone" });
 c.hitStop(STOP1);
 A(4.6, "phx", "squash", { amount: 0.08, dur: 0.15 });
+c.at(4.6, { fx: "sparkle", who: "phx", dur: 0.5, count: 2, color: "#ffffff" });   // two cartoon stars off the bonk
+c.textPop(4.6, "phx", "bonk", { dur: 0.6 });
 A(4.62, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 1, eye: 0.6 }, dur: 0.1 });
 c.say(4.75, "phx", "ha-ha-ha!", 0.45, "excited", { pos: SUB, sub: "Ha-ha!" });
+c.captions[c.captions.length - 1].to = 5.15;   // gone before the cut to the tow (review A)
 // Reaper slowly pulls the whole bag over his head
 c.prop(4.0, "bagR", { cover: 1 }, 0.9, "inOut");
 sfx(4.0, "cloth", { gain: 0.3, reason: "Reaper's bag pulled up over his head" });
@@ -199,11 +203,12 @@ for (const [i, t] of [[1, 6.0], [3, 6.06], [0, 6.12], [2, 6.17]].map(([i, t]) =>
 c.prop(FALL0, "tent", { fall: 1 }, r3(FALL - FALL0 + 0.05), "in");
 c.prop(FALL0, "cord", { fall: 1 }, r3(FALL - FALL0 + 0.05), "in");
 c.prop(FALL0, "tent", { lit: 0.6 }, 0.3);
+c.prop(r3(FALL0 - 0.05), "lampglow", { glow: 0 }, 0.2);
 c.hitStop(FALL);
 sfx(FALL, "thud-soft", { gain: 0.8, reason: "the tent poles folding and the cloth flopping down flat" });
 sfx(r3(FALL + 0.02), "kenney/drop-leather", { gain: 0.6, reason: "the canvas landing on the grass: a soft flop" });
 c.at(FALL, { fx: "shake", dur: 0.2, amp: 0.02 });
-act.landDust(c, FALL, [0, 0.05, TZ], { color: "#c9d0c2", puffs: 10 });
+act.landDust(c, FALL, [0, 0.05, TZ], { color: "#c9d0c2", puffs: 18 });
 // he stops; the bags slide on a little on the wet grass, and he lets go (his hands only rest on the foot ends: the
 // bags move by their own tweens, so nothing is attached)
 A(RUN1, "phx", "pitch", { to: 0, dur: 0.2 });
@@ -212,10 +217,9 @@ for (const [bag, xz, d] of [["bagR", BAG.rea, 0.04], ["bagW", BAG.wiz, 0]]) c.pr
 c.prop(r3(RUN1 + 0.04), "cord", { z: r3(BAG.wiz[1] + CORD_TIE[2] + DRAG + 0.12) }, 0.3, "out");
 const PHX_END = [-1.5, r3(BAG.rea[1] + BAG_LEN + 0.32 + DRAG)];
 A(r3(RUN1 - 0.05), "phx", "look", { to: [-0.4, 0], dur: 0.12, blink: false });
-// he lets go, arms out low, and bounces sideways out of their way in one hop (a walk turned his hands over)
-c.arm(r3(RUN1 + 0.08), "phx", "R", { o: [0.34, 0.3, 0.18] }, 0.3, "inOut"); c.arm(r3(RUN1 + 0.08), "phx", "L", { o: [0.34, 0.3, 0.18] }, 0.3, "inOut");   // low and out, the palms down all the way
-A(r3(RUN1 + 0.2), "phx", "move", { to: PHX_END, dur: 0.46, steps: 0 });
-A(r3(RUN1 + 0.18), "phx", "hop", { height: 0.2, dur: 0.5 });
+// he lets go, arms out low, and scampers sideways out of their way
+A(r3(RUN1 + 0.08), "phx", "arm", { side: "R", pose: { o: [0.34, 0.3, 0.18] }, dur: 0.3, ease: "inOut", lead: false }); A(r3(RUN1 + 0.08), "phx", "arm", { side: "L", pose: { o: [0.34, 0.3, 0.18] }, dur: 0.3, ease: "inOut", lead: false });   // low and out, the palms down all the way
+A(r3(RUN1 + 0.2), "phx", "move", { to: PHX_END, dur: 0.55 });   // a quick scamper (a hop with a glide tipped his body in single frames)
 // the arms stay up through the landing; the grin block takes them from there
 A(V(6.4), "phx", "charge", { to: 0.3, dur: 0.4 });
 act.mood(c, V(6.7), "wiz", "annoyed", { hold: 0.8, lid: 0.55 });
@@ -255,7 +259,7 @@ c.prop(S0, "sunglow", { glow: 0.5 }, 0.01);
 c.prop(V(8.6), "sunglow", { glow: 1, y: 2.1 }, 0.5, "out");
 c.prop(V(8.6), "sun", { glow: 1 }, 0.5, "out");
 c.prop(V(8.6), "fill", { glow: 1 }, 0.5, "out");
-c.at(V(8.8), { fx: "flash", peak: 0.25, dur: 0.6, color: "#ffd27a", sound: false });
+c.at(V(8.8), { fx: "flash", peak: 0.12, dur: 0.6, color: "#ffd27a", sound: false });
 sfx(V(8.8), "ai/warm-resolve", { gain: 0.5, reason: "the sunrise swell" });
 // Phoenix points at it with both wings wide, beaming
 A(V(8.62), "phx", "look", { to: [0.5, 0.4], dur: 0.12, blink: false });
@@ -274,7 +278,7 @@ c.say(V(8.95), "wiz", "…oh.", 0.4, "calm", { pos: SUB, sub: "…oh." });
 c.prop(V(8.75), "bagR", { cover: 0.15 }, 0.35, "inOut");
 A(V(8.8), "rea", "look", { to: [0.45, 0.35], dur: 0.2, blink: false });
 A(V(8.85), "rea", "face", { lid: 0.3, dur: 0.25 });
-A(V(9.2), "rea", "pitch", { to: r3(-RECLINE + 9), dur: 0.12, ease: "inOut" });
+A(V(9.2), "rea", "pitch", { to: r3(-RECLINE + 14), dur: 0.14, ease: "inOut" });   // a nod that reads in the wide
 A(V(9.33), "rea", "pitch", { to: -RECLINE, dur: 0.15, ease: "inOut" });
 A(V(9.2), "rea", "expr", { expr: "deadpan", set: { curve: 0.15 }, dur: 0.2 });
 see(V(8.6), V(9.45), ["phx.face", "wiz.face", "rea.face", "clock"], "the real sunrise: the clock beeps 06:00, the sun clears the hills, the Wizard's \"…oh.\", Reaper's tiny nod");
@@ -287,13 +291,14 @@ A(V(9.5), "phx", "grip", { side: "L", shape: "relaxed", dur: 0.1 });
 c.arm(V(9.5), "phx", "L", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut"); c.arm(V(9.5), "phx", "R", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut");
 c.say(V(9.58), "phx", "Again tomorrow?", 0.55, "excited", { pos: SUB, sub: "Again tomorrow?" });
 for (const id of ["rea", "wiz"]) { A(V(9.75), id, "pitch", { to: -32, dur: 0.15, ease: "in" }); A(V(9.75), id, "face", { lid: 1, dur: 0.12 }); }
+A(V(9.75), "wiz", "expr", { expr: "kind", set: { curve: 0.2, open: 0 }, dur: 0.15 });   // asleep but pleased: the answer to frame 0's frown
 sfx(V(9.85), "thud-soft", { gain: 0.35, reason: "both heads dropping back onto the grass at once" });
 c.at(V(9.82), { fx: "zzz", who: "rea", dur: 0.6, count: 2 }); c.at(V(9.82), { fx: "zzz", who: "wiz", dur: 0.6, count: 2 });
 see(V(9.6), V(9.95), ["phx.face", "rea", "wiz"], "\"Again tomorrow?\": both friends drop back asleep");
 
 // ---------------------------------------------------------------- shots
-const WIDE = { pos: [0, 3.0, 5.9], look: [0, 0.5, -0.4], fov: 46 };   // higher than the panels' eye level: Phoenix in front stays under their faces
-const BREAK = { pos: [0.3, 5.2, 5.2], look: [0, 0.35, -0.1], fov: 50 };   // high, like panel 04: his crest stays under their faces while he tows them toward us   // wider and higher: the tow, the cord and the falling tent in one picture
+const WIDE = { pos: [0, 3.0, 5.9], look: [0.15, 0.5, -0.4], fov: 46 };   // higher than the panels' eye level: Phoenix in front stays under their faces
+const BREAK = { pos: [0.3, 5.2, 5.2], look: [0, 0.35, -0.1], fov: 50, to: { pos: [0.3, 4.0, 4.2], look: [0, 0.35, 0.2] }, dur: r3(FALL - V(5.3)) };   // review A: pushes in to the tent flattening, then the cut   // high, like panel 04: his crest stays under their faces while he tows them toward us   // wider and higher: the tow, the cord and the falling tent in one picture
 const ZIP = { pos: [1.5, 1.4, 4.2], look: [-0.3, 0.8, -0.7], fov: 46 };   // holds the zip and panel 03 (him in the door, the Wizard throwing) in one set-up
 // the series grin: his front-left, three-quarters, eye level; the bags and the flat tent behind him
 const GRIN = { pos: [r3(PHX_END[0] - 1.5), 1.05, r3(PHX_END[1] + 2.6)], look: [r3(PHX_END[0] + 0.1), 0.7, PHX_END[1]], fov: 46 };   // 30 degrees round: wider and the painting's edge shows
@@ -329,6 +334,7 @@ write(import.meta.url, {
     { who: "rea", with: "bagR", from: 0, to: 10, reason: "Reaper sits inside his sleeping bag" },
     { who: "wiz", with: "bagW", from: 0, to: 10, reason: "the Wizard sits inside his sleeping bag" },
     ...["phx", "rea", "wiz"].map((who) => ({ who, with: "glow", from: 0, to: 10, reason: "Phoenix's glow is light" })),
+    ...["phx", "rea", "wiz"].map((who) => ({ who, with: "lampglow", from: 0, to: 10, reason: "the lantern's glow is light" })),
     ...["rea", "wiz"].map((who) => ({ who, with: "tent", from: 0, to: 10, checks: ["costume-in-prop"], reason: "the hood and the hat brush the soft tent cloth over them" })),
     { who: "phx", with: "tent", from: 0, to: 10, checks: ["costume-in-prop"], reason: "his soft flame-feather wings brush the tent's cloth and guy ropes" },
     { who: "rea", with: "tent", from: 0, to: 6.3, reason: "Reaper sits inside the tent (the cloth is a hollow shell round him)" },
@@ -336,6 +342,7 @@ write(import.meta.url, {
     { who: "phx", with: "tent", from: 1.4, to: 5.4, reason: "he stands in the open doorway, under the front edge of the roof" },
     { who: "phx", with: "bagR", from: 1.5, to: 3.35, checks: ["costume-in-prop"], reason: "a wing tip brushes the soft foot of Reaper's sleeping bag while he zips (behind his body)" },
     { who: "wiz", with: "cord", from: 0, to: 10, reason: "the lantern cord is tied round his sleeping bag" },
+    { who: "phx", from: r3(RUN1 + 0.1), to: r3(RUN1 + 0.4), checks: ["hand-turn"], reason: "his left glove turns palm-down as the arm swings out off the bag's foot end; in the 15 fps strip it reads as the arm opening, the glove a few pixels on a phone" },
     { who: "phx", from: r3(GRAB), to: r3(RUN1 + 0.1), checks: ["hand-turn"], reason: "both fists are on the foot ends behind him, under his body and wings from the high camera: the turns never show (15 fps strip of the tow)" },
     { who: "rea", with: "pillow", from: 4.55, to: 5.3, checks: ["costume-in-prop"], reason: "the soft pillow drops off Phoenix's crest onto Reaper's covered bag and squashes on it" },
   ],
