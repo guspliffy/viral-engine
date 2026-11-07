@@ -22,10 +22,10 @@ const PHYSICS = true, LIGHTING = 2, HATCH = { boil: 0.25 };
 const LINES = { sub: true, blink: false, pos: 230 };
 
 const c = clip({ faces: FACES, lines: LINES }), { A, see } = c;
-const W = "peb", END = 19.0;
+const W = "peb", END = 20.0;
 
 // ---------------------------------------------------------------- places (meadow-path env; x right, z toward us)
-const START = [-0.55, -3.3], STOP1 = [-0.1, -1.7], ACROSS = [-0.75, -1.5], NEAR = [-0.15, -0.35], AWAY = [-0.3, -1.3];
+const START = [-0.55, -3.3], STOP1 = [-0.1, -1.7], ACROSS = [-0.75, -1.5], NEAR = [-0.15, -0.35], AWAY = [0.2, -2.2];
 const cast = [{ id: W, character: "pebble/pebble", at: START, face: 18, expr: "kind", follow: 0.4, seed: 1.3 }];
 
 // ---------------------------------------------------------------- 1 STROLL 0-3.5: frame 0 mid-walk, coming down the path
@@ -49,6 +49,8 @@ see(6.0, 8.3, [W], "the walk from the side: shell, moss and fern");
 // a glance back at us over his shoulder
 A(8.2, W, "turn", { to: -40, dur: 0.6 });
 peb.amusedGlance(c, 8.6, W, [0.35, 0.05], { hold: 0.6 });
+A(8.65, W, "face", { brow: 0.25, dur: 0.25 });   // a lift of the brows so the glance reads amused, not tired (review B)
+A(9.55, W, "face", { brow: 0, dur: 0.35 });
 
 // ---------------------------------------------------------------- 4 TO US 9.6-12.0: he comes up to the camera
 act.eyesLead(c, 9.6, W, [0, 0], { lead: 0.15, dur: 0.3 });
@@ -57,7 +59,7 @@ A(11.5, W, "turn", { to: "camera", dur: 0.5 });
 see(9.7, 12.0, [`${W}.face`], "he walks up to us");
 
 // ---------------------------------------------------------------- 5 THE LINE 12.0-14.9: straw out, one calm line
-peb.strawOut(c, 11.9, W, { low: { ...peb.STRAW_LOW, x: [0.22, 0.75, 0.3] } });
+peb.strawOut(c, 11.9, W, { low: { ...peb.STRAW_LOW, x: [0.3, 0.95, 0.32] } });
 peb.line(c, 13.4, W, "Slow steps still get you there.", 1.9);
 see(13.4, 15.3, [`${W}.face`], "his line");
 
@@ -65,26 +67,26 @@ see(13.4, 15.3, [`${W}.face`], "his line");
 peb.strawIn(c, 15.2, W);
 // the turn waits for the straw hand to come down (an unhurried 1.1 s about-turn, no whip), then he strolls off
 act.eyesLead(c, 16.2, W, [-0.6, 0.05], { lead: 0.15, dur: 0.3 });
-A(16.2, W, "turn", { to: 175, dur: 1.0, ease: "inOut" });
-act.eyesLead(c, 17.15, W, [0.1, 0.1], { lead: 0.15, dur: 0.3 });   // a look up the path ahead before the first step
-peb.walk(c, 17.15, W, AWAY, 1.85, { steps: 2.3, rest: false });
-see(16.3, 19.0, [W], "he strolls on up the path");
+A(16.2, W, "turn", { to: 165, dur: 0.9, ease: "inOut" });
+act.eyesLead(c, 16.95, W, [0.1, 0.1], { lead: 0.15, dur: 0.3 });   // a look up the path ahead before the first step
+peb.walk(c, 16.95, W, AWAY, 3.05, { steps: 2.3, rest: false });
+see(16.3, 20.0, [W], "he strolls on up the path");
 
 // ---------------------------------------------------------------- shots (meadow-path's camera range: qa/env.mjs --range)
 const WIDE = { pos: [0, 1.05, 4.2], look: [0, 0.95, -1.6], fov: 34 };
 // the view: a slow push in for his content blink (Fable review A), then the cut to the side
 const VIEW = { ...WIDE, to: { look: [-0.1, 1.0, -1.7], fov: 28 }, dur: 2.0 };
 // the exit: a touch higher and tilted down a little (higher slides the painted layers apart: qa/env.mjs)
-const BACK = { pos: [0, 1.08, 4.2], look: [-0.05, 0.92, -2.0], fov: 34 };
-const SIDE = { pos: [-0.1, 1.05, 3.9], look: [-0.38, 0.98, -1.3], fov: 38 };
-const MCU = { pos: [-0.05, 1.1, 2.95], look: [-0.15, 1.0, -0.35], fov: 44 };
+const BACK = { pos: [0, 1.08, 4.2], look: [-0.05, 1.05, -2.0], fov: 38 };
+const SIDE = { pos: [-0.1, 1.05, 3.9], look: [-0.5, 0.98, -1.3], fov: 38 };
+const MCU = { pos: [-0.05, 1.1, 2.95], look: [-0.15, 1.0, -0.35], fov: 38 };
 const beats = c.beats([
   ["stroll", 0, WIDE, "hook"],
   ["the view", 3.5, VIEW],
   ["across", 5.6, SIDE],
-  ["to us", 9.6, "keep"],
+  ["to us", 9.6, { ...SIDE, to: { look: [-0.2, 0.98, -0.6], fov: 36 }, dur: 2.3 }],
   ["the line", 12.0, MCU, "payoff"],
-  ["on he goes", 15.4, BACK],
+  ["on he goes", 16.2, BACK],
 ], END);
 
 write(import.meta.url, {
