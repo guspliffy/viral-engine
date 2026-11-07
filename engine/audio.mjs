@@ -949,7 +949,11 @@ function lifeBed(L, sb, r, fade = 0.3) {
       x[i] += run(roar, r() * 2 - 1) * 0.12 * g + run(howl, r() * 2 - 1) * 0.05 * g * g * 0.5;
       if (L.rain) x[i] += run(lo, run(rain, r() * 2 - 1)) * 0.07;
     }
-    if (L.rain) for (let k = 0; k < seconds * 40; k++) { const a = Math.round(r() * (n - 0.02 * SR)), f = 2500 + r() * 3000, gg = 0.02 + r() * 0.04;
+  }
+  // rain (a storm's, or a rainy place's light rain): an even hiss with soft drops on the leaves
+  if (L.rain) {
+    if (!L.storm) { const rain = biquad("hp", 2500, 0.7), lo = biquad("lp", 7000, 0.7); for (let i = 0; i < n; i++) x[i] += run(lo, run(rain, r() * 2 - 1)) * 0.05; }
+    for (let k = 0; k < seconds * (L.storm ? 40 : 20); k++) { const a = Math.round(r() * (n - 0.02 * SR)), f = 2500 + r() * 3000, gg = 0.02 + r() * 0.04;
       for (let i = 0; i < 0.012 * SR; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * f * t) * Math.exp(-t / 0.002) * gg; } }
   }
   const quiet = L.startle.length ? Math.min(...L.startle.map((s) => s.t)) : Infinity;
@@ -967,7 +971,7 @@ function lifeBed(L, sb, r, fade = 0.3) {
   const nb = L.birds.reduce((k, b) => k + (b.flock ? b.flock.n ?? 5 : 1), 0);
   for (const S of L.startle) {
     for (let b = 0; b < nb; b++) {
-      const t0 = S.t + LOOK + 0.02 + r() * 0.15, beats = 7 + Math.floor(r() * 5), rate = 14 + r() * 4, g = (0.22 + r() * 0.12) * S.loud, bp = biquad("bp", 1800 + r() * 1400, 0.9);
+      const t0 = S.t + LOOK + 0.02 + r() * 0.15, beats = 7 + Math.floor(r() * 5), rate = 14 + r() * 4, g = (0.22 + r() * 0.12) * S.loud * S.wings, bp = biquad("bp", 1800 + r() * 1400, 0.9);
       for (let k = 0; k < beats; k++) {
         const a = Math.round((t0 + k / rate) * SR), fall = 1 - k / (beats + 2);
         for (let i = 0; i < 0.05 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += run(bp, r() * 2 - 1) * env(t, 0.004, 0.012, 0.05) * g * fall; }
