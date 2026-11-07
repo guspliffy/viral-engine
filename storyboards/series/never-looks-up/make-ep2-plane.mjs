@@ -126,6 +126,7 @@ for (const t of FLASHES) c.at(t, { fx: "flash", peak: 0.18, dur: 0.08, sound: fa
 for (const t of FLASHES) { prop(t, "wall", { glow: 1 }, 0.04, "out"); prop(t + 0.1, "wall", { glow: 0.3 }, 0.06); prop(t + 0.18, "wall", { glow: 0.9 }, 0.04); prop(t + 0.24, "wall", { glow: 0 }, 0.3, "in"); }
 for (const t of FLASHES) sfx(t + 0.05, "rumble", { gain: 0.5, dur: 1.2, reason: "thunder after the lightning in the window" });
 sfx(0, "rumble", { gain: 0.32, dur: END - 0.05, reason: "the cabin's engine rumble bed" });
+sfx(0, "kenney/impact-plank-medium", { gain: 0.7, reason: "frame 0 (video rule B2: an impact at 0.0 s): the bin lid bangs open as the holdall drops out" });
 for (const [t, a] of BUMPS) { c.at(t, { fx: "shake", amp: t < 0.5 ? 0.05 : r3(a * 0.5), dur: 0.3 }); sfx(t, "thud-soft", { gain: 0.6, reason: "the plane bumps" }); }
 // every sitter jolts with each bump (they sit on the plane, so they move with it a beat late)
 for (const [t] of BUMPS.slice(0, 4).filter(([t]) => t !== 2.45)) for (const w of ["phx", "wiz", "rea"]) A(t + 0.03, w, "squash", { amount: w === "wiz" ? 0.09 : 0.04, dur: 0.2 });
@@ -587,7 +588,10 @@ write(import.meta.url, {
   set: { type: "plain", night: true, color: "#2a2840", floor: "#3b3f5a", para: 0, bloom: "emissive", aperture: 0, focus: false,
     plate: { src: PLATE, z: -3.2, center: [0.3, 0.87], height: 10, depth: false, motion: false, dust: 0 } },
   drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
-  music: { style: "warm", bpm: 96, lowCut: 150, gain: 0.3, parts: [{ at: 0, part: "main" }, { at: T(8.0), part: "hush" }, { at: T(9.15), part: "drop" }] },
+  // v5 (Jonny 7 Nov 11:49: "more dramatic music"): a new orchestral emergency bed (assets/music/ai/disaster, racing
+  // strings, booming drums, brass hits) from the first frame; it cuts dead the moment Phoenix looks up (the stop locks
+  // to a bar line), so "huh." lands in silence
+  music: { file: "ai/disaster/disaster-04.ogg", until: T(8.0), lowCut: 150, gain: 0.45, duck: { db: 9 } },   // (the hits duck it harder: a busy orchestral bed buried the thuds)
   sound: { sfx: 0.7, ambience: 0.3, surface: "carpet", room: "box", flaps: false, signature: { entrances: false } },
   creative: { length: [END, END] },
   hook: { show: ["phx", "wiz", "rea", "sam", "phone", "cup"], hint: 0, what: "the plane jolts, lightning flashes and the Wizard's juice jumps out of his cup while Phoenix scrolls" },
