@@ -2,6 +2,7 @@
 // from a layout pass with the cast's diagPalms and diagFeet on, written for tools/human/make-firebend.mjs.
 //   DIAG=1 node tools/human/make-firebend.mjs && node engine/render.mjs storyboards/human/fire/firebend-01.json --layout --skip-gate --out <dir> > log
 //   node tools/human/firebend-src.mjs <log>     -> storyboards/human/fire/firebend-01.src.json, then run make-firebend again
+//   node tools/human/firebend-src.mjs <log> <out.json>   (another clip, e.g. one fighter of tools/human/make-fight.mjs)
 import fs from "node:fs";
 const lines = fs.readFileSync(process.argv[2], "utf8").split("\n");
 const out = { L: [], R: [], LF: [], RF: [] };
@@ -13,5 +14,5 @@ for (const l of lines) {
 }
 // one sample per frame (the layout may log a frame twice)
 for (const k of Object.keys(out)) { const m = new Map(); for (const s of out[k]) m.set(s.t.toFixed(3), s); out[k] = [...m.values()].sort((a, b) => a.t - b.t); }
-fs.writeFileSync("storyboards/human/fire/firebend-01.src.json", JSON.stringify(out));
+fs.writeFileSync(process.argv[3] ?? "storyboards/human/fire/firebend-01.src.json", JSON.stringify(out));
 console.log(Object.entries(out).map(([k, v]) => `${k} ${v.length}`).join("  "));
