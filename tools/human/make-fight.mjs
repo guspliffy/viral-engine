@@ -51,15 +51,15 @@ const SHOTS = [
   { name: "exchange", line: 50, spots: "near", lead: "A",
     A: { clip: "c143_23", from: 0.35, to: 1.0, ref: 0.55, aim: "strike", limb: "L" },
     B: { clip: "c143_23", from: 0.65, ref: 1.15, aim: "strike", limb: "R" },
-    fire: [{ who: "A", limb: "L", from: 0.45, to: 0.75, kind: "jet", speed: 2, dur: 0.1, size: 0.1, rate: 140, life: 0.1 },
-      { who: "B", limb: "R", from: 1.05, to: 1.3, kind: "jet", speed: 2, dur: 0.1, size: 0.1, rate: 140, life: 0.1 }],
+    fire: [{ who: "A", limb: "L", from: 0.45, to: 0.75, kind: "jet", speed: 5, dur: 0.1, size: 0.1, rate: 140, life: 0.09, reach: 0.25, splash: 0.08 },
+      { who: "B", limb: "R", from: 1.05, to: 1.3, kind: "jet", speed: 5, dur: 0.1, size: 0.1, rate: 140, life: 0.09, reach: 0.25, splash: 0.08 }],
     cam: { az: 0, el: 3, fov: 40 } },
   { name: "exchange2", line: -50, spots: "near", lead: "A",
     A: { clip: "c143_23", from: 1.0, to: 1.95, ref: 1.15, aim: "strike", limb: "R" },
     B: { clip: "c143_23", from: 1.3, ref: 1.9, aim: "strike", limb: "L" },
-    fire: [{ who: "A", limb: "R", from: 1.05, to: 1.35, kind: "jet", speed: 2, dur: 0.1, size: 0.1, rate: 140, life: 0.1 },
-      { who: "B", limb: "L", from: 1.75, to: 2.05, kind: "jet", speed: 2, dur: 0.1, size: 0.1, rate: 140, life: 0.1 },
-      { who: "A", limb: "L", from: 1.75, to: 1.95, kind: "jet", speed: 2.2, dur: 0.1, size: 0.12, rate: 160, life: 0.12, flash: true }],
+    fire: [{ who: "A", limb: "R", from: 1.05, to: 1.35, kind: "jet", speed: 5, dur: 0.1, size: 0.1, rate: 140, life: 0.09, reach: 0.25, splash: 0.08 },
+      { who: "B", limb: "L", from: 1.75, to: 2.05, kind: "jet", speed: 5, dur: 0.1, size: 0.1, rate: 140, life: 0.09, reach: 0.25, splash: 0.08 },
+      { who: "A", limb: "L", from: 1.75, to: 1.95, kind: "jet", speed: 5, dur: 0.1, size: 0.12, rate: 160, life: 0.09, reach: 0.25, splash: 0.08, flash: true }],
     cam: { az: 0, el: 3, fov: 40, fit: 0.92 } },
   // 5. B steps out and side-kicks a jet across the gap; A takes it on his guard
   { name: "sidekick", line: 66, spots: "far", lead: "B",
@@ -69,35 +69,35 @@ const SHOTS = [
     cam: { az: -3, el: 4, fov: 46 } },
   // 6. A leaps into a spinning jump kick: a ring of fire; B blocks
   { name: "jumpkick", line: -50, spots: "far", lead: "A",
-    A: { clip: "c90_05", from: 1.75, to: 2.65, ref: 2.65, aim: "travel", near: true },
+    A: { clip: "c90_05", from: 1.75, to: 2.55, ref: 2.55, aim: "travel", near: true },
     B: { clip: "c135_10", from: 7.75, ref: 8.1, aim: "body" },
     fire: [{ who: "A", limb: "LF", from: 1.9, to: 2.5, kind: "arc", speed: 3.5, size: 0.3, rate: 300, life: 0.45, minY: 0.8 }],
-    cam: { az: 3, el: 6, fov: 40 } },
+    cam: { az: 3, el: 6, fov: 46 } },
   // 7. they square off: both sink into a horse stance and light both fists (the breath before the last blast)
   { name: "breath", line: 30, spots: "far", lead: "A",
-    A: { clip: "c135_11", from: 0.0, to: 1.3, ref: 0.9, aim: "body" },
-    B: { clip: "c135_11", from: 0.0, ref: 0.9, aim: "body" },
-    fire: [{ who: "A", limb: "L", at: 0.5, to: 1.3, kind: "hold", speed: 1, size: 0.05, rate: 70, life: 0.28, lift: 0.4 },
-      { who: "A", limb: "R", at: 0.55, to: 1.3, kind: "hold", speed: 1, size: 0.05, rate: 70, life: 0.28, lift: 0.4 },
-      { who: "B", limb: "L", at: 0.6, to: 1.3, kind: "hold", speed: 1, size: 0.05, rate: 70, life: 0.28, lift: 0.4 },
-      { who: "B", limb: "R", at: 0.65, to: 1.3, kind: "hold", speed: 1, size: 0.05, rate: 70, life: 0.28, lift: 0.4 }],
+    A: { clip: "c135_11", from: 0.3, to: 1.3, ref: 0.9, aim: "body" },
+    B: { clip: "c135_11", from: 0.3, ref: 0.9, aim: "body" },
+    fire: [{ who: "A", limb: "L", at: 0.2, to: 1.0, kind: "hold", speed: 1, size: 0.075, rate: 80, life: 0.3, lift: 0.4 },
+      { who: "A", limb: "R", at: 0.25, to: 1.0, kind: "hold", speed: 1, size: 0.075, rate: 80, life: 0.3, lift: 0.4 },
+      { who: "B", limb: "L", at: 0.3, to: 1.0, kind: "hold", speed: 1, size: 0.075, rate: 80, life: 0.3, lift: 0.4 },
+      { who: "B", limb: "R", at: 0.35, to: 1.0, kind: "hold", speed: 1, size: 0.075, rate: 80, life: 0.3, lift: 0.4 }],
     cam: { az: 0, el: 3, fov: 40 } },
   // 8. both blast at once: the two streams meet in the middle, then the meeting point is pushed toward B (his stream
   // gives ground), and A's breaks through to him (Fable review A: show who is winning before the break)
   { name: "beams", line: -12, half: 1.2, back: 2.6, spots: "far", lead: "A", payoff: true,
-    A: { clip: "c135_09", from: 6.0, to: 7.35, ref: 6.7, aim: "strike", limb: "R" },
-    B: { clip: "c135_09", from: 4.1, ref: 4.8, aim: "strike", limb: "L" },
+    A: { clip: "c135_09", from: 6.15, to: 7.35, ref: 6.7, aim: "strike", limb: "R" },
+    B: { clip: "c135_09", from: 4.25, ref: 4.8, aim: "strike", limb: "L" },
     fire: [{ who: "A", limb: "R", from: 6.15, to: 6.95, kind: "jet", speed: 8, size: 0.13, grow: 1.8, rate: 240, dur: 0.42, spread: 0.12, level: 0.2, at: "mid", splash: 0.4 },
       { who: "B", limb: "L", from: 4.25, to: 5.0, kind: "jet", speed: 8, size: 0.13, grow: 1.8, rate: 240, dur: 0.42, spread: 0.12, level: 0.2, at: "mid", splash: 0.4 },
       { who: "A", limb: "R", from: 6.75, to: 7.0, kind: "jet", speed: 8, size: 0.14, grow: 1.8, rate: 240, dur: 0.23, spread: 0.12, level: 0.2, at: "mid", meet: 0.68, splash: 0.4, peak: "start", silent: true },
       { who: "B", limb: "L", from: 4.85, to: 5.1, kind: "jet", speed: 8, size: 0.12, grow: 1.8, rate: 220, dur: 0.23, spread: 0.12, level: 0.2, at: "mid", meet: 0.32, splash: 0.4, taper: 0.15, peak: "start", silent: true },
       { who: "A", limb: "R", from: 6.98, to: 7.35, kind: "jet", speed: 10, size: 0.17, grow: 2, rate: 260, dur: 0.37, life: 0.6, spread: 0.16, level: 0.2, at: "opp", splash: 0.35, taper: 0.15, peak: "start", brk: true }],
-    cam: { az: 0, el: 4, fov: 42 } },
+    cam: { az: 0, el: 4, fov: 46 } },
   // 9. B is thrown back flat, away from A along the stream; A holds the punch and both his fists light again (the
   // breath shot's flames, answered), held for half a second
   { name: "down", line: 45, half: 0.8, back: 1.8, spots: "far", lead: "A",
     A: { clip: "c135_09", from: 7.3, to: 7.975, rate: 0.5, ref: 7.4, aim: "strike", limb: "R" },
-    B: { clip: "c90_18", from: 0.55, to: 1.4, ref: 0.6, aim: "body" },
+    B: { clip: "c90_18", from: 0.75, to: 1.42, ref: 0.6, aim: "body" },
     fire: [{ who: "A", limb: "L", at: 0.6, to: 1.35, kind: "hold", speed: 1, size: 0.065, rate: 80, life: 0.3, lift: 0.4 },
       { who: "A", limb: "R", at: 0.65, to: 1.35, kind: "hold", speed: 1, size: 0.065, rate: 80, life: 0.3, lift: 0.4 }],
     cam: { az: 4, el: 5, fov: 38, fit: 1.2 } },
@@ -171,7 +171,7 @@ const chest = (who, s) => { const W = poseAt(who, s); return W.thorax ? W.thorax
 
 const blasts = [], marks = { flash: [], brk: null, silent: new Set() };
 for (const sh of SHOTS) for (const f of sh.fire || []) {
-  const { who, limb, from, to, at: holdAt, dur, minY, level, at: _a, push, peak, meet, flash, brk, silent, ...rest } = f;
+  const { who, limb, from, to, at: holdAt, dur, minY, level, at: _a, push, peak, meet, flash, brk, silent, cutAfter, ...rest } = f;
   const opp = who === "A" ? "B" : "A";
   let a, b, line = null;
   if (f.kind === "hold") { a = R(sh.t0 + holdAt, 4); b = R(Math.min(sh.t1, sh.t0 + to), 4); }   // (a hold: story seconds into the shot)
@@ -201,14 +201,17 @@ for (const sh of SHOTS) for (const f of sh.fire || []) {
     const fist = Math.min(pm.distanceTo(palmWorld(W, "l")), pm.distanceTo(palmWorld(W, "r")));
     reach = _a === "opp" ? Math.max(0.2, dist - 0.3) : fist * (meet ?? 0.5) + (push ?? 0);
   }
-  blasts.push({ at: src[0][0], end: src[src.length - 1][0], cut: R(sh.t1, 4), src, ...(reach != null ? { reach: R(reach) } : {}), ...rest });
+  // (cut: the flames vanish at the shot's last frame, or cutAfter seconds after the stream ends: a jab's lick dies
+  // with the punch instead of hanging between the fists; Fable review B)
+  const cutAt = cutAfter != null ? Math.min(sh.t1, src[src.length - 1][0] + cutAfter) : sh.t1;
+  blasts.push({ at: src[0][0], end: src[src.length - 1][0], cut: R(cutAt, 4), src, ...(reach != null ? { reach: R(reach) } : {}), ...rest });
   if (flash) marks.flash.push(src[0][0]);
   if (silent) marks.silent.add(blasts[blasts.length - 1]);
   if (brk) marks.brk = src[0][0];
 }
 // the hit that throws B down: a burst on his chest as he is flung back
 for (const sh of SHOTS) if (sh.name === "down") {
-  const s0 = sh.t0 + 0.03, c = chest("B", s0);
+  const s0 = sh.t0, c = chest("B", s0);
   blasts.push({ at: R(s0, 4), end: R(s0 + 0.25, 4), cut: R(sh.t1, 4), kind: "burst", speed: 2.5, size: 0.08, rate: 140, life: 0.15, drag: 3, lift: 1.5,
     src: [[R(s0, 4), R(c.x), R(c.y), R(c.z), 0, 0, 1], [R(s0 + 0.25, 4), R(c.x), R(c.y), R(c.z), 0, 0, 1]] });
 }
@@ -258,7 +261,7 @@ const hitStop = [];
 for (const B of blasts) {
   const b = shotAt(B.at);
   if (marks.silent.has(B)) continue;
-  if (B.kind === "hold") { put(B.at, { sfx: "ai/ignite", gain: b.name === "down" ? 1.5 : 1.1 }); continue; }
+  if (B.kind === "hold") { put(B.at, { sfx: "ai/ignite", gain: b.name === "down" ? 1.9 : 0.85 }); continue; }
   if (B.kind === "burst") continue;
   if (B.kind === "arc") { put(B.at - 0.12, { sfx: "whoosh", dur: 0.4, gain: 0.5 }); put(B.at, { sfx: "ai/flare", gain: 0.9 }); continue; }
   if (B.size <= 0.12) { put(B.at, { sfx: "ai/flare", gain: 0.6 }); continue; }
@@ -266,18 +269,20 @@ for (const B of blasts) {
 }
 // a 2-frame flash on the last jab: the button into the side kick
 for (const s2 of marks.flash) put(s2, { fx: "flash", dur: 0.07, peak: 0.8, sound: false });
-{ const br = beats.find((b) => b.name === "breath"); put(br.at + 0.15, { sfx: "gasp", gain: 1.0, reason: "they breathe in as they sink into the stance" });
+{ const br = beats.find((b) => b.name === "breath"); put(br.at + 0.15, { sfx: "gasp", gain: 0.85, reason: "they breathe in as they sink into the stance" });
   const holds = blasts.filter((B) => B.kind === "hold" && shotAt(B.at) === br); if (holds.length) put(holds[0].at + 0.05, { sfx: "sizzle", dur: R(br.at + br.len - holds[0].at - 0.05), gain: 1.0, reason: "the held flames hiss" }); }
 // the beams: a rumble and a light shake while the streams push, then the break: a second roar, a hard shake, a
 // 2-frame flash and a 3-frame hit-stop on the frame A's fire breaks through
 { const bm = beats.find((b) => b.name === "beams"), js = blasts.filter((B) => shotAt(B.at) === bm && B.kind === "jet" && !marks.silent.has(B) && B.at < marks.brk);
-  const meet = Math.max(...js.map((B) => B.at)) + 0.15, brk = marks.brk;
+  // (the break on a whole frame: the flash and the hit-stop must start on the same frame, or the freeze holds the
+  // flash's first frame alone and it reads as a one-frame pop)
+  const meet = Math.max(...js.map((B) => B.at)) + 0.15, brk = R(Math.round(marks.brk * 30) / 30);
   put(meet, { sfx: "rumble", dur: R(brk - meet + 0.3), gain: 0.55, reason: "the two streams push against each other" });
   put(meet, { fx: "shake", dur: R(brk - meet), amp: 0.02 });
   put(brk, { fx: "shake", dur: 0.35, amp: 0.045 });
   put(brk, { fx: "flash", dur: 0.07, peak: 0.8, sound: false });
   put(brk + 0.02, { sfx: "flamejet", gain: 1.0, reason: "A's fire breaks through B's" });
-  hitStop.push({ at: R(Math.round(brk * 30) / 30), frames: 3 }); }
+  hitStop.push({ at: brk, frames: 3 }); }
 { const dn = beats.find((b) => b.name === "down");
   put(dn.at + 0.03, { fx: "shake", dur: 0.2, amp: 0.03 });
   // the body lands flat on its back: the hips' lowest moment
