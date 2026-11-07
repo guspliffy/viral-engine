@@ -10,11 +10,10 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const base = JSON.parse(fs.readFileSync(path.join(here, "../drawn/lab-today.json"), "utf8"));
-const CHAR = { "duo/phoenix": "potatobrawl/phoenix", "lookdev/reaper-crisp": "potatobrawl/reaper" };
 const today = {
   ...base,
   castLook: "sheet",
-  cast: base.cast.map((c) => ({ ...c, character: CHAR[c.character] || c.character })),
+  // the lab's own Phoenix and hooded Reaper (no scythe: the sheet Reaper's staff crosses his arm in this staging)
   set: { ...base.set, lighting: 2, hatch: { boil: 0.25 } },
   motion: { feet: 2, overlap: true, timing: true, solve: true },
   rig: { hand: 2, eyes: 2, hold: 2 },

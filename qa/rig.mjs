@@ -28,6 +28,7 @@ import { cameraState } from "../engine/page/timeline.js";
 import * as TL from "../engine/page/timeline.js";
 import { loadCharacters } from "../engine/load.mjs";
 import { GATE, gateOf, gateLevel, windowFor } from "./gate.mjs";
+import { makeAnimeTiming } from "../engine/shared/anime-timing.js";
 // a cast member's character file (cached per storyboard), {} when it can't be loaded
 const DEFS = new WeakMap();
 function defOf(sb, cast) {
@@ -88,6 +89,28 @@ export function rigFindings(layout, sb) {
       out.push({ level: big ? "fail" : "warn", check, who, what, t: Math.round(T(i) * 1000) / 1000, size: Math.round(d) });
     }
   };
+  // "animeTiming" (shared/anime-timing.js): a character is a run of held drawings, so a pose change lands in one frame
+  // between still ones by design. Judge the drawings instead of the frames: each change of drawing, its move divided by
+  // how many story frames the drawing moved on, against the changes of drawing before and after it. A pop in the
+  // motion underneath (an elbow flip) still stands out; the snap from one held key to the next does not
+  const AT = sb?.animeTiming ? makeAnimeTiming(sb.animeTiming, sb.actions || [], fps) : null;
+  const popsDrawn = (series, lim, who, what, check) => {
+    const adv = (i) => (AT(who, S(i)) - AT(who, S(i - 1))) * fps;
+    const idx = []; for (let i = 1; i < n; i++) if (adv(i) > 1e-6 && series[i] && series[i - 1] && !cut(i) && !frozen(i)) idx.push(i);
+    const stepN = (i) => dist(series[i], series[i - 1]) / Math.max(1, adv(i));
+    // the snap: the first two drawings of a key-to-key segment carry most of its travel and the drawings after it only
+    // settle, so they are never measured against their neighbours, only against 36 cm per story frame (the flare's
+    // settle ease alone moves a hand 28 cm a frame on 1s)
+    const segs = AT.segments(who), snap = (i) => segs.some(([a, b]) => { const k = idx.filter((x) => S(x) > a + 1e-6 && S(x) < b + 1e-6); return k.slice(0, 2).includes(i); });
+    for (let j = 1; j < idx.length - 1; j++) {
+      const i = idx[j], d = stepN(i); if (d <= lim * sc || waived(check, who, i)) continue;
+      if (snap(i)) { if (d > 3 * RIG.failJump * sc) out.push({ level: "fail", check, who, what, t: Math.round(T(i) * 1000) / 1000, size: Math.round(d) }); continue; }
+      const around = Math.max(stepN(idx[j - 1]), stepN(idx[j + 1]));
+      if (d <= RIG.ratio * around) continue;
+      const big = d > RIG.failJump * sc && d > RIG.failRatio * Math.max(around, 1);
+      out.push({ level: big ? "fail" : "warn", check, who, what, t: Math.round(T(i) * 1000) / 1000, size: Math.round(d) });
+    }
+  };
   const ids = [...new Set(rows.flatMap((r) => (r.actors || []).map((a) => a.id)))];
   const waived = (check, who, i) => !!(sb && windowFor(sb, check, who, T(i)));
   // frame 0 to frame 1 (quality plan items 1 and 3): an opening pose set by a short move at t = 0 is drawn half-way on
@@ -103,7 +126,7 @@ export function rigFindings(layout, sb) {
     const st = rows.map((r) => { const a = r.actors.find((x) => x.id === id); return a?.w && a.on !== 0 ? a.w : null; });
     const keys = [...new Set(st.flatMap((w) => (w ? Object.keys(w) : [])))];
     const rel = (w, k) => (w?.[k] && w.b && k !== "b" ? w[k].map((v, j) => v - w.b[j]) : w?.[k] || null);
-    for (const k of keys) pops(st.map((w) => rel(w, k)), LIM(k), id, NAME[k] || k, "rig-jump");
+    for (const k of keys) (AT ? popsDrawn : pops)(st.map((w) => rel(w, k)), LIM(k), id, NAME[k] || k, "rig-jump");
     for (const k of keys) first(id, NAME[k] || k, st[0]?.[k], st[1]?.[k], st[2]?.[k]);
     const R = rides(id), jumped = (i) => st[i]?.b && st[i - 1]?.b && dist(st[i].b, st[i - 1].b) > RIG.teleport * sc;
     // the planted gait (thread F, "motion": { "feet": 2 }) says per frame what each foot does: "stand" must not move,

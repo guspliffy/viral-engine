@@ -52,5 +52,7 @@ export function makeAnimeTiming(o, actions = [], fps = 30) {
     return step(t, from, S.idle);
   };
   timing.spec = S;
+  // the key-to-key segments of a character ([start, end] in story time), for checks that judge drawings (qa/rig.mjs)
+  timing.segments = (who) => per.get(who)?.segs || [];
   return timing;
 }

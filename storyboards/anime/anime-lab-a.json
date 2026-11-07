@@ -58,7 +58,7 @@
  "cast": [
   {
    "id": "phx",
-   "character": "potatobrawl/phoenix",
+   "character": "duo/phoenix",
    "at": [
     -0.44,
     0.22
@@ -71,7 +71,7 @@
   },
   {
    "id": "rea",
-   "character": "potatobrawl/reaper",
+   "character": "lookdev/reaper-crisp",
    "at": [
     0.48,
     0.12

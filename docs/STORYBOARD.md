@@ -515,5 +515,6 @@ Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look 
   A move's drawings are counted from its own start (start and end keys always shown), front-loaded (`"push"` 1.8), on
   1s when 0.2 s or shorter, 3s from 0.9 s, else 2s; between moves the pose holds on 3s (`"idle"`); actions longer than
   `"long"` (1.2 s, a walk) only step on 2s. The camera, the set, the living world and effects stay on every frame, and
-  motion blur is off (render.mjs). Known: `qa/rig.mjs` still compares frame to frame, so a snap between two held drawings
-  reports `rig-jump`; teach it held drawings before this goes into a real clip.
+  motion blur is off (render.mjs). `qa/rig.mjs` judges such a clip drawing by drawing: each change of drawing, divided
+  by how many story frames it moved on, against the drawings either side; the snap (a segment's first two drawings) only
+  fails over 36 cm per story frame.
