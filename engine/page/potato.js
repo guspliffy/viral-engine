@@ -1060,12 +1060,25 @@ export class Character {
       // foot targets (timeline.js st.feet, the planted gait: { R: { x, y, z, yaw, w }, L }): where each foot stands, in the
       // same space as st.x, st.y, st.z (the stage, or the rig the actor rides), y the foot's centre (floor + 0.035 x scale
       // + lift), yaw (radians, like st.yaw; optional) the way it faces; w 0..1 blends it in over everything above
+      this.legs[s].flat = null;
       const ft = st.feet?.[s], fw = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0;
       if (fw > 0) {
         R.updateMatrix();
         const inv = new THREE.Matrix4().copy(R.matrix).invert();
         foot.lerp(new THREE.Vector3(ft.x, ft.y, ft.z).applyMatrix4(inv), fw);
         if (ft.yaw != null) this.legs[s].foot.quaternion.slerp(R.quaternion.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), ft.yaw)), fw);
+        // the heel-to-toe roll (timeline.js rollAt, "motion": { "feet": 3 }): the foot turns about its heel (toes up)
+        // or its ball (heel up), so that edge stays where it is on the floor. legs.heel / legs.toe / legs.sole (m, the
+        // character's own foot; default the potato foot): how far behind and ahead of the foot's centre, and how far
+        // under it, the edges sit
+        this.legs[s].flat = ft.pitch ? foot.clone() : null;   // where the foot would stand flat (rig(): the planted point)
+        if (ft.pitch) {
+          const a = ft.pitch * fw, LG = this.def.legs || {}, q = this.legs[s].foot.quaternion;
+          const P = new THREE.Vector3(0, -(LG.sole ?? 0.035), a > 0 ? -(LG.heel ?? 0.094) : (LG.toe ?? 0.094));
+          const rx = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -a);
+          foot.add(P.clone().sub(P.clone().applyQuaternion(rx)).applyQuaternion(q));
+          q.multiply(rx);
+        }
       }
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
@@ -1107,7 +1120,9 @@ export class Character {
       const a = this.arms[s];
       if (a.hand && a.hand.visible !== false) out[`h${s}`] = a.hand.position.clone();
       if (a.elbow && a.shoulder && a.hand) out[`e${s}`] = Character.armCurve(a.shoulder, a.elbow, a.hand.position, a.joint).getPoint(0.5);
-      const f = this.legs[s]?.foot; if (f && f.visible) out[`f${s}`] = f.position.clone();
+      // a rolling foot (heel to toe) turns about its heel or ball, so its centre rises and moves a little while that edge
+      // stays put: the rig check follows where the foot would stand flat (the same point when it is flat)
+      const f = this.legs[s]?.foot; if (f && f.visible) out[`f${s}`] = (this.legs[s].flat || f.position).clone();
     }
     return out;
   }

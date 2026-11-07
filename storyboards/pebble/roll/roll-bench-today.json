@@ -1,0 +1,381 @@
+{
+ "id": "roll-bench-today",
+ "title": "Heel-to-toe roll bench",
+ "idea": "Engine test: Pebble's feet, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "livingroom",
+  "seed": 5,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.3,
+  "surface": "wood"
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    -1,
+    -0.3
+   ],
+   "face": "right",
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3,
+   "span": 0
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0,
+   "to": 12,
+   "text": "TODAY: FLAT FEET",
+   "pos": 260,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 4,
+   "text": "WALK ACROSS + STOP",
+   "pos": 1450,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 7.5,
+   "text": "TURN + WALK TO US",
+   "pos": 1450,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7.5,
+   "to": 12,
+   "text": "TURN ROUND + WALK AWAY",
+   "pos": 1450,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "bench",
+   "at": 0,
+   "len": 12,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.95,
+     10.5
+    ],
+    "look": [
+     -0.1,
+     0.95,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": "right",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.125
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.125
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      0.5,
+      -0.3
+     ],
+     "dur": 3.2,
+     "steps": 2.3,
+     "at": 0.3
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 3.65
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 3.65
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 3.95
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.6,
+     "at": 4.1
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 4.625
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 4.625
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      0.4,
+      1
+     ],
+     "dur": 2.2,
+     "steps": 2.3,
+     "at": 4.8
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 7.15
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 7.15
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 7.45
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 7.6
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 8.425
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 8.425
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      0.1,
+      -0.6
+     ],
+     "dur": 2.6,
+     "steps": 2.3,
+     "at": 8.6
+    }
+   ]
+  }
+ ],
+ "duration": 12,
+ "notes": "Generated by storyboards/pebble/make-pebble-roll-test.mjs (engine test).",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ }
+}
