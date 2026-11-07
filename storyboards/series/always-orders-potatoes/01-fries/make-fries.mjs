@@ -137,9 +137,9 @@ FRIES.forEach((f, i) => {
   A(t, f, "expr", { expr: "delighted", set: { eye: 1.15, curve: 0.9, open: 0.5 }, dur: 0.08 });
   A(t, f, "look", { to: [i === 1 ? 0.3 : i === 2 ? -0.3 : 0, 0.6], dur: 0.08, blink: false });   // up at Viking
   fryArms(r3(t + 0.04), f, CHEER, "open", 0.14);
-  A(r3(t + 0.06), f, "hop", { height: 0.03, dur: 0.22, quiet: true });   // the "bwip" is their sound; three tiny landing thuds only muddied it on a phone
+  A(r3(t + 0.06), f, "hop", { height: 0.045, dur: 0.24, quiet: true });   // the "bwip" is their sound; three tiny landing thuds only muddied it on a phone
 });
-c.at(r3(WAKE + 0.02), { fx: "sparkle", who: "fa", dur: 0.35, count: 4, color: "#fff2a8" });
+c.at(r3(WAKE + 0.02), { fx: "sparkle", who: "fa", dur: 0.35, count: 6, color: "#fff2a8" });
 c.say(1.0, "fa", "yaaay!", 0.4, "excited", { voice: false, sub: "Yaaay!", pos: SUB_HIGH });
 for (const f of FRIES) for (const [t, o] of [[1.3, CHEER2], [1.45, CHEER]]) fryArms(t, f, o, "open", 0.12, "inOut");
 act.shock(c, 1.02, "vik", { hold: 0.3, open: 0.35, eye: 1.3, curve: 0.3 });
@@ -150,9 +150,9 @@ see(1.0, 1.22, ["fa.face", "fb.face", "fc.face", "vik.face", "gsl.face"], "the f
 
 // ---------------------------------------------------------------- 1b THE VICTIM 1.25-1.9 (v3 B8: a cut to his face)
 const GSLCU = 1.25;
-act.shock(c, 1.18, "gsl", { hold: 0.6, open: 0.45, eye: 1.4, curve: -0.35 });
+act.shock(c, 1.18, "gsl", { hold: 0.6, open: 0.6, eye: 1.4, curve: -0.35 });
 A(1.25, "gsl", "lean", { to: -6, dur: 0.3, ease: "out" });
-A(1.4, "gsl", "droop", { to: 0.2, dur: 0.25, ease: "settle" });   // his sprout flinches
+A(1.4, "gsl", "droop", { to: 0.2, dur: 0.25, ease: "settle" });
 see(1.3, 1.85, ["gsl.face"], "v3 B8: Gunslinger's face, the victim, horrified at the cheering fries");
 
 // ---------------------------------------------------------------- 2 THE FIRST BITE… "HI!" 1.9-2.8 (panel 2, the push-in)
@@ -316,6 +316,9 @@ A(OFFER, "fa", "look", { to: [0.3, 0.45], dur: 0.12, blink: false });
 A(OFFER, "fa", "expr", { expr: "happy", set: { curve: 0.8, open: 0.3 }, dur: 0.15 });
 c.say(V(8.85), "fa", "want some?", 0.55, "question", { voice: false, soft: true, sub: "Want some?", pos: SUB_HIGH });
 A(V(9.0), "fa", "still", { dur: 0.85, idle: 0 });
+// Reaper, the friend being offered: down at the fry in his soup, a slow lean away, then up at Viking at the cut (review A)
+A(V(8.85), "rea", "look", { to: [-0.3, -0.75], dur: 0.15, blink: false }); A(V(8.9), "rea", "lean", { to: -8, dur: 0.6, ease: "inOut" });
+A(9.6, "rea", "look", { to: [-0.55, -0.1], dur: 0.15, blink: false });
 click(V(8.95), "the fry offering Reaper his own soup");
 // Gunslinger: a slow lean back, both palms up (panel 8)
 const PALMS = V(8.9);
@@ -335,14 +338,15 @@ act.blinksAt(c, "sam", [1.0, 3.9, 6.1, V(8.6)]); act.blinksAt(c, "vik", [1.6, 5.
 
 // ---------------------------------------------------------------- shots (Jonny's panels)
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
-const WIDE = fw([-0.01, 0.98, -0.5], { w: 2.25, el: 7, fov: 46 });                       // panels 1, 8: both rows, the cone bottom centre
+const WIDE = fw([-0.06, 0.98, -0.5], { w: 2.35, el: 7, fov: 46 });
+const WIDE_OPEN = fw([-0.06, 0.98, -0.5], { w: 2.35, el: 7, fov: 46, push: 0.1, dur: 1.25 });   // review A: a slow push at the cone from frame 0 (the cut at 1.25 ends it, no pull-back)                       // panels 1, 8: both rows, the cone bottom centre
 const VICTIM = fw([GSL[0] + 0.05, 0.74, GSL[1]], { w: 1.0, az: -4, el: 6, fov: 22 });       // v3 B8: Gunslinger's face
-const BITE = fw([0.02, 0.75, -0.42], { w: 1.35, el: 38, fov: 30, push: 0.06, dur: 0.9 });   // from higher: the fries stay under his eyes  // panel 2: the series' straight push-in
-const POOL = fw([0.0, 0.66, -0.12], { w: 1.15, el: 20, fov: 32 });                          // panels 3-4: Viking, the tray and the dips, Gunslinger's face
-const SEEING_SHOT = fw([-0.6, 0.62, -0.5], { w: 1.5, az: -14, el: 10, fov: 30 });        // panel 5: Gunslinger big front left, Reaper behind his line
-const LEAP = fw([0.4, 0.52, -0.25], { w: 1.4, az: 8, el: 16, fov: 30 });                  // panels 6-7: the cone, Viking, Reaper and his soup
+const BITE = fw([-0.05, 0.75, -0.42], { w: 1.55, el: 38, fov: 30, push: 0.06, dur: 0.9 });   // from higher: the fries stay under his eyes  // panel 2: the series' straight push-in
+const POOL = fw([0.0, 0.52, -0.12], { w: 1.15, el: 20, fov: 32 });                          // panels 3-4: Viking, the tray and the dips, Gunslinger's face
+const SEEING_SHOT = fw([-0.35, 0.62, -0.5], { w: 1.9, az: -14, el: 10, fov: 30 });        // panel 5: Gunslinger big front left, Reaper behind his line
+const LEAP = fw([0.5, 0.42, -0.3], { w: 1.2, az: 8, el: 20, fov: 30 });                  // panels 6-7: the cone, Viking, Reaper and his soup
 const beats = c.beats([
-  ["P1 best fries in town", 0, WIDE, "hook"],
+  ["P1 best fries in town", 0, WIDE_OPEN, "hook"],
   ["P1b the victim (v3 B8)", GSLCU, VICTIM, "reaction"],
   ["P2 the first bite: Hi!", 1.9, BITE],
   ["P3 pool party", 2.8, WIDE, "escalation"],
