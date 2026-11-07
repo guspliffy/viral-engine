@@ -677,8 +677,14 @@ export class Character {
     // turns), so the head sits on the body instead of floating over it. head.neckR: its radius (0 = none)
     const nr = HD.neckR ?? Math.min(hr.rx, hr.rz) * 0.42;
     if (nr > 0) {
-      const y0 = this.cy + this.ry * 0.8, y1 = hr.cy - hr.ry * 0.35;
-      hr.neck = new THREE.Mesh(new THREE.CylinderGeometry(nr, nr * (1.08 + (HD.neckFlare ?? 0)), y1 - y0, 32, 1, true), this.skin);   // head.neckFlare (opt-in): a throat widening into the chest
+      const y0 = this.cy + this.ry * (HD.neckFillet ? 0.4 : 0.8), y1 = hr.cy - hr.ry * 0.35;   // a filleted neck roots deeper so its foot never shows over a forward-set chest
+      // head.neckFillet (opt-in, Pebble 7 Nov 13:16): the neck's cylinder reshaped: it leans from the chest's middle to under the head, and its top also widens (share of nr) so it runs
+      // into the head's underside at a shallow angle instead of meeting it as a hard-edged column; the bottom flares as
+      // neckFlare does
+      const F = HD.neckFillet, rb = nr * (1.08 + (HD.neckFlare ?? 0)), h = y1 - y0;
+      const ng = F ? new THREE.CylinderGeometry(nr, rb, h, 40, 12, true, Math.PI) : new THREE.CylinderGeometry(nr, rb, h, 32, 1, true);   // (its seam at the back)
+      if (F) { const q = ng.attributes.position; for (let k = 0; k < q.count; k++) { const y = q.getY(k), t = y / h + 0.5, r0 = Math.hypot(q.getX(k), q.getZ(k)), r1 = nr + (rb - nr) * (1 - t) ** 2 + nr * F * t ** 3; if (r0 > 1e-6) { q.setX(k, q.getX(k) * r1 / r0); q.setZ(k, q.getZ(k) * r1 / r0 + (t - 0.5) * (HD.forward ?? 0)); } } ng.computeVertexNormals(); }   // and leans forward: its foot over the chest's middle, its top under the head
+      hr.neck = new THREE.Mesh(ng, this.skin);   // head.neckFlare (opt-in): a throat widening into the chest
       hr.neck.position.set(0, (y0 + y1) / 2, (HD.forward ?? 0) * 0.5); hr.neck.castShadow = true; this.potatoParts.add(hr.neck);
     }
     if (HD.nose) { const n = this.headSurf(0, HD.nose.v ?? -0.08), m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.skin); m.scale.set(HD.nose.w ?? 0.03, HD.nose.h ?? 0.026, HD.nose.d ?? 0.022); m.position.copy(n.pos).addScaledVector(n.normal, -0.006); m.lookAt(n.pos.clone().add(n.normal)); hr.group.add(m); hr.nose = m; }
