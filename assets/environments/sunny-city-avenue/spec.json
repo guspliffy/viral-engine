@@ -1,0 +1,39 @@
+{
+ "name": "sunny-city-avenue",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view standing in the middle of a wide straight empty city avenue, grey asphalt with white lane lines fills the bottom half and runs straight into the distance, pavements, cafes and shops, tall cream and terracotta apartment buildings on both sides, street trees, street lamps, warm afternoon sun from the left, blue sky with white cumulus clouds",
+ "no": "people, car, vehicle, bus, bicycle, potato, animal, text, letters, sign, aerial view, high angle, rain, wet road, night, tree in foreground, lamp in foreground",
+ "seeds": [
+  42,
+  7,
+  19,
+  88
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 4.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   4.5,
+   20.0
+  ]
+ },
+ "light": {
+  "from": "low golden sun at the far end of the avenue, behind-left",
+  "key": [
+   -3.0,
+   4.0,
+   -7.0
+  ],
+  "shadow": 0.35
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 90,
+ "standRatio": 0.55,
+ "pad": 0.3,
+ "padY": 0.12
+}

@@ -54,6 +54,7 @@ import { CAMP_KINDS, CAMP_GRIPS, CAMP_PARTS } from "./props-camp.js";   // too m
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
+import { CITY_KINDS } from "./props-city.js";   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1364,6 +1365,7 @@ Object.assign(KINDS, CAMP_KINDS); Object.assign(GRIPS, CAMP_GRIPS);   // too muc
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
+Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
