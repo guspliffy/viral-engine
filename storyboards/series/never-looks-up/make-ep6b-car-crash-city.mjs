@@ -31,6 +31,12 @@ import { rigRotation, rigToWorld, rigState, ROADSTER } from "../../../engine/pag
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see, prop } = c;
 const END = 8.5;   // review B (Fable): the "mm-hm." payoff by ~7.2 s
+// V3=1: the reach-rules-v3 re-cut for the posting test (Jonny 7 Nov, /mnt/project-files/research/hook-curiosity-2026-11-07/
+// reports/, "Reach rules v3"): B7 Phoenix's promise line at 0.0 s ("I'll look up in a sec.", Dragon's "CAR!!" on top
+// of it), B8 the first cut to the close-up at 1.05 s with a 0.7 s reaction freeze there. Everything else as 6b.
+// Off (the default) the storyboard is 6b's exactly.
+const V3 = process.env.V3 === "1";
+const CUT = V3 ? 1.05 : 0.85;   // the cut from the hook to the zoom
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
 const sm = (x) => x * x * (3 - 2 * x);
 const D2R = Math.PI / 180;
@@ -208,14 +214,18 @@ A(7.2, "phx", "expr", { expr: "kind", set: { curve: 0.3, eye: 0.95 }, dur: 0.25 
 A(0, "dra", "look", { to: AT_BLUE, dur: 0, blink: false });
 A(0, "dra", "expr", { expr: "shocked", set: { open: 0.75, eye: 1.4 }, dur: 0 });
 A(0, "dra", "face", { brow: 0.6, dur: 0 });
-c.say(0.0, "dra", "CAR!", 0.4, "excited", { sub: "CAR!!" });
+if (V3) {
+  c.say(0.0, "phx", "ill look up in a sec", 0.85, "calm", { sub: "I'll look up in a sec." });
+  c.say(0.4, "dra", "CAR!", 0.4, "excited", { sub: null });
+  c.cap(0.4, 1.05, "CAR!!", 450);   // over the red car, clear of their heads
+} else c.say(0.0, "dra", "CAR!", 0.4, "excited", { sub: "CAR!!" });
 act.blinksAt(c, "dra", [4.0, 6.05]);
 A(0.15, "dra", "squash", { amount: 0.05, dur: 0.2 });
 // the wheel follows STEER
 for (let t = 0; t < END - 0.05; t += 0.1) prop(r3(t), "wheel", { tilt: r3(0.6 * herm(STEER, U(t + 0.1))) }, 0.1, "linear");
 // in slow motion: the scream stretched out, his eyes following the blue car past Phoenix
-c.say(0.95, "dra", "nooooo", 1.5, "excited", { sub: "NOOOOO", gain: 0.85 });
-c.captions[c.captions.length - 1].to = 2.35; // off Phoenix's face as the zoom closes in
+c.say(V3 ? 1.1 : 0.95, "dra", "nooooo", 1.5, "excited", { sub: "NOOOOO", gain: 0.85 });
+c.captions[c.captions.length - 1].to = V3 ? 2.15 : 2.35; // off Phoenix's face as the zoom closes in
 A(1.0, "dra", "expr", { expr: "shocked", set: { open: 0.95, eye: 1.45 }, dur: 0.4 });
 A(1.3, "dra", "look", { to: [-0.55, 0.05], dur: 0.6, blink: false });
 A(2.0, "dra", "look", { to: [-0.75, 0.1], dur: 0.5, blink: false });
@@ -268,13 +278,16 @@ sfx(BLAST_T + 0.05, "flamejet", { gain: 0.7, reason: "the fireball rolling up" }
 sfx(BLAST_T + 0.4, "rumble", { dur: 2.2, gain: 0.5, reason: "the fire roaring on behind them" });
 c.at(BLAST_T, { fx: "shake", dur: 0.35, amp: 0.05 });
 
+// V3 (B8): the reaction freeze in the close-up, Dragon mid-scream, Phoenix calm on his phone
+if (V3) c.hitStop(1.4, 21);
+
 // ---------------------------------------------------------------- shots (every one looks into the painting: -z)
 const look = (t, dy = 0.9) => W(t, [0, dy, 0]);
 const beats = c.beats([
   // the hook: from ahead and above, the blue car's tail near us already over the line, the red car beyond it
-  ["miss", 0, { pos: [0.2, 7.5, 8.0], look: [-0.4, 0.6, -14.5], fov: 27, to: { look: [-0.3, 0.6, -15.5], fov: 24 }, dur: 0.85, ease: "inOut" }, "hook"],
+  ["miss", 0, { pos: [0.2, 7.5, 8.0], look: [-0.4, 0.6, -14.5], fov: 27, to: { look: [-0.3, 0.6, -15.5], fov: 24 }, dur: CUT, ease: "inOut" }, "hook"],
   // the zoom: in the car on Phoenix, the blue car sliding past behind him; it pushes in through the slow motion
-  ["zoom", 0.85, { rig: "car", pos: [-1.0, 1.8, 3.4], look: [-0.95, 0.9, -0.3], fov: 40, to: { pos: [-0.85, 1.65, 2.7], look: [-0.62, 0.95, -0.3], fov: 30 }, dur: 1.9, ease: "inOut" }],
+  ["zoom", CUT, { rig: "car", pos: [-1.0, 1.8, 3.4], look: [-0.95, 0.9, -0.3], fov: 40, to: { pos: [-0.85, 1.65, 2.7], look: [-0.62, 0.95, -0.3], fov: 30 }, dur: r3(2.75 - CUT), ease: "inOut" }],
   // wide again at real speed: the red car skids to a stop, the blue car trips and rolls down the street behind it
   ["roll", 2.75, { pos: [2.4, 2.3, 2.5], look: [-0.8, 0.7, -18], fov: 30, to: { look: [-1.6, 0.7, -21] }, dur: 1.55, ease: "inOut" }, "escalation"],
   // the blast behind them and the ending, a three-quarter front on the two of them, the fire over Dragon's shoulder
@@ -282,7 +295,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "never-looks-up-car-crash-city" + (process.env.SBID ?? ""),
+  id: "never-looks-up-car-crash-city" + (V3 ? "-v3rules" : "") + (process.env.SBID ?? ""),
   title: "The friend who never looks up from his phone… even when a car explodes",
   idea: "Never Looks Up ep 6b (city): a blue car drifts into their lane; Dragon swerves, in slow motion it slides past Phoenix's elbow while he swipes; it spins out, trips on the kerb, rolls and explodes behind them. Phoenix: 'mm-hm.'",
   format: "series: The friend who never looks up (city car crash, Jonny's own ending)",

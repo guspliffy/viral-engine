@@ -3,7 +3,7 @@ import { taperedTube, lathe, radialTexture } from "./geo.js";
 import { rad } from "./util.js";
 const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
-import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
+import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt, neckerchief } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
 import { coreCostume } from "./costumes-core.js";
 import { pebbleCostume } from "./costumes-pebble.js";
@@ -317,6 +317,12 @@ export function buildCostume(def, ch) {
   if (isCast) { hat = cc.hat || hat; prop = C.noProp ? null : cc.prop; }   // noProp: the axe (katana, ...) is left at home
   if (C.type === "magician") hat = topHat(C);
   if (C.type === "cap") hat = cap(C);
+  // costume.hat { type: "cowboy", accent, band }: the sheet's cowboy hat on a costume without a hat of its own, sat down on
+  // the head as the Gunslinger's (the Samurai waiter at the steakhouse, always orders potatoes 03); costume.neckerchief:
+  // the Gunslinger's neckerchief in that colour
+  const extraHat = !hat && C.hat?.type === "cowboy";
+  if (extraHat) { hat = cowboyHat(C.hat); hat.group.scale.set(1.15, 1.1, 1.15); hat.group.children.slice(2).forEach((o) => o.scale.set(o.scale.x * 1.32, o.scale.y, o.scale.z * 1.32)); cowboySheetHat(hat, C.hat); }
+  if (C.neckerchief) neckerchief(ch, C.neckerchief, `#${new THREE.Color(C.neckerchief).multiplyScalar(0.6).getHexString()}`);
   if (C.tie) tie(C, ch);
   if (C.type === "wizard" && C.art && C.sheet) wizardSheet(C, ch, hat);   // costume.sheet: the design-sheet rebuild (costumes-art-cast.js)
   else if (C.type === "wizard" && C.art) {
@@ -340,7 +346,7 @@ export function buildCostume(def, ch) {
   if (pb) sprt.group.scale.setScalar(0.7);
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
   const propHand = C.propHand || "R";
-  const sitDepth = pb ? pb.sitDepth : isCast ? cc.sitDepth : art ? 0.21 : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;   // art: the cowboy hat sits down on the head
+  const sitDepth = extraHat ? 0.21 : pb ? pb.sitDepth : isCast ? cc.sitDepth : art ? 0.21 : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;   // art: the cowboy hat sits down on the head
 
   // the held prop's rotation for this frame (shared by apply and by the hand that wraps around it)
   const propRot = (st) => {
