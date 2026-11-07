@@ -27,7 +27,7 @@ let S = null;
 // the shared uniforms of every painted layer
 const U = { uLifeT: { value: 0 }, uGust: { value: Array.from({ length: GUST_MAX }, () => new THREE.Vector4(0, 0, 1, 0)) }, uGustN: { value: 0 },
   uWind: { value: new THREE.Vector2(3.2, 0.4) }, uCloud: { value: new THREE.Vector4(4, 16, 0.3, 14) },
-  uBend: { value: new THREE.Vector2(0, 6) }, uGrade: { value: new THREE.Vector4(1, 1, 1, 1) } };
+  uBend: { value: new THREE.Vector2(0, 6) }, uGrade: { value: new THREE.Vector4(1, 1, 1, 1) }, uDrift: { value: 0 } };
 
 export function initLife(spec) {
   S = spec;
@@ -40,10 +40,10 @@ export function initLife(spec) {
   U.uCloud.value.set(C?.speed ?? 0, C?.scale ?? 16, C ? C.shadow : 0, C?.near ?? 14);
   U.uBend.value.set(S.bend || 0, 6);
   if (S.grade) U.uGrade.value.set(...S.grade.mul, S.grade.sat ?? 1);
-  (globalThis.__setTicks ||= []).push((t) => { now.t = t; U.uLifeT.value = t; });
+  (globalThis.__setTicks ||= []).push((t) => { now.t = t; U.uLifeT.value = t; U.uDrift.value = (S.clouds?.drift ?? 0) * t; });
 }
 
-const DECL = `uniform float uLifeT; uniform vec4 uGust[${GUST_MAX}]; uniform int uGustN; uniform vec2 uWind; uniform vec4 uCloud; uniform vec2 uBend; uniform vec4 uGrade;`;
+const DECL = `uniform float uDrift; uniform float uLifeT; uniform vec4 uGust[${GUST_MAX}]; uniform int uGustN; uniform vec2 uWind; uniform vec4 uCloud; uniform vec2 uBend; uniform vec4 uGrade;`;
 // the trees and tall grass bend from their foot: a lean that follows the gust plus the trunk's own slow rocking
 // (0.2-1.1 Hz, Jackson 2019), growing with the square of the height, so the ground and the feet never move
 const BEND = /* glsl */`
@@ -65,9 +65,16 @@ const NOISE = /* glsl */`
 // a painted layer of the env set (set-env.js), in place of set-plate.js animate(): the same leaf and grass motion
 // (motion mask red = sways, green = sun patches that shimmer), but its strength follows the gusts, a gust leans the
 // leaves downwind and lightens them a touch (the paler undersides), and far layers take the cloud shadows.
+// o.life: the card's life mask (engine/plates/env_life.py): R the true sky, which drifts with the clouds (only the
+// sky, never the far lake or mountains painted into the sky card), G painted foliage on a card without a motion mask
+// of its own (far woods and hills), which sways with the gusts, harder in a storm, but never bends the card
 export function lifeLayer(mat, motion, width, o = {}) {
   if (!S) return false;
-  const amp = (o.amp ?? 3).toFixed(2), shadows = !!S.clouds && !o.sky, bend = !!motion && S.bend > 0, grade = !!S.grade;
+  const far = !motion && !!o.life;
+  if (far) motion = o.life;
+  const drift = !!(o.sky && o.life && S.clouds?.drift);
+  const ch = far ? "g" : "r";
+  const amp = (far ? (S.storm ? 2.2 : 1.2) * (o.amp ?? 3) / 3 : o.amp ?? 3).toFixed(2), shadows = !!S.clouds && !o.sky, bend = !!motion && !far && S.bend > 0, grade = !!S.grade;
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, U, { uMotion: { value: motion }, uPx: { value: 1 / width } });
     sh.vertexShader = `varying vec3 vLifeW; ${DECL}\n${NOISE}\n` + sh.vertexShader
@@ -83,11 +90,15 @@ export function lifeLayer(mat, motion, width, o = {}) {
       vec2 sway = vec2(sin(uLifeT * 1.3 + ph) * 0.7 + sin(uLifeT * 3.7 + ph * 2.1) * 0.3 + sin(uLifeT * 5.3 + ph * 3.7) * 0.35 * gx,
                        sin(uLifeT * 1.9 + ph * 1.3) * 0.35) * k;
       sway.x -= gx * 0.9;                                           // leaning downwind (+x): the picture is sampled upwind
-      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * uPx * ${amp} * mo.r);
+      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * uPx * ${amp} * mo.${ch});${far ? "" : /* glsl */`
       vec2 q = vMapUv * vec2(5.0, 9.0) + vec2(uLifeT * 0.21, -uLifeT * 0.08);
       float n = sin(q.x * 2.3 + sin(q.y * 1.7 + uLifeT * 0.6)) * sin(q.y * 1.9 - sin(q.x * 1.3 - uLifeT * 0.4));
-      sampledDiffuseColor.rgb *= 1.0 + mo.g * n * (0.05 + 0.05 * gx);
-      sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, sampledDiffuseColor.rgb * vec3(1.05, 1.08, 1.0) + 0.025, clamp(gx * 0.55, 0.0, 1.0) * mo.r);` : /* glsl */`
+      sampledDiffuseColor.rgb *= 1.0 + mo.g * n * (0.05 + 0.05 * gx);`}
+      sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, sampledDiffuseColor.rgb * vec3(1.05, 1.08, 1.0) + 0.025, clamp(gx * 0.55, 0.0, 1.0) * mo.${ch});${drift ? /* glsl */`
+      // the clouds drift downwind over the true sky only: a cloud shows where it is sky now and was sky where it came
+      // from, so it slides behind a ridge or a tree and nothing of the landscape is dragged along
+      vec2 du = vMapUv - vec2(uDrift, 0.0);
+      sampledDiffuseColor = mix(sampledDiffuseColor, texture2D(map, du), mo.r * texture2D(uMotion, du).r);` : ""}` : /* glsl */`
       vec4 sampledDiffuseColor = texture2D(map, vMapUv);`}
       ${shadows ? /* glsl */`
       // cloud shadows: soft patches on the ground plane under the clouds, sliding downwind; a standing card takes them as
@@ -105,7 +116,7 @@ export function lifeLayer(mat, motion, width, o = {}) {
       sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, vec3(lum) * vec3(0.66, 0.7, 0.78) + vec3(0.04, 0.05, 0.07), sk);` : ""}` : ""}
       diffuseColor *= sampledDiffuseColor;`);
   };
-  mat.customProgramCacheKey = () => `set-life-${motion ? 1 : 0}-${shadows ? 1 : 0}-${bend ? 1 : 0}-${grade ? 1 : 0}-${o.sky ? 1 : 0}-${amp}`;
+  mat.customProgramCacheKey = () => `set-life-${motion ? 1 : 0}-${far ? 1 : 0}-${drift ? 1 : 0}-${shadows ? 1 : 0}-${bend ? 1 : 0}-${grade ? 1 : 0}-${o.sky ? 1 : 0}-${amp}`;
   mat.needsUpdate = true;
   return true;
 }
@@ -121,12 +132,8 @@ export function lifeTwin(mat) {
   mat.needsUpdate = true;
 }
 
-// the sky drifts downwind with its clouds (a slow pan of the sky card's picture: it is padded past the frame)
-export function lifeSky(tex) {
-  if (!S?.clouds?.drift) return;
-  const d = S.clouds.drift;
-  (globalThis.__setTicks ||= []).push((t) => { tex.offset.x = -d * t; });
-}
+// is the living world on for this set (an env card only loads its life mask then)
+export const lifeOn = () => !!S;
 
 // ---------- creatures and leaves ----------
 const ink = "#2a2230";
