@@ -74,14 +74,14 @@ const SHOTS = [
   // 5-6. B's side kick pours a jet at A; A meets it with his palm and turns his waist (tai chi "roll back"): the
   // stream follows the hand round and flies off over his shoulder into the sky
   { name: "kickB", line: -65, back: 1.0, lead: "B",
-    B: { clip: "c135_11", from: 1.25, to: 2.05, rate: 1.3, ref: 1.9, aim: "strike", limb: "RF" },
+    B: { clip: "c135_11", from: 1.25, to: 2.25, rate: 1.3, ref: 1.9, aim: "strike", limb: "RF" },
     A: { clip: "c12_04", from: 0.6, rate: 2.6, ref: 1.4, aim: "body" },
     face: { B: SHOUT, A: ANGRY },
-    fire: [{ who: "B", limb: "RF", from: 1.65, to: 2.05, kind: "jet", speed: 15, drag: 1.4, size: 0.12, dur: 0.6, life: 0.5, grow: 1.3, into: "palm:R", splash: 0.02, peak: "hold" }],
+    fire: [{ who: "B", limb: "RF", from: 1.65, to: 2.25, kind: "jet", speed: 15, drag: 1.4, size: 0.12, dur: 0.6, life: 0.5, grow: 1.3, into: "palm:R", splash: 0.02, peak: "hold" }],
     cam: { az: 0, el: 4, fov: 46 } },
   { name: "redirect", open: ["A"], focus: "A", line: -15, back: 0.6, lead: "A",
-    A: { clip: "c12_04", from: 1.7, to: 4.4, rate: 2.6, ref: 1.7, aim: "body", slide: { at: 0.02, dur: 0.3, d: 0.25 } },
-    B: { clip: "c135_11", from: 2.05, rate: 0.35, ref: 2.05, aim: "strike", limb: "RF" },
+    A: { clip: "c12_04", from: 1.7, to: 3.9, rate: 2.6, ref: 1.7, aim: "body", slide: { at: 0.02, dur: 0.3, d: 0.25 } },
+    B: { clip: "c135_11", from: 2.25, rate: 0.35, ref: 2.25, aim: "strike", limb: "RF" },
     face: { A: ANGRY, B: ANGRY },
     fire: [{ who: "B", limb: "RF", at: 0, to: 0.55, pre: 0.26, kind: "jet", speed: 15, drag: 1.4, size: 0.12, life: 0.5, grow: 1.3, into: "palm:R", splash: 0.02, taper: 0.15, cont: true },
       { who: "A", limb: "R", at: 0.02, to: 0.75, kind: "jet", speed: 11, drag: 1.2, size: 0.12, life: 0.75, grow: 1.8, exit: true, taper: 0.2 }],
@@ -97,7 +97,7 @@ const SHOTS = [
     B: { clip: "c135_09", from: 6.15, to: 7.0, ref: 6.7, aim: "strike", limb: "R" },
     A: { clip: "c12_04", from: 12.3, rate: 2.2, ref: 12.6, aim: "body" },
     face: { B: SHOUT, A: ANGRY },
-    fire: [{ who: "B", limb: "R", from: 6.15, to: 7.0, kind: "jet", speed: 15, drag: 1.3, size: 0.15, grow: 1.5, rate: 260, dur: 0.6, spread: 0.12, life: 0.55, into: "ball", splash: 0.02, peak: "hold" }],
+    fire: [{ who: "B", limb: "R", from: 6.15, to: 7.0, kind: "jet", speed: 15, drag: 1.3, size: 0.24, grow: 1.7, rate: 320, dur: 0.6, spread: 0.17, life: 0.55, into: "ball", splash: 0.02, peak: "hold" }],
     lines: true,
     cam: { az: 0, el: 4, fov: 46 } },
   // 9. A catches it: the stream winds into a ball of fire between his palms that grows as he turns with it
@@ -105,21 +105,21 @@ const SHOTS = [
     A: { clip: "c12_04", from: 12.6, to: 15.0, rate: 2.2, ref: 12.8, aim: "body", slide: { at: 0.02, dur: 0.35, d: 0.3 } },
     B: { clip: "c135_09", from: 7.0, rate: 0.4, ref: 7.0, aim: "strike", limb: "R" },
     face: { A: ANGRY, B: SHOUT },
-    fire: [{ who: "B", limb: "R", at: 0, to: 0.45, pre: 0.24, cont: true, kind: "jet", speed: 15, drag: 1.3, size: 0.13, grow: 1.3, rate: 260, life: 0.55, spread: 0.12, into: "ball", splash: 0.02, taper: 0.2 },
-      { who: "A", limb: "LR", at: 0.04, to: 1.09, kind: "burst", speed: 0.5, size: 0.04, sizeTo: 0.12, grow: 0.9, rate: 240, life: 0.25, drag: 4, lift: 0.3 }],
+    fire: [{ who: "B", limb: "R", at: 0, to: 0.45, pre: 0.24, cont: true, kind: "jet", speed: 15, drag: 1.3, size: 0.2, grow: 1.4, rate: 300, life: 0.55, spread: 0.15, into: "ball", splash: 0.02, taper: 0.2 },
+      { who: "A", limb: "LR", at: 0.04, to: 1.09, kind: "burst", speed: 0.5, size: 0.06, sizeTo: 0.2, grow: 0.9, rate: 260, life: 0.25, drag: 4, lift: 0.3 }],
     cam: { on: "A", az: 0, el: 4, fov: 30, fit: 1.35 } },
   // 10. and punches it back, twice the size: impact frame, flash, hit-stop as it lands on B's guard
   { name: "return", focus: "A", line: -30, back: 0.4, lead: "A", len: 0.47,
     A: { clip: "c135_09", from: 6.2, to: 7.0, ref: 6.7, aim: "strike", limb: "R" },
     B: { clip: "c135_10", from: 3.4, ref: 3.6, aim: "body" },
     face: { A: SHOUT, B: SHOCK },
-    fire: [{ who: "A", limb: "R", at: 0, to: 0.12, kind: "burst", speed: 0.5, size: 0.12, grow: 0.9, rate: 240, life: 0.22, drag: 4, lift: 0.3, silent: true },
+    fire: [{ who: "A", limb: "R", at: 0, to: 0.12, kind: "burst", speed: 0.5, size: 0.2, grow: 0.9, rate: 260, life: 0.22, drag: 4, lift: 0.3, silent: true },
       { who: "A", limb: "R", from: 6.4, to: 7.0, kind: "jet", speed: 17, drag: 1.3, size: 0.19, grow: 1.8, rate: 300, dur: 0.4, spread: 0.15, life: 0.6, at: "opp", splash: 0.45 }],
     lines: true,
     cam: { on: "A", az: 0, el: 4, fov: 24, fit: 1.0 } },
   // 11. B's guard is blown back the longest skid of the fight; his fists smoke out
-  { name: "blown", focus: "B", line: 55, back: 0.4, lead: "B", len: 0.95,
-    B: { clip: "c76_04", from: 1.3, rate: 0.7, ref: 1.5, aim: "body", slide: { at: 0.0, dur: 0.75, d: 1.5 } },
+  { name: "blown", focus: "B", line: 55, back: 0.4, lead: "B", len: 0.78,
+    B: { clip: "c76_04", from: 1.3, rate: 0.7, ref: 1.5, aim: "body", slide: { at: 0.0, dur: 0.65, d: 1.5 } },
     A: { clip: "c135_09", from: 6.95, rate: 0.4, ref: 6.95, aim: "strike", limb: "R" },
     fire: [{ who: "A", limb: "R", at: 0, to: 0.22, pre: 0.3, cont: true, kind: "jet", speed: 17, drag: 1.3, size: 0.19, grow: 1.8, rate: 300, spread: 0.15, into: "chest", splash: 0.15, taper: 0.12, brk: true }],
     face: { B: SHOCK, A: ANGRY },
@@ -131,7 +131,7 @@ const SHOTS = [
     face: { B: SCARED },
     cam: { close: "B", az: 4, fov: 24, fit: 1.0, hands: true } },
   // 13. and runs for it, away into the valley
-  { name: "flee", open: ["B"], line: 66, len: 1.45, back: 1.0, lead: "B",
+  { name: "flee", open: ["B"], line: 66, len: 1.05, back: 1.0, lead: "B",
     B: { clip: "c143_03", from: 1.2, to: 1.98, rate: 1.25, ref: 1.6, aim: "away", run: [0.12, -1] },
     A: { clip: "c135_09", from: 7.5, rate: 0.6, ref: 7.6, aim: "body" },
     then: { B: { clip: "c16_35", from: 0.1, rate: 1.25 } },
@@ -349,7 +349,7 @@ for (const m of marks.arrive) if (m.B !== marks.brk && m.sh !== "redirect" && m.
 // power-up close-ups: speed lines rushing in on the face
 for (const sh of SHOTS) if (sh.lines) { const b = beats.find((x) => x.name === sh.name); fx.push({ do: "speedlines", at: R(b.at), dur: R(b.len), alpha: 0.55, count: 90, inner: 520, color: "#2a160f" }); }
 // the shock close-up: dun-dun
-{ const b = beats.find((x) => x.name === "shockB"); put(b.at + 0.02, { sfx: "ai/dundun", gain: 0.8, reason: "B's eyes go wide: his fire was thrown away" }); }
+{ const b = beats.find((x) => x.name === "shockB"); put(b.at, { sfx: "ai/dundun", gain: 0.8, reason: "B's eyes go wide: his fire was thrown away" }); }
 // the breath before the roar, and the catch: a slow airy swell as the ball grows
 { const b = beats.find((x) => x.name === "chargeB"); put(b.at + 0.02, { sfx: "gasp", gain: 0.8, reason: "he breathes in as he sinks into the stance" }); }
 { const b = beats.find((x) => x.name === "catch"); put(b.at + 0.12, { sfx: "sizzle", dur: R(b.len - 0.15), gain: 1.5, reason: "the fireball hisses between his palms" }); put(b.at + 0.1, { sfx: "rumble", dur: R(b.len + 0.2), gain: 0.85, reason: "the ball swells" }); }
@@ -359,7 +359,7 @@ for (const sh of SHOTS) if (sh.lines) { const b = beats.find((x) => x.name === s
   put(h, { fx: "shake", dur: 0.4, amp: 0.05 });
   put(h, { sfx: "impact", gain: 1.0, reason: "the returned fireball slams into B's guard" });
   put(h, { sfx: "kenney/impact-punch-heavy", gain: 0.7, reason: "the hit's punch on a phone speaker" });
-  put(h, { sfx: "firework", gain: 0.6, reason: "the fireball bursts on his guard: the crack a phone speaker plays" });
+  put(h, { sfx: "firework", gain: 0.95, reason: "the fireball bursts on his guard: the crack a phone speaker plays" });
   hitStop.push({ at: h, frames: 3 }); }
 // the give-up: a small smoke puff off each of B's fists as the fire goes out; then he flees
 { const b = beats.find((x) => x.name === "blown"), s2 = b.at + 0.55, W = poseAt("B", s2);
