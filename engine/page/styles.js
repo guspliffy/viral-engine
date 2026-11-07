@@ -29,7 +29,14 @@ export function makeStyle(style, R) {
       if (!c) { c = new THREE.MeshStandardMaterial({ color: "#c9c4bb", roughness: 0.85, metalness: 0, side: m.side, transparent: m.transparent, opacity: m.opacity, depthWrite: m.depthWrite }); c.userData.clay = true; clay.set(m, c); }
       return c;
     };
-    return { prepare(scene) { scene.traverse((o) => { if (o.isMesh && o.material) o.material = Array.isArray(o.material) ? o.material.map(conv) : conv(o.material); }); }, render: (scene, cam) => R.render(scene, cam) };
+    // decorative marks (painted spots, blush, decals: unlit, see-through or flagged userData.decor) are hidden, and the
+    // light is made broad and soft once (the key and rim dimmed, a sky/ground fill added), so undersides stay readable
+    const hide = (m) => m && (m.userData.decor || m.isSpriteMaterial || m.isMeshBasicMaterial || (m.transparent && m.opacity < 1));
+    let lit = false;
+    return { prepare(scene) {
+      if (!lit) { lit = true; scene.traverse((o) => { if (o.isDirectionalLight || o.isSpotLight || o.isPointLight) o.intensity *= 0.55; }); scene.add(new THREE.HemisphereLight("#ffffff", "#b8b2a6", 1.6)); }
+      scene.traverse((o) => { if (!o.isMesh || !o.material || o.material.userData?.clay) return; const ms = Array.isArray(o.material) ? o.material : [o.material]; if (ms.some(hide)) { o.visible = false; return; } o.material = Array.isArray(o.material) ? o.material.map(conv) : conv(o.material); });
+    }, render: (scene, cam) => R.render(scene, cam) };
   }
   if (style !== "anime") return { prepare() {}, render: (scene, cam) => R.render(scene, cam) };
 

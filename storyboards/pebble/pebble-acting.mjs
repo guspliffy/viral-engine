@@ -69,7 +69,7 @@ export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { f
 // calibrated at this pose by tools/pebble/straw-cal.mjs) -> EXTRACT (out along the stem) -> down. strawIn is the same
 // backwards: up to the extract point, seat the stem in the lips, hand-over, open the fingers, arm down.
 // STRAW_MOUTH and STRAW_OUT come from straw-cal.mjs (the grip point and 7 cm out along the stem, in arm-target space).
-export const STRAW_MOUTH = { x: [0.1667,1.117,0.3775], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2326,1.0624,0.3889], point: "pinch", pinchEase: true };
+export const STRAW_MOUTH = { x: [0.2148,1.0694,0.3627], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2807,1.0148,0.3741], point: "pinch", pinchEase: true };
 export const STRAW_LOW = { x: [0.3, 0.55, 0.3], point: "pinch", pinchEase: true };
 // the fingertip pinch on the thin stem (pinch 1: the pinch point between the index and thumb pads is live, so an arm
 // pose with point "pinch" puts the pads on the target)

@@ -142,6 +142,9 @@ export class Face {
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
     // the drawn look's pencil hatching stays off the eyes and the ink (looks.js, castLook "art")
     for (const m of [white, irisM, pupilM, this.inkMat, this.browMat, this.mouthMat, this.smileMat]) m.userData.noHatch = true;
+    // eye.noLine (opt-in, Pebble 7 Nov): no outline shell round the eye white and iris (it showed as a grey arc floating
+    // off the lower lid); the lid line alone draws the eye
+    if (E.noLine) for (const m of [white, irisM, pupilM]) m.userData.noOutline = true;
     // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
     // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
     if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
@@ -155,9 +158,9 @@ export class Face {
       // anime iris), so a low almond eye white (small oval) can hold an iris that isn't taller than itself
       const ia = E.irisAspect ?? 1;
       const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12 * ia, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
-      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1 * ia, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
+      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1 * ia, 0.3); pu.position.z = r * (D - 0.07 + (E.pupilZ ?? 0)); look.add(pu);   // eye.pupilZ (opt-in, Pebble 7 Nov): brings a pupil hidden inside a big iris to its front
       // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
-      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
+      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03 + (E.pupilZ ?? 0))); look.add(g1);
       const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
       if (E.glints > 1) { const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.07, 10, 6), glint); g2.scale.set(1, 1, 0.5); g2.position.set(-r * ri * 0.3, -r * ri * 0.36, r * (D + 0.02)); look.add(g2); glints.push(g2); }
       // the lid line, tapered at both ends, thickest over the pupil, with the character's outer-corner flick

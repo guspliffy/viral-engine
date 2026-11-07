@@ -21,14 +21,16 @@ export function pebbleCostume(def, ch) {
   const C = def.costume || {};
   const out = { tip: null, prop: null, hat: null, hatBrim: null, helmet: null, propAxis: () => null, propLine: () => null, apply() {} };
   const live = [];
-  const cap = buildCap(ch, C); out.hat = cap.group; out.hatBrim = { group: cap.group, r: cap.brimR };
-  belly(ch, C);
-  vest(ch, C);
-  spots(ch, C);
-  const ls = limbSpots(ch, C); if (ls) live.push(ls);
-  const shell = buildShell(ch, C);
+  // costume.plain (look-dev only, tools/pebble/views.sh --plain): the bare forms: no cap, face, spots, vest, belly
+  // plate, straw, moss or fern, so the head, neck, limbs and shell read as shapes first (Jonny 7 Nov 12:07)
+  const PL = !!C.plain;
+  const cap = buildCap(ch, C); out.hat = cap.group; out.hatBrim = { group: cap.group, r: cap.brimR }; if (PL) cap.group.visible = false;
+  if (PL && ch.face) live.push(() => { ch.face.group.visible = false; });
+  if (!PL) { belly(ch, C); vest(ch, C); spots(ch, C); }
+  const ls = PL ? null : limbSpots(ch, C); if (ls) live.push(ls);
+  const shell = buildShell(ch, PL ? { ...C, shell: { ...(C.shell || {}), moss: false, fern: false } } : C);
   live.push(shell.update);
-  const straw = buildStraw(ch, C);
+  const straw = PL ? null : buildStraw(ch, C);
   if (straw) { live.push(straw.update); out.straw = straw.group; out.strawInfo = straw; }
   feet(ch, C);
   out.shell = shell.group;
@@ -147,12 +149,15 @@ function dashes(ch, pts, lift, len, mat) {
 // of the neck (head group, they turn with it), drawn as thin flattened discs just over the skin
 function spots(ch, C) {
   const K = C.spots || {}; if (K === false || !ch.head) return;
-  const m = std(K.color || "#DE9845", { roughness: 0.8 }); m.userData.noOutline = true;
+  const m = std(K.color || "#DE9845", { roughness: 0.8 }); m.userData.noOutline = true; m.userData.decor = true;
+  // spots.flat (opt-in, Jonny 7 Nov): painted marks, not raised discs: nearly no thickness, drawn over the skin by depth
+  // offset; spots.n keeps only the first n of the list
+  const FT = K.flat ? 0.0006 : 0.0035; if (K.flat) Object.assign(m, { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
   const geos = [], R = rng(K.seed ?? 11), yUp = new THREE.Vector3(0, 1, 0);
   const at = K.at || [[1.25, 0.12, 0.034], [1.42, -0.02, 0.022], [1.18, -0.16, 0.026], [1.6, 0.2, 0.018], [-1.3, 0.08, 0.03], [-1.45, -0.12, 0.024], [-1.2, 0.24, 0.018], [-1.62, -0.02, 0.02], [2.6, 0.05, 0.03], [-2.7, -0.08, 0.026], [3.1, 0.18, 0.022]];
-  for (const [th, ph, r] of at) {
+  for (const [th, ph, r] of at.slice(0, K.n ?? at.length)) {
     const s = ch.headSurf(th, ph), g = new THREE.SphereGeometry(1, 14, 8);
-    g.scale(r * (K.size ?? 0.6) * (0.9 + 0.3 * R()), 0.0035, r * (K.size ?? 0.6) * (0.8 + 0.3 * R())); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yUp, s.normal));
+    g.scale(r * (K.size ?? 0.6) * (0.9 + 0.3 * R()), FT, r * (K.size ?? 0.6) * (0.8 + 0.3 * R())); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(yUp, s.normal));
     const p = s.pos.clone().addScaledVector(s.normal, 0.001); g.translate(p.x, p.y, p.z); g.deleteAttribute("uv"); geos.push(g);
   }
   ch.head.group.add(mesh(mergeGeometries(geos), m, false));
@@ -193,7 +198,9 @@ function vest(ch, C) {
   // the front edge's angle off centre; vest.corner (opt-in, review 7 Nov 2026): the lower front corner rounded off, a
   // quarter circle of that many radians up from the hem (square corners read as manufactured)
   const rc = V.corner ?? 0, rk = V.cornerK ?? 1.6;
-  const edge = (ph) => (V.edge ?? 0.5) + (V.flare ?? 0.16) * sstep(0.4, ph0, ph) + (rc && ph < ph0 + rc ? rc * rk * (1 - Math.sqrt(Math.max(0, 1 - ((ph0 + rc - ph) / rc) ** 2))) : 0);
+  // vest.neck (opt-in, Jonny 7 Nov 12:07): the front edges also open out towards the top, round the neck, so the opening
+  // runs wide at the neck, narrowest over the chest and wide again round the lower belly
+  const edge = (ph) => (V.edge ?? 0.5) + (V.flare ?? 0.16) * sstep(0.4, ph0, ph) + (V.neck ?? 0) * sstep(ph1 - (V.neckH ?? 0.5), ph1, ph) ** 1.5 + (rc && ph < ph0 + rc ? rc * rk * (1 - Math.sqrt(Math.max(0, 1 - ((ph0 + rc - ph) / rc) ** 2))) : 0);
   const back = V.back ?? 2.5, ah = V.armhole ?? 0.42, av = V.armholeV ?? 1;   // armholeV (opt-in): the hole's height against its width (a wide hole for the shoulder that doesn't climb onto the top of the body)
   for (const sd of [-1, 1]) {
     // the armhole as the panel's own boundary (no dropped cells, so no staircase edge): the panel is two sheets, in
@@ -233,6 +240,9 @@ function vest(ch, C) {
   const bph = V.buttonAt ?? -0.28, s = ch.surf((V.buttonSide ?? -1) * (edge(bph) + 0.1), bph);
   const btn = mesh(new THREE.CylinderGeometry(0.021, 0.022, 0.012, 20), std(V.button || "#8A5530", { roughness: 0.5 }), false);
   btn.position.copy(s.pos).addScaledVector(s.normal, (V.lift ?? 0.014) + 0.008); btn.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), s.normal); P.add(btn);
+  // vest.sewn (opt-in): the button's thread, a small cross over its four holes, so it reads as sewn on
+  if (V.sewn) { const tm = std(V.sewn === true ? "#E8CF9A" : V.sewn, { roughness: 0.8 }); tm.userData.noOutline = true;
+    for (const a of [Math.PI / 4, -Math.PI / 4]) { const b = mesh(new THREE.BoxGeometry(0.026, 0.004, 0.0045), tm, false); b.rotation.y = a; b.position.y = 0.0065; btn.add(b); } }
 }
 
 // ---------------------------------------------------------------- the shell: a domed cap of an ellipsoid on his back,
@@ -309,7 +319,11 @@ function buildShell(ch, C) {
   const bulge = S.bulge ?? 0.035, gw = S.grooveW ?? 0.045, ring = (x, at, w) => Math.exp(-(((x - at) / w) ** 2));
   // the drawn surface's radius along unit direction u (scute swell, seam groove): the mesh, the moss and the fern's
   // root all use this one function, so nothing is seated on a surface that isn't drawn
-  const rOf = (u, q = cell(u)) => { const sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b); return 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - (S.grooveDepth ?? 0.012) * (1 - k); };
+  // shell.soft (opt-in, Jonny 7 Nov 12:07 "one smooth dome, shallow rounded seams"): each scute swells over soft x the
+  // groove width as a smooth dome instead of a steep bevel and a flat top, so the outline reads as one curved shell
+  const rOf = (u, q = cell(u)) => { const sd = seeds[q.i];
+    if (S.soft) { const k = sstep(0, gw * S.soft, q.b), g = sstep(0, gw * 1.6, q.b); return 1 + bulge * (sd.m ? 0.6 : 1) * k - (S.grooveDepth ?? 0.012) * (1 - g); }
+    const k = sstep(0, gw * 2.4, q.b); return 1 + bulge * (sd.m ? 0.6 : 1) * Math.sqrt(k) * (0.75 + 0.25 * k) - (S.grooveDepth ?? 0.012) * (1 - k); };
   for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
     { const ph = (j / NP) * Math.PI * 2; dirAt((alphaOf(ph) * i) / NT, ph, u); }
     const q = cell(u), sd = seeds[q.i], k = sstep(0, gw * 2.4, q.b);
@@ -427,7 +441,7 @@ function buildShell(ch, C) {
   // direction lay past the top opening, on the ellipsoid's extension, so the plant stood in the air above the rim
   const F = S.fern || {}, fph = F.ph ?? Math.PI / 2, fw = dirAt(alphaOf(fph) * (F.th ?? 0.62), fph, new THREE.Vector3());
   const cushion = moss(group, onShell, dirAt, alphaOf, S, R, fw);
-  const fern = buildFern(group, onShell, S, fw, cushion);
+  const fern = S.fern === false ? () => {} : buildFern(group, onShell, S, fw, cushion);
   // the shell as a solid for checks (bodyGroup space before the group's own transform): an arm or a prop inside the
   // wall between the inside (0.955) and the outside (1 + bulge) of the cap
   // toUnit(p): a point (bodyGroup space) -> its unit-space vector q (|q| = 1 on the plain cap), undoing the hug
@@ -445,7 +459,7 @@ function buildShell(ch, C) {
 // no inner ink). A fringe of short tapered strands hangs from its lower edge over the sides (no outline: the cushion
 // keeps the silhouette). Returns thick(w): the cushion's height over the shell along w (the fern root sits inside it)
 function moss(group, onShell, dirAt, alphaOf, S, R, fw) {
-  const M = S.moss || {}; if (M === false) return () => 0;
+  const M = S.moss === false ? false : S.moss || {}; if (M === false) return () => 0;
   const cs = [col(M.color || "#8E9B36"), col(M.light || "#A9B548"), col(M.dark || "#6F7D2A")];
   // review 7 Nov 2026: only a few broad low lobes (the old 31/97/83 terms made sharp folds and noisy normals); the fine
   // texture is colour, not shape
@@ -528,8 +542,11 @@ function buildFern(group, onShell, S, w, cushion = () => 0) {
     bY.normalize(); bX.crossVectors(bY, bZ).normalize(); bY.crossVectors(bZ, bX);
     return basis.makeBasis(bX, bY, bZ);
   };
-  list.forEach(([az, len, out], i) => {
+  list.forEach(([az, len, out, off = 0], i) => {
     const piv = new THREE.Group(); root.add(piv);
+    // a frond's 4th value (opt-in, Jonny 7 Nov 12:07 "stagger their roots across a small patch"): its root sits that far
+    // (m) from the plant's centre along its own azimuth, a little down into the moss, so the stems don't all meet at one point
+    if (off) piv.position.set(Math.sin(az) * off, -off * 0.35, Math.cos(az) * off);
     // the frond's plane: up and out along az; it rises then arches over
     const o = new THREE.Vector3(Math.sin(az), 0, Math.cos(az)), pts = [];
     if (F.arch) {
@@ -647,11 +664,12 @@ function buildStraw(ch, C) {
 // .arms: [t along the limb (0 hip/shoulder .. 1 foot/hand), angle round it (0 front, + toward his outside), radius]
 function limbSpots(ch, C) {
   const K = C.spots || {}; if (K === false || K.limbs === false) return null;
-  const m = std(K.color || "#D27A30", { roughness: 0.8 }); m.userData.noOutline = true;
+  const m = std(K.color || "#D27A30", { roughness: 0.8 }); m.userData.noOutline = true; m.userData.decor = true;
+  if (K.flat) Object.assign(m, { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
   const legs = K.legs || [[0.3, 0.7, 0.032], [0.48, 1.35, 0.024], [0.22, -0.2, 0.02], [0.62, 0.35, 0.02]];
   const arms = K.arms || [[0.2, 0.9, 0.026], [0.32, 1.6, 0.019], [0.12, 0.2, 0.017], [0.45, 1.1, 0.015]];
   const disc = new THREE.SphereGeometry(1, 14, 8);
-  const make = (list) => list.map(([t, a, r]) => { const x = mesh(disc, m, false); x.scale.set(r, 0.0035, r * 0.85); x.userData.spot = [t, a]; x.userData.skin = true; ch.root.add(x); return x; });
+  const make = (list) => list.slice(0, K.nLimb ?? list.length).map(([t, a, r]) => { const x = mesh(disc, m, false); x.scale.set(r, K.flat ? 0.0006 : 0.0035, r * 0.85); x.userData.spot = [t, a]; x.userData.skin = true; ch.root.add(x); return x; });
   const set = { R: { leg: make(legs), arm: make(arms) }, L: { leg: make(legs), arm: make(arms) } };
   const fwd = new THREE.Vector3(), side = new THREE.Vector3(), n = new THREE.Vector3(), yUp = new THREE.Vector3(0, 1, 0);
   const place = (list, curve, w, sx, show, radius) => {
@@ -671,7 +689,7 @@ function limbSpots(ch, C) {
       const legC = L.hip && L.knee ? Ch.armCurve(L.hip, L.knee, L.foot.position) : null;
       place(set[s].leg, legC, ch.def.legs?.width ?? ch.limbW * 1.1, sx, show && !!legC, (t, w) => w);
       const armC = A.elbow ? Ch.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint) : null;
-      place(set[s].arm, armC, ch.limbW, sx, show && !!armC && A.mesh?.visible !== false, (t, w) => Ch.armRadius(t, w));
+      place(set[s].arm, armC, ch.limbW, sx, show && !!armC && A.mesh?.visible !== false, (t, w) => Ch.armRadius(t, w, ch.def.limbs?.armTaper));
     }
   };
 }
@@ -684,6 +702,14 @@ function feet(ch, C) {
     const f = ch.legs[s].foot;
     const g = new THREE.SphereGeometry(1, 28, 18); g.scale(w, h, d); g.translate(0, 0.012, 0.012);
     const P = g.attributes.position; for (let i = 0; i < P.count; i++) if (P.getY(i) < -0.03) P.setY(i, -0.03 + (P.getY(i) + 0.03) * 0.3);   // a flat sole
+    // feet.blend (opt-in, m: the leg's radius at the ankle; Jonny 7 Nov "remove the abrupt cuff"): the upper half of the
+    // foot draws in to the leg's round section, so the leg widens into the foot in one flowing shape instead of standing
+    // on a separate swollen pad; the front stays long below for the toes
+    if (K.blend) for (let i = 0; i < P.count; i++) {
+      const y = P.getY(i), k = Math.min(1, Math.max(0, (y - 0.012 * 0 - (K.blendFrom ?? -0.01)) / (h * 0.9 + 0.012 - (K.blendFrom ?? -0.01)))), e = k * k * (3 - 2 * k);
+      if (e <= 0) continue; const x = P.getX(i), z = P.getZ(i), L = Math.hypot(x, z); if (L < 1e-6) continue;
+      const m = (L + (K.blend - L) * e) / L; P.setX(i, x * m); P.setZ(i, z * m);
+    }
     g.computeVertexNormals();
     f.geometry.dispose(); f.geometry = g; f.scale.set(1, 1, 1);
     // three broad cream toe tips (correction brief 6 Nov: the old tiny beads read as pearls): flattened rounded nails
@@ -696,6 +722,9 @@ function feet(ch, C) {
       const TP = t.attributes.position; for (let i = 0; i < TP.count; i++) if (TP.getY(i) < sole + 0.002) TP.setY(i, sole + 0.002);
       t.deleteAttribute("uv"); geos.push(t);
     }
-    const tg = mergeGeometries(geos); tg.computeVertexNormals(); f.add(mesh(tg, toeM, false));
+    const tg = mergeGeometries(geos);
+    // feet.out (opt-in, radians): each foot turns its toes out a little (Jonny 7 Nov: a slight natural outward set)
+    if (K.out) { const a = (s === "L" ? 1 : -1) * K.out; g.rotateY(a); tg.rotateY(a); g.computeVertexNormals(); }
+    tg.computeVertexNormals(); f.add(mesh(tg, toeM, false));
   }
 }

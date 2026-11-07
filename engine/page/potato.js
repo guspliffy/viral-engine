@@ -678,7 +678,7 @@ export class Character {
     const nr = HD.neckR ?? Math.min(hr.rx, hr.rz) * 0.42;
     if (nr > 0) {
       const y0 = this.cy + this.ry * 0.8, y1 = hr.cy - hr.ry * 0.35;
-      hr.neck = new THREE.Mesh(new THREE.CylinderGeometry(nr, nr * 1.08, y1 - y0, 32, 1, true), this.skin);
+      hr.neck = new THREE.Mesh(new THREE.CylinderGeometry(nr, nr * (1.08 + (HD.neckFlare ?? 0)), y1 - y0, 32, 1, true), this.skin);   // head.neckFlare (opt-in): a throat widening into the chest
       hr.neck.position.set(0, (y0 + y1) / 2, (HD.forward ?? 0) * 0.5); hr.neck.castShadow = true; this.potatoParts.add(hr.neck);
     }
     if (HD.nose) { const n = this.headSurf(0, HD.nose.v ?? -0.08), m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.skin); m.scale.set(HD.nose.w ?? 0.03, HD.nose.h ?? 0.026, HD.nose.d ?? 0.022); m.position.copy(n.pos).addScaledVector(n.normal, -0.006); m.lookAt(n.pos.clone().add(n.normal)); hr.group.add(m); hr.nose = m; }
@@ -708,6 +708,15 @@ export class Character {
         out.z += P.snout * H.rz * f; out.y += (P.lift ?? 0) * H.ry * f;
       }
       if (P.jaw && d.y < 0) out.y *= 1 - P.jaw * d.y * d.y;
+      // throat (opt-in, Pebble 7 Nov 12:07: "round the lower jaw into the neck"): below elevation from (d.y), the head's
+      // underside draws in to a neck of radius r round a centre z forward, and runs drop metres further down, so the jaw
+      // flows into a short throat instead of ending on a broad base over a separate column
+      const T = P.throat;
+      if (T && d.y < (T.from ?? -0.3)) {
+        const f0 = T.from ?? -0.3, t = Math.min(1, (f0 - d.y) / (1 + f0)), k = t * t * (3 - 2 * t), zc = T.z ?? 0;
+        const hz = out.z - zc, L = Math.hypot(out.x, hz), rT = T.r ?? 0.12, m = L > 1e-6 ? (L + (rT - L) * k) / L : 0;
+        out.x *= m; out.z = zc + hz * m; out.y -= (T.drop ?? 0.06) * k;
+      }
     }
     return out;
   }
@@ -735,7 +744,8 @@ export class Character {
   }
   // the arm tube's radius at t along it (0: the shoulder, 1: the wrist) for limb width w: rooted inside the body with a
   // wider shoulder (no cut tube end shows), narrowing to a wrist before the mitten
-  static armRadius(t, w) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1); }
+  // k (limbs.armTaper, opt-in, Pebble 7 Nov): a further share the forearm narrows by toward the wrist (0: none)
+  static armRadius(t, w, k = 0) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1) * (k ? 1 - k * Math.min(1, Math.max(0, (t - 0.2) / 0.7)) ** 1.2 : 1); }
   // storyboard "debug": { "anchors": true }: shoulder (red), elbow (green) and hand (blue) of each arm, drawn on top
   _anchors(s, pts) {
     this._anc ??= {};
@@ -798,7 +808,7 @@ export class Character {
     const palm = (hs.palm || PALM).map((c) => cone(P(c[0], c[1], c[2]), P(c[3], c[4], c[5]), c[6] * k, c[7] * k));
     // the forearm's last stretch (hands.stub metres of it), on the arm's own curve and 1 % thinner than its tube
     const curve = Character.armCurve(a.shoulder, a.elbow, hand.position, a.joint), arm = [], L = curve.getLength(), N = 4;
-    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW) * 0.99;
+    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW, this.def.limbs?.armTaper) * 0.99;
     for (let i = 0; i < N; i++) { const ta = t0 + ((1 - t0) * i) / N, tb = t0 + ((1 - t0) * (i + 1)) / N; arm.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta), R(tb))); }
     // hands.cuff { at, r, len }: a rolled glove rim round the wrist, at metres from the hand's centre, r times the arm
     const cuff = [];
@@ -829,8 +839,8 @@ export class Character {
     // legs.dome (opt-in, Pebble 7 Nov "boots with flat exposed upper edges"): { top, flare } a leg whose root closes in a
     // round dome over its first `top` share (rooted inside the body, it swells out of the lower torso like a haunch) and
     // widens by `flare` toward the foot, so it reads as a short sturdy leg, not a cut tube
-    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
-      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t))
+    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w, this.def.limbs?.armTaper) * cap(t))
+      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t ** (dome.flareP ?? 1)) * (1 - (dome.waist ?? 0) * Math.sin(Math.PI * t)))
       : new THREE.TubeGeometry(curve, 14, w, this.head ? 18 : 8, false);   // the core build's thick suit legs: rounder
     if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
     const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
@@ -1162,7 +1172,7 @@ export class Character {
     for (let i = 5; i <= 24; i++) {
       const c = curve.getPointAt(i / 24).applyMatrix4(this.root.matrixWorld);
       if (c.distanceTo(hand) < 0.08 * k) continue;
-      out.push({ c, r: Character.armRadius(i / 24, this.limbW) * k });
+      out.push({ c, r: Character.armRadius(i / 24, this.limbW, this.def.limbs?.armTaper) * k });
     }
     return out;
   }
