@@ -397,6 +397,21 @@
     203
    ],
    "mood": "drama"
+  },
+  {
+   "id": "disaster",
+   "bpm": 128,
+   "bars": 8,
+   "prompts": [
+    "tense disaster movie action music, pounding taiko and timpani, urgent staccato string ostinato, blaring brass stabs, panic and danger, cinematic, 128 BPM",
+    "frantic orchestral emergency music, racing strings, booming drums, dramatic brass hits, rising suspense, film trailer, 128 BPM"
+   ],
+   "seeds": [
+    301,
+    302,
+    303
+   ],
+   "mood": "drama"
   }
  ]
 }

@@ -472,6 +472,64 @@
      "bars": null
     }
    ]
+  },
+  {
+   "id": "disaster",
+   "kind": "music",
+   "files": [
+    "disaster/disaster-04.ogg",
+    "disaster/disaster-01.ogg"
+   ],
+   "tags": [
+    "drama"
+   ],
+   "mood": "drama",
+   "bpm": 128.0,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 128,
+   "loopable": true,
+   "durationSec": 15.0,
+   "prompt": [
+    "tense disaster movie action music, pounding taiko and timpani, urgent staccato string ostinato, blaring brass stabs, panic and danger, cinematic, 128 BPM",
+    "frantic orchestral emergency music, racing strings, booming drums, dramatic brass hits, rising suspense, film trailer, 128 BPM"
+   ],
+   "seed": [
+    301,
+    302,
+    303,
+    301,
+    302,
+    303
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "disaster/disaster-04.ogg",
+     "seed": 301,
+     "durationSec": 14.988,
+     "bars": 8,
+     "bpm": 128.1,
+     "beatSpread": 0.043,
+     "steadyBeat": true,
+     "clap": 0.367,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "disaster/disaster-01.ogg",
+     "seed": 301,
+     "durationSec": 15.012,
+     "bars": 8,
+     "bpm": 127.9,
+     "beatSpread": 0.059,
+     "steadyBeat": true,
+     "clap": 0.373,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "pickedBy": "Claude 7 Nov 2026 (no ears): CLAP rank 2 and 1 of 6, take 04 has 52 % of its energy in the phone band (take 01: 27 %); Jonny judges by ear"
   }
  ]
 }
