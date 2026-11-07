@@ -1,0 +1,4528 @@
+{
+ "id": "baked-potato",
+ "title": "That one friend who always orders potatoes… at the steakhouse",
+ "idea": "Always orders potatoes, episode 3: a Western steakhouse. Viking's baked potato in foil is as big as his head; his spoon goes in for the first bite and the potato opens its eyes and waves. Viking melts (the blossom pops). The potato loves toppings, he loads its head into a tower, and when it leans over to look at Gunslinger's steak the tower slides off onto it. The potato says Viking's line, Want some?, and Phoenix lowers his phone for the first time.",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 2.3,
+ "set": {
+  "type": "plain",
+  "color": "#4a2e1a",
+  "floor": "#3e2716",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/steakhouse-night.png",
+   "z": -2.6,
+   "center": [
+    -0.75,
+    3.2
+   ],
+   "height": 8.2,
+   "depth": false,
+   "motion": false,
+   "dust": 10
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "key": 7,
+  "bpm": 104,
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "room": "room",
+  "guard": true,
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "gsl",
+   "rea",
+   "phx",
+   "spud"
+  ],
+  "hint": 1.92,
+  "what": "a baked potato as big as Viking's head steams in its foil in front of him (Look at the SIZE of it!), next to his friends' steak and corn; at the first spoon it opens its eyes"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "always-orders-potatoes/gunslinger",
+   "at": [
+    -1.02,
+    -0.68
+   ],
+   "face": 10,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    0,
+    -0.68
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.25,
+   "seed": 2.1
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.98,
+    -0.72
+   ],
+   "face": -18,
+   "expr": "deadpan",
+   "follow": 0.25,
+   "seed": 3.3
+  },
+  {
+   "id": "sam",
+   "character": "always-orders-potatoes/samurai-waiter",
+   "at": [
+    0,
+    -1.6
+   ],
+   "y": 0.85,
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.2,
+   "sway": 0.4
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0.95,
+    -1.75
+   ],
+   "y": 0.85,
+   "face": -22,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 1.7,
+   "span": 0.15
+  },
+  {
+   "id": "spud",
+   "character": "always-orders-potatoes/baked-spud",
+   "at": [
+    0.04,
+    0.08
+   ],
+   "y": 0.14,
+   "scale": 0.49,
+   "face": 0,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 5.2,
+   "signature": false
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "pubstep",
+   "x": 0.3,
+   "z": -1.78,
+   "w": 3,
+   "d": 1.1,
+   "h": 0.85
+  },
+  {
+   "id": "bar",
+   "kind": "barcounter",
+   "x": 0.8999999999999999,
+   "y": 0,
+   "z": -1.17,
+   "w": 0.8,
+   "d": 0.04,
+   "h": 1.15
+  },
+  {
+   "id": "table",
+   "kind": "steaktable",
+   "x": 0,
+   "z": 0.3,
+   "w": 3.2,
+   "d": 1.2,
+   "h": 0.18,
+   "cloth": 0.78,
+   "over": 0.18
+  },
+  {
+   "id": "board",
+   "kind": "servingboard",
+   "x": 0.04,
+   "y": 0.18,
+   "z": 0.08,
+   "w": 0.6,
+   "d": 0.34
+  },
+  {
+   "id": "potato",
+   "kind": "bakedpotato",
+   "x": 0.04,
+   "y": 0.21,
+   "z": 0.08,
+   "open": 1,
+   "steam": 1,
+   "seed": 3,
+   "empty": true,
+   "scale": 1
+  },
+  {
+   "id": "split",
+   "kind": "spudsplit",
+   "wear": "spud",
+   "x": 0,
+   "y": 1.07,
+   "z": 0.04,
+   "len": 0.28
+  },
+  {
+   "id": "bowl0",
+   "kind": "toppingbowl",
+   "x": -0.58,
+   "y": 0.18,
+   "z": 0.34,
+   "food": "butter"
+  },
+  {
+   "id": "bowl1",
+   "kind": "toppingbowl",
+   "x": -0.46,
+   "y": 0.18,
+   "z": 0.34,
+   "food": "cream"
+  },
+  {
+   "id": "bowl2",
+   "kind": "toppingbowl",
+   "x": -0.34,
+   "y": 0.18,
+   "z": 0.34,
+   "food": "cheese"
+  },
+  {
+   "id": "bowl3",
+   "kind": "toppingbowl",
+   "x": -0.22,
+   "y": 0.18,
+   "z": 0.34,
+   "food": "bacon"
+  },
+  {
+   "id": "bowl4",
+   "kind": "toppingbowl",
+   "x": 0.34,
+   "y": 0.18,
+   "z": 0.34,
+   "food": "chives"
+  },
+  {
+   "id": "steak",
+   "kind": "skilletsteak",
+   "x": -0.53,
+   "y": 0.18,
+   "z": -0.1,
+   "rot": 15,
+   "steam": 0.7
+  },
+  {
+   "id": "lemon",
+   "kind": "lemonade",
+   "x": 0.56,
+   "y": 0.18,
+   "z": 0.02
+  },
+  {
+   "id": "corn",
+   "kind": "corncob",
+   "x": 0.86,
+   "y": 0.33,
+   "z": -0.15,
+   "rot": -18,
+   "staged": "in Reaper's two gloves from the first frame"
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 0.83,
+   "y": 1.63,
+   "z": -1.33,
+   "rot": 160,
+   "tip": -8,
+   "scale": 1.6,
+   "case": "#e07a5f",
+   "glow": 0.7,
+   "staged": "in Phoenix's two gloves from the first frame"
+  },
+  {
+   "id": "but1",
+   "kind": "butterpat",
+   "x": 0.034,
+   "y": 0.68,
+   "z": 0.08,
+   "rot": 20,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0,
+    "shape": "box"
+   },
+   "staged": "on the spoon until he puts it on the potato's head"
+  },
+  {
+   "id": "crm",
+   "kind": "creamdollop",
+   "x": 0.046,
+   "y": 0.714,
+   "z": 0.08,
+   "rot": 0,
+   "scale": 0.001,
+   "chives": true,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0
+   },
+   "staged": "on the spoon until he puts it on the potato's head"
+  },
+  {
+   "id": "chz",
+   "kind": "cheeseslice",
+   "x": 0.034,
+   "y": 0.783,
+   "z": 0.08,
+   "rot": 35,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0,
+    "shape": "box"
+   },
+   "staged": "on the spoon until he puts it on the potato's head"
+  },
+  {
+   "id": "bac",
+   "kind": "baconbits",
+   "x": 0.046,
+   "y": 0.79,
+   "z": 0.08,
+   "rot": 0,
+   "scale": 0.001,
+   "n": 14,
+   "seed": 5,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0
+   },
+   "staged": "on the spoon until he puts it on the potato's head"
+  },
+  {
+   "id": "but3",
+   "kind": "butterpat",
+   "x": 0.034,
+   "y": 0.829,
+   "z": 0.08,
+   "rot": 10,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0,
+    "shape": "box"
+   },
+   "staged": "on the spoon until he puts it on the potato's head"
+  },
+  {
+   "id": "spoon",
+   "kind": "tablespoon",
+   "x": -0.38,
+   "y": 0.627,
+   "z": -0.254,
+   "tip": -160,
+   "rot": 0,
+   "food": 0,
+   "fk": 0,
+   "staged": "in Viking's fist from the first frame"
+  },
+  {
+   "id": "apron",
+   "kind": "waiterapron",
+   "wear": "sam",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#8d9096"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.48,
+   "text": "Look at the SIZE of it!",
+   "pos": 480,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.12,
+   "to": 2.78,
+   "text": "Hi!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.65,
+   "to": 4.45,
+   "text": "Ooh!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.95,
+   "to": 5.75,
+   "text": "More!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.5,
+   "to": 6.95,
+   "text": "Perfect.",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.85,
+   "to": 9.3,
+   "text": "Want some?",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
+   "to": 9.9,
+   "text": "Want some?",
+   "pos": 480,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1 the dish lands",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.06,
+     2.342,
+     3.695
+    ],
+    "look": [
+     -0.06,
+     1.45,
+     -0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "spoon",
+     "hand": "R",
+     "grip": [
+      0,
+      0.135,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "corn",
+      "grip": [
+       0.155,
+       0.046,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "corn",
+      "grip": [
+       -0.155,
+       0.046,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "corn",
+     "hand": "both",
+     "grip": [
+      0,
+      0.034,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.11,
+       0.34,
+       0.45
+      ],
+      "palm": [
+       0,
+       0.34,
+       0.45
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.11,
+       0.34,
+       0.45
+      ],
+      "palm": [
+       0,
+       0.34,
+       0.45
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "both",
+     "grip": [
+      0,
+      0.035,
+      0
+     ],
+     "pose": null,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.45,
+     "reason": "the heavy board with the baked potato set down on the wooden table: a dark tock",
+     "at": 0
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.5,
+     "reason": "Gunslinger's steak sizzling on its cast-iron plate",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1.85,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.36,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "corn",
+     "set": {
+      "x": 0.86,
+      "y": 0.33,
+      "z": -0.15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "corn",
+      "grip": [
+       0.155,
+       0.046,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.86,
+       0.33,
+       -0.15
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "corn",
+      "grip": [
+       -0.155,
+       0.046,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.86,
+       0.33,
+       -0.15
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.75
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "look at the SIZE of it!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.35,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.1,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.6,
+       0.33
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 1.4
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P2 the first bite",
+   "at": 1.5,
+   "len": 0.38,
+   "shot": {
+    "pos": [
+     0,
+     2.069,
+     3.944
+    ],
+    "look": [
+     0,
+     0.48,
+     -0.42
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0,
+      1.973,
+      3.683
+     ]
+    },
+    "dur": 1.2
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.1,
+       0.726,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -143
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.18
+    }
+   ]
+  },
+  {
+   "name": "P2b it wakes up",
+   "at": 1.88,
+   "len": 0.42,
+   "shot": {
+    "pos": [
+     0.04,
+     0.876,
+     2.53
+    ],
+    "look": [
+     0.04,
+     0.444,
+     0.08
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "sfx": "hop",
+     "gain": 0.6,
+     "reason": "the potato's eyes pop open: a quick little rising bwip",
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1.15,
+      "curve": 0.2
+     },
+     "dur": 0.08,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1,
+     "idle": 0,
+     "at": 0.04
+    },
+    {
+     "fx": "sparkle",
+     "who": "spud",
+     "dur": 0.35,
+     "count": 3,
+     "color": "#fff2a8",
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.539,
+      "curve": 0.15
+     },
+     "dur": 0.25,
+     "at": 0.09
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.09
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.08,
+     "at": 0.09
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.6,
+     "reason": "Viking's little gasp as the potato opens its eyes",
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.14
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.38,
+       0.627,
+       -0.254
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 0,
+      "tip": -160
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.05,
+      0.75
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.23,
+       0.46,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "hi!",
+     "tone": "happy",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.4,
+      "eye": 1.1
+     },
+     "dur": 0.15,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.27,
+       0.46,
+       0.16
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.39
+    }
+   ]
+  },
+  {
+   "name": "P2c Hi!",
+   "at": 2.3,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0,
+     2.069,
+     3.944
+    ],
+    "look": [
+     0,
+     0.48,
+     -0.42
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0,
+      1.973,
+      3.683
+     ]
+    },
+    "dur": 1.2
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.23,
+       0.46,
+       0.16
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "bloom",
+     "to": 1,
+     "dur": 0.25,
+     "ease": "back",
+     "at": 0.1
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.6,
+     "reason": "the series' sound logo: the potato blossom pops open on Viking's sprout",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      5
+     ],
+     "dur": 0.16,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.27,
+       0.46,
+       0.16
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      -5
+     ],
+     "dur": 0.16,
+     "at": 0.32
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.16,
+     "at": 0.48
+    }
+   ]
+  },
+  {
+   "name": "P3 it's alive",
+   "at": 2.8,
+   "len": 0.75,
+   "shot": {
+    "pos": [
+     -0.06,
+     2.342,
+     3.695
+    ],
+    "look": [
+     -0.06,
+     1.45,
+     -0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.539,
+      "curve": -0.45
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.65
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25
+     },
+     "dur": 0.15,
+     "at": 0.08
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.596,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.1,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 0.23
+    },
+    {
+     "sfx": "click",
+     "gain": 1,
+     "reason": "Phoenix's phone shutter: a photo of the waving potato",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.75
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.29
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.68
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "P4 loading it",
+   "at": 3.55,
+   "len": 3.37,
+   "shot": {
+    "pos": [
+     -0.24,
+     2.773,
+     4.475
+    ],
+    "look": [
+     -0.24,
+     0.5,
+     -0.4
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.15,
+       0.38,
+       0.21
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "ooh!",
+     "tone": "excited",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.15,
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.65
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 3,
+     "idle": 0,
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.225,
+       0.34
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.93
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.93
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fk": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.01
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.01
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.73,
+       0.11
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.12
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.71,
+       0.11
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -130
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 1.29
+    },
+    {
+     "do": "prop",
+     "id": "but1",
+     "set": {
+      "scale": 1.3
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.29
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.75,
+     "reason": "a topping lands on the potato's head (butterpat)",
+     "at": 1.29
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.46,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.2
+     },
+     "dur": 0.08,
+     "at": 1.32
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.06,
+     "at": 1.32
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "more!",
+     "tone": "excited",
+     "dur": 0.4,
+     "blink": false,
+     "voice": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.38,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.38,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.46,
+       0.225,
+       0.34
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.43
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "steak",
+      "grip": [
+       -0.08,
+       0.13,
+       -0.07
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fk": 2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.51
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.51
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 1.52
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.46,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 1.53
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 1.53
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 1.55
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.026,
+       0.764,
+       0.11
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 1.65
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.026,
+       0.744,
+       0.11
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -130
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "steak",
+     "set": {
+      "x": -0.48,
+      "z": -0.06
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.25,
+     "reason": "the cast-iron plate pushed a little over the wooden table",
+     "at": 1.75
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 1.79
+    },
+    {
+     "do": "prop",
+     "id": "crm",
+     "set": {
+      "scale": 1.3
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.79
+    },
+    {
+     "sfx": "splort",
+     "gain": 0.85,
+     "reason": "a topping lands on the potato's head (creamdollop)",
+     "at": 1.79
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.34,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.45
+     },
+     "dur": 0.08,
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.06,
+     "at": 1.82
+    },
+    {
+     "do": "prop",
+     "id": "crm",
+     "set": {
+      "squash": 0.12
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "crm",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.34,
+       0.225,
+       0.34
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.93
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.93
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fk": 3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.01
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.01
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 2.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.34,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 2.03
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 2.03
+    },
+    {
+     "do": "prop",
+     "id": "chz",
+     "set": {
+      "melt": 0.8
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "do": "prop",
+     "id": "but1",
+     "set": {
+      "melt": 0.6
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.833,
+       0.11
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.12
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.12
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 2.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.813,
+       0.11
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -130
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 2.29
+    },
+    {
+     "do": "prop",
+     "id": "chz",
+     "set": {
+      "scale": 1.3
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 2.29
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.75,
+     "reason": "a topping lands on the potato's head (cheeseslice)",
+     "at": 2.29
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.22,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.2
+     },
+     "dur": 0.08,
+     "at": 2.32
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.06,
+     "at": 2.32
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.22,
+       0.225,
+       0.34
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 2.43
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 2.43
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 2.45
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fk": 5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.51
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.51
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 2.52
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.22,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 2.53
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 2.53
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 2.55
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.55
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.026,
+       0.84,
+       0.11
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.62
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.62
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.65
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.026,
+       0.82,
+       0.11
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.75
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -130
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 2.75
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 2.79
+    },
+    {
+     "do": "prop",
+     "id": "bac",
+     "set": {
+      "scale": 1.3
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 2.79
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.75,
+     "reason": "a topping lands on the potato's head (baconbits)",
+     "at": 2.79
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.45
+     },
+     "dur": 0.08,
+     "at": 2.82
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.06,
+     "at": 2.82
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.85
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.225,
+       0.34
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 2.93
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 2.93
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "perfect.",
+     "tone": "calm",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 2.95
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "fk": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.01
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 3.01
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 3.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.58,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 3.03
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -25
+     },
+     "dur": 0.09,
+     "ease": "out",
+     "at": 3.03
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.879,
+       0.11
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 3.12
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 3.12
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.014,
+       0.859,
+       0.11
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 3.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -130
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 3.25
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 3.29
+    },
+    {
+     "do": "prop",
+     "id": "but3",
+     "set": {
+      "scale": 1.3
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 3.29
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.75,
+     "reason": "a topping lands on the potato's head (butterpat)",
+     "at": 3.29
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.3,
+     "at": 3.29
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.3
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.15,
+     "at": 3.34
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.15,
+     "at": 3.34
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.08,
+       0.656,
+       0.18
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 3.35
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 90,
+      "tip": -115
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 3.35
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.35,
+      "eye": 1.2,
+      "curve": 0.5
+     },
+     "dur": 0.12,
+     "at": 3.36
+    }
+   ]
+  },
+  {
+   "name": "P6 the topple",
+   "at": 6.92,
+   "len": 2.38,
+   "shot": {
+    "pos": [
+     -1.011,
+     2.169,
+     4.564
+    ],
+    "look": [
+     -0.5,
+     0.58,
+     -0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.45,
+     "reason": "the topping tower creaking as it tips over",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "but1",
+     "set": {
+      "x": 0.023,
+      "y": 0.705,
+      "tilt": -36
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "crm",
+     "set": {
+      "x": 0.01,
+      "y": 0.741,
+      "tilt": -39
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "chz",
+     "set": {
+      "x": -0.049,
+      "y": 0.785,
+      "tilt": -42
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "bac",
+     "set": {
+      "x": -0.051,
+      "y": 0.796,
+      "tilt": -45
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "but3",
+     "set": {
+      "x": -0.094,
+      "y": 0.811,
+      "tilt": -48
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.135,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.38,
+       0.627,
+       -0.254
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "rot": 0,
+      "tip": -160
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "do": "physics",
+     "prop": "but3",
+     "mode": "throw",
+     "to": [
+      -0.51,
+      0.265,
+      -0.07
+     ],
+     "in": 0.41,
+     "spin": [
+      0,
+      0,
+      0.8999999999999999
+     ],
+     "at": 0.26
+    },
+    {
+     "do": "physics",
+     "prop": "bac",
+     "mode": "throw",
+     "to": [
+      -0.49,
+      0.25,
+      -0.1
+     ],
+     "in": 0.37,
+     "spin": [
+      0,
+      0,
+      0.6
+     ],
+     "at": 0.29
+    },
+    {
+     "do": "physics",
+     "prop": "chz",
+     "mode": "throw",
+     "to": [
+      -0.53,
+      0.28,
+      -0.09
+     ],
+     "in": 0.33,
+     "spin": [
+      0,
+      0,
+      1.2
+     ],
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5,
+      "eye": 1.15
+     },
+     "dur": 0.15,
+     "at": 0.34
+    },
+    {
+     "do": "physics",
+     "prop": "crm",
+     "mode": "throw",
+     "to": [
+      -0.52,
+      0.265,
+      -0.06
+     ],
+     "in": 0.29,
+     "spin": [
+      0,
+      0,
+      0.8999999999999999
+     ],
+     "at": 0.35
+    },
+    {
+     "do": "physics",
+     "prop": "but1",
+     "mode": "throw",
+     "to": [
+      -0.5,
+      0.25,
+      -0.08
+     ],
+     "in": 0.25,
+     "spin": [
+      0,
+      0,
+      0.6
+     ],
+     "at": 0.38
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.8
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.38
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.7,
+      "eye": 1.482,
+      "curve": -0.675
+     },
+     "dur": 0.25,
+     "at": 0.58
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.58
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0.58
+    },
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "reason": "the payoff: the whole loaded tower lands on Gunslinger's steak",
+     "at": 0.63
+    },
+    {
+     "sfx": "splort",
+     "gain": 0.9,
+     "reason": "the sour cream and melted cheese splatting onto the steak",
+     "at": 0.63
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.52,
+      0.26,
+      -0.07
+     ],
+     "dur": 0.35,
+     "color": "#fff6dc",
+     "puffs": 4,
+     "sparks": 6,
+     "size": 0.16,
+     "lift": 0.08,
+     "at": 0.63
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.3
+     },
+     "dur": 0.1,
+     "at": 0.63
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.8,
+     "reason": "the butter hitting the hot cast-iron plate",
+     "at": 0.68
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.3,
+     "at": 0.68
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9
+     },
+     "dur": 0.2,
+     "at": 0.68
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.73
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.73
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.65
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.73
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.78
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.78
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.2
+     },
+     "dur": 0.2,
+     "at": 1.03
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 1.13
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.18
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.18
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 1.23
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.65,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.71
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 1.83
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.4,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.83
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 1.83
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "want some?",
+     "tone": "question",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "soft": true,
+     "at": 1.93
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.85,
+     "idle": 0,
+     "at": 1.98
+    },
+    {
+     "who": "gsl",
+     "do": "hat",
+     "off": [
+      0,
+      -0.02,
+      0.01
+     ],
+     "spin": [
+      14,
+      0,
+      0
+     ],
+     "dur": 0.4,
+     "at": 2.03
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.8,
+     "dur": 0.3,
+     "at": 2.03
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.28
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.11,
+       0.12,
+       0.34
+      ],
+      "palm": [
+       0,
+       0.12,
+       0.34
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.33
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.11,
+       0.12,
+       0.34
+      ],
+      "palm": [
+       0,
+       0.12,
+       0.34
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.33
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P8 want some",
+   "at": 9.3,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.06,
+     2.342,
+     3.695
+    ],
+    "look": [
+     -0.06,
+     1.45,
+     -0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "thumb",
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.505,
+      "curve": 0
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.08,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.15
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.25
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.45,
+   "see": [
+    "vik.face",
+    "gsl.face",
+    "rea.face",
+    "sam.face",
+    "phx.face",
+    "spud"
+   ],
+   "why": "panel 1: the baked potato as big as his head in its foil, Look at the SIZE of it!"
+  },
+  {
+   "from": 1.6,
+   "to": 1.85,
+   "see": [
+    "vik.face",
+    "spud.face"
+   ],
+   "why": "panel 2: the spoon goes in"
+  },
+  {
+   "from": 1.92,
+   "to": 2.25,
+   "see": [
+    "spud.face"
+   ],
+   "why": "the insert: its eyes pop open, Hi!"
+  },
+  {
+   "from": 2.35,
+   "to": 2.75,
+   "see": [
+    "vik.face",
+    "spud.face"
+   ],
+   "why": "panel 2: the spoon goes in for the first bite and the potato opens its eyes, Hi!"
+  },
+  {
+   "from": 2.4,
+   "to": 2.75,
+   "see": [
+    "vik.sprout"
+   ],
+   "why": "the blossom"
+  },
+  {
+   "from": 2.85,
+   "to": 3.5,
+   "see": [
+    "vik.face",
+    "spud.face",
+    "gsl.face",
+    "rea.face"
+   ],
+   "why": "panel 3: the friends stare at the waving potato"
+  },
+  {
+   "from": 3.6,
+   "to": 4.25,
+   "see": [
+    "vik.face",
+    "spud.face",
+    "gsl.face"
+   ],
+   "why": "panel 3: the friends stare at the waving potato; it points at the butter"
+  },
+  {
+   "from": 4.35,
+   "to": 6.35,
+   "see": [
+    "vik.face",
+    "spud.face",
+    "gsl.face"
+   ],
+   "why": "panels 4-5: the toppings go on its head one by one, the potato beaming; More!; Gunslinger pushes his steak away"
+  },
+  {
+   "from": 6.89,
+   "to": 6.95,
+   "see": [
+    "vik.face",
+    "but3",
+    "spud.face"
+   ],
+   "why": "panel 5: the last butter pat on the very top, Perfect."
+  },
+  {
+   "from": 7,
+   "to": 7.65,
+   "see": [
+    "spud.face",
+    "gsl.face",
+    "steak",
+    "but3"
+   ],
+   "why": "panel 6: the potato leans over to look at the steak and the tower slides off onto it"
+  },
+  {
+   "from": 7.55,
+   "to": 8.65,
+   "see": [
+    "gsl.face",
+    "vik.face",
+    "steak",
+    "spud.face"
+   ],
+   "why": "panel 7: the toppings on Gunslinger's steak, the potato bare again"
+  },
+  {
+   "from": 9.05,
+   "to": 9.25,
+   "see": [
+    "spud.face",
+    "gsl.face",
+    "steak"
+   ],
+   "why": "panel 8 (close): the potato offers the toppings on the steak, Want some?"
+  },
+  {
+   "from": 9.4,
+   "to": 9.85,
+   "see": [
+    "spud.face",
+    "vik.face",
+    "phx.face",
+    "phone",
+    "vik.sprout"
+   ],
+   "why": "panel 8: the potato offers the toppings, Want some?; Viking proud; Phoenix has lowered his phone"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 7.567,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "sam",
+   "with": "apron",
+   "from": 0,
+   "to": 10,
+   "reason": "the waiter's apron (worn)"
+  },
+  {
+   "who": "spud",
+   "with": "potato",
+   "from": 0,
+   "to": 10,
+   "reason": "the baked potato sits in its own opened foil, its lower part inside it"
+  },
+  {
+   "who": "spud",
+   "with": "board",
+   "from": 0,
+   "to": 10,
+   "reason": "its hidden lower part goes into the board under the foil"
+  },
+  {
+   "who": "spud",
+   "with": "split",
+   "from": 0,
+   "to": 10,
+   "reason": "its split top and butter pat are part of the potato (worn)"
+  },
+  {
+   "who": "vik",
+   "with": "split",
+   "from": 1.86,
+   "to": 2.32,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "the wake-up insert is a close-up on the potato's face; Viking's gasp reads in the shot after it"
+  },
+  {
+   "who": "vik",
+   "from": 6.78,
+   "to": 7,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the last butter pat goes on the very top of the tower: his fist passes his eyes for 0.17 s on the way down"
+  },
+  {
+   "who": "vik",
+   "with": "spoon",
+   "from": 4.35,
+   "to": 6.9,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "known from v1: the spoon turns in his fist between scooping and tipping on each trip (up to 17 cm a frame at the bowl end); one steady hold (tips -70/-100) made new palm-in-spoon and hidden-end fails, so the real fix is a new spoon hold in the grip library, which needs Jonny's OK"
+  },
+  {
+   "who": "spud",
+   "from": 0,
+   "to": 1.95,
+   "checks": [
+    "eyes-readable"
+   ],
+   "reason": "the potato is asleep with its eyes shut until it wakes at 1.92 s: the closed lids are the joke's setup"
+  },
+  {
+   "who": "gsl",
+   "with": "steak",
+   "from": 4.9,
+   "to": 5.9,
+   "reason": "his glove pushes his steak plate away"
+  }
+ ],
+ "notes": "Generated by storyboards/series/always-orders-potatoes/03-baked-potato/make-baked-potato.mjs. Panels: PANELS.md."
+}
