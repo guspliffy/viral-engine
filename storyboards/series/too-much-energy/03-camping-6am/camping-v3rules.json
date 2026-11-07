@@ -1,0 +1,3422 @@
+{
+ "id": "camping-v3rules",
+ "title": "That one friend with too much energy at 6 am camping",
+ "idea": "Too Much Energy, episode 3: at 5:59 am Phoenix zips the tent door up and down, blazes his wings like a sunrise, and tows his two sleeping friends out by their feet so the tent folds down; then the real sun rises and even Reaper nods",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 8.2,
+ "set": {
+  "type": "plain",
+  "color": "#26325f",
+  "floor": "shadow",
+  "shadow": 0.15,
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/camp-dawn.png",
+   "z": -7,
+   "center": [
+    0,
+    -7.3
+   ],
+   "height": 40,
+   "depth": false,
+   "motion": false,
+   "dust": 0,
+   "swaps": [
+    {
+     "at": 8.3,
+     "src": "assets/plates/camp-sunrise.png"
+    }
+   ]
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "key": 7,
+  "lowCut": 150,
+  "gain": 0.26,
+  "payoff": 6.2,
+  "until": 6.2
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.12
+   },
+   {
+    "id": "lake",
+    "gain": 0.08
+   }
+  ],
+  "surface": "grass",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea",
+   "wiz",
+   "tent",
+   "clock"
+  ],
+  "hint": 0.05,
+  "what": "Reaper mumbles \"just ONE quiet morning\" in his sleeping bag while Phoenix is already star-jumping in front of the tent, the clock at 05:59"
+ },
+ "creative": {
+  "length": [
+   9,
+   12
+  ]
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    0,
+    1.9
+   ],
+   "face": 0,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 1.7,
+   "span": 0.5
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -0.5,
+    -1.02
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.15,
+   "seed": 4.1
+  },
+  {
+   "id": "wiz",
+   "character": "notyet/wizard-nostaff",
+   "at": [
+    0.5,
+    -1.17
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "tent",
+   "kind": "ridgetent",
+   "x": 0,
+   "z": -1.4,
+   "open": 0.6,
+   "lit": 1,
+   "ropes": [
+    [
+     -1.9,
+     0.02,
+     1.35
+    ],
+    [
+     1.9,
+     0.02,
+     1.35
+    ]
+   ]
+  },
+  {
+   "id": "bagR",
+   "kind": "sleepbag",
+   "x": -0.5,
+   "y": 0,
+   "z": -1.02,
+   "color": "#2b2a33",
+   "len": 0.95,
+   "recline": 26
+  },
+  {
+   "id": "bagW",
+   "kind": "sleepbag",
+   "x": 0.5,
+   "y": 0,
+   "z": -1.17,
+   "color": "#2d4f9e",
+   "len": 0.95,
+   "recline": 26
+  },
+  {
+   "id": "cord",
+   "kind": "tentcord",
+   "x": 0.83,
+   "y": 0.35,
+   "z": -1.32,
+   "a0": [
+    0,
+    1.86,
+    -0.9
+   ],
+   "a1": [
+    0.95,
+    0.09,
+    -0.2
+   ],
+   "len": 1.9,
+   "staged": "the lantern's cord runs from the roof loop down to the Wizard's bag, tied round it (the cause of the collapse)"
+  },
+  {
+   "id": "pillow",
+   "kind": "pillow",
+   "x": 0.58,
+   "y": 0.37,
+   "z": -0.6,
+   "rot": 10,
+   "body": {
+    "density": 40,
+    "bounce": 0.3
+   }
+  },
+  {
+   "id": "stool",
+   "kind": "stool",
+   "x": 1.28,
+   "z": 0.8,
+   "rot": -15
+  },
+  {
+   "id": "clock",
+   "kind": "campclock",
+   "x": 1.28,
+   "y": 0.42,
+   "z": 0.8,
+   "rot": -20,
+   "scale": 2.1
+  },
+  {
+   "id": "peg0",
+   "kind": "tentpeg",
+   "x": -1.5,
+   "y": 0,
+   "z": -0.33,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "peg1",
+   "kind": "tentpeg",
+   "x": 1.5,
+   "y": 0,
+   "z": -0.33,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "peg2",
+   "kind": "tentpeg",
+   "x": -1.9,
+   "y": 0,
+   "z": -0.05,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "peg3",
+   "kind": "tentpeg",
+   "x": 1.9,
+   "y": 0,
+   "z": -0.05,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "peg4",
+   "kind": "tentpeg",
+   "x": -1.5,
+   "y": 0,
+   "z": -2.47,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "peg5",
+   "kind": "tentpeg",
+   "x": 1.5,
+   "y": 0,
+   "z": -2.47,
+   "sink": 0.55,
+   "body": {
+    "density": 300,
+    "bounce": 0.2
+   }
+  },
+  {
+   "id": "lampglow",
+   "kind": "cinemaglow",
+   "x": 0,
+   "y": 1.4,
+   "z": -1.2,
+   "color": "#ffb860",
+   "size": 2,
+   "peak": 0.6,
+   "glow": 0.6
+  },
+  {
+   "id": "glow",
+   "kind": "cinemaglow",
+   "x": 0,
+   "y": 0.8,
+   "z": 1.9,
+   "color": "#ffa23a",
+   "size": 2.4,
+   "peak": 0.6,
+   "glow": 0.12
+  },
+  {
+   "id": "sunglow",
+   "kind": "cinemaglow",
+   "x": 3.2,
+   "y": 1.9,
+   "z": -6.9,
+   "color": "#ffc760",
+   "size": 2.4,
+   "peak": 0.6,
+   "glow": 0
+  },
+  {
+   "id": "sun",
+   "kind": "camplight",
+   "x": 3,
+   "y": 3.5,
+   "z": -6,
+   "color": "#ffc070",
+   "power": 0,
+   "dist": 40
+  },
+  {
+   "id": "fill",
+   "kind": "camplight",
+   "x": 1.2,
+   "y": 2.2,
+   "z": 4.5,
+   "color": "#ffd59a",
+   "power": 0,
+   "dist": 14
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.95,
+   "text": "Just ONE quiet morning…",
+   "pos": 500,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0.95,
+   "to": 1.48,
+   "text": "Good MORNIIING!",
+   "pos": 500,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.8,
+   "to": 3.65,
+   "text": "It's SIX!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.8,
+   "to": 4.5,
+   "text": "Sun's up!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.75,
+   "to": 5.15,
+   "text": "Ha-ha!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.75,
+   "to": 9.38,
+   "text": "…oh.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.38,
+   "to": 9.8,
+   "text": "Again tomorrow?",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 already too much",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     5.9
+    ],
+    "look": [
+     0.15,
+     0.5,
+     -0.4
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "bagR",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -26,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "bagW",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -26,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "open": 0,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "open": 0.05,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "cover": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bagW",
+     "set": {
+      "cover": 0.05
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.6,
+      "fall": 0,
+      "lit": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 0,
+      "lit": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cord",
+     "set": {
+      "fall": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "fx": "zzz",
+     "who": "wiz",
+     "dur": 0.9,
+     "count": 3,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.15,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.95,
+      "open": 0.8,
+      "eye": 1.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "Just one quiet morning",
+     "tone": "calm",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.2,
+     "dur": 0.38,
+     "at": 0.04
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.04
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.24
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.2,
+     "dur": 0.38,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.7
+    },
+    {
+     "fx": "zzz",
+     "who": "wiz",
+     "dur": 0.3,
+     "count": 3,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Good MORNIIING!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.2,
+     "dur": 0.38,
+     "at": 0.96
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.96
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.3,
+      0.08
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.96
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.55,
+     "dur": 0.25,
+     "at": 0.98
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.03
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.03
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.06
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.06
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 1.08
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "01b the victim",
+   "at": 1.1,
+   "len": 0.2,
+   "shot": {
+    "pos": [
+     -0.42,
+     0.95,
+     0.75
+    ],
+    "look": [
+     -0.5,
+     0.88,
+     -1.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.15,
+      0.2
+     ],
+     "dur": 0.38,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.06
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.3,
+       0.08
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.16
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "02 the zip",
+   "at": 1.3,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.5,
+     1.4,
+     4.2
+    ],
+    "look": [
+     -0.3,
+     0.8,
+     -0.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "brow": 0,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "open": 0,
+      "curve": -0.05
+     },
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.4,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tent",
+      "part": "zip",
+      "grip": [
+       0,
+       0,
+       0.08
+      ],
+      "palm": true
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.17,
+     "reason": "the tent zip pulled down: zzzip",
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.17,
+     "at": 0.32
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.6,
+      "eye": 1.15
+     },
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.17,
+     "reason": "the tent zip pulled up: zzzip",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.17,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.14,
+     "reason": "the tent zip pulled down: zzzip",
+     "at": 0.68
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.14,
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.14,
+     "reason": "the tent zip pulled up: zzzip",
+     "at": 0.83
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.14,
+     "at": 0.83
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.3,
+     "reason": "the energy meter up one size: his crest flares",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.11,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.11,
+     "reason": "the tent zip pulled down: zzzip",
+     "at": 0.98
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.11,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.11,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.11,
+     "reason": "the tent zip pulled up: zzzip",
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.11,
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.09,
+     "reason": "the tent zip pulled down: zzzip",
+     "at": 1.22
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.09,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.09,
+     "ease": "inOut",
+     "at": 1.32
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.95,
+     "dur": 0.09,
+     "reason": "the tent zip pulled up: zzzip",
+     "at": 1.32
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.09,
+     "at": 1.32
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.06,
+     "at": 1.42
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.4,
+     "dur": 0.25,
+     "at": 1.44
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.44
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 1.49
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.49
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "It's SIX!",
+     "tone": "angry",
+     "dur": 0.45,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 1.54
+    },
+    {
+     "fx": "pop",
+     "text": "grr",
+     "who": "wiz",
+     "dur": 1.2,
+     "size": 88,
+     "dx": 0.35,
+     "dy": -0.95,
+     "angle": -4,
+     "color": "speaker",
+     "at": 1.54
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.4,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.35,
+      0.45
+     ],
+     "dur": 0.2,
+     "at": 1.98
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "03 the sunrise",
+   "at": 3.3,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     1.5,
+     1.4,
+     4.2
+    ],
+    "look": [
+     -0.3,
+     0.8,
+     -0.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "x": -0.35,
+      "y": 0.85,
+      "z": 0.25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 1,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.6,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.4,
+     "reason": "the meter up again: his wings blaze open like a sunrise",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.9,
+      "eye": 1.25
+     },
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 1,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1.2,
+     "idle": 0.06,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Sun's up!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.52
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pillow",
+      "grip": [
+       0,
+       0.11,
+       0
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "cover": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "reason": "Reaper's bag pulled up over his head",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.85,
+       0.35
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.98
+    },
+    {
+     "do": "physics",
+     "prop": "pillow",
+     "mode": "throw",
+     "to": [
+      -0.32999999999999996,
+      1.08,
+      0.5
+     ],
+     "in": 0.3,
+     "spin": [
+      2,
+      1,
+      0.3
+     ],
+     "at": 1
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.75,
+     "reason": "the pillow bonking off his crest: a soft flump",
+     "at": 1.3
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.3,
+     "reason": "the flump's cloth smack, so it carries on a phone",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 0.5,
+     "count": 2,
+     "color": "#ffffff",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 1,
+      "eye": 0.6
+     },
+     "dur": 0.1,
+     "at": 1.32
+    },
+    {
+     "fx": "pop",
+     "text": "bonk",
+     "who": "phx",
+     "dur": 0.6,
+     "dx": -0.45,
+     "dy": -0.9,
+     "at": 1.33
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "ha-ha-ha!",
+     "tone": "excited",
+     "dur": 0.45,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.5,
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.6,
+     "dur": 0.3,
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.7
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "04 the break",
+   "at": 5.2,
+   "len": 1.75,
+   "shot": {
+    "pos": [
+     0.3,
+     4.3,
+     5.4
+    ],
+    "look": [
+     0,
+     0.4,
+     -0.4
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      0.3,
+      3.5,
+      4.3
+     ],
+     "look": [
+      0,
+      0.35,
+      0.2
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.4
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": "foot"
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagW",
+      "grip": "foot"
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.8,
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 1.2
+     },
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.3,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.4,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.45,
+     "reason": "the meter at its biggest as he sets off",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      1.85
+     ],
+     "dur": 0.95,
+     "steps": 3.2,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bagW",
+     "set": {
+      "z": 0.43,
+      "x": 0.5,
+      "y": -0.012
+     },
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.45,
+     "dur": 0.9,
+     "reason": "the two sleeping bags swishing over the wet grass",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "z": 0.58,
+      "x": -0.5,
+      "y": -0.012
+     },
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "cord",
+     "set": {
+      "z": 0.28,
+      "x": 0.83
+     },
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "cover": 0.12
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "peg1",
+     "mode": "knock",
+     "v": [
+      -0.9,
+      2.2,
+      1
+     ],
+     "spin": [
+      6,
+      2,
+      4
+     ],
+     "at": 0.7
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "reason": "a tent peg popping out of the ground",
+     "at": 0.7
+    },
+    {
+     "do": "physics",
+     "prop": "peg3",
+     "mode": "knock",
+     "v": [
+      -1.14,
+      2.2,
+      1
+     ],
+     "spin": [
+      6,
+      2,
+      4
+     ],
+     "at": 0.76
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "reason": "a tent peg popping out of the ground",
+     "at": 0.76
+    },
+    {
+     "do": "prop",
+     "id": "lampglow",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "do": "physics",
+     "prop": "peg0",
+     "mode": "knock",
+     "v": [
+      0.9,
+      2.2,
+      1
+     ],
+     "spin": [
+      6,
+      2,
+      4
+     ],
+     "at": 0.82
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "reason": "a tent peg popping out of the ground",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.23,
+     "ease": "in",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "cord",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.23,
+     "ease": "in",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "lit": 0.3
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "do": "physics",
+     "prop": "peg2",
+     "mode": "knock",
+     "v": [
+      1.14,
+      2.2,
+      1
+     ],
+     "spin": [
+      6,
+      2,
+      4
+     ],
+     "at": 0.87
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "reason": "a tent peg popping out of the ground",
+     "at": 0.87
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.8,
+     "reason": "the tent poles folding and the cloth flopping down flat",
+     "at": 1
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.02,
+     "at": 1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.02,
+      0.2
+     ],
+     "dur": 0.45,
+     "color": "#c9d0c2",
+     "puffs": 18,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.3,
+     "dur": 0.4,
+     "at": 1
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.6,
+     "reason": "the canvas landing on the grass: a soft flop",
+     "at": 1.02
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "bagW",
+     "set": {
+      "z": 0.55,
+      "rot": 0
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "z": 0.7,
+      "rot": 0
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.19
+    },
+    {
+     "do": "prop",
+     "id": "cord",
+     "set": {
+      "z": 0.4
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.19
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.34,
+       0.3,
+       0.18
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "lead": false,
+     "at": 1.23
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.34,
+       0.3,
+       0.18
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "lead": false,
+     "at": 1.23
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.55,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -1.5,
+      1.85
+     ],
+     "dur": 0.55,
+     "at": 1.35
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.35
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.35
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 5,
+     "dur": 0.01,
+     "at": 1.74
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.74
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "at": 1.74
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "at": 1.74
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "05 the grin",
+   "at": 6.95,
+   "len": 1.35,
+   "shot": {
+    "pos": [
+     -3,
+     1.05,
+     4.45
+    ],
+    "look": [
+     -1.4,
+     0.7,
+     1.85
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.55,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "curve": -0.1,
+      "open": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -22,
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.05,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.15,
+     "at": 0.47
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.62,
+       0.32
+      ]
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.51
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       0.95,
+       0.08
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.55,
+      "eye": 1.05
+     },
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.15,
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.57
+    },
+    {
+     "fx": "sparkle",
+     "who": "phx",
+     "dur": 0.6,
+     "count": 2,
+     "color": "#fff2a8",
+     "at": 0.65
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.45,
+     "reason": "the series logo: one bright ting on the grin",
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.75,
+     "dur": 0.1,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.04,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "charge",
+     "to": 0.6,
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 1.34
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.34
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.34
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.34
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "06 the sun",
+   "at": 8.3,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -1.7,
+     2.1,
+     6.4
+    ],
+    "look": [
+     -0.15,
+     0.75,
+     0.4
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sunglow",
+     "set": {
+      "glow": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sunglow",
+     "set": {
+      "glow": 1,
+      "y": 2.1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "fill",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 1,
+      "lit": 1
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.45,
+     "dur": 0.3,
+     "reason": "the travel clock beeping 06:00",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.1,
+       0.12
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.45,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.45,
+      0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "cover": 0.15
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "lit": 0.2
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "fx": "flash",
+     "peak": 0.12,
+     "dur": 0.6,
+     "color": "#ffd27a",
+     "sound": false,
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.5,
+     "reason": "the sunrise swell",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -30,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.45,
+      0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2,
+      "open": 0.35,
+      "eye": 1.25,
+      "brow": 0
+     },
+     "dur": 0.35,
+     "at": 0.35
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "lit": 0.2
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 0.44
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "…oh.",
+     "tone": "calm",
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -12,
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": 0.15
+     },
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -26,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.15
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.15
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.15
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Again tomorrow?",
+     "tone": "excited",
+     "dur": 0.55,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -32,
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.12,
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -32,
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.12,
+     "at": 1.25
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2,
+      "open": 0
+     },
+     "dur": 0.15,
+     "at": 1.25
+    },
+    {
+     "fx": "zzz",
+     "who": "rea",
+     "dur": 0.6,
+     "count": 2,
+     "at": 1.32
+    },
+    {
+     "fx": "zzz",
+     "who": "wiz",
+     "dur": 0.6,
+     "count": 2,
+     "at": 1.32
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.6,
+     "reason": "both heads dropping back onto the grass at once",
+     "at": 1.35
+    }
+   ],
+   "kind": "reveal"
+  }
+ ],
+ "visible": [
+  {
+   "from": 1.1,
+   "to": 2,
+   "see": [
+    "rea.face"
+   ],
+   "why": "B8: the victim's close-up, Reaper's half-open eye on Phoenix, held still while he yells"
+  },
+  {
+   "from": 0,
+   "to": 1.1,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "wiz.face",
+    "tent",
+    "clock"
+   ],
+   "why": "frame 0: two friends asleep in the tent door at 05:59 while Phoenix does star jumps in front"
+  },
+  {
+   "from": 2.3,
+   "to": 3.9,
+   "see": [
+    "phx.face",
+    "tent",
+    "wiz.face"
+   ],
+   "why": "the zip: he zips the door shut over their faces and open again, faster; the Wizard wakes, furious"
+  },
+  {
+   "from": 4.2,
+   "to": 5.9,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "pillow"
+   ],
+   "why": "the fake sunrise: his wings blaze in the door, the Wizard's pillow bonks off his crest"
+  },
+  {
+   "from": 6.2,
+   "to": 7.7,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "tent",
+    "bagR",
+    "bagW"
+   ],
+   "why": "the break: he tows them out by their feet, the cord pulls the lantern, the tent folds down flat behind them"
+  },
+  {
+   "from": 8.2,
+   "to": 8.95,
+   "see": [
+    "phx.face"
+   ],
+   "why": "THE GRIN: thumb up, hand behind his head, the flat tent and the two bagged friends behind him"
+  },
+  {
+   "from": 9.1,
+   "to": 9.95,
+   "see": [
+    "phx.face",
+    "wiz.face",
+    "rea.face",
+    "clock"
+   ],
+   "why": "the real sunrise: the clock beeps 06:00, the sun clears the hills, the Wizard's \"…oh.\", Reaper's tiny nod"
+  },
+  {
+   "from": 10.1,
+   "to": 10.45,
+   "see": [
+    "phx.face",
+    "rea",
+    "wiz"
+   ],
+   "why": "\"Again tomorrow?\": both friends drop back asleep"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 1.267,
+   "frames": 21
+  },
+  {
+   "at": 4.6,
+   "frames": 3
+  },
+  {
+   "at": 6.2,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "bagR",
+   "from": 0,
+   "to": 10.7,
+   "reason": "Reaper sits inside his sleeping bag"
+  },
+  {
+   "who": "wiz",
+   "with": "bagW",
+   "from": 0,
+   "to": 10.7,
+   "reason": "the Wizard sits inside his sleeping bag"
+  },
+  {
+   "who": "phx",
+   "with": "glow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "Phoenix's glow is light"
+  },
+  {
+   "who": "rea",
+   "with": "glow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "Phoenix's glow is light"
+  },
+  {
+   "who": "wiz",
+   "with": "glow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "Phoenix's glow is light"
+  },
+  {
+   "who": "phx",
+   "with": "lampglow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "the lantern's glow is light"
+  },
+  {
+   "who": "rea",
+   "with": "lampglow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "the lantern's glow is light"
+  },
+  {
+   "who": "wiz",
+   "with": "lampglow",
+   "from": 0,
+   "to": 10.7,
+   "reason": "the lantern's glow is light"
+  },
+  {
+   "who": "rea",
+   "with": "tent",
+   "from": 0,
+   "to": 10.7,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "the hood and the hat brush the soft tent cloth over them"
+  },
+  {
+   "who": "wiz",
+   "with": "tent",
+   "from": 0,
+   "to": 10.7,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "the hood and the hat brush the soft tent cloth over them"
+  },
+  {
+   "who": "phx",
+   "with": "tent",
+   "from": 0,
+   "to": 10.7,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "his soft flame-feather wings brush the tent's cloth and guy ropes"
+  },
+  {
+   "who": "rea",
+   "with": "tent",
+   "from": 0,
+   "to": 7,
+   "reason": "Reaper sits inside the tent (the cloth is a hollow shell round him)"
+  },
+  {
+   "who": "wiz",
+   "with": "tent",
+   "from": 0,
+   "to": 7,
+   "reason": "the Wizard sits inside the tent (the cloth is a hollow shell round him)"
+  },
+  {
+   "who": "phx",
+   "with": "tent",
+   "from": 2.1,
+   "to": 6.1,
+   "reason": "he stands in the open doorway, under the front edge of the roof"
+  },
+  {
+   "who": "phx",
+   "with": "bagR",
+   "from": 2.2,
+   "to": 4.05,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "a wing tip brushes the soft foot of Reaper's sleeping bag while he zips (behind his body)"
+  },
+  {
+   "who": "wiz",
+   "with": "cord",
+   "from": 0,
+   "to": 10.7,
+   "reason": "the lantern cord is tied round his sleeping bag"
+  },
+  {
+   "who": "phx",
+   "from": 7.15,
+   "to": 7.45,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "his left glove turns palm-down as the arm swings out off the bag's foot end; in the 15 fps strip it reads as the arm opening, the glove a few pixels on a phone"
+  },
+  {
+   "who": "phx",
+   "from": 5.9,
+   "to": 7.15,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "both fists are on the foot ends behind him, under his body and wings from the high camera: the turns never show (15 fps strip of the tow)"
+  },
+  {
+   "who": "phx",
+   "with": "pillow",
+   "from": 5.05,
+   "to": 5.35,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "the bonk: the soft pillow squashes into his flame wing by his crest and bounces off"
+  },
+  {
+   "who": "phx",
+   "with": "pillow",
+   "from": 6.4,
+   "to": 6.75,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the pillow lies by the bag feet where it fell; his glove presses the soft pillow as he grabs the foot end (under his body from the camera)"
+  },
+  {
+   "who": "rea",
+   "with": "pillow",
+   "from": 5.25,
+   "to": 6,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "the soft pillow drops off Phoenix's crest onto Reaper's covered bag and squashes on it"
+  },
+  {
+   "who": "phx",
+   "with": "pillow",
+   "from": 7.1,
+   "to": 7.5,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "v3: the pillow settles a little later under him (the freeze shifts the physics bake), so his left glove still rests on it at the end of the tow, behind his body and the Wizard's bag from the high camera (stills at 7.2-7.4 s)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/too-much-energy/03-camping-6am/make-camping.mjs."
+}

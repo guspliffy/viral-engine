@@ -20,6 +20,13 @@
 import { clip, write } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 
+// --v3 (Jonny 7 Nov 14:34, reach rules v3 B7 + B8 from research/hook-curiosity-2026-11-07): Reaper mumbles a promise
+// at 0.0 ("Just ONE quiet morning…"), Phoenix's "Good MORNIIING!" breaks it at 0.95, Reaper's eye cracks open on him and
+// the cut at 1.1 goes to Reaper's close-up with a 0.7 s reaction freeze (a hold: the story keeps its clock, the video
+// runs 0.7 s longer). Everything after it is the same story. -> camping-v3rules.json
+//   node storyboards/series/too-much-energy/03-camping-6am/make-camping.mjs --v3
+const V3 = process.argv.includes("--v3");
+const CU = 1.1, CU_END = 1.3, FREEZE = 1.25, FREEZE_F = 21;   // the cut to Reaper's close-up, the hold in it (21 frames = 0.7 s)
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
 const r3 = (x) => Math.round(x * 1000) / 1000;
 // the brief's times are video times; two 3-frame hit-stops (4.6 and 6.3) each add 0.1 s, so the storyboard runs 9.8
@@ -77,7 +84,7 @@ c.prop(0, "bagR", { cover: 0.12 }, 0.01); c.prop(0, "bagW", { cover: 0.05 }, 0.0
 c.prop(0, "tent", { open: 0.6, fall: 0, lit: 1 }, 0.01);
 c.prop(0, "clock", { time: 0, lit: 0.5 }, 0.01);   // the display glows in the blue dawn (panel 01)
 c.prop(0, "cord", { fall: 0 }, 0.01);
-for (const t of [0, 0.75]) c.at(t, { fx: "zzz", who: "wiz", dur: 0.9, count: 3 });
+for (const t of [0, 0.75]) c.at(t, { fx: "zzz", who: "wiz", dur: V3 && t > 0 ? 0.3 : 0.9, count: 3 });   // v3: gone before the close-up's freeze
 
 // ---------------------------------------------------------------- 01 ALREADY TOO MUCH 0-1.5: star jumps
 A(0, "phx", "charge", { to: 0.15, dur: 0.01 });
@@ -93,9 +100,23 @@ for (const t of JUMPS) {
   c.arm(r3(t + 0.1), "phx", "R", UPV.R, 0.12, "out"); c.arm(r3(t + 0.1), "phx", "L", UPV.L, 0.12, "out");
   c.arm(r3(t + 0.3), "phx", "R", DOWNV.R, 0.14, "inOut"); c.arm(r3(t + 0.3), "phx", "L", DOWNV.L, 0.14, "inOut");
 }
-act.opener(c, "phx", "Good MORNIIING!", { at: 0,   // reach rules v2 B2: the first sound at 0.0 is his voice on the trouble
+if (V3) {
+  // B7: the victim's promise at 0.0, mumbled in his sleep with his eyes shut (the yes/no question: will he get it?)
+  c.say(0, "rea", "Just one quiet morning", 0.75, "calm", { pos: SUB_LO, sub: "Just ONE quiet morning…", voice: false });
+  act.opener(c, "phx", "Good MORNIIING!", { at: 0.95, dur: 0.6, pos: SUB_LO });   // breaks it straight away
+  // B8: his eye cracks open on Phoenix before the cut, then the close-up holds his glare (the freeze)
+  A(0.95, "rea", "face", { lid: 0.6, dur: 0.08 });
+  A(0.96, "rea", "look", { to: [0.3, 0.08], dur: 0.1, blink: false });
+  act.mood(c, 0.98, "rea", "annoyed", { hold: 0.5, lid: 0.55 });
+  c.hitStop(FREEZE, FREEZE_F);
+  // under the cut to the zip he gives up and shuts his eye again
+  A(CU_END, "rea", "face", { lid: 1, brow: 0, dur: 0.25 });
+  A(CU_END, "rea", "look", { to: [0, 0], dur: 0.2, blink: false });
+  A(r3(CU_END + 0.02), "rea", "expr", { expr: "deadpan", set: { open: 0, curve: -0.05 }, dur: 0.25 });
+  see(CU, CU_END, ["rea.face"], "B8: the victim's close-up, Reaper's half-open eye on Phoenix, held still while he yells");
+} else act.opener(c, "phx", "Good MORNIIING!", { at: 0,   // reach rules v2 B2: the first sound at 0.0 is his voice on the trouble
   dur: 1.1, pos: SUB_LO });
-see(0, 1.4, ["phx.face", "rea.face", "wiz.face", "tent", "clock"], "frame 0: two friends asleep in the tent door at 05:59 while Phoenix does star jumps in front");
+see(0, V3 ? CU : 1.4, ["phx.face", "rea.face", "wiz.face", "tent", "clock"], "frame 0: two friends asleep in the tent door at 05:59 while Phoenix does star jumps in front");
 
 // ---------------------------------------------------------------- 02 THE ZIP 1.5-3.3
 const ZIP_AT = [-0.15, 0.2];   // where he stands: left of the door's seam, turned to it
@@ -304,37 +325,24 @@ const BREAK = { pos: [0.3, 4.3, 5.4], look: [0, 0.4, -0.4], fov: 50, to: { pos: 
 const ZIP = { pos: [1.5, 1.4, 4.2], look: [-0.3, 0.8, -0.7], fov: 46 };   // holds the zip and panel 03 (him in the door, the Wizard throwing) in one set-up
 // the series grin: his front-left, three-quarters, eye level; the bags and the flat tent behind him
 const GRIN = { pos: [r3(PHX_END[0] - 1.5), 1.05, r3(PHX_END[1] + 2.6)], look: [r3(PHX_END[0] + 0.1), 0.7, PHX_END[1]], fov: 46 };   // 30 degrees round: wider and the painting's edge shows
+const REACU = { pos: [-0.42, 0.95, 0.75], look: [-0.5, 0.88, -1.1], fov: 40 };   // v3 B8: Reaper's face straight through the door (from the side the roof covers him); cut away at 1.3 before Phoenix's dash to the door passes the camera
 const SUNW = { pos: [-1.7, 2.1, 6.4], look: [-0.15, 0.75, 0.4], fov: 52 };   // review B wanted the friends bigger: a medium from his side put Phoenix in front of them, so the wide is tighter instead   // from the left of the wide: Phoenix, both faces, the clock and the sun in one picture
 // review B: no caption across a cut or over the next beat
 for (const cp of c.captions) { if (cp.text === "Good MORNIIING!") cp.to = 1.48; if (cp.text === "Sun's up!") cp.to = 4.5; }
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
-  ["02 the zip", 1.5, ZIP],
+  ...(V3 ? [["01b the victim", CU, REACU, "reaction"]] : []),
+  ["02 the zip", V3 ? CU_END : 1.5, ZIP],
   ["03 the sunrise", 3.3, ZIP, "escalation"],   // panel 03 is the same front-right medium as the zip: no cut, he steps into the door
   ["04 the break", V(5.3), BREAK, "payoff"],
   ["05 the grin", G0, GRIN, "reaction"],
   ["06 the sun", S0, SUNW, "reveal"],
 ], END);
 
-write(import.meta.url, {
-  id: "camping",
-  title: "That one friend with too much energy at 6 am camping",
-  idea: "Too Much Energy, episode 3: at 5:59 am Phoenix zips the tent door up and down, blazes his wings like a sunrise, and tows his two sleeping friends out by their feet so the tent folds down; then the real sun rises and even Reaper nods",
-  fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
-  cleanStart: true,
-  motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: true,
-  cover: 8.2,
-  set: { type: "plain", color: "#26325f", floor: "shadow", shadow: 0.15,   // light: at 0.35 the whole far meadow greyed under a line at the horizon in the sunrise
-    para: 0, bloom: "emissive", aperture: 0,
-    plate: { src: "assets/plates/camp-dawn.png", z: -7, center: [0, -7.3], height: 40, depth: false, motion: false, dust: 0,
-      swaps: [{ at: S0, src: "assets/plates/camp-sunrise.png" }] },
-    lighting: 2, hatch: { boil: 0.25 } },
-  music: { style: "bounce", key: 7, lowCut: 150, gain: 0.26, payoff: FALL, until: FALL },
-  sound: { sfx: 0.7, ambience: 0, nature: [{ id: "birds", gain: 0.12 }, { id: "lake", gain: 0.08 }], surface: "grass", guard: true },
-  hook: { show: ["phx", "rea", "wiz", "tent", "clock"], hint: 0.05, what: "Phoenix does star jumps yelling good morning in front of a tent where two friends sleep, the clock at 05:59" },
-  creative: { length: [9, 12] },
-  cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
-  allowClip: [
+// the contact windows and the must-see list run on the video's clock: in v3 everything after the freeze is 0.7 s later
+const W = (t) => (V3 && t > FREEZE ? r3(t + FREEZE_F / 30) : t);
+const onVideo = (x) => ({ ...x, from: W(x.from), to: W(x.to) });
+const allowClip = [
     { who: "rea", with: "bagR", from: 0, to: 10, reason: "Reaper sits inside his sleeping bag" },
     { who: "wiz", with: "bagW", from: 0, to: 10, reason: "the Wizard sits inside his sleeping bag" },
     ...["phx", "rea", "wiz"].map((who) => ({ who, with: "glow", from: 0, to: 10, reason: "Phoenix's glow is light" })),
@@ -351,6 +359,27 @@ write(import.meta.url, {
     { who: "phx", with: "pillow", from: 4.35, to: 4.65, checks: ["costume-in-prop"], reason: "the bonk: the soft pillow squashes into his flame wing by his crest and bounces off" },
     { who: "phx", with: "pillow", from: 5.7, to: 6.05, checks: ["hand-in-prop", "arm-in-prop"], reason: "the pillow lies by the bag feet where it fell; his glove presses the soft pillow as he grabs the foot end (under his body from the camera)" },
     { who: "rea", with: "pillow", from: 4.55, to: 5.3, checks: ["costume-in-prop"], reason: "the soft pillow drops off Phoenix's crest onto Reaper's covered bag and squashes on it" },
-  ],
+    ...(V3 ? [{ who: "phx", with: "pillow", from: 6.4, to: 6.8, checks: ["hand-in-prop", "arm-in-prop"], reason: "v3: the pillow settles a little later under him (the freeze shifts the physics bake), so his left glove still rests on it at the end of the tow, behind his body and the Wizard's bag from the high camera (stills at 7.2-7.4 s)" }] : []),
+].map(onVideo);
+
+write(import.meta.url, {
+  id: V3 ? "camping-v3rules" : "camping",
+  title: "That one friend with too much energy at 6 am camping",
+  idea: "Too Much Energy, episode 3: at 5:59 am Phoenix zips the tent door up and down, blazes his wings like a sunrise, and tows his two sleeping friends out by their feet so the tent folds down; then the real sun rises and even Reaper nods",
+  fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
+  cleanStart: true,
+  motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: true,
+  cover: 8.2,
+  set: { type: "plain", color: "#26325f", floor: "shadow", shadow: 0.15,   // light: at 0.35 the whole far meadow greyed under a line at the horizon in the sunrise
+    para: 0, bloom: "emissive", aperture: 0,
+    plate: { src: "assets/plates/camp-dawn.png", z: -7, center: [0, -7.3], height: 40, depth: false, motion: false, dust: 0,
+      swaps: [{ at: S0, src: "assets/plates/camp-sunrise.png" }] },
+    lighting: 2, hatch: { boil: 0.25 } },
+  music: { style: "bounce", key: 7, lowCut: 150, gain: 0.26, payoff: FALL, until: FALL },
+  sound: { sfx: 0.7, ambience: 0, nature: [{ id: "birds", gain: 0.12 }, { id: "lake", gain: 0.08 }], surface: "grass", guard: true },
+  hook: { show: ["phx", "rea", "wiz", "tent", "clock"], hint: 0.05, what: V3 ? "Reaper mumbles \"just ONE quiet morning\" in his sleeping bag while Phoenix is already star-jumping in front of the tent, the clock at 05:59" : "Phoenix does star jumps yelling good morning in front of a tent where two friends sleep, the clock at 05:59" },
+  creative: { length: [9, 12] },
+  cast, props, captions: c.captions, beats, visible: c.visible.map(onVideo), ...(c.hitStops.length && { hitStop: c.hitStops }),
+  allowClip,
   notes: "Generated by storyboards/series/too-much-energy/03-camping-6am/make-camping.mjs.",
 });
