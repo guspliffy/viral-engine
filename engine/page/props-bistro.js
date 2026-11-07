@@ -348,7 +348,7 @@ export const BISTRO_KINDS = {
 
   waiterapron(P) {
     const S = P.spec, y0 = S.y0 ?? 0.4, y1 = S.y1 ?? 0.07, rx = S.rx ?? 0.44, rz = S.rz ?? 0.39, arc = ((S.arc ?? 130) * Math.PI) / 180;
-    const cloth = mat("#f4f1ea", { roughness: 0.85, side: THREE.DoubleSide }), band = mat("#2b2b33", { roughness: 0.6, side: THREE.DoubleSide });
+    const cloth = mat(S.color ?? "#f4f1ea", { roughness: 0.85, side: THREE.DoubleSide }), band = mat("#2b2b33", { roughness: 0.6, side: THREE.DoubleSide });
     const skirt = new THREE.CylinderGeometry(1, 1.04, y0 - y1, 28, 1, true, Math.PI - arc / 2 + Math.PI, arc);
     const m = mesh(skirt, cloth, P.whole, 0, (y0 + y1) / 2, 0); m.scale.set(rx, 1, rz);
     const b = mesh(new THREE.CylinderGeometry(1.005, 1.005, 0.035, 28, 1, true, Math.PI - (arc * 1.3) / 2 + Math.PI, arc * 1.3), band, P.whole, 0, y0 - 0.01, 0); b.scale.set(rx, 1, rz);

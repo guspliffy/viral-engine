@@ -56,6 +56,7 @@ import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone c
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
+import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { CITY_KINDS } from "./props-city.js";   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 
@@ -1369,6 +1370,7 @@ Object.assign(KINDS, CAMP_KINDS); Object.assign(GRIPS, CAMP_GRIPS);   // too muc
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
+Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
 
