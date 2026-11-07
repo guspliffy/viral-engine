@@ -143,7 +143,7 @@ export async function makePhysics(env) {
   }
   const cast = [], rootM = (st) => new THREE.Matrix4().compose(V().set(st.x, st.y - 0.1 * (st.kneel || 0), st.z), Q().setFromEuler(new THREE.Euler(st.pitch || 0, st.yaw, st.lean, "YXZ")), V().setScalar(st.scale ?? 1));
   for (const a of env.actors) {
-    const b = a.ch.body; if (!b?.geometry) continue;
+    const b = a.ch.body; if (!b?.geometry || a.ch.human) continue;   // (a person in rig human-v1 has no potato body to collide with yet)
     const st = actorState(sb, a.c, a.def, Math.max(0, tStart)); a.ch.apply(st, Math.max(0, tStart)); a.ch.root.updateMatrixWorld(true);
     const g = b.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), S = V(); b.matrixWorld.decompose(V(), Q(), S);
     const h = bb.getSize(V()).multiply(S).multiplyScalar(0.5), r = (h.x + h.z) / 2, c = bb.getCenter(V());

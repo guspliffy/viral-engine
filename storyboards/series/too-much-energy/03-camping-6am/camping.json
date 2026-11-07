@@ -396,7 +396,7 @@
   {
    "from": 9.38,
    "to": 9.8,
-   "text": "AGAIN! Tomorrow?",
+   "text": "Again tomorrow?",
    "pos": 470,
    "pop": false,
    "size": 62,
@@ -2947,7 +2947,7 @@
     {
      "who": "phx",
      "do": "talk",
-     "line": "AGAIN! tomorrow?",
+     "line": "Again tomorrow?",
      "tone": "excited",
      "dur": 0.55,
      "blink": false,
