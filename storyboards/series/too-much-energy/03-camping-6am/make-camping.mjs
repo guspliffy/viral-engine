@@ -92,7 +92,8 @@ for (const t of JUMPS) {
   c.arm(r3(t + 0.1), "phx", "R", UPV.R, 0.12, "out"); c.arm(r3(t + 0.1), "phx", "L", UPV.L, 0.12, "out");
   c.arm(r3(t + 0.3), "phx", "R", DOWNV.R, 0.14, "inOut"); c.arm(r3(t + 0.3), "phx", "L", DOWNV.L, 0.14, "inOut");
 }
-act.opener(c, "phx", "Good MORNIIING!", { at: 0.05, dur: 1.1, pos: SUB_LO });
+act.opener(c, "phx", "Good MORNIIING!", { at: 0,   // reach rules v2 B2: the first sound at 0.0 is his voice on the trouble
+  dur: 1.1, pos: SUB_LO });
 see(0, 1.4, ["phx.face", "rea.face", "wiz.face", "tent", "clock"], "frame 0: two friends asleep in the tent door at 05:59 while Phoenix does star jumps in front");
 
 // ---------------------------------------------------------------- 02 THE ZIP 1.5-3.3
@@ -116,7 +117,7 @@ A(2.2, "phx", "charge", { to: 0.35, dur: 0.15 });
 sfx(2.2, "ai/flare", { gain: 0.3, reason: "the energy meter up one size: his crest flares" });
 // the Wizard's eyes snap open: "It's SIX!"
 A(2.72, "wiz", "face", { lid: 0.2, dur: 0.06 });
-act.mood(c, 2.74, "wiz", "angry", { hold: 1.0 });
+act.mood(c, 2.74, "wiz", "angry", { hold: 1.0, lid: 0.4, word: "grr" });   // review B: a squint, not round surprised eyes
 A(2.74, "wiz", "look", { to: [-0.5, 0.05], dur: 0.1, blink: false });
 c.say(2.8, "wiz", "It's SIX!", 0.45, "angry", { pos: SUB, sub: "It's SIX!" });
 A(2.9, "phx", "look", { to: [0.3, -0.1], dur: 0.12, blink: false });
@@ -155,7 +156,7 @@ sfx(4.6, "slap", { gain: 0.3, reason: "the flump's cloth smack, so it carries on
 c.hitStop(STOP1);
 A(4.6, "phx", "squash", { amount: 0.08, dur: 0.15 });
 c.at(4.6, { fx: "sparkle", who: "phx", dur: 0.5, count: 2, color: "#ffffff" });   // two cartoon stars off the bonk
-c.textPop(4.6, "phx", "bonk", { dur: 0.6 });
+c.textPop(4.63, "phx", "bonk", { dur: 0.6, dx: -0.45, dy: -0.9 });   // up-left of the crest: the hit-stop shows the pillow on it
 A(4.62, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 1, eye: 0.6 }, dur: 0.1 });
 c.say(4.75, "phx", "ha-ha-ha!", 0.45, "excited", { pos: SUB, sub: "Ha-ha!" });
 c.captions[c.captions.length - 1].to = 5.15;   // gone before the cut to the tow (review A)
@@ -168,7 +169,7 @@ c.prop(5.0, "glow", { glow: 0 }, 0.3);
 see(3.5, 5.2, ["phx.face", "wiz.face", "pillow"], "the fake sunrise: his wings blaze in the door, the Wizard's pillow bonks off his crest");
 
 // ---------------------------------------------------------------- 04 THE BREAK 5.3-7.3 (video): he tows both bags out
-const GRAB = V(5.3), RUN0 = V(5.6), RUN1 = V(6.55), FALL0 = V(6.12), FALL = V(6.3);
+const GRAB = V(5.3), RUN0 = V(5.5), RUN1 = V(6.55), FALL0 = V(6.12), FALL = V(6.3);
 A(GRAB, "phx", "move", { to: [0, r3(BAG.rea[1] + BAG_LEN + 0.32)], dur: 0.2 });   // a step back to the foot ends
 A(GRAB, "phx", "look", { to: [0.25, -0.4], dur: 0.1, blink: false });
 A(r3(GRAB + 0.1), "phx", "crouch", { to: 0.8, dur: 0.15 });
@@ -202,7 +203,7 @@ for (const [i, t] of [[1, 6.0], [3, 6.06], [0, 6.12], [2, 6.17]].map(([i, t]) =>
 }
 c.prop(FALL0, "tent", { fall: 1 }, r3(FALL - FALL0 + 0.05), "in");
 c.prop(FALL0, "cord", { fall: 1 }, r3(FALL - FALL0 + 0.05), "in");
-c.prop(FALL0, "tent", { lit: 0.6 }, 0.3);
+c.prop(FALL0, "tent", { lit: 0.3 }, 0.3);
 c.prop(r3(FALL0 - 0.05), "lampglow", { glow: 0 }, 0.2);
 c.hitStop(FALL);
 sfx(FALL, "thud-soft", { gain: 0.8, reason: "the tent poles folding and the cloth flopping down flat" });
@@ -226,7 +227,7 @@ act.mood(c, V(6.7), "wiz", "annoyed", { hold: 0.8, lid: 0.55 });
 see(V(5.6), V(7.2), ["phx.face", "wiz.face", "tent", "bagR", "bagW"], "the break: he tows them out by their feet, the cord pulls the lantern, the tent folds down flat behind them");
 
 // ---------------------------------------------------------------- 05 THE GRIN 7.3-8.5 (the series block)
-const G0 = V(7.3);
+const G0 = V(7.15);   // review B: the cut lands as he leaves the frame (series grin 7.3, 0.15 s early)
 A(r3(G0 - 0.01), "phx", "turn", { to: 5, dur: 0.01 });
 A(r3(G0 - 0.01), "phx", "wings", { to: 0, dur: 0.01 });
 A(G0, "phx", "look", { to: [0.55, 0.2], dur: 0.01, blink: false });
@@ -264,8 +265,8 @@ sfx(V(8.8), "ai/warm-resolve", { gain: 0.5, reason: "the sunrise swell" });
 // Phoenix points at it with both wings wide, beaming
 A(V(8.62), "phx", "look", { to: [0.5, 0.4], dur: 0.12, blink: false });
 A(V(8.65), "phx", "turn", { to: -35, dur: 0.25 });
-c.arm(V(8.7), "phx", "L", { o: [0.15, 1.15, -0.05] }, 0.22, "out");   // up at the sun, above Reaper beside him
-A(V(8.7), "phx", "grip", { side: "L", shape: "point", dur: 0.12 });
+c.arm(V(8.7), "phx", "R", { o: [0.3, 1.1, 0.12] }, 0.22, "out");   // up at the sun with his outer arm: the near arm crossed Reaper's face (review B)
+A(V(8.7), "phx", "grip", { side: "R", shape: "point", dur: 0.12 });
 A(V(8.7), "phx", "wings", { to: 1, dur: 0.2, ease: "out" }); A(V(8.7), "phx", "span", { to: 0.45, dur: 0.25, ease: "out" });
 A(V(8.75), "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.7, eye: 1.2 }, dur: 0.15 });
 // the Wizard's face comes up out of his bag, the frown melting: "…oh."
@@ -287,9 +288,9 @@ see(V(8.6), V(9.45), ["phx.face", "wiz.face", "rea.face", "clock"], "the real su
 A(V(9.5), "phx", "turn", { to: 0, dur: 0.18, ease: "out" });
 A(V(9.5), "phx", "hop", { height: 0.12, dur: 0.25 });
 A(V(9.5), "phx", "look", { to: [0.2, -0.15], dur: 0.1, blink: false });
-A(V(9.5), "phx", "grip", { side: "L", shape: "relaxed", dur: 0.1 });
+A(V(9.5), "phx", "grip", { side: "R", shape: "relaxed", dur: 0.1 });
 c.arm(V(9.5), "phx", "L", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut"); c.arm(V(9.5), "phx", "R", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut");
-c.say(V(9.58), "phx", "Again tomorrow?", 0.55, "excited", { pos: SUB, sub: "Again tomorrow?" });
+c.say(V(9.58), "phx", "AGAIN! tomorrow?", 0.55, "excited", { pos: SUB, sub: "AGAIN! Tomorrow?" });   // reach rules v2 B5: "AGAIN!" = Phoenix's fixed catchphrase (proposal, from ep 2's ending)
 for (const id of ["rea", "wiz"]) { A(V(9.75), id, "pitch", { to: -32, dur: 0.15, ease: "in" }); A(V(9.75), id, "face", { lid: 1, dur: 0.12 }); }
 A(V(9.75), "wiz", "expr", { expr: "kind", set: { curve: 0.2, open: 0 }, dur: 0.15 });   // asleep but pleased: the answer to frame 0's frown
 sfx(V(9.85), "thud-soft", { gain: 0.35, reason: "both heads dropping back onto the grass at once" });
@@ -298,11 +299,13 @@ see(V(9.6), V(9.95), ["phx.face", "rea", "wiz"], "\"Again tomorrow?\": both frie
 
 // ---------------------------------------------------------------- shots
 const WIDE = { pos: [0, 3.0, 5.9], look: [0.15, 0.5, -0.4], fov: 46 };   // higher than the panels' eye level: Phoenix in front stays under their faces
-const BREAK = { pos: [0.3, 5.2, 5.2], look: [0, 0.35, -0.1], fov: 50, to: { pos: [0.3, 4.0, 4.2], look: [0, 0.35, 0.2] }, dur: r3(FALL - V(5.3)) };   // review A: pushes in to the tent flattening, then the cut   // high, like panel 04: his crest stays under their faces while he tows them toward us   // wider and higher: the tow, the cord and the falling tent in one picture
+const BREAK = { pos: [0.3, 4.3, 5.4], look: [0, 0.4, -0.4], fov: 50, to: { pos: [0.3, 3.5, 4.3], look: [0, 0.35, 0.2] }, dur: r3(FALL - V(5.3)) };   // review B: lower, so the door and both bag feet show under the roof; pushes in to the tent flattening   // review A: pushes in to the tent flattening, then the cut   // high, like panel 04: his crest stays under their faces while he tows them toward us   // wider and higher: the tow, the cord and the falling tent in one picture
 const ZIP = { pos: [1.5, 1.4, 4.2], look: [-0.3, 0.8, -0.7], fov: 46 };   // holds the zip and panel 03 (him in the door, the Wizard throwing) in one set-up
 // the series grin: his front-left, three-quarters, eye level; the bags and the flat tent behind him
 const GRIN = { pos: [r3(PHX_END[0] - 1.5), 1.05, r3(PHX_END[1] + 2.6)], look: [r3(PHX_END[0] + 0.1), 0.7, PHX_END[1]], fov: 46 };   // 30 degrees round: wider and the painting's edge shows
-const SUNW = { pos: [-1.7, 2.1, 6.4], look: [0.0, 0.75, 0.4], fov: 58 };   // from the left of the wide: Phoenix, both faces, the clock and the sun in one picture
+const SUNW = { pos: [-1.7, 2.1, 6.4], look: [-0.15, 0.75, 0.4], fov: 52 };   // review B wanted the friends bigger: a medium from his side put Phoenix in front of them, so the wide is tighter instead   // from the left of the wide: Phoenix, both faces, the clock and the sun in one picture
+// review B: no caption across a cut or over the next beat
+for (const cp of c.captions) { if (cp.text === "Good MORNIIING!") cp.to = 1.48; if (cp.text === "Sun's up!") cp.to = 4.5; }
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
   ["02 the zip", 1.5, ZIP],
