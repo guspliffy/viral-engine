@@ -1,7 +1,7 @@
 {
  "id": "never-looks-up-plane",
  "title": "The friend who never looks up from his phone… even in heavy turbulence",
- "idea": "Never Looks Up ep 2: a stormy night flight bucks, the masks drop and a big drop floats everyone; Phoenix scrolls on through the bags and the panic until the Wizard floats upside down over the phone: huh. The plane levels and drops them all back",
+ "idea": "Never Looks Up ep 2: a stormy night flight bucks, the masks drop and a big drop (seen from outside: the plane tips nose-down and falls through the lightning) floats everyone; Phoenix scrolls on through the bags and the panic until the Wizard floats upside down over the phone: huh. The plane levels and drops them all back",
  "format": "series: The friend who never looks up (fixed 8-10 s ending)",
  "fps": 30,
  "look": "anime-pro",
@@ -10,7 +10,7 @@
  "loop": false,
  "captionStyle": "kinetic",
  "motion": "natural",
- "cover": 8.5,
+ "cover": 10,
  "set": {
   "type": "plain",
   "night": true,
@@ -66,11 +66,11 @@
     "part": "main"
    },
    {
-    "at": 8,
+    "at": 9.5,
     "part": "hush"
    },
    {
-    "at": 9.15,
+    "at": 10.65,
     "part": "drop"
    }
   ]
@@ -87,8 +87,8 @@
  },
  "creative": {
   "length": [
-   10,
-   10
+   11.5,
+   11.5
   ]
  },
  "hook": {
@@ -501,6 +501,94 @@
    "x": 1.9,
    "y": 0,
    "z": -0.75
+  },
+  {
+   "id": "sky",
+   "kind": "stormsky",
+   "x": 270.614,
+   "y": 55.292,
+   "z": -193.632,
+   "rot": 20.283,
+   "src": "assets/plates/storm-sky-dive.png",
+   "h": 240
+  },
+  {
+   "id": "bolt",
+   "kind": "skybolt",
+   "x": 259.881,
+   "y": 62.531,
+   "z": -147.671,
+   "rot": 20.283,
+   "h": 80,
+   "seed": 4,
+   "glow": 0
+  },
+  {
+   "id": "cloudsFar",
+   "kind": "cloudrush",
+   "x": 304.275,
+   "y": 7.638,
+   "z": -102.549,
+   "rot": 20.283,
+   "n": 14,
+   "w": 100,
+   "h": 200,
+   "size": 32,
+   "seed": 3,
+   "color": "#3d3478",
+   "light": "#8f7bd0",
+   "opacity": 0.9
+  },
+  {
+   "id": "jet",
+   "kind": "airliner",
+   "x": 320,
+   "y": 60,
+   "z": -60,
+   "rot": 63,
+   "tip": 8,
+   "roll": 12,
+   "cyan": 14
+  },
+  {
+   "id": "cloudsNear",
+   "kind": "cloudrush",
+   "x": 340.242,
+   "y": 16.346,
+   "z": -5.228,
+   "rot": 20.283,
+   "n": 7,
+   "w": 44,
+   "h": 120,
+   "size": 13,
+   "seed": 8,
+   "color": "#463c86",
+   "light": "#a894e0",
+   "opacity": 0.68,
+   "order": 5,
+   "spread": 0.75
+  },
+  {
+   "id": "rain",
+   "kind": "rainstreaks",
+   "x": 340.254,
+   "y": 61.744,
+   "z": -5.194,
+   "rot": 20.283,
+   "n": 380,
+   "box": [
+    40,
+    50,
+    30
+   ],
+   "v": [
+    -8,
+    115,
+    0
+   ],
+   "len": 5.5,
+   "width": 0.05,
+   "opacity": 0.26
   }
  ],
  "captions": [
@@ -537,40 +625,40 @@
    "x": 560
   },
   {
-   "from": 5.05,
-   "to": 6,
+   "from": 6.55,
+   "to": 7.5,
    "text": "WHOA-WHOA!!",
    "pos": 520,
    "pop": true,
    "x": 470
   },
   {
-   "from": 5.15,
-   "to": 6,
+   "from": 6.65,
+   "to": 7.5,
    "text": "AAAAH!",
    "pos": 640,
    "pop": true,
    "x": 745
   },
   {
-   "from": 6.2,
-   "to": 6.95,
+   "from": 7.7,
+   "to": 8.45,
    "text": "d-drinks?!",
    "pos": 470,
    "pop": true,
    "x": 710
   },
   {
-   "from": 7.3,
-   "to": 7.95,
+   "from": 8.8,
+   "to": 9.45,
    "text": "psst! PSST!",
    "pos": 420,
    "pop": true,
    "x": 300
   },
   {
-   "from": 8.5,
-   "to": 9,
+   "from": 10,
+   "to": 10.5,
    "text": "huh.",
    "pos": 500,
    "pop": false,
@@ -626,12 +714,12 @@
        0.35
       ],
       [
-       5,
+       6.5,
        0.09,
        0.6
       ],
       [
-       9.2,
+       10.7,
        0.07,
        0.45
       ]
@@ -642,7 +730,7 @@
     {
      "sfx": "rumble",
      "gain": 0.32,
-     "dur": 9.95,
+     "dur": 11.45,
      "reason": "the cabin's engine rumble bed",
      "at": 0
     },
@@ -2003,12 +2091,12 @@
        0.35
       ],
       [
-       5,
+       6.5,
        0.09,
        0.6
       ],
       [
-       9.2,
+       10.7,
        0.07,
        0.45
       ]
@@ -2750,8 +2838,313 @@
    ]
   },
   {
-   "name": "P4 zero-g",
+   "name": "OUTSIDE free fall",
    "at": 5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     354,
+     67,
+     32
+    ],
+    "look": [
+     320,
+     54,
+     -60
+    ],
+    "fov": 36,
+    "hand": {
+     "rate": 0,
+     "bob": 0,
+     "sway": 0,
+     "drift": 0,
+     "dips": [
+      [
+       5.3,
+       0.9,
+       0.35
+      ],
+      [
+       5.5,
+       1.2,
+       0.6
+      ]
+     ]
+    },
+    "to": {
+     "look": [
+      323,
+      49,
+      -58
+     ]
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "tip": 46,
+      "roll": 26
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "y": 40
+     },
+     "dur": 1.48,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "x": 317.814,
+      "z": -76.738
+     },
+     "dur": 1.48,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "spin": 160
+     },
+     "dur": 1.48,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cloudsFar",
+     "set": {
+      "y": 147.638
+     },
+     "dur": 1.48,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cloudsNear",
+     "set": {
+      "y": 126.346
+     },
+     "dur": 1.48,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "amp": 0.012,
+     "dur": 1.45,
+     "at": 0
+    },
+    {
+     "sfx": "windswell",
+     "gain": 0.85,
+     "dur": 1.5,
+     "reason": "the air roaring louder as the plane drops",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "glow": 0.6
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "glow": 0.5
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cloudsFar",
+     "set": {
+      "glow": 0.5
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cloudsNear",
+     "set": {
+      "glow": 0.5
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "glow": 0.5
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "fx": "flash",
+     "peak": 0.22,
+     "dur": 0.1,
+     "sound": false,
+     "at": 0.3
+    },
+    {
+     "fx": "shake",
+     "amp": 0.022,
+     "dur": 0.6,
+     "at": 0.3
+    },
+    {
+     "sfx": "firework",
+     "gain": 0.4,
+     "reason": "the thunderclap of the bolt right beside the plane: crack and boom",
+     "at": 0.3
+    },
+    {
+     "sfx": "ridewind",
+     "gain": 0.45,
+     "dur": 1.15,
+     "reason": "the gusty rush of air past the falling plane",
+     "at": 0.3
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.6,
+     "dur": 1.4,
+     "reason": "thunder rolling after the strike",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cloudsFar",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cloudsNear",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "tip": 56,
+      "roll": 31
+     },
+     "dur": 1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "lit": 0.25
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.72
+    }
+   ]
+  },
+  {
+   "name": "P4 zero-g",
+   "at": 6.5,
    "len": 2,
    "shot": {
     "pos": [
@@ -2797,12 +3190,12 @@
        0.35
       ],
       [
-       5,
+       6.5,
        0.09,
        0.6
       ],
       [
-       9.2,
+       10.7,
        0.07,
        0.45
       ]
@@ -3664,7 +4057,7 @@
   },
   {
    "name": "P5 peak",
-   "at": 7,
+   "at": 8.5,
    "len": 1,
    "shot": {
     "pos": [
@@ -3710,12 +4103,12 @@
        0.35
       ],
       [
-       5,
+       6.5,
        0.09,
        0.6
       ],
       [
-       9.2,
+       10.7,
        0.07,
        0.45
       ]
@@ -3877,7 +4270,7 @@
   },
   {
    "name": "P6 look-up",
-   "at": 8,
+   "at": 9.5,
    "len": 1.2,
    "shot": "keep",
    "do": [
@@ -3966,7 +4359,7 @@
   },
   {
    "name": "P8 back down",
-   "at": 9.2,
+   "at": 10.7,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -4012,12 +4405,12 @@
        0.35
       ],
       [
-       5,
+       6.5,
        0.09,
        0.6
       ],
       [
-       9.2,
+       10.7,
        0.07,
        0.45
       ]
@@ -4646,8 +5039,8 @@
    "why": "P3: bins burst, masks drop; the Wizard's goes to his ear; Phoenix ignores his and scrolls on"
   },
   {
-   "from": 5.1,
-   "to": 6.95,
+   "from": 6.6,
+   "to": 8.45,
    "see": [
     "phx.face",
     "wiz",
@@ -4659,8 +5052,8 @@
    "why": "P4: zero-g: the Wizard floats and turns over, the tea blob, the Samurai flat with his tray"
   },
   {
-   "from": 7.05,
-   "to": 7.95,
+   "from": 8.55,
+   "to": 9.45,
    "see": [
     "phx.face",
     "wiz.face",
@@ -4669,8 +5062,8 @@
    "why": "P5: the upside-down Wizard's face right over the phone"
   },
   {
-   "from": 8.1,
-   "to": 8.95,
+   "from": 9.6,
+   "to": 10.45,
    "see": [
     "phx.face",
     "wiz.face"
@@ -4678,8 +5071,8 @@
    "why": "P7: Phoenix looks up at the upside-down Wizard: huh."
   },
   {
-   "from": 9.47,
-   "to": 9.98,
+   "from": 10.97,
+   "to": 11.48,
    "see": [
     "phx.face",
     "wiz.face",
@@ -4689,6 +5082,14 @@
     "phone"
    ],
    "why": "P8: back in the seats: the Wizard glares through his mask, Reaper sips, the tray level"
+  },
+  {
+   "from": 5.05,
+   "to": 6.45,
+   "see": [
+    "jet"
+   ],
+   "why": "OUTSIDE: the plane tips nose-down and drops through the storm (why everything floats)"
   }
  ],
  "hitStop": [
@@ -4701,7 +5102,7 @@
    "frames": 3
   },
   {
-   "at": 9.433,
+   "at": 10.933,
    "frames": 3
   }
  ],
@@ -4710,42 +5111,42 @@
    "who": "phx",
    "with": "seatP",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "Phoenix sits in the window seat (his back and folded wings against its back)"
   },
   {
    "who": "wiz",
    "with": "seatW",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "the Wizard sits in the middle seat, floats off it and lands back in it"
   },
   {
    "who": "rea",
    "with": "seatR",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "Reaper sits in the aisle seat"
   },
   {
    "who": "phx",
    "with": "beltP",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "Phoenix's lap belt is across his belly"
   },
   {
    "who": "wiz",
    "with": "beltW",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "the Wizard's lap belt is across his belly until he unbuckles, then hangs by the seat he lands in"
   },
   {
    "who": "rea",
    "with": "beltR",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "Reaper's lap belt is across his belly"
   },
   {
@@ -4759,21 +5160,21 @@
    "who": "rea",
    "with": "maskR",
    "from": 3.55,
-   "to": 10.5,
+   "to": 12,
    "reason": "Reaper wears his mask over his mouth, then lets it drop to his chest"
   },
   {
    "who": "wiz",
    "with": "maskW",
    "from": 3.7,
-   "to": 10.5,
+   "to": 12,
    "reason": "the Wizard clamps his mask to his ear, then over his mouth"
   },
   {
    "who": "phx",
    "with": "maskP",
    "from": 3.4,
-   "to": 10.5,
+   "to": 12,
    "reason": "Phoenix's mask dangles beside his head on its hose (he ignores it)"
   },
   {
@@ -4787,14 +5188,14 @@
    "who": "rea",
    "with": "mug",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "Reaper holds his tea"
   },
   {
    "who": "sam",
    "with": "tray",
    "from": 0,
-   "to": 10.5,
+   "to": 12,
    "reason": "the Samurai carries his tray"
   }
  ],
