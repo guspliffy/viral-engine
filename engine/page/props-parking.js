@@ -8,7 +8,7 @@ import * as THREE from "three";
 //               open as it lands (lid 0..1 opens the lid by itself); wobble 0..1 rocks it on its base (a nudge).
 //   kerb        a run of kerbstones along x from spec.x0 to spec.x1, its street face at z (the stones run back to
 //               z - d), spec.h tall (0.12): pale granite blocks of uneven length with dark joints, a darker gutter
-//               strip of setts in front. spec.seed varies the joints. spec.slope (degrees) tilts the run down toward +x
+//               strip of setts in front (spec.gutter false: none, a country road's kerb). spec.seed varies the joints. spec.slope (degrees) tilts the run down toward +x
 //               about the prop's origin and spec.lift raises it, like the street (place it at x 0).
 //   street      the cobbled street: a spec.w x spec.d plane of granite setts in rows (warm grey with an evening glow,
 //               dark joints), centred on the prop, tilted spec.slope degrees down toward +x about the prop's origin and
@@ -131,7 +131,7 @@ export const PARKING_KINDS = {
     }
     mesh(new THREE.BoxGeometry(x1 - x0, 0.004, d * 0.9), joint, P.whole, (x0 + x1) / 2, h * 0.02, -d / 2).castShadow = false;
     // the gutter: a strip of small dark setts in front of the kerb
-    for (let x = x0; x < x1 - 0.1; x += 0.2) for (const z of [0.09, 0.27]) {
+    if (S.gutter !== false) for (let x = x0; x < x1 - 0.1; x += 0.2) for (const z of [0.09, 0.27]) {
       const st = mesh(pad(0.17, 0.03, 0.15, 6), sett, P.whole, x + 0.1 + (z > 0.1 ? 0.1 : 0) * (r() > 0.5 ? 0 : 1) * 0, 0.004, z); st.castShadow = false;
     }
     return { grip: h };

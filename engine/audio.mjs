@@ -595,6 +595,21 @@ const SFX = {
     }
     return x;
   },
+  // Too Much Energy 03, camping at 6 am (7 Nov 2026):
+  // a tent door's zip pulled fast: a rasp of zip teeth clicking over the slider (short bright clicks at a rate that
+  // climbs from about 190 to 330 a second as the pull speeds up), a little nylon hiss under them and a tiny tick at
+  // the end of the pull; d is the pull's length
+  zip(r, d = 0.18) {
+    const x = buf(d + 0.03), bp = biquad("bp", 2600, 1.6), body = biquad("bp", 1250, 1.1), hs = biquad("hp", 5000, 0.7);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = Math.min(1, t / d), rate = 190 + 140 * u, on = t < d ? Math.min(1, t / 0.012) * Math.min(1, (d - t) / 0.02) : 0;
+      ph += rate / SR; const q = ph % 1, click = Math.exp(-q / 0.12) * (0.75 + 0.25 * r());
+      const n = r() * 2 - 1;
+      x[i] = (run(bp, n) * click * 2.2 + run(body, n) * click * 1.8 + run(hs, n) * 0.03) * on + run(body, n) * env(t - d, 0.0005, 0.006, d + 0.03) * 0.5;
+    }
+    return x;
+  },
   // a blade through paper and card: a dry tearing hiss with a soft thock of the core
   papercut(r) {
     const d = 0.22, x = buf(d), bp = biquad("bp", 3800, 1.2), lp = biquad("lp", 500, 0.8);

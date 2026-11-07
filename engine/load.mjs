@@ -10,6 +10,7 @@ import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
 import { focusTrack } from "./focus.mjs";
 import { cameraState } from "./page/timeline.js";
+import { worldCamera } from "./page/vehicle.js";
 import { envCoverage } from "./shared/env-coverage.js";
 
 export function loadCharacters(sb) {
@@ -171,7 +172,7 @@ function envFiles(set, sb) {
 // shows a layer's edge is refused before any render, like a contact glitch. qa/env.mjs prints the details and the
 // safe range; set.envCheck false turns the gate off (a test of the check itself).
 function envGate(sb) {
-  const r = envCoverage(sb.set.envData, (t) => cameraState(sb, t), sb.duration ?? 1, sb.fps ?? 30);
+  const r = envCoverage(sb.set.envData, (t) => worldCamera(sb, cameraState(sb, t), t), sb.duration ?? 1, sb.fps ?? 30);
   if (r.fails.length) throw new Error(`set env "${sb.set.env}": the camera shows the edge of the painting:\n` +
     r.fails.map((e) => `  ${e.from.toFixed(2)}-${e.to.toFixed(2)} s ${e.rule}: ${e.msg} (${e.at})`).join("\n") + `\n  run node qa/env.mjs ${sb.id ?? "<storyboard>"} for the safe camera range`);
 }

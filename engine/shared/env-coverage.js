@@ -37,7 +37,7 @@ export function toPicture(P, w) {
 // is a fail; the mirrored margin outside the real painting a warning.
 export function frameCoverage(E, cam, aspect = 9 / 16, grid = [9, 16]) {
   const P = paintingCamera(E), out = [];
-  const fwd = norm(sub(cam.look, cam.pos)), right = norm(cross(fwd, [0, 1, 0])), up = cross(right, fwd);
+  const fwd = norm(sub(cam.look, cam.pos)), right = norm(cross(fwd, cam.up || [0, 1, 0])), up = cross(right, fwd);   // cam.up: a camera riding a rig turns with it
   const th = Math.tan((cam.fov * Math.PI) / 360), tw = th * aspect;
   const vFar = E.ground.row * P.H, inPic = (q) => q.u >= 0 && q.u <= P.W && q.v >= 0 && q.v <= P.H;
   const inRect = (q, r) => q.u >= r[0] && q.u <= r[2] && q.v >= r[1] && q.v <= r[3];

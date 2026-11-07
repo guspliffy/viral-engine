@@ -95,6 +95,25 @@ export function makeAttach(env) {
     return { pos: (pin ? hand.userData.pinchPt : hand).getWorldPosition(V()), q: hand.getWorldQuaternion(Q()) };
   };
   const frameAt = (h, time) => at(h.who, time, () => frameNow(h));
+  // A prop that rides in a rig (a car) holds in the rig's own frame: the hand's frame, the seat and the prop's own turn
+  // are all taken there, and only the result goes back to the world. In world space the prop's own turn (local to the
+  // rig) was mixed with world-space hands: a followed or upright hold kept the world's level, so a phone spun in the
+  // gloves as the car rolled (Never Looks Up car crash, Jonny 7 Nov 2026). Props on the stage itself are unchanged.
+  const rigOf = (p) => { const par = p.root.parent; return par && par !== env.scene ? par : null; };
+  const local = (p, F, qKey = "q") => {
+    const par = F && rigOf(p); if (!par) return F;
+    par.updateMatrixWorld(true);
+    const pos = F.pos ?? F.P, m = new THREE.Matrix4().compose(pos, F[qKey], V().set(1, 1, 1)).premultiply(par.matrixWorld.clone().invert()), P = V(), q = Q();
+    m.decompose(P, q, V());
+    return qKey === "Q" ? { ...F, P, Q: q } : { ...F, pos: P, q };
+  };
+  const world = (p, X) => {
+    const par = rigOf(p); if (!par) return X;
+    par.updateMatrixWorld(true);
+    const m = new THREE.Matrix4().compose(X.P, X.Q, V().set(1, 1, 1)).premultiply(par.matrixWorld), P = V(), q = Q();
+    m.decompose(P, q, V());
+    return { ...X, P, Q: q };
+  };
   const stateAt = (p, time) => (Math.abs(time - T) < 1e-9 && cur.has(p) ? cur.get(p) : propState(sb, p.spec, time));
 
   // how much a hand follows the prop rather than carrying it (0..1): arm poses aimed at the prop ({ prop } poses, the
@@ -143,10 +162,10 @@ export function makeAttach(env) {
     let s = null;
     // a glide from a loose spot seats at its end; a keep or a pass seats at the grab
     const glide = !h.keep && !h.was && !h.grip && (h.dur ?? 0.25) > 0, ts = glide ? h.at + (h.dur ?? 0.25) : h.at;
-    const F = frameAt(h, ts);
+    const F = local(p, frameAt(h, ts));
     if (F) {
       let P, Qp;
-      if (h.keep || joins(h)) ({ P, Q: Qp } = before(p, h, h.at));
+      if (h.keep || joins(h)) ({ P, Q: Qp } = local(p, before(p, h, h.at), "Q"));
       else {
         // as today's anchor: the grip point (or the prop's own grip height) in the hand, plus off; the prop's own turn
         const ps = stateAt(p, ts), g = h.grip ? gripWorld(p.spec, h.grip, [0, 0, 0], ps.rot, ps.scale, ps.tilt, ps.tip) : [0, p.grip * ps.scale, 0], o = h.off || [0, 0, 0];
@@ -164,7 +183,7 @@ export function makeAttach(env) {
   // it is the prop's own turn, which the hand is already aiming at. The hand's point stays on the same spot of the prop
   // either way (its position is always the hand's).
   const attached = (p, h, time) => {
-    const s = seat(p, h), F = s && frameAt(h, time); if (!F) return null;
+    const s = seat(p, h), F = s && local(p, frameAt(h, time)); if (!F) return null;
     const ps = stateAt(p, time), own = ownQ(ps), [w, ws] = follow(p, h, time);
     let q = own;
     if (w < 1) {
@@ -176,17 +195,15 @@ export function makeAttach(env) {
     // top lagging toward the body's front / its +x): a small turn about the hand, for a one-hand rigid hold
     const A = st()[h.who], sw = A && !s.up && (h.hand === "R" || h.hand === "L") && Math.abs(time - T) < 1e-9 ? A.st?.propSway?.[h.hand] : null;
     if (sw && (sw[0] || sw[1])) {
-      const rq = A.a.ch.root.getWorldQuaternion(Q()), loc = Q().setFromEuler(new THREE.Euler(sw[0], 0, -sw[1], "XYZ"));
+      const rq = local(p, { pos: V(), q: A.a.ch.root.getWorldQuaternion(Q()) }).q, loc = Q().setFromEuler(new THREE.Euler(sw[0], 0, -sw[1], "XYZ"));
       q = rq.clone().multiply(loc).multiply(rq.clone().invert()).multiply(q);
     }
     const P = F.pos.clone().sub(s.gl.clone().applyQuaternion(q));
     // followed where it stands: its own place (in its rig's frame, if it rides in one)
     if (ws > 0) {
-      const o = V().set(ps.x, ps.y, ps.z), par = p.root.parent;
-      if (par && par !== env.scene) { par.updateMatrixWorld(true); o.applyMatrix4(par.matrixWorld); }
-      P.lerp(o, ws);
+      P.lerp(V().set(ps.x, ps.y, ps.z), ws);   // (in the rig's frame when it rides in one)
     }
-    return { P, Q: q };
+    return world(p, { P, Q: q });
   };
   // the holder's other hand closing on it too (the second hand on a steering wheel): it takes the prop where it is
   const joins = (h) => !!h.was && h.was.who === h.who && h.was.hand !== h.hand && h.hand !== "both" && h.was.hand !== "both";
