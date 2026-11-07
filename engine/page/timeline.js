@@ -1158,6 +1158,16 @@ export function flashAt(sb, t) {
   }
   return clamp(o);
 }
+// the colour of the strongest flash at t ("color": "#ffd27a" for a warm flash; white by default)
+export function flashColorAt(sb, t) {
+  let o = 0, c = "#fff";
+  for (const f of sb.fx || []) {
+    if (f.do !== "flash" || t < f.at) continue;
+    const d = f.dur ?? 0.35, k = (t - f.at) / d;
+    if (k <= 1) { const v = (f.peak ?? 0.8) * (k < 0.15 ? 1 : 1 - (k - 0.15) / 0.85); if (v > o) { o = v; c = f.color || "#fff"; } }
+  }
+  return c;
+}
 
 // the room's lights: "lights" effects fade the set's lights (to) and its lamp (lamp, else the same as to) to a level,
 // 1 being as built. sb.set.lights starts the room at another level (0.1: the lights are off)

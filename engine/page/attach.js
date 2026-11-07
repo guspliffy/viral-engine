@@ -88,7 +88,7 @@ export function makeAttach(env) {
   const frameNow = (h) => {
     const A = st()[h.who]; if (!A) return null;
     const ch = A.a.ch; ch.root.updateMatrixWorld(true);
-    if (h.hand === "hat" || h.hand === "tip") { const o = h.hand === "hat" ? ch.costume?.hat : ch.costume?.tip; return o ? { pos: o.getWorldPosition(V()), q: o.getWorldQuaternion(Q()) } : null; }
+    if (h.hand === "hat" || h.hand === "tip") { const o = h.hand === "hat" ? ch.costume?.hat || ch.costume?.head : ch.costume?.tip; return o ? { pos: o.getWorldPosition(V()), q: o.getWorldQuaternion(Q()) } : null; }
     if (h.hand === "both") return { pos: ch.arms.R.hand.getWorldPosition(V()).add(ch.arms.L.hand.getWorldPosition(V())).multiplyScalar(0.5), q: ch.root.getWorldQuaternion(Q()) };
     const hand = ch.arms[h.hand]?.hand; if (!hand) return null;
     const pin = h.point === "pinch" && hand.userData.pinchPt;
@@ -291,7 +291,10 @@ export function makeAttach(env) {
     begin(t) { T = t; cur = new Map(); },
     // the prop in the hand that lets it go at `tr`, at `time` (physics.js starts a let-go's body here)
     releasePose(p, time, tr = time) {
-      const L = propState(sb, p.spec, tr + 1e-6).left; if (!L) return null;
+      const S = propState(sb, p.spec, tr + 1e-6);
+      // an aimed throw (a release with `to` and a dur) is still a hold with `to` at its start: it leaves from the hand
+      if (!S.left && S.hold && S.hold.to) { const { to, k, arc, ...h } = S.hold; return pose(p, h, time); }
+      const L = S.left; if (!L) return null;
       return pose(p, { ...L, at: L.grabAt ?? L.at }, time);
     },
     // ps: the prop's state at t; p.apply(ps, t) has run (its size, parts and own turn). Returns true when it placed it.
