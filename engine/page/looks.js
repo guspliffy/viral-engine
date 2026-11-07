@@ -432,7 +432,7 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null, vfx = null }) {
   const D = drawnSpec(drawn);
   PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
@@ -643,6 +643,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
   const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean)), D.brush) : null;
   if (lines) { fx.enabled = false; composer.addPass(lines); }
+  // Effekseer particle effects (vfx.js), in the scene's buffer against its depth, before the glow and the grade
+  if (vfx) composer.addPass(vfx.pass(camera));
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
   // while the room behind and the floor in front soften

@@ -264,6 +264,16 @@ moving at once.
   a front panel hides the legs), `report` (`shred` 0..1 sends its pieces flying in `batches` onto a pile where it lay)
   and `nameplate` (`text`, grip `back`; `split` cuts it in two, each half tipping over its outer edge).
 
+- Particle effects made in Effekseer (vfx-effekseer-01, a test): `{ "do": "vfx", "effect", "at", "pos" | "on", ... }`
+  in `fx` plays an Effekseer effect in the 3D scene, drawn against its depth (characters in front hide it) before the
+  look's glow and grade (`engine/page/vfx.js`). `effect`: `toon-hit` (anime impact star), `toon-water` (cel splash),
+  `aura` (twisting magic), `light` (a pillar of light), `barrier`, `tornado`, `sparks`; or `file` with an `.efkefc`
+  path. `on`: a character, prop or vehicle rig id (`offset` from its root; `"follow": true` keeps the effect on it);
+  `scale` (0.3), `speed`, `rot` (degrees), `color` (multiplies the effect: it can darken or tint, not brighten), `dur`
+  (the emitters stop, live particles finish). The effect's peak comes a little after `at` (`toon-hit` at speed 1.6:
+  about 0.15 s), so start it that much before the contact frame. The effect files are fetched with
+  `tools/vfx/fetch-effects.sh` (git-ignored, see that script). Clips without a `vfx` item never load the runtime.
+
 Add a macro in `MACROS` in `engine/compile.mjs` when the same group of actions shows up in two clips.
 
 ## Directed camera

@@ -7,3 +7,4 @@ engine/voice/.venv-vc
 engine/voice/.venv-vox
 engine/voice/models/
 __pycache__/
+assets/vfx/effekseer/
