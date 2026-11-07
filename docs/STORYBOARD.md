@@ -488,3 +488,22 @@ renders variants of a storyboard, puts each through the same rough TikTok re-enc
 how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
 is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
 0.967. Line width and hatch spacing barely mattered.
+
+## Anime look 01: hard cel shadows and anime timing (opt-in, 7 Nov 2026; Jonny's call before it becomes a default)
+
+Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look and motion.md`. Test scene:
+`node storyboards/anime/make-anime-lab.mjs` (A today, B cel, C cel + timing; engine test, not for posting).
+
+- `"set": { "cel": true }` (engine/page/looks.js): characters and props get one hard shadow edge instead of a soft roll
+  (`"edge"`: px wide at 1080, 1.5; `"at"`: where on the form the shadow starts, N·L, 0.08; 0.25 gives the anime crescent),
+  shadows thrown by other things drawn hard too, `"flat": true` drops the gradient, floor darkening, gloss and skin
+  mottling inside the two tones, `"normals": "proxy"` shades a potato's skin as a clean egg (an ellipsoid round the
+  body's centre) so the shadow is one designed curve instead of following every bump, `"shift"`: how far the underside
+  stays in shade (0.5). The hat brim's band on the face gets a crisp edge. The set keeps its painting. The pencil
+  hatching stays in the shadow.
+- `"animeTiming": true` (engine/shared/anime-timing.js, stage.js pose): the characters snap into each key and hold it.
+  A move's drawings are counted from its own start (start and end keys always shown), front-loaded (`"push"` 1.8), on
+  1s when 0.2 s or shorter, 3s from 0.9 s, else 2s; between moves the pose holds on 3s (`"idle"`); actions longer than
+  `"long"` (1.2 s, a walk) only step on 2s. The camera, the set, the living world and effects stay on every frame, and
+  motion blur is off (render.mjs). Known: `qa/rig.mjs` still compares frame to frame, so a snap between two held drawings
+  reports `rig-jump`; teach it held drawings before this goes into a real clip.

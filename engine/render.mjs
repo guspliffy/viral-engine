@@ -571,6 +571,7 @@ function smearPlan(sb) {
 function blurPlan(sb, o, fps) {
   if (o.blur === false || sb.motionBlur === false || (o.draft && !o.blur)) return null;
   if (sb.drawn && (sb.drawn === true || (sb.drawn.twos ?? 2) > 1)) return null;   // drawn on 2s: no in-between samples to blur
+  if (sb.animeTiming) return null;   // anime timing: the characters are held drawings (shared/anime-timing.js), sharp like a cel
   const bl = { ...BLUR, ...(typeof sb.motionBlur === "object" ? sb.motionBlur : {}), ...(o.blurSet || {}) };
   // the times a sample may not cross: cuts (a shot change; a continuous camera has none), impact frames, flash starts
   const cuts = Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0);
