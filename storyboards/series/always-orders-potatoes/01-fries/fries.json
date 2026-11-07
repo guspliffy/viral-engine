@@ -346,15 +346,6 @@
    "kinetic": false
   },
   {
-   "from": 2.08,
-   "to": 2.3,
-   "text": "Hi!",
-   "pos": 1262,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
    "from": 3.23,
    "to": 3.55,
    "text": "Ooh!",
@@ -2018,13 +2009,17 @@
      "at": 0.18
     },
     {
+     "fx": "pop",
+     "text": "Hi!",
      "who": "fa",
-     "do": "talk",
-     "line": "hi!",
-     "tone": "happy",
-     "dur": 0.35,
-     "blink": false,
-     "voice": false,
+     "dur": 0.3,
+     "size": 80,
+     "xy": [
+      380,
+      1170
+     ],
+     "angle": -4,
+     "color": "speaker",
      "at": 0.18
     },
     {
@@ -2086,10 +2081,12 @@
      "fx": "pop",
      "text": "Awww!",
      "who": "vik",
-     "dur": 0.55,
+     "dur": 0.48,
      "size": 88,
-     "dx": 0.35,
-     "dy": -0.95,
+     "xy": [
+      810,
+      840
+     ],
      "angle": -4,
      "color": "speaker",
      "at": 0.4
@@ -3114,30 +3111,6 @@
      "at": 1.75
     },
     {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "salad",
-      "grip": [
-       -0.09,
-       0.07,
-       0
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.8
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "point",
-     "dur": 0.15,
-     "at": 1.85
-    },
-    {
      "sfx": "splash",
      "gain": 0.55,
      "reason": "the fry cannonballs into the mayo pot",
@@ -3218,50 +3191,10 @@
      "at": 2.02
     },
     {
-     "do": "prop",
-     "id": "salad",
-     "set": {
-      "x": -0.7,
-      "z": 0
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 2.05
-    },
-    {
-     "sfx": "ai/bowl-scrape",
-     "gain": 0.55,
-     "reason": "Gunslinger's salad bowl pushed away over the wooden table",
-     "at": 2.05
-    },
-    {
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
      "at": 2.15
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.16,
-       0.4,
-       0.32
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 2.5
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 2.5
     }
    ]
   },
@@ -3377,6 +3310,30 @@
      "at": 0.2
     },
     {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "salad",
+      "grip": [
+       -0.09,
+       0.1,
+       0
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
      "who": "vik",
      "do": "expr",
      "expr": "delighted",
@@ -3408,6 +3365,23 @@
      "dur": 0.35,
      "ease": "settle",
      "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "salad",
+     "set": {
+      "x": -0.7,
+      "z": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.55,
+     "reason": "Gunslinger's salad bowl pushed away over the wooden table",
+     "at": 0.5
     },
     {
      "who": "phx",
@@ -3448,6 +3422,29 @@
      "to": 0,
      "dur": 0.3,
      "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.95
     }
    ]
   },
@@ -3457,12 +3454,12 @@
    "len": 1.7,
    "shot": {
     "pos": [
-     0.924,
-     1.895,
-     3.713
+     1.071,
+     2.122,
+     4.331
     ],
     "look": [
-     0.36,
+     0.42,
      0.42,
      -0.3
     ],
@@ -4603,8 +4600,8 @@
   {
    "who": "gsl",
    "with": "salad",
-   "from": 5,
-   "to": 5.8,
+   "from": 6,
+   "to": 6.8,
    "reason": "his glove pushes his salad bowl away"
   }
  ],

@@ -168,13 +168,13 @@ A(r3(HI - 0.05), "fa", "look", { to: [0, 0.8], dur: 0.08, blink: false });
 A(HI, "fa", "expr", { expr: "delighted", set: { curve: 1, open: 0.45, eye: 1.1 }, dur: 0.12 });
 c.arm(HI, "fa", "L", { o: CHEER }, 0.12, "out"); A(HI, "fa", "grip", { side: "L", shape: "open", dur: 0.1 }); c.arm(HI, "fa", "R", { o: LOW }, 0.15, "inOut");
 for (const [t, out] of [[2.2, 0.14], [2.32, 0.04], [2.44, 0.14]]) c.arm(t, "fa", "L", { o: [out, 0.98, 0.06] }, 0.12, "inOut");   // the wave
-c.say(HI, "fa", "hi!", 0.35, "happy", { voice: false, sub: "Hi!", pos: SUB_LOW });
+c.textPop(HI, "fa", "Hi!", { dur: 0.3, size: 80, xy: [380, 1170], angle: -4, color: "speaker" });   // review B: a word beside the cone (a low subtitle sat on the fries)
 sfx(r3(HI + 0.02), "gasp", { gain: 0.55, reason: "Viking's little gasp as the fry waves at him" });
 act.shock(c, r3(HI + 0.04), "vik", { hold: 0.2, open: 0.3, eye: 1.3, curve: 0.2 });
 A(2.25, "vik", "lean", { to: 2, dur: 0.25, ease: "out" });
 // Viking melts: the softest smile, eyes shut, pink cheeks, the blossom pops open on his sprout, a blissful sway
 A(2.32, "vik", "expr", { expr: "delighted", set: { curve: 1, open: 0.15 }, dur: 0.2 }); A(2.32, "vik", "face", { lid: 0.85, dur: 0.2 });
-act.emote(c, 2.3, "vik", "Awww!", { dur: 0.55 });   // a word beside his head: a caption over the push-in sat on his face or on the fries for its whole length (review B check)
+c.textPop(2.3, "vik", "Awww!", { dur: 0.48, size: 88, xy: [810, 840], angle: -4, color: "speaker" });   // a word beside his head: a caption over the push-in sat on his face or on the fries for its whole length (review B check)
 A(2.4, "vik", "bloom", { to: 1, dur: 0.25, ease: "back" });
 sfx(2.4, "pop", { gain: 0.6, reason: "the series' sound logo: the potato blossom pops open on Viking's sprout" });
 for (const [t, r] of [[2.45, 5], [2.62, -5], [2.78, 0]]) A(t, "vik", "tilt", { to: [0, r], dur: 0.16 });
@@ -233,8 +233,8 @@ A(r3(HOPC + INC + 0.1), "fc", "still", { dur: 1.6, idle: 0.05 });
 for (const s of ["L", "R"]) { c.arm(4.62, "vik", s, { o: [-0.12, 0.3, 0.4] }, 0.18, "inOut"); A(4.62, "vik", "grip", { side: s, shape: "relaxed", dur: 0.2 }); }   // the clasped gloves sink, then settle on the table (straight to the table the gloves flipped over)
 vikRest(4.82, 0.3);
 // Gunslinger pushes his salad away with one finger (panel 3's arrow)
-const PUSH = 5.3;
-c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "salad", grip: [-0.09, 0.07, 0.0] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });
+const PUSH = 6.3;   // review B: inside the "seeing this" shot, where his salad is in frame (in the dips shot it was off the edge)
+c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "salad", grip: [-0.09, 0.1, 0.0] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });
 c.prop(PUSH, "salad", { x: r3(SALAD[0] - 0.08), z: r3(SALAD[1] + 0.02) }, 0.35, "inOut");
 sfx(PUSH, "ai/bowl-scrape", { gain: 0.55, reason: "Gunslinger's salad bowl pushed away over the wooden table" });
 c.arm(r3(PUSH + 0.45), "gsl", "L", { o: [-0.16, 0.4, 0.32] }, 0.3, "inOut"); A(r3(PUSH + 0.45), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
@@ -344,7 +344,7 @@ const VICTIM = fw([GSL[0] + 0.05, 0.74, GSL[1]], { w: 1.0, az: -4, el: 6, fov: 2
 const BITE = fw([-0.05, 0.75, -0.42], { w: 1.55, el: 38, fov: 30, push: 0.06, dur: 0.9 });   // from higher: the fries stay under his eyes  // panel 2: the series' straight push-in
 const POOL = fw([0.0, 0.52, -0.12], { w: 1.15, el: 20, fov: 32 });                          // panels 3-4: Viking, the tray and the dips, Gunslinger's face
 const SEEING_SHOT = fw([-0.35, 0.62, -0.5], { w: 1.9, az: -14, el: 10, fov: 30 });        // panel 5: Gunslinger big front left, Reaper behind his line
-const LEAP = fw([0.36, 0.42, -0.3], { w: 1.3, az: 8, el: 20, fov: 30 });   // the cone (the fry that says Ooh, soup!) at the left, the soup big in the middle, Reaper right                  // panels 6-7: the cone, Viking, Reaper and his soup
+const LEAP = fw([0.42, 0.42, -0.3], { w: 1.5, az: 8, el: 20, fov: 30 });   // the cone (the fry that says Ooh, soup!) at the left, the soup big in the middle, Reaper right                  // panels 6-7: the cone, Viking, Reaper and his soup
 const beats = c.beats([
   ["P1 best fries in town", 0, WIDE_OPEN, "hook"],
   ["P1b the victim (v3 B8)", GSLCU, VICTIM, "reaction"],
@@ -361,7 +361,6 @@ const beats = c.beats([
 for (const cp of c.captions) {
   if (cp.text === "Best fries in town!") cp.to = 0.95;
   if (cp.text === "Yaaay!") cp.to = GSLCU;
-  if (cp.text === "Hi!") cp.to = 2.3;   // each short line ends with its beat: held on into the next one it sat over the cone and the fries for 0.9 s
   if (cp.text === "Ooh!") cp.to = 3.55;
   if (cp.text === "Are you seeing this?") cp.to = 6.8;
   if (cp.text === "Ooh, soup!") cp.to = LAUNCH;
@@ -401,7 +400,7 @@ write(import.meta.url, {
     { who: "fa", from: 7.25, to: 7.75, checks: ["lean-jump", "motion"], reason: "the backflip: the fry springs off the cone at full speed and turns a whole circle in 0.3 s, so its tip and stretch change fast inside the flip (take-off, apex, landing); a spring has no ease-in" },
     { who: "fa", from: 7.25, to: 7.7, checks: ["hand-pop"], reason: "the backflip: the gloves turn over with the whole body in the air" },
     { who: "vik", from: 1.0, to: 1.3, checks: ["face-covered"], reason: "the fries' cheer: the middle fry's glove passes in front of Viking's eyes for 0.1 s in the wide" },
-    { who: "gsl", with: "salad", from: 5.0, to: 5.8, reason: "his glove pushes his salad bowl away" },
+    { who: "gsl", with: "salad", from: 6.0, to: 6.8, reason: "his glove pushes his salad bowl away" },
   ],
   notes: "Generated by storyboards/series/always-orders-potatoes/01-fries/make-fries.mjs. Panels: PANELS.md.",
 });
