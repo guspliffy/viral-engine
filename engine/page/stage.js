@@ -20,10 +20,12 @@ import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeAttach } from "./attach.js";
+import { makeVfx } from "./vfx.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let attach2 = null;
+let vfx = null, vfxOver = false;       // Effekseer particle effects (vfx.js): a storyboard with "do": "vfx" fx items
 let phys = null;      // prop physics (physics.js, quality plan item 17): a storyboard with "physics" actions   // holds 2 (attach.js): "rig": { "hold": 2 }
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
@@ -440,7 +442,12 @@ async function init(data) {
     phys = await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs, attach: attach2, releasePose: (p, time, tr) => attach2?.releasePose(p, time, tr), setPose: setPhysicsPose });
     if (!phys) setPhysicsPose(null);
   } else phys = null;
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
+  vfx = opts.vfx === false ? null : await makeVfx({ R, sb, target: (id) => {
+    const a = actors.find((x) => x.c.id === id), p = !a && props.find((x) => x.spec.id === id), o = a ? a.ch.root : p ? p.root : rigs.get(id)?.g;   // a character, a prop or a vehicle rig
+    return o ? o.getWorldPosition(new THREE.Vector3()) : null;
+  } });
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn, vfx }) : makeStyle(style, R);
+  vfxOver = !!vfx && !opts.look;
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -456,6 +463,7 @@ function pose(t0) {
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
   const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
+  if (vfx) vfx.time = t;   // the particle effects drawn with this pose (vfx.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
     const s = rigState(V.r, t), p = V.r.pivot || [0, 0.55, 0];
@@ -641,6 +649,7 @@ function frame(t) {
     styler.prepare(scene, t, fp);
     styler.render(scene, camera);
     if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
+    if (vfxOver) vfx.drawOver(camera);   // a look draws them inside its composer
   }
   drawnQ = q;
   composite(t);
@@ -822,7 +831,7 @@ function stateHash(t, samples = []) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
+  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));

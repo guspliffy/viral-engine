@@ -111,8 +111,58 @@ export class VrmCharacter extends Character {
     this._q = new THREE.Quaternion(); this._x = new THREE.Vector3(1, 0, 0); this._qi = new THREE.Quaternion(); this._e = new THREE.Euler(); this._ta = new THREE.Vector3();
     this.armLen = wp("leftUpperArm").distanceTo(wp("leftLowerArm")) + wp("leftLowerArm").distanceTo(wp("leftHand")) + (H.getRawBoneNode("leftMiddleProximal") ? wp("leftHand").distanceTo(wp("leftMiddleProximal")) * 0.7 : 0);
     this.toeH = this.nb.leftToes ? (wp("leftToes").y + wp("rightToes").y) / 2 : this.footH;
+    // (the head's rest turn inside the root, for posture "level": which way the face points)
+    if (this.nb.head) this.headRest = this.root.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(this.nb.head.getWorldQuaternion(new THREE.Quaternion())).invert();
     if (this.def.ground !== false && this.perf.L.length) this._autoFloor();
     if (this.def.ground !== false && this.def.contacts !== false && this.cast.contacts !== false && this.perf.L.length) this.plan = this._planContacts();
+    if (this.def.ground !== false && this.perf.L.length && (this.cast.seat || []).length) this._seatFeet = this._planSeatFeet();
+  }
+
+  // seated knees (human motion v5, 7 Nov 2026): this anime body's shins are long (ankle + shin 0.59 m: a real 1.7 m man's
+  // popliteal height is about 0.43, ANSUR II 0.245 of stature), so on an ordinary 42 cm chair its knees stood 8 cm over
+  // its hip joints: the thigh of a grown-up on a child's stool (CMU stepstool sitters 13_04, 14_32: +8 to +10 degrees,
+  // knees 6-8 cm high; ordinary chair sitters 113_15, 143_18, 14_31, 86_15: -7 to +5 degrees). A real sitter whose chair
+  // is too low slides the feet forward once the weight is on the seat, so the shins lean and the knees come down. After
+  // each cast "seat" lands, each foot takes a small settling step forward (lifted 3.5 cm, 0.4 s, the needier foot first,
+  // the other 0.22 s later) just far enough that the thigh slopes "slope" (default 6 degrees, knee over the hip joint, the ordinary-chair sitters top end).
+  // Seat entry or character "sitFeet": { slope, lift, dur, gap, delay, max } or false.
+  _planSeatFeet() {
+    const V = THREE.Vector3, nb = this.nb, out = [];
+    for (const g of this.cast.seat || []) {
+      const o = g.feet === false || this.def.sitFeet === false ? null : { slope: 6, lift: 0.035, dur: 0.45, gap: 0.22, delay: 0.05, max: 0.4, ...(this.def.sitFeet || {}), ...(g.feet || {}) };
+      if (!o) continue;
+      const r = g.ramp ?? 0.4, t0 = g.from + r + o.delay, ts = Math.min(g.to - 0.01, t0 + 0.05);
+      this._vrmPose(ts); nb.hips.parent.updateMatrixWorld(true);
+      const legs = {};
+      for (const sd of ["left", "right"]) {
+        const H = nb[`${sd}UpperLeg`].getWorldPosition(new V()), K = nb[`${sd}LowerLeg`].getWorldPosition(new V()), A = nb[`${sd}Foot`].getWorldPosition(new V());
+        const la = H.distanceTo(K), lb = K.distanceTo(A), s = (o.slope * Math.PI) / 180, kY = H.y + la * Math.sin(s);
+        // (the step goes the way the body faces, a third of it along the thigh: knees that fall open would carry the feet
+        // wide apart)
+        const lat = nb.leftUpperLeg.getWorldPosition(new V()).sub(nb.rightUpperLeg.getWorldPosition(new V())).setY(0).normalize(), fw = lat.clone().cross(new V(0, 1, 0)).normalize();
+        const th = K.clone().sub(H).setY(0); if (th.lengthSq() < 1e-6) continue; th.normalize();
+        if (fw.dot(th) < 0) fw.negate();
+        const dir = fw.multiplyScalar(0.67).addScaledVector(th, 0.33).normalize();
+        const dA = la * Math.cos(s) + Math.sqrt(Math.max(0, lb * lb - (kY - A.y) ** 2)), dA0 = A.clone().sub(H).dot(th);
+        const d = K.y > kY + 0.005 ? Math.min(o.max, Math.max(0, (dA - dA0) / Math.max(0.5, dir.dot(th)))) : 0;
+        if (d > 0.005) legs[sd] = { dir, d, kneeY: K.y, hipY: H.y };
+      }
+      const order = Object.keys(legs).sort((a, b) => legs[b].d - legs[a].d);
+      order.forEach((sd, i) => Object.assign(legs[sd], { t0: t0 + i * o.gap, t1: t0 + i * o.gap + o.dur }));
+      if (this.cast.diagFeet || this.cast.diagJoints) console.log(`diag:sitfeet ${g.from} ${order.map((sd) => `${sd} ${(legs[sd].d * 100).toFixed(1)}cm knee-over-hip ${((legs[sd].kneeY - legs[sd].hipY) * 100).toFixed(1)}cm`).join(", ")}`);
+      out.push({ from: g.from, to: g.to, ramp: r, lift: o.lift, legs });
+    }
+    return out;
+  }
+  // a foot's settling step at t: { v: the forward shift so far, up: its lift, p: 0..1 (1 = put down) } or null
+  _seatFootAt(sd, t) {
+    if (!this._seatFeet || t == null) return null;
+    for (const s of this._seatFeet) {
+      const L = s.legs[sd]; if (!L || t < L.t0 || t > s.to + s.ramp) continue;
+      const p = Math.min(1, (t - L.t0) / (L.t1 - L.t0)), out = Math.min(1, smooth((s.to - t) / s.ramp + 1));
+      return { v: L.dir.clone().multiplyScalar(L.d * smooth(p) * out), up: p < 1 ? s.lift * Math.sin(Math.PI * p) : 0, p };
+    }
+    return null;
   }
 
   _material(m) {
@@ -206,6 +256,25 @@ export class VrmCharacter extends Character {
     let wc = this.def.wristCalm ?? 0.6;
     for (const g of this.cast.calm || []) { const r = g.ramp ?? 0.2, w = Math.min(smooth((t - g.from) / r + 1), smooth((g.to - t) / r + 1)); if (w > 0) wc += ((g.k ?? 0.95) - wc) * w; }
     if (wc) for (const b of ["leftHand", "rightHand"]) if (nb[b]) nb[b].quaternion.slerp(this._qi, wc);
+    // soft elbows (human motion v5, 7 Nov 2026): a relaxed arm never locks straight (it hangs 10-15 degrees bent, and a
+    // walker's elbow swings through 15-30 degrees without straightening, Gait & Posture 2018 review), but the walk and
+    // jump actors' elbows reached 3 degrees, a stiff mannequin arm. An elbow under 1.5 x "min" is eased up to "min"
+    // (default 0.21 rad, 12 degrees) in its own bend plane (forward when it is straight). Character "elbows": { min } or false
+    const el = this.def.elbows === false || this.cast.elbows === false ? null : { min: 0.21, ...(this.def.elbows || {}), ...(this.cast.elbows || {}) };
+    if (el && el.min > 0 && nb.leftUpperLeg && nb.rightUpperLeg) {
+      rig.updateMatrixWorld(true);
+      const V = THREE.Vector3, lat = nb.leftUpperLeg.getWorldPosition(new V()).sub(nb.rightUpperLeg.getWorldPosition(new V())).setY(0).normalize(), fw = lat.clone().cross(new V(0, 1, 0)).normalize();
+      for (const sd of ["left", "right"]) {
+        const U = nb[`${sd}UpperArm`], L = nb[`${sd}LowerArm`], Hd = nb[`${sd}Hand`]; if (!U || !L || !Hd) continue;
+        const s0 = U.getWorldPosition(new V()), e0 = L.getWorldPosition(new V()), h0 = Hd.getWorldPosition(new V());
+        const u = e0.clone().sub(s0).normalize(), f = h0.clone().sub(e0).normalize(), flex = Math.acos(Math.max(-1, Math.min(1, u.dot(f)))), m = el.min;
+        if (flex >= 1.5 * m) continue;
+        const want = flex + (m - flex) * (1 - smooth(flex / (1.5 * m))), d = want - flex; if (d < 1e-4) continue;
+        let ax = u.clone().cross(f); if (flex < 0.1 || ax.lengthSq() < 1e-6) ax = u.clone().cross(fw); if (ax.lengthSq() < 1e-8) continue; ax.normalize();
+        const lq = L.getWorldQuaternion(new THREE.Quaternion());
+        L.quaternion.copy(L.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(new THREE.Quaternion().setFromAxisAngle(ax, d).multiply(lq))); L.updateMatrixWorld(true);
+      }
+    }
     // posture: the recorded actors look at the floor and hunch; anime people stand tall and look ahead, so the neck,
     // head and chest get a small lift about their own side axis (character "posture", a cast entry can override it)
     const pos = { ...(this.def.posture || {}), ...(this.cast.posture || {}) };
@@ -217,7 +286,25 @@ export class VrmCharacter extends Character {
     // out as the chest tips past level; with the palms on the floor the head tucks toward the chest, eyes on the hands)
     let up = 1;
     if (nb.head && nb.hips) { nb.hips.parent.updateMatrixWorld(true); const d = nb.head.getWorldPosition(new THREE.Vector3()).sub(nb.hips.getWorldPosition(new THREE.Vector3())).normalize(); up = smooth((d.y - 0.2) / 0.5); }
-    for (const [b, a] of Object.entries(pos)) add(b, a, up);
+    // posture "level" (human motion v5, 7 Nov 2026): a fixed lift of neck and head (0.42 rad together) put right the
+    // recorded actors' downward look while standing, but it tipped the head back wherever the actor already looked
+    // ahead: seated against the chair back the face pointed 19 degrees up at the sky (actor: level). Real people keep
+    // their eyes near level (the face drops 10-15 degrees to watch the ground ahead when walking), so with "level": k
+    // (0..1) the face's own pitch decides the lift: a face pointing down by p is lifted by k p (at most "max", 0.45
+    // rad), shared by neck and head; a face already level or up is left as recorded. The other posture entries
+    // (chest) still add as before.
+    if (pos.level != null && nb.head && nb.neck && this.headRest) {
+      const qh = this.root.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(nb.head.getWorldQuaternion(new THREE.Quaternion())).multiply(this.headRest);
+      const f = new THREE.Vector3(0, 0, 1).applyQuaternion(qh), p = Math.asin(Math.max(-1, Math.min(1, f.y)));
+      // (while the eyes are on a gaze target, the face aims at it instead of the horizon: down at the apple it picks up)
+      let want = 0;
+      const gz = this._gazeAt(t);
+      if (gz.g) { const hp = nb.head.getWorldPosition(new THREE.Vector3()), d = new THREE.Vector3(...gz.g.at).sub(hp); want = Math.atan2(d.y, Math.hypot(d.x, d.z)) * gz.w; }
+      const lift = Math.min(pos.max ?? 0.45, Math.max(0, (want - p) * pos.level));
+      if (lift > 0) { add("neck", lift * 0.5, up); add("head", lift * 0.5, up); }
+      if (this.cast.diagJoints) this._pitch = [+(p * 57.3).toFixed(1), +(lift * 57.3).toFixed(1)];
+    }
+    for (const [b, a] of Object.entries(pos)) if (pos.level == null || (b !== "neck" && b !== "head" && b !== "level" && b !== "max")) add(b, a, up);
     if (this.plan && !this._lockOff) { const tk = this.def.contact?.tuck ?? -0.3, w = Math.max(this._contactAt(this.plan.left, t).wP, this._contactAt(this.plan.right, t).wP) * (1 - up); if (w > 0) { add("neck", tk, w); add("head", tk, w); } }
     for (const k of this.cast.poses || []) {
       const r = k.ramp ?? 0.2, w = Math.min(smooth((t - k.from) / r + 1), smooth((k.to - t) / r + 1));
@@ -282,7 +369,18 @@ export class VrmCharacter extends Character {
     const ay = () => Math.min(...legs.map((l) => l[2].getWorldPosition(new V()).y)) - fh;
     const d0 = ay();
     if (d0 > 0) {
-      const drop = d0 * (1 - smooth((d0 - 0.06) / 0.08));
+      let drop = d0 * (1 - smooth((d0 - 0.06) / 0.08));
+      // (not while the feet are still falling fast onto a landing: the drop came a frame early there and the hips fell
+      // 15.5 cm in one frame of the jump's landing against the actor's 9, v4 reel; it fades out from 0.4 to 1.0 m/s down)
+      const fy = this.footY; if (fy && t != null && drop > 0) { const i = Math.min(fy.v.length - 2, Math.max(1, Math.round(t / fy.dt))); if (fy.s[i - 1] === fy.s[i + 1]) { const vy = (fy.v[i + 1] - fy.v[i - 1]) / (2 * fy.dt); drop *= 1 - smooth((-vy - 0.4) / 0.6); } }
+      // (and with a support plan only as much as a foot is planted: in a run's flight both feet hover too, and the drop
+      // there went 6 -> 3.6 -> 5.9 cm over three frames, the hips spiking 4.5 cm over the actor's at every toe-off)
+      // (a contact up to 0.15 s away still counts, fading with the distance, so the drop never switches off in a frame)
+      if (this.plan && !this._lockOff && t != null && drop > 0) {
+        let cw = 0;
+        for (let o = -0.12; o <= 0.121; o += 0.04) for (const sd of ["left", "right"]) { const c = this._contactAt(this.plan[sd], t + o); cw = Math.max(cw, Math.max(c.wH, c.wT) * (1 - Math.abs(o) / 0.15)); }
+        drop *= smooth(cw);
+      }
       if (drop > 1e-4) { const w = nb.hips.getWorldPosition(new V()); w.y -= drop; nb.hips.position.copy(nb.hips.parent.worldToLocal(w)); nb.hips.parent.updateMatrixWorld(true); }
     }
     const wq = (o) => o.getWorldQuaternion(new THREE.Quaternion());
@@ -310,7 +408,33 @@ export class VrmCharacter extends Character {
           if (c.T) { T.addScaledVector(new V(c.T.x - toe.x, 0, c.T.z - toe.z), (1 - c.wH) * c.wT); wT = c.wT; toeY = c.T.y; }
         }
       }
-      tg.push({ U, L, F, Tz, T, wT, toeY, nT: c?.nT });
+      // (seated: the settling step forward, see _planSeatFeet; the ball lets go of the floor while the foot is up)
+      const sf = this._seatFootAt(sd, t);
+      if (sf) { T.add(sf.v); T.y += sf.up; if (sf.p < 1) wT *= 1 - Math.sin(Math.PI * sf.p); }
+      tg.push({ U, L, F, Tz, T, wT, toeY, nT: c?.nT, cT: c?.T && !(sf && sf.p < 1) ? c.T : null, wB: c?.wT || 0, wHh: c?.wH || 0 });
+    }
+    // heel peel (human motion v5, 7 Nov 2026): the trailing foot of a long anime stride is held where it landed while
+    // the hips travel on, and once it was out of reach the hips were pulled down to it (6-9 cm under the actor's at
+    // every double support) and sprang back up the frame the hold let go, the foot jumping 7 cm with them (walk, v4
+    // reel). A real trailing foot peels instead: the heel comes up and the foot pivots on its ball, which lengthens
+    // the leg by up to a foot's rise. So a held ball out of reach lifts its ankle about the ball first (rise at most
+    // contact "peel", 0.1 m), and only what is left pulls the hips
+    const peelMax = this.def.contact?.peel ?? 0.1;
+    if (peelMax > 0) for (const g of tg) {
+      if (!g.cT || !(g.wB > 0) || !g.Tz) continue;
+      const h = g.U.getWorldPosition(new V()), R = (h.distanceTo(g.L.getWorldPosition(new V())) + g.L.getWorldPosition(new V()).distanceTo(g.F.getWorldPosition(new V()))) * 0.985;
+      const lf = g.F.getWorldPosition(new V()).distanceTo(g.Tz.getWorldPosition(new V())), base = this.footH - this.toeH;
+      let rise = 0;
+      for (let it = 0; it < 3; it++) {
+        if (g.T.distanceTo(h) <= R) break;
+        const hz = Math.hypot(g.T.x - h.x, g.T.z - h.z); if (hz >= R) break;
+        const need = Math.min(peelMax - rise, h.y - Math.sqrt(R * R - hz * hz) - g.T.y); if (need <= 1e-4) break;
+        // (the ankle swings up round the held ball: it comes closer to the ball as it rises)
+        const r0 = Math.sqrt(Math.max(0, lf * lf - (base + rise) ** 2)), r1 = Math.sqrt(Math.max(0, lf * lf - (base + rise + need) ** 2));
+        const tb = new V(g.cT.x - g.T.x, 0, g.cT.z - g.T.z); if (tb.lengthSq() > 1e-8) g.T.addScaledVector(tb.normalize(), (r0 - r1) * g.wB);
+        g.T.y += need * g.wB; rise += need;
+      }
+      g.peel = rise;
     }
     // reach: a held foot the leg can't reach pulls the hips toward it (down and over) instead of the foot letting go
     const pull = new V();
@@ -320,7 +444,7 @@ export class VrmCharacter extends Character {
       if (ex > 0) pull.addScaledVector(ht.normalize(), ex);
     }
     if (pull.lengthSq() > 1e-8) { const w = nb.hips.getWorldPosition(new V()).add(pull); nb.hips.position.copy(nb.hips.parent.worldToLocal(w)); nb.hips.parent.updateMatrixWorld(true); }
-    for (const { U, L, F, Tz, T, wT, toeY, nT } of tg) {
+    for (const { U, L, F, Tz, T, wT, toeY, nT, cT, wB, wHh, peel } of tg) {
       const h = U.getWorldPosition(new V()), k = L.getWorldPosition(new V()), a = F.getWorldPosition(new V());
       if (a.distanceToSquared(T) > 2.5e-7) {
         const fq = wq(F), la = h.distanceTo(k), lb = k.distanceTo(a);
@@ -367,6 +491,18 @@ export class VrmCharacter extends Character {
           }
         }
       }
+      // a held ball stays where it landed (human motion v5, 7 Nov 2026): with the heel held too, only the foot's recorded
+      // yaw moved the ball, swinging it round the heel 5-28 cm per stance (grab 28, punch 17, jump 14-16, v4 reel). The
+      // foot now yaws about the ankle so the ball points at its held spot (a real planted foot pivots on heel or ball,
+      // never slides; character/cast contact "yaw": false keeps the recorded turn)
+      if (Tz && cT && wB > 0 && this.def.contact?.yaw !== false && this.cast.contact?.yaw !== false) {
+        const an = F.getWorldPosition(new V()), to = Tz.getWorldPosition(new V());
+        const a0 = Math.atan2(to.x - an.x, to.z - an.z), a1 = Math.atan2(cT.x - an.x, cT.z - an.z);
+        let da = a1 - a0; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+        if (Math.hypot(to.x - an.x, to.z - an.z) > 0.03 && Math.hypot(cT.x - an.x, cT.z - an.z) > 0.03 && Math.abs(da) < 1.2 && Math.abs(da) > 1e-4) {
+          setW(F, new THREE.Quaternion().setFromAxisAngle(new V(0, 1, 0), da * wB).multiply(wq(F))); F.updateMatrixWorld(true);
+        }
+      }
       // the ball of a held foot rests on the floor (pitched about the ankle), and no toe ever goes under it
       if (Tz) {
         const an = F.getWorldPosition(new V()), to = Tz.getWorldPosition(new V());
@@ -377,7 +513,22 @@ export class VrmCharacter extends Character {
           setW(F, new THREE.Quaternion().setFromUnitVectors(v.normalize(), w2.normalize()).multiply(wq(F))); F.updateMatrixWorld(true);
         }
       }
+      // ...and once the foot is pitched, a held ball is put back on its spot: the foot pitches about the ankle, so a heel
+      // peeling up while still held pulled the ball 5-8 cm back toward it (the punch's back foot, v4 reel). A real foot
+      // peels about the ball, so the whole foot (ankle and all) is moved by what the ball is off as the heel lets go (with
+      // the heel held too the yaw above keeps the ball; moving the foot then dragged the held heel 12 cm in the squat)
+      if (Tz && cT && wB > 0 && this.def.contact?.ballFix !== false && this.cast.contact?.ballFix !== false) {
+        const to = Tz.getWorldPosition(new V()), e = new V(cT.x - to.x, 0, cT.z - to.z), k = wB * (1 - wHh * (1 - Math.min(1, (peel || 0) / 0.01)));
+        if (e.lengthSq() > 1e-6 && e.length() < 0.25) this._twoBone(U, L, F, F.getWorldPosition(new V()).addScaledVector(e, k));
+      }
     }
+  }
+
+  // the cast "gaze" entry that holds the eyes at t, and how much: { g, w }
+  _gazeAt(t) {
+    let g = null, w = 0;
+    if (t != null) for (const x of this.cast.gaze || []) { const r = x.ramp ?? 0.15, k = Math.min(smooth((t - x.from) / r + 1), smooth((x.to - t) / r + 1)); if (k > w) { w = k; g = x; } }
+    return { g, w };
   }
 
   // a two-bone chain (upper, lower, end) turned so the end's joint reaches T, the bend kept in its own plane and on its
@@ -495,14 +646,17 @@ export class VrmCharacter extends Character {
       const dil = need.map((_, i) => { let m = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && S.left[j].s === S.left[i].s) m = Math.max(m, need[j]); return m; });
       for (let i = 0; i < n; i++) { let a = 0, c = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && S.left[j].s === S.left[i].s) { a += dil[j]; c++; } lift[i] = a / c; }
       this.lift = { dt, v: lift };
+      // (the lower ankle's recorded height every 1/60 s, to know when the feet are coming down fast: see _ground)
+      this.footY = { dt, v: Float32Array.from(S.left.map((f, i) => Math.min(f.a.y, S.right[i].a.y))), s: S.left.map((f) => f.s) };
       // (palms are held where the recorded hands meet the floor, so the lifted body straightens its arms down to them)
       for (const sd of ["left", "right"]) S[sd].forEach((f, i) => { f.a.y += lift[i]; f.b.y += lift[i]; f.h0 = f.h.clone().setY(Math.max(f.h.y, pf)); f.h.y += lift[i]; });
     }
     // stance width (motion brief: no narrow crossing gait): the recorded walkers put each ankle 0-5 cm off the line
     // under the pelvis (a catwalk on this wider-hipped body, 6 Nov front view); each foot is kept at least half the
-    // gait "width" (default 16 cm between ankle centres, about the hip joints' spacing) out on its own side, the push smoothed over 0.4 s so the swing
+    // gait "width" (default 12 cm between ankle centres: real walkers step 10-11 +-3 cm wide, heels 5 cm or more apart
+    // as one passes the other; v4's 16 cm walked with the feet 17 cm apart on average, 7 Nov) out on its own side, the push smoothed over 0.4 s so the swing
     // carries it too. The pushed feet are the ones the contacts hold
-    const half = (this.cast.gait?.width ?? this.def.gait?.width ?? 0.16) / 2, n = S.left.length;
+    const half = (this.cast.gait?.width ?? this.def.gait?.width ?? 0.12) / 2, n = S.left.length;
     this.width = { dt, left: new Float32Array(n), right: new Float32Array(n) };
     for (const [sd, sg] of [["left", 1], ["right", -1]]) {
       // (a deep squat stands wider: real squatters put the ankles 1.3-2.2 hip-widths apart, the pick-up actor 1.1, 7 Nov;
@@ -591,8 +745,7 @@ export class VrmCharacter extends Character {
       // toward a place in the world (an apple before the hand goes, the camera once seated); otherwise straight ahead
       const L = this.vrm.lookAt;
       if (L) {
-        L.autoUpdate = false; let best = null, bw = 0;
-        for (const g of this.cast.gaze || []) { const r = g.ramp ?? 0.15, w = Math.min(smooth((t - g.from) / r + 1), smooth((g.to - t) / r + 1)); if (w > bw) { bw = w; best = g; } }
+        L.autoUpdate = false; const { g: best, w: bw } = this._gazeAt(t);
         this.vrm.scene.updateMatrixWorld(true);
         if (best) { L.lookAt(new THREE.Vector3(...best.at)); L.yaw *= bw; L.pitch *= bw; } else { L.yaw = 0; L.pitch = 0; }
         L.update(0);
@@ -620,7 +773,7 @@ export class VrmCharacter extends Character {
       const g = (n) => r3(H2.getRawBoneNode(n).getWorldPosition(new THREE.Vector3()));
       const C = { lhipjoint: g("leftUpperLeg"), rhipjoint: g("rightUpperLeg"), lfemur: g("leftLowerLeg"), rfemur: g("rightLowerLeg"), ltibia: g("leftFoot"), rtibia: g("rightFoot"), lfoot: g("leftToes"), rfoot: g("rightToes"), thorax: g("neck"), lclavicle: g("leftUpperArm"), rclavicle: g("rightUpperArm"), head: g("head"), lhumerus: g("leftLowerArm"), rhumerus: g("rightLowerArm"), lradius: g("leftHand"), rradius: g("rightHand"), lshoulder: g("leftShoulder"), rshoulder: g("rightShoulder"), chest: g(this.nb.upperChest ? "upperChest" : "chest") };
       const A = {}; if (W2) for (const k of ["lhipjoint", "rhipjoint", "lfemur", "rfemur", "ltibia", "rtibia", "lfoot", "rfoot", "thorax", "lclavicle", "rclavicle", "head", "lhumerus", "rhumerus", "lradius", "rradius"]) if (W2[k]) A[k] = r3(W2[k].end);
-      console.log(`diag:joints ${JSON.stringify({ t: +t.toFixed(4), A, C })}`);
+      console.log(`diag:joints ${JSON.stringify({ t: +t.toFixed(4), A, C, pitch: this._pitch })}`);
     }
     // cast "diagFeet": every frame's ankle and ball of each foot, in the world (tools/human/skate.mjs measures sliding)
     if (this.cast.diagFeet) { const H2 = this.vrm.humanoid, f = (n) => H2.getRawBoneNode(n).getWorldPosition(new THREE.Vector3()).toArray().map((v) => v.toFixed(4)).join(" "); console.log(`diag:feet t=${t.toFixed(4)} L ${f("leftFoot")} ${f("leftToes")} R ${f("rightFoot")} ${f("rightToes")}`); }
