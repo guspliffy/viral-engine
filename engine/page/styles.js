@@ -19,6 +19,18 @@ function toonRamp(steps) {
 }
 
 export function makeStyle(style, R) {
+  // "clay" (character look-dev, tools/pebble/views.mjs): every lit material becomes one plain grey, no textures or
+  // vertex paint, so a sheet shows the forms alone (the plain-shaded view next to the colour and the silhouette)
+  if (style === "clay") {
+    const clay = new Map();
+    const conv = (m) => {
+      if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial || m.userData.clay) return m;
+      let c = clay.get(m);
+      if (!c) { c = new THREE.MeshStandardMaterial({ color: "#c9c4bb", roughness: 0.85, metalness: 0, side: m.side, transparent: m.transparent, opacity: m.opacity, depthWrite: m.depthWrite }); c.userData.clay = true; clay.set(m, c); }
+      return c;
+    };
+    return { prepare(scene) { scene.traverse((o) => { if (o.isMesh && o.material) o.material = Array.isArray(o.material) ? o.material.map(conv) : conv(o.material); }); }, render: (scene, cam) => R.render(scene, cam) };
+  }
   if (style !== "anime") return { prepare() {}, render: (scene, cam) => R.render(scene, cam) };
 
   const ramp = toonRamp([105, 190, 255]);

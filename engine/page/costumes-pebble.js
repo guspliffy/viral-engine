@@ -194,11 +194,11 @@ function vest(ch, C) {
   // quarter circle of that many radians up from the hem (square corners read as manufactured)
   const rc = V.corner ?? 0, rk = V.cornerK ?? 1.6;
   const edge = (ph) => (V.edge ?? 0.5) + (V.flare ?? 0.16) * sstep(0.4, ph0, ph) + (rc && ph < ph0 + rc ? rc * rk * (1 - Math.sqrt(Math.max(0, 1 - ((ph0 + rc - ph) / rc) ** 2))) : 0);
-  const back = V.back ?? 2.5, ah = V.armhole ?? 0.42;
+  const back = V.back ?? 2.5, ah = V.armhole ?? 0.42, av = V.armholeV ?? 1;   // armholeV (opt-in): the hole's height against its width (a wide hole for the shoulder that doesn't climb onto the top of the body)
   for (const sd of [-1, 1]) {
     // the armhole as the panel's own boundary (no dropped cells, so no staircase edge): the panel is two sheets, in
     // front of and behind the hole, whose inner edges follow the hole's ellipse exactly and meet above and below it
-    const hw = (ph) => Math.sqrt(Math.max(0, ah * ah - ((ph - shPh) * 1.15) ** 2)), hc = sd * 1.38;
+    const hw = (ph) => Math.sqrt(Math.max(0, ah * ah - ((ph - shPh) * 1.15 / av) ** 2)), hc = sd * 1.38;
     const lo = sd > 0 ? edge : () => -back, hi = sd > 0 ? () => back : (ph) => -edge(ph);
     P.add(surfSheet(ch, lo, (ph) => hc - hw(ph), ph0, ph1, V.lift ?? 0.014, m, { nu: 28, nv: 48 }));
     P.add(surfSheet(ch, (ph) => hc + hw(ph), hi, ph0, ph1, V.lift ?? 0.014, m, { nu: 20, nv: 48 }));
@@ -206,8 +206,8 @@ function vest(ch, C) {
     const fe = []; for (let k = 0; k <= 20; k++) { const ph = ph1 - (ph1 - ph0) * (k / 20); fe.push([sd * edge(ph), ph]); }
     for (let k = 1; k <= 16; k++) fe.push([sd * (edge(ph0) + (back - edge(ph0)) * (k / 16)), ph0]);
     P.add(surfLine(ch, fe, (V.lift ?? 0.014) + 0.004, V.trimR ?? 0.009, trimM));
-    const ring = []; for (let k = 0; k < 24; k++) { const a = (k / 24) * Math.PI * 2; ring.push([sd * 1.38 + Math.cos(a) * ah, shPh + (Math.sin(a) * ah) / 1.15]); }
-    P.add(surfLine(ch, ring, (V.lift ?? 0.014) + 0.004, (V.trimR ?? 0.009) * 0.85, trimM, true));
+    const ring = []; for (let k = 0; k < 24; k++) { const a = (k / 24) * Math.PI * 2; ring.push([sd * 1.38 + Math.cos(a) * ah, shPh + (Math.sin(a) * ah * av) / 1.15]); }
+    if (V.armTrim !== false) P.add(surfLine(ch, ring, (V.lift ?? 0.014) + 0.004, (V.trimR ?? 0.009) * 0.85, trimM, true));   // armTrim false (opt-in): no piping round the armhole (on a wide hole it stood off the shoulder as a hoop)
     // a running stitch just inside the trim, down the front edge and along the hem (the sheet's sewn vest)
     const st = []; for (let k = 0; k <= 40; k++) { const ph = ph1 - 0.06 - (ph1 - 0.06 - ph0 - 0.05) * (k / 40); st.push([sd * (edge(ph) + 0.075), ph]); }
     for (let k = 1; k <= 30; k++) st.push([sd * (edge(ph0) + 0.075 + (back - 0.2 - edge(ph0)) * (k / 30)), ph0 + 0.05]);
@@ -273,7 +273,39 @@ function buildShell(ch, C) {
     return { i: i1, b: d2 - d1 };
   };
   const NT = S.nt ?? 150, NP = S.np ?? 240, pos = [], colr = [], idx = [], u = new THREE.Vector3();
-  const pt = (u, r) => new THREE.Vector3(c.x + u.x * Rx * r, c.y + u.y * Ry * r, c.z + u.z * Rz * r);
+  // shell.hug (opt-in, Jonny 7 Nov "an oversized open backpack framing a small torso"): near the opening the dome
+  // curves in toward the body, so the rim lies close round the shoulders and the sides (a carapace margin turning
+  // down) instead of standing off them with a deep dark gap. Over the last `band` radians before the rim, the part of a
+  // point across the shell's axis shrinks so the rim lands on an ellipse round the axis, side x top (bottom: none by
+  // default, the legs stay clear); the axial part stays, so the rim keeps its depth
+  const HG = S.hug, hugK = (() => {
+    if (!HG) return null;
+    const NH = 180, k = new Float32Array(NH + 1), q = new THREE.Vector3();
+    for (let j = 0; j <= NH; j++) {
+      const ph = (j / NH) * Math.PI * 2, al = alphaOf(ph); dirAt(al, ph, q);
+      const v = new THREE.Vector3(q.x * Rx, q.y * Ry, q.z * Rz), d0 = v.clone().addScaledVector(ax, -v.dot(ax)).length();
+      const cp = Math.cos(ph), sp = Math.sin(ph), vt = sp >= 0 ? HG.top ?? 1e3 : HG.bottom ?? 1e3;
+      const dT = 1 / Math.sqrt((cp / (HG.side ?? 1e3)) ** 2 + (sp / vt) ** 2);
+      k[j] = Math.max(0, Math.min(HG.max ?? 0.6, 1 - dT / d0));
+    }
+    return (ph) => { const f = ((((ph / (Math.PI * 2)) % 1) + 1) % 1) * NH, i = Math.floor(f), w = f - i; return k[i] * (1 - w) + k[Math.min(NH, i + 1)] * w; };
+  })();
+  const hugAt = (u) => {
+    if (!hugK) return 1;
+    const th = Math.acos(Math.max(-1, Math.min(1, u.dot(ax)))), ph = Math.atan2(u.dot(t2), u.dot(t1)), al = alphaOf(ph), b = HG.band ?? 0.6;
+    return 1 - hugK(ph) * sstep(al - b, al, th) ** (HG.ease ?? 1.5);
+  };
+  const pt = (u, r) => {
+    const v = new THREE.Vector3(u.x * Rx * r, u.y * Ry * r, u.z * Rz * r);
+    if (hugK) { const a = v.dot(ax), h = hugAt(u); v.addScaledVector(ax, -a).multiplyScalar(h).addScaledVector(ax, a); }
+    return v.add(c);
+  };
+  // the outer surface's normal along unit direction w, from the drawn (hugged) surface itself
+  const outN = (w) => {
+    const e = 0.004, a = new THREE.Vector3(1, 0, 0).cross(w); if (a.lengthSq() < 1e-6) a.set(0, 1, 0).cross(w); a.normalize(); const b = w.clone().cross(a).normalize();
+    const P = (d) => pt(d.normalize(), 1), pa = P(w.clone().addScaledVector(a, e)).sub(P(w.clone().addScaledVector(a, -e))), pb = P(w.clone().addScaledVector(b, e)).sub(P(w.clone().addScaledVector(b, -e)));
+    const n = pa.cross(pb).normalize(); if (n.dot(pt(w, 1).sub(c)) < 0) n.negate(); return n;
+  };
   const bulge = S.bulge ?? 0.035, gw = S.grooveW ?? 0.045, ring = (x, at, w) => Math.exp(-(((x - at) / w) ** 2));
   // the drawn surface's radius along unit direction u (scute swell, seam groove): the mesh, the moss and the fern's
   // root all use this one function, so nothing is seated on a surface that isn't drawn
@@ -341,8 +373,8 @@ function buildShell(ch, C) {
     lipM.userData.noOutline = true; lipM.name = "pebble-shell-lip"; group.add(lipM);
   }
   // the rim: a rounded roll along the cut edge, joining outside and inside
-  const rim = [];
-  for (let j = 0; j < 96; j++) { const ph = (j / 96) * Math.PI * 2; dirAt(alphaOf(ph), ph, u); rim.push(pt(u, 0.978)); }
+  const rim = [], rimDir = [];
+  for (let j = 0; j < 96; j++) { const ph = (j / 96) * Math.PI * 2; dirAt(alphaOf(ph), ph, u); rimDir.push(u.clone()); rim.push(pt(u, 0.978)); }
   const rimCurve = new THREE.CatmullRomCurve3(rim, true);
   if (S.rimBand) {
     // the rim as one continuous rolled band (review 7 Nov 2026: separate capsules read as a necklace of beads): an
@@ -352,7 +384,7 @@ function buildShell(ch, C) {
     const lightR = col(S.rimEdge || "#A9632F"), jointC = col(S.rimJoint || S.seam || "#4A2A18"), T = new THREE.Vector3(), Nn = new THREE.Vector3(), B = new THREE.Vector3();
     for (let k = 0; k <= NS; k++) {
       const s = (k % NS) / NS, p = rimCurve.getPointAt(s); rimCurve.getTangentAt(s, T);
-      Nn.set((p.x - c.x) / (Rx * Rx), (p.y - c.y) / (Ry * Ry), (p.z - c.z) / (Rz * Rz)).normalize(); B.crossVectors(T, Nn).normalize(); Nn.crossVectors(B, T).normalize();
+      if (hugK) { let bi = 0, bd = 1e9; for (let i = 0; i < rim.length; i++) { const d = rim[i].distanceToSquared(p); if (d < bd) { bd = d; bi = i; } } Nn.copy(outN(rimDir[bi])); } else Nn.set((p.x - c.x) / (Rx * Rx), (p.y - c.y) / (Ry * Ry), (p.z - c.z) / (Rz * Rz)).normalize(); B.crossVectors(T, Nn).normalize(); Nn.crossVectors(B, T).normalize();
       const f = (s * n) % 1, jd = Math.exp(-(((Math.min(f, 1 - f)) / 0.045) ** 2));   // 1 at a joint
       const sw = 1 - 0.18 * jd, a = rr * (S.rimOut ?? 0.75) * sw, b = rr * (S.rimWide ?? 1.25) * sw;
       for (let q = 0; q <= NR; q++) {
@@ -387,6 +419,7 @@ function buildShell(ch, C) {
   // a point on the outside of the shell along direction w (unit space) and its outward normal (world-ish, bodyGroup space)
   const onShell = (w) => {
     const p = pt(w, rOf(w)), nn = new THREE.Vector3(w.x / Rx, w.y / Ry, w.z / Rz).normalize();
+    if (hugK) nn.copy(outN(w));
     return { p, n: nn };
   };
   // the fern's root (correction brief 6 Nov): a direction INSIDE the clipped dome (fern.th: polar angle from the shell's
@@ -397,7 +430,13 @@ function buildShell(ch, C) {
   const fern = buildFern(group, onShell, S, fw, cushion);
   // the shell as a solid for checks (bodyGroup space before the group's own transform): an arm or a prop inside the
   // wall between the inside (0.955) and the outside (1 + bulge) of the cap
-  group.userData.shellSolid = { c, R: [Rx, Ry, Rz], ax, t1, t2, alphaOf, inner: 0.955, outer: 1 + bulge };
+  // toUnit(p): a point (bodyGroup space) -> its unit-space vector q (|q| = 1 on the plain cap), undoing the hug
+  const toUnit = (p) => {
+    const v = p.clone().sub(c), a = v.dot(ax), perp = v.clone().addScaledVector(ax, -a); let h = 1, q = new THREE.Vector3();
+    for (let i = 0; i < 4; i++) { const w = perp.clone().divideScalar(h).addScaledVector(ax, a); q.set(w.x / Rx, w.y / Ry, w.z / Rz); h = hugAt(q.clone().normalize()); }
+    return q;
+  };
+  group.userData.shellSolid = { c, R: [Rx, Ry, Rz], ax, t1, t2, alphaOf, inner: 0.955, outer: 1 + bulge, toUnit };
   return { group, update: (st, t, hands, fries) => fern(st, t) };
 }
 

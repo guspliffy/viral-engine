@@ -227,7 +227,10 @@ export class Character {
       // hands.type "glove": Jonny's hand & grip study, a cartoon glove with four separate rounded fingers, a thumb and
       // a wrist. Each finger bends at the knuckle (fingers / index pivot) and again half way (bends), so a curl rolls it
       fingers = piv(-0.002, 0.034, 0); index = piv(0.031, 0.034, 0.002);
+      // hands.fingerLen / fingerR (opt-in, Pebble 7 Nov "shorter, softer fingers"): scale every finger's length / thickness
+      const fL = this.def.hands?.fingerLen ?? 1, fR = this.def.hands?.fingerR ?? 1;
       const finger = (parent, x, len, r, spread, y = 0) => {
+        len *= fL; r *= fR;
         const base = new THREE.Group(); base.position.set(x, y, 0); base.rotation.z = spread; parent.add(base);
         const a = new THREE.Mesh(cap(r, len * 0.5), M("#ff9a20")); a.position.y = len * 0.25 + r * 0.6; a.castShadow = true; base.add(a);
         const mid = new THREE.Group(); mid.position.y = len * 0.5 + r * 0.6; base.add(mid); bends.push(mid);
@@ -815,7 +818,7 @@ export class Character {
     a.skin.geometry = a.ink.geometry = made ? geometryOf(made) : meshShape(shape, h);
   }
 
-  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
+  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0, dome = null) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = Character.armCurve(a, c, b, joint);
     // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten.
@@ -823,7 +826,11 @@ export class Character {
     // round cap half way along that stretch, so its outline never shows through the hand
     const L = stub ? curve.getLength() : 1, ts = 1 - (stub * 0.5) / L, tc = (w * 0.9) / L;
     const cap = (t) => (!stub || t <= ts ? 1 : Math.sqrt(Math.max(0, 1 - ((t - ts) / tc) ** 2)));
+    // legs.dome (opt-in, Pebble 7 Nov "boots with flat exposed upper edges"): { top, flare } a leg whose root closes in a
+    // round dome over its first `top` share (rooted inside the body, it swells out of the lower torso like a haunch) and
+    // widens by `flare` toward the foot, so it reads as a short sturdy leg, not a cut tube
     const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
+      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t))
       : new THREE.TubeGeometry(curve, 14, w, this.head ? 18 : 8, false);   // the core build's thick suit legs: rounder
     if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
     const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
@@ -1006,7 +1013,8 @@ export class Character {
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
       const sd = st.stride ?? 1, lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07 * sd;
-      const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
+      const fX = this.def.legs?.footX ?? 0.13;   // legs.footX (opt-in, Pebble 7 Nov): how far out each foot stands
+      const foot = new THREE.Vector3(sx * fX, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
       if (st.gait) {
         // natural gait: each foot stands for 58 % of the cycle and slides back under the body at exactly the body's
         // speed (so it stays put on the floor), then swings forward along the walk, lifted, easing out and in
@@ -1014,7 +1022,7 @@ export class Character {
         let along, up = 0;
         if (u < ST) along = A * (1 - (2 * u) / ST);
         else { const w = (u - ST) / (1 - ST); along = -A + 2 * A * (w - Math.sin(2 * Math.PI * w) / (2 * Math.PI)); up = Math.sin(Math.PI * w) * 0.065 * Math.min(1.4, G.sd) * G.amt; }
-        foot.set(sx * 0.13 + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
+        foot.set(sx * fX + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
       }
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
@@ -1040,14 +1048,14 @@ export class Character {
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
-      const hip = new THREE.Vector3(sx * (this.def.legs?.hipX ?? 0.12), this.legH * S.y + 0.06, 0.0);
+      const hip = new THREE.Vector3(sx * (this.def.legs?.hipX ?? 0.12), this.legH * S.y + (this.def.legs?.hipY ?? 0.06), 0.0);   // legs.hipY (opt-in): the leg's root above the body's bottom
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         const knee = hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0)));
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1);
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, false, 0, this.def.legs?.dome);
         this.legs[s].hip = hip; this.legs[s].knee = knee;   // the leg's curve, for costume parts that follow it (costumes-core.js)
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped

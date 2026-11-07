@@ -59,7 +59,7 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
 // (correction brief 6 Nov: wrists beside the lower vest, a little forward, elbows close to the sides, not bowed out)
-export const REST = { R: { o: [0.1, 0.27, 0.14], elbow: 0.0, margin: 1.05, swing: 0.5 }, L: { o: [0.1, 0.27, 0.14], elbow: 0.0, margin: 1.05, swing: 0.5 } };
+export const REST = { R: { o: [0.04, 0.24, 0.12], elbow: 0.0, margin: 1.05, swing: 0.5 }, L: { o: [0.04, 0.24, 0.12], elbow: 0.0, margin: 1.05, swing: 0.5 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
 // the grass straw (Garden Guardian pack, 6 Nov 2026; correction brief the same day): in his lips at the LEFT mouth
@@ -69,7 +69,7 @@ export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { f
 // calibrated at this pose by tools/pebble/straw-cal.mjs) -> EXTRACT (out along the stem) -> down. strawIn is the same
 // backwards: up to the extract point, seat the stem in the lips, hand-over, open the fingers, arm down.
 // STRAW_MOUTH and STRAW_OUT come from straw-cal.mjs (the grip point and 7 cm out along the stem, in arm-target space).
-export const STRAW_MOUTH = { x: [0.1665,1.1246,0.4112], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2324,1.0701,0.4226], point: "pinch", pinchEase: true };
+export const STRAW_MOUTH = { x: [0.1667,1.117,0.3775], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2326,1.0624,0.3889], point: "pinch", pinchEase: true };
 export const STRAW_LOW = { x: [0.3, 0.55, 0.3], point: "pinch", pinchEase: true };
 // the fingertip pinch on the thin stem (pinch 1: the pinch point between the index and thumb pads is live, so an arm
 // pose with point "pinch" puts the pads on the target)
@@ -99,7 +99,7 @@ export function strawHeld(c, t, who, pose = STRAW_LOW) {
 // his walk (Jonny 6 Nov: "a fluent natural walk like the most recent potatoes"): the planted gait ("motion": { "feet": 2 })
 // with his arms hanging close at his sides and swinging against the legs (an arm pose with `swing`, potato.js), short
 // unhurried steps, and the hands back to rest a moment after he stops. A tortoise pace: about 0.5 m/s.
-export const WALK = { R: { o: [-0.01, 0.1, 0.13], swing: 0.5 }, L: { o: [-0.01, 0.1, 0.13], swing: 0.5 } };
+export const WALK = { R: { o: [-0.01, 0.1, 0.13], elbow: 0.0, margin: 1.05, swing: 0.5 }, L: { o: [-0.01, 0.1, 0.13], elbow: 0.0, margin: 1.05, swing: 0.5 } };
 export function walk(c, t, who, to, dur, { steps = 2.2, rest = true, arms = 0.35 } = {}) {
   for (const side of ["R", "L"]) c.A(Math.max(0, t - arms * 0.5), who, "arm", { side, pose: WALK[side], dur: t > 0 ? arms : 0 });
   c.A(t, who, "move", { to, dur, steps });

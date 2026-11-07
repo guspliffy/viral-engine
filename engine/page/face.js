@@ -112,10 +112,16 @@ export class Face {
     // browShape.cap (castLook "sheet"): the brow tube's open ends are drawn from inside too, so a brow seen end-on in a
     // three-quarter view no longer shows a skin-coloured notch at its inner tip
     if (this.browStyle.cap) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.side = THREE.DoubleSide; }
+    // browShape.flat (opt-in, Pebble 7 Nov 2026): a painted brow with no outline shell round its tube (the shell drew a
+    // second line beside a fine brow, so it read as a raised double edge)
+    if (this.browStyle.flat) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.userData.noOutline = true; }
     // face.mouth { ink, thick } (Pebble, 6 Nov 2026; default-preserving): the closed smile's own colour (a warm brown
     // instead of the ink) and a thickness factor, so the smile can be finer without scaling the whole face
-    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1 };
+    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1, lift: MO.flat ? 0.002 : 0.005 };
     this.smileMat = MO.ink ? new THREE.MeshStandardMaterial({ color: MO.ink, roughness: 0.55 }) : this.inkMat;
+    // mouth.flat (opt-in, Pebble 7 Nov 2026): the closed smile is one fine painted line: no outline shell round its tube
+    // (it drew a second dark line under the smile) and it sits closer to the skin
+    if (MO.flat) { if (this.smileMat === this.inkMat) this.smileMat = this.inkMat.clone(); this.smileMat.userData.noOutline = true; }
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
        roughness: 0.6, side: THREE.DoubleSide });
     // a warm off-white, matte enough that the one painted catch light is the only highlight
@@ -338,6 +344,9 @@ export class Face {
   // gaze direction in the host's space taken into each eye's frame (the eyes sit on a curved face and point apart, so
   // straight ahead means a little inwards for each). The pupil sits at gx * r * 0.5, gy * r * 0.48 in the lid group.
   _gaze(eye, look) {
+    // eye.gaze "parallel" (opt-in, Pebble 7 Nov 2026): both pupils take the same offset in their own eye, so eyes set
+    // wide on a round head look at one target instead of each turning out with its own surface (the default)
+    if (this.eyeStyle.gaze === "parallel") return [Math.max(-0.45, Math.min(0.45, look[0] * 0.55)), Math.max(-0.5, Math.min(0.5, look[1] * 0.45))];
     _q.copy(eye.root.quaternion).invert();
     _d.set(look[0] * 0.55, look[1] * 0.45, 1).applyQuaternion(_q);
     return [Math.max(-0.45, Math.min(0.45, _d.x / Math.max(0.3, _d.z))), Math.max(-0.5, Math.min(0.5, _d.y / Math.max(0.3, _d.z)))];
@@ -680,7 +689,7 @@ export class Face {
       const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.006 * s), true);
       this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.0072 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
     } else {
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.005 * s));
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, this.mouthStyle.lift * s));
       // a closed smile: a brush line, fuller in the middle, fine at the corners
       this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * this.mouthStyle.thick * (0.003 + 0.0065 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.smileMat); this.group.add(this.mouthLine);
     }
