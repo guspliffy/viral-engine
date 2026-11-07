@@ -213,7 +213,8 @@ A(r3(POINT + 0.15), "vik", "look", { to: [-0.3, -0.75], dur: 0.12, blink: false 
 A(3.95, "vik", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.3 }, dur: 0.15 });
 for (const t of [4.0, 4.15]) A(t, "vik", "squash", { amount: 0.04, dur: 0.1 });   // a quick double nod: yes!
 spudRest(4.1, 0.25);
-see(2.85, 4.25, ["vik.face", "spud.face", "gsl.face", "rea.face"], "panel 3: the friends stare at the waving potato; it points at the butter");
+see(2.85, 3.5, ["vik.face", "spud.face", "gsl.face", "rea.face"], "panel 3: the friends stare at the waving potato");
+see(3.6, 4.25, ["vik.face", "spud.face", "gsl.face"], "panel 3: the friends stare at the waving potato; it points at the butter");
 
 // ---------------------------------------------------------------- 4 LOADING IT WITH EVERYTHING 4.3-6.4 (panels 4, 5)
 // one topping after another on its head, the potato beaming at each: the spoon dips in a bowl, up over its head, tips
@@ -363,14 +364,14 @@ const WAKESHOT = fw([PX, r3(SPUD_Y + SS * 0.62), PZ], { w: 0.75, el: 10, fov: 30
 // (panels 6-7 are the wide; closer here so the pile on his steak reads at phone size)
 // the loading (panels 4-5): closer on Viking, the potato and Gunslinger's face, so the potato beams at phone size
 const LOAD = fw([-0.24, 0.5, -0.4], { w: 1.85, el: 25, fov: 34 });   // from a little above: the spoon hand stays under Viking's eyes
-const TOPPLE = fw([-0.36, 0.58, -0.3], { w: 1.6, az: -12, el: 18, fov: 30 });
+const TOPPLE = fw([-0.5, 0.58, -0.3], { w: 1.55, az: -6, el: 18, fov: 30 });   // review B: Gunslinger whole at the left
 const beats = c.beats([
   ["P1 the dish lands", 0, WIDE, "hook"],
   ["P2 the first bite", 1.5, BITE],
   ["P2b it wakes up", 1.88, WAKESHOT],
   ["P2c Hi!", 2.3, BITE],
   ["P3 it's alive", 2.8, WIDE, "escalation"],
-  ["P4 loading it", 4.3, LOAD],
+  ["P4 loading it", 3.55, LOAD],   // review B: the stare wide is 0.75 s; the potato points at the butter in the closer shot
   ["P6 the topple", 6.92, TOPPLE, "payoff"],
   ["P8 want some", 9.3, WIDE],
 ], END);
@@ -381,13 +382,17 @@ for (const cp of c.captions) cp.pos = SUB_LOW;
 const SUB_HIGH = 480;
 for (const cp of c.captions) {
   if (cp.text === "Hi!") cp.to = 2.78;
-  if (cp.text === "Ooh!") cp.to = 4.28;
-  if (["Look at the SIZE of it!", "Ooh!", "Want some?"].includes(cp.text)) cp.pos = SUB_HIGH;
+  if (cp.text === "Look at the SIZE of it!") cp.to = 1.48;   // up to the cut
+  if (["Look at the SIZE of it!", "Want some?"].includes(cp.text)) cp.pos = SUB_HIGH;
 }
 // "Perfect." goes as the tower starts to lean: the setup line is never up over the payoff
 for (const cp of c.captions) if (cp.text === "Perfect.") cp.to = Math.min(cp.to, r3(LOOK_STEAK + 0.1));
 // the catchphrase stays up to the last frame
 for (const cp of c.captions) if (cp.text === "Want some?") cp.to = END;
+// review B: in the topple medium the line sits low (the wide's y 480 is on Viking's crown there); the same words go up
+// on the shelf from the cut into the wide
+{ const i = c.captions.findIndex((cp) => cp.text === "Want some?"); const w = c.captions[i];
+  c.captions.splice(i, 1, { ...w, to: 9.3, pos: SUB_LOW }, { ...w, from: 9.3, pos: SUB_HIGH }); }
 
 write(import.meta.url, {
   id: "baked-potato",

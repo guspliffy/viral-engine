@@ -399,7 +399,7 @@
  "captions": [
   {
    "from": 0.05,
-   "to": 1.35,
+   "to": 1.48,
    "text": "Look at the SIZE of it!",
    "pos": 480,
    "pop": false,
@@ -417,9 +417,9 @@
   },
   {
    "from": 3.65,
-   "to": 4.28,
+   "to": 4.45,
    "text": "Ooh!",
-   "pos": 480,
+   "pos": 1262,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -444,6 +444,15 @@
   },
   {
    "from": 8.85,
+   "to": 9.3,
+   "text": "Want some?",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
    "to": 9.9,
    "text": "Want some?",
    "pos": 480,
@@ -1601,7 +1610,7 @@
   {
    "name": "P3 it's alive",
    "at": 2.8,
-   "len": 1.5,
+   "len": 0.75,
    "shot": {
     "pos": [
      -0.06,
@@ -1779,147 +1788,14 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.68
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "open": 0.5,
-      "eye": 1.25,
-      "curve": 0.6
-     },
-     "dur": 0.12,
-     "at": 0.8
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -0.15,
-       0.38,
-       0.21
-      ]
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.8
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.12,
-     "at": 0.8
-    },
-    {
-     "who": "spud",
-     "do": "talk",
-     "line": "ooh!",
-     "tone": "excited",
-     "dur": 0.35,
-     "blink": false,
-     "voice": false,
-     "at": 0.85
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      -0.3,
-      -0.75
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.95
-    },
-    {
-     "who": "sam",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.1
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "delighted",
-     "set": {
-      "curve": 0.9,
-      "open": 0.3
-     },
-     "dur": 0.15,
-     "at": 1.15
-    },
-    {
-     "who": "vik",
-     "do": "squash",
-     "amount": 0.04,
-     "dur": 0.1,
-     "at": 1.2
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.24,
-       0.33,
-       0.16
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.15,
-     "at": 1.3
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -0.16,
-       0.33,
-       0.16
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.15,
-     "at": 1.3
-    },
-    {
-     "who": "vik",
-     "do": "squash",
-     "amount": 0.04,
-     "dur": 0.1,
-     "at": 1.35
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "P4 loading it",
-   "at": 4.3,
-   "len": 2.62,
+   "at": 3.55,
+   "len": 3.37,
    "shot": {
     "pos": [
      -0.24,
@@ -1935,6 +1811,139 @@
    },
    "do": [
     {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.15,
+       0.38,
+       0.21
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "ooh!",
+     "tone": "excited",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.16,
+       0.33,
+       0.16
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -1943,7 +1952,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0
+     "at": 0.75
     },
     {
      "who": "vik",
@@ -1953,14 +1962,14 @@
       "curve": 0.4
      },
      "dur": 0.15,
-     "at": 0
+     "at": 0.75
     },
     {
      "who": "vik",
      "do": "lean",
      "to": 6,
      "dur": 0.25,
-     "at": 0
+     "at": 0.75
     },
     {
      "who": "spud",
@@ -1971,14 +1980,14 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0
+     "at": 0.75
     },
     {
      "who": "spud",
      "do": "still",
      "dur": 3,
      "idle": 0,
-     "at": 0
+     "at": 0.75
     },
     {
      "who": "vik",
@@ -2000,7 +2009,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.05
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -2011,7 +2020,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.05
+     "at": 0.8
     },
     {
      "who": "gsl",
@@ -2022,7 +2031,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.1
+     "at": 0.85
     },
     {
      "who": "vik",
@@ -2044,7 +2053,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.18
+     "at": 0.93
     },
     {
      "do": "prop",
@@ -2055,7 +2064,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.18
+     "at": 0.93
     },
     {
      "do": "prop",
@@ -2065,7 +2074,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.26
+     "at": 1.01
     },
     {
      "do": "prop",
@@ -2075,7 +2084,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.26
+     "at": 1.01
     },
     {
      "who": "vik",
@@ -2097,7 +2106,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 0.28
+     "at": 1.03
     },
     {
      "do": "prop",
@@ -2108,7 +2117,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 0.28
+     "at": 1.03
     },
     {
      "who": "rea",
@@ -2119,13 +2128,13 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.3
+     "at": 1.05
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.3
+     "at": 1.05
     },
     {
      "who": "vik",
@@ -2147,7 +2156,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.37
+     "at": 1.12
     },
     {
      "do": "prop",
@@ -2158,13 +2167,13 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.37
+     "at": 1.12
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.4
+     "at": 1.15
     },
     {
      "who": "vik",
@@ -2186,7 +2195,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.5
+     "at": 1.25
     },
     {
      "do": "prop",
@@ -2197,7 +2206,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.5
+     "at": 1.25
     },
     {
      "do": "prop",
@@ -2207,7 +2216,7 @@
      },
      "dur": 0.03,
      "ease": "out",
-     "at": 0.54
+     "at": 1.29
     },
     {
      "do": "prop",
@@ -2217,13 +2226,13 @@
      },
      "dur": 0.06,
      "ease": "out",
-     "at": 0.54
+     "at": 1.29
     },
     {
      "sfx": "pat",
      "gain": 0.75,
      "reason": "a topping lands on the potato's head (butterpat)",
-     "at": 0.54
+     "at": 1.29
     },
     {
      "who": "vik",
@@ -2245,7 +2254,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.55
+     "at": 1.3
     },
     {
      "do": "prop",
@@ -2256,7 +2265,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.55
+     "at": 1.3
     },
     {
      "who": "spud",
@@ -2267,14 +2276,14 @@
       "open": 0.2
      },
      "dur": 0.08,
-     "at": 0.57
+     "at": 1.32
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.85,
      "dur": 0.06,
-     "at": 0.57
+     "at": 1.32
     },
     {
      "who": "spud",
@@ -2284,7 +2293,7 @@
      "dur": 0.4,
      "blink": false,
      "voice": false,
-     "at": 0.65
+     "at": 1.4
     },
     {
      "who": "spud",
@@ -2292,7 +2301,7 @@
      "side": "L",
      "shape": "fist",
      "dur": 0.08,
-     "at": 0.65
+     "at": 1.4
     },
     {
      "who": "spud",
@@ -2300,7 +2309,7 @@
      "side": "R",
      "shape": "fist",
      "dur": 0.08,
-     "at": 0.65
+     "at": 1.4
     },
     {
      "who": "spud",
@@ -2315,7 +2324,7 @@
      },
      "dur": 0.15,
      "ease": "out",
-     "at": 0.65
+     "at": 1.4
     },
     {
      "who": "spud",
@@ -2330,7 +2339,7 @@
      },
      "dur": 0.15,
      "ease": "out",
-     "at": 0.65
+     "at": 1.4
     },
     {
      "who": "vik",
@@ -2352,7 +2361,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.68
+     "at": 1.43
     },
     {
      "do": "prop",
@@ -2363,7 +2372,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.68
+     "at": 1.43
     },
     {
      "who": "gsl",
@@ -2379,7 +2388,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.75
+     "at": 1.5
     },
     {
      "do": "prop",
@@ -2389,7 +2398,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.76
+     "at": 1.51
     },
     {
      "do": "prop",
@@ -2399,14 +2408,14 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.76
+     "at": 1.51
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 0.77
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -2428,7 +2437,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 0.78
+     "at": 1.53
     },
     {
      "do": "prop",
@@ -2439,7 +2448,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 0.78
+     "at": 1.53
     },
     {
      "who": "gsl",
@@ -2447,7 +2456,7 @@
      "side": "L",
      "shape": "point",
      "dur": 0.15,
-     "at": 0.8
+     "at": 1.55
     },
     {
      "who": "vik",
@@ -2469,7 +2478,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.87
+     "at": 1.62
     },
     {
      "do": "prop",
@@ -2480,7 +2489,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 0.87
+     "at": 1.62
     },
     {
      "who": "gsl",
@@ -2488,21 +2497,21 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.9
+     "at": 1.65
     },
     {
      "who": "gsl",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 0.95
+     "at": 1.7
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 0.95
+     "at": 1.7
     },
     {
      "who": "vik",
@@ -2524,7 +2533,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1
+     "at": 1.75
     },
     {
      "do": "prop",
@@ -2535,7 +2544,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1
+     "at": 1.75
     },
     {
      "do": "prop",
@@ -2546,20 +2555,20 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1
+     "at": 1.75
     },
     {
      "sfx": "ai/bowl-scrape",
      "gain": 0.25,
      "reason": "the cast-iron plate pushed a little over the wooden table",
-     "at": 1
+     "at": 1.75
     },
     {
      "who": "gsl",
      "do": "still",
      "dur": 1,
      "idle": 0.06,
-     "at": 1
+     "at": 1.75
     },
     {
      "do": "prop",
@@ -2569,7 +2578,7 @@
      },
      "dur": 0.03,
      "ease": "out",
-     "at": 1.04
+     "at": 1.79
     },
     {
      "do": "prop",
@@ -2579,13 +2588,13 @@
      },
      "dur": 0.06,
      "ease": "out",
-     "at": 1.04
+     "at": 1.79
     },
     {
      "sfx": "splort",
      "gain": 0.85,
      "reason": "a topping lands on the potato's head (creamdollop)",
-     "at": 1.04
+     "at": 1.79
     },
     {
      "who": "vik",
@@ -2607,7 +2616,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.05
+     "at": 1.8
     },
     {
      "do": "prop",
@@ -2618,7 +2627,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.05
+     "at": 1.8
     },
     {
      "who": "spud",
@@ -2629,14 +2638,14 @@
       "open": 0.45
      },
      "dur": 0.08,
-     "at": 1.07
+     "at": 1.82
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.85,
      "dur": 0.06,
-     "at": 1.07
+     "at": 1.82
     },
     {
      "do": "prop",
@@ -2646,7 +2655,7 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.1
+     "at": 1.85
     },
     {
      "do": "prop",
@@ -2656,7 +2665,7 @@
      },
      "dur": 0.15,
      "ease": "settle",
-     "at": 1.15
+     "at": 1.9
     },
     {
      "who": "vik",
@@ -2678,7 +2687,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 1.18
+     "at": 1.93
     },
     {
      "do": "prop",
@@ -2689,7 +2698,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 1.18
+     "at": 1.93
     },
     {
      "who": "spud",
@@ -2704,7 +2713,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.2
+     "at": 1.95
     },
     {
      "who": "spud",
@@ -2712,7 +2721,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 1.2
+     "at": 1.95
     },
     {
      "who": "spud",
@@ -2727,7 +2736,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.2
+     "at": 1.95
     },
     {
      "who": "spud",
@@ -2735,7 +2744,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 1.2
+     "at": 1.95
     },
     {
      "do": "prop",
@@ -2745,7 +2754,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.26
+     "at": 2.01
     },
     {
      "do": "prop",
@@ -2755,14 +2764,14 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1.26
+     "at": 2.01
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 1.27
+     "at": 2.02
     },
     {
      "who": "vik",
@@ -2784,7 +2793,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 1.28
+     "at": 2.03
     },
     {
      "do": "prop",
@@ -2795,7 +2804,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 1.28
+     "at": 2.03
     },
     {
      "do": "prop",
@@ -2805,7 +2814,7 @@
      },
      "dur": 1,
      "ease": "inOut",
-     "at": 1.3
+     "at": 2.05
     },
     {
      "do": "prop",
@@ -2815,7 +2824,7 @@
      },
      "dur": 1,
      "ease": "inOut",
-     "at": 1.3
+     "at": 2.05
     },
     {
      "who": "vik",
@@ -2837,7 +2846,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.37
+     "at": 2.12
     },
     {
      "do": "prop",
@@ -2848,7 +2857,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.37
+     "at": 2.12
     },
     {
      "who": "gsl",
@@ -2863,7 +2872,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.45
+     "at": 2.2
     },
     {
      "who": "gsl",
@@ -2871,7 +2880,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 1.45
+     "at": 2.2
     },
     {
      "who": "phx",
@@ -2881,7 +2890,7 @@
       "open": 0.3
      },
      "dur": 0.12,
-     "at": 1.45
+     "at": 2.2
     },
     {
      "who": "vik",
@@ -2903,7 +2912,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1.5
+     "at": 2.25
     },
     {
      "do": "prop",
@@ -2914,7 +2923,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1.5
+     "at": 2.25
     },
     {
      "do": "prop",
@@ -2924,7 +2933,7 @@
      },
      "dur": 0.03,
      "ease": "out",
-     "at": 1.54
+     "at": 2.29
     },
     {
      "do": "prop",
@@ -2934,13 +2943,13 @@
      },
      "dur": 0.06,
      "ease": "out",
-     "at": 1.54
+     "at": 2.29
     },
     {
      "sfx": "pat",
      "gain": 0.75,
      "reason": "a topping lands on the potato's head (cheeseslice)",
-     "at": 1.54
+     "at": 2.29
     },
     {
      "who": "vik",
@@ -2962,7 +2971,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.55
+     "at": 2.3
     },
     {
      "do": "prop",
@@ -2973,7 +2982,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.55
+     "at": 2.3
     },
     {
      "who": "spud",
@@ -2984,20 +2993,20 @@
       "open": 0.2
      },
      "dur": 0.08,
-     "at": 1.57
+     "at": 2.32
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.85,
      "dur": 0.06,
-     "at": 1.57
+     "at": 2.32
     },
     {
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.65
+     "at": 2.4
     },
     {
      "who": "vik",
@@ -3019,7 +3028,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 1.68
+     "at": 2.43
     },
     {
      "do": "prop",
@@ -3030,7 +3039,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 1.68
+     "at": 2.43
     },
     {
      "who": "gsl",
@@ -3038,7 +3047,7 @@
      "to": 0.85,
      "dur": 0.35,
      "ease": "settle",
-     "at": 1.7
+     "at": 2.45
     },
     {
      "who": "rea",
@@ -3046,7 +3055,7 @@
      "to": 0.85,
      "dur": 0.35,
      "ease": "settle",
-     "at": 1.75
+     "at": 2.5
     },
     {
      "do": "prop",
@@ -3056,7 +3065,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.76
+     "at": 2.51
     },
     {
      "do": "prop",
@@ -3066,14 +3075,14 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 1.76
+     "at": 2.51
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 1.77
+     "at": 2.52
     },
     {
      "who": "vik",
@@ -3095,7 +3104,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 1.78
+     "at": 2.53
     },
     {
      "do": "prop",
@@ -3106,7 +3115,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 1.78
+     "at": 2.53
     },
     {
      "who": "phx",
@@ -3114,13 +3123,13 @@
      "to": 0.85,
      "dur": 0.35,
      "ease": "settle",
-     "at": 1.8
+     "at": 2.55
     },
     {
      "who": "sam",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.8
+     "at": 2.55
     },
     {
      "who": "vik",
@@ -3142,7 +3151,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.87
+     "at": 2.62
     },
     {
      "do": "prop",
@@ -3153,13 +3162,13 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 1.87
+     "at": 2.62
     },
     {
      "who": "gsl",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.9
+     "at": 2.65
     },
     {
      "who": "vik",
@@ -3181,7 +3190,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 2
+     "at": 2.75
     },
     {
      "do": "prop",
@@ -3192,7 +3201,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 2
+     "at": 2.75
     },
     {
      "do": "prop",
@@ -3202,7 +3211,7 @@
      },
      "dur": 0.03,
      "ease": "out",
-     "at": 2.04
+     "at": 2.79
     },
     {
      "do": "prop",
@@ -3212,13 +3221,13 @@
      },
      "dur": 0.06,
      "ease": "out",
-     "at": 2.04
+     "at": 2.79
     },
     {
      "sfx": "pat",
      "gain": 0.75,
      "reason": "a topping lands on the potato's head (baconbits)",
-     "at": 2.04
+     "at": 2.79
     },
     {
      "who": "vik",
@@ -3240,7 +3249,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 2.05
+     "at": 2.8
     },
     {
      "do": "prop",
@@ -3251,7 +3260,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 2.05
+     "at": 2.8
     },
     {
      "who": "spud",
@@ -3262,14 +3271,14 @@
       "open": 0.45
      },
      "dur": 0.08,
-     "at": 2.07
+     "at": 2.82
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.85,
      "dur": 0.06,
-     "at": 2.07
+     "at": 2.82
     },
     {
      "who": "vik",
@@ -3280,7 +3289,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.1
+     "at": 2.85
     },
     {
      "who": "vik",
@@ -3302,7 +3311,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 2.18
+     "at": 2.93
     },
     {
      "do": "prop",
@@ -3313,7 +3322,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 2.18
+     "at": 2.93
     },
     {
      "who": "vik",
@@ -3323,7 +3332,7 @@
      "dur": 0.5,
      "blink": false,
      "voice": false,
-     "at": 2.2
+     "at": 2.95
     },
     {
      "do": "prop",
@@ -3333,7 +3342,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.26
+     "at": 3.01
     },
     {
      "do": "prop",
@@ -3343,14 +3352,14 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 2.26
+     "at": 3.01
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 2.27
+     "at": 3.02
     },
     {
      "who": "vik",
@@ -3372,7 +3381,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 2.28
+     "at": 3.03
     },
     {
      "do": "prop",
@@ -3383,7 +3392,7 @@
      },
      "dur": 0.09,
      "ease": "out",
-     "at": 2.28
+     "at": 3.03
     },
     {
      "who": "vik",
@@ -3405,7 +3414,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 2.37
+     "at": 3.12
     },
     {
      "do": "prop",
@@ -3416,7 +3425,7 @@
      },
      "dur": 0.13,
      "ease": "inOut",
-     "at": 2.37
+     "at": 3.12
     },
     {
      "who": "vik",
@@ -3438,7 +3447,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 2.5
+     "at": 3.25
     },
     {
      "do": "prop",
@@ -3449,7 +3458,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 2.5
+     "at": 3.25
     },
     {
      "do": "prop",
@@ -3459,7 +3468,7 @@
      },
      "dur": 0.03,
      "ease": "out",
-     "at": 2.54
+     "at": 3.29
     },
     {
      "do": "prop",
@@ -3469,20 +3478,20 @@
      },
      "dur": 0.06,
      "ease": "out",
-     "at": 2.54
+     "at": 3.29
     },
     {
      "sfx": "pat",
      "gain": 0.75,
      "reason": "a topping lands on the potato's head (butterpat)",
-     "at": 2.54
+     "at": 3.29
     },
     {
      "who": "spud",
      "do": "turn",
      "to": -30,
      "dur": 0.3,
-     "at": 2.54
+     "at": 3.29
     },
     {
      "who": "spud",
@@ -3493,7 +3502,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.55
+     "at": 3.3
     },
     {
      "who": "vik",
@@ -3503,14 +3512,14 @@
       "curve": 0.6
      },
      "dur": 0.15,
-     "at": 2.59
+     "at": 3.34
     },
     {
      "who": "vik",
      "do": "face",
      "lid": 0.3,
      "dur": 0.15,
-     "at": 2.59
+     "at": 3.34
     },
     {
      "who": "vik",
@@ -3532,7 +3541,7 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 2.6
+     "at": 3.35
     },
     {
      "do": "prop",
@@ -3543,13 +3552,13 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 2.6
+     "at": 3.35
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 2.6
+     "at": 3.35
     },
     {
      "who": "spud",
@@ -3561,7 +3570,7 @@
       "curve": 0.5
      },
      "dur": 0.12,
-     "at": 2.61
+     "at": 3.36
     }
    ]
   },
@@ -3571,12 +3580,12 @@
    "len": 2.38,
    "shot": {
     "pos": [
-     -1.409,
-     2.22,
-     4.637
+     -1.011,
+     2.169,
+     4.564
     ],
     "look": [
-     -0.36,
+     -0.5,
      0.58,
      -0.3
     ],
@@ -4350,12 +4359,22 @@
   },
   {
    "from": 2.85,
-   "to": 4.25,
+   "to": 3.5,
    "see": [
     "vik.face",
     "spud.face",
     "gsl.face",
     "rea.face"
+   ],
+   "why": "panel 3: the friends stare at the waving potato"
+  },
+  {
+   "from": 3.6,
+   "to": 4.25,
+   "see": [
+    "vik.face",
+    "spud.face",
+    "gsl.face"
    ],
    "why": "panel 3: the friends stare at the waving potato; it points at the butter"
   },
