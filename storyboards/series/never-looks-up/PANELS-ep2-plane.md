@@ -83,3 +83,16 @@ words) and the mask doors. Light: warm dim cabin light, cool blue lightning flas
   sit at 9.5-11.5 s (same order and lengths).
 - **Not physics:** the plane's dive is a keyed path (it is a vehicle, not a loose prop), and the cabin's floating bags
   stay the approved v2 tweens; the storyboard has no `"physics": true`, as in v2.
+
+## v4 (Jonny 7 Nov 10:28): turbulence at the start, real panic
+
+- **Outside, turbulence (0.32-1.32 s story, 1.0 s):** the holdall hits the floor at 0.28 and we cut outside to the same
+  airliner, level and flying, lurching in the storm: two drops of 3-4 m and back, rocking 20 degrees wing to wing, a bolt
+  beside it on the second lurch, the cabin windows flickering, rain streaming sideways and the clouds sliding back past it.
+  Same lens position as the free fall (the sky card faces it), tighter (fov 30). Then back into the wide cabin.
+- Order now: bag drops -> outside, bucking -> cabin (grab, bins) -> masks drop -> outside, free fall -> zero-g -> huh.
+- Every cabin moment after 0.32 plays 1.0 s later; after 5.0 another 1.5 s (CUTS in the generator). Clip 12.5 s story.
+- **Panic:** the Wizard, Reaper and the Samurai have the `terrified` face from frame 0 (small irises in wide whites, a big
+  yell with the corners down), tremble until the landing and keep flicking sweat. Phoenix stays calm. The panel faces were
+  never this scared; this follows Jonny's note over the panels.
+- Departure kept: the "EEP!" caption now ends at the cut (0.4 s video) instead of running over the outside shot.
