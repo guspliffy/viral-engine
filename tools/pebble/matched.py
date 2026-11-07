@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 ap = argparse.ArgumentParser()
 ap.add_argument("--pack", default="/mnt/project-files/characters/pebble/garden-guardian/01-turnaround.png")
 ap.add_argument("--rejected"); ap.add_argument("--H", type=float); ap.add_argument("--current"); ap.add_argument("--H2", type=float)
-ap.add_argument("--out", default="out/p3/matched.png"); ap.add_argument("--px", type=int, default=520)
+ap.add_argument("--out", default="out/p3/matched.png"); ap.add_argument("--labels", default="REJECTED (6 Nov, 9f10528)|NOW"); ap.add_argument("--px", type=int, default=520)
 a = ap.parse_args()
 PX = a.px; CW, CH = int(PX * 1.12), int(PX * 1.5); TOP = int(PX * 0.42)   # cell size; cap top sits TOP px from the cell top
 BG = (250, 244, 232)
@@ -29,7 +29,8 @@ def eng(d, H):
     for t in (0.2, 1.2, 2.2, 3.2, 4.2):
         im = Image.open(f"{d}/pebble-turnaround-anime-pro-t{t:.2f}.png").convert("RGB"); out.append(cell(im, im.width / 2, row(H), row(0)))
     return out
-rows = [("YOUR PACK", packs), ("REJECTED (6 Nov, 9f10528)", eng(a.rejected, a.H)), ("NOW", eng(a.current, a.H2))]
+L1, L2 = a.labels.split("|")
+rows = [("YOUR PACK", packs), (L1, eng(a.rejected, a.H)), (L2, eng(a.current, a.H2))]
 LW = 40; sheet = Image.new("RGB", (LW + CW * 5, CH * 3), (255, 255, 255)); d = ImageDraw.Draw(sheet)
 try: F = ImageFont.truetype("assets/fonts/Inter-ExtraBold.otf", 22)
 except Exception: F = None
