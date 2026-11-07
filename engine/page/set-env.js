@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { animate } from "./set-plate.js";
+import { lifeLayer, lifeSky } from "./set-life.js";
 
 // A layered painted environment (set "type": "env", "env": "<name>"; built by engine/plates/env.py from one painting,
 // see assets/environments/README.md). The painting is cut into the layers an anime background artist paints on
@@ -65,7 +66,9 @@ export function buildEnv(scene, spec) {
     Promise.all([tex(c.src), c.motion && sway > 0 && raw(c.motion)]).then(([map, motion]) => {
       mat.map = map;
       if (twin) { twin.material.map = map; twin.material.needsUpdate = true; }
-      if (motion) animate(mat, motion, x1 - x0, { amp: 3 * sway, key: `env-${c.name}` });
+      // set "life" (set-life.js): the sway follows the travelling gusts, far layers take the cloud shadows
+      if (c.sky) lifeSky(map);
+      else if (!lifeLayer(mat, motion || null, x1 - x0, { amp: 3 * sway }) && motion) animate(mat, motion, x1 - x0, { amp: 3 * sway, key: `env-${c.name}` });
       mat.needsUpdate = true;
     });
   }
@@ -93,7 +96,7 @@ export function buildEnv(scene, spec) {
   if (!only || only.has("ground")) scene.add(ground);
   Promise.all([tex(G.src), G.motion && sway > 0 && raw(G.motion)]).then(([map, motion]) => {
     gmat.map = map;
-    if (motion) animate(gmat, motion, pw, { amp: 2 * sway, key: "env-ground" });
+    if (!lifeLayer(gmat, motion || null, pw, { amp: 2 * sway }) && motion) animate(gmat, motion, pw, { amp: 2 * sway, key: "env-ground" });
     gmat.needsUpdate = true;
   });
   // the cast's shadows on the painted ground (the painting already has the world's own shadows)

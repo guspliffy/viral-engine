@@ -396,7 +396,7 @@ async function init(data) {
   await preloadModels(sb, data.chars);   // assets-gltf.js: glTF models the set and costumes name, loaded before anything is built
   buildLights(scene, sb.set);
   const before = scene.children.length;
-  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos);
+  buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos, sb.duration);
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
