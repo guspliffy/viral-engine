@@ -19,39 +19,35 @@
  },
  "head": {
   "color": "#F4A044",
-  "width": 0.43,
-  "height": 0.37,
-  "depth": 0.45,
+  "width": 0.4,
+  "height": 0.38,
+  "depth": 0.39,
   "square": 2.0,
-  "taper": 0.25,
-  "neck": -0.085,
-  "neckR": 0.0,
+  "taper": 0.05,
+  "neck": -0.05,
+  "neckR": 0.115,
   "forward": 0.12,
   "faceUp": -0.1,
   "faceWide": 1.0,
   "above": 0.12,
   "profile": {
-   "cheek": 0.3,
-   "cheekV": -0.45,
-   "cheekH": 0.45,
-   "snout": 0.18,
+   "cheek": 0.06,
+   "cheekV": -0.2,
+   "cheekH": 0.8,
+   "snout": 0.1,
    "v": -0.26,
-   "w": 0.5,
-   "h": 0.32,
+   "w": 0.42,
+   "h": 0.34,
    "lift": 0.0,
-   "round": 1.2,
-   "jaw": 0.06,
-   "throat": {
-    "from": -0.6,
-    "r": 0.21,
-    "z": -0.17,
-    "drop": 0.15
-   }
+   "round": 2.2,
+   "jaw": 0.18
   },
-  "pitch": 0.1,
+  "pitch": 0.05,
   "faceTall": 1.5,
   "keepSkin": true,
-  "skinMap": false
+  "skinMap": false,
+  "neckFlare": 0.0,
+  "neckFillet": 0.25
  },
  "legs": {
   "height": 0.17,
@@ -60,7 +56,7 @@
   "hipY": 0.15,
   "dome": {
    "top": 0.35,
-   "flare": 0.25,
+   "flare": 0.15,
    "flareP": 4,
    "waist": 0.1
   }
@@ -107,7 +103,8 @@
     "irisAspect": 0.84,
     "noLine": true,
     "gaze": "parallel",
-    "pupilZ": 0.04
+    "conform": true,
+    "out": 0.0025
    },
    "layout": {
     "mouthV": -0.3,
@@ -152,17 +149,17 @@
   "type": "pebble",
   "cap": {
    "color": "#A95C32",
-   "band": 0.45,
+   "band": 0.4,
    "crown": [
-    1.05,
-    1.04
+    1.14,
+    1.1
    ],
-   "front": 0.06,
+   "front": 0.12,
    "skew": -0.4,
    "flat": 0.12,
    "tilt": -0.16,
-   "pitch": -0.04,
-   "brim": 0.03,
+   "pitch": 0.07,
+   "brim": 0.05,
    "over": 0.045,
    "droop": 0.9,
    "bandR": 0.0045,
@@ -182,13 +179,14 @@
    "trimR": 0.0075,
    "pocket": false,
    "slits": false,
-   "neck": 0.22,
+   "neck": 0.14,
    "neckH": 0.55,
    "sewn": true,
    "thread": "#A99A62",
    "armhole": 0.46,
    "armTrim": false,
-   "corner": 0.34
+   "corner": 0.34,
+   "top": 1.2
   },
   "shell": {
    "color": "#8E4F2A",
@@ -305,7 +303,7 @@
    "size": [
     0.125,
     0.068,
-    0.17
+    0.15
    ],
    "toeW": 0.4,
    "toeH": 0.55,
@@ -344,21 +342,21 @@
    "grip": 0.1,
    "hold": {
     "m": [
-     -0.587886,
-     -0.734508,
-     -0.544392,
+     -0.50696,
+     -0.895704,
+     -0.349543,
      0,
-     0.333973,
-     0.429967,
-     -0.940779,
+     -0.047878,
+     0.418182,
+     -1.002151,
      0,
-     -0.851074,
-     0.676092,
-     0.006868,
+     -0.960299,
+     0.45201,
+     0.234495,
      0,
-     0.056213,
-     0.068931,
-     0.062222,
+     0.051336,
+     0.085208,
+     0.043322,
      1
     ]
    }
@@ -379,11 +377,11 @@
   "type": "glove",
   "size": 0.92,
   "fingers": 3,
-  "spread": 1.3,
+  "spread": 0.2,
   "seamless": true,
   "cell": 0.0035,
-  "fingerLen": 1.3,
-  "fingerR": 1.0,
+  "fingerLen": 0.95,
+  "fingerR": 1.5,
   "grip": {
    "R": "relaxed",
    "L": "relaxed"

@@ -751,6 +751,8 @@ export class Character {
   // the arm tube's radius at t along it (0: the shoulder, 1: the wrist) for limb width w: rooted inside the body with a
   // wider shoulder (no cut tube end shows), narrowing to a wrist before the mitten
   // k (limbs.armTaper, opt-in, Pebble 7 Nov): a further share the forearm narrows by toward the wrist (0: none)
+  // a legs.dome leg's radius at t (0 hip .. 1 foot); without a dome the leg is a plain tube of radius w
+  static legRadius(t, w, dome) { return dome ? w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t ** (dome.flareP ?? 1)) * (1 - (dome.waist ?? 0) * Math.sin(Math.PI * t)) : w; }
   static armRadius(t, w, k = 0) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1) * (k ? 1 - k * Math.min(1, Math.max(0, (t - 0.2) / 0.7)) ** 1.2 : 1); }
   // storyboard "debug": { "anchors": true }: shoulder (red), elbow (green) and hand (blue) of each arm, drawn on top
   _anchors(s, pts) {
@@ -846,7 +848,7 @@ export class Character {
     // round dome over its first `top` share (rooted inside the body, it swells out of the lower torso like a haunch) and
     // widens by `flare` toward the foot, so it reads as a short sturdy leg, not a cut tube
     const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w, this.def.limbs?.armTaper) * cap(t))
-      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t ** (dome.flareP ?? 1)) * (1 - (dome.waist ?? 0) * Math.sin(Math.PI * t)))
+      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => Character.legRadius(t, w, dome))
       : new THREE.TubeGeometry(curve, 14, w, this.head ? 18 : 8, false);   // the core build's thick suit legs: rounder
     if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
     const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);

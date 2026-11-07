@@ -687,7 +687,7 @@ function limbSpots(ch, C) {
     for (const s of ["R", "L"]) {
       const sx = s === "R" ? -1 : 1, L = ch.legs[s], A = ch.arms[s], Ch = ch.constructor;
       const legC = L.hip && L.knee ? Ch.armCurve(L.hip, L.knee, L.foot.position) : null;
-      place(set[s].leg, legC, ch.def.legs?.width ?? ch.limbW * 1.1, sx, show && !!legC, (t, w) => w);
+      place(set[s].leg, legC, ch.def.legs?.width ?? ch.limbW * 1.1, sx, show && !!legC, (t, w) => Ch.legRadius(t, w, ch.def.legs?.dome));   // on a domed leg's real surface (a spot at its narrow waist floated off it, edge-on beside the leg)
       const armC = A.elbow ? Ch.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint) : null;
       place(set[s].arm, armC, ch.limbW, sx, show && !!armC && A.mesh?.visible !== false, (t, w) => Ch.armRadius(t, w, ch.def.limbs?.armTaper));
     }
