@@ -173,6 +173,26 @@ export class VrmCharacter extends Character {
       const Wa = this.A[b] ? W[c].q.clone().multiply(this.A[b]) : W[c].q.clone();
       D[b] = R0i.clone().multiply(Wa).multiply(this.F);
     }
+    // shoulders: the database's collarbones never move (every take records 0 for them) and point 34 degrees up from the
+    // neck, its T-pose marker geometry, so copying them held the shoulders in a permanent shrug (7 Nov, Jonny: "the
+    // shoulders seem shrugged up"). The collarbone is set from the arm instead, as on a real body: at rest it hangs a
+    // little below the model's own line, and it rises (about 6 degrees by a level arm, Ludewig 2009 / Inman) and comes
+    // forward (reaching, punching) only as the arm lifts or reaches. Character/cast "shoulders": { rest, elev, prot,
+    // back } (radians, radians per radian of arm lift), or false to copy the recording.
+    const shp = this.cast.shoulders === false || this.def.shoulders === false ? null : { rest: -0.07, elev: 0.1, high: 0.12, prot: 0.14, back: 0.06, ...(this.def.shoulders || {}), ...(this.cast.shoulders || {}) };
+    if (shp) for (const [sd, s, sx] of [["left", "l", 1], ["right", "r", -1]]) {
+      const sb = `${sd}Shoulder`, h = W[`${s}humerus`], th = W.thorax || W.upperback;
+      if (!D[sb] || !h || !th) continue;
+      let p = nb[sb].parent, pk = null; while (p && !pk) { pk = ORDER.find((x) => nb[x] === p && D[x]) || null; if (p === rig) break; p = p.parent; }
+      if (!pk) continue;
+      const a = new THREE.Vector3(...BONES[`${s}humerus`][1]).applyQuaternion(h.q).applyQuaternion(th.q.clone().invert());
+      const lift = Math.acos(Math.max(-1, Math.min(1, -a.y)));            // 0 hanging .. PI/2 level .. PI overhead
+      const fwd = a.z, elev = shp.rest + shp.elev * Math.max(0, lift - 0.5) + shp.high * Math.max(0, lift - Math.PI / 2);
+      const prot = shp.prot * Math.max(0, fwd) * smooth(lift / 0.8) - shp.back * Math.max(0, -fwd);
+      this._e.set(0, -sx * prot, sx * elev);
+      D[sb] = D[pk].clone().multiply(this._q.setFromEuler(this._e));
+      if (this.cast.diagJoints) this._shDiag = { ...(this._shDiag || {}), [s]: [+lift.toFixed(2), +fwd.toFixed(2), +elev.toFixed(3), +prot.toFixed(3)] };
+    }
     for (const b of ORDER) {
       if (!D[b]) continue;
       let p = nb[b].parent, pd = null;
@@ -316,6 +336,37 @@ export class VrmCharacter extends Character {
         setW(L, new THREE.Quaternion().setFromUnitVectors(aa.sub(kk).normalize(), T.clone().sub(kk).normalize()).multiply(wq(L))); L.updateMatrixWorld(true);
         setW(F, fq); F.updateMatrixWorld(true);
       }
+      // deep bends: knees track over the toes. Real deep squats (6 people measured, CMU 13, 22, 23, 69; anatomy texts)
+      // open the knees 20-35 degrees out from straight ahead with the toes turned the same way; the pick-up actor's
+      // thighs fell almost flat to the sides (61-88 degrees), which on this body read as a frog crouch (7 Nov). As the
+      // knee folds past 70 degrees its bend plane turns about the hip-ankle line (the ankle stays put) until the knee
+      // points `knees.out` off the body's forward. The foot keeps its own planted turn ("toe" > 0 turns it with the knee,
+      // but a foot turning while its ball is held swings the ball 7 cm, 7 Nov). Character/cast "knees": { out, from, to, toe }
+      if (this._kn !== false && lat) {
+        const kn = this._kn ||= this.cast.knees === false || this.def.knees === false ? false : { out: 0.5, from: 1.2, to: 1.9, toe: 0, ...(this.def.knees || {}), ...(this.cast.knees || {}) };
+        if (kn) {
+          const h1 = U.getWorldPosition(new V()), k1 = L.getWorldPosition(new V()), a1 = F.getWorldPosition(new V());
+          const flex = Math.PI - k1.clone().sub(h1).angleTo(a1.clone().sub(k1).negate());
+          const w = smooth((flex - kn.from) / (kn.to - kn.from));
+          if (w > 1e-3) {
+            const sg = U === nb.leftUpperLeg ? 1 : -1, fw = lat.clone().cross(new V(0, 1, 0)).normalize();
+            const want = fw.clone().applyAxisAngle(new V(0, 1, 0), sg * kn.out);   // (left knee turns toward +lat)
+            const ax = a1.clone().sub(h1).normalize(), perp = (v) => v.clone().addScaledVector(ax, -v.dot(ax));
+            const kv = perp(k1.clone().sub(h1)), dv = perp(want);
+            // (only knees that fall wider than that are brought in: a sitter's or a lunger's knees are left alone)
+            const kh = k1.clone().sub(h1), cur = Math.atan2(sg * kh.dot(lat), kh.dot(fw));
+            if (cur > kn.out && kv.lengthSq() > 1e-6 && dv.lengthSq() > 1e-6) {
+              kv.normalize(); dv.normalize();
+              const ang = Math.atan2(kv.clone().cross(dv).dot(ax), kv.dot(dv)) * w;
+              const fq = wq(F), q = new THREE.Quaternion().setFromAxisAngle(ax, ang);
+              setW(U, q.clone().multiply(wq(U))); U.updateMatrixWorld(true);
+              // the foot keeps its own turn, then yaws with the knee (toes out with it)
+              const yaw = new THREE.Quaternion().setFromAxisAngle(new V(0, 1, 0), ang * kn.toe * (ax.y < 0 ? -1 : 1));
+              setW(F, yaw.multiply(fq)); F.updateMatrixWorld(true);
+            }
+          }
+        }
+      }
       // the ball of a held foot rests on the floor (pitched about the ankle), and no toe ever goes under it
       if (Tz) {
         const an = F.getWorldPosition(new V()), to = Tz.getWorldPosition(new V());
@@ -454,7 +505,11 @@ export class VrmCharacter extends Character {
     const half = (this.cast.gait?.width ?? this.def.gait?.width ?? 0.16) / 2, n = S.left.length;
     this.width = { dt, left: new Float32Array(n), right: new Float32Array(n) };
     for (const [sd, sg] of [["left", 1], ["right", -1]]) {
-      const F = S[sd], need = F.map((f) => Math.max(0, half - sg * f.a.clone().sub(f.mid).dot(f.lat))), W = Math.round(0.2 / dt);
+      // (a deep squat stands wider: real squatters put the ankles 1.3-2.2 hip-widths apart, the pick-up actor 1.1, 7 Nov;
+      // the width grows to gait "squat" (default 30 cm) as the hips sink below 0.6 leg lengths)
+      const sq = (this.cast.gait?.squat ?? this.def.gait?.squat ?? 0.3) / 2;
+      const hw = (f) => half + Math.max(0, sq - half) * smooth((0.6 - (f.mid.y - this.footH) / this.legLen) / 0.25);
+      const F = S[sd], need = F.map((f) => Math.max(0, hw(f) - sg * f.a.clone().sub(f.mid).dot(f.lat))), W = Math.round(0.2 / dt);
       for (let i = 0; i < n; i++) {
         let sum = 0, cnt = 0; for (let j = i - W; j <= i + W; j++) if (j >= 0 && j < n && F[j].s === F[i].s) { sum += need[j]; cnt++; }
         const v = sum / cnt; this.width[sd][i] = v;
@@ -558,6 +613,15 @@ export class VrmCharacter extends Character {
       E.update();
     }
     this.vrm.scene.updateMatrixWorld(true);
+    // cast "diagJoints": the recorded actor's joints and this body's at the same moment, in the world, named as the
+    // database names them (tools/human/compare.mjs compares angles: knee, hip, trunk, shoulder slope)
+    if (this.cast.diagJoints) {
+      const H2 = this.vrm.humanoid, P2 = this.perf.at(t), W2 = P2 && worldPose(P2), r3 = (v) => v.toArray().map((x) => +x.toFixed(4));
+      const g = (n) => r3(H2.getRawBoneNode(n).getWorldPosition(new THREE.Vector3()));
+      const C = { lhipjoint: g("leftUpperLeg"), rhipjoint: g("rightUpperLeg"), lfemur: g("leftLowerLeg"), rfemur: g("rightLowerLeg"), ltibia: g("leftFoot"), rtibia: g("rightFoot"), lfoot: g("leftToes"), rfoot: g("rightToes"), thorax: g("neck"), lclavicle: g("leftUpperArm"), rclavicle: g("rightUpperArm"), head: g("head"), lhumerus: g("leftLowerArm"), rhumerus: g("rightLowerArm"), lradius: g("leftHand"), rradius: g("rightHand"), lshoulder: g("leftShoulder"), rshoulder: g("rightShoulder"), chest: g(this.nb.upperChest ? "upperChest" : "chest") };
+      const A = {}; if (W2) for (const k of ["lhipjoint", "rhipjoint", "lfemur", "rfemur", "ltibia", "rtibia", "lfoot", "rfoot", "thorax", "lclavicle", "rclavicle", "head", "lhumerus", "rhumerus", "lradius", "rradius"]) if (W2[k]) A[k] = r3(W2[k].end);
+      console.log(`diag:joints ${JSON.stringify({ t: +t.toFixed(4), A, C })}`);
+    }
     // cast "diagFeet": every frame's ankle and ball of each foot, in the world (tools/human/skate.mjs measures sliding)
     if (this.cast.diagFeet) { const H2 = this.vrm.humanoid, f = (n) => H2.getRawBoneNode(n).getWorldPosition(new THREE.Vector3()).toArray().map((v) => v.toFixed(4)).join(" "); console.log(`diag:feet t=${t.toFixed(4)} L ${f("leftFoot")} ${f("leftToes")} R ${f("rightFoot")} ${f("rightToes")}`); }
     // the potato's hands and feet ride on the person's (hidden): holds put a prop in her palm, contact shadows land
