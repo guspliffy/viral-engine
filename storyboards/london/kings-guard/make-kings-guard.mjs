@@ -77,6 +77,8 @@ A(0, "rea", "face", { lidL: STARE, lidR: STARE, dur: D0 });
 c.arm(0, "rea", "R", { o: [-0.03, 0.25, 0.42] }, D0);
 c.still(0, "rea", 5.75, 0);
 act.blinksAt(c, "rea", []);
+// v3: the automatic blinks moved off the lines ("Watch. He'll crack.", "ta-daa!", "hff, hff"), the rest kept where they fell
+if (V3) { act.blinksAt(c, "phx", [1.5, 2.43, 5.3, 7.43, 8.7]); act.blinksAt(c, "wiz", [1.5, 3.07, 5.73, 8.4]); }
 // Phoenix mid-face at frame 0: gloves pulling his cheeks, tongue out, eyes rolled in, wings flared, head waggling
 c.arm(0, "phx", "R", "cheeks", D0); c.arm(0, "phx", "L", "cheeks", D0);
 A(0, "phx", "wings", { to: 1, dur: D0 });
@@ -117,7 +119,7 @@ A(2.22, "phx", "lean", { to: 0, dur: 0.18 });
 see(1.0, 2.4, ["phx", "rea.face"], "the dance gets nothing");
 
 // ---------------------------------------------------------------- 03 THE FEATHER 2.4-3.6 (close two-shot)
-A(2.0, "phx", "wings", { to: 0.2, dur: 0.3 }); A(1.85, "phx", "span", { to: 0.35, dur: 0.25 });   // wings in, clear of the box
+A(2.0, "phx", "wings", { to: 0.2, dur: 0.3 }); A(V3 ? 1.1 : 1.85, "phx", "span", { to: 0.35, dur: 0.25 });   // wings in, clear of the box
 A(2.3, "phx", "move", { to: V3 ? [PHX_TICKLE[0] + 0.03, PHX_TICKLE[1] + 0.05] : PHX_TICKLE, dur: 0.35, steps: 1.4 });   // v3 (today's motion): 6 cm off the box, his wing brushed it
 c.arm(2.3, "phx", "L", "rest", 0.3); c.arm(2.3, "phx", "R", "rest", 0.3);
 A(2.4, "phx", "turn", { to: -40, dur: 0.25 });
@@ -146,7 +148,7 @@ c.prop(3.42, "feather", { tilt: 90 }, 0.4); A(3.42, "phx", "grip", { side: "R", 
 A(3.48, "phx", "move", { to: PHX, dur: 0.22, steps: 0.8 });
 A(3.48, "phx", "turn", { to: 0, dur: 0.2 }); A(3.5, "phx", "span", { to: 0.35, dur: 0.25 });   // half open: the full spread would hide the laughing Wizard
 A(3.6, "phx", "expr", { expr: "delighted", dur: 0.15 });
-A(3.6, "phx", "look", { to: [0, 0.55], dur: 0.12 });
+A(3.6, "phx", "look", { to: [0, 0.55], dur: 0.12, ...(V3 && { blink: false }) });
 const HR = [PHX[0] - 0.3, 0.72, PHX[1] + 0.34], HL = [PHX[0] + 0.3, 0.72, PHX[1] + 0.34];
 c.arm(3.48, "phx", "R", { x: [-0.3, 0.42, 0.34] }, 0.18); c.arm(3.48, "phx", "L", { x: [0.3, 0.42, 0.34] }, 0.18);
 for (let i = 0; i < 3; i++) { const id = `fb${i}`, s = i % 2 ? HL : HR; c.prop(3.58, id, { x: s[0], y: s[1] + 0.08 + 0.15 * i, z: s[2] }, 0.01); c.prop(3.6, id, { on: 1 }, 0.08); }
@@ -173,7 +175,7 @@ see(3.65, 4.5, ["phx.face", "rea.face", "fb0", "pigeon"], "the fireballs and the
 
 // ---------------------------------------------------------------- 05 THE SLIP 4.6-5.8 (wide)
 A(4.55, "phx", "expr", { expr: "sad", set: { open: 0.35, eye: 0.85 }, dur: 0.2 });   // out of breath
-A(4.55, "phx", "look", { to: [0, -0.1], dur: 0.2 });
+A(4.55, "phx", "look", { to: [0, -0.1], dur: 0.2, ...(V3 && { blink: false }) });
 c.arm(4.5, "phx", "R", "rest", 0.25); c.arm(4.5, "phx", "L", "rest", 0.25);
 A(4.6, "phx", "talk", { line: "hff, hff", tone: "calm", dur: 0.4, voice: false });
 A(4.75, "phx", "move", { to: PHX_SLIP, dur: 0.25, steps: 0.8 });
@@ -273,7 +275,7 @@ const NOOK = { pos: [0.74, 0.95, 1.25], look: [0.92, 0.86, -2.15], fov: 52 };
 // v3: a narrower lens from the wide's camera on the pair, then on the guard (the painting allows only small camera
 // moves, so these are punch-ins on one axis), then back to the wide for the end of the dance
 const TWO = { pos: WIDE.pos, look: [-0.08, 0.95, -0.65], fov: 34, to: { pos: WIDE.pos, look: [-0.08, 0.95, -0.65], fov: 31 }, dur: 1.2, ease: "linear" };
-const GUARD = { pos: WIDE.pos, look: [-0.7, 0.9, -1.3], fov: 15 };
+const GUARD = { pos: [-0.85, 1.4, 4.4], look: [-0.75, 0.88, -1.3], fov: 14 };   // from the left (inside the painting's range): Phoenix, hopping in front right of him, stays off his face
 const OPENING = V3
   ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 the guard doesn't move", 1.2, GUARD, "reaction"], ["02 dance", 1.95, WIDE]]
   : [["01 silly face", 0, WIDE, "hook"], ["02 dance", 1.0, "keep"]];

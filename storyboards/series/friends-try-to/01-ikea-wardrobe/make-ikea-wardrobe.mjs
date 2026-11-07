@@ -384,6 +384,8 @@ const SPELLW = { pos: [0.0, 2.55, 5.05], look: [0.04, 0.82, -0.82], fov: 52, to:
 const OPENING = V3
   ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking doubts it", 1.25, VIKCU, "reaction"], ["P2 the spell", 1.95, SPELLW]]
   : [["P1-P2 going wrong, the spell", 0, OPEN, "hook"]];
+// v3: the Wizard's automatic blink fell on his own promise (0.43 s); it moves into Viking's close-up
+if (V3) act.blinksAt(c, "wiz", [1.3, 3.07, 5.73]);
 const beats = c.beats([
   ...OPENING,
   ["P3 the flip", 3.3, FLIP],
@@ -394,6 +396,7 @@ const beats = c.beats([
   ["P6-P8 cheer, undo, glare", T0, WIDE],
   ["P7 the undo", E.payoff, "keep", "payoff"],
 ], END);
+
 
 write(import.meta.url, {
   id: V3 ? "ikea-wardrobe-v3rules" : "ikea-wardrobe",

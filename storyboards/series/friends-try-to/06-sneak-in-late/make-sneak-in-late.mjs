@@ -92,7 +92,8 @@ for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", se
 // the situation, spelled out (Jonny 5 Nov: "one doesn't understand the situation"): Mom asleep behind her door, z's
 // floating from it at the start and just before her light snaps on (the hall shots that show her door clear); her "BOYS?!" when it does
 if (V3) A(0.02, "vik", "talk", { line: "shh... moms asleep", tone: "calm", dur: 0.45, voice: false, soft: true });
-cap(V3 ? 0.02 : 0, V3 ? 0.95 : 1.45, "Shh… Mom's asleep.", 470);
+if (V3) cap(0.02, 0.95, "Shh… Mom's asleep.", 470, false, { x: 300, size: 54, kinetic: false });   // one line, left of the Wizard's hat
+else cap(0, 1.45, "Shh… Mom's asleep.", 470);
 for (const t of [0, 0.6, 7.6, 8.1]) c.at(t, { fx: "zzz", pos: [NIGHTHALL.mom.x - 0.8, 0.9, NIGHTHALL.far + 0.15], dur: 1.2, count: 4, scale: 2.5 });
 // the Wizard's foot lands on the loose board: it flexes, CREAK (hit-stop), everyone freezes
 act.opener(c, "wiz", "eep!", { at: 0.05 + K, dur: 0.35, tone: "excited" });
@@ -147,7 +148,8 @@ A(3.32, "vik", "move", { to: VIK_LIFT, dur: 0.35, steps: 2, ease: "inOut" });
 A(3.32, "vik", "turn", { to: 37, dur: 0.3, ease: "inOut" });
 A(3.35, "wiz", "turn", { to: 37, dur: 0.3, ease: "inOut" });   // his back to Viking (the gloves on his flanks), the staff back-right, clear of the stand
 // both gloves on the Wizard's flanks (0.44 m either side of the line to him, 0.72 m ahead, at his middle)
-const HUG = { o: [0.05, 0.85, 0.76] };
+// v3 (today's motion): the gloves a little wider, they pressed 10 cm into his flanks as he lifted off
+const HUG = { o: [V3 ? 0.12 : 0.05, 0.85, 0.76] };
 c.arm(3.45, "vik", "R", HUG, 0.15, "out"); c.arm(3.45, "vik", "L", HUG, 0.15, "out");
 c.arm(3.5, "wiz", "R", { o: [0.3, 0.9, 0.15] }, 0.15, "out");   // out wider than the brim
 A(3.27, "wiz", "look", { to: [0, -0.3], dur: 0.12 });
@@ -178,9 +180,11 @@ see(4.55, 5.45, ["phx.face", "stand", "vik.face", "wiz.face"], "Phoenix catches 
 // the Wizard is set down, the stand stood back up
 A(5.15, "wiz", "fly", { to: { x: WIZ_UP[0], y: 0, z: WIZ_UP[1] }, dur: 0.3, ease: "inOut" });
 A(5.45, "vik", "move", { to: VIK_SET, dur: 0.3, steps: 2, ease: "inOut" });
-c.arm(5.15, "vik", "R", "rest", 0.3, "inOut"); c.arm(5.15, "vik", "L", "rest", 0.3, "inOut"); c.arm(5.2, "wiz", "L", "rest", 0.3); c.arm(5.2, "wiz", "R", "rest", 0.3);
+// v3 (today's motion): the gloves come off his sides outward first, the straight drop to rest went through him
+if (V3) { for (const s of ["R", "L"]) { c.arm(5.15, "vik", s, { o: [0.32, 0.85, 0.6] }, 0.12, "out"); c.arm(5.27, "vik", s, "rest", 0.3, "inOut"); } }
+else { c.arm(5.15, "vik", "R", "rest", 0.3, "inOut"); c.arm(5.15, "vik", "L", "rest", 0.3, "inOut"); } c.arm(5.2, "wiz", "L", "rest", 0.3); c.arm(5.2, "wiz", "R", "rest", 0.3);
 c.prop(5.2, "stand", { tilt: 0, tug: 0 }, 0.3, "inOut");
-c.arm(5.5, "phx", "L", "rest", 0.25); A(5.5, "phx", "release", { prop: "stand", hand: "L" });
+c.arm(5.5, "phx", "L", "rest", 0.25); A(5.5, "phx", "release", { prop: "stand", hand: "L", ...(V3 && { to: [STAND[0], 0, STAND[1]], dur: 0.05 }) });   // v3: physics is on; the stand stays standing on its own spot
 
 // ---------------------------------------------------------------- 05 THE CALM FIX 5.5-7.2
 A(4.95, "rea", "look", { to: [0.2, -0.5], dur: 0.15 });
@@ -282,6 +286,8 @@ const VIKCU = { pos: A_HALL.pos, look: [-0.13, 0.58, -0.85], fov: 13 };
 const OPENING = V3
   ? [["v3 two-shot: the order", 0, TWO, "hook"], ["v3 Viking frozen", 0.95, VIKCU, "reaction"], ["02 wizard's spell", 1.6, { ...SPELL, dur: 1.3 }]]
   : [["01 already going wrong", 0, A_HALL, "hook"], ["02 wizard's spell", 1.5, SPELL]];
+// v3: the automatic blinks moved off the lines (Reaper's fell on the opening whisper, Viking's on "I've got this.")
+if (V3) { act.blinksAt(c, "rea", [0.75, 5.0, 5.6]); act.blinksAt(c, "vik", [2.9, 6.0, 9.77]); }
 const beats = c.beats([
   ...OPENING,
   ["03 viking lifts", 3.3, LIFT, "escalation"],
@@ -291,6 +297,7 @@ const beats = c.beats([
   ["07 the tiny undo", 8.0, B_HALL, "reveal"],
   ["08 the glare", 8.9, null],
 ], END);
+
 
 write(import.meta.url, {
   id: V3 ? "sneak-in-late-v3rules" : "sneak-in-late",

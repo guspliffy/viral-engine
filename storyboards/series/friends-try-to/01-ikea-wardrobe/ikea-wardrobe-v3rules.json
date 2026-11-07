@@ -519,6 +519,11 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -697,6 +702,12 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
      "at": 0.05
     },
     {
@@ -1188,6 +1199,12 @@
      "to": null,
      "dur": 0.35,
      "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.12
     },
     {
      "who": "phx",
@@ -2266,6 +2283,12 @@
      "ease": "inOut",
      "steps": 5,
      "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.23
     },
     {
      "who": "wiz",

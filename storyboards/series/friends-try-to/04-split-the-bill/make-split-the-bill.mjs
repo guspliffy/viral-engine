@@ -360,10 +360,10 @@ see(r3(E.glare + 0.4), 9.7, ["longbill", "reader", "sam.face"], "P8: the long bi
 const WIDE = { pos: [0.0, 1.85, 4.75], look: [0.0, 0.75, 0.3], fov: 54 };   // a lower camera puts the candle over the Wizard's face (Fable A wanted less floor)
 // v3: from a little right of the wide's camera (so the Wizard's hat clears the bill and Viking's face): the tug of
 // war, then Viking
-const TWO = { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 32, to: { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 29.5 }, dur: 1.4, ease: "linear" };
+const TWO = { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 32, to: { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 29.5 }, dur: 1.5, ease: "linear" };
 const VIKCU = { pos: [0.45, 1.6, 4.4], look: [-0.62, 0.82, -0.35], fov: 16 };
 const OPENING = V3
-  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking lost the bill", 1.4, VIKCU, "reaction"], ["P2 the spell", 2.1, WIDE]]
+  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking lost the bill", 1.5, VIKCU, "reaction"], ["P2 the spell", 2.1, WIDE]]
   : [["P1-P2 going wrong, the spell", 0, WIDE, "hook"]];
 const beats = c.beats([
   ...OPENING,

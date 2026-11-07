@@ -359,6 +359,16 @@
     },
     {
      "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
      "do": "arm",
      "side": "R",
      "pose": "cheeks",
@@ -623,6 +633,13 @@
      "dur": 0.9,
      "voice": false,
      "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "span",
+     "to": 0.35,
+     "dur": 0.25,
+     "at": 1.1
     }
    ],
    "kind": "hook"
@@ -633,16 +650,16 @@
    "len": 0.75,
    "shot": {
     "pos": [
-     0.05,
+     -0.85,
      1.4,
      4.4
     ],
     "look": [
-     -0.7,
-     0.9,
+     -0.75,
+     0.88,
      -1.3
     ],
-    "fov": 15
+    "fov": 14
    },
    "do": [
     {
@@ -679,6 +696,18 @@
      "at": 0.28
     },
     {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -688,13 +717,6 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.55
-    },
-    {
-     "who": "phx",
-     "do": "span",
-     "to": 0.35,
-     "dur": 0.25,
-     "at": 0.65
     },
     {
      "who": "phx",
@@ -863,6 +885,12 @@
     },
     {
      "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.03
+    },
+    {
+     "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "tip",
@@ -998,6 +1026,12 @@
      "pose": null,
      "point": "pinch",
      "at": 0.61
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.67
     },
     {
      "who": "phx",
@@ -1369,6 +1403,7 @@
       0.55
      ],
      "dur": 0.12,
+     "blink": false,
      "at": 0
     },
     {
@@ -1721,6 +1756,7 @@
       -0.1
      ],
      "dur": 0.2,
+     "blink": false,
      "at": 0.95
     }
    ],
@@ -1908,6 +1944,12 @@
     },
     {
      "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
      "do": "wings",
      "to": 0.6,
      "dur": 0.3,
@@ -1959,6 +2001,12 @@
      "to": 0.2,
      "dur": 0.4,
      "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.13
     }
    ]
   },
@@ -2388,6 +2436,12 @@
      "at": 0.3
     },
     {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.43
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "L",
@@ -2509,6 +2563,12 @@
      "dur": 0.2,
      "ease": "inOut",
      "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
     },
     {
      "who": "phx",
@@ -2769,6 +2829,12 @@
      ],
      "dur": 0.1,
      "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
     },
     {
      "who": "phx",

@@ -503,7 +503,7 @@
   {
    "name": "v3 two-shot: the promise",
    "at": 0,
-   "len": 1.4,
+   "len": 1.5,
    "shot": {
     "pos": [
      0.3,
@@ -529,7 +529,7 @@
      ],
      "fov": 29.5
     },
-    "dur": 1.4,
+    "dur": 1.5,
     "ease": "linear"
    },
    "do": [
@@ -1208,14 +1208,36 @@
      "shape": "open",
      "dur": 0.05,
      "at": 1.38
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.41
     }
    ],
    "kind": "hook"
   },
   {
    "name": "v3 Viking lost the bill",
-   "at": 1.4,
-   "len": 0.7,
+   "at": 1.5,
+   "len": 0.6,
    "shot": {
     "pos": [
      0.45,
@@ -1232,28 +1254,6 @@
    "do": [
     {
      "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.18,
-       0.5,
-       0.3
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "vik",
-     "do": "squash",
-     "amount": 0.06,
-     "dur": 0.15,
-     "at": 0.01
-    },
-    {
-     "who": "vik",
      "do": "look",
      "to": [
       -0.6,
@@ -1261,20 +1261,20 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.25,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "wiz",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.15
+     "at": 0.05
     },
     {
      "who": "vik",
@@ -1282,21 +1282,21 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.05
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "cocky",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.05
     },
     {
      "who": "wiz",
      "do": "face",
      "lid": 0.3,
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.05
     },
     {
      "who": "wiz",
@@ -1307,27 +1307,27 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.15
+     "at": 0.05
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.2
+     "at": 0.1
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 0.2
+     "at": 0.1
     },
     {
      "who": "vik",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 0.2
+     "at": 0.1
     },
     {
      "who": "wiz",
@@ -1336,14 +1336,14 @@
      "tone": "calm",
      "dur": 0.4,
      "voice": false,
-     "at": 0.22
+     "at": 0.12
     },
     {
      "who": "vik",
      "do": "still",
      "dur": 0.7,
      "idle": 0.06,
-     "at": 0.25
+     "at": 0.15
     },
     {
      "who": "wiz",
@@ -1351,7 +1351,7 @@
      "side": "R",
      "shape": "fist",
      "dur": 0.12,
-     "at": 0.3
+     "at": 0.2
     },
     {
      "who": "vik",
@@ -1360,7 +1360,7 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.35
+     "at": 0.25
     },
     {
      "who": "wiz",
@@ -1375,7 +1375,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.35
+     "at": 0.25
     },
     {
      "who": "wiz",
@@ -1385,7 +1385,7 @@
       10
      ],
      "dur": 0.3,
-     "at": 0.35
+     "at": 0.25
     },
     {
      "who": "vik",
@@ -1393,21 +1393,21 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 0.4
+     "at": 0.3
     },
     {
      "who": "wiz",
      "do": "charge",
      "to": 1,
      "dur": 0.3,
-     "at": 0.55
+     "at": 0.45
     },
     {
      "sfx": "charge",
      "gain": 0.32,
      "dur": 0.95,
      "reason": "the Wizard's calculator spell charging",
-     "at": 0.55
+     "at": 0.45
     },
     {
      "do": "prop",
@@ -1417,7 +1417,7 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 0.55
+     "at": 0.45
     }
    ],
    "kind": "reaction"
