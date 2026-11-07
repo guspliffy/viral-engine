@@ -694,13 +694,14 @@ export class Character {
     // head.profile (Pebble's correction, 6 Nov 2026; opt-in): a tortoise head shaped by separate displacements instead
     // of one radial bump. cheek: the sides widen round elevation cheekV (share of the width); snout: the lower front
     // pushes FORWARD only (share of the depth), w wide and h tall round elevation v, lift raises its tip a little; jaw:
-    // the underside rounds off (share of the height) so no chin wedge forms. Normals come from this same surface
+    // the underside rounds off (share of the height) so no chin wedge forms. round (default 1): > 1 flattens the snout's
+    // swelling into a rounded muzzle with a soft edge instead of a pointed Gaussian tip (Jonny 7 Nov: "not rounded"). Normals come from this same surface
     // (headSurf differentiates headPoint), so the face, cap and spots sit on what is drawn
     if (P) {
       const cheek = (P.cheek ?? 0) * Math.exp(-(((d.y - (P.cheekV ?? -0.2)) / (P.cheekH ?? 0.5)) ** 2));
       out.x *= 1 + cheek;
       if (P.snout) {
-        const fz = Math.max(0, Math.min(1, (d.z - 0.05) / 0.55)), f = Math.exp(-((d.x / (P.w ?? 0.45)) ** 2) - (((d.y - (P.v ?? -0.15)) / (P.h ?? 0.3)) ** 2)) * fz * fz * (3 - 2 * fz);
+        const fz = Math.max(0, Math.min(1, (d.z - 0.05) / 0.55)), q = (d.x / (P.w ?? 0.45)) ** 2 + ((d.y - (P.v ?? -0.15)) / (P.h ?? 0.3)) ** 2, f = Math.exp(-(q ** (P.round ?? 1))) * fz * fz * (3 - 2 * fz);
         out.z += P.snout * H.rz * f; out.y += (P.lift ?? 0) * H.ry * f;
       }
       if (P.jaw && d.y < 0) out.y *= 1 - P.jaw * d.y * d.y;
