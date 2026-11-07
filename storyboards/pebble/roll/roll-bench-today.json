@@ -376,6 +376,7 @@
   "feet": 2,
   "overlap": true,
   "timing": true,
-  "solve": true
+  "solve": true,
+  "roll": false
  }
 }

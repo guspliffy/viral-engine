@@ -42,7 +42,7 @@ const base = {
 const LABELS = [[0, 4.0, "WALK ACROSS + STOP"], [4.0, 7.5, "TURN + WALK TO US"], [7.5, END, "TURN ROUND + WALK AWAY"]];
 const MOTION = { overlap: true, timing: true, solve: true };
 for (const [v, feet, tag] of [["today", 2, "TODAY: FLAT FEET"], ["roll", 3, "NEW: HEEL TO TOE"]]) {
-  const sb = { ...base, id: `roll-bench-${v}`, motion: { feet, ...MOTION } };
+  const sb = { ...base, id: `roll-bench-${v}`, motion: { feet, ...MOTION, ...(feet === 2 ? { roll: false } : {}) } };
   sb.captions = [{ from: 0, to: END, text: tag, pos: 260, pop: false, kinetic: false }, ...LABELS.map(([from, to, text]) => ({ from, to, text, pos: 1450, pop: false, kinetic: false }))];
   fs.writeFileSync(path.join(OUT, `${sb.id}.json`), JSON.stringify(sb, null, 1) + "\n");
 }

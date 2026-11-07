@@ -429,7 +429,9 @@ export const ROLL = { peel: 0.32, strike: 0.2, len: 0.22, settle: 0.14, lead: 0.
 // a character's own amounts (legs.roll in its JSON: a long flat foot rolls less) sit under the storyboard's
 function rollOf(sb, def) {
   const M = sb && typeof sb.motion === "object" ? sb.motion : null;
-  if (!M || !((M.feet ?? 0) >= 3 || M.roll)) return null;
+  // a character can have it as its own default (legs.roll.on, Pebble: Jonny 7 Nov) on the planted gait (feet 2);
+  // a storyboard turns it off with "roll": false
+  if (!M || M.roll === false || !((M.feet ?? 0) >= 3 || M.roll || ((M.feet ?? 0) >= 2 && def?.legs?.roll?.on))) return null;
   return { ...ROLL, ...(def?.legs?.roll || {}), ...(typeof M.roll === "object" ? M.roll : {}) };
 }
 // the foot's pitch (radians, + = toes up) at time t for step k of one foot's list E (-1: before its first step; null

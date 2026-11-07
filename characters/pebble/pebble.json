@@ -64,6 +64,7 @@
   "toe": 0.165,
   "sole": 0.03,
   "roll": {
+   "on": true,
    "peel": 0.22,
    "strike": 0.15
   }
