@@ -19,7 +19,7 @@ import * as grips from "../../../lib/grips.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
 // two 3-frame hit-stops (the steam bursting out, the tower landing on the steak) add 0.2 s: 9.8 s of story = 10.0 s
-const HS1 = 3.2, HS2 = 7.4, END = 9.8;
+const HS1 = 3.2, HS2 = 7.55, END = 9.8;   // HS2 a touch after the brief's 7.4: the fall needs the time to land on the steak instead of skidding off it
 // a time on the video's clock -> the story's clock
 const V = (tv) => r3(tv <= HS1 ? tv : tv <= HS2 + 0.1 ? tv - 0.1 : tv - 0.2);
 
@@ -27,7 +27,7 @@ const V = (tv) => r3(tv <= HS1 ? tv : tv <= HS2 + 0.1 ? tv - 0.1 : tv - 0.2);
 // Two rows in depth (Jonny's panels): the front row at the table, left to right Gunslinger, Viking, Reaper; behind
 // them on a raised floor the Samurai (the waiter, back centre, his face over Viking's hair) and Phoenix (back right,
 // behind the end of the bar).
-const TH = 0.22, TZ = 0.3, TD = 1.2;            // the table: z -0.3 .. 0.9, running on toward the camera so its red-clothed front fills the bottom of the frame
+const TH = 0.18, TZ = 0.3, TD = 1.2;            // the table: z -0.3 .. 0.9, running on toward the camera so its red-clothed front fills the bottom of the frame
 const FZ = -0.68;
 const GSL = [-1.02, -0.68], VIK = [0, FZ], REA = [0.98, -0.72];
 const GSL_YAW = 10, REA_YAW = -18;
@@ -57,7 +57,7 @@ const SROT = 0, REST = -160, ACROSS = 90;
 const SPOONV = (() => { const [x, y, z] = spoonAt(SP0, REST); return { id: "spoon", kind: "tablespoon", x, y, z, tip: REST, rot: SROT, food: 0, fk: 0, staged: "in Viking's fist from the first frame" }; })();
 
 // the tower: each topping's spot on the open potato (its bottom), from the fluffy top up
-const PX = BOARD[0], PZ = BOARD[1], Y0 = r3(BT + 0.215);
+const PX = BOARD[0], PZ = BOARD[1], Y0 = r3(BT + 0.285);   // the potato's split top (H 0.24 + the fluff)
 const TK = 1.35;   // the toppings a size up, so they read at phone size
 // each piece sits on the one under it (heights before TK: a pat 2.4 cm, the dollop 5.2, the slice 0.5, the bacon 3)
 const STACK = [["but1", "butterpat", 0.024, 20, 1, 0], ["crm", "creamdollop", 0.05, 0, 2, 1], ["chz", "cheeseslice", 0.004, 35, 3, 2], ["bac", "baconbits", 0.028, 0, 5, 4], ["but3", "butterpat", 0.024, 10, 1, 0]];
@@ -96,7 +96,7 @@ for (const s of rc.sides) { c.arm(0, "rea", s, { prop: "corn", grip: rc.hands[s]
 A(0, "rea", "grab", { prop: "corn", hand: "both", grip: [0, 0.034, 0], dur: 0, pose: null });
 const cornTo = (t, at, dur, ease = "inOut", rot) => rc.carry(t, at.map(r3), dur, ease, rot != null ? { rot } : {});
 // Phoenix's phone in both gloves (Still Scrolling's hold), up in front of his face, filming
-const PH_UP = { y: 0.34, z: 0.45 }, PH_DOWN = { y: 0.2, z: 0.34 };   // lowered to his belly behind the counter, the screen down below his mouth   // down: the phone set on the bar top, he stops filming
+const PH_UP = { y: 0.34, z: 0.45 }, PH_DOWN = { y: 0.12, z: 0.34 };   // lowered to his belly behind the counter, the screen down below his mouth   // down: the phone set on the bar top, he stops filming
 const phArms = ({ y, z }) => ({ R: { x: [-0.11, y, z], palm: [0, y, z] }, L: { x: [0.11, y, z], palm: [0, y, z] } });
 { const a = phArms(PH_UP); c.arm(0, "phx", "R", a.R, 0); c.arm(0, "phx", "L", a.L, 0); A(0, "phx", "grip", { side: "both", shape: "hold", dur: 0 }); }
 A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null, dur: 0 });
@@ -147,7 +147,7 @@ sfx(1.55, "cloth", { gain: 0.45, reason: "the napkin tucked into his collar with
 c.arm(1.68, "vik", "L", "rest", 0.3, "inOut");
 A(1.5, "vik", "look", { to: [0, -0.6], dur: 0.12, blink: false });
 A(1.52, "vik", "lean", { to: 10, dur: 0.25 });
-const TOPF = [PX - 0.04, r3(BT + 0.21), PZ];   // the foil's top, where the spoon goes through
+const TOPF = [PX - 0.04, r3(BT + 0.28), PZ];   // the foil's top, where the spoon goes through
 let tv = bowlTo(1.5, [TOPF[0], TOPF[1] + 0.05, TOPF[2]], 0.18, -70);
 tv = bowlTo(tv, TOPF, 0.07, -70, "in");
 c.prop(r3(tv - 0.02), "potato", { open: 0.24 }, 0.1, "out");
@@ -179,13 +179,13 @@ A(2.8, "vik", "look", { to: [0, -0.65], dur: 0.12, blink: false });
 A(2.82, "vik", "lean", { to: 6, dur: 0.2 });
 const TEAR = 2.98;
 // the spoon fist stays down at his side; the left glove pinches the foil's top and rips it open
-const FR = [PX + 0.19, r3(BT + 0.17), PZ + 0.02];
+const FR = [PX + 0.21, r3(BT + 0.23), PZ + 0.02];
 c.arm(2.8, "vik", "L", { world: [FR[0], FR[1] + 0.03, FR[2]] }, 0.18, "inOut"); A(2.8, "vik", "grip", { side: "L", shape: "pinch", dur: 0.15 });
 c.arm(TEAR, "vik", "L", { world: [FR[0] + 0.13, FR[1] + 0.02, FR[2] + 0.03] }, 0.2, "out");
 c.prop(TEAR, "potato", { open: 1, steam: 1 }, 0.22, "out");
 sfx(TEAR, "crinkle", { gain: 1.3, reason: "the foil torn open with both hands like a present" });
 sfx(r3(HS1 - 0.02), "whoosh", { gain: 0.5, reason: "the cloud of steam bursting up out of the potato" });
-c.at(HS1, { fx: "poof", pos: [PX, r3(BT + 0.24), PZ + 0.05], dur: 0.9, color: "#ffffff", puffs: 11, sparks: 0, size: 0.44, lift: 0.26 });
+c.at(HS1, { fx: "poof", pos: [PX, r3(BT + 0.31), PZ + 0.05], dur: 0.9, color: "#ffffff", puffs: 11, sparks: 0, size: 0.44, lift: 0.26 });
 c.at(r3(HS1 + 0.05), { fx: "poof", pos: [-0.62, r3(TH + 0.2), -0.1], dur: 0.8, color: "#ffffff", puffs: 7, sparks: 0, size: 0.36, lift: 0.18 });
 c.at(r3(HS1 + 0.05), { fx: "poof", pos: [0.6, r3(TH + 0.2), -0.1], dur: 0.8, color: "#ffffff", puffs: 7, sparks: 0, size: 0.36, lift: 0.18 });
 c.hitStop(HS1, 3);
@@ -237,7 +237,7 @@ c.say(V(4.9), "vik", "a little more…", 0.6, "happy", { voice: false, sub: "A l
 // still, the corn in front of him
 A(V(4.4), "gsl", "look", { to: [0.5, -0.45], dur: 0.12, blink: false });
 const PUSH = V(5.3);
-c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "steak", grip: [-0.08, 0.1, -0.07] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });   // one finger on the plate's rim
+c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "steak", grip: [-0.08, 0.13, -0.07] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });   // one finger on the plate's rim
 c.prop(PUSH, "steak", { x: r3(STK[0] + 0.05), z: r3(STK[1] + 0.04) }, 0.35, "inOut");
 sfx(PUSH, "ai/bowl-scrape", { gain: 0.25, reason: "the cast-iron plate pushed a little over the wooden table" });
 c.arm(r3(PUSH + 0.45), "gsl", "L", { o: [-0.16, 0.4, 0.32] }, 0.3, "inOut"); A(r3(PUSH + 0.45), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
@@ -269,9 +269,9 @@ for (const [i, p] of TOWER.entries()) {
   c.prop(LEAN, p.id, { x: r3(PIV[0] + dx * Math.cos(a) - dy * Math.sin(a)), y: r3(PIV[1] + dx * Math.sin(a) + dy * Math.cos(a)), tilt: -ang }, 0.2, "in");
 }
 const FALL = r3(LEAN + 0.18);
-// aimed a little short: they land with the fall's sideways speed and slide the last few centimetres onto the steak
-const ONSTEAK = [[-0.37, -0.02], [-0.39, -0.02], [-0.41, -0.03], [-0.31, -0.03], [-0.33, -0.01]];   // the top two fall from highest and slide furthest
-const SY = r3(TH + 0.075);
+// a slow high arc (0.5 s), so they come down onto the steak nearly straight and stay
+const ONSTEAK = [[-0.42, -0.05], [-0.45, -0.03], [-0.47, -0.07], [-0.41, -0.08], [-0.44, -0.04]];
+const SY = r3(TH + 0.07);
 TOWER.forEach((p, i) => { const k = TOWER.length - 1 - i, t0 = r3(FALL + k * 0.03); c.throw(t0, p.id, { to: [ONSTEAK[i][0], r3(SY + (i % 3) * 0.015), ONSTEAK[i][1]], in: r3(HS2 - t0 + i * 0.01), spin: [0, 0, 0.6 + (i % 3) * 0.3] }); });   // the top goes first
 SHOWER.forEach(([x, z], i) => { c.prop(r3(FALL - 0.01), `bit${i}`, { x: r3(PX - 0.06 + i * 0.01), y: r3(Y0 + 0.1 + (i % 2) * 0.01), z: PZ, scale: 1 }, 0, "linear"); c.throw(FALL, `bit${i}`, { to: [x, r3(TH + 0.07), z], in: r3(HS2 - FALL + 0.02 + i * 0.015), spin: [4, 2, 5] }); });
 sfx(HS2, "thud", { gain: 1.0, reason: "the payoff: the whole loaded tower lands on Gunslinger's steak" });
@@ -282,12 +282,12 @@ c.at(HS2, { fx: "poof", pos: [-0.52, r3(TH + 0.08), -0.07], dur: 0.35, color: "#
 A(r3(LEAN + 0.05), "vik", "look", { to: [-0.35, -0.6], dur: 0.12, blink: false });
 A(r3(LEAN + 0.26), "vik", "expr", { expr: "eager", set: { open: 0.5, eye: 1.15 }, dur: 0.15 });
 A(r3(LEAN + 0.05), "gsl", "look", { to: [0.35, -0.6], dur: 0.12, blink: false });
+A(V(7.3), "gsl", "look", { to: [0.3, -0.8], dur: 0.1, blink: false });   // eyes down on his steak as it comes
 see(LEAN, r3(HS2 + 0.1), ["vik.face", "gsl.face", "steak", "but3"], "panel 6: the tower leans and topples onto Gunslinger's steak");
 
 // ---------------------------------------------------------------- 7 THE PEAK 7.4-8.8 (panel 7)
 // Gunslinger looks down at his buried steak, then up at Viking; Viking pulls the board closer, delighted
-A(V(7.55), "gsl", "look", { to: [0.35, -0.7], dur: 0.15, blink: false });
-act.shock(c, V(7.5), "gsl", { hold: 0.6, open: 0.35, curve: -0.3 });   // a horrified gasp, never a happy "o"
+act.shock(c, V(7.5), "gsl", { hold: 0.6, open: 0.5, curve: -0.45, eye: 1.3 });   // a horrified gasp, never a happy "o"
 A(V(8.1), "gsl", "look", { to: [0.55, 0.05], dur: 0.15, blink: false });
 act.mood(c, V(8.15), "gsl", "annoyed", { hold: 0.8 });
 droop(V(7.6), 1.35);   // step 3: limp
@@ -302,19 +302,19 @@ see(V(7.55), V(8.75), ["gsl.face", "vik.face", "steak", "potato"], "panel 7: the
 
 // ---------------------------------------------------------------- 8 WANT SOME? 8.8-10 (panel 8)
 // a spoonful from the potato, held up toward Phoenix: "Want some?"; Phoenix lowers his phone for the first time
-const SC = [PX - 0.06, r3(BT + 0.2), PZ - 0.04];
-let to = bowlTo(V(8.55), [SC[0], SC[1] + 0.05, SC[2]], 0.12, -70, "inOut", ACROSS);
+const SC = [PX - 0.06, r3(BT + 0.27), PZ - 0.04];
+let to = bowlTo(V(8.62), [SC[0], SC[1] + 0.05, SC[2]], 0.1, -70, "inOut", ACROSS);
 to = bowlTo(to, SC, 0.05, -70, "in", ACROSS);
 c.prop(to, "spoon", { fk: 6 }, 0.01, "linear"); c.prop(to, "spoon", { food: 1 }, 0.05, "out");
 const OFFER = V(8.85);
-A(OFFER, "vik", "look", { to: [0.5, 0.45], dur: 0.12, blink: false });
-A(r3(OFFER + 0.05), "vik", "turn", { to: 60, dur: 0.3 });   // turned to Phoenix, so the spoon arm reaches out in front of his chest, not across his face
+A(r3(OFFER - 0.12), "vik", "look", { to: [0.5, 0.5], dur: 0.12, blink: false });
+A(r3(OFFER + 0.05), "vik", "turn", { to: 35, dur: 0.3 });   // turned to Phoenix, so the spoon arm reaches out in front of his chest, not across his face
 A(r3(OFFER + 0.05), "vik", "expr", { expr: "happy", set: { curve: 0.8, open: 0.3 }, dur: 0.2 });
-bowlTo(r3(OFFER + 0.14), spoonAt([0.36, 0.5, -0.24], -110, ACROSS), 0.32, -110, "inOut", ACROSS);   // the fist out toward Phoenix, the bowl up beyond it   // held out sideways toward Phoenix, the handle showing past the fist
+bowlTo(r3(OFFER + 0.14), spoonAt([0.4, 0.54, -0.28], -110, ACROSS), 0.32, -110, "inOut", ACROSS);   // the fist out toward Phoenix, the bowl up beyond it   // held out sideways toward Phoenix, the handle showing past the fist
 c.say(V(8.95), "vik", "want some?", 0.55, "question", { voice: false, soft: true, sub: "Want some?", pos: SUB_LOW });
 // Phoenix: the phone comes slowly down to the bar, eyes huge
-const PL = V(8.9);
-{ const a = phArms(PH_DOWN); c.arm(PL, "phx", "R", a.R, 0.45, "inOut"); c.arm(PL, "phx", "L", a.L, 0.45, "inOut"); }
+const PL = V(8.75);
+{ const a = phArms(PH_DOWN); c.arm(PL, "phx", "R", a.R, 0.4, "inOut"); c.arm(PL, "phx", "L", a.L, 0.4, "inOut"); }
 c.prop(r3(PL + 0.3), "phone", { glow: 0.15 }, 0.25, "inOut");   // the screen dims as it goes down
 A(r3(PL - 0.05), "phx", "look", { to: [-0.3, -0.35], dur: 0.12, blink: false });
 act.shock(c, r3(PL + 0.1), "phx", { hold: 0.8, open: 0.05, curve: 0, eye: 1.32 });
@@ -336,7 +336,7 @@ const BITE = fw([0.0, 0.5, -0.5], { w: 1.5, el: 26, fov: 30, push: 0.06, dur: 1.
 // (panel 5's "a touch closer" dropped: at that size the wide cut Gunslinger and Reaper out of frame)
 // the topple and the peak (6.4-8.4): a low medium on the tower and Gunslinger's steak, his face in, from the same side
 // (panels 6-7 are the wide; closer here so the pile on his steak reads at phone size)
-const TOPPLE = fw([-0.45, 0.42, -0.35], { w: 1.45, el: 14, fov: 30 });
+const TOPPLE = fw([-0.5, 0.4, -0.35], { w: 1.35, el: 16, fov: 30 });
 const beats = c.beats([
   ["P1 the dish lands", 0, WIDE, "hook"],
   ["P2 first bite", 1.5, BITE],
@@ -348,6 +348,8 @@ const beats = c.beats([
 for (const cp of c.captions) cp.pos = 1262;
 // "Perfect." goes as the tower starts to lean: the setup line is never up over the payoff
 for (const cp of c.captions) if (cp.text === "Perfect.") cp.to = Math.min(cp.to, LEAN);
+// the catchphrase stays up to the last frame
+for (const cp of c.captions) if (cp.text === "Want some?") cp.to = END;
 
 write(import.meta.url, {
   id: "baked-potato",

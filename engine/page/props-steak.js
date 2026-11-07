@@ -11,7 +11,7 @@ import { steamWisps } from "./steam.js";
 //   steaktable   a rustic wooden table along x (spec.w, spec.d, spec.h), a red cloth along its front edge (spec.cloth
 //                deep) hanging over it. Origin: the floor under its middle. Grip: its top (h).
 //   servingboard a wooden serving board (spec.w, spec.d), 3 cm thick, a handle at +x. Origin: its bottom.
-//   bakedpotato  a big baked potato in crinkled foil (L 0.46, W 0.28, H 0.17). `open` 0..1 folds the foil's top back
+//   bakedpotato  a big baked potato in crinkled foil (L 0.52, W 0.33, H 0.24). `open` 0..1 folds the foil's top back
 //                (0.25 tears a gap at the top, 1 a foil boat round it), the split top with its fluffy inside rising as it
 //                opens; `steam` 0..1. Origin: its bottom.
 //   toppingbowl  a small white bowl (r 0.055) of one topping: spec.food "butter" | "cream" | "cheese" | "chives" | "bacon".
@@ -29,7 +29,7 @@ import { steamWisps } from "./steam.js";
 //                Held in both hands with the box hold (gloves on its two ends).
 //   lemonade     a tall glass of lemonade with ice, a lemon slice on the rim and a straw. Origin: its bottom.
 //   barcounter   the end of a wooden bar (spec.w, spec.d, spec.h) with a plank front and a dark top. Origin: the floor.
-export const STEAK = { table: { h: 0.34 }, potato: { L: 0.46, W: 0.28, H: 0.17 }, spoon: { len: 0.3 }, corn: { len: 0.24, r: 0.046 } };
+export const STEAK = { table: { h: 0.34 }, potato: { L: 0.52, W: 0.33, H: 0.24 }, spoon: { len: 0.3 }, corn: { len: 0.24, r: 0.046 } };
 
 const food = (c, o = {}) => { const m = mat(c, { roughness: 0.55, ...o }); m.userData.noHatch = true; return m; };
 const BUTTER = "#f6dc6a", CREAM = "#f8f4ea", CHEESE = "#f2a42a", CHIVE = "#4f9a2a", BACON = ["#9a3a22", "#b5482a", "#7a2c1a", "#c86a44"];
@@ -158,7 +158,7 @@ export const STEAK_KINDS = {
       const axis = new THREE.Vector3(0, 1, 0).cross(out).normalize();   // turning about it takes the top outward
       tri.push({ R, axis, wob: (rf() - 0.5) * 0.35, lag: rf() * 0.25 });
     }
-    const foilM = new THREE.MeshStandardMaterial({ color: "#c4c9d0", roughness: 0.32, metalness: 0.65, flatShading: true, side: THREE.DoubleSide }); foilM.userData.noHatch = true;
+    const foilM = new THREE.MeshStandardMaterial({ color: "#dfe3e8", roughness: 0.3, metalness: 0.55, flatShading: true, side: THREE.DoubleSide }); foilM.userData.noHatch = true;
     const foil = mesh(sg, foilM, P.whole, 0, 0, 0);
     const steam = steamWisps(P.whole, H + 0.05);
     const v = new THREE.Vector3(), q = new THREE.Quaternion();
