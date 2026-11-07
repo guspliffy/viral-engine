@@ -545,7 +545,7 @@ const LT = X0 + 0.3;   // review B: the plane reads clearly for its first frames
 for (const id of ["bolt", "jet", "sky", "cloudsFar", "cloudsNear", "rain"]) { const g = id === "bolt" ? 1 : id === "jet" ? 0.6 : 0.5; prop(LT, id, { glow: g }, 0.04, "out"); prop(LT + 0.1, id, { glow: 0 }, 0.4, "in"); }
 c.at(LT, { fx: "flash", peak: 0.22, dur: 0.1, sound: false });
 c.at(X0, { fx: "shake", amp: 0.012, dur: INS - 0.05 }); c.at(LT, { fx: "shake", amp: 0.022, dur: 0.6 });   // the storm buffets the lens the whole shot
-sfx(LT, "firework", { gain: 0.4, reason: "the thunderclap of the bolt right beside the plane: crack and boom" });
+sfx(LT, "firework", { gain: 0.22, reason: "the thunderclap of the bolt right beside the plane: crack and boom" });
 sfx(LT + 0.05, "rumble", { gain: 0.6, dur: 1.4, reason: "thunder rolling after the strike" });
 sfx(X0, "windswell", { gain: 0.85, dur: INS, reason: "the air roaring louder as the plane drops" });
 sfx(X0 + 0.3, "ridewind", { gain: 0.45, dur: INS - 0.35, reason: "the gusty rush of air past the falling plane" });
