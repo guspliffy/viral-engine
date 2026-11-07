@@ -1264,17 +1264,6 @@
      "at": 0.71
     },
     {
-     "do": "prop",
-     "id": "heap",
-     "set": {
-      "mood": 0,
-      "joy": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.73
-    },
-    {
      "who": "vik",
      "do": "bloom",
      "to": 1,
@@ -1294,6 +1283,17 @@
      "amount": 0.03,
      "dur": 0.08,
      "at": 0.87
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "mood": 0,
+      "joy": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
     },
     {
      "who": "gsl",
@@ -1328,16 +1328,6 @@
     "fov": 30
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "heap",
-     "set": {
-      "joy": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0
-    },
     {
      "who": "vik",
      "do": "face",
@@ -1467,6 +1457,16 @@
      "dur": 0.06,
      "ease": "out",
      "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "joy": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.2
     },
     {
      "who": "gsl",

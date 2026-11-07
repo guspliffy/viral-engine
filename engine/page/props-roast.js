@@ -79,13 +79,13 @@ function roastFace(parent, R, seed = 1, at = [0, R * 0.62, 0]) {
   const oh = mesh(new THREE.SphereGeometry(R * 0.11, 12, 8), black, f, 0, -R * 0.2, R * 0.01); oh.scale.set(0.85, 1.1, 0.4); oh.castShadow = false;
   const per = 2.4 + ((seed * 0.37) % 1.4), ph = (seed * 1.618) % per;
   return (mood = 0, joy = 0, t = 0) => {
-    const blink = ((t + ph) % per) < 0.09, wide = 1 + 0.3 * mood;
+    const blink = ((t + ph) % per) < 0.09, wide = 1 + 0.55 * mood;   // scared: big round eyes (what reads at phone size)
     for (const e of eyes) {
       const shut = joy > 0.5;
       e.w.visible = e.p.visible = e.h.visible = !shut; e.arc.visible = shut;
       e.g.scale.set(wide, shut ? 1 : blink ? 0.12 : wide, 1);
     }
-    smile.visible = mood < 0.5; oh.visible = mood >= 0.5;
+    smile.visible = mood < 0.5; oh.visible = mood >= 0.5; oh.scale.set(0.85 * (1 + 0.4 * mood), 1.1 * (1 + 0.4 * mood), 0.4);
     smile.scale.setScalar(1 + 0.25 * joy);
   };
 }

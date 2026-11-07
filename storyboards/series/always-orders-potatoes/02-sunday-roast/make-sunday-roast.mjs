@@ -163,8 +163,8 @@ c.prop(BITE1, "forkV", { food: 0 }, 0.05, "out");
 if (ALIVE) {
   c.prop(r3(BITE1 + 0.06), "forkV", { fjoy: 0 }, 0.01, "linear");
   c.prop(r3(BITE1 + 0.04), "heap", { mood: 1 }, 0.01, "linear");   // the heap gasps: he ate one of them
-  c.prop(2.45, "heap", { mood: 0, joy: 1 }, 0.01, "linear");       // then cheers when the blossom pops: he loves them
-  c.prop(2.8, "heap", { joy: 0 }, 0.01, "linear");
+  c.prop(2.7, "heap", { mood: 0, joy: 1 }, 0.01, "linear");        // then all squint with joy after the blossom pops: he loves them (review B: hold the gasp, squint after)
+  c.prop(3.0, "heap", { joy: 0 }, 0.01, "linear");
 }
 sfx(BITE1, "ai/crunch", { gain: 0.7, reason: "the first bite: a crisp roast potato crunch" });
 A(r3(BITE1 + 0.04), "vik", "expr", { expr: "delighted", set: { open: 0, curve: 0.9 }, dur: 0.08 });
