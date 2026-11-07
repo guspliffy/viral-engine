@@ -28,6 +28,7 @@ export function pebbleCostume(def, ch) {
   if (PL && ch.face) live.push(() => { ch.face.group.visible = false; });
   if (!PL) { belly(ch, C); vest(ch, C); spots(ch, C); }
   const ls = PL ? null : limbSpots(ch, C); if (ls) live.push(ls);
+  const ac = PL ? null : armCap(ch, C); if (ac) live.push(ac);
   const shell = buildShell(ch, PL ? { ...C, shell: { ...(C.shell || {}), moss: false, fern: false } } : C);
   live.push(shell.update);
   const straw = PL ? null : buildStraw(ch, C);
@@ -682,6 +683,62 @@ function buildStraw(ch, C) {
   return { group: g, update, gripLocal: new THREE.Vector3(gripX, curve.getPointAt(Math.min(1, (gripX + 0.012) / len)).y, 0) };
 }
 
+// vest.armCap (opt-in, Jonny 7 Nov 16:56 "the arm still seems not to be really attached to the body"): the vest's
+// armhole wraps over the top of the arm, as on the Garden Guardian sheet, where the tan-trimmed armhole edge arches over
+// the shoulder and the arm comes out from under it. Without it the round top of the arm tube sat on the side of the
+// vest like a separate sausage. A short sleeve of the vest's cloth rides the arm tube from the shoulder (where the tube
+// closes inside the body) down to `to` (share of the arm's length), `out` metres off the arm, its lower edge tilted
+// `tilt` (radians: + lower on his outside, so it reads as an armhole edge, not a cuff) with the tan trim round it.
+// Rebuilt every frame from the arm curve potato.js keeps (the same curve the arm tube is drawn from).
+function armCap(ch, C) {
+  const V = C.vest || {}, K = V.armCap; if (!K || C.vest === false) return null;
+  const to = K.to ?? 0.16, out = K.out ?? 0.006, tilt = K.tilt ?? 0.35, NS = 14, NR = 24, TR = 32;
+  const m = std(V.color || "#777344", { roughness: 0.92, side: THREE.DoubleSide }); m.userData.lookRole = "cloth";
+  const tm = std(V.trim || "#C9A46A", { roughness: 0.85 }); tm.userData.lookRole = "cloth";
+  const grid = (ns, nr, closed) => { const g = new THREE.BufferGeometry(), idx = [];
+    g.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array((ns + 1) * (nr + 1) * 3), 3));
+    for (let i = 0; i < ns; i++) for (let j = 0; j < nr; j++) { const a = i * (nr + 1) + j, b = a + 1, c = a + nr + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+    g.setIndex(idx); return g; };
+  const parts = {};
+  for (const s of ["R", "L"]) {
+    const sl = mesh(grid(NS, NR), m), tr = mesh(grid(TR, 8), tm, false);
+    for (const x of [sl, tr]) { x.userData.skin = true; x.frustumCulled = false; ch.root.add(x); }
+    parts[s] = { sl, tr };
+  }
+  const fwd = new THREE.Vector3(), side = new THREE.Vector3(), up = new THREE.Vector3(), p = new THREE.Vector3(), q = new THREE.Vector3();
+  // the frame round the arm at t: fwd (his front, square to the arm), side (his outside), as limbSpots places its spots
+  const frame = (curve, t, sx) => { const tg = curve.getTangentAt(t); fwd.set(0, 0, 1).addScaledVector(tg, -tg.z).normalize(); side.crossVectors(tg, fwd).normalize(); if (side.x * sx < 0) side.negate(); return tg; };
+  return () => {
+    for (const s of ["R", "L"]) {
+      const A = ch.arms[s], P = parts[s], sx = s === "R" ? -1 : 1, Ch = ch.constructor;
+      const show = !!A.elbow && A.mesh?.visible !== false; P.sl.visible = P.tr.visible = show; if (!show) continue;
+      const curve = Ch.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), L = curve.getLength(), w = ch.limbW, k = ch.def.limbs?.armTaper;
+      const R = (t) => Ch.armRadius(t, w, k) + out;
+      // the edge's t at angle a round the arm: lower (further down the arm) on his outside, higher on the inside
+      const edgeT = (a) => Math.min(0.6, Math.max(0.02, to + (tilt * R(to) / L) * Math.sin(a)));
+      const sp = P.sl.geometry.attributes.position;
+      for (let j = 0; j <= NR; j++) {
+        const a = (j / NR) * Math.PI * 2, te = edgeT(a);
+        for (let i = 0; i <= NS; i++) {
+          const t = te * (i / NS); frame(curve, t, sx); curve.getPointAt(t, p);
+          const r = R(t); q.copy(fwd).multiplyScalar(Math.cos(a) * r).addScaledVector(side, Math.sin(a) * r);
+          sp.setXYZ(i * (NR + 1) + j, p.x + q.x, p.y + q.y, p.z + q.z);
+        }
+      }
+      sp.needsUpdate = true; P.sl.geometry.computeVertexNormals(); P.sl.geometry.computeBoundingSphere();
+      // the trim: a round piping tube along the sleeve's lower edge
+      const tp = P.tr.geometry.attributes.position, tr = V.trimR ?? 0.009;
+      for (let j = 0; j <= TR; j++) {
+        const a = (j / TR) * Math.PI * 2, t = edgeT(a), tg = frame(curve, t, sx); curve.getPointAt(t, p);
+        const r = R(t); const n = up.copy(fwd).multiplyScalar(Math.cos(a)).addScaledVector(side, Math.sin(a)).normalize();
+        const c = p.clone().addScaledVector(n, r);
+        for (let i = 0; i <= 8; i++) { const b = (i / 8) * Math.PI * 2; tp.setXYZ(j * 9 + i, c.x + (n.x * Math.cos(b) + tg.x * Math.sin(b)) * tr, c.y + (n.y * Math.cos(b) + tg.y * Math.sin(b)) * tr, c.z + (n.z * Math.cos(b) + tg.z * Math.sin(b)) * tr); }
+      }
+      tp.needsUpdate = true; P.tr.geometry.computeVertexNormals(); P.tr.geometry.computeBoundingSphere();
+    }
+  };
+}
+
 // toasted spots on the arms and legs (Garden Guardian pack): soft-edged patches on the thighs and the upper arms, flat
 // discs that ride on the leg and arm tubes (re-placed every frame from the limb curves potato.js keeps). spots.legs /
 // .arms: [t along the limb (0 hip/shoulder .. 1 foot/hand), angle round it (0 front, + toward his outside), radius]
@@ -692,8 +749,10 @@ function limbSpots(ch, C) {
   const legs = K.legs || [[0.3, 0.7, 0.032], [0.48, 1.35, 0.024], [0.22, -0.2, 0.02], [0.62, 0.35, 0.02]];
   const arms = K.arms || [[0.2, 0.9, 0.026], [0.32, 1.6, 0.019], [0.12, 0.2, 0.017], [0.45, 1.1, 0.015]];
   const disc = new THREE.SphereGeometry(1, 14, 8);
-  const make = (list) => list.slice(0, K.nLimb ?? list.length).map(([t, a, r]) => { const x = mesh(disc, m, false); x.scale.set(r, K.flat ? 0.0006 : 0.0035, r * 0.85); x.userData.spot = [t, a]; x.userData.skin = true; ch.root.add(x); return x; });
-  const set = { R: { leg: make(legs), arm: make(arms) }, L: { leg: make(legs), arm: make(arms) } };
+  // under vest.armCap the top of the arm is cloth: an arm spot there would poke through it, so the arm list skips them
+  const AC = C.vest?.armCap, capT = AC ? (AC.to ?? 0.16) + 0.06 : 0;
+  const make = (list, arm = false) => list.slice(0, K.nLimb ?? list.length).filter(([t]) => !arm || t > capT).map(([t, a, r]) => { const x = mesh(disc, m, false); x.scale.set(r, K.flat ? 0.0006 : 0.0035, r * 0.85); x.userData.spot = [t, a]; x.userData.skin = true; ch.root.add(x); return x; });
+  const set = { R: { leg: make(legs), arm: make(arms, true) }, L: { leg: make(legs), arm: make(arms, true) } };
   const fwd = new THREE.Vector3(), side = new THREE.Vector3(), n = new THREE.Vector3(), yUp = new THREE.Vector3(0, 1, 0);
   const place = (list, curve, w, sx, show, radius) => {
     for (const x of list) {

@@ -188,10 +188,15 @@
    "neckH": 0.55,
    "sewn": true,
    "thread": "#A99A62",
-   "armhole": 0.46,
+   "armhole": 0.04,
    "armTrim": false,
    "corner": 0.34,
-   "top": 1.2
+   "top": 1.2,
+   "armCap": {
+    "to": 0.1,
+    "tilt": 0.6,
+    "out": 0.008
+   }
   },
   "shell": {
    "color": "#8E4F2A",
@@ -414,7 +419,7 @@
   }
  },
  "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
- "tts": "pebble",
+ "tts": "pebble-scot-5c",
  "voice": {
   "pitch": 110,
   "rate": 3.0,
