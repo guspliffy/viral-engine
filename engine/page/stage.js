@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { Character, setRig } from "./potato.js";
+import { HumanCharacter, preloadHumans } from "./rigs/human.js";
+import { VrmCharacter, preloadVrms } from "./rigs/vrm.js";
 import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
@@ -390,6 +392,7 @@ async function init(data) {
   // image-based lighting only on the characters: on the ground and background it cost more than half the frame time
   const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
+  await preloadHumans(data.chars, sb); await preloadVrms(data.chars, sb);   // rigs/human.js: a person's body and the motion clips the cast performs
   await preloadModels(sb, data.chars);   // assets-gltf.js: glTF models the set and costumes name, loaded before anything is built
   buildLights(scene, sb.set);
   const before = scene.children.length;
@@ -413,7 +416,7 @@ async function init(data) {
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
-    const ch = new Character(def, c.id); parentOf(c).add(ch.root);
+    const ch = def.rig === "human-v1" ? new HumanCharacter(def, c.id, c) : def.rig === "vrm-v1" ? new VrmCharacter(def, c.id, c) : new Character(def, c.id); parentOf(c).add(ch.root);
     // the actor's state at any time in the story (potato.js rig 2 smooths a hand's turn over the frames around it)
     ch.stateAt = (tt) => (tt < 0 || tt > (sb.storyDuration ?? sb.duration) ? null : actorState(sb, c, def, tt));
     if (c.belt) seatBelt(ch, c.belt);

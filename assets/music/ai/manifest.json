@@ -472,6 +472,117 @@
      "bars": null
     }
    ]
+  },
+  {
+   "id": "car-chase",
+   "kind": "music",
+   "files": [
+    "car-chase/car-chase-06.ogg",
+    "car-chase/car-chase-03.ogg"
+   ],
+   "tags": [
+    "action"
+   ],
+   "mood": "action",
+   "bpm": 139.9,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 140,
+   "loopable": true,
+   "durationSec": 13.723,
+   "prompt": [
+    "fast cartoon car chase action music, driving drums, surf rock electric guitar riff, punchy brass stabs, tense and fun, 140 BPM",
+    "high energy action movie chase music, pounding drums, staccato strings, bold brass hits, racing tension, 140 BPM"
+   ],
+   "seed": [
+    603
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -17.6,
+   "takes": [
+    {
+     "file": "car-chase/car-chase-06.ogg",
+     "seed": 603,
+     "durationSec": 13.723,
+     "bars": 8,
+     "bpm": 139.9,
+     "beatSpread": 0.016,
+     "steadyBeat": true,
+     "clap": 0.291,
+     "loudnessLUFS": -17.6
+    },
+    {
+     "file": "car-chase/car-chase-03.ogg",
+     "seed": 603,
+     "durationSec": 13.711,
+     "bars": 8,
+     "bpm": 140.0,
+     "beatSpread": 0.012,
+     "steadyBeat": true,
+     "clap": 0.178,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "pickedBy": "Claude by CLAP score and beat steadiness, 2026-11-07 (Never Looks Up 06 car crash); Jonny to judge by ear"
+  },
+  {
+   "id": "disaster",
+   "kind": "music",
+   "files": [
+    "disaster/disaster-04.ogg",
+    "disaster/disaster-01.ogg"
+   ],
+   "tags": [
+    "drama"
+   ],
+   "mood": "drama",
+   "bpm": 128.0,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 128,
+   "loopable": true,
+   "durationSec": 15.0,
+   "prompt": [
+    "tense disaster movie action music, pounding taiko and timpani, urgent staccato string ostinato, blaring brass stabs, panic and danger, cinematic, 128 BPM",
+    "frantic orchestral emergency music, racing strings, booming drums, dramatic brass hits, rising suspense, film trailer, 128 BPM"
+   ],
+   "seed": [
+    301,
+    302,
+    303,
+    301,
+    302,
+    303
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "disaster/disaster-04.ogg",
+     "seed": 301,
+     "durationSec": 14.988,
+     "bars": 8,
+     "bpm": 128.1,
+     "beatSpread": 0.043,
+     "steadyBeat": true,
+     "clap": 0.367,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "disaster/disaster-01.ogg",
+     "seed": 301,
+     "durationSec": 15.012,
+     "bars": 8,
+     "bpm": 127.9,
+     "beatSpread": 0.059,
+     "steadyBeat": true,
+     "clap": 0.373,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "pickedBy": "Claude 7 Nov 2026 (no ears): CLAP rank 2 and 1 of 6, take 04 has 52 % of its energy in the phone band (take 01: 27 %); Jonny judges by ear"
   }
  ]
 }
