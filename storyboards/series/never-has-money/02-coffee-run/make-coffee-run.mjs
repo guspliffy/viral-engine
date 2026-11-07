@@ -135,7 +135,9 @@ A(0, "gsl", "expr", { expr: "eager", set: { curve: 0.4, open: 0.15 }, dur: 0 });
 const gcup = grips.mug(c, "gsl", CUP_G, { side: "L", height: 0.95, angle: 30 });   // from the front of the cup: the hand stays off the carrier
 let tg = gcup.secure(gcup.approach(0.02, 0.22), 0.16);   // 0.5: the fingers have closed round the sleeve
 tg = gcup.carry(r3(tg), [CUP_G.x, r3(CUP_G.y + 0.12), CUP_G.z], 0.12, "out");
-const SIP = front(G0, G_YAW, 0.36, 0.05, 0.7);   // the lid at his mouth
+// the lid at his lips: his mouth is at [-0.115, 0.555, 0.245] (layout), so the cup (0.115 tall) stands just in front of it
+// and tips toward him. It was at y 0.7 before, up at his eyes and into the hat brim (Jonny 7 Nov 16:40)
+const SIP = [-0.11, 0.46, 0.31];
 tg = gcup.carry(r3(tg + 0.01), SIP, 0.2, "inOut", { tip: -25 });
 A(0.6, "gsl", "look", { to: [0.1, 0.0], dur: 0.1, blink: false });
 A(0.62, "gsl", "expr", { expr: "happy", set: { curve: 0.85, open: 0 }, dur: 0.15 });
