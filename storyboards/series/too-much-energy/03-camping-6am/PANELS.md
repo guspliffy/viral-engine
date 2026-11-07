@@ -37,3 +37,12 @@ The sun clears the hills centre-right at 8.8 s and turns the sky, the lake and e
 - The tent is bigger than a real two-person ridge tent so the Wizard's hat clears the roof while he sits up in his bag.
 - The friends sit reclined in their bags (the bag props ride with them), not lying flat: a lying potato's face points at
   the sky.
+- **The pillow lies on the Wizard's lap, not under his head.** Thrown from the floor beside him it hit the tent wall
+  and never left the tent; from under his head it would have gone through his own hat. From his lap it flies out of the
+  door and bonks off Phoenix's wing by his crest.
+- **Panel 03 is the zip shot's set-up**, front-right, with Phoenix stepping into the door: the same side and size as the
+  panel, no cut.
+- **The tow (panels 04-05) is filmed from 4.3 m up, pushing in to 3.5 m** on the collapse: lower, his crest covers
+  both faces as he tows them toward us.
+- **At the sunrise Phoenix points with his outer arm**, so most of the point is off the left edge: the near arm crossed
+  Reaper's face. A medium from his side for the nod put Phoenix in front of both friends, so the sunrise stays one wide.
