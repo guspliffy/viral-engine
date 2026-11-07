@@ -66,6 +66,7 @@ const SIZE = {
   iounote: { w: 0.16, h: 0.16, t: 0.002 },         // props-coffee.js sticky note: the phone hold (its writing is on the back: it faces whoever he shows it to)
   feltpen: { len: 0.13, r: 0.009 },                // props-coffee.js marker, its felt tip at the bottom: the thin pinch high on the body
   milkbottle: { r: 0.04, h: 0.2 },                 // props-coffee.js glass milk bottle: the mug hold round its body
+  fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

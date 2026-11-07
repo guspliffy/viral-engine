@@ -1,0 +1,39 @@
+{
+ "name": "golden-country-road",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view standing in the middle of a wide straight empty country road, grey asphalt with a dashed centre line fills the bottom half and runs straight to the horizon, grass verges, golden wheat fields, a few poplar trees far away, rolling hills, warm golden hour sky with pink cumulus clouds, sun low on the left",
+ "no": "people, car, vehicle, potato, animal, text, sign, building, fence in foreground, tree in foreground, aerial view, high angle, rain, wet road",
+ "seeds": [
+  88,
+  7,
+  19,
+  42
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 4.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   4.5,
+   20.0
+  ]
+ },
+ "light": {
+  "from": "low from the left: golden hour sun",
+  "key": [
+   -6.0,
+   3.5,
+   -3.0
+  ],
+  "shadow": 0.35
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 90,
+ "standRatio": 0.55,
+ "pad": 0.3,
+ "padY": 0.12
+}
