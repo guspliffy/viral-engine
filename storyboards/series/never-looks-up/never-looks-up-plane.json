@@ -56,24 +56,13 @@
   }
  },
  "music": {
-  "style": "warm",
-  "bpm": 96,
+  "file": "ai/disaster/disaster-04.ogg",
+  "until": 10.5,
   "lowCut": 150,
-  "gain": 0.3,
-  "parts": [
-   {
-    "at": 0,
-    "part": "main"
-   },
-   {
-    "at": 10.5,
-    "part": "hush"
-   },
-   {
-    "at": 11.65,
-    "part": "drop"
-   }
-  ]
+  "gain": 0.45,
+  "duck": {
+   "db": 9
+  }
  },
  "sound": {
   "sfx": 0.7,
@@ -755,6 +744,12 @@
      "gain": 0.32,
      "dur": 12.45,
      "reason": "the cabin's engine rumble bed",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.7,
+     "reason": "frame 0 (video rule B2: an impact at 0.0 s): the bin lid bangs open as the holdall drops out",
      "at": 0
     },
     {
