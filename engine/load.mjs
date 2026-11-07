@@ -142,7 +142,7 @@ export function loadStoryboard(file, opts = {}) {
 // writing 0.01. A hop, a talk, a blink, a walk and anything a frame or longer keep their times. Times stay at 0 or
 // later (page code reads the pose at an action's own time, e.g. a grab's held offset). It runs after the camera is
 // directed, so the shots don't change; old clips without the flag load exactly as before.
-const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "tilt", "hat", "span", "skin", "wings"]);
+const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "bloom", "tilt", "hat", "span", "skin", "wings"]);
 export function cleanStart(sb) {
   if (!sb.cleanStart || !sb.actions) return sb;
   const frame = 1 / (sb.fps ?? 30);

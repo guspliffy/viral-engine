@@ -610,6 +610,8 @@ export function actorState(sb, actor, def, t, raw = false) {
       // turn in Then I'm a Zombie Too (stage.js skinTint); to: 0 fades it back
       case "skin": st.skinColor = a.color ?? st.skinColor; st.skin = lerp(st.skin, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
+      // { do: "bloom", to: 1, dur, ease: "back" }: a potato blossom opens on the sprout (costumes.js; always orders potatoes)
+      case "bloom": st.bloom = lerp(st.bloom || 0, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
       // { do: "hat", off, spin } tips or lifts the hat; on: false hides it (a costume pulled over it, the sheet ghost)
       case "hat": {
