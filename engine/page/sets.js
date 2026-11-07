@@ -124,6 +124,11 @@ function plain(scene, spec) {
   scene.add(skyDome(S.color, S.color, S.floor));
   const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ color: S.floor }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; ground.material.userData.noOutline = true; scene.add(ground);
+  // spec.grid (metres between lines, e.g. 0.25): a level floor grid for motion diagnostics (feet skating, travel, contact)
+  if (S.grid) {
+    const n = Math.round(12 / S.grid), g = new THREE.GridHelper(n * S.grid, n, "#8a7a64", "#b9a88e");
+    g.position.y = 0.002; g.material.userData = { noOutline: true }; g.name = "set-grid"; scene.add(g);
+  }
 }
 
 // "meadow": a soft grassy stage under a warm sky, rolling hills and a few clouds.

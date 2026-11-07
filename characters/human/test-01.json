@@ -1,0 +1,47 @@
+{
+ "id": "human/test-01",
+ "name": "Human test 01 (first movement test, original stand-in design, 6 Nov 2026)",
+ "rig": "human-v1",
+ "model": "human-01",
+ "sheet": true,
+ "sheetHatch": true,
+ "body": {
+  "color": "#f4cfb1",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f4cfb1",
+  "width": 0.03
+ },
+ "face": {
+  "default": "kind",
+  "size": 0.27,
+  "iris": "#5a3020",
+  "cheeks": "#f08a7a",
+  "blush": 0.6,
+  "eye": {
+   "flick": 0.6,
+   "irisShade": true,
+   "oval": 1.3,
+   "lash": 1.0,
+   "depth": 0.1,
+   "iris": 0.72
+  },
+  "browShape": {
+   "arch": 0.04,
+   "thick": 0.6
+  },
+  "layout": {
+   "eyeU": 0.36,
+   "eyeV": 0.32,
+   "browV": 0.6,
+   "mouthV": -0.3,
+   "mouthW": 0.2,
+   "cheekU": 0.62,
+   "cheekV": -0.08
+  }
+ }
+}

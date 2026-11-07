@@ -601,7 +601,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
@@ -609,7 +609,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
       cache.set(m, t); made.add(t);
     }
     return t;
