@@ -610,7 +610,7 @@
   },
   {
    "from": 1.4,
-   "to": 2.2,
+   "to": 2,
    "text": "AH-AH-AH!!",
    "pos": 520,
    "pop": true,
@@ -2144,7 +2144,7 @@
   {
    "name": "P3 masks",
    "at": 1,
-   "len": 1.4,
+   "len": 1.02,
    "shot": {
     "pos": [
      -0.15,
@@ -2911,81 +2911,13 @@
      "do": "blink",
      "dur": 0.22,
      "at": 1
-    },
-    {
-     "who": "rea",
-     "do": "grab",
-     "prop": "maskR",
-     "hand": "L",
-     "grip": [
-      0,
-      -0.03,
-      -0.03
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 1.02
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.06
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       1.11,
-       0.7999999999999999,
-       0.5499999999999999
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "beltW",
-     "set": {
-      "open": 1
-     },
-     "dur": 0.25,
-     "ease": "out",
-     "at": 1.15
-    },
-    {
-     "sfx": "kenney/switch",
-     "gain": 0.5,
-     "reason": "the Wizard's belt buckle clicks open",
-     "at": 1.15
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.36,
-       0.62,
-       0.26
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.3
     }
    ]
   },
   {
    "name": "P3 Phoenix close",
-   "at": 2.4,
-   "len": 0.6,
+   "at": 2.02,
+   "len": 0.98,
    "shot": {
     "pos": [
      -0.74,
@@ -3024,17 +2956,85 @@
    },
    "do": [
     {
+     "who": "rea",
+     "do": "grab",
+     "prop": "maskR",
+     "hand": "L",
+     "grip": [
+      0,
+      -0.03,
+      -0.03
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.04
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1.11,
+       0.7999999999999999,
+       0.5499999999999999
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "beltW",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.13
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.5,
+     "reason": "the Wizard's belt buckle clicks open",
+     "at": 0.13
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.62,
+       0.26
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
      "who": "wiz",
      "do": "blink",
      "dur": 0.2,
-     "at": 0.05
+     "at": 0.43
     },
     {
      "who": "rea",
      "do": "release",
      "prop": "maskR",
      "dur": 0,
-     "at": 0.15
+     "at": 0.53
     },
     {
      "do": "prop",
@@ -3046,7 +3046,7 @@
      },
      "dur": 0.06,
      "ease": "inOut",
-     "at": 0.15
+     "at": 0.53
     },
     {
      "who": "rea",
@@ -3061,7 +3061,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.2
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3072,19 +3072,19 @@
      ],
      "dur": 0.35,
      "blink": false,
-     "at": 0.2
+     "at": 0.58
     },
     {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.3
+     "at": 0.68
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.2,
-     "at": 0.35
+     "at": 0.73
     },
     {
      "who": "phx",
@@ -3092,7 +3092,7 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.4
+     "at": 0.78
     },
     {
      "who": "phx",
@@ -3100,7 +3100,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.56
+     "at": 0.94
     }
    ]
   },
@@ -5351,7 +5351,7 @@
   },
   {
    "from": 1.35,
-   "to": 2.38,
+   "to": 2,
    "see": [
     "phx.face",
     "wiz.face",
@@ -5424,7 +5424,7 @@
    "why": "OUTSIDE: the plane lurches and rocks in the storm (why the bags fall)"
   },
   {
-   "from": 2.45,
+   "from": 2.07,
    "to": 2.95,
    "see": [
     "phx.face",

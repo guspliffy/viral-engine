@@ -51,7 +51,7 @@ const PIECES = VARIANT === "A"
 const BUCK_AT = VARIANT === "A" ? 0.32 : 0, INS_T = 1.0, FALL_AT = VARIANT === "A" ? 2.52 : 3.0, INS = 1.5;
 const TIP0 = VARIANT === "A" ? 0.25 : 0.5;   // A: the nose goes down sooner, so the fall reads by 3 s
 // B (Jonny 14:02): a close-up on Phoenix, still scrolling, just before the plane drops; the fall stays at 3.0
-const CLOSE_AT = 2.4;
+const CLOSE_AT = 2.02;   // v6.2 (Jonny 14:31): the cut lands right as "AH-AH-AH!!" ends (and the pink case has settled)
 const pieceOf = (t) => PIECES.find((q, i) => t >= q.v[0] - 1e-6 && (t < q.v[1] - 1e-6 || i === PIECES.length - 1));
 const T = (t) => {   // a v2 cabin time -> its clip time
   const q = pieceOf(t), [a, b] = q.v;
@@ -606,6 +606,7 @@ const BUCK = { ...shot(CAM_X, LOOK_T, 30, { hand: { rate: 0, bob: 0, sway: 0, dr
 const OUTSIDE = { ...shot(CAM_X, LOOK_X, 36, { hand: { rate: 0, bob: 0, sway: 0, drift: 0, dips: [[LT, 0.9, 0.35], [X0 + 0.5, 1.2, 0.6]] } }), to: { look: LOOK_X2 }, dur: INS - 0.1 };
 // B: in on Phoenix's face and phone, front-left like the peak, while the cabin shakes round him
 const CLOSE = shot([-0.74, 1.0, 2.3], [-1.04, 0.9, 0.2], 40, { hand: HAND });
+if (VARIANT === "B") for (const q of c.captions) if (q.from < CLOSE_AT && q.to > CLOSE_AT) q.to = r3(CLOSE_AT - 0.02);   // and its caption goes with it
 if (VARIANT === "B") for (const v of c.visible) if (v.from < CLOSE_AT && v.to > CLOSE_AT) v.to = r3(CLOSE_AT - 0.02);   // the wide's list ends at the cut
 if (VARIANT === "B") c.see(CLOSE_AT + 0.05, FALL_AT - 0.05, ["phx.face", "phone"], "B: Phoenix still scrolling, calm, just before the plane drops");
 const beats = c.beats([
