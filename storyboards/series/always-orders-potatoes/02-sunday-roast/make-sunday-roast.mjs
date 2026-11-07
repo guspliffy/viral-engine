@@ -16,6 +16,10 @@ import { clip, write, r3, frame } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 
+// V3RULES=1 writes the reach-rules-v3 re-cut (Jonny 7 Nov, the posting test's day 4) as sunday-roast-v3rules.json beside
+// this one: the first line a promise meant to break ("I'll share this time. Promise!", 0.05 s, rule B7) and a cut to
+// the victim's face at 1.05 s, Gunslinger frozen in an unimpressed look for 0.67 s (rule B8). Everything else is the same.
+const V3 = process.env.V3RULES === "1";
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
 // two 3-frame hit-stops (the spell's puff, the spear at the table's edge) add 0.2 s: 9.8 s of story = 10.0 s of video
 const HS1 = 5.6, HS2 = 7.8, END = 9.8;
@@ -106,7 +110,8 @@ A(0, "sam", "lean", { to: 12, dur: 0 }); A(0.05, "sam", "lean", { to: 0, dur: 0.
 c.arm(0, "wiz", "R", { o: [-0.1, 0.36, 0.3] }, 0);
 A(0, "sam", "look", { to: [0.1, -0.35], dur: 0, blink: false }); A(0, "sam", "face", { lid: 0.3, dur: 0 });
 A(0.55, "sam", "look", { to: [0, 0], dur: 0.15, blink: false });
-act.opener(c, "vik", "ROASTIES!", { at: 0.05, dur: 0.6, tone: "excited", pos: SUB_LOW });
+if (V3) act.opener(c, "vik", "I'll share this time. Promise!", { at: 0.05, dur: 0.9, tone: "excited", pos: SUB_LOW });
+else act.opener(c, "vik", "ROASTIES!", { at: 0.05, dur: 0.6, tone: "excited", pos: SUB_LOW });
 A(0, "vik", "look", { to: [0, -0.6], dur: 0, blink: false });
 A(0, "vik", "expr", { expr: "eager", set: { open: 0.55 }, dur: 0 });
 // both fists up at his chest (the fork in the right one), a bounce on the word
@@ -120,7 +125,14 @@ A(0.6, "gsl", "look", { to: [0.4, 0.05], dur: 0.15, blink: false });   // to Vik
 A(0.7, "wiz", "look", { to: [-0.4, 0.05], dur: 0.15, blink: false });
 A(0.75, "gsl", "face", { brow: 0.25, dur: 0.25 });
 A(0, "gsl", "droop", { to: 0, dur: 0 });
-see(0, 1.45, ["vik.face", "gsl.face", "wiz.face", "rea.face", "heap"], "panel 1: the heap lands in front of Viking, ROASTIES!, his friends with their small plates");
+// v3: the cut to the victim (rule B8): Gunslinger, who glanced at Viking at 0.6, freezes in an unimpressed look
+const VIC = 1.05, VIC_END = 1.72;
+if (V3) {
+  A(r3(VIC - 0.1), "gsl", "expr", { expr: "annoyed", set: { curve: -0.2, smirk: 0.15 }, dur: 0.12 }); A(r3(VIC - 0.1), "gsl", "face", { lid: 0.4, dur: 0.12 });
+  A(VIC, "gsl", "still", { dur: r3(VIC_END - VIC), idle: 0 });
+  see(r3(VIC + 0.05), r3(VIC_END - 0.05), ["gsl.face"], "v3 rule B8: the victim's face, frozen in an unimpressed look at the promise");
+}
+see(0, V3 ? 1.0 : 1.45, ["vik.face", "gsl.face", "wiz.face", "rea.face", "heap"], "panel 1: the heap lands in front of Viking, ROASTIES!, his friends with their small plates");
 
 // ---------------------------------------------------------------- 2 FIRST BITE + BLOSSOM 1.5-2.8 (panel 2)
 // he tucks his napkin in (left hand), spears the top of the heap and eats: eyes shut, "Mmmmm!", and the blossom pops
@@ -362,9 +374,11 @@ const MORE = fw([0.05, 0.56, -0.5], { w: 2.2, el: 18, fov: 56 });
 const ROLLSHOT = fw([-0.1, 0.42, 0.05], { w: 1.3, el: 30, fov: 30 });
 // want some? (panel 8): Viking and the Wizard
 const OFFERSHOT = fw([0.6, 0.56, -0.45], { w: 1.9, az: 18, el: 18, fov: 48 });
+// v3: the victim close-up (rule B8): Gunslinger's face and hat, straight on
+const VICTIM = fw([GSL[0] + 0.05, 0.66, GSL[1] + 0.1], { w: 0.95, az: 12, el: 12, fov: 30 });
 const beats = c.beats([
   ["P1 the dish lands", 0, WIDE, "hook"],
-  ["P2 first bite", 1.5, BITE],
+  ...(V3 ? [["P1b the victim's face", VIC, VICTIM], ["P2 first bite", VIC_END, BITE]] : [["P2 first bite", 1.5, BITE]]),
   ["P3 the crunch test", 2.8, CRUNCH],
   ["P4 they give theirs up", 3.78, GIVE, "escalation"],
   ["P5 let me fix that", 4.4, SPELL],
@@ -377,7 +391,7 @@ const beats = c.beats([
 for (const cp of c.captions) { cp.pos = 1262; if (cp.text === "Mmmmm!") cp.to = 2.8; if (cp.text === "Listen to that crunch…") cp.to = 3.82; }
 
 write(import.meta.url, {
-  id: "sunday-roast",
+  id: V3 ? "sunday-roast-v3rules" : "sunday-roast",
   title: "That one friend who always orders potatoes… at Sunday roast",
   idea: "Always orders potatoes, episode 2: a London pub's Sunday roast. Viking's plate is heaped with roast potatoes; the first bite pops a blossom on his sprout; he listens to the crunch; his friends tip theirs onto his heap; the Wizard's spell doubles it; the top one rolls off and he spears it at the table's edge; Want some?",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",

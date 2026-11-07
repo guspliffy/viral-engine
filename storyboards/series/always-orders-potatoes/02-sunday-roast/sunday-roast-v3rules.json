@@ -1,0 +1,3564 @@
+{
+ "id": "sunday-roast-v3rules",
+ "title": "That one friend who always orders potatoes… at Sunday roast",
+ "idea": "Always orders potatoes, episode 2: a London pub's Sunday roast. Viking's plate is heaped with roast potatoes; the first bite pops a blossom on his sprout; he listens to the crunch; his friends tip theirs onto his heap; the Wizard's spell doubles it; the top one rolls off and he spears it at the table's edge; Want some?",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 2.7,
+ "set": {
+  "type": "plain",
+  "color": "#5a3a22",
+  "floor": "#4a3020",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/pub-sunday.png",
+   "z": -2.4,
+   "center": [
+    0,
+    1.75
+   ],
+   "height": 7.8,
+   "depth": false,
+   "motion": false,
+   "dust": 10
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "march",
+  "key": 2,
+  "bpm": 116,
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "room": "room",
+  "guard": true,
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "gsl",
+   "wiz",
+   "rea",
+   "heap"
+  ],
+  "hint": 0.6,
+  "what": "a huge heap of roast potatoes lands in front of Viking (ROASTIES!), next to his friends' two each"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "always-orders-potatoes/gunslinger",
+   "at": [
+    -1.12,
+    -0.64
+   ],
+   "face": 16,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    0,
+    -0.68
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.25,
+   "seed": 2.1
+  },
+  {
+   "id": "wiz",
+   "character": "always-orders-potatoes/wizard",
+   "at": [
+    1.12,
+    -0.64
+   ],
+   "face": -16,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 2.6
+  },
+  {
+   "id": "sam",
+   "character": "bistro/samurai-waiter",
+   "at": [
+    -0.5,
+    -1.75
+   ],
+   "y": 0.5,
+   "face": 8,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.2,
+   "sway": 0.4
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.55,
+    -1.75
+   ],
+   "y": 0.5,
+   "face": -8,
+   "expr": "deadpan",
+   "follow": 0.25,
+   "seed": 3.3
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "pubstep",
+   "x": 0,
+   "z": -1.5,
+   "w": 3.6,
+   "d": 0.95,
+   "h": 0.5
+  },
+  {
+   "id": "beam",
+   "kind": "hopbeam",
+   "x": 0,
+   "y": 2.35,
+   "z": -1.95,
+   "w": 4.4,
+   "n": 10,
+   "seed": 4
+  },
+  {
+   "id": "table",
+   "kind": "pubtable",
+   "x": 0,
+   "z": 0.9,
+   "w": 3.6,
+   "d": 2.4,
+   "h": 0.34,
+   "runner": 0.34
+  },
+  {
+   "id": "heap",
+   "kind": "roastheap",
+   "x": 0,
+   "y": 0.34,
+   "z": 0,
+   "n": 12,
+   "m": 21,
+   "scale": 1.45,
+   "steam": 0,
+   "seed": 5
+  },
+  {
+   "id": "aura",
+   "kind": "spellaura",
+   "x": 0,
+   "y": 0.34,
+   "z": 0,
+   "w": 1.5,
+   "d": 1.5,
+   "scale": 0.36,
+   "color": "#b45cff",
+   "glow": 0
+  },
+  {
+   "id": "plateG",
+   "kind": "roastplate",
+   "x": -0.7,
+   "y": 0.34,
+   "z": 0.62,
+   "seed": 3
+  },
+  {
+   "id": "plateW",
+   "kind": "roastplate",
+   "x": 0.7,
+   "y": 0.34,
+   "z": 0.62,
+   "seed": 8,
+   "rot": 180
+  },
+  {
+   "id": "rG1",
+   "kind": "roastie",
+   "x": -0.735,
+   "y": 0.352,
+   "z": 0.575,
+   "seed": 11,
+   "scale": 1,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "rG2",
+   "kind": "roastie",
+   "x": -0.67,
+   "y": 0.352,
+   "z": 0.57,
+   "seed": 12,
+   "scale": 1,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "rW1",
+   "kind": "roastie",
+   "x": 0.735,
+   "y": 0.352,
+   "z": 0.575,
+   "seed": 13,
+   "scale": 1,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "rW2",
+   "kind": "roastie",
+   "x": 0.67,
+   "y": 0.352,
+   "z": 0.57,
+   "seed": 14,
+   "scale": 1,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "flyG",
+   "kind": "roastie",
+   "x": -0.6,
+   "y": 0.6,
+   "z": -0.2,
+   "seed": 15,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   },
+   "staged": "on Gunslinger's fork until he flicks it (the fork's own roast potato is shown till then)"
+  },
+  {
+   "id": "flyR",
+   "kind": "roastie",
+   "x": 0.3,
+   "y": 0.9,
+   "z": -0.9,
+   "seed": 16,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   },
+   "staged": "on Reaper's fork until he flicks it"
+  },
+  {
+   "id": "rollie",
+   "kind": "roastie",
+   "x": 0.005,
+   "y": 0.555,
+   "z": 0.012,
+   "seed": 17,
+   "scale": 0.001,
+   "body": {
+    "friction": 1.6,
+    "bounce": 0.05
+   },
+   "staged": "the top of the doubled heap: it pops in with the spell"
+  },
+  {
+   "id": "gravy",
+   "kind": "gravyboat",
+   "x": 0.42,
+   "y": 0.34,
+   "z": 1.05,
+   "rot": 200
+  },
+  {
+   "id": "mills",
+   "kind": "mills",
+   "x": -0.42,
+   "y": 0.34,
+   "z": 1.05
+  },
+  {
+   "id": "forkV",
+   "kind": "fork",
+   "x": -0.3,
+   "y": 0.629,
+   "z": -0.253,
+   "tip": -160,
+   "food": 0,
+   "foodSeed": 15,
+   "staged": "in Viking's fist from the first frame"
+  },
+  {
+   "id": "forkG",
+   "kind": "fork",
+   "x": -0.603,
+   "y": 0.616,
+   "z": -0.24,
+   "tip": -120,
+   "rot": 90,
+   "food": 1,
+   "foodSeed": 15,
+   "staged": "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)"
+  },
+  {
+   "id": "forkR",
+   "kind": "fork",
+   "x": 0.39,
+   "y": 0.989,
+   "z": -1.383,
+   "tip": -160,
+   "food": 1,
+   "foodSeed": 15,
+   "staged": "in Reaper's fist from the first frame, a roast potato from his own plate on it (his plate is below the frame, behind the front row)"
+  },
+  {
+   "id": "napkin",
+   "kind": "napkin",
+   "wear": "vik",
+   "x": 0,
+   "y": 0.6,
+   "z": 0.5,
+   "w": 0.46,
+   "h": 0.32,
+   "scale": 0.001
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.35,
+   "text": "I'll share this time. Promise!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.22,
+   "to": 2.8,
+   "text": "Mmmmm!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.4,
+   "to": 3.82,
+   "text": "Listen to that crunch…",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.7,
+   "to": 5.7,
+   "text": "Let me fix that.",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "MORE?!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.75,
+   "to": 9.7,
+   "text": "Want some?",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1 the dish lands",
+   "at": 0,
+   "len": 1.05,
+   "shot": {
+    "pos": [
+     0,
+     1.649,
+     3.438
+    ],
+    "look": [
+     0,
+     0.52,
+     -0.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "forkV",
+     "hand": "R",
+     "grip": [
+      0,
+      0.138,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "forkG",
+     "hand": "L",
+     "grip": [
+      0,
+      0.113,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkR",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "forkR",
+     "hand": "R",
+     "grip": [
+      0,
+      0.138,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/impact-plate-light",
+     "gain": 0.55,
+     "reason": "the heaped plate set down on the oak table: a ceramic clack",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.36,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.35
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       0.55,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.55
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "I'll share this time. Promise!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.25,
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.2,
+      "smirk": 0.15
+     },
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.12,
+     "at": 0.95
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P1b the victim's face",
+   "at": 1.05,
+   "len": 0.67,
+   "shot": {
+    "pos": [
+     -0.429,
+     1.315,
+     2.475
+    ],
+    "look": [
+     -1.07,
+     0.66,
+     -0.54
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.67,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.27
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.6,
+       0.33
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.37
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 0.37
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.177,
+       0.506,
+       -0.096
+      ]
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "napkin",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.45,
+     "reason": "the napkin tucked into his collar with a flick",
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.63
+    }
+   ]
+  },
+  {
+   "name": "P2 first bite",
+   "at": 1.72,
+   "len": 1.08,
+   "shot": {
+    "pos": [
+     -0.1,
+     2.766,
+     4.37
+    ],
+    "look": [
+     -0.1,
+     0.44,
+     -0.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.1,
+      2.627,
+      4.084
+     ]
+    },
+    "dur": 1.2
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.177,
+       0.466,
+       -0.076
+      ]
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
+     "sfx": "kenney/impact-plate-light",
+     "gain": 0.22,
+     "reason": "the fork's tines tick on the heap as they go into a roast potato",
+     "at": 0.09
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.02,
+       0.6,
+       -0.27
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": 110
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.45,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0.33
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.25,
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.7,
+     "reason": "the first bite: a crisp roast potato crunch",
+     "at": 0.43
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0,
+      "curve": 0.9
+     },
+     "dur": 0.08,
+     "at": 0.47
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.08,
+     "at": 0.47
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "at": 0.48
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "mmmmm!",
+     "tone": "happy",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.3,
+       0.382,
+       -0.115
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.71
+    },
+    {
+     "who": "vik",
+     "do": "bloom",
+     "to": 1,
+     "dur": 0.25,
+     "ease": "back",
+     "at": 0.73
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.6,
+     "reason": "the series' sound logo: the potato blossom pops open on Viking's sprout",
+     "at": 0.73
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.87
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.98
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 1.03
+    }
+   ]
+  },
+  {
+   "name": "P3 the crunch test",
+   "at": 2.8,
+   "len": 0.98,
+   "shot": {
+    "pos": [
+     -1.315,
+     2.914,
+     4.523
+    ],
+    "look": [
+     -0.42,
+     0.62,
+     -0.55
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.55
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.101,
+       0.492,
+       -0.113
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.101,
+       0.447,
+       -0.113
+      ]
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 0.13
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 1,
+     "reason": "his fork taps the crisp roast potato: a dry tok",
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.101,
+       0.492,
+       -0.113
+      ]
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.19
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.101,
+       0.447,
+       -0.113
+      ]
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 0.31
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 1,
+     "reason": "his fork taps the crisp roast potato: a dry tok",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.48,
+       0.9,
+       -0.5
+      ]
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.72,
+       0.02
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.42
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.15,
+     "at": 0.42
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "listen to that crunch…",
+     "tone": "calm",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.12,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.62
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.554,
+       0.718,
+       -0.2
+      ]
+     },
+     "dur": 0.23,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -110
+     },
+     "dur": 0.23,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       0.55,
+       0.32
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.15,
+     "at": 0.86
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.32,
+       0.679,
+       -0.231
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.92
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.92
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "P4 they give theirs up",
+   "at": 3.78,
+   "len": 0.62,
+   "shot": {
+    "pos": [
+     0,
+     1.568,
+     2.824
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.55
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.564,
+       0.817,
+       -0.16
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.04
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.07
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.07
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.25,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkR",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.33,
+       1.229,
+       -1.253
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "forkR",
+     "set": {
+      "tip": -160
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.45,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "flyG",
+     "set": {
+      "x": -0.564,
+      "y": 0.771,
+      "z": -0.16,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.17
+    },
+    {
+     "do": "physics",
+     "prop": "flyG",
+     "mode": "throw",
+     "to": [
+      -0.04,
+      0.49,
+      -0.02
+     ],
+     "in": 0.3,
+     "spin": [
+      5,
+      1,
+      2
+     ],
+     "at": 0.17
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.603,
+       0.616,
+       -0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -120
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkR",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.3,
+       1.199,
+       -1.137
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "forkR",
+     "set": {
+      "tip": -125
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.34
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.42
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.42
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.42
+    },
+    {
+     "do": "prop",
+     "id": "flyR",
+     "set": {
+      "x": 0.3,
+      "y": 1.153,
+      "z": -1.137,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.46
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.35,
+     "reason": "Gunslinger's roast potato lands on top of the heap",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "forkR",
+     "set": {
+      "food": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.47
+    },
+    {
+     "do": "physics",
+     "prop": "flyR",
+     "mode": "throw",
+     "to": [
+      0.05,
+      0.5,
+      -0.04
+     ],
+     "in": 0.3,
+     "spin": [
+      -4,
+      2,
+      1
+     ],
+     "at": 0.47
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkR",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.39,
+       0.989,
+       -1.383
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "forkR",
+     "set": {
+      "tip": -160
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.52
+    },
+    {
+     "who": "sam",
+     "do": "droop",
+     "to": 0.27,
+     "dur": 0.35,
+     "at": 0.57
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "P5 let me fix that",
+   "at": 4.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.418,
+     3.021,
+     4.752
+    ],
+    "look": [
+     0.68,
+     0.66,
+     -0.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 1,
+     "reason": "Reaper's roast potato lands on the heap",
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.8,
+       0.4
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "tilt",
+     "to": [
+      14,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "let me fix that.",
+     "tone": "calm",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 1,
+     "dur": 0.4,
+     "at": 0.35
+    },
+    {
+     "sfx": "charge",
+     "gain": 0.4,
+     "dur": 0.85,
+     "reason": "the Wizard's spell charging on the heap",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "aura",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.4,
+      "eye": 1.15
+     },
+     "dur": 0.2,
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "P6 more",
+   "at": 5.6,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.05,
+     1.696,
+     2.998
+    ],
+    "look": [
+     0.05,
+     0.56,
+     -0.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "more": 1,
+      "steam": 0.9
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "sig-wizard",
+     "gain": 0.6,
+     "reason": "the Wizard's own trick: the spell puffs and the heap doubles",
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.54,
+      0
+     ],
+     "dur": 0.35,
+     "color": "#fff2c0",
+     "puffs": 6,
+     "sparks": 16,
+     "size": 0.45,
+     "lift": 0.25,
+     "at": 0
+    },
+    {
+     "fx": "flash",
+     "dur": 0.04,
+     "peak": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "aura",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "charge",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "tilt",
+     "to": null,
+     "dur": 0.35,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.65,
+      "eye": 1.2
+     },
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": 8
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.12,
+     "at": 0.08
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": -6
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "steam": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": 4
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.82,
+       0.24
+      ]
+     },
+     "dur": 0.26,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.36,
+       0.953,
+       -0.464
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -165
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "MORE?!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 0.5
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.55
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.08,
+     "at": 0.65
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "who": "sam",
+     "do": "droop",
+     "to": 0.51,
+     "dur": 0.35,
+     "at": 0.85
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "forkG",
+      "grip": [
+       0,
+       0.113,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.823,
+       0.676,
+       -0.05
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "forkG",
+     "set": {
+      "tip": -120
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.32,
+       0.679,
+       -0.231
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": 7
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": -5
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.25
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "P7 the roll",
+   "at": 6.9,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.1,
+     2.576,
+     3.785
+    ],
+    "look": [
+     -0.1,
+     0.42,
+     0.05
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "tilt": 9
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "rollie",
+     "mode": "throw",
+     "to": [
+      -0.08,
+      0.34,
+      0.18
+     ],
+     "in": 0.35,
+     "spin": [
+      7,
+      0,
+      0
+     ],
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.65
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.15,
+     "at": 0.17
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.15,
+     "at": 0.17
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.4
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.8,
+     "reason": "the roast potato bumps down onto the oak table (its landing in the physics bake)",
+     "at": 0.47
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.17,
+      0.36,
+      0.2
+     ],
+     "dur": 0.3,
+     "color": "#e8c27a",
+     "puffs": 3,
+     "sparks": 5,
+     "size": 0.12,
+     "lift": 0.06,
+     "at": 0.47
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 20,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.4,
+       0.37,
+       -0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.2,
+       0.474,
+       0.3
+      ]
+     },
+     "dur": 0.27,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -10
+     },
+     "dur": 0.27,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.2,
+       0.394,
+       0.31
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -10
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "food": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "sfx": "kenney/impact-plate-light",
+     "gain": 0.95,
+     "reason": "the fork's tines hit the oak table through the roast potato: tock",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.85,
+     "reason": "the payoff: the fork goes through the crisp roast potato, crunch",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.97
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.2,
+       0.551,
+       0.493
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -60
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "sam",
+     "do": "droop",
+     "to": 0.81,
+     "dur": 0.35,
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.3,
+       0.719,
+       -0.031
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P8 want some",
+   "at": 8.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.715,
+     1.732,
+     2.981
+    ],
+    "look": [
+     0.6,
+     0.56,
+     -0.45
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.55,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8,
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.45,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "forkV",
+      "grip": [
+       0,
+       0.138,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.55,
+       0.619,
+       -0.231
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "tip": -150
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.14
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "want some?",
+     "tone": "question",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "soft": true,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.375
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.8999999999999999,
+     "idle": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.65,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -18,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 4,
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.08,
+       0.6,
+       0.36
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.28
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 1.1,
+   "to": 1.67,
+   "see": [
+    "gsl.face"
+   ],
+   "why": "v3 rule B8: the victim's face, frozen in an unimpressed look at the promise"
+  },
+  {
+   "from": 0,
+   "to": 1,
+   "see": [
+    "vik.face",
+    "gsl.face",
+    "wiz.face",
+    "rea.face",
+    "heap"
+   ],
+   "why": "panel 1: the heap lands in front of Viking, ROASTIES!, his friends with their small plates"
+  },
+  {
+   "from": 1.6,
+   "to": 2.75,
+   "see": [
+    "vik.face",
+    "heap"
+   ],
+   "why": "panel 2: the first bite, eyes shut, Mmmmm!, and the blossom on his sprout"
+  },
+  {
+   "from": 2.45,
+   "to": 2.75,
+   "see": [
+    "vik.sprout"
+   ],
+   "why": "the blossom"
+  },
+  {
+   "from": 3.3,
+   "to": 3.75,
+   "see": [
+    "vik.face",
+    "forkV",
+    "gsl.face"
+   ],
+   "why": "panel 3: the roast potato by his ear, listening; Gunslinger shocked"
+  },
+  {
+   "from": 3.78,
+   "to": 4.38,
+   "see": [
+    "gsl.face",
+    "rea.face",
+    "vik.face",
+    "heap"
+   ],
+   "why": "panel 4: Gunslinger and Reaper flick their roast potatoes onto his heap; Viking beams"
+  },
+  {
+   "from": 4.6,
+   "to": 5.55,
+   "see": [
+    "wiz.face",
+    "heap",
+    "aura",
+    "vik.face"
+   ],
+   "why": "panel 5: the Wizard's purple ring spell round the heap"
+  },
+  {
+   "from": 5.6,
+   "to": 6.85,
+   "see": [
+    "vik.face",
+    "heap",
+    "gsl.face",
+    "wiz.face"
+   ],
+   "why": "panel 6: the doubled heap, MORE?!, the friends glaring, the Wizard realising"
+  },
+  {
+   "from": 7.05,
+   "to": 7.95,
+   "see": [
+    "vik.face",
+    "rollie",
+    "forkV"
+   ],
+   "why": "panel 7: the roast potato rolls to the table's edge, he spears it without looking"
+  },
+  {
+   "from": 8.9,
+   "to": 9.75,
+   "see": [
+    "vik.face",
+    "wiz.face",
+    "forkV",
+    "vik.sprout"
+   ],
+   "why": "panel 8: Want some? held out to the Wizard, who leans back, glove up; the blossom; the friends' sprouts limp"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 5.6,
+   "frames": 3
+  },
+  {
+   "at": 7.8,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "napkin",
+   "from": 0,
+   "to": 10,
+   "reason": "the napkin tucked into his collar (worn)"
+  },
+  {
+   "who": "vik",
+   "with": "heap",
+   "from": 1.6,
+   "to": 3.2,
+   "reason": "his fork goes into the roast potatoes on his heap"
+  },
+  {
+   "who": "vik",
+   "with": "rollie",
+   "from": 7.5,
+   "to": 8,
+   "reason": "his fork spears the roast potato at the table's edge"
+  },
+  {
+   "who": "vik",
+   "with": "table",
+   "from": 7.2,
+   "to": 8.6,
+   "reason": "he leans over the table to spear the roast potato at its edge; the fork's tines touch the oak"
+  }
+ ],
+ "notes": "Generated by storyboards/series/always-orders-potatoes/02-sunday-roast/make-sunday-roast.mjs. Panels: PANELS.md."
+}
