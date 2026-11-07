@@ -21,6 +21,13 @@ import * as act from "../../../lib/acting.mjs";
 import { NIGHTHALL } from "../../../../engine/page/set-nighthall.js";
 
 const c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
+// --v3: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
+// sneak-in-late-v3rules.json). Only 0-1.6 s changes: a medium two-shot of the Wizard (front) and Viking, Viking's
+// whispered order "Shh… Mom's asleep." at 0.02 s, the Wizard's foot on the creaky board at 0.5 s (the freeze), a cut
+// at 0.95 s to Viking's frozen close-up (the 0.65 s reaction hold), then the push in on the spell as posted.
+const V3 = process.argv.includes("--v3");
+const D0 = V3 ? 0 : 0.01;   // v3: frame-0 poses with dur 0, so frame 0 already shows them
+const K = V3 ? 0.37 : 0;    // v3: the creak and the freeze come 0.37 s later, after the whisper
 const END = 9.8;   // + two 3-frame hit-stops = 10.0 s of video (series format: a hard cut at 10.0)
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const HW = NIGHTHALL.w / 2, DOOR = NIGHTHALL.door, MOMZ = NIGHTHALL.mom.z;
@@ -71,28 +78,33 @@ const props = [
 // ---------------------------------------------------------------- 01 ALREADY GOING WRONG 0-1.5
 // tiptoe poses: crouched, arms up and out like a cartoon sneak, everyone mid-step
 const TIP = { R: { o: [0.08, 0.55, 0.24] }, L: { o: [0.08, 0.55, 0.24] } };
-for (const id of ["vik", "rea"]) { c.arm(0, id, "R", TIP.R, 0.01); c.arm(0, id, "L", TIP.L, 0.01); A(0, id, "crouch", { to: 0.5, dur: 0.01 }); }
-A(0, "wiz", "crouch", { to: 0.5, dur: 0.01 }); c.arm(0, "wiz", "R", { o: [0.1, 0.45, 0.3] }, 0.01);   // low, clear of Viking's face behind him
-A(0, "phx", "crouch", { to: 0.4, dur: 0.01 });
+for (const id of ["vik", "rea"]) { c.arm(0, id, "R", TIP.R, D0); c.arm(0, id, "L", TIP.L, D0); A(0, id, "crouch", { to: 0.5, dur: D0 }); }
+A(0, "wiz", "crouch", { to: 0.5, dur: D0 }); c.arm(0, "wiz", "R", { o: [0.1, 0.45, 0.3] }, D0);   // low, clear of Viking's face behind him
+A(0, "phx", "crouch", { to: 0.4, dur: D0 });
 A(0, "phx", "grab", { prop: "torch", hand: "R", grip: [0.032, 0.03, 0], pose: null });
-c.prop(0, "torch", { on: 1 }, 0.01);
-c.prop(0, "door", { open: 0 }, 0.01);
-for (const id of ["wiz", "phx", "vik", "rea"]) A(0, id, "look", { to: [0.1, -0.35], dur: 0.01, blink: false });
-for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", set: { curve: -0.1, open: 0 }, dur: 0.01 }); A(0, id, "face", { lid: 0.35, dur: 0.01 }); }   // sneaky, not a greeting (review B)
+c.prop(0, "torch", { on: 1 }, D0);
+c.prop(0, "door", { open: 0 }, D0);
+for (const id of ["wiz", "phx", "vik", "rea"]) A(0, id, "look", { to: [0.1, -0.35], dur: D0, blink: false });
+for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", set: { curve: -0.1, open: 0 }, dur: D0 }); A(0, id, "face", { lid: 0.35, dur: D0 }); }   // sneaky, not a greeting (review B)
 // the situation, spelled out (Jonny 5 Nov: "one doesn't understand the situation"): Mom asleep behind her door, z's
 // floating from it at the start and just before her light snaps on (the hall shots that show her door clear); her "BOYS?!" when it does
-cap(0, 1.45, "Shh… Mom's asleep.", 470);
+if (V3) A(0.02, "vik", "talk", { line: "shh... moms asleep", tone: "calm", dur: 0.45, voice: false, soft: true });
+cap(V3 ? 0.02 : 0, V3 ? 0.95 : 1.45, "Shh… Mom's asleep.", 470);
 for (const t of [0, 0.6, 7.6, 8.1]) c.at(t, { fx: "zzz", pos: [NIGHTHALL.mom.x - 0.8, 0.9, NIGHTHALL.far + 0.15], dur: 1.2, count: 4, scale: 2.5 });
 // the Wizard's foot lands on the loose board: it flexes, CREAK (hit-stop), everyone freezes
-act.opener(c, "wiz", "eep!", { at: 0.05, dur: 0.35, tone: "excited" });
-c.prop(0.08, "board", { flex: 1, tick: 1 }, 0.08, "out");
-sfx(0.15, "door-creak", { gain: 0.8, reason: "the loose floorboard's long creak under the Wizard's foot" });
-c.hitStop(0.15, 3);
-c.prop(0.9, "board", { tick: 0 }, 0.2);
+act.opener(c, "wiz", "eep!", { at: 0.05 + K, dur: 0.35, tone: "excited" });
+c.prop(0.08 + K, "board", { flex: 1, tick: 1 }, 0.08, "out");
+sfx(0.15 + K, "door-creak", { gain: 0.8, reason: "the loose floorboard's long creak under the Wizard's foot" });
+c.hitStop(0.15 + K, 3);
+c.prop(0.9 + K, "board", { tick: 0 }, 0.2);
 for (const [i, id] of ["wiz", "vik", "phx", "rea"].entries()) {
-  A(0.2 + i * 0.04, id, "expr", { expr: "shocked", set: { eye: 1.3, open: 0.35, curve: -0.45 }, dur: 0.1 });
-  A(0.25 + i * 0.04, id, "look", { to: [0.75, 0.1], dur: 0.15, blink: false });   // all eyes down the hall to Mom's door
-  A(0.3, id, "still", { dur: 1.05, idle: 0.1 });
+  A(0.2 + K + i * 0.04, id, "expr", { expr: "shocked", set: { eye: 1.3, open: 0.35, curve: -0.45 }, dur: 0.1 });
+  A(0.25 + K + i * 0.04, id, "look", { to: [0.75, 0.1], dur: 0.15, blink: false });   // all eyes down the hall to Mom's door
+  A(0.3 + K, id, "still", { dur: 1.05 - K, idle: 0.1 });
+}
+if (V3) {   // before the creak Viking whispers at the Wizard; frozen, his eyes slide from Mom's door to the Wizard
+  A(0, "vik", "look", { to: [0.45, -0.2], dur: 0, blink: false });
+  A(1.15, "vik", "look", { to: [0.55, -0.15], dur: 0.12, blink: false });
 }
 A(1.42, "wiz", "expr", { expr: "eager", set: { curve: 0.3 }, dur: 0.25 }); A(1.45, "wiz", "look", { to: [0, 0.05], dur: 0.15 });
 A(1.38, "rea", "expr", { expr: "annoyed", dur: 0.3 }); A(1.4, "rea", "look", { to: [0.6, -0.05], dur: 0.15 });
@@ -260,9 +272,15 @@ const LIFT = { pos: [-0.2, 1.5, 5.0], look: [0.4, 0.95, -0.9], fov: 50 };
 const FIX = { pos: [0.4, 2.0, 4.1], look: [-0.1, 0.25, 0.7], fov: 54 };   // high, so the rug rolls down the frame
 const CHEER_S = { pos: [1.05, 1.9, 7.4], look: [-0.35, 0.55, 2.7], fov: 62 };
 const B_HALL = { pos: [0.1, 2.45, 6.4], look: [-0.2, 0.45, -1.5], fov: 50 };   // under the ceiling (2.6 m): above it the camera sees only the ceiling's top   // high, so Viking shows over the three heads  // 07-08: turned down the hall to Mom's door
+// v3: narrower lenses from the hall camera: the Wizard and Viking, then Viking frozen; the spell's push starts 0.1 s
+// later and ends where it did
+const TWO = { pos: A_HALL.pos, look: [0.3, 0.62, -0.2], fov: 31, to: { pos: A_HALL.pos, look: [0.3, 0.62, -0.2], fov: 28.5 }, dur: 0.95, ease: "linear" };
+const VIKCU = { pos: A_HALL.pos, look: [-0.13, 0.58, -0.85], fov: 13 };
+const OPENING = V3
+  ? [["v3 two-shot: the order", 0, TWO, "hook"], ["v3 Viking frozen", 0.95, VIKCU, "reaction"], ["02 wizard's spell", 1.6, { ...SPELL, dur: 1.3 }]]
+  : [["01 already going wrong", 0, A_HALL, "hook"], ["02 wizard's spell", 1.5, SPELL]];
 const beats = c.beats([
-  ["01 already going wrong", 0, A_HALL, "hook"],
-  ["02 wizard's spell", 1.5, SPELL],
+  ...OPENING,
   ["03 viking lifts", 3.3, LIFT, "escalation"],
   ["04 the catch", 4.5, null],
   ["05 the calm fix", 5.5, FIX, "payoff"],
@@ -272,7 +290,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "sneak-in-late",
+  id: V3 ? "sneak-in-late-v3rules" : "sneak-in-late",
   title: "My friend group trying to sneak in late without waking Mom",
   idea: "Friends try to, episode 6 (4 Nov 2026): every board creaks, a spell makes balloon slippers, the coat stand tips; Reaper rolls out the rug; Viking's gentle door close squeals and wakes Mom",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",

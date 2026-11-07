@@ -21,6 +21,11 @@ import { TENT, TENT_SIZE, ROPE_HAND } from "../../../../engine/page/props-tent.j
 const OPENER = { who: "wiz", line: "whoa!", words: false };
 const FACES = "strong";
 const MOTION = "natural";
+// --v3: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
+// pitch-a-tent-v3rules.json). Only 0-1.95 s changes: a medium two-shot of the Wizard on the flapping tent and Viking
+// at his peg with the Wizard's promise "Don't worry, I've got it!" at 0.05 s, a cut at 1.2 s to Viking's close-up
+// (he stops hammering and looks up at him, doubtful: the 0.75 s reaction hold), then back to the wide for the spell.
+const V3 = process.argv.includes("--v3");
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const T0 = 7.0, END = 9.8;   // + two 3-frame hit-stops (the yank, the scythe) = exactly 10.0 s
@@ -58,7 +63,8 @@ const VIK_END = Z([0.25, -0.3]);   // Viking steps back off the falling cloth wi
 const SCY0 = [r3(REA0[0] - 0.52), 0.55, r3(REA0[1] - 0.3)];   // half a metre out on his right (he faces -30)
 
 const cast = [
-  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: 90, expr: "shocked", follow: 0.3, seed: 2.6 },
+  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: V3 ? 55 : 90,   // v3: three-quarters to us, his face readable as he promises
+    expr: "shocked", follow: 0.3, seed: 2.6 },
   { id: "vik", character: "duo/viking", at: VIK0, face: -30, expr: "focused", follow: 0.3, seed: 4.1 },
   { id: "phx", character: "duo/phoenix", at: PHX0, face: 20, expr: "kind", follow: 0.3, seed: 1.7, span: 0.15 },
   { id: "rea", character: "notyet/reaper-noscythe", at: REA0, face: -30, expr: "deadpan", follow: 0.25, seed: 3.3 },
@@ -91,7 +97,11 @@ const SUB = 470, SUBS = { size: 62, kinetic: false };
 
 // ---------------------------------------------------------------- 1 ALREADY GOING WRONG 0-1.5 (P1)
 // no burned-in title: Jonny types it in-app (top 20 % clear for the first 2 s)
-act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
+if (!V3) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
+else {
+  A(0.05, "wiz", "talk", { line: "dont worry, ive got it!", tone: "excited", dur: 0.8, voice: false });
+  c.cap(0.05, 1.2, "Don't worry, I've got it!", SUB, false, SUBS);
+}
 // the gust has the tent: the Wizard clings to the sail's pole, leaning back, his feet sliding
 c.arm(0, "wiz", "R", { prop: "tent", part: "pole", grip: [-0.05, 0, 0.02], palm: true }, 0);
 A(0, "wiz", "grip", { side: "R", shape: "fist", dur: 0 });
@@ -107,12 +117,18 @@ A(0, "vik", "look", { to: [-0.3, -0.5], dur: 0, blink: false });
 A(0, "vik", "grip", { side: "R", shape: "fist", dur: 0 });
 const PEG_UP = { o: [-0.02, 0.42, 0.3] }, PEG_DOWN = { o: [-0.04, 0.12, 0.42] };
 c.arm(0, "vik", "R", PEG_UP, 0);
-for (const t of [0.2, 0.55, 0.9, 1.25]) {
+// (v3: the four blows come quicker, so he is still for his close-up; the peg ends as deep)
+const HITS = V3 ? [0.12, 0.42, 0.72, 1.0] : [0.2, 0.55, 0.9, 1.25];
+for (const t of HITS) {
   c.arm(t, "vik", "R", PEG_DOWN, 0.1, "in"); c.arm(r3(t + 0.12), "vik", "R", PEG_UP, 0.18, "out");
   sfx(r3(t + 0.1), "put-down-metal", { gain: 0.5, reason: "Viking's fist on the metal peg: a tink" });
-  c.prop(r3(t + 0.08), "peg", { drop: r3(0.12 * ([0.2, 0.55, 0.9, 1.25].indexOf(t) + 1)) }, 0.04, "out");
+  c.prop(r3(t + 0.08), "peg", { drop: r3(0.12 * (HITS.indexOf(t) + 1)) }, 0.04, "out");
 }
 A(0.1, "vik", "expr", { expr: "focused", dur: 0.2 });
+if (V3) {   // he looks up at the Wizard as the promise ends, and the doubt lands in his close-up
+  A(1.1, "vik", "look", { to: [-0.6, 0.35], dur: 0.15, blink: false });
+  act.mood(c, 1.3, "vik", "annoyed", { hold: 0.45 });
+}
 // Phoenix reads the instructions off his phone
 const ph = grips.phone(c, "phx", PHONE, { side: "L" });   // low at his side (toward the middle of the frame), clear of his face
 ph.secure(0, 0.01);
@@ -123,7 +139,7 @@ c.arm(0, "rea", "R", { prop: "scythe", grip: [0, 0, 0], palm: "wrap" }, 0);
 A(0, "rea", "grip", { side: "R", shape: "fist", dur: 0 });
 A(0, "rea", "look", { to: [-0.6, -0.1], dur: 0, blink: false }); A(0, "rea", "face", { lid: 0.48, dur: 0 });
 see(0, 1.5, ["wiz.face", "vik.face", "phx.face", "rea.face", "tent"], "P1: the tent flaps like a sail, the Wizard hangs on, Viking hammers, Phoenix reads, Reaper watches");
-act.blinksAt(c, "rea", [2.0, 5.05]); act.blinksAt(c, "phx", [1.2, 3.1]); act.blinksAt(c, "wiz", [1.35, 6.2]); act.blinksAt(c, "vik", [1.45, 6.25]);
+act.blinksAt(c, "rea", [2.0, 5.05]); act.blinksAt(c, "phx", [1.2, 3.1]); act.blinksAt(c, "wiz", [1.35, 6.2]); act.blinksAt(c, "vik", V3 ? [2.3, 6.25] : [1.45, 6.25]);   // v3: no blink in his close-up
 
 // ---------------------------------------------------------------- 2 THE SPELL 1.5-3.3 (P2)
 // Phoenix reads out the step, pointing the wrong way; the Wizard ignores him and points his staff
@@ -316,8 +332,14 @@ see(r3(E.glare + 0.3), 9.7, ["tent", "scythe", "wiz.hat"], "P8: the heap with th
 
 // ---------------------------------------------------------------- shots: Jonny's panels (one front view)
 const WIDE = { pos: [0.3, 1.9, 4.4], look: [0.15, 0.85, r3(-1.2 + DZ)], fov: 52 };   // in close as in the panels, Phoenix big in the front; inside the painting's safe range (qa/env.mjs)
+// v3: the pair from 0.3 m left of the wide (the painting allows little pan left; qa/env.mjs --range), then Viking
+const TWO = { pos: [0.0, 1.9, 4.4], look: [0.1, 0.85, -2.4], fov: 44, to: { pos: [0.0, 1.9, 4.4], look: [0.1, 0.85, -2.4], fov: 41.5 }, dur: 1.2, ease: "linear" };
+const VIKCU = { pos: WIDE.pos, look: [1.1, 0.5, -1.45], fov: 16 };
+const OPENING = V3
+  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking doubts it", 1.2, VIKCU, "reaction"], ["P2 the spell", 1.95, WIDE]]
+  : [["P1-P2 going wrong, the spell", 0, WIDE, "hook"]];
 const beats = c.beats([
-  ["P1-P2 going wrong, the spell", 0, WIDE, "hook"],
+  ...OPENING,
   ["P3-P4 it floats, it drops, the blame", 3.3, "keep"],
   ["P5 the calm fix", 5.5, "keep", "reaction"],
   ["P6-P8 cheer, undo, glare", T0, "keep"],
@@ -325,7 +347,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "pitch-a-tent",
+  id: V3 ? "pitch-a-tent-v3rules" : "pitch-a-tent",
   title: "My friend group trying to pitch one tent",
   idea: "Friends try to, episode 2: the wind makes the tent a sail, the spell a balloon that lifts Viking off on its rope; Reaper plants his scythe through the middle and it snaps up perfect. Then Viking hands the scythe back.",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",

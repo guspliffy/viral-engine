@@ -20,6 +20,11 @@ import { ending } from "../ending.mjs";
 const OPENER = { who: "wiz", line: "yip!", words: false };
 const FACES = "strong";
 const MOTION = "natural";
+// --v3: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
+// split-the-bill-v3rules.json). Only 0-2.1 s changes: a medium two-shot of the Wizard and Viking in the tug of war
+// with the Wizard's promise "Let go! I'll do the maths." at 0.05 s, a cut at 1.4 s to Viking's close-up (annoyed,
+// the 0.7 s reaction hold), then back to the wide for the spell. From there on it is the posted storyboard.
+const V3 = process.argv.includes("--v3");
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const T0 = 7.0, END = 9.8;   // + two 3-frame hit-stops (the confetti burst, the scythe) = exactly 10.0 s
@@ -92,7 +97,7 @@ const SUB = 1250, SUBS = { size: 62, kinetic: false };   // low, over the table 
 // ---------------------------------------------------------------- 1 ALREADY GOING WRONG 0-1.5 (P1)
 // frame 0: the tray has just landed (the waiter's hand coming back), four hands lunging; the Wizard and Viking get an
 // end each and tug
-act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
+if (!V3) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 sfx(0, "put-down", { gain: 0.6, reason: "the bill tray clinks down on the table" });
 sfx(0.02, "kenney/impact-plate-light", { gain: 0.35, reason: "the plates and cutlery rattle as everyone lunges" });
 // the tray has just been slid down the table (it skids in from the right and stops)
@@ -123,10 +128,12 @@ const TUG0 = [-0.6, r3(TH + 0.32), 0.25];   // high: the pouch lies under it   /
 c.prop(0.15, "bill", { x: TUG0[0], y: TUG0[1], z: TUG0[2], bend: 0.5 }, 0.12, "out");
 for (const [t, dx] of TUG) { c.prop(t, "bill", { x: r3(TUG0[0] - dx * AX[0]), z: r3(TUG0[2] - dx * AX[1]), bend: dx < 0 ? 0.2 : 0.65 }, 0.14, "inOut"); A(t, dx < 0 ? "wiz" : "vik", "lean", { to: dx < 0 ? 2 : 4, dur: 0.14 }); A(t, dx < 0 ? "vik" : "wiz", "lean", { to: 12, dur: 0.14 }); }
 for (const t of [0.42, 0.86]) sfx(t, "papercut", { gain: 0.18, reason: "the paper snapping taut in the tug of war (a dry papery hiss, quiet)" });
-A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false, gain: 0.55 });   // under the payoff: the clip's loudest moment was here
+if (V3) A(0.05, "wiz", "talk", { line: "let go! ill do the maths", tone: "excited", dur: 0.65, voice: false, gain: 0.55 });
+else A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false, gain: 0.55 });   // under the payoff: the clip's loudest moment was here
 A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false, gain: 0.55 });
 // every gibberish line gets a subtitle (the opener's yelp excepted); low, clear of the in-app title at the top
-c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS); c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, SUBS);
+if (V3) c.cap(0.05, 0.77, "Let go! I'll do the maths.", SUB, false, SUBS); else c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS);
+c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, SUBS);
 // Phoenix already has his phone out, Reaper doesn't move
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
 ph.secure(0, 0.01);
@@ -135,7 +142,7 @@ A(0.1, "phx", "expr", { expr: "focused", dur: 0.15 });
 A(0, "rea", "look", { to: [-0.55, -0.3], dur: 0, blink: false }); A(0, "rea", "face", { lid: 0.48, dur: 0 });
 A(0, "rea", "expr", { expr: "deadpan", dur: 0 });
 see(0, 1.4, ["wiz.face", "vik.face", "phx.face", "rea.face", "bill", "sam.face"], "P1: the bill lands and the tug of war starts; Phoenix on his phone, Reaper still");
-act.blinksAt(c, "rea", [2.3, 4.9]); act.blinksAt(c, "phx", [1.6, 5.2]); act.blinksAt(c, "wiz", [1.55, 3.4, 6.0]); act.blinksAt(c, "vik", [1.5, 3.0, 6.05]);
+act.blinksAt(c, "rea", [2.3, 4.9]); act.blinksAt(c, "phx", [1.6, 5.2]); act.blinksAt(c, "wiz", [1.55, 3.4, 6.0]); act.blinksAt(c, "vik", V3 ? [2.25, 3.0, 6.05] : [1.5, 3.0, 6.05]);   // v3: no blink in his close-up
 
 // ---------------------------------------------------------------- 2 THE SPELL 1.5-3.3 (P2)
 // the Wizard yanks it free, holds it up and points his staff: the numbers float up into a spinning sum and explode
@@ -146,7 +153,7 @@ A(r3(YANK + 0.02), "vik", "grip", { side: "L", shape: "open", dur: 0.05 });
 c.arm(r3(YANK + 0.04), "vik", "L", { o: [0.18, 0.5, 0.3] }, 0.2, "out");
 A(YANK, "vik", "lean", { to: -4, dur: 0.2 }); A(r3(YANK + 0.05), "vik", "squash", { amount: 0.06, dur: 0.15 });
 c.arm(1.75, "vik", "L", "rest", 0.3, "inOut"); A(1.8, "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
-act.mood(c, 1.55, "vik", "annoyed", { hold: 0.4 });
+act.mood(c, 1.55, "vik", "annoyed", { hold: V3 ? 0.5 : 0.4 });
 A(1.5, "vik", "look", { to: [-0.6, 0.0], dur: 0.12, blink: false });
 A(1.5, "wiz", "lean", { to: 0, dur: 0.25 });
 A(1.55, "wiz", "expr", { expr: "cocky", dur: 0.25 }); A(1.55, "wiz", "face", { lid: 0.3, dur: 0.25 });
@@ -346,8 +353,15 @@ see(r3(E.glare + 0.4), 9.7, ["longbill", "reader", "sam.face"], "P8: the long bi
 
 // ---------------------------------------------------------------- shots: Jonny's panels (one front view)
 const WIDE = { pos: [0.0, 1.85, 4.75], look: [0.0, 0.75, 0.3], fov: 54 };   // a lower camera puts the candle over the Wizard's face (Fable A wanted less floor)
+// v3: from a little right of the wide's camera (so the Wizard's hat clears the bill and Viking's face): the tug of
+// war, then Viking
+const TWO = { pos: [0.3, 2.15, 4.5], look: [-0.72, 0.7, 0.2], fov: 32, to: { pos: [0.3, 2.15, 4.5], look: [-0.72, 0.7, 0.2], fov: 29.5 }, dur: 1.4, ease: "linear" };
+const VIKCU = { pos: [0.45, 1.6, 4.4], look: [-0.62, 0.82, -0.35], fov: 16 };
+const OPENING = V3
+  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking lost the bill", 1.4, VIKCU, "reaction"], ["P2 the spell", 2.1, WIDE]]
+  : [["P1-P2 going wrong, the spell", 0, WIDE, "hook"]];
 const beats = c.beats([
-  ["P1-P2 going wrong, the spell", 0, WIDE, "hook"],
+  ...OPENING,
   ["P3-P4 coins, water, blame", 3.3, "keep"],
   ["P5 the calm fix", 5.5, "keep", "reaction"],
   ["P6 cheer", T0, "keep"],
@@ -355,7 +369,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "split-the-bill",
+  id: V3 ? "split-the-bill-v3rules" : "split-the-bill",
   title: "My friend group trying to split one bill",
   idea: "Friends try to, episode 4: the calculator spell explodes into confetti, Viking pays in coins, buttons and a fish bone, Phoenix only had water; Reaper's scythe literally splits the bill. Then Viking orders dessert.",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",

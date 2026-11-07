@@ -19,6 +19,12 @@ import * as act from "../../lib/acting.mjs";
 import * as grips from "../../lib/grips.mjs";
 
 const CLEAN = !!process.env.CLEAN;
+// V3=1 (with CLEAN=1): the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3";
+// writes kings-guard-clean-v3rules.json). Only 0-2.4 s changes: a medium two-shot of Phoenix and the guard with the
+// promise "Watch. I'll make him laugh." at 0.05 s, a cut to the guard's stone face at 1.2 s (his eyes slide to
+// Phoenix and back: the 0.75 s reaction hold), then the wide for the end of the dance. From the feather on it is the
+// posted storyboard.
+const V3 = !!process.env.V3;
 const MOTION = "natural";
 const c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
 const END = 10.0;
@@ -57,24 +63,32 @@ const props = [
   { id: "tear", kind: "tear", wear: "rea", x: 0.16, y: 0.585, z: 0.345, length: 0.05, scale: 2.5 },
 ];
 
+// (V3: frame-0 poses with dur 0, so frame 0 already shows the face: a 0.01 s tween draws frame 0 in the rest pose)
+const D0 = V3 ? 0 : 0.01;
 // ---------------------------------------------------------------- 01 HOOK 0-1.0: the silly face (wide)
 // Reaper: a stone guard all clip long until the corner (no blinks, no idle sway), eyes straight ahead
-A(0, "rea", "look", { to: [0, 0], dur: 0.01, blink: false });
+A(0, "rea", "look", { to: [0, 0], dur: D0, blink: false });
 const STARE = 0.45;   // half-lidded but open: the iris shows (review A: a closed-lid deadpan read as asleep)
-A(0, "rea", "face", { lidL: STARE, lidR: STARE, dur: 0.01 });
+A(0, "rea", "face", { lidL: STARE, lidR: STARE, dur: D0 });
 // the scythe carried like a guard's rifle: fist at the belt, a little in front of the body, shaft upright
-c.arm(0, "rea", "R", { o: [-0.03, 0.25, 0.42] }, 0.01);
+c.arm(0, "rea", "R", { o: [-0.03, 0.25, 0.42] }, D0);
 c.still(0, "rea", 5.75, 0);
 act.blinksAt(c, "rea", []);
 // Phoenix mid-face at frame 0: gloves pulling his cheeks, tongue out, eyes rolled in, wings flared, head waggling
-c.arm(0, "phx", "R", "cheeks", 0.01); c.arm(0, "phx", "L", "cheeks", 0.01);
-A(0, "phx", "wings", { to: 1, dur: 0.01 });
-A(0, "phx", "expr", { expr: "dizzy", set: { open: 1.0, curve: 0.3, eye: 1.2, pupil: 0.35 }, dur: 0.01 });
-A(0, "phx", "face", { lidR: 0.6, dur: 0.01 }); A(0.95, "phx", "face", { lidR: 0.08, dur: 0.15 });   // one eye squeezed: a pulled face
-c.prop(0, "tongue", { on: 1 }, 0.01);
-A(0, "phx", "look", { to: [-0.05, -0.15], dur: 0.01, blink: false });
+c.arm(0, "phx", "R", "cheeks", D0); c.arm(0, "phx", "L", "cheeks", D0);
+A(0, "phx", "wings", { to: 1, dur: D0 });
+A(0, "phx", "expr", { expr: "dizzy", set: { open: 1.0, curve: 0.3, eye: 1.2, pupil: 0.35 }, dur: D0 });
+A(0, "phx", "face", { lidR: 0.6, dur: D0 }); A(0.95, "phx", "face", { lidR: 0.08, dur: 0.15 });   // one eye squeezed: a pulled face
+c.prop(0, "tongue", { on: 1 }, D0);
+A(0, "phx", "look", { to: [-0.05, -0.15], dur: D0, blink: false });
 for (const [t, l] of [[0.0, -12], [0.2, 12], [0.4, -12], [0.6, 11], [0.8, -6], [0.92, 0]]) A(t, "phx", "lean", { to: l, dur: 0.2, ease: "inOut" });
 act.opener(c, "phx", "blblblbl!", { at: 0.02, dur: 0.5 });
+if (V3) {
+  cap(0.05, 1.2, "Watch. I'll make him laugh.", 470, false, { size: 62, kinetic: false });
+  // the guard's only reaction: his eyes slide to Phoenix and back to the front, the face stone
+  A(1.05, "rea", "look", { to: [0.45, -0.05], dur: 0.12, blink: false });
+  A(1.75, "rea", "look", { to: [0, 0], dur: 0.15, blink: false });
+}
 // the Wizard films it, grinning
 const ph = grips.phone(c, "wiz", PHONE, { side: "R", height: 0.45 });
 ph.secure(0, 0.01);
@@ -253,9 +267,15 @@ see(8.9, 9.95, ["rea.face", "phx.face", "tear"], "the stone face with the one te
 const WIDE = { pos: [0.05, 1.4, 4.4], look: [0.05, 1.02, -0.6], fov: 46 };
 const CLOSE = { pos: [-0.12, 1.05, 2.7], look: [-0.12, 0.98, -0.95], fov: 40 };
 const NOOK = { pos: [0.74, 0.95, 1.25], look: [0.92, 0.86, -2.15], fov: 52 };
+// v3: a narrower lens from the wide's camera on the pair, then on the guard (the painting allows only small camera
+// moves, so these are punch-ins on one axis), then back to the wide for the end of the dance
+const TWO = { pos: WIDE.pos, look: [-0.08, 0.95, -0.65], fov: 34, to: { pos: WIDE.pos, look: [-0.08, 0.95, -0.65], fov: 31 }, dur: 1.2, ease: "linear" };
+const GUARD = { pos: WIDE.pos, look: [-0.7, 0.9, -1.3], fov: 15 };
+const OPENING = V3
+  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 the guard doesn't move", 1.2, GUARD, "reaction"], ["02 dance", 1.95, WIDE]]
+  : [["01 silly face", 0, WIDE, "hook"], ["02 dance", 1.0, "keep"]];
 const beats = c.beats([
-  ["01 silly face", 0, WIDE, "hook"],
-  ["02 dance", 1.0, "keep"],
+  ...OPENING,
   ["03 feather", 2.4, CLOSE],
   ["04 fireballs and pigeon", 3.6, WIDE, "escalation"],
   ["05 slip", 4.6, "keep"],
@@ -265,7 +285,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: CLEAN ? "kings-guard-clean" : "kings-guard",
+  id: (CLEAN ? "kings-guard-clean" : "kings-guard") + (V3 ? "-v3rules" : ""),
   title: "When your friend tries to make the guard laugh",
   idea: "London clip 2 (4 Nov 2026): Phoenix can't crack guard Reaper; round the corner Reaper cracks, one tear gives him away",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",

@@ -22,6 +22,12 @@ import { clip, write } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
+// --v3: the reach rules v3 opening for the 8 s cut (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3";
+// writes cinema-v3rules.json; the posted 8 s cut starts 2.0 s into the video, on the scream). Only 1.5-3.65 s changes:
+// a medium two-shot of Phoenix and the Astronaut behind him, the scream's subtitle a promise ("I'll be quiet.
+// PROMISE!"), a cut at 2.95 s (1.05 s into the cut) to the Astronaut's close-up (popcorn on his helmet, glaring: the
+// 0.7 s reaction hold), then the wide as posted for "DON'T open the door!".
+const V3 = process.argv.includes("--v3");
 const END = 9.8;   // + two 3-frame hit-stops = exactly 10.0 s of video (series format: a hard cut at 10.0)
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const SUB = 500, SUB_HI = 470;   // 0-2 s just under the top 20 % kept for Jonny's title (the chests fill the lower third in this wide), later above the heads
@@ -165,7 +171,7 @@ c.hitStop(1.9);
 A(1.87, "phx", "hop", { height: 0.32, dur: 0.42 });
 A(1.87, "phx", "expr", { expr: "shocked", set: { eye: 1.35, open: 1 }, dur: 0.06 });
 A(1.87, "phx", "wings", { to: 1, dur: 0.1, ease: "out" });
-c.say(1.88, "phx", "AAAAAAH!", 0.6, "scared", { pos: SUB_HI, sub: "AAAAH!" });
+c.say(1.88, "phx", "AAAAAAH!", 0.6, "scared", { pos: SUB_HI, sub: V3 ? "I'll be quiet. PROMISE!" : "AAAAH!" });
 c.captions[c.captions.length - 1].to = 2.55;   // gone before the SHH! (review B)
 c.prop(1.92, "bucket", { puff: 1, fill: 0.72 }, 0.12, "out"); c.prop(2.06, "bucket", { puff: 0 }, 0.2, "in");
 c.prop(1.92, "rain1", { burst: 1 }, 1.0, "linear");
@@ -178,7 +184,7 @@ A(2.1, "phx", "wings", { to: 0.5, dur: 0.3 });
 // the Astronaut throws his hands up, then both glare down at him
 c.arm(1.95, "ast", "R", { o: [0.3, 0.55, 0.18] }, 0.15, "out"); c.arm(1.95, "ast", "L", { o: [0.22, 0.55, 0.18] }, 0.15, "out");
 c.arm(2.5, "ast", "R", "lap", 0.3, "inOut"); c.arm(2.5, "ast", "L", "lap", 0.3, "inOut");
-for (const id of ["ast", "dra"]) { A(2.45, id, "look", { to: [id === "ast" ? 0.45 : -0.45, -0.6], dur: 0.15, blink: false }); act.mood(c, 2.5, id, "annoyed", { hold: 0.9 }); }
+for (const id of ["ast", "dra"]) { A(2.45, id, "look", { to: [id === "ast" ? 0.45 : -0.45, -0.6], dur: 0.15, blink: false }); act.mood(c, 2.5, id, "annoyed", { hold: V3 && id === "ast" ? 1.1 : 0.9 }); }
 c.say(2.6, "ast", "Shh!", 0.35, "angry", { pos: SUB_HI, sub: false });   // the SHH! pop by his head says it (one text, review A)
 c.textPop(2.6, "ast", "SHH!", { dur: 0.6, size: 80, dx: -0.55, dy: -0.45, color: "speaker" });   // beside his helmet
 // Phoenix turns to them, beams and holds the bucket up to them
@@ -189,7 +195,7 @@ CARRY("phx", "bucket", BK_HANDS, [0.2, 0.5, 0.6], 2.62, 0.3, "inOut");
 CARRY("phx", "bucket", BK_HANDS, [0, 0.4, 0.52], 3.05, 0.25, "inOut");
 A(3.05, "phx", "turn", { to: 0, dur: 0.22 });
 A(3.05, "phx", "look", { to: [0, 0.2], dur: 0.12, blink: false });
-for (const id of ["ast", "dra"]) A(3.0, id, "look", { to: [0, 0.05], dur: 0.2, blink: false });
+for (const id of ["ast", "dra"]) A(V3 && id === "ast" ? 3.65 : 3.0, id, "look", { to: [0, 0.05], dur: 0.2, blink: false });   // v3: the Astronaut keeps glaring through his close-up
 see(1.85, 3.2, ["phx.face", "ast.face", "dra.face", "bucket"], "the scream: popcorn rains on the strangers, they glare and shush, he offers them the bucket");
 
 // ---------------------------------------------------------------- 03 THE ADVICE 3.3-5.3
@@ -352,10 +358,14 @@ see(9.45, 9.75, ["phx.face", "ast", "dra", "rea", "wiz"], "AGAIN!: he beams with
 const WIDE = { pos: [0, 0.8, 4.2], look: [0, 1.75, -1], fov: 53 };   // the panels: from just under the front row's eyes, looking up the tiers, seat backs (not floor) at the bottom
 const CATA = { pos: [0.9, 1.0, 3.3], look: [0, 1.65, -0.1], fov: 58 };   // low three-quarters: the seat, its hinge and his feet (review A)   // panel 04: closer, the same side
 const GRIN = { pos: [0.25, r3(SIT + 1.0), 3.3], look: [0, r3(SIT + 0.8), 0], fov: 46 };
+// v3: narrower lenses from the wide's camera: Phoenix and the Astronaut behind him (a slow push), then the Astronaut
+const TWO = { pos: WIDE.pos, look: [-0.28, 1.55, -0.55], fov: 31, to: { pos: WIDE.pos, look: [-0.28, 1.55, -0.55], fov: 28.5 }, dur: 1.45, ease: "linear" };
+const ASTCU = { pos: WIDE.pos, look: [-0.56, 1.85, -1.15], fov: 15 };
+const OPENING = V3
+  ? [["01 already too much", 0, WIDE, "hook"], ["02 the scream (v3 two-shot)", 1.5, TWO], ["v3 the Astronaut glares", 2.95, ASTCU, "reaction"], ["03 the advice", 3.3, "keep", "escalation"], ["03 the advice, wide", 3.65, WIDE]]
+  : [["01 already too much", 0, WIDE, "hook"], ["02 the scream", 1.5, "keep"], ["03 the advice", 3.3, "keep", "escalation"]];
 const beats = c.beats([
-  ["01 already too much", 0, WIDE, "hook"],
-  ["02 the scream", 1.5, "keep"],
-  ["03 the advice", 3.3, "keep", "escalation"],
+  ...OPENING,
   ["04 the break", 5.3, CATA, "payoff"],
   ["04b the bucket", 6.25, WIDE],
   ["05 the grin", 7.3, GRIN, "reaction"],
@@ -363,7 +373,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "cinema",
+  id: V3 ? "cinema-v3rules" : "cinema",
   title: "That one friend with too much energy at the movies",
   idea: "Too Much Energy, episode 2: Phoenix reacts louder than the horror film, stands on his seat, and the seat catapults his giant popcorn bucket onto the row behind; he grins and wants to watch it again",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",

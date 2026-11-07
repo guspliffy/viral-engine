@@ -19,6 +19,11 @@ import { WARDROBE as WD } from "../../../../engine/page/props-ikea.js";
 const OPENER = { who: "wiz", line: "wah!", words: false };
 const FACES = "strong";
 const MOTION = "natural";
+// --v3: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
+// ikea-wardrobe-v3rules.json). Only 0-3.3 s changes: a medium two-shot of the Wizard (troublemaker) and Viking (victim)
+// with the promise "Trust me. It's easy." at 0.1 s, a cut to Viking's doubting close-up at 1.25 s (a 0.7 s reaction
+// hold), then back to the spell. From the flip cut at 3.3 s on, the storyboard is the posted one.
+const V3 = process.argv.includes("--v3");
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const T0 = 7.0, END = 9.8;   // + two 3-frame hit-stops = exactly 10.0 s; the shared ending runs T0..END
@@ -50,13 +55,13 @@ const locUp = (dx, y, dz) => [r3(-dx / K), r3(H - y / K), r3(dz / K)];   // turn
 
 const cast = [
   { id: "vik", character: "duo/viking", at: VIK0, face: 25, expr: "focused", follow: 0.3, seed: 4.1 },
-  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: -15, expr: "kind", follow: 0.3, seed: 2.6 },
+  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: V3 ? -35 : -15, expr: "kind", follow: 0.3, seed: 2.6 },
   { id: "phx", character: "duo/phoenix", at: PHX0, face: 20, expr: "kind", follow: 0.3, seed: 1.7, span: 0.15 },
   { id: "rea", character: "notyet/reaper-noscythe", at: REA0, face: -20, expr: "kind", follow: 0.25, seed: 3.3 },
 ];
 const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX0[0] + 0.1, 0.48, PHX0[1] + 0.3], 20), tip: -10, scale: 1.6, case: "#7cc4bd" };
 const KEY = { id: "key", kind: "allenkey", ...grips.placeFor("allenkey", [r3(REA_SIT[0] - 0.15), 0.6, r3(REA_SIT[1] + 0.44)], -25) };
-const MANUAL = { id: "manual", kind: "manual", ...grips.placeFor("manual", [WIZ0[0] - 0.12, 0.4, WIZ0[1] + 0.32], -15), scale: 1.3, away: true, upside: true };
+const MANUAL = { id: "manual", kind: "manual", ...grips.placeFor("manual", [WIZ0[0] - 0.12, 0.4, WIZ0[1] + 0.32], V3 ? -35 : -15), scale: 1.3, away: true, upside: true };
 const props = [
   { id: "wardrobe", kind: "wardrobe", x: WX, y: 0, z: WZ, scale: 0.001, apart: 1 },
   { id: "aura", kind: "spellaura", x: WX, y: 0.3, z: WZ, w: 1.4, d: 0.9, scale: 1.4 },
@@ -90,14 +95,23 @@ function wardrobeAt(t, theta, lift, dur, ease = "linear", x = WX) {
 
 // ---------------------------------------------------------------- 1 ALREADY GOING WRONG 0-1.5 (P1)
 // no burned-in title: Jonny types it in-app (top 20 % clear for the first 2 s)
-act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
+if (!V3) act.opener(c, OPENER.who, OPENER.line, { words: OPENER.words });
 // Viking holds a tall side panel upright beside him (both palms on its edge)
 // (his right hand, on our left, steadies it by its edge; the left gestures at the pile)
 c.arm(0, "vik", "R", { prop: "plankV", grip: [0.23, 0.62, 0.02], palm: true }, 0);
 A(0, "vik", "grip", { side: "R", shape: "flat", dur: 0 });
-c.arm(0.3, "vik", "L", { o: [0.18, 0.5, 0.36] }, 0.3, "out"); A(0.35, "vik", "grip", { side: "L", shape: "point", dur: 0.15 });
-c.arm(1.1, "vik", "L", "rest", 0.35, "inOut"); A(1.1, "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
-A(0, "vik", "look", { to: [0.45, -0.35], dur: 0, blink: false });
+if (!V3) {
+  c.arm(0.3, "vik", "L", { o: [0.18, 0.5, 0.36] }, 0.3, "out"); A(0.35, "vik", "grip", { side: "L", shape: "point", dur: 0.15 });
+  c.arm(1.1, "vik", "L", "rest", 0.35, "inOut"); A(1.1, "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+  A(0, "vik", "look", { to: [0.45, -0.35], dur: 0, blink: false });
+} else {
+  // v3: the victim. Viking holds his panel and watches the Wizard talk, glances at him just before the cut, and his
+  // doubt lands in the close-up (the reaction hold, 0.7 s)
+  A(0, "vik", "look", { to: [0.55, -0.05], dur: 0, blink: false });
+  A(0, "vik", "expr", { expr: "focused", dur: 0 });
+  A(1.0, "vik", "look", { to: [0.7, 0.0], dur: 0.12, blink: false });
+  act.mood(c, 1.3, "vik", "annoyed", { hold: 0.5 });
+}
 // the top panel slides off the pile and slaps flat (dust)
 c.prop(0, "plankA", { tip: -90, y: 0.03 }, 0.2, "in");   // a big visible fall (50 degrees), not a twitch
 sfx(0.2, "kenney/impact-plank-medium", { gain: 0.75, reason: "the flat-pack top panel slaps flat on the floor" });
@@ -105,10 +119,21 @@ c.at(0.19, { fx: "poof", pos: [-0.05, 0.05, 0.45], dur: 0.5, color: "#efe3cf", p
 c.at(0.19, { fx: "shake", dur: 0.15, amp: 0.012 });
 // the Wizard reads the instruction sheet, upside down (the sheet's roll 180), staff in his other hand
 const man = grips.phone(c, "wiz", MANUAL, { side: "R", height: 0.5 });
-man.secure(0, 0.01);
-A(0, "wiz", "look", { to: [-0.2, -0.4], dur: 0, blink: false });
-A(0.05, "wiz", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.2 }, dur: 0.1 });
-A(0.6, "wiz", "expr", { expr: "focused", dur: 0.25 });
+man.secure(0, V3 ? 0 : 0.01);   // v3: in his hand on frame 0 (a 0.01 s move drew frame 0 with the hand elsewhere)
+if (!V3) {
+  A(0, "wiz", "look", { to: [-0.2, -0.4], dur: 0, blink: false });
+  A(0.05, "wiz", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.2 }, dur: 0.1 });
+  A(0.6, "wiz", "expr", { expr: "focused", dur: 0.25 });
+} else {
+  // v3: the troublemaker. The promise at 0.1 s while he tosses the upside-down instructions away and lifts his
+  // fist for the spell (the trouble has started, the outcome is open)
+  A(0, "wiz", "look", { to: [-0.55, 0.0], dur: 0, blink: false });
+  A(0, "wiz", "expr", { expr: "cocky", dur: 0 }); A(0, "wiz", "face", { lid: 0.25, dur: 0 });
+  A(0.1, "wiz", "talk", { line: "trust me it's easy", tone: "calm", dur: 0.95, voice: false });
+  c.cap(0.1, 1.25, "Trust me. It's easy.", SUB, false, SUBS);
+  A(0.75, "wiz", "grip", { side: "L", shape: "fist", dur: 0.12 });
+  c.arm(0.8, "wiz", "L", { o: [0.22, 0.75, 0.12] }, 0.35, "out");
+}
 // Phoenix holds his phone up, the tutorial playing (tinny chirps); we never see the screen
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
 ph.secure(0, 0.01);
@@ -126,12 +151,15 @@ act.blinksAt(c, "rea", [2.6]); act.blinksAt(c, "phx", [1.9]);
 // ---------------------------------------------------------------- 2 THE SPELL 1.5-3.3 (P2): built upside down, mid-air
 const SPELL = 1.6;
 // he tosses the useless sheet over his shoulder (it flutters down behind him)
-A(1.45, "wiz", "release", { prop: "manual", to: [WIZ0[0] + 0.2, 0.003, WIZ0[1] - 0.45], dur: 0.45, arc: 0.25 });
-c.prop(1.45, "manual", { tip: -90 }, 0.45);
-A(1.45, "wiz", "grip", { side: "R", shape: "open", dur: 0.12 }); c.arm(1.48, "wiz", "R", "rest", 0.3, "inOut");
-A(SPELL, "wiz", "talk", { line: "trust me", tone: "calm", dur: 0.4, voice: false });
-c.cap(SPELL, 2.5, "Trust me.", SUB, false, SUBS);
-A(SPELL, "wiz", "expr", { expr: "cocky", dur: 0.25 }); A(SPELL, "wiz", "face", { lid: 0.25, dur: 0.25 });
+const TOSS_AT = V3 ? 0.15 : 1.45;   // v3: the toss is already under way at frame 0
+A(TOSS_AT, "wiz", "release", { prop: "manual", to: [WIZ0[0] + 0.2, 0.003, WIZ0[1] - 0.45], dur: 0.45, arc: 0.25 });
+c.prop(TOSS_AT, "manual", { tip: -90 }, 0.45);
+A(TOSS_AT, "wiz", "grip", { side: "R", shape: "open", dur: 0.12 }); c.arm(r3(TOSS_AT + 0.03), "wiz", "R", "rest", 0.3, "inOut");
+if (!V3) {
+  A(SPELL, "wiz", "talk", { line: "trust me", tone: "calm", dur: 0.4, voice: false });
+  c.cap(SPELL, 2.5, "Trust me.", SUB, false, SUBS);
+  A(SPELL, "wiz", "expr", { expr: "cocky", dur: 0.25 }); A(SPELL, "wiz", "face", { lid: 0.25, dur: 0.25 });
+}
 A(1.7, "wiz", "turn", { to: -20, dur: 0.3 });
 A(1.72, "wiz", "look", { to: [-0.4, 0.45], dur: 0.15, blink: false });
 A(1.75, "wiz", "grip", { side: "L", shape: "fist", dur: 0.12 });
@@ -335,8 +363,17 @@ const FLIP = { pos: [-0.2, 2.1, 3.5], look: [-0.15, 0.85, -1.0], fov: 52 };
 const BLAME = { pos: [-0.1, 2.6, 5.2], look: [0.0, 0.6, -0.7], fov: 50 };   // a size step out from the flip (no jump cut)
 const FIX = { pos: [-0.1, 2.0, 3.6], look: [0.35, 0.7, -1.0], fov: 46 };   // front, like the panel: the whole wardrobe, Reaper at its right corner, the key in the bolt   // from the right, so his right mitten and the key show past him
 const KEYIN = { pos: [-0.25, 1.05, 0.8], look: [0.38, 0.62, -0.98], fov: 38 };   // the brief's insert: mitten, key, bolt, the quarter turn (review B's wider angle round to the left put the Wizard's face in it: kept this one)
+// v3: the two-shot (a slow push), Viking's close-up, then the spell in the frame the creep-in ended on
+// (the two-shot is a narrower lens from the spell shot's camera, so the cut back is a step out on one axis)
+const CAM = OPEN.to.pos;
+const TWO = { pos: CAM, look: [-0.25, 0.78, -0.55], fov: 33, to: { pos: CAM, look: [-0.25, 0.78, -0.55], fov: 30 }, dur: 1.25, ease: "linear" };
+const VIKCU = { pos: [0.6, 2.0, 4.0], look: [-0.85, 0.88, -0.65], fov: 16.5 };   // from a little right, so Phoenix (front left) stays out of it
+const SPELLW = { pos: [0.0, 2.55, 5.05], look: [0.04, 0.82, -0.82], fov: 52, to: OPEN.to, dur: 1.35, ease: "out" };
+const OPENING = V3
+  ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking doubts it", 1.25, VIKCU, "reaction"], ["P2 the spell", 1.95, SPELLW]]
+  : [["P1-P2 going wrong, the spell", 0, OPEN, "hook"]];
 const beats = c.beats([
-  ["P1-P2 going wrong, the spell", 0, OPEN, "hook"],
+  ...OPENING,
   ["P3 the flip", 3.3, FLIP],
   ["P4 blame", 4.5, BLAME, "reaction"],
   ["P5 the calm fix", 5.5, "keep"],
@@ -347,7 +384,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "ikea-wardrobe",
+  id: V3 ? "ikea-wardrobe-v3rules" : "ikea-wardrobe",
   title: "My friend group trying to build one IKEA wardrobe",
   idea: "Friends try to, episode 1: the spell builds it upside down, the flip knocks a door off, Reaper fixes it with one turn of the Allen key, then Viking leans on it and it folds flat (the back panel was never used)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
