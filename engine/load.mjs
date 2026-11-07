@@ -1,6 +1,7 @@
 // Read a storyboard file the way every tool should: real speech first (engine/voice/speech.mjs, so lines last as
 // long as they are spoken), then compile beats to the flat storyboard, then check its sounds against the whitelist. Renderer and qa/ all use this, so they agree
 // on every time in the clip.
+import { resolveLife } from "./shared/life-auto.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
@@ -130,7 +131,7 @@ export function loadStoryboard(file, opts = {}) {
   if (sb.set?.plate) plateFiles(sb.set.plate);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
-  const out = withAnime2d(withHolds(cleanStart(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  const out = withAnime2d(withHolds(cleanStart(resolveLife(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars))))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs); "anime2d" -> the drawn marks (engine/shared/anime2d.js)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
   return out;
 }

@@ -20,8 +20,10 @@ export const LOOK = 0.25;   // the alert hold before a startled bird leaves (s)
 
 // set.life -> the full recipe with defaults, or null when the set has no life
 export function lifeSpec(set, duration = 10) {
-  const L = set?.life;
+  let L = set?.life;
   if (!L) return null;
+  // an unresolved "auto" / "storm" (engine/shared/life-auto.mjs fills it in when the storyboard loads)
+  if (typeof L !== "object") L = { storm: L === "storm" };
   const seed = L.seed ?? 11, r = lifeRng(seed);
   // "storm": true (or an object of overrides): a grey, windy day. Gusts come every 1-2 s and much stronger, the air
   // never settles, the trees bend from the trunk, the sky darkens and races, leaves and twigs fly, a light rain
@@ -42,7 +44,8 @@ export function lifeSpec(set, duration = 10) {
     gusts.sort((a, b) => a.tc - b.tc).splice(GUST_MAX);
   }
   // startles: a loud sound (or a fast rush) at a place and time. Every bird and insect that hears it reacts.
-  const startle = (L.startle || []).map((s) => ({ t: s.t, at: s.at, loud: s.loud ?? 1 }));
+  // reach: how far it sends a small bird off (m, 6 per unit of loudness); wings: how loud their take-off is in the bed
+  const startle = (L.startle || []).map((s) => ({ t: s.t, at: s.at, loud: s.loud ?? 1, reach: s.reach ?? 6 * (s.loud ?? 1), wings: s.wings ?? 1 }));
   const clouds = L.clouds === false ? null : { drift: 0.0035, shadow: 0.3, speed: 7.5, scale: 46, near: 14,
     ...(ST ? { drift: 0.011, shadow: 0.42, speed: 10, scale: 22, near: 9 } : {}), ...(L.clouds || {}) };
   return { seed, wind: { ...W, gusts }, clouds,
@@ -76,7 +79,7 @@ export function leaveTime(S, bird, i) {
   let best = null;
   for (const s of S.startle) {
     const dx = bird.at[0] - s.at[0], dz = bird.at[2] - s.at[1], d = Math.hypot(dx, dz);
-    const reach = 6 * s.loud;                          // metres at which this sound still sends a small bird off
+    const reach = s.reach ?? 6 * s.loud;              // metres at which this sound still sends a small bird off
     if (d > reach) continue;
     // the look: heads snap up toward the sound at once (startle, ~70 ms), the song stops, and they hold for 6-10
     // frames weighing it up (the risk-assessment beat before fleeing) before the burst; nearest first
