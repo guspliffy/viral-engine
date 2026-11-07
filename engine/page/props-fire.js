@@ -18,6 +18,7 @@ import { clamp } from "./util.js";
 //                   rate 150 (flames a second), speed 7 (m/s), spread 0.1 (rad), life 0.5 (s), size 0.16 (m),
 //                   grow 2.6 (how much a flame swells over its life), drag 3 (1/s), lift 1.2 (m/s^2 upward),
 //                   reach (m): the jet stops there and splashes out sideways (it hit something), hot: "orange" | "blue",
+//                   splash (m): how far that splash spreads at most (it eases out toward it; unset: no limit),
 //                   taper (s): the stream thins and slows over its last seconds,
 //                   cut (s): its flames and embers vanish then (the shot ends: they must not hang in the next one)
 //                 }
@@ -71,7 +72,7 @@ function flame(B, i, ts, t, out) {
   out.pos.copy(p0).addScaledVector(v, Math.min(travel, reach));
   if (travel > reach) {
     // hit: the flame splashes out across the face it met, as a ring round the line of the jet
-    const sp = travel - reach, ca = Math.cos(phi + hash(i + 4) * 2), sa = Math.sin(phi + hash(i + 4) * 2);
+    const sp = B.splash ? B.splash * (1 - Math.exp(-(travel - reach) / B.splash)) : travel - reach, ca = Math.cos(phi + hash(i + 4) * 2), sa = Math.sin(phi + hash(i + 4) * 2);
     out.pos.addScaledVector(side, sp * 1.4 * ca).addScaledVector(up, sp * 1.4 * sa).addScaledVector(v, -sp * 0.25);
     v = side.clone().multiplyScalar(ca).addScaledVector(up, sa);
   }
