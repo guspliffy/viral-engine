@@ -198,7 +198,8 @@
    "kind": "lawnchair",
    "x": -0.45,
    "z": 0,
-   "rot": 22
+   "rot": 22,
+   "staged": "the beam holds it up with Phoenix in it; after the drop it lies tipped on two legs on the lawn"
   },
   {
    "id": "tele",
@@ -259,7 +260,8 @@
    "z": 0.291,
    "rot": -35,
    "drop": 0,
-   "happy": 0.6
+   "happy": 0.6,
+   "staged": "it rides the lift disc down out of the hatch and back up"
   },
   {
    "id": "phone",
@@ -294,7 +296,8 @@
     0.05,
     0.08
    ],
-   "spread": 0.3
+   "spread": 0.3,
+   "staged": "its anchor stays at the bowl rim; the kernels themselves land on the blanket"
   },
   {
    "id": "pop2",
@@ -307,7 +310,8 @@
     0,
     0.1
    ],
-   "spread": 0.35
+   "spread": 0.35,
+   "staged": "its anchor stays at the bowl rim; the kernels themselves land on the blanket"
   },
   {
    "id": "wizC",
@@ -3619,6 +3623,24 @@
    "from": 0,
    "to": 10.7,
    "reason": "the Astronaut stands at his telescope"
+  },
+  {
+   "who": "ast",
+   "from": 2.15,
+   "to": 2.4,
+   "checks": [
+    "stance-slide"
+   ],
+   "reason": "the Astronaut's feet are under the bottom edge of the frame (a weight shift as he waves; same in the posted cut)"
+  },
+  {
+   "who": "ast",
+   "from": 4.1,
+   "to": 4.3,
+   "checks": [
+    "stance-slide"
+   ],
+   "reason": "the Astronaut's feet are under the bottom edge of the frame as he stops at the beam (same in the posted cut)"
   },
   {
    "who": "wiz",

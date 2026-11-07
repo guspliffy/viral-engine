@@ -73,15 +73,15 @@ const hatchAt = (u) => {
 const H0 = hatchAt(UFO0), H_END = hatchAt(UFO_END);
 const props = [
   { id: "blanket", kind: "picnicblanket", x: BLANKET.x, z: BLANKET.z, w: BLANKET.w, d: BLANKET.d, rot: -6 },
-  { id: "chair", kind: "lawnchair", x: CHAIR0.x, z: CHAIR0.z, rot: CHAIR0.rot },
+  { id: "chair", kind: "lawnchair", x: CHAIR0.x, z: CHAIR0.z, rot: CHAIR0.rot, ...(V3 && { staged: "the beam holds it up with Phoenix in it; after the drop it lies tipped on two legs on the lawn" }) },
   { id: "tele", kind: "telescope", x: TELE.x, z: TELE.z, aim: [40, 50] },
   { id: "lights", kind: "stringlights", lit: 1, bulbs: 7, sag: 0.16, points: [[-2.2, 2.05, -2.9], [-0.8, 2.3, -3.5], [0.6, 2.15, -3.0], [2.1, 2.35, -3.6]] },
   { id: "ufo", kind: "flyingsaucer", ...UFO0, lit: 1, wobble: 1, glow: 0, beamR: 0.6 },
-  { id: "alien", kind: "beanalien", ...H0, rot: -35, drop: 0, happy: 0.6 },
+  { id: "alien", kind: "beanalien", ...H0, rot: -35, drop: 0, happy: 0.6, ...(V3 && { staged: "it rides the lift disc down out of the hatch and back up" }) },
   { id: "phone", kind: "phone", x: CHAIR0.x, y: 0.9, z: CHAIR0.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", ...(V3 && { bright: 2.2, halo: 0.15, haloK: 0.45 }) },   // v3: the bright phone rule (Jonny 5 Nov); a smaller glow than ep5: at 0.32 m it turned his eyes grey in the look-up close-up
   { id: "bowl", kind: "popcornbowl", ...BOWL0, rot: 0 },
-  { id: "pop1", kind: "popcorn", x: BOWL0.x, y: 0.26, z: BOWL0.z, n: 9, to: [0.05, 0.08], spread: 0.3 },
-  { id: "pop2", kind: "popcorn", x: r3(WIZ0[0] - 0.25), y: 0.2, z: r3(WIZ0[1] + 0.35), n: 14, to: [0.0, 0.1], spread: 0.35 },
+  { id: "pop1", kind: "popcorn", x: BOWL0.x, y: 0.26, z: BOWL0.z, n: 9, to: [0.05, 0.08], spread: 0.3, ...(V3 && { staged: "its anchor stays at the bowl rim; the kernels themselves land on the blanket" }) },
+  { id: "pop2", kind: "popcorn", x: r3(WIZ0[0] - 0.25), y: 0.2, z: r3(WIZ0[1] + 0.35), n: 14, to: [0.0, 0.1], spread: 0.35, ...(V3 && { staged: "its anchor stays at the bowl rim; the kernels themselves land on the blanket" }) },
   // invisible carriers: the bodies that get knocked over follow these paths (a fall is a path, not a walk)
   { id: "wizC", kind: "carrier", x: WIZ0[0], y: 0, z: WIZ0[1] },
   { id: "reaC", kind: "carrier", x: REA0[0], y: 0, z: REA0[1] },
@@ -411,6 +411,7 @@ write(import.meta.url, {
     { who: "wiz", with: "blanket", from: 0, to: END, reason: "the Wizard sits on the picnic blanket" },
     { who: "rea", with: "blanket", from: 0, to: END, reason: "Reaper sits on the picnic blanket" },
     { who: "ast", with: "tele", from: 0, to: END, reason: "the Astronaut stands at his telescope" },
+    ...(V3 ? [{ who: "ast", from: 1.45, to: 1.7, checks: ["stance-slide"], reason: "the Astronaut's feet are under the bottom edge of the frame (a weight shift as he waves; same in the posted cut)" }, { who: "ast", from: 3.4, to: 3.6, checks: ["stance-slide"], reason: "the Astronaut's feet are under the bottom edge of the frame as he stops at the beam (same in the posted cut)" }] : []),
     ...(V3 ? [{ who: "wiz", with: "wiz", from: 2.55, to: 2.9, checks: ["face-covered"], reason: "his glove on Phoenix's rising ankle passes his own eyes as he pulls (0.2 s in the posted cut; today's eases hold it 0.3 s)" }] : []),
   // the contact checks read these windows on the video's clock: v3's 0.7 s freeze moves everything after 1.2 s later
   ].map((w) => (V3 ? { ...w, ...(w.from > 1.2 && { from: r3(w.from + 0.7) }), to: r3(Math.min(END + 1.0, w.to + 0.7)) } : w)),
