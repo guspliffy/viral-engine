@@ -1,0 +1,4586 @@
+{
+ "id": "fries",
+ "title": "That one friend who always orders potatoes… at the burger place",
+ "idea": "Always orders potatoes, episode 1: a sunny burger bar. Viking shouts Best fries in town! and the three fries in his cone open their eyes and cheer. He leans in for the first bite, the fry waves Hi! at his nose and he melts (the blossom pops). The fries treat his tray like a pool party: one hops into the ketchup like a hot tub, one cannonballs into the mayo, and the last backflips off the cone and lands standing upright in Reaper's tomato soup, then offers him his own soup: Want some?",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 2.5,
+ "set": {
+  "type": "plain",
+  "color": "#8a4a32",
+  "floor": "#5a3424",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/burger-bar-day.png",
+   "z": -2.6,
+   "center": [
+    0.1,
+    2.75
+   ],
+   "height": 7.6,
+   "depth": false,
+   "motion": false,
+   "dust": 8
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "key": 4,
+  "bpm": 112,
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "room": "room",
+  "guard": true,
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "gsl",
+   "rea",
+   "phx",
+   "fa"
+  ],
+  "hint": 0.95,
+  "what": "Viking shouts Best fries in town! at a giant paper cone of fries while Gunslinger glares; at 0.95 s the fries open their eyes and cheer back"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "always-orders-potatoes/gunslinger",
+   "at": [
+    -1.06,
+    -0.68
+   ],
+   "face": 10,
+   "expr": "annoyed",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    0,
+    -0.68
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.25,
+   "seed": 2.1
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.97,
+    -0.72
+   ],
+   "face": -14,
+   "expr": "deadpan",
+   "follow": 0.25,
+   "seed": 3.3
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.92,
+    -1.75
+   ],
+   "y": 0.85,
+   "face": 22,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 1.7,
+   "span": 0.15
+  },
+  {
+   "id": "sam",
+   "character": "bistro/samurai-waiter",
+   "at": [
+    0.92,
+    -1.62
+   ],
+   "y": 0.85,
+   "face": -12,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.2,
+   "sway": 0.4
+  },
+  {
+   "id": "fa",
+   "character": "always-orders-potatoes/fry",
+   "at": [
+    0.04,
+    0.06
+   ],
+   "y": 0.191,
+   "scale": 0.432,
+   "face": 0,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 7.1,
+   "signature": false
+  },
+  {
+   "id": "fb",
+   "character": "always-orders-potatoes/fry",
+   "at": [
+    -0.06,
+    0.13
+   ],
+   "y": 0.191,
+   "scale": 0.4,
+   "face": 8,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 7.2,
+   "signature": false
+  },
+  {
+   "id": "fc",
+   "character": "always-orders-potatoes/fry",
+   "at": [
+    0.14,
+    0.13
+   ],
+   "y": 0.191,
+   "scale": 0.4,
+   "face": -8,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 7.3,
+   "signature": false
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "pubstep",
+   "x": 0,
+   "z": -1.78,
+   "w": 3.2,
+   "d": 1.1,
+   "h": 0.85
+  },
+  {
+   "id": "booth",
+   "kind": "boothback",
+   "x": 0,
+   "y": 0,
+   "z": -1.22,
+   "w": 3.4,
+   "h": 0.82,
+   "d": 0.16
+  },
+  {
+   "id": "table",
+   "kind": "burgertable",
+   "x": 0,
+   "z": 0.3,
+   "w": 3.2,
+   "d": 1.2,
+   "h": 0.18
+  },
+  {
+   "id": "tray",
+   "kind": "burgertray",
+   "x": 0.04,
+   "y": 0.18,
+   "z": 0.14,
+   "w": 0.86,
+   "d": 0.5
+  },
+  {
+   "id": "cone",
+   "kind": "frycone",
+   "x": 0.04,
+   "y": 0.191,
+   "z": 0.1,
+   "seed": 4,
+   "scale": 1.3,
+   "body": {
+    "friction": 0.9,
+    "bounce": 0.05
+   }
+  },
+  {
+   "id": "ket",
+   "kind": "dippot",
+   "x": -0.27,
+   "y": 0.191,
+   "z": 0.24,
+   "sauce": "ketchup",
+   "scale": 1.9
+  },
+  {
+   "id": "may",
+   "kind": "dippot",
+   "x": 0.33,
+   "y": 0.191,
+   "z": 0.22,
+   "sauce": "mayo",
+   "scale": 1.9
+  },
+  {
+   "id": "salad",
+   "kind": "saladbowl",
+   "x": -0.62,
+   "y": 0.18,
+   "z": -0.02,
+   "seed": 4,
+   "scale": 1.4
+  },
+  {
+   "id": "soup",
+   "kind": "tomatosoup",
+   "x": 0.62,
+   "y": 0.18,
+   "z": -0.06,
+   "steam": 0.7,
+   "at": [
+    0,
+    0
+   ],
+   "scale": 1.3
+  },
+  {
+   "id": "shake",
+   "kind": "fullshake",
+   "x": -0.4,
+   "y": 0.18,
+   "z": -0.12
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": -0.8,
+   "y": 1.63,
+   "z": -1.33,
+   "rot": -160,
+   "tip": -8,
+   "scale": 1.6,
+   "case": "#e07a5f",
+   "glow": 0.7,
+   "staged": "in Phoenix's two gloves from the first frame"
+  },
+  {
+   "id": "apron",
+   "kind": "waiterapron",
+   "wear": "sam",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "y0": 0.4,
+   "y1": 0.07,
+   "rx": 0.44,
+   "rz": 0.39,
+   "arc": 130
+  },
+  {
+   "id": "hat",
+   "kind": "paperhat",
+   "wear": "sam",
+   "x": 0,
+   "y": 1.02,
+   "z": 0.02,
+   "scale": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.95,
+   "text": "Best fries in town!",
+   "pos": 480,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 1.25,
+   "text": "Yaaay!",
+   "pos": 480,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.08,
+   "to": 2.3,
+   "text": "Hi!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.3,
+   "to": 3.15,
+   "text": "Awww!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.23,
+   "to": 4.03,
+   "text": "Ooh!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.07,
+   "to": 4.75,
+   "text": "Aaah!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.75,
+   "to": 5.6,
+   "text": "Wheee!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.95,
+   "to": 6.95,
+   "text": "Are you seeing this?",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.95,
+   "to": 7.25,
+   "text": "Ooh, soup!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.75,
+   "to": 8.55,
+   "text": "Ta-da!",
+   "pos": 1262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.75,
+   "to": 9.9,
+   "text": "Want some?",
+   "pos": 480,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1 best fries in town",
+   "at": 0,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     -0.01,
+     1.554,
+     4.177
+    ],
+    "look": [
+     -0.01,
+     0.98,
+     -0.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.11,
+       0.34,
+       0.45
+      ],
+      "palm": [
+       0,
+       0.34,
+       0.45
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.11,
+       0.34,
+       0.45
+      ],
+      "palm": [
+       0,
+       0.34,
+       0.45
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "both",
+     "grip": [
+      0,
+      0.035,
+      0
+     ],
+     "pose": null,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.4,
+     "reason": "the wooden tray set down on the wooden table: a light tock",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 10,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.5
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "best fries in town!",
+     "tone": "excited",
+     "dur": 0.85,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.9,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.92,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.5,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "still",
+     "dur": 0.95,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "still",
+     "dur": 0.95,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "still",
+     "dur": 0.95,
+     "idle": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.36,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.37,
+       0.22,
+       -0.6
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.89,
+       0.22,
+       -0.54
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.75
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "sfx": "hop",
+     "gain": 0.6,
+     "reason": "the three fries' eyes pop open: a quick little rising bwip",
+     "at": 0.95
+    },
+    {
+     "who": "fa",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "fa",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.15,
+      "curve": 0.9,
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "fx": "sparkle",
+     "who": "fa",
+     "dur": 0.35,
+     "count": 4,
+     "color": "#fff2a8",
+     "at": 0.97
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.99
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.99
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.99
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.99
+    },
+    {
+     "who": "fb",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 0.99
+    },
+    {
+     "who": "fb",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.15,
+      "curve": 0.9,
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 0.99
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      0.3,
+      0.6
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.99
+    },
+    {
+     "who": "fa",
+     "do": "talk",
+     "line": "yaaay!",
+     "tone": "excited",
+     "dur": 0.4,
+     "blink": false,
+     "voice": false,
+     "at": 1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.5
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1
+    },
+    {
+     "who": "fa",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.01
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.482,
+      "curve": 0.45
+     },
+     "dur": 0.25,
+     "at": 1.02
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.02
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.02
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 1.03
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 1.03
+    },
+    {
+     "who": "fc",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 1.03
+    },
+    {
+     "who": "fc",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "eye": 1.15,
+      "curve": 0.9,
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 1.03
+    },
+    {
+     "who": "fc",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.6
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.03
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "who": "fb",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 1.07
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 1.07
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 1.07
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 1.07
+    },
+    {
+     "who": "fc",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.09
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.4,
+      "eye": 1.25
+     },
+     "dur": 0.15,
+     "at": 1.1
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.65,
+      "eye": 1.596,
+      "curve": -0.525
+     },
+     "dur": 0.25,
+     "at": 1.18
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.18
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 1.18
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P1b the victim (v3 B8)",
+   "at": 1.25,
+   "len": 0.65,
+   "shot": {
+    "pos": [
+     -1.327,
+     1.218,
+     3.857
+    ],
+    "look": [
+     -1.01,
+     0.74,
+     -0.68
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.92,
+       0.08
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.2,
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.55,
+      "curve": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "P2 the first bite: Hi!",
+   "at": 1.9,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0.02,
+     3.507,
+     3.109
+    ],
+    "look": [
+     0.02,
+     0.75,
+     -0.42
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.02,
+      3.342,
+      2.897
+     ]
+    },
+    "dur": 0.9
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      0.4,
+      0.5
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fc",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.5
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "fa",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.45,
+      "eye": 1.1
+     },
+     "dur": 0.12,
+     "at": 0.18
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.18
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "fa",
+     "do": "talk",
+     "line": "hi!",
+     "tone": "happy",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 0.18
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.55,
+     "reason": "Viking's little gasp as the fry waves at him",
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.482,
+      "curve": 0.3
+     },
+     "dur": 0.25,
+     "at": 0.22
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.22
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 0.22
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.98,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "awww!",
+     "tone": "happy",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 0.4
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.98,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 0.42
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.2,
+     "at": 0.42
+    },
+    {
+     "who": "vik",
+     "do": "bloom",
+     "to": 1,
+     "dur": 0.25,
+     "ease": "back",
+     "at": 0.5
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.6,
+     "reason": "the series' sound logo: the potato blossom pops open on Viking's sprout",
+     "at": 0.5
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.98,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.54
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      5
+     ],
+     "dur": 0.16,
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      -5
+     ],
+     "dur": 0.16,
+     "at": 0.72
+    },
+    {
+     "who": "vik",
+     "do": "tilt",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.16,
+     "at": 0.88
+    }
+   ]
+  },
+  {
+   "name": "P3 pool party",
+   "at": 2.8,
+   "len": 0.45,
+   "shot": {
+    "pos": [
+     -0.01,
+     1.554,
+     4.177
+    ],
+    "look": [
+     -0.01,
+     0.98,
+     -0.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.1,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.539,
+      "curve": -0.45
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.08,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.25
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       1,
+       -0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.07,
+       0.6,
+       0.16
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.596,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.1
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.1,
+       0.75,
+       -0.02
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "sfx": "click",
+     "gain": 1,
+     "reason": "Phoenix's phone shutter: a photo of the waving fry",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.75
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.24
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.1,
+       0.6,
+       0.02
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.29
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.45,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "fb",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5,
+      "eye": 1.25,
+      "curve": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.4
+    },
+    {
+     "who": "fb",
+     "do": "talk",
+     "line": "ooh!",
+     "tone": "excited",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 0.43
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "P3b the dips",
+   "at": 3.25,
+   "len": 2.55,
+   "shot": {
+    "pos": [
+     0,
+     1.879,
+     3.229
+    ],
+    "look": [
+     0,
+     0.66,
+     -0.12
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "fb",
+     "do": "move",
+     "to": [
+      -0.27,
+      0.215
+     ],
+     "y": 0.111,
+     "dur": 0.4,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0.3
+    },
+    {
+     "who": "fb",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.65
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.9,
+     "reason": "the fry plops into the ketchup pot",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "ket",
+     "set": {
+      "splash": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.7
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.16,
+       0.34,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.34,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.75
+    },
+    {
+     "who": "fb",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "fb",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "fb",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.05,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.8
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.8
+    },
+    {
+     "who": "fb",
+     "do": "talk",
+     "line": "aaah!",
+     "tone": "happy",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 0.82
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.4
+     },
+     "dur": 0.12,
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.36,
+       0.34,
+       0.46
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.36,
+       0.34,
+       0.46
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.6,
+     "reason": "Viking claps his gloves together with joy at the fry in the ketchup: a soft muffled clap",
+     "at": 0.98
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.22,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.22,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.36,
+       0.34,
+       0.46
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.36,
+       0.34,
+       0.46
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.15
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.6,
+     "reason": "Viking claps his gloves together with joy at the fry in the ketchup: a soft muffled clap",
+     "at": 1.23
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.22,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.27
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.22,
+       0.36,
+       0.44
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.27
+    },
+    {
+     "who": "fc",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.6
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "fc",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.6,
+      "eye": 1.2,
+      "curve": 0.8
+     },
+     "dur": 0.1,
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.35
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.3,
+       0.4
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.37
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.37
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.3,
+       0.4
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.37
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.37
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 1.45
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 1.45
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.45
+    },
+    {
+     "who": "fc",
+     "do": "talk",
+     "line": "wheee!",
+     "tone": "excited",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 1.5
+    },
+    {
+     "who": "fc",
+     "do": "move",
+     "to": [
+      0.33,
+      0.195
+     ],
+     "y": 0.111,
+     "dur": 0.42,
+     "ease": "linear",
+     "steps": 0,
+     "at": 1.5
+    },
+    {
+     "who": "fc",
+     "do": "hop",
+     "height": 0.2,
+     "dur": 0.42,
+     "at": 1.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.57
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.24,
+       0.215,
+       -0.52
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.57
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 1.65
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.6,
+       0.08
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.65,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "salad",
+      "grip": [
+       -0.09,
+       0.07,
+       0
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 1.85
+    },
+    {
+     "sfx": "splash",
+     "gain": 0.55,
+     "reason": "the fry cannonballs into the mayo pot",
+     "at": 1.92
+    },
+    {
+     "do": "prop",
+     "id": "may",
+     "set": {
+      "splash": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.92
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.16,
+       0.34,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.97
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 1.97
+    },
+    {
+     "who": "fc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.34,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.97
+    },
+    {
+     "who": "fc",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 1.97
+    },
+    {
+     "who": "fc",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 2.02
+    },
+    {
+     "who": "fc",
+     "do": "still",
+     "dur": 1.6,
+     "idle": 0.05,
+     "at": 2.02
+    },
+    {
+     "do": "prop",
+     "id": "salad",
+     "set": {
+      "x": -0.7,
+      "z": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.3,
+     "reason": "Gunslinger's salad bowl pushed away over the wooden table",
+     "at": 2.05
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.15
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.5
+    }
+   ]
+  },
+  {
+   "name": "P5 are you seeing this",
+   "at": 5.8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.786,
+     1.484,
+     4.255
+    ],
+    "look": [
+     -0.6,
+     0.62,
+     -0.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.06,
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "are you seeing this?",
+     "tone": "question",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.6,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.2
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 0.85,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "P6 the backflip",
+   "at": 6.8,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     1.021,
+     1.8,
+     4.171
+    ],
+    "look": [
+     0.4,
+     0.52,
+     -0.25
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "fa",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.55,
+      "eye": 1.25,
+      "curve": 0.7
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "fa",
+     "do": "talk",
+     "line": "ooh, soup!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.35,
+       0.14
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.35,
+       0.14
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.25
+    },
+    {
+     "who": "fa",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "fa",
+     "do": "move",
+     "to": [
+      0.62,
+      -0.06
+     ],
+     "y": 0.126,
+     "dur": 0.45,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0.45
+    },
+    {
+     "who": "fa",
+     "do": "hop",
+     "height": 0.42,
+     "dur": 0.45,
+     "at": 0.45
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.45
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.06
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.45
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.4,
+     "reason": "the fry springs off the cone into a backflip",
+     "at": 0.45
+    },
+    {
+     "do": "physics",
+     "prop": "cone",
+     "mode": "knock",
+     "v": [
+      -0.18,
+      0.05,
+      0.04
+     ],
+     "spin": [
+      0,
+      0,
+      3
+     ],
+     "at": 0.47
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "fb",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "fc",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "fa",
+     "do": "pitch",
+     "to": -360,
+     "dur": 0.315,
+     "ease": "inOut",
+     "at": 0.504
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.55
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "sfx": "put-down-glass",
+     "gain": 0.25,
+     "reason": "the paper cone tipping over onto the tray",
+     "at": 0.75
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 1,
+     "reason": "the payoff: the fry lands upright in Reaper's soup, a wet plop",
+     "at": 0.9
+    },
+    {
+     "sfx": "splash",
+     "gain": 0.7,
+     "reason": "the soup splashing up round the fry",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "soup",
+     "set": {
+      "ripple": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.62,
+      0.286,
+      -0.06
+     ],
+     "dur": 0.35,
+     "color": "#ffd6c8",
+     "puffs": 4,
+     "sparks": 6,
+     "size": 0.14,
+     "lift": 0.06,
+     "at": 0.9
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       1.08,
+       0.02
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.92
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.92
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       1.08,
+       0.02
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.92
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.92
+    },
+    {
+     "who": "fa",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.5,
+      "eye": 1.1
+     },
+     "dur": 0.12,
+     "at": 0.92
+    },
+    {
+     "who": "fa",
+     "do": "talk",
+     "line": "ta-da!",
+     "tone": "excited",
+     "dur": 0.4,
+     "blink": false,
+     "voice": false,
+     "at": 0.95
+    },
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0.3,
+      0.5
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.72,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.539,
+      "curve": -0.45
+     },
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "fb",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.4
+     },
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.75
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.653,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.08,
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.45
+     },
+     "dur": 0.15,
+     "at": 1
+    },
+    {
+     "who": "gsl",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "droop",
+     "to": 1.35,
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.15
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 1.6
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P8 want some",
+   "at": 8.5,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.01,
+     1.554,
+     4.177
+    ],
+    "look": [
+     -0.01,
+     0.98,
+     -0.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "look",
+     "to": [
+      0.3,
+      0.45
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "fa",
+     "do": "talk",
+     "line": "want some?",
+     "tone": "question",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "soft": true,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.55,
+      "eye": 1.596,
+      "curve": -0.3
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 0.33
+    },
+    {
+     "sfx": "click",
+     "gain": 1,
+     "reason": "Phoenix's phone shutter: the fry offering Reaper his own soup",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.75
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.39
+    },
+    {
+     "who": "fa",
+     "do": "still",
+     "dur": 0.85,
+     "idle": 0,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "thumb",
+     "dur": 0.15,
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0.75
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.9,
+   "see": [
+    "vik.face",
+    "gsl.face",
+    "rea.face",
+    "sam.face",
+    "phx.face",
+    "fa",
+    "cone"
+   ],
+   "why": "panel 1: Viking shouts at the giant cone of fries, Best fries in town!"
+  },
+  {
+   "from": 1,
+   "to": 1.22,
+   "see": [
+    "fa.face",
+    "fb.face",
+    "fc.face",
+    "vik.face",
+    "gsl.face"
+   ],
+   "why": "the fries wake up and cheer, Yaaay!"
+  },
+  {
+   "from": 1.3,
+   "to": 1.85,
+   "see": [
+    "gsl.face"
+   ],
+   "why": "v3 B8: Gunslinger's face, the victim, horrified at the cheering fries"
+  },
+  {
+   "from": 1.95,
+   "to": 2.3,
+   "see": [
+    "vik.face",
+    "fa.face"
+   ],
+   "why": "panel 2: he leans in for the first bite and the fry pops up and waves, Hi!"
+  },
+  {
+   "from": 2.4,
+   "to": 2.75,
+   "see": [
+    "vik.face",
+    "vik.sprout",
+    "fa.face"
+   ],
+   "why": "the blossom"
+  },
+  {
+   "from": 3.2,
+   "to": 3.5,
+   "see": [
+    "fb.face",
+    "ket",
+    "vik.face"
+   ],
+   "why": "panel 3: the fry spots the ketchup, Ooh!"
+  },
+  {
+   "from": 3.95,
+   "to": 4.6,
+   "see": [
+    "fb.face",
+    "vik.face"
+   ],
+   "why": "panel 3: the fry in the ketchup like a hot tub, Aaah!; Viking claps"
+  },
+  {
+   "from": 4.75,
+   "to": 5.3,
+   "see": [
+    "fc.face",
+    "may",
+    "vik.face"
+   ],
+   "why": "panel 4: the next fry cannonballs into the mayo, Wheee!"
+  },
+  {
+   "from": 5.95,
+   "to": 6.7,
+   "see": [
+    "gsl.face",
+    "vik.face"
+   ],
+   "why": "panel 5: Gunslinger leans to Reaper, Are you seeing this?"
+  },
+  {
+   "from": 6.85,
+   "to": 7.2,
+   "see": [
+    "fa.face",
+    "vik.face",
+    "soup"
+   ],
+   "why": "panel 6: the last fry spots Reaper's soup, Ooh, soup!"
+  },
+  {
+   "from": 7.3,
+   "to": 7.75,
+   "see": [
+    "fa",
+    "soup",
+    "rea.face"
+   ],
+   "why": "panel 6: the backflip off the cone into the soup"
+  },
+  {
+   "from": 7.75,
+   "to": 8.45,
+   "see": [
+    "fa.face",
+    "rea.face",
+    "soup",
+    "vik.face"
+   ],
+   "why": "panel 7: the fry standing upright in Reaper's soup, Ta-da!"
+  },
+  {
+   "from": 8.8,
+   "to": 9.85,
+   "see": [
+    "fa.face",
+    "rea.face",
+    "gsl.face",
+    "vik.face",
+    "phx.face",
+    "vik.sprout"
+   ],
+   "why": "panel 8: the fry offers Reaper his own soup, Want some?; Gunslinger leans back, palms up"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 7.7,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "sam",
+   "with": "apron",
+   "from": 0,
+   "to": 10,
+   "reason": "the waiter's apron (worn)"
+  },
+  {
+   "who": "sam",
+   "with": "hat",
+   "from": 0,
+   "to": 10,
+   "reason": "the waiter's paper cap (worn)"
+  },
+  {
+   "who": "fa",
+   "with": "cone",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry stands in the paper cone, its lower half inside it (the dish)"
+  },
+  {
+   "who": "fb",
+   "with": "cone",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry stands in the paper cone, its lower half inside it (the dish)"
+  },
+  {
+   "who": "fc",
+   "with": "cone",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry stands in the paper cone, its lower half inside it (the dish)"
+  },
+  {
+   "who": "fa",
+   "with": "tray",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry's tiny feet stand on the tray's paper"
+  },
+  {
+   "who": "fb",
+   "with": "tray",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry's tiny feet stand on the tray's paper"
+  },
+  {
+   "who": "fc",
+   "with": "tray",
+   "from": 0,
+   "to": 10,
+   "reason": "a fry's tiny feet stand on the tray's paper"
+  },
+  {
+   "who": "fa",
+   "with": "fb",
+   "from": 0,
+   "to": 3.9,
+   "reason": "the three fries stand packed side by side in one cone"
+  },
+  {
+   "who": "fa",
+   "with": "fc",
+   "from": 0,
+   "to": 5.2,
+   "reason": "the three fries stand packed side by side in one cone"
+  },
+  {
+   "who": "fb",
+   "with": "fc",
+   "from": 0,
+   "to": 3.9,
+   "reason": "the three fries stand packed side by side in one cone"
+  },
+  {
+   "who": "fb",
+   "with": "ket",
+   "from": 3.85,
+   "to": 10,
+   "reason": "the fry sits waist deep in the ketchup pot like a hot tub, its gloves on the rim"
+  },
+  {
+   "who": "fc",
+   "with": "may",
+   "from": 5.1,
+   "to": 10,
+   "reason": "the fry sits waist deep in the mayo pot, its gloves on the rim"
+  },
+  {
+   "who": "fb",
+   "with": "table",
+   "from": 3.8,
+   "to": 10,
+   "reason": "a fry sitting in a dip pot: its feet go down under the table top, hidden inside the pot"
+  },
+  {
+   "who": "fc",
+   "with": "table",
+   "from": 3.8,
+   "to": 10,
+   "reason": "a fry sitting in a dip pot: its feet go down under the table top, hidden inside the pot"
+  },
+  {
+   "who": "fa",
+   "with": "soup",
+   "from": 7.6,
+   "to": 10,
+   "reason": "the payoff: the fry stands upright in Reaper's tomato soup, its lower half in the soup"
+  },
+  {
+   "who": "fa",
+   "with": "table",
+   "from": 7.6,
+   "to": 10,
+   "reason": "the fry stands in the soup: its tiny feet go down through the bowl's bottom, hidden in the soup"
+  },
+  {
+   "who": "rea",
+   "with": "vik",
+   "from": 0,
+   "to": 10,
+   "reason": "shoulder to shoulder in the booth: Reaper's right glove rests on the table beside his soup and touches Viking's sleeve, never goes in"
+  },
+  {
+   "who": "fa",
+   "from": 7.25,
+   "to": 7.75,
+   "checks": [
+    "lean-jump",
+    "motion"
+   ],
+   "reason": "the backflip: the fry springs off the cone at full speed and turns a whole circle in 0.3 s, so its tip and stretch change fast inside the flip (take-off, apex, landing); a spring has no ease-in"
+  },
+  {
+   "who": "fa",
+   "from": 7.25,
+   "to": 7.7,
+   "checks": [
+    "hand-pop"
+   ],
+   "reason": "the backflip: the gloves turn over with the whole body in the air"
+  },
+  {
+   "who": "vik",
+   "from": 1,
+   "to": 1.3,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the fries' cheer: the middle fry's glove passes in front of Viking's eyes for 0.1 s in the wide"
+  },
+  {
+   "who": "gsl",
+   "with": "salad",
+   "from": 5,
+   "to": 5.8,
+   "reason": "his glove pushes his salad bowl away"
+  }
+ ],
+ "notes": "Generated by storyboards/series/always-orders-potatoes/01-fries/make-fries.mjs. Panels: PANELS.md."
+}
