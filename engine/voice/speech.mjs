@@ -37,11 +37,21 @@ function recipe(voice) {
   return VOICES[voice];
 }
 
-function job(text, rec, { tone = "calm", soft = false }) {
+// tone -> the acting direction VoxCPM2 voices get in brackets (recipes with "vox"); a recipe's vox.styles or a line's
+// "style" overrides it, "style": "" reads the line with no direction
+const VOX_STYLES = { calm: "", excited: "excited, energetic", sad: "sad, quiet", question: "curious", chant: "chanting, rhythmic", whisper: "whispering softly" };
+function voxJob(rec, tone, soft, style, take) {
+  if (!rec.vox) return undefined;
+  const t = soft && tone === "calm" ? "whisper" : tone;
+  const st = style ?? rec.vox.styles?.[t] ?? [rec.vox.base, VOX_STYLES[t]].filter(Boolean).join(", ");
+  return { ref: rec.vox.ref, ...(st ? { style: st } : {}), ...(take ? { take } : {}) };
+}
+
+function job(text, rec, { tone = "calm", soft = false, style, take }) {
   const [speed, mark] = TONES[tone] ?? TONES.calm;
   const t = text.trim(), spoken = /[.!?…]$/.test(t) ? t : t + mark;
   const j = { text: spoken, voice: rec.voice, speed: Math.round((rec.speed ?? 1) * speed * 1000) / 1000, lang: rec.lang ?? "en-us",
-    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper"), pause: rec.pause, post: rec.post, accent: rec.accent, convert: rec.convert, human: rec.human };   // pause/post/accent/convert/human: only when a recipe sets them (else left out of the hash)
+    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper"), pause: rec.pause, post: rec.post, accent: rec.accent, convert: rec.convert, human: rec.human, vox: voxJob(rec, tone, soft, style, take) };   // pause/post/accent/convert/human/vox: only when a recipe sets them (else left out of the hash)
   j.id = crypto.createHash("sha1").update(JSON.stringify([VERSION, j])).digest("hex").slice(0, 16);
   return j;
 }
@@ -58,6 +68,7 @@ function synthesise(jobs) {
   const t = Date.now();
   const r = spawnSync(python(), [path.join(HERE, "tts.py")], { input: JSON.stringify({ cache: CACHE, jobs: todo }), encoding: "utf8", maxBuffer: 1 << 26 });
   if (r.status !== 0) throw new Error(`speech: tts.py failed\n${(r.stderr || r.error || "").toString().slice(-3000)}`);
+  for (const l of (r.stderr || "").split("\n")) if (l.startsWith("vox:")) console.warn(`speech: ${l.slice(5)}`);   // VoxCPM2 misreads
   console.log(`speech: ${todo.length} new line(s) in ${((Date.now() - t) / 1000).toFixed(1)}s -> ${path.relative(ROOT, CACHE)}`);
   return true;
 }
