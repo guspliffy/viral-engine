@@ -17,7 +17,7 @@ import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 
 // V3RULES=1 writes the reach-rules-v3 re-cut (Jonny 7 Nov, the posting test's day 4) as sunday-roast-v3rules.json beside
-// this one: the first line a promise meant to break ("I'll share this time. Promise!", 0.05 s, rule B7) and a cut to
+// this one: the first line a promise meant to break ("I'll share. Promise!", 0.05 s, rule B7) and a cut to
 // the victim's face at 1.05 s, Gunslinger frozen in an unimpressed look for 0.67 s (rule B8). Everything else is the same.
 const V3 = process.env.V3RULES === "1";
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
@@ -110,7 +110,7 @@ A(0, "sam", "lean", { to: 12, dur: 0 }); A(0.05, "sam", "lean", { to: 0, dur: 0.
 c.arm(0, "wiz", "R", { o: [-0.1, 0.36, 0.3] }, 0);
 A(0, "sam", "look", { to: [0.1, -0.35], dur: 0, blink: false }); A(0, "sam", "face", { lid: 0.3, dur: 0 });
 A(0.55, "sam", "look", { to: [0, 0], dur: 0.15, blink: false });
-if (V3) act.opener(c, "vik", "I'll share this time. Promise!", { at: 0.05, dur: 0.9, tone: "excited", pos: SUB_LOW });
+if (V3) act.opener(c, "vik", "I'll share. Promise!", { at: 0.05, dur: 0.75, tone: "excited", pos: SUB_LOW });
 else act.opener(c, "vik", "ROASTIES!", { at: 0.05, dur: 0.6, tone: "excited", pos: SUB_LOW });
 A(0, "vik", "look", { to: [0, -0.6], dur: 0, blink: false });
 A(0, "vik", "expr", { expr: "eager", set: { open: 0.55 }, dur: 0 });

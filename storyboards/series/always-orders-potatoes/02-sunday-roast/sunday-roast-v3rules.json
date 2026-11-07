@@ -372,8 +372,8 @@
  "captions": [
   {
    "from": 0.05,
-   "to": 1.35,
-   "text": "I'll share this time. Promise!",
+   "to": 1.2,
+   "text": "I'll share. Promise!",
    "pos": 1262,
    "pop": false,
    "size": 62,
@@ -747,9 +747,9 @@
     {
      "who": "vik",
      "do": "talk",
-     "line": "I'll share this time. Promise!",
+     "line": "I'll share. Promise!",
      "tone": "excited",
-     "dur": 0.9,
+     "dur": 0.75,
      "blink": false,
      "voice": false,
      "at": 0.05
