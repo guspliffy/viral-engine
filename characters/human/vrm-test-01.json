@@ -58,8 +58,8 @@
   }
  },
  "posture": {
-  "neck": 0.22,
-  "head": 0.2,
+  "level": 0.7,
+  "max": 0.45,
   "upperChest": 0.06
  },
  "line": "#2e211c",
