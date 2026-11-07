@@ -30,15 +30,20 @@ import * as act from "../../lib/acting.mjs";
 import { rigRotation, rigToWorld, rigState, ROADSTER } from "../../../engine/page/vehicle.js";
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see, prop } = c;
-const END = 9.9;          // + the trip's 3-frame hit-stop = exactly 10.0 s of video (series format)
+// Jonny 7 Nov 11:14: "after the uh-oh there should be immediately the cut to the next scene and the car should spin all
+// the time": the freeze (and the whole series ending after it) comes SH seconds earlier than the series format's 8.0 s,
+// straight after the uh-oh, so the clip is 8.3 s instead of 10.0 s (a departure from 00-SERIES-FORMAT.md, his call)
+const SH = 1.7;
+const END = r3(9.9 - SH);  // + the trip's 3-frame hit-stop = 8.3 s of video
 const HS = 0.1;           // video = story + HS after the trip
 const v2t = (v) => r3(v - HS);   // a series video time (after the trip) as clip time
+const e2t = (v) => v2t(v - SH);  // a series ENDING time (look-up, back down) as clip time, pulled forward by SH
 const lin = (x, a, b) => Math.min(1, Math.max(0, (x - a) / (b - a)));
 const sm = (x) => x * x * (3 - 2 * x);
 
 // ---------------------------------------------------------------- the clock: clip time t -> story time u
 const S = 0.2;                                 // slow motion: a fifth of real speed
-const TRIP = 1.45, SLOW_IN = [1.6, 2.1], FREEZE = [7.9, 9.1], EASE_F = 0.08;
+const TRIP = 1.45, SLOW_IN = [1.6, 2.1], FREEZE = [r3(7.9 - SH), r3(9.1 - SH)], EASE_F = 0.08;
 const rate = (t) => {                          // story seconds per clip second
   if (t < SLOW_IN[0]) return 1;
   if (t < SLOW_IN[1]) return 1 + (S - 1) * sm(lin(t, ...SLOW_IN));
@@ -80,12 +85,12 @@ const PITCH = [[0, 0, 0], [0.06, 0, 0], [0.2, 1.4, 0], [0.5, 0.5, 0], [TRIP, 0, 
 // over onto its roof (Jonny 7 Nov: "the spin from second 5 on could be at least 2.5x as fast"), upside down from
 // about 6.3 s while it falls toward the road for the peak and the freeze, then the last half turn onto its wheels when
 // time comes back
-const R_PING = U(2.6), R_UP1 = U(3.9), R_FLAT = U(6.1), R_5 = U(4.9), R_62 = U(6.2);
-const ROLL = [[0, 0, 0], [TRIP, 0, 0], [TRIP + 0.08, -4, -80], [LIFT, -22, -180], [1.9, -60, -200], [R_PING, -82, -130], [R_UP1, -106, -100], [R_5, -124, -180], [U(5.6), -152, -240], [R_62, -173, -110], [U(6.7), -181, -50], [UF, -190, -45], [UF + 0.18, -262, -480], [LAND, -360, -250], [LAND + 0.1, -362.5, 0], [LAND + 0.3, -359.2, 0], [LAND + 0.55, -360, 0], [9, -360, 0]];
+const R_PING = U(2.6), R_UP1 = U(3.9), R_5 = U(4.9);
+const ROLL = [[0, 0, 0], [TRIP, 0, 0], [TRIP + 0.08, -4, -80], [LIFT, -22, -180], [1.9, -60, -200], [R_PING, -82, -130], [R_UP1, -106, -100], [R_5, -124, -200], [UF, -184, -240], [UF + 0.18, -262, -480], [LAND, -360, -250], [LAND + 0.1, -362.5, 0], [LAND + 0.3, -359.2, 0], [LAND + 0.55, -360, 0], [9, -360, 0]];
 // how high the car's lowest point is over the ground (m): the hull's own clearance is added, so it tips over its
 // kerb-side tyres, flies, and when it comes down rolls over its edge onto its wheels. At the freeze the heads are
 // 0.25 m over the road (the peak: the road a hand's width over Phoenix's crest)
-const GAP = [[0, 0, 0], [TRIP + 0.05, 0, 0], [LIFT, 0.06, 0.8], [1.9, 0.42, 1.6], [R_PING, 0.62, 1.4], [2.35, 1.15, 0.9], [R_FLAT, 1.3, -0.1], [2.85, 0.85, -1.2], [UF, 0.25, -1.4], [UF + 0.2, 0.05, -0.4], [LAND, 0, 0], [LAND + 0.12, -0.07, 0], [LAND + 0.32, 0.02, 0], [LAND + 0.55, -0.006, 0], [LAND + 0.8, 0, 0], [9, 0, 0]];
+const GAP = [[0, 0, 0], [TRIP + 0.05, 0, 0], [LIFT, 0.06, 0.8], [1.9, 0.42, 1.6], [R_PING, 0.62, 1.4], [U(4.4), 1.15, 0], [U(5.4), 0.85, -2.2], [UF, 0.25, -2.0], [UF + 0.2, 0.05, -0.4], [LAND, 0, 0], [LAND + 0.12, -0.07, 0], [LAND + 0.32, 0.02, 0], [LAND + 0.55, -0.006, 0], [LAND + 0.8, 0, 0], [9, 0, 0]];
 const STEER = [[0, 0, 0], [0.04, 0, 0], [0.16, 80, 0], [0.32, 45, 0], [0.5, -85, 0], [0.8, -60, 0], [TRIP, -30, 0], [1.8, 35, 0], [2.4, 0, 0], [LAND, 0, 0], [LAND + 0.2, -55, 0], [LAND + 0.5, 30, 0], [LAND + 0.9, 0, 0], [9, 0, 0]];
 const PIVOT = [0, 0.55, 0];
 // what must stay above the ground (car frame): the body's corners and edges, the tyres (10 cm into their travel), the
@@ -195,8 +200,8 @@ A(0, "phx", "look", { to: AT_PHONE, dur: 0, blink: false });
 A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 });
 A(0, "phx", "face", { lid: 0.55, dur: 0 });
 prop(0, "phone", { glow: 1 }, 0.01);
-act.blinksAt(c, "phx", [1.1, 5.3, 7.2]);
-act.scrollPhone(c, "phx", [0.3, 1.2, 2.1, 3.1, 4.05, 4.25, 5.6, 6.6, 7.4]);
+act.blinksAt(c, "phx", [1.1, 5.3]);
+act.scrollPhone(c, "phx", [0.3, 1.2, 2.1, 3.1, 4.05, 4.25, 5.6]);
 // the setup ping (video 2.7): the car on its side, his tiny smile at the phone
 sfx(v2t(2.7), "notify", { gain: 0.32 });
 A(v2t(2.75), "phx", "expr", { expr: "happy", set: { curve: 0.45 }, dur: 0.2 });
@@ -234,35 +239,34 @@ A(4.57, "dra", "look", { to: [0.1, -0.4], dur: 0.12, blink: false });   // eyes 
 c.arm(4.7, "dra", "L", WHEEL_L, 0.35, "inOut");
 A(5.0, "dra", "look", { to: ROAD_AHEAD, dur: 0.2, blink: false });
 // going over onto the roof, the road coming up at them: uh-oh
-A(5.75, "dra", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.3, curve: -0.45 }, dur: 0.25 });
-c.textPop(5.85, "dra", "uh-oh", { dur: 0.7, dx: 0.8, dy: -0.9 });
-A(6.6, "dra", "expr", { expr: "shocked", set: { open: 0.75, eye: 1.4, curve: -0.3 }, dur: 0.2 });
-// the peak: the road right over their heads; he squeezes his eyes shut and braces, frozen like that
-A(7.25, "dra", "face", { lid: 0.92, brow: 0.7, dur: 0.18 });
-A(7.25, "dra", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.0, curve: -0.5 }, dur: 0.18 });
-A(7.3, "dra", "squash", { amount: 0.05, dur: 0.3 });
+A(5.55, "dra", "expr", { expr: "shocked", set: { open: 0.4, eye: 1.3, curve: -0.45 }, dur: 0.2 });
+c.textPop(5.65, "dra", "uh-oh", { dur: 0.5, dx: 0.8, dy: -0.9 });   // the cut to the look-up comes right after it (Jonny)
+// the road right over their heads: he squeezes his eyes shut and braces as the uh-oh goes, frozen like that
+A(5.9, "dra", "face", { lid: 0.92, brow: 0.7, dur: 0.18 });
+A(5.9, "dra", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.0, curve: -0.5 }, dur: 0.18 });
+A(5.92, "dra", "squash", { amount: 0.05, dur: 0.25 });
 A(FREEZE[0] - 0.3, "dra", "still", { dur: FREEZE[1] - FREEZE[0] + 0.3, idle: 0 });
 // back on its wheels: he opens one eye at a time, then glares at Phoenix to the cut
-A(v2t(9.7), "dra", "face", { lid: 0.2, brow: -0.6, dur: 0.15 });
-A(v2t(9.7), "dra", "look", { to: AT_PHX, dur: 0.12, blink: false });
-act.mood(c, v2t(9.72), "dra", "annoyed", { hold: 0.3 });
+A(e2t(9.7), "dra", "face", { lid: 0.2, brow: -0.6, dur: 0.15 });
+A(e2t(9.7), "dra", "look", { to: AT_PHX, dur: 0.12, blink: false });
+act.mood(c, e2t(9.72), "dra", "annoyed", { hold: 0.3 });
 
 // ---------------------------------------------------------------- LOOK-UP (video 8.0-9.0): the series ending, frozen upside down
-const LU = v2t(8.0);
-A(v2t(8.05), "phx", "look", { to: [0.35, 0.7], dur: 0.12, blink: false });   // up: in the car's frame that is at the road
-A(v2t(8.05), "phx", "face", { lid: 0.15, dur: 0.12 });
-A(v2t(8.05), "phx", "pitch", { to: -8, dur: 0.15 });
-A(v2t(8.35), "phx", "blink", { dur: 0.22 });
-c.say(v2t(8.5), "phx", "huh.", 0.35, "calm", { sub: false, voice: true });
-c.cap(v2t(8.5), v2t(9.0), "huh.", 330);   // over his crest, on the road overhead: his face and gloves fill the lower frame
-see(v2t(8.1), v2t(8.95), ["phx.face", "phone"], "P7: Phoenix, upside down with the road a hand over his head, looks up: huh.");
+const LU = e2t(8.0);
+A(e2t(8.05), "phx", "look", { to: [0.35, 0.7], dur: 0.12, blink: false });   // up: in the car's frame that is at the road
+A(e2t(8.05), "phx", "face", { lid: 0.15, dur: 0.12 });
+A(e2t(8.05), "phx", "pitch", { to: -8, dur: 0.15 });
+A(e2t(8.35), "phx", "blink", { dur: 0.22 });
+c.say(e2t(8.5), "phx", "huh.", 0.35, "calm", { sub: false, voice: true });
+c.cap(e2t(8.5), e2t(9.0), "huh.", 330);   // over his crest, on the road overhead: his face and gloves fill the lower frame
+see(e2t(8.1), e2t(8.95), ["phx.face", "phone"], "P7: Phoenix, upside down with the road a hand over his head, looks up: huh.");
 // BACK DOWN (video 9.0-10.0)
-A(v2t(9.0), "phx", "look", { to: AT_PHONE, dur: 0.12, blink: false });
-A(v2t(9.0), "phx", "face", { lid: 0.55, dur: 0.15 });
-A(v2t(9.0), "phx", "pitch", { to: 0, dur: 0.15 });
-sfx(v2t(9.15), "notify", { gain: 0.36 });
-A(v2t(9.2), "phx", "expr", { expr: "happy", set: { curve: 0.55 }, dur: 0.25 });
-act.scrollPhone(c, "phx", [v2t(9.4)]);
+A(e2t(9.0), "phx", "look", { to: AT_PHONE, dur: 0.12, blink: false });
+A(e2t(9.0), "phx", "face", { lid: 0.55, dur: 0.15 });
+A(e2t(9.0), "phx", "pitch", { to: 0, dur: 0.15 });
+sfx(e2t(9.15), "notify", { gain: 0.36 });
+A(e2t(9.2), "phx", "expr", { expr: "happy", set: { curve: 0.55 }, dur: 0.25 });
+act.scrollPhone(c, "phx", [e2t(9.4)]);
 
 // ---------------------------------------------------------------- sound: the road, the tyres, the trip, the flight, the landing
 const TL = Tof(LAND);
@@ -296,14 +300,12 @@ const beats = c.beats([
   // the swipe: close on Phoenix in the car, the road going round behind him
   ["swipe", 4.6, { rig: "car", pos: [-0.4, 1.55, 3.4], look: [PHX_X, 1.0, -0.3], fov: 24, to: { pos: [-0.42, 1.5, 3.1] }, dur: 0.8, ease: "inOut" }],
   // wide: going over onto its roof (uh-oh)
-  ["uh-oh", 5.4, { pos: [1.6, 2.4, 12.0], look: look(5.4, 1.6), fov: 28, to: { look: look(6.9, 1.3) }, dur: 1.5, ease: "inOut" }],
-  // the peak: low, the road a hand's width over their heads
-  ["peak", 6.9, { pos: [2.6, 0.6, 11.0], look: look(7.2, 0.4), fov: 26, to: { pos: [2.9, 0.55, 10.4], look: look(LU, 0.3) }, dur: LU - 6.9, ease: "inOut" }],
+  ["uh-oh", 5.4, { pos: [1.6, 2.4, 12.0], look: look(5.4, 1.6), fov: 28, to: { look: look(LU, 1.0) }, dur: r3(LU - 5.4), ease: "inOut" }],
   // the look-up: in the car, a medium close on Phoenix from his front left at three-quarters, eye level, the road
   // filling the top of the frame
   ["look-up", LU, { rig: "car", pos: [-0.12, 1.42, 4.1], look: [PHX_X, 1.3, -0.3], fov: 27 }, "payoff"],
   // back on its wheels: the landing, wide
-  ["landing", 9.15, { pos: [2.4, 1.6, 12.0], look: look(TL, 0.8), fov: 22, to: { pos: [2.3, 1.55, 11.6], fov: 17 }, dur: r3(END - 9.15), ease: "out" }, "reaction"],
+  ["landing", r3(9.15 - SH), { pos: [2.4, 1.6, 12.0], look: look(TL, 0.8), fov: 22, to: { pos: [2.3, 1.55, 11.6], fov: 17 }, dur: r3(END - 9.15 + SH), ease: "out" }, "reaction"],
 ], END);
 
 write(import.meta.url, {
@@ -314,14 +316,14 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   cleanStart: true,
   motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: true,
-  cover: r3(v2t(8.5) + HS),
+  cover: r3(e2t(8.5) + HS),
   set: { type: "env", env: "golden-country-road", shade: "soft", aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, speed: speedKeys },
   rigs: [rig],
   drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0, wash: 0.09, pool: 0.15 } },
   // action music (Jonny 7 Nov: "some action music to support the scene"): a new AI car-chase bed (assets/music/ai/car-chase,
   // 140 bpm, drums + staccato strings + brass hits), locked so its stop lands on the look-up (the series' held breath),
   // back in on the ping after it; the low cut moves its weight into the phone band
-  music: { file: "ai/car-chase/car-chase-06.ogg", gain: 0.42, lowCut: 120, duck: { db: 9 }, until: v2t(8.0), then: { file: "ai/car-chase/car-chase-06.ogg", from: v2t(9.15), gain: 0.4 } },
+  music: { file: "ai/car-chase/car-chase-06.ogg", gain: 0.42, lowCut: 120, duck: { db: 9 }, until: e2t(8.0), then: { file: "ai/car-chase/car-chase-06.ogg", from: e2t(9.15), gain: 0.4 } },
   sound: { sfx: 0.7, ambience: 0.3, surface: "road", room: "open", guard: true, scenes: ["ui"], signature: { entrances: false }, engine: { keys: ENGINE, gain: 0.17, cyl: 4 } },
   creative: { length: [END, END] },
   hook: { show: ["phx", "dra", "phone", "rock"], hint: 0, what: "Dragon sees a rock in the lane and yanks the wheel; Phoenix beside him only sees his phone" },
