@@ -1,0 +1,198 @@
+{
+ "id": "core-reaper-vs-potato",
+ "title": "Reaper (Core Five): the quiet friend",
+ "idea": "Character test of the redesigned Reaper in a real room (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9a27a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/cream-room-blue.png",
+   "z": -2.3,
+   "center": [
+    -0.2,
+    1.15
+   ],
+   "height": 3.9
+  },
+  "lighting": 2
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "hook": {
+  "show": [
+   "rea"
+  ],
+  "hint": 0,
+  "what": "the Reaper's quiet hello"
+ },
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "core-five-2026/reaper",
+   "at": [
+    -0.35,
+    0.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.1
+  },
+  {
+   "id": "old",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.95,
+    0.1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0,
+   "seed": 3.3
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "quiet",
+   "at": 0,
+   "len": 2.0,
+   "shot": {
+    "pos": [
+     0.27,
+     0.85,
+     4.4
+    ],
+    "look": [
+     0.27,
+     0.72,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.42,
+       0.31
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.17,
+       0.4,
+       0.33
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.18
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.25,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.37
+    },
+    {
+     "who": "old",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 0
+    }
+   ],
+   "kind": "hook"
+  }
+ ],
+ "visible": [],
+ "notes": "Side by side of the core-build Reaper and the potato Reaper (lookdev/reaper-crisp, castLook sheet): a style comparison still, not a clip. Spaced a body-width apart so the potato Reaper's scythe hand stays off the hood.",
+ "duration": 2.0
+}

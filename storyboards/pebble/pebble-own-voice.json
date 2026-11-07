@@ -1,0 +1,437 @@
+{
+ "id": "pebble-own-voice",
+ "title": "Pebble own-voice audition",
+ "idea": "Pebble says Jonny's recorded line, plain and aged (not a clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet-clean",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.3,
+  "guard": true,
+  "surface": "dirt"
+ },
+ "creative": {
+  "length": [
+   8,
+   25
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "voices"
+ },
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2
+ },
+ "music": false,
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    0,
+    -1.15
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 1.3
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 4.45,
+   "text": "1: your take, cleaned",
+   "pos": 230,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  },
+  {
+   "from": 4.5,
+   "to": 8.85,
+   "text": "2: older A",
+   "pos": 230,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  },
+  {
+   "from": 8.9,
+   "to": 13.25,
+   "text": "3: older B",
+   "pos": 230,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  },
+  {
+   "from": 13.3,
+   "to": 17.65,
+   "text": "4: older C",
+   "pos": 230,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  },
+  {
+   "from": 17.7,
+   "to": 22.05,
+   "text": "5: older A, take 2",
+   "pos": 230,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "voices",
+   "at": 0,
+   "len": 22.3,
+   "shot": {
+    "pos": [
+     0.05,
+     1.3,
+     2.75
+    ],
+    "look": [
+     0.02,
+     1.12,
+     -1.1
+    ],
+    "fov": 33
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.24,
+       0.1
+      ],
+      "swing": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.24,
+       0.1
+      ],
+      "swing": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 3.6999999999999997,
+     "idle": 0.85,
+     "at": 0.15
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "rec": "out/voice-takes/pebble-no-rush-1.m4a",
+     "age": "age-none",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.4,
+     "at": 3.8
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 3.9
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 3.9
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 3.6999999999999997,
+     "idle": 0.85,
+     "at": 4.55
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.3,
+     "at": 4.6
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "rec": "out/voice-takes/pebble-no-rush-1.m4a",
+     "age": "pebble-own-a",
+     "caption": false,
+     "at": 4.7
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.4,
+     "at": 8.2
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 8.3
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 8.34
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 8.9
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 3.6999999999999997,
+     "idle": 0.85,
+     "at": 8.95
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.3,
+     "at": 9
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "rec": "out/voice-takes/pebble-no-rush-1.m4a",
+     "age": "pebble-own-b",
+     "caption": false,
+     "at": 9.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.4,
+     "at": 12.6
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 12.7
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 12.7
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 3.6999999999999997,
+     "idle": 0.85,
+     "at": 13.35
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.3,
+     "at": 13.4
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "rec": "out/voice-takes/pebble-no-rush-1.m4a",
+     "age": "pebble-own-c",
+     "caption": false,
+     "at": 13.5
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.4,
+     "at": 17
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 17.1
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 17.14
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 17.7
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 3.6999999999999997,
+     "idle": 0.85,
+     "at": 17.75
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.3,
+     "at": 17.8
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "rec": "out/voice-takes/pebble-no-rush-2.m4a",
+     "age": "pebble-own-a",
+     "caption": false,
+     "at": 17.9
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "dur": 0.4,
+     "at": 21.4
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 21.5
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.58,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 21.5
+    }
+   ],
+   "kind": "hook"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 22.3,
+   "see": [
+    "peb.face"
+   ],
+   "why": "Pebble saying each voice option"
+  }
+ ],
+ "notes": "Generated by storyboards/pebble/make-pebble-own-voice.mjs (voice audition, no reviews)."
+}

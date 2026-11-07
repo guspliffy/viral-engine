@@ -5,6 +5,8 @@ const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
+import { coreCostume } from "./costumes-core.js";
+import { pebbleCostume } from "./costumes-pebble.js";
 import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
@@ -30,6 +32,22 @@ function sprout(color) {
     const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.003, 0.0045, 0.115, 6), vein); rib.position.set(0, 0.062, 0.01); leaf.add(rib);
     return { pivot, s };
   });
+  // the blossom (always orders potatoes, 6 Nov 2026): one potato flower that opens on the tip of the stem between the
+  // leaves when st.bloom goes 0..1 (a real potato blossom: five white, faintly lilac, pointed star petals round a bright
+  // yellow cone of anthers). Hidden at 0, so every other clip draws exactly as before.
+  const flower = new THREE.Group(); flower.position.set(0, 0.085, 0.012); flower.visible = false; g.add(flower);
+  const petalM = new THREE.MeshStandardMaterial({ color: "#fbf7ff", roughness: 0.55, side: THREE.DoubleSide, emissive: new THREE.Color("#3a3050"), emissiveIntensity: 0.12 });
+  const tintM = new THREE.MeshStandardMaterial({ color: "#d9c6ee", roughness: 0.6, side: THREE.DoubleSide });
+  const coneM = new THREE.MeshStandardMaterial({ color: "#ffcf1f", roughness: 0.4, emissive: new THREE.Color("#5a3e00"), emissiveIntensity: 0.35 });
+  const petal = new THREE.Shape(); petal.moveTo(0, 0); petal.quadraticCurveTo(0.026, 0.024, 0, 0.062); petal.quadraticCurveTo(-0.026, 0.024, 0, 0);
+  const petalG = new THREE.ShapeGeometry(petal, 8), streakG = new THREE.PlaneGeometry(0.006, 0.034);
+  const face = new THREE.Group(); face.rotation.x = -0.35; flower.add(face);   // opens toward the front and a little up
+  for (let i = 0; i < 5; i++) {
+    const p = new THREE.Group(); p.rotation.z = (i / 5) * Math.PI * 2; face.add(p);
+    const m = new THREE.Mesh(petalG, petalM); m.rotation.x = 0.18; p.add(m);
+    const st = new THREE.Mesh(streakG, tintM); st.position.set(0, 0.022, 0.001); st.rotation.x = 0.18; p.add(st);   // the faint lilac midline
+  }
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(0.014, 0.03, 10), coneM); cone.rotation.x = Math.PI / 2; cone.position.z = 0.016; face.add(cone);
   // ft: follow-through (timeline.js st.ft), the stem bends with the lag and the leaves lift or flop with the bounce
   let base = null;
   return {
@@ -39,6 +57,8 @@ function sprout(color) {
       base ??= g.rotation.clone();
       g.rotation.set(base.x + 0.8 * (ft?.f || 0), base.y, base.z - 0.8 * (ft?.s || 0));
     },
+    // b 0..1 (the "bloom" action; its ease "back" gives the pop its overshoot)
+    bloom(b) { flower.visible = b > 0.002; flower.scale.setScalar(Math.max(0.002, b) * 1.7); },   // 1.7: it must read at phone size
   };
 }
 
@@ -281,6 +301,7 @@ const tiltOf = (q) => { if (q && q.mix) { const a = tiltOf(q.mix.from), b = tilt
 const tiltSet = (q, base) => { if (!q) return base; const f = tiltSet(q.from, base), to = q.to || base; return [f[0] + (to[0] - f[0]) * q.k, f[1] + (to[1] - f[1]) * q.k]; };
 
 export function buildCostume(def, ch) {
+  if (def.build === "core") return def.costume?.type === "pebble" ? pebbleCostume(def, ch) : coreCostume(def, ch);   // the Core Five redesign (costumes-core.js); Pebble the tortoise (costumes-pebble.js)
   const C = def.costume || {}, sp = def.sprout || {};
   const mount = new THREE.Group(); ch.root.add(mount); // follows the top of the body (or the fries box)
   let hat = null, prop = null;
@@ -310,7 +331,7 @@ export function buildCostume(def, ch) {
   const sprt = sprout(sp.color || "#6cbf3a");
   const where = sp.placement || (hat ? "hat-top" : "top");
   if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.14, 0.05, 0.24); sprt.group.rotation.set(0.3, -0.45, 0.45); hat.group.add(sprt.group); }   // tucked into the front-left of the band, as in the reference art
-  else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); hat.group.add(sprt.group); }
+  else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); if (sp.lift) sprt.group.position.add(new THREE.Vector3(0, sp.lift[0], sp.lift[1])); hat.group.add(sprt.group); }   // lift [up, forward]: out of a tall head of hair (Viking with the blossom)
   else if (where === "none") sprt.group.visible = false;
   else { mount.add(sprt.group); if (sp.lift) sprt.group.position.add(new THREE.Vector3(0, sp.lift[0], sp.lift[1])); }   // lift [up, forward]: onto a peaked hood
   if (C.type === "wizard" && !C.noProp) { prop = staff(C); ch.root.add(prop.group); }   // noProp: the staff is put away (serving sweets)
@@ -331,6 +352,7 @@ export function buildCostume(def, ch) {
     tip: prop && prop.tip ? prop.tip : null,
     prop: prop ? prop.group : null,   // the held prop (stage.js face check: hands and held props have their own check)
     hat: hat ? mount : null,   // where the hat sits (stage.js layout reports it, for aiming things at the hat)
+    head: mount,   // the top of the body, hat or not: a grab with hand "hat" sticks to it when there is no hat (popcorn on a head)
     // the brim as a disc (potato.js contact(): arms reaching through it)
     hatBrim: hat && hat.brimR ? { group: hat.group, r: hat.brimR } : null,
     // a see-through helmet as a sphere (the Astronaut's bubble): arms reaching up inside it
@@ -356,6 +378,7 @@ export function buildCostume(def, ch) {
       mount.rotation.set(st.hatSpin[0], st.hatSpin[1], st.hatSpin[2]);
       mount.visible = st.hatOn !== false;
       sprt.droop(st.droop, st.ft);
+      sprt.bloom(st.bloom || 0);
       if (pb) pb.apply(st, t);
       if (card) card.apply(st, t);
       // follow-through on top of any hand-made sway: the tip trails, the brim's front lifts as the hat moves forward

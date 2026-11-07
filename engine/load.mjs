@@ -78,6 +78,9 @@ export function castLook(def, look) {
   const ih = hexHsl(F.iris || "#4a2a14");
   if (L.irisColor && ih[0] <= 40 && ih[2] < 0.35) F.iris = L.irisColor;   // brown eyes only (blue, green, purple keep theirs)
   if (L.sheet) sheetFace(def);
+  // face.final (the Core Five redesign, characters/core-five-2026): the character's own face numbers, applied after the
+  // look's shared ones (an object merges into the look's, a value replaces it). No older character file has it
+  if (F.final) for (const [k, v] of Object.entries(F.final)) F[k] = v && typeof v === "object" && !Array.isArray(v) ? { ...F[k], ...v } : v;
   return def;
 }
 
@@ -91,6 +94,10 @@ function sheetFace(def) {
   const A = SHEET.all, T = SHEET.types[def.costume?.type] || {}, F = def.face;
   const sk = def.body?.color && hexHsl(def.body.color);
   if (sk && sk[0] >= 20 && sk[0] <= 55 && sk[1] > 0.3 && sk[2] < 0.85) def.body.color = T.skin || A.skin;   // potato skins only
+  // the core build's heads (every new character, Jonny 5 Nov: "the style we build for the potato characters") take the
+  // same golden sheet skin as the potato cast; head.keepSkin keeps a head's own colour (a non-skin creature)
+  const hk = def.head?.color && hexHsl(def.head.color);
+  if (hk && !def.head.keepSkin && hk[0] >= 20 && hk[0] <= 55 && hk[1] > 0.3 && hk[2] < 0.85) def.head.color = T.skin || A.skin;
   F.eye = { ...F.eye, ...A.eye, ...T.eye };
   F.browShape = { ...F.browShape, ...A.browShape, ...T.browShape };
   if (def.costume?.type === "allfather") F.browShape.thick = +(F.browShape.thick * 1.45).toFixed(3);   // his white brows stay bushy
@@ -135,7 +142,7 @@ export function loadStoryboard(file, opts = {}) {
 // writing 0.01. A hop, a talk, a blink, a walk and anything a frame or longer keep their times. Times stay at 0 or
 // later (page code reads the pose at an action's own time, e.g. a grab's held offset). It runs after the camera is
 // directed, so the shots don't change; old clips without the flag load exactly as before.
-const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "tilt", "hat", "span", "skin", "wings"]);
+const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "bloom", "tilt", "hat", "span", "skin", "wings"]);
 export function cleanStart(sb) {
   if (!sb.cleanStart || !sb.actions) return sb;
   const frame = 1 / (sb.fps ?? 30);

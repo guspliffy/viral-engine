@@ -111,7 +111,7 @@ export const BISTRO_KINDS = {
   },
 
   billtray(P) {
-    const blk = mat("#26222a", { roughness: 0.45 }), W = 0.16, L = 0.24, T = 0.008;
+    const blk = mat(P.spec.color ?? "#26222a", { roughness: 0.45 }), W = 0.16, L = 0.24, T = 0.008;
     mesh(new THREE.BoxGeometry(W, T, L), blk, P.whole, 0, T / 2, 0);
     for (const [x, z, w, l] of [[0, L / 2 - 0.004, W, 0.008], [0, -L / 2 + 0.004, W, 0.008], [W / 2 - 0.004, 0, 0.008, L], [-W / 2 + 0.004, 0, 0.008, L]]) mesh(new THREE.BoxGeometry(w, 0.018, l), blk, P.whole, x, 0.009, z);
     return { grip: 0.01 };

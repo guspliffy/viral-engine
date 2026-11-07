@@ -1,0 +1,503 @@
+{
+ "_doc": "Accent rules for tts.py (opt-in: a voices.json recipe or job sets \"accent\": \"<name>\"). An accent is the sound pattern a whole region or language community shares, never one person's voice: each set is written from published descriptions of the accent (J. C. Wells, Accents of English, 1982; Swan and Smith, Learner English, 2001) as regular-expression rewrites of the espeak phonemes Kokoro speaks. 'lang' is the espeak base read (en-us = rhotic, keeps the r after vowels). Word end is (?=[ ,.!?;:]|$). Made 6 Nov 2026 for Pebble's accent sampler; Claude can't hear, Jonny judges.",
+ "scottish": {
+  "lang": "en-gb-scotland",
+  "rules": []
+ },
+ "northern": {
+  "lang": "en-gb-x-gbclan",
+  "rules": []
+ },
+ "midlands": {
+  "lang": "en-gb-x-gbcwmd",
+  "rules": []
+ },
+ "caribbean": {
+  "lang": "en-029",
+  "rules": []
+ },
+ "irish": {
+  "lang": "en-us",
+  "note": "rhotic, th as t/d, long monophthong o and e, no flapped t, open a",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "oʊ",
+    "oː"
+   ],
+   [
+    "eɪ",
+    "eː"
+   ],
+   [
+    "aɪ",
+    "ɐɪ"
+   ],
+   [
+    "θ",
+    "t"
+   ],
+   [
+    "ð",
+    "d"
+   ],
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "æ",
+    "a"
+   ],
+   [
+    "ɑː",
+    "aː"
+   ],
+   [
+    "ɚ",
+    "əɹ"
+   ]
+  ]
+ },
+ "westcountry": {
+  "lang": "en-us",
+  "note": "strong rhotic r, open a, oi-like 'i', no flapped t",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "aɪ",
+    "ɔɪ"
+   ],
+   [
+    "oʊ",
+    "ɔʊ"
+   ],
+   [
+    "eɪ",
+    "ɛɪ"
+   ],
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "æ",
+    "a"
+   ],
+   [
+    "ɚ",
+    "ɻ"
+   ],
+   [
+    "ɹ",
+    "ɻ"
+   ]
+  ]
+ },
+ "german": {
+  "lang": "en-us",
+  "note": "w as v, th as s/z, uvular r, final devoicing, long monophthongs",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "oʊ",
+    "oː"
+   ],
+   [
+    "eɪ",
+    "eː"
+   ],
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "w",
+    "v"
+   ],
+   [
+    "θ",
+    "s"
+   ],
+   [
+    "ð",
+    "z"
+   ],
+   [
+    "ɚ",
+    "ɐ"
+   ],
+   [
+    "ɹ",
+    "ʁ"
+   ],
+   [
+    "æ",
+    "ɛ"
+   ],
+   [
+    "ʌ",
+    "a"
+   ],
+   [
+    "z(?=ˈ?[ ,.!?;:]|$)",
+    "s"
+   ],
+   [
+    "d(?=[ ,.!?;:]|$)",
+    "t"
+   ],
+   [
+    "v(?=[ ,.!?;:]|$)",
+    "f"
+   ],
+   [
+    "ɑː",
+    "ɔ"
+   ]
+  ]
+ },
+ "italian": {
+  "lang": "en-us",
+  "note": "rolled r, no h, th as t/d, pure vowels i a o e",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "oʊ",
+    "o"
+   ],
+   [
+    "eɪ",
+    "e"
+   ],
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "ɚ",
+    "ɛr"
+   ],
+   [
+    "ɹ",
+    "r"
+   ],
+   [
+    "(^|(?<=[ ]))h",
+    ""
+   ],
+   [
+    "θ",
+    "t"
+   ],
+   [
+    "ð",
+    "d"
+   ],
+   [
+    "ɪ",
+    "i"
+   ],
+   [
+    "ʌ",
+    "a"
+   ],
+   [
+    "æ",
+    "ɛ"
+   ],
+   [
+    "ʊ",
+    "u"
+   ],
+   [
+    "ɜː",
+    "ɛ"
+   ],
+   [
+    "ɑː",
+    "ɔ"
+   ]
+  ]
+ },
+ "spanish": {
+  "lang": "en-us",
+  "note": "tapped r, v as b, pure vowels, z as s, e before initial s+consonant",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "oʊ",
+    "o"
+   ],
+   [
+    "eɪ",
+    "e"
+   ],
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "ɚ",
+    "eɾ"
+   ],
+   [
+    "ɹ",
+    "ɾ"
+   ],
+   [
+    "v",
+    "b"
+   ],
+   [
+    "ɪ",
+    "i"
+   ],
+   [
+    "ʊ",
+    "u"
+   ],
+   [
+    "æ",
+    "a"
+   ],
+   [
+    "ʌ",
+    "a"
+   ],
+   [
+    "z",
+    "s"
+   ],
+   [
+    "(^|(?<=[ ]))(ˈ?)s(?=[ptkmnl])",
+    "\\2es"
+   ],
+   [
+    "θ",
+    "t"
+   ],
+   [
+    "ð",
+    "d"
+   ],
+   [
+    "ɑː",
+    "o"
+   ],
+   [
+    "(^|(?<=[ ]))(ˈ|ˌ)?h",
+    "\\2x"
+   ]
+  ]
+ },
+ "french": {
+  "lang": "en-gb",
+  "note": "no h, uvular r, th as s/z, pure vowels i u o e",
+  "rules": [
+   [
+    "əʊ",
+    "o"
+   ],
+   [
+    "eɪ",
+    "e"
+   ],
+   [
+    "(^|(?<=[ ]))(ˈ|ˌ)?h",
+    "\\2"
+   ],
+   [
+    "ɹ",
+    "ʁ"
+   ],
+   [
+    "θ",
+    "s"
+   ],
+   [
+    "ð",
+    "z"
+   ],
+   [
+    "ɪ",
+    "i"
+   ],
+   [
+    "ʊ",
+    "u"
+   ],
+   [
+    "ʌ",
+    "œ"
+   ],
+   [
+    "æ",
+    "a"
+   ]
+  ]
+ },
+ "indian": {
+  "lang": "en-us",
+  "note": "retroflex t/d, w and v as one sound, tapped r, th aspirated t/d, long e and o",
+  "rules": [
+   [
+    "ɚɹ",
+    "əɹ"
+   ],
+   [
+    "oʊ",
+    "oː"
+   ],
+   [
+    "eɪ",
+    "eː"
+   ],
+   [
+    "ɾ",
+    "ʈ"
+   ],
+   [
+    "ɚ",
+    "əɾ"
+   ],
+   [
+    "ɹ",
+    "ɾ"
+   ],
+   [
+    "t(?!ʃ)",
+    "ʈ"
+   ],
+   [
+    "d(?!ʒ)",
+    "ɖ"
+   ],
+   [
+    "w",
+    "ʋ"
+   ],
+   [
+    "v",
+    "ʋ"
+   ],
+   [
+    "θ",
+    "tʰ"
+   ],
+   [
+    "ð",
+    "d"
+   ],
+   [
+    "ʌ",
+    "ə"
+   ],
+   [
+    "æ",
+    "ɛ"
+   ],
+   [
+    "ɑː",
+    "ɒ"
+   ]
+  ]
+ },
+ "scottish-strong": {
+  "lang": "en-us",
+  "note": "Scottish Standard English, stronger than espeak's en-gb-scotland (which drops the GOOSE vowel ʉ Kokoro can't say: 'you' came out as 'j'): rhotic with a tapped r, FACE and GOAT long monophthongs, MOUTH as ʌu, short PRICE, TRAP=BATH a, LOT=THOUGHT ɔ, FOOT=GOOSE u (no length), -ing as -in, no flapped t (Wells 1982 vol. 2, 5.2)",
+  "rules": [
+   [
+    "ɾ",
+    "t"
+   ],
+   [
+    "ɚɹ",
+    "əɾ"
+   ],
+   [
+    "ɜːɹ",
+    "ʌɾ"
+   ],
+   [
+    "ɜː",
+    "ʌɾ"
+   ],
+   [
+    "oʊ",
+    "oː"
+   ],
+   [
+    "eɪ",
+    "eː"
+   ],
+   [
+    "aʊ",
+    "ʌu"
+   ],
+   [
+    "aɪ",
+    "ɐɪ"
+   ],
+   [
+    "æ",
+    "a"
+   ],
+   [
+    "ɑːɹ",
+    "aɾ"
+   ],
+   [
+    "ɑː",
+    "ɔ"
+   ],
+   [
+    "ɔːɹ",
+    "ɔɾ"
+   ],
+   [
+    "ɔː",
+    "ɔ"
+   ],
+   [
+    "ɚ",
+    "əɾ"
+   ],
+   [
+    "ʊɹ",
+    "uɾ"
+   ],
+   [
+    "uː",
+    "u"
+   ],
+   [
+    "ʊ",
+    "u"
+   ],
+   [
+    "ɪŋ(?=[ ,.!?;:]|$)",
+    "ɪn"
+   ],
+   [
+    "ɹ",
+    "ɾ"
+   ]
+  ]
+ }
+}

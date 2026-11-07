@@ -11,6 +11,9 @@
 // Claude cannot listen to the result. Everything here is checked by measurement (levels, timing, spectrum), so
 // whether it *sounds* right is for a human to judge.
 import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { planSyllables, VOWELS, voiceKey, hash } from "./shared/syllables.js";
 import { rng, hopCrouch, naturalOf } from "./page/util.js";
 import { seedOf } from "../puppet/beat.mjs";
@@ -544,6 +547,69 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(bp, r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 2 + (Math.sin(TAU * 1850 * t) * 0.3 + Math.sin(TAU * 3020 * t) * 0.15) * env(t - 0.004, 0.0005, 0.05, d) + run(bp, r() * 2 - 1) * env(t - 0.06, 0.0005, 0.008, d); }
     return x;
   },
+  // Too Much Energy 02, the cinema (6 Nov 2026):
+  // popcorn raining down onto seats and heads: dozens of tiny light dry ticks (band-passed clicks round 2.5-4 kHz, a
+  // few ms each), thick at first and thinning out over d, with a few soft papery taps under them; no bass
+  patter(r, d = 1.2) {
+    const x = buf(d), bp = biquad("bp", 3200, 1.6), lo = biquad("bp", 900, 1.0), ticks = [];
+    for (let k = 0; k < Math.round(d * 70); k++) { const u = Math.pow(r(), 1.8) * (d - 0.06); ticks.push([u, 0.35 + r() * 0.65, r() < 0.15]); }
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let eh = 0, es = 0;
+      for (const [u, a, soft] of ticks) { const q = t - u; if (q > 0 && q < 0.03) { if (soft) es += Math.exp(-q / 0.008) * a; else eh += Math.exp(-q / 0.0028) * a; } }
+      x[i] = run(bp, r() * 2 - 1) * eh * 1.8 + run(lo, r() * 2 - 1) * es * 1.2;
+    }
+    return x;
+  },
+  // a cinema seat's cushion springing up (or slammed down) against its frame: a padded woody clack (a hollow knock
+  // round 650 Hz with a short low thump of the padding and a tiny metal tick of the hinge)
+  seatclack(r) {
+    const d = 0.3, x = buf(d), bp = biquad("bp", 650, 2.2), lp = biquad("lp", 260, 0.7), hp = biquad("hp", 3500, 0.8); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1; p += TAU * (190 - 60 * Math.min(1, t / 0.08)) / SR;
+      x[i] = run(bp, n) * env(t, 0.0006, 0.035, d) * 6 + Math.sin(p) * env(t, 0.002, 0.04, d) * 0.22 + run(lp, n) * env(t, 0.001, 0.02, d) * 0.4 + run(hp, n) * env(t - 0.012, 0.0005, 0.004, d) * 0.6;
+    }
+    return x;
+  },
+  // a horror film's jump-scare hit: a dissonant orchestra stab (a cluster of buzzy saw tones on top of a low boom),
+  // full at once and dying over a second
+  scarestab(r) {
+    const d = 1.1, x = buf(d), lp = biquad("lp", 2600, 0.8), lb = biquad("lp", 140, 0.7); let pb = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let y = 0;
+      for (const f of [155.6, 164.8, 233.1, 311.1, 329.6, 466.2]) y += ((t * f * (1 + 0.003 * Math.sin(TAU * 5.5 * t))) % 1) * 2 - 1;
+      pb += TAU * (62 - 22 * Math.min(1, t / 0.4)) / SR;
+      x[i] = run(lp, y * 0.3) * env(t, 0.004, 0.32, d) + Math.sin(pb) * env(t, 0.003, 0.2, d) * 0.3 + run(lb, r() * 2 - 1) * env(t, 0.001, 0.05, d) * 0.3;
+    }
+    return x;
+  },
+  // the hero wins: a brass swell, an E major chord of warm saw tones that grows over its first half (the filter opens
+  // as it does) and holds bright to the end of d
+  brassswell(r, d = 1.0) {
+    const x = buf(d), f0 = [164.8, 207.7, 246.9, 329.6, 415.3];
+    let lp = biquad("lp", 500, 0.8);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / (d * 0.55));
+      if (i % 64 === 0) lp = { ...biquad("lp", 500 + 2600 * k, 0.8), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 };
+      let y = 0; for (const [j, f] of f0.entries()) y += ((t * f * (1 + 0.002 * Math.sin(TAU * (4.5 + j * 0.3) * t))) % 1) * 2 - 1;
+      x[i] = run(lp, y * 0.2) * (0.25 + 0.75 * k) * Math.min(1, (d - t) / 0.08);
+    }
+    return x;
+  },
+  // Too Much Energy 03, camping at 6 am (7 Nov 2026):
+  // a tent door's zip pulled fast: a rasp of zip teeth clicking over the slider (short bright clicks at a rate that
+  // climbs from about 190 to 330 a second as the pull speeds up), a little nylon hiss under them and a tiny tick at
+  // the end of the pull; d is the pull's length
+  zip(r, d = 0.18) {
+    const x = buf(d + 0.03), bp = biquad("bp", 2600, 1.6), body = biquad("bp", 1250, 1.1), hs = biquad("hp", 5000, 0.7);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = Math.min(1, t / d), rate = 190 + 140 * u, on = t < d ? Math.min(1, t / 0.012) * Math.min(1, (d - t) / 0.02) : 0;
+      ph += rate / SR; const q = ph % 1, click = Math.exp(-q / 0.12) * (0.75 + 0.25 * r());
+      const n = r() * 2 - 1;
+      x[i] = (run(bp, n) * click * 2.2 + run(body, n) * click * 1.8 + run(hs, n) * 0.03) * on + run(body, n) * env(t - d, 0.0005, 0.006, d + 0.03) * 0.5;
+    }
+    return x;
+  },
   // a blade through paper and card: a dry tearing hiss with a soft thock of the core
   papercut(r) {
     const d = 0.22, x = buf(d), bp = biquad("bp", 3800, 1.2), lp = biquad("lp", 500, 0.8);
@@ -697,6 +763,22 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, beat = Math.max(0, Math.sin(TAU * 3.1 * t)) ** 3, n = r() * 2 - 1, fade = Math.min(1, t / 0.15, (d - t) / 0.25); x[i] = (run(lp, n) * 0.9 + run(bp, n) * 0.18) * beat * fade; }
     return x;
   },
+  // a person whistling an innocent little tune through the lips (never has money 01, 6 Nov 2026: Gunslinger whistling
+  // while he nudges the bill away): a pure, breathy tone round 1.1-1.8 kHz, two jaunty bars of short notes with small
+  // slides between them and a light vibrato on the long ones, soft breath noise under it
+  whistletune(r, d = 1.8) {
+    const x = buf(d), hp = biquad("bp", 1500, 1.2);
+    // [start, length, Hz]: a sing-song "da-di-da, di-da-dee" in D major, a held note at the end of each bar
+    const N = [[0, 0.16, 1175], [0.18, 0.12, 1319], [0.32, 0.12, 1480], [0.46, 0.34, 1175], [0.88, 0.12, 1319], [1.02, 0.12, 1175], [1.16, 0.14, 988], [1.32, d - 1.4, 1109]];
+    let ph = 0, f0 = N[0][2];
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = N.find(([s, l]) => t >= s && t < s + l + 0.02), on = n ? Math.min(1, (t - n[0]) / 0.018, (n[0] + n[1] + 0.02 - t) / 0.035) : 0;
+      if (n) f0 += (n[2] - f0) * 0.004;   // a little slide into each note
+      const f = f0 * (1 + (n && n[1] > 0.3 ? 0.012 * Math.sin(TAU * 5.5 * (t - n[0])) * Math.min(1, (t - n[0]) / 0.15) : 0)); ph += TAU * f / SR;
+      x[i] = (Math.sin(ph) * 0.62 + Math.sin(2 * ph) * 0.03 + run(hp, r() * 2 - 1) * 0.08) * Math.max(0, on);
+    }
+    return x;
+  },
   notify(r) { // a soft phone notification: two quick rounded tones, up a fourth
     const d = 0.55, x = buf(d);
     for (const [t0, f] of [[0, 1175], [0.11, 1568]]) for (let i = Math.round(t0 * SR); i < x.length; i++) { const t = i / SR - t0; x[i] += (Math.sin(TAU * f * t) * 0.5 + Math.sin(TAU * f * 2 * t) * 0.08) * env(t, 0.004, 0.12, d - t0); }
@@ -766,6 +848,27 @@ export function soundSamples(id, seed = 1, dur) {
   if (isSignature(id)) return signatureSound(id);
   const r = rng(seed);
   return SFX[id] ? effect(id, r, dur) : librarySound(id, r, { dur, code: effect });
+}
+
+// a nature bed (assets/sfx/nature/<id>-<take>.ogg: real CC0 recordings or noise synthesis, -20 LUFS mono; README there) looped to the
+// clip's length with a 1 s equal-power crossfade at each wrap, starting at a seeded point so two clips with the same bed
+// don't start on the same bird; "take" pins one, else the seed picks
+const NATURE = fileURLToPath(new URL("../assets/sfx/nature", import.meta.url));
+export const NATURE_BEDS = ["birds", "stream", "lake", "waterfall", "wind", "leaves"];
+function natureBed(o, seconds, seed) {
+  if (!NATURE_BEDS.includes(o.id)) throw new Error(`sound.nature: unknown bed "${o.id}" (${NATURE_BEDS.join(", ")})`);
+  const takes = fs.readdirSync(NATURE).filter((f) => f.startsWith(o.id + "-")).sort(), h = hash(`${o.id}/${seed}`);
+  const file = o.take ? `${o.id}-${o.take}.ogg` : takes[h % takes.length];
+  const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(NATURE, file), "-ac", "1", "-ar", String(SR), "-f", "f32le", "-"], { maxBuffer: 1 << 28 });
+  if (r.status !== 0) throw new Error(`sound.nature: can't decode ${file}`);
+  const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length));
+  const n = Math.ceil(seconds * SR), out = new Float32Array(n), xf = SR, m = x.length - xf, s0 = (h >>> 8) % Math.max(1, m - SR * 4);
+  for (let i = 0; i < n; i++) {
+    const k = (s0 + i) % m, wrap = k < xf && s0 + i >= m;   // after a wrap the take's tail (k + m) fades out as its head fades in
+    out[i] = wrap ? x[k] * Math.sin((k / xf) * Math.PI / 2) + x[k + m] * Math.cos((k / xf) * Math.PI / 2) : x[k];
+  }
+  for (let i = 0; i < Math.min(n, 0.3 * SR); i++) out[i] *= i / (0.3 * SR);
+  return out;
 }
 
 // a quiet bed of room sound for the set, so the clips don't all sit in the same silence
@@ -1010,6 +1113,9 @@ export function renderAudio(sb, chars, opts = {}) {
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
   if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
+  // nature beds (Pebble's calm videos, Jonny 6 Nov 2026: birds, water, wind, leaves to match the scenery):
+  // "sound": { "nature": ["birds", { "id": "stream", "gain": 0.12, "take": 2, "pan": -0.3 }] }
+  for (const [k, n] of (cfg.nature || []).entries()) { const o = typeof n === "string" ? { id: n } : n; bed.add(0, natureBed(o, sb.duration, seed + k), o.gain ?? 0.14, o.pan ?? 0); }
   if (cfg.engine) bed.add(0, engineSound(cfg.engine, sb.duration, rng(seed ^ 0x27d4eb2d)), cfg.engine.gain ?? 0.3, cfg.engine.pan ?? 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   let peak = 0;

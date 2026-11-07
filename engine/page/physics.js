@@ -234,6 +234,7 @@ export async function makePhysics(env) {
       w = A.spin ? vec(A.spin) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : spinOf(was.R, now.R, PHYS.dt);
     }
     if (A.spin) w = vec(A.spin);
+    else if (A.rel?.spin && A.rel.to) w = vec(A.rel.spin);   // an aimed throw from the hand can set its tumble (the catapulted bucket turning over)
     return { P: unsink(b, P, R), R, v, w };
   };
   // lifted out of what is under it (a mug let go on the table it was put down on, its foot 1 cm into the top): a ray
