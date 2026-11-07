@@ -250,10 +250,10 @@
    "from": 0.02,
    "to": 0.95,
    "text": "Shh… Mom's asleep.",
-   "pos": 470,
+   "pos": 430,
    "pop": false,
-   "x": 300,
-   "size": 54,
+   "x": 335,
+   "size": 50,
    "kinetic": false
   },
   {

@@ -92,7 +92,7 @@ for (const id of ["wiz", "phx", "vik"]) { A(0, id, "expr", { expr: "worried", se
 // the situation, spelled out (Jonny 5 Nov: "one doesn't understand the situation"): Mom asleep behind her door, z's
 // floating from it at the start and just before her light snaps on (the hall shots that show her door clear); her "BOYS?!" when it does
 if (V3) A(0.02, "vik", "talk", { line: "shh... moms asleep", tone: "calm", dur: 0.45, voice: false, soft: true });
-if (V3) cap(0.02, 0.95, "Shh… Mom's asleep.", 470, false, { x: 300, size: 54, kinetic: false });   // one line, left of the Wizard's hat
+if (V3) cap(0.02, 0.95, "Shh… Mom's asleep.", 430, false, { x: 335, size: 50, kinetic: false });   // one line, left of the Wizard's hat
 else cap(0, 1.45, "Shh… Mom's asleep.", 470);
 for (const t of [0, 0.6, 7.6, 8.1]) c.at(t, { fx: "zzz", pos: [NIGHTHALL.mom.x - 0.8, 0.9, NIGHTHALL.far + 0.15], dur: 1.2, count: 4, scale: 2.5 });
 // the Wizard's foot lands on the loose board: it flexes, CREAK (hit-stop), everyone freezes
