@@ -571,6 +571,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // bare: copies without line art, for parts drawn on top of the body (the eyelids share the skin material, and with
   // lines a closed lid shows as a ring around the eye)
   const toon = new Map(), bare = new Map(), made = new Set(), noLine = { visible: false };
+  // def.krimK (opt-in, Pebble review 7 Nov 2026): a factor on set "lighting": 2's back-edge light for one character's
+  // materials (on Pebble's round head, cap and shell it painted bright patches that read as gloss)
+  const krimMul = new Map(); for (const a of actors) if (a.def?.krimK != null) a.ch.root.traverse((o) => { if (o.material) for (const m of [].concat(o.material)) krimMul.set(m, a.def.krimK); });
+  for (const a of actors) if (a.def?.krimK != null && a.ch.limbMat) krimMul.set(a.ch.limbMat, a.def.krimK);
   for (const a of actors) for (const e of (a.ch.face && a.ch.face.eyes) || []) if (e.lidPivot) e.lidPivot.traverse((o) => { if (o.isMesh) o.userData.bareLook = true; });
   const lineColor = (c, k) => { const h = {}; new THREE.Color(c).getHSL(h); return new THREE.Color().setHSL(h.h, Math.min(1, h.s * 1.1 + 0.1), h.l * k).toArray(); };
   const convert = (m, noLines = false) => {
@@ -601,7 +605,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}), ...(krimMul.has(m) && (LR ? ROLE[role] : null)?.krimK != null ? { krimK: ROLE[role].krimK * krimMul.get(m) } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters

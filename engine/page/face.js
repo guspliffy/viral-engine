@@ -145,8 +145,11 @@ export class Face {
       const r = 0.08 * size, D = E.depth, ri = E.iris;
       const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 0.9 * E.oval, D); lid.add(ball);
       const look = new THREE.Group(); lid.add(look);
-      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
-      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
+      // eye.irisAspect (opt-in, Pebble review 7 Nov 2026): the iris and pupil height against their width (1: the tall 1.12
+      // anime iris), so a low almond eye white (small oval) can hold an iris that isn't taller than itself
+      const ia = E.irisAspect ?? 1;
+      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12 * ia, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
+      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1 * ia, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
       // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
       const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
       const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
@@ -368,7 +371,7 @@ export class Face {
   _irisOut(O, px, py, R) {
     let out = 0;
     for (let i = 0; i < 24; i++) {
-      const a = (Math.PI * 2 * i) / 24, x = px + R * Math.cos(a), y = py + 1.12 * R * Math.sin(a);
+      const a = (Math.PI * 2 * i) / 24, x = px + R * Math.cos(a), y = py + 1.12 * (this.eyeStyle.irisAspect ?? 1) * R * Math.sin(a);
       const inWhite = (x / O.W) ** 2 + (y / O.H) ** 2 <= 1;
       if (inWhite) continue;
       const f = Math.max(0, Math.min(48, ((x + O.W) / (2 * O.W)) * 48)), j = Math.min(47, Math.floor(f)), q = f - j, u = O.up[j] + (O.up[j + 1] - O.up[j]) * q;
@@ -422,7 +425,7 @@ export class Face {
       // that closes past the half-lid cap, but not with a droop of the upper lid (a deadpan or sleepy lid control): in the
       // old rule a heavy upper lid also brought the lower one up, and the eye became a slit too narrow for the pupil
       const kL = Math.min(1, sq + (1 - sq) * clamp01((own - 0.86) / 0.14));
-      const rx = r * E.iris * 0.55 * e.pupil, ry = rx * 1.08;
+      const rx = r * E.iris * 0.55 * e.pupil, ry = rx * 1.08 * (E.irisAspect ?? 1);
       return { eye, r, k, kL, O: this._opening(eye, k, kL), pxq, pyq, rx, ry, R: r * E.iris };
     });
     // up and down at a given place across: moved from the asked height toward where the pupil shows most until READ of

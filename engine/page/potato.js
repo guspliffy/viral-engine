@@ -189,6 +189,8 @@ export class Character {
     // limbs
     this.limbMat = new THREE.MeshStandardMaterial({ color: def.limbs.color, roughness: 0.5 });
     if (def.hands?.type === "glove") this.limbMat.userData.lookRole = "glove";   // looks.js: its own toon values
+    // limbs.role (Pebble, review 7 Nov 2026): bare skin arms and legs with gloved hands shade as skin, not as cloth gloves
+    if (def.limbs?.role) this.limbMat.userData.lookRole = def.limbs.role;
     if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
     this.seamless = def.hands?.type === "glove" && !!def.hands?.seamless;

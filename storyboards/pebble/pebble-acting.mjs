@@ -59,7 +59,7 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
 // (correction brief 6 Nov: wrists beside the lower vest, a little forward, elbows close to the sides, not bowed out)
-export const REST = { R: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 }, L: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 } };
+export const REST = { R: { o: [0.1, 0.27, 0.09], elbow: 0.0, margin: 1.05, swing: 1 }, L: { o: [0.1, 0.27, 0.09], elbow: 0.0, margin: 1.05, swing: 1 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
 // the grass straw (Garden Guardian pack, 6 Nov 2026; correction brief the same day): in his lips at the LEFT mouth
@@ -69,7 +69,7 @@ export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { f
 // calibrated at this pose by tools/pebble/straw-cal.mjs) -> EXTRACT (out along the stem) -> down. strawIn is the same
 // backwards: up to the extract point, seat the stem in the lips, hand-over, open the fingers, arm down.
 // STRAW_MOUTH and STRAW_OUT come from straw-cal.mjs (the grip point and 7 cm out along the stem, in arm-target space).
-export const STRAW_MOUTH = { x: [0.1701, 1.1446, 0.3657], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.236, 1.0906, 0.3774], point: "pinch", pinchEase: true };
+export const STRAW_MOUTH = { x: [0.1559,1.1213,0.3862], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2218,1.0668,0.3976], point: "pinch", pinchEase: true };
 export const STRAW_LOW = { x: [0.3, 0.55, 0.3], point: "pinch", pinchEase: true };
 // the fingertip pinch on the thin stem (pinch 1: the pinch point between the index and thumb pads is live, so an arm
 // pose with point "pinch" puts the pads on the target)
