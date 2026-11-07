@@ -14,12 +14,17 @@ import { clip, write, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import fs from "node:fs";
 
-const FACES = "strong", MOTION = "natural";
+const FACES = "strong";
 // V3=1: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
 // never-looks-up-shark-v3rules.json). Only 0-1.95 s changes: a medium two-shot of the Wizard and Phoenix with the
 // order "Look up! SHARK!" at 0.05 s, a cut at 1.2 s to Phoenix's close-up (smiling at his phone while the
 // fin passes behind him: the reaction hold), then back to the wide. From there on it is the posted storyboard.
 const V3 = !!process.env.V3;
+// v3 also moves with today's template (Jonny 7 Nov: "the shark video isnt created by the new motion rules and the glow of
+// the phone isnt there"): planted feet, follow-through, contact solver, hand/eye/hold rigs, physics, light 2 with half
+// boil and no paper grain, the spike guard, and the bright phone screen that lights his face (as in ep 5).
+const MOTION = V3 ? { feet: 2, overlap: true, timing: true, solve: true } : "natural";
+const NOW = V3 ? { rig: { hand: 2, eyes: 2, hold: 2 }, physics: true, cleanStart: true } : {};
 const ENV = process.env.ENV ?? "turquoise-beach-shallows";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 const END = 10.0;
@@ -64,7 +69,7 @@ const props = [
   { id: "noodle", kind: "noodle", x: WIZ0[0] - 0.5, y: 0.5 + WADE, z: WIZ0[1] + 0.1, rot: 60, tilt: 0 },   // tucked by his right side
   { id: "mega", kind: "megaphone", ...MEGA0, scale: 1.5 },
   { id: "whistle", kind: "whistle", x: REA_TOP[0] + 0.15, y: TOP + 0.42, z: REA_TOP[1] + 0.3 },
-  { id: "phone", kind: "phone", x: PHX[0], y: 0.6, z: PHX[1] + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36" },
+  { id: "phone", kind: "phone", x: PHX[0], y: 0.6, z: PHX[1] + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", ...(V3 && { bright: 2.6, halo: 0.55, haloK: 0.49 }) },   // v3: a bright screen that lights his face (Jonny 5 Nov); haloK under 0.5 so the contact checks skip the glow
   { id: "pop", kind: "splash", x: PHX[0] + 0.5, y: 0, z: PHX[1] + 0.35, n: 30, size: 1.0 },
   { id: "rise", kind: "splash", x: 0.32, y: 0, z: 3.0, n: 30, size: 1.0 },
   { id: "bubbles", kind: "bubbles", x: 0.32, y: 0, z: 3.0 },
@@ -78,7 +83,7 @@ A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 }
 A(0, "phx", "face", { lid: 0.55, dur: 0 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
-prop(0, "phone", { glow: 0.85 }, 0.01);
+prop(0, "phone", { glow: V3 ? 1 : 0.85 }, 0.01);
 
 // ---------------------------------------------------------------- the fin: clockwise circles round the ring (seen from above)
 // angle th: x = cx + r cos th, z = cz + r sin th; th grows from +x toward +z (toward us), which is clockwise from above
@@ -294,12 +299,12 @@ write(import.meta.url, {
   idea: "Never Looks Up ep 4: a fin circles Phoenix's donut ring and pops it; he hovers on his wings, never looks up until the series' 'huh.', and the lonely shark sinks, crushed",
   format: "series: The friend who never looks up (fixed 8-10 s ending)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
-  motion: MOTION,
+  motion: MOTION, ...NOW,
   cover: 8.5,
-  set: { type: "env", env: ENV, shade: "soft", aperture: 0, focus: false },
-  drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
+  set: { type: "env", env: ENV, shade: "soft", aperture: 0, focus: false, ...(V3 && { lighting: 2, hatch: { boil: 0.25 } }) },
+  drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: V3 ? 0 : 0.12, wash: 0.09, pool: 0.15 } },
   music: { style: "bounce", key: 2, bpm: 104, lowCut: 150, gain: 0.3 },
-  sound: { sfx: 0.7, ambience: 0.3, surface: "sand", room: "open", flaps: false, signature: { entrances: false } },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "sand", room: "open", flaps: false, signature: { entrances: false }, ...(V3 && { guard: true }) },
   creative: { length: [END, END] },
   hook: { show: ["phx", "wiz", "rea", "shark", "phone"], hint: 0, what: "a shark fin circles Phoenix's donut ring while he scrolls" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

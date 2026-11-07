@@ -14,7 +14,10 @@
 //
 // Places (the painted forecourt env, camera looking -z; x right, z toward us): the sentry box left, the palace railings
 // behind, a stone gate pier with a wall to its left at the back right: the corner Reaper hides behind (panels 7-8).
-import { clip, write } from "../../lib/clip.mjs";
+import { clip, write as writeSb } from "../../lib/clip.mjs";
+import { nowRules } from "../../lib/now-rules.mjs";
+// v3 re-cuts also take today's template motion and picture flags (Jonny 7 Nov: "the new motion rules")
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);
 import * as act from "../../lib/acting.mjs";
 import * as grips from "../../lib/grips.mjs";
 
@@ -115,7 +118,7 @@ see(1.0, 2.4, ["phx", "rea.face"], "the dance gets nothing");
 
 // ---------------------------------------------------------------- 03 THE FEATHER 2.4-3.6 (close two-shot)
 A(2.0, "phx", "wings", { to: 0.2, dur: 0.3 }); A(1.85, "phx", "span", { to: 0.35, dur: 0.25 });   // wings in, clear of the box
-A(2.3, "phx", "move", { to: PHX_TICKLE, dur: 0.35, steps: 1.4 });
+A(2.3, "phx", "move", { to: V3 ? [PHX_TICKLE[0] + 0.03, PHX_TICKLE[1] + 0.05] : PHX_TICKLE, dur: 0.35, steps: 1.4 });   // v3 (today's motion): 6 cm off the box, his wing brushed it
 c.arm(2.3, "phx", "L", "rest", 0.3); c.arm(2.3, "phx", "R", "rest", 0.3);
 A(2.4, "phx", "turn", { to: -40, dur: 0.25 });
 A(2.4, "phx", "expr", { expr: "eager", set: { curve: 0.8, smirk: 0.4 }, dur: 0.2 });
@@ -253,7 +256,7 @@ c.still(8.62, "rea", 1.36, 0);
 // Phoenix peeks round the corner, sees the tear, points at it, grins
 // set up off screen right (hidden), then he slides in round the pier
 A(8.4, "phx", "move", { to: [PHX_PEEK[0] + 0.7, PHX_PEEK[1]], dur: 0.01 }); A(8.4, "phx", "pitch", { to: 0, dur: 0.01 }); A(8.4, "phx", "drop", { to: 0, dur: 0.01 });
-A(8.4, "phx", "turn", { to: -30, dur: 0.01 }); A(8.4, "phx", "span", { to: 0.6, dur: 0.01 }); A(8.4, "phx", "wings", { to: 0.3, dur: 0.01 });
+A(8.4, "phx", "turn", { to: -30, dur: 0.01 }); A(8.4, "phx", "span", { to: V3 ? 0.4 : 0.6, dur: 0.01 }); A(8.4, "phx", "wings", { to: 0.3, dur: 0.01 });
 A(8.4, "phx", "lean", { to: 0, dur: 0.01 }); c.arm(8.4, "phx", "R", "rest", 0.01); c.arm(8.4, "phx", "L", "rest", 0.01); A(8.4, "phx", "expr", { expr: "eager", dur: 0.01 });
 A(8.45, "phx", "show"); A(8.48, "phx", "move", { to: PHX_PEEK, dur: 0.2, ease: "out" }); A(8.62, "phx", "lean", { to: 14, dur: 0.22, ease: "out" });
 A(8.62, "phx", "look", { to: [-0.7, 0.05], dur: 0.1 });

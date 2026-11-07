@@ -10,7 +10,10 @@
 //   Consequence: they cheer; Viking leans one elbow on it and, with no back panel, it folds flat.
 //   Ending:      the glare at Viking; the unused back panel still leans on the wall (there from frame 0).
 //   Callback:    frame 0 is a pile of loose panels; the last frame is a pile of loose panels again.
-import { clip, write, r3 } from "../../../lib/clip.mjs";
+import { clip, write as writeSb, r3 } from "../../../lib/clip.mjs";
+import { nowRules } from "../../../lib/now-rules.mjs";
+// v3 re-cuts also take today's template motion and picture flags (Jonny 7 Nov: "the new motion rules")
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { ending } from "../ending.mjs";
@@ -40,7 +43,8 @@ const WX = 0.05, WZ = -1.2, H = WD.H;
 const VIK0 = [-0.85, -0.65], WIZ0 = [0.3, -0.45], PHX0 = [-1.15, 0.4];
 // sit puts Reaper's body on the box's middle (timeline.js sit), facing its yaw; his face is 0.33 m in front of it.
 // The Wizard's staff hand sits 0.57 m out to his left (screen right), so he stays a metre from the box
-const BOX = [0.95, 0.75], REA_SIT = BOX;
+// v3 (today's motion): Reaper's box 10 cm further right; his elbow, rising off it at 5.4 s, went into Phoenix
+const BOX = V3 ? [1.05, 0.75] : [0.95, 0.75], REA_SIT = BOX;
 const REA0 = [BOX[0], BOX[1]];
 const VIK_FLIP = [r3(WX - WW / 2 - 0.42), r3(WZ + 0.05)];   // at the wardrobe's left side for the flip
 const WIZ_NEAR = [0.72, -0.32];            // the Wizard steps in after the slam to look at the right door
@@ -61,7 +65,10 @@ const cast = [
 ];
 const PHONE = { id: "phone", kind: "phone", ...grips.placeFor("phone", [PHX0[0] + 0.1, 0.48, PHX0[1] + 0.3], 20), tip: -10, scale: 1.6, case: "#7cc4bd" };
 const KEY = { id: "key", kind: "allenkey", ...grips.placeFor("allenkey", [r3(REA_SIT[0] - 0.15), 0.6, r3(REA_SIT[1] + 0.44)], -25) };
-const MANUAL = { id: "manual", kind: "manual", ...grips.placeFor("manual", [WIZ0[0] - 0.12, 0.4, WIZ0[1] + 0.32], V3 ? -35 : -15), scale: 1.3, away: true, upside: true };
+const MANUAL_DOWN = [WIZ0[0] + 0.2, 0.003, WIZ0[1] - 0.45];   // where the tossed sheet lands, behind him
+const MANUAL = V3
+  ? { id: "manual", kind: "manual", ...grips.placeFor("manual", [WIZ0[0] - 0.12, 0.4, WIZ0[1] + 0.32], -35), x: MANUAL_DOWN[0], y: MANUAL_DOWN[1], z: MANUAL_DOWN[2], tip: -90, scale: 1.3, away: true, upside: true }
+  : { id: "manual", kind: "manual", ...grips.placeFor("manual", [WIZ0[0] - 0.12, 0.4, WIZ0[1] + 0.32], -15), scale: 1.3, away: true, upside: true };
 const props = [
   { id: "wardrobe", kind: "wardrobe", x: WX, y: 0, z: WZ, scale: 0.001, apart: 1 },
   { id: "aura", kind: "spellaura", x: WX, y: 0.3, z: WZ, w: 1.4, d: 0.9, scale: 1.4 },
@@ -118,8 +125,9 @@ sfx(0.2, "kenney/impact-plank-medium", { gain: 0.75, reason: "the flat-pack top 
 c.at(0.19, { fx: "poof", pos: [-0.05, 0.05, 0.45], dur: 0.5, color: "#efe3cf", puffs: 8, sparks: 0, size: 0.35, lift: 0.04 });
 c.at(0.19, { fx: "shake", dur: 0.15, amp: 0.012 });
 // the Wizard reads the instruction sheet, upside down (the sheet's roll 180), staff in his other hand
-const man = grips.phone(c, "wiz", MANUAL, { side: "R", height: 0.5 });
-man.secure(0, V3 ? 0 : 0.01);   // v3: in his hand on frame 0 (a 0.01 s move drew frame 0 with the hand elsewhere)
+// v3: the sheet already lies where his toss lands (Jonny 7 Nov: held at frame 0 it covered his face, then the toss
+// flashed past it); the hold and the toss are the posted cut's only
+if (!V3) grips.phone(c, "wiz", MANUAL, { side: "R", height: 0.5 }).secure(0, 0.01);
 if (!V3) {
   A(0, "wiz", "look", { to: [-0.2, -0.4], dur: 0, blink: false });
   A(0.05, "wiz", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.2 }, dur: 0.1 });
@@ -152,9 +160,11 @@ act.blinksAt(c, "rea", [2.6]); act.blinksAt(c, "phx", [1.9]);
 const SPELL = 1.6;
 // he tosses the useless sheet over his shoulder (it flutters down behind him)
 const TOSS_AT = V3 ? 0.15 : 1.45;   // v3: the toss is already under way at frame 0
-A(TOSS_AT, "wiz", "release", { prop: "manual", to: [WIZ0[0] + 0.2, 0.003, WIZ0[1] - 0.45], dur: 0.45, arc: 0.25 });
-c.prop(TOSS_AT, "manual", { tip: -90 }, 0.45);
-A(TOSS_AT, "wiz", "grip", { side: "R", shape: "open", dur: 0.12 }); c.arm(r3(TOSS_AT + 0.03), "wiz", "R", "rest", 0.3, "inOut");
+if (!V3) {
+  A(TOSS_AT, "wiz", "release", { prop: "manual", to: MANUAL_DOWN, dur: 0.45, arc: 0.25 });
+  c.prop(TOSS_AT, "manual", { tip: -90 }, 0.45);
+  A(TOSS_AT, "wiz", "grip", { side: "R", shape: "open", dur: 0.12 }); c.arm(r3(TOSS_AT + 0.03), "wiz", "R", "rest", 0.3, "inOut");
+}
 if (!V3) {
   A(SPELL, "wiz", "talk", { line: "trust me", tone: "calm", dur: 0.4, voice: false });
   c.cap(SPELL, 2.5, "Trust me.", SUB, false, SUBS);
@@ -170,7 +180,8 @@ c.prop(1.95, "aura", { glow: 1, y: 0.7 }, 0.3);
 // the loose panels fly up into the swirl (Viking's is pulled out of his hands)
 A(2.0, "vik", "grip", { side: "R", shape: "open", dur: 0.12 });
 c.arm(2.05, "vik", "R", { o: [0.2, 0.7, 0.2] }, 0.2, "out");
-c.arm(2.6, "vik", "R", "rest", 0.4, "inOut"); A(2.6, "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+// (v3, today's motion: his resting right mitten grazed Phoenix's tail feathers at 3.13 s; it hangs a little in and back)
+c.arm(2.6, "vik", "R", V3 ? { o: [0.08, 0.42, -0.1] } : "rest", 0.4, "inOut"); A(2.6, "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 // (Viking's goes straight up first, clear of his head, then over)
 c.prop(1.98, "plankV", { y: 1.55, x: -1.5 }, 0.24, "out");
 // (the two on the floor go straight up too, over the Wizard's hat, then back into the swirl)
@@ -286,9 +297,10 @@ A(5.8, "wiz", "move", { to: WIZ_ASIDE, dur: 0.35, ease: "out", steps: 2 });   //
 A(5.95, "wiz", "turn", { to: -50, dur: 0.3 });
 A(5.45, "phx", "look", { to: [-0.4, 0.0], dur: 0.12, blink: false });
 // he backs off to the left, out of Reaper's way, to where he started, the phone still up
-A(5.5, "phx", "look", { to: [-0.5, 0.0], dur: 0.1, blink: false });
-A(5.55, "phx", "move", { to: PHX_BACK, dur: 0.6, ease: "inOut", steps: 4 }); A(5.55, "phx", "turn", { to: 20, dur: 0.3 });
-ph.carry(5.55, [r3(PHX_BACK[0] + 0.12), 0.48, r3(PHX_BACK[1] + 0.36)], 0.6, "inOut", { rot: 200, tip: -10 });
+const PHX_GO = 5.55;
+A(r3(PHX_GO - 0.05), "phx", "look", { to: [-0.5, 0.0], dur: 0.1, blink: false });
+A(PHX_GO, "phx", "move", { to: PHX_BACK, dur: 0.6, ease: "inOut", steps: 4 }); A(PHX_GO, "phx", "turn", { to: 20, dur: 0.3 });
+ph.carry(PHX_GO, [r3(PHX_BACK[0] + 0.12), 0.48, r3(PHX_BACK[1] + 0.36)], 0.6, "inOut", { rot: 200, tip: -10 });
 A(5.6, "vik", "move", { to: VIK_LEAN, dur: 0.3, ease: "inOut", steps: 2 }); A(5.6, "vik", "turn", { to: 20, dur: 0.3 });
 // the key (in his right mitten, the camera side) goes into the cam bolt in the frame's front edge by the right
 // door; one quarter turn and the whole thing squares up, the loose door swinging back onto its hinge
@@ -377,8 +389,8 @@ const beats = c.beats([
   ["P3 the flip", 3.3, FLIP],
   ["P4 blame", 4.5, BLAME, "reaction"],
   ["P5 the calm fix", 5.5, "keep"],
-  ["P5 the key insert", 6.3, KEYIN],
-  ["P5 it squares up", 6.55, BLAME],
+  // v3: no insert (Jonny 7 Nov: in it Reaper's mitten read as coming through the door); the turn plays in the wide
+  ...(V3 ? [] : [["P5 the key insert", 6.3, KEYIN], ["P5 it squares up", 6.55, BLAME]]),
   ["P6-P8 cheer, undo, glare", T0, WIDE],
   ["P7 the undo", E.payoff, "keep", "payoff"],
 ], END);

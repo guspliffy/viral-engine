@@ -12,7 +12,10 @@
 //                folds down onto the Wizard.
 //   Ending:      the glare at Viking, the Wizard a lump under the cloth with his hat tip poking out.
 //   Callback:    frame 0 is the cloth flapping loose; the last frame is the cloth in a heap again.
-import { clip, write, r3 } from "../../../lib/clip.mjs";
+import { clip, write as writeSb, r3 } from "../../../lib/clip.mjs";
+import { nowRules } from "../../../lib/now-rules.mjs";
+// v3 re-cuts also take today's template motion and picture flags (Jonny 7 Nov: "the new motion rules")
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { ending } from "../ending.mjs";
@@ -63,7 +66,7 @@ const VIK_END = Z([0.25, -0.3]);   // Viking steps back off the falling cloth wi
 const SCY0 = [r3(REA0[0] - 0.52), 0.55, r3(REA0[1] - 0.3)];   // half a metre out on his right (he faces -30)
 
 const cast = [
-  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: V3 ? 55 : 90,   // v3: three-quarters to us, his face readable as he promises
+  { id: "wiz", character: "sofa/wizard-staff", at: WIZ0, face: 90,   // (v3 tried 55 to show more face: his pole arm then passed through his chest)
     expr: "shocked", follow: 0.3, seed: 2.6 },
   { id: "vik", character: "duo/viking", at: VIK0, face: -30, expr: "focused", follow: 0.3, seed: 4.1 },
   { id: "phx", character: "duo/phoenix", at: PHX0, face: 20, expr: "kind", follow: 0.3, seed: 1.7, span: 0.15 },

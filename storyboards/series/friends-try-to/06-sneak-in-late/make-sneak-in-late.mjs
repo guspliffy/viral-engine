@@ -16,7 +16,10 @@
 // an opening in the left wall (z -1.9..-0.7) with the night outside; its leaf is hinged on the near jamb and stands
 // wide open into the hall against the left wall (rot -75), its rusty hinges toward us. Mom's door is on the right wall
 // at the far end (z -5.6).
-import { clip, write } from "../../../lib/clip.mjs";
+import { clip, write as writeSb } from "../../../lib/clip.mjs";
+import { nowRules } from "../../../lib/now-rules.mjs";
+// v3 re-cuts also take today's template motion and picture flags (Jonny 7 Nov: "the new motion rules")
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);
 import * as act from "../../../lib/acting.mjs";
 import { NIGHTHALL } from "../../../../engine/page/set-nighthall.js";
 

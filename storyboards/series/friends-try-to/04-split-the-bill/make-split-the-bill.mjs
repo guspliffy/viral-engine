@@ -12,7 +12,10 @@
 //   Ending:      three glares at Viking, his sheepish grin, the waiter holding out the card machine.
 //   Callback:    frame 0 the waiter's bill lands and everyone grabs; the last frame the waiter's (longer) bill lies
 //                there and nobody moves.
-import { clip, write, r3 } from "../../../lib/clip.mjs";
+import { clip, write as writeSb, r3 } from "../../../lib/clip.mjs";
+import { nowRules } from "../../../lib/now-rules.mjs";
+// v3 re-cuts also take today's template motion and picture flags (Jonny 7 Nov: "the new motion rules")
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { ending } from "../ending.mjs";
@@ -133,8 +136,8 @@ else A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, vo
 A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false, gain: 0.55 });
 // every gibberish line gets a subtitle (the opener's yelp excepted); low, clear of the in-app title at the top
 // (v3: low, under the two-shot's faces)
-if (V3) c.cap(0.05, 0.77, "Let go! I'll split it.", 1320, false, { ...SUBS, size: 58 }); else c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS);
-c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, SUBS);
+if (V3) c.cap(0.05, 0.77, "Let go! I'll split it.", SUB, false, { ...SUBS, size: 54, x: 640 }); else c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS);
+c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, V3 ? { ...SUBS, x: 700 } : SUBS);   // v3: over the table, clear of the two-shot's bodies
 // Phoenix already has his phone out, Reaper doesn't move
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
 ph.secure(0, 0.01);
@@ -160,7 +163,7 @@ A(1.5, "wiz", "lean", { to: 0, dur: 0.25 });
 A(1.55, "wiz", "expr", { expr: "cocky", dur: 0.25 }); A(1.55, "wiz", "face", { lid: 0.3, dur: 0.25 });
 A(1.55, "wiz", "look", { to: [0.3, -0.2], dur: 0.12, blink: false });
 A(1.62, "wiz", "talk", { line: "pff, easy", tone: "calm", dur: 0.4, voice: false });
-c.cap(2.0, 2.7, "Easy.", SUB, false, SUBS);
+c.cap(V3 ? 2.1 : 2.0, 2.7, "Easy.", SUB, false, SUBS);   // v3: after Viking's close-up, not over his eyes
 // the staff up: the spell pose, the staff side away from everyone (his right, the outer side)
 A(1.7, "wiz", "grip", { side: "R", shape: "fist", dur: 0.12 });
 c.arm(1.75, "wiz", "R", { o: [0.2, 0.95, 0.15] }, 0.3, "out"); A(1.75, "wiz", "tilt", { to: [14, 10], dur: 0.3 });
@@ -223,7 +226,8 @@ A(4.15, "wiz", "look", { to: [0.35, -0.5], dur: 0.12, blink: false }); act.shock
 A(4.2, "rea", "look", { to: [-0.6, -0.45], dur: 0.15, blink: false });
 see(3.7, 4.3, ["phx.face", "glass", "spill", "vik.face"], "P3: Phoenix's one glass of water; Viking's pouch pours coins, buttons and a fish bone");
 gl.put(4.35, [GLASS[0], TH, GLASS[1]], { rest: { o: [0.3, 0.62, 0.2] } });
-c.arm(5.25, "phx", "L", "rest", 0.35, "inOut");
+// (v3, today's motion: his body leans into the phone push at 5.0 s and took this hand 5 cm into the table; it lifts first)
+c.arm(V3 ? 4.75 : 5.25, "phx", "L", "rest", 0.35, "inOut");
 // the blame (P4): the Wizard and Viking point at each other and shout at once
 A(4.5, "wiz", "look", { to: [0.55, 0.0], dur: 0.12, blink: false }); A(4.5, "vik", "look", { to: [-0.6, 0.0], dur: 0.12, blink: false });
 act.mood(c, 4.55, "wiz", "angry", { hold: 0.5 }); act.mood(c, 4.58, "vik", "angry", { hold: 0.5 });

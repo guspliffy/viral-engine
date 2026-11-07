@@ -9,14 +9,30 @@
  "profile": "short",
  "loop": false,
  "captionStyle": "kinetic",
- "motion": "natural",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cleanStart": true,
  "cover": 8.5,
  "set": {
   "type": "env",
   "env": "turquoise-beach-shallows",
   "shade": "soft",
   "aperture": 0,
-  "focus": false
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
  },
  "drawn": {
   "twos": false,
@@ -35,7 +51,7 @@
    "edge": 0.35
   },
   "paper": {
-   "grain": 0.12,
+   "grain": 0,
    "wash": 0.09,
    "pool": 0.15
   }
@@ -55,7 +71,8 @@
   "flaps": false,
   "signature": {
    "entrances": false
-  }
+  },
+  "guard": true
  },
  "creative": {
   "length": [
@@ -234,7 +251,10 @@
    "rot": 180,
    "tip": -28,
    "scale": 1.9,
-   "case": "#2a2d36"
+   "case": "#2a2d36",
+   "bright": 2.6,
+   "halo": 0.55,
+   "haloK": 0.49
   },
   {
    "id": "pop",
@@ -375,7 +395,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.85
+      "glow": 1
      },
      "dur": 0.01,
      "ease": "inOut",
