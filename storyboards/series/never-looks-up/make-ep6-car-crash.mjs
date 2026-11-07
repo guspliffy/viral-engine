@@ -221,7 +221,8 @@ A(TRIP, "dra", "squash", { amount: 0.07, dur: 0.22 });
 c.hitStop(TRIP, 3);
 // the roll in slow motion: he screams (a slowed-down "aaah"), lets go of the wheel with his outer glove and
 // points at the world going round, then grabs the wheel again
-c.say(2.05, "dra", "aaaaaah", 1.5, "excited", { sub: "AAAAAH!", gain: 0.9, pos: 1310 });   // on the bonnet: the faces fill the rig shot
+c.say(2.05, "dra", "aaaaaah", 1.5, "excited", { sub: false, gain: 0.9 });
+c.cap(2.05, 3.28, "AAAAAH!", 330);   // over their heads, in the sky: the faces and gloves fill the rig shot; off before the cut to the wide
 A(2.1, "dra", "expr", { expr: "shocked", set: { open: 0.9, eye: 1.45 }, dur: 0.3 });
 A(3.3, "dra", "look", { to: AT_PHX, dur: 0.2, blink: false });
 c.arm(3.35, "dra", "L", { o: [0.36, 0.98, 0.16] }, 0.35, "out");          // off the rim, up and out past his head, pointing at the road going round them
@@ -250,7 +251,7 @@ A(v2t(8.05), "phx", "face", { lid: 0.15, dur: 0.12 });
 A(v2t(8.05), "phx", "pitch", { to: -8, dur: 0.15 });
 A(v2t(8.35), "phx", "blink", { dur: 0.22 });
 c.say(v2t(8.5), "phx", "huh.", 0.35, "calm", { sub: false, voice: true });
-c.cap(v2t(8.5), v2t(9.0), "huh.", 1310);   // on the bonnet, under his gloves
+c.cap(v2t(8.5), v2t(9.0), "huh.", 330);   // over his crest, on the road overhead: his face and gloves fill the lower frame
 see(v2t(8.1), v2t(8.95), ["phx.face", "phone"], "P7: Phoenix, upside down with the road a hand over his head, looks up: huh.");
 // BACK DOWN (video 9.0-10.0)
 A(v2t(9.0), "phx", "look", { to: AT_PHONE, dur: 0.12, blink: false });

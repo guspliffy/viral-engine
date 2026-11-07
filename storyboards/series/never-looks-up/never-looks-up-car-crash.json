@@ -5174,12 +5174,10 @@
   },
   {
    "from": 2.05,
-   "to": 3.55,
+   "to": 3.28,
    "text": "AAAAAH!",
-   "pos": 1310,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pos": 330,
+   "pop": false
   },
   {
    "from": 3.55,
@@ -5194,7 +5192,7 @@
    "from": 8.4,
    "to": 8.9,
    "text": "huh.",
-   "pos": 1310,
+   "pos": 330,
    "pop": false
   }
  ],
