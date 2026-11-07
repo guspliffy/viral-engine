@@ -27,7 +27,7 @@ const SHOTS = [
   { name: "jump", clip: "c16_03", from: 0.85, to: 2.65, heading: 25, mid: [0, -0.3], cam: { at: [0.3, 1.0, 3.3], lookY: 1.05, fov: 44 }, label: "jump" },
   { name: "punch", clip: "c14_01", from: 2.0, to: 3.45, heading: 30, mid: [0, 0.2], cam: { at: [0.25, 1.2, 3.3], lookY: 1.1, fov: 38 }, label: "punch" },
   { name: "grab", clip: "c69_70", from: 2.2, to: 4.0, refTo: 4.5, travel: 90, mid: [0.05, -0.4], cam: { at: [0, 0.98, 3.5], lookY: 0.85, fov: 38, follow: 0.5 }, label: "grab" },
-  { name: "sit", clip: "c113_15", from: 0.9, to: 3.75, heading: 0, mid: [0, -0.7], cam: { at: [0.3, 1.02, 3.3], lookY: 0.85, fov: 36 }, label: "sit" },
+  { name: "sit", clip: "c113_15", from: 0.9, to: 4.3, heading: 0, mid: [0, -0.7], cam: { at: [0.3, 1.02, 3.3], lookY: 0.85, fov: 36 }, label: "sit" },
 ];
 
 // a shot's takes (one, or a take blended into the next: "then") as perform segments from shot time 0
@@ -107,8 +107,8 @@ const fingers = [
 ];
 // the boxing guard: the take's fists sit by the actor's face, which on the bigger anime head is inside it, so the
 // arms turn out and the elbows open a little (tried on the stills: fists in front of the chin)
-// the seated take hangs its head (the v1 "sad hunch"): the sit shot lifts the neck and head a little more
-const poses = [{ from: T("sit", 2.5), to: END + 1, ramp: 0.4, bones: { neck: 0.08, head: 0.08 } }, { from: T("punch", 2.0), to: T("punch", 3.45), ramp: 0.01, bones: { leftUpperArm: [0, 0.35, 0], rightUpperArm: [0, -0.35, 0], leftLowerArm: [0, 0.3, 0], rightLowerArm: [0, -0.3, 0] } }];
+// (v5: the seated head lift went: the character's posture "level" keeps the face near level by itself)
+const poses = [{ from: T("punch", 2.0), to: T("punch", 3.45), ramp: 0.01, bones: { leftUpperArm: [0, 0.35, 0], rightUpperArm: [0, -0.35, 0], leftLowerArm: [0, 0.3, 0], rightLowerArm: [0, -0.3, 0] } }];
 // seated: both hands come to rest on the thighs once the weight is on the chair
 const rest = [{ hand: "L", from: T("sit", 2.75), to: END + 1, ramp: 0.45, u: 0.62 }, { hand: "R", from: T("sit", 2.85), to: END + 1, ramp: 0.45, u: 0.62 }];
 // the seat: the hips settle onto the chair (seat top 0.42 + 0.115 from the hips joint down to the sitting bones on
