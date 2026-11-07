@@ -691,6 +691,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.contrast.value = 1.1; grade.uniforms.saturation.value = 1.16; grade.uniforms.vignette.value = 0.26;
     grade.uniforms.highTint.value.set(0.05, 0.02, -0.035); grade.uniforms.shadowTint.value.set(0.02, -0.005, -0.015);
   }
+  if (setSpec?.grade === "storm") {
+    // a stormy day (set.life storm, set-life.js): the whole frame, cast included, under a grey sky: less colour,
+    // flatter, a little darker and cooler, heavier edges
+    grade.uniforms.contrast.value = 0.96; grade.uniforms.saturation.value = 0.8; grade.uniforms.vignette.value = 0.3;
+    grade.uniforms.lift.value.set(-0.05, -0.04, -0.015); grade.uniforms.highTint.value.set(-0.03, -0.01, 0.02); grade.uniforms.shadowTint.value.set(-0.01, 0.0, 0.03);
+  }
   composer.addPass(grade);
   if (D && D.paper) {
     const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
