@@ -14,7 +14,17 @@ import { clip, write, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import fs from "node:fs";
 
-const FACES = "strong", MOTION = "natural";
+const FACES = "strong";
+// V3=1: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
+// never-looks-up-shark-v3rules.json). Only 0-1.95 s changes: a medium two-shot of the Wizard and Phoenix with the
+// order "Look up! SHARK!" at 0.05 s, a cut at 1.2 s to Phoenix's close-up (smiling at his phone while the
+// fin passes behind him: the reaction hold), then back to the wide. From there on it is the posted storyboard.
+const V3 = !!process.env.V3;
+// v3 also moves with today's template (Jonny 7 Nov: "the shark video isnt created by the new motion rules and the glow of
+// the phone isnt there"): planted feet, follow-through, contact solver, hand/eye/hold rigs, physics, light 2 with half
+// boil and no paper grain, the spike guard, and the bright phone screen that lights his face (as in ep 5).
+const MOTION = V3 ? { feet: 2, overlap: true, timing: true, solve: true } : "natural";
+const NOW = V3 ? { rig: { hand: 2, eyes: 2, hold: 2 }, physics: true, cleanStart: true } : {};
 const ENV = process.env.ENV ?? "turquoise-beach-shallows";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 const END = 10.0;
@@ -59,7 +69,7 @@ const props = [
   { id: "noodle", kind: "noodle", x: WIZ0[0] - 0.5, y: 0.5 + WADE, z: WIZ0[1] + 0.1, rot: 60, tilt: 0 },   // tucked by his right side
   { id: "mega", kind: "megaphone", ...MEGA0, scale: 1.5 },
   { id: "whistle", kind: "whistle", x: REA_TOP[0] + 0.15, y: TOP + 0.42, z: REA_TOP[1] + 0.3 },
-  { id: "phone", kind: "phone", x: PHX[0], y: 0.6, z: PHX[1] + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36" },
+  { id: "phone", kind: "phone", x: PHX[0], y: 0.6, z: PHX[1] + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", ...(V3 && { bright: 2.6, halo: 0.55, haloK: 0.49 }) },   // v3: a bright screen that lights his face (Jonny 5 Nov); haloK under 0.5 so the contact checks skip the glow
   { id: "pop", kind: "splash", x: PHX[0] + 0.5, y: 0, z: PHX[1] + 0.35, n: 30, size: 1.0 },
   { id: "rise", kind: "splash", x: 0.32, y: 0, z: 3.0, n: 30, size: 1.0 },
   { id: "bubbles", kind: "bubbles", x: 0.32, y: 0, z: 3.0 },
@@ -73,7 +83,7 @@ A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: 0.01 }
 A(0, "phx", "face", { lid: 0.55, dur: 0 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
-prop(0, "phone", { glow: 0.85 }, 0.01);
+prop(0, "phone", { glow: V3 ? 1 : 0.85 }, 0.01);
 
 // ---------------------------------------------------------------- the fin: clockwise circles round the ring (seen from above)
 // angle th: x = cx + r cos th, z = cz + r sin th; th grows from +x toward +z (toward us), which is clockwise from above
@@ -102,10 +112,11 @@ sfx(4.85, "creak", { gain: 0.85, dur: 0.4, reason: "the fin rubs along the ring'
 const CAP_Y = 640;   // gibberish captions: in the sky, below the title's top 20 %
 sfx(0, "waves", { gain: 0.35, dur: END, reason: "the beach's bed: small waves lapping" });
 A(0, "wiz", "look", { to: [0.6, -0.4], dur: 0, blink: false });
+if (V3) A(0, "wiz", "expr", { expr: "shocked", set: { open: 0.6, eye: 1.4 }, dur: 0 });   // frame 0 already shocked
 act.shock(c, 0.02, "wiz", { open: 0.4, hold: 1.1 });
 c.arm(0, "wiz", "L", { o: [0.25, 0.55, 0.3] }, 0);                    // pointing at the fin
 A(0.05, "wiz", "talk", { line: "sha-ark!", dur: 0.55, tone: "excited", voice: false });
-c.cap(0.05, 1.2, "SHARK!!", CAP_Y);
+c.cap(0.05, 1.2, V3 ? "Look up! SHARK!" : "SHARK!!", V3 ? 470 : CAP_Y);   // v3: above the heads in the tighter two-shot
 prop(0.1, "noodle", { y: 0.03, x: NOODLE.x, z: NOODLE.z, rot: NOODLE.rot }, 0.35, "in");     // he drops the noodle
 sfx(0.42, "splash", { gain: 0.55 });
 // Reaper sits up on the tower, eyes on the fin
@@ -175,7 +186,7 @@ A(3.7, "wiz", "look", { to: [-0.6, -0.6], dur: 0.12, blink: false });
 A(3.5, "wiz", "expr", { expr: "angry", set: { open: 0.9 }, dur: 0.08 }); A(3.5, "wiz", "face", { lid: 0.45, brow: 0.5, dur: 0.08 });   // a real yell, eyes squeezed
 A(3.55, "wiz", "talk", { line: "loook uuup!", dur: 0.35, tone: "excited", voice: false });
 c.cap(3.55, 4.3, "LOOK UP!!", 330);   // above the tower: the faces sit where the other captions go
-sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals" });
+sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals", ...(V3 && { loud: true }) });   // v3: a deliberate gag (qa/sound.mjs SPIKE: +13.9 dB since 5 Nov), marked loud; the sound is unchanged
 c.hitStop(3.9, 3);
 c.textPop(3.9, "wiz", "SKREEE!", { xy: [300, 1010], dur: 0.5, color: "#ff5a3c", angle: -10, size: 100 });   // the squeal, under the bell, clear of the faces (reads on mute)
 act.shock(c, 3.92, "wiz", { open: 0.45, hold: 0.5 }); act.shock(c, 3.92, "rea", { open: 0.2, hold: 0.5 });
@@ -267,9 +278,14 @@ const POP = shot([0.0, 1.6, 8.2], { pan: 1, tilt: 5, fov: 38 });
 // PEAK (unused: the pop shot holds through the peak) = shot([0.05, 1.45, 7.0], { pan: 0, tilt: 4, fov: 40 });
 const LOOKUP = shot([0.08, 1.35, 6.4], { pan: 0, tilt: 4.5, fov: 34 });
 const BACKDOWN = shot([0.05, 1.35, 7.6], { pan: 1, tilt: 1.5, fov: 42 });   // low enough that the sunk shark's eyes stay above the app's bars
+// v3: narrower lenses from the wide's camera (the painting allows only small camera moves): the pair, then Phoenix
+const TWO = { pos: WIDE.pos, look: [-0.26, 0.75, 1.7], fov: 38, to: { pos: WIDE.pos, look: [-0.26, 0.75, 1.7], fov: 35 }, dur: 1.2, ease: "linear" };
+const PHXCU = { pos: WIDE.pos, look: [0.22, 0.38, 2.3], fov: 22 };   // Phoenix left of centre, the fin circling on his right
+const OPENING = V3
+  ? [["v3 two-shot: look up!", 0, TWO, "hook"], ["v3 Phoenix scrolls on", 1.2, PHXCU, "reaction"], ["P2 run", 1.95, WIDE]]
+  : [["P1 fin", 0, WIDE, "hook"], ["P2 run", 1.5, "keep"]];
 const beats = c.beats([
-  ["P1 fin", 0, WIDE, "hook"],
-  ["P2 run", 1.5, "keep"],
+  ...OPENING,
   ["P3 megaphone", 3.2, MEGA],
   ["P4 pop", 5.0, POP],
   ["P6 peak", 7.0, "keep"],                     // the pop shot holds: a cut to a near-same framing reads as a jump
@@ -278,17 +294,17 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "never-looks-up-shark",
+  id: V3 ? "never-looks-up-shark-v3rules" : "never-looks-up-shark",
   title: "The friend who never looks up from his phone… even with a shark circling him",
   idea: "Never Looks Up ep 4: a fin circles Phoenix's donut ring and pops it; he hovers on his wings, never looks up until the series' 'huh.', and the lonely shark sinks, crushed",
   format: "series: The friend who never looks up (fixed 8-10 s ending)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
-  motion: MOTION,
+  motion: MOTION, ...NOW,
   cover: 8.5,
-  set: { type: "env", env: ENV, shade: "soft", aperture: 0, focus: false },
-  drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
+  set: { type: "env", env: ENV, shade: "soft", aperture: 0, focus: false, ...(V3 && { lighting: 2, hatch: { boil: 0.25 } }) },
+  drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: V3 ? 0 : 0.12, wash: 0.09, pool: 0.15 } },
   music: { style: "bounce", key: 2, bpm: 104, lowCut: 150, gain: 0.3 },
-  sound: { sfx: 0.7, ambience: 0.3, surface: "sand", room: "open", flaps: false, signature: { entrances: false } },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "sand", room: "open", flaps: false, signature: { entrances: false }, ...(V3 && { guard: true }) },
   creative: { length: [END, END] },
   hook: { show: ["phx", "wiz", "rea", "shark", "phone"], hint: 0, what: "a shark fin circles Phoenix's donut ring while he scrolls" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
