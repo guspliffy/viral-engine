@@ -342,6 +342,15 @@
    "kinetic": false
   },
   {
+   "from": 2.64,
+   "to": 3.49,
+   "text": "I forgot my money!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
    "from": 4.2,
    "to": 5.15,
    "text": "Look at this!",
@@ -1765,6 +1774,28 @@
      "at": 1.1
     },
     {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "open": 0.2
+     },
+     "dur": 0.1,
+     "at": 1.12
+    },
+    {
      "do": "prop",
      "id": "moth",
      "set": {
@@ -1776,6 +1807,16 @@
      "dur": 0.06,
      "ease": "inOut",
      "at": 1.13
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "I forgot my money!",
+     "tone": "excited",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 1.14
     },
     {
      "who": "gsl",
@@ -1851,12 +1892,12 @@
    "shot": {
     "pos": [
      0.175,
-     1.128,
+     1.328,
      3.829
     ],
     "look": [
      -0.24,
-     0.85,
+     1.05,
      -0.12
     ],
     "fov": 30

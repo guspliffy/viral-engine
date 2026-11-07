@@ -138,6 +138,11 @@ const P = pocketPat(c, { who: "gsl", at: G0, yaw: G_YAW, friend: [0.6, 0.05] });
 A(1.6, "wiz", "look", { to: [-0.5, -0.1], dur: 0.12, blink: false });
 A(2.55, "wiz", "face", { lid: 0.5, dur: 0.2 });   // the moth: a slow deadpan droop of the lids
 A(1.7, "rea", "look", { to: [0.3, -0.25], dur: 0.15, blink: false });
+// the empty wallet, said out loud (Jonny 7 Nov 13:21: make it clear he has no money): eyes up from the wallet to the
+// Wizard first, a sheepish charming grin, "I forgot my money!" while the moth circles his face
+A(2.6, "gsl", "look", { to: [0.6, 0.05], dur: 0.08, blink: false });
+A(2.62, "gsl", "expr", { expr: "happy", set: { curve: 0.6, open: 0.2 }, dur: 0.1 });
+c.say(2.64, "gsl", "I forgot my money!", 0.45, "excited", { voice: false, sub: "I forgot my money!", pos: SUB_HIGH });
 
 // ---------------------------------------------------------------- 3 THE IOU 2.8-3.8 (panel 3)
 // the wallet back in the holster; from his bandana he pulls a sticky note (right hand), from his hat band a marker
@@ -377,8 +382,8 @@ const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) })
 const WIDE = { pos: [0.35, 1.8, 4.1], look: [0.25, 0.66, -0.6], fov: 48 };   // medium-wide (reach rules v2, B1): the two of them big, the fridge at the edge
 // the pocket pat (panel 2): Gunslinger chest up with the whole hat, from the Wizard's side: his palm at the right edge
 const PATSHOT = fw([r3(G0[0] + 0.2), 0.9, G0[1]], { w: 1.6, az: 14, el: 4, fov: 30 });   // the Wizard's palm and brim at the right edge (review B)
-// the IOU held up (panel 3): closer on him and the note
-const IOU = fw([r3(G0[0] - 0.04), 0.85, G0[1]], { w: 1.2, az: 6, el: 4, fov: 30 });
+// the IOU held up (panel 3): closer on him and the note, his sprout under the subtitle line (y 470-650 stays free for "I forgot my money!")
+const IOU = fw([r3(G0[0] - 0.04), 1.05, G0[1]], { w: 1.2, az: 6, el: 4, fov: 30 });
 // the Wizard and Gunslinger, Reaper between them at the back, the fridge behind at the left (panel 4)
 const TWO = { pos: [0.6, 1.8, 3.5], look: [0.12, 0.75, -0.7], fov: 56 };
 // the slow push-in toward the fridge as he looks for a free spot (panel 5)
