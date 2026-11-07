@@ -12,6 +12,10 @@
 //   Callback:    the opening's threat (a horde coming for everyone) ends as Phoenix's club, coming for the friends.
 //
 //   node storyboards/series/never-looks-up/make-ep5-zombies.mjs
+//   V3=1 node storyboards/series/never-looks-up/make-ep5-zombies.mjs   -> never-looks-up-zombies-v3rules.json: the reach
+//   rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07): Phoenix's promise "I'll look up in a sec." from
+//   0.0 s, a close-up on fleeing Reaper glancing back at him at 1.05 s with a 0.7 s freeze, back to the same wide; the
+//   rest unchanged
 import { clip, write, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import fs from "node:fs";
@@ -20,6 +24,7 @@ const FACES = "strong", MOTION = "natural";
 const ENV = process.env.ENV ?? "dusk-bus-stop";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 const END = 10.0;
+const V3 = !!process.env.V3;   // the reach rules v3 opening (see the top)
 const rad = (d) => (d * Math.PI) / 180;
 const deg = (r) => (r * 180) / Math.PI;
 
@@ -93,12 +98,12 @@ const props = [
 A(0, "phx", "sit", { seat: "bench", along: -0.38, dur: 0, hands: "keep", feet: [0.36, 0.08] });
 A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
 A(0, "phx", "look", { to: AT_PHONE, dur: 0, blink: false });
-A(0, "phx", "expr", { expr: "kind", set: { curve: 0.15, eye: 0.95 }, dur: 0.01 });
+A(0, "phx", "expr", { expr: "kind", set: { curve: 0.15, eye: 0.95 }, dur: V3 ? 0 : 0.01 });
 A(0, "phx", "face", { lid: 0.6, dur: 0 });
 A(0, "phx", "pitch", { to: 6, dur: 0 });                         // the bowed head that makes him one of them
 act.blinksAt(c, "phx", [1.9, 4.6, 6.9]);
 act.scrollPhone(c, "phx", [0.2, 1.1, 2.0, 3.0, 4.75, 5.6, 6.5, 7.3]);
-prop(0, "phone", { glow: 1 }, 0.01);
+prop(0, "phone", { glow: 1 }, V3 ? 0 : 0.01);
 
 // ---------------------------------------------------------------- the horde: tired zombies, arms forward, a slow shuffle
 for (const z of Z) {
@@ -132,10 +137,20 @@ const creep = (who, t0, dur, pts) => A(t0, who, "run", { pts: segT(pts, dur).map
 flee("rea", 0, 1.35, FLEE.rea);
 flee("wiz", 0, 1.5, FLEE.wiz);
 // terrified from frame 0: wide eyes, open mouths, both arms flailing over their heads (wider than the hat brim)
-act.shock(c, 0, "wiz", { open: 0.55, hold: 1.4, dur: 0.01 }); act.shock(c, 0, "rea", { open: 0.5, hold: 1.2, dur: 0.01 });
+act.shock(c, 0, "wiz", { open: 0.55, hold: 1.4, dur: 0.01 }); act.shock(c, 0, "rea", { open: 0.5, hold: V3 ? 0.5 : 1.2, dur: 0.01 });
 A(0, "wiz", "look", { to: [-0.15, 0.25], dur: 0, blink: false }); A(0, "rea", "look", { to: [0.1, 0.25], dur: 0, blink: false });
-A(0.05, "wiz", "talk", { line: "zom-bies!", dur: 0.6, tone: "excited", voice: false });
-c.cap(0.05, 1.1, "ZOMBIES!!", CAP_Y);
+if (!V3) A(0.05, "wiz", "talk", { line: "zom-bies!", dur: 0.6, tone: "excited", voice: false });   // v3: Phoenix's promise is the only line
+if (!V3) c.cap(0.05, 1.1, "ZOMBIES!!", CAP_Y);
+if (V3) {
+  // B7: the first line at 0.0 is a promise the viewer expects him to break, said flat to the phone as the horde comes
+  A(0.03, "phx", "talk", { line: "I'll look up in a sec.", dur: 0.95, tone: "calm", voice: false });
+  c.cap(0.03, 1.05, "I'll look up in a sec.", CAP_Y);
+  c.cap(1.05, 1.5, "I'll look up in a sec.", 425, false, { kinetic: false });   // in the close-up: above his hood
+  // B8: Reaper glances back at Phoenix as he runs, then the cut to his face and a 0.7 s freeze on it
+  A(0.9, "rea", "look", { to: [-1.0, 0.1], dur: 0.12, blink: false });
+  act.mood(c, 0.92, "rea", "annoyed", { hold: 0.25, squash: 0 });
+  c.hitStop(1.12, 21);   // Fable B: the cut after the line has landed ("sec." by ~1.0 s), inside B8's 1.0-2.5 s
+}
 // the outer arm flails up and out, the arm on the friend's side pumps in front of the body (clear of the other one)
 const UP = { o: [0.3, 0.8, 0.12] }, MID = { o: [0.34, 0.55, 0.16] }, IN_HI = { o: [0.06, 0.6, 0.36] }, IN_LO = { o: [0.04, 0.4, 0.34] };
 for (const [w, t0, inner] of [["wiz", 0, "R"], ["rea", 0.07, "L"]]) for (let i = 0; i < 7; i++) {
@@ -145,6 +160,7 @@ for (const [w, t0, inner] of [["wiz", 0, "R"], ["rea", 0.07, "L"]]) for (let i =
 A(0.5, "rea", "turn", { to: 25, dur: 0.3 }); A(0.55, "wiz", "turn", { to: 25, dur: 0.3 });   // veering out past us
 for (const w of ["wiz", "rea"]) c.arm(1.3, w, "R", "rest", 0.2), c.arm(1.3, w, "L", "rest", 0.2);
 see(0, 0.6, ["phx.face", "wiz.face", "rea.face", "vik", "phone"], "P1: the friends flee toward us from the horde, Phoenix on his phone");
+if (V3) see(1.07, 1.28, ["rea.face"], "B8: Reaper's face as he looks back at Phoenix, frozen");
 
 // ---------------------------------------------------------------- 2 ALONE 1.5-3.2 (P2): the friends are gone; the horde closes in
 see(1.6, 3.1, ["phx.face", "vik"], "P2: the horde closes in on Phoenix, alone on the bench");
@@ -239,10 +255,12 @@ const SHOTS = JSON.parse(process.env.SHOTS ?? "null") ?? {
   PEAK: [[-0.5, 1.15, 6.6], [-0.5, 1.0, 2.7], 38],      // P6: cheek to cheek over the phone
   LOOKUP: [[-0.55, 1.12, 6.2], [-0.55, 1.02, 2.7], 34], // P7: the look-up, both faces
   BACK: [[0.0, 1.7, 8.5], [0.15, 0.95, 0], 46],        // P8: the club again, every head to the hedge
+  REA_CU: [[1.45, 1.0, 6.0], [1.4, 0.92, 3.0], 34],    // v3 B8: Reaper running at us, glancing back at Phoenix
 };
 const S = Object.fromEntries(Object.entries(SHOTS).map(([k, [pos, look, fov]]) => [k, { pos: [pos[0], pos[1], r3(pos[2] + DZ)], look: [look[0], look[1], r3(look[2] + DZ)], fov }]));
 const beats = c.beats([
   ["P1 horde", 0, S.WIDE, "hook"],
+  ...(V3 ? [["B8 reaper close-up", 1.05, S.REA_CU, "reaction"], ["P1 wide again", 1.3, S.WIDE]] : []),
   ["P2 hide", 1.5, "keep"],
   ["P3 one of us", 3.2, S.ONE],
   ["P4 club", 5.0, S.CLUB],
@@ -252,7 +270,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "never-looks-up-zombies",
+  id: V3 ? "never-looks-up-zombies-v3rules" : "never-looks-up-zombies",
   title: "The friend who never looks up from his phone… even in a zombie apocalypse",
   idea: "Never Looks Up ep 5: a zombie horde takes Phoenix, bowed over his glowing phone, for one of its own; the lead zombie sits and watches his screen with him, the series' 'huh.', a friendly pat, and the horde settles round him as his new friends",
   format: "series: The friend who never looks up (fixed 8-10 s ending)",
@@ -269,6 +287,7 @@ write(import.meta.url, {
   allowClip: [
     { who: "phx", with: "bench", from: 0, to: END, reason: "Phoenix sits on the bench" },
     { who: "vik", with: "bench", from: 5.4, to: END, reason: "zombie Viking sits on the bench beside him" },
-  ],
+  // the contact checks read these windows on the video's clock: v3's 0.7 s freeze moves everything after 1.12 s later
+  ].map((w) => (V3 ? { ...w, ...(w.from > 1.12 && { from: r3(w.from + 0.7) }), to: r3(w.to + 0.7) } : w)),
   notes: "Generated by storyboards/series/never-looks-up/make-ep5-zombies.mjs. Panels: PANELS-zombies.md. Title added in TikTok's text tool.",
 });
