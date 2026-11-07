@@ -32,11 +32,13 @@ const smooth = (u) => { u = Math.max(0, Math.min(1, u)); return u * u * (3 - 2 *
 const ease = (K, t) => { if (t <= K[0][0]) return K[0][1]; for (let i = 0; i < K.length - 1; i++) if (t <= K[i + 1][0]) return K[i][1] + (K[i + 1][1] - K[i][1]) * smooth((t - K[i][0]) / (K[i + 1][0] - K[i][0])); return K[K.length - 1][1]; };
 // hand offsets on top of the recorded opening, arm lengths: SWEEP + toward his left (away from us), REACH + toward the lake
 const SWEEP = [[0, 0], [4.9, 0], [5.8, 0.35], [6.8, -0.35], [7.4, 0], [11, 0]];
-const REACH = [[0, 0], [1.0, 0], [2.6, 0.3], [3.5, 0.3], [4.5, -0.4], [5.0, -0.25], [7.3, -0.25], [8.1, 0.8], [8.8, 0.6], [10.6, 0]];
+const REACH = [[0, 0], [1.0, 0], [2.6, 0.3], [3.5, 0.3], [4.5, -0.05], [5.0, 0.0], [7.3, 0.0], [8.1, 0.8], [8.8, 0.6], [10.6, 0]];
+// the draw-in brings the hands down to the chest (higher, they came up to his mouth)
+const DIP = [[0, 0], [3.7, 0], [4.5, 1], [5.4, 1], [6.2, 0.4], [11, 0.4]];
 const mv = JSON.parse(JSON.stringify(load("taichi-open")));
 for (const sd of ["R", "L"]) mv.hand[sd] = mv.hand[sd].map((v, i) => {
   const t = clipT(i / mv.fps), sw = ease(SWEEP, t), up = Math.max(0, (v[1] + 0.9) / 1.04);
-  return [v[0] + (sd === "R" ? -sw : sw), v[1] + 0.5 * up, v[2] + ease(REACH, t)];
+  return [v[0] + (sd === "R" ? -sw : sw), v[1] + (0.5 - 0.35 * ease(DIP, t)) * up, v[2] + ease(REACH, t)];
 });
 play(c, 0, W, mv, { from: AT, heading: HEAD, char: "pebble/pebble", range: RANGE, dur: DUR, reach: 0.85 });
 // the eyes on the water all the way (straight ahead is the lake), then to us at the end
