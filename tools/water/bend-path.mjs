@@ -33,6 +33,37 @@ const sample = (T, t) => {
   return [1, 2, 3].map((j) => a[j] + (b[j] - a[j]) * k);
 };
 
+// Catmull-Rom through [[t, x, y, z], ...] (held at both ends)
+export function keyPath(K, t) {
+  if (t <= K[0][0]) return K[0].slice(1);
+  if (t >= K[K.length - 1][0]) return K[K.length - 1].slice(1);
+  let i = 0; while (K[i + 1][0] < t) i++;
+  const P = (j) => K[Math.max(0, Math.min(K.length - 1, j))], a = P(i - 1), b = P(i), c = P(i + 1), d = P(i + 2);
+  const u = (t - b[0]) / (c[0] - b[0]), u2 = u * u, u3 = u2 * u;
+  return [1, 2, 3].map((j) => 0.5 * (2 * b[j] + (-a[j] + c[j]) * u + (2 * a[j] - 5 * b[j] + 4 * c[j] - d[j]) * u2 + (-a[j] + 3 * b[j] - 3 * c[j] + d[j]) * u3));
+}
+
+// `keys` instead of rise/back: a choreographed head path [[t, x, y, z], ...] timed just after the hand moves that cause
+// each change (it starts and ends under the source), plus the hands' small moves round their own 1 s average times amp
+export function keyedPath(H, o) {
+  const { keys, amp = [0.8, 0.8, 0.8], lag = 0.2, sway = 0.05, swayHz = 0.35, dt = 1 / 60 } = o;
+  const avg = (t) => { const s = [0, 0, 0]; for (let k = -5; k <= 5; k++) sample(H, t + k * 0.1).forEach((v, j) => (s[j] += v / 11)); return s; };
+  const t0 = keys[0][0], t1 = keys[keys.length - 1][0];
+  const target = (t) => {
+    const b = keyPath(keys, t), h = sample(H, t), m = avg(t), on = smooth((t - t0) / 0.8) * smooth((t1 - t) / 0.8);
+    const s = sway * on * Math.sin(2 * Math.PI * swayHz * (t - t0));
+    return [b[0] + on * amp[0] * (h[0] - m[0]) + s, b[1] + on * amp[1] * (h[1] - m[1]), b[2] + on * amp[2] * (h[2] - m[2])];
+  };
+  const w = 1 / Math.max(0.02, lag); let x = target(t0), v = [0, 0, 0];
+  const out = [];
+  for (let t = t0; t <= t1 + 1e-9; t += dt) {
+    const g = target(t);
+    for (let j = 0; j < 3; j++) { const a = w * w * (g[j] - x[j]) - 2 * w * v[j]; v[j] += a * dt; x[j] += v[j] * dt; }
+    if (Math.round((t - t0) / dt) % 2 === 0) out.push([Math.round(t * 1000) / 1000, ...x.map((q) => Math.round(q * 10000) / 10000)]);
+  }
+  return out;
+}
+
 export function bendPath(H, o) {
   const { from, rise, back, amp = [3, 2.4, 2], lag = 0.14, sway = 0.07, swayHz = 0.35, dt = 1 / 60, depth = 0.3, lift = 0.35, source = from } = o;
   const t0 = rise[0] - 0.2, t1 = back[1] + 0.2, h0 = sample(H, rise[0]);
