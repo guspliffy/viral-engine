@@ -703,10 +703,14 @@ function hideCoveredSkin(vrm) {
     for (const n of ["neck", "leftHand", "rightHand"]) under(n, open);
     for (const n of ["leftUpperLeg", "rightUpperLeg"]) under(n, legs);
     for (const n of ["leftShoulder", "rightShoulder"]) under(n, arms);
+    // (the neck is never dropped: the hood stands within the 15 cm test of it in the rest pose, so its sides went and
+    // a square hole opened under the ear whenever the head turned or tilted, 7 Nov once the relaxed shoulders showed it)
+    const neck = new Set(); under("neck", neck);
     const kind = new Uint8Array(P.count);   // 0 skin, 1 top, 2 legs
     if (SI && SW) for (let i = 0; i < P.count; i++) {
       let best = 0, bw = -1; for (let k = 0; k < 4; k++) { const w = SW.getComponent(i, k); if (w > bw) { bw = w; best = SI.getComponent(i, k); } }
       const bone = bones[best]; kind[i] = !bone || open.has(bone) ? 0 : legs.has(bone) ? 2 : arms.has(bone) ? 1 : Math.abs(p.fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld).x) < 0.09 ? 0 : 1;
+      if (neck.has(bone)) covered[i] = 0;
     }
     const lists = [[], [], []];
     for (let t = 0; t < idx.count; t += 3) {
