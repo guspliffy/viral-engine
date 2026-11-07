@@ -64,3 +64,35 @@ words) and the mask doors. Light: warm dim cabin light, cool blue lightning flas
   window side and dangles there, ignored.
 - More is going on than in the panels: the bins burst one by one and drop a holdall, a backpack and two suitcases. In the zero-g
   they float with a trainer, magazines and pillows, and they crash back down on the landing. Reaper and the Samurai panic.
+
+## v3 (Jonny 7 Nov: show the plane in free fall from the outside, so the danger comes through)
+
+- **New shot, OUTSIDE (story 5.0-6.5, 1.5 s), between P3 and P4:** at the big drop the clip cuts outside. Night storm,
+  the airliner seen from alongside, a little ahead of its right wing (Phoenix's side; his window glows phone-cyan): it
+  tips nose-down past 45 degrees and banks onto its right wing while it falls away; a lightning bolt strikes right
+  beside it just after the cut, lighting it white, and fades; clouds and rain rush up past the lens; the
+  ground with its tiny town lights opens up below. Then the cut back into the cabin as everything floats (P4 on).
+- Every cabin moment from 5.0 s on plays 1.5 s later; nothing in the cabin changed. The clip runs 11.8 s (11.5 s of story
+  plus the three hit-stops).
+- The plane is 3D (`airliner`, engine/page/props-freefall.js): a neutral twin-engine narrow-body, white with a deep-blue
+  cheatline and fin, no logo, name or words; lit windows, red/green wingtip lights, white strobes, red beacons.
+  The sky is a new painted plate (`assets/plates/storm-sky-dive.png`, SDXL on the CPU like every plate).
+- Nature notes it copies: a bolt branches and lights the clouds round it (a real one also flickers, but a flicker failed the strobe check, so it is one flash with a slow fade); a falling plane's nose drops first,
+  then the wing on the low side; at night only its lights and lit windows read; rain streaks run against the fall.
+- **Departure:** the series format says exactly 10 s; Jonny asked for the extra scene, so the ending's 8-10 s beats now
+  sit at 9.5-11.5 s (same order and lengths).
+- **Not physics:** the plane's dive is a keyed path (it is a vehicle, not a loose prop), and the cabin's floating bags
+  stay the approved v2 tweens; the storyboard has no `"physics": true`, as in v2.
+
+## v4 (Jonny 7 Nov 10:28): turbulence at the start, real panic
+
+- **Outside, turbulence (0.32-1.32 s story, 1.0 s):** the holdall hits the floor at 0.28 and we cut outside to the same
+  airliner, level and flying, lurching in the storm: two drops of 3-4 m and back, rocking 20 degrees wing to wing, a bolt
+  beside it on the second lurch, the cabin windows flickering, rain streaming sideways and the clouds sliding back past it.
+  Same lens position as the free fall (the sky card faces it), tighter (fov 30). Then back into the wide cabin.
+- Order now: bag drops -> outside, bucking -> cabin (grab, bins) -> masks drop -> outside, free fall -> zero-g -> huh.
+- Every cabin moment after 0.32 plays 1.0 s later; after 5.0 another 1.5 s (CUTS in the generator). Clip 12.5 s story.
+- **Panic:** the Wizard, Reaper and the Samurai have the `terrified` face from frame 0 (small irises in wide whites, a big
+  yell with the corners down), tremble until the landing and keep flicking sweat. Phoenix stays calm. The panel faces were
+  never this scared; this follows Jonny's note over the panels.
+- Departure kept: the "EEP!" caption now ends at the cut (0.4 s video) instead of running over the outside shot.
