@@ -388,6 +388,8 @@ const beats = c.beats([
 ], END);
 
 // every caption low on the bare table under the plates (Fable A: at 520 they sat on the back row's faces)
+// v3: the promise goes on the cut to Gunslinger (in his close-up it sat behind him)
+if (V3) for (const cp of c.captions) if (cp.from < VIC && cp.to > VIC) cp.to = VIC;
 for (const cp of c.captions) { cp.pos = 1262; if (cp.text === "Mmmmm!") cp.to = 2.8; if (cp.text === "Listen to that crunch…") cp.to = 3.82; }
 
 write(import.meta.url, {
