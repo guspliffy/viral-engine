@@ -116,3 +116,11 @@ export function line(c, t, who, text, dur, { lid = LID, pos = 230, voice, ...o }
   c.A(t - 0.15, who, "still", { dur: dur + 0.3, idle: 0.85 });   // no automatic blink on his line (a still hold skips them)
   c.A(t + dur + 0.1, who, "face", { lid: LID, dur: 0.4 });
 }
+
+// Pebble's sound mix (Jonny 7 Nov 20:56: "the quieter mix is way better"): the music, birds, room and steps sit well under
+// his voice, and the music dips 12 dB under his lines, so he sounds like the voice he picked. Spread into a storyboard:
+//   music: { ...peb.MIX.music, pool: "calm-landscape" }, sound: { ...peb.MIX.sound, surface: "grass" }
+export const MIX = {
+  music: { lowCut: 120, gain: 0.16, duck: { voice: -12, hold: 0.3, release: 0.6 } },
+  sound: { sfx: 0.4, ambience: 0.2, guard: { target: -15.3 }, nature: [{ id: "birds", gain: 0.07 }, { id: "leaves", gain: 0.05, pan: 0.3 }] },
+};

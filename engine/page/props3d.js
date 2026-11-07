@@ -59,6 +59,7 @@ import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, 
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { CITY_KINDS } from "./props-city.js";   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
+import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1373,6 +1374,7 @@ Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.j
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
+Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

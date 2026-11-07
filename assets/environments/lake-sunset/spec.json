@@ -1,0 +1,45 @@
+{
+ "name": "lake-sunset",
+ "source": "Jonny's painting, 7 Nov 2026 (ChatGPT), for Pebble's scenes: a calm lake at sunset from a low grassy bank, the sun low on the right",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.7,
+  "vfov": 50,
+  "pos": [
+   0,
+   1.7,
+   4.4
+  ],
+  "horizon": 0.305
+ },
+ "bands": [
+  6.0,
+  18.0,
+  60.0,
+  160.0
+ ],
+ "groundMax": 200,
+ "light": {
+  "from": "the sun low on the right",
+  "key": [
+   5,
+   3,
+   -3
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass",
+ "motion": {
+  "shimmer": [
+   [
+    0,
+    0.31,
+    1,
+    0.64
+   ]
+  ]
+ },
+ "standRatio": 0.55
+}
