@@ -112,10 +112,14 @@ export class Face {
     // browShape.cap (castLook "sheet"): the brow tube's open ends are drawn from inside too, so a brow seen end-on in a
     // three-quarter view no longer shows a skin-coloured notch at its inner tip
     if (this.browStyle.cap) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.side = THREE.DoubleSide; }
+    // face.mouth { ink, thick } (Pebble, 6 Nov 2026; default-preserving): the closed smile's own colour (a warm brown
+    // instead of the ink) and a thickness factor, so the smile can be finer without scaling the whole face
+    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1 };
+    this.smileMat = MO.ink ? new THREE.MeshStandardMaterial({ color: MO.ink, roughness: 0.55 }) : this.inkMat;
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
        roughness: 0.6, side: THREE.DoubleSide });
     // a warm off-white, matte enough that the one painted catch light is the only highlight
-    const white = new THREE.MeshStandardMaterial({ color: "#fbf5ea", roughness: 0.45 });
+    const white = new THREE.MeshStandardMaterial({ color: E.white ?? "#fbf5ea", roughness: 0.45 });   // eye.white: a warmer, subdued white (Pebble)
     const irisM = new THREE.MeshStandardMaterial({ color: iris, roughness: 0.4 });
     // eye.irisShade: the anime iris, painted top to bottom: dark under the upper lid, the colour, then a bright warm
     // band low in the iris (reads in extreme close-ups; off by default so older clips keep their eyes)
@@ -131,7 +135,7 @@ export class Face {
     const pupilM = new THREE.MeshStandardMaterial({ color: "#0b0a0e", roughness: 0.4 });
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
     // the drawn look's pencil hatching stays off the eyes and the ink (looks.js, castLook "art")
-    for (const m of [white, irisM, pupilM, this.inkMat, this.browMat, this.mouthMat]) m.userData.noHatch = true;
+    for (const m of [white, irisM, pupilM, this.inkMat, this.browMat, this.mouthMat, this.smileMat]) m.userData.noHatch = true;
     // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
     // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
     if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
@@ -628,6 +632,7 @@ export class Face {
       upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * 0.06 * Math.sin(t * Math.PI)]);
       lower.push([u, mv + bow + sm - open * 0.3 * Math.sin(t * Math.PI)]);
     }
+    this.corners = { R: upper[0], L: upper[n] };   // face coordinates of the mouth corners (a straw held in the lips follows them)
     // fangs (c.fangs 0..1, a vampire costume): two small white points hanging from the upper lip a third of the way in
     // from each corner, over the lower lip when the mouth is shut
     const fk = Math.max(0, Math.min(1, c.fangs || 0));
@@ -674,7 +679,7 @@ export class Face {
     } else {
       const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.005 * s));
       // a closed smile: a brush line, fuller in the middle, fine at the corners
-      this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * (0.003 + 0.0065 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.inkMat); this.group.add(this.mouthLine);
+      this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * this.mouthStyle.thick * (0.003 + 0.0065 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.smileMat); this.group.add(this.mouthLine);
     }
   }
 }

@@ -3,5 +3,6 @@ out/
 *.log
 .DS_Store
 engine/voice/.venv/
+engine/voice/.venv-vc
 engine/voice/models/
 __pycache__/

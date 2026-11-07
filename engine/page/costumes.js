@@ -5,6 +5,8 @@ const _ax = new THREE.Vector3();
 import { phoenixCostume, reaperCostume } from "./costumes-pb.js";
 import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt } from "./costumes-art-cast.js";
 import { cardWings } from "./costumes-card.js";
+import { coreCostume } from "./costumes-core.js";
+import { pebbleCostume } from "./costumes-pebble.js";
 import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
@@ -299,6 +301,7 @@ const tiltOf = (q) => { if (q && q.mix) { const a = tiltOf(q.mix.from), b = tilt
 const tiltSet = (q, base) => { if (!q) return base; const f = tiltSet(q.from, base), to = q.to || base; return [f[0] + (to[0] - f[0]) * q.k, f[1] + (to[1] - f[1]) * q.k]; };
 
 export function buildCostume(def, ch) {
+  if (def.build === "core") return def.costume?.type === "pebble" ? pebbleCostume(def, ch) : coreCostume(def, ch);   // the Core Five redesign (costumes-core.js); Pebble the tortoise (costumes-pebble.js)
   const C = def.costume || {}, sp = def.sprout || {};
   const mount = new THREE.Group(); ch.root.add(mount); // follows the top of the body (or the fries box)
   let hat = null, prop = null;

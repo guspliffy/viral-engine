@@ -1,0 +1,480 @@
+{
+ "id": "pebble-standing",
+ "title": "Pebble test 1: standing",
+ "idea": "Pebble character test: walk, smile, turn, one line (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet-clean",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "guard": true,
+  "surface": "dirt",
+  "nature": [
+   "birds",
+   {
+    "id": "leaves",
+    "gain": 0.1,
+    "pan": 0.3
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "Pebble walks up"
+ },
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "pool": "calm-landscape",
+  "lowCut": 120,
+  "gain": 0.28
+ },
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    -0.55,
+    -2.7
+   ],
+   "face": 20,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 1.3
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "walk",
+   "at": 0,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     3.6
+    ],
+    "look": [
+     0,
+     0.8,
+     -1.15
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.2,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.05
+      ],
+      "swing": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.05
+      ],
+      "swing": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      0,
+      -1.15
+     ],
+     "dur": 3.2,
+     "steps": 2.2,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.6,
+     "at": 2.5
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "at": 3.25
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "smile",
+   "at": 3.3,
+   "len": 1.7,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "brow": 0,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.2,
+       0.09
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 1
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.2,
+       0.09
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 1
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 0.74
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 1.55
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.57
+    }
+   ]
+  },
+  {
+   "name": "look down the path",
+   "at": 5,
+   "len": 3.3,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": -110,
+     "dur": 1.2,
+     "at": 0.15
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": "camera",
+     "dur": 1.2,
+     "at": 2
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.1701,
+       1.1446,
+       0.3657
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.6,
+     "at": 2.3
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
+     "dur": 0.55,
+     "at": 2.35
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "at": 2.9
+    },
+    {
+     "who": "peb",
+     "do": "straw",
+     "side": "L",
+     "hand": 1,
+     "dur": 0.15,
+     "at": 2.95
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.236,
+       1.0906,
+       0.3774
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.3,
+     "at": 3.1
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 2.5,
+     "idle": 0.85,
+     "at": 3.25
+    }
+   ]
+  },
+  {
+   "name": "line",
+   "at": 8.3,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.3,
+     2.75
+    ],
+    "look": [
+     0.02,
+     1.12,
+     -1.1
+    ],
+    "fov": 33
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.55,
+       0.3
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "No rush. The path will wait.",
+     "tone": "calm",
+     "pos": 230,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.45,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.95
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "smirk": 0.45,
+      "curve": 0.55,
+      "eye": 0.82
+     },
+     "dur": 0.4,
+     "at": 2.2
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.4,
+     "at": 2.4
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "at": 2.8
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 2.85
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.3,
+   "see": [
+    "peb.face"
+   ],
+   "why": "Pebble walking up the path"
+  },
+  {
+   "from": 3.3,
+   "to": 4.8,
+   "see": [
+    "peb.face"
+   ],
+   "why": "the calm smile and the content blink"
+  },
+  {
+   "from": 8.4,
+   "to": 10.6,
+   "see": [
+    "peb.face"
+   ],
+   "why": "his line"
+  }
+ ],
+ "notes": "Generated by storyboards/pebble/make-pebble-tests.mjs (character test, no reviews)."
+}
