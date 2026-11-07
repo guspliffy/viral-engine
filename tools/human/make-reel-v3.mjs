@@ -26,7 +26,7 @@ const SHOTS = [
   { name: "run", clip: "c16_35", from: 0.0, to: 0.85, then: { clip: "c16_08", from: 0.55, to: 1.5, blend: 0.2 }, travel: -20, endAt: [-0.35, -0.3], cam: { at: [0.15, 1.0, 4.4], lookY: 0.95, fov: 36, follow: 0.4 }, label: "run" },
   { name: "jump", clip: "c16_03", from: 0.85, to: 2.65, heading: 25, mid: [0, -0.3], cam: { at: [0.3, 1.0, 3.3], lookY: 1.05, fov: 44 }, label: "jump" },
   { name: "punch", clip: "c14_01", from: 2.0, to: 3.45, heading: 30, mid: [0, 0.2], cam: { at: [0.25, 1.2, 3.3], lookY: 1.1, fov: 38 }, label: "punch" },
-  { name: "grab", clip: "c69_70", from: 2.2, to: 4.0, refTo: 4.5, travel: 90, mid: [0.05, -0.4], cam: { at: [0, 0.98, 3.5], lookY: 0.85, fov: 38, follow: 0.5 }, label: "grab" },
+  { name: "grab", clip: "c69_70", from: 2.2, to: 4.0, refTo: 4.5, travel: 62, mid: [0.05, -0.4], cam: { at: [0, 0.98, 3.5], lookY: 0.85, fov: 38, follow: 0.5 }, label: "grab" },
   { name: "sit", clip: "c113_15", from: 0.9, to: 4.3, heading: 0, mid: [0, -0.7], cam: { at: [0.3, 1.02, 3.3], lookY: 0.85, fov: 36 }, label: "sit" },
 ];
 
@@ -78,7 +78,9 @@ for (const sh of SHOTS) {
 // the pick-up: the take's actor reaches down with the right hand to about 36 cm off the floor (he picked something
 // off a low table), so an apple sits on a crate there. Measured in the page (cast "diagPalms": the rendered body's
 // palm, not this script's skeleton): right palm lowest at x 0.352, y 0.365, z -0.504 from 9.9 to 10.17 s; the knees
-// and shins stay above and beside the crate (lowest knee 0.42 m, feet at x 0.03-0.10)
+// and shins stay above and beside the crate (lowest knee 0.42 m, feet at x 0.03-0.10). (v5 review: the take turned
+// 28 degrees toward the camera so the reaching hand shows; the palm then closes at about x 0.36, y 0.21, z -0.31, the
+// crate stands under it, knees above 0.36 m and feet at x 0.03-0.12 stay clear of it)
 const T = (n, u) => R(shot(n).t0 + (u - shot(n).from));
 const gb = shot("grab");
 // the palm where the hand closes, measured in the page on this rig (cast diagPalms; written by a --layout pass)
@@ -99,7 +101,7 @@ sbeat.do.push({ do: "prop", id: "chair", at: 0, dur: 0, set: { scale: 1 } });
 
 // the hands: relaxed, flat on the ground in the handspring, fists in the punches, round the box, relaxed on the chair
 const fingers = [
-  [0, 0.15, 0.15], [T("walk", 0.2), 0.4, 0.4],
+  [0, 0.15, 0.15], [T("walk", 0.2), 0.55, 0.55],   // (v5 review: a fuller curl, open hands read as mittens at phone size)
   [T("punch", 2.0), 0.95, 0.95], [T("grab", 2.2), 0.4, 0.4],
   // the hand opens on the way down and closes round the apple before the lift starts
   [R(grab.t - 0.4), 0.4, 0.4], [R(grab.t - 0.2), 0.4, 0.12], [R(grab.t), 0.4, 0.72],
@@ -110,7 +112,8 @@ const fingers = [
 // (v5: the seated head lift went: the character's posture "level" keeps the face near level by itself)
 const poses = [{ from: T("punch", 2.0), to: T("punch", 3.45), ramp: 0.01, bones: { leftUpperArm: [0, 0.35, 0], rightUpperArm: [0, -0.35, 0], leftLowerArm: [0, 0.3, 0], rightLowerArm: [0, -0.3, 0] } }];
 // seated: both hands come to rest on the thighs once the weight is on the chair
-const rest = [{ hand: "L", from: T("sit", 2.75), to: END + 1, ramp: 0.45, u: 0.62 }, { hand: "R", from: T("sit", 2.85), to: END + 1, ramp: 0.45, u: 0.62 }];
+// (v5 review: not a mirror image: the right hand lands 0.25 s later and nearer the hip, so that elbow bends more)
+const rest = [{ hand: "L", from: T("sit", 2.75), to: END + 1, ramp: 0.45, u: 0.62 }, { hand: "R", from: T("sit", 3.0), to: END + 1, ramp: 0.45, u: 0.48 }];
 // the seat: the hips settle onto the chair (seat top 0.42 + 0.115 from the hips joint down to the sitting bones on
 // this body), eased in while the take lowers itself (clip 2.1 to 2.6)
 const seatY = 0.42 + 0.115, seat2 = [{ from: T("sit", 2.1), to: END + 1, ramp: 0.5, y: seatY }];
@@ -139,7 +142,7 @@ const sb = {
   creative: { notes: false },
   cast: [{ id: "h", character: "human/vrm-test-01", at: [list[0].place[0], list[0].place[1]], face: "camera", expr: "kind", seed: 1.3, perform: list, fingers, poses, rest, gaze, seat: seat2, calm: [{ from: T("sit", 1.6), to: T("sit", 2.5), ramp: 0.25, k: 0.97 }], diagPalms: !!process.env.DIAG }],
   props: [
-    { id: "crate", kind: "cardbox", x: 0.36, y: 0, z: -0.5, rot: 0, w: 0.28, d: 0.3, h: crateH, closed: true, scale: 0.001 },
+    { id: "crate", kind: "cardbox", x: grab.at[0], y: 0, z: grab.at[2], rot: 0, w: 0.28, d: 0.3, h: crateH, closed: true, scale: 0.001 },
     { id: "apple", kind: "apple", x: grab.at[0], y: R(crateH + APPLE_R), z: grab.at[2], rot: 0, scale: 0.001 },
     { ...chair, scale: 0.001 },
   ],
