@@ -291,7 +291,7 @@ A(V(9.5), "phx", "hop", { height: 0.12, dur: 0.25 });
 A(V(9.5), "phx", "look", { to: [0.2, -0.15], dur: 0.1, blink: false });
 A(V(9.5), "phx", "grip", { side: "R", shape: "relaxed", dur: 0.1 });
 c.arm(V(9.5), "phx", "L", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut"); c.arm(V(9.5), "phx", "R", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut");
-c.say(V(9.58), "phx", "AGAIN! tomorrow?", 0.55, "excited", { pos: SUB, sub: "AGAIN! Tomorrow?" });   // reach rules v2 B5: "AGAIN!" = Phoenix's fixed catchphrase (proposal, from ep 2's ending)
+c.say(V(9.58), "phx", "Again tomorrow?", 0.55, "excited", { pos: SUB, sub: "Again tomorrow?" });   // the brief's line (Jonny 7 Nov: "AGAIN!" is not his catchphrase)
 for (const id of ["rea", "wiz"]) { A(V(9.75), id, "pitch", { to: -32, dur: 0.15, ease: "in" }); A(V(9.75), id, "face", { lid: 1, dur: 0.12 }); }
 A(V(9.75), "wiz", "expr", { expr: "kind", set: { curve: 0.2, open: 0 }, dur: 0.15 });   // asleep but pleased: the answer to frame 0's frown
 sfx(V(9.85), "thud-soft", { gain: 0.6, reason: "both heads dropping back onto the grass at once" });
