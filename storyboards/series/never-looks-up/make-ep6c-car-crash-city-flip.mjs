@@ -321,7 +321,7 @@ write(import.meta.url, {
   set: { type: "env", env: "sunny-city-avenue", ...(process.env.ENVCHECK === "0" && { envCheck: false }), shade: "soft", aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, speed: speedKeys },
   rigs: [rig],
   drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0, wash: 0.09, pool: 0.15 } },
-  music: { file: "ai/car-chase/car-chase-06.ogg", gain: 0.42, lowCut: 120, duck: { db: 9 }, until: SLOW[0], then: { file: "ai/car-chase/car-chase-06.ogg", from: 2.75, gain: 0.4 } },
+  music: { file: "ai/car-chase/car-chase-06.ogg", gain: 0.62, lowCut: 120, duck: { db: 6 }, until: SLOW[0], then: { file: "ai/car-chase/car-chase-06.ogg", from: 2.75, gain: 0.6 } },
   sound: { sfx: 0.7, ambience: 0.3, surface: "road", room: "open", guard: true, scenes: ["ui"], signature: { entrances: false }, engine: { keys: ENGINE, gain: 0.17, cyl: 4 } },
   creative: { length: [END, END] },
   hook: { show: ["phx", "dra", "phone", "blue"], hint: 0, what: "a blue car is already over the centre line, coming straight at them; Dragon screams, Phoenix only sees his phone" },

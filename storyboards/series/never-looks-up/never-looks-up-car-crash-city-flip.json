@@ -4170,16 +4170,16 @@
  },
  "music": {
   "file": "ai/car-chase/car-chase-06.ogg",
-  "gain": 0.42,
+  "gain": 0.62,
   "lowCut": 120,
   "duck": {
-   "db": 9
+   "db": 6
   },
   "until": 0.75,
   "then": {
    "file": "ai/car-chase/car-chase-06.ogg",
    "from": 2.75,
-   "gain": 0.4
+   "gain": 0.6
   }
  },
  "sound": {
