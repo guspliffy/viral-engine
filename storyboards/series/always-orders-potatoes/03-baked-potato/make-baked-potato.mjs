@@ -65,8 +65,8 @@ const TOWER = []; { let y = r3(Y0 + 0.004); for (const [id, kind, h, rot, fk, bo
 const SHOWER = [[-0.6, -0.05, 4], [-0.5, -0.16, 6], [-0.45, -0.02, 9], [-0.64, -0.17, 12], [-0.56, 0.05, 15], [-0.42, -0.12, 18]];
 
 const props = [
-  { id: "floor", kind: "pubstep", x: 0.3, z: -1.74, w: 3.0, d: 1.26, h: STEP },
-  { id: "bar", kind: "barcounter", x: PHX[0] - 0.05, y: STEP, z: r3(PHX[1] + 0.56), w: 0.8, d: 0.12, h: 0.3 },
+  { id: "floor", kind: "pubstep", x: 0.3, z: -1.78, w: 3.0, d: 1.1, h: STEP },
+  { id: "bar", kind: "barcounter", x: PHX[0] - 0.05, y: 0, z: r3(PHX[1] + 0.58), w: 0.8, d: 0.04, h: r3(STEP + 0.3) },   // a counter from the floor up, in front of the raised step
   { id: "table", kind: "steaktable", x: 0, z: TZ, w: 3.2, d: TD, h: TH, cloth: 0.78, over: 0.18 },
   { id: "board", kind: "servingboard", x: BOARD[0], y: TH, z: BOARD[1], w: 0.6, d: 0.34 },
   { id: "potato", kind: "bakedpotato", x: PX, y: BT, z: PZ, open: 0, steam: 0, seed: 3 },
