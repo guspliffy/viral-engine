@@ -769,6 +769,10 @@ export class Character {
   // its own ink shell draws the line, thinning away in creases, in the colour and width the look gives the arm tube
   _skinInit(s) {
     const a = this.arms[s];
+    // hands.oneMat (opt-in, Pebble 7 Nov): the hand's skin and the arm tube share one material, so the look shades them
+    // alike; as two materials the skin came out lighter, and where it overlaps the tube over the forearm's last stretch
+    // it showed as pale stripes with dark diamonds between the tube's flat sides
+    if (this.def.hands?.oneMat) this.skinMat ??= this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
     this.skinMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
     a.skin = new THREE.Mesh(new THREE.BufferGeometry(), this.skinMat);
     a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);

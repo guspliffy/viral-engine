@@ -508,7 +508,7 @@ export class Face {
       for (let i = 0; i < 256; i++) { const t = i / 255; let k = 0; while (k < stops.length - 2 && t > stops[k + 1][0]) k++; const [t0, m0, w0] = stops[k], [t1, m1, w1] = stops[k + 1], f = (t - t0) / (t1 - t0 || 1), m = m0 + (m1 - m0) * f, w = w0 + (w1 - w0) * f; lut.push([c.r, c.g, c.b].map((v) => Math.round(255 * Math.min(1, v * m + w)))); }
       this._paintLUT = { lut, white: [W.r, W.g, W.b].map((v) => Math.round(255 * v)), pupil: [11, 10, 14] };
     }
-    const { lut, white, pupil: pc } = this._paintLUT, g = P.g, img = g.createImageData(256, 256), d = img.data;
+    const { lut, white, pupil: pc } = this._paintLUT, g = P.g, img = g.createImageData(256, 256), d = img.data, GL = E.paintGlint;
     for (let j = 0; j < 256; j++) {
       const v = 1 - (j + 0.5) / 256, th = (1 - v) * Math.PI, st = Math.sin(th), Y = Math.cos(th) * b;
       for (let i = 0; i < 256; i++) {
@@ -517,7 +517,10 @@ export class Face {
         // soft one-texel edges: the iris over the white, the pupil over the iris
         const px = 1 / (256 * 2.5) * 2 * Math.PI * a, ei = Math.min(1, Math.max(0, (1 - qi) * RX / px + 0.5)), ep = Math.min(1, Math.max(0, (1 - qp) * rp / px + 0.5));
         const ic = lut[Math.max(0, Math.min(255, Math.round((0.5 - dy / RY / 2) * 255)))], o = (j * 256 + i) * 4;
-        for (let k = 0; k < 3; k++) { const iv = ic[k] + (pc[k] - ic[k]) * ep; d[o + k] = Math.round(white[k] + (iv - white[k]) * ei); }
+        // eye.paintGlint [x, y, r] (opt-in, Pebble 7 Nov): the catch light painted into the iris (in iris radii from its
+        // centre), low enough to show under a heavy lid; the separate glint shape stood at the top, always under the lid
+        const eg = GL ? Math.min(1, Math.max(0, (1 - Math.hypot((dx - GL[0] * RX) / (GL[2] * RX), (dy - GL[1] * RY) / (GL[2] * RX))) * GL[2] * RX / px + 0.5)) * ei : 0;
+        for (let k = 0; k < 3; k++) { const iv = ic[k] + (pc[k] - ic[k]) * ep, cv = white[k] + (iv - white[k]) * ei; d[o + k] = Math.round(cv + (250 - cv) * eg); }
         d[o + 3] = 255;
       }
     }
@@ -620,6 +623,7 @@ export class Face {
           for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
         }
       }
+      if (eye.paint && this.eyeStyle.paintGlint) for (const gl of eye.glints) gl.visible = false;   // painted into the iris instead
       if (eye.space) this._deepen(eye, blink);
       // tears: 0..0.5 the band fades in, 0.5..1 the bead swells (the character's right eye is at -u)
       const tk = Math.max(0, Math.min(1, (eye.side < 0 ? c.tearR : c.tearL) || 0)), T = eye.tear;
