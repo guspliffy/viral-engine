@@ -34,10 +34,31 @@ const FACES = "strong", MOTION = "natural";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 // two cuts outside (v4): the plane bucking in the storm as the first bag hits the floor, and the plane dropping at the
 // big drop. Each is [the v2 cabin time it cuts in at, its length]; the cabin pauses while we are outside.
-const CUTS = [[0.32, 1.0], [5.0, 1.5]];
-const T = (t) => r3(t + CUTS.reduce((s, [at, len]) => s + (t >= at - 1e-6 ? len : 0), 0));   // a cabin time from v2 -> its time now
-const INS = CUTS[1][1], INS_T = CUTS[0][1];
-const END = r3(10.0 + INS + INS_T), AFTER = END + 0.5;      // allowClip windows run to the video's end (hit-stops add frames)
+//   Jonny 7 Nov (v6, after posting v5: "the 3rd scene is too long, cut faster to the falling plane ... 8-11 s; we lose
+//                people fast"; then "lets test" opening outside): the cabin stretch between the two outside shots goes from
+//                4.6 s to 2.0 s (the arm grab and the two bin bursts happen while we are outside), the peak loses 0.3 s at
+//                its cut, ~9.5 s. Two openings, VARIANT=A (cabin first, as before) and VARIANT=B (outside first, one cut in
+//                on the holdall hitting the floor): the same clip otherwise.
+const VARIANT = process.env.VARIANT === "B" ? "B" : "A";
+// The cabin is written in v2 time (0-10 s) and then mapped onto the clip: "show" plays a stretch 1:1 from `at`, "hide"
+// squeezes it into the window [at, to] while the camera is outside (its sounds, lines, captions and effects dropped,
+// so only its end state shows when we come back in), "skip" jumps it on a cut. BUCK and FALL are the outside shots.
+const PIECES = VARIANT === "A"
+  // v6.1 (Jonny 14:02: "the third scene should be even shorter, the plane falling by second 3"): the masks scene keeps
+  // v2 3.0-4.2 (the bump, masks, "AH-AH-AH!", the pink case slam) and the rest (buckle, Reaper's mask) happens under the fall
+  ? [{ v: [0, 0.32], show: 0 }, { v: [0.32, 3.0], hide: [0.37, 1.27] }, { v: [3.0, 4.2], show: 1.32 }, { v: [4.2, 5.0], hide: [2.57, 3.97] }, { v: [5.0, 7.0], show: 4.02 }, { v: [7.0, 7.3], skip: 6.02 }, { v: [7.3, 10.0], show: 6.02 }]
+  : [{ v: [0, 3.0], hide: [0.02, 0.95] }, { v: [3.0, 5.0], show: 1.0 }, { v: [5.0, 7.0], show: 4.5 }, { v: [7.0, 7.3], skip: 6.5 }, { v: [7.3, 10.0], show: 6.5 }];
+const BUCK_AT = VARIANT === "A" ? 0.32 : 0, INS_T = 1.0, FALL_AT = VARIANT === "A" ? 2.52 : 3.0, INS = 1.5;
+const TIP0 = VARIANT === "A" ? 0.25 : 0.5;   // A: the nose goes down sooner, so the fall reads by 3 s
+// B (Jonny 14:02): a close-up on Phoenix, still scrolling, just before the plane drops; the fall stays at 3.0
+const CLOSE_AT = 2.02;   // v6.2 (Jonny 14:31): the cut lands right as "AH-AH-AH!!" ends (and the pink case has settled)
+const pieceOf = (t) => PIECES.find((q, i) => t >= q.v[0] - 1e-6 && (t < q.v[1] - 1e-6 || i === PIECES.length - 1));
+const T = (t) => {   // a v2 cabin time -> its clip time
+  const q = pieceOf(t), [a, b] = q.v;
+  return r3(q.show != null ? q.show + (t - a) : q.hide ? q.hide[0] + ((t - a) / (b - a)) * (q.hide[1] - q.hide[0]) : q.skip);
+};
+const hidden = (t) => !!pieceOf(t).hide;
+const END = T(10.0), AFTER = END + 0.5;      // allowClip windows run to the video's end (hit-stops add frames)
 const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- places (x right, z toward us = the plane's nose)
@@ -276,7 +297,7 @@ cup.release(3.82, { rest: false });
 c.arm(3.95, "wiz", "L", { world: [r3(WX + 0.03), 0.5, r3(SZ + 0.34)] }, 0.2, "out");
 prop(4.15, "beltW", { open: 1 }, 0.25, "out");
 sfx(4.15, "kenney/switch", { gain: 0.5, reason: "the Wizard's belt buckle clicks open" });
-c.arm(4.3, "wiz", "L", { x: [0.3, 0.45, 0.3] }, 0.3, "inOut");
+c.arm(4.3, "wiz", "L", { x: [0.36, 0.62, 0.26] }, 0.3, "inOut");   // v6: up and out to his side, over the cup in his lap (the old lap spot ran the forearm through it)
 // Reaper fumbles his on in a panic, then looks at the Wizard
 const REA_MOUTH = { x: r3(RX), y: 0.83, z: r3(SZ + 0.5) };
 A(3.55, "rea", "look", { to: [0.0, 0.3], dur: 0.12, blink: false });
@@ -441,14 +462,33 @@ see(T_LAND + 0.05, 9.98, ["phx.face", "wiz.face", "rea.face", "sam", "tray", "ph
 // ---------------------------------------------------------------- make room for the outside shots
 // everything written so far is the v2 cabin; whatever starts at or after a cut plays that much later. A caption running
 // across a cut ends at it; a must-see window running across one is split round it.
-for (const it of c.items) it.at = T(it.at);
-for (const q of c.captions) { const cut = CUTS.find(([at]) => q.from < at - 1e-6 && q.to > at + 1e-6); q.to = cut ? cut[0] : T(q.to); q.from = T(q.from); }
-for (const v of [...c.visible]) {
-  const cut = CUTS.find(([at]) => v.from < at - 1e-6 && v.to > at + 1e-6);
-  if (cut) c.visible.push({ ...v, from: r3(T(cut[0]) + 0.05), to: T(v.to) });
-  v.to = cut ? r3(cut[0] - 0.02) : T(v.to); v.from = T(v.from);
+// B opens outside: the holdall's fall (and its bin-lid bang and thud) moves to the moment we cut in, and the Wizard's
+// "EEP!" is heard over the outside shot (the only line kept from a hidden stretch)
+const KEEP = new Set();
+if (VARIANT === "B") for (const it of c.items) {
+  if ((it.do === "prop" && it.id === "duf" && it.at < 0.5) || (it.sfx && it.at <= 0.3 && /thud$|impact-plank/.test(it.sfx))) it.at = r3(it.at + 3.0);
+  if (it.do === "talk" && it.at < 0.1) KEEP.add(it);
 }
-for (const h of c.hitStops) h.at = r3(Math.round(T(h.at) * 30) / 30);
+const OFF = (it) => it.sfx || it.fx || it.do === "talk" || it.macro;   // what a hidden stretch drops
+for (let i = c.items.length - 1; i >= 0; i--) {
+  const it = c.items[i], q = pieceOf(it.at);
+  if (q.hide && OFF(it) && !KEEP.has(it)) { c.items.splice(i, 1); continue; }
+  if (q.hide && it.dur) it.dur = r3(Math.max(0.01, it.dur * (q.hide[1] - q.hide[0]) / (q.v[1] - q.v[0])));
+  it.at = T(it.at);
+}
+// a caption or must-see window keeps only its shown part (B keeps "EEP!" over the outside shot)
+const shownSpan = (from, to) => {
+  const q0 = pieceOf(from), q1 = pieceOf(Math.max(from, to - 1e-3));
+  let a = q0.hide ? q0.v[1] : from, b = q1.hide ? q1.v[0] : to;
+  return b - a > 0.05 ? [T(a) + (q0.hide ? 0.05 : 0), q1.hide ? r3(T(b - 0.002) - 0.02) : T(b)] : null;
+};
+for (let i = c.captions.length - 1; i >= 0; i--) {
+  const q = c.captions[i];
+  if (VARIANT === "B" && q.from < 0.1) { q.from = 0.05; q.to = 0.95; continue; }
+  const s2 = shownSpan(q.from, q.to); if (!s2) c.captions.splice(i, 1); else [q.from, q.to] = s2.map(r3);
+}
+for (let i = c.visible.length - 1; i >= 0; i--) { const v = c.visible[i], s2 = shownSpan(v.from, v.to); if (!s2) c.visible.splice(i, 1); else [v.from, v.to] = s2.map(r3); }
+for (let i = c.hitStops.length - 1; i >= 0; i--) { const h = c.hitStops[i]; if (hidden(h.at)) c.hitStops.splice(i, 1); else h.at = r3(Math.round(T(h.at) * 30) / 30); }
 
 // the panic in clip time: the three friends tremble from frame 0 until the plane levels out and drops them back (not
 // Phoenix), and sweat keeps flicking off them, a burst each every second or so in the cabin (never in the outside shots)
@@ -456,11 +496,11 @@ const LAND = T(T_LAND);
 // (the tremble is a 7.5 Hz sine: it ends on a whole number of its half cycles, at rest, so nothing jumps when it stops)
 for (const [who, amp] of [["wiz", 1.5], ["rea", 1.5], ["sam", 1.3]]) A(0, who, "shake", { dur: r3(Math.floor((LAND - 0.02) * 15) / 15), amp });
 // wide eyes stare: no automatic blinks while they panic (a blink on a yell reads as calm); a few placed ones off their lines
-for (const [who, ts] of [["wiz", [2.05, 5.6, 9.0]], ["rea", [2.2, 5.3, 9.95]]]) { A(0, who, "noblink", { dur: LAND }); for (const t of ts) A(t, who, "blink", { dur: 0.2 }); }
-const OUT = [[CUTS[0][0], r3(CUTS[0][0] + INS_T)], [r3(CUTS[1][0] + INS_T), r3(CUTS[1][0] + INS_T + INS)]].map(([a, b]) => [a - 0.75, b]);
-for (const [who, t0] of [["rea", 1.5], ["sam", 2.0], ["wiz", 2.4]]) for (let t = t0; t < LAND - 0.8; t += 1.2) if (!OUT.some(([a, b]) => t > a && t < b)) c.at(r3(t), { fx: "sweat", who, dur: 0.7, count: 3 });
+for (const [who, ts] of [["wiz", [4.45, 6.55]], ["rea", [4.75, 6.45]]]) { A(0, who, "noblink", { dur: LAND }); for (const t of ts) A(T(t), who, "blink", { dur: 0.2 }); }
+const OUT = [[BUCK_AT, BUCK_AT + INS_T], [FALL_AT, FALL_AT + INS]].map(([a, b]) => [a - 0.75, b]);
+for (const [who, t0] of [["rea", 1.5], ["sam", 1.9], ["wiz", 2.3]]) for (let t = t0; t < LAND - 0.8; t += 1.1) if (!OUT.some(([a, b]) => t > a && t < b)) c.at(r3(t), { fx: "sweat", who, dur: 0.7, count: 3 });
 // the cabin never sits still while the plane is in trouble (review B v4): a low tremor under the bumps, inside only
-for (const [a, b] of [[CUTS[0][0] + INS_T, CUTS[1][0] + INS_T], [CUTS[1][0] + INS_T + INS, LAND]]) c.at(r3(a + 0.02), { fx: "shake", amp: 0.006, dur: r3(b - a - 0.05) });
+for (const [a, b] of [[BUCK_AT + INS_T, FALL_AT], [FALL_AT + INS, LAND]]) c.at(r3(a + 0.02), { fx: "shake", amp: 0.006, dur: r3(b - a - 0.05) });
 // after the landing: Reaper sighs into his tea, the Samurai is left stunned (the Wizard's glare is the ending)
 A(r3(LAND + 0.3), "rea", "expr", { expr: "kind", set: { curve: 0.1, eye: 0.9 }, dur: 0.35 });
 A(r3(LAND + 0.3), "rea", "face", { brow: 0, corner: 0, dur: 0.35 });
@@ -473,7 +513,7 @@ A(r3(LAND + 0.25), "sam", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.1
 // tips over and falls away down the frame while the clouds and the rain rush up past the lens.
 const EX = [320, 60, -60];                                 // (60 m up: something of the stage at eye level near y 0 drew a dark band across the horizon)
 const ex = (dx, dy, dz) => [r3(EX[0] + dx), r3(EX[1] + dy), r3(EX[2] + dz)];
-const X0 = r3(CUTS[1][0] + INS_T), X1 = r3(X0 + INS);   // the free fall, in clip time
+const X0 = FALL_AT, X1 = r3(X0 + INS);   // the free fall, in clip time
 // the lens (alongside, a little ahead of the right wing and above) and points along its view, so the far cards face it
 const CAM_X = ex(34, 7, 92), LOOK_X = ex(0, -6, 0), LOOK_X2 = ex(3, -11, 2);
 const vsub = (p, q) => p.map((v, i) => v - q[i]), vlen = (v) => Math.hypot(...v), vnorm = (v) => v.map((x) => x / vlen(v));
@@ -494,7 +534,7 @@ props.push(...exProps);
 // falls away, faster and faster (a falling body gains speed: "in" eases the drop)
 // (review B: tip fast, fall slower, and fall away from the lens so it shrinks: growing reads as coming at us)
 prop(X0, "jet", { tip: 46, roll: 26 }, 0.5, "inOut");
-prop(X0 + 0.5, "jet", { tip: 56, roll: 31 }, INS - 0.5, "out");
+prop(X0 + TIP0, "jet", { tip: 56, roll: 31 }, INS - TIP0, "out");
 prop(X0, "jet", { y: r3(EX[1] - 20) }, INS - 0.02, "in");
 prop(X0, "jet", { x: r3(EX[0] + DIR[0] * 18 + 4), z: r3(EX[2] + DIR[2] * 18) }, INS - 0.02, "linear");
 prop(X0, "jet", { spin: 160 }, INS - 0.02, "linear");
@@ -510,7 +550,7 @@ const LT = X0 + 0.3;   // review B: the plane reads clearly for its first frames
 for (const id of ["bolt", "jet", "sky", "cloudsFar", "cloudsNear", "rain"]) { const g = id === "bolt" ? 1 : id === "jet" ? 0.6 : 0.5; prop(LT, id, { glow: g }, 0.04, "out"); prop(LT + 0.1, id, { glow: 0 }, 0.4, "in"); }
 c.at(LT, { fx: "flash", peak: 0.22, dur: 0.1, sound: false });
 c.at(X0, { fx: "shake", amp: 0.012, dur: INS - 0.05 }); c.at(LT, { fx: "shake", amp: 0.022, dur: 0.6 });   // the storm buffets the lens the whole shot
-sfx(LT, "firework", { gain: 0.4, reason: "the thunderclap of the bolt right beside the plane: crack and boom" });
+sfx(LT, "firework", { gain: 0.22, reason: "the thunderclap of the bolt right beside the plane: crack and boom" });
 sfx(LT + 0.05, "rumble", { gain: 0.6, dur: 1.4, reason: "thunder rolling after the strike" });
 sfx(X0, "windswell", { gain: 0.85, dur: INS, reason: "the air roaring louder as the plane drops" });
 sfx(X0 + 0.3, "ridewind", { gain: 0.45, dur: INS - 0.35, reason: "the gusty rush of air past the falling plane" });
@@ -521,7 +561,7 @@ see(X0 + 0.05, X1 - 0.05, ["jet"], "OUTSIDE: the plane tips nose-down and drops 
 // the ground". The holdall hits the floor (0.28) and we cut outside the same plane, level and flying, lurching in the
 // storm: it drops a few metres and is thrown back up, rocking wing to wing, a bolt cracks beside it and the cabin lights
 // flicker. The clouds and rain stream back past it (it flies on, to the right of frame). Then back into the cabin.
-const XT0 = CUTS[0][0], XT1 = r3(XT0 + INS_T);
+const XT0 = BUCK_AT, XT1 = r3(XT0 + INS_T);
 const LOOK_T = ex(2, -3, 0), LOOK_T2 = ex(4, -3.5, 1);   // tighter than the free fall: the plane bigger in frame
 const Y0 = EX[1], J = (t) => r3(XT0 + t);
 // the jolts: [time into the shot, height change, roll, tip, length] (a bump drops fast and recovers slower)
@@ -535,8 +575,8 @@ prop(J(0), "cloudsNear", back(P_.cloudsNear, 30), INS_T - 0.02, "linear");
 prop(J(0), "cloudsFar", back(P_.cloudsFar, 14), INS_T - 0.02, "linear");
 // rain: sideways streaks in this shot (the falling shot's rain rises past the lens: hidden here, and the other way round)
 props.push({ id: "rainT", kind: "rainstreaks", ...xyz(along(36, 0, 0)), rot: FACE, n: 300, box: [60, 40, 30], v: [-120, -22, 0], len: 5, width: 0.05, opacity: 0.24, scale: 0.0001 });
-prop(J(0), "rainT", { scale: 1 }, 0.01); prop(XT1, "rainT", { scale: 0.0001 }, 0.01);
-prop(J(0), "rain", { scale: 0.0001 }, 0.01); prop(XT1, "rain", { scale: 1 }, 0.01);
+prop(J(0), "rainT", { scale: 1 }, 0); prop(XT1, "rainT", { scale: 0.0001 }, 0.01);
+prop(J(0), "rain", { scale: 0.0001 }, 0); prop(XT1, "rain", { scale: 1 }, 0.01);
 // back to where the free fall starts from, while we are in the cabin
 prop(r3(XT1 + 0.05), "jet", { y: Y0, roll: 12, tip: 8, x: EX[0], z: EX[2] }, 0.01);
 prop(r3(XT1 + 0.05), "cloudsNear", { x: P_.cloudsNear.x, z: P_.cloudsNear.z }, 0.01);
@@ -555,7 +595,7 @@ see(J(0.05), r3(XT1 - 0.05), ["jet"], "OUTSIDE: the plane lurches and rocks in t
 
 // ---------------------------------------------------------------- shots (from the row in front, front-left)
 const shot = (pos, look, fov = 50, o = {}) => ({ pos, look, fov, ...o });
-const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: [...BUMPS.map(([t, a, d]) => [T(t), a, d]), [T(1.0), 0.03, 0.3]].sort((a, b) => a[0] - b[0]) };   // the cabin keeps shivering before the second bump
+const HAND = { rate: 0, bob: 0, sway: 0, drift: 0, dips: BUMPS.filter(([t]) => !hidden(t)).map(([t, a, d]) => [T(t), a, d]).sort((a, b) => a[0] - b[0]) };
 const WIDE = shot([-0.15, 1.45, 5.35], [0.22, 1.3, 0], 58, { hand: HAND });
 const MASKS = { ...WIDE, to: { pos: [-0.15, 1.4, 4.9], look: [-0.02, 1.3, 0], fov: 56 }, dur: 1.2 };   // the wide pushes in on the bump
 const ZEROG = shot([0.25, 1.85, 5.6], [0.42, 1.4, 0], 58, { hand: HAND });   // review B: the climax a size step out, not the widest shot
@@ -564,12 +604,15 @@ const BACKDOWN = shot([-0.2, 1.47, 5.45], [0.22, 1.28, 0], 58, { hand: HAND });
 // outside: alongside, a little ahead of the right wing and above; the lens tilts down after the plane as it falls away
 const BUCK = { ...shot(CAM_X, LOOK_T, 30, { hand: { rate: 0, bob: 0, sway: 0, drift: 0, dips: [[J(0.02), 0.8, 0.3], [LT0, 1.1, 0.35]] } }), to: { look: LOOK_T2 }, dur: INS_T - 0.05 };
 const OUTSIDE = { ...shot(CAM_X, LOOK_X, 36, { hand: { rate: 0, bob: 0, sway: 0, drift: 0, dips: [[LT, 0.9, 0.35], [X0 + 0.5, 1.2, 0.6]] } }), to: { look: LOOK_X2 }, dur: INS - 0.1 };
+// B: in on Phoenix's face and phone, front-left like the peak, while the cabin shakes round him
+const CLOSE = shot([-0.74, 1.0, 2.3], [-1.04, 0.9, 0.2], 40, { hand: HAND });
+if (VARIANT === "B") for (const q of c.captions) if (q.from < CLOSE_AT && q.to > CLOSE_AT) q.to = r3(CLOSE_AT - 0.02);   // and its caption goes with it
+if (VARIANT === "B") for (const v of c.visible) if (v.from < CLOSE_AT && v.to > CLOSE_AT) v.to = r3(CLOSE_AT - 0.02);   // the wide's list ends at the cut
+if (VARIANT === "B") c.see(CLOSE_AT + 0.05, FALL_AT - 0.05, ["phx.face", "phone"], "B: Phoenix still scrolling, calm, just before the plane drops");
 const beats = c.beats([
-  ["P1 bump", 0, WIDE, "hook"],
-  ["OUTSIDE turbulence", XT0, BUCK],
-  ["P1 back inside", XT1, WIDE],
-  ["P2 grab", T(1.5), "keep"],
-  ["P3 masks", T(3.2), MASKS],
+  ...(VARIANT === "A" ? [["P1 bump", 0, WIDE, "hook"], ["OUTSIDE turbulence", XT0, BUCK]] : [["OUTSIDE turbulence", 0, BUCK, "hook"]]),
+  ["P3 masks", XT1, MASKS],
+  ...(VARIANT === "B" ? [["P3 Phoenix close", CLOSE_AT, CLOSE]] : []),
   ["OUTSIDE free fall", X0, OUTSIDE],
   ["P4 zero-g", T(5.0), ZEROG],
   ["P5 peak", T(7.0), PEAK],
@@ -578,7 +621,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "never-looks-up-plane",
+  id: VARIANT === "A" ? "never-looks-up-plane" : "never-looks-up-plane-b",
   title: "The friend who never looks up from his phone… even in heavy turbulence",
   idea: "Never Looks Up ep 2: a stormy night flight bucks, the masks drop and a big drop (seen from outside: the plane tips nose-down and falls through the lightning) floats everyone; Phoenix scrolls on through the bags and the panic until the Wizard floats upside down over the phone: huh. The plane levels and drops them all back",
   format: "series: The friend who never looks up (fixed 8-10 s ending)",
@@ -592,9 +635,10 @@ write(import.meta.url, {
   // strings, booming drums, brass hits) from the first frame; it cuts dead the moment Phoenix looks up (the stop locks
   // to a bar line), so "huh." lands in silence
   music: { file: "ai/disaster/disaster-04.ogg", until: T(8.0), lowCut: 150, gain: 0.45, duck: { db: 9 } },   // (the hits duck it harder: a busy orchestral bed buried the thuds)
-  sound: { sfx: 0.7, ambience: 0.3, surface: "carpet", room: "box", flaps: false, signature: { entrances: false } },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "carpet", room: "box", flaps: false, signature: { entrances: false }, guard: true },   // v6: the spike guard (B opened with a peaky stack of lurch, thunder and EEP)
   creative: { length: [END, END] },
-  hook: { show: ["phx", "wiz", "rea", "sam", "phone", "cup"], hint: 0, what: "the plane jolts, lightning flashes and the Wizard's juice jumps out of his cup while Phoenix scrolls" },
+  hook: VARIANT === "A" ? { show: ["phx", "wiz", "rea", "sam", "phone", "cup"], hint: 0, what: "the plane jolts, lightning flashes and the Wizard's juice jumps out of his cup while Phoenix scrolls" }
+    : { show: ["jet"], hint: 0, what: "the plane lurches and rocks in a lightning storm while someone inside yelps EEP!" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "phx", with: "seatP", from: 0, to: AFTER, reason: "Phoenix sits in the window seat (his back and folded wings against its back)" },
