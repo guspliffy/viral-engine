@@ -1,5 +1,9 @@
 // THEN I'M A ZOMBIE TOO (Jonny's "would you still love me if i were a zombie" storyboard, 1 Nov 2026), from the clip
 // template. node storyboards/trend/zombie-too/make-zombie-too.mjs -> zombie-too.json (same folder)
+// V3=1 node storyboards/trend/zombie-too/make-zombie-too.mjs -> zombie-too-v3rules.json: the reach rules v3 opening
+// (7 Nov 2026, research/hook-curiosity-2026-11-07): Reaper and zombie Phoenix in a medium two-shot from frame 0 with
+// Phoenix's promise "I won't bite. Promise!" (he bites at 7.5 s), a cut to Reaper's crying face at 1.3 s frozen for
+// 0.7 s, then the reverse on Phoenix and the rest unchanged from 2.8 s (shots 3-8 as before)
 // Brief: /mnt/project-files/story-26-then-im-a-zombie-too.zip (ENGINE-PROMPT.md, storyboard-eight-panels.png); PANELS.md here.
 //
 // THE BRIEF (exactly 10 s, Reaper + zombie Phoenix; eight beats, eight-panel board, black letterbox bars)
@@ -39,6 +43,8 @@ const LOOK = process.env.LOOK || "sheet";   // castLook: the sheet faces + costu
 
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const END = 10.0;
+const V3 = !!process.env.V3;          // the reach rules v3 opening (see the top)
+const CU_V3 = 1.3, FREEZE_V3 = 0.7;   // v3: the cut to Reaper's face and his frozen reaction
 const ZGREEN = "#93a07c";             // zombie Phoenix's skin (characters/zombie/phoenix-zombie.json)
 const BAR = 420;                      // letterbox bars, px top and bottom (the picture: a 1080 x 1080 square, y 420-1500)
 // a shot framed for the picture between the bars: h is the height in metres the square shows at the target
@@ -46,7 +52,7 @@ const fb = (target, o) => frame(target, { fov: 40, ...o, h: r3((o.h ?? 1) * 1920
 
 // ---------------------------------------------------------------- places (x right, z toward the side camera)
 const REA = [-0.5, 0], PHX_END = [0.48, 0.04];
-const PHX0 = [3.1, -0.45], PHX_MID = [1.75, -0.2];
+const PHX0 = V3 ? [1.2, -0.2] : [3.1, -0.45], PHX_MID = [1.75, -0.2];   // v3: he starts in the two-shot, two steps from Reaper
 const OFF = [-4.5, 4.5];
 const HUG_REA = [-0.15, -0.2], HUG_PHX = [0.56, 0.32];   // close on screen, Phoenix a half step in front: the bodies touch but never go into each other (Jonny 4 Nov)
 const SCY_GROUND = [-0.7, 0.03, 0.5];   // where the dropped scythe lies (its grip point), lower left of the side shots
@@ -95,7 +101,12 @@ const props = [
 
 // ---------------------------------------------------------------- captions (the trend's text, white on the upper bar)
 c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 244, false, { kinetic: false, size: 52 });
-c.cap(1.0, 2.0, "me:", 384, false, { kinetic: false, size: 52 });
+c.cap(V3 ? CU_V3 : 1.0, 2.0, "me:", 384, false, { kinetic: false, size: 52 });   // v3 (Fable B): "me:" labels the reaction shot
+if (V3) {
+  // B7: the first line at 0.0 is a promise the viewer expects him to break (the nibble at 7.5 s breaks it)
+  A(0.03, "phx", "talk", { line: "I won't bite. Promise!", dur: 0.95, tone: "calm", voice: false });
+  c.cap(0.03, 2.0, "I won't bite. Promise!", 530);   // held over his frozen face (Fable B)   // in the sky over both heads (low, it covered them and left the safe zone)
+}
 
 // rain, rings on the puddles and fog all on from frame 0
 for (const id of ["rain", "rings", "fogR", "fogB", "fogL"]) c.prop(0, id, { on: 1 }, 0);
@@ -103,32 +114,41 @@ for (const id of ["rain", "rings", "fogR", "fogB", "fogL"]) c.prop(0, id, { on: 
 // ---------------------------------------------------------------- 1 ME (0-2.0): the scythe raised, shaking, tears
 // Phoenix walks in from far right, behind the camera (unseen), the fry hanging from his left glove
 const fry = grips.thin(c, "phx", FRY, { side: "L", from: 0.3 });
-fry.secure(0, 0.01);
-c.arm(0.02, "phx", "L", { x: [0.32, 0.12, 0.32] }, 0.01);   // both zombie arms out in front, the fry dangling from one
-c.arm(0.02, "phx", "R", { x: [-0.32, 0.16, 0.34] }, 0.01);
-A(0, "phx", "span", { to: 0.95, dur: 0.01 });   // the ragged wings open, like panel 2
+const T0 = V3 ? 0 : 0.01;   // v3 opens on this two-shot: frame 0 already in the pose (no frame-0 jump)
+fry.secure(0, T0);
+c.arm(V3 ? 0 : 0.02, "phx", "L", { x: [0.32, 0.12, 0.32] }, T0);   // both zombie arms out in front, the fry dangling from one
+c.arm(V3 ? 0 : 0.02, "phx", "R", { x: [-0.32, 0.16, 0.34] }, T0);
+A(0, "phx", "span", { to: 0.95, dur: T0 });   // the ragged wings open, like panel 2
 A(3.0, "phx", "span", { to: 0.35, dur: 0.5 });
-A(0, "phx", "face", { lid: 0.52, dur: 0.01 });
-A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.85, open: 0.12 }, dur: 0.01 });
+A(0, "phx", "face", { lid: 0.52, dur: T0 });
+A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.85, open: 0.12 }, dur: T0 });
 A(0, "phx", "noblink", { dur: 3.4 });
 A(0, "phx", "move", { to: PHX_END, dur: 3.45, steps: 1.3, stride: 0.6 });   // one long shuffle (passes PHX_MID at 2.0 s)
 
 // Reaper: the scythe up in both gloves (the left one holds it), the blade at the upper right, trembling
 const HOLD = { L: [0.27, 0.44, 0.36], R: [0.19, 0.2, 0.4] };   // body frame: both gloves on the shaft at his chest, the left one high
-c.arm(0, "rea", "L", { x: HOLD.L }, 0.01); c.arm(0, "rea", "R", { x: HOLD.R }, 0.01);
-A(0, "rea", "grip", { side: "both", shape: "fist", dur: 0.01 });
-A(0, "rea", "tilt", { to: [-12, 22], dur: 0.01 });
-A(0, "rea", "expr", { expr: "sad", set: { open: 0.6, curve: -0.75, eye: 1.08 }, dur: 0.01 });
-A(0, "rea", "face", { tear: 1, brow: 0.35, dur: 0.01 });
-A(0, "rea", "look", { to: [0.18, 0.04], dur: 0.01, blink: false });
+c.arm(0, "rea", "L", { x: HOLD.L }, T0); c.arm(0, "rea", "R", { x: HOLD.R }, T0);
+A(0, "rea", "grip", { side: "both", shape: "fist", dur: T0 });
+A(0, "rea", "tilt", { to: [-12, 22], dur: T0 });
+A(0, "rea", "expr", { expr: "sad", set: { open: 0.6, curve: -0.75, eye: 1.08 }, dur: T0 });
+A(0, "rea", "face", { tear: 1, brow: 0.35, dur: T0 });
+A(0, "rea", "look", { to: V3 ? [0.6, 0.08] : [0.18, 0.04], dur: T0, blink: false });   // v3: at Phoenix, in the two-shot
 A(0, "rea", "noblink", { dur: 2.0 });
 for (let i = 0, t = 0.05; t < 2.48; i++, t = r3(t + 0.11)) {
+  if (V3 && t > CU_V3 - 0.06 && t < CU_V3 + FREEZE_V3) continue;   // v3: the trembling stops dead while he stares
   const d = 0.024 * (i % 2 ? 1 : -1);
   c.arm(t, "rea", "L", { x: [r3(HOLD.L[0] + d), r3(HOLD.L[1] - d * 0.6), HOLD.L[2]] }, 0.1, "inOut");
   c.arm(t, "rea", "R", { x: [r3(HOLD.R[0] + d), r3(HOLD.R[1] - d * 0.6), HOLD.R[2]] }, 0.1, "inOut");
   A(t, "rea", "expr", { expr: "sad", set: { open: i % 2 ? 0.68 : 0.54, curve: -0.75, eye: 1.08 }, dur: 0.1 });   // the trembling chin
 }
-see(0, 2.0, ["rea.face"], "Reaper's crying face, with the scythe raised over it");
+if (!V3) see(0, 2.0, ["rea.face"], "Reaper's crying face, with the scythe raised over it");
+if (V3) {
+  see(0, CU_V3 - 0.05, ["rea.face", "phx.face", "fry"], "B1: Reaper with the scythe raised, zombie Phoenix shuffling up with his fry");
+  // B8: his frozen reaction in the close-up: eyes wide, chin still, the rain still falling
+  A(CU_V3, "rea", "expr", { expr: "sad", set: { open: 0.45, curve: -0.8, eye: 1.25 }, dur: 0.12 });
+  A(r3(CU_V3 + FREEZE_V3), "rea", "expr", { expr: "sad", set: { open: 0.6, curve: -0.75, eye: 1.08 }, dur: 0.15 });
+  see(CU_V3 + 0.05, 2.0, ["rea.face"], "B8: Reaper's crying face, frozen, the scythe raised over it");
+}
 
 // ---------------------------------------------------------------- 2 THE ZOMBIE (2.0-2.8): reverse on Phoenix in the fog
 A(1.9, "phx", "look", { to: [0.1, 0.05], dur: 0.2, blink: false });
@@ -161,7 +181,7 @@ A(STOP, "rea", "expr", { expr: "sad", set: { open: 0.2, curve: -0.8, eye: 1.0 },
 // Phoenix stops right under it, oblivious, and holds out the fry
 A(3.45, "phx", "turn", { to: -70, dur: 0.3 });
 A(3.6, "phx", "look", { to: [-0.3, 0.12], dur: 0.2, blink: false });
-c.arm(2.85, "phx", "R", "rest", 0.45);   // the zombie arm drops before he reaches Reaper
+c.arm(V3 ? 2.45 : 2.85, "phx", "R", "rest", 0.45);   // the zombie arm drops before he reaches Reaper (v3: he starts nearer, so sooner)
 c.arm(4.25, "phx", "L", { x: [0.3, 0.3, 0.34] }, 0.7, "inOut");
 A(4.4, "phx", "expr", { expr: "kind", set: { curve: 0.45, eye: 0.85, open: 0.1 }, dur: 0.3 });
 A(4.5, "phx", "talk", { line: "hrr?", tone: "calm", dur: 0.35, voice: false });
@@ -281,8 +301,14 @@ see(9.1, 9.95, ["rea2", "phx", "fry", "scyP"], "the two shuffle into the fog sid
 
 // ---------------------------------------------------------------- shots: [name, start, camera, kind?] (each copies a panel)
 const beats = c.beats([
-  ["1 me", 0, fb([-0.4, 1.1, 0], { az: 26, el: -8, h: 1.72, push: 0.08, dur: 2.0 }), "hook"],
-  ["2 the zombie", 2.0, fb([1.4, 0.62, -0.15], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
+  ...(V3 ? [
+    ["0 two-shot", 0, fb([0.33, 0.85, -0.1], { az: -6, el: 2, h: 2.45 }), "hook"],
+    ["1 me", CU_V3, fb([-0.4, 1.1, 0], { az: 26, el: -8, h: 1.72 }), "reaction"],
+    ["2 the zombie", 2.0, fb([1.05, 0.62, -0.08], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
+  ] : [
+    ["1 me", 0, fb([-0.4, 1.1, 0], { az: 26, el: -8, h: 1.72, push: 0.08, dur: 2.0 }), "hook"],
+    ["2 the zombie", 2.0, fb([1.4, 0.62, -0.15], { az: -48, el: -4, h: 1.5, push: 0.05, dur: 0.8 })],
+  ]),
   ["3 wind-up", 2.8, fb([-0.5, 1.1, 0], { az: 6, el: -10, h: 1.65 })],
   ["4 the fry", SWING, fb([0.12, 1.0, -0.05], { az: 0, el: 2, h: 2.3, push: 0.06, dur: 2.0 }), "payoff"],
   ["5 he can't", CUT5, fb([-0.12, 0.62, 0.1], { az: 8, el: 4, h: 1.75 })],
@@ -301,7 +327,7 @@ const ALLOW = [
 ];
 
 write(import.meta.url, {
-  id: "zombie-too",
+  id: V3 ? "zombie-too-v3rules" : "zombie-too",
   title: "Then I'm a Zombie Too",
   idea: "Jonny's zombie trend storyboard (1 Nov 2026): Death can't end his zombie friend, hugs him, gets nibbled and accepts it",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
@@ -316,7 +342,8 @@ motion: "natural",
     ] },
   music: { file: "ai/sad/sad-02.ogg", gain: 0.5, until: BITE, lock: false, dip: false },
   sound: { sfx: 0.7, ambience: 0.35, surface: "concrete", signature: { payoff: false, entrances: false } },
-  hook: { show: ["rea"], hint: 0, what: "Reaper in the rain, crying, the scythe raised at someone just past the camera" },
+  hook: V3 ? { show: ["rea", "phx", "fry"], hint: 0, what: "Reaper in the rain, crying, the scythe raised over zombie Phoenix, who shuffles up promising not to bite" }
+    : { show: ["rea"], hint: 0, what: "Reaper in the rain, crying, the scythe raised at someone just past the camera" },
   creative: { length: [10, 10] },
   cast, props, captions: c.captions, beats, visible: c.visible,
   allowClip: ALLOW,
