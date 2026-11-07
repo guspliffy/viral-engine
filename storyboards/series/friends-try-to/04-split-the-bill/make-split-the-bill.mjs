@@ -22,7 +22,7 @@ const FACES = "strong";
 const MOTION = "natural";
 // --v3: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
 // split-the-bill-v3rules.json). Only 0-2.1 s changes: a medium two-shot of the Wizard and Viking in the tug of war
-// with the Wizard's promise "Let go! I'll do the maths." at 0.05 s, a cut at 1.4 s to Viking's close-up (annoyed,
+// with the Wizard's promise "Let go! I'll split it." at 0.05 s, a cut at 1.4 s to Viking's close-up (annoyed,
 // the 0.7 s reaction hold), then back to the wide for the spell. From there on it is the posted storyboard.
 const V3 = process.argv.includes("--v3");
 
@@ -128,11 +128,12 @@ const TUG0 = [-0.6, r3(TH + 0.32), 0.25];   // high: the pouch lies under it   /
 c.prop(0.15, "bill", { x: TUG0[0], y: TUG0[1], z: TUG0[2], bend: 0.5 }, 0.12, "out");
 for (const [t, dx] of TUG) { c.prop(t, "bill", { x: r3(TUG0[0] - dx * AX[0]), z: r3(TUG0[2] - dx * AX[1]), bend: dx < 0 ? 0.2 : 0.65 }, 0.14, "inOut"); A(t, dx < 0 ? "wiz" : "vik", "lean", { to: dx < 0 ? 2 : 4, dur: 0.14 }); A(t, dx < 0 ? "vik" : "wiz", "lean", { to: 12, dur: 0.14 }); }
 for (const t of [0.42, 0.86]) sfx(t, "papercut", { gain: 0.18, reason: "the paper snapping taut in the tug of war (a dry papery hiss, quiet)" });
-if (V3) A(0.05, "wiz", "talk", { line: "let go! ill do the maths", tone: "excited", dur: 0.65, voice: false, gain: 0.55 });
+if (V3) A(0.05, "wiz", "talk", { line: "let go! ill split it", tone: "excited", dur: 0.65, voice: false, gain: 0.55 });
 else A(0.3, "wiz", "talk", { line: "mine! mine!", tone: "excited", dur: 0.45, voice: false, gain: 0.55 });   // under the payoff: the clip's loudest moment was here
 A(0.75, "vik", "talk", { line: "nyuh-uh!", tone: "excited", dur: 0.4, voice: false, gain: 0.55 });
 // every gibberish line gets a subtitle (the opener's yelp excepted); low, clear of the in-app title at the top
-if (V3) c.cap(0.05, 0.77, "Let go! I'll do the maths.", SUB, false, SUBS); else c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS);
+// (v3: low, under the two-shot's faces)
+if (V3) c.cap(0.05, 0.77, "Let go! I'll split it.", 1320, false, { ...SUBS, size: 58 }); else c.cap(0.32, 0.75, "Mine!", SUB, false, SUBS);
 c.cap(0.77, 1.3, "Nuh-uh!", SUB, false, SUBS);
 // Phoenix already has his phone out, Reaper doesn't move
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
@@ -355,7 +356,7 @@ see(r3(E.glare + 0.4), 9.7, ["longbill", "reader", "sam.face"], "P8: the long bi
 const WIDE = { pos: [0.0, 1.85, 4.75], look: [0.0, 0.75, 0.3], fov: 54 };   // a lower camera puts the candle over the Wizard's face (Fable A wanted less floor)
 // v3: from a little right of the wide's camera (so the Wizard's hat clears the bill and Viking's face): the tug of
 // war, then Viking
-const TWO = { pos: [0.3, 2.15, 4.5], look: [-0.72, 0.7, 0.2], fov: 32, to: { pos: [0.3, 2.15, 4.5], look: [-0.72, 0.7, 0.2], fov: 29.5 }, dur: 1.4, ease: "linear" };
+const TWO = { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 32, to: { pos: [0.3, 2.9, 4.2], look: [-0.72, 0.68, 0.2], fov: 29.5 }, dur: 1.4, ease: "linear" };
 const VIKCU = { pos: [0.45, 1.6, 4.4], look: [-0.62, 0.82, -0.35], fov: 16 };
 const OPENING = V3
   ? [["v3 two-shot: the promise", 0, TWO, "hook"], ["v3 Viking lost the bill", 1.4, VIKCU, "reaction"], ["P2 the spell", 2.1, WIDE]]

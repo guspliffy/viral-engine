@@ -426,10 +426,10 @@
   {
    "from": 0.05,
    "to": 0.77,
-   "text": "Let go! I'll do the maths.",
-   "pos": 1250,
+   "text": "Let go! I'll split it.",
+   "pos": 1320,
    "pop": false,
-   "size": 62,
+   "size": 58,
    "kinetic": false
   },
   {
@@ -495,24 +495,24 @@
    "shot": {
     "pos": [
      0.3,
-     2.15,
-     4.5
+     2.9,
+     4.2
     ],
     "look": [
      -0.72,
-     0.7,
+     0.68,
      0.2
     ],
     "fov": 32,
     "to": {
      "pos": [
       0.3,
-      2.15,
-      4.5
+      2.9,
+      4.2
      ],
      "look": [
       -0.72,
-      0.7,
+      0.68,
       0.2
      ],
      "fov": 29.5
@@ -885,7 +885,7 @@
     {
      "who": "wiz",
      "do": "talk",
-     "line": "let go! ill do the maths",
+     "line": "let go! ill split it",
      "tone": "excited",
      "dur": 0.65,
      "voice": false,

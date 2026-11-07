@@ -17,7 +17,7 @@ import fs from "node:fs";
 const FACES = "strong", MOTION = "natural";
 // V3=1: the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3"; writes
 // never-looks-up-shark-v3rules.json). Only 0-1.95 s changes: a medium two-shot of the Wizard and Phoenix with the
-// order "Look up! There's a SHARK!" at 0.05 s, a cut at 1.2 s to Phoenix's close-up (smiling at his phone while the
+// order "Look up! SHARK!" at 0.05 s, a cut at 1.2 s to Phoenix's close-up (smiling at his phone while the
 // fin passes behind him: the reaction hold), then back to the wide. From there on it is the posted storyboard.
 const V3 = !!process.env.V3;
 const ENV = process.env.ENV ?? "turquoise-beach-shallows";
@@ -111,7 +111,7 @@ if (V3) A(0, "wiz", "expr", { expr: "shocked", set: { open: 0.6, eye: 1.4 }, dur
 act.shock(c, 0.02, "wiz", { open: 0.4, hold: 1.1 });
 c.arm(0, "wiz", "L", { o: [0.25, 0.55, 0.3] }, 0);                    // pointing at the fin
 A(0.05, "wiz", "talk", { line: "sha-ark!", dur: 0.55, tone: "excited", voice: false });
-c.cap(0.05, 1.2, V3 ? "Look up! There's a SHARK!" : "SHARK!!", V3 ? 470 : CAP_Y);   // v3: above the heads in the tighter two-shot
+c.cap(0.05, 1.2, V3 ? "Look up! SHARK!" : "SHARK!!", V3 ? 470 : CAP_Y);   // v3: above the heads in the tighter two-shot
 prop(0.1, "noodle", { y: 0.03, x: NOODLE.x, z: NOODLE.z, rot: NOODLE.rot }, 0.35, "in");     // he drops the noodle
 sfx(0.42, "splash", { gain: 0.55 });
 // Reaper sits up on the tower, eyes on the fin
@@ -181,7 +181,7 @@ A(3.7, "wiz", "look", { to: [-0.6, -0.6], dur: 0.12, blink: false });
 A(3.5, "wiz", "expr", { expr: "angry", set: { open: 0.9 }, dur: 0.08 }); A(3.5, "wiz", "face", { lid: 0.45, brow: 0.5, dur: 0.08 });   // a real yell, eyes squeezed
 A(3.55, "wiz", "talk", { line: "loook uuup!", dur: 0.35, tone: "excited", voice: false });
 c.cap(3.55, 4.3, "LOOK UP!!", 330);   // above the tower: the faces sit where the other captions go
-sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals" });
+sfx(3.9, "feedback", { gain: 0.7, reason: "the megaphone squeals", ...(V3 && { loud: true }) });   // v3: a deliberate gag (qa/sound.mjs SPIKE: +13.9 dB since 5 Nov), marked loud; the sound is unchanged
 c.hitStop(3.9, 3);
 c.textPop(3.9, "wiz", "SKREEE!", { xy: [300, 1010], dur: 0.5, color: "#ff5a3c", angle: -10, size: 100 });   // the squeal, under the bell, clear of the faces (reads on mute)
 act.shock(c, 3.92, "wiz", { open: 0.45, hold: 0.5 }); act.shock(c, 3.92, "rea", { open: 0.2, hold: 0.5 });
@@ -274,7 +274,7 @@ const POP = shot([0.0, 1.6, 8.2], { pan: 1, tilt: 5, fov: 38 });
 const LOOKUP = shot([0.08, 1.35, 6.4], { pan: 0, tilt: 4.5, fov: 34 });
 const BACKDOWN = shot([0.05, 1.35, 7.6], { pan: 1, tilt: 1.5, fov: 42 });   // low enough that the sunk shark's eyes stay above the app's bars
 // v3: narrower lenses from the wide's camera (the painting allows only small camera moves): the pair, then Phoenix
-const TWO = { pos: WIDE.pos, look: [-0.26, 0.35, 1.7], fov: 38, to: { pos: WIDE.pos, look: [-0.26, 0.35, 1.7], fov: 35 }, dur: 1.2, ease: "linear" };
+const TWO = { pos: WIDE.pos, look: [-0.26, 0.75, 1.7], fov: 38, to: { pos: WIDE.pos, look: [-0.26, 0.75, 1.7], fov: 35 }, dur: 1.2, ease: "linear" };
 const PHXCU = { pos: WIDE.pos, look: [0.22, 0.38, 2.3], fov: 22 };   // Phoenix left of centre, the fin circling on his right
 const OPENING = V3
   ? [["v3 two-shot: look up!", 0, TWO, "hook"], ["v3 Phoenix scrolls on", 1.2, PHXCU, "reaction"], ["P2 run", 1.95, WIDE]]

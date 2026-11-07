@@ -359,7 +359,7 @@ const WIDE = { pos: [0, 0.8, 4.2], look: [0, 1.75, -1], fov: 53 };   // the pane
 const CATA = { pos: [0.9, 1.0, 3.3], look: [0, 1.65, -0.1], fov: 58 };   // low three-quarters: the seat, its hinge and his feet (review A)   // panel 04: closer, the same side
 const GRIN = { pos: [0.25, r3(SIT + 1.0), 3.3], look: [0, r3(SIT + 0.8), 0], fov: 46 };
 // v3: narrower lenses from the wide's camera: Phoenix and the Astronaut behind him (a slow push), then the Astronaut
-const TWO = { pos: WIDE.pos, look: [-0.28, 1.55, -0.55], fov: 31, to: { pos: WIDE.pos, look: [-0.28, 1.55, -0.55], fov: 28.5 }, dur: 1.45, ease: "linear" };
+const TWO = { pos: WIDE.pos, look: [-0.25, 1.62, -0.55], fov: 36, to: { pos: WIDE.pos, look: [-0.25, 1.62, -0.55], fov: 33 }, dur: 1.45, ease: "linear" };
 const ASTCU = { pos: WIDE.pos, look: [-0.56, 1.85, -1.15], fov: 15 };
 const OPENING = V3
   ? [["01 already too much", 0, WIDE, "hook"], ["02 the scream (v3 two-shot)", 1.5, TWO], ["v3 the Astronaut glares", 2.95, ASTCU, "reaction"], ["03 the advice", 3.3, "keep", "escalation"], ["03 the advice, wide", 3.65, WIDE]]

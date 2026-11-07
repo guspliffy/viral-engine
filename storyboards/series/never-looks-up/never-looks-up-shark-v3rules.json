@@ -266,7 +266,7 @@
   {
    "from": 0.05,
    "to": 1.2,
-   "text": "Look up! There's a SHARK!",
+   "text": "Look up! SHARK!",
    "pos": 470,
    "pop": false
   },
@@ -291,7 +291,7 @@
     ],
     "look": [
      -0.26,
-     0.35,
+     0.75,
      1.7
     ],
     "fov": 38,
@@ -303,7 +303,7 @@
      ],
      "look": [
       -0.26,
-      0.35,
+      0.75,
       1.7
      ],
      "fov": 35
@@ -2379,6 +2379,7 @@
      "sfx": "feedback",
      "gain": 0.7,
      "reason": "the megaphone squeals",
+     "loud": true,
      "at": 0.7
     },
     {

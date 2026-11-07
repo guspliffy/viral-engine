@@ -21,7 +21,7 @@ import * as grips from "../../lib/grips.mjs";
 const CLEAN = !!process.env.CLEAN;
 // V3=1 (with CLEAN=1): the reach rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07 "Reach rules v3";
 // writes kings-guard-clean-v3rules.json). Only 0-2.4 s changes: a medium two-shot of Phoenix and the guard with the
-// promise "Watch. I'll make him laugh." at 0.05 s, a cut to the guard's stone face at 1.2 s (his eyes slide to
+// promise "Watch. He'll crack." at 0.05 s, a cut to the guard's stone face at 1.2 s (his eyes slide to
 // Phoenix and back: the 0.75 s reaction hold), then the wide for the end of the dance. From the feather on it is the
 // posted storyboard.
 const V3 = !!process.env.V3;
@@ -84,7 +84,7 @@ A(0, "phx", "look", { to: [-0.05, -0.15], dur: D0, blink: false });
 for (const [t, l] of [[0.0, -12], [0.2, 12], [0.4, -12], [0.6, 11], [0.8, -6], [0.92, 0]]) A(t, "phx", "lean", { to: l, dur: 0.2, ease: "inOut" });
 act.opener(c, "phx", "blblblbl!", { at: 0.02, dur: 0.5 });
 if (V3) {
-  cap(0.05, 1.2, "Watch. I'll make him laugh.", 470, false, { size: 62, kinetic: false });
+  cap(0.05, 1.15, "Watch. He'll crack.", 470, false, { size: 62, kinetic: false });   // one line, clear of Phoenix's crest
   // the guard's only reaction: his eyes slide to Phoenix and back to the front, the face stone
   A(1.05, "rea", "look", { to: [0.45, -0.05], dur: 0.12, blink: false });
   A(1.75, "rea", "look", { to: [0, 0], dur: 0.15, blink: false });
