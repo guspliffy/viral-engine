@@ -508,6 +508,29 @@ function moss(group, onShell, dirAt, alphaOf, S, R, fw) {
     p.addScaledVector(n, h * 0.6); cg.translate(p.x, p.y, p.z); cg.deleteAttribute("uv"); cg.deleteAttribute("normal"); geos.push(cg); i++;
   }
   if (geos.length) { const fm = mesh(mergeGeometries(geos), std(cs[0].clone().lerp(cs[1], 0.3).getStyle(), { roughness: 1 }), false); fm.material.userData.noOutline = true; fm.geometry.computeVertexNormals(); group.add(fm); }
+  // moss.tufts (opt-in, stage 4 7 Nov: the pack's moss is a lumpy cushion of clumps, ours read as a smooth painted cap):
+  // { n, r } soft rounded clumps half sunk into the cushion where it is thick, many small and a few big (sizes skewed
+  // small, as real moss clumps grow), each a lumpy low dome in one of the moss's three greens
+  const T = M.tufts;
+  if (T) {
+    const tg = [], tr = T.r ?? 0.035, q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0);
+    for (let i = 0, tries = 0; i < (T.n ?? 40) && tries < (T.n ?? 40) * 40; tries++) {
+      const ph = R() * Math.PI * 2; dirAt(alphaOf(ph) * 0.985 * R() ** 0.7, ph, w);
+      const h = thick(w); if (h < Hm * (T.min ?? 0.55)) continue;
+      const { p, n } = onShell(w), s = tr * (0.35 + 0.9 * R() ** 2.2), g = new THREE.SphereGeometry(1, 16, 10), P = g.attributes.position;
+      const a1 = R() * 6.28, a2 = R() * 6.28;
+      for (let k = 0; k < P.count; k++) { const x = P.getX(k), y = P.getY(k), z = P.getZ(k), b = 1 + 0.07 * Math.sin(x * 4 + a1) * Math.sin(z * 4 + a2); P.setXYZ(k, x * b, y * b * 0.72, z * b); }
+      g.computeVertexNormals();
+      // soft light: each clump's normals lean half way to the shell's outward normal, as the cushion's do, so a clump
+      // shades as a gentle swelling of the moss, not a pebble with its own dark side
+      { const Nm = g.attributes.normal; for (let k = 0; k < Nm.count; k++) { const x = Nm.getX(k), y = Nm.getY(k) + 1.2, z = Nm.getZ(k), l = Math.hypot(x, y, z) || 1; Nm.setXYZ(k, x / l, y / l, z / l); } }
+      g.scale(s, s, s); g.applyQuaternion(q.setFromUnitVectors(up, n)); p.addScaledVector(n, h - s * 0.3); g.translate(p.x, p.y, p.z);
+      const c = cs[0].clone().lerp(cs[i % 3], 0.35).multiplyScalar(0.97 + 0.08 * R()), C = new Float32Array(P.count * 3);
+      for (let k = 0; k < P.count; k++) { C[k * 3] = c.r; C[k * 3 + 1] = c.g; C[k * 3 + 2] = c.b; }
+      g.setAttribute("color", new THREE.BufferAttribute(C, 3)); g.deleteAttribute("uv"); tg.push(g); i++;
+    }
+    if (tg.length) { const tm = mesh(mergeGeometries(tg), new THREE.MeshStandardMaterial({ color: "#ffffff", vertexColors: true, roughness: 1 })); tm.name = "pebble-moss-tufts"; group.add(tm); }
+  }
   return thick;
 }
 
