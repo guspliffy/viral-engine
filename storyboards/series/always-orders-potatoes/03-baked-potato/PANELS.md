@@ -64,3 +64,11 @@ high, behind a bar counter, phone up in both hands.
 - **Captions sit on the red cloth** under the topping bowls (y 1262), inside TikTok's safe zone and clear of every face.
 - **Music**: there is no country style in the music engine; "bounce" (plucked, swung, 104 bpm, G) is the nearest, and
   adding a new style would change every other clip's seeded music.
+- **The baked potato is bigger than the panels draw** (head-sized, 0.52 m long): at the panels' size it read as a flat
+  grey saucer next to the steak plate at phone size, and "Look at the SIZE of it!" needs a giant (review B note 1).
+- **Panel 5's "touch closer" shot is dropped**: a closer wide between the loading wide and the topple close-up made a
+  jump cut (camera lint); panel 5 plays in the wide.
+- **The topple lands at 7.55 s, not 7.4**: a slower, higher arc lets the bake land the sour cream and the cheese on the
+  steak; faster throws skidded every piece off the plate.
+- **Known glitch for the next cut:** the spoon slips in Viking's fist during the first bite (1.6-2.0 s, prop-pop) and his
+  hand passes his eyes at 1.67-1.97 s; one held grip through the whole bite fixes both, and needs a new spoon hold.
