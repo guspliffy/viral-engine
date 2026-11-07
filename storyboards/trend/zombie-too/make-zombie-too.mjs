@@ -32,8 +32,9 @@
 //   and the scythe is a prop landing on the ground (props-notyet.js parkedscythe), as in Not Yet.
 // - Music: the recorded sad piano and strings bed (assets/music/ai/sad) from 0:00, stopped dead on the nibble; one dry
 //   pluck for the ending (the whitelist's "plunk": the brief's "tiny goofy pluck").
-import { clip, write, r3, frame } from "../../lib/clip.mjs";
+import { clip, write as writeSb, r3, frame } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
+import { nowRules } from "../../lib/now-rules.mjs";
 import * as grips from "../../lib/grips.mjs";
 
 const OPENER = false;                 // the trend is silent tragedy: no line in the opening (brief: no speech)
@@ -44,6 +45,7 @@ const LOOK = process.env.LOOK || "sheet";   // castLook: the sheet faces + costu
 const c = clip({ faces: FACES }), { A, sfx, see } = c;
 const END = 10.0;
 const V3 = !!process.env.V3;          // the reach rules v3 opening (see the top)
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);   // v3 re-cuts take today's template motion (Jonny 7 Nov)
 const CU_V3 = 1.3, FREEZE_V3 = 0.7;   // v3: the cut to Reaper's face and his frozen reaction
 const ZGREEN = "#93a07c";             // zombie Phoenix's skin (characters/zombie/phoenix-zombie.json)
 const BAR = 420;                      // letterbox bars, px top and bottom (the picture: a 1080 x 1080 square, y 420-1500)
@@ -223,7 +225,7 @@ A(HUG, "phx", "turn", { to: -30, dur: 0.25 });
 // Reaper's gloves round the outside of Phoenix's back (the near one in view); Phoenix's fry hand up outside the hug
 c.arm(r3(HUG + 0.02), "rea2", "R", { x: [-0.48, 0.2, 0.3] }, 0.15, "inOut");   // down by his side first, so the arm never crosses his face
 c.arm(r3(HUG + 0.17), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.12), 0.3, r3(HUG_PHX[1] + 0.52)] }, 0.16, "in");   // round the front of his belly first...
-c.arm(r3(HUG + 0.33), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.06), 0.3, r3(HUG_PHX[1] + 0.39)] }, 0.16, "out");   // glove on Phoenix's lower belly: the arm stays under Reaper's chin (Jonny 4 Nov)
+c.arm(r3(HUG + 0.33), "rea2", "R", { world: [r3(HUG_PHX[0] - 0.06), 0.3, r3(HUG_PHX[1] + (V3 ? 0.42 : 0.39))] }, 0.16, "out");   // glove on Phoenix's lower belly: the arm stays under Reaper's chin (Jonny 4 Nov)
 c.arm(r3(HUG + 0.15), "rea2", "L", { world: [r3(HUG_PHX[0] + 0.2), 0.62, r3(HUG_PHX[1] - 0.42)] }, 0.35, "inOut");
 A(r3(HUG + 0.4), "rea2", "grip", { side: "both", shape: "relaxed", dur: 0.15 });
 c.arm(r3(HUG + 0.2), "phx", "L", { x: [0.34, 0.62, 0.24] }, 0.35, "inOut");

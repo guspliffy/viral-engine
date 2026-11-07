@@ -16,8 +16,9 @@
 //   rules v3 opening (7 Nov 2026, research/hook-curiosity-2026-11-07): Phoenix's promise "I'll look up in a sec." from
 //   0.0 s, a close-up on fleeing Reaper glancing back at him at 1.05 s with a 0.7 s freeze, back to the same wide; the
 //   rest unchanged
-import { clip, write, r3 } from "../../lib/clip.mjs";
+import { clip, write as writeSb, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
+import { nowRules } from "../../lib/now-rules.mjs";
 import fs from "node:fs";
 
 const FACES = "strong", MOTION = "natural";
@@ -25,6 +26,7 @@ const ENV = process.env.ENV ?? "dusk-bus-stop";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 const END = 10.0;
 const V3 = !!process.env.V3;   // the reach rules v3 opening (see the top)
+const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);   // v3 re-cuts take today's template motion (Jonny 7 Nov)
 const rad = (d) => (d * Math.PI) / 180;
 const deg = (r) => (r * 180) / Math.PI;
 
@@ -72,7 +74,7 @@ const PHONE_R = { x: [-0.11, PH_Y, PH_Z], palm: [0, PH_Y, PH_Z] }, PHONE_L = { x
 const CUP_R = { x: [-0.1, PH_Y, PH_Z - 0.02] }, CUP_L = { x: [0.1, PH_Y, PH_Z - 0.02] };   // the zombies' empty "phone" hands
 const AT_PHONE = [0.03, -1];
 const ARMS_OUT = { o: [-0.06, 0.42, 0.42] };                    // a zombie's arms forward, about a body-width apart
-const ARMS_NARROW = { o: [-0.1, 0.42, 0.42] };               // hands closer together                      // a zombie's arms forward
+const ARMS_NARROW = { o: [-0.1, 0.42, V3 ? 0.34 : 0.42] };   // hands closer together (v3: a little shorter, today's run sways them into the Sorcerer's hood)
 
 const Z = ["vik", "sam", "gun", "dra", "sor"];
 const cast = [
