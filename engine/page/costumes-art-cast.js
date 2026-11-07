@@ -551,6 +551,24 @@ function topstitch(line, color, o = {}) {
 // a line on the body at (th, ph) points lifted off the surface
 const lineOn = (ch, pts, lift) => pts.map(([th, ph]) => { const s = ch.surf(th, ph); return s.pos.clone().addScaledVector(s.normal, lift); });
 
+// the Gunslinger's neckerchief: a band round the neck, a big triangle in front, the knot on his left with two ends.
+// Shared with costume.neckerchief (costumes.js: the Samurai waiter's blue one at the steakhouse). Returns the ends.
+export function neckerchief(ch, red, dark) {
+  const redM = clothMat(red, { side: THREE.DoubleSide }), parts = ch.potatoParts;
+  parts.add(mesh(band(ch, { ph: -0.36, w: 0.04, t: 0.018, lift: 0.04, round: 0.6 }), redM));
+  parts.add(garmentMesh(ch, { top: -0.36, hem: -0.36, from: -0.9, to: 0.7, folds: 4, depth: 0.012, flare: 0.04, lift: 0.055, wave: 0, thick: 0.01,
+    hemFn: (th) => -0.38 - 0.4 * Math.max(0, 1 - Math.abs(th + 0.05) / 0.75) ** 1.3 }, red, dark));
+  const kn = ch.surf(1.05, -0.38), knotP = kn.pos.clone().addScaledVector(kn.normal, 0.065);
+  const knot = mesh(new THREE.SphereGeometry(0.036, 16, 12), redM); knot.scale.set(1, 0.85, 0.75); knot.position.copy(knotP); parts.add(knot);
+  const ends = new THREE.Group(); parts.add(ends);
+  for (const [dx, dy, dz] of [[0.12, -0.05, -0.02], [0.08, -0.13, 0.0]]) {
+    const pts = [knotP, knotP.clone().add(V(dx * 0.5, dy * 0.4, dz + 0.01)), knotP.clone().add(V(dx, dy, dz))];
+    ends.add(mesh(lock(pts, V(0, 0, 1), 0.035, 0.008, (t) => 0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, 0.2 + t * 0.7)), 14, 8), redM));
+  }
+  softFollow(ch, ends, 1.3, { top: knotP.y });   // the knot's ends flutter after a move
+  return ends;
+}
+
 // ---------- Gunslinger (sheet): "Relaxed stance, Knowing smile, Curved hat + layers, Felt + leather, Repaired hatband" --
 // An open brown vest with real lapels and stitched edges (instead of braces), a red neckerchief that hangs in a big
 // triangle and is knotted at the side, a gun belt through loops with a round brass buckle and bullets, a holster on each
@@ -583,19 +601,7 @@ export function cowboySheet(C, ch) {
   const inset = (L, k) => L.map((p, i) => p.clone().lerp(L[Math.min(L.length - 1, i + 1)], 0).add(V(0, k, 0)));
   parts.add(topstitch(inset(D.lines.hem, 0.022), stitchC));
   for (const L of [D.lines.left, D.lines.right]) parts.add(topstitch(L.slice(Math.floor(L.length * 0.45)), stitchC));
-  // the neckerchief: a band round the neck, a big triangle in front, the knot on his left with two ends
-  const red = C.bandana || "#c8392b", redM = clothMat(red, { side: THREE.DoubleSide });
-  parts.add(mesh(band(ch, { ph: -0.36, w: 0.04, t: 0.018, lift: 0.04, round: 0.6 }), redM));
-  parts.add(garmentMesh(ch, { top: -0.36, hem: -0.36, from: -0.9, to: 0.7, folds: 4, depth: 0.012, flare: 0.04, lift: 0.055, wave: 0, thick: 0.01,
-    hemFn: (th) => -0.38 - 0.4 * Math.max(0, 1 - Math.abs(th + 0.05) / 0.75) ** 1.3 }, red, "#8a2219"));
-  const kn = ch.surf(1.05, -0.38), knotP = kn.pos.clone().addScaledVector(kn.normal, 0.065);
-  const knot = mesh(new THREE.SphereGeometry(0.036, 16, 12), redM); knot.scale.set(1, 0.85, 0.75); knot.position.copy(knotP); parts.add(knot);
-  const ends = new THREE.Group(); parts.add(ends);
-  for (const [dx, dy, dz] of [[0.12, -0.05, -0.02], [0.08, -0.13, 0.0]]) {
-    const pts = [knotP, knotP.clone().add(V(dx * 0.5, dy * 0.4, dz + 0.01)), knotP.clone().add(V(dx, dy, dz))];
-    ends.add(mesh(lock(pts, V(0, 0, 1), 0.035, 0.008, (t) => 0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, 0.2 + t * 0.7)), 14, 8), redM));
-  }
-  softFollow(ch, ends, 1.3, { top: knotP.y });   // the knot's ends flutter after a move
+  const ends = neckerchief(ch, C.bandana || "#c8392b", "#8a2219");
   // the gun belt: through loops, a round brass buckle, a row of bullets on his left hip, a holster on each hip
   const belt = leatherMat("#3e2716");
   parts.add(mesh(band(ch, { ph: -0.86, w: 0.05, t: 0.02, lift: 0.055, tilt: -0.06, dip: Math.PI }), belt));
