@@ -176,6 +176,7 @@
   {
    "id": "heap",
    "kind": "roastheap",
+   "alive": true,
    "x": 0,
    "y": 0.34,
    "z": 0,
@@ -217,6 +218,7 @@
   {
    "id": "rG1",
    "kind": "roastie",
+   "alive": true,
    "x": -0.735,
    "y": 0.352,
    "z": 0.575,
@@ -230,6 +232,7 @@
   {
    "id": "rG2",
    "kind": "roastie",
+   "alive": true,
    "x": -0.67,
    "y": 0.352,
    "z": 0.57,
@@ -243,6 +246,7 @@
   {
    "id": "rW1",
    "kind": "roastie",
+   "alive": true,
    "x": 0.735,
    "y": 0.352,
    "z": 0.575,
@@ -256,6 +260,7 @@
   {
    "id": "rW2",
    "kind": "roastie",
+   "alive": true,
    "x": 0.67,
    "y": 0.352,
    "z": 0.57,
@@ -269,6 +274,7 @@
   {
    "id": "flyG",
    "kind": "roastie",
+   "alive": true,
    "x": -0.6,
    "y": 0.6,
    "z": -0.2,
@@ -283,6 +289,7 @@
   {
    "id": "flyR",
    "kind": "roastie",
+   "alive": true,
    "x": 0.3,
    "y": 0.9,
    "z": -0.9,
@@ -297,6 +304,7 @@
   {
    "id": "rollie",
    "kind": "roastie",
+   "alive": true,
    "x": 0.005,
    "y": 0.555,
    "z": 0.012,
@@ -330,6 +338,7 @@
    "y": 0.629,
    "z": -0.253,
    "tip": -160,
+   "alive": true,
    "food": 0,
    "foodSeed": 15,
    "staged": "in Viking's fist from the first frame"
@@ -342,6 +351,7 @@
    "z": -0.24,
    "tip": -120,
    "rot": 90,
+   "alive": true,
    "food": 1,
    "foodSeed": 15,
    "staged": "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)"
@@ -353,6 +363,7 @@
    "y": 0.989,
    "z": -1.383,
    "tip": -160,
+   "alive": true,
    "food": 1,
    "foodSeed": 15,
    "staged": "in Reaper's fist from the first frame, a roast potato from his own plate on it (his plate is below the frame, behind the front row)"
@@ -1060,6 +1071,16 @@
      "at": 0.09
     },
     {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "fjoy": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.09
+    },
+    {
      "sfx": "kenney/impact-plate-light",
      "gain": 0.22,
      "reason": "the fork's tines tick on the heap as they go into a roast potato",
@@ -1142,6 +1163,16 @@
      "at": 0.43
     },
     {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "mood": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.47
+    },
+    {
      "who": "vik",
      "do": "expr",
      "expr": "delighted",
@@ -1165,6 +1196,16 @@
      "to": 0,
      "dur": 0.35,
      "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "fjoy": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.49
     },
     {
      "who": "vik",
@@ -1223,6 +1264,17 @@
      "at": 0.71
     },
     {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "mood": 0,
+      "joy": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.73
+    },
+    {
      "who": "vik",
      "do": "bloom",
      "to": 1,
@@ -1276,6 +1328,16 @@
     "fov": 30
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "joy": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "who": "vik",
      "do": "face",
@@ -1494,6 +1556,16 @@
      },
      "dur": 0.03,
      "ease": "out",
+     "at": 0.31
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "fjoy": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 0.31
     },
     {
@@ -1878,6 +1950,16 @@
     },
     {
      "do": "prop",
+     "id": "forkV",
+     "set": {
+      "fjoy": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
      "id": "forkG",
      "set": {
       "food": 0
@@ -2047,7 +2129,7 @@
      "prop": "flyR",
      "mode": "throw",
      "to": [
-      0.05,
+      -0.02,
       0.5,
       -0.04
      ],
@@ -2365,6 +2447,16 @@
      },
      "dur": 0.1,
      "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "rollie",
+     "set": {
+      "mood": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 0.05
     },
     {
@@ -2861,6 +2953,16 @@
      "at": 0.05
     },
     {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "mood": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -3038,6 +3140,17 @@
      "id": "forkV",
      "set": {
       "food": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "forkV",
+     "set": {
+      "fmood": 1,
+      "fjoy": 0
      },
      "dur": 0.01,
      "ease": "linear",

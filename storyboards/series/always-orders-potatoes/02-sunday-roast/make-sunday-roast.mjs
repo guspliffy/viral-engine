@@ -20,6 +20,11 @@ import * as grips from "../../../lib/grips.mjs";
 // this one: the first line a promise meant to break ("I'll share. Promise!", 0.05 s, rule B7) and a cut to
 // the victim's face at 1.05 s, Gunslinger frozen in an unimpressed look for 0.67 s (rule B8). Everything else is the same.
 const V3 = process.env.V3RULES === "1";
+// ALIVE (Jonny 7 Nov 17:54, the food series' rule: every potato that gets eaten is alive): in the v3 cut every roast
+// potato has a little face. They smile up at Viking, gasp when he eats one, giggle when he taps one by his ear, and the
+// one that rolls off is scared all the way to the fork he offers the Wizard. The first cut stays as it was.
+const ALIVE = V3;
+const live = ALIVE ? { alive: true } : {};
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
 // two 3-frame hit-stops (the spell's puff, the spear at the table's edge) add 0.2 s: 9.8 s of story = 10.0 s of video
 const HS1 = 5.6, HS2 = 7.8, END = 9.8;
@@ -53,7 +58,7 @@ const cast = [
 // (rot: the fork's yaw; the handle runs along Ry(rot) Rx(tip) +y, YXZ as props3d)
 const forkAt = (fist, tip, rot = 0, from = FROM) => { const a = (tip * Math.PI) / 180, b = (rot * Math.PI) / 180, L = FORK * from, s = Math.sin(a); return [r3(fist[0] - L * s * Math.sin(b)), r3(fist[1] - L * Math.cos(a)), r3(fist[2] - L * s * Math.cos(b))]; };
 const VF0 = [-0.3, 0.5, -0.3], GF0 = [-0.7, 0.56, -0.24], RF0 = [0.39, STEP + 0.36, -1.43];
-const fork = (id, fist, tip, food = 0, staged, rot = 0, from = FROM) => { const [x, y, z] = forkAt(fist, tip, rot, from); return { id, kind: "fork", x, y, z, tip, ...(rot && { rot }), food, foodSeed: id.length * 3, ...(staged && { staged }) }; };
+const fork = (id, fist, tip, food = 0, staged, rot = 0, from = FROM) => { const [x, y, z] = forkAt(fist, tip, rot, from); return { id, kind: "fork", x, y, z, tip, ...(rot && { rot }), ...live, food, foodSeed: id.length * 3, ...(staged && { staged }) }; };
 // Gunslinger's fork points across at the heap (yaw 90, tines toward Viking, as in panel 4), held a little lower on the
 // handle: upright in his left glove the glove hid the handle's end (thin-prop-hidden; bench srt-b: 5 cm shows each side)
 const GROT = 90, G_FROM = 0.45, gAt = (fist, tip) => forkAt(fist, tip, GROT, G_FROM);
@@ -62,14 +67,14 @@ const VFORK = fork("forkV", VF0, -160, 0, "in Viking's fist from the first frame
 const GFORK = fork("forkG", GF0, G_REST, 1, "in Gunslinger's left fist from the first frame, his first roast potato on it (he was about to eat it)", GROT, G_FROM);
 const RFORK = fork("forkR", RF0, -160, 1, "in Reaper's fist from the first frame, a roast potato from his own plate on it (his plate is below the frame, behind the front row)");
 // loose roast potatoes: the two on each friend's plate, the two that fly onto the heap, the one that rolls off it
-const roastie = (id, x, y, z, seed, o = {}) => ({ id, kind: "roastie", x: r3(x), y: r3(y), z: r3(z), seed, scale: 1, body: { friction: 1.6, bounce: 0.05 }, ...o });
+const roastie = (id, x, y, z, seed, o = {}) => ({ id, kind: "roastie", ...live, x: r3(x), y: r3(y), z: r3(z), seed, scale: 1, body: { friction: 1.6, bounce: 0.05 }, ...o });
 const WELL = 0.012;
 const HEAP_TOP = r3(TH + WELL * HK + RR * 4.0 * HK + RR);   // the doubled heap's top roast potato
 const props = [
   { id: "floor", kind: "pubstep", x: 0, z: -1.5, w: 3.6, d: 0.95, h: STEP },
   { id: "beam", kind: "hopbeam", x: 0, y: 2.35, z: -1.95, w: 4.4, n: 10, seed: 4 },
   { id: "table", kind: "pubtable", x: 0, z: TZ, w: 3.6, d: TD, h: TH, runner: 0.34 },
-  { id: "heap", kind: "roastheap", x: HEAP[0], y: TH, z: HEAP[1], n: 12, m: 21, scale: HK, steam: 0, seed: 5 },
+  { id: "heap", kind: "roastheap", ...live, x: HEAP[0], y: TH, z: HEAP[1], n: 12, m: 21, scale: HK, steam: 0, seed: 5 },
   { id: "aura", kind: "spellaura", x: HEAP[0], y: TH, z: HEAP[1], w: 1.5, d: 1.5, scale: 0.36, color: "#b45cff", glow: 0 },
   { id: "plateG", kind: "roastplate", x: PL_G[0], y: TH, z: PL_G[1], seed: 3 },
   { id: "plateW", kind: "roastplate", x: PL_W[0], y: TH, z: PL_W[1], seed: 8, rot: 180 },
@@ -149,11 +154,18 @@ const STAB1 = [r3(HEAP[0] - 0.14 * HS), r3(TH + 0.1 * HS), r3(HEAP[1] - 0.06 * H
 let tv = tines(vf, 1.5, [STAB1[0], STAB1[1] + 0.04, STAB1[2] - 0.02], 0.26, STAB_TIP, "inOut");   // the wrist turns the fork over: 0.16 s slipped it in the fist
 tv = tines(vf, tv, STAB1, 0.06, STAB_TIP, "in");   // in
 c.prop(r3(tv - 0.01), "forkV", { food: 1 }, 0.03, "out");
+if (ALIVE) c.prop(r3(tv - 0.01), "forkV", { fjoy: 1 }, 0.01, "linear");   // on the fork it squeezes its eyes shut with happiness
 sfx(r3(tv - 0.01), "kenney/impact-plate-light", { gain: 0.22, reason: "the fork's tines tick on the heap as they go into a roast potato" });
 const MOUTH = [-0.02, 0.6, -0.27];   // the tines at his mouth, the fist under it (the handle forward and down)
 tv = tines(vf, r3(tv + 0.02), MOUTH, 0.3, 110, "inOut");   // 0.16 s slipped the fork in the fist (prop-pop)
 const BITE1 = r3(tv + 0.01);   // 2.15
 c.prop(BITE1, "forkV", { food: 0 }, 0.05, "out");
+if (ALIVE) {
+  c.prop(r3(BITE1 + 0.06), "forkV", { fjoy: 0 }, 0.01, "linear");
+  c.prop(r3(BITE1 + 0.04), "heap", { mood: 1 }, 0.01, "linear");   // the heap gasps: he ate one of them
+  c.prop(2.45, "heap", { mood: 0, joy: 1 }, 0.01, "linear");       // then cheers when the blossom pops: he loves them
+  c.prop(2.8, "heap", { joy: 0 }, 0.01, "linear");
+}
 sfx(BITE1, "ai/crunch", { gain: 0.7, reason: "the first bite: a crisp roast potato crunch" });
 A(r3(BITE1 + 0.04), "vik", "expr", { expr: "delighted", set: { open: 0, curve: 0.9 }, dur: 0.08 });
 A(r3(BITE1 + 0.04), "vik", "face", { lid: 1, dur: 0.08 });   // eyes shut, blissful
@@ -184,6 +196,7 @@ for (const t of [2.98, 3.12]) {
   if (t < 3.1) tines(vf, r3(t + 0.01), ABOVE2, 0.06, STAB_TIP, "out");
 }
 c.prop(3.11, "forkV", { food: 1 }, 0.03, "out");
+if (ALIVE) { c.prop(3.11, "forkV", { fjoy: 1 }, 0.01, "linear"); c.prop(3.95, "forkV", { fjoy: 0 }, 0.01, "linear"); }   // it giggles by his ear while he listens
 const EAR = [-0.48, 0.9, -0.5];   // beside his right ear (screen left)
 tv = tines(vf, 3.16, EAR, 0.24, -150, "inOut");
 A(3.22, "vik", "look", { to: [-0.55, 0.25], dur: 0.12, blink: false });
@@ -234,7 +247,7 @@ const RREL = r3(FLICK_R + 0.15);   // the roast potato leaves at the end of the 
 const RL = ROFF([0.3, r3(STEP + 0.62), -1.25], -125);
 c.prop(r3(RREL - 0.01), "flyR", { x: RL[0], y: RL[1], z: RL[2], scale: 1 }, 0, "linear");
 c.prop(RREL, "forkR", { food: 0 }, 0.01, "linear");
-c.throw(RREL, "flyR", { to: [0.05, r3(TH + 0.16), r3(HEAP[1] - 0.04)], in: 0.3, spin: [-4, 2, 1] });
+c.throw(RREL, "flyR", { to: [ALIVE ? -0.02 : 0.05, r3(TH + 0.16), r3(HEAP[1] - 0.04)], in: 0.3, spin: [-4, 2, 1] });   // (alive: its face changed where the bake settles it, into the Wizard's spell arm; a little to the left)
 sfx(r3(RREL + 0.3), "kenney/impact-generic-light", { gain: 1.0, reason: "Reaper's roast potato lands on the heap" });
 tines(rf, r3(RREL + 0.04), forkAt(RF0, -160), 0.4, -160, "inOut");
 A(r3(FLICK_R + 0.1), "rea", "look", { to: [-0.4, 0], dur: 0.15, blink: false });
@@ -298,6 +311,7 @@ A(V(6.72), "vik", "look", { to: [0, -0.55], dur: 0.12, blink: false });
 for (const [t, r] of [[5.75, 8], [5.85, -6], [5.95, 4], [6.05, 0], [6.85, 7], [6.95, -5], [7.02, 9]]) c.prop(V(t), "rollie", { tilt: r }, 0.1, "inOut");
 const ROLL = V(7.05), EDGE = [-0.08, r3(TH), 0.18];   // a low tumble down the heap's front (in 0.55 lobbed it 25 cm up)
 c.throw(ROLL, "rollie", { to: EDGE, in: 0.35, spin: [7, 0, 0] });
+if (ALIVE) { c.prop(V(5.75), "rollie", { mood: 1 }, 0.01, "linear"); c.prop(ROLL, "heap", { mood: 1 }, 0.01, "linear"); }   // it wobbles on the peak, scared, and the heap gasps as it goes
 sfx(r3(ROLL + 0.42), "kenney/impact-generic-light", { gain: 0.8, reason: "the roast potato bumps down onto the oak table (its landing in the physics bake)" });
 // a small puff of crumbs where it lands, so the roll reads at phone size (review B: "nothing rolls")
 c.at(r3(ROLL + 0.42), { fx: "poof", pos: [-0.17, r3(TH + 0.02), 0.2], dur: 0.3, color: "#e8c27a", puffs: 3, sparks: 5, size: 0.12, lift: 0.06 });
@@ -319,6 +333,7 @@ tines(vf, r3(SPEAR - 0.35), [SP[0], r3(SP[1] + 0.08), r3(SP[2] - 0.01)], 0.27, -
 tines(vf, r3(SPEAR - 0.08), SP, 0.08, -10, "in");
 c.prop(SPEAR, "rollie", { scale: 0.001 }, 0.01, "linear");
 c.prop(SPEAR, "forkV", { food: 1 }, 0.01, "linear");
+if (ALIVE) c.prop(SPEAR, "forkV", { fmood: 1, fjoy: 0 }, 0.01, "linear");   // on the fork, still scared: the one he offers the Wizard
 sfx(SPEAR, "kenney/impact-plate-light", { gain: 0.95, reason: "the fork's tines hit the oak table through the roast potato: tock" });
 sfx(SPEAR, "ai/crunch", { gain: 0.85, reason: "the payoff: the fork goes through the crisp roast potato, crunch" });
 c.hitStop(SPEAR, 3);

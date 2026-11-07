@@ -7,7 +7,10 @@ import { steamWisps } from "./steam.js";
 // London pub's dining table and a Sunday roast. Jonny's eight panels: a dark oak table with a red tartan runner, blue-rimmed
 // white plates (two roast potatoes, carrots, peas, a Yorkshire pudding and gravy on each friend's plate), Viking's big plate
 // heaped with golden roast potatoes, a gravy boat, a wooden pepper mill and a glass salt shaker.
-// The food is ordinary food: no faces, no sprouts (the series' "cute, never gross" rule).
+// The food was ordinary food in the first cut. Jonny, 7 Nov 2026: in this series every potato that gets eaten is alive,
+// so a spec with `alive: true` gives each roast potato a little face (two eyes that blink, a mouth): `mood` 0 a smile ..
+// 1 a scared round "O" (eyes wider), `joy` 0..1 squeezes the eyes shut with happiness (^ ^). On a fork the same keys
+// are `fmood` / `fjoy`. Cute, never gross: they smile at Viking, they never get bitten on screen.
 //   pubtable    a long dark oak table along x (spec.w, spec.d, spec.h) with a red tartan runner down its middle toward the
 //               camera, hanging over the front edge. Origin: the floor under its middle. Grip: its top (h).
 //   roastie     one roast potato (about 6 cm): craggy golden-brown crust, a paler fluffy cut face; spec.seed shapes it.
@@ -54,6 +57,37 @@ function roastieGeo(seed = 1, R = ROAST.roastie.r) {
   }
   geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
   return geo;
+}
+// a roast potato's face, on the side toward the camera (+z), at the lump's middle height: two eyes (white, a black
+// pupil with a highlight) and a mouth (a smile, or a round "O" when scared). Returns set(mood, joy, t) for apply():
+// it blinks on its own (deterministic, from the seed and the time).
+function roastFace(parent, R, seed = 1, at = [0, R * 0.62, 0]) {
+  const white = mat("#fffdf6", { roughness: 0.3 }), black = mat("#1a0f08", { roughness: 0.4 }), shine = mat("#ffffff", { roughness: 0.2 });
+  for (const m of [white, black, shine]) m.userData.noHatch = true;
+  const f = new THREE.Group(); f.position.set(at[0], at[1], at[2] + R * 0.88); parent.add(f);
+  const eyes = [-1, 1].map((sx) => {
+    const g = new THREE.Group(); g.position.set(sx * R * 0.3, R * 0.16, 0); f.add(g);
+    const w = mesh(new THREE.SphereGeometry(R * 0.21, 14, 10), white, g, 0, 0, 0); w.scale.set(1, 1.15, 0.55);
+    const p = mesh(new THREE.SphereGeometry(R * 0.125, 12, 8), black, g, 0, R * 0.03, R * 0.07); p.scale.set(1, 1.1, 0.6);
+    const h = mesh(new THREE.SphereGeometry(R * 0.045, 8, 6), shine, g, R * 0.04, R * 0.08, R * 0.12);
+    // the happy squint (^): a dark arc, shown when the eye shuts with joy
+    const arc = mesh(new THREE.TorusGeometry(R * 0.15, R * 0.032, 6, 14, Math.PI), black, g, 0, -R * 0.04, R * 0.08);
+    for (const m of [w, p, h, arc]) m.castShadow = false;
+    return { g, w, p, h, arc };
+  });
+  const smile = mesh(new THREE.TorusGeometry(R * 0.15, R * 0.035, 6, 14, Math.PI), black, f, 0, -R * 0.12, R * 0.02); smile.rotation.z = Math.PI; smile.castShadow = false;
+  const oh = mesh(new THREE.SphereGeometry(R * 0.11, 12, 8), black, f, 0, -R * 0.2, R * 0.01); oh.scale.set(0.85, 1.1, 0.4); oh.castShadow = false;
+  const per = 2.4 + ((seed * 0.37) % 1.4), ph = (seed * 1.618) % per;
+  return (mood = 0, joy = 0, t = 0) => {
+    const blink = ((t + ph) % per) < 0.09, wide = 1 + 0.3 * mood;
+    for (const e of eyes) {
+      const shut = joy > 0.5;
+      e.w.visible = e.p.visible = e.h.visible = !shut; e.arc.visible = shut;
+      e.g.scale.set(wide, shut ? 1 : blink ? 0.12 : wide, 1);
+    }
+    smile.visible = mood < 0.5; oh.visible = mood >= 0.5;
+    smile.scale.setScalar(1 + 0.25 * joy);
+  };
 }
 const crustMat = () => { const m = mat("#ffffff", { roughness: 0.55, vertexColors: true }); m.userData.noHatch = true; return m; };
 
@@ -109,7 +143,8 @@ export const ROAST_KINDS = {
     const k = P.spec.size ?? 1;
     const m = mesh(roastieGeo(P.spec.seed ?? 1, ROAST.roastie.r * k), crustMat(), P.whole, 0, 0, 0);
     m.rotation.y = ((P.spec.seed ?? 1) * 1.7) % 6.28;
-    return { grip: ROAST.roastie.r * k };
+    const face = P.spec.alive ? roastFace(P.whole, ROAST.roastie.r * k, P.spec.seed ?? 1) : null;
+    return { grip: ROAST.roastie.r * k, ...(face && { apply(ps, t) { face(ps.mood ?? 0, ps.joy ?? 0, t); } }) };
   },
 
   roastheap(P) {
@@ -125,7 +160,10 @@ export const ROAST_KINDS = {
     ring(4, R * 1.02, 0.0);
     const parts = spots.map(([x, y, z], i) => {
       const o = new THREE.Mesh(roastieGeo(40 + i * 7, RR * (0.9 + r() * 0.25)), M); o.position.set(x, y, z); o.rotation.set((r() - 0.5) * 0.6, r() * 6.28, (r() - 0.5) * 0.6); o.castShadow = o.receiveShadow = true; P.whole.add(o);
-      return { o, base: i < n ? 0 : 1 + (i - n) / Math.max(1, Math.min(m, spots.length - n)) };
+      // alive: a face on each one, held in its own group at the lump (not turned with it), so every face looks at us
+      let face = null, fg = null;
+      if (S.alive) { fg = new THREE.Group(); fg.position.set(x, y, z); P.whole.add(fg); face = roastFace(fg, RR * 0.95, 40 + i * 7, [0, RR * 0.55, 0]); }
+      return { o, fg, face, base: i < n ? 0 : 1 + (i - n) / Math.max(1, Math.min(m, spots.length - n)) };
     });
     const steam = steamWisps(P.whole, 0.14);
     return {
@@ -133,10 +171,12 @@ export const ROAST_KINDS = {
       apply(ps, t) {
         const more = clamp(ps.more ?? 0);
         for (const q of parts) {
+          if (q.face) q.face(ps.mood ?? 0, ps.joy ?? 0, t);
           if (q.base === 0) { q.o.visible = true; q.o.scale.setScalar(1); continue; }
           // each pops in over its own slice of `more` with a small overshoot
           const u = clamp((more * 1.4 - (q.base - 1)) / 0.4), s = u <= 0 ? 0 : u < 1 ? Math.sin(u * Math.PI * 0.75) / Math.sin(Math.PI * 0.75) : 1;
           q.o.visible = s > 0.01; q.o.scale.setScalar(Math.max(0.01, Math.min(1.12, s)));
+          if (q.fg) { q.fg.visible = q.o.visible; q.fg.scale.setScalar(Math.max(0.01, Math.min(1.12, s))); }
         }
         steam(ps.steam ?? 0.6, t);
       },
@@ -193,7 +233,10 @@ export const ROAST_KINDS = {
     // a roast potato on the tines
     const food = new THREE.Mesh(roastieGeo(P.spec.foodSeed ?? 9, ROAST.roastie.r * 0.95), crustMat()); food.castShadow = true;
     const fg = new THREE.Group(); fg.position.set(0, -0.012, 0); fg.add(food); P.whole.add(fg);
-    return { grip: L * 0.75, apply(ps) { const f = clamp(ps.food ?? 0); fg.visible = f > 0.01; fg.scale.setScalar(Math.max(0.01, f)); } };
+    // alive (Jonny 7 Nov): the speared one's face, on the tines' front side (the fork's +z)
+    // (a face on both sides: the fork turns in the fist, and a speared one always looks out at us)
+    const faces = P.spec.alive ? [0, Math.PI].map((ry) => { const g = new THREE.Group(); g.rotation.y = ry; fg.add(g); return roastFace(g, ROAST.roastie.r * 0.95, P.spec.foodSeed ?? 9, [0, ROAST.roastie.r * 0.5, 0]); }) : [];
+    return { grip: L * 0.75, apply(ps, t) { const f = clamp(ps.food ?? 0); fg.visible = f > 0.01; fg.scale.setScalar(Math.max(0.01, f)); for (const face of faces) face(ps.fmood ?? 0, ps.fjoy ?? 0, t); } };
   },
 
   // a dark oak ceiling beam along x (spec.w) with bunches of dried hops tied on along it, hanging down (spec.n bunches,
