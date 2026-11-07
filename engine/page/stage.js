@@ -1645,7 +1645,7 @@ function hiddenFaces(live, shownIn) {
     const em = eyes[0].root.getWorldPosition(new THREE.Vector3()).add(eyes[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5);
     const bc = b.ch.body.getWorldPosition(new THREE.Vector3()); bc.y = em.y;
     if (em.clone().sub(bc).normalize().dot(camera.position.clone().sub(em).normalize()) < 0.2) continue;
-    const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body);
+    const own = new Set(); b.ch.face.group.traverse((q) => own.add(q)); own.add(b.ch.body); if (b.ch.head) b.ch.head.group.traverse((q) => own.add(q));   // the core build's own head
     let hidden = 0, scen = 0, n = 0, hand = 0; const by = new Map(), sby = new Map(), hby = new Map();
     for (const e of eyes) {
       const c = e.root.getWorldPosition(new THREE.Vector3()), r = e.r * e.root.getWorldScale(new THREE.Vector3()).x * 0.7;

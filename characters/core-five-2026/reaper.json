@@ -1,0 +1,138 @@
+{
+  "id": "core-five-2026/reaper",
+  "name": "Reaper (Core Five)",
+  "franchise": "PotatoBrawl",
+  "source": "Jonny's Core Five redesign handoff, 5 Nov 2026 (DESIGN-CONTRACT.json reaper; ensemble sheet). Prototype 2 of the humanoid core build, on the Astronaut's base.",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#27232d",
+    "height": 0.4,
+    "width": 0.42,
+    "depth": 0.36,
+    "lump": 0,
+    "seed": 13,
+    "taper": 0.04,
+    "square": 2.6,
+    "specks": 0,
+    "gloss": 0
+  },
+  "head": {
+    "color": "#DCAA74",
+    "width": 0.5,
+    "height": 0.46,
+    "depth": 0.44,
+    "square": 2.2,
+    "taper": 0.1,
+    "neck": -0.005,
+    "faceUp": 0.04,
+    "faceWide": 1.28,
+    "nose": {
+      "w": 0.024,
+      "h": 0.019,
+      "d": 0.019,
+      "v": -0.05
+    },
+    "above": 0.14
+  },
+  "legs": {
+    "height": 0.3,
+    "width": 0.068,
+    "hipX": 0.1
+  },
+  "limbs": {
+    "color": "#26222b",
+    "width": 0.056,
+    "shoulder": 0.55
+  },
+  "face": {
+    "size": 0.64,
+    "default": "kind",
+    "iris": "#63412E",
+    "cheeks": "#ec8a74",
+    "neutral": {
+      "curve": 0.2,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.3
+    },
+    "browShape": {
+      "arch": 0.0,
+      "thick": 0.8
+    },
+    "blush": 0.8,
+    "final": {
+      "iris": "#63412E",
+      "brow": "#2e2420",
+      "eye": {
+        "oval": 1.3,
+        "iris": 0.72
+      },
+      "layout": {
+        "mouthV": -0.34,
+        "cheekV": -0.16,
+        "browV": 0.6
+      },
+      "browShape": {
+        "arch": 0.0,
+        "lift": 0.008,
+        "clear": 0.014,
+        "thick": 0.95
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": 0.22
+      },
+      "neutral": {
+        "lidL": 0.58,
+        "lidR": 0.58
+      },
+      "blush": 1.3
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "reaper",
+    "cloth": "#302B37",
+    "lining": "#514354",
+    "metal": "#A6A2A0",
+    "hoodGap": 0.06,
+    "spread": 0.6,
+    "hoodOpenW": 0.6,
+    "hoodLip": 0.07,
+    "hoodTip": [
+      -0.14,
+      0.06,
+      -0.11
+    ],
+    "hemAt": 0.44,
+    "bootSize": [
+      0.096,
+      0.07,
+      0.132
+    ],
+    "claspR": 1.35,
+    "hoodHem": [
+      0.33,
+      0.3
+    ],
+    "robeHem": 0.42
+  },
+  "personality": "The quiet friend who notices (design bible, proposal): little energy, still shows up for their people; spots the small practical need first.",
+  "voice": {
+    "pitch": 120,
+    "rate": 3.2,
+    "formant": 0.95,
+    "range": 3,
+    "breath": 0.08,
+    "vibrato": 0.0,
+    "seed": 13
+  },
+  "hands": {
+    "type": "mitten"
+  }
+}

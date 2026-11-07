@@ -26,7 +26,14 @@ import { storyTime } from "../engine/shared/holds.js";
 import * as THREE from "three";
 import { cameraState } from "../engine/page/timeline.js";
 import * as TL from "../engine/page/timeline.js";
+import { loadCharacters } from "../engine/load.mjs";
 import { GATE, gateOf, gateLevel, windowFor } from "./gate.mjs";
+// a cast member's character file (cached per storyboard), {} when it can't be loaded
+const DEFS = new WeakMap();
+function defOf(sb, cast) {
+  if (!sb || !cast) return {};
+  try { if (!DEFS.has(sb)) DEFS.set(sb, loadCharacters(sb)); return DEFS.get(sb)[cast.character] || {}; } catch { return {}; }
+}
 
 // world (mm) to screen pixels at video time t, through the storyboard's camera (null behind it); one per storyboard
 const PROJ = new WeakMap();
@@ -99,7 +106,9 @@ export function rigFindings(layout, sb) {
     // the planted gait (thread F, "motion": { "feet": 2 }) says per frame what each foot does: "stand" must not move,
     // "step" is a step however low (2-6 cm lifts sit under RIG.floor), "free" goes with the body. When the engine has
     // it (timeline.js footPhase, null when the flag is off), both slide checks read it instead of guessing
-    const cast = (sb?.cast || []).find((c) => c.id === id), ph = (i, k) => { try { return TL.footPhase?.(sb, cast, S(i))?.[k[1]] ?? null; } catch { return null; } };
+    // the plan needs the character file: its def.scale (Pebble is built at 1.5) changes the steps, and a plan made
+    // without it judged the drawn feet against steps the render never took
+    const cast = (sb?.cast || []).find((c) => c.id === id), def = defOf(sb, cast), ph = (i, k) => { try { return TL.footPhase?.(sb, cast, S(i), def)?.[k[1]] ?? null; } catch { return null; } };
     const phased = !!(sb && cast && TL.footPhase && ph(0, "fR") != null);
     for (const k of phased ? keys.filter((q) => q[0] === "f") : []) {
       let run = null;   // a stance: consecutive "stand" frames; its slide is the foot's path along the floor

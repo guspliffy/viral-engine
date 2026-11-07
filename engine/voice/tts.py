@@ -56,6 +56,20 @@ def sound(word):
     return None
 
 
+ACCENTS = None
+
+
+def accented(ph, name):
+    """accent (6 Nov 2026): the accent's sound rules (accents.json) rewrite espeak's phonemes before Kokoro speaks them."""
+    global ACCENTS
+    if ACCENTS is None:
+        with open(os.path.join(HERE, "accents.json")) as f:
+            ACCENTS = json.load(f)
+    for pat, rep in ACCENTS[name]["rules"]:
+        ph = re.sub(pat, rep, ph)
+    return ph
+
+
 def segments(k, text, lang, speed):
     """The line as [(phonemes, speed, effect)]: espeak reads the words, SOUNDS makes the non-words."""
     out, words = [], ""
@@ -89,7 +103,32 @@ def synth(k, job):
     style_all = sum(k.get_voice_style(v) * (w / sum(mix.values())) for v, w in mix.items())
     speed = job.get("speed", 1.0) * (SOFT["speed"] if job.get("soft") else 1.0)
     audio, phones, t = [], [], 0.0
-    for ph, sp, fx in segments(k, job["text"], job.get("lang", "en-us"), speed):
+    # pause (a storyteller's phrasing, 6 Nov 2026): seconds of silence after each sentence or clause mark inside the
+    # line, on top of the model's own short gap. Narrators pause about 0.5-0.8 s between phrases; Kokoro about 0.1 s
+    pause = float(job.get("pause") or 0)
+    parts = [p for p in re.split(r"(?<=[.!?;…])\s+", job["text"].strip()) if p] if pause else [job["text"]]
+    work, acc = [], job.get("accent")
+    lang = None
+    if acc: accented("", acc); lang = ACCENTS[acc]["lang"]   # the accent picks its own espeak base read
+    # human (6 Nov 2026, Jonny: "it should really sound human"): people never phrase evenly. Each phrase gets its own
+    # pace (+-speedVar) and each pause its own length (+-pauseVar), and a soft inhale (breath, dBFS) ends a long pause.
+    # Seeded by the text, so the same line always comes out the same.
+    hu = job.get("human") or {}
+    rng = np.random.default_rng(int.from_bytes(__import__("hashlib").sha1(job["text"].encode()).digest()[:4], "little"))
+    for i, part in enumerate(parts):
+        ps = speed * (1 + hu.get("speedVar", 0) * (2 * rng.random() - 1))
+        seg = segments(k, part, lang or job.get("lang", "en-us"), ps)
+        work += [(accented(ph, acc), sp, fx) if acc and fx is None else (ph, sp, fx) for ph, sp, fx in seg]
+        if i < len(parts) - 1: work.append(None)
+    for item in work:
+        if item is None:
+            pl = pause * (1 + hu.get("pauseVar", 0) * (2 * rng.random() - 1))
+            gap = np.zeros(int(pl * SR_MODEL), np.float32)
+            if hu.get("breath") is not None and pl > 0.45:
+                gap[-int(0.42 * SR_MODEL):] += inhale(rng, 0.42, hu["breath"])
+            audio.append(gap); phones.append([" ", round(t, 4), round(pl, 4)]); t += pl
+            continue
+        ph, sp, fx = item
         for chunk in k._split_phonemes(ph):
             toks = k.tokenizer.tokenize(chunk)[:MAX_PHONEME_LENGTH]
             style = style_all[len(toks)].reshape(1, 256).astype(np.float32)
@@ -109,15 +148,38 @@ def synth(k, job):
                 t0 += f * HOP / SR_MODEL
             audio.append(body)
             t += len(body) / SR_MODEL
-    x = np.concatenate(audio).astype(np.float32)
+    return np.concatenate(audio).astype(np.float32), phones
+
+
+def inhale(rng, dur, db):
+    """A soft breath in through the nose and mouth: band-limited noise (300-2800 Hz, a little louder near 1.2 kHz)
+    that swells for 70 % of its length and stops just before the next word."""
+    n = int(dur * SR_MODEL)
+    f = np.fft.rfft(rng.standard_normal(n)); hz = np.fft.rfftfreq(n, 1 / SR_MODEL)
+    f *= ((hz > 300) & (hz < 2800)) * (1 + 0.8 * np.exp(-((hz - 1200) / 500) ** 2))
+    x = np.fft.irfft(f, n); x /= np.abs(x).max() + 1e-9
+    u = np.linspace(0, 1, n); env = np.where(u < 0.7, (u / 0.7) ** 1.5, np.clip((0.9 - u) / 0.2, 0, 1))
+    return (x * env * 10 ** (db / 20)).astype(np.float32)
+
+
+def finish(x, sr, phones, job):
+    """The line's sound after the model (and after voice conversion): pitch, softness, the recipe's EQ, levelling."""
     af = ["highpass=f=40"]
+    # convert.tempo (a slower, older delivery): stretched without a pitch change; every phoneme time stretches with it
+    tempo = (job.get("convert") or {}).get("tempo")
+    if tempo:
+        af.append(f"atempo={tempo}")
+        phones = [[c, round(t / tempo, 4), round(d / tempo, 4)] for c, t, d in phones]
     if job.get("pitch"):
         fm = "shifted" if job.get("formant") == "shift" else "preserved"
         af.append(f"rubberband=pitch={2 ** (job['pitch'] / 12):.5f}:formant={fm}:pitchq=quality:window=long:transients=smooth:phase=independent")
     if job.get("soft"):
         af.append(f"lowpass=f={SOFT['lowpass']}")
+    # post: the recipe's own ffmpeg filters after the voice (a warmer EQ, a softer top), before levelling
+    if job.get("post"):
+        af.append(job["post"])
     af.append("acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2")
-    y = ffmpeg(x, SR_MODEL, ",".join(af), SR_OUT)
+    y = ffmpeg(x, sr, ",".join(af), SR_OUT)
     # loudness: measured on a padded copy (the meter needs 0.4 s), then a lookahead limiter for the few peaks
     meas = np.concatenate([y, np.zeros(max(0, int(0.5 * SR_OUT) - len(y)), np.float32)])
     target = LUFS + (SOFT["gain_db"] if job.get("soft") else 0)
@@ -126,14 +188,48 @@ def synth(k, job):
     return y, phones
 
 
+def vc_python():
+    if os.environ.get("VOICE_VC_PYTHON"): return os.environ["VOICE_VC_PYTHON"]
+    p = os.path.join(HERE, ".venv-vc", "Scripts/python.exe" if os.name == "nt" else "bin/python")
+    return p if os.path.exists(p) else None
+
+
+def convert(jobs, raw):
+    """convert (6 Nov 2026, Pebble): {"target": a synthetic clip in engine/voice/targets/, "calm": k, "tempo": t,
+    "age": {"formant", "pitch", "range"}}. All
+    lines of the batch go through vc.py in one call (the model loads once, ~10 s; ~12 s per line on 4 CPU cores)."""
+    if not jobs: return {}
+    py = vc_python()
+    if not py:
+        raise RuntimeError("voice recipe needs voice conversion: run node engine/voice/setup.mjs --vc (or set VOICE_VC_PYTHON)")
+    out = {}
+    with tempfile.TemporaryDirectory() as d:
+        req = []
+        for j in jobs:
+            a, b = os.path.join(d, j["id"] + ".in.wav"), os.path.join(d, j["id"] + ".out.wav")
+            sf.write(a, raw[j["id"]][0], SR_MODEL, subtype="FLOAT")
+            c = j["convert"]
+            req.append({"in": a, "out": b, "target": os.path.join(HERE, c["target"]), "calm": c.get("calm"), "age": c.get("age")})
+        r = subprocess.run([py, os.path.join(HERE, "vc.py")], input=json.dumps({"jobs": req}), capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError("vc.py failed\n" + r.stderr[-3000:])
+        for j, q in zip(jobs, req):
+            y, sr = sf.read(q["out"], dtype="float32")
+            out[j["id"]] = (y, sr)
+    return out
+
+
 def main():
     req = json.load(sys.stdin)
     os.makedirs(req["cache"], exist_ok=True)
     from kokoro_onnx import Kokoro
     k = Kokoro(durations_model(), os.path.join(MODELS, "voices-v1.0.bin"))
     done = []
+    raw = {job["id"]: synth(k, job) for job in req["jobs"]}
+    converted = convert([j for j in req["jobs"] if j.get("convert")], raw)
     for job in req["jobs"]:
-        y, phones = synth(k, job)
+        x, phones = raw[job["id"]]
+        y, phones = finish(*(converted[job["id"]] if job["id"] in converted else (x, SR_MODEL)), phones, job)
         base = os.path.join(req["cache"], job["id"])
         info = {"id": job["id"], "text": job["text"], "dur": round(len(y) / SR_OUT, 4), "phones": phones,
                 "peak": round(float(np.abs(y).max()), 3), "clipped": int((np.abs(y) >= 0.999).sum())}

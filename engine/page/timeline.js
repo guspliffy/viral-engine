@@ -474,7 +474,7 @@ export function actorState(sb, actor, def, t, raw = false) {
     look: [0, 0], blink: 0, talk: 0, round: 0,
     arms: { R: { from: c.arms?.R || def?.arms?.R || "rest", pose: c.arms?.R || def?.arms?.R || "rest", p: 1 }, L: { from: c.arms?.L || def?.arms?.L || "rest", pose: c.arms?.L || def?.arms?.L || "rest", p: 1 } },
     walk: 0, walkAmt: 0, tuck: 0, droop: 0, charge: 0, form: "potato", friesPop: 1, flip: 0, skin: 0, skinColor: null,
-    hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? 1,
+    hatOff: [0, 0, 0], hatSpin: [0, 0, 0], hatOn: true, visible: true, scale: c.scale ?? def?.scale ?? 1,   // def.scale: a character built at its own size (Pebble)
     face: Object.fromEntries(FACE_KEYS.map((k) => [k, def.face?.neutral?.[k] ?? 0])),
     grip: { R: { ...(GRIPS[c.grip?.R || def.hands?.grip?.R] || GRIPS.open) }, L: { ...(GRIPS[c.grip?.L || def.hands?.grip?.L] || GRIPS.open) } },
     hatTip: [0, 0], hatBrim: 0,
@@ -625,6 +625,14 @@ export function actorState(sb, actor, def, t, raw = false) {
         for (const k in FACE_BOTH) if (a[k] != null) for (const kk of FACE_BOTH[k]) st.face[kk] = lerp(st.face[kk], a[k], e);
         break;
       }
+      // { do: "straw", hand: 0..1, side: "R" | "L", away: 0 | 1 } (Pebble's grass straw, costumes-pebble.js): hand 0 in the
+      // lips at the mouth corner, 1 pinched in that hand, eased between over dur (a continuous hand-off, never a pop);
+      // away 1 puts it out of sight (only while it is off screen or tucked away)
+      case "straw": {
+        const o = st.straw || { hand: 0, away: 0, side: "R" };
+        st.straw = { hand: a.hand != null ? lerp(o.hand, a.hand, e) : o.hand, away: a.away != null ? (e >= 1 ? a.away : o.away) : o.away, side: a.side || o.side };
+        break;
+      }
       // { do: "grip", side: "R" | "L" | "both", shape: "open" | "hold" | "fist" | "pinch" | "point" } (mitten hands)
       case "grip": {
         for (const s of a.side === "both" ? ["R", "L"] : [a.side || "R"]) st.grip[s] = { ...blendGrip(st.grip[s], { ...(GRIPS[a.shape] || GRIPS.hold), ...(a.set || {}) }, e), since: a.at + (a.dur ?? 0.3) };
@@ -745,15 +753,17 @@ export function actorState(sb, actor, def, t, raw = false) {
         }
         break;
       }
-      // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table, hold (the right hand holds) or keep
+      // sitting on a chair prop (seat: its id) until "stand"; hands: lap, table, hold (the right hand holds) or keep.
+      // height: the seat's top in metres when it isn't a chair's SEAT_Y (a low log); the body's bottom lands on it whatever
+      // the legs' length (def.legs.height, the core build; the potatoes' LEG_H as before)
       case "sit": {
-        const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: 0, scale: 1 };
+        const ch = (sb.props || []).find((q) => q.id === a.seat) || { x: st.x, z: st.z, rot: a.rot ?? 0, scale: 1 };   // rot: the facing of a sit on the ground (no seat)
         const k = ease("inOut")(prog(t, a.at, a.dur ?? 0.35)), sc = ch.scale ?? 1, yaw = ((ch.rot ?? 0) * Math.PI) / 180;
         // natural: the body tips forward over the feet while it lowers, then bounces once on the seat
         if (N?.sit) { const D = a.dur ?? 0.35, after = t - a.at - D; nat.pitch += 0.12 * Math.sin(Math.PI * k); if (after > 0 && after < 0.32) nat.squash -= 0.035 * Math.sin(Math.PI * after / 0.32) * (1 - after / 0.32); }
         const along = (a.along ?? 0) * sc;   // along the seat (its own x), e.g. at one end of a bench
         st.x = lerp(st.x, ch.x + Math.cos(yaw) * along + Math.sin(yaw) * 0.03, k); st.z = lerp(st.z, ch.z - Math.sin(yaw) * along + Math.cos(yaw) * 0.03, k);
-        st.y = lerp(st.y, (ch.y ?? 0) + SEAT_Y * sc - 0.12, k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat; if (a.feet) st.sitFeet = a.feet;
+        st.y = lerp(st.y, (ch.y ?? 0) + (a.height ?? SEAT_Y * sc) - ((def?.legs?.height ?? LEG_H) - 0.02) * (def?.build === "core" ? (st.scale ?? 1) : 1), k) + 0.08 * Math.sin(Math.PI * k); st.yaw = lerp(st.yaw, yaw, k); st.sit = k; st.seat = a.seat; if (a.feet) st.sitFeet = a.feet;
         const hands = a.hands || "lap", pose = { R: hands === "hold" ? "hold" : hands, L: hands === "hold" ? "lap" : hands };
         if (hands !== "keep") for (const s of ["R", "L"]) st.arms[s] = { from: armNow(st.arms[s]), pose: pose[s], p: k };   // "keep": the arms stay as they are
         break;
