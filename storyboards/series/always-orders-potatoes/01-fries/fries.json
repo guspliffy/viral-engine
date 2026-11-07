@@ -356,7 +356,7 @@
   },
   {
    "from": 2.3,
-   "to": 3.15,
+   "to": 2.78,
    "text": "Awww!",
    "pos": 1262,
    "pop": false,
@@ -365,7 +365,7 @@
   },
   {
    "from": 3.23,
-   "to": 4.03,
+   "to": 3.55,
    "text": "Ooh!",
    "pos": 1262,
    "pop": false,
@@ -2405,7 +2405,7 @@
     },
     {
      "sfx": "click",
-     "gain": 1,
+     "gain": 1.6,
      "reason": "Phoenix's phone shutter: a photo of the waving fry",
      "at": 0.2
     },
@@ -3246,7 +3246,7 @@
     },
     {
      "sfx": "ai/bowl-scrape",
-     "gain": 0.3,
+     "gain": 0.55,
      "reason": "Gunslinger's salad bowl pushed away over the wooden table",
      "at": 2.05
     },
@@ -4249,7 +4249,7 @@
     },
     {
      "sfx": "click",
-     "gain": 1,
+     "gain": 1.6,
      "reason": "Phoenix's phone shutter: the fry offering Reaper his own soup",
      "at": 0.35
     },

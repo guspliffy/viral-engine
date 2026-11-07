@@ -78,7 +78,7 @@ const PH_UP = { y: 0.34, z: 0.45 };
 const phArms = ({ y, z }) => ({ R: { x: [-0.11, y, z], palm: [0, y, z] }, L: { x: [0.11, y, z], palm: [0, y, z] } });
 { const a = phArms(PH_UP); c.arm(0, "phx", "R", a.R, 0); c.arm(0, "phx", "L", a.L, 0); A(0, "phx", "grip", { side: "both", shape: "hold", dur: 0 }); }
 A(0, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null, dur: 0 });
-const click = (t, why) => { sfx(t, "click", { gain: 1.0, reason: `Phoenix's phone shutter: ${why}` }); c.prop(r3(t - 0.02), "phone", { glow: 1.0 }, 0.03, "out"); c.prop(r3(t + 0.04), "phone", { glow: 0.75 }, 0.15, "in"); };
+const click = (t, why) => { sfx(t, "click", { gain: 1.6, reason: `Phoenix's phone shutter: ${why}` }); c.prop(r3(t - 0.02), "phone", { glow: 1.0 }, 0.03, "out"); c.prop(r3(t + 0.04), "phone", { glow: 0.75 }, 0.15, "in"); };
 
 const SUB_LOW = 1262, SUB_HIGH = 480;
 const FRIENDS = ["gsl", "rea", "phx"];
@@ -236,7 +236,7 @@ vikRest(4.82, 0.3);
 const PUSH = 5.3;
 c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "salad", grip: [-0.09, 0.07, 0.0] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });
 c.prop(PUSH, "salad", { x: r3(SALAD[0] - 0.08), z: r3(SALAD[1] + 0.02) }, 0.35, "inOut");
-sfx(PUSH, "ai/bowl-scrape", { gain: 0.3, reason: "Gunslinger's salad bowl pushed away over the wooden table" });
+sfx(PUSH, "ai/bowl-scrape", { gain: 0.55, reason: "Gunslinger's salad bowl pushed away over the wooden table" });
 c.arm(r3(PUSH + 0.45), "gsl", "L", { o: [-0.16, 0.4, 0.32] }, 0.3, "inOut"); A(r3(PUSH + 0.45), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 A(4.0, "gsl", "look", { to: [0.4, -0.55], dur: 0.12, blink: false });
 A(5.0, "gsl", "look", { to: [0.65, -0.5], dur: 0.12, blink: false });
@@ -361,6 +361,9 @@ const beats = c.beats([
 for (const cp of c.captions) {
   if (cp.text === "Best fries in town!") cp.to = 0.95;
   if (cp.text === "Yaaay!") cp.to = GSLCU;
+  if (cp.text === "Hi!") cp.to = 2.3;   // each short line ends with its beat: held on into the next one it sat over the cone and the fries for 0.9 s
+  if (cp.text === "Awww!") cp.to = 2.78;
+  if (cp.text === "Ooh!") cp.to = 3.55;
   if (cp.text === "Ooh, soup!") cp.to = LAUNCH;
   if (cp.text === "Want some?") cp.to = END;
 }
