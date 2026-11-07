@@ -1,0 +1,573 @@
+{
+ "id": "human-reel-v2",
+ "title": "Human movement reel v2",
+ "idea": "The anime person (VRoid CC0 base in the house look) does a front handspring, walks, runs and stops, jumps, punches, picks up a box and sits on a chair: seven quick shots in the painted meadow, all motion capture",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "bounce",
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "surface": "dirt",
+  "room": "open",
+  "guard": true
+ },
+ "creative": {
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "h",
+   "character": "human/vrm-test-01",
+   "at": [
+    -0.6092,
+    -2.6578
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.3,
+   "perform": [
+    {
+     "at": 0,
+     "clip": "c90_14",
+     "from": 3.9,
+     "to": 5.5,
+     "heading": 21.26,
+     "place": [
+      -0.6092,
+      -2.6578
+     ],
+     "blend": 0
+    },
+    {
+     "at": 1.6,
+     "clip": "c07_01",
+     "from": 0.6,
+     "to": 2.2,
+     "heading": 27.08,
+     "place": [
+      -0.5794,
+      -1.9036
+     ],
+     "blend": 0
+    },
+    {
+     "at": 3.2,
+     "clip": "c16_08",
+     "from": 0,
+     "to": 1.45,
+     "heading": -18.5,
+     "place": [
+      0.9459,
+      -3.1745
+     ],
+     "blend": 0
+    },
+    {
+     "at": 4.65,
+     "clip": "c16_01",
+     "from": 0.45,
+     "to": 1.85,
+     "heading": 25,
+     "place": [
+      0.0036,
+      -0.2812
+     ],
+     "blend": 0,
+     "jumpGain": 2.2
+    },
+    {
+     "at": 6.05,
+     "clip": "c14_01",
+     "from": 2,
+     "to": 3.45,
+     "heading": 30,
+     "place": [
+      -0.1377,
+      0.2382
+     ],
+     "blend": 0
+    },
+    {
+     "at": 7.5,
+     "clip": "c69_70",
+     "from": 2.2,
+     "to": 4,
+     "heading": 97.74,
+     "place": [
+      -0.0904,
+      -0.4173
+     ],
+     "blend": 0
+    },
+    {
+     "at": 9.3,
+     "clip": "c113_15",
+     "from": 0.9,
+     "to": 4.3,
+     "heading": 0,
+     "place": [
+      0.0428,
+      -0.4301
+     ],
+     "blend": 0
+    }
+   ],
+   "fingers": [
+    [
+     0,
+     0.15,
+     0.15
+    ],
+    [
+     1.2,
+     0.4,
+     0.4
+    ],
+    [
+     6.05,
+     0.95,
+     0.95
+    ],
+    [
+     7.5,
+     0.4,
+     0.4
+    ],
+    [
+     8.15,
+     0.4,
+     0.2
+    ],
+    [
+     8.45,
+     0.4,
+     0.62
+    ],
+    [
+     9.3,
+     0.4,
+     0.4
+    ]
+   ],
+   "poses": [
+    {
+     "from": 10.9,
+     "to": 13.7,
+     "ramp": 0.4,
+     "bones": {
+      "neck": 0.08,
+      "head": 0.08
+     }
+    },
+    {
+     "from": 6.05,
+     "to": 7.5,
+     "ramp": 0.01,
+     "bones": {
+      "leftUpperArm": [
+       0,
+       0.35,
+       0
+      ],
+      "rightUpperArm": [
+       0,
+       -0.35,
+       0
+      ],
+      "leftLowerArm": [
+       0,
+       0.3,
+       0
+      ],
+      "rightLowerArm": [
+       0,
+       -0.3,
+       0
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "crate",
+   "kind": "cardbox",
+   "x": 0.36,
+   "y": 0,
+   "z": -0.5,
+   "rot": 0,
+   "w": 0.28,
+   "d": 0.3,
+   "h": 0.278,
+   "closed": true,
+   "scale": 0.001
+  },
+  {
+   "id": "apple",
+   "kind": "apple",
+   "x": 0.352,
+   "y": 0.32,
+   "z": -0.504,
+   "rot": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": -0.042,
+   "y": 0,
+   "z": -1.027,
+   "rot": 0,
+   "scale": 0.001
+  }
+ ],
+ "beats": [
+  {
+   "name": "flip",
+   "at": 0,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.2,
+     1.05,
+     3.9
+    ],
+    "look": [
+     -0.322,
+     1.05,
+     -2.132
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0.2,
+      1.05,
+      3.9
+     ],
+     "look": [
+      0.258,
+      1.05,
+      -1.034
+     ]
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": []
+  },
+  {
+   "name": "walk",
+   "at": 1.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.4,
+     1.05,
+     3.6
+    ],
+    "look": [
+     -0.316,
+     0.95,
+     -1.494
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.4,
+      1.05,
+      3.6
+     ],
+     "look": [
+      0.333,
+      0.95,
+      -0.364
+     ]
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": []
+  },
+  {
+   "name": "run",
+   "at": 3.2,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     0.45,
+     1,
+     4.4
+    ],
+    "look": [
+     0.507,
+     0.95,
+     -2.004
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.45,
+      1,
+      4.4
+     ],
+     "look": [
+      0.117,
+      0.95,
+      -0.946
+     ]
+    },
+    "dur": 1.45,
+    "ease": "inOut"
+   },
+   "do": []
+  },
+  {
+   "name": "jump",
+   "at": 4.65,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.3,
+     1,
+     3.1
+    ],
+    "look": [
+     -0.006,
+     1.1,
+     -0.297
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "punch",
+   "at": 6.05,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     0.25,
+     1.25,
+     2.9
+    ],
+    "look": [
+     -0.104,
+     1.2,
+     0.281
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "grab",
+   "at": 7.5,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0,
+     0.98,
+     3.5
+    ],
+    "look": [
+     -0.023,
+     0.85,
+     -0.435
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0,
+      0.98,
+      3.5
+     ],
+     "look": [
+      0.058,
+      0.85,
+      -0.435
+     ]
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "h",
+     "do": "grab",
+     "prop": "apple",
+     "hand": "R",
+     "at": 0.95,
+     "dur": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "at": 0,
+     "dur": 0,
+     "set": {
+      "scale": 1
+     }
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "at": 1.8,
+     "dur": 0,
+     "set": {
+      "scale": 0.001
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple",
+     "at": 0,
+     "dur": 0,
+     "set": {
+      "scale": 0.6
+     }
+    },
+    {
+     "do": "prop",
+     "id": "apple",
+     "at": 1.8,
+     "dur": 0,
+     "set": {
+      "scale": 0.001
+     }
+    }
+   ]
+  },
+  {
+   "name": "sit",
+   "at": 9.3,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     0.3,
+     1.02,
+     3.3
+    ],
+    "look": [
+     -0.023,
+     0.85,
+     -0.84
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chair",
+     "at": 0,
+     "dur": 0,
+     "set": {
+      "scale": 1
+     }
+    }
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.6,
+   "text": "new anime guy: first move test",
+   "pos": 1560,
+   "size": 66,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 1.6,
+   "text": "front handspring",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.6,
+   "to": 3.2,
+   "text": "walk",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.2,
+   "to": 4.65,
+   "text": "run",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.65,
+   "to": 6.05,
+   "text": "jump",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.05,
+   "to": 7.5,
+   "text": "punch",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.5,
+   "to": 9.3,
+   "text": "grab",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
+   "to": 12.7,
+   "text": "sit",
+   "pos": 1730,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "duration": 12.7,
+ "credits": "Character base: VRoid Studio sample model (CC0). Motion: CMU Graphics Lab Motion Capture Database, mocap.cs.cmu.edu (funded by NSF EIA-0196217).",
+ "notes": "Generated by tools/human/make-reel-v2.mjs."
+}

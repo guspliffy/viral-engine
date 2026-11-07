@@ -1,0 +1,4991 @@
+{
+ "id": "coffee-run",
+ "title": "That one friend who never has money… on a coffee run",
+ "idea": "Never has money, episode 2: the Wizard is back with the coffees, palm out; the pocket pat finds a moth; Gunslinger writes an IOU and goes to stick it on the fridge, which is covered in his IOUs; the handle is the only free spot; Reaper opens the fridge for milk and the notes bury him; next time's on me.",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "cover": 2.6,
+ "set": {
+  "type": "plain",
+  "color": "#e9d9b8",
+  "floor": "#c9955a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/kitchen-morning.png",
+   "z": -2,
+   "center": [
+    0.3,
+    1.45
+   ],
+   "height": 3.4,
+   "depth": false,
+   "motion": false,
+   "dust": 10
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "style": "lofi",
+  "key": 3,
+  "bpm": 84,
+  "lowCut": 150,
+  "gain": 0.3,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 7.3,
+    "part": "stop"
+   },
+   {
+    "at": 8.8,
+    "part": "hush"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.3,
+  "surface": "wood",
+  "room": "room",
+  "guard": true,
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   10,
+   10
+  ]
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "gsl",
+   "rea",
+   "tray",
+   "fridge"
+  ],
+  "hint": 0.4,
+  "what": "the Wizard back from the coffee run, palm out for 4.50; the yellow fridge behind"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "never-has-money/wizard",
+   "at": [
+    1,
+    -0.1
+   ],
+   "face": -35,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 2.6
+  },
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    -0.2,
+    -0.12
+   ],
+   "face": 15,
+   "expr": "eager",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.55,
+    -1.6
+   ],
+   "face": -10,
+   "expr": "deadpan",
+   "follow": 0.25,
+   "seed": 3.3
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "plankfloor",
+   "x": 0,
+   "z": 0.6,
+   "w": 7,
+   "d": 6
+  },
+  {
+   "id": "fridge",
+   "kind": "ioufridge",
+   "x": -1.05,
+   "z": -1.6,
+   "rot": 0,
+   "w": 0.7,
+   "d": 0.65,
+   "h": 1.95,
+   "open": 0,
+   "tagged": 0,
+   "pile": {
+    "x": 0.1,
+    "z": 1.45,
+    "r": 0.52,
+    "h": 1.08,
+    "low": 0.62
+   },
+   "spill": {
+    "x": 0.1,
+    "z": 0.72,
+    "r": 0.62,
+    "h": 0.24
+   },
+   "seed": 7,
+   "noteSize": 0.17,
+   "tag": {
+    "y": 0.9,
+    "size": 0.13
+   }
+  },
+  {
+   "id": "table",
+   "kind": "kitchentable",
+   "x": 0.35,
+   "z": 0.5,
+   "w": 1,
+   "d": 0.5,
+   "h": 0.42
+  },
+  {
+   "id": "bowl",
+   "kind": "fruitbowl",
+   "x": 0.62,
+   "y": 0.42,
+   "z": 0.55
+  },
+  {
+   "id": "counter",
+   "kind": "kitchencounter",
+   "x": 1.9,
+   "z": -1.73,
+   "w": 1.4,
+   "d": 0.55,
+   "h": 0.5
+  },
+  {
+   "id": "tray",
+   "kind": "cuptray",
+   "x": 0.12,
+   "y": 0.42,
+   "z": 0.33,
+   "rot": 10
+  },
+  {
+   "id": "scarf",
+   "kind": "wrapscarf",
+   "wear": "wiz",
+   "x": 0,
+   "y": 0.47,
+   "z": 0,
+   "rx": 0.4,
+   "rz": 0.37,
+   "color": "#7d3fb8"
+  },
+  {
+   "id": "cupG",
+   "kind": "coffeecup",
+   "x": 0.058,
+   "y": 0.432,
+   "z": 0.268,
+   "rot": 195
+  },
+  {
+   "id": "cupW",
+   "kind": "coffeecup",
+   "x": 0.818,
+   "y": 0.5,
+   "z": 0.334,
+   "rot": 145
+  },
+  {
+   "id": "cupR",
+   "kind": "coffeecup",
+   "x": 0.372,
+   "y": 0.42,
+   "z": -1.164,
+   "rot": 170
+  },
+  {
+   "id": "note",
+   "kind": "iounote",
+   "x": -0.22,
+   "y": 0.62,
+   "z": 0.18,
+   "rot": 195,
+   "ink": 0,
+   "scale": 0.001,
+   "staged": "tucked under his bandana until he pulls it out"
+  },
+  {
+   "id": "pen",
+   "kind": "feltpen",
+   "x": 0.001,
+   "y": 0.6,
+   "z": 0.126,
+   "rot": 195,
+   "scale": 0.001,
+   "staged": "tucked in his bandana's knot until he pulls it out"
+  },
+  {
+   "id": "milk",
+   "kind": "milkbottle",
+   "x": -0.95,
+   "y": 0.582,
+   "z": -1.42,
+   "rot": 180,
+   "staged": "standing on the fridge's bottom shelf (glass)"
+  },
+  {
+   "id": "last",
+   "kind": "stickynote",
+   "text": "IOU",
+   "x": 0.1,
+   "y": 1.5,
+   "z": -0.45,
+   "size": 0.17,
+   "wag": 0,
+   "scale": 0.001,
+   "staged": "a last note, late off the top of the door, drifting down"
+  },
+  {
+   "id": "pour",
+   "kind": "milkpour",
+   "x": 0,
+   "y": 0.6,
+   "z": 0,
+   "lip": 0.14,
+   "pour": 0,
+   "staged": "the milk running from the bottle's mouth into the cup"
+  },
+  {
+   "id": "wallet",
+   "kind": "wallet",
+   "x": -0.665,
+   "y": 0.28,
+   "z": -0.078,
+   "rot": 105,
+   "open": 0,
+   "staged": "down in his holster (part of his costume) until he draws it",
+   "scale": 0.001
+  },
+  {
+   "id": "moth",
+   "kind": "mott",
+   "wear": "gsl",
+   "x": 0,
+   "y": 0.6,
+   "z": 0.5,
+   "r": 0.045,
+   "scale": 0.001,
+   "open": 0,
+   "flap": 0,
+   "bob": 0,
+   "hope": 0.6,
+   "lookX": 0,
+   "lookY": 0,
+   "palette": {
+    "fluff": "#f4ead2",
+    "collar": "#e9dcbc",
+    "wing": "#f3e2c4",
+    "band": "201,162,122",
+    "rose": "#c9a27a",
+    "blush": "#efc9b4",
+    "dust": "#e9dcc4"
+   },
+   "staged": "a moth: it flies, then sits on his hat brim (worn)"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "That's 4.50!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.64,
+   "to": 3.49,
+   "text": "I forgot my money!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.2,
+   "to": 5.15,
+   "text": "Look at this!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.8,
+   "to": 9.8,
+   "text": "Next time's on me!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P1 pay up",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.35,
+     1.8,
+     4.1
+    ],
+    "look": [
+     0.25,
+     0.66,
+     -0.6
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "sfx": "door-close",
+     "gain": 0.45,
+     "reason": "the front door closing behind the Wizard as he comes back in (off screen right)",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupW",
+      "grip": [
+       -0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "cupW",
+     "hand": "L",
+     "grip": [
+      -0.092,
+      0.081,
+      0.025
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.4
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "set": {
+      "up": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.55,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "that's four fifty!",
+     "tone": "calm",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "cupR",
+     "hand": "R",
+     "grip": [
+      0.092,
+      0.081,
+      0.025
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.4,
+      "open": 0.15
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.276,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "off": [
+       0.018,
+       0.02,
+       -0.068
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "set": {
+      "tilt": -0.078,
+      "browY": -0.018,
+      "curve": 0.12,
+      "open": 0,
+      "eye": 0.844,
+      "pupil": 1,
+      "smirk": 0.108,
+      "raise": 0.018
+     },
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.2,
+     "reason": "the cups clinking in the tray he has just set down",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 0.12
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.16,
+     "ease": "settle",
+     "at": 0.24
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.336
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.4
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.38
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "cupG",
+     "hand": "L",
+     "grip": [
+      -0.047,
+      0.109,
+      0.082
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.46
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "at": [
+       0.058,
+       0.552,
+       0.268
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.85,
+      "open": 0
+     },
+     "dur": 0.15,
+     "at": 0.62
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.059,
+       0.7,
+       0.215
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.63
+    },
+    {
+     "do": "prop",
+     "id": "cupG",
+     "set": {
+      "tip": -25
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.63
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.1,
+     "at": 0.66
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.4,
+     "reason": "his long grateful sip from the lid",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.1,
+     "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.4
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.12,
+       0.47,
+       0.4
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cupG",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.12,
+       0.42,
+       0.4
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.14
+    },
+    {
+     "do": "prop",
+     "id": "cupG",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.22
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.3,
+     "reason": "his cup set down on the wooden table",
+     "at": 1.22
+    },
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "cupG",
+     "dur": 0,
+     "at": 1.24
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "cupG",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.27
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupG",
+      "grip": [
+       -0.047,
+       0.109,
+       0.082
+      ],
+      "palm": "wrap",
+      "off": [
+       0.018,
+       0.02,
+       -0.068
+      ]
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.28
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.32
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.34
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.34
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0,
+      "curve": 0.15,
+      "pucker": 0.6
+     },
+     "dur": 0.12,
+     "at": 1.47
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       0.95,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.47
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 1.47
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.25,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.48
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P2 the pocket pat",
+   "at": 1.5,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     1.281,
+     1.27,
+     5.017
+    ],
+    "look": [
+     0,
+     0.9,
+     -0.12
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his hat",
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.95,
+       0.08
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      0.3
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.24,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.12
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.12
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his chest",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.38,
+       0.34
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.21
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.21
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.24,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his chest",
+     "at": 0.35
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.38,
+       0.34
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.36
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.33,
+       0.22
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.42
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.15
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.43
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       0.3,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "in",
+     "at": 0.46
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his hip",
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.07,
+       0.3,
+       0
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.33,
+       0.22
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.07,
+       0.32,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.32,
+       -0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.33,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.2
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his back pocket",
+     "at": 0.65
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.32,
+       -0.22
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.66
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.66
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.14,
+       0.075
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "reason": "the top of the wallet shows in the holster as his hand gets there",
+     "at": 0.78
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his holster",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.81
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.03,
+     "at": 0.82
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "wallet",
+     "hand": "R",
+     "grip": [
+      -0.155,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.84
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.158,
+       0.5,
+       0.345
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "rot": 15
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.84
+    },
+    {
+     "sfx": "kenney/cloth-belt",
+     "gain": 0.55,
+     "reason": "the quick-draw: the wallet out of the leather holster",
+     "at": 0.85
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.35
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0.86
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.08,
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 360
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.058,
+       0.53,
+       0.256
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 320
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.45,
+     "reason": "the wallet flipped open: a soft leather flap",
+     "at": 1
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.18,
+       0.33,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.55
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.15,
+      "pucker": 0
+     },
+     "dur": 0.06,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.04,
+      "y": 0.56,
+      "z": 0.4,
+      "scale": 1
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 1,
+      "flap": 1,
+      "bob": 0.6
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.12,
+     "dur": 0.6,
+     "reason": "the moth's soft wing beats as it flutters out of the empty wallet",
+     "at": 1.05
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": -0.08,
+      "y": 0.86,
+      "z": 0.66,
+      "bank": -20
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 1.06
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.45
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "open": 0.2
+     },
+     "dur": 0.1,
+     "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": -0.36,
+      "y": 1,
+      "z": 0.52,
+      "bank": -30
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "I forgot my money!",
+     "tone": "excited",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 1.14
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.15,
+      0.55
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.17
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0,
+      "y": 1.12,
+      "z": 0.64,
+      "bank": 10
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.19
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.24
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 1.24
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.46,
+      "y": 1.2200000000000002,
+      "z": 0.32,
+      "bank": 25
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.25
+    }
+   ]
+  },
+  {
+   "name": "P3 the IOU",
+   "at": 2.8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.175,
+     1.328,
+     3.829
+    ],
+    "look": [
+     -0.24,
+     1.05,
+     -0.12
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.4,
+      "y": 1.12,
+      "z": 0.2,
+      "bank": 0,
+      "bob": 0
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 0,
+      "flap": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.665,
+       0.28,
+       -0.078
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.005,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.1,
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       0.057,
+       0.07,
+       -0.057
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "wallet",
+     "to": [
+      -0.665,
+      0.28,
+      -0.078
+     ],
+     "dur": 0.04,
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.16
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 360,
+      "rot": 105
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       -0.068,
+       0.02,
+       -0.023
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.005
+     },
+     "dur": 0.12,
+     "at": 0.208
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.04,
+     "ease": "in",
+     "reason": "back down in his holster (part of his costume), so it walks with him",
+     "at": 0.26
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.08,
+     "ease": "settle",
+     "at": 0.26
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "pen",
+     "hand": "L",
+     "grip": [
+      0,
+      0.094,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "pucker": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.308
+    },
+    {
+     "sfx": "click",
+     "gain": 0.3,
+     "reason": "the marker's cap clicked off",
+     "at": 0.34
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.29,
+       0.71,
+       0.32
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "tip": -70
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "note",
+     "hand": "R",
+     "grip": [
+      0.115,
+      0.067,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.4
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.24,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.44
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "ink": 1
+     },
+     "dur": 0.34,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "sfx": "scribble",
+     "gain": 0.45,
+     "reason": "the marker squeaking over the note: IOU and a cup doodle",
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.25,
+       0.68,
+       0.32
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.21,
+       0.7,
+       0.32
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.24,
+       0.63,
+       0.32
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.69
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.4,
+       0.8,
+       0.26
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.071,
+       0.6,
+       0.118
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.9,
+      "open": 0.35
+     },
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "sfx": "kenney/cloth-belt",
+     "gain": 0.2,
+     "reason": "the flick of the note as he holds it up",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.08,
+     "at": 0.75
+    },
+    {
+     "who": "gsl",
+     "do": "nod",
+     "times": 1,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.35
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "P4 look at this",
+   "at": 3.8,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.6,
+     1.8,
+     3.5
+    ],
+    "look": [
+     0.12,
+     0.75,
+     -0.7
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.094,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.001,
+       0.64,
+       0.146
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.07
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 0.07
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.45,
+       0.66,
+       0.06
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "wiz",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "pen",
+     "to": [
+      0.001,
+      0.6,
+      0.126
+     ],
+     "dur": 0.04,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.29
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.04,
+     "ease": "in",
+     "at": 0.31
+    },
+    {
+     "who": "wiz",
+     "do": "talk",
+     "line": "look at this!",
+     "tone": "excited",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "nod",
+     "times": 1,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.1,
+     "at": 0.42
+    },
+    {
+     "who": "gsl",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.56
+    }
+   ]
+  },
+  {
+   "name": "P5 not one free spot",
+   "at": 4.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.4,
+     1.45,
+     2.7
+    ],
+    "look": [
+     -0.6,
+     0.95,
+     -1.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.3,
+      1.4,
+      2.3
+     ]
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -0.2,
+      -0.84
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "steps": 3,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.45,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.646,
+       0.5,
+       -0.822
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.15
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.54
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.62,
+       0.78,
+       -1.2
+      ]
+     },
+     "dur": 0.11,
+     "ease": "out",
+     "at": 0.54
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "pucker": 0.4
+     },
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.25,
+      0.15
+     ],
+     "dur": 0.05,
+     "blink": false,
+     "at": 0.67
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.2
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.74
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.5,
+       0.8,
+       -1.3
+      ]
+     },
+     "dur": 0.11,
+     "ease": "out",
+     "at": 0.74
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.2
+     ],
+     "dur": 0.05,
+     "blink": false,
+     "at": 0.87
+    },
+    {
+     "who": "gsl",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.12,
+     "at": 0.88
+    },
+    {
+     "fx": "pop",
+     "text": "?",
+     "who": "gsl",
+     "dur": 0.55,
+     "size": 110,
+     "dx": 0.3,
+     "dy": -0.5,
+     "angle": -8,
+     "color": "speaker",
+     "at": 0.9
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.45
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.92
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.78,
+       0.4,
+       -1.14
+      ]
+     },
+     "dur": 0.11,
+     "ease": "out",
+     "at": 0.92
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": -0.05,
+      "open": 0.25,
+      "pucker": 0.4,
+      "raise": 0.035
+     },
+     "dur": 0.12,
+     "at": 1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.45
+     ],
+     "dur": 0.05,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.646,
+       0.5,
+       -0.822
+      ]
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 1.07
+    },
+    {
+     "who": "gsl",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.92,
+       0.04
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.08
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "set": {
+      "curl": 0.7
+     },
+     "dur": 0.06,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.1
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.1,
+      0.5
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.12
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.27,
+       0.95,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.92,
+       0.05
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.27,
+       0.95,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 1.26
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.05
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.28
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.92,
+       0.05
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.1,
+     "at": 1.3
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.34
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "note",
+      "grip": [
+       0.115,
+       0.067,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.765,
+       0.9,
+       -1.15
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.36
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.36
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "P6 the handle",
+   "at": 5.8,
+   "len": 0.62,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.05,
+     1.4
+    ],
+    "look": [
+     -0.5,
+     0.8,
+     -1
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "note",
+     "to": [
+      -0.765,
+      0.9,
+      -1.21
+     ],
+     "dur": 0.02,
+     "at": 0.06
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.55,
+     "reason": "the note slapped onto the fridge handle",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "tagged": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.08
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.04,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "note",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.09
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.715,
+       0.78,
+       -1.09
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.08,
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.745,
+       0.9,
+       -1.11
+      ]
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.35,
+     "reason": "a proud pat on his note",
+     "at": 0.46
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.715,
+       0.78,
+       -1.09
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.48
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.745,
+       0.9,
+       -1.11
+      ]
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.53
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.3,
+      -1.05
+     ],
+     "dur": 0.52,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -111,
+     "dur": 0.45,
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.256,
+       0.42,
+       -1.592
+      ]
+     },
+     "dur": 0.26,
+     "ease": "in",
+     "at": 0.58
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.35,
+     "reason": "and another",
+     "at": 0.59
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.1
+     ],
+     "dur": 0.16,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.61
+    }
+   ]
+  },
+  {
+   "name": "P6b facepalm",
+   "at": 6.42,
+   "len": 0.48,
+   "shot": {
+    "pos": [
+     -0.818,
+     1.121,
+     3.799
+    ],
+    "look": [
+     1,
+     0.82,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -0.95,
+      -0.15
+     ],
+     "dur": 0.44,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.04
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.4,
+     "at": 0.04
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.1
+     ],
+     "dur": 0.16,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.336,
+       0.42,
+       -1.514
+      ]
+     },
+     "dur": 0.26,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.1
+     ],
+     "dur": 0.16,
+     "blink": false,
+     "at": 0.34
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.2,
+     "at": 0.43
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.15,
+     "at": 0.43
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.43
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.46
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "P7 the bill lands",
+   "at": 6.9,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     0.1,
+     2.3,
+     4.6
+    ],
+    "look": [
+     -0.45,
+     0.62,
+     -0.9
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.765,
+       0.9,
+       -1.2
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      0.15
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.06,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.896,
+       0.9,
+       -0.942
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 0.5,
+     "reason": "the fridge door's latch letting go",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.95,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.6
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.05,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.32,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.55,
+     "reason": "the notes peeling off and sliding down: a long papery rush",
+     "at": 0.34
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.18,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.48,
+      -0.98
+     ],
+     "dur": 0.3,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -160,
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.154,
+       0.42,
+       -1.312
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0.5,
+      -0.25
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.4,
+     "at": 0.65
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupW",
+      "grip": [
+       -0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       0.396,
+       0.5,
+       0.209
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.66
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.66
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.5,
+     "dur": 0.9,
+     "reason": "the second, longer rush as the heap buries him",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.81
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.87
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "milk",
+     "hand": "L",
+     "grip": [
+      -0.087,
+      0.08,
+      0.023
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.97
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.95,
+       0.612,
+       -1.17
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.01
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.3,
+      -0.9
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 1.13
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.776,
+       0.4,
+       -1.34
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.945,
+       0.55,
+       -0.977
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.4
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.21
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.9,
+       0.4,
+       -0.967
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.23
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.763,
+       0.55,
+       -0.591
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.23
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.725,
+       0.4,
+       -0.579
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.33
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.362,
+       0.55,
+       -0.41
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.33
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cupW",
+      "grip": [
+       -0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       0.376,
+       0.7,
+       0.111
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "cupW",
+     "set": {
+      "tip": -20
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cupR",
+      "grip": [
+       0.092,
+       0.081,
+       0.025
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.233,
+       0.36,
+       -0.424
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.083,
+       0.52,
+       -0.479
+      ]
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "last",
+     "set": {
+      "scale": 1,
+      "wag": 1,
+      "x": 0.1,
+      "y": 1.5,
+      "z": -0.45
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "reason": "the last note sliding off the top of the heap: paper rocks down like a leaf, which the rigid-body physics does not do",
+     "at": 1.55
+    },
+    {
+     "do": "prop",
+     "id": "last",
+     "set": {
+      "x": 0.256,
+      "y": 1.05,
+      "z": 0.331
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "reason": "rocking down toward the Wizard",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "drop": 1
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.58
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.35,
+     "dur": 0.4,
+     "reason": "the heap shifting as he pops out of it",
+     "at": 1.58
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.1,
+     "at": 1.58
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1.58
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.12,
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "milk",
+      "grip": [
+       -0.087,
+       0.08,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.164,
+       0.56,
+       -0.439
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "milk",
+     "set": {
+      "tip": 75
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.1,
+     "at": 1.6
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.84,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.35,
+     "reason": "the Wizard's sip, eyes shut",
+     "at": 1.65
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "P8 the wink",
+   "at": 8.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.5,
+     3.5
+    ],
+    "look": [
+     -0.25,
+     0.6,
+     -0.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.05,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.8,
+      "open": 0.35,
+      "smirk": 0.5
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.93,
+       0.08
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "set": {
+      "curl": 1,
+      "index": 0,
+      "thumb": 0.9
+     },
+     "dur": 0.08,
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "pour",
+     "set": {
+      "x": -0.233,
+      "y": 0.63,
+      "z": -0.424,
+      "pour": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pour",
+     "set": {
+      "pour": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.18,
+     "reason": "the milk running into Reaper's coffee",
+     "at": 0.14
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "next time's on me!",
+     "tone": "excited",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 1,
+      "flap": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.1,
+     "dur": 0.45,
+     "reason": "the moth lifting off the brim as he tips his hat",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.44,
+      "y": 1.2400000000000002,
+      "z": 0.24000000000000002,
+      "bank": 15
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "last",
+     "set": {
+      "x": 0.376,
+      "y": 0.835,
+      "z": 0.111,
+      "tip": -75,
+      "wag": 0
+     },
+     "dur": 0.33,
+     "ease": "out",
+     "reason": "it settles flat on his lid",
+     "at": 0.22
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lidL": 1,
+     "dur": 0.06,
+     "at": 0.24
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.18,
+     "reason": "the milk running into Reaper's coffee",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.38,
+      "y": 1.2000000000000002,
+      "z": 0.28,
+      "bank": -10
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.42
+    },
+    {
+     "who": "wiz",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.12,
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.18,
+     "reason": "the milk running into Reaper's coffee",
+     "at": 0.53
+    },
+    {
+     "sfx": "flutter",
+     "gain": 0.15,
+     "dur": 0.25,
+     "reason": "the last note landing on the Wizard's coffee lid",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.4,
+      "y": 1.12,
+      "z": 0.2,
+      "bank": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lidL": 0,
+     "dur": 0.08,
+     "at": 0.62
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 0,
+      "flap": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lidL": 1,
+     "dur": 0.06,
+     "at": 0.88
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.45,
+   "see": [
+    "wiz.face",
+    "gsl.face",
+    "rea.face",
+    "tray",
+    "fridge"
+   ],
+   "why": "panel 1: the Wizard's palm out, the tray of coffees, the yellow fridge behind"
+  },
+  {
+   "from": 0.5,
+   "to": 1.2,
+   "see": [
+    "gsl.face",
+    "cupG"
+   ],
+   "why": "panel 1: he lifts his coffee out of the tray and sips, grateful"
+  },
+  {
+   "from": 2.5,
+   "to": 2.8,
+   "see": [
+    "gsl.face",
+    "wallet",
+    "moth"
+   ],
+   "why": "the pocket pat: the open empty wallet, the moth flutters out, his hopeful grin"
+  },
+  {
+   "from": 3.58,
+   "to": 3.8,
+   "see": [
+    "gsl.face",
+    "note",
+    "moth"
+   ],
+   "why": "panel 3: the IOU note held up, his eyes shut in a big smile, the moth on his brim"
+  },
+  {
+   "from": 4.15,
+   "to": 4.4,
+   "see": [
+    "wiz.face",
+    "rea.face",
+    "fridge"
+   ],
+   "why": "panel 4: the Wizard jabs his thumb at the fridge, Reaper nods"
+  },
+  {
+   "from": 4.5,
+   "to": 5.75,
+   "see": [
+    "gsl.face",
+    "fridge",
+    "note"
+   ],
+   "why": "panel 5: the wall of IOUs; every spot is taken; he holds his note up to it, confused"
+  },
+  {
+   "from": 5.92,
+   "to": 6.4,
+   "see": [
+    "gsl.face",
+    "fridge"
+   ],
+   "why": "panel 6: the note on the handle, his proud pats"
+  },
+  {
+   "from": 6.45,
+   "to": 6.88,
+   "see": [
+    "wiz.face"
+   ],
+   "why": "panel 6: the Wizard's slow facepalm"
+  },
+  {
+   "from": 7.22,
+   "to": 7.5,
+   "see": [
+    "gsl.face"
+   ],
+   "why": "panel 7: his shocked face up at the notes coming off the door, before they bury him"
+  },
+  {
+   "from": 7.3,
+   "to": 8.4,
+   "see": [
+    "fridge",
+    "rea"
+   ],
+   "why": "panel 7: the open fridge, the yellow avalanche burying Gunslinger, Reaper reaching for the milk"
+  },
+  {
+   "from": 8.8,
+   "to": 9.35,
+   "see": [
+    "gsl.face",
+    "moth"
+   ],
+   "why": "panel 8: the wink and the thumbs up from the pile, the moth lifting"
+  },
+  {
+   "from": 9.2,
+   "to": 9.8,
+   "see": [
+    "wiz.face",
+    "last"
+   ],
+   "why": "panel 8: the last IOU on the Wizard's coffee lid, his deadpan look"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 5.9,
+   "frames": 3
+  },
+  {
+   "at": 7.2,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "gsl",
+   "with": "moth",
+   "from": 2.5,
+   "to": 10,
+   "reason": "the moth flies round him and sits on his hat brim (worn)"
+  },
+  {
+   "who": "gsl",
+   "with": "wallet",
+   "from": 2.25,
+   "to": 3.05,
+   "reason": "he draws the wallet from his holster and slips it back"
+  },
+  {
+   "who": "gsl",
+   "from": 2.27,
+   "to": 2.33,
+   "checks": [
+    "motion"
+   ],
+   "reason": "the quick-draw (series block): his hand snaps onto the wallet in the holster"
+  },
+  {
+   "who": "gsl",
+   "from": 2.38,
+   "to": 2.52,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "the revolver spin: the wallet turns once round his fingers on purpose, then flips open"
+  },
+  {
+   "who": "gsl",
+   "with": "note",
+   "from": 2.9,
+   "to": 3.1,
+   "reason": "he pulls the note out from under his bandana"
+  },
+  {
+   "who": "gsl",
+   "with": "pen",
+   "from": 2.85,
+   "to": 4.2,
+   "reason": "he pulls the marker out of his bandana's knot and tucks it back"
+  },
+  {
+   "who": "gsl",
+   "from": 1.5,
+   "to": 1.78,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "the series' frantic pocket pat: his left mitten slaps from the hat brim to his chest in 0.15 s (episode 1's block)"
+  },
+  {
+   "who": "gsl",
+   "from": 3.2,
+   "to": 3.72,
+   "checks": [
+    "prop-pop",
+    "motion"
+   ],
+   "reason": "quick marker scribbles on the note: the pen rocks in his fist with each stroke"
+  },
+  {
+   "who": "gsl",
+   "from": 4.94,
+   "to": 5,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "he slaps the note up high on the door: a quick stretch"
+  },
+  {
+   "who": "gsl",
+   "from": 6.04,
+   "to": 6.12,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "his flat palm comes off the note he has just slapped on, on the frame after the hit-stop: the hand turns from the bar to his side"
+  },
+  {
+   "who": "gsl",
+   "from": 5.8,
+   "to": 6.05,
+   "checks": [
+    "prop-pop",
+    "hand-turn",
+    "hand-pop"
+   ],
+   "reason": "the slap onto the handle: the note leaves his fist and his palm turns flat onto it on the hit-stop frame"
+  },
+  {
+   "who": "gsl",
+   "from": 6.25,
+   "to": 6.6,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "two quick proud pats on the note, then the hand drops off it"
+  },
+  {
+   "who": "rea",
+   "from": 8.25,
+   "to": 8.5,
+   "checks": [
+    "hand-turn",
+    "hand-pop"
+   ],
+   "reason": "his milk hand turns over as he turns round from the fridge, hidden behind his own body and the heap (checked in a frame strip)"
+  },
+  {
+   "who": "rea",
+   "from": 8.75,
+   "to": 9.1,
+   "checks": [
+    "hand-turn",
+    "hand-pop",
+    "prop-pop"
+   ],
+   "reason": "he tips the milk bottle over his cup to pour: the wrist turns with the bottle"
+  },
+  {
+   "who": "gsl",
+   "with": "cupG",
+   "from": 0.6,
+   "to": 1.2,
+   "reason": "his lips on the cup's lid: a sip"
+  },
+  {
+   "who": "wiz",
+   "with": "cupW",
+   "from": 8.45,
+   "to": 10,
+   "reason": "his lips on the cup's lid: a sip"
+  },
+  {
+   "who": "wiz",
+   "with": "scarf",
+   "from": 0,
+   "to": 10,
+   "reason": "his scarf (worn)"
+  },
+  {
+   "who": "rea",
+   "with": "fridge",
+   "from": 6.95,
+   "to": 7.55,
+   "reason": "his mitten closed round the fridge handle (over the new note) for the yank"
+  },
+  {
+   "who": "gsl",
+   "with": "fridge",
+   "from": 5.85,
+   "to": 6.4,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "his flat palm slaps and pats his note onto the handle bar: the fingers press the note onto the bar"
+  },
+  {
+   "who": "rea",
+   "with": "milk",
+   "from": 7.7,
+   "to": 10,
+   "reason": "he takes the milk off the fridge shelf and pours it"
+  },
+  {
+   "who": "rea",
+   "with": "fridge",
+   "from": 7.5,
+   "to": 8.9,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "his cloak brushes the cabinet's front edge as he pulls the door and leans in for the milk"
+  },
+  {
+   "who": "gsl",
+   "with": "fridge",
+   "from": 7.15,
+   "to": 10,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "buried in the heap of his paper IOUs (the brief's payoff): paper, not a solid"
+  },
+  {
+   "who": "rea",
+   "with": "fridge",
+   "from": 7.15,
+   "to": 10,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the notes drift down round his feet: the heap's box takes him in, the paper isn't solid"
+  },
+  {
+   "who": "wiz",
+   "with": "fridge",
+   "from": 7.6,
+   "to": 10,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "he stands at the edge of the heap of notes: its box takes him in, the paper isn't solid"
+  }
+ ],
+ "notes": "Generated by storyboards/series/never-has-money/02-coffee-run/make-coffee-run.mjs. Panels: PANELS.md."
+}

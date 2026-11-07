@@ -57,7 +57,7 @@ import os from "node:os";
 import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream" };
+const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream", ".wasm": "application/wasm" };
 const LOUDNESS = { I: -14, TP: -2, LRA: 11 }; // integrated LUFS target typical for short-form platforms
 // Motion blur: a frame where something moves fast is the average of several samples spread over a film shutter (half
 // the frame time, centred on the frame), so a swing or a snap reads as one smooth smear instead of a jump. The number
@@ -326,7 +326,7 @@ async function main() {
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
-    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look } });
+    const info = await page.evaluate((d) => window.ENGINE.init(d), { sb, chars, opts: { safe: o.safe, draft: !!o.draft, aa: !o.draft, style, look, vfx: !o.layoutOnly } });   // vfx: a layout draws nothing, so it skips the particle runtime
     if (errors.length) throw new Error(errors.join("\n"));
     console.log(`stage ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`, JSON.stringify(info));
     const soft = /swiftshader|llvmpipe|software/i.test(info.renderer || "");

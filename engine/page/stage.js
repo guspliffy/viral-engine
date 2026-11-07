@@ -1,10 +1,12 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { Character, setRig } from "./potato.js";
+import { HumanCharacter, preloadHumans } from "./rigs/human.js";
+import { VrmCharacter, preloadVrms } from "./rigs/vrm.js";
 import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
-import { actorState, cameraState, flashAt, captionsAt, lightsAt, registerCast } from "./timeline.js";
+import { actorState, cameraState, flashAt, flashColorAt, captionsAt, lightsAt, registerCast } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
@@ -18,10 +20,12 @@ import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeAttach } from "./attach.js";
+import { makeVfx } from "./vfx.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let attach2 = null;
+let vfx = null, vfxOver = false;       // Effekseer particle effects (vfx.js): a storyboard with "do": "vfx" fx items
 let phys = null;      // prop physics (physics.js, quality plan item 17): a storyboard with "physics" actions   // holds 2 (attach.js): "rig": { "hold": 2 }
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
@@ -355,7 +359,7 @@ function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
-  if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
+  if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
   // Zombie Too: the trend's widescreen shot with its text on the upper bar)
   if (sb.letterbox) { ctx.fillStyle = sb.letterbox.color || "#000"; ctx.fillRect(0, 0, W, sb.letterbox.top ?? 0); ctx.fillRect(0, H - (sb.letterbox.bottom ?? 0), W, sb.letterbox.bottom ?? 0); }
@@ -388,6 +392,7 @@ async function init(data) {
   // image-based lighting only on the characters: on the ground and background it cost more than half the frame time
   const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
+  await preloadHumans(data.chars, sb); await preloadVrms(data.chars, sb);   // rigs/human.js: a person's body and the motion clips the cast performs
   await preloadModels(sb, data.chars);   // assets-gltf.js: glTF models the set and costumes name, loaded before anything is built
   buildLights(scene, sb.set);
   const before = scene.children.length;
@@ -411,7 +416,7 @@ async function init(data) {
   actors = sb.cast.map((c) => {
     const def = data.chars[c.character];
     if (!def) throw new Error(`character not found: ${c.character}`);
-    const ch = new Character(def, c.id); parentOf(c).add(ch.root);
+    const ch = def.rig === "human-v1" ? new HumanCharacter(def, c.id, c) : def.rig === "vrm-v1" ? new VrmCharacter(def, c.id, c) : new Character(def, c.id); parentOf(c).add(ch.root);
     // the actor's state at any time in the story (potato.js rig 2 smooths a hand's turn over the frames around it)
     ch.stateAt = (tt) => (tt < 0 || tt > (sb.storyDuration ?? sb.duration) ? null : actorState(sb, c, def, tt));
     if (c.belt) seatBelt(ch, c.belt);
@@ -437,7 +442,12 @@ async function init(data) {
     phys = await (await import("./physics.js")).makePhysics({ sb, scene, props, actors, setMeshes: setObjs, attach: attach2, releasePose: (p, time, tr) => attach2?.releasePose(p, time, tr), setPose: setPhysicsPose });
     if (!phys) setPhysicsPose(null);
   } else phys = null;
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn }) : makeStyle(style, R);
+  vfx = opts.vfx === false ? null : await makeVfx({ R, sb, target: (id) => {
+    const a = actors.find((x) => x.c.id === id), p = !a && props.find((x) => x.spec.id === id), o = a ? a.ch.root : p ? p.root : rigs.get(id)?.g;   // a character, a prop or a vehicle rig
+    return o ? o.getWorldPosition(new THREE.Vector3()) : null;
+  } });
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn, vfx }) : makeStyle(style, R);
+  vfxOver = !!vfx && !opts.look;
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
   await document.fonts.ready;
@@ -453,6 +463,7 @@ function pose(t0) {
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
   const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
+  if (vfx) vfx.time = t;   // the particle effects drawn with this pose (vfx.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
     const s = rigState(V.r, t), p = V.r.pivot || [0, 0.55, 0];
@@ -479,7 +490,7 @@ function pose(t0) {
     const A = states[who]; if (!A) return null;
     A.a.ch.root.updateMatrixWorld(true);
     if (point === "pinch" && A.a.ch.arms[hand]?.hand.userData.pinchPt) return { pos: A.a.ch.arms[hand].hand.userData.pinchPt.getWorldPosition(new THREE.Vector3()) };
-    if (hand === "hat") return A.a.ch.costume.hat ? { obj: A.a.ch.costume.hat } : null;
+    if (hand === "hat") { const o = A.a.ch.costume.hat || A.a.ch.costume.head; return o ? { obj: o } : null; }
     if (hand === "tip") return A.a.ch.costume.tip ? { pos: A.a.ch.costume.tip.getWorldPosition(new THREE.Vector3()) } : null;
     const hs = hand === "both" ? ["R", "L"] : [hand];
     return { pos: hs.reduce((acc, h) => acc.add(A.a.ch.arms[h].hand.getWorldPosition(v)), new THREE.Vector3()).multiplyScalar(1 / hs.length) };
@@ -638,6 +649,7 @@ function frame(t) {
     styler.prepare(scene, t, fp);
     styler.render(scene, camera);
     if (R.info.programs.length !== progs) { styler.prepare(scene, t, fp); styler.render(scene, camera); }
+    if (vfxOver) vfx.drawOver(camera);   // a look draws them inside its composer
   }
   drawnQ = q;
   composite(t);
@@ -819,7 +831,7 @@ function stateHash(t, samples = []) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, captionsAt(sb, t), flashAt(sb, t), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
+  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));

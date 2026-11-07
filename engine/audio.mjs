@@ -547,6 +547,69 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(bp, r() * 2 - 1) * env(t, 0.0005, 0.012, d) * 2 + (Math.sin(TAU * 1850 * t) * 0.3 + Math.sin(TAU * 3020 * t) * 0.15) * env(t - 0.004, 0.0005, 0.05, d) + run(bp, r() * 2 - 1) * env(t - 0.06, 0.0005, 0.008, d); }
     return x;
   },
+  // Too Much Energy 02, the cinema (6 Nov 2026):
+  // popcorn raining down onto seats and heads: dozens of tiny light dry ticks (band-passed clicks round 2.5-4 kHz, a
+  // few ms each), thick at first and thinning out over d, with a few soft papery taps under them; no bass
+  patter(r, d = 1.2) {
+    const x = buf(d), bp = biquad("bp", 3200, 1.6), lo = biquad("bp", 900, 1.0), ticks = [];
+    for (let k = 0; k < Math.round(d * 70); k++) { const u = Math.pow(r(), 1.8) * (d - 0.06); ticks.push([u, 0.35 + r() * 0.65, r() < 0.15]); }
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let eh = 0, es = 0;
+      for (const [u, a, soft] of ticks) { const q = t - u; if (q > 0 && q < 0.03) { if (soft) es += Math.exp(-q / 0.008) * a; else eh += Math.exp(-q / 0.0028) * a; } }
+      x[i] = run(bp, r() * 2 - 1) * eh * 1.8 + run(lo, r() * 2 - 1) * es * 1.2;
+    }
+    return x;
+  },
+  // a cinema seat's cushion springing up (or slammed down) against its frame: a padded woody clack (a hollow knock
+  // round 650 Hz with a short low thump of the padding and a tiny metal tick of the hinge)
+  seatclack(r) {
+    const d = 0.3, x = buf(d), bp = biquad("bp", 650, 2.2), lp = biquad("lp", 260, 0.7), hp = biquad("hp", 3500, 0.8); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1; p += TAU * (190 - 60 * Math.min(1, t / 0.08)) / SR;
+      x[i] = run(bp, n) * env(t, 0.0006, 0.035, d) * 6 + Math.sin(p) * env(t, 0.002, 0.04, d) * 0.22 + run(lp, n) * env(t, 0.001, 0.02, d) * 0.4 + run(hp, n) * env(t - 0.012, 0.0005, 0.004, d) * 0.6;
+    }
+    return x;
+  },
+  // a horror film's jump-scare hit: a dissonant orchestra stab (a cluster of buzzy saw tones on top of a low boom),
+  // full at once and dying over a second
+  scarestab(r) {
+    const d = 1.1, x = buf(d), lp = biquad("lp", 2600, 0.8), lb = biquad("lp", 140, 0.7); let pb = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; let y = 0;
+      for (const f of [155.6, 164.8, 233.1, 311.1, 329.6, 466.2]) y += ((t * f * (1 + 0.003 * Math.sin(TAU * 5.5 * t))) % 1) * 2 - 1;
+      pb += TAU * (62 - 22 * Math.min(1, t / 0.4)) / SR;
+      x[i] = run(lp, y * 0.3) * env(t, 0.004, 0.32, d) + Math.sin(pb) * env(t, 0.003, 0.2, d) * 0.3 + run(lb, r() * 2 - 1) * env(t, 0.001, 0.05, d) * 0.3;
+    }
+    return x;
+  },
+  // the hero wins: a brass swell, an E major chord of warm saw tones that grows over its first half (the filter opens
+  // as it does) and holds bright to the end of d
+  brassswell(r, d = 1.0) {
+    const x = buf(d), f0 = [164.8, 207.7, 246.9, 329.6, 415.3];
+    let lp = biquad("lp", 500, 0.8);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / (d * 0.55));
+      if (i % 64 === 0) lp = { ...biquad("lp", 500 + 2600 * k, 0.8), x1: lp.x1, x2: lp.x2, y1: lp.y1, y2: lp.y2 };
+      let y = 0; for (const [j, f] of f0.entries()) y += ((t * f * (1 + 0.002 * Math.sin(TAU * (4.5 + j * 0.3) * t))) % 1) * 2 - 1;
+      x[i] = run(lp, y * 0.2) * (0.25 + 0.75 * k) * Math.min(1, (d - t) / 0.08);
+    }
+    return x;
+  },
+  // Too Much Energy 03, camping at 6 am (7 Nov 2026):
+  // a tent door's zip pulled fast: a rasp of zip teeth clicking over the slider (short bright clicks at a rate that
+  // climbs from about 190 to 330 a second as the pull speeds up), a little nylon hiss under them and a tiny tick at
+  // the end of the pull; d is the pull's length
+  zip(r, d = 0.18) {
+    const x = buf(d + 0.03), bp = biquad("bp", 2600, 1.6), body = biquad("bp", 1250, 1.1), hs = biquad("hp", 5000, 0.7);
+    let ph = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = Math.min(1, t / d), rate = 190 + 140 * u, on = t < d ? Math.min(1, t / 0.012) * Math.min(1, (d - t) / 0.02) : 0;
+      ph += rate / SR; const q = ph % 1, click = Math.exp(-q / 0.12) * (0.75 + 0.25 * r());
+      const n = r() * 2 - 1;
+      x[i] = (run(bp, n) * click * 2.2 + run(body, n) * click * 1.8 + run(hs, n) * 0.03) * on + run(body, n) * env(t - d, 0.0005, 0.006, d + 0.03) * 0.5;
+    }
+    return x;
+  },
   // a blade through paper and card: a dry tearing hiss with a soft thock of the core
   papercut(r) {
     const d = 0.22, x = buf(d), bp = biquad("bp", 3800, 1.2), lp = biquad("lp", 500, 0.8);

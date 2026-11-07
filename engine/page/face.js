@@ -63,6 +63,10 @@ export const EXPRESSIONS = {
   deadpan:   { tilt: 0.0,  browY: -0.015, curve: 0.0, open: 0.0,  eye: 0.6,  pupil: 1.0,  smirk: 0.0, raise: 0.0 },
   serene:    { tilt: 0.1,  browY: 0.0,   curve: 0.35, open: 0.0,  eye: 0.06, pupil: 1.0,  smirk: 0.0, raise: 0.0 },   // eyes closed, content
   dizzy:     { tilt: 0.42, browY: 0.02,  curve: -0.35, open: 0.3, eye: 1.08, pupil: 0.45, smirk: 0.4, raise: 0.02 },
+  // panic (Jonny 7 Nov, the plane: "no panic, the situation appears quite chill"): brows shot up and in, eyes wide with
+  // a small iris in a big white (shrink), the mouth a big wide yell, corners down (wide keeps it broad through the
+  // speech's vowels; pair it with a face corner of about -0.6)
+  terrified: { tilt: 0.6,  browY: 0.07,  curve: -0.45, open: 0.8, eye: 1.3,  pupil: 0.5,  smirk: 0.0, raise: 0.0, wide: 1, shrink: 0.4 },
 };
 // keys only one side has (pucker: pursed lips, Dragon vs. the Candle) blend from or to 0
 export const blendExpr = (a, b, t) => { const o = {}; for (const k in a) o[k] = a[k] + ((b[k] ?? 0) - a[k]) * t; for (const k in b) if (!(k in a)) o[k] = b[k] * t; return o; };
@@ -607,6 +611,11 @@ export class Face {
       if (fit) eye.look.position.set(fit[ei].px, fit[ei].py, 0);
       else { const [gx, gy] = this._gaze(eye, look); eye.look.position.set(gx * eye.r * 0.5, gy * eye.r * 0.48, 0); }
       eye.pupil.scale.set(e.pupil, e.pupil * 1.08, 0.3);
+      // shrink (0..1, opt-in): the iris draws in, a small dark iris in a big white (terror); its catch light comes in
+      // with it. Default 0 leaves every mesh exactly as built.
+      const ik = 1 - Math.max(0, Math.min(0.6, e.shrink || 0));
+      eye.iris.scale.set(ik, 1.12 * ik, 0.35);
+      for (const g of eye.glints) { const o = g.userData.at ??= g.position.clone(); g.position.set(o.x * ik, o.y * ik, o.z); }
       if (eye.paint) { eye.white.visible = eye.iris.visible = eye.pupil.visible = false; this._paint(eye, e.pupil); }
       // (d) how much of the pupil shows, seen square on, with the blink (face.shown [right eye, left eye], the layout's
       // measure; eyes without lids count as shown)
@@ -656,7 +665,7 @@ export class Face {
     // geometry that depends on the expression is rebuilt only when it changes
     // round: the lips rounding on a vowel (speech); pucker: pursed lips set by an expression (blowing out a candle)
     const round = Math.max(e.round || 0, e.pucker || 0);
-    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, this.browStyle.clear != null ? e.eye : 0, c.fangs || 0].join("|");
+    const key = [e.tilt, e.browY, e.curve, e.open, e.smirk, e.raise, round, c.browL, c.browR, c.tiltL, c.tiltR, c.cornerL, c.cornerR, c.press, this.browStyle.clear != null ? e.eye : 0, c.fangs || 0, e.wide || 0].join("|");
     if (key === this._lastKey && !globalThis.__noGeomCache) return;
     this._lastKey = key;
     for (let i = 0; i < 2; i++) {
@@ -687,13 +696,16 @@ export class Face {
     // pressed lips (c.press) close and flatten the mouth and pull it in; mouth corners move on their own (cornerR is the
     // character's right corner, at -u; + up)
     const press = c.press, open = e.open * (1 - press), smile = e.curve * (1 - 0.8 * press);
-    const w = L.mouthW * (1 - open * 0.35 - round * 0.3 - (e.pucker || 0) * 0.2) * (1 - 0.28 * press), mv = L.mouthV, n = 14;
+    // wide (0..1, opt-in, the "terrified" scream): the mouth stays broad as it opens and through the speech's rounding,
+    // a big open D of a yell instead of a small round "o" (Never Looks Up ep 2, Jonny 7 Nov: "no panic in the plane")
+    const wd = Math.max(0, Math.min(1, e.wide || 0));
+    const w = L.mouthW * (1 - (open * 0.35 + round * 0.3) * (1 - wd) - (e.pucker || 0) * 0.2) * (1 + 0.5 * wd) * (1 - 0.28 * press), mv = L.mouthV, n = 14;
     const upper = [], lower = [];
     for (let k = 0; k <= n; k++) {
       const t = k / n, u = -w + 2 * w * t;
       const sm = e.smirk * (t - 0.5) * 0.16 + 0.12 * (c.cornerR * (1 - t) ** 3 + c.cornerL * t ** 3);
       const bow = -Math.sin(t * Math.PI) * smile * 0.13; // smile pulls the middle down
-      upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * 0.06 * Math.sin(t * Math.PI)]);
+      upper.push([u, mv + bow * (1 - open * 0.6) + sm + open * (0.06 + 0.18 * wd) * Math.pow(Math.sin(t * Math.PI), 1 - 0.3 * wd)]);   // a yell's top lip arches up
       lower.push([u, mv + bow + sm - open * 0.3 * Math.sin(t * Math.PI)]);
     }
     this.corners = { R: upper[0], L: upper[n] };   // face coordinates of the mouth corners (a straw held in the lips follows them)

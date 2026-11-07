@@ -76,6 +76,9 @@ export function rigFindings(layout, sb) {
     const step = (i) => (series[i] && series[i - 1] && !cut(i) ? dist(series[i], series[i - 1]) : null);
     for (let i = 2; i < n - 1; i++) {
       const d = step(i); if (d == null || d <= lim * sc) continue;
+      // an allowClip window that names the check (with a reason) takes the frame out: a move that is meant to be
+      // that fast (a frantic pat, a flick), the same as hand-turn and frame0-jump
+      if (waived(check, who, i)) continue;
       // both neighbouring steps must be known: next to a cut or a hidden frame there is nothing to compare with
       // and not frozen by a hit-stop (the move carrying on after the hold is the point of it)
       const a = step(i - 1), b = step(i + 1); if (a == null || b == null || frozen(i - 1) || frozen(i + 1)) continue;
@@ -172,7 +175,7 @@ export function rigFindings(layout, sb) {
       // a slip moves it both from where the hand is and within the hand's turn: an upright hold keeps the first, a
       // pinch (which turns with the hand) the second
       const d = Math.min(dist(off[i], off[i - 1]), loc[i] && loc[i - 1] ? dist(loc[i], loc[i - 1]) : Infinity);
-      if (d > RIG.slip * sc) out.push({ level: d > GATE.propSlip * 1000 * sc && !waived("prop-pop", h.who, i) ? gateLevel(sb, "holds") : "warn", check: "prop-pop", who: h.who, what: `${h.prop} slips in the hand`, t: Math.round(T(i) * 1000) / 1000, size: Math.round(d) });
+      if (d > RIG.slip * sc && !waived("prop-pop", h.who, i)) out.push({ level: d > GATE.propSlip * 1000 * sc ? gateLevel(sb, "holds") : "warn", check: "prop-pop", who: h.who, what: `${h.prop} slips in the hand`, t: Math.round(T(i) * 1000) / 1000, size: Math.round(d) });
     }
   }
   return out.sort((a, b) => a.t - b.t);

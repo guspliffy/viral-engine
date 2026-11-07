@@ -44,13 +44,19 @@ import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
 import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
+import { FREEFALL_KINDS } from "./props-freefall.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
 import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4: the bistro table, the bill, the long bill
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
 import { LIBRARY_KINDS, LIBRARY_GRIPS } from "./props-library.js";   // too much energy 01, the library: bookcases, ladder, books, desk, lamp, shush
+import { CINEMA_KINDS, CINEMA_GRIPS } from "./props-cinema.js";   // too much energy 02, the cinema: seats, tiers, bucket, popcorn
+import { CAMP_KINDS, CAMP_GRIPS, CAMP_PARTS } from "./props-camp.js";   // too much energy 03, camping at 6 am: ridge tent, sleeping bags, cord, clock
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
+import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
+import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
+import { CITY_KINDS } from "./props-city.js";   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -83,6 +89,7 @@ export function gripPoint(spec, grip) {
 // state at that moment (ps: propState). Hands that hold a part follow it through gripWorld from there.
 const PARTS = { ...DUO_PARTS };
 Object.assign(PARTS, TENT_PARTS);   // friends try to, episode 2: the tent's guy rope and pole (props-tent.js)
+Object.assign(PARTS, CAMP_PARTS);   // too much energy 03: the ridge tent's zip slider (props-camp.js)
 export function partPoint(spec, ps, part, p, dir = false) {
   const f = PARTS[spec.kind];
   if (!f) throw new Error(`prop ${spec.id} (${spec.kind}) has no parts to hold`);
@@ -1347,16 +1354,21 @@ export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
 Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS, CANDY_KINDS, HELL_KINDS, COPYCAT_KINDS, ENERGY_KINDS, SOFA_KINDS, TRAIL_KINDS, NOTYET_KINDS, OKILIED_KINDS, BUSY_KINDS, ZOMBIE_KINDS, HORN_KINDS, BONFIRE_KINDS, GUARD_KINDS, DINO_KINDS, SHARK_KINDS, BUSSTOP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js), toyspider, jambwall (props-candy.js), fryoil, burnerflames, fryerbasket, steamjet, steamhaze, bobspud, fryfloat, spudshadows (props-hell.js), cafetable, hotsauce, pillarcandle, wallhole (props-copycat.js), bedframe, tipmattress, winglass, firecurtain, digiclock, broom, dustpan, ashpile, ashfall, outglow (props-energy.js), sofahalf, ceilingbreak, spellaura (props-sofa.js), carrier, trailstaff (props-trail.js), soggyfry, rubble, ruinwall, wetstreet, ripples, fogveil (props-zombie.js), parapet, stringlights, deckchair, blanket, teamug, toffeeapple, paving, sandbucket, firework, sparktrail, ember, barge, crowd (props-bonfire.js), sentrybox, railings, stoneblock, pigeon, fireball, tear, tongue, wetpuddle (props-guard.js), trex, firelog, campfire, mallowstick, mallows, mallowbag, boulder, ferns, roarlines (props-dino.js), donutring, shark, guardtower, megaphone, whistle, noodle, wakefoam, splash, bubbles (props-shark.js), busshelter, hedge, recyclebin, streetlamp (props-busstop.js)
 Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS);   // friends try to: wardrobe, plank, hardboard, allenkey, cardbox, screwbag, bubblewrap, manual (props-ikea.js); cat, plaidbed, petcarrier, sock, torchbeam, toymouse, treat, cattree, shadowpool (props-bedroom.js)
-Object.assign(KINDS, UFO_KINDS, PLANE_KINDS);   // never looks up: flyingsaucer, beanalien, lawnchair, telescope, popcornbowl, popcorn, picnicblanket (props-ufo.js); planeseat, seatbelt, cabinwall, overhead, oxymask, drinktray, blob, pillow, magazine, rowback (props-plane.js)
+Object.assign(KINDS, UFO_KINDS, PLANE_KINDS, FREEFALL_KINDS);   // never looks up: flyingsaucer, beanalien, lawnchair, telescope, popcornbowl, popcorn, picnicblanket (props-ufo.js); planeseat, seatbelt, cabinwall, overhead, oxymask, drinktray, blob, pillow, magazine, rowback (props-plane.js); airliner, stormsky, cloudrush, rainstreaks, skybolt (props-freefall.js)
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
 Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
+Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
+Object.assign(KINDS, CINEMA_KINDS); Object.assign(GRIPS, CINEMA_GRIPS);   // too much energy 02 (props-cinema.js)
+Object.assign(KINDS, CAMP_KINDS); Object.assign(GRIPS, CAMP_GRIPS);   // too much energy 03: ridgetent, sleepbag, tentcord, campclock (props-camp.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
+Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
+Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

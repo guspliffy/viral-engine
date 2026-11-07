@@ -610,6 +610,8 @@ export function actorState(sb, actor, def, t, raw = false) {
       // turn in Then I'm a Zombie Too (stage.js skinTint); to: 0 fades it back
       case "skin": st.skinColor = a.color ?? st.skinColor; st.skin = lerp(st.skin, a.to ?? 1, e); break;
       case "droop": st.droop = lerp(st.droop, a.to ?? 1, e); break;
+      // { do: "bloom", to: 1, dur, ease: "back" }: a potato blossom opens on the sprout (costumes.js; always orders potatoes)
+      case "bloom": st.bloom = lerp(st.bloom || 0, a.to ?? 1, e); break;
       case "swap": st.form = a.form || "fries"; st.friesPop = ease("back")(p); break;
       // { do: "hat", off, spin } tips or lifts the hat; on: false hides it (a costume pulled over it, the sheet ghost)
       case "hat": {
@@ -1155,6 +1157,16 @@ export function flashAt(sb, t) {
     if (k <= 1) o = Math.max(o, (f.peak ?? 0.8) * (k < 0.15 ? 1 : 1 - (k - 0.15) / 0.85));
   }
   return clamp(o);
+}
+// the colour of the strongest flash at t ("color": "#ffd27a" for a warm flash; white by default)
+export function flashColorAt(sb, t) {
+  let o = 0, c = "#fff";
+  for (const f of sb.fx || []) {
+    if (f.do !== "flash" || t < f.at) continue;
+    const d = f.dur ?? 0.35, k = (t - f.at) / d;
+    if (k <= 1) { const v = (f.peak ?? 0.8) * (k < 0.15 ? 1 : 1 - (k - 0.15) / 0.85); if (v > o) { o = v; c = f.color || "#fff"; } }
+  }
+  return c;
 }
 
 // the room's lights: "lights" effects fade the set's lights (to) and its lamp (lamp, else the same as to) to a level,

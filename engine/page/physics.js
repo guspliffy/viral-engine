@@ -143,7 +143,7 @@ export async function makePhysics(env) {
   }
   const cast = [], rootM = (st) => new THREE.Matrix4().compose(V().set(st.x, st.y - 0.1 * (st.kneel || 0), st.z), Q().setFromEuler(new THREE.Euler(st.pitch || 0, st.yaw, st.lean, "YXZ")), V().setScalar(st.scale ?? 1));
   for (const a of env.actors) {
-    const b = a.ch.body; if (!b?.geometry) continue;
+    const b = a.ch.body; if (!b?.geometry || a.ch.human) continue;   // (a person in rig human-v1 has no potato body to collide with yet)
     const st = actorState(sb, a.c, a.def, Math.max(0, tStart)); a.ch.apply(st, Math.max(0, tStart)); a.ch.root.updateMatrixWorld(true);
     const g = b.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), S = V(); b.matrixWorld.decompose(V(), Q(), S);
     const h = bb.getSize(V()).multiply(S).multiplyScalar(0.5), r = (h.x + h.z) / 2, c = bb.getCenter(V());
@@ -190,6 +190,11 @@ export async function makePhysics(env) {
     }
     if (!desc) { const bx = new THREE.Box3(); for (let i = 0; i < pts.length; i += 3) bx.expandByPoint(V().set(pts[i], pts[i + 1], pts[i + 2])); const s = bx.getSize(V()).multiplyScalar(0.5), c = bx.getCenter(V()); desc = RAPIER.ColliderDesc.cuboid(Math.max(s.x, 0.01), Math.max(s.y, 0.01), Math.max(s.z, 0.01)).setTranslation(c.x, c.y, c.z); }
     world.createCollider(desc.setDensity(B.density ?? PHYS.density).setRestitution(B.bounce ?? PHYS.bounce).setFriction(B.friction ?? PHYS.friction), body);
+    // a prop that moves on its own tweens before its start (a car driven until the bake takes it, a wheel parked
+    // out of sight until a blast throws it) is not where its body waits: no collider until it starts, or everything
+    // else hits an invisible copy of it at its start pose (7 Nov 2026, the city car crash). A prop standing still
+    // before its start (a bag on a shelf) stays solid where it stands, as before.
+    if (a.at > 0 && moving(p.spec)) body.collider(0).setEnabled(false);
     if (globalThis.__DIAG?.physics) { const bx = new THREE.Box3(); for (let i = 0; i < pts.length; i += 3) bx.expandByPoint(V().set(pts[i], pts[i + 1], pts[i + 2])); diag.push(`body ${id}: at ${P.toArray().map((x) => x.toFixed(2))} local box ${bx.min.toArray().map((x) => x.toFixed(2))} .. ${bx.max.toArray().map((x) => x.toFixed(2))}, ${pts.length / 3} points`); }
     // a settling prop starts with its lowest point on its spec's height (the surface the author stood it on: a prop's
     // y is its bottom, but a turned one can reach below it), so the pre-roll never starts sunk into a table
@@ -234,6 +239,7 @@ export async function makePhysics(env) {
       w = A.spin ? vec(A.spin) : A.mode === "drop" ? { x: 0, y: 0, z: 0 } : spinOf(was.R, now.R, PHYS.dt);
     }
     if (A.spin) w = vec(A.spin);
+    else if (A.rel?.spin && A.rel.to) w = vec(A.rel.spin);   // an aimed throw from the hand can set its tumble (the catapulted bucket turning over)
     return { P: unsink(b, P, R), R, v, w };
   };
   // lifted out of what is under it (a mug let go on the table it was put down on, its foot 1 cm into the top): a ray

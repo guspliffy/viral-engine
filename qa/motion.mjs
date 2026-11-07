@@ -121,7 +121,8 @@ export async function motionResults(sb, fps = 30) {
   const lean = j.filter((x) => ["lean", "pitch"].includes(x.what) && x.still && !x.frame0 && !cutBetween(sb, x.t - 3 / fps, x.t) && !windowFor(sb, "lean-jump", x.who, x.t));
   // the hands, the body's place and the feet between frames 0 and 1 are measured on the drawn rig (qa/rig.mjs)
   const f0 = j.filter((x) => x.frame0 && !["x", "y", "z", "handR", "handL"].includes(x.what) && !windowFor(sb, "frame0-jump", x.who, x.t));
-  const rest = j.filter((x) => !lean.includes(x) && !x.frame0);
+  // a jump an allowClip window names ("motion", or "rig-jump" as the drawn rig's check calls it), with a reason, is meant
+  const rest = j.filter((x) => !lean.includes(x) && !x.frame0 && !windowFor(sb, "motion", x.who, x.t) && !windowFor(sb, "rig-jump", x.who, x.t));
   const say = (x) => `${x.who} ${x.what} ${typeof x.size === "number" ? `${x.size.toFixed(2)} ` : ""}at ${x.t.toFixed(2)}s`;
   if (lean.length) out.push({ group: "technical", level: gateLevel(sb), check: "lean-jump", msg: `the body tips in one frame while everything round it is still: ${lean.slice(0, 6).map(say).join(", ")}${lean.length > 6 ? ", ..." : ""} (radians): ease the lean over 0.2 s or more${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });
   if (f0.length) out.push({ group: "technical", level: gateLevel(sb), check: "frame0-jump", msg: `the opening pose jumps between frame 0 and frame 1: ${f0.slice(0, 6).map(say).join(", ")}${f0.length > 6 ? ", ..." : ""}: start it instantly ("dur": 0 at t = 0, not 0.01 s)${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });

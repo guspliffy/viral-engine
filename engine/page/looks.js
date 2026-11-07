@@ -432,7 +432,7 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null }) {
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null, vfx = null }) {
   const D = drawnSpec(drawn);
   PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
@@ -605,7 +605,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}), ...(krimMul.has(m) && (LR ? ROLE[role] : null)?.krimK != null ? { krimK: ROLE[role].krimK * krimMul.get(m) } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}), ...(m.userData.krimK == null && krimMul.has(m) && (LR ? ROLE[role] : null)?.krimK != null ? { krimK: ROLE[role].krimK * krimMul.get(m) } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
@@ -613,7 +613,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick, color: lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -647,6 +647,8 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
   const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean)), D.brush) : null;
   if (lines) { fx.enabled = false; composer.addPass(lines); }
+  // Effekseer particle effects (vfx.js), in the scene's buffer against its depth, before the glow and the grade
+  if (vfx) composer.addPass(vfx.pass(camera));
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
   // story focus: a sharp band (set.focusBand metres either side of the focus) keeps a face beside the actor sharp
   // while the room behind and the floor in front soften

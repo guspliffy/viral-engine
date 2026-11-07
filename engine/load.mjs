@@ -10,6 +10,7 @@ import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
 import { focusTrack } from "./focus.mjs";
 import { cameraState } from "./page/timeline.js";
+import { worldCamera } from "./page/vehicle.js";
 import { envCoverage } from "./shared/env-coverage.js";
 
 export function loadCharacters(sb) {
@@ -143,7 +144,7 @@ export function loadStoryboard(file, opts = {}) {
 // writing 0.01. A hop, a talk, a blink, a walk and anything a frame or longer keep their times. Times stay at 0 or
 // later (page code reads the pose at an action's own time, e.g. a grab's held offset). It runs after the camera is
 // directed, so the shots don't change; old clips without the flag load exactly as before.
-const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "tilt", "hat", "span", "skin", "wings"]);
+const SETS_STATE = new Set(["arm", "look", "face", "expr", "prop", "sit", "crouch", "ride", "grip", "grab", "pitch", "lean", "turn", "droop", "bloom", "tilt", "hat", "span", "skin", "wings"]);
 export function cleanStart(sb) {
   if (!sb.cleanStart || !sb.actions) return sb;
   const frame = 1 / (sb.fps ?? 30);
@@ -172,7 +173,7 @@ function envFiles(set, sb) {
 // shows a layer's edge is refused before any render, like a contact glitch. qa/env.mjs prints the details and the
 // safe range; set.envCheck false turns the gate off (a test of the check itself).
 function envGate(sb) {
-  const r = envCoverage(sb.set.envData, (t) => cameraState(sb, t), sb.duration ?? 1, sb.fps ?? 30);
+  const r = envCoverage(sb.set.envData, (t) => worldCamera(sb, cameraState(sb, t), t), sb.duration ?? 1, sb.fps ?? 30);
   if (r.fails.length) throw new Error(`set env "${sb.set.env}": the camera shows the edge of the painting:\n` +
     r.fails.map((e) => `  ${e.from.toFixed(2)}-${e.to.toFixed(2)} s ${e.rule}: ${e.msg} (${e.at})`).join("\n") + `\n  run node qa/env.mjs ${sb.id ?? "<storyboard>"} for the safe camera range`);
 }
