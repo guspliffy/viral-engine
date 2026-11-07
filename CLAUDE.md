@@ -257,6 +257,12 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
   movement study: https://claude.ai/artifact/Sd9NtkpDDtfJ5GTmiuYjZE). Show Jonny a side by side (old | new) with a
   close-up that follows the character, at normal and half speed, before it becomes a default.
 
+- **Living worlds** (Jonny, 7 Nov 2026: "apply it to all future videos and backgrounds"): new clips on a painted
+  outdoor set have `"life": "auto"` (the template): wind in the grass and trees, drifting clouds and their shadows, a
+  few birds far behind the cast that fly off at the big loud moment, and the bed follows the same wind. Background
+  action stays in the background (Jonny 7 Nov: never birds in front of the cast). `"life": "storm"` for a stormy day.
+  docs/STORYBOARD.md "A living world".
+
 - **Copy nature for scenery too** (Jonny, 31 Oct 2026). Before building trees, branches, rocks, water or any other
   part of a set, write down how it is in nature (spacing, sizes and ages, growth direction, what is dead or broken,
   where it clumps) and build from that: groups and gaps, many small and few big, nothing in a rhythm or alternating.
