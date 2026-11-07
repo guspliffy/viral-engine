@@ -72,7 +72,8 @@
   "flaps": false,
   "signature": {
    "entrances": false
-  }
+  },
+  "guard": true
  },
  "creative": {
   "length": [

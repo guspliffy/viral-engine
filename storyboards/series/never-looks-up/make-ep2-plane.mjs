@@ -624,7 +624,7 @@ write(import.meta.url, {
   // strings, booming drums, brass hits) from the first frame; it cuts dead the moment Phoenix looks up (the stop locks
   // to a bar line), so "huh." lands in silence
   music: { file: "ai/disaster/disaster-04.ogg", until: T(8.0), lowCut: 150, gain: 0.45, duck: { db: 9 } },   // (the hits duck it harder: a busy orchestral bed buried the thuds)
-  sound: { sfx: 0.7, ambience: 0.3, surface: "carpet", room: "box", flaps: false, signature: { entrances: false } },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "carpet", room: "box", flaps: false, signature: { entrances: false }, guard: true },   // v6: the spike guard (B opened with a peaky stack of lurch, thunder and EEP)
   creative: { length: [END, END] },
   hook: VARIANT === "A" ? { show: ["phx", "wiz", "rea", "sam", "phone", "cup"], hint: 0, what: "the plane jolts, lightning flashes and the Wizard's juice jumps out of his cup while Phoenix scrolls" }
     : { show: ["jet"], hint: 0, what: "the plane lurches and rocks in a lightning storm while someone inside yelps EEP!" },
