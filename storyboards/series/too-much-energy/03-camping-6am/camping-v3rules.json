@@ -359,7 +359,7 @@
   },
   {
    "from": 0.95,
-   "to": 1.48,
+   "to": 1.1,
    "text": "Good MORNIIING!",
    "pos": 500,
    "pop": false,
@@ -407,6 +407,15 @@
    "to": 9.8,
    "text": "Again tomorrow?",
    "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.1,
+   "to": 1.48,
+   "text": "Good MORNIIING!",
+   "pos": 330,
    "pop": false,
    "size": 62,
    "kinetic": false

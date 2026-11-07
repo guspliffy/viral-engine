@@ -329,6 +329,10 @@ const REACU = { pos: [-0.42, 0.95, 0.75], look: [-0.5, 0.88, -1.1], fov: 40 };  
 const SUNW = { pos: [-1.7, 2.1, 6.4], look: [-0.15, 0.75, 0.4], fov: 52 };   // review B wanted the friends bigger: a medium from his side put Phoenix in front of them, so the wide is tighter instead   // from the left of the wide: Phoenix, both faces, the clock and the sun in one picture
 // review B: no caption across a cut or over the next beat
 for (const cp of c.captions) { if (cp.text === "Good MORNIIING!") cp.to = 1.48; if (cp.text === "Sun's up!") cp.to = 4.5; }
+if (V3) {   // in Reaper's close-up his hood fills the frame up to y 580: the yell's subtitle moves up into the tent roof on the cut
+  const gm = c.captions.find((cp) => cp.text === "Good MORNIIING!");
+  c.captions.push({ ...gm, from: CU, pos: 330 }); gm.to = CU;
+}
 const beats = c.beats([
   ["01 already too much", 0, WIDE, "hook"],
   ...(V3 ? [["01b the victim", CU, REACU, "reaction"]] : []),
