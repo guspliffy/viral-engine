@@ -5204,7 +5204,7 @@
    "shot": {
     "pos": [
      -0.6,
-     2.4,
+     2.9,
      12.5
     ],
     "look": [
@@ -10867,7 +10867,7 @@
     "rig": "car",
     "pos": [
      0,
-     1.7,
+     1.95,
      4.8
     ],
     "look": [
@@ -10879,7 +10879,7 @@
     "to": {
      "pos": [
       -0.1,
-      1.65,
+      1.9,
       4.4
      ]
     },
@@ -13006,7 +13006,7 @@
      1.485,
      -5.112
     ],
-    "fov": 30,
+    "fov": 23,
     "to": {
      "look": [
       2.49,
@@ -13352,7 +13352,7 @@
   {
    "name": "swipe",
    "at": 4.6,
-   "len": 1.2,
+   "len": 0.8,
    "shot": {
     "rig": "car",
     "pos": [
@@ -13373,7 +13373,7 @@
       2.7
      ]
     },
-    "dur": 1.2,
+    "dur": 0.8,
     "ease": "inOut"
    },
    "do": [
@@ -13485,81 +13485,13 @@
      "dur": 0.1,
      "ease": "linear",
      "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "wheel",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "wheel",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "wheel",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "wheel",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "happy",
-     "set": {
-      "curve": 0.5,
-      "open": 0.2,
-      "eye": 1.1
-     },
-     "dur": 0.25,
-     "at": 1.15
-    },
-    {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.16
     }
    ]
   },
   {
    "name": "phew",
-   "at": 5.8,
-   "len": 1.1,
+   "at": 5.4,
+   "len": 1.5,
    "shot": {
     "pos": [
      1.6,
@@ -13567,9 +13499,9 @@
      12
     ],
     "look": [
-     2.997,
-     3.079,
-     -3.382
+     2.476,
+     2.929,
+     -3.65
     ],
     "fov": 28,
     "to": {
@@ -13579,7 +13511,7 @@
       -2.67
      ]
     },
-    "dur": 1.1,
+    "dur": 1.5,
     "ease": "inOut"
    },
    "do": [
@@ -13594,15 +13526,6 @@
      "at": 0
     },
     {
-     "fx": "pop",
-     "text": "phew?",
-     "who": "dra",
-     "dur": 0.7,
-     "dx": 0.8,
-     "dy": -0.9,
-     "at": 0.05
-    },
-    {
      "do": "prop",
      "id": "wheel",
      "set": {
@@ -13611,6 +13534,14 @@
      "dur": 0.1,
      "ease": "linear",
      "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -13633,6 +13564,26 @@
      "at": 0.3
     },
     {
+     "who": "dra",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.5,
+      "open": 0.2,
+      "eye": 1.1
+     },
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.36
+    },
+    {
      "do": "prop",
      "id": "wheel",
      "set": {
@@ -13641,6 +13592,15 @@
      "dur": 0.1,
      "ease": "linear",
      "at": 0.4
+    },
+    {
+     "fx": "pop",
+     "text": "phew?",
+     "who": "dra",
+     "dur": 0.7,
+     "dx": 0.8,
+     "dy": -0.9,
+     "at": 0.45
     },
     {
      "do": "prop",
@@ -13673,14 +13633,6 @@
      "at": 0.7
     },
     {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 0.8
-    },
-    {
      "do": "prop",
      "id": "wheel",
      "set": {
@@ -13688,18 +13640,6 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.75,
-      "eye": 1.4,
-      "curve": -0.3
-     },
-     "dur": 0.2,
      "at": 0.8
     },
     {
@@ -13713,12 +13653,14 @@
      "at": 0.9
     },
     {
-     "who": "phx",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.96
+     "do": "prop",
+     "id": "wheel",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1
     },
     {
      "do": "prop",
@@ -13728,7 +13670,65 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 1
+     "at": 1.1
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "wheel",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.2
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.75,
+      "eye": 1.4,
+      "curve": -0.3
+     },
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "wheel",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.36
+    },
+    {
+     "do": "prop",
+     "id": "wheel",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.4
     }
    ]
   },

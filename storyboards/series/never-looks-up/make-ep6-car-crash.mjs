@@ -283,17 +283,17 @@ const carMid = (t, dy = 0.9) => { const w = W(t, [0, dy, 0]); return w; };
 const look = (t, dy) => carMid(t, dy);
 const beats = c.beats([
   // the hook: long lens from ahead, the rock in the lane in front of the car; it pulls wider as the car comes
-  ["swerve", 0, { pos: [-0.6, 2.4, 12.5], look: [-1.5, 1.2, -13.5], fov: 12.5, to: { pos: [0.2, 2.3, 12.5], look: look(TRIP, 1.0), fov: 22 }, dur: TRIP, ease: "inOut" }, "hook"],
+  ["swerve", 0, { pos: [-0.6, 2.9, 12.5], look: [-1.5, 1.2, -13.5], fov: 12.5, to: { pos: [0.2, 2.3, 12.5], look: look(TRIP, 1.0), fov: 22 }, dur: TRIP, ease: "inOut" }, "hook"],
   // the trip: lower and to the left, along the kerb: the tyres hit it and the car tips over toward us
   ["trip", TRIP, { pos: [2.6, 1.15, 9.5], look: look(TRIP, 0.8), fov: 30, to: { look: look(2.25, 1.2) }, dur: 0.8, ease: "out" }],
   // in the car on its side: both faces upright, the world turned 90 degrees behind them; the setup ping
-  ["ping", 2.25, { rig: "car", pos: [0, 1.7, 4.8], look: [0, 1.4, -0.3], fov: 30, to: { pos: [-0.1, 1.65, 4.4] }, dur: 1.05, ease: "inOut" }],
+  ["ping", 2.25, { rig: "car", pos: [0, 1.95, 4.8], look: [0, 1.4, -0.3], fov: 30, to: { pos: [-0.1, 1.9, 4.4] }, dur: 1.05, ease: "inOut" }],
   // wide again: upside down, the snacks floating out
-  ["roll", 3.3, { pos: [1.4, 2.6, 12.5], look: look(3.3, 1.4), fov: 30, to: { look: look(4.6, 1.4) }, dur: 1.3, ease: "inOut" }, "escalation"],
+  ["roll", 3.3, { pos: [1.4, 2.6, 12.5], look: look(3.3, 1.4), fov: 23, to: { look: look(4.6, 1.4) }, dur: 1.3, ease: "inOut" }, "escalation"],
   // the swipe: close on Phoenix in the car, the road going round behind him
-  ["swipe", 4.6, { rig: "car", pos: [-0.4, 1.55, 3.0], look: [PHX_X, 1.0, -0.3], fov: 28, to: { pos: [-0.42, 1.5, 2.7] }, dur: 1.2, ease: "inOut" }],
+  ["swipe", 4.6, { rig: "car", pos: [-0.4, 1.55, 3.0], look: [PHX_X, 1.0, -0.3], fov: 28, to: { pos: [-0.42, 1.5, 2.7] }, dur: 0.8, ease: "inOut" }],
   // wide: upright in the air (phew?), then over again
-  ["phew", 5.8, { pos: [1.6, 2.4, 12.0], look: look(5.8, 1.6), fov: 28, to: { look: look(6.9, 1.3) }, dur: 1.1, ease: "inOut" }],
+  ["phew", 5.4, { pos: [1.6, 2.4, 12.0], look: look(5.4, 1.6), fov: 28, to: { look: look(6.9, 1.3) }, dur: 1.5, ease: "inOut" }],
   // the peak: low, the road a hand's width over their heads
   ["peak", 6.9, { pos: [2.6, 0.6, 11.0], look: look(7.2, 0.4), fov: 26, to: { pos: [2.9, 0.55, 10.4], look: look(LU, 0.3) }, dur: LU - 6.9, ease: "inOut" }],
   // the look-up: in the car, a medium close on Phoenix from his front left at three-quarters, eye level, the road
