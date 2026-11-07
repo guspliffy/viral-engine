@@ -1067,7 +1067,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.17,
      "reason": "the tent zip pulled down: zzzip",
      "at": 0.12
@@ -1103,7 +1103,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.17,
      "reason": "the tent zip pulled up: zzzip",
      "at": 0.3
@@ -1127,7 +1127,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.14,
      "reason": "the tent zip pulled down: zzzip",
      "at": 0.48
@@ -1151,7 +1151,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.14,
      "reason": "the tent zip pulled up: zzzip",
      "at": 0.63
@@ -1188,7 +1188,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.11,
      "reason": "the tent zip pulled down: zzzip",
      "at": 0.78
@@ -1212,7 +1212,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.11,
      "reason": "the tent zip pulled up: zzzip",
      "at": 0.9
@@ -1236,7 +1236,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.09,
      "reason": "the tent zip pulled down: zzzip",
      "at": 1.02
@@ -1260,7 +1260,7 @@
     },
     {
      "sfx": "zip",
-     "gain": 0.65,
+     "gain": 0.95,
      "dur": 0.09,
      "reason": "the tent zip pulled up: zzzip",
      "at": 1.12
@@ -3010,7 +3010,7 @@
     },
     {
      "sfx": "thud-soft",
-     "gain": 0.35,
+     "gain": 0.6,
      "reason": "both heads dropping back onto the grass at once",
      "at": 1.35
     }

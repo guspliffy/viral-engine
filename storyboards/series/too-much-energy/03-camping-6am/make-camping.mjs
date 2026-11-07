@@ -109,7 +109,7 @@ c.arm(1.5, "phx", "L", ZIPG, 0.15, "out");
 const ZIPS = [[1.62, 0.2, 0.17], [1.8, 0.6, 0.17], [1.98, 0.2, 0.14], [2.13, 0.6, 0.14], [2.28, 0.2, 0.11], [2.4, 0.6, 0.11], [2.52, 0.2, 0.09], [2.62, 0.6, 0.09]];
 for (const [t, to, d] of ZIPS) {
   c.prop(t, "tent", { open: to }, d, "inOut");
-  sfx(t, "zip", { gain: 0.65, dur: d, reason: to < 0.4 ? "the tent zip pulled down: zzzip" : "the tent zip pulled up: zzzip" });
+  sfx(t, "zip", { gain: 0.95, dur: d, reason: to < 0.4 ? "the tent zip pulled down: zzzip" : "the tent zip pulled up: zzzip" });
   A(t, "phx", "crouch", { to: to < 0.4 ? 0.6 : 0, dur: d });
 }
 A(1.65, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.6, eye: 1.15 }, dur: 0.12 });
@@ -293,7 +293,7 @@ c.arm(V(9.5), "phx", "L", { o: [0.3, 0.7, 0.15] }, 0.15, "inOut"); c.arm(V(9.5),
 c.say(V(9.58), "phx", "AGAIN! tomorrow?", 0.55, "excited", { pos: SUB, sub: "AGAIN! Tomorrow?" });   // reach rules v2 B5: "AGAIN!" = Phoenix's fixed catchphrase (proposal, from ep 2's ending)
 for (const id of ["rea", "wiz"]) { A(V(9.75), id, "pitch", { to: -32, dur: 0.15, ease: "in" }); A(V(9.75), id, "face", { lid: 1, dur: 0.12 }); }
 A(V(9.75), "wiz", "expr", { expr: "kind", set: { curve: 0.2, open: 0 }, dur: 0.15 });   // asleep but pleased: the answer to frame 0's frown
-sfx(V(9.85), "thud-soft", { gain: 0.35, reason: "both heads dropping back onto the grass at once" });
+sfx(V(9.85), "thud-soft", { gain: 0.6, reason: "both heads dropping back onto the grass at once" });
 c.at(V(9.82), { fx: "zzz", who: "rea", dur: 0.6, count: 2 }); c.at(V(9.82), { fx: "zzz", who: "wiz", dur: 0.6, count: 2 });
 see(V(9.6), V(9.95), ["phx.face", "rea", "wiz"], "\"Again tomorrow?\": both friends drop back asleep");
 
