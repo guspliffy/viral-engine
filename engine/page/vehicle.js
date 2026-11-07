@@ -117,3 +117,19 @@ export function wheelNeed(rig, set, t) {
     return (groundAt(set, t, w[0], w[2]) + r - w[1]) / Math.max(0.05, R[1][1]);
   });
 }
+
+// a camera the storyboard gives in a rig's frame ("rig" shots: pos, look and up ride with the car) or following it
+// ("track": its x and z), in the world: what stage.js draws, for checks that run without the page (the env coverage
+// gate). cam: cameraState's { pos, look, fov, ... }; returns it with world pos, look and up
+export function worldCamera(sb, cam, t) {
+  const shot = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at).at(-1);
+  const rig = (id) => (sb.rigs || []).find((r) => r.id === id);
+  const R0 = shot?.rig && rig(shot.rig), T0 = shot?.track && rig(shot.track);
+  if (R0) {
+    const s = rigState(R0, t), R = rigRotation(s), o = rigOrigin(R0, s, R);
+    const pt = (q) => [0, 1, 2].map((i) => o[i] + R[i][0] * q[0] + R[i][1] * q[1] + R[i][2] * q[2]);
+    return { ...cam, pos: pt(cam.pos), look: pt(cam.look), up: [R[0][1], R[1][1], R[2][1]] };
+  }
+  if (T0) { const p = rigState(T0, t).pos; return { ...cam, pos: [cam.pos[0] + p[0], cam.pos[1], cam.pos[2] + p[2]], look: [cam.look[0] + p[0], cam.look[1], cam.look[2] + p[2]] }; }
+  return cam;
+}
