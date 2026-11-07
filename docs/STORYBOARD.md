@@ -270,7 +270,7 @@ moving at once.
   `aura` (twisting magic), `light` (a pillar of light), `barrier`, `tornado`, `sparks`; or `file` with an `.efkefc`
   path. `on`: a character, prop or vehicle rig id (`offset` from its root; `"follow": true` keeps the effect on it);
   `scale` (0.3), `speed`, `rot` (degrees), `color` (multiplies the effect: it can darken or tint, not brighten), `dur`
-  (the emitters stop, live particles finish). The effect's peak comes a little after `at` (`toon-hit` at speed 1.6:
+  (the emitters stop and what is left fades out over `fade` seconds, default 0.2; `"fade": false` lets live particles finish, which can linger). The effect's peak comes a little after `at` (`toon-hit` at speed 1.6:
   about 0.15 s), so start it that much before the contact frame. The effect files are fetched with
   `tools/vfx/fetch-effects.sh` (git-ignored, see that script). Clips without a `vfx` item never load the runtime.
 

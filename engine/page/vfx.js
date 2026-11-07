@@ -9,8 +9,9 @@ import { Pass } from "three/addons/postprocessing/Pass.js";
 //   { "do": "vfx", "effect": "aura", "at": 3.5, "dur": 1.0, "on": "wiz", "offset": [0, 0.5, 0], "follow": true }
 //   optional: "scale" (default 0.3), "speed" (1), "color" ("#rrggbb" or [r, g, b, a] 0..255, multiplies the effect),
 //   "seed" (random seed, default from the item's index), "rot" [x, y, z] in degrees, "file" (an .efkefc path instead
-//   of a named effect). "dur" ends the effect softly (its emitters stop, live particles finish); without it the
-//   effect plays out on its own.
+//   of a named effect). "dur" ends the effect: its emitters stop and what is left fades out over "fade" seconds
+//   (default 0.2; "fade": false lets the live particles finish on their own, which can linger a long time); without
+//   "dur" the effect plays out on its own.
 //
 // Time: Effekseer steps in 1/60 s frames and cannot run backwards, so the whole effect clock is replayed from the
 // start whenever a frame is asked for out of order (a shard's first frame, a smear in-between, the frame cache). A
@@ -59,7 +60,8 @@ export async function makeVfx({ R, sb, target }) {
   const list = items.map(([f, i]) => ({
     f, i, effect: files.get(f.file || VFX[f.effect]),
     start: Math.round((f.at ?? 0) * STEP), stop: f.dur != null ? Math.round(((f.at ?? 0) + f.dur) * STEP) : Infinity,
-    handle: null,
+    fade: f.dur != null && f.fade !== false ? Math.max(1, Math.round((f.fade ?? 0.2) * STEP)) : 0,
+    color: rgba(f.color || [255, 255, 255, 255]), handle: null,
   }));
   const where = (it) => {
     const o = it.f.offset || [0, 0, 0];
@@ -74,9 +76,15 @@ export async function makeVfx({ R, sb, target }) {
         const h = ctx.play(it.effect, ...where(it)), s = it.f.scale ?? 0.3, r = (it.f.rot || [0, 0, 0]).map((d) => (d * Math.PI) / 180);
         h.setRandomSeed(it.f.seed ?? 1000 + it.i); h.setScale(s, s, s); h.setRotation(...r);
         if (it.f.speed) h.setSpeed(it.f.speed);
-        if (it.f.color) h.setAllColor(...rgba(it.f.color));
+        if (it.f.color) h.setAllColor(...it.color);
         it.handle = h;
       } else if (it.handle && clock === it.stop) it.handle.stopRoot();
+      if (it.handle && it.fade && clock >= it.stop) {
+        // the fade after "dur": everything left dims to nothing, then the effect is gone
+        const k = (clock - it.stop) / it.fade;
+        if (k >= 1) { it.handle.stop(); it.handle = null; continue; }
+        const [r, g, b, a] = it.color; it.handle.setAllColor(r, g, b, Math.round(a * (1 - k)));
+      }
       if (it.handle && it.f.follow && clock > it.start) it.handle.setLocation(...where(it));
     }
     ctx.update(1); clock++;
@@ -105,7 +113,7 @@ export async function makeVfx({ R, sb, target }) {
     return true;
   };
   // the effects at time t, for the frame cache's key: which are alive and how far along
-  const key = (t) => list.filter((it) => { const k = t * STEP; return k >= it.start && k <= (it.stop === Infinity ? it.start + 10 * STEP : it.stop + 4 * STEP); }).map((it) => [it.i, Math.round(t * STEP) - it.start, it.f.follow ? where(it).map((v) => Math.round(v * 1000)) : 0]);
+  const key = (t) => list.filter((it) => { const k = t * STEP; return k >= it.start && k <= (it.stop === Infinity ? it.start + 10 * STEP : it.stop + (it.fade || 4 * STEP)); }).map((it) => [it.i, Math.round(t * STEP) - it.start, it.f.follow ? where(it).map((v) => Math.round(v * 1000)) : 0]);
 
   class VfxPass extends Pass {
     constructor(camera) { super(); this.camera = camera; this.needsSwap = false; }

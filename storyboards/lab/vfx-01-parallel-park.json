@@ -3814,7 +3814,7 @@
    "do": "vfx",
    "effect": "aura",
    "at": 3.5,
-   "dur": 1.0,
+   "dur": 0.85,
    "on": "car",
    "offset": [
     0,
@@ -3823,7 +3823,8 @@
    ],
    "follow": true,
    "scale": 0.8,
-   "reason": "Abra-ca-PARK!: a twisting magic aura round the lifting car instead of three purple poofs"
+   "reason": "Abra-ca-PARK!: a twisting magic aura round the lifting car, gone by the landing at 4.55 (Jonny 7 Nov: the spell was on too long)",
+   "fade": 0.2
   }
  ]
 }
