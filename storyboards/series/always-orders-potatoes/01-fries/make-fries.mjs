@@ -344,7 +344,7 @@ const VICTIM = fw([GSL[0] + 0.05, 0.74, GSL[1]], { w: 1.0, az: -4, el: 6, fov: 2
 const BITE = fw([-0.05, 0.75, -0.42], { w: 1.55, el: 38, fov: 30, push: 0.06, dur: 0.9 });   // from higher: the fries stay under his eyes  // panel 2: the series' straight push-in
 const POOL = fw([0.0, 0.52, -0.12], { w: 1.15, el: 20, fov: 32 });                          // panels 3-4: Viking, the tray and the dips, Gunslinger's face
 const SEEING_SHOT = fw([-0.35, 0.62, -0.5], { w: 1.9, az: -14, el: 10, fov: 30 });        // panel 5: Gunslinger big front left, Reaper behind his line
-const LEAP = fw([0.5, 0.42, -0.3], { w: 1.2, az: 8, el: 20, fov: 30 });                  // panels 6-7: the cone, Viking, Reaper and his soup
+const LEAP = fw([0.36, 0.42, -0.3], { w: 1.3, az: 8, el: 20, fov: 30 });   // the cone (the fry that says Ooh, soup!) at the left, the soup big in the middle, Reaper right                  // panels 6-7: the cone, Viking, Reaper and his soup
 const beats = c.beats([
   ["P1 best fries in town", 0, WIDE_OPEN, "hook"],
   ["P1b the victim (v3 B8)", GSLCU, VICTIM, "reaction"],
@@ -363,6 +363,7 @@ for (const cp of c.captions) {
   if (cp.text === "Yaaay!") cp.to = GSLCU;
   if (cp.text === "Hi!") cp.to = 2.3;   // each short line ends with its beat: held on into the next one it sat over the cone and the fries for 0.9 s
   if (cp.text === "Ooh!") cp.to = 3.55;
+  if (cp.text === "Are you seeing this?") cp.to = 6.8;
   if (cp.text === "Ooh, soup!") cp.to = LAUNCH;
   if (cp.text === "Want some?") cp.to = END;
 }
