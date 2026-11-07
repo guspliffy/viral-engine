@@ -275,8 +275,8 @@ A(r3(LAUNCH - 0.2), "fa", "squash", { amount: 0.18, dur: 0.2 });   // the crouch
 hopTo(LAUNCH, "fa", [SOUP[0], SOUP[1]], r3(SOUP_TOP - 0.13), FLY, 0.42, -360);
 fryArms(LAUNCH, "fa", CHEER, "open", 0.12);
 sfx(LAUNCH, "whoosh", { gain: 0.4, reason: "the fry springs off the cone into a backflip" });
-c.knock(r3(LAUNCH + 0.02), "cone", { v: [-0.18, 0.05, 0.04], spin: [0, 0, 3.0] });   // pushed off: the cone tips over onto the tray
-sfx(r3(LAUNCH + 0.3), "put-down-glass", { gain: 0.25, reason: "the paper cone tipping over onto the tray" });
+c.knock(r3(LAUNCH + 0.2), "cone", { v: [-0.3, 0.06, 0.0], spin: [0, 0, 6.0] });   // the push-off jolts it: it hops and rocks back down in its wire stand (the stand keeps it upright). It wakes once the fry is out of it: woken with the fry's body still inside, the bake shot it 70 cm up
+sfx(r3(LAUNCH + 0.35), "put-down-glass", { gain: 0.25, reason: "the paper cone dropping back into its wire stand after the push-off" });
 // the landing: upright in the soup, a plop and a splash, the soup rings out round it
 sfx(HS, "ai/drip", { gain: 1.0, reason: "the payoff: the fry lands upright in Reaper's soup, a wet plop" });
 sfx(HS, "splash", { gain: 0.7, reason: "the soup splashing up round the fry" });

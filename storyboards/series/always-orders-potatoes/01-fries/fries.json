@@ -3639,22 +3639,6 @@
      "at": 0.45
     },
     {
-     "do": "physics",
-     "prop": "cone",
-     "mode": "knock",
-     "v": [
-      -0.18,
-      0.05,
-      0.04
-     ],
-     "spin": [
-      0,
-      0,
-      3
-     ],
-     "at": 0.47
-    },
-    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -3725,10 +3709,26 @@
      "at": 0.6
     },
     {
+     "do": "physics",
+     "prop": "cone",
+     "mode": "knock",
+     "v": [
+      -0.3,
+      0.06,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      6
+     ],
+     "at": 0.65
+    },
+    {
      "sfx": "put-down-glass",
      "gain": 0.25,
-     "reason": "the paper cone tipping over onto the tray",
-     "at": 0.75
+     "reason": "the paper cone dropping back into its wire stand after the push-off",
+     "at": 0.8
     },
     {
      "sfx": "ai/drip",

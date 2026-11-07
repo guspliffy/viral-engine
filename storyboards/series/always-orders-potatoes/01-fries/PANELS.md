@@ -19,7 +19,7 @@ row Phoenix (back left, behind the booth, phone up) and the Samurai waiter (back
 | 3 | 2.8-4.6 | dips in the milkshake; Gunslinger pushes his salad | the wide, then closer on the tray: a fry points at the ketchup ("Ooh!") and hops in like a hot tub ("Aaah!"); Viking claps |
 | 4 | 4.6-5.8 | hamster cheeks | the next fry cannonballs into the mayo ("Wheee!"); Gunslinger pushes his salad away |
 | 5 | 5.8-7 | closer, Gunslinger big front left, "Are you seeing this?" | the same, from the same side |
-| 6 | 7-7.7 | the cascade from the tipped cone, "Ooh, more!" | the last fry spots the soup ("Ooh, soup!") and backflips off the cone; the cone tips over (physics) |
+| 6 | 7-7.7 | the cascade from the tipped cone, "Ooh, more!" | the last fry spots the soup ("Ooh, soup!") and backflips off the cone; the push-off jolts the cone in its stand (physics) |
 | 7 | 7.7-8.8 | the fry standing upright in Reaper's soup | the fry lands upright in the soup (hit-stop), "Ta-da!"; Reaper stares down, then up at Viking |
 | 8 | 8.8-10 | Viking offers a fry, "Want one?", Gunslinger palms up | the wide: the fry in the soup offers Reaper his own soup, "Want some?" (the catchphrase); Gunslinger leans back, palms up; Viking thumbs up |
 
@@ -29,8 +29,8 @@ row Phoenix (back left, behind the booth, phone up) and the Samurai waiter (back
   plain fries; the cone holds only crumbs. As in the steakhouse remake (PR #153), Viking never eats a potato that is
   alive: the first bite turns into a "Hi!" and the blossom pops because he melts.
 - **The cascade becomes a backflip:** a physics cascade of fries would be twenty more characters. One fry backflips
-  into the soup, which keeps the panel's payoff (a fry standing upright in Reaper's soup), and the cone tipping over
-  is the physics.
+  into the soup, which keeps the panel's payoff (a fry standing upright in Reaper's soup); the push-off jolts the cone in
+  its wire stand (physics; knocked harder it flew off the table and across Viking's face).
 - **The dips:** the fries dip themselves (hot tub, cannonball) instead of Viking dipping them; the milkshake stays on
   the table between Gunslinger and Viking as dressing.
 - **"Want some?"** is said by the fry to Reaper (the series' catchphrase, reach rule B5), not by Viking to Gunslinger;
