@@ -76,11 +76,12 @@ const SIDE = [[0, LANE, 0], [0.06, LANE, 0], [0.42, -0.55, 3.6], [0.7, 0.15, 2.0
 const YAW = [[0, 0, 0], [0.06, 0, 0], [0.26, 17, 40], [0.5, 6, -70], [0.8, -22, -40], [TRIP, -34, -5], [LIFT, -24, 60], [1.9, -6, 30], [2.05, 0, 0], [UF, 0, 0], [LAND, 0, 0], [LAND + 0.25, 8, 0], [LAND + 0.6, -3, 0], [LAND + 0.9, 0, 0], [9, 0, 0]];
 const PITCH = [[0, 0, 0], [0.06, 0, 0], [0.2, 1.4, 0], [0.5, 0.5, 0], [TRIP, 0, 0], [LIFT, 4, 0], [2.4, 2, 0], [UF, -2, 0], [LAND, 0, 3], [LAND + 0.12, -2.5, 0], [LAND + 0.35, 1, 0], [LAND + 0.6, 0, 0], [9, 0, 0]];
 // roll (- tips the car over its left side, +x, the side it slides toward): ONE turn (Jonny 7 Nov: "2 spins now instead
-// of one"). On its side for the setup ping (t 2.6), slowly over onto its roof through the slow motion (about 90 deg a
-// story second: the same tumble, slowed), upside down for the peak and the freeze, then the last half turn onto its
-// wheels when time comes back
-const R_PING = U(2.6), R_UP1 = U(3.9), R_FLAT = U(6.1), R_ALIVE = U(7.0);
-const ROLL = [[0, 0, 0], [TRIP, 0, 0], [TRIP + 0.08, -4, -80], [LIFT, -22, -180], [1.9, -60, -200], [R_PING, -82, -130], [R_UP1, -106, -100], [R_FLAT, -145, -95], [R_ALIVE, -162, -90], [UF, -180, -90], [UF + 0.18, -262, -480], [LAND, -360, -250], [LAND + 0.1, -362.5, 0], [LAND + 0.3, -359.2, 0], [LAND + 0.55, -360, 0], [9, -360, 0]];
+// of one"). On its side for the setup ping (t 2.6), slowly on through the slow motion, then from video 5 s 2.5x faster
+// over onto its roof (Jonny 7 Nov: "the spin from second 5 on could be at least 2.5x as fast"), upside down from
+// about 6.3 s while it falls toward the road for the peak and the freeze, then the last half turn onto its wheels when
+// time comes back
+const R_PING = U(2.6), R_UP1 = U(3.9), R_FLAT = U(6.1), R_5 = U(4.9), R_62 = U(6.2);
+const ROLL = [[0, 0, 0], [TRIP, 0, 0], [TRIP + 0.08, -4, -80], [LIFT, -22, -180], [1.9, -60, -200], [R_PING, -82, -130], [R_UP1, -106, -100], [R_5, -124, -180], [U(5.6), -152, -240], [R_62, -173, -110], [U(6.7), -181, -50], [UF, -190, -45], [UF + 0.18, -262, -480], [LAND, -360, -250], [LAND + 0.1, -362.5, 0], [LAND + 0.3, -359.2, 0], [LAND + 0.55, -360, 0], [9, -360, 0]];
 // how high the car's lowest point is over the ground (m): the hull's own clearance is added, so it tips over its
 // kerb-side tyres, flies, and when it comes down rolls over its edge onto its wheels. At the freeze the heads are
 // 0.25 m over the road (the peak: the road a hand's width over Phoenix's crest)
