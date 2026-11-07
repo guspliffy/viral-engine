@@ -19,6 +19,12 @@ import { patProps, pocketPat, PAT } from "../pocket-pat.mjs";
 import { wink } from "../wink.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
+// --v3rules: the reach rules v3 test cut (research/hook-curiosity-2026-11-07, "Reach rules v3"; Jonny 7 Nov, posting
+// test day 4): B7 Gunslinger's promise is the first line at 0.0, B8 a cut to the Wizard's close-up at 1.05 with a
+// 0.7 s freeze on his face. Everything else is the posted cut (coffee-run.json), same music seed. Writes
+// coffee-run-v3rules.json beside it.
+const V3 = process.argv.includes("--v3rules");
+const CU = 1.07, FZ = 1.4, FZF = 21, FZD = FZF / 30;   // the cut to his close-up; the freeze from frame 42, 21 frames (0.7 s)
 // two 3-frame hit-stops (the note slapped on the handle at 5.9, the avalanche at 7.3 on the video's clock) add 0.2 s:
 // 9.8 s of story = exactly 10.0 s of video
 const HS1 = 5.9, HS2 = 7.2, END = 9.8;
@@ -104,7 +110,19 @@ c.arm(0, "wiz", "R", { o: [0.05, 0.52, 0.4] }, 0); A(0, "wiz", "grip", { side: "
 for (const t of [0.3, 0.9]) { c.arm(t, "wiz", "R", { o: [0.05, 0.5, 0.42] }, 0.08, "inOut"); c.arm(r3(t + 0.08), "wiz", "R", { o: [0.05, 0.52, 0.4] }, 0.1, "inOut"); }
 A(0, "wiz", "look", { to: [-0.55, 0.0], dur: 0, blink: false });
 act.mood(c, 0.02, "wiz", "annoyed", { strength: 0.6, hold: 0.5 });
-c.say(0, "wiz", "that's four fifty!", 0.6, "calm", { voice: false, sub: "That's 4.50!", pos: SUB_HIGH });
+if (!V3) c.say(0, "wiz", "that's four fifty!", 0.6, "calm", { voice: false, sub: "That's 4.50!", pos: SUB_HIGH });
+else {
+  // B7: his promise first, while his hand is already taking the coffee he hasn't paid for (up to the cut, 1.07 s:
+  // the Wizard's hat fills the subtitle line in his close-up)
+  const PROMISE = "This time I'm paying. Promise!";
+  c.say(0, "gsl", "this time I'm paying, promise!", 0.55, "excited", { voice: false, sub: PROMISE, pos: SUB_HIGH });
+  // B8: the Wizard's close-up, his eyes already on Gunslinger in the wide: his annoyance at full strength, an
+  // unimpressed squint, held in the freeze (a little from his right, so his side-eye reads toward Gunslinger, screen left as in the wide)
+  act.mood(c, 1.05, "wiz", "annoyed", { hold: 0.6 });
+  A(1.2, "wiz", "face", { lid: 0.5, dur: 0.15 });
+  c.hitStop(FZ, FZF);
+  see(CU, FZ, ["wiz.face"], "B8: the victim's close-up, his unimpressed squint, frozen 0.7 s");
+}
 see(0, 1.45, ["wiz.face", "gsl.face", "rea.face", "tray", "fridge"], "panel 1: the Wizard's palm out, the tray of coffees, the yellow fridge behind");
 // Reaper, deadpan, his cup in his right hand at his chest
 const rcup = grips.mug(c, "rea", CUP_R, { side: "R", height: 0.7 });
@@ -117,7 +135,9 @@ A(0, "gsl", "expr", { expr: "eager", set: { curve: 0.4, open: 0.15 }, dur: 0 });
 const gcup = grips.mug(c, "gsl", CUP_G, { side: "L", height: 0.95, angle: 30 });   // from the front of the cup: the hand stays off the carrier
 let tg = gcup.secure(gcup.approach(0.02, 0.22), 0.16);   // 0.5: the fingers have closed round the sleeve
 tg = gcup.carry(r3(tg), [CUP_G.x, r3(CUP_G.y + 0.12), CUP_G.z], 0.12, "out");
-const SIP = front(G0, G_YAW, 0.36, 0.05, 0.7);   // the lid at his mouth
+// the lid at his lips: his mouth is at [-0.115, 0.555, 0.245] (layout), so the cup (0.115 tall) stands just in front of it
+// and tips toward him. It was at y 0.7 before, up at his eyes and into the hat brim (Jonny 7 Nov 16:40)
+const SIP = [-0.11, 0.46, 0.31];
 tg = gcup.carry(r3(tg + 0.01), SIP, 0.2, "inOut", { tip: -25 });
 A(0.6, "gsl", "look", { to: [0.1, 0.0], dur: 0.1, blink: false });
 A(0.62, "gsl", "expr", { expr: "happy", set: { curve: 0.85, open: 0 }, dur: 0.15 });
@@ -390,6 +410,7 @@ const TWO = { pos: [0.6, 1.8, 3.5], look: [0.12, 0.75, -0.7], fov: 56 };
 const PUSH = { pos: [0.4, 1.45, 2.7], look: [-0.6, 0.95, -1.2], fov: 42, to: { pos: [0.3, 1.4, 2.3] }, dur: 1.4 };
 // Gunslinger at the handle, middle distance, from the fridge's side of the room (panel 6), then the Wizard's facepalm
 const HANDLE = { pos: [-1.2, 1.05, 1.4], look: [-0.5, 0.8, -1.0], fov: 44 };   // low and from the door's side: the handle and its note at the left, clear of his brim, his face at the right (review B)
+const WIZCU = fw([W0[0], 0.84, W0[1]], { w: 1.1, az: -12, el: 4, fov: 30 });   // v3 B8: the Wizard's face, his palm at the edge
 const FACEPALM = fw([W0[0], 0.82, W0[1]], { w: 1.3, az: -25, el: 4, fov: 30 });
 // the fridge door swinging open at the left, Gunslinger proud in front of it, Reaper at the handle at the right (panel 7)
 const P7 = { pos: [0.1, 2.3, 4.6], look: [-0.45, 0.62, -0.9], fov: 54 };
@@ -398,6 +419,7 @@ const P7 = { pos: [0.1, 2.3, 4.6], look: [-0.45, 0.62, -0.9], fov: 54 };
 const P8 = { pos: [-0.25, 2.5, 3.5], look: [-0.25, 0.6, -0.6], fov: 56 };
 const beats = c.beats([
   ["P1 pay up", 0, WIDE, "hook"],
+  ...(V3 ? [["P1b the Wizard (v3 B8)", CU, WIZCU, "reaction"]] : []),
   ["P2 the pocket pat", PAT.from, PATSHOT],
   ["P3 the IOU", 2.8, IOU],
   ["P4 look at this", 3.8, TWO],
@@ -407,9 +429,13 @@ const beats = c.beats([
   ["P7 the bill lands", 6.9, P7, "reveal"],
   ["P8 the wink", WK, P8, "payoff"],
 ], END);
+if (V3) { const pr = c.captions.find((x) => x.text.startsWith("This time")); pr.to = CU; }
+// v3: the allowClip windows below are on the video clock, so every time after the freeze moves 0.7 s later
+const VW = (w) => (V3 ? { ...w, from: w.from > FZ ? r3(w.from + FZD) : w.from, to: w.to > FZ ? r3(w.to + FZD) : w.to } : w);
 
 write(import.meta.url, {
-  id: "coffee-run",
+  id: V3 ? "coffee-run-v3rules" : "coffee-run",
+  ...(V3 && { seed: "coffee-run" }),   // the posted cut's music
   title: "That one friend who never has money… on a coffee run",
   idea: "Never has money, episode 2: the Wizard is back with the coffees, palm out; the pocket pat finds a moth; Gunslinger writes an IOU and goes to stick it on the fridge, which is covered in his IOUs; the handle is the only free spot; Reaper opens the fridge for milk and the notes bury him; next time's on me.",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
@@ -421,7 +447,7 @@ write(import.meta.url, {
     lighting: 2, hatch: { boil: 0.25 } },
   music: { style: "lofi", key: 3, bpm: 84, lowCut: 150, gain: 0.3, parts: [{ at: 0, part: "main" }, { at: 7.3, part: "stop" }, { at: 8.8, part: "hush" }] },
   sound: { sfx: 0.7, ambience: 0.3, surface: "wood", room: "room", guard: true, signature: { entrances: false } },
-  creative: { length: [10, 10] },
+  creative: { length: V3 ? [10.7, 10.7] : [10, 10] },
   hook: { show: ["wiz", "gsl", "rea", "tray", "fridge"], hint: 0.4, what: "the Wizard back from the coffee run, palm out for 4.50; the yellow fridge behind" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   // windows on the video clock (this storyboard is gate 1): after the hit-stops at 5.9 and 7.2 the times are 0.1 and
@@ -453,6 +479,6 @@ write(import.meta.url, {
     { who: "gsl", with: "fridge", from: 7.15, to: 10, checks: ["clipping"], reason: "buried in the heap of his paper IOUs (the brief's payoff): paper, not a solid" },
     { who: "rea", with: "fridge", from: 7.15, to: 10, checks: ["clipping"], reason: "the notes drift down round his feet: the heap's box takes him in, the paper isn't solid" },
     { who: "wiz", with: "fridge", from: 7.6, to: 10, checks: ["clipping"], reason: "he stands at the edge of the heap of notes: its box takes him in, the paper isn't solid" },
-  ],
+  ].map(VW),
   notes: "Generated by storyboards/series/never-has-money/02-coffee-run/make-coffee-run.mjs. Panels: PANELS.md.",
 });

@@ -1,7 +1,7 @@
 // The render gate's rules (quality plan item 3, 5 Nov 2026), shared by qa/check.mjs, qa/rig.mjs, qa/framing.mjs and
 // qa/preflight.mjs: which checks block a render, which glitches are visible at full speed, the new limits, and how a
 // contact window ("allowClip") is read (on the story's clock, waiving only what it names).
-import { storyTime } from "../engine/shared/holds.js";
+import { storyTime, renderTime } from "../engine/shared/holds.js";
 
 // Visible glitches block the render (quality plan item 3, 5 Nov 2026). A storyboard opts into the new fails with
 // "gate": 2 (the template turns it on once Jonny approves); at gate 1 (today's default) they warn. A fail whose root fix
@@ -60,11 +60,17 @@ export function waives(w, check) {
 // A window is read on the story clock from "gate": 2 (a hit-stop before it no longer shifts it); older storyboards keep
 // the video clock their windows were written against (the tent's leaf window, 8.4-8.7 s, sits after two hit-stops)
 export function windowFor(sb, check, who, t, withId = null) {
-  return windowAtStory(sb, check, who, gateOf(sb) >= 2 ? storyAt(sb, t) : t, withId);
+  return windowAt(sb, check, who, gateOf(sb) >= 2 ? storyAt(sb, t) : t, withId);
 }
-// the same for a time already on the story clock (qa/motion.mjs works on story time)
+// the same for a time already on the story clock (qa/motion.mjs works on story time). Below gate 2 the windows are on
+// the video clock, so the story time moves past the hit-stops before it first (a 0.7 s freeze at 1.4 s put every
+// motion window after it 0.7 s off: coffee run v3, 7 Nov)
 export function windowAtStory(sb, check, who, s, withId = null) {
-  return (sb?.allowClip || []).find((w) => waives(w, check) && (w.who === who || (withId != null && w.who === withId)) && (!w.with || w.with === withId || w.with === who) && s >= w.from - 1e-6 && s <= w.to + 1e-6);
+  return windowAt(sb, check, who, gateOf(sb) >= 2 ? s : renderTime(sb?.holds, s), withId);
+}
+// the window at time t on the windows' own clock
+function windowAt(sb, check, who, t, withId) {
+  return (sb?.allowClip || []).find((w) => waives(w, check) && (w.who === who || (withId != null && w.who === withId)) && (!w.with || w.with === withId || w.with === who) && t >= w.from - 1e-6 && t <= w.to + 1e-6);
 }
 
 // who acts at story time s: a line (talk, say) or the first second of a new expression. Shared with qa/framing.mjs (the
