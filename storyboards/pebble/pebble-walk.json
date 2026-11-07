@@ -1,0 +1,980 @@
+{
+ "id": "pebble-walk",
+ "title": "Pebble walk-around",
+ "idea": "Pebble character showcase: a stroll on the meadow path, one calm line (not a posted clip)",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "creative": {
+  "length": [
+   8,
+   20
+  ]
+ },
+ "set": {
+  "type": "env",
+  "env": "meadow-path",
+  "shade": "soft",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  }
+ },
+ "music": {
+  "pool": "calm-landscape",
+  "lowCut": 120,
+  "gain": 0.28
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.34,
+  "guard": true,
+  "surface": "grass",
+  "nature": [
+   "birds",
+   {
+    "id": "leaves",
+    "gain": 0.1,
+    "pan": 0.3
+   }
+  ]
+ },
+ "hook": {
+  "show": [
+   "peb"
+  ],
+  "hint": 0,
+  "what": "Pebble strolls down the path"
+ },
+ "cast": [
+  {
+   "id": "peb",
+   "character": "pebble/pebble",
+   "at": [
+    -0.55,
+    -3.3
+   ],
+   "face": 18,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 1.3
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "stroll",
+   "at": 0,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     0,
+     1.05,
+     4.2
+    ],
+    "look": [
+     0,
+     0.95,
+     -1.6
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.15,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      -0.1,
+      -1.7
+     ],
+     "dur": 3.4,
+     "steps": 2.3,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.6
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.15
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 3.4
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the view",
+   "at": 3.5,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     0,
+     1.05,
+     4.2
+    ],
+    "look": [
+     0,
+     0.95,
+     -1.6
+    ],
+    "fov": 34,
+    "to": {
+     "look": [
+      -0.1,
+      1,
+      -1.7
+     ],
+     "fov": 28
+    },
+    "dur": 2
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0.154,
+     "dur": 0.3,
+     "at": 0.44
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": -0.024,
+     "dur": 1.1,
+     "at": 0.46
+    },
+    {
+     "who": "peb",
+     "do": "pitch",
+     "to": -1.75,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "peb",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.1
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.008,
+     "fade": 0.2,
+     "at": 1.1
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "peb",
+     "do": "squash",
+     "amount": 0.012,
+     "dur": 0.4,
+     "at": 1.34
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.95
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 2.05
+    }
+   ]
+  },
+  {
+   "name": "across",
+   "at": 5.6,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.05,
+     3.9
+    ],
+    "look": [
+     -0.5,
+     0.98,
+     -1.3
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": -85,
+     "dur": 0.6,
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.225
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.225
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      -0.75,
+      -1.5
+     ],
+     "dur": 2.3,
+     "steps": 2.4,
+     "at": 0.4
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.6,
+     "at": 2.6
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 2.85
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 2.85
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.35,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.85
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0.25,
+     "dur": 0.25,
+     "at": 3.05
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "smirk": 0.45,
+      "curve": 0.55,
+      "eye": 0.82
+     },
+     "dur": 0.4,
+     "at": 3.1
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 3.85
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "at": 3.9
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 3.925
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 3.925
+    },
+    {
+     "who": "peb",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 3.95
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.35,
+     "at": 3.95
+    }
+   ]
+  },
+  {
+   "name": "to us",
+   "at": 9.6,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.05,
+     3.9
+    ],
+    "look": [
+     -0.5,
+     0.98,
+     -1.3
+    ],
+    "fov": 38,
+    "to": {
+     "look": [
+      -0.2,
+      0.98,
+      -0.6
+     ],
+     "fov": 36
+    },
+    "dur": 2.3
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      -0.15,
+      -0.35
+     ],
+     "dur": 2.3,
+     "steps": 2.4,
+     "at": 0.1
+    },
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": "camera",
+     "dur": 0.5,
+     "at": 1.9
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.1793,
+       1.1195,
+       0.3071
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.6,
+     "at": 2.3
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "set": {
+      "pinch": 1,
+      "thin": 0.004,
+      "close": 1
+     },
+     "dur": 0.55,
+     "at": 2.35
+    }
+   ]
+  },
+  {
+   "name": "the line",
+   "at": 12,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     -0.05,
+     1.1,
+     2.95
+    ],
+    "look": [
+     -0.15,
+     1,
+     -0.35
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 0.15
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.5,
+     "at": 0.15
+    },
+    {
+     "who": "peb",
+     "do": "straw",
+     "side": "L",
+     "hand": 1,
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2452,
+       1.0639,
+       0.3174
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.95,
+       0.32
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.5,
+     "at": 1
+    },
+    {
+     "who": "peb",
+     "do": "still",
+     "dur": 2.1999999999999997,
+     "idle": 0.85,
+     "at": 1.25
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "peb",
+     "macro": "say",
+     "line": "Slow steps still get you there.",
+     "tone": "calm",
+     "pos": 230,
+     "at": 1.4
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2452,
+       1.0639,
+       0.3174
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.4,
+     "at": 3.2
+    },
+    {
+     "who": "peb",
+     "do": "face",
+     "lid": 0.84,
+     "dur": 0.4,
+     "at": 3.4
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.1793,
+       1.1195,
+       0.3071
+      ],
+      "point": "pinch",
+      "pinchEase": true
+     },
+     "dur": 0.3,
+     "at": 3.6
+    },
+    {
+     "who": "peb",
+     "do": "straw",
+     "side": "L",
+     "hand": 0,
+     "dur": 0.15,
+     "at": 3.9
+    },
+    {
+     "who": "peb",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.3,
+     "at": 4.05
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 4.05
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.24,
+       0.12
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.75,
+     "at": 4.1
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "on he goes",
+   "at": 16.2,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     0,
+     1.08,
+     4.2
+    ],
+    "look": [
+     -0.05,
+     1.05,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "peb",
+     "do": "turn",
+     "to": 165,
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.575
+    },
+    {
+     "who": "peb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.1,
+       0.13
+      ],
+      "elbow": 0,
+      "margin": 1.05,
+      "swing": 0.5
+     },
+     "dur": 0.35,
+     "at": 0.575
+    },
+    {
+     "who": "peb",
+     "do": "look",
+     "to": [
+      0.1,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "peb",
+     "do": "move",
+     "to": [
+      0.2,
+      -2.2
+     ],
+     "dur": 3.05,
+     "steps": 2.3,
+     "at": 0.75
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.5,
+   "see": [
+    "peb.face"
+   ],
+   "why": "Pebble strolling down the meadow path toward us"
+  },
+  {
+   "from": 3.6,
+   "to": 5.4,
+   "see": [
+    "peb.face"
+   ],
+   "why": "he stops and breathes in the view"
+  },
+  {
+   "from": 6,
+   "to": 8.3,
+   "see": [
+    "peb"
+   ],
+   "why": "the walk from the side: shell, moss and fern"
+  },
+  {
+   "from": 9.7,
+   "to": 12,
+   "see": [
+    "peb.face"
+   ],
+   "why": "he walks up to us"
+  },
+  {
+   "from": 13.4,
+   "to": 15.3,
+   "see": [
+    "peb.face"
+   ],
+   "why": "his line"
+  },
+  {
+   "from": 16.3,
+   "to": 20,
+   "see": [
+    "peb"
+   ],
+   "why": "he strolls on up the path"
+  }
+ ],
+ "notes": "Generated by storyboards/pebble/make-pebble-walk.mjs (character showcase)."
+}

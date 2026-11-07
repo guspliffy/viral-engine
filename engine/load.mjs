@@ -45,7 +45,8 @@ export function castLook(def, look) {
   if (!L || def.rig !== "potato") return def;
   const hsl = def.body?.color && hexHsl(def.body.color);
   // potato skins only (yellow to orange): an egg-white, onion or tomato skin keeps its colour
-  if (L.skinGold && hsl && hsl[0] >= 20 && hsl[0] <= 55 && hsl[1] > 0.3 && hsl[2] < 0.85) def.body.color = hslHex(hsl[0] + L.skinGold * (29 - hsl[0]), hsl[1], hsl[2]);
+  // body.keepSkin (Pebble, review 7 Nov 2026): a character whose skin colour is sampled from its own reference keeps it
+  if (L.skinGold && hsl && !def.body.keepSkin && hsl[0] >= 20 && hsl[0] <= 55 && hsl[1] > 0.3 && hsl[2] < 0.85) def.body.color = hslHex(hsl[0] + L.skinGold * (29 - hsl[0]), hsl[1], hsl[2]);
   const F = (def.face ||= {});
   if (L.eyeSize) F.size = (F.size ?? 1) * L.eyeSize;
   if (L.lash) F.eye = { ...F.eye, lash: +((F.eye?.lash ?? 1) * L.lash).toFixed(3) };
@@ -94,7 +95,7 @@ function sheetFace(def) {
   SHEET ||= JSON.parse(fs.readFileSync(path.join(ROOT, "characters", "sheet-cast.json"), "utf8"));
   const A = SHEET.all, T = SHEET.types[def.costume?.type] || {}, F = def.face;
   const sk = def.body?.color && hexHsl(def.body.color);
-  if (sk && sk[0] >= 20 && sk[0] <= 55 && sk[1] > 0.3 && sk[2] < 0.85) def.body.color = T.skin || A.skin;   // potato skins only
+  if (sk && !def.body.keepSkin && sk[0] >= 20 && sk[0] <= 55 && sk[1] > 0.3 && sk[2] < 0.85) def.body.color = T.skin || A.skin;   // potato skins only
   // the core build's heads (every new character, Jonny 5 Nov: "the style we build for the potato characters") take the
   // same golden sheet skin as the potato cast; head.keepSkin keeps a head's own colour (a non-skin creature)
   const hk = def.head?.color && hexHsl(def.head.color);
