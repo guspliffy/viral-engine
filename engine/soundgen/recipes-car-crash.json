@@ -1,0 +1,7 @@
+{
+ "_note": "Action bed for Never Looks Up 06 car crash (Jonny 7 Nov 2026: 'some action music to support the scene'), in its own recipe file so parallel clips don't edit recipes.json. Same tools: generate.py -> pick.py (see README).",
+ "sfx": [],
+ "music": [
+  {"id": "car-chase", "bpm": 140, "bars": 8, "prompts": ["fast cartoon car chase action music, driving drums, surf rock electric guitar riff, punchy brass stabs, tense and fun, 140 BPM", "high energy action movie chase music, pounding drums, staccato strings, bold brass hits, racing tension, 140 BPM"], "seeds": [601, 602, 603], "mood": "action"}
+ ]
+}
