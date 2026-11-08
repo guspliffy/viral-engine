@@ -1,7 +1,7 @@
 # Creative director review (Fable)
 
 Every clip gets two short reviews from a subagent on the Fable model, acting as creative director. See steps 2 and 5
-of the workflow in `CLAUDE.md`. Each review is **one round**: apply its notes, don't ask again.
+of the workflow in `docs/rules/workflow.md`. Each review is **one round**: apply its notes, don't ask again.
 
 | Review | When | Input |
 |---|---|---|
@@ -20,7 +20,9 @@ node qa/contact.mjs out/<id>.mp4 --sb <sb> --cuts --phone                  # B: 
 For review B also hand over `<id>.cuts.png` (one row per cut, 0.2 s either side, the first new frame edged red; with
 `loop: true` the seam gets a row) and `<id>.phone.png` (one frame a second at 360 px, the size people watch at).
 
-Spawn the reviewer with the Agent tool on model `fable`. Give it the two file paths (it reads the image itself) and
+Spawn the reviewer as the `creative-director` agent (`.claude/agents/creative-director.md`: Fable 5.1 at effort
+**xhigh**, Jonny 8 Nov 2026), or, when that agent type isn't loaded, with the Agent tool on `model: "fable"`,
+`effort: "xhigh"`, the prompt starting "Follow .claude/agents/creative-director.md". Give it the two file paths (it reads the image itself) and
 the prompt below, with the brackets filled in. Ask for the answer as text only: no files, no edits.
 
 What the producer does with the notes:
