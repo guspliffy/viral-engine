@@ -330,7 +330,9 @@ async function main() {
     page.on("console", (m) => { if (m.type() === "log" && m.text().startsWith("diag:")) console.log(m.text()); });
     page.on("response", (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
     if (o.cover) await page.coverage.startJSCoverage({ resetOnNavigation: false });
-    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html${process.env.NOCACHE ? "?nocache" : ""}`);
+    // NOCACHE=1: rebuild brows and glove skins every frame; CONTACT_BVH=0: the contact rays test every triangle (the old way, for comparisons)
+    const q = [process.env.NOCACHE && "nocache", process.env.CONTACT_BVH === "0" && "nobvh"].filter(Boolean).join("&");
+    await page.goto(`http://127.0.0.1:${srv.address().port}/engine/page/index.html${q ? `?${q}` : ""}`);
     await page.waitForFunction(() => window.ENGINE_READY === true, null, { timeout: 30000 }).catch(() => {});
     if (errors.length) throw new Error("page failed to load:\n" + errors.join("\n"));
     const t0 = Date.now();
