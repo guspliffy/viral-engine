@@ -18,7 +18,7 @@ re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lin
 
 Spawning: when the repo's agent types are loaded, use them by name (`subagent_type: "creative-director"` etc.). When
 they aren't (the repo root isn't registered), spawn a general-purpose agent with the role's model and effort
-(creative director: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`, `effort: "high"`) and start its prompt with
+(creative director and clip writer: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`, `effort: "high"`) and start its prompt with
 "Follow .claude/agents/<role>.md in /path/to/viral-engine". Never spawn an untyped agent without a model: it runs on
 Opus. At most three builders at once. Small edits (under ~15 lines in a file you already hold) you make yourself:
 a spawn costs more than the edit.
