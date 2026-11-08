@@ -33,7 +33,9 @@ import { rad, loopNow } from "./util.js";
 // stay deterministic. The pictures load before the first frame: stage.js waits for globalThis.__loads.
 export function addPlate(scene, P, ctx = {}) {
   if (globalThis.__DIAG?.silhouette) return;   // debug silhouettes: shapes on a plain background
-  const mat = new THREE.MeshBasicMaterial({ color: P.tint || "#ffffff", fog: false, toneMapped: false });
+  // alphaTest (0..1, opt-in): pixels of a cut-out plate below it are dropped, so a plate further back shows through
+  // (the pub window's panes in never has money 03); 0 = as before
+  const mat = new THREE.MeshBasicMaterial({ color: P.tint || "#ffffff", fog: false, toneMapped: false, alphaTest: P.alphaTest ?? 0 });
   mat.userData.noOutline = true;
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
   const [x, y] = P.center || [0, (P.height ?? 3.2) / 2], z = P.z ?? -2.2, h = P.height ?? 3.2;
