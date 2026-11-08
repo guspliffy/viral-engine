@@ -41,5 +41,6 @@
    ]
   ]
  },
- "standRatio": 0.55
+ "standRatio": 0.55,
+ "lifeSkyTop": 0.08
 }

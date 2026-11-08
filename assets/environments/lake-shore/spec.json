@@ -47,5 +47,6 @@
   60.0,
   160.0
  ],
- "groundMax": 60.0
+ "groundMax": 60.0,
+ "lifeSkyTop": 0.08
 }

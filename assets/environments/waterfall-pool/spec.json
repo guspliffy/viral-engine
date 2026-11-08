@@ -30,5 +30,6 @@
   "shadow": 0.3
  },
  "swayMax": 20,
- "surface": "grass"
+ "surface": "grass",
+ "lifeSkyTop": 0.08
 }
