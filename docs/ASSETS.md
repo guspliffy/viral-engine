@@ -18,7 +18,7 @@ Rule for models: CC0 or self-made only, with the licence file next to them (`ass
 | `models/characters/`, `models/props/` | Reaper cloak, bike handlebar | Blender scripts in `tools/blender/` | own work | `models/README.md` |
 | `models/vrm/` | human base (Teo, Ryn) | made in VRoid Studio by us; CC0 HairSample | own work (VRoid output is the maker's); CC0 | project memory licence-free-human-base |
 | `environments/` | layered painted places | SDXL base + Lightning LoRA, run locally (`engine/plates/env.py`) | CreativeML Open RAIL++-M | `README.md`, each `spec.json` |
-| `plates/` | painted backdrops | same models (`engine/plates/paint.py`), prompt + seed per file | CreativeML Open RAIL++-M | `README.md` |
+| `plates/` | painted backdrops (incl. `birthday-living-room.png`, Your Birthday, 8 Nov: SDXL base 1.0 + SDXL-Lightning 4-step LoRA, seed 19, bottom inpainted with the same models) | same models (`engine/plates/paint.py`), prompt + seed per file | SDXL base 1.0: CreativeML Open RAIL++-M; SDXL-Lightning LoRA: OpenRAIL++ | `README.md` |
 | `screens/` | phone screen pictures (car crash) | not recorded yet: fill in before reuse | unknown | |
 | `mocap/` | walks, runs, sits, sneak, fights | CMU Graphics Lab Motion Capture Database (`c<subject>_<trial>`) and own retargets | CMU: free to use, commercial included | `storyboards/lib/moves/` |
 | (code) characters | the cast's bodies, faces, costumes | built in code from Jonny's design sheets | Jonny's designs | `characters/` |
