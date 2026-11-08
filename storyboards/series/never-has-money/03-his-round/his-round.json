@@ -66,13 +66,16 @@
   "lead": "whistle",
   "lowCut": 150,
   "gain": 0.3,
+  "duck": {
+   "voice": 10
+  },
   "parts": [
    {
     "at": 0,
     "part": "main"
    },
    {
-    "at": 3.8,
+    "at": 2.95,
     "part": "musicbox"
    },
    {
@@ -348,11 +351,52 @@
    "kind": "pubreader",
    "x": -0.02,
    "y": 0.66,
-   "z": 0.19,
+   "z": 0.02,
    "rot": -14,
    "text": "84.00",
    "scale": 0.001,
-   "staged": "under the bar until the Samurai sets it on the wood at 7.0"
+   "staged": "lies on the bar at the Samurai's end from the two-shot at 6.0 (hidden before it: the wide shows no reader)"
+  },
+  {
+   "id": "counter",
+   "kind": "pubbar",
+   "x": 0,
+   "z": 5.3,
+   "w": 3.6,
+   "d": 0.45,
+   "h": 0.8
+  },
+  {
+   "id": "ctA",
+   "kind": "tumbler",
+   "x": -0.32,
+   "y": 0.8,
+   "z": 5.26,
+   "fill": 0.2
+  },
+  {
+   "id": "ctB",
+   "kind": "tumbler",
+   "x": -0.23,
+   "y": 0.8,
+   "z": 5.26,
+   "fill": 0
+  },
+  {
+   "id": "ctC",
+   "kind": "tumbler",
+   "x": 0.25,
+   "y": 0.8,
+   "z": 5.26,
+   "fill": 0.3
+  },
+  {
+   "id": "ctD",
+   "kind": "tumbler",
+   "x": 0.33,
+   "y": 0.8,
+   "z": 5.26,
+   "fill": 0
   },
   {
    "id": "towel",
@@ -421,7 +465,7 @@
    "from": 8.8,
    "to": 9.8,
    "text": "Next time's on me!",
-   "pos": 600,
+   "pos": 520,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -831,6 +875,21 @@
     },
     {
      "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.4,
+       0.7
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wiz",
      "do": "talk",
      "line": "your round!",
      "tone": "excited",
@@ -887,17 +946,9 @@
     },
     {
      "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.2,
-       0.55,
-       0.78
-      ]
-     },
-     "dur": 0.16,
-     "ease": "out",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
      "at": 0.14
     },
     {
@@ -905,15 +956,8 @@
      "do": "grip",
      "side": "R",
      "shape": "point",
-     "dur": 0.1,
-     "at": 0.14
-    },
-    {
-     "who": "wiz",
-     "do": "still",
-     "dur": 0.7,
-     "idle": 0.06,
-     "at": 0.14
+     "dur": 0.25,
+     "at": 0.2
     },
     {
      "who": "sam",
@@ -976,6 +1020,21 @@
      "to": -22,
      "dur": 0.3,
      "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.55,
+       0.78
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.35
     },
     {
      "who": "sam",
@@ -1183,6 +1242,61 @@
     "fov": 30
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "counter",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctC",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctD",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
     {
      "sfx": "pat",
      "gain": 0.5,
@@ -1924,7 +2038,7 @@
     {
      "sfx": "wings",
      "gain": 0.12,
-     "dur": 0.6,
+     "dur": 0.4,
      "reason": "the moth's soft wing beats as it flutters out of the empty wallet",
      "at": 1.05
     },
@@ -2083,16 +2197,16 @@
    "len": 0.71,
    "shot": {
     "pos": [
-     -0.9,
-     1.5,
-     4.2
+     -3.5,
+     1.7,
+     2.4
     ],
     "look": [
-     -1.45,
-     0.95,
-     -1.2
+     -1.4,
+     0.9,
+     -1
     ],
-    "fov": 36
+    "fov": 40
    },
    "do": [
     {
@@ -2311,12 +2425,6 @@
      "at": 0.2
     },
     {
-     "sfx": "door-open",
-     "gain": 0.45,
-     "reason": "the toilet door swung open as he reaches it",
-     "at": 0.2
-    },
-    {
      "who": "sam",
      "do": "blink",
      "dur": 0.22,
@@ -2326,12 +2434,12 @@
      "who": "gsl",
      "do": "move",
      "to": [
-      -1.6,
-      -1
+      -1.3,
+      -0.85
      ],
-     "dur": 0.18,
-     "steps": 4,
-     "ease": "in",
+     "dur": 0.12,
+     "steps": 2,
+     "ease": "linear",
      "at": 0.24
     },
     {
@@ -2363,6 +2471,12 @@
      "at": 0.3
     },
     {
+     "sfx": "door-open",
+     "gain": 0.25,
+     "reason": "the toilet door swung open as he reaches it",
+     "at": 0.34
+    },
+    {
      "who": "sam",
      "do": "arm",
      "side": "L",
@@ -2381,13 +2495,25 @@
      "who": "gsl",
      "do": "move",
      "to": [
+      -1.55,
+      -1.15
+     ],
+     "dur": 0.12,
+     "steps": 2,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
       -1.6,
       -1.8
      ],
-     "dur": 0.2,
-     "steps": 4,
-     "ease": "out",
-     "at": 0.4
+     "dur": 0.16,
+     "steps": 3,
+     "ease": "linear",
+     "at": 0.48
     },
     {
      "who": "wiz",
@@ -2528,9 +2654,9 @@
    ]
   },
   {
-   "name": "P4-5 the exit and the peek",
+   "name": "P4 the exit",
    "at": 3.51,
-   "len": 2.34,
+   "len": 1.84,
    "shot": {
     "pos": [
      0,
@@ -2545,6 +2671,61 @@
     "fov": 48
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "counter",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is in the wide again",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctA",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is in the wide again",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctB",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is in the wide again",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctC",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is in the wide again",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctD",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is in the wide again",
+     "at": 0
+    },
     {
      "who": "wiz",
      "do": "squash",
@@ -2721,15 +2902,15 @@
     },
     {
      "sfx": "cloth",
-     "gain": 0.4,
+     "gain": 0.8,
      "reason": "Reaper takes his coat off the stool back",
      "at": 0.34
     },
     {
      "who": "rea",
      "do": "turn",
-     "to": 80,
-     "dur": 0.2,
+     "to": 40,
+     "dur": 0.25,
      "at": 0.34
     },
     {
@@ -2766,18 +2947,18 @@
      "who": "wiz",
      "do": "look",
      "to": [
-      0.7,
-      0.05
+      -0.75,
+      0.1
      ],
-     "dur": 0.12,
+     "dur": 0.15,
      "blink": false,
      "at": 0.37
     },
     {
      "who": "wiz",
      "do": "turn",
-     "to": 80,
-     "dur": 0.2,
+     "to": 40,
+     "dur": 0.25,
      "at": 0.37
     },
     {
@@ -2816,16 +2997,16 @@
      "who": "rea",
      "do": "look",
      "to": [
-      0.7,
-      0.05
+      -0.75,
+      0.1
      ],
-     "dur": 0.12,
+     "dur": 0.15,
      "blink": false,
      "at": 0.44
     },
     {
      "sfx": "cloth",
-     "gain": 0.4,
+     "gain": 1.2,
      "reason": "Wizard swings his coat on",
      "at": 0.49
     },
@@ -2918,6 +3099,29 @@
      "at": 0.6
     },
     {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.3,
+       0.72,
+       0.36
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.61
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.69
+    },
+    {
      "who": "sam",
      "do": "arm",
      "side": "L",
@@ -2931,29 +3135,6 @@
      "dur": 0.2,
      "ease": "inOut",
      "at": 0.76
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.3,
-       0.72,
-       0.36
-      ]
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.79
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.08,
-     "at": 0.79
     },
     {
      "sfx": "step-wood",
@@ -3017,6 +3198,28 @@
      "at": 1.44
     },
     {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tumS",
+      "grip": [
+       0.089,
+       0.066,
+       0.024
+      ],
+      "palm": "wrap",
+      "at": [
+       1.45,
+       0.66,
+       0.06
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.44
+    },
+    {
      "sfx": "ding",
      "gain": 0.25,
      "reason": "the front door's bell as they slip out (soft, off screen right)",
@@ -3060,28 +3263,6 @@
      "at": 1.59
     },
     {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "tumS",
-      "grip": [
-       0.089,
-       0.066,
-       0.024
-      ],
-      "palm": "wrap",
-      "at": [
-       1.45,
-       0.66,
-       0.06
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.59
-    },
-    {
      "do": "prop",
      "id": "toilet",
      "set": {
@@ -3118,6 +3299,129 @@
      "do": "blink",
      "dur": 0.22,
      "at": 1.69
+    }
+   ]
+  },
+  {
+   "name": "P5 the peek",
+   "at": 5.35,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     -3.5,
+     1.7,
+     2.4
+    ],
+    "look": [
+     -1.4,
+     0.9,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -1.6,
+      -1.45
+     ],
+     "dur": 0.2,
+     "steps": 2,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "eye": 1.1,
+      "open": 0
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.55,
+       0.18
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "counter",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctC",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ctD",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "the back counter is out of this shot (cut)",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.05
     },
     {
      "do": "prop",
@@ -3127,14 +3431,24 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.79
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "tumS",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.1
     },
     {
      "who": "sam",
      "do": "release",
      "prop": "tumS",
      "dur": 0,
-     "at": 1.79
+     "at": 0.15
     },
     {
      "who": "sam",
@@ -3142,7 +3456,18 @@
      "side": "R",
      "shape": "open",
      "dur": 0.15,
-     "at": 1.79
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.17
     },
     {
      "who": "sam",
@@ -3162,95 +3487,9 @@
        -0.068
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.83
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      -1.6,
-      -1.45
-     ],
-     "dur": 0.2,
-     "steps": 2,
-     "at": 1.84
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "eye": 1.1,
-      "open": 0
-     },
-     "dur": 0.1,
-     "at": 1.84
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.18,
-       0.55,
-       0.18
-      ]
-     },
      "dur": 0.2,
      "ease": "out",
-     "at": 1.84
-    },
-    {
-     "do": "prop",
-     "id": "tumS",
-     "set": {
-      "squash": 0
-     },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.84
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      -0.5,
-      0
-     ],
-     "dur": 0.1,
-     "blink": false,
-     "at": 1.89
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.98
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.6,
-      0
-     ],
-     "dur": 0.1,
-     "blink": false,
-     "at": 2.01
+     "at": 0.19
     },
     {
      "who": "gsl",
@@ -3261,7 +3500,7 @@
      ],
      "dur": 0.08,
      "blink": false,
-     "at": 2.11
+     "at": 0.27
     },
     {
      "who": "gsl",
@@ -3271,14 +3510,14 @@
       "curve": 0.72
      },
      "dur": 0.25,
-     "at": 2.14
+     "at": 0.3
     },
     {
      "who": "gsl",
      "do": "face",
      "lid": 0.9,
      "dur": 0.2,
-     "at": 2.14
+     "at": 0.3
     },
     {
      "who": "gsl",
@@ -3289,14 +3528,59 @@
       "open": 0.5
      },
      "dur": 0.15,
-     "at": 2.14
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -1.55,
+      -0.9
+     ],
+     "dur": 0.3,
+     "steps": 2,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.3,
+     "at": 0.35
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.025,
      "dur": 0.25,
-     "at": 2.22
+     "at": 0.38
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.39
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.39
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
     },
     {
      "who": "sam",
@@ -3308,21 +3592,43 @@
      "dur": 0.7,
      "steps": 3,
      "ease": "inOut",
-     "at": 2.29
+     "at": 0.45
     },
     {
      "who": "sam",
      "do": "turn",
      "to": -70,
      "dur": 0.5,
-     "at": 2.29
+     "at": 0.45
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "reader",
+     "set": {
+      "scale": 2.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "it has been on the bar at his end all along: it only shows from the cut to the two-shot at 6.0",
+     "at": 0.5
     }
    ]
   },
   {
    "name": "P6 the sip",
-   "at": 5.85,
-   "len": 1.05,
+   "at": 5.9,
+   "len": 1,
    "shot": {
     "pos": [
      -2.308,
@@ -3341,39 +3647,13 @@
      "who": "gsl",
      "do": "move",
      "to": [
-      -1.55,
-      -0.9
+      -0.8,
+      -0.95
      ],
      "dur": 0.2,
-     "steps": 2,
-     "at": 0
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": 80,
-     "dur": 0.2,
-     "at": 0
-    },
-    {
-     "who": "sam",
-     "do": "look",
-     "to": [
-      -0.45,
-      0.05
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.2,
+     "steps": 3,
      "ease": "inOut",
-     "at": 0.05
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -3383,18 +3663,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.15
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      -0.55,
-      -0.95
-     ],
-     "dur": 0.25,
-     "steps": 3,
-     "at": 0.2
+     "at": 0.1
     },
     {
      "who": "gsl",
@@ -3428,7 +3697,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.4
+     "at": 0.35
     },
     {
      "who": "gsl",
@@ -3439,7 +3708,7 @@
       "open": 0.1
      },
      "dur": 0.2,
-     "at": 0.4
+     "at": 0.35
     },
     {
      "who": "gsl",
@@ -3450,13 +3719,13 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.4
+     "at": 0.35
     },
     {
      "sfx": "ai-package/flat-exhale",
      "gain": 0.25,
      "reason": "a happy sigh as he sits",
-     "at": 0.45
+     "at": 0.4
     },
     {
      "who": "gsl",
@@ -3464,7 +3733,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.15,
-     "at": 0.47
+     "at": 0.42
     },
     {
      "who": "gsl",
@@ -3486,14 +3755,14 @@
      },
      "dur": 0.15,
      "ease": "inOut",
-     "at": 0.47
+     "at": 0.42
     },
     {
      "who": "gsl",
      "do": "face",
      "lid": 0.2,
      "dur": 0.3,
-     "at": 0.5
+     "at": 0.45
     },
     {
      "who": "gsl",
@@ -3504,7 +3773,7 @@
       "eye": 0.95
      },
      "dur": 0.35,
-     "at": 0.5
+     "at": 0.45
     },
     {
      "who": "gsl",
@@ -3521,7 +3790,7 @@
      },
      "dur": 0.1,
      "ease": "settle",
-     "at": 0.62
+     "at": 0.57
     },
     {
      "who": "gsl",
@@ -3529,14 +3798,14 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.68
+     "at": 0.63
     },
     {
      "who": "gsl",
      "do": "face",
      "lid": 1,
      "dur": 0.1,
-     "at": 0.75
+     "at": 0.7
     },
     {
      "who": "gsl",
@@ -3550,7 +3819,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.78
+     "at": 0.73
     },
     {
      "who": "gsl",
@@ -3572,21 +3841,7 @@
      },
      "dur": 0.1,
      "ease": "out",
-     "at": 0.82
-    },
-    {
-     "do": "prop",
-     "id": "reader",
-     "set": {
-      "scale": 2.5,
-      "x": 0.09999999999999999,
-      "y": 0.84,
-      "z": 0.24
-     },
-     "dur": 0.02,
-     "ease": "linear",
-     "reason": "the reader appears in his hand from below the bar",
-     "at": 0.9
+     "at": 0.77
     },
     {
      "who": "sam",
@@ -3596,12 +3851,12 @@
       "world": [
        0.15,
        0.88,
-       0.34
+       0.24
       ]
      },
      "dur": 0.08,
      "ease": "out",
-     "at": 0.9
+     "at": 0.85
     },
     {
      "who": "sam",
@@ -3609,7 +3864,7 @@
      "side": "R",
      "shape": "pinch",
      "dur": 0.05,
-     "at": 0.9
+     "at": 0.85
     },
     {
      "who": "gsl",
@@ -3631,7 +3886,7 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.94
+     "at": 0.89
     },
     {
      "do": "prop",
@@ -3641,19 +3896,7 @@
      },
      "dur": 0.16,
      "ease": "inOut",
-     "at": 0.94
-    },
-    {
-     "do": "prop",
-     "id": "reader",
-     "set": {
-      "x": -0.02,
-      "y": 0.66,
-      "z": 0.12
-     },
-     "dur": 0.1,
-     "ease": "in",
-     "at": 0.95
+     "at": 0.89
     },
     {
      "who": "sam",
@@ -3663,22 +3906,22 @@
       "world": [
        0.16,
        0.78,
-       0.24
+       0.14
       ]
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "who": "wizO",
      "do": "show",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "who": "reaO",
      "do": "show",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3689,7 +3932,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "the friends are outside in their coats",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3700,20 +3943,20 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "the friends are outside in their coats",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "sfx": "ai/sip",
      "gain": 0.4,
      "reason": "his sip of the lemonade, eyes shut",
-     "at": 0.97
+     "at": 0.92
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 0.97
+     "at": 0.92
     }
    ]
   },
@@ -3745,12 +3988,6 @@
     "ease": "inOut"
    },
    "do": [
-    {
-     "sfx": "put-down-metal",
-     "gain": 0.3,
-     "reason": "the card reader set on the bar",
-     "at": 0
-    },
     {
      "who": "sam",
      "do": "grip",
@@ -3810,7 +4047,7 @@
       "world": [
        0.18,
        0.75,
-       0.14
+       0.04
       ]
      },
      "dur": 0.08,
@@ -3825,7 +4062,7 @@
       "world": [
        0.13,
        0.75,
-       0.12
+       0.02
       ]
      },
      "dur": 0.04,
@@ -3837,7 +4074,7 @@
      "id": "reader",
      "set": {
       "x": -0.45,
-      "z": 0.1
+      "z": 0.02
      },
      "dur": 0.4,
      "ease": "out",
@@ -3845,7 +4082,7 @@
     },
     {
      "sfx": "scrape",
-     "gain": 0.25,
+     "gain": 0.5,
      "dur": 0.4,
      "reason": "the card reader slides along the wooden bar top (a long scrape)",
      "at": 0.1
@@ -3858,7 +4095,7 @@
       "world": [
        -0.15,
        0.75,
-       0.1
+       0.02
       ]
      },
      "dur": 0.14,
@@ -3873,7 +4110,7 @@
       "world": [
        -0.2,
        0.76,
-       0.15
+       0.07
       ]
      },
      "dur": 0.2,
@@ -3890,7 +4127,7 @@
     },
     {
      "sfx": "ui-confirm",
-     "gain": 0.35,
+     "gain": 0.9,
      "reason": "the reader's beep as it stops in front of Gunslinger (the music cuts)",
      "at": 0.5
     },
@@ -4506,7 +4743,7 @@
       "world": [
        -0.17,
        0.88,
-       0.22
+       0.14
       ]
      },
      "dur": 0.15,
@@ -4602,7 +4839,7 @@
       "world": [
        -0.4,
        0.76,
-       0.22
+       0.14
       ]
      },
      "dur": 0.05,
@@ -4652,7 +4889,7 @@
       "world": [
        -0.35,
        0.81,
-       0.22
+       0.14
       ]
      },
      "dur": 0.1,
@@ -4792,11 +5029,9 @@
    "to": 5.85,
    "see": [
     "gsl.face",
-    "stR",
-    "stW",
     "toilet"
    ],
-   "why": "panel 5: Gunslinger peeks out of the door, the stools empty, the lamp green"
+   "why": "panel 5: Gunslinger peeks out of the door, the lamp green (the empty stools are in the wide before it)"
   },
   {
    "from": 6.65,
@@ -4858,6 +5093,26 @@
  ],
  "allowClip": [
   {
+   "who": "wiz",
+   "from": 0.05,
+   "to": 0.7,
+   "checks": [
+    "hand-turn",
+    "hand-pop"
+   ],
+   "reason": "the Wizard's hand opens out of the glass grip into the point: the glove turns over once at the very start (frame 0.5, the hook's first beat)"
+  },
+  {
+   "who": "sam",
+   "from": 5,
+   "to": 6.1,
+   "checks": [
+    "hand-turn",
+    "hand-pop"
+   ],
+   "reason": "the Samurai's glass hand lets the tumbler go and drops to rest: the glove turns over once, in the background of the wide"
+  },
+  {
    "who": "rea",
    "from": 3.9,
    "to": 4.1,
@@ -4905,10 +5160,11 @@
   },
   {
    "who": "gsl",
-   "from": 5.9,
-   "to": 6.5,
+   "from": 5.8,
+   "to": 6.6,
    "checks": [
-    "motion"
+    "motion",
+    "lean-jump"
    ],
    "reason": "he steps up to the stool and climbs on: the body tips forward for the sit"
   },
@@ -4933,7 +5189,8 @@
    "to": 4.4,
    "checks": [
     "arm-in-prop",
-    "clipping"
+    "clipping",
+    "costume-in-prop"
    ],
    "reason": "he takes his coat off the stool back and swings it on"
   },
@@ -4969,7 +5226,7 @@
    "who": "rea",
    "with": "stR",
    "from": 3.8,
-   "to": 4.4,
+   "to": 4.7,
    "reason": "he stands up beside his own stool and walks off it"
   },
   {
