@@ -85,8 +85,8 @@ const HAND = {
   // was lost) and spends the draw on reaching forward; the gather starts at 0.5 s, the sweep under "Move with it."
   // starts at 10.5 s, and the hand lowers palm down ahead of the return (13.6 s)
   R: [[0.0, 0.33, 0.28, 0.07], [0.5, 0.31, 0.26, 0.02], [1.6, 0.3, 0.42, 0.24], [2.7, 0.27, 0.5, 0.31], [3.4, 0.25, 0.5, 0.18],
-    [4.1, 0.25, 0.49, 0.22], [4.8, 0.27, 0.47, 0.29], [5.5, 0.28, 0.45, 0.33], [6.2, 0.27, 0.48, 0.33], [6.9, 0.26, 0.5, 0.33],
-    [7.6, 0.25, 0.5, 0.32], [8.3, 0.25, 0.5, 0.3], [9.1, 0.26, 0.47, 0.29], [9.8, 0.27, 0.42, 0.27], [10.5, 0.27, 0.4, 0.3],
+    [4.1, 0.25, 0.4, 0.22], [4.8, 0.27, 0.41, 0.29], [5.5, 0.28, 0.45, 0.33], [6.2, 0.27, 0.42, 0.33], [6.9, 0.26, 0.37, 0.33],
+    [7.6, 0.25, 0.39, 0.32], [8.3, 0.25, 0.46, 0.3], [9.1, 0.26, 0.47, 0.29], [9.8, 0.27, 0.42, 0.27], [10.5, 0.27, 0.4, 0.3],
     [11.1, 0.25, 0.39, 0.32], [11.7, 0.26, 0.42, 0.32], [12.3, 0.28, 0.48, 0.33], [12.9, 0.3, 0.42, 0.33], [13.4, 0.32, 0.33, 0.29],
     [14.1, 0.33, 0.3, 0.18], [14.9, 0.33, 0.29, 0.1]],
   // support: his left, the far hand. Jonny 8 Nov: parked by the hip it was hidden behind his body all clip ("there is no
@@ -99,9 +99,13 @@ const HAND = {
   // back (2.7-4 s), sinks as the water comes to the lead (4.6-5.3 s), sweeps the other way, in toward his middle and
   // up, as the lead sends the water out (5.5-7.6 s), lifts the sweep while he faces us (10-12.3 s) and presses the water
   // home with the lead (12.9-13.4 s). Never level with the lead, never nearer his chest than the draw-in
-  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.12], [1.3, 0.24, 0.27, 0.24], [2.2, 0.2, 0.3, 0.3], [3.2, 0.17, 0.36, 0.32],
-    [3.9, 0.16, 0.38, 0.33], [4.6, 0.2, 0.32, 0.3], [5.3, 0.24, 0.27, 0.27], [6.2, 0.12, 0.34, 0.3], [6.9, 0.1, 0.38, 0.28],
-    [7.6, 0.16, 0.33, 0.31], [8.3, 0.22, 0.3, 0.28], [9.4, 0.2, 0.34, 0.3], [10.0, 0.16, 0.3, 0.32], [10.6, 0.16, 0.4, 0.31],
+  // Jonny 8 Nov (v4): "the second hand still doesn't do much". Low in front of the belly it moved, but the near arm
+  // covered most of it. Like tai chi's cloud hands the two hands now trade heights: the support rises to chest height
+  // while the lead sinks (the draw, 3.2-4.6 s, and the redirect, 6.2-7.6 s) and they pass each other, so the far hand
+  // shows above the near arm; it lifts the sweep while he faces us
+  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.12], [1.3, 0.24, 0.27, 0.24], [2.2, 0.2, 0.3, 0.3], [3.2, 0.18, 0.4, 0.3],
+    [4.0, 0.18, 0.5, 0.28], [4.6, 0.2, 0.46, 0.3], [5.3, 0.22, 0.3, 0.3], [6.2, 0.18, 0.42, 0.3], [6.9, 0.17, 0.5, 0.29],
+    [7.6, 0.2, 0.47, 0.3], [8.3, 0.22, 0.36, 0.29], [9.4, 0.2, 0.34, 0.3], [10.0, 0.16, 0.3, 0.32], [10.6, 0.16, 0.4, 0.31],
     [11.1, 0.18, 0.48, 0.3], [11.7, 0.22, 0.5, 0.29], [12.3, 0.24, 0.42, 0.3], [12.9, 0.2, 0.34, 0.3], [13.4, 0.22, 0.26, 0.26],
     [14.0, 0.28, 0.28, 0.16], [14.9, 0.33, 0.285, 0.08]],
 };
