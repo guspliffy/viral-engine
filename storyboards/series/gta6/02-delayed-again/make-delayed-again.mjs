@@ -50,7 +50,7 @@ const seatAt = (half, dx) => [r3(half[0] + dx * S), r3(SEAT(0)[1] * S), r3(half[
 const REA_SEAT = seatAt(L0, 0), WIZ_SEAT = seatAt(R0, 0);
 const BACK = [0, 0.9, -0.31];                                    // the backrest's top, in a half's own frame
 const TABLE = { x: 0.3, z: 0.95, w: 1.0, d: 0.42, h: 0.4 };
-const PHX_AT = { x: 1.3, y: 1.0, z: 0.25 };                       // hovering at the sofa's right end, by the Wizard
+const PHX_AT = { x: 1.37, y: 1.0, z: 0.25 };   // (1.3 put the hat tip tangent to his body on screen: review B)                       // hovering at the sofa's right end, by the Wizard
 const PHX_CAL = { x: 0.45, y: 0.66, z: -0.72 };                     // panel 7: right under the calendar, looking up at it
 const REA_UP = [0, 0.43, 0.13];                                   // panel 3: Death up on his cushion (his half's frame), towering over the Wizard
 const WIN = [-1.95, -1.08];                                      // the one window, at the left (panels)
@@ -80,9 +80,9 @@ const PAD_W2 = { ...PAD_W, id: "padW2", x: 0, y: -5, z: 0, staged: "his spare, o
 const PAD_R = { id: "padR", kind: "gamepad", style: "xbox", color: "#2e3240", dark: "#16171c", ...grips.placeFor("gamepad", PAD_LAP(REA_SEAT), 0), scale: 1.2 };
 const PAD_R_TABLE = [0.0, TABLE.h, 0.92];                         // where Death leaves his controller (panels 3-6)
 // the phone, pushed at the Wizard in Phoenix's right glove, its screen to the Wizard and to us
-const PHONE = { id: "phone", kind: "phone", style: "iphone", color: "#ff7a2e", frame: "#f2a55a", x: 0.95, y: 1.35, z: 0.45, rot: -30, scale: 2.3,
+const PHONE = { id: "phone", kind: "phone", style: "iphone", color: "#ff7a2e", frame: "#f2a55a", x: 1.02, y: 1.35, z: 0.45, rot: -30, scale: 2.3,
   screen: { src: "assets/screens/delayed/atlas.png", cols: 2, rows: 1 }, feed: 0, nextFeed: 1, scroll: 0 };
-const PEN = { id: "pen", kind: "feltpen", x: 0, y: -5, z: 0, rot: 180, color: "#8f8c94", cap: "#141318", felt: "#0c0b0e", staged: "in Death's robe until he draws" };
+const PEN = { id: "pen", kind: "feltpen", x: 0, y: -5, z: 0, rot: 180, color: "#1c1b21", cap: "#141318", felt: "#0c0b0e", staged: "in Death's robe until he draws" };
 const CRESTOFF = [0.0, 1.06, 0.05];
 const SMOKEOFF = [0.0, 1.1, -0.06];                                // the smoke starts just behind the crest's tip, so no veil over it                                // the top of Phoenix's crest from where he hovers
 const props = [
@@ -95,7 +95,7 @@ const props = [
   PEN,
   { id: "bowl", kind: "snackbowl", x: 0.35, y: TABLE.h, z: 0.97, scale: 0.85 },
   { id: "clutter", kind: "clutter", x: 0, y: 0, z: 0, items: [[-0.06, 0.9, "mug", 30, TABLE.h], [0.7, 0.93, "mug", -20, TABLE.h], [1.75, 0.65, "console", -10], [-1.35, 0.15, "books", 20], [2.0, 0.1, "slippers", 15]] },
-  { id: "floorlamp", kind: "floorlamp", x: 1.5, z: r3(WZ + 0.34) },
+  { id: "floorlamp", kind: "floorlamp", x: 1.9, z: r3(WZ + 0.34) },   // right of the shelf, out from behind Phoenix (review B)
   { id: "shelf", kind: "wallshelf", x: 0.55, y: 2.6, z: r3(WZ + 0.005), staged: "screwed to the wall" },
   { id: "art1", kind: "wallart", x: -0.85, y: 2.2, z: r3(WZ + 0.02), w: 0.26, h: 0.32, scene: "sea", frame: "#3c3a40", staged: "hangs on the wall" },
   { id: "art2", kind: "wallart", x: 1.28, y: 2.05, z: r3(WZ + 0.02), w: 0.42, h: 0.32, scene: "hills", frame: "#8a6a42", staged: "hangs on the wall" },
@@ -124,13 +124,17 @@ const line = (t, who, text, dur, tone, to, pos, x, sub = text, from = t) => {
 // Phoenix hovers by the Wizard and shoves the phone at him: "It's DELAYED again!"
 // he is already airborne on frame 0: the fly at 0 is instant and the hover keeps the wings out (timeline.js airSince)
 A(0, "phx", "fly", { to: { x: PHX_AT.x, y: PHX_AT.y, z: PHX_AT.z }, dur: 0 });
-A(0, "phx", "hover", { dur: r3(CUT3 - 0.01) });
+A(0, "phx", "hover", { dur: r3(CUT2 - 0.01) });
+// panel 2 cheats him out of the close-up with his phone: at its edge the phone showed as a red sliver (review B) and
+// a wing tip flapped in and out of frame
+A(CUT2, "phx", "fly", { to: { ...PHX_AT, x: r3(PHX_AT.x + 0.5) }, dur: 0 }); A(r3(CUT2 + 0.01), "phx", "hover", { dur: r3(CUT3 - CUT2 - 0.02) });
 // panel 3 cheats him 20 cm toward us: the Wizard shrinks back toward him and his wing would brush the hat brim
-const PHX_P3 = { ...PHX_AT, z: r3(PHX_AT.z + 0.2) };
+const PHX_P3 = { ...PHX_AT, x: 1.28, z: r3(PHX_AT.z + 0.2) };   // and a little left, so this closer shot keeps him in
 A(CUT3, "phx", "fly", { to: PHX_P3, dur: 0 }); A(r3(CUT3 + 0.01), "phx", "hover", { dur: r3(CUT4 - CUT3 - 0.02) });
 A(CUT4, "phx", "fly", { to: PHX_AT, dur: 0 }); A(r3(CUT4 + 0.01), "phx", "hover", { dur: r3(CUT7 - CUT4 - 0.02) });
 const ph = grips.phone(c, "phx", PHONE, { side: "R" });
-ph.carry(CUT3, [PHONE.x, PHONE.y, r3(PHONE.z + 0.2)], 0); ph.carry(CUT4, [PHONE.x, PHONE.y, PHONE.z], 0);
+ph.carry(CUT2, [r3(PHONE.x + 0.5), PHONE.y, PHONE.z], 0);
+ph.carry(CUT3, [r3(PHONE.x + PHX_P3.x - PHX_AT.x), PHONE.y, r3(PHONE.z + 0.2)], 0); ph.carry(CUT4, [PHONE.x, PHONE.y, PHONE.z], 0);
 c.arm(0, "phx", "R", { prop: "phone", grip: ph.hands.R.grip, palm: true }, 0); A(0, "phx", "grip", { side: "R", shape: "hold", dur: 0 });
 A(0, "phx", "grab", { prop: "phone", hand: "R", grip: ph.hands.R.grip, dur: 0, pose: null });
 A(0, "phx", "look", { to: [-0.6, -0.1], dur: 0, blink: false });
@@ -193,7 +197,7 @@ c.arm(2.5, "rea", "R", SCY_UP, 0.35, "out"); A(2.5, "rea", "tilt", { to: [0, 0],
 sfx(2.52, "whoosh", { gain: 0.2, reason: "the scythe swings up" });
 line(2.6, "rea", "Then it's time.", 0.6, "calm", HS1, 470, 470);
 A(3.15, "rea", "lean", { to: 12, dur: 0.15, ease: "in" });
-A(3.15, "rea", "tilt", { to: [35, 0], dur: 0.15, ease: "in" });   // the blade swings over the Wizard's hat (review A)
+A(3.15, "rea", "tilt", { to: [48, 0], dur: 0.15, ease: "in" });   // the blade swings over the Wizard's hat (review A)
 c.hitStop(HS1);
 sfx(HS1, "shing", { gain: 0.35, reason: "the blade stops dead over the Wizard and gleams: shing! (the clang drowned on a phone)" });
 // the Wizard shrinks back into the sofa, both empty hands up: "NOT YET!"
@@ -258,7 +262,7 @@ for (const [t, [x, y]] of STROKES) pen.carry(t, sk(x, y), 0.1, "inOut");
 c.prop(7.0, "cal", { rise: 0.42 }, 0.62, "linear"); c.prop(7.62, "cal", { rise: 0.58 }, 0.16, "linear");
 c.prop(7.78, "cal", { rise: 0.82 }, 0.16, "linear"); c.prop(7.94, "cal", { rise: 1 }, 0.08, "linear");
 for (const t of [7.0, 7.62, 7.84]) sfx(t, "scribble", { gain: 0.5, reason: "the marker scratches the skull onto the page" });
-pen.carry(7.99, sk(2.9, 0.4), 0.06, "inOut");   // the flame, drawn in the next cell (it read as part of the skull)
+pen.carry(7.99, sk(3.3, 0.55), 0.06, "inOut");   // the flame, drawn in the next cell (it read as part of the skull)
 c.prop(7.99, "cal", { puff: 1 }, 0.08, "linear");
 // the marker comes away down and left, off the page, so the skull and the flame are bare for the hit-stop
 pen.carry(8.05, sk(-7, 9, 0.15), 0.12, "out");   // well clear of the circle: the glove covered its bottom
@@ -301,6 +305,10 @@ sitWithPad(CUT8, "rea2", "sofaL", PAD_R, 0); sitWithPad(CUT8, "wiz", "sofaR", PA
 A(CUT8, "rea2", "look", { to: [0.1, -0.05], dur: 0, blink: false }); A(CUT8, "rea2", "expr", { expr: "smug", set: { eye: 0.7, curve: 0.3 }, dur: 0 });
 A(CUT8, "wiz", "pitch", { to: 0, dur: 0 }); A(CUT8, "wiz", "look", { to: [-0.05, -0.05], dur: 0, blink: false }); A(CUT8, "wiz", "expr", { expr: "happy", set: { curve: 0.8, eye: 0.55 }, dur: 0 });
 A(8.55, "wiz", "talk", { line: "heh heh", tone: "calm", dur: 0.45, voice: false });
+for (const t of [8.55, 8.75]) A(t, "wiz", "squash", { amount: 0.03, dur: 0.18 });   // the snicker reads muted (review B)
+// Death's slow side-glance at Phoenix, held: "he knows" (and frame 0's look, for the loop)
+A(9.2, "rea2", "look", { to: [0.75, 0.08], dur: 0.3, blink: false });
+c.prop(9.5, "smoke", { on: 0 }, 0.3, "inOut");   // the last wisp thins away, so the loop doesn't pop it off
 A(CUT8, "phx", "fly", { to: PHX_AT, dur: 0 }); A(r3(CUT8 + 0.01), "phx", "hover", { dur: r3(END - CUT8 - 0.02) });
 ph.carry(CUT8, [PHONE.x, PHONE.y, PHONE.z], 0);   // the phone back up where it started (the loop)
 c.prop(CUT8, "smoke", { x: r3(PHX_AT.x + SMOKEOFF[0]), y: r3(PHX_AT.y + SMOKEOFF[1]), z: r3(PHX_AT.z + SMOKEOFF[2]) }, 0);
@@ -359,6 +367,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
   castLook: LOOK, cleanStart: true, seed: 6202,
   motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING, loopIdle: true,
+  cover: 8.3,   // the brief's cover: the circle, the skull and the flame, Phoenix's face (just after the last stroke's hit-stop)
   set: { type: "apartment", dusk: true, windows: [WIN], print: false, light: "golden", grade: "warm", aperture: 0, lighting: LIGHTING, hatch: HATCH, life: "auto", cel: CEL },
   // the bed drops out on the blade's ring (the scythe stops dead, "NOT YET!") and is back for the laugh
   music: { style: "lofi", lowCut: 220, gain: 0.3, payoff: r3(CUT8 + 0.2), parts: [{ at: 0, part: "main" }, { at: HS1, part: "stop" }, { at: CUT4, part: "main" }, { at: CUT5, part: "stop" }, { at: 8.6, part: "main" }] },

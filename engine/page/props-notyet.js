@@ -203,11 +203,12 @@ export const NOTYET_KINDS = {
       }
       // a little flame beside it: Phoenix's mark
       if (puff > 0) {
-        const [x, y] = cell(circ + 1), fx = x + cw * 1.42, fy = y + ch * 0.88, s = cw * 0.8;   // in the next cell, apart from the skull
-        const F = [[0, 0], [-0.32, -0.25], [-0.2, -0.62], [-0.05, -0.42], [0.04, -0.9], [0.3, -0.45], [0.32, -0.15], [0, 0]];
-        g.strokeStyle = "#16141a"; g.fillStyle = "#16141a"; g.lineWidth = 5.5 * K;
+        // in the next cell, apart from the skull and taller: an outline flame with three tongues in a thin line (a
+        // filled drop, and a thick outline that filled in at phone size, read as a spade or an ink blot)
+        const [x, y] = cell(circ + 1), fx = x + cw * 1.5, fy = y + ch * 0.93, s = cw * 0.95;
+        const F = [[0, 0], [-0.32, -0.1], [-0.42, -0.4], [-0.34, -0.66], [-0.28, -0.98], [-0.12, -0.62], [0, -1.25], [0.18, -0.72], [0.3, -0.92], [0.42, -0.5], [0.34, -0.15], [0, 0]];
+        g.strokeStyle = "#16141a"; g.lineWidth = 4 * K;
         part(F, puff, fx, fy, s);
-        if (puff >= 1) { g.beginPath(); F.forEach(([u, v], i) => g[i ? "lineTo" : "moveTo"](fx + u * s, fy + v * s)); g.fill(); }   // filled in: it reads at phone size
       }
       page.needsUpdate = true;
     };
