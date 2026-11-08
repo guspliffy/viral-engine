@@ -1,0 +1,598 @@
+{
+ "id": "bench-props",
+ "title": "Props bench: your birthday",
+ "idea": "Stills bench for the props of never has money 04 (coupon, party hats, rosette, bow gifts, bunting).",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#d9b98a",
+  "floor": "#a86f3e",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  }
+ },
+ "music": {
+  "style": "warm",
+  "lowCut": 150,
+  "gain": 0.3
+ },
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "surface": "wood",
+  "room": "room",
+  "guard": false
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    2.4,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "plankfloor",
+   "x": 0,
+   "z": 0.4,
+   "w": 30,
+   "d": 8
+  },
+  {
+   "id": "cp0",
+   "kind": "coupon",
+   "x": -2.4,
+   "y": 1.05,
+   "z": 0,
+   "rot": 0,
+   "ink": 0,
+   "fold": 0
+  },
+  {
+   "id": "cp1",
+   "kind": "coupon",
+   "x": -4.8,
+   "y": 1.05,
+   "z": 0,
+   "rot": 0,
+   "ink": 0.5,
+   "fold": 0
+  },
+  {
+   "id": "cp2",
+   "kind": "coupon",
+   "x": -7.2,
+   "y": 1.05,
+   "z": 0,
+   "rot": 0,
+   "ink": 1,
+   "fold": 0
+  },
+  {
+   "id": "cp3",
+   "kind": "coupon",
+   "x": -9.6,
+   "y": 1.05,
+   "z": 0,
+   "rot": 0,
+   "ink": 1,
+   "fold": 1
+  },
+  {
+   "id": "cpHeld",
+   "kind": "coupon",
+   "x": 0,
+   "y": 0.58,
+   "z": 0.42,
+   "rot": 0,
+   "ink": 1
+  },
+  {
+   "id": "hatG",
+   "kind": "partyhat",
+   "wear": "gsl",
+   "x": 0.06,
+   "y": 1.31,
+   "z": 0,
+   "rot": 0,
+   "tilt": 0,
+   "tip": 0,
+   "color": "#d8392b",
+   "accent": "#f2c14e",
+   "pattern": "stripes",
+   "pom": "#f2c14e"
+  },
+  {
+   "id": "hatV",
+   "kind": "partyhat",
+   "wear": "vik",
+   "x": 0.08,
+   "y": 1.2,
+   "z": 0.08,
+   "rot": 0,
+   "tilt": 14,
+   "tip": 0,
+   "color": "#3d7fd1",
+   "accent": "#f2c14e",
+   "pattern": "dots",
+   "pom": "#f2c14e"
+  },
+  {
+   "id": "ros",
+   "kind": "rosette",
+   "wear": "vik",
+   "x": -0.2,
+   "y": 0.5,
+   "z": 0.36,
+   "rot": 0,
+   "tilt": 0,
+   "tip": 0
+  },
+  {
+   "id": "giftP",
+   "kind": "bowgift",
+   "x": 5,
+   "y": 0,
+   "z": 0,
+   "rot": -12,
+   "w": 0.46,
+   "h": 0.34,
+   "color": "#7d3fb8",
+   "ribbon": "#e7b43a"
+  },
+  {
+   "id": "giftB",
+   "kind": "bowgift",
+   "x": 5.75,
+   "y": 0,
+   "z": 0.1,
+   "rot": 8,
+   "w": 0.22,
+   "h": 0.14,
+   "color": "#26232a",
+   "ribbon": "#c9ced6"
+  },
+  {
+   "id": "giftO",
+   "kind": "bowgift",
+   "x": 6.6,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 0.46,
+   "h": 0.34,
+   "color": "#7d3fb8",
+   "ribbon": "#e7b43a",
+   "lid": 1
+  },
+  {
+   "id": "bunt",
+   "kind": "bunting",
+   "x": 9.5,
+   "y": 1.9,
+   "z": -0.6,
+   "w": 3.4,
+   "sag": 0.22,
+   "count": 15,
+   "colors": [
+    "#8a4fc4",
+    "#f2c14e",
+    "#e97a9a"
+   ],
+   "faces": true
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "coupon ink 0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.05,
+     3.98
+    ],
+    "look": [
+     -2.4,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "coupon ink 0.5",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.8,
+     1.05,
+     3.98
+    ],
+    "look": [
+     -4.8,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "coupon ink 1",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7.2,
+     1.05,
+     3.98
+    ],
+    "look": [
+     -7.2,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "coupon folded",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -9.6,
+     1.05,
+     3.98
+    ],
+    "look": [
+     -9.6,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "coupon close",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7.2,
+     1.05,
+     1.493
+    ],
+    "look": [
+     -7.2,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "coupon back / 3-4",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -5.1,
+     1.626,
+     -2.503
+    ],
+    "look": [
+     -7.2,
+     1.05,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "gsl hat front",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.555,
+     3.641
+    ],
+    "look": [
+     0.05,
+     1.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "gsl hat 3/4",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.383,
+     1.682,
+     2.781
+    ],
+    "look": [
+     0.05,
+     1.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "vik hat front",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.4,
+     1.455,
+     3.641
+    ],
+    "look": [
+     2.4,
+     1.2,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "vik hat 3/4",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.067,
+     1.582,
+     2.781
+    ],
+    "look": [
+     2.4,
+     1.2,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "rosette on vik",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.3,
+     0.771,
+     4.31
+    ],
+    "look": [
+     2.3,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "gsl + coupon",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.231,
+     0.916,
+     3.308
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "both gifts",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.813,
+     1.213,
+     3.874
+    ],
+    "look": [
+     5.35,
+     0.25,
+     0.05
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "gift big 3/4",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.209,
+     0.922,
+     2.273
+    ],
+    "look": [
+     5,
+     0.28,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "gift open",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.6,
+     1.215,
+     3.189
+    ],
+    "look": [
+     6.6,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bow close big",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.595,
+     0.814,
+     1.905
+    ],
+    "look": [
+     5,
+     0.4,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bow close small",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.885,
+     0.377,
+     1.063
+    ],
+    "look": [
+     5.75,
+     0.17,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bunting",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     9.5,
+     1.55,
+     12.007
+    ],
+    "look": [
+     9.5,
+     1.55,
+     -0.6
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bunting close",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.9,
+     1.7,
+     4.045
+    ],
+    "look": [
+     8.9,
+     1.7,
+     -0.6
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "allowClip": [],
+ "notes": "Stills bench for props-birthday.js (builder task T2). Not a clip."
+}
