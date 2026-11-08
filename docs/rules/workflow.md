@@ -8,7 +8,8 @@ re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lin
 
 | Role | Who | Model, effort | Does |
 |---|---|---|---|
-| Director | the thread's own session | project default (Opus 5.5) | plan, PANELS.md, **the clip generator (staging, camera, acting, timing)**, briefs, integration, checks, review, PR, delivery |
+| Director | the thread's own session | Opus 5.5, **xhigh** (project setting) | plan, PANELS.md, **the clip generator (staging, camera, acting, timing)**, briefs, integration, checks, review, PR, delivery |
+| Clip writer (option) | `clip-writer` | Fable 5.1, **xhigh** | writes the clip generator (staging, camera, acting, timing) when the director hands it the clip; reviews A and B then come from a fresh `creative-director` spawn |
 | Creative director | `creative-director` | Fable 5.1, **xhigh** (Jonny, 8 Nov) | reviews A and B, writes BOARD numbers when asked; never code |
 | Builder | `builder` | Sonnet 5.5, high (Jonny, 8 Nov) | one specced task with exact numbers: a props file + its bench, a painted plate or env set, a grip test, a sound pick list, a mechanical fix the director measured. **Never a clip generator, a camera or the acting** |
 | Senior builder | `builder` with model opus, effort high | Opus 5.5 | rig, physics, shaders, VFX, render pipeline, timeline, new checks, bug fixes in existing systems |
@@ -39,7 +40,8 @@ judged the old one better in quality and logic. Two causes, so two rules:
    those calls itself, for example a glance up to the window so the viewer finds the friends, and the empty table seen
    from the peek.
 
-So the director writes the clip itself. Builders make the parts that have a right answer someone else can check:
+So the clip is written by Opus 5.5 at xhigh (the director) or Fable 5.1 at xhigh (`clip-writer`), never by a
+builder (Jonny, 8 Nov). Builders make the parts that have a right answer someone else can check:
 props, plates, benches and measured fixes.
 
 ## Gates (Jonny signs off each one)

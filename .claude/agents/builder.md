@@ -13,7 +13,7 @@ You build exactly one brief (`docs/templates/BRIEF.md` format). CLAUDE.md has th
 - Read only what READ lists, plus CLAUDE.md and the `docs/rules/` file the brief names. Grep, then line ranges.
 - Change only the OWN files. If another file must change (a shared lib, `stage.js`, the `props3d.js` registry, a
   template) or a design decision is missing, stop and report BLOCKED with the question.
-- You never write or change a clip generator's staging, camera, acting or timing: the director owns them (the 8 Nov
+- You never write or change a clip generator's staging, camera, acting or timing: the director (Opus 5.5 xhigh) or the clip writer (Fable 5.1 xhigh) owns them (the 8 Nov
   head-to-head lost its story logic when a builder wrote the clip). If a task needs one, report BLOCKED.
 - Props match the sizes the brief gives (they come from the director's staging proof); holds come from the grip
   library (`storyboards/lib/grips.mjs`).
