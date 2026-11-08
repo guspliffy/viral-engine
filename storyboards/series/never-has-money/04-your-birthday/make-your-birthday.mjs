@@ -51,8 +51,10 @@ const SUB_LOW = 1250;
 const G0 = [-0.2, -0.85], GP = [-0.22, -0.62];         // Gunslinger: a step behind the row at frame 0; up in the row from 1.4 (the pocket pat; W1: 0.13 right, his brim and right hand were in the Wizard)
 const V0 = [0.7, -0.5], V0_YAW = -45;                  // Viking: centre right, turned to the Wizard
 const V0b = [0.8, -0.55], V0b_YAW = -40;               // 1.1 Viking eases right as he turns to look (clear of the brim in 02)
-const W_IN = [-0.85, 0.02], W_IN_YAW = 50;             // frame 0: the Wizard stepped in to push the present over (cut by the left edge; 0.6 from the crate)
-const R_IN = [1.62, 0.38], R_IN_YAW = -55;               // Reaper at the right edge, the black box at his chest; he leans in to set it on the lid (no step: a step in put his hood over Viking's face)
+const W_IN = [-0.6, 0.25], W_IN_YAW = 50;   // (fix 1: 0.25 in and 0.23 nearer, so P01 can push in)
+//             // frame 0: the Wizard stepped in to push the present over (cut by the left edge; 0.6 from the crate)
+const R_IN = [1.38, 0.6], R_IN_YAW = -55;   // (fix 1: 0.24 in and 0.22 nearer, so P01 can push in)
+//               // Reaper at the right edge, the black box at his chest; he leans in to set it on the lid (no step: a step in put his hood over Viking's face)
 const W0 = [-1.15, -0.5], W0_YAW = 80;                 // a step back to the side (0.5-1.0), his face still in 01, looking across at Gunslinger
 const R0 = R_IN, R0_YAW = -95;                         // 1.15 he turns to look across at Gunslinger
 const CRATE = [-1.05, 0.6], CRATE_YAW = -35;           // his seat at the front left (a wooden crate, 0.34 m); he sits turned half away
@@ -62,7 +64,8 @@ const V3 = [0.0, -0.3], W3 = [0.85, -1.4];             // 3.05 Viking steps clos
                                                        // moves round behind Viking to see (out of 03, so nothing pokes from his hat)
 const W1 = [-0.52, -0.85], R1 = [1.35, -0.2];           // 4.6/4.9 they step in behind Viking's left and right shoulders (05; W1: the Wizard further left and back, his face was behind Viking's head and Gunslinger's hat)
 const W2 = [-0.55, 1.7], R2 = [1.45, 2.35];             // at their presents on the rug, in front of the hug (07)
-const W4 = [-0.68, 1.3], W4_YAW = 60;                  // 8.3 the Wizard backs off a step, under Gunslinger's eyes: his face in 08's bottom-left foreground
+const W4 = [-0.35, 1.5], W4_YAW = 60;   // (fix 1: in from the left edge, so his twitch reads in 08)
+//                  // 8.3 the Wizard backs off a step, under Gunslinger's eyes: his face in 08's bottom-left foreground
 const GIFT_P = [0.05, 2.35], GIFT_B = [0.8, 2.5];      // where the presents land (6.18-6.55): in front of the hug, clear of the swing
 const yawTo = ([x0, z0], [x1, z1]) => r3((Math.atan2(x1 - x0, z1 - z0) * 180) / Math.PI);
 const rad = (d) => (d * Math.PI) / 180;
@@ -99,7 +102,7 @@ const ONE = (V, yaw) => ({ P: bf(V, yaw, 0.6, 0.25, 0.05), B: bf(V, yaw, 0.6, 0.
 const S0 = FRONT(V0, V0_YAW, 0.16, 0.85);   // frame 0: the handover, the box held out between them at their bellies (01; W1: up from 0.1)
 const S1 = SIDE(V0, V0_YAW);
 const GIFTP = { id: "giftP", kind: "bowgift", x: S0.P[0], y: S0.P[1], z: S0.P[2], rot: r3(V0_YAW + 180), w: BIG.w, h: BIG.h, color: "#7d3fb8", ribbon: "#e7b43a" };
-const RB0 = bf(R_IN, R_IN_YAW, 0.48, 0, 0.5);   // the black box at Reaper's chest
+const RB0 = bf(R_IN, R_IN_YAW, 0.48, 0, 0.4);   // the black box at Reaper's belly (fix 1: at his chest it hid his face in 01)
 const GIFTB = { id: "giftB", kind: "bowgift", x: RB0[0], y: RB0[1], z: RB0[2], rot: r3(R_IN_YAW + 180), w: SMALL.w, h: SMALL.h, color: "#26232a", ribbon: "#c9ced6" };
 // the hero prop (props-birthday.js): the drawing on its +z (rot = the facing of whoever should see it: rot 0 shows it
 // to the camera); fold 1 = the little square from his bandana. ink 1 from the start: a tweened ink never reaches the
@@ -127,7 +130,7 @@ const props = [
   { id: "ros", kind: "rosette", wear: "vik", x: -0.2, y: 0.5, z: 0.36 },
   // the bunting across the top of the room (every panel): in front of the plate, in the top fifth of P01, above every
   // head and hat (Gunslinger lifted in the hug tops out at ~2.3 m)
-  { id: "bunt", kind: "bunting", x: 0, y: 2.22, z: -1.5, w: 3.6, sag: 0.24, count: 15, colors: ["#8a4fc4", "#f2c14e", "#e97a9a"], faces: true },
+  { id: "bunt", kind: "bunting", staged: "hung from nails in the back wall", x: 0, y: 2.22, z: -1.5, w: 3.6, sag: 0.24, count: 15, colors: ["#8a4fc4", "#f2c14e", "#e97a9a"], faces: true },
   // the wallet and the moth come with the pocket-pat block (the wallet down in his holster until he draws it)
   ...patProps({ who: "gsl", at: GP, yaw: 10 }).map((p) => (p.id === "wallet" ? { ...p, scale: 0.001, staged: "down in his holster (part of his costume) until he draws it" } : p)),
 ];
@@ -173,7 +176,8 @@ A(0.45, "wiz", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.45 }, dur
 c.say(0.45, "wiz", "happy birthday!", 0.55, "excited", { voice: false, sub: "Happy birthday!", pos: SUB_LOW });
 A(0.5, "wiz", "squash", { amount: 0.03, dur: 0.2 });
 for (const s of ["R", "L"]) { c.arm(0.95, "wiz", s, "rest", 0.4, "settle"); A(0.95, "wiz", "grip", { side: s, shape: "relaxed", dur: 0.2 }); }
-A(0.55, "wiz", "move", { to: W0, dur: 0.45, steps: 3 }); A(0.55, "wiz", "turn", { to: W0_YAW, dur: 0.45 });
+act.eyesLead(c, 0.55, "wiz", [-0.4, 0.0]);
+A(0.55, "wiz", "move", { to: W0, dur: 0.5, steps: 4 }); A(0.55, "wiz", "turn", { to: W0_YAW, dur: 0.5 });
 // Reaper: the black box at his chest, deadpan; 0.3 he steps in, 0.65 sets it on the lid's corner, lets go, steps back
 const hB = grips.box(c, "rea", GIFTB);
 for (const s of ["R", "L"]) { c.arm(0, "rea", s, { prop: "giftB", grip: hB.hands[s].grip, palm: true, at: RB0 }, 0); A(0, "rea", "grip", { side: s, shape: "press", dur: 0 }); }
@@ -194,6 +198,7 @@ see(0.65, 0.95, ["rea.face", "giftB", "giftP", "vik.face"], "panel 1: Reaper set
 A(1.0, "wiz", "look", { to: [0.75, -0.05], dur: 0.15, blink: false });
 A(1.05, "wiz", "expr", { expr: "eager", set: { curve: 0.3, open: 0.2 }, dur: 0.15 }); A(1.05, "wiz", "face", { brow: 0.35, dur: 0.2 });
 c.say(1.1, "wiz", "and yours?", 0.5, "calm", { voice: false, sub: "And yours?", pos: SUB_LOW });
+act.eyesLead(c, 1.1, "vik", [0.35, -0.35]);   // (to the stack first)
 A(1.1, "vik", "move", { to: V0b, dur: 0.25 }); A(1.1, "vik", "turn", { to: V0b_YAW, dur: 0.25 });
 stackTo(1.1, SIDE(V0b, V0b_YAW, 0.5, 0.45), V0b_YAW, 0.25);   // a little more in front: in 02's frame at the right edge
 A(1.15, "vik", "look", { to: [-0.55, -0.1], dur: 0.15, blink: false });
@@ -202,12 +207,23 @@ A(1.15, "rea", "turn", { to: R0_YAW, dur: 0.2 }); A(1.18, "rea", "look", { to: [
 A(1.1, "gsl", "look", { to: [-0.4, 0.05], dur: 0.12, blink: false });   // at the Wizard
 act.shock(c, 1.15, "gsl", { open: 0.2, hold: 0.2 });
 A(1.2, "gsl", "move", { to: GP, dur: 0.22, steps: 1 });
-A(1.4, "gsl", "expr", { expr: "eager", set: { curve: 0.2, open: 0.1 }, dur: 0.1 });
 see(1.15, 1.45, ["wiz.face", "vik.face", "rea.face", "gsl.face"], "panel 1: every eyeline lands on Gunslinger");
 
 // ================================================================ 2 THE POCKET PAT 1.5-2.8 (panel 02, the series block)
-c.at(2.28, { do: "prop", id: "wallet", set: { scale: 1 }, dur: 0.04, ease: "out", reason: "the top of the wallet shows in the holster as his hand gets there" });
+c.at(2.14, { do: "prop", id: "wallet", set: { scale: 1 }, dur: 0.04, ease: "out", reason: "the top of the wallet shows in the holster as his hand gets there" });
+const PAT0 = c.items.length;
 pocketPat(c, { who: "gsl", at: GP, yaw: 10, friend: [0.6, 0.05] });
+// fix 1: the block's last second runs 0.66x (from 1.85), so the wallet is open from 2.28 and the moth is on the brim by
+// 2.5: the open empty wallet and the moth read for 0.5 s before the 2.8 cut. Its expressions: the cocky draw holds into
+// the grin (the hopeful "eager" between them lasted 0.1 s), and the grin's eyes-back at 3.87 would land in the scribble
+const WARP = (t) => r3(1.85 + (t - 1.85) * 0.66);
+for (let i = c.items.length - 1; i >= PAT0; i--) {
+  const it = c.items[i];
+  if (it.who === "gsl" && it.do === "expr" && it.expr === "eager" && Math.abs(it.at - 2.53) < 1e-6) { c.items.splice(i, 1); continue; }
+  if (it.who === "gsl" && it.at > 3.5 && (it.do === "expr" || it.do === "face")) { c.items.splice(i, 1); continue; }
+  if (it.at >= 1.85 && it.at < 2.85) { it.at = WARP(it.at); if (it.dur > 0) it.dur = r3(Math.max(0.03, it.dur * 0.66)); }
+}
+for (const it of c.items.slice(PAT0)) if (it.who === "gsl" && it.do === "expr" && it.expr === "happy") it.at = 2.5;   // (the grin: the cocky draw holds 0.3 s)
 // W1: the hat pat from wider than the brim, then down outside it before the chest pat (on drawings that are no longer
 // pre-played, the block's 0.08 s slap from the hat to the chest swept his forearm through the brim at 1.57-1.67)
 for (const it of c.items) if (it.who === "gsl" && it.do === "arm" && it.side === "L" && it.at >= 1.46 && it.at <= 1.63) {
@@ -216,8 +232,8 @@ for (const it of c.items) if (it.who === "gsl" && it.do === "arm" && it.side ===
 }
 c.arm(1.61, "gsl", "L", { o: [0.4, 0.72, 0.2] }, 0.04, "out");
 A(1.6, "wiz", "face", { brow: 0.1, dur: 0.3 });
-A(2.55, "wiz", "face", { lid: 0.45, dur: 0.2 });   // the moth: a slow droop of the lids
-A(2.6, "rea", "face", { lid: 0.55, dur: 0.2 });
+A(2.35, "wiz", "face", { lid: 0.45, dur: 0.2 });   // the moth: a slow droop of the lids
+A(2.4, "rea", "face", { lid: 0.55, dur: 0.2 });
 A(2.6, "vik", "face", { brow: 0.1, dur: 0.2 }); A(2.65, "vik", "expr", { expr: "kind", set: { curve: 0.2 }, dur: 0.2 });
 
 // ================================================================ 3 THE DODGE 2.8-4.1 (panel 03)
@@ -227,22 +243,22 @@ A(2.6, "vik", "face", { brow: 0.1, dur: 0.2 }); A(2.65, "vik", "expr", { expr: "
 // Wizard moves round behind Viking; Reaper turns to watch.
 const HOLSTER = patProps({ who: "gsl", at: GP, yaw: 10 })[0], HOL = [HOLSTER.x, HOLSTER.y, HOLSTER.z];
 c.prop(2.78, "wallet", { open: 0 }, 0.08, "inOut");
-c.arm(2.8, "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: HOL }, 0.1, "inOut");
-A(2.9, "gsl", "release", { prop: "wallet", to: HOL, dur: 0.04 });
-c.prop(2.94, "wallet", { tip: 360, rot: HOLSTER.rot }, 0.04, "inOut");
-c.at(2.98, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.03, ease: "in", reason: "back down in his holster (part of his costume), so it walks with him" });
-A(2.92, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.1 }); c.arm(2.94, "gsl", "R", { o: [0.08, 0.4, 0.26] }, 0.2, "inOut");   // (in front of his side: from rest the pen reach went through his belly as he sat)
+c.arm(2.8, "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: HOL }, 0.15, "inOut");
+A(2.95, "gsl", "release", { prop: "wallet", to: HOL, dur: 0.04 });
+c.prop(2.97, "wallet", { tip: 360, rot: HOLSTER.rot }, 0.03, "inOut");
+c.at(3.0, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.03, ease: "in", reason: "back down in his holster (part of his costume), so it walks with him" });
+A(2.96, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.1 }); c.arm(2.97, "gsl", "R", "rest", 0.13, "inOut"); c.arm(3.1, "gsl", "R", { o: [0.08, 0.4, 0.26] }, 0.08, "inOut");   // (in front of his side: from rest the pen reach went through his belly as he sat)
 // the "wait!" finger: his left index up beside his face
-c.arm(2.8, "gsl", "L", { o: [-0.02, 0.78, 0.3] }, 0.12, "out"); A(2.8, "gsl", "grip", { side: "L", shape: "point", set: { index: 0, curl: 1 }, dur: 0.1 });
-A(2.8, "gsl", "expr", { expr: "eager", set: { curve: 0.5, open: 0.3, raise: 0.05 }, dur: 0.1 }); A(2.8, "gsl", "face", { brow: 0.4, dur: 0.1 });
+c.arm(2.8, "gsl", "L", { o: [-0.02, 0.78, 0.3] }, 0.16, "inOut"); A(2.8, "gsl", "grip", { side: "L", shape: "point", set: { index: 0, curl: 1 }, dur: 0.1 });
+A(2.82, "gsl", "expr", { expr: "eager", set: { curve: 0.5, open: 0.3, raise: 0.05 }, dur: 0.1 }); A(2.8, "gsl", "face", { brow: 0.4, dur: 0.1 });
 act.emote(c, 2.82, "gsl", "wait!", { dur: 0.45, size: 96, dx: -0.4, dy: -0.75, angle: -6 });
 A(2.82, "gsl", "squash", { amount: 0.03, dur: 0.12 });
 // the hurry to the crate (eyes first), the finger comes down on the way
 // (W1: all of it 0.1-0.25 s earlier, so the scribble starts at 3.32 as the brief has it, 3.30-4.10)
 act.eyesLead(c, 2.94, "gsl", [-0.55, -0.35]);
-A(2.92, "gsl", "move", { to: [-0.55, 0.05], dur: 0.12, steps: 2 }); A(2.92, "gsl", "turn", { to: -60, dur: 0.12 });
-A(3.04, "gsl", "move", { to: [-0.85, 0.48], dur: 0.08, steps: 1 });
-c.arm(2.98, "gsl", "L", "rest", 0.18, "inOut"); A(2.98, "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.12 });
+A(2.92, "gsl", "move", { to: [-0.55, 0.05], dur: 0.14, steps: 2 }); A(2.92, "gsl", "turn", { to: -60, dur: 0.16 });
+A(3.06, "gsl", "move", { to: [-0.85, 0.48], dur: 0.08, steps: 1 });
+c.arm(3.0, "gsl", "L", "rest", 0.18, "inOut"); A(2.98, "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.12 });
 A(3.08, "gsl", "sit", { seat: "crate", dur: 0.11, hands: "keep", height: 0.34 });   // (seated by 3.19, before his hands go to his chest)
 sfx(3.19, "sit", { gain: 0.35, reason: "he plonks down on the wooden crate" });
 // the seated body: on the crate's centre (sit puts it 3 cm forward), its bottom on the crate top
@@ -289,14 +305,15 @@ A(3.22, "gsl", "face", { lid: 0.25, brow: -0.1, dur: 0.2 });
 A(3.12, "gsl", "pitch", { to: 10, dur: 0.3 });   // bent over his knee
 // the others watch: Viking steps closer and peeks, eyes narrowed; Reaper turns; the Wizard goes round behind Viking
 act.eyesLead(c, 3.0, "vik", [-0.6, -0.25]);
-const V3_YAW = yawTo(V3, CRATE);
-A(3.05, "vik", "move", { to: V3, dur: 0.35, steps: 2 }); A(3.05, "vik", "turn", { to: V3_YAW, dur: 0.3 });
+const V3_YAW = -28;   // (fix 1: half turned to the crate, not square on: 20 degrees from his 05 facing, so the stack never turns much in his hands)
+A(3.05, "vik", "move", { to: V3, dur: 0.35, steps: 3 }); A(3.05, "vik", "turn", { to: V3_YAW, dur: 0.3 });
 stackTo(3.05, SIDE(V3, V3_YAW), V3_YAW, 0.35);
 A(3.4, "vik", "face", { lid: 0.42, brow: -0.1, dur: 0.3 }); A(3.05, "vik", "expr", { expr: "kind", set: { curve: 0.1, open: 0 }, dur: 0.3 });   // (by 4.1, when he is behind Gunslinger in 04)
 A(3.45, "vik", "pitch", { to: 7, dur: 0.35 }); A(3.5, "vik", "look", { to: [-0.55, -0.4], dur: 0.15, blink: false });
 A(3.0, "rea", "turn", { to: yawTo(R0, CRATE), dur: 0.3 }); A(3.0, "rea", "look", { to: [-0.5, -0.3], dur: 0.2, blink: false });
 A(3.25, "wiz", "look", { to: [0.6, -0.1], dur: 0.15, blink: false });
-A(2.92, "wiz", "move", { to: [-0.95, -1.3], dur: 0.3, steps: 2 }); A(3.22, "wiz", "move", { to: [-0.1, -1.6], dur: 0.34, steps: 2 }); A(3.56, "wiz", "move", { to: W3, dur: 0.34, steps: 2 });   // (W1: out of Gunslinger's way and wide of Viking's cape)
+act.eyesLead(c, 2.92, "wiz", [0.3, -0.1]);
+A(2.92, "wiz", "move", { to: [-0.95, -1.3], dur: 0.3, steps: 3 }); A(3.22, "wiz", "move", { to: [-0.1, -1.6], dur: 0.34, steps: 3 }); A(3.56, "wiz", "move", { to: W3, dur: 0.34, steps: 3 });   // (W1: out of Gunslinger's way and wide of Viking's cape)
 A(3.9, "wiz", "turn", { to: yawTo(W3, CRATE), dur: 0.3 }); A(3.95, "wiz", "look", { to: [-0.6, -0.3], dur: 0.15, blink: false });
 A(3.4, "wiz", "face", { lid: 0, dur: 0.2 }); A(3.4, "rea", "face", { lid: 0.4, dur: 0.2 });
 see(3.45, 3.9, ["gsl.face", "coupon", "vik.face"], "panel 3: he writes on his knee, tongue out, the moth on his brim; Viking peeks from behind at the right");
