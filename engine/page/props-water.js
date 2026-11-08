@@ -25,6 +25,7 @@ import { clamp } from "./util.js";
 //                                                    tongue drawn out of it); it pinches off as its tail climbs out, and
 //                                                    pours back in where the head goes under. A round leading mass, a
 //                                                    thinner middle, a tapered tail. tail may be keys [[t, s], ...].
+//                                                    taper 0.22: where along it (0 head .. 1 tail end) the taper starts (higher: full longer).
 //                                                    splash 10: drops thrown up where the head goes back under;
 //                                                    dropsTo: no drops shed after this time (a loop's lake still by the seam) }]
 //                     The stream keeps its volume: it thickens where it slows and thins and stretches where it speeds
@@ -290,6 +291,7 @@ export const WATER_KINDS = {
           const t0v = fr[0].t, ref = Math.abs(t0v.y) < 0.9 ? nrm.set(0, 1, 0) : nrm.set(1, 0, 0);
           fr[0].n.crossVectors(t0v, ref).normalize(); fr[0].b.crossVectors(t0v, fr[0].n).normalize();
           for (let i = 1; i <= NS; i++) { const F = fr[i], E = fr[i - 1]; F.n.copy(E.n).addScaledVector(F.t, -E.n.dot(F.t)); if (F.n.lengthSq() < 1e-10) F.n.copy(E.n); F.n.normalize(); F.b.crossVectors(F.t, F.n).normalize(); }
+          const tp = q.taper ?? 0.22;   // a ribbon: where along it (0 head .. 1 tail end) the taper to the tail starts
           for (let i = 0; i <= NS; i++) {
             const s = i / NS, F = fr[i];
             // the profile: a round head, a body that tapers to a thin tail; volume kept (thicker slow, thinner fast);
@@ -298,7 +300,7 @@ export const WATER_KINDS = {
             const head = rib ? (s < 0.06 ? Math.sqrt(Math.max(0, 1 - ((0.06 - s) / 0.06) ** 2)) : 1) : s < 0.035 ? Math.sqrt(Math.max(0, 1 - ((0.035 - s) / 0.035) ** 2)) : 1;
             // a ribbon: a round leading mass, a thinner middle and a tail that tapers to a point; a tendril: thin at
             // the tip and swelling toward the water
-            const body = rib ? (0.62 + 0.45 * Math.exp(-(((s - 0.09) / 0.08) ** 2))) * Math.pow(1 - smooth((s - 0.22) / 0.78), 0.85)
+            const body = rib ? (0.62 + 0.45 * Math.exp(-(((s - 0.09) / 0.08) ** 2))) * Math.pow(1 - smooth((s - tp) / (1 - tp)), 0.85)
               : 0.42 + 0.58 * smooth(s / 0.55) + 0.12 * smooth((s - 0.7) / 0.3);
             const vol = clamp(Math.sqrt(v0 / Math.max(0.08, F.v)), 0.62, 1.4);
             // only the root widens where it leaves the water (a ribbon: wherever it meets the surface, rising or pouring in)

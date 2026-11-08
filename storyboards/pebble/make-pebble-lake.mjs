@@ -81,21 +81,24 @@ const HAND = {
   // with the flow loop a beat ahead of the water through the line, then sweeps forward and down ahead of the dive,
   // its palm on the landing as the water goes in, and back to his hip. Fable review A: the two hands stacked on the
   // vest read as a clasp; from this camera only the lead's height and its gap from the parked support hand show.
-  R: [[0.0, 0.33, 0.28, 0.07], [0.9, 0.31, 0.26, 0.02], [2.0, 0.3, 0.42, 0.24], [3.05, 0.27, 0.56, 0.3], [3.8, 0.25, 0.6, 0.2],
-    [4.5, 0.25, 0.55, 0.24], [5.2, 0.27, 0.5, 0.27], [6.0, 0.28, 0.48, 0.3], [6.8, 0.27, 0.52, 0.32], [7.6, 0.25, 0.57, 0.3],
-    [8.3, 0.25, 0.57, 0.28], [9.1, 0.26, 0.5, 0.28], [9.9, 0.27, 0.42, 0.26], [10.7, 0.27, 0.47, 0.29], [11.5, 0.25, 0.58, 0.28],
-    [12.2, 0.26, 0.57, 0.3], [12.6, 0.28, 0.56, 0.3], [13.0, 0.3, 0.46, 0.32], [13.4, 0.32, 0.34, 0.3], [14.0, 0.33, 0.3, 0.2],
-    [14.8, 0.33, 0.29, 0.1]],
+  // Fable review B: the hand stays at or under his shoulder (0.5: it sat over his lower face at 0.6, the silhouette
+  // was lost) and spends the draw on reaching forward; the gather starts at 0.5 s, the sweep under "Move with it."
+  // starts at 10.5 s, and the hand lowers palm down ahead of the return (13.6 s)
+  R: [[0.0, 0.33, 0.28, 0.07], [0.5, 0.31, 0.26, 0.02], [1.6, 0.3, 0.42, 0.24], [2.7, 0.27, 0.5, 0.31], [3.4, 0.25, 0.5, 0.18],
+    [4.1, 0.25, 0.49, 0.22], [4.8, 0.27, 0.47, 0.29], [5.5, 0.28, 0.45, 0.33], [6.2, 0.27, 0.48, 0.33], [6.9, 0.26, 0.5, 0.33],
+    [7.6, 0.25, 0.5, 0.32], [8.3, 0.25, 0.5, 0.3], [9.1, 0.26, 0.47, 0.29], [9.8, 0.27, 0.42, 0.27], [10.5, 0.27, 0.46, 0.3],
+    [11.1, 0.25, 0.5, 0.33], [11.7, 0.26, 0.5, 0.32], [12.3, 0.28, 0.48, 0.33], [12.9, 0.3, 0.42, 0.33], [13.4, 0.32, 0.33, 0.29],
+    [14.1, 0.33, 0.3, 0.18], [14.9, 0.33, 0.29, 0.1]],
   // support: his left, the far hand, parked low by his hip for the middle of the phrase (z 0.14 or less), drifting with
   // the lead a little: up as the lead gathers, toward the front as the lead redirects, down half a beat after the dive
-  L: [[0.0, 0.33, 0.28, 0.07], [0.9, 0.31, 0.29, 0.1], [2.1, 0.3, 0.32, 0.13], [3.15, 0.29, 0.34, 0.14], [4.3, 0.31, 0.31, 0.1],
-    [5.3, 0.31, 0.3, 0.1], [6.2, 0.29, 0.32, 0.13], [7.0, 0.28, 0.34, 0.14], [8.2, 0.29, 0.33, 0.13], [9.5, 0.31, 0.3, 0.1],
-    [10.9, 0.31, 0.31, 0.11], [12.1, 0.29, 0.33, 0.14], [13.3, 0.3, 0.32, 0.13], [13.8, 0.32, 0.29, 0.1], [14.8, 0.33, 0.285, 0.08]],
+  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.1], [1.7, 0.3, 0.32, 0.13], [2.8, 0.29, 0.34, 0.14], [4.0, 0.31, 0.31, 0.1],
+    [5.3, 0.31, 0.3, 0.1], [6.2, 0.29, 0.32, 0.13], [7.0, 0.28, 0.34, 0.14], [8.2, 0.29, 0.33, 0.13], [9.4, 0.31, 0.3, 0.1],
+    [10.5, 0.31, 0.31, 0.11], [11.7, 0.29, 0.33, 0.14], [13.2, 0.3, 0.32, 0.13], [13.9, 0.32, 0.29, 0.1], [14.9, 0.33, 0.285, 0.08]],
 };
 // the hands' shapes: the lead cups palm up under the rising water, opens as it draws, then guides palm down and forward
 // (it never closes; a glove facing the water, not a fist); the support stays open and loose
-const GRIPS_AT = [[0.0, "R", "relaxed", 0], [0.0, "L", "relaxed", 0], [1.0, "R", "cup", 0.7], [1.2, "L", "open", 0.6], [3.4, "R", "open", 0.5],
-  [5.5, "R", "hover", 0.6], [13.9, "R", "open", 0.5], [14.6, "R", "relaxed", 0.6], [14.7, "L", "relaxed", 0.6]];
+const GRIPS_AT = [[0.0, "R", "relaxed", 0], [0.0, "L", "relaxed", 0], [0.35, "R", "cup", 0.6], [0.6, "L", "open", 0.6], [3.1, "R", "open", 0.5],
+  [5.3, "R", "hover", 0.6], [14.1, "R", "open", 0.5], [14.7, "R", "relaxed", 0.6], [14.8, "L", "relaxed", 0.6]];
 for (const [t, side, shape, dur] of GRIPS_AT) A(t, W, "grip", { side, shape, dur });
 // his arm, from characters/pebble/pebble.json and the turnaround sheet (shoulder to wrist about 0.45 m at his 1.5 scale) (limbs.shoulder 0.42 on a 0.5 x 0.52 x 0.46 body, legs 0.14):
 // the shoulder and a fixed arm length; a hand target never goes further than the arm reaches, and the elbow takes up
@@ -122,10 +125,10 @@ function arm(P) {
 // and tips as a whole (no twist inside the shell). The feet stay planted; the shifts stay inside the stance.
 const BODYK = {
   //    t     fwd    left   yaw   pitch  lean  crouch
-  k: [[0.0, 0.0, 0.0, 0, 0, 0, 0.0], [0.9, 0.012, 0.0, 0, 1.5, 0, 0.28], [2.2, 0.03, -0.004, -2, 3.5, -1, 0.2], [3.3, 0.025, 0.0, -1, 2.5, 0, 0.24],
-    [4.6, -0.018, 0.004, 1, -1.5, 0.5, 0.3], [5.4, -0.02, 0.006, 2, -2, 1, 0.26], [6.6, 0.006, 0.012, 9, 1, 2, 0.2], [7.7, 0.012, 0.014, 13, 1.5, 2, 0.22], [8.3, 0.01, 0.012, 4, 1.2, 1.8, 0.23],
-    [8.8, 0.008, 0.01, 1.5, 1, 1.5, 0.24], [9.9, -0.008, 0.002, 0, -0.5, 0.5, 0.26], [11.0, -0.012, -0.004, -3, -1, -0.5, 0.24], [12.2, 0.004, 0.004, 3, 1, 0.5, 0.2],
-    [13.4, 0.026, 0.008, 6, 3.5, 1, 0.3], [14.4, 0.02, 0.004, 3, 2.5, 0.5, 0.26], [15.3, 0.004, 0.0, 0, 0.5, 0, 0.08]],
+  k: [[0.0, 0.0, 0.0, 0, 0, 0, 0.0], [0.5, 0.012, 0.0, 0, 1.5, 0, 0.28], [1.8, 0.03, -0.004, -2, 3.5, -1, 0.2], [3.0, 0.025, 0.0, -1, 2.5, 0, 0.24],
+    [4.3, -0.018, 0.004, 1, -1.5, 0.5, 0.3], [5.4, -0.02, 0.006, 2, -2, 1, 0.26], [6.6, 0.006, 0.012, 9, 1, 2, 0.2], [7.7, 0.012, 0.014, 13, 1.5, 2, 0.22], [8.3, 0.01, 0.012, 4, 1.2, 1.8, 0.23],
+    [8.8, 0.008, 0.01, 1.5, 1, 1.5, 0.24], [9.6, -0.008, 0.002, 0, -0.5, 0.5, 0.26], [10.5, -0.012, -0.004, -3, -1, -0.5, 0.24], [11.8, 0.004, 0.004, 3, 1, 0.5, 0.2],
+    [13.6, 0.026, 0.008, 6, 3.5, 1, 0.3], [14.5, 0.02, 0.004, 3, 2.5, 0.5, 0.26], [15.3, 0.004, 0.0, 0, 0.5, 0, 0.08]],
 };
 const N = Math.round(END * 30) + 1;
 const mv = { name: "pebble-lake-phrase", fps: 30, len: END, human: { hipHalf: 0.11 }, path: [], yaw: [], pitch: [], lean: [], drop: [], head: [], hand: { R: [], L: [] }, feet: { R: [], L: [] } };
@@ -153,12 +156,19 @@ for (let t = 0; t <= END - 0.1 + 1e-6; t += KEY) {
 // surface at the source, up as a curved tongue (gather), drawn in toward him on a C (draw: the neck pinches off as the
 // tail climbs out), swept out to his left (redirect: the leader turns first, the tail still on the old line), back round
 // in a soft reversing loop through the line (flow), down into the lake (return). Clear of his hands, face and shell.
-const LEAD = [[0.0, 1.35, -0.35, -2.2], [0.8, 1.35, -0.22, -2.2], [1.3, 1.33, -0.05, -2.15], [1.95, 1.18, 0.3, -1.95],
-  [2.6, 1.0, 0.55, -1.75], [3.2, 0.92, 0.78, -1.58], [3.9, 0.86, 0.88, -1.17], [4.6, 0.66, 0.84, -0.82], [5.3, 0.66, 0.74, -0.72],
-  [6.1, 0.95, 0.82, -0.86], [6.9, 1.38, 0.94, -1.24], [7.7, 1.68, 0.99, -1.78], [8.4, 1.6, 0.95, -2.22], [9.2, 1.2, 0.82, -1.9],
-  [10.0, 0.95, 0.74, -1.5], [10.8, 0.9, 0.7, -1.15], [11.6, 1.15, 0.78, -1.1], [12.3, 1.5, 0.86, -1.35], [12.75, 1.66, 0.8, -1.84],
-  [13.05, 1.5, 0.5, -2.24], [13.38, 1.34, 0.05, -2.41], [13.62, 1.32, -0.12, -2.42], [14.9, 1.3, -0.4, -2.45],
-  [16.0, 1.29, -0.5, -2.45]].map(FIT);
+// Fable review B: the gather breaks the surface at 1.0 s (a dome from 0.45 s), the leader never stalls (the ribbon
+// bunched into a blob where it slowed at 5 and 10.5 s): one continuous figure of eight through the draw, the redirect
+// and the flow, laid across the frame (up and down, left and right) rather than toward and away from the camera, where
+// a loop folds onto itself on screen; it passes just beyond the lead hand's fingertips at 5.4 s, at palm height and
+// clear of his face on screen, before it is sent out; the sweep rises
+// under "Move with it." and the return pours in at 13.6 s
+const LEAD = [[0.0, 1.35, -0.35, -2.2], [0.45, 1.35, -0.2, -2.2], [1.0, 1.33, -0.02, -2.15], [1.6, 1.18, 0.3, -1.95],
+  [2.3, 1.0, 0.55, -1.75], [2.9, 0.92, 0.76, -1.58], [3.6, 0.84, 0.86, -1.2], [4.2, 0.74, 0.84, -0.95], [4.8, 0.58, 0.78, -0.62],
+  [5.4, 0.7, 0.72, -0.1], [5.9, 0.92, 0.84, -0.3], [6.4, 1.2, 0.98, -0.6], [6.9, 1.45, 1.08, -0.9],
+  [7.4, 1.6, 1.1, -1.2], [7.9, 1.58, 0.95, -1.45], [8.4, 1.4, 0.78, -1.5], [9.0, 1.05, 0.64, -1.35], [9.6, 0.75, 0.68, -1.15],
+  [10.1, 0.7, 0.84, -1.0], [10.6, 0.92, 1.0, -0.95], [11.1, 1.25, 1.08, -1.05], [11.6, 1.52, 1.0, -1.3], [12.1, 1.62, 0.84, -1.65],
+  [12.6, 1.55, 0.62, -2.0], [13.1, 1.42, 0.36, -2.3],
+  [13.6, 1.34, 0.05, -2.42], [13.85, 1.32, -0.12, -2.43], [15.0, 1.3, -0.4, -2.45], [16.0, 1.29, -0.5, -2.45]].map(FIT);
 // the leader is a plain (non-periodic) track: it starts and ends under the lake
 const leadAt = (t) => { const K = LEAD; if (t <= K[0][0]) return K[0].slice(1); if (t >= K[K.length - 1][0]) return K[K.length - 1].slice(1);
   let i = 0; while (K[i + 1][0] <= t) i++;
@@ -171,14 +181,16 @@ const track = []; for (let i = 0; i <= END * 30; i++) { const t = i / 30, p = le
 // follows the leader in instead of hanging on
 // (Fable review A: a short tail first, so the neck pinches off at about 3 s as the hand draws back instead of
 // hanging by a thread to 3.9 s; the return lands at 13.4 s so its ripples and the splash drops' rings have faded before the loop's seam)
-const TAIL = [[0, 1.0], [2.2, 1.0], [3.0, 1.7], [4.4, 2.6], [12.7, 2.6], [13.7, 1.2]];
+// (Fable review B: longer from 5 s so the ribbon stays a ribbon; it pours in whole by 14.4 s)
+const TAIL = [[0, 1.0], [1.9, 1.0], [2.7, 1.7], [4.0, 2.6], [5.0, 3.4], [12.3, 3.4], [13.5, 2.0], [14.4, 0.8]];
 const props = [];
 if (STAGE >= 1) {
   const one = STAGE === 2 ? { colors: { deep: "#6fb6cc", mid: "#8ccbdc", light: "#8ccbdc", foam: "#8ccbdc" } } : {};
   const stream = STAGE === 1 ? { path: track, mode: "ribbon", tail: TAIL, r: 0.012, v0: 0.6, drops: 0, splash: 0, seed: 1 }
-    : { path: track, mode: "ribbon", tail: TAIL, r: 0.1, v0: 0.4, drops: STAGE === 2 ? 0 : 5, dropsTo: 13.4, splash: STAGE === 2 ? 0 : 12, seed: 1 };
+    : { path: track, mode: "ribbon", tail: TAIL, r: 0.13, taper: 0.45, v0: 0.4, drops: STAGE === 2 ? 0 : 5, dropsTo: 13.6, splash: STAGE === 2 ? 0 : 12, seed: 1 };
   // the surface answering before the water lifts (end of the settle)
-  const rings = STAGE >= 3 ? [[0.75, SRC[0], SRC[1], 0.35, 1]] : [];
+  // (Fable review B: bigger and earlier, a second one as it breaks the surface, so the first second reads on a phone)
+  const rings = STAGE >= 3 ? [[0.35, SRC[0], SRC[1], 0.7, 1], [0.85, SRC[0], SRC[1], 0.6, 1]] : [];
   props.push({ id: "water", kind: "waterbend", x: 0, y: 0, z: 0, rot: 0, level: 0, wet: [[-3, -12, 3, -1.0]], rings, light: STAGE === 1 ? 0 : 2.4, ...one, streams: [stream],
     staged: "water: the bent water out of the painted lake, it rests on nothing" });
 }
@@ -193,17 +205,17 @@ function lookAtWater(t) {
   const fw = dx * F[0] + dz * F[1], lf = dx * L[0] + dz * L[1], az = (Math.atan2(lf, fw) * 180) / Math.PI, el = (Math.atan2(Math.max(y, 0) - EYE, Math.hypot(fw, lf)) * 180) / Math.PI;
   return [r3(Math.max(-0.9, Math.min(0.9, az / 40))), r3(Math.max(-0.8, Math.min(0.8, el / 40)))];
 }
-const GLANCE = [8.7, 9.8], SMILE = 15.0;
+const GLANCE = [8.7, 9.8], SMILE = 15.2;
 A(0, W, "look", { to: [-0.6, 0], dur: 0, blink: false });                       // frame 0: the look the clip ends on
-A(0.25, W, "look", { to: [0.5, -0.4], dur: 0.45, blink: false });                // to the lake where the water will come
-for (let t = 1.0; t < END; t += 0.2) {
+A(0.15, W, "look", { to: [0.5, -0.4], dur: 0.35, blink: false });                // to the lake where the water will come
+for (let t = 0.6; t < END; t += 0.2) {
   if (t >= GLANCE[0] && t < GLANCE[1]) continue;
   if (t >= SMILE) break;
   A(r3(t), W, "look", { to: lookAtWater(t), dur: 0.2, ease: "linear", blink: false });
 }
 A(GLANCE[0], W, "look", { to: [-0.75, 0.0], dur: 0.35, blink: false });          // a short glance to us on "Never push."
-A(SMILE, W, "look", { to: [-0.6, 0], dur: 0.6, blink: false });
-A(15.1, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0.4 });
+A(SMILE, W, "look", { to: [-0.6, 0], dur: 0.45, blink: false });
+A(15.3, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0.4 });
 A(0, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0 });
 A(0.3, W, "expr", { expr: "kind", dur: peb.SLOW });
 
@@ -217,13 +229,13 @@ c.macro(8.4, W, "say", { line: "Never push. Move with it.", tone: "calm", pos: 2
 
 // ---------------------------------------------------------------- sound: each named sound on what the water does
 if (STAGE >= 4 || STAGE === 0) {
-  sfx(0.75, "bubbling", { gain: 0.1, dur: 0.9, reason: "the lake stirs where the water is about to lift" });
-  sfx(1.3, "bubbling", { gain: 0.22, dur: 1.7, reason: "the tongue of water draws up out of the lake" });
-  sfx(13.38, "splash", { gain: 0.8, reason: "the water's leader goes back into the lake: a small splash" });
-  sfx(13.9, "ai/drip", { gain: 0.25, reason: "the splash's drops falling back in" });
+  sfx(0.35, "bubbling", { gain: 0.1, dur: 0.7, reason: "the lake stirs where the water is about to lift" });
+  sfx(1.0, "bubbling", { gain: 0.3, dur: 1.7, reason: "the tongue of water draws up out of the lake" });
+  sfx(13.6, "splash", { gain: 0.8, reason: "the water's leader goes back into the lake: a small splash" });
+  sfx(14.1, "ai/drip", { gain: 0.4, reason: "the splash's drops falling back in" });
 }
 
-if (STAGE >= 1) see(1.3, 3.2, [`${W}.face`, W, "water"], "the water lifts out of the open lake as his lead hand scoops");
+if (STAGE >= 1) see(1.0, 3.0, [`${W}.face`, W, "water"], "the water lifts out of the open lake as his lead hand scoops");
 see(8.4, 12.2, [`${W}.face`], "his line while the water keeps flowing");
 
 // ---------------------------------------------------------------- one locked camera (lake-shore range: qa/env.mjs --range):
@@ -232,7 +244,7 @@ see(8.4, 12.2, [`${W}.face`], "his line while the water keeps flowing");
 const CAM = process.env.CAM ? JSON.parse(process.env.CAM) : { pos: [0.3, 1.5, 4.4], look: [0.45, 0.85, -0.3], fov: 42 };
 const beats = c.beats([
   ["settle and gather", 0, CAM, "hook"],
-  ["draw", 3.2, CAM],
+  ["draw", 3.0, CAM],
   ["redirect", 5.4, CAM, "reveal"],
   ["the line", 8.4, CAM, "payoff"],
   ["home", 12.2, CAM],
@@ -249,7 +261,7 @@ write(import.meta.url, {
   set: { type: "env", env: "lake-shore", shade: "soft", aperture: FOCUS ? 0.045 : 0, focus: false, lighting: LIGHTING, hatch: HATCH, life: LIFE },
   music: { pool: "calm-landscape", ...peb.MIX.music },
   sound: { ...peb.MIX.sound, surface: "grass" },
-  hook: { show: STAGE >= 1 ? [W, "water"] : [W], hint: 1.3, what: "the lake rises to his hand" },
+  hook: { show: STAGE >= 1 ? [W, "water"] : [W], hint: 1.0, what: "the lake rises to his hand" },
   cast, props, captions: c.captions, beats, visible: c.visible,
   notes: `Generated by storyboards/pebble/make-pebble-lake.mjs (stage ${STAGE}). Lead hand right (near), support left (far); arm reach ${r3(reachLog.L)} / ${r3(reachLog.R)} of ${ARM} (unscaled m).`,
 });
