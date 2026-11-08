@@ -59,7 +59,9 @@ const setup = (t, who, at, yaw) => { A(r3(t - 0.02), who, "move", { to: at, dur:
 const moveProp = (t, id, x, z) => c.prop(r3(t - 0.03), id, { x, z }, 0.01);
 
 // ---------------------------------------------------------------- the power: the same word, sound and look every time
+const SNAPS = [];   // the HALT arm snaps (allowClip windows below)
 function halt(t, side = "R", arm = { o: [0.05, 0.62, 0.45] }) {
+  SNAPS.push(t);
   A(r3(t - 0.12), "vik", "expr", { expr: "focused", set: { open: 0.5 }, dur: 0.12 });
   c.arm(r3(t - 0.06), "vik", side, arm, 0.12, "out"); A(r3(t - 0.06), "vik", "grip", { side, shape: "flat", dur: 0.08 });
   c.say(t, "vik", "HALT!", 0.45, "excited", { ...V, sub: "HALT!" });
@@ -110,7 +112,7 @@ c.arm(1.05, "vik", "R", "rest", 0.3, "inOut"); A(1.05, "vik", "grip", { side: "R
 A(1.05, "vik", "expr", { expr: "cocky", set: { curve: 0.8, smirk: 0.4 }, dur: 0.25 });
 A(1.12, "vik", "look", { to: [0.3, 0.2], dur: 0.2, blink: false });
 A(1.2, "vik", "turn", { to: 12, dur: 0.15 });
-A(1.25, "vik", "move", { to: VIK1_POSE, dur: 0.95, steps: 3 });
+A(1.25, "vik", "move", { to: VIK1_POSE, dur: 0.95, steps: 4 });   // short steps: a stroll
 A(2.12, "vik", "turn", { to: 15, dur: 0.15 });
 A(2.18, "vik", "look", { to: [0.0, 0.05], dur: 0.15, blink: false });
 c.arm(2.25, "vik", "R", { o: [0.18, 0.75, 0.25] }, 0.18, "out"); A(2.27, "vik", "grip", { side: "R", shape: "thumb", dur: 0.1 });
@@ -168,7 +170,8 @@ A(4.9, "phx", "release", { prop: "cup", dur: 0 });
 A(4.9, "phx", "grip", { side: "L", shape: "open", dur: 0.08 });
 c.arm(4.92, "phx", "L", { o: [0.15, 0.65, 0.42] }, 0.35, "out");   // the follow-through: open hand, out in front of him
 c.arm(4.6, "phx", "R", "rest", 0.3, "inOut"); A(4.6, "phx", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
-c.knock(KNOCK, "cup", { to: CUP_STOP, in: r3(P2[0] - KNOCK), spin: [0, 0, 0] });
+// (Phoenix's follow-through hand pushes the cup 0.2 m toward us on its way: measured in the layout, aimed past it)
+c.knock(KNOCK, "cup", { to: [CUP_STOP[0], CUP_STOP[1], r3(CUP_STOP[2] - 0.2)], in: r3(P2[0] - KNOCK), spin: [0, 0, 0] });
 // Viking runs in from the right (past Reaper quickly), sees the cup go, HALT
 A(S2, "vik", "move", { to: VIK2_HALT, dur: 0.42, stride: 1.4 });
 A(S2, "vik", "look", { to: [-0.4, 0.0], dur: 0.01, blink: false });
@@ -184,7 +187,7 @@ c.arm(5.05, "vik", "L", "rest", 0.25, "inOut"); A(5.05, "vik", "grip", { side: "
 A(5.05, "vik", "look", { to: [-0.3, 0.3], dur: 0.15, blink: false });   // up at the cup
 A(5.1, "vik", "expr", { expr: "cocky", set: { curve: 0.7, smirk: 0.45 }, dur: 0.25 });
 A(5.12, "vik", "turn", { to: -10, dur: 0.3 });
-A(5.1, "vik", "move", { to: VIK2_STAND, dur: 0.56, steps: 3 });   // three steps back, the eyes on it
+A(5.1, "vik", "move", { to: VIK2_STAND, dur: 0.56, steps: 4 });   // four small steps back, the eyes on it
 const HAND_AT = [r3(CUP_STOP[0] + 0.09), r3(CUP_STOP[1] + 0.07), r3(CUP_STOP[2] + 0.015)];
 A(5.6, "vik", "look", { to: [-0.45, 0.45], dur: 0.12, blink: false });
 c.arm(5.7, "vik", "R", { world: HAND_AT }, 0.24, "out"); A(5.7, "vik", "grip", { side: "R", shape: "open", dur: 0.12 });
@@ -270,7 +273,7 @@ A(11.36, "vik", "look", { to: [0.0, 0.0], dur: 0.1, blink: false });
 A(11.3, "vik", "expr", { expr: "kind", set: { curve: 0.5, eye: 1.05 }, dur: 0.15 });
 see(K0, r3(K0 + KD), ["vik"], "the dial in close-up: the hands race back from 12:40 to 12:00 (his glove on the crank below it)");
 // time goes on: the innocent whistle; Reaper looks up at the clock and does a double take
-c.say(11.55, "vik", "hmm hmm hmm", 0.8, "calm", { ...V, sub: "hm hm hmm...", pos: 1300 });
+c.say(11.55, "vik", "hmm hmm hmm", 0.8, "calm", { ...V, sub: "hm hm hmm...", pos: 300 });   // up top: Reaper fills the bottom of the double take
 A(11.55, "rea", "look", { to: [0.3, 0.55], dur: 0.15, blink: false });
 act.shock(c, 11.8, "rea", { hold: 0.35 });
 A(12.15, "rea", "look", { to: [0.85, 0.0], dur: 0.12, blink: false });
@@ -283,6 +286,7 @@ see(11.5, 12.35, ["rea.face", "clock"], "12:00: Reaper's double take at the cloc
 setup(S4, "rea", W(-1.0, -2.2), 15); setup(S4, "vik", W(-0.15, -1.45), 0); setup(S4, "phx", W(0.8, -2.15), -15);
 c.arm(r3(S4 - 0.02), "rea", "L", "rest", 0.01); A(r3(S4 - 0.02), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
 cap(r3(S4 + 0.05), r3(S5 - 0.05), "WHAT IF YOUR FRIEND COULD PAUSE TIME?", 480, true, { size: 96 });   // above their faces (review A)
+for (const sd of ["R", "L"]) c.arm(r3(S4 - 0.02), "phx", sd, FOLD[sd], 0.01);   // Phoenix's arms settled in the new setup
 A(r3(S4 - 0.02), "rea", "look", { to: [0.6, -0.05], dur: 0.01, blink: false }); act.mood(c, S4, "rea", "annoyed", { hold: 0.9 });
 A(r3(S4 - 0.02), "phx", "look", { to: [-0.6, -0.05], dur: 0.01, blink: false });
 A(r3(S4 - 0.02), "vik", "look", { to: [0.0, 0.05], dur: 0.01, blink: false });
@@ -337,7 +341,8 @@ A(r3(AFTER + 0.15), "rea", "blink", { dur: 0.3 });
 cap(r3(AFTER + 0.05), r3(END - 0.05), "Would you still want it?", 300);
 see(16.9, r3(AFTER - 0.05), ["vik.face", "clock"], "the light back on him: reeling off the clock post he wound back");
 see(r3(AFTER + 0.05), 18.5, ["vik", "phx.face", "rea.face", "clock"], "the aftermath: Phoenix laughs, Reaper doesn't");
-for (const cp of c.captions) for (const cut of [S2, S3, S4, S5]) if (cp.from < cut && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
+const INSERT_CUP = 5.3;   // the cut to the cup in the air
+for (const cp of c.captions) for (const cut of [S2, INSERT_CUP, S3, S4, S5]) if (cp.from < cut && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
 const allowClip = [
   { who: "vik", with: "clock", from: 10.2, to: 11.1, reason: "he turns the crank on the clock's post: the glove closes round its knob" },
   { who: "vik", with: "clock", from: r3(BONK - 0.05), to: END, reason: "the BONK: he walks into the clock post in the dark and stays flat against it" },
@@ -345,7 +350,10 @@ const allowClip = [
   { who: "vik", from: r3(P5[0] + 0.05), to: r3(P5[1] - 0.02), checks: ["rig-jump", "stance-slide", "foot-slide"], reason: "the dark pause: only his eyes are drawn, his body and feet can't be seen" },
   { who: "rea", with: "bench", from: r3(S2 - 0.05), to: S3, reason: "Reaper sits on the bench" },
   { who: "rea", with: "vik", from: 4.55, to: 4.7, checks: ["face-hidden"], reason: "Viking runs in past the bench: for three frames he crosses in front of Reaper, who is only listening (it is Phoenix's line)" },
-  { who: "vik", from: 6.38, to: 6.98, checks: ["foot-slide"], reason: "he sits down on the bench: the sit lifts him back onto the seat and his feet go with him" },
+  { who: "vik", from: GRAB2, to: 6.98, checks: ["foot-slide", "stance-slide"], reason: "he sits down on the bench: the sit lifts him back onto the seat and his feet go with him" },
+  { who: "phx", with: "vik", from: 8.72, to: 8.92, checks: ["face-hidden"], reason: "Viking walks in past Phoenix for three frames; Phoenix is only tapping his foot" },
+  { who: "vik", from: 9.42, to: 9.75, checks: ["rig-jump", "hand-pop"], reason: "he turns round on the spot to go to the crank: a stepping turn drawn on 2s" },
+  ...SNAPS.map((t) => ({ who: "vik", from: r3(t - 0.08), to: r3(t + 0.1), checks: ["rig-jump", "hand-pop"], reason: "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time" })),
 ];
 
 // ---------------------------------------------------------------- shots (by hand: the painting's camera range is narrow)
@@ -370,7 +378,7 @@ const beats = c.beats([
   ["photo: late for the photo", 0, SH.photo, "hook"],
   ["photo: the double take", 3.95, SH.take, "reaction"],
   ["coffee: late for coffee", S2, SH.coffee],
-  ["coffee: the cup in the air", 5.3, SH.cup, "insert"],
+  ["coffee: the cup in the air", INSERT_CUP, SH.cup, "insert"],
   ["coffee: he sits", r3(GRAB2 + 0.06), SH.coffee],
   ["coffee: been here ages", 7.85, SH.bench, "reaction"],
   ["clock: 40 minutes late", S3, SH.clock],
