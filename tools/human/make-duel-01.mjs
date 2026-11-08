@@ -330,11 +330,13 @@ const SHOTS_BY = {
       face: { B: EFFORT },
       clashFire: { small: true, star: true },
       cam: { close: "B", az: 0, fov: 14, fit: 1.45 } },
-    { name: "final", line: 22, half: 1.0, lead: "A", len: 1.6,
+    // Jonny 8 Nov 09:11: the last clash ends in an explosion that takes the whole screen, open: who wins?
+    { name: "final", line: 22, half: 1.0, lead: "A", len: 2.6, boomAt: 0.8,
       A: { clip: "c135_09", from: 6.9, rate: 0.04, ref: 6.8, aim: "strike", limb: "R" },
       B: { clip: "c135_09", from: 4.95, rate: 0.04, ref: 4.85, aim: "strike", limb: "L" },
       face: { A: GRIT, B: GRIT },
       clashFire: { star: true, big: true, grow: true }, rise: true, lines: 0.35,
+      fire: [{ who: "M", limb: "M", at: 0.8, to: 2.6, kind: "burst", speed: 5, size: 0.3, sizeTo: 1.5, grow: 2.2, rate: 520, life: 0.8, drag: 1.5, lift: 0.4, spread: 3.1, floor: 0, boom: true, silent: true }],
       cam: { az: 15, el: -2, fov: 30, fit: 1.06, y: 1.2 } },
   ],
   roof: [
@@ -505,7 +507,7 @@ const reachOf = (who, limb, s) => { const W = poseAt(who, s), l = lineOf(W, limb
   return { d: l.length(), end: limb.length === 1 ? palmWorld(W, side) : W[`${side}foot`].end, line: l }; };
 const target = (who, spec, s) => spec === "ball" ? ballAt(who, s) : spec === "chest" ? chest(who, s) : spec === "mid" ? midAt(s) : palmAt(who, spec.split(":")[1].toLowerCase(), s);
 
-const blasts = [], marks = { silent: new Set(), arrive: [], exits: [], past: [] };
+const blasts = [], boomBlasts = [], marks = { silent: new Set(), arrive: [], exits: [], past: [] };
 const firesOf = (sh) => {
   const out = [...(sh.fire || [])];
   // the clash: both fighters pour a stream into the meeting point all shot long, and a ball of fire churns there
@@ -526,7 +528,7 @@ const firesOf = (sh) => {
   return out;
 };
 for (const sh of SHOTS) for (const f of firesOf(sh)) {
-  const { who, limb, from, to, dur, minY, level, at: _a, at2, peak, silent, into, exit, cont, cutAt, pre, bin, wall, down, sync, clash, past, ...rest } = f;
+  const { who, limb, from, to, dur, minY, level, at: _a, at2, peak, silent, into, exit, cont, cutAt, pre, bin, wall, down, sync, clash, past, boom, ...rest } = f;
   const opp = who === "A" ? "B" : "A", timed = f.kind === "hold" || f.kind === "burst" || cont || exit || down;
   let a, b, line = null;
   if (timed) { a = R(Math.max(0, sh.t0 + _a) - (pre ?? 0), 4); b = R(Math.min(sh.t1, sh.t0 + to), 4); }
@@ -570,7 +572,7 @@ for (const sh of SHOTS) for (const f of firesOf(sh)) {
     rest.life = R(Math.max(0.12, ta * (into && into !== "chest" ? 0.95 : 1.1)), 3); }
   if (pre) rest.show = R(Math.max(0, sh.t0), 4);
   const B = { at: src[0][0], end: src[src.length - 1][0], cut: R(cutAt ?? sh.t1, 4), src, ...(reach != null ? { reach: R(reach) } : {}), ...rest };
-  blasts.push(B);
+  (boom ? boomBlasts : blasts).push(B);
   if (reach != null) { const v = (rest.speed ?? 7) * (f.kind === "arc" ? 0.5 : 1), k = rest.drag ?? 3, x = reach * k / v; marks.arrive.push({ sh: sh.name, who, at: R(src[0][0] + (x < 1 ? -Math.log(1 - x) / k : 0.3), 3), B, into }); }
   if (silent) marks.silent.add(B);
   if (exit) marks.exits.push({ sh, B, bin, wall });
@@ -581,7 +583,9 @@ for (const sh of SHOTS) for (const f of firesOf(sh)) {
 if (V2) for (const B of blasts) if (B.kind === "jet" || B.kind === "arc") { B.size = R((B.size ?? 0.16) * 0.75, 3); if (B.sizeTo != null) B.sizeTo = R(B.sizeTo * 0.75, 3); }
 
 // --------------------------------------------------------------------------------------------- props + physics
-const props = [{ id: "fire", kind: "firebend", x: 0, y: 0, z: 0, rot: 0, blasts, light: 18, ...(V2 ? { style: "tongue", castLight: 1.7 } : {}), staged: "fire: light, it rests on nothing" }];
+const props = [{ id: "fire", kind: "firebend", x: 0, y: 0, z: 0, rot: 0, blasts, light: 18, ...(V2 ? { style: "tongue", castLight: 1.7 } : {}), staged: "fire: light, it rests on nothing" },
+  // the ending's explosion: round billowing flames (not the tongue style), its own light flooding the street
+  ...(boomBlasts.length ? [{ id: "boom", kind: "firebend", x: 0, y: 0, z: 0, rot: 0, blasts: boomBlasts, light: 40, castLight: 2.2, staged: "the explosion: light, it rests on nothing" }] : [])];
 const extra = [];   // beat items: [s, item]
 // a redirect that hits something: the stream's line 1.6-2.4 m out from the hand, at the frame it gets there
 for (const e of marks.exits) {
@@ -758,8 +762,21 @@ for (const sh of SHOTS) if (sh.rise) {
     put(s0, { sfx: "flamejet", gain: 1.0, dur: R(Math.min(2.0, len)), reason: "both streams pour into the clash" });
     put(s0, { sfx: "rumble", gain: 0.9, dur: R(len), reason: "the clash star roars, nobody gives" });
     put(s0 + 0.2, { sfx: "ai/slowmo-air", gain: 0.6, reason: "the shockwave rolls out" });
-    const fin = beats.find((x) => x.name === "final");
-    for (let k = 0; k < 5; k++) put(fin.at + k * 0.3, { fx: "shake", dur: 0.28, amp: 0.01 + k * 0.004 }); }
+    const fin = beats.find((x) => x.name === "final"), fsh = SHOTS.find((x) => x.name === "final");
+    for (let k = 0; k < 3; k++) put(fin.at + k * 0.27, { fx: "shake", dur: 0.25, amp: 0.01 + k * 0.004 });
+    if (fsh.boomAt != null) { const bt = fin.at + fsh.boomAt;
+      put(bt, { sfx: "firework", gain: 1.0, reason: "the clash blows up into an explosion" });
+      put(bt + 0.1, { sfx: "windswell", gain: 0.8, dur: R(fsh.len - fsh.boomAt - 0.1), reason: "the fireball rolls over the street" });
+      // the warm light floods up to the end (flashes have no ramp: a staircase of short ones every two frames, rising
+      // to 0.8 at most, never a white frame)
+      { const r0 = fsh.boomAt + 0.4, n = Math.floor((fsh.len - r0) * 15);
+        for (let k = 0; k <= n; k++) fin.do.push({ fx: "flash", at: R(r0 + k / 15, 3), dur: 0.1, peak: R(0.15 + 0.65 * Math.pow(k / Math.max(1, n), 1.3)), color: "#ff9a3c", sound: false }); }
+      for (let k = 0; k < 6; k++) put(bt + k * 0.3, { fx: "shake", dur: 0.3, amp: 0.03 + k * 0.006 });
+      // the blast throws dust off the road at both fighters' feet and from under the fireball
+      const st = fsh.t0 + fsh.boomAt, m = midAt(st);
+      fx.push({ do: "poof", at: R(st + 0.05, 3), pos: [R(m.x), 0.03, R(m.z)], dur: 1.2, color: "#8d90a8", puffs: 18, sparks: 16, size: 0.9, lift: 0.15 });
+      for (const w of ["A", "B"]) { const f = poseAt(w, st).root.start;
+        fx.push({ do: "poof", at: R(st + 0.12, 3), pos: [R(f.x), 0.02, R(f.z)], dur: 0.9, color: "#8d90a8", puffs: 8, sparks: 0, size: 0.4, lift: 0.08, sound: false }); } } }
   else if (cl) { const s0 = cl.t0, len = END - s0;
     put(s0, { sfx: "flamejet", gain: 1.0, dur: R(Math.min(2.0, len)), reason: "both streams pour into the clash" });
     put(s0, { sfx: "rumble", gain: 0.9, dur: R(len), reason: "the clash ball roars and grows" });

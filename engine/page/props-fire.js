@@ -22,6 +22,7 @@ import { FIRE_U } from "./firelight.js";
 //                   splash (m): how far that splash spreads at most (it eases out toward it; unset: no limit),
 //                   taper (s): the stream thins and slows over its last seconds,
 //                   sizeTo (m): flames born later in the pour grow toward this size (a fireball gathering),
+//                   floor (m): flames that reach this height roll out along it (an explosion on a road; 8 Nov 2026),
 //                   show (s): nothing is drawn before then (a stream poured from before a cut, already in flight on it),
 //                   cut (s): its flames and embers vanish then (the shot ends: they must not hang in the next one)
 //                 }
@@ -94,6 +95,9 @@ function flame(B, i, ts, t, out) {
   const sz0 = B.sizeTo != null ? (B.size ?? 0.16) + (B.sizeTo - (B.size ?? 0.16)) * Math.max(0, Math.min(1, (ts - B.at) / Math.max(1e-6, B.end - B.at))) : (B.size ?? 0.16);
   out.size = sz0 * (0.7 + 0.6 * hash(i * 2.9 + B.seed + 5)) * (0.45 + (B.grow ?? 2.6) * Math.pow(age, 0.6)) * (kind === "burst" ? 1.6 : 1) * (0.25 + 0.75 * tap);
   out.speed = Math.exp(-k * a) * speed;
+  // floor (m, a blast's own option): flames that reach the ground roll out along it instead of sinking under the road
+  // (an explosion's foot spreads over the ground; without it the road cuts the fireball off in a flat line)
+  if (B.floor != null) out.pos.y = Math.max(out.pos.y, B.floor + out.size * 1.3);   // (the outer band reaches about 1.3 sizes)
   out.seed = hash(i * 1.37 + B.seed + 7);
   out.hot = B.hot === "blue" ? 1 : 0;
   out.stretch = kind === "hold" ? 0.6 : kind === "burst" && B.tongue ? 0.7 + 0.8 * hash(i * 3.7 + B.seed + 9) : 0;   // (tongue style: a burst is a star of spikes)
