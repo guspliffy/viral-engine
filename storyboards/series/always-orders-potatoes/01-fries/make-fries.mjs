@@ -91,9 +91,9 @@ const fryBase = { fa: FY, fb: FY, fc: FY };
 const fryArms = (t, who, o, shape = "relaxed", dur = 0.15, ease = "out") => { for (const s of ["L", "R"]) { c.arm(t, who, s, { o }, dur, ease); A(t, who, "grip", { side: s, shape, dur: Math.min(dur, 0.12) }); } };
 const IN_CONE = [-0.07, 0.28, 0.08], CHEER = [0.06, 1.0, 0.06], CHEER2 = [0.1, 0.92, 0.08], LOW = [-0.07, 0.3, 0.08], RIM = [0.16, 0.34, 0.12], SOUPRIM = [0.2, 0.3, 0.1], CROUCH = [0.06, 0.35, 0.14], TADA = [0.12, 1.08, 0.02];
 // a fry's hop from where it stands to (x, z) with its feet at y: the body's base moves there over dur, a hop arc on top
-const hopTo = (t, who, [x, z], y, dur, height, flip = 0) => {
+const hopTo = (t, who, [x, z], y, dur, height, flip = 0, quiet = false) => {
   A(t, who, "move", { to: [x, z], y, dur, ease: "linear", steps: 0 });   // across at an even speed (a leap's path), the hop's arc on top
-  A(t, who, "hop", { height, dur });
+  A(t, who, "hop", { height, dur, ...(quiet && { quiet: true }) });
   if (flip) { A(r3(t + dur * 0.12), who, "pitch", { to: flip, dur: r3(dur * 0.7), ease: "inOut" }); }   // it stays at -360, the same as upright (a reset to 0 read as a one-frame tip)
   fryBase[who] = y;
 };
@@ -212,7 +212,7 @@ c.prop(r3(HOPB + INB), "ket", { splash: 1 }, 0.4, "out");
 fryArms(r3(HOPB + INB + 0.05), "fb", RIM, "relaxed", 0.2);
 A(r3(HOPB + INB + 0.1), "fb", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.2 }, dur: 0.15 }); A(r3(HOPB + INB + 0.1), "fb", "face", { lid: 0.9, dur: 0.15 });
 c.say(r3(HOPB + INB + 0.12), "fb", "aaah!", 0.45, "happy", { voice: false, sub: "Aaah!", pos: SUB_LOW });
-A(r3(HOPB + INB + 0.1), "fb", "still", { dur: 1.5, idle: 0.05 });
+A(r3(HOPB + INB + 0.1), "fb", "still", { dur: 1.0, idle: 0.05 });
 // Viking claps with delight
 const clap = (t) => { for (const s of ["L", "R"]) { c.arm(t, "vik", s, { o: [-0.36, 0.34, 0.46] }, 0.08, "in"); c.arm(r3(t + 0.12), "vik", s, { o: [-0.22, 0.36, 0.44] }, 0.08, "out"); } };   // the gloves meet in front of his chest
 for (const s of ["L", "R"]) A(4.05, "vik", "grip", { side: s, shape: "flat", dur: 0.1 });
@@ -232,6 +232,30 @@ A(r3(HOPC + INC + 0.1), "fc", "expr", { expr: "delighted", set: { curve: 0.9, op
 A(r3(HOPC + INC + 0.1), "fc", "still", { dur: 1.6, idle: 0.05 });
 for (const s of ["L", "R"]) { c.arm(4.62, "vik", s, { o: [-0.12, 0.3, 0.4] }, 0.18, "inOut"); A(4.62, "vik", "grip", { side: s, shape: "relaxed", dur: 0.2 }); }   // the clasped gloves sink, then settle on the table (straight to the table the gloves flipped over)
 vikRest(4.82, 0.3);
+// Viking eats one (Jonny 8 Nov, panel 4's hamster cheeks): the hot-tub fry looks up, "Me next!", and dives out of the
+// ketchup into his open mouth. He catches it, chews with his eyes shut (crunch), and swallows (glk)
+const DIVE = 5.3, DIN = 0.33, MOUTH = [-0.05, -0.07];   // Viking's mouth at about (-0.05, 0.54, -0.27): the fry dives head first (tipped back), its middle at mouth height, its head at his lips, and is gone
+A(5.05, "fb", "look", { to: [0.25, 0.85], dur: 0.12, blink: false }); A(5.05, "fb", "face", { lid: 0, dur: 0.12 });
+A(5.1, "fb", "expr", { expr: "eager", set: { open: 0.55, eye: 1.25, curve: 0.8 }, dur: 0.12 });
+c.textPop(5.12, "fb", "Me next!", { dur: 0.5, size: 76, xy: [300, 1080], angle: -4, color: "speaker" });
+A(5.05, "vik", "look", { to: [-0.3, -0.7], dur: 0.12, blink: false });
+A(5.15, "vik", "expr", { expr: "eager", set: { open: 0.9, curve: 0.4, eye: 1.2 }, dur: 0.15 });   // "aaah": mouth wide open
+fryArms(r3(DIVE - 0.08), "fb", [0.04, 0.4, 0.0], "fist", 0.1, "inOut");   // arms in for the dive
+hopTo(DIVE, "fb", MOUTH, 0.33, DIN, 0.14, 0, true);   // no landing thump: the crunch is its sound
+A(r3(DIVE + 0.03), "fb", "pitch", { to: -85, dur: r3(DIN * 0.75), ease: "inOut" });
+c.prop(DIVE, "ket", { splash: 1 }, 0.3, "out");
+sfx(DIVE, "ai/drip", { gain: 0.4, reason: "the fry springs out of the ketchup pot: a small wet drip" });
+A(r3(DIVE + DIN - 0.02), "fb", "hide", {});
+sfx(r3(DIVE + DIN + 0.02), "ai/crunch", { gain: 0.7, reason: "Viking bites down on the fry that dived into his mouth: crunch" });
+A(r3(DIVE + DIN), "vik", "face", { lid: 0.85, dur: 0.12 });   // eyes shut, bliss
+A(r3(DIVE + DIN), "vik", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.05 }, dur: 0.1 });
+for (const [k, t] of [0.12, 0.26, 0.4, 0.54].entries()) {   // chewing
+  A(r3(DIVE + DIN + t), "vik", "squash", { amount: 0.03, dur: 0.08 });
+  A(r3(DIVE + DIN + t), "vik", "expr", { expr: "delighted", set: { curve: 0.9, open: k % 2 ? 0.05 : 0.22 }, dur: 0.07 });
+}
+sfx(r3(DIVE + DIN + 0.68), "gulp", { gain: 0.6, reason: "Viking swallows the fry: glk" });
+A(r3(DIVE + DIN + 0.7), "vik", "face", { lid: 0.1, dur: 0.15 });
+see(5.1, 5.6, ["fb.face", "vik.face"], "Jonny 8 Nov: the hot-tub fry dives out of the ketchup into Viking's open mouth, Me next!");
 // Gunslinger pushes his salad away with one finger (panel 3's arrow)
 const PUSH = 6.3;   // review B: inside the "seeing this" shot, where his salad is in frame (in the dips shot it was off the edge)
 c.arm(r3(PUSH - 0.25), "gsl", "L", { prop: "salad", grip: [-0.09, 0.1, 0.0] }, 0.25, "inOut"); A(r3(PUSH - 0.2), "gsl", "grip", { side: "L", shape: "point", dur: 0.15 });
@@ -258,7 +282,7 @@ A(6.0, "rea", "lean", { to: -6, dur: 0.6 });
 droop(6.2, 0.85);   // step 2
 A(6.7, "gsl", "turn", { to: GSL_YAW, dur: 0.3 }); A(6.7, "gsl", "lean", { to: 0, dur: 0.3 });
 A(5.9, "vik", "look", { to: [0.1, -0.7], dur: 0.12, blink: false });
-A(6.1, "vik", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.2 }, dur: 0.2 });
+A(6.4, "vik", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.2 }, dur: 0.2 });
 see(5.95, 6.7, ["gsl.face", "vik.face"], "panel 5: Gunslinger leans to Reaper, Are you seeing this?");
 
 // ---------------------------------------------------------------- 5 THE BACKFLIP 6.8-8.6 (panels 6-7)
@@ -301,9 +325,7 @@ c.arm(V(7.85), "vik", "L", { o: [0.3, 0.72, 0.22] }, 0.2, "out"); A(V(7.85), "vi
 c.arm(V(8.45), "vik", "L", { o: [0.22, 0.6, 0.3] }, 0.3, "inOut");   // the fist comes down to chest height and stays (back to the table and up again, the glove flipped over)
 A(r3(LAUNCH + 0.05), "gsl", "look", { to: [0.75, -0.4], dur: 0.12, blink: false });
 act.shock(c, V(7.85), "gsl", { hold: 0.6, open: 0.4, eye: 1.35, curve: -0.3 });
-A(r3(LAUNCH + 0.05), "fb", "look", { to: [0.6, 0.0], dur: 0.12, blink: false }); A(r3(LAUNCH + 0.05), "fb", "face", { lid: 0, dur: 0.1 });
 A(r3(LAUNCH + 0.05), "fc", "look", { to: [0.4, 0.0], dur: 0.12, blink: false });
-A(V(7.85), "fb", "expr", { expr: "delighted", set: { curve: 1, open: 0.4 }, dur: 0.12 });
 see(SPOT, 7.2, ["fa.face", "vik.face", "soup"], "panel 6: the last fry spots Reaper's soup, Ooh, soup!");
 see(7.3, r3(HS + 0.05), ["fa", "soup", "rea.face"], "panel 6: the backflip off the cone into the soup");
 see(V(7.85), V(8.55), ["fa.face", "rea.face", "soup", "vik.face"], "panel 7: the fry standing upright in Reaper's soup, Ta-da!");
@@ -334,7 +356,7 @@ see(V(8.9), r3(END - 0.05), ["fa.face", "rea.face", "gsl.face", "vik.face", "phx
 
 // blinks off the lines and the key looks
 act.blinksAt(c, "gsl", [0.6, 2.6, 4.7, V(8.3)]); act.blinksAt(c, "rea", [0.5, 4.6, 6.6]); act.blinksAt(c, "phx", [0.7, 4.0, 6.5, V(8.4)]);
-act.blinksAt(c, "sam", [1.0, 3.9, 6.1, V(8.6)]); act.blinksAt(c, "vik", [1.6, 5.4, 6.5]);
+act.blinksAt(c, "sam", [1.0, 3.9, 6.1, V(8.6)]); act.blinksAt(c, "vik", [1.6, 4.9, 6.6]);
 
 // ---------------------------------------------------------------- shots (Jonny's panels)
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
@@ -362,6 +384,7 @@ for (const cp of c.captions) {
   if (cp.text === "Best fries in town!") cp.to = 0.95;
   if (cp.text === "Yaaay!") cp.to = GSLCU;
   if (cp.text === "Ooh!") cp.to = 3.55;
+  if (cp.text === "Wheee!") cp.to = 5.1;   // it ends before the next fry's "Me next!"
   if (cp.text === "Are you seeing this?") cp.to = 6.8;
   if (cp.text === "Ooh, soup!") cp.to = LAUNCH;
   if (cp.text === "Want some?") cp.to = END;
@@ -391,6 +414,8 @@ write(import.meta.url, {
     { who: "fa", with: "fb", from: 0, to: 3.9, reason: "the three fries stand packed side by side in one cone" },
     { who: "fa", with: "fc", from: 0, to: 5.2, reason: "the three fries stand packed side by side in one cone" },
     { who: "fb", with: "fc", from: 0, to: 3.9, reason: "the three fries stand packed side by side in one cone" },
+    { who: "fb", with: "vik", from: 5.4, to: 5.7, reason: "the fry dives into Viking's open mouth: it touches his lips as it goes in" },
+    { who: "fa", with: "fb", from: 5.4, to: 5.7, reason: "the diving fry passes just behind the fry in the cone on its way to Viking's mouth" },
     { who: "fb", with: "ket", from: 3.85, to: 10, reason: "the fry sits waist deep in the ketchup pot like a hot tub, its gloves on the rim" },
     { who: "fc", with: "may", from: 5.1, to: 10, reason: "the fry sits waist deep in the mayo pot, its gloves on the rim" },
     ...["fb", "fc"].map((f) => ({ who: f, with: "table", from: 3.8, to: 10, reason: "a fry sitting in a dip pot: its feet go down under the table top, hidden inside the pot" })),

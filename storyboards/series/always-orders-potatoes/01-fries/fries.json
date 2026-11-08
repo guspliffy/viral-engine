@@ -365,7 +365,7 @@
   },
   {
    "from": 4.75,
-   "to": 5.6,
+   "to": 5.1,
    "text": "Wheee!",
    "pos": 1262,
    "pop": false,
@@ -2699,7 +2699,7 @@
     {
      "who": "fb",
      "do": "still",
-     "dur": 1.5,
+     "dur": 1,
      "idle": 0.05,
      "at": 0.8
     },
@@ -3085,6 +3085,12 @@
      "at": 1.65
     },
     {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.65
+    },
+    {
      "who": "fa",
      "do": "arm",
      "side": "L",
@@ -3109,6 +3115,73 @@
      "dur": 0.12,
      "blink": false,
      "at": 1.75
+    },
+    {
+     "who": "fb",
+     "do": "look",
+     "to": [
+      0.25,
+      0.85
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "who": "fb",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.12,
+     "at": 1.8
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "who": "fb",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.55,
+      "eye": 1.25,
+      "curve": 0.8
+     },
+     "dur": 0.12,
+     "at": 1.85
+    },
+    {
+     "fx": "pop",
+     "text": "Me next!",
+     "who": "fb",
+     "dur": 0.5,
+     "size": 76,
+     "xy": [
+      300,
+      1080
+     ],
+     "angle": -4,
+     "color": "speaker",
+     "at": 1.87
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.9,
+      "curve": 0.4,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 1.9
     },
     {
      "sfx": "splash",
@@ -3173,6 +3246,52 @@
      "at": 1.97
     },
     {
+     "who": "fb",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 1.97
+    },
+    {
+     "who": "fb",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.4,
+       0
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "fb",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 1.97
+    },
+    {
      "who": "fc",
      "do": "expr",
      "expr": "delighted",
@@ -3191,10 +3310,96 @@
      "at": 2.02
     },
     {
+     "who": "fb",
+     "do": "move",
+     "to": [
+      -0.05,
+      -0.07
+     ],
+     "y": 0.33,
+     "dur": 0.33,
+     "ease": "linear",
+     "steps": 0,
+     "at": 2.05
+    },
+    {
+     "who": "fb",
+     "do": "hop",
+     "height": 0.14,
+     "dur": 0.33,
+     "quiet": true,
+     "at": 2.05
+    },
+    {
+     "do": "prop",
+     "id": "ket",
+     "set": {
+      "splash": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.05
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.4,
+     "reason": "the fry springs out of the ketchup pot: a small wet drip",
+     "at": 2.05
+    },
+    {
+     "who": "fb",
+     "do": "pitch",
+     "to": -85,
+     "dur": 0.248,
+     "ease": "inOut",
+     "at": 2.08
+    },
+    {
+     "who": "fb",
+     "do": "hide",
+     "at": 2.36
+    },
+    {
      "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.15
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.12,
+     "at": 2.38
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.05
+     },
+     "dur": 0.1,
+     "at": 2.38
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.7,
+     "reason": "Viking bites down on the fry that dived into his mouth: crunch",
+     "at": 2.4
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 2.5
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.22
+     },
+     "dur": 0.07,
+     "at": 2.5
     }
    ]
   },
@@ -3248,6 +3453,24 @@
      "lid": 0.46,
      "dur": 0.25,
      "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.09
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.05
+     },
+     "dur": 0.07,
+     "at": 0.09
     },
     {
      "who": "gsl",
@@ -3310,6 +3533,24 @@
      "at": 0.2
     },
     {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.23
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.22
+     },
+     "dur": 0.07,
+     "at": 0.23
+    },
+    {
      "who": "gsl",
      "do": "arm",
      "side": "L",
@@ -3334,21 +3575,28 @@
      "at": 0.3
     },
     {
-     "who": "vik",
-     "do": "expr",
-     "expr": "delighted",
-     "set": {
-      "curve": 0.8,
-      "open": 0.2
-     },
-     "dur": 0.2,
-     "at": 0.3
-    },
-    {
      "who": "sam",
      "do": "blink",
      "dur": 0.22,
      "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.37
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.05
+     },
+     "dur": 0.07,
+     "at": 0.37
     },
     {
      "who": "gsl",
@@ -3392,19 +3640,43 @@
      "at": 0.5
     },
     {
+     "sfx": "gulp",
+     "gain": 0.6,
+     "reason": "Viking swallows the fry: glk",
+     "at": 0.51
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.1,
+     "dur": 0.15,
+     "at": 0.53
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.2
+     },
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
      "at": 0.7
     },
     {
-     "who": "vik",
+     "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.7
+     "at": 0.8
     },
     {
-     "who": "rea",
+     "who": "vik",
      "do": "blink",
      "dur": 0.22,
      "at": 0.8
@@ -3658,24 +3930,6 @@
      "at": 0.5
     },
     {
-     "who": "fb",
-     "do": "look",
-     "to": [
-      0.6,
-      0
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.5
-    },
-    {
-     "who": "fb",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.1,
-     "at": 0.5
-    },
-    {
      "who": "fc",
      "do": "look",
      "to": [
@@ -3894,17 +4148,6 @@
      "do": "still",
      "dur": 0.8,
      "idle": 0.08,
-     "at": 0.95
-    },
-    {
-     "who": "fb",
-     "do": "expr",
-     "expr": "delighted",
-     "set": {
-      "curve": 1,
-      "open": 0.4
-     },
-     "dur": 0.12,
      "at": 0.95
     },
     {
@@ -4354,6 +4597,15 @@
    "why": "the blossom"
   },
   {
+   "from": 5.1,
+   "to": 5.6,
+   "see": [
+    "fb.face",
+    "vik.face"
+   ],
+   "why": "Jonny 8 Nov: the hot-tub fry dives out of the ketchup into Viking's open mouth, Me next!"
+  },
+  {
    "from": 3.2,
    "to": 3.5,
    "see": [
@@ -4519,6 +4771,20 @@
    "from": 0,
    "to": 3.9,
    "reason": "the three fries stand packed side by side in one cone"
+  },
+  {
+   "who": "fb",
+   "with": "vik",
+   "from": 5.4,
+   "to": 5.7,
+   "reason": "the fry dives into Viking's open mouth: it touches his lips as it goes in"
+  },
+  {
+   "who": "fa",
+   "with": "fb",
+   "from": 5.4,
+   "to": 5.7,
+   "reason": "the diving fry passes just behind the fry in the cone on its way to Viking's mouth"
   },
   {
    "who": "fb",
