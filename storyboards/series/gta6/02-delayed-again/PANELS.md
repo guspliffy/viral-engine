@@ -53,6 +53,14 @@ What the generator builds:
 - **The parked scythe barely shows in the main shot**: Death sits at the frame's left edge in the vertical frame and the
   parked blade sits below his hood top, so only its tip peeks out. Panels 1 and 8 show it big at the left; that needs a
   wider shot or a taller scythe (a look change), so it is left for Jonny.
+- **Phoenix holds the phone by its outer edge, from behind** (Jonny 8 Nov: "the hand is glitching through the phone").
+  The first build used the hold for looking at your own screen (`grips.phone`): with the screen turned to the others its
+  fingers wrapped onto the screen and the glove showed past the far edge, through the phone. Now it is DUO's approved
+  edge hold (`foldphone.mjs` EDGE, grip `phoneEdge`): the glove behind the phone on the edge by his right shoulder, the
+  fingers flat on the back, the thumb hooked over the bezel, half way up so the glove sits on the Wizard's hat brim and
+  not on his head. Panel 1 has the forearm reaching in from his body to the near edge; his shoulder is behind the
+  phone's outer edge, so from there that hold bent the wrist 180 degrees. The phone is 6 cm further from his face (his
+  laugh bob put his face into it), and the DELAYED card on its screen sits right of centre, clear of the thumb.
 - **The marker is black** (the costume's grey vanished on the white page), and the end of panel 8 adds the Wizard's
   snicker bounces and Death's slow side-glance at Phoenix (review B).
 

@@ -25,6 +25,7 @@ import { clip, write, r3, SUB_STYLE } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { SOFA } from "../../../../engine/page/props-sofa.js";
+import { PHONE_EDGE } from "../../../../engine/page/timeline.js";
 
 const PAD = { w: 0.17, h: 0.045, d: 0.1 };   // props-notyet.js PAD
 const CAL = { w: 0.26, h: 0.34, t: 0.008 };  // props-notyet.js CALENDAR
@@ -80,7 +81,7 @@ const PAD_W2 = { ...PAD_W, id: "padW2", x: 0, y: -5, z: 0, staged: "his spare, o
 const PAD_R = { id: "padR", kind: "gamepad", style: "xbox", color: "#2e3240", dark: "#16171c", ...grips.placeFor("gamepad", PAD_LAP(REA_SEAT), 0), scale: 1.2 };
 const PAD_R_TABLE = [0.0, TABLE.h, 0.92];                         // where Death leaves his controller (panels 3-6)
 // the phone, pushed at the Wizard in Phoenix's right glove, its screen to the Wizard and to us
-const PHONE = { id: "phone", kind: "phone", style: "iphone", color: "#ff7a2e", frame: "#f2a55a", x: 1.02, y: 1.35, z: 0.45, rot: -30, scale: 2.3,
+const PHONE = { id: "phone", kind: "phone", style: "iphone", color: "#ff7a2e", frame: "#f2a55a", x: 0.96, y: 1.35, z: 0.45, rot: -30, scale: 2.3,
   screen: { src: "assets/screens/delayed/atlas.png", cols: 2, rows: 1 }, feed: 0, nextFeed: 1, scroll: 0 };
 const PEN = { id: "pen", kind: "feltpen", x: 0, y: -5, z: 0, rot: 180, color: "#1c1b21", cap: "#141318", felt: "#0c0b0e", staged: "in Death's robe until he draws" };
 const CRESTOFF = [0.0, 1.06, 0.05];
@@ -132,11 +133,20 @@ A(CUT2, "phx", "fly", { to: { ...PHX_AT, x: r3(PHX_AT.x + 0.5) }, dur: 0 }); A(r
 const PHX_P3 = { ...PHX_AT, x: 1.28, z: r3(PHX_AT.z + 0.2) };   // and a little left, so this closer shot keeps him in
 A(CUT3, "phx", "fly", { to: PHX_P3, dur: 0 }); A(r3(CUT3 + 0.01), "phx", "hover", { dur: r3(CUT4 - CUT3 - 0.02) });
 A(CUT4, "phx", "fly", { to: PHX_AT, dur: 0 }); A(r3(CUT4 + 0.01), "phx", "hover", { dur: r3(CUT7 - CUT4 - 0.02) });
-const ph = grips.phone(c, "phx", PHONE, { side: "R" });
+// the phone held up to show its screen: DUO's approved edge hold (storyboards/lib/foldphone.mjs EDGE, timeline.js
+// phoneEdge, Jonny 29 Oct) on a plain phone. Phoenix's right glove is behind the phone on its outer edge (the one by his
+// right shoulder), the fingers flat along the back, the thumb hooked over the front bezel; half way up the edge, so the
+// glove sits on the Wizard's hat brim and not on his head. (grips.phone is the hold for looking at your own screen:
+// turned to the others, its fingers wrapped onto the screen and the hand showed past the far edge, through the phone,
+// Jonny 8 Nov.) The phone is 6 cm further out than it was, so Phoenix's laughing face (pitch bob) stays clear of it.
+const PH_SIZE = { w: 0.078, h: 0.155, t: 0.012 }, PH_TILT = (5 * Math.PI) / 180;
+const SHOW = (o = {}) => ({ prop: "phone", grip: [r3(-PH_SIZE.w / 2), r3(0.5 * PH_SIZE.h), r3(-PH_SIZE.t / 2)],
+  frame: { y: [r3(Math.cos(PH_TILT)), r3(Math.sin(PH_TILT)), 0], z: [0, 0, 1], at: PHONE_EDGE, elbow: 1 }, ...o });
+const ph = { carry: (t, at, dur, ease = "inOut") => { c.arm(t, "phx", "R", SHOW({ at: at.map(r3) }), dur, ease); return r3(t + dur); } };
 ph.carry(CUT2, [r3(PHONE.x + 0.5), PHONE.y, PHONE.z], 0);
 ph.carry(CUT3, [r3(PHONE.x + PHX_P3.x - PHX_AT.x), PHONE.y, r3(PHONE.z + 0.2)], 0); ph.carry(CUT4, [PHONE.x, PHONE.y, PHONE.z], 0);
-c.arm(0, "phx", "R", { prop: "phone", grip: ph.hands.R.grip, palm: true }, 0); A(0, "phx", "grip", { side: "R", shape: "hold", dur: 0 });
-A(0, "phx", "grab", { prop: "phone", hand: "R", grip: ph.hands.R.grip, dur: 0, pose: null });
+c.arm(0, "phx", "R", SHOW(), 0); A(0, "phx", "grip", { side: "R", shape: "phoneEdge", dur: 0 });
+A(0, "phx", "grab", { prop: "phone", hand: "R", grip: SHOW().grip, dur: 0, pose: null, keep: true });
 A(0, "phx", "look", { to: [-0.6, -0.1], dur: 0, blink: false });
 A(0, "phx", "expr", { expr: "angry", set: { open: 0.6, eye: 1.15 }, dur: 0 });
 c.arm(0, "phx", "L", { o: [-0.05, 0.62, 0.3] }, 0); A(0, "phx", "grip", { side: "L", shape: "open", dur: 0 });
