@@ -40,29 +40,31 @@
     "mouth-philtrum-volume-decr": 1.0
   },
   "face": {
-    "eyeW": 0.029,
-    "eyeH": 0.022,
-    "irisR": 0.0092,
+    "eyeW": 0.034,
+    "eyeH": 0.026,
+    "irisR": 0.0108,
     "iris": "#5a3a26",
     "iris2": "#b07a48",
     "brow": "#4a3022",
     "lash": "#24170f",
-    "browW": 0.0016,
+    "browW": 0.0022,
     "mouthW": 0.018,
     "blushA": 0.3,
-    "mouthFlatK": 1
+    "mouthFlatK": 1,
+    "lashW": 0.0024,
+    "mouthLine": 0.0018
   },
   "hair": {
     "style": "wavy",
     "color": "#6b4630",
     "capColor": "#5a3a28",
-    "n": 46,
+    "n": 60,
     "len": [
       0.07,
       0.1
     ],
     "longLen": 0.25,
-    "w": 0.064,
+    "w": 0.05,
     "front": 0.052,
     "nape": -0.09,
     "fringe": 0.016,
@@ -76,7 +78,7 @@
       0.17
     ],
     "bangsW": 0.7,
-    "faceHalf": 0.062,
+    "faceHalf": 0.066,
     "stiff": 4.5,
     "drag": 0.75,
     "gpow": 0.08
@@ -120,7 +122,20 @@
     },
     {
       "type": "shoes",
-      "color": "#ece4d2"
+      "color": "#ece4d2",
+      "soleColor": "#d6cab3"
+    }
+  ],
+  "accessories": [
+    {
+      "type": "glasses",
+      "w": 0.054,
+      "h": 0.038,
+      "n": 4.0,
+      "r": 0.0017,
+      "color": "#2b2523",
+      "gap": 0.006,
+      "wrap": 0.004
     }
   ]
 }

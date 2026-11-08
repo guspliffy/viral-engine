@@ -40,17 +40,19 @@
     "mouth-philtrum-volume-decr": 1.0
   },
   "face": {
-    "eyeW": 0.026,
-    "eyeH": 0.0175,
-    "irisR": 0.0076,
+    "eyeW": 0.031,
+    "eyeH": 0.021,
+    "irisR": 0.0092,
     "iris": "#4a2f22",
     "iris2": "#9a6a3c",
-    "brow": "#8a6a3a",
+    "brow": "#6e5230",
     "lash": "#2b1d18",
-    "browW": 0.0022,
+    "browW": 0.0028,
     "mouthW": 0.02,
     "blushA": 0.12,
-    "mouthFlatK": 1
+    "mouthFlatK": 1,
+    "lashW": 0.0024,
+    "mouthLine": 0.0018
   },
   "hair": {
     "style": "spiky",
