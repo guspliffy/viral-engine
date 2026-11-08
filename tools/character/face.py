@@ -79,58 +79,115 @@ def arc_pts(cx, cz, rx, rz, a0, a1, n=9):
     return [(cx + rx * math.cos(a), cz + rz * math.sin(a)) for a in np.linspace(a0, a1, n)]
 
 # ---------------------------------------------------------------- the drawings
+# Sizes follow research "Human looking anime character design" (8 Nov 2026, reports/ in the project files): E = eyeW,
+# Eh = eyeH (the drawn opening), I = the eye spacing. Male / female starting values sit in the character specs.
+
+def _curve(pts, n=48):
+    """a smooth curve through [(x, z)] (Catmull-Rom), sampled n times per span"""
+    P = np.array(pts, np.float64); S = []
+    for i in range(len(P) - 1):
+        p0, p1, p2, p3 = P[max(0, i - 1)], P[i], P[i + 1], P[min(len(P) - 1, i + 2)]
+        for t in np.linspace(0, 1, n, endpoint=False):
+            t2, t3 = t * t, t * t * t
+            S.append(0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3))
+    S.append(P[-1]); return np.array(S)
+
+def _below(c, C):
+    """signed distance (vertical, metres) to the curve C [(x, z)]: < 0 below it, inside its x span"""
+    C = C[np.argsort(C[:, 0])]
+    return c.Z - np.interp(c.X, C[:, 0], C[:, 1], left=1e9, right=1e9)
+
+def _eye_lids(ex, ez, side, S, h):
+    """the upper and lower lid lines of one eye in face space: inner corner to outer corner"""
+    w = S["eyeW"] / 2; out = side
+    tilt = math.tan(math.radians(S.get("tilt", 3))) * w
+    peak = S.get("lidPeak", 0.4)                      # where the upper lid is highest, from the inner corner (0..1)
+    flat = S.get("lidFlat", 0.82)                     # the upper lid's height at 75% of the way out (1 = round)
+    X = lambda u: ex + out * u * w                    # u: -1 inner corner .. +1 outer corner
+    up = [(X(-1.0), ez - h * 0.05), (X(-0.75), ez + h * 0.62), (X(-1 + 2 * peak), ez + h * 1.0), (X(0.5), ez + h * flat + tilt * 0.5), (X(1.0), ez + h * 0.2 + tilt)]
+    lo = [(X(-1.0), ez - h * 0.05), (X(-0.5), ez - h * 0.78), (X(0.15), ez - h * 1.0), (X(0.7), ez - h * 0.7 + tilt * 0.6), (X(1.0), ez + h * 0.2 + tilt)]
+    return _curve(up), _curve(lo)
+
 def draw_eye(c, ex, ez, side, S, state):
     """one anime eye at (ex, ez); side +1 = the character's left; S = spec["face"]"""
     w, h = S["eyeW"] / 2, S["eyeH"] / 2
     line, iris, iris2 = hexc(S.get("lash", "#2b1d18")), hexc(S.get("iris", "#5a3a26")), hexc(S.get("iris2", "#a0703f"))
-    out = side      # outer corner direction in x
+    out = side; lw = S.get("lashW", 0.0016)
     if state in ("open", "wide"):
-        sh = h * (1.12 if state == "wide" else 1.0)
-        # white of the eye: a rounded shape, flatter on top (the upper lid), the outer corner a little higher
-        dW = ellipse(c, ex, ez - sh * 0.05, w, sh * 0.92)
+        hh = h * (1.12 if state == "wide" else 1.0)
+        U, Lo = _eye_lids(ex, ez, side, S, hh)
+        dW = np.maximum(_below(c, U), -_below(c, Lo))
+        dW = np.maximum(dW, np.abs(c.X - ex) - w)
         c.fill(dW, hexc(S.get("white", "#fbf6ee")))
-        ir = S["irisR"] * (0.86 if state == "wide" else 1.0)
-        icx, icz = ex - out * w * 0.04, ez - sh * 0.08
-        dI = np.maximum(ellipse(c, icx, icz, ir * 0.92, ir * 1.1), dW)
+        # the iris: a tall oval tucked under the upper lid (irisCover of its height hidden), looking a little inward
+        ir = S["irisR"] * (0.86 if state == "wide" else 1.0); iv = ir * 1.08
+        top = np.interp(ex - out * w * 0.05, *U[np.argsort(U[:, 0])].T)
+        icx = ex - out * w * 0.05; icz = top - iv + 2 * iv * S.get("irisCover", 0.22)
+        dI = np.maximum(ellipse(c, icx, icz, ir * 0.95, iv), dW)
         c.fill(dI, iris)
-        # the lower half lit (anime irises glow from below), a dark rim and pupil
-        dLow = np.maximum(dI + ir * 0.18, -(c.Z - (icz - ir * 0.15)))
-        c.fill(np.maximum(dLow, ellipse(c, icx, icz - ir * 0.35, ir * 0.7, ir * 0.55)), iris2, 0.75)
-        c.fill(np.maximum(dI, -(dI + ir * 0.12)), line, 0.55)                       # iris rim
-        c.fill(np.maximum(ellipse(c, icx, icz + ir * 0.02, ir * 0.42, ir * 0.55), dW), line, 0.9)   # pupil
-        c.fill(np.maximum(ellipse(c, icx, icz + ir * 0.62, ir * 0.9, ir * 0.42), dW), line, 0.35)   # lid shadow
-        c.fill(ellipse(c, icx - out * ir * 0.35, icz + ir * 0.42, ir * 0.24, ir * 0.3), hexc("#ffffff"))   # catch light
-        c.fill(ellipse(c, icx + out * ir * 0.38, icz - ir * 0.45, ir * 0.11, ir * 0.11), hexc("#ffffff"), 0.85)
-        # upper lash line: thick, heavier at the outer corner with a small flick; the crease above it
-        top = arc_pts(ex, ez - sh * 0.05, w * 1.04, sh * 0.95, math.pi if out > 0 else 0, 0 if out > 0 else math.pi)
-        top = [(x, z) for (x, z) in top][1:-1] if False else top
-        lash = top[1:] + [(ex + out * w * 1.22, ez + sh * 0.22)]
-        c.fill(stroke(c, lash, S.get("lashW", 0.0016), S.get("lashW", 0.0016) * 1.9), line)
-        c.fill(stroke(c, arc_pts(ex + out * w * 0.08, ez + sh * 0.18, w * 0.92, sh * 0.95, math.radians(35 if out > 0 else 145), math.radians(150 if out > 0 else 30), 6), 0.0005, 0.0003), line, 0.7)
-        # lower lash: short and thin, outer half only
-        c.fill(stroke(c, arc_pts(ex, ez - sh * 0.02, w * 0.95, sh * 0.92, math.radians(-20 if out > 0 else 200), math.radians(-60 if out > 0 else 240), 5), 0.0006, 0.0002), line, 0.8)
+        dLow = np.maximum(dI + ir * 0.18, -(c.Z - (icz - ir * 0.1)))
+        c.fill(np.maximum(dLow, ellipse(c, icx, icz - ir * 0.4, ir * 0.72, ir * 0.55)), iris2, 0.75)
+        c.fill(np.maximum(dI, -(dI + ir * 0.12)), line, 0.6)                                              # iris rim
+        c.fill(np.maximum(ellipse(c, icx, icz + ir * 0.05, ir * S.get("pupil", 0.4), iv * S.get("pupil", 0.4) * 1.1), dW), line, 0.92)
+        # the upper lid's shadow on the white and the iris (the eye sits IN the face, not on it)
+        shade = np.maximum(dW, -(_below(c, U) + 2 * hh * S.get("lidShade", 0.3)))
+        c.fill(shade, hexc(S.get("lidShadeCol", "#8c7a80")), 0.28)
+        c.fill(np.maximum(dI, -(_below(c, U) + 2 * hh * 0.2)), line, 0.35)
+        # highlights in light space (the same place in both eyes): one; female eyes a second, small, opposite
+        hk = S.get("hiK", 0.18)
+        c.fill(ellipse(c, icx - ir * 0.38, icz + iv * 0.38, ir * hk * 1.6, ir * hk * 1.9), hexc("#ffffff"))
+        if S.get("hi2", 0.0) > 0:
+            c.fill(np.maximum(ellipse(c, icx + ir * 0.42, icz - iv * 0.42, ir * S["hi2"], ir * S["hi2"]), dW), hexc("#ffffff"), 0.85)
+        # upper lash line along the lid, heavier toward the outer corner; female eyes end in a wedge flicked outward
+        lash = list(U[::6]) + [tuple(U[-1])]
+        c.fill(stroke(c, lash, lw, lw * S.get("lashEnd", 1.6)), line)
+        if S.get("flick", 0) > 0:
+            o = U[-1]; L = S["flick"] * S["eyeW"]
+            c.fill(stroke(c, [(o[0] - out * L * 0.3, o[1] + hh * 0.05), (o[0] + out * L * 0.5, o[1] - hh * 0.02), (o[0] + out * L, o[1] - hh * 0.22)], lw * S.get("lashEnd", 1.6) * 0.9, lw * 0.2), line)
+        # lid crease: thin, 0.2 Eh above the lash line over the middle of the eye
+        cr = [(x, z + 2 * hh * S.get("crease", 0.2)) for (x, z) in U[int(len(U) * 0.2):int(len(U) * 0.8):6]]
+        if len(cr) > 2: c.fill(stroke(c, cr, 0.00045, 0.0003), line, 0.6)
+        # lower lid: the outer part only, light
+        k0 = int(len(Lo) * (1 - S.get("lowerLid", 0.45)))
+        lo = [tuple(p) for p in Lo[k0::5]] + [tuple(Lo[-1])]
+        if len(lo) > 2: c.fill(stroke(c, lo, lw * 0.2, lw * S.get("lowerW", 0.4)), line, 0.85)
     elif state == "closed":
-        pts = arc_pts(ex, ez + h * 0.25, w * 1.02, h * 0.55, math.pi if out > 0 else 0, 2 * math.pi if out > 0 else -math.pi, 9)
-        pts = [(x, z) for (x, z) in pts]
-        c.fill(stroke(c, pts + [(ex + out * w * 1.2, ez - h * 0.02)], S.get("lashW", 0.0016) * 0.9, S.get("lashW", 0.0016) * 1.3), line)
+        pts = arc_pts(ex, ez + h * 0.1, w * 1.02, h * 0.5, math.pi if out > 0 else 0, 2 * math.pi if out > 0 else -math.pi, 9)
+        c.fill(stroke(c, pts + [(ex + out * w * 1.15, ez - h * 0.05)], lw * 0.9, lw * 1.3), line)
     elif state == "happy":      # ^ ^
-        pts = arc_pts(ex, ez - h * 0.35, w * 0.95, h * 0.8, math.radians(170 if out > 0 else 10), math.radians(10 if out > 0 else 170), 9)
-        c.fill(stroke(c, pts, S.get("lashW", 0.0016) * 1.1, S.get("lashW", 0.0016) * 1.1), line)
+        pts = arc_pts(ex, ez - h * 0.5, w * 0.95, h * 1.0, math.radians(170 if out > 0 else 10), math.radians(10 if out > 0 else 170), 9)
+        c.fill(stroke(c, pts, lw * 1.1, lw * 1.1), line)
 
 def draw_brow(c, ex, ez, side, S, state):
-    w = S["eyeW"] * 0.62; base = ez + S["eyeH"] * 0.95 + S.get("browUp", 0.004)
+    """a brow: the gap above the lash line, thickness and length in eye units; male straight and rising, female arched"""
+    E, Eh = S["eyeW"], S["eyeH"]
+    base = ez + Eh / 2 + S.get("browGap", 0.8) * Eh
+    L = S.get("browLen", 1.1) * E; th = S.get("browT", 0.2) * Eh
+    x0 = ex - side * (E / 2 - S.get("browIn", 0.1) * E)          # inner end, a little inside the inner eye corner
     lift = {"neutral": (0, 0), "up": (0.004, 0.003), "angry": (-0.004, 0.002), "worried": (0.003, -0.002)}[state]
-    inner = (ex - side * w * 0.95, base + lift[0]); mid = (ex + side * w * 0.05, base + 0.0022 + (lift[0] + lift[1]) / 2)
-    outer = (ex + side * w * 1.05, base - 0.0015 + lift[1])
-    c.fill(stroke(c, [inner, mid, outer], S.get("browW", 0.0019), 0.0006), hexc(S.get("brow", "#3a2a20")))
+    X = lambda u: x0 + side * u * L
+    if S.get("browShape", "arch") == "straight":
+        rise = math.tan(math.radians(S.get("browRise", 8))) * L
+        pts = [(X(0.0), base - th * 0.15 + lift[0]), (X(0.45), base + rise * 0.5 + (lift[0] + lift[1]) / 2), (X(1.0), base + rise * 0.8 + lift[1])]
+        c.fill(stroke(c, pts, th, th * 0.45), hexc(S.get("brow", "#3a2a20")))
+    else:
+        arch = S.get("browArch", 0.35) * Eh
+        pts = [(X(0.0), base + lift[0]), (X(0.35), base + arch * 0.75 + lift[0] * 0.7), (X(0.65), base + arch + (lift[0] + lift[1]) / 2), (X(1.0), base + arch * 0.15 + lift[1])]
+        c.fill(stroke(c, pts, th, th * 0.35), hexc(S.get("brow", "#3a2a20")), S.get("browA", 1.0))
 
 def draw_mouth(c, mx, mz, S, state):
-    w = S.get("mouthW", 0.022) / 2; line = hexc(S.get("lip", "#6b3a30"))
+    w = S.get("mouthW", 0.022) / 2; line = hexc(S.get("lip", "#6b3a30")); lw = S.get("mouthLine", 0.0013)
+    ml = S.get("mouthLen", w * 1.2) / 2                                   # the closed mouth's line, half length
+    up = math.tan(math.radians(S.get("mouthCorner", 3))) * ml
     if state == "neutral":
-        lw = S.get("mouthLine", 0.0013)
-        c.fill(stroke(c, [(mx - w * 0.6, mz + 0.0003), (mx, mz - 0.0003), (mx + w * 0.6, mz + 0.0003)], lw, lw * 0.75), line)
+        g = S.get("mouthBreak", 0.0) / 2
+        for sd in (1, -1):        # from the middle out, tapering to nothing at the corners
+            c.fill(stroke(c, [(mx + sd * g, mz - 0.0002), (mx + sd * ml * 0.55, mz), (mx + sd * ml, mz + up)], lw, lw * 0.12), line)
+        if S.get("lipMark", 0) > 0:
+            L = S["lipMark"] * ml
+            c.fill(stroke(c, arc_pts(mx, mz - S.get("lipDrop", 0.0042) + L * 0.6, L, L * 0.6, math.radians(235), math.radians(305), 7), lw * 0.75, lw * 0.75), line, 0.4)
     elif state == "smile":
-        c.fill(stroke(c, arc_pts(mx, mz + w * 0.5, w * 0.85, w * 0.6, math.radians(200), math.radians(340), 7), S.get("mouthLine", 0.0013)), line)
+        c.fill(stroke(c, arc_pts(mx, mz + ml * 0.45, ml * 0.95, ml * 0.5, math.radians(200), math.radians(340), 9), lw, lw * 0.5), line)
     elif state in ("open", "o"):
         if state == "open": d = np.maximum(ellipse(c, mx, mz - w * 0.25, w * 0.8, w * 0.75), c.Z - (mz + w * 0.12))
         else: d = ellipse(c, mx, mz - w * 0.1, w * 0.36, w * 0.45)
@@ -138,16 +195,25 @@ def draw_mouth(c, mx, mz, S, state):
         c.fill(np.maximum(d, ellipse(c, mx, mz - w * (0.85 if state == "open" else 0.5), w * 0.55, w * 0.35)), hexc(S.get("tongue", "#d0705f")))
         c.fill(np.maximum(d, -(d + 0.0007)), line)
     elif state == "frown":
-        c.fill(stroke(c, arc_pts(mx, mz - w * 0.55, w * 0.7, w * 0.5, math.radians(30), math.radians(150), 7), S.get("mouthLine", 0.0013)), line)
+        c.fill(stroke(c, arc_pts(mx, mz - ml * 0.5, ml * 0.8, ml * 0.4, math.radians(30), math.radians(150), 7), lw, lw * 0.6), line)
 
-def draw_static(c, S, nose, cheeks):
-    # nose: a small shadow tick under the tip, blush: soft hatched ovals (the potato cast's blush)
-    nx, nz = nose
-    c.fill(stroke(c, [(nx + 0.0012, nz + 0.0012), (nx - 0.0004, nz - 0.0006), (nx - 0.0022, nz - 0.0004)], 0.0008, 0.0005), hexc(S.get("lip", "#6b3a30")), 0.65)
-    for (bx, bz) in cheeks:
-        c.fill(ellipse(c, bx, bz, 0.011, 0.0055), hexc(S.get("blush", "#f08a7a")), S.get("blushA", 0.28))
-        for k in range(-2, 3):
-            c.fill(stroke(c, [(bx + k * 0.0032 - 0.001, bz - 0.0025), (bx + k * 0.0032 + 0.0012, bz + 0.0025)], 0.0005), hexc(S.get("blush", "#f08a7a")), 0.45)
+def draw_nose(c, S, nose):
+    """the nose: a short tick under the tip, warm and soft, and a faint shadow wedge on its shaded side"""
+    nx, nz = nose; L = S.get("noseW", 0.15) * S["eyeW"]; col = hexc(S.get("noseCol", "#a8604c"))
+    sd = S.get("noseSide", 1)
+    c.fill(stroke(c, [(nx - sd * L * 0.55, nz + 0.0004), (nx - sd * L * 0.1, nz - 0.0003), (nx + sd * L * 0.45, nz + 0.0006)], 0.0007, 0.0011), col, S.get("noseA", 0.8))
+    if S.get("noseShade", 0.22) > 0:
+        tri = [(nx + sd * L * 0.45, nz + 0.0006), (nx + sd * L * 0.55, nz + 0.006), (nx + sd * L * 0.25, nz + 0.012)]
+        c.fill(stroke(c, tri, 0.0016, 0.0004), hexc(S.get("noseShadeCol", "#d99a80")), S.get("noseShade", 0.22))
+
+def draw_blush(c, bx, bz, S):
+    """a soft pink blush: no edge, fading out from the middle"""
+    rx = S.get("blushW", 0.75) * S["eyeW"] / 2; rz = rx * 0.45
+    k = np.sqrt(((c.X - bx) / rx) ** 2 + ((c.Z - bz) / rz) ** 2)
+    a = (1 - np.clip((k - 0.25) / 0.75, 0, 1)) ** 1.5 * S.get("blushA", 0.18)
+    col = np.array(hexc(S.get("blush", "#e89a9a"))[:3], np.float32); o = c.rgba
+    an = a[..., None]; ao = o[..., 3:4]
+    o[..., :3] = o[..., :3] * (1 - an) + col * an; o[..., 3:4] = ao + an * (1 - ao)
 
 # ---------------------------------------------------------------- the face surface
 def flatten(body, eyes, S):
@@ -338,8 +404,10 @@ def build_face(body, rig, eyes, S):
     for st in ("open", "closed", "happy", "wide"): parts.append((eye_set(st), st, "eyes"))
 
     def brow_set(state):
-        span = abs(exL - exR) / 2 + S["eyeW"] * 1.0
-        rect = (-span + (exL + exR) / 2, span + (exL + exR) / 2, ez + S["eyeH"] * 0.55, ez + S["eyeH"] * 1.75 + 0.006)
+        E, Eh = S["eyeW"], S["eyeH"]; th = S.get("browT", 0.2) * Eh; base = ez + Eh / 2 + S.get("browGap", 0.8) * Eh
+        span = abs(exL - exR) / 2 - (E / 2 - S.get("browIn", 0.1) * E) + S.get("browLen", 1.1) * E + th + 0.004
+        top = base + max(S.get("browArch", 0.35) * Eh, math.tan(math.radians(S.get("browRise", 8))) * S.get("browLen", 1.1) * E) + th + 0.006
+        rect = (-span + (exL + exR) / 2, span + (exL + exR) / 2, base - th - 0.007, top)
         cv = Canvas(*rect)
         for ex, side in ((exL, 1), (exR, -1)): draw_brow(cv, ex, ez, side, S, state)
         return decal(f"Brows_{state}", bvh, rect, cv, (40, 10), 0.0016)
@@ -351,18 +419,26 @@ def build_face(body, rig, eyes, S):
         return decal(f"Mouth_{state}", bvh, rect, cv, (16, 12))
     for st in ("neutral", "smile", "open", "o", "frown"): parts.append((mouth_set(st), st, "mouth"))
 
-    nose = eyes["nose"]; cheeks = [(exL + 0.004, ez - S["eyeH"] * 1.25), (exR - 0.004, ez - S["eyeH"] * 1.25)]
-    rect = (exR - 0.03, exL + 0.03, ez - S["eyeH"] * 2.2, ez - S["eyeH"] * 0.6)
-    cv = Canvas(*rect); draw_static(cv, S, (nose[0], nose[2] - 0.004), cheeks)
-    static = decal("FaceStatic", bvh, rect, cv, (40, 16), 0.0009)
+    nose = eyes["nose"]; nz = nose[2] - S.get("noseBelow", 0.003)
+    L = S.get("noseW", 0.15) * S["eyeW"]
+    rect = (nose[0] - L - 0.006, nose[0] + L + 0.006, nz - 0.005, nz + 0.016)
+    cv = Canvas(*rect); draw_nose(cv, S, (nose[0], nz))
+    statics = [decal("FaceNose", bvh, rect, cv, (14, 10), 0.0009)]
+    if S.get("blushA", 0.18) > 0:
+        for side, ex in ((1, exL), (-1, exR)):
+            bx = ex + side * S.get("blushOut", 0.25) * S["eyeW"]; bz = ez - S.get("blushDrop", 0.018)
+            rx = S.get("blushW", 0.75) * S["eyeW"] / 2
+            rect = (bx - rx * 1.1, bx + rx * 1.1, bz - rx * 0.55, bz + rx * 0.55)
+            cv = Canvas(*rect); draw_blush(cv, bx, bz, S)
+            statics.append(decal(f"FaceBlush_{side}", bvh, rect, cv, (12, 6), 0.0008))
 
     # join into one "Face" object; each drawing's vertices are remembered by a vertex group
-    objs = [p[0] for p in parts] + [static]
+    objs = [p[0] for p in parts] + statics
     for o in objs:
         g = o.vertex_groups.new(name=o.name); g.add(list(range(len(o.data.vertices))), 1.0, "REPLACE")
     bpy.ops.object.select_all(action="DESELECT")
     for o in objs: o.select_set(True)
-    bpy.context.view_layer.objects.active = static; bpy.ops.object.join()
+    bpy.context.view_layer.objects.active = statics[0]; bpy.ops.object.join()
     face = bpy.context.view_layer.objects.active; face.name = "Face"
     me = face.data
     def verts_of(gname):

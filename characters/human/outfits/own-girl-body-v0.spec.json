@@ -12,10 +12,7 @@
   "targets": {
     "head-age-decr": 0.5,
     "head-oval": 0.5,
-    "head-scale-vert-incr": 0.15,
-    "forehead-scale-vert-incr": 0.35,
     "forehead-temple-decr": 0.3,
-    "nose-scale-vert-decr": 0.8,
     "nose-scale-horiz-decr": 0.7,
     "nose-scale-depth-decr": 0.7,
     "nose-volume-decr": 0.6,
@@ -29,7 +26,7 @@
     "mouth-scale-depth-decr": 0.7,
     "chin-width-decr": 0.55,
     "chin-prominent-decr": 0.3,
-    "chin-height-decr": 0.25,
+    "chin-height-decr": 0.6,
     "l-cheek-bones-decr": 0.5,
     "r-cheek-bones-decr": 0.5,
     "l-cheek-volume-decr": 0.3,
@@ -37,51 +34,468 @@
     "l-eye-scale-incr": 0.6,
     "r-eye-scale-incr": 0.6,
     "mouth-cupidsbow-decr": 1.0,
-    "mouth-philtrum-volume-decr": 1.0
+    "mouth-philtrum-volume-decr": 1.0,
+    "nose-scale-vert-incr": 0.7,
+    "nose-trans-down": 1.0,
+    "mouth-trans-up": 1.0,
+    "neck-scale-horiz-decr": 0.4
   },
   "face": {
-    "eyeW": 0.034,
-    "eyeH": 0.026,
-    "irisR": 0.0108,
     "iris": "#5a3a26",
     "iris2": "#b07a48",
-    "brow": "#4a3022",
     "lash": "#24170f",
-    "browW": 0.0022,
-    "mouthW": 0.018,
-    "blushA": 0.3,
     "mouthFlatK": 1,
-    "lashW": 0.0024,
-    "mouthLine": 0.0018
+    "_note": "research 'Human looking anime character design' (8 Nov): E 0.54 I, Eh/E 0.68, iris 0.58 E, brow gap 1.2 Eh, mouth 0.42 I",
+    "eyeW": 0.032,
+    "eyeH": 0.0218,
+    "irisR": 0.0098,
+    "irisCover": 0.2,
+    "lidPeak": 0.42,
+    "lidFlat": 0.9,
+    "tilt": 3,
+    "lashW": 0.0026,
+    "lashEnd": 1.6,
+    "flick": 0.12,
+    "crease": 0.2,
+    "lowerLid": 0.55,
+    "lowerW": 0.45,
+    "hiK": 0.15,
+    "hi2": 0.1,
+    "pupil": 0.4,
+    "brow": "#523422",
+    "browGap": 1.0,
+    "browT": 0.15,
+    "browLen": 1.05,
+    "browIn": 0.1,
+    "browShape": "arch",
+    "browArch": 0.3,
+    "browA": 0.9,
+    "mouthW": 0.022,
+    "mouthLen": 0.0244,
+    "mouthLine": 0.0016,
+    "mouthCorner": 3,
+    "lipMark": 0,
+    "noseW": 0.12,
+    "noseA": 0.75,
+    "noseShade": 0.15,
+    "blushA": 0.2,
+    "blushW": 0.8,
+    "blushOut": 0.25,
+    "blushDrop": 0.017
   },
   "hair": {
     "style": "wavy",
     "color": "#6b4630",
-    "capColor": "#5a3a28",
-    "n": 60,
-    "len": [
-      0.07,
-      0.1
-    ],
-    "longLen": 0.25,
-    "w": 0.05,
+    "capColor": "#4e3222",
+    "underColor": "#43291c",
+    "seed": 5,
     "front": 0.052,
     "nape": -0.09,
-    "fringe": 0.016,
-    "endZ": -0.19,
-    "bulk": 0.002,
-    "bangsAz": 40,
-    "seed": 5,
-    "capBulk": 0.012,
+    "_note": "zone hair v2 + tutorials (8 Nov): wide crescent sheets with split ends (back 3 sheets x 5-6 points, sides 3 per side shorter than the back, one wide bang panel with 6-8 tips + wisps, dark under-sheets), one shared wave per sheet",
+    "vol": {
+      "top": 0.024,
+      "side": 0.017,
+      "back": 0.03,
+      "nape": 0.012,
+      "front": 0.01
+    },
+    "thickK": 0.09,
+    "normalK": 0.75,
+    "faceHalf": 0.052,
     "wave": [
-      0.011,
-      0.17
+      0.008,
+      0.1
     ],
-    "bangsW": 0.7,
-    "faceHalf": 0.066,
-    "stiff": 4.5,
-    "drag": 0.75,
-    "gpow": 0.08
+    "waveGroup": 32,
+    "stiff": 6,
+    "drag": 0.85,
+    "gpow": 0.08,
+    "zones": [
+      {
+        "name": "under",
+        "count": [
+          3,
+          0,
+          0
+        ],
+        "w": [
+          0.1
+        ],
+        "rootAz": [
+          110,
+          250
+        ],
+        "rootEl": [
+          20,
+          35
+        ],
+        "az": [
+          115,
+          245
+        ],
+        "hug": -0.03,
+        "cut": -0.15,
+        "mode": "hang",
+        "spread": 0.15,
+        "under": true,
+        "waveFrom": -0.06,
+        "split": [
+          3,
+          4
+        ],
+        "splitD": 0.45,
+        "wedge": 0.8,
+        "layer": -1,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "back",
+        "count": [
+          3,
+          0,
+          0
+        ],
+        "w": [
+          0.12
+        ],
+        "rootAz": [
+          150,
+          210
+        ],
+        "rootEl": [
+          62,
+          72
+        ],
+        "az": [
+          140,
+          220
+        ],
+        "hug": -0.015,
+        "cut": -0.165,
+        "mode": "hang",
+        "spread": 0.2,
+        "waveFrom": -0.06,
+        "split": [
+          5,
+          6
+        ],
+        "splitD": 0.45,
+        "fan": 0.15,
+        "wedge": 0.45,
+        "layer": 1,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "topL",
+        "count": [
+          2,
+          1,
+          0
+        ],
+        "w": [
+          0.075,
+          0.05
+        ],
+        "rootAz": [
+          10,
+          150
+        ],
+        "rootEl": [
+          74,
+          82
+        ],
+        "az": [
+          72,
+          150
+        ],
+        "hug": -0.005,
+        "cut": -0.15,
+        "mode": "hang",
+        "spread": 0.3,
+        "waveFrom": -0.06,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.45,
+        "layer": 0.5,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "topR",
+        "count": [
+          2,
+          1,
+          0
+        ],
+        "w": [
+          0.075,
+          0.05
+        ],
+        "rootAz": [
+          -10,
+          -150
+        ],
+        "rootEl": [
+          74,
+          82
+        ],
+        "az": [
+          -72,
+          -150
+        ],
+        "hug": -0.005,
+        "cut": -0.15,
+        "mode": "hang",
+        "spread": 0.3,
+        "waveFrom": -0.06,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.45,
+        "layer": 0.5,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "sideL",
+        "count": [
+          1,
+          1,
+          1
+        ],
+        "w": [
+          0.055,
+          0.038,
+          0.018
+        ],
+        "rootAz": [
+          15,
+          45
+        ],
+        "rootEl": [
+          55,
+          66
+        ],
+        "az": [
+          60,
+          80
+        ],
+        "hug": 0.0,
+        "cut": -0.13,
+        "mode": "hang",
+        "spread": 0.25,
+        "waveFrom": -0.06,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.45,
+        "layer": 3,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "sideR",
+        "count": [
+          1,
+          1,
+          1
+        ],
+        "w": [
+          0.055,
+          0.038,
+          0.018
+        ],
+        "rootAz": [
+          -15,
+          -45
+        ],
+        "rootEl": [
+          55,
+          66
+        ],
+        "az": [
+          -60,
+          -80
+        ],
+        "hug": 0.0,
+        "cut": -0.13,
+        "mode": "hang",
+        "spread": 0.25,
+        "waveFrom": -0.06,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.45,
+        "layer": 3,
+        "curl": 0.25,
+        "flick": 0.02,
+        "tipTaper": 0.9
+      },
+      {
+        "name": "bangR",
+        "count": [
+          1,
+          0,
+          0
+        ],
+        "w": [
+          0.06
+        ],
+        "rootAz": [
+          -2,
+          -8
+        ],
+        "rootEl": [
+          60,
+          66
+        ],
+        "az": [
+          -12,
+          -18
+        ],
+        "azJ": 1,
+        "hug": 0.05,
+        "tip": 0.04,
+        "mode": "bang",
+        "float": 0.006,
+        "drop": 0.1,
+        "sweep": -0.6,
+        "sweepK": 0.45,
+        "split": [
+          3,
+          4
+        ],
+        "splitD": 0.85,
+        "fan": 0.3,
+        "cover": 0.95,
+        "tipTaper": 1.1,
+        "wedge": 0.7,
+        "layer": 4
+      },
+      {
+        "name": "bangL",
+        "count": [
+          1,
+          0,
+          0
+        ],
+        "w": [
+          0.065
+        ],
+        "rootAz": [
+          6,
+          14
+        ],
+        "rootEl": [
+          60,
+          66
+        ],
+        "az": [
+          16,
+          22
+        ],
+        "azJ": 1,
+        "hug": 0.05,
+        "tip": 0.04,
+        "mode": "bang",
+        "float": 0.006,
+        "drop": 0.1,
+        "sweep": 0.6,
+        "sweepK": 0.45,
+        "split": [
+          4,
+          4
+        ],
+        "splitD": 0.85,
+        "fan": 0.3,
+        "cover": 0.95,
+        "tipTaper": 1.1,
+        "wedge": 0.7,
+        "layer": 4.2
+      },
+      {
+        "name": "wisps",
+        "count": [
+          0,
+          3,
+          0
+        ],
+        "w": [
+          0.012,
+          0.011
+        ],
+        "rootAz": [
+          -40,
+          40
+        ],
+        "rootEl": [
+          52,
+          60
+        ],
+        "az": [
+          -38,
+          38
+        ],
+        "hug": 0.045,
+        "tip": 0.04,
+        "mode": "bang",
+        "float": 0.007,
+        "drop": 0.2,
+        "section": "diamond",
+        "thickK": 0.3,
+        "layer": 5
+      },
+      {
+        "name": "ahoge",
+        "count": [
+          1,
+          0,
+          0
+        ],
+        "w": [
+          0.009
+        ],
+        "rootAz": [
+          -5,
+          5
+        ],
+        "rootEl": [
+          80,
+          86
+        ],
+        "az": [
+          175,
+          185
+        ],
+        "hug": -1,
+        "len": 0.008,
+        "tip": 0.07,
+        "flare": 1.4,
+        "up": 1.1,
+        "mode": "spike",
+        "section": "diamond",
+        "thickK": 0.3,
+        "layer": 6
+      }
+    ],
+    "capK": 0.75,
+    "section": "crescent",
+    "tipSection": "diamond",
+    "tipNormalK": 0.3,
+    "wavePhase": 0.6,
+    "springFrom": 0.55
   },
   "clothes": [
     {
@@ -130,7 +544,7 @@
     {
       "type": "glasses",
       "w": 0.054,
-      "h": 0.038,
+      "h": 0.042,
       "n": 4.0,
       "r": 0.0017,
       "color": "#2b2523",

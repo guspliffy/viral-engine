@@ -10,7 +10,7 @@ const name = character.split("/").pop();
 const sb = {
   id: `turnaround-${name}`, title: `Turnaround ${name}`, fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet",
   rig: { hand: 2, eyes: 2, hold: 2 },
-  set: { type: "park", seed: 4, aperture: 0, focus: false, lighting: 2, hatch: { boil: 0 } },
+  set: { type: "park", seed: 4, aperture: 0, focus: false, lighting: 2, hatch: { boil: 0 }, cel: { at: 0.25 } },
   sound: { sfx: 0, ambience: 0 }, creative: { notes: false },
   cast: [{ id: "h", character, at: [0, -1.0], face: "camera", expr: "kind", seed: 1.3, perform }],
   props: [], beats: HEAD.map((h, i) => ({ name: `h${h}`, at: i * LEN, len: LEN, do: [] })),

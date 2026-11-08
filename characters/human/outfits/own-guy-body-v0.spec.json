@@ -12,10 +12,7 @@
   "targets": {
     "head-age-decr": 0.5,
     "head-oval": 0.5,
-    "head-scale-vert-incr": 0.15,
-    "forehead-scale-vert-incr": 0.35,
     "forehead-temple-decr": 0.3,
-    "nose-scale-vert-decr": 0.8,
     "nose-scale-horiz-decr": 0.7,
     "nose-scale-depth-decr": 0.7,
     "nose-volume-decr": 0.6,
@@ -29,7 +26,7 @@
     "mouth-scale-depth-decr": 0.7,
     "chin-width-decr": 0.55,
     "chin-prominent-decr": 0.3,
-    "chin-height-decr": 0.25,
+    "chin-height-decr": 0.4,
     "l-cheek-bones-decr": 0.5,
     "r-cheek-bones-decr": 0.5,
     "l-cheek-volume-decr": 0.3,
@@ -37,47 +34,507 @@
     "l-eye-scale-incr": 0.6,
     "r-eye-scale-incr": 0.6,
     "mouth-cupidsbow-decr": 1.0,
-    "mouth-philtrum-volume-decr": 1.0
+    "mouth-philtrum-volume-decr": 1.0,
+    "nose-scale-vert-incr": 0.8,
+    "nose-trans-down": 1.0,
+    "nose-point-down": 0.3,
+    "mouth-trans-up": 0.2,
+    "neck-scale-horiz-decr": 0.8
   },
   "face": {
-    "eyeW": 0.031,
-    "eyeH": 0.021,
-    "irisR": 0.0092,
     "iris": "#4a2f22",
     "iris2": "#9a6a3c",
-    "brow": "#6e5230",
     "lash": "#2b1d18",
-    "browW": 0.0028,
-    "mouthW": 0.02,
-    "blushA": 0.12,
     "mouthFlatK": 1,
-    "lashW": 0.0024,
-    "mouthLine": 0.0018
+    "_note": "research 'Human looking anime character design' (8 Nov): E 0.51 I, Eh/E 0.5, iris 0.47 E, brow gap 0.6 Eh, mouth 0.5 I",
+    "eyeW": 0.03,
+    "eyeH": 0.015,
+    "irisR": 0.0074,
+    "irisCover": 0.25,
+    "lidPeak": 0.4,
+    "lidFlat": 0.8,
+    "tilt": 4,
+    "lashW": 0.0017,
+    "lashEnd": 1.4,
+    "flick": 0,
+    "crease": 0.2,
+    "lowerLid": 0.4,
+    "lowerW": 0.3,
+    "hiK": 0.11,
+    "hi2": 0,
+    "pupil": 0.4,
+    "brow": "#7d6240",
+    "browGap": 0.6,
+    "browT": 0.35,
+    "browLen": 1.15,
+    "browIn": 0.1,
+    "browShape": "straight",
+    "browRise": 8,
+    "mouthW": 0.026,
+    "mouthLen": 0.029,
+    "mouthBreak": 0.0008,
+    "mouthLine": 0.0018,
+    "mouthCorner": 2,
+    "lipMark": 0.35,
+    "lipDrop": 0.0045,
+    "noseW": 0.18,
+    "noseA": 0.8,
+    "noseShade": 0.2,
+    "blushA": 0
   },
   "hair": {
     "style": "spiky",
     "color": "#d8b277",
-    "capColor": "#c49a5e",
-    "n": 40,
-    "len": [
-      0.065,
-      0.09
-    ],
-    "w": 0.062,
-    "front": 0.058,
+    "capColor": "#a87e4a",
+    "seed": 7,
+    "front": 0.06,
     "nape": -0.07,
-    "fringe": 0.028,
-    "flare": 0.3,
-    "gravity": 0.2,
-    "up": 0.15,
-    "bulk": 0.0,
-    "bangsAz": 45,
-    "seed": 3,
-    "thick": 0.45,
-    "endZ": -0.075,
-    "endZside": -0.025,
-    "capBulk": 0.016,
-    "lift": 0.007
+    "_note": "zone hair v2 + tutorials (8 Nov): ~25 panels in rows (nape, occiput, temples, top, crown, fringe) with split tips, a dark under-layer of spikes, diamond sections, normals 0.8 bodies -> 0.25 tips",
+    "vol": {
+      "top": 0.034,
+      "side": 0.008,
+      "back": 0.018,
+      "nape": 0.003,
+      "front": 0.012
+    },
+    "thickK": 0.33,
+    "normalK": 0.8,
+    "zones": [
+      {
+        "name": "nape",
+        "count": [
+          2,
+          3,
+          1
+        ],
+        "w": [
+          0.06,
+          0.05,
+          0.04
+        ],
+        "rootAz": [
+          135,
+          225
+        ],
+        "rootEl": [
+          5,
+          22
+        ],
+        "az": [
+          135,
+          225
+        ],
+        "hug": -0.06,
+        "tip": 0.02,
+        "flare": 0.05,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.8,
+        "mode": "spike",
+        "layer": 0,
+        "tipTaper": 0.8,
+        "wedge": 0.9,
+        "under": true
+      },
+      {
+        "name": "back",
+        "count": [
+          3,
+          2,
+          1
+        ],
+        "w": [
+          0.085,
+          0.07,
+          0.055
+        ],
+        "rootAz": [
+          160,
+          200
+        ],
+        "rootEl": [
+          62,
+          74
+        ],
+        "az": [
+          125,
+          235
+        ],
+        "hug": -0.035,
+        "tip": 0.025,
+        "flare": 0.15,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.85,
+        "hook": 0.1,
+        "mode": "spike",
+        "layer": 1,
+        "tipTaper": 0.8,
+        "wedge": 0.85
+      },
+      {
+        "name": "sideL",
+        "count": [
+          1,
+          1,
+          1
+        ],
+        "w": [
+          0.045,
+          0.035,
+          0.025
+        ],
+        "rootAz": [
+          70,
+          125
+        ],
+        "rootEl": [
+          55,
+          66
+        ],
+        "az": [
+          72,
+          128
+        ],
+        "hug": 0.006,
+        "tip": 0.016,
+        "flare": 0.1,
+        "drop": 0.2,
+        "split": [
+          2,
+          2
+        ],
+        "splitD": 0.8,
+        "mode": "spike",
+        "layer": 1,
+        "tipTaper": 0.8,
+        "wedge": 0.85
+      },
+      {
+        "name": "sideR",
+        "count": [
+          1,
+          1,
+          1
+        ],
+        "w": [
+          0.045,
+          0.035,
+          0.025
+        ],
+        "rootAz": [
+          -70,
+          -125
+        ],
+        "rootEl": [
+          55,
+          66
+        ],
+        "az": [
+          -72,
+          -128
+        ],
+        "hug": 0.006,
+        "tip": 0.016,
+        "flare": 0.1,
+        "drop": 0.2,
+        "split": [
+          2,
+          2
+        ],
+        "splitD": 0.8,
+        "mode": "spike",
+        "layer": 1,
+        "tipTaper": 0.8,
+        "wedge": 0.85
+      },
+      {
+        "name": "templeL",
+        "count": [
+          1,
+          1,
+          0
+        ],
+        "w": [
+          0.035,
+          0.025
+        ],
+        "rootAz": [
+          30,
+          55
+        ],
+        "rootEl": [
+          42,
+          52
+        ],
+        "az": [
+          62,
+          82
+        ],
+        "hug": 0.022,
+        "tip": 0.02,
+        "flare": 0.1,
+        "drop": 0.4,
+        "split": [
+          2,
+          2
+        ],
+        "splitD": 0.8,
+        "mode": "spike",
+        "layer": 1.5,
+        "tipTaper": 0.8,
+        "wedge": 0.85
+      },
+      {
+        "name": "templeR",
+        "count": [
+          1,
+          1,
+          0
+        ],
+        "w": [
+          0.035,
+          0.025
+        ],
+        "rootAz": [
+          -30,
+          -55
+        ],
+        "rootEl": [
+          42,
+          52
+        ],
+        "az": [
+          -62,
+          -82
+        ],
+        "hug": 0.022,
+        "tip": 0.02,
+        "flare": 0.1,
+        "drop": 0.4,
+        "split": [
+          2,
+          2
+        ],
+        "splitD": 0.8,
+        "mode": "spike",
+        "layer": 1.5,
+        "tipTaper": 0.8,
+        "wedge": 0.85
+      },
+      {
+        "name": "tuftsL",
+        "count": [
+          2,
+          1,
+          1
+        ],
+        "w": [
+          0.075,
+          0.06,
+          0.045
+        ],
+        "rootAz": [
+          150,
+          185
+        ],
+        "rootEl": [
+          68,
+          78
+        ],
+        "az": [
+          45,
+          140
+        ],
+        "hug": 0.09,
+        "tip": 0.05,
+        "flare": 1.0,
+        "up": 0.9,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.85,
+        "hook": 0.2,
+        "tipHook": 0.15,
+        "mode": "spike",
+        "layer": 3,
+        "tipTaper": 1.0,
+        "hugJ": 0.012,
+        "tipLift": 0.35,
+        "fan": 0.25,
+        "upJ": 0.4,
+        "flareJ": 0.3
+      },
+      {
+        "name": "tuftsR",
+        "count": [
+          2,
+          1,
+          1
+        ],
+        "w": [
+          0.075,
+          0.06,
+          0.045
+        ],
+        "rootAz": [
+          -150,
+          -185
+        ],
+        "rootEl": [
+          68,
+          78
+        ],
+        "az": [
+          -45,
+          -140
+        ],
+        "hug": 0.09,
+        "tip": 0.05,
+        "flare": 1.0,
+        "up": 0.9,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.85,
+        "hook": 0.2,
+        "tipHook": 0.15,
+        "mode": "spike",
+        "layer": 3,
+        "tipTaper": 1.0,
+        "hugJ": 0.012,
+        "tipLift": 0.35,
+        "fan": 0.25,
+        "upJ": 0.4,
+        "flareJ": 0.3
+      },
+      {
+        "name": "fringe",
+        "count": [
+          2,
+          2,
+          0
+        ],
+        "w": [
+          0.055,
+          0.04
+        ],
+        "rootAz": [
+          -40,
+          40
+        ],
+        "rootEl": [
+          70,
+          80
+        ],
+        "az": [
+          -30,
+          40
+        ],
+        "hug": 0.052,
+        "tip": 0.045,
+        "mode": "bang",
+        "float": 0.005,
+        "sweep": -0.4,
+        "sweepK": 0.3,
+        "drop": 0.35,
+        "flare": 0.1,
+        "split": [
+          2,
+          3
+        ],
+        "splitD": 0.85,
+        "layer": 4,
+        "tipTaper": 0.9,
+        "fan": 0.25
+      },
+      {
+        "name": "crown",
+        "count": [
+          1,
+          1,
+          1
+        ],
+        "w": [
+          0.045,
+          0.04,
+          0.03
+        ],
+        "rootAz": [
+          170,
+          190
+        ],
+        "rootEl": [
+          70,
+          76
+        ],
+        "az": [
+          150,
+          210
+        ],
+        "hug": -1,
+        "len": 0.03,
+        "tip": 0.04,
+        "flare": 0.9,
+        "up": 0.7,
+        "hook": 0.3,
+        "mode": "spike",
+        "layer": 5
+      },
+      {
+        "name": "topFlicks",
+        "count": [
+          0,
+          4,
+          2
+        ],
+        "w": [
+          0.045,
+          0.038,
+          0.03
+        ],
+        "rootAz": [
+          150,
+          210
+        ],
+        "rootEl": [
+          72,
+          80
+        ],
+        "az": [
+          -165,
+          165
+        ],
+        "hug": -1,
+        "len": 0.03,
+        "lenJ": 0.3,
+        "tip": 0.04,
+        "flare": 1.1,
+        "up": 0.9,
+        "upJ": 0.3,
+        "flareJ": 0.3,
+        "split": [
+          2,
+          2
+        ],
+        "splitD": 0.8,
+        "tipTaper": 1.0,
+        "hook": 0.3,
+        "mode": "spike",
+        "layer": 6
+      }
+    ],
+    "capInset": 0.02,
+    "capK": 0.7,
+    "section": "diamond",
+    "tipNormalK": 0.25,
+    "underColor": "#94703e"
   },
   "clothes": [
     {

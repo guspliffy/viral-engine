@@ -15,7 +15,7 @@ round each, never strands):
 - long locks get a bone chain each (spring bones in the VRM, so the engine swings them; head/neck colliders).
 Every number comes from the recipe and a seed: the same recipe always gives the same hair.
 """
-import bpy, bmesh, math, random
+import bpy, bmesh, math, random, zlib
 from mathutils import Vector, Matrix
 from mathutils.bvhtree import BVHTree
 
@@ -195,6 +195,7 @@ def _tube(bm, pts, head, w0, thick, taper_p, style, rnd, dvert_layer=None, weigh
 
 
 def build_hair(body, rig, eyes, H):
+    if H.get("zones"): return build_hair_v2(body, rig, eyes, H)
     rnd = random.Random(H.get("seed", 1))
     head = Head(body, eyes, H)
     style = H.get("style", "spiky")
@@ -328,3 +329,403 @@ def bind_springs(rig, chains, H):
             j = s.add_joint(); j.node.bone_name = nm
             j.stiffness = H.get("stiff", 1.2); j.gravity_power = H.get("gpow", 0.4); j.drag_force = H.get("drag", 0.45); j.hit_radius = 0.015
         g = s.add_collider_group(); g.collider_group_uuid = grp.uuid
+
+
+# ---------------------------------------------------------------- v2: designed by zone (8 Nov 2026)
+# research "Human looking anime character design" + "Anime character tutorials" (research/ in the project files): anime
+# hair is a few dozen big pieces in a big-medium-small hierarchy, placed by zone (nape, back, sides, temples, top tufts,
+# fringe, crown / under-sheets, back sheets, sides, parted bangs, wisps, ahoge), never an even spread of equal locks (a
+# pine cone; dreadlocks when long). The tutorials build each piece as one continuous body whose END splits into points
+# (V-notches between them), never strand by strand. A piece starts at the whorl or the part, runs the short way round the
+# head on a volume that stands off the skull (top 3 cm, back 2.5-3), leaves it at its zone's height and ends in a free
+# part lifted off the volume along the flow (never straight out like sun rays). Spikes have a diamond section with a
+# ridge, sheets a thin crescent bent round the head; long hair waves per sheet, neighbours a little out of phase; normals
+# come from the volume on the bodies (the hair shades as one ball) and from the piece on the tips (each spike gets a lit
+# and a shaded side). The ink weight per vertex goes out in the UVs: the engine inks only the silhouette and free tips.
+#
+#   spec["hair"]["zones"] = [ { "name", "count": [P, S, A], "w": [wP, wS, wA], "rootAz": [a0, a1], "rootEl": [e0, e1],
+#       "az": [t0, t1] (where the pieces end up, degrees, 0 = front, +90 = the character's left), "hug": z (m, from the
+#       eyes) where a piece leaves the volume, "len" (or: stop after this much volume), "tip": free length (m),
+#       "mode": "spike" | "hang" | "bang", "flare", "up" (+ "flareJ", "upJ"), "hook", "sweep", "cut" (hang: z of the
+#       ends), "layer", "under": true (darker material), "wedge" (width at the root), "taper",
+#       "split": [n0, n1] points per piece, "splitD" (share of the free part split), "fan", "cover", "tipHook",
+#       "tipLift", "tipTaper", "section" / "tipSection": "diamond" | "crescent" | "lens" } ]
+#   spec["hair"]["vol"] = { "top", "side", "back", "nape", "front" } (m off the scalp); "normalK" / "tipNormalK"
+def _dir(az, el):
+    a, e = math.radians(az), math.radians(el)
+    return Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
+
+
+def _slerp(u0, u1, t):
+    c = max(-1.0, min(1.0, u0.dot(u1))); w = math.acos(c)
+    if w < 1e-5: return u0.copy()
+    return ((u0 * math.sin((1 - t) * w) + u1 * math.sin(t * w)) / math.sin(w)).normalized()
+
+
+class Volume:
+    """the hair's mass round the head: how far it stands off the scalp in each direction, thin at the hairline"""
+
+    def __init__(self, head, H):
+        self.h = head; V = H.get("vol", {})
+        self.top, self.side, self.back = V.get("top", 0.022), V.get("side", 0.014), V.get("back", 0.027)
+        self.nape, self.front = V.get("nape", 0.005), V.get("front", 0.008)
+        self.ramp = V.get("ramp", 0.04)
+        rnd = random.Random(H.get("seed", 1) * 7 + 3)
+        self.lobes = [(rnd.uniform(0, 6.28), rnd.uniform(0, 6.28)) for _ in range(3)]
+        self.noise = V.get("noise", 0.15)
+
+    def off(self, p):
+        d = (p - self.h.C).normalized(); up, back, side = d.z, d.y, abs(d.x)
+        w = {"top": max(up, 0) ** 2, "back": max(back, 0) ** 2 * (1 - max(-up, 0)), "side": side ** 2,
+             "front": max(-back, 0) ** 2, "nape": max(-up - 0.05, 0) ** 2 * max(back + 0.2, 0) * 3}
+        tot = sum(w.values()) + 1e-6
+        o = sum(w[k] * getattr(self, k) for k in w) / tot
+        az = math.atan2(d.x, -d.y)
+        o *= 1 + self.noise * sum(math.sin(az * (i + 2) + a) * math.cos(math.asin(max(-1, min(1, up))) * (i + 1) + b) for i, (a, b) in enumerate(self.lobes)) / 3
+        hz = self.h.hairline_z(az)
+        return o * _smooth01((p.z - hz) / self.ramp + 0.15)
+
+    def scalp(self, u):
+        """the skull straight out from the head centre along u (from inside, so an ear never counts as scalp)"""
+        C = self.h.C; hit = self.h.bvh.ray_cast(C, u, 0.2)
+        if hit[0] is not None and (hit[0] - C).length > 0.05: return hit[0]
+        s, _ = self.h.surface(u)
+        if (s - C).length > 0.15:      # (a low ray can meet the shoulders first: the nearest scalp instead)
+            loc, _, _, _ = self.h.bvh.find_nearest(C + u * 0.1)
+            if loc is not None: s = C + u * (loc - C).length
+        return s
+
+    def ray(self, u, lift=0.0):
+        """the volume's point straight out from the head centre along u, lifted (radial: a path stepped round the head
+        keeps its direction; offsetting along the scalp's face normals pulled every path sideways)"""
+        s = self.scalp(u)
+        return self.h.C + u * ((s - self.h.C).length + self.off(s) + lift), u
+
+    def at(self, p, lift=0.0):
+        return self.ray((p - self.h.C).normalized(), lift)
+
+
+def _exit_el(vol, az, zt, lift):
+    """the elevation where the volume, at azimuth az, comes down to height zt"""
+    lo, hi = -85.0, 88.0
+    for _ in range(20):
+        m = (lo + hi) / 2
+        if vol.ray(_dir(az, m), lift)[0].z > zt: hi = m
+        else: lo = m
+    return (lo + hi) / 2
+
+
+def _path(head, vol, root_dir, Z, k, n_k, rnd, H):
+    """one clump's centre line: [(point, normal)] from its root (buried in the volume) to its tip, the index where the
+    free part starts, and the azimuth it ended at. On the volume it runs the short way round the head from its root to
+    its exit (azimuth az_t, at height hug); the free part then leaves the volume along the flow (lifted off it by flare/up,
+    never straight out like sun rays)"""
+    mode = Z.get("mode", "spike")
+    a0, a1 = Z["az"]; t = (k + 0.5) / n_k
+    az_t = a0 + (a1 - a0) * t + rnd.uniform(-1, 1) * Z.get("azJ", 6)
+    lift = Z.get("layer", 0) * 0.0022
+    ds = 0.006
+    hug = head.eyeZ + Z["hug"] + rnd.uniform(-1, 1) * Z.get("hugJ", 0.004)
+    u0 = root_dir.normalized(); u1 = _dir(az_t, _exit_el(vol, az_t, hug, lift))
+    ang = math.acos(max(-1.0, min(1.0, u0.dot(u1))))
+    nst = max(2, int(ang * 0.13 / ds))
+    maxL = Z["len"] * rnd.uniform(1 - Z.get("lenJ", 0.15), 1) if "len" in Z else 1.0
+    pts = []; travelled = 0.0
+    for i in range(nst + 1):
+        u = _slerp(u0, u1, i / nst)
+        bury = 0.008 * (1 - _smooth01(travelled / 0.035))
+        p, n = vol.ray(u, lift - bury)
+        if pts: travelled += (p - pts[-1][0]).length
+        pts.append((p, n))
+        if travelled > maxL: break
+    p, n = pts[-1]; d = (pts[-1][0] - pts[-2][0]).normalized(); i_free = len(pts) - 1
+    side = d.cross(n).normalized()
+    alt = 1 if k % 2 == 0 else -1
+    # 2. the free part
+    if mode == "spike" or mode == "bang":
+        L = Z.get("tip", 0.03) * rnd.uniform(0.8, 1.2); steps = max(3, int(L / ds))
+        sweep = Vector((Z.get("sweep", 0.0), 0, 0))
+        hook = side * alt * Z.get("hook", 0.0) * rnd.uniform(0.6, 1.2)
+        out = (n * (Z.get("flare", 0.4) + rnd.uniform(-1, 1) * Z.get("flareJ", 0.0))
+               + Vector((0, 0, Z.get("up", 0.0) + rnd.uniform(-1, 1) * Z.get("upJ", 0.0))))
+        for i in range(steps):
+            s = (i + 1) / steps
+            dd = (d + out * s + Vector((0, 0, -Z.get("drop", 0.0))) * s + sweep * Z.get("sweepK", 0.0) * s + hook * s).normalized()
+            p = p + dd * ds
+            p = head.keep_out(p, Z.get("float", 0.005) if mode == "bang" else 0.004)
+            pts.append((p.copy(), n.copy()))
+    elif mode == "hang":
+        cut = head.eyeZ + Z["cut"] + rnd.uniform(-1, 1) * Z.get("cutJ", 0.01)
+        spread = Z.get("spread", 0.25)
+        r = Vector((p.x - head.C.x, p.y - head.C.y, 0)); r = r.normalized() if r.length > 1e-4 else Vector((0, 1, 0))
+        while p.z > cut and len(pts) < 200:
+            r = Vector((p.x - head.C.x, p.y - head.C.y, 0))
+            r = r.normalized() if r.length > 1e-4 else Vector((0, 1, 0))
+            g = (Vector((0, 0, -1)) + r * spread).normalized()
+            d = (d * 0.75 + g * 0.25).normalized(); p = p + d * ds
+            # the face window: the hair beside the face stays outside the outer eye corners (plus 10-20%)
+            if p.y < head.eyeY + 0.035 and p.z < head.eyeZ + 0.03:
+                fh = H.get("faceHalf", 0.055) + Z.get("w", [0.03])[0] * 0.5
+                if abs(p.x) < fh: p.x = math.copysign(fh, p.x if abs(p.x) > 1e-4 else az_t)
+            p = head.keep_out(p, Z.get("gap", 0.012))
+            pts.append((p.copy(), r.copy()))
+        # the ends flick outward (25-50 degrees over the last few cm)
+        L = Z.get("flick", 0.03); steps = max(2, int(L / ds))
+        for i in range(steps):
+            s = (i + 1) / steps
+            d = (d + r * Z.get("curl", 0.7) * s * 0.5).normalized(); p = head.keep_out(p + d * ds, Z.get("gap", 0.012))
+            pts.append((p.copy(), r.copy()))
+    return pts, az_t, i_free
+
+
+def _waves(pts, head, Z, phase, H):
+    """long hair waves in groups: a shared phase, straight at the top, growing toward the ends, mostly in and out"""
+    amp, lam = H.get("wave", [0.012, 0.095]); z0 = head.eyeZ + Z.get("waveFrom", 0.0)
+    out = []
+    for i, (p, n) in enumerate(pts):
+        if p.z >= z0 or i == 0: out.append((p, n)); continue
+        k = min(1.0, (z0 - p.z) / 0.12)
+        a = amp * k * math.sin(phase + 2 * math.pi * (z0 - p.z) / lam)
+        b = amp * 0.4 * k * math.cos(phase + 2 * math.pi * (z0 - p.z) / lam)
+        side = n.cross(Vector((0, 0, 1)))
+        side = side.normalized() if side.length > 1e-4 else Vector((1, 0, 0))
+        out.append((p + n * a + side * b, n))
+    return out
+
+
+# cross-sections (x across the width -1..1, y off the head; counter-clockwise): "diamond" = spikes (a ridge 0.3 of the
+# width off centre, flat underside: VRoid / CHARM, tinakuang), "crescent" = sheets (thin, rounded edges), "lens" = v2
+SECTIONS = {
+    "diamond": [(1, 0), (0.3, 1), (-1, 0), (-0.3, -0.45), (0.3, -0.45)],
+    "crescent": [(1, 0), (0.6, 0.8), (0, 1), (-0.6, 0.8), (-1, 0), (-0.6, 0.15), (0, 0.25), (0.6, 0.15)],
+    "lens": [(math.cos(2 * math.pi * j / 8), math.sin(2 * math.pi * j / 8) * (1.0 if j <= 4 else 0.7)) for j in range(8)],
+}
+
+
+def _frames(pts):
+    """per point: the tangent, the normal (off the head) and the binormal (across the width). The normal is carried
+    along the path by the turn of its tangent (a rotation-minimising frame), then eased toward the volume's normal where
+    that is well defined: a hanging end that flicks outward bends along its own normal, and projecting that normal
+    there twisted the ribbon into a box"""
+    out = []; N = len(pts); prev_a = prev_n = None
+    for i, (p, n) in enumerate(pts):
+        a = pts[min(i + 1, N - 1)][0] - pts[max(i - 1, 0)][0]
+        a = a.normalized() if a.length > 1e-9 else (prev_a or Vector((0, 0, -1)))
+        want = n - a * n.dot(a)
+        if prev_n is None:
+            nn = want.normalized() if want.length > 1e-6 else a.orthogonal().normalized()
+        else:
+            nn = prev_a.rotation_difference(a) @ prev_n; nn = (nn - a * nn.dot(a)).normalized()
+            k = 0.35 * _smooth01((want.length - 0.4) / 0.4)      # (0 where the volume's normal runs along the path)
+            if k > 0:
+                w = want.normalized()
+                if w.dot(nn) > -0.5: nn = (nn * (1 - k) + w * k).normalized()
+        prev_a, prev_n = a, nn
+        out.append((a, nn, a.cross(nn).normalized()))
+    return out
+
+
+def _bend_r(head, p):
+    """the radius the hair's width wraps round here: the head ball above the cheeks, the head's axis below"""
+    if p.z > head.eyeZ - 0.02: r = (p - head.C).length
+    else: r = Vector((p.x - head.C.x, p.y - head.C.y, 0)).length
+    return min(0.2, max(0.06, r))
+
+
+def _ribbon(bm, pts, arcs, w0, thick, profile, kfun, kv, head, section="lens", gap=0.0015, lfun=None):
+    """one piece of hair along pts: width w0 * profile(arc), thickness thick(width), the section bent round the head (a
+    wide panel hugs the volume instead of standing off it at the edges); verts with their place along the path, and
+    each vert's normal mix k into kv"""
+    sec = SECTIONS[section]; M = len(sec)
+    rings, out = [], []; N = len(pts); fr = _frames(pts)
+    for i, (p, n) in enumerate(pts):
+        a, nn, b = fr[i]; w = w0 * profile(arcs[i])
+        if i == N - 1 or w < 1e-4:
+            v = bm.verts.new(p); rings.append([v]); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0)); break
+        th = thick(w, i / max(1, N - 1)); R = _bend_r(head, p)
+        ring = []
+        for x, y in sec:
+            X = x * w / 2
+            q = p + b * X + nn * (y * th / 2 - X * X / (2 * R))
+            if gap: q = head.keep_out(q, gap)
+            v = bm.verts.new(q); ring.append(v); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0))
+        rings.append(ring)
+    for i in range(len(rings) - 1):
+        A, B = rings[i], rings[i + 1]
+        for j in range(M):
+            if len(B) == 1: bm.faces.new((B[0], A[(j + 1) % M], A[j]))
+            else: bm.faces.new((B[j], B[(j + 1) % M], A[(j + 1) % M], A[j]))
+    if len(rings[0]) > 2: bm.faces.new(rings[0])
+    return out
+
+
+def _panel(bm, pts, i_free, w0, Z, H, head, rnd, kv, thickK, section, tip_section):
+    """a clump as the tutorials build it: one continuous body, its end split into points (1 : 0.6 : 0.35 wide, 1 : 0.7 :
+    0.45 long for 2-3 points; more points alternate long and short), V-notches between them. Returns its verts with
+    their index along the centre line (for the spring weights)"""
+    N = len(pts); cum = [0.0]
+    for i in range(N - 1): cum.append(cum[-1] + (pts[i + 1][0] - pts[i][0]).length)
+    L = cum[-1]; a_free = cum[i_free]
+    kB, kT = H.get("normalK", 0.8), H.get("tipNormalK", 0.25)
+    def kfun(a): return kB + (kT - kB) * _smooth01((a - a_free) / max(1e-4, L - a_free))
+    # ink: none on the bodies, growing over the free part (the engine's lineMask reads it from the UVs; the silhouette
+    # always inks)
+    def lfun(a): return _smooth01((a - a_free + 0.004) / max(0.008, Z.get("inkFrom", 0.45) * (L - a_free)))
+    def thick(w, s): return max(w * thickK * (1 - 0.35 * s), 0.0016 * (1 - s) + 0.0006)
+    # widths: a wedge (narrow at the whorl, where the clumps all start, full where it leaves the volume), then the free
+    # part tapers to a point (a concave "flame": still 0.35 wide at 90%)
+    mode = Z.get("mode", "spike"); wedge = Z.get("wedge", 0.5)
+    def body(a): return (wedge + (1 - wedge) * _smooth01(a / max(a_free, 1e-3))) * (0.7 + 0.3 * _smooth01(a / 0.012))
+    a_t = a_free + (L - a_free) * (0.72 if mode == "hang" else 0.0)
+    def prof(a): return body(a) * ((1 - min(1.0, (a - a_t) / max(L - a_t, 1e-6))) ** Z.get("taper", 0.5) if a > a_t else 1.0)
+    sp = Z.get("split", [1, 1]); ns = rnd.randint(sp[0], sp[1])
+    if ns <= 1:
+        return _ribbon(bm, pts, cum, w0, thick, prof, kfun, kv, head, section, lfun=lfun)
+    sl = Z.get("splitLen", Z.get("splitD", 0.45) * (L - a_free))
+    a0 = max(cum[min(2, N - 1)], L - sl); ov = 0.3 * sl
+    iB = next((i for i in range(N) if cum[i] >= a0 + ov), N - 1)
+    i0 = next((i for i in range(N) if cum[i] >= a0), N - 1)
+    aB = cum[iB]
+    def prof_body(a):     # full width past the split, narrowing under the points
+        return body(min(a, a0)) * (1 - 0.8 * _smooth01((a - (aB - ov * 0.7)) / (ov * 0.7)))
+    out = _ribbon(bm, pts[:iB + 1], cum, w0, thick, prof_body, kfun, kv, head, section, lfun=lfun)
+    out = [(v, i) for v, i in out]
+    wS = w0 * body(a0)
+    if ns <= 3: widths, lens = [1, 0.6, 0.35][:ns], [1, 0.7, 0.45][:ns]
+    else:
+        widths = [rnd.uniform(0.5, 1.0) for _ in range(ns)]
+        lens = [rnd.uniform(0.8, 1.0) if j % 2 == 0 else rnd.uniform(0.45, 0.75) for j in range(ns)]
+    order = list(range(ns)); rnd.shuffle(order)
+    sc = wS * Z.get("cover", 1.2) / sum(widths); x = -wS * Z.get("cover", 1.2) / 2
+    fr = _frames(pts); fan = Z.get("fan", 0.3); hookT = Z.get("tipHook", 0.0)
+    for jn, j in enumerate(order):
+        wj = widths[j] * sc; xc = x + wj / 2; x += wj
+        Lj = (L - a0) * lens[j] * rnd.uniform(0.9, 1.1)
+        tp, ta, ti = [], [], []
+        alt = 1 if jn % 2 == 0 else -1; liftJ = rnd.uniform(-0.3, 1.0) * Z.get("tipLift", 0.0)
+        for i in range(i0, N):
+            t = (cum[i] - a0) / max(1e-6, L - a0)
+            if cum[i] - a0 > Lj and len(tp) >= 3: break
+            p, n = pts[i]; a, nn, b = fr[i]
+            off = xc * (1 + fan * t) + alt * hookT * t * t * (L - a0)
+            tuck = 1 - _smooth01((cum[i] - a0) / max(ov, 1e-4))      # (under the body until the body ends)
+            q = p + b * off - nn * (off * off / (2 * _bend_r(head, p))) + nn * (liftJ * t * t * (L - a0)) - nn * (tuck * thick(wS, 0.3) * 0.45)
+            q = head.keep_out(q, Z.get("float", 0.004))
+            tp.append((q, n)); ta.append(cum[i]); ti.append(i)
+        if len(tp) < 3: continue
+        Lt = ta[-1] - ta[0]
+        vs = _ribbon(bm, tp, ta, wj * 1.15, thick, lambda a, a_s=ta[0], Lt=Lt: (0.7 + 0.3 * _smooth01((a - a_s) / max(ov * 0.5, 1e-4))) * (1 - min(1.0, (a - a_s) / max(Lt, 1e-6))) ** Z.get("tipTaper", 0.45),
+                     kfun, kv, head, tip_section, lfun=lfun)
+        out += [(v, ti[i]) for v, i in vs]
+    return out
+
+
+def _proxy_normals(obj, head, ks):
+    """the hair shades as one mass: each vertex's normal mostly the volume's (round the head centre above the cheeks, round
+    the head's vertical axis below), a little its own; ks: per vertex how much (high on the bodies, low on the free tips,
+    so each spike still gets a lit and a shaded side)"""
+    me = obj.data; me.update()
+    mw = obj.matrix_world; inv3 = mw.to_3x3().inverted()
+    out = []
+    for v in me.vertices:
+        p = mw @ v.co; g = (mw.to_3x3() @ v.normal).normalized(); k = ks[v.index] if isinstance(ks, list) else ks
+        r = p - head.C; below = _smooth01((head.eyeZ - 0.02 - p.z) / 0.06)
+        sph = Vector((r.x / 0.09 ** 2, r.y / 0.1 ** 2, r.z / 0.11 ** 2)).normalized()
+        cyl = Vector((r.x, r.y, 0)); cyl = cyl.normalized() if cyl.length > 1e-5 else sph
+        px = (sph * (1 - below) + cyl * below).normalized()
+        out.append(tuple((inv3 @ (px * k + g * (1 - k))).normalized()))
+    me.normals_split_custom_set_from_vertices(out)
+
+
+def build_hair_v2(body, rig, eyes, H):
+    rnd = random.Random(H.get("seed", 1))
+    head = Head(body, eyes, H); vol = Volume(head, H)
+    bm_o, bm_u = bmesh.new(), bmesh.new(); locks = []; kv_o, kv_u = [], []
+    style = H.get("style", "spiky")
+    thickK = H.get("thickK", 0.22 if style == "spiky" else 0.16)
+    groups = {}
+    for Z in H["zones"]:
+        # (each zone draws from its own random stream: adding or dropping a zone leaves the others as they were)
+        rnd = random.Random(H.get("seed", 1) * 1000003 + zlib.crc32(Z.get("name", "").encode()))
+        counts = Z.get("count", [2, 2, 0]); widths = Z.get("w", [0.05, 0.03, 0.015])
+        tiers = [t for t, c in enumerate(counts) for _ in range(c)]
+        # the big ones evenly round the zone, the smaller ones between them (and a layer above, so they break the edges)
+        order = sorted(range(len(tiers)), key=lambda i: (tiers[i], i))
+        n_k = len(tiers); slots = list(range(n_k))
+        prim = [i for i in order if tiers[i] == 0]; rest = [i for i in order if tiers[i] > 0]
+        place = {}
+        step = n_k / max(1, len(prim))
+        used = set()
+        for j, i in enumerate(prim):
+            sl = int(round(j * step + step / 2 - 0.5)) % n_k
+            while sl in used: sl = (sl + 1) % n_k
+            place[i] = sl; used.add(sl)
+        free = [s for s in slots if s not in used]
+        rnd.shuffle(free)
+        for i, sl in zip(rest, free): place[i] = sl
+        for i, tier in enumerate(tiers):
+            k = place[i]
+            ra = Z["rootAz"][0] + (Z["rootAz"][1] - Z["rootAz"][0]) * (k + rnd.uniform(0.2, 0.8)) / n_k
+            re = rnd.uniform(*Z.get("rootEl", [55, 68]))
+            Zt = dict(Z); Zt["layer"] = Z.get("layer", 0) + tier * 0.6
+            pts, az_t, i_free = _path(head, vol, _dir(ra, re), Zt, k, n_k, rnd, H)
+            if len(pts) < 4: continue
+            if Z.get("mode") == "hang" and H.get("wave"):
+                g = round(az_t / H.get("waveGroup", 32))
+                if g not in groups: groups[g] = H.get("wave0", 1.3) + g * H.get("wavePhase", 1.9) + rnd.uniform(-0.15, 0.15)     # (neighbouring sheets 20-45 degrees apart: one wave through the hair, not strings)
+                pts = _waves(pts, head, Z, groups[g], H)
+            w0 = widths[tier] * rnd.uniform(0.85, 1.15)
+            under = bool(Z.get("under"))
+            sec = Z.get("section", H.get("section", "lens")); tsec = Z.get("tipSection", H.get("tipSection", sec))
+            vs = _panel(bm_u if under else bm_o, pts, i_free, w0, Z, H, head, rnd, kv_u if under else kv_o,
+                        Z.get("thickK", thickK), sec, tsec)
+            locks.append((pts, vs, Z.get("mode") == "bang", under))
+    bm_o.verts.index_update(); bm_u.verts.index_update()
+    locks = [(pts, [(v.index, i) for v, i in vs], f, u) for pts, vs, f, u in locks]     # (indices before the bmesh goes)
+    ks = {"Hair": [0.0] * len(bm_o.verts), "HairUnder": [0.0] * len(bm_u.verts)}
+    ink = {"Hair": [0.0] * len(bm_o.verts), "HairUnder": [0.0] * len(bm_u.verts)}
+    for kv, nm in ((kv_o, "Hair"), (kv_u, "HairUnder")):
+        for v, k, l in kv: ks[nm][v.index] = k; ink[nm][v.index] = l
+    # the cap: the scalp above the hairline on the volume (just under the clumps' roots), so no skin shows between them
+    mw = body.matrix_world; me = body.data; Vw = head.V
+    # (it stops capInset above the hairline: the edge of the hair is made of the clumps' tips, not of the cap)
+    inset = H.get("capInset", 0.02)
+    def in_cap(q):
+        d = q - head.C; return q.z > head.hairline_z(math.atan2(d.x, -d.y)) + inset
+    cap_faces = [p for p in me.polygons if in_cap(mw @ p.center) and (mw @ p.center - head.C).length < 0.16]
+    used = {}; capbm = bmesh.new()
+    for p in cap_faces:
+        vs = []
+        for vi in p.vertices:
+            if vi not in used:
+                q = Vw[vi]; loc, n, _, _ = head.bvh.find_nearest(q)
+                n = n if n.dot(q - head.C) > 0 else -n
+                used[vi] = capbm.verts.new(q + n * (H.get("cap", 0.003) + vol.off(q) * H.get("capK", 0.85)))
+            vs.append(used[vi])
+        try: capbm.faces.new(vs)
+        except ValueError: pass
+    objs = []
+    for name, b, col in (("Hair", bm_o, H.get("color", "#c8a064")), ("HairUnder", bm_u, H.get("underColor", H.get("capColor", H.get("color")))), ("HairCap", capbm, H.get("capColor", H.get("color")))):
+        if not b.verts: b.free(); continue
+        b.verts.index_update(); m = bpy.data.meshes.new(name); b.to_mesh(m); b.free()
+        o = bpy.data.objects.new(name, m); bpy.context.scene.collection.objects.link(o)
+        for poly in o.data.polygons: poly.use_smooth = True
+        o.data.materials.append(_mat(f"{name}_00_HAIR", col)); objs.append(o)
+        _proxy_normals(o, head, ks.get(name, H.get("capNormalK", 0.85)))
+        # the ink weight per vertex in the UVs (u; the hair has no texture): 0 on the bodies and the cap, 1 on free tips
+        uvl = m.uv_layers.new(name="UVMap"); w = ink.get(name)
+        for lp in m.loops: uvl.data[lp.index].uv = ((w[lp.vertex_index] if w else 0.0), 0.0)
+    hair = objs[0]
+    for o in objs:
+        g = o.vertex_groups.new(name="head"); g.add(list(range(len(o.data.vertices))), 1.0, "REPLACE")
+    springs = []
+    if H.get("springs", style == "wavy"):
+        # (springs on the outer clumps; vertex indices are per object, so the under-layer rides the head)
+        outer = [([p for p, _ in pts], vs, f) for pts, vs, f, u in locks if not u]
+        springs = _spring_chains(hair, rig, outer, H)
+    for o in objs:
+        o.parent = rig; mod = o.modifiers.new("Armature", "ARMATURE"); mod.object = rig
+    print("hair v2:", style, len(locks), "clumps,", sum(1 for l in locks if l[2]), "bangs,", sum(1 for l in locks if l[3]), "under, cap", len(cap_faces), "faces, springs", len(springs))
+    H["_colliders"] = [("head", head.C.copy(), H.get("headR", 0.09)),
+                       ("head", Vector((0.0, head.eyeY + H.get("faceBack", 0.04), head.eyeZ - 0.03)), H.get("faceR", 0.062))]
+    return objs, springs

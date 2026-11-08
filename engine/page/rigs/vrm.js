@@ -108,6 +108,13 @@ export class VrmCharacter extends Character {
       if (o.material.length === 1) o.material = o.material[0];
     });
     this.skinMat = Object.values(this.mats).find((m) => m.userData.lookRole === "skin") || null;
+    // character "faceLight" (own character creator, 8 Nov 2026; research "Human looking anime character design"): an
+    // anime face stays lit and the jaw throws a fixed shadow on the neck (Arc System Works' per-vertex shading shift):
+    // the head's ellipsoid, measured here from the skin the head bone carries, rides the head bone and the set "cel"
+    // shading reads it (looks.js CEL_HEAD). { k: how far the face's shadow line is pushed back (N.L), neck: shadow
+    // depth under the jaw in metres (0 = none) }
+    if (def.faceLight) this.faceFrame = headFrame(vrm, this.root, def.faceLight);
+    if (this.faceFrame) for (const m of Object.values(this.mats)) if (m.userData.lookRole === "skin") m.userData.faceFrame = this.faceFrame;
     // (the potato's own face stays built but hidden with the rest of the potato: the model's face does the eyes,
     // blinks and mouth)
     this.perf = new Performance(this.cast.perform || [], humanClips(), this.cast.fingers || [], this.legLen);
@@ -209,6 +216,8 @@ export class VrmCharacter extends Character {
       if (transparent) out.userData.noOutline = true;
       // (our own character creator's face front: an anime face has no ink inside it, tools/character/face.py)
       if (/_NOLINE/.test(name)) out.userData.noOutline = true;
+      // (and its hair inks only round the silhouette and on the free tips: "lineMask", the weights in the UVs)
+      if (role === "hair" && this.def.lineMask) out.userData.lineMask = true;
     }
     out.name = name; out.userData.vrmName = name;
     this.mats[name] = out;
@@ -853,6 +862,42 @@ function recolor(tex, o) {
 // they stay skin instead of the clothes' inside colour
 // paintInner false (character "inner": false, our own character creator's bodies, tools/character): only the skin
 // fully under the clothes goes; what is left stays skin (the inner colours are for the VRoid sample body's undershirt)
+// the head as an ellipsoid riding the head bone (character "faceLight"): the skin vertices bound almost wholly to the head
+// bone, at rest, give its box (ears to ears, crown to chin, nose to the back of the skull); the frame maps the unit sphere
+// onto it with +z forward and +y up at rest, so the shader's face patch and neck shadow follow every turn of the head
+function headFrame(vrm, root, o) {
+  const hb = vrm.humanoid.getRawBoneNode("head"); if (!hb) return null;
+  vrm.scene.updateMatrixWorld(true);
+  const box = new THREE.Box3(), v = new THREE.Vector3(), front = [];
+  vrm.scene.traverse((m) => {
+    if (!m.isSkinnedMesh || ![].concat(m.material).some((x) => /Body_00_SKIN/.test(x.name || ""))) return;
+    // (the head bone and the bones under it: the jaw carries the mouth and chin)
+    const under = new Set(); hb.traverse((b) => { const k = m.skeleton.bones.indexOf(b); if (k >= 0) under.add(k); });
+    if (!under.size) return;
+    const P = m.geometry.attributes.position, I = m.geometry.attributes.skinIndex, W = m.geometry.attributes.skinWeight;
+    for (let i = 0; i < P.count; i++) {
+      let w = 0; for (let k = 0; k < 4; k++) if (under.has(I.getComponent(i, k))) w += W.getComponent(i, k);
+      if (w < 0.5) continue;
+      m.getVertexPosition(i, v); m.applyBoneTransform(i, v); v.applyMatrix4(m.matrixWorld);
+      if (w >= 0.95) box.expandByPoint(v);
+      front.push(v.clone());
+    }
+  });
+  if (box.isEmpty()) return null;
+  // the chin: the lowest point of the face's front (the jaw shares its weight with the neck, so the box above stops short)
+  const zc = (box.min.z + box.max.z) / 2;
+  for (const p of front) if (p.z > zc + 0.03 && Math.abs(p.x) < 0.03) box.min.y = Math.min(box.min.y, p.y);
+  if (o.diag) console.log(`diag:headFrame min ${box.min.toArray().map((x) => x.toFixed(3))} max ${box.max.toArray().map((x) => x.toFixed(3))} head ${hb.getWorldPosition(new THREE.Vector3()).toArray().map((x) => x.toFixed(3))}`);
+  const rq = root.getWorldQuaternion(new THREE.Quaternion());
+  const c = box.getCenter(new THREE.Vector3()), r = box.getSize(new THREE.Vector3()).multiplyScalar(0.5 * (o.scale ?? 1));
+  const Fw = new THREE.Matrix4().compose(c, rq, r), L = hb.matrixWorld.clone().invert().multiply(Fw);
+  const M = new THREE.Matrix4();
+  return {
+    bone: hb, L, k: o.k ?? 0.6, neck: o.neck ?? 0.012, us: new Set(),
+    update() { hb.updateWorldMatrix(true, false); M.multiplyMatrices(hb.matrixWorld, L).invert(); for (const u of this.us) u.uFaceInv.value.copy(M); },
+  };
+}
+
 function hideCoveredSkin(vrm, bare = [], paintInner = true) {
   vrm.scene.updateMatrixWorld(true);
   const body = [], cloth = [];

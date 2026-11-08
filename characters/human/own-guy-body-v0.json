@@ -32,5 +32,10 @@
   "inner": false,
   "krimK": {
     "cloth": 0.15
-  }
+  },
+  "faceLight": {
+    "k": 0.8,
+    "neck": 0.022
+  },
+  "lineMask": true
 }
