@@ -22,6 +22,7 @@ import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeAttach } from "./attach.js";
 import { makeVfx } from "./vfx.js";
+import { buildCel } from "./fxcel.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -430,7 +431,7 @@ async function init(data) {
   // set pieces and props that belong to one side of a wall (set-elevator.js: the car's front wall and the hallway show
   // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
-  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
+  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : f.do === "cel" ? buildCel(f, i, scene, sb.fps || 30) : null)).filter(Boolean);   // drawn effect cels (fxcel.js) ride with them too   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
   setPhysicsPose(null);
@@ -478,6 +479,7 @@ function pose(t0) {
   const states = {};
   for (const a of actors) { const ta = animeT && !smearRaw ? animeT(a.c.id, t) : t; const st = actorState(sb, a.c, a.def, ta); a.ch.apply(st, ta); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
+    if (p.f.do === "cel") continue;   // drawn effect cels: placed below, once the props are posed
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
     const o = who ? worldOf(who.a, new THREE.Vector3(who.st.x, who.st.y, who.st.z + 0.15)) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
@@ -600,6 +602,15 @@ function pose(t0) {
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
   if (bulb) bulb.o.material.color.copy(bulb.base).multiplyScalar(0.12 + 0.88 * Math.min(1, L.lamp));
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
+  // drawn effect cels (fxcel.js), once the props are posed: on a character ("who", where a poof would be), a prop or a
+  // vehicle rig ("on"), or a point ("pos"); a bolt's "to" can name a character or prop too
+  const celAt = (id) => {
+    const A = states[id]; if (A) return worldOf(A.a, new THREE.Vector3(A.st.x, A.st.y, A.st.z + 0.15));
+    const q = props.find((x) => x.spec.id === id), o = q ? q.root : rigs.get(id)?.g;
+    if (!o) throw new Error(`fx cel: "${id}" is not a character, a prop or a vehicle rig`);
+    o.updateWorldMatrix(true, false); return o.getWorldPosition(new THREE.Vector3());
+  };
+  for (const p of poofs) if (p.f.do === "cel") p.apply(t, p.f.on || p.f.who ? celAt(p.f.on || p.f.who) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]), celAt);
   const cam = cameraState(sb, tc);
   // a shot with "rig" is fixed to that rig: its pos and look are in the rig's frame, and its up turns with it
   const shot = (sb.shots || []).filter((q) => q.at <= tc).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
