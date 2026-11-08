@@ -538,7 +538,8 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
     // A warning to look at the frame, never a fail (about 12 s; --no-flow skips it)
     if (flow) {
-      const px = pixelGlitches(clip, { sb, layout }), w = px.findings.filter((f) => f.level === "warn");
+      // (the error first: a run without OpenCV has no findings, and filtering them threw)
+      const px = pixelGlitches(clip, { sb, layout }), w = (px.findings || []).filter((f) => f.level === "warn");
       if (px.error) add("pass", "pixels", `optical flow not measured (${px.error})`);
       else add(w.length ? "warn" : "pass", "pixels", w.length ? w.slice(0, 5).map(describePixel).join("; ") + (w.length > 5 ? ` (+${w.length - 5} more: node qa/glitches.mjs)` : "") : `optical flow: nothing pops, snaps or flickers (${px.findings.length} small notes: node qa/glitches.mjs --all)`);
     }
