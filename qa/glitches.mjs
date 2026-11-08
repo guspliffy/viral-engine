@@ -81,7 +81,7 @@ export function pixelGlitches(clip, { sb = null, layout = null } = {}) {
   fs.rmSync(tmp, { recursive: true, force: true });
   if (r.status !== 0) return { error: (r.stderr || "flow.py failed").trim().split("\n").pop(), findings: [], plan };
   try {
-    return { ...JSON.parse(r.stdout), plan };
+    return { findings: [], ...JSON.parse(r.stdout), plan };   // flow.py prints { error } alone when OpenCV is missing
   } catch {
     return { error: "flow.py printed no JSON", findings: [], plan };
   }

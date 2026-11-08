@@ -273,6 +273,19 @@ moving at once.
   pure function of time. `"dur"` (0.4 / 0.6 / 0.4 s), `"size"` (metres; a bolt's width x 0.05), `"palette"` (`spark`,
   `fire`, `energy`, `magic`) or `"colors"` (4, outer to core), `"rays"`, `"seed"`, `"over"` (drawn over everything; on for
   hits and bolts). Code only, nothing to download. See-through for the contact checks, soft for `qa/glitches.mjs`.
+- Drawn copies of the Effekseer effects (8 Nov 2026, Jonny: "really copying how the effect seeker effects look but in
+  handdrawn style"; engine/page/fxcel-copies.js on fxcel-kit.js): the same `cel` item with `"kind"` set to an Effekseer
+  effect's name, `toon-hit`, `toon-water`, `sparks`, `light`, `aura`, `barrier` or `tornado`, plays that effect redrawn
+  from its .efkefc file (the same parts, counts, sizes, timing and colours) as flat colour layers on twos. Swap `"do":
+  "vfx"` for `"do": "cel"` and keep `"effect"`'s value as `"kind"`; `scale` (0.3, the same units as `vfx`), `speed`,
+  `dur` (the loops `aura`, `barrier`, `tornado` stop at it and break up over 0.25 s; the others play out in their own
+  length: hit 0.6, water 2.75, sparks 3.4, light 3.3 s), `on`/`who`/`pos`, `offset`, `seed`, `palette`/`colors`,
+  `"twos": false`, `"over"` (off: drawn against depth like `vfx`). It always follows `on`. Not copied: `rot`, `color`,
+  `file`. Departures from the original, on purpose: the hit lands on its first frame (Effekseer's shows 0.2 s after
+  `at`), the light leaves out its faint omen and ground glow, the tornado draws fewer, bigger specks so they read. Code
+  only, nothing to download, no licence question (the effect files themselves have none). Side by side with the
+  originals: `node storyboards/lab/make-fx-ref.mjs` writes `fx-ref-effekseer.json` and `fx-ref-cel.json`, one effect
+  every 3 s on the same camera.
 - Particle effects made in Effekseer (vfx-effekseer-01, a test): `{ "do": "vfx", "effect", "at", "pos" | "on", ... }`
   in `fx` plays an Effekseer effect in the 3D scene, drawn against its depth (characters in front hide it) before the
   look's glow and grade (`engine/page/vfx.js`). `effect`: `toon-hit` (anime impact star), `toon-water` (cel splash),

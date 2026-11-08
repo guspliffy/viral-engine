@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { COPIES, COPY_PALETTES, COPY_DUR, COPY_GLOW } from "./fxcel-copies.js";
+import { rnd } from "./fxcel-kit.js";
 
 // Drawn effect cels ("do": "cel", 8 Nov 2026, X posts review upgrade 2; opt-in, a clip without one is untouched).
 // Hits, shockwave rings and lightning drawn the way anime draws effects: flat, opaque colour layers with hard edges
@@ -156,10 +158,34 @@ function ribbon(lines, geo) {
   geo.setIndex(I); geo.computeBoundingSphere();
 }
 
+// a drawn copy of an Effekseer effect (fxcel-copies.js): its clock runs in Effekseer frames, on twos like the rest
+function buildCopy(f, i, scene, fps) {
+  const kind = f.kind, g = new THREE.Group(); g.name = `fx-cel-${i}`; scene.add(g);
+  // the core pushed past white so the look's glow catches it, only on the glowing kinds (not water, glass or the aura)
+  const C = (f.colors || PALETTES[f.palette] || COPY_PALETTES[kind]).map((c, j) => new THREE.Color(c).multiplyScalar(j === 3 && COPY_GLOW[kind] ? 1.5 : 1));
+  const seed = f.seed ?? i * 7 + 3, dur = f.dur ?? COPY_DUR[kind], speed = f.speed ?? 1;
+  const ctx = { g, u: f.scale ?? 0.3, r: rnd(seed), C, seed, f, end: dur * 60 * speed, opts: { over: f.over ?? false } };
+  const update = COPIES[kind](ctx);
+  const off = new THREE.Vector3().fromArray(f.offset || [0, 0, 0]);
+  return {
+    f, g,
+    apply(t, origin) {
+      const k0 = t - (f.at ?? 0);
+      // like vfx.js "dur": the effect stops at dur and what is left breaks up over the next quarter second
+      g.visible = k0 >= 0 && k0 <= dur + 0.25;
+      if (!g.visible) return;
+      const step = f.twos === false ? 1 / fps : 2 / fps, n = Math.floor(k0 / step + 1e-6);
+      g.position.copy(origin).add(off);
+      update(n * step * 60 * speed);
+    },
+  };
+}
+
 // one "cel" fx item -> { f, g, apply(t, origin) }, the same shape as stage.js's poofs (origin: where "who"/"pos" puts it)
 export function buildCel(f, i, scene, fps = 30) {
   const kind = f.kind || "hit";
-  if (!DUR[kind]) throw new Error(`fx cel: unknown kind "${kind}" (kinds: ${Object.keys(DUR).join(", ")})`);
+  if (COPIES[kind]) return buildCopy(f, i, scene, fps);
+  if (!DUR[kind]) throw new Error(`fx cel: unknown kind "${kind}" (kinds: ${[...Object.keys(DUR), ...Object.keys(COPIES)].join(", ")})`);
   const g = new THREE.Group(); g.name = `fx-cel-${i}`; scene.add(g);
   const over = f.over ?? kind !== "ring", dur = f.dur ?? DUR[kind], seed0 = f.seed ?? i * 7 + 3;
   let mesh, geo = null;
