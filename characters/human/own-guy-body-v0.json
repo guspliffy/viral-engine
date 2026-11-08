@@ -1,0 +1,28 @@
+{
+ "id": "human/own-guy-body-v0",
+ "name": "Own base step 1: MPFB2 (CC0) athletic male body, no head/hair/clothes yet",
+ "rig": "vrm-v1",
+ "vrm": "assets/models/vrm/own/guy-body-v0.vrm",
+ "sheet": true,
+ "sheetHatch": false,
+ "seed": 2,
+ "body": {
+  "color": "#f4cfb1",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f4cfb1",
+  "width": 0.03
+ },
+ "look": {},
+ "posture": {
+  "level": 0.7,
+  "max": 0.45,
+  "upperChest": 0.06
+ },
+ "line": "#2e211c",
+ "lineK": 1.4
+}

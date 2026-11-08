@@ -1,0 +1,95 @@
+"""Our own human base, built by script: a MakeHuman (MPFB2, CC0 assets) body in any shape, rigged, put in a T pose
+and exported as a VRM 1.0 the engine's rig "vrm-v1" can load.
+
+    blender -b --factory-startup -P tools/character/build_body.py -- <spec.json> <out.vrm>
+
+spec.json: { "name", "body": { "gender" 0..1, "age" 0..1, "muscle" 0..1, "weight" 0..1, "height" 0..1,
+             "proportions" 0..1, "cupsize", "firmness", ... (any MPFB macro) }, "skin": "#rrggbb" }
+Needs the MPFB2 and VRM Add-on for Blender extensions enabled as bl_ext.user_default.mpfb / .vrm
+(tools/character/setup.sh). Step 1 of the own-character pipeline: body + rig + export only (no anime head, hair or
+clothes yet).
+"""
+import bpy, sys, json, math, importlib, addon_utils
+from mathutils import Vector, Matrix
+
+argv = sys.argv[sys.argv.index("--") + 1:]
+spec = json.load(open(argv[0])); out = argv[1]
+for ext in ("mpfb", "vrm"): addon_utils.enable(f"bl_ext.user_default.{ext}", default_set=True)
+
+def imp(pkg, key):
+    for m in list(sys.modules):
+        if m.endswith(pkg): return getattr(importlib.import_module(m), key)
+    raise ValueError(pkg)
+HumanService = imp("mpfb.services.humanservice", "HumanService")
+HOP = imp("mpfb.entities.objectproperties", "HumanObjectProperties")
+TS = imp("mpfb.services.targetservice", "TargetService")
+
+for o in list(bpy.data.objects): bpy.data.objects.remove(o)
+body = HumanService.create_human(scale=0.1)
+for k, v in spec.get("body", {}).items(): HOP.set_value(k, v, entity_reference=body)
+TS.reapply_macro_details(body)
+rig = HumanService.add_builtin_rig(body, "game_engine")
+
+# bake the morphs and drop the helper geometry: shape keys mixed into the mesh, the "Hide helpers" mask applied
+bpy.context.view_layer.objects.active = body
+if body.data.shape_keys:
+    body.shape_key_add(name="mix", from_mix=True)
+    keys = body.data.shape_keys.key_blocks
+    mix = keys["mix"]
+    for i, v in enumerate(body.data.vertices): v.co = mix.data[i].co
+    body.shape_key_clear()
+for m in list(body.modifiers):
+    if m.type == "MASK":
+        bpy.ops.object.modifier_apply(modifier=m.name)
+
+# T pose: arms straight out sideways (VRM's rest pose), applied as the new rest so the bind matches
+bpy.context.view_layer.objects.active = rig
+bpy.ops.object.mode_set(mode="POSE")
+for side, sx in (("l", 1), ("r", -1)):
+    for bn in (f"upperarm_{side}", f"lowerarm_{side}", f"hand_{side}"):
+        pb = rig.pose.bones[bn]
+        head = rig.matrix_world @ pb.head; tail = rig.matrix_world @ pb.tail
+        cur = (tail - head).normalized(); want = Vector((sx, 0, 0))
+        q = cur.rotation_difference(want)
+        M = rig.matrix_world.inverted() @ (Matrix.Translation(head) @ q.to_matrix().to_4x4() @ Matrix.Translation(-head)) @ rig.matrix_world @ pb.matrix
+        pb.matrix = M; bpy.context.view_layer.update()
+bpy.ops.object.mode_set(mode="OBJECT")
+bpy.context.view_layer.objects.active = body
+for m in list(body.modifiers):
+    if m.type == "ARMATURE":
+        name = m.name; bpy.ops.object.modifier_copy(modifier=name)
+        bpy.ops.object.modifier_apply(modifier=name)
+bpy.context.view_layer.objects.active = rig
+bpy.ops.object.mode_set(mode="POSE"); bpy.ops.pose.armature_apply(selected=False); bpy.ops.object.mode_set(mode="OBJECT")
+for m in body.modifiers:
+    if m.type == "ARMATURE": m.object = rig
+
+# one plain skin material, named the way the engine's VRoid code reads roles (_SKIN)
+mat = bpy.data.materials.new("Body_00_SKIN"); mat.use_nodes = True
+c = spec.get("skin", "#f3c9a0").lstrip("#"); rgb = [int(c[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+mat.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*[x ** 2.2 for x in rgb], 1)
+body.data.materials.clear(); body.data.materials.append(mat); body.name = "Body"
+
+# VRM 1.0 humanoid: game_engine bone names -> VRM bones
+ext = rig.data.vrm_addon_extension; ext.spec_version = "1.0"
+hb = ext.vrm1.humanoid.human_bones
+MAP = {"hips": "pelvis", "spine": "spine_01", "chest": "spine_02", "upper_chest": "spine_03", "neck": "neck_01", "head": "head"}
+for s, S in (("l", "left"), ("r", "right")):
+    MAP.update({f"{S}_shoulder": f"clavicle_{s}", f"{S}_upper_arm": f"upperarm_{s}", f"{S}_lower_arm": f"lowerarm_{s}",
+                f"{S}_hand": f"hand_{s}", f"{S}_upper_leg": f"thigh_{s}", f"{S}_lower_leg": f"calf_{s}",
+                f"{S}_foot": f"foot_{s}", f"{S}_toes": f"ball_{s}"})
+    for fin, mh in (("thumb", "thumb"), ("index", "index"), ("middle", "middle"), ("ring", "ring"), ("little", "pinky")):
+        names = ("metacarpal", "proximal", "distal") if fin == "thumb" else ("proximal", "intermediate", "distal")
+        for k, nm in enumerate(names): MAP[f"{S}_{fin}_{nm}"] = f"{mh}_0{k + 1}_{s}"
+missing = []
+for vb, bb in MAP.items():
+    if bb in rig.data.bones and hasattr(hb, vb): getattr(hb, vb).node.bone_name = bb
+    else: missing.append((vb, bb))
+print("unmapped:", missing)
+meta = ext.vrm1.meta; meta.vrm_name = spec.get("name", "own-human")
+meta.authors.clear(); a = meta.authors.add(); a.value = "PotatoBrawl viral engine (MakeHuman CC0 base)"
+rig.name = "Armature"
+
+bpy.ops.object.select_all(action="DESELECT")
+bpy.ops.export_scene.vrm(filepath=out)
+print("wrote", out, "verts", len(body.data.vertices), "height", round(max((rig.matrix_world @ body.matrix_world @ v.co).z for v in body.data.vertices), 3))
