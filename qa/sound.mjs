@@ -58,6 +58,7 @@ import { isHit, floorOf, SURFACES } from "../engine/sfx/library.mjs";
 import { lockMusic } from "../engine/music.mjs";
 import { mixClip, effectLevelsOverMix, loudestMoments } from "../engine/sfx/guard.mjs";
 import { soundClock } from "../engine/shared/holds.js";
+import { lineLevels, lineResults, loopSeam } from "./lines.mjs";
 
 const SR = 44100, FRAME = 1 / 30;
 // named sounds that are not a physical event on screen: music stings, jingles, UI tones, voices
@@ -209,7 +210,7 @@ export function freshMix(sb, chars) {
 export function soundMeasure(clip, sb, chars) {
   sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
-  const a = mixClip({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, chars);
+  const a = mixClip({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, chars, [], { voice: true });
   out.push(...soundTiming(sb, a.events));
   const fresh = new Float32Array(a.L.length); for (let i = 0; i < fresh.length; i++) fresh[i] = (a.L[i] + a.R[i]) / 2;
   const mix = decodeMono(clip), H = 88, eF = envelope(fresh, H).map(Math.sqrt), eM = envelope(mix, H).map(Math.sqrt);   // 2 ms steps
@@ -239,6 +240,8 @@ export function soundMeasure(clip, sb, chars) {
   out.push(loudest([mix], a.events, offset));
   out.push(...payoffSound(sb, envelope(mix, 441)));
   out.push(...phoneBand(mix, a.events, offset));
+  // each spoken line over the rest on a phone, and the loop seam (qa/lines.mjs, 7 Nov 2026)
+  out.push(...lineResults(lineLevels(sb, chars, a)), ...loopSeam(clip));
   return out;
 }
 
