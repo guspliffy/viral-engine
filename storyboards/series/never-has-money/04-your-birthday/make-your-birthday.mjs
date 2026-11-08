@@ -74,7 +74,7 @@ const BB_LAND = [0.75, 0, 0.85];
 const BB_AT = [0.646, 0, 0.317];                 // (it glances off Reaper's side and stands on its end there)
 // ... and Reaper steps round to its front right (his reach then points away from Viking's fur), takes it from there and
 // turns to us with it (panel 7)
-const R3 = [0.982, 0.569], R3_YAW = -127, R3_OUT = -30;
+const R3 = [1.041, 0.46], R3_YAW = -110, R3_OUT = -30;
 const CAKE_TABLE = { x: -0.55, z: 1.15, w: 0.5, d: 0.42, h: 0.42 };
 
 // the presents (props3d.js gift; grips.mjs SIZE.gift is 0.3 x 0.24 before scale)
@@ -211,10 +211,11 @@ A(2.6, "rea", "face", { lid: 0.55, dur: 0.2 });
 // of its knot (left hand); he sits back on the crate and scribbles on his knee, tongue out, then tears it square
 c.prop(2.82, "wallet", { open: 0 }, 0.08, "inOut");
 const HOLSTER = patProps({ at: G0, yaw: G_YAW })[0];
-c.arm(2.84, "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: [HOLSTER.x, HOLSTER.y, HOLSTER.z] }, 0.12, "inOut");
-A(2.96, "gsl", "release", { prop: "wallet", to: [HOLSTER.x, HOLSTER.y, HOLSTER.z], dur: 0.04 });
-c.prop(3.0, "wallet", { tip: 360, rot: HOLSTER.rot }, 0.04, "inOut");
-c.at(3.06, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.04, ease: "in", reason: "back down in his holster (part of his costume), so it walks with him" });
+// (0.18 s, not 0.12: drawn on 2s, a 0.12 s drop from his chest to the holster jumped 35 cm in one drawing)
+c.arm(2.82, "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: [HOLSTER.x, HOLSTER.y, HOLSTER.z] }, 0.18, "inOut");
+A(3.0, "gsl", "release", { prop: "wallet", to: [HOLSTER.x, HOLSTER.y, HOLSTER.z], dur: 0.04 });
+c.prop(3.02, "wallet", { tip: 360, rot: HOLSTER.rot }, 0.04, "inOut");
+c.at(3.08, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.04, ease: "in", reason: "back down in his holster (part of his costume), so it walks with him" });
 // the finger up (left): wait!
 c.arm(2.82, "gsl", "L", { o: [0.06, 0.62, 0.22] }, 0.12, "out"); A(2.84, "gsl", "grip", { side: "L", shape: "point", dur: 0.08 });
 A(2.82, "gsl", "expr", { expr: "eager", set: { curve: 0.5, open: 0.25, raise: 0.05 }, dur: 0.1 });
@@ -225,7 +226,7 @@ A(2.82, "gsl", "look", { to: [0.35, 0.15], dur: 0.08, blink: false });
 const CP_HOLD = -0.42;
 const note = grips.phone(c, "gsl", { ...CP, scale: CP_K }, { side: "R", height: CP_HOLD });
 c.prop(3.0, "coupon", { scale: CW_K }, 0.06, "out");
-note.secure(note.approach(3.02, 0.06), 0.08);
+note.secure(note.approach(3.04, 0.06), 0.08);
 A(3.04, "gsl", "grip", { side: "L", shape: "open", dur: 0.06 });
 const pen = grips.thin(c, "gsl", { ...PEN, scale: 1.5 }, { side: "L", from: 0.5, roll: 20 });
 c.prop(3.04, "pen", { scale: 1.5 }, 0.05, "out");
@@ -347,7 +348,7 @@ const ONG = (p) => ({ prop: "lift", grip: (() => { const q = rotY(p, HUG_YAW); r
 // 8 Nov layouts had the mitten 16-24 cm inside him on his flank)
 c.arm(V(6.0), "vik", "R", { o: [0.22, 0.34, 0.2] }, 0.26, "inOut"); c.arm(V(5.96), "vik", "L", { o: [0.3, 0.85, 0.15] }, 0.14, "out");
 A(V(5.96), "vik", "grip", { side: "L", shape: "fist", dur: 0.1 });
-c.arm(V(7.5), "vik", "L", { o: [-0.05, 0.42, 0.38] }, 0.35, "inOut");   // down onto his belly, happy (out at his side it swept into Reaper as he turns) A(V(7.5), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+c.arm(V(7.5), "vik", "L", { o: [-0.12, 0.3, 0.42] }, 0.35, "inOut");   // down onto his belly, happy (out at his side it swept into Reaper as he turns) A(V(7.5), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 // Gunslinger's left arm over Viking's shoulder, the right one out
 // his left arm flies up as Viking grabs him ("yay!": clear of Viking while he rides in), then over Viking's shoulder
 c.arm(V(5.9), "gsl", "L", { o: [0.08, 0.85, 0.05] }, 0.12, "out");
@@ -377,8 +378,13 @@ A(V(7.3), "rea", "crouch", { to: 0.3, dur: 0.3 });
 const rbox2 = grips.box(c, "rea", { ...BB, x: BB_AT[0], y: 0, z: BB_AT[2], rot: R3_YAW + 180 }, { height: 0.9 });
 let trb = rbox2.takeFrom(V(7.45), [BB_AT[0], 0, BB_AT[2]], { reach: 0.25, settle: 0.15 });
 A(r3(trb), "rea", "crouch", { to: 0, dur: 0.35 });
-A(r3(trb + 0.05), "rea", "turn", { to: R3_OUT, dur: 0.45, ease: "inOut" });
-rbox2.carry(r3(trb), front(R3, R3_OUT, 0.5, 0, 0.42), 0.45, "inOut", { rot: r3(R3_OUT + 180) });
+// up in front of him first, then round with his turn through a middle point (a straight carry from his left front to
+// his front cut through his own body)
+const R3_MID = r3((R3_YAW + R3_OUT) / 2);
+trb = rbox2.carry(r3(trb), front(R3, R3_YAW, 0.5, 0, 0.42), 0.3, "inOut", { rot: r3(R3_YAW + 180) });
+A(r3(trb), "rea", "turn", { to: R3_OUT, dur: 0.4, ease: "inOut" });
+rbox2.carry(r3(trb), front(R3, R3_MID, 0.5, 0, 0.42), 0.2, "in", { rot: r3(R3_MID + 180) });
+rbox2.carry(r3(trb + 0.2), front(R3, R3_OUT, 0.5, 0, 0.42), 0.2, "out", { rot: r3(R3_OUT + 180) });
 A(r3(trb + 0.4), "rea", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false }); A(r3(trb + 0.4), "rea", "face", { lid: 0.5, dur: 0.2 });
 see(V(7.4), V(8.7), ["wiz.face", "rea.face", "pbox"], "panel 7: the Wizard's jaw drops at his present on the rug, Reaper rescues his box");
 
@@ -448,6 +454,7 @@ write(import.meta.url, {
     { who: "gsl", with: "vik", from: 5.95, to: 10, reason: "the hug: his arm over Viking's shoulder" },
     { who: "gsl", with: "hatG", from: 0, to: 10, reason: "the party cone sits on his cowboy hat's crown (worn): its rim presses into the felt" },
     { who: "vik", with: "rosette", from: 0.1, to: 0.4, reason: "his mitten brushes his own rosette as he takes the purple present" },
+    { who: "vik", with: "rosette", from: 7.7, to: 8.3, reason: "his left mitten brushes the rosette on its way down from the fist in the air to his belly" },
   ],
   notes: "Generated by storyboards/series/never-has-money/04-your-birthday/make-your-birthday.mjs. Panels: PANELS.md.",
 });

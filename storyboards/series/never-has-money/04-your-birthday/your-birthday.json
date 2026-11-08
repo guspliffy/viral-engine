@@ -2553,6 +2553,27 @@
     {
      "who": "gsl",
      "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.885,
+       0.28,
+       -0.938
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
      "side": "L",
      "pose": {
       "o": [
@@ -2601,27 +2622,6 @@
     },
     {
      "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "wallet",
-      "grip": [
-       -0.155,
-       0,
-       0
-      ],
-      "at": [
-       -0.885,
-       0.28,
-       -0.938
-      ]
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.04
-    },
-    {
-     "who": "gsl",
      "do": "grip",
      "side": "L",
      "shape": "point",
@@ -2638,17 +2638,6 @@
       -0.938
      ],
      "dur": 0.04,
-     "at": 0.16
-    },
-    {
-     "do": "prop",
-     "id": "wallet",
-     "set": {
-      "tip": 360,
-      "rot": 105
-     },
-     "dur": 0.04,
-     "ease": "inOut",
      "at": 0.2
     },
     {
@@ -2662,12 +2651,23 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 360,
+      "rot": 105
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
      "who": "gsl",
      "do": "grip",
      "side": "R",
      "shape": "open",
      "dur": 0.06,
-     "at": 0.22
+     "at": 0.24
     },
     {
      "who": "gsl",
@@ -2689,7 +2689,7 @@
      },
      "dur": 0.06,
      "ease": "inOut",
-     "at": 0.22
+     "at": 0.24
     },
     {
      "who": "gsl",
@@ -2756,7 +2756,7 @@
      "dur": 0.04,
      "ease": "in",
      "reason": "back down in his holster (part of his costume), so it walks with him",
-     "at": 0.26
+     "at": 0.28
     },
     {
      "who": "gsl",
@@ -2773,7 +2773,7 @@
      },
      "dur": 0.08,
      "ease": "settle",
-     "at": 0.28
+     "at": 0.3
     },
     {
      "who": "gsl",
@@ -2798,7 +2798,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.328
+     "at": 0.348
     },
     {
      "who": "gsl",
@@ -2831,7 +2831,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.42
+     "at": 0.44
     },
     {
      "who": "gsl",
@@ -4160,8 +4160,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      0.982,
-      0.569
+      1.041,
+      0.46
      ],
      "dur": 0.4,
      "ease": "inOut",
@@ -4171,7 +4171,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -127,
+     "to": -110,
      "dur": 0.3,
      "at": 0
     },
@@ -4258,9 +4258,9 @@
       ],
       "palm": true,
       "off": [
-       0.072,
+       0.056,
        0.02,
-       -0.046
+       -0.065
       ],
       "at": [
        0.646,
@@ -4293,9 +4293,9 @@
       ],
       "palm": true,
       "off": [
-       -0.024,
+       0.001,
        0.02,
-       0.082
+       0.085
       ],
       "at": [
        0.646,
@@ -4313,9 +4313,9 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.05,
-       0.42,
-       0.38
+       -0.12,
+       0.3,
+       0.42
       ]
      },
      "dur": 0.35,
@@ -4416,12 +4416,12 @@
       ],
       "palm": true,
       "at": [
-       0.732,
+       0.571,
        0.42,
-       1.002
+       0.289
       ]
      },
-     "dur": 0.45,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0.95
     },
@@ -4438,12 +4438,12 @@
       ],
       "palm": true,
       "at": [
-       0.732,
+       0.571,
        0.42,
-       1.002
+       0.289
       ]
      },
-     "dur": 0.45,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0.95
     },
@@ -4451,19 +4451,11 @@
      "do": "prop",
      "id": "bbox",
      "set": {
-      "rot": 150
+      "rot": 70
      },
-     "dur": 0.45,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0.95
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -30,
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 1
     },
     {
      "who": "wiz",
@@ -4479,21 +4471,119 @@
     },
     {
      "who": "rea",
-     "do": "look",
-     "to": [
-      -0.4,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 1.35
+     "do": "turn",
+     "to": -30,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.25
     },
     {
      "who": "rea",
-     "do": "face",
-     "lid": 0.5,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bbox",
+      "grip": [
+       0.232,
+       0.216,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.571,
+       0.42,
+       0.631
+      ]
+     },
      "dur": 0.2,
-     "at": 1.35
+     "ease": "in",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bbox",
+      "grip": [
+       -0.232,
+       0.216,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.571,
+       0.42,
+       0.631
+      ]
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "bbox",
+     "set": {
+      "rot": 110
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bbox",
+      "grip": [
+       0.232,
+       0.216,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.791,
+       0.42,
+       0.893
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bbox",
+      "grip": [
+       -0.232,
+       0.216,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.791,
+       0.42,
+       0.893
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "bbox",
+     "set": {
+      "rot": 150
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.45
     },
     {
      "who": "wiz",
@@ -4519,6 +4609,24 @@
      "dur": 0.15,
      "blink": false,
      "at": 1.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.2,
+     "at": 1.65
     }
    ]
   },
@@ -4935,6 +5043,13 @@
    "from": 0.1,
    "to": 0.4,
    "reason": "his mitten brushes his own rosette as he takes the purple present"
+  },
+  {
+   "who": "vik",
+   "with": "rosette",
+   "from": 7.7,
+   "to": 8.3,
+   "reason": "his left mitten brushes the rosette on its way down from the fist in the air to his belly"
   }
  ],
  "notes": "Generated by storyboards/series/never-has-money/04-your-birthday/make-your-birthday.mjs. Panels: PANELS.md."
