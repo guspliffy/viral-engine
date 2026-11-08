@@ -16,7 +16,16 @@ import { clamp } from "./util.js";
 //                                                    (it trails where the head was `tail` seconds ago), so it is always
 //                                                    joined to the lake while it is up
 //                       tail 0.7 (s), r 0.07 (m: the radius at the stream's typical speed), v0 1.0 (m/s: that speed),
-//                       drops 12 (a second, shed off the tendril), seed }]
+//                       drops 12 (a second, shed off the tendril), seed,
+//                       mode: "ribbon"                (opt-in, Pebble lake revision 8 Nov): no fixed source; the stream is a
+//                                                    finite ribbon whose body is where the head was over the last `tail`
+//                                                    seconds, so the tail retraces the head's path (the leader turns first,
+//                                                    the tail still shows the old direction). While the head's recent path
+//                                                    is under the surface the ribbon runs down into the lake there (a
+//                                                    tongue drawn out of it); it pinches off as its tail climbs out, and
+//                                                    pours back in where the head goes under. A round leading mass, a
+//                                                    thinner middle, a tapered tail. tail may be keys [[t, s], ...].
+//                                                    splash 10: drops thrown up where the head goes back under }]
 //                     The stream keeps its volume: it thickens where it slows and thins and stretches where it speeds
 //                     up, it widens where it leaves the surface (the water pulled up after it), and small waves run
 //                     down its length. Two flat cel tones, a darker rim and a hard white highlight that slides along
@@ -78,6 +87,18 @@ function bez(c, s, out) {
   return out.set(a * c[0].x + b * c[1].x + d * c[2].x + e * c[3].x, a * c[0].y + b * c[1].y + d * c[2].y + e * c[3].y, a * c[0].z + b * c[1].z + d * c[2].z + e * c[3].z);
 }
 const K2 = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+// a ribbon's tail length (s) at time t: a number, or keys [[t, s], ...] eased between
+function tailAt(q, t) {
+  const T = q.tail ?? 0.7; if (!Array.isArray(T)) return T;
+  if (t <= T[0][0]) return T[0][1];
+  for (let i = 0; i < T.length - 1; i++) if (t <= T[i + 1][0]) return T[i][1] + (T[i + 1][1] - T[i][1]) * smooth((t - T[i][0]) / (T[i + 1][0] - T[i][0]));
+  return T[T.length - 1][1];
+}
+// a point on stream q at time t, s along it (0 head .. 1 tail end)
+function along(q, t, s, out) {
+  if (q.mode === "ribbon") return at(q.path, t - s * tailAt(q, t), out);
+  return bez(controls(q, t, K2), s, out);
+}
 
 const VERT = `attribute float aS, aV; uniform float uLevel; varying vec3 vN, vW; varying float vS, vV;
   void main() { vS = aS; vV = aV; vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = normalize(mat3(modelMatrix) * normal);
@@ -204,13 +225,14 @@ export const WATER_KINDS = {
     // the stream's drops at time t: shed off the tail while it is above the water, then they fall
     const G = 9.8, c0 = new THREE.Vector3(), c1 = new THREE.Vector3();
     function drops(q, k, t, emit, ringOut) {
-      const rate = q.drops ?? 12, tail = q.tail ?? 0.7, t0 = q.path[0][0], t1 = q.path[q.path.length - 1][0] + tail;
+      const rib = q.mode === "ribbon", rate = q.drops ?? 12, tail = rib ? tailAt(q, t) : q.tail ?? 0.7, t0 = q.path[0][0], t1 = q.path[q.path.length - 1][0] + tail;
       const i0 = Math.max(0, Math.floor((t - 1.4 - t0) * rate)), i1 = Math.floor((Math.min(t, t1) - t0) * rate);
       for (let i = i0; i <= i1; i++) {
         const ts = t0 + i / rate, a = t - ts; if (a < 0) continue;
-        const sd = (q.seed ?? k) * 17.3 + i, s = 0.1 + 0.9 * hash(sd + 1);
-        bez(controls(q, ts, K2), s * 0.85, c0); if (c0.y < level + 0.02) continue;   // only off water that is out of the lake
-        bez(controls(q, ts - 0.03, K2), s * 0.85, c1);
+        // a ribbon sheds from its thinning back half (where it pinches and releases), a tendril anywhere along it
+        const sd = (q.seed ?? k) * 17.3 + i, s = rib ? 0.55 + 0.45 * hash(sd + 1) : (0.1 + 0.9 * hash(sd + 1)) * 0.85;
+        along(q, ts, s, c0); if (c0.y < level + 0.02) continue;   // only off water that is out of the lake
+        along(q, ts - 0.03, s, c1);
         const vx = (c0.x - c1.x) / 0.03 * 0.55 + (hash(sd + 2) - 0.5) * 0.5, vy = (c0.y - c1.y) / 0.03 * 0.55 + hash(sd + 3) * 0.4, vz = (c0.z - c1.z) / 0.03 * 0.55 + (hash(sd + 4) - 0.5) * 0.5;
         const R = q.r ?? 0.07, ang = hash(sd + 5) * Math.PI * 2;
         const x0 = c0.x + Math.cos(ang) * R * 0.8, y0 = c0.y + Math.sin(ang) * R * 0.8, z0 = c0.z;
@@ -218,6 +240,22 @@ export const WATER_KINDS = {
         const disc = vy * vy + 2 * G * (y0 - level), tl = (vy + Math.sqrt(Math.max(0, disc))) / G;
         if (a > tl) { if (a < tl + 1.2) ringOut.push([ts + tl, x0 + vx * tl, z0 + vz * tl, 0.07 + 0.05 * hash(sd + 6), 1]); continue; }
         emit(x0 + vx * a, y0 + vy * a - 0.5 * G * a * a, z0 + vz * a, vx, vy - G * a, vz, 0.012 + 0.014 * hash(sd + 7));
+      }
+    }
+
+    // a ribbon's splash where its head goes back under: drops thrown up and out round the entry point, falling back in
+    // with their own small rings (worked out from the crossing alone, like every drop)
+    function splash(q, k, cr, t, emit, ringOut) {
+      const n = q.splash ?? 10;
+      for (const c of cr) {
+        if (c.up) continue;
+        const a = t - c.t; if (a < 0 || a > 1.6) continue;
+        for (let i = 0; i < n; i++) {
+          const sd = (q.seed ?? k) * 31.7 + i * 3.1 + c.t, ang = (i / n) * Math.PI * 2 + hash(sd) * 0.6, sp = 0.25 + 0.45 * hash(sd + 1), vy = 0.9 + 0.9 * hash(sd + 2);
+          const vx = Math.cos(ang) * sp, vz = Math.sin(ang) * sp, tl = (2 * vy) / G;
+          if (a > tl) { if (a < tl + 1.2) ringOut.push([c.t + tl, c.x + vx * tl, c.z + vz * tl, 0.06 + 0.04 * hash(sd + 3), 1]); continue; }
+          emit(c.x + vx * a, level + vy * a - 0.5 * G * a * a, c.z + vz * a, vx, vy - G * a, vz, 0.011 + 0.012 * hash(sd + 4));
+        }
       }
     }
 
@@ -231,15 +269,17 @@ export const WATER_KINDS = {
         let nd = 0;
         const emit = (x, y, z, vx, vy, vz, size) => { if (nd >= MAXD) return; dPos.setXYZ(nd, x, y, z); dVel.setXYZ(nd, vx, vy, vz); dInfo.setXY(nd, size, clamp(Math.hypot(vx, vy, vz) * 0.25, 0, 2.5)); nd++; };
         for (const [k, T] of tubes.entries()) {
-          const q = T.q, tail = q.tail ?? 0.7, R = q.r ?? 0.07, v0 = q.v0 ?? 1.0;
+          const q = T.q, rib = q.mode === "ribbon", tail = rib ? tailAt(q, tt) : q.tail ?? 0.7, R = q.r ?? 0.07, v0 = q.v0 ?? 1.0;
           for (const c of T.cross) ringList.push([c.t, c.x, c.z, c.up ? 0.55 : 0.45], [c.t + 0.22, c.x, c.z, c.up ? 0.4 : 0.35]);
           drops(q, k, tt, emit, ringList);
+          if (rib) splash(q, k, T.cross, tt, emit, ringList);
           // the centre line: the head now, the body where the head was, back to `tail` seconds ago
           let any = false;
           for (let i = 0; i <= NS; i++) {
             const s = i / NS, u = tt - s * tail, F = fr[i];
-            if (i === 0) controls(q, tt);
-            bez(K, s, F.p); F.v = speedAt(q.path, u);
+            if (rib) at(q.path, u, F.p);
+            else { if (i === 0) controls(q, tt); bez(K, s, F.p); }
+            F.v = speedAt(q.path, u);
             if (F.p.y > level) any = true;
           }
           T.mesh.visible = any;
@@ -254,13 +294,17 @@ export const WATER_KINDS = {
             // the profile: a round head, a body that tapers to a thin tail; volume kept (thicker slow, thinner fast);
             // wider where it leaves the surface; small waves running down it
             // a tendril: a thin rounded tip that swells smoothly toward the water (never a bulb on a neck)
-            const head = s < 0.035 ? Math.sqrt(Math.max(0, 1 - ((0.035 - s) / 0.035) ** 2)) : 1;
-            const body = 0.42 + 0.58 * smooth(s / 0.55) + 0.12 * smooth((s - 0.7) / 0.3);
+            const head = rib ? (s < 0.06 ? Math.sqrt(Math.max(0, 1 - ((0.06 - s) / 0.06) ** 2)) : 1) : s < 0.035 ? Math.sqrt(Math.max(0, 1 - ((0.035 - s) / 0.035) ** 2)) : 1;
+            // a ribbon: a round leading mass, a thinner middle and a tail that tapers to a point; a tendril: thin at
+            // the tip and swelling toward the water
+            const body = rib ? (0.62 + 0.45 * Math.exp(-(((s - 0.09) / 0.08) ** 2))) * Math.pow(1 - smooth((s - 0.22) / 0.78), 0.85)
+              : 0.42 + 0.58 * smooth(s / 0.55) + 0.12 * smooth((s - 0.7) / 0.3);
             const vol = clamp(Math.sqrt(v0 / Math.max(0.08, F.v)), 0.62, 1.4);
-            const base = 1 + 1.1 * Math.exp(-Math.max(0, F.p.y - level) / 0.06) * smooth((s - 0.55) / 0.45);   // only the root widens where it leaves the water
-            const wave = 1 + smooth(s / 0.15) * (0.035 * Math.sin(s * 17 - tt * 6 + k) + 0.02 * Math.sin(s * 41 + tt * 4.3 + 2 * k));   // ripples run down it, none at the tip
+            // only the root widens where it leaves the water (a ribbon: wherever it meets the surface, rising or pouring in)
+            const base = 1 + 1.1 * Math.exp(-Math.max(0, F.p.y - level) / 0.06) * (rib ? smooth(s / 0.1) : smooth((s - 0.55) / 0.45));
+            const wave = (rib ? 1 + 0.07 * smooth(s / 0.2) * Math.sin(s * 9 - tt * 3.1 + k) : 1) * (1 + smooth(s / 0.15) * (rib ? 0.6 : 1) * (0.035 * Math.sin(s * 17 - tt * 6 + k) + 0.02 * Math.sin(s * 41 + tt * 4.3 + 2 * k)));   // ripples run down it, none at the tip
             F.r = R * head * body * vol * base * wave;
-            if (i === 0) F.r = 0.001;   // the very tip closes the tube
+            if (i === 0 || (rib && i === NS)) F.r = 0.001;   // the very tip (and a ribbon's tail end) closes the tube
             lw += F.p.y > level ? 1 : 0; if (F.p.y > level) lp.add(F.p);
           }
           for (let i = 0; i <= NS; i++) {
