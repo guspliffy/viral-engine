@@ -17,6 +17,9 @@
 //                                       (a front-loaded walk skates: the template Wizard's 0.45 s move, 8 Nov),
 //                    "lead": 0.3,       from this long before such a move (its first steps start early)
 //                    "settle": 0.15 }   until this long after it
+// A drawing never holds across a cut: at a cut (cuts: the shot start times) every character shows its pose at the cut
+// or later, so a new setup placed just before a cut is what the new shot opens on (what if 01, 8 Nov 2026: a held
+// drawing showed the old setup in the new shot's first frame).
 // Everything is a function of (who, t), so renders and shards stay repeatable.
 const SKIP = ["still", "noblink", "talk", "voice", "blink", "idle", "mood"];
 const TRAVEL = ["move", "turn", "walk", "run", "dash", "shuffle", "step", "dance", "ride", "fly", "follow", "wander", "chase", "flee"];
@@ -24,7 +27,7 @@ export function animeTimingSpec(o) {
   if (!o) return null;
   return { fast: 0.2, slow: 0.9, idle: 3, push: 1.8, long: 1.2, lead: 0.3, settle: 0.15, skip: SKIP, travel: TRAVEL, ...(o === true ? {} : o) };
 }
-export function makeAnimeTiming(o, actions = [], fps = 30) {
+export function makeAnimeTiming(o, actions = [], fps = 30, cuts = []) {
   const S = animeTimingSpec(o);
   if (!S) return null;
   const skip = new Set(S.skip), travel = new Set(S.travel), f = 1 / fps, per = new Map();
@@ -44,7 +47,10 @@ export function makeAnimeTiming(o, actions = [], fps = 30) {
     L.segs = segs;
   }
   const step = (t, from, n) => from + Math.floor((t - from) * fps / n + 1e-4) * n / fps;
-  const timing = (who, t) => {
+  const cutList = cuts.filter((c) => c > 0).sort((a, b) => a - b);
+  const lastCut = (t) => { let c = null; for (const x of cutList) if (x <= t + 1e-6) c = x; else break; return c; };
+  const timing = (who, t) => { const r = drawing(who, t), c = cutList.length ? lastCut(t) : null; return c != null && r < c ? c : r; };
+  const drawing = (who, t) => {
     const L = per.get(who);
     if (!L) return step(t, 0, S.idle);
     // travelling through the room: on 2s from the move's start, never snapped (a key over it waits for the feet)
