@@ -41,7 +41,14 @@
     "mouth-trans-up": 0.2,
     "l-eye-trans-out": 1.0,
     "r-eye-trans-out": 1.0,
-    "neck-scale-horiz-incr": 0.3
+    "neck-scale-horiz-incr": 0.3,
+    "measure-shoulder-dist-incr": 0.45,
+    "torso-muscle-dorsi-incr": 0.6,
+    "measure-waist-circ-decr": 0.3,
+    "l-upperarm-muscle-incr": 0.4,
+    "r-upperarm-muscle-incr": 0.4,
+    "l-upperarm-scale-horiz-incr": 0.25,
+    "r-upperarm-scale-horiz-incr": 0.25
   },
   "face": {
     "iris": "#2c1d16",
@@ -107,7 +114,8 @@
     "lineK": 2.3,
     "out": 0.0025,
     "cell": 0.004,
-    "px": 7000
+    "px": 7000,
+    "back": true
   },
   "hair": {
     "style": "spiky",
@@ -140,19 +148,19 @@
           0.03
         ],
         "rootAz": [
-          145,
-          215
+          152,
+          208
         ],
         "rootEl": [
           5,
           30
         ],
         "az": [
-          140,
-          220
+          150,
+          210
         ],
-        "hug": -0.06,
-        "tip": 0.022,
+        "hug": -0.045,
+        "tip": 0.018,
         "flare": 0.05,
         "split": [
           2,
@@ -188,11 +196,11 @@
           74
         ],
         "az": [
-          118,
-          242
+          128,
+          232
         ],
-        "hug": -0.04,
-        "tip": 0.05,
+        "hug": -0.035,
+        "tip": 0.035,
         "flare": 0.55,
         "split": [
           1,
@@ -233,7 +241,7 @@
           250
         ],
         "hug": 0.0,
-        "tip": 0.05,
+        "tip": 0.026,
         "flare": 0.55,
         "split": [
           1,
@@ -748,7 +756,10 @@
       "light": 2,
       "lightK": 0.12,
       "seed": 7
-    }
+    },
+    "side": 0.025,
+    "sideAz": 118,
+    "backSpan": 45
   },
   "clothes": [
     {
@@ -760,16 +771,19 @@
       },
       "smoothN": 0.7,
       "ease": [
-        0.045,
-        0.065,
-        0.06,
-        0.045,
-        0.015
+        0.05,
+        0.08,
+        0.075,
+        0.055,
+        0.02
       ],
       "puff": 0.028,
       "cuff": 0.05,
       "straight": 0.6,
-      "taper": 0.15
+      "taper": 0.15,
+      "waistBand": 0.045,
+      "bandShade": 0.22,
+      "mat": "Pants_00_CLOTH"
     }
   ]
 }

@@ -172,6 +172,62 @@ def _box(c, x0, x1, z0, z1):
 
 
 # ---------------------------------------------------------------- 4. the decal
+def draw_male_back(c, A, U, V):
+    """the male sheet's back view (traced off its turnaround back and the back detail): the spine's groove, the shoulder
+    blades' inner edges as two slanting strokes, the trapezius' edge, the lats' shadow and the two low-back dimples. u
+    from the spine (nipple-widths), v the front's notch -> navel frame"""
+    line = facekit.hexc(A.get("line", "#8a5235")); shade = facekit.hexc(A.get("shade", "#dba57a"))
+    K = A.get("lineK", 1.0)
+    P = lambda pts, sd: [(U(sd * u), V(v)) for (u, v) in pts]
+    for sd in (1, -1):
+        _shape(c, P([(1.34, 0.50), (1.14, 0.64), (0.96, 0.88)], sd), P([(1.34, 0.52), (1.24, 0.72), (0.96, 0.89)], sd), shade, 0.95)   # lats
+        _ink(c, P([(0.40, 0.27), (0.5, 0.33), (0.6, 0.39)], sd), 0.0008 * K, 0.0036 * K, line, 0.75)              # shoulder blade
+        _ink(c, P([(0.6, 0.39), (0.7, 0.46), (0.8, 0.52)], sd), 0.0036 * K, 0.0006 * K, line, 0.75)
+        _ink(c, P([(0.80, 0.05), (0.74, 0.09), (0.68, 0.12)], sd), 0.0006 * K, 0.0016 * K, line, 0.6)              # trapezius
+        _ink(c, P([(1.32, 0.48), (1.16, 0.63), (0.98, 0.86)], sd), 0.0006 * K, 0.0018 * K, line, 0.7)             # lat edge
+        _ink(c, P([(0.48, 0.97), (0.42, 1.02), (0.36, 1.07)], sd), 0.0006 * K, 0.0022 * K, line, 0.7)              # low-back dimple
+    _ink(c, [(U(0), V(-0.05)), (U(0), V(0.08)), (U(0), V(0.24))], 0.0006 * K, 0.0014 * K, line, 0.6)                  # spine
+    _ink(c, [(U(0), V(0.36)), (U(0), V(0.62))], 0.0008 * K, 0.0026 * K, line, 0.7)
+    _ink(c, [(U(0), V(0.62)), (U(0), V(0.96))], 0.0026 * K, 0.0012 * K, line, 0.7)
+
+
+def _layer(name, body, c, rect, A, back=False):
+    """one decal of drawn marks on the body: projected from the front (or, back=True, from behind: the body's mirror
+    image is projected from the front and the result mirrored back), only the cells with paint and facing the view"""
+    x0, x1, z0, z1 = rect
+    a = c.rgba[..., 3:4]; rgb = c.rgba[..., :3]
+    # straight (not premultiplied) colour, and the clear pixels take the shade colour: the texture's filtering at a
+    # cut-out edge then never mixes in black (a dark rim round every shadow shape)
+    c.rgba[..., :3] = np.where(a > 1e-3, rgb / np.maximum(a, 1e-3), np.array(facekit.hexc(A.get("shade", "#dba57a"))[:3], np.float32))
+    c.image = lambda nm, c=c: _image(c, nm)
+    dg = bpy.context.evaluated_depsgraph_get()
+    if back:
+        ev = body.evaluated_get(dg); me = ev.to_mesh(); mw = body.matrix_world
+        bvh = BVHTree.FromPolygons([(lambda q: Vector((q.x, -q.y, q.z)))(mw @ v.co) for v in me.vertices], [list(p.vertices) for p in me.polygons])
+        ev.to_mesh_clear()
+    else:
+        bvh = BVHTree.FromObject(body, dg)
+    cell = A.get("cell", 0.006); nx = int((x1 - x0) / cell); nz = int((z1 - z0) / cell)
+    obj = facekit.decal(name, bvh, rect, c, (nx, nz), A.get("out", 0.0015))
+    # only the cells with paint in them stay (the rest would be invisible, clipped, sheets)
+    me = obj.data; alpha = c.rgba[..., 3]
+    bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table(); bm.normal_update()
+    dead = []
+    for f in bm.faces:
+        xs = [v.co.x for v in f.verts]; zs = [v.co.z for v in f.verts]
+        i0, i1, j0, j1 = _box(c, min(xs), max(xs), min(zs), max(zs))
+        # (and the cells the projection lays nearly edge-on, the sides of the neck and chest: their texture's
+        # small mip levels smear the lines into blocks of colour in a side view)
+        if alpha[j0:j1, i0:i1].max(initial=0) < 0.02 or -f.normal.y < A.get("minFacing", 0.45): dead.append(f)
+    bmesh.ops.delete(bm, geom=dead, context="FACES")
+    if back:
+        for v in bm.verts: v.co.y = -v.co.y
+        bmesh.ops.reverse_faces(bm, faces=bm.faces[:])
+    bm.to_mesh(me); bm.free()
+    me.materials[0].name = f"{name}_00_SKIN_NOLINE"
+    return obj
+
+
 def build_anatomy(body, rig, eyes, A):
     smooth_normals(body, A)
     style = A.get("style", "male")
@@ -180,31 +236,17 @@ def build_anatomy(body, rig, eyes, A):
     nipW = A.get("nipW", 0.095); H = zN - zB
     U = lambda u: u * nipW
     Vf = lambda v: zN - v * H
-    x0, x1 = -1.75 * nipW, 1.75 * nipW; z0, z1 = Vf(1.25), Vf(-0.22)
-    c = facekit.Canvas(x0, x1, z0, z1, px_per_m=A.get("px", 5000))
+    x0, x1 = -1.75 * nipW, 1.75 * nipW
+    layers = []
+    c = facekit.Canvas(x0, x1, Vf(1.25), Vf(-0.22), px_per_m=A.get("px", 5000))
     {"male": draw_male}[style](c, A, U, Vf)
-    # straight (not premultiplied) colour, and the clear pixels take the shade colour: the texture's filtering at a
-    # cut-out edge then never mixes in black (a dark rim round every shadow shape)
-    a = c.rgba[..., 3:4]; rgb = c.rgba[..., :3]
-    c.rgba[..., :3] = np.where(a > 1e-3, rgb / np.maximum(a, 1e-3), np.array(facekit.hexc(A.get("shade", "#dba57a"))[:3], np.float32))
-    c.image = lambda name, c=c: _image(c, name)
-    dg = bpy.context.evaluated_depsgraph_get(); bvh = BVHTree.FromObject(body, dg)
-    cell = A.get("cell", 0.006); nx = int((x1 - x0) / cell); nz = int((z1 - z0) / cell)
-    obj = facekit.decal("Anatomy", bvh, (x0, x1, z0, z1), c, (nx, nz), A.get("out", 0.0015))
-    # only the cells with paint in them stay (the rest would be invisible, clipped, sheets)
-    me = obj.data; alpha = c.rgba[..., 3]
-    bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table(); bm.normal_update()
-    dead = []
-    for f in bm.faces:
-        xs = [v.co.x for v in f.verts]; zs = [v.co.z for v in f.verts]
-        i0, i1, j0, j1 = _box(c, min(xs), max(xs), min(zs), max(zs))
-        # (and the cells the front projection lays nearly edge-on, the sides of the neck and chest: their texture's
-        # small mip levels smear the lines into blocks of colour in a side view)
-        if alpha[j0:j1, i0:i1].max(initial=0) < 0.02 or -f.normal.y < A.get("minFacing", 0.45): dead.append(f)
-    bmesh.ops.delete(bm, geom=dead, context="FACES")
-    bm.to_mesh(me); bm.free()
-    mat = me.materials[0]; mat.name = "Anatomy_00_SKIN_NOLINE"
-    _copy_weights(body, obj)
-    obj.parent = rig; mod = obj.modifiers.new("Armature", "ARMATURE"); mod.object = rig
-    print("anatomy:", style, "decal", len(me.polygons), "faces")
-    return obj
+    layers.append(_layer("Anatomy", body, c, (x0, x1, Vf(1.25), Vf(-0.22)), A))
+    if A.get("back"):
+        cb = facekit.Canvas(x0, x1, Vf(1.15), Vf(-0.1), px_per_m=A.get("px", 5000))
+        {"male": draw_male_back}[style](cb, A, U, Vf)
+        layers.append(_layer("AnatomyBack", body, cb, (x0, x1, Vf(1.15), Vf(-0.1)), A, back=True))
+    for obj in layers:
+        _copy_weights(body, obj)
+        obj.parent = rig; mod = obj.modifiers.new("Armature", "ARMATURE"); mod.object = rig
+        print("anatomy:", style, obj.name, len(obj.data.polygons), "faces")
+    return layers[0]

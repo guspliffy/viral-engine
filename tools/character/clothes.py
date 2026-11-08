@@ -169,6 +169,11 @@ def pants(body, rig, G, B, out):
         v.co = inv @ (p + d * e)
     if G.get("straight"): _straight_legs(o, G, axes, kneeZ, hemZ)
     _finish(o, rig, _mat(G.get("mat", "Pants_00_CLOTH"), G.get("color", "#2f4a36")))
+    if G.get("waistBand"):
+        # the elastic waistband as its own strip, a shade darker ("waistBand": its height in m; "bandShade")
+        bnd = _band_mat(o, {**G, "bandShade": G.get("bandShade", 0.2)}); mw_ = o.matrix_world
+        for f in o.data.polygons:
+            if (mw_ @ f.center).z > waistZ - G["waistBand"]: f.material_index = bnd[1]
     parts = [o]
     if G.get("stripe"):
         parts.append(_stripe(o, rig, B, G, hemZ, waistZ))

@@ -94,9 +94,10 @@ class Head:
         """the hairline height (world z) round the head: forehead in front, above the ears at the side, nape behind"""
         H = self.H; a = abs(math.degrees(az))
         front, side, back = self.eyeZ + H.get("front", 0.055), self.eyeZ + H.get("side", 0.01), self.eyeZ + H.get("nape", -0.075)
+        sa, bs = H.get("sideAz", 95), H.get("backSpan", 60)      # (sideAz past 95: the hairline stays over the whole ear)
         if a <= 50: return front
-        if a <= 95: return front + (side - front) * _smooth01((a - 50) / 45)
-        return side + (back - side) * _smooth01((a - 95) / 60)
+        if a <= sa: return front + (side - front) * _smooth01((a - 50) / 45)
+        return side + (back - side) * _smooth01((a - sa) / bs)
 
     def cap_off(self, p):
         """how far the hair's mass (the cap) stands off the scalp at p: thin at the hairline, capBulk higher up"""
