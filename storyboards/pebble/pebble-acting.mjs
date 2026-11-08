@@ -59,7 +59,7 @@ export function thoughtful(c, t, who, { side = "R", hold = 0.9 } = {}) {
 // his own pose for "arms at rest": hanging easily in front of the hips (the generic rest hangs them out wide over his
 // short torso, which reads as hands on hips)
 // (correction brief 6 Nov: wrists beside the lower vest, a little forward, elbows close to the sides, not bowed out)
-export const REST = { R: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 }, L: { o: [0.1, 0.2, 0.09], elbow: 0.0, margin: 1.05, swing: 1 } };
+export const REST = { R: { o: [0.04, 0.24, 0.12], elbow: 0.0, margin: 1.05, swing: 0.5 }, L: { o: [0.04, 0.24, 0.12], elbow: 0.0, margin: 1.05, swing: 0.5 } };
 export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { for (const side of sides) c.A(t, who, "arm", { side, pose: REST[side], dur }); }
 
 // the grass straw (Garden Guardian pack, 6 Nov 2026; correction brief the same day): in his lips at the LEFT mouth
@@ -69,7 +69,7 @@ export function restArms(c, t, who, { dur = 0.45, sides = ["R", "L"] } = {}) { f
 // calibrated at this pose by tools/pebble/straw-cal.mjs) -> EXTRACT (out along the stem) -> down. strawIn is the same
 // backwards: up to the extract point, seat the stem in the lips, hand-over, open the fingers, arm down.
 // STRAW_MOUTH and STRAW_OUT come from straw-cal.mjs (the grip point and 7 cm out along the stem, in arm-target space).
-export const STRAW_MOUTH = { x: [0.1701, 1.1446, 0.3657], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.236, 1.0906, 0.3774], point: "pinch", pinchEase: true };
+export const STRAW_MOUTH = { x: [0.1793,1.1195,0.3071], point: "pinch", pinchEase: true }, STRAW_OUT = { x: [0.2452,1.0639,0.3174], point: "pinch", pinchEase: true };
 export const STRAW_LOW = { x: [0.3, 0.55, 0.3], point: "pinch", pinchEase: true };
 // the fingertip pinch on the thin stem (pinch 1: the pinch point between the index and thumb pads is live, so an arm
 // pose with point "pinch" puts the pads on the target)
@@ -99,7 +99,7 @@ export function strawHeld(c, t, who, pose = STRAW_LOW) {
 // his walk (Jonny 6 Nov: "a fluent natural walk like the most recent potatoes"): the planted gait ("motion": { "feet": 2 })
 // with his arms hanging close at his sides and swinging against the legs (an arm pose with `swing`, potato.js), short
 // unhurried steps, and the hands back to rest a moment after he stops. A tortoise pace: about 0.5 m/s.
-export const WALK = { R: { o: [-0.01, 0.1, 0.05], swing: 1 }, L: { o: [-0.01, 0.1, 0.05], swing: 1 } };
+export const WALK = { R: { o: [-0.01, 0.1, 0.13], elbow: 0.0, margin: 1.05, swing: 0.5 }, L: { o: [-0.01, 0.1, 0.13], elbow: 0.0, margin: 1.05, swing: 0.5 } };
 export function walk(c, t, who, to, dur, { steps = 2.2, rest = true, arms = 0.35 } = {}) {
   for (const side of ["R", "L"]) c.A(Math.max(0, t - arms * 0.5), who, "arm", { side, pose: WALK[side], dur: t > 0 ? arms : 0 });
   c.A(t, who, "move", { to, dur, steps });
@@ -116,3 +116,11 @@ export function line(c, t, who, text, dur, { lid = LID, pos = 230, voice, ...o }
   c.A(t - 0.15, who, "still", { dur: dur + 0.3, idle: 0.85 });   // no automatic blink on his line (a still hold skips them)
   c.A(t + dur + 0.1, who, "face", { lid: LID, dur: 0.4 });
 }
+
+// Pebble's sound mix (Jonny 7 Nov 20:56: "the quieter mix is way better"): the music, birds, room and steps sit well under
+// his voice, and the music dips 12 dB under his lines, so he sounds like the voice he picked. Spread into a storyboard:
+//   music: { ...peb.MIX.music, pool: "calm-landscape" }, sound: { ...peb.MIX.sound, surface: "grass" }
+export const MIX = {
+  music: { lowCut: 120, gain: 0.16, duck: { voice: -12, hold: 0.3, release: 0.6 } },
+  sound: { sfx: 0.4, ambience: 0.2, guard: { target: -15.3 }, nature: [{ id: "birds", gain: 0.07 }, { id: "leaves", gain: 0.05, pan: 0.3 }] },
+};

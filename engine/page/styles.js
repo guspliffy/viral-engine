@@ -19,6 +19,25 @@ function toonRamp(steps) {
 }
 
 export function makeStyle(style, R) {
+  // "clay" (character look-dev, tools/pebble/views.mjs): every lit material becomes one plain grey, no textures or
+  // vertex paint, so a sheet shows the forms alone (the plain-shaded view next to the colour and the silhouette)
+  if (style === "clay") {
+    const clay = new Map();
+    const conv = (m) => {
+      if (!m || m.isShaderMaterial || m.isSpriteMaterial || m.isMeshBasicMaterial || m.userData.clay) return m;
+      let c = clay.get(m);
+      if (!c) { c = new THREE.MeshStandardMaterial({ color: "#c9c4bb", roughness: 0.85, metalness: 0, side: m.side, transparent: m.transparent, opacity: m.opacity, depthWrite: m.depthWrite }); c.userData.clay = true; clay.set(m, c); }
+      return c;
+    };
+    // decorative marks (painted spots, blush, decals: unlit, see-through or flagged userData.decor) are hidden, and the
+    // light is made broad and soft once (the key and rim dimmed, a sky/ground fill added), so undersides stay readable
+    const hide = (m) => m && (m.userData.decor || m.isSpriteMaterial || m.isMeshBasicMaterial || (m.transparent && m.opacity < 1));
+    let lit = false;
+    return { prepare(scene) {
+      if (!lit) { lit = true; scene.traverse((o) => { if (o.isDirectionalLight || o.isSpotLight || o.isPointLight) o.intensity *= 0.55; }); scene.add(new THREE.HemisphereLight("#ffffff", "#b8b2a6", 1.6)); }
+      scene.traverse((o) => { if (!o.isMesh || !o.material || o.material.userData?.clay) return; const ms = Array.isArray(o.material) ? o.material : [o.material]; if (ms.some(hide)) { o.visible = false; return; } o.material = Array.isArray(o.material) ? o.material.map(conv) : conv(o.material); });
+    }, render: (scene, cam) => R.render(scene, cam) };
+  }
   if (style !== "anime") return { prepare() {}, render: (scene, cam) => R.render(scene, cam) };
 
   const ramp = toonRamp([105, 190, 255]);

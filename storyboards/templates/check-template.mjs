@@ -2,7 +2,7 @@
 // fails when one of them is lost:
 //   node storyboards/templates/check-template.mjs
 // It checks the built storyboard (whole frame sharp, the "sheet" cast look, music on, the spike guard, natural motion
-// with planted feet and the motion layer, hand rig 2, eyes 2, holds 2, physics, light 2, half-boil hatching, the clean start), every line (a subtitle while it is spoken, gibberish included, and no blink on it), the clean start in the loader
+// with planted feet and the motion layer, hand rig 2, eyes 2, holds 2, physics, light 2, half-boil hatching, ink lines + the satsuei grade, the clean start), every line (a subtitle while it is spoken, gibberish included, and no blink on it), the clean start in the loader
 // (engine/load.mjs cleanStart) on the template and on a small made-up storyboard, and that clip.mjs without the new
 // options writes what it wrote before (old generators keep producing the same storyboards).
 import assert from "node:assert/strict";
@@ -29,6 +29,7 @@ check("the whole frame is sharp (no depth of field)", () => {
 check('the cast has the "sheet" look', () => assert.equal(sb.castLook, "sheet"));
 check("light 2: the cast is lit from the set's painting (PR #126)", () => assert.equal(sb.set.lighting, 2, `set.lighting is ${sb.set.lighting}`));
 check("hatching: half boil, no paper grain (Jonny 5 Nov, TikTok detail)", () => { assert.equal(sb.set.hatch?.boil, 0.25, `set.hatch is ${JSON.stringify(sb.set.hatch)}`); assert.ok(!sb.drawn?.paper?.grain, `drawn.paper.grain is ${sb.drawn?.paper?.grain}`); });
+check("ink lines and the satsuei grade (Jonny 8 Nov, PR #174)", () => { assert.equal(sb.set.ink, true, `set.ink is ${JSON.stringify(sb.set.ink)}`); assert.equal(sb.set.satsuei, true, `set.satsuei is ${JSON.stringify(sb.set.satsuei)}`); });
 check("music plays", () => assert.ok(sb.music && sb.music.style, "music is off"));
 check("hand rig 2 (no hand pops)", () => assert.equal(sb.rig?.hand, 2));
 check("eyes 2 (readable eyes)", () => assert.equal(sb.rig?.eyes, 2));

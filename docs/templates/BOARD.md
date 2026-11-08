@@ -32,6 +32,7 @@ superseded sections instead of appending.
 - Must be true at check times (the `see` list): <t s: faces X, Y to camera; prop Z in frame; nobody in front of X>
 - Must read (story chain): <the beat in viewer words, e.g. "the friends leave in their coats"> - proven at the staging proof
 - Why this camera: <only when it departs from the panel: the reason, and that review A agreed>
+- Camera move: <a name from docs/CAMERA-MOVES.md, e.g. Locked-off shot, Dolly in, Dolly zoom, Speed ramp, Freeze frame>
 - Transition in / out: <cut / continuous>
 
 ### §3.2 ...

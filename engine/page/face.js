@@ -105,7 +105,7 @@ export class Face {
   // corner (a lower-lash tick at the outer corner, 0 none .. 1), glintSize (the catch light's size, 1 default)
   // freckles ({ n, color, seed }, castLook "sheet"): a few quiet freckles over the cheeks, a darker warm shade of the skin
   constructor({ place, size = 1, iris = "#4a2a14", cheeks = "#ff6f6f", ink = "#2a1a14", brow = null, lids = null, eye = {} }) {
-    this.place = place; this.size = size;
+    this.place = place; this.size = size; this.irisColor = iris;
     this.group = new THREE.Group();
     const E = { depth: 0.31, iris: 0.6, lash: 1, flick: 1, corner: 0, tilt: 0, glints: 1, shine: 1, oval: 1.12 / 0.9, ...eye };
     this.eyeStyle = E;
@@ -116,10 +116,16 @@ export class Face {
     // browShape.cap (castLook "sheet"): the brow tube's open ends are drawn from inside too, so a brow seen end-on in a
     // three-quarter view no longer shows a skin-coloured notch at its inner tip
     if (this.browStyle.cap) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.side = THREE.DoubleSide; }
+    // browShape.flat (opt-in, Pebble 7 Nov 2026): a painted brow with no outline shell round its tube (the shell drew a
+    // second line beside a fine brow, so it read as a raised double edge)
+    if (this.browStyle.flat) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.userData.noOutline = true; }
     // face.mouth { ink, thick } (Pebble, 6 Nov 2026; default-preserving): the closed smile's own colour (a warm brown
     // instead of the ink) and a thickness factor, so the smile can be finer without scaling the whole face
-    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1 };
+    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1, lift: MO.flat ? 0.002 : 0.005 };
     this.smileMat = MO.ink ? new THREE.MeshStandardMaterial({ color: MO.ink, roughness: 0.55 }) : this.inkMat;
+    // mouth.flat (opt-in, Pebble 7 Nov 2026): the closed smile is one fine painted line: no outline shell round its tube
+    // (it drew a second dark line under the smile) and it sits closer to the skin
+    if (MO.flat) { if (this.smileMat === this.inkMat) this.smileMat = this.inkMat.clone(); this.smileMat.userData.noOutline = true; }
     this.mouthMat = new THREE.MeshStandardMaterial({ color: "#6a2228",   // shallow, warm dark red: never a black hole
        roughness: 0.6, side: THREE.DoubleSide });
     // a warm off-white, matte enough that the one painted catch light is the only highlight
@@ -140,6 +146,9 @@ export class Face {
     const glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
     // the drawn look's pencil hatching stays off the eyes and the ink (looks.js, castLook "art")
     for (const m of [white, irisM, pupilM, this.inkMat, this.browMat, this.mouthMat, this.smileMat]) m.userData.noHatch = true;
+    // eye.noLine (opt-in, Pebble 7 Nov): no outline shell round the eye white and iris (it showed as a grey arc floating
+    // off the lower lid); the lid line alone draws the eye
+    if (E.noLine) for (const m of [white, irisM, pupilM]) m.userData.noOutline = true;
     // shine 0: the eye's own material response is switched off (fully rough, no reflections, no rim in the looks),
     // so the painted catch light (glints) is the only highlight; with both off the eye has no highlight at all
     if (E.shine === 0) for (const m of [white, irisM, pupilM]) { m.roughness = 1; m.envMapIntensity = 0; m.userData.noShine = true; }
@@ -149,10 +158,24 @@ export class Face {
       const r = 0.08 * size, D = E.depth, ri = E.iris;
       const ball = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 24), white); ball.scale.set(0.9, 0.9 * E.oval, D); lid.add(ball);
       const look = new THREE.Group(); lid.add(look);
-      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
-      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1, 0.3); pu.position.z = r * (D - 0.07); look.add(pu);
+      // eye.irisAspect (opt-in, Pebble review 7 Nov 2026): the iris and pupil height against their width (1: the tall 1.12
+      // anime iris), so a low almond eye white (small oval) can hold an iris that isn't taller than itself
+      const ia = E.irisAspect ?? 1;
+      const ir = new THREE.Mesh(new THREE.SphereGeometry(r * ri, 28, 20), irisM); ir.scale.set(1, 1.12 * ia, 0.35); ir.position.z = r * (D - 0.16); look.add(ir);
+      // eye.conform (opt-in, Pebble 7 Nov 13:16): the iris and pupil are painted INTO a second eye white's own texture
+      // (repainted when the gaze or pupil changes) instead of standing in front of it as shallow ellipsoids, so from no
+      // camera angle and at no point of a blink can they show past the white, over the skin or through a lid
+      let paint = null;
+      if (E.conform) {
+        const cv = document.createElement("canvas"); cv.width = cv.height = 256;
+        const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
+        tex.repeat.set(2.5, 1); tex.offset.set(-0.125, 0);   // the front of the ball (u 0.05..0.45) fills the canvas
+        const wm = white.clone(); wm.color.set("#ffffff"); wm.map = tex; const pball = new THREE.Mesh(new THREE.SphereGeometry(r, 72, 54), wm); pball.scale.copy(ball.scale); lid.add(pball);
+        paint = { cv, g: cv.getContext("2d"), tex, key: "", ball: pball };
+      }
+      const pu = new THREE.Mesh(new THREE.SphereGeometry(r * ri * 0.55, 24, 16), pupilM); pu.scale.set(1, 1.1 * ia, 0.3); pu.position.z = r * (D - 0.07 + (E.pupilZ ?? 0)); look.add(pu);   // eye.pupilZ (opt-in, Pebble 7 Nov): brings a pupil hidden inside a big iris to its front
       // one designed catch light, the same way in both eyes (up and to the right); a second, small one is optional
-      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03)); look.add(g1);
+      const g1 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.14 * (E.glintSize ?? 1), 14, 10), glint); g1.scale.set(1, 1.1, 0.5); g1.position.set(r * ri * 0.36, r * ri * 0.5, r * (D + 0.03 + (E.pupilZ ?? 0))); look.add(g1);
       const glints = E.glints >= 1 ? [g1] : []; g1.visible = E.glints >= 1;   // glints 0: no catch light (a diagnostic)
       if (E.glints > 1) { const g2 = new THREE.Mesh(new THREE.SphereGeometry(r * 0.07, 10, 6), glint); g2.scale.set(1, 1, 0.5); g2.position.set(-r * ri * 0.3, -r * ri * 0.36, r * (D + 0.02)); look.add(g2); glints.push(g2); }
       // the lid line, tapered at both ends, thickest over the pupil, with the character's outer-corner flick
@@ -206,7 +229,7 @@ export class Face {
       const tear = this._tear(side, r, D, E.oval);
       lid.add(tear.group);
       this.group.add(root);
-      return { side, root, lid, look, iris: ir, pupil: pu, lash, lidPivot, lowPivot, space: lids ? lidPivot.parent : null, crease, glints, r, tear };
+      return { side, root, lid, look, iris: ir, pupil: pu, paint, white: ball, lash, lidPivot, lowPivot, space: lids ? lidPivot.parent : null, crease, glints, r, tear };
     });
     const bt = blushTexture(cheeks, arguments[0].blush ?? 1);   // blush: how strong the cheeks are (less for the Reaper and Samurai)
     this.cheeks = [-1, 1].map((side) => {
@@ -339,6 +362,9 @@ export class Face {
   // gaze direction in the host's space taken into each eye's frame (the eyes sit on a curved face and point apart, so
   // straight ahead means a little inwards for each). The pupil sits at gx * r * 0.5, gy * r * 0.48 in the lid group.
   _gaze(eye, look) {
+    // eye.gaze "parallel" (opt-in, Pebble 7 Nov 2026): both pupils take the same offset in their own eye, so eyes set
+    // wide on a round head look at one target instead of each turning out with its own surface (the default)
+    if (this.eyeStyle.gaze === "parallel") return [Math.max(-0.45, Math.min(0.45, look[0] * 0.55)), Math.max(-0.5, Math.min(0.5, look[1] * 0.45))];
     _q.copy(eye.root.quaternion).invert();
     _d.set(look[0] * 0.55, look[1] * 0.45, 1).applyQuaternion(_q);
     return [Math.max(-0.45, Math.min(0.45, _d.x / Math.max(0.3, _d.z))), Math.max(-0.5, Math.min(0.5, _d.y / Math.max(0.3, _d.z)))];
@@ -372,7 +398,7 @@ export class Face {
   _irisOut(O, px, py, R) {
     let out = 0;
     for (let i = 0; i < 24; i++) {
-      const a = (Math.PI * 2 * i) / 24, x = px + R * Math.cos(a), y = py + 1.12 * R * Math.sin(a);
+      const a = (Math.PI * 2 * i) / 24, x = px + R * Math.cos(a), y = py + 1.12 * (this.eyeStyle.irisAspect ?? 1) * R * Math.sin(a);
       const inWhite = (x / O.W) ** 2 + (y / O.H) ** 2 <= 1;
       if (inWhite) continue;
       const f = Math.max(0, Math.min(48, ((x + O.W) / (2 * O.W)) * 48)), j = Math.min(47, Math.floor(f)), q = f - j, u = O.up[j] + (O.up[j + 1] - O.up[j]) * q;
@@ -410,7 +436,7 @@ export class Face {
     const L = this.layout, s = this.size, E = this.eyeStyle;
     const F = this.eyes.map((eye) => {
       const p = this.place(eye.side * L.eyeU, L.eyeV);
-      this._orient(eye.root, { pos: p.pos.clone().addScaledVector(p.normal, -0.012 * s), normal: p.normal });
+      this._orient(eye.root, { pos: p.pos.clone().addScaledVector(p.normal, (-0.012 + (this.eyeStyle.out ?? 0)) * s), normal: p.normal });   // eye.out (opt-in): sits the eye further out of the face
       const [gx, gy] = this._gaze(eye, look), r = eye.r, pxq = gx * r * 0.5, pyq = gy * r * 0.48;
       // (b) the lid as the face asks (squint and lid control), then its edge moved with the pupil: down by half of a
       // drop, up by a fifth of a rise; the half-lid cap and the floor as before
@@ -426,7 +452,7 @@ export class Face {
       // that closes past the half-lid cap, but not with a droop of the upper lid (a deadpan or sleepy lid control): in the
       // old rule a heavy upper lid also brought the lower one up, and the eye became a slit too narrow for the pupil
       const kL = Math.min(1, sq + (1 - sq) * clamp01((own - 0.86) / 0.14));
-      const rx = r * E.iris * 0.55 * e.pupil, ry = rx * 1.08;
+      const rx = r * E.iris * 0.55 * e.pupil, ry = rx * 1.08 * (E.irisAspect ?? 1);
       return { eye, r, k, kL, O: this._opening(eye, k, kL), pxq, pyq, rx, ry, R: r * E.iris };
     });
     // up and down at a given place across: moved from the asked height toward where the pupil shows most until READ of
@@ -471,6 +497,39 @@ export class Face {
   // Up shark, Phoenix 8.60 s and 8.73 s, a blink on a look down and to the side). During a blink the lid shells are
   // made just deep enough (front to back) that whatever of the iris lies inside the eye's outline stays under them;
   // with no blink nothing changes. The shut crease moves out with them so it stays on the lid.
+  // eye.conform: paint the iris (with the irisShade bands when on) and the pupil into the eye white's texture where the
+  // look group's offset puts them: each texel's point on the ball (sphere uv, scaled 0.9 r, 0.9 r oval) seen square on
+  _paint(eye, pupil) {
+    const P = eye.paint, L = eye.look.position, key = `${L.x.toFixed(5)},${L.y.toFixed(5)},${pupil.toFixed(4)}`;
+    if (P.key === key) return;
+    P.key = key;
+    const E = this.eyeStyle, r = eye.r, ri = E.iris, ia = E.irisAspect ?? 1, a = 0.9 * r, b = 0.9 * E.oval * r;
+    const RX = ri * r, RY = 1.12 * ia * ri * r, rp = ri * 0.55 * pupil * r, rpy = rp * 1.08 * ia;
+    if (!this._paintLUT) {
+      const c0 = new THREE.Color(this.irisColor), W = new THREE.Color(E.white ?? "#fbf5ea").convertLinearToSRGB(), lut = [];
+      const stops = E.irisShade ? [[0, 0.7, 0], [0.38, 0.8, 0], [0.5, 1.25, 0.02], [0.6, 1.9, 0.08], [0.68, 2.6, 0.16], [1, 1.6, 0.05]] : [[0, 1, 0], [1, 1, 0]];
+      const c = E.irisShade ? c0 : c0.clone().convertLinearToSRGB();   // irisShade's bands were painted from the linear values; keep their look
+      for (let i = 0; i < 256; i++) { const t = i / 255; let k = 0; while (k < stops.length - 2 && t > stops[k + 1][0]) k++; const [t0, m0, w0] = stops[k], [t1, m1, w1] = stops[k + 1], f = (t - t0) / (t1 - t0 || 1), m = m0 + (m1 - m0) * f, w = w0 + (w1 - w0) * f; lut.push([c.r, c.g, c.b].map((v) => Math.round(255 * Math.min(1, v * m + w)))); }
+      this._paintLUT = { lut, white: [W.r, W.g, W.b].map((v) => Math.round(255 * v)), pupil: [11, 10, 14] };
+    }
+    const { lut, white, pupil: pc } = this._paintLUT, g = P.g, img = g.createImageData(256, 256), d = img.data, GL = E.paintGlint;
+    for (let j = 0; j < 256; j++) {
+      const v = 1 - (j + 0.5) / 256, th = (1 - v) * Math.PI, st = Math.sin(th), Y = Math.cos(th) * b;
+      for (let i = 0; i < 256; i++) {
+        const u = 0.05 + (i + 0.5) / 256 / 2.5, ph = u * 2 * Math.PI, X = -Math.cos(ph) * st * a;
+        const dx = X - L.x, dy = Y - L.y, qi = Math.sqrt((dx / RX) ** 2 + (dy / RY) ** 2), qp = Math.sqrt((dx / rp) ** 2 + (dy / rpy) ** 2);
+        // soft one-texel edges: the iris over the white, the pupil over the iris
+        const px = 1 / (256 * 2.5) * 2 * Math.PI * a, ei = Math.min(1, Math.max(0, (1 - qi) * RX / px + 0.5)), ep = Math.min(1, Math.max(0, (1 - qp) * rp / px + 0.5));
+        const ic = lut[Math.max(0, Math.min(255, Math.round((0.5 - dy / RY / 2) * 255)))], o = (j * 256 + i) * 4;
+        // eye.paintGlint [x, y, r] (opt-in, Pebble 7 Nov): the catch light painted into the iris (in iris radii from its
+        // centre), low enough to show under a heavy lid; the separate glint shape stood at the top, always under the lid
+        const eg = GL ? Math.min(1, Math.max(0, (1 - Math.hypot((dx - GL[0] * RX) / (GL[2] * RX), (dy - GL[1] * RY) / (GL[2] * RX))) * GL[2] * RX / px + 0.5)) * ei : 0;
+        for (let k = 0; k < 3; k++) { const iv = ic[k] + (pc[k] - ic[k]) * ep, cv = white[k] + (iv - white[k]) * ei; d[o + k] = Math.round(cv + (250 - cv) * eg); }
+        d[o + 3] = 255;
+      }
+    }
+    g.putImageData(img, 0, 0); P.tex.needsUpdate = true;
+  }
   _deepen(eye, blink) {
     const S = eye.space.scale, z0 = eye.space.userData.z0;
     S.z = z0; eye.crease.scale.z = 1; eye.look.visible = true;
@@ -511,7 +570,7 @@ export class Face {
     this.shown = [1, 1];
     this.eyes.forEach((eye, ei) => {
       const p = this.place(eye.side * L.eyeU, L.eyeV);
-      this._orient(eye.root, { pos: p.pos.clone().addScaledVector(p.normal, -0.012 * s), normal: p.normal });
+      this._orient(eye.root, { pos: p.pos.clone().addScaledVector(p.normal, (-0.012 + (this.eyeStyle.out ?? 0)) * s), normal: p.normal });   // eye.out (opt-in): sits the eye further out of the face
       if (eye.lidPivot) {
         // closing 0 open .. 1 shut: from the squint, then the blink on top, the lid following the gaze up and down,
         // and the per-eye control (lidR is the character's right eye, at -u)
@@ -542,6 +601,9 @@ export class Face {
         // eye, and sinking it sank the eye white under the skin and left the iris poking out of the lid)
         const cl = Math.max(0, Math.min(1, ((kL == null ? k : Math.min(k, kL)) - 0.3) / 0.7));
         eye.lid.scale.set(1 + (e.eye - 1) * 0.25, Math.max(1, e.eye), 1 - 0.7 * cl * cl * (3 - 2 * cl));
+        // eye.out (opt-in): the eye that sits further out goes back to the face as the lids meet, so the shut lids
+        // don't stand proud of the skin as a bag under the lid line (Pebble, 7 Nov)
+        if (this.eyeStyle.out) { const w = clamp01(((kL == null ? k : Math.min(k, kL)) - 0.7) / 0.15); eye.root.position.addScaledVector(p.normal, -this.eyeStyle.out * s * w * w * (3 - 2 * w)); }
       } else {
         const open = Math.max(0.06, e.eye * (1 - blink));
         eye.lid.scale.set(1 + (e.eye - 1) * 0.25, open, 1);
@@ -554,6 +616,7 @@ export class Face {
       const ik = 1 - Math.max(0, Math.min(0.6, e.shrink || 0));
       eye.iris.scale.set(ik, 1.12 * ik, 0.35);
       for (const g of eye.glints) { const o = g.userData.at ??= g.position.clone(); g.position.set(o.x * ik, o.y * ik, o.z); }
+      if (eye.paint) { eye.white.visible = eye.iris.visible = eye.pupil.visible = false; this._paint(eye, e.pupil); }
       // (d) how much of the pupil shows, seen square on, with the blink (face.shown [right eye, left eye], the layout's
       // measure; eyes without lids count as shown)
       if (eye.lidPivot) {
@@ -569,6 +632,7 @@ export class Face {
           for (const gl of eye.glints) gl.visible = gs > 0.01, gl.scale.setScalar(gs).multiply(_gz);
         }
       }
+      if (eye.paint && this.eyeStyle.paintGlint) for (const gl of eye.glints) gl.visible = false;   // painted into the iris instead
       if (eye.space) this._deepen(eye, blink);
       // tears: 0..0.5 the band fades in, 0.5..1 the bead swells (the character's right eye is at -u)
       const tk = Math.max(0, Math.min(1, (eye.side < 0 ? c.tearR : c.tearL) || 0)), T = eye.tear;
@@ -689,7 +753,7 @@ export class Face {
       const curve = new THREE.CatmullRomCurve3(this._surfLine(ring, 0.006 * s), true);
       this.mouthLine = new THREE.Mesh(new THREE.TubeGeometry(curve, 48, 0.0072 * s, 6, true), this.inkMat); this.group.add(this.mouthLine);
     } else {
-      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, 0.005 * s));
+      const curve = new THREE.CatmullRomCurve3(this._surfLine(lower, this.mouthStyle.lift * s));
       // a closed smile: a brush line, fuller in the middle, fine at the corners
       this.mouthLine = new THREE.Mesh(taperedTube(curve, 0, 0, 32, 8, (t) => s * this.mouthStyle.thick * (0.003 + 0.0065 * (1 + 0.9 * press) * Math.pow(Math.sin(Math.PI * t), 0.8))), this.smileMat); this.group.add(this.mouthLine);
     }
