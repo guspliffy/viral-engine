@@ -501,24 +501,20 @@ is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with 
 
 ## The drawn 2D layer (opt-in, look-2d-layer-01, 7 Nov 2026; Jonny's call before it goes in the template)
 
-Anime draws a feeling as a mark beside the head and a fast move as a smeared drawing; here they are drawn on the 2D
-layer over the 3D picture (`engine/page/fx2d.js`), so they boil with the drawn look and never touch the 3D contacts.
-`"anime2d": true` adds them from the storyboard itself (`engine/shared/anime2d.js`):
+Anime finishes a 3D shot with drawn touches: dust where a landing meets the floor, and a smeared drawing on the fastest
+frames of a move. Here they are drawn on the 2D layer over the 3D picture (`engine/page/fx2d.js`), so they boil with
+the drawn look and never touch the 3D contacts. `"anime2d": true` adds them from the storyboard itself
+(`engine/shared/anime2d.js`):
 
-- `vein` (throbbing red cross on the head's top side) on an annoyed, angry, stern or furious face and an angry line;
-  `drop` (big sweat drop sliding down the side) on worried, nervous, scared, terrified or dizzy; `shock` (three fat
-  dashes either side above the head) on shocked or surprised; `gloom` (purple wash and vertical lines over the top of
-  the body) on sad or defeated. A mark stays while the face does (0.6-1.8 s); a face held from frame 0 gets none; at
-  most three of the same mark at once.
 - `dust`: a drawn dust cloud with grit where a land or a high hop meets the floor (only on the ground).
-- `burst`: an inked impact star with action lines on the head of whoever an `act.impact` hit squashes.
 - `smear2d`: on any body moving more than 42 px a frame, tapered drawn smear fingers behind it in its own colour,
-  inked at the sides, for that frame only (never across a cut). `"anime2d": { "smear": { "trail": 3.2 } }` sets the
-  length in frames of motion.
+  inked at the sides, for that frame only (never across a cut, never on a close-up, a body at the frame's edge or a
+  near-black one; at most 0.8 of the body long, and they stop short of another face).
+  `"anime2d": { "smear": { "trail": 3.2, "cap": 1.6 } }` sets the length in frames of motion and its cap in half-bodies.
 
-`"anime2d": { "vein": false, ... }` turns one off. Each mark is an ordinary `fx` item, so a beat can also write it by
-hand (`{ "fx": "drop", "who": "phx", "at": 0.2, "dur": 1 }`, `burst` takes `"where": "top" | "side"` and `"size"`),
-and a hand-written mark for the same character within 1.5 s wins over an automatic one. A mark is skipped while a
-nearer character covers the head it belongs to. `"debug2d": true` draws the body ellipses the marks are placed on.
-Test copy: `storyboards/series/too-much-energy/02-cinema/cinema-2d.json` (before/after in
+`"anime2d": { "dust": false }` turns one off. A dust item can also be written by hand (`{ "fx": "dust", "who": "phx",
+"at": 0.2 }`) and wins over an automatic one within 1.5 s. `"debug2d": true` draws the body ellipses they are placed
+on. No reaction signs (anger veins, sweat drops, shock lines, impact stars): they were built and taken out again
+(Jonny, 8 Nov 2026: "i dont like these extra signs everywhere"). Test copy:
+`storyboards/series/too-much-energy/02-cinema/cinema-2d.json` (before/after in
 `/mnt/project-files/videos/engine-upgrades/look-2d-layer-01/`).

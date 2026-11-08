@@ -4616,14 +4616,6 @@
      "pose": "lap",
      "dur": 0.01,
      "at": 1.04
-    },
-    {
-     "fx": "burst",
-     "who": "ast",
-     "where": "top",
-     "size": 0.55,
-     "dur": 0.2,
-     "at": 0.44
     }
    ]
   },

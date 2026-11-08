@@ -398,7 +398,7 @@ function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   if (has2d) drawFx2d(env2d, sb.fx, t);
-  if (sb.debug2d) for (const w of env2d.who()) { const B = env2d.body(w); if (B) { ctx.save(); ctx.strokeStyle = "#0f0"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(B.cx, B.cy, B.rx, B.ry, 0, 0, 7); ctx.stroke(); ctx.fillStyle = "#0f0"; ctx.font = "30px sans-serif"; ctx.fillText(`${w} ${B.vis ? "" : "HID"}`, B.cx, B.cy); ctx.restore(); } }   // the drawn 2D layer (fx2d.js): veins, drops, shock and gloom lines, dust, bursts, smears
+  if (sb.debug2d) for (const w of env2d.who()) { const B = env2d.body(w); if (B) { ctx.save(); ctx.strokeStyle = "#0f0"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(B.cx, B.cy, B.rx, B.ry, 0, 0, 7); ctx.stroke(); ctx.fillStyle = "#0f0"; ctx.font = "30px sans-serif"; ctx.fillText(`${w} ${B.vis ? "" : "HID"}`, B.cx, B.cy); ctx.restore(); } }   // the drawn 2D layer (fx2d.js): dust and smears
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
