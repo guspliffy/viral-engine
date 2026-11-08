@@ -146,6 +146,31 @@ function relief(img, w, h, x, y, z, P) {
   return geo;
 }
 
+// open water (motion mask blue, env.py motion.water boxes), like a lake on a breezy day: rows of small wind
+// ripples roll toward the shore, each one bending the painted reflection a little sideways and catching the sky as a
+// short bright dash, with darker troughs between them. P: the water plane in metres (the life layer's world position),
+// so the ripples shrink with distance by themselves; without it they are laid out in the painting's own rows. Ripples
+// finer than a pixel fade out (fwidth), so the far water only glints. T: the shader's time; F: a frequency as GLSL
+// (loop-safe folding); UV: where the pixel is sampled before the water moves it; AMP: a strength factor (gusts).
+// With mo.b 0 nothing changes.
+export const waterGLSL = (T, F, UV, AMP = "1.0", P = null) => /* glsl */`
+      if (mo.b > 0.004) {
+        vec2 wp = ${P ?? "vec2(vMapUv.x * 60.0, 0.6 / max(0.05, 1.0 - vMapUv.y))"};
+        float wa = wp.y * 7.5 + sin(wp.x * 0.55 + ${T} * ${F(0.4)}) * 1.6 + sin(wp.x * 1.9 - wp.y * 0.7 + ${T} * ${F(0.7)}) * 0.6 - ${T} * ${F(2.2)};
+        float wb = wp.y * 2.4 - wp.x * 0.35 + sin(wp.x * 0.23 - ${T} * ${F(0.25)}) * 2.0 + ${T} * ${F(1.1)};
+        float fa = 1.0 - smoothstep(0.6, 1.6, fwidth(wa)), fb = 1.0 - smoothstep(0.6, 1.6, fwidth(wb));
+        float dash = smoothstep(0.1, 0.7, sin(wp.x * 2.3 + wp.y * 1.1 - ${T} * ${F(0.6)}) * 0.6 + sin(wp.x * 0.9 - wp.y * 1.7 + ${T} * ${F(0.45)}) * 0.6);
+        float sa = sin(wa) * fa, sb = sin(wb) * fb, wn = mo.b * (${AMP});
+        vec2 wd = vec2(sa * (0.4 + dash) * 9.0 + sb * 6.0, cos(wa) * fa * 2.5) * uPx * wn;
+        sampledDiffuseColor = texture2D(map, ${UV} + wd);
+        float wl = dot(sampledDiffuseColor.rgb, vec3(0.3, 0.59, 0.11));
+        float crest = smoothstep(0.55, 0.95, sa) * dash, trough = smoothstep(0.5, 0.95, -sa) * (0.3 + 0.7 * dash);
+        sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, vec3(0.86, 0.93, 1.0), crest * wn * (0.14 + 0.3 * smoothstep(0.3, 0.8, wl)));
+        sampledDiffuseColor.rgb *= 1.0 - trough * wn * 0.14 + sb * wn * 0.04;
+        float wf = (1.0 - fa) * (1.0 - fb) * dash * wn;
+        sampledDiffuseColor.rgb += wf * smoothstep(0.4, 0.8, wl) * 0.12 * (0.5 + 0.5 * sin(wp.x * 7.0 + ${T} * ${F(1.7)}));
+      }`;
+
 // leaves sway and sunlight shimmers, read from the motion mask, in the plate's own shader. With loop-safe idle
 // (util.js loopNow) every rhythm, the shimmer's drift included, turns a whole number of times over the clip.
 // o.amp: how far a leaf sways, in texels (default 3); o.key: a shader cache name per user (set-env.js layers).
@@ -166,7 +191,7 @@ export function animate(mat, motion, width, o = {}) {
       float ph = vMapUv.x * 23.0 + vMapUv.y * 11.0;   // nearby leaves move together, far ones out of step
       vec2 sway = vec2(sin(uTime * ${loopNow() ? f(1.3) : "1.3"} + ph) * 0.7 + sin(uTime * ${loopNow() ? f(3.7) : "3.7"} + ph * 2.1) * 0.3,
                        sin(uTime * ${loopNow() ? f(1.9) : "1.9"} + ph * 1.3) * 0.35) * uPx * ${(o.amp ?? 3).toFixed(2)};
-      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * mo.r);${shimmer}
+      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * mo.r);${waterGLSL("uTime", (w) => (loopNow() ? f(w) : w.toFixed(2)), "vMapUv + sway * mo.r")}${shimmer}
       sampledDiffuseColor.rgb *= 1.0 + mo.g * n * 0.07;   // leaf shadows passing over the sun patches
       diffuseColor *= sampledDiffuseColor;`);
     sh.fragmentShader = "uniform float uTime; uniform sampler2D uMotion; uniform float uPx;\n" + sh.fragmentShader;

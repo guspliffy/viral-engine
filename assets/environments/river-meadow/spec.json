@@ -31,5 +31,23 @@
  },
  "swayMax": 20,
  "surface": "grass",
- "lifeSkyTop": 0.05
+ "lifeSkyTop": 0.05,
+ "motion": {
+  "water": [
+   [
+    0,
+    0.3,
+    1,
+    0.46
+   ]
+  ],
+  "still": [
+   [
+    0.58,
+    0.37,
+    0.76,
+    0.44
+   ]
+  ]
+ }
 }

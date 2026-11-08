@@ -38,6 +38,20 @@
     0.62,
     0.69
    ]
+  ],
+  "water": [
+   [
+    0,
+    0.3,
+    1,
+    0.655
+   ],
+   [
+    0,
+    0.655,
+    0.62,
+    0.69
+   ]
   ]
  },
  "scale_note": "eye height 1.7: Pebble (about 2 m drawn) stands on the bank at about half the frame; at 0.95 he filled it",
