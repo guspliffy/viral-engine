@@ -25,8 +25,9 @@ ribbon. Set: `xmasroom` with `party: true` (bunting, no Christmas tree), `light:
 - **3D room, not a painted plate.** The painted plates I tried came out as perspective rooms that don't match eight
   different cameras; the `xmasroom` set with the party variant gives every panel's camera a real room (window,
   fireplace, bookcase, bunting, rug).
-- **Cake at the back, not front left** (panel 1). In front it hid Gunslinger in every shot of him (panels 2, 3, 6);
-  at the back between Viking and Reaper the wide still sees the lit cake.
+- **The cake is front left only in panel 1** (as drawn; review B): on its little table at the bottom left of the wide,
+  then moved to the back between Viking and Reaper on the cut to panel 2. In front it hid Gunslinger in every later
+  shot of him (panels 2, 3 and 6).
 - **"Happy birthday!" at 0.34 s, not 0.0**: the Wizard has the party horn in his mouth at frame 0 (the hook sound),
   the line comes as it drops.
 - **No tongue** in panel 3: the face rig has no tongue; a pucker/smirk stands in.
@@ -72,3 +73,8 @@ ribbon. Set: `xmasroom` with `party: true` (bunting, no Christmas tree), `light:
   Viking cheated beside him on the cut to panel 5 (4.48 s), the presents with him.
 - **Subtitles all sit at the top of the subtitle band (y 470)**, over the wall: lower down they covered faces or the
   hug in these framings.
+- **Panel 8 is wider than drawn** (review B): fov 44 from the front right, so Viking's head and party hat show at the
+  bottom right under the wink (the hug reads: Gunslinger is held up, not floating), the Wizard's face bottom left.
+  Review B's own camera with the Wizard stepped in front put his hat over Gunslinger's face, so he keeps his place.
+- **Happy tears as drops**: a tear on the cheek doesn't read at phone size, so the sob (5.45 s) squeezes his eyes and
+  blue drops flick off his head as he bursts out "Best… gift… EVER!" (the `sweat` effect in blue).

@@ -441,13 +441,13 @@ const rg2 = grips.box(c, "rea", BOXL);
 A(6.9, "rea", "pitch", { to: 22, dur: 0.25 }); A(6.9, "rea", "crouch", { to: 0.6, dur: 0.25 });
 let tb = rg2.take(6.95, { reach: 0.2, settle: 0.12 });
 A(r3(tb + 0.05), "rea", "pitch", { to: 0, dur: 0.25 }); A(r3(tb + 0.05), "rea", "crouch", { to: 0, dur: 0.25 });
-const RHOLD = front(R7, R7_DUST, 0.48, 0, 0.34);   // at his tummy: the dusting hand stays under his face
+const RHOLD = front(R7, R7_DUST, 0.48, 0, 0.24);   // at his tummy: the dusting hand stays under his face
 A(r3(tb + 0.05), "rea", "turn", { to: R7_DUST, dur: 0.32 });   // round to us with it, to dust it off
 tb = rg2.carry(r3(tb + 0.05), RHOLD, 0.32, "inOut", { rot: r3(R7_DUST + 180) });
 // dusting: the left hand holds it, the right one brushes the lid twice
-c.arm(r3(tb + 0.1), "rea", "R", { o: [-0.1, 0.62, 0.42] }, 0.1, "out"); A(r3(tb + 0.1), "rea", "grip", { side: "R", shape: "flat", dur: 0.08 });
-for (let k = 0; k < 3; k++) { const t = r3(tb + 0.22 + k * 0.18); c.arm(t, "rea", "R", { world: front(R7, R7_DUST, 0.5, k % 2 ? 0.08 : -0.08, 0.56) }, 0.09, "inOut"); }
-for (const k of [0, 2]) c.at(r3(tb + 0.3 + k * 0.18), { fx: "poof", pos: front(R7, R7_DUST, 0.5, 0, 0.6), dur: 0.4, color: "#d8cdbd", puffs: 5, sparks: 0, size: 0.14, lift: 0.12 });   // dust off the lid (review A)
+c.arm(r3(tb + 0.1), "rea", "R", { o: [-0.1, 0.52, 0.42] }, 0.1, "out"); A(r3(tb + 0.1), "rea", "grip", { side: "R", shape: "flat", dur: 0.08 });
+for (let k = 0; k < 3; k++) { const t = r3(tb + 0.22 + k * 0.18); c.arm(t, "rea", "R", { world: front(R7, R7_DUST, 0.5, k % 2 ? 0.08 : -0.08, 0.46) }, 0.09, "inOut"); }
+for (const k of [0, 2]) c.at(r3(tb + 0.3 + k * 0.18), { fx: "poof", pos: front(R7, R7_DUST, 0.55, 0, 0.5), dur: 0.35, color: "#d8cdbd", puffs: 4, sparks: 0, size: 0.09, lift: 0.03 });   // dust off the lid (review A)
 sfx(r3(tb + 0.25), "kenney/cloth", { gain: 0.25, reason: "Reaper's glove brushing the dust off his box's lid" });
 A(r3(tb + 0.1), "rea", "look", { to: [0.0, -0.4], dur: 0.1, blink: false }); A(r3(tb + 0.1), "rea", "face", { lid: 0.5, dur: 0.1 });
 see(r3(tb + 0.1), 8.5, ["rea.face", "giftB"], "panel 7: Reaper dusts off his black box, deadpan");
