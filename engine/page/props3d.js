@@ -57,6 +57,8 @@ import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinerco
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
+import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
+import { COASTER_KINDS } from "./props-coaster.js";   // never looks up 07, the roller coaster: coastertrack, coastercar, photopost, photoscreen
 import { CITY_KINDS } from "./props-city.js";   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
@@ -1372,7 +1374,9 @@ Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
+Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
+Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
 Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 

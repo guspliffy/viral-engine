@@ -7,10 +7,12 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
+import { InkEffect } from "./ink.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
 import { makeLightRig, AO_GLSL } from "./light.js";
+import { FIRE_U } from "./firelight.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -91,10 +93,44 @@ const GradeShader = {
     }`,
 };
 
+// set "satsuei" (8 Nov 2026, opt-in; anime look plan item 8, after the MEGA CLAWD film's grade, seeconever/megaclawd,
+// MIT): anime compositing on the finished picture, in display colours. A warm halation round the brightest parts
+// (windows, sky, glints), a soft diffusion glow screened from the light areas (it only adds light, so faces and lines
+// stay crisp), shadows pulled lavender and highlights warm by multiplying (the hue holds), a violet lift in the darks,
+// and a one-code-value dither against banding after TikTok's re-encode
+const SatsueiShader = {
+  uniforms: {
+    tDiffuse: { value: null }, res: { value: new THREE.Vector2(1080, 1920) }, hal: { value: 0.35 }, halThr: { value: 0.8 }, diffuse: { value: 0.22 }, diffThr: { value: 0.55 },
+    halCol: { value: new THREE.Color("#ff8a50") }, shade: { value: new THREE.Color("#e4e2ff") }, high: { value: new THREE.Color("#fff6ea") }, lift: { value: new THREE.Color("#0a0816") },
+  },
+  vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: /* glsl */`
+    uniform sampler2D tDiffuse; uniform vec2 res; uniform float hal, halThr, diffuse, diffThr; uniform vec3 halCol, shade, high, lift; varying vec2 vUv;
+    void main() {
+      vec3 c = texture2D(tDiffuse, vUv).rgb, h = vec3(0.0), g = vec3(0.0);
+      float sc = res.x / 1080.0;
+      for (int i = 0; i < 12; i++) {
+        float a = float(i) * 0.5236 + 0.26; vec2 o = vec2(cos(a), sin(a)) * sc / res;
+        vec3 s1 = texture2D(tDiffuse, vUv + o * 5.0).rgb, s2 = texture2D(tDiffuse, vUv + o * 14.0).rgb, s3 = texture2D(tDiffuse, vUv + o * 32.0).rgb;
+        h += max(s1 - halThr, 0.0) * 0.6 + max(s2 - halThr, 0.0) * 0.4;
+        g += max(s2 - diffThr, 0.0) * 0.5 + max(s3 - diffThr, 0.0) * 0.5;
+      }
+      h /= 12.0; g /= 12.0;
+      c += dot(h, vec3(0.3, 0.5, 0.2)) * halCol * hal / (1.0 - halThr);
+      c = 1.0 - (1.0 - c) * (1.0 - g * diffuse / (1.0 - diffThr));
+      float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+      c *= mix(shade, high, smoothstep(0.08, 0.7, l));
+      c += lift * (1.0 - smoothstep(0.0, 0.35, l));
+      c += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;
+      gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+    }`,
+};
+
 // a render pass that draws with the OutlineEffect (ink lines) into the composer's buffer
 class OutlineRenderPass extends Pass {
   constructor(fx, scene, camera) { super(); this.fx = fx; this.scene = scene; this.camera = camera; this.needsSwap = false; }
   render(renderer, writeBuffer, readBuffer) {
+    if (this.fx.ink) this.fx.ink.res = [readBuffer.width, readBuffer.height];   // set "ink": widths in real pixels
     renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
     renderer.setClearColor(0x000000, 0); renderer.clear();
     this.fx.render(this.scene, this.camera);
@@ -216,12 +252,17 @@ function patchToon(m, o) {
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
+    // set "cel" (anime look 01, 7 Nov 2026): one hard shadow edge (edge px wide) at N.L = at; a cast shadow drawn
+    // hard too; proxy: the skin shades with a clean egg (an ellipsoid round the body's centre) instead of its bumps
+    if (o.cel) { sh.uniforms.uCelEdge = { value: o.cel.edge }; sh.uniforms.uCelAt = { value: o.cel.at }; sh.uniforms.uCelShift = { value: o.cel.shift }; sh.uniforms.uCelFace = { value: o.cel.face ?? 0 };
+      sh.uniforms.uProxyC = { value: new THREE.Vector3() }; sh.uniforms.uProxyR = { value: new THREE.Vector3() }; if (o.cel.sync) o.cel.sync(sh.uniforms); }
     if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
+    Object.assign(sh.uniforms, FIRE_U);
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uFirePos, uFireCol; uniform float uFireK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -238,6 +279,32 @@ function patchToon(m, o) {
           #ifdef BODY_N
             litK = clamp(getGradientIrradiance(nS, L).r * dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
           #endif
+          #ifdef CEL
+          {
+            #ifdef CEL_PROXY
+              // the clean egg: the ellipsoid's normal at this point (body space, round the body's centre), so the shadow
+              // edge is one smooth designed curve instead of following every potato bump
+              vec3 pl = (uBodyInv * vec4(vWPos, 1.0)).xyz - uProxyC;
+              nS = normalize(mat3(viewMatrix) * (transpose(mat3(uBodyInv)) * (pl * uProxyR)));
+              // the face patch stays lit (anime keeps the face clean; Arc System Works gave faces their own light): the
+              // shadow line bends round the face on the front of the egg (body +z, potato.js surf) unless the key is
+              // behind the character
+              vec3 dl = normalize(pl * sqrt(uProxyR));
+              float faceK = smoothstep(0.55, 0.85, dl.z) * (1.0 - smoothstep(0.35, 0.6, abs(dl.y + 0.05)));
+            #else
+              float faceK = 0.0;
+            #endif
+            // the shadow other things throw (an arm, a hat, a friend), drawn with a hard edge too
+            float shK = clamp(dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
+            shK = smoothstep(0.35, 0.65, shK);
+            // shift: the underside stays in shade (the belly turned to the floor), like a painted cel
+            vec3 nW = normalize((vec4(nS, 0.0) * viewMatrix).xyz);
+            float xk = dot(nS, L) - uCelAt + uCelShift * min(nW.y + 0.35, 0.0) + uCelFace * faceK;
+            float cw = max(fwidth(xk), 1e-5) * uCelEdge * 0.5;
+            litK = smoothstep(-cw, cw, xk) * shK;
+            ndl = dot(nS, L);
+          }
+          #endif
           vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
@@ -247,6 +314,9 @@ function patchToon(m, o) {
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
             float hk = uHatK * smoothstep(-uHatD, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
+            #ifdef CEL
+              { float e = hd + uHatD * 0.55, ew = max(fwidth(e), 1e-5); hk = uHatK * smoothstep(-ew, ew, e) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr)); }
+            #endif
             col *= mix(vec3(1.0), uShade * 0.92, hk);
           }
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
@@ -258,6 +328,17 @@ function patchToon(m, o) {
             { float rr = smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.05, 0.35, dot(normal, uKeyDir)) * uKRimK;
               col = mix(col, max(col, uKRim * mix(min(base * 1.8 + 0.2, vec3(1.0)), vec3(1.0), 0.35) * 1.6), rr); }
           #endif
+          // the fire's own light (firelight.js): a hard cel band of warm light on the planes turned to the flames, falling
+          // off with distance; 0 when no fire casts light
+          if (uFireK > 0.0) {
+            vec3 fp = (viewMatrix * vec4(uFirePos, 1.0)).xyz + vViewPosition; float fd = length(fp);
+            float fk = min(0.8, uFireK / (1.0 + fd * fd * 1.4)), fb = smoothstep(0.08, 0.2, dot(nS, fp / max(fd, 1e-4)));
+            // light adds in proportion to the surface's own colour: white cloth and skin go warm orange, black cloth
+            // and dark hair stay dark with a warm edge on the planes and rims turned to the fire
+            col += uFireCol * (base * 0.85 + 0.015) * fk * fb;
+            float fr2 = 1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0);
+            col += uFireCol * 0.35 * fk * fb * smoothstep(0.55, 0.75, fr2);
+          }
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
           col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side
@@ -296,7 +377,7 @@ function patchToon(m, o) {
         #include <opaque_fragment>`);
     if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}${o.cel ? `-cel${o.cel.proxy ? "p" : ""}` : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -552,6 +633,39 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // boil is how far the strokes shift per drawing, rate how many drawings a second (15), k a factor on its strength
   const HO = setSpec?.hatch;
   if (HO) for (const r of Object.keys(ROLE)) if (ROLE[r]?.hatch) { const h = ROLE[r].hatch; ROLE[r] = { ...ROLE[r], hatch: { ...h, gap: (h.gap ?? 7) * (HO.scale ?? 1), boil: HO.boil ?? h.boil, rate: HO.rate ?? h.rate, k: h.k * (HO.k ?? 1) } }; }
+  // set "cel" (anime look 01, 7 Nov 2026, opt-in; research/anime-look-2026-11-07): the characters and props drawn like
+  // anime cels: one hard shadow edge instead of a soft roll ("edge": px at 1080 wide, "at": where on the form the
+  // shadow starts, N.L), "flat": no gradient, floor darkening, gloss or skin mottling inside the two tones,
+  // "normals": "proxy": a potato's skin shades as a clean egg, so the shadow shape is one designed curve, "shift": how
+  // far the underside stays in shade, "face": how far the shadow line bends round the face so it stays lit. The set keeps
+  // its own painting. true: these defaults
+  const CEL = setSpec?.cel ? { edge: 1.5, at: 0.08, flat: true, normals: "proxy", shift: 0.5, face: 0.6, ...(setSpec.cel === true ? {} : setSpec.cel) } : null;
+  // set "ink" (8 Nov 2026, opt-in; research/anime-look-2026-11-07 item 5, the MEGA CLAWD ink pass): line widths in real
+  // pixels (at 1080 wide), the same on every side of a body (three's hull drew ~3 px left/right, ~5.6 px top/bottom in
+  // 9:16), a drawn hierarchy: the potato's body outline the thickest ("px"), hats, hoods and capes a little less ("cloth"),
+  // gloves, faces and the costume's small parts thinner ("part"), props thinner still ("prop"), the set's own 3D parts
+  // finest ("set"; painted sets have none), and every line thinning with distance ("far": (ref / depth)^far, clamped
+  // "min".."max"; ref metres, the medium shot's distance), and the ink a little darker than today's coloured line
+  // ("dark" multiplies its lightness: the MEGA CLAWD ink is a dark ink mixed with the darkened colour beside it). true:
+  // these defaults
+  const INK = setSpec?.ink ? { px: 4.5, cloth: 0.8, part: 0.55, prop: 0.6, set: 1.1, far: 0.3, ref: 5, min: 0.55, max: 1.6, dark: 0.7, ...(setSpec.ink === true ? {} : setSpec.ink) } : null;
+  const castMats = new Set(); for (const a of actors) { if (a.ch.limbMat) castMats.add(a.ch.limbMat); a.ch.root.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) castMats.add(m); }); }
+  const inkPx = (role, m, isSet) => {
+    if (isSet) return INK.set;
+    if (!castMats.has(m)) return INK.px * INK.prop;   // a scene prop (held or not)
+    if (role === "skin") return INK.px;
+    if (role === "cloth" || role === "hair") return INK.px * INK.cloth;
+    return INK.px * INK.part;   // gloves, linings, eyes, the costume's small parts and its own weapon
+  };
+  const proxySkins = new Set(CEL?.normals === "proxy" ? actors.filter((a) => a.ch.skin && a.ch.body && a.ch.body.material === a.ch.skin).map((a) => a.ch.skin) : []);
+  const celFor = (role, m) => {
+    if (!CEL) return {};
+    const proxy = proxySkins.has(m) && (role === "skin" || role === "lid"), a = proxy && actors.find((x) => x.ch.skin === m);
+    // the clean egg's centre and radii in the body's own space (the body's matrix is refreshed every frame in prepare)
+    const sync = a ? (u) => { a.ch.body.updateWorldMatrix(true, false); u.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); u.uProxyC.value.set(0, a.ch.cy, 0); u.uProxyR.value.set(1 / a.ch.rx ** 2, 1 / a.ch.ry ** 2, 1 / a.ch.rz ** 2); } : null;
+    const c = { cel: { edge: CEL.edge, at: CEL.at, shift: CEL.shift, face: CEL.face, proxy, sync } };
+    return CEL.flat ? { ...c, grad: 0, occ: 0, spec: 0, specW: 0, back: null } : c;
+  };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
@@ -561,7 +675,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const skins = new Set(actors.map((a) => a.ch.skin));
   // the core build's heads get the same painted mottling as the potato cast (Jonny 5 Nov: "a richer, more Ghibli style like
   // our potato characters", the default for every new character); head.skinMap false keeps a head smooth
-  for (const a of actors) if (a.ch.skin && a.def.head?.skinMap !== false) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
+  for (const a of actors) if (a.ch.skin && a.def.head?.skinMap !== false && !CEL?.flat) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
   // blush is painted softer in the drawn look
   for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
@@ -605,15 +719,15 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}), ...(m.userData.krimK == null && krimMul.has(m) && (LR ? ROLE[role] : null)?.krimK != null ? { krimK: ROLE[role].krimK * krimMul.get(m) } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), ...(!isSet && !m.userData.glow ? celFor(role, m) : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}), ...(m.userData.krimK == null && krimMul.has(m) && (LR ? ROLE[role] : null)?.krimK != null ? { krimK: ROLE[role].krimK * krimMul.get(m) } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
-      const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
+      const thick = INK ? inkPx(role, m, isSet) : isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", (isSet ? 0.5 : golden ? 0.34 : 0.26) * (INK && !isSet ? INK.dark : 1)), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -640,7 +754,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     pool.rotation.x = -Math.PI / 2; pool.position.set(v3.x, 0.004, v3.z + 0.5); pool.renderOrder = 0; pool.userData.lookOnly = true; scene.add(pool);
   }
   const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && (setSpec.type === "hills" || setSpec.type === "backyard") ? "#0f2e12" : "#2a2019", camera);
-  const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
+  const fx = INK
+    ? new InkEffect(R, { defaultThickness: INK.px * INK.part, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true, ink: { res: [W * R.getPixelRatio(), H * R.getPixelRatio()], ref: INK.far ? INK.ref : 0, pow: INK.far || 0.3, min: INK.min, max: INK.max } })
+    : new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
@@ -702,6 +818,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.lift.value.set(-0.05, -0.04, -0.015); grade.uniforms.highTint.value.set(-0.03, -0.01, 0.02); grade.uniforms.shadowTint.value.set(-0.01, 0.0, 0.03);
   }
   composer.addPass(grade);
+  // set "satsuei": true or { "hal", "halThr", "diffuse", "diffThr", "halCol", "shade", "high", "lift" } (SatsueiShader)
+  if (setSpec?.satsuei) {
+    const S = setSpec.satsuei === true ? {} : setSpec.satsuei, sat = new ShaderPass(SatsueiShader), u = sat.uniforms, pr = R.getPixelRatio();
+    u.res.value.set(W * pr, H * pr);
+    for (const k of ["hal", "halThr", "diffuse", "diffThr"]) if (S[k] != null) u[k].value = S[k];
+    for (const k of ["halCol", "shade", "high", "lift"]) if (S[k] != null) u[k].value = new THREE.Color(S[k]);
+    composer.addPass(sat);
+  }
   if (D && D.paper) {
     const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
     paper.uniforms.res.value.set(W * pr, H * pr); paper.uniforms.grain.value = D.paper.grain; paper.uniforms.wash.value = D.paper.wash; paper.uniforms.pool.value = D.paper.pool;
@@ -740,6 +864,13 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       for (const a of actors) {
         const sh = a.ch.skin && a.ch.body && bare.get(a.ch.skin)?.userData.shader;
         if (sh) { a.ch.body.updateWorldMatrix(true, false); sh.uniforms.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); }
+        // set "cel" proxy: the clean egg's centre and radii, in the body's own space
+        if (proxySkins.has(a.ch.skin)) for (const t of [toon.get(a.ch.skin), bare.get(a.ch.skin)]) {
+          const u = t?.userData.shader?.uniforms;
+          if (!u?.uProxyC) continue;
+          a.ch.body.updateWorldMatrix(true, false); u.uBodyInv.value.copy(a.ch.body.matrixWorld).invert();
+          u.uProxyC.value.set(0, a.ch.cy, 0); u.uProxyR.value.set(1 / a.ch.rx ** 2, 1 / a.ch.ry ** 2, 1 / a.ch.rz ** 2);
+        }
       }
       for (const { a, brim } of hats) {
         brim.getWorldPosition(hatC); brim.getWorldScale(hatS); hatUp.set(0, 1, 0).transformDirection(brim.matrixWorld);

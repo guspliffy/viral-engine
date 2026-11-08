@@ -2,7 +2,8 @@ import * as THREE from "three";
 
 // Props for the car clips (they ride in a vehicle rig, vehicle.js; put "rig": "<id>" on them):
 //   carseat  a sports bucket seat facing +z, its cushion at SEAT_Y like a chair, so "sit" works on it: a deep back
-//            with side bolsters and a headrest pad (spec.color: the upholstery, spec.trim: its edge piping)
+//            with side bolsters and a headrest pad (spec.color: the upholstery, spec.trim: its edge piping, spec.head:
+//            false leaves the headrest off)
 //   steer    a steering wheel: a dark rim with three chrome spokes on a short column. Its origin is the wheel's centre,
 //            its face toward -z (the driver); tip leans its top away from the driver, tilt turns it (steering, degrees).
 //            Grips: L / R (the driver's own left and right hands at ten to two, on the rim), top
@@ -34,7 +35,8 @@ export const ROAD_KINDS = {
     mesh(pad(W, 0.13, 0.62), up, P.whole, 0, SEAT_Y - 0.06, 0.02);                 // the cushion
     const back = mesh(pad(W, 0.86, 0.17), up, P.whole, 0, SEAT_Y + 0.4, -0.47); back.rotation.x = -0.1;
     for (const s of [-1, 1]) { const b = mesh(pad(0.12, 0.72, 0.24), trim, P.whole, s * (W / 2 - 0.02), SEAT_Y + 0.36, -0.42); b.rotation.x = -0.1; }   // side bolsters
-    const head = mesh(pad(W * 0.6, 0.24, 0.16), up, P.whole, 0, SEAT_Y + 0.92, -0.53); head.rotation.x = -0.1;
+    // spec.head false: no headrest (a coaster seat: the back row's faces show over the front row's seats)
+    if (P.spec.head !== false) { const head = mesh(pad(W * 0.6, 0.24, 0.16), up, P.whole, 0, SEAT_Y + 0.92, -0.53); head.rotation.x = -0.1; }
     const piping = mesh(new THREE.TorusGeometry(0.5, 0.012, 6, 40, Math.PI), trim, P.whole, 0, SEAT_Y + 0.62, -0.38); piping.scale.set(W * 0.9, 0.5, 1); piping.rotation.x = -0.1;
     return { grip: SEAT_Y };
   },

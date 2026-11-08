@@ -50,6 +50,7 @@ export const RULES = {
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
+  selfEyes: 0.55, selfDeep: 0.25, selfHold: 0.2, // a held prop in its own holder: from this height of the body up is the eyes; this deep reads as through; this long
   bodyClip: 0.1, // two characters this far into each other (0..1) fail outright, unless an allowClip window with a reason covers it
   // inside an allowClip window (a hug, a hide) contact is fine but merging is not (Zombie Too, 4 Nov: the hug window let
   // the bodies sink 86 % into each other and every check passed; the fixed hug presses 14 %): bodies may press up to
@@ -192,7 +193,9 @@ export function clipResults(sb, layout) {
   const actors = new Set((sb?.cast || []).map((c) => c.id));
   const win = (c, t) => windowFor(sb, actors.has(c.with) ? "character-overlap" : "clipping", c.who, t, c.with);
   const runs = new Map();
+  const self = new Map();   // a held prop going into its own holder (stage.js clipping() "self"), judged apart below
   for (const x of samples) for (const c of x.clips || []) {
+    if (c.self) { const k = `${c.who} / ${c.with}`, r = self.get(k) || { rows: [] }; r.rows.push({ t: x.t, d: c.depth, z: c.zone }); self.set(k, r); continue; }
     const w = win(c, x.t), body = actors.has(c.with);
     // a window allows contact with a prop, and bodies pressing together; bodies merging still fail
     if (w && (!body || c.depth <= (w.max ?? RULES.allowBody))) continue;
@@ -217,6 +220,32 @@ export function clipResults(sb, layout) {
     out.push({ level: lvl, check: "clipping", msg: `${k}: up to ${pct}% into each other at ${r.at.toFixed(1)}s${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}` });
   }
   if (!runs.size) out.push({ level: "pass", check: "clipping", msg: "nobody passes through props or each other" });
+  out.push(...selfResults(sb, self, step));
+  return out;
+}
+
+// "prop-in-self" (look-2d-layer-01, 7 Nov 2026): a held cup, spoon, fork or note going into its own holder's body. The
+// holder's hand puts it there on purpose, so a touch is fine (a mug against the chest, a cup at the lips); two things
+// are not. At the eyes: the prop goes in high on the face (RULES.selfEyes of the body's height and up, where a potato's
+// eyes are) for RULES.selfHold or longer: a sip aimed at the eyes or under a hat brim (Never Has Money 02, 7 Nov: the
+// coffee cup in the eyes, caught by eye; aim a sip at the layout's mouth point). Deep: the prop sinks past
+// RULES.selfDeep into the body for RULES.selfHold or longer (it reads as going through). Warnings, with the times, so
+// they show on every check. An allowClip window for who / prop waives the depth; only one naming "prop-in-self"
+// in its checks waives the eyes.
+function selfResults(sb, self, step) {
+  const out = [];
+  for (const [k, r] of self) {
+    const [who, what] = k.split(" / ");
+    const runOf = (pred) => { let best = 0, run = 0, last = -1, at = 0, from = 0; for (const x of r.rows) { if (!pred(x)) continue; run = Math.abs(x.t - last - step) < 1e-3 ? run + step : step; if (run === step) from = x.t; last = x.t; if (run > best) { best = run; at = from; } } return { best, at, to: at + best - step }; };
+    // a contact window (a sip: "lips on the cup") excuses the touch and the depth, never the height: only a window
+    // naming "prop-in-self" in its checks waives a prop at the eyes
+    const ok = (t) => windowFor(sb, "clipping", who, t, what), okEyes = (t) => windowFor(sb, "prop-in-self", who, t, what);
+    const eyes = runOf((x) => x.z >= RULES.selfEyes && x.d > 0.05 && !okEyes(x.t)), deep = runOf((x) => x.d > RULES.selfDeep && !ok(x.t));
+    const max = r.rows.reduce((m, x) => (x.d > m.d ? x : m), r.rows[0]);
+    if (eyes.best + 1e-6 >= RULES.selfHold) out.push({ level: "warn", check: "prop-in-self", msg: `${who}'s ${what} goes into its own face at eye height at ${eyes.at.toFixed(1)}-${eyes.to.toFixed(1)}s (${Math.round(max.d * 100)}% in at most): a sip or a bite belongs at the mouth (the layout's mouth point), not the eyes or under a brim` });
+    else if (deep.best + 1e-6 >= RULES.selfHold) out.push({ level: "warn", check: "prop-in-self", msg: `${who}'s ${what} sinks ${Math.round(max.d * 100)}% into its own body at ${deep.at.toFixed(1)}-${deep.to.toFixed(1)}s: hold it a little further out` });
+  }
+  if (!out.length && self.size) out.push({ level: "pass", check: "prop-in-self", msg: "held props touch their holders but never go into a face or deep into a body" });
   return out;
 }
 
@@ -509,7 +538,8 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
     // A warning to look at the frame, never a fail (about 12 s; --no-flow skips it)
     if (flow) {
-      const px = pixelGlitches(clip, { sb, layout }), w = px.findings.filter((f) => f.level === "warn");
+      // (the error first: a run without OpenCV has no findings, and filtering them threw)
+      const px = pixelGlitches(clip, { sb, layout }), w = (px.findings || []).filter((f) => f.level === "warn");
       if (px.error) add("pass", "pixels", `optical flow not measured (${px.error})`);
       else add(w.length ? "warn" : "pass", "pixels", w.length ? w.slice(0, 5).map(describePixel).join("; ") + (w.length > 5 ? ` (+${w.length - 5} more: node qa/glitches.mjs)` : "") : `optical flow: nothing pops, snaps or flickers (${px.findings.length} small notes: node qa/glitches.mjs --all)`);
     }
@@ -587,7 +617,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
         const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
         const [x, y, w, h] = box;
         if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
-        if (c.pop) return;   // a text pop sits beside its character on purpose
+        if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
         let cov = c.covered;
         if (cov == null) { // fallback: share of the caption box inside any character box
           cov = 0;

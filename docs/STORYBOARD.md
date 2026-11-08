@@ -264,6 +264,28 @@ moving at once.
   a front panel hides the legs), `report` (`shred` 0..1 sends its pieces flying in `batches` onto a pile where it lay)
   and `nameplate` (`text`, grip `back`; `split` cuts it in two, each half tipping over its outer edge).
 
+- Drawn effect cels (8 Nov 2026, opt-in, engine/page/fxcel.js; test `node storyboards/lab/make-fxcel-lab.mjs`):
+  `{ "do": "cel", "kind": "hit" | "ring" | "bolt", "at", "who" | "on" | "pos", "offset" }`: an impact star (spikes of
+  different lengths round three flat colour bands and a white-hot core; it bursts out, holds and its rays thin away), a
+  shockwave ring (a bright edge on an expanding radius, a vapour band behind it, breaking into blobs as it dies; `"flat":
+  true` lays it on the floor), a lightning bolt (`"to"`: a world point or a character or prop id, `"toOffset"`; zigzag with
+  a fork, redrawn every drawing). Flat opaque layers, never soft particles, on twos (`"twos": false` for every frame), a
+  pure function of time. `"dur"` (0.4 / 0.6 / 0.4 s), `"size"` (metres; a bolt's width x 0.05), `"palette"` (`spark`,
+  `fire`, `energy`, `magic`) or `"colors"` (4, outer to core), `"rays"`, `"seed"`, `"over"` (drawn over everything; on for
+  hits and bolts). Code only, nothing to download. See-through for the contact checks, soft for `qa/glitches.mjs`.
+- Drawn copies of the Effekseer effects (8 Nov 2026, Jonny: "really copying how the effect seeker effects look but in
+  handdrawn style"; engine/page/fxcel-copies.js on fxcel-kit.js): the same `cel` item with `"kind"` set to an Effekseer
+  effect's name, `toon-hit`, `toon-water`, `sparks`, `light`, `aura`, `barrier` or `tornado`, plays that effect redrawn
+  from its .efkefc file (the same parts, counts, sizes, timing and colours) as flat colour layers on twos. Swap `"do":
+  "vfx"` for `"do": "cel"` and keep `"effect"`'s value as `"kind"`; `scale` (0.3, the same units as `vfx`), `speed`,
+  `dur` (the loops `aura`, `barrier`, `tornado` stop at it and break up over 0.25 s; the others play out in their own
+  length: hit 0.6, water 2.75, sparks 3.4, light 3.3 s), `on`/`who`/`pos`, `offset`, `seed`, `palette`/`colors`,
+  `"twos": false`, `"over"` (off: drawn against depth like `vfx`). It always follows `on`. Not copied: `rot`, `color`,
+  `file`. Departures from the original, on purpose: the hit lands on its first frame (Effekseer's shows 0.2 s after
+  `at`), the light leaves out its faint omen and ground glow, the tornado draws fewer, bigger specks so they read. Code
+  only, nothing to download, no licence question (the effect files themselves have none). Side by side with the
+  originals: `node storyboards/lab/make-fx-ref.mjs` writes `fx-ref-effekseer.json` and `fx-ref-cel.json`, one effect
+  every 3 s on the same camera.
 - Particle effects made in Effekseer (vfx-effekseer-01, a test): `{ "do": "vfx", "effect", "at", "pos" | "on", ... }`
   in `fx` plays an Effekseer effect in the 3D scene, drawn against its depth (characters in front hide it) before the
   look's glow and grade (`engine/page/vfx.js`). `effect`: `toon-hit` (anime impact star), `toon-water` (cel splash),
@@ -291,6 +313,7 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
 | `insert` | **insert**: the prop the beat is about (or the hand on it) fills the frame, about 0.5 m of picture, 0.4-0.8 s, then back to the shot before it |
 | `threat` | **low angle** on who acts: the camera low (knee height), looking up 10-15°, a wider lens |
 | `chaos` | **dutch tilt**: medium on everyone, the picture turned 10° |
+| `realize` | **dolly zoom** on who reacts: a close-up whose lens narrows to half its fov over 1.1 s while the camera pulls back, so the face keeps its size and the room closes in behind it (docs/CAMERA-MOVES.md) |
 | the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
 
 - **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
@@ -503,3 +526,94 @@ renders variants of a storyboard, puts each through the same rough TikTok re-enc
 how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
 is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
 0.967. Line width and hatch spacing barely mattered.
+
+## Anime look 01: hard cel shadows and anime timing (opt-in, 7 Nov 2026; Jonny's call before it becomes a default)
+
+Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look and motion.md`. Test scene:
+`node storyboards/anime/make-anime-lab.mjs` (A today, B cel, C cel + timing; engine test, not for posting).
+
+- `"set": { "cel": true }` (engine/page/looks.js): characters and props get one hard shadow edge instead of a soft roll
+  (`"edge"`: px wide at 1080, 1.5; `"at"`: where on the form the shadow starts, N·L, 0.08; 0.25 gives the anime crescent),
+  shadows thrown by other things drawn hard too, `"flat": true` drops the gradient, floor darkening, gloss and skin
+  mottling inside the two tones, `"normals": "proxy"` shades a potato's skin as a clean egg (an ellipsoid round the
+  body's centre) so the shadow is one designed curve instead of following every bump, `"shift"`: how far the underside
+  stays in shade (0.5), `"face"`: how far the shadow bends back round the face so a close-up keeps the eyes and mouth
+  lit (0.6). The hat brim's band on the face gets a crisp edge. The set keeps its painting. The pencil
+  hatching stays in the shadow.
+- `"animeTiming": true` (engine/shared/anime-timing.js, stage.js pose): the characters snap into each key and hold it.
+  A move's drawings are counted from its own start (start and end keys always shown), front-loaded (`"push"` 1.8), on
+  1s when 0.2 s or shorter, 3s from 0.9 s, else 2s; between moves the pose holds on 3s (`"idle"`); actions longer than
+  `"long"` (1.2 s) and every move the feet step through (`"travel"`: move, turn, walk, run ...) only step on 2s, so planted feet keep
+  their stride. The camera, the set, the living world and effects stay on every frame, and
+  motion blur is off (render.mjs). `qa/rig.mjs` judges such a clip drawing by drawing: each change of drawing, divided
+  by how many story frames it moved on, against the drawings either side; the snap (a segment's first two drawings) only
+  fails over 36 cm per story frame.
+- **In the clip template since 8 Nov 2026** (Jonny picked both): `CEL = { at: 0.25 }` and `ANIME_TIMING = true` at the
+  top of `storyboards/templates/clip-template.mjs`; set either to `null` / `false` for a clip that needs the old look.
+  Finished clips don't change.
+
+## Anime look 02: ink lines and satsuei grade (8 Nov 2026; on in the clip template since Jonny's pick, PR #174)
+
+New clips from `storyboards/templates/clip-template.mjs` get both (`INK` / `SATSUEI` at the top of the template; `null`
+turns one off). Finished clips keep their look: nothing changes without `"ink"` / `"satsuei"` in the set.
+
+From the X posts review (8 Nov): the MEGA CLAWD film's ink pass and grade (seeconever/megaclawd, MIT), adapted to our
+renderer. Test scene: `node storyboards/lab/make-ink-lab.mjs` (the coffee run: a today, b + ink, c + ink + satsuei;
+engine test, not for posting).
+
+- `"set": { "ink": true }` (engine/page/ink.js, a fork of three's OutlineEffect; looks.js): line widths in real pixels
+  at 1080 wide, the same on every side of a body (three's hull drew about 3 px on the left and right and 5.6 px on top and
+  bottom in our 9:16 frame), in a drawn hierarchy: the potato's body outline `"px"` (4.5), hats, hoods and capes
+  x `"cloth"` (0.8), gloves, faces and the costume's small parts x `"part"` (0.55), scene props x `"prop"` (0.6), the
+  set's own 3D parts `"set"` px (1.1; painted sets have none). Every line thins with distance: x (`"ref"` / depth)^`"far"`
+  (5 m, 0.3), clamped to `"min"`..`"max"` (0.55..1.6), so a close-up draws bolder and the back row thinner; `"far": false`
+  turns that off. `"dark"` (0.7) darkens the coloured ink. Same cost as today's lines (vertex shader only).
+- `"set": { "satsuei": true }` (looks.js SatsueiShader, after the grade): anime compositing on the finished picture: a
+  warm halation round the brightest parts (`"hal"` 0.35 above `"halThr"` 0.8, `"halCol"`), a diffusion glow screened from
+  the light areas (`"diffuse"` 0.22 above `"diffThr"` 0.55; it only adds light, so faces and lines stay crisp), shadows
+  multiplied toward lavender (`"shade"` #e4e2ff) and highlights toward warm (`"high"` #fff6ea), a violet lift in the
+  darks (`"lift"`), and a one-code-value dither against banding after the platform's re-encode. One full-screen pass of 36
+  texture reads.
+
+## Series overlays and time moves (opt-in, 8 Nov 2026; Jonny: "upgrade everything and try out the formats")
+
+For numbered parts ("Survive it" with a comment vote) and for the freeze, ramp and dolly zoom moves (the names a brief
+may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; times are story time. Helpers:
+`storyboards/lib/overlay.mjs` (hud, rule, vote) and `storyboards/lib/camera.mjs` (freeze, ramp, dolly). Engine test:
+`storyboards/lab/make-moves-demo.mjs`.
+
+- **HUD** (`engine/page/hud.js`): `"hud": { "day": [[0, 1]], "clock": [[0, "18:05"], [4.2, "18:31", 0.5]],
+  "battery": [[0, 41], [5.0, 30, 0.12], [6.4, 0]], "part": 1, "pos": "top" }`. A key is `[t, value, dur?]`: from t the
+  value counts from the previous key's over dur seconds (none: a jump). The day chip sits in the safe zone's top-left
+  corner and the clock (a sun, sunset or moon for the hour) with the battery in its top-right, y 214-284, the middle
+  left free for Jonny's in-app title; a top hook caption goes at y 316 or lower under it. A clock jump shows a
+  "+26 min" tag beside the clock for a second (`"clockTag": false`). The battery goes amber under 20 %, red under 10 %,
+  kicks on every drop and at 0 reads DEAD and blinks twice. `"pos": "bottom"` (y 1288-1356) or `"y"` moves it,
+  `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture.
+- **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
+  as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
+  04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted
+  from the day plate by `engine/plates/night.py` with the window panes in `<name>.night.json`: the same room, a night
+  window with the moon, stars and lit windows, the lamps on) fades to it as the clock runs on; the 3D floor and backdrop
+  darken with it (`"set": { "nightSet": "#7c7fa8" }`), the sunlight's dust motes go out and a cool grade puts the cast
+  in the same night (`"nightGrade"`: a number scales it, false turns it off). The light follows the clock over 0.6 s
+  (`"hud": { "skyFade": 0.6 }`), so a clock run reads as a time-lapse and a jump fades instead of flipping mid-shot. `"sky": [[t, level, dur?]]` (0 day, 1 night) sets it by
+  hand without a HUD; `"hud": { "sky": false }` or `"sky": false` keeps the picture as painted. A night clock on a day set
+  with no night picture gets a warning when the storyboard loads: paint one, pick a night set, or move the clock.
+  Plates with a night picture: `livingroom-golden`.
+- **Rule card** (`engine/page/card.js`): `{ "fx": "rule", "at", "dur": 1.6, "title": "RULE 1", "text": "...", "who" }`:
+  an ink plate slammed in tilted, the title in who's caption colour, the rule in white, a slow drift, shrinks out.
+- **Comment-vote end card**: `{ "fx": "vote", "at", "dur", "question", "options": [{ "key": "A", "text", "who" }, ...],
+  "prompt": "Comment A or B" }`: a warm white sticker with the question, a pill per option (2-4; who colours the letter)
+  and a beating speech bubble. It pops in, the options follow one by one, it drifts while it holds, and a card that
+  runs to the end stays on the last frame (the loop starts again under it). It is the one card at the end of a clip
+  the house style allows: the picture keeps moving under it.
+- **Where cards sit**: without `"y"`, `engine/direct.mjs` placeCards puts each card in the top slot (y 300) or the low
+  slot (bottom on y 1348), whichever covers fewer faces over its time, and notes why in `sb.directed`; `"pos": "top"`
+  or `"low"` picks one. Cards and the HUD go to the layout as captions, so `qa/check.mjs` keeps them in the safe zone and
+  `qa/framing.mjs` reports a face under one; characters covering them are not a caption-overlap fail (they draw on top).
+- **Freeze frame, speed ramp, dolly zoom**: `{ "fx": "freeze", "at", "hold", "on", "label" }`, `{ "fx": "ramp", "at",
+  "len", "rate", "in", "out" }`, and `"dolly": { "k" | "fov", "dur" }` on a shot (or the beat kind `realize`). The
+  freeze and the ramp change the video's clock the way a hit-stop does (`engine/shared/holds.js`): the storyboard keeps
+  story time, the video gets longer (a ramp over 1x shorter), and every sound plays on its picture. Details and the
+  rules for each in docs/CAMERA-MOVES.md.

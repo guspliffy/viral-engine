@@ -34,6 +34,7 @@ import { buildNighthall } from "./set-nighthall.js";
 import { buildTrail } from "./set-trail.js";
 import { buildXmasroom } from "./set-xmasroom.js";
 import { addModels } from "./assets-gltf.js";
+import { buildHilltop } from "./set-hilltop.js";
 
 function skyDome(top, horizon, bottom) {
   const m = new THREE.ShaderMaterial({
@@ -88,6 +89,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "livingroom") return buildLivingroom(scene, spec);   // set-livingroom.js
   if (type === "gym") return buildGym(scene, spec);                 // set-gym.js
   if (type === "park") return buildPark(scene, spec);               // set-park.js
+  if (type === "hilltop") return buildHilltop(scene, spec);   // set-hilltop.js: Never Looks Up 07's coaster hill, a sky all round
   if (type === "porch") return buildPorch(scene, spec);       // set-porch.js
   if (type === "cottage") return buildCottage(scene, spec);   // set-cottage.js
   if (type === "apartment") return buildApartment(scene, spec);   // set-apartment.js

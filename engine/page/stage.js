@@ -12,15 +12,22 @@ import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
-import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, accentOf } from "./text.js";
+import { drawHud, hudBoxes, hudKey } from "./hud.js";
+import { drawCards, cardBoxes, cardKey } from "./card.js";
+import { freezeAt, drawFrozen, drawFreezeLabel, freezeKey } from "./freeze.js";
+import { addNight, nightGrade, nightOn } from "./sky.js";
+import { skyAt } from "../shared/sky.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
+import { makeAnimeTiming } from "../shared/anime-timing.js";
 import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeAttach } from "./attach.js";
 import { makeVfx } from "./vfx.js";
+import { buildCel } from "./fxcel.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -30,6 +37,7 @@ let phys = null;      // prop physics (physics.js, quality plan item 17): a stor
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
+let animeT = null;   // storyboard "animeTiming" (shared/anime-timing.js): each character's drawing time at t, null when off
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
 // a point in a character's own parent frame (a rig, or the world) in the world
@@ -137,6 +145,8 @@ function buildSlash(f) {
 // Captions (text.js), flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas
 // is what gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
 let out, ctx, showSafe = false;
+// the render time of the frame being drawn (a freeze frame's look runs on it while the story's clock stands still)
+let tvNow = null;
 // manga focus lines converging on a point
 function speedLines(f, t, i) {
   const d = f.dur ?? 0.6, k = (t - f.at) / d;
@@ -356,20 +366,25 @@ function skinTint(a, st) {
 }
 
 function composite(t) {
-  ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
+  // a freeze frame (freeze.js) draws the stopped picture pushed in and toned, on the video's clock
+  const fz = freezeAt(sb, tvNow ?? t);
+  ctx.globalAlpha = 1; if (!establishing(t)) { if (fz) drawFrozen(ctx, R.domElement, fz, fz.f.xy ? { x: fz.f.xy[0], y: fz.f.xy[1] } : fz.f.on ? popAnchor({ who: fz.f.on, dx: 0, dy: 0.25 }) : null); else ctx.drawImage(R.domElement, 0, 0, W, H); nightGrade(ctx, sb, t, W, H); }
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
   // Zombie Too: the trend's widescreen shot with its text on the upper bar)
   if (sb.letterbox) { ctx.fillStyle = sb.letterbox.color || "#000"; ctx.fillRect(0, 0, W, sb.letterbox.top ?? 0); ctx.fillRect(0, H - (sb.letterbox.bottom ?? 0), W, sb.letterbox.bottom ?? 0); }
+  if (sb.hud) drawHud(ctx, sb, t);   // the series HUD (hud.js): under the captions, in the safe zone's corners
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
   for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
+  drawCards(ctx, sb, t, accentOf);   // rule and vote cards (card.js) over the captions
+  if (fz) drawFreezeLabel(ctx, fz, accentOf);
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
@@ -397,6 +412,7 @@ async function init(data) {
   buildLights(scene, sb.set);
   const before = scene.children.length;
   buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos, sb.duration);
+  addNight(scene, sb, scene.children.slice(before));   // sky.js: the plate's night picture when the HUD clock reaches night
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
@@ -428,7 +444,7 @@ async function init(data) {
   // set pieces and props that belong to one side of a wall (set-elevator.js: the car's front wall and the hallway show
   // only while the camera is inside the car): userData.camGate(cameraPosition) says whether they show this frame
   camGates = []; scene.traverse((o) => { if (o.userData.camGate) camGates.push(o); });
-  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : null)).filter(Boolean);   // slashes ride with the poofs (hidden in the checks)
+  poofs = (sb.fx || []).map((f, i) => (f.do === "poof" ? buildPoof(f, i) : f.do === "slash" ? buildSlash(f) : f.do === "cel" ? buildCel(f, i, scene, sb.fps || 30) : null)).filter(Boolean);   // drawn effect cels (fxcel.js) ride with them too   // slashes ride with the poofs (hidden in the checks)
   // a look (looks.js) relights the scene, upgrades materials and adds post-processing; without one, the style draws
   // holds 2 (quality plan item 7): one attachment model for held props, drops that land, a support record per prop
   setPhysicsPose(null);
@@ -461,7 +477,8 @@ async function init(data) {
 function pose(t0) {
   // the drawn look on 2s (drawn.js): everything holds each drawing for 2 frames, the camera too unless the storyboard
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
-  const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
+  // "animeTiming" (shared/anime-timing.js): only the characters snap and hold; camera, set and effects on every frame
+  const t = smearRaw || animeT ? t0 : onTwos(drawnD, t0), tc = smearRaw || animeT || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   if (vfx) vfx.time = t;   // the particle effects drawn with this pose (vfx.js)
   // vehicle rigs first: everything riding in them is placed in their frame
@@ -473,8 +490,9 @@ function pose(t0) {
     if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
   }
   const states = {};
-  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); skinTint(a, st); states[a.c.id] = { st, a }; }
+  for (const a of actors) { const ta = animeT && !smearRaw ? animeT(a.c.id, t) : t; const st = actorState(sb, a.c, a.def, ta); a.ch.apply(st, ta); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
+    if (p.f.do === "cel") continue;   // drawn effect cels: placed below, once the props are posed
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
     const o = who ? worldOf(who.a, new THREE.Vector3(who.st.x, who.st.y, who.st.z + 0.15)) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]);
@@ -597,6 +615,15 @@ function pose(t0) {
   if (lamp) lamp.o.intensity = lamp.base * L.lamp;
   if (bulb) bulb.o.material.color.copy(bulb.base).multiplyScalar(0.12 + 0.88 * Math.min(1, L.lamp));
   for (const m of charMats) m.envMapIntensity = 0.35 * Math.min(1, L.room);
+  // drawn effect cels (fxcel.js), once the props are posed: on a character ("who", where a poof would be), a prop or a
+  // vehicle rig ("on"), or a point ("pos"); a bolt's "to" can name a character or prop too
+  const celAt = (id) => {
+    const A = states[id]; if (A) return worldOf(A.a, new THREE.Vector3(A.st.x, A.st.y, A.st.z + 0.15));
+    const q = props.find((x) => x.spec.id === id), o = q ? q.root : rigs.get(id)?.g;
+    if (!o) throw new Error(`fx cel: "${id}" is not a character, a prop or a vehicle rig`);
+    o.updateWorldMatrix(true, false); return o.getWorldPosition(new THREE.Vector3());
+  };
+  for (const p of poofs) if (p.f.do === "cel") p.apply(t, p.f.on || p.f.who ? celAt(p.f.on || p.f.who) : new THREE.Vector3().fromArray(p.f.pos || [0, 0, 0]), celAt);
   const cam = cameraState(sb, tc);
   // a shot with "rig" is fixed to that rig: its pos and look are in the rig's frame, and its up turns with it
   const shot = (sb.shots || []).filter((q) => q.at <= tc).sort((a, b) => a.at - b.at).at(-1), V = shot && shot.rig && rigs.get(shot.rig);
@@ -681,6 +708,7 @@ async function premesh(t, always = false) {
 const meshed = async (t, always, then) => { await premesh(t, always); try { return then(); } finally { globalThis.__skinPre = null; } };
 // ENGINE.frame: tv is the video time (the next frame's story time can jump at a hit-stop)
 async function videoFrame(tv) {
+  tvNow = tv;
   const t = st(tv), posed = !held(t), r = await meshed(t, false, () => frame(t));
   const tn = st(tv + 1 / (sb.fps || 30));
   if (posed && !held(tn)) { ahead = { t: tn, done: meshAll(collect(tn)) }; pose(t); }
@@ -800,7 +828,7 @@ function matHash(h, m) {
   }
   return h;
 }
-function stateHash(t, samples = []) {
+function stateHash(t, samples = [], tv = null) {
   // posed lean (no glove skins: they are meshed from the hand parts, which are hashed (seamless glove parts stay
   // visible on a layer the camera skips), and meshing them is 97 % of a pose), so a key costs ~20 ms where a drawn pose
   // costs ~800. Hidden parts count only as hidden.
@@ -831,7 +859,7 @@ function stateHash(t, samples = []) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
+  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : []), ...(nightOn() && skyAt(sb, t) > 0 ? [Math.round(skyAt(sb, t) * 1e4) / 1e4] : [])]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
@@ -970,7 +998,10 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: [...caps, ...pops], actors: actorsOut, props: propsOut, clips: clipping(), ...(phys && { physics: phys.info }) };
+  // rule and vote cards and the HUD are over the action on purpose: checked for the safe zone and, as captions, for
+  // faces under them (qa/framing.mjs), never for characters covering them
+  const cards = [...cardBoxes(ctx, sb, t), ...(sb.hud ? hudBoxes(ctx, sb, t) : [])];
+  return { t, captions: [...caps, ...pops, ...cards], actors: actorsOut, props: propsOut, clips: clipping(), ...(phys && { physics: phys.info }) };
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
@@ -1024,7 +1055,25 @@ function clipping() {
     b.a.ch.root.updateMatrixWorld(true);
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
-      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine
+      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine.
+      // Into its own holder is measured apart ("self", 7 Nov 2026: the coffee cup in the eyes and under the hat
+      // brim on a sip, 7 Nov 2026, was caught only by eye): how deep, and at which height of the body it goes in
+      // (zone: the body's height from its feet, 0..1; a sip belongs at the mouth, about 0.3-0.5 of a potato)
+      // Only what a hand holds: a pile of popcorn on a head or a kernel on a hood is held by "hat" / "tip" on purpose
+      if (p.held && p.holder === b.id && p.root.visible && !(p.holdHand === "R" || p.holdHand === "L" || p.holdHand === "both")) continue;
+      if (p.held && p.holder === b.id && p.root.visible) {
+        let worst = 0, wo = null;
+        p.root.updateMatrixWorld(true);
+        p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) { const d = depthIn(b, o); if (d > worst) { worst = d; wo = o; } } });
+        if (worst > 0.03 && wo) {
+          // the height in the body's own frame, so a rider upside down in a loop (Never Looks Up 07) is still measured
+          // feet to head: in world y a body on its side has no height, and the zone ran to +-500
+          const eb = b.mesh.geometry.boundingBox, pc = new THREE.Box3().setFromObject(wo).getCenter(new THREE.Vector3());
+          pc.applyMatrix4(inv.copy(b.mesh.matrixWorld).invert());
+          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - eb.min.y) / Math.max(1e-6, eb.max.y - eb.min.y)) * 100) / 100 });
+        }
+        continue;
+      }
       if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
       let worst = 0;
       p.root.updateMatrixWorld(true);
@@ -1842,7 +1891,7 @@ window.ENGINE = {
   init, sync, capture, motion, movingBox,
   frame: videoFrame, layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
   prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
-  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st), t),
   reset,
 };
 window.ENGINE_READY = true;

@@ -5,10 +5,11 @@ import { resolveLife } from "./shared/life-auto.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
-import { direct } from "./direct.mjs";
+import { direct, placeCards } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
+import { skyAt, skyMax, keyed, minutes } from "./shared/sky.js";
 import { focusTrack } from "./focus.mjs";
 import { cameraState } from "./page/timeline.js";
 import { worldCamera } from "./page/vehicle.js";
@@ -52,9 +53,13 @@ export function castLook(def, look) {
   if (L.eyeSize) F.size = (F.size ?? 1) * L.eyeSize;
   if (L.lash) F.eye = { ...F.eye, lash: +((F.eye?.lash ?? 1) * L.lash).toFixed(3) };
   if (L.browClear && F.browShape?.clear == null) F.browShape = { ...F.browShape, clear: L.browClear };
-  if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
-  if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
-  if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  // face.lockLayout: a body far from the potato shape (a fry, always orders potatoes 01) keeps its own eye and mouth
+  // places; the look's spacing is made for a round potato and puts a narrow body's eyes on top of each other
+  if (!F.lockLayout) {
+    if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
+    if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
+    if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  }
   if (L.oval) F.eye = { ...F.eye, oval: L.oval };
   if (L.detail && def.costume) {
     def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)
@@ -128,12 +133,24 @@ function hslHex(h, s, l) {
 
 export function loadStoryboard(file, opts = {}) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
-  if (sb.set?.plate) plateFiles(sb.set.plate);
+  if (sb.set?.plate) plateFiles(sb.set.plate, sb);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
-  const out = withHolds(cleanStart(resolveLife(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  const out = withHolds(cleanStart(resolveLife(focusTrack(placeCards(direct(soundsOf(compile(withSpeech(sb, chars))), chars), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
+  nightWarn(out);
   return out;
+}
+
+// the HUD clock (or "sky" keys) says night, but the set is a day picture with no night version: the window would stay
+// sunny under a moon (Jonny 8 Nov 2026). engine/page/sky.js fades a plate to <name>.night.png (engine/plates/night.py)
+function nightWarn(sb) {
+  if (skyMax(sb) < 0.5 || sb.set?.night || sb.set?.plate?.night) return;
+  const name = sb.set?.plate?.src || sb.set?.env || sb.set?.type || "";
+  if (/night|dusk|twilight|dark|storm/i.test(name)) return;
+  let at = 0; for (let t = 0; t <= (sb.storyDuration ?? sb.duration); t += 0.05) if (skyAt(sb, t) >= 0.5) { at = t; break; }
+  const clock = sb.hud?.clock ? keyed(sb.hud.clock, at, minutes).v : null;
+  console.warn(`sky: it is night from ${at.toFixed(2)} s${clock != null ? ` (the HUD clock reads ${String(Math.floor(clock / 60) % 24).padStart(2, "0")}:${String(Math.round(clock % 60)).padStart(2, "0")})` : ""} but the set "${name}" has no night picture, so the outside stays day: paint one (python engine/plates/night.py <plate>.png), use a night set, or set "hud": { "sky": false }`);
 }
 
 // "cleanStart": true (quality plan item 1, 5 Nov 2026; on in the clip template): the clip opens in its pose. The
@@ -184,16 +201,25 @@ function envGate(sb) {
 function withHolds(sb) {
   const holds = holdsOf(sb);
   if (!holds.length) return sb;
-  const bad = holds.find((h) => h.at < 0 || h.at >= sb.duration);
-  if (bad) throw new Error(`hitStop at ${bad.at} s is outside the clip (0-${sb.duration} s)`);
+  const bad = holds.find((h) => h.at < 0 || h.at + (h.len || 0) > sb.duration + 1e-6 || h.at >= sb.duration);
+  const kind = (h) => (h.ramp ? "ramp" : h.freeze ? "freeze" : "hitStop");
+  if (bad) throw new Error(`${kind(bad)} at ${bad.at} s is outside the clip (0-${sb.duration} s)`);
+  // freezes, hit-stops and ramps one after another, never inside each other (a hit-stop inside a ramp has no clock)
+  holds.forEach((h, i) => { const n = holds[i + 1]; if (n && n.at < h.at + (h.len || 0) - 1e-6) throw new Error(`${kind(n)} at ${n.at} s starts inside the ${kind(h)} at ${h.at}-${h.at + h.len} s: move one out`); });
+  // a line spoken inside a slow ramp: the voice plays at its own speed while the mouth moves slowly
+  for (const h of holds.filter((q) => q.ramp)) for (const a of (sb.actions || []).filter((q) => q.do === "talk" && q.at < h.at + h.len && q.at + (q.dur ?? 0.6) > h.at)) console.warn(`ramp at ${h.at} s: ${a.who}'s line "${a.line}" (${a.at} s) is inside it, its lips will be off the voice: move the line out of the ramp`);
   return { ...sb, holds, storyDuration: sb.duration, duration: Math.round((sb.duration + heldFor(holds)) * 1e6) / 1e6 };
 }
 
 // A painted plate uses the depth and motion maps next to its picture (engine/plates/depth.py) when they exist, so the
-// 2.5D relief and ambient motion are on by default (set-plate.js); false in the storyboard turns one off.
-function plateFiles(P) {
+// 2.5D relief and ambient motion are on by default (set-plate.js); false in the storyboard turns one off. Its night
+// picture too (engine/page/sky.js), when the clip has a clock.
+function plateFiles(P, sb) {
   for (const [key, ext] of [["depth", ".depth.png"], ["motion", ".motion.png"]]) {
     const f = P.src.replace(/\.\w+$/, ext);
     if (P[key] === undefined && fs.existsSync(path.join(ROOT, f))) P[key] = f;
   }
+  // its night picture (engine/plates/night.py), only for a clip whose HUD clock or "sky" keys can reach night
+  const n = P.src.replace(/\.\w+$/, ".night.png");
+  if (P.night === undefined && (sb.hud?.clock || Array.isArray(sb.sky)) && fs.existsSync(path.join(ROOT, n))) P.night = n;
 }
