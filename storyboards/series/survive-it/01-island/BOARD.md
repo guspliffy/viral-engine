@@ -31,7 +31,7 @@ Generator: `make-island.mjs` (numbers there win where this lags). Format A of th
   and the 9:16 frame. Faces land at y 1110-1245; subtitles sit under the chins at y 1275 (inside the safe area,
   which ends at 1360), the HUD and cards above the heads.
 - Time skips: the HUD clock jumps +26 / +21 / +18 min at 4.0, 8.0 and 12.4; the cast is re-placed under those cuts
-  (part 3: Viking at the pit's front left, the Sorcerer sulking off right; part 4: Phoenix back at his spot).
+  (part 3: Viking at the pit's front left, the Sorcerer sulking off far right; part 4: Phoenix back at his spot).
 
 ## §3 Shots (story time = video time, no hit-stops)
 
@@ -39,9 +39,10 @@ Generator: `make-island.mjs` (numbers there win where this lags). Format A of th
 - 0.0-1.05 HOOK: two-shot from the front left, Viking front right (proud, fists on hips), Dragon at the left behind
   the food box crunching, the last cookie at his chest, empty wrappers round him. Line 0.0 Viking "Food for three
   days!" (subtitled); crunch 0.0 / 0.42 / 0.84 (`ai/crunch`). HUD from frame 0: DAY 1, 18:05, battery 41 %.
-- 1.05-1.9 Viking close-up: hears it, smile freezes, eyes slide left (B8 victim cut).
+- 1.05-1.9 Viking close-up: a 4th crunch (1.25) in his shot; the grin freezes shut, eyes slide left, brows go up,
+  head tips back (B8 victim cut). The first subtitle ends on this cut.
 - 1.9-4.0 CAUGHT: Viking turns (-45), shock; Dragon freezes "Mmf?", stuffs the rest in (`gulp` 2.5), flicks the
-  empty bag over his shoulder (physics, lands 3.2, `crinkle`), sheepish grin; Viking angry. RULE 1 card 2.9-4.0: "Never
+  empty bag over his shoulder (physics, lands 3.2, `crinkle`), sheepish grin; Viking angry. RULE 1 card 2.7-4.0: "Never
   let the hungry one guard the food" (Dragon's colour).
 
 ### §3.2 The phone (4.0-8.0)
@@ -51,13 +52,13 @@ Generator: `make-island.mjs` (numbers there win where this lags). Format A of th
   each); battery 41 -> 30 -> 18 -> 7 -> 1.
 - 5.95 Viking leans in and grabs at it "Give it!" (a hand short); 6.45 DEAD (two-shot): the phone dies (screen black, `plunk`), battery 0 = DEAD (blinks).
 - 6.55-8.0 Sorcerer looks at the black screen, then at Viking: "Oops." sheepish; Viking annoyed. RULE 2 card
-  6.8-7.95: "Never give the selfie one the phone".
+  6.55-7.95: "Never give the selfie one the phone".
 
 ### §3.3 The fire (8.0-12.4, payoff 10.45)
 - 8.0 FIRE3 wide (+21 min): Viking at the pit's front left, "Signal fire!" pointing at it; clock 18:52. Phoenix
   bursts over from the right: "Me! Me!", a hop.
 - 9.1 fire from both gloves into the pit (`flamejet`), 9.3 it catches (`ai/flare`), everyone delighted.
-- 9.65 "Woo-hoo!": he flies up, wings beating over the fire (`windswell` 9.9); the flames lie flat and die (10.2).
+- 9.65 "Woo-hoo!" (its subtitle ends 10.05, clear of the dying fire): he flies up, wings beating over the fire (`windswell` 9.9); the flames lie flat and die (10.2).
 - 10.0 a wrapper by the pit skids away in the gust (physics). 10.45 PAYOFF, STARE (medium): out (`ai/snuff`,
   `poof`), smoke rises round him; he lands mid-cheer, Viking stares. RULE 3 card 10.75-12.35: "Never let the hyper one near the fire".
 
@@ -66,7 +67,7 @@ Generator: `make-island.mjs` (numbers there win where this lags). Format A of th
   19:10.
 - 13.05-16.0 VOTE (wide: Viking left, Reaper right on his log, the cold pit between): "PART 2: who goes into the
   jungle for food?" A Viking / B Reaper, "Comment A or B". Viking chest out, fist to chest, cocky; the ferns behind
-  rustle (`leafrustle`); Reaper terrified, "Nope. Nope. Nope." with his eyes darting.
+  Reaper rustle (`leafrustle` 13.4 and 15.3); Reaper looks at them, gloves to his cheeks, terrified, "Nope. Nope. Nope." with his eyes darting.
 
 ## §4 Check times
 

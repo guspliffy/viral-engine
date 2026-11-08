@@ -130,7 +130,7 @@
    "id": "vik",
    "character": "duo/viking",
    "at": [
-    -0.35,
+    -0.45,
     0.9
    ],
    "face": 15,
@@ -191,17 +191,17 @@
   {
    "id": "fire",
    "kind": "campfire",
-   "x": 0.15,
-   "z": -0.1,
+   "x": 0.2,
+   "z": -0.15,
    "lit": 0,
    "r": 0.26
   },
   {
    "id": "smoke",
    "kind": "smokewisp",
-   "x": 0.15,
+   "x": 0.2,
    "y": 0.12,
-   "z": -0.1,
+   "z": -0.15,
    "h": 0.9,
    "n": 8,
    "on": 0
@@ -217,8 +217,8 @@
   {
    "id": "box",
    "kind": "cardbox",
-   "x": -1.3,
-   "z": 0.6,
+   "x": -1.35,
+   "z": 0.72,
    "w": 0.52,
    "d": 0.38,
    "h": 0.32,
@@ -299,7 +299,8 @@
    "rot": 110,
    "tip": -12,
    "scale": 1.6,
-   "case": "#7d4bb3",
+   "case": "#f2e8d5",
+   "glow": 0.9,
    "halo": 0.5,
    "haloK": 0.6
   },
@@ -315,8 +316,8 @@
   {
    "id": "ferns2",
    "kind": "ferns",
-   "x": 2.7,
-   "z": -2.8,
+   "x": 1.7,
+   "z": -2.5,
    "n": 9,
    "len": 1.7,
    "seed": 8
@@ -338,30 +339,30 @@
      "src": [
       [
        9.1,
-       0.326,
+       0.475,
        0.5,
-       -0.125,
-       -0.574,
-       -0.815,
-       0.081
+       -0.183,
+       -0.737,
+       -0.67,
+       0.088
       ],
       [
        9.25,
-       0.326,
+       0.475,
        0.5,
-       -0.125,
-       -0.574,
-       -0.815,
-       0.081
+       -0.183,
+       -0.737,
+       -0.67,
+       0.088
       ],
       [
        9.4,
-       0.326,
+       0.475,
        0.5,
-       -0.125,
-       -0.574,
-       -0.815,
-       0.081
+       -0.183,
+       -0.737,
+       -0.67,
+       0.088
       ]
      ],
      "rate": 140,
@@ -369,7 +370,7 @@
      "spread": 0.12,
      "life": 0.3,
      "size": 0.12,
-     "reach": 0.307,
+     "reach": 0.373,
      "splash": 0.2,
      "taper": 0.1
     }
@@ -379,7 +380,7 @@
  "captions": [
   {
    "from": 0,
-   "to": 1.3,
+   "to": 1.05,
    "text": "Food for three days!",
    "pos": 1275,
    "pop": false,
@@ -451,7 +452,7 @@
   },
   {
    "from": 9.65,
-   "to": 10.65,
+   "to": 10.05,
    "text": "Woo-hoo!",
    "pos": 1275,
    "pop": false,
@@ -821,10 +822,54 @@
      "at": 0.1
     },
     {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0,
+      "curve": 0.25
+     },
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.7,
+     "reason": "Dragon crunching the last cookie behind Viking's back",
+     "at": 0.2
+    },
+    {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
      "at": 0.2
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.18,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0,
+      "curve": 0.2,
+      "tilt": 0.5,
+      "browY": 0.04
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.2,
+     "at": 0.4
     },
     {
      "who": "phx",
@@ -895,7 +940,7 @@
      "expr": "shocked",
      "set": {
       "open": 0.3,
-      "eye": 1.482,
+      "eye": 1.48,
       "curve": -0.075
      },
      "dur": 0.25,
@@ -906,13 +951,6 @@
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.05
-    },
-    {
-     "who": "dra",
-     "do": "still",
-     "dur": 0.55,
-     "idle": 0.08,
      "at": 0.05
     },
     {
@@ -952,37 +990,9 @@
     },
     {
      "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cookie",
-      "grip": [
-       0,
-       0,
-       0.07
-      ],
-      "at": [
-       -1.287,
-       0.55,
-       0.358
-      ]
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.35
-    },
-    {
-     "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.3,
-       0.72,
-       0.02
-      ]
-     },
-     "dur": 0.24,
+     "do": "lean",
+     "to": -7,
+     "dur": 0.15,
      "ease": "out",
      "at": 0.52
     },
@@ -1011,38 +1021,62 @@
     },
     {
      "who": "dra",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.7
-    },
-    {
-     "who": "dra",
-     "do": "release",
-     "prop": "cookie",
-     "dur": 0,
-     "at": 0.72
-    },
-    {
-     "who": "dra",
      "do": "release",
      "prop": "bag",
      "dur": 0,
-     "at": 0.76
+     "at": 0.65
     },
     {
      "do": "physics",
      "prop": "bag",
      "mode": "throw",
      "to": [
-      -2.3,
+      -0.85,
       0.05,
-      -0.75
+      -1.35
      ],
-     "in": 0.55,
-     "at": 0.76
+     "in": 0.65,
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 0.65
+    },
+    {
+     "who": "dra",
+     "do": "release",
+     "prop": "cookie",
+     "dur": 0,
+     "at": 0.7
+    },
+    {
+     "who": "dra",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.72
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.72
+    },
+    {
+     "fx": "rule",
+     "dur": 1.3,
+     "title": "RULE 1",
+     "text": "Never let the hungry one guard the food",
+     "who": "dra",
+     "at": 0.8
     },
     {
      "who": "vik",
@@ -1075,15 +1109,6 @@
     },
     {
      "who": "dra",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "ease": "settle",
-     "at": 1
-    },
-    {
-     "who": "dra",
      "do": "expr",
      "expr": "kind",
      "set": {
@@ -1101,14 +1126,6 @@
      "do": "face",
      "brow": 0.4,
      "dur": 0.3,
-     "at": 1
-    },
-    {
-     "fx": "rule",
-     "dur": 1.1,
-     "title": "RULE 1",
-     "text": "Never let the hungry one guard the food",
-     "who": "dra",
      "at": 1
     },
     {
@@ -1155,12 +1172,12 @@
    "len": 0.85,
    "shot": {
     "pos": [
-     0.12,
+     0.05,
      0.88,
      4.6
     ],
     "look": [
-     0.12,
+     0.05,
      1.082,
      -5.398
     ],
@@ -1200,9 +1217,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.14,
-       0.4,
-       0.34
+       0.1,
+       0.45,
+       0.55
       ]
      },
      "dur": 0.25,
@@ -1288,7 +1305,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 0.9
      },
      "dur": 0.15,
      "ease": "inOut",
@@ -1337,7 +1354,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 0.9
      },
      "dur": 0.15,
      "ease": "inOut",
@@ -1406,7 +1423,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 0.9
      },
      "dur": 0.15,
      "ease": "inOut",
@@ -1420,12 +1437,12 @@
    "len": 2.15,
    "shot": {
     "pos": [
-     0.15,
+     0.02,
      0.85,
      4.2
     ],
     "look": [
-     0.15,
+     0.02,
      1.052,
      -5.798
     ],
@@ -1449,6 +1466,20 @@
      "at": 0.1
     },
     {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.8,
+       0.55
+      ]
+     },
+     "dur": 0.22,
+     "at": 0.1
+    },
+    {
      "who": "sor",
      "do": "lean",
      "to": 10,
@@ -1461,20 +1492,6 @@
      "expr": "delighted",
      "dur": 0.12,
      "at": 0.12
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.02,
-       0.66,
-       0.3
-      ]
-     },
-     "dur": 0.22,
-     "at": 0.15
     },
     {
      "sfx": "flash",
@@ -1502,7 +1519,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 0.9
      },
      "dur": 0.15,
      "ease": "inOut",
@@ -1512,8 +1529,8 @@
      "who": "sor",
      "do": "look",
      "to": [
-      -0.45,
-      -0.3
+      -0.6,
+      0.25
      ],
      "dur": 0.12,
      "blink": false,
@@ -1544,54 +1561,11 @@
      "at": 0.65
     },
     {
+     "fx": "rule",
+     "dur": 1.4,
+     "title": "RULE 2",
+     "text": "Never give the selfie one the phone",
      "who": "sor",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.2,
-     "at": 0.65
-    },
-    {
-     "who": "sor",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "phone",
-      "grip": [
-       0.061,
-       0.065,
-       -0.006
-      ],
-      "palm": true,
-      "at": [
-       0.209,
-       0.62,
-       1.386
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.65
-    },
-    {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "rot": 150,
-      "tip": -35
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.65
-    },
-    {
-     "who": "sor",
-     "do": "look",
-     "to": [
-      -0.2,
-      -0.6
-     ],
-     "dur": 0.15,
-     "blink": false,
      "at": 0.7
     },
     {
@@ -1634,14 +1608,6 @@
      "who": "phx",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.95
-    },
-    {
-     "fx": "rule",
-     "dur": 1.15,
-     "title": "RULE 2",
-     "text": "Never give the selfie one the phone",
-     "who": "sor",
      "at": 0.95
     },
     {
@@ -1734,19 +1700,8 @@
    "do": [
     {
      "who": "vik",
-     "do": "move",
-     "to": [
-      -0.45,
-      0.3
-     ],
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "vik",
      "do": "turn",
-     "to": 60,
+     "to": 40,
      "dur": 0,
      "at": 0
     },
@@ -1754,8 +1709,8 @@
      "who": "sor",
      "do": "move",
      "to": [
-      1.5,
-      0.7
+      2.2,
+      0.6
      ],
      "dur": 0,
      "ease": "linear",
@@ -1764,7 +1719,7 @@
     {
      "who": "sor",
      "do": "turn",
-     "to": -40,
+     "to": -45,
      "dur": 0,
      "at": 0
     },
@@ -1781,9 +1736,9 @@
       ],
       "palm": true,
       "at": [
-       1.074,
+       1.762,
        0.62,
-       0.865
+       0.727
       ]
      },
      "dur": 0,
@@ -1794,7 +1749,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "rot": 140,
+      "rot": 95,
       "tip": -35
      },
      "dur": 0,
@@ -1805,8 +1760,8 @@
      "who": "vik",
      "do": "look",
      "to": [
-      0.3,
-      -0.35
+      0.6,
+      -0.3
      ],
      "dur": 0,
      "blink": false,
@@ -1827,9 +1782,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.3,
+       0.32,
        0.42,
-       0.3
+       -0.05
       ]
      },
      "dur": 0.25,
@@ -1850,8 +1805,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      0.8,
-      -0.2
+      0.95,
+      -0.25
      ],
      "dur": 0.45,
      "at": 0.3
@@ -1859,7 +1814,7 @@
     {
      "who": "phx",
      "do": "turn",
-     "to": -81,
+     "to": -82,
      "dur": 0.4,
      "at": 0.3
     },
@@ -2047,16 +2002,16 @@
    "len": 1.95,
    "shot": {
     "pos": [
-     0.25,
+     0.15,
      0.85,
-     3.9
+     4
     ],
     "look": [
-     0.25,
+     0.15,
      1.052,
-     -6.098
+     -5.998
     ],
-    "fov": 48
+    "fov": 50
    },
    "do": [
     {
@@ -2302,6 +2257,34 @@
      "at": 0.95
     },
     {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.97
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1.35,
+      -0.4
+     ],
+     "dur": 0.7,
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.5,
+     "at": 1.15
+    },
+    {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
@@ -2335,24 +2318,6 @@
    },
    "do": [
     {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      1.35,
-      -0.4
-     ],
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": -25,
-     "dur": 0,
-     "at": 0
-    },
-    {
      "do": "prop",
      "id": "smoke",
      "set": {
@@ -2375,6 +2340,10 @@
      "who": "dra",
      "dur": 0.8,
      "size": 96,
+     "xy": [
+      300,
+      1290
+     ],
      "at": 0.1
     },
     {
@@ -2384,17 +2353,31 @@
      "pose": {
       "o": [
        -0.02,
-       0.3,
-       0.26
+       0.46,
+       0.28
       ]
      },
      "dur": 0.3,
      "at": 0.1
     },
     {
+     "who": "dra",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
      "who": "vik",
      "do": "turn",
-     "to": -50,
+     "to": -45,
      "dur": 0.3,
      "at": 0.1
     },
@@ -2464,6 +2447,13 @@
      "at": 0.2
     },
     {
+     "who": "dra",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
      "fx": "vote",
      "dur": 2.94,
      "question": "PART 2: who goes into the jungle for food?",
@@ -2489,16 +2479,16 @@
    "len": 2.9,
    "shot": {
     "pos": [
-     0.2,
-     1.1,
-     5.3
+     -0.05,
+     1,
+     4.7
     ],
     "look": [
-     0.2,
-     1.302,
-     -4.698
+     -0.05,
+     1.202,
+     -5.298
     ],
-    "fov": 50
+    "fov": 48
    },
    "do": [
     {
@@ -2556,7 +2546,7 @@
     },
     {
      "do": "prop",
-     "id": "ferns1",
+     "id": "ferns2",
      "set": {
       "part": 0.5
      },
@@ -2586,11 +2576,20 @@
      "who": "rea",
      "do": "look",
      "to": [
-      -0.6,
+      0.6,
       0.35
      ],
      "dur": 0.12,
      "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.2,
+     "ease": "out",
      "at": 0.4
     },
     {
@@ -2609,7 +2608,7 @@
     },
     {
      "do": "prop",
-     "id": "ferns1",
+     "id": "ferns2",
      "set": {
       "part": 0
      },
@@ -2660,6 +2659,29 @@
      "at": 1.35
     },
     {
+     "sfx": "leafrustle",
+     "gain": 0.45,
+     "reason": "the jungle rustles again",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "ferns2",
+     "set": {
+      "part": 0.5
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 2.2
+    },
+    {
      "who": "sor",
      "do": "blink",
      "dur": 0.22,
@@ -2676,6 +2698,16 @@
      "do": "blink",
      "dur": 0.22,
      "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "ferns2",
+     "set": {
+      "part": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.5
     }
    ],
    "kind": "reaction"
@@ -2802,14 +2834,14 @@
    "reason": "Dragon eats the cookie: it is at his mouth"
   },
   {
-   "who": "dra",
-   "with": "dra",
-   "from": 2.25,
-   "to": 2.7,
+   "who": "sor",
+   "with": "rea",
+   "from": 1.05,
+   "to": 1.9,
    "checks": [
     "face-covered"
    ],
-   "reason": "he stuffs the last of the cookie in: the glove at his mouth for 0.3 s"
+   "reason": "Viking's close-up: Reaper is a bystander far behind the Sorcerer's selfie glove"
   }
  ],
  "notes": "Generated by storyboards/series/survive-it/01-island/make-island.mjs. Spec: BOARD.md. Title added in TikTok's text tool."

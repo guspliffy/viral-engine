@@ -50,17 +50,17 @@ const ENV = "fern-valley-campfire";
 const rad = (d) => (d * Math.PI) / 180;
 // a point in front of someone: f metres along their facing, s metres to their own left, at height y
 const front = ([x, z], yaw, f, s, y) => { const a = rad(yaw); return [r3(x + f * Math.sin(a) + s * Math.cos(a)), r3(y), r3(z + f * Math.cos(a) - s * Math.sin(a))]; };
-const FIRE = [0.15, -0.1];
-const VIK = [-0.35, 0.9], VIK_YAW = 15;
-const VIK_PIT = [-0.45, 0.3], VIK_PIT_YAW = 60;      // part 3: at the pit's front left, turned to it and to Phoenix
-const BOX = { x: -1.3, z: 0.6, w: 0.52, d: 0.38, h: 0.32, rot: 20 };
+const FIRE = [0.2, -0.15];
+const VIK = [-0.45, 0.9], VIK_YAW = 15;
+const VIK_FIRE_YAW = 40;   // part 3: he stays put, turned so his left arm points back at the pit
+const BOX = { x: -1.35, z: 0.72, w: 0.52, d: 0.38, h: 0.32, rot: 20 };
 const DRA = [-1.5, -0.05], DRA_YAW = 30;
 const LOG = { x: 0.3, z: -1.25, rot: 0, len: 0.95 };
 const REA = [LOG.x, LOG.z];
 const PHX = [1.35, -0.4], PHX_YAW = -25;
-const PHX_FIRE = [0.8, -0.2], PHX_FIRE_YAW = -81;   // beside the pit, facing it
+const PHX_FIRE = [0.95, -0.25], PHX_FIRE_YAW = -82;   // beside the pit, facing it
 const SOR = [0.6, 1.15], SOR_YAW = -30;
-const SOR_SULK = [1.5, 0.7], SOR_SULK_YAW = -40;    // part 3 on: off to the right with his dead phone
+const SOR_SULK = [2.2, 0.6], SOR_SULK_YAW = -45;    // part 3 on: off to the right with his dead phone
 
 const cast = [
   { id: "vik", character: "duo/viking", at: VIK, face: VIK_YAW, expr: "delighted", follow: 0.4, seed: 3.3 },
@@ -90,10 +90,10 @@ const props = [
   { id: "juice2", kind: "juicebox", x: -1.85, y: 0.03, z: 0.75, rot: 120, tip: 90 },
   // a wrapper someone dropped by the pit: Phoenix's wing gust sends it skidding (physics)
   { id: "wrap3", kind: "mallowbag", x: 0.55, y: 0.06, z: 0.45, rot: -50, tip: 90 },
-  { id: "phone", kind: "phone", x: PHONE_AT[0], y: PHONE_AT[1], z: PHONE_AT[2], rot: r3(SOR_YAW + 180 - 40), tip: -12, scale: 1.6, case: "#7d4bb3", halo: 0.5, haloK: 0.6 },
+  { id: "phone", kind: "phone", x: PHONE_AT[0], y: PHONE_AT[1], z: PHONE_AT[2], rot: r3(SOR_YAW + 180 - 40), tip: -12, scale: 1.6, case: "#f2e8d5", glow: 0.9, halo: 0.5, haloK: 0.6 },
   // the jungle behind the camp: big fronds that rustle at the vote (something out there)
   { id: "ferns1", kind: "ferns", x: -2.6, z: -2.9, n: 11, len: 1.9, seed: 3 },
-  { id: "ferns2", kind: "ferns", x: 2.7, z: -2.8, n: 9, len: 1.7, seed: 8 },
+  { id: "ferns2", kind: "ferns", x: 1.7, z: -2.5, n: 9, len: 1.7, seed: 8 },   // the one that rustles at the vote
 ];
 
 // ---------------------------------------------------------------- frame 0 poses (cleanStart makes them instant)
@@ -123,30 +123,35 @@ A(0, "sor", "look", { to: [-0.55, 0.15], dur: 0, blink: false });
 // ---------------------------------------------------------------- 1 THE FOOD 0.0-4.0 (Dragon: always hungry)
 // 0.0 the promise, the troublemaker already at it behind him
 c.say(0, "vik", "food for three days!", 0.9, "excited");
-for (const t of [0.0, 0.42, 0.84]) sfx(t, "ai/crunch", { gain: 0.7, reason: "Dragon crunching the last cookie behind Viking's back" });
-A(0.05, "dra", "squash", { amount: 0.03, dur: 0.18 }); A(0.47, "dra", "squash", { amount: 0.03, dur: 0.18 }); A(0.89, "dra", "squash", { amount: 0.03, dur: 0.18 });
+for (const t of [0.0, 0.42, 0.84, 1.25]) sfx(t, "ai/crunch", { gain: 0.7, reason: "Dragon crunching the last cookie behind Viking's back" });
+A(0.05, "dra", "squash", { amount: 0.03, dur: 0.18 }); A(0.47, "dra", "squash", { amount: 0.03, dur: 0.18 }); A(0.89, "dra", "squash", { amount: 0.03, dur: 0.18 }); A(1.3, "dra", "squash", { amount: 0.03, dur: 0.18 });
 see(0, 1.0, ["vik.face", "dra.face", "cookie", "box"], "B1: Viking promises food for three days; behind him Dragon is eating it");
 // 1.05 the victim's face: the crunches reach him, the smile freezes, eyes slide toward the sound
 A(1.15, "vik", "look", { to: [-0.75, 0.05], dur: 0.18, blink: false });
+A(1.15, "vik", "expr", { expr: "delighted", set: { open: 0, curve: 0.25 }, dur: 0.15 });   // the grin freezes shut
+A(1.3, "vik", "expr", { expr: "delighted", set: { open: 0, curve: 0.2, tilt: 0.5, browY: 0.04 }, dur: 0.15 });   // brows go up: worried
+A(1.45, "vik", "pitch", { to: -6, dur: 0.2 });
 see(1.1, 1.9, ["vik.face"], "B8: Viking's face as he hears the crunch");
 // 1.9 he turns: Dragon freezes mid-bite, cookie at his mouth (caught)
 A(1.85, "vik", "turn", { to: -45, dur: 0.3 });
 act.shock(c, 2.0, "vik", { open: 0.35, hold: 0.5 });
 A(1.9, "dra", "look", { to: [0.55, 0.15], dur: 0.12, blink: false });
-act.shock(c, 1.95, "dra", { open: 0.1, eye: 1.3, hold: 0.35 });
+// caught (act.shock without its "still": his arms keep moving into the gulp and the toss)
+A(1.95, "dra", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.48, curve: -0.075 }, dur: 0.25 }); A(1.95, "dra", "face", { brow: 0.45, dur: 0.25 });
 c.say(2.05, "dra", "mmf?", 0.35, "question");
 // 2.45 the last of it goes in (up to his mouth, gone), the empty bag goes over his shoulder (physics)
-c.arm(2.25, "dra", "R", { prop: "cookie", grip: [0, 0, 0.07], at: MOUTH }, 0.2, "inOut");
+// c.arm(2.25, "dra", "R", { prop: "cookie", grip: [0, 0, 0.07], at: MOUTH }, 0.2, "inOut");
 prop(2.45, "cookie", { scale: 0.01 }, 0.12, "in");
 sfx(2.5, "gulp", { gain: 0.7, reason: "Dragon swallows the last cookie whole" });
 A(2.45, "dra", "squash", { amount: -0.06, dur: 0.3 });
-c.arm(2.42, "dra", "L", { o: [0.3, 0.72, 0.02] }, 0.24, "out");   // up and out to his side, then a flick
-A(2.66, "dra", "release", { prop: "bag", dur: 0 });
-c.throw(2.66, "bag", { to: [-2.3, 0.05, -0.75], in: 0.55 });
+// the toss is a body flick (lean back) and a let-go: moving the held bag (a big offset in the glove) pops it
+A(2.42, "dra", "lean", { to: -7, dur: 0.15, ease: "out" }); A(2.62, "dra", "lean", { to: 0, dur: 0.3 });
+A(2.55, "dra", "release", { prop: "bag", dur: 0 });
+c.throw(2.55, "bag", { to: [-0.85, 0.05, -1.35], in: 0.65 });   // over his left shoulder, behind him
 sfx(3.22, "crinkle", { gain: 0.5, reason: "the empty bag lands behind him" });
-c.arm(2.9, "dra", "L", "rest", 0.35, "settle");
-c.arm(2.6, "dra", "R", "rest", 0.4, "settle");
-A(2.62, "dra", "release", { prop: "cookie", dur: 0 });
+c.arm(2.55, "dra", "L", "rest", 0.5, "settle");
+A(2.6, "dra", "release", { prop: "cookie", dur: 0 });
+c.arm(2.62, "dra", "R", "rest", 0.4, "settle");
 act.sheepish(c, 2.9, "dra");
 act.mood(c, 2.75, "vik", "angry", { hold: 0.9 });
 see(2.0, 3.9, ["vik.face", "dra.face"], "caught: the food is gone, Viking glares, Dragon grins with full cheeks");
@@ -156,7 +161,7 @@ see(2.0, 3.9, ["vik.face", "dra.face"], "caught: the food is gone, Viking glares
 A(4.0, "vik", "turn", { to: 55, dur: 0.3 });
 A(4.0, "vik", "look", { to: [0.75, 0.1], dur: 0.15, blink: false });
 c.say(4.1, "vik", "call for help!", 0.75, "excited");
-c.arm(4.1, "vik", "R", { o: [0.14, 0.4, 0.34] }, 0.25);   // a point at him, low: the glove stays under the phone
+c.arm(4.1, "vik", "R", { o: [0.1, 0.45, 0.55] }, 0.25);   // a point at him, low: the glove stays under the phone
 c.arm(4.1, "vik", "L", "rest", 0.3);
 // 4.6-6.4 the Sorcerer: "one sec!" and keeps shooting; every shot is a flash, a new pose and the battery falls
 c.say(4.55, "sor", "one sec!", 0.5, "calm");
@@ -171,22 +176,21 @@ SHOTS.forEach((t, i) => {
   A(t - 0.18, "sor", "lean", { to: POSES[i].tilt, dur: 0.15 });
   A(t - 0.18, "sor", "expr", { ...POSES[i].expr, dur: 0.12 });
   sfx(t, "flash", { gain: 0.6, reason: "his phone's camera firing on each selfie" });
-  prop(t, "phone", { glow: 1 }, 0.03); prop(t + 0.06, "phone", { glow: 0.6 }, 0.15);
+  prop(t, "phone", { glow: 1 }, 0.03); prop(t + 0.06, "phone", { glow: 0.9 }, 0.15);
   c.at(t, { fx: "flash", dur: 0.16, peak: 0.28 });
 });
 // 6.1 Viking lunges for it
 act.eyesLead(c, 5.9, "vik", [0.8, 0.35]);
 A(5.95, "vik", "lean", { to: 9, dur: 0.2 });
 c.say(5.95, "vik", "give it!", 0.4, "excited");
-c.arm(6.0, "vik", "R", { o: [0.02, 0.66, 0.3] }, 0.22);   // a grab at the phone, a hand short of it
+c.arm(5.95, "vik", "R", { o: [0, 0.8, 0.55] }, 0.22);   // a grab at the phone, level with it, a hand short
 A(6.5, "vik", "lean", { to: 0, dur: 0.3 });
 // 6.45 dead: the screen goes black in his hand
 prop(6.45, "phone", { glow: 0, burn: 0.85 }, 0.12);
 sfx(6.47, "plunk", { gain: 0.8, reason: "the phone dies: a deadpan dum" });
-A(6.35, "sor", "look", { to: [-0.45, -0.3], dur: 0.12, blink: false });
-A(6.5, "sor", "lean", { to: 0, dur: 0.2 });
-ph.carry(6.5, front(SOR, SOR_YAW, 0.4, -0.22, 0.62), 0.35, "inOut", { rot: SOR_YAW + 180, tip: -35 });
-A(6.55, "sor", "look", { to: [-0.2, -0.6], dur: 0.15, blink: false });
+A(6.35, "sor", "look", { to: [-0.6, 0.25], dur: 0.12, blink: false });   // up at the dead screen
+// the phone dies up in the selfie hold, and he stares up at it (moving the held phone pops the grip; the time-skip
+// cut at 8.0 lowers it to his chest)
 A(6.6, "sor", "expr", { expr: "shocked", dur: 0.15 });
 A(7.15, "sor", "look", { to: [-0.8, 0.1], dur: 0.15, blink: false });
 c.say(7.2, "sor", "oops.", 0.35, "calm");
@@ -199,13 +203,14 @@ see(5.9, 7.9, ["sor.face", "phone", "vik.face"], "Viking grabs at it; the phone 
 
 // ---------------------------------------------------------------- 3 THE FIRE 8.0-12.4 (Phoenix: too much energy)
 // 8.0 plan three: a signal fire. Viking points at the cold pit, Phoenix bursts in: "me! me!"
-// (+21 min: the cut re-places Viking at the pit and the Sorcerer off to the right with his dead phone)
-A(8.0, "vik", "move", { to: VIK_PIT, dur: 0, ease: "linear" }); A(8.0, "vik", "turn", { to: VIK_PIT_YAW, dur: 0 });
+// (+21 min: the cut re-places the Sorcerer off to the right with his dead phone; a re-placed walker would step
+// early, the gait looks ahead past the cut, so Viking and Phoenix get there on foot or stay put)
+A(8.0, "vik", "turn", { to: VIK_FIRE_YAW, dur: 0 });
 A(8.0, "sor", "move", { to: SOR_SULK, dur: 0, ease: "linear" }); A(8.0, "sor", "turn", { to: SOR_SULK_YAW, dur: 0 });
-ph.carry(8.0, front(SOR_SULK, SOR_SULK_YAW, 0.4, -0.22, 0.62), 0, "linear", { rot: SOR_SULK_YAW + 180, tip: -35 });   // the phone goes with him
-A(8.0, "vik", "look", { to: [0.3, -0.35], dur: 0, blink: false });
+ph.carry(8.0, front(SOR_SULK, SOR_SULK_YAW, 0.4, -0.22, 0.62), 0, "linear", { rot: r3(SOR_SULK_YAW - SOR_YAW + SOR_YAW + 180 - 40), tip: -35 });   // the phone goes with him
+A(8.0, "vik", "look", { to: [0.6, -0.3], dur: 0, blink: false });
 c.say(8.0, "vik", "signal fire!", 0.7, "excited");
-c.arm(8.0, "vik", "L", { o: [0.3, 0.42, 0.3] }, 0.25);
+c.arm(8.0, "vik", "L", { o: [0.32, 0.42, -0.05] }, 0.25);   // pointing back at the pit
 act.eyesLead(c, 8.3, "phx", [-0.6, -0.3]);
 A(8.3, "phx", "move", { to: PHX_FIRE, dur: 0.45 });
 A(8.3, "phx", "turn", { to: PHX_FIRE_YAW, dur: 0.4 });
@@ -224,7 +229,7 @@ prop(9.3, "fire", { lit: 1, puff: 1 }, 0.25, "out"); prop(9.6, "fire", { puff: 0
 sfx(9.3, "ai/flare", { gain: 0.6, reason: "the campfire catches: fwoomp" });
 A(9.3, "vik", "expr", { expr: "delighted", dur: 0.2 });
 // 9.6 too much energy: he can't stop. Up in the air, wings beating hard over the fire, cheering
-c.say(9.65, "phx", "woo-hoo!", 0.6, "excited");
+c.say(9.65, "phx", "woo-hoo!", 0.6, "excited");   // its subtitle ends at 10.05 (below), clear of the dying fire
 c.arm(9.6, "phx", "both", "up", 0.2, "out");
 A(9.65, "phx", "fly", { to: { y: 0.35 }, dur: 0.35, ease: "out" });
 A(10.0, "phx", "hover", { dur: 0.7 });
@@ -242,6 +247,9 @@ A(10.8, "phx", "turn", { to: -15, dur: 0.35 });   // round to the group: caught
 c.arm(10.75, "phx", "both", "rest", 0.4, "settle");
 A(10.9, "phx", "expr", { expr: "kind", set: { curve: 0.3, eye: 1.15 }, dur: 0.2 });
 act.sheepish(c, 11.2, "phx");
+// he shuffles back to his spot, sheepish
+act.eyesLead(c, 11.55, "phx", [0.5, 0.0]);
+A(11.6, "phx", "move", { to: PHX, dur: 0.7 }); A(11.6, "phx", "turn", { to: PHX_YAW, dur: 0.5 });
 for (const w of ["vik", "sor", "dra", "rea"]) A(10.55, w, "look", { to: w === "vik" ? [0.5, 0.1] : w === "sor" ? [-0.7, 0.1] : [0.55, 0.0], dur: 0.15, blink: false });
 act.mood(c, 10.6, "vik", "annoyed", { hold: 1.2 });
 act.mood(c, 10.65, "sor", "annoyed", { hold: 1.0 });
@@ -252,14 +260,15 @@ see(10.5, 12.3, ["phx.face", "vik.face"], "everyone stares at Phoenix");
 
 // ---------------------------------------------------------------- 4 THE VOTE 12.4-16.0
 // 12.45 Dragon's tummy rumbles: hungry AGAIN (everyone turns to him)
-// (+18 min: Phoenix back at his spot, the smoke gone)
-A(12.4, "phx", "move", { to: PHX, dur: 0, ease: "linear" }); A(12.4, "phx", "turn", { to: PHX_YAW, dur: 0 });
+// (+18 min: the smoke gone)
 prop(12.4, "smoke", { on: 0 }, 0);
 sfx(12.45, "rumble", { gain: 0.7, dur: 0.6, reason: "Dragon's empty tummy grumbling" });
-c.textPop(12.5, "dra", "grumble", { dur: 0.8, size: 96 });
-c.arm(12.5, "dra", "both", { o: [-0.02, 0.3, 0.26] }, 0.3);   // gloves on his tummy
+c.textPop(12.5, "dra", "grumble", { dur: 0.8, size: 96, xy: [300, 1290] });   // at his belly, beside the box
+c.arm(12.5, "dra", "both", { o: [-0.02, 0.46, 0.28] }, 0.3);   // gloves on his tummy, above the box rim
+A(12.5, "dra", "lean", { to: -8, dur: 0.25 });
+A(12.5, "dra", "squash", { amount: -0.05, dur: 0.2 }); A(12.8, "dra", "squash", { amount: -0.05, dur: 0.2 });
 act.sheepish(c, 12.6, "dra");
-A(12.5, "vik", "turn", { to: -50, dur: 0.3 });   // round to Dragon, behind him
+A(12.5, "vik", "turn", { to: -45, dur: 0.3 });   // round to Dragon
 for (const w of ["vik", "sor", "phx", "rea"]) A(12.55, w, "look", { to: [w === "vik" ? -0.5 : -0.8, 0.0], dur: 0.15, blink: false });
 // 13.1 the vote: Viking puffs up (fist to his chest); Reaper shakes his head, terrified: "nope. nope. nope."
 A(13.1, "vik", "turn", { to: 0, dur: 0.3 });
@@ -268,8 +277,12 @@ A(13.25, "vik", "expr", { expr: "cocky", dur: 0.2 });
 c.arm(13.25, "vik", "R", { o: [-0.02, 0.6, 0.38] }, 0.25, "settle");
 A(13.3, "vik", "squash", { amount: -0.05, dur: 0.35 });
 sfx(13.4, "leafrustle", { gain: 0.5, reason: "the dark jungle behind them rustles" });
-prop(13.35, "ferns1", { part: 0.5 }, 0.3, "out"); prop(13.75, "ferns1", { part: 0 }, 0.6);
-A(13.5, "rea", "look", { to: [-0.6, 0.35], dur: 0.12, blink: false });
+prop(13.35, "ferns2", { part: 0.5 }, 0.3, "out"); prop(13.75, "ferns2", { part: 0 }, 0.6);
+sfx(15.3, "leafrustle", { gain: 0.45, reason: "the jungle rustles again" });
+prop(15.3, "ferns2", { part: 0.5 }, 0.25, "out"); prop(15.6, "ferns2", { part: 0 }, 0.35);
+A(15.3, "rea", "squash", { amount: 0.08, dur: 0.25 });
+A(13.5, "rea", "look", { to: [0.6, 0.35], dur: 0.12, blink: false });
+c.arm(13.5, "rea", "both", "cheeks", 0.2, "out");   // gloves to his cheeks
 A(13.55, "rea", "expr", { expr: "terrified", dur: 0.15 });
 A(13.6, "rea", "squash", { amount: 0.06, dur: 0.25 });
 c.say(13.8, "rea", "nope. nope. nope.", 1.0, "calm");
@@ -303,8 +316,8 @@ const HUD = hud({
   part: 1, pos: "top",
 });
 if (OVERLAY) {
-  rule(c, 2.9, 1.1, "RULE 1", "Never let the hungry one guard the food", { who: "dra" });
-  rule(c, 6.8, 1.15, "RULE 2", "Never give the selfie one the phone", { who: "sor" });
+  rule(c, 2.7, 1.3, "RULE 1", "Never let the hungry one guard the food", { who: "dra" });
+  rule(c, 6.55, 1.4, "RULE 2", "Never give the selfie one the phone", { who: "sor" });
   rule(c, 10.75, 1.6, "RULE 3", "Never let the hyper one near the fire", { who: "phx" });
   vote(c, 13.05, 2.94, "PART 2: who goes into the jungle for food?", [["A", "Viking", "vik"], ["B", "Reaper", "rea"]]);
 }
@@ -323,13 +336,13 @@ const shot = (pos, { pan = 0, tilt = 0, fov = 40 } = {}) => {
 const HOOK = shot([-0.82, 0.82, 4.3], { pan: 0, tilt: -8, fov: 50 });    // Viking front right, Dragon at the box left
 const VIK_CU = shot([-0.4, 0.8, 3.4], { pan: 0, tilt: -8, fov: 40 });     // the victim's face
 const CAUGHT = shot([-0.85, 0.85, 4.0], { pan: 0, tilt: -8, fov: 48 });   // both, Dragon caught
-const PHONE2 = shot([0.12, 0.88, 4.6], { pan: 0, tilt: -8, fov: 50 });    // Viking and the Sorcerer, the phone between
+const PHONE2 = shot([0.05, 0.88, 4.6], { pan: 0, tilt: -8, fov: 50 });    // Viking and the Sorcerer, the phone between
 const SELFIE = shot([0.38, 0.8, 3.6], { pan: 0, tilt: -8, fov: 44 });     // the Sorcerer and his phone
-const DEAD = shot([0.15, 0.85, 4.2], { pan: 0, tilt: -8, fov: 46 });      // the dead phone, Viking's face
+const DEAD = shot([0.02, 0.85, 4.2], { pan: 0, tilt: -8, fov: 46 });      // the dead phone, Viking's face
 const FIRE3 = shot([0.15, 1.0, 5.0], { pan: 0, tilt: -8, fov: 48 });      // Viking, the pit, Phoenix (wide)
-const STARE = shot([0.25, 0.85, 3.9], { pan: 0, tilt: -8, fov: 48 });     // Phoenix in the smoke, Viking staring
+const STARE = shot([0.15, 0.85, 4.0], { pan: 0, tilt: -8, fov: 50 });     // Phoenix in the smoke, Viking staring
 const RUMBLE = shot([-0.9, 0.9, 4.3], { pan: 0, tilt: -8, fov: 46 });     // Dragon and Viking
-const VOTE = shot([0.2, 1.1, 5.3], { pan: 0, tilt: -8, fov: 50 });        // Viking left, Reaper right, the pit between
+const VOTE = shot([-0.05, 1.0, 4.7], { pan: 0, tilt: -8, fov: 48 });      // Viking left, Reaper right, the pit between
 const beats = c.beats([
   ["1 the food: the promise", 0, HOOK, "hook"],
   ["1 Viking hears it", 1.05, VIK_CU, "reaction"],
@@ -342,6 +355,10 @@ const beats = c.beats([
   ["4 hungry again", 12.4, RUMBLE],
   ["4 the vote", 13.1, VOTE, "reaction"],
 ], END);
+// "Woo-hoo!" leaves before the flames die (10.05-10.45), so the payoff is in the clear (Fable review A, note 1)
+c.captions.find((x) => x.text === "Woo-hoo!").to = 10.05;
+// the first line's subtitle ends on the cut to Viking's close-up (his mouth sits where it would be)
+c.captions.find((x) => x.text === "Food for three days!").to = 1.05;
 
 write(import.meta.url, {
   id: "survive-it-01-island",
@@ -361,7 +378,7 @@ write(import.meta.url, {
   allowClip: [
     { who: "rea", with: "log", from: 0, to: END, reason: "Reaper sits on the log (his legs rest over it)" },
     { who: "dra", with: "cookie", from: 0, to: 2.65, checks: ["prop-in-self"], reason: "Dragon eats the cookie: it is at his mouth" },
-    { who: "dra", with: "dra", from: 2.25, to: 2.7, checks: ["face-covered"], reason: "he stuffs the last of the cookie in: the glove at his mouth for 0.3 s" },
+    { who: "sor", with: "rea", from: 1.05, to: 1.9, checks: ["face-covered"], reason: "Viking's close-up: Reaper is a bystander far behind the Sorcerer's selfie glove" },
   ],
   notes: "Generated by storyboards/series/survive-it/01-island/make-island.mjs. Spec: BOARD.md. Title added in TikTok's text tool.",
 });
