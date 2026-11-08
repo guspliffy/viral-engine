@@ -69,10 +69,13 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  coupon: { w: 0.3, h: 0.24, t: 0.002 },           // props-birthday.js hand-drawn coupon: the phone hold (its drawing on +z: flip: true shows it to whoever he holds it out to)
+  // props-birthday.js gift with a bow: its size is the spec's own (w x w footprint, h tall), so the box hold fits any present
+  bowgift: (s) => ({ w: s.w ?? 0.24, h: s.h ?? 0.18, d: s.w ?? 0.24 }),
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
-const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`grips: no size for prop kind "${spec.kind}"`); return s; };
+const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`grips: no size for prop kind "${spec.kind}"`); return typeof s === "function" ? s(spec) : s; };
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
