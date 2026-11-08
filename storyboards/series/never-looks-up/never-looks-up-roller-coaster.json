@@ -7552,10 +7552,11 @@
    "vfov": 46,
    "shift": [
     0.12,
-    0.08
+    -0.2
    ],
    "fade": 0.32,
-   "show": 0
+   "show": 0,
+   "staged": "a painted backdrop of the fair far below, hung 170 m out on its shot camera's rays: not a thing standing in the world"
   },
   {
    "id": "plate4",
@@ -7580,7 +7581,8 @@
     0
    ],
    "fade": 0.32,
-   "show": 0
+   "show": 0,
+   "staged": "a painted backdrop of the fair far below, hung 170 m out on its shot camera's rays: not a thing standing in the world"
   },
   {
    "id": "plate5",
@@ -7605,7 +7607,8 @@
     0.02
    ],
    "fade": 0.32,
-   "show": 0
+   "show": 0,
+   "staged": "a painted backdrop of the fair far below, hung 170 m out on its shot camera's rays: not a thing standing in the world"
   },
   {
    "id": "popcorn",
@@ -13870,6 +13873,15 @@
      "at": 0.85
     },
     {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "sprout",
+     "hand": "hat",
+     "keep": true,
+     "quiet": true,
+     "at": 0.92
+    },
+    {
      "do": "prop",
      "id": "sprout",
      "set": {
@@ -13877,15 +13889,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.91
-    },
-    {
-     "who": "wiz",
-     "do": "grab",
-     "prop": "sprout",
-     "hand": "hat",
-     "keep": true,
-     "at": 0.92
+     "at": 0.93
     }
    ]
   },
@@ -14423,11 +14427,20 @@
      1.655
     ],
     "look": [
-     1.2,
-     9.634,
-     9.655
+     0.509,
+     6.824,
+     12.802
     ],
-    "fov": 32
+    "fov": 32,
+    "to": {
+     "look": [
+      1.2,
+      9.634,
+      9.655
+     ]
+    },
+    "dur": 0.4,
+    "ease": "out"
    },
    "do": [
     {
@@ -15262,7 +15275,7 @@
      "expr": "kind",
      "set": {
       "curve": 0,
-      "open": 0.28,
+      "open": 0.45,
       "eye": 1.15
      },
      "dur": 0.15,

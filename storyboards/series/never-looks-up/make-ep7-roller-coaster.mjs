@@ -203,13 +203,13 @@ shot("loop", 3.7, S4);
 // it, so from 4.4 m it filled the frame with its floor by 6.3 s; from here it stays a medium shot to the cut. 3.4 m
 // to Phoenix's side, so the loop's near arc passes beside the riders' faces, not over them)
 const S5 = { pos: [r3(LOOP_TOP.p[0] - 3.4), r3(LOOP_TOP.p[1] - 4.0), r3(LOOP_TOP.p[2] - 8.0)], look: [r3(LOOP_TOP.p[0]), r3(LOOP_TOP.p[1] - 0.95), r3(LOOP_TOP.p[2])], fov: 32 };
-shot("upside down", 4.6, S5, "escalation");
+shot("upside down", 4.6, { ...S5, look: carMid(4.6, 1.0), to: { look: S5.look }, dur: 0.4, ease: "out" }, "escalation");   // tilts up with the car into the loop's top, then holds (review B: the cut landed on rails and the car's floor, the first face came at 5.05)
 // 06 PEAK 6.3-8.0 (the board: 7.0-8.0; past 6.3 the car comes down the loop's near side at the shot-05 camera and
 // shows it only its floor, so the photo camera takes over and watches it drop out of the loop): the photo camera's view, low trackside front-left three-quarter; it pans with the car out of the loop
 const T6 = 6.3;   // (a steady pan keeps the car within 12 degrees of the middle as it drops out of the loop)
 shot("photo", T6, { pos: PHOTO_CAM, look: carMid(T6, 1.0), fov: 60, to: { look: W(FLASH - 0.03, [0.35, 1.3, 0.1]) }, dur: r3(FLASH - T6), ease: "linear" });
 // 07 FLASH + LOOK-UP 8.0-9.2: medium close on Phoenix from his front-left, the friends frozen mid-scream behind
-shot("look-up", FLASH, { rig: "car", pos: [PHX_X + 0.5, SIT(0) + 0.72, FRONT + 2.1], look: [PHX_X + 0.2, SIT(0) + 0.5, FRONT - 0.2], fov: 56 }, "payoff");   // (aimed low enough that the rim under the phone is in the safe zone for "huh.")
+shot("look-up", FLASH, { rig: "car", pos: [PHX_X + 0.5, SIT(0) + 0.72, FRONT + 2.1], look: [PHX_X + 0.2, SIT(0) + 0.5, FRONT - 0.2], fov: 56 }, "payoff");   // (aimed low enough that the rim under the phone is in the safe zone for "huh."; review B asked for +0.4 to show the Wizard's scream: from the front-left the Wizard sits nearer the camera, so that cut Phoenix's face at the frame's left edge)
 // 08 THE RIDE PHOTO 9.2-10.0: the exit kiosk straight on
 // (close enough that the screen fills most of the width, as on the board: the photo is the punchline and must read
 // on a phone)
@@ -220,10 +220,10 @@ const PITCH = -6.8;   // the painting's own view: its horizon sits 6.8 deg over 
 const plateFor = (id, cam, src, shift, from, to) => {
   const d = norm(sub(cam.look, cam.pos)), yaw = Math.atan2(d[0], d[2]), p = (PITCH * Math.PI) / 180;
   const look = add(cam.pos, [Math.sin(yaw) * Math.cos(p), Math.sin(p), Math.cos(yaw) * Math.cos(p)], 10);
-  props.push({ id, kind: "farplate", x: 0, z: 0, src, eye: cam.pos, look: look.map(r3), dist: 170, vfov: 46, shift, fade: 0.32, show: 0 });
+  props.push({ id, kind: "farplate", x: 0, z: 0, src, eye: cam.pos, look: look.map(r3), dist: 170, vfov: 46, shift, fade: 0.32, show: 0, staged: "a painted backdrop of the fair far below, hung 170 m out on its shot camera's rays: not a thing standing in the world" });
   prop(r3(from), id, { show: 1 }, 0.01); prop(r3(to - 0.01), id, { show: 0 }, 0.01);
 };
-plateFor("plate1", S1, "assets/plates/coaster-fair.webp", [0.12, 0.08], 0, 1.05);
+plateFor("plate1", S1, "assets/plates/coaster-fair.webp", [0.12, -0.2], 0, 1.05);   // low, so there's sky behind the heads and the fair lies far below: the top of a drop, not a car parked under a hill (review A and B)
 plateFor("plate4", S4, "assets/plates/coaster-fair-mirror.webp", [0.0, 0.0], 3.7, 4.6);
 plateFor("plate5", S5, "assets/plates/coaster-fair.webp", [-0.05, 0.02], 4.6, T6);
 
@@ -315,8 +315,8 @@ A(1.9, "wiz", "hat", { on: false, off: [0, 0, 0], spin: [0, 0, 0], dur: 0, quiet
 console.log(`hat: from ${HAT_Q} to ${HAT.out.at(-1)} by 1.9 s`);
 // under it, his sprout (a hatless head shows its sprout, as in Jonny's panels 03-08)
 props.push({ id: "sprout", kind: "headsprout", rig: "car", x: WIZ_X, y: r3(SIT(0) + 0.98), z: r3(FRONT + 0.05), scale: 0 });
-prop(1.96, "sprout", { scale: 1.5 }, 0.01);   // as big as the others' sprouts
-A(1.97, "wiz", "grab", { prop: "sprout", hand: "hat", keep: true });
+prop(1.98, "sprout", { scale: 1.5 }, 0.01);   // as big as the others' sprouts; it shows from the cut to the ride cam (2.0 s): in the close-up it would lie across the Dragon's mouth, and at 1.96 it popped in one frame before the cut
+A(1.97, "wiz", "grab", { prop: "sprout", hand: "hat", keep: true, quiet: true });   // (quiet: nothing is grabbed on screen, the sprout just shows under where the hat was)
 
 // ---------------------------------------------------------------- sitting, holding, the lap bars down from frame 0
 for (const [w, seat] of [["phx", "seat00"], ["wiz", "seat01"], ["rea", "seat10"], ["dra", "seat11"]]) A(0, w, "sit", { seat, dur: 0, hands: "keep" });
@@ -433,7 +433,7 @@ for (const w of ["wiz", "rea", "dra"]) A(r3(FLASH - 0.04), w, "still", { dur: r3
 A(8.05, "phx", "look", { to: [0.35, 0.7], dur: 0.12, blink: false });
 A(8.05, "phx", "face", { lid: 0.12, dur: 0.12 });
 A(8.05, "phx", "pitch", { to: -8, dur: 0.45, ease: "inOut" });   // his head comes up (eased, so the phone in his gloves rises with him)
-A(8.05, "phx", "expr", { expr: "kind", set: { curve: 0, open: 0.28, eye: 1.15 }, dur: 0.15 });   // a small "o" (the board)
+A(8.05, "phx", "expr", { expr: "kind", set: { curve: 0, open: 0.45, eye: 1.15 }, dur: 0.15 });   // a small "o" (the board)
 // the thumb stops and the phone sinks a hand's width as his head comes up, so the "o" shows over it (the board's 07)
 const PH_DOWN = (p) => ({ x: [p.x[0], r3(PH_Y - 0.1), PH_Z], palm: [0, r3(PH_Y - 0.1), PH_Z] });
 c.arm(8.05, "phx", "R", PH_DOWN(PHONE_R), 0.45, "inOut"); c.arm(8.05, "phx", "L", PH_DOWN(PHONE_L), 0.45, "inOut");

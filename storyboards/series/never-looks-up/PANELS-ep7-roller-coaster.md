@@ -64,3 +64,5 @@ big white clouds, gulls. Light: bright midday-afternoon sun, sharp everywhere.
   Ferris wheel far below (level with it, the hilltop's grass filled the lower half of the frame).
 - 07: the phone sinks a hand's width as his head comes up, so his small "o" shows over it.
 - 08: a slow push in on the kiosk (0.8 s); the photo is cropped in on the four riders so their faces read on the screen.
+- 03: the ride cam sits a little higher than the board's level camera (1.75 m over the front seats, not 1.45): from
+  level, the Wizard's sprout lay right across the Dragon's mouth as he snapped the kernel.

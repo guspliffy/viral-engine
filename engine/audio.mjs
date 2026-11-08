@@ -1080,7 +1080,7 @@ function foley(sb, panOf) {
     }
     // a toe tap: a soft footstep on each slap (timeline.js TAP_AT), on the set's floor
     if (a.do === "tap" && !ownSteps) for (let i = 0; i < (a.count ?? 3); i++) ev.push({ kind: step, at: a.at + (i + TAP_AT) * (a.every ?? 0.3), pan, gain: 0.35 * (a.gain ?? 1) });
-    if (a.do === "grab" && a.at > 0.05) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
+    if (a.do === "grab" && a.at > 0.05 && !a.quiet) ev.push({ kind: "grab", at: a.at + (a.dur ?? 0.25) * 0.7, pan, gain: 1 });
     if (a.do === "sit" && a.at > 0.05) ev.push({ kind: "sit", at: a.at + (a.dur ?? 0.35) * 0.75, pan, gain: 1 });
   }
   return ev;
