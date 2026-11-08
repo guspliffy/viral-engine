@@ -192,7 +192,9 @@ export function rigFindings(layout, sb) {
     }
     // a change of hand (R to both, a pass) re-anchors the prop on purpose: only the frames of one hold count
     const same = (i) => hand[i] === hand[i - 1];
-    pops(pos.map((p, i) => (i && !same(i) ? null : p)), RIG.prop, h.who, `held ${h.prop}`, "prop-pop");
+    // (with anime timing a held prop is drawn with its holder's drawings, so it is judged drawing by drawing like the hand
+    // that holds it: a carry on 2s moves it in one frame between held ones by design; what a clip, 8 Nov 2026)
+    (AT ? popsDrawn : pops)(pos.map((p, i) => (i && !same(i) ? null : p)), RIG.prop, h.who, `held ${h.prop}`, "prop-pop");
     for (let i = 1; i < n; i++) {
       if (!off[i] || !off[i - 1] || !same(i) || cut(i)) continue;
       // a slip moves it both from where the hand is and within the hand's turn: an upright hold keeps the first, a
