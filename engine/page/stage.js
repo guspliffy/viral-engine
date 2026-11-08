@@ -15,6 +15,7 @@ import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
+import { pausesOf, pauseLookAt, keptProps, worldTime, actorTime } from "../shared/pause.js";
 import { drawnSpec, onTwos } from "./drawn.js";
 import { makeAnimeTiming } from "../shared/anime-timing.js";
 import { buildRoadster } from "./car-roadster.js";
@@ -357,8 +358,87 @@ function skinTint(a, st) {
   for (const m of T.mats) m.color.copy(c);
 }
 
+// Pause time's look (shared/pause.js): a flat mask of what keeps its colour (the keepers and what they carry in white,
+// everything else drawn to depth only, so whatever stands in front of a keeper still hides them; "dark" keeps only the
+// keepers' eyes), read back into an alpha mask; then the 2D composite drains the rest. Half size in a draft, like the
+// 3D picture. The wave starts at the origin keeper's chest, projected with this frame's camera.
+let pauseRT = null, pauseA = null, pauseTmp = null, pauseCol = null, pauseState = null;
+const pauseMats = new Map();
+function pauseMask(t, L) {
+  const w = R.domElement.width, h = R.domElement.height;
+  if (!pauseRT || pauseRT.width !== w || pauseRT.height !== h) {
+    pauseRT = new THREE.WebGLRenderTarget(w, h);
+    pauseA = document.createElement("canvas"); pauseA.width = w; pauseA.height = h;
+  }
+  const mat = (keep, side) => {
+    const k = `${keep ? 1 : 0}|${side}`;
+    if (!pauseMats.has(k)) pauseMats.set(k, new THREE.MeshBasicMaterial({ color: keep ? "#ffffff" : "#000000", colorWrite: !!keep, side }));
+    return pauseMats.get(k);
+  };
+  const keepIds = L.w.keep, propIds = new Set(keptProps(L.w, t)), keep = new Set();
+  for (const a of actors) if (keepIds.has(a.c.id) && a.ch.root.visible) {
+    if (L.look === "dark") for (const e of a.ch.face?.eyes || []) e.root.traverse((o) => keep.add(o));
+    else a.ch.root.traverse((o) => keep.add(o));
+  }
+  if (L.look !== "dark") for (const p of props) if (propIds.has(p.spec.id)) p.root.traverse((o) => keep.add(o));
+  const swapped = [], hidden = [];
+  scene.traverseVisible((o) => {
+    const m = o.material, m0 = Array.isArray(m) ? m[0] : m;
+    // effects and see-through parts never hide anything (as in ids())
+    if (o.isSprite || o.isPoints || o.isLine || (m0 && ((m0.transparent && m0.opacity < 0.95) || m0.depthWrite === false || m0.colorWrite === false || m0.visible === false))) { if (!keep.has(o)) hidden.push(o); return; }
+    if (o.isMesh) { swapped.push([o, m]); o.material = mat(keep.has(o), m0?.side ?? THREE.FrontSide); }
+  });
+  for (const o of hidden) o.visible = false;
+  const bg = scene.background, fog = scene.fog;
+  scene.background = new THREE.Color("#000000"); scene.fog = null;
+  R.setRenderTarget(pauseRT); R.render(scene, camera);
+  const px = new Uint8Array(w * h * 4); R.readRenderTargetPixels(pauseRT, 0, 0, w, h, px);
+  R.setRenderTarget(null);
+  scene.background = bg; scene.fog = fog;
+  for (const [o, m] of swapped) o.material = m;
+  for (const o of hidden) o.visible = true;
+  // white -> opaque, black -> clear (the render target is bottom-up; the canvas is top-down)
+  const g = pauseA.getContext("2d"), img = g.createImageData(w, h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const v = px[((h - 1 - y) * w + x) * 4], j = (y * w + x) * 4; img.data[j] = img.data[j + 1] = img.data[j + 2] = 255; img.data[j + 3] = v; }
+  g.putImageData(img, 0, 0);
+  // the wave's centre: the origin keeper's chest on screen
+  const o = actors.find((a) => a.c.id === L.origin);
+  let cx = W / 2, cy = H * 0.55;
+  if (o) { o.ch.root.updateMatrixWorld(true); const v = o.ch.root.localToWorld(new THREE.Vector3(0, 0.5 * (o.def.body?.height ?? 1) * (o.c.scale ?? 1), 0)).project(camera); cx = (v.x + 1) / 2 * W; cy = (1 - v.y) / 2 * H; }
+  pauseState = { t, cx, cy };
+}
+function pauseGrade(t) {
+  const L = pauseLookAt(sb, t);
+  if (!L || !pauseState || pauseState.t !== t) return;
+  if (!pauseCol) { for (const k of ["pauseCol", "pauseTmp"]) { const c = document.createElement("canvas"); c.width = W; c.height = H; if (k === "pauseCol") pauseCol = c; else pauseTmp = c; } }
+  const G = L.w.grade, { cx, cy } = pauseState;
+  const far = Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(([x, y]) => Math.hypot(x - cx, y - cy))) + 40;
+  const ease3 = (u) => 1 - Math.pow(1 - u, 3);
+  const rIn = ease3(L.ring) * far, rOut = ease3(L.back) * far;
+  if (rIn <= rOut + 0.5) return;
+  const gc = pauseCol.getContext("2d"); gc.clearRect(0, 0, W, H); gc.drawImage(out, 0, 0);   // the frame in colour
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx, cy, rIn, 0, Math.PI * 2); if (rOut > 0) { ctx.moveTo(cx + rOut, cy); ctx.arc(cx, cy, rOut, 0, Math.PI * 2, true); } ctx.clip("evenodd");
+  if (L.look === "dark") { ctx.fillStyle = G.color || "#000000"; ctx.fillRect(0, 0, W, H); }
+  else {
+    // grey: the colour drained (saturate), a little darker and flatter, then a cool wash over it
+    ctx.filter = `saturate(${G.sat ?? 0.12}) brightness(${G.bright ?? 0.92}) contrast(${G.contrast ?? 0.92})`; ctx.drawImage(pauseCol, 0, 0); ctx.filter = "none";
+    ctx.globalCompositeOperation = "multiply"; ctx.globalAlpha = G.wash ?? 0.55; ctx.fillStyle = G.tint || "#bccbe6"; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+  }
+  // the keepers in colour on top (the mask scaled up from a draft's half size, its edge softened by a pixel)
+  const tc = pauseTmp.getContext("2d"); tc.globalCompositeOperation = "source-over"; tc.clearRect(0, 0, W, H); tc.drawImage(pauseCol, 0, 0);
+  tc.globalCompositeOperation = "destination-in"; tc.filter = "blur(0.6px)"; tc.drawImage(pauseA, 0, 0, W, H); tc.filter = "none"; tc.globalCompositeOperation = "source-over";
+  ctx.drawImage(pauseTmp, 0, 0);
+  ctx.restore();
+  // the wave fronts: a pale ring going out, and one where the colour floods back
+  const ring = (r, a) => { if (r <= 1 || r >= far || a <= 0) return; ctx.save(); ctx.strokeStyle = G.ring || "#e8f1ff"; for (const [lw, k] of [[34, 0.12], [14, 0.3], [5, 0.75]]) { ctx.globalAlpha = a * k; ctx.lineWidth = lw; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); } ctx.restore(); };
+  if (L.look !== "dark") { if (L.ring < 1) ring(rIn, 1 - L.ring * 0.6); if (L.back > 0) ring(rOut, 1 - L.back * 0.6); }
+}
+
 function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
+  if (pausesOf(sb)) pauseGrade(t);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
@@ -371,7 +451,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at)); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
@@ -465,8 +545,11 @@ function pose(t0) {
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
   // "animeTiming" (shared/anime-timing.js): only the characters snap and hold; camera, set and effects on every frame
   const t = smearRaw || animeT ? t0 : onTwos(drawnD, t0), tc = smearRaw || animeT || (drawnD && drawnD.camera === 1) ? t0 : t;
-  for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
-  if (vfx) vfx.time = t;   // the particle effects drawn with this pose (vfx.js)
+  // pause time (shared/pause.js): the set's life, prop idles and particle effects run on the world clock, which stops
+  // in every pause (equal to t in a clip without one)
+  const tw = worldTime(sb, t);
+  for (const f of globalThis.__setTicks || []) f(tw);   // set motion that runs on the clock (set-plate.js)
+  if (vfx) vfx.time = tw;   // the particle effects drawn with this pose (vfx.js)
   // vehicle rigs first: everything riding in them is placed in their frame
   for (const V of rigs.values()) {
     const s = rigState(V.r, t), p = V.r.pivot || [0, 0.55, 0];
@@ -476,7 +559,8 @@ function pose(t0) {
     if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
   }
   const states = {};
-  for (const a of actors) { const ta = animeT && !smearRaw ? animeT(a.c.id, t) : t; const st = actorState(sb, a.c, a.def, ta); a.ch.apply(st, ta); skinTint(a, st); states[a.c.id] = { st, a }; }
+  // (a frozen actor's idle, flames and wings run on its own clock: actorState moves its timeline, apply gets the time)
+  for (const a of actors) { const ta = animeT && !smearRaw ? animeT(a.c.id, t) : t; const st = actorState(sb, a.c, a.def, ta); a.ch.apply(st, actorTime(sb, a.c.id, ta)); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
@@ -547,9 +631,9 @@ function pose(t0) {
     p.held = !!ps.hold; p.holder = ps.hold ? ps.hold.who : null; p.holdHand = ps.hold ? ps.hold.hand : null;
     p.ps = ps;
     // a body of the physics bake (from its start on): its baked pose, after its own state gave it its size and parts
-    if (phys && phys.owns(p, t)) { p.held = false; p.apply(ps, t); phys.place(p, t); continue; }
+    if (phys && phys.owns(p, t)) { p.held = false; p.apply(ps, tw); phys.place(p, t); continue; }
     // holds 2: attach.js places a held or let-go prop after its own state is applied (its size, parts and own turn)
-    if (attach2 && (ps.hold || ps.left)) { p.apply(ps, t); if (attach2.place(p, ps)) continue; }
+    if (attach2 && (ps.hold || ps.left)) { p.apply(ps, tw); if (attach2.place(p, ps)) continue; }
     // let go without a place: it stays where it was when the hand let go (pose the holder at that moment once)
     if (ps.left) {
       const key = `${ps.left.who}@${ps.left.at}`;
@@ -571,7 +655,7 @@ function pose(t0) {
         if (ps.hold.arc) ps.y += ps.hold.arc;
       }
     }
-    p.apply(ps, t);
+    p.apply(ps, tw);
   }
   // a charger's cable runs to the prop its spec.to names (props3d.js charger, props-charger.js chargebank), wherever that
   // is now (link gets its position and its root, for the way it faces)
@@ -647,6 +731,8 @@ function frame(t) {
     // a material drawn for the first time misses what prepare() sets on its compiled shader (the hat-brim band, the
     // lids' light), so a frame that compiled a new program is drawn again: the picture no longer depends on what the
     // page drew before (a shard's first frame, a photo taken first, a prop's first appearance)
+    const pl = pausesOf(sb) && pauseLookAt(sb, t);   // pause time: which pixels keep their colour, before the styled render
+    if (pl) pauseMask(t, pl);
     const progs = R.info.programs.length;
     const fp = sb.set && sb.set.focus ? cameraState(sb, t).focus : undefined;   // a shot's own focus point (depth of field)
     styler.prepare(scene, t, fp);

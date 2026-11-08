@@ -9,6 +9,7 @@ import { direct } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
+import { checkPauses } from "./shared/pause.js";
 import { focusTrack } from "./focus.mjs";
 import { cameraState } from "./page/timeline.js";
 import { worldCamera } from "./page/vehicle.js";
@@ -136,6 +137,9 @@ export function loadStoryboard(file, opts = {}) {
   const chars = loadCharacters(sb);
   const out = withHolds(cleanStart(resolveLife(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
+  // pause time (engine/shared/pause.js): windows inside the clip, keepers in the cast, nobody frozen acting in one
+  const pe = checkPauses(out);
+  if (pe.length) throw new Error(`pause:\n  ${pe.join("\n  ")}`);
   return out;
 }
 
