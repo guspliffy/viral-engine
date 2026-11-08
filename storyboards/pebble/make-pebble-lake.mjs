@@ -31,7 +31,7 @@ const RIG = { hand: 2, eyes: 2, hold: 2 };
 const PHYSICS = true, LIGHTING = 2, HATCH = { boil: 0.25 };
 // living world (Jonny 7 Nov 20:08, "apply it to all future videos"): gusts, cloud drift, far birds, background only
 const LIFE = "auto";
-const LINES = { sub: true, blink: false, pos: 230 };
+const LINES = { sub: true, blink: false, pos: 280 };
 
 const c = clip({ faces: FACES, lines: LINES }), { A, sfx, see } = c;
 const W = "peb", END = 16.0;
@@ -51,8 +51,8 @@ const smooth = (u) => { u = Math.max(0, Math.min(1, u)); return u * u * (3 - 2 *
 const ease = (K, t) => { if (t <= K[0][0]) return K[0][1]; for (let i = 0; i < K.length - 1; i++) if (t <= K[i + 1][0]) return K[i][1] + (K[i + 1][1] - K[i][1]) * smooth((t - K[i][0]) / (K[i + 1][0] - K[i][0])); return K[K.length - 1][1]; };
 // the bench's staging for short arms (bench time): bigger reach and rise, a draw-in to the chest, then (Fable review A:
 // a sideways sweep on a side-on body shows nothing) an arc up and over toward the lake that the camera sees
-const ARC = [[0, 0], [4.9, 0], [5.8, 0.18], [6.6, 0.1], [7.3, 0]];
-const REACH = [[0, 0], [1.0, 0], [2.6, 0.3], [3.5, 0.3], [4.5, -0.05], [5.0, 0.0], [5.8, 0.35], [6.6, 0.3], [7.3, 0.0], [8.1, 0.8], [8.8, 0.6], [10.6, 0]];
+const ARC = [[0, 0], [5.3, 0], [6.0, 0.34], [6.7, 0.2], [7.3, 0]];   // review B: the hands lift with the ribbon
+const REACH = [[0, 0], [1.0, 0], [2.6, 0.3], [3.5, 0.3], [4.5, -0.05], [5.0, 0.0], [5.6, 0.35], [6.6, 0.3], [7.3, 0.0], [8.1, 0.8], [8.8, 0.6], [10.6, 0]];
 const DIP = [[0, 0], [3.7, 0], [4.5, 1], [5.4, 1], [6.2, 0.4], [11, 0.4]];
 // Jonny 8 Nov: the hands never come in closer to his chest than at the draw-in (bench 5.25 s); the floor lets go as
 // they sink home
@@ -107,22 +107,26 @@ A(7.3, W, "look", { to: [0.05, 0.15], dur: 0.4, blink: false });
 A(8.2, W, "look", { to: [-0.6, 0], dur: 0.6, blink: false });         // to us for the line
 A(12.2, W, "look", { to: [0.05, -0.2], dur: 0.6, blink: false });     // back to the water as it goes home
 A(15.0, W, "look", { to: [-0.6, 0], dur: 0.6, blink: false });        // to us, a small smile
-peb.calmSmile(c, 15.2, W);
+// a real smile to us (review B: "kind" is his resting face, no visible change), held to the end; frame 0 opens on the
+// same smile and settles to his resting face as he looks to the water, so the loop doesn't flip expressions
+A(15.1, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0.4 });
+A(0, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0 });
+A(0.3, W, "expr", { expr: "kind", dur: peb.SLOW });
 
 // ---------------------------------------------------------------- the line (our own words; Fable review A: say what we see)
 // (peb.line's still hold would freeze his follow-through and let it snap back at the end: the line here is said with
 // the clip's blinks off instead)
 A(0, W, "noblink");
 A(8.3, W, "face", { lid: peb.LID, dur: 0.3 });
-c.macro(8.4, W, "say", { line: "Never push. Move with it.", tone: "calm", pos: 230 });
+c.macro(8.4, W, "say", { line: "Never push. Move with it.", tone: "calm", pos: 280 });   // just over his cap (review B)
 
 // ---------------------------------------------------------------- the water: its head path, timed just after each hand move
 // (clip time: up out of the lake as the hands rise, in toward his chest, up and over in an arc, pushed out over the lake,
-// an S-curve there while he speaks, home as the hands sink; the rings of the last return still spread on frame 0)
-const KEYS = [[0.4, 1.25, -0.4, -0.85], [2.1, 1.25, 1.0, -0.8], [3.1, 1.15, 1.35, -0.65], [4.2, 0.7, 0.95, -0.2], [4.6, 0.75, 0.95, -0.3],
-  [5.3, 1.0, 1.45, -0.55], [6.1, 0.65, 1.5, -0.2], [6.8, 0.8, 1.1, -0.2], [7.9, 1.35, 1.3, -1.25],
+// an S-curve there while he speaks, home as the hands sink to a small mound at the surface, the mound frame 0 opens on)
+const KEYS = [[0, 1.25, 0.06, -0.85], [0.5, 1.25, 0.1, -0.85], [1.7, 1.25, 1.0, -0.8], [3.1, 1.15, 1.35, -0.65], [4.2, 0.7, 0.95, -0.2], [4.6, 0.75, 0.95, -0.3],
+  [5.3, 1.0, 1.45, -0.55], [6.1, 0.65, 1.5, -0.2], [6.8, 0.8, 1.1, -0.2], [7.9, 1.4, 1.35, -1.7],
   [8.9, 1.05, 1.5, -1.4], [9.9, 1.45, 1.2, -1.2], [10.9, 1.1, 1.35, -1.05], [11.9, 1.4, 1.3, -1.3],
-  [13.3, 1.25, 1.0, -1.0], [14.7, 1.25, -0.4, -0.85]];
+  [13.3, 1.25, 1.0, -1.0], [14.7, 1.25, 0.1, -0.85], [15.4, 1.25, 0.06, -0.85], [16.0, 1.25, 0.06, -0.85]];
 const SRC = [1.25, -0.002, -0.85];
 const id = "pebble-lake", lay = path.join(ROOT, "out", `${id}-anime-pro.layout.json`), props = [];
 if (fs.existsSync(lay)) {
@@ -130,7 +134,7 @@ if (fs.existsSync(lay)) {
   // the loop: the rings of the water's return (where its head goes under for the last time) are still spreading on
   // frame 0, the same rings the last frame shows (props-water.js: 0.45, then 0.35 0.22 s later)
   let seam = [];
-  for (let i = stream.length - 1; i > 0; i--) if (stream[i - 1][2] > 0 && stream[i][2] <= 0) { const [tc, x, , z] = stream[i]; seam = [[tc - END, x, z, 0.45], [tc - END + 0.22, x, z, 0.35]]; break; }
+  for (let i = stream.length - 1; i > 0 && stream[i][0] > END - 1.5; i--) if (stream[i - 1][2] > 0 && stream[i][2] <= 0) { const [tc, x, , z] = stream[i]; seam = [[tc - END, x, z, 0.45], [tc - END + 0.22, x, z, 0.35]]; break; }
   props.push({ id: "water", kind: "waterbend", x: 0, y: 0, z: 0, rot: 0, level: 0, wet: [[-3, -12, 3, -0.6]], rings: seam, streams: [{ path: stream, from: [SRC[0], -0.1, SRC[2]], tail: 1.6, r: 0.06, v0: 0.8, drops: 14, seed: 1 }], staged: "water: the bent water out of the painted lake, it rests on nothing" });
 }
 
