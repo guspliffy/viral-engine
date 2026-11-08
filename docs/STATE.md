@@ -15,10 +15,12 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 - #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
 
 ## Next
-- Trial the motion studio workflow on the next episode (docs/rules/workflow.md "Measuring").
+- Trial workflow v2 (staging proof, director writes the clip) on the next episode.
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
-- (none yet)
+- NHM EP03 old way: 465 min, Opus out 943k, Fable 0.31 M, 4 drafts, 32 warn. Jonny: better quality and logic.
+- NHM EP03 new way v1: 362 min, Opus out 691k, Sonnet 1.32 M + Fable 0.34 M, 2 rounds, 8 warn. Logic issues
+  (builder wrote the clip, staging frozen unseen) -> staging proof + director writes the clip (8 Nov).
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,

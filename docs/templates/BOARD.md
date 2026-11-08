@@ -1,6 +1,6 @@
 # BOARD: <clip id> (<series, episode>)
 
-One BOARD per clip, next to its generator (`storyboards/<topic>/<clip>/BOARD.md`). A spec, not a story: numbers, not
+Written after the staging proof (docs/rules/workflow.md), never before. One BOARD per clip, next to its generator (`storyboards/<topic>/<clip>/BOARD.md`). A spec, not a story: numbers, not
 adjectives. Jonny's brief and panels win; BOARD only makes them exact. Briefs cite sections as BOARD §n. Replace
 superseded sections instead of appending.
 
@@ -9,6 +9,10 @@ superseded sections instead of appending.
 - Joke / Wants / Consequence / Ending / Callback: <the template's four brief lines + callback>
 - Source: <Jonny's brief path, panels path>; gate: <series episode: no animatic | new series/format: animatic>
 - Length <s> (8-11 s for new clips, reach rules v2); loop: <yes/no>; profile: short
+
+- Sizes for anything a character passes through or stands behind come from the staging proof, not guesses: a potato
+  is ~0.8 m wide and the Gunslinger's hat brim is wider (EP03's door had to be 1.25 m); a counter in front of
+  standing potatoes hides them to the eyes.
 
 ## §2 Look
 
@@ -26,6 +30,8 @@ superseded sections instead of appending.
 - On-screen text: "<exact caption>" <from>-<to> s, subtitle y <px>
 - Line: <who: "gibberish" / words> at <s>; sound cue: <whitelisted name in Jonny's words> on <s>
 - Must be true at check times (the `see` list): <t s: faces X, Y to camera; prop Z in frame; nobody in front of X>
+- Must read (story chain): <the beat in viewer words, e.g. "the friends leave in their coats"> - proven at the staging proof
+- Why this camera: <only when it departs from the panel: the reason, and that review A agreed>
 - Transition in / out: <cut / continuous>
 
 ### §3.2 ...
