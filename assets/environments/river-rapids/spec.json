@@ -1,0 +1,53 @@
+{
+ "name": "river-rapids",
+ "source": "Jonny's painting, 7 Nov 2026 (ChatGPT), for Pebble's scenes: a fast river with rapids and boulders from a low pebbly bank, sun high on the left",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.7,
+  "vfov": 50,
+  "pos": [
+   0,
+   1.7,
+   4.4
+  ],
+  "horizon": 0.3
+ },
+ "bands": [
+  6.0,
+  18.0,
+  60.0,
+  160.0
+ ],
+ "groundMax": 60.0,
+ "light": {
+  "from": "sun high on the left",
+  "key": [
+   -3,
+   6,
+   -2
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass",
+ "lifeSkyTop": 0.05,
+ "motion": {
+  "water": [
+   [
+    0,
+    0.3,
+    1,
+    0.67
+   ]
+  ],
+  "still": [
+   [
+    0.55,
+    0.41,
+    0.86,
+    0.56
+   ]
+  ]
+ }
+}

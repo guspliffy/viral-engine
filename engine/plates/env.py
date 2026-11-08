@@ -28,7 +28,7 @@ from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from masks import motion_masks, review as mask_review, ramp, grow
+from masks import motion_masks, water_mask, review as mask_review, ramp, grow
 
 NEG = ("people, person, character, animal, text, watermark, logo, signature, frame, border, 3d render, cgi, "
        "photo, photorealistic, blurry, lowres, deformed, oversaturated, harsh contrast")
@@ -322,6 +322,7 @@ def split(S):
     cards, motion_all = [], np.zeros((H, W, 3))
     ov = S.get("motion", {})
     sway, shimmer, still = motion_masks(img, ov, scale=W / 1000)
+    water = water_mask(img, ov, scale=W / 1000)   # motion blue: open water ripples (spec motion.water boxes)
     fill_px = int(round(W * S.get("fill", 0.03)))   # how far each layer continues under the ones in front
     after = [np.zeros((H, W), bool)]   # after[k]: everything nearer than layer k (the layers come far to near)
     for _, m, _, _, _ in reversed(layers): after.insert(0, after[0] | m)
@@ -352,8 +353,8 @@ def split(S):
         # motion per layer: foliage sways on its own layer only (a tree's card, the meadow's ground)
         # far away (hills, the sky) nothing visibly sways: a leaf's sway is a few centimetres
         moves = not is_sky and Zi <= S.get("swayMax", 30)
-        mo = np.dstack([sway * m, shimmer * m, np.zeros((H, W))]) * moves
-        if moves and mo[..., 0].max() > 0.05:
+        mo = np.dstack([sway * m, shimmer * m, water * m]) * moves
+        if moves and (mo[..., 0].max() > 0.05 or mo[..., 2].max() > 0.05):
             mo_p = extend(mo)[y0:y1, x0:x1]
             mfn = f"layer-{i}-{lname}.motion.png"
             Image.fromarray((mo_p * 255).astype(np.uint8)).save(out(S, mfn))
@@ -383,9 +384,9 @@ def split(S):
     gcol = np.where(ground_3d[..., None], rgb, pull_push(rgb, gm))
     gfn = "ground.webp"
     Image.fromarray((np.clip(extend(gcol), 0, 1) * 255).round().astype(np.uint8)).save(out(S, gfn), quality=S.get("quality", 92), method=4)
-    gmo = extend(np.dstack([sway * ground_3d, shimmer * ground_3d, np.zeros((H, W))]))
+    gmo = extend(np.dstack([sway * ground_3d, shimmer * ground_3d, water * ground_3d]))
     Image.fromarray((gmo * 255).astype(np.uint8)).save(out(S, "ground.motion.png"))
-    motion_all += np.dstack([sway * ground_3d, shimmer * ground_3d, np.zeros((H, W))])
+    motion_all += np.dstack([sway * ground_3d, shimmer * ground_3d, water * ground_3d])
     # the farthest row the 3D floor reaches (above it the cards take over)
     # the row where the ground plane is gmax away: 1/gmax = (f sin p - yc cos p) / (h f)
     yc_far = (f * math.sin(pitch) - h * f / gmax) / math.cos(pitch)
