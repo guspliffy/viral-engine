@@ -1,0 +1,138 @@
+{
+ "id": "human/ryn",
+ "name": "Ryn Kade: precise, proud prodigy firebender (firebender duel, 7 Nov 2026; same CC0 VRoid body, own clothes)",
+ "rig": "vrm-v1",
+ "vrm": "assets/models/vrm/base-male-hair.vrm",
+ "sheet": true,
+ "sheetHatch": false,
+ "seed": 7,
+ "body": {
+  "color": "#f6d6bb",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f6d6bb",
+  "width": 0.03
+ },
+ "garments": [
+  {
+   "kind": "shell",
+   "name": "Guard",
+   "from": "Tops",
+   "bones": [
+    "leftShoulder",
+    "leftUpperArm"
+   ],
+   "y": [
+    1.37,
+    1.52
+   ],
+   "near": {
+    "bone": "leftUpperArm",
+    "d": 0.13,
+    "one": true
+   },
+   "off": 0.022,
+   "plain": true
+  },
+  {
+   "kind": "shell",
+   "name": "Gloves",
+   "from": "Body_00_SKIN",
+   "off": 0.006,
+   "plain": true,
+   "under": [
+    "leftHand",
+    "rightHand"
+   ]
+  },
+  {
+   "kind": "band",
+   "name": "Sash",
+   "bone": "hips",
+   "y": 1.0,
+   "of": [
+    "Bottoms",
+    "Tops"
+   ],
+   "w": 0.07,
+   "t": 0.008,
+   "color": "#5b4cf0",
+   "tails": {
+    "len": 0.42,
+    "w": 0.045,
+    "n": 2,
+    "turn": 0.25
+   }
+  }
+ ],
+ "look": {
+  "Tops": {
+   "tint": "#1c1f26",
+   "tintK": 0.9,
+   "flatten": 0.2,
+   "light": 1.15,
+   "krimK": 0.1
+  },
+  "Guard": {
+   "color": "#8c96a3",
+   "krimK": 0.2
+  },
+  "Gloves": {
+   "color": "#3a35b8",
+   "krimK": 0.15
+  },
+  "Sash": {
+   "color": "#5b4cf0"
+  },
+  "Bottoms": {
+   "tint": "#2a2f3a",
+   "tintK": 0.85,
+   "flatten": 0.2,
+   "light": 1.05,
+   "krimK": 0.08
+  },
+  "Shoes": {
+   "tint": "#0f1115",
+   "tintK": 0.8,
+   "flatten": 0.5,
+   "krimK": 0.15
+  },
+  "Hair": {
+   "tint": "#d9dce3",
+   "tintK": 0.85,
+   "flatten": 0.3,
+   "light": 1.25
+  },
+  "EyeIris": {
+   "tint": "#4a6a8a",
+   "tintK": 0.9,
+   "iris": 0.86
+  },
+  "Face_00_SKIN": {
+   "tint": "#f6d6bb",
+   "tintK": 0.75,
+   "flatten": 0.3
+  },
+  "Body_00_SKIN": {
+   "tint": "#f6d6bb",
+   "tintK": 0.6,
+   "flatten": 0.3
+  }
+ },
+ "posture": {
+  "level": 0.7,
+  "max": 0.45,
+  "upperChest": 0.06
+ },
+ "line": "#2e211c",
+ "lineK": 1.4,
+ "inner": {
+  "top": "#121418",
+  "legs": "#16191f"
+ },
+ "tts": "ryn"
+}
