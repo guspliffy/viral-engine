@@ -107,6 +107,12 @@ if spec.get("face"):
     import face as facekit
     face, face_keys = facekit.build_face(body, rig, EYES, spec["face"])
 
+hair_springs = None
+if spec.get("hair"):
+    sys.path.insert(0, "tools/character")
+    import hair as hairkit
+    _, hair_springs = hairkit.build_hair(body, rig, EYES, spec["hair"])
+
 # VRM 1.0 humanoid: game_engine bone names -> VRM bones
 ext = rig.data.vrm_addon_extension; ext.spec_version = "1.0"
 hb = ext.vrm1.humanoid.human_bones
@@ -124,6 +130,7 @@ for vb, bb in MAP.items():
     else: missing.append((vb, bb))
 print("unmapped:", missing)
 if face: facekit.bind_expressions(rig, face, face_keys)
+if hair_springs: hairkit.bind_springs(rig, hair_springs, spec["hair"])
 meta = ext.vrm1.meta; meta.vrm_name = spec.get("name", "own-human")
 meta.authors.clear(); a = meta.authors.add(); a.value = "PotatoBrawl viral engine (MakeHuman CC0 base)"
 rig.name = "Armature"

@@ -51,5 +51,30 @@
     "mouthW": 0.02,
     "blushA": 0.12,
     "mouthFlatK": 1
+  },
+  "hair": {
+    "style": "spiky",
+    "color": "#d8b277",
+    "capColor": "#c49a5e",
+    "n": 40,
+    "len": [
+      0.065,
+      0.09
+    ],
+    "w": 0.062,
+    "front": 0.058,
+    "nape": -0.07,
+    "fringe": 0.028,
+    "flare": 0.3,
+    "gravity": 0.2,
+    "up": 0.15,
+    "bulk": 0.0,
+    "bangsAz": 45,
+    "seed": 3,
+    "thick": 0.45,
+    "endZ": -0.075,
+    "endZside": -0.025,
+    "capBulk": 0.016,
+    "lift": 0.007
   }
 }
