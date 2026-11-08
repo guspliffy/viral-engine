@@ -70,6 +70,13 @@ const LIFE = "auto";
 // ("animeTiming"). null / false: as before
 const CEL = { at: 0.25 };
 const ANIME_TIMING = true;
+// ink + the anime grade (Jonny, 8 Nov, PR #174 "both on in the template"; from MEGA CLAWD): INK draws the outlines
+// an even width in screen pixels (a bold silhouette, thinner lines on clothes and parts, darker ink, a little thinner
+// far away; set "ink"); SATSUEI is anime compositing on the final picture: warm halation round the brightest lights, a
+// soft diffusion glow, lavender shadows and warm highlights (set "satsuei"). docs/STORYBOARD.md "Anime look 02".
+// null / false: as before
+const INK = true;
+const SATSUEI = true;
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -168,7 +175,7 @@ write(import.meta.url, {
   // the warm living room (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
-    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }), ...(CEL && { cel: CEL }) },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }), ...(CEL && { cel: CEL }), ...(INK && { ink: INK }), ...(SATSUEI && { satsuei: SATSUEI }) },
   music: MUSIC,
   direct: { master: MED },
   // the spike guard (Jonny, 5 Nov, PR #112): no effect jumps far out of the mix, a gentle limiter instead of
