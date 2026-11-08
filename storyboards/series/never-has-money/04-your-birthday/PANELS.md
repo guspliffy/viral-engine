@@ -92,12 +92,13 @@ plants, hanging plants, a red and purple patterned rug on honey floorboards. Cak
 - **Panel 8: the Wizard hops in toward the hug at 8.2 s and faces us at the bottom left, head tipped back to stare up
   at Gunslinger** (his eyes up and to the right): turned to Gunslinger his own wide brim hides his face from this
   camera, and the twitch is the payoff; his eyes sit above the app's caption band (review A).
-- **Panel 8 is a little wider and at eye level** (`w` 1.8, 14° down; the panel's close is from above): the three
-  faces fill the close high shot, so every place for "Next year's on me!" sat on a face or a body (caption-overlap
-  60-100 %, check round 1). Opened up, the line sits over the fireplace above his hat (4 % covered), with the
-  Wizard's twitch at the bottom left, Gunslinger's wink in the middle and Viking at the right, as drawn.
-- **"Best... gift... EVER!" sits above Viking's hair**, not in the middle of panel 5: lower it covered his face
-  (70-95 %, check round 1); the close-up is framed a little higher for it, and the subtitle ends at the cut to the hug.
+- **Panel 8 is a medium, not a close, and nearer eye level** (`w` 2.0, 14° down; the panel's close is from above):
+  the brief keeps subtitles in y 470-1360, and in the close high shot that band is all faces and bodies
+  ("Next year's on me!" 60-100 % over characters, check round 1). Opened up, the line sits over the fireplace just
+  above his hat; the Wizard's twitch stays at the bottom left above the app's band, Gunslinger's wink in the middle,
+  the moth flutters up over his brim, Viking's hair and fur at the right.
+- **Panel 5's close is a little looser and framed higher** (`w` 1.2): "Best... gift... EVER!" sits in the band's top
+  row (y 470) above Viking's hair; lower, it covered his face (70-95 %, check round 1).
 - **The room is a painted plate behind the 3D floor, rug, crate, table and cake** (the brief's allowed fallback): no
   3D living-room set exists in the library yet.
 - **No sweat drop, no "!" or shock marks** (panels 4, 6, 8): Jonny rejected reaction signs over characters on 8 Nov.

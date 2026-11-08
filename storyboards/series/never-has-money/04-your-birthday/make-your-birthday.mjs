@@ -118,7 +118,7 @@ const props = [
   { id: "lift", kind: "carrier", x: VH[0], y: 0, z: VH[1], rot: VH_YAW },
   ...patProps({ who: "gsl", at: G0, yaw: G_YAW }).map((p) => (p.id === "wallet" ? { ...p, scale: 0.001, staged: "down in his holster (part of his costume) until he draws it" } : p)),
 ];
-const SUB_LOW = 1250, SUB_HIGH = 280;   // (high: above Viking's hair in his close-up)
+const SUB_LOW = 1250, SUB_HIGH = 476;   // (high: above Viking's hair in his close-up; the brief keeps subtitles in y 470-1360)
 
 // ---------------------------------------------------------------- 1 PAY UP 0-1.5 (panel 1, the wide)
 // frame 0: the Wizard's horn blasts as his mittens push the big purple present into Viking's arms; Viking turns to
@@ -396,7 +396,7 @@ see(V(7.4), V(8.7), ["wiz.face", "rea.face", "pbox"], "panel 7: the Wizard's jaw
 // ---------------------------------------------------------------- 8 THE WINK 8.8-10.0 (panel 8)
 // (the shot is a little wider and eye level, so the line sits over the fireplace above his hat: in the close high
 // shot every spot for it was on a face or a body, caption-overlap 60-100 %)
-wink(c, { who: "gsl", t: V(8.8), until: END, line: "next year's on me!", sub: "Next year's on me!", look: [-0.4, -0.25], pos: 218,
+wink(c, { who: "gsl", t: V(8.8), until: END, line: "next year's on me!", sub: "Next year's on me!", look: [-0.4, -0.25], pos: 476,
   react: (t) => { for (const [dt, l] of [[0, 0.75], [0.07, 0.3], [0.13, 0.8], [0.2, 0.3], [0.3, 0.85], [0.38, 0.35]]) A(r3(t + dt), "wiz", "face", { lidL: l, dur: 0.04 }); } });
 see(V(8.95), END, ["gsl.face", "moth", "wiz.face"], "panel 8: the wink at the Wizard over Viking's shoulder");
 
@@ -411,10 +411,10 @@ const WIDE = { pos: [0.05, 2.6, 3.6], look: [0.05, 0.5, -0.4], fov: 62 };   // P
 const PATSHOT = fw([r3(G0[0] + 0.27), 0.85, G0[1]], { w: 1.3, az: -10, el: 4, fov: 34 });
 const P3 = fw([r3(CRATE.x - 0.05), 0.45, r3(CRATE.z + 0.05)], { w: 1.2, az: 10, el: 12, fov: 30 });
 const P4 = fw([G2[0], 0.45, G2[1]], { w: 0.9, az: 30, el: 3, fov: 30 });
-const P5 = fw([r3(V0[0] - 0.08), 0.8, V0[1]], { w: 1.1, az: 10, el: 6, fov: 30 });   // (Viking low enough for his line above his hair)
+const P5 = fw([r3(V0[0] - 0.08), 0.95, V0[1]], { w: 1.2, az: 10, el: 6, fov: 30 });   // (Viking low enough for his line above his hair)
 const P6 = fw([r3((HUG_AT[0] + VH[0]) / 2), 0.55, r3((HUG_AT[1] + VH[1]) / 2)], { w: 2.0, az: 25, el: 2, fov: 32 });   // low: his feet dangle
 const P7 = { pos: [-0.05, 1.1, 4.4], look: [-0.05, 0.95, -0.4], fov: 62 };
-const P8 = fw([GEND[0], 0.75, GEND[1]], { w: 1.8, az: -25, el: 14, fov: 30 });
+const P8 = fw([GEND[0], 1.05, GEND[1]], { w: 2.0, az: -25, el: 14, fov: 30 });
 const beats = c.beats([
   ["P1 pay up", 0, WIDE0, "hook"],
   ["P2 the pocket pat", PAT.from, PATSHOT],
