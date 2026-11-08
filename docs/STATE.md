@@ -4,7 +4,7 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 
 ## On main
 - Template turns on: castLook "sheet", physics, holds 2, motion layer (overlap/timing/solve), feet 2, lighting 2,
-  living worlds `"life": "auto"`, anime look (`cel` + `animeTiming`, #168), sound guard, music bed, every line
+  living worlds `"life": "auto"`, anime look (`cel` + `animeTiming`, #168; `ink` + `satsuei`, #174), sound guard, music bed, every line
   subtitled, DoF off.
 - Checks: preflight one verdict, contact gate, rig, glitches (optical flow), prop-in-self, colour, lines (phone
   line + loop seam), golden + regress on every PR.

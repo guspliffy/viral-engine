@@ -533,7 +533,10 @@ Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look 
   top of `storyboards/templates/clip-template.mjs`; set either to `null` / `false` for a clip that needs the old look.
   Finished clips don't change.
 
-## Anime look 02: ink lines and satsuei grade (opt-in, 8 Nov 2026; Jonny's call before they become defaults)
+## Anime look 02: ink lines and satsuei grade (8 Nov 2026; on in the clip template since Jonny's pick, PR #174)
+
+New clips from `storyboards/templates/clip-template.mjs` get both (`INK` / `SATSUEI` at the top of the template; `null`
+turns one off). Finished clips keep their look: nothing changes without `"ink"` / `"satsuei"` in the set.
 
 From the X posts review (8 Nov): the MEGA CLAWD film's ink pass and grade (seeconever/megaclawd, MIT), adapted to our
 renderer. Test scene: `node storyboards/lab/make-ink-lab.mjs` (the coffee run: a today, b + ink, c + ink + satsuei;
