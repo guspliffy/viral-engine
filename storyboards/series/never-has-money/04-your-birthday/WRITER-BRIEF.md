@@ -20,9 +20,10 @@ MACHINE: yours for preflight, --layout and draft stills; one such job at a time.
 
 ## Fixed by the staging proof (keep unless a still proves a beat can't be seen; then say why)
 
-- Places and paths: G0, V0, W_IN, R_IN, W0, R0, CRATE, G1, W1, R1, V1, HUG/HUGK, W2, R2 (PANELS.md "Departures" says why
-  each exists: rows swap with a cause, over-the-shoulder coupon handover, the hug swings, cake table front left, crate
-  visible from frame 0).
+- Places and paths: G0, V0, V0b, W_IN, R_IN, W0, R0, CRATE, V3, W3, G1, V1, W1, R1, HUGK, W2, R2, GIFT_P, GIFT_B (PANELS.md
+  "Departures" says why each exists). Review A (round 2) passed them; every place is clear of the others and of the
+  crate when it is used (bodies are ~0.75 m wide: a new place or path needs that much room; the crate stays where it
+  is). Stills: /tmp/claude-0/stage/staging-stills-v2.png, against the panels /tmp/claude-0/stage/staging-panels-v2.png.
 - Cameras: P01-P08 at the panel times (beats 0, 1.5, 2.8, 4.1, 4.6, 6.0, 7.0, 8.7). The brief's slow 5% push-in during
   the hug (6.0-8.8) is yours to add on P06/P07 if it doesn't cost a face.
 - Length: END 9.8 + two 3-frame hit-stops (4.2 coupon up, 6.1 hug lands) = exactly 10.00 s; hard cut at 10.00.
@@ -51,10 +52,9 @@ MACHINE: yours for preflight, --layout and draft stills; one such job at a time.
 ## Parts built for you (contracts; the director wires them before you start)
 
 Wired into the generator already (keep the ids):
-- **Plate** (T1) `assets/plates/birthday-living-room.png`: z -2.2, centre [0, 2.45], height 5.0 (2.96 m wide): the
-  fireplace behind the cast (its top ~1.9 m), the shelf ~2.3 m, the arched windows above (they show in the higher or
-  tighter shots). It covers every panel camera; a camera that looks further left/right or up than P01/P07 may show its
-  edge (check the still).
+- **Plate** (T1) `assets/plates/birthday-living-room.png`: z -2.2, centre [0, 2.45], height 5.0 (4.8 m wide, plain
+  planks at both sides): the fireplace behind the cast (its top ~1.9 m), the shelf ~2.3 m, the arched windows above
+  (they show in the higher or tighter shots). It covers every panel camera.
 - **Props** (T2, `engine/page/props-birthday.js`; bench `bench-props.mjs`, stills sheet /tmp/claude-0/t2/bench.png):
   - `coupon` 0.30 x 0.24 m, drawing on +z, `ink` 0..1 writes it stroke by stroke (12 strokes), `fold` 0..1 (1 = the
     folded 7.5 x 6 cm square from his bandana; swaps at 0.5). ink and fold tween only from their second c.prop: set
@@ -66,9 +66,11 @@ Wired into the generator already (keep the ids):
     `rosette` ros on Viking's chest: worn (spec.wear), non-solid. `bunting` bunt across the top (y 2.22, z -1.5).
 - Placeholders still yours to replace: the pen (props3d `feltpen` or `pencil` exist), the moth/wallet come with the
   pocket-pat block (patProps), the Wizard's party horn (`partyhorn`).
-- Seen in the staging stills, for you: at 7.8 the purple box on the rug hides behind Reaper/the hug (chain beat 12 needs
-  the Wizard staring at it: move the drop spot or the Wizard); the cake table (-1.6, 1.55) is out of P01's frame
-  (the panel has it bottom left: move it in or let it go, with a reason).
+- Placeholders in the staging you replace with real holds: the coupon jumps between spots (G's chest at 4.1, between
+  them 4.7, Viking's left mitten 5.2) and then floats where it was handed over (it must ride in Viking's mitten through
+  the hug, against Gunslinger's back); the stack follows Viking by prop tweens with no hands; the presents' fall is a
+  tween to GIFT_P/GIFT_B (make it a physics fling: the black box bounces off the purple one); the black box must be
+  in Reaper's hands, dusted, by ~7.5.
 
 ## Hard rules
 

@@ -38,13 +38,13 @@ const END = 9.8;   // two 3-frame hit-stops (4.2, 6.1) make it 10.0 s of video
 const G0 = [-0.25, -0.42], V0 = [0.52, -0.45];           // the back row
 const V0b = [0.68, -0.5];                                // 1.1 Viking eases right as he turns to look (clear of the brim in 02)
 const W_IN = [-0.62, 0.2], R_IN = [1.1, 0.05];           // frame 0: stepped in to hand over the presents
-const W0 = [-1.08, -0.2], R0 = [1.36, 0.0];              // a step back to the sides (0.5-1.0), faces still in 01
+const W0 = [-1.0, -0.2], R0 = [1.3, 0.0];                // a step back to the sides (0.5-1.0), faces still in 01
 const CRATE = [-1.05, 0.6];                               // his seat at the front left (a wooden crate, 0.34 m)
 const G1 = [-0.35, 1.1];                                 // 3.95 he hops up off the crate toward Viking (04, then 05)
 const V1 = [0.55, 0.6];                                  // 4.55 Viking steps to him for the coupon (0.9 right, 0.5 behind him)
 const V3 = [-0.1, -0.05], W3 = [0.0, -0.85];             // 3.05 Viking steps closer to peek (03, behind him at the right); the Wizard
                                                          // moves round behind Viking to see (out of 03, so nothing pokes from his hat)
-const W1 = [-0.35, -0.35], R1 = [1.15, -0.2];            // 4.3/4.9 they step in behind Viking's left and right shoulders (05)
+const W1 = [-0.1, -0.4], R1 = [1.15, -0.2];             // 4.3/4.9 they step in behind Viking's left and right shoulders (05)
 const W2 = [-0.35, 1.8], R2 = [1.3, 2.0];               // at their presents on the rug, in front of the hug (07)
 const GIFT_P = [0.25, 2.3], GIFT_B = [0.85, 2.4];        // where the presents land (6.0-6.4): in front of them
 const yawTo = ([x0, z0], [x1, z1]) => r3((Math.atan2(x1 - x0, z1 - z0) * 180) / Math.PI);
@@ -96,7 +96,7 @@ A(1.1, "vik", "move", { to: V0b, dur: 0.25 }); A(1.1, "vik", "turn", { to: -55, 
 stack(1.1, ARMS(V0b), 0.25);
 A(1.15, "rea", "turn", { to: -95, dur: 0.25 });
 // 2.8 THE DODGE: "wait!", he hurries forward and left to the crate, sits and writes turned half away; they turn to watch
-A(2.85, "gsl", "move", { to: [-0.4, 0.2], dur: 0.22, steps: 2 });
+A(2.85, "gsl", "move", { to: [-0.28, 0.2], dur: 0.22, steps: 2 });
 A(3.07, "gsl", "move", { to: [-0.75, 0.6], dur: 0.2, steps: 2 });
 A(3.3, "gsl", "sit", { seat: "crate", dur: 0.25, hands: "keep" });
 A(3.4, "gsl", "turn", { to: -35, dur: 0.2 });
@@ -154,7 +154,7 @@ A(8.3, "wiz", "turn", { to: 25, dur: 0.3 });
 
 // ---------------------------------------------------------------- shots, one per panel
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
-const P01 = { pos: [0.15, 1.2, 4.8], look: [0.12, 0.72, -0.2], fov: 44 };   // the four across, the Wizard and Reaper cut by the edges
+const P01 = { pos: [0.15, 1.2, 4.8], look: [0.12, 0.72, -0.2], fov: 47 };   // the four across, the Wizard and Reaper cut by the edges
 const P02 = fw([r3(G0[0] + 0.3), 0.95, G0[1]], { w: 1.5, az: -4, el: 4, fov: 30 });
 const P03 = fw([-0.75, 0.75, 0.3], { w: 1.7, az: 15, el: 8, fov: 30 });           // from his left: Viking behind him at the right
 const P04 = fw([G1[0], 0.7, G1[1]], { w: 0.85, az: 4, el: 2, fov: 30 });

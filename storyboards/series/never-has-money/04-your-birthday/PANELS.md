@@ -68,7 +68,7 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **The cake is not in 01.** Drawn at the bottom left of 01, in front of everyone. There it would stand in the
   coupon close (04), Viking's close (05) and the presents' landing spot (07); the bunting, hats, rosette and presents
   already say birthday at frame 0. It stands on its table at the front left, off frame.
-- **The crate is visible at the front left from frame 0** (it has to exist before he sits on it: world logic), and
+- **The crate stands at the front left, just out of 01's frame**: it is in 03 as he hurries to it, and
   in 03 the camera is on his left side (his left, as drawn), so Viking, who steps closer to peek, is behind him at
   the right.
 - **The presents land further forward (1.4-1.8 m) than a plain drop.** Viking flings them off his arm as he lunges, so
