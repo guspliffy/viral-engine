@@ -107,3 +107,20 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **Anime timing is `{ push: 1 }`**, stepped without the snap. With this much acting, the snap played a merged 1.1-4.3 s segment up to 0.6 s early.
   - With push 1, the pocket pat's hat slap swept his arm through the brim. This clip widens the hat spot and adds a waypoint that takes the arm down outside the brim.
 - **Music:** the default bounce, with a hush from 5.2 to 6.0 (the brief: the music drops out).
+
+## Departures (writer, fix round 1, 8 Nov)
+
+- **01 is only about 12 % tighter, not full like the panel.** Four 0.8 m-wide chibis side by side don't fit a 9:16 frame at the panel's size unless the Wizard's and Reaper's faces are cut. The Wizard and Reaper move 0.1-0.24 m in, and the camera pushes in to z 4.25. Their bodies are cut by the edges, and every face stays inside.
+  - The Wizard steps out at 0.85, so his "And yours?" (1.1) is spoken as he leaves the frame. If he stays for the line, his hat and robe go into Gunslinger, who steps up at 1.2.
+  - Reaper is turned to -72, so his box sits beside his face and doesn't cover it.
+- **02 runs faster after the pats.** From 1.85, the pocket pat block plays at 0.66 speed. The wallet is open from 2.28, so the open empty wallet and the moth read for 0.5 s before the cut. The block's hopeful "eager" and its eyes-back at 3.87 are dropped.
+- **05 changes to the hand-over:**
+  - Gunslinger turns three quarters toward Viking (70) and holds the coupon out in both mittens. Viking takes it by its top edge, and it barely moves after that.
+  - The coupon reads at 40 degrees, not square to us. Turning it to us in his glove flipped his hand over.
+  - The presents stay low at his left side, held in his left glove (upright).
+  - The coupon is beside his face, not in front of it.
+- **06 is one still medium-wide shot** (w 2.1, camera right of the Gunslinger-Wizard line).
+  - B8, an arm round Viking's neck: in this hug, Gunslinger's right shoulder is pressed against Viking's chest, so the arm went 10-12 cm through Viking's body. He cheers instead.
+- **07→08: the turn now happens behind the 8.5 cut.** On camera it flipped Viking's coupon hand over. The two swap sides, as in Jonny's panels, and the camera check notes a line cross at 8.5.
+- **08:** the caption is at y 1060, between Gunslinger's face and the Wizard's.
+- **Coupon ink stays at 1** (see W1).

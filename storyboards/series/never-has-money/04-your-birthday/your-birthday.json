@@ -129,8 +129,8 @@
    "id": "wiz",
    "character": "never-has-money/wizard",
    "at": [
-    -0.85,
-    0.02
+    -0.75,
+    0.05
    ],
    "face": 50,
    "expr": "happy",
@@ -141,10 +141,10 @@
    "id": "rea",
    "character": "never-has-money/reaper",
    "at": [
-    1.62,
-    0.38
+    1.48,
+    0.62
    ],
-   "face": -55,
+   "face": -72,
    "expr": "deadpan",
    "follow": 0.25,
    "seed": 3.3
@@ -208,10 +208,10 @@
   {
    "id": "giftB",
    "kind": "bowgift",
-   "x": 1.227,
-   "y": 0.5,
-   "z": 0.655,
-   "rot": 125,
+   "x": 1.023,
+   "y": 0.36,
+   "z": 0.768,
+   "rot": 108,
    "w": 0.22,
    "h": 0.14,
    "color": "#26232a",
@@ -293,6 +293,7 @@
   {
    "id": "bunt",
    "kind": "bunting",
+   "staged": "hung from nails in the back wall",
    "x": 0,
    "y": 2.22,
    "z": -1.5,
@@ -376,7 +377,7 @@
    "from": 8.8,
    "to": 9.8,
    "text": "Next year's on me!",
-   "pos": 1250,
+   "pos": 1060,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -389,16 +390,16 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     0.45,
-     1.2,
-     4.8
+     0.4,
+     1,
+     4.25
     ],
     "look": [
-     0.42,
-     0.72,
-     -0.2
+     0.4,
+     0.62,
+     -0.15
     ],
-    "fov": 50
+    "fov": 52
    },
    "do": [
     {
@@ -643,9 +644,9 @@
       ],
       "palm": true,
       "at": [
-       1.227,
-       0.5,
-       0.655
+       1.023,
+       0.36,
+       0.768
       ]
      },
      "dur": 0,
@@ -672,9 +673,9 @@
       ],
       "palm": true,
       "at": [
-       1.227,
-       0.5,
-       0.655
+       1.023,
+       0.36,
+       0.768
       ]
      },
      "dur": 0,
@@ -807,9 +808,9 @@
       ],
       "palm": true,
       "at": [
-       0.792,
+       0.735,
        0.04,
-       0.228
+       0.172
       ]
      },
      "dur": 0.35,
@@ -829,9 +830,9 @@
       ],
       "palm": true,
       "at": [
-       0.792,
+       0.735,
        0.04,
-       0.228
+       0.172
       ]
      },
      "dur": 0.35,
@@ -915,22 +916,11 @@
      "at": 0.5
     },
     {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -1.15,
-      -0.5
-     ],
-     "dur": 0.45,
-     "steps": 3,
-     "at": 0.55
-    },
-    {
-     "who": "wiz",
+     "who": "rea",
      "do": "turn",
-     "to": 80,
-     "dur": 0.45,
-     "at": 0.55
+     "to": -80,
+     "dur": 0.35,
+     "at": 0.5
     },
     {
      "who": "rea",
@@ -963,9 +953,9 @@
       ],
       "palm": true,
       "at": [
-       0.877,
+       0.82,
        0.51,
-       0.313
+       0.257
       ]
      },
      "dur": 0.22,
@@ -985,9 +975,9 @@
       ],
       "palm": true,
       "at": [
-       0.877,
+       0.82,
        0.51,
-       0.313
+       0.257
       ]
      },
      "dur": 0.22,
@@ -1005,6 +995,17 @@
      "at": 0.6
     },
     {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.72
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -1017,9 +1018,9 @@
       ],
       "palm": true,
       "at": [
-       0.877,
+       0.82,
        0.41,
-       0.313
+       0.257
       ]
      },
      "dur": 0.1,
@@ -1039,14 +1040,32 @@
       ],
       "palm": true,
       "at": [
-       0.877,
+       0.82,
        0.41,
-       0.313
+       0.257
       ]
      },
      "dur": 0.1,
      "ease": "out",
      "at": 0.82
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -1.65,
+      -0.4
+     ],
+     "dur": 0.4,
+     "steps": 3,
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.4,
+     "at": 0.85
     },
     {
      "sfx": "ai-package/box-set-down",
@@ -1075,9 +1094,9 @@
      "do": "release",
      "prop": "giftB",
      "to": [
-      0.877,
+      0.82,
       0.41,
-      0.313
+      0.257
      ],
      "dur": 0.04,
      "at": 0.94
@@ -1102,7 +1121,13 @@
      "who": "wiz",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       -0.12,
+       0.35,
+       0.18
+      ]
+     },
      "dur": 0.4,
      "ease": "settle",
      "at": 0.95
@@ -1119,7 +1144,13 @@
      "who": "wiz",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       -0.12,
+       0.35,
+       0.18
+      ]
+     },
      "dur": 0.4,
      "ease": "settle",
      "at": 0.95
@@ -1166,6 +1197,17 @@
      },
      "dur": 0.15,
      "ease": "settle",
+     "at": 0.97
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
      "at": 0.97
     },
     {
@@ -1322,7 +1364,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -95,
+     "to": -80,
      "dur": 0.2,
      "at": 1.15
     },
@@ -1407,17 +1449,6 @@
      "dur": 0.22,
      "steps": 1,
      "at": 1.2
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "curve": 0.2,
-      "open": 0.1
-     },
-     "dur": 0.1,
-     "at": 1.4
     },
     {
      "who": "gsl",
@@ -1649,16 +1680,16 @@
        0.34
       ]
      },
-     "dur": 0.05,
+     "dur": 0.033,
      "ease": "out",
-     "at": 0.36
+     "at": 0.357
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.015,
-     "dur": 0.06,
-     "at": 0.36
+     "dur": 0.04,
+     "at": 0.357
     },
     {
      "who": "gsl",
@@ -1671,9 +1702,17 @@
        0.22
       ]
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "inOut",
-     "at": 0.4
+     "at": 0.383
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.04,
+     "at": 0.396
     },
     {
      "who": "rea",
@@ -1683,22 +1722,14 @@
     },
     {
      "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.06,
-     "at": 0.42
-    },
-    {
-     "who": "gsl",
      "do": "look",
      "to": [
       0.35,
       -0.15
      ],
-     "dur": 0.07,
+     "dur": 0.046,
      "blink": false,
-     "at": 0.43
+     "at": 0.403
     },
     {
      "who": "gsl",
@@ -1711,21 +1742,15 @@
        0
       ]
      },
-     "dur": 0.04,
+     "dur": 0.03,
      "ease": "in",
-     "at": 0.46
+     "at": 0.423
     },
     {
      "sfx": "pat",
      "gain": 0.5,
      "reason": "the pocket pat: his glove slaps his hip",
-     "at": 0.5
-    },
-    {
-     "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.5
+     "at": 0.449
     },
     {
      "who": "gsl",
@@ -1738,16 +1763,16 @@
        0
       ]
      },
-     "dur": 0.05,
+     "dur": 0.033,
      "ease": "out",
-     "at": 0.51
+     "at": 0.456
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.015,
-     "dur": 0.06,
-     "at": 0.51
+     "dur": 0.04,
+     "at": 0.456
     },
     {
      "who": "gsl",
@@ -1760,9 +1785,9 @@
        0.22
       ]
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "inOut",
-     "at": 0.51
+     "at": 0.456
     },
     {
      "who": "gsl",
@@ -1775,9 +1800,9 @@
        0
       ]
      },
-     "dur": 0.04,
+     "dur": 0.03,
      "ease": "inOut",
-     "at": 0.57
+     "at": 0.495
     },
     {
      "who": "gsl",
@@ -1790,17 +1815,17 @@
        -0.22
       ]
      },
-     "dur": 0.08,
+     "dur": 0.053,
      "ease": "in",
-     "at": 0.57
+     "at": 0.495
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "R",
      "shape": "flat",
-     "dur": 0.06,
-     "at": 0.57
+     "dur": 0.04,
+     "at": 0.495
     },
     {
      "who": "gsl",
@@ -1813,17 +1838,23 @@
        0.3
       ]
      },
-     "dur": 0.2,
+     "dur": 0.132,
      "ease": "inOut",
-     "at": 0.57
+     "at": 0.495
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "L",
      "shape": "relaxed",
-     "dur": 0.15,
-     "at": 0.57
+     "dur": 0.099,
+     "at": 0.495
+    },
+    {
+     "who": "wiz",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
     },
     {
      "who": "gsl",
@@ -1832,15 +1863,15 @@
       -0.35,
       -0.2
      ],
-     "dur": 0.07,
+     "dur": 0.046,
      "blink": false,
-     "at": 0.6
+     "at": 0.515
     },
     {
      "sfx": "pat",
      "gain": 0.5,
      "reason": "the pocket pat: his glove slaps his back pocket",
-     "at": 0.65
+     "at": 0.548
     },
     {
      "who": "gsl",
@@ -1853,16 +1884,16 @@
        -0.22
       ]
      },
-     "dur": 0.05,
+     "dur": 0.033,
      "ease": "out",
-     "at": 0.66
+     "at": 0.555
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.015,
-     "dur": 0.06,
-     "at": 0.66
+     "dur": 0.04,
+     "at": 0.555
     },
     {
      "who": "gsl",
@@ -1875,17 +1906,17 @@
        0.075
       ]
      },
-     "dur": 0.08,
+     "dur": 0.053,
      "ease": "in",
-     "at": 0.72
+     "at": 0.594
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "R",
      "shape": "open",
-     "dur": 0.06,
-     "at": 0.72
+     "dur": 0.04,
+     "at": 0.594
     },
     {
      "who": "gsl",
@@ -1894,9 +1925,9 @@
       0.4,
       -0.3
      ],
-     "dur": 0.07,
+     "dur": 0.046,
      "blink": false,
-     "at": 0.75
+     "at": 0.614
     },
     {
      "do": "prop",
@@ -1907,13 +1938,13 @@
      "dur": 0.04,
      "ease": "out",
      "reason": "the top of the wallet shows in the holster as his hand gets there",
-     "at": 0.78
+     "at": 0.64
     },
     {
      "sfx": "pat",
      "gain": 0.5,
      "reason": "the pocket pat: his glove slaps his holster",
-     "at": 0.8
+     "at": 0.647
     },
     {
      "who": "gsl",
@@ -1927,16 +1958,16 @@
        0
       ]
      },
-     "dur": 0.04,
+     "dur": 0.03,
      "ease": "out",
-     "at": 0.8
+     "at": 0.647
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.015,
-     "dur": 0.06,
-     "at": 0.81
+     "dur": 0.04,
+     "at": 0.654
     },
     {
      "who": "gsl",
@@ -1944,7 +1975,7 @@
      "side": "R",
      "shape": "pinch",
      "dur": 0.03,
-     "at": 0.82
+     "at": 0.66
     },
     {
      "who": "gsl",
@@ -1958,7 +1989,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.84
+     "at": 0.673
     },
     {
      "who": "gsl",
@@ -1977,9 +2008,9 @@
        -0.153
       ]
      },
-     "dur": 0.08,
+     "dur": 0.053,
      "ease": "out",
-     "at": 0.84
+     "at": 0.673
     },
     {
      "do": "prop",
@@ -1987,15 +2018,15 @@
      "set": {
       "rot": 10
      },
-     "dur": 0.08,
+     "dur": 0.053,
      "ease": "out",
-     "at": 0.84
+     "at": 0.673
     },
     {
      "sfx": "kenney/cloth-belt",
      "gain": 0.55,
      "reason": "the quick-draw: the wallet out of the leather holster",
-     "at": 0.85
+     "at": 0.68
     },
     {
      "who": "gsl",
@@ -2004,9 +2035,9 @@
       -0.15,
       -0.35
      ],
-     "dur": 0.06,
+     "dur": 0.04,
      "blink": false,
-     "at": 0.86
+     "at": 0.687
     },
     {
      "who": "gsl",
@@ -2015,8 +2046,8 @@
      "set": {
       "curve": 0.35
      },
-     "dur": 0.08,
-     "at": 0.88
+     "dur": 0.053,
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -2024,15 +2055,9 @@
      "set": {
       "tip": 360
      },
-     "dur": 0.1,
+     "dur": 0.066,
      "ease": "inOut",
-     "at": 0.9
-    },
-    {
-     "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.9
+     "at": 0.713
     },
     {
      "who": "gsl",
@@ -2051,9 +2076,9 @@
        -0.233
       ]
      },
-     "dur": 0.13,
+     "dur": 0.086,
      "ease": "inOut",
-     "at": 0.97
+     "at": 0.759
     },
     {
      "do": "prop",
@@ -2061,9 +2086,9 @@
      "set": {
       "tip": 320
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "out",
-     "at": 1
+     "at": 0.779
     },
     {
      "do": "prop",
@@ -2071,15 +2096,15 @@
      "set": {
       "open": 1
      },
-     "dur": 0.08,
+     "dur": 0.053,
      "ease": "out",
-     "at": 1
+     "at": 0.779
     },
     {
      "sfx": "grab",
      "gain": 0.45,
      "reason": "the wallet flipped open: a soft leather flap",
-     "at": 1
+     "at": 0.779
     },
     {
      "who": "gsl",
@@ -2092,17 +2117,17 @@
        0.3
       ]
      },
-     "dur": 0.12,
+     "dur": 0.079,
      "ease": "out",
-     "at": 1.02
+     "at": 0.792
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "L",
      "shape": "cup",
-     "dur": 0.1,
-     "at": 1.02
+     "dur": 0.066,
+     "at": 0.792
     },
     {
      "who": "gsl",
@@ -2111,20 +2136,9 @@
       -0.05,
       -0.55
      ],
-     "dur": 0.06,
+     "dur": 0.04,
      "blink": false,
-     "at": 1.02
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "open": 0.15,
-      "pucker": 0
-     },
-     "dur": 0.06,
-     "at": 1.03
+     "at": 0.792
     },
     {
      "do": "prop",
@@ -2135,9 +2149,9 @@
       "z": 0.4,
       "scale": 1
      },
-     "dur": 0.02,
+     "dur": 0.03,
      "ease": "inOut",
-     "at": 1.03
+     "at": 0.799
     },
     {
      "do": "prop",
@@ -2147,9 +2161,9 @@
       "flap": 1,
       "bob": 0.6
      },
-     "dur": 0.05,
+     "dur": 0.033,
      "ease": "out",
-     "at": 1.03
+     "at": 0.799
     },
     {
      "do": "prop",
@@ -2157,23 +2171,16 @@
      "set": {
       "puff": 1
      },
-     "dur": 0.45,
+     "dur": 0.297,
      "ease": "out",
-     "at": 1.05
+     "at": 0.812
     },
     {
      "sfx": "wings",
      "gain": 0.12,
-     "dur": 0.6,
+     "dur": 0.396,
      "reason": "the moth's soft wing beats as it flutters out of the empty wallet",
-     "at": 1.05
-    },
-    {
-     "who": "wiz",
-     "do": "face",
-     "lid": 0.45,
-     "dur": 0.2,
-     "at": 1.05
+     "at": 0.812
     },
     {
      "do": "prop",
@@ -2184,9 +2191,9 @@
       "z": 0.66,
       "bank": -20
      },
-     "dur": 0.07,
+     "dur": 0.046,
      "ease": "out",
-     "at": 1.06
+     "at": 0.819
     },
     {
      "who": "gsl",
@@ -2195,23 +2202,16 @@
       -0.3,
       0.45
      ],
-     "dur": 0.06,
+     "dur": 0.04,
      "blink": false,
-     "at": 1.1
+     "at": 0.845
     },
     {
-     "who": "rea",
+     "who": "wiz",
      "do": "face",
-     "lid": 0.55,
+     "lid": 0.45,
      "dur": 0.2,
-     "at": 1.1
-    },
-    {
-     "who": "vik",
-     "do": "face",
-     "brow": 0.1,
-     "dur": 0.2,
-     "at": 1.1
+     "at": 0.85
     },
     {
      "do": "prop",
@@ -2222,9 +2222,148 @@
       "z": 0.52,
       "bank": -30
      },
-     "dur": 0.06,
+     "dur": 0.04,
      "ease": "inOut",
-     "at": 1.13
+     "at": 0.865
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.87
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.15,
+      0.55
+     ],
+     "dur": 0.04,
+     "blink": false,
+     "at": 0.891
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0,
+      "y": 1.12,
+      "z": 0.64,
+      "bank": 10
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.904
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.053,
+     "blink": false,
+     "at": 0.937
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.46,
+      "y": 1.2200000000000002,
+      "z": 0.32,
+      "bank": 25
+     },
+     "dur": 0.033,
+     "ease": "inOut",
+     "at": 0.944
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.4,
+      "y": 1.12,
+      "z": 0.2,
+      "bank": 0,
+      "bob": 0
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.977
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.165,
+     "at": 0.99
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -1.4,
+      -0.8
+     ],
+     "dur": 0.4,
+     "steps": 3,
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 0,
+      "flap": 0
+     },
+     "dur": 0.079,
+     "ease": "inOut",
+     "at": 1.003
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.165,
+     "at": 1.01
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.132,
+     "at": 1.01
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.1,
+     "dur": 0.2,
+     "at": 1.1
     },
     {
      "who": "vik",
@@ -2237,71 +2376,6 @@
      "at": 1.15
     },
     {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.15,
-      0.55
-     ],
-     "dur": 0.06,
-     "blink": false,
-     "at": 1.17
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": 0,
-      "y": 1.12,
-      "z": 0.64,
-      "bank": 10
-     },
-     "dur": 0.06,
-     "ease": "inOut",
-     "at": 1.19
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.6,
-      0.05
-     ],
-     "dur": 0.08,
-     "blink": false,
-     "at": 1.24
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "happy",
-     "set": {
-      "curve": 0.72
-     },
-     "dur": 0.25,
-     "at": 1.24
-    },
-    {
-     "who": "gsl",
-     "do": "face",
-     "lid": 0.9,
-     "dur": 0.2,
-     "at": 1.24
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": 0.46,
-      "y": 1.2200000000000002,
-      "z": 0.32,
-      "bank": 25
-     },
-     "dur": 0.05,
-     "ease": "inOut",
-     "at": 1.25
-    },
-    {
      "do": "prop",
      "id": "wallet",
      "set": {
@@ -2310,6 +2384,17 @@
      "dur": 0.08,
      "ease": "inOut",
      "at": 1.28
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.29
     }
    ]
   },
@@ -2319,32 +2404,18 @@
    "len": 1.3,
    "shot": {
     "pos": [
-     0.695,
-     1.535,
-     5.694
+     0.61,
+     1.581,
+     6.112
     ],
     "look": [
-     -0.75,
+     -0.92,
      0.75,
-     0.3
+     0.4
     ],
     "fov": 30
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": 0.4,
-      "y": 1.12,
-      "z": 0.2,
-      "bank": 0,
-      "bob": 0
-     },
-     "dur": 0.06,
-     "ease": "out",
-     "at": 0
-    },
     {
      "who": "gsl",
      "do": "arm",
@@ -2362,7 +2433,7 @@
        -0.619
       ]
      },
-     "dur": 0.1,
+     "dur": 0.12,
      "ease": "inOut",
      "at": 0
     },
@@ -2377,8 +2448,8 @@
        0.3
       ]
      },
-     "dur": 0.12,
-     "ease": "out",
+     "dur": 0.16,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -2389,18 +2460,6 @@
      "set": {
       "index": 0,
       "curl": 1
-     },
-     "dur": 0.1,
-     "at": 0
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "curve": 0.5,
-      "open": 0.3,
-      "raise": 0.05
      },
      "dur": 0.1,
      "at": 0
@@ -2425,9 +2484,14 @@
     },
     {
      "who": "gsl",
-     "do": "squash",
-     "amount": 0.025,
-     "dur": 0.25,
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.5,
+      "open": 0.3,
+      "raise": 0.05
+     },
+     "dur": 0.1,
      "at": 0.02
     },
     {
@@ -2450,17 +2514,6 @@
      "at": 0.02
     },
     {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "open": 0,
-      "flap": 0
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.04
-    },
-    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -2481,7 +2534,7 @@
       -0.619
      ],
      "dur": 0.04,
-     "at": 0.1
+     "at": 0.12
     },
     {
      "who": "gsl",
@@ -2498,7 +2551,7 @@
       -0.55,
       0.05
      ],
-     "dur": 0.12,
+     "dur": 0.14,
      "steps": 2,
      "at": 0.12
     },
@@ -2506,7 +2559,7 @@
      "who": "gsl",
      "do": "turn",
      "to": -60,
-     "dur": 0.12,
+     "dur": 0.16,
      "at": 0.12
     },
     {
@@ -2521,28 +2574,28 @@
      "at": 0.12
     },
     {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.3,
+       0.1
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.13
+    },
+    {
      "do": "prop",
      "id": "wallet",
      "set": {
       "tip": 360,
       "rot": 100
      },
-     "dur": 0.04,
-     "ease": "inOut",
-     "at": 0.14
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.08,
-       0.4,
-       0.26
-      ]
-     },
-     "dur": 0.2,
+     "dur": 0.03,
      "ease": "inOut",
      "at": 0.14
     },
@@ -2555,16 +2608,7 @@
      "dur": 0.03,
      "ease": "in",
      "reason": "back down in his holster (part of his costume), so it walks with him",
-     "at": 0.18
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.18,
-     "ease": "inOut",
-     "at": 0.18
+     "at": 0.17
     },
     {
      "who": "gsl",
@@ -2575,9 +2619,18 @@
      "at": 0.18
     },
     {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
      "who": "rea",
      "do": "turn",
-     "to": -85.29,
+     "to": -90.453,
      "dur": 0.3,
      "at": 0.2
     },
@@ -2593,31 +2646,20 @@
      "at": 0.2
     },
     {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      -0.85,
-      0.48
-     ],
-     "dur": 0.08,
-     "steps": 1,
-     "at": 0.24
-    },
-    {
      "who": "vik",
      "do": "move",
      "to": [
       0,
       -0.3
      ],
-     "dur": 0.35,
-     "steps": 2,
+     "dur": 0.533,
+     "steps": 4,
      "at": 0.25
     },
     {
      "who": "vik",
      "do": "turn",
-     "to": -49.399,
+     "to": -28,
      "dur": 0.3,
      "at": 0.25
     },
@@ -2634,9 +2676,9 @@
       ],
       "palm": true,
       "at": [
-       0.036,
+       0.301,
        0.04,
-       0.433
+       0.37
       ]
      },
      "dur": 0.35,
@@ -2656,9 +2698,9 @@
       ],
       "palm": true,
       "at": [
-       0.036,
+       0.301,
        0.04,
-       0.433
+       0.37
       ]
      },
      "dur": 0.35,
@@ -2669,7 +2711,7 @@
      "do": "prop",
      "id": "giftP",
      "set": {
-      "rot": 130.601
+      "rot": 152
      },
      "dur": 0.35,
      "ease": "inOut",
@@ -2679,10 +2721,10 @@
      "do": "prop",
      "id": "giftB",
      "set": {
-      "x": 0.114,
+      "x": 0.407,
       "y": 0.41,
-      "z": 0.524,
-      "rot": 130.601
+      "z": 0.426,
+      "rot": 152
      },
      "dur": 0.35,
      "ease": "inOut",
@@ -2698,6 +2740,17 @@
      },
      "dur": 0.3,
      "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -0.85,
+      0.48
+     ],
+     "dur": 0.12,
+     "steps": 1,
+     "at": 0.26
     },
     {
      "do": "prop",
@@ -2728,9 +2781,24 @@
     },
     {
      "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.4,
+       0.26
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "gsl",
      "do": "sit",
      "seat": "crate",
-     "dur": 0.11,
+     "dur": 0.14,
      "hands": "keep",
      "height": 0.34,
      "at": 0.28
@@ -2830,12 +2898,6 @@
      "at": 0.38
     },
     {
-     "sfx": "sit",
-     "gain": 0.35,
-     "reason": "he plonks down on the wooden crate",
-     "at": 0.39
-    },
-    {
      "who": "gsl",
      "do": "look",
      "to": [
@@ -2845,6 +2907,12 @@
      "dur": 0.1,
      "blink": false,
      "at": 0.4
+    },
+    {
+     "sfx": "sit",
+     "gain": 0.35,
+     "reason": "he plonks down on the wooden crate",
+     "at": 0.42
     },
     {
      "who": "gsl",
@@ -3276,6 +3344,17 @@
     },
     {
      "who": "gsl",
+     "do": "look",
+     "to": [
+      0.05,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.97
+    },
+    {
+     "who": "gsl",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -3295,24 +3374,6 @@
      "dur": 0.055,
      "ease": "inOut",
      "at": 0.975
-    },
-    {
-     "who": "gsl",
-     "do": "face",
-     "lid": 0.42,
-     "dur": 0.3,
-     "at": 1.07
-    },
-    {
-     "who": "gsl",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.4,
-      "eye": 0.95
-     },
-     "dur": 0.35,
-     "at": 1.07
     },
     {
      "sfx": "crinkle",
@@ -3429,6 +3490,7 @@
      ],
      "dur": 0.17,
      "pose": null,
+     "upright": true,
      "at": 1.13
     },
     {
@@ -3575,6 +3637,20 @@
     },
     {
      "who": "gsl",
+     "do": "grab",
+     "prop": "coupon",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
      "do": "squash",
      "amount": -0.035,
      "dur": 0.2,
@@ -3603,6 +3679,28 @@
     },
     {
      "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.19
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "vik",
      "do": "grab",
      "prop": "giftP",
      "hand": "L",
@@ -3613,6 +3711,7 @@
      ],
      "dur": 0.2,
      "pose": null,
+     "upright": true,
      "at": 0.32
     },
     {
@@ -3621,6 +3720,24 @@
      "side": "R",
      "shape": "open",
      "dur": 0.15,
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0.55,
+      0.6
+     ],
+     "dur": 0.533,
+     "steps": 4,
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -8,
+     "dur": 0.533,
      "at": 0.32
     },
     {
@@ -3636,12 +3753,12 @@
       ],
       "palm": true,
       "at": [
-       -0.293,
-       0.05,
-       0.28
+       1.062,
+       0.04,
+       1.126
       ]
      },
-     "dur": 0.22,
+     "dur": 0.533,
      "ease": "inOut",
      "at": 0.32
     },
@@ -3649,9 +3766,9 @@
      "do": "prop",
      "id": "giftP",
      "set": {
-      "rot": 130.601
+      "rot": 172
      },
-     "dur": 0.22,
+     "dur": 0.533,
      "ease": "inOut",
      "at": 0.32
     },
@@ -3659,24 +3776,13 @@
      "do": "prop",
      "id": "giftB",
      "set": {
-      "x": -0.332,
-      "y": 0.42,
-      "z": 0.235,
-      "rot": 130.601
+      "x": 1.181,
+      "y": 0.41,
+      "z": 1.143,
+      "rot": 172
      },
-     "dur": 0.22,
+     "dur": 0.533,
      "ease": "inOut",
-     "at": 0.32
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      -0.3,
-      -0.1
-     ],
-     "dur": 0.2,
-     "blink": false,
      "at": 0.32
     },
     {
@@ -3695,22 +3801,33 @@
      "at": 0.36
     },
     {
-     "who": "vik",
+     "who": "wiz",
      "do": "move",
      "to": [
-      0.55,
-      0.6
+      -0.52,
+      -0.85
      ],
-     "dur": 0.45,
-     "steps": 3,
-     "at": 0.45
+     "dur": 0.533,
+     "steps": 4,
+     "at": 0.4
     },
     {
-     "who": "vik",
+     "who": "wiz",
      "do": "turn",
-     "to": -15,
-     "dur": 0.45,
-     "at": 0.45
+     "to": 36.425,
+     "dur": 0.533,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.47
     }
    ]
   },
@@ -3720,12 +3837,12 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     1.264,
-     2.665,
-     5.538
+     1.229,
+     2.835,
+     6.002
     ],
     "look": [
-     0.57,
+     0.47,
      0.85,
      0.6
     ],
@@ -3750,15 +3867,15 @@
     {
      "who": "gsl",
      "do": "turn",
-     "to": 105,
-     "dur": 0.3,
+     "to": 70,
+     "dur": 0.36,
      "at": 0
     },
     {
      "who": "gsl",
      "do": "look",
      "to": [
-      0.1,
+      0.45,
       -0.05
      ],
      "dur": 0.2,
@@ -3767,38 +3884,23 @@
     },
     {
      "who": "gsl",
-     "do": "grab",
-     "prop": "coupon",
-     "hand": "R",
-     "grip": [
-      -0.185,
-      0,
-      -0.01
-     ],
-     "dur": 0.1,
-     "pose": null,
-     "at": 0
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0
-    },
-    {
-     "who": "gsl",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.22,
-       0.5,
-       0.2
+      "prop": "coupon",
+      "grip": [
+       0.185,
+       0,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.188,
+       0.42,
+       1.083
       ]
      },
-     "dur": 0.3,
+     "dur": 0.36,
      "ease": "inOut",
      "at": 0.02
     },
@@ -3815,12 +3917,12 @@
       ],
       "palm": true,
       "at": [
-       0.056,
-       0.5,
-       0.991
+       0.188,
+       0.42,
+       1.083
       ]
      },
-     "dur": 0.3,
+     "dur": 0.36,
      "ease": "inOut",
      "at": 0.02
     },
@@ -3828,101 +3930,28 @@
      "do": "prop",
      "id": "coupon",
      "set": {
-      "rot": 105
+      "rot": 40
      },
-     "dur": 0.3,
+     "dur": 0.36,
      "ease": "inOut",
      "at": 0.02
     },
     {
-     "who": "wiz",
+     "who": "rea",
      "do": "move",
      "to": [
-      -0.52,
-      -0.85
+      1.35,
+      -0.2
      ],
      "dur": 0.4,
      "steps": 3,
-     "at": 0.02
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "giftP",
-      "grip": [
-       -0.275,
-       0.187,
-       0
-      ],
-      "palm": true,
-      "at": [
-       0.636,
-       0.05,
-       1.244
-      ]
-     },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 0.04
-    },
-    {
-     "do": "prop",
-     "id": "giftP",
-     "set": {
-      "rot": 165
-     },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 0.04
-    },
-    {
-     "do": "prop",
-     "id": "giftB",
-     "set": {
-      "x": 0.578,
-      "y": 0.42,
-      "z": 1.229,
-      "rot": 165
-     },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 0.04
-    },
-    {
-     "who": "vik",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.2,
      "at": 0.1
     },
     {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0.185,
-       0.101,
-       -0.01
-      ],
-      "palm": true,
-      "off": [
-       0.023,
-       0.02,
-       -0.068
-      ],
-      "at": [
-       0.056,
-       0.5,
-       0.991
-      ]
-     },
-     "dur": 0.2,
-     "ease": "inOut",
+     "who": "rea",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.4,
      "at": 0.1
     },
     {
@@ -3937,11 +3966,50 @@
      "at": 0.15
     },
     {
-     "who": "wiz",
-     "do": "turn",
-     "to": 36.425,
-     "dur": 0.3,
-     "at": 0.15
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coupon",
+      "grip": [
+       0,
+       0.155,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0,
+       0.07,
+       0
+      ],
+      "at": [
+       0.188,
+       0.42,
+       1.083
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.23
     },
     {
      "who": "wiz",
@@ -3953,46 +4021,6 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.25
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0.185,
-       0.101,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       0.056,
-       0.5,
-       0.991
-      ]
-     },
-     "dur": 0.12,
-     "ease": "settle",
-     "at": 0.3
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      1.35,
-      -0.2
-     ],
-     "dur": 0.3,
-     "steps": 2,
-     "at": 0.3
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -45,
-     "dur": 0.3,
-     "at": 0.3
     },
     {
      "who": "wiz",
@@ -4011,11 +4039,25 @@
     },
     {
      "who": "vik",
-     "do": "grip",
+     "do": "arm",
      "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.372
+     "pose": {
+      "prop": "coupon",
+      "grip": [
+       0,
+       0.155,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.188,
+       0.42,
+       1.083
+      ]
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.36
     },
     {
      "who": "vik",
@@ -4037,58 +4079,6 @@
      "at": 0.38
     },
     {
-     "who": "vik",
-     "do": "turn",
-     "to": -8,
-     "dur": 0.22,
-     "at": 0.4
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "giftP",
-      "grip": [
-       -0.275,
-       0.187,
-       0
-      ],
-      "palm": true,
-      "at": [
-       0.714,
-       0.05,
-       1.229
-      ]
-     },
-     "dur": 0.22,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "giftP",
-     "set": {
-      "rot": 172
-     },
-     "dur": 0.22,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "giftB",
-     "set": {
-      "x": 0.655,
-      "y": 0.42,
-      "z": 1.221,
-      "rot": 172
-     },
-     "dur": 0.22,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -4098,6 +4088,14 @@
      "dur": 0.08,
      "blink": false,
      "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.08,
+     "at": 0.42
     },
     {
      "who": "wiz",
@@ -4125,31 +4123,6 @@
      "at": 0.44
     },
     {
-     "who": "vik",
-     "do": "grab",
-     "prop": "coupon",
-     "hand": "R",
-     "grip": [
-      0.185,
-      0.101,
-      -0.01
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.48
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      -0.2,
-      -0.5
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.48
-    },
-    {
      "who": "wiz",
      "do": "squash",
      "amount": 0.035,
@@ -4157,22 +4130,34 @@
      "at": 0.48
     },
     {
+     "who": "vik",
+     "do": "grab",
+     "prop": "coupon",
+     "hand": "R",
+     "grip": [
+      0,
+      0.155,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "upright": true,
+     "at": 0.5
+    },
+    {
      "who": "gsl",
      "do": "grip",
-     "side": "R",
+     "side": "L",
      "shape": "open",
      "dur": 0.12,
      "at": 0.5
     },
     {
-     "who": "vik",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.25,
-      "open": 0.05
-     },
-     "dur": 0.2,
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
      "at": 0.5
     },
     {
@@ -4200,18 +4185,18 @@
      "pose": {
       "prop": "coupon",
       "grip": [
-       0.185,
-       0.101,
+       0,
+       0.155,
        -0.01
       ],
       "palm": true,
       "at": [
-       0.19,
-       0.38,
-       1.004
+       0.166,
+       0.5,
+       1.031
       ]
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 0.52
     },
@@ -4219,10 +4204,21 @@
      "do": "prop",
      "id": "coupon",
      "set": {
-      "rot": -8
+      "rot": 40
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
      "at": 0.52
     },
     {
@@ -4234,8 +4230,14 @@
      "who": "gsl",
      "do": "arm",
      "side": "L",
-     "pose": "hips",
-     "dur": 0.35,
+     "pose": {
+      "o": [
+       0.12,
+       0.36,
+       0.26
+      ]
+     },
+     "dur": 0.15,
      "ease": "inOut",
      "at": 0.54
     },
@@ -4319,6 +4321,15 @@
      "brow": -0.1,
      "dur": 0.15,
      "at": 0.65
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.69
     },
     {
      "who": "gsl",
@@ -4429,42 +4440,6 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.85
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       0.19,
-       0.38,
-       1.004
-      ]
-     },
-     "dur": 0.18,
-     "ease": "inOut",
-     "at": 0.87
-    },
-    {
-     "who": "vik",
-     "do": "grab",
-     "prop": "coupon",
-     "hand": "R",
-     "grip": [
-      0,
-      0.155,
-      -0.01
-     ],
-     "dur": 0.18,
-     "pose": null,
-     "at": 0.87
     },
     {
      "who": "rea",
@@ -4583,6 +4558,13 @@
      "at": 1.2
     },
     {
+     "who": "gsl",
+     "do": "turn",
+     "to": 105,
+     "dur": 0.14,
+     "at": 1.2
+    },
+    {
      "who": "vik",
      "do": "squash",
      "amount": 0.18,
@@ -4600,9 +4582,9 @@
      "do": "release",
      "prop": "giftP",
      "to": [
-      0.714,
-      0.05,
-      1.229
+      1.062,
+      0.04,
+      1.126
      ],
      "dur": 0.04,
      "at": 1.26
@@ -4628,6 +4610,17 @@
      "ease": "linear",
      "arc": 0.3,
      "at": 1.28
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.29
     },
     {
      "do": "prop",
@@ -4824,6 +4817,28 @@
      "gain": 0.45,
      "reason": "the bear hug: fur and leather squeezed together",
      "at": 1.38
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.39
     }
    ],
    "kind": "reaction"
@@ -4834,29 +4849,16 @@
    "len": 1,
    "shot": {
     "pos": [
-     0.1,
-     1.289,
-     6.516
+     0.5,
+     1.756,
+     7.646
     ],
     "look": [
-     0.1,
-     0.9,
-     0.95
+     0.5,
+     0.85,
+     1.2
     ],
-    "fov": 32,
-    "to": {
-     "pos": [
-      0.7,
-      1.389,
-      6.516
-     ],
-     "look": [
-      0.7,
-      1,
-      0.95
-     ]
-    },
-    "dur": 0.5
+    "fov": 32
    },
    "do": [
     {
@@ -4905,7 +4907,7 @@
      "pose": {
       "world": [
        0.11,
-       0.48,
+       0.475,
        1.347
       ]
      },
@@ -4927,7 +4929,7 @@
       "palm": true,
       "at": [
        -0.335,
-       0.325,
+       0.32,
        0.664
       ]
      },
@@ -4971,11 +4973,11 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      -0.5,
-      -0.3
+      -0.45,
+      1
      ],
-     "dur": 0.25,
-     "steps": 2,
+     "dur": 0.667,
+     "steps": 5,
      "at": 0.02
     },
     {
@@ -5041,7 +5043,7 @@
      "pose": {
       "world": [
        0.392,
-       0.537,
+       0.519,
        1.402
       ]
      },
@@ -5063,7 +5065,7 @@
       "palm": true,
       "at": [
        -0.265,
-       0.382,
+       0.364,
        0.994
       ]
      },
@@ -5129,7 +5131,7 @@
      "pose": {
       "world": [
        0.796,
-       0.569,
+       0.534,
        1.275
       ]
      },
@@ -5151,7 +5153,7 @@
       "palm": true,
       "at": [
        -0.003,
-       0.414,
+       0.379,
        1.294
       ]
      },
@@ -5185,7 +5187,7 @@
       2,
       1.15
      ],
-     "dur": 0.42,
+     "dur": 0.4,
      "steps": 3,
      "at": 0.12
     },
@@ -5236,7 +5238,7 @@
      "pose": {
       "world": [
        1.009,
-       0.528,
+       0.476,
        1.047
       ]
      },
@@ -5258,7 +5260,7 @@
       "palm": true,
       "at": [
        0.288,
-       0.373,
+       0.321,
        1.415
       ]
      },
@@ -5299,7 +5301,7 @@
     },
     {
      "sfx": "book-close",
-     "gain": 0.5,
+     "gain": 1,
      "reason": "the big present thumps onto the rug",
      "at": 0.18
     },
@@ -5350,7 +5352,7 @@
      "pose": {
       "world": [
        1.093,
-       0.472,
+       0.407,
        0.803
       ]
      },
@@ -5372,7 +5374,7 @@
       "palm": true,
       "at": [
        0.609,
-       0.317,
+       0.252,
        1.393
       ]
      },
@@ -5525,7 +5527,7 @@
      "pose": {
       "world": [
        1.097,
-       0.45,
+       0.38,
        0.681
       ]
      },
@@ -5547,7 +5549,7 @@
       "palm": true,
       "at": [
        0.738,
-       0.295,
+       0.225,
        1.339
       ]
      },
@@ -5576,17 +5578,6 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.25
-    },
-    {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -0.4,
-      1
-     ],
-     "dur": 0.38,
-     "steps": 3,
-     "at": 0.27
     },
     {
      "sfx": "kenney/cloth-belt",
@@ -5693,7 +5684,7 @@
     },
     {
      "sfx": "thud-soft",
-     "gain": 0.3,
+     "gain": 0.55,
      "reason": "the black box hits the rug",
      "at": 0.44
     },
@@ -5714,9 +5705,9 @@
       1.45,
       2.35
      ],
-     "dur": 0.34,
+     "dur": 0.4,
      "steps": 3,
-     "at": 0.54
+     "at": 0.52
     },
     {
      "who": "vik",
@@ -5732,9 +5723,9 @@
       -0.55,
       1.7
      ],
-     "dur": 0.38,
+     "dur": 0.4,
      "steps": 3,
-     "at": 0.65
+     "at": 0.75
     },
     {
      "who": "rea",
@@ -5750,7 +5741,7 @@
       0,
       -0.6
      ],
-     "dur": 0.12,
+     "dur": 0.25,
      "blink": false,
      "at": 0.86
     },
@@ -5866,21 +5857,21 @@
     },
     {
      "who": "wiz",
-     "do": "turn",
-     "to": 42.709,
-     "dur": 0.3,
-     "at": 0.05
-    },
-    {
-     "who": "wiz",
      "do": "look",
      "to": [
-      0.1,
-      -0.55
+      0,
+      -0.95
      ],
      "dur": 0.2,
      "blink": false,
      "at": 0.05
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 42.709,
+     "dur": 0.3,
+     "at": 0.1
     },
     {
      "who": "rea",
@@ -5945,7 +5936,7 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": 9,
+     "to": 16,
      "dur": 0.3,
      "at": 0.15
     },
@@ -6140,31 +6131,9 @@
        2.453
       ]
      },
-     "dur": 0.14,
+     "dur": 0.24,
      "ease": "inOut",
      "at": 0.71
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "giftB",
-      "grip": [
-       0.07,
-       0.195,
-       0.07
-      ],
-      "palm": true,
-      "at": [
-       1.002,
-       0.26,
-       2.453
-      ]
-     },
-     "dur": 0.14,
-     "ease": "inOut",
-     "at": 0.85
     },
     {
      "sfx": "cloth",
@@ -6187,6 +6156,28 @@
      "pose": {
       "prop": "giftB",
       "grip": [
+       0.07,
+       0.195,
+       0.07
+      ],
+      "palm": true,
+      "at": [
+       1.002,
+       0.26,
+       2.453
+      ]
+     },
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "giftB",
+      "grip": [
        -0.06,
        0.195,
        0.07
@@ -6200,204 +6191,35 @@
      },
      "dur": 0.14,
      "ease": "inOut",
-     "at": 0.99
+     "at": 1.09
     },
     {
-     "who": "vik",
-     "do": "move",
+     "who": "rea",
+     "do": "look",
      "to": [
-      0.419,
-      0.783
+      0,
+      -0.15
      ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 53.586,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      1.22,
-      1.006
-     ],
-     "y": 0.314,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.05
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -24.723,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       1.095,
-       0.469,
-       0.604
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       0.844,
-       0.314,
-       1.313
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 315.409,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.05
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.11
     },
     {
      "sfx": "cloth",
-     "gain": 0.25,
-     "reason": "the hug turns: fur and leather",
-     "at": 1.05
+     "gain": 0.18,
+     "reason": "and again",
+     "at": 1.14
     },
     {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.78,
-       0.25
-      ]
-     },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.05
-    },
-    {
-     "who": "vik",
-     "do": "move",
+     "who": "wiz",
+     "do": "look",
      "to": [
-      0.469,
-      0.869
+      0.5,
+      0.3
      ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 75.729,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      1.284,
-      0.783
-     ],
-     "y": 0.35,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.11
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -24.009,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       1.012,
-       0.519,
-       0.431
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       1.062,
-       0.364,
-       1.201
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 333.045,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.11
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.17
     },
     {
      "who": "rea",
@@ -6419,200 +6241,43 @@
      },
      "dur": 0.14,
      "ease": "inOut",
-     "at": 1.13
-    },
-    {
-     "sfx": "cloth",
-     "gain": 0.18,
-     "reason": "and again",
-     "at": 1.14
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      0.538,
-      0.986
-     ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 106.006,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      1.191,
-      0.519
-     ],
-     "y": 0.398,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.17
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -23.032,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.771,
-       0.588,
-       0.326
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       1.217,
-       0.433,
-       1.004
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 356.924,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.17
+     "at": 1.23
     },
     {
      "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.45,
+      1.65
+     ],
+     "dur": 0.267,
+     "steps": 2,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.267,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": -3,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "vik",
      "do": "look",
      "to": [
-      0.5,
-      0.3
+      0.3,
+      0.2
      ],
-     "dur": 0.2,
+     "dur": 0.12,
      "blink": false,
-     "at": 1.17
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      0.612,
-      1.114
-     ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 138.994,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      0.91,
-      0.388
-     ],
-     "y": 0.452,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.23
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -21.968,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.466,
-       0.662,
-       0.423
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       1.228,
-       0.507,
-       0.807
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 389.078,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.23
+     "at": 1.37
     },
     {
      "who": "rea",
@@ -6627,356 +6292,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.27
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      0.681,
-      1.231
-     ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 169.271,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      0.585,
-      0.468
-     ],
-     "y": 0.5,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.29
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -20.991,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.225,
-       0.731,
-       0.68
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       1.097,
-       0.576,
-       0.669
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 428.385,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.29
-    },
-    {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -0.68,
-      1.3
-     ],
-     "dur": 0.3,
-     "steps": 2,
-     "at": 1.3
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 60,
-     "dur": 0.3,
-     "at": 1.3
-    },
-    {
-     "who": "wiz",
-     "do": "pitch",
-     "to": -3,
-     "dur": 0.3,
-     "at": 1.3
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.05,
-       0.5,
-       0.4
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.15,
-     "at": 1.3
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.993,
-       1.03,
-       1.174
-      ]
-     },
-     "dur": 0.17,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      0.731,
-      1.317
-     ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 191.414,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      0.367,
-      0.652
-     ],
-     "y": 0.536,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.35
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -20.277,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.102,
-       0.781,
-       0.955
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       0.904,
-       0.626,
-       0.638
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 458.103,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.35
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.2,
      "at": 1.37
-    },
-    {
-     "who": "rea",
-     "do": "nod",
-     "times": 1,
-     "at": 1.37
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      0.75,
-      1.35
-     ],
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 200,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "who": "gsl",
-     "do": "move",
-     "to": [
-      0.297,
-      0.749
-     ],
-     "y": 0.55,
-     "dur": 0.06,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.41
-    },
-    {
-     "who": "gsl",
-     "do": "turn",
-     "to": -20,
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       0.071,
-       0.8,
-       1.078
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "coupon",
-      "grip": [
-       0,
-       0.155,
-       -0.01
-      ],
-      "palm": true,
-      "at": [
-       0.815,
-       0.645,
-       0.654
-      ]
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "do": "prop",
-     "id": "coupon",
-     "set": {
-      "rot": 468.405,
-      "tip": 0
-     },
-     "dur": 0.06,
-     "ease": "linear",
-     "at": 1.41
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.1,
-     "at": 1.42
     },
     {
      "who": "gsl",
@@ -6987,7 +6303,21 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.45
+     "at": 1.37
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.47
+    },
+    {
+     "who": "rea",
+     "do": "nod",
+     "times": 1,
+     "at": 1.47
     }
    ]
   },
@@ -7010,11 +6340,145 @@
    },
    "do": [
     {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0.75,
+      1.35
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 200,
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      0.297,
+      0.749
+     ],
+     "y": 0.55,
+     "dur": 0,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -20,
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.071,
+       0.8,
+       1.078
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coupon",
+      "grip": [
+       0,
+       0.155,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.815,
+       0.645,
+       0.654
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coupon",
+     "set": {
+      "rot": 468.405,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.993,
+       1.03,
+       1.174
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0,
+     "at": 0
+    },
+    {
      "who": "wiz",
      "do": "look",
      "to": [
-      0.5,
-      0.45
+      0.55,
+      0.55
      ],
      "dur": 0.15,
      "blink": false,
@@ -7398,7 +6862,7 @@
   {
    "who": "gsl",
    "with": "moth",
-   "from": 2.5,
+   "from": 2.28,
    "to": 10,
    "reason": "the moth flies round him and sits on his hat brim (worn)"
   },
@@ -7433,14 +6897,14 @@
   {
    "who": "gsl",
    "with": "wallet",
-   "from": 2.25,
-   "to": 3.02,
+   "from": 2.1,
+   "to": 3,
    "reason": "he draws the wallet from his holster and slips it back"
   },
   {
    "who": "gsl",
-   "from": 2.27,
-   "to": 2.33,
+   "from": 2.12,
+   "to": 2.18,
    "checks": [
     "motion"
    ],
@@ -7448,8 +6912,8 @@
   },
   {
    "who": "gsl",
-   "from": 2.38,
-   "to": 2.52,
+   "from": 2.19,
+   "to": 2.42,
    "checks": [
     "prop-pop"
    ],
@@ -7477,6 +6941,25 @@
    "from": 3.12,
    "to": 4,
    "reason": "he pulls the pen out of his bandana's knot and scribbles with it on his knee"
+  },
+  {
+   "who": "gsl",
+   "from": 2.93,
+   "to": 3.03,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "the dash: he slaps the wallet into the holster and runs for the crate, spinning 70 degrees in 0.16 s; his hand whips off the holster in the body's smear"
+  },
+  {
+   "who": "gsl",
+   "from": 3.06,
+   "to": 3.25,
+   "checks": [
+    "lean-jump",
+    "motion"
+   ],
+   "reason": "the plonk: he drops onto the crate in 0.14 s and snatches the pen from his bandana's knot as he lands (the seat contact is the beat, the sit thump on it)"
   },
   {
    "who": "gsl",
@@ -7523,6 +7006,15 @@
   },
   {
    "who": "rea",
+   "from": 0.7,
+   "to": 0.85,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "he leans over and sets his black box on the lid: his left glove rolls onto its end as it lands (the contact is the beat)"
+  },
+  {
+   "who": "rea",
    "with": "giftB",
    "from": 0,
    "to": 1,
@@ -7566,14 +7058,14 @@
   {
    "who": "vik",
    "from": 6.05,
-   "to": 6.55,
+   "to": 6.6,
    "checks": [
     "hand-turn",
     "hand-pop",
     "rig-jump",
     "prop-pop"
    ],
-   "reason": "the lunge and the lift: his gloves let the present go and snap flat onto Gunslinger's sides in 0.1 s"
+   "reason": "the lunge, the lift and the swing: his gloves let the present go, snap flat onto Gunslinger's sides in 0.1 s and turn with them as he swings him 130 degrees round his front in 0.3 s"
   },
   {
    "who": "rea",
