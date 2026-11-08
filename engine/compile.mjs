@@ -29,11 +29,11 @@ const sayLen = (line, tone) => Math.max(0.45, line.trim().split(/\s+/).length * 
 export const MACROS = {
   // a line of dialogue: voice + mouth, and the line as a caption unless caption: false. With real speech
   // (engine/voice/speech.mjs runs first) dur is the spoken length and speech carries the audio id and mouth keys.
-  say: ({ who, line, tone = "calm", dur, caption = true, pos, seed, speech, amp, gain }) => {
+  say: ({ who, line, tone = "calm", dur, caption = true, pos, x, seed, speech, amp, gain }) => {
     const d = dur ?? sayLen(line, tone);
     // the line rides on the talk action: it seeds the voice, so the same line always sounds the same wherever it is.
     // amp (0..1) scales how far the mouth opens (a quiet, kind line: the open mouth's oval reads as a grin at full size)
-    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}), ...(speech ? { speech } : {}), ...(amp != null ? { amp } : {}), ...(gain != null ? { gain } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos }] : [])];
+    return [{ who, do: "talk", tone, dur: d, line, ...(seed != null ? { seed } : {}), ...(speech ? { speech } : {}), ...(amp != null ? { amp } : {}), ...(gain != null ? { gain } : {}) }, ...(caption ? [{ caption: line, len: Math.max(d + 0.5, line.split(/\s+/).length / 3) , pos, ...(x != null ? { x } : {}) }] : [])];   // x: the caption's centre (px), to keep it off a character
   },
   // a narrator nobody on screen speaks for (voice: "storyteller-warm" by default, see engine/voice/voices.json):
   // sound only, no mouth, and the line as a caption unless caption: false. Needs real speech; without it, captions only.
@@ -157,7 +157,7 @@ function compileBeats(sb) {
     const len = b.len ?? last + (b.hold ?? 0.15);
     for (const g of placed) {
       const abs = r3(start + g.at), { at, ...rest } = g;
-      if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top" }); continue; }
+      if (rest.caption != null) { out.captions.push({ text: rest.caption, from: abs, to: r3(Math.min(start + len, abs + (rest.len ?? len))), pos: rest.pos || "top", ...(rest.x != null ? { x: rest.x } : {}) }); continue; }
       if (rest.fx) { const { fx, ...f } = rest; out.fx.push({ do: fx, at: abs, ...f }); continue; }
       if (rest.sfx) { const { sfx, ...f } = rest; out.sfx.push({ sound: sfx, at: abs, ...f }); continue; }
       // a prop tween ({ do: "prop", id, set }), a prop carrying another ({ do: "carry", prop, by }) and prop physics

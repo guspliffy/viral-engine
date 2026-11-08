@@ -39,6 +39,10 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   first words still. Unspoken captions (a hook) pop in word by word; a
   `narrate` line with a real voice is timed like a talk line. `"kinetic": false` on one caption keeps
   it in the classic style (Nothing Scares Reaper's hook, so it doesn't fight the "BOO!"). Without it, captions keep the classic style.
+- **Placing a line's caption**: a `say` takes `pos` (a name or the box's top in px) and `x` (its centre in px), so a
+  line sits in clear sky or grass beside the people in its shot instead of over them (How to 02).
+- **Step cards** (`"style": "step"`, `"badge": "STEP 1"`): a white rounded box with a dark edge and a yellow pill badge
+  above it, for tutorial labels ("How to…" series, `engine/page/text.js` CAP.step).
 - **Text pops**: `{ "fx": "pop", "text": "gulp", "who": "rea", "dur": 0.8 }` slams one comic word in beside a
   character's head (`dx`, `dy` in head sizes, default 0.55, -0.3; or `"xy": [x, y]` in output pixels), holds and puffs
   out. Options: `color` (`"speaker"`: the character's caption colour), `size` (px, default 120), `angle` (degrees,

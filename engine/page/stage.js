@@ -938,7 +938,8 @@ function layout(t) {
     const L = a.ch.costume.propLine?.(), prop = L ? { a: a.ch.root.localToWorld(L.a.clone()).toArray().map(r3), b: a.ch.root.localToWorld(L.b.clone()).toArray().map(r3) } : undefined;
     // world anchors for framing (engine/direct.mjs is checked against them): the eyes' midpoint and the top of the
     // character (hat or crest included)
-    const E = a.ch.face?.eyes, eyes = E && E.length > 1 ? E[0].root.getWorldPosition(new THREE.Vector3()).add(E[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).toArray().map(r3) : undefined;
+    // (a rig with a face of its own, the human vrm-v1, says where its eyes are: the potato face it hides stays at potato height)
+    const E = a.ch.face?.eyes, eyes = a.ch.eyesWorld ? a.ch.eyesWorld()?.toArray().map(r3) : E && E.length > 1 ? E[0].root.getWorldPosition(new THREE.Vector3()).add(E[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).toArray().map(r3) : undefined;
     const ep = eyes && new THREE.Vector3().fromArray(eyes).project(camera), eyesPx = ep && [Math.round((ep.x + 1) / 2 * W), Math.round((1 - ep.y) / 2 * H)];
     // the middle of the mouth on the face's surface (aiming a spoon or anything that leaves the mouth)
     const F = a.ch.face, mouth = F && F.place ? F.group.localToWorld(F.place(0, F.layout.mouthV).pos.clone()).toArray().map(r3) : undefined;

@@ -325,6 +325,8 @@ export class VrmCharacter extends Character {
     // the hips: the performance's root, in the rig's space
     // (palm support, see _planContacts: the body rides up on straight arms where the recorded hands would go under the floor)
     const lift = this._liftAt(t), hp = lift ? P.pos.clone().setY(P.pos.y + lift) : P.pos.clone();
+    // a raised floor (cast "floor", see _floorAt): the whole take stands that much higher (on a wall, a plank)
+    hp.y += this._floorAt(t);
     // seat contact: cast "seat": [{ from, to, ramp, y }]: the hips joint is brought to y (the seat top plus the
     // hips-to-sitting-bones depth), eased in over ramp seconds as the take sits, so the weight lands on the real seat
     // (v3: the take's own floor put the seated body 6 cm over the chair); the held feet stay where they are
@@ -367,7 +369,7 @@ export class VrmCharacter extends Character {
   // peels off: the foot rolls over its active contact), and the hips give way when a held foot is out of reach.
   // Character "ground": false turns it all off, "contacts": false only the holding
   _ground(t) {
-    const nb = this.nb, fh = this.footH, V = THREE.Vector3; if (!fh || !nb.hips) return;
+    const nb = this.nb, fl = this._floorAt(t), fh = this.footH + fl, V = THREE.Vector3; if (!this.footH || !nb.hips) return;
     const legs = ["left", "right"].map((sd) => [nb[`${sd}UpperLeg`], nb[`${sd}LowerLeg`], nb[`${sd}Foot`], nb[`${sd}Toes`], sd]).filter((l) => l.slice(0, 3).every(Boolean));
     nb.hips.parent.updateMatrixWorld(true);
     const ay = () => Math.min(...legs.map((l) => l[2].getWorldPosition(new V()).y)) - fh;
@@ -409,7 +411,7 @@ export class VrmCharacter extends Character {
         if (c.wH > 0 || c.wT > 0) {
           const toe = Tz ? Tz.getWorldPosition(new V()) : a.clone(); if (Tz && sv) toe.add(sv);
           if (c.H) T.addScaledVector(new V(c.H.x - a.x, 0, c.H.z - a.z), c.wH);
-          if (c.T) { T.addScaledVector(new V(c.T.x - toe.x, 0, c.T.z - toe.z), (1 - c.wH) * c.wT); wT = c.wT; toeY = c.T.y; }
+          if (c.T) { T.addScaledVector(new V(c.T.x - toe.x, 0, c.T.z - toe.z), (1 - c.wH) * c.wT); wT = c.wT; toeY = c.T.y + fl; }
         }
       }
       // (seated: the settling step forward, see _planSeatFeet; the ball lets go of the floor while the foot is up)
@@ -510,7 +512,7 @@ export class VrmCharacter extends Character {
       // the ball of a held foot rests on the floor (pitched about the ankle), and no toe ever goes under it
       if (Tz) {
         const an = F.getWorldPosition(new V()), to = Tz.getWorldPosition(new V());
-        const floor = this.toeH + (nT ? nT.k * Math.hypot(to.x - nT.p.x, to.z - nT.p.z) : 0), want = wT > 0 ? Math.max(to.y, floor) + (toeY - Math.max(to.y, floor)) * wT : Math.max(to.y, floor);
+        const floor = this.toeH + fl + (nT ? nT.k * Math.hypot(to.x - nT.p.x, to.z - nT.p.z) : 0), want = wT > 0 ? Math.max(to.y, floor) + (toeY - Math.max(to.y, floor)) * wT : Math.max(to.y, floor);
         if (Math.abs(want - to.y) > 5e-4) {
           const v = to.clone().sub(an), r = Math.hypot(v.x, v.z), ny = Math.max(-0.999 * v.length(), Math.min(0.999 * v.length(), want - an.y));
           const nr = Math.sqrt(Math.max(0, v.lengthSq() - ny * ny)), w2 = new V(r > 1e-6 ? (v.x / r) * nr : 0, ny, r > 1e-6 ? (v.z / r) * nr : 0);
@@ -578,7 +580,7 @@ export class VrmCharacter extends Character {
       const c = this._contactAt(plan[sd], t); if (!c.P || c.wP <= 0) continue;
       const U = nb[`${sd}UpperArm`], L = nb[`${sd}LowerArm`], F = nb[`${sd}Hand`]; if (!U || !L || !F) continue;
       const pm = this._palm(sd), w = F.getWorldPosition(new V()), off = pm.clone().sub(w);
-      const goal = pm.clone().lerp(c.P, c.wP);
+      const goal = pm.clone().lerp(c.P.clone().setY(c.P.y + this._floorAt(t)), c.wP);
       this._twoBone(U, L, F, goal.sub(off));
     }
   }
@@ -587,6 +589,15 @@ export class VrmCharacter extends Character {
   _palm(sd) {
     const h = this.nb[`${sd}Hand`], m = this.nb[`${sd}MiddleProximal`], V = THREE.Vector3;
     const a = h.getWorldPosition(new V()); return m ? a.lerp(m.getWorldPosition(new V()), 0.7) : a;
+  }
+  // the floor under the body (cast "floor": [[t, y], ...], story seconds and metres, linear between keys; none: 0):
+  // standing on a wall top or the end of a seesaw plank. The whole take is raised by it and the feet are planted,
+  // grounded and held on it as on the ground (How to 02, 8 Nov 2026)
+  _floorAt(t) {
+    const K = this.cast.floor; if (!K?.length || t == null) return 0;
+    if (t <= K[0][0]) return K[0][1];
+    for (let i = 1; i < K.length; i++) if (t < K[i][0]) { const a = K[i - 1], b = K[i]; return a[1] + (b[1] - a[1]) * (t - a[0]) / Math.max(1e-6, b[0] - a[0]); }
+    return K[K.length - 1][1];
   }
   _liftAt(t) {
     const L = this.lift; if (!L || this._lockOff) return 0;
@@ -604,8 +615,9 @@ export class VrmCharacter extends Character {
       for (let u = 0; u <= s.dur + 1e-6; u += 1 / 30) {
         this._vrmPose(s.at + Math.min(u, s.dur - 1e-4)); this.nb.hips.parent.updateMatrixWorld(true);
         for (const sd of ["left", "right"]) {
-          lo = Math.min(lo, this.nb[`${sd}Foot`].getWorldPosition(new V()).y - this.footH);
-          if (this.nb[`${sd}Toes`]) lo = Math.min(lo, this.nb[`${sd}Toes`].getWorldPosition(new V()).y - this.toeH);
+          const fl = this._floorAt(s.at + Math.min(u, s.dur - 1e-4));
+          lo = Math.min(lo, this.nb[`${sd}Foot`].getWorldPosition(new V()).y - this.footH - fl);
+          if (this.nb[`${sd}Toes`]) lo = Math.min(lo, this.nb[`${sd}Toes`].getWorldPosition(new V()).y - this.toeH - fl);
         }
       }
       if (Number.isFinite(lo) && Math.abs(lo) > 0.01) s.lift = (s.lift || 0) - lo;
@@ -625,8 +637,10 @@ export class VrmCharacter extends Character {
     this._lockOff = true;
     for (let i = 0; i * dt <= end + 1e-6; i++) {
       const t = i * dt; this._vrmPose(t); this.nb.hips.parent.updateMatrixWorld(true);
-      const hl = this.nb.leftUpperLeg.getWorldPosition(new V()), hr = this.nb.rightUpperLeg.getWorldPosition(new V()), mid = hl.clone().add(hr).multiplyScalar(0.5), lat = hl.sub(hr).setY(0).normalize();
-      for (const sd of ["left", "right"]) S[sd].push({ t, s: seg(t), mid, lat, a: this.nb[`${sd}Foot`].getWorldPosition(new V()), b: (this.nb[`${sd}Toes`] || this.nb[`${sd}Foot`]).getWorldPosition(new V()), h: this._palm(sd), sh: this.nb[`${sd}UpperArm`].getWorldPosition(new V()) });
+      // (heights over the floor under the body at t, cast "floor": a foot planted on a raised floor is a contact too)
+      const fl = this._floorAt(t), dn = (v) => { v.y -= fl; return v; };
+      const hl = this.nb.leftUpperLeg.getWorldPosition(new V()), hr = this.nb.rightUpperLeg.getWorldPosition(new V()), mid = dn(hl.clone().add(hr).multiplyScalar(0.5)), lat = hl.sub(hr).setY(0).normalize();
+      for (const sd of ["left", "right"]) S[sd].push({ t, s: seg(t), mid, lat, a: dn(this.nb[`${sd}Foot`].getWorldPosition(new V())), b: dn((this.nb[`${sd}Toes`] || this.nb[`${sd}Foot`]).getWorldPosition(new V())), h: dn(this._palm(sd)), sh: dn(this.nb[`${sd}UpperArm`].getWorldPosition(new V())) });
     }
     this._lockOff = false;
     // palm support (motion brief: a handspring changes support from feet to palms with straight arms): this body's arms
@@ -819,6 +833,12 @@ export class VrmCharacter extends Character {
     }
   }
   handWorld(s) { return this.vrm.humanoid.getRawBoneNode(s === "l" ? "leftHand" : "rightHand").getWorldPosition(new THREE.Vector3()); }
+  // the eyes' midpoint in the world (framing and the must-see list aim at it): the model's eye bones, else 7 cm over the head bone
+  eyesWorld() {
+    const H = this.vrm.humanoid, l = H.getRawBoneNode("leftEye"), r = H.getRawBoneNode("rightEye");
+    if (l && r) return l.getWorldPosition(new THREE.Vector3()).add(r.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5);
+    const h = H.getRawBoneNode("head"); return h ? h.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.07, 0)) : null;
+  }
 }
 
 // a texture with its colours shifted (look entry hue degrees, sat and light factors, tint "#rrggbb" mixed by tintK)
