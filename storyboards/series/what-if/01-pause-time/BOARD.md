@@ -48,8 +48,8 @@
   1.0, -2.3] -> [-0.55, 0.7, -5.65] fov 44, review B).
 - Action: 4.5-4.9 the big gesture, the cup leaves the hand 4.9, flies at Reaper's face (it stops at CUP_HANG at
   5.02, 0.17 m nearer than the knock's aim: Phoenix's follow-through pushes it; measured, Viking's stand and hand use it); 4.66 HALT; pause 5.02-7.3: the cup hangs in the air, Viking backs up under it and takes it 5.7-5.96, sits
-  beside Reaper 6.4-6.95; 7.32 Reaper flinches, 7.4 Phoenix's empty hand; 7.88 "Been here ages.", a toast with the cup
-  by his face (cam [0.85, 0.95, -1.5] -> [0.85, 0.62, -6.4] fov 46).
+  beside Reaper 6.4-6.95; 7.32 Reaper flinches, 7.4 Phoenix's empty hand; 7.88 "Been here ages.", the cup held at his
+  chest (render 4: no toast; raised, it turned out beside his glove) (cam [0.85, 0.95, -1.5] -> [0.85, 0.62, -6.4] fov 46).
 - Text: "Late for coffee?" 4.4-5.0 s, y 300.
 
 ### §3.3 Clock (8.6-12.4 s)

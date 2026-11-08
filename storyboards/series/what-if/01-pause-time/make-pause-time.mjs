@@ -201,6 +201,10 @@ A(5.6, "vik", "look", { to: [-0.45, 0.45], dur: 0.12, blink: false });
 c.arm(5.72, "vik", "R", { world: HAND_AT }, 0.22, "out"); A(5.72, "vik", "grip", { side: "R", shape: "open", dur: 0.12 });
 A(5.88, "vik", "grip", { side: "R", shape: "hold", dur: 0.1 });
 A(GRAB2, "vik", "grab", { prop: "cup", hand: "R", keep: true, dur: 0, pose: null });
+// at the cut to the wide the cup settles into his glove by the mug hold (the grab above keeps the offset it was taken at,
+// which put the cup beside the glove once the hand turned: render 3, the toast at 8.2)
+const VIK_CUP = grips.mug(c, "vik", CUP_SPEC, { side: "R", height: 0.66 });
+A(r3(GRAB2 + 0.06), "vik", "grab", { prop: "cup", hand: "R", grip: VIK_CUP.hands.R.grip, dur: 0, pose: null });
 sfx(5.94, "ai/fingertip-catch", { gain: 0.35, reason: "his fingers closing on the cup in the air" });
 c.arm(6.04, "vik", "R", { o: [0.05, 0.5, 0.32] }, 0.45, "inOut");   // to his chest, slowly (it is full)
 A(6.3, "vik", "look", { to: [0.05, 0.0], dur: 0.15, blink: false });
@@ -216,7 +220,7 @@ A(7.4, "phx", "expr", { expr: "shocked", set: { open: 0.3 }, dur: 0.2 });
 A(7.75, "phx", "look", { to: [0.8, -0.1], dur: 0.15, blink: false });
 A(7.95, "phx", "look", { to: [0.75, -0.05], dur: 0.3, blink: false });
 c.arm(7.8, "phx", "L", "rest", 0.35, "inOut"); A(7.8, "phx", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
-c.arm(7.75, "vik", "R", { o: [0.12, 0.75, 0.3] }, 0.25, "inOut");   // a little toast with it, the cup up by his face (review A)
+// (no toast: raised, the open-handed pose turned the cup out beside his glove: render 3. It stays at his chest)
 c.say(7.88, "vik", "Been here ages.", 0.9, "calm", V);   // on the bench shot, after Phoenix's empty-hand insert
 see(7.35, 7.8, ["phx.face"], "Phoenix's hand is empty");
 see(7.8, 8.55, ["vik.face", "rea.face", "cup"], "he's on the bench with the cup, as if he'd always been there");
