@@ -31,13 +31,13 @@
   "bloom": "emissive",
   "aperture": 0,
   "plate": {
-   "src": "assets/plates/pub-sunday.png",
-   "z": -2.4,
+   "src": "assets/plates/birthday-living-room.png",
+   "z": -2.2,
    "center": [
-    0.1,
-    1.5
+    0,
+    2.45
    ],
-   "height": 3.6,
+   "height": 5,
    "depth": false,
    "motion": false
   },
@@ -155,7 +155,7 @@
   },
   {
    "id": "giftP",
-   "kind": "gift",
+   "kind": "bowgift",
    "x": -0.15,
    "y": 0.22,
    "z": 0.25,
@@ -167,7 +167,7 @@
   },
   {
    "id": "giftB",
-   "kind": "gift",
+   "kind": "bowgift",
    "x": 0.9,
    "y": 0.5,
    "z": 0.3,
@@ -178,13 +178,63 @@
   },
   {
    "id": "coupon",
-   "kind": "iounote",
+   "kind": "coupon",
    "x": -0.15,
    "y": 0.6,
    "z": 0.15,
    "rot": 0,
    "ink": 1,
+   "fold": 0,
    "scale": 0.001
+  },
+  {
+   "id": "hatG",
+   "kind": "partyhat",
+   "wear": "gsl",
+   "x": 0.06,
+   "y": 1.31,
+   "z": 0,
+   "color": "#d8392b",
+   "accent": "#f2c14e",
+   "pattern": "stripes",
+   "pom": "#f2c14e"
+  },
+  {
+   "id": "hatV",
+   "kind": "partyhat",
+   "wear": "vik",
+   "x": 0.08,
+   "y": 1.2,
+   "z": 0.08,
+   "tilt": 14,
+   "color": "#3d7fd1",
+   "accent": "#f2c14e",
+   "pattern": "dots",
+   "pom": "#f2c14e"
+  },
+  {
+   "id": "ros",
+   "kind": "rosette",
+   "wear": "vik",
+   "x": -0.2,
+   "y": 0.5,
+   "z": 0.36
+  },
+  {
+   "id": "bunt",
+   "kind": "bunting",
+   "x": 0,
+   "y": 2.22,
+   "z": -1.5,
+   "w": 3.6,
+   "sag": 0.24,
+   "count": 15,
+   "colors": [
+    "#8a4fc4",
+    "#f2c14e",
+    "#e97a9a"
+   ],
+   "faces": true
   }
  ],
  "captions": [],

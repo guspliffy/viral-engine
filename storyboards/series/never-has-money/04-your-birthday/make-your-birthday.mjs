@@ -58,9 +58,18 @@ const props = [
   { id: "caketable", kind: "coffeetable", x: -1.6, z: 1.55, w: 0.7, d: 0.5, h: 0.42 },
   { id: "cake", kind: "cake", x: -1.6, y: 0.42, z: 1.55, lit: 1 },
   { id: "crate", kind: "crate", x: CRATE[0], z: CRATE[1], size: 0.34 },
-  { id: "giftP", kind: "gift", x: -0.15, y: 0.22, z: 0.25, rot: -20, w: BIG.w, h: BIG.h, color: "#7d3fb8", ribbon: "#e7b43a" },
-  { id: "giftB", kind: "gift", x: 0.9, y: 0.5, z: 0.3, w: SMALL.w, h: SMALL.h, color: "#26232a", ribbon: "#c9ced6" },
-  { id: "coupon", kind: "iounote", x: -0.15, y: 0.6, z: 0.15, rot: 0, ink: 1, scale: 0.001 },
+  { id: "giftP", kind: "bowgift", x: -0.15, y: 0.22, z: 0.25, rot: -20, w: BIG.w, h: BIG.h, color: "#7d3fb8", ribbon: "#e7b43a" },
+  { id: "giftB", kind: "bowgift", x: 0.9, y: 0.5, z: 0.3, w: SMALL.w, h: SMALL.h, color: "#26232a", ribbon: "#c9ced6" },
+  // the hero prop (props-birthday.js, T2): drawing on +z; ink 0..1 writes it, fold 1 = the little square from his bandana
+  { id: "coupon", kind: "coupon", x: -0.15, y: 0.6, z: 0.15, rot: 0, ink: 1, fold: 0, scale: 0.001 },
+  // worn (T2 bench offsets, body frame): Gunslinger's striped cone on top of his cowboy hat, Viking's small blue dotted
+  // cone in his hair (on in 06-08 as the correction prompt asks), his gold rosette on the chest
+  { id: "hatG", kind: "partyhat", wear: "gsl", x: 0.06, y: 1.31, z: 0, color: "#d8392b", accent: "#f2c14e", pattern: "stripes", pom: "#f2c14e" },
+  { id: "hatV", kind: "partyhat", wear: "vik", x: 0.08, y: 1.2, z: 0.08, tilt: 14, color: "#3d7fd1", accent: "#f2c14e", pattern: "dots", pom: "#f2c14e" },
+  { id: "ros", kind: "rosette", wear: "vik", x: -0.2, y: 0.5, z: 0.36 },
+  // the bunting across the top of the room (every panel): in front of the plate, in the top fifth of P01, above every
+  // head and hat (Gunslinger lifted in the hug tops out at ~1.9 m)
+  { id: "bunt", kind: "bunting", x: 0, y: 2.22, z: -1.5, w: 3.6, sag: 0.24, count: 15, colors: ["#8a4fc4", "#f2c14e", "#e97a9a"], faces: true },
 ];
 
 // ---------------------------------------------------------------- blocking (places and facings only)
@@ -150,7 +159,7 @@ write(import.meta.url, {
   cleanStart: true,
   motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: true, animeTiming: true,
   set: { type: "plain", color: "#d9b98a", floor: "#a86f3e", light: "golden", para: 0, bloom: "emissive", aperture: 0,
-    plate: { src: "assets/plates/pub-sunday.png", z: -2.4, center: [0.1, 1.5], height: 3.6, depth: false, motion: false },
+    plate: { src: "assets/plates/birthday-living-room.png", z: -2.2, center: [0, 2.45], height: 5.0, depth: false, motion: false },
     lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 } },
   music: { style: "warm", lowCut: 150, gain: 0.3 },
   sound: { sfx: 0.7, ambience: 0.3, surface: "wood", room: "room", guard: true },
