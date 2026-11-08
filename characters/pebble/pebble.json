@@ -5,53 +5,76 @@
  "rig": "potato",
  "build": "core",
  "body": {
-  "color": "#EE9A42",
+  "color": "#F2993C",
   "height": 0.5,
-  "width": 0.6,
-  "depth": 0.5,
+  "width": 0.52,
+  "depth": 0.46,
   "lump": 0,
   "seed": 31,
   "taper": 0.1,
   "square": 2.0,
   "specks": 0,
-  "gloss": 0
+  "gloss": 0,
+  "keepSkin": true
  },
  "head": {
-  "color": "#EE9A42",
-  "width": 0.44,
-  "height": 0.42,
-  "depth": 0.42,
-  "square": 2.2,
-  "taper": 0.1,
-  "neck": -0.07,
-  "neckR": 0.13,
+  "color": "#F4A044",
+  "width": 0.4,
+  "height": 0.38,
+  "depth": 0.39,
+  "square": 2.0,
+  "taper": 0.05,
+  "neck": -0.05,
+  "neckR": 0.115,
   "forward": 0.12,
   "faceUp": -0.1,
   "faceWide": 1.0,
   "above": 0.12,
   "profile": {
-   "cheek": 0.12,
-   "cheekV": -0.3,
-   "cheekH": 0.5,
-   "snout": 0.45,
-   "v": -0.1,
-   "w": 0.46,
-   "h": 0.3,
-   "lift": 0.04,
-   "jaw": 0.05
+   "cheek": 0.06,
+   "cheekV": -0.2,
+   "cheekH": 0.8,
+   "snout": 0.1,
+   "v": -0.26,
+   "w": 0.42,
+   "h": 0.34,
+   "lift": 0.0,
+   "round": 2.2,
+   "jaw": 0.18
   },
-  "pitch": 0.12,
-  "faceTall": 1.5
+  "pitch": 0.05,
+  "faceTall": 1.5,
+  "keepSkin": true,
+  "skinMap": false,
+  "neckFlare": 0.0,
+  "neckFillet": 0.25
  },
  "legs": {
   "height": 0.17,
-  "width": 0.15,
-  "hipX": 0.16
+  "width": 0.1,
+  "hipX": 0.13,
+  "hipY": 0.15,
+  "dome": {
+   "top": 0.35,
+   "flare": 0.15,
+   "flareP": 4,
+   "waist": 0.1
+  },
+  "heel": 0.13,
+  "toe": 0.165,
+  "sole": 0.03,
+  "roll": {
+   "on": true,
+   "peel": 0.22,
+   "strike": 0.15
+  }
  },
  "limbs": {
-  "color": "#EE9A42",
-  "width": 0.078,
-  "shoulder": 0.42
+  "color": "#F2993C",
+  "width": 0.072,
+  "armTaper": 0.24,
+  "shoulder": 0.42,
+  "role": "skin"
  },
  "face": {
   "size": 0.56,
@@ -73,49 +96,63 @@
   "blush": 0.35,
   "freckles": 6,
   "final": {
-   "iris": "#6B3A1C",
+   "iris": "#8B5226",
    "brow": "#C9793A",
    "eye": {
-    "oval": 0.62,
+    "oval": 0.6,
     "iris": 0.52,
     "glintSize": 0.6,
     "irisShade": true,
     "lash": 1.2,
-    "white": "#F2E4CC",
-    "tilt": -0.3,
+    "white": "#EBDCC2",
+    "tilt": -0.18,
     "flick": 0,
-    "corner": 0.6
+    "corner": 0,
+    "irisAspect": 0.84,
+    "noLine": true,
+    "gaze": "parallel",
+    "conform": true,
+    "out": 0.0025,
+    "paintGlint": [
+     0.3,
+     0.12,
+     0.17
+    ]
    },
    "layout": {
     "mouthV": -0.3,
     "cheekV": -0.2,
-    "browV": 0.5,
-    "eyeU": 0.41,
-    "eyeV": 0.12,
-    "mouthW": 0.42
+    "browV": 0.3,
+    "eyeU": 0.57,
+    "eyeV": 0.28,
+    "mouthW": 0.6
    },
    "browShape": {
-    "arch": 0.12,
+    "arch": 0.07,
     "lift": 0.012,
-    "clear": 0.014,
-    "thick": 0.22
+    "clear": -0.016,
+    "flat": true,
+    "inner": 0.36,
+    "outer": 0.8,
+    "thick": 0.16
    },
    "rest": {
-    "smirk": 0.18,
+    "smirk": 0.1,
     "curve": 0.9,
-    "eye": 0.62
+    "eye": 0.92
    },
    "neutral": {
-    "lidL": 0.84,
-    "lidR": 0.84
+    "lidL": 0.88,
+    "lidR": 0.88
    },
    "blush": 0.9,
    "freckles": 6,
    "mouth": {
     "ink": "#7A3E1C",
-    "thick": 0.6
+    "thick": 0.6,
+    "flat": true
    },
-   "size": 0.7
+   "size": 0.64
   }
  },
  "sprout": {
@@ -125,107 +162,129 @@
   "type": "pebble",
   "cap": {
    "color": "#A95C32",
-   "band": 0.56,
+   "band": 0.4,
    "crown": [
-    1.06,
-    1.02
+    1.14,
+    1.1
    ],
    "front": 0.12,
-   "skew": -0.18,
+   "skew": -0.4,
    "flat": 0.12,
-   "tilt": -0.1,
-   "pitch": 0.06,
-   "brim": 0.1
+   "tilt": -0.16,
+   "pitch": 0.07,
+   "brim": 0.05,
+   "over": 0.045,
+   "droop": 0.9,
+   "bandR": 0.0045,
+   "brimSpan": 0.85
   },
   "belly": {
    "color": "#F6CF85",
-   "seam": "#D9A55E"
+   "seam": "#EDC47E"
   },
   "vest": {
    "color": "#847140",
    "trim": "#D6A35E",
    "button": "#8A4E25",
-   "edge": 0.3,
-   "flare": 0.08,
+   "edge": 0.34,
+   "flare": 0.2,
    "hem": -0.62,
-   "trimR": 0.02,
+   "trimR": 0.0075,
    "pocket": false,
-   "slits": true,
-   "armhole": 0.32
+   "slits": false,
+   "neck": 0.14,
+   "neckH": 0.55,
+   "sewn": true,
+   "thread": "#A99A62",
+   "armhole": 0.04,
+   "armTrim": false,
+   "corner": 0.34,
+   "top": 1.2,
+   "armCap": {
+    "to": 0.1,
+    "tilt": 0.6,
+    "out": 0.008
+   }
   },
   "shell": {
    "color": "#8E4F2A",
    "groove": "#A35D31",
    "rim": "#A9632F",
    "r": [
-    0.41,
-    0.52,
+    0.4,
+    0.43,
     0.46
    ],
-   "dz": 0.14,
-   "rimR": 0.06,
+   "dz": 0.03,
+   "rimR": 0.045,
    "lip": 0.08,
    "lipBack": 0.0,
    "lipDark": "#3A2416",
    "inside": "#B5702F",
    "moss": {
-    "thick": 0.12,
-    "from": 0.35,
-    "strands": 300,
-    "strand": 0.026,
-    "color": "#A8901E",
-    "light": "#C9A62C",
-    "dark": "#7C6612",
-    "strandR": 0.0045
+    "thick": 0.07,
+    "from": 0.25,
+    "strands": 200,
+    "strand": 0.024,
+    "color": "#9A8F26",
+    "light": "#B2A637",
+    "dark": "#776B19",
+    "strandR": 0.005,
+    "tufts": {
+     "n": 130,
+     "r": 0.036
+    }
    },
    "fern": {
-    "leaf": 0.16,
-    "pairs": 18,
+    "leaf": 0.12,
+    "pairs": 20,
     "fronds": [
      [
-      3.14,
-      0.58,
-      0.35
+      2.75,
+      0.84,
+      0.55,
+      0.03
+     ],
+     [
+      3.6,
+      0.784,
+      0.6,
+      0.04
      ],
      [
       2.3,
-      0.54,
-      0.5
+      0.728,
+      0.72,
+      0.06
      ],
      [
-      4.0,
-      0.54,
-      0.5
+      3.95,
+      0.5599999999999999,
+      0.98,
+      0.07
      ],
      [
-      1.4,
-      0.48,
-      0.6
-     ],
-     [
-      4.9,
-      0.48,
-      0.6
-     ],
-     [
-      0.15,
-      0.5,
-      0.2
+      3.14,
+      0.588,
+      0.75,
+      0.08
      ]
     ],
-    "leafW": 0.75,
-    "color": "#B08E14",
-    "light": "#CCA62C",
-    "stalk": "#7E6A12",
+    "leafW": 0.55,
+    "leafV": 0.5,
+    "color": "#A7A230",
+    "light": "#BDB443",
+    "stalk": "#6E7322",
     "arch": true,
     "th": 0.85,
-    "ph": 1.571
+    "ph": 1.571,
+    "bend": 0.95
    },
-   "dy": 0.04,
+   "dy": 0.13,
    "open": [
-    106,
-    50,
-    95
+    90,
+    62,
+    88
    ],
    "rings": [
     [
@@ -240,34 +299,106 @@
     ]
    ],
    "marginals": 18,
-   "bulge": 0.1,
+   "bulge": 0.055,
+   "soft": 7,
    "grooveW": 0.05,
    "growth": false,
    "seamK": 0.75,
    "seam": "#4A2A18",
    "edge": "#B06A38",
    "light": "#A35D31",
-   "grooveDepth": 0.02,
+   "grooveDepth": 0.01,
    "rimEdge": "#B5733A",
    "rimGroove": "#C07A40",
-   "rimPlates": 20
+   "rimBand": 12,
+   "rimOut": 0.5,
+   "rimWide": 1.55,
+   "hug": {
+    "side": 0.31,
+    "top": 0.34,
+    "band": 0.8,
+    "max": 0.5
+   }
   },
   "feet": {
    "toe": "#F8D693",
    "size": [
-    0.15,
-    0.07,
-    0.17
-   ]
+    0.125,
+    0.068,
+    0.15
+   ],
+   "toeW": 0.4,
+   "toeH": 0.55,
+   "toeD": 0.3,
+   "toeZ": 0.8,
+   "out": 0.17,
+   "blend": 0.085
   },
   "spots": {
    "size": 0.9,
-   "color": "#D27A30"
+   "color": "#C9742E",
+   "flat": true,
+   "n": 8,
+   "nLimb": 4,
+   "nostrils": [
+    [
+     -0.06,
+     -0.2
+    ],
+    [
+     0.06,
+     -0.2
+    ]
+   ],
+   "at": [
+    [
+     1.02,
+     -0.04,
+     0.03
+    ],
+    [
+     1.15,
+     0.1,
+     0.022
+    ],
+    [
+     0.98,
+     -0.2,
+     0.02
+    ],
+    [
+     1.22,
+     -0.12,
+     0.026
+    ],
+    [
+     1.38,
+     0.16,
+     0.02
+    ],
+    [
+     -1.02,
+     0.0,
+     0.028
+    ],
+    [
+     -1.16,
+     -0.15,
+     0.022
+    ],
+    [
+     -1.28,
+     0.12,
+     0.018
+    ]
+   ]
   },
   "straw": {
    "side": 1,
-   "length": 0.22,
-   "r": 0.0032,
+   "length": 0.16,
+   "r": 0.0019,
+   "grains": 5,
+   "droop": 0.022,
    "color": "#D9AE5C",
    "seed": "#C99A45",
    "yaw": 8,
@@ -275,28 +406,28 @@
    "grip": 0.1,
    "hold": {
     "m": [
-     -0.402598,
-     -0.694975,
-     -0.22219,
+     -0.50696,
+     -0.895704,
+     -0.349543,
      0,
-     0.008853,
-     0.249099,
-     -0.795183,
+     -0.047878,
+     0.418182,
+     -1.002151,
      0,
-     -0.729576,
-     0.386527,
-     0.112961,
+     -0.960299,
+     0.45201,
+     0.234495,
      0,
-     0.040174,
-     0.067218,
-     0.029678,
+     0.051336,
+     0.085208,
+     0.043322,
      1
     ]
    }
   }
  },
  "personality": "The calm friend (master brief): patient, warm, perceptive, quietly amused. Moves at his own pace even when everything around him goes wrong; says one short line, never lectures.",
- "tts": "pebble",
+ "tts": "pebble-scot-5c",
  "voice": {
   "pitch": 110,
   "rate": 3.0,
@@ -308,33 +439,45 @@
  },
  "hands": {
   "type": "glove",
-  "size": 1.2,
+  "size": 0.92,
   "fingers": 3,
-  "spread": 1.3,
+  "spread": 0.2,
   "seamless": true,
   "cell": 0.0035,
+  "fingerLen": 0.95,
+  "fingerR": 1.5,
+  "grip": {
+   "R": "relaxed",
+   "L": "relaxed"
+  },
   "blend": {
    "root": 0.35
   },
-  "note": "Pebble's own glove (correction brief 6 Nov): explicit, so castLook sheet's 1.7 mitten replacement doesn't apply; smaller, fingers spread so three fingers + thumb read"
+  "note": "Pebble's own glove (correction brief 6 Nov): explicit, so castLook sheet's 1.7 mitten replacement doesn't apply; smaller, fingers spread so three fingers + thumb read",
+  "oneMat": true
  },
  "scale": 1.5,
  "arms": {
   "R": {
    "o": [
-    0.0,
-    0.18,
-    0.1
+    0.04,
+    0.24,
+    0.12
    ],
-   "swing": 1
+   "elbow": 0.0,
+   "margin": 1.05,
+   "swing": 0.5
   },
   "L": {
    "o": [
-    0.0,
-    0.18,
-    0.1
+    0.04,
+    0.24,
+    0.12
    ],
-   "swing": 1
+   "elbow": 0.0,
+   "margin": 1.05,
+   "swing": 0.5
   }
- }
+ },
+ "krimK": 0.3
 }

@@ -12,7 +12,9 @@ import { clamp } from "./util.js";
 //              time. `on` 0..1 shows it (worn: points are in the body's frame).
 //   rainfall   rain streaks falling through a box (spec.box [[x0, y0, z0], [x1, y1, z1]]), spec.n streaks, looped from
 //              the clip time. `on` 0..1 its strength, spec.alpha the streaks' opacity (default 0.32).
-//   smokewisp  a thin grey smoke trail rising from the origin (spec.h metres high), looped. `on` 0..1.
+//   smokewisp  a thin grey smoke trail rising from the origin (spec.h metres high), looped. `on` 0..1. spec.rgb ("r,g,b")
+//              tints it and spec.alpha (0.55) sets its strength (a burnt-out crest's smoke needs a pale, strong grey
+//              to read on a dusk wall).
 //   embers     glowing orange sparks drifting up through a box (spec.box), looped. `on` 0..1.
 //   blotch     a soft round colour patch (spec.color, spec.size m, spec.alpha) on a flat decal facing +z: sunburn on a
 //              cheek. Shown by `scale` 0 -> 1.
@@ -102,14 +104,16 @@ export const OKILIED_KINDS = {
   },
 
   smokewisp(P) {
-    const S = P.spec, n = S.n ?? 7, h = S.h ?? 0.35, tex = softDot([[0, "rgba(120,116,112,0.75)"], [0.5, "rgba(140,136,132,0.4)"], [1, "rgba(150,146,142,0)"]]);
+    const S = P.spec, n = S.n ?? 7, h = S.h ?? 0.35, al = S.alpha ?? 0.55;
+    const tex = S.rgb ? softDot([[0, `rgba(${S.rgb},0.85)`], [0.5, `rgba(${S.rgb},0.5)`], [1, `rgba(${S.rgb},0)`]])
+      : softDot([[0, "rgba(120,116,112,0.75)"], [0.5, "rgba(140,136,132,0.4)"], [1, "rgba(150,146,142,0)"]]);
     const puffs = Array.from({ length: n }, (_, i) => { const m = seeThrough(tex, { opacity: 0.5 }); const o = steamy(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), m), 3); P.whole.add(o); return { o, m, ph: i / n }; });
     return { grip: 0, apply(ps, t) {
       const on = clamp(ps.on ?? 1);
       for (const p of puffs) {
         const k = (t * 0.7 + p.ph) % 1, s = (S.size ?? 0.05) * (1 + 2.2 * k);
         p.o.visible = on > 0.02; p.o.position.set(Math.sin(k * 5 + p.ph * 6) * 0.03 * (1 + 2 * k), h * k, 0);
-        p.o.scale.set(s, s, 1); p.m.opacity = 0.55 * on * Math.sin(Math.PI * Math.min(1, k * 1.25));
+        p.o.scale.set(s, s, 1); p.m.opacity = al * on * Math.sin(Math.PI * Math.min(1, k * 1.25));
       }
     } };
   },

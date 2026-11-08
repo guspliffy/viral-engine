@@ -31,7 +31,7 @@ def depth(img):
     return (d - d.min()) / max(1e-9, d.max() - d.min())
 
 
-def true_sky(img, d, tol=0.02, colour_tol=10):
+def true_sky(img, d, tol=0.02, colour_tol=10, top_k=0.25):
     """the farthest pixels (inverse depth within tol of the sky's), connected to the top edge, as a soft 0..1 mask"""
     import cv2
     H, W = d.shape
@@ -40,7 +40,7 @@ def true_sky(img, d, tol=0.02, colour_tol=10):
     # far but not sky (the distant sea, hills or a skyline in a gap between trees): the sky's own colours are learnt
     # from the top of the picture (blue, clouds, a sunset, stars) and a far pixel far from all of them is landscape
     lab = cv2.cvtColor((np.asarray(img).astype(np.float32) / 255), cv2.COLOR_RGB2LAB)
-    top = cand.copy(); top[int(H * 0.25):] = False
+    top = cand.copy(); top[int(H * top_k):] = False
     samp = lab[top].reshape(-1, 3)
     if len(samp) > 64:
         samp = samp[:: max(1, len(samp) // 20000)].astype(np.float32)
@@ -74,7 +74,11 @@ def run(env):
     W, H = E["size"]; PX, PY = E["pad"]
     k = W / w   # the env's picture is the painting at k times its size
     d = depth(img)
-    sky = true_sky(img, d)
+    # the sky's colours are learnt from the top quarter; where far mountains reach up into it they get learnt as sky
+    # and slide with the clouds: a spec's "lifeSkyTop" learns from a thinner strip (lake-shore 0.08, river-rapids 0.05)
+    spec_p = os.path.join(dirn, "spec.json")
+    top_k = json.load(open(spec_p)).get("lifeSkyTop", 0.25) if os.path.exists(spec_p) else 0.25
+    sky = true_sky(img, d, top_k=top_k)
     leaf = np.clip(grow(foliage(img, w / 1000), max(2, w // 200)) * 1.5, 0, 1) * (1 - sky)
     big = lambda a: np.asarray(Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8)).resize((W, H), Image.BILINEAR)).astype(float) / 255
     sky_b, leaf_b = big(sky), big(leaf)

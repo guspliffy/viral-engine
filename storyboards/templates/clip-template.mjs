@@ -70,6 +70,13 @@ const LIFE = "auto";
 // ("animeTiming"). null / false: as before
 const CEL = { at: 0.25 };
 const ANIME_TIMING = true;
+// ink + the anime grade (Jonny, 8 Nov, PR #174 "both on in the template"; from MEGA CLAWD): INK draws the outlines
+// an even width in screen pixels (a bold silhouette, thinner lines on clothes and parts, darker ink, a little thinner
+// far away; set "ink"); SATSUEI is anime compositing on the final picture: warm halation round the brightest lights, a
+// soft diffusion glow, lavender shadows and warm highlights (set "satsuei"). docs/STORYBOARD.md "Anime look 02".
+// null / false: as before
+const INK = true;
+const SATSUEI = true;
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -135,10 +142,12 @@ act.backToStart(c, 7.2, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_P
 // opening shot again), framed from where the characters are, cut on action (onto a music beat when one is within
 // two frames). Two more kinds: "insert" (the prop the beat is about fills the frame for 0.4-0.8 s; never in 0-3 s; give
 // { size: "insert", on: "<prop id>", at: [x, y, z] } for the point on it) and "threat" (a low angle on who acts, once
-// per clip), "chaos" (a dutch tilt). More by size: { size: "ots", who, over } over a shoulder, { size: "top", on }
+// per clip), "chaos" (a dutch tilt), "realize" (a dolly zoom on who reacts: the room closes in). More by size: { size: "ots", who, over } over a shoulder, { size: "top", on }
 // straight down on a prop, { size: "establishing", plate } a painted exterior for 0.5 s (never at frame 0).
 // A size ("close", "mcu", "medium", "wide", "insert") or { size, who, push, angle: "low", roll } overrides it,
 // "keep" holds the camera, and a plain { pos, look, fov } is used as it is. docs/STORYBOARD.md, "Directed camera".
+// Named moves for briefs and boards (freeze frame, speed ramp, dolly zoom...): docs/CAMERA-MOVES.md and
+// storyboards/lib/camera.mjs; a series HUD, rule cards and the comment-vote end card: storyboards/lib/overlay.mjs.
 const MED = { pos: [0.1, 0.97, 5.9], look: [0.1, 0.76, 0], fov: 36 };   // the master: its direction is every shot's
 const beats = c.beats([
   ["hook", 0, null, "hook"],
@@ -166,7 +175,7 @@ write(import.meta.url, {
   // the warm living room (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
-    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }), ...(CEL && { cel: CEL }) },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }), ...(CEL && { cel: CEL }), ...(INK && { ink: INK }), ...(SATSUEI && { satsuei: SATSUEI }) },
   music: MUSIC,
   direct: { master: MED },
   // the spike guard (Jonny, 5 Nov, PR #112): no effect jumps far out of the mix, a gentle limiter instead of
