@@ -30,7 +30,7 @@ const END = 10.0;
 const V3 = !!process.env.V3;   // the reach rules v3 opening (see the top)
 // v3 re-cuts take today's template motion (Jonny 7 Nov), except the planted gait: with it the Wizard's hat sinks 54 %
 // into Phoenix and 23 % into Reaper in the tug of war (no path, lean or feetTune change fixed it), so natural walks stay
-const write = (u, sb) => writeSb(u, V3 ? stretchAt({ ...nowRules(sb), motion: { overlap: true, timing: true, solve: true } }, 1.2, 0.7, 0.2) : sb);   // the close-up 1.2-1.4 s plays at 1/4.5 speed
+const write = (u, sb) => writeSb(u, V3 ? stretchAt({ ...nowRules(sb), motion: { overlap: true, timing: true, solve: true } }, 1.1, 0.7, 0.3) : sb);   // the whole close-up (1.1-1.4 s story) plays at 1/3.3 speed, from its cut
 const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- places (x right, z toward us; the houses are -z)
@@ -103,7 +103,7 @@ A(0, "phx", "look", { to: AT_PHONE, dur: 0, blink: false });
 A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: V3 ? 0 : 0.01 });
 A(0, "phx", "face", { lid: 0.45, dur: V3 ? 0 : 0.01 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.6]);
-act.scrollPhone(c, "phx", [0.25, 1.15, 2.05, 3.05, 3.95, 4.85, 5.75, 6.65, 7.45]);
+act.scrollPhone(c, "phx", [0.25, V3 ? 1.2 : 1.15, 2.05, 3.05, 3.95, 4.85, 5.75, 6.65, 7.45]);
 prop(0, "phone", { glow: V3 ? 1 : 0.6 }, V3 ? 0 : 0.01);   // v3: the screen at full
 
 // ---------------------------------------------------------------- 1 BEAM 0-1.5 (P1)
@@ -126,7 +126,12 @@ if (V3) {
   A(0.03, "phx", "talk", { line: "I'll look up in a sec.", dur: 0.95, tone: "calm", voice: false });
   c.cap(0.03, 1.1, "I'll look up in a sec.", CAP_Y);
   c.cap(1.1, 1.4, "I'll look up in a sec.", 470, false, { kinetic: false });   // in the close-up's sky, clear of the hat
-  // B8: the Wizard glances from the saucer to Phoenix, then the cut to his face and a 0.7 s freeze on it
+  // B8 (Jonny 8 Nov: on Phoenix, not the Wizard): the cut at 1.1 s goes to Phoenix's face over his phone, lit by the
+  // screen in the beam, and in the slow motion his thumb swipes the feed (1.2 s story, about 1.43 s on the video) with
+  // a "*swipe*" beside the phone, so it's plain he's just scrolling
+  c.textPop(1.2, "phx", "*swipe*", { xy: [215, 1640], dur: 0.2, angle: -8, size: 100 });
+  sfx(1.2, "kenney/scroll", { gain: 3.5, reason: "his thumb swipes the feed in the close-up" });
+  // the Wizard glances from the saucer to Phoenix in the wide before the cut
   A(0.88, "wiz", "look", { to: [1.0, 0.15], dur: 0.12, blink: false });
   act.mood(c, 0.9, "wiz", "annoyed", { hold: 0.25 });             // "seriously?!": squint, brows in
   // the 0.7 s reaction hold on the close-up is a live one (stretchAt in write below), not a hit-stop: Jonny 8 Nov, the frozen picture "seems to be stuck"
@@ -146,7 +151,7 @@ A(0, "rea", "look", { to: [-0.6, 0.8], dur: 0, blink: false });
 c.arm(0, "rea", "R", { x: [-0.16, 0.32, 0.32] }, V3 ? 0 : 0.01); c.arm(0, "rea", "L", { x: [0.16, 0.32, 0.32] }, V3 ? 0 : 0.01);   // gloves in his lap, clear of the Wizard
 act.shock(c, 0.3, "rea", { open: 0.05, eye: 1.15, hold: 1.4 });
 see(0, V3 ? 1.1 : 1.5, ["phx.face", "wiz.face", "rea.face", "ast.face", "ufo", "phone"], "P1: the saucer beams his chair; everyone sees it but Phoenix");
-if (V3) see(1.12, 1.38, ["wiz.face"], "B8: the Wizard's face, frozen on Phoenix's promise");
+if (V3) see(1.12, 1.38, ["phx.face", "phone"], "B8: Phoenix's face over his phone, swiping, in the beam");
 
 // ---------------------------------------------------------------- 2 LIFT 1.5-3.2 (P2)
 // the chair rises in the beam with him on it, rocking gently
@@ -369,15 +374,15 @@ const PX = CHAIR_END.x, PZ = CHAIR_END.z, BODY_Y = CHAIR_TOP + SEAT;      // Pho
 const GREET = shot([r3(H_END.x - 0.15), 2.75, 2.8], { pan: 3.2, tilt: -7, fov: 26 });   // a tight insert on the alien riding down (review A)
 const LOOKUP = shot([r3(PX + 0.15), r3(BODY_Y + 0.62), r3(PZ + 3.95)], { tilt: -8, fov: 34 });   // the series' LOOK-UP: his eye level, the saucer and alien above
 const BACKDOWN = shot([0.0, 1.6, 6.9], { tilt: -3, fov: 48 });
-// v3: a close-up on the seated Wizard (front, a little from screen left so his 3/4 turn to Phoenix reads)
+// v3: a close-up on Phoenix in the beam (Jonny 8 Nov), from a little left so the Wizard's hat stays out of his face
 // back to the wide at 1.4 s (Fable B: a 1.0 s close-up, not 1.1) where its push-in had got to (inOut at 0.28 of 5 s =
 // 0.088), and on to the same end by 5.0
 const L3 = (p, q, k) => p.map((v, i) => r3(v + (q[i] - v) * k));
 const WIDE_ON = { pos: L3(WIDE.pos, WIDE.to.pos, 0.088), look: L3(WIDE.look, WIDE.to.look, 0.088), fov: WIDE.fov, to: WIDE.to, dur: 3.6, ease: "out" };
-const WIZ_CU = shot([0.3, 0.7, 3.6], { pan: -4, tilt: 0, fov: 42 });
+const PHX_CU = shot([-0.95, 0.95, 3.7], { pan: 7, tilt: -4, fov: 32 });   // v3 (Jonny 8 Nov): Phoenix's face and phone in the beam
 const beats = c.beats([
   ["P1 beam", 0, WIDE, "hook"],
-  ...(V3 ? [["B8 wizard close-up", 1.1, WIZ_CU, "reaction"], ["P2 lift", 1.4, WIDE_ON]] : []),
+  ...(V3 ? [["B8 phoenix close-up", 1.1, PHX_CU, "reaction"], ["P2 lift", 1.4, WIDE_ON]] : []),
   ...(V3 ? [] : [["P2 lift", 1.5, "keep"]]),
   ["P3 tug of war", 3.2, "keep"],
   ["P4 hatch", 5.3, HATCH],   // the wide holds through the slip and the sit-down (review B)
@@ -398,7 +403,7 @@ write(import.meta.url, {
   set: { type: "env", env: ENV, night: true, shade: "soft", aperture: 0, focus: false },
   drawn: { twos: false, lines: { width: 5.4, pressure: 1.2, taper: 0.85, tint: 0.4 }, brush: { glow: 0, wrap: 0.12, cool: 0.2 }, paint: { edge: 0.35 }, paper: { grain: 0.12, wash: 0.09, pool: 0.15 } },
   music: { style: "sneaky", key: 2, lowCut: 150, gain: 0.3, parts: [{ at: 0, part: "main" }, { at: 8.0, part: "hush" }, { at: 9.15, part: "drop" }] },
-  sound: { sfx: 0.7, ambience: 0.3, surface: "grass", room: "open", flaps: false, scenes: ["scifi"], signature: { entrances: false } },
+  sound: { sfx: 0.7, ambience: 0.3, surface: "grass", room: "open", flaps: false, scenes: V3 ? ["scifi", "ui"] : ["scifi"], signature: { entrances: false } },
   creative: { length: [END, END] },
   hook: { show: ["phx", "wiz", "rea", "ast", "ufo", "phone"], hint: 0, what: "a flying saucer's beam snaps onto Phoenix's lawn chair while he scrolls" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

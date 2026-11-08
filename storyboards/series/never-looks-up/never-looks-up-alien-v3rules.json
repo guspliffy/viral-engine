@@ -76,7 +76,8 @@
   "room": "open",
   "flaps": false,
   "scenes": [
-   "scifi"
+   "scifi",
+   "ui"
   ],
   "signature": {
    "entrances": false
@@ -713,7 +714,7 @@
     {
      "who": "ast",
      "do": "still",
-     "dur": 1.27,
+     "dur": 1.48,
      "idle": 0.08,
      "at": 0.02
     },
@@ -894,21 +895,21 @@
      "do": "face",
      "brow": 0,
      "lid": 0.46,
-     "dur": 0.25,
+     "dur": 0.367,
      "at": 0.9
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "annoyed",
-     "dur": 0.25,
+     "dur": 0.483,
      "at": 0.95
     },
     {
      "who": "wiz",
      "do": "squash",
      "amount": 0.02,
-     "dur": 0.2,
+     "dur": 0.317,
      "at": 0.95
     },
     {
@@ -922,21 +923,21 @@
    "kind": "hook"
   },
   {
-   "name": "B8 wizard close-up",
+   "name": "B8 phoenix close-up",
    "at": 1.1,
    "len": 1,
    "shot": {
     "pos": [
-     0.3,
-     0.7,
-     3.6
+     -0.95,
+     0.95,
+     3.7
     ],
     "look": [
-     -0.385,
-     2.6,
-     -6.194
+     0.26,
+     2.161,
+     -6.152
     ],
-    "fov": 42
+    "fov": 32
    },
    "do": [
     {
@@ -944,16 +945,35 @@
      "do": "grip",
      "side": "R",
      "shape": "scroll",
-     "dur": 0.275,
-     "at": 0.05
+     "dur": 0.334,
+     "at": 0.333
+    },
+    {
+     "fx": "pop",
+     "text": "*swipe*",
+     "who": "phx",
+     "xy": [
+      215,
+      1640
+     ],
+     "dur": 0.667,
+     "angle": -8,
+     "size": 100,
+     "at": 0.333
+    },
+    {
+     "sfx": "kenney/scroll",
+     "gain": 3.5,
+     "reason": "his thumb swipes the feed in the close-up",
+     "at": 0.333
     },
     {
      "who": "phx",
      "do": "grip",
      "side": "R",
      "shape": "hold",
-     "dur": 0.435,
-     "at": 0.595
+     "dur": 0.213,
+     "at": 0.867
     }
    ],
    "kind": "reaction"
@@ -3462,12 +3482,13 @@
    "why": "P1: the saucer beams his chair; everyone sees it but Phoenix"
   },
   {
-   "from": 1.12,
-   "to": 2.01,
+   "from": 1.167,
+   "to": 2.033,
    "see": [
-    "wiz.face"
+    "phx.face",
+    "phone"
    ],
-   "why": "B8: the Wizard's face, frozen on Phoenix's promise"
+   "why": "B8: Phoenix's face over his phone, swiping, in the beam"
   },
   {
    "from": 2.3,

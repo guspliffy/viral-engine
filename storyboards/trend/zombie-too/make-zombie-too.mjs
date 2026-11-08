@@ -104,7 +104,7 @@ const props = [
 ];
 
 // ---------------------------------------------------------------- captions (the trend's text, white on the upper bar)
-c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 244, false, { kinetic: false, size: 52 });
+if (!V3) c.cap(0, 2.0, "would you still love me\nif i were a zombie?", 244, false, { kinetic: false, size: 52 });
 c.cap(V3 ? CU_V3 : 1.0, 2.0, "me:", 384, false, { kinetic: false, size: 52 });   // v3 (Fable B): "me:" labels the reaction shot
 if (V3) {
   // B7: the first line at 0.0 is a promise the viewer expects him to break (the nibble at 7.5 s breaks it)
