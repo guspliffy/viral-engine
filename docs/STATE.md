@@ -18,7 +18,7 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 - Trial the motion studio workflow on the next episode (docs/rules/workflow.md "Measuring").
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
-- (none yet)
+- What if EP01 pause time (format B, 8 Nov): ~375 min brief->delivery (incl. new engine pause feature + animatic gate), thread 836k in+out tokens (158 M cache read, $66), subagents 275k (Fable reviews A + B), 3 of 3 check-fix rounds (1 draft + 3 full local renders, ~25 min each; the farm has no VoxCPM2 voice), one glitch left for a 4th round.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
