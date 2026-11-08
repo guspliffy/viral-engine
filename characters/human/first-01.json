@@ -1,0 +1,63 @@
+{
+ "id": "human/first-01",
+ "name": "First human character v1 (Jonny's sheet 8 Nov 2026: sandy messy hair, brown eyes, cream tee, green track pants with red stripe; CC0 VRoid male base)",
+ "rig": "vrm-v1",
+ "vrm": "assets/models/vrm/first-01.vrm",
+ "sheet": true,
+ "sheetHatch": false,
+ "seed": 2,
+ "body": {
+  "color": "#f4cfb1",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f4cfb1",
+  "width": 0.03
+ },
+ "look": {
+  "Tops": {
+   "flatten": 0.15,
+   "krimK": 0.22
+  },
+  "Bottoms": {
+   "flatten": 0.2,
+   "krimK": 0.08
+  },
+  "Hair": {
+   "flatten": 0.3
+  },
+  "EyeIris": {
+   "tint": "#4a2f22",
+   "tintK": 0.9,
+   "iris": 0.86
+  },
+  "Face_00_SKIN": {
+   "tint": "#f3c9a0",
+   "tintK": 0.75,
+   "flatten": 0.3
+  },
+  "Body_00_SKIN": {
+   "tint": "#f3c9a0",
+   "tintK": 0.6,
+   "flatten": 0.3
+  }
+ },
+ "posture": {
+  "level": 0.7,
+  "max": 0.45,
+  "upperChest": 0.06
+ },
+ "line": "#2e211c",
+ "lineK": 1.4,
+ "inner": {
+  "top": "#a89a80",
+  "legs": "#16271b"
+ },
+ "bare": [
+  "arms",
+  "feet"
+ ]
+}

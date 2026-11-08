@@ -82,7 +82,7 @@ export class VrmCharacter extends Character {
     this.footH = (wp("leftFoot").y + wp("rightFoot").y) / 2;   // the ankle's height over the sole in the rest pose
     if (this.cast.diagPalms) console.log(`diag:rest foot ${this.footH.toFixed(3)} toes ${wp("leftToes").y.toFixed(3)} hips ${this.hipH.toFixed(3)}`);
     // the house look takes ordinary materials: each VRM material becomes a standard one with its texture and a role
-    hideCoveredSkin(vrm);
+    hideCoveredSkin(vrm, this.def.bare || []);
     this.mats = {};
     vrm.scene.traverse((o) => {
       if (!o.isMesh) return;
@@ -832,7 +832,9 @@ function recolor(tex, o) {
 // the body under the clothes: a VRoid body is whole under its clothes, and once the arms come down from the T pose its
 // shoulders and upper arms poke through the sleeves (skin patches on the hoodie, 6 Nov test). Every body triangle whose
 // three corners have cloth just outside them (within 15 cm along the normal, in the rest pose: the baggy hoodie stands off the ribs by more than 6 cm, 6 Nov) is dropped, once, at load
-function hideCoveredSkin(vrm) {
+// bare: body parts the outfit leaves uncovered ("arms": short sleeves, the arms are skin where no sleeve covers them; "feet": barefoot), so
+// they stay skin instead of the clothes' inside colour
+function hideCoveredSkin(vrm, bare = []) {
   vrm.scene.updateMatrixWorld(true);
   const body = [], cloth = [];
   vrm.scene.traverse((o) => {
@@ -861,6 +863,8 @@ function hideCoveredSkin(vrm) {
     // (the middle of the chest stays skin, 9 cm each side: the hoodie's V neck shows it; the sides go inner)
     const arms = new Set();
     for (const n of ["neck", "leftHand", "rightHand"]) under(n, open);
+    if (bare.includes("arms")) for (const n of ["leftUpperArm", "rightUpperArm"]) under(n, open);
+    if (bare.includes("feet")) for (const n of ["leftFoot", "rightFoot"]) under(n, open);
     for (const n of ["leftUpperLeg", "rightUpperLeg"]) under(n, legs);
     for (const n of ["leftShoulder", "rightShoulder"]) under(n, arms);
     // (the neck is never dropped: the hood stands within the 15 cm test of it in the rest pose, so its sides went and
