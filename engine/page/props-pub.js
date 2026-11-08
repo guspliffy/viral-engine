@@ -32,14 +32,18 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //               tilted back 55 degrees from flat (it faces its own +z), glowing cyan digits spec.text (default
 //               "84.00"), no brand, no currency symbol. Lies flat on its origin (its bottom is y 0), so a prop x/z tween
 //               slides it along the bar. Origin: the middle of its base, on the bar.
-//   bartowel    a white bar towel (a pale blue stripe at each end) draped over the character's LEFT shoulder (+x in the
-//               body frame): worn (spec.wear), the origin is the body frame's origin (x 0, y 0, z 0 like waiterapron);
-//               spec.x (0.33) is where it crosses the shoulder, spec.front / spec.back how far it hangs (0.22 / 0.26).
+//   bartowel    a white bar towel (a pale blue stripe at each end) hung over the character's LEFT side (+x in the body
+//               frame) where the arm meets the body: two flat panels on the body (front and back) joined by a fold over
+//               the top at 60 % of the body's height, clear of the face. Worn (spec.wear), the origin is the body frame's
+//               origin (x 0, y 0, z 0 like waiterapron); spec.x (default 0.33, used from 0.36 out) how far out it sits,
+//               spec.front / spec.back how far the panels hang (0.22 / 0.26).
 //   pubcoat     a coat in spec.color (default Reaper's #4a4a52; the Wizard's is #a07850), spec.scarf an optional scarf
 //               colour. spec.mode "drape": folded over a stool's back rail (the origin on the rail, a long panel
-//               hanging behind it (-z), a short one in front, one sleeve); "worn" (spec.wear, the body frame, origin
-//               0,0,0): a coat round the back and flanks with a standing collar and an open front, with armholes so
-//               it stays clear of the arms; spec.scarf adds a wrapped scarf and two tails at the front.
+//               hanging 0.4 m behind it (-z) with a darker lining edge, a short lining panel in front, a rolled collar fold
+//               on the rail, one sleeve); "worn" (spec.wear, the body frame, origin 0,0,0): a short coat
+//               (hem at 25 % of the body height, a clean ring) round the back with a standing collar below the face, a
+//               narrow flap each side of a wide open front, armholes so it stays clear of the arms; spec.scarf adds a
+//               wrapped scarf and two tails at the front.
 export const PUB = {
   bar: { w: 3.2, d: 0.45, h: 0.66, top: 0.045, rail: { y: 0.13, z: -0.265 } },
   stool: { seat: 0.38, r: 0.27, rail: { r: 0.46, y: 0.15 } },
@@ -347,23 +351,28 @@ export const PUB_KINDS = {
   },
 
   bartowel(P) {
-    const S = P.spec, x0 = S.x ?? PUB.towel.x, Lf = S.front ?? 0.22, Lb = S.back ?? 0.26, HW = 0.065, off = 0.022;
+    // hung over the side of the body where the arm meets it: two flat panels (front and back) lying on the surface, joined by a
+    // fold over the top, outside the face. spec.x only says how far out (clamped to 0.36+: never in front of the face).
+    const S = P.spec, xr = Math.max(S.x ?? PUB.towel.x, 0.36), Lf = S.front ?? 0.22, Lb = S.back ?? 0.26, off = 0.016, TOP = 0.6;
     const tex = cached("towel", () => canvasTex(64, 128, (g, w, h) => {
       g.fillStyle = "#fbfaf6"; g.fillRect(0, 0, w, h);
       g.fillStyle = "#8fb0dc"; for (const y of [8, 15, h - 16, h - 9]) g.fillRect(0, y, w, 3);
       g.strokeStyle = "rgba(150,150,160,0.18)"; g.lineWidth = 1; for (let x = 6; x < w; x += 6) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
     }));
-    // a strip over the shoulder: v runs from the front hem up over the top and down the back, hugging the egg-shaped body
-    const geo = sheet(6, 24, (u, v) => {
-      const x = x0 + (u - 0.5) * 2 * HW, ry = 0.52, sx = Math.sqrt(Math.max(0.05, 1 - (x / 0.4) ** 2));
-      const hem = 1 + 0.06 * Math.sin(u * 9 + 1);
-      const phiF = rad(60 + Lf * 90 * hem), phiB = rad(-(Lb * 120 * hem)), phi = lerp(phiF, phiB, v);   // angle from the top, + toward the front
-      const az = ry * sx + off, bz = 0.36 * sx + off;
-      const fold = 0.006 * Math.sin(v * 17 + u * 4) * Math.sin(Math.PI * v);
-      return [x + fold * 0.4, 0.5 + az * Math.cos(phi), bz * Math.sin(phi) + fold];
-    });
+    const [hx0] = bodyHalf(TOP), thC = Math.asin(Math.min(0.98, xr / hx0)), dth = 0.19;   // the panels' centre azimuth (0 = front, + toward the left arm) and half width
     const m = mat("#ffffff", { map: tex, roughness: 0.92, side: THREE.DoubleSide });
-    mesh(geo, m, P.whole).castShadow = false;
+    const panel = (th0, len, k) => mesh(sheet(4, 12, (u, v) => {
+      const th = th0 + (u - 0.5) * 2 * dth, y = TOP - v * len * (1 + 0.03 * Math.sin(u * 7 + k)), [hx, hz] = bodyHalf(y);
+      const o = off + 0.006 * Math.sin(v * 10 + u * 3 + k) * v;
+      return [(hx + o) * Math.sin(th), y, (hz + o) * Math.cos(th)];
+    }), m, P.whole);
+    panel(thC - 0.02, Lf, 0).castShadow = false;                 // the front panel, on the front of the arm's root
+    panel(Math.PI - thC + 0.02, Lb, 2).castShadow = false;      // the back panel, behind it
+    // the fold across the top: a rounded band lying over the arm's root from the front panel round to the back one
+    mesh(sheet(10, 4, (u, v) => {
+      const th = lerp(thC - 0.02, Math.PI - thC + 0.02, u), y = TOP - 0.035 + v * 0.085, [hx, hz] = bodyHalf(y), o = off + 0.014 * Math.sin(Math.PI * v);
+      return [(hx + o) * Math.sin(th), y, (hz + o) * Math.cos(th)];
+    }), m, P.whole).castShadow = false;
     return { grip: 0 };
   },
 
@@ -374,43 +383,46 @@ export const PUB_KINDS = {
     const lighter = mat(new THREE.Color(C).multiplyScalar(1.3), { roughness: 0.9, side: THREE.DoubleSide });
     const scarfM = S.scarf ? mat(S.scarf, { roughness: 0.95, side: THREE.DoubleSide }) : null;
     if (mode === "drape") {
-      // folded over the rail: a long panel behind it (-z), a short one in front, one sleeve hanging at the right
-      const Wd = 0.46, rho = 0.024, Lf = 0.2, Lb = 0.52, arcL = Math.PI * rho;
-      const cover = (width, Lfront, Lback, x0, m) => {
-        const total = Lfront + arcL + Lback;
-        return mesh(sheet(10, 20, (u, v) => {
-          const s = v * total, x = x0 + (u - 0.5) * width, hemK = 1 + 0.1 * Math.sin(x * 23 + 1.3) + 0.05 * Math.sin(x * 51);
-          let y, z;
-          if (s < Lfront) { const d = (Lfront - s) * hemK; y = -d; z = rho + 0.005 + 0.02 * (d / Lfront) * (d / Lfront) + 0.008 * Math.sin(x * 40 + d * 9) * (d / Lfront); }
-          else if (s < Lfront + arcL) { const a = ((s - Lfront) / arcL) * Math.PI; y = (rho + 0.005) * Math.sin(a); z = (rho + 0.005) * Math.cos(a); }
-          else { const d = (s - Lfront - arcL) * (1 + (hemK - 1) * ((s - Lfront - arcL) / Lback)); y = -d; z = -(rho + 0.005) - 0.012 * (d / Lback) - 0.01 * Math.sin(x * 34 + d * 7) * (d / Lback); }
-          return [x, y, z];
-        }), m, P.whole);
-      };
-      cover(Wd, Lf, Lb, 0, cloth).castShadow = true;
-      // the lining shows at the front panel's hem, the collar sticks out at one end
-      const sl = mesh(new THREE.CapsuleGeometry(0.042, 0.34, 4, 10), darker, P.whole, Wd / 2 + 0.01, -0.3, -(rho + 0.05)); sl.rotation.z = -0.07;
-      mesh(new THREE.CapsuleGeometry(0.036, 0.05, 4, 8), lighter, P.whole, Wd / 2 + 0.02, -0.5, -(rho + 0.05));
+      // folded over the rail: the long outside panel behind it (-z) down to 0.4 m (the hem ~13 cm off the floor on a stool's
+      // rail), a short lining panel in front, a rolled collar fold on the rail, one sleeve hanging at the right
+      const Wd = 0.46, rho = 0.026, Lf = 0.17, Lb = 0.4, arcL = Math.PI * rho, R0 = rho + 0.005;
+      const hem = (x) => 1 + 0.035 * Math.sin(x * 19 + 1.3);
+      const backAt = (x, d) => -R0 - 0.014 * (d / Lb) - 0.006 * Math.sin(x * 34 + d * 7) * (d / Lb);
+      const frontAt = (x, d) => R0 + 0.012 * (d / Lf) + 0.004 * Math.sin(x * 40 + d * 9) * (d / Lf);
+      const body = (m, wide, x0) => mesh(sheet(10, 16, (u, v) => { const x = x0 + (u - 0.5) * wide, d = v * Lb * hem(x); return [x, -d, backAt(x, d)]; }), m, P.whole);
+      body(cloth, Wd, 0).castShadow = true;
+      // the dark lining edge: a band along the hem of the outside panel, and the lining panel on the seat side
+      mesh(sheet(10, 2, (u, v) => { const x = (u - 0.5) * Wd, d = (Lb - 0.04 + v * 0.04) * hem(x); return [x, -d, backAt(x, d) - 0.003]; }), darker, P.whole).castShadow = false;
+      mesh(sheet(10, 6, (u, v) => { const x = (u - 0.5) * Wd, d = v * Lf * hem(x); return [x, -d, frontAt(x, d)]; }), darker, P.whole).castShadow = false;
+      // over the rail: the fold itself
+      mesh(sheet(10, 6, (u, v) => { const a = v * Math.PI, x = (u - 0.5) * Wd; return [x, R0 * Math.sin(a), R0 * Math.cos(a)]; }), cloth, P.whole);
+      // the collar: a thick rolled band lying on the fold, in the lighter shade
+      const roll = mesh(new THREE.CylinderGeometry(rho + 0.016, rho + 0.016, 0.3, 14), lighter, P.whole, 0, 0.004, 0); roll.rotation.z = Math.PI / 2;
+      // one sleeve hanging from the shoulder side, a darker cuff at its end
+      const sl = mesh(new THREE.CapsuleGeometry(0.046, 0.25, 4, 12), cloth, P.whole, Wd / 2 - 0.01, -0.22, -(R0 + 0.058)); sl.rotation.z = -0.05; sl.scale.set(1, 1, 0.8);
+      mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.05, 14), darker, P.whole, Wd / 2 - 0.014, -0.365, -(R0 + 0.058)).scale.z = 0.8;
       if (scarfM) {
-        mesh(sheet(3, 16, (u, v) => { const s = v * (0.2 + 0.4 + 0.07), x = -0.1 + (u - 0.5) * 0.07; return s < 0.2 ? [x, -(0.2 - s), rho + 0.012 + 0.012 * s] : s < 0.27 ? [x, (rho + 0.012) * Math.sin(((s - 0.2) / 0.07) * Math.PI), (rho + 0.012) * Math.cos(((s - 0.2) / 0.07) * Math.PI)] : [x, -(s - 0.27), -(rho + 0.012) - 0.01]; }), scarfM, P.whole).castShadow = false;
+        mesh(sheet(3, 16, (u, v) => { const s = v * (0.2 + 0.4 + 0.07), x = -0.1 + (u - 0.5) * 0.07; return s < 0.2 ? [x, -(0.2 - s), rho + 0.012 + 0.012 * s] : s < 0.27 ? [x, (rho + 0.012) * Math.sin(((s - 0.2) / 0.07) * Math.PI), (rho + 0.012) * Math.cos(((s - 0.2) / 0.07) * Math.PI)] : [x, -(s - 0.27), -(rho + 0.012) - 0.02]; }), scarfM, P.whole).castShadow = false;
       }
       return { grip: 0 };
     }
     // worn: the shell follows the body's egg outline, a little proud of it; armholes at the sides, the front open
-    const OFF = 0.14, flare = (y) => 0.26 * smooth(clamp((0.36 - y) / 0.24)), collar = (y) => 0.1 * smooth(clamp((y - 0.7) / 0.18));
+    const OFF = 0.12, HEM = 0.25, flare = (y) => 0.12 * smooth(clamp((0.5 - y) / 0.25)), collar = (y) => 0.07 * smooth(clamp((y - 0.7) / 0.14));
     const piece = (a0, a1, y0, y1, m, extra = 0, nu = 8, nv = 16) => mesh(sheet(nu, nv, (u, v) => {
       const th = lerp(a0, a1, u), yy = lerp(y0, y1, v), [hx, hz] = bodyHalf(yy), r = OFF + extra + flare(yy) + collar(yy);
-      const ruff = 0.004 * Math.sin(th * 9 + yy * 14);
-      return [(hx + r + ruff) * Math.sin(th), yy, (hz + r + ruff) * Math.cos(th)];
+      return [(hx + r) * Math.sin(th), yy, (hz + r) * Math.cos(th)];
     }), m, P.whole);
-    piece(rad(112), rad(248), 0.12, 0.93, cloth, 0, 14, 18);                    // the back and the standing collar
+    // short coat: the hem a quarter of the way up, one clean ring; the back with a standing collar (below the face), a narrow
+    // flap each side of a wide open front, armholes between
+    piece(rad(112), rad(248), HEM, 0.86, cloth, 0, 14, 18);
+    piece(rad(112), rad(248), HEM, HEM + 0.035, darker, 0.004, 14, 2);             // the lining edge along the hem
     for (const s of [-1, 1]) {
-      piece(s * rad(34), s * rad(68), 0.12, 0.76, cloth, 0, 5, 14);         // a front flap each side
-      piece(s * rad(34), s * rad(41), 0.12, 0.76, lighter, 0.006, 2, 14);       // its lapel edge
-      piece(s * rad(68), s * rad(112), 0.12, 0.21, darker, -0.02, 5, 3);        // the side hem below the armhole
+      piece(s * rad(46), s * rad(64), HEM, 0.7, cloth, 0, 4, 14);                  // a front flap each side
+      piece(s * rad(46), s * rad(64), HEM, HEM + 0.035, darker, 0.004, 4, 2);
+      piece(s * rad(46), s * rad(51), HEM, 0.7, lighter, 0.006, 2, 14);            // its lapel edge
     }
     // buttons down the right flap
-    for (const y of [0.3, 0.45, 0.6]) { const [hx, hz] = bodyHalf(y), r = OFF + 0.012 + flare(y), th = rad(48); mesh(new THREE.SphereGeometry(0.014, 10, 8), mat("#1c1c20", { roughness: 0.4 }), P.whole, (hx + r) * Math.sin(th), y, (hz + r) * Math.cos(th)).castShadow = false; }
+    for (const y of [0.34, 0.46, 0.58]) { const [hx, hz] = bodyHalf(y), r = OFF + 0.012 + flare(y), th = rad(56); mesh(new THREE.SphereGeometry(0.014, 10, 8), mat("#1c1c20", { roughness: 0.4 }), P.whole, (hx + r) * Math.sin(th), y, (hz + r) * Math.cos(th)).castShadow = false; }
     if (scarfM) {
       // a wrapped scarf at the chest and two tails down the front, like the wrapscarf prop
       const yS = 0.47, [hx, hz] = bodyHalf(yS), ring = new THREE.TorusGeometry(1, 0.042, 10, 40); ring.rotateX(Math.PI / 2);
