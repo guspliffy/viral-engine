@@ -1062,9 +1062,12 @@ function foley(sb, panOf) {
   // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short
   // shuffle step and lighter in a run (its own steps replace the per-move ones below)
   const planted = feetOn(sb) && !ownSteps;
+  // (a step whose length the plan can't say (NaN: the plan here runs without the character file, so a seat's spot can
+  // come out NaN) is a normal step: a NaN gain turned the whole effects bus silent from that step on, Never Has Money 04)
   if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c)) {
-    if (f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
-    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, f.len / 0.15)) });
+    if (!Number.isFinite(f.at) || f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
+    const len = Number.isFinite(f.len) ? f.len : 0.15;
+    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, len / 0.15)) });
   }
   for (const a of acts) {
     const pan = panOf(a.who), d = a.dur ?? 0.3;
