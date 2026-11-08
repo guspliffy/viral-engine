@@ -1001,7 +1001,8 @@ export function soundEvents(sb, chars) {
       if (a.do === "hop" && !a.quiet) { const n = a.count ?? 1, qa = hopCrouch(d, n); for (let k = 0; k < n; k++) { ev.push({ kind: "hop", at: a.at + ((k + qa) * d) / n, pan, gain: 0.32 }); ev.push({ kind: "land", at: a.at + ((k + 1) * d) / n, pan, gain: 0.4 }); } }
       if (a.do === "swap") ev.push({ kind: "pop", at: a.at + 0.03, pan, gain: 0.45 });
       if (a.do === "charge" && (a.to ?? 1) > 0.3 && !a.quiet) ev.push({ kind: "charge", at: a.at, dur: d, pan, gain: 0.28 });
-      if (a.do === "hat") {
+      // quiet: no sound (a hat torn off by the wind, keyed frame by frame from its physics: Never Looks Up 07)
+      if (a.do === "hat" && !a.quiet) {
         const up = (a.off || [0, 0, 0])[1] > 0.1;
         if (up) { ev.push({ kind: "whoosh", at: a.at, dur: 0.3, pan, gain: 0.35 }); hats[a.who] = true; }
         else if (hats[a.who]) { ev.push({ kind: "tink", at: a.at + d * 0.55, pan, gain: 0.2 }); hats[a.who] = false; }

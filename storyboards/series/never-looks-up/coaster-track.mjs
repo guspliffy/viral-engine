@@ -2,13 +2,14 @@
 // coastertrack prop (engine/page/props-coaster.js: spec.pts) and the car's rig keys (engine/page/vehicle.js), so the
 // car can never leave the rails. Plain math, no three.js.
 //
-// World: the hilltop-funfair painting looks down -z from its eye at (0, 3, 20). Pieces, in riding order:
-//   lift    straight up a ~20 deg slope along +z (toward the painting's eye)
-//   crest   a round top, then the DROP (about 55 deg) and its pull-out near the grass
-//   hump    the airtime hill (a parabola the car flies over weightless)
-//   turn    a banked half turn to the car's right, heading back up the field (-z)
-//   loop    a vertical loop in the x-y plane (seen whole from the painting's eye), entered heading +x
-//   final   a dip back toward the painting's eye along +z (the photo camera stands beside it) into the brake run
+// World (8 Nov, from Jonny's board): ONE straight run along +z at x 0 on a hilltop, in the board's order, so nothing the
+// shots skip costs story time. The hill's brink is on the -x side (set "hilltop"), the fair far below past it.
+//   lift    straight up a 20 deg slope
+//   crest   a round top (panel 01), then the DROP (56 deg, panel 02) and its pull-out near the grass
+//   hump    the airtime hill (panel 03: a parabola the car flies over weightless)
+//   loop    a big vertical loop in the y-z plane (panels 04, 05), entered heading +z; it shifts 1.6 m to +x on the way
+//           round so the exit runs beside the entry; its top is high enough that the car crawls over it upside down
+//   final   out of the loop low past the photo post (panel 06) onto a level brake run to the exit kiosk (panel 08)
 // Each sample: { p: [x, y, z], u: [ux, uy, uz] (the track's up), s: metres along the track }.
 const D2R = Math.PI / 180;
 const add = (a, b, k = 1) => a.map((v, i) => v + b[i] * k), sub = (a, b) => a.map((v, i) => v - b[i]);
@@ -56,39 +57,27 @@ function ups(pts, bank = () => 0) {
   });
 }
 
-export function buildTrack() {
+export const LOOP = { R: 4.5, rise: 1.08, shift: 2.4 };   // shift: the way out runs beside the way in, a car width and a wing clear of it
+export function buildTrack({ z0 = -64 } = {}) {
   const pieces = [];
-  // lift + crest + drop + pull-out + airtime hump + run-out, all in the plane x = 0, heading +z: a "turtle" of straight
-  // pieces and circular arcs in (z, y), so the slope never kinks (a kink is a jolt the riders would show)
-  const prof0 = turtle([0, 0.9, 0], [
-    ["line", 2], ["arc", 9, 20], ["line", 26.5], ["arc", 6, -56], ["line", 5.3], ["arc", 7, 26], ["line", 0.6],
-    ["arc", 15, -26], ["line", 0.6], ["arc", 9, 0], ["line", 4],
+  // lift + crest + drop + pull-out + airtime hump + run-in, in the plane x = 0, heading +z: a "turtle" of straight pieces
+  // and circular arcs in (z, y), so the slope never kinks (a kink is a jolt the riders would show)
+  const prof = turtle([0, 1.3, z0], [
+    ["line", 3], ["arc", 9, 20], ["line", 27], ["arc", 6, -56], ["line", 5.6], ["arc", 7, 26], ["line", 0.6],
+    ["arc", 15, -26], ["line", 0.6], ["arc", 9, 0], ["line", 5],
   ]);
-  // placed so it ends at (0, 0.9, 5), where the half turn starts
-  const e = prof0.at(-1), prof = prof0.map(([x, y, z]) => [x, y + 0.9 - e[1], z + 5 - e[2]]);
   pieces.push({ name: "profile", pts: prof, up: ups(prof) });
-  // banked half turn to the car's right (-x), radius 5, back up the field heading -z
-  const R = 5, C = [-R, 0.9, 5.0], turn = [];
-  for (let a = 0; a <= 180; a += 1) { const r = a * D2R; turn.push([C[0] + R * Math.cos(r), 0.9, C[2] + R * Math.sin(r)]); }
-  pieces.push({ name: "turn", pts: turn.slice(1), up: ups(turn, (i) => 38 * Math.sin((i / (turn.length - 1)) * Math.PI)).slice(1) });
-  // back up the field, then a quarter turn left into +x for the loop
-  const back = catmull([[-10, 0.9, 5.0], [-10, 0.9, -6], [-10, 0.9, -16], [-8.6, 0.9, -21.4], [-5, 0.9, -23], [-2.6, 0.9, -23]]);
-  pieces.push({ name: "back", pts: back.slice(1), up: ups(back, (i) => { const k = i / (back.length - 1); return k > 0.55 ? 30 * Math.sin(((k - 0.55) / 0.45) * Math.PI) : 0; }).slice(1) });
-  // the loop: a slightly tall circle (a clothoid-ish teardrop) in the x-y plane; it shifts 1.6 m in -z on the way round
-  // so the exit runs beside the entry
-  const loop = [], lu = [], LR = 3.9, rise = 1.06, LC = [0, 0.9 + LR * rise, -23];
-  for (let a = 0; a <= 360; a += 1.5) {
+  // the loop: a slightly tall circle in the y-z plane, entered at its bottom heading +z, the track's up toward its middle
+  const e = prof.at(-1), { R: LR, rise, shift } = LOOP, LC = [0, e[1] + LR * rise, e[2]], loop = [], lu = [];
+  for (let a = 1.5; a <= 360; a += 1.5) {
     const r = a * D2R, k = a / 360;
-    const p = [LC[0] + LR * Math.sin(r) * (1 - 0.06 * Math.sin(r * 0.5)), LC[1] - LR * rise * Math.cos(r), LC[2] - 1.6 * (k * k * (3 - 2 * k))];
-    loop.push(p); lu.push(norm(sub([LC[0], LC[1], p[2]], p)));
+    const p = [shift * (k * k * (3 - 2 * k)), LC[1] - LR * rise * Math.cos(r), LC[2] + LR * Math.sin(r) * (1 - 0.06 * Math.sin(r * 0.5))];
+    loop.push(p); lu.push(norm(sub([p[0], LC[1], LC[2]], p)));
   }
-  // join: a short straight into the loop's bottom (x from -2.6 to its start)
-  const into = catmull([[-2.6, 0.9, -23], [-1.3, 0.9, -23], loop[0]]);
-  pieces.push({ name: "into", pts: into.slice(1), up: ups(into).slice(1) });
-  pieces.push({ name: "loop", pts: loop.slice(1), up: lu.slice(1) });
-  // the final run: out of the loop heading +x, a right turn toward the painting's eye, a dip past the photo post, brakes
-  const fin = catmull([loop.at(-1), [3.2, 0.9, -24.6], [6.2, 1.2, -22.6], [7.2, 2.4, -17], [7.2, 1.0, -9], [7.2, 0.9, -2], [7.2, 0.9, 6]]);
-  pieces.push({ name: "final", pts: fin.slice(1), up: ups(fin, (i) => { const k = i / (fin.length - 1); return k < 0.3 ? 32 * Math.sin((k / 0.3) * Math.PI) : 0; }).slice(1) });
+  pieces.push({ name: "loop", pts: loop, up: lu });
+  // out of the loop at x = shift, heading +z, straight past the photo post and onto the level brake run
+  const fin = turtle([shift, e[1], e[2]], [["line", 34]]).slice(1);
+  pieces.push({ name: "final", pts: fin, up: ups(fin) });
 
   const samples = []; let s = 0, prev = null;
   for (const P of pieces) P.pts.forEach((p, i) => { if (prev) s += len(sub(p, prev)); samples.push({ p, u: P.up[i], s, piece: P.name }); prev = p; });
