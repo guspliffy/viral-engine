@@ -54,7 +54,10 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   contact gate, the drawn rig, the must-see list, the front of the frame, motion, camera, sound on a phone and
   readability. FAIL blocks the render; WARN means a visible glitch (a hand flip, a skating foot, a slipping prop, a
   jump, an eye under its lid) is left, and a delivery may carry none of those as a warning: fix it, or name it in an
-  `allowClip` window (`"checks": [...]`) with a reason. Any other warning gets a one-line reason in the delivery. New
+  `allowClip` window (`"checks": [...]`) with a reason. Any other warning gets a one-line reason in the delivery: they
+  are all in `out/<id>.warnings.txt`, because on screen a warning or note prints only when it is new since the last
+  run (fails and visible glitches print every run; the layout's full list is `out/<id>-<look>.gate.txt`;
+  `CHECKS_FULL=1` prints everything, qa/say.mjs, 8 Nov 2026: fewer tokens per clip, same checks). New
   fails are opt-in with `"gate": 2` (docs/STORYBOARD.md). The subject owns the front: whoever acts is never behind a
   bystander (Jonny 5 Nov, the tent). Solid is a property, not an opacity: glows are never touchable, glass always is,
   so never fade a glow to pass a check.
