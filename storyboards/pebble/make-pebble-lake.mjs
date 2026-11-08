@@ -90,7 +90,9 @@ for (let i = 0; i < N; i++) {
 // two small steps round for each turn (a 45 degree turn on planted feet would skate): each foot lifts and re-plants
 // under the hip at the new heading
 const STEPS = { R: [[7.92, 8.22], [12.52, 12.82]], L: [[8.22, 8.52], [12.22, 12.52]] };
-for (const sd of ["R", "L"]) mv.feet[sd] = STEPS[sd].map(([t0, t1]) => { const pc = at(mv.path, t1); return { t0, t1, p0: pc, p1: [pc[0], pc[1] + (sd === "L" ? 1 : -1) * src.human.hipHalf], h: 0.05 }; });
+// (the right foot lands 6.8 cm further out than the steps' default home: where it stood on frame 0, so the loop matches)
+const OUT = { R: -0.068 / 0.27, L: 0 };
+for (const sd of ["R", "L"]) mv.feet[sd] = STEPS[sd].map(([t0, t1]) => { const pc = at(mv.path, t1); return { t0, t1, p0: pc, p1: [pc[0], pc[1] + (sd === "L" ? 1 : -1) * src.human.hipHalf + OUT[sd]], h: 0.05 }; });
 play(c, 0, W, mv, { from: AT, heading: HEAD, char: "pebble/pebble", range: [0, END - 0.1], dur: END - 0.1, reach: 0.85 });
 
 // ---------------------------------------------------------------- the eyes: a glance at us, then on the water all the way
@@ -125,13 +127,17 @@ const SRC = [1.25, -0.002, -0.85];
 const id = "pebble-lake", lay = path.join(ROOT, "out", `${id}-anime-pro.layout.json`), props = [];
 if (fs.existsSync(lay)) {
   const stream = keyedPath(handsTrack(lay, W), { keys: KEYS, amp: [1.2, 1.2, 1.2], lag: 0.2, sway: 0.1 });
-  props.push({ id: "water", kind: "waterbend", x: 0, y: 0, z: 0, rot: 0, level: 0, wet: [[-3, -12, 3, -0.6]], rings: [[-1.0, SRC[0], SRC[2], 0.35], [-0.6, SRC[0] + 0.05, SRC[2] - 0.05, 0.25]], streams: [{ path: stream, from: [SRC[0], -0.1, SRC[2]], tail: 1.6, r: 0.06, v0: 0.8, drops: 14, seed: 1 }], staged: "water: the bent water out of the painted lake, it rests on nothing" });
+  // the loop: the rings of the water's return (where its head goes under for the last time) are still spreading on
+  // frame 0, the same rings the last frame shows (props-water.js: 0.45, then 0.35 0.22 s later)
+  let seam = [];
+  for (let i = stream.length - 1; i > 0; i--) if (stream[i - 1][2] > 0 && stream[i][2] <= 0) { const [tc, x, , z] = stream[i]; seam = [[tc - END, x, z, 0.45], [tc - END + 0.22, x, z, 0.35]]; break; }
+  props.push({ id: "water", kind: "waterbend", x: 0, y: 0, z: 0, rot: 0, level: 0, wet: [[-3, -12, 3, -0.6]], rings: seam, streams: [{ path: stream, from: [SRC[0], -0.1, SRC[2]], tail: 1.6, r: 0.06, v0: 0.8, drops: 14, seed: 1 }], staged: "water: the bent water out of the painted lake, it rests on nothing" });
 }
 
 // ---------------------------------------------------------------- sound: each named sound on what the water does
 sfx(0.75, "bubbling", { gain: 0.12, dur: 1.1, reason: "the lake swells and gurgles where the water starts to rise" });
 sfx(7.7, "whoosh", { gain: 0.18, reason: "the push: the ribbon of water swept out over the lake" });
-sfx(14.1, "bubbling", { gain: 0.12, dur: 0.6, reason: "the water slips back into the lake (a quiet return, not a splash: Fable review A)" });
+sfx(14.1, "bubbling", { gain: 0.2, dur: 0.6, reason: "the water slips back into the lake (a quiet return, not a splash: Fable review A)" });
 sfx(14.55, "ai/drip", { gain: 0.25, reason: "the last drops falling back into the lake" });
 
 see(0.4, 3.1, [`${W}.face`, W], "his hands rise and the water rises out of the lake");
