@@ -26,7 +26,11 @@ const CAP = {
   sub: { font: '800 60px "CapBold"', size: 60, stroke: 12 },
   // a title plate: white letters on a dark box (the "each character vs X" format's pinned word)
   label: { font: '900 96px "CapBlack"', size: 96, stroke: 0, pad: 34, box: "#24232b" },
+  // a tutorial step card ("How to…" series, 8 Nov 2026): dark words on a cream rounded label, and the caption's
+  // "badge" ("STEP 1") in a small yellow pill on its top-left corner
+  step: { font: '900 64px "CapBlack"', size: 64, stroke: 0, pad: 30, box: "#fffaf0", ink: "#1d1b22", round: 22, edge: "#1d1b22" },
 };
+const BADGE = { font: '900 40px "CapBlack"', h: 58, padX: 22, fill: "#ffd60a", ink: "#1d1b22" };
 // a "\n" in the text forces a line break (to keep a word from sitting alone on the last line)
 function wrap(text, maxW) {
   if (text.includes("\n")) return text.split("\n").flatMap((t) => wrap(t, maxW));
@@ -59,7 +63,9 @@ export function captionBox(c) {
   const { st, top, cx, lines, lh } = captionLayout(c);
   const pad = st.pad ?? 0, w = Math.max(...lines.map((ln) => ctx.measureText(ln).width)) + st.stroke + pad * 2;
   ctx.restore();
-  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2), Math.round(w), Math.round(lines.length * lh + st.stroke + pad)];
+  // (a step card's badge sits half over the box's top edge: the box grows up by half the badge)
+  const up = c.badge ? Math.round(BADGE.h * 0.6) : 0;
+  return [Math.round(cx - w / 2), Math.round(top - st.stroke / 2 - pad / 2) - up, Math.round(w), Math.round(lines.length * lh + st.stroke + pad) + up];
 }
 const kinetic = (c) => sb.captionStyle === "kinetic" && c.kinetic !== false && c.words && !capStyle(c).box;
 export function drawCaption(c, t) {
@@ -69,11 +75,26 @@ export function drawCaption(c, t) {
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.lineJoin = "round"; ctx.miterLimit = 2;
   ctx.translate(cx, cy); ctx.scale(c.scale, c.scale); ctx.translate(-cx, -cy);
-  if (st.box) { const [bx, by, bw, bh] = captionBox(c); ctx.fillStyle = st.box; ctx.fillRect(bx, by, bw, bh); }
+  if (st.box) {
+    let [bx, by, bw, bh] = captionBox(c); const up = c.badge ? Math.round(BADGE.h * 0.6) : 0; by += up; bh -= up;
+    ctx.fillStyle = st.box;
+    if (st.round) {
+      ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, st.round); ctx.fill();
+      if (st.edge) { ctx.lineWidth = 5; ctx.strokeStyle = st.edge; ctx.stroke(); }
+    } else ctx.fillRect(bx, by, bw, bh);
+    if (c.badge) {
+      ctx.save(); ctx.font = BADGE.font; ctx.letterSpacing = "1px";
+      const tw = ctx.measureText(c.badge).width + BADGE.padX * 2, px = bx - 14, py = by - BADGE.h * 0.6;
+      ctx.beginPath(); ctx.roundRect(px, py, tw, BADGE.h, BADGE.h / 2); ctx.fillStyle = BADGE.fill; ctx.fill();
+      ctx.lineWidth = 5; ctx.strokeStyle = st.edge || BADGE.ink; ctx.stroke();
+      ctx.fillStyle = BADGE.ink; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(c.badge, px + tw / 2, py + BADGE.h / 2 + 2);
+      ctx.restore(); ctx.font = st.font;
+    }
+  }
   lines.forEach((ln, i) => {
     const y = top + lh * (i + 0.5);
     if (st.stroke) { ctx.lineWidth = st.stroke; ctx.strokeStyle = "#111"; ctx.strokeText(ln, cx, y); }
-    ctx.fillStyle = "#fff"; ctx.fillText(ln, cx, y);
+    ctx.fillStyle = st.ink || "#fff"; ctx.fillText(ln, cx, y);
   });
   ctx.restore();
 }
