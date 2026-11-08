@@ -1,0 +1,72 @@
+{
+ "id": "human/vrm-test-02",
+ "name": "VRM human test 02: the rival (same CC0 VRoid base, silver hair, teal top, charcoal trousers; 7 Nov 2026)",
+ "rig": "vrm-v1",
+ "vrm": "assets/models/vrm/base-male-hair.vrm",
+ "sheet": true,
+ "sheetHatch": false,
+ "seed": 2,
+ "body": {
+  "color": "#f4cfb1",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f4cfb1",
+  "width": 0.03
+ },
+ "look": {
+  "Tops": {
+   "tint": "#2c7088",
+   "tintK": 0.85,
+   "flatten": 0.15,
+   "sat": 0.8,
+   "krimK": 0.22
+  },
+  "Bottoms": {
+   "tint": "#2b2b33",
+   "tintK": 0.85,
+   "flatten": 0.2,
+   "light": 1.0,
+   "krimK": 0.08
+  },
+  "Shoes": {
+   "flatten": 0.5,
+   "krimK": 0.15
+  },
+  "Hair": {
+   "tint": "#dcd8e8",
+   "tintK": 0.85,
+   "flatten": 0.3,
+   "light": 1.25
+  },
+  "EyeIris": {
+   "tint": "#3a5f8a",
+   "tintK": 0.9,
+   "iris": 0.86
+  },
+  "Face_00_SKIN": {
+   "tint": "#f6d2b0",
+   "tintK": 0.75,
+   "flatten": 0.3
+  },
+  "Body_00_SKIN": {
+   "tint": "#f6d2b0",
+   "tintK": 0.6,
+   "flatten": 0.3
+  }
+ },
+ "posture": {
+  "level": 0.7,
+  "max": 0.45,
+  "upperChest": 0.06
+ },
+ "line": "#2e211c",
+ "lineK": 1.4,
+ "inner": {
+  "top": "#4a2522",
+  "legs": "#14161f"
+ }
+}

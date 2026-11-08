@@ -56,6 +56,20 @@ row, standing when it is nearer (a bank, a tree trunk), sky when it is at infini
 bands; each band becomes a card square to the painting camera at its median distance, painted on a little behind the
 cards in front (`fill`) so a camera move opens no hole.
 
+## Life masks (set "life", 7 Nov 2026)
+
+```
+python engine/plates/env_life.py <name> [...]      # or --all; needs torch, transformers, opencv (CPU, ~20 s each)
+```
+
+The sky card holds everything past the last depth band, which can include a far lake, mountains or a skyline. For a
+living world (`"set": { "life": ... }`, engine/page/set-life.js) each card gets `layer-N-<name>.life.png` (listed as
+`card.life` in `env.json`): **R** the true sky (the far pixels in the sky's own colours that connect to the top edge,
+cloud bellies filled in, minus anything another card covers), the only part whose clouds drift; **G** painted foliage
+on a card with no motion mask of its own (far woods and hills past swayMax), which sways with the gusts, harder in a
+storm. `life-review.jpg` shows them (blue: drifts, red: sways). Run it on every new environment. Without the masks a
+living set's sky stays still and its far trees don't move. Old storyboards never read them.
+
 ## Checks
 
 - **Review sheet** `review.png`: painting, depth, layer classes (brown = 3D ground), the motion mask (sway red, shimmer

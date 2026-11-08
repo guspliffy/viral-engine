@@ -42,7 +42,8 @@
   "lighting": 2,
   "hatch": {
    "boil": 0.25
-  }
+  },
+  "life": "auto"
  },
  "music": {
   "style": "warm",
