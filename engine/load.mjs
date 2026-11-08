@@ -9,6 +9,7 @@ import { direct, placeCards } from "./direct.mjs";
 import { withSpeech, ROOT } from "./voice/speech.mjs";
 import { soundsOf } from "./sfx/whitelist.mjs";
 import { holdsOf, heldFor } from "./shared/holds.js";
+import { skyAt, skyMax, keyed, minutes } from "./shared/sky.js";
 import { focusTrack } from "./focus.mjs";
 import { cameraState } from "./page/timeline.js";
 import { worldCamera } from "./page/vehicle.js";
@@ -131,12 +132,24 @@ function hslHex(h, s, l) {
 
 export function loadStoryboard(file, opts = {}) {
   const sb = JSON.parse(fs.readFileSync(file, "utf8"));
-  if (sb.set?.plate) plateFiles(sb.set.plate);
+  if (sb.set?.plate) plateFiles(sb.set.plate, sb);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
   const out = withHolds(cleanStart(resolveLife(focusTrack(placeCards(direct(soundsOf(compile(withSpeech(sb, chars))), chars), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
+  nightWarn(out);
   return out;
+}
+
+// the HUD clock (or "sky" keys) says night, but the set is a day picture with no night version: the window would stay
+// sunny under a moon (Jonny 8 Nov 2026). engine/page/sky.js fades a plate to <name>.night.png (engine/plates/night.py)
+function nightWarn(sb) {
+  if (skyMax(sb) < 0.5 || sb.set?.night || sb.set?.plate?.night) return;
+  const name = sb.set?.plate?.src || sb.set?.env || sb.set?.type || "";
+  if (/night|dusk|twilight|dark|storm/i.test(name)) return;
+  let at = 0; for (let t = 0; t <= (sb.storyDuration ?? sb.duration); t += 0.05) if (skyAt(sb, t) >= 0.5) { at = t; break; }
+  const clock = sb.hud?.clock ? keyed(sb.hud.clock, at, minutes).v : null;
+  console.warn(`sky: it is night from ${at.toFixed(2)} s${clock != null ? ` (the HUD clock reads ${String(Math.floor(clock / 60) % 24).padStart(2, "0")}:${String(Math.round(clock % 60)).padStart(2, "0")})` : ""} but the set "${name}" has no night picture, so the outside stays day: paint one (python engine/plates/night.py <plate>.png), use a night set, or set "hud": { "sky": false }`);
 }
 
 // "cleanStart": true (quality plan item 1, 5 Nov 2026; on in the clip template): the clip opens in its pose. The
@@ -198,10 +211,14 @@ function withHolds(sb) {
 }
 
 // A painted plate uses the depth and motion maps next to its picture (engine/plates/depth.py) when they exist, so the
-// 2.5D relief and ambient motion are on by default (set-plate.js); false in the storyboard turns one off.
-function plateFiles(P) {
+// 2.5D relief and ambient motion are on by default (set-plate.js); false in the storyboard turns one off. Its night
+// picture too (engine/page/sky.js), when the clip has a clock.
+function plateFiles(P, sb) {
   for (const [key, ext] of [["depth", ".depth.png"], ["motion", ".motion.png"]]) {
     const f = P.src.replace(/\.\w+$/, ext);
     if (P[key] === undefined && fs.existsSync(path.join(ROOT, f))) P[key] = f;
   }
+  // its night picture (engine/plates/night.py), only for a clip whose HUD clock or "sky" keys can reach night
+  const n = P.src.replace(/\.\w+$/, ".night.png");
+  if (P.night === undefined && (sb.hud?.clock || Array.isArray(sb.sky)) && fs.existsSync(path.join(ROOT, n))) P.night = n;
 }

@@ -16,6 +16,8 @@ import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, 
 import { drawHud, hudBoxes, hudKey } from "./hud.js";
 import { drawCards, cardBoxes, cardKey } from "./card.js";
 import { freezeAt, drawFrozen, drawFreezeLabel, freezeKey } from "./freeze.js";
+import { addNight, nightGrade, nightOn } from "./sky.js";
+import { skyAt } from "../shared/sky.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
@@ -365,7 +367,7 @@ function skinTint(a, st) {
 function composite(t) {
   // a freeze frame (freeze.js) draws the stopped picture pushed in and toned, on the video's clock
   const fz = freezeAt(sb, tvNow ?? t);
-  ctx.globalAlpha = 1; if (!establishing(t)) { if (fz) drawFrozen(ctx, R.domElement, fz, fz.f.xy ? { x: fz.f.xy[0], y: fz.f.xy[1] } : fz.f.on ? popAnchor({ who: fz.f.on, dx: 0, dy: 0.25 }) : null); else ctx.drawImage(R.domElement, 0, 0, W, H); }
+  ctx.globalAlpha = 1; if (!establishing(t)) { if (fz) drawFrozen(ctx, R.domElement, fz, fz.f.xy ? { x: fz.f.xy[0], y: fz.f.xy[1] } : fz.f.on ? popAnchor({ who: fz.f.on, dx: 0, dy: 0.25 }) : null); else ctx.drawImage(R.domElement, 0, 0, W, H); nightGrade(ctx, sb, t, W, H); }
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
@@ -409,6 +411,7 @@ async function init(data) {
   buildLights(scene, sb.set);
   const before = scene.children.length;
   buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos, sb.duration);
+  addNight(scene, sb, scene.children.slice(before));   // sky.js: the plate's night picture when the HUD clock reaches night
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
@@ -845,7 +848,7 @@ function stateHash(t, samples = [], tv = null) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : [])]);
+  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : []), ...(nightOn() && skyAt(sb, t) > 0 ? [Math.round(skyAt(sb, t) * 1e4) / 1e4] : [])]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));

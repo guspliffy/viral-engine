@@ -44,7 +44,7 @@ function build(after) {
   act.opener(c, "phx", "ooh, nice!", { words: false });
   if (after) freeze(c, 0.6, 1.1, { on: "phx", label: "PHOENIX", sub: "“one more video”", who: "phx", scratch: 0.45 });
 
-  // 2 TRY 2.0-4.0: he steps in and waits to be seen (the clock jumps on two hours)
+  // 2 TRY 2.0-4.0: he steps in and waits to be seen (the clock runs on four and a half hours, the window goes night)
   A(2.0, "wiz", "move", { to: WIZ_NEAR, dur: 0.45, ease: "inOut", steps: 1 });
   act.checkOn(c, 2.6, "wiz", { at: WIZ_AT_PHX, back: WIZ_AT_PHX, hold: 1.0 });
   see(2.6, 3.6, ["wiz.face"], "the Wizard waits to be seen");
@@ -77,7 +77,7 @@ function build(after) {
   // Phoenix's phone: 23 % and a drop on every scroll; DEAD on the last one
   const HUD = hud({
     day: 3,
-    clock: [[0, "21:47"], [2.2, "23:58", 0.6]],
+    clock: [[0, "19:24"], [2.2, "23:58", 1.0]],   // golden hour, then the clock runs on to midnight: the window goes night with it
     battery: [[0, 23], ...SCROLLS.slice(1).map((t, i) => [t, [17, 12, 6, 3, 1, 0][i], 0.1])],
   });
 

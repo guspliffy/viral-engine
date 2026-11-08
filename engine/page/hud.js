@@ -14,22 +14,12 @@
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
 import { clamp, ease, lerp } from "./util.js";
+import { keyed, minutes, nightOf } from "../shared/sky.js";
 
 const SAFE = { x0: 60, y0: 210, x1: 920, y1: 1360 };
 const CH = 70, PAD = 22, FONT = '900 44px "CapBlack"', SMALL = '800 22px "CapBold"', TAG = '900 30px "CapBlack"';
 const CHIP = "rgba(18,16,24,0.66)", EDGE = "rgba(255,255,255,0.16)", TXT = "#fff8ec";
 
-// [[t, v, dur], ...] at t: the value, how far into its count it is, and when the key started
-function keyed(spec, t, parse = (v) => v) {
-  if (spec == null) return null;
-  const K = (Array.isArray(spec) ? spec : [[0, spec]]).map((k) => [k[0], parse(k[1]), k[2] ?? 0]).sort((a, b) => a[0] - b[0]);
-  let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
-  if (i < 0) return { v: K[0][1], since: -Infinity, i: 0, K };
-  const [t0, v, d] = K[i], prev = i > 0 ? K[i - 1][1] : v;
-  const k = d > 0 ? clamp((t - t0) / d) : 1;
-  return { v: d > 0 ? lerp(prev, v, ease("inOut")(k)) : v, since: t - t0, i, K, prev, counting: k < 1 };
-}
-const minutes = (s) => { if (typeof s === "number") return s; const [h, m] = String(s).split(":").map(Number); return h * 60 + m; };
 const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
 const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)}h${d % 60 ? ` ${d % 60}m` : ""}` : `+${d} min`);
 
@@ -95,13 +85,13 @@ function digits(ctx, s, x, y, cell, colon) {
 }
 // a small sun, sunset or moon for the hour
 function sky(ctx, cx, cy, mins) {
-  const h = (((mins / 60) % 24) + 24) % 24;
+  const h = (((mins / 60) % 24) + 24) % 24, night = nightOf(mins) >= 0.5;   // the moon when the window is mostly night (shared/sky.js)
   ctx.save(); ctx.translate(cx, cy);
-  if (h >= 6.5 && h < 17) {
+  if (!night && h >= 6.5 && h < 17) {
     ctx.fillStyle = "#ffd25a"; ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI * 2); ctx.fill();
     ctx.strokeStyle = "#ffd25a"; ctx.lineWidth = 3; ctx.lineCap = "round";
     for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2; ctx.beginPath(); ctx.moveTo(Math.cos(a) * 13, Math.sin(a) * 13); ctx.lineTo(Math.cos(a) * 17, Math.sin(a) * 17); ctx.stroke(); }
-  } else if ((h >= 17 && h < 20) || (h >= 5 && h < 6.5)) {
+  } else if (!night) {
     ctx.fillStyle = "#ff9a4a"; ctx.beginPath(); ctx.arc(0, 4, 12, Math.PI, 0); ctx.fill();
     ctx.strokeStyle = "#ff9a4a"; ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(-16, 8); ctx.lineTo(16, 8); ctx.stroke();
   } else {
