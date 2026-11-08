@@ -1,0 +1,149 @@
+{
+ "id": "human/teo",
+ "name": "Teo Amari: loud, big-hearted street-kid firebender (firebender duel, 7 Nov 2026; same CC0 VRoid body, own clothes)",
+ "rig": "vrm-v1",
+ "vrm": "assets/models/vrm/base-male-hair.vrm",
+ "sheet": true,
+ "sheetHatch": false,
+ "seed": 5,
+ "body": {
+  "color": "#f1c9a5",
+  "height": 0.5,
+  "width": 0.36,
+  "depth": 0.26,
+  "seed": 3
+ },
+ "limbs": {
+  "color": "#f1c9a5",
+  "width": 0.03
+ },
+ "garments": [
+  {
+   "kind": "cut",
+   "mat": "Tops",
+   "under": [
+    "leftLowerArm",
+    "rightLowerArm"
+   ]
+  },
+  {
+   "kind": "shell",
+   "name": "Vest",
+   "from": "Tops",
+   "bones": [
+    "hips",
+    "spine",
+    "chest",
+    "upperChest",
+    "leftShoulder",
+    "rightShoulder"
+   ],
+   "y": [
+    0.9,
+    1.42
+   ],
+   "off": 0.016,
+   "open": 0.06,
+   "plain": true
+  },
+  {
+   "kind": "shell",
+   "name": "Wraps",
+   "from": "Body_00_SKIN",
+   "bones": [
+    "leftLowerArm",
+    "rightLowerArm"
+   ],
+   "near": {
+    "bone": "leftHand",
+    "d": 0.11
+   },
+   "off": 0.01,
+   "plain": true
+  },
+  {
+   "kind": "band",
+   "name": "Headband",
+   "bone": "head",
+   "y": 1.655,
+   "of": [
+    "Hair",
+    "Face"
+   ],
+   "w": 0.032,
+   "t": 0.006,
+   "color": "#1fb59a",
+   "tails": {
+    "len": 0.3,
+    "w": 0.03,
+    "n": 2
+   }
+  }
+ ],
+ "look": {
+  "Tops": {
+   "tint": "#e8eef0",
+   "tintK": 0.85,
+   "flatten": 0.25,
+   "sat": 0.4,
+   "light": 1.05,
+   "krimK": 0.22
+  },
+  "Vest": {
+   "color": "#1fb59a",
+   "krimK": 0.15
+  },
+  "Wraps": {
+   "color": "#3a3f48",
+   "krimK": 0.15
+  },
+  "Headband": {
+   "color": "#1fb59a"
+  },
+  "Bottoms": {
+   "tint": "#6f8091",
+   "tintK": 0.85,
+   "flatten": 0.2,
+   "light": 1.6,
+   "krimK": 0.08
+  },
+  "Shoes": {
+   "tint": "#dce3e6",
+   "tintK": 0.7,
+   "flatten": 0.5,
+   "krimK": 0.15
+  },
+  "Hair": {
+   "tint": "#1e2a44",
+   "tintK": 0.8,
+   "flatten": 0.3
+  },
+  "EyeIris": {
+   "tint": "#5a3a22",
+   "tintK": 0.9,
+   "iris": 0.86
+  },
+  "Face_00_SKIN": {
+   "tint": "#f1c9a5",
+   "tintK": 0.75,
+   "flatten": 0.3
+  },
+  "Body_00_SKIN": {
+   "tint": "#f1c9a5",
+   "tintK": 0.6,
+   "flatten": 0.3
+  }
+ },
+ "posture": {
+  "level": 0.7,
+  "max": 0.45,
+  "upperChest": 0.06
+ },
+ "line": "#2e211c",
+ "lineK": 1.4,
+ "inner": {
+  "top": "#c9d2d6",
+  "legs": "#3a434d"
+ },
+ "tts": "teo"
+}

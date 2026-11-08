@@ -1,0 +1,39 @@
+{
+ "name": "dusk-back-alley",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view down a wide empty back street between old city buildings at dusk, dark asphalt fills the bottom half, steam rising from a vent, tangled power lines overhead, air conditioner units, pipes, fire escapes, warm lit windows and paper lanterns, purple and orange dusk sky at the far end",
+ "no": "people, person, potato, car, vehicle, bicycle, text, letters, sign, kanji, logo, aerial view, high angle, rain, puddle in foreground, trash in foreground, crate in foreground, lamp in foreground",
+ "seeds": [
+  59,
+  11,
+  23,
+  37
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "dusk glow at the far end of the street and warm windows",
+  "key": [
+   1.5,
+   4.0,
+   -7.0
+  ],
+  "shadow": 0.25
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 40,
+ "standRatio": 0.6,
+ "pad": 0.3,
+ "padY": 0.12
+}

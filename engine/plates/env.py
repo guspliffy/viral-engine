@@ -343,7 +343,9 @@ def split(S):
         A_ = extend(alpha) if mirror else np.pad(alpha, [(PY, PY), (PX, PX)]); C_ = np.clip(extend(col), 0, 1)
         crop = np.argwhere(A_ > 0.004)
         y0, x0 = crop.min(0); y1, x1 = crop.max(0) + 1
-        y0, x0 = max(0, y0 - 4), max(0, x0 - 4); y1, x1 = min(ph, y1 + 4), min(pw, x1 + 4)
+        # a margin wider than border_profile's band, so a crisp top (a railing) isn't read as a cut layer edge
+        mg = 4 + max(2, pw // 200)
+        y0, x0 = max(0, y0 - mg), max(0, x0 - mg); y1, x1 = min(ph, y1 + mg), min(pw, x1 + mg)
         rgba = np.dstack([C_, A_])[y0:y1, x0:x1]
         fn = f"layer-{i}-{lname}.webp"
         Image.fromarray((rgba * 255).round().astype(np.uint8), "RGBA").save(out(S, fn), quality=S.get("quality", 92), method=4)
