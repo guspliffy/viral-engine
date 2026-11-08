@@ -94,9 +94,16 @@ const HAND = {
   // lower than the lead (holding the ball upright, never level with it: review A's stacked-hands clasp), and drifts
   // with the lead half a beat late. While he faces us on the line it is the hand on the water's side, so it lifts the sweep
   // (10.6-12.2 s) and the lead stays lower
-  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.12], [1.7, 0.2, 0.3, 0.28], [2.8, 0.18, 0.31, 0.3], [4.0, 0.2, 0.3, 0.27],
-    [5.3, 0.18, 0.3, 0.3], [6.2, 0.16, 0.32, 0.31], [7.0, 0.16, 0.33, 0.31], [8.2, 0.18, 0.32, 0.3], [9.4, 0.22, 0.33, 0.28],
-    [10.5, 0.2, 0.37, 0.31], [11.1, 0.18, 0.46, 0.31], [11.7, 0.18, 0.47, 0.31], [12.4, 0.2, 0.38, 0.3], [13.2, 0.2, 0.31, 0.27], [13.9, 0.3, 0.3, 0.15], [14.9, 0.33, 0.285, 0.08]],
+  // Jonny 8 Nov (v3): "the second arm isn't doing much movement". Tai chi's support hand answers the lead instead of
+  // waiting: it presses down palm-down as the lead scoops up (0.6-2.2 s), pushes forward and rises as the lead draws
+  // back (2.7-4 s), sinks as the water comes to the lead (4.6-5.3 s), sweeps the other way, in toward his middle and
+  // up, as the lead sends the water out (5.5-7.6 s), lifts the sweep while he faces us (10-12.3 s) and presses the water
+  // home with the lead (12.9-13.4 s). Never level with the lead, never nearer his chest than the draw-in
+  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.12], [1.3, 0.24, 0.27, 0.24], [2.2, 0.2, 0.3, 0.3], [3.2, 0.17, 0.36, 0.32],
+    [3.9, 0.16, 0.38, 0.33], [4.6, 0.2, 0.32, 0.3], [5.3, 0.24, 0.27, 0.27], [6.2, 0.12, 0.34, 0.3], [6.9, 0.1, 0.38, 0.28],
+    [7.6, 0.16, 0.33, 0.31], [8.3, 0.22, 0.3, 0.28], [9.4, 0.2, 0.34, 0.3], [10.0, 0.16, 0.3, 0.32], [10.6, 0.16, 0.4, 0.31],
+    [11.1, 0.18, 0.48, 0.3], [11.7, 0.22, 0.5, 0.29], [12.3, 0.24, 0.42, 0.3], [12.9, 0.2, 0.34, 0.3], [13.4, 0.22, 0.26, 0.26],
+    [14.0, 0.28, 0.28, 0.16], [14.9, 0.33, 0.285, 0.08]],
 };
 // the hands' shapes: the lead cups palm up under the rising water, opens as it draws, then guides palm down and forward
 // (it never closes; a glove facing the water, not a fist); the support stays open and loose
@@ -108,7 +115,8 @@ for (const [t, side, shape, dur] of GRIPS_AT) A(t, W, "grip", { side, shape, dur
 // the rest (the arm is a curve shoulder -> elbow guide -> hand: the guide is set so the curve keeps the arm's length,
 // soft elbows that fold as the hand comes in). The review's "long rigid arms" were the arm stretched to a far target.
 const BODY = { H: 0.5, rx: 0.26, rz: 0.23, leg: 0.14 }, SH = [0.23, 0.49, 0.04], ARM = 0.3, REACH = 0.95 * ARM;
-function arm(P) {
+// the support hand keeps a soft elbow (0.9 of the arm): near full reach the drawn elbow had no bend to keep and jumped
+function arm(P, reach = REACH) {
   let [x, y, z] = P;
   // outside the body (its ellipsoid plus a glove's clearance), pushed out round it at the hand's height
   const cy = BODY.leg + BODY.H / 2, a = BODY.rx + 0.075, b = BODY.H / 2 + 0.075, cz = BODY.rz + 0.075;
@@ -116,7 +124,7 @@ function arm(P) {
   if (room > 0 && k < room) { const s = Math.sqrt(room / k); x *= s; z *= s; }
   // never further from the shoulder than the arm reaches
   let v = [x - SH[0], y - SH[1], z - SH[2]], d = Math.hypot(...v);
-  if (d > REACH) { v = v.map((q) => (q * REACH) / d); d = REACH; [x, y, z] = [SH[0] + v[0], SH[1] + v[1], SH[2] + v[2]]; }
+  if (d > reach) { v = v.map((q) => (q * reach) / d); d = reach; [x, y, z] = [SH[0] + v[0], SH[1] + v[1], SH[2] + v[2]]; }
   // the bend that keeps the curve's length: a quadratic's length ~ d + 8 s^2 / (3 d), s half the guide's offset
   const s = Math.sqrt(Math.max(0, (3 * d * (ARM - d)) / 8)), out = Math.min(0.2, Math.max(0.02, Math.sqrt(Math.max(0, (2 * s) ** 2 - 0.06 ** 2))));
   return { o: [r3(x - BODY.rx), r3((y - BODY.leg) / BODY.H), r3(z)], elbow: r3(out), margin: 1.05, d };
@@ -154,7 +162,7 @@ play(c, 0, W, mv, { from: AT, heading: HEAD, char: "pebble/pebble", range: [0, E
 const reachLog = { L: 0, R: 0 };
 for (let t = 0; t <= END - 0.1 + 1e-6; t += KEY) {
   for (const sd of ["L", "R"]) {
-    const P = arm(spline(HAND[sd], t)); reachLog[sd] = Math.max(reachLog[sd], P.d);
+    const P = arm(spline(HAND[sd], t), sd === "L" ? 0.9 * ARM : REACH); reachLog[sd] = Math.max(reachLog[sd], P.d);
     A(r3(t), W, "arm", { side: sd, pose: { o: P.o, elbow: P.elbow, margin: P.margin }, dur: t === 0 ? 0 : KEY, ease: "linear", lead: false });
   }
 }
