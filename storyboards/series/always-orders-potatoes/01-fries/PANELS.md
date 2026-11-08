@@ -17,7 +17,7 @@ row Phoenix (back left, behind the booth, phone up) and the Samurai waiter (back
 | 1 | 0-1.5 | the wide, Viking fists up "FRIIIES!", the friends stare | the wide, Viking fists up "Best fries in town!" (v3 B7 promise); at 0.95 the fries wake and cheer "Yaaay!"; 1.25 cut to Gunslinger's horrified face (v3 B8) |
 | 2 | 1.5-2.8 | straight-on push-in, eyes shut, "Mmmmm!", blossom | the same push-in (from higher, so the fries stay under his eyes): he leans in for the first bite, the fry waves "Hi!", he melts "Awww!", the blossom pops at 2.4 |
 | 3 | 2.8-4.6 | dips in the milkshake; Gunslinger pushes his salad | the wide, then closer on the tray: a fry points at the ketchup ("Ooh!") and hops in like a hot tub ("Aaah!"); Viking claps |
-| 4 | 4.6-5.8 | hamster cheeks | the next fry cannonballs into the mayo ("Wheee!"); the ketchup fry dives into Viking's open mouth ("Me next!"), he chews, eyes shut |
+| 4 | 4.6-5.8 | hamster cheeks | the next fry cannonballs into the mayo ("Wheee!"); Viking takes the ketchup fry out by its top end ("Nooo!"), a wide of the whole table gasping (5.38), then he eats it sideways and chews, eyes shut |
 | 5 | 5.8-7 | closer, Gunslinger big front left, "Are you seeing this?" | the same, from the same side |
 | 6 | 7-7.7 | the cascade from the tipped cone, "Ooh, more!" | the last fry spots the soup ("Ooh, soup!") and backflips off the cone; the push-off jolts the cone in its stand (physics) |
 | 7 | 7.7-8.8 | the fry standing upright in Reaper's soup | the fry lands upright in the soup (hit-stop), "Ta-da!"; Reaper stares down, then up at Viking |
@@ -27,8 +27,11 @@ row Phoenix (back left, behind the booth, phone up) and the Samurai waiter (back
 
 - **The fries are alive** (Jonny 7 Nov): three fry characters with faces and gloves stand in the cone instead of twenty
   plain fries; the cone holds only crumbs. His first bite turns into a "Hi!" and the blossom pops because he melts.
-  Jonny 8 Nov: "now viking should eat one fry as well": the hot-tub fry says "Me next!" and dives into his open
-  mouth at 5.3 s (crunch, chewing with his eyes shut, glk), panel 4's hamster-cheek beat.
+  Jonny 8 Nov: "now viking should eat one fry as well" (v2: the fry dived into his mouth), then "the characters around
+  him should look more shocked and viking should take a fry and eat it while the fry looks shocked or scared" (v3):
+  his glove takes the ketchup fry by its dry top end at 5.22 s (the real-world hold for a dipped fry), lifts it beside
+  his cheek while it panics ("Nooo!", flailing), a wide shot (5.38-5.8, not in the panels) shows the whole table
+  gasping, and he eats it sideways, dipped feet first, at 6.08 s (crunch, chewing, glk) under "Are you seeing this?".
 - **The cascade becomes a backflip:** a physics cascade of fries would be twenty more characters. One fry backflips
   into the soup, which keeps the panel's payoff (a fry standing upright in Reaper's soup); the push-off jolts the cone in
   its wire stand (physics; knocked harder it flew off the table and across Viking's face).
