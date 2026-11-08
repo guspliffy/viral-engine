@@ -371,7 +371,7 @@ const allowClip = [
   { who: "vik", from: 9.42, to: 9.75, checks: ["rig-jump", "hand-turn"], reason: "he turns round on the spot to go to the crank: a stepping turn drawn on 2s" },
   { who: "vik", from: 1.45, to: 1.75, checks: ["stance-slide", "foot-slide"], reason: "the stroll's first steps out of the HALT stance, drawn on 2s, at 8 m from the camera: a few px, not visible in the 15 fps strip (render 2)" },
   { who: "phx", from: 8.6, to: 8.72, checks: ["stance-slide"], reason: "Phoenix's foot settling into the tap-foot stance on the clock wide's first frames, 2.4 cm while Viking walks past in front: not visible in the 15 fps strip (render 2)" },
-  { who: "vik", from: 6.1, to: 6.45, checks: ["grip-gap"], reason: "the cup on its way to his chest in the coffee wide: 3.5 cm off the glove at 6.23 is about 3 px there, not visible in the 15 fps strip (render 2)" },
+  { who: "vik", from: 6.1, to: 6.98, checks: ["grip-gap"], reason: "the cup on its way to his chest and as he sits, in the coffee wide: 3.5 cm off the glove is about 3 px there, behind his glove; not visible in the 15 fps strips (renders 2 and 3)" },
   { who: "vik", from: 5.66, to: 5.85, checks: ["stance-slide", "foot-slide"], reason: "the last step back under the cup: his left foot lands one drawing after the gait plan says it stands (drawn on 2s); it comes down, it doesn't skate" },
   { who: "phx", from: 1.05, to: 1.55, checks: ["front"], reason: "the selfie: he strolls in BEHIND the frozen photo; Phoenix holds the phone up at the front, which is the picture he sneaks into" },
   ...SNAPS.map((t) => ({ who: "vik", from: r3(t - 0.08), to: r3(t + 0.1), checks: ["rig-jump", "hand-turn"], reason: "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time" })),

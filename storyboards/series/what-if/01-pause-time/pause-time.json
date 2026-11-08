@@ -3789,11 +3789,11 @@
   {
    "who": "vik",
    "from": 6.1,
-   "to": 6.45,
+   "to": 6.98,
    "checks": [
     "grip-gap"
    ],
-   "reason": "the cup on its way to his chest in the coffee wide: 3.5 cm off the glove at 6.23 is about 3 px there, not visible in the 15 fps strip (render 2)"
+   "reason": "the cup on its way to his chest and as he sits, in the coffee wide: 3.5 cm off the glove is about 3 px there, behind his glove; not visible in the 15 fps strips (renders 2 and 3)"
   },
   {
    "who": "vik",
