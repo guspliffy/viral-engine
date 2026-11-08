@@ -10,14 +10,14 @@ re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lin
 |---|---|---|---|
 | Director | the thread's own session | project default (Opus 5.5, high) | plan, briefs, integration, checks, review, PR, delivery; no bulk code |
 | Creative director | `creative-director` | Fable 5.1, **xhigh** (Jonny, 8 Nov) | reviews A and B, writes BOARD numbers when asked; never code |
-| Builder | `builder` | Sonnet 5.5, medium | one specced task: a clip generator from a BOARD, a props file, an env set |
+| Builder | `builder` | Sonnet 5.5, high (Jonny, 8 Nov) | one specced task: a clip generator from a BOARD, a props file, an env set |
 | Senior builder | `builder` with model opus, effort high | Opus 5.5 | rig, physics, shaders, VFX, render pipeline, timeline, new checks, bug fixes in existing systems |
 | Reviewer | `reviewer` | Opus 5.5 | fresh-eyes review of engine PRs only (engine/, qa/, render.yml, storyboards/lib/) |
 | Code locator | `Explore` | Haiku 5.5 | sweeps across many files |
 
 Spawning: when the repo's agent types are loaded, use them by name (`subagent_type: "creative-director"` etc.). When
 they aren't (the repo root isn't registered), spawn a general-purpose agent with the role's model and effort
-(creative director: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`) and start its prompt with
+(creative director: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`, `effort: "high"`) and start its prompt with
 "Follow .claude/agents/<role>.md in /path/to/viral-engine". Never spawn an untyped agent without a model: it runs on
 Opus. At most three builders at once. Small edits (under ~15 lines in a file you already hold) you make yourself:
 a spawn costs more than the edit.

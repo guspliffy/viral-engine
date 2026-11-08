@@ -21,5 +21,5 @@ Updated 8 Nov 2026 (main 09886ba + the motion studio workflow PR).
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
-  checks; Remotion needs a company licence). Builders on Sonnet; Fable reviews at xhigh (Jonny).
+  checks; Remotion needs a company licence). Builders on Sonnet at high, Fable reviews at xhigh (Jonny).
 - 8 Nov: animatic gate only for new series or formats (Jonny).

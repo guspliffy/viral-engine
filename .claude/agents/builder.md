@@ -2,7 +2,7 @@
 name: builder
 description: "Builds one specced task in viral-engine from a TASK brief (a clip generator from a BOARD, a props file, an env set) and owns only the files the brief lists. Spawned by the thread (director)."
 model: claude-sonnet-5-5
-effort: medium
+effort: high
 tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 
