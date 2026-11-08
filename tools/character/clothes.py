@@ -71,6 +71,39 @@ def _copy_region(body, keep_vert, name, subdiv=1):
     return o
 
 
+def _smooth_shading(o, G):
+    """`smoothN`: shading normals from a smoothed copy of the garment (anatomy.smooth_normals), so the toon shadow draws
+    the garment's big shapes and not every bump of the body under it"""
+    if G.get("smoothN"):
+        import anatomy
+        anatomy.smooth_normals(o, {"smoothN": G["smoothN"], "smoothIter": G.get("smoothIter", 25), "keepGroups": ()})
+
+
+def _straight_legs(o, G, axes, kneeZ, hemZ):
+    """straight-leg trousers: below the knee the cloth falls straight from the knee's width (round each leg's line, per
+    direction) instead of following the calf in to the ankle; `straight` 0..1 how much, `taper` the narrowing to the hem"""
+    nb = 32; mw = o.matrix_world; inv = mw.inverted(); k = G["straight"]; taper = G.get("taper", 0.1)
+    def polar(p):
+        side = "l" if p.x > 0 else "r"; q, _ = _axis_point(p, axes[side]); d = (p - q) * Vector((1, 1, 0))
+        return side, q, d, int((math.atan2(d.y, d.x) + math.pi) / (2 * math.pi) * nb) % nb
+    rk = {"l": [0.0] * nb, "r": [0.0] * nb}
+    for v in o.data.vertices:
+        p = mw @ v.co
+        if abs(p.z - (kneeZ + 0.02)) < 0.025:
+            side, q, d, b = polar(p); rk[side][b] = max(rk[side][b], d.length)
+    for side in rk:
+        r = rk[side]; rk[side] = [max(r[b], (r[(b - 1) % nb] + r[b] + r[(b + 1) % nb]) / 3) for b in range(nb)]
+    for v in o.data.vertices:
+        p = mw @ v.co
+        if p.z >= kneeZ + 0.02: continue
+        side, q, d, b = polar(p)
+        if d.length < 1e-6 or not rk[side][b]: continue
+        t = (kneeZ + 0.02 - p.z) / max(1e-6, kneeZ + 0.02 - hemZ)
+        tgt = rk[side][b] * (1 - taper * t)
+        r = d.length; want = r + (max(r, tgt) - r) * k * _ss(t / 0.15)
+        v.co = inv @ (p + d.normalized() * (want - r))
+
+
 def _finish(o, rig, mat):
     o.data.materials.append(mat)
     for p in o.data.polygons: p.use_smooth = True
@@ -134,11 +167,13 @@ def pants(body, rig, G, B, out):
         inner = d.x * (1 if side == "l" else -1)
         if inner < -0.2 and p.z < hipZ: e *= G.get("innerMin", 0.6) + (1 - G.get("innerMin", 0.6)) * (1 + inner) / 0.8
         v.co = inv @ (p + d * e)
+    if G.get("straight"): _straight_legs(o, G, axes, kneeZ, hemZ)
     _finish(o, rig, _mat(G.get("mat", "Pants_00_CLOTH"), G.get("color", "#2f4a36")))
     parts = [o]
     if G.get("stripe"):
         parts.append(_stripe(o, rig, B, G, hemZ, waistZ))
     parts += _bands(o, rig, G, hemZ, waistZ)
+    _smooth_shading(o, G)
     out.extend(parts)
     print("clothes: pants", len(o.data.vertices), "verts, waist", round(waistZ, 3), "hem", round(hemZ, 3))
 
@@ -329,7 +364,7 @@ def top(body, rig, G, B, out):
         q, _ = _axis_point(p, spine); d = p - q; d.z = 0
         d = d.normalized() if d.length > 1e-6 else Vector((0, -1, 0))
         t = (p.z - hemZ) / max(1e-6, neckZ - hemZ); e = _lerp_list(ease_b, t)
-        if p.z < hemZ + hem_band:              # elastic hem: snug band, the cloth above it bloused out
+        if p.z < hemZ + hem_band and not G.get("drop"):   # elastic hem: snug band, the cloth above it bloused out
             c = (p.z - hemZ) / hem_band; e = G.get("bandEase", 0.012) + (e + G.get("blouse", 0.015) - G.get("bandEase", 0.012)) * _ss(c * 1.5)
         if p.z > neckZ - 0.04: e *= 0.5 + 0.5 * _ss((neckZ - p.z) / 0.04)
         disp_b = d * e
@@ -351,25 +386,106 @@ def top(body, rig, G, B, out):
         _drape(o, body, G["drape"], G.get("dropMargin", 0.008),
                lambda p: (1 - _ss((abs(p.x) - 0.12) / 0.05)) * _ss((neckZ - 0.06 - p.z) / 0.08))
     _finish(o, rig, _mat(G.get("mat", "Top_00_CLOTH"), G.get("color", "#26304f")))
-    _bands(o, rig, G, hemZ, neckZ)
+    if G.get("drop"): _skirt(o, body, G, hemZ)
+    _bands(o, rig, G, hemZ - G.get("drop", 0.0), neckZ)
     parts = [o]
-    if G.get("collar"): parts.append(_collar(o, rig, G, neckZ))
+    if G.get("collar"): parts.append(_collar(o, rig, G, neckZ, body))
+    _smooth_shading(o, G)
     if G.get("zip"): parts.append(_zip(o, rig, G, hemZ, neckZ))
     out.extend(parts)
     print("clothes: top", len(o.data.vertices), "verts, hem", round(hemZ, 3), "neck", round(neckZ, 3))
 
 
-def _collar(o, rig, G, neckZ):
-    """a stand collar: the neckline's edge loop grown up and slightly out"""
+def _skirt(o, body, G, hemZ):
+    """a jacket longer than the body's hip loop: the hem's edge loop carried straight down `drop` (a windbreaker hangs to
+    the top of the thighs, past where the body splits into legs, so it can't be a copy of the body there), bloused out
+    `blouse` and gathered into an elastic band `bandIn` at the bottom; never closer to the body than `dropGap`"""
+    n_r = G.get("dropRings", 6); drop = G["drop"]
+    bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world; inv = mw.inverted()
+    dl = bm.verts.layers.deform.active
+    loop = [v for v in bm.verts if v.is_boundary and abs((mw @ v.co).z - hemZ) < 0.03 and abs((mw @ v.co).x) < 0.3]
+    P = [mw @ v.co for v in loop]
+    cen = sum(P, Vector()) / max(1, len(P)); cen.z = 0
+    order = sorted(range(len(loop)), key=lambda i: math.atan2(P[i].y - cen.y, P[i].x - cen.x))
+    R = [((P[i] - cen) * Vector((1, 1, 0))).length for i in order]
+    Rs = [sum(R[(j + k) % len(R)] for k in range(-3, 4)) / 7 for j in range(len(R))]
+    bvh = _surface_bvh(body)
+    thigh = {sd: next((g.index for g in o.vertex_groups if g.name == f"thigh_{sd}"), None) for sd in ("l", "r")}
+    prev = [loop[i] for i in order]; blouse = G.get("blouse", 0.015); band_in = G.get("bandIn", 0.006)
+    for k in range(1, n_r + 1):
+        t = k / n_r; ring = []
+        for j, i in enumerate(order):
+            p = P[i]; d = (p - cen) * Vector((1, 1, 0)); d = d.normalized() if d.length > 1e-6 else Vector((0, -1, 0))
+            z = p.z + (hemZ - drop - p.z) * t                 # (levelled at the bottom)
+            r = Rs[j] + blouse * _ss(t / 0.5) - (blouse + band_in) * _ss((t - 0.7) / 0.3)
+            # (the outermost body surface along this direction: cast from outside in)
+            far = Vector((cen.x, cen.y, z)) + d * 0.6
+            hit = bvh.ray_cast(far, -d)
+            if hit[0] is not None:
+                r = max(r, ((hit[0] - Vector((cen.x, cen.y, z))) * Vector((1, 1, 0))).length + G.get("dropGap", 0.012))
+            v = bm.verts.new(inv @ Vector((cen.x + d.x * r, cen.y + d.y * r, z)))
+            if dl is not None:
+                w = dict(loop[i][dl]); sd = "l" if p.x > 0 else "r"
+                if thigh[sd] is not None:
+                    w = {g: x * (1 - 0.35 * t) for g, x in w.items()}; w[thigh[sd]] = w.get(thigh[sd], 0) + 0.35 * t * sum(dict(loop[i][dl]).values())
+                tot = sum(w.values()) or 1.0
+                for g, x in w.items(): v[dl][g] = x / tot
+            ring.append(v)
+        for j in range(len(ring)):
+            a, b, c, e = prev[j], prev[(j + 1) % len(ring)], ring[(j + 1) % len(ring)], ring[j]
+            try: f = bm.faces.new((a, b, c, e))
+            except ValueError: continue
+            f.smooth = True
+            mid = (mw @ a.co + mw @ c.co) / 2; f.normal_update()
+            if (mw.to_3x3() @ f.normal).dot((mid - cen) * Vector((1, 1, 0))) < 0: f.normal_flip()
+        prev = ring
+    bm.to_mesh(o.data); bm.free()
+    print("clothes: top dropped", round(drop, 3), "below the hip loop,", len(order), "verts round")
+
+
+def _collar(o, rig, G, neckZ, body=None):
+    """a stand collar: the neckline's edge loop grown up and slightly out (and never closer to the neck than
+    `collarGap`: where the neck came through it, its edge drew as a ruffle)"""
     h = G.get("collar", 0.045)
     bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world; inv = mw.inverted()
-    edges = [e for e in bm.edges if e.is_boundary and all((mw @ v.co).z > neckZ - 0.06 for v in e.verts)]
+    # (the neckline only: in the build pose the arms are out level with the neck, and their sleeve ends were grown into
+    # collars too, the frills round her wrists, 8 Nov)
+    edges = [e for e in bm.edges if e.is_boundary and all((mw @ v.co).z > neckZ - 0.06 and abs((mw @ v.co).x) < 0.13 for v in e.verts)]
     ret = bmesh.ops.extrude_edge_only(bm, edges=edges)
     nv = [x for x in ret["geom"] if isinstance(x, bmesh.types.BMVert)]
     cen = sum(((mw @ v.co) for v in nv), Vector()) / max(1, len(nv))
-    for v in nv:
-        p = mw @ v.co; d = p - cen; d.z = 0; d = d.normalized() if d.length > 1e-6 else d
-        v.co = inv @ (p + Vector((0, 0, h)) + d * G.get("collarFlare", 0.008))
+    # (the top edge level and its outline smoothed round the loop: the body's neckline loop is uneven, and grown
+    # straight up it drew a frilly, ruffled collar, 8 Nov)
+    lev = G.get("collarLevel", 1.0); bvh = _surface_bvh(body) if body is not None else None
+    P = [mw @ v.co for v in nv]; order = sorted(range(len(nv)), key=lambda i: math.atan2(P[i].y - cen.y, P[i].x - cen.x))
+    R = [((P[i] - cen) * Vector((1, 1, 0))).length for i in order]
+    Rs = [sum(R[(j + k) % len(R)] for k in range(-3, 4)) / 7 for j in range(len(R))]
+    D, Z, need = [], [], []
+    for j, i in enumerate(order):
+        p = P[i]; d = p - cen; d.z = 0; d = d.normalized() if d.length > 1e-6 else d
+        z = (p.z + h) * (1 - lev) + (cen.z + h) * lev
+        r = Rs[j] + G.get("collarFlare", 0.008)
+        if bvh is not None:
+            for zz in (z, (z + p.z) / 2, p.z + 0.004):
+                hit = bvh.ray_cast(Vector((cen.x, cen.y, zz)), d)
+                if hit[0] is not None: r = max(r, (hit[0] - Vector((cen.x, cen.y, zz))).length + G.get("collarGap", 0.008))
+        D.append(d); Z.append(z); need.append(r)
+    Rn = [max(need[j], sum(need[(j + k) % len(need)] for k in range(-3, 4)) / 7) for j in range(len(need))]
+    for j, i in enumerate(order):
+        d, z = D[j], Z[j]
+        q = Vector((cen.x, cen.y, 0)) + d * Rn[j]
+        nv[i].co = inv @ Vector((q.x, q.y, z))
+    # (and its skin weights smoothed round the loop the same way, so the top edge doesn't ripple when the neck bends)
+    dl = bm.verts.layers.deform.active
+    if dl is not None and len(order) > 7:
+        W = [dict(nv[i][dl]) for i in order]
+        for j, i in enumerate(order):
+            acc = {}
+            for k in range(-3, 4):
+                for g, wt in W[(j + k) % len(W)].items(): acc[g] = acc.get(g, 0.0) + wt / 7
+            dv = nv[i][dl]; dv.clear()
+            for g, wt in acc.items():
+                if wt > 1e-4: dv[g] = wt
     bm.to_mesh(o.data); bm.free()
     return o
 

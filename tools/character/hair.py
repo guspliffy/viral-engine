@@ -426,6 +426,8 @@ def _path(head, vol, root_dir, Z, k, n_k, rnd, H):
     lift = Z.get("layer", 0) * 0.0022
     ds = 0.006
     hug = head.eyeZ + Z["hug"] + rnd.uniform(-1, 1) * Z.get("hugJ", 0.004)
+    # (hugV: the zone's middle comes down further than its ends, the nape's V; metres at the middle)
+    if Z.get("hugV"): hug -= Z["hugV"] * max(0.0, 1 - abs(az_t - (a0 + a1) / 2) / max(1e-6, abs(a1 - a0) / 2))
     u0 = root_dir.normalized(); u1 = _dir(az_t, _exit_el(vol, az_t, hug, lift))
     ang = math.acos(max(-1.0, min(1.0, u0.dot(u1))))
     nst = max(2, int(ang * 0.13 / ds))
@@ -443,7 +445,7 @@ def _path(head, vol, root_dir, Z, k, n_k, rnd, H):
     alt = 1 if k % 2 == 0 else -1
     # 2. the free part
     if mode == "spike" or mode == "bang":
-        L = Z.get("tip", 0.03) * rnd.uniform(0.8, 1.2); steps = max(3, int(L / ds))
+        tj = Z.get("tipJ", 0.2); L = Z.get("tip", 0.03) * rnd.uniform(1 - tj, 1 + tj); steps = max(3, int(L / ds))
         sweep = Vector((Z.get("sweep", 0.0), 0, 0))
         hook = side * alt * Z.get("hook", 0.0) * rnd.uniform(0.6, 1.2)
         out = (n * (Z.get("flare", 0.4) + rnd.uniform(-1, 1) * Z.get("flareJ", 0.0))
@@ -570,7 +572,12 @@ def _panel(bm, pts, i_free, w0, Z, H, head, rnd, kv, thickK, section, tip_sectio
     def kfun(a): return kB + (kT - kB) * _smooth01((a - a_free) / max(1e-4, L - a_free))
     # ink: none on the bodies, growing over the free part (the engine's lineMask reads it from the UVs; the silhouette
     # always inks)
-    def lfun(a): return _smooth01((a - a_free + 0.004) / max(0.008, Z.get("inkFrom", 0.45) * (L - a_free)))
+    # ink weight along the lock: full on the free tip; "inkBody" (0..1) also inks the body's lower part, rising from
+    # half way down it (the sheet's layered short hair outlines each lock's end, not only the free spikes)
+    ib = Z.get("inkBody", H.get("inkBody", 0.0))
+    def lfun(a):
+        tip = _smooth01((a - a_free + 0.004) / max(0.008, Z.get("inkFrom", 0.45) * (L - a_free)))
+        return max(tip, ib * _smooth01((a - 0.5 * a_free) / max(0.008, 0.5 * a_free))) if ib else tip
     def thick(w, s): return max(w * thickK * (1 - 0.35 * s), 0.0016 * (1 - s) + 0.0006)
     # widths: a wedge (narrow at the whorl, where the clumps all start, full where it leaves the volume), then the free
     # part tapers to a point (a concave "flame": still 0.35 wide at 90%)

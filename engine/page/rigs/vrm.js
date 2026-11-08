@@ -115,6 +115,10 @@ export class VrmCharacter extends Character {
     // depth under the jaw in metres (0 = none) }
     if (def.faceLight) this.faceFrame = headFrame(vrm, this.root, def.faceLight);
     if (this.faceFrame) for (const m of Object.values(this.mats)) if (m.userData.lookRole === "skin") m.userData.faceFrame = this.faceFrame;
+    // character "hairSelfShadow": false (own character creator, 8 Nov 2026): the hair takes no cast shadow (each lock's
+    // hard-edged shadow on the locks under it drew blocky patches no drawn sheet has); it still shades by its own
+    // normals and still throws its shadow on the face and the clothes
+    if (def.hairSelfShadow === false) vrm.scene.traverse((o) => { if (o.isMesh && [].concat(o.material).every((m) => m.userData.lookRole === "hair")) o.receiveShadow = false; });
     // (the potato's own face stays built but hidden with the rest of the potato: the model's face does the eyes,
     // blinks and mouth)
     this.perf = new Performance(this.cast.perform || [], humanClips(), this.cast.fingers || [], this.legLen);

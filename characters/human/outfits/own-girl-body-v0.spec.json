@@ -38,7 +38,13 @@
     "nose-scale-vert-incr": 0.7,
     "nose-trans-down": 1.0,
     "mouth-trans-up": 1.0,
-    "neck-scale-horiz-decr": 0.4
+    "neck-scale-horiz-decr": 0.4,
+    "l-eye-trans-out": 0.8,
+    "r-eye-trans-out": 0.8,
+    "l-ear-wing-decr": 1.0,
+    "l-ear-scale-decr": 0.4,
+    "r-ear-wing-decr": 1.0,
+    "r-ear-scale-decr": 0.4
   },
   "face": {
     "iris": "#5a3a26",
@@ -46,14 +52,14 @@
     "lash": "#24170f",
     "mouthFlatK": 1,
     "_note": "research 'Human looking anime character design' (8 Nov): E 0.54 I, Eh/E 0.68, iris 0.58 E, brow gap 1.2 Eh, mouth 0.42 I",
-    "eyeW": 0.032,
-    "eyeH": 0.0218,
-    "irisR": 0.0098,
-    "irisCover": 0.2,
+    "eyeW": 0.035,
+    "eyeH": 0.021,
+    "irisR": 0.0108,
+    "irisCover": 0.3,
     "lidPeak": 0.42,
-    "lidFlat": 0.9,
+    "lidFlat": 0.8,
     "tilt": 3,
-    "lashW": 0.0026,
+    "lashW": 0.003,
     "lashEnd": 1.6,
     "flick": 0.12,
     "crease": 0.2,
@@ -73,7 +79,7 @@
     "mouthW": 0.022,
     "mouthLen": 0.0244,
     "mouthLine": 0.0016,
-    "mouthCorner": 3,
+    "mouthCorner": 5,
     "lipMark": 0,
     "noseW": 0.12,
     "noseA": 0.75,
@@ -81,21 +87,24 @@
     "blushA": 0.2,
     "blushW": 0.8,
     "blushOut": 0.25,
-    "blushDrop": 0.017
+    "blushDrop": 0.017,
+    "jawV": 0.2,
+    "jawFrom": 0.02,
+    "eyeOut": 0.002
   },
   "hair": {
     "style": "wavy",
-    "color": "#6b4630",
-    "capColor": "#4e3222",
-    "underColor": "#43291c",
+    "color": "#4a3828",
+    "capColor": "#443222",
+    "underColor": "#3a2a1d",
     "seed": 5,
     "front": 0.052,
     "nape": -0.09,
     "_note": "zone hair v2 + tutorials (8 Nov): wide crescent sheets with split ends (back 3 sheets x 5-6 points, sides 3 per side shorter than the back, one wide bang panel with 6-8 tips + wisps, dark under-sheets), one shared wave per sheet",
     "vol": {
-      "top": 0.024,
-      "side": 0.017,
-      "back": 0.03,
+      "top": 0.032,
+      "side": 0.02,
+      "back": 0.04,
       "nape": 0.012,
       "front": 0.01
     },
@@ -103,8 +112,8 @@
     "normalK": 0.75,
     "faceHalf": 0.052,
     "wave": [
-      0.008,
-      0.1
+      0.012,
+      0.11
     ],
     "waveGroup": 32,
     "stiff": 6,
@@ -114,12 +123,12 @@
       {
         "name": "under",
         "count": [
-          3,
+          4,
           0,
           0
         ],
         "w": [
-          0.1
+          0.08
         ],
         "rootAz": [
           110,
@@ -134,31 +143,31 @@
           245
         ],
         "hug": -0.03,
-        "cut": -0.15,
+        "cut": -0.12,
         "mode": "hang",
-        "spread": 0.15,
+        "spread": 0.45,
         "under": true,
         "waveFrom": -0.06,
         "split": [
-          3,
-          4
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "wedge": 0.8,
         "layer": -1,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "back",
         "count": [
-          3,
+          5,
           0,
           0
         ],
         "w": [
-          0.12
+          0.085
         ],
         "rootAz": [
           150,
@@ -173,35 +182,35 @@
           220
         ],
         "hug": -0.015,
-        "cut": -0.165,
+        "cut": -0.135,
         "mode": "hang",
-        "spread": 0.2,
+        "spread": 0.5,
         "waveFrom": -0.06,
         "split": [
-          5,
-          6
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "fan": 0.15,
         "wedge": 0.45,
         "layer": 1,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "topL",
         "count": [
+          3,
           2,
-          1,
           0
         ],
         "w": [
-          0.075,
-          0.05
+          0.06,
+          0.045
         ],
         "rootAz": [
-          10,
+          100,
           150
         ],
         "rootEl": [
@@ -209,37 +218,37 @@
           82
         ],
         "az": [
-          72,
+          84,
           150
         ],
         "hug": -0.005,
-        "cut": -0.15,
+        "cut": -0.12,
         "mode": "hang",
-        "spread": 0.3,
+        "spread": 0.5,
         "waveFrom": -0.06,
         "split": [
-          2,
-          3
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "layer": 0.5,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "topR",
         "count": [
+          3,
           2,
-          1,
           0
         ],
         "w": [
-          0.075,
-          0.05
+          0.06,
+          0.045
         ],
         "rootAz": [
-          -10,
+          -100,
           -150
         ],
         "rootEl": [
@@ -247,34 +256,34 @@
           82
         ],
         "az": [
-          -72,
+          -84,
           -150
         ],
         "hug": -0.005,
-        "cut": -0.15,
+        "cut": -0.12,
         "mode": "hang",
-        "spread": 0.3,
+        "spread": 0.5,
         "waveFrom": -0.06,
         "split": [
-          2,
-          3
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "layer": 0.5,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "sideL",
         "count": [
-          1,
+          2,
           1,
           1
         ],
         "w": [
-          0.055,
-          0.038,
+          0.045,
+          0.035,
           0.018
         ],
         "rootAz": [
@@ -286,34 +295,34 @@
           66
         ],
         "az": [
-          60,
-          80
+          55,
+          75
         ],
         "hug": 0.0,
-        "cut": -0.13,
+        "cut": -0.1,
         "mode": "hang",
-        "spread": 0.25,
+        "spread": 0.55,
         "waveFrom": -0.06,
         "split": [
-          2,
-          3
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "layer": 3,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "sideR",
         "count": [
-          1,
+          2,
           1,
           1
         ],
         "w": [
-          0.055,
-          0.038,
+          0.045,
+          0.035,
           0.018
         ],
         "rootAz": [
@@ -325,23 +334,23 @@
           66
         ],
         "az": [
-          -60,
-          -80
+          -55,
+          -75
         ],
         "hug": 0.0,
-        "cut": -0.13,
+        "cut": -0.1,
         "mode": "hang",
-        "spread": 0.25,
+        "spread": 0.55,
         "waveFrom": -0.06,
         "split": [
-          2,
-          3
+          1,
+          2
         ],
-        "splitD": 0.45,
+        "splitD": 0.25,
         "layer": 3,
-        "curl": 0.25,
-        "flick": 0.02,
-        "tipTaper": 0.9
+        "curl": 0.6,
+        "flick": 0.035,
+        "tipTaper": 0.4
       },
       {
         "name": "bangR",
@@ -351,7 +360,7 @@
           0
         ],
         "w": [
-          0.06
+          0.05
         ],
         "rootAz": [
           -2,
@@ -362,27 +371,28 @@
           66
         ],
         "az": [
-          -12,
-          -18
+          -16,
+          -24
         ],
         "azJ": 1,
         "hug": 0.05,
         "tip": 0.04,
         "mode": "bang",
         "float": 0.006,
-        "drop": 0.1,
-        "sweep": -0.6,
+        "drop": 0.12,
+        "sweep": 0.8,
         "sweepK": 0.45,
         "split": [
-          3,
+          4,
           4
         ],
-        "splitD": 0.85,
+        "splitD": 0.9,
         "fan": 0.3,
-        "cover": 0.95,
+        "cover": 0.65,
         "tipTaper": 1.1,
         "wedge": 0.7,
-        "layer": 4
+        "layer": 4,
+        "tipJ": 0.4
       },
       {
         "name": "bangL",
@@ -392,7 +402,7 @@
           0
         ],
         "w": [
-          0.065
+          0.05
         ],
         "rootAz": [
           6,
@@ -404,49 +414,50 @@
         ],
         "az": [
           16,
-          22
+          24
         ],
         "azJ": 1,
         "hug": 0.05,
         "tip": 0.04,
         "mode": "bang",
         "float": 0.006,
-        "drop": 0.1,
-        "sweep": 0.6,
+        "drop": 0.12,
+        "sweep": -0.8,
         "sweepK": 0.45,
         "split": [
           4,
           4
         ],
-        "splitD": 0.85,
+        "splitD": 0.9,
         "fan": 0.3,
-        "cover": 0.95,
+        "cover": 0.65,
         "tipTaper": 1.1,
         "wedge": 0.7,
-        "layer": 4.2
+        "layer": 4.2,
+        "tipJ": 0.4
       },
       {
         "name": "wisps",
         "count": [
           0,
-          3,
+          4,
           0
         ],
         "w": [
-          0.012,
-          0.011
+          0.014,
+          0.012
         ],
         "rootAz": [
-          -40,
-          40
+          -45,
+          45
         ],
         "rootEl": [
           52,
           60
         ],
         "az": [
-          -38,
-          38
+          -45,
+          45
         ],
         "hug": 0.045,
         "tip": 0.04,
@@ -455,7 +466,8 @@
         "drop": 0.2,
         "section": "diamond",
         "thickK": 0.3,
-        "layer": 5
+        "layer": 5,
+        "tipJ": 0.4
       },
       {
         "name": "ahoge",
@@ -481,9 +493,9 @@
         ],
         "hug": -1,
         "len": 0.008,
-        "tip": 0.07,
-        "flare": 1.4,
-        "up": 1.1,
+        "tip": 0.025,
+        "flare": 1.0,
+        "up": 0.8,
         "mode": "spike",
         "section": "diamond",
         "thickK": 0.3,
@@ -495,7 +507,8 @@
     "tipSection": "diamond",
     "tipNormalK": 0.3,
     "wavePhase": 0.6,
-    "springFrom": 0.55
+    "springFrom": 0.55,
+    "inkBody": 0.5
   },
   "clothes": [
     {
@@ -504,16 +517,19 @@
       "mat": "Jeans_00_CLOTH",
       "color": "#8ea7c9",
       "ease": [
+        0.04,
+        0.04,
         0.034,
-        0.034,
-        0.03,
-        0.022,
+        0.024,
         0.01
       ],
       "cuff": 0,
       "hem": -0.005,
       "folds": 0.003,
-      "rise": 0.1
+      "rise": 0.1,
+      "straight": 1.0,
+      "taper": 0.12,
+      "smoothN": 0.7
     },
     {
       "type": "top",
@@ -521,18 +537,22 @@
       "mat": "Jacket_00_CLOTH",
       "color": "#2b3558",
       "ease": [
-        0.035,
-        0.04,
+        0.05,
+        0.05,
         0.03
       ],
       "sleeveEase": [
-        0.03,
-        0.032
+        0.035,
+        0.045
       ],
-      "hem": 0.03,
+      "hem": 0.0,
       "collar": 0.05,
       "zip": true,
-      "drape": 40
+      "drape": 40,
+      "drop": 0.075,
+      "blouse": 0.018,
+      "bandIn": 0.004,
+      "smoothN": 0.8
     },
     {
       "type": "shoes",
@@ -543,10 +563,10 @@
   "accessories": [
     {
       "type": "glasses",
-      "w": 0.054,
-      "h": 0.042,
-      "n": 4.0,
-      "r": 0.0017,
+      "w": 0.052,
+      "h": 0.041,
+      "n": 2.6,
+      "r": 0.0012,
       "color": "#2b2523",
       "gap": 0.006,
       "wrap": 0.004

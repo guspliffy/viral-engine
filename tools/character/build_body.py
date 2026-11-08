@@ -107,6 +107,12 @@ if spec.get("face"):
     import face as facekit
     face, face_keys = facekit.build_face(body, rig, EYES, spec["face"])
 
+# drawn anatomy (tools/character/anatomy.py): smoothed shading normals on the body, the reference sheet's body lines
+if spec.get("anatomy"):
+    sys.path.insert(0, "tools/character")
+    import anatomy as anatkit
+    anatkit.build_anatomy(body, rig, EYES, spec["anatomy"])
+
 hair_springs = None
 if spec.get("hair"):
     sys.path.insert(0, "tools/character")

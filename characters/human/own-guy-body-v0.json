@@ -31,11 +31,13 @@
   "lineK": 1.4,
   "inner": false,
   "krimK": {
-    "cloth": 0.15
+    "cloth": 0.15,
+    "skin": 0.35
   },
   "faceLight": {
     "k": 0.8,
     "neck": 0.022
   },
-  "lineMask": true
+  "lineMask": true,
+  "hairSelfShadow": false
 }

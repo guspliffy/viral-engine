@@ -271,7 +271,12 @@ function patchToon(m, o) {
               // (the shadow map's nose and brow blotches)
               vec3 fq = (uFaceInv * vec4(vWPos, 1.0)).xyz; float fr = length(fq); vec3 fd = fq / max(fr, 1e-4);
               float fNear = 1.0 - smoothstep(1.15, 1.45, fr);
-              float fK = smoothstep(0.3, 0.6, fd.z) * smoothstep(-1.05, -0.9, fd.y) * (1.0 - smoothstep(0.45, 0.7, fd.y)) * fNear;
+              // (how frontal by the turn round the head only, not by height: the chin sits low in the head's box and by
+              // its full direction it fell out of the face patch, a shaded blotch on the chin, 8 Nov)
+              // low in the box only the front counts (the chin, not the neck's sides under the jaw)
+              float fH = fq.z / max(length(fq.xz), 1e-4);
+              float fK = smoothstep(0.3, 0.6, fH) * smoothstep(-1.05, -0.9, fd.y) * (1.0 - smoothstep(0.45, 0.7, fd.y)) * fNear;
+              fK *= mix(1.0, smoothstep(0.35, 0.55, fq.z), smoothstep(-0.55, -0.8, fd.y));
               float fW = smoothstep(-0.2, 0.4, fd.z) * smoothstep(-1.0, -0.75, fd.y) * fNear;
               nS = normalize(mix(nS, normalize(mat3(viewMatrix) * (transpose(mat3(uFaceInv)) * fq)), fW));
               shK = mix(shK, 1.0, fK);
@@ -283,11 +288,14 @@ function patchToon(m, o) {
               xk += uFaceK * fK - uCelShift * min(nW.y + 0.35, 0.0) * fK;   // (and no underside shade on the face)
               // under the jaw a band of the neck is always in shade (the jaw's drawn shadow), as deep as uFaceNeck
               // (metres) below the ellipsoid's underside
+              // (its depth eases off toward the back and the sides, so its lower edge climbs from under the chin to behind
+              // the ear like the jaw line; hard cut-offs there drew rectangles on the neck in the 3/4 and side views, 8 Nov)
               float fp = dot(fq.xz, fq.xz);
-              if (uFaceNeck > 0.0 && fp < 0.85 && fq.z > -0.2) {
+              if (uFaceNeck > 0.0 && fp < 1.0) {
                 float under = -sqrt(max(0.0, 1.0 - fp)) - fq.y;   // below the underside, in radii
                 float dn = under / length(vec3(uFaceInv[0][1], uFaceInv[1][1], uFaceInv[2][1]));   // (radii to metres)
-                xk -= 2.0 * step(0.0, under) * (1.0 - smoothstep(uFaceNeck * 0.85, uFaceNeck, dn)) * (1.0 - smoothstep(0.6, 0.85, fp)) * (1.0 - fK);   // (not on the face itself, which reaches out past the ellipsoid)
+                float depth = uFaceNeck * smoothstep(-0.45, 0.5, fq.z) * (1.0 - smoothstep(0.55, 0.95, fp));
+                xk -= 2.0 * step(0.0, under) * (1.0 - smoothstep(depth * 0.85, depth, dn)) * (1.0 - fK);   // (not on the face itself, which reaches out past the ellipsoid)
               }
             #endif
             float cw = max(fwidth(xk), 1e-5) * uCelEdge * 0.5;
@@ -508,8 +516,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
   const golden = !night && setSpec?.light === "golden";
-  // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right
-  relight(scene, [golden ? dirLight("#ffffff", 2.0, setSpec?.key || [4.2, 4.0, 2.6], { radius: 2, size: setSpec?.shadowSize }) : dirLight("#ffffff", 2.0, [-5.0, 4.4, 0.8], { radius: 1 })]);
+  // one key light: it only decides where light and shadow fall (patchToon sets the colours); golden: from the right;
+  // set "key" [x, y, z] places it (a model sheet's light from the front, the own-character turnarounds)
+  relight(scene, [golden ? dirLight("#ffffff", 2.0, setSpec?.key || [4.2, 4.0, 2.6], { radius: 2, size: setSpec?.shadowSize }) : dirLight("#ffffff", 2.0, setSpec?.key || [-5.0, 4.4, 0.8], { radius: 1 })]);
   // colours are authored, so no tone curve: what the material says is what you get
   R.toneMapping = THREE.NoToneMapping; R.toneMappingExposure = 1;
   R.shadowMap.type = THREE.PCFShadowMap;

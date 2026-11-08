@@ -66,13 +66,22 @@ def stroke(c, pts, w0, w1=None):
                 S.append(0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3))
         S.append(P[-1]); P = np.array(S)
     d = np.full(c.X.shape, 1e9)
+    # (only the stroke's own box is computed: far from it the distance stays "far", 1e9; the canvases are millions of
+    # pixels and a stroke a few hundred segments)
+    pad = max(w0, w1) / 2 + 4 * c.aa
+    xs, zs = c.X[0], c.Z[:, 0]
+    i0 = max(0, int(np.searchsorted(xs, P[:, 0].min() - pad)) - 1); i1 = min(len(xs), int(np.searchsorted(xs, P[:, 0].max() + pad)) + 1)
+    j0 = max(0, int(np.searchsorted(-zs, -(P[:, 1].max() + pad))) - 1); j1 = min(len(zs), int(np.searchsorted(-zs, -(P[:, 1].min() - pad))) + 1)
+    if i1 <= i0 or j1 <= j0: return d
+    X, Z = c.X[j0:j1, i0:i1], c.Z[j0:j1, i0:i1]; db = np.full(X.shape, 1e9)
     n = len(P) - 1
     for i in range(n):
         a, b = P[i], P[i + 1]; ab = b - a; L2 = max(ab @ ab, 1e-12)
-        t = np.clip(((c.X - a[0]) * ab[0] + (c.Z - a[1]) * ab[1]) / L2, 0, 1)
-        dx, dz = c.X - (a[0] + t * ab[0]), c.Z - (a[1] + t * ab[1])
+        t = np.clip(((X - a[0]) * ab[0] + (Z - a[1]) * ab[1]) / L2, 0, 1)
+        dx, dz = X - (a[0] + t * ab[0]), Z - (a[1] + t * ab[1])
         u = (i + t) / n; w = w0 + (w1 - w0) * u
-        d = np.minimum(d, np.sqrt(dx * dx + dz * dz) - w / 2)
+        db = np.minimum(db, np.sqrt(dx * dx + dz * dz) - w / 2)
+    d[j0:j1, i0:i1] = db
     return d
 
 def arc_pts(cx, cz, rx, rz, a0, a1, n=9):
@@ -168,8 +177,13 @@ def draw_brow(c, ex, ez, side, S, state):
     X = lambda u: x0 + side * u * L
     if S.get("browShape", "arch") == "straight":
         rise = math.tan(math.radians(S.get("browRise", 8))) * L
-        pts = [(X(0.0), base - th * 0.15 + lift[0]), (X(0.45), base + rise * 0.5 + (lift[0] + lift[1]) / 2), (X(1.0), base + rise * 0.8 + lift[1])]
-        c.fill(stroke(c, pts, th, th * 0.45), hexc(S.get("brow", "#3a2a20")))
+        # (browTail: the outer end bends down, by that many Eh, the male brow's angled corner)
+        tail = S.get("browTail", 0.0) * Eh
+        if tail:
+            pts = [(X(0.0), base - th * 0.15 + lift[0]), (X(0.4), base + rise * 0.45 + (lift[0] + lift[1]) / 2), (X(0.75), base + rise * 0.75 + lift[1]), (X(1.0), base + rise * 0.75 - tail + lift[1])]
+        else:
+            pts = [(X(0.0), base - th * 0.15 + lift[0]), (X(0.45), base + rise * 0.5 + (lift[0] + lift[1]) / 2), (X(1.0), base + rise * 0.8 + lift[1])]
+        c.fill(stroke(c, pts, th, th * S.get("browEnd", 0.45)), hexc(S.get("brow", "#3a2a20")))
     else:
         arch = S.get("browArch", 0.35) * Eh
         pts = [(X(0.0), base + lift[0]), (X(0.35), base + arch * 0.75 + lift[0] * 0.7), (X(0.65), base + arch + (lift[0] + lift[1]) / 2), (X(1.0), base + arch * 0.15 + lift[1])]
@@ -185,7 +199,7 @@ def draw_mouth(c, mx, mz, S, state):
             c.fill(stroke(c, [(mx + sd * g, mz - 0.0002), (mx + sd * ml * 0.55, mz), (mx + sd * ml, mz + up)], lw, lw * 0.12), line)
         if S.get("lipMark", 0) > 0:
             L = S["lipMark"] * ml
-            c.fill(stroke(c, arc_pts(mx, mz - S.get("lipDrop", 0.0042) + L * 0.6, L, L * 0.6, math.radians(235), math.radians(305), 7), lw * 0.75, lw * 0.75), line, 0.4)
+            c.fill(stroke(c, arc_pts(mx, mz - S.get("lipDrop", 0.0042) + L * 0.6, L, L * 0.6, math.radians(235), math.radians(305), 7), lw * 0.75, lw * 0.75), line, S.get("lipMarkA", 0.4))
     elif state == "smile":
         c.fill(stroke(c, arc_pts(mx, mz + ml * 0.45, ml * 0.95, ml * 0.5, math.radians(200), math.radians(340), 9), lw, lw * 0.5), line)
     elif state in ("open", "o"):
@@ -201,10 +215,16 @@ def draw_nose(c, S, nose):
     """the nose: a short tick under the tip, warm and soft, and a faint shadow wedge on its shaded side"""
     nx, nz = nose; L = S.get("noseW", 0.15) * S["eyeW"]; col = hexc(S.get("noseCol", "#a8604c"))
     sd = S.get("noseSide", 1)
-    c.fill(stroke(c, [(nx - sd * L * 0.55, nz + 0.0004), (nx - sd * L * 0.1, nz - 0.0003), (nx + sd * L * 0.45, nz + 0.0006)], 0.0007, 0.0011), col, S.get("noseA", 0.8))
+    tw = S.get("noseTick", 1.0)          # (the tick's weight: male faces draw the nose's underside heavier)
+    c.fill(stroke(c, [(nx - sd * L * 0.55, nz + 0.0004), (nx - sd * L * 0.1, nz - 0.0003), (nx + sd * L * 0.45, nz + 0.0006 + S.get("noseHook", 0.0))], 0.0007 * tw, 0.0011 * tw), col, S.get("noseA", 0.8))
     if S.get("noseShade", 0.22) > 0:
         tri = [(nx + sd * L * 0.45, nz + 0.0006), (nx + sd * L * 0.55, nz + 0.006), (nx + sd * L * 0.25, nz + 0.012)]
         c.fill(stroke(c, tri, 0.0016, 0.0004), hexc(S.get("noseShadeCol", "#d99a80")), S.get("noseShade", 0.22))
+    if S.get("noseBridge", 0) > 0:
+        # the bridge's side: a thin line up the shaded side from above the tip, fading toward the eyes (male faces)
+        B = S["noseBridge"]
+        b0 = S.get("noseBridgeFrom", 0.007)
+        c.fill(stroke(c, [(nx + sd * L * 0.5, nz + b0), (nx + sd * L * 0.62, nz + b0 + B * 0.5), (nx + sd * L * 0.55, nz + b0 + B)], 0.0008, 0.0002), col, S.get("noseBridgeA", 0.6))
 
 def draw_blush(c, bx, bz, S):
     """a soft pink blush: no edge, fading out from the middle"""
@@ -216,6 +236,34 @@ def draw_blush(c, bx, bz, S):
     o[..., :3] = o[..., :3] * (1 - an) + col * an; o[..., 3:4] = ao + an * (1 - ao)
 
 # ---------------------------------------------------------------- the face surface
+def shape_jaw(body, eyes, S):
+    """the anime lower face: from under the eyes down, the head narrows toward a pointed chin, so the front view's jaw
+    is a V (cheekbone, jaw corner, chin) and not the realistic sculpt's round, wide jaw. jawV: how much narrower the
+    chin is (0.3 = 30 %), easing in from jawFrom metres below the eye line; only the skin bound to the head bone moves
+    (the neck under the jaw keeps its width). chinDrop lowers the chin's point (metres), for a longer face."""
+    k = S.get("jawV", 0.0)
+    if not k: return
+    me = body.data; mw = body.matrix_world; inv = mw.inverted()
+    gi = body.vertex_groups["head"].index
+    (lc, _), (rc, _) = eyes["l"], eyes["r"]; cx = (lc[0] + rc[0]) / 2
+    z_top = (lc[2] + rc[2]) / 2 - S.get("jawFrom", 0.02)
+    W = {}
+    for v in me.vertices:
+        for g in v.groups:
+            if g.group == gi and g.weight > 0: W[v.index] = g.weight
+    co = {i: mw @ me.vertices[i].co for i in W}
+    my = eyes["mouth"][1]
+    z_chin = min(p.z for i, p in co.items() if W[i] > 0.5 and abs(p.x - cx) < 0.01 and p.y < my + 0.02)
+    drop = S.get("chinDrop", 0.0); n = 0
+    for i, p in co.items():
+        t = min(1.0, max(0.0, (z_top - p.z) / max(1e-4, z_top - z_chin))); t = t * t * (3 - 2 * t)
+        if t <= 0: continue
+        w = W[i]
+        p.x = cx + (p.x - cx) * (1 - k * t * w)
+        if drop: p.z -= drop * t * t * w * max(0.0, 1 - abs(p.x - cx) / 0.04)
+        me.vertices[i].co = inv @ p; n += 1
+    me.update(); print("face: jaw narrowed", n, "vertices, chin at", round(z_chin, 4))
+
 def flatten(body, eyes, S):
     """smooth the eye sockets and the lips into a soft surface (moves front-facing face vertices only)"""
     mw = body.matrix_world; inv = mw.inverted()
@@ -385,6 +433,7 @@ def decal(name, bvh, rect, canvas, res=(40, 30), out=0.0012):
 
 def build_face(body, rig, eyes, S):
     """eyes: {"l": (centre, radius), "r": ..., "mouth": centre, "nose": centre} in world space"""
+    shape_jaw(body, eyes, S)
     flatten(body, eyes, S)
     if S.get("sphereK", 0.8) > 0: sphere_normals(body, eyes, S)
     if S.get("frontNoLine", True): front_no_line(body, eyes, S)
@@ -421,7 +470,7 @@ def build_face(body, rig, eyes, S):
 
     nose = eyes["nose"]; nz = nose[2] - S.get("noseBelow", 0.003)
     L = S.get("noseW", 0.15) * S["eyeW"]
-    rect = (nose[0] - L - 0.006, nose[0] + L + 0.006, nz - 0.005, nz + 0.016)
+    rect = (nose[0] - L - 0.006, nose[0] + L + 0.006, nz - 0.005, nz + max(0.016, 0.009 + S.get("noseBridge", 0)))
     cv = Canvas(*rect); draw_nose(cv, S, (nose[0], nz))
     statics = [decal("FaceNose", bvh, rect, cv, (14, 10), 0.0009)]
     if S.get("blushA", 0.18) > 0:
