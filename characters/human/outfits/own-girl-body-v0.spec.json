@@ -143,7 +143,7 @@
           245
         ],
         "hug": -0.03,
-        "cut": -0.12,
+        "cut": -0.175,
         "mode": "hang",
         "spread": 0.45,
         "under": true,
@@ -152,12 +152,12 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "wedge": 0.8,
         "layer": -1,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "back",
@@ -182,7 +182,7 @@
           220
         ],
         "hug": -0.015,
-        "cut": -0.135,
+        "cut": -0.19,
         "mode": "hang",
         "spread": 0.5,
         "waveFrom": -0.06,
@@ -190,13 +190,13 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "fan": 0.15,
         "wedge": 0.45,
         "layer": 1,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "topL",
@@ -222,7 +222,7 @@
           150
         ],
         "hug": -0.005,
-        "cut": -0.12,
+        "cut": -0.17,
         "mode": "hang",
         "spread": 0.5,
         "waveFrom": -0.06,
@@ -230,11 +230,11 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "layer": 0.5,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "topR",
@@ -260,7 +260,7 @@
           -150
         ],
         "hug": -0.005,
-        "cut": -0.12,
+        "cut": -0.17,
         "mode": "hang",
         "spread": 0.5,
         "waveFrom": -0.06,
@@ -268,11 +268,11 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "layer": 0.5,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "sideL",
@@ -299,7 +299,7 @@
           75
         ],
         "hug": 0.0,
-        "cut": -0.1,
+        "cut": -0.15,
         "mode": "hang",
         "spread": 0.55,
         "waveFrom": -0.06,
@@ -307,11 +307,11 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "layer": 3,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "sideR",
@@ -338,7 +338,7 @@
           -75
         ],
         "hug": 0.0,
-        "cut": -0.1,
+        "cut": -0.15,
         "mode": "hang",
         "spread": 0.55,
         "waveFrom": -0.06,
@@ -346,11 +346,11 @@
           1,
           2
         ],
-        "splitD": 0.25,
+        "splitD": 0.35,
         "layer": 3,
         "curl": 0.6,
         "flick": 0.025,
-        "tipTaper": 0.6
+        "tipTaper": 0.9
       },
       {
         "name": "bangR",
@@ -504,7 +504,7 @@
     ],
     "capK": 0.75,
     "section": "crescent",
-    "tipSection": "diamond",
+    "tipSection": "crescent",
     "tipNormalK": 0.3,
     "wavePhase": 0.6,
     "springFrom": 0.55,
@@ -587,5 +587,5 @@
       "wrap": 0.004
     }
   ],
-  "headScale": 1.12
+  "headScale": 1.0
 }

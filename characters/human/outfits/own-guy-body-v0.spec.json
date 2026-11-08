@@ -127,8 +127,8 @@
     "_note": "zone hair v2 + tutorials (8 Nov): ~25 panels in rows (nape, occiput, temples, top, crown, fringe) with split tips, a dark under-layer of spikes, diamond sections, normals 0.8 bodies -> 0.25 tips",
     "vol": {
       "top": 0.032,
-      "side": 0.018,
-      "back": 0.02,
+      "side": 0.008,
+      "back": 0.014,
       "nape": 0.004,
       "front": 0.012
     },
@@ -138,8 +138,8 @@
       {
         "name": "nape",
         "count": [
+          6,
           5,
-          4,
           0
         ],
         "w": [
@@ -147,16 +147,16 @@
           0.045
         ],
         "rootAz": [
-          140,
-          220
+          115,
+          245
         ],
         "rootEl": [
           5,
           30
         ],
         "az": [
-          135,
-          225
+          110,
+          250
         ],
         "hug": -0.028,
         "tip": 0.018,
@@ -199,28 +199,29 @@
           232
         ],
         "hug": -0.008,
-        "tip": 0.022,
-        "flare": 0.2,
+        "tip": 0.042,
+        "flare": 0.1,
         "split": [
-          2,
-          3
+          1,
+          2
         ],
-        "splitD": 0.85,
+        "splitD": 0.9,
         "hook": 0.1,
         "mode": "spike",
         "layer": 1,
-        "tipTaper": 1.1,
+        "tipTaper": 1.4,
         "wedge": 0.85,
         "drop": 0.6,
         "flareJ": 0.15,
         "hugV": 0.015,
-        "hugJ": 0.015
+        "hugJ": 0.015,
+        "cover": 0.8
       },
       {
         "name": "backTop",
         "count": [
-          4,
-          3,
+          2,
+          0,
           0
         ],
         "w": [
@@ -281,8 +282,8 @@
           72,
           128
         ],
-        "hug": 0.045,
-        "tip": 0.018,
+        "hug": 0.062,
+        "tip": 0.016,
         "flare": 0.1,
         "drop": 0.3,
         "split": [
@@ -319,8 +320,8 @@
           -72,
           -128
         ],
-        "hug": 0.045,
-        "tip": 0.018,
+        "hug": 0.062,
+        "tip": 0.016,
         "flare": 0.1,
         "drop": 0.3,
         "split": [
@@ -601,7 +602,7 @@
         "hug": -1,
         "len": 0.05,
         "lenJ": 0.3,
-        "tip": 0.04,
+        "tip": 0.05,
         "flare": 0.5,
         "up": 0.45,
         "upJ": 0.3,
