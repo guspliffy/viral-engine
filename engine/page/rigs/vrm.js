@@ -21,6 +21,7 @@ import { Character } from "../potato.js";
 import { Performance, worldPose } from "./human-perform.js";
 import { humanClips } from "./human.js";
 import { BONES } from "./human-skel.js";
+import { buildGarments, poseTails } from "./vrm-garments.js";
 
 const VRMS = new Map();
 export async function preloadVrms(chars, sb) {
@@ -82,6 +83,9 @@ export class VrmCharacter extends Character {
     this.footH = (wp("leftFoot").y + wp("rightFoot").y) / 2;   // the ankle's height over the sole in the rest pose
     if (this.cast.diagPalms) console.log(`diag:rest foot ${this.footH.toFixed(3)} toes ${wp("leftToes").y.toFixed(3)} hips ${this.hipH.toFixed(3)}`);
     // the house look takes ordinary materials: each VRM material becomes a standard one with its texture and a role
+    // character "garments" (vrm-garments.js, 7 Nov 2026): sleeves cut, vests, wraps, bands; before the covered skin
+    // is hidden, so a cut uncovers skin and a garment covers it
+    this.garb = buildGarments(vrm, def.garments);
     hideCoveredSkin(vrm);
     this.mats = {};
     vrm.scene.traverse((o) => {
@@ -757,15 +761,33 @@ export class VrmCharacter extends Character {
       let blink = 0;
       for (let i = 0; i < 12; i++) {
         const at = 0.7 + i * 2.9 + hash(i + (this.def.seed || 1)) * 1.4, u = (t - at) * 30;
+        // cast "noBlink": [[from, to], ...]: no automatic blink starts there (a key line, CLAUDE.md "no blink on a key line")
+        if (this.cast.noBlink?.some(([a, b]) => at >= a - 0.27 && at <= b)) continue;
         if (u >= 0 && u < 3) blink = Math.max(blink, smooth(u / 2.2));
         else if (u >= 3 && u < 8) blink = Math.max(blink, 1 - smooth((u - 3) / 5));
       }
       E.setValue("blink", blink);
-      const ex = this.cast.face || {};
+      let ex = this.cast.face || {};
+      // cast "faces": [[t, { angry: 0.85, aa: 0.5 }], ...]: the expression changes over the clip, each key eased in
+      // over 0.2 s from the one before (a shout on an attack, eyes wide on a shock); unset shapes are 0
+      if (this.cast.faces?.length) {
+        const K = this.cast.faces; let i = 0; while (i + 1 < K.length && K[i + 1][0] <= t) i++;
+        const a = i > 0 ? K[i - 1][1] : K[0][1], b = K[i][1], w = i > 0 ? smooth((t - K[i][0]) / 0.2) : 1;
+        ex = {}; for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) ex[k] = (a[k] ?? 0) + ((b[k] ?? 0) - (a[k] ?? 0)) * w;
+      }
+      // a spoken line (a "say" in the storyboard): the mouth opens with the speech's own syllables (timeline.js talk:
+      // st.talk, st.round), on top of the face's own shape
+      if (st?.talk > 0.01) { const o = Math.min(1, st.talk * 1.5), r = Math.min(1, st.round ?? 0);
+        ex = { ...ex, aa: Math.max(ex.aa ?? 0, o * (1 - r)), ou: Math.max(ex.ou ?? 0, o * r) }; }
       for (const [k, v] of Object.entries(ex)) E.setValue(k, v);
       E.update();
     }
     this.vrm.scene.updateMatrixWorld(true);
+    // garment ribbons (headband tails): hang and trail against the way the body moved over the last 0.1 s
+    if (this.garb?.tails?.length && P0) {
+      const Pp = this.perf.at(Math.max(0, t - 0.1)), v = Pp ? P0.pos.clone().sub(Pp.pos).multiplyScalar(10) : new THREE.Vector3();
+      poseTails(this.garb.tails, t, v);
+    }
     // cast "diagJoints": the recorded actor's joints and this body's at the same moment, in the world, named as the
     // database names them (tools/human/compare.mjs compares angles: knee, hip, trunk, shoulder slope)
     if (this.cast.diagJoints) {
@@ -862,7 +884,7 @@ function hideCoveredSkin(vrm) {
     const kind = new Uint8Array(P.count);   // 0 skin, 1 top, 2 legs
     if (SI && SW) for (let i = 0; i < P.count; i++) {
       let best = 0, bw = -1; for (let k = 0; k < 4; k++) { const w = SW.getComponent(i, k); if (w > bw) { bw = w; best = SI.getComponent(i, k); } }
-      const bone = bones[best]; kind[i] = !bone || open.has(bone) ? 0 : legs.has(bone) ? 2 : arms.has(bone) ? 1 : Math.abs(p.fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld).x) < 0.09 ? 0 : 1;
+      const bone = bones[best]; kind[i] = !bone || open.has(bone) || vrm.scene.userData.bare?.has(bone) ? 0 : legs.has(bone) ? 2 : arms.has(bone) ? 1 : Math.abs(p.fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld).x) < 0.09 ? 0 : 1;
       if (neck.has(bone)) covered[i] = 0;
     }
     const lists = [[], [], []];

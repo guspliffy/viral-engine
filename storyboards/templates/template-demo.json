@@ -21,6 +21,7 @@
   "hold": 2
  },
  "physics": true,
+ "animeTiming": true,
  "loopIdle": true,
  "set": {
   "type": "plain",
@@ -42,6 +43,10 @@
   "lighting": 2,
   "hatch": {
    "boil": 0.25
+  },
+  "life": "auto",
+  "cel": {
+   "at": 0.25
   }
  },
  "music": {

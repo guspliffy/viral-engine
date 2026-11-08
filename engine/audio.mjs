@@ -20,6 +20,7 @@ import { seedOf } from "../puppet/beat.mjs";
 import { speechSamples } from "./voice/speech.mjs";
 import { isLibrarySound, librarySound, surfaceOf, isHit, hitTime } from "./sfx/library.mjs";
 import { SR, TAU, biquad, run, env, buf, normalise, retune } from "./sfx/dsp.mjs";
+import { lifeSpec, LOOK } from "./shared/life.js";
 import { roomOf, roomSound } from "./sfx/rooms.mjs";
 import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
@@ -925,6 +926,65 @@ function ambience(type, seconds, r, fade = 0.3) {
   return x;
 }
 
+// the living world's bed (set "life"): a soft breeze; every gust swells through the grass and leaves as it crosses
+// the middle of the frame (x 0, the same gusts engine/page/set-life.js draws); songbird phrases until the first
+// startle, then a held silence, then only a far-off bird; at each startle, a wing-burst per nearby bird (a sparrow's
+// take-off: a fast flutter of soft feathered beats, bright and short) and one alarm chirp
+function lifeBed(L, sb, r, fade = 0.3) {
+  const seconds = sb.duration, x = buf(seconds), n = x.length;
+  const low = biquad("lp", 320, 0.7), body = biquad("bp", 700, 0.5), hiss = biquad("bp", 3400, 0.6);
+  const gusts = L.wind.gusts.map((G) => ({ t: G.tc, s: G.s, w: Math.max(0.5, G.w / L.wind.speed) }));
+  for (let i = 0; i < n; i++) {
+    const t = i / SR; let g = L.wind.calm;
+    for (const G of gusts) { const d = (t - G.t) / G.w; g += G.s * Math.exp(-d * d); }
+    x[i] = run(low, r() * 2 - 1) * 0.1 + run(body, r() * 2 - 1) * 0.06 * g * g + run(hiss, r() * 2 - 1) * 0.07 * g * g;
+  }
+  if (L.storm) {
+    // a storm: the wind's roar rides the gusts (a deeper body and a howl that rises with each one), and the rain's
+    // even hiss with soft drops on the leaves
+    const roar = biquad("lp", 260, 0.8), howl = biquad("bp", 520, 3), rain = biquad("hp", 2500, 0.7), lo = biquad("lp", 7000, 0.7);
+    for (let i = 0; i < n; i++) {
+      const t = i / SR; let g = L.wind.calm;
+      for (const G of gusts) { const d = (t - G.t) / G.w; g += G.s * Math.exp(-d * d); }
+      x[i] += run(roar, r() * 2 - 1) * 0.12 * g + run(howl, r() * 2 - 1) * 0.05 * g * g * 0.5;
+      if (L.rain) x[i] += run(lo, run(rain, r() * 2 - 1)) * 0.07;
+    }
+  }
+  // rain (a storm's, or a rainy place's light rain): an even hiss with soft drops on the leaves
+  if (L.rain) {
+    if (!L.storm) { const rain = biquad("hp", 2500, 0.7), lo = biquad("lp", 7000, 0.7); for (let i = 0; i < n; i++) x[i] += run(lo, run(rain, r() * 2 - 1)) * 0.05; }
+    for (let k = 0; k < seconds * (L.storm ? 40 : 20); k++) { const a = Math.round(r() * (n - 0.02 * SR)), f = 2500 + r() * 3000, gg = 0.02 + r() * 0.04;
+      for (let i = 0; i < 0.012 * SR; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * f * t) * Math.exp(-t / 0.002) * gg; } }
+  }
+  const quiet = L.startle.length ? Math.min(...L.startle.map((s) => s.t)) : Infinity;
+  const phrase = (t0, f0, g) => {
+    let a = Math.round(t0 * SR); const notes = 3 + Math.floor(r() * 4);
+    for (let j = 0; j < notes; j++) { const f = f0 * (1 + 0.18 * Math.sin(j * 2.1 + t0)), d = 0.05 + r() * 0.05, tr = j === notes - 1 ? 38 : 0;
+      for (let i = 0; i < d * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (f + 400 * Math.sin(TAU * tr * t) + 600 * t / d) * t) * env(t, 0.004, d * 0.4, d) * g; }
+      a += Math.round((d + 0.03 + r() * 0.04) * SR); }
+  };
+  if (L.song) {
+    for (let t = 0.2 + r() * 0.5; t < Math.min(seconds - 0.5, quiet - 0.3); t += 0.9 + r() * 1.1) phrase(t, 2600 + r() * 1600, (0.05 + r() * 0.05) * L.song);
+    // after the scare: 3 s of nothing, then one far bird (quiet, duller)
+    for (let t = quiet + 3 + r(); t < seconds - 0.6; t += 2 + r() * 2) phrase(t, 2300 + r() * 800, 0.02 * L.song);
+  }
+  const nb = L.birds.reduce((k, b) => k + (b.flock ? b.flock.n ?? 5 : 1), 0);
+  for (const S of L.startle) {
+    for (let b = 0; b < nb; b++) {
+      const t0 = S.t + LOOK + 0.02 + r() * 0.15, beats = 7 + Math.floor(r() * 5), rate = 14 + r() * 4, g = (0.22 + r() * 0.12) * S.loud * S.wings, bp = biquad("bp", 1800 + r() * 1400, 0.9);
+      for (let k = 0; k < beats; k++) {
+        const a = Math.round((t0 + k / rate) * SR), fall = 1 - k / (beats + 2);
+        for (let i = 0; i < 0.05 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += run(bp, r() * 2 - 1) * env(t, 0.004, 0.012, 0.05) * g * fall; }
+      }
+    }
+    const a = Math.round((S.t + LOOK - 0.04) * SR);   // one alarm chirp, as the first one goes: a hard little "chrrt"
+    for (let i = 0; i < 0.12 * SR && a + i < n; i++) { const t = i / SR; x[a + i] += Math.sin(TAU * (3600 - 900 * t / 0.12) * t) * (0.5 + 0.5 * Math.sign(Math.sin(TAU * 55 * t))) * env(t, 0.003, 0.03, 0.12) * 0.12; }
+  }
+  for (let i = 0; i < Math.min(n, fade * SR); i++) { x[i] *= i / (fade * SR); x[n - 1 - i] *= i / (fade * SR); }
+  for (let i = 0; i < n; i++) x[i] *= 3;
+  return x;
+}
+
 // ---------- the storyboard -> sound events ----------
 // chars: the character files (loaded from the storyboard when not given); the signature sounds need them to know
 // where each lead is
@@ -1112,7 +1172,10 @@ export function renderAudio(sb, chars, opts = {}) {
   const wv = roomSound(voices.L, voices.R, room, send), wf = roomSound(fx.L, fx.R, room, send * 0.6);
   // room sound for the set: sound.ambience is its gain (0 turns it off)
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
-  if (amb > 0) bed.add(0, ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
+  // set "life" (engine/shared/life.js): the bed follows the living world: each gust heard as it crosses, birdsong
+  // that stops at a startle, the flock's wing-burst when it leaves
+  const life = lifeSpec(sb.set, sb.duration);
+  if (amb > 0) bed.add(0, life ? lifeBed(life, sb, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3) : ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
   // nature beds (Pebble's calm videos, Jonny 6 Nov 2026: birds, water, wind, leaves to match the scenery):
   // "sound": { "nature": ["birds", { "id": "stream", "gain": 0.12, "take": 2, "pan": -0.3 }] }
   for (const [k, n] of (cfg.nature || []).entries()) { const o = typeof n === "string" ? { id: n } : n; bed.add(0, natureBed(o, sb.duration, seed + k), o.gain ?? 0.14, o.pan ?? 0); }

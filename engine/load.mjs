@@ -1,6 +1,7 @@
 // Read a storyboard file the way every tool should: real speech first (engine/voice/speech.mjs, so lines last as
 // long as they are spoken), then compile beats to the flat storyboard, then check its sounds against the whitelist. Renderer and qa/ all use this, so they agree
 // on every time in the clip.
+import { resolveLife } from "./shared/life-auto.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { compile } from "./compile.mjs";
@@ -50,9 +51,13 @@ export function castLook(def, look) {
   if (L.eyeSize) F.size = (F.size ?? 1) * L.eyeSize;
   if (L.lash) F.eye = { ...F.eye, lash: +((F.eye?.lash ?? 1) * L.lash).toFixed(3) };
   if (L.browClear && F.browShape?.clear == null) F.browShape = { ...F.browShape, clear: L.browClear };
-  if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
-  if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
-  if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  // face.lockLayout: a body far from the potato shape (a fry, always orders potatoes 01) keeps its own eye and mouth
+  // places; the look's spacing is made for a round potato and puts a narrow body's eyes on top of each other
+  if (!F.lockLayout) {
+    if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
+    if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
+    if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  }
   if (L.oval) F.eye = { ...F.eye, oval: L.oval };
   if (L.detail && def.costume) {
     def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)
@@ -129,7 +134,7 @@ export function loadStoryboard(file, opts = {}) {
   if (sb.set?.plate) plateFiles(sb.set.plate);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
-  const out = withHolds(cleanStart(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars)))); // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
+  const out = withHolds(cleanStart(resolveLife(focusTrack(direct(soundsOf(compile(withSpeech(sb, chars))), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
   return out;
 }

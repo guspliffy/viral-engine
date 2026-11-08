@@ -340,6 +340,16 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   strength come from its `env.json`. The camera must stay inside the painting: `engine/load.mjs` refuses a storyboard
   that shows a layer's edge, `node qa/env.mjs <sb>` lists the frames and `node qa/env.mjs --range <env>` the safe moves.
   Place the cast on the floor's painted ground (brown in the env's `review.png`), not behind a bank.
+- **A living world** (`"set": { ..., "life": "auto" }`, on in the clip template; Jonny 7 Nov 2026): on an env set the
+  wind runs through the grass and trees in gusts you also hear, the sky drifts and cloud shadows cross the far hills,
+  a few sparrows peck on the ground far behind the cast and fly off at the clip's big loud moment (the payoff's
+  shout or crash, else the first crash, else the first shout after 1.5 s; birds that flee stay gone), and butterflies
+  work the grass by day. Night has no birds or song, dusk a quieter song, a rainy place light rain, water no birds.
+  `"life": "storm"` is the same place on a stormy day (hard gusts bending the trees, rain, flying leaves, grey racing
+  sky, the `"grade": "storm"` picture). `{ "auto": true, ... }` fills in the same and lets any field win (`song`,
+  `birds`, `startle`, `wind`, `clouds`, `bend`, `rain`: engine/shared/life.js). Background life stays in the
+  background: never put birds or insects in front of the cast. About 5 % more drawing time per frame. A plain or room
+  set ignores it for now. Engine tests: storyboards/env/make-living-meadow.mjs, make-life-auto-tests.mjs.
 - After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
   from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
@@ -488,3 +498,28 @@ renders variants of a storyboard, puts each through the same rough TikTok re-enc
 how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
 is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
 0.967. Line width and hatch spacing barely mattered.
+
+## Anime look 01: hard cel shadows and anime timing (opt-in, 7 Nov 2026; Jonny's call before it becomes a default)
+
+Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look and motion.md`. Test scene:
+`node storyboards/anime/make-anime-lab.mjs` (A today, B cel, C cel + timing; engine test, not for posting).
+
+- `"set": { "cel": true }` (engine/page/looks.js): characters and props get one hard shadow edge instead of a soft roll
+  (`"edge"`: px wide at 1080, 1.5; `"at"`: where on the form the shadow starts, N·L, 0.08; 0.25 gives the anime crescent),
+  shadows thrown by other things drawn hard too, `"flat": true` drops the gradient, floor darkening, gloss and skin
+  mottling inside the two tones, `"normals": "proxy"` shades a potato's skin as a clean egg (an ellipsoid round the
+  body's centre) so the shadow is one designed curve instead of following every bump, `"shift"`: how far the underside
+  stays in shade (0.5), `"face"`: how far the shadow bends back round the face so a close-up keeps the eyes and mouth
+  lit (0.6). The hat brim's band on the face gets a crisp edge. The set keeps its painting. The pencil
+  hatching stays in the shadow.
+- `"animeTiming": true` (engine/shared/anime-timing.js, stage.js pose): the characters snap into each key and hold it.
+  A move's drawings are counted from its own start (start and end keys always shown), front-loaded (`"push"` 1.8), on
+  1s when 0.2 s or shorter, 3s from 0.9 s, else 2s; between moves the pose holds on 3s (`"idle"`); actions longer than
+  `"long"` (1.2 s) and every move the feet step through (`"travel"`: move, turn, walk, run ...) only step on 2s, so planted feet keep
+  their stride. The camera, the set, the living world and effects stay on every frame, and
+  motion blur is off (render.mjs). `qa/rig.mjs` judges such a clip drawing by drawing: each change of drawing, divided
+  by how many story frames it moved on, against the drawings either side; the snap (a segment's first two drawings) only
+  fails over 36 cm per story frame.
+- **In the clip template since 8 Nov 2026** (Jonny picked both): `CEL = { at: 0.25 }` and `ANIME_TIMING = true` at the
+  top of `storyboards/templates/clip-template.mjs`; set either to `null` / `false` for a clip that needs the old look.
+  Finished clips don't change.

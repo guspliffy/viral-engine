@@ -1,0 +1,56 @@
+{
+ "id": "always-orders-potatoes/fry",
+ "name": "A live fry (always orders potatoes 01, the burger place)",
+ "franchise": "PotatoBrawl",
+ "rig": "potato",
+ "body": {
+  "color": "#f0b43c",
+  "height": 1.05,
+  "width": 0.27,
+  "depth": 0.24,
+  "lump": 0.015,
+  "seed": 4,
+  "taper": 0.0,
+  "specks": 10,
+  "speckColor": "#c07a1e",
+  "speckSize": 0.5,
+  "gloss": 0.25,
+  "square": 5
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.025,
+  "shoulder": -0.2
+ },
+ "face": {
+  "default": "happy",
+  "iris": "#5a2a12",
+  "cheeks": "#ff7a6a",
+  "blush": 0.5,
+  "size": 0.62,
+  "layout": {
+   "eyeU": 0.66,
+   "eyeV": 0.45,
+   "browV": 0.72,
+   "mouthV": 0.12,
+   "mouthW": 0.35,
+   "cheekU": 0.9,
+   "cheekV": 0.2
+  },
+  "lockLayout": true
+ },
+ "sprout": {
+  "placement": "none"
+ },
+ "hands": {
+  "type": "glove",
+  "size": 0.9,
+  "fingers": 3,
+  "seamless": true
+ },
+ "personality": "A french fry that woke up in the cone: cheerful, bouncy, treats every dip like a pool party and never notices it is food. Proposal for always orders potatoes 01, not lasting canon.",
+ "legs": {
+  "height": 0.06,
+  "hipX": 0.06
+ }
+}
