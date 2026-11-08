@@ -571,8 +571,12 @@
     },
     {
       "type": "shoes",
-      "color": "#ece4d2",
-      "soleColor": "#d6cab3"
+      "color": "#e8dcc6",
+      "soleColor": "#f8f5ee",
+      "sole": 0.024,
+      "soleFlare": 0.004,
+      "seam": "#5d5246",
+      "seamH": 0.005
     }
   ],
   "accessories": [

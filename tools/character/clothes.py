@@ -596,11 +596,21 @@ def shoes(body, rig, G, B, out):
         sole = G.get("sole", 0.02)
         for v in o.data.vertices:
             if v.co.z < 0.004: v.co.z = 0.0
+        # a chunky sole: the bottom pushed out round the shoe's centre line ("soleFlare", m), so the upper sits on it
+        if G.get("soleFlare"):
+            c2 = sum((v.co for v in o.data.vertices), Vector()) / len(o.data.vertices)
+            for v in o.data.vertices:
+                k = 1.0 - _ss((v.co.z - sole) / 0.01)
+                d = Vector((v.co.x - c2.x, v.co.y - c2.y, 0))
+                if k > 0 and d.length > 1e-6: v.co += d.normalized() * G["soleFlare"] * k
         o.data.materials.append(_mat(G.get("mat", "Shoes_00_CLOTH"), G.get("color", "#ece4d2")))
         o.data.materials.append(_mat(G.get("soleMat", "Sole_00_CLOTH"), G.get("soleColor", "#f7f4ec")))
+        # the drawn seam between sole and upper ("seam": colour, "seamH": m), the line a sheet draws round a sneaker
+        if G.get("seam"): o.data.materials.append(_mat(G.get("seamMat", "SoleSeam_00_CLOTH"), G["seam"]))
         for poly in o.data.polygons:
             poly.use_smooth = True
             if poly.center.z < sole: poly.material_index = 1
+            elif G.get("seam") and poly.center.z < sole + G.get("seamH", 0.003): poly.material_index = 2
         # bone weights: the foot and toe bones by height along the foot
         _copy_weights(body, o, only=lambda gname: gname.startswith(("foot_", "ball_", "calf_")))
         o.parent = rig; mod = o.modifiers.new("Armature", "ARMATURE"); mod.object = rig
