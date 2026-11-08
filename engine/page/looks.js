@@ -11,6 +11,7 @@ import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
 import { makeLightRig, AO_GLSL } from "./light.js";
+import { FIRE_U } from "./firelight.js";
 
 // Looks: a look relights the scene, upgrades materials and adds a post-processing chain on top of a style.
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
@@ -221,11 +222,12 @@ function patchToon(m, o) {
     if (o.cel) { sh.uniforms.uCelEdge = { value: o.cel.edge }; sh.uniforms.uCelAt = { value: o.cel.at }; sh.uniforms.uCelShift = { value: o.cel.shift }; sh.uniforms.uCelFace = { value: o.cel.face ?? 0 };
       sh.uniforms.uProxyC = { value: new THREE.Vector3() }; sh.uniforms.uProxyR = { value: new THREE.Vector3() }; if (o.cel.sync) o.cel.sync(sh.uniforms); }
     if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
+    Object.assign(sh.uniforms, FIRE_U);
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uFirePos, uFireCol; uniform float uFireK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -291,6 +293,17 @@ function patchToon(m, o) {
             { float rr = smoothstep(0.66 - fw, 0.66 + fw, fr) * smoothstep(0.05, 0.35, dot(normal, uKeyDir)) * uKRimK;
               col = mix(col, max(col, uKRim * mix(min(base * 1.8 + 0.2, vec3(1.0)), vec3(1.0), 0.35) * 1.6), rr); }
           #endif
+          // the fire's own light (firelight.js): a hard cel band of warm light on the planes turned to the flames, falling
+          // off with distance; 0 when no fire casts light
+          if (uFireK > 0.0) {
+            vec3 fp = (viewMatrix * vec4(uFirePos, 1.0)).xyz + vViewPosition; float fd = length(fp);
+            float fk = min(0.8, uFireK / (1.0 + fd * fd * 1.4)), fb = smoothstep(0.08, 0.2, dot(nS, fp / max(fd, 1e-4)));
+            // light adds in proportion to the surface's own colour: white cloth and skin go warm orange, black cloth
+            // and dark hair stay dark with a warm edge on the planes and rims turned to the fire
+            col += uFireCol * (base * 0.85 + 0.015) * fk * fb;
+            float fr2 = 1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0);
+            col += uFireCol * 0.35 * fk * fb * smoothstep(0.55, 0.75, fr2);
+          }
           float sp = dot(normal, normalize(L + V)), sw = fwidth(sp) * 1.5;
           col += uSpec * smoothstep(0.97 - sw - uSpecW, 0.97 + sw, sp) * litK * vec3(1.0, 0.98, 0.92);   // specW: a soft-edged sheen (shade "soft")
           // golden hour: the sun from a window behind and to the side wraps a soft glowing edge round the far side

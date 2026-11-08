@@ -1,0 +1,49 @@
+{
+ "name": "sunset-rooftop",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view across a wide empty flat concrete rooftop at sunset, the grey rooftop floor fills the bottom half, low parapet wall, a water tank and railings far away at the edges, behind them a dense city skyline of tall buildings, huge orange setting sun low between skyscrapers, dramatic orange and pink clouds",
+ "no": "people, person, potato, text, letters, sign, logo, aerial view, high angle, bird's eye view, helicopter, plane, railing in foreground, chair, table, pool",
+ "seeds": [
+  17,
+  4,
+  29,
+  63
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "low orange sun ahead in the middle of the skyline",
+  "key": [
+   0.5,
+   3.0,
+   -9.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 25,
+ "surface": "concrete",
+ "groundMax": 40,
+ "standRatio": 0.6,
+ "pad": 0.3,
+ "padY": 0.12,
+ "bands": [
+  3.0,
+  9.0,
+  28.0,
+  32.0
+ ],
+ "groundRows": [
+  0.83,
+  0.99
+ ]
+}
