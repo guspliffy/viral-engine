@@ -187,8 +187,13 @@ function envGate(sb) {
 function withHolds(sb) {
   const holds = holdsOf(sb);
   if (!holds.length) return sb;
-  const bad = holds.find((h) => h.at < 0 || h.at >= sb.duration);
-  if (bad) throw new Error(`hitStop at ${bad.at} s is outside the clip (0-${sb.duration} s)`);
+  const bad = holds.find((h) => h.at < 0 || h.at + (h.len || 0) > sb.duration + 1e-6 || h.at >= sb.duration);
+  const kind = (h) => (h.ramp ? "ramp" : h.freeze ? "freeze" : "hitStop");
+  if (bad) throw new Error(`${kind(bad)} at ${bad.at} s is outside the clip (0-${sb.duration} s)`);
+  // freezes, hit-stops and ramps one after another, never inside each other (a hit-stop inside a ramp has no clock)
+  holds.forEach((h, i) => { const n = holds[i + 1]; if (n && n.at < h.at + (h.len || 0) - 1e-6) throw new Error(`${kind(n)} at ${n.at} s starts inside the ${kind(h)} at ${h.at}-${h.at + h.len} s: move one out`); });
+  // a line spoken inside a slow ramp: the voice plays at its own speed while the mouth moves slowly
+  for (const h of holds.filter((q) => q.ramp)) for (const a of (sb.actions || []).filter((q) => q.do === "talk" && q.at < h.at + h.len && q.at + (q.dur ?? 0.6) > h.at)) console.warn(`ramp at ${h.at} s: ${a.who}'s line "${a.line}" (${a.at} s) is inside it, its lips will be off the voice: move the line out of the ramp`);
   return { ...sb, holds, storyDuration: sb.duration, duration: Math.round((sb.duration + heldFor(holds)) * 1e6) / 1e6 };
 }
 
