@@ -47,8 +47,10 @@ ribbon. Set: `xmasroom` with `party: true` (bunting, no Christmas tree), `light:
   back: the two of them stand touching, and no path takes a 31 cm card round behind Gunslinger without passing through
   one of them. Viking's left arm scoops Gunslinger up round the front of his tummy; Gunslinger's left arm is round
   Viking's shoulders.
-- **The presents drop, not fling**: let go, they fall in front of Viking (the black one off the purple one). Thrown,
-  the bake's hand balls knocked them across the room.
+- **The presents drop as one stack, not fling**: the black box rides the purple one's lid down (one physics body), so
+  the drop lands the same on every render; on the cut to panel 7 (6.78 s) the black box lies on the rug beside it,
+  where Reaper picks it up. Thrown, the bake's hand balls knocked them across the room, and two separate bodies landed
+  somewhere new after every edit before the drop (Reaper then reached across his own body for it).
 - **Cut cheats**: on the cut to panel 2 (1.47 s) Viking is moved just off the right of the shot and steps in behind
   Gunslinger (so the cheat is never on screen); the Wizard leaves the shots of panels 2-4; the Wizard and Reaper step
   behind Viking on the cut to panel 5 (4.48 s) and in front of the hug on the cut to panel 7 (6.78 s). Each cheat sits
@@ -56,3 +58,17 @@ ribbon. Set: `xmasroom` with `party: true` (bunting, no Christmas tree), `light:
 - **No sniff or sob sounds** (not on the whitelist): a gasp and the music dropping out carry the crying.
 - **Music**: a bouncy bell/ukulele-like bed in C at 120 bpm (the "pop" style asked for isn't in the music styles),
   hush under the tears (5.2), back on the hug, a music box under the wink.
+- **Panel 1 pushes in** (review A): from 5.2 m tall to 4.4 m over 1.47 s, turning with the heads to Gunslinger, so
+  Reaper leaves at the right edge after 0.8 s (panel 1 crops him at the edge too). A 9:16 frame of four potatoes in
+  a row is set by its width, so a third of the frame below them is still floor.
+- **Panel 3 is a medium, not a close** (review A): lower than drawn (under his brim, so his eyes show as he writes)
+  and wide enough that "Wait!" sits on the wall over the heads instead of on him.
+- **Panel 5 is wider and lower than drawn** (review A): the Wizard's snicker and Reaper's eye-roll both show past
+  Viking's hair; Gunslinger steps back out of it after handing over the coupon (4.82 s) and is put back on the cut
+  to the hug.
+- **The Wizard's reactions in panel 7**: a side-eye up at the hug (he faces us, bottom left), jaw right down, and a
+  "!" pops over him; dust puffs off Reaper's box as he brushes it.
+- **Cheats on cuts, added**: Gunslinger half a step back on the cut to panel 2 (1.47 s, out of the Wizard's brim);
+  Viking cheated beside him on the cut to panel 5 (4.48 s), the presents with him.
+- **Subtitles all sit at the top of the subtitle band (y 470)**, over the wall: lower down they covered faces or the
+  hug in these framings.

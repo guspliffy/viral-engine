@@ -51,7 +51,7 @@ const cheat = (t, who, to, yaw, why) => {
 // the stone fireplace with its fire and the bookcase at the back right, bunting under the beam, a patterned rug. The
 // cake on its little round table at the back between Viking and Reaper (panel 1 has it front left; there it hid
 // Gunslinger in every close of him, so it moved where the wide still sees it).
-const TABLE = { x: 1.1, z: -1.5, r: 0.28, h: 0.42 };
+const TABLE = { x: 1.1, z: -1.5, r: 0.28, h: 0.42 }, TABLE1 = [-0.75, 2.2];   // TABLE1: front left in panel 1 (review B), under the shots of panels 2-8 it stands at the back
 // ---------------------------------------------------------------- the cast's places
 // Gunslinger: back left (panel 1); he never walks: the pocket pat here, then he sits back on the crate behind him
 const G0 = [-1.0, -0.6], G_YAW = 20;
@@ -107,8 +107,8 @@ const NOTE0 = front(G0, G_YAW, 0.3, -0.02, 0.62), PEN0 = front(G0, G_YAW, 0.29, 
 const COUPON = { id: "coupon", kind: "coupon", away: true, x: NOTE0[0], y: NOTE0[1], z: NOTE0[2], rot: G_YAW + 180, scale: 0.001, write: 0, unfold: 0, staged: "folded under his bandana until he pulls it out" };
 const PEN = { id: "pen", kind: "feltpen", x: PEN0[0], y: PEN0[1], z: PEN0[2], rot: G_YAW + 180, scale: 0.001, staged: "tucked in his bandana's knot until he pulls it out" };
 const props = [
-  { id: "sidetable", kind: "sidetable", x: TABLE.x, z: TABLE.z, r: TABLE.r, h: TABLE.h, staged: "the cake's little round table, front left (panel 1)" },
-  { id: "cake", kind: "cake", x: TABLE.x, y: r3(TABLE.h + 0.006), z: TABLE.z, rot: 25, lit: 1, staged: "the birthday cake on its table, the candles lit" },
+  { id: "sidetable", kind: "sidetable", x: TABLE1[0], z: TABLE1[1], r: TABLE.r, h: TABLE.h, staged: "the cake's little round table, front left (panel 1)" },
+  { id: "cake", kind: "cake", x: TABLE1[0], y: r3(TABLE.h + 0.006), z: TABLE1[1], rot: 25, lit: 1, staged: "the birthday cake on its table, the candles lit" },
   { id: "crate", kind: "crate", x: CRATE[0], z: CRATE[2], rot: G_YAW, size: CRATE_TOP, staged: "a small wooden crate behind Gunslinger (panel 3: he sits on it)" },
   { id: "scraps", kind: "floorscrap", x: 0.25, z: -0.35, r: 0.9, seed: 4, staged: "confetti and paper bits on the rug" },
   { id: "balloonsL", kind: "balloons", x: -2.45, z: -1.3, scale: 1.8, rot: 20, staged: "a cluster of balloons by the left wall" },
@@ -116,7 +116,7 @@ const props = [
   GIFT, BOX, COUPON, PEN,
   // party hats (worn: body frame), Viking's rosette and the Wizard's party horn (in his mouth at frame 0)
   { id: "hatG", kind: "partyhat", wear: "gsl", x: 0.07, y: 1.31, z: -0.02, tilt: 14, color: "#e0473b", color2: "#ffd23f", pattern: "stripes", staged: "his party hat, on top of his cowboy hat (worn)" },
-  { id: "hatV", kind: "partyhat", wear: "vik", x: -0.06, y: 1.0, z: 0.0, tilt: -12, color: "#3d7fd0", color2: "#ffd23f", pattern: "dots", staged: "the birthday boy's party hat (worn)" },
+  { id: "hatV", kind: "partyhat", wear: "vik", x: -0.06, y: 1.15, z: 0.0, tilt: -12, color: "#3d7fd0", color2: "#ffd23f", pattern: "dots", staged: "the birthday boy's party hat (worn)" },
   { id: "rosette", kind: "rosette", wear: "vik", x: 0.16, y: 0.56, z: 0.36, staged: "his birthday rosette on his chest (worn)" },
   { id: "horn", kind: "blowout", wear: "wiz", x: 0, y: 0.5, z: 0.34, len: 1, staged: "the Wizard's party horn, in his mouth (worn)" },
   ...patProps({ who: "gsl", at: G0, yaw: G_YAW }).map((p) => (p.id === "wallet" ? { ...p, scale: 0.001, staged: "down in his holster (part of his costume) until he draws it" } : p)),
@@ -201,6 +201,7 @@ see(1.15, 1.48, ["gsl.face", "wiz", "vik.face"], "panel 1: \"And yours?\": every
 // on the cut: Viking behind Gunslinger's right with the stacked presents (panel 2), expectant
 const VB0 = [0.15, -1.15];   // at the shot's right edge on the cut, so he is in it by 1.75 (review A)
 cheat(1.47, "vik", VB0, VB_YAW, "on the cut to the pocket pat: Viking just off the right of the shot with the presents (panel 2)");
+for (const id of ["sidetable", "cake"]) c.at(1.47, { do: "prop", id, set: { x: TABLE.x, z: TABLE.z }, dur: 0.01, reason: "on the cut to the pocket pat: the cake table from the front left of panel 1 to the back (in front it covers Gunslinger in panels 2, 3 and 6)" });
 vHold(1.47, front(VB0, VB_YAW, 0.6, 0, 0.22), 0.02, "linear");
 allow.push({ who: "vik", from: 1.47, to: 1.62, checks: ["prop-pop", "hand-pop"], reason: "on the cut to panel 2, out of the shot: his arms (anime timing) catch up with the cheat a frame late" });
 A(1.56, "vik", "look", { to: [-0.5, -0.1], dur: 0.08, blink: false });
@@ -232,7 +233,7 @@ A(2.9, "gsl", "release", { prop: "wallet", to: [HOLSTER.x, HOLSTER.y, HOLSTER.z]
 c.prop(2.91, "wallet", { tip: 360, rot: HOLSTER.rot }, 0.03, "inOut");
 c.at(2.93, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.03, ease: "in", reason: "back down in his holster (part of his costume)" });
 // the finger up: wait!
-c.arm(2.8, "gsl", "L", { o: [-0.05, 0.78, 0.3] }, 0.1, "out"); A(2.82, "gsl", "grip", { side: "L", shape: "point", dur: 0.06 });
+c.arm(2.8, "gsl", "L", { o: [-0.12, 0.84, 0.24] }, 0.1, "out");   // one finger up, clear of Viking's chin (review B) A(2.82, "gsl", "grip", { side: "L", shape: "point", dur: 0.06 });
 A(2.8, "gsl", "expr", { expr: "eager", set: { curve: 0.55, open: 0.3, eye: 1.1 }, dur: 0.08 }); A(2.8, "gsl", "face", { brow: 0.35, dur: 0.08 });
 A(2.8, "gsl", "look", { to: [0.5, 0.05], dur: 0.06, blink: false });
 c.say(2.82, "gsl", "wait!", 0.3, "excited", { voice: false, sub: "Wait!", pos: SUB_TOP });   // over the heads, off his mouth (review A)
@@ -273,6 +274,7 @@ A(3.4, "vik", "expr", { expr: "kind", set: { curve: 0.1, tilt: 0.2 }, dur: 0.2 }
 tp = pen.carry(4.0, KF(0.02, 0.12), 0.05, "out");
 A(4.05, "gsl", "release", { prop: "pen", dur: 0 });   // let go with a flick: it tumbles off behind him (physics)
 c.throw(4.06, "pen", { v: [0.6, 1.6, -1.2], spin: [9, 2, 4] });
+c.at(4.09, { do: "prop", id: "pen", set: { scale: 0.001 }, dur: 0.01, reason: "gone on the cut to the coupon close (it crossed his cheek there, review B)" });
 // he springs up off the crate with it (sitting, his arms can't bring it below his face)
 A(3.98, "gsl", "stand", { dur: 0.1 });
 const GUP = xz(front(GS, G_YAW, 0.12));   // standing: the stand moves him 0.12 forward
@@ -349,9 +351,13 @@ see(4.6, 5.05, ["vik.face", "coupon", "wiz.face", "rea.face"], "panel 5: Viking 
 const TREM = V(5.2);
 A(TREM, "vik", "look", { to: [0.0, -0.05], dur: 0.12, blink: false });
 A(TREM, "vik", "expr", { expr: "sad", set: { curve: -0.1, open: 0.08, eye: 1.2 }, dur: 0.15 }); A(TREM, "vik", "face", { brow: 0.5, dur: 0.15 });
-for (let t = r3(TREM + 0.08), k = 0; t < 5.75; t = r3(t + 0.06), k++) A(t, "vik", "expr", { expr: "sad", set: { open: k % 2 ? 0.12 : 0.04, curve: k % 2 ? -0.18 : -0.08 }, dur: 0.05 });   // the lip trembling
+for (let t = r3(TREM + 0.08), k = 0; t < 5.45; t = r3(t + 0.06), k++) A(t, "vik", "expr", { expr: "sad", set: { open: k % 2 ? 0.12 : 0.04, curve: k % 2 ? -0.18 : -0.08 }, dur: 0.05 });   // the lip trembling
 A(r3(TREM + 0.15), "vik", "face", { tear: 0.6, dur: 0.35 });
 A(r3(TREM + 0.5), "vik", "face", { tear: 1, dur: 0.2 });
+// the sob (review B: at 360 px the face read worried, then pleased, never crying): eyes squeezed, mouth open, two heaves
+A(5.45, "vik", "expr", { expr: "sad", set: { open: 0.6, curve: -0.25, eye: 1.2 }, dur: 0.08 }); A(5.45, "vik", "face", { lid: 0.9, tear: 1, dur: 0.08 });
+for (const t of [5.5, 5.7]) A(t, "vik", "squash", { amount: 0.04, dur: 0.1 });
+c.at(5.68, { fx: "sweat", who: "vik", dur: 0.7, count: 3, color: "#8fd3ff" });   // happy tears flicked off as he bursts (a tear on the cheek doesn't read at 360 px)
 sfx(r3(TREM + 0.2), "gasp", { gain: 0.22, reason: "Viking's trembling breath in, his eyes filling (no sniffle in the whitelist)" });
 A(r3(TREM + 0.1), "wiz", "look", { to: [0.3, -0.1], dur: 0.1, blink: false }); A(r3(TREM + 0.1), "wiz", "pitch", { to: 6, dur: 0.25 });   // he leans in, unsure
 c.arm(r3(TREM + 0.1), "wiz", "R", "rest", 0.25, "inOut");
@@ -422,6 +428,11 @@ c.at(6.78, { do: "prop", id: "giftB", set: { x: BOX_LAND[0], y: 0, z: BOX_LAND[1
 A(6.8, "wiz", "look", { to: [0.7, 0.15], dur: 0.06, blink: false });   // a side-eye up at the hug behind him (to his left)
 A(6.85, "wiz", "expr", { expr: "shocked", set: { open: 1.0, eye: 1.35, curve: -0.1 }, dur: 0.25 }); c.at(6.86, { fx: "alert", who: "wiz", dur: 0.6 }); A(6.85, "wiz", "face", { brow: 0.55, dur: 0.2 });   // jaw dropping
 A(7.15, "wiz", "squash", { amount: -0.03, dur: 0.3 });
+// review B: a second beat for him: down at his present on the rug, then back up at the hug, even more shocked
+A(7.4, "wiz", "look", { to: [0.3, -0.6], dur: 0.12, blink: false });
+A(7.9, "wiz", "look", { to: [0.7, 0.15], dur: 0.1, blink: false });
+A(7.9, "wiz", "expr", { expr: "shocked", set: { open: 1.0, eye: 1.4, curve: -0.15 }, dur: 0.12 }); A(7.9, "wiz", "squash", { amount: 0.03, dur: 0.1 });
+c.at(7.92, { fx: "alert", who: "wiz", dur: 0.5 });
 see(6.9, 7.6, ["wiz.face", "giftP", "gsl.face", "vik"], "panel 7: the Wizard stares at his present on the rug, jaw dropping; the hug behind");
 // Reaper's box (where the throw lands it: see BOX_LAND) up into his hands; a brush of the lid with his glove
 A(6.85, "rea", "look", { to: [-0.15, -0.6], dur: 0.08, blink: false });
@@ -455,7 +466,7 @@ cheat(8.58, "wiz", W8, W8_YAW, "on the cut to the wink: the Wizard at the bottom
 A(8.6, "wiz", "look", { to: [0.1, 0.4], dur: 0.06, blink: false });
 A(8.6, "wiz", "expr", { expr: "shocked", set: { open: 0.35, eye: 1.15, curve: -0.05 }, dur: 0.06 });
 c.arm(r3(WK - 0.04), "gsl", "R", { o: [0.22, 0.66, 0.28] }, 0.1, "out");   // off Viking's shoulder, round to his own hat
-wink(c, { who: "gsl", t: WK, until: END, line: "next year's on me!", sub: "Next year's on me!", pos: SUB_HIGH, side: "R", look: [-0.25, -0.35],
+wink(c, { who: "gsl", t: WK, until: END, line: "next year's on me!", sub: "Next year's on me!", pos: SUB_TOP, side: "R", look: [-0.25, -0.35],
   react: (t) => {
     // the Wizard's left eye twitches (his own left: lidL), twice; a sweat drop
     for (const t0 of [t, r3(t + 0.45)]) for (const [dt, l] of [[0, 0.75], [0.07, 0.3], [0.13, 0.8], [0.2, 0.3], [0.3, 0.85], [0.38, 0.35]]) A(r3(t0 + dt), "wiz", "face", { lidL: l, dur: 0.04 });
@@ -487,7 +498,9 @@ const HUGSHOT = frame([r3((HG[0] + VT[0]) / 2 + 0.15), 1.2, r3(HG[1] + 0.3)], { 
 const HUG7 = frame([r3((HG[0] + VT[0]) / 2 + 0.1 + 0.4 * Math.cos(rad(34))), 0.72, r3(HG[1] + 0.45 - 0.4 * Math.sin(rad(34)))], { az: 34, el: 20, h: 5.0, fov: 44, push: 0.06, dur: 1.8 });
 // 08 the wink: close on Gunslinger's face from a little below (he is up in the air), Viking's head at the right, the
 // Wizard at the bottom left
-const WINKSHOT = frame([r3(WFACE[0] - 0.36 * Math.cos(rad(W_AZ))), r3(WFACE[1] - 0.15), r3(WFACE[2] + 0.36 * Math.sin(rad(W_AZ)))], { az: W_AZ, el: 3, h: 2.6, fov: 40 });
+// review B: wider and slid to the right (fov 44), so Viking's head shows at the bottom right under the wink, the
+// Wizard still bottom left (projected: Gunslinger's eyes at about (640, 1040), Viking's (895, 1310), the Wizard's (125, 1270))
+const WINKSHOT = { pos: [1.001, 1.217, 2.79], look: [-0.982, 1.23, -0.645], fov: 44 };
 const beats = c.beats([
   ["P1 pay up", 0, WIDE, "hook"],
   ["P2 the pocket pat", PAT.from, PATSHOT],

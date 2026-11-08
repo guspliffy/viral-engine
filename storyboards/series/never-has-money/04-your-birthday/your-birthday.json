@@ -147,8 +147,8 @@
   {
    "id": "sidetable",
    "kind": "sidetable",
-   "x": 1.1,
-   "z": -1.5,
+   "x": -0.75,
+   "z": 2.2,
    "r": 0.28,
    "h": 0.42,
    "staged": "the cake's little round table, front left (panel 1)"
@@ -156,9 +156,9 @@
   {
    "id": "cake",
    "kind": "cake",
-   "x": 1.1,
+   "x": -0.75,
    "y": 0.426,
-   "z": -1.5,
+   "z": 2.2,
    "rot": 25,
    "lit": 1,
    "staged": "the birthday cake on its table, the candles lit"
@@ -277,7 +277,7 @@
    "kind": "partyhat",
    "wear": "vik",
    "x": -0.06,
-   "y": 1,
+   "y": 1.15,
    "z": 0,
    "tilt": -12,
    "color": "#3d7fd0",
@@ -383,7 +383,7 @@
    "from": 8.8,
    "to": 9.8,
    "text": "Next year's on me!",
-   "pos": 560,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1610,6 +1610,28 @@
      "at": 1.47
     },
     {
+     "do": "prop",
+     "id": "sidetable",
+     "set": {
+      "x": 1.1,
+      "z": -1.5
+     },
+     "dur": 0.01,
+     "reason": "on the cut to the pocket pat: the cake table from the front left of panel 1 to the back (in front it covers Gunslinger in panels 2, 3 and 6)",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "cake",
+     "set": {
+      "x": 1.1,
+      "z": -1.5
+     },
+     "dur": 0.01,
+     "reason": "on the cut to the pocket pat: the cake table from the front left of panel 1 to the back (in front it covers Gunslinger in panels 2, 3 and 6)",
+     "at": 1.47
+    },
+    {
      "who": "vik",
      "do": "arm",
      "side": "R",
@@ -2778,9 +2800,9 @@
      "side": "L",
      "pose": {
       "o": [
-       -0.05,
-       0.78,
-       0.3
+       -0.12,
+       0.84,
+       0.24
       ]
      },
      "dur": 0.1,
@@ -2832,14 +2854,6 @@
      },
      "dur": 0.06,
      "ease": "inOut",
-     "at": 0.02
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "point",
-     "dur": 0.06,
      "at": 0.02
     },
     {
@@ -3714,6 +3728,16 @@
      "shape": "press",
      "dur": 0.06,
      "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "reason": "gone on the cut to the coupon close (it crossed his cheek there, review B)",
+     "at": 1.29
     }
    ]
   },
@@ -4560,33 +4584,27 @@
      "do": "expr",
      "expr": "sad",
      "set": {
-      "open": 0.12,
-      "curve": -0.18
+      "open": 0.6,
+      "curve": -0.25,
+      "eye": 1.2
      },
-     "dur": 0.05,
-     "at": 0.98
+     "dur": 0.08,
+     "at": 0.95
     },
     {
      "who": "vik",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "open": 0.04,
-      "curve": -0.08
-     },
-     "dur": 0.05,
-     "at": 1.04
+     "do": "face",
+     "lid": 0.9,
+     "tear": 1,
+     "dur": 0.08,
+     "at": 0.95
     },
     {
      "who": "vik",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "open": 0.12,
-      "curve": -0.18
-     },
-     "dur": 0.05,
-     "at": 1.1
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 1
     },
     {
      "who": "vik",
@@ -4630,17 +4648,6 @@
     },
     {
      "who": "vik",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "open": 0.04,
-      "curve": -0.08
-     },
-     "dur": 0.05,
-     "at": 1.16
-    },
-    {
-     "who": "vik",
      "do": "talk",
      "line": "best... gift... ever!",
      "tone": "sad",
@@ -4670,15 +4677,19 @@
      "at": 1.16
     },
     {
+     "fx": "sweat",
      "who": "vik",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "open": 0.12,
-      "curve": -0.18
-     },
-     "dur": 0.05,
-     "at": 1.22
+     "dur": 0.7,
+     "count": 3,
+     "color": "#8fd3ff",
+     "at": 1.18
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 1.2
     },
     {
      "who": "vik",
@@ -5399,6 +5410,17 @@
      "at": 0.6
     },
     {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
      "who": "rea",
      "do": "pitch",
      "to": 0,
@@ -5527,6 +5549,42 @@
      "lid": 0.5,
      "dur": 0.1,
      "at": 1.04
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.7,
+      0.15
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 1,
+      "eye": 1.4,
+      "curve": -0.15
+     },
+     "dur": 0.12,
+     "at": 1.1
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 1.1
+    },
+    {
+     "fx": "alert",
+     "who": "wiz",
+     "dur": 0.5,
+     "at": 1.12
     },
     {
      "who": "vik",
@@ -5692,16 +5750,16 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     0.628,
-     1.417,
-     2.544
+     1.001,
+     1.217,
+     2.79
     ],
     "look": [
-     -1.155,
+     -0.982,
      1.23,
-     -0.545
+     -0.645
     ],
-    "fov": 40
+    "fov": 44
    },
    "do": [
     {
