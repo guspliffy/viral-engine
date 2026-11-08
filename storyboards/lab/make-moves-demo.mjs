@@ -59,10 +59,10 @@ function build(after) {
   // 4 REACTION 5.6-7.4: the Wizard's defeated look (a dolly zoom: the room closes in on him), the rule
   act.defeated(c, 5.6, "wiz", { hold: 0.3, blink: false });
   see(5.8, 7.0, ["wiz.face"], "the Wizard's defeated look");
-  if (after) rule(c, 6.3, 1.1, "RULE 1", "Never compete with a new phone.", { who: "wiz", y: 300 });
+  if (after) rule(c, 6.3, 1.1, "RULE 1", "Never compete with a new phone.", { who: "wiz" });
 
   // 5 VOTE 7.4-END: what next, then the loop tail
-  if (after) vote(c, 7.4, END - 7.4, "PART 2: how does Wizard get noticed?", [["A", "Hide the charger", "wiz"], ["B", "Wait for 0%", "phx"]], { y: 300 });
+  if (after) vote(c, 7.4, END - 7.4, "PART 2: how does Wizard get noticed?", [["A", "Hide the charger", "wiz"], ["B", "Wait for 0%", "phx"]]);
   act.backToStart(c, 8.8, END, cast.filter((m) => m.id === "wiz"), { wiz: WIZ_AT_PHX });
 
   const beats = c.beats([

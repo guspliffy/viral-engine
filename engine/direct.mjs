@@ -37,7 +37,7 @@
 //
 // Runs after compile (engine/load.mjs), so the renderer and every qa/ tool see the same resolved shots.
 import fs from "node:fs";
-import { actorState } from "./page/timeline.js";
+import { actorState, cameraState } from "./page/timeline.js";
 import { propState, gripWorld } from "./page/props3d.js";
 import { handTarget } from "./page/potato.js";
 import { ease } from "./page/util.js";
@@ -517,4 +517,47 @@ export function direct(sb, chars) {
     }
   });
   return { ...sb, shots: out, directed };
+}
+
+// Rule and vote cards (engine/page/card.js) without a "y": placed where no face is. The card goes in the top slot (its
+// top at y 300) or the low slot (its bottom on the safe zone's bottom, y 1348), whichever covers fewer of the eyes in
+// shot over the card's time (the camera and the cast as the renderer will draw them; a face counts with 90 px around
+// its eyes). A tie goes to the top. "pos": "top" | "low" picks one by hand. The card's height is estimated from its
+// text (Inter Black is about 0.6 em a letter); sb.directed notes each placement.
+const CARD_TOP = 300, CARD_LOW = 1348, FACE_PAD = 90;
+function lines(text, px, maxW) {
+  let n = 0;
+  for (const para of String(text || "").split("\n")) {
+    let w = 0; n++;
+    for (const word of para.split(/\s+/)) { const ww = word.length * px * 0.6; if (w && w + px * 0.3 + ww > maxW) { n++; w = ww; } else w += (w ? px * 0.3 : 0) + ww; }
+  }
+  return n;
+}
+const cardHeight = (f) => (f.do === "rule" ? 68 + (f.title ? 56 : 0) + lines(f.text, 64, 700) * 70
+  : 72 + lines(f.question, 52, 728) * 60 + 22 + (f.options || []).length * 108 - 16 + (f.prompt === false ? 0 : 78));
+export function placeCards(sb, chars) {
+  const cards = (sb.fx || []).filter((f) => (f.do === "rule" || f.do === "vote") && f.y == null);
+  if (!cards.length) return sb;
+  const directed = [...(sb.directed || [])], end = sb.duration ?? Infinity;
+  const fx = sb.fx.map((f) => {
+    if (!cards.includes(f)) return f;
+    const h = cardHeight(f), slots = { top: CARD_TOP, low: CARD_LOW - h };
+    if (f.pos === "top" || f.pos === "low") return { ...f, y: slots[f.pos] };
+    const t1 = Math.min(end - 0.01, f.at + (f.dur ?? 2)), ts = [f.at + 0.02, (f.at + t1) / 2, t1].filter((t) => t >= f.at && t < end);
+    const eyes = [];
+    for (const t of ts) {
+      const cam = cameraState(sb, t);
+      for (const c of sb.cast || []) {
+        const def = chars[c.character]; if (!def) continue;
+        const a = anchors(sb, c, def, t); if (!a.visible) continue;
+        const [x, y, z] = project(cam.pos, cam.look, cam.fov ?? 32, [a.x, a.eye, a.z]);
+        if (z > 0.05 && x > -0.05 && x < 1.05 && y > -0.05 && y < 1.05) eyes.push(y * 1920);
+      }
+    }
+    const hits = (y0) => eyes.filter((e) => e + FACE_PAD > y0 && e - FACE_PAD < y0 + h).length;
+    const pick = hits(slots.low) < hits(slots.top) ? "low" : "top";
+    directed.push({ at: r3(f.at), card: f.do, y: Math.round(slots[pick]), slot: pick, why: `faces under the top slot ${hits(slots.top)}, under the low slot ${hits(slots.low)} (eyes at ${eyes.map(Math.round).join(", ") || "none"} px)` });
+    return { ...f, y: Math.round(slots[pick]) };
+  });
+  return { ...sb, fx, directed };
 }

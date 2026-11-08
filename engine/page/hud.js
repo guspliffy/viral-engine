@@ -31,7 +31,7 @@ function keyed(spec, t, parse = (v) => v) {
 }
 const minutes = (s) => { if (typeof s === "number") return s; const [h, m] = String(s).split(":").map(Number); return h * 60 + m; };
 const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
-const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)} h${d % 60 ? ` ${d % 60} min` : ""}` : `+${d} min`);
+const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)}h${d % 60 ? ` ${d % 60}m` : ""}` : `+${d} min`);
 
 const shown = (H, t) => !H.show || (t >= H.show[0] && t < H.show[1]);
 
@@ -158,7 +158,9 @@ export function drawHud(ctx, sb, t) {
     if (S.clock && S.clock.tag) {
       const k = S.clock.tag.since, a = Math.min(1, k / 0.1) * (1 - clamp((k - 0.9) / 0.3)), dx = 24 * (1 - ease("back")(clamp(k / 0.22)));
       ctx.save(); ctx.globalAlpha = a; ctx.font = TAG; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      const tw = ctx.measureText(S.clock.tag.text).width + 32, th = 46, tx = x - 14 - tw + dx, ty = y + (h - th) / 2;
+      // left of the clock chip, never over the day chip (with no room there it sits just under the clock chip)
+      const tw = ctx.measureText(S.clock.tag.text).width + 32, th = 46, room = x - 14 - tw >= (L.left ? L.left[0] + L.left[2] + 12 : SAFE.x0);
+      const tx = room ? x - 14 - tw + dx : x + w - tw, ty = room ? y + (h - th) / 2 : y + h + 8 - dx / 3;
       ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, th / 2); ctx.fillStyle = "#ffd25a"; ctx.fill();
       ctx.fillStyle = "#1a1720"; ctx.fillText(S.clock.tag.text, tx + tw / 2, ty + th / 2 + 2);
       ctx.restore();

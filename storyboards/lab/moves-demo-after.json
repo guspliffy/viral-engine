@@ -646,7 +646,6 @@
      "title": "RULE 1",
      "text": "Never compete with a new phone.",
      "who": "wiz",
-     "y": 300,
      "at": 0.7
     },
     {
@@ -703,7 +702,6 @@
        "who": "phx"
       }
      ],
-     "y": 300,
      "at": 0
     },
     {
