@@ -113,6 +113,11 @@ if spec.get("hair"):
     import hair as hairkit
     _, hair_springs = hairkit.build_hair(body, rig, EYES, spec["hair"])
 
+if spec.get("clothes"):
+    sys.path.insert(0, "tools/character")
+    import clothes as clotheskit
+    clotheskit.build_clothes(body, rig, spec["clothes"])
+
 # VRM 1.0 humanoid: game_engine bone names -> VRM bones
 ext = rig.data.vrm_addon_extension; ext.spec_version = "1.0"
 hb = ext.vrm1.humanoid.human_bones

@@ -76,5 +76,15 @@
     "endZside": -0.025,
     "capBulk": 0.016,
     "lift": 0.007
-  }
+  },
+  "clothes": [
+    {
+      "type": "pants",
+      "color": "#2f4a36",
+      "stripe": {
+        "color": "#9a2c24",
+        "w": 0.008
+      }
+    }
+  ]
 }

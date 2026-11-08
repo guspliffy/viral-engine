@@ -28,5 +28,9 @@
     "upperChest": 0.06
   },
   "line": "#2e211c",
-  "lineK": 1.4
+  "lineK": 1.4,
+  "inner": false,
+  "krimK": {
+    "cloth": 0.15
+  }
 }

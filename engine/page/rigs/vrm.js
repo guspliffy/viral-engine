@@ -82,7 +82,7 @@ export class VrmCharacter extends Character {
     this.footH = (wp("leftFoot").y + wp("rightFoot").y) / 2;   // the ankle's height over the sole in the rest pose
     if (this.cast.diagPalms) console.log(`diag:rest foot ${this.footH.toFixed(3)} toes ${wp("leftToes").y.toFixed(3)} hips ${this.hipH.toFixed(3)}`);
     // the house look takes ordinary materials: each VRM material becomes a standard one with its texture and a role
-    hideCoveredSkin(vrm, this.def.bare || []);
+    hideCoveredSkin(vrm, this.def.bare || [], this.def.inner !== false);
     this.mats = {};
     vrm.scene.traverse((o) => {
       if (!o.isMesh) return;
@@ -836,7 +836,9 @@ function recolor(tex, o) {
 // three corners have cloth just outside them (within 15 cm along the normal, in the rest pose: the baggy hoodie stands off the ribs by more than 6 cm, 6 Nov) is dropped, once, at load
 // bare: body parts the outfit leaves uncovered ("arms": short sleeves, the arms are skin where no sleeve covers them; "feet": barefoot), so
 // they stay skin instead of the clothes' inside colour
-function hideCoveredSkin(vrm, bare = []) {
+// paintInner false (character "inner": false, our own character creator's bodies, tools/character): only the skin
+// fully under the clothes goes; what is left stays skin (the inner colours are for the VRoid sample body's undershirt)
+function hideCoveredSkin(vrm, bare = [], paintInner = true) {
   vrm.scene.updateMatrixWorld(true);
   const body = [], cloth = [];
   vrm.scene.traverse((o) => {
@@ -873,10 +875,15 @@ function hideCoveredSkin(vrm, bare = []) {
     // a square hole opened under the ear whenever the head turned or tilted, 7 Nov once the relaxed shoulders showed it)
     const neck = new Set(); under("neck", neck);
     const kind = new Uint8Array(P.count);   // 0 skin, 1 top, 2 legs
-    if (SI && SW) for (let i = 0; i < P.count; i++) {
+    if (SI && SW && paintInner) for (let i = 0; i < P.count; i++) {
       let best = 0, bw = -1; for (let k = 0; k < 4; k++) { const w = SW.getComponent(i, k); if (w > bw) { bw = w; best = SI.getComponent(i, k); } }
       const bone = bones[best]; kind[i] = !bone || open.has(bone) ? 0 : legs.has(bone) ? 2 : arms.has(bone) ? 1 : Math.abs(p.fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld).x) < 0.09 ? 0 : 1;
       if (neck.has(bone)) covered[i] = 0;
+    }
+    if (!paintInner) {
+      // (one material, the covered triangles dropped: groups with the unused inner materials thinned the skin's ink)
+      const keep = []; for (let t = 0; t < idx.count; t += 3) { const a = idx.getX(t), b = idx.getX(t + 1), c = idx.getX(t + 2); if (!(covered[a] && covered[b] && covered[c])) keep.push(a, b, c); }
+      g.setIndex(keep); g.clearGroups(); continue;
     }
     const lists = [[], [], []];
     for (let t = 0; t < idx.count; t += 3) {
