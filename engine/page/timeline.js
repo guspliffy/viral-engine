@@ -1103,6 +1103,18 @@ export function cameraState(sb, t) {
       look = [pos[0] + Math.sin(yaw) * Math.cos(pitch) * r, pos[1] + Math.sin(pitch) * r, pos[2] + Math.cos(yaw) * Math.cos(pitch) * r];
     }
   }
+  // dolly zoom (vertigo): { fov, dur, delay, ease, on }: the lens eases from the shot's fov to `fov` while the camera
+  // slides along its line to `on` (default the look point) so the picture height there never changes: the subject
+  // stays the same size and only the world behind it moves. A narrower fov pulls back and the background closes in
+  // (dread, the realisation); a wider one pushes in and the background falls away (vertigo, shock).
+  if (!Array.isArray(sb.camera) && s.dolly) {
+    const D = s.dolly, e = ease(D.ease || "inOut")(prog(t, s.at + (D.delay ?? 0), D.dur ?? s.dur ?? 1));
+    const f1 = lerp(fov, D.fov ?? fov * 0.6, e), on = D.on || look;
+    const k = Math.tan((fov * Math.PI) / 360) / Math.tan((f1 * Math.PI) / 360);
+    pos = [0, 1, 2].map((i) => on[i] + (pos[i] - on[i]) * k);
+    if (D.on) look = [0, 1, 2].map((i) => on[i] + (look[i] - on[i]) * k);
+    fov = f1;
+  }
   // yaw: { keys: [[t, degrees, x], ...] (clip time; eased inOut between keys unless ease: "linear"; + turns left; x
   // slides the lens sideways), pivot }: the view swings round a point `pivot` metres ahead of the lens (a rider's bike turning under him: a skid round a bend) while the move goes on
   if (s.yaw) {

@@ -616,7 +616,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
         const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
         const [x, y, w, h] = box;
         if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
-        if (c.pop) return;   // a text pop sits beside its character on purpose
+        if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
         let cov = c.covered;
         if (cov == null) { // fallback: share of the caption box inside any character box
           cov = 0;
