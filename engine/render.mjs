@@ -52,6 +52,7 @@ import { gateResults } from "../qa/check.mjs";
 import { GATE } from "../qa/gate.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
+import { sayChanged } from "../qa/say.mjs";
 import { renderTime } from "./shared/holds.js";
 import os from "node:os";
 import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
@@ -376,14 +377,20 @@ async function main() {
       // everything the gate judges (qa/check.mjs gateResults: contacts, grips, the drawn rig, the front of the frame and
       // the required must-see items); the lists of what prints and what stops a render live in qa/gate.mjs GATE
       const res = gateResults(sb, lay).filter((r) => r.level !== "pass" && [...GATE.fails, ...GATE.visible, "hand-pop", "clipping", "staging", "stance-slide", "grip-gap"].includes(r.check));
-      for (const r of res) console.log(`  ${r.level} ${r.check}: ${r.msg}`);
-      if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
+      const lines = res.map((r) => `  ${r.level} ${r.check}: ${r.msg}`);
+      // fails and visible glitches print every run; any other line only when it is new (qa/say.mjs: every line of
+      // this run is in <id>.gate.txt beside the layout, CHECKS_FULL=1 prints them all)
+      const always = new Set(res.filter((r) => r.level === "fail" || GATE.visible.includes(r.check)).map((r) => `  ${r.level} ${r.check}: ${r.msg}`));
       // what each beat must show (qa/framing.mjs "visible") and the camera lint (qa/camera.mjs): notes, never a gate
+      let notes = [];
       try {
-        const ch = loadCharacters(sb), notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass" && !res.some((x) => x.check === r.check && x.msg === r.msg));
-        for (const r of notes) console.log(`  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`);
-        if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
-      } catch (e) { console.log(`  note visible: not checked (${e.message})`); }
+        const ch = loadCharacters(sb);
+        notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass" && !res.some((x) => x.check === r.check && x.msg === r.msg));
+        lines.push(...notes.map((r) => `  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`));
+      } catch (e) { notes = [null]; lines.push(`  note visible: not checked (${e.message})`); }
+      sayChanged(lines, path.join(o.out, `${sb.id}${tag}.gate.txt`), { always: (l) => always.has(l), root: ROOT });
+      if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
+      if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
       return res.filter((r) => r.level === "fail" && GATE.fails.includes(r.check));
     };
     // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
