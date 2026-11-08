@@ -48,7 +48,7 @@ const W = "peb", END = 16.0, KEY = 1 / 15;
 // He stands on the bank a little left of centre, three-quarter to us, turned toward the water's working space (70: his face and both hands read; qa/framing.mjs wants 78 degrees or less) (the water he works is
 // in front of him and to his left, over the lake). The source and the landing are in open water well beyond the
 // shoreline and to the right of the foreground rock on screen (baseline: the source sat on the rock).
-const AT = [0.05, -0.25], HEAD = 70;
+const AT = [0.05, -0.25], HEAD = 60;   // 60 (was 70): turned a little more to us so the far (support) hand shows in front of his belly
 const cast = [{ id: W, character: "pebble/pebble", at: AT, face: HEAD, expr: "kind", follow: 0.3, seed: 1.3, span: 0 }];
 // the water's path is laid out round x 0.66 and fitted into the frame: x pulled in 30 % toward his front and shifted with
 // him (the painting allows no wider camera: qa/env.mjs)
@@ -86,14 +86,17 @@ const HAND = {
   // starts at 10.5 s, and the hand lowers palm down ahead of the return (13.6 s)
   R: [[0.0, 0.33, 0.28, 0.07], [0.5, 0.31, 0.26, 0.02], [1.6, 0.3, 0.42, 0.24], [2.7, 0.27, 0.5, 0.31], [3.4, 0.25, 0.5, 0.18],
     [4.1, 0.25, 0.49, 0.22], [4.8, 0.27, 0.47, 0.29], [5.5, 0.28, 0.45, 0.33], [6.2, 0.27, 0.48, 0.33], [6.9, 0.26, 0.5, 0.33],
-    [7.6, 0.25, 0.5, 0.32], [8.3, 0.25, 0.5, 0.3], [9.1, 0.26, 0.47, 0.29], [9.8, 0.27, 0.42, 0.27], [10.5, 0.27, 0.46, 0.3],
-    [11.1, 0.25, 0.5, 0.33], [11.7, 0.26, 0.5, 0.32], [12.3, 0.28, 0.48, 0.33], [12.9, 0.3, 0.42, 0.33], [13.4, 0.32, 0.33, 0.29],
+    [7.6, 0.25, 0.5, 0.32], [8.3, 0.25, 0.5, 0.3], [9.1, 0.26, 0.47, 0.29], [9.8, 0.27, 0.42, 0.27], [10.5, 0.27, 0.4, 0.3],
+    [11.1, 0.25, 0.39, 0.32], [11.7, 0.26, 0.42, 0.32], [12.3, 0.28, 0.48, 0.33], [12.9, 0.3, 0.42, 0.33], [13.4, 0.32, 0.33, 0.29],
     [14.1, 0.33, 0.3, 0.18], [14.9, 0.33, 0.29, 0.1]],
-  // support: his left, the far hand, parked low by his hip for the middle of the phrase (z 0.14 or less), drifting with
-  // the lead a little: up as the lead gathers, toward the front as the lead redirects, down half a beat after the dive
-  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.1], [1.7, 0.3, 0.32, 0.13], [2.8, 0.29, 0.34, 0.14], [4.0, 0.31, 0.31, 0.1],
-    [5.3, 0.31, 0.3, 0.1], [6.2, 0.29, 0.32, 0.13], [7.0, 0.28, 0.34, 0.14], [8.2, 0.29, 0.33, 0.13], [9.4, 0.31, 0.3, 0.1],
-    [10.5, 0.31, 0.31, 0.11], [11.7, 0.29, 0.33, 0.14], [13.2, 0.3, 0.32, 0.13], [13.9, 0.32, 0.29, 0.1], [14.9, 0.33, 0.285, 0.08]],
+  // support: his left, the far hand. Jonny 8 Nov: parked by the hip it was hidden behind his body all clip ("there is no
+  // second arm"). It now comes forward under the lead, in front of his lower belly where the camera sees it, a hand
+  // lower than the lead (holding the ball upright, never level with it: review A's stacked-hands clasp), and drifts
+  // with the lead half a beat late. While he faces us on the line it is the hand on the water's side, so it lifts the sweep
+  // (10.6-12.2 s) and the lead stays lower
+  L: [[0.0, 0.33, 0.28, 0.07], [0.6, 0.31, 0.29, 0.12], [1.7, 0.2, 0.3, 0.28], [2.8, 0.18, 0.31, 0.3], [4.0, 0.2, 0.3, 0.27],
+    [5.3, 0.18, 0.3, 0.3], [6.2, 0.16, 0.32, 0.31], [7.0, 0.16, 0.33, 0.31], [8.2, 0.18, 0.32, 0.3], [9.4, 0.22, 0.33, 0.28],
+    [10.5, 0.2, 0.37, 0.31], [11.1, 0.18, 0.46, 0.31], [11.7, 0.18, 0.47, 0.31], [12.4, 0.2, 0.38, 0.3], [13.2, 0.2, 0.31, 0.27], [13.9, 0.3, 0.3, 0.15], [14.9, 0.33, 0.285, 0.08]],
 };
 // the hands' shapes: the lead cups palm up under the rising water, opens as it draws, then guides palm down and forward
 // (it never closes; a glove facing the water, not a fist); the support stays open and loose
@@ -126,8 +129,12 @@ function arm(P) {
 const BODYK = {
   //    t     fwd    left   yaw   pitch  lean  crouch
   k: [[0.0, 0.0, 0.0, 0, 0, 0, 0.0], [0.5, 0.012, 0.0, 0, 1.5, 0, 0.28], [1.8, 0.03, -0.004, -2, 3.5, -1, 0.2], [3.0, 0.025, 0.0, -1, 2.5, 0, 0.24],
-    [4.3, -0.018, 0.004, 1, -1.5, 0.5, 0.3], [5.4, -0.02, 0.006, 2, -2, 1, 0.26], [6.6, 0.006, 0.012, 9, 1, 2, 0.2], [7.7, 0.012, 0.014, 13, 1.5, 2, 0.22], [8.3, 0.01, 0.012, 4, 1.2, 1.8, 0.23],
-    [8.8, 0.008, 0.01, 1.5, 1, 1.5, 0.24], [9.6, -0.008, 0.002, 0, -0.5, 0.5, 0.26], [10.5, -0.012, -0.004, -3, -1, -0.5, 0.24], [11.8, 0.004, 0.004, 3, 1, 0.5, 0.2],
+    [4.3, -0.018, 0.004, 1, -1.5, 0.5, 0.3], [5.4, -0.02, 0.006, 2, -2, 1, 0.26], [6.6, 0.006, 0.012, 9, 1, 2, 0.2], [7.7, 0.012, 0.014, 13, 1.5, 2, 0.22], [8.3, 0.01, 0.012, 0, 1.2, 1.8, 0.23],
+    // Jonny 8 Nov (v2): he talks to us like in v1: the whole body turns toward the camera through the line (about 20
+    // degrees after BK.turn: the eyes reach the lens from there; the planted gait takes one small pivot step into the
+    // turn and one back out), the eyes on us, the hands keep the water going
+    [8.9, 0.008, 0.01, -30, 1, 1.5, 0.24], [9.6, -0.008, 0.002, -44, -0.5, 0.5, 0.26], [10.5, -0.012, -0.004, -45, -1, -0.5, 0.24], [11.5, 0.004, 0.004, -40, 1, 0.5, 0.2],
+    [12.3, 0.012, 0.006, -15, 2, 0.8, 0.24],
     [13.6, 0.026, 0.008, 6, 3.5, 1, 0.3], [14.5, 0.02, 0.004, 3, 2.5, 0.5, 0.26], [15.3, 0.004, 0.0, 0, 0.5, 0, 0.08]],
 };
 const N = Math.round(END * 30) + 1;
@@ -205,7 +212,7 @@ function lookAtWater(t) {
   const fw = dx * F[0] + dz * F[1], lf = dx * L[0] + dz * L[1], az = (Math.atan2(lf, fw) * 180) / Math.PI, el = (Math.atan2(Math.max(y, 0) - EYE, Math.hypot(fw, lf)) * 180) / Math.PI;
   return [r3(Math.max(-0.9, Math.min(0.9, az / 40))), r3(Math.max(-0.8, Math.min(0.8, el / 40)))];
 }
-const GLANCE = [8.7, 9.8], SMILE = 15.2;
+const GLANCE = [8.6, 12.0], SMILE = 15.2;
 A(0, W, "look", { to: [-0.6, 0], dur: 0, blink: false });                       // frame 0: the look the clip ends on
 A(0.15, W, "look", { to: [0.5, -0.4], dur: 0.35, blink: false });                // to the lake where the water will come
 for (let t = 0.6; t < END; t += 0.2) {
@@ -213,7 +220,16 @@ for (let t = 0.6; t < END; t += 0.2) {
   if (t >= SMILE) break;
   A(r3(t), W, "look", { to: lookAtWater(t), dur: 0.2, ease: "linear", blink: false });
 }
-A(GLANCE[0], W, "look", { to: [-0.75, 0.0], dur: 0.35, blink: false });          // a short glance to us on "Never push."
+// to us through the whole line (Jonny 8 Nov: like v1), following his own turn so the eyes stay on the lens
+const CAMP = [0.3, 1.5, 4.4];
+function lookAt([x, y, z], t) {
+  const yaw = spline(BODYK.k, t)[2] * BK.turn, h = ((HEAD + yaw) * Math.PI) / 180;
+  const F = [Math.sin(h), Math.cos(h)], L = [Math.cos(h), -Math.sin(h)], dx = x - AT[0], dz = z - AT[1];
+  const fw = dx * F[0] + dz * F[1], lf = dx * L[0] + dz * L[1], az = (Math.atan2(lf, fw) * 180) / Math.PI, el = (Math.atan2(y - EYE, Math.hypot(fw, lf)) * 180) / Math.PI;
+  return [r3(Math.max(-0.9, Math.min(0.9, az / 40))), r3(Math.max(-0.8, Math.min(0.8, el / 40)))];
+}
+A(GLANCE[0], W, "look", { to: lookAt(CAMP, GLANCE[0] + 0.3), dur: 0.3, blink: false });
+for (let t = GLANCE[0] + 0.4; t < GLANCE[1]; t += 0.2) A(r3(t), W, "look", { to: lookAt(CAMP, t), dur: 0.2, ease: "linear", blink: false });
 A(SMILE, W, "look", { to: [-0.6, 0], dur: 0.45, blink: false });
 A(15.3, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0.4 });
 A(0, W, "expr", { expr: "kind", set: { curve: 0.7 }, dur: 0 });
