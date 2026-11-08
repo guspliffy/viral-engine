@@ -540,6 +540,17 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   "+26 min" tag beside the clock for a second (`"clockTag": false`). The battery goes amber under 20 %, red under 10 %,
   kicks on every drop and at 0 reads DEAD and blinks twice. `"pos": "bottom"` (y 1288-1356) or `"y"` moves it,
   `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture.
+- **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
+  as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
+  04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted
+  from the day plate by `engine/plates/night.py` with the window panes in `<name>.night.json`: the same room, a night
+  window with the moon, stars and lit windows, the lamps on) fades to it as the clock runs on; the 3D floor and backdrop
+  darken with it (`"set": { "nightSet": "#7c7fa8" }`), the sunlight's dust motes go out and a cool grade puts the cast
+  in the same night (`"nightGrade"`: a number scales it, false turns it off). The light follows the clock over 0.6 s
+  (`"hud": { "skyFade": 0.6 }`), so a clock run reads as a time-lapse and a jump fades instead of flipping mid-shot. `"sky": [[t, level, dur?]]` (0 day, 1 night) sets it by
+  hand without a HUD; `"hud": { "sky": false }` or `"sky": false` keeps the picture as painted. A night clock on a day set
+  with no night picture gets a warning when the storyboard loads: paint one, pick a night set, or move the clock.
+  Plates with a night picture: `livingroom-golden`.
 - **Rule card** (`engine/page/card.js`): `{ "fx": "rule", "at", "dur": 1.6, "title": "RULE 1", "text": "...", "who" }`:
   an ink plate slammed in tilted, the title in who's caption colour, the rule in white, a slow drift, shrinks out.
 - **Comment-vote end card**: `{ "fx": "vote", "at", "dur", "question", "options": [{ "key": "A", "text", "who" }, ...],
