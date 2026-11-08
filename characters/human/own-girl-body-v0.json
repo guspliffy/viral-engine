@@ -1,0 +1,42 @@
+{
+  "id": "human/own-girl-body-v0",
+  "name": "Own base step 1: MPFB2 (CC0) slim female body",
+  "rig": "vrm-v1",
+  "vrm": "assets/models/vrm/own/girl-body-v0.vrm",
+  "sheet": true,
+  "sheetHatch": false,
+  "seed": 2,
+  "body": {
+    "color": "#f4cfb1",
+    "height": 0.5,
+    "width": 0.36,
+    "depth": 0.26,
+    "seed": 3
+  },
+  "limbs": {
+    "color": "#f4cfb1",
+    "width": 0.03
+  },
+  "look": {
+    "_HAIR": {
+      "lineK": 0.55
+    }
+  },
+  "posture": {
+    "level": 0.7,
+    "max": 0.45,
+    "upperChest": 0.06
+  },
+  "line": "#2e211c",
+  "lineK": 1.4,
+  "inner": false,
+  "krimK": {
+    "cloth": 0.15,
+    "hair": 0.15
+  },
+  "faceLight": {
+    "k": 0.8,
+    "neck": 0.022
+  },
+  "lineMask": true
+}

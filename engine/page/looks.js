@@ -6,7 +6,7 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
+import { OutlineEffect } from "./outline-effect.js";      // (three's, plus per-vertex ink for our own hair)
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
@@ -220,14 +220,16 @@ function patchToon(m, o) {
     // set "cel" (anime look 01, 7 Nov 2026): one hard shadow edge (edge px wide) at N.L = at; a cast shadow drawn
     // hard too; proxy: the skin shades with a clean egg (an ellipsoid round the body's centre) instead of its bumps
     if (o.cel) { sh.uniforms.uCelEdge = { value: o.cel.edge }; sh.uniforms.uCelAt = { value: o.cel.at }; sh.uniforms.uCelShift = { value: o.cel.shift }; sh.uniforms.uCelFace = { value: o.cel.face ?? 0 };
-      sh.uniforms.uProxyC = { value: new THREE.Vector3() }; sh.uniforms.uProxyR = { value: new THREE.Vector3() }; if (o.cel.sync) o.cel.sync(sh.uniforms); }
+      sh.uniforms.uProxyC = { value: new THREE.Vector3() }; sh.uniforms.uProxyR = { value: new THREE.Vector3() }; if (o.cel.sync) o.cel.sync(sh.uniforms);
+      // character "faceLight" (vrm.js headFrame): the head's ellipsoid frame, refreshed every frame in prepare
+      if (o.cel.head) { sh.uniforms.uFaceInv = { value: new THREE.Matrix4() }; sh.uniforms.uFaceK = { value: o.cel.head.k }; sh.uniforms.uFaceNeck = { value: o.cel.head.neck }; o.cel.head.us.add(sh.uniforms); o.cel.head.update(); } }
     if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
     Object.assign(sh.uniforms, FIRE_U);
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uFirePos, uFireCol; uniform float uFireK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}${o.cel.head ? "#define CEL_HEAD\nuniform mat4 uFaceInv; uniform float uFaceK, uFaceNeck;\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uFirePos, uFireCol; uniform float uFireK; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -262,9 +264,32 @@ function patchToon(m, o) {
             // the shadow other things throw (an arm, a hat, a friend), drawn with a hard edge too
             float shK = clamp(dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
             shK = smoothstep(0.35, 0.65, shK);
+            #ifdef CEL_HEAD
+              // character "faceLight" (vrm.js headFrame): the head shades as one clean ball (its ellipsoid's normal in
+              // place of the sculpt's, fading out round the jaw, Guilty Gear Xrd / Blue Protocol's edited face normals),
+              // the face on its front stays lit (the shadow line pushed back by uFaceK) and takes no self-cast shadows
+              // (the shadow map's nose and brow blotches)
+              vec3 fq = (uFaceInv * vec4(vWPos, 1.0)).xyz; float fr = length(fq); vec3 fd = fq / max(fr, 1e-4);
+              float fNear = 1.0 - smoothstep(1.15, 1.45, fr);
+              float fK = smoothstep(0.3, 0.6, fd.z) * smoothstep(-1.05, -0.9, fd.y) * (1.0 - smoothstep(0.45, 0.7, fd.y)) * fNear;
+              float fW = smoothstep(-0.2, 0.4, fd.z) * smoothstep(-1.0, -0.75, fd.y) * fNear;
+              nS = normalize(mix(nS, normalize(mat3(viewMatrix) * (transpose(mat3(uFaceInv)) * fq)), fW));
+              shK = mix(shK, 1.0, fK);
+            #endif
             // shift: the underside stays in shade (the belly turned to the floor), like a painted cel
             vec3 nW = normalize((vec4(nS, 0.0) * viewMatrix).xyz);
             float xk = dot(nS, L) - uCelAt + uCelShift * min(nW.y + 0.35, 0.0) + uCelFace * faceK;
+            #ifdef CEL_HEAD
+              xk += uFaceK * fK - uCelShift * min(nW.y + 0.35, 0.0) * fK;   // (and no underside shade on the face)
+              // under the jaw a band of the neck is always in shade (the jaw's drawn shadow), as deep as uFaceNeck
+              // (metres) below the ellipsoid's underside
+              float fp = dot(fq.xz, fq.xz);
+              if (uFaceNeck > 0.0 && fp < 0.85 && fq.z > -0.2) {
+                float under = -sqrt(max(0.0, 1.0 - fp)) - fq.y;   // below the underside, in radii
+                float dn = under / length(vec3(uFaceInv[0][1], uFaceInv[1][1], uFaceInv[2][1]));   // (radii to metres)
+                xk -= 2.0 * step(0.0, under) * (1.0 - smoothstep(uFaceNeck * 0.85, uFaceNeck, dn)) * (1.0 - smoothstep(0.6, 0.85, fp)) * (1.0 - fK);   // (not on the face itself, which reaches out past the ellipsoid)
+              }
+            #endif
             float cw = max(fwidth(xk), 1e-5) * uCelEdge * 0.5;
             litK = smoothstep(-cw, cw, xk) * shK;
             ndl = dot(nS, L);
@@ -342,7 +367,7 @@ function patchToon(m, o) {
         #include <opaque_fragment>`);
     if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}${o.cel ? `-cel${o.cel.proxy ? "p" : ""}` : ""}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}${o.cel ? `-cel${o.cel.proxy ? "p" : ""}${o.cel.head ? "h" : ""}` : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -612,6 +637,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     // the clean egg's centre and radii in the body's own space (the body's matrix is refreshed every frame in prepare)
     const sync = a ? (u) => { a.ch.body.updateWorldMatrix(true, false); u.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); u.uProxyC.value.set(0, a.ch.cy, 0); u.uProxyR.value.set(1 / a.ch.rx ** 2, 1 / a.ch.ry ** 2, 1 / a.ch.rz ** 2); } : null;
     const c = { cel: { edge: CEL.edge, at: CEL.at, shift: CEL.shift, face: CEL.face, proxy, sync } };
+    if (m.userData.faceFrame && role === "skin") c.cel.head = m.userData.faceFrame;
     return CEL.flat ? { ...c, grad: 0, occ: 0, spec: 0, specW: 0, back: null } : c;
   };
   const cloth = new Set(), wood = new Set();
@@ -672,6 +698,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
       t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
+      if (m.userData.lineMask) t.userData.lineMask = true;      // (per-vertex ink, outline-effect.js)
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -785,6 +812,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         if (nl) o.receiveShadow = true;   // a lid takes the hat's cast shadow like the face around it
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
+      for (const a of actors) if (a.ch.faceFrame?.us.size) a.ch.faceFrame.update();
       grounding.update();
       if (lines) lines.seed = drawingNo(D, t ?? 0) % 997;
       if (speed) { const S = D.speed, u = t ?? 0, f = Math.min(1, Math.max(0, (u - S.from) / S.fade), Math.max(0, (S.until - u) / S.fade)); speed.uniforms.amount.value = S.amount * f; speed.enabled = f > 0; }

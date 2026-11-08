@@ -1,0 +1,8 @@
+{
+ "title": "first-01 (Jonny's sheet 8 Nov 2026), from VRoid CC0 HairSample_Male",
+ "version": "1",
+ "paint": { "Bottoms": "#34573d", "Hair": "#d8ad68", "Tops": "#efe6d2" },
+ "tops": { "cut": "tee", "sleeve": 0.42, "collar": 0.05, "slim": 0.3, "slimFront": 0.6, "gap": 0.025 },
+ "bottoms": { "baggy": 1.45, "cuff": 1.05, "cuffLen": 0.08, "stripe": { "color": "#9a2e26", "width": 9 } },
+ "shoes": false
+}
