@@ -60,19 +60,19 @@ const GS = xz(front(xz(CRATE), G_YAW, 0.03));                 // sitting
 // Viking: back right at frame 0, the Wizard pushing the big present into his arms from the front left
 const VA = [0.45, -0.05], VA_YAW = -20;
 const B = front(VA, VA_YAW, 0.7, 0, 0.3);                      // the hand-over: the purple present's bottom middle
-const W_YAW0 = 80;
+const W_YAW0 = 80, W_FACE0 = 62;   // he stands where an 80° hand-over puts him, turned 18° more to us (review A: not in profile)
 const WA = [r3(B[0] - 0.55 * Math.sin(rad(W_YAW0))), r3(B[2] - 0.55 * Math.cos(rad(W_YAW0)))];
-const W1 = [0.2, 0.78];                                           // off the shots of panels 2-4 (a cheat on the cut to panel 2)
+const W1 = [0.6, 0.9];                                           // off the shots of panels 2-4 (a cheat on the cut to panel 2)
 // Reaper: front right, the black box in both hands; a step in to stack it on the purple one
 const RA = [1.28, 0.32], R_YAW0 = -30;
 // panels 2-4: Viking behind Gunslinger's right with the presents (on the cut to the pocket pat)
 const VB = [-0.25, -1.1], VB_YAW = 0;
 // panel 5: Viking beside him (his own left), half a step in front, to take the coupon; the Wizard and Reaper behind
 const VT = xz(front(GS, G_YAW, 0.25, 0.9)), VT_YAW = G_YAW;
-const W5 = xz(front(VT, VT_YAW, -1.15, -0.5)), R5 = xz(front(VT, VT_YAW, -0.85, 0.72));   // their faces past his (panel 5)
+const W5 = xz(front(VT, VT_YAW, -1.15, -0.5)), R5 = xz(front(VT, VT_YAW, -0.85, 0.87));   // their faces past his (panel 5)
 // the hug (panels 6-8): side by side, both faces to us (panel 6): Viking turns to him and lifts him up off the crate,
 // pulling him in a step (clear of its top); his arms round Gunslinger's middle, Gunslinger's arm over his shoulders
-const HUG_YAW_V = -35, HUG_YAW_G = 45, LIFT = 0.3;
+const HUG_YAW_V = -35, HUG_YAW_G = 45, LIFT = 0.4;
 const HG = (() => { const dx = VT[0] - GS[0], dz = VT[1] - GS[1], L = Math.hypot(dx, dz); return [r3(GS[0] + (0.1 * dx) / L), r3(GS[1] + (0.1 * dz) / L)]; })();
 // panel 7: the Wizard and Reaper in front of the hug with the presents (on the cut); the presents land in front of it
 // (worked out by projecting the faces through the panel-7 camera, HUG7 below: the Wizard bottom left and Reaper bottom
@@ -85,7 +85,7 @@ const W6 = [-2.1, -0.55];                                        // out of the h
 const GIFT_LAND = [0.25, -0.47], BOX_LAND = [0.75, 0.24], R7_YAW = yawTo(R7, BOX_LAND);   // where the bake lands them (layout samples, 8 Nov)
 
 const cast = [
-  { id: "wiz", character: "never-has-money/wizard", at: WA, face: W_YAW0, expr: "happy", follow: 0.3, seed: 2.6 },
+  { id: "wiz", character: "never-has-money/wizard", at: WA, face: W_FACE0, expr: "happy", follow: 0.3, seed: 2.6 },
   { id: "vik", character: "elevator/viking", at: VA, face: VA_YAW, expr: "delighted", follow: 0.3, seed: 3.3 },
   { id: "gsl", character: "never-has-money/gunslinger", at: G1, face: G_YAW, expr: "eager", follow: 0.3, seed: 1.3 },
   { id: "rea", character: "never-has-money/reaper", at: RA, face: R_YAW0, expr: "deadpan", follow: 0.25, seed: 3.1 },
@@ -123,7 +123,7 @@ const props = [
 ];
 
 // subtitles inside y 470-1360, clear of Jonny's in-app title at the top
-const SUB = 1180, SUB_HIGH = 560;
+const SUB = 1180, SUB_HIGH = 560, SUB_LOW = 1280, SUB_TOP = 470;
 
 // ---------------------------------------------------------------- 1 PAY UP 0-1.5 (panel 1, the wide)
 // frame 0: the party horn unrolls with a blare in the Wizard's mouth while he pushes the huge purple present into
@@ -153,7 +153,7 @@ wg.handOff(r3(tv + 0.02), { rest: "rest", back: 0.12 });
 const VP = front(VA, VA_YAW, 0.6, 0.18, 0.22);                     // pulled in to his tummy (his face clear over it)
 tv = vHold(r3(tv + 0.04), VP, 0.2, "inOut");
 sfx(0.32, "ai-package/cardboard-rustle", { gain: 0.3, reason: "the wrapping paper rustles as the big present changes hands" });
-c.say(0.34, "wiz", "happy birthday!", 0.6, "excited", { voice: false, sub: "Happy birthday!", pos: SUB });
+c.say(0.34, "wiz", "happy birthday!", 0.6, "excited", { voice: false, sub: "Happy birthday!", pos: SUB_TOP });
 A(0.36, "wiz", "squash", { amount: 0.02, dur: 0.1 });
 // the horn: his right hand takes it out of his mouth and tucks it into his robe
 c.arm(0.5, "wiz", "R", { o: [-0.1, 0.44, 0.4] }, 0.1, "out"); A(0.5, "wiz", "grip", { side: "R", shape: "pinch", dur: 0.06 });
@@ -187,7 +187,7 @@ A(1.0, "wiz", "turn", { to: -40, dur: 0.25 });
 A(1.0, "wiz", "move", { to: [r3(WA[0] - 0.04), r3(WA[1] + 0.12)], dur: 0.3, ease: "inOut", steps: 1, reason: "half a step back as he turns to Gunslinger (clear of Viking and the present; toward us, so his hat stays off Gunslinger's face)" });
 A(1.05, "wiz", "look", { to: [-0.55, 0.0], dur: 0.08, blink: false });
 A(1.08, "wiz", "expr", { expr: "smug", set: { curve: 0.3, tilt: 0.25 }, dur: 0.12 }); A(1.08, "wiz", "face", { browL: 0.5, dur: 0.12 });
-c.say(1.1, "wiz", "and yours?", 0.45, "calm", { voice: false, sub: "And yours?", pos: SUB });
+c.say(1.1, "wiz", "and yours?", 0.45, "calm", { voice: false, sub: "And yours?", pos: SUB_TOP });   // it runs into the pocket pat, where his face is low in the frame
 c.arm(1.1, "wiz", "R", { o: [0.06, 0.45, 0.3] }, 0.15, "out"); A(1.12, "wiz", "grip", { side: "R", shape: "open", dur: 0.1 });   // a palm up: well?
 A(1.12, "vik", "look", { to: [-0.6, 0.05], dur: 0.1, blink: false }); A(1.15, "vik", "turn", { to: -32, dur: 0.25 });
 A(1.15, "rea", "look", { to: [-0.6, -0.05], dur: 0.1, blink: false });
@@ -199,13 +199,13 @@ see(1.15, 1.48, ["gsl.face", "wiz", "vik.face"], "panel 1: \"And yours?\": every
 
 // ---------------------------------------------------------------- 2 THE POCKET PAT 1.5-2.8 (panel 2, the series block)
 // on the cut: Viking behind Gunslinger's right with the stacked presents (panel 2), expectant
-const VB0 = [0.5, -1.2];   // just out of the shot's right edge, so the cheat itself is never seen
+const VB0 = [0.15, -1.15];   // at the shot's right edge on the cut, so he is in it by 1.75 (review A)
 cheat(1.47, "vik", VB0, VB_YAW, "on the cut to the pocket pat: Viking just off the right of the shot with the presents (panel 2)");
 vHold(1.47, front(VB0, VB_YAW, 0.6, 0, 0.22), 0.02, "linear");
 allow.push({ who: "vik", from: 1.47, to: 1.62, checks: ["prop-pop", "hand-pop"], reason: "on the cut to panel 2, out of the shot: his arms (anime timing) catch up with the cheat a frame late" });
 A(1.56, "vik", "look", { to: [-0.5, -0.1], dur: 0.08, blink: false });
-A(1.6, "vik", "move", { to: VB, dur: 0.38, ease: "inOut", steps: 2 });   // he steps in behind Gunslinger's right, expectant
-vHold(1.6, front(VB, VB_YAW, 0.6, 0, 0.22), 0.38, "inOut");
+A(1.5, "vik", "move", { to: VB, dur: 0.26, ease: "inOut", steps: 2 });   // he steps in behind Gunslinger's right, expectant
+vHold(1.5, front(VB, VB_YAW, 0.6, 0, 0.22), 0.26, "inOut");
 c.prop(1.47, "giftP", { stack: 1 }, 0.01, "linear");
 c.at(1.47, { do: "prop", id: "giftB", set: { scale: 0.001 }, dur: 0.01, reason: "on the cut: Reaper's box is on Viking's stack (given off screen); the purple present draws it on its lid until Viking drops them" });
 A(1.47, "rea", "release", { prop: "giftB", to: BOX_OUT, dur: 0.02 });
@@ -235,7 +235,7 @@ c.at(2.93, { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.03, ease: "
 c.arm(2.8, "gsl", "L", { o: [-0.05, 0.78, 0.3] }, 0.1, "out"); A(2.82, "gsl", "grip", { side: "L", shape: "point", dur: 0.06 });
 A(2.8, "gsl", "expr", { expr: "eager", set: { curve: 0.55, open: 0.3, eye: 1.1 }, dur: 0.08 }); A(2.8, "gsl", "face", { brow: 0.35, dur: 0.08 });
 A(2.8, "gsl", "look", { to: [0.5, 0.05], dur: 0.06, blink: false });
-c.say(2.82, "gsl", "wait!", 0.3, "excited", { voice: false, sub: "Wait!", pos: SUB });
+c.say(2.82, "gsl", "wait!", 0.3, "excited", { voice: false, sub: "Wait!", pos: SUB_TOP });   // over the heads, off his mouth (review A)
 // the coupon (right hand) and the pen (left hand) out of his bandana
 const cp = grips.phone(c, "gsl", { ...COUPON, scale: COUPON_K }, { side: "R" });
 c.prop(2.96, "coupon", { scale: COUPON_K }, 0.06, "out");
@@ -279,6 +279,7 @@ const GUP = xz(front(GS, G_YAW, 0.12));   // standing: the stand moves him 0.12 
 const SHOW = front(GUP, G_YAW, 0.5, 0.0, 0.22);   // its top under his chin
 c.prop(4.0, "coupon", { tip: 0 }, 0.08, "out");
 tc = cp.carry(4.0, SHOW, 0.08, "out");
+allow.push({ who: "gsl", from: 4.0, to: 4.1, checks: ["prop-pop"], reason: "the coupon whipped off his knee up to his chest as he springs up off the crate (3 frames, a deliberate whip)" });
 // the left hand onto the other edge: a two-hand hold
 const cb = grips.box(c, "gsl", { ...COUPON, scale: COUPON_K }, { height: 0.95 });   // held by its top corners: it hangs below his face
 // (flicked up, it hangs in the air for two frames at SHOW while both hands come to its top corners, then both hold it:
@@ -355,13 +356,17 @@ sfx(r3(TREM + 0.2), "gasp", { gain: 0.22, reason: "Viking's trembling breath in,
 A(r3(TREM + 0.1), "wiz", "look", { to: [0.3, -0.1], dur: 0.1, blink: false }); A(r3(TREM + 0.1), "wiz", "pitch", { to: 6, dur: 0.25 });   // he leans in, unsure
 c.arm(r3(TREM + 0.1), "wiz", "R", "rest", 0.25, "inOut");
 A(r3(TREM + 0.12), "wiz", "expr", { expr: "worried", set: { curve: 0.0 }, dur: 0.15 }); A(r3(TREM + 0.12), "wiz", "face", { lid: 0, dur: 0.1 });
-c.say(5.66, "vik", "best... gift... ever!", 0.5, "sad", { voice: false, sub: "Best… gift… EVER!", pos: SUB });
+c.say(5.66, "vik", "best... gift... ever!", 0.5, "sad", { voice: false, sub: "Best… gift… EVER!", pos: SUB_TOP });   // over his hair, off his tears and the lift (review A)
 A(5.66, "vik", "expr", { expr: "happy", set: { curve: 0.6, open: 0.5, eye: 0.6 }, dur: 0.08 }); A(5.66, "vik", "face", { lid: 0.85, brow: 0.45, dur: 0.08 });   // bursting into happy tears
 const HEART = (yaw) => front(VT, yaw, 0.47, -0.04, 0.3);
 vc.carry(5.6, HEART(VT_YAW), 0.16, "inOut", { rot: r3(VT_YAW + 180), tip: 0 });   // to his heart
 see(5.3, 5.85, ["vik.face", "coupon"], "panel 5: his lip trembles, the tears come: Best… gift… EVER!");
 // Gunslinger, beside him (out of the close): beaming up at him
 A(4.8, "gsl", "look", { to: [0.55, 0.25], dur: 0.1, blink: false }); A(4.8, "gsl", "expr", { expr: "happy", set: { curve: 0.8 }, dur: 0.15 });
+// a step back to his right to give Viking the moment: out of the wider close (review A), so the Wizard's snicker shows
+const GBACK = [r3(GS[0] - 0.39), r3(GS[1] + 0.07)];
+A(4.82, "gsl", "move", { to: GBACK, dur: 0.35, ease: "inOut", reason: "a step back, beaming, to give Viking his moment" });
+cheat(5.87, "gsl", GS, null, "on the cut to the hug: back where Viking scoops him up (he stepped out of the close)");
 
 // ---------------------------------------------------------------- 6 THE HUG 5.9-6.8 (panel 6)
 // he drops both presents (they thud on the rug, the black one on the purple one's lid) and bear-hugs Gunslinger up
@@ -396,11 +401,11 @@ A(5.92, "vik", "expr", { expr: "happy", set: { curve: 0.7, open: 0.4, eye: 0.5 }
 c.hitStop(HS2, 3);
 sfx(HS2, "cloth", { gain: 0.55, reason: "the bear hug lands: fur against leather" });
 sfx(r3(HS2 + 0.02), "ai/warm-resolve", { gain: 0.5, reason: "a warm swelling chord under the hug" });
-A(HS2, "vik", "squash", { amount: 0.04, dur: 0.12 }); A(HS2, "gsl", "squash", { amount: 0.05, dur: 0.12 });
+A(HS2, "vik", "squash", { amount: 0.08, dur: 0.12 }); A(HS2, "gsl", "squash", { amount: 0.05, dur: 0.12 });
 // the Wizard and Reaper, behind, stare at the presents on the rug
 A(5.95, "wiz", "pitch", { to: 0, dur: 0.15 }); A(6.0, "wiz", "look", { to: [0.4, -0.5], dur: 0.1, blink: false }); act.shock(c, 6.05, "wiz", { hold: 0.6 });
 A(6.0, "rea", "look", { to: [-0.3, -0.5], dur: 0.12, blink: false }); A(6.05, "rea", "face", { lid: 0.45, dur: 0.15 });
-see(6.05, 6.75, ["gsl.face", "vik.face", "giftP", "giftB"], "panel 6: the bear hug, Gunslinger off his seat, both presents on the rug");
+see(6.05, 6.75, ["gsl.face", "vik.face", "giftP"], "panel 6: the bear hug, Gunslinger off his seat, both presents on the rug (the black one on the purple one's lid)");
 // the hug rocks side to side to the end; Viking sobs happily into his shoulder
 for (let t = 6.25, k = 0; t < 9.6; t = r3(t + 0.42), k++) { A(t, "vik", "lean", { to: k % 2 ? -5 : 5, dur: 0.4 }); A(t, "gsl", "lean", { to: k % 2 ? -4 : 4, dur: 0.4 }); }
 for (const t of [6.6, 7.4, 8.2]) { A(t, "vik", "squash", { amount: 0.03, dur: 0.1 }); }
@@ -415,7 +420,7 @@ cheat(6.78, "rea", R7, R7_YAW, "on the cut to the presents: Reaper bottom right,
 c.prop(6.78, "giftP", { stack: 0 }, 0.01, "linear");
 c.at(6.78, { do: "prop", id: "giftB", set: { x: BOX_LAND[0], y: 0, z: BOX_LAND[1], rot: r3(R7_YAW + 180), scale: BOX_K }, dur: 0.01, reason: "on the cut to panel 7: the black box off the purple one's lid, on the rug (a continuity cheat, hidden by the cut)" });
 A(6.8, "wiz", "look", { to: [0.7, 0.15], dur: 0.06, blink: false });   // a side-eye up at the hug behind him (to his left)
-A(6.85, "wiz", "expr", { expr: "shocked", set: { open: 0.7, eye: 1.3, curve: -0.1 }, dur: 0.25 }); A(6.85, "wiz", "face", { brow: 0.55, dur: 0.2 });   // jaw dropping
+A(6.85, "wiz", "expr", { expr: "shocked", set: { open: 1.0, eye: 1.35, curve: -0.1 }, dur: 0.25 }); c.at(6.86, { fx: "alert", who: "wiz", dur: 0.6 }); A(6.85, "wiz", "face", { brow: 0.55, dur: 0.2 });   // jaw dropping
 A(7.15, "wiz", "squash", { amount: -0.03, dur: 0.3 });
 see(6.9, 7.6, ["wiz.face", "giftP", "gsl.face", "vik"], "panel 7: the Wizard stares at his present on the rug, jaw dropping; the hug behind");
 // Reaper's box (where the throw lands it: see BOX_LAND) up into his hands; a brush of the lid with his glove
@@ -431,6 +436,7 @@ tb = rg2.carry(r3(tb + 0.05), RHOLD, 0.32, "inOut", { rot: r3(R7_DUST + 180) });
 // dusting: the left hand holds it, the right one brushes the lid twice
 c.arm(r3(tb + 0.1), "rea", "R", { o: [-0.1, 0.62, 0.42] }, 0.1, "out"); A(r3(tb + 0.1), "rea", "grip", { side: "R", shape: "flat", dur: 0.08 });
 for (let k = 0; k < 3; k++) { const t = r3(tb + 0.22 + k * 0.18); c.arm(t, "rea", "R", { world: front(R7, R7_DUST, 0.5, k % 2 ? 0.08 : -0.08, 0.56) }, 0.09, "inOut"); }
+for (const k of [0, 2]) c.at(r3(tb + 0.3 + k * 0.18), { fx: "poof", pos: front(R7, R7_DUST, 0.5, 0, 0.6), dur: 0.4, color: "#d8cdbd", puffs: 5, sparks: 0, size: 0.14, lift: 0.12 });   // dust off the lid (review A)
 sfx(r3(tb + 0.25), "kenney/cloth", { gain: 0.25, reason: "Reaper's glove brushing the dust off his box's lid" });
 A(r3(tb + 0.1), "rea", "look", { to: [0.0, -0.4], dur: 0.1, blink: false }); A(r3(tb + 0.1), "rea", "face", { lid: 0.5, dur: 0.1 });
 see(r3(tb + 0.1), 8.5, ["rea.face", "giftB"], "panel 7: Reaper dusts off his black box, deadpan");
@@ -463,17 +469,20 @@ act.blinksAt(c, "wiz", [1.45, 3.0, 6.5]); act.blinksAt(c, "rea", [1.5, 3.2, 8.0]
 // ---------------------------------------------------------------- shots (Jonny's panels)
 // (9:16: a frame h metres tall is 0.5625 h wide at the target)
 // 01 the wide from in front, from a little left and high, so Gunslinger's face shows past the Wizard; the cake in
-const WIDE = frame([-0.2, 0.72, -0.1], { az: -5, el: 20, h: 6.2, fov: 50 });   // Gunslinger's and Viking's faces both clear of the Wizard's hat brim (projected, 8 Nov)
+// a push-in over the whole panel (review A: small and static): 5.2 m tall to 4.4 m, re-aimed at the group, every face
+// clear of the Wizard's hat brim and inside the frame all the way (projected, 8 Nov)
+const WIDE0 = frame([0.0, 0.72, 0.3], { az: 0, el: 14, h: 5.2, fov: 50 }), WIDE1 = frame([-0.3, 0.72, 0.5], { az: 0, el: 14, h: 4.4, fov: 50 });   // Reaper at the right edge (as panel 1 draws him), then out as the push turns with the heads to Gunslinger
+const WIDE = { ...WIDE0, to: { pos: WIDE1.pos, look: WIDE1.look }, dur: 1.47, ease: "inOut" };
 // 02 the pocket pat: Gunslinger chest up with the whole hat, Viking with the presents behind his right
-const PATSHOT = frame([-0.72, 0.9, -0.75], { az: -15, el: 14, h: 2.0, fov: 40 });
+const PATSHOT = frame([-0.72, 0.9, -0.75], { az: -15, el: 14, h: 2.4, fov: 40 });   // belt up (review A)
 // 03 on the crate: a little wider and higher, Viking behind at the right
-const SEAT = frame([-0.72, 0.7, -0.9], { az: -4, el: 22, h: 2.7, fov: 40 });
+const SEAT = frame([-0.6, 0.9, -0.9], { az: -4, el: 14, h: 3.2, fov: 40 });   // lower, under his brim: his eyes as he writes (review A); wall over the heads for "Wait!"
 // 04 the coupon close: FREE HUG at chest height (a quarter of the frame's width), his face over it
 const CLOSE = frame([SHOW[0], 0.72, SHOW[2]], { az: G_YAW, el: 6, h: 2.0, fov: 36 });
 // 05 Viking close: crying, the coupon in one hand, the presents in the other arm; the Wizard and Reaper behind
-const VCLOSE = frame([r3(VT[0] - 0.15), 0.9, r3(VT[1] - 0.25)], { az: VT_YAW - 5, el: 12, h: 2.4, fov: 38 });   // a little toward Gunslinger: the hand-over is in it
+const VCLOSE = frame([VT[0], 0.8, r3(VT[1] - 0.05)], { az: 10, el: 12, h: 3.3, fov: 42 });   // wider and lower: the Wizard's and Reaper's faces past his (review A, projected)
 // 06 the hug from in front, the presents on the rug in front of it
-const HUGSHOT = frame([r3((HG[0] + VT[0]) / 2 + 0.15), 0.78, r3(HG[1] + 0.3)], { az: -5, el: 14, h: 3.5, fov: 44 });
+const HUGSHOT = frame([r3((HG[0] + VT[0]) / 2 + 0.15), 1.2, r3(HG[1] + 0.3)], { az: -5, el: 14, h: 3.5, fov: 44 });   // the lifted hat under "Best… gift… EVER!", the presents low in front
 // 07 from the right, lower: the Wizard and Reaper in front of the hug with the presents, a slow push-in
 const HUG7 = frame([r3((HG[0] + VT[0]) / 2 + 0.1 + 0.4 * Math.cos(rad(34))), 0.72, r3(HG[1] + 0.45 - 0.4 * Math.sin(rad(34)))], { az: 34, el: 20, h: 5.0, fov: 44, push: 0.06, dur: 1.8 });
 // 08 the wink: close on Gunslinger's face from a little below (he is up in the air), Viking's head at the right, the

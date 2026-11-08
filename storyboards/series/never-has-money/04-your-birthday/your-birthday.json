@@ -101,7 +101,7 @@
     -0.331,
     0.512
    ],
-   "face": 80,
+   "face": 62,
    "expr": "happy",
    "follow": 0.3,
    "seed": 2.6
@@ -347,7 +347,7 @@
    "from": 0.34,
    "to": 1.1,
    "text": "Happy birthday!",
-   "pos": 1180,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -356,7 +356,7 @@
    "from": 1.1,
    "to": 1.95,
    "text": "And yours?",
-   "pos": 1180,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -365,7 +365,7 @@
    "from": 2.82,
    "to": 3.62,
    "text": "Wait!",
-   "pos": 1180,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -374,7 +374,7 @@
    "from": 5.66,
    "to": 6.56,
    "text": "Best… gift… EVER!",
-   "pos": 1180,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -396,16 +396,30 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     -0.744,
-     2.994,
-     6.123
+     0,
+     2.069,
+     5.71
     ],
     "look": [
-     -0.2,
+     0,
      0.72,
-     -0.1
+     0.3
     ],
-    "fov": 50
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.3,
+      1.861,
+      5.078
+     ],
+     "look": [
+      -0.3,
+      0.72,
+      0.5
+     ]
+    },
+    "dur": 1.47,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -1580,8 +1594,8 @@
      "who": "vik",
      "do": "move",
      "to": [
-      0.5,
-      -1.2
+      0.15,
+      -1.15
      ],
      "dur": 0.02,
      "steps": 0,
@@ -1612,9 +1626,9 @@
        0.083
       ],
       "at": [
-       0.5,
+       0.15,
        0.22,
-       -0.6
+       -0.55
       ]
      },
      "dur": 0.02,
@@ -1638,9 +1652,9 @@
        -0.083
       ],
       "at": [
-       0.5,
+       0.15,
        0.22,
-       -0.6
+       -0.55
       ]
      },
      "dur": 0.02,
@@ -1715,8 +1729,8 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      0.2,
-      0.78
+      0.6,
+      0.9
      ],
      "dur": 0.02,
      "steps": 0,
@@ -1804,9 +1818,9 @@
    "len": 1.3,
    "shot": {
     "pos": [
-     -1.41,
-     1.565,
-     1.825
+     -1.548,
+     1.698,
+     2.34
     ],
     "look": [
      -0.72,
@@ -1816,6 +1830,70 @@
     "fov": 40
    },
    "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.25,
+      -1.1
+     ],
+     "dur": 0.26,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "giftP",
+      "grip": [
+       -0.067,
+       -0.017,
+       0.083
+      ],
+      "palm": [
+       -0.067,
+       0.833,
+       0.083
+      ],
+      "at": [
+       -0.25,
+       0.22,
+       -0.5
+      ]
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "giftP",
+      "grip": [
+       -0.067,
+       -0.017,
+       -0.083
+      ],
+      "palm": [
+       -0.067,
+       0.833,
+       -0.083
+      ],
+      "at": [
+       -0.25,
+       0.22,
+       -0.5
+      ]
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "who": "rea",
      "do": "blink",
@@ -1890,70 +1968,6 @@
      "amount": 0.015,
      "dur": 0.06,
      "at": 0.06
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      -0.25,
-      -1.1
-     ],
-     "dur": 0.38,
-     "ease": "inOut",
-     "steps": 2,
-     "at": 0.1
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "giftP",
-      "grip": [
-       -0.067,
-       -0.017,
-       0.083
-      ],
-      "palm": [
-       -0.067,
-       0.833,
-       0.083
-      ],
-      "at": [
-       -0.25,
-       0.22,
-       -0.5
-      ]
-     },
-     "dur": 0.38,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "giftP",
-      "grip": [
-       -0.067,
-       -0.017,
-       -0.083
-      ],
-      "palm": [
-       -0.067,
-       0.833,
-       -0.083
-      ],
-      "at": [
-       -0.25,
-       0.22,
-       -0.5
-      ]
-     },
-     "dur": 0.38,
-     "ease": "inOut",
-     "at": 0.1
     },
     {
      "who": "gsl",
@@ -2711,13 +2725,13 @@
    "len": 1.3,
    "shot": {
     "pos": [
-     -0.96,
-     2.089,
-     2.531
+     -0.898,
+     1.963,
+     3.355
     ],
     "look": [
-     -0.72,
-     0.7,
+     -0.6,
+     0.9,
      -0.9
     ],
     "fov": 40
@@ -3870,8 +3884,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      0.218,
-      -1.991
+      0.359,
+      -2.042
      ],
      "dur": 0.02,
      "steps": 0,
@@ -3894,16 +3908,16 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     0.564,
-     1.625,
-     2.097
+     0.562,
+     1.694,
+     3.145
     ],
     "look": [
-     -0.318,
-     0.9,
-     -1.196
+     -0.168,
+     0.8,
+     -0.996
     ],
-    "fov": 38
+    "fov": 42
    },
    "do": [
     {
@@ -4286,6 +4300,18 @@
      },
      "dur": 0.15,
      "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -1.489,
+      -0.803
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "reason": "a step back, beaming, to give Viking his moment",
+     "at": 0.32
     },
     {
      "who": "vik",
@@ -4724,6 +4750,18 @@
      "at": 1.36
     },
     {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -1.099,
+      -0.873
+     ],
+     "dur": 0.02,
+     "steps": 0,
+     "reason": "on the cut to the hug: back where Viking scoops him up (he stepped out of the close)",
+     "at": 1.37
+    },
+    {
      "who": "wiz",
      "do": "move",
      "to": [
@@ -4752,12 +4790,12 @@
    "shot": {
     "pos": [
      -0.799,
-     1.828,
+     2.248,
      3.606
     ],
     "look": [
      -0.433,
-     0.78,
+     1.2,
      -0.581
     ],
     "fov": 44
@@ -4770,7 +4808,7 @@
       -0.999,
       -0.881
      ],
-     "y": 0.3,
+     "y": 0.4,
      "dur": 0.12,
      "ease": "out",
      "steps": 0,
@@ -4845,7 +4883,7 @@
      "pose": {
       "world": [
        -0.674,
-       0.6,
+       0.7,
        -0.669
       ]
      },
@@ -4885,7 +4923,7 @@
     {
      "who": "vik",
      "do": "squash",
-     "amount": 0.04,
+     "amount": 0.08,
      "dur": 0.12,
      "at": 0.1
     },
@@ -5148,8 +5186,8 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.7,
-      "eye": 1.3,
+      "open": 1,
+      "eye": 1.35,
       "curve": -0.1
      },
      "dur": 0.25,
@@ -5172,6 +5210,12 @@
      "dur": 0.08,
      "blink": false,
      "at": 0.05
+    },
+    {
+     "fx": "alert",
+     "who": "wiz",
+     "dur": 0.6,
+     "at": 0.06
     },
     {
      "who": "rea",
@@ -5526,6 +5570,21 @@
      "at": 1.2
     },
     {
+     "fx": "poof",
+     "pos": [
+      1.221,
+      0.6,
+      0.37
+     ],
+     "dur": 0.4,
+     "color": "#d8cdbd",
+     "puffs": 5,
+     "sparks": 0,
+     "size": 0.14,
+     "lift": 0.12,
+     "at": 1.24
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -5577,6 +5636,21 @@
      "at": 1.55
     },
     {
+     "fx": "poof",
+     "pos": [
+      1.221,
+      0.6,
+      0.37
+     ],
+     "dur": 0.4,
+     "color": "#d8cdbd",
+     "puffs": 5,
+     "sparks": 0,
+     "size": 0.14,
+     "lift": 0.12,
+     "at": 1.6
+    },
+    {
      "who": "gsl",
      "do": "arm",
      "side": "R",
@@ -5619,12 +5693,12 @@
    "shot": {
     "pos": [
      0.628,
-     1.317,
+     1.417,
      2.544
     ],
     "look": [
      -1.155,
-     1.13,
+     1.23,
      -0.545
     ],
     "fov": 40
@@ -6004,10 +6078,9 @@
    "see": [
     "gsl.face",
     "vik.face",
-    "giftP",
-    "giftB"
+    "giftP"
    ],
-   "why": "panel 6: the bear hug, Gunslinger off his seat, both presents on the rug"
+   "why": "panel 6: the bear hug, Gunslinger off his seat, both presents on the rug (the black one on the purple one's lid)"
   },
   {
    "from": 6.9,
@@ -6237,6 +6310,15 @@
    "reason": "on the cut to the pocket pat: Gunslinger back to his place in front of the crate (in the wide he stood a little left, clear of the Wizard's hat)"
   },
   {
+   "who": "gsl",
+   "from": 4,
+   "to": 4.1,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "the coupon whipped off his knee up to his chest as he springs up off the crate (3 frames, a deliberate whip)"
+  },
+  {
    "who": "vik",
    "from": 4.58,
    "to": 4.73,
@@ -6278,6 +6360,17 @@
     "lean-jump"
    ],
    "reason": "on the cut to Viking's close: Reaper behind him at the right (panel 5)"
+  },
+  {
+   "who": "gsl",
+   "from": 5.97,
+   "to": 6.12,
+   "checks": [
+    "motion",
+    "rig-jump",
+    "lean-jump"
+   ],
+   "reason": "on the cut to the hug: back where Viking scoops him up (he stepped out of the close)"
   },
   {
    "who": "wiz",
