@@ -28,10 +28,12 @@ Generator: `make-island.mjs` (numbers there win where this lags). Format A of th
 - Music: `sneaky`, gain 0.28, lowCut 150; payoff (music lock) = the fire going out at 10.45 s.
 - Cameras: low (y 0.8-1.1) and close (z <= 5.3): the painted floor ends nearer than ~4.5 m in front of a low camera
   (qa/env.mjs), and every camera looks into the valley (pan +-10 deg), so the cast is staged per part for a two-shot
-  and the 9:16 frame. Faces land at y 1110-1245; subtitles sit under the chins at y 1275 (inside the safe area,
-  which ends at 1360), the HUD and cards above the heads.
+  and the 9:16 frame. Faces land at y 1110-1290, so subtitles sit in the sky band at y 585 (under the RULE cards,
+  which end at 564; a subtitle over a face fails the caption-overlap check and these cameras can't tilt down further);
+  "Nope. nope. nope." sits at y 800, under the vote card (300-792). The HUD and cards are above the heads.
 - Time skips: the HUD clock jumps +26 / +21 / +18 min at 4.0, 8.0 and 12.4; the cast is re-placed under those cuts
-  (part 3: Viking at the pit's front left, the Sorcerer sulking off far right; part 4: Phoenix back at his spot).
+  (part 3: the Sorcerer sulking off far right with his dead phone; part 4: Phoenix flies back to his spot). Viking stays
+  at his spot all clip: a walker re-placed under a cut steps a frame early (the gait looks ahead past the cut).
 
 ## §3 Shots (story time = video time, no hit-stops)
 

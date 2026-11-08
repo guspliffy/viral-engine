@@ -47,7 +47,7 @@
   "sfx": 0.65,
   "ambience": 0.35,
   "guard": true,
-  "surface": "dirt",
+  "surface": "grass",
   "room": "open",
   "signature": {
    "entrances": false
@@ -202,8 +202,8 @@
    "x": 0.2,
    "y": 0.12,
    "z": -0.15,
-   "h": 0.9,
-   "n": 8,
+   "h": 1.6,
+   "n": 20,
    "on": 0
   },
   {
@@ -229,9 +229,9 @@
    "id": "cookie",
    "kind": "chunkcookie",
    "cut": 1,
-   "x": -1.528,
-   "y": 0.5,
-   "z": 0.382,
+   "x": -1.501,
+   "y": 0.6,
+   "z": 0.389,
    "rot": 30,
    "tip": 70,
    "r": 0.075,
@@ -452,7 +452,7 @@
   },
   {
    "from": 9.65,
-   "to": 10.05,
+   "to": 10.3,
    "text": "Woo-hoo!",
    "pos": 585,
    "pop": false,
@@ -537,9 +537,9 @@
        0.07
       ],
       "at": [
-       -1.528,
-       0.5,
-       0.382
+       -1.501,
+       0.6,
+       0.389
       ]
      },
      "dur": 0,
@@ -1217,9 +1217,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.1,
-       0.45,
-       0.55
+       0.35,
+       0.3,
+       0.5
       ]
      },
      "dur": 0.25,
@@ -1281,8 +1281,8 @@
    "do": [
     {
      "sfx": "flash",
-     "gain": 0.6,
-     "reason": "his phone's camera firing on each selfie",
+     "gain": 0.85,
+     "reason": "his phone's camera firing on each selfie (0.6 was lost on a phone speaker)",
      "at": 0.1
     },
     {
@@ -1330,8 +1330,8 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.6,
-     "reason": "his phone's camera firing on each selfie",
+     "gain": 0.85,
+     "reason": "his phone's camera firing on each selfie (0.6 was lost on a phone speaker)",
      "at": 0.5
     },
     {
@@ -1388,8 +1388,8 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.6,
-     "reason": "his phone's camera firing on each selfie",
+     "gain": 0.85,
+     "reason": "his phone's camera firing on each selfie (0.6 was lost on a phone speaker)",
      "at": 0.9
     },
     {
@@ -1471,7 +1471,7 @@
      "side": "R",
      "pose": {
       "o": [
-       0,
+       0.15,
        0.8,
        0.55
       ]
@@ -1495,8 +1495,8 @@
     },
     {
      "sfx": "flash",
-     "gain": 0.6,
-     "reason": "his phone's camera firing on each selfie",
+     "gain": 0.85,
+     "reason": "his phone's camera firing on each selfie (0.6 was lost on a phone speaker)",
      "at": 0.3
     },
     {
@@ -1808,7 +1808,7 @@
       0.95,
       -0.25
      ],
-     "dur": 0.45,
+     "dur": 0.4,
      "at": 0.3
     },
     {
@@ -1911,7 +1911,13 @@
      "who": "phx",
      "do": "arm",
      "side": "both",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.3,
+       1.05,
+       0.15
+      ]
+     },
      "dur": 0.2,
      "ease": "out",
      "at": 1.6
@@ -2033,6 +2039,21 @@
      "at": 0
     },
     {
+     "fx": "poof",
+     "pos": [
+      0.2,
+      0.2,
+      -0.15
+     ],
+     "dur": 0.6,
+     "color": "#cfc6bd",
+     "puffs": 10,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.5,
+     "at": 0
+    },
+    {
      "sfx": "poof",
      "gain": 0.5,
      "reason": "a puff of smoke from the dead pit",
@@ -2102,6 +2123,22 @@
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.35,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.6,
      "at": 0.2
     },
     {
@@ -2187,13 +2224,6 @@
      "at": 0.3
     },
     {
-     "who": "phx",
-     "do": "turn",
-     "to": -15,
-     "dur": 0.35,
-     "at": 0.35
-    },
-    {
      "who": "dra",
      "do": "still",
      "dur": 1.2,
@@ -2216,6 +2246,13 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.45,
+     "at": 0.6
     },
     {
      "who": "phx",
@@ -2271,17 +2308,10 @@
      "who": "phx",
      "do": "move",
      "to": [
-      1.35,
-      -0.4
+      1.1,
+      -0.45
      ],
      "dur": 0.7,
-     "at": 1.15
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": -25,
-     "dur": 0.5,
      "at": 1.15
     },
     {
@@ -2377,7 +2407,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": -45,
+     "to": -30,
      "dur": 0.3,
      "at": 0.1
     },
@@ -2452,24 +2482,6 @@
      "amount": -0.05,
      "dur": 0.2,
      "at": 0.4
-    },
-    {
-     "fx": "vote",
-     "dur": 3.3,
-     "question": "PART 2: who goes into the jungle for food?",
-     "options": [
-      {
-       "key": "A",
-       "text": "Viking",
-       "who": "vik"
-      },
-      {
-       "key": "B",
-       "text": "Reaper",
-       "who": "rea"
-      }
-     ],
-     "at": 0.65
     }
    ]
   },
@@ -2496,6 +2508,24 @@
      "do": "turn",
      "to": 0,
      "dur": 0.3,
+     "at": 0
+    },
+    {
+     "fx": "vote",
+     "dur": 3.25,
+     "question": "PART 2: who goes into the jungle for food?",
+     "options": [
+      {
+       "key": "A",
+       "text": "Viking",
+       "who": "vik"
+      },
+      {
+       "key": "B",
+       "text": "Reaper",
+       "who": "rea"
+      }
+     ],
      "at": 0
     },
     {
