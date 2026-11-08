@@ -25,7 +25,8 @@ import { clamp } from "./util.js";
 //                                                    tongue drawn out of it); it pinches off as its tail climbs out, and
 //                                                    pours back in where the head goes under. A round leading mass, a
 //                                                    thinner middle, a tapered tail. tail may be keys [[t, s], ...].
-//                                                    splash 10: drops thrown up where the head goes back under }]
+//                                                    splash 10: drops thrown up where the head goes back under;
+//                                                    dropsTo: no drops shed after this time (a loop's lake still by the seam) }]
 //                     The stream keeps its volume: it thickens where it slows and thins and stretches where it speeds
 //                     up, it widens where it leaves the surface (the water pulled up after it), and small waves run
 //                     down its length. Two flat cel tones, a darker rim and a hard white highlight that slides along
@@ -225,7 +226,7 @@ export const WATER_KINDS = {
     // the stream's drops at time t: shed off the tail while it is above the water, then they fall
     const G = 9.8, c0 = new THREE.Vector3(), c1 = new THREE.Vector3();
     function drops(q, k, t, emit, ringOut) {
-      const rib = q.mode === "ribbon", rate = q.drops ?? 12, tail = rib ? tailAt(q, t) : q.tail ?? 0.7, t0 = q.path[0][0], t1 = q.path[q.path.length - 1][0] + tail;
+      const rib = q.mode === "ribbon", rate = q.drops ?? 12, tail = rib ? tailAt(q, t) : q.tail ?? 0.7, t0 = q.path[0][0], t1 = Math.min(q.dropsTo ?? 1e9, q.path[q.path.length - 1][0] + tail);
       const i0 = Math.max(0, Math.floor((t - 1.4 - t0) * rate)), i1 = Math.floor((Math.min(t, t1) - t0) * rate);
       for (let i = i0; i <= i1; i++) {
         const ts = t0 + i / rate, a = t - ts; if (a < 0) continue;
