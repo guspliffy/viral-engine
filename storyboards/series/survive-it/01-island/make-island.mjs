@@ -248,7 +248,7 @@ sfx(10.5, "poof", { gain: 0.5, reason: "a puff of smoke from the dead pit" });
 c.at(10.45, { fx: "poof", pos: [FIRE[0], 0.2, FIRE[1]], dur: 0.6, color: "#cfc6bd", puffs: 10, sparks: 0, size: 0.6, lift: 0.5 });   // the pit puffs grey (review B 3)
 A(10.7, "phx", "land", { to: 0, dur: 0.35 });
 A(11.05, "phx", "turn", { to: -15, dur: 0.45 });   // round to the group once he has landed (a turn during the landing skated his foot): caught
-c.arm(10.75, "phx", "both", "rest", 0.4, "settle");
+c.arm(10.6, "phx", "both", "rest", 0.8, "settle");   // the V sinks slowly as he lands (0.4 s jumped 15 cm a drawing once the anime timing counted from the cut at 10.45)
 A(10.9, "phx", "expr", { expr: "kind", set: { curve: 0.3, eye: 1.15 }, dur: 0.2 });
 act.sheepish(c, 11.2, "phx");
 // he shuffles back to his spot, sheepish
