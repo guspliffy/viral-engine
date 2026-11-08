@@ -1559,8 +1559,8 @@
      "side": "R",
      "pose": {
       "o": [
-       0.04,
-       0.36,
+       0.1,
+       0.5,
        0.3
       ]
      },
@@ -1574,8 +1574,8 @@
      "side": "L",
      "pose": {
       "o": [
-       0.04,
-       0.36,
+       0.1,
+       0.5,
        0.3
       ]
      },
@@ -1593,6 +1593,13 @@
      },
      "dur": 0.12,
      "at": 1.14
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.12,
+     "at": 1.16
     },
     {
      "who": "rea",
@@ -2507,12 +2514,12 @@
    "len": 1.3,
    "shot": {
     "pos": [
-     -0.124,
-     1.278,
-     2.384
+     0.159,
+     1.416,
+     3.024
     ],
     "look": [
-     -0.8,
+     -0.63,
      0.45,
      -1.45
     ],
@@ -3431,6 +3438,13 @@
      "at": 0.02
     },
     {
+     "who": "wiz",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.15,
+     "at": 0.02
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -3449,10 +3463,17 @@
      "at": 0.02
     },
     {
+     "who": "rea",
+     "do": "pitch",
+     "to": -15,
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.07,
+     "amount": 0.05,
+     "dur": 0.1,
      "at": 0.1
     },
     {
@@ -3482,8 +3503,8 @@
     {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.07,
+     "amount": 0.05,
+     "dur": 0.1,
      "at": 0.25
     },
     {
@@ -3590,6 +3611,13 @@
     },
     {
      "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.32,
+     "at": 0.35
+    },
+    {
+     "who": "rea",
      "do": "look",
      "to": [
       -0.8,
@@ -3620,8 +3648,8 @@
     {
      "who": "wiz",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.07,
+     "amount": 0.05,
+     "dur": 0.1,
      "at": 0.4
     },
     {
@@ -3981,7 +4009,7 @@
       0,
       0.95
      ],
-     "in": 0.7,
+     "in": 0.35,
      "spin": [
       2,
       1,
@@ -4109,6 +4137,23 @@
      "mode": "settle",
      "reason": "at rest on the rug: nobody touches it again (Reaper's reach next to it must not knock it)",
      "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.85
     }
    ],
    "kind": "payoff"
@@ -4128,7 +4173,15 @@
      0.95,
      -0.4
     ],
-    "fov": 62
+    "fov": 62,
+    "to": {
+     "pos": [
+      -0.05,
+      1.08,
+      4.16
+     ]
+    },
+    "dur": 1.75
    },
    "do": [
     {
@@ -4209,7 +4262,7 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.55,
+      "open": 0.8,
       "eye": 1.425,
       "curve": -0.075
      },
@@ -4263,9 +4316,9 @@
        -0.065
       ],
       "at": [
-       0.646,
+       0.631,
        0,
-       0.317
+       0.335
       ]
      },
      "dur": 0.25,
@@ -4298,9 +4351,9 @@
        0.085
       ],
       "at": [
-       0.646,
+       0.631,
        0,
-       0.317
+       0.335
       ]
      },
      "dur": 0.25,
@@ -4335,9 +4388,9 @@
       ],
       "palm": true,
       "at": [
-       0.646,
+       0.631,
        0,
-       0.317
+       0.335
       ]
      },
      "dur": 0.15,
@@ -4357,9 +4410,9 @@
       ],
       "palm": true,
       "at": [
-       0.646,
+       0.631,
        0,
-       0.317
+       0.335
       ]
      },
      "dur": 0.15,
@@ -4756,6 +4809,13 @@
     },
     {
      "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.06,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
      "do": "face",
      "lidL": 0.3,
      "dur": 0.04,
@@ -4783,6 +4843,13 @@
     },
     {
      "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.06,
+     "at": 0.43
+    },
+    {
+     "who": "wiz",
      "do": "face",
      "lidL": 0.3,
      "dur": 0.04,
@@ -4806,6 +4873,13 @@
      "do": "face",
      "lidL": 0.85,
      "dur": 0.04,
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.06,
      "at": 0.6
     },
     {
@@ -5184,13 +5258,33 @@
    "reason": "he pulls the coupon in to read it, held by its corner (a 15 fps strip shows it in his mitten)"
   },
   {
+   "who": "wiz",
+   "from": 4.65,
+   "to": 5.15,
+   "checks": [
+    "motion"
+   ],
+   "reason": "the snicker in the wide: his body bounces three times as he laughs into his mitten (review B: bigger, the faces are small here)"
+  },
+  {
+   "who": "rea",
+   "with": "pbox",
+   "from": 7.5,
+   "to": 7.8,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "his fingertips brush the purple present as he reaches past it for his box, with his back to us: behind his robe"
+  },
+  {
    "who": "rea",
    "from": 7.5,
    "to": 8.45,
    "checks": [
     "hand-turn",
     "hand-pop",
-    "prop-pop"
+    "prop-pop",
+    "rig-jump"
    ],
    "reason": "he bends for his black box and lifts it with his back to us: his mittens and the box are behind his robe"
   }

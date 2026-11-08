@@ -71,7 +71,7 @@ const PB_LAND = [-0.1, 0, 0.55];                   // the purple present on the 
 // the black box is aimed in front of Reaper's left, clear of his robe (it turned it on the way) and of the purple
 // present; BB_AT is where the bake really lands it (layout of 8 Nov, physics hash in TRIAL.md) ...
 const BB_LAND = [0.75, 0, 0.85];
-const BB_AT = [0.646, 0, 0.317];                 // (it glances off Reaper's side and stands on its end there)
+const BB_AT = [0.631, 0, 0.335];                 // (it glances off Reaper's side and stands on its end there)
 // ... and Reaper steps round to its front right (his reach then points away from Viking's fur), takes it from there and
 // turns to us with it (panel 7)
 const R3 = [1.041, 0.46], R3_YAW = -110, R3_OUT = -30;
@@ -193,7 +193,9 @@ A(1.18, "rea", "look", { to: [-0.7, 0.0], dur: 0.15, blink: false });
 A(1.1, "gsl", "expr", { expr: "eager", set: { curve: 0.3, open: 0.1 }, dur: 0.12 });
 A(1.1, "gsl", "look", { to: [-0.3, 0.0], dur: 0.1, blink: false });
 // his empty mittens, palms up: nothing
-c.arm(1.14, "gsl", "R", { o: [0.04, 0.36, 0.3] }, 0.14, "out"); c.arm(1.14, "gsl", "L", { o: [0.04, 0.36, 0.3] }, 0.14, "out");
+// (review B: a shrug, mittens up at shoulder height, so the empty hands read over Viking's box in the wide)
+c.arm(1.14, "gsl", "R", { o: [0.1, 0.5, 0.3] }, 0.14, "out"); c.arm(1.14, "gsl", "L", { o: [0.1, 0.5, 0.3] }, 0.14, "out");
+A(1.16, "gsl", "squash", { amount: 0.03, dur: 0.12 });
 A(1.14, "gsl", "grip", { side: "both", shape: "flat", set: { up: 1 }, dur: 0.12 });
 c.arm(1.38, "gsl", "R", "rest", 0.1, "inOut"); c.arm(1.38, "gsl", "L", "rest", 0.1, "inOut"); A(1.38, "gsl", "grip", { side: "both", shape: "relaxed", dur: 0.1 });
 see(0, 1.45, ["wiz.face", "gsl.face", "vik.face", "pbox"], "panel 1: the presents going to Viking, the faces");
@@ -281,7 +283,10 @@ A(3.8, "wiz", "move", { to: W2, dur: 0.4, ease: "inOut", steps: 2 }); A(3.8, "wi
 // the Wizard snickers into his mitten, Reaper rolls his eyes, they glance at each other
 c.arm(V(4.62), "wiz", "L", { o: [-0.22, 0.47, 0.32] }, 0.15, "out"); A(V(4.62), "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.1 });
 A(V(4.62), "wiz", "expr", { expr: "happy", set: { curve: 0.8 }, dur: 0.12 }); A(V(4.62), "wiz", "face", { lid: 0.9, dur: 0.1 });
-for (const t of [4.7, 4.85, 5.0]) A(V(t), "wiz", "squash", { amount: 0.03, dur: 0.07 });
+// (review B: body-size reactions, the faces are small in this wide)
+A(V(4.62), "wiz", "lean", { to: 10, dur: 0.15 });
+for (const t of [4.7, 4.85, 5.0]) A(V(t), "wiz", "squash", { amount: 0.05, dur: 0.1 });
+A(V(4.68), "rea", "pitch", { to: -15, dur: 0.2 }); A(V(4.95), "rea", "pitch", { to: 0, dur: 0.32 });
 A(V(4.62), "rea", "look", { to: [0.0, 0.7], dur: 0.25, blink: false }); A(V(4.62), "rea", "face", { lid: 0.3, dur: 0.2 });
 A(V(4.95), "rea", "look", { to: [-0.8, 0.0], dur: 0.12, blink: false });
 A(V(4.95), "wiz", "face", { lid: 0.2, dur: 0.1 }); A(V(4.95), "wiz", "look", { to: [0.8, 0.0], dur: 0.12, blink: false });
@@ -329,7 +334,8 @@ c.prop(V(5.97), "bbox", { x: 0.78, y: 0.45, z: 0.05 }, 0);
 // (at the cut, from 20 cm in front of where he read it: started inside his fur it was flung up behind the hug)
 A(V(5.985), "vik", "release", { prop: "coupon", keep: "air", reason: "it leaves his mitten as he grabs Gunslinger (physics from the cut)" });
 c.prop(V(5.99), "coupon", { x: READ[0], y: READ[1], z: r3(READ[2] + 0.2) }, 0);
-c.knock(V(5.995), "coupon", { to: [-0.1, 0, 0.95], in: 0.7, spin: [2, 1, 0] });   // onto the open rug in front, beside the purple present
+c.knock(V(5.995), "coupon", { to: [-0.1, 0, 0.95], in: 0.35, spin: [2, 1, 0] });   // (0.35 s, review B: at 0.7 it hung at his chest like a sign)
+   // onto the open rug in front, beside the purple present
 // the black box flies off the top and lands flat at Reaper's feet (aimed, so he can pick it up where it is)
 c.knock(V(6.0), "bbox", { to: BB_LAND, in: 0.5, spin: [0, 0, 0] });
 // the purple one tumbles forward off his arm onto the open rug in front of the hug, where the Wizard can see it (panel 7)
@@ -374,7 +380,9 @@ A(V(7.2), "wiz", "look", { to: [0.5, -0.6], dur: 0.15, blink: false });
 A(V(8.2), "wiz", "move", { to: W3, dur: 0.4, ease: "inOut", steps: 2 });
 A(V(8.55), "wiz", "turn", { to: 10, dur: 0.3 }); A(V(8.6), "wiz", "look", { to: [0.6, 0.35], dur: 0.15, blink: false });
 A(V(8.55), "wiz", "pitch", { to: -14, dur: 0.3 });   // head tipped back to stare up at him: his face clears his own brim
-act.shock(c, V(7.25), "wiz", { open: 0.35, hold: 0.9 });
+// (review B: his mitten off his mouth, or the jaw drop here and the twitch in the wink happen behind it)
+c.arm(V(6.95), "wiz", "L", "rest", 0.3, "inOut"); A(V(6.95), "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+act.shock(c, V(7.25), "wiz", { open: 0.6, hold: 0.9 });
 // Reaper steps in, crouches, takes his black box off the rug in both mittens and holds it safe at his chest, deadpan
 A(V(7.0), "rea", "move", { to: R3, dur: 0.4, ease: "inOut", steps: 2 }); A(V(7.0), "rea", "turn", { to: R3_YAW, dur: 0.3 });
 A(V(7.1), "rea", "look", { to: [0.0, -0.7], dur: 0.15, blink: false });
@@ -397,7 +405,7 @@ see(V(7.4), V(8.7), ["wiz.face", "rea.face", "pbox"], "panel 7: the Wizard's jaw
 // (the shot is a little wider and eye level, so the line sits over the fireplace above his hat: in the close high
 // shot every spot for it was on a face or a body, caption-overlap 60-100 %)
 wink(c, { who: "gsl", t: V(8.8), until: END, line: "next year's on me!", sub: "Next year's on me!", look: [-0.4, -0.25], pos: 476,
-  react: (t) => { for (const [dt, l] of [[0, 0.75], [0.07, 0.3], [0.13, 0.8], [0.2, 0.3], [0.3, 0.85], [0.38, 0.35]]) A(r3(t + dt), "wiz", "face", { lidL: l, dur: 0.04 }); } });
+  react: (t) => { for (const [dt, l] of [[0, 0.75], [0.07, 0.3], [0.13, 0.8], [0.2, 0.3], [0.3, 0.85], [0.38, 0.35]]) A(r3(t + dt), "wiz", "face", { lidL: l, dur: 0.04 }); for (const dt of [0, 0.13, 0.3]) A(r3(t + dt), "wiz", "squash", { amount: 0.02, dur: 0.06 }); } });
 see(V(8.95), END, ["gsl.face", "moth", "wiz.face"], "panel 8: the wink at the Wizard over Viking's shoulder");
 
 act.blinksAt(c, "wiz", [1.6, 3.4]); act.blinksAt(c, "rea", [1.35, 3.6, 5.6]); act.blinksAt(c, "vik", [1.45, 3.2]);
@@ -409,11 +417,11 @@ const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) })
 const WIDE0 = { pos: [0.2, 2.3, 2.9], look: [0.1, 0.5, -0.4], fov: 70 };    // P1: the Wizard to Reaper, Gunslinger clear of the hat
 const WIDE = { pos: [0.05, 2.6, 3.6], look: [0.05, 0.5, -0.4], fov: 62 };   // P5a: the Wizard and Reaper at its edges
 const PATSHOT = fw([r3(G0[0] + 0.27), 0.85, G0[1]], { w: 1.3, az: -10, el: 4, fov: 34 });
-const P3 = fw([r3(CRATE.x - 0.05), 0.45, r3(CRATE.z + 0.05)], { w: 1.2, az: 10, el: 12, fov: 30 });
+const P3 = fw([r3(CRATE.x + 0.12), 0.45, r3(CRATE.z + 0.05)], { w: 1.4, az: 10, el: 12, fov: 30 });   // (review B: Viking's eye at the right edge, as PANELS says)
 const P4 = fw([G2[0], 0.45, G2[1]], { w: 0.9, az: 30, el: 3, fov: 30 });
 const P5 = fw([r3(V0[0] - 0.08), 0.95, V0[1]], { w: 1.2, az: 10, el: 6, fov: 30 });   // (Viking low enough for his line above his hair)
 const P6 = fw([r3((HUG_AT[0] + VH[0]) / 2), 0.55, r3((HUG_AT[1] + VH[1]) / 2)], { w: 2.0, az: 25, el: 2, fov: 32 });   // low: his feet dangle
-const P7 = { pos: [-0.05, 1.1, 4.4], look: [-0.05, 0.95, -0.4], fov: 62 };
+const P7 = { pos: [-0.05, 1.1, 4.4], look: [-0.05, 0.95, -0.4], fov: 62, to: { pos: [-0.05, 1.08, 4.16] }, dur: 1.75 };   // (the brief's slow 5 % push during the hug)
 const P8 = fw([GEND[0], 1.05, GEND[1]], { w: 2.0, az: -25, el: 14, fov: 30 });
 const beats = c.beats([
   ["P1 pay up", 0, WIDE0, "hook"],
@@ -476,7 +484,9 @@ write(import.meta.url, {
     { who: "gsl", from: 4.95, to: 5.1, checks: ["prop-pop"], reason: "Viking takes the coupon from him in the wide: it leaves his fingers" },
     { who: "vik", from: 5.0, to: 5.25, checks: ["hand-turn", "prop-pop", "grip-gap"], reason: "in the wide he shifts both presents onto his left arm to take the coupon: his right mitten turns over under the boxes, a few pixels at this size; on the cut to his close-up the black box sits on the purple one, off his glove" },
     { who: "vik", from: 5.43, to: 5.5, checks: ["prop-pop"], reason: "he pulls the coupon in to read it, held by its corner (a 15 fps strip shows it in his mitten)" },
-    { who: "rea", from: 7.5, to: 8.45, checks: ["hand-turn", "hand-pop", "prop-pop"], reason: "he bends for his black box and lifts it with his back to us: his mittens and the box are behind his robe" },
+    { who: "wiz", from: 4.65, to: 5.15, checks: ["motion"], reason: "the snicker in the wide: his body bounces three times as he laughs into his mitten (review B: bigger, the faces are small here)" },
+    { who: "rea", with: "pbox", from: 7.5, to: 7.8, checks: ["hand-in-prop"], reason: "his fingertips brush the purple present as he reaches past it for his box, with his back to us: behind his robe" },
+    { who: "rea", from: 7.5, to: 8.45, checks: ["hand-turn", "hand-pop", "prop-pop", "rig-jump"], reason: "he bends for his black box and lifts it with his back to us: his mittens and the box are behind his robe" },
   ],
   notes: "Generated by storyboards/series/never-has-money/04-your-birthday/make-your-birthday.mjs. Panels: PANELS.md.",
 });
