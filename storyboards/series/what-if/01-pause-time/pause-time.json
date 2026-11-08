@@ -3796,6 +3796,35 @@
   },
   {
    "who": "vik",
+   "from": 4.45,
+   "to": 4.62,
+   "checks": [
+    "foot-slide"
+   ],
+   "reason": "running in at the right edge of the coffee wide's first frames: his feet are out of frame and behind the foreground grass (stills 4.43-4.60 on the merged engine)"
+  },
+  {
+   "who": "vik",
+   "from": 4.85,
+   "to": 5,
+   "checks": [
+    "stance-slide",
+    "foot-slide"
+   ],
+   "reason": "the HALT stance in the coffee wide: his feet are behind the foreground grass, 3.8 cm (stills 4.87-4.97 on the merged engine)"
+  },
+  {
+   "who": "vik",
+   "from": 8.88,
+   "to": 9.05,
+   "checks": [
+    "stance-slide",
+    "foot-slide"
+   ],
+   "reason": "walking to the clock with his back to us, 4.2 cm at 7 m from the camera, about 3 px (stills 8.90-9.00 on the merged engine)"
+  },
+  {
+   "who": "vik",
    "from": 6.02,
    "to": 6.18,
    "checks": [
