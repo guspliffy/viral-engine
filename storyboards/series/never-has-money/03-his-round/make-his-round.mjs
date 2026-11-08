@@ -41,7 +41,8 @@ const SAM0 = [1.6, 0.74], SAM1 = [0.1, 0.74];      // the Samurai: polishing at 
 const RS = 2.5;                                  // the reader's prop scale: 84.00 has to read in the 360 px frame
 const R0 = [-0.02, 0.02], R1 = [-0.45, 0.02];   // where the reader lies on the bar, and where it stops
 const CNT_Z = 5.3, CNT_H = 0.8;                   // the foreground back counter: top about a third up the wide frame
-const CT = [["ctA", -0.32, 0.2], ["ctB", -0.23, 0], ["ctC", 0.25, 0.3], ["ctD", 0.33, 0]];   // its tumblers, off the centre where the subtitle sits (the wide sees only x -0.37..0.37 at the counter)
+const CT = [["ctA", -0.32, 0], ["ctB", -0.23, 0], ["ctC", 0.25, 0], ["ctD", 0.33, 0]];   // all empty: the night's empties (review B 5)
+// (was: two half full)   // its tumblers, off the centre where the subtitle sits (the wide sees only x -0.37..0.37 at the counter)
 const SAM0_YAW = -60, SAM1_YAW = -70;
 const DOOR = [-1.6, -1.35];                      // the toilet door in its partition (the partition runs x -2.4 .. -1.1)
 const BEHIND = [-1.6, -1.8];                     // Gunslinger inside the toilet, behind the partition
@@ -138,7 +139,7 @@ look(0, "sam", [-0.2, -0.55], 0);
   sfx(0, "tink", { gain: 0.5, reason: "the third empty tumbler set down on the bar at frame 0" });
   w.release(0.05, { rest: false });
   c.arm(0.05, "wiz", "R", { o: [0.12, 0.4, 0.7] }, 0.3, "inOut");   // a low, forward path: the palm stays on one side through the point
-  c.arm(0.35, "wiz", "R", { o: [0.2, 0.55, 0.78] }, 0.2, "inOut"); A(0.2, "wiz", "grip", { side: "R", shape: "point", dur: 0.25 });
+  c.arm(0.35, "wiz", "R", { o: [0.2, 0.85, 0.78] }, 0.2, "inOut");   // high: the glove reads on the green wall, not on the Reaper's robe (review B 6) A(0.2, "wiz", "grip", { side: "R", shape: "point", dur: 0.25 });
 }
 look(0, "wiz", [-0.6, 0.0], 0);
 c.say(0.05, "wiz", "your round!", 0.85, "excited", { voice: false, sub: "Your round!", pos: SUB_LOW });
@@ -234,7 +235,10 @@ c.arm(V(4.21), "rea", "R", "rest", 0.2, "inOut"); c.arm(V(4.16), "wiz", "L", "re
 // the tiptoe (about 1.4-1.6 m/s): Reaper first, deeper; the Wizard behind the stool line, a finger to his lips
 look(V(4.05), "rea", [-0.75, 0.1], 0.15); look(V(3.98), "wiz", [-0.75, 0.1], 0.15);   // a look back over the shoulder at the toilet door, faces to us
 A(V(3.95), "rea", "turn", { to: 40, dur: 0.25 }); A(V(3.98), "wiz", "turn", { to: 40, dur: 0.25 });
-A(V(3.95), "rea", "move", { to: [1.55, RZ], dur: 1.2, steps: 5, stride: 0.7 });
+// two legs: straight back into the deep lane first (a diagonal would bring him up beside the Wizard), then right,
+// off frame before he hides at 5.15 (review B 1)
+A(V(3.95), "rea", "move", { to: [0.35, -1.85], dur: 0.4, steps: 2, stride: 0.7 });
+A(V(4.35), "rea", "move", { to: [2.6, -1.85], dur: 0.8, steps: 4, stride: 0.7 });
 A(V(3.98), "wiz", "move", { to: [EXIT_X, WZ], dur: 0.9, steps: 5, stride: 0.7 });
 c.arm(V(4.22), "wiz", "R", { o: [-0.3, 0.72, 0.36] }, 0.3, "inOut"); A(V(4.3), "wiz", "grip", { side: "R", shape: "point", dur: 0.12 });   // a finger to his lips, eased in
 for (const tv of [4.5, 4.68, 4.86]) sfx(V(tv), "step-wood", { gain: 0.1, reason: "a soft tiptoe" });
@@ -264,17 +268,19 @@ c.arm(V(5.45), "gsl", "L", { o: [0.18, 0.55, 0.18] }, 0.2, "out");   // a hand o
 // the stroll to behind-left of his stool, and the climb
 A(V(5.8), "gsl", "move", { to: [-1.55, -0.9], dur: 0.3, steps: 2, ease: "inOut" }); A(V(5.8), "gsl", "turn", { to: 80, dur: 0.3 });
 c.arm(V(5.85), "gsl", "L", "rest", 0.2, "inOut");
-A(V(6.1), "gsl", "move", { to: [-0.8, -0.95], dur: 0.2, steps: 3, ease: "inOut" });
-A(V(6.3), "gsl", "sit", { seat: "stG", dur: 0.25, hands: "keep", height: SEAT, feet: [0.38, 0.1] });
-c.arm(V(6.35), "gsl", "L", TABLE("L"), 0.25, "inOut");
-sfx(V(6.32), "sit", { gain: 0.4, reason: "he climbs back on his stool" });
-sfx(V(6.4), "ai-package/flat-exhale", { gain: 0.25, reason: "a happy sigh as he sits" });
-A(V(6.35), "gsl", "expr", { expr: "happy", set: { curve: 0.7, open: 0.1 }, dur: 0.2 }); look(V(6.35), "gsl", [0.0, -0.1], 0.1);
+A(V(6.0), "gsl", "move", { to: [-0.8, -0.95], dur: 0.2, steps: 3, ease: "inOut" });   // sooner, so the cut at 6.0 has him walking in (review B 2)
+A(V(6.2), "gsl", "sit", { seat: "stG", dur: 0.25, hands: "keep", height: SEAT, feet: [0.38, 0.1] });
+c.arm(V(6.25), "gsl", "L", TABLE("L"), 0.25, "inOut");
+sfx(V(6.22), "sit", { gain: 0.4, reason: "he climbs back on his stool" });
+sfx(V(6.3), "ai-package/flat-exhale", { gain: 0.25, reason: "a happy sigh as he sits" });
+A(V(6.25), "gsl", "expr", { expr: "happy", set: { curve: 0.7, open: 0.1 }, dur: 0.2 }); look(V(6.25), "gsl", [0.0, -0.1], 0.1);
 c.prop(V(6.1), "toilet", { open: 0 }, 0.2, "inOut");
 // the Samurai sets the polished tumbler down and walks to the reader's end of the bar (5.3 - 6.4)
 tsH.place(V(5.05), [1.45, BAR_H, 0.06], 0.45); tsH.release(V(5.6), { rest: "rest", back: 0.2 });
-A(V(5.9), "sam", "move", { to: SAM1, dur: 0.7, steps: 3, ease: "inOut" }); A(V(5.9), "sam", "turn", { to: SAM1_YAW, dur: 0.5 });
-look(V(5.95), "sam", [-0.45, 0.05], 0.2);
+A(V(5.75), "sam", "move", { to: SAM1, dur: 0.7, steps: 3, ease: "inOut" }); A(V(5.75), "sam", "turn", { to: SAM1_YAW, dur: 0.5 });   // sooner (review B 2)
+look(V(5.8), "sam", [-0.45, 0.05], 0.2);
+// the Reaper's empty glass is off the bar in the two-shot: the reader lies (and slides) where it stood (cut, unseen)
+c.at(V(5.95), { do: "prop", id: "tumR", set: { scale: 0.001 }, dur: 0.01, ease: "linear", reason: "cleared off the bar before the two-shot (cut at 6.0): the reader lies and slides where it stood" });
 // Gunslinger takes the lemonade and sips, eyes shut
 const GL = grips.mug(c, "gsl", proxy(TUM.G), { side: "R", height: 0.66, angle: 105 });
 {
@@ -355,7 +361,7 @@ see(V(9.4), END, ["sam.face", "reader"], "panel 8: the last frame: the Samurai's
 
 // blinks off the lines and the key looks (the Samurai doesn't blink after 3 s)
 act.blinksAt(c, "wiz", [1.4, 3.3]); act.blinksAt(c, "rea", [1.3, 3.1]); act.blinksAt(c, "gsl", [0.6, 1.9, V(5.3)]);
-act.blinksAt(c, "sam", [1.2, 3.0]); act.blinksAt(c, "wizO", [V(7.8)]); act.blinksAt(c, "reaO", [V(8.0)]);
+act.blinksAt(c, "sam", []);   // never blinks (brief; review B 4) act.blinksAt(c, "wizO", [V(7.8)]); act.blinksAt(c, "reaO", [V(8.0)]);
 
 // ---------------------------------------------------------------- shots (Jonny's panels)
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
@@ -371,13 +377,13 @@ const CLOSE = fw([-0.4, 1.1, 0.0], { w: 2.4, az: -14, el: 8, fov: 30 });
 // the push-in on the reader, 7.0-7.5 (video), ending on the hit-stop: fov 30 -> 24, look toward the reader
 const PUSH = { ...CLOSE, to: { look: [-0.5, 1.05, -0.05], fov: 22 }, dur: r3(V(7.5) - V(7.0)), ease: "inOut" };
 // the counter shows in the wides only (0-1.5 and 3.5-5.45): it is out of the way of every other camera
-for (const [t, k] of [[PAT.from, 0.001], [3.51, 1], [V(5.45), 0.001]]) for (const id of ["counter", ...CT.map((q) => q[0])]) c.at(t, { do: "prop", id, set: { scale: k }, dur: 0.01, ease: "linear", reason: k === 1 ? "the back counter is in the wide again" : "the back counter is out of this shot (cut)" });
+for (const [t, k] of [[PAT.from, 0.001], [3.51, 1], [V(5.2), 0.001]]) for (const id of ["counter", ...CT.map((q) => q[0])]) c.at(t, { do: "prop", id, set: { scale: k }, dur: 0.01, ease: "linear", reason: k === 1 ? "the back counter is in the wide again" : "the back counter is out of this shot (cut)" });
 const beats = c.beats([
   ["P1 pay up", 0, WIDE, "hook"],
-  ["P2 the pocket pat", PAT.from, PATSHOT],
+  ["P2 the pocket pat", PAT.from, { ...PATSHOT, to: { look: [-0.66, 1.1, -0.7], fov: 25 }, dur: r3(2.8 - PAT.from), ease: "inOut" }],   // push in on the wallet and the moth (review B 3)
   ["P3 the door", 2.8, DOORSHOT],
   ["P4 the exit", 3.51, WIDE],
-  ["P5 the peek", V(5.45), DOORSHOT],
+  ["P5 the peek", V(5.2), DOORSHOT],   // on the lamp going green (review B 1: brief panel 5 from 5.2)
   ["P6 the sip", V(6.0), CLOSE],
   ["P7-8 the bill and the wink", V(7.0), PUSH, "payoff"],
 ], END);
