@@ -38,7 +38,7 @@ const front = ([x, z], yaw, f, s, y) => { const a = rad(yaw); return [r3(x + f *
 // at its edges, as panel 1 does. Gunslinger stays at Viking's right (screen left) all clip, so the hug is the panels'
 // hug mirrored (PANELS.md, departures). The crate stands behind Gunslinger's right from frame 0; the cake table front
 // left.
-const V0 = [0.3, -0.35], V_YAW = -75;             // Viking, facing the Wizard, the present in his arms
+const V0 = [0.3, -0.35], V_YAW = -55;             // Viking, 3/4 to us toward the Wizard (his face reads at frame 0), the present in his arms
 const V_TO_R = 54;                                // ... turning to Reaper and holding it out to him for the black box
 const V_FRONT = 0;                                // ... and beaming at both
 const W0 = [-0.75, 0.05], W_YAW = 75;             // the Wizard at the present's front left, palms pushing it in ...
