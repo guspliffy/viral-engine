@@ -272,7 +272,14 @@ A(4.92, "fb", "expr", { expr: "shocked", set: { open: 0.45, eye: 1.45 }, dur: 0.
 fryArms(4.95, "fb", [0.12, 0.62, 0.1], "open", 0.15);
 // grabbed: terrified, Nooo!
 A(GRAB, "fb", "expr", { expr: "terrified", set: { open: 0.85, eye: 1.55 }, dur: 0.08 });
-c.textPop(r3(GRAB + 0.03), "fb", "Nooo!", { dur: 0.5, size: 82, xy: [250, 1000], angle: -6, color: "speaker" });
+c.textPop(r3(GRAB + 0.03), "fb", "Nooo!", { dur: 0.53, size: 82, xy: [250, 1000], angle: -6, color: "speaker" });
+// Jonny 8 Nov: "make the eaten potato scream a bit in a high gibberish voice": a squeaky scream written syllable by
+// syllable (a pattern: semitones over the fry's voice, 160 Hz, so +15 to +24 is a squeal around 400-640 Hz), rising
+// as it is lifted, and one last "eek!" as it goes into his mouth. Each is captioned by its word pop
+c.say(r3(GRAB + 0.02), "fb", "nooo!", 0.54, "excited", { voice: false, sub: false, gain: 1.2, pattern: [
+  { c: "n", v: "o", d: 0.22, st: 15, glide: 5, gap: 0.03 }, { v: "o", d: 0.12, st: 19, glide: -2, gap: 0.02 }, { v: "i", d: 0.12, st: 21, glide: 3, gap: 0.03 }] });
+c.say(5.95, "fb", "eek!", 0.12, "excited", { voice: false, sub: false, gain: 1.2, pattern: [{ v: "i", d: 0.11, st: 24, glide: 4 }] });
+c.textPop(5.95, "fb", "Eek!", { dur: 0.25, size: 70, xy: [640, 1120], angle: 6, color: "speaker" });
 sfx(r3(GRAB + 0.08), "ai/drip", { gain: 0.6, reason: "Viking pulls the fry up out of the ketchup pot: a wet drip" });
 c.prop(r3(GRAB + 0.06), "ket", { splash: 1 }, 0.3, "out");
 carry([[GRAB, FB0, 0], [UP, FB_UP, 0, "in"], [BESIDE, FB_SIDE, 0, "out"]]);

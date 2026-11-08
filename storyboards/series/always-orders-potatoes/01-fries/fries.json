@@ -3362,6 +3362,41 @@
      "at": 1.983
     },
     {
+     "who": "fb",
+     "do": "talk",
+     "line": "nooo!",
+     "tone": "excited",
+     "dur": 0.54,
+     "blink": false,
+     "voice": false,
+     "gain": 1.2,
+     "pattern": [
+      {
+       "c": "n",
+       "v": "o",
+       "d": 0.22,
+       "st": 15,
+       "glide": 5,
+       "gap": 0.03
+      },
+      {
+       "v": "o",
+       "d": 0.12,
+       "st": 19,
+       "glide": -2,
+       "gap": 0.02
+      },
+      {
+       "v": "i",
+       "d": 0.12,
+       "st": 21,
+       "glide": 3,
+       "gap": 0.03
+      }
+     ],
+     "at": 1.99
+    },
+    {
      "who": "fa",
      "do": "look",
      "to": [
@@ -3387,7 +3422,7 @@
      "fx": "pop",
      "text": "Nooo!",
      "who": "fb",
-     "dur": 0.5,
+     "dur": 0.53,
      "size": 82,
      "xy": [
       250,
@@ -4698,6 +4733,39 @@
      "dur": 0.066,
      "ease": "linear",
      "at": 0.147
+    },
+    {
+     "who": "fb",
+     "do": "talk",
+     "line": "eek!",
+     "tone": "excited",
+     "dur": 0.12,
+     "blink": false,
+     "voice": false,
+     "gain": 1.2,
+     "pattern": [
+      {
+       "v": "i",
+       "d": 0.11,
+       "st": 24,
+       "glide": 4
+      }
+     ],
+     "at": 0.15
+    },
+    {
+     "fx": "pop",
+     "text": "Eek!",
+     "who": "fb",
+     "dur": 0.25,
+     "size": 70,
+     "xy": [
+      640,
+      1120
+     ],
+     "angle": 6,
+     "color": "speaker",
+     "at": 0.15
     },
     {
      "who": "gsl",
