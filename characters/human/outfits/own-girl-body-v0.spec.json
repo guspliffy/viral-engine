@@ -1,0 +1,12 @@
+{
+ "name": "first-girl body v0",
+ "body": {
+  "gender": 0.0,
+  "age": 0.5,
+  "muscle": 0.45,
+  "weight": 0.4,
+  "proportions": 0.8
+ },
+ "skin": "#f6d2b0",
+ "stature": 1.65
+}

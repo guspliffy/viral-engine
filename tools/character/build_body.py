@@ -28,6 +28,19 @@ for o in list(bpy.data.objects): bpy.data.objects.remove(o)
 body = HumanService.create_human(scale=0.1)
 for k, v in spec.get("body", {}).items(): HOP.set_value(k, v, entity_reference=body)
 TS.reapply_macro_details(body)
+
+def stature():
+    dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); me = ev.to_mesh()
+    zs = [(body.matrix_world @ v.co).z for v in me.vertices]; ev.to_mesh_clear(); return max(zs) - min(zs)
+# "stature" (metres): the height macro searched until the body stands that tall (the macro's own scale depends on
+# gender and age, and 0.49-0.51 is a dead band)
+if spec.get("stature"):
+    lo, hi = 0.0, 1.0
+    for _ in range(14):
+        mid = (lo + hi) / 2; HOP.set_value("height", mid, entity_reference=body); TS.reapply_macro_details(body)
+        if stature() < spec["stature"]: lo = mid
+        else: hi = mid
+    print("height macro", round(mid, 4), "stature", round(stature(), 3))
 rig = HumanService.add_builtin_rig(body, "game_engine")
 
 # bake the morphs and drop the helper geometry: shape keys mixed into the mesh, the "Hide helpers" mask applied
