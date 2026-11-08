@@ -1024,7 +1024,23 @@ function clipping() {
     b.a.ch.root.updateMatrixWorld(true);
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
-      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine
+      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine.
+      // Into its own holder is measured apart ("self", 7 Nov 2026: the coffee cup in the eyes and under the hat
+      // brim on a sip, 7 Nov 2026, was caught only by eye): how deep, and at which height of the body it goes in
+      // (zone: the body's height from its feet, 0..1; a sip belongs at the mouth, about 0.3-0.5 of a potato)
+      // Only what a hand holds: a pile of popcorn on a head or a kernel on a hood is held by "hat" / "tip" on purpose
+      if (p.held && p.holder === b.id && p.root.visible && !(p.holdHand === "R" || p.holdHand === "L" || p.holdHand === "both")) continue;
+      if (p.held && p.holder === b.id && p.root.visible) {
+        let worst = 0, wo = null;
+        p.root.updateMatrixWorld(true);
+        p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) { const d = depthIn(b, o); if (d > worst) { worst = d; wo = o; } } });
+        if (worst > 0.03 && wo) {
+          const eb = b.mesh.geometry.boundingBox, pc = new THREE.Box3().setFromObject(wo).getCenter(new THREE.Vector3());
+          const lo = new THREE.Vector3(0, eb.min.y, 0).applyMatrix4(b.mesh.matrixWorld).y, hi = new THREE.Vector3(0, eb.max.y, 0).applyMatrix4(b.mesh.matrixWorld).y;
+          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - lo) / Math.max(1e-3, hi - lo)) * 100) / 100 });
+        }
+        continue;
+      }
       if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
       let worst = 0;
       p.root.updateMatrixWorld(true);

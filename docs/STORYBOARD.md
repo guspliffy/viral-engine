@@ -340,6 +340,16 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   strength come from its `env.json`. The camera must stay inside the painting: `engine/load.mjs` refuses a storyboard
   that shows a layer's edge, `node qa/env.mjs <sb>` lists the frames and `node qa/env.mjs --range <env>` the safe moves.
   Place the cast on the floor's painted ground (brown in the env's `review.png`), not behind a bank.
+- **A living world** (`"set": { ..., "life": "auto" }`, on in the clip template; Jonny 7 Nov 2026): on an env set the
+  wind runs through the grass and trees in gusts you also hear, the sky drifts and cloud shadows cross the far hills,
+  a few sparrows peck on the ground far behind the cast and fly off at the clip's big loud moment (the payoff's
+  shout or crash, else the first crash, else the first shout after 1.5 s; birds that flee stay gone), and butterflies
+  work the grass by day. Night has no birds or song, dusk a quieter song, a rainy place light rain, water no birds.
+  `"life": "storm"` is the same place on a stormy day (hard gusts bending the trees, rain, flying leaves, grey racing
+  sky, the `"grade": "storm"` picture). `{ "auto": true, ... }` fills in the same and lets any field win (`song`,
+  `birds`, `startle`, `wind`, `clouds`, `bend`, `rain`: engine/shared/life.js). Background life stays in the
+  background: never put birds or insects in front of the cast. About 5 % more drawing time per frame. A plain or room
+  set ignores it for now. Engine tests: storyboards/env/make-living-meadow.mjs, make-life-auto-tests.mjs.
 - After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
   from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the

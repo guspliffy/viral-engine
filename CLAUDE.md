@@ -61,7 +61,13 @@ game-puppet renderer is archived, see `puppet/README.md`) and anything added lat
   so never fade a glow to pass a check.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
-- **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent.
+- **A held prop stays out of its holder's own face** (`prop-in-self`, warns, 7 Nov 2026): a cup, note or spoon more than
+  5 cm into its own holder's face at eye height for 0.2 s (the coffee run's Wizard cup over his eye at 9.3-10.6 s), or
+  25 cm into the body anywhere. Lips on a cup don't waive it: only a window naming `"prop-in-self"` does.
+- **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent. Every spoken line
+  stands 6 dB or more over the music and effects in the band a phone plays (`phone-line`, under 3 dB warns), and the
+  loop seam doesn't click (`loop-seam-sound`: render.mjs fades in 3 ms and out 20 ms since 7 Nov). `node qa/lines.mjs
+  <sb> [--clip <mp4> --hear]` in seconds; `--hear` runs Whisper on the phone-filtered file for real-speech lines.
   Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny.
 
 **Publishing: the platforms' published requirements, per profile** (`"profile"` in the storyboard or `--profile`;
@@ -257,6 +263,12 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
   movement study: https://claude.ai/artifact/Sd9NtkpDDtfJ5GTmiuYjZE). Show Jonny a side by side (old | new) with a
   close-up that follows the character, at normal and half speed, before it becomes a default.
 
+- **Living worlds** (Jonny, 7 Nov 2026: "apply it to all future videos and backgrounds"): new clips on a painted
+  outdoor set have `"life": "auto"` (the template): wind in the grass and trees, drifting clouds and their shadows, a
+  few birds far behind the cast that fly off at the big loud moment, and the bed follows the same wind. Background
+  action stays in the background (Jonny 7 Nov: never birds in front of the cast). `"life": "storm"` for a stormy day.
+  docs/STORYBOARD.md "A living world".
+
 - **Copy nature for scenery too** (Jonny, 31 Oct 2026). Before building trees, branches, rocks, water or any other
   part of a set, write down how it is in nature (spacing, sizes and ages, growth direction, what is dead or broken,
   where it clumps) and build from that: groups and gaps, many small and few big, nothing in a rhythm or alternating.
@@ -272,6 +284,8 @@ speaker's colour) and its builder has `textPop` for a comic word beside a head; 
    every grab, release, raise and contact. `node qa/readability.mjs <sb>` (about a minute) warns when a character
    melts into the set or into another character at a beat, and draws each beat as a frame with the lost outline in
    red above all characters as black silhouettes: a pose that doesn't read in black won't read in a feed.
+   `node qa/colour.mjs <sb>` (about 35 s) warns when a beat's light turns a character's own colours into others
+   (Delta E 2000 against the character file, per beat).
 2. **Creative director review A (storyboard)**: Fable reviews the storyboard, a contact sheet of the draft stills and
    the readability sheet.
    See `qa/REVIEW.md`. **Default for every new clip**, one round. Give it Jonny's brief: the brief wins, and

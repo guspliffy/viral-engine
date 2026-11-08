@@ -202,8 +202,15 @@ async function mux(video, wav, outFile, from, len) {
   // lands more than 0.5 LU under the target, the gain goes up by the shortfall (at most 6 dB in all) and it is redone
   let ceiling = LOUDNESS.TP - 0.6, tp = null, lufs = null;
   const gain0 = gain;
+  // the loop seam (look-2d-layer-01, 7 Nov 2026): TikTok and Reels loop a clip, and a sound that starts or ends on a
+  // loud sample clicks at every restart (the cinema clip's first sample sat at -11 dBFS). A 3 ms fade-in (far shorter
+  // than any hit's attack, so the sound still starts at 0.0) and a 20 ms fade-out meet at zero; qa/lines.mjs loopSeam
+  // measures the file
+  const vlen = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", video], { encoding: "utf8" }).stdout.trim());
+  const end = Math.min(len ?? Infinity, Number.isFinite(vlen) && vlen > 0 ? vlen : Infinity);
+  const seam = `afade=t=in:d=0.003${Number.isFinite(end) && end > 0.1 ? `,afade=t=out:st=${(end - 0.02).toFixed(4)}:d=0.02` : ""}`;
   for (let round = 0; round < 6; round++) {
-    const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${Math.pow(10, ceiling / 20).toFixed(4)}:attack=2:release=60:level=0,aresample=44100`;
+    const af = `aresample=176400,volume=${gain.toFixed(2)}dB,alimiter=limit=${Math.pow(10, ceiling / 20).toFixed(4)}:attack=2:release=60:level=0,aresample=44100,${seam}`;
     await ffmpeg(["-y", "-loglevel", "error", "-i", video, ...cut, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", af, "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", outFile]);
     const e = await ffmpeg(["-hide_banner", "-nostats", "-i", outFile, "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"]);
     const sum = e.slice(e.lastIndexOf("Summary:"));
