@@ -136,7 +136,7 @@
    "id": "phx",
    "character": "duo/phoenix",
    "at": [
-    -0.1,
+    -0.35,
     -2
    ],
    "face": "camera",
@@ -149,8 +149,8 @@
    "id": "rea",
    "character": "never-has-money/reaper",
    "at": [
-    0.85,
-    -2.3
+    0.95,
+    -2.4
    ],
    "face": "camera",
    "expr": "deadpan",
@@ -186,7 +186,7 @@
      0.75,
      -1.6
     ],
-    "fov": 40
+    "fov": 46
    },
    "do": [
     {
@@ -217,7 +217,7 @@
      "who": "rea",
      "do": "look",
      "to": [
-      -0.6,
+      -0.35,
       0.1
      ],
      "dur": 0.6,
