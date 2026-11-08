@@ -11,21 +11,30 @@
 //                    "idle": 3,         frames each drawing holds between moves (breathing, sway)
 //                    "push": 1.8,       how hard the move front-loads (1: as eased; 1.8: ~71 % of the way at half time)
 //                    "long": 1.2,       actions longer than this (walks, slow turns) aren't snapped, only stepped on 2s
-//                    "skip": [...] }    actions that don't make a key (default: still, noblink, talk, voice, blink)
+//                    "skip": [...],     actions that don't make a key (default: still, noblink, talk, voice, blink)
+//                    "travel": [...],   moves the feet step through (move, turn, walk, run ...): never snapped, whatever their
+//                                       length, only stepped on 2s, so the planted feet keep their stride
+//                                       (a front-loaded walk skates: the template Wizard's 0.45 s move, 8 Nov),
+//                    "lead": 0.3,       from this long before such a move (its first steps start early)
+//                    "settle": 0.15 }   until this long after it
 // Everything is a function of (who, t), so renders and shards stay repeatable.
 const SKIP = ["still", "noblink", "talk", "voice", "blink", "idle", "mood"];
+const TRAVEL = ["move", "turn", "walk", "run", "dash", "shuffle", "step", "dance", "ride", "fly", "follow", "wander", "chase", "flee"];
 export function animeTimingSpec(o) {
   if (!o) return null;
-  return { fast: 0.2, slow: 0.9, idle: 3, push: 1.8, long: 1.2, skip: SKIP, ...(o === true ? {} : o) };
+  return { fast: 0.2, slow: 0.9, idle: 3, push: 1.8, long: 1.2, lead: 0.3, settle: 0.15, skip: SKIP, travel: TRAVEL, ...(o === true ? {} : o) };
 }
 export function makeAnimeTiming(o, actions = [], fps = 30) {
   const S = animeTimingSpec(o);
   if (!S) return null;
-  const skip = new Set(S.skip), f = 1 / fps, per = new Map();
+  const skip = new Set(S.skip), travel = new Set(S.travel), f = 1 / fps, per = new Map();
   for (const a of actions) {
     if (!a.who || !(a.dur > 0) || skip.has(a.do)) continue;
     const L = per.get(a.who) || per.set(a.who, { keys: [], long: [] }).get(a.who);
-    (a.dur > S.long ? L.long : L.keys).push([a.at, a.at + a.dur]);
+    // a move the feet step through starts its steps a little early (the gait's lead-in) and settles after: the window
+    // that stays on plain 2s covers both
+    if (travel.has(a.do)) L.long.push([Math.max(0, a.at - S.lead), a.at + a.dur + S.settle]);
+    else (a.dur > S.long ? L.long : L.keys).push([a.at, a.at + a.dur]);
   }
   // overlapping or touching moves (less than 2 frames apart) make one key-to-key segment
   for (const L of per.values()) {
@@ -38,17 +47,18 @@ export function makeAnimeTiming(o, actions = [], fps = 30) {
   const timing = (who, t) => {
     const L = per.get(who);
     if (!L) return step(t, 0, S.idle);
+    // travelling through the room: on 2s from the move's start, never snapped (a key over it waits for the feet)
+    const walk = L.long.find(([a, b]) => t >= a - 1e-6 && t < b);
+    if (walk) return step(t, walk[0], 2);
     for (const [a, b] of L.segs) {
       if (t < a - 1e-6 || t >= b - 1e-6) continue;
       const d = b - a, n = d <= S.fast ? 1 : d >= S.slow ? 3 : 2;
       const p = Math.min(1, (step(t, a, n) - a) / d);
       return a + d * (1 - Math.pow(1 - p, S.push));
     }
-    // between moves: the drawing holds, stepping from the end of the last move (on 2s under a long action, a walk)
+    // between moves: the drawing holds, stepping from the end of the last move
     let from = 0;
     for (const [, b] of L.segs) if (b <= t + 1e-6) from = Math.max(from, b);
-    const walk = L.long.find(([a, b]) => t >= a - 1e-6 && t < b);
-    if (walk) return step(t, Math.max(from, walk[0]), 2);
     return step(t, from, S.idle);
   };
   timing.spec = S;

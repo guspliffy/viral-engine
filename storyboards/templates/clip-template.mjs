@@ -63,6 +63,13 @@ const HATCH = { boil: 0.25 };
 // (engine/shared/life-auto.mjs). Background life stays in the background. "storm": the same place on a stormy day.
 // An indoor or plain set ignores it (this example's living room). false: a still painting
 const LIFE = "auto";
+// the anime look (Jonny, 8 Nov, PR #168 "both: shadows + snap timing"; research/anime-look-2026-11-07): CEL draws one
+// hard shadow shape on every character and prop instead of a soft roll (the clean-egg curve on potato skin, flat tones,
+// the pencil hatching kept in the shade; set "cel", docs/STORYBOARD.md "Anime look 01"); ANIME_TIMING snaps the
+// characters into each key pose and holds it while the camera, set and effects stay on every frame, no motion blur
+// ("animeTiming"). null / false: as before
+const CEL = { at: 0.25 };
+const ANIME_TIMING = true;
 // FORCE on a hit: act.windUp(c, t, who) before the big move, act.impact(c, t, victim) on the contact frame (two
 // impact frames, shake, stars, a deep squash and recoil, then a 3-frame hit-stop: the picture holds, the sound
 // stays on its picture), act.landDust(c, t, [x, z]) on the landing. This example has no hit.
@@ -152,13 +159,14 @@ write(import.meta.url, {
   ...(MOTION && { motion: MOTION }),
   ...(RIG && { rig: RIG }),
   ...(PHYSICS && { physics: true }),
+  ...(ANIME_TIMING && { animeTiming: ANIME_TIMING }),
   // a loop clip's idle rhythms (breathing, sway, blinks, wings, flames, plate leaves) turn a whole number of times over
   // the clip, so the replay starts with no jump (docs/STORYBOARD.md); drop it with loop: false
   loopIdle: true,
   // the warm living room (look C crisp, golden plate); FOCUS adds the look's depth of field
   set: { type: "plain", color: "#efe2c8", floor: "#c9a27a", light: "golden", para: 0, bloom: "emissive",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.3, center: [0.3, 1.7], height: 6.4 },
-    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }) },
+    aperture: FOCUS ? 0.045 : 0, ...(FOCUS && { focus: "acting" }), ...(LIGHTING && { lighting: LIGHTING }), ...(HATCH && { hatch: HATCH }), ...(LIFE && { life: LIFE }), ...(CEL && { cel: CEL }) },
   music: MUSIC,
   direct: { master: MED },
   // the spike guard (Jonny, 5 Nov, PR #112): no effect jumps far out of the mix, a gentle limiter instead of
