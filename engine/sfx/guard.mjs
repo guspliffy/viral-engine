@@ -82,8 +82,14 @@ export function effectLevelsOverMix(sb, chars, fxGain = null, G = guardOf(sb), f
   return groups;
 }
 
-export function mixClip(sb, chars, log = []) {
-  if (!guardOn(sb)) { const a = renderAudio(sb, chars); log.push(...addMusic(sb, a)); return a; }
+// opts.voice: also return a.voice = { L, R }, the voices (their room included) exactly as they sit in the final mix, so
+// a check can weigh a spoken line against everything else (qa/lines.mjs). Leaves the mix itself unchanged.
+export function mixClip(sb, chars, log = [], opts = {}) {
+  if (!guardOn(sb)) {
+    const a = renderAudio(sb, chars, opts.voice ? { stems: true } : {});
+    if (opts.voice) { const g = a.peak > 0.89 ? 0.89 / a.peak : 1, v = a.stems.voice; a.voice = { L: v.L.map((x) => x * g), R: v.R.map((x) => x * g) }; delete a.stems; }
+    log.push(...addMusic(sb, a)); return a;
+  }
   const G = guardOf(sb);
   // 1. measure: every effect against the voices, room and music around it; over the cap, a fixed gain down. Measured
   // again with the new gains (the music's ducking follows them) and turned down further where it is still over: two
@@ -122,6 +128,7 @@ export function mixClip(sb, chars, log = []) {
     flim = limit(f.L, f.R, sr, G); vlim = limit(v.L, v.R, sr, G);
     for (let i = 0; i < n; i++) { L[i] = bL[i] * k + f.L[i] + v.L[i]; R[i] = bR[i] * k + f.R[i] + v.R[i]; }
     lim = limit(L, R, sr, G); a1.L = L; a1.R = R; got = integrated([L, R], sr);
+    if (opts.voice) a1.voice = v;   // after its own limiter; the master limiter's small cut is shared with the rest
     if (!Number.isFinite(got) || Math.abs(G.target - got) < 0.1) break;
     lift += G.target - got;
   }

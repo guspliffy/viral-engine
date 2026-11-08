@@ -216,12 +216,16 @@ function patchToon(m, o) {
     sh.uniforms.uHatC = { value: new THREE.Vector3() }; sh.uniforms.uHatUp = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uHatR = { value: 0 }; sh.uniforms.uHatK = { value: 0 }; sh.uniforms.uHatD = { value: 0.07 };
     sh.uniforms.uBodyInv = { value: new THREE.Matrix4() };
+    // set "cel" (anime look 01, 7 Nov 2026): one hard shadow edge (edge px wide) at N.L = at; a cast shadow drawn
+    // hard too; proxy: the skin shades with a clean egg (an ellipsoid round the body's centre) instead of its bumps
+    if (o.cel) { sh.uniforms.uCelEdge = { value: o.cel.edge }; sh.uniforms.uCelAt = { value: o.cel.at }; sh.uniforms.uCelShift = { value: o.cel.shift }; sh.uniforms.uCelFace = { value: o.cel.face ?? 0 };
+      sh.uniforms.uProxyC = { value: new THREE.Vector3() }; sh.uniforms.uProxyR = { value: new THREE.Vector3() }; if (o.cel.sync) o.cel.sync(sh.uniforms); }
     if (o.hatch) { sh.uniforms.uHatch = { value: o.hatch.k }; sh.uniforms.uHatchGap = { value: o.hatch.gap ?? 7 }; sh.uniforms.uHatchRes = HATCH_RES; sh.uniforms.uHatchT = WIND_T; sh.uniforms.uHatchBoil = { value: o.hatch.boil ?? 0 }; sh.uniforms.uHatchRate = { value: o.hatch.rate ?? 15 }; sh.uniforms.uHatchC = { value: new THREE.Color(...(o.hatchShade ?? o.shade)) }; }
     m.userData.shader = sh;
     sh.vertexShader = sh.vertexShader.replace("void main() {", `varying vec3 vWPos;${o.hatch ? "\nvarying vec4 vHatchO;" : ""}\nvoid main() {`)
       .replace("#include <project_vertex>", `#include <project_vertex>\n  vWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;${o.hatch ? "\n  vHatchO = projectionMatrix * viewMatrix * vec4(modelMatrix[3].xyz, 1.0);" : ""}`);
     sh.fragmentShader = sh.fragmentShader
-      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
+      .replace("void main() {", `${o.krim ? "#define LIGHT_RIM\nuniform vec3 uKRim, uKeyDir; uniform float uKRimK;\n" : ""}${o.ao ? `#define LIGHT_AO\nuniform vec4 uAO[${o.ao.ao.value.length}]; uniform int uAON; uniform float uAOK; uniform vec3 uAOCol;\n${AO_GLSL}\n` : ""}${o.bodyN ? "#define BODY_N\n" : ""}${o.cel ? `#define CEL\nuniform float uCelEdge, uCelAt, uCelShift, uCelFace; uniform vec3 uProxyC, uProxyR;\n${o.cel.proxy ? "#define CEL_PROXY\n" : ""}` : ""}${o.hatch ? "#define HATCH\nuniform float uHatch, uHatchGap, uHatchT, uHatchBoil, uHatchRate; uniform vec2 uHatchRes; uniform vec3 uHatchC; varying vec4 vHatchO;\n" : ""}uniform vec3 uLit, uShade, uRim; uniform float uRimK, uSpec, uSpecW, uGrad, uOcc, uHatR, uHatK, uHatD; uniform vec3 uBack, uBackDir; uniform vec3 uHatC, uHatUp; uniform mat4 uBodyInv; varying vec3 vWPos;\nvoid main() {`)
       .replace("#include <opaque_fragment>", `
         #if NUM_DIR_LIGHTS > 0
         {
@@ -238,6 +242,32 @@ function patchToon(m, o) {
           #ifdef BODY_N
             litK = clamp(getGradientIrradiance(nS, L).r * dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
           #endif
+          #ifdef CEL
+          {
+            #ifdef CEL_PROXY
+              // the clean egg: the ellipsoid's normal at this point (body space, round the body's centre), so the shadow
+              // edge is one smooth designed curve instead of following every potato bump
+              vec3 pl = (uBodyInv * vec4(vWPos, 1.0)).xyz - uProxyC;
+              nS = normalize(mat3(viewMatrix) * (transpose(mat3(uBodyInv)) * (pl * uProxyR)));
+              // the face patch stays lit (anime keeps the face clean; Arc System Works gave faces their own light): the
+              // shadow line bends round the face on the front of the egg (body +z, potato.js surf) unless the key is
+              // behind the character
+              vec3 dl = normalize(pl * sqrt(uProxyR));
+              float faceK = smoothstep(0.55, 0.85, dl.z) * (1.0 - smoothstep(0.35, 0.6, abs(dl.y + 0.05)));
+            #else
+              float faceK = 0.0;
+            #endif
+            // the shadow other things throw (an arm, a hat, a friend), drawn with a hard edge too
+            float shK = clamp(dot(directLight.color, vec3(1.0)) / max(dot(directionalLights[0].color, vec3(1.0)), 1e-4), 0.0, 1.0);
+            shK = smoothstep(0.35, 0.65, shK);
+            // shift: the underside stays in shade (the belly turned to the floor), like a painted cel
+            vec3 nW = normalize((vec4(nS, 0.0) * viewMatrix).xyz);
+            float xk = dot(nS, L) - uCelAt + uCelShift * min(nW.y + 0.35, 0.0) + uCelFace * faceK;
+            float cw = max(fwidth(xk), 1e-5) * uCelEdge * 0.5;
+            litK = smoothstep(-cw, cw, xk) * shK;
+            ndl = dot(nS, L);
+          }
+          #endif
           vec3 col = base * mix(uShade, uLit, litK) * (1.0 - uGrad + uGrad * clamp(ndl, 0.0, 1.0));
           // surfaces turned to the ground get a little darker (soft occlusion from below, like the painted references)
           col *= mix(1.0 - uOcc, 1.0, smoothstep(-0.75, 0.1, nS.y));
@@ -247,6 +277,9 @@ function patchToon(m, o) {
           if (uHatK > 0.0) {
             vec3 hp = vWPos - uHatC; float hd = dot(hp, uHatUp), hr = length(hp - hd * uHatUp);
             float hk = uHatK * smoothstep(-uHatD, -0.015, hd) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr));
+            #ifdef CEL
+              { float e = hd + uHatD * 0.55, ew = max(fwidth(e), 1e-5); hk = uHatK * smoothstep(-ew, ew, e) * (1.0 - smoothstep(0.0, 0.02, hd)) * (1.0 - smoothstep(uHatR * 0.85, uHatR, hr)); }
+            #endif
             col *= mix(vec3(1.0), uShade * 0.92, hk);
           }
           float fr = 1.0 - clamp(dot(normal, V), 0.0, 1.0), fw = fwidth(fr) * 1.2;
@@ -296,7 +329,7 @@ function patchToon(m, o) {
         #include <opaque_fragment>`);
     if (paint) paintShadowEdges(sh, paint);
   };
-  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}`;
+  m.customProgramCacheKey = () => `anime-pro-${o.key}${paint ? `-paint${paint.edge},${paint.scale}` : ""}${o.hatch ? "-hatch" : ""}${o.ao ? "-ao" : ""}${o.krim ? "-krim" : ""}${o.cel ? `-cel${o.cel.proxy ? "p" : ""}` : ""}`;
 }
 
 // is it drawn: it and all its parents visible
@@ -552,6 +585,22 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // boil is how far the strokes shift per drawing, rate how many drawings a second (15), k a factor on its strength
   const HO = setSpec?.hatch;
   if (HO) for (const r of Object.keys(ROLE)) if (ROLE[r]?.hatch) { const h = ROLE[r].hatch; ROLE[r] = { ...ROLE[r], hatch: { ...h, gap: (h.gap ?? 7) * (HO.scale ?? 1), boil: HO.boil ?? h.boil, rate: HO.rate ?? h.rate, k: h.k * (HO.k ?? 1) } }; }
+  // set "cel" (anime look 01, 7 Nov 2026, opt-in; research/anime-look-2026-11-07): the characters and props drawn like
+  // anime cels: one hard shadow edge instead of a soft roll ("edge": px at 1080 wide, "at": where on the form the
+  // shadow starts, N.L), "flat": no gradient, floor darkening, gloss or skin mottling inside the two tones,
+  // "normals": "proxy": a potato's skin shades as a clean egg, so the shadow shape is one designed curve, "shift": how
+  // far the underside stays in shade, "face": how far the shadow line bends round the face so it stays lit. The set keeps
+  // its own painting. true: these defaults
+  const CEL = setSpec?.cel ? { edge: 1.5, at: 0.08, flat: true, normals: "proxy", shift: 0.5, face: 0.6, ...(setSpec.cel === true ? {} : setSpec.cel) } : null;
+  const proxySkins = new Set(CEL?.normals === "proxy" ? actors.filter((a) => a.ch.skin && a.ch.body && a.ch.body.material === a.ch.skin).map((a) => a.ch.skin) : []);
+  const celFor = (role, m) => {
+    if (!CEL) return {};
+    const proxy = proxySkins.has(m) && (role === "skin" || role === "lid"), a = proxy && actors.find((x) => x.ch.skin === m);
+    // the clean egg's centre and radii in the body's own space (the body's matrix is refreshed every frame in prepare)
+    const sync = a ? (u) => { a.ch.body.updateWorldMatrix(true, false); u.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); u.uProxyC.value.set(0, a.ch.cy, 0); u.uProxyR.value.set(1 / a.ch.rx ** 2, 1 / a.ch.ry ** 2, 1 / a.ch.rz ** 2); } : null;
+    const c = { cel: { edge: CEL.edge, at: CEL.at, shift: CEL.shift, face: CEL.face, proxy, sync } };
+    return CEL.flat ? { ...c, grad: 0, occ: 0, spec: 0, specW: 0, back: null } : c;
+  };
   const cloth = new Set(), wood = new Set();
   for (const a of actors) {
     if (a.ch.costume && a.ch.costume.hat) a.ch.costume.hat.traverse((o) => { if (o.isMesh) for (const m of [].concat(o.material)) cloth.add(m); });
@@ -561,7 +610,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   const skins = new Set(actors.map((a) => a.ch.skin));
   // the core build's heads get the same painted mottling as the potato cast (Jonny 5 Nov: "a richer, more Ghibli style like
   // our potato characters", the default for every new character); head.skinMap false keeps a head smooth
-  for (const a of actors) if (a.ch.skin && a.def.head?.skinMap !== false) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
+  for (const a of actors) if (a.ch.skin && a.def.head?.skinMap !== false && !CEL?.flat) a.ch.skin.map = skinTextures(a.def.body.seed || 1).color;
   // blush is painted softer in the drawn look
   for (const a of actors) for (const c of (a.ch.face && a.ch.face.cheeks) || []) c.m.material.opacity = 0.7;
   const setMats = new Set(); for (const o of setObjs) o.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) setMats.add(m); });
@@ -601,7 +650,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         depthWrite: m.depthWrite, emissive: m.emissive || new THREE.Color(0), emissiveMap: m.emissiveMap || null, emissiveIntensity: m.emissiveIntensity ?? 1,
         polygonOffset: m.polygonOffset, polygonOffsetFactor: m.polygonOffsetFactor, polygonOffsetUnits: m.polygonOffsetUnits,
       });
-      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
+      patchToon(t, { rim: "#fff1d6", spec: 0, ...(LR && propMats.has(m) && !isSet ? LR.prop(role) : ROLE[role]), ...(LR && (isSet || propMats.has(m)) && !m.userData.glow ? { ao: LR.uniforms } : {}), ...(m.userData.noShine ? { rimK: 0, spec: 0 } : {}), ...(m.userData.krimK != null ? { krimK: m.userData.krimK, back: null } : {}), ...(m.userData.noHatch || m.userData.glow ? { hatch: null } : {}), ...(!isSet && !m.userData.glow ? celFor(role, m) : {}), key: role, ...(m.userData.wind ? { wind: m.userData.wind } : {}) });
       if (m.userData.wind) { const k0 = t.customProgramCacheKey; t.customProgramCacheKey = () => `${k0()}-wind${JSON.stringify(m.userData.wind)}`; }
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
@@ -691,6 +740,12 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.contrast.value = 1.1; grade.uniforms.saturation.value = 1.16; grade.uniforms.vignette.value = 0.26;
     grade.uniforms.highTint.value.set(0.05, 0.02, -0.035); grade.uniforms.shadowTint.value.set(0.02, -0.005, -0.015);
   }
+  if (setSpec?.grade === "storm") {
+    // a stormy day (set.life storm, set-life.js): the whole frame, cast included, under a grey sky: less colour,
+    // flatter, a little darker and cooler, heavier edges
+    grade.uniforms.contrast.value = 0.96; grade.uniforms.saturation.value = 0.8; grade.uniforms.vignette.value = 0.3;
+    grade.uniforms.lift.value.set(-0.05, -0.04, -0.015); grade.uniforms.highTint.value.set(-0.03, -0.01, 0.02); grade.uniforms.shadowTint.value.set(-0.01, 0.0, 0.03);
+  }
   composer.addPass(grade);
   if (D && D.paper) {
     const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
@@ -730,6 +785,13 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       for (const a of actors) {
         const sh = a.ch.skin && a.ch.body && bare.get(a.ch.skin)?.userData.shader;
         if (sh) { a.ch.body.updateWorldMatrix(true, false); sh.uniforms.uBodyInv.value.copy(a.ch.body.matrixWorld).invert(); }
+        // set "cel" proxy: the clean egg's centre and radii, in the body's own space
+        if (proxySkins.has(a.ch.skin)) for (const t of [toon.get(a.ch.skin), bare.get(a.ch.skin)]) {
+          const u = t?.userData.shader?.uniforms;
+          if (!u?.uProxyC) continue;
+          a.ch.body.updateWorldMatrix(true, false); u.uBodyInv.value.copy(a.ch.body.matrixWorld).invert();
+          u.uProxyC.value.set(0, a.ch.cy, 0); u.uProxyR.value.set(1 / a.ch.rx ** 2, 1 / a.ch.ry ** 2, 1 / a.ch.rz ** 2);
+        }
       }
       for (const { a, brim } of hats) {
         brim.getWorldPosition(hatC); brim.getWorldScale(hatS); hatUp.set(0, 1, 0).transformDirection(brim.matrixWorld);

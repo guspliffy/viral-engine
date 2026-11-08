@@ -18,7 +18,10 @@ import { clamp } from "./util.js";
 //                   rate 150 (flames a second), speed 7 (m/s), spread 0.1 (rad), life 0.5 (s), size 0.16 (m),
 //                   grow 2.6 (how much a flame swells over its life), drag 3 (1/s), lift 1.2 (m/s^2 upward),
 //                   reach (m): the jet stops there and splashes out sideways (it hit something), hot: "orange" | "blue",
+//                   splash (m): how far that splash spreads at most (it eases out toward it; unset: no limit),
 //                   taper (s): the stream thins and slows over its last seconds,
+//                   sizeTo (m): flames born later in the pour grow toward this size (a fireball gathering),
+//                   show (s): nothing is drawn before then (a stream poured from before a cut, already in flight on it),
 //                   cut (s): its flames and embers vanish then (the shot ends: they must not hang in the next one)
 //                 }
 //               The flames are flat, hand-drawn-looking tongues, camera facing and stretched along their flight: a white
@@ -71,7 +74,7 @@ function flame(B, i, ts, t, out) {
   out.pos.copy(p0).addScaledVector(v, Math.min(travel, reach));
   if (travel > reach) {
     // hit: the flame splashes out across the face it met, as a ring round the line of the jet
-    const sp = travel - reach, ca = Math.cos(phi + hash(i + 4) * 2), sa = Math.sin(phi + hash(i + 4) * 2);
+    const sp = B.splash ? B.splash * (1 - Math.exp(-(travel - reach) / B.splash)) : travel - reach, ca = Math.cos(phi + hash(i + 4) * 2), sa = Math.sin(phi + hash(i + 4) * 2);
     out.pos.addScaledVector(side, sp * 1.4 * ca).addScaledVector(up, sp * 1.4 * sa).addScaledVector(v, -sp * 0.25);
     v = side.clone().multiplyScalar(ca).addScaledVector(up, sa);
   }
@@ -82,7 +85,9 @@ function flame(B, i, ts, t, out) {
   out.dir.copy(v);
   const age = a / life;
   out.age = age;
-  out.size = (B.size ?? 0.16) * (0.7 + 0.6 * hash(i * 2.9 + B.seed + 5)) * (0.45 + (B.grow ?? 2.6) * Math.pow(age, 0.6)) * (kind === "burst" ? 1.6 : 1) * (0.25 + 0.75 * tap);
+  // (sizeTo: the flames born later in the pour are bigger, up to sizeTo at its end: a fireball gathering between palms)
+  const sz0 = B.sizeTo != null ? (B.size ?? 0.16) + (B.sizeTo - (B.size ?? 0.16)) * Math.max(0, Math.min(1, (ts - B.at) / Math.max(1e-6, B.end - B.at))) : (B.size ?? 0.16);
+  out.size = sz0 * (0.7 + 0.6 * hash(i * 2.9 + B.seed + 5)) * (0.45 + (B.grow ?? 2.6) * Math.pow(age, 0.6)) * (kind === "burst" ? 1.6 : 1) * (0.25 + 0.75 * tap);
   out.speed = Math.exp(-k * a) * speed;
   out.seed = hash(i * 1.37 + B.seed + 7);
   out.hot = B.hot === "blue" ? 1 : 0;
@@ -208,7 +213,7 @@ export const FIRE_KINDS = {
         const tt = t ?? 0; list.length = 0;
         let lw = 0; const lp = new THREE.Vector3();
         for (const B of blasts) {
-          if (tt < B.at || tt > B.end + 2.2 || (B.cut != null && tt >= B.cut)) continue;
+          if (tt < B.at || tt > B.end + 2.2 || (B.cut != null && tt >= B.cut) || (B.show != null && tt < B.show)) continue;
           const rate = B.rate ?? 150, n0 = 0, n1 = Math.floor((Math.min(tt, B.end) - B.at) * rate);
           for (let i = n0; i <= n1; i++) {
             const ts = B.at + i / rate; if (ts > B.end) break;
@@ -220,7 +225,7 @@ export const FIRE_KINDS = {
         // embers (their own count per second, the same seeds every frame)
         let ne = 0;
         for (const B of blasts) {
-          if (tt < B.at || tt > B.end + 2.2 || (B.cut != null && tt >= B.cut)) continue;
+          if (tt < B.at || tt > B.end + 2.2 || (B.cut != null && tt >= B.cut) || (B.show != null && tt < B.show)) continue;
           const er = B.embers ?? (B.rate ?? 150) * (B.kind === "hold" ? 0.04 : 0.2), m1 = Math.floor((Math.min(tt, B.end) - B.at) * er);
           for (let i = 0; i <= m1 && ne < MAXE; i++) {
             const ts = B.at + i / Math.max(1e-6, er); if (ts > B.end) break;
