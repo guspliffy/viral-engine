@@ -93,7 +93,7 @@ export function rigFindings(layout, sb) {
   // between still ones by design. Judge the drawings instead of the frames: each change of drawing, its move divided by
   // how many story frames the drawing moved on, against the changes of drawing before and after it. A pop in the
   // motion underneath (an elbow flip) still stands out; the snap from one held key to the next does not
-  const AT = sb?.animeTiming ? makeAnimeTiming(sb.animeTiming, sb.actions || [], fps) : null;
+  const AT = sb?.animeTiming ? makeAnimeTiming(sb.animeTiming, sb.actions || [], fps, Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0)) : null;
   const popsDrawn = (series, lim, who, what, check) => {
     const adv = (i) => (AT(who, S(i)) - AT(who, S(i - 1))) * fps;
     const idx = []; for (let i = 1; i < n; i++) if (adv(i) > 1e-6 && series[i] && series[i - 1] && !cut(i) && !frozen(i)) idx.push(i);

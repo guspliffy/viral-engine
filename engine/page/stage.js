@@ -32,6 +32,8 @@ let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   /
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
 let animeT = null;   // storyboard "animeTiming" (shared/anime-timing.js): each character's drawing time at t, null when off
+// the cuts anime timing restarts its drawings on: the shots' starts (as qa/rig.mjs cutIn), none with keyed camera moves
+const animeCuts = (sb) => (Array.isArray(sb.camera) && sb.camera.length ? [] : (sb.shots || []).map((s) => s.at).filter((x) => x > 0));
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
 // a point in a character's own parent frame (a rig, or the world) in the world
@@ -371,7 +373,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, animeCuts(sb)); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
