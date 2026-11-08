@@ -6,7 +6,7 @@ import { VrmCharacter, preloadVrms } from "./rigs/vrm.js";
 import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
-import { actorState, cameraState, flashAt, flashColorAt, captionsAt, lightsAt, registerCast, cutBetween } from "./timeline.js";
+import { actorState, cameraState, flashAt, flashColorAt, captionsAt, lightsAt, registerCast } from "./timeline.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
@@ -15,13 +15,12 @@ import { makeLook } from "./looks.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
-import { drawnSpec, onTwos, drawingNo } from "./drawn.js";
+import { drawnSpec, onTwos } from "./drawn.js";
 import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
 import { makeAttach } from "./attach.js";
 import { makeVfx } from "./vfx.js";
-import { drawFx2d, FX2D } from "./fx2d.js";
 
 const W = 1080, H = 1920;
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
@@ -356,49 +355,9 @@ function skinTint(a, st) {
   for (const m of T.mats) m.color.copy(c);
 }
 
-// the drawn 2D layer (fx2d.js, opt-in): what it needs from the scene. body(who): a character's body on screen as an
-// ellipse (its mesh's own box, projected), its height in px (u), where its feet are and its colour; body(who, tt): the
-// same body moved to where the timeline puts it at story time tt (the smear's earlier positions; a pure function of tt)
-let has2d = false;
-const env2d = {
-  W, H, get ctx() { return ctx; }, get fps() { return sb.fps || 30; }, get debug() { return !!sb.debug2d; },
-  // the drawing clock: the drawn look's own drawing number when a clip is on 2s, so the marks step with the characters
-  drawing: (t) => (drawnD && drawnD.twos > 1 ? drawingNo(drawnD, t, sb.fps || 30) : Math.floor(t * 12 + 1e-4)),
-  who: () => actors.filter((a) => a.ch.body && a.ch.potatoParts).map((a) => a.c.id),
-  cut: (t0, t1) => cutBetween(sb, t0, t1),
-  project: (p) => toScreen(p),
-  body(who, tt) {
-    const A = poseStates[who]; if (!A || !A.a.ch.body || !A.a.ch.potatoParts) return null;
-    const a = A.a, mesh = a.ch.body;
-    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    a.ch.root.updateMatrixWorld(true);
-    const bb = mesh.geometry.boundingBox, c = bb.getCenter(new THREE.Vector3()).applyMatrix4(mesh.matrixWorld);
-    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-    for (let i = 0; i < 8; i++) {
-      const v = new THREE.Vector3(i & 1 ? bb.max.x : bb.min.x, i & 2 ? bb.max.y : bb.min.y, i & 4 ? bb.max.z : bb.min.z).applyMatrix4(mesh.matrixWorld).project(camera);
-      if (v.z > 1) return null;   // behind the camera
-      const sx = (v.x + 1) / 2 * W, sy = (1 - v.y) / 2 * H; x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy);
-    }
-    let C = toScreen(c.toArray());
-    if (tt != null) {
-      const s2 = a.ch.stateAt?.(tt); if (!s2) return null;
-      const now = worldOf(a, new THREE.Vector3(A.st.x, A.st.y, A.st.z)), then = worldOf(a, new THREE.Vector3(s2.x, s2.y, s2.z));
-      C = toScreen(c.clone().add(then.sub(now)).toArray());
-    }
-    const feet = toScreen(worldOf(a, new THREE.Vector3(A.st.x, A.st.y, A.st.z)).toArray());
-    // the box of a turned potato is a little wider than its outline: the ellipse sits just inside it
-    const rx = (x1 - x0) / 2 * 0.9, ry = (y1 - y0) / 2 * 0.95, u = a.ch.topY() * (A.st.scale ?? 1) * C.m;
-    const vis = a.ch.root.visible && a.ch.potatoParts.visible !== false && C.x > -rx && C.x < W + rx && C.y > -ry && C.y < H + ry;
-    const ground = A.st.y < 0.06 && !(A.st.sit > 0.5);   // standing on the floor (dust only rises there)
-    return { cx: C.x, cy: C.y, rx, ry, u, feet: feet.y, vis, ground, depth: c.distanceTo(camera.position), color: "#" + (a.ch.skin?.color?.getHexString?.() ?? "e08040") };
-  },
-};
-
 function composite(t) {
   ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
-  if (has2d) drawFx2d(env2d, sb.fx, t);
-  if (sb.debug2d) for (const w of env2d.who()) { const B = env2d.body(w); if (B) { ctx.save(); ctx.strokeStyle = "#0f0"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(B.cx, B.cy, B.rx, B.ry, 0, 0, 7); ctx.stroke(); ctx.fillStyle = "#0f0"; ctx.font = "30px sans-serif"; ctx.fillText(`${w} ${B.vis ? "" : "HID"}`, B.cx, B.cy); ctx.restore(); } }   // the drawn 2D layer (fx2d.js): dust and smears
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
   // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
@@ -411,7 +370,6 @@ function composite(t) {
 
 async function init(data) {
   sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
-  has2d = (sb.fx || []).some((f) => FX2D.has(f.do));
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
@@ -1067,7 +1025,7 @@ function clipping() {
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
       // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine.
-      // Into its own holder is measured apart ("self", look-2d-layer-01: the coffee cup in the eyes and under the hat
+      // Into its own holder is measured apart ("self", 7 Nov 2026: the coffee cup in the eyes and under the hat
       // brim on a sip, 7 Nov 2026, was caught only by eye): how deep, and at which height of the body it goes in
       // (zone: the body's height from its feet, 0..1; a sip belongs at the mouth, about 0.3-0.5 of a potato)
       // Only what a hand holds: a pile of popcorn on a head or a kernel on a hood is held by "hat" / "tip" on purpose

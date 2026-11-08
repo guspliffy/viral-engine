@@ -498,23 +498,3 @@ renders variants of a storyboard, puts each through the same rough TikTok re-enc
 how much face detail arrives. On Never Looks Up's alien close-up (5 Nov): the paper grain (`drawn.paper.grain` 0.12)
 is what the re-encode eats; grain 0 took face SSIM 0.917 -> 0.958, grain 0 with boil 0.25 to 0.962, with boil 0 to
 0.967. Line width and hatch spacing barely mattered.
-
-## The drawn 2D layer (opt-in, look-2d-layer-01, 7 Nov 2026; Jonny's call before it goes in the template)
-
-Anime finishes a 3D shot with drawn touches: dust where a landing meets the floor, and a smeared drawing on the fastest
-frames of a move. Here they are drawn on the 2D layer over the 3D picture (`engine/page/fx2d.js`), so they boil with
-the drawn look and never touch the 3D contacts. `"anime2d": true` adds them from the storyboard itself
-(`engine/shared/anime2d.js`):
-
-- `dust`: a drawn dust cloud with grit where a land or a high hop meets the floor (only on the ground).
-- `smear2d`: on any body moving more than 42 px a frame, tapered drawn smear fingers behind it in its own colour,
-  inked at the sides, for that frame only (never across a cut, never on a close-up, a body at the frame's edge or a
-  near-black one; at most 0.8 of the body long, and they stop short of another face).
-  `"anime2d": { "smear": { "trail": 3.2, "cap": 1.6 } }` sets the length in frames of motion and its cap in half-bodies.
-
-`"anime2d": { "dust": false }` turns one off. A dust item can also be written by hand (`{ "fx": "dust", "who": "phx",
-"at": 0.2 }`) and wins over an automatic one within 1.5 s. `"debug2d": true` draws the body ellipses they are placed
-on. No reaction signs (anger veins, sweat drops, shock lines, impact stars): they were built and taken out again
-(Jonny, 8 Nov 2026: "i dont like these extra signs everywhere"). Test copy:
-`storyboards/series/too-much-energy/02-cinema/cinema-2d.json` (before/after in
-`/mnt/project-files/videos/engine-upgrades/look-2d-layer-01/`).
