@@ -11,6 +11,10 @@ import { canvas, tex, glow } from "./set-porch.js";
 // the front left corner, and the cat's basket on the hearth rug. Warm light from the fire (the golden look's key from
 // the right), cool blue from the window.
 // spec: { type: "xmasroom", light: "golden", windows: false, seed }. XMASROOM has the layout for the storyboard.
+// party: true (never has money 04, Viking's birthday, Jonny's panels, 8 Nov 2026) makes the same room a sunny
+// afternoon party: an arched window with daylight, green hills and trees (no curtains), paper bunting in purple, red,
+// yellow and blue across the back wall and along the mantel, a potted plant on the hearth and one on the shelf, a
+// meadow picture; no stockings, no garland, no presents (the clip brings its own) and no cat basket.
 export const XMASROOM = {
   back: -2.3, w: 5.4, h: 4.8,
   tree: [0, -1.5],
@@ -91,6 +95,35 @@ function snowTex(rnd) {
   for (let i = 0; i < 420; i++) { const r = 1 + rnd() * 3.2; g.fillStyle = `rgba(255,255,255,${0.5 + rnd() * 0.5})`; g.beginPath(); g.arc(rnd() * 768, rnd() * 1024, r, 0, Math.PI * 2); g.fill(); }
   return c;
 }
+// a sunny afternoon outside (party): a soft blue sky with clouds, green hills, round trees, a warm haze low down
+function dayTex(rnd) {
+  const [c, g] = canvas(768, 1024);
+  const sky = g.createLinearGradient(0, 0, 0, 1024); sky.addColorStop(0, "#6fa8dc"); sky.addColorStop(0.55, "#b9dcf0"); sky.addColorStop(0.75, "#f4e6c4"); sky.addColorStop(1, "#e9d9a8");
+  g.fillStyle = sky; g.fillRect(0, 0, 768, 1024);
+  for (const [x, y, s] of [[160, 240, 1.0], [520, 170, 1.3], [640, 380, 0.8], [90, 470, 0.7]]) { g.fillStyle = "rgba(255,255,255,0.85)"; for (const [dx, dy, r] of [[0, 0, 60], [55, 10, 48], [-50, 14, 42], [20, -30, 46], [95, 22, 34]]) { g.beginPath(); g.arc(x + dx * s, y + dy * s, r * s, 0, 7); g.fill(); } }
+  g.fillStyle = "#8fbf6a"; g.beginPath(); g.moveTo(0, 640); g.bezierCurveTo(200, 560, 420, 660, 768, 590); g.lineTo(768, 1024); g.lineTo(0, 1024); g.fill();
+  g.fillStyle = "#6fa04e"; g.beginPath(); g.moveTo(0, 760); g.bezierCurveTo(300, 690, 520, 800, 768, 740); g.lineTo(768, 1024); g.lineTo(0, 1024); g.fill();
+  const tree = (x, y, s, col) => { g.fillStyle = "#5a3a22"; g.fillRect(x - s * 0.08, y - s * 0.3, s * 0.16, s * 0.4); g.fillStyle = col; for (const [dx, dy, r] of [[0, -0.75, 0.5], [-0.32, -0.5, 0.38], [0.34, -0.48, 0.4], [0.05, -1.05, 0.36]]) { g.beginPath(); g.arc(x + dx * s, y + dy * s, r * s, 0, 7); g.fill(); } };
+  for (const [x, y, s, col] of [[110, 700, 150, "#3f7a3a"], [300, 640, 80, "#4f8a42"], [610, 680, 170, "#3a6e36"], [470, 620, 60, "#5a9548"], [720, 760, 90, "#467f3c"]]) tree(x, y, s, col);
+  for (let i = 0; i < 140; i++) { g.fillStyle = `rgba(255,${200 + Math.floor(rnd() * 50)},${120 + Math.floor(rnd() * 80)},${0.35 + rnd() * 0.4})`; g.beginPath(); g.arc(rnd() * 768, 800 + rnd() * 220, 2 + rnd() * 3, 0, 7); g.fill(); }
+  return c;
+}
+// a string of paper bunting flags from (x0, y0) to (x1, y1) at depth z, sagging by sag: triangles in turn of the colours
+function bunting(parent, rnd, x0, y0, x1, y1, z, sag, cols = ["#8a4fd0", "#d8394a", "#f2c14e", "#3d8fb0"]) {
+  const at = (u) => new THREE.Vector3(x0 + (x1 - x0) * u, y0 + (y1 - y0) * u - sag * 4 * u * (1 - u), z);
+  const pts = Array.from({ length: 25 }, (_, i) => at(i / 24));
+  parent.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.006, 6), flat("#f4f1ea")));
+  const n = Math.max(3, Math.round(Math.hypot(x1 - x0, y1 - y0) / 0.2)), fw = 0.15, fh = 0.2;
+  const tri = new THREE.Shape(); tri.moveTo(-fw / 2, 0); tri.lineTo(fw / 2, 0); tri.lineTo(0, -fh); tri.closePath();
+  for (let i = 0; i < n; i++) { const f = new THREE.Mesh(new THREE.ShapeGeometry(tri), std(cols[i % cols.length], { roughness: 0.85, side: THREE.DoubleSide })); f.position.copy(at((i + 0.5) / n)); f.position.z += 0.005; f.rotation.set((rnd() - 0.5) * 0.15, (rnd() - 0.5) * 0.3, (rnd() - 0.5) * 0.12); f.castShadow = true; parent.add(f); }
+}
+// a terracotta pot with a leafy plant (party): the pot's foot at (x, y, z), s its size
+function plant(parent, rnd, x, y, z, s = 1) {
+  cyl(parent, 0.11 * s, 0.08 * s, 0.17 * s, std("#b8643a", { roughness: 0.8 }), x, y + 0.085 * s, z, 16);
+  cyl(parent, 0.118 * s, 0.118 * s, 0.03 * s, std("#a8562e", { roughness: 0.8 }), x, y + 0.165 * s, z, 16);
+  const lm = [std("#4f8a42", { roughness: 0.8, side: THREE.DoubleSide }), std("#3f7a3a", { roughness: 0.8, side: THREE.DoubleSide }), std("#6aa04e", { roughness: 0.8, side: THREE.DoubleSide })];
+  for (let i = 0; i < 14; i++) { const a = rnd() * 6.28, e = 0.35 + rnd() * 0.9, L = (0.16 + rnd() * 0.12) * s; const leaf = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 6), lm[i % 3]); leaf.scale.set(0.045 * s, L / 2, 0.012 * s); leaf.position.set(x + Math.cos(a) * Math.cos(e) * L * 0.5, y + 0.18 * s + Math.sin(e) * L * 0.5, z + Math.sin(a) * Math.cos(e) * L * 0.5); leaf.rotation.set(0, -a, Math.PI / 2 - e); leaf.rotation.order = "YZX"; leaf.castShadow = true; parent.add(leaf); }
+}
 // book spines in a row: varied widths, heights and colours, a few leaning
 function books(parent, rnd, x0, x1, y, z, d, maxH) {
   const cols = ["#7a2a24", "#2e4a6a", "#3e6a3a", "#c89a3a", "#5a3a6a", "#a8562e", "#2a2a3a", "#d8cfb0", "#8a3a4a"];
@@ -152,7 +185,7 @@ export function buildXmasroom(scene, S = {}) {
   rug.rotation.x = -Math.PI / 2; rug.position.set(0.05, 0.004, 0.0); rug.receiveShadow = true; set.add(rug);
   // ---- the window, back left: snowy night outside, a cream frame with bars, a deep sill, red curtains
   { const W = P.win, wh = W.y1 - W.y0, cx = W.x, cy = (W.y0 + W.y1) / 2;
-    const out = new THREE.Mesh(new THREE.PlaneGeometry(W.w * 1.9, wh * 1.9), basic({ map: tex(snowTex(rnd)) })); out.position.set(cx, cy, BZ - 0.9); set.add(out);
+    const out = new THREE.Mesh(new THREE.PlaneGeometry(W.w * 1.9, wh * 1.9), basic({ map: tex(S.party ? dayTex(rnd) : snowTex(rnd)) })); out.position.set(cx, cy, BZ - 0.9); set.add(out);
     // the wall round the opening: the back wall plane has no hole, so the window is a "cut" drawn by the outside plane
     // in front of a dark reveal: hide the wall behind it with the reveal box sides
     back.visible = false;
@@ -166,14 +199,18 @@ export function buildXmasroom(scene, S = {}) {
     box(set, 0.04, wh, 0.04, bar, cx, cy, BZ - 0.1); for (const f of [1 / 3, 2 / 3]) box(set, W.w, 0.035, 0.04, bar, cx, W.y0 + wh * f, BZ - 0.1);
     const [fc, fg] = canvas(256, 256); const fr = fg.createRadialGradient(128, 128, 60, 128, 128, 180); fr.addColorStop(0, "rgba(255,255,255,0)"); fr.addColorStop(1, "rgba(235,242,255,0.55)"); fg.fillStyle = fr; fg.fillRect(0, 0, 256, 256);
     const frost = new THREE.Mesh(new THREE.PlaneGeometry(W.w, wh), basic({ map: tex(fc), transparent: true, depthWrite: false })); frost.position.set(cx, cy, BZ - 0.11); set.add(frost);
-    // cool window light: a soft blue glow round the window and a pale patch on the floor below
-    glow(set, "#7fa0ff", 2.2, cx, cy, BZ - 0.05, 0.22);
-    const patch = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.9), basic({ color: "#6a86d0", transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending }));
+    // cool window light: a soft blue glow round the window and a pale patch on the floor below (party: warm daylight)
+    glow(set, S.party ? "#ffe2a8" : "#7fa0ff", 2.2, cx, cy, BZ - 0.05, 0.22);
+    // party: an arched top over the opening, a half-round wooden trim with a fan of bars
+    if (S.party) { const arch = new THREE.Mesh(new THREE.TorusGeometry(W.w / 2 + 0.03, 0.035, 8, 32, Math.PI), trim); arch.position.set(cx, W.y1 + 0.03, BZ - 0.08); arch.castShadow = true; set.add(arch);
+      const fan = new THREE.Mesh(new THREE.CircleGeometry(W.w / 2, 32, 0, Math.PI), basic({ map: tex(dayTex(rng(3))) })); fan.position.set(cx, W.y1 + 0.03, BZ - 0.1); set.add(fan);
+      for (const a of [Math.PI / 4, Math.PI / 2, (3 * Math.PI) / 4]) { const b = box(set, 0.03, W.w / 2, 0.03, std("#f2ead8", { roughness: 0.5 }), cx + Math.cos(a) * W.w / 4, W.y1 + 0.03 + Math.sin(a) * W.w / 4, BZ - 0.1); b.rotation.z = a - Math.PI / 2; } }
+    const patch = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.9), basic({ color: S.party ? "#ffd89a" : "#6a86d0", transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending }));
     patch.rotation.x = -Math.PI / 2; patch.position.set(cx + 0.15, 0.007, BZ + 0.7); patch.renderOrder = 1; set.add(patch);
-    // curtains: deep red, gathered, tied back, on a dark rod
-    cyl(set, 0.018, 0.018, W.w + 0.8, std("#3a2416", { roughness: 0.4 }), cx, W.y1 + 0.16, BZ + 0.1).rotation.z = Math.PI / 2;
+    // curtains: deep red, gathered, tied back, on a dark rod (not at the party: Jonny's panels draw bare arched frames)
+    if (!S.party) cyl(set, 0.018, 0.018, W.w + 0.8, std("#3a2416", { roughness: 0.4 }), cx, W.y1 + 0.16, BZ + 0.1).rotation.z = Math.PI / 2;
     const cm = std("#8e2420", { roughness: 0.9 });
-    for (const s of [-1, 1]) {
+    if (!S.party) for (const s of [-1, 1]) {
       const pts = []; for (let i = 0; i <= 12; i++) { const v = i / 12; pts.push(new THREE.Vector2(0.12 + 0.06 * Math.sin(v * Math.PI) - (v > 0.55 && v < 0.75 ? 0.05 : 0), (1 - v) * (W.y1 + 0.16))); }
       const cu = new THREE.Mesh(new THREE.LatheGeometry(pts, 14), cm); cu.scale.set(1, 1, 0.45); cu.position.set(cx + s * (W.w / 2 + 0.18), 0, BZ + 0.14); cu.castShadow = true; set.add(cu);
       const tie = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.018, 6, 18), std("#d9a441", { roughness: 0.4, metalness: 0.4 })); tie.rotation.x = Math.PI / 2; tie.scale.set(1, 0.5, 1); tie.position.set(cx + s * (W.w / 2 + 0.18), (W.y1 + 0.16) * 0.35, BZ + 0.14); set.add(tie);
@@ -209,20 +246,23 @@ export function buildXmasroom(scene, S = {}) {
     // the garland: a rope of dark green clumps along the mantel's front, sagging between three ties, red berries
     const gm = std("#2f5a32", { roughness: 0.9 }), gm2 = std("#3f6e3a", { roughness: 0.9 }), berry = std("#c2241e", { roughness: 0.4 });
     const gx0 = F.x - (F.w + 0.3) / 2, gx1 = F.x + (F.w + 0.3) / 2;
-    for (let i = 0; i <= 44; i++) {
+    if (S.party) bunting(set, rnd, gx0, F.h + 0.02, gx1, F.h + 0.02, fz + F.d / 2 + 0.07, 0.07);
+    else for (let i = 0; i <= 44; i++) {
       const u = i / 44, x = gx0 + (gx1 - gx0) * u, sag = 0.07 * Math.abs(Math.sin(u * Math.PI * 2));
       const b = new THREE.Mesh(new THREE.IcosahedronGeometry(0.045 + rnd() * 0.02, 0), rnd() < 0.5 ? gm : gm2); b.position.set(x, F.h + 0.01 - sag, fz + F.d / 2 + 0.11); b.rotation.set(rnd() * 3, rnd() * 3, 0); set.add(b);
       if (rnd() < 0.3) { const be = new THREE.Mesh(new THREE.SphereGeometry(0.016, 8, 6), berry); be.position.set(x + 0.02, F.h + 0.0 - sag, fz + F.d / 2 + 0.15); set.add(be); }
     }
-    // three stockings hanging from the mantel front
-    stocking(set, "#b8261e", null, F.x - 0.38, F.h - 0.03, fz + F.d / 2 + 0.08, 1);
-    stocking(set, "#2f6a3a", "#f4efe6", F.x, F.h - 0.05, fz + F.d / 2 + 0.08, 1);
-    stocking(set, "#c23a2a", "#f2c14e", F.x + 0.38, F.h - 0.03, fz + F.d / 2 + 0.08, -1);
+    // three stockings hanging from the mantel front (party: a plant on the hearth instead)
+    if (!S.party) {
+      stocking(set, "#b8261e", null, F.x - 0.38, F.h - 0.03, fz + F.d / 2 + 0.08, 1);
+      stocking(set, "#2f6a3a", "#f4efe6", F.x, F.h - 0.05, fz + F.d / 2 + 0.08, 1);
+      stocking(set, "#c23a2a", "#f2c14e", F.x + 0.38, F.h - 0.03, fz + F.d / 2 + 0.08, -1);
+    } else plant(set, rnd, F.x - F.w / 2 - 0.05, 0.05, BZ + 0.45, 1.3);
     // a wall shelf of books above the mantel, and a little framed winter picture
     box(set, 0.9, 0.04, 0.22, std("#5a3420", { roughness: 0.5 }), F.x - 0.1, 1.72, BZ + 0.11, true);
     books(set, rnd, F.x - 0.55, F.x + 0.05, 1.74, BZ + 0.11, 0.18, 0.26);
     { const pf = box(set, 0.3, 0.24, 0.03, std("#c9a24a", { metalness: 0.4, roughness: 0.4 }), F.x + 0.22, 1.86, BZ + 0.05); pf.rotation.x = -0.1;
-      const pic = new THREE.Mesh(new THREE.PlaneGeometry(0.24, 0.18), flat("#ffffff", { map: tex(snowTex(rng(5))) })); pic.position.set(F.x + 0.22, 1.86, BZ + 0.07); pic.rotation.x = -0.1; set.add(pic); }
+      const pic = new THREE.Mesh(new THREE.PlaneGeometry(0.24, 0.18), flat("#ffffff", { map: tex(S.party ? dayTex(rng(5)) : snowTex(rng(5))) })); pic.position.set(F.x + 0.22, 1.86, BZ + 0.07); pic.rotation.x = -0.1; set.add(pic); }
   }
   // ---- the bookcase right of the fireplace: four shelves of books, a plant on top beside the cat's spot
   { const B = P.shelf, bz = BZ + B.d / 2, wood = std("#6a3e24", { roughness: 0.55 });
@@ -238,7 +278,7 @@ export function buildXmasroom(scene, S = {}) {
     for (const dx of [-0.018, 0.018]) { const h = new THREE.Mesh(new THREE.CircleGeometry(0.007, 10), flat("#2a2420")); h.position.set(x + dx, y, BZ + 0.017); set.add(h); }
   }
   // ---- the cat's basket on the floor by the hearth: a woven round basket with a plaid cushion
-  { const [x, z] = P.basket, g = new THREE.Group(); g.position.set(x, 0, z); set.add(g);
+  if (!S.party) { const [x, z] = P.basket, g = new THREE.Group(); g.position.set(x, 0, z); set.add(g);
     const [bc, bg] = canvas(256, 64); bg.fillStyle = "#b5874a"; bg.fillRect(0, 0, 256, 64); for (let i = 0; i < 32; i++) { bg.fillStyle = i % 2 ? "#8a6234" : "#caa060"; for (let j = 0; j < 4; j++) bg.fillRect(i * 8, j * 16 + (i % 2) * 8, 8, 8); }
     const wm = std("#ffffff", { map: tex(bc, 4, 1), roughness: 0.9, side: THREE.DoubleSide });
     const wallB = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.26, 0.14, 28, 1, true), wm); wallB.position.y = 0.07; wallB.castShadow = true; g.add(wallB);
@@ -247,13 +287,19 @@ export function buildXmasroom(scene, S = {}) {
     const cush = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.26, 0.06, 28), std("#ffffff", { map: tex(pc, 2, 2), roughness: 1 })); cush.position.y = 0.06; g.add(cush);
   }
   // ---- presents: a few under the tree (left and back of the stand), a stack in the front left corner
-  { const [tx, tz] = P.tree;
+  if (!S.party) { const [tx, tz] = P.tree;
     present(set, 0.3, 0.2, 0.26, "#c23a2a", "#f2c14e", tx - 0.62, tz + 0.1, 0.3);
     present(set, 0.22, 0.26, 0.22, "#2f6a8a", "#f4efe6", tx - 0.48, tz - 0.38, -0.2);
     present(set, 0.34, 0.16, 0.24, "#e8d6a8", "#c2241e", tx + 0.2, tz - 0.62, 0.15);
     present(set, 0.4, 0.26, 0.34, "#2f6a3a", "#c2241e", -1.45, 1.75, 0.2);
     present(set, 0.26, 0.2, 0.24, "#c23a2a", "#f4efe6", -1.42, 1.75, -0.1).position.y = 0.26;
     present(set, 0.24, 0.18, 0.2, "#8a5ab0", "#f2c14e", -1.05, 1.95, 0.5);
+  }
+  // ---- party: bunting across the back wall in two swags under the beam, a plant on the bookcase
+  if (S.party) {
+    bunting(set, rnd, -hw + 0.1, 2.62, 0.2, 2.68, BZ + 0.12, 0.32);
+    bunting(set, rnd, 0.2, 2.68, hw - 0.1, 2.6, BZ + 0.12, 0.28, ["#f2c14e", "#3d8fb0", "#8a4fd0", "#d8394a"]);
+    plant(set, rnd, P.shelf.x, P.shelf.h, BZ + P.shelf.d / 2, 0.9);
   }
   // a warm lamp glow at the far right (the second warm source the panels show) and a little ambient warmth up high
   glow(set, "#ffb86a", 3.0, 1.6, 1.9, BZ + 0.15, 0.12);

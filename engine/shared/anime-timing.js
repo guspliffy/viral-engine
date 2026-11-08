@@ -52,7 +52,13 @@ export function makeAnimeTiming(o, actions = [], fps = 30) {
     if (walk) return step(t, walk[0], 2);
     for (const [a, b] of L.segs) {
       if (t < a - 1e-6 || t >= b - 1e-6) continue;
-      const d = b - a, n = d <= S.fast ? 1 : d >= S.slow ? 3 : 2;
+      const d = b - a;
+      // a chain of moves merged into one key-to-key segment longer than S.long (back-to-back acting, 3 s of it in
+      // never-has-money 04) is not one move: front-loading it drew the body up to 0.6 s ahead of its props and
+      // everyone else (the hands holding a card up at the face while the script had it on the knee). Step it on 2s,
+      // as a long action is (8 Nov)
+      if (d > S.long) return step(t, a, 2);
+      const n = d <= S.fast ? 1 : d >= S.slow ? 3 : 2;
       const p = Math.min(1, (step(t, a, n) - a) / d);
       return a + d * (1 - Math.pow(1 - p, S.push));
     }

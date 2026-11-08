@@ -69,6 +69,8 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  giftbox: { w: 0.3, h: 0.24, d: 0.3 },             // props-birthday.js wrapped present (before its scale): both palms on its two sides (box hold)
+  coupon: { w: 0.24, h: 0.19, t: 0.002 },           // props-birthday.js FREE HUG coupon standing on its bottom edge: both hands on its two side edges (box hold), its drawing to the camera
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
