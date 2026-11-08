@@ -3796,6 +3796,15 @@
   },
   {
    "who": "vik",
+   "from": 6.02,
+   "to": 6.18,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "the cup settles into his glove by the mug hold over the coffee wide's first frames (the re-grab's 0.15 s blend, under the cut) while his arm comes down to his chest: in the 30 fps crop of render 4 it stays at his fingers and reads as his grip closing"
+  },
+  {
+   "who": "vik",
    "from": 5.66,
    "to": 5.85,
    "checks": [
