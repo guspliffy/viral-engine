@@ -1,0 +1,417 @@
+{
+ "id": "birthday-bench",
+ "title": "Birthday props bench",
+ "idea": "Birthday props bench (T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "plain",
+  "color": "#e9d2a8",
+  "floor": "#c9955a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  }
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "gsl",
+   "vik"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    -0.62,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "never-has-money/viking",
+   "at": [
+    0.62,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "plankfloor",
+   "x": 0,
+   "z": 0.4,
+   "w": 7,
+   "d": 6
+  },
+  {
+   "id": "coupon",
+   "kind": "coupon",
+   "seed": 5,
+   "ink": 1,
+   "scale": 1.75,
+   "x": -0.6,
+   "y": 0.55,
+   "z": 0.5,
+   "rot": 180
+  },
+  {
+   "id": "hatG",
+   "kind": "partyhat",
+   "wear": "gsl",
+   "pattern": "stripes",
+   "x": 0.12,
+   "y": 1.265,
+   "z": -0.08,
+   "tilt": 12,
+   "pitch": 0
+  },
+  {
+   "id": "hatV",
+   "kind": "partyhat",
+   "wear": "vik",
+   "pattern": "dots",
+   "x": -0.11,
+   "y": 1.27,
+   "z": 0.03,
+   "tilt": -10,
+   "pitch": 0
+  },
+  {
+   "id": "rosette",
+   "kind": "rosette",
+   "wear": "vik",
+   "x": 0.24,
+   "y": 0.52,
+   "z": 0.34
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 6,
+   "text": "birthday props bench",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "coupon close",
+   "at": 0,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.55,
+     7.558
+    ],
+    "look": [
+     -0.6,
+     0.55,
+     0.5
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coupon",
+      "grip": [
+       0.2,
+       0.109,
+       -0.006
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "coupon",
+     "hand": "R",
+     "grip": [
+      0.2,
+      0.109,
+      -0.006
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gunslinger front",
+   "at": 0.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.62,
+     0.7,
+     6.806
+    ],
+    "look": [
+     -0.62,
+     0.7,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "gunslinger 3/4",
+   "at": 1,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     3.755,
+     0.7,
+     5.213
+    ],
+    "look": [
+     -0.62,
+     0.7,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "viking front",
+   "at": 1.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.62,
+     0.7,
+     6.806
+    ],
+    "look": [
+     0.62,
+     0.7,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "viking 3/4",
+   "at": 2,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -3.755,
+     0.7,
+     5.213
+    ],
+    "look": [
+     0.62,
+     0.7,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "both",
+   "at": 2.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     9.074
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "gunslinger hat close",
+   "at": 3,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.57,
+     1.3,
+     2.552
+    ],
+    "look": [
+     -0.57,
+     1.3,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "gunslinger hat 3/4",
+   "at": 3.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.894,
+     1.3,
+     2.091
+    ],
+    "look": [
+     -0.57,
+     1.3,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "viking hat close",
+   "at": 4,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.62,
+     1.25,
+     2.552
+    ],
+    "look": [
+     0.62,
+     1.25,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "viking hat 3/4",
+   "at": 4.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.844,
+     1.25,
+     2.091
+    ],
+    "look": [
+     0.62,
+     1.25,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "rosette close",
+   "at": 5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.87,
+     0.52,
+     2.285
+    ],
+    "look": [
+     0.87,
+     0.52,
+     0.3
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "rosette 3/4",
+   "at": 5.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.269,
+     0.52,
+     1.926
+    ],
+    "look": [
+     0.87,
+     0.52,
+     0.3
+    ],
+    "fov": 20
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-birthday-bench.mjs (props bench, no reviews)."
+}

@@ -64,6 +64,7 @@ const SIZE = {
   paycard: { w: 0.054, h: 0.086, t: 0.003 },       // props-diner.js bank card: the phone hold, its face away from the holder
   coffeecup: { r: 0.045, h: 0.115 },               // props-coffee.js takeaway cup (the cocoacup's size): the mug hold round the sleeve
   iounote: { w: 0.16, h: 0.16, t: 0.002 },         // props-coffee.js sticky note: the phone hold (its writing is on the back: it faces whoever he shows it to)
+  coupon: { w: 0.36, h: 0.26, t: 0.002 },          // props-birthday.js hand-made FREE HUG coupon: the phone hold (printed on its back, like the iounote)
   feltpen: { len: 0.13, r: 0.009 },                // props-coffee.js marker, its felt tip at the bottom: the thin pinch high on the body
   milkbottle: { r: 0.04, h: 0.2 },                 // props-coffee.js glass milk bottle: the mug hold round its body
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
