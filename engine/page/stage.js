@@ -1038,9 +1038,11 @@ function clipping() {
         p.root.updateMatrixWorld(true);
         p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) { const d = depthIn(b, o); if (d > worst) { worst = d; wo = o; } } });
         if (worst > 0.03 && wo) {
+          // the height in the body's own frame, so a rider upside down in a loop (Never Looks Up 07) is still measured
+          // feet to head: in world y a body on its side has no height, and the zone ran to +-500
           const eb = b.mesh.geometry.boundingBox, pc = new THREE.Box3().setFromObject(wo).getCenter(new THREE.Vector3());
-          const lo = new THREE.Vector3(0, eb.min.y, 0).applyMatrix4(b.mesh.matrixWorld).y, hi = new THREE.Vector3(0, eb.max.y, 0).applyMatrix4(b.mesh.matrixWorld).y;
-          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - lo) / Math.max(1e-3, hi - lo)) * 100) / 100 });
+          pc.applyMatrix4(inv.copy(b.mesh.matrixWorld).invert());
+          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - eb.min.y) / Math.max(1e-6, eb.max.y - eb.min.y)) * 100) / 100 });
         }
         continue;
       }
