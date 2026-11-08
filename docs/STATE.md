@@ -17,7 +17,9 @@ Updated 8 Nov 2026 (main 09886ba + the motion studio workflow PR).
 - Trial the motion studio workflow on the next episode (docs/rules/workflow.md "Measuring").
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
-- (none yet)
+- 8 Nov, NHM EP03 "his round" (branch nhm-03-new-workflow): ~362 min brief->delivery; thread context 217k at delivery;
+  subagents ~1.66 M (3 Sonnet builders 1.32 M, Fable A+B 0.34 M); builder rounds T1 1, T3 2; check-fix rounds 2;
+  final check 0 FAIL / 8 WARN. Notes: project files videos/never-has-money/03-his-round/new/TRIAL.md.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
