@@ -215,7 +215,10 @@ export function makeAttach(env) {
   };
   const loose = (p, h) => {
     const r = h.fromRot || [p.spec.rot ?? 0, p.spec.tip ?? 0, p.spec.tilt ?? 0, p.spec.roll ?? 0];
-    return { P: V().fromArray(h.from), Q: ownQ({ rot: r[0], tip: r[1], tilt: r[2], roll: r[3] }) };
+    // its own spot is in its rig's frame when it rides in one: brought to the world like every other pose here (a
+    // keep or a glide took the rig-frame spot for a world one: the Wizard's sprout grabbed onto his head in the coaster
+    // car stuck 15 m off, Never Looks Up 07)
+    return world(p, { P: V().fromArray(h.from), Q: ownQ({ rot: r[0], tip: r[1], tilt: r[2], roll: r[3] }) });
   };
   const blend = (A, B, e) => ({ P: A.P.clone().lerp(B.P, e), Q: A.Q.clone().slerp(B.Q, e) });
   // the pose a hold gives at `time`, with its grab's blend in
