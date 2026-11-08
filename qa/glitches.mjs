@@ -25,7 +25,7 @@ import { holdsOf, renderTime } from "../engine/shared/holds.js";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 // effects that change much of the picture at once on purpose (skipped), and particle effects (soft)
 const LOUD = new Set(["flash", "shake", "impact", "slash", "speedlines", "shade", "photo"]);
-const SOFT = new Set(["poof", "sparkle", "notes", "zzz", "sweat", "alert", "glint", "confetti", "stars", "dust", "debris", "sparks"]);
+const SOFT = new Set(["poof", "cel", "sparkle", "notes", "zzz", "sweat", "alert", "glint", "confetti", "stars", "dust", "debris", "sparks"]);
 
 // the plan for flow.py: { skip: [[a, b]], soft: [[a, b]], masks: [{ from, to, box }] }, video seconds and 1080x1920 px
 export function pixelPlan(sb, layout) {
@@ -81,7 +81,7 @@ export function pixelGlitches(clip, { sb = null, layout = null } = {}) {
   fs.rmSync(tmp, { recursive: true, force: true });
   if (r.status !== 0) return { error: (r.stderr || "flow.py failed").trim().split("\n").pop(), findings: [], plan };
   try {
-    return { ...JSON.parse(r.stdout), plan };
+    return { findings: [], ...JSON.parse(r.stdout), plan };   // flow.py prints { error } alone when OpenCV is missing
   } catch {
     return { error: "flow.py printed no JSON", findings: [], plan };
   }

@@ -80,6 +80,18 @@ def motion_masks(img, ov=None, depth=None, scale=None, grow_px=None):
     return leaf, sun, still
 
 
+def water_mask(img, ov=None, scale=None):
+    """-> 0..1: open water that ripples (motion mask blue). ov["water"]: boxes over the lake or river; plants painted
+    in them (reeds, overhanging leaves) and "still" boxes (a rock, a jetty) are left out"""
+    ov = ov or {}
+    W, H = img.size
+    scale = scale or W / 1000
+    wb = boxes_to_mask(ov.get("water"), W, H)
+    if wb.max() <= 0: return wb
+    leaf = np.clip(grow(foliage(img, scale), max(2, int(round(3 * scale)))) * 1.5, 0, 1)
+    return np.clip(wb * (1 - leaf) * (1 - boxes_to_mask(ov.get("still"), W, H)), 0, 1)
+
+
 def review(img, sway, shimmer, still_boxes, out, title=""):
     """the picture dimmed to grey, sway painted red, shimmer yellow, still boxes outlined in cyan"""
     base = np.asarray(img.convert("L").convert("RGB")).astype(float) / 255 * 0.55 + 0.2

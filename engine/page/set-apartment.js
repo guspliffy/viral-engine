@@ -10,6 +10,8 @@ import { canvas, tex } from "./set-porch.js";
 // spec: { type: "apartment", seed, dusk }. Nothing seasonal. dusk: true (Not Yet, 1 Nov 2026, Jonny's evening panels): the
 // same room after sunset: slate-blue walls, darker warm boards, a deep blue sky with a last orange band and lit windows
 // in the far houses, no sun patches (light comes from the props' lamps).
+// windows: [[x0, x1], ...] the openings in the back wall instead of the two default ones (Death waits for GTA 6 ep 2,
+// 8 Nov 2026: one window at the left, Jonny's panels); print: false leaves out the leaf print between the windows.
 export const APARTMENT = { wallZ: -1.75, winL: [-1.55, -0.65], winR: [0.75, 1.65], winY: [0.72, 2.45], shelfX: 1.95 };
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.85, ...o });
@@ -100,7 +102,7 @@ function plant(parent, rnd, x, z, h, pot = "#efe6d8") {
 
 export function buildApartment(scene, S = {}) {
   const rnd = rng((S.seed || 5) * 389), g = new THREE.Group(); scene.add(g);
-  const A = APARTMENT, WZ = A.wallZ, dusk = !!S.dusk;
+  const A = APARTMENT, WZ = A.wallZ, dusk = !!S.dusk, WINS = S.windows || [A.winL, A.winR];
   scene.background = new THREE.Color(dusk ? "#262b40" : "#f6ecd9");
   scene.fog = new THREE.Fog(dusk ? "#262b40" : "#f6ecd9", 14, 30);
 
@@ -110,7 +112,7 @@ export function buildApartment(scene, S = {}) {
   // the cream back wall, with holes for the two windows (a shape with holes, so the frames sit in real openings)
   const wallM = std(dusk ? "#62708f" : "#f3e6cc"), [wl, wr] = [-6, 6], wallH = 4.6;
   const sh = new THREE.Shape(); sh.moveTo(wl, 0); sh.lineTo(wr, 0); sh.lineTo(wr, wallH); sh.lineTo(wl, wallH); sh.lineTo(wl, 0);
-  for (const [a, b] of [A.winL, A.winR]) { const h = new THREE.Path(); h.moveTo(a, A.winY[0]); h.lineTo(a, A.winY[1]); h.lineTo(b, A.winY[1]); h.lineTo(b, A.winY[0]); h.lineTo(a, A.winY[0]); sh.holes.push(h); }
+  for (const [a, b] of WINS) { const h = new THREE.Path(); h.moveTo(a, A.winY[0]); h.lineTo(a, A.winY[1]); h.lineTo(b, A.winY[1]); h.lineTo(b, A.winY[0]); h.lineTo(a, A.winY[0]); sh.holes.push(h); }
   const wall = flat(new THREE.Mesh(new THREE.ShapeGeometry(sh), wallM)); wall.position.z = WZ; g.add(wall);
   // skirting board and a picture rail
   const trim = std(dusk ? "#c9bfae" : "#fbf6ec", { roughness: 0.6 });
@@ -141,7 +143,7 @@ export function buildApartment(scene, S = {}) {
   for (const s of [-1, 1]) { const w = flat(new THREE.Mesh(new THREE.PlaneGeometry(12, wallH), std(dusk ? "#5a6787" : "#efdfc2"))); w.rotation.y = -s * Math.PI / 2; w.position.set(s * 4.2, wallH / 2, 4); g.add(w); }
 
   // the windows: the painted view behind, white frames with a cross bar, a deep sill, sheer curtains either side
-  for (const [k, [a, b]] of [A.winL, A.winR].entries()) {
+  for (const [k, [a, b]] of WINS.entries()) {
     const side = k ? 1 : -1, cx = (a + b) / 2, w = b - a, y0 = A.winY[0], y1 = A.winY[1], cy = (y0 + y1) / 2, h = y1 - y0;
     const view = new THREE.Mesh(new THREE.PlaneGeometry(w + 0.1, h + 0.1), basic({ map: viewTex(rnd, side, dusk) })); view.position.set(cx, cy, WZ - 0.18); g.add(view);
     // the reveal (the wall's thickness) round the opening
@@ -166,9 +168,11 @@ export function buildApartment(scene, S = {}) {
   }
   // a little extra warmth on the wall beside each window
   // the framed leaf print between the windows
-  const px = (A.winL[1] + A.winR[0]) / 2;
-  box(g, 0.56, 0.72, 0.035, std("#d6b88e", { roughness: 0.5 }), px, 1.9, WZ + 0.02);
-  const pr = new THREE.Mesh(new THREE.PlaneGeometry(0.46, 0.62), basic({ map: printTex() })); pr.position.set(px, 1.9, WZ + 0.04); g.add(pr);
+  if (S.print !== false) {
+    const px = (A.winL[1] + A.winR[0]) / 2;
+    box(g, 0.56, 0.72, 0.035, std("#d6b88e", { roughness: 0.5 }), px, 1.9, WZ + 0.02);
+    const pr = new THREE.Mesh(new THREE.PlaneGeometry(0.46, 0.62), basic({ map: printTex() })); pr.position.set(px, 1.9, WZ + 0.04); g.add(pr);
+  }
 
   // the bookcase at the right: pale wood, four shelves of books and a small plant
   const shelfM = std("#d8b07c", { roughness: 0.6 }), sx = A.shelfX, sz = WZ + 0.2, sw = 0.8, sd = 0.32, shH = 1.75;
@@ -182,8 +186,8 @@ export function buildApartment(scene, S = {}) {
     if (j === 2) plant(g, rnd, sx + sw / 2 - 0.14, sz, 0.25, "#e8d9c4").scale.setScalar(0.55);
   }
   // potted plants: a tall one in front of the left window, a smaller one at the right window
-  plant(g, rnd, A.winL[0] + 0.15, WZ + 0.45, 0.75);
-  plant(g, rnd, A.winR[0] - 0.12, WZ + 0.35, 0.5, "#d9c2a3").scale.setScalar(0.8);
+  plant(g, rnd, WINS[0][0] + 0.15, WZ + 0.45, 0.75);
+  if (WINS[1]) plant(g, rnd, WINS[1][0] - 0.12, WZ + 0.35, 0.5, "#d9c2a3").scale.setScalar(0.8);
   // a round pale rug for the stage, very subtle
   const rug = flat(new THREE.Mesh(new THREE.CircleGeometry(1.0, 48), std(dusk ? "#8a5a4a" : "#efe1c8", { roughness: 0.95 }))); rug.rotation.x = -Math.PI / 2; rug.scale.set(1.5, 0.8, 1); rug.position.set(0.1, 0.004, -0.15); g.add(rug);
   return g;
