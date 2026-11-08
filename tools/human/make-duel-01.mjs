@@ -29,9 +29,9 @@ import { frameCoverage } from "../../engine/shared/env-coverage.js";
 const LEG = 0.845, R = (v, n = 3) => +(+v).toFixed(n), D2R = Math.PI / 180, FPS = 30;
 const clips = {};
 const load = (n) => (clips[n] ??= prepClip(JSON.parse(fs.readFileSync(`assets/mocap/${n}.json`, "utf8"))));
-const OUT = "storyboards/human/duel", ACT = process.argv[2] || "street", ID = `duel-01-${ACT}`;
+const OUT = "storyboards/human/duel", ACT = process.argv[2] || "street", ID = ACT === "v2" ? "duel-02" : `duel-01-${ACT}`, V2 = ACT === "v2";
 
-const GRIT = { angry: 1, ih: 0.55 }, ANGRY = { angry: 0.85 }, SHOUT = { angry: 1, aa: 0.75 }, GRIN = { happy: 0.75, angry: 0.25 }, COLD = { angry: 0.45 },
+const GRIT = { angry: 1, ih: 0.55 }, EFFORT = { angry: 1, oh: 0.4 }, ANGRY = { angry: 0.85 }, SHOUT = { angry: 1, aa: 0.75 }, GRIN = { happy: 0.75, angry: 0.25 }, COLD = { angry: 0.45 },
   STRAIN = { angry: 1, aa: 0.6 }, SMIRK = { angry: 0.4, happy: 0.35 }, FOCUS = { angry: 0.7 };
 // fire looks per fighter (research: Teo round, billowing bursts; Ryn narrow, fast jets with sharp tongues)
 const TEO = { spread: 0.2, size: 0.17, grow: 1.9, speed: 13, rate: 260 }, RYN = { spread: 0.07, size: 0.1, grow: 1.25, speed: 17, rate: 300 };
@@ -41,6 +41,8 @@ const look = (who) => (who === "A" ? TEO : RYN);
 const PLACES = {
   street: { env: "golden-city-crossing", centre: [0, -1.5], cam: { x: [-1.8, 1.8], y: [0.9, 5.5], z: [0.0, 10.9], yaw: 13, pitch: [-5.27, 9.4], fov: 54 }, surface: "road", life: true },
   alley: { env: "dusk-back-alley", centre: [-0.2, -2.0], cam: { x: [-2.6, 2.6], y: [0.8, 5.5], z: [1.0, 7.6], yaw: 13, pitch: [-9.27, 9.4], fov: 54 }, surface: "road", life: true },
+  // v2 (Jonny's reference boards, 8 Nov): the same street graded to blue-grey twilight (engine/plates/grade-twilight.py)
+  v2: { env: "twilight-city-crossing", centre: [0, -1.5], cam: { x: [-1.8, 1.8], y: [0.9, 5.5], z: [0.0, 10.9], yaw: 13, pitch: [-5.27, 9.4], fov: 54 }, surface: "road", life: true },
   roof: { env: "sunset-rooftop", centre: [0, -5.0], cam: { x: [-2.9, 2.9], y: [0.75, 5.5], z: [1.0, 7.6], yaw: 13, pitch: [-10.18, 9.4], fov: 54 }, surface: "concrete", life: true },
 };
 
@@ -174,6 +176,166 @@ const SHOTS_BY = {
         { who: "A", limb: "RF", at: 0.78, to: 1.0, kind: "jet", ...TEO, speed: 8, drag: 2, size: 0.13, life: 0.3, down: true, silent: true }],
       lines: 0.4,
       cam: { az: 0, fov: 30 } },
+  ],
+  // v2: Jonny's two reference boards (references/duel-v2/, PANELS.md), one street at twilight. Panel numbers in [ ].
+  v2: [
+    // [04] frame 0: Teo chest-up, three-quarter, a tight coiled flame over the fist in front of his lower chest; teeth set
+    { name: "fist", line: -50, lead: "A", len: 0.9,
+      A: { clip: "c12_04", from: 12.7, rate: 0.4, ref: 12.8, aim: "body" },
+      B: { clip: "c76_04", from: 2.0, ref: 2.1, aim: "body" },
+      face: { A: GRIT, B: COLD },
+      fire: [{ who: "A", limb: "L", at: 0, to: 0.9, kind: "hold", speed: 1, size: 0.04, sizeTo: 0.055, rate: 120, life: 0.32, lift: 0.5, spread: 0.1 }],
+      cam: { close: "A", az: -10, fov: 16, fit: 1.3, hands: true },
+      sfx: [[0.02, "ai/screen-crack", 0.9, "his knuckles crack"], [0.1, "ai/ignite", 0.9, "his fist catches fire"]] },
+    { name: "eyes", line: 50, lead: "B", len: 1.3,
+      B: { clip: "c139_09", from: 0.4, rate: 0.3, ref: 0.6, aim: "body" },
+      A: { clip: "c76_04", from: 1.4, ref: 1.5, aim: "body" },
+      face: { B: COLD, A: GRIT },
+      say: [{ who: "B", line: "Go home, Teo.", at: 0.15, tone: "calm", style: "cold, low, quiet and controlled", take: 2 }],
+      cam: { close: "B", az: 0, fov: 14, fit: 1.45, headroom: 0.3 } },
+    { name: "home", line: -50, lead: "A", len: 1.05,
+      A: { clip: "c12_04", from: 12.9, rate: 0.3, ref: 12.8, aim: "body" },
+      B: { clip: "c76_04", from: 2.6, ref: 2.7, aim: "body" },
+      face: { A: GRIN, B: COLD },
+      say: [{ who: "A", line: "I am home.", at: 0.08, tone: "calm", style: "cocky, amused, confident, a grin in the voice" }],
+      cam: { close: "A", az: 0, fov: 16, fit: 1.45, headroom: 0.3 } },
+    // [01] the wind-up: Teo full body, three-quarter, facing right: rear leg loaded, rear fist back at the hip with a small
+    // curled flame; Ryn a near silhouette at the right edge
+    { name: "windup", line: -30, half: 1.7, lead: "A", len: 0.8,
+      A: { clip: "c135_09", from: 5.75, rate: 0.5, ref: 6.15, aim: "body" },
+      B: { clip: "c76_04", from: 2.7, rate: 0.5, ref: 2.8, aim: "body" },
+      face: { A: GRIT, B: COLD },
+      cam: { on: "A", az: 12, el: -3, fov: 28, fit: 1.2 } },
+    // [02] the release: the lunge punch, the fist big and near the camera; the flame narrow at the fist, widening at Ryn
+    { name: "release", line: 5, half: 1.8, lead: "A", len: 0.6,
+      A: { clip: "c135_09", from: 6.15, to: 6.8, ref: 6.7, aim: "strike", limb: "R" },
+      B: { clip: "c139_09", from: 1.45, rate: 1.2, ref: 1.6, aim: "body" },
+      face: { A: SHOUT, B: ANGRY },
+      fire: [{ who: "A", limb: "R", from: 6.3, to: 6.8, kind: "jet", ...TEO, size: 0.13, grow: 2.2, spread: 0.12, rate: 300, speed: 16, drag: 1.0, dur: 0.5, life: 0.6, peak: "hold" }],
+      lines: 0.35,
+      cam: { frame: ["A.palmR", "A.head", "A.footL"], az: 16, el: -2, fov: 30, fit: 1.25 } },
+    // [03] Ryn ducks under it: foreground, facing left, head below the fire, which flies on into the masonry in sparks
+    { name: "duck", line: -30, half: 2.2, lead: "B", len: 0.9,
+      B: { clip: "c139_09", from: 1.95, rate: 1.0, ref: 2.0, aim: "body", slide: { at: 0.05, dur: 0.35, d: 0.25 } },
+      A: { clip: "c135_09", from: 6.8, rate: 0.08, ref: 6.8, aim: "strike", limb: "R" },
+      face: { B: { angry: 0.6, surprised: 0.5 }, A: SHOUT },
+      fire: [{ who: "A", limb: "R", at: 0, to: 0.45, pre: 0.2, cont: true, kind: "jet", ...TEO, size: 0.07, grow: 1.4, spread: 0.1, rate: 300, speed: 16, drag: 0.9, life: 0.75, taper: 0.2, past: true }],
+      cam: { on: "B", az: -12, el: 2, fov: 30, fit: 1.25 } },
+    // Ryn comes up out of the duck into his crescent kick; Teo's crossed guard takes it and skids
+    { name: "crescent", line: -60, lead: "B",
+      B: { clip: "c135_07", from: 0.5, to: 1.45, rate: 1.4, ref: 0.95, aim: "strike", limb: "RF" },
+      A: { clip: "c76_04", from: 1.05, ref: 1.5, aim: "body" },
+      face: { B: SHOUT, A: ANGRY },
+      fire: [{ who: "B", limb: "RF", from: 0.75, to: 1.15, kind: "arc", ...RYN, speed: 22, drag: 1.4, at: "opp", splash: 0.2, size: 0.13, grow: 1.3, rate: 280, life: 0.55, minY: 0.75 }],
+      lines: 0.35,
+      cam: { az: 0, el: 5, fov: 34 } },
+    { name: "guardA", focus: "A", line: -45, lead: "A", len: 0.78,
+      A: { clip: "c76_04", from: 1.2, rate: 0.7, ref: 1.5, aim: "body", slide: { at: 0.05, dur: 0.42, d: 0.5 } },
+      B: { clip: "c135_07", from: 1.45, rate: 0.4, ref: 1.45, aim: "body" },
+      face: { A: GRIT },
+      fire: [{ who: "B", limb: "RF", at: 0, to: 0.12, pre: 0.2, kind: "arc", ...RYN, speed: 22, drag: 1.4, at2: "chest", splash: 0.3, size: 0.13, grow: 1.3, rate: 280, life: 0.3, cont: true, into: "chest" }],
+      hit: { at: 0.0, frames: 5, flash: 0, shake: 0.04 },
+      cam: { on: "A", az: 0, fov: 18, fit: 1.25 } },
+    // Teo answers: jab, cross across the gap; Ryn's knife-hand takes the first and skids
+    { name: "jabs", line: -35, lead: "A",
+      A: { clip: "c143_23", from: 0.35, to: 1.4, ref: 0.55, aim: "strike", limb: "L" },
+      B: { clip: "c135_10", from: 4.75, ref: 5.1, aim: "body", slide: { at: 0.4, dur: 0.35, d: 0.35 } },
+      face: { A: SHOUT, B: ANGRY },
+      fire: [{ who: "A", limb: "L", from: 0.4, to: 0.8, kind: "jet", ...TEO, drag: 1.4, dur: 0.18, life: 0.5, at: "opp", splash: 0.25 },
+        { who: "A", limb: "R", from: 0.95, to: 1.4, kind: "jet", ...TEO, drag: 1.4, dur: 0.2, life: 0.5, at: "opp", splash: 0.25 }],
+      cam: { az: 0, el: 5, fov: 34 } },
+    // Ryn turns Teo's answer aside into the wheelie bin
+    { name: "redirect", open: ["B"], focus: "B", line: 40, lead: "B",
+      B: { clip: "c12_04", from: 1.7, to: 3.5, rate: 2.6, ref: 1.7, aim: "body", slide: { at: 0.02, dur: 0.28, d: 0.22 } },
+      A: { clip: "c143_23", from: 1.4, rate: 0.4, ref: 1.4, aim: "strike", limb: "R" },
+      face: { B: FOCUS, A: ANGRY },
+      fire: [{ who: "A", limb: "R", at: 0, to: 0.3, pre: 0.22, kind: "jet", ...TEO, size: 0.075, grow: 1.1, spread: 0.08, drag: 1.3, life: 0.5, into: "palm:R", splash: 0.02, taper: 0.3, cont: true },
+        { who: "B", limb: "R", at: 0.02, to: 0.5, kind: "jet", ...RYN, speed: 11, drag: 1.1, size: 0.09, life: 0.45, grow: 1.3, exit: true, taper: 0.2, bin: true }],
+      cam: { on: "B", az: 0, el: 4, fov: 34, fit: 1.3 } },
+    // both power up (fire light on the faces, [04])
+    { name: "powerA", open: ["A"], focus: "A", line: -50, lead: "A", len: 0.9,
+      A: { clip: "c12_04", from: 12.6, to: 14.2, rate: 1.6, ref: 12.8, aim: "body" },
+      B: { clip: "c135_11", from: 0.3, ref: 0.6, aim: "body" },
+      face: { A: GRIT },
+      fire: [{ who: "A", limb: "LR", at: 0.05, to: 0.9, kind: "burst", speed: 0.5, size: 0.035, sizeTo: 0.07, grow: 0.9, rate: 220, life: 0.25, drag: 4, lift: 0.3 }],
+      lines: 0.45, rise: true,
+      cam: { close: "A", az: 0, fov: 16, fit: 1.35, hands: true },
+      sfx: [[0.02, "gasp", 0.8, "Teo breathes in"], [0.1, "sizzle", 1.3, "the fire hisses between his palms", 0.8]] },
+    { name: "powerB", focus: "B", line: 50, lead: "B", len: 0.9,
+      B: { clip: "c135_11", from: 0.3, to: 0.95, rate: 0.72, ref: 0.6, aim: "body", turn: 180 },
+      A: { clip: "c12_04", from: 14.2, ref: 14.3, aim: "body" },
+      face: { B: GRIT },
+      fire: [{ who: "B", limb: "L", at: 0.08, to: 0.9, kind: "hold", speed: 1.4, size: 0.045, rate: 100, life: 0.3, lift: 1.0, spread: 0.05 },
+        { who: "B", limb: "R", at: 0.14, to: 0.9, kind: "hold", speed: 1.4, size: 0.045, rate: 100, life: 0.3, lift: 1.0, spread: 0.05 }],
+      lines: 0.45,
+      cam: { close: "B", az: 0, fov: 16, fit: 1.3, hands: true } },
+    // both lunge in, close: [05] the first clash, one small star between the fists, a dust ripple from under it
+    { name: "fireA", focus: "A", line: -50, half: 1.0, lead: "A", len: 0.45,
+      A: { clip: "c135_09", from: 6.35, to: 6.8, ref: 6.7, aim: "strike", limb: "R" },
+      B: { clip: "c135_09", from: 4.4, rate: 0.5, ref: 4.8, aim: "strike", limb: "L" },
+      face: { A: SHOUT, B: SHOUT },
+      fire: [{ who: "A", limb: "R", from: 6.45, to: 6.8, kind: "jet", ...TEO, size: 0.09, rate: 300, speed: 15, drag: 1.2, dur: 0.4, life: 0.4, into: "mid", splash: 0.1, peak: "hold", clash: true }],
+      cam: { on: "A", az: 0, fov: 22, fit: 1.2 } },
+    { name: "clash", line: 22, half: 1.0, lead: "A", len: 1.0,
+      A: { clip: "c135_09", from: 6.8, rate: 0.04, ref: 6.8, aim: "strike", limb: "R", slide: { at: 0.1, dur: 0.5, d: 0.12 } },
+      B: { clip: "c135_09", from: 4.85, rate: 0.04, ref: 4.85, aim: "strike", limb: "L", slide: { at: 0.1, dur: 0.5, d: 0.12 } },
+      face: { A: GRIT, B: GRIT },
+      clashFire: { star: true, meet: 0.05 }, scorch: true,
+      hit: { at: 0.05, frames: 6, flash: 0, shake: 0.05 },
+      cam: { az: 15, el: 3, fov: 36, fit: 1.08 } },
+    { name: "strainA", focus: "A", line: -50, half: 1.0, lead: "A", len: 0.6,
+      A: { clip: "c135_09", from: 6.84, rate: 0.04, ref: 6.8, aim: "strike", limb: "R" },
+      B: { clip: "c135_09", from: 4.89, rate: 0.04, ref: 4.85, aim: "strike", limb: "L" },
+      face: { A: EFFORT },
+      clashFire: { small: true, star: true },
+      cam: { close: "A", az: -12, fov: 14, fit: 1.45 } },
+    // [06] the star bursts: Ryn is thrown back into a low skid, one glove on the road, forearm up; Teo far left
+    { name: "pushed", line: -40, half: 1.6, lead: "B", len: 1.1,
+      B: { clip: "c139_16", from: 2.45, to: 3.3, rate: 0.8, ref: 2.6, aim: "body", turn: 180, slide: { at: 0.0, dur: 0.6, d: 1.2 } },
+      A: { clip: "c76_04", from: 1.2, rate: 0.6, ref: 1.5, aim: "body", slide: { at: 0.0, dur: 0.3, d: 0.3 } },
+      face: { B: { angry: 0.8, surprised: 0.4 }, A: GRIT },
+      cam: { on: "B", az: -10, el: 5, fov: 30, fit: 1.0 },
+      sfx: [[0.0, "firework", 0.9, "the star bursts and throws Ryn back"]] },
+    // Ryn comes up out of the skid, glove off the road, eyes on Teo
+    { name: "riseB", focus: "B", line: 50, half: 1.6, lead: "B", len: 0.8,
+      B: { clip: "c139_16", from: 3.3, rate: 0.9, ref: 3.6, aim: "body" },
+      A: { clip: "c76_04", from: 1.5, rate: 0.5, ref: 1.6, aim: "body" },
+      face: { B: GRIT, A: GRIT },
+      cam: { close: "B", az: 0, fov: 16, fit: 1.45 } },
+    // twin blades at Teo, who bats them down
+    { name: "blades", line: -55, lead: "B",
+      B: { clip: "c143_23", from: 0.35, to: 1.4, ref: 0.55, aim: "strike", limb: "L" },
+      A: { clip: "c76_04", from: 1.05, ref: 1.5, aim: "body" },
+      face: { B: SHOUT, A: ANGRY },
+      fire: [{ who: "B", limb: "L", from: 0.4, to: 0.8, kind: "jet", ...RYN, size: 0.07, drag: 1.2, dur: 0.16, life: 0.5, at: "opp", splash: 0.15 },
+        { who: "B", limb: "R", from: 0.95, to: 1.4, kind: "jet", ...RYN, size: 0.07, drag: 1.2, dur: 0.16, life: 0.5, at: "opp", splash: 0.15 }],
+      cam: { az: 0, fov: 30 } },
+    // both fire everything: the second clash ends it open
+    { name: "fireB", focus: "B", line: 50, half: 1.0, lead: "B", len: 0.35,
+      B: { clip: "c135_09", from: 4.35, to: 4.85, ref: 4.8, aim: "strike", limb: "L" },
+      A: { clip: "c135_09", from: 6.5, rate: 0.6, ref: 6.8, aim: "strike", limb: "R" },
+      face: { B: SHOUT, A: SHOUT },
+      fire: [{ who: "B", limb: "L", from: 4.5, to: 4.85, kind: "jet", ...RYN, size: 0.09, rate: 340, speed: 17, drag: 1.2, dur: 0.5, life: 0.5, into: "mid", splash: 0.02, peak: "hold", clash: true }],
+      cam: { on: "B", az: 0, fov: 20, fit: 1.15 } },
+    { name: "impact", line: 22, half: 1.0, lead: "A", len: 1.15, kind: "payoff",
+      A: { clip: "c135_09", from: 6.81, rate: 0.04, ref: 6.8, aim: "strike", limb: "R", slide: { at: 0.05, dur: 0.5, d: 0.15 } },
+      B: { clip: "c135_09", from: 4.86, rate: 0.04, ref: 4.85, aim: "strike", limb: "L", slide: { at: 0.05, dur: 0.5, d: 0.15 } },
+      face: { A: GRIT, B: GRIT },
+      clashFire: { star: true, big: true },
+      hit: { at: 0.0, frames: 10, flash: 0, shake: 0.07 }, lines: 0.5,
+      cam: { frame: ["A.head", "B.head", "A.palmR", "B.palmL", "mid"], az: 15, el: 2, fov: 30, fit: 1.25 } },
+    { name: "strainB", focus: "B", line: 50, half: 1.0, lead: "B", len: 0.6,
+      B: { clip: "c135_09", from: 4.91, rate: 0.04, ref: 4.85, aim: "strike", limb: "L" },
+      A: { clip: "c135_09", from: 6.86, rate: 0.04, ref: 6.8, aim: "strike", limb: "R" },
+      face: { B: EFFORT },
+      clashFire: { small: true, star: true },
+      cam: { close: "B", az: 0, fov: 14, fit: 1.45 } },
+    { name: "final", line: 22, half: 1.0, lead: "A", len: 1.6,
+      A: { clip: "c135_09", from: 6.9, rate: 0.04, ref: 6.8, aim: "strike", limb: "R" },
+      B: { clip: "c135_09", from: 4.95, rate: 0.04, ref: 4.85, aim: "strike", limb: "L" },
+      face: { A: GRIT, B: GRIT },
+      clashFire: { star: true, big: true, grow: true }, rise: true, lines: 0.35,
+      cam: { az: 15, el: -2, fov: 30, fit: 1.06, y: 1.2 } },
   ],
   roof: [
     // 15. the rooftop at sunset: both land out of their jumps, the fire at their feet braking them
@@ -343,12 +505,20 @@ const reachOf = (who, limb, s) => { const W = poseAt(who, s), l = lineOf(W, limb
   return { d: l.length(), end: limb.length === 1 ? palmWorld(W, side) : W[`${side}foot`].end, line: l }; };
 const target = (who, spec, s) => spec === "ball" ? ballAt(who, s) : spec === "chest" ? chest(who, s) : spec === "mid" ? midAt(s) : palmAt(who, spec.split(":")[1].toLowerCase(), s);
 
-const blasts = [], marks = { silent: new Set(), arrive: [], exits: [] };
+const blasts = [], marks = { silent: new Set(), arrive: [], exits: [], past: [] };
 const firesOf = (sh) => {
   const out = [...(sh.fire || [])];
   // the clash: both fighters pour a stream into the meeting point all shot long, and a ball of fire churns there
   if (sh.clashFire) {
-    const big = sh.clashFire.grow, small = sh.clashFire.small;
+    const big = sh.clashFire.grow, small = sh.clashFire.small, star = sh.clashFire.star;
+    if (star) {
+      // v2 [05]: thin streams into one small contact star between the fists (no ball): spikes from the meeting point
+      const k = small ? 0.75 : sh.clashFire.big ? 1.25 : 1;
+      out.push({ who: "A", limb: "R", at: 0, to: sh.len, pre: 0.25, cont: true, kind: "jet", ...TEO, size: 0.1 * k, grow: 1.4, spread: 0.1, rate: 300, speed: 14, drag: 1.2, life: 0.4, into: "mid", splash: 0.12, silent: true },
+        { who: "B", limb: "L", at: 0, to: sh.len, pre: 0.25, cont: true, kind: "jet", ...RYN, size: 0.08 * k, rate: 320, speed: 16, drag: 1.2, life: 0.4, into: "mid", splash: 0.12, silent: true },
+        { who: "M", limb: "M", at: sh.clashFire.meet ?? 0, to: sh.len, ...(sh.clashFire.meet ? {} : { pre: 0.3 }), kind: "burst", speed: 2.4, size: 0.045 * k, sizeTo: (big ? 0.09 : 0.065) * k, grow: 1.0, rate: 260, life: 0.2, drag: 4, lift: 0.2, spread: 3.1, silent: true });
+      return out;
+    }
     out.push({ who: "A", limb: "R", at: 0, to: sh.len, pre: sh.name === "clash" ? 0.3 : 0.25, cont: true, kind: "jet", ...TEO, size: small ? 0.14 : 0.22, grow: 1.8, rate: 320, speed: 15, drag: 1.2, life: 0.5, into: "mid", splash: 0.3, silent: true },
       { who: "B", limb: "L", at: 0, to: sh.len, pre: sh.name === "clash" ? 0.3 : 0.25, cont: true, kind: "jet", ...RYN, size: small ? 0.1 : 0.14, rate: 340, speed: 17, drag: 1.2, life: 0.5, into: "mid", splash: 0.3, silent: true },
       { who: "M", limb: "M", at: sh.clashFire.meet ?? 0, to: sh.len, ...(sh.clashFire.meet ? {} : { pre: 0.4 }), kind: "burst", speed: 1.4, size: big ? 0.3 : 0.26, sizeTo: big ? 0.62 : 0.32, grow: 1.4, rate: 360, life: 0.32, drag: 3, lift: 0.4, spread: 3.1, silent: true });
@@ -356,7 +526,7 @@ const firesOf = (sh) => {
   return out;
 };
 for (const sh of SHOTS) for (const f of firesOf(sh)) {
-  const { who, limb, from, to, dur, minY, level, at: _a, at2, peak, silent, into, exit, cont, cutAt, pre, bin, wall, down, sync, clash, ...rest } = f;
+  const { who, limb, from, to, dur, minY, level, at: _a, at2, peak, silent, into, exit, cont, cutAt, pre, bin, wall, down, sync, clash, past, ...rest } = f;
   const opp = who === "A" ? "B" : "A", timed = f.kind === "hold" || f.kind === "burst" || cont || exit || down;
   let a, b, line = null;
   if (timed) { a = R(Math.max(0, sh.t0 + _a) - (pre ?? 0), 4); b = R(Math.min(sh.t1, sh.t0 + to), 4); }
@@ -404,10 +574,14 @@ for (const sh of SHOTS) for (const f of firesOf(sh)) {
   if (reach != null) { const v = (rest.speed ?? 7) * (f.kind === "arc" ? 0.5 : 1), k = rest.drag ?? 3, x = reach * k / v; marks.arrive.push({ sh: sh.name, who, at: R(src[0][0] + (x < 1 ? -Math.log(1 - x) / k : 0.3), 3), B, into }); }
   if (silent) marks.silent.add(B);
   if (exit) marks.exits.push({ sh, B, bin, wall });
+  if (past) marks.past.push({ sh, B });
 }
 
+// v2: the tongue style draws each flame longer, so the streams are drawn a quarter smaller to keep the faces clear
+if (V2) for (const B of blasts) if (B.kind === "jet" || B.kind === "arc") { B.size = R((B.size ?? 0.16) * 0.75, 3); if (B.sizeTo != null) B.sizeTo = R(B.sizeTo * 0.75, 3); }
+
 // --------------------------------------------------------------------------------------------- props + physics
-const props = [{ id: "fire", kind: "firebend", x: 0, y: 0, z: 0, rot: 0, blasts, light: 18, staged: "fire: light, it rests on nothing" }];
+const props = [{ id: "fire", kind: "firebend", x: 0, y: 0, z: 0, rot: 0, blasts, light: 18, ...(V2 ? { style: "tongue", castLight: 1.7 } : {}), staged: "fire: light, it rests on nothing" }];
 const extra = [];   // beat items: [s, item]
 // a redirect that hits something: the stream's line 1.6-2.4 m out from the hand, at the frame it gets there
 for (const e of marks.exits) {
@@ -430,6 +604,16 @@ for (const e of marks.exits) {
     extra.push([hw, { sfx: "crumble", gain: 0.6, reason: "the fire scorches and chips the bricks" }]);
     props.push({ id: "steam", kind: "steamjet", x: R(w.x), y: R(Math.max(0.6, w.y)), z: R(w.z), rot: Math.sign(w.x) > 0 ? -90 : 90, scale: 1.2, show: [hw, END], staged: "steam from the burst pipe" });
   }
+}
+
+// v2 [03]: a stream that misses (Ryn ducks under it) flies on into the masonry at the street's side: sparks, chips, dust
+for (const e of marks.past) {
+  const q = e.B.src[Math.floor(e.B.src.length / 2)], p = new THREE.Vector3(q[1], q[2], q[3]), d = new THREE.Vector3(q[4], q[5], q[6]).normalize();
+  const k = Math.max(1.5, Math.min(6, (Math.sign(d.x || 1) * 3.6 + CEN[0] - p.x) / (d.x || 1e-3))), w = p.clone().addScaledVector(d, k);
+  const sp = (e.B.speed ?? 7), dr = e.B.drag ?? 3, x = Math.min(0.95, k * dr / sp), hw = R(Math.min(e.sh.t1 - 0.05, q[0] + -Math.log(1 - x) / dr), 3);
+  extra.push([hw, { do: "poof", pos: [R(w.x), R(w.y), R(w.z)], dur: 0.8, color: "#4a4652", puffs: 7, sparks: 14, size: 0.3, lift: 0.25, sound: false }]);
+  extra.push([hw, { sfx: "crumble", gain: 0.75, reason: "the missed fire hits the masonry and chips it" }]);
+  e.B.reach = R(p.distanceTo(new THREE.Vector3(q[1], q[2], q[3])) + k, 3); e.B.splash = 0.35;
 }
 
 // ---------------------------------------------------------------------------------------------- the cameras
@@ -531,7 +715,7 @@ for (const sh of SHOTS) for (const who of ["A", "B"]) {
   const s0 = sh.t0 + P.slide.at, s1 = s0 + P.slide.dur;
   put(s0, { sfx: "tyres", dur: R(P.slide.dur), gain: 0.3 + 0.15 * Math.min(1, P.slide.d), reason: `${who === "A" ? "Teo" : "Ryn"}'s feet skid back over the ground` });
   for (let k = 0; k < 3; k++) { const s2 = s0 + (s1 - s0) * k / 3, W = poseAt(who, s2);
-    for (const side of ["l", "r"]) { const f = W[`${side}foot`].end; fx.push({ do: "poof", at: R(s2, 3), pos: [R(f.x), 0.02, R(f.z)], dur: 0.5, color: ACT === "street" ? "#cdbba2" : ACT === "alley" ? "#7a6a72" : "#b9a39a", puffs: 5, sparks: 0, size: 0.16 + 0.08 * Math.min(1.5, P.slide.d), lift: 0.05, sound: false }); } }
+    for (const side of ["l", "r"]) { const f = W[`${side}foot`].end; fx.push({ do: "poof", at: R(s2, 3), pos: [R(f.x), 0.02, R(f.z)], dur: 0.5, color: V2 ? "#8d90a8" : ACT === "street" ? "#cdbba2" : ACT === "alley" ? "#7a6a72" : "#b9a39a", puffs: 5, sparks: 0, size: 0.16 + 0.08 * Math.min(1.5, P.slide.d), lift: 0.05, sound: false }); } }
 }
 // each arrival on a guard: a small sideways shake
 for (const m of marks.arrive) if (m.into !== "mid" && !(m.into || "").startsWith("palm") && m.into !== "chest") put(m.at, { fx: "shake", dur: 0.16, amp: 0.02 });
@@ -544,6 +728,10 @@ for (const sh of SHOTS) if (sh.hit) { const h = fr(sh.t0 + sh.hit.at), b = beats
   put(h, { sfx: "impact", gain: 0.9, reason: sh.name === "impact" ? "the two streams slam into each other" : "the fire slams into his guard" });
   put(h, { sfx: "kenney/impact-punch-heavy", gain: 0.6, reason: "the hit's punch on a phone speaker" });
   hitStop.push({ at: h, frames: sh.hit.frames }); }
+// v2 [05]: the clash point marks the road: a dust ripple from under it and a fresh scorch that stays ([06])
+for (const sh of SHOTS) if (sh.scorch) { const h = fr(sh.t0 + (sh.hit?.at ?? 0)), m = midAt(h);
+  fx.push({ do: "poof", at: R(h, 3), pos: [R(m.x), 0.03, R(m.z)], dur: 0.7, color: "#8d90a8", puffs: 10, sparks: 8, size: 0.42, lift: 0.04 });
+  props.push({ id: "scorch", kind: "scorch", x: R(m.x), y: 0, z: R(m.z), rot: 0, at: h, size: 0.5, staged: "a fresh burn on the road under the clash" }); }
 // two streams meeting half way (the alley): a pop of fire and smoke where they meet, both pushed back
 for (const sh of SHOTS) if (sh.pop) { const ar = marks.arrive.filter((m) => m.sh === sh.name); if (ar.length < 2) continue;
   const s = fr(Math.max(...ar.map((m) => m.at))), m = midAt(s);
@@ -566,7 +754,13 @@ for (const sh of SHOTS) if (sh.rise) {
   put(sh.t0 + 0.05, { sfx: "windswell", gain: 0.6, dur: R(sh.len), reason: "the air rushes in as he powers up" }); }
 // the clash: one long roar rising under it all, and the light flooding up to the end (it never whites out: 0.85 at most)
 { const cl = SHOTS.find((x) => x.name === "impact");
-  if (cl) { const s0 = cl.t0, len = END - s0;
+  if (cl && V2) { const s0 = cl.t0, len = END - s0;
+    put(s0, { sfx: "flamejet", gain: 1.0, dur: R(Math.min(2.0, len)), reason: "both streams pour into the clash" });
+    put(s0, { sfx: "rumble", gain: 0.9, dur: R(len), reason: "the clash star roars, nobody gives" });
+    put(s0 + 0.2, { sfx: "ai/slowmo-air", gain: 0.6, reason: "the shockwave rolls out" });
+    const fin = beats.find((x) => x.name === "final");
+    for (let k = 0; k < 5; k++) put(fin.at + k * 0.3, { fx: "shake", dur: 0.28, amp: 0.01 + k * 0.004 }); }
+  else if (cl) { const s0 = cl.t0, len = END - s0;
     put(s0, { sfx: "flamejet", gain: 1.0, dur: R(Math.min(2.0, len)), reason: "both streams pour into the clash" });
     put(s0, { sfx: "rumble", gain: 0.9, dur: R(len), reason: "the clash ball roars and grows" });
     put(s0 + 0.2, { sfx: "ai/slowmo-air", gain: 0.6, reason: "the shockwave rolls out" });
@@ -596,17 +790,17 @@ const cast = (id, who, look) => ({ id, character: look, at: list[who][0].place, 
 const vis = beats.map((b) => { const sh = SHOTS.find((s) => s.name === b.name), c = sh.cam;
   const see = c.frame ? [] : c.close ? [`${c.close === "A" ? "teo" : "ryn"}.face`] : c.on ? [c.on === "A" ? "teo" : "ryn"] : ["teo", "ryn"];
   return see.length ? { from: R(b.at + 0.08), to: R(b.at + b.len - 0.04), see, why: c.close ? `the close-up on ${c.close === "A" ? "Teo" : "Ryn"}'s face` : `the fighters in the ${b.name} shot` } : null; }).filter(Boolean);
-const titles = { street: "Firebender duel 01: the street", alley: "Firebender duel 01: the back street", roof: "Firebender duel 01: the rooftop" };
+const titles = { street: "Firebender duel 01: the street", alley: "Firebender duel 01: the back street", roof: "Firebender duel 01: the rooftop", v2: "Firebender duel 02: one street at twilight" };
 const sb = {
   id: ID,
   title: titles[ACT],
-  idea: "Two rival firebenders, Teo and Ryn, face off on a city street at golden hour, fight down a back street at dusk and end on a rooftop at sunset where their two streams of fire meet in a ball neither can push through",
+  idea: V2 ? "Two rival firebenders, Teo and Ryn, fight on one city street at twilight: Teo's punch misses as Ryn ducks under it, their first clash throws Ryn back into a skid, and the second clash ends it open, nobody giving" : "Two rival firebenders, Teo and Ryn, face off on a city street at golden hour, fight down a back street at dusk and end on a rooftop at sunset where their two streams of fire meet in a ball neither can push through",
   fps: FPS, look: "anime-pro", profile: "short", loop: false,
   castLook: "sheet",
   rig: { hand: 2, eyes: 2, hold: 2 },
   physics: true,
   motionBlur: false,
-  set: { type: "env", env: P0.env, aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, ...(P0.life ? { life: "auto" } : {}) },
+  set: { type: "env", env: P0.env, aperture: 0, focus: false, lighting: V2 ? { v: 2, exposure: 0.78 } : 2, hatch: { boil: 0.25 }, ...(P0.life ? { life: "auto" } : {}) },
   music: false,
   sound: { sfx: 0.6, ambience: 0.3, surface: P0.surface, room: ACT === "alley" ? "street" : "open", guard: true, speech: true },
   creative: { notes: false },
