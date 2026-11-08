@@ -152,5 +152,43 @@
    "fov": 34
   }
  ],
- "duration": 3
+ "duration": 3,
+ "allowClip": [
+  {
+   "who": "h",
+   "from": 0.56,
+   "to": 0.64,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "turnaround sheet: the pose turns to 35 deg in one cut (stills only)"
+  },
+  {
+   "who": "h",
+   "from": 1.16,
+   "to": 1.24,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "turnaround sheet: the pose turns to 90 deg in one cut (stills only)"
+  },
+  {
+   "who": "h",
+   "from": 1.76,
+   "to": 1.84,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "turnaround sheet: the pose turns to 145 deg in one cut (stills only)"
+  },
+  {
+   "who": "h",
+   "from": 2.36,
+   "to": 2.44,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "turnaround sheet: the pose turns to 180 deg in one cut (stills only)"
+  }
+ ]
 }

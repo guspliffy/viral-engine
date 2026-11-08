@@ -16,6 +16,9 @@ const sb = {
   props: [], beats: HEAD.map((h, i) => ({ name: `h${h}`, at: i * LEN, len: LEN, do: [] })),
   camera: [{ at: 0, pos: [0, 1.0, 3.6], look: [0, 0.9, -1.0], fov: 34 }],
   duration: HEAD.length * LEN,
+  // a turnaround is a sheet of stills: the frozen pose turns to its next heading in one frame on purpose (only the
+  // stills in the middle of each heading are used), so the drawn-rig jump check is waived at those turns
+  allowClip: HEAD.slice(1).map((h, i) => ({ who: "h", from: +((i + 1) * LEN - 0.04).toFixed(2), to: +((i + 1) * LEN + 0.04).toFixed(2), checks: ["rig-jump"], reason: `turnaround sheet: the pose turns to ${h} deg in one cut (stills only)` })),
 };
 fs.writeFileSync(`storyboards/human/turnaround-${name}.json`, JSON.stringify(sb, null, 1));
 console.log(HEAD.map((_, i) => (i * LEN + 0.3).toFixed(2)).join(","));
