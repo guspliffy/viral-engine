@@ -54,7 +54,7 @@ profile: `docs/PLAN.md` → Render speed.
 
 ## Quality checks
 
-Rules for every clip are in [`CLAUDE.md`](CLAUDE.md). Two small tools check a clip before it counts as done:
+Rules for every clip start in [`CLAUDE.md`](CLAUDE.md), which points to [`docs/rules/`](docs/rules/) by task. Two small tools check a clip before it counts as done:
 
 ```bash
 node engine/render.mjs storyboards/test-01-golden.json --layout     # caption + character boxes, seconds
