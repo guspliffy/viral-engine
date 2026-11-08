@@ -118,7 +118,7 @@ const props = [
   { id: "lift", kind: "carrier", x: VH[0], y: 0, z: VH[1], rot: VH_YAW },
   ...patProps({ who: "gsl", at: G0, yaw: G_YAW }).map((p) => (p.id === "wallet" ? { ...p, scale: 0.001, staged: "down in his holster (part of his costume) until he draws it" } : p)),
 ];
-const SUB_LOW = 1250, SUB_HIGH = 560;
+const SUB_LOW = 1250, SUB_HIGH = 280;   // (high: above Viking's hair in his close-up)
 
 // ---------------------------------------------------------------- 1 PAY UP 0-1.5 (panel 1, the wide)
 // frame 0: the Wizard's horn blasts as his mittens push the big purple present into Viking's arms; Viking turns to
@@ -165,13 +165,14 @@ c.arm(r3(tf + 0.1), "rea", "R", { o: [-0.1, 0.33, 0.34] }, 0.35, "inOut"); c.arm
 A(r3(tf + 0.1), "rea", "grip", { side: "both", shape: "relaxed", dur: 0.3 });
 // it rides on the purple box: Viking's right mitten has it too from here (keep: it stays exactly where it sits)
 A(r3(tr + 0.05), "vik", "grab", { prop: "bbox", hand: "R", keep: true, dur: 0, pose: null });
-A(r3(tr + 0.12), "rea", "move", { to: R2, dur: 0.4, ease: "inOut", steps: 2 }); A(r3(tr + 0.12), "rea", "turn", { to: R2_YAW, dur: 0.35 });
+A(r3(tr + 0.06), "rea", "move", { to: R2, dur: 0.36, ease: "inOut", steps: 2 }); A(r3(tr + 0.06), "rea", "turn", { to: R2_YAW, dur: 0.33 });
 A(0, "rea", "look", { to: [-0.5, -0.2], dur: 0, blink: false }); A(0, "rea", "face", { lid: 0.4, dur: 0 });
 // Viking beams at the Wizard, at the box arriving, then at both presents
 A(0, "vik", "look", { to: [-0.5, -0.1], dur: 0, blink: false });
 A(0, "vik", "expr", { expr: "delighted", set: { curve: 0.85, open: 0.35 }, dur: 0 });
 A(0.32, "vik", "look", { to: [0.45, -0.2], dur: 0.12, blink: false });
-A(1.1, "vik", "turn", { to: V_FRONT, dur: 0.25 }); vbox.carry(1.1, front(V0, V_FRONT, 0.46, 0, 0.12), 0.25, "inOut", { rot: r3(V_FRONT + 180) });
+// (0.4 s: in 0.25 s the box's far end swung 20 cm in one drawing)
+A(1.1, "vik", "turn", { to: V_FRONT, dur: 0.4 }); vbox.carry(1.1, front(V0, V_FRONT, 0.46, 0, 0.12), 0.4, "inOut", { rot: r3(V_FRONT + 180) });
 A(1.0, "vik", "look", { to: [0.0, -0.4], dur: 0.12, blink: false });
 A(1.02, "vik", "squash", { amount: 0.03, dur: 0.2 });
 // Gunslinger claps along, happy, hands empty
@@ -225,12 +226,13 @@ A(2.82, "gsl", "look", { to: [0.35, 0.15], dur: 0.08, blink: false });
 // held by its lower corners (at the usual phone height the mitten covers FREE)
 const CP_HOLD = -0.42;
 const note = grips.phone(c, "gsl", { ...CP, scale: CP_K }, { side: "R", height: CP_HOLD });
-c.prop(3.0, "coupon", { scale: CW_K }, 0.06, "out");
-note.secure(note.approach(3.04, 0.06), 0.08);
+// (0.14 s reaches, not 0.06: the hand jumped 26 cm in one drawing from the holster to the bandana)
+c.prop(3.08, "coupon", { scale: CW_K }, 0.06, "out");
+note.secure(note.approach(3.03, 0.14), 0.08);
 A(3.04, "gsl", "grip", { side: "L", shape: "open", dur: 0.06 });
 const pen = grips.thin(c, "gsl", { ...PEN, scale: 1.5 }, { side: "L", from: 0.5, roll: 20 });
-c.prop(3.04, "pen", { scale: 1.5 }, 0.05, "out");
-let tp = pen.secure(pen.approach(3.04, 0.08), 0.08);
+c.prop(3.1, "pen", { scale: 1.5 }, 0.05, "out");
+let tp = pen.secure(pen.approach(3.04, 0.14), 0.08);
 // back onto the crate behind him, turning half away from Viking
 A(3.32, "gsl", "sit", { seat: "crate", dur: 0.2, hands: "keep", height: CRATE.size, feet: [0.28, 0.14] });
 A(3.32, "gsl", "turn", { to: G1_YAW, dur: 0.2 });
@@ -300,10 +302,12 @@ note.handOff(r3(tv + 0.02), { back: 0.15 });
 A(r3(tv + 0.04), "gsl", "turn", { to: 40, dur: 0.2 });
 const READ = front(V0, V_FRONT, 0.5, -0.22, 0.55);
 vcp.carry(r3(tv + 0.04), READ, 0.22, "out", { rot: 180 });
-A(V(5.3), "vik", "look", { to: [-0.45, 0.0], dur: 0.12, blink: false });
-A(V(5.3), "vik", "expr", { expr: "sad", set: { curve: 0.3, open: 0.15 }, dur: 0.2 });
-A(V(5.35), "vik", "face", { tearL: 1, tearR: 1, dur: 0.5 });
-c.say(V(5.45), "vik", "best... gift... ever!", 0.6, "excited", { voice: false, sub: "Best… gift… EVER!", pos: SUB_HIGH });
+A(V(5.15), "vik", "look", { to: [-0.45, 0.0], dur: 0.12, blink: false });
+A(V(5.15), "vik", "expr", { expr: "sad", set: { curve: 0.3, open: 0.15 }, dur: 0.2 });
+A(V(5.2), "vik", "face", { tearL: 1, tearR: 1, dur: 0.5 });
+// the line on the close-up only: its subtitle ends at the cut to the hug, where Gunslinger's lifted body fills its band
+c.say(V(5.2), "vik", "best... gift... ever!", 0.6, "excited", { voice: false, sub: "Best… gift… EVER!", pos: SUB_HIGH });
+c.captions.at(-1).to = r3(V(6.0));
 A(V(5.3), "wiz", "lean", { to: 8, dur: 0.3 }); A(V(5.3), "wiz", "expr", { expr: "worried", dur: 0.2 });
 see(V(5.4), V(5.95), ["vik.face", "coupon"], "panel 5: Viking in tears over the coupon");
 
@@ -382,15 +386,17 @@ A(r3(trb), "rea", "crouch", { to: 0, dur: 0.35 });
 // his front cut through his own body)
 const R3_MID = r3((R3_YAW + R3_OUT) / 2);
 trb = rbox2.carry(r3(trb), front(R3, R3_YAW, 0.5, 0, 0.42), 0.3, "inOut", { rot: r3(R3_YAW + 180) });
-A(r3(trb), "rea", "turn", { to: R3_OUT, dur: 0.4, ease: "inOut" });
-rbox2.carry(r3(trb), front(R3, R3_MID, 0.5, 0, 0.42), 0.2, "in", { rot: r3(R3_MID + 180) });
-rbox2.carry(r3(trb + 0.2), front(R3, R3_OUT, 0.5, 0, 0.42), 0.2, "out", { rot: r3(R3_OUT + 180) });
-A(r3(trb + 0.4), "rea", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false }); A(r3(trb + 0.4), "rea", "face", { lid: 0.5, dur: 0.2 });
+// (0.55 s: in 0.4 s his back snapped to his front in one drawing in the draft)
+A(r3(trb), "rea", "turn", { to: R3_OUT, dur: 0.55, ease: "inOut" });
+rbox2.carry(r3(trb), front(R3, R3_MID, 0.5, 0, 0.42), 0.27, "in", { rot: r3(R3_MID + 180) });
+rbox2.carry(r3(trb + 0.27), front(R3, R3_OUT, 0.5, 0, 0.42), 0.28, "out", { rot: r3(R3_OUT + 180) });
+A(r3(trb + 0.45), "rea", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false }); A(r3(trb + 0.45), "rea", "face", { lid: 0.5, dur: 0.2 });
 see(V(7.4), V(8.7), ["wiz.face", "rea.face", "pbox"], "panel 7: the Wizard's jaw drops at his present on the rug, Reaper rescues his box");
 
 // ---------------------------------------------------------------- 8 THE WINK 8.8-10.0 (panel 8)
-// (the line at y 790: between his bandana and the Wizard's brim, off his mouth)
-wink(c, { who: "gsl", t: V(8.8), until: END, line: "next year's on me!", sub: "Next year's on me!", look: [-0.4, -0.25], pos: 790,
+// (the shot is a little wider and eye level, so the line sits over the fireplace above his hat: in the close high
+// shot every spot for it was on a face or a body, caption-overlap 60-100 %)
+wink(c, { who: "gsl", t: V(8.8), until: END, line: "next year's on me!", sub: "Next year's on me!", look: [-0.4, -0.25], pos: 218,
   react: (t) => { for (const [dt, l] of [[0, 0.75], [0.07, 0.3], [0.13, 0.8], [0.2, 0.3], [0.3, 0.85], [0.38, 0.35]]) A(r3(t + dt), "wiz", "face", { lidL: l, dur: 0.04 }); } });
 see(V(8.95), END, ["gsl.face", "moth", "wiz.face"], "panel 8: the wink at the Wizard over Viking's shoulder");
 
@@ -405,10 +411,10 @@ const WIDE = { pos: [0.05, 2.6, 3.6], look: [0.05, 0.5, -0.4], fov: 62 };   // P
 const PATSHOT = fw([r3(G0[0] + 0.27), 0.85, G0[1]], { w: 1.3, az: -10, el: 4, fov: 34 });
 const P3 = fw([r3(CRATE.x - 0.05), 0.45, r3(CRATE.z + 0.05)], { w: 1.2, az: 10, el: 12, fov: 30 });
 const P4 = fw([G2[0], 0.45, G2[1]], { w: 0.9, az: 30, el: 3, fov: 30 });
-const P5 = fw([r3(V0[0] - 0.08), 0.68, V0[1]], { w: 1.1, az: 10, el: 6, fov: 30 });
+const P5 = fw([r3(V0[0] - 0.08), 0.8, V0[1]], { w: 1.1, az: 10, el: 6, fov: 30 });   // (Viking low enough for his line above his hair)
 const P6 = fw([r3((HUG_AT[0] + VH[0]) / 2), 0.55, r3((HUG_AT[1] + VH[1]) / 2)], { w: 2.0, az: 25, el: 2, fov: 32 });   // low: his feet dangle
 const P7 = { pos: [-0.05, 1.1, 4.4], look: [-0.05, 0.95, -0.4], fov: 62 };
-const P8 = fw([GEND[0], 0.45, GEND[1]], { w: 1.4, az: -25, el: 26, fov: 30 });
+const P8 = fw([GEND[0], 0.75, GEND[1]], { w: 1.8, az: -25, el: 14, fov: 30 });
 const beats = c.beats([
   ["P1 pay up", 0, WIDE0, "hook"],
   ["P2 the pocket pat", PAT.from, PATSHOT],
@@ -445,7 +451,7 @@ write(import.meta.url, {
     { who: "gsl", with: "wallet", from: 2.25, to: 3.05, reason: "he draws the wallet from his holster and slips it back" },
     { who: "gsl", with: "crate", from: 3.3, to: 4.1, reason: "he sits on the crate" },
     { who: "gsl", with: "pen", from: 3.3, to: 3.95, checks: ["thin-prop-hidden"], reason: "writing on his knee: the pen's tip is on the paper under his fist from this camera, its cap shows above it" },
-    { who: "rea", with: "pbox", from: 0.55, to: 1.25, reason: "his robe brushes the purple present as he leans in to set the black box on it and steps back" },
+    { who: "rea", with: "pbox", from: 0.55, to: 1.4, reason: "his robe and right arm brush the purple present as he leans in to set the black box on it, steps back and Viking swings it round past him" },
     { who: "gsl", with: "coupon", from: 6.0, to: 6.35, reason: "the coupon flutters past his arm as it leaves Viking's mitten" },
     { who: "vik", from: 6.0, to: 6.45, checks: ["rig-jump", "hand-turn"], reason: "the scoop into the hug after the hit-stop: his forearm swings in under Gunslinger in a few drawings" },
     { who: "rea", with: "rug", from: 7.6, to: 8.1, reason: "his fingertips brush the rug pile as he scoops his black box up off it" },
@@ -455,6 +461,22 @@ write(import.meta.url, {
     { who: "gsl", with: "hatG", from: 0, to: 10, reason: "the party cone sits on his cowboy hat's crown (worn): its rim presses into the felt" },
     { who: "vik", with: "rosette", from: 0.1, to: 0.4, reason: "his mitten brushes his own rosette as he takes the purple present" },
     { who: "vik", with: "rosette", from: 7.7, to: 8.3, reason: "his left mitten brushes the rosette on its way down from the fist in the air to his belly" },
+    // visible-glitch warnings looked at in 15 fps strips of the draft (round 1) and named here with what the eye sees
+    { who: "vik", from: 0, to: 0.65, checks: ["foot-slide"], reason: "he turns on the spot to Reaper with the big present in his arms, in the high wide: his feet are behind the box and his fur collar" },
+    { who: "wiz", from: 0.5, to: 0.65, checks: ["rig-jump", "motion"], reason: "he flicks the party horn from his lips into his robe in one quick tuck" },
+    { who: "wiz", from: 0.85, to: 0.95, checks: ["foot-slide"], reason: "his last half step as he turns to Gunslinger, at the left edge of the high wide" },
+    { who: "gsl", from: 2.27, to: 2.33, checks: ["motion"], reason: "the quick-draw (series block): his hand snaps onto the wallet in the holster" },
+    { who: "gsl", from: 2.38, to: 2.7, checks: ["prop-pop", "rig-jump"], reason: "the revolver spin (series block): the wallet turns once round his fingers on purpose, then flips open" },
+    { who: "gsl", from: 2.96, to: 3.02, checks: ["prop-pop"], reason: "he lets the wallet go into his holster: it leaves his fingers" },
+    { who: "gsl", from: 3.4, to: 4.15, checks: ["prop-pop", "motion"], reason: "quick scribbles on his knee (series block, as episode 2): the pen rocks in his fist with each stroke and the paper shifts under it, then he tears it square" },
+    { who: "gsl", from: 4.1, to: 4.25, checks: ["foot-slide", "stance-slide"], reason: "the hop up off the crate on the cut to the close-up: his feet are out of its frame" },
+    { who: "vik", from: 0.85, to: 6.0, checks: ["grip-gap"], reason: "the black box rides on top of the purple present from Reaper's hand-over to the drop: it sits on the present and moves with it, his mitten only beside it" },
+    { who: "vik", from: 1.05, to: 1.5, checks: ["prop-pop"], reason: "the black box rides on top of the purple present as he turns to us: it sits on the present, his right mitten only beside it" },
+    { who: "gsl", from: 4.3, to: 4.45, checks: ["prop-pop"], reason: "he lands the hop with the coupon held up: it bobs in his mittens (looked at in a 15 fps strip, it stays in both)" },
+    { who: "gsl", from: 4.95, to: 5.1, checks: ["prop-pop"], reason: "Viking takes the coupon from him in the wide: it leaves his fingers" },
+    { who: "vik", from: 5.0, to: 5.25, checks: ["hand-turn", "prop-pop", "grip-gap"], reason: "in the wide he shifts both presents onto his left arm to take the coupon: his right mitten turns over under the boxes, a few pixels at this size; on the cut to his close-up the black box sits on the purple one, off his glove" },
+    { who: "vik", from: 5.43, to: 5.5, checks: ["prop-pop"], reason: "he pulls the coupon in to read it, held by its corner (a 15 fps strip shows it in his mitten)" },
+    { who: "rea", from: 7.5, to: 8.45, checks: ["hand-turn", "hand-pop", "prop-pop"], reason: "he bends for his black box and lifts it with his back to us: his mittens and the box are behind his robe" },
   ],
   notes: "Generated by storyboards/series/never-has-money/04-your-birthday/make-your-birthday.mjs. Panels: PANELS.md.",
 });

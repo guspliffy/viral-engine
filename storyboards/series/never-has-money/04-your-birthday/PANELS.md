@@ -51,8 +51,9 @@ plants, hanging plants, a red and purple patterned rug on honey floorboards. Cak
   panels swap the two between panel 5 and panel 6; in one continuous room that needs a walk round each other that the
   story doesn't have. Panel 8 matches again: Viking turns slowly with him in the hug, so by the wink Viking's hair and
   shoulder are at the right and Gunslinger winks over it.
-- **Panel 1: Viking faces the Wizard at frame 0** (the box goes from the Wizard's palms into his arms between them),
-  then turns to Reaper for the black box and to us at 0.9. After the push the Wizard steps back to Gunslinger's left
+- **Panel 1: Viking stands three-quarters to us, turned toward the Wizard, at frame 0** (the box goes from the
+  Wizard's palms into his arms between them, and his face reads in the first frame), then turns to Reaper for the
+  black box and to us at 1.1 (a 0.4 s turn: at 0.25 s the box's far end swung 20 cm in one drawing). After the push the Wizard steps back to Gunslinger's left
   (0.55-1.0 s), out of the shots on Gunslinger; at 4.15 (while the camera is on the coupon) he steps in at the front
   left, where he stays to the end.
 - **Panel 2 from the front left, panel 3 slightly from the right and a little above** (panel 3 is slightly from the
@@ -85,10 +86,20 @@ plants, hanging plants, a red and purple patterned rug on honey floorboards. Cak
   what the coupon was for; in panel 7 it lies on the rug beside the expensive presents.
 - **Panel 7: Reaper takes his black box up in both mittens and holds it safe at his chest, deadpan**, instead of
   dusting it: dusting needs one mitten to let go of a two-hand box hold mid-shot. The box flies off the purple present
-  as Viking lets go and lands flat at his feet.
+  as Viking lets go and lands on the rug behind Viking (the physics bake decides where); Reaper steps to it, scoops it
+  up with his back to us and turns to us holding it (7.5-8.85). Picked up in front of Viking, his mittens went into
+  Viking's costume and the box's fall was deflected by his robe (layout rounds 19-21).
 - **Panel 8: the Wizard hops in toward the hug at 8.2 s and faces us at the bottom left, head tipped back to stare up
   at Gunslinger** (his eyes up and to the right): turned to Gunslinger his own wide brim hides his face from this
   camera, and the twitch is the payoff; his eyes sit above the app's caption band (review A).
+- **Panel 8 is a little wider and at eye level** (`w` 1.8, 14° down; the panel's close is from above): the three
+  faces fill the close high shot, so every place for "Next year's on me!" sat on a face or a body (caption-overlap
+  60-100 %, check round 1). Opened up, the line sits over the fireplace above his hat (4 % covered), with the
+  Wizard's twitch at the bottom left, Gunslinger's wink in the middle and Viking at the right, as drawn.
+- **"Best... gift... EVER!" sits above Viking's hair**, not in the middle of panel 5: lower it covered his face
+  (70-95 %, check round 1); the close-up is framed a little higher for it, and the subtitle ends at the cut to the hug.
+- **The room is a painted plate behind the 3D floor, rug, crate, table and cake** (the brief's allowed fallback): no
+  3D living-room set exists in the library yet.
 - **No sweat drop, no "!" or shock marks** (panels 4, 6, 8): Jonny rejected reaction signs over characters on 8 Nov.
   The Wizard's twitching eyelid carries panel 8.
 - **No sniffle or sob sound**: neither is on the sound whitelist; Viking's tears are silent under his line.

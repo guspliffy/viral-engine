@@ -351,10 +351,10 @@
    "kinetic": false
   },
   {
-   "from": 5.35,
-   "to": 6.35,
+   "from": 5.1,
+   "to": 5.9,
    "text": "Best… gift… EVER!",
-   "pos": 560,
+   "pos": 280,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -363,7 +363,7 @@
    "from": 8.8,
    "to": 9.8,
    "text": "Next year's on me!",
-   "pos": 790,
+   "pos": 218,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1304,6 +1304,25 @@
     },
     {
      "who": "rea",
+     "do": "move",
+     "to": [
+      1.3,
+      0.35
+     ],
+     "dur": 0.36,
+     "ease": "inOut",
+     "steps": 2,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.33,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -1345,25 +1364,6 @@
      "dur": 0.12,
      "ease": "out",
      "at": 0.87
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      1.3,
-      0.35
-     ],
-     "dur": 0.4,
-     "ease": "inOut",
-     "steps": 2,
-     "at": 0.91
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -60,
-     "dur": 0.35,
-     "at": 0.91
     },
     {
      "who": "vik",
@@ -1448,7 +1448,7 @@
      "who": "vik",
      "do": "turn",
      "to": 0,
-     "dur": 0.25,
+     "dur": 0.4,
      "at": 1.1
     },
     {
@@ -1469,7 +1469,7 @@
        0.11
       ]
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 1.1
     },
@@ -1491,7 +1491,7 @@
        0.11
       ]
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 1.1
     },
@@ -1501,7 +1501,7 @@
      "set": {
       "rot": 180
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 1.1
     },
@@ -2642,16 +2642,6 @@
     },
     {
      "do": "prop",
-     "id": "coupon",
-     "set": {
-      "scale": 0.85
-     },
-     "dur": 0.06,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
      "id": "wallet",
      "set": {
       "tip": 360,
@@ -2666,8 +2656,8 @@
      "do": "grip",
      "side": "R",
      "shape": "open",
-     "dur": 0.06,
-     "at": 0.24
+     "dur": 0.14,
+     "at": 0.23
     },
     {
      "who": "gsl",
@@ -2687,9 +2677,9 @@
        -0.023
       ]
      },
-     "dur": 0.06,
+     "dur": 0.14,
      "ease": "inOut",
-     "at": 0.24
+     "at": 0.23
     },
     {
      "who": "gsl",
@@ -2697,16 +2687,6 @@
      "side": "L",
      "shape": "open",
      "dur": 0.06,
-     "at": 0.24
-    },
-    {
-     "do": "prop",
-     "id": "pen",
-     "set": {
-      "scale": 1.5
-     },
-     "dur": 0.05,
-     "ease": "out",
      "at": 0.24
     },
     {
@@ -2722,7 +2702,7 @@
       "curl": 0.7,
       "index": 0.5
      },
-     "dur": 0.08,
+     "dur": 0.14,
      "at": 0.24
     },
     {
@@ -2743,7 +2723,7 @@
        -0.057
       ]
      },
-     "dur": 0.08,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 0.24
     },
@@ -2757,6 +2737,26 @@
      "ease": "in",
      "reason": "back down in his holster (part of his costume), so it walks with him",
      "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "coupon",
+     "set": {
+      "scale": 0.85
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "pen",
+     "set": {
+      "scale": 1.5
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.3
     },
     {
      "who": "gsl",
@@ -2773,7 +2773,7 @@
      },
      "dur": 0.08,
      "ease": "settle",
-     "at": 0.3
+     "at": 0.37
     },
     {
      "who": "gsl",
@@ -2790,7 +2790,13 @@
      },
      "dur": 0.08,
      "ease": "out",
-     "at": 0.32
+     "at": 0.38
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.4
     },
     {
      "who": "gsl",
@@ -2798,7 +2804,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.348
+     "at": 0.418
     },
     {
      "who": "gsl",
@@ -2811,13 +2817,7 @@
       "thin": 0.008
      },
      "dur": 0.12,
-     "at": 0.368
-    },
-    {
-     "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.4
+     "at": 0.428
     },
     {
      "who": "gsl",
@@ -2831,7 +2831,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.44
+     "at": 0.51
     },
     {
      "who": "gsl",
@@ -2846,7 +2846,7 @@
      "dur": 0,
      "pose": null,
      "point": "pinch",
-     "at": 0.46
+     "at": 0.52
     },
     {
      "who": "gsl",
@@ -3648,6 +3648,28 @@
     },
     {
      "who": "vik",
+     "do": "look",
+     "to": [
+      -0.45,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.3,
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
      "do": "grip",
      "side": "R",
      "shape": "hold",
@@ -3664,17 +3686,35 @@
    "shot": {
     "pos": [
      0.85,
-     1.062,
+     1.182,
      3.225
     ],
     "look": [
      0.22,
-     0.68,
+     0.8,
      -0.35
     ],
     "fov": 30
    },
    "do": [
+    {
+     "who": "vik",
+     "do": "face",
+     "tearL": 1,
+     "tearR": 1,
+     "dur": 0.5,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "best... gift... ever!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
     {
      "who": "vik",
      "do": "grab",
@@ -3688,28 +3728,6 @@
      "dur": 0,
      "pose": null,
      "at": 0.06
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      -0.45,
-      0
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.1
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "curve": 0.3,
-      "open": 0.15
-     },
-     "dur": 0.2,
-     "at": 0.1
     },
     {
      "who": "wiz",
@@ -3773,14 +3791,6 @@
      "at": 0.14
     },
     {
-     "who": "vik",
-     "do": "face",
-     "tearL": 1,
-     "tearR": 1,
-     "dur": 0.5,
-     "at": 0.15
-    },
-    {
      "who": "gsl",
      "do": "arm",
      "side": "R",
@@ -3788,16 +3798,6 @@
      "dur": 0.44999999999999996,
      "ease": "inOut",
      "at": 0.16
-    },
-    {
-     "who": "vik",
-     "do": "talk",
-     "line": "best... gift... ever!",
-     "tone": "excited",
-     "dur": 0.6,
-     "blink": false,
-     "voice": false,
-     "at": 0.25
     },
     {
      "who": "rea",
@@ -4473,7 +4473,7 @@
      "who": "rea",
      "do": "turn",
      "to": -30,
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "inOut",
      "at": 1.25
     },
@@ -4495,7 +4495,7 @@
        0.631
       ]
      },
-     "dur": 0.2,
+     "dur": 0.27,
      "ease": "in",
      "at": 1.25
     },
@@ -4517,7 +4517,7 @@
        0.631
       ]
      },
-     "dur": 0.2,
+     "dur": 0.27,
      "ease": "in",
      "at": 1.25
     },
@@ -4527,7 +4527,7 @@
      "set": {
       "rot": 110
      },
-     "dur": 0.2,
+     "dur": 0.27,
      "ease": "in",
      "at": 1.25
     },
@@ -4549,9 +4549,9 @@
        0.893
       ]
      },
-     "dur": 0.2,
+     "dur": 0.28,
      "ease": "out",
-     "at": 1.45
+     "at": 1.52
     },
     {
      "who": "rea",
@@ -4571,9 +4571,9 @@
        0.893
       ]
      },
-     "dur": 0.2,
+     "dur": 0.28,
      "ease": "out",
-     "at": 1.45
+     "at": 1.52
     },
     {
      "do": "prop",
@@ -4581,9 +4581,9 @@
      "set": {
       "rot": 150
      },
-     "dur": 0.2,
+     "dur": 0.28,
      "ease": "out",
-     "at": 1.45
+     "at": 1.52
     },
     {
      "who": "wiz",
@@ -4619,14 +4619,14 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.65
+     "at": 1.7
     },
     {
      "who": "rea",
      "do": "face",
      "lid": 0.5,
      "dur": 0.2,
-     "at": 1.65
+     "at": 1.7
     }
    ]
   },
@@ -4636,13 +4636,13 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     -1.693,
-     2.486,
-     2.61
+     -2.378,
+     2.195,
+     4.078
     ],
     "look": [
      0.071,
-     0.45,
+     0.75,
      -1.173
     ],
     "fov": 30
@@ -4980,8 +4980,8 @@
    "who": "rea",
    "with": "pbox",
    "from": 0.55,
-   "to": 1.25,
-   "reason": "his robe brushes the purple present as he leans in to set the black box on it and steps back"
+   "to": 1.4,
+   "reason": "his robe and right arm brush the purple present as he leans in to set the black box on it, steps back and Viking swings it round past him"
   },
   {
    "who": "gsl",
@@ -5050,6 +5050,149 @@
    "from": 7.7,
    "to": 8.3,
    "reason": "his left mitten brushes the rosette on its way down from the fist in the air to his belly"
+  },
+  {
+   "who": "vik",
+   "from": 0,
+   "to": 0.65,
+   "checks": [
+    "foot-slide"
+   ],
+   "reason": "he turns on the spot to Reaper with the big present in his arms, in the high wide: his feet are behind the box and his fur collar"
+  },
+  {
+   "who": "wiz",
+   "from": 0.5,
+   "to": 0.65,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "he flicks the party horn from his lips into his robe in one quick tuck"
+  },
+  {
+   "who": "wiz",
+   "from": 0.85,
+   "to": 0.95,
+   "checks": [
+    "foot-slide"
+   ],
+   "reason": "his last half step as he turns to Gunslinger, at the left edge of the high wide"
+  },
+  {
+   "who": "gsl",
+   "from": 2.27,
+   "to": 2.33,
+   "checks": [
+    "motion"
+   ],
+   "reason": "the quick-draw (series block): his hand snaps onto the wallet in the holster"
+  },
+  {
+   "who": "gsl",
+   "from": 2.38,
+   "to": 2.7,
+   "checks": [
+    "prop-pop",
+    "rig-jump"
+   ],
+   "reason": "the revolver spin (series block): the wallet turns once round his fingers on purpose, then flips open"
+  },
+  {
+   "who": "gsl",
+   "from": 2.96,
+   "to": 3.02,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "he lets the wallet go into his holster: it leaves his fingers"
+  },
+  {
+   "who": "gsl",
+   "from": 3.4,
+   "to": 4.15,
+   "checks": [
+    "prop-pop",
+    "motion"
+   ],
+   "reason": "quick scribbles on his knee (series block, as episode 2): the pen rocks in his fist with each stroke and the paper shifts under it, then he tears it square"
+  },
+  {
+   "who": "gsl",
+   "from": 4.1,
+   "to": 4.25,
+   "checks": [
+    "foot-slide",
+    "stance-slide"
+   ],
+   "reason": "the hop up off the crate on the cut to the close-up: his feet are out of its frame"
+  },
+  {
+   "who": "vik",
+   "from": 0.85,
+   "to": 6,
+   "checks": [
+    "grip-gap"
+   ],
+   "reason": "the black box rides on top of the purple present from Reaper's hand-over to the drop: it sits on the present and moves with it, his mitten only beside it"
+  },
+  {
+   "who": "vik",
+   "from": 1.05,
+   "to": 1.5,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "the black box rides on top of the purple present as he turns to us: it sits on the present, his right mitten only beside it"
+  },
+  {
+   "who": "gsl",
+   "from": 4.3,
+   "to": 4.45,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "he lands the hop with the coupon held up: it bobs in his mittens (looked at in a 15 fps strip, it stays in both)"
+  },
+  {
+   "who": "gsl",
+   "from": 4.95,
+   "to": 5.1,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "Viking takes the coupon from him in the wide: it leaves his fingers"
+  },
+  {
+   "who": "vik",
+   "from": 5,
+   "to": 5.25,
+   "checks": [
+    "hand-turn",
+    "prop-pop",
+    "grip-gap"
+   ],
+   "reason": "in the wide he shifts both presents onto his left arm to take the coupon: his right mitten turns over under the boxes, a few pixels at this size; on the cut to his close-up the black box sits on the purple one, off his glove"
+  },
+  {
+   "who": "vik",
+   "from": 5.43,
+   "to": 5.5,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "he pulls the coupon in to read it, held by its corner (a 15 fps strip shows it in his mitten)"
+  },
+  {
+   "who": "rea",
+   "from": 7.5,
+   "to": 8.45,
+   "checks": [
+    "hand-turn",
+    "hand-pop",
+    "prop-pop"
+   ],
+   "reason": "he bends for his black box and lifts it with his back to us: his mittens and the box are behind his robe"
   }
  ],
  "notes": "Generated by storyboards/series/never-has-money/04-your-birthday/make-your-birthday.mjs. Panels: PANELS.md."
