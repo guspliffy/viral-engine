@@ -1,9 +1,9 @@
 // A character turnaround for a human (rig vrm-v1) character: the same standing moment seen from five sides (front,
 // 3/4 front, side, 3/4 back, back), one beat each, camera fixed, so the stills line up like a model sheet.
-//   node tools/human/turnaround.mjs [character=human/first-01] [clip=c114_05] [t=14.9]
+//   node tools/human/turnaround.mjs [character=human/first-01] [clip=stand] [t=0.5]
 // writes storyboards/human/turnaround-<name>.json and prints the still times
 import fs from "node:fs";
-const [character = "human/first-01", clip = "c114_05", t0 = "14.9"] = process.argv.slice(2);
+const [character = "human/first-01", clip = "stand", t0 = "0.5"] = process.argv.slice(2);
 const HEAD = [0, 35, 90, 145, 180], LEN = 0.6, from = +t0;
 const perform = HEAD.map((h, i) => ({ at: i * LEN, clip, from, to: from, heading: h, place: [0, -1.0], blend: 0 }));
 const name = character.split("/").pop();

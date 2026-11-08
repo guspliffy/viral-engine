@@ -203,6 +203,8 @@ export class VrmCharacter extends Character {
       const kr = look.krimK ?? this.def.krimK?.[role];
       if (kr != null) out.userData.krimK = kr;
       if (transparent) out.userData.noOutline = true;
+      // (our own character creator's face front: an anime face has no ink inside it, tools/character/face.py)
+      if (/_NOLINE/.test(name)) out.userData.noOutline = true;
     }
     out.name = name; out.userData.vrmName = name;
     this.mats[name] = out;

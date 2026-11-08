@@ -42,9 +42,9 @@
    "perform": [
     {
      "at": 0,
-     "clip": "c114_05",
-     "from": 14.9,
-     "to": 14.9,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
      "heading": 0,
      "place": [
       0,
@@ -54,9 +54,9 @@
     },
     {
      "at": 0.6,
-     "clip": "c114_05",
-     "from": 14.9,
-     "to": 14.9,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
      "heading": 35,
      "place": [
       0,
@@ -66,9 +66,9 @@
     },
     {
      "at": 1.2,
-     "clip": "c114_05",
-     "from": 14.9,
-     "to": 14.9,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
      "heading": 90,
      "place": [
       0,
@@ -78,9 +78,9 @@
     },
     {
      "at": 1.7999999999999998,
-     "clip": "c114_05",
-     "from": 14.9,
-     "to": 14.9,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
      "heading": 145,
      "place": [
       0,
@@ -90,9 +90,9 @@
     },
     {
      "at": 2.4,
-     "clip": "c114_05",
-     "from": 14.9,
-     "to": 14.9,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
      "heading": 180,
      "place": [
       0,

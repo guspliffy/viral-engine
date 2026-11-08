@@ -1,0 +1,156 @@
+{
+ "id": "face-own-guy",
+ "title": "Turnaround own-guy-body-v0",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "set": {
+  "type": "park",
+  "seed": 4,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0
+  }
+ },
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "h",
+   "character": "human/own-guy-body-v0",
+   "at": [
+    0,
+    -1
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "seed": 1.3,
+   "perform": [
+    {
+     "at": 0,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
+     "heading": 0,
+     "place": [
+      0,
+      -1
+     ],
+     "blend": 0
+    },
+    {
+     "at": 0.6,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
+     "heading": 35,
+     "place": [
+      0,
+      -1
+     ],
+     "blend": 0
+    },
+    {
+     "at": 1.2,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
+     "heading": 90,
+     "place": [
+      0,
+      -1
+     ],
+     "blend": 0
+    },
+    {
+     "at": 1.7999999999999998,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
+     "heading": 145,
+     "place": [
+      0,
+      -1
+     ],
+     "blend": 0
+    },
+    {
+     "at": 2.4,
+     "clip": "stand",
+     "from": 0.5,
+     "to": 0.5,
+     "heading": 180,
+     "place": [
+      0,
+      -1
+     ],
+     "blend": 0
+    }
+   ]
+  }
+ ],
+ "props": [],
+ "beats": [
+  {
+   "name": "h0",
+   "at": 0,
+   "len": 0.6,
+   "do": []
+  },
+  {
+   "name": "h35",
+   "at": 0.6,
+   "len": 0.6,
+   "do": []
+  },
+  {
+   "name": "h90",
+   "at": 1.2,
+   "len": 0.6,
+   "do": []
+  },
+  {
+   "name": "h145",
+   "at": 1.7999999999999998,
+   "len": 0.6,
+   "do": []
+  },
+  {
+   "name": "h180",
+   "at": 2.4,
+   "len": 0.6,
+   "do": []
+  }
+ ],
+ "camera": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.64,
+    0.1
+   ],
+   "look": [
+    0,
+    1.62,
+    -1.0
+   ],
+   "fov": 16
+  }
+ ],
+ "duration": 3
+}

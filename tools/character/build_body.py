@@ -29,6 +29,12 @@ body = HumanService.create_human(scale=0.1)
 for k, v in spec.get("body", {}).items(): HOP.set_value(k, v, entity_reference=body)
 TS.reapply_macro_details(body)
 
+# face and detail targets (MakeHuman's CC0 targets by name: "nose-scale-vert-decr": 0.6, ...), e.g. the anime preset
+for name, w in spec.get("targets", {}).items():
+    path = TS.target_full_path(name)
+    if not path: print("no target", name); continue
+    TS.load_target(body, path, weight=w)
+
 def stature():
     dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); me = ev.to_mesh()
     zs = [(body.matrix_world @ v.co).z for v in me.vertices]; ev.to_mesh_clear(); return max(zs) - min(zs)
@@ -41,6 +47,11 @@ if spec.get("stature"):
         if stature() < spec["stature"]: lo = mid
         else: hi = mid
     print("height macro", round(mid, 4), "stature", round(stature(), 3))
+def group_points(name):
+    gi = body.vertex_groups[name].index
+    # (called after the morphs are baked into the mesh, before the helper geometry is cut away)
+    return [body.matrix_world @ v.co for v in body.data.vertices if any(g.group == gi for g in v.groups)]
+def centre(pts): return sum(pts, Vector()) / len(pts)
 rig = HumanService.add_builtin_rig(body, "game_engine")
 
 # bake the morphs and drop the helper geometry: shape keys mixed into the mesh, the "Hide helpers" mask applied
@@ -51,6 +62,13 @@ if body.data.shape_keys:
     mix = keys["mix"]
     for i, v in enumerate(body.data.vertices): v.co = mix.data[i].co
     body.shape_key_clear()
+# where the eyes, mouth and nose tip are (the eyeball helpers are cut away with the other helpers next)
+EYES = {}
+for s_ in ("l", "r"):
+    P = group_points(f"helper-{s_}-eye"); c = centre(P); EYES[s_] = (tuple(c), max((p - c).length for p in P))
+EYES["mouth"] = tuple(centre(group_points("lips")))
+EYES["nose"] = tuple(min((p for p in group_points("body") if abs(p.x) < 0.004 and EYES["mouth"][2] < p.z < EYES["l"][0][2]), key=lambda p: p.y))
+print("eyes", EYES)
 for m in list(body.modifiers):
     if m.type == "MASK":
         bpy.ops.object.modifier_apply(modifier=m.name)
@@ -83,6 +101,12 @@ c = spec.get("skin", "#f3c9a0").lstrip("#"); rgb = [int(c[i:i + 2], 16) / 255 fo
 mat.node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*[x ** 2.2 for x in rgb], 1)
 body.data.materials.clear(); body.data.materials.append(mat); body.name = "Body"
 
+face = None
+if spec.get("face"):
+    sys.path.insert(0, "tools/character")
+    import face as facekit
+    face, face_keys = facekit.build_face(body, rig, EYES, spec["face"])
+
 # VRM 1.0 humanoid: game_engine bone names -> VRM bones
 ext = rig.data.vrm_addon_extension; ext.spec_version = "1.0"
 hb = ext.vrm1.humanoid.human_bones
@@ -99,6 +123,7 @@ for vb, bb in MAP.items():
     if bb in rig.data.bones and hasattr(hb, vb): getattr(hb, vb).node.bone_name = bb
     else: missing.append((vb, bb))
 print("unmapped:", missing)
+if face: facekit.bind_expressions(rig, face, face_keys)
 meta = ext.vrm1.meta; meta.vrm_name = spec.get("name", "own-human")
 meta.authors.clear(); a = meta.authors.add(); a.value = "PotatoBrawl viral engine (MakeHuman CC0 base)"
 rig.name = "Armature"
