@@ -5,13 +5,14 @@
 // (series format: 00-SERIES-FORMAT.md there). Jonny's eight panels: storyboards/01-fries/ there (PANELS.md here).
 //
 // THE ALIVE FRIES (Jonny 7 Nov 17:53: "regarding the food series potatoes eaten should always be alive also pommes and
-// other potato dishes"; the steakhouse's alive potato, PR #153, is the pattern: Viking never eats a potato that is alive)
+// other potato dishes"; the steakhouse's alive potato, PR #153, was the pattern; Jonny 8 Nov: "now viking should eat one fry as well")
 //   Joke:        a sunny burger bar. Viking promises "the best fries in town" and the three fries in his cone open their
 //                eyes and cheer. He leans in for the first bite and the fry waves "Hi!" at his nose; he melts (the
 //                blossom). The fries treat his tray like a pool party: one hops into the ketchup like a hot tub, one
 //                cannonballs into the mayo, and the last does a backflip off the cone into Reaper's soup.
 //   Wants:       Viking wants the best fries in town, and now the fries want the best day out.
-//   Consequence: Reaper's soup gets a fry standing upright in it; Viking never eats a single one.
+//   Consequence: one fry dives into Viking's mouth ("Me next!") and he eats it; Reaper's soup gets a fry standing
+//                upright in it.
 //   Ending:      the fry in the soup, chilling, offers Reaper his own soup with Viking's line, "Want some?"; Gunslinger
 //                leans back with both palms up.
 //   Callback:    frame 0 the fries are food ("Best fries in town!"); the last frame one of them is a guest in a friend's soup.
