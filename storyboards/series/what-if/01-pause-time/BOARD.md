@@ -44,8 +44,8 @@
 - We see: front wide (cam [0.51, 1.5, 1.0] -> [0.4, 0.6, -6.0] fov 48): Phoenix angry with a coffee, Reaper on the
   bench, Viking from the right; insert 5.3-6.02 on the cup hanging in the air (cam [0.35, 1.05, -2.2] -> [0.5, 0.85,
   -5.8] fov 42), the cup in colour all pause; the wide again for the sit.
-- Action: 4.5-4.9 the big gesture, the cup leaves the hand 4.9, flies at Reaper's face (aimed to stop at CUP_STOP at
-  5.02); 4.66 HALT; pause 5.02-7.3: the cup hangs in the air, Viking backs up under it and takes it 5.7-5.96, sits
+- Action: 4.5-4.9 the big gesture, the cup leaves the hand 4.9, flies at Reaper's face (it stops at CUP_HANG at
+  5.02, 0.17 m nearer than the knock's aim: Phoenix's follow-through pushes it; measured, Viking's stand and hand use it); 4.66 HALT; pause 5.02-7.3: the cup hangs in the air, Viking backs up under it and takes it 5.7-5.96, sits
   beside Reaper 6.4-6.95; 7.32 Reaper flinches, 7.4 Phoenix's empty hand; 7.8 "Been here ages.", a toast with the cup
   by his face (cam [0.85, 0.95, -1.5] -> [0.85, 0.62, -6.4] fov 46).
 - Text: "Late for coffee?" 4.4-5.0 s, y 300.
@@ -57,7 +57,7 @@
 - Action: 8.6 Viking arrives sheepish; 9.12 HALT; pause 9.35-11.45: to the crank, 1.5 turns back 10.42-10.96 (dial
   insert, cam [-0.1, 1.42, -3.55] fov 15, a long lens; the hands race to 12:00, ratchet ticks); 11.55 the whistle;
   11.8 Reaper's double take at the clock (cam [-0.65, 1.0, -2.7] fov 44).
-- Text: "40 minutes late?" 8.6-9.3 s, y 300; "hm hm hmm..." 11.55 s, y 1300.
+- Text: "40 minutes late?" 8.6-9.3 s, y 300; "hm hm hmm..." 11.55 s, y 300 (Reaper fills the bottom of the double take).
 
 ### §3.4 Title (12.4-14.0 s, kind: reveal)
 

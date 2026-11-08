@@ -1276,10 +1276,10 @@
      "do": "move",
      "to": [
       0.58,
-      -5.73
+      -5.632
      ],
      "dur": 0.56,
-     "steps": 4,
+     "steps": 3,
      "at": 0.7
     },
     {
@@ -1326,9 +1326,14 @@
      "side": "R",
      "pose": {
       "world": [
-       0.34,
-       1.07,
-       -5.705
+       0.371,
+       1.08,
+       -5.532
+      ],
+      "palm": [
+       0.271,
+       1.08,
+       -5.547
       ]
      },
      "dur": 0.24,
@@ -2811,7 +2816,7 @@
     {
      "who": "phx",
      "do": "turn",
-     "to": -15,
+     "to": -35,
      "dur": 0.01,
      "at": 0.88
     },
@@ -3734,9 +3739,28 @@
    "to": 9.75,
    "checks": [
     "rig-jump",
-    "hand-pop"
+    "hand-turn"
    ],
    "reason": "he turns round on the spot to go to the crank: a stepping turn drawn on 2s"
+  },
+  {
+   "who": "vik",
+   "from": 5.7,
+   "to": 5.8,
+   "checks": [
+    "stance-slide",
+    "foot-slide"
+   ],
+   "reason": "the last step back under the cup: his left foot lands one drawing after the gait plan says it stands (drawn on 2s); it comes down, it doesn't skate"
+  },
+  {
+   "who": "phx",
+   "from": 1.05,
+   "to": 1.55,
+   "checks": [
+    "front"
+   ],
+   "reason": "the selfie: he strolls in BEHIND the frozen photo; Phoenix holds the phone up at the front, which is the picture he sneaks into"
   },
   {
    "who": "vik",
@@ -3744,7 +3768,7 @@
    "to": 0.72,
    "checks": [
     "rig-jump",
-    "hand-pop"
+    "hand-turn"
    ],
    "reason": "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time"
   },
@@ -3754,7 +3778,7 @@
    "to": 4.76,
    "checks": [
     "rig-jump",
-    "hand-pop"
+    "hand-turn"
    ],
    "reason": "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time"
   },
@@ -3764,7 +3788,7 @@
    "to": 9.22,
    "checks": [
     "rig-jump",
-    "hand-pop"
+    "hand-turn"
    ],
    "reason": "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time"
   },
@@ -3774,7 +3798,7 @@
    "to": 14.52,
    "checks": [
     "rig-jump",
-    "hand-pop"
+    "hand-turn"
    ],
    "reason": "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time"
   }
