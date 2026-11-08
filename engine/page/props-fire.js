@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { clamp } from "./util.js";
+import { FIRE_U } from "./firelight.js";
 
 // Fire bending (the anime person's firebending scene, 7 Nov 2026): fire thrown from a fist, a palm or a foot.
 //
@@ -21,6 +22,7 @@ import { clamp } from "./util.js";
 //                   splash (m): how far that splash spreads at most (it eases out toward it; unset: no limit),
 //                   taper (s): the stream thins and slows over its last seconds,
 //                   sizeTo (m): flames born later in the pour grow toward this size (a fireball gathering),
+//                   floor (m): flames that reach this height roll out along it (an explosion on a road; 8 Nov 2026),
 //                   show (s): nothing is drawn before then (a stream poured from before a cut, already in flight on it),
 //                   cut (s): its flames and embers vanish then (the shot ends: they must not hang in the next one)
 //                 }
@@ -28,6 +30,10 @@ import { clamp } from "./util.js";
 //               core, yellow, orange and a red rim in hard cel bands, cooling to a dark red and a thin brown smoke as
 //               they die. A warm point light rides at the young flames, so the fire lights its thrower and the ground.
 //               See-through for the checks (userData.steam): nothing is ever "inside" a flame.
+//               spec.style "tongue" (duel v2, 8 Nov 2026, Jonny's reference boards: "asymmetric calligraphic pointed
+//               tongues, pale core, golden body, deep orange rim, no round explosion blob"): every flame is drawn long
+//               and narrow along its flight, pointed at both ends and bent into an S, so a stream reads as licking
+//               tongues and a burst as a star of spikes; without it the flames are the round-headed discs of v1.
 //               Embers: every throw also sheds small glowing sparks (embers: per second of pouring, default rate x 0.2,
 //               a hold x 0.04)
 //               that fly out with the fire, slow, then float up and wink out over a second or two, after the flames
@@ -89,9 +95,12 @@ function flame(B, i, ts, t, out) {
   const sz0 = B.sizeTo != null ? (B.size ?? 0.16) + (B.sizeTo - (B.size ?? 0.16)) * Math.max(0, Math.min(1, (ts - B.at) / Math.max(1e-6, B.end - B.at))) : (B.size ?? 0.16);
   out.size = sz0 * (0.7 + 0.6 * hash(i * 2.9 + B.seed + 5)) * (0.45 + (B.grow ?? 2.6) * Math.pow(age, 0.6)) * (kind === "burst" ? 1.6 : 1) * (0.25 + 0.75 * tap);
   out.speed = Math.exp(-k * a) * speed;
+  // floor (m, a blast's own option): flames that reach the ground roll out along it instead of sinking under the road
+  // (an explosion's foot spreads over the ground; without it the road cuts the fireball off in a flat line)
+  if (B.floor != null) out.pos.y = Math.max(out.pos.y, B.floor + out.size * 1.3);   // (the outer band reaches about 1.3 sizes)
   out.seed = hash(i * 1.37 + B.seed + 7);
   out.hot = B.hot === "blue" ? 1 : 0;
-  out.stretch = kind === "hold" ? 0.6 : 0;
+  out.stretch = kind === "hold" ? 0.6 : kind === "burst" && B.tongue ? 0.7 + 0.8 * hash(i * 3.7 + B.seed + 9) : 0;   // (tongue style: a burst is a star of spikes)
   if (kind === "hold") out.seed = -0.01 - out.seed;   // (a held flame makes no smoke: it would veil the face behind it)   // a held flame is a tongue licking up, never a round disc (a disc drew as a target)
   return true;
 }
@@ -120,7 +129,7 @@ function ember(B, i, ts, t, out) {
 
 export const FIRE_KINDS = {
   firebend(P) {
-    const blasts = (P.spec.blasts || []).map((b, j) => ({ ...b, seed: b.seed ?? j * 17.3 + 1 }));
+    const blasts = (P.spec.blasts || []).map((b, j) => ({ ...b, seed: b.seed ?? j * 17.3 + 1, tongue: P.spec.style === "tongue" }));
     const quad = new THREE.PlaneGeometry(1, 1);
     const geo = new THREE.InstancedBufferGeometry(); geo.index = quad.index; geo.attributes.position = quad.attributes.position; geo.attributes.uv = quad.attributes.uv;
     const aPos = new THREE.InstancedBufferAttribute(new Float32Array(MAXN * 3), 3), aDir = new THREE.InstancedBufferAttribute(new Float32Array(MAXN * 3), 3);
@@ -142,8 +151,8 @@ export const FIRE_KINDS = {
     const BLUE = [[0.2, 0.2, 0.3], [0.08, 0.16, 0.6], [0.14, 0.38, 0.95], [0.45, 0.72, 1.0], [0.9, 0.97, 1.0]];
     const mats = BANDS.map((bd, k) => {
       const m = new THREE.ShaderMaterial({
-        uniforms: { uR: { value: bd.r }, uCol: { value: new THREE.Color(...bd.col) }, uA: { value: bd.a }, uSmoke: { value: bd.smoke ? 1 : 0 }, uK: { value: k } },
-        vertexShader: `attribute vec3 aPos, aDir; attribute vec4 aInfo; uniform float uR; varying vec2 vUv; varying float vAge, vSeed;
+        uniforms: { uR: { value: bd.r }, uCol: { value: new THREE.Color(...bd.col) }, uA: { value: bd.a }, uSmoke: { value: bd.smoke ? 1 : 0 }, uK: { value: k }, uTongue: { value: P.spec.style === "tongue" ? 1 : 0 } },
+        vertexShader: `attribute vec3 aPos, aDir; attribute vec4 aInfo; uniform float uR, uTongue; varying vec2 vUv; varying float vAge, vSeed;
           void main() {
             vUv = uv * 2.0 - 1.0; vAge = aInfo.y; vSeed = aInfo.z;
             vec4 c = modelViewMatrix * vec4(aPos, 1.0);
@@ -152,15 +161,25 @@ export const FIRE_KINDS = {
             d = dl > 1e-4 ? d / dl : vec2(0.0, 1.0);
             d = normalize(mix(d, vec2(0.0, 1.0), clamp(vAge * 0.9, 0.0, 0.75)));   // cooling flames turn up
             vec2 q = vec2(-d.y, d.x);
-            float L = aInfo.x * (1.0 + aInfo.w) * 1.3, W = aInfo.x * 1.3;
+            // (tongue: a flame flying toward or away from the camera is seen end-on, so it is drawn short and round, never
+            // stretched along a direction its tiny screen motion picks at random: that drew a star of spikes)
+            float endOn = uTongue > 0.5 ? smoothstep(0.12, 0.55, dl / max(length(dv), 1e-4)) : 1.0;
+            float L = aInfo.x * (1.0 + aInfo.w * (1.0 + 0.9 * uTongue) * endOn) * (1.3 + 0.35 * uTongue * endOn), W = aInfo.x * (1.3 - 0.45 * uTongue * endOn);
             c.xy += d * (position.y * L) + q * (position.x * W);
             gl_Position = projectionMatrix * c;
           }`,
-        fragmentShader: `uniform float uR, uA, uSmoke, uK; uniform vec3 uCol; varying vec2 vUv; varying float vAge, vSeed;
+        fragmentShader: `uniform float uR, uA, uSmoke, uK, uTongue; uniform vec3 uCol; varying vec2 vUv; varying float vAge, vSeed;
           void main() {
             // y: tail (-1) .. head (+1). A round head and a tail that licks to a point
             float y = vUv.y, x = vUv.x;
             float prof = sqrt(clamp(1.0 - pow(max(0.0, y), 2.0), 0.0, 1.0)) * mix(0.35, 1.0, smoothstep(-1.0, 0.2, y));
+            if (uTongue > 0.5) {
+              // a tongue: widest a third of the way back from the head, a sharp point at the head, a long thin licking tail
+              // to a point, the whole flame bent into an S (each flame its own bend)
+              float yy = (y + 1.0) * 0.5;
+              prof = yy > 0.62 ? pow(clamp((1.0 - yy) / 0.38, 0.0, 1.0), 0.75) : pow(clamp(yy / 0.62, 0.0, 1.0), 1.35);
+              x -= 0.32 * sin(yy * 4.4 + vSeed * 31.0) * yy * (1.0 - yy) * 3.0;
+            }
             // this band's size: the hot inner bands shrink first as the flame cools; smoke grows as it dies
             float heat = clamp(1.0 - vAge * (0.6 + 0.55 * uK), 0.0, 1.0);
             float R = uSmoke > 0.5 ? smoothstep(0.4, 0.85, vAge) * uR : uR * mix(0.25, 1.0, heat) * (uK > 0.5 ? step(0.02, heat) : 1.0);
@@ -169,7 +188,7 @@ export const FIRE_KINDS = {
             float lick = (0.16 - 0.025 * uK) * sin(y * 6.0 + x * 3.0 + vSeed * 40.0 + vAge * 12.0) + 0.07 * sin(y * 15.0 - vSeed * 21.0);
             float rr = min(0.97, R * prof * (1.0 + lick));
             if (rr < 0.06) discard;   // (the tip of the tail, thinner than a pixel, would draw as a dotted hairline)
-            float e = length(vec2(x, max(0.0, -y) * 0.15)) / max(rr, 1e-3);
+            float e = (uTongue > 0.5 ? abs(x) : length(vec2(x, max(0.0, -y) * 0.15))) / max(rr, 1e-3);
             float w = fwidth(e) * 0.75 + 0.002;
             float a = (1.0 - smoothstep(1.0 - w, 1.0 + w, e)) * uA;
             if (uSmoke > 0.5) a *= (1.0 - smoothstep(0.85, 1.0, vAge)) * step(0.0, vSeed);
@@ -242,6 +261,44 @@ export const FIRE_KINDS = {
         const blue = blasts.some((B) => B.hot === "blue" && tt >= B.at && tt <= B.end + 1);
         mats.forEach((q, k) => { q.mesh.visible = n > 0; q.m.uniforms.uCol.value.setRGB(...(blue ? BLUE[k] : BANDS[k].col)); });
         if (lw > 0) { light.position.copy(lp.multiplyScalar(1 / lw)); light.intensity = clamp(lw / 25, 0, 1) * (P.spec.light ?? 6); } else light.intensity = 0;
+        // spec.castLight (firelight.js): the warm cel band the fire throws on the cast's faces and clothes (duel v2)
+        if (P.spec.castLight) { FIRE_U.uFireK.value = lw > 0 ? clamp(lw / 25, 0, 1) * P.spec.castLight : 0; if (lw > 0) FIRE_U.uFirePos.value.copy(light.position); }
+      },
+    };
+  },
+  // scorch: a fresh burn on the ground where the fire hit (duel v2, Jonny's panel 06: "a small fresh scorch mark at the
+  // previous collision location"). A ragged dark blot on the floor, flat, that spreads in 0.15 s from spec.at with an
+  // orange glowing rim that cools over 1.5 s; nothing before spec.at. spec.size: radius (m). See-through for the checks.
+  scorch(P) {
+    const at = P.spec.at ?? 0, size = P.spec.size ?? 0.45, seed = P.spec.seed ?? 3.1;
+    const m = new THREE.ShaderMaterial({
+      uniforms: { uGlow: { value: 0 }, uSeed: { value: seed } },
+      vertexShader: "varying vec2 vUv; void main() { vUv = uv * 2.0 - 1.0; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: `uniform float uGlow, uSeed; varying vec2 vUv;
+        void main() {
+          float r = length(vUv), a = atan(vUv.y, vUv.x);
+          // a ragged rim: three wobbles of different sizes round the edge, the same every frame
+          float rim = 0.78 + 0.1 * sin(a * 5.0 + uSeed) + 0.06 * sin(a * 11.0 + uSeed * 2.3) + 0.04 * sin(a * 23.0 + uSeed * 4.1);
+          if (r > rim) discard;
+          float k = r / rim, w = fwidth(k) * 1.5;
+          vec3 burnt = mix(vec3(0.07, 0.055, 0.05), vec3(0.16, 0.12, 0.1), smoothstep(0.35, 0.95, k));
+          vec3 glow = vec3(1.0, 0.45, 0.1) * uGlow * smoothstep(0.62, 0.9, k);
+          float alpha = (1.0 - smoothstep(1.0 - w, 1.0, k)) * mix(0.92, 0.55, smoothstep(0.5, 1.0, k));
+          gl_FragColor = vec4(burnt + glow, alpha);
+        }`,
+      transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+    });
+    m.userData.noOutline = true;
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), m); mesh.rotation.x = -Math.PI / 2; mesh.position.y = 0.006;
+    mesh.renderOrder = 2; mesh.castShadow = false; mesh.userData.steam = true; mesh.visible = false;
+    P.whole.add(mesh);
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const a = (t ?? 0) - at; mesh.visible = a >= 0;
+        if (!mesh.visible) return;
+        const g = Math.min(1, a / 0.15), sc = size * (0.35 + 0.65 * (1 - (1 - g) * (1 - g)));
+        mesh.scale.set(sc, sc, 1); m.uniforms.uGlow.value = Math.max(0, 1 - a / 1.5);
       },
     };
   },

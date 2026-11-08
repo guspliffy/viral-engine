@@ -51,9 +51,13 @@ export function castLook(def, look) {
   if (L.eyeSize) F.size = (F.size ?? 1) * L.eyeSize;
   if (L.lash) F.eye = { ...F.eye, lash: +((F.eye?.lash ?? 1) * L.lash).toFixed(3) };
   if (L.browClear && F.browShape?.clear == null) F.browShape = { ...F.browShape, clear: L.browClear };
-  if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
-  if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
-  if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  // face.lockLayout: a body far from the potato shape (a fry, always orders potatoes 01) keeps its own eye and mouth
+  // places; the look's spacing is made for a round potato and puts a narrow body's eyes on top of each other
+  if (!F.lockLayout) {
+    if (L.eyeU) F.layout = { ...F.layout, eyeU: L.eyeU };
+    if (L.mouthW) F.layout = { ...F.layout, mouthW: L.mouthW };
+    if (L.eyeV) F.layout = { ...F.layout, eyeV: L.eyeV };
+  }
   if (L.oval) F.eye = { ...F.eye, oval: L.oval };
   if (L.detail && def.costume) {
     def.costume = { ...def.costume, detail: true };   // costume detail (costumes*.js C.detail)

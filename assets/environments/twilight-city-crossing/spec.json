@@ -1,0 +1,40 @@
+{
+ "name": "twilight-city-crossing",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view along a wide empty city street at golden hour, a zebra crossing on the warm grey asphalt that fills the bottom half, shop fronts with awnings, street trees, traffic lights, overhead wires, tall buildings on both sides, low golden sun glowing at the far end of the street, long shadows, warm haze",
+ "no": "people, person, potato, car, vehicle, bus, bicycle, text, letters, sign, kanji, logo, aerial view, high angle, rain, puddle in foreground, trash in foreground, lamp in foreground, pole in foreground",
+ "seeds": [
+  41,
+  5,
+  14,
+  27
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "the last blue light of dusk, from the far end of the street",
+  "key": [
+   0.5,
+   3.0,
+   -9.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 40,
+ "standRatio": 0.6,
+ "pad": 0.3,
+ "padY": 0.12,
+ "graded_from": "golden-city-crossing"
+}

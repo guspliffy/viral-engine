@@ -16,6 +16,7 @@ import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam }
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { drawnSpec, onTwos } from "./drawn.js";
+import { makeAnimeTiming } from "../shared/anime-timing.js";
 import { buildRoadster } from "./car-roadster.js";
 import { buildHatchback } from "./car-hatchback.js";
 import { meshAll } from "./mesh-pool.js";
@@ -30,6 +31,7 @@ let phys = null;      // prop physics (physics.js, quality plan item 17): a stor
 let roomLights = [], lamp = null, bulb = null, charMats = [], camGates = [];   // what the "lights" effect dims (timeline.js lightsAt)
 const photos = new Map();   // "photo" effects: the snapshot each one shows, taken once
 let drawnD = null;   // the storyboard's drawn look (drawn.js drawnSpec), null when off
+let animeT = null;   // storyboard "animeTiming" (shared/anime-timing.js): each character's drawing time at t, null when off
 let rigs = new Map();   // vehicle rigs (vehicle.js): id -> { r: the spec, g: the group riders are parented to, car }
 const D2R = Math.PI / 180;
 // a point in a character's own parent frame (a rig, or the world) in the world
@@ -369,7 +371,7 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
@@ -461,7 +463,8 @@ async function init(data) {
 function pose(t0) {
   // the drawn look on 2s (drawn.js): everything holds each drawing for 2 frames, the camera too unless the storyboard
   // puts it on every frame (drawn.camera: 1); a camera that follows a moving rider on 1s makes the rider judder
-  const t = smearRaw ? t0 : onTwos(drawnD, t0), tc = smearRaw || (drawnD && drawnD.camera === 1) ? t0 : t;
+  // "animeTiming" (shared/anime-timing.js): only the characters snap and hold; camera, set and effects on every frame
+  const t = smearRaw || animeT ? t0 : onTwos(drawnD, t0), tc = smearRaw || animeT || (drawnD && drawnD.camera === 1) ? t0 : t;
   for (const f of globalThis.__setTicks || []) f(t);   // set motion that runs on the clock (set-plate.js)
   if (vfx) vfx.time = t;   // the particle effects drawn with this pose (vfx.js)
   // vehicle rigs first: everything riding in them is placed in their frame
@@ -473,7 +476,7 @@ function pose(t0) {
     if (V.car) V.car.apply(s, t, roadDistance(sb.set, t), wheelTravel(V.r, sb.set, t));
   }
   const states = {};
-  for (const a of actors) { const st = actorState(sb, a.c, a.def, t); a.ch.apply(st, t); skinTint(a, st); states[a.c.id] = { st, a }; }
+  for (const a of actors) { const ta = animeT && !smearRaw ? animeT(a.c.id, t) : t; const st = actorState(sb, a.c, a.def, ta); a.ch.apply(st, ta); skinTint(a, st); states[a.c.id] = { st, a }; }
   for (const p of poofs) {
     const who = p.f.who && states[p.f.who];
     // at the character's height: a poof on someone flying, sitting or standing on a table happens where they are
@@ -1024,7 +1027,23 @@ function clipping() {
     b.a.ch.root.updateMatrixWorld(true);
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
-      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine
+      // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine.
+      // Into its own holder is measured apart ("self", 7 Nov 2026: the coffee cup in the eyes and under the hat
+      // brim on a sip, 7 Nov 2026, was caught only by eye): how deep, and at which height of the body it goes in
+      // (zone: the body's height from its feet, 0..1; a sip belongs at the mouth, about 0.3-0.5 of a potato)
+      // Only what a hand holds: a pile of popcorn on a head or a kernel on a hood is held by "hat" / "tip" on purpose
+      if (p.held && p.holder === b.id && p.root.visible && !(p.holdHand === "R" || p.holdHand === "L" || p.holdHand === "both")) continue;
+      if (p.held && p.holder === b.id && p.root.visible) {
+        let worst = 0, wo = null;
+        p.root.updateMatrixWorld(true);
+        p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) { const d = depthIn(b, o); if (d > worst) { worst = d; wo = o; } } });
+        if (worst > 0.03 && wo) {
+          const eb = b.mesh.geometry.boundingBox, pc = new THREE.Box3().setFromObject(wo).getCenter(new THREE.Vector3());
+          const lo = new THREE.Vector3(0, eb.min.y, 0).applyMatrix4(b.mesh.matrixWorld).y, hi = new THREE.Vector3(0, eb.max.y, 0).applyMatrix4(b.mesh.matrixWorld).y;
+          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - lo) / Math.max(1e-3, hi - lo)) * 100) / 100 });
+        }
+        continue;
+      }
       if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
       let worst = 0;
       p.root.updateMatrixWorld(true);

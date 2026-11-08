@@ -79,7 +79,7 @@ export function drawCaption(c, t) {
 }
 
 // each fighter's caption colour: bright enough to read against white words and the dark outline
-const ACCENT = { phoenix: "#ff9f1c", reaper: "#b28dff", wizard: "#4fc3ff", samurai: "#6ee86a", viking: "#ffcf33", astronaut: "#7fe3ff", gunslinger: "#ffb347", dragon: "#ff6b5b", sorcerer: "#d17bff", allfather: "#ffe066" };
+const ACCENT = { phoenix: "#ff9f1c", reaper: "#b28dff", wizard: "#4fc3ff", samurai: "#6ee86a", viking: "#ffcf33", astronaut: "#7fe3ff", gunslinger: "#ffb347", dragon: "#ff6b5b", sorcerer: "#d17bff", allfather: "#ffe066", teo: "#3fe0bf", ryn: "#9d8fff" };
 const DEFAULT_ACCENT = "#ffd60a", INK = "#111", SHADOW = "rgba(10,8,16,0.5)";
 function accentOf(who) {
   const c = who && (sb.cast || []).find((x) => x.id === who);
