@@ -76,3 +76,34 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **The Wizard and Reaper come round the hug (6.25-7.2)**: the Wizard down the left between the crate and the hug,
   Reaper round the right. In 08 the Wizard stands in the front left, staring ahead stunned while Gunslinger, lifted
   higher, winks down at him.
+
+## Departures (writer, W1, 8 Nov)
+
+- **Frame 0 (01):** Gunslinger stands a step behind the row with empty hands, and steps up into it at 1.2 on "And yours?". The handover box is held at belly height (its base at 0.16 m). Reaper doesn't step in: he leans over and sets the black box on the lid (0.6-0.94).
+- **"Happy birthday!" comes at 0.45, not 0.05.** The horn is in the Wizard's lips until 0.4.
+- **Viking holds the stack at his left side in 02-04.** Held in front of him, the black box's bow came up to his mouth from every camera.
+- **The pen comes from his bandana's knot, not his hat band**, as in 02: his arm can't reach the band past the brim.
+- **The scribble runs 3.37-3.84** (the brief has 3.30-4.10). He sits down by 3.19. The sheet on his knee is tilted 25° past flat, toward the front: lying flat, it was edge-on to P03 and didn't read.
+- **There is no tear.** He flicks the sheet up as he hops off the crate (3.88-4.1).
+- **The coupon's drawing is there in full from the start (ink 1).** A tweened ink never reaches the screen (an engine bug), so the drawing doesn't build up stroke by stroke. `INK_TWEEN` in the generator turns the tween back on once the bug is fixed.
+- **In 05, Viking holds the coupon in his right mitten by its top edge and the presents in his left arm**, as drawn. In the hug the coupon hangs from his right glove against Gunslinger's front. It never goes through either body.
+- **The presents (06) are keyed, not physics.** The Rapier bake swung Gunslinger's capsule through them and flung both off the set. The big box tumbles onto the rug in front, at (0.05, 2.35). The black box lands on its lid and bounces off to (0.8, 2.5). Each hops once.
+- **The hug (06-07) is a back hug from behind his right shoulder.** Gunslinger is lifted 0.3 m, at Viking's front-left, and both faces are to us. Viking's gloves are round his hips: placed higher, the right glove stood over Viking's own eyes.
+  - Why not side by side: a side-by-side hug was tried, and the far arm crossed the hugger's own chest, which fails the check.
+  - From 8.05 to 8.47, Viking turns until his back is to us. Gunslinger is lifted 0.55 m and faces us over Viking's shoulder (08).
+  - Gunslinger cheers with both arms up in 06-07. In 08, only his left glove is on Viking's shoulder. The brief has both arms over the shoulders.
+- **Places changed from the staging proof:**
+  - GP.
+  - The Wizard's 03 walk goes further back (it went through Viking's cape).
+  - W1 [-0.52, -0.85]: in 05 the Wizard's face was behind Viking's head and Gunslinger's hat.
+  - W2/W4 and R_IN.
+  - Reaper picks his box up 0.4 s sooner and holds it low at his belly (07).
+- **Cameras:**
+  - P01: 0.3 m to the right, fov 50.
+  - P02: on Gunslinger, with Viking at the right edge.
+  - P04: w 1.0.
+  - P05: w 1.6, az 8, el 20.
+  - P08: centre x 0.
+- **Anime timing is `{ push: 1 }`**, stepped without the snap. With this much acting, the snap played a merged 1.1-4.3 s segment up to 0.6 s early.
+  - With push 1, the pocket pat's hat slap swept his arm through the brim. This clip widens the hat spot and adds a waypoint that takes the arm down outside the brim.
+- **Music:** the default bounce, with a hush from 5.2 to 6.0 (the brief: the music drops out).
