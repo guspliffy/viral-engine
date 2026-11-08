@@ -12,7 +12,12 @@ import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
-import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam } from "./text.js";
+import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, accentOf } from "./text.js";
+import { drawHud, hudBoxes, hudKey } from "./hud.js";
+import { drawCards, cardBoxes, cardKey } from "./card.js";
+import { freezeAt, drawFrozen, drawFreezeLabel, freezeKey } from "./freeze.js";
+import { addNight, nightGrade, nightOn } from "./sky.js";
+import { skyAt } from "../shared/sky.js";
 import { rigState, roadDistance, wheelTravel } from "./vehicle.js";
 import { storyTime } from "../shared/holds.js";
 import { pausesOf, pauseLookAt, keptProps, worldTime, actorTime } from "../shared/pause.js";
@@ -140,6 +145,8 @@ function buildSlash(f) {
 // Captions (text.js), flash and the safe-zone guide are drawn on a 2D canvas on top of the 3D frame, and that canvas
 // is what gets captured. Reading one canvas is far faster than screenshotting the page through the compositor.
 let out, ctx, showSafe = false;
+// the render time of the frame being drawn (a freeze frame's look runs on it while the story's clock stands still)
+let tvNow = null;
 // manga focus lines converging on a point
 function speedLines(f, t, i) {
   const d = f.dur ?? 0.6, k = (t - f.at) / d;
@@ -437,7 +444,9 @@ function pauseGrade(t) {
 }
 
 function composite(t) {
-  ctx.globalAlpha = 1; if (!establishing(t)) ctx.drawImage(R.domElement, 0, 0, W, H);
+  // a freeze frame (freeze.js) draws the stopped picture pushed in and toned, on the video's clock
+  const fz = freezeAt(sb, tvNow ?? t);
+  ctx.globalAlpha = 1; if (!establishing(t)) { if (fz) drawFrozen(ctx, R.domElement, fz, fz.f.xy ? { x: fz.f.xy[0], y: fz.f.xy[1] } : fz.f.on ? popAnchor({ who: fz.f.on, dx: 0, dy: 0.25 }) : null); else ctx.drawImage(R.domElement, 0, 0, W, H); nightGrade(ctx, sb, t, W, H); }
   if (pausesOf(sb)) pauseGrade(t);
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
@@ -445,8 +454,11 @@ function composite(t) {
   // "letterbox": { "top": 390, "bottom": 390 } (px): black film bars over the picture, under the captions (Then I'm a
   // Zombie Too: the trend's widescreen shot with its text on the upper bar)
   if (sb.letterbox) { ctx.fillStyle = sb.letterbox.color || "#000"; ctx.fillRect(0, 0, W, sb.letterbox.top ?? 0); ctx.fillRect(0, H - (sb.letterbox.bottom ?? 0), W, sb.letterbox.bottom ?? 0); }
+  if (sb.hud) drawHud(ctx, sb, t);   // the series HUD (hud.js): under the captions, in the safe zone's corners
   for (const c of captionsAt(sb, t)) drawCaption(c, t);
   for (const f of sb.fx || []) if (f.do === "slam") drawSlam(f, t);   // slam words sit on top of everything
+  drawCards(ctx, sb, t, accentOf);   // rule and vote cards (card.js) over the captions
+  if (fz) drawFreezeLabel(ctx, fz, accentOf);
   if (showSafe) { ctx.save(); ctx.setLineDash([16, 10]); ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,0,180,.9)"; ctx.strokeRect(60, 210, 860, 1150); ctx.restore(); }
 }
 
@@ -479,6 +491,7 @@ async function init(data) {
   buildLights(scene, sb.set);
   const before = scene.children.length;
   buildSet(scene, sb.set, STYLE_PALETTES[style] ? { sky: pal.sky, ground: pal.ground } : null, cameraState(sb, 0).pos, sb.duration);
+  addNight(scene, sb, scene.children.slice(before));   // sky.js: the plate's night picture when the HUD clock reaches night
   setObjs = scene.children.slice(before); // the scenery, hidden during impact frames
   // the room's own lights (props and characters bring their own: candles, a glowing pickle, a blazing Phoenix)
   roomLights = []; scene.traverse((o) => { if (o.isLight && o.name !== "set-lamp") roomLights.push({ o, base: o.intensity }); });
@@ -770,6 +783,7 @@ async function premesh(t, always = false) {
 const meshed = async (t, always, then) => { await premesh(t, always); try { return then(); } finally { globalThis.__skinPre = null; } };
 // ENGINE.frame: tv is the video time (the next frame's story time can jump at a hit-stop)
 async function videoFrame(tv) {
+  tvNow = tv;
   const t = st(tv), posed = !held(t), r = await meshed(t, false, () => frame(t));
   const tn = st(tv + 1 / (sb.fps || 30));
   if (posed && !held(tn)) { ahead = { t: tn, done: meshAll(collect(tn)) }; pose(t); }
@@ -889,7 +903,7 @@ function matHash(h, m) {
   }
   return h;
 }
-function stateHash(t, samples = []) {
+function stateHash(t, samples = [], tv = null) {
   // posed lean (no glove skins: they are meshed from the hand parts, which are hashed (seamless glove parts stay
   // visible on a layer the camera skips), and meshing them is 97 % of a pose), so a key costs ~20 ms where a drawn pose
   // costs ~800. Hidden parts count only as hidden.
@@ -920,7 +934,7 @@ function stateHash(t, samples = []) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null]);
+  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : []), ...(nightOn() && skyAt(sb, t) > 0 ? [Math.round(skyAt(sb, t) * 1e4) / 1e4] : [])]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
@@ -1059,7 +1073,10 @@ function layout(t) {
       c.covered = n ? Math.round((hit / n) * 1000) / 1000 : 0;
     }
   }
-  return { t, captions: [...caps, ...pops], actors: actorsOut, props: propsOut, clips: clipping(), ...(phys && { physics: phys.info }) };
+  // rule and vote cards and the HUD are over the action on purpose: checked for the safe zone and, as captions, for
+  // faces under them (qa/framing.mjs), never for characters covering them
+  const cards = [...cardBoxes(ctx, sb, t), ...(sb.hud ? hudBoxes(ctx, sb, t) : [])];
+  return { t, captions: [...caps, ...pops, ...cards], actors: actorsOut, props: propsOut, clips: clipping(), ...(phys && { physics: phys.info }) };
 }
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
@@ -1124,9 +1141,11 @@ function clipping() {
         p.root.updateMatrixWorld(true);
         p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) { const d = depthIn(b, o); if (d > worst) { worst = d; wo = o; } } });
         if (worst > 0.03 && wo) {
+          // the height in the body's own frame, so a rider upside down in a loop (Never Looks Up 07) is still measured
+          // feet to head: in world y a body on its side has no height, and the zone ran to +-500
           const eb = b.mesh.geometry.boundingBox, pc = new THREE.Box3().setFromObject(wo).getCenter(new THREE.Vector3());
-          const lo = new THREE.Vector3(0, eb.min.y, 0).applyMatrix4(b.mesh.matrixWorld).y, hi = new THREE.Vector3(0, eb.max.y, 0).applyMatrix4(b.mesh.matrixWorld).y;
-          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - lo) / Math.max(1e-3, hi - lo)) * 100) / 100 });
+          pc.applyMatrix4(inv.copy(b.mesh.matrixWorld).invert());
+          out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100, self: true, zone: Math.round(((pc.y - eb.min.y) / Math.max(1e-6, eb.max.y - eb.min.y)) * 100) / 100 });
         }
         continue;
       }
@@ -1947,7 +1966,7 @@ window.ENGINE = {
   init, sync, capture, motion, movingBox,
   frame: videoFrame, layout: (t) => rt(layout(st(t)), t), contact: (t) => rt(contact(st(t)), t), ids: (t) => ids(st(t)),
   prime: (times) => prime(times.map(st)), blur: (times, keep) => blur(times.map(st), keep), smear: (t, S) => smear(st(t), S), trace: (t, thin) => trace(st(t), thin),
-  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st)),
+  stateHash: (t, samples = []) => stateHash(st(t), samples.map(st), t),
   reset,
 };
 window.ENGINE_READY = true;

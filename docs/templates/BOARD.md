@@ -26,6 +26,7 @@ superseded sections instead of appending.
 - On-screen text: "<exact caption>" <from>-<to> s, subtitle y <px>
 - Line: <who: "gibberish" / words> at <s>; sound cue: <whitelisted name in Jonny's words> on <s>
 - Must be true at check times (the `see` list): <t s: faces X, Y to camera; prop Z in frame; nobody in front of X>
+- Camera move: <a name from docs/CAMERA-MOVES.md, e.g. Locked-off shot, Dolly in, Dolly zoom, Speed ramp, Freeze frame>
 - Transition in / out: <cut / continuous>
 
 ### §3.2 ...

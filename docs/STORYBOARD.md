@@ -291,6 +291,7 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
 | `insert` | **insert**: the prop the beat is about (or the hand on it) fills the frame, about 0.5 m of picture, 0.4-0.8 s, then back to the shot before it |
 | `threat` | **low angle** on who acts: the camera low (knee height), looking up 10-15°, a wider lens |
 | `chaos` | **dutch tilt**: medium on everyone, the picture turned 10° |
+| `realize` | **dolly zoom** on who reacts: a close-up whose lens narrows to half its fov over 1.1 s while the camera pulls back, so the face keeps its size and the room closes in behind it (docs/CAMERA-MOVES.md) |
 | the last beat of a `loop` clip | the opening shot again, so the last frame runs into the first |
 
 - **Framing comes from where the characters are** (the same state the renderer draws): the highest face in shot sits
@@ -552,3 +553,46 @@ The world stops for everyone but the keepers, who walk around in it; then it car
 - Sound: the generated music doesn't stop by itself: give each pause a `{ "at": from, "part": "hush" }` and the
   next part at `to`. The ambience bed (wind, birds) is silenced in every pause (engine/audio.mjs). The power's sounds
   are `timestop` (a wooden tock and a tape-stop slide) and `timego` (a rising vwip into one tick).
+
+## Series overlays and time moves (opt-in, 8 Nov 2026; Jonny: "upgrade everything and try out the formats")
+
+For numbered parts ("Survive it" with a comment vote) and for the freeze, ramp and dolly zoom moves (the names a brief
+may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; times are story time. Helpers:
+`storyboards/lib/overlay.mjs` (hud, rule, vote) and `storyboards/lib/camera.mjs` (freeze, ramp, dolly). Engine test:
+`storyboards/lab/make-moves-demo.mjs`.
+
+- **HUD** (`engine/page/hud.js`): `"hud": { "day": [[0, 1]], "clock": [[0, "18:05"], [4.2, "18:31", 0.5]],
+  "battery": [[0, 41], [5.0, 30, 0.12], [6.4, 0]], "part": 1, "pos": "top" }`. A key is `[t, value, dur?]`: from t the
+  value counts from the previous key's over dur seconds (none: a jump). The day chip sits in the safe zone's top-left
+  corner and the clock (a sun, sunset or moon for the hour) with the battery in its top-right, y 214-284, the middle
+  left free for Jonny's in-app title; a top hook caption goes at y 316 or lower under it. A clock jump shows a
+  "+26 min" tag beside the clock for a second (`"clockTag": false`). The battery goes amber under 20 %, red under 10 %,
+  kicks on every drop and at 0 reads DEAD and blinks twice. `"pos": "bottom"` (y 1288-1356) or `"y"` moves it,
+  `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture.
+- **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
+  as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
+  04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted
+  from the day plate by `engine/plates/night.py` with the window panes in `<name>.night.json`: the same room, a night
+  window with the moon, stars and lit windows, the lamps on) fades to it as the clock runs on; the 3D floor and backdrop
+  darken with it (`"set": { "nightSet": "#7c7fa8" }`), the sunlight's dust motes go out and a cool grade puts the cast
+  in the same night (`"nightGrade"`: a number scales it, false turns it off). The light follows the clock over 0.6 s
+  (`"hud": { "skyFade": 0.6 }`), so a clock run reads as a time-lapse and a jump fades instead of flipping mid-shot. `"sky": [[t, level, dur?]]` (0 day, 1 night) sets it by
+  hand without a HUD; `"hud": { "sky": false }` or `"sky": false` keeps the picture as painted. A night clock on a day set
+  with no night picture gets a warning when the storyboard loads: paint one, pick a night set, or move the clock.
+  Plates with a night picture: `livingroom-golden`.
+- **Rule card** (`engine/page/card.js`): `{ "fx": "rule", "at", "dur": 1.6, "title": "RULE 1", "text": "...", "who" }`:
+  an ink plate slammed in tilted, the title in who's caption colour, the rule in white, a slow drift, shrinks out.
+- **Comment-vote end card**: `{ "fx": "vote", "at", "dur", "question", "options": [{ "key": "A", "text", "who" }, ...],
+  "prompt": "Comment A or B" }`: a warm white sticker with the question, a pill per option (2-4; who colours the letter)
+  and a beating speech bubble. It pops in, the options follow one by one, it drifts while it holds, and a card that
+  runs to the end stays on the last frame (the loop starts again under it). It is the one card at the end of a clip
+  the house style allows: the picture keeps moving under it.
+- **Where cards sit**: without `"y"`, `engine/direct.mjs` placeCards puts each card in the top slot (y 300) or the low
+  slot (bottom on y 1348), whichever covers fewer faces over its time, and notes why in `sb.directed`; `"pos": "top"`
+  or `"low"` picks one. Cards and the HUD go to the layout as captions, so `qa/check.mjs` keeps them in the safe zone and
+  `qa/framing.mjs` reports a face under one; characters covering them are not a caption-overlap fail (they draw on top).
+- **Freeze frame, speed ramp, dolly zoom**: `{ "fx": "freeze", "at", "hold", "on", "label" }`, `{ "fx": "ramp", "at",
+  "len", "rate", "in", "out" }`, and `"dolly": { "k" | "fov", "dur" }` on a shot (or the beat kind `realize`). The
+  freeze and the ramp change the video's clock the way a hit-stop does (`engine/shared/holds.js`): the storyboard keeps
+  story time, the video gets longer (a ramp over 1x shorter), and every sound plays on its picture. Details and the
+  rules for each in docs/CAMERA-MOVES.md.

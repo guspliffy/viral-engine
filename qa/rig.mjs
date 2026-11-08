@@ -29,6 +29,7 @@ import * as TL from "../engine/page/timeline.js";
 import { loadCharacters } from "../engine/load.mjs";
 import { GATE, gateOf, gateLevel, windowFor } from "./gate.mjs";
 import { makeAnimeTiming } from "../engine/shared/anime-timing.js";
+import { rigState, rigRotation, rigOrigin } from "../engine/page/vehicle.js";
 // a cast member's character file (cached per storyboard), {} when it can't be loaded
 const DEFS = new WeakMap();
 function defOf(sb, cast) {
@@ -112,6 +113,9 @@ export function rigFindings(layout, sb) {
     }
   };
   const ids = [...new Set(rows.flatMap((r) => (r.actors || []).map((a) => a.id)))];
+  // the rig a cast member rides (cast "rig"), and a world point (mm) in that rig's own frame at frame i
+  const rigOf = (id) => { const c = (sb?.cast || []).find((x) => x.id === id); return c?.rig ? (sb.rigs || []).find((r) => r.id === c.rig) || null : null; };
+  const toRig = (rg, b, i) => { if (!rg || !b) return b; try { const s = rigState(rg, S(i)), R = rigRotation(s), o = rigOrigin(rg, s, R), d = b.map((v, j) => v / 1000 - o[j]); return [0, 1, 2].map((j) => 1000 * (R[0][j] * d[0] + R[1][j] * d[1] + R[2][j] * d[2])); } catch { return b; } };
   const waived = (check, who, i) => !!(sb && windowFor(sb, check, who, T(i)));
   // frame 0 to frame 1 (quality plan items 1 and 3): an opening pose set by a short move at t = 0 is drawn half-way on
   // frame 0 and done on frame 1 (IKEA: Reaper's hand 60 cm). Only frame 2 on has two neighbours, so pops() never sees it
@@ -126,7 +130,10 @@ export function rigFindings(layout, sb) {
     const st = rows.map((r) => { const a = r.actors.find((x) => x.id === id); return a?.w && a.on !== 0 ? a.w : null; });
     const keys = [...new Set(st.flatMap((w) => (w ? Object.keys(w) : [])))];
     const rel = (w, k) => (w?.[k] && w.b && k !== "b" ? w[k].map((v, j) => v - w.b[j]) : w?.[k] || null);
-    for (const k of keys) (AT ? popsDrawn : pops)(st.map((w) => rel(w, k)), LIM(k), id, NAME[k] || k, "rig-jump");
+    // a rider of a moving rig (a car, the coaster: cast "rig"): the body judged in the rig's own frame, so the ride
+    // itself (43 cm a frame at 13 m/s, Never Looks Up 07) is not a pop; a jump of the body in its seat still is
+    const rg = rigOf(id), inRig = (b, i) => toRig(rg, b, i);
+    for (const k of keys) (AT ? popsDrawn : pops)(st.map((w, i) => (k === "b" && rg && w?.b ? inRig(w.b, i) : rel(w, k))), LIM(k), id, NAME[k] || k, "rig-jump");
     for (const k of keys) first(id, NAME[k] || k, st[0]?.[k], st[1]?.[k], st[2]?.[k]);
     const R = rides(id), jumped = (i) => st[i]?.b && st[i - 1]?.b && dist(st[i].b, st[i - 1].b) > RIG.teleport * sc;
     // the planted gait (thread F, "motion": { "feet": 2 }) says per frame what each foot does: "stand" must not move,
@@ -192,9 +199,11 @@ export function rigFindings(layout, sb) {
     }
     // a change of hand (R to both, a pass) re-anchors the prop on purpose: only the frames of one hold count
     const same = (i) => hand[i] === hand[i - 1];
-    // (with anime timing a held prop is drawn with its holder's drawings, so it is judged drawing by drawing like the hand
-    // that holds it: a carry on 2s moves it in one frame between held ones by design; what a clip, 8 Nov 2026)
-    (AT ? popsDrawn : pops)(pos.map((p, i) => (i && !same(i) ? null : p)), RIG.prop, h.who, `held ${h.prop}`, "prop-pop");
+    // a rider's prop is judged in the rig's frame, like the rider's body: the car's own travel (stepped against the
+    // pose's twos) is not a jump in the hand (Never Looks Up 07: the phone "jumped" 5 cm a frame as the coaster ran on)
+    const rg = rigOf(h.who);
+    // (and on "animeTiming" by its holder's drawings, as the hands are: a held prop changes drawing with the hand)
+    (AT ? popsDrawn : pops)(pos.map((p, i) => (i && !same(i) ? null : toRig(rg, p, i))), RIG.prop, h.who, `held ${h.prop}`, "prop-pop");
     for (let i = 1; i < n; i++) {
       if (!off[i] || !off[i - 1] || !same(i) || cut(i)) continue;
       // a slip moves it both from where the hand is and within the hand's turn: an upright hold keeps the first, a

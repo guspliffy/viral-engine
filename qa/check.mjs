@@ -538,7 +538,8 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
     // A warning to look at the frame, never a fail (about 12 s; --no-flow skips it)
     if (flow) {
-      const px = pixelGlitches(clip, { sb, layout }), w = px.findings.filter((f) => f.level === "warn");
+      // (the error first: a run without OpenCV has no findings, and filtering them threw)
+      const px = pixelGlitches(clip, { sb, layout }), w = (px.findings || []).filter((f) => f.level === "warn");
       if (px.error) add("pass", "pixels", `optical flow not measured (${px.error})`);
       else add(w.length ? "warn" : "pass", "pixels", w.length ? w.slice(0, 5).map(describePixel).join("; ") + (w.length > 5 ? ` (+${w.length - 5} more: node qa/glitches.mjs)` : "") : `optical flow: nothing pops, snaps or flickers (${px.findings.length} small notes: node qa/glitches.mjs --all)`);
     }
@@ -616,7 +617,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
         const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
         const [x, y, w, h] = box;
         if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
-        if (c.pop) return;   // a text pop sits beside its character on purpose
+        if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
         let cov = c.covered;
         if (cov == null) { // fallback: share of the caption box inside any character box
           cov = 0;
