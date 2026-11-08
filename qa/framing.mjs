@@ -41,6 +41,7 @@
 import fs from "node:fs";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState, cameraState } from "../engine/page/timeline.js";
+import { rigState, rigRotation, rigOrigin } from "../engine/page/vehicle.js";
 import { hookShow } from "./hook.mjs";
 import { GATE, gateOf, gateLevel, windowFor, actingAt, storyAt } from "./gate.mjs";
 
@@ -88,7 +89,13 @@ export function visibility(sb, lay, chars = null) {
   const holder = (id, t) => { let h = null; for (const a of [...(sb.actions || [])].sort((x, y) => x.at - y.at)) { if (a.at > t) break; if (a.do === "grab" && a.prop === id) h = a.who; if (a.do === "release" && (a.prop === id || (!a.prop && h === a.who))) h = null; } return h; };
   const facing = (id, t) => {
     const c = cast[id], def = chars?.[c?.character]; if (!def) return true;
-    const st = actorState(sb, c, def, t), cam = cameraState(sb, t), d = [cam.pos[0] - st.x, cam.pos[2] - st.z], n = Math.hypot(d[0], d[1]) || 1;
+    const st = actorState(sb, c, def, t);
+    let cam = cameraState(sb, t).pos;
+    // a rider in a rig (a car) stands in the rig's frame: a camera out in the world goes into that frame too (a
+    // camera on the rig, "rig" shots, is in it already). Without this every rider read as turned away from a world shot
+    const shot = (sb.shots || []).filter((q) => q.at <= t).sort((a, b) => a.at - b.at).at(-1), rg = c.rig && !shot?.rig && (sb.rigs || []).find((r) => r.id === c.rig);
+    if (rg) { const s = rigState(rg, t), R = rigRotation(s), o = rigOrigin(rg, s, R), q = cam.map((v, j) => v - o[j]); cam = [0, 1, 2].map((j) => R[0][j] * q[0] + R[1][j] * q[1] + R[2][j] * q[2]); }
+    const d = [cam[0] - st.x, cam[2] - st.z], n = Math.hypot(d[0], d[1]) || 1;
     return Math.sin(st.yaw ?? 0) * d[0] / n + Math.cos(st.yaw ?? 0) * d[1] / n >= VISIBLE.facing;
   };
   const dist = (p, t) => { const c = cameraState(sb, t).pos; return Math.hypot(p[0] - c[0], p[1] - c[1], p[2] - c[2]); };

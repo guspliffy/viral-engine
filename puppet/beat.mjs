@@ -13,7 +13,11 @@
 //   part: "intro" (hats, soft kick, chords) | "main" (everything) | "build" (snare roll and riser, no kick)
 //         | "drop" (main with a crash on its first beat) | "stop" (silence: the record-scratch beat)
 //         | "hush" (silence the music comes back from) | "musicbox" (the lead motif alone, slowly, on a soft music box:
-//         the tender bit before the music snaps back; $20 Potato, 4 Nov 2026)
+//         the tender bit before the music snaps back; $20 Potato, 4 Nov 2026) | "hold" (one organ note held through the
+//         part, the chord's root, nothing else: the world holding its breath before the music snaps back; Never Looks
+//         Up 07, 8 Nov 2026)
+//   named styles (only by name, never picked by a seed, so adding one changes no other clip): surf (fast surf rock
+//         with a fairground organ, 156-164 bpm)
 //   sleigh: true adds jingle bells (a sleigh-bell shake on the off-beats) in the full parts: a holiday flavour
 const SR = 44100, TAU = Math.PI * 2;
 
@@ -44,6 +48,15 @@ const INST = {
   square(r, notes) { const d = 0.22, x = new Float32Array(d * SR), ph = notes.map(() => 0), lp = onePole(3200); for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; notes.forEach((n, j) => { ph[j] += midi(n) / SR; y += (ph[j] % 1 < 0.5 ? 1 : -1) * 0.33; }); x[i] = lp(y) * Math.min(1, t / 0.002) * Math.exp(-t / 0.07) * 0.5; } return x; },
   pluck(r, notes) { const d = 0.35, x = new Float32Array(d * SR), ph = notes.map(() => 0); for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; notes.forEach((n, j) => { ph[j] += midi(n) / SR; y += Math.sin(TAU * ph[j]) + 0.3 * Math.sin(TAU * 2 * ph[j]) * Math.exp(-t / 0.05); }); x[i] = y / notes.length * Math.min(1, t / 0.002) * Math.exp(-t / 0.12) * 0.9; } return x; },
   organ(r, notes) { const d = 0.3, x = new Float32Array(d * SR), ph = notes.map(() => 0); for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; notes.forEach((n, j) => { ph[j] += midi(n) / SR; y += Math.sin(TAU * ph[j]) + 0.5 * Math.sin(TAU * 2 * ph[j]) + 0.25 * Math.sin(TAU * 4 * ph[j]); }); x[i] = y / notes.length * 0.45 * Math.min(1, t / 0.006) * (t > d - 0.04 ? (d - t) / 0.04 : 1); } return x; },
+  // one organ note held for d seconds: a soft attack, a slow vibrato, a 60 ms release at its end
+  held(note, d) {
+    const x = new Float32Array(Math.ceil(d * SR)); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR; p += midi(note) * (1 + 0.004 * Math.sin(TAU * 5 * t)) / SR;
+      x[i] = (Math.sin(TAU * p) + 0.5 * Math.sin(TAU * 2 * p) + 0.25 * Math.sin(TAU * 4 * p)) * 0.3 * Math.min(1, t / 0.03) * Math.min(1, (d - t) / 0.06);
+    }
+    return x;
+  },
   // lead notes: a bell, a square blip or a whistle-like sine
   lead(r, note, kind) {
     const d = kind === "bell" ? 0.4 : 0.16, x = new Float32Array(d * SR), f = midi(note); let p = 0;
@@ -93,6 +106,14 @@ const STYLE = {
   warm:   { bpm: [96, 108], kick: [0, 8], snare: [], hatOpen: [], hat: "even", bass: [0, 8], chord: [0, 6, 8], chordInst: "organ", soft: true },
 };
 export const STYLES = Object.keys(STYLE);
+// styles a clip asks for by name: kept out of STYLES, the pool a seed picks from (a new entry there would change the
+// music of every clip that doesn't pin its style)
+const NAMED = {
+  // surf rock with a fairground organ (Never Looks Up 07, the roller coaster): driving straight eighths, snare on 2 and
+  // 4, a galloping kick, the bass in octaves on every eighth, organ chords on the off-beats like a fairground band organ
+  surf: { bpm: [156, 164], kick: [0, 6, 8, 14], snare: [4, 12], hatOpen: [], hat: "even", bass: [0, 2, 4, 6, 8, 10, 12, 14], bassLen: 0.2, octaves: "alt", chord: [2, 6, 10, 14], chordInst: "organ" },
+};
+const styleOf = (name) => STYLE[name] || NAMED[name];
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 
 // what a clip's variations are seeded from: "seed" when the storyboard pins one, else its experiment episode (so the
@@ -104,8 +125,8 @@ export const seedOf = (sb) => sb.seed ?? (sb.experiment ? `${sb.experiment.id}/$
 export function musicFlavour(music = {}, id = "") {
   const seed = music.seed ?? hashStr(String(id)), r = mulberry(seed);
   const pool = music.styles || STYLES;            // e.g. ["sneaky", "march", "warm"] to stay within a vibe
-  const style = music.style || pool[Math.floor(r() * pool.length)], S = STYLE[style];
-  if (!S) throw new Error(`music.style "${style}" unknown (known: ${STYLES.join(", ")})`);
+  const style = music.style || pool[Math.floor(r() * pool.length)], S = styleOf(style);
+  if (!S) throw new Error(`music.style "${style}" unknown (known: ${[...STYLES, ...Object.keys(NAMED)].join(", ")})`);
   const key = music.key ?? Math.floor(r() * 12) - 5;    // semitones from C, -5..+6
   if (!Number.isFinite(key)) throw new Error(`music.key must be semitones from C (a number, e.g. 0 for C, -3 for A), not ${JSON.stringify(music.key)}: a note name made every note NaN and the bed silent (pitch a tent, 5 Nov 2026)`);
   let prog = PROGRESSIONS[Math.floor(r() * PROGRESSIONS.length)];
@@ -130,13 +151,19 @@ export function renderBeat(music, duration, id = "") {
   // the building blocks are cached: each hit of the same drum is the same sound
   const K = INST.kick(r), C = INST.clap(r), H = INST.hat(r, false), HO = INST.hat(r, true), S = INST.snare(r), SL = music.sleigh ? INST.sleigh(mulberry(F.seed ^ 0x51e16)) : null;
   const chord = (notes) => INST[F.S.chordInst](r, notes);
+  // "hold": one organ note, the chord's root two octaves up, from the part's start to the next part
+  parts.forEach((P, i) => {
+    if (P.part !== "hold") return;
+    const len = (parts[i + 1]?.at ?? duration) - P.at, bar = Math.floor((P.at - off) / spb / 4);
+    add(P.at, INST.held(chordAt(bar).root + 24, len), 0.3, -0.05);
+  });
   for (let b = Math.floor(-off / spb); off + b * spb < duration; b++) {
     for (let e = 0; e < 4; e++) {   // sixteenth notes; odd ones are pushed late by the swing
       const t = off + (b + e / 4 + (e % 2 ? F.swing / 4 : 0)) * spb;
       if (t < 0 || t >= duration) continue;
       const P = partAt(t); if (!P) continue;
       const part = P.part, bar = Math.floor(b / 4), beatInBar = ((b % 4) + 4) % 4, ch = chordAt(bar);
-      if (part === "stop" || part === "hush") continue;   // hush: a silent stretch the music comes back from (engine/music.mjs
+      if (part === "stop" || part === "hush" || part === "hold") continue;   // hush: a silent stretch the music comes back from (engine/music.mjs
       // treats only "stop" as the end of the music)
       if (part === "build") {
         // a snare roll that doubles up towards the drop, and a riser across the whole build
