@@ -18,7 +18,9 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 - Trial the motion studio workflow on the next episode (docs/rules/workflow.md "Measuring").
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
-- (none yet)
+- Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
+  for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
+  review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
