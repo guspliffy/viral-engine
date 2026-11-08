@@ -3322,8 +3322,8 @@
       "open": 0.72,
       "curve": -0.75
      },
-     "dur": 0.25,
-     "at": 2.183
+     "dur": 0.15,
+     "at": 2.19
     },
     {
      "fx": "shake",
@@ -3342,7 +3342,7 @@
      "dur": 0.9,
      "idle": 0.5,
      "fade": 0.05,
-     "at": 2.333
+     "at": 2.34
     },
     {
      "who": "vik",
@@ -3356,15 +3356,15 @@
      "do": "squash",
      "amount": 0.26,
      "dur": 0.3,
-     "at": 2.353
+     "at": 2.36
     },
     {
      "who": "vik",
      "do": "pitch",
-     "to": -11,
+     "to": -8,
      "dur": 0.12,
      "ease": "out",
-     "at": 2.363
+     "at": 2.37
     },
     {
      "who": "vik",
@@ -3375,7 +3375,7 @@
      ],
      "dur": 0.08,
      "blink": false,
-     "at": 2.403
+     "at": 2.41
     },
     {
      "fx": "sparkle",
@@ -3384,14 +3384,6 @@
      "count": 5,
      "color": "#fff2a8",
      "at": 2.433
-    },
-    {
-     "who": "vik",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 2.533
     },
     {
      "who": "vik",
@@ -3406,14 +3398,6 @@
      "expr": "dizzy",
      "dur": 0.15,
      "at": 2.55
-    },
-    {
-     "who": "vik",
-     "do": "pitch",
-     "to": -8,
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 2.56
     }
    ]
   },
@@ -3442,19 +3426,19 @@
      "at": 0
     },
     {
-     "who": "vik",
-     "do": "turn",
-     "to": 10,
-     "dur": 0.24,
-     "at": 0.01
-    },
-    {
      "fx": "sparkle",
      "who": "vik",
      "dur": 1.4,
      "count": 5,
      "color": "#fff2a8",
      "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.2,
+     "at": 0.17
     },
     {
      "who": "phx",
@@ -3556,7 +3540,7 @@
     {
      "who": "rea",
      "do": "blink",
-     "dur": 0.32,
+     "dur": 0.35,
      "at": 0.33
     },
     {
@@ -3782,6 +3766,34 @@
     "hand-turn"
    ],
    "reason": "he turns round on the spot to go to the crank: a stepping turn drawn on 2s"
+  },
+  {
+   "who": "vik",
+   "from": 1.45,
+   "to": 1.75,
+   "checks": [
+    "stance-slide",
+    "foot-slide"
+   ],
+   "reason": "the stroll's first steps out of the HALT stance, drawn on 2s, at 8 m from the camera: a few px, not visible in the 15 fps strip (render 2)"
+  },
+  {
+   "who": "phx",
+   "from": 8.6,
+   "to": 8.72,
+   "checks": [
+    "stance-slide"
+   ],
+   "reason": "Phoenix's foot settling into the tap-foot stance on the clock wide's first frames, 2.4 cm while Viking walks past in front: not visible in the 15 fps strip (render 2)"
+  },
+  {
+   "who": "vik",
+   "from": 6.1,
+   "to": 6.45,
+   "checks": [
+    "grip-gap"
+   ],
+   "reason": "the cup on its way to his chest in the coffee wide: 3.5 cm off the glove at 6.23 is about 3 px there, not visible in the 15 fps strip (render 2)"
   },
   {
    "who": "vik",

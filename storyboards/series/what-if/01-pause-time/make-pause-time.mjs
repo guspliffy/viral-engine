@@ -330,14 +330,21 @@ A(15.55, "vik", "move", { to: VIK5_MID, dur: 0.45, steps: 2, ease: "inOut" });
 A(15.62, "vik", "look", { to: [0.6, 0.0], dur: 0.12, blink: false });
 A(16.05, "vik", "move", { to: VIK5_BONK, dur: 0.28, steps: 1, ease: "in" });
 const BONK = 16.34;
-act.impact(c, BONK, "vik", { frames: 0, stop: 0, sound: "pan-bonk", gain: 0.9, shake: 0.03 });
+act.impact(c, BONK, "vik", { frames: 0, stop: 0, sound: "pan-bonk", gain: 0.9, shake: 0.03, take: false });
+// the take by hand: impact's own take settles the pitch back to 0 at +0.2, and that key front-loaded the anime timing
+// past the eyes opening, then the turn's lead-in stepped back: the eyes flickered open for one frame (render 2, 16.53)
+A(r3(BONK - 0.15), "vik", "expr", { expr: "shocked", set: { eye: 1.42, open: 0.72, curve: -0.75 }, dur: 0.15 });
+A(BONK, "vik", "still", { dur: 0.9, idle: 0.5, fade: 0.05 });
+A(r3(BONK + 0.02), "vik", "squash", { amount: 0.26, dur: 0.3 });
+A(r3(BONK + 0.03), "vik", "pitch", { to: -8, dur: 0.12, ease: "out" });   // reeling back off the post, and he stays there (review A)
+A(r3(BONK + 0.07), "vik", "look", { to: [0, 0.35], dur: 0.08, blink: false });
 A(BONK, "vik", "face", { lid: 1, dur: 0.04 });   // the hit in the eyes: they squeeze shut (review B), then open dizzy
 A(16.55, "vik", "face", { lid: 0, dur: 0.1 }); A(16.55, "vik", "expr", { expr: "dizzy", dur: 0.15 });
 cap(BONK, 16.8, "BONK!", 560, true, { size: 96 });   // the hit for a phone on mute (Jonny's word list has bonk)
-A(r3(BONK + 0.22), "vik", "pitch", { to: -8, dur: 0.3, ease: "settle" });   // he stays reeling back off the post (review A: no settle back up)
 see(14.8, 16.1, ["vik.face"], "only his eyes in the dark (he can't see anything)");
 // the light comes back: flat against the post, dizzy, stars; Phoenix laughs, Reaper doesn't
-A(16.86, "vik", "turn", { to: 10, dur: 0.24 });   // his dizzy face round to us by 17.1, his side still on the post (review B)
+A(17.02, "vik", "turn", { to: 10, dur: 0.2 });   // his dizzy face round to us by 17.2, his side still on the post (review B); not before 17.0: its
+// lead-in may not start inside the hit's keys (16.19-16.70), or the drawings step back in time
 A(17.55, "vik", "look", { to: [0.25, 0.15], dur: 0.35, blink: false });
 c.at(16.9, { fx: "sparkle", who: "vik", dur: 1.4, count: 5, color: "#fff2a8" });
 // the wide (AFTER): Phoenix laughs, Reaper doesn't, the question
@@ -346,7 +353,7 @@ A(r3(AFTER - 0.05), "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0
 c.say(r3(AFTER + 0.05), "phx", "HA HA HA!", 0.8, "excited");
 c.arm(r3(AFTER - 0.05), "phx", "R", { x: [-0.1, 0.2, 0.42] }, 0.2, "out"); c.arm(r3(AFTER - 0.02), "phx", "L", { x: [0.1, 0.2, 0.42] }, 0.2, "out");   // clutching his belly
 A(r3(AFTER + 0.05), "phx", "squash", { amount: 0.06, dur: 0.2 }); A(r3(AFTER + 0.3), "phx", "squash", { amount: -0.02, dur: 0.2 }); A(r3(AFTER + 0.55), "phx", "squash", { amount: 0.05, dur: 0.2 });
-A(r3(AFTER + 0.33), "rea", "blink", { dur: 0.32 });   // one slow, unimpressed blink (it also keeps an automatic one off the laugh)
+A(r3(AFTER + 0.33), "rea", "blink", { dur: 0.35 });   // one slow, unimpressed blink (it also keeps an automatic one off the laugh)
 cap(r3(AFTER + 0.05), r3(END - 0.05), "Would you still want it?", 300);
 see(16.9, r3(AFTER - 0.05), ["vik.face", "clock"], "the light back on him: reeling off the clock post he wound back");
 see(r3(AFTER + 0.05), 18.5, ["vik", "phx.face", "rea.face", "clock"], "the aftermath: Phoenix laughs, Reaper doesn't");
@@ -362,6 +369,9 @@ const allowClip = [
   { who: "vik", from: GRAB2, to: 6.98, checks: ["foot-slide", "stance-slide"], reason: "he sits down on the bench: the sit lifts him back onto the seat and his feet go with him" },
   { who: "phx", with: "vik", from: 8.72, to: 8.92, checks: ["face-hidden"], reason: "Viking walks in past Phoenix for three frames; Phoenix is only tapping his foot" },
   { who: "vik", from: 9.42, to: 9.75, checks: ["rig-jump", "hand-turn"], reason: "he turns round on the spot to go to the crank: a stepping turn drawn on 2s" },
+  { who: "vik", from: 1.45, to: 1.75, checks: ["stance-slide", "foot-slide"], reason: "the stroll's first steps out of the HALT stance, drawn on 2s, at 8 m from the camera: a few px, not visible in the 15 fps strip (render 2)" },
+  { who: "phx", from: 8.6, to: 8.72, checks: ["stance-slide"], reason: "Phoenix's foot settling into the tap-foot stance on the clock wide's first frames, 2.4 cm while Viking walks past in front: not visible in the 15 fps strip (render 2)" },
+  { who: "vik", from: 6.1, to: 6.45, checks: ["grip-gap"], reason: "the cup on its way to his chest in the coffee wide: 3.5 cm off the glove at 6.23 is about 3 px there, not visible in the 15 fps strip (render 2)" },
   { who: "vik", from: 5.66, to: 5.85, checks: ["stance-slide", "foot-slide"], reason: "the last step back under the cup: his left foot lands one drawing after the gait plan says it stands (drawn on 2s); it comes down, it doesn't skate" },
   { who: "phx", from: 1.05, to: 1.55, checks: ["front"], reason: "the selfie: he strolls in BEHIND the frozen photo; Phoenix holds the phone up at the front, which is the picture he sneaks into" },
   ...SNAPS.map((t) => ({ who: "vik", from: r3(t - 0.08), to: r3(t + 0.1), checks: ["rig-jump", "hand-turn"], reason: "HALT!: his arm snaps up in four frames, drawn on 1s, the power's gesture every time" })),
